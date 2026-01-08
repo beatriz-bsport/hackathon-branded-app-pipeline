@@ -81,7 +81,9 @@ export const getDisabledPaymentPacks = createSelector(
   (paymentPacks, idList) =>
     idList
       .map((id: number) => paymentPacks[id])
-      .filter((pack: PaymentPack) => pack.disabled && !pack.template_instance),
+      .filter(
+        (pack: PaymentPack) => pack && pack.disabled && !pack.template_instance,
+      ),
 );
 
 const get = (state: RootState, id: number) => {
@@ -221,7 +223,7 @@ export const withTags = memoize((selector: PaymentPackSelector) =>
 
 export const getEnabled: PaymentPackArraySelector = createSelector(
   getAll,
-  (pps) => pps.filter((pp: PaymentPack) => !pp.disabled),
+  (pps) => pps.filter((pp: PaymentPack) => pp && !pp.disabled),
 );
 
 export const getPaymentPackListCompatibleWithVideo = createSelector(
@@ -229,7 +231,7 @@ export const getPaymentPackListCompatibleWithVideo = createSelector(
   (pps) =>
     pps.filter(
       (pp: PaymentPack) =>
-        !pp.disabled && (pp.full_vod_access || pp.only_vod_access),
+        pp && !pp.disabled && (pp.full_vod_access || pp.only_vod_access),
     ),
 );
 

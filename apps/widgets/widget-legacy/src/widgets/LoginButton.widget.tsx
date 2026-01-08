@@ -24,11 +24,11 @@ import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
 // const MarketplaceShopStyled = themify(MarketplaceShopBase);
 
 type OwnProps = {
-  onWindowOpen: (url: string) => void,
-  companyId: number,
-  franchiseId: number,
-  uniqueWidgetId: string,
-  config?: MarketplaceLoginButtonWidgetConfig,
+  onWindowOpen: (url: string) => void;
+  companyId: number;
+  franchiseId: number;
+  uniqueWidgetId: string;
+  config?: MarketplaceLoginButtonWidgetConfig;
 };
 
 type Props = OwnProps &
@@ -114,7 +114,6 @@ class LoginButton extends Component<Props> {
       >
         <Button
           onClick={this.onClick}
-          disabled={!this.props.authenticationReceived}
           id="bsport-widget-authentication__login_button"
         >
           <PersonIcon
@@ -122,11 +121,11 @@ class LoginButton extends Component<Props> {
             style={{ marginRight: 8 }}
             id="bsport-widget-authentication__login_icon"
           />
-          {this.props.authenticated && this.props.authenticationReceived
+          {this.props.authenticated
             ? this.props.t('logout')
             : this.props.t('login')}
         </Button>
-        {this.props.authenticated && this.props.authenticationReceived && (
+        {this.props.authenticated && (
           <Button
             onClick={this.props.bridgeRequestLogout}
             size="small"
@@ -143,9 +142,8 @@ class LoginButton extends Component<Props> {
   }
 }
 const mapStateToProps = (state: RootState) => ({
-  authenticated: state.bridge.authentication.authenticated,
-  authenticationReceived: state.bridge.authentication.hasBeenReceived,
-  username: state.bridge.authentication.username,
+  authenticated: state.auth.authenticated,
+  username: state.auth.username,
 });
 
 const mapDispatchToProps = {

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
+import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
+
 import Button from "#src/components/Button";
 import { Placements } from "#src/hooks/placement-classes.hook";
 
@@ -53,42 +55,26 @@ export default meta;
 type Story = StoryObj<typeof DatePicker>;
 
 const shortcuts = [
-  { id: "today", label: "Today", getDate: () => new Date() },
+  { id: "today", label: "Today", getDate: () => getLocalNow({}) },
   {
     id: "tomorrow",
     label: "Tomorrow",
-    getDate: () => {
-      const date = new Date();
-      date.setDate(date.getDate() + 1);
-      return date;
-    },
+    getDate: () => getLocalNow({}).plus({ days: 1 }),
   },
   {
     id: "next-week",
     label: "Next Week",
-    getDate: () => {
-      const date = new Date();
-      date.setDate(date.getDate() + 7);
-      return date;
-    },
+    getDate: () => getLocalNow({}).plus({ weeks: 1 }),
   },
   {
     id: "next-month",
     label: "Next Month",
-    getDate: () => {
-      const date = new Date();
-      date.setMonth(date.getMonth() + 1);
-      return date;
-    },
+    getDate: () => getLocalNow({}).plus({ months: 1 }),
   },
   {
     id: "next-year",
     label: "Next Year",
-    getDate: () => {
-      const date = new Date();
-      date.setFullYear(date.getFullYear() + 1);
-      return date;
-    },
+    getDate: () => getLocalNow({}).plus({ years: 1 }),
   },
 ];
 
@@ -172,7 +158,8 @@ export const DatePickerModalWithDisabledPastDates: Story = {
     mode: "single",
     displayAs: "modal",
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    disableDate: (date: Date, _selectedDate) => date < new Date(),
+    disableDate: (date: DateTime, _selectedDate) =>
+      date < getLocalNow({}).startOf("day"),
     shortcuts,
   },
 };
@@ -259,35 +246,33 @@ export const DatePickerRangeWithShortcuts: Story = {
       {
         label: "This Weekend",
         getDate: () => {
-          const today = new Date();
-          const saturday = new Date(
-            today.setDate(today.getDate() + (6 - today.getDay())),
-          );
-          const sunday = new Date(saturday);
-          sunday.setDate(saturday.getDate() + 1);
+          const today = getLocalNow({});
+          const daysUntilSaturday = (6 - today.weekday + 7) % 7;
+          const saturday = today.plus({ days: daysUntilSaturday });
+          const sunday = saturday.plus({ days: 1 });
           return [saturday, sunday];
         },
       },
       {
         label: "Next Month",
         getDate: () => {
-          const today = new Date();
-          return [new Date(), new Date(today.setMonth(today.getMonth() + 1))];
+          const today = getLocalNow({});
+          return [today, today.plus({ months: 1 })];
         },
       },
       {
         label: "Last Week",
         getDate: () => {
-          const today = new Date();
-          const lastWeek = new Date(today.setDate(today.getDate() - 7));
-          return [lastWeek, new Date()];
+          const today = getLocalNow({});
+          const lastWeek = today.minus({ days: 7 });
+          return [lastWeek, today];
         },
       },
       {
         label: "Next 6 Months",
         getDate: () => {
-          const today = new Date();
-          return [new Date(), new Date(today.setMonth(today.getMonth() + 6))];
+          const today = getLocalNow({});
+          return [today, today.plus({ months: 6 })];
         },
       },
     ],
@@ -323,7 +308,7 @@ export const DatePickerPopover: Story = {
     mode: "single",
     displayAs: "popover",
     shortcuts,
-    defaultValue: new Date(),
+    defaultValue: getLocalNow({}),
   },
 };
 
@@ -344,7 +329,7 @@ export const DatePickerPopoverCustom: Story = {
     mode: "single",
     displayAs: "popover",
     shortcuts,
-    defaultValue: new Date(),
+    defaultValue: getLocalNow({}),
     isInputField: true,
     label: "My datepicker label",
     popoverPlacement: "bottom-right",
@@ -382,7 +367,7 @@ export const DatePickerWithCustomRangeOfYears: Story = {
     displayAs: "popover",
     calendarYears: Array.from(
       { length: 50 },
-      (_, i) => new Date().getFullYear() - 50 + i,
+      (_, i) => getLocalNow({}).year - 50 + i,
     ),
     shortcuts,
   },
@@ -396,19 +381,21 @@ export const DatePickerWithCustomRangeOfYears: Story = {
 export const ControlledSingleDatePicker: Story = {
   name: "Controlled single date picker",
   render: (args) => {
-    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+    const [selectedDate, setSelectedDate] = useState<DateTime | null>(
+      getLocalNow({}),
+    );
 
     return (
       <div>
         <p style={{ marginBottom: "16px" }}>
-          Selected date: {selectedDate?.toLocaleDateString() || "None"}
+          Selected date: {selectedDate?.toLocaleString() || "None"}
         </p>
         <DatePicker
           {...args}
           dateValue={selectedDate}
           onSelect={(date) => {
             console.log("Date selected:", date);
-            setSelectedDate(date as Date);
+            setSelectedDate(date as DateTime);
           }}
         />
         <div style={{ marginTop: "16px", display: "flex", gap: "8px" }}>
@@ -417,7 +404,7 @@ export const ControlledSingleDatePicker: Story = {
             size="sm"
             intent="default"
             color="main"
-            onClick={() => setSelectedDate(new Date())}
+            onClick={() => setSelectedDate(getLocalNow({}))}
           />
           <Button
             label="Set to Tomorrow"
@@ -425,8 +412,7 @@ export const ControlledSingleDatePicker: Story = {
             intent="default"
             color="main"
             onClick={() => {
-              const tomorrow = new Date();
-              tomorrow.setDate(tomorrow.getDate() + 1);
+              const tomorrow = getLocalNow({}).plus({ days: 1 });
               setSelectedDate(tomorrow);
             }}
           />
@@ -459,15 +445,15 @@ export const ControlledRangeDatePicker: Story = {
   name: "Controlled range date picker",
   render: (args) => {
     const [selectedRange, setSelectedRange] = useState<
-      [Date | null, Date | null]
-    >([new Date(), null]);
+      [DateTime | null, DateTime | null]
+    >([getLocalNow({}), null]);
 
     const formatRange = () => {
       if (!selectedRange[0] && !selectedRange[1]) return "None";
       if (selectedRange[0] && !selectedRange[1])
-        return `${selectedRange[0].toLocaleDateString()} - (selecting...)`;
+        return `${selectedRange[0].toLocaleString()} - (selecting...)`;
       if (selectedRange[0] && selectedRange[1])
-        return `${selectedRange[0].toLocaleDateString()} - ${selectedRange[1].toLocaleDateString()}`;
+        return `${selectedRange[0].toLocaleString()} - ${selectedRange[1].toLocaleString()}`;
       return "Invalid range";
     };
 
@@ -480,7 +466,7 @@ export const ControlledRangeDatePicker: Story = {
           onSelect={(date) => {
             console.log("Range selected:", date);
             if (Array.isArray(date)) {
-              setSelectedRange(date as [Date | null, Date | null]);
+              setSelectedRange(date as [DateTime | null, DateTime | null]);
             }
           }}
         />
@@ -491,14 +477,9 @@ export const ControlledRangeDatePicker: Story = {
             intent="default"
             color="main"
             onClick={() => {
-              const today = new Date();
-              const dayOfWeek = today.getDay();
-              const startOfWeek = new Date(today);
-              startOfWeek.setDate(
-                today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1),
-              );
-              const endOfWeek = new Date(startOfWeek);
-              endOfWeek.setDate(startOfWeek.getDate() + 6);
+              const today = getLocalNow({});
+              const startOfWeek = today.startOf("week");
+              const endOfWeek = today.endOf("week");
               setSelectedRange([startOfWeek, endOfWeek]);
             }}
           />
@@ -508,9 +489,8 @@ export const ControlledRangeDatePicker: Story = {
             intent="default"
             color="main"
             onClick={() => {
-              const start = new Date();
-              const end = new Date();
-              end.setDate(end.getDate() + 6);
+              const start = getLocalNow({});
+              const end = start.plus({ days: 7 });
               setSelectedRange([start, end]);
             }}
           />
@@ -533,20 +513,18 @@ export const ControlledRangeDatePicker: Story = {
       {
         label: "This Weekend",
         getDate: () => {
-          const today = new Date();
-          const saturday = new Date(
-            today.setDate(today.getDate() + (6 - today.getDay())),
-          );
-          const sunday = new Date(saturday);
-          sunday.setDate(saturday.getDate() + 1);
+          const today = getLocalNow({});
+          const daysUntilSaturday = (6 - today.weekday + 7) % 7;
+          const saturday = today.plus({ days: daysUntilSaturday });
+          const sunday = saturday.plus({ days: 1 });
           return [saturday, sunday];
         },
       },
       {
         label: "Next Month",
         getDate: () => {
-          const today = new Date();
-          return [new Date(), new Date(today.setMonth(today.getMonth() + 1))];
+          const today = getLocalNow({});
+          return [today, today.plus({ months: 1 })];
         },
       },
     ],

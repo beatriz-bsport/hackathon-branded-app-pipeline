@@ -109,6 +109,7 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <div
+      data-component="Kaizen-Card"
       onClick={handleClick}
       className={card({
         className,

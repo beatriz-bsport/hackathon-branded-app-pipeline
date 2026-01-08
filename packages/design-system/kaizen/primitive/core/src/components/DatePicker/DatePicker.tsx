@@ -4,7 +4,7 @@ import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
-import { toDateTime } from "@bsport/datetime-manipulation";
+import { type DateTime } from "@bsport/datetime-manipulation";
 
 import Button from "#src/components/Button";
 import Modal from "#src/components/Modal";
@@ -18,7 +18,7 @@ import DateInputField from "./DateInputField";
 import DatePickerContent from "./DatePickerContent";
 import type { ShortcutItem } from "./Shortcuts";
 
-export type SelectedDate = Date | [Date | null, Date | null] | null;
+export type SelectedDate = DateTime | [DateTime | null, DateTime | null] | null;
 
 export type DatePickerProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
@@ -34,7 +34,7 @@ export type DatePickerProps = Omit<
   onClose?: () => void;
   onSelect?: (date: SelectedDate) => void;
   calendarYears?: number[];
-  disableDate?: (date: Date, selectedDate: SelectedDate) => boolean;
+  disableDate?: (date: DateTime, selectedDate: SelectedDate) => boolean;
   shortcuts?: ShortcutItem[];
   popoverClassNames?: {
     container?: string;
@@ -123,7 +123,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   useEffect(() => {
     if (mode === "single" && Array.isArray(selectedDate)) {
-      updateSelectedDate(defaultValue instanceof Date ? defaultValue : null);
+      updateSelectedDate(!Array.isArray(defaultValue) ? defaultValue : null);
     } else if (mode === "range" && !Array.isArray(selectedDate)) {
       updateSelectedDate(
         Array.isArray(defaultValue) ? defaultValue : [null, null],
@@ -188,10 +188,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
     [mode, shortcuts],
   );
 
-  const formatDate = (date: Date | null) => {
+  const formatDate = (date: DateTime | null) => {
     return date
       ? formatDateTimeFromDate(
-          toDateTime(date).setLocale(i18nInstance?.language ?? "en-US"),
+          date.setLocale(i18nInstance?.language ?? "en-US"),
           dateFormat === "medium"
             ? DATETIME_FORMATS.MEDIUM_DATE_WITH_WEEKDAY
             : DATETIME_FORMATS.SHORT_DATE,
@@ -201,7 +201,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   if (displayAs === "popover")
     return (
-      <Popover className={popoverClassNames.container ?? ""}>
+      <Popover
+        data-component="Kaizen-DatePicker-Popover"
+        className={popoverClassNames.container ?? ""}
+      >
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => {
             if (mode === "range" || Array.isArray(selectedDate)) {
@@ -211,6 +214,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
               return (
                 <Button
+                  data-component="Kaizen-DatePicker-Popover-Anchor-Button"
                   label={t("datePicker.rangeLabel", {
                     start: formatDate(start),
                     end: formatDate(end),
@@ -239,7 +243,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
             ) : (
               // Button used as Popover trigger for single mode without input field
               <Button
-                label={formatDate(selectedDate as Date | null)}
+                label={formatDate(selectedDate)}
                 size="md"
                 intent="default"
                 color="main"
@@ -278,6 +282,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 
   return (
     <Modal
+      data-component="Kaizen-DatePicker-Modal"
       open={open}
       size={modalSize}
       title={t("datePicker.modalTitle")}

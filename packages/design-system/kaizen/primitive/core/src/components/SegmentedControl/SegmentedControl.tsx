@@ -450,6 +450,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
 
   return (
     <div
+      data-component="Kaizen-SegmentedControl"
       id={id}
       ref={containerRef}
       role="radiogroup"
@@ -466,6 +467,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
 
         return (
           <div
+            data-component="Kaizen-SegmentedControl-Option"
             key={option.value}
             role="radio"
             aria-checked={isActive}

@@ -280,7 +280,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   ]);
 
   return (
-    <>
+    <div data-component="Kaizen-FileUpload">
       {renderFileUploadInput ? (
         <FileUploadInput
           className={className}
@@ -305,7 +305,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
           handleRetryUpload={makeFileUpload}
         />
       )}
-    </>
+    </div>
   );
 };
 

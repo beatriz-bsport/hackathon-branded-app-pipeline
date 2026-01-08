@@ -51,6 +51,7 @@ const Shortcuts: React.FC<ShortcutsProps> = ({
 
   return (
     <Menu
+      data-component="Kaizen-DatePicker-ShortcutsMenu"
       items={menuItems}
       selectedValues={selectedShortcut ? [selectedShortcut] : []}
       onSelectOption={handleSelect}

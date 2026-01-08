@@ -54,6 +54,7 @@ const Header: React.FC<SortableListHeaderProps> = ({
 
   return (
     <div
+      data-component="Kaizen-SortableList-Header"
       id={id}
       className={classNames(
         "bg-surface-default-weaker",

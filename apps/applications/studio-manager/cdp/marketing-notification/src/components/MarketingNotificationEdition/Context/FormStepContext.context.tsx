@@ -3,14 +3,15 @@ import React, { createContext, useContext, useState } from "react";
 import type {
   BookingTriggerConfigValidationFormData,
   NotificationContentFormData,
+  PassTriggerConfigValidationFormData,
+  PassesType,
+  SubscriptionTriggerConfigValidationFormData,
+  TriggerTypeValidationFormData,
 } from "#src/utils/schemas/types";
-import type { SelectableNotificationType } from "#src/utils/types";
 
 type TriggerTypeStep = {
   type: "triggerType";
-  notificationType: SelectableNotificationType;
-  itemIds: number[];
-};
+} & TriggerTypeValidationFormData;
 
 export type BookingTriggerCondition = {
   type: "booking";
@@ -20,24 +21,24 @@ export type AppointmentTriggerCondition = {
   type: "appointment";
 } & BookingTriggerConfigValidationFormData;
 
-type SubscriptionTriggerCondition = {
+export type SubscriptionTriggerCondition = {
   type: "subscription";
-};
+} & SubscriptionTriggerConfigValidationFormData;
+
+export type PassTriggerCondition = {
+  type: PassesType;
+} & PassTriggerConfigValidationFormData;
 
 type BirthdayTriggerCondition = {
   type: "birthday";
-};
-
-type PassesTriggerCondition = {
-  type: "passes";
 };
 
 export type TriggerConditionStepProps =
   | BookingTriggerCondition
   | AppointmentTriggerCondition
   | SubscriptionTriggerCondition
-  | BirthdayTriggerCondition
-  | PassesTriggerCondition;
+  | PassTriggerCondition
+  | BirthdayTriggerCondition;
 
 type ContentStep = {
   type: "content";

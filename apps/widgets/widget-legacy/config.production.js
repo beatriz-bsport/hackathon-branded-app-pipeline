@@ -10,6 +10,8 @@ window.runtime.env.REACT_APP_GOOGLE_MAPS_API_KEY = 'NA';
 window.runtime.env.REACT_APP_SENTRY_DSN = '';
 window.runtime.env.I18N_TRANSLATION_DOMAIN = 'https://backoffice.bsport.io';
 window.runtime.env.PUBLIC_URL = 'https://backoffice.bsport.io';
+window.runtime.env.WIDGET_PROXY_BRIDGE_URL =
+  'https://backoffice.bsport.io/widget-proxy-bridge';
 
 if (!window.runtimeBsport) window.runtimeBsport = {};
 if (!window.runtimeBsport.env) window.runtimeBsport.env = {};
@@ -25,6 +27,8 @@ window.runtimeBsport.env.REACT_APP_SENTRY_DSN = '';
 window.runtimeBsport.env.I18N_TRANSLATION_DOMAIN =
   'https://backoffice.bsport.io';
 window.runtimeBsport.env.PUBLIC_URL = 'https://backoffice.bsport.io';
+window.runtimeBsport.env.WIDGET_PROXY_BRIDGE_URL =
+  'https://backoffice.bsport.io/widget-proxy-bridge';
 
 window.runtime.env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0 =
   'https://api.production.bsport.io/business-insights/v0';

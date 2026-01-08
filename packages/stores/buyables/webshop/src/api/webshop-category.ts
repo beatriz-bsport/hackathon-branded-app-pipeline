@@ -1,4 +1,9 @@
-import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
+import {
+  type ApiConfig,
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  buildUrlParams,
+} from "@bsport/store-base";
 
 import type { FetchWebshopCategoriesParams } from "#src/types";
 
@@ -7,7 +12,17 @@ import { API_URL } from "./constants";
 const CATEGORY_API_URL = `${API_URL}/subshop`;
 
 export const fetchWebshopCategoriesAPI = (
-  params: FetchWebshopCategoriesParams,
+  params?: FetchWebshopCategoriesParams,
 ): ApiConfig => {
-  return [`${CATEGORY_API_URL}/${buildUrlParams(params ?? {})}`];
+  const { id__in, page, page_size, ...otherParams } = params ?? {};
+
+  const defaultPageSize = id__in?.length ? id__in.length : DEFAULT_PAGE_SIZE;
+  const finalParams = {
+    page_size: page_size ?? defaultPageSize,
+    page: page ?? DEFAULT_PAGE,
+    ...(id__in?.length ? { id__in } : {}),
+    ...otherParams,
+  };
+
+  return [`${CATEGORY_API_URL}/${buildUrlParams(finalParams)}`];
 };

@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { compose } from 'recompose';
 import { withStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import type {
   Theme,
   WithStyles,
 } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
-import { ConnectedProps, connect } from 'react-redux';
 
-import { MarketplaceWorkshopBase } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceWorkshop.page';
+import MarketplaceWorkshop from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceWorkshop.page';
 import { OwnProps as MarketplaceWorkshopOwnProps } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceWorkshop.page';
 import type {
   MarketplaceFilters,
-  MarketplaceSetFilters,
   MarketplaceWorkshopData,
 } from '@bsport/saas-legacy/src/libs/marketplace/types';
 import type { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
@@ -26,11 +24,9 @@ import {
 import '../../vendor/map.css';
 
 import { getEnv } from '../utils/env';
-import { bridgeRequestRegisteredOfferIdList } from '../libs/bridge/actions';
-import { RootState } from '../reducers';
 
 type MarketplaceWorkshopStyledProps = MarketplaceWorkshopOwnProps & {
-  theme: CompanyTheme,
+  theme: CompanyTheme;
 };
 
 const MarketplaceWorkshopBaseStyled = compose<
@@ -57,81 +53,57 @@ const MarketplaceWorkshopBaseStyled = compose<
       validationSchema: CalendarOnlineFilterValidationSchema,
     },
   ]),
-)(MarketplaceWorkshopBase);
+)(MarketplaceWorkshop);
 
 type OwnProps = {
-  companyId: number,
-  config: MarketplaceWorkshopData,
-  store: any,
-  theme: CompanyTheme,
-  username: string,
-  onWindowOpen: (url: string) => void,
+  companyId: number;
+  config: MarketplaceWorkshopData;
+  store: any;
+  theme: CompanyTheme;
+  username: string;
+  onWindowOpen: (url: string) => void;
 };
 
-type Props = OwnProps &
-  WithStyles<typeof styles> &
-  ConnectedProps<typeof connector>;
+type Props = OwnProps & WithStyles<typeof styles>;
 
 type State = {
-  filters: MarketplaceFilters,
+  filters: MarketplaceFilters;
 };
 
-class WorkshopWidget extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+const WorkshopWidget = (props: Props) => {
+  const { onWindowOpen, config, classes, store, theme, companyId } = props;
+  const [filters, setFilters] = useState<MarketplaceFilters>({
+    coaches: config.coaches || [],
+    establishments: config.establishments || [],
+    activity__in: config.metaActivities || [],
+    levels: config.levels || [],
+    establishment_group__in: config.establishmentGroups || [],
+  });
 
-    const filters: MarketplaceFilters = {
-      coaches: props.config.coaches || [],
-      establishments: props.config.establishments || [],
-      activity__in: props.config.metaActivities || [],
-      levels: props.config.levels || [],
-      establishment_group__in: props.config.establishmentGroups || [],
-    };
+  const updateFilters = (filtersUpdate: Partial<MarketplaceFilters>) =>
+    setFilters({ ...filters, ...filtersUpdate });
 
-    this.state = { filters };
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (!prevProps.authenticated && this.props.authenticated) {
-      this.props.bridgeRequestRegisteredOfferIdList();
-    }
-  }
-
-  setFilters: MarketplaceSetFilters = (key: string) => {
-    const _this = this;
-
-    return (values: any) => {
-      _this.setState((prevState) => ({
-        filters: { ...prevState.filters, [key]: values },
-      }));
-    };
-  };
-
-  goToBook = (id: number, companyId: number) => {
+  const goToBook = (id: number, companyId: number) => {
     const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${companyId}`;
-    this.props.onWindowOpen(url);
+    onWindowOpen(url);
   };
 
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <div className={classes.container}>
-        <MarketplaceWorkshopBaseStyled
-          {...this.props}
-          companyId={this.props.companyId}
-          filters={this.state.filters}
-          setFilters={this.setFilters}
-          goToBook={this.goToBook}
-          store={this.props.store}
-          theme={this.props.theme}
-          mapContainerClassName="cleanslate"
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classes.container}>
+      <MarketplaceWorkshopBaseStyled
+        {...props}
+        companyId={companyId}
+        filters={filters}
+        setFilters={updateFilters}
+        goToBook={goToBook}
+        store={store}
+        theme={theme}
+        mapContainerClassName="cleanslate"
+      />
+    </div>
+  );
+};
 
 const styles = (theme: Theme) => ({
   container: {
@@ -140,19 +112,4 @@ const styles = (theme: Theme) => ({
   },
 });
 
-const mapStateToProps = (state: RootState) => ({
-  authenticated: state.bridge.authentication.authenticated,
-  bookedOffers: state.bridge.registeredOffers.ids_list,
-  username: state.bridge.authentication.username,
-});
-
-const mapDispatchToProps = {
-  bridgeRequestRegisteredOfferIdList,
-};
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-export default compose<Props, OwnProps>(
-  withStyles(styles),
-  connector,
-)(WorkshopWidget);
+export default compose<Props, OwnProps>(withStyles(styles))(WorkshopWidget);

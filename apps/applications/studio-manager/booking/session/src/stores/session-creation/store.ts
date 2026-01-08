@@ -18,6 +18,8 @@ export enum SESSION_CREATION_STEPS {
   ADVANCED_OPTIONS = 2,
 }
 
+export const DEFAULT_LEVEL_ID = 1; // "All levels" default level id
+
 export const MAX_STEP = SESSION_CREATION_STEPS.ADVANCED_OPTIONS;
 
 export interface SessionCreationState {
@@ -61,6 +63,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
     defaultEndDate.setDate(defaultEndDate.getDate() + 1);
     return defaultEndDate;
   })(),
+  level: DEFAULT_LEVEL_ID,
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};

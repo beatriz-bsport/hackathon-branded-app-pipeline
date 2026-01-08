@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import {
@@ -25,16 +25,12 @@ import {
   createStyles,
   type WithStyles,
 } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import '../../vendor/map.css';
 
-import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
-import {
-  bridgeRequestRegisteredOfferIdList as bridgeRequestRegisteredOfferIdListAction,
-  bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction,
-} from '../libs/bridge/actions';
+
+import { bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction } from '../libs/bridge/actions';
 
 const getNowISODate = () => {
   const today = new Date();
@@ -85,96 +81,41 @@ type OwnProps = {
   authenticated: boolean;
 };
 
-type Props = OwnProps &
-  ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps &
-  WithStyles;
+type Props = OwnProps & typeof mapDispatchToProps & WithStyles;
 
 export const CalendarWidget = (props: Props) => {
   const {
     config,
     companyId,
     theme,
-    classes,
-    authenticated,
-    authenticationReceived,
     onWindowOpen,
     bridgeRequestAuthenticationStatus,
-    bridgeRequestRegisteredOfferIdList,
   } = props;
 
-  const [selectedDate, setSelectedDate] = useState(getNowISODate);
+  const filters: MarketplaceFilters = {
+    coaches: config.coaches || [],
+    establishments: config.establishments || [],
+    activity__in: config.metaActivities || [],
+    levels: config.levels || [],
+    establishment_group__in: config.establishmentGroups || [],
+  };
 
-  const filters: MarketplaceFilters = useMemo(
-    () => ({
-      coaches: config.coaches || [],
-      establishments: config.establishments || [],
-      activity__in: config.metaActivities || [],
-      levels: config.levels || [],
-      establishment_group__in: config.establishmentGroups || [],
-    }),
-    [
-      config.coaches,
-      config.establishments,
-      config.metaActivities,
-      config.levels,
-      config.establishmentGroups,
-    ],
-  );
+  const onlineFilter = config.onlineFilter ?? {};
 
-  const onlineFilter = useMemo(
-    () => ({
-      is_online: config?.onlineFilter?.is_online || undefined,
-    }),
-    [config.onlineFilter],
-  );
-
-  const otherParams = useMemo(
-    () => ({
-      date: selectedDate,
-      onlyDay: config.todayOnly ? 'true' : '',
-      filtersOpen: '' as const,
-    }),
-    [selectedDate, config.todayOnly],
-  );
-
-  const onCompletePurchaseProp = useCallback(() => {}, []);
+  const [selectedDate, setSelectedDate] = useState(getNowISODate());
 
   useEffect(() => {
     bridgeRequestAuthenticationStatus();
-    if (authenticated) {
-      bridgeRequestRegisteredOfferIdList();
-    }
-  }, [
-    authenticated,
-    bridgeRequestAuthenticationStatus,
-    bridgeRequestRegisteredOfferIdList,
-  ]);
-
-  const setOtherParams = useCallback((key: string) => {
-    return (arg: any) => {
-      if (key === 'date') {
-        setSelectedDate(arg);
-      }
-    };
   }, []);
 
-  const onClickGoToBook = useCallback(
-    (id: number, givenCompanyId: number) => {
-      const { PUBLIC_URL } = getEnv();
-      const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${givenCompanyId}`;
-      onWindowOpen(url);
-    },
-    [onWindowOpen],
-  );
+  const setOtherParams = (key: string) => (value: any) =>
+    key === 'date' ? setSelectedDate(value) : undefined;
 
-  if (!authenticationReceived) {
-    return (
-      <div className={classes.container}>
-        <CircularProgress />
-      </div>
-    );
-  }
+  const onClickGoToBook = (id: number, givenCompanyId: number) => {
+    const { PUBLIC_URL } = getEnv();
+    const url = `${PUBLIC_URL}/customer/payment/offer/${id}?membership=${givenCompanyId}`;
+    onWindowOpen(url);
+  };
 
   return (
     <MarketplaceCalendarStyled
@@ -185,9 +126,15 @@ export const CalendarWidget = (props: Props) => {
       goToBook={onClickGoToBook}
       groupSessionByPeriod={config?.groupSessionByPeriod}
       mapContainerClassName="cleanslate"
-      onCompletePurchase={onCompletePurchaseProp}
-      onlineFilter={onlineFilter}
-      otherParams={otherParams}
+      onCompletePurchase={() => {}}
+      onlineFilter={{
+        is_online: onlineFilter.is_online ?? undefined,
+      }}
+      otherParams={{
+        date: selectedDate,
+        onlyDay: config.todayOnly ? 'true' : '',
+        filtersOpen: '',
+      }}
       setOtherParams={setOtherParams}
       theme={theme}
       variant={config?.variant}
@@ -207,20 +154,12 @@ const styles = () =>
     },
   });
 
-const mapStateToProps = (state: RootState) => ({
-  authenticated: state.bridge.authentication.authenticated,
-  bookedOffers: state.bridge.registeredOffers.ids_list,
-  username: state.bridge.authentication.username,
-  authenticationReceived: state.bridge.authentication.hasBeenReceived,
-});
-
 const mapDispatchToProps = {
   bridgeRequestAuthenticationStatus: bridgeRequestAuthenticationStatusAction,
-  bridgeRequestRegisteredOfferIdList: bridgeRequestRegisteredOfferIdListAction,
 };
 
 export default compose<Props, OwnProps>(
   withStyles(styles),
   CalendarDataContainer,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(null, mapDispatchToProps),
 )(CalendarWidget);

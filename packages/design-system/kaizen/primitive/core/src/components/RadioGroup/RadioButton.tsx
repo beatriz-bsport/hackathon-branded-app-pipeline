@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { cx } from "class-variance-authority";
 import React, { useId } from "react";
 
 export type RadioOptionsProps = {
@@ -43,29 +43,32 @@ const RadioButton: React.FC<RadioButtonProps> = ({
   direction = "start",
 }) => {
   const id = useId();
+  const labelClassnames = cx("flex cursor-pointer w-full", {
+    "cursor-default": disabled,
+    "pl-xs": direction === "start",
+    "pr-xs": direction === "end",
+  });
   return (
     <div
-      className={classNames(
+      data-component="Kaizen-RadioButton"
+      className={cx(
         "grid grid-cols-[auto,1fr] grid-rows-[auto,auto,auto,1fr]",
         {
           "opacity-sm pointer-events-none": disabled,
+          "[grid-template-areas:'input_label''empty_helper']":
+            direction === "start",
+          "[grid-template-areas:'label_input''helper_empty']":
+            direction !== "start",
         },
       )}
-      style={{
-        gridTemplateAreas:
-          direction === "start"
-            ? `"input label" "empty helper"`
-            : `"label input" "helper empty"`,
-      }}
     >
       <div
-        className={classNames("flex items-center relative", {
+        className={cx("flex items-center relative", "[grid-area:input]", {
           "justify-end": direction === "end",
         })}
-        style={{ gridArea: "input" }}
       >
         <input
-          className={classNames(
+          className={cx(
             "appearance-none w-md h-md rounded-circle",
             "cursor-pointer disabled:cursor-default",
             "transition-colors duration-default ease-in-out",
@@ -104,7 +107,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
         />
         {checked && (
           <svg
-            className={classNames(
+            className={cx(
               "absolute pointer-events-none",
               "fill-onsurface-default-onstrong",
               { "ml-[4px]": direction === "start" },
@@ -122,26 +125,18 @@ const RadioButton: React.FC<RadioButtonProps> = ({
           </svg>
         )}
       </div>
-      <div className="flex" style={{ gridArea: "label" }}>
-        <label
-          htmlFor={id}
-          className={classNames("flex cursor-pointer w-full", {
-            "cursor-default": disabled,
-            "pl-xs": direction === "start",
-            "pr-xs": direction === "end",
-          })}
-        >
+
+      <div className="flex [grid-area:label]">
+        <label htmlFor={id} className={labelClassnames}>
           <span>{label}</span>
         </label>
       </div>
 
-      <div style={{ gridArea: "empty" }} />
-      <div
-        className={classNames("flex flex-col", {
-          "pl-xs": direction === "start",
-          "pr-xs": direction === "end",
-        })}
-        style={{ gridArea: "helper" }}
+      <div className="[grid-area:empty]" />
+
+      <label
+        htmlFor={id}
+        className={cx(labelClassnames, "flex-col [grid-area:helper]")}
       >
         {helperText && (
           <span className="text-onsurface-weak text-body-sm leading-xs">
@@ -153,7 +148,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
             {errorText}
           </span>
         )}
-      </div>
+      </label>
     </div>
   );
 };

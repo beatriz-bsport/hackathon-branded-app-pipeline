@@ -17,7 +17,10 @@ const CustomActionsSection: React.FC<CustomActionsSectionProps> = ({
     return null;
 
   return (
-    <div className="flex flex-row gap-sm items-stretch">
+    <div
+      data-component="Kaizen-HeaderLayout-CustomActionsSection"
+      className="flex flex-row gap-sm items-stretch"
+    >
       {startGroupActions && (
         <>
           <div className="flex flex-row gap-2xs items-center">

@@ -17,13 +17,15 @@ const ITEM_API_URL = `${API_URL}/item`;
 export const fetchWebshopItemsAPI = (
   params: FetchWebshopItemsParams,
 ): ApiConfig => {
-  const { page_size, page, category, ...otherParams } = params ?? {};
+  const { page_size, page, category, id__in, ...otherParams } = params ?? {};
 
+  const defaultPageSize = id__in?.length ? id__in.length : DEFAULT_PAGE_SIZE;
   const finalParams = {
-    page_size: page_size ?? DEFAULT_PAGE_SIZE,
+    page_size: page_size ?? defaultPageSize,
     page: page ?? DEFAULT_PAGE,
-    ...otherParams,
+    ...(id__in?.length ? { id__in } : {}),
     ...(category ? { subshop: category } : {}),
+    ...otherParams,
   };
 
   return [`${ITEM_API_URL}/${buildUrlParams(finalParams)}`];
@@ -32,11 +34,12 @@ export const fetchWebshopItemsAPI = (
 export const searchWebshopItemsAPI = (
   params: SearchWebshopItemsParams,
 ): ApiConfig => {
-  const { category, ...otherParams } =
-    params ?? ({} as SearchWebshopItemsParams);
+  const { category, ...otherParams } = params ?? {};
+
   const finalParams = {
     ...otherParams,
     ...(category ? { subshop: category } : {}),
   };
+
   return [`${ITEM_API_URL}/search/${buildUrlParams(finalParams)}`];
 };

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import type { RootState } from 'src/reducers';
+import type { RootState } from '#src/reducers';
 
 import {
   getOfferDataList,

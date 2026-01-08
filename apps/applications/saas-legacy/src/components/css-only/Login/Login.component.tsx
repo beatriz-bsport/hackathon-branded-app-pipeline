@@ -26,10 +26,6 @@ export type Props = {
   onRequestResetPassword: (url: string) => void;
   loading: boolean;
   error?: boolean;
-  errorFields?: {
-    email?: string;
-    password?: string;
-  };
   simplifyUI?: boolean;
   isPremium?: boolean;
   company?: boolean;
@@ -92,30 +88,14 @@ export class ConsumerLogin extends Component<Props, State> {
   closeWidgetModalOnGoBack = () => WidgetUtils.closeModal();
 
   render() {
-    const {
-      simplifyUI,
-      loading,
-      t,
-      hideRegister,
-      errorFields,
-      error,
-      bookingFlowIsNext,
-    } = this.props;
+    const { simplifyUI, loading, t, hideRegister, error, bookingFlowIsNext } =
+      this.props;
 
     const { requestSignUp } = this.props;
 
     const signUpDividerClass = WidgetUtils.isWidget()
       ? 'bs-login-container__signup-divider--widget'
       : 'bs-login-container__signup-divider--default';
-
-    let errorMessage = t('error.authError');
-
-    if (errorFields && errorFields.password) {
-      errorMessage = t('error.invalidPassword');
-    }
-    if (errorFields && errorFields.email) {
-      errorMessage = t('error.invalidEmail');
-    }
 
     const rectangleClass =
       this.props.company || this.props.franchisor
@@ -180,7 +160,7 @@ export class ConsumerLogin extends Component<Props, State> {
           <LoginForm
             email={this.state.email}
             emailChoices={this.props.emailChoices}
-            errorMessage={errorMessage}
+            errorMessage={t('error.authError')}
             hasCompany={!!this.props.company}
             hasError={error}
             hasFranchisor={!!this.props.franchisor}

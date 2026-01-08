@@ -45,6 +45,9 @@ const icons = {
   "building-02": React.lazy(
     async () => await import("./assets/building-02.svg?react"),
   ),
+  "calendar-minus-02": React.lazy(
+    async () => await import("./assets/calendar-minus-02.svg?react"),
+  ),
   calendar: React.lazy(async () => await import("./assets/calendar.svg?react")),
   "check-circle-solid": React.lazy(
     async () => await import("./assets/check-circle-solid.svg?react"),
@@ -150,6 +153,9 @@ const icons = {
   "layout-left": React.lazy(
     async () => await import("./assets/layout-left.svg?react"),
   ),
+  "layout-right": React.lazy(
+    async () => await import("./assets/layout-right.svg?react"),
+  ),
   "link-01": React.lazy(async () => await import("./assets/link-01.svg?react")),
   "link-external-02": React.lazy(
     async () => await import("./assets/link-external-02.svg?react"),
@@ -168,6 +174,9 @@ const icons = {
   ),
   "message-check-square": React.lazy(
     async () => await import("./assets/message-check-square.svg?react"),
+  ),
+  "message-dots-circle": React.lazy(
+    async () => await import("./assets/message-dots-circle.svg?react"),
   ),
   "message-question-square": React.lazy(
     async () => await import("./assets/message-question-square.svg?react"),

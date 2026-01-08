@@ -15,6 +15,8 @@ import {
 import type { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
+import { LevelFormData } from "./types";
+
 export type SessionCreationFormSchema = z.ZodType<SessionCreationFormData>;
 
 export const MAX_YEARS_AHEAD = 3;
@@ -83,6 +85,7 @@ export const useSessionSchema = () => {
       recurrenceInterval: z.number().int().positive(),
       recurrencePattern: z.nativeEnum(MonthlyRecurrencePattern),
       recurrenceEndDate: z.date().nullable(),
+      level: z.number().int(),
     })
     .refine(
       (data) => {
@@ -227,4 +230,15 @@ export const useSessionSchema = () => {
         path: ["partner_max_booking_count"],
       },
     ) satisfies SessionCreationFormSchema;
+};
+
+export const useLevelSchema = () => {
+  const { t } = useTranslation("sessionCreation");
+  return z.object({
+    name: z
+      .string()
+      .min(1, t("addSessionModal.errors.requiredField"))
+      .max(50, t("addSessionModal.errors.levelNameTooLong")),
+    color: z.string(),
+  }) satisfies z.ZodType<LevelFormData>;
 };

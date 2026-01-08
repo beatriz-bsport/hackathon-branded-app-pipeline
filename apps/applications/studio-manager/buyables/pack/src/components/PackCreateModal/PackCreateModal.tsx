@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { ControlledForm, useFormController } from "@bsport/form";
 import { Modal } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
+import type { PackFormData } from "@bsport/store-buyables-pack";
 
 import { PackFormAdvanced } from "#src/components/PackForm/PackFormAdvanced";
 import { PackFormContent } from "#src/components/PackForm/PackFormContent";
@@ -61,21 +62,32 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
 
   if (!companyId) return null;
 
+  const { isDirty, dirtyFields, isSubmitting, isValid } = methods.formState;
+
+  const closeModal = () => {
+    onClose();
+    methods.reset();
+  };
+
+  const handleClickOutside = () => {
+    if (isDirty || isSubmitting) return;
+
+    closeModal();
+  };
+
   return (
     <Modal
       open={isOpen}
       size="lg"
       title={t("createModal.title")}
-      onClose={onClose}
+      onClose={closeModal}
+      onClickOutside={handleClickOutside}
       confirmButton={{
         color: "main",
         label: t("createModal.buttons.create"),
         type: "submit",
         form: formId,
-        disabled:
-          !methods.formState.isDirty ||
-          methods.formState.isSubmitting ||
-          !hasSelectedItems,
+        disabled: !isDirty || isSubmitting || !isValid || !hasSelectedItems,
       }}
       cancelButton={{
         label: t("createModal.buttons.cancel"),
@@ -101,16 +113,25 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
             shouldDirty: true,
           });
         }}
+        isDirtySelection={
+          !!dirtyFields.payment_pack_ids ||
+          !!dirtyFields.private_pass_ids ||
+          !!dirtyFields.shop_item_ids
+        }
       >
         <ControlledForm
           id={formId}
           onSubmit={(data) => {
-            const finalData = {
+            const finalData: PackFormData = {
               ...DEFAULT_FORM_DATA,
               ...data,
               payment_pack_ids: passes,
               private_pass_ids: appointmentPasses,
               shop_item_ids: webshopItems,
+              // Sanitize Payment Methods
+              available_payment_method_identifiers: data.manager_only
+                ? DEFAULT_FORM_DATA.available_payment_method_identifiers
+                : data.available_payment_method_identifiers,
             };
             createPack(finalData);
           }}

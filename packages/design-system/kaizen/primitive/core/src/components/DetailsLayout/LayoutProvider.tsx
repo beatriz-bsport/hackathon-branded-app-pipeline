@@ -25,14 +25,15 @@ type LayoutContextType = {
   isMobile: boolean;
   confirmationHeight: number;
   confirmationRef: RefObject<HTMLDivElement | null>;
+  withPanel: boolean;
 } & LayoutProviderRef;
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
 
-type ProviderProps = PropsWithChildren<{ openPanelByDefault?: boolean }>;
+type ProviderProps = PropsWithChildren<{ withPanel?: boolean }>;
 
 export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
-  ({ children, openPanelByDefault = false }, ref) => {
+  ({ children, withPanel = false }, ref) => {
     const isMobile = !useMatchMedia("sm");
     const confirmationRef = useRef<HTMLDivElement | null>(null);
 
@@ -44,7 +45,7 @@ export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
 
     // Force the panel to be closed on mobile screen
     const [isPanelOpened, setIsPanelOpened] = useState(
-      isMobile ? false : openPanelByDefault,
+      isMobile ? false : withPanel,
     );
     const toggleIsPanelOpened = useCallback((value?: boolean) => {
       setIsPanelOpened((prev) => (value !== undefined ? value : !prev));
@@ -74,6 +75,7 @@ export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
           isMobile,
           confirmationHeight,
           confirmationRef,
+          withPanel,
         }}
       >
         {children}

@@ -41,7 +41,6 @@ export const PackDetailsHeader: FC<PackDetailsHeaderProps> = ({
   onDeleteClick,
   onEditTitleClick,
   pack,
-  toggleIsPanelOpened,
 }) => {
   const { t } = useTranslation("details");
 
@@ -61,22 +60,6 @@ export const PackDetailsHeader: FC<PackDetailsHeaderProps> = ({
     company: pack.company,
   });
 
-  /**
-   * ===== ACTIONS =====
-   * ------ Desktop ------
-   * --- Start group actions ---
-   * DELETE
-   * --- End group actions ---
-   * COPY LINK
-   * PANEL
-   *
-   * ------ Mobile ------
-   * --- End group actions ---
-   * DROPDOWN: NAME, COPY LINK, DELETE
-   * PANEL
-   *
-   * --> PANEL is aggregated with the output of endGroupActions
-   */
   const { endGroupActions, startGroupActions, isMobile } =
     DetailsLayout.useAdaptiveActions({
       endGroupActions: [
@@ -117,27 +100,12 @@ export const PackDetailsHeader: FC<PackDetailsHeaderProps> = ({
       ],
     });
 
-  const panelButtonResponsiveConfig = isMobile
-    ? ({ intent: "default", color: "main" } as const)
-    : ({ color: "default", intent: "flat" } as const);
-
   return (
     <DetailsLayout.Header
       pageTitle={watch("name")}
       {...headerConfigs}
       onEditTitleClick={isMobile ? undefined : onEditTitleClick}
-      endGroupActions={[
-        ...endGroupActions,
-        <Button
-          key="pack-details-button-open-panel"
-          size="md"
-          kind="icon-button"
-          icon="layout-alt-02"
-          label="button-open-panel"
-          onClick={() => toggleIsPanelOpened()}
-          {...panelButtonResponsiveConfig}
-        />,
-      ]}
+      endGroupActions={endGroupActions}
       startGroupActions={startGroupActions}
     />
   );

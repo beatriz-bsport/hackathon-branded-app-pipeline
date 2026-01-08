@@ -155,7 +155,11 @@ const DragAndDrop: React.FC<DragAndDropProps> & {
         setDropTargetId,
       }}
     >
-      <div className={classNames(className)} {...props}>
+      <div
+        data-component="Kaizen-DragAndDrop"
+        className={classNames(className)}
+        {...props}
+      >
         {children}
       </div>
     </DragAndDropContext.Provider>

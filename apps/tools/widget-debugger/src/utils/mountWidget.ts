@@ -45,12 +45,19 @@ const mountWidget = (config: any, repeat = 1) => {
 // get the parent element (div) to mount the widget into
 // call window.BsportWidget.mount(config) recursively to actually mount the widget (and render widget Root.tsx)
 
+const WIDGET_URLS = {
+  local: "http://localhost:3100/widget.js",
+  dev: "https://cdn.dev.bsport.io/scripts/widget.js",
+} as const;
+
 export const mountBSportWidget = (config: any) => {
   // Load BsportWidget script if not already loaded
   if (!document.getElementById("bsport-widget-cdn")) {
     const script = document.createElement("script");
     script.id = "bsport-widget-cdn";
-    script.src = "https://cdn.dev.bsport.io/scripts/widget.js";
+    const stage = (import.meta.env.VITE_STAGE ||
+      "dev") as keyof typeof WIDGET_URLS;
+    script.src = WIDGET_URLS[stage];
     script.async = true;
 
     script.onload = () => {

@@ -114,6 +114,7 @@ const Alert: React.FC<AlertProps> = ({
     <div
       role="alert"
       aria-live="assertive"
+      data-component="Kaizen-Alert"
       aria-labelledby={title ? `${title}-title` : undefined}
       className={classNames(
         `${alert({ className, statusByType: `${type}:${status}` as keyof typeof variants.statusByType })}`,

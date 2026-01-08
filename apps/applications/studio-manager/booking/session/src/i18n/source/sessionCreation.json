@@ -76,6 +76,22 @@
               "helperText": "This limit only applies when using Wellhub, Urban Sports Club or myClubs — other aggregators aren’t affected.",
               "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session."
             }
+          },
+          "level": {
+            "label": "Level",
+            "byDefault": "By default",
+            "custom": "Custom",
+            "create": "Create a new level",
+            "add": "Add level",
+            "nameLabel": "Name",
+            "colorLabel": "Colour",
+            "confirmCreate": "Create",
+            "cancel": "Cancel",
+            "edit": "Edit level",
+            "save": "Save",
+            "deleteTitle": "Delete level?",
+            "deleteMessage": "Existing sessions which have this level applied will remain unchanged, but future sessions will no longer be able to use it.",
+            "delete": "Delete"
           }
         },
         "timeAndDate": {
@@ -145,6 +161,10 @@
       "back": "Back",
       "createSession": "Create session"
     },
-    "errors": { "requiredField": "This field is required" }
+    "errors": {
+      "requiredField": "This field is required",
+      "levelNameTooLong": "Level name cannot exceed 50 characters",
+      "generic": "An error occurred. Please try again."
+    }
   }
 }

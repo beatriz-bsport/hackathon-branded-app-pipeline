@@ -18,6 +18,10 @@ import type {
   InvoiceDetailsSerializer,
   OnboardingRequirementsResponse,
   FiskalySignEsInvoiceDetails,
+  SequentialNumberingStatusResponse,
+  InitializeLegalIdentifierLegacyRequest,
+  InitializeLegalIdentifierLegacyResponse,
+  InitializeLegalIdentifierOnboarding,
 } from '#src/libs/invoice/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { Payment } from '#src/libs/payment/types';
@@ -373,6 +377,32 @@ export const fetchInvoiceAllowedReverseTypes = (
   );
 };
 
+export async function getSequentialNumberingStatus(): Promise<
+  AxiosResponse<SequentialNumberingStatusResponse>
+> {
+  return getAuth(
+    `${API_V1_URI}/payment/configuration/get_sequential_number_feature_status/`,
+  );
+}
+
+export async function initializeLegalIdentifierLegacy(
+  data: InitializeLegalIdentifierLegacyRequest,
+): Promise<AxiosResponse<InitializeLegalIdentifierLegacyResponse>> {
+  return postAuth(
+    `${API_V1_URI}/payment/configuration/initialize_legal_identifier_legacy/`,
+    data,
+  );
+}
+
+export async function initializeLegalIdentifierOnboarding(
+  data: InitializeLegalIdentifierOnboarding,
+): Promise<AxiosResponse<InitializeLegalIdentifierOnboarding>> {
+  return postAuth(
+    `${API_V1_URI}/payment/configuration/initialize_legal_identifier_onboarding/`,
+    data,
+  );
+}
+
 export async function checkFiskalyOnboardingStatus(): Promise<
   AxiosResponse<{ is_onboarded: boolean }>
 > {
@@ -463,6 +493,9 @@ export default {
   patchConfiguration,
   fetchByInvoiceItem,
   returnPayment,
+  getSequentialNumberingStatus,
+  initializeLegalIdentifierLegacy,
+  initializeLegalIdentifierOnboarding,
   checkFiskalyOnboardingStatus,
   getFiskalyOnboardingRequirements,
   onboardFiskalyCompany,

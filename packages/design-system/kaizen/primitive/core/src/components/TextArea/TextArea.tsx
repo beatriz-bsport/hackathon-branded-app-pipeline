@@ -50,6 +50,8 @@ export type TextAreaProps = React.HTMLAttributes<HTMLTextAreaElement> & {
   disabled?: boolean;
   helperText?: string;
   statusText?: string;
+  maxLength?: number;
+  minLength?: number;
 };
 
 /**
@@ -66,6 +68,8 @@ export type TextAreaProps = React.HTMLAttributes<HTMLTextAreaElement> & {
  * @param props.disabled Whether the textarea is disabled.
  * @param props.helperText Additional helper text to display below the textarea.
  * @param props.statusText Status text to display below the textarea.
+ * @param props.minLength Minimal length of the value that can be inserted in the field
+ * @param props.maxLength Maximal length of the value that can be inserted in the field
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-textarea--docs
  */
 const TextArea: React.FC<TextAreaProps> = ({
@@ -81,6 +85,8 @@ const TextArea: React.FC<TextAreaProps> = ({
   disabled,
   helperText,
   statusText,
+  minLength,
+  maxLength,
   ...props
 }) => {
   const textClasses = useMemo(
@@ -95,6 +101,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 
   return (
     <div
+      data-component="Kaizen-TextArea"
       className={classNames("flex flex-col gap-2xs", {
         "opacity-sm pointer-events-none": disabled,
       })}
@@ -121,6 +128,8 @@ const TextArea: React.FC<TextAreaProps> = ({
         placeholder={placeholder}
         required={required}
         onChange={onChange}
+        minLength={minLength}
+        maxLength={maxLength}
         {...props}
       />
       {helperText && <p className={textClasses}>{helperText}</p>}

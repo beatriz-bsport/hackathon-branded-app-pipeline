@@ -44,7 +44,11 @@ const ListLayoutComponent: React.FC<ListLayoutProps> = ({
   ...props
 }) => {
   return (
-    <main className={listLayout({ className })} {...props}>
+    <main
+      data-component="Kaizen-ListLayout"
+      className={listLayout({ className })}
+      {...props}
+    >
       {children}
     </main>
   );
@@ -90,7 +94,10 @@ const ListLayoutContent: React.FC<ListLayoutContentProps> = ({
   showScrollbar = false,
 }) => {
   return (
-    <div className={listLayoutContent({ className, showScrollbar })}>
+    <div
+      data-component="Kaizen-ListLayout-Content"
+      className={listLayoutContent({ className, showScrollbar })}
+    >
       {children}
     </div>
   );

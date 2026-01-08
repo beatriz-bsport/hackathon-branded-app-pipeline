@@ -166,6 +166,7 @@ const InnerTableWithContext = <RowType extends BaseRow>({
 
   return (
     <div
+      data-component="Kaizen-Table"
       className={table({ className })}
       {...props}
       aria-labelledby="table"

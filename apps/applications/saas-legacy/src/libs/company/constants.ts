@@ -2,6 +2,7 @@ export const STRIPE_CONFIGURATION_STEP = 1;
 export const BANK_ACCOUNT_CONFIGURATION_STEP = 2;
 export const PAYMENT_METHOD_CONFIGURATION_STEP = 3;
 export const ACCOUNT_CONFIGURATION_FINAL_STEP = 4;
+export const INVOICE_NUMBERING_CONFIGURATION_STEP = 5;
 
 export const PAYPAL_NOT_CONNECTED = 'not_connected';
 export const PAYPAL_CONNECTED = 'connected';

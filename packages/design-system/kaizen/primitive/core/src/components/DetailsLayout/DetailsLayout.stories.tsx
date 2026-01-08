@@ -29,7 +29,7 @@ export const ParentPage = () => (
 const { detailsLayoutProps } = useDetailsLayout();
 
 return (
-  <DetailsLayout {...detailsLayoutProps} openPanelByDefault>
+  <DetailsLayout {...detailsLayoutProps} withPanel>
     <DetailsLayout.Header
       pageTitle="User Profile"
       onEditTitleClick={() => toggleEditTitleInModal()}
@@ -109,13 +109,39 @@ export default meta;
 type Story = StoryObj<typeof DetailsLayout>;
 
 export const Primary: Story = {
-  name: "DetailsLayout with Panel (open by default)",
+  name: "DetailsLayout with Panel controller (open by default)",
   render: () => {
     const { detailsLayoutProps, toggleHasUnsavedChanges, toggleIsPanelOpened } =
       useDetailsLayout();
 
+    const { endGroupActions, isMobile } = DetailsLayout.useAdaptiveActions({
+      endGroupActions: [
+        <Button
+          key="chevron-right-button"
+          label="Toggle Panel"
+          iconLeft="chevron-right-double"
+          color="main"
+          intent="default"
+          size="md"
+          onClick={() => toggleIsPanelOpened()}
+        />,
+      ],
+      mobileOnlyActions: [
+        <Button
+          key="layout-details-button-edit-pack-name"
+          color="default"
+          intent="flat"
+          size="md"
+          icon="edit-02"
+          kind="icon-button"
+          label="Edit title"
+          onClick={() => console.log("You click on edit title !")}
+        />,
+      ],
+    });
+
     return (
-      <DetailsLayout {...detailsLayoutProps} openPanelByDefault>
+      <DetailsLayout {...detailsLayoutProps} withPanel>
         <DetailsLayout.Header
           pageTitle="Title"
           breadcrumbsItems={[
@@ -136,18 +162,12 @@ export const Primary: Story = {
               onClick={() => toggleHasUnsavedChanges()}
             />
           }
-          onEditTitleClick={() => console.log("You click on edit title !")}
-          endGroupActions={[
-            <Button
-              key="chevron-right-button"
-              label="Toggle Panel"
-              iconLeft="chevron-right-double"
-              color="main"
-              intent="default"
-              size="md"
-              onClick={() => toggleIsPanelOpened()}
-            />,
-          ]}
+          onEditTitleClick={
+            isMobile
+              ? undefined
+              : () => console.log("You click on edit title !")
+          }
+          endGroupActions={endGroupActions}
         />
         <DetailsLayout.Confirmation
           onSave={() => {

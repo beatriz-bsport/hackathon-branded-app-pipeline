@@ -207,6 +207,7 @@ const CollapseContent: React.FC<CollapseContentProps> = ({
   const Content = () => (
     <>
       <div
+        data-component="Kaizen-NavigationMenu-Item-Content"
         className={cx(
           "flex transition-all duration-normal items-center gap-xs overflow-hidden",
           {

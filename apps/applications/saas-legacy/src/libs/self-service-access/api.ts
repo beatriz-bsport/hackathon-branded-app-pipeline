@@ -26,7 +26,6 @@ export async function fetchDoorsNearby(
   { latitude, longitude }: GeolocationCoordinates,
 ) {
   const params = new URLSearchParams({
-    nearby: 'true',
     latitude: latitude.toString(),
     longitude: longitude.toString(),
   });
@@ -39,10 +38,14 @@ export async function fetchDoorsNearby(
   );
 }
 
-export async function unlockDoor(companyId: number, doorId: string) {
+export async function unlockDoor(
+  companyId: number,
+  doorId: string,
+  { latitude, longitude }: GeolocationCoordinates,
+) {
   return postAuth<DoorUnlockOutput>(
     `${API_V1_URI}/self-service-access/door/${doorId}/unlock/`,
-    {},
+    { latitude, longitude },
     DEFAULT_TOKEN,
     DEFAULT_CANCEL_TOKEN,
     DEFAULT_LOCK_OPTION,

@@ -80,17 +80,6 @@ export const getLocalNow = ({
     .setLocale(locale ?? "en");
 
 /**
- * Gets the current date of today at 00h00:00
- *
- * @param params - Optional settings to configure the timezone (zone, locale)
- * @returns A Date
- */
-export const getToday = (params?: { zone?: string; locale?: string }) => {
-  const localNow = getLocalNow(params ?? {});
-  return toDate(localNow.startOf("day"));
-};
-
-/**
  * Retrieves all days in the month of the provided DateTime.
  *
  * @param date - The DateTime representing any day in the month.
@@ -160,15 +149,15 @@ export const getWeekStartDayFromLocale = (locale: string): WeekStartDay => {
  * @returns An object with start and end Date objects representing the week boundaries.
  */
 export const getWeekBounds = (
-  date: Date,
+  date: DateTime,
   locale: string = "en-GB",
-): { start: Date; end: Date } => {
-  const dateTime = toDateTime(date).setLocale(locale);
+): { start: DateTime; end: DateTime } => {
+  const dateTime = date.setLocale(locale);
   const startOfWeek = dateTime.startOf("week", { useLocaleWeeks: true });
   const endOfWeek = dateTime.endOf("week", { useLocaleWeeks: true });
   return {
-    start: toDate(startOfWeek),
-    end: toDate(endOfWeek),
+    start: startOfWeek,
+    end: endOfWeek,
   };
 };
 
@@ -214,6 +203,10 @@ export const getIsoDateString = (date: Date): string => {
   return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
     .toISOString()
     .split("T")[0];
+};
+
+export const getIsoDate = (date: DateTime): string => {
+  return date.toISODate() ?? "";
 };
 
 /**

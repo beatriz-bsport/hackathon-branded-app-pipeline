@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import type { FC } from "react";
 
 import { Body, Illustration, List } from "@bsport/kaizen-primitive-core";
 
@@ -25,6 +25,7 @@ type PackFormContentItemsProps = {
   }) => void;
   onItemClick?: (formattedData: FormattedData) => void;
   clickedItem?: FormattedData | null;
+  isDirtySelection: boolean;
 };
 
 const VariantList = ({
@@ -56,6 +57,7 @@ const VariantList = ({
     variant,
     getExtraConfig: (data) => {
       return {
+        className: onItemClick ? "hover:cursor-pointer" : "",
         isActive: Boolean(
           clickedItem &&
             data.id === clickedItem.id &&
@@ -99,26 +101,29 @@ const VariantList = ({
   );
 };
 
-const EmptyCardList = memo(() => {
+const EmptyCardList: FC<{ isDirtySelection: boolean }> = ({
+  isDirtySelection,
+}) => {
   const { t } = useTranslation("details");
 
   return (
     <div className="my-xl flex flex-col items-center gap-xs">
       <Illustration name="no-search" />
-      <Body color="critical" size="lg">
+      <Body color={isDirtySelection ? "critical" : "default"} size="lg">
         {t("formFields.packContent.card.placeholder")}
       </Body>
     </div>
   );
-});
+};
 
-export const PackFormContentItems: React.FC<PackFormContentItemsProps> = ({
+export const PackFormContentItems: FC<PackFormContentItemsProps> = ({
   appointmentPasses,
   passes,
   removeVariantItem,
   webshopItems,
   onItemClick,
   clickedItem,
+  isDirtySelection,
 }) => {
   const { t } = useTranslation("details");
 
@@ -128,7 +133,7 @@ export const PackFormContentItems: React.FC<PackFormContentItemsProps> = ({
   const itemsById = useItemsById();
 
   if (!hasSelectedItems) {
-    return <EmptyCardList />;
+    return <EmptyCardList isDirtySelection={isDirtySelection} />;
   }
 
   return (

@@ -97,6 +97,7 @@ const Link: React.FC<LinkProps> = ({
 }) => {
   return (
     <Wrapper
+      data-component="Kaizen-Link"
       className={cx(link({ className, color, weight }), "group", {
         "cursor-pointer": !!href || !!onClick,
       })}

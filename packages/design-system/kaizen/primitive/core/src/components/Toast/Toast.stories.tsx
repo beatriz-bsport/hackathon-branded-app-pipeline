@@ -5,7 +5,7 @@ import Button from "#src/components/Button";
 import { icons } from "#src/components/Icon";
 
 import Toast, { statuses } from "./Toast";
-import { toast } from "./ToastManager";
+import { dismissToast, toast } from "./ToastManager";
 
 /**
  * Renders a toast notification.<br>
@@ -135,5 +135,55 @@ export const ToastActionUndoneConfiguration: Story = {
     onButtonClick: () => console.log("Button clicked!"),
     onDismiss: () => null,
     duration: 5000,
+  },
+};
+
+export const IndefiniteToaster: Story = {
+  render: (args) => {
+    const [toastId, setToastId] = React.useState<string | null>(null);
+    const onShowClick = () => {
+      if (!toastId) {
+        const id = toast({
+          ...args,
+          duration: 0,
+          onDismiss: () => setToastId(null),
+        });
+        setToastId(id);
+      }
+    };
+
+    const onDismissClick = () => {
+      if (toastId) {
+        dismissToast(toastId);
+        setToastId(null);
+      }
+    };
+
+    return (
+      <div className="flex items-center gap-md">
+        <Button
+          label="Show Toast"
+          size="md"
+          intent="default"
+          color="main"
+          onClick={onShowClick}
+        />
+        <Button
+          label="Dismiss Toast"
+          size="md"
+          intent="call-to-action"
+          color="critical"
+          onClick={onDismissClick}
+        />
+      </div>
+    );
+  },
+  args: {
+    status: "default",
+    title: "This is a nice title here.",
+    description: "This is a beautiful toast.",
+    icon: "message-alert-square",
+    onDismiss: () => null,
+    duration: 0,
   },
 };

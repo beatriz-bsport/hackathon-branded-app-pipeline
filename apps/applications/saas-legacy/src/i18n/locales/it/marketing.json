@@ -1031,7 +1031,7 @@
             "reminder": {
               "actions": {
                 "push_notification": {
-                  "text": "{firstname}, non dimenticare che hai articoli nel carrello pronti per l’acquisto.\nTeam {company}",
+                  "text": "{firstname}, non dimenticare che hai articoli nel carrello pronti per l’acquisto!\nTeam {company}",
                   "subject": "Non perdere l’occasione!"
                 }
               },
@@ -1043,13 +1043,13 @@
                   "subject": "Hai dimenticato qualcosa?"
                 },
                 "push_notification": {
-                  "text": "Hai lasciato qualcosa indietro! Il tuo carrello è salvato e ti aspetta nello studio.\nTeam {company}",
+                  "text": "Hai dimenticato qualcosa! Il tuo carrello è stato salvato e ti aspetta in studio.\nTeam {company}",
                   "subject": "Ehi {firstname}!"
                 }
               }
             }
           },
-          "description": "Recupera vendite perse. Coinvolgi automaticamente clienti o lead che hanno aggiunto prodotti (pass, abbonamenti, retail) al carrello.",
+          "description": "Recupera vendite perse. Coinvolgi automaticamente clienti o lead che hanno aggiunto prodotti (pass, abbonamenti, prodotti) al carrello.",
           "name": "Recupera carrelli abbandonati"
         }
       },
@@ -1057,7 +1057,7 @@
         "title": "Scegli un template o crea un nuovo {{ workflowLowerCase }} "
       },
       "createFromScratchDescription": "Crea un {{ workflowLowerCase }} per automatizzare le azioni di Audience.",
-      "useTemplate": "Usa template",
+      "useTemplate": "Utilizza template",
       "createFromScratch": "Crea nuovo {{ workflowLowerCase }}"
     },
     "upsells": {

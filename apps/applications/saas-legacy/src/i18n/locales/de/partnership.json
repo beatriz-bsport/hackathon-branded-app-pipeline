@@ -58,7 +58,7 @@
           "deletion": "Einheit ID löschen"
         },
         "field": {
-          "unitId": {
+          "externalId": {
             "placeholder": "Einheit ID Nummer",
             "error": {
               "required": "Einheit ID ist notwendig",
@@ -94,13 +94,13 @@
           "helperText": "Beantragen Sie zunächst die Integration mit bsport auf dem Wellhub-Partnerportal für jede Einheit",
           "table": {
             "column": {
-              "unit": "Einheit ID",
+              "externalId": "Einheit ID",
               "establishments": "Einrichtungen"
             }
           }
         },
         "footer": {
-          "addUnitButton": "Einheit ID hinzufügen"
+          "addConnectionButton": "Einheit ID hinzufügen"
         }
       }
     },

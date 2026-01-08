@@ -528,7 +528,6 @@ export type OfferCreate = {
   wellhub_product_id?: WellhubProductId | null;
   whitelist_tags: number[];
   recurrence_id?: string;
-  hour?: number;
 };
 
 export type OfferEdit = Omit<OfferCreate, 'dates' | 'credits' | 'is_hybrid'> & {

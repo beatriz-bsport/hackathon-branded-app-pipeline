@@ -1,9 +1,8 @@
-import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
-
 import type {
   FetchEstablishmentParams,
   SearchEstablishmentParams,
-} from "#src/types";
+} from "@bsport/api-core";
+import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 
 const ESTABLISHMENT_API_URL = "core-data/v1/establishment";
 

@@ -16,7 +16,7 @@
   "error": {
     "invalidPassword": "Invalid password",
     "invalidEmail": "This email does not exist in our database",
-    "authError": "Email or password wrong"
+    "authError": "Invalid email or password"
   },
   "actions": {
     "forgottenPassword": "Forgot your password?",
@@ -176,6 +176,7 @@
     "welcomeConfigure_plural": "Set up your account in just {{numberOfSteps}} steps!",
     "ibanStep": "IBAN",
     "cardStep": "Payment method",
+    "invoiceNumberingStep": "Invoice numbering set-up",
     "finishStep": "Complete!",
     "createStripe": "Stripe",
     "configureStripe": "It's required to configure your Stripe account to continue.",

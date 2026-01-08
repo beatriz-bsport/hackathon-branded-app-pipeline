@@ -69,6 +69,9 @@ export type FetchWebshopCategoriesParams = {
 
   /** Number of items per page (for pagination). */
   page_size?: number;
+
+  /** Include only webshop categories whose IDs are in this list. */
+  id__in?: number[];
 };
 
 // #endregion

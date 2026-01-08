@@ -48,6 +48,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
 
   return (
     <li
+      data-component="Kaizen-Menu-Item"
       role="menuitem"
       className={menuItem({ className })}
       {...liHTMLAttributesProps}

@@ -83,7 +83,11 @@ const EmptyState: FC<EmptyStateProps> = ({
     : undefined;
 
   return (
-    <div className={emptyState({ className })} {...props}>
+    <div
+      data-component="Kaizen-EmptyState"
+      className={emptyState({ className })}
+      {...props}
+    >
       <Illustration
         name={variant === "no-results-found" ? "no-search" : "empty"}
       />

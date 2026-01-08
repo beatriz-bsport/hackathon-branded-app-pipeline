@@ -80,6 +80,7 @@ const Body: React.FC<BodyProps> = ({
   }, [htmlVariant]);
   return (
     <Component
+      data-component="Kaizen-Body"
       className={body({ className, size, color, weight })}
       {...props}
     />

@@ -75,7 +75,7 @@ const TableHeader = <RowType extends BaseRow>({
   );
 
   return (
-    <div className="table-header-group">
+    <div data-component="Kaizen-Table-Header" className="table-header-group">
       <div className="table-row bg-surface-default-weaker">
         {selectable && (
           <TableCell

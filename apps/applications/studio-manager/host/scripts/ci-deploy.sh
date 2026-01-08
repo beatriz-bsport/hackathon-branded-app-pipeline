@@ -9,6 +9,13 @@ if [ -n "$2" ]; then
   echo "Using provided list of affected projects"
   # Convert literal \n to actual newlines
   APPLICATIONS=$(echo "$2" | sed "s/,/\n/g")
+
+  # Always include sm-host to ensure release SHA is injected into index.html
+  if ! echo "$APPLICATIONS" | grep -q "@bsport/sm-host"; then
+    echo "Adding @bsport/sm-host to deploy list for release SHA injection"
+    APPLICATIONS="@bsport/sm-host
+$APPLICATIONS"
+  fi
 else
   # Fall back to the fixed list of applications from apps.txt
   echo "Using fixed list of applications from apps.txt"
@@ -21,7 +28,9 @@ echo "⏳ Deploying Studio Manager applications"
 ENVIRONMENT=$1
 
 if [ "$ENVIRONMENT" = "feature-branch" ]; then
-  FEATURE_BRANCH_IDENTIFIER=$(echo $CI_COMMIT_TAG | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p')
+  # Extract FEATURE_BRANCH_IDENTIFIER, FORCE and FRONTEND_ONLY from CI_COMMIT_TAG
+  REPO_ROOT="$(git rev-parse --show-toplevel)"
+  . $REPO_ROOT/tools/scripts/parse-feature-branch-id.sh "$CI_COMMIT_TAG"
   S3_BUCKET="s3://bsport-backoffice-assets-feature-branch-$FEATURE_BRANCH_IDENTIFIER"
   FRONTEND_URL="backoffice-$FEATURE_BRANCH_IDENTIFIER.chaos.bsport.io"
   CLOUDFRONT_ID=$(grep "^$FEATURE_BRANCH_IDENTIFIER " ci/feature-branch-listing.txt | cut -d' ' -f2)
@@ -106,6 +115,12 @@ for APPLICATION in $APPLICATIONS; do
   if [ ! -d "./dist" ]; then
     echo "❌ Error: dist directory does not exist in $(pwd)"
     exit 1
+  fi
+
+  # For sm-host only, inject the release SHA into index.html
+  if [ "$APPLICATION" = "@bsport/sm-host" ]; then
+    echo "📦 Injecting release SHA ($CI_COMMIT_SHORT_SHA) into index.html"
+    sed -i'' -e "s/__RELEASE_SHA_PLACEHOLDER__/$CI_COMMIT_SHORT_SHA/g" ./dist/index.html
   fi
 
   echo "📦 Uploading dist to $S3_URL"

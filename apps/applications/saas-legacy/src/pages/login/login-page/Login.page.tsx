@@ -190,7 +190,6 @@ export class ConsumerLoginPage extends Component<Props> {
               context={context}
               doEmailLogin={this.props.doEmailLogin}
               error={!!this.props.errorLogin}
-              errorFields={this.props.errorFields}
               franchisor={franchisor}
               isPremium={this.props.is_premium}
               loading={this.props.loginProcessing}
@@ -295,9 +294,6 @@ const mapStateToProps = (
   authenticated: state.auth.authenticated,
   errorLogin: state.auth.error,
   loginProcessing: state.auth.loading,
-  errorFields: state.auth.invalidFields,
-  checkEmailExistsLoading: state.auth.emailExists.loading,
-  emailExists: state.auth.emailExists.exists,
   is_premium: state.theme.theme.is_premium,
   franchisor: !!franchisorId && getFranchisor(state),
   franchiseThemeLoading: !!franchisorId && getFranchiseThemeLoading(state),

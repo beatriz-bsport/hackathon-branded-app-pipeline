@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       dts({
-        rollupTypes: true, // Don't emit extra .d.ts files
+        rollupTypes: false, // Don't emit extra .d.ts files
         insertTypesEntry: true, // Generates a types entry file
       }),
     ],

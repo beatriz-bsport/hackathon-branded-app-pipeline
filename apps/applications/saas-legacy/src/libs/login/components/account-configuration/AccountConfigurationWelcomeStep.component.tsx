@@ -30,6 +30,7 @@ export const AccountConfigurationWelcomeStep: React.FC<Props> = ({
       has_visited_bank_account_configuration: false,
       has_no_need_for_payment_method_configuration,
       has_visited_payment_method_configuration: false,
+      has_visited_invoice_numbering_step: false,
       no_last_step: true,
       has_visited_last_step: false,
     });

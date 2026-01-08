@@ -48,21 +48,27 @@ export const generateTimeOptions = (
 };
 
 /**
- * Converts a selected time and meridiem to a Date object.
+ * Converts a selected time and meridiem to a string in "HH:mm" format.
+ * If the meridiem is used, it converts to 24-hour format. Otherwise, it returns the time as is.
+ *
  * @param selectedTime Time string in "HH:mm" format.
  * @param selectedMeridiem "AM" or "PM" (used if meridiem is true).
  * @param meridiem Whether to use 12-hour (AM/PM) format.
  */
-export const buildDateFromSelection = (
+export const formatTimeFromSelection = (
   selectedTime: string | undefined,
   selectedMeridiem: "AM" | "PM",
   meridiem?: boolean,
-): Date | undefined => {
+): string | undefined => {
   if (!selectedTime) return undefined;
 
-  const [rawHour, minute] = selectedTime.split(":").map(Number);
+  if (!meridiem) {
+    return selectedTime;
+  }
+  const [rawHourStr, minuteStr] = selectedTime.split(":");
+  const rawHour = parseInt(rawHourStr, 10);
 
-  if (Number.isNaN(rawHour) || Number.isNaN(minute)) return undefined;
+  if (Number.isNaN(rawHour)) return undefined;
 
   // Convert to 24-hour format if needed
   const hour = meridiem
@@ -70,9 +76,7 @@ export const buildDateFromSelection = (
       (selectedMeridiem === "PM" ? HOURS_IN_HALF_DAY : 0)
     : rawHour;
 
-  const date = new Date();
-  date.setHours(hour, minute, 0, 0);
-  return date;
+  return `${hour.toString().padStart(2, "0")}:${minuteStr}`;
 };
 
 /**

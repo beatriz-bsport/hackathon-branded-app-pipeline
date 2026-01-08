@@ -37,14 +37,19 @@ import TaxDisplayForm from '#src/libs/theme/components/TaxDisplay.form';
 import ProvincialTaxForm from '#src/libs/theme/components/ProvincialTax.form';
 import NumberInput from '#src/components/input/NumericInput.component';
 import VerifactuSettings from '#src/libs/invoice/verifactu/VerifactuSettings.component.tsx';
+import InvoiceSequentialNumberingSettings from '#src/libs/invoice/components/InvoiceSequentialNumberingSettings.component.tsx';
 
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import { getCompanyCountry } from '#src/libs/theme/selectors';
 import type { CompanyTheme } from '../../theme/types';
+import {
+  FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
-type Props = {
+type Props = FeatureFlagProps & {
   classes: any,
   t: TFunction,
   configuration: {
@@ -173,7 +178,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, isInvoiceSequentialNumberingEnabled } = this.props;
     const isCompanyGerman = this.isCompanyGerman();
     const isCompanySpanish = this.isCompanySpanish();
     return (
@@ -420,6 +425,11 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                 </Button>
               </div>
             </Paper>
+          )}
+          {isInvoiceSequentialNumberingEnabled && (
+            <div className={classes.content}>
+              <InvoiceSequentialNumberingSettings />
+            </div>
           )}
           <Paper className={classes.paper}>
             <div className={classes.header}>
@@ -821,4 +831,5 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['invoice']),
   withStyles(styles),
+  withFeatureFlags,
 )(InvoiceConfigurationForm);

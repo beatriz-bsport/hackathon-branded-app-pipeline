@@ -1,4 +1,18 @@
-export const RELEASE_SHA = process.env.VITE_RELEASE_SHA;
+// Runtime value takes precedence (injected at deployment time)
+// Falls back to build-time value for local development
+const getReleaseVersion = (): string | undefined => {
+  if (typeof window !== "undefined") {
+    const runtimeSha = (window as Window & { __BSPORT_RELEASE_SHA__?: string })
+      .__BSPORT_RELEASE_SHA__;
+    // Only use runtime value if it's been replaced (not the placeholder)
+    if (runtimeSha && runtimeSha !== "__RELEASE_SHA_PLACEHOLDER__") {
+      return runtimeSha;
+    }
+  }
+  return process.env.VITE_RELEASE_SHA;
+};
+
+export const RELEASE_SHA = getReleaseVersion();
 
 export const INTERCOM_APP_ID = "q6foivp2";
 

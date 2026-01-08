@@ -9,10 +9,14 @@ include:
   interruptible: true
   script:
     - echo "Start deploying feature branch ..."
-    # Extract environment from CI_COMMIT_TAG
+    - DEPLOY_ENVIRONMENT="feature-branch"
+    # Extract FEATURE_BRANCH_IDENTIFIER, FORCE and FRONTEND_ONLY from CI_COMMIT_TAG
+    - . ./tools/scripts/parse-feature-branch-id.sh "$CI_COMMIT_TAG"
     - |
-      FEATURE_BRANCH_IDENTIFIER=$(echo "$CI_COMMIT_TAG" | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p')
-      DEPLOY_ENVIRONMENT="feature-branch"
+      if [ "$FORCE" = "true" ]; then
+        echo "Forcing the redeployment of all assets"
+      fi
+    - |
       if [ "$FRONTEND_ONLY" = "true" ]; then
         # For frontend-only deployments, use dev API but deploy to feature-branch environment
         API_ENVIRONMENT_FLAG="dev"
@@ -29,7 +33,7 @@ include:
     - pnpm exec nx run @bsport/fetch:build --excludeTaskDependencies
     - echo "Rebuilding sm-backbone with new version of fetch"
     - pnpm exec nx run @bsport/sm-backbone:build --excludeTaskDependencies
-    - bash tools/scripts/deploy.sh origin/dev "$DEPLOY_ENVIRONMENT" "$API_ENVIRONMENT_FLAG" "$FRONTEND_ONLY_ARG"
+    - bash tools/scripts/deploy.sh origin/dev "$DEPLOY_ENVIRONMENT" "$API_ENVIRONMENT_FLAG" "$FRONTEND_ONLY_ARG" "$FORCE"
 
 Deploy Feature Branch Frontend Only:
   extends: .Deploy Feature Branch Base

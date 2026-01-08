@@ -1,3 +1,5 @@
+import type { CommunicationKind, EventKind } from "./constants";
+
 /**
  * Smartlist type from the API
  * Endpoint: GET /api/v1/smartlist/group/{id}
@@ -14,22 +16,13 @@ export type Smartlist = {
 /**
  * Automated Campaign type from the API
  * Endpoint: GET /api/v1/smartlist/automated_campaign/
- *
- * event_kind values:
- *   0 = SEND_COMMUNICATION_ON_JOIN (when member enters smartlist)
- *   1 = SEND_COMMUNICATION_ON_LEFT (when member leaves smartlist)
- *
- * communication_kind values:
- *   0 = EMAIL
- *   1 = SMS
- *   2 = PUSH_NOTIFICATION
  */
 export type AutomatedCampaign = {
   id: number;
   company: number;
   smartlist: number;
-  event_kind: number;
-  communication_kind: number;
+  event_kind: EventKind;
+  communication_kind: CommunicationKind;
   text: string | null;
   email_design: number | null;
   title: string | null;
@@ -44,4 +37,48 @@ export type AutomatedCampaign = {
 export type FetchAutomatedCampaignsParams = {
   smartlist_id: string;
   exclude_disabled?: boolean;
+};
+
+/**
+ * Campaign Sent type (with analytics) from the API
+ * Endpoint: GET /api/v1/communication/communication_sent/
+ *
+ * This contains the analytics data for campaigns that have been sent,
+ * including automated campaigns.
+ */
+export type CampaignSent = {
+  uuid: string;
+  total_recipients: number;
+  total_read: number;
+  total_click: number;
+  date_created: string;
+  kind: CommunicationKind;
+  metadata: {
+    smartlist_id?: number;
+    automated_campaign_id?: number;
+  };
+};
+
+/**
+ * Query params for fetching campaign sent data
+ */
+export type FetchCampaignSentParams = {
+  smartlist: number;
+  only_automated_campaign: boolean;
+  page_size?: number;
+  page?: number;
+};
+
+/**
+ * Combined type that includes automated campaign config + analytics
+ */
+export type AutomatedCampaignWithAnalytics = {
+  id: number;
+  event_kind: EventKind;
+  communication_kind: CommunicationKind;
+  date_created: string;
+  title: string | null;
+  total_recipients: number;
+  total_read: number;
+  total_click: number;
 };

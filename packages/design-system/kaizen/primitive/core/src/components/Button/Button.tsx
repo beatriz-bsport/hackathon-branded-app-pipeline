@@ -190,6 +190,7 @@ const Button: React.FC<Props> = ({
   return (
     <button
       role="button"
+      data-component="Kaizen-Button"
       aria-label={ariaLabel}
       aria-busy={loading ? "true" : "false"}
       aria-disabled={props.disabled ? "true" : "false"}

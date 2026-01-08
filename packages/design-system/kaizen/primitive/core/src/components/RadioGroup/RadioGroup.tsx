@@ -56,7 +56,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   };
 
   return (
-    <div className="flex flex-col gap-xs">
+    <div data-component="Kaizen-RadioGroup" className="flex flex-col gap-xs">
       {label && (
         <label
           htmlFor={id}

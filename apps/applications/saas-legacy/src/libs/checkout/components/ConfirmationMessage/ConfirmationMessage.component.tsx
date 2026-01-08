@@ -18,8 +18,10 @@ export type Props = {
   offers: OfferWithSpotInformation[];
   checkoutItems: CheckoutItem[];
   billingPlan: Subscription;
+  hasDoorAccess?: boolean;
   goToCalendar?: () => void;
   goToMemberProfile?: () => void;
+  goToMemberProfilePage?: () => void;
   goToMemberPasses?: () => void;
   goToMemberSubscriptions?: () => void;
   goToMemberBookings?: () => void;
@@ -47,12 +49,14 @@ const ConfirmationMessage: React.FC<Props> = ({
   goBack,
   goToCalendar,
   goToMemberProfile,
+  goToMemberProfilePage,
   goToMemberBookings,
   goToMemberPasses,
   goToMemberSubscriptions,
   offers,
   checkoutItems,
   billingPlan,
+  hasDoorAccess = false,
 }) => {
   const messageData = useConfirmationMessageData(
     offers,
@@ -60,9 +64,11 @@ const ConfirmationMessage: React.FC<Props> = ({
     goToCalendar,
     goBack,
     goToMemberProfile,
+    goToMemberProfilePage,
     goToMemberBookings,
     goToMemberPasses,
     goToMemberSubscriptions,
+    hasDoorAccess,
   );
 
   if (!messageData || !status) return null;

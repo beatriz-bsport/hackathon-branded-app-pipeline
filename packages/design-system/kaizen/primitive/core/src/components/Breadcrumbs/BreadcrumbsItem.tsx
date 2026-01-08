@@ -34,7 +34,13 @@ export const BreadcrumbsItem: React.FC<BreadcrumbItemProps> = ({
   onClick,
 }) => {
   return (
-    <Link icon={iconLeft} href={href} id={id} onClick={onClick}>
+    <Link
+      data-component="Kaizen-BreadcrumbsItem"
+      icon={iconLeft}
+      href={href}
+      id={id}
+      onClick={onClick}
+    >
       {isActive ? (
         <Body
           htmlVariant="span"

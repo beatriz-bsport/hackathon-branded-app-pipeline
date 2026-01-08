@@ -490,7 +490,7 @@ export const ModalStepForm: Story = {
               id="toggle-example"
               label="All good?"
               checked={checked}
-              onChange={() => setChecked(!checked)}
+              onToggleChange={() => setChecked(!checked)}
             />
           </div>
         ),

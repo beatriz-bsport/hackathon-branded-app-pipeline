@@ -1,6 +1,7 @@
 import { FC, useCallback } from "react";
 
 import {
+  type DateTime,
   getLocalNow,
   modifyTime,
   toDateTime,
@@ -29,7 +30,7 @@ export const RecurrenceEndDate: FC<{ fieldIdPrefix: string }> = ({
   const endDate = watch("recurrenceEndDate");
 
   const handleDateChange = useCallback(
-    (newDate: Date | null) => {
+    (newDate: DateTime | null) => {
       if (!newDate) {
         setValue("recurrenceEndDate", newDate, {
           shouldValidate: true,
@@ -38,7 +39,7 @@ export const RecurrenceEndDate: FC<{ fieldIdPrefix: string }> = ({
         return;
       }
 
-      const newDateTime = toDateTime(newDate, companyTimeZone);
+      const newDateTime = newDate?.setZone(companyTimeZone);
 
       setValue("recurrenceEndDate", newDateTime.toJSDate(), {
         shouldValidate: true,
@@ -49,10 +50,10 @@ export const RecurrenceEndDate: FC<{ fieldIdPrefix: string }> = ({
   );
 
   const disableDate = useCallback(
-    (date: Date) => {
+    (date: DateTime) => {
       if (!companyTimeZone) return false;
 
-      const dateDT = toDateTime(date, companyTimeZone);
+      const dateDT = date.setZone(companyTimeZone);
       const startDT = toDateTime(startDate, companyTimeZone);
 
       if (dateDT < startDT) {
@@ -75,8 +76,8 @@ export const RecurrenceEndDate: FC<{ fieldIdPrefix: string }> = ({
     <FormField<SessionCreationFormData, "recurrenceEndDate", DatePickerProps>
       name="recurrenceEndDate"
       mapProps={({ fieldState }) => ({
-        onSelect: (date) => handleDateChange(date as Date | null),
-        dateValue: endDate,
+        onSelect: (date) => handleDateChange(date as DateTime | null),
+        dateValue: toDateTime(endDate ?? new Date(), companyTimeZone),
         status: fieldState.error ? "error" : "default",
         statusText: fieldState.error?.message,
       })}

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@bsport/api-book": "workspace:*",
+    "@bsport/api-core": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",

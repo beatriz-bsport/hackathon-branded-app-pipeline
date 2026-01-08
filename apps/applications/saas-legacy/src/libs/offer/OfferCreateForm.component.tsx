@@ -376,7 +376,6 @@ const formikFormWrapper = withFormik<
       duration_minute: durationMinute,
       effectif,
       establishment,
-      hour: values.dateIntervalStart.hour,
       is_hybrid,
       level,
       manager_only: isManagerOnly,

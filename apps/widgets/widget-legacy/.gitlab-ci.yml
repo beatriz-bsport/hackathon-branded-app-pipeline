@@ -7,11 +7,9 @@ variables:
 #Cache dependencies across all jobs
 
 stages:
-  - prepare-image-docker
-    # - static-analysis
+  # - static-analysis
   - deploy
 
 include:
-  - local: '/ci/docker-image.yml'
   # - local: '/ci/lint.yml'
   - local: '/ci/build.yml'

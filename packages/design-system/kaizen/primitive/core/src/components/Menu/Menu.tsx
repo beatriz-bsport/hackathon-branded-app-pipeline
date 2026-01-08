@@ -113,7 +113,7 @@ const Menu: React.FC<MenuProps> = ({
   }, [items, multiSelect, disabled, selectedValues, handleSelectOption]);
 
   return (
-    <div className={className} {...props}>
+    <div data-component="Kaizen-Menu" className={className} {...props}>
       <ul
         role="menu"
         className="flex flex-col gap-xs"

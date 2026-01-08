@@ -8,6 +8,7 @@ import { RootState } from '../../../reducers';
 import {
   AccountConfigurationPaymentMethodStepUrl,
   AccountConfigurationStripeStepUrl,
+  AccountConfigurationInvoiceNumberingStepUrl,
 } from './AccountConfiguration.router';
 
 export type Props = ConnectedProps<typeof connector>;
@@ -18,6 +19,15 @@ export class AccountConfigurationWelcomeStepPage extends Component<Props> {
 
   goNext = () => {
     if (this.props.stripeCompany.has_no_need_for_stripe_configuration) {
+      if (
+        this.props.stripeCompany.has_no_need_for_payment_method_configuration &&
+        this.props.stripeCompany.has_no_need_for_bank_account_configuration &&
+        !this.props.stripeCompany
+          .has_completed_invoice_sequential_number_configuration
+      ) {
+        this.props.push(AccountConfigurationInvoiceNumberingStepUrl);
+        return;
+      }
       this.props.push(AccountConfigurationPaymentMethodStepUrl);
       return;
     }

@@ -32,15 +32,19 @@ This package configures Intercom for client communication and handling their req
 
 ### Release Tracking
 
-The package uses the `VITE_RELEASE_SHA` environment variable to track releases in Intercom. This is automatically configured in the CI pipeline via:
+The package uses `window.__BSPORT_RELEASE_SHA__` (injected at deployment time) to track releases in Intercom, with a fallback to `VITE_RELEASE_SHA` for local development.
 
-- `deploy-environment.yml`
-- `deploy-feature-branch.yml`
+**How it works:**
 
-The CI pipeline sets `VITE_RELEASE_SHA=$CI_COMMIT_SHORT_SHA` to associate errors with specific commits.
+1. The host app's `index.html` contains a placeholder: `window.__BSPORT_RELEASE_SHA__ = "__RELEASE_SHA_PLACEHOLDER__"`
+2. During deployment, the CI script replaces the placeholder with the actual commit SHA
+3. At runtime, Intercom reads from `window.__BSPORT_RELEASE_SHA__`
+4. For local development, it falls back to `VITE_RELEASE_SHA` if the placeholder hasn't been replaced
+
+This approach ensures correct release tracking even when Nx Remote Cache serves cached builds, since the SHA is injected post-build during deployment.
 
 ### Required Environment Variables
 
-The following environment variables must be configured for Sentry to work properly:
+The following environment variables can be configured:
 
-- `VITE_RELEASE_SHA`: The commit SHA for release tracking
+- `VITE_RELEASE_SHA`: (Optional) The commit SHA for release tracking in local development

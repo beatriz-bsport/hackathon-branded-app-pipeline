@@ -1,7 +1,13 @@
 export enum SessionFilterTypes {
   ACTIVITY_TYPE = "activity-type",
-  VISIBILITY = "visibility",
+  ACTIVITY_CATEGORY = "activity-category",
+  ACTIVITY_NAME = "activity-name",
+  ESTABLISHMENT = "establishment",
+  LOCATION = "location",
+  LEVEL = "level",
+  TEACHER = "teacher",
   TEACHER_SUBSTITUTION = "teacher-substitution",
+  VISIBILITY = "visibility",
 }
 
 export enum SessionFilters {

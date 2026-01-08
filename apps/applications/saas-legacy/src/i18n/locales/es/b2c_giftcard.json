@@ -1,9 +1,9 @@
 {
   "giftcardCustomAmount": {
-    "customAmount": "Valor personalizado",
+    "customAmount": "Importe personalizado",
     "form": {
       "priceInput": {
-        "label": "Valor personalizado",
+        "label": "Importe personalizado",
         "helperText": "Introduce un número entero entre {{ minPrice }} y {{ maxPrice }}"
       }
     }

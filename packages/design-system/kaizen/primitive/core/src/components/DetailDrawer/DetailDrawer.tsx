@@ -231,6 +231,7 @@ const DetailDrawerComponent: React.FC<ComponentProps> = ({
 
   return (
     <aside
+      data-component="Kaizen-DetailDrawer"
       ref={drawerRef}
       className={detailDrawer({
         openByOrientation: openByOrientation,

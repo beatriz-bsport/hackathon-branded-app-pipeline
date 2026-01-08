@@ -107,10 +107,6 @@ export const fetchGroupActivitiesAndWorkshops = async (
  * Searches a paginated list of group activities based on the provided parameters.
  *
  * @param params - The parameters for searching group activities.
- * @param params.customerEnabled - Whether customer-related activities should be included.
- * @param params.page - The current page number (by default 1).
- * @param params.pageSize - The number of items per page (by default 10).
- * @param params.searchQuery - The search query string.
  */
 const searchGroupActivitiesAPI = (
   params: SearchGroupActivitiesParams,

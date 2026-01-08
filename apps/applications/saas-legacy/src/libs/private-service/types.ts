@@ -209,6 +209,7 @@ export type PrivatePass<LPP = number | null> = {
   on_behalf_of_teacher: boolean;
   tags_on_consumer_item_creation?: Array<number>;
   bookkeeping_account?: number;
+  grants_door_access?: boolean;
 };
 
 export type PrivatePassWithDetailedPrivateServices = PrivatePass & {

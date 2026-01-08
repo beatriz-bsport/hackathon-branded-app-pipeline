@@ -36,6 +36,10 @@ import type {
   BulkExportRequestErrorResults,
   OnboardingRequirementsResponse,
   FiskalySignEsInvoiceDetails,
+  SequentialNumberingStatusResponse,
+  InitializeLegalIdentifierLegacyResponse,
+  InitializeLegalIdentifierLegacyRequest,
+  InitializeLegalIdentifierOnboarding,
 } from '#src/libs/invoice/types';
 import type { PaymentItem } from '#src/libs/invoice/payment/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
@@ -80,6 +84,9 @@ import {
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAPI,
   changePaymentMethodAndRegisterPlannedPaymentEvent as changePaymentMethodAndRegisterPlannedPaymentEventAPI,
   getReceiptUrl as getReceiptUrlAPI,
+  getSequentialNumberingStatus as getSequentialNumberingStatusAPI,
+  initializeLegalIdentifierLegacy as initializeLegalIdentifierLegacyAPI,
+  initializeLegalIdentifierOnboarding as initializeLegalIdentifierOnboardingAPI,
   checkFiskalyOnboardingStatus as checkFiskalyOnboardingStatusAPI,
   getFiskalyOnboardingRequirements as getFiskalyOnboardingRequirementsAPI,
   onboardFiskalyCompany as onboardFiskalyCompanyAPI,
@@ -1375,6 +1382,101 @@ export function applyGiftcardOnInvoice(
       dispatch(applyGiftcardOnInvoiceActions.error(error));
     }
     dispatch(applyGiftcardOnInvoiceActions.isLoading(false));
+  };
+}
+
+export const getSequentialNumberingStatusActions = {
+  isLoading: createAction<boolean>(
+    'SEQUENTIAL_NUMBERING/GET_STATUS/IS_LOADING',
+  ),
+  error: createAction<Error | null>('SEQUENTIAL_NUMBERING/GET_STATUS/ERROR'),
+  success: createAction<SequentialNumberingStatusResponse>(
+    'SEQUENTIAL_NUMBERING/GET_STATUS/SUCCESS',
+  ),
+};
+
+export function getSequentialNumberingStatus(
+  options?: OptionCallback<SequentialNumberingStatusResponse>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(getSequentialNumberingStatusActions.isLoading(true));
+    dispatch(getSequentialNumberingStatusActions.error(null));
+    try {
+      const response = await getSequentialNumberingStatusAPI();
+      dispatch(getSequentialNumberingStatusActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(getSequentialNumberingStatusActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(getSequentialNumberingStatusActions.isLoading(false));
+  };
+}
+
+export const initializeLegalIdentifierLegacyActions = {
+  isLoading: createAction<boolean>(
+    'INVOICE_SEQUENTIAL_NUMBERING/INITIALIZE_LEGACY/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'INVOICE_SEQUENTIAL_NUMBERING/INITIALIZE_LEGACY/ERROR',
+  ),
+  success: createAction<InitializeLegalIdentifierLegacyResponse>(
+    'INVOICE_SEQUENTIAL_NUMBERING/INITIALIZE_LEGACY/SUCCESS',
+  ),
+};
+
+export function initializeLegalIdentifierLegacy(
+  data: InitializeLegalIdentifierLegacyRequest,
+  options?: OptionCallback<InitializeLegalIdentifierLegacyResponse>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(initializeLegalIdentifierLegacyActions.isLoading(true));
+    dispatch(initializeLegalIdentifierLegacyActions.error(null));
+    try {
+      const response = await initializeLegalIdentifierLegacyAPI(data);
+      dispatch(initializeLegalIdentifierLegacyActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(initializeLegalIdentifierLegacyActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(initializeLegalIdentifierLegacyActions.isLoading(false));
+  };
+}
+
+export const initializeLegalIdentifierOnboardingActions = {
+  isLoading: createAction<boolean>(
+    'INVOICE_SEQUENTIAL_NUMBERING/INITIALIZE_ONBOARDING/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'INVOICE_SEQUENTIAL_NUMBERING/INITIALIZE_ONBOARDING/ERROR',
+  ),
+  success: createAction<InitializeLegalIdentifierOnboarding>(
+    'INVOICE_SEQUENTIAL_NUMBERING/INITIALIZE_ONBOARDING/SUCCESS',
+  ),
+};
+
+export function initializeLegalIdentifierOnboarding(
+  data: InitializeLegalIdentifierOnboarding,
+  options?: OptionCallback<InitializeLegalIdentifierOnboarding>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(initializeLegalIdentifierOnboardingActions.isLoading(true));
+    dispatch(initializeLegalIdentifierOnboardingActions.error(null));
+    try {
+      const response = await initializeLegalIdentifierOnboardingAPI(data);
+      dispatch(
+        initializeLegalIdentifierOnboardingActions.success(response.data),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(initializeLegalIdentifierOnboardingActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(initializeLegalIdentifierOnboardingActions.isLoading(false));
   };
 }
 

@@ -42,6 +42,7 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
 
   return (
     <div
+      data-component="Kaizen-HeaderLayout-PageActionsSection"
       className={classNames("px-md", {
         "border border-stroke-weak border-b-solid border-b-stroke-thin":
           !!pageTabs,

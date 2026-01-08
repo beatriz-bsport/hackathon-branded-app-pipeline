@@ -27,14 +27,14 @@
       "appointments": "Appointments"
     },
     "memberships": {
-      "title": "Memberships",
+      "title": "Passes & Memberships",
       "passes": "Passes",
       "appointmentPasses": "Appointment Passes",
       "subscriptions": "Subscriptions"
     },
     "products": {
       "title": "Retail",
-      "webshop": "Webshop",
+      "webshop": "Products",
       "packs": "Packs",
       "giftcards": "Gift Cards",
       "videosAndEbooks": "On-Demand",

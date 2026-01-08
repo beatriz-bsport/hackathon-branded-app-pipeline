@@ -1,6 +1,6 @@
 export { fetchEstablishmentGroups, searchEstablishmentGroups } from "./api";
 export type {
   EstablishmentGroup,
-  FetchEstablishmentGroupParams,
-  SearchEstablishmentGroupParams,
+  FetchEstablishmentGroupQueryParams,
+  SearchEstablishmentGroupSearchParams,
 } from "./types";

@@ -33,32 +33,29 @@ export const PackDetailsEntry: FC = () => {
 
   // Items fetchers
   const { fetchPasses } = useFetchPasses({
-    onSuccess: () => {
+    onSuccess: (items) => {
       fetchPassCategories({
-        page: 1,
-        page_size: 100,
-        /** @todo Unlock when backend ready */
-        // id__in: items.map((item) => item.id),
+        id__in: items
+          .map((item) => item.category)
+          .filter((category) => category != null),
       });
     },
   });
   const { fetchAppointmentPasses } = useFetchAppointmentPasses({
-    onSuccess: () => {
+    onSuccess: (items) => {
       fetchAppointmentPassCategories({
-        page: 1,
-        page_size: 100,
-        /** @todo Unlock when backend ready */
-        // id__in: items.map((item) => item.id),
+        id__in: items
+          .map((item) => item.category)
+          .filter((category) => category != null),
       });
     },
   });
   const { fetchWebshopItems } = useFetchWebshopItems({
-    onSuccess: () => {
+    onSuccess: (items) => {
       fetchWebshopCategories({
-        page: 1,
-        page_size: 100,
-        /** @todo Unlock when backend ready */
-        // id__in: items.map((item) => item.id),
+        id__in: items
+          .map((item) => item.subshop)
+          .filter((category) => category != null),
       });
     },
   });

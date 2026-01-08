@@ -211,7 +211,11 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
 
   return (
     <TabsContext.Provider value={contextValue}>
-      <div className={tabsVariants({ className, orientation })} {...props}>
+      <div
+        data-component="Kaizen-Tabs"
+        className={tabsVariants({ className, orientation })}
+        {...props}
+      >
         {tabsItems}
       </div>
     </TabsContext.Provider>

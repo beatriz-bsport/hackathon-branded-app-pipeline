@@ -52,13 +52,13 @@
     "configuration": {
       "panel": {
         "footer": {
-          "addUnitButton": "Aggiungi Unità"
+          "addConnectionButton": "Aggiungi Unità"
         },
         "content": {
           "table": {
             "column": {
               "establishments": "Stabilimenti",
-              "unit": "Unità"
+              "externalId": "Unità"
             }
           },
           "helperText": "Per prima cosa richiedere l'integrazione con bsport sul Partner Portal di Wellhub, per ogni Unità",
@@ -87,7 +87,7 @@
             "title": "Stabilimenti",
             "placeholder": "Collegate il/i vostro/i stabilimento/i bsport"
           },
-          "unitId": {
+          "externalId": {
             "error": {
               "unavailable": "ID dell'unità non disponibile",
               "positive": "L'ID dell'unità deve essere un numero positivo",

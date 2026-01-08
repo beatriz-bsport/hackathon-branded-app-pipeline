@@ -205,7 +205,6 @@ export class ConsumerChangeEmailRequestPage extends Component<Props> {
             doEmailLogin={this.props.doEmailLogin}
             emailChoices={this.props.changeEmailRequestEmailChoices}
             error={!!this.props.errorLogin}
-            errorFields={this.props.errorFields}
             isPremium={this.props.theme.is_premium}
             loading={this.props.loginProcessing}
             onRequestResetPassword={() => {}} // TODO: verify optional prop
@@ -261,7 +260,6 @@ const connector = connect(
     loading: state.member.change_email_request.loading,
     errorLogin: state.auth.error,
     loginProcessing: state.auth.loading,
-    errorFields: state.auth.invalidFields,
   }),
   {
     retrieveChangeEmailRequest,

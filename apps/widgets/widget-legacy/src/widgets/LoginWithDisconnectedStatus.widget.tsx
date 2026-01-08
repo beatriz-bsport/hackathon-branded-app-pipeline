@@ -1,4 +1,10 @@
-import React from 'react';
+import React, {
+  FC,
+  useEffect,
+  useMemo,
+  useCallback,
+  ReactElement,
+} from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 
 import LoginWithDisconnectedStatusSAAS, {
@@ -7,84 +13,65 @@ import LoginWithDisconnectedStatusSAAS, {
 import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 
 import { DisconnectedStatusWidgetConfig } from '@bsport/saas-legacy/src/libs/login/types';
-import {
-  bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction,
-  createAuthenticatedBridgeAction,
-} from '../libs/bridge/actions';
-import type { RootState } from '../reducers/index';
+import { bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction } from '../libs/bridge/actions';
+import type { RootState } from '@bsport/saas-legacy/src/reducers';
 import {
   closeUserInteractionPortal as closeUserInteractionPortalAction,
   genericShowLogin as genericShowLoginAction,
   genericShowSignup as genericShowSignupAction,
 } from '../libs/modal/actions';
-import { getMembershipByCompanyId } from '../libs/bridge/selectors';
 import type { DialogMode } from '../libs/modal/types';
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
+import { getMembership } from '@bsport/saas-legacy/src/libs/membership/selectors';
+import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '@bsport/saas-legacy/src/libs/membership/actions';
 
 const LoginWithDisconnectedStatusStyled = themify<SaasProps>(
   LoginWithDisconnectedStatusSAAS,
 );
 
 export type OwnProps = {
-  children: React.ReactElement,
-  companyId: number,
-  config: DisconnectedStatusWidgetConfig,
-  dialogMode: DialogMode,
-  parentElement: string,
-  isBackofficePreview: boolean,
+  children: ReactElement;
+  companyId: number;
+  config: DisconnectedStatusWidgetConfig;
+  dialogMode: DialogMode;
+  parentElement: string;
+  isBackofficePreview: boolean;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
-const LoginWithDisconnectedStatus: React.FC<Props> = ({
+const LoginWithDisconnectedStatus: FC<Props> = ({
   authenticated,
-  authenticationReceived,
   bridgeRequestAuthenticationStatus,
   children,
   closeUserInteractionPortal,
   companyId,
   config,
-  fetchMembershipByCompany,
   isBackofficePreview,
-  membership,
   parentElement,
   showLogin,
   showSignup,
+  fetchMembershipByCompany,
+  membership,
 }) => {
-  const prevAuthenticatedRef = React.useRef(false);
-
-  React.useEffect(() => {
-    prevAuthenticatedRef.current = authenticated;
-  }, [authenticated]);
-
-  React.useEffect(() => {
+  useEffect(() => {
     bridgeRequestAuthenticationStatus();
-    if (authenticated) {
-      fetchMembershipByCompany(companyId);
-    }
   }, []);
 
-  React.useEffect(() => {
-    if (!!prevAuthenticatedRef.current && authenticated) {
+  useEffect(() => {
+    if (authenticated) {
       closeUserInteractionPortal();
       fetchMembershipByCompany(companyId);
       bridgeRequestAuthenticationStatus();
     }
-  }, [prevAuthenticatedRef.current, authenticated, companyId]);
+  }, [authenticated, companyId]);
 
-  const isAuthenticatedAsMember = React.useMemo(
+  const isAuthenticatedAsMember = useMemo(
     () => !!membership && authenticated,
     [membership, authenticated],
   );
 
-  const isAuthenticationLoading = React.useMemo(() => {
-    if (!authenticated) {
-      return !authenticationReceived;
-    }
-    return !authenticationReceived || !membership;
-  }, [authenticated, authenticationReceived, membership]);
-
-  const onLoginClick = React.useCallback(() => {
+  const onLoginClick = useCallback(() => {
     showLogin({
       dialogMode: DIALOG_MODE_IFRAME,
       widgetType: 'loginWithDisconnectedStatus',
@@ -92,7 +79,7 @@ const LoginWithDisconnectedStatus: React.FC<Props> = ({
     });
   }, [showLogin, parentElement]);
 
-  const onSignupClick = React.useCallback(() => {
+  const onSignupClick = useCallback(() => {
     showSignup({
       dialogMode: DIALOG_MODE_IFRAME,
       widgetType: 'loginWithDisconnectedStatus',
@@ -118,7 +105,7 @@ const LoginWithDisconnectedStatus: React.FC<Props> = ({
   return (
     <LoginWithDisconnectedStatusStyled
       authenticated={isAuthenticatedAsMember}
-      authenticationLoading={isAuthenticationLoading}
+      authenticationLoading={false}
       onLoginClick={onLoginClick}
       loginSubtitle={config?.loginSubtitle || ''}
       loginTitle={config?.loginTitle || ''}
@@ -131,17 +118,10 @@ const LoginWithDisconnectedStatus: React.FC<Props> = ({
   );
 };
 
-const mapStateToWidgetProps = (
-  state: RootState,
-  { companyId }: { companyId: number },
-) => {
+const mapStateToWidgetProps = (state: RootState, { companyId }: OwnProps) => {
   return {
-    authenticated: state.bridge.authentication.authenticated,
-    authenticationReceived: state.bridge.authentication.hasBeenReceived,
-    membership:
-      typeof companyId == 'number'
-        ? getMembershipByCompanyId(state, companyId)
-        : null,
+    authenticated: state.auth.authenticated,
+    membership: getMembership(state, companyId),
   };
 };
 
@@ -150,9 +130,7 @@ const mapDispatchToWidgetProps = {
   showLogin: genericShowLoginAction,
   showSignup: genericShowSignupAction,
   closeUserInteractionPortal: closeUserInteractionPortalAction,
-  fetchMembershipByCompany: createAuthenticatedBridgeAction(
-    'MEMBERSHIP_BY_COMPANY',
-  ),
+  fetchMembershipByCompany: fetchMembershipByCompanyAction,
 };
 
 const connector = connect(mapStateToWidgetProps, mapDispatchToWidgetProps);

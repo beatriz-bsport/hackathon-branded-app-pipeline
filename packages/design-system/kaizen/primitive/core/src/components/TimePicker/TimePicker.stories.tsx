@@ -56,11 +56,9 @@ export const Primary: Story = {
       <TimePicker
         {...args}
         value={value}
-        onChange={(date) => {
-          const hours = date.getHours().toString().padStart(2, "0");
-          const minutes = date.getMinutes().toString().padStart(2, "0");
-          setValue(`${hours}:${minutes}`);
-          console.log("Selected date:", date);
+        onChange={(newTime) => {
+          setValue(newTime);
+          console.log("Selected time:", newTime);
         }}
       />
     );

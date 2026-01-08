@@ -51,7 +51,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> & {
   }
 
   return (
-    <nav aria-label="breadcrumb" {...props}>
+    <nav data-component="Kaizen-Breadcrumbs" aria-label="breadcrumb" {...props}>
       <ol className={breadcrumbs({ className })}>
         {items?.map((breadcrumb, index) => (
           <Fragment key={index}>

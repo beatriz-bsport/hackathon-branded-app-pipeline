@@ -8,7 +8,10 @@ ENVIRONMENT=$1
 
 # Define the env file to use to replace the build env file
 if [ "$ENVIRONMENT" = "feature-branch" ]; then
-    FRONTEND_ONLY=$2
+    # Extract FEATURE_BRANCH_IDENTIFIER, FORCE and FRONTEND_ONLY from CI_COMMIT_TAG
+    REPO_ROOT="$(git rev-parse --show-toplevel)"
+    . $REPO_ROOT/tools/scripts/parse-feature-branch-id.sh "$CI_COMMIT_TAG"
+
     if [ "$FRONTEND_ONLY" = "true" ]; then
         echo "Build Widget on frontend-only feature-branch"
         CONFIG_TEMPLATE_FILE="./config.template-feature-branch.js"
@@ -16,7 +19,6 @@ if [ "$ENVIRONMENT" = "feature-branch" ]; then
         echo "⚠️  Widget is only built on feature branch frontend only"
         exit 0
     fi
-    FEATURE_BRANCH_IDENTIFIER=$(echo $CI_COMMIT_TAG | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p')
     CDN_DOMAIN="cdn-$FEATURE_BRANCH_IDENTIFIER.chaos.bsport.io"
 
 elif [ "$ENVIRONMENT" = "dev" ]; then

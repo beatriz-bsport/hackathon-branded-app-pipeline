@@ -60,6 +60,7 @@
     "title": "Member information",
     "firstName": "First name:",
     "lastName": "Last name:",
+    "checkedInTo": "Checked in to:",
     "nextBooking": "Next booking:",
     "teacherName": "Teacher: {{- coachName}}",
     "spotName": "Spot: {{- spotName}}",

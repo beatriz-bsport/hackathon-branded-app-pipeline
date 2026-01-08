@@ -119,7 +119,7 @@ export type PaginatedFetchSessionsParams = FetchSessionsParams & {
   page_size?: number;
 
   /** Page number of the results*/
-  page?: number;
+  page: number;
 };
 
 export type CancelSessionParams = {
@@ -215,4 +215,53 @@ export type MinimalSession = {
   group: number | null;
   name_override?: string;
   description_override?: string;
+};
+
+export type Session = {
+  activity_name: string;
+  activity: number;
+  additional_coaches: number[];
+  allow_guest_offer: boolean;
+  available_on_partnership: boolean;
+  available: boolean;
+  blacklist_tags: number[];
+  booking_options: number[];
+  bookings: number[];
+  broadcast_link: string;
+  coach_override: number | null;
+  coach_payment_rule_id: number | null;
+  coach: number;
+  company: number;
+  credit_price_override: number;
+  credit_price: number;
+  custom_level: number;
+  date_roll_call_last_modified: string | null;
+  date_start: string;
+  description_override?: string;
+  duration_minute: number;
+  effectif: number;
+  establishment_override?: string;
+  establishment: number;
+  full: boolean;
+  group: number | null;
+  id: number;
+  internal_note: string | null;
+  is_waiting_list_full: boolean;
+  level: number;
+  linked_hybrid_offer_id?: number | null;
+  manager_only: boolean;
+  meta_activity_color: string | null;
+  meta_activity: number;
+  name_override: string | null;
+  partner_max_booking_count: number;
+  recurrence_id: string | null;
+  roll_call_needs_validation: boolean;
+  room_blueprint: number | null;
+  timezone_name: string;
+  tot_slots: number;
+  usc_event_id?: string;
+  validated_booking_count: number;
+  waiting_list_disabled: boolean;
+  waiting_list_max_size: number;
+  whitelist_tags: number[];
 };

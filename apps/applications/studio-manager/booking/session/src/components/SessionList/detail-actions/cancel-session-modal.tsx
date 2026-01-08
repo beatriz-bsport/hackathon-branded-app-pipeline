@@ -4,41 +4,67 @@ import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { Alert, Body, Modal, Toggle } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { SessionSummaryList } from "#src/components/common/session-summary-list";
 import { useCancelSession } from "#src/hooks/session-actions/use-cancel-session";
-import { closeModal, useSessionListStore } from "#src/stores/session-list";
+import { useFetchSimilarSessions } from "#src/hooks/use-fetch-similar-sessions";
+import {
+  closeModal,
+  selectIsCancelModalOpen,
+  useSessionListStore,
+} from "#src/stores/session-list";
+import { EnrichedSession } from "#src/types";
 import { TFunction, Trans, useTranslation } from "#src/utils/i18n";
 
-import {
-  selectIsCancelModalOpen,
-  selectModalState,
-} from "../../../stores/session-list/selectors";
-
-export const CancelSessionModal: FC = () => {
+type CancelSessionModalProps = {
+  session: EnrichedSession;
+};
+export const CancelSessionModal: FC<CancelSessionModalProps> = ({
+  session,
+}) => {
   const { t, i18n } = useTranslation("sessionList");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
   const isOpen = useSessionListStore(selectIsCancelModalOpen);
-  const session = useSessionListStore(selectModalState)?.session;
 
-  const [sendNotification, setSendNotification] = useState(false);
+  const [shouldSendNotification, setShouldSendNotification] = useState(false);
+  const [shouldCancelFutureSessions, setShouldCancelFutureSessions] =
+    useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  const { data: similarSessions } = useFetchSimilarSessions(
+    session.id,
+    !session.group,
+  );
 
   const cancelSession = useCancelSession();
 
+  const cancelAllFutureSessions =
+    shouldCancelFutureSessions &&
+    !!similarSessions &&
+    similarSessions.length > 0 &&
+    similarSessions.length === selectedIds.length;
+  // there is always the current session in the selectedIds list
+  const cancelOnlySomeFutureSessions =
+    shouldCancelFutureSessions &&
+    !!similarSessions &&
+    selectedIds.length > 1 &&
+    selectedIds.length < similarSessions.length;
+
   const handleConfirm = () => {
-    if (session) {
-      closeModal();
-      cancelSession.mutate({
-        id: session.id,
-        params: {
-          should_notify: sendNotification,
-          apply_to_all_similar_offers: false,
-          cancel_linked_hybrid_offer: false,
-        },
-      });
-    }
+    closeModal();
+    cancelSession.mutate({
+      id: session.id,
+      params: {
+        should_notify: shouldSendNotification,
+        apply_to_all_similar_offers: cancelAllFutureSessions,
+        selected_similar_offer_ids: cancelOnlySomeFutureSessions
+          ? selectedIds.map(Number)
+          : undefined,
+        cancel_linked_hybrid_offer: false,
+      },
+    });
   };
 
   const getDescription = () => {
-    if (!session) return "";
     const sessionDate = formatDateTime(
       session.date_start,
       DATETIME_FORMATS.MEDIUM_DATETIME,
@@ -49,9 +75,15 @@ export const CancelSessionModal: FC = () => {
 
   useEffect(() => {
     if (isOpen) {
-      setSendNotification(false);
+      setShouldSendNotification(false);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (similarSessions) {
+      setSelectedIds(similarSessions.map((s) => `${s.id}`));
+    }
+  }, [similarSessions]);
 
   return (
     <Modal
@@ -74,7 +106,7 @@ export const CancelSessionModal: FC = () => {
         <Body htmlVariant="p" size="lg">
           {t("cancelModal.description")}
         </Body>
-        {session && session.nb_bookings > 0 && (
+        {session.nb_bookings > 0 && (
           <>
             <Alert status="critical">
               <Body htmlVariant="p" size="md" weight="weak" color="critical">
@@ -93,9 +125,39 @@ export const CancelSessionModal: FC = () => {
             <Toggle
               id="cancel-session-send-notification-toggle"
               label={t("cancelModal.notificationLabel")}
-              checked={sendNotification}
-              onChange={() => setSendNotification(!sendNotification)}
+              checked={shouldSendNotification}
+              onChange={() =>
+                setShouldSendNotification(!shouldSendNotification)
+              }
             />
+          </>
+        )}
+        {!session.group && similarSessions && similarSessions.length > 0 && (
+          <>
+            <Toggle
+              id="cancel-session-future-sessions-toggle"
+              label={t("cancelModal.cancelFutureSessions")}
+              checked={shouldCancelFutureSessions}
+              onChange={() =>
+                setShouldCancelFutureSessions((prevState) => !prevState)
+              }
+            />
+            {shouldCancelFutureSessions && (
+              <div className="flex flex-col gap-md ml-xl">
+                <SessionSummaryList
+                  sessions={similarSessions}
+                  isSelectable
+                  originalSessionId={session.id}
+                  selectedIds={selectedIds}
+                  setSelectedIds={setSelectedIds}
+                  title={t("cancelModal.futureSessionsHeader", {
+                    number: similarSessions.length,
+                  })}
+                  description={t("cancelModal.descriptionFutureSessions")}
+                  includeParticipantsCount
+                />
+              </div>
+            )}
           </>
         )}
       </div>

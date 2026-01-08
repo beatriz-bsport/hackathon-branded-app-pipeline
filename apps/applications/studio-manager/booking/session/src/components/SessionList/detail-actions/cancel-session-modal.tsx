@@ -5,6 +5,7 @@ import { Alert, Body, Modal, Toggle } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionSummaryList } from "#src/components/common/session-summary-list";
+import { useFetchSessionsInGroup } from "#src/hooks/session-api/fetch/use-fetch-sessions-in-group";
 import { useFetchSimilarSessions } from "#src/hooks/session-api/fetch/use-fetch-similar-sessions";
 import { useCancelSession } from "#src/hooks/session-api/session-actions/use-cancel-session";
 import {
@@ -30,24 +31,39 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
     useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
-  const { data: similarSessions } = useFetchSimilarSessions(
+  const { data: regularSimilarSessions } = useFetchSimilarSessions(
     session.id,
     !session.group,
   );
 
+  const { data: groupSimilarSessions } = useFetchSessionsInGroup(
+    session.group,
+    { min_date: session.date_start.split("T")[0], available: true },
+    !!session.group,
+  );
+
+  const similarSessions = session.group
+    ? groupSimilarSessions
+    : regularSimilarSessions;
+
   const cancelSession = useCancelSession();
 
-  const cancelAllFutureSessions =
+  const areFutureSessionsSelected =
     shouldCancelFutureSessions &&
     !!similarSessions &&
-    similarSessions.length > 0 &&
+    similarSessions.length > 1;
+
+  const shouldCancelAllFutureSessions =
+    // For group sessions, we need to list each session id
+    !session.group &&
+    areFutureSessionsSelected &&
     similarSessions.length === selectedIds.length;
+
   // there is always the current session in the selectedIds list
-  const cancelOnlySomeFutureSessions =
-    shouldCancelFutureSessions &&
-    !!similarSessions &&
-    selectedIds.length > 1 &&
-    selectedIds.length < similarSessions.length;
+  const shouldCancelOnlySomeFutureSessions =
+    areFutureSessionsSelected &&
+    // For group sessions, we need to list each session id
+    (session.group || selectedIds.length < similarSessions.length);
 
   const handleConfirm = () => {
     closeModal();
@@ -55,8 +71,8 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
       id: session.id,
       params: {
         should_notify: shouldSendNotification,
-        apply_to_all_similar_offers: cancelAllFutureSessions,
-        selected_similar_offer_ids: cancelOnlySomeFutureSessions
+        apply_to_all_similar_offers: shouldCancelAllFutureSessions,
+        selected_similar_offer_ids: shouldCancelOnlySomeFutureSessions
           ? selectedIds.map(Number)
           : undefined,
         cancel_linked_hybrid_offer: false,
@@ -132,7 +148,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
             />
           </>
         )}
-        {!session.group && similarSessions && similarSessions.length > 0 && (
+        {similarSessions && similarSessions.length > 0 && (
           <>
             <Toggle
               id="cancel-session-future-sessions-toggle"

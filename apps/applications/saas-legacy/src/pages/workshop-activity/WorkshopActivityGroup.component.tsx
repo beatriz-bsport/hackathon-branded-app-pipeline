@@ -237,6 +237,11 @@ const WorkshopActivityGroup: React.FC<Props> = ({
 
   // Group offer Modal management and call
   const handleOpenCreateModal = () => {
+    fetchEstablishments({
+      page_size: 1000,
+      disabled: false,
+      company: companyId,
+    });
     setOpenCreateModal(true);
   };
 

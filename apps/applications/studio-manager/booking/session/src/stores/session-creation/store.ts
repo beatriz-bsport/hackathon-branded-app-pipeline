@@ -64,6 +64,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
     return defaultEndDate;
   })(),
   level: DEFAULT_LEVEL_ID,
+  is_hybrid: false,
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};

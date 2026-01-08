@@ -27,6 +27,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
 
   const [sendNotification, setSendNotification] = useState(false);
   const [cancelFutureSessions, setCancelFutureSessions] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const { data: similarSessions } = useFetchSimilarSessions(session.id, true);
 
@@ -58,6 +59,12 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
       setSendNotification(false);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (similarSessions) {
+      setSelectedIds(similarSessions.map((s) => `${s.id}`));
+    }
+  }, [similarSessions]);
 
   return (
     <Modal
@@ -120,11 +127,12 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
                   sessions={similarSessions}
                   isSelectable
                   originalSessionId={session.id}
+                  selectedIds={selectedIds}
+                  setSelectedIds={setSelectedIds}
                   title={t("cancelModal.futureSessionsHeader", {
                     number: similarSessions.length,
                   })}
                   description={t("cancelModal.descriptionFutureSessions")}
-                  initialSelectAll
                   includeParticipantsCount
                 />
               </div>

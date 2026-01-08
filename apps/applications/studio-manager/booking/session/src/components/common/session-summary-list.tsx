@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { type Dispatch, type SetStateAction, useCallback } from "react";
 
 import type { MinimalSession, Session } from "@bsport/api-book";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
@@ -20,9 +20,10 @@ type SessionSummaryListProps = {
   sessions: SummaryListSession[];
   originalSessionId?: number;
   isSelectable?: boolean;
+  selectedIds?: string[];
+  setSelectedIds?: Dispatch<SetStateAction<string[]>>;
   title?: string;
   description?: string;
-  initialSelectAll?: boolean;
   includeParticipantsCount?: boolean;
 };
 
@@ -30,23 +31,13 @@ export const SessionSummaryList: React.FC<SessionSummaryListProps> = ({
   sessions,
   originalSessionId,
   isSelectable = false,
-  initialSelectAll = false,
+  selectedIds = [],
+  setSelectedIds,
   title,
   description,
   includeParticipantsCount = false,
 }) => {
   const { i18n } = useTranslation("common");
-  const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
-
-  const getInitialSelectedIds = useCallback(() => {
-    if (!isSelectable) {
-      return [];
-    }
-    if (!initialSelectAll) {
-      return [`${originalSessionId}`];
-    }
-    return sessions.map((session) => `${session.id}`);
-  }, [isSelectable, sessions, originalSessionId, initialSelectAll]);
 
   const getItems = useCallback((): ListItemProps[] => {
     return sessions.map((session) => {
@@ -90,10 +81,6 @@ export const SessionSummaryList: React.FC<SessionSummaryListProps> = ({
     originalSessionId,
     includeParticipantsCount,
   ]);
-
-  useEffect(() => {
-    setSelectedIds(getInitialSelectedIds());
-  }, [getInitialSelectedIds]);
 
   return (
     <List

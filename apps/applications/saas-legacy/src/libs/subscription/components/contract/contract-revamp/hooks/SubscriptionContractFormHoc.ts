@@ -6,11 +6,8 @@ import {
 import { SubscriptionContractFieldsSchema } from '../schema';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
-import {
-  contractToFormValues,
-  formValuesToContract,
-} from '#src/libs/subscription/utils';
 import { emptyContractForms } from '../constants';
+import { contractToFormValues, formValuesToContract } from '../utils';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.Subscription,

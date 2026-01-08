@@ -5,8 +5,8 @@ import { Alert, Body, Modal, Toggle } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionSummaryList } from "#src/components/common/session-summary-list";
-import { useCancelSession } from "#src/hooks/session-actions/use-cancel-session";
-import { useFetchSimilarSessions } from "#src/hooks/use-fetch-similar-sessions";
+import { useFetchSimilarSessions } from "#src/hooks/session-api/fetch/use-fetch-similar-sessions";
+import { useCancelSession } from "#src/hooks/session-api/session-actions/use-cancel-session";
 import {
   closeModal,
   selectIsCancelModalOpen,

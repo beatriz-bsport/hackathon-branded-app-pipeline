@@ -29,7 +29,7 @@ import {
   useCheckCompanyAddOn,
 } from "../utils/permission";
 import { SESSIONS_QUERY_KEY } from "./constants";
-import { useFetchSessionsWithPendingRequests } from "./use-fetch-sessions-with-pending-requests";
+import { useFetchSessionsWithPendingRequests } from "./session-api/fetch/use-fetch-sessions-with-pending-requests";
 import { useFetchEstablishments } from "./useFetchEstablishments";
 import { useFetchTeachers } from "./useFetchTeachers";
 

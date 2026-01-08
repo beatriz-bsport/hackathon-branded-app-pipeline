@@ -20,9 +20,9 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionSummaryList } from "#src/components/common/session-summary-list";
-import { useCancelMultipleSessions } from "#src/hooks/bulk-actions/use-cancel-multiple-sessions";
-import { useFetchNumberOfSessionsToCancel } from "#src/hooks/bulk-actions/use-fetch-number-of-cancelled-sessions";
-import { useFetchGroupSessions } from "#src/hooks/use-fetch-group-sessions";
+import { useCancelMultipleSessions } from "#src/hooks/session-api/bulk-actions/use-cancel-multiple-sessions";
+import { useFetchNumberOfSessionsToCancel } from "#src/hooks/session-api/bulk-actions/use-fetch-number-of-cancelled-sessions";
+import { useFetchGroupSessions } from "#src/hooks/session-api/fetch/use-fetch-group-sessions";
 import {
   selectFilters,
   selectSelectedDate,

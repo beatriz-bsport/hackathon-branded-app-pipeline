@@ -6,8 +6,8 @@ import {
 } from "@bsport/api-book";
 import type { DateTime } from "@bsport/datetime-manipulation";
 
-import { fetch } from "../utils/fetch";
-import { SESSIONS_QUERY_KEY } from "./constants";
+import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
+import { fetch } from "#src/utils/fetch";
 
 const fetchMinimalSessions = fetchMinimalSessionsAPI.bind(null, fetch);
 

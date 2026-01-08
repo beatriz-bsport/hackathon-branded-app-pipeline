@@ -3,14 +3,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CancelSessionParams, cancelSessionAPI } from "@bsport/api-book";
 import { toast } from "@bsport/kaizen-primitive-core";
 
+import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
 import {
   BACKGROUND_TASK_ERRORS,
   useWaitForBackgroundTask,
 } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
-
-import { SESSIONS_QUERY_KEY } from "../constants";
 
 const cancelSession = cancelSessionAPI.bind(null, fetch);
 

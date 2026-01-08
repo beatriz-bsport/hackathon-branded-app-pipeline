@@ -29,7 +29,10 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
   const [cancelFutureSessions, setCancelFutureSessions] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
-  const { data: similarSessions } = useFetchSimilarSessions(session.id, true);
+  const { data: similarSessions } = useFetchSimilarSessions(
+    session.id,
+    !session.group,
+  );
 
   const cancelSession = useCancelSession();
 
@@ -38,6 +41,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
     !!similarSessions &&
     similarSessions.length > 0 &&
     similarSessions.length === selectedIds.length;
+  // there is always the current session in the selectedIds list
   const cancelOnlySomeFutureSessions =
     cancelFutureSessions &&
     !!similarSessions &&
@@ -125,7 +129,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
             />
           </>
         )}
-        {similarSessions && similarSessions.length > 0 && (
+        {!session.group && similarSessions && similarSessions.length > 0 && (
           <>
             <Toggle
               id="cancel-session-future-sessions-toggle"

@@ -1,15 +1,21 @@
 import React, { useCallback, useEffect } from "react";
 
-import type { MinimalSession } from "@bsport/api-book";
+import type { MinimalSession, Session } from "@bsport/api-book";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
-import { List } from "@bsport/kaizen-primitive-core";
+import { List, ListItemProps } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-type SummaryListSession = Pick<
-  MinimalSession,
-  "id" | "date_start" | "timezone_name"
->;
+type SummaryListSession =
+  | Pick<MinimalSession, "id" | "date_start" | "timezone_name">
+  | Pick<
+      Session,
+      | "id"
+      | "date_start"
+      | "timezone_name"
+      | "validated_booking_count"
+      | "effectif"
+    >;
 type SessionSummaryListProps = {
   sessions: SummaryListSession[];
   originalSessionId?: number;
@@ -17,6 +23,7 @@ type SessionSummaryListProps = {
   title?: string;
   description?: string;
   initialSelectAll?: boolean;
+  includeParticipantsCount?: boolean;
 };
 
 export const SessionSummaryList: React.FC<SessionSummaryListProps> = ({
@@ -26,6 +33,7 @@ export const SessionSummaryList: React.FC<SessionSummaryListProps> = ({
   initialSelectAll = false,
   title,
   description,
+  includeParticipantsCount = false,
 }) => {
   const { i18n } = useTranslation("common");
   const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
@@ -40,7 +48,7 @@ export const SessionSummaryList: React.FC<SessionSummaryListProps> = ({
     return sessions.map((session) => `${session.id}`);
   }, [isSelectable, sessions, originalSessionId, initialSelectAll]);
 
-  const getItems = useCallback(() => {
+  const getItems = useCallback((): ListItemProps[] => {
     return sessions.map((session) => {
       const startDate = formatDateTime(
         session.date_start,
@@ -54,13 +62,34 @@ export const SessionSummaryList: React.FC<SessionSummaryListProps> = ({
       );
 
       const isOriginalSession = originalSessionId === session.id;
+      const hasParticipantData =
+        "validated_booking_count" in session && "effectif" in session;
+      const hasChips = includeParticipantsCount && hasParticipantData;
       return {
         id: `${session.id}`,
         title: `${startDate} • ${startTime}`,
         disabled: !isSelectable || isOriginalSession,
+        chips: hasChips
+          ? [
+              {
+                color: "default",
+                size: "lg",
+                iconLeft: "users-01",
+                label: `${session.validated_booking_count} / ${session.effectif}`,
+                type: "weak",
+              },
+            ]
+          : undefined,
+        chipsDirection: hasChips ? "end" : undefined,
       };
     });
-  }, [sessions, isSelectable, i18n.language, originalSessionId]);
+  }, [
+    sessions,
+    isSelectable,
+    i18n.language,
+    originalSessionId,
+    includeParticipantsCount,
+  ]);
 
   useEffect(() => {
     setSelectedIds(getInitialSelectedIds());

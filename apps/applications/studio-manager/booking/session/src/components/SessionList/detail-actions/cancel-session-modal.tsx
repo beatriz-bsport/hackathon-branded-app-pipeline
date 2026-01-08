@@ -125,6 +125,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
                   })}
                   description={t("cancelModal.descriptionFutureSessions")}
                   initialSelectAll
+                  includeParticipantsCount
                 />
               </div>
             )}

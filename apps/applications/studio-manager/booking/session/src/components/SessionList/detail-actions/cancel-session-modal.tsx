@@ -25,8 +25,9 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
   const isOpen = useSessionListStore(selectIsCancelModalOpen);
 
-  const [sendNotification, setSendNotification] = useState(false);
-  const [cancelFutureSessions, setCancelFutureSessions] = useState(false);
+  const [shouldSendNotification, setShouldSendNotification] = useState(false);
+  const [shouldCancelFutureSessions, setShouldCancelFutureSessions] =
+    useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const { data: similarSessions } = useFetchSimilarSessions(
@@ -37,13 +38,13 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
   const cancelSession = useCancelSession();
 
   const cancelAllFutureSessions =
-    cancelFutureSessions &&
+    shouldCancelFutureSessions &&
     !!similarSessions &&
     similarSessions.length > 0 &&
     similarSessions.length === selectedIds.length;
   // there is always the current session in the selectedIds list
   const cancelOnlySomeFutureSessions =
-    cancelFutureSessions &&
+    shouldCancelFutureSessions &&
     !!similarSessions &&
     selectedIds.length > 1 &&
     selectedIds.length < similarSessions.length;
@@ -53,7 +54,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
     cancelSession.mutate({
       id: session.id,
       params: {
-        should_notify: sendNotification,
+        should_notify: shouldSendNotification,
         apply_to_all_similar_offers: cancelAllFutureSessions,
         selected_similar_offer_ids: cancelOnlySomeFutureSessions
           ? selectedIds.map(Number)
@@ -74,7 +75,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      setSendNotification(false);
+      setShouldSendNotification(false);
     }
   }, [isOpen]);
 
@@ -124,8 +125,10 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
             <Toggle
               id="cancel-session-send-notification-toggle"
               label={t("cancelModal.notificationLabel")}
-              checked={sendNotification}
-              onChange={() => setSendNotification(!sendNotification)}
+              checked={shouldSendNotification}
+              onChange={() =>
+                setShouldSendNotification(!shouldSendNotification)
+              }
             />
           </>
         )}
@@ -134,12 +137,12 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
             <Toggle
               id="cancel-session-future-sessions-toggle"
               label={t("cancelModal.cancelFutureSessions")}
-              checked={cancelFutureSessions}
+              checked={shouldCancelFutureSessions}
               onChange={() =>
-                setCancelFutureSessions((prevState) => !prevState)
+                setShouldCancelFutureSessions((prevState) => !prevState)
               }
             />
-            {cancelFutureSessions && (
+            {shouldCancelFutureSessions && (
               <div className="flex flex-col gap-md ml-xl">
                 <SessionSummaryList
                   sessions={similarSessions}

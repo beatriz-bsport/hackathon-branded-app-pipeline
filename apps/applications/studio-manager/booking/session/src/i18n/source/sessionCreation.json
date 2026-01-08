@@ -92,6 +92,10 @@
             "deleteTitle": "Delete level?",
             "deleteMessage": "Existing sessions which have this level applied will remain unchanged, but future sessions will no longer be able to use it.",
             "delete": "Delete"
+          },
+          "hybrid": {
+            "label": "This session is hybrid (both on-site and online)",
+            "info": "Choosing this option will create an online session with a member limit of 100. Once it's created, you'll be able to edit the Broadcast link, membership, price, etc."
           }
         },
         "timeAndDate": {

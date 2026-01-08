@@ -19,6 +19,22 @@ import type {
 const API_URL = "book/v1";
 const API_URL_SESSION = `${API_URL}/offer`;
 
+export const fetchSessionsAPIConfig = (
+  params: FetchSessionsParams | PaginatedFetchSessionsParams,
+): string => {
+  return `${API_URL_SESSION}/${buildUrlParams(params)}`;
+};
+
+export const fetchSessionsAPI = async (
+  fetch: Fetch<PaginatedResponse<Session>>,
+  params: FetchSessionsParams,
+): Promise<PaginatedResponse<Session>> => {
+  const uri = fetchSessionsAPIConfig(params);
+  const { data: fetchedData } = await fetch(uri);
+
+  return fetchedData;
+};
+
 export const fetchMinimalSessionsAPIConfig = (
   params: FetchSessionsParams,
 ): string => {

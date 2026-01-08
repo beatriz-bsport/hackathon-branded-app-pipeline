@@ -19,6 +19,16 @@ interface CancelSessionVariables {
   params: CancelSessionParams;
 }
 
+const getCountForTranslation = (params: CancelSessionParams): number => {
+  if (params.apply_to_all_similar_offers) {
+    return 2;
+  }
+  if (params.selected_similar_offer_ids) {
+    return params.selected_similar_offer_ids.length;
+  }
+  return 1; // Only the single session
+};
+
 export const useCancelSession = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("sessionList");
@@ -34,11 +44,14 @@ export const useCancelSession = () => {
 
       return null;
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: [SESSIONS_QUERY_KEY] });
       toast({
         status: "default",
-        description: t("cancelModal.successMessage"),
+        //@ts-expect-error Translations with variables are not yet typed
+        description: t("cancelModal.successMessage", {
+          count: getCountForTranslation(variables.params),
+        }),
       });
     },
     onError: (error: Error) => {

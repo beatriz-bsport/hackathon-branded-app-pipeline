@@ -119,7 +119,8 @@
     "cancelButton": "Back",
     "confirmButton": "Cancel",
     "errorMessage": "An error occurred while cancelling the session. Please try again later.",
-    "successMessage": "Session cancelled"
+    "successMessage_one": "Session cancelled",
+    "successMessage_other": "Sessions cancelled"
   },
   "cancelMultipleSessionsModal": {
     "title": "Cancel multiple sessions?",

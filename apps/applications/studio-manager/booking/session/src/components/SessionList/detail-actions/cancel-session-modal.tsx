@@ -33,13 +33,27 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
 
   const cancelSession = useCancelSession();
 
+  const cancelAllFutureSessions =
+    cancelFutureSessions &&
+    !!similarSessions &&
+    similarSessions.length > 0 &&
+    similarSessions.length === selectedIds.length;
+  const cancelOnlySomeFutureSessions =
+    cancelFutureSessions &&
+    !!similarSessions &&
+    selectedIds.length > 1 &&
+    selectedIds.length < similarSessions.length;
+
   const handleConfirm = () => {
     closeModal();
     cancelSession.mutate({
       id: session.id,
       params: {
         should_notify: sendNotification,
-        apply_to_all_similar_offers: false,
+        apply_to_all_similar_offers: cancelAllFutureSessions,
+        selected_similar_offer_ids: cancelOnlySomeFutureSessions
+          ? selectedIds.map(Number)
+          : undefined,
         cancel_linked_hybrid_offer: false,
       },
     });

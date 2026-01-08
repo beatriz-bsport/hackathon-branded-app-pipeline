@@ -17,6 +17,7 @@ export type LevelSelectorProps = {
   onLevelSelect?: (levelId: number) => void;
   openCreateLevelModal: () => void;
   openEditLevelModal: (levelId: number) => void;
+  openDeleteLevelModal: (levelId: number) => void;
 };
 
 const ColorIndicator: FC<{ color: string }> = ({ color }) => (
@@ -31,6 +32,7 @@ export const LevelSelector: FC<LevelSelectorProps> = ({
   onLevelSelect,
   openCreateLevelModal,
   openEditLevelModal,
+  openDeleteLevelModal,
 }) => {
   const { t } = useTranslation("sessionCreation");
 
@@ -69,6 +71,7 @@ export const LevelSelector: FC<LevelSelectorProps> = ({
         <LevelItemRightSlot
           levelId={level.id}
           openEditLevelModal={openEditLevelModal}
+          openDeleteLevelModal={openDeleteLevelModal}
         />
       ),
     }))

@@ -31,7 +31,6 @@ export const useFetchSessionsInGroup = (
 ) => {
   return useQuery({
     ...sessionsInGroupQueryOptions(groupId, params, enabled),
-    enabled: enabled,
     select: (data) =>
       data.results.map((session) =>
         pick(session, [

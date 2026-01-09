@@ -29,6 +29,7 @@ export type FilterProps = {
   selectFieldLabel: string;
   onFilterChange: (filters: FilterElementState[]) => void;
   singleField?: boolean;
+  defaultFilters?: FilterElementState[];
 };
 
 export type ResponsiveFilterProps = Omit<FilterProps, "onFilterChange"> & {

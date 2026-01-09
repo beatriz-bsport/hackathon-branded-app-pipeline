@@ -11,6 +11,8 @@ import {
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { loadStripe } from '@stripe/stripe-js';
 
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group';
+
 // @ts-expect-error
 import withQueryParams from '#src/hocs/with-query-params.hoc';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
@@ -63,9 +65,38 @@ export class AddPaymentMethodWebview extends React.Component<Props, State> {
   componentDidMount() {
     this.props.fetchCompanyTheme(this.props.company, {
       onSuccess: (theme) => {
+        if (!theme) {
+          this.setState({
+            isThemeLoading: false,
+            stripePromise: null,
+          });
+          return;
+        }
+        const companyCountry = getCompanyCountry();
+        const stripeRegion = getStripeRegion();
+
+        // Determine default payment method - check if SEPA is enabled
+        let defaultPaymentMethodType = 'card';
+        if (companyCountry && stripeRegion) {
+          const isSepaEnabled =
+            (theme.payment_method_available_basket?.includes(
+              PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+            ) ??
+              true) ||
+            (theme.payment_method_available_subscription?.includes(
+              PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+            ) ??
+              true);
+
+          if (theme.currency === 'eur' && isSepaEnabled) {
+            defaultPaymentMethodType = 'sepa_debit';
+          }
+        }
+
         this.setState({
           isThemeLoading: false,
           stripePromise: loadStripe(theme.stripe_pk_key),
+          paymentMethodType: defaultPaymentMethodType,
         });
       },
     });
@@ -128,6 +159,10 @@ export class AddPaymentMethodWebview extends React.Component<Props, State> {
             currency: this.props.theme.currency,
             companyCountry,
             stripeRegion,
+            paymentMethodAvailableBasket:
+              this.props.theme.payment_method_available_basket,
+            paymentMethodAvailableSubscription:
+              this.props.theme.payment_method_available_subscription,
           })}
           onCancel={this.onCancel}
           onChange={this.changePaymentMethodType}

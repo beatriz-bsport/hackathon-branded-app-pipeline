@@ -22,7 +22,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { SessionSummaryList } from "#src/components/common/session-summary-list";
 import { useCancelMultipleSessions } from "#src/hooks/session-api/bulk-actions/use-cancel-multiple-sessions";
 import { useFetchNumberOfSessionsToCancel } from "#src/hooks/session-api/bulk-actions/use-fetch-number-of-cancelled-sessions";
-import { useFetchGroupSessions } from "#src/hooks/session-api/fetch/use-fetch-group-sessions";
+import { useFetchSessions } from "#src/hooks/session-api/fetch/use-fetch-sessions";
 import {
   selectFilters,
   selectSelectedDate,
@@ -93,10 +93,10 @@ export const CancelMultipleSessionsModal: FC<{
     filterParams,
   );
 
-  const { data: groupSessions } = useFetchGroupSessions(
+  const { data: groupSessions } = useFetchSessions(
     cancelRange ? cancelRange[0] : null,
     cancelRange ? cancelRange[1] : null,
-    { ...filterParams, available: true },
+    { ...filterParams, available: true, with_group: true },
   );
 
   const cancelMultipleSessions = useCancelMultipleSessions();

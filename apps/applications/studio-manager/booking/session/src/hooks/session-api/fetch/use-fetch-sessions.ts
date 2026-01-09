@@ -17,12 +17,11 @@ const groupSessionsQueryOptions = (params: FetchSessionsParams) => {
     queryFn: () =>
       fetchMinimalSessions({
         ...params,
-        with_group: true,
       }),
   });
 };
 
-export const useFetchGroupSessions = (
+export const useFetchSessions = (
   start: DateTime | null,
   end: DateTime | null,
   params: FetchSessionsParams,

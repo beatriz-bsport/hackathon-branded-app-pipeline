@@ -89,6 +89,8 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
     return `${session.name} - ${sessionDate}`;
   };
 
+  const shouldDisplayAlert = session.nb_bookings > 0 || session.groupName;
+
   useEffect(() => {
     if (isOpen) {
       setShouldSendNotification(false);
@@ -122,9 +124,9 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
         <Body htmlVariant="p" size="lg">
           {t("cancelModal.description")}
         </Body>
-        {session.nb_bookings > 0 && (
-          <>
-            <Alert status="critical">
+        {shouldDisplayAlert && (
+          <Alert status="critical">
+            {session.nb_bookings > 0 && (
               <Body htmlVariant="p" size="md" weight="weak" color="critical">
                 <Trans
                   t={t as TFunction}
@@ -137,22 +139,41 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
                   count={session.nb_bookings}
                 />
               </Body>
-            </Alert>
-            <Toggle
-              id="cancel-session-send-notification-toggle"
-              label={t("cancelModal.notificationLabel")}
-              checked={shouldSendNotification}
-              onChange={() =>
-                setShouldSendNotification(!shouldSendNotification)
-              }
-            />
-          </>
+            )}
+            {session.groupName && (
+              <Body htmlVariant="p" size="md" weight="weak" color="critical">
+                <Trans
+                  t={t as TFunction}
+                  ns="sessionList"
+                  i18nKey="cancelModal.groupSessionAlert"
+                  values={{ groupName: session.groupName }}
+                  components={{
+                    strong: <strong />,
+                  }}
+                />
+              </Body>
+            )}
+          </Alert>
+        )}
+        {session.nb_bookings > 0 && (
+          <Toggle
+            id="cancel-session-send-notification-toggle"
+            label={t("cancelModal.notificationLabel")}
+            checked={shouldSendNotification}
+            onChange={() => setShouldSendNotification(!shouldSendNotification)}
+          />
         )}
         {similarSessions && similarSessions.length > 0 && (
           <>
             <Toggle
               id="cancel-session-future-sessions-toggle"
-              label={t("cancelModal.cancelFutureSessions")}
+              label={
+                session.groupName
+                  ? t("cancelModal.cancelFutureSessionsForGroup", {
+                      groupName: session.groupName,
+                    })
+                  : t("cancelModal.cancelFutureSessions")
+              }
               checked={shouldCancelFutureSessions}
               onChange={() =>
                 setShouldCancelFutureSessions((prevState) => !prevState)

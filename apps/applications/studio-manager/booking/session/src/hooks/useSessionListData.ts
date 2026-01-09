@@ -3,6 +3,7 @@ import { useMemo } from "react";
 
 import {
   type FetchSessionsParams,
+  GroupSession,
   type ManagerSession,
   fetchManagerSessions,
 } from "@bsport/api-book";
@@ -30,6 +31,7 @@ import {
 } from "../utils/permission";
 import { SESSIONS_QUERY_KEY } from "./constants";
 import { useFetchSessionsWithPendingRequests } from "./session-api/fetch/use-fetch-sessions-with-pending-requests";
+import { useFetchGroupSessions } from "./use-fetch-group-sessions";
 import { useFetchEstablishments } from "./useFetchEstablishments";
 import { useFetchTeachers } from "./useFetchTeachers";
 
@@ -44,6 +46,7 @@ const processSession =
     teachersById: Record<number, Teacher>,
     establishmentsById: Record<number, Establishment>,
     sessionsWithPendingRequests: number[],
+    groupSessionsById: Record<number, GroupSession>,
   ) =>
   (session: ManagerSession): EnrichedSession => {
     const teacher = teachersById[session.coach];
@@ -51,6 +54,7 @@ const processSession =
       ? teachersById[session.coach_override]
       : undefined;
     const establishment = establishmentsById[session.establishment];
+    const group = session.group ? groupSessionsById[session.group] : undefined;
 
     const { name_override, ...sessionWithoutOverride } = session;
 
@@ -64,6 +68,7 @@ const processSession =
       hasPendingReplacementRequest: sessionsWithPendingRequests.includes(
         session.id,
       ),
+      groupName: group?.name,
     };
   };
 
@@ -77,6 +82,7 @@ const extractRelatedIds = (sessions: ManagerSession[]) => {
   const teacherIds = new Set<number>();
   const establishmentIds = new Set<number>();
   const sessionIds = new Set<number>();
+  const groupIds = new Set<number>();
 
   sessions.forEach((session) => {
     teacherIds.add(session.coach);
@@ -85,12 +91,16 @@ const extractRelatedIds = (sessions: ManagerSession[]) => {
     }
     establishmentIds.add(session.establishment);
     sessionIds.add(session.id);
+    if (session.group) {
+      groupIds.add(session.group);
+    }
   });
 
   return {
     teacherIds: Array.from(teacherIds),
     establishmentIds: Array.from(establishmentIds),
     sessionIds: Array.from(sessionIds),
+    groupIds: Array.from(groupIds),
   };
 };
 
@@ -169,7 +179,7 @@ export const useSessionListData = (
     ),
   );
 
-  const { teacherIds, establishmentIds, sessionIds } = useMemo(
+  const { teacherIds, establishmentIds, sessionIds, groupIds } = useMemo(
     () => extractRelatedIds(rawSessions),
     [rawSessions],
   );
@@ -187,6 +197,10 @@ export const useSessionListData = (
       sessionIds,
       shouldFetchPendingRequests && !isLoadingSessions,
     );
+  const { data: groupSessionsById = {} } = useFetchGroupSessions(
+    groupIds,
+    !isLoadingSessions,
+  );
 
   const sessions = useMemo(
     () =>
@@ -195,6 +209,7 @@ export const useSessionListData = (
           teachersById,
           establishmentsById,
           sessionsWithPendingRequests,
+          groupSessionsById,
         ),
       ),
     [
@@ -202,6 +217,7 @@ export const useSessionListData = (
       teachersById,
       establishmentsById,
       sessionsWithPendingRequests,
+      groupSessionsById,
     ],
   );
 

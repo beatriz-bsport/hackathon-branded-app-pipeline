@@ -33,6 +33,6 @@ export const useFetchGroupSessions = (
 ) => {
   return useQuery({
     ...groupSessionsQueryOptions(groupSessionIds, enabled),
-    select: (groupSessions) => keyBy(groupSessions, "id"),
+    select: (groupSessions) => keyBy(groupSessions.results, "id"),
   });
 };

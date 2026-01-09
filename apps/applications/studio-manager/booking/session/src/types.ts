@@ -6,4 +6,6 @@ export type EnrichedSession = Omit<ManagerSession, "name_override"> & {
   originalTeacherName?: string;
   establishmentName?: string;
   hasPendingReplacementRequest?: boolean;
+  // Name of the group session if the session is part of a group session
+  groupName?: string;
 };

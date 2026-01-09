@@ -1,4 +1,4 @@
-import { Fetch, buildUrlParams } from "@bsport/store-base";
+import { Fetch, PaginatedResponse, buildUrlParams } from "@bsport/store-base";
 
 import type { GroupSession, PaginatedGroupSessionParams } from "./types";
 
@@ -12,9 +12,9 @@ export const fetchGroupSessionsAPIConfig = (
 };
 
 export const fetchGroupSessionsAPI = async (
-  fetch: Fetch<GroupSession[]>,
+  fetch: Fetch<PaginatedResponse<GroupSession>>,
   params: PaginatedGroupSessionParams,
-): Promise<GroupSession[]> => {
+): Promise<PaginatedResponse<GroupSession>> => {
   const uri = fetchGroupSessionsAPIConfig(params);
   const { data: fetchedData } = await fetch(uri);
 

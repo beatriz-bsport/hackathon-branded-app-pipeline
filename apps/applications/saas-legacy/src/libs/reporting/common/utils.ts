@@ -331,6 +331,18 @@ export const getConverter = (
       };
     }
 
+    if (datatype === 'distance') {
+      if (value === null || value === undefined) {
+        return { value: '' };
+      }
+      const distanceInMeters = Math.round(Number(value));
+      const formattedDistance = distanceInMeters.toLocaleString();
+      return {
+        cellProps: { className: classes.right },
+        value: formattedDistance,
+      };
+    }
+
     if (datatype === 'cts') {
       return {
         cellProps: { className: classes.right },

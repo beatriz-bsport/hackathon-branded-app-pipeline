@@ -29,6 +29,8 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
   const [shouldSendNotification, setShouldSendNotification] = useState(false);
   const [shouldCancelFutureSessions, setShouldCancelFutureSessions] =
     useState(false);
+  const [shouldCancelLinkedSessions, setShouldCancelLinkedSessions] =
+    useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const { data: regularSimilarSessions } = useFetchSimilarSessions(
@@ -75,7 +77,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
         selected_similar_offer_ids: shouldCancelOnlySomeFutureSessions
           ? selectedIds.map(Number)
           : undefined,
-        cancel_linked_hybrid_offer: false,
+        cancel_linked_hybrid_offer: shouldCancelLinkedSessions,
       },
     });
   };
@@ -161,6 +163,16 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
             label={t("cancelModal.notificationLabel")}
             checked={shouldSendNotification}
             onChange={() => setShouldSendNotification(!shouldSendNotification)}
+          />
+        )}
+        {session.linked_hybrid_offer_id && (
+          <Toggle
+            id="cancel-session-linked-hybrid-offer-toggle"
+            label={t("cancelModal.cancelLinkedSessions")}
+            checked={shouldCancelLinkedSessions}
+            onChange={() =>
+              setShouldCancelLinkedSessions((prevState) => !prevState)
+            }
           />
         )}
         {similarSessions && similarSessions.length > 0 && (

@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import type { EnrichedSession } from "../types";
 
 const FUSE_OPTIONS = {
-  keys: ["name"],
+  keys: ["name", "teacherName", "originalTeacherName", "establishmentName"],
   shouldSort: false,
 };
 

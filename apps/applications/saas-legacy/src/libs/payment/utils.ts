@@ -72,6 +72,8 @@ interface GetBackofficeEnabledPaymentMethodsProps {
   withCredit?: boolean;
   withTerminal?: boolean;
   stripeRegion?: string;
+  paymentMethodAvailableBasket?: number[];
+  paymentMethodAvailableSubscription?: number[];
 }
 
 export const getBackofficeBillingPlanEnabledPaymentMethods = ({
@@ -80,15 +82,33 @@ export const getBackofficeBillingPlanEnabledPaymentMethods = ({
   withCredit,
   withTerminal,
   stripeRegion,
+  paymentMethodAvailableBasket,
+  paymentMethodAvailableSubscription,
 }: GetBackofficeEnabledPaymentMethodsProps) => {
   if (!companyCountry || !stripeRegion)
     throw new Error('Company country or Stripe region not provided');
+
+  const isSepaEnabled =
+    (paymentMethodAvailableBasket?.includes(
+      PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+    ) ??
+      true) ||
+    (paymentMethodAvailableSubscription?.includes(
+      PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+    ) ??
+      true);
+
+  const isBacsEnabled =
+    paymentMethodAvailableSubscription?.includes(
+      PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+    ) ?? true;
+
   return [
     BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
-    ...((currency ?? '').toLowerCase() === 'eur'
+    ...((currency ?? '').toLowerCase() === 'eur' && isSepaEnabled
       ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA]
       : []),
-    ...(stripeRegion === 'Europe' && companyCountry === 'GB'
+    ...(stripeRegion === 'Europe' && companyCountry === 'GB' && isBacsEnabled
       ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT]
       : []),
     ...(withCredit ? [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT] : []),

@@ -8,6 +8,7 @@ import {
 } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { bindStore } from "@bsport/store-base";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import type { EnrichedSession } from "#src/types";
 
@@ -37,14 +38,17 @@ export interface SessionListState {
   modalState: ModalState;
 }
 
-export const getInitialState = (): SessionListState => ({
-  calendarView: CalendarView.DAILY,
-  selectedDate: { type: "single", date: getLocalNow({}) },
-  showCancelledSessions: true,
-  locale: "en-US",
-  filters: [],
-  modalState: null,
-});
+export const getInitialState = (): SessionListState => {
+  const timezone = getCompanyTimezone();
+  return {
+    calendarView: CalendarView.DAILY,
+    selectedDate: { type: "single", date: getLocalNow({ zone: timezone }) },
+    showCancelledSessions: true,
+    locale: "en-US",
+    filters: [],
+    modalState: null,
+  };
+};
 
 // Custom storage that handles DateTime serialization
 const customStorage = createJSONStorage(() => localStorage, {

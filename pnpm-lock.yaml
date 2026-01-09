@@ -2909,6 +2909,70 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0(rollup@4.30.1)(typescript@5.9.3)(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))
 
+  packages/design-system/kaizen/business-components/financial-services:
+    dependencies:
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../../../../utils/i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../primitive/core
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.0
+      react:
+        specifier: ^19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/eslint-react
+      '@bsport/kaizen-tokens':
+        specifier: workspace:*
+        version: link:../../tokens
+      '@nx/vite':
+        specifier: 21.6.10
+        version: 21.6.10(@babel/traverse@7.28.3)(@swc-node/register@1.10.9(@swc/core@1.11.13(@swc/helpers@0.5.17))(@swc/types@0.1.20)(typescript@5.9.3))(@swc/core@1.11.13(@swc/helpers@0.5.17))(nx@21.6.10(@swc-node/register@1.10.9(@swc/core@1.11.13(@swc/helpers@0.5.17))(@swc/types@0.1.20)(typescript@5.9.3))(@swc/core@1.11.13(@swc/helpers@0.5.17)))(typescript@5.9.3)(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))(vitest@3.2.4)
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.2.2
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.2.2(@types/react@19.2.2)
+      '@vitejs/plugin-react':
+        specifier: ^4.3.3
+        version: 4.3.3(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))
+      '@vitejs/plugin-react-swc':
+        specifier: ^3.7.2
+        version: 3.7.2(@swc/helpers@0.5.17)(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      classnames:
+        specifier: ^2.5.1
+        version: 2.5.1
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.17))(@types/node@22.13.15)(typescript@5.9.3))
+      tslib:
+        specifier: ^2.8.1
+        version: 2.8.1
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
+      vite-plugin-dts:
+        specifier: ^4.5.3
+        version: 4.5.3(@types/node@22.13.15)(rollup@4.30.1)(typescript@5.9.3)(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))
+      vite-plugin-svgr:
+        specifier: ^4.3.0
+        version: 4.3.0(rollup@4.30.1)(typescript@5.9.3)(vite@5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3))
+
   packages/design-system/kaizen/primitive/core:
     dependencies:
       '@bsport/currency':
@@ -20562,14 +20626,17 @@ packages:
 
   whatwg-encoding@1.0.5:
     resolution: {integrity: sha512-b5lim54JOPN9HtzvK9HFXvBma/rnfFeqsic0hSpjtDbVxR3dJKLc+KB4V6GgiGOvl7CY/KNh8rxSo9DKQrnUEw==}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
     engines: {node: '>=12'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-fetch@2.0.4:
     resolution: {integrity: sha512-dcQ1GWpOD/eEQ97k66aiEVpNnapVj90/+R+SXTPYGHpYBBypfKJEQjLrvMZ7YXbKm21gXd4NcuxUTjiv1YtLng==}
@@ -23328,9 +23395,7 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:

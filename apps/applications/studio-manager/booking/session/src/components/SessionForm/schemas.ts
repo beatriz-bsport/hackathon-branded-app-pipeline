@@ -88,6 +88,7 @@ export const useSessionSchema = () => {
       level: z.number().int(),
       is_hybrid: z.boolean(),
       coach: z.number().nullable(),
+      coach_payment_rule: z.number().nullable(),
     })
     .refine(
       (data) => {

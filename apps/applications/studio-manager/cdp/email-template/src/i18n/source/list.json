@@ -115,7 +115,7 @@
     },
     "deleteTemplateModal": {
       "title": "Delete email template?",
-      "description": "Once you delete <b>{{emailTemplateTitle}}</b>,  it will no longer be visible to members. \n\nIt will also be removed any transactional emails that it's been linked to.",
+      "description": "Once you delete <b>{{emailTemplateTitle}}</b>,  it will no longer be visible to members. It'll also be removed from any transactional emails that it's been linked to.",
       "confirmButton": "Delete",
       "cancelButton": "Keep",
       "onSuccess": {

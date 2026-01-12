@@ -1,5 +1,6 @@
 import { INSIGHT_ITEMS, INSIGHT_SECTIONS } from "#src/constants";
 import type { TFunction } from "#src/utils/i18n";
+import type { InsightAccess } from "#src/utils/permissions";
 
 export interface InsightRow {
   id: string;
@@ -15,26 +16,12 @@ export interface InsightRow {
  */
 export const createInsightRows = (
   t: TFunction,
-  hasSubscriptionInvoicesPermission: boolean,
-  isTrialAnalysisEnabled: boolean,
-  hasBookingsPermission: boolean,
-  isScheduleAnalysisEnabled: boolean,
+  access: InsightAccess,
 ): InsightRow[] => {
   return INSIGHT_ITEMS.filter((item) => {
-    // Filter out trial analysis if feature flag is disabled or no subscription permission
-    if (item.id === "trial") {
-      return hasSubscriptionInvoicesPermission && isTrialAnalysisEnabled;
-    }
-    // Filter out recurring revenue if no subscription permission
-    if (item.id === "recurring") {
-      return hasSubscriptionInvoicesPermission;
-    }
-    // Filter out schedule analysis if feature flag is disabled or no bookings permission
-    if (item.id === "schedule") {
-      return hasBookingsPermission && isScheduleAnalysisEnabled;
-    }
-
-    return true;
+    // If an item is governed by access rules, enforce them.
+    // Otherwise, default to visible.
+    return item.id in access ? access[item.id as keyof InsightAccess] : true;
   }).map((item) => ({
     ...item,
     title: t(`items.${item.id}.title`),

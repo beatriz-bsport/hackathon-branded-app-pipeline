@@ -1,14 +1,11 @@
 import { Navigate } from "react-router";
 
-import { useFlagsStatus } from "@bsport/sm-backbone";
-
 import { DashboardIframe } from "#src/components/DashboardIframe";
 import { InsightDetailLayout } from "#src/components/InsightDetailLayout";
 import { DASHBOARD_TYPES } from "#src/constants";
 import { usePresignedUrl } from "#src/hooks/api";
-import { InsightFlags, useInsightFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
-import { useHasBookingsPermission } from "#src/utils/permissions";
+import { useInsightGate } from "#src/utils/permissions";
 
 /**
  * Schedule Analysis dashboard page.
@@ -18,12 +15,7 @@ import { useHasBookingsPermission } from "#src/utils/permissions";
 
 const ScheduleAnalysisPage = () => {
   const { t } = useTranslation("insights");
-  const { hasPermission, isLoading: isLoadingPermission } =
-    useHasBookingsPermission();
-  const isScheduleAnalysisEnabled = useInsightFlag(
-    InsightFlags.SCHEDULE_ANALYSIS,
-  );
-  const { flagsReady } = useFlagsStatus();
+  const { isAllowed, isLoading } = useInsightGate("schedule");
   const {
     iframeUrl,
     isLoading: isLoadingUrl,
@@ -33,7 +25,7 @@ const ScheduleAnalysisPage = () => {
   const pageTitle = t("pages.scheduleAnalysis.title");
 
   // Wait for permissions and flags to load before redirecting
-  if (isLoadingPermission || !flagsReady) {
+  if (isLoading) {
     return (
       <InsightDetailLayout title={pageTitle} isLoading={true} error={null}>
         {null}
@@ -42,11 +34,7 @@ const ScheduleAnalysisPage = () => {
   }
 
   // Only redirect if permissions are loaded and explicitly false or feature flag is off
-  if (
-    !isLoadingPermission &&
-    flagsReady &&
-    (!hasPermission || !isScheduleAnalysisEnabled)
-  ) {
+  if (!isAllowed) {
     return <Navigate to="/" replace />;
   }
 

@@ -1,59 +1,108 @@
-import {
-  type DeepKeys,
-  type WithSignature,
-  checkHasPermission,
-} from "@bsport/permissions";
-import {
-  type ObjectLevelPermissions,
-  dataAccessLayer,
-} from "@bsport/sm-backbone";
+import { checkHasPermission } from "@bsport/permissions";
+import { dataAccessLayer, useFlagsStatus } from "@bsport/sm-backbone";
+
+import { InsightFlags, useInsightFlag } from "#src/utils/featureFlags";
+
+type InsightAccessRequirement = {
+  permission: DeepKeys<ObjectLevelPermissions>;
+  featureFlag?: (typeof InsightFlags)[keyof typeof InsightFlags];
+};
 
 /**
- * Generic hook to check object-level permissions
- * Returns an object with hasPermission (boolean) and isLoading (boolean)
+ * Single place to define access requirements for each insight page.
+ * - `permission` controls backend/role access
+ * - `featureFlag` (optional) controls rollout
  */
-export const useObjectLevelPermission = (
-  path: DeepKeys<ObjectLevelPermissions>,
-): { hasPermission: boolean; isLoading: boolean } => {
+export const INSIGHT_ACCESS_REQUIREMENTS = {
+  trial: {
+    // Keep aligned with existing behavior (used by Trial + Recurring pages today)
+    permission: "report.Club.subscription.allowed_actions.read",
+    featureFlag: InsightFlags.TRIAL_ANALYSIS,
+  },
+  recurring: {
+    permission: "report.Club.subscription.allowed_actions.read",
+  },
+  schedule: {
+    permission: "report.Bookings.bookings.allowed_actions.read",
+    featureFlag: InsightFlags.SCHEDULE_ANALYSIS,
+  },
+} as const satisfies Record<string, InsightAccessRequirement>;
+
+export type InsightId = keyof typeof INSIGHT_ACCESS_REQUIREMENTS;
+export type InsightPermissions = Record<InsightId, boolean>;
+export type InsightAccess = Record<InsightId, boolean>;
+
+/**
+ * Computes access for each insight (permission + optional feature flag).
+ * This avoids scattering permission/flag logic across pages and filters.
+ */
+export const useInsightAccess = (): {
+  access: InsightAccess;
+  permissions: InsightPermissions;
+  isLoadingPermissions: boolean;
+  flagsReady: boolean;
+} => {
   const userRole = dataAccessLayer.useUserRole();
+  const isLoadingPermissions = userRole === undefined;
+  const { flagsReady } = useFlagsStatus();
 
-  // If userRole is undefined, permissions are still loading
-  const isLoading = userRole === undefined;
+  const isTrialAnalysisEnabled = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);
+  const isScheduleAnalysisEnabled = useInsightFlag(
+    InsightFlags.SCHEDULE_ANALYSIS,
+  );
 
-  const hasPermission = checkHasPermission<
-    WithSignature<ObjectLevelPermissions>
-  >({
-    permissions: userRole?.object_level_permissions,
-    path,
-  });
+  const hasPermissionForPath = (path: DeepKeys<ObjectLevelPermissions>) => {
+    return checkHasPermission<WithSignature<ObjectLevelPermissions>>({
+      permissions: userRole?.object_level_permissions,
+      path,
+    });
+  };
 
-  return { hasPermission, isLoading };
+  const permissions: InsightPermissions = {
+    trial: hasPermissionForPath(INSIGHT_ACCESS_REQUIREMENTS.trial.permission),
+    recurring: hasPermissionForPath(
+      INSIGHT_ACCESS_REQUIREMENTS.recurring.permission,
+    ),
+    schedule: hasPermissionForPath(
+      INSIGHT_ACCESS_REQUIREMENTS.schedule.permission,
+    ),
+  };
+
+  const access: InsightAccess = {
+    trial:
+      permissions.trial &&
+      (INSIGHT_ACCESS_REQUIREMENTS.trial.featureFlag
+        ? flagsReady && isTrialAnalysisEnabled
+        : true),
+    recurring: permissions.recurring,
+    schedule:
+      permissions.schedule &&
+      (INSIGHT_ACCESS_REQUIREMENTS.schedule.featureFlag
+        ? flagsReady && isScheduleAnalysisEnabled
+        : true),
+  };
+
+  return {
+    access,
+    permissions,
+    isLoadingPermissions,
+    flagsReady,
+  };
 };
 
 /**
- * Checks if the user has permission to view subscription invoices reports
- * This determines if the Recurring Revenue insight page should be accessible
- * Returns an object with hasPermission (boolean) and isLoading (boolean)
+ * Convenience hook for pages: returns { isAllowed, isLoading } for a given insight.
+ * Centralizes permission + flag gating per insight.
  */
-export const useHasSubscriptionInvoicesPermission = (): {
-  hasPermission: boolean;
-  isLoading: boolean;
-} => {
-  return useObjectLevelPermission(
-    "report.Club.subscription.allowed_actions.read",
-  );
-};
+export const useInsightGate = (
+  insightId: InsightId,
+): { isAllowed: boolean; isLoading: boolean } => {
+  const { access, isLoadingPermissions, flagsReady } = useInsightAccess();
+  const requirement = INSIGHT_ACCESS_REQUIREMENTS[insightId];
+  const requiresFlag = "featureFlag" in requirement;
 
-/**
- * Checks if the user has permission to view bookings reports (group sessions)
- * This determines if the Schedule Analysis insight page should be accessible
- * Returns an object with hasPermission (boolean) and isLoading (boolean)
- */
-export const useHasBookingsPermission = (): {
-  hasPermission: boolean;
-  isLoading: boolean;
-} => {
-  return useObjectLevelPermission(
-    "report.Bookings.bookings.allowed_actions.read",
-  );
+  return {
+    isAllowed: access[insightId],
+    isLoading: isLoadingPermissions || (requiresFlag && !flagsReady),
+  };
 };

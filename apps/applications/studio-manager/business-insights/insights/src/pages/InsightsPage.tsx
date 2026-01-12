@@ -8,7 +8,6 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { INSIGHT_SECTIONS } from "#src/constants";
-import { InsightFlags, useInsightFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 import {
   createChipForRow,
@@ -16,10 +15,7 @@ import {
   filterBySearch,
   filterBySection,
 } from "#src/utils/insightFilters";
-import {
-  useHasBookingsPermission,
-  useHasSubscriptionInvoicesPermission,
-} from "#src/utils/permissions";
+import { useInsightAccess } from "#src/utils/permissions";
 
 /**
  * Main insights page displaying a list of available business insight dashboards.
@@ -32,38 +28,15 @@ const InsightsPage = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const filterRef = useRef<{ resetFilters: () => void }>(null);
 
-  // Check permissions to filter available insights
-  const { hasPermission: hasSubscriptionInvoicesPermission } =
-    useHasSubscriptionInvoicesPermission();
-  const { hasPermission: hasBookingsPermission } = useHasBookingsPermission();
-
-  // Check feature flags
-  const isTrialAnalysisEnabled = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);
-  const isScheduleAnalysisEnabled = useInsightFlag(
-    InsightFlags.SCHEDULE_ANALYSIS,
-  );
+  const { access } = useInsightAccess();
 
   const rows = useMemo(() => {
-    const baseRows = createInsightRows(
-      t,
-      hasSubscriptionInvoicesPermission,
-      isTrialAnalysisEnabled,
-      hasBookingsPermission,
-      isScheduleAnalysisEnabled,
-    );
+    const baseRows = createInsightRows(t, access);
     const sectionFiltered = filterBySection(baseRows, selected);
     const searchFiltered = filterBySearch(sectionFiltered, searchInput);
 
     return searchFiltered;
-  }, [
-    selected,
-    searchInput,
-    t,
-    hasSubscriptionInvoicesPermission,
-    isTrialAnalysisEnabled,
-    hasBookingsPermission,
-    isScheduleAnalysisEnabled,
-  ]);
+  }, [selected, searchInput, t, access]);
 
   const filterConfig: FilterProps = useMemo(() => {
     const fields = {

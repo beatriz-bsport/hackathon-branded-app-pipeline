@@ -9,11 +9,15 @@ import {
   useFlagsStatus,
 } from "@bsport/sm-backbone";
 
-import { InsightFlags, useInsightFlag } from "#src/utils/featureFlags";
+import {
+  type InsightFlagId,
+  InsightFlags,
+  useInsightFlagValues,
+} from "#src/utils/featureFlags";
 
 type InsightAccessRequirement = {
   permission: DeepKeys<ObjectLevelPermissions>;
-  featureFlag?: (typeof InsightFlags)[keyof typeof InsightFlags];
+  featureFlag?: InsightFlagId;
 };
 
 /**
@@ -29,6 +33,7 @@ export const INSIGHT_ACCESS_REQUIREMENTS = {
   },
   recurring: {
     permission: "report.Club.subscription.allowed_actions.read",
+    featureFlag: undefined,
   },
   schedule: {
     permission: "report.Bookings.bookings.allowed_actions.read",
@@ -37,8 +42,9 @@ export const INSIGHT_ACCESS_REQUIREMENTS = {
 } as const satisfies Record<string, InsightAccessRequirement>;
 
 export type InsightId = keyof typeof INSIGHT_ACCESS_REQUIREMENTS;
-export type InsightPermissions = Record<InsightId, boolean>;
-export type InsightAccess = Record<InsightId, boolean>;
+type InsightBooleans = Record<InsightId, boolean>;
+export type InsightPermissions = InsightBooleans;
+export type InsightAccess = InsightBooleans;
 
 /**
  * Computes access for each insight (permission + optional feature flag).
@@ -54,10 +60,7 @@ export const useInsightAccess = (): {
   const isLoadingPermissions = userRole === undefined;
   const { flagsReady } = useFlagsStatus();
 
-  const isTrialAnalysisEnabled = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);
-  const isScheduleAnalysisEnabled = useInsightFlag(
-    InsightFlags.SCHEDULE_ANALYSIS,
-  );
+  const insightFlagValues = useInsightFlagValues();
 
   const hasPermissionForPath = (path: DeepKeys<ObjectLevelPermissions>) => {
     return checkHasPermission<WithSignature<ObjectLevelPermissions>>({
@@ -66,29 +69,27 @@ export const useInsightAccess = (): {
     });
   };
 
-  const permissions: InsightPermissions = {
-    trial: hasPermissionForPath(INSIGHT_ACCESS_REQUIREMENTS.trial.permission),
-    recurring: hasPermissionForPath(
-      INSIGHT_ACCESS_REQUIREMENTS.recurring.permission,
-    ),
-    schedule: hasPermissionForPath(
-      INSIGHT_ACCESS_REQUIREMENTS.schedule.permission,
-    ),
-  };
+  const insightIds = Object.keys(INSIGHT_ACCESS_REQUIREMENTS) as InsightId[];
 
-  const access: InsightAccess = {
-    trial:
-      permissions.trial &&
-      (INSIGHT_ACCESS_REQUIREMENTS.trial.featureFlag
-        ? flagsReady && isTrialAnalysisEnabled
-        : true),
-    recurring: permissions.recurring,
-    schedule:
-      permissions.schedule &&
-      (INSIGHT_ACCESS_REQUIREMENTS.schedule.featureFlag
-        ? flagsReady && isScheduleAnalysisEnabled
-        : true),
-  };
+  const permissions = insightIds.reduce<InsightPermissions>(
+    (acc, insightId) => {
+      acc[insightId] = hasPermissionForPath(
+        INSIGHT_ACCESS_REQUIREMENTS[insightId].permission,
+      );
+      return acc;
+    },
+    {} as InsightPermissions,
+  );
+
+  const access = insightIds.reduce<InsightAccess>((acc, insightId) => {
+    const requirement = INSIGHT_ACCESS_REQUIREMENTS[insightId];
+    const isEnabledByFlag = requirement.featureFlag
+      ? flagsReady && insightFlagValues[requirement.featureFlag]
+      : true;
+
+    acc[insightId] = permissions[insightId] && isEnabledByFlag;
+    return acc;
+  }, {} as InsightAccess);
 
   return {
     access,
@@ -107,7 +108,7 @@ export const useInsightGate = (
 ): { isAllowed: boolean; isLoading: boolean } => {
   const { access, isLoadingPermissions, flagsReady } = useInsightAccess();
   const requirement = INSIGHT_ACCESS_REQUIREMENTS[insightId];
-  const requiresFlag = "featureFlag" in requirement;
+  const requiresFlag = Boolean(requirement.featureFlag);
 
   return {
     isAllowed: access[insightId],

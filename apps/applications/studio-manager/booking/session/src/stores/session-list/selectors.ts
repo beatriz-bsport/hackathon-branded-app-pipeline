@@ -1,4 +1,4 @@
-import type { SessionListState } from "./store";
+import { ModalType, type SessionListState } from "./store";
 
 export const selectCalendarView = (state: SessionListState) =>
   state.calendarView;
@@ -14,4 +14,7 @@ export const selectShowCancelledSessions = (state: SessionListState) =>
 export const selectModalState = (state: SessionListState) => state.modalState;
 
 export const selectIsCancelModalOpen = (state: SessionListState) =>
-  state.modalState?.type === "cancel";
+  state.modalState?.type === ModalType.CANCEL;
+
+export const selectIsRestoreModalOpen = (state: SessionListState) =>
+  state.modalState?.type === ModalType.RESTORE;

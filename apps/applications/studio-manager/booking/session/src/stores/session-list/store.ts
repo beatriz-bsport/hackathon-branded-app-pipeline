@@ -15,7 +15,15 @@ export type DateSelection =
   | { type: "single"; date: DateTime }
   | { type: "range"; minDate: DateTime | null; maxDate: DateTime | null };
 
-export type ModalState = { type: "cancel"; session: EnrichedSession } | null;
+export enum ModalType {
+  CANCEL = "cancel",
+  RESTORE = "restore",
+}
+
+export type ModalState =
+  | { type: ModalType.CANCEL; session: EnrichedSession }
+  | { type: ModalType.RESTORE; session: EnrichedSession }
+  | null;
 
 export interface SessionListState {
   calendarView: CalendarView;

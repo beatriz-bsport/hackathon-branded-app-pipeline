@@ -3,7 +3,7 @@ import { FilterElementState } from "@bsport/kaizen-primitive-core";
 
 import type { EnrichedSession } from "#src/types";
 
-import { CalendarView, sessionListStore } from "./store";
+import { CalendarView, ModalType, sessionListStore } from "./store";
 
 export const setCalendarView = (calendarView: CalendarView) => {
   sessionListStore.setState((state) => {
@@ -77,7 +77,15 @@ export const setFilters = (filters: FilterElementState[]) => {
 
 // Modal actions
 export const openCancelModal = (session: EnrichedSession) => {
-  sessionListStore.setState({ modalState: { type: "cancel", session } });
+  sessionListStore.setState({
+    modalState: { type: ModalType.CANCEL, session },
+  });
+};
+
+export const openRestoreModal = (session: EnrichedSession) => {
+  sessionListStore.setState({
+    modalState: { type: ModalType.RESTORE, session },
+  });
 };
 
 export const closeModal = () => {

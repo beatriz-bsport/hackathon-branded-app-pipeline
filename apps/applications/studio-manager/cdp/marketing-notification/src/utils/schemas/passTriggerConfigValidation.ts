@@ -2,7 +2,8 @@ import { z } from "zod";
 
 import {
   PASS_ACTION_DAYS_LEFT,
-  PassAction,
+  type PassAction,
+  type PassCreditsLeftEventKind,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Pass/types";
 
 import { i18nInstance } from "../i18n";
@@ -10,7 +11,7 @@ import type { PassTriggerConfigValidationFormData, PassesType } from "./types";
 
 export const passTriggerConfigValidationSchema = z
   .object({
-    notificationName: z.string({
+    name: z.string({
       message: i18nInstance.t(
         "steps.notificationRules.pass.errors.notificationNameRequired",
         {
@@ -25,6 +26,8 @@ export const passTriggerConfigValidationSchema = z
     passesType: z.custom<PassesType>(),
     daysLeft: z.number().nonnegative().optional(),
     creditsLeft: z.number().nonnegative().optional(),
+    hours: z.number().nonnegative().optional(),
+    creditsEventKind: z.custom<PassCreditsLeftEventKind>().optional(),
     shouldContainAllPasses: z.boolean(),
     isPassExpirationCheck: z.boolean(),
     toggleIncludedSmartlists: z.boolean(),

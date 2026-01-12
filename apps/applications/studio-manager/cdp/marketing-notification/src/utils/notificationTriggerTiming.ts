@@ -48,10 +48,33 @@ const extractTimingConfig = (
     { key: "credits_left", unit: "credit" },
   ] as const;
 
+  const isHourTimingZero =
+    "hours" in event_rules &&
+    typeof event_rules.hours === "number" &&
+    event_rules.hours === 0;
+  const isDayTimingZero =
+    "days" in event_rules &&
+    typeof event_rules.days === "number" &&
+    event_rules.days === 0;
+
+  if (isDayTimingZero && isHourTimingZero) {
+    return {
+      unit: "immediate",
+      duration: 0,
+      beforeOrAfter: "immediate",
+    };
+  }
+
   // Helper function to safely extract timing value
   const extractTimingValue = (key: TimingField): TriggerTimingConfig | null => {
     if (key in event_rules) {
       const value = event_rules[key as keyof typeof event_rules];
+      if (key === "days" && typeof value === "number" && value === 0) {
+        return null;
+      }
+      if (key === "hours" && typeof value === "number" && value === 0) {
+        return null;
+      }
       if (typeof value === "number") {
         const config = rulesMap.find((rule) => rule.key === key);
         if (config) {

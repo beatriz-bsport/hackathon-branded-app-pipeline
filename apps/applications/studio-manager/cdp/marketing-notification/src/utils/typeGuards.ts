@@ -51,9 +51,27 @@ const isBookingEventRules = (
   return "kind" in eventRules && typeof eventRules.kind === "number";
 };
 
+/**
+ * Get function that is returning the queried key from the event_rules object of a marketing notification
+ */
+const getEventRuleKey = <T>({
+  key,
+  eventRules,
+}: {
+  key: string;
+  eventRules: MarketingNotification["event_rules"];
+}): T | undefined => {
+  if (key in eventRules) {
+    const value = eventRules[key as keyof typeof eventRules];
+    return value as T;
+  }
+  return undefined;
+};
+
 export {
   hasMetaActivityId,
   hasEstablishmentId,
   hasPrivateServiceId,
   isBookingEventRules,
+  getEventRuleKey,
 };

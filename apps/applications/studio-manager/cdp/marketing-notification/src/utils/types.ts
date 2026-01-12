@@ -49,7 +49,7 @@ export const SUBSCRIPTION_NOTIFICATION_CREATION = 7;
 export const SUBSCRIPTION_NOTIFICATION_FIRST_BILLING = 8;
 export const SUBSCRIPTION_NOTIFICATION_END = 9;
 
-export const MarketingNotificationTypeByEventRulesKindMap: Record<
+export const MarketingNotificationTitleByEventRulesKindMap: Record<
   number,
   string
 > = {
@@ -89,9 +89,9 @@ export type RefinedNotificationType =
   | "unknown";
 
 export type TriggerTimingConfig = {
-  unit: "hour" | "day" | "credit";
+  unit: "hour" | "day" | "credit" | "immediate";
   duration: number;
-  beforeOrAfter: "before" | "after";
+  beforeOrAfter: "before" | "after" | "immediate";
 };
 
 // Booking trigger constants, the trigger kind here is not related to the
@@ -144,4 +144,28 @@ export type TriggerTypeSelectorConfig = {
   type: SelectableNotificationType;
   translationKey: string;
   mode?: "groupActivity" | "workshop" | "all";
+};
+
+export type NotificationFormType =
+  | "birthday"
+  | "booking"
+  | "paymentPack"
+  | "privatePass"
+  | "subscription"
+  | "appointment";
+
+// Notification type mapping, its linked to the refined notification type and help us to associate them together
+export const SELECTABLE_NOTIFICATION_TYPE_TO_REFINED_TYPE: Record<
+  SelectableNotificationType,
+  NotificationFormType
+> = {
+  birthday: "birthday",
+  location: "booking",
+  workshop: "booking",
+  groupActivity: "booking",
+  establishment: "booking",
+  privateService: "appointment",
+  paymentPack: "paymentPack",
+  privatePass: "privatePass",
+  subscription: "subscription",
 };

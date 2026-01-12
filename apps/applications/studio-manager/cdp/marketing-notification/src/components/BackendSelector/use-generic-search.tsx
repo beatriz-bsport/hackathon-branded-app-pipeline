@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Result } from "typescript-result";
 
 import { useAsync } from "@bsport/use-async";
@@ -77,13 +77,20 @@ export const useGenericSearch = <
   const { searchInput = "", storeConfig } = config;
 
   const { searchFn, filterFn, data, initialValue } = storeConfig;
+  const [isHydrating, setIsHydrating] = useState<boolean>(!!initialValue);
 
   const [{ isLoading }, fetchItems] = useAsync<typeof searchFn>({
     asyncFn: searchFn,
   });
 
-  const [{ isLoading: isHydrating }, hydrateItems] = useAsync<typeof searchFn>({
+  const [, hydrateItems] = useAsync<typeof searchFn>({
     asyncFn: searchFn,
+    onSuccess: () => {
+      setIsHydrating(false);
+    },
+    onFailure: () => {
+      setIsHydrating(false);
+    },
   });
 
   // Apply client-side filtering

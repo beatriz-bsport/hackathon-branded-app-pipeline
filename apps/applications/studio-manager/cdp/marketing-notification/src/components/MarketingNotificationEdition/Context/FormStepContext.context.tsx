@@ -29,7 +29,7 @@ export type PassTriggerCondition = {
   type: PassesType;
 } & PassTriggerConfigValidationFormData;
 
-type BirthdayTriggerCondition = {
+export type BirthdayTriggerCondition = {
   type: "birthday";
 };
 
@@ -56,11 +56,13 @@ export type GetCurrentFormValues =
   | ContentStep;
 
 type FormStepContextType = {
-  validateForm: boolean;
+  buildMarketingNotificationAction: "create" | "edit" | undefined;
   currentStep: number;
   formData: NotificationMultiStepFormState;
   setCurrentStep: (newStep: number) => void;
-  setValidateForm: (newValidationForm: boolean) => void;
+  setBuildMarketingNotificationAction: (
+    newBuildMarketingNotificationAction: "create" | "edit" | undefined,
+  ) => void;
   setStepValid: (step: number, isValid: boolean) => void;
   checkIfCurrentStepValid: () => boolean;
   goToNextStep: () => void;
@@ -87,7 +89,10 @@ export const FormStepContextProvider = ({
     Partial<NotificationMultiStepFormState>
   >({});
 
-  const [validateForm, setValidateForm] = useState(false);
+  const [
+    buildMarketingNotificationAction,
+    setBuildMarketingNotificationAction,
+  ] = useState<"create" | "edit" | undefined>(undefined);
 
   const [currentStep, setCurrentStep] = useState(
     NOTIFICATION_TYPE_STEP_IDENTIFIER,
@@ -123,7 +128,7 @@ export const FormStepContextProvider = ({
   };
   const resetForm = () => {
     setFormData({});
-    setValidateForm(false);
+    setBuildMarketingNotificationAction(undefined);
     setCurrentStep(NOTIFICATION_TYPE_STEP_IDENTIFIER);
     setStepValidations({
       [NOTIFICATION_TYPE_STEP_IDENTIFIER]: false,
@@ -133,11 +138,11 @@ export const FormStepContextProvider = ({
   };
 
   const value = {
-    validateForm,
+    buildMarketingNotificationAction,
     currentStep,
     formData,
     setCurrentStep,
-    setValidateForm,
+    setBuildMarketingNotificationAction,
     setStepValid,
     checkIfCurrentStepValid,
     goToNextStep,

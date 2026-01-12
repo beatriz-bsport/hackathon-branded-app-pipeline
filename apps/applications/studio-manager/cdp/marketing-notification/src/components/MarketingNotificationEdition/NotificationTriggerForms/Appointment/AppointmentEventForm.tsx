@@ -54,10 +54,11 @@ export const AppointmentEventForm = ({ itemIds }: BookingEventFormProps) => {
       bookingOccurrence:
         appointmentFormData?.bookingOccurrence || DEFAULT_BOOKING_OCCURRENCE,
       bookingEventKind:
-        appointmentFormData?.bookingEventKind ||
-        APPOINTMENT_ACTIONS_MAP_TO_APPOINTMENT_EVENT_KIND[
-          APPOINTMENT_ACTION_ATTEND
-        ],
+        typeof appointmentFormData?.bookingEventKind === "number"
+          ? appointmentFormData.bookingEventKind
+          : APPOINTMENT_ACTIONS_MAP_TO_APPOINTMENT_EVENT_KIND[
+              APPOINTMENT_ACTION_ATTEND
+            ],
       timingUnit: appointmentFormData?.timingUnit || BOOKING_TIME_UNIT_HOUR,
       timingValue: appointmentFormData?.timingValue || DEFAULT_TIMING_VALUE,
       timingTemporality:

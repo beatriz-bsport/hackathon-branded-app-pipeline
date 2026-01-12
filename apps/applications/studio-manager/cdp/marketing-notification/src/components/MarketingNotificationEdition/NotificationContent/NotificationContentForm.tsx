@@ -2,7 +2,10 @@ import { useEffect } from "react";
 
 import { ControlledForm, FormField, useFormController } from "@bsport/form";
 import { Checkbox, CheckboxProps } from "@bsport/kaizen-primitive-core";
-import { CreateMarketingNotificationParams } from "@bsport/store-cdp-marketing-notification";
+import {
+  CreateMarketingNotificationParams,
+  MarketingNotification,
+} from "@bsport/store-cdp-marketing-notification";
 
 import {
   NOTIFICATION_CONTENT_STEP_IDENTIFIER,
@@ -14,6 +17,7 @@ import { PushNotificationForm } from "#src/components/MarketingNotificationEditi
 import { useRefineNotificationFormData } from "#src/hooks/actions/use-refine-notification-form-data";
 import { useCompanyData } from "#src/hooks/api/use-company-data";
 import { useCreateMarketingNotification } from "#src/hooks/api/use-create-marketing-notification";
+import { useUpdateMarketingNotification } from "#src/hooks/api/use-update-marketing-notification";
 import { useUpsellChecker } from "#src/hooks/permissions/use-upsell-checker";
 import { notificationContentValidationFormSchema } from "#src/utils/schemas/notificationContentValidation";
 import type { NotificationContentFormData } from "#src/utils/schemas/types";
@@ -23,13 +27,22 @@ export const NotificationContentForm = ({
 }: {
   handleCloseModal: () => void;
 }) => {
-  const { formData, validateForm, setStepValid, setValidateForm, updateForm } =
-    useFormStepContext();
+  const {
+    formData,
+    buildMarketingNotificationAction,
+    setStepValid,
+    setBuildMarketingNotificationAction,
+    updateForm,
+  } = useFormStepContext();
   const { companyId } = useCompanyData();
   const { getTriggerConditionKind, getTriggerEventRules } =
     useRefineNotificationFormData();
   const { handleCreateMarketingNotification } = useCreateMarketingNotification({
-    onFailure: () => setValidateForm(false),
+    onFailure: () => setBuildMarketingNotificationAction(undefined),
+    onSuccess: () => handleCloseModal(),
+  });
+  const { handleUpdateMarketingNotification } = useUpdateMarketingNotification({
+    onFailure: () => setBuildMarketingNotificationAction(undefined),
     onSuccess: () => handleCloseModal(),
   });
   const { isPushNotificationUpsellActivated } = useUpsellChecker();
@@ -83,9 +96,19 @@ export const NotificationContentForm = ({
       kind,
       is_event_based,
     };
-    handleCreateMarketingNotification(
-      marketingNotification as CreateMarketingNotificationParams,
-    );
+    if (buildMarketingNotificationAction === "create") {
+      handleCreateMarketingNotification(
+        marketingNotification as CreateMarketingNotificationParams,
+      );
+    } else if (
+      buildMarketingNotificationAction === "edit" &&
+      triggerType?.draftMarketingNotificationId
+    ) {
+      handleUpdateMarketingNotification({
+        ...marketingNotification,
+        id: triggerType.draftMarketingNotificationId,
+      } as MarketingNotification);
+    }
   };
 
   const isEmailTemplateSelectorToggled = watchFormValue(
@@ -118,12 +141,12 @@ export const NotificationContentForm = ({
   }, [isValid]);
 
   useEffect(() => {
-    if (validateForm) {
+    if (buildMarketingNotificationAction) {
       validateMarketingNotificationCreation({
         ...formData,
       });
     }
-  }, [validateForm]);
+  }, [buildMarketingNotificationAction]);
 
   if (!isPushNotificationUpsellActivated) {
     return (

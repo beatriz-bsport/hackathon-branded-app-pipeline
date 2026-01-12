@@ -4,8 +4,8 @@ import { DashboardIframe } from "#src/components/DashboardIframe";
 import { InsightDetailLayout } from "#src/components/InsightDetailLayout";
 import { DASHBOARD_TYPES } from "#src/constants";
 import { usePresignedUrl } from "#src/hooks/api";
+import { useInsightGate } from "#src/utils/access";
 import { useTranslation } from "#src/utils/i18n";
-import { useInsightGate } from "#src/utils/permissions";
 
 /**
  * Schedule Analysis dashboard page.

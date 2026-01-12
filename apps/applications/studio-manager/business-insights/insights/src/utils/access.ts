@@ -1,5 +1,13 @@
-import { checkHasPermission } from "@bsport/permissions";
-import { dataAccessLayer, useFlagsStatus } from "@bsport/sm-backbone";
+import {
+  type DeepKeys,
+  type WithSignature,
+  checkHasPermission,
+} from "@bsport/permissions";
+import {
+  type ObjectLevelPermissions,
+  dataAccessLayer,
+  useFlagsStatus,
+} from "@bsport/sm-backbone";
 
 import { InsightFlags, useInsightFlag } from "#src/utils/featureFlags";
 
@@ -15,8 +23,8 @@ type InsightAccessRequirement = {
  */
 export const INSIGHT_ACCESS_REQUIREMENTS = {
   trial: {
-    // Keep aligned with existing behavior (used by Trial + Recurring pages today)
-    permission: "report.Club.subscription.allowed_actions.read",
+    // Trial Analysis is gated by invoices read
+    permission: "report.Payments.invoices.allowed_actions.read",
     featureFlag: InsightFlags.TRIAL_ANALYSIS,
   },
   recurring: {

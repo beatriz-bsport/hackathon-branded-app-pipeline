@@ -8,6 +8,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { INSIGHT_SECTIONS } from "#src/constants";
+import { useInsightAccess } from "#src/utils/access";
 import { useTranslation } from "#src/utils/i18n";
 import {
   createChipForRow,
@@ -15,7 +16,6 @@ import {
   filterBySearch,
   filterBySection,
 } from "#src/utils/insightFilters";
-import { useInsightAccess } from "#src/utils/permissions";
 
 /**
  * Main insights page displaying a list of available business insight dashboards.

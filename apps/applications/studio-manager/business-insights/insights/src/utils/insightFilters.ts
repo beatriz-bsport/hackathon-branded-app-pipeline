@@ -1,6 +1,6 @@
 import { INSIGHT_ITEMS, INSIGHT_SECTIONS } from "#src/constants";
+import type { InsightAccess } from "#src/utils/access";
 import type { TFunction } from "#src/utils/i18n";
-import type { InsightAccess } from "#src/utils/permissions";
 
 export interface InsightRow {
   id: string;
@@ -20,8 +20,8 @@ export const createInsightRows = (
 ): InsightRow[] => {
   return INSIGHT_ITEMS.filter((item) => {
     // If an item is governed by access rules, enforce them.
-    // Otherwise, default to visible.
-    return item.id in access ? access[item.id as keyof InsightAccess] : true;
+    // Otherwise, default to hidden.
+    return item.id in access ? access[item.id as keyof InsightAccess] : false;
   }).map((item) => ({
     ...item,
     title: t(`items.${item.id}.title`),

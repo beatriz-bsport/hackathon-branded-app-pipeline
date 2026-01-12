@@ -391,7 +391,11 @@ const InvoiceSequentialNumberingSettings: React.FC = () => {
 
       <FormControl
         fullWidth
-        disabled={selectedOption === 'beginning_of_next_month'}
+        disabled={
+          selectedOption === 'beginning_of_next_month' ||
+          (selectedOption === 'beginning_of_current_month' &&
+            !useExternalAccountingProvider)
+        }
         error={startingNumberError}
       >
         <InputLabel htmlFor="starting-number-input">

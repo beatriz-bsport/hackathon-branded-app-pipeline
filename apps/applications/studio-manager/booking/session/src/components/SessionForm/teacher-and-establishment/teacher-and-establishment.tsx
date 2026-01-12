@@ -4,6 +4,7 @@ import { Divider, Title } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { TeacherPaymentRuleSelectorField } from "./teacher-payment-rule-selector-field";
 import { TeacherSelectorField } from "./teacher-selector-field";
 
 export const SessionTeacherAndEstablishment: FC<{
@@ -18,6 +19,7 @@ export const SessionTeacherAndEstablishment: FC<{
         )}
       </Title>
       <TeacherSelectorField fieldIdPrefix={fieldIdPrefix} />
+      <TeacherPaymentRuleSelectorField fieldIdPrefix={fieldIdPrefix} />
       <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>
   );

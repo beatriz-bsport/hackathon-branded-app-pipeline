@@ -13,6 +13,7 @@ import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal
 import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions/cancel-multiple-sessions-modal";
 import { ExportParticipantsModal } from "#src/components/SessionList/actions/export-participants-modal";
 import { CancelSessionModal } from "#src/components/SessionList/detail-actions/cancel-session-modal";
+import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/restore-session-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
 import { useModal } from "#src/hooks/use-modal";
 import { useTranslation } from "#src/utils/i18n";
@@ -27,6 +28,7 @@ import {
   useSessionListData,
 } from "../hooks/useSessionListData";
 import {
+  ModalType,
   selectModalState,
   selectSelectedDate,
   setLocale,
@@ -187,8 +189,11 @@ const ListPage: React.FC = () => {
           isOpen={cancelMultipleSessionsModal}
           onClose={closeCancelMultipleSessionsModal}
         />
-        {detailsModalState?.type === "cancel" && (
+        {detailsModalState?.type === ModalType.CANCEL && (
           <CancelSessionModal session={detailsModalState.session} />
+        )}
+        {detailsModalState?.type === ModalType.RESTORE && (
+          <RestoreSessionModal session={detailsModalState.session} />
         )}
       </ListLayout.Content>
     </ListLayout>

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "type": "object",
+  "properties": {
+    "remotes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Override auto-detected remotes. Pass empty array to run standalone."
+    },
+    "watchDeps": {
+      "type": "boolean",
+      "default": true,
+      "description": "Watch workspace dependencies and rebuild on changes"
+    },
+    "debug": {
+      "type": "boolean",
+      "default": false,
+      "description": "Show all output from remotes (by default only host output is shown)"
+    }
+  },
+  "required": []
+}

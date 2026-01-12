@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "dev": {
+      "implementation": "./src/executors/dev/executor",
+      "schema": "./src/executors/dev/schema.json",
+      "description": "Run Module Federation dev server with automatic remote detection and dependency watching"
+    }
+  }
+}

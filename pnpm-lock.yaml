@@ -1127,6 +1127,9 @@ importers:
       '@bsport/api-core':
         specifier: workspace:*
         version: link:../../../../../packages/api/core
+      '@bsport/api-financial-services':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/financial-services
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting

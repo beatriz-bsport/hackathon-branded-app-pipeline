@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router";
 
 import {
@@ -8,7 +7,9 @@ import {
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
-import { LEGACY_ROUTES, ROUTES } from "#src/urls";
+import { GiftcardCreateModal } from "#src/features/giftcard-create-modal";
+import { useDisclosure } from "#src/hooks/useDisclosure";
+import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { GiftcardImageUploadModal } from "./GiftcardImageUploadModal";
@@ -16,15 +17,22 @@ import { GiftcardListContent } from "./GiftcardListContent";
 
 export const GiftcardListPage: React.FC = () => {
   const { t } = useTranslation("common");
-  const [openImageModal, setOpenImageModal] = useState<boolean>(false);
+
+  const {
+    isOpen: isImageModalOpen,
+    onClose: closeImageModal,
+    onOpen: openImageModal,
+  } = useDisclosure();
+
+  const {
+    isOpen: isCreateModalOpen,
+    onClose: closeCreateModal,
+    onOpen: openCreateModal,
+  } = useDisclosure();
 
   const navigate = useNavigate();
-  const navigateToCreatePage = () =>
-    (window.location.href = LEGACY_ROUTES.CREATE);
 
   const navigateToArchivePage = () => navigate(ROUTES.ARCHIVED);
-
-  const openImageBankModal = () => setOpenImageModal(true);
 
   const { endGroupActions } = ListLayout.useAdaptiveActions({
     endGroupActions: [
@@ -45,7 +53,7 @@ export const GiftcardListPage: React.FC = () => {
         color="main"
         size="md"
         label={t("listPage.header.buttons.openBankImage")}
-        onClick={openImageBankModal}
+        onClick={openImageModal}
       />,
     ],
   });
@@ -60,20 +68,26 @@ export const GiftcardListPage: React.FC = () => {
             intent="call-to-action"
             color="main"
             label={t("listPage.header.buttons.addGiftcard")}
-            onClick={navigateToCreatePage}
+            onClick={openCreateModal}
           />
         }
         endGroupActions={endGroupActions}
       />
       <ListLayout.Content>
-        <GiftcardListContent onAddGiftcardClick={navigateToCreatePage} />
+        <GiftcardListContent onAddGiftcardClick={openCreateModal} />
       </ListLayout.Content>
-      {openImageModal && (
+
+      {isImageModalOpen && (
         <GiftcardImageUploadModal
-          isOpen={openImageModal}
-          onCloseModal={() => setOpenImageModal(false)}
+          isOpen={isImageModalOpen}
+          onCloseModal={closeImageModal}
         />
       )}
+
+      <GiftcardCreateModal
+        isOpen={isCreateModalOpen}
+        onClose={closeCreateModal}
+      />
     </ListLayout>
   );
 };

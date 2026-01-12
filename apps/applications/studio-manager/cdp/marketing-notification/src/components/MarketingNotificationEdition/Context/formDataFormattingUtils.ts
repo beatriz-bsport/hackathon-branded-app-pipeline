@@ -25,7 +25,7 @@ import { createPassTriggerCondition } from "./passNotificationDataFormatter";
 /**
  * Extracts timing configuration from event rules
  */
-export const extractTimingConfig = (eventRules: {
+export const extractTimingConfigIntoContextForm = (eventRules: {
   days?: number;
   hours?: number;
 }) => {
@@ -51,7 +51,7 @@ const createBookingTriggerCondition = (
     throw new Error(`Invalid event rules for ${triggerType} trigger`);
   }
 
-  const timingConfig = extractTimingConfig(eventRules);
+  const timingConfig = extractTimingConfigIntoContextForm(eventRules);
   const smartlistConfig = extractSmartlistConfig(eventRules);
 
   const commonCondition = {

@@ -158,7 +158,6 @@ export const PassEventForm = ({ itemIds, passType }: PassEventFormProps) => {
     formValues?.includedSmartlists,
     formValues?.name,
     formValues?.creditsEventKind,
-    formValues?.creditsEventKind,
     formValues?.passEventAction,
     formValues?.passIds,
     formValues?.passesType,

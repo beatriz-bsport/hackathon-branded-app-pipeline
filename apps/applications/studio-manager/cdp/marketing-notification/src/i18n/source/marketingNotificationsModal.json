@@ -11,6 +11,23 @@
     "update": {
       "success": "Your changes were saved",
       "failure": "Your changes could not be saved"
+    },
+    "delete": {
+      "success": "Automation deleted",
+      "failure": "Your automation could not be deleted"
+    }
+  },
+  "deleteModal": {
+    "title": "Delete automation?",
+    "description": {
+      "paymentPack": "This notification will no longer be active for the associated passes.",
+      "privatePass": "This notification will no longer be active for the associated appointment passes.",
+      "other": "All notifications associated with this automation will no longer be active. ",
+      "warning": "Just a heads up: this action is permanent and cannot be undone. "
+    },
+    "actions": {
+      "confirm": "Delete",
+      "cancel": "Back"
     }
   },
   "steps": {

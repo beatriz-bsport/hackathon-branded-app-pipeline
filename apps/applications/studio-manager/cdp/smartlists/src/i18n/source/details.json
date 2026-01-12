@@ -30,6 +30,26 @@
         "title": "Failed to load automations",
         "description": "We couldn't load the automated messages. Please try again.",
         "retryLabel": "Retry"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "deleteModal": {
+        "title": "Delete automation?",
+        "description": "Any members who haven't received this message yet won't receive it.",
+        "buttons": {
+          "delete": "Delete",
+          "cancel": "Cancel"
+        }
+      },
+      "toasts": {
+        "success": {
+          "deleted": "Automation message deleted"
+        },
+        "error": {
+          "deleteFailed": "Automation couldn't be deleted. Please try again."
+        }
       }
     }
   },

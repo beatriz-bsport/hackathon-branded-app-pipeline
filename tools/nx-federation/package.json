@@ -1,0 +1,13 @@
+{
+  "name": "@bsport/nx-federation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nx plugin for Module Federation development workflow",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@nx/devkit": "21.6.10",
+    "tslib": "^2.8.1"
+  },
+  "//": "Source-only package: Nx consumes TypeScript directly via ts-node. No build step required.",
+  "executors": "./executors.json"
+}

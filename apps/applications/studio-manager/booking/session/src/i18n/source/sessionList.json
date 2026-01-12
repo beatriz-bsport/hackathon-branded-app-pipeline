@@ -114,6 +114,7 @@
     "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this session will have their credits refunded.",
     "groupSessionAlert": "This session is part of the group <strong>{{groupName}}</strong>.",
     "notificationLabel": "Send a notification to all members who booked this session",
+    "cancelLinkedSessions": "Cancel linked sessions (both online and on-site)",
     "cancelFutureSessions": "Cancel future sessions too",
     "cancelFutureSessionsForGroup": "Cancel future sessions of {{groupName}}",
     "futureSessionsHeader": "Sessions ({{number}})",

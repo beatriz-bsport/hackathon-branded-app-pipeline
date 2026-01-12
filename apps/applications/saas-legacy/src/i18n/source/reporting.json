@@ -343,7 +343,8 @@
     "updated_status": "Updated status",
     "admission": "Admission",
     "door_id": "Door ID",
-    "door_distance": "Door distance",
+    "door_distance": "Door distance (m)",
+    "door_name": "Door name",
     "kind": "Type",
     "billing_date_start": "First billing date",
     "type": "Type"

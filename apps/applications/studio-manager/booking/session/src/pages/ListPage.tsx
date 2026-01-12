@@ -187,7 +187,9 @@ const ListPage: React.FC = () => {
           isOpen={cancelMultipleSessionsModal}
           onClose={closeCancelMultipleSessionsModal}
         />
-        {detailsModalState?.type === "cancel" && <CancelSessionModal />}
+        {detailsModalState?.type === "cancel" && (
+          <CancelSessionModal session={detailsModalState.session} />
+        )}
       </ListLayout.Content>
     </ListLayout>
   );

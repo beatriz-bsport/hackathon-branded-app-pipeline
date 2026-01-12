@@ -711,4 +711,5 @@ export enum AccessMonitoringMetadataIdentifierEnum {
   COMPANY_NAME = 'company_name',
   DOOR_ID = 'door_id',
   DOOR_DISTANCE = 'door_distance',
+  DOOR_NAME = 'door_name',
 }

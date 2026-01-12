@@ -86,6 +86,7 @@ export const useSessionSchema = () => {
       recurrencePattern: z.nativeEnum(MonthlyRecurrencePattern),
       recurrenceEndDate: z.date().nullable(),
       level: z.number().int(),
+      is_hybrid: z.boolean(),
     })
     .refine(
       (data) => {

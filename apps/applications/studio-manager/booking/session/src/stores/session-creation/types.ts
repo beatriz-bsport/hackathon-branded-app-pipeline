@@ -70,6 +70,7 @@ export type SessionCreationFormData = Pick<
   | "partner_max_booking_count"
   | "duration_minute"
   | "level"
+  | "is_hybrid"
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;

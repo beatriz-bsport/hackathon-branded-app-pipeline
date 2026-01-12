@@ -2829,6 +2829,16 @@ importers:
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
 
+  packages/api/financial-services:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../stores/base
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
   packages/common-legacy:
     dependencies:
       luxon:
@@ -35546,9 +35556,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

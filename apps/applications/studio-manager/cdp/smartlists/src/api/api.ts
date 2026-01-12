@@ -76,6 +76,16 @@ const fetchCampaignSent = async (
 };
 
 /**
+ * Deletes an automated campaign
+ * @param id - ID of the automated campaign to delete
+ */
+export const deleteAutomatedCampaign = async (id: number): Promise<void> => {
+  await fetch(`${API_URL}/automated_campaign/${id}/`, {
+    method: "DELETE",
+  });
+};
+
+/**
  * Query Options
  */
 export const smartlistDetailQueryOptions = (id: string) =>

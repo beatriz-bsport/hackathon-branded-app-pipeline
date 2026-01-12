@@ -1,6 +1,5 @@
-// import { flags, useFlag } from "./feature-flags";
+import { flags, useFlag } from "./feature-flags";
 
 export const useSmartlistFlag = () => {
-  // return useFlag(flags.smartlist);
-  return true;
+  return useFlag(flags.smartlist);
 };

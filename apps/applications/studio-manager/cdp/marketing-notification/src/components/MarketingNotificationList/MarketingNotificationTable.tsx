@@ -1,4 +1,5 @@
 import { DetailDrawer, ListLayout, Table } from "@bsport/kaizen-primitive-core";
+import type { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
 
 import { MarketingNotificationDetailsContent } from "#src/components/MarketingNotificationDetails/MarketingNotificationDetailsContent";
 import { getTableColumns } from "#src/components/MarketingNotificationList/MarketingNotificationTableConfig";
@@ -14,9 +15,13 @@ import { useUpsellChecker } from "#src/hooks/permissions/use-upsell-checker";
 import { useTranslation } from "#src/utils/i18n";
 
 export const MarketingNotificationTable = ({
-  handleCreateNotification,
+  handleCreateMarketingNotification,
+  setDraftMarketingNotification,
 }: {
-  handleCreateNotification: () => void;
+  handleCreateMarketingNotification: () => void;
+  setDraftMarketingNotification: (
+    marketingNotification: MarketingNotification,
+  ) => void;
 }) => {
   const { t } = useTranslation("marketingNotificationList");
   const { marketingNotificationsList, isLoading } =
@@ -74,8 +79,14 @@ export const MarketingNotificationTable = ({
   const tableColumns = getTableColumns({
     t,
     openPreview: openMarketingNotificationDetail,
-    editNotification: () => {
-      console.log("edit notification");
+    editNotification: (notificationId) => {
+      const marketingNotification = marketingNotificationsList.find(
+        (notification) => notification.id === notificationId,
+      );
+      if (!marketingNotification) {
+        return;
+      }
+      setDraftMarketingNotification(marketingNotification);
     },
     deleteNotification: () => {
       console.log("delete notification");
@@ -128,7 +139,7 @@ export const MarketingNotificationTable = ({
             intent="call-to-action"
             label={t("page.actions.createNotificationButton")}
             iconLeft="plus"
-            onClick={handleCreateNotification}
+            onClick={handleCreateMarketingNotification}
           />
         }
       />
@@ -147,7 +158,7 @@ export const MarketingNotificationTable = ({
               ctaButtonConfig: {
                 iconLeft: "plus",
                 label: t("page.emptyState.unfiltered.primaryAction"),
-                onClick: handleCreateNotification,
+                onClick: handleCreateMarketingNotification,
               },
             },
             isEmptySearch: marketingNotificationsToDisplay.length === 0,

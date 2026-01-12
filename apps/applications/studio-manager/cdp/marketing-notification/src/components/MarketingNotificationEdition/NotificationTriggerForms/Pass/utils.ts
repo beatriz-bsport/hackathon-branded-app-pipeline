@@ -8,10 +8,13 @@ import {
   PASS_ACTION_CREDITS_LEFT,
   PASS_ACTION_DAYS_EXPIRED,
   PASS_ACTION_DAYS_LEFT,
+  PASS_CREDITS_LEFT_BOOKING_COMPLETED,
+  PASS_CREDITS_LEFT_SESSION_END,
   PASS_SUBSCRIPTION_FILTERING_IN,
   PASS_SUBSCRIPTION_FILTERING_OUT,
   type PassAction,
-  PassSubscriptionFilteringType,
+  type PassCreditsLeftEventKind,
+  type PassSubscriptionFilteringType,
 } from "./types";
 
 export function isValidPassAction(action: string): action is PassAction {
@@ -28,6 +31,15 @@ export function isValidPassSubscriptionFiltering(
   return (
     filter === PASS_SUBSCRIPTION_FILTERING_IN ||
     filter === PASS_SUBSCRIPTION_FILTERING_OUT
+  );
+}
+
+export function isValidPassCreditsLeftAction(
+  eventKind: string,
+): eventKind is PassCreditsLeftEventKind {
+  return (
+    eventKind === PASS_CREDITS_LEFT_BOOKING_COMPLETED ||
+    eventKind === PASS_CREDITS_LEFT_SESSION_END
   );
 }
 

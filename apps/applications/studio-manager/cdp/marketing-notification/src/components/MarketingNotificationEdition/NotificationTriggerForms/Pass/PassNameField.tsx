@@ -11,13 +11,13 @@ type PassNameFieldProps = {
 export const PassNameField = ({ onChange }: PassNameFieldProps) => {
   const { t } = useTranslation("marketingNotificationsModal");
   return (
-    <FormField<PassTriggerConfigValidationFormData, "notificationName">
-      name="notificationName"
+    <FormField<PassTriggerConfigValidationFormData, "name">
+      name="name"
       mapProps={({ defaultProps, form, field }) => ({
         ...defaultProps,
         value: field.value || "",
         onClear: () => {
-          form.setValue("notificationName", "");
+          form.setValue("name", "", { shouldDirty: true });
         },
       })}
     >

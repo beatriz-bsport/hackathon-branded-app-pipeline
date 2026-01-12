@@ -2,11 +2,15 @@ import type {
   TemporalityType,
   TimeUnitType,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
-import { PassAction } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Pass/types";
+import type {
+  PassAction,
+  PassCreditsLeftEventKind,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Pass/types";
 
 import { SelectableNotificationType } from "../types";
 
 export type TriggerTypeValidationFormData = {
+  draftMarketingNotificationId?: number;
   notificationType: SelectableNotificationType;
   itemIds?: number[];
   shouldContainAllPasses?: boolean;
@@ -37,7 +41,7 @@ export const PRIVATE_PASS_TYPE = "privatePass";
 export type PassesType = typeof PAYMENT_PACK_TYPE | typeof PRIVATE_PASS_TYPE;
 
 export type PassTriggerConfigValidationFormData = {
-  notificationName: string;
+  name: string;
   passEventAction: PassAction;
   passIds: number[];
   passesType: PassesType;
@@ -46,6 +50,8 @@ export type PassTriggerConfigValidationFormData = {
   isPassExpirationCheck: boolean;
   disabledInContract: boolean;
   creditsLeft?: number;
+  hours?: number;
+  creditsEventKind?: PassCreditsLeftEventKind;
 } & CommonTriggerConfigValidationFormData;
 
 export type TimeTriggerConfigValidationFormData = {

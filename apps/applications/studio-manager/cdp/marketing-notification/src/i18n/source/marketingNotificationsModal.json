@@ -8,7 +8,7 @@
       "success": "Notification rule saved",
       "failure": "Your notification rule could not be saved"
     },
-    "edit": {
+    "update": {
       "success": "Your changes were saved",
       "failure": "Your changes could not be saved"
     }
@@ -124,7 +124,7 @@
       "title": "Set up an automation",
       "errors": {
         "noFloat": "Must be a whole number without decimal points",
-        "atLeastOneTimeValue": "Must be at least 1 {{ timeUnit }}",
+        "positiveValue": "Must be at least 0 {{ timeUnit }}",
         "smartlistShouldBeFilledWhenToggled": "Select a Smartlist or deactivate this option to continue"
       },
       "smartlists": {
@@ -346,6 +346,19 @@
           "days": {
             "suffix_one": "Remaining day",
             "suffix_other": "Remaining days"
+          }
+        },
+        "creditsLeft": {
+          "label": "Send this notification",
+          "bookingCompleted": {
+            "label": "After completing the booking",
+            "suffix_one": "hour after booking",
+            "suffix_other": "hours after booking"
+          },
+          "sessionEnd": {
+            "label": "After the end of the session",
+            "suffix_one": "hour after the end of the session",
+            "suffix_other": "hours after the end of the session"
           }
         },
         "includedInContract": {

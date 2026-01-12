@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Redirect } from 'react-router';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
 import { useTranslation } from 'react-i18next';
-import { getAuth } from '@bsport/saas-legacy/src/api';
-import Config from '@bsport/saas-legacy/src/config';
-import { appendSigmaLocale } from '@bsport/saas-legacy/src/helpers/sigma';
+import { Redirect } from 'react-router-dom';
+
+import { getAuth } from '../../http';
+import Config from '../../config';
+import { appendSigmaLocale } from '../../utils/sigma';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 

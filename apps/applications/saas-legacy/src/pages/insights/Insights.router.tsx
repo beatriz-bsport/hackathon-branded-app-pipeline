@@ -7,6 +7,7 @@ import withTitle from '#src/hocs/with-title.hoc';
 import InsightsIndex from '#src/pages/insights/InsightsIndex.page';
 import TrialAnalysis from '#src/pages/trial-analysis/TrialAnalysis.page';
 import SubscriptionEvents from '#src/pages/subscription-events/SubscriptionEvents.page';
+import ScheduleAnalysis from '#src/pages/schedule-analysis/ScheduleAnalysis.page';
 import { INSIGHTS_ROUTES, INSIGHTS_TRANSLATION_NAMESPACES } from './constants';
 
 type Props = {};
@@ -27,6 +28,15 @@ const SubscriptionEventsWithTitle = compose(
   withTitle(({ t }) => t('b2b_insights:pages.recurringRevenue.title')),
 )(SubscriptionEvents);
 
+const ScheduleAnalysisWithTitle = compose(
+  withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
+  withTitle(({ t }) =>
+    t('b2b_insights:pages.scheduleAnalysis.title', {
+      defaultValue: 'Schedule analysis',
+    }),
+  ),
+)(ScheduleAnalysis);
+
 const InsightsRouter: React.FC<Props> = () => {
   return (
     <Switch>
@@ -44,6 +54,11 @@ const InsightsRouter: React.FC<Props> = () => {
         exact
         component={SubscriptionEventsWithTitle}
         path={INSIGHTS_ROUTES.RECURRING_REVENUE}
+      />
+      <Route
+        exact
+        component={ScheduleAnalysisWithTitle}
+        path={INSIGHTS_ROUTES.SCHEDULE_ANALYSIS}
       />
       <Redirect to={INSIGHTS_ROUTES.INDEX} />
     </Switch>

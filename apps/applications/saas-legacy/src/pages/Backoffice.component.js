@@ -194,6 +194,9 @@ const SubscriptionEvents = asyncComponent(() =>
 const TrialAnalysis = asyncComponent(() =>
   import('./trial-analysis/TrialAnalysis.router'),
 );
+const ScheduleAnalysis = asyncComponent(() =>
+  import('./schedule-analysis/ScheduleAnalysis.router'),
+);
 const Insights = asyncComponent(() => import('./insights/Insights.router'));
 const PaymentCombo = asyncComponent(() =>
   import('./payment-combo/PaymentCombo.router'),
@@ -467,6 +470,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
 
       <Route component={SubscriptionEvents} path="/subscription-events/" />
       <Route component={TrialAnalysis} path="/trial-analysis/" />
+      <Route component={ScheduleAnalysis} path="/schedule-analysis/" />
       <Route component={Insights} path="/insights" />
       <Route component={PaymentCombo} path="/combo/" />
       <Route component={PrivateService} path="/private-service" />

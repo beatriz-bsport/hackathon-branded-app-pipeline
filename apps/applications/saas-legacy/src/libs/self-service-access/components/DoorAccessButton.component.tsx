@@ -9,6 +9,8 @@ import { makeStyles } from '@material-ui/core';
 
 type Props = {
   companyId: number;
+  iosAppUrl: string;
+  androidAppUrl: string;
 };
 
 const useStyles = makeStyles({
@@ -22,10 +24,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function DoorAccessButton({ companyId }: Props) {
+export default function DoorAccessButton({
+  companyId,
+  iosAppUrl,
+  androidAppUrl,
+}: Props) {
   const { t } = useTranslation(['b2c_accessControl']);
   const classes = useStyles();
-  const { error, loading, isAvailable } = useDoorAccessProvider(companyId);
+  const { error, loading, isAvailable, provider } =
+    useDoorAccessProvider(companyId);
   const [isOpen, setIsOpen] = useState(false);
 
   if (loading) {
@@ -47,8 +54,13 @@ export default function DoorAccessButton({ companyId }: Props) {
       </Button>
       {isOpen && (
         <DoorAccessModal
+          androidAppUrl={androidAppUrl}
           companyId={companyId}
+          iosAppUrl={iosAppUrl}
           onClose={() => setIsOpen(false)}
+          proximityProofProtectionEnabled={
+            provider?.proximity_proof_protection_enabled ?? false
+          }
         />
       )}
     </>

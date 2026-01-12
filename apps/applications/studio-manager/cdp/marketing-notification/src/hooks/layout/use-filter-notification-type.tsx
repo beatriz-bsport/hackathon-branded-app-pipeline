@@ -10,7 +10,7 @@ import { useTranslation } from "#src/utils/i18n";
 const FILTER_IS = "is" as const;
 const FILTER_IS_NOT = "isNot" as const;
 
-export type FilterParams = {
+export type MarketingNotificationFilterParams = {
   notification_type_included: string[]; // Union of selected notification type
   notification_type_excluded: string[]; // Union of excluded notification type
 };
@@ -31,7 +31,7 @@ export const useFilterNotificationType = () => {
   const { t } = useTranslation("marketingNotificationList");
 
   const [activeTagGroupIdFilters, setActiveTagGroupIdFilters] =
-    useState<FilterParams>({
+    useState<MarketingNotificationFilterParams>({
       notification_type_included: [],
       notification_type_excluded: [],
     });

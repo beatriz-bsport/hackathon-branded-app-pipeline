@@ -28,6 +28,11 @@
       "positionUnavailable": "Geolocation position is not available.",
       "timeout": "Geolocation timed out. Please try again later.",
       "unknownError": "Unknown error occurred"
+    },
+    "proximityProof": {
+      "message": "To open a door, you will need to download the app and have your phone next to the door. You can find the open door button in your profile.",
+      "downloadIos": "Download on iOS",
+      "downloadAndroid": "Download on Android"
     }
   }
 }

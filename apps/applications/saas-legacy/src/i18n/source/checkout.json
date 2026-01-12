@@ -107,8 +107,12 @@
       "myPass_plural": "My passes",
       "alert": "Oops! The booking failed.\nWe've had a problem processing your session booking. Please try again later or book a different session.",
       "doorAccessInfo": {
-        "title": "Door Access Purchased",
-        "message": "You've bought a pass that includes door access. To use it, go to your profile and tap 'Open door'."
+        "title": "Door access purchased",
+        "message": "You've bought a pass that includes door access. To use it, go to your profile and tap 'Open door'.",
+        "proximityProof": {
+          "title": "Door access purchased",
+          "message": "You've bought a pass that includes door access. To open a door, you will need to download the app and have your phone next to the door. You can find the open door button in your profile."
+        }
       },
       "confirmationStatusMessage": {
         "offerAndPurchaseSuccess": "Congratulations! Your purchases and bookings have been confirmed. You will shortly receive a confirmation e-mail with all the details.",

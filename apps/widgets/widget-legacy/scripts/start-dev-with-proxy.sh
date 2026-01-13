@@ -83,9 +83,9 @@ cd "$PROXY_BRIDGE_DIR"
 pnpm run dev > /tmp/proxy-bridge-dev.log 2>&1 &
 PROXY_BRIDGE_PID=$!
 
-echo -e "${BLUE}🔌 Starting widget debugger dev server (port 3210)...${NC}"
+echo -e "${BLUE}🔌 Starting widget debugger dev server (port 3211)...${NC}"
 cd "$WIDGET_DEBUGGER_DIR"
-pnpm run dev:spa:local > /tmp/widget-debugger-dev.log 2>&1 &
+pnpm run serve:html > /tmp/widget-debugger-dev.log 2>&1 &
 WIDGET_DEBUGGER_PID=$!
 
 
@@ -97,6 +97,8 @@ sleep 5
 
 echo ""
 echo -e "${GREEN}✅ Development environment ready!${NC}"
+echo ""
+echo "⚠️ Be sure to run pnpm run -w api-environment:set ... so that fetch package is configured"
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo -e "${YELLOW}📍 Access your application at:${NC}"
@@ -115,7 +117,7 @@ echo "Individual dev servers (for debugging):"
 echo "   - Widget:  http://localhost:3100"
 echo "   - Website: http://localhost:3000"
 echo "   - Proxy:   http://localhost:4048"
-echo "   - Widget Debugger: http://localhost:3210"
+echo "   - Widget Debugger: http://localhost:3211"
 echo ""
 echo "Logs:"
 echo "   - Proxy:   tail -f /tmp/dev-proxy.log"

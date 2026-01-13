@@ -82,7 +82,8 @@
       }
     },
     "passExpiration": "Gültig bis {{- expirationDate }}",
-    "atHome": "Zu Hause"
+    "atHome": "Zu Hause",
+    "checkedInTo": "Eingecheckt bei:"
   },
   "settings": {
     "title": "Aufenthaltsdauer",

@@ -67,7 +67,8 @@
       "green": "Válido"
     },
     "noPreviousPhoto": "El miembro no tiene fotos anteriores",
-    "noSpotAllocated": "Sin plaza asignada"
+    "noSpotAllocated": "Sin plaza asignada",
+    "checkedInTo": "Check-in realizado en:"
   },
   "memberVisit": {
     "warnings": {

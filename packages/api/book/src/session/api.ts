@@ -141,6 +141,24 @@ export const cancelSessionAPI = async (
   return backgroundTaskUuid;
 };
 
+export const restoreSessionAPIConfig = (id: number): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/${id}/restore/`,
+    {
+      method: "PUT",
+    },
+  ];
+};
+
+export const restoreSessionAPI = async (
+  fetch: Fetch<Session>,
+  id: number,
+): Promise<Session> => {
+  const [uri, init] = restoreSessionAPIConfig(id);
+  const { data } = await fetch(uri, init);
+  return data;
+};
+
 const fetchNumberOfSessionsToCancelAPIConfig = (
   params: CancelMultipleSessionsParams,
 ): ApiConfig => {

@@ -139,5 +139,13 @@
     "errorMessage": "An error occurred while cancelling the sessions. Please try again later.",
     "successMessage_one": "Multiple sessions cancelled on {{startDate}}.",
     "successMessage_other": "Multiple sessions cancelled between {{startDate}} and {{endDate}}."
+  },
+  "restoreModal": {
+    "title": "Restore session?",
+    "description": "Restoring this session will make it visible again to members. You can cancel it again at any time.",
+    "cancelButton": "Back",
+    "confirmButton": "Restore",
+    "errorMessage": "An error occurred while restoring the session. Please try again later.",
+    "successMessage": "Session restored"
   }
 }

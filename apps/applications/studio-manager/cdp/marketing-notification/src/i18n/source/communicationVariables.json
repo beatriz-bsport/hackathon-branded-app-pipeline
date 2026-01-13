@@ -59,7 +59,7 @@
       "tags": {
         "subscription_name": "Subscription name",
         "subscription_recurrent_price": "Monthly price",
-        "subscription_nb_months": "Number of bills (deprecated)",
+        "subscription_nb_months": "Number of months",
         "subscription_nb_bills": "Number of bills",
         "subscription_duration": "Total duration",
         "subscription_flat_fee": "Joining fee",
@@ -114,7 +114,7 @@
         "android_app_URL": "Android application URL",
         "android_app_url": "Android application url",
         "ios_app_URL": "iOS application URL",
-        "ios_app_url": "iOS application url",
+        "ios_app_url": "iOS application URL",
         "company_facebookURL": "Facebook URL",
         "company_instagramURL": "Instagram URL",
         "company_scheduleURL": "Schedule URL",

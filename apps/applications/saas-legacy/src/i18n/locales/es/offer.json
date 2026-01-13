@@ -252,7 +252,7 @@
           "isModifyRecursively": "¿Desea modificar sesiones similares en función de estas nuevas condiciones?",
           "isNotifyConsumers": "¿Quiere informar a sus clientes de este cambio?",
           "partnership": {
-            "partnerMaxBookingCount": "Número máximo de reservas combinadas de Wellhub y Urban Sports Club (los demás agregadores no se ven afectados por esta configuración)",
+            "partnerMaxBookingCount": "Número máximo de reservas combinadas de myClubs, Wellhub y Urban Sports Club (los demás agregadores no se ven afectados por esta configuración)",
             "availableOnPartnership": "En los agregadores (ClassPass, OneFit...)",
             "title": "Integraciones de agregadores",
             "uscIntegrationWorkshopWarning": "Los talleres no son compatibles con el marketplace Urban Sports Club, por lo que no se incluirá esta sesión.",
@@ -262,7 +262,7 @@
               "helperText": "Estos productos son ofrecidos por su estudio en la plataforma Wellhub. Vaya a la sección «Asociación» en el Portal de Socios de su cuenta Wellhub para obtener más información.",
               "title": "Tus productos disponibles en Wellhub:"
             },
-            "subtitle": "Incluye: ClassPass, Urban Sports Club, Wellpass y Wellhub para reservas externas.",
+            "subtitle": "Incluye: ClassPass, myClubs, Urban Sports Club, Wellpass y Wellhub para reservas externas.",
             "enablePartneshipBookings": "Permitir reservas de agregadores"
           },
           "allowGuestOffer": "Permitir reservar para invitados",

@@ -34,9 +34,10 @@
       },
       "tooltip": {
         "classIsFull": "Dieser Kurs ist leider schon voll.",
+        "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} Platz noch frei",
         "hasEmptySpots_other": "{{ count }} Plätze noch frei",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} Platz auf der Warteliste ausstehend",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} Mitglieder auf der Warteliste",
         "hasEmptySpotsForWaitlist_other": "{{ count }} Plätze auf der Warteliste ausstehend"
       }
     }

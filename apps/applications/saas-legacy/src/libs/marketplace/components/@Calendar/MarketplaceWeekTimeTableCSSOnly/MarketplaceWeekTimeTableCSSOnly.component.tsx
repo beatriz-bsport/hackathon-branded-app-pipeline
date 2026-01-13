@@ -126,12 +126,16 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
    * function that split offers into day periods [morning, afternoon, evening]
    */
   getOffersByPeriod = memoize(
-    (date: DateTime, offersByDay: { [key: string]: Array<Offer> }) => {
+    (
+      date: DateTime,
+      offersByDay: { [key: string]: Array<Offer> },
+      startWeekOnDaySelected,
+    ) => {
       const morning: Array<Array<Offer>> = [];
       const afternoon: Array<Array<Offer>> = [];
       const evening: Array<Array<Offer>> = [];
       const weekOffers = getWeekOffers(date, offersByDay, {
-        startWeekOnDaySelected: this.props.startWeekOnDaySelected,
+        startWeekOnDaySelected,
       });
       (weekOffers ?? []).map((dayOffers: Array<Offer>, i) => {
         morning[i] = dayOffers.filter(
@@ -404,7 +408,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     }
 
     const weekDays = getLocaleWeekdays('short');
-    const periodOffers = this.getOffersByPeriod(date, offersByDay);
+    const periodOffers = this.getOffersByPeriod(
+      date,
+      offersByDay,
+      this.props.startWeekOnDaySelected,
+    );
     const start_date = this.props.startWeekOnDaySelected
       ? date
       : date.startOf('week', {

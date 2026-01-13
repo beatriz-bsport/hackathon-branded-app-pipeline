@@ -19,7 +19,7 @@ export type SessionBase = {
   description_override: string;
   duration_minute: number;
   effectif: number;
-  establishment: number;
+  establishment: number | null;
   level: number;
   manager_only: boolean;
   meta_activity?: number;
@@ -74,6 +74,7 @@ export type SessionCreationFormData = Pick<
   | "coach"
   | "coach_payment_rule"
   | "broadcast_link"
+  | "establishment"
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;

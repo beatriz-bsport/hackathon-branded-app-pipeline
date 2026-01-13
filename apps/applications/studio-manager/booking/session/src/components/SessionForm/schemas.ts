@@ -102,6 +102,7 @@ export const useSessionSchema = () => {
             ),
           },
         ),
+      establishment: z.number().nullable(),
     })
     .refine(
       (data) => {
@@ -110,6 +111,15 @@ export const useSessionSchema = () => {
       {
         message: t("addSessionModal.errors.requiredField"),
         path: ["coach"],
+      },
+    )
+    .refine(
+      (data) => {
+        return data.establishment !== null;
+      },
+      {
+        message: t("addSessionModal.errors.requiredField"),
+        path: ["establishment"],
       },
     )
     .refine(

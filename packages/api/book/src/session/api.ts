@@ -8,6 +8,7 @@ import {
 import type {
   CancelMultipleSessionsParams,
   CancelSessionParams,
+  DeleteSessionParams,
   FetchSessionsParams,
   ListSessionsWithPendingReplacementRequestIdsParams,
   ManagerSession,
@@ -157,6 +158,29 @@ export const restoreSessionAPI = async (
   const [uri, init] = restoreSessionAPIConfig(id);
   const { data } = await fetch(uri, init);
   return data;
+};
+
+export const deleteSessionAPIConfig = (
+  id: number,
+  params: DeleteSessionParams,
+): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/manager/${id}/delete/`,
+    {
+      method: "DELETE",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const deleteSessionAPI = async (
+  fetch: Fetch<void>,
+  id: number,
+  params: DeleteSessionParams,
+): Promise<string | null> => {
+  const [uri, init] = deleteSessionAPIConfig(id, params);
+  const { backgroundTaskUuid } = await fetch(uri, init);
+  return backgroundTaskUuid;
 };
 
 const fetchNumberOfSessionsToCancelAPIConfig = (

@@ -140,6 +140,21 @@
     "successMessage_one": "Multiple sessions cancelled on {{startDate}}.",
     "successMessage_other": "Multiple sessions cancelled between {{startDate}} and {{endDate}}."
   },
+  "deleteModal": {
+    "title": "Permanently delete session?",
+    "description": "Deleting this session will remove any booking records. If there were bookings and members weren’t refunded when it was canceled, their credits will also be lost.",
+    "commonAlert": "Just a heads up: this action is permanent and cannot be undone.",
+    "groupSessionAlert": "This session is part of the group <strong>{{groupName}}</strong>.",
+    "deleteFutureSessions": "Delete future sessions",
+    "deleteFutureSessionsForGroup": "Delete future sessions of {{groupName}}",
+    "futureSessionsHeader": "Sessions ({{number}})",
+    "descriptionFutureSessions": "Select which sessions will be deleted",
+    "cancelButton": "Back",
+    "confirmButton": "Permanently delete",
+    "errorMessage": "An error occurred while deleting the session. Please try again later.",
+    "successMessage_one": "Session deleted",
+    "successMessage_other": "Sessions deleted"
+  },
   "restoreModal": {
     "title": "Restore session?",
     "description": "Restoring this session will make it visible again to members. You can cancel it again at any time.",

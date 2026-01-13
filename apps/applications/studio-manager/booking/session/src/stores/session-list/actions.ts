@@ -88,6 +88,12 @@ export const openRestoreModal = (session: EnrichedSession) => {
   });
 };
 
+export const openDeleteModal = (session: EnrichedSession) => {
+  sessionListStore.setState({
+    modalState: { type: ModalType.DELETE, session },
+  });
+};
+
 export const closeModal = () => {
   sessionListStore.setState({ modalState: null });
 };

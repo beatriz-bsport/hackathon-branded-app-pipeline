@@ -18,3 +18,6 @@ export const selectIsCancelModalOpen = (state: SessionListState) =>
 
 export const selectIsRestoreModalOpen = (state: SessionListState) =>
   state.modalState?.type === ModalType.RESTORE;
+
+export const selectIsDeleteModalOpen = (state: SessionListState) =>
+  state.modalState?.type === ModalType.DELETE;

@@ -7,30 +7,27 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { SessionSummaryList } from "#src/components/common/session-summary-list";
 import { useFetchSessionsInGroup } from "#src/hooks/session-api/fetch/use-fetch-sessions-in-group";
 import { useFetchSimilarSessions } from "#src/hooks/session-api/fetch/use-fetch-similar-sessions";
-import { useCancelSession } from "#src/hooks/session-api/session-actions/use-cancel-session";
+import { useDeleteSession } from "#src/hooks/session-api/session-actions/use-delete-session";
 import {
   closeModal,
-  selectIsCancelModalOpen,
+  selectIsDeleteModalOpen,
   useSessionListStore,
 } from "#src/stores/session-list";
 import { EnrichedSession } from "#src/types";
 import { TFunction, Trans, useTranslation } from "#src/utils/i18n";
 
-type CancelSessionModalProps = {
+type DeleteSessionModalProps = {
   session: EnrichedSession;
 };
-export const CancelSessionModal: FC<CancelSessionModalProps> = ({
+export const DeleteSessionModal: FC<DeleteSessionModalProps> = ({
   session,
 }) => {
   const { t, i18n } = useTranslation("sessionList");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
-  const isOpen = useSessionListStore(selectIsCancelModalOpen);
+  const isOpen = useSessionListStore(selectIsDeleteModalOpen);
 
-  const [shouldSendNotification, setShouldSendNotification] = useState(true);
-  const [shouldCancelFutureSessions, setShouldCancelFutureSessions] =
+  const [shouldDeleteFutureSessions, setShouldDeleteFutureSessions] =
     useState(false);
-  const [shouldCancelLinkedSessions, setShouldCancelLinkedSessions] =
-    useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const { data: regularSimilarSessions } = useFetchSimilarSessions(
@@ -40,7 +37,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
 
   const { data: groupSimilarSessions } = useFetchSessionsInGroup(
     session.group,
-    { min_date: session.date_start.split("T")[0], available: true },
+    { min_date: session.date_start.split("T")[0], available: false },
     !!session.group,
   );
 
@@ -48,36 +45,34 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
     ? groupSimilarSessions
     : regularSimilarSessions;
 
-  const cancelSession = useCancelSession();
+  const deleteSession = useDeleteSession();
 
   const areFutureSessionsSelected =
-    shouldCancelFutureSessions &&
+    shouldDeleteFutureSessions &&
     !!similarSessions &&
     similarSessions.length > 1;
 
-  const shouldCancelAllFutureSessions =
+  const shouldDeleteAllFutureSessions =
     // For group sessions, we need to list each session id
     !session.group &&
     areFutureSessionsSelected &&
     similarSessions.length === selectedIds.length;
 
   // there is always the current session in the selectedIds list
-  const shouldCancelOnlySomeFutureSessions =
+  const shouldDeleteOnlySomeFutureSessions =
     areFutureSessionsSelected &&
     // For group sessions, we need to list each session id
     (session.group || selectedIds.length < similarSessions.length);
 
   const handleConfirm = () => {
     closeModal();
-    cancelSession.mutate({
+    deleteSession.mutate({
       id: session.id,
       params: {
-        should_notify: shouldSendNotification,
-        apply_to_all_similar_offers: shouldCancelAllFutureSessions,
-        selected_similar_offer_ids: shouldCancelOnlySomeFutureSessions
+        apply_to_all_similar_offers: shouldDeleteAllFutureSessions,
+        selected_similar_offer_ids: shouldDeleteOnlySomeFutureSessions
           ? selectedIds.map(Number)
           : undefined,
-        cancel_linked_hybrid_offer: shouldCancelLinkedSessions,
       },
     });
   };
@@ -91,14 +86,6 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
     return `${session.name} - ${sessionDate}`;
   };
 
-  const shouldDisplayAlert = session.nb_bookings > 0 || session.groupName;
-
-  useEffect(() => {
-    if (isOpen) {
-      setShouldSendNotification(false);
-    }
-  }, [isOpen]);
-
   useEffect(() => {
     if (similarSessions) {
       setSelectedIds(similarSessions.map((s) => `${s.id}`));
@@ -109,45 +96,34 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
     <Modal
       open={isOpen}
       size="md"
-      title={t("cancelModal.title")}
+      title={t("deleteModal.title")}
       description={getDescription()}
       onClose={closeModal}
       confirmButton={{
-        label: t("cancelModal.confirmButton"),
+        label: t("deleteModal.confirmButton"),
         color: "critical",
         onClick: handleConfirm,
       }}
       cancelButton={{
-        label: t("cancelModal.cancelButton"),
+        label: t("deleteModal.cancelButton"),
         onClick: closeModal,
       }}
     >
       <div className="flex flex-col gap-md">
         <Body htmlVariant="p" size="lg">
-          {t("cancelModal.description")}
+          {t("deleteModal.description")}
         </Body>
-        {shouldDisplayAlert && (
-          <Alert status="critical">
-            {session.nb_bookings > 0 && (
-              <Body htmlVariant="p" size="md" weight="weak" color="critical">
-                <Trans
-                  t={t as TFunction}
-                  ns="sessionList"
-                  i18nKey="cancelModal.bookingsAlert"
-                  values={{ number: session.nb_bookings }}
-                  components={{
-                    strong: <strong />,
-                  }}
-                  count={session.nb_bookings}
-                />
-              </Body>
-            )}
+        <Alert status="critical">
+          <>
+            <Body htmlVariant="p" size="md" weight="weak" color="critical">
+              {t("deleteModal.commonAlert")}
+            </Body>
             {session.groupName && (
               <Body htmlVariant="p" size="md" weight="weak" color="critical">
                 <Trans
                   t={t as TFunction}
                   ns="sessionList"
-                  i18nKey="cancelModal.groupSessionAlert"
+                  i18nKey="deleteModal.groupSessionAlert"
                   values={{ groupName: session.groupName }}
                   components={{
                     strong: <strong />,
@@ -155,43 +131,25 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
                 />
               </Body>
             )}
-          </Alert>
-        )}
-        {session.nb_bookings > 0 && (
-          <Toggle
-            id="cancel-session-send-notification-toggle"
-            label={t("cancelModal.notificationLabel")}
-            checked={shouldSendNotification}
-            onChange={() => setShouldSendNotification(!shouldSendNotification)}
-          />
-        )}
-        {session.linked_hybrid_offer_id && (
-          <Toggle
-            id="cancel-session-linked-hybrid-offer-toggle"
-            label={t("cancelModal.cancelLinkedSessions")}
-            checked={shouldCancelLinkedSessions}
-            onChange={() =>
-              setShouldCancelLinkedSessions((prevState) => !prevState)
-            }
-          />
-        )}
+          </>
+        </Alert>
         {similarSessions && similarSessions.length > 0 && (
           <>
             <Toggle
-              id="cancel-session-future-sessions-toggle"
+              id="delete-session-future-sessions-toggle"
               label={
                 session.groupName
-                  ? t("cancelModal.cancelFutureSessionsForGroup", {
+                  ? t("deleteModal.deleteFutureSessionsForGroup", {
                       groupName: session.groupName,
                     })
-                  : t("cancelModal.cancelFutureSessions")
+                  : t("deleteModal.deleteFutureSessions")
               }
-              checked={shouldCancelFutureSessions}
+              checked={shouldDeleteFutureSessions}
               onChange={() =>
-                setShouldCancelFutureSessions((prevState) => !prevState)
+                setShouldDeleteFutureSessions((prevState) => !prevState)
               }
             />
-            {shouldCancelFutureSessions && (
+            {shouldDeleteFutureSessions && (
               <div className="flex flex-col gap-md ml-xl">
                 <SessionSummaryList
                   sessions={similarSessions}
@@ -199,10 +157,10 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
                   originalSessionId={session.id}
                   selectedIds={selectedIds}
                   setSelectedIds={setSelectedIds}
-                  title={t("cancelModal.futureSessionsHeader", {
+                  title={t("deleteModal.futureSessionsHeader", {
                     number: similarSessions.length,
                   })}
-                  description={t("cancelModal.descriptionFutureSessions")}
+                  description={t("deleteModal.descriptionFutureSessions")}
                   includeParticipantsCount
                 />
               </div>

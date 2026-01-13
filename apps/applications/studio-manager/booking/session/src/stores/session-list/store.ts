@@ -18,12 +18,10 @@ export type DateSelection =
 export enum ModalType {
   CANCEL = "cancel",
   RESTORE = "restore",
+  DELETE = "delete",
 }
 
-export type ModalState =
-  | { type: ModalType.CANCEL; session: EnrichedSession }
-  | { type: ModalType.RESTORE; session: EnrichedSession }
-  | null;
+export type ModalState = { type: ModalType; session: EnrichedSession } | null;
 
 export interface SessionListState {
   calendarView: CalendarView;

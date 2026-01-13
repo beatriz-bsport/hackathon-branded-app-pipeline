@@ -630,7 +630,10 @@
     "updated_status": "Estado atualizado",
     "admission": "Admissão",
     "kind": "Tipo",
-    "billing_date_start": "Primeira data de faturação"
+    "billing_date_start": "Primeira data de faturação",
+    "door_name": "Nome porta",
+    "door_distance": "Distância porta (m)",
+    "door_id": "ID porta"
   },
   "categories": {
     "activityByCoach": "Atividades e workshops por professor",

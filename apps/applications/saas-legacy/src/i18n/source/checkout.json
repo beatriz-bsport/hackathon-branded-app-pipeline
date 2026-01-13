@@ -111,7 +111,7 @@
         "message": "You've bought a pass that includes door access. To use it, go to your profile and tap 'Open door'.",
         "proximityProof": {
           "title": "Door access purchased",
-          "message": "You've bought a pass that includes door access. To open a door, you will need to download the app and have your phone next to the door. You can find the open door button in your profile."
+          "message": "You've bought a pass that includes door access. To use it, download the app and go to your profile. Place your phone next to the door and tap 'Open door' to open it. "
         }
       },
       "confirmationStatusMessage": {

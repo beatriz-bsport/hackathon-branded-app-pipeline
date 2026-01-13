@@ -9,7 +9,7 @@
       "addForm": "Create form"
     },
     "addFormModal": {
-      "title": "Create new Form",
+      "title": "Create new form",
       "input": {
         "label": "Name",
         "placeholder": "Give your form a name to find it later"

@@ -47,6 +47,7 @@ function Illustration({
 
   return (
     <div
+      data-component="Kaizen-Illustration"
       ref={ref}
       className={illustrationCva({ className, size })}
       {...a11yProps}

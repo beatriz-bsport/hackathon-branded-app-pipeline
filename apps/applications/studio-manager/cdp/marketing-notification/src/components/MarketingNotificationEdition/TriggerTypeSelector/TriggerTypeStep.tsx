@@ -1,7 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 
 import { ControlledForm, FormField, useFormController } from "@bsport/form";
-import { Select, type SelectProps, Title } from "@bsport/kaizen-primitive-core";
+import {
+  Checkbox,
+  type CheckboxProps,
+  Select,
+  type SelectProps,
+  Title,
+} from "@bsport/kaizen-primitive-core";
 
 import {
   NOTIFICATION_TYPE_STEP_IDENTIFIER,
@@ -64,6 +70,8 @@ const TRIGGER_CONFIG: TriggerTypeSelectorConfig[] = [
 
 export const TriggerTypeStep = () => {
   const { t } = useTranslation("marketingNotificationsModal");
+  const [shouldRefreshItemSelector, setShouldRefreshItemSelector] =
+    useState(false);
   const { formData, setStepValid, updateForm } = useFormStepContext();
   const [selectedTriggerType, setSelectedTriggerType] =
     useState<SelectableNotificationType>(
@@ -76,6 +84,8 @@ export const TriggerTypeStep = () => {
     notificationType:
       formData.triggerType?.notificationType ??
       NOTIFICATION_ADVANCED_TYPE.groupActivity,
+    shouldContainAllPasses:
+      formData?.triggerType?.shouldContainAllPasses ?? false,
   };
 
   const methods = useFormController({
@@ -144,7 +154,7 @@ export const TriggerTypeStep = () => {
     setSelectedTriggerType(triggerType);
     setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
     setFormValue("notificationType", triggerType, { shouldValidate: true });
-    trigggerFormValidationCheck("itemIds");
+    setFormValue("itemIds", [], { shouldValidate: true });
   };
 
   const currentLabel = selectedConfig
@@ -165,11 +175,14 @@ export const TriggerTypeStep = () => {
     updateForm({
       triggerType: {
         type: "triggerType",
-        itemIds: formValues.itemIds ?? [],
-        notificationType: formValues.notificationType,
+        ...formValues,
       },
     });
-  }, [formValues?.itemIds, formValues?.notificationType]);
+  }, [
+    formValues?.itemIds,
+    formValues?.notificationType,
+    formValues?.shouldContainAllPasses,
+  ]);
 
   return (
     <div className="flex flex-col gap-md w-full">
@@ -207,9 +220,10 @@ export const TriggerTypeStep = () => {
           TriggerTypeSelectorProps
         > name="itemIds">
           <TriggerTypeSelector
+            key={String(shouldRefreshItemSelector)}
             selectedConfig={selectedConfig}
             onSelectTriggerType={handleSelectTriggerItems}
-            selectedValues={formData?.triggerType?.itemIds}
+            selectedValues={formValues?.itemIds}
             textfieldProps={{
               id: "item-ids-selector-textfield",
               status: errors.itemIds ? "error" : "default",
@@ -218,6 +232,38 @@ export const TriggerTypeStep = () => {
             }}
           />
         </FormField>
+        {selectedTriggerType === "privatePass" ||
+        selectedTriggerType === "paymentPack" ? (
+          <FormField<
+            TriggerTypeValidationFormData,
+            "shouldContainAllPasses",
+            CheckboxProps
+          >
+            name="shouldContainAllPasses"
+            mapProps={({ defaultProps, field, form }) => ({
+              ...defaultProps,
+              value: field.value ? "checked" : "unchecked",
+              onChange: (isChecked: boolean) => {
+                form.setValue("shouldContainAllPasses", isChecked, {
+                  shouldValidate: true,
+                });
+                form.setValue("itemIds", [], { shouldValidate: true });
+                setShouldRefreshItemSelector((prev) => !prev);
+                form.trigger();
+              },
+            })}
+          >
+            <Checkbox
+              id="checkbox-select-all-pass-notification"
+              label={t("steps.triggerType.selectAllPasses.checkbox.label")}
+              value={
+                methods.getValues("shouldContainAllPasses")
+                  ? "checked"
+                  : "unchecked"
+              }
+            />
+          </FormField>
+        ) : null}
       </ControlledForm>
     </div>
   );

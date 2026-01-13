@@ -342,6 +342,9 @@
     "initial_status": "Authorization status",
     "updated_status": "Updated status",
     "admission": "Admission",
+    "door_id": "Door ID",
+    "door_distance": "Door distance (m)",
+    "door_name": "Door name",
     "kind": "Type",
     "billing_date_start": "First billing date",
     "type": "Type"
@@ -462,7 +465,7 @@
     "billing_plan": "Subscription",
     "members_purchase": "Members' purchases",
     "referral_grant": "Referral",
-    "access_monitoring": "Access Monitoring"
+    "access_monitoring": "Studio Access"
   },
   "descriptions": {
     "dayBookings": "Analyze trends and participation rates by tracking group activity bookings for each day.",

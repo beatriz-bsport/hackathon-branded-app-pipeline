@@ -1043,7 +1043,7 @@
                   "subject": "¿Olvidaste algo?"
                 },
                 "push_notification": {
-                  "text": "¡Has dejado algo atrás! Tu cesta está guardado y te espera en el centro.\nEquipo de {company}",
+                  "text": "¡Has dejado algo atrás! Tu cesta está guardada y te espera en el centro.\nEquipo de {company}",
                   "subject": "Hola, {firstname}!"
                 }
               }

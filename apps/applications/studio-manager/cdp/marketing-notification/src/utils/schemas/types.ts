@@ -1,12 +1,16 @@
-import type { BookingTemporality } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
-import type { SelectableNotificationType } from "#src/utils/types";
+import type {
+  TemporalityType,
+  TimeUnitType,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
+import { PassAction } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Pass/types";
+
+import { SelectableNotificationType } from "../types";
 
 export type TriggerTypeValidationFormData = {
   notificationType: SelectableNotificationType;
   itemIds?: number[];
+  shouldContainAllPasses?: boolean;
 };
-
-export type ConfigTimeUnit = "hour" | "day";
 
 export type BookingSelectableNotificationType = Omit<
   SelectableNotificationType,
@@ -18,9 +22,39 @@ export type BookingTriggerConfigValidationFormData = {
   bookingEventKind: number;
   bookingOccurrence: number;
   bookingItemId: number;
-  timingUnit: ConfigTimeUnit;
+} & CommonTriggerConfigValidationFormData &
+  TimeTriggerConfigValidationFormData;
+
+export type SubscriptionTriggerConfigValidationFormData = {
+  subscriptionEventKind: number;
+  contractId: number;
+} & CommonTriggerConfigValidationFormData &
+  TimeTriggerConfigValidationFormData;
+
+export const PAYMENT_PACK_TYPE = "paymentPack";
+export const PRIVATE_PASS_TYPE = "privatePass";
+
+export type PassesType = typeof PAYMENT_PACK_TYPE | typeof PRIVATE_PASS_TYPE;
+
+export type PassTriggerConfigValidationFormData = {
+  notificationName: string;
+  passEventAction: PassAction;
+  passIds: number[];
+  passesType: PassesType;
+  daysLeft?: number;
+  shouldContainAllPasses: boolean;
+  isPassExpirationCheck: boolean;
+  disabledInContract: boolean;
+  creditsLeft?: number;
+} & CommonTriggerConfigValidationFormData;
+
+export type TimeTriggerConfigValidationFormData = {
+  timingUnit: TimeUnitType;
   timingValue: number;
-  timingTemporality: BookingTemporality;
+  timingTemporality: TemporalityType;
+};
+
+export type CommonTriggerConfigValidationFormData = {
   toggleIncludedSmartlists: boolean;
   includedSmartlists?: number[];
   toggleExcludedSmartlists: boolean;

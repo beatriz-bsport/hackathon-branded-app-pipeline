@@ -1,13 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-import { getIsoDateString, isValidDate } from "@bsport/datetime-manipulation";
+import {
+  type DateTime,
+  fromIsoString,
+  getIsoDate,
+  isValidDate,
+} from "@bsport/datetime-manipulation";
 
 import TextField, { type TextFieldProps } from "#src/components/TextField";
 
 type DateInputFieldProps = {
   id: string;
-  selectedDate: Date | null;
-  onDateChange: (date: Date | null) => void;
+  selectedDate: DateTime | null;
+  onDateChange: (date: DateTime | null) => void;
   onClick?: () => void;
   required?: boolean;
 } & Pick<TextFieldProps, "required" | "statusText" | "label" | "status">;
@@ -23,7 +28,7 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
   status,
 }: DateInputFieldProps) => {
   const [inputValue, setInputValue] = useState(
-    selectedDate ? getIsoDateString(selectedDate) : "",
+    selectedDate ? getIsoDate(selectedDate) : "",
   );
   const isInputChange = useRef(false);
 
@@ -40,7 +45,7 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
       isInputChange.current = false;
       return;
     }
-    setInputValue(selectedDate ? getIsoDateString(selectedDate) : "");
+    setInputValue(selectedDate ? getIsoDate(selectedDate) : "");
   }, [selectedDate]);
 
   const handleChange = useCallback(
@@ -52,7 +57,7 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
       setInputValue(value);
 
       if (isValidDate(value)) {
-        const newDate = new Date(value);
+        const newDate = fromIsoString(value);
         isInputChange.current = true;
         onDateChange(newDate);
       } else if (value === "") {

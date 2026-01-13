@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 
-import { getIsoDateString } from "@bsport/datetime-manipulation";
-import { getToday } from "@bsport/datetime-manipulation";
+import {
+  type DateTime,
+  fromIsoString,
+  getIsoDate,
+  getLocalNow,
+} from "@bsport/datetime-manipulation";
 import { FormField, type UseFormControllerOutput } from "@bsport/form";
 import {
   DatePicker,
@@ -39,8 +43,9 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
     string | null | undefined
   >(null);
 
-  const today = getToday({ locale: i18n.language, zone: companyTimezone });
-  const disablePast = (date: Date) => date < today;
+  const today = getLocalNow({ locale: i18n.language, zone: companyTimezone });
+  const disablePast = (date: DateTime) =>
+    date.startOf("day") < today.startOf("day");
 
   const statusText = t(
     "formFields.visibilitySection.dateLimitSelector.errorMissingDate",
@@ -52,7 +57,7 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
         checked={addExpirationDate}
         id={`${fieldIdPrefix}-visibility-toggle-add-expiration-date`}
         label={t("formFields.visibilitySection.dateLimitSelector.toggleLabel")}
-        onChange={(checked) => {
+        onToggleChange={(checked) => {
           if (!checked) {
             // Save the draft value before closing
             setExpirationDateDraft(methods.watch("expiration_date"));
@@ -70,6 +75,7 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
             typeof checked === "boolean" ? checked : !addExpirationDate,
           );
         }}
+        className="w-fit"
       />
       {addExpirationDate && (
         <FormField<PackFormData, "expiration_date", DatePickerProps>
@@ -83,8 +89,8 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
               value: defaultProps.value,
               onSelect: (selectedDate) => {
                 const nextValue =
-                  selectedDate instanceof Date
-                    ? getIsoDateString(selectedDate)
+                  !!selectedDate && !Array.isArray(selectedDate)
+                    ? getIsoDate(selectedDate)
                     : null;
 
                 form.setValue("expiration_date", nextValue, {
@@ -93,7 +99,9 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
 
                 field.onBlur();
               },
-              defaultValue: defaultValue ? new Date(defaultValue) : undefined,
+              defaultValue: defaultValue
+                ? fromIsoString(defaultValue)
+                : undefined,
               status: defaultProps.value ? undefined : "error",
               statusText: defaultProps.value ? undefined : statusText,
             };

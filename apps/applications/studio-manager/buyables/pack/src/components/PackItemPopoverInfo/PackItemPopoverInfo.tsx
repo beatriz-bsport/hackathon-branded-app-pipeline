@@ -8,13 +8,11 @@ type PackItemPopoverInfoProps = {
   category?: string;
   credits?: number | null;
   invisible: boolean | null;
-  price: string;
   unavailable: boolean;
 };
 
 export const PackItemPopoverInfo: React.FC<PackItemPopoverInfoProps> = ({
   credits,
-  price,
   category,
   invisible,
   unavailable,
@@ -23,7 +21,6 @@ export const PackItemPopoverInfo: React.FC<PackItemPopoverInfoProps> = ({
 
   const messages = {
     credits: t("addItemsModal.items.tooltips.credits"),
-    price: t("addItemsModal.items.tooltips.price"),
     category: t("addItemsModal.items.tooltips.category"),
     unavailable: t("addItemsModal.items.tooltips.unavailableForMember"),
     invisible: t("addItemsModal.items.tooltips.invisibleToStaff"),
@@ -48,8 +45,6 @@ export const PackItemPopoverInfo: React.FC<PackItemPopoverInfoProps> = ({
             {credits !== null && credits !== undefined && (
               <Body>{`${messages.credits}: ${credits}`}</Body>
             )}
-
-            {price && <Body>{`${messages.price}: ${price}`}</Body>}
 
             {category && <Body>{`${messages.category}: ${category}`}</Body>}
 

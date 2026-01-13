@@ -88,6 +88,7 @@ const TableCell: React.FC<TableCellProps> = ({
 }) => {
   return (
     <div
+      data-component="Kaizen-Table-Cell"
       className={tableCell({
         rowHeight,
         withVerticalBorders,

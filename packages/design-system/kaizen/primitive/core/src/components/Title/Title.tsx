@@ -70,6 +70,7 @@ const Title: React.FC<TitleProps> = ({
   }, [htmlVariant]);
   return (
     <TitleComponent
+      data-component="Kaizen-Title"
       role="heading"
       className={title({ className, color, htmlVariant, weight })}
       {...props}

@@ -1,61 +1,234 @@
 {
+  "common": {
+    "back": "Indietro",
+    "new": "Nuovo",
+    "search": "Cerca membro"
+  },
   "menus": {
+    "popover": {
+      "settings": "Impostazioni",
+      "attendance": "Presenza",
+      "ledger": "Registro",
+      "tutorials": "Tutorial",
+      "help": "Centro assistenza",
+      "feedback": "Bacheca dei feedback",
+      "logout": "Esci"
+    },
+    "inbox": "Posta in arrivo",
+    "notifications": "Notifiche",
+    "home": "Home",
+    "calendar": "Calendario",
+    "schedule": "Programma",
+    "accessControl": "Controllo degli Accessi",
+    "classes": {
+      "title": "Classi",
+      "activities": "Attività",
+      "workshops": "Workshop",
+      "appointments": "Appuntamenti"
+    },
     "memberships": {
-      "title": "Iscrizioni",
-      "subscriptions": "Abbonamenti ricorrenti",
-      "passes": "Pacchetti"
-    },
-    "myStudio": {
-      "establishments": "Stabilimenti",
-      "teachers": "Insegnanti",
-      "title": "Il mio Studio"
-    },
-    "membersHub": {
-      "tags": "Tag",
-      "forms": "Form",
-      "members": "Membri",
-      "title": "Hub dei membri"
-    },
-    "finance": {
-      "payroll": "Regole di retribuzione",
-      "expenses": "Spese",
-      "directDebits": "Addebiti diretti",
-      "payouts": "Pagamenti",
-      "invoices": "Ricevute",
-      "title": "Finanza"
-    },
-    "reporting": "Report",
-    "dashboard": "Panoramica",
-    "marketing": {
-      "promotions": "Promozioni",
-      "audience": "Audience",
-      "smartlists": "Smartlist",
-      "emailTemplates": "Modelli email",
-      "marketingNotifications": "Notifiche per i membri",
-      "title": "Marketing"
+      "title": "Pass e Abbonamenti",
+      "passes": "Pass",
+      "appointmentPasses": "Pass Per Appuntamenti",
+      "subscriptions": "Abbonamenti"
     },
     "products": {
-      "orders": "Ordini",
-      "videosAndEbooks": "Librerie video",
-      "giftcards": "Gift card",
+      "title": "Negozio",
+      "webshop": "Prodotti",
       "packs": "Pacchetti",
-      "webshop": "Shop",
-      "title": "Prodotti"
+      "giftcards": "Buoni Regalo",
+      "videosAndEbooks": "On-Demand",
+      "playlists": "Collezioni",
+      "orders": "Ordini"
     },
-    "classes": {
-      "appointments": "Appuntamenti",
-      "workshops": "Workshop",
-      "activities": "Attività",
-      "title": "Classi"
+    "marketing": {
+      "title": "Marketing",
+      "marketingNotifications": "Notifiche",
+      "emailTemplates": "Modello email",
+      "smartlists": "Smartlist",
+      "audience": "Audience",
+      "promotions": "Promozioni",
+      "customForms": "Moduli personalizzati"
     },
-    "accessControl": "Controllo degli Accessi",
-    "schedule": "Programma",
-    "calendar": "Calendario",
-    "notifications": "Notifiche",
-    "inbox": "Posta in arrivo"
+    "dashboard": "Pannello di controllo",
+    "reporting": "Report",
+    "analytics": {
+      "title": "Analisi",
+      "insights": "Approfondimenti",
+      "reports": "Report"
+    },
+    "finance": {
+      "title": "Finanza",
+      "invoices": "Ricevute",
+      "payouts": "Pagamenti",
+      "directDebits": "Addebiti diretti",
+      "expenses": "Spese",
+      "payroll": "Buste paga"
+    },
+    "membersHub": {
+      "title": "Clienti",
+      "members": "Profili",
+      "forms": "Modulo",
+      "tags": "Tag",
+      "performanceTracking": "Programmi"
+    },
+    "myStudio": {
+      "title": "Studio",
+      "teachers": "Insegnanti",
+      "establishments": "Stabilimenti",
+      "substitutions": "Sostituzioni"
+    },
+    "settings": {
+      "title": "Impostazioni",
+      "general": "Generale",
+      "marketplace": "Area Membri",
+      "widgets": "Widget",
+      "permissions": "Permessi",
+      "personalization": "Personalizzazione",
+      "brandedApp": "App brandizzata",
+      "teacherView": "Vista insegnante",
+      "memberForms": "Moduli per i membri",
+      "livestreaming": "Lezione in diretta",
+      "transactionalNotifications": "Notifiche transazionali",
+      "payroll": "Buste paga",
+      "paymentMethods": "Metodi di pagamento",
+      "paymentFacilities": "Opzioni di pagamento",
+      "billing": "Fatturazione",
+      "company": "Azienda",
+      "waitlist": "Lista d’attesa",
+      "webhook": "Webhook",
+      "partnership": "Collaborazione",
+      "activeCampaign": "ActiveCampaign",
+      "referral": "Referenza",
+      "quicksale": "PDV",
+      "oldWebshop": "Impostazioni del webshop",
+      "quickbooks": "QuickBooks",
+      "bsportSubscription": "abbonamento bsport",
+      "temporaryPassword": "Password temporanea",
+      "changeLanguage": "Cambia lingua"
+    }
   },
   "revampCard": {
-    "goBackToOldUi": "Torna alla vecchia interfaccia utente",
-    "betaFeedbackLink": "Feedback beta"
+    "betaFeedbackLink": "Condividi il tuo feedback",
+    "goBackToOldUi": "Vecchio Back Office"
+  },
+  "languages": {
+    "french": "Francese",
+    "englishUK": "Inglese (UK)",
+    "englishUS": "Inglese (USA)",
+    "spanish": "Spagnolo",
+    "dutch": "Olandese",
+    "german": "Tedesco",
+    "italian": "Italian",
+    "portuguese": "Portoghese",
+    "debug": "Debug (cimode)"
+  },
+  "notifications": {
+    "title": "Centro notifica",
+    "empty": {
+      "title": "Sei aggiornato su tutto",
+      "description": "Niente da mostrare al momento"
+    },
+    "tabs": {
+      "billing": "Fatturazione",
+      "orders": "Ordini",
+      "tasks": "Attività",
+      "unpaidAppointments": "Appuntamenti non pagati",
+      "tutorials": "Tutorial",
+      "companyOnboarding": "Informazioni legali",
+      "privateBookingIncomplete": "Appuntamenti da completare"
+    },
+    "billing": {
+      "loading": "Caricamento delle notifiche di fatturazione...",
+      "empty": {
+        "title": "Nessuna notifica di fatturazione",
+        "description": "Tutte le tue notifiche di fatturazione appariranno qui"
+      },
+      "paid": "Pagato:",
+      "due": "Scadenza:",
+      "itemTitle": "Ricevuta non pagata",
+      "itemDescription": "La ricevuta non è ancora stata finalizzata"
+    },
+    "orders": {
+      "loading": "Caricamento ordini ...",
+      "empty": {
+        "title": "Nessun ordine",
+        "description": "Tutti i tuoi ordini appariranno qui"
+      },
+      "itemTitle": "Ordine in sospeso",
+      "paidByFormat": "Pagato da <strong>{{name}}</strong> nel negozio"
+    },
+    "tasks": {
+      "loading": "Caricamento attività...",
+      "empty": {
+        "title": "Nessuna attività",
+        "description": "Tutte le tue attività appariranno qui"
+      }
+    },
+    "unpaidAppointments": {
+      "title": "Appuntamenti non pagati",
+      "itemTitle": "Appuntamento non pagato",
+      "loading": "Caricamento degli appuntamenti non pagati...",
+      "credits": "Crediti non pagati",
+      "empty": {
+        "title": "Nessun appuntamento non pagato",
+        "description": "Non hai appuntamenti non pagati"
+      }
+    },
+    "tutorials": {
+      "loading": "Caricamento dei tutorial...",
+      "empty": {
+        "title": "Nessun tutorial",
+        "description": "Tutte le tue notifiche sui tutorial appariranno qui"
+      },
+      "newSection": {
+        "title": "Nuova sezione",
+        "description": "Il tutorial {{sectionName}} è stato aggiunto, inizia subito ad allenarti."
+      },
+      "newLesson": {
+        "title": "Nuova lezione",
+        "description": "Lezione {{lessonName}} aggiunta alla sezione {{sectionName}}"
+      }
+    },
+    "companyOnboarding": {
+      "loading": "Caricamento delle notifiche di onboarding aziendale...",
+      "empty": {
+        "title": "Nessuna notifica di onboarding aziendale",
+        "description": "Tutte le notifiche di onboarding della tua azienda appariranno qui"
+      },
+      "creation": {
+        "title": "I pagamenti online sono attualmente disabilitati",
+        "content": "Controlla le tue informazioni legali e bancarie per poter elaborare i pagamenti online."
+      },
+      "payout": {
+        "title": "Dati bancari incompleti",
+        "content": "I pagamenti non possono essere elaborati perché la verifica dell'account non è stata completata o è stata eseguita in modo errato."
+      },
+      "verification": {
+        "title": "Gestione aziendale",
+        "content": "Diversi documenti sono in attesa di convalida per verificare il tuo account. La scadenza è: {{date}}.",
+        "contentGeneric": "Diversi documenti sono in attesa di convalida per verificare il tuo account."
+      },
+      "paypal": {
+        "title": "I pagamenti PayPal sono disabilitati",
+        "primaryEmailConfirmation": "L'Email del tuo account PayPal richiede conferma. Controlla il tuo account PayPal per risolvere questo problema.",
+        "requiresMoreInformation": "Il tuo account PayPal richiede ulteriori informazioni o una convalida da parte di PayPal. Controlla il tuo account PayPal per risolvere questo problema.",
+        "issueCheckAccount": "C'è un problema con il tuo account PayPal. Controlla il tuo account PayPal per risolvere questo problema.",
+        "issueRepeatOnboarding": "C'è un problema con il tuo account PayPal. Ripeti il processo di connessione utilizzando lo stesso account per risolvere questo problema."
+      },
+      "generic": {
+        "title": "È richiesta l'integrazione aziendale",
+        "content": "Completa il processo di onboarding della tua azienda."
+      }
+    },
+    "privateBookingIncomplete": {
+      "loading": "Caricamento degli appuntamenti da completare...",
+      "empty": {
+        "title": "Nessun appuntamento da completare",
+        "description": "Tutti i tuoi appuntamenti hanno insegnanti assegnati"
+      },
+      "member": "Membri: {{userName}}",
+      "date": "Data: {{date}}"
+    }
   }
 }

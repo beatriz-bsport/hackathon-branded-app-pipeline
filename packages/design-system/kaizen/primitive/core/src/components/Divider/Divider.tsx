@@ -48,6 +48,7 @@ const Divider: React.FC<DividerProps> = ({
 }) => {
   return (
     <span
+      data-component="Kaizen-Divider"
       className={divider({ className, orientation, weight })}
       {...props}
     ></span>

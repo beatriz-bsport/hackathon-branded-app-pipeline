@@ -10,10 +10,12 @@ export const triggerTypeValidationFormSchema = z
   .object({
     itemIds: z.array(z.number()).optional(),
     notificationType: z.custom<SelectableNotificationType>(),
+    shouldContainAllPasses: z.boolean().optional(),
   })
   .superRefine((data, ctx) => {
     const itemIdsLength = data.itemIds ? data.itemIds.length : 0;
     if (
+      !data.shouldContainAllPasses &&
       itemIdsLength < 1 &&
       (data.notificationType === NOTIFICATION_ADVANCED_TYPE.paymentPack ||
         data.notificationType === NOTIFICATION_ADVANCED_TYPE.privatePass)
@@ -29,6 +31,7 @@ export const triggerTypeValidationFormSchema = z
         path: ["itemIds"],
       });
     } else if (
+      !data.shouldContainAllPasses &&
       itemIdsLength < 1 &&
       data.notificationType !== NOTIFICATION_ADVANCED_TYPE.birthday
     ) {

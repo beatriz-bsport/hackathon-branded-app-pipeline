@@ -709,4 +709,7 @@ export enum AccessMonitoringMetadataIdentifierEnum {
   INITIAL_STATUS = 'initial_status',
   ESTABLISHMENTS_NAMES = 'establishments_names',
   COMPANY_NAME = 'company_name',
+  DOOR_ID = 'door_id',
+  DOOR_DISTANCE = 'door_distance',
+  DOOR_NAME = 'door_name',
 }

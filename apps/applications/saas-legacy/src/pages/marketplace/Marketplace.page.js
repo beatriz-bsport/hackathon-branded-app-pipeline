@@ -153,7 +153,6 @@ type Props = {
   company: MarketPlaceCompany,
   companyThemeLoading: boolean,
   hideAppBar?: boolean,
-  errorFields?: { email?: string, password?: string },
   fetchSCT: () => void,
   fetchCurrentBasket: (companyId: number) => void,
   currentBasket?: Basket,
@@ -544,7 +543,6 @@ export class MarketPlace extends Component<Props, State> {
 
     return (
       <MarketplaceNavigation
-        authStateInvalidFields={this.props.errorFields}
         authStateLoading={this.props.loginProcessing}
         authUsername={this.props.auth.username || ''}
         basketProductListCount={getBasketBuyableItemsCount(
@@ -685,7 +683,6 @@ export default compose(
       companyThemeLoading: state.theme.loading,
       settings: getMarketplaceSettings(state),
       settingsLoading: state.marketplace.loading,
-      errorFields: state.auth.invalidFields,
       checkEmailExistsLoading: state.auth.emailExists.loading,
       emailExists: state.auth.emailExists.exists,
       signUpCustomForm: getSignUpCustomFormWithEnabledField(state),

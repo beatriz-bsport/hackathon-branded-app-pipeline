@@ -24,6 +24,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   return (
     <div
+      data-component="Kaizen-FileUpload-DropZone"
       onDragEnter={(e) => {
         e.preventDefault();
         e.stopPropagation();

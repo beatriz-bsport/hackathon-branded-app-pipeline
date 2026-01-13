@@ -2,7 +2,7 @@
   "page": {
     "title": "Tags",
     "filters": {
-      "label": "Filtrer par étiquette principale",
+      "label": "Catégorie",
       "operators": {
         "is": "est",
         "isNot": "n'est pas"
@@ -10,31 +10,31 @@
     },
     "actions": {
       "createTagGroup": {
-        "label": "Créer une étiquette principale"
+        "label": "Ajouter une catégorie"
       },
       "createTag": {
-        "label": "Créer un sous-tag"
+        "label": "Créer un tag"
       }
     },
     "loadingState": {
       "message": "Chargement des tags..."
     },
     "emptyFilteredPageState": {
-      "title": "Aucun résultat trouvé",
-      "description": "Aucun tag principal trouvé - effacez les filtres pour voir plus de résultats",
+      "title": "Aucun tag trouvé",
+      "description": "Essayez d'effacer les filtres pour voir plus de résultats",
       "secondaryButtonLabel": "Effacer les filtres"
     },
     "emptyPageState": {
       "title": "Pas encore de tags",
-      "description": "Créer des tags pour cibler et suivre vos membres"
+      "description": "Créer des tags pour suivre et cibler vos clients"
     },
     "emptyMainTagState": {
-      "description": "Vous n'avez pas encore créé de sous-tags dans ce tag principal."
+      "description": "Vous n'avez pas encore créé de tags dans cette catégorie."
     }
   },
   "tagGroupList": {
     "actions": {
-      "addSubTag": "Créer un sous-tag",
+      "addSubTag": "Créer tag",
       "rename": "Renommer",
       "delete": "Supprimer"
     },
@@ -46,15 +46,15 @@
   },
   "tagGroupModal": {
     "title": {
-      "create": "Créer une étiquette principale",
-      "update": "Modifier le tag principal"
+      "add": "Ajouter une catégorie",
+      "update": "Modifier la catégorie"
     },
     "formField": {
       "tagGroupName": {
-        "label": "Nom du tag principal",
-        "placeholder": "Ajoutez un nom de balise principale...",
+        "label": "Nom",
+        "placeholder": "Donnez un nom à votre catégorie",
         "errors": {
-          "required": "Entrez un nom de balise principale",
+          "required": "Entrez un nom pour cette catégorie pour continuer",
           "alreadyInUse": "Nom déjà utilisé",
           "tooLong": "Le nom doit comporter moins de {{ max }} caractères",
           "tooShort": "Le nom doit comporter au moins {{ min }} caractères"
@@ -62,44 +62,44 @@
       }
     },
     "actions": {
-      "create": "Créer",
+      "add": "Ajouter",
       "update": "Enregistrer",
       "cancel": "Fermer",
-      "goTo": "Accéder au Tag principal"
+      "goTo": "Voir la catégorie"
     },
     "result": {
       "createSuccess": {
-        "title": "Tag principal créé"
+        "title": "Catégorie créée"
       },
       "updateSuccess": {
-        "title": "Tag principal mis à jour"
+        "title": "Catégorie mise à jour"
       },
       "updateFailure": {
-        "title": "Impossible de mettre à jour le tag principal en raison d'un problème technique"
+        "title": "Impossible de mettre à jour la catégorie en raison d'un problème technique. Veuillez réessayer ou contacter le support. "
       },
       "createFailure": {
-        "title": "Impossible de créer le tag principal"
+        "title": "Impossible de créer la catégorie. Veuillez réessayer. "
       }
     }
   },
   "tagModal": {
     "title": {
-      "create": "Créer un sous-tag",
-      "update": "Modifier le sous-tag"
+      "create": "Créer un tag",
+      "update": "Modifier le tag"
     },
     "formField": {
       "mainTagAssociated": {
-        "label": "Tag principal",
-        "placeholder": "Sélectionner un tag principal",
+        "label": "Catégorie",
+        "placeholder": "Sélectionner une catégorie",
         "errors": {
-          "required": "Vous devez d'abord sélectionner une balise principale"
+          "required": "Le tag doit avoir une catégorie"
         }
       },
       "tagName": {
-        "label": "Nom du Tag",
-        "placeholder": "Saisir un nom du sous-tag...",
+        "label": "Tag",
+        "placeholder": "Donnez un nom à votre tag",
         "errors": {
-          "required": "Veuillez saisir un nom du sous-tag",
+          "required": "Veuilez saisir un nom pour ce tag ",
           "alreadyInUse": "Nom déjà utilisé",
           "tooLong": "Le nom doit comporter moins de {{ max }} caractères",
           "tooShort": "Le nom doit comporter au moins {{ min}} caractères"
@@ -113,78 +113,78 @@
     "actions": {
       "create": "Créer",
       "update": "Mettre à jour",
-      "cancel": "Annuler",
-      "goTo": "Aller au sous-tag"
+      "cancel": "Fermer",
+      "goTo": "Afficher le tag"
     },
     "result": {
       "createSuccess": {
-        "title": "Sous-tag créé"
+        "title": "Tag créé"
       },
       "createFailure": {
-        "title": "Impossible de sauvegarder le sous-tag "
+        "title": "Impossible d'enregistrer le tag. Veuillez réessayer. "
       },
       "updateSuccess": {
-        "title": "Sous-tag mis à jour"
+        "title": "Tag mis à jour"
       },
       "updateFailure": {
-        "title": "Impossible de mettre à jour le sous-tag "
+        "title": "Impossible de mettre à jour l'étiquette. Veuillez réessayer. "
       }
     }
   },
   "deleteMainTagModal": {
-    "title": "Supprimer définitivement l'étiquette principale ?",
-    "description": "La suppression de ce tag principal le retirera définitivement des {{number}} membres auxquels il est attribué. ",
+    "title": "Supprimer définitivement la catégorie ?",
+    "description": "La suppression de cette catégorie supprimera définitivement tous les tags associés de {{ number }} clients",
     "alerts": {
       "tagInUse": {
-        "description": "Info : supprimer ce tag principal supprimera également tous les sous-tags associés et toutes les règles du tag dans tous les flux de travail conditionnels où il est utilisé.",
+        "description": "Attention : la suppression de cette catégorie supprimera également les règles de balise associées qui sont toujours actives dans les flux de travail conditionnels, tels que Audience ou Smartlists.",
         "confirmCheckbox": {
           "label": "Cochez pour confirmer : ",
-          "description": "Je comprends que supprimer cette balise principale est une action permanente qui affectera tous les flux de travail associés.",
+          "description": "Je comprends que la suppression de cette catégorie supprimera définitivement les balises associées et que cela peut affecter les flux de travail conditionnels dans lesquels elles sont utilisées.",
           "confirmButtonTooltip": "Veuillez vérifier l'impact de ce changement avant de continuer."
         }
       }
     },
     "actions": {
       "confirm": "Supprimer",
-      "cancel": "Annuler"
+      "cancel": "Garder"
     },
     "result": {
       "success": {
-        "title": "Tag principal supprimé"
+        "title": "Catégorie supprimée"
       },
       "failure": {
-        "title": "Impossible de supprimer le tag principal"
+        "title": "Impossible de supprimer la catégorie. Veuillez réessayer ou vérifier si elle est utilisée dans des flux de travail conditionnels."
       }
     }
   },
   "deleteSubTagModal": {
-    "title": "Supprimer définitivement le sous-tag ?",
-    "description": "La suppression de ce sous-tag le retirera définitivement des {{number}} Membres auxquels il est attribué. ",
+    "title": "Supprimer définitivement le tag ?",
+    "description": "Supprimez ce tag pour le retirer définitivement des {{number}} clients auxquels il est attribué.",
     "alerts": {
       "tagInUse": {
-        "description": "Info : supprimer ce sous-tag affectera également tous les flux de travail conditionnels dans lesquels il est utilisé. ",
+        "description": "Attention : la suppression de ce tag affectera également tous les flux de travail conditionnels dans lesquels il est utilisé (tels que les Smartlists ou Audience)",
         "confirmCheckbox": {
           "label": "Cochez pour confirmer :",
-          "description": "Je comprends que la suppression de ce sous-tag est une action permanente qui affectera tous les workflows associés.",
+          "description": "Je comprends que la suppression de cette balise est un changement permanent qui peut affecter tous les workflows associés.",
           "confirmButtonTooltip": "Veuillez vérifier l'impact de ce changement avant de continuer"
         }
       }
     },
     "actions": {
       "confirm": "Supprimer",
-      "cancel": "Annuler"
+      "cancel": "Garder"
     },
     "result": {
       "success": {
-        "title": "Sous-tag supprimé"
+        "title": "Tag supprimé"
       },
       "failure": {
-        "title": "Il est impossible de supprimer le sous-tag. Veuillez réessayer."
+        "title": "Impossible de supprimer le tag. Veuillez réessayer ou vérifier s'il est utilisé dans des flux de travail conditionnels."
       }
     }
   },
   "tagsDetails": {
-    "members": "Membres",
+    "members": "Clients",
     "actions": {
       "tagAll": "Taguer tout",
       "untagAll": "Détaguer tout",
@@ -192,11 +192,11 @@
     },
     "tooltip": {
       "close": "Fermer",
-      "tagMember": "Tag membre",
-      "untagMember": "Détaguer ce membre",
+      "tagMember": "Taguer un contact",
+      "untagMember": "Détaguer un contact",
       "editTag": "Modifier le nom ou la couleur",
-      "previousSubTag": "Voir le sous-tag précédent",
-      "nextSubTag": "Voir le sous-tag suivant"
+      "previousSubTag": "Voir le tag précédent",
+      "nextSubTag": "Afficher le tag suivant"
     },
     "segmentedControl": {
       "tagged": "Tagué",
@@ -206,33 +206,33 @@
       "actions": {
         "tag": {
           "success": {
-            "title": "Membre tagué"
+            "title": "Contact tagué"
           },
           "failure": {
-            "title": "Impossible de taguer ce membre. Veuillez réessayer."
+            "title": "Impossible d'identifier le client. Veuillez réessayer. "
           }
         },
         "untag": {
           "success": {
-            "title": "Tag retiré du membre"
+            "title": "Contact détagué"
           },
           "failure": {
-            "title": "Impossible de détacher le membre, veuillez réessayer."
+            "title": "Impossible d'identifier le client. Veuillez réessayer."
           }
         }
       },
       "loadingState": {
-        "tagged": "Chargement des Membres étiquetés...",
-        "untagged": "Chargement des membres non étiquetés..."
+        "tagged": "Chargement des clients étiquetés...",
+        "untagged": "Chargement des clients non étiquetés..."
       },
       "emptyState": {
         "title": {
-          "tagged": "Aucun membre n'a encore été tagué",
-          "untagged": "Aucun membre n'a encore été détagué"
+          "tagged": "Aucun contact n'a encore été tagué",
+          "untagged": "Aucun client non tagué pour le moment"
         },
         "description": {
-          "untagged": "Vous pouvez taguer les membres en cliquant sur l'icône plus à côté de leur nom dans la liste des non-tagés.",
-          "tagged": "Vous pouvez détagué des membres en cliquant sur l'icône moins à côté de leur nom dans la liste des membres tagués."
+          "untagged": "Taguer des contacts en cliquant sur l'icône '+' à côté de leur nom dans la liste des non-tagués",
+          "tagged": "Détaguer des contacts en cliquant sur l'icône '-' à côté de leur nom dans la liste des tagués"
         }
       }
     }
@@ -243,34 +243,34 @@
       "untag": "Tous détaguer ?"
     },
     "description": {
-      "tag": "Ajouter le tag {{tagName}} à {{number}} Membres ?",
-      "untag": "Supprimer le tag {{tagName}} de {{number}} Membres ?"
+      "tag": "Ajouter le tag {{tagName}} à {{number}} contacts ?",
+      "untag": "Supprimer le tag {{tagName}} de {{number}} clients ?"
     },
     "actions": {
       "tag": "Taguer tous",
       "untag": "Détaguer tous",
-      "cancel": "Annuler",
+      "cancel": "Fermer",
       "undo": "Annuler"
     },
     "loading": {
-      "tag": "En cours de taguer {{number}} membres...",
-      "untag": "En cours de détaguer {{number}} membres..."
+      "tag": "En cours de taguer {{number}} contacts ...",
+      "untag": "En cours de détaguer {{number}} contacts ..."
     },
     "results": {
       "tag": {
         "success": {
-          "title": "Tous les membres ont été tagués"
+          "title": "Tous les clients tagués"
         },
         "failure": {
-          "title": "Impossible d'identifier les membres, veuillez réessayer"
+          "title": "Impossible d'identifier les clients. Veuillez réessayer. "
         }
       },
       "untag": {
         "success": {
-          "title": "Tous les membres ont été détagués"
+          "title": "Tous les clients non étiquetés"
         },
         "failure": {
-          "title": "Impossible de détaguer ces membres. Veuillez réessayer."
+          "title": "Impossible de détaguer les contacts. Veuillez réessayer. "
         }
       }
     }

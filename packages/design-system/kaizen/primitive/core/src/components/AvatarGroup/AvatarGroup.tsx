@@ -138,7 +138,11 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
   if (!data?.length) return null;
 
   return (
-    <div className={avatarGroup({ className })} {...props}>
+    <div
+      data-component="Kaizen-AvatarGroup"
+      className={avatarGroup({ className })}
+      {...props}
+    >
       {renderedAvatars}
       {placeholderAvatar}
     </div>

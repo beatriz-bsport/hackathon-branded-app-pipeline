@@ -1,7 +1,7 @@
+import type { SportCategory } from "@bsport/api-core";
 import { buildById } from "@bsport/store-base";
 
 import { sportCategoryStore } from "#src/store";
-import type { SportCategory } from "#src/types";
 
 export const setSportCategories = ({
   sportCategories,

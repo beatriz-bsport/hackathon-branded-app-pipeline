@@ -123,7 +123,11 @@ const Anchor: React.FC<{
     useContext(PopoverContext);
 
   return (
-    <div ref={anchorRef} className={className}>
+    <div
+      data-component="Kaizen-Popover-Anchor"
+      ref={anchorRef}
+      className={className}
+    >
       {children({ isPopoverOpened, setIsPopoverOpened })}
     </div>
   );
@@ -264,6 +268,7 @@ const Content: React.FC<{
 
   return ReactDOM.createPortal(
     <div
+      data-component="Kaizen-Popover-Content"
       tabIndex={-1}
       className={classNames(defaultClasses, className, {
         "top-0 left-0 opacity-transparent": !isVisible,

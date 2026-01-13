@@ -249,6 +249,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div
+      data-component="Kaizen-Pagination"
       className={classNames(pagination({ className }), {
         "justify-between": showPageSelector,
         "justify-center": !showPageSelector,
@@ -329,6 +330,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 );
                 return (
                   <button
+                    id={`pagination-button-${value}`}
                     className={button({
                       active: currentPage === value,
                       disabled,

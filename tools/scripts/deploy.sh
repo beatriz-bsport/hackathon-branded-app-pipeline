@@ -6,22 +6,24 @@ set -euo pipefail
 # This script handles both environment deployments (dev/staging/production) and feature branch deployments
 #
 # Usage:
-#   deploy.sh <base_branch> <deploy_environment> [api_environment] [frontend_only_flag]
+#   deploy.sh <base_branch> <deploy_environment> [api_environment] [frontend_only_flag] [force_redeploy]
 #
 # Arguments:
 #   base_branch: The branch to compare against for affected projects (e.g., origin/dev, $CI_COMMIT_BEFORE_SHA)
 #   deploy_environment: Where to deploy - passed to ci:build/ci:deploy (e.g., dev, staging, production, feature-branch)
 #   api_environment: Optional. API config - passed to api-environment:set (defaults to deploy_environment)
 #   frontend_only_flag: Optional. Pass "frontend-only" for frontend-only deployments
+#   force_redeploy: Optional. Whether to bypass the "affected" Nx strategy and redeploy every project
 
 BASE_BRANCH=$1
 DEPLOY_ENVIRONMENT=$2
 API_ENVIRONMENT=${3:-$2}
 FRONTEND_ONLY_FLAG=${4:-""}
+FORCE_REDEPLOY=${5:-""}
 
 if [ -z "$BASE_BRANCH" ] || [ -z "$DEPLOY_ENVIRONMENT" ]; then
   echo "❌ Error: Missing required arguments"
-  echo "Usage: deploy.sh <base_branch> <deploy_environment> [api_environment] [frontend_only_flag]"
+  echo "Usage: deploy.sh <base_branch> <deploy_environment> [api_environment] [frontend_only_flag] [force_redeploy]"
   exit 1
 fi
 
@@ -32,6 +34,7 @@ echo "Base branch: $BASE_BRANCH"
 echo "Deploy environment: $DEPLOY_ENVIRONMENT"
 echo "API environment: $API_ENVIRONMENT"
 echo "Frontend only: ${FRONTEND_ONLY_FLAG:-false}"
+echo "Force redeployment: ${FORCE_REDEPLOY}"
 echo "=========================================="
 echo ""
 
@@ -59,31 +62,40 @@ pnpm run -w translation:update
 echo "✅ Translations have been updated"
 echo ""
 
-# Show affected projects
-echo "🔱 Detecting affected projects..."
-AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base="$NX_BASE" --head=HEAD)
-echo "These are the affected projects:"
-echo "$AFFECTED_PROJECTS"
-echo ""
-
-# Retrieve Affected Revamp Micro-frontend via the tag application:revamp 
-echo "🔱 These are the SM affected projects:"
-AFFECTED_REVAMP_MFE=$(pnpm exec nx show projects \
-  --affected --base="$NX_BASE" --head=HEAD --sep="," \
-  --projects=tag:application:revamp --exclude="@bsport/template-*")
-if [ -n "$AFFECTED_REVAMP_MFE" ]; then
-  echo "$AFFECTED_REVAMP_MFE" | sed "s/,/\n/g"
+# Define Nx projects to build and deploy
+if [ "$FORCE_REDEPLOY" = "true" ]; then
+  echo "🔱 Detecting projects to force redeploy..."
+  
+  # Select all projects
+  SELECTED_PROJECTS=$(pnpm exec nx show projects --sep=",")
+  
+  # Select all MFE
+  REVAMP_MFE=$(pnpm exec nx show projects --sep="," \
+    --projects=tag:application:revamp --exclude="@bsport/template-*")
 else
-  echo "(none)"
+  echo "🔱 Detecting affected projects..."
+  
+  # Select only affected projects
+  SELECTED_PROJECTS=$(pnpm exec nx show projects --sep="," \
+    --affected --base="$NX_BASE" --head=HEAD)
+  
+  # Select only affected MFE
+  REVAMP_MFE=$(pnpm exec nx show projects --sep="," \
+    --affected --base="$NX_BASE" --head=HEAD \
+    --projects=tag:application:revamp --exclude="@bsport/template-*")
 fi
+echo "These are the projects:"
+echo "$SELECTED_PROJECTS" | sed "s/,/\n/g"
+echo "These are the related Micro Frontends":
+echo "$REVAMP_MFE" | sed "s/,/\n/g"
 echo ""
 
 # Build affected projects
 echo "⏳ Building affected projects and their dependencies"
 if [ "$FRONTEND_ONLY_FLAG" = "frontend-only" ]; then
-  pnpm exec nx affected --target=ci:build --base="$NX_BASE" --head=HEAD "$DEPLOY_ENVIRONMENT" true
+  pnpm exec nx run-many --target=ci:build --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT" true
 else
-  pnpm exec nx affected --target=ci:build --base="$NX_BASE" --head=HEAD "$DEPLOY_ENVIRONMENT"
+  pnpm exec nx run-many --target=ci:build --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT"
 fi
 echo "✅ All affected projects have been rebuilt"
 echo ""
@@ -91,22 +103,22 @@ echo ""
 # Deploy affected projects
 echo "⏳ Deploying affected projects"
 if [ "$FRONTEND_ONLY_FLAG" = "frontend-only" ]; then
-  pnpm exec nx affected --target=ci:deploy --base="$NX_BASE" --head=HEAD "$DEPLOY_ENVIRONMENT" true
+  pnpm exec nx run-many --target=ci:deploy --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT" true
 else
-  pnpm exec nx affected --target=ci:deploy --base="$NX_BASE" --head=HEAD "$DEPLOY_ENVIRONMENT"
+  pnpm exec nx run-many --target=ci:deploy --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT"
 fi
 echo "✅ All affected projects have been deployed"
 echo ""
 
 # Handle Studio Manager micro frontends via the host app
-if [ -n "$AFFECTED_REVAMP_MFE" ]; then
+if [ -n "$REVAMP_MFE" ]; then
   echo "⏳ Building affected micro frontends"
-  pnpm exec nx ci:build:mfe @bsport/sm-host "$AFFECTED_REVAMP_MFE"
+  pnpm exec nx ci:build:mfe @bsport/sm-host "$REVAMP_MFE"
   echo "✅ All affected micro frontends have been rebuilt"
   echo ""
   
   echo "⏳ Deploying affected micro frontends"
-  pnpm exec nx ci:deploy:mfe @bsport/sm-host "$DEPLOY_ENVIRONMENT" "$AFFECTED_REVAMP_MFE"
+  pnpm exec nx ci:deploy:mfe @bsport/sm-host "$DEPLOY_ENVIRONMENT" "$REVAMP_MFE"
   echo "✅ All affected micro frontends have been deployed"
 else
   echo "ℹ️  No Studio Manager projects affected, skipping micro frontend deployment"

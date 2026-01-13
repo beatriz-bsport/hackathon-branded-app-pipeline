@@ -17,17 +17,21 @@ import {
   APPOINTMENT_ACTION_ATTEND,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Appointment/types";
 import { getAppointmentFormData } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Appointment/utils";
-import { BookingTimingField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/BookingTimingField";
 import {
   BOOKING_TEMPORALITY_BEFORE,
   BOOKING_TIME_UNIT_HOUR,
   DEFAULT_BOOKING_OCCURRENCE,
-  DEFAULT_TIMING_VALUE,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
 import {
   SmartlistsFormField,
   type SmartlistsSelectorType,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/SmartlistsFormField";
+import { TimingField } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/TimingField";
+import {
+  DEFAULT_TIMING_VALUE,
+  type TemporalityType,
+  type TimeUnitType,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
 import { useTranslation } from "#src/utils/i18n";
 import { bookingTriggerConfigValidationSchema } from "#src/utils/schemas/bookingTriggerConfigValidation";
 
@@ -143,6 +147,22 @@ export const AppointmentEventForm = ({ itemIds }: BookingEventFormProps) => {
     };
   };
 
+  const handleUpdateTimingValue = (updatedValue: number) => {
+    setFormValue("timingValue", updatedValue, { shouldValidate: true });
+  };
+
+  const handleUpdateTimingTemporality = (
+    updatedTemporality: TemporalityType,
+  ) => {
+    setFormValue("timingTemporality", updatedTemporality, {
+      shouldValidate: true,
+    });
+  };
+
+  const handleUpdateTimingUnit = (updatedUnit: TimeUnitType) => {
+    setFormValue("timingUnit", updatedUnit, { shouldValidate: true });
+  };
+
   useEffect(() => {
     setStepValid(NOTIFICATION_TRIGGER_STEP_IDENTIFIER, isValid);
   }, [isValid]);
@@ -186,9 +206,14 @@ export const AppointmentEventForm = ({ itemIds }: BookingEventFormProps) => {
           defaultAppointmentStatus={formValues?.bookingEventKind}
         />
         <Divider orientation="horizontal" weight="thin" />
-        <BookingTimingField
-          setFormValue={setFormValue}
-          watchFormValue={watchFormValue}
+        <TimingField
+          notificationType="booking"
+          selectedTemporality={formValues?.timingTemporality}
+          selectedTimeUnit={formValues?.timingUnit}
+          selectedTimeValue={formValues?.timingValue}
+          updateTimingTemporality={handleUpdateTimingTemporality}
+          updateTimingUnit={handleUpdateTimingUnit}
+          updateTimingValue={handleUpdateTimingValue}
         />
         <Divider orientation="horizontal" weight="thin" />
         <SmartlistsFormField

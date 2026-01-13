@@ -87,7 +87,10 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
   }, [labelColWidths]);
 
   return (
-    <div className="flex flex-col gap-xs">
+    <div
+      data-component="Kaizen-FormRadioGroup"
+      className="flex flex-col gap-xs"
+    >
       {label && (
         <label
           htmlFor={id}

@@ -3,12 +3,14 @@ import { FC } from "react";
 import { useFormContext } from "@bsport/form";
 import { Alert, Divider, Title } from "@bsport/kaizen-primitive-core";
 
+import { LevelSelectorField } from "#src/components/SessionForm/level/level-selector-field";
 import { useCreditFactor } from "#src/hooks/useCreditFactor";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionCapacityField } from "./SessionCapacityField";
 import { SessionCreditsField } from "./SessionCreditField";
 import { SessionPartnershipSettings } from "./SessionPartnershipSettings";
+import { HybridSessionField } from "./hybrid-session-field";
 
 export const SessionSettings: FC<{
   fieldIdPrefix: string;
@@ -47,6 +49,8 @@ export const SessionSettings: FC<{
           {t("addSessionModal.steps.configureSession.settings.credits.warning")}
         </Alert>
       )}
+      <LevelSelectorField fieldIdPrefix={fieldIdPrefix} />
+      <HybridSessionField fieldIdPrefix={fieldIdPrefix} />
       <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>
   );

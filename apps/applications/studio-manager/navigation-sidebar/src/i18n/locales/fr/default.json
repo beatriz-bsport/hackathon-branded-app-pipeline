@@ -1,15 +1,234 @@
 {
+  "common": {
+    "back": "Retour",
+    "new": "Nouveau",
+    "search": "Rechercher les membres"
+  },
   "menus": {
-    "inbox": "Messagerie",
+    "popover": {
+      "settings": "Paramètres",
+      "attendance": "Présence",
+      "ledger": "Grand livre",
+      "tutorials": "Tutoriel",
+      "help": "Centre d'aide",
+      "feedback": "Tableau de retours",
+      "logout": "Déconnexion"
+    },
+    "inbox": "Inbox",
     "notifications": "Notifications",
+    "home": "Accueil",
     "calendar": "Calendrier",
     "schedule": "Emploi du temps",
     "accessControl": "Access Control",
     "classes": {
       "title": "Cours",
-      "activities": "Activités",
+      "activities": "Cours collectifs",
       "workshops": "Ateliers",
       "appointments": "Rendez-vous"
+    },
+    "memberships": {
+      "title": "Cartes de cours & Adhésions",
+      "passes": "Cartes de cours",
+      "appointmentPasses": "Cartes de RDV",
+      "subscriptions": "Abonnements"
+    },
+    "products": {
+      "title": "Boutique",
+      "webshop": "Produits",
+      "packs": "Packs",
+      "giftcards": "Cartes cadeaux",
+      "videosAndEbooks": "Offre Digital",
+      "playlists": "Collections",
+      "orders": "Commandes"
+    },
+    "marketing": {
+      "title": "Marketing",
+      "marketingNotifications": "Notifications",
+      "emailTemplates": "Modèles",
+      "smartlists": "Smartlists",
+      "audience": "Audience",
+      "promotions": "Promotions",
+      "customForms": "Formulaires personnalisés"
+    },
+    "dashboard": "Dashboard",
+    "reporting": "Rapports",
+    "analytics": {
+      "title": "Analytique",
+      "insights": "Insights",
+      "reports": "Rapports"
+    },
+    "finance": {
+      "title": "Finance",
+      "invoices": "Factures",
+      "payouts": "Paiements",
+      "directDebits": "Prélèvements des abonnements",
+      "expenses": "Dépenses",
+      "payroll": "Rémunération"
+    },
+    "membersHub": {
+      "title": "Contacts",
+      "members": "Profils",
+      "forms": "Formulaires",
+      "tags": "Tags",
+      "performanceTracking": "Programmes"
+    },
+    "myStudio": {
+      "title": "Studio",
+      "teachers": "Professeurs",
+      "establishments": "Etablissements",
+      "substitutions": "Remplacements"
+    },
+    "settings": {
+      "title": "Paramètres",
+      "general": "Général",
+      "marketplace": "Espace membre",
+      "widgets": "Widgets",
+      "permissions": "Autorisations",
+      "personalization": "Personnalisation",
+      "brandedApp": "Application personnalisée",
+      "teacherView": "Vue professeurs",
+      "memberForms": "Formulaires de membre",
+      "livestreaming": "Visioconférence",
+      "transactionalNotifications": "Notifications transactionnelles",
+      "payroll": "Rémunération",
+      "paymentMethods": "Modes de paiement",
+      "paymentFacilities": "Modalités de paiement",
+      "billing": "Facturation",
+      "company": "Entreprise",
+      "waitlist": "Liste d’attente",
+      "webhook": "Webhook",
+      "partnership": "Partenariat",
+      "activeCampaign": "ActiveCampaign",
+      "referral": "Parrainage",
+      "quicksale": "PDV",
+      "oldWebshop": "Paramètres du magasin",
+      "quickbooks": "QuickBooks",
+      "bsportSubscription": "Abonnement bsport",
+      "temporaryPassword": "Mot de passe temporaire",
+      "changeLanguage": "Changer de langue"
+    }
+  },
+  "revampCard": {
+    "betaFeedbackLink": "Envoyer des commentaires",
+    "goBackToOldUi": "Ancien Back-Office"
+  },
+  "languages": {
+    "french": "Français",
+    "englishUK": "Anglais (Royaume-Uni)",
+    "englishUS": "Anglais (États-Unis)",
+    "spanish": "Espagnol",
+    "dutch": "Néerlandais",
+    "german": "Allemand",
+    "italian": "Italien",
+    "portuguese": "Portugais",
+    "debug": "Debug (cimode)"
+  },
+  "notifications": {
+    "title": "Centre de notification",
+    "empty": {
+      "title": "Vous êtes à jour",
+      "description": "Rien à afficher pour le moment"
+    },
+    "tabs": {
+      "billing": "Facturation",
+      "orders": "Commandes",
+      "tasks": "Tâches",
+      "unpaidAppointments": "Rendez-vous impayés",
+      "tutorials": "Tutoriel",
+      "companyOnboarding": "Informations légales",
+      "privateBookingIncomplete": "Les rendez-vous à compléter"
+    },
+    "billing": {
+      "loading": "Chargement des notifications de facturation...",
+      "empty": {
+        "title": "Aucune notification de facturation",
+        "description": "Toutes vos notifications de facturation apparaîtront ici"
+      },
+      "paid": "Encaissé :",
+      "due": "Échéance :",
+      "itemTitle": "Factures impayée",
+      "itemDescription": "La Facture n'a pas encore été finalisée"
+    },
+    "orders": {
+      "loading": "Chargement des commandes...",
+      "empty": {
+        "title": "Aucune commande",
+        "description": "Toutes vos commandes apparaîtront ici"
+      },
+      "itemTitle": "Commande en attente",
+      "paidByFormat": "Payé par <strong>{{name}}</strong> sur la boutique"
+    },
+    "tasks": {
+      "loading": "Chargement des tâches...",
+      "empty": {
+        "title": "Aucune tâche",
+        "description": "Toutes vos tâches apparaîtront ici"
+      }
+    },
+    "unpaidAppointments": {
+      "title": "Rendez-vous impayés",
+      "itemTitle": "Rendez-vous impayé",
+      "loading": "Chargement des rendez-vous impayés...",
+      "credits": "Crédits impayés",
+      "empty": {
+        "title": "Aucun rendez-vous impayé",
+        "description": "Vous n'avez aucun rendez-vous impayé"
+      }
+    },
+    "tutorials": {
+      "loading": "Chargement des tutoriels...",
+      "empty": {
+        "title": "Aucun tutoriel",
+        "description": "Toutes vos notifications de tutoriel apparaîtront ici"
+      },
+      "newSection": {
+        "title": "Nouvelle section",
+        "description": "Le tutoriel {{sectionName}} a été ajouté, formez-vous dès maintenant."
+      },
+      "newLesson": {
+        "title": "Nouvelle leçon",
+        "description": "Leçon {{lessonName}} ajoutée à la section {{sectionName}}"
+      }
+    },
+    "companyOnboarding": {
+      "loading": "Chargement des notifications d'intégration de l'entreprise...",
+      "empty": {
+        "title": "Aucune notification d'intégration d'entreprise",
+        "description": "Toutes vos notifications d'intégration d'entreprise apparaîtront ici"
+      },
+      "creation": {
+        "title": "Les paiements en ligne sont actuellement désactivés",
+        "content": "Veuillez vérifier vos informations légales et bancaires pour pouvoir traiter les paiements en ligne."
+      },
+      "payout": {
+        "title": "Coordonnées bancaires manquantes",
+        "content": "Les paiements ne peuvent pas être traités car la vérification du compte n'a pas été complétée ou a été effectuée de manière incorrecte."
+      },
+      "verification": {
+        "title": "Gestion d'entreprise",
+        "content": "Plusieurs documents sont en attente de validation pour vérifier votre compte. La date limite est : {{date}}.",
+        "contentGeneric": "Plusieurs documents sont en attente de validation pour vérifier votre compte."
+      },
+      "paypal": {
+        "title": "Les paiements PayPal sont désactivés",
+        "primaryEmailConfirmation": "L'Email de votre compte PayPal nécessite une confirmation. Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+        "requiresMoreInformation": "Votre compte PayPal nécessite des informations supplémentaires ou une validation de la part de PayPal. Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+        "issueCheckAccount": "Il y a un problème avec votre compte PayPal. Veuillez vérifier votre compte PayPal pour résoudre ce problème.",
+        "issueRepeatOnboarding": "Il y a un problème avec votre compte PayPal. Veuillez répéter le processus de connexion en utilisant le même compte pour résoudre ce problème."
+      },
+      "generic": {
+        "title": "L'intégration de l'entreprise est requise",
+        "content": "Veuillez compléter le processus d'intégration de votre entreprise."
+      }
+    },
+    "privateBookingIncomplete": {
+      "loading": "Chargement des rendez-vous à compléter...",
+      "empty": {
+        "title": "Aucun rendez-vous à compléter",
+        "description": "Tous vos rendez-vous ont des professeurs assignés"
+      },
+      "member": "Membre : {{userName}}",
+      "date": "Date : {{date}}"
     }
   }
 }

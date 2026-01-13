@@ -1,12 +1,12 @@
 import { z } from "zod";
 
 import type { BookingTemporality } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
+import { TimeUnitType } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
 
 import { i18nInstance } from "../i18n";
 import type {
   BookingSelectableNotificationType,
   BookingTriggerConfigValidationFormData,
-  ConfigTimeUnit,
 } from "./types";
 
 export const bookingTriggerConfigValidationSchema = z
@@ -19,7 +19,7 @@ export const bookingTriggerConfigValidationSchema = z
         ns: "sm-marketing-notification_marketingNotificationsModal",
       }),
     }),
-    timingUnit: z.custom<ConfigTimeUnit>(),
+    timingUnit: z.custom<TimeUnitType>(),
     timingValue: z.number(),
     timingTemporality: z.custom<BookingTemporality>(),
     toggleIncludedSmartlists: z.boolean(),

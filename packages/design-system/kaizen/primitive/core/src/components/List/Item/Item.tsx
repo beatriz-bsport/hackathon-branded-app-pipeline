@@ -42,6 +42,7 @@ type Props = {
   className?: string;
   onItemClick?: () => void;
   compactMode?: boolean;
+  disabled?: boolean;
 };
 
 export type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> &
@@ -65,6 +66,7 @@ const BaseItem: React.FC<
     rightTitle,
     description,
     isSelectable,
+    disabled,
     icon,
     avatar,
     color,
@@ -98,7 +100,12 @@ const BaseItem: React.FC<
       <>
         <div className="grid grid-cols-[minmax(0,1fr)_auto] w-full gap-xs items-center">
           {/* Left column with title and description */}
-          <div className="flex items-center gap-xs text-onsurface-default flex-1 min-w-0">
+          <div
+            className={classNames(
+              "flex items-center gap-xs flex-1 min-w-0",
+              disabled ? "text-onsurface-disabled" : "text-onsurface-default",
+            )}
+          >
             {color && (
               <ColorIndicator
                 color={color}
@@ -108,17 +115,32 @@ const BaseItem: React.FC<
               />
             )}
             {isSelectable && (
-              <Checkbox id={id} value={checkboxState} onChange={handleChange} />
+              <Checkbox
+                id={id}
+                value={checkboxState}
+                onChange={handleChange}
+                disabled={disabled}
+              />
             )}
             {(avatar && <AvatarWithTooltip {...avatar} />) ||
               (icon && <Icon icon={icon} size="md" />) ||
               null}
             <div className="flex-1 min-w-0">
-              <span className="block text-onsurface-default text-body-lg leading-md truncate break-word">
+              <span
+                className={classNames(
+                  "block text-body-lg leading-md truncate break-word",
+                  disabled ? "text-onsurface-weak" : "text-onsurface-default",
+                )}
+              >
                 {title}
               </span>
               {description && (
-                <span className="block text-onsurface-weak text-body-md leading-sm truncate break-word">
+                <span
+                  className={classNames(
+                    "block text-body-md leading-sm truncate break-word",
+                    disabled ? "text-onsurface-weaker" : "text-onsurface-weak",
+                  )}
+                >
                   {description}
                 </span>
               )}
@@ -192,6 +214,7 @@ const Item: React.FC<ListItemProps> = ({
   description,
   isSelectable = false,
   isActive = false,
+  disabled = false,
   icon,
   avatar,
   color,
@@ -218,21 +241,26 @@ const Item: React.FC<ListItemProps> = ({
 
   return (
     <li
+      data-component="Kaizen-List-Item"
       id={id}
       className={classNames(
         listItem({
           className,
-          selected: checkboxState === "checked" || isActive,
+          selected: disabled
+            ? "disabled"
+            : checkboxState === "checked" || isActive
+              ? "selected"
+              : "unselected",
           isLink: !!link,
           compactMode,
         }),
       )}
-      onClick={onItemClick}
-      tabIndex={0}
+      onClick={disabled ? undefined : onItemClick}
+      tabIndex={disabled ? -1 : 0}
       {...props}
     >
       <BaseItem
-        link={link}
+        link={disabled ? undefined : link}
         handleChange={handleChange}
         checkboxState={checkboxState}
         className="flex w-full justify-between items-center gap-xs self-stretch"
@@ -241,6 +269,7 @@ const Item: React.FC<ListItemProps> = ({
         rightTitle={rightTitle}
         description={description}
         isSelectable={isSelectable}
+        disabled={disabled}
         icon={icon}
         avatar={avatar}
         color={color}

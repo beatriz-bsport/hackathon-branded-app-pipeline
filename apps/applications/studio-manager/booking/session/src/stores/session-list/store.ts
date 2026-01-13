@@ -1,7 +1,10 @@
 import { createStore } from "zustand/vanilla";
 
+import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { bindStore } from "@bsport/store-base";
+
+import type { EnrichedSession } from "#src/types";
 
 export enum CalendarView {
   DAILY = "daily",
@@ -9,21 +12,27 @@ export enum CalendarView {
 }
 
 export type DateSelection =
-  | { type: "single"; date: Date }
-  | { type: "range"; minDate: Date | null; maxDate: Date | null };
+  | { type: "single"; date: DateTime }
+  | { type: "range"; minDate: DateTime | null; maxDate: DateTime | null };
+
+export type ModalState = { type: "cancel"; session: EnrichedSession } | null;
 
 export interface SessionListState {
   calendarView: CalendarView;
   selectedDate: DateSelection;
   locale: string;
+  showCancelledSessions: boolean;
   filters: FilterElementState[];
+  modalState: ModalState;
 }
 
 export const getInitialState = (): SessionListState => ({
   calendarView: CalendarView.DAILY,
-  selectedDate: { type: "single", date: new Date() },
+  selectedDate: { type: "single", date: getLocalNow({}) },
+  showCancelledSessions: true,
   locale: "en-US",
   filters: [],
+  modalState: null,
 });
 export const sessionListStore = createStore<SessionListState>(getInitialState);
 

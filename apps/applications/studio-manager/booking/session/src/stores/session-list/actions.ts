@@ -1,5 +1,7 @@
-import { getWeekBounds } from "@bsport/datetime-manipulation";
+import { type DateTime, getWeekBounds } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
+
+import type { EnrichedSession } from "#src/types";
 
 import { CalendarView, sessionListStore } from "./store";
 
@@ -44,7 +46,9 @@ export const setCalendarView = (calendarView: CalendarView) => {
   });
 };
 
-export const setSelectedDate = (date: Date | [Date | null, Date | null]) => {
+export const setSelectedDate = (
+  date: DateTime | [DateTime | null, DateTime | null],
+) => {
   if (Array.isArray(date)) {
     sessionListStore.setState({
       selectedDate: { type: "range", minDate: date[0], maxDate: date[1] },
@@ -56,7 +60,7 @@ export const setSelectedDate = (date: Date | [Date | null, Date | null]) => {
   }
 };
 
-export const setUniqueDate = (date: Date) => {
+export const setUniqueDate = (date: DateTime) => {
   sessionListStore.setState({
     calendarView: CalendarView.DAILY,
     selectedDate: { type: "single", date },
@@ -69,4 +73,17 @@ export const setLocale = (locale: string) => {
 
 export const setFilters = (filters: FilterElementState[]) => {
   sessionListStore.setState({ filters });
+};
+
+// Modal actions
+export const openCancelModal = (session: EnrichedSession) => {
+  sessionListStore.setState({ modalState: { type: "cancel", session } });
+};
+
+export const closeModal = () => {
+  sessionListStore.setState({ modalState: null });
+};
+
+export const setShowCancelledSessions = (show: boolean) => {
+  sessionListStore.setState({ showCancelledSessions: show });
 };

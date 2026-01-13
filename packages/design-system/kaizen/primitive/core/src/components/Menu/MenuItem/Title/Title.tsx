@@ -28,7 +28,11 @@ const MenuItemTitle: React.FC<TitleProps> = ({
   ...props
 }) => {
   return (
-    <div className={className} {...props}>
+    <div
+      data-component="Kaizen-Menu-Item-Title"
+      className={className}
+      {...props}
+    >
       <Title color="weaker" htmlVariant="h5" weight="weak">
         {label}
       </Title>

@@ -1,16 +1,19 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { buildUrlParams } from "@bsport/store-base";
+import { type PaginatedResponse, buildUrlParams } from "@bsport/store-base";
 
 import { fetch } from "#src/utils/fetch";
 
 import type {
   AutomatedCampaign,
+  CampaignSent,
   FetchAutomatedCampaignsParams,
+  FetchCampaignSentParams,
   Smartlist,
 } from "./types";
 
 const API_URL = "api/v1/smartlist";
+const COMMUNICATE_API_URL = "api/v1/communication";
 
 /**
  * Query Key Factory
@@ -18,6 +21,7 @@ const API_URL = "api/v1/smartlist";
  * Key taxonomy:
  * ['@sm-smartlist', 'detail', id]                        - smartlist detail
  * ['@sm-smartlist', 'detail', id, 'automated-campaigns'] - automated campaigns for a smartlist
+ * ['@sm-smartlist', 'detail', id, 'campaign-sent']       - campaign sent data (with analytics)
  */
 export const smartlistKeys = {
   all: ["@sm-smartlist"] as const,
@@ -27,6 +31,9 @@ export const smartlistKeys = {
 
   automatedCampaigns: (id: string) =>
     [...smartlistKeys.detail(id), "automated-campaigns"] as const,
+
+  campaignSent: (id: string) =>
+    [...smartlistKeys.detail(id), "campaign-sent"] as const,
 } as const;
 
 /**
@@ -45,11 +52,27 @@ const fetchAutomatedCampaigns = async (
     smartlist_id: params.smartlist_id,
     exclude_disabled: params.exclude_disabled ?? true,
   });
-  const { data } = await fetch<AutomatedCampaign[]>(
+  const { data } = await fetch<PaginatedResponse<AutomatedCampaign>>(
     `${API_URL}/automated_campaign/${urlParams}`,
   );
 
-  return data;
+  return data.results;
+};
+
+const fetchCampaignSent = async (
+  params: FetchCampaignSentParams,
+): Promise<CampaignSent[]> => {
+  const urlParams = buildUrlParams({
+    smartlist: params.smartlist,
+    only_automated_campaign: params.only_automated_campaign,
+    page_size: params.page_size ?? 100,
+    page: params.page ?? 1,
+  });
+  const { data } = await fetch<PaginatedResponse<CampaignSent>>(
+    `${COMMUNICATE_API_URL}/communication_sent/${urlParams}`,
+  );
+
+  return data.results;
 };
 
 /**
@@ -68,5 +91,17 @@ export const automatedCampaignsQueryOptions = (smartlistId: string) =>
       fetchAutomatedCampaigns({
         smartlist_id: smartlistId,
         exclude_disabled: true,
+      }),
+  });
+
+export const campaignSentQueryOptions = (smartlistId: string) =>
+  queryOptions({
+    queryKey: smartlistKeys.campaignSent(smartlistId),
+    queryFn: () =>
+      fetchCampaignSent({
+        smartlist: Number(smartlistId),
+        only_automated_campaign: true,
+        page_size: 100,
+        page: 1,
       }),
   });

@@ -127,7 +127,11 @@ export const PackFormVisibilitySelector: React.FC<
                       shouldDirty: true,
                       shouldValidate: true,
                     });
-                    if (hidePack) {
+                    if (
+                      hidePack &&
+                      form.getValues().available_payment_method_identifiers
+                        .length === 0
+                    ) {
                       // Fallback payment methods to default value to avoid hidden errors
                       form.setValue(
                         "available_payment_method_identifiers",

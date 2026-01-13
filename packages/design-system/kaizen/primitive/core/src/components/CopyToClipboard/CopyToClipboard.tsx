@@ -82,7 +82,12 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
       label={tooltip ?? t("copyToClipboard.tooltip")}
       placement={placement}
     >
-      <Button onClick={handleCopy} label={label} {...props} />
+      <Button
+        data-component="Kaizen-CopyToClipboard"
+        onClick={handleCopy}
+        label={label}
+        {...props}
+      />
     </Tooltip>
   );
 };

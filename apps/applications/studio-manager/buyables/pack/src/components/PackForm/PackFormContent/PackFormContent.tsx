@@ -30,8 +30,13 @@ export const PackFormContent: FC<PackFormContentProps> = ({
   clickedItem,
 }) => {
   const { t } = useTranslation("details");
-  const { removeVariantItem, passes, webshopItems, appointmentPasses } =
-    useSelectedItemsContext();
+  const {
+    removeVariantItem,
+    passes,
+    webshopItems,
+    appointmentPasses,
+    isDirtySelection,
+  } = useSelectedItemsContext();
 
   const menuId = useId();
 
@@ -99,7 +104,7 @@ export const PackFormContent: FC<PackFormContentProps> = ({
         padding="none"
         className={clsx({
           "border-onsurface-status-critical-weak border-stroke-regular":
-            !hasSelectedItems,
+            !hasSelectedItems && isDirtySelection,
         })}
       >
         <PackFormContentItems
@@ -109,6 +114,7 @@ export const PackFormContent: FC<PackFormContentProps> = ({
           webshopItems={webshopItems}
           onItemClick={onItemClick}
           clickedItem={clickedItem}
+          isDirtySelection={isDirtySelection}
         />
       </Card>
       <PackAddItemsModal

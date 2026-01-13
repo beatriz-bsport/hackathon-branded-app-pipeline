@@ -72,6 +72,7 @@ const DropZone: React.FC<
 
   return (
     <div
+      data-component="Kaizen-DragAndDrop-DropZone"
       id={id}
       className={classNames(className)}
       onDragEnter={handleDragEnter}

@@ -20,8 +20,13 @@
       "content": "Choose channels"
     },
     "content": {
+      "communicationVariableLengthAlert": "The final message may be longer than expected once variables are replaced. If a variable’s value exceeds its placeholder length, your message could be cropped when sent. Please review variable lengths before sending.",
       "errors": {
         "noEmailTemplate": "Select a template",
+        "tooLong": {
+          "pushNotificationTitle": "Title cannot exceed {{ count }} characters",
+          "pushNotificationContent": "Content cannot exceed {{ count }} characters"
+        },
         "noContent": {
           "pushNotificationTitle": "Fill in the push notification title",
           "pushNotificationContent": "Fill in the push notification content"
@@ -39,6 +44,11 @@
     },
     "triggerType": {
       "title": "Select which trigger type will start the automation",
+      "selectAllPasses": {
+        "checkbox": {
+          "label": "Apply this notification for all Appointment Passes"
+        }
+      },
       "notificationType": {
         "label": "Trigger type",
         "choices": {
@@ -125,6 +135,98 @@
           "label": "Don't send notification if member is included in a Smartlist"
         }
       },
+      "timing": {
+        "timeUnit": {
+          "label": "Select interval",
+          "options": {
+            "hour": "Hourly",
+            "day": "Daily"
+          }
+        },
+        "timeValue": {
+          "label": "Timing of notification"
+        },
+        "temporality": {
+          "label": "Send this notification",
+          "options": {
+            "booking": {
+              "before": "Before the session",
+              "after": "After the session"
+            },
+            "subscriptionCreation": {
+              "before": "Before the subscription is created",
+              "after": "After the subscription is created"
+            },
+            "subscriptionFirstBilling": {
+              "before": "Before the first subscription invoice",
+              "after": "After the first subscription invoice"
+            },
+            "subscriptionEnd": {
+              "before": "Before the end of their subscription",
+              "after": "After the end of their subscription"
+            }
+          }
+        },
+        "timingValuePrefix": {
+          "content": "Your notification will be sent {{count}} ",
+          "booking": {
+            "before": {
+              "hour_one": "hour before the session",
+              "hour_other": "hours before the session",
+              "day_one": "day before the session",
+              "day_other": "days before the session"
+            },
+            "after": {
+              "hour_one": "hour after the session",
+              "hour_other": "hours after the session",
+              "day_one": "day after the session",
+              "day_other": "days after the session"
+            }
+          },
+          "subscriptionCreation": {
+            "before": {
+              "hour_one": "hour before the subscription creation",
+              "hour_other": "hours before the subscription creation",
+              "day_one": "day before the subscription creation",
+              "day_other": "days before the subscription creation"
+            },
+            "after": {
+              "hour_one": "hour after the subscription creation",
+              "hour_other": "hours after the subscription creation",
+              "day_one": "day after the subscription creation",
+              "day_other": "days after the subscription creation"
+            }
+          },
+          "subscriptionFirstBilling": {
+            "before": {
+              "hour_one": "hour before the first subscription invoice",
+              "hour_other": "hours before the first subscription invoice",
+              "day_one": "day before the first subscription invoice",
+              "day_other": "days before the first subscription invoice"
+            },
+            "after": {
+              "hour_one": "hour after the first subscription invoice",
+              "hour_other": "hours after the first subscription invoice",
+              "day_one": "day after the first subscription invoice",
+              "day_other": "days after the first subscription invoice"
+            }
+          },
+          "subscriptionEnd": {
+            "before": {
+              "hour_one": "hour before the end of their subscription",
+              "hour_other": "hours before the end of their subscription",
+              "day_one": "day before the end of their subscription",
+              "day_other": "days before the end of their subscription"
+            },
+            "after": {
+              "hour_one": "hour after the end of their subscription",
+              "hour_other": "hours after the end of their subscription",
+              "day_one": "day after the end of their subscription",
+              "day_other": "days after the end of their subscription"
+            }
+          }
+        }
+      },
       "booking": {
         "actionLabel": "Send this notification when a member",
         "actions": {
@@ -209,6 +311,50 @@
         "amountSuffix": {
           "attend": "Bookings",
           "cancel": "Cancelations"
+        }
+      },
+      "subscription": {
+        "statusLabel": "Send this notification at a member's",
+        "statuses": {
+          "subscriptionCreation": "The first subscription is created",
+          "subscriptionFirstBilling": "The first subscription invoice",
+          "subscriptionEnd": "End of their subscription"
+        }
+      },
+      "pass": {
+        "name": {
+          "label": "Notification name",
+          "placeholder": "Name this notification",
+          "required": "The name of the notification is required."
+        },
+        "actionLabel": "Send this notification when",
+        "actions": {
+          "creditsLeft": "Pass reaches a set number of credits left",
+          "daysLeft": "Pass reaches a set number of days left before expiry",
+          "daysExpired": "Pass has expired"
+        },
+        "errors": {
+          "notEnoughDaysLeft": "Value should be greater than 0 for the numbers of days left.",
+          "notificationNameRequired": "Provide a notification name"
+        },
+        "eventOccurence": {
+          "label": "Send this notification when a pass has",
+          "credits": {
+            "suffix_one": "Remaining credit",
+            "suffix_other": "Remaining credits"
+          },
+          "days": {
+            "suffix_one": "Remaining day",
+            "suffix_other": "Remaining days"
+          }
+        },
+        "includedInContract": {
+          "label": "Choose when to send this notification",
+          "infos": "By default, this notification is sent to all members with this pass. If you select “Skip if a pass is part of a subscription”, members who hold the pass through a subscription will not receive it.",
+          "options": {
+            "everyPass": "Send to everyone with this Pass",
+            "outsideSubscription": "Skip if Pass is part of a subscription"
+          }
         }
       }
     }

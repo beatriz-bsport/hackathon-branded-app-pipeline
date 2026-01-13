@@ -8,14 +8,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./build/lib.d.ts",
+      "types": "./build/index.d.ts",
       "import": "./build/lib.es.js",
       "default": "./build/lib.es.js"
     }
   },
   "main": "build/lib.es.js",
   "module": "build/lib.es.js",
-  "types": "build/lib.d.ts",
+  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
@@ -29,6 +29,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@bsport/api-core": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "typescript-result": "^3.1.1",
     "zustand": "^5.0.3"

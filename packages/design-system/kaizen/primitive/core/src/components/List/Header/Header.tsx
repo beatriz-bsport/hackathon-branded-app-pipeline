@@ -78,8 +78,13 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <div
+      data-component="Kaizen-List-Header"
       className={classNames(
-        listItem({ className, selected: indeterminateState === "checked" }),
+        listItem({
+          className,
+          selected:
+            indeterminateState === "checked" ? "selected" : "unselected",
+        }),
         {
           "justify-between bg-surface-default-weaker":
             indeterminateState !== "checked",

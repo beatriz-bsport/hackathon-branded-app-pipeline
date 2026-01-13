@@ -7,7 +7,7 @@ export const START_ON_PURCHASE = 2;
 export const filterUnaccessiblePaymentPack = (
   paymentPacks: PaymentPack[],
   {
-    memberTagIdsList,
+    memberTagIdsList = [],
     authenticated,
   }: { memberTagIdsList: number[]; authenticated: boolean },
 ) => {
@@ -25,7 +25,7 @@ export const filterUnaccessiblePaymentPack = (
             )
         : [];
     }
-    if (memberTagIdsList && memberTagIdsList.length === 0) {
+    if (memberTagIdsList.length === 0) {
       return paymentPacks
         ? paymentPacks.filter(
             (pack) => pack.whitelist_tags && pack.whitelist_tags.length === 0,

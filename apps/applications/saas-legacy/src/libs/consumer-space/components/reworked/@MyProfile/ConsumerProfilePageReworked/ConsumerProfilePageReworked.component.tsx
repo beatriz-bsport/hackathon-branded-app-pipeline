@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import type { AxiosResponse } from 'axios';
 
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group';
+
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
@@ -160,11 +162,26 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     referralMemberStatusLoading ||
     membershipLoading;
 
+  // Determine default payment method - check if SEPA is enabled before defaulting to it
   const defaultPaymentMethod =
-    companyTheme?.currency === 'eur' ? 'sepa_debit' : 'card';
+    companyTheme?.currency === 'eur' &&
+    ((companyTheme?.payment_method_available_basket?.includes(
+      PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+    ) ??
+      true) ||
+      (companyTheme?.payment_method_available_subscription?.includes(
+        PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+      ) ??
+        true))
+      ? 'sepa_debit'
+      : 'card';
 
   const [paymentMethodType, setpaymentMethodType] =
     useState<string>(defaultPaymentMethod);
+
+  React.useEffect(() => {
+    setpaymentMethodType(defaultPaymentMethod);
+  }, [defaultPaymentMethod]);
 
   const changePaymentMethodType = useCallback((value: string) => {
     setpaymentMethodType(value);
@@ -463,6 +480,10 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
                 currency: companyTheme?.currency,
                 companyCountry,
                 stripeRegion,
+                paymentMethodAvailableBasket:
+                  companyTheme?.payment_method_available_basket,
+                paymentMethodAvailableSubscription:
+                  companyTheme?.payment_method_available_subscription,
               },
             )}
             onCancel={closeAddPaymentMethodPortal}

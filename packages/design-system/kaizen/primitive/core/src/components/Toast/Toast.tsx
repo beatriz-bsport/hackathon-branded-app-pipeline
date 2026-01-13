@@ -63,7 +63,7 @@ export type ToastProps = React.HTMLAttributes<HTMLLIElement> &
  * @param props.buttonLabel Text label of the button.
  * @param props.onButtonClick Function to call when the button is clicked.
  * @param props.onDismiss Function to call when the toast is dismissed.
- * @param props.duration Time in milliseconds until the toast is dismissed automatically.
+ * @param props.duration Time in milliseconds until the toast is dismissed automatically. Set to 0 to disable auto-dismissal. Default is 5000ms.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-toast--docs
  */
 const Toast: React.FC<ToastProps> = ({
@@ -79,9 +79,6 @@ const Toast: React.FC<ToastProps> = ({
   duration = 5000,
   ...props
 }) => {
-  if (duration < 0) {
-    console.warn("Duration must be greater than 0");
-  }
   if (duration < 1000) {
     console.warn("Toast duration is too short for most users to read.");
   }
@@ -92,15 +89,18 @@ const Toast: React.FC<ToastProps> = ({
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onDismiss?.();
-    }, duration);
+    if (duration > 0) {
+      const timer = setTimeout(() => {
+        onDismiss?.();
+      }, duration);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, [duration]);
 
   return (
     <li
+      data-component="Kaizen-Toast"
       className={toast({ className, status })}
       role="alert"
       aria-live="assertive"

@@ -9,6 +9,11 @@
     "previousButton": "Previous day",
     "nextButton": "Next day"
   },
+  "moreActions": {
+    "label": "More actions",
+    "exportParticipants": "Export participant list",
+    "cancelMultipleSessions": "Cancel multiple sessions"
+  },
   "table": {
     "headers": {
       "time": "Time",
@@ -22,24 +27,55 @@
       "label": "Filters",
       "is": "is",
       "not": "is not",
+      "activityCategory": {
+        "label": "Activity category"
+      },
+      "activityName": {
+        "label": "Activity name"
+      },
       "activityType": {
         "label": "Activity type",
         "workshop": "Workshop",
         "groupActivity": "Group activity"
+      },
+      "establishment": {
+        "label": "Establishment"
+      },
+      "location": {
+        "label": "Location"
+      },
+      "level": {
+        "label": "Session level"
+      },
+      "teacher": {
+        "label": "Teacher"
+      },
+      "teacherSubstitution": {
+        "label": "Teacher substitution",
+        "confirmed": "Confirmed",
+        "pending": "Pending request"
       },
       "visibility": {
         "label": "Visibility",
         "aggregators": "Visible on aggregators",
         "members": "Visible on Member Area"
       },
-      "teacherSubstitution": {
-        "label": "Teacher substitution",
-        "confirmed": "Confirmed",
-        "pending": "Pending request"
-      }
+      "searchPlaceholder": "Search"
     },
     "isLoading": "Loading sessions...",
-    "attendanceButton": "Attendance"
+    "attendanceButton": "Attendance",
+    "substitution": {
+      "pendingRequest": "Substitution pending"
+    },
+    "shortcutActions": {
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "copyLink": "Copy link",
+      "cancel": "Cancel",
+      "restore": "Restore",
+      "delete": "Permanently delete",
+      "label": "Shortcut actions"
+    }
   },
   "displaySettings": {
     "calendarView": {
@@ -48,10 +84,57 @@
         "daily": "By day",
         "range": "Range"
       }
+    },
+    "showCancelledSessions": {
+      "label": "Show cancelled sessions"
     }
   },
   "emptyState": {
     "title": "No sessions added yet",
     "subtitle": "Add a new session to get started"
+  },
+  "exportParticipantsModal": {
+    "title": "Export list of participants?",
+    "description": "Choose a date to export the participant list for the entire day, broken down by session.",
+    "dayLabel": "Day",
+    "applyFilterLabel": "Apply calendar view filters (Activity name, Establishment, Teacher, Session level)",
+    "applyFilterDescription": "If unselected, the list will be exported without filters.",
+    "cancelButton": "Close",
+    "confirmButton": "Export",
+    "errorMessage": "An error occurred while exporting the participant list. Please try again."
+  },
+  "backgroundTask": {
+    "genericError": "An error has occurred. Check your connection and try refreshing the page.",
+    "timeoutError": "The server took too long to respond. Try refreshing the page"
+  },
+  "cancelModal": {
+    "title": "Cancel session?",
+    "description": "You can restore this session at any time but you won’t be able to retrieve any bookings related to this session.",
+    "bookingsAlert_one": "<strong>{{number}} member </strong> who booked this session will have their credits refunded",
+    "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this session will have their credits refunded",
+    "notificationLabel": "Send a notification to all members who booked this session",
+    "cancelFutureSessions": "Cancel future sessions too",
+    "futureSessionsHeader": "Sessions ({{number}})",
+    "descriptionFutureSessions": "Select which sessions will be cancelled",
+    "cancelButton": "Back",
+    "confirmButton": "Cancel",
+    "errorMessage": "An error occurred while cancelling the session. Please try again later.",
+    "successMessage_one": "Session cancelled",
+    "successMessage_other": "Sessions cancelled"
+  },
+  "cancelMultipleSessionsModal": {
+    "title": "Cancel multiple sessions?",
+    "description": "You can restore these sessions at any time, but you won’t be able to retrieve any bookings related to them. If you applied filters before cancelling, those filters will be kept for the selected period.",
+    "dateRangeLabel": "Time period",
+    "cancelAlert_one": "<strong>{{sessionsNumber}} sessions scheduled on {{startDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
+    "cancelAlert_other": "<strong>{{sessionsNumber}} sessions scheduled between {{startDate}} and {{endDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
+    "groupSessionAlert": "<strong>Just a heads up:</strong> the following sessions in this period cannot be canceled. To remove them, delete the associated 'Grouped session' first. All other sessions will still be canceled.",
+    "confirmTickLabel": "Tick to confirm:",
+    "confirmTickDescription": "I understand that cancelling multiple sessions will remove these bookings from my calendar and automatically refund credits to members.",
+    "confirmButton": "Cancel",
+    "cancelButton": "Close",
+    "errorMessage": "An error occurred while cancelling the sessions. Please try again later.",
+    "successMessage_one": "Multiple sessions cancelled on {{startDate}}.",
+    "successMessage_other": "Multiple sessions cancelled between {{startDate}} and {{endDate}}."
   }
 }

@@ -203,47 +203,55 @@ export const InvoiceHeader = (props: Props) => {
             {t(`invoice.header.source.${invoice.source}`)}
           </Typography>
         </div>
-        {props.enableEditEstablishmentBillingGroup ? (
-          <>
-            {showEstablishmentBillingGroupSelector ? (
-              <div className={classes.row}>
-                <div className={classes.selectorRow}>
-                  <EstablishmentBillingGroupSelector
-                    closeMenuOnSelect
-                    isClearable
-                    establishmentBillingGroups={establishmentBillingGroups}
-                    isDisabled={!showEstablishmentBillingGroupSelector}
-                    selectedEstablishmentBillingGroup={null}
-                    selectOption={onEditEstablishmentBillingGroup}
-                  />
-                </div>
-                <IconButton
-                  className={classes.iconButton}
-                  onClick={handleShowEstablishmentBillingGroupSelector}
-                >
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </div>
-            ) : (
-              <div className={classes.row}>
-                <LocationIcon className={classes.leftIcon} fontSize="small" />
-                {editEstablishmentBillingGroupIsLoading ? (
-                  <CircularProgress color="secondary" size="1rem" />
-                ) : (
-                  <Typography color="textSecondary">{locationName}</Typography>
-                )}
-                {!editEstablishmentBillingGroupIsLoading && (
+        {!!locationName &&
+          (props.enableEditEstablishmentBillingGroup ? (
+            <>
+              {showEstablishmentBillingGroupSelector ? (
+                <div className={classes.row}>
+                  <div className={classes.selectorRow}>
+                    <EstablishmentBillingGroupSelector
+                      closeMenuOnSelect
+                      isClearable
+                      establishmentBillingGroups={establishmentBillingGroups}
+                      isDisabled={!showEstablishmentBillingGroupSelector}
+                      selectedEstablishmentBillingGroup={null}
+                      selectOption={onEditEstablishmentBillingGroup}
+                    />
+                  </div>
                   <IconButton
                     className={classes.iconButton}
                     onClick={handleShowEstablishmentBillingGroupSelector}
                   >
-                    <EditIcon fontSize="small" />
+                    <CloseIcon fontSize="small" />
                   </IconButton>
-                )}
-              </div>
-            )}
-          </>
-        ) : null}
+                </div>
+              ) : (
+                <div className={classes.row}>
+                  <LocationIcon className={classes.leftIcon} fontSize="small" />
+                  {editEstablishmentBillingGroupIsLoading ? (
+                    <CircularProgress color="secondary" size="1rem" />
+                  ) : (
+                    <Typography color="textSecondary">
+                      {locationName}
+                    </Typography>
+                  )}
+                  {!editEstablishmentBillingGroupIsLoading && (
+                    <IconButton
+                      className={classes.iconButton}
+                      onClick={handleShowEstablishmentBillingGroupSelector}
+                    >
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                  )}
+                </div>
+              )}
+            </>
+          ) : (
+            <div className={classes.row}>
+              <LocationIcon className={classes.leftIcon} fontSize="small" />
+              <Typography color="textSecondary">{locationName}</Typography>
+            </div>
+          ))}
 
         {invoice.source_invoice && (
           <ButtonBase

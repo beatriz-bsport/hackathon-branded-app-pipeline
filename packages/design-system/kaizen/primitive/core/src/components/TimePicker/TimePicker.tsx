@@ -12,7 +12,7 @@ import "#src/globals.css";
 import { useKaizenI18nInstance } from "#src/i18n";
 
 import {
-  buildDateFromSelection,
+  formatTimeFromSelection,
   generateTimeOptions,
   getMenuValue,
 } from "./utils";
@@ -40,7 +40,7 @@ export type TimePickerProps = Omit<
   id: string;
   interval?: number;
   label?: string;
-  onChange?: (date: Date) => void;
+  onChange?: (value: string) => void;
   required?: boolean;
   value?: string;
 };
@@ -52,7 +52,7 @@ export type TimePickerProps = Omit<
  * @param props.disabled Whether the time picker is disabled.
  * @param props.id Unique identifier for the time picker.
  * @param props.interval Minute interval between time options (default: 15).
- * @param props.onChange Callback when the time changes. Receives a Date object.
+ * @param props.onChange Callback when the time changes. Receives a string in `HH:mm` format.
  * @param props.required Whether the field is required.
  * @param props.value The selected time in `HH:mm` format.
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-timepicker--docs
@@ -88,8 +88,8 @@ const TimePicker: React.FC<TimePickerProps> = ({
     (newTime?: string, newMeridiem?: Meridiem) => {
       const time = newTime ?? value ?? "00:00";
       const mer = newMeridiem ?? selectedMeridiem ?? "AM";
-      const date = buildDateFromSelection(time, mer, meridiem);
-      if (date && onChange) onChange(date);
+      const formattedNewTime = formatTimeFromSelection(time, mer, meridiem);
+      if (formattedNewTime && onChange) onChange(formattedNewTime);
     },
     [meridiem, onChange, selectedMeridiem, value],
   );
@@ -140,6 +140,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
 
   return (
     <div
+      data-component="Kaizen-TimePicker"
       className={cx(className, "flex flex-col gap-2xs", {
         "opacity-sm pointer-events-none": disabled,
       })}

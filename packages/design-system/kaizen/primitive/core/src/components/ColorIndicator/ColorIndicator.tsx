@@ -47,6 +47,7 @@ const ColorIndicator: React.FC<ColorIndicatorProps> = ({
 }) => {
   return (
     <div
+      data-component="Kaizen-ColorIndicator"
       className={colorIndicator({
         type,
         className,

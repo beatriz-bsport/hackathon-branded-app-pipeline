@@ -36,7 +36,7 @@ export const fetchLevelAPI = async (
 
 const updateLevelAPIConfig = (params: {
   id: number;
-  data: Level;
+  data: Omit<Level, "id">;
 }): ApiConfig => {
   return [
     `${API_URL}${params.id}`,
@@ -49,16 +49,19 @@ const updateLevelAPIConfig = (params: {
 
 export const updateLevelAPI = async (
   fetch: Fetch<Level>,
-  params: { id: number; data: Level },
+  params: { data: Level },
 ) => {
-  const [uri, init] = updateLevelAPIConfig(params);
+  const { id, ...rest } = params.data;
+  const [uri, init] = updateLevelAPIConfig({ id, data: rest });
 
   const { data } = await fetch(uri, init);
 
   return data;
 };
 
-const createLevelAPIConfig = (params: { data: Level }): ApiConfig => {
+const createLevelAPIConfig = (params: {
+  data: Omit<Level, "id">;
+}): ApiConfig => {
   return [
     `${API_URL}`,
     {
@@ -70,7 +73,7 @@ const createLevelAPIConfig = (params: { data: Level }): ApiConfig => {
 
 export const createLevelAPI = async (
   fetch: Fetch<Level>,
-  params: { data: Level },
+  params: { data: Omit<Level, "id"> },
 ) => {
   const [uri, init] = createLevelAPIConfig(params);
 

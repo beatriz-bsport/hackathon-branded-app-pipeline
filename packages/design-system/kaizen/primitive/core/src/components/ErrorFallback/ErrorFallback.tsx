@@ -76,6 +76,7 @@ const ErrorFallback = ({
 
   return (
     <div
+      data-component="Kaizen-ErrorFallback"
       className={errorFallback({ className })}
       role="alert"
       aria-live="assertive"

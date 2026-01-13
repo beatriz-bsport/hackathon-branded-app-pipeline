@@ -29,7 +29,11 @@ export type GroupProps = React.HTMLAttributes<HTMLDivElement> & {
  */
 const Group: React.FC<GroupProps> = ({ label, className, ...props }) => {
   return (
-    <div className={cx(defaultClasses, className)} {...props}>
+    <div
+      data-component="Kaizen-NavigationMenu-Group"
+      className={cx(defaultClasses, className)}
+      {...props}
+    >
       {!!label && (
         <Body htmlVariant="span" size="sm" weight="strong" color="weak">
           {label}

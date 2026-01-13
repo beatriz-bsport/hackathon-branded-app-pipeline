@@ -61,7 +61,7 @@ import {
   closeUserInteractionPortal,
   openUserInteractionPortal,
 } from './libs/modal/actions';
-
+import { bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction } from './libs/bridge/actions';
 import {
   buildSafeUtmTrackingParams,
   buildAnalyticsTrackingParamsFromCurrentUrl,
@@ -76,7 +76,7 @@ const ConsumerSpaceWidget = asyncComponent(
 const FabWidget = asyncComponent(() => import('./widgets/FabWidget.widget'));
 
 const WidgetBridge = asyncComponent(
-  () => import('./libs/bridge/BackofficeDataBridge.component'),
+  () => import('./libs/bridge/ProxyBridge.component'),
 );
 
 const PassWidget = asyncComponent(() => import('./widgets/Pass.widget'));
@@ -167,6 +167,7 @@ class BsportWidget extends Component<Props> {
     if (this.props.language) {
       setTimeout(() => i18n.changeLanguage(this.props.language), 100);
     }
+    this.props.bridgeRequestAuthenticationStatus();
   }
 
   componentDidUpdate(prevProps) {
@@ -283,6 +284,7 @@ class BsportWidget extends Component<Props> {
               />
             )}
             <Widget
+              key={`widget-${this.props.widgetRefreshKey}`}
               companyId={companyId}
               franchiseId={franchiseId}
               config={config[widgetType] || {}}
@@ -353,6 +355,7 @@ const mapStateToProps = (state: RootState) => ({
   dialog: state.modal,
   franchisor: getFranchisor(state),
   customConfiguration: state.exportableComponent.customCss,
+  widgetRefreshKey: state.widget.refreshKey,
 });
 
 const mapDispatchToProps = {
@@ -362,6 +365,7 @@ const mapDispatchToProps = {
   closeUserInteractionPortal,
   retrieveFranchise: retrieveFranchiseWithCache,
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
+  bridgeRequestAuthenticationStatus: bridgeRequestAuthenticationStatusAction,
 };
 
 export default compose(

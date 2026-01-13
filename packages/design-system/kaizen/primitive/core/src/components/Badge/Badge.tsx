@@ -81,6 +81,7 @@ const Badge: React.FC<BadgeProps> = ({
 
   return (
     <div
+      data-component="Kaizen-Badge"
       className={badge({
         className,
         sizeByType: `${buttonType}:${size}` as keyof typeof variants.sizeByType,

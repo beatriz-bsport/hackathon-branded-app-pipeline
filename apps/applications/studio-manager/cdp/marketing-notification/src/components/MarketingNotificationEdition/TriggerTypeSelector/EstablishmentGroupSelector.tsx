@@ -1,8 +1,8 @@
-import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 import type {
   EstablishmentGroup,
   FetchEstablishmentGroupQueryParams,
-} from "@bsport/store-core-data-establishment";
+} from "@bsport/api-core";
+import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 
 import { BackendSelector } from "#src/components/BackendSelector/BackendSelector";
 import { useFetchEstablishments } from "#src/hooks/api/use-fetch-establishments";

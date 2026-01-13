@@ -106,6 +106,7 @@ const SortableList: React.FC<SortableListProps> = ({
 
   return (
     <div
+      data-component="Kaizen-SortableList"
       className={classNames(
         {
           "border-stroke-regular border-onsurface-main-weak": draggedItem,

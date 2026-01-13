@@ -83,16 +83,22 @@ export class CheckInPage extends React.Component<Props, State> {
     this.setState({
       refreshInterval: setInterval(this.refreshData, 5 * 60 * 1000),
     });
-
-    analyticsClientB2B.addSuperProperties({
-      company: this.props.theme?.company,
+    const theme = this.props.theme ?? {};
+    analyticsClientB2B.overloadAddSuperProperties({
+      companyId: theme.company,
+      companyName: theme.company_name,
+      franchisorId: theme.franchisor,
     });
   }
 
   componentWillUnmount() {
     clearInterval(this.state.refreshInterval);
 
-    analyticsClientB2B.removeSuperProperties(['company']);
+    analyticsClientB2B.overloadRemoveSuperProperties([
+      'company',
+      'companyName',
+      'franchisorId',
+    ]);
   }
 
   signout = (username, password: string) => {

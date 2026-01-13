@@ -3,7 +3,7 @@ import {
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
 import {
-  DateTime,
+  type DateTime,
   fromIsoString,
   modifyTime,
 } from "@bsport/datetime-manipulation";
@@ -20,6 +20,8 @@ import { EnrichedSession } from "../../types";
 import { CancelledSessionName } from "./CancelledSessionName";
 import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";
+import { ShortcutActionsButton } from "./detail-actions/shortcut-actions-button";
+import { TeacherCell } from "./teacher-cell";
 
 type TableColumn = GenericTableColumn<EnrichedSession>;
 
@@ -101,10 +103,16 @@ export const useSessionListColumns = () => {
   const teacherNameColumn: TableColumn = {
     id: "teacherName",
     header: t("table.headers.teacher"),
-    type: "string",
+    type: "custom",
     align: "start",
-    keyPath: "teacherName",
-    cellsClassName: "truncate max-w-[140px]",
+    render: (row: EnrichedSession) => (
+      <TeacherCell
+        teacherName={row.teacherName}
+        originalTeacherName={row.originalTeacherName}
+        coach_override={row.coach_override}
+        hasPendingReplacementRequest={row.hasPendingReplacementRequest}
+      />
+    ),
   };
 
   const establishmentNameColumn: TableColumn = {
@@ -116,19 +124,22 @@ export const useSessionListColumns = () => {
     cellsClassName: "truncate max-w-[128px]",
   };
 
-  const attendanceColumn: TableColumn = {
-    id: "attendance",
+  const actionsColumn: TableColumn = {
+    id: "actions",
     header: "",
     type: "custom",
     align: "center",
     render: (row: EnrichedSession) => (
-      <Button
-        label={t("table.attendanceButton")}
-        size="sm"
-        intent="default"
-        color="main"
-        disabled={!row.available}
-      />
+      <div className="flex items-center gap-xs">
+        <Button
+          label={t("table.attendanceButton")}
+          size="sm"
+          intent="default"
+          color="main"
+          disabled={!row.available}
+        />
+        <ShortcutActionsButton session={row} />
+      </div>
     ),
   };
 
@@ -139,6 +150,6 @@ export const useSessionListColumns = () => {
     participantsColumn,
     establishmentNameColumn,
     sessionTypeColumn,
-    attendanceColumn,
+    actionsColumn,
   ];
 };

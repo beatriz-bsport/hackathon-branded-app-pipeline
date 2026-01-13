@@ -49,6 +49,7 @@ const Footer: React.FC<FooterProps> = ({
 
   return (
     <div
+      data-component="Kaizen-ModalStepper-Footer"
       className={`flex justify-end p-md gap-xs border-t-stroke-divider border-t-stroke-thin border-opacity-md ${
         footerDirection === "column" ? "flex-col-reverse" : "flex-row"
       }`}

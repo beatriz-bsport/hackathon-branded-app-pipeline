@@ -35,7 +35,6 @@ export const PackAddItemsList: React.FC<PackAddItemsListProps> = ({
     variant,
     getExtraConfig: (data) => {
       return {
-        rightTitle: data.price,
         onItemClick: () => {
           if (preselectedItems.includes(data.id)) {
             removePreselectedItem({ id: data.id });

@@ -58,7 +58,7 @@
           "deletion": "Eenheid ID verwijderen"
         },
         "field": {
-          "unitId": {
+          "externalId": {
             "placeholder": "Eenheid ID-nummer",
             "error": {
               "required": "Unit ID is vereist",
@@ -94,13 +94,13 @@
           "helperText": "Vraag eerst de integratie met bsport aan op Wellhub's Partners Portal, voor elke unit.",
           "table": {
             "column": {
-              "unit": "Unit ID",
+              "externalId": "Unit ID",
               "establishments": "Vestigingen"
             }
           }
         },
         "footer": {
-          "addUnitButton": "Voeg Unit ID toe"
+          "addConnectionButton": "Voeg Unit ID toe"
         }
       }
     },

@@ -28,7 +28,7 @@ const SIDE_PANEL_WIDTH = 320;
 
 export type DetailsLayoutProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
-  openPanelByDefault?: boolean;
+  withPanel?: boolean;
 };
 
 const detailsLayout = cva([
@@ -59,7 +59,7 @@ const detailsLayout = cva([
  *
  * @param props.className Optional. Custom CSS classes for the container.
  * @param props.children Required. Place subcomponents here
- * @param props.openPanelByDefault Optional. Whether the Panel should be open by default. Default to false.
+ * @param props.withPanel Optional. Whether <DetaisLayout.Panel /> will be used. If true, the control button will be included. Default to false.
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-detailslayout--docs
  */
 type DetailsLayoutComponent = ForwardRefExoticComponent<
@@ -74,19 +74,16 @@ type DetailsLayoutComponent = ForwardRefExoticComponent<
 };
 
 const DetailsLayout = forwardRef<LayoutProviderRef, DetailsLayoutProps>(
-  ({ children, openPanelByDefault, ...props }, ref) => {
+  ({ children, withPanel, ...props }, ref) => {
     return (
-      <LayoutProvider ref={ref} openPanelByDefault={openPanelByDefault}>
+      <LayoutProvider ref={ref} withPanel={withPanel}>
         <Main {...props}>{children}</Main>
       </LayoutProvider>
     );
   },
 ) as DetailsLayoutComponent;
 
-function Main({
-  className,
-  ...props
-}: Omit<DetailsLayoutProps, "openPanelByDefault">) {
+function Main({ className, ...props }: Omit<DetailsLayoutProps, "withPanel">) {
   const { hasUnsavedChanges, isPanelOpened, isMobile } = useLayoutContext();
   // On Mobile, Panel overlaps the Content
   const panelWidth = isPanelOpened && !isMobile ? SIDE_PANEL_WIDTH : 0;
@@ -94,6 +91,7 @@ function Main({
 
   return (
     <main
+      data-component="Kaizen-DetailsLayout"
       {...props}
       className={detailsLayout({ className })}
       style={{
@@ -113,9 +111,47 @@ const detailsLayoutHeader = cva(["[grid-area:header]"]);
 /**
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-private-headerlayout--docs
  */
-const DetailsLayoutHeader = ({ className, ...props }: HeaderLayoutProps) => {
+const DetailsLayoutHeader = ({
+  className,
+  endGroupActions,
+  ...props
+}: HeaderLayoutProps) => {
+  const { withPanel, isMobile, toggleIsPanelOpened, isPanelOpened } =
+    useLayoutContext();
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
+
+  const panelButtonResponsiveConfig = isMobile
+    ? ({ intent: "default", color: "main" } as const)
+    : ({ color: "default", intent: "flat" } as const);
+
+  const endGroupActionsWithPanel = withPanel
+    ? [
+        ...(endGroupActions ?? []),
+        <Button
+          key="details-layout-button-control-panel"
+          size="md"
+          kind="icon-button"
+          icon="layout-right"
+          aria-expanded={isPanelOpened}
+          label={
+            isPanelOpened
+              ? t("detailsLayout.panelControlButton.closePanel")
+              : t("detailsLayout.panelControlButton.openPanel")
+          }
+          onClick={() => toggleIsPanelOpened()}
+          className="layout-toggle"
+          {...panelButtonResponsiveConfig}
+        />,
+      ]
+    : endGroupActions;
+
   return (
-    <HeaderLayout {...props} className={detailsLayoutHeader({ className })} />
+    <HeaderLayout
+      {...props}
+      endGroupActions={endGroupActionsWithPanel}
+      className={detailsLayoutHeader({ className })}
+    />
   );
 };
 DetailsLayout.Header = DetailsLayoutHeader;
@@ -158,6 +194,7 @@ const DetailsLayoutContent: FC<DetailsLayoutContentProps> = ({
 
   return (
     <div
+      data-component="Kaizen-DetailsLayout-Content"
       className={detailsLayoutContent({ className, isPanelOpened })}
       {...htmlProps}
     >
@@ -226,6 +263,7 @@ const DetailsLayoutPanel: FC<DetailsLayoutPanelProps> = ({
     `${isMobile ? "mobile" : "desktop"}-${isPanelOpened}` as const;
   return (
     <aside
+      data-component="Kaizen-DetailsLayout-Panel"
       className={detailsLayoutPanel({
         className,
         isOpenByDevice,
@@ -293,6 +331,7 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
 
   return (
     <div
+      data-component="Kaizen-DetailsLayout-Confirmation"
       className={detailsLayoutConfirmation({ className, hasUnsavedChanges })}
       aria-hidden={!hasUnsavedChanges}
       {...htmlProps}

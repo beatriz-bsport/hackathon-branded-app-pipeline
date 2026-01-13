@@ -138,6 +138,7 @@ const Dialog: React.FC<DialogProps> = ({
 
   return createPortal(
     <div
+      data-component="Kaizen-Dialog"
       className={cx(
         "fixed inset-[0] z-[999] bg-surface-blanket transition ease-out duration-default",
         { "opacity-0": !isVisible, "opacity-100": isVisible },

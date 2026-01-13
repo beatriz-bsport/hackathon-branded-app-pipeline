@@ -1,3 +1,9 @@
 {
-  "extends": "../../../../../tools/config/typescript/src/application/tsconfig.app.json"
+  "extends": "../../../../../tools/config/typescript/src/application/tsconfig.app.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "#src/*": ["./src/*"]
+    }
+  }
 }

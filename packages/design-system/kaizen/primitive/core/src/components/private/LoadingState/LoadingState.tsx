@@ -23,7 +23,10 @@ type LoadingStateProps = {
 
 const LoadingState: React.FC<LoadingStateProps> = ({ message, className }) => {
   return (
-    <div className={loadingState({ className })}>
+    <div
+      data-component="Kaizen-LoadingState"
+      className={loadingState({ className })}
+    >
       <Loader size="xl" />
       {message && <Body htmlVariant="p">{message}</Body>}
     </div>

@@ -87,6 +87,7 @@ const Day: React.FC<DayProps> = ({ isCurrentDay, onClick, status, value }) => {
 
   return (
     <td
+      data-component="Kaizen-DatePicker-Day"
       className={day({ status })}
       style={customRadiusStyle}
       role="presentation"

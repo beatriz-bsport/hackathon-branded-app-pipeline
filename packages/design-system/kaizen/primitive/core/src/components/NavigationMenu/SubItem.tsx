@@ -112,6 +112,7 @@ const SubItem: React.FC<SubItemProps> = ({
 
   return (
     <button
+      data-component="Kaizen-NavigationMenu-SubItem"
       role="button"
       tabIndex={0}
       className={navigationMenuSubItem({ className })}

@@ -92,6 +92,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
 
   return (
     <label
+      data-component="Kaizen-Menu-Item-Checkbox"
       htmlFor={id}
       className={classNames(checkbox({ disabled }), "cursor-pointer", {
         "cursor-default": disabled,

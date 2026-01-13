@@ -1,6 +1,7 @@
+import groupBy from "lodash/groupBy";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { getTodayJSDate } from "@bsport/datetime-manipulation";
+import { getLocalNow } from "@bsport/datetime-manipulation";
 import {
   ListLayout,
   useEmptyState,
@@ -9,14 +10,24 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
+import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions/cancel-multiple-sessions-modal";
+import { ExportParticipantsModal } from "#src/components/SessionList/actions/export-participants-modal";
+import { CancelSessionModal } from "#src/components/SessionList/detail-actions/cancel-session-modal";
+import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
+import { useModal } from "#src/hooks/use-modal";
 import { useTranslation } from "#src/utils/i18n";
 
 import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
 import { useFilterConfig } from "../components/SessionList/Filters/useFilterConfig";
 import SessionDay from "../components/SessionList/SessionDay";
-import { useSessionListData } from "../hooks/useSessionListData";
+import { useSearchSessions } from "../hooks/useSearchSessions";
 import {
+  getSessionDateStart,
+  useSessionListData,
+} from "../hooks/useSessionListData";
+import {
+  selectModalState,
   selectSelectedDate,
   setLocale,
   setSelectedDate,
@@ -29,8 +40,26 @@ const ListPage: React.FC = () => {
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   const selectedDate = useSessionListStore(selectSelectedDate);
+  const detailsModalState = useSessionListStore(selectModalState);
 
-  const [addSessionModalOpen, setAddSessionModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const {
+    isOpen: addSessionModalOpen,
+    open: openAddSessionModal,
+    close: closeAddSessionModal,
+  } = useModal();
+  const {
+    isOpen: exportParticipantsModalOpen,
+    open: openExportParticipantsModal,
+    close: closeExportParticipantsModal,
+  } = useModal();
+  const {
+    isOpen: cancelMultipleSessionsModal,
+    open: openCancelMultipleSessionsModal,
+    close: closeCancelMultipleSessionsModal,
+  } = useModal();
+
   const hasInitializedDate = useRef(false);
 
   useEffect(() => {
@@ -41,7 +70,9 @@ const ListPage: React.FC = () => {
 
   useEffect(() => {
     if (!hasInitializedDate.current && companyTimeZone && intlLocale) {
-      setSelectedDate(getTodayJSDate(intlLocale, companyTimeZone));
+      setSelectedDate(
+        getLocalNow({ locale: intlLocale, zone: companyTimeZone }),
+      );
       hasInitializedDate.current = true;
     }
   }, [intlLocale, companyTimeZone]);
@@ -54,17 +85,25 @@ const ListPage: React.FC = () => {
         ? { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate }
         : null;
 
-  const { sessionsByDate, isLoading } = useSessionListData(fetchParams);
+  const { sessions, isLoading } = useSessionListData(fetchParams);
 
-  const openAddSessionModal = useCallback(() => {
-    setAddSessionModalOpen(true);
-  }, []);
+  const filteredSessions = useSearchSessions(sessions, searchQuery);
 
-  const closeAddSessionModal = useCallback(() => {
-    setAddSessionModalOpen(false);
-  }, []);
+  const sessionsByDate = useMemo(
+    () => groupBy(filteredSessions, getSessionDateStart),
+    [filteredSessions],
+  );
 
   const displaySettings = useCallback(() => <DisplaySettings />, []);
+  const endGroupActions = useMemo(() => {
+    return [
+      <MoreActionsButton
+        key="more-actions"
+        onParticipantsExport={openExportParticipantsModal}
+        onCancelMultipleSessions={openCancelMultipleSessionsModal}
+      />,
+    ];
+  }, [openExportParticipantsModal, openCancelMultipleSessionsModal]);
 
   const { shouldRenderEmptyState, EmptyState } = useEmptyState({
     isEmpty: !isLoading && Object.keys(sessionsByDate).length === 0,
@@ -122,6 +161,13 @@ const ListPage: React.FC = () => {
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
         filterConfig={filterConfig}
+        endGroupActions={endGroupActions}
+        searchConfig={{
+          id: "session-search",
+          inputValue: searchQuery,
+          onInputValueChange: setSearchQuery,
+          onClear: () => setSearchQuery(""),
+        }}
       />
       <ListLayout.Content>
         <DateNavigationHeader />
@@ -133,6 +179,17 @@ const ListPage: React.FC = () => {
           isOpen={addSessionModalOpen}
           onClose={closeAddSessionModal}
         />
+        <ExportParticipantsModal
+          isOpen={exportParticipantsModalOpen}
+          onClose={closeExportParticipantsModal}
+        />
+        <CancelMultipleSessionsModal
+          isOpen={cancelMultipleSessionsModal}
+          onClose={closeCancelMultipleSessionsModal}
+        />
+        {detailsModalState?.type === "cancel" && (
+          <CancelSessionModal session={detailsModalState.session} />
+        )}
       </ListLayout.Content>
     </ListLayout>
   );

@@ -23,6 +23,7 @@ import type {
 } from '#src/libs/access-control/types';
 import { AccessStatus } from '#src/libs/access-control/constants';
 import AccessStatusChip from './AccessStatusChip.component';
+import AutoCheckedInBooking from './AutoCheckedInBooking.component';
 import MemberVisitDetailsCardBookingSection from './MemberVisitDetailsCardBookingSection.component';
 import MemberVisitDetailsCardManualEntrySection from './MemberVisitDetailsCardManualEntrySection.component';
 import MemberVisitDetailsCardSkeleton from './MemberVisitDetailsCardSkeleton.component';
@@ -43,7 +44,7 @@ const MemberVisitDetailsCardContent: React.FC<
   Pick<Props, 'memberVisit' | 'nextBooking'>
 > = ({ memberVisit, nextBooking }) => {
   const { member, access_status, access_status_data } = memberVisit;
-  const { check_on_passes } = access_status_data;
+  const { check_on_passes, automatic_check_in } = access_status_data;
   const { most_relevant_pass_data } = check_on_passes;
 
   const classes = useStyles({ access_status });
@@ -85,9 +86,19 @@ const MemberVisitDetailsCardContent: React.FC<
             color="textSecondary"
             variant="body2"
           >
-            {t('memberVisitDetails.nextBooking')}
+            {automatic_check_in
+              ? t('memberVisitDetails.checkedInTo')
+              : t('memberVisitDetails.nextBooking')}
           </Typography>
-          <MemberVisitDetailsCardBookingSection nextBooking={nextBooking} />
+          {automatic_check_in ? (
+            <AutoCheckedInBooking
+              bookingId={automatic_check_in.booking_id}
+              bookingName={automatic_check_in.booking_name}
+              memberId={member.id}
+            />
+          ) : (
+            <MemberVisitDetailsCardBookingSection nextBooking={nextBooking} />
+          )}
         </div>
         <div className={classes.infoRow}>
           <Typography

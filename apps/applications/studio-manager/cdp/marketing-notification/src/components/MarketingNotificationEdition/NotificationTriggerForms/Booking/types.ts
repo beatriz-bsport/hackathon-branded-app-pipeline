@@ -60,4 +60,3 @@ export type BookingTimeUnit =
 export const BOOKING_OCCURENCE_ANY_BOOKING_FORM_VALUE = 0;
 export const MIN_BOOKING_OCCURENCE_SPECIFIC_AMOUNT = 1;
 export const DEFAULT_BOOKING_OCCURRENCE = 0;
-export const DEFAULT_TIMING_VALUE = 1;

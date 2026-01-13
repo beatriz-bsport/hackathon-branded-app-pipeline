@@ -446,7 +446,6 @@ const connector = connect(
   },
 );
 
-// Used in the widget
 export const MarketplaceWorkshopBase = compose<Props, OwnProps>(
   marketplaceCssHoc(),
   withTranslation(['booking', 'titles']),

@@ -1,0 +1,234 @@
+{
+  "common": {
+    "back": "Terug",
+    "new": "Nieuw",
+    "search": "Leden zoeken"
+  },
+  "menus": {
+    "popover": {
+      "settings": "Instellingen",
+      "attendance": "Aanwezigheid",
+      "ledger": "Grootboek",
+      "tutorials": "Handleiding",
+      "help": "Helpcentrum",
+      "feedback": "Feedbackbord",
+      "logout": "Uitloggen"
+    },
+    "inbox": "Inbox",
+    "notifications": "Meldingen",
+    "home": "Startpagina",
+    "calendar": "Agenda",
+    "schedule": "Rooster",
+    "accessControl": "Access Control",
+    "classes": {
+      "title": "Klasse",
+      "activities": "Groepslessen",
+      "workshops": "Workshops",
+      "appointments": "Afspraken"
+    },
+    "memberships": {
+      "title": "Leskaarten & Abonnementen",
+      "passes": "Leskaarten",
+      "appointmentPasses": "Afspraakkaarten",
+      "subscriptions": "Abonnementen"
+    },
+    "products": {
+      "title": "Winkel",
+      "webshop": "Producten",
+      "packs": "Pakket",
+      "giftcards": "Cadeaubonnen ",
+      "videosAndEbooks": "On-Demand",
+      "playlists": "Collecties",
+      "orders": "Bestellingen"
+    },
+    "marketing": {
+      "title": "Marketing",
+      "marketingNotifications": "Meldingen",
+      "emailTemplates": "Sjablonen",
+      "smartlists": "Smartlists",
+      "audience": "Audience",
+      "promotions": "Promoties",
+      "customForms": "Aangepaste formulieren"
+    },
+    "dashboard": "Dashboard",
+    "reporting": "Rapportage",
+    "analytics": {
+      "title": "Analytics",
+      "insights": "Inzichten",
+      "reports": "Rapportages"
+    },
+    "finance": {
+      "title": "Financiën",
+      "invoices": "Facturen",
+      "payouts": "Uitbetalingen",
+      "directDebits": "Automatische incasso's",
+      "expenses": "Uitgaven",
+      "payroll": "Payroll"
+    },
+    "membersHub": {
+      "title": "Contacten",
+      "members": "Profielen",
+      "forms": "Formulieren",
+      "tags": "Tags",
+      "performanceTracking": "Programma's"
+    },
+    "myStudio": {
+      "title": "Studio",
+      "teachers": "Instructeurs",
+      "establishments": "Vestigingen",
+      "substitutions": "Vervangingen"
+    },
+    "settings": {
+      "title": "Instellingen",
+      "general": "Algemeen",
+      "marketplace": "Ledenruimte",
+      "widgets": "Widgets",
+      "permissions": "Machtigingen",
+      "personalization": "Personalisatie",
+      "brandedApp": "Gepersonaliseerde app",
+      "teacherView": "Instructeursweergave",
+      "memberForms": "Ledenformulieren",
+      "livestreaming": "Livestreaming",
+      "transactionalNotifications": "Transactionele berichten",
+      "payroll": "Payroll",
+      "paymentMethods": "Betaalmethode",
+      "paymentFacilities": "Betaalmogelijkheden",
+      "billing": "Facturering",
+      "company": "Bedrijf",
+      "waitlist": "Wachtlijst",
+      "webhook": "Webhook",
+      "partnership": "Partnerschap",
+      "activeCampaign": "ActiveCampaign",
+      "referral": "Verwijzing",
+      "quicksale": "Kassasysteem",
+      "oldWebshop": "Webshop instellingen",
+      "quickbooks": "QuickBooks",
+      "bsportSubscription": "bsport abonnement",
+      "temporaryPassword": "Tijdelijk wachtwoord",
+      "changeLanguage": "Taal wijzigen"
+    }
+  },
+  "revampCard": {
+    "betaFeedbackLink": "Deel feedback",
+    "goBackToOldUi": "Oude Back Office"
+  },
+  "languages": {
+    "french": "Frans",
+    "englishUK": "Engels (VK)",
+    "englishUS": "Engels (VS)",
+    "spanish": "Spaans",
+    "dutch": "Nederlands",
+    "german": "Duits",
+    "italian": "Italiaans",
+    "portuguese": "Portugees",
+    "debug": "Debug (cimode)"
+  },
+  "notifications": {
+    "title": "Meldingscentrum",
+    "empty": {
+      "title": "Je bent helemaal bij",
+      "description": "Momenteel niets te tonen"
+    },
+    "tabs": {
+      "billing": "Facturering",
+      "orders": "Bestellingen",
+      "tasks": "Taken",
+      "unpaidAppointments": "Onbetaalde afspraken",
+      "tutorials": "Handleiding",
+      "companyOnboarding": "Juridische informatie",
+      "privateBookingIncomplete": "Afspraken om te voltooien"
+    },
+    "billing": {
+      "loading": "Laden van factureringsmeldingen...",
+      "empty": {
+        "title": "Geen factureringsmeldingen",
+        "description": "Al je factureringsmeldingen verschijnen hier"
+      },
+      "paid": "Betaald:",
+      "due": "Vervaldatum:",
+      "itemTitle": "Onbetaalde facturen",
+      "itemDescription": "Facturen is nog niet afgerond."
+    },
+    "orders": {
+      "loading": "Bezig met laden van bestellingen...",
+      "empty": {
+        "title": "Geen bestellingen",
+        "description": "Al je bestellingen verschijnen hier"
+      },
+      "itemTitle": "In afwachting van bestelling",
+      "paidByFormat": "Betaald door <strong>{{name}}</strong> in de winkel"
+    },
+    "tasks": {
+      "loading": "Taken aan het laden...",
+      "empty": {
+        "title": "Geen taken",
+        "description": "Al je taken verschijnen hier"
+      }
+    },
+    "unpaidAppointments": {
+      "title": "Onbetaalde afspraken",
+      "itemTitle": "Onbetaalde afspraak",
+      "loading": "Bezig met het laden van onbetaalde afspraken...",
+      "credits": "Onbetaalde tegoeden",
+      "empty": {
+        "title": "Geen onbetaalde afspraken",
+        "description": "Je hebt geen openstaande afspraken"
+      }
+    },
+    "tutorials": {
+      "loading": "Laden van tutorials...",
+      "empty": {
+        "title": "Geen tutorials",
+        "description": "Al je tutorialmeldingen verschijnen hier"
+      },
+      "newSection": {
+        "title": "Nieuwe sectie",
+        "description": "De {{sectionName}} tutorial is toegevoegd, begin nu met trainen."
+      },
+      "newLesson": {
+        "title": "Nieuwe les",
+        "description": "Les {{lessonName}} toegevoegd aan de sectie {{sectionName}}"
+      }
+    },
+    "companyOnboarding": {
+      "loading": "Laden van bedrijfsintroductiemeldingen...",
+      "empty": {
+        "title": "Geen bedrijfsintroductiemeldingen",
+        "description": "Alle meldingen voor het inwerken van je bedrijf verschijnen hier."
+      },
+      "creation": {
+        "title": "Online betalingen zijn momenteel uitgeschakeld",
+        "content": "Controleer je juridische en bankgegevens om online betalingen te kunnen verwerken."
+      },
+      "payout": {
+        "title": "Onvolledige bankgegevens",
+        "content": "Uitbetalingen kunnen niet worden verwerkt omdat de accountverificatie niet is voltooid of onjuist is uitgevoerd."
+      },
+      "verification": {
+        "title": "Bedrijfsbeheer",
+        "content": "Er zijn verschillende documenten in afwachting van validatie om je account te verifiëren. De deadline is: {{date}}.",
+        "contentGeneric": "Meerdere documenten wachten op validatie om je account te verifiëren."
+      },
+      "paypal": {
+        "title": "Betalingen via PayPal zijn uitgeschakeld",
+        "primaryEmailConfirmation": "De Email voor je PayPal-account moet worden bevestigd. Controleer je PayPal-account om dit probleem op te lossen.",
+        "requiresMoreInformation": "Je PayPal-account heeft aanvullende informatie of validatie van PayPal nodig. Controleer je PayPal-account om dit probleem op te lossen.",
+        "issueCheckAccount": "Er is een probleem met je PayPal-account. Controleer je PayPal-account om dit probleem op te lossen.",
+        "issueRepeatOnboarding": "Er is een probleem met je PayPal-account. Herhaal het verbindingsproces met hetzelfde account om dit probleem op te lossen."
+      },
+      "generic": {
+        "title": "Bedrijfsintroductie vereist",
+        "content": "Voltooi alsjeblieft je bedrijfsintroductieproces."
+      }
+    },
+    "privateBookingIncomplete": {
+      "loading": "Afspraken laden om te voltooien...",
+      "empty": {
+        "title": "Geen afspraken om te voltooien",
+        "description": "Al je afspraken hebben toegewezen leraren"
+      },
+      "member": "Leden: {{userName}}",
+      "date": "Datum: {{date}}"
+    }
+  }
+}

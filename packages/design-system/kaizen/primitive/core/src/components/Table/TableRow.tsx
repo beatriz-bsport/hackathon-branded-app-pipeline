@@ -199,6 +199,7 @@ const TableRow = withLink(
     );
     return (
       <div
+        data-component="Kaizen-Table-Row"
         onClick={() => onRowClick?.()}
         className={classNames("relative table-row", {
           "bg-surface-action-main-selected-rest hover:bg-surface-action-main-selected-hovered active:bg-surface-action-main-selected-pressed":

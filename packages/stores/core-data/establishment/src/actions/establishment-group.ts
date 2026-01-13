@@ -4,18 +4,17 @@ import {
   fetchEstablishmentGroups,
   searchEstablishmentGroups,
 } from "@bsport/api-core";
+import type {
+  EstablishmentGroup,
+  FetchEstablishmentGroupQueryParams,
+  SearchEstablishmentGroupSearchParams,
+} from "@bsport/api-core";
 import {
   type Action,
   type PaginatedResponse,
   type SearchResponse,
   createErrorWithContext,
 } from "@bsport/store-base";
-
-import type {
-  EstablishmentGroup,
-  FetchEstablishmentGroupQueryParams,
-  SearchEstablishmentGroupSearchParams,
-} from "#src/types";
 
 import { setEstablishmentGroups } from "./store";
 

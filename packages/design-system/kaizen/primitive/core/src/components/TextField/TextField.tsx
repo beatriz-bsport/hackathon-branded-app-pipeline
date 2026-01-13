@@ -94,6 +94,10 @@ export type TextFieldProps = Omit<
   containerProps?: React.HTMLAttributes<HTMLDivElement>;
   inputRef?: React.Ref<HTMLInputElement>;
   autocomplete?: HTMLInputAutoCompleteAttribute;
+  max?: number | string;
+  min?: number | string;
+  maxLength?: number;
+  minLength?: number;
 };
 
 /**
@@ -119,6 +123,10 @@ export type TextFieldProps = Omit<
  * @param props.onFocus Callback function to call when the textfield gains focus.
  * @param props.fullWidth Optionnal - boolean, make the component take the full available width of the parent.
  * @param props.inputRef Optionnal - React ref to the input element, useful for focusing the input programmatically.
+ * @param props.min Minimal value that can be inserted in the field
+ * @param props.max Maximal value that can be inserted in the field
+ * @param props.minLength Minimal length of the value that can be inserted in the field
+ * @param props.maxLength Maximal length of the value that can be inserted in the field
  */
 const TextField: React.FC<TextFieldProps> = ({
   className,
@@ -144,6 +152,10 @@ const TextField: React.FC<TextFieldProps> = ({
   containerProps,
   inputRef,
   autocomplete = "off",
+  min,
+  max,
+  maxLength,
+  minLength,
   ...props
 }) => {
   /* TODO: Check with design if the color picker needs all these props, and split it in a separate component (explained here: https://gitlab.com/bsport/ichizen/-/merge_requests/425#note_2402509306) */
@@ -202,6 +214,7 @@ const TextField: React.FC<TextFieldProps> = ({
 
   return (
     <div
+      data-component="Kaizen-TextField"
       className={classNames(
         "flex flex-col gap-2xs",
         {
@@ -214,6 +227,7 @@ const TextField: React.FC<TextFieldProps> = ({
     >
       {label && (
         <label
+          data-component="Kaizen-TextField-Label"
           htmlFor={id}
           className="flex gap-2xs text-onsurface-default text-body-md leading-sm"
         >
@@ -255,7 +269,10 @@ const TextField: React.FC<TextFieldProps> = ({
           )}
           {/* TODO: type country */}
           {prefix && Object.keys(prefix).length > 0 && (
-            <div className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weak">
+            <div
+              data-component="Kaizen-TextField-Prefix"
+              className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weak"
+            >
               {prefix.type === "text" ? (
                 <span>{prefix.value}</span>
               ) : prefix.type === "icon" ? (
@@ -270,6 +287,7 @@ const TextField: React.FC<TextFieldProps> = ({
             </div>
           )}
           <div
+            data-component="Kaizen-TextField-Input"
             className="flex gap-xs items-center justify-between w-full px-xs py-2xs"
             onClick={handleIconClick}
           >
@@ -306,11 +324,18 @@ const TextField: React.FC<TextFieldProps> = ({
               aria-invalid={status === "error"}
               aria-describedby={helperText ? `${id}-helper-text` : undefined}
               autoComplete={autocomplete}
+              min={min}
+              max={max}
+              minLength={minLength}
+              maxLength={maxLength}
               {...props}
               {...colorInputProps}
             />
             {!["number", "color", "time"].includes(type) && value ? (
-              <div className="flex items-center justify-center w-sm">
+              <div
+                data-component="Kaizen-TextField-ClearButton"
+                className="flex items-center justify-center w-sm"
+              >
                 <Button
                   kind="icon-button"
                   label={t("textField.clear")}
@@ -331,7 +356,10 @@ const TextField: React.FC<TextFieldProps> = ({
           </div>
           {/* TODO: type country */}
           {suffix && Object.keys(suffix).length > 0 && (
-            <div className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak">
+            <div
+              data-component="Kaizen-TextField-Suffix"
+              className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak"
+            >
               {suffix?.type === "text" ? (
                 <span>{suffix.value}</span>
               ) : suffix?.type === "icon" ? (
@@ -355,12 +383,16 @@ const TextField: React.FC<TextFieldProps> = ({
         )}
       </div>
       {helperText && (
-        <p className="text-body-sm leading-xs text-ellipsis text-onsurface-weak">
+        <p
+          data-component="Kaizen-TextField-HelperText"
+          className="text-body-sm leading-xs text-ellipsis text-onsurface-weak"
+        >
           {helperText}
         </p>
       )}
       {statusText && (
         <p
+          data-component="Kaizen-TextField-StatusText"
           className={classNames("text-body-sm leading-xs text-ellipsis", {
             "text-onsurface-weak": status === "default",
             "text-onsurface-status-positive-strong": status === "positive",

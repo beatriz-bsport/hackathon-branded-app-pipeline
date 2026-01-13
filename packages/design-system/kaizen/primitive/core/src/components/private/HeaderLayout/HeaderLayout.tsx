@@ -68,6 +68,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
   const withoutBottomDivider = !hasDataActionsLayer && !!pageTabs;
   return (
     <div
+      data-component="Kaizen-HeaderLayout"
       className={layoutHeader({
         className,
         withBottomDivider: !withoutBottomDivider,

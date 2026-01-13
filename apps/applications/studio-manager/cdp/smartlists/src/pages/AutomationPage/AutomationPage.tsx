@@ -1,27 +1,54 @@
-import { useOutletContext } from "react-router";
+import { useQueryErrorResetBoundary } from "@tanstack/react-query";
+import { Suspense } from "react";
 
-import type { Smartlist } from "#src/api/types";
-import { useAutomatedCampaigns } from "#src/api/use-automated-campaigns";
+import { Body, Card, Loader, Title } from "@bsport/kaizen-primitive-core";
+import { ErrorBoundaryWrapper } from "@bsport/sm-backbone";
 
-type AutomationPageContext = {
-  smartlistId: string;
-  smartlist: Smartlist | undefined;
-};
+import { useTranslation } from "#src/utils/i18n";
+
+import {
+  AutomationErrorFallback,
+  AutomationPageContent,
+} from "./AutomationPageContent";
 
 export const AutomationPage = () => {
-  const { smartlistId } = useOutletContext<AutomationPageContext>();
+  const { t } = useTranslation("details");
+  const { reset } = useQueryErrorResetBoundary();
 
-  const {
-    data: automatedCampaigns,
-    isLoading: isLoadingCampaigns,
-    error: campaignsError,
-  } = useAutomatedCampaigns(smartlistId);
+  return (
+    <div className="flex flex-col gap-lg p-lg">
+      <section className="flex flex-col gap-sm">
+        <Title htmlVariant="h2" weight="stronger">
+          {t("automation.messages.title")}
+        </Title>
+        <Body size="md" color="weak">
+          {t("automation.messages.description")}
+        </Body>
+      </section>
 
-  console.log("Automated Campaigns:", {
-    data: automatedCampaigns,
-    isLoading: isLoadingCampaigns,
-    error: campaignsError,
-  });
-
-  return <div>Automations content coming soon</div>;
+      <ErrorBoundaryWrapper
+        appName={__SMARTLISTS__.__SENTRY_SCOPE_TAG__}
+        fallback={({ resetError }) => (
+          <AutomationErrorFallback
+            onRetry={() => {
+              reset();
+              resetError();
+            }}
+          />
+        )}
+      >
+        <Suspense
+          fallback={
+            <Card padding="none" className="overflow-hidden">
+              <div className="h-[146px] grid place-items-center">
+                <Loader size="lg" />
+              </div>
+            </Card>
+          }
+        >
+          <AutomationPageContent />
+        </Suspense>
+      </ErrorBoundaryWrapper>
+    </div>
+  );
 };

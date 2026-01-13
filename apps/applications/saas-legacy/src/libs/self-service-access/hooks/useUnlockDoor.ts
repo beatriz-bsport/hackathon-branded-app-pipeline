@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { unlockDoor as unlockDoorApi } from '../api';
-import { DoorUnlockOutput } from '../types';
+import { DoorUnlockOutput, GeolocationCoordinates } from '../types';
 import i18next from 'i18next';
 
 type UnlockDoorState = {
@@ -10,7 +10,10 @@ type UnlockDoorState = {
 };
 
 type UseUnlockDoorReturn = UnlockDoorState & {
-  unlockDoor: (doorId: string) => Promise<DoorUnlockOutput | null>;
+  unlockDoor: (
+    doorId: string,
+    geolocation: GeolocationCoordinates,
+  ) => Promise<DoorUnlockOutput | null>;
   reset: () => void;
 };
 
@@ -23,11 +26,12 @@ export default function useUnlockDoor(companyId: number): UseUnlockDoorReturn {
 
   const unlockDoor = async (
     doorId: string,
+    geolocation: GeolocationCoordinates,
   ): Promise<DoorUnlockOutput | null> => {
     setState({ success: false, error: null, loading: true });
 
     try {
-      const result = await unlockDoorApi(companyId, doorId);
+      const result = await unlockDoorApi(companyId, doorId, geolocation);
       const doorUnlockOutput = result.data;
 
       if (!doorUnlockOutput.success) {

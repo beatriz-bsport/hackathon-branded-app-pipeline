@@ -38,7 +38,11 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   }
 
   return (
-    <div className={className || ""} {...props}>
+    <div
+      data-component="Kaizen-NavigationMenu"
+      className={className || ""}
+      {...props}
+    >
       <NavigationMenuProvider onItemClick={onItemClick}>
         {children}
       </NavigationMenuProvider>

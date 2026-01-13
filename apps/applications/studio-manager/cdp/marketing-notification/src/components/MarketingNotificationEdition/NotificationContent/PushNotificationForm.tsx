@@ -1,8 +1,13 @@
 import { useEffect, useRef } from "react";
 
 import { ControlledFormProps, FormField } from "@bsport/form";
-import { TextArea, TextField } from "@bsport/kaizen-primitive-core";
+import { Alert, TextArea, TextField } from "@bsport/kaizen-primitive-core";
 
+import { useTranslation } from "#src/utils/i18n";
+import {
+  MAX_CONTENT_LENGTH,
+  MAX_TITLE_LENGTH,
+} from "#src/utils/schemas/notificationContentValidation";
 import { NotificationContentFormData } from "#src/utils/schemas/types";
 
 import { CommunicationVariableSelector } from "../CommunicationVariableSelector/CommunicationVariableSelector";
@@ -39,6 +44,7 @@ export const PushNotificationForm: React.FC<PushNotificationFormProps> = ({
   setFormValue,
   getFormValues,
 }: PushNotificationFormProps) => {
+  const { t } = useTranslation("marketingNotificationsModal");
   const currentInputRef = useRef<PushNotificationInputType | null>(null);
 
   // This function handles the insertion of a selected communication variable
@@ -109,7 +115,7 @@ export const PushNotificationForm: React.FC<PushNotificationFormProps> = ({
   }, [pushNotificationTitle, pushNotificationContent, setFormValue]);
 
   return (
-    <div className="flex flex-col gap-md">
+    <div className="flex flex-col gap-xs">
       <FormField<NotificationContentFormData, "pushNotificationTitle">
         name="pushNotificationTitle"
         mapProps={({ defaultProps, field }) => ({
@@ -124,6 +130,7 @@ export const PushNotificationForm: React.FC<PushNotificationFormProps> = ({
           fullWidth
           id="push-notification-title"
           label="Title"
+          maxLength={MAX_TITLE_LENGTH}
           onFocus={() => {
             currentInputRef.current = PUSH_NOTIFICATION_TITLE_INPUT_TYPE;
           }}
@@ -139,11 +146,15 @@ export const PushNotificationForm: React.FC<PushNotificationFormProps> = ({
         <TextArea
           id="push-notification-content"
           label="Content"
+          maxLength={MAX_CONTENT_LENGTH}
           onFocus={() => {
             currentInputRef.current = PUSH_NOTIFICATION_CONTENT_INPUT_TYPE;
           }}
         />
       </FormField>
+      <Alert status="info">
+        {t("steps.content.communicationVariableLengthAlert")}
+      </Alert>
       <div className="w-full">
         <div className="w-[320px] flex place-self-end">
           <CommunicationVariableSelector

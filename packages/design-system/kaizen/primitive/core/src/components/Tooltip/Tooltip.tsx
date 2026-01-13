@@ -66,7 +66,11 @@ const Tooltip: React.FC<TooltipProps> = ({
   const placementClasses = useRelativePlacementClasses(placement);
 
   return (
-    <div className="relative inline-flex" {...props}>
+    <div
+      data-component="Kaizen-Tooltip"
+      className="relative inline-flex"
+      {...props}
+    >
       <div
         className="inline-flex"
         onMouseEnter={handleMouseEnter}

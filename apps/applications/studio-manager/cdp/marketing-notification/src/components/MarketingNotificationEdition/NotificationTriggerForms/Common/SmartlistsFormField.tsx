@@ -79,10 +79,8 @@ export const SmartlistsFormField = ({
               id={`toggle-${type}-smartlists-selector`}
               label={labelKey}
               checked={isEnabled}
-              onChange={(checked) => {
-                if (typeof checked === "boolean") {
-                  onToggleField?.({ type, checked });
-                }
+              onToggleChange={(checked) => {
+                onToggleField?.({ type, checked });
               }}
             />
             {isEnabled && (

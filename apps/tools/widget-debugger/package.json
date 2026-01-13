@@ -6,8 +6,10 @@
   "scripts": {
     "build:spa": "vite build",
     "dev:spa": "vite",
+    "dev:spa:local": "VITE_STAGE=local vite",
     "preview:spa": "vite preview",
-    "serve:html": "vite serve ./src/html"
+    "serve:html": "vite serve ./src/html",
+    "serve:html:local": "VITE_STAGE=local vite serve ./src/html"
   },
   "dependencies": {
     "react": "^19.2.0",

@@ -25,12 +25,12 @@
     "headers": {
       "name": "Name",
       "email": "Email",
-      "balance": "Balance",
+      "balance": "Account balance",
       "joinDate": "Join Date"
     },
     "tooltips": {
       "archive": "Archive profile",
-      "restore": "Unarchive profile"
+      "restore": "Restore profile"
     }
   },
   "list": {
@@ -62,7 +62,7 @@
         }
       },
       "buttons": {
-        "cancel": "Back",
+        "cancel": "Close",
         "archive": "Archive"
       }
     }
@@ -94,7 +94,7 @@
   },
   "importLeadsModal": {
     "title": "Import leads",
-    "description": "Upload a CSV file to import your leads into bsport Back Office",
+    "description": "Upload a CSV file to import your leads ",
     "moreHelpSection": "Need help with this? <key>Visit our Help Center</key>",
     "uploadFile": {
       "extensionCSVOnly": "CSV file only",
@@ -107,14 +107,14 @@
         },
         "invalidFileType": "Invalid file type - please upload a CSV file",
         "datasetTooLarge": "Dataset too large - reduce to max. 100,000 rows",
-        "wrongEncoding": "Incompatible encoding of file - please use UTF-8"
+        "wrongEncoding": "File encoding incompatible  - please use UTF-8"
       }
     },
     "importSuccess": {
       "title": "Leads successfully imported",
       "outputText": "Your CSV file of successfully imported leads:",
       "outputFilename": "rows_success",
-      "importedLeadsNumber_one": "{{ count }} lead imported",
+      "importedLeadsNumber_one": "{{ count }} leads imported",
       "importedLeadsNumber_other": "{{ count }} leads imported"
     },
     "importPartialSuccess": {

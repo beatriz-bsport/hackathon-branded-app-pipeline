@@ -58,7 +58,8 @@
     "members_purchase": "Achats des membres",
     "billing_plan": "Souscription",
     "franchise_shared_pass": "Utilisations cartes partagées",
-    "referral_grant": "Parrainage"
+    "referral_grant": "Parrainage",
+    "access_monitoring": "Accès au studio"
   },
   "header": {
     "sum": "Somme",

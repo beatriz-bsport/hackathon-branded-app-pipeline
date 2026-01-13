@@ -26,11 +26,11 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
   const isOpen = useSessionListStore(selectIsCancelModalOpen);
 
-  const [shouldSendNotification, setShouldSendNotification] = useState(false);
+  const [shouldSendNotification, setShouldSendNotification] = useState(true);
   const [shouldCancelFutureSessions, setShouldCancelFutureSessions] =
     useState(false);
   const [shouldCancelLinkedSessions, setShouldCancelLinkedSessions] =
-    useState(false);
+    useState(true);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const { data: regularSimilarSessions } = useFetchSimilarSessions(

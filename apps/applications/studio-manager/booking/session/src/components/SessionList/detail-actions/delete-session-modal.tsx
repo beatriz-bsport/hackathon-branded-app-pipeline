@@ -105,7 +105,7 @@ export const DeleteSessionModal: FC<DeleteSessionModalProps> = ({
         onClick: handleConfirm,
       }}
       cancelButton={{
-        label: t("cancelModal.cancelButton"),
+        label: t("deleteModal.cancelButton"),
         onClick: closeModal,
       }}
     >

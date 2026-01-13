@@ -2,9 +2,9 @@
   "status": {
     "label": "Status",
     "values": {
-      "toBeProcessed": "To be processed",
+      "toBeProcessed": "Pending",
       "cancelled": "Canceled",
-      "clickAndCollect": "Click & collect",
+      "clickAndCollect": "To be collected",
       "sent": "Sent",
       "initialized": "Started"
     }

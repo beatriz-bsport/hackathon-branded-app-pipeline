@@ -349,7 +349,10 @@
     "amount_upcoming_cts": "Importe pendiente",
     "payment_method_twint": "TWINT",
     "payment_method_google_pay": "Google Pay",
-    "payment_method_apple_pay": "Apple Pay"
+    "payment_method_apple_pay": "Apple Pay",
+    "door_name": "Nombre puerta",
+    "door_distance": "Distancia puerta (m)",
+    "door_id": "ID puerta"
   },
   "payment_method": {
     "cash": "Efectivo",

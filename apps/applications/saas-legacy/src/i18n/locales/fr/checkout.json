@@ -189,7 +189,15 @@
       "offerGuestBooked": "Réservation de mon invité",
       "offerGuestBooked_plural": "Réservations de mon invité",
       "unableToBookSession": "Impossible de réserver une séance",
-      "unableToBookSession_plural": "Impossible de réserver des séances"
+      "unableToBookSession_plural": "Impossible de réserver des séances",
+      "doorAccessInfo": {
+        "proximityProof": {
+          "message": "Vous avez acheté un pass incluant l’accès à la porte. Pour l’utiliser, téléchargez l’application et allez dans votre profil. Placez votre téléphone près de la porte et appuyez sur « Ouvrir la porte » pour l’ouvrir. ",
+          "title": "Accès à la porte acheté"
+        },
+        "message": "Vous avez acheté un pass incluant l’accès à la porte. Pour l’utiliser, allez dans votre profil et appuyez sur « Ouvrir la porte ».",
+        "title": "Accès à la porte acheté"
+      }
     },
     "bookingItem": {
       "bookingItemStatus": {

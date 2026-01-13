@@ -1,0 +1,40 @@
+{
+  "invoiceListTitle": "Factures",
+  "invoiceType": {
+    "reversed": "Facture (annulée)",
+    "return": "Facture remboursée",
+    "credit_payment": "Ajustement de solde",
+    "migration": "Migration",
+    "regular": "Facture"
+  },
+  "invoiceStatus": {
+    "draft": "Brouillon",
+    "open": "Ouverte",
+    "paid": "Encaissé",
+    "voided": "Annulé",
+    "refunded": "Remboursé"
+  },
+  "tableColumnLabel": {
+    "number": "Numéro",
+    "date": "Date",
+    "member": "Client",
+    "amount": "Montant",
+    "type": "Type",
+    "status": "Statut"
+  },
+  "filters": {
+    "is": "est",
+    "is-not": "n'est pas"
+  },
+  "emptyTable": {
+    "title": "Pas encore de factures",
+    "description": "Une fois que vous facturez les clients, leurs factures apparaîtront ici."
+  },
+  "download": {
+    "title": "Télécharger...",
+    "pdf": "Facture (PDF)",
+    "receipt": "Reçu de paiement (PDF)",
+    "explainPdfDraft": "La facture est encore un brouillon, le pdf n'est pas disponible.",
+    "label": "Télécharger facture"
+  }
+}

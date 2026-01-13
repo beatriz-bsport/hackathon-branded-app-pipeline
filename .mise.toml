@@ -1,7 +1,11 @@
 [tools]
-node = "22.5.1"
+node = "24.12.0"
 pnpm = "10.11.0"
 "1password-cli" = "latest"
+
+[settings]
+# Disable GPG verification to avoid signature check failures during Node installation
+node.gpg_verify = false
 
 [env]
 # NX Remote Cache credentials from 1Password

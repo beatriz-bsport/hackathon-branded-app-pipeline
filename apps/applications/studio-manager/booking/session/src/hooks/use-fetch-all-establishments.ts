@@ -1,0 +1,58 @@
+import { queryOptions, useQuery } from "@tanstack/react-query";
+
+import {
+  Establishment,
+  FetchEstablishmentParams,
+  fetchEstablishments,
+} from "@bsport/api-core";
+
+import { fetch } from "../utils/fetch";
+
+const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
+const fetchAllEstablishments = async ({
+  company,
+  page_size,
+  disabled,
+}: FetchEstablishmentParams): Promise<Establishment[]> => {
+  const { results } = await fetchEstablishments(fetch, {
+    company,
+    page_size,
+    disabled,
+  });
+  return results;
+};
+
+const allEstablishmentsQueryOptions = ({
+  company,
+  page_size,
+  disabled,
+}: FetchEstablishmentParams) => {
+  return queryOptions({
+    queryKey: ["all-establishments", { company, page_size, disabled }],
+    queryFn: () => fetchAllEstablishments({ company, page_size, disabled }),
+    enabled: !!company,
+    staleTime: ESTABLISHMENTS_STALE_TIME,
+  });
+};
+
+/**
+ * Hook to fetch all establishments for a given company.
+ * We set a high page_size to retrieve all establishments in one request and to avoid retrieving the whole database...
+ * @param company - The company ID to fetch establishments for.
+ * @param page_size - The number of establishments to fetch per page (default is 1000).
+ * @param disabled - Filter establishments by their disabled status.
+ */
+export const useFetchAllEstablishments = ({
+  company,
+  page_size = 1000,
+  disabled,
+}: FetchEstablishmentParams) => {
+  return useQuery({
+    ...allEstablishmentsQueryOptions({
+      company,
+      page_size,
+      disabled,
+    }),
+  });
+};

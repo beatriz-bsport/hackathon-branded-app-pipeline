@@ -3,6 +3,7 @@ export type FetchEstablishmentParams = {
   page_size?: number;
   id__in?: number[];
   disabled?: boolean;
+  company?: number;
 };
 
 export type SearchEstablishmentParams = FetchEstablishmentParams & {

@@ -458,7 +458,8 @@
     "dispute": "Litigio sobre el pago",
     "billing_plan": "Suscripción",
     "members_purchase": "Compras de los miembros",
-    "referral_grant": "Referencia"
+    "referral_grant": "Referencia",
+    "access_monitoring": "Acceso al estudio"
   },
   "globalCategories": {
     "subheader": {

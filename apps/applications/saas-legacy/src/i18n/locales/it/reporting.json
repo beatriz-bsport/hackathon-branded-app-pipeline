@@ -349,7 +349,10 @@
     "amount_upcoming_cts": "Prossimo importo",
     "payment_method_twint": "TWINT",
     "payment_method_google_pay": "Google Pay",
-    "payment_method_apple_pay": "Apple Pay"
+    "payment_method_apple_pay": "Apple Pay",
+    "door_name": "Nome porta",
+    "door_distance": "Distanza porta (m)",
+    "door_id": "ID porta"
   },
   "payment_method": {
     "dispute": "Contenzioso",

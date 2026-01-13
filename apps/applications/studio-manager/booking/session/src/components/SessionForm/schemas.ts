@@ -103,6 +103,7 @@ export const useSessionSchema = () => {
           },
         ),
       establishment: z.number().nullable(),
+      room_blueprint: z.number().nullish(),
     })
     .refine(
       (data) => {

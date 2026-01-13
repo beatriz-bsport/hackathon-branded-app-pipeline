@@ -69,6 +69,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   coach_payment_rule: null,
   broadcast_link: "",
   establishment: null,
+  room_blueprint: null,
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};

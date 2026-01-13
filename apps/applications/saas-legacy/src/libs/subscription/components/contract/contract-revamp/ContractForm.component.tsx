@@ -32,8 +32,10 @@ import {
   SelectField,
   SwitchField,
   TextField,
+  PercentField,
   // @ts-expect-error
 } from '#src/components/forms';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { useShowNbIntervalAfterAutoRenewalInput } from './hooks/useShowNbIntervalAfterAutoRenewalInput';
 import { useStyles } from './style';
 import {
@@ -42,6 +44,15 @@ import {
   ObjectType,
   SubscriptionContractFormDrawerProps,
 } from './types';
+import { PaymentPackDetailsForm } from './benefit/PaymentPackDetailsForm.component';
+import PrivatePassDetailsForm from './benefit/PrivatePassDetailsForm.component';
+import { ALMOST_100 } from '#src/constants';
+import { provincialTaxHelperText } from '#src/libs/theme/utils';
+import BookkeepingAccountSelector from '#src/libs/payment/components/BookkeepingAccountSelector';
+import {
+  emptyPaymentPackDetailsForms,
+  emptyPrivatePassDetailsForms,
+} from './constants';
 
 const { trackFormAdd } = rudderStackFormTrackingFunctionsRegistry(
   SegmentAnalyticsFormObjectIdentifier.Subscription,
@@ -66,7 +77,7 @@ export function SubscriptionContractFields(
   const { values, setFieldValue, initialValues, errors } =
     useFormikContext<FormValues>();
   React.useEffect(() => {
-    if (values.invoicing_type === InvoicingType.fixedDay) {
+    if (values.invoicing_type === InvoicingType.FIXED_DAY) {
       setFieldValue('recurrence_basis', 1);
       setFieldValue('interval', 'month');
       if (!values.month_billing_day) {
@@ -122,6 +133,64 @@ export function SubscriptionContractFields(
     [setFieldValue, values?.tags_on_first_billing],
   );
 
+  const { isBenefitTaxFromBookkeepingAccount, bookkeepingAccount } =
+    React.useMemo(() => {
+      if (values.object_type === ObjectType.PAYMENT_PACK) {
+        const selectedBookkeepingAccount =
+          values.payment_pack_details?.bookkeeping_account;
+        return {
+          isBenefitTaxFromBookkeepingAccount: !!selectedBookkeepingAccount,
+          bookkeepingAccount: selectedBookkeepingAccount,
+        };
+      }
+
+      if (values.object_type === ObjectType.PRIVATE_PASS) {
+        const selectedBookkeepingAccount =
+          values.private_pass_details?.bookkeeping_account;
+        return {
+          isBenefitTaxFromBookkeepingAccount: !!selectedBookkeepingAccount,
+          bookkeepingAccount: selectedBookkeepingAccount,
+        };
+      }
+
+      return {
+        isBenefitTaxFromBookkeepingAccount: false,
+        bookkeepingAccount: null,
+      };
+    }, [
+      values.object_type,
+      values.payment_pack_details?.bookkeeping_account,
+      values.private_pass_details?.bookkeeping_account,
+    ]);
+
+  const tax = initialValues?.tax ?? 0;
+
+  const setBookkeepingAccount = React.useCallback(
+    (bookkeepingAccountId: number) => {
+      if (values.object_type === ObjectType.PAYMENT_PACK) {
+        setFieldValue(
+          'payment_pack_details.bookkeeping_account',
+          bookkeepingAccountId,
+        );
+      } else if (values.object_type === ObjectType.PRIVATE_PASS) {
+        setFieldValue(
+          'private_pass_details.bookkeeping_account',
+          bookkeepingAccountId,
+        );
+      }
+      const accountTax =
+        props.bookkeepingAccountById[bookkeepingAccountId]?.vat_rate;
+      setFieldValue('tax', accountTax ?? tax);
+    },
+    [values.object_type, props.bookkeepingAccountById, setFieldValue, tax],
+  );
+
+  const provincialTaxText = provincialTaxHelperText(
+    values.tax,
+    props.provincialTax,
+    t,
+  );
+
   return (
     <div>
       {isContractNotEditable && (
@@ -163,34 +232,6 @@ export function SubscriptionContractFields(
       </FormSection>
 
       <FormSection
-        sectionIcon={PaymentIcon}
-        sectionTitle={t('contract.form.object_type.label')}
-      >
-        <RadioGroupField
-          choices={[
-            {
-              label: t('contract.form.object_type.privatePass'),
-              value: ObjectType.privatePass,
-            },
-            {
-              label: t('contract.form.object_type.paymentPack'),
-              value: ObjectType.paymentPack,
-            },
-          ]}
-          disabled={isContractNotEditable}
-          name="object_type"
-        />
-        <div>
-          <Collapse in={props.values.object_type === ObjectType.paymentPack}>
-            <div>Payment pack forms</div>
-          </Collapse>
-          <Collapse in={props.values.object_type === ObjectType.privatePass}>
-            <div>Private pass forms</div>
-          </Collapse>
-        </div>
-      </FormSection>
-
-      <FormSection
         sectionIcon={getCurrencyDisplay() === '€' ? EuroIcon : DollarIcon}
         sectionTitle={t('contract.form.price.title')}
       >
@@ -219,6 +260,31 @@ export function SubscriptionContractFields(
           label={t('contract.form.flat_fee.label')}
           name="flat_fee"
         />
+        <BookkeepingAccountSelector
+          bookkeepingAccountById={props.bookkeepingAccountById}
+          bookkeepingAccounts={props.bookkeepingAccounts}
+          selectedBookkeepingAccountId={bookkeepingAccount}
+          setFieldValue={setBookkeepingAccount}
+        />
+        <PercentField
+          fullWidth
+          required
+          className={classes.field}
+          disabled={
+            isFromContractTemplate || isBenefitTaxFromBookkeepingAccount
+          }
+          FormHelperTextProps={{ classes: { root: classes.helperTextError } }}
+          helperText={provincialTaxText}
+          id="contract-tax-field"
+          InputProps={{
+            inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
+            endAdornment: <InputAdornment position="end">%</InputAdornment>,
+          }}
+          label={t('contract.form.tax.label')}
+          max={ALMOST_100}
+          name="tax"
+          type="number"
+        />
       </FormSection>
 
       <FormSection
@@ -235,14 +301,14 @@ export function SubscriptionContractFields(
                 label: t(
                   'contract.form.invoicing.same_day_as_subscription.label',
                 ),
-                value: InvoicingType.sameDayAsSubscription,
+                value: InvoicingType.SAME_DAY_AS_SUBSCRIPTION,
                 helperTextInformationIcon: t(
                   'contract.form.invoicing.same_day_as_subscription.explain',
                 ),
               },
               {
                 label: t('contract.form.invoicing.fixed_day.label'),
-                value: InvoicingType.fixedDay,
+                value: InvoicingType.FIXED_DAY,
                 helperTextInformationIcon: t(
                   'contract.form.invoicing.fixed_day.explain',
                 ),
@@ -254,7 +320,7 @@ export function SubscriptionContractFields(
           />
         </PopOver>
         <Collapse
-          in={values.invoicing_type === InvoicingType.sameDayAsSubscription}
+          in={values.invoicing_type === InvoicingType.SAME_DAY_AS_SUBSCRIPTION}
         >
           <div className={classes.row}>
             <Typography variant="body2">
@@ -281,9 +347,7 @@ export function SubscriptionContractFields(
           required
           className={classes.field}
           disabled={isFromContractTemplate}
-          helperText={t(
-            `${errors.nb_interval ? errors.nb_interval : undefined}`,
-          )}
+          helperText={errors.nb_interval ? t(errors.nb_interval) : undefined}
           label={t('contract.form.nb_interval.label', {
             interval: t(`contract.interval.${props.values.interval}`, {
               count: props.values.recurrence_basis,
@@ -293,7 +357,7 @@ export function SubscriptionContractFields(
         />
 
         <Collapse
-          in={values.invoicing_type === InvoicingType.sameDayAsSubscription}
+          in={values.invoicing_type === InvoicingType.SAME_DAY_AS_SUBSCRIPTION}
         >
           <Alert severity="info" variant="outlined">
             {t(
@@ -317,7 +381,7 @@ export function SubscriptionContractFields(
           </Alert>
         </Collapse>
 
-        <Collapse in={values.invoicing_type === InvoicingType.fixedDay}>
+        <Collapse in={values.invoicing_type === InvoicingType.FIXED_DAY}>
           <div className={clsx(classes.row, classes.field)}>
             <Typography variant="body2">
               {t('contract.form.month_billing_day.label1')}
@@ -349,16 +413,17 @@ export function SubscriptionContractFields(
                 )}
               </Alert>
             )}
-          {props.values.month_billing_day >= 29 && (
-            <Alert
-              className={clsx(classes.alert, classes.field)}
-              severity="warning"
-            >
-              {t(`contract.form.invoicing.fixed_day.end_of_month_explain`, {
-                month_billing_day: props.values.month_billing_day,
-              })}
-            </Alert>
-          )}
+          {!!props.values.month_billing_day &&
+            props.values.month_billing_day >= 29 && (
+              <Alert
+                className={clsx(classes.alert, classes.field)}
+                severity="warning"
+              >
+                {t(`contract.form.invoicing.fixed_day.end_of_month_explain`, {
+                  month_billing_day: props.values.month_billing_day,
+                })}
+              </Alert>
+            )}
           <Alert className={classes.alert} severity="info" variant="outlined">
             {t(
               `contract.form.invoicing.fixed_day.recurrence_explain.${props.values.interval}`,
@@ -407,13 +472,11 @@ export function SubscriptionContractFields(
             <TextField
               fullWidth
               disabled={props.initial && props.initial?.editable === false}
-              helperText={t(
-                `${
-                  errors.nb_interval_after_auto_renewal
-                    ? errors.nb_interval_after_auto_renewal
-                    : undefined
-                }`,
-              )}
+              helperText={
+                errors.nb_interval_after_auto_renewal
+                  ? t(errors.nb_interval_after_auto_renewal)
+                  : undefined
+              }
               label={t('contract.form.nbIntervalAfterAutoRenewal.secondLabel')}
               name="nb_interval_after_auto_renewal"
             />
@@ -447,6 +510,56 @@ export function SubscriptionContractFields(
           rows={5}
           variant="outlined"
         />
+      </FormSection>
+
+      <FormSection
+        sectionIcon={PaymentIcon}
+        sectionTitle={t('contract.form.object_type.label')}
+      >
+        <RadioGroupField
+          choices={[
+            {
+              label: t('contract.form.object_type.privatePass'),
+              value: ObjectType.PRIVATE_PASS,
+            },
+            {
+              label: t('contract.form.object_type.paymentPack'),
+              value: ObjectType.PAYMENT_PACK,
+            },
+          ]}
+          disabled={isContractNotEditable || !!props.initial?.id}
+          name="object_type"
+        />
+        <div>
+          <Collapse in={props.values.object_type === ObjectType.PAYMENT_PACK}>
+            <PaymentPackDetailsForm
+              allowGuestMaster={props.allowGuestMaster}
+              availableEstablishmentList={props.availableEstablishmentList}
+              categoryList={props.categoryList}
+              initialPaymentPackDetails={
+                initialValues?.payment_pack_details ??
+                emptyPaymentPackDetailsForms
+              }
+              isContractNotEditable={!!isContractNotEditable}
+              metaActivityList={props.metaActivityList}
+            />
+          </Collapse>
+          <Collapse in={props.values.object_type === ObjectType.PRIVATE_PASS}>
+            <PrivatePassDetailsForm
+              categoryList={props.categoryList}
+              compatibleServicePass={props.compatibleServicePass}
+              establishmentList={props.availableEstablishmentList}
+              initialPrivatePassDetails={
+                initialValues?.private_pass_details ??
+                emptyPrivatePassDetailsForms
+              }
+              isContractFromFranchise={isFromContractTemplate}
+              isContractNotEditable={!!isContractNotEditable}
+              metaActivityList={props.metaActivityList}
+              privateServices={props.privateServices}
+            />
+          </Collapse>
+        </div>
       </FormSection>
 
       <FormSection

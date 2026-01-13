@@ -56,4 +56,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
   },
+  helperTextError: {
+    color: theme.palette.error.main,
+  },
 }));

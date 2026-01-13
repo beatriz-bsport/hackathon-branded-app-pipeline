@@ -30,6 +30,7 @@ type Props = {
   hasMultipleGroups: boolean;
   onGroupDelete: () => void;
   disabled?: boolean;
+  baseName?: string;
 };
 
 type OffPeakRecurrenceWeekDay = '1' | '2' | '3' | '4' | '5' | '6' | '7';
@@ -40,6 +41,7 @@ type WeekDayButtonProps = {
   recurrenceWeekDay: OffPeakIsoWeekdays;
   index: number;
   disabled?: boolean;
+  baseName?: string;
 };
 
 type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -50,10 +52,11 @@ type OffPeaktimeSlotsRowProps = {
   setFieldValue: FieldValueSetter;
   timeSlots: string[][];
   disabled?: boolean;
+  baseName?: string;
 };
 
 const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
-  ({ day, recurrenceWeekDay, setFieldValue, index, disabled }) => {
+  ({ day, recurrenceWeekDay, setFieldValue, index, disabled, baseName }) => {
     const classes = useStyles();
     const { t } = useTranslation('datetime');
 
@@ -64,14 +67,19 @@ const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
       return isoweekday.toString() as OffPeakRecurrenceWeekDay;
     }, [day]);
 
+    const basePrefix = baseName && baseName.length ? `${baseName}.` : '';
+
     const handleToggleWeekday = useCallback(
       (weekDay: OffPeakRecurrenceWeekDay) => {
-        setFieldValue(`off_peak_schedule[${index}].recurrenceWeekDay`, {
-          ...recurrenceWeekDay,
-          [weekDay]: !recurrenceWeekDay[weekDay],
-        });
+        setFieldValue(
+          basePrefix + `off_peak_schedule[${index}].recurrenceWeekDay`,
+          {
+            ...recurrenceWeekDay,
+            [weekDay]: !recurrenceWeekDay[weekDay],
+          },
+        );
       },
-      [recurrenceWeekDay, index, setFieldValue],
+      [recurrenceWeekDay, index, setFieldValue, basePrefix],
     );
 
     const recurrenceWeekDayState = recurrenceWeekDay[isoWeekDay];
@@ -110,25 +118,33 @@ const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = ({
   timeSlots,
   setFieldValue,
   disabled,
+  baseName,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('paymentPack');
   const hideDelete = timeSlots.length > 1;
-
+  const basePrefix = baseName && baseName.length ? `${baseName}.` : '';
   const deleteTimeSlot = useCallback(
     (rowIndex: number) => () => {
-      timeSlots.splice(rowIndex, 1);
-      setFieldValue(`off_peak_schedule[${index}].timeSlots`, timeSlots);
+      const newSlots = timeSlots.filter((_, i) => i !== rowIndex);
+      setFieldValue(
+        basePrefix + `off_peak_schedule[${index}].timeSlots`,
+        newSlots,
+      );
     },
-    [setFieldValue, timeSlots, index],
+    [setFieldValue, timeSlots, index, basePrefix],
   );
 
   return (
     <div>
       <div className={classes.column}>
         {timeSlots.map((_, rowIndex) => {
-          const start_time_name = `off_peak_schedule[${index}].timeSlots['${rowIndex}'][0]`;
-          const end_time_name = `off_peak_schedule[${index}].timeSlots['${rowIndex}'][1]`;
+          const start_time_name =
+            basePrefix +
+            `off_peak_schedule[${index}].timeSlots[${rowIndex}][0]`;
+          const end_time_name =
+            basePrefix +
+            `off_peak_schedule[${index}].timeSlots[${rowIndex}][1]`;
 
           return (
             <div>
@@ -157,7 +173,10 @@ const OffPeaktimeSlotsRow: React.FC<OffPeaktimeSlotsRowProps> = ({
               </div>
               <div>
                 <ErrorMessage
-                  name={`off_peak_schedule[${index}].timeSlots[${rowIndex}]`}
+                  name={
+                    basePrefix +
+                    `off_peak_schedule[${index}].timeSlots[${rowIndex}]`
+                  }
                 >
                   {(error_msg) => (
                     <Typography color="error" variant="caption">
@@ -182,6 +201,7 @@ const OffPeaktimeSlotGroup = (props: Props) => {
     hasMultipleGroups,
     onGroupDelete,
     disabled,
+    baseName,
   } = props;
   const classes = useStyles();
   const { t } = useTranslation('paymentPack');
@@ -190,6 +210,7 @@ const OffPeaktimeSlotGroup = (props: Props) => {
     return WEEK_DAYS.map((day: WeekDay) => (
       <OffPeakButtonDay
         key={`${day} - ${index}`}
+        baseName={baseName}
         day={day}
         disabled={disabled}
         index={index}
@@ -197,7 +218,7 @@ const OffPeaktimeSlotGroup = (props: Props) => {
         setFieldValue={setFieldValue}
       />
     ));
-  }, [group.recurrenceWeekDay, index, setFieldValue, disabled]);
+  }, [group.recurrenceWeekDay, index, setFieldValue, disabled, baseName]);
 
   const SLOT_DURATION_CHOICE = [
     {
@@ -212,15 +233,19 @@ const OffPeaktimeSlotGroup = (props: Props) => {
     [group.slotDurationChoice],
   );
 
+  const basePrefix = baseName && baseName.length ? `${baseName}.` : '';
+
   const handleAddtimeSlot = useCallback(() => {
-    const newGroup = group.timeSlots;
     const newRow = [
       DateTime.now().set({ hour: 6 }).startOf('hour').toISO(),
       DateTime.now().set({ hour: 7 }).startOf('hour').toISO(),
     ];
-    newGroup.push(newRow);
-    setFieldValue(`off_peak_schedule[${index}]`, group);
-  }, [group, index, setFieldValue]);
+    const newSlots = [...(group.timeSlots ?? []), newRow];
+    setFieldValue(basePrefix + `off_peak_schedule[${index}]`, {
+      ...group,
+      timeSlots: newSlots,
+    });
+  }, [group, index, setFieldValue, basePrefix]);
 
   const addTimeSlotLabel = t(
     'addPaymentPack.offPeak.addTimeSlot',
@@ -240,7 +265,9 @@ const OffPeaktimeSlotGroup = (props: Props) => {
       )}
       <div className={classes.row}>{weekDaysButtons}</div>
       <div>
-        <ErrorMessage name={`off_peak_schedule[${index}].recurrenceWeekDay`}>
+        <ErrorMessage
+          name={basePrefix + `off_peak_schedule[${index}].recurrenceWeekDay`}
+        >
           {(error_msg) => (
             <Typography color="error" variant="caption">
               {t(`${error_msg}`)}
@@ -253,12 +280,13 @@ const OffPeaktimeSlotGroup = (props: Props) => {
           isRow
           choices={SLOT_DURATION_CHOICE}
           disabled={disabled}
-          name={`off_peak_schedule[${index}].slotDurationChoice`}
+          name={basePrefix + `off_peak_schedule[${index}].slotDurationChoice`}
         />
       </div>
       <div>
         <Collapse in={time_slot_choice}>
           <OffPeaktimeSlotsRow
+            baseName={baseName}
             disabled={disabled}
             index={index}
             setFieldValue={setFieldValue}

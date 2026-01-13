@@ -162,6 +162,9 @@
       "name": {
         "label": "Name"
       },
+      "tax": {
+        "label": "VAT / Sales tax"
+      },
       "nb_interval": {
         "label": "Number of invoices:",
         "error": "The number of billings should not exceed 110",

@@ -3,10 +3,192 @@ import {
   CONTRACT_MAX_NB_INTERVAL_ALLOWED,
 } from '#src/libs/subscription/constants';
 import * as Yup from 'yup';
-import { InvoicingType, ObjectType } from './types';
+import { InvoicingType } from './types';
+import { ALMOST_100 } from '#src/constants';
+import {
+  START_ON_FIRST_ATTENDANCE,
+  START_ON_FIRST_BOOKING,
+} from '@bsport/common/lib/master-data/payment-pack';
+import { offPeakScheduleSchemaValidation } from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
+import {
+  emptyPaymentPackDetailsForms,
+  emptyPrivatePassDetailsForms,
+} from './constants';
+
+export const paymentPackDetailsSchema = Yup.object().shape({
+  credit_number: Yup.string().required(
+    'paymentPack:addPaymentPack.requiredField',
+  ),
+  credits: Yup.number().when('credit_number', {
+    is: 'limited',
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(0)
+      .nullable(),
+    otherwise: Yup.number().nullable(),
+  }),
+  theorical_margin_value: Yup.number().when('credit_number', {
+    is: 'unlimited',
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(0)
+      .nullable(),
+    otherwise: Yup.number(),
+  }),
+  apply_penalties: Yup.boolean().test(
+    'required',
+    'paymentPack:form.paymentPack.penalty.errorNoPenaltyRule',
+    function testRequired() {
+      if (
+        this.parent.apply_penalties &&
+        !this.parent.penalty_active &&
+        !this.parent.no_show_penalty_active
+      ) {
+        return false;
+      }
+      return true;
+    },
+  ),
+  penalty_nb_late_cancellations: Yup.number().when('penalty_active', {
+    is: true,
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(1, 'paymentPack:addPaymentPack.minusZero'),
+    otherwise: Yup.number(),
+  }),
+  penalty_nb_days: Yup.number().when('penalty_active', {
+    is: true,
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(1, 'paymentPack:addPaymentPack.minusZero'),
+    otherwise: Yup.number(),
+  }),
+  penalty_kind: Yup.string(),
+  penalty_days_blocked: Yup.number().test(
+    'required',
+    'paymentPack:addPaymentPack.requiredField',
+    function testRequired(item) {
+      if (this.parent.penalty_active && this.parent.penalty_kind === 'block') {
+        return typeof item === 'number' && item > 0;
+      }
+
+      return true;
+    },
+  ),
+  penalty_account_value: Yup.number().test(
+    'required',
+    'paymentPack:addPaymentPack.requiredField',
+    function testRequired(item) {
+      if (
+        this.parent.penalty_active &&
+        this.parent.penalty_kind === 'account'
+      ) {
+        return typeof item === 'number' && item > 0;
+      }
+
+      return true;
+    },
+  ),
+  no_show_penalty_threshold: Yup.number().when('no_show_penalty_active', {
+    is: true,
+    then: Yup.number()
+      .required('paymentPack:addPaymentPack.requiredField')
+      .min(1, 'paymentPack:addPaymentPack.minusZero'),
+    otherwise: Yup.number(),
+  }),
+  no_show_penalty_time_window_days: Yup.number().when(
+    'no_show_penalty_active',
+    {
+      is: true,
+      then: Yup.number()
+        .required('paymentPack:addPaymentPack.requiredField')
+        .min(1, 'paymentPack:addPaymentPack.minusZero'),
+      otherwise: Yup.number(),
+    },
+  ),
+  no_show_penalty_kind: Yup.string(),
+  no_show_penalty_days_blocked: Yup.number().test(
+    'required',
+    'paymentPack:addPaymentPack.requiredField',
+    function testRequired(item) {
+      if (
+        this.parent.no_show_penalty_active &&
+        this.parent.no_show_penalty_kind === 'block'
+      ) {
+        return typeof item === 'number' && item > 0;
+      }
+
+      return true;
+    },
+  ),
+  no_show_penalty_amount: Yup.number().test(
+    'required',
+    'paymentPack:addPaymentPack.requiredField',
+    function testRequired(item) {
+      if (
+        this.parent.no_show_penalty_active &&
+        this.parent.no_show_penalty_kind === 'account'
+      ) {
+        return typeof item === 'number' && item > 0;
+      }
+
+      return true;
+    },
+  ),
+  expiration_days_before_first_use: Yup.number().when('validity', {
+    is: 'givenNumber',
+    then: Yup.number().test(
+      'required',
+      'paymentPack:addPaymentPack.requiredField',
+      function testExpirationDate(item) {
+        if (
+          this.parent.start_date_method === `${START_ON_FIRST_BOOKING}` ||
+          this.parent.start_date_method === `${START_ON_FIRST_ATTENDANCE}`
+        ) {
+          return typeof item === 'number';
+        }
+
+        return true;
+      },
+    ),
+    otherwise: Yup.number(),
+  }),
+  max_bookings_per_day: Yup.number().min(0).nullable(),
+  max_bookings_per_week: Yup.number().min(0).nullable(),
+  max_bookings_per_month: Yup.number().min(0).nullable(),
+  max_purchase_per_member: Yup.number().min(0).nullable(),
+  categories: Yup.array().of(Yup.number()),
+  establishments: Yup.array().of(Yup.number()),
+  metaActivities: Yup.array().of(Yup.number()),
+  full_vod_access: Yup.boolean(),
+  only_vod_access: Yup.boolean(),
+  allow_guest_pass: Yup.boolean(),
+  applies_for_payroll: Yup.boolean().required(),
+  off_peak_schedule: offPeakScheduleSchemaValidation,
+  bookkeeping_account: Yup.number().nullable(),
+  grants_door_access: Yup.boolean(),
+});
+
+export const privatePassDetailsSchema = Yup.object().shape({
+  category: Yup.number().nullable(true),
+  full_vod_access: Yup.boolean().required(),
+  expiration_days_before_first_use: Yup.number(),
+  compatibility: Yup.array().of(
+    Yup.object().shape({
+      private_service: Yup.number(),
+      excluded_slot_ids: Yup.array().of(Yup.number()),
+    }),
+  ),
+  applies_for_payroll: Yup.boolean().required(),
+  on_behalf_of_teacher: Yup.boolean().required(),
+});
 
 export const SubscriptionContractFieldsSchema = Yup.object().shape({
   name: Yup.string().required(),
+  tax: Yup.number()
+    .required('paymentPack:addPaymentPack.requiredField')
+    .min(0)
+    .max(ALMOST_100),
   nb_interval: Yup.number()
     .integer('common:form.validation.number')
     .min(1, 'common:positiveNumber')
@@ -19,8 +201,8 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
           return false;
         }
         return (
-          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
-          nb_interval <= 12
+          this.parent.invoicing_type ===
+            InvoicingType.SAME_DAY_AS_SUBSCRIPTION || nb_interval <= 12
         );
       },
     )
@@ -29,8 +211,8 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       'contract.form.nb_interval.restrictionForFixedBillingDay',
       function checkNbIntervalForFixedBillingDay(nb_interval) {
         return (
-          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
-          nb_interval > 1
+          this.parent.invoicing_type ===
+            InvoicingType.SAME_DAY_AS_SUBSCRIPTION || nb_interval > 1
         );
       },
     )
@@ -45,8 +227,8 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       'Fixed Billing Day must be one',
       function checkNbIntervalForFixedBillingDay(recurrence_basis) {
         return (
-          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
-          recurrence_basis === 1
+          this.parent.invoicing_type ===
+            InvoicingType.SAME_DAY_AS_SUBSCRIPTION || recurrence_basis === 1
         );
       },
     ),
@@ -57,46 +239,13 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       'Interval must be month',
       function checkIntervalBasedOnMonthBillingDay(interval) {
         return (
-          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
-          interval === 'month'
+          this.parent.invoicing_type ===
+            InvoicingType.SAME_DAY_AS_SUBSCRIPTION || interval === 'month'
         );
       },
     ),
   recurrent_price: Yup.number().min(0),
   flat_fee: Yup.number().min(0),
-  payment_pack: Yup.number()
-    .integer()
-    .nullable()
-    .test(
-      'is-nullable',
-      'contract.form.error.missingPaymentPack',
-      function checkPaymentPackIsNullable(payment_pack) {
-        const { object_type } = this.parent;
-        return object_type !== ObjectType.paymentPack || !!payment_pack;
-      },
-    ),
-  private_pass: Yup.number()
-    .integer()
-    .nullable()
-    .test(
-      'is-nullable',
-      'contract.form.error.missingPrivatePass',
-      function checkPrivatePassIsNullable(private_pass) {
-        const { object_type } = this.parent;
-        return object_type !== ObjectType.privatePass || !!private_pass;
-      },
-    ),
-  payment_combo: Yup.number()
-    .integer()
-    .nullable()
-    .test(
-      'is-nullable',
-      'contract.form.error.missingPaymentCombo',
-      function checkPaymentComboIsNullable(payment_combo) {
-        const { object_type } = this.parent;
-        return object_type !== ObjectType.paymentCombo || !!payment_combo;
-      },
-    ),
   description: Yup.string().required(),
   contract: Yup.string().required(),
   manager_only: Yup.boolean(),
@@ -112,8 +261,8 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       'missing',
       function checkIntervalBasedOnMonthBillingDay(month_billing_day) {
         return (
-          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
-          !!month_billing_day
+          this.parent.invoicing_type ===
+            InvoicingType.SAME_DAY_AS_SUBSCRIPTION || !!month_billing_day
         );
       },
     ),
@@ -130,7 +279,8 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
         nb_interval_after_auto_renewal,
       ) {
         return (
-          this.parent.invoicing_type === InvoicingType.sameDayAsSubscription ||
+          this.parent.invoicing_type ===
+            InvoicingType.SAME_DAY_AS_SUBSCRIPTION ||
           !nb_interval_after_auto_renewal ||
           nb_interval_after_auto_renewal <= 12
         );
@@ -168,4 +318,10 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
         );
       },
     ),
+  payment_pack_details: paymentPackDetailsSchema
+    .nullable()
+    .default(emptyPaymentPackDetailsForms),
+  private_pass_details: privatePassDetailsSchema
+    .nullable()
+    .default(emptyPrivatePassDetailsForms),
 });

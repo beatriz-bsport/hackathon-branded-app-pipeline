@@ -33,6 +33,8 @@ import api, {
   fetchContractTemplateDetail as fetchContractTemplateDetailAPI,
   fetchContractTemplateRelatedBillingPlans as fetchContractTemplateRelatedBillingPlansAPI,
   createOrUpdateContractTemplate as createOrUpdateContractTemplateAPI,
+  createContract as createContractAPI,
+  updateContract as updateContractAPI,
 } from './api';
 
 import type {
@@ -63,6 +65,7 @@ import type {
   PauseRequestResults,
   PauseRequestErrorResults,
   SubscriptionPaymentMethodParams,
+  ContractPayload,
 } from './types';
 import type { PaginationFilterParams } from '#src/libs/types';
 import {
@@ -1433,5 +1436,57 @@ export function createOrUpdateContractTemplate(
         : dispatch(snackbarError('subscription.contractTemplate.createError'));
     }
     dispatch(createOrUpdateContractTemplateActions.isLoading(false));
+  };
+}
+
+// ---------------------------------------- CONTRACT REVAMP ACTIONS ----------------------------------------
+
+export const contractCreateActions = {
+  error: createAction('SUBSCRIPTION_CONTRACT/CREATE/ERROR'),
+  isLoading: createAction('SUBSCRIPTION_CONTRACT/CREATE/IS_LOADING'),
+  success: createAction('SUBSCRIPTION_CONTRACT/CREATE/SUCCESS'),
+};
+export function createContract(
+  data: ContractPayload,
+  options: OptionCallback<Contract>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(contractCreateActions.error(null));
+    dispatch(contractCreateActions.isLoading(true));
+    try {
+      const response = await createContractAPI(data);
+      dispatch(contractCreateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(contractCreateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(contractCreateActions.isLoading(false));
+  };
+}
+
+export const contractUpdateActions = {
+  error: createAction('SUBSCRIPTION_CONTRACT/UPDATE/ERROR'),
+  isLoading: createAction('SUBSCRIPTION_CONTRACT/UPDATE/IS_LOADING'),
+  success: createAction('SUBSCRIPTION_CONTRACT/UPDATE/SUCCESS'),
+};
+export function updateContract(
+  data: ContractPayload,
+  options: OptionCallback<Contract>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(contractUpdateActions.error(null));
+    dispatch(contractUpdateActions.isLoading(true));
+    try {
+      const response = await updateContractAPI(data);
+      dispatch(contractUpdateActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(contractUpdateActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(contractUpdateActions.isLoading(false));
   };
 }

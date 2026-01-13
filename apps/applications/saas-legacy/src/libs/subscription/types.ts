@@ -26,6 +26,10 @@ import type {
   ErrorAndLoading,
 } from '#src/libs/types';
 import { PAUSE_RESULTS_ERROR_CODES } from '#src/libs/subscription/constants';
+import {
+  PaymentPackDetails,
+  PrivatePassDetails,
+} from './components/contract/contract-revamp/types';
 
 export type PlannedInvoice = {
   date: string;
@@ -189,7 +193,7 @@ export type ContractWithPaymentPack<
   highlighted_as_recommended: boolean;
   tags_on_first_billing: Array<number>;
   nb_interval_after_auto_renewal: number | null;
-  contract_template: number;
+  contract_template: number | null;
   editable: boolean;
   has_mandatory_commitment_period: boolean;
   commitment_period_value: number | null;
@@ -568,3 +572,28 @@ export type CommitmentPeriodDisplayReturnedValues = {
   shouldDisplayCommitmentPeriodSubtitle: boolean;
   isMemberCancellationAllowed: boolean;
 };
+
+type ContractBasePayload = Omit<
+  Contract,
+  | 'company'
+  | 'tax'
+  | 'payment_pack'
+  | 'private_pass'
+  | 'payment_combo'
+  | 'id'
+  | 'disabled'
+  | 'contract_terms_pdf_link'
+> & {
+  id?: number;
+};
+
+export type ContractPayloadPaymentPack = ContractBasePayload & {
+  payment_pack_details: PaymentPackDetails;
+};
+export type ContractPayloadPrivatePass = ContractBasePayload & {
+  private_pass_details: PrivatePassDetails;
+};
+
+export type ContractPayload =
+  | ContractPayloadPaymentPack
+  | ContractPayloadPrivatePass;

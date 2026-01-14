@@ -2,7 +2,7 @@
   "createModal": {
     "title": "Create a new Gift Card",
     "buttons": {
-      "cancel": "Cancel",
+      "cancel": "Close",
       "create": "Create"
     }
   },

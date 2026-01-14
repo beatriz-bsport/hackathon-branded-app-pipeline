@@ -99,7 +99,7 @@ const config: StorybookConfig = {
               }
             }
           }
-          return null;
+          return resolved;
         }
 
         // Handle primitive/core
@@ -119,7 +119,7 @@ const config: StorybookConfig = {
               }
             }
           }
-          return null;
+          return resolved;
         }
 
         return null;

@@ -89,6 +89,19 @@ export const useSessionSchema = () => {
       is_hybrid: z.boolean(),
       coach: z.number().nullable(),
       coach_payment_rule: z.number().nullable(),
+      broadcast_link: z
+        .string()
+        .url()
+        .refine(
+          (val) =>
+            (val.startsWith("http://") || val.startsWith("https://")) &&
+            !val.includes(" "),
+          {
+            message: t(
+              "addSessionModal.steps.configureSession.settings.broadcast.error",
+            ),
+          },
+        ),
     })
     .refine(
       (data) => {

@@ -67,6 +67,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   is_hybrid: false,
   coach: null,
   coach_payment_rule: null,
+  broadcast_link: "",
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};

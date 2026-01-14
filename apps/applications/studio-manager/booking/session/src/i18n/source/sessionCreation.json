@@ -116,6 +116,11 @@
               "placeholder": "Choose an option...",
               "helper": "Allow your students to book a spot in the room in advance"
             }
+          },
+          "broadcast": {
+            "label": "Link to the livestream",
+            "helperText": "The link will be generated automatically for Zoom by bsport",
+            "error": "The link is invalid. It should start with http:// or https:// and not contain any whitespace."
           }
         },
         "timeAndDate": {

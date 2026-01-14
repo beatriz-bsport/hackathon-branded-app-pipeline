@@ -73,6 +73,7 @@ export type SessionCreationFormData = Pick<
   | "is_hybrid"
   | "coach"
   | "coach_payment_rule"
+  | "broadcast_link"
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;

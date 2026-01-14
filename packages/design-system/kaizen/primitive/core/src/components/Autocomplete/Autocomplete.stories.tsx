@@ -1147,3 +1147,57 @@ export const GroupedApiResults: Story = {
     debounceValue: 400,
   },
 };
+
+const withCustomToggleLogicDescription = [
+  "To control the selection logic when toggling an item. Here, the selection is sorted, and if the toggled item:",
+  "1. -> is already selected, it is popped out",
+  "2. -> contains english, only english languages are kept",
+  "3. -> else it is added to the list",
+];
+
+export const WithCustomToggleLogic: Story = {
+  name: "With Custom Toggle Logic",
+  parameters: {
+    docs: {
+      description: {
+        story: withCustomToggleLogicDescription.join("\n"),
+      },
+    },
+  },
+  args: {
+    textfieldProps: {
+      id: "autocomplete-with-custom-toggle-logic",
+      label: "Select Languages",
+      placeholder: "Choose your preferred languages",
+      status: "default",
+    },
+    items,
+    multiSelect: true,
+    fullWidth: false,
+    hideChips: false,
+    showSelectedItemsInBase: false,
+    onToggleItem: ({ prev, toggledItem }) => {
+      if (prev.includes(toggledItem)) {
+        return prev.filter((id) => id !== toggledItem).sort();
+      }
+
+      if (toggledItem.includes("english")) {
+        return [toggledItem, ...prev]
+          .filter((id) => id.includes("english"))
+          .sort();
+      }
+
+      return [toggledItem, ...prev].sort();
+    },
+  },
+  render: (args) => {
+    return (
+      <>
+        {withCustomToggleLogicDescription.map((descriptionItem, index) => (
+          <p key={index}>{descriptionItem}</p>
+        ))}
+        <Autocomplete {...args} />
+      </>
+    );
+  },
+};

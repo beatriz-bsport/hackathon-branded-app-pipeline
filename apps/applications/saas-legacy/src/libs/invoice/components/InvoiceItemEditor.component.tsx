@@ -17,7 +17,6 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
   BUYABLE_ITEM_GIFTCARD,
-  QuicksaleBasketItem,
 } from '@bsport/common/lib/master-data/buyable-items.js';
 
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
@@ -35,22 +34,26 @@ import TextField from '@material-ui/core/TextField';
 // @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '#src/libs/payment-packs/utils';
-// @ts-expect-error
-import { BuyableItemTypes } from '../types';
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 import { FUZZY_SEARCH_BAR_BUYABLE_ITEMS_ADDITIONAL_PARAMS_WEBSHOP_REWORKED } from '#src/libs/shop/components/ShopReworkedProductList/constants';
 import type { ShopItem } from '#src/libs/shop/types';
 import type { SelectOption } from '#src/libs/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type {
+  AvailableBuyableItemTypes,
+  BuyableItemIdentifier,
+  BuyableItemTypes,
+} from '../types';
 
-type BuyableItemProps = {
+type BuyableItemSelectorProps = {
   buyableItemIdentifier: number;
   value?: number;
-  availableBuyableItems: { [key: string]: BuyableItemTypes };
+  availableBuyableItems: AvailableBuyableItemTypes;
   onSelect?: (id: number, buyableItem?: ShopItem) => void;
   displayNewWebshop?: boolean;
 };
 
-const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
+const BuyableItemSelector: React.FC<BuyableItemSelectorProps> = React.memo(
   ({
     buyableItemIdentifier,
     value,
@@ -143,7 +146,7 @@ const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
             autofocus
             giftcardList={availableBuyableItems[buyableItemIdentifier]}
             onChange={onSelect}
-            value={value}
+            value={value ?? null}
           />
         );
       default:
@@ -152,26 +155,35 @@ const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
   },
 );
 
+type BuyableItemAugmented = BuyableItemTypes & {
+  voucher: string;
+  voucher_reason: string;
+  hasCustomPrice: boolean;
+  price: string;
+  buyable_item_id: number;
+};
+
 type Props = {
   onAddBuyableItem: (
-    buyableItemIdentifier: QuicksaleBasketItem,
-    buyableItem: BuyableItemTypes,
+    buyableItemIdentifier: BuyableItemIdentifier,
+    buyableItem: BuyableItemAugmented,
   ) => void;
-  availableBuyableItems: {
-    // @ts-expect-error
-    [buyableItemIdentifier: QuicksaleBasketItem]: BuyableItemTypes[];
-  };
+  availableBuyableItems: AvailableBuyableItemTypes;
   member: { credit_account_balance: number };
   displayNewWebshop?: boolean;
   isCustomDiscountReasonRequired: boolean;
 };
 
+const DEFAULT_PRICE = '0.00';
+const DEFAULT_PERCENT = '0.00';
+
 const getPriceForItem = (
   item: BuyableItemTypes,
-  identifier: QuicksaleBasketItem,
+  identifier: BuyableItemIdentifier,
 ): string => {
-  if (identifier === BUYABLE_ITEM_PASS) {
-    return item.base_price;
+  if (identifier === BUYABLE_ITEM_PASS && 'base_price' in item) {
+    const basePrice = item.base_price;
+    return typeof basePrice === 'string' ? basePrice : basePrice.toString();
   }
   if (
     [
@@ -181,10 +193,12 @@ const getPriceForItem = (
       BUYABLE_ITEM_GIFTCARD,
     ].includes(identifier)
   ) {
-    return item.price;
+    // Warning: Price can be null on Custom Amount Giftcard
+    const price = item.price ?? DEFAULT_PRICE;
+    return typeof price === 'string' ? price : price.toString();
   }
 
-  return '0';
+  return DEFAULT_PRICE;
 };
 
 const ButtonAddWithWarning = withConfirm(Button, 'onClick', {
@@ -196,7 +210,6 @@ const ButtonAddWithWarning = withConfirm(Button, 'onClick', {
   ),
 });
 
-// TODO Types BuyableItem
 const InvoiceItemEditor: React.FC<Props> = ({
   onAddBuyableItem,
   availableBuyableItems,
@@ -209,18 +222,23 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const { t } = useTranslation('invoice');
 
   const [buyableItemIdentifier, setBuyableItemIdentifier] =
-    useState(BUYABLE_ITEM_PASS);
+    useState<BuyableItemIdentifier>(BUYABLE_ITEM_PASS);
 
   const [buyableItemId, setBuyableItemId] = useState<number | null>(null);
 
   /**
-   * buyableItem is an optional parameter that is used in the scope of the new webshop
-   * It is used to send the information given by the selected ObjectSearchComponent
-   * to the parent component as long as this component doesn't rely on the redux store
-   * TODO: Add all buyable items type in the state type and remove the unpaginated call
+   * selectedBuyableItem tracks the selected item, which can be:
+   * - either a New Webshop item retrieved from ObjectSearchComponent (no store in redux)
+   * - or an item from the redux store for other buyables kinds
+   * It's the source of truth for all manipulations afterwards, including:
+   * - retrieving the base price
+   * - adding the item to the invoice
+   *
+   * @todo Add all buyable items type in the state type and remove the unpaginated call
    */
-  const [selectedBuyableItem, setSelectedBuyableItem] =
-    useState<ShopItem | null>(null);
+  const [selectedBuyableItem, setSelectedBuyableItem] = useState<
+    ShopItem | BuyableItemTypes | null | undefined
+  >(null);
 
   const [quantity, setQuantity] = useState(1);
 
@@ -230,23 +248,23 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const [voucherReason, setVoucherReason] = useState<string | null>(null);
   const [voucherReasonErrors, setVoucherReasonErrors] = useState(false);
 
-  const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
+  const [warnManagerOnInvoice, setWarnManagerOnInvoice] = useState(false);
 
   const isBuyableShopItemFromNewWebshop =
     buyableItemIdentifier === BUYABLE_ITEM_SHOP_ITEM && displayNewWebshop;
 
-  const buyableItemPrice: string = useMemo(() => {
-    // @ts-expect-error
-    const currentItem = availableBuyableItems[buyableItemIdentifier].find(
-      // @ts-expect-error
-      (buyableItem) => buyableItem.id === buyableItemId,
-    );
-    return currentItem?.price || '0';
-  }, [availableBuyableItems, buyableItemId, buyableItemIdentifier]);
-
   const [finalPricePreview, setFinalPricePreview] = useState<string | null>(
     null,
   );
+
+  const selectedBuyablePrice: number = useMemo(() => {
+    if (!selectedBuyableItem) {
+      return parseFloat(DEFAULT_PRICE);
+    }
+
+    const price = getPriceForItem(selectedBuyableItem, buyableItemIdentifier);
+    return parseFloat(price);
+  }, [buyableItemIdentifier, selectedBuyableItem]);
 
   const handleChangeTab = useCallback(
     (_: React.SyntheticEvent, value: string) => {
@@ -258,7 +276,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
       setErrors(false);
       setVoucherReasonErrors(false);
       setFinalPricePreview(null);
-      setBuyableItemIdentifier(parseInt(value, 10));
+      setBuyableItemIdentifier(parseInt(value, 10) as BuyableItemIdentifier);
     },
     [],
   );
@@ -271,17 +289,22 @@ const InvoiceItemEditor: React.FC<Props> = ({
       setVoucherReasonErrors(false);
       setErrors(false);
       setBuyableItemId(item_id);
-      if (isBuyableShopItemFromNewWebshop) {
-        setSelectedBuyableItem(newSelectedBuyableItem);
-        setFinalPricePreview(newSelectedBuyableItem?.price || '0.00');
-      } else {
-        setFinalPricePreview(
-          // @ts-expect-error
-          availableBuyableItems[buyableItemIdentifier].find(
-            // @ts-expect-error
-            (buyableItem) => buyableItem.id === item_id,
-          )?.price || '0.00',
+
+      const selectedBuyable = isBuyableShopItemFromNewWebshop
+        ? newSelectedBuyableItem
+        : availableBuyableItems[buyableItemIdentifier].find(
+            (buyableItem: BuyableItemTypes) => buyableItem.id === item_id,
+          );
+      setSelectedBuyableItem(selectedBuyable);
+
+      if (selectedBuyable) {
+        const initialFinalPrice = getPriceForItem(
+          selectedBuyable,
+          buyableItemIdentifier,
         );
+        setFinalPricePreview(initialFinalPrice || DEFAULT_PRICE);
+      } else {
+        setFinalPricePreview(DEFAULT_PRICE);
       }
     },
     [
@@ -300,7 +323,8 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const shouldEnterCustomDiscountReason = useMemo(() => {
     return (
-      (parseFloat(voucher) > 0 || parseFloat(voucherPercent) > 0) &&
+      (parseFloat(voucher ?? DEFAULT_PRICE) > 0 ||
+        parseFloat(voucherPercent ?? DEFAULT_PERCENT) > 0) &&
       isCustomDiscountReasonRequired
     );
   }, [voucher, voucherPercent, isCustomDiscountReasonRequired]);
@@ -308,45 +332,38 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const onClickAddInvoiceItem = useCallback(() => {
     if (!voucherReason && shouldEnterCustomDiscountReason) {
       setVoucherReasonErrors(true);
-    } else {
-      /**
-       * For the new webshop, we use the selectedBuyableItem to add the item to the basket
-       * The shopItem aren't stored anymore in the redux store so we need to use the selectedBuyableItem state
-       * TODO: Get rid of the availableBuyableItems variable and use the selectedBuyableItem state for all tabs
-       */
-      const buyableItem = isBuyableShopItemFromNewWebshop
-        ? selectedBuyableItem
-        : // @ts-expect-error
-          availableBuyableItems[buyableItemIdentifier].find(
-            // @ts-expect-error
-            (bi) => bi.id === buyableItemId,
-          );
-      setVoucherReasonErrors(false);
+      return;
+    }
 
-      for (let i = 0; i < quantity; i++) {
-        onAddBuyableItem(buyableItemIdentifier, {
-          ...buyableItem,
-          buyable_item_id: buyableItem.id,
-          // Price can be null for giftcard
-          price:
-            buyableItem.price !== null && buyableItem.price !== undefined
-              ? parseFloat(buyableItem.price).toFixed(2)
-              : '0.00',
-          hasCustomPrice: !buyableItem.price,
-          voucher: parseFloat(voucher || '0.00').toFixed(2),
-          voucher_reason: voucherReason || '',
-        });
-      }
+    if (!selectedBuyableItem) {
+      return;
+    }
+
+    setVoucherReasonErrors(false);
+
+    const finalBuyableItem = {
+      ...selectedBuyableItem,
+      buyable_item_id: selectedBuyableItem.id,
+      price: selectedBuyablePrice.toFixed(2),
+      // Price can be null for giftcard, but since selectedBuyablePrice is sanitized
+      // We need to detect hasCustomPrice from the root item
+      hasCustomPrice: !selectedBuyableItem.price,
+      voucher: parseFloat(voucher || DEFAULT_PRICE).toFixed(2),
+      voucher_reason: voucherReason || '',
+    };
+    for (let i = 0; i < quantity; i++) {
+      onAddBuyableItem(
+        buyableItemIdentifier,
+        finalBuyableItem as BuyableItemAugmented,
+      );
     }
   }, [
     voucherReason,
     buyableItemIdentifier,
-    buyableItemId,
     voucher,
     onAddBuyableItem,
-    isBuyableShopItemFromNewWebshop,
     selectedBuyableItem,
-    availableBuyableItems,
+    selectedBuyablePrice,
     shouldEnterCustomDiscountReason,
     quantity,
   ]);
@@ -354,101 +371,55 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const onChangeVoucherCredit = useCallback(
     (value: string) => {
       setVoucher(value);
-      setErrors(
-        parseFloat(value) < 0 ||
-          (buyableItemId
-            ? parseFloat(buyableItemPrice) < parseFloat(value)
-            : false),
-      );
-      if (
-        buyableItemIdentifier &&
-        buyableItemId !== null &&
-        // @ts-expect-error
-        availableBuyableItems[buyableItemIdentifier]
-      ) {
-        // @ts-expect-error
-        const item = availableBuyableItems[buyableItemIdentifier].find(
-          // @ts-expect-error
-          (b) => b.id === buyableItemId,
-        );
 
-        if (item) {
-          const price = getPriceForItem(item, buyableItemIdentifier);
-          const priceNumber = parseFloat(price);
-          const percent = priceNumber
-            ? ((parseFloat(value) / priceNumber) * 100).toFixed(2)
-            : '0,00';
-          setVoucherPercent(percent);
-          setFinalPricePreview((priceNumber - parseFloat(value)).toFixed(2));
-        }
-      }
+      const parsedValue = parseFloat(value);
+      setErrors(parsedValue < 0 || selectedBuyablePrice < parsedValue);
+
+      // Infer Discount percent based on the new Discount credit
+      const percent =
+        selectedBuyablePrice > 0
+          ? ((parsedValue / selectedBuyablePrice) * 100).toFixed(2)
+          : DEFAULT_PRICE;
+      setVoucherPercent(percent);
+
+      setFinalPricePreview(
+        (selectedBuyablePrice - parseFloat(value)).toFixed(2),
+      );
     },
-    [
-      buyableItemIdentifier,
-      buyableItemId,
-      availableBuyableItems,
-      buyableItemPrice,
-    ],
+    [selectedBuyablePrice],
   );
 
   const handleOnChangeVoucherCredit = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      onChangeVoucherCredit(event.target.value || '0,00');
+      onChangeVoucherCredit(event.target.value || DEFAULT_PRICE);
     },
     [onChangeVoucherCredit],
   );
 
   const handleOnBlurVoucherCredit = useCallback(() => {
-    // Depending on how you change the state, prevState and toFixed might not exist
-    setVoucher((prevState) => parseFloat(prevState).toFixed(2));
+    setVoucher((prevState) =>
+      parseFloat(prevState ?? DEFAULT_PRICE).toFixed(2),
+    );
   }, []);
 
   const onChangeVoucherPercent = useCallback(
     (percent: string) => {
       setVoucherPercent(percent);
 
-      if (
-        buyableItemIdentifier &&
-        buyableItemId !== null &&
-        // @ts-expect-error
-        availableBuyableItems[buyableItemIdentifier]
-      ) {
-        // @ts-expect-error
-        const item = availableBuyableItems[buyableItemIdentifier].find(
-          // @ts-expect-error
-          (b) => b.id === buyableItemId,
-        );
+      // Infer Discount credit based on the new Discount percent
+      const newVoucher = (selectedBuyablePrice * parseFloat(percent)) / 100;
+      setVoucher(newVoucher.toFixed(2));
 
-        if (item) {
-          const price = getPriceForItem(item, buyableItemIdentifier);
-          const priceNumber = parseFloat(price);
-          const newVoucher = (
-            (priceNumber * parseFloat(percent)) /
-            100
-          ).toFixed(2);
-          const floatVoucher = parseFloat(newVoucher);
-          setVoucher(newVoucher);
-          setErrors(
-            floatVoucher < 0 ||
-              (buyableItemId
-                ? parseFloat(buyableItemPrice) < floatVoucher
-                : false),
-          );
-          setFinalPricePreview((parseFloat(price) - floatVoucher).toFixed(2));
-        }
-      }
+      setErrors(newVoucher < 0 || selectedBuyablePrice < newVoucher);
+
+      setFinalPricePreview((selectedBuyablePrice - newVoucher).toFixed(2));
     },
-    [
-      buyableItemIdentifier,
-      buyableItemId,
-      buyableItemPrice,
-      availableBuyableItems,
-    ],
+    [selectedBuyablePrice],
   );
 
   const handleOnChangeVoucherPercent = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      onChangeVoucherPercent(event.target.value || '0.00');
+      onChangeVoucherPercent(event.target.value || DEFAULT_PERCENT);
     },
     [onChangeVoucherPercent],
   );
@@ -465,53 +436,32 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const handleOnChangeFinalPricePreview = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const pricePreview = event.target.value;
-      const pricePreviewNumber = parseFloat(pricePreview) || 0;
-      const roundedPricePreviewNumber = parseFloat(
-        pricePreviewNumber.toFixed(2),
-      );
       setFinalPricePreview(pricePreview);
 
-      if (
-        buyableItemIdentifier &&
-        buyableItemId !== null &&
-        // @ts-expect-error
-        availableBuyableItems[buyableItemIdentifier]
-      ) {
-        // @ts-expect-error
-        const item = availableBuyableItems[buyableItemIdentifier].find(
-          // @ts-expect-error
-          (b) => b.id === buyableItemId,
-        );
-        if (item) {
-          const itemPrice = getPriceForItem(item, buyableItemIdentifier);
-          const priceNumber = parseFloat(itemPrice);
-          const newPercent = priceNumber
-            ? parseFloat(
-                ((1 - roundedPricePreviewNumber / priceNumber) * 100).toFixed(
-                  2,
-                ),
-              )
-            : 0;
-          const newVoucher = parseFloat(
-            (priceNumber - roundedPricePreviewNumber).toFixed(2),
-          );
-          setVoucher(newVoucher.toFixed(2));
-          setErrors(
-            newVoucher < 0 ||
-              (buyableItemId
-                ? parseFloat(buyableItemPrice) < newVoucher
-                : false),
-          );
-          setVoucherPercent(newPercent.toFixed(2));
-        }
-      }
+      const roundedPricePreviewNumber = parseFloat(
+        (parseFloat(pricePreview) || 0).toFixed(2),
+      );
+
+      const newPercent = selectedBuyablePrice
+        ? (
+            ((selectedBuyablePrice - roundedPricePreviewNumber) /
+              selectedBuyablePrice) *
+            100
+          ).toFixed(2)
+        : DEFAULT_PERCENT;
+
+      const newVoucher = (
+        selectedBuyablePrice - roundedPricePreviewNumber
+      ).toFixed(2);
+
+      setVoucherPercent(newPercent);
+      setVoucher(newVoucher);
+      setErrors(
+        parseFloat(newVoucher) < 0 ||
+          parseFloat(newVoucher) > selectedBuyablePrice,
+      );
     },
-    [
-      buyableItemIdentifier,
-      buyableItemId,
-      buyableItemPrice,
-      availableBuyableItems,
-    ],
+    [selectedBuyablePrice],
   );
 
   const handleEnterKey = useCallback(
@@ -525,27 +475,27 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const handleFinalPricePreviewOnBlur = useCallback(() => {
     // Depending on how you change the state, prevState and toFixed might not exist
-    setFinalPricePreview((prevState) => parseFloat(prevState).toFixed(2));
+    setFinalPricePreview((prevState) =>
+      parseFloat(prevState ?? DEFAULT_PRICE).toFixed(2),
+    );
   }, []);
 
   React.useEffect(() => {
     if (!buyableItemId || !buyableItemIdentifier || !member) {
       return setWarnManagerOnInvoice(false);
     }
-    // @ts-expect-error
-    const item = availableBuyableItems[buyableItemIdentifier].find(
-      // @ts-expect-error
-      (bi) => bi.id === buyableItemId,
-    );
 
     if (buyableItemIdentifier === BUYABLE_ITEM_PASS) {
       return setWarnManagerOnInvoice(
-        // @ts-expect-error
-        paymentPackTagsAndMemberTagsCompatibilty(item, member?.tags),
+        paymentPackTagsAndMemberTagsCompatibilty(
+          selectedBuyableItem as PaymentPack,
+          // @ts-expect-error
+          member?.tags,
+        ),
       );
     }
     return setWarnManagerOnInvoice(false);
-  }, [buyableItemIdentifier, availableBuyableItems, member, buyableItemId]);
+  }, [buyableItemIdentifier, selectedBuyableItem, member, buyableItemId]);
 
   return (
     <div>
@@ -604,7 +554,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                 // @ts-expect-error
                 member={member}
                 onSelect={handleSelectBuyableItem}
-                value={buyableItemId}
+                value={buyableItemId ?? undefined}
               />
               <div className={classes.numericInputRow}>
                 <NumericInput
@@ -633,7 +583,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                       error={errors}
                       InputProps={{
                         inputProps: {
-                          max: buyableItemPrice,
+                          max: selectedBuyablePrice ?? 0,
                           min: 0,
                           step: 1,
                         },
@@ -649,7 +599,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                       onBlur={handleOnBlurVoucherCredit}
                       onChange={handleOnChangeVoucherCredit}
                       // @ts-expect-error it needs to be a string (for the decimals)
-                      value={voucher === null ? '0.00' : voucher}
+                      value={voucher === null ? DEFAULT_PRICE : voucher}
                       variant="outlined"
                     />
                     <div className={classes.fieldDiscountWrapper}>
@@ -671,7 +621,9 @@ const InvoiceItemEditor: React.FC<Props> = ({
                         onChange={handleOnChangeVoucherPercent}
                         // @ts-expect-error it needs to be a string (for the decimals)
                         value={
-                          voucherPercent === null ? '0.00' : voucherPercent
+                          voucherPercent === null
+                            ? DEFAULT_PERCENT
+                            : voucherPercent
                         }
                         variant="outlined"
                       />
@@ -701,7 +653,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                         InputProps={{
                           inputProps: {
                             min: 0,
-                            max: buyableItemPrice,
+                            max: selectedBuyablePrice ?? 0,
                             step: 1,
                           },
                           startAdornment: (
@@ -716,7 +668,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                         // @ts-expect-error it needs to be a string (for the decimals)
                         value={
                           finalPricePreview === null
-                            ? '0.00'
+                            ? DEFAULT_PRICE
                             : finalPricePreview
                         }
                         variant="outlined"
@@ -728,7 +680,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
             </div>
             <div>
               <Divider className={classes.divider} />
-              {!warnMamangerOnInvoice ? (
+              {!warnManagerOnInvoice ? (
                 <Button
                   color="primary"
                   disabled={!buyableItemId || errors}

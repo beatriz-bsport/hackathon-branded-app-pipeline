@@ -14,6 +14,18 @@ import type { UserRoleData } from '#src/libs/role/types';
 import type { ErrorAndLoading } from '#src/libs/types';
 import type { Payment } from '#src/libs/payment/types';
 import type { OptionCallback } from '#src/state/types';
+import type { ShopItem } from '#src/libs/shop/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
+  BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_COMBO_ITEM,
+  BUYABLE_ITEM_GIFTCARD,
+} from '@bsport/common/lib/master-data/buyable-items.js';
 
 export type InvoiceState = ErrorAndLoading & {
   byId: { [key: string]: Invoice };
@@ -452,3 +464,16 @@ export type ManuallySendInvoiceToSignEsCallback = (
   invoice_uuid: string,
   options?: OptionCallback<FiskalySignEsInvoiceDetails>,
 ) => void;
+
+export type AvailableBuyableItemTypes = {
+  [BUYABLE_ITEM_GIFTCARD]: Giftcard[];
+  [BUYABLE_ITEM_PASS]: PaymentPack[];
+  [BUYABLE_ITEM_PRIVATE_PASS]: PrivatePass[];
+  [BUYABLE_ITEM_COMBO_ITEM]: PaymentCombo[];
+  [BUYABLE_ITEM_SHOP_ITEM]: ShopItem[];
+};
+
+export type BuyableItemIdentifier = keyof AvailableBuyableItemTypes;
+
+export type BuyableItemTypes =
+  AvailableBuyableItemTypes[BuyableItemIdentifier][number];

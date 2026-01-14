@@ -159,6 +159,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "file-loader": "6.2.0",
     "gh-pages": "2.0.1",
+    "http-proxy": "^1.18.1",
     "husky": "^6.0.0",
     "javascript-obfuscator": "^4.1.0",
     "jest": "24.8.0",

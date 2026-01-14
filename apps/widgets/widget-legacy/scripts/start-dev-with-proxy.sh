@@ -38,13 +38,6 @@ if [ ! -d "$WIDGET_DEBUGGER_DIR" ]; then
     exit 1
 fi
 
-# Check if http-proxy is installed
-if ! node -e "require('http-proxy')" 2>/dev/null; then
-    echo "📦 Installing http-proxy..."
-    cd "$WIDGET_DIR"
-    npm install --save-dev http-proxy
-fi
-
 # Cleanup function
 cleanup() {
     echo ""

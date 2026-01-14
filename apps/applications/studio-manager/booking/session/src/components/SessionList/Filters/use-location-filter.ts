@@ -67,8 +67,10 @@ export const useLocationFilter = (): UseFilterConfigResult => {
     !!establishmentGroups &&
     establishmentGroups.length !== 0;
 
+  const hasPersistedLocationsFilter = persistedLocationIds.length > 0;
+
   return {
-    shouldDisplayFilter: hasMultiLocation,
+    shouldDisplayFilter: hasMultiLocation || hasPersistedLocationsFilter,
     filterConfig: {
       id: SessionFilterTypes.LOCATION,
       label: t("table.filters.location.label"),

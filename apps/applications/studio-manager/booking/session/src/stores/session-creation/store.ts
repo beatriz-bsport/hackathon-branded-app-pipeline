@@ -65,6 +65,8 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   })(),
   level: DEFAULT_LEVEL_ID,
   is_hybrid: false,
+  coach: null,
+  coach_payment_rule: null,
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};

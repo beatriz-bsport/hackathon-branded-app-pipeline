@@ -1127,6 +1127,9 @@ importers:
       '@bsport/api-core':
         specifier: workspace:*
         version: link:../../../../../packages/api/core
+      '@bsport/api-financial-services':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/financial-services
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting
@@ -2823,6 +2826,16 @@ importers:
         version: link:../../../tools/config/eslint-react
 
   packages/api/core:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../stores/base
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
+  packages/api/financial-services:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*

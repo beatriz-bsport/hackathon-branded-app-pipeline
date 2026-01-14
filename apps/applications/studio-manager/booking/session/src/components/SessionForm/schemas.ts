@@ -87,7 +87,18 @@ export const useSessionSchema = () => {
       recurrenceEndDate: z.date().nullable(),
       level: z.number().int(),
       is_hybrid: z.boolean(),
+      coach: z.number().nullable(),
+      coach_payment_rule: z.number().nullable(),
     })
+    .refine(
+      (data) => {
+        return data.coach !== null;
+      },
+      {
+        message: t("addSessionModal.errors.requiredField"),
+        path: ["coach"],
+      },
+    )
     .refine(
       (data) => {
         if (!data.isRecurring) return true;

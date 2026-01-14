@@ -23,7 +23,7 @@ export const SessionTimeAndDate: FC<{
 
       <SessionDuration fieldIdPrefix={fieldIdPrefix} />
       <SessionRecurrence fieldIdPrefix={fieldIdPrefix} />
-      <Divider orientation="horizontal" weight="thin" className="my-md" />
+      <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>
   );
 };

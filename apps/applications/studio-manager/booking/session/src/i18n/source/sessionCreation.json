@@ -96,6 +96,26 @@
           "hybrid": {
             "label": "This session is hybrid (both on-site and online)",
             "info": "Choosing this option will create an online session with a member limit of 100. Once it's created, you'll be able to edit the Broadcast link, membership, price, etc."
+          },
+          "teacherAndEstablishment": {
+            "title": "Teacher and establishment",
+            "teacher": {
+              "label": "Teacher",
+              "placeholder": "Add a teacher..."
+            },
+            "payroll": {
+              "label": "Payroll rule",
+              "placeholder": "Choose a rule..."
+            },
+            "establishment": {
+              "label": "Establishment",
+              "placeholder": "Choose an establishment..."
+            },
+            "spotScheduling": {
+              "label": "Spot scheduling",
+              "placeholder": "Choose an option...",
+              "helper": "Allow your students to book a spot in the room in advance"
+            }
           }
         },
         "timeAndDate": {

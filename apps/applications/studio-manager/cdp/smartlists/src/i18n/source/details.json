@@ -40,7 +40,7 @@
         "description": "Any members who haven't received this message yet won't receive it.",
         "buttons": {
           "delete": "Delete",
-          "cancel": "Cancel"
+          "cancel": "Keep"
         }
       },
       "toasts": {

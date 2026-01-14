@@ -1,6 +1,6 @@
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import type { StorybookConfig } from "@storybook/react-vite";
-import { readdirSync, statSync } from "fs";
+import { existsSync, readdirSync, statSync } from "fs";
 import { join, resolve } from "path";
 import tailwindcss from "tailwindcss";
 import { fileURLToPath } from "url";
@@ -59,17 +59,78 @@ const config: StorybookConfig = {
     disableTelemetry: true,
   },
 
-  viteFinal: async (config) =>
-    mergeConfig(config, {
-      plugins: [svgr(), nxViteTsPaths()],
+  viteFinal: async (config) => {
+    // Set environment variable for business-components i18n
+    config.define = {
+      ...config.define,
+      "import.meta.env.VITE_I18N_NAMESPACE_PREFIX": JSON.stringify(
+        "kaizen-business-financial-services",
+      ),
+    };
+
+    // Resolve #src for business-components files
+    const resolveBusinessComponentsSrc = () => ({
+      name: "resolve-business-components-src",
+      enforce: "pre",
+      resolveId(id: string, importer?: string) {
+        if (!id.startsWith("#src/") || !importer) return null;
+
+        const normalizedImporter = importer.replace(/\\/g, "/");
+
+        // Handle business-components package
+        const businessMatch = normalizedImporter.match(
+          /business-components\/([^/]+)\//,
+        );
+        if (businessMatch) {
+          const packageName = businessMatch[1];
+          const packageSrc = join(businessComponentsDir, packageName, "src");
+          const resolved = join(packageSrc, id.replace("#src/", ""));
+          for (const ext of [".ts", ".tsx"]) {
+            const withExt = resolved + ext;
+            if (existsSync(withExt)) {
+              return withExt;
+            }
+          }
+          if (existsSync(resolved)) {
+            for (const index of ["index.ts", "index.tsx"]) {
+              const indexPath = join(resolved, index);
+              if (existsSync(indexPath)) {
+                return indexPath;
+              }
+            }
+          }
+          return null;
+        }
+
+        // Handle primitive/core
+        if (normalizedImporter.includes("primitive/core")) {
+          const resolved = join(coreSrcDir, id.replace("#src/", ""));
+          for (const ext of [".ts", ".tsx"]) {
+            const withExt = resolved + ext;
+            if (existsSync(withExt)) {
+              return withExt;
+            }
+          }
+          if (existsSync(resolved)) {
+            for (const index of ["index.ts", "index.tsx"]) {
+              const indexPath = join(resolved, index);
+              if (existsSync(indexPath)) {
+                return indexPath;
+              }
+            }
+          }
+          return null;
+        }
+
+        return null;
+      },
+    });
+
+    return mergeConfig(config, {
+      plugins: [svgr(), nxViteTsPaths(), resolveBusinessComponentsSrc()],
       css: {
         postcss: {
           plugins: [tailwindcss()],
-        },
-      },
-      resolve: {
-        alias: {
-          "#src": coreSrcDir,
         },
       },
       optimizeDeps: {
@@ -92,7 +153,8 @@ const config: StorybookConfig = {
       esbuild: {
         jsx: "automatic",
       },
-    }),
+    });
+  },
 
   docs: {},
 

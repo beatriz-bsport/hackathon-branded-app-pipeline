@@ -1,6 +1,6 @@
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import type { StorybookConfig } from "@storybook/react-vite";
-import { readdirSync, statSync } from "fs";
+import { existsSync, readdirSync, statSync } from "fs";
 import { join } from "path";
 import tailwindcss from "tailwindcss";
 import { fileURLToPath } from "url";
@@ -55,13 +55,78 @@ const config: StorybookConfig = {
       config.server = config.server || {};
       config.server.port = 6007;
     }
+
+    // Custom plugin to resolve #src aliases dynamically based on importing file location
+    const resolveSrcAliasPlugin = () => {
+      return {
+        name: "resolve-src-alias",
+        enforce: "pre",
+        resolveId(id: string, importer?: string) {
+          if (!id.startsWith("#src/") || !importer) return null;
+
+          // Find which business component package this import is from
+          const importerPath = importer.replace(/\\/g, "/");
+          const match = importerPath.match(
+            /business-components\/([^/]+)\/src\//,
+          );
+          if (!match) return null;
+
+          const packageName = match[1];
+          const packageSrcDir = join(businessComponentsDir, packageName, "src");
+          const relativePath = id.replace("#src/", "");
+          const resolvedPath = join(packageSrcDir, relativePath);
+
+          // Handle directory imports (e.g., #src/components/I18nProvider -> #src/components/I18nProvider/index.tsx)
+          if (existsSync(resolvedPath)) {
+            const stat = statSync(resolvedPath);
+            if (stat.isDirectory()) {
+              const indexFiles = ["index.tsx", "index.ts"];
+              for (const indexFile of indexFiles) {
+                const indexPath = join(resolvedPath, indexFile);
+                if (existsSync(indexPath)) {
+                  return indexPath;
+                }
+              }
+            }
+            return resolvedPath;
+          }
+
+          const extensions = [".tsx", ".ts"];
+          for (const ext of extensions) {
+            const withExt = resolvedPath + ext;
+            if (existsSync(withExt)) {
+              return withExt;
+            }
+          }
+
+          return null;
+        },
+      };
+    };
+
     return mergeConfig(config, {
-      plugins: [svgr(), nxViteTsPaths()],
+      plugins: [svgr(), nxViteTsPaths(), resolveSrcAliasPlugin()],
       css: {
         postcss: {
-          plugins: [tailwindcss()],
+          plugins: [
+            tailwindcss({
+              config: join(currentDir, "tailwind.config.js"),
+            }),
+          ],
         },
       },
+      optimizeDeps: {
+        include: [
+          ...(config.optimizeDeps?.include || []),
+          "react",
+          "react-dom",
+          "react/jsx-runtime",
+          "react/jsx-dev-runtime",
+        ],
+        esbuildOptions: { jsx: "automatic" },
+      },
+      build: { commonjsOptions: { include: [/node_modules/] } },
+      esbuild: { jsx: "automatic" },
     });
   },
 

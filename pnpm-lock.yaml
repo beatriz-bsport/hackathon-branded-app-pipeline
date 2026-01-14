@@ -2932,10 +2932,16 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+      zod:
+        specifier: ^3.25.64
+        version: 3.25.67
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../tools/config/eslint-react
+      '@bsport/form':
+        specifier: workspace:*
+        version: link:../../../../utils/form
       '@bsport/kaizen-tokens':
         specifier: workspace:*
         version: link:../../tokens
@@ -35546,9 +35552,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

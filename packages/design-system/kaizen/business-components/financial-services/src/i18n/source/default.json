@@ -1,1 +1,6 @@
-{}
+{
+  "billingFlowModal": {
+    "title": "Create invoice",
+    "cancel": "Cancel"
+  }
+}

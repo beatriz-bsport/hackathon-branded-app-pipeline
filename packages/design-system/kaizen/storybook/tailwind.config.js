@@ -81,7 +81,7 @@ export default {
   },
   content: [
     "../primitive/core/src/**/*.{js,ts,jsx,tsx}",
-    "../business-components/**/src/**/*.{js,ts,jsx,tsx}",
+    "../business-components/*/src/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: "selector",
   plugins: [

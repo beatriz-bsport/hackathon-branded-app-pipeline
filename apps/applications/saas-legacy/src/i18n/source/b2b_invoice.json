@@ -105,7 +105,7 @@
       "previousInvoiceTitle": "Last invoice number from previous month: <0>{{invoiceNumber}}</0>",
       "viewInvoiceDetails": "View invoice details",
       "startingNumberHint": "Your starting number should be: <0>{{startingNumber}}</0> (next in sequence)",
-      "renamingStartDate": "Renaming start date",
+      "renamingStartDate": "Start date",
       "startingNumber": "Starting number",
       "invoiceNumberingFormat": "Invoice numbering format",
       "numberingExplanation": "Each new invoice will be automatically sequenced by 1. For example, if you start at 1, your invoices will be numbered 000001, 000002, 000003, and so on.",

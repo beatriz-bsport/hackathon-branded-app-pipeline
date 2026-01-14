@@ -2719,6 +2719,9 @@ importers:
       gh-pages:
         specifier: 2.0.1
         version: 2.0.1
+      http-proxy:
+        specifier: ^1.18.1
+        version: 1.18.1(debug@4.4.1)
       husky:
         specifier: ^6.0.0
         version: 6.0.0
@@ -15148,6 +15151,7 @@ packages:
 
   json-ptr@3.1.1:
     resolution: {integrity: sha512-SiSJQ805W1sDUCD1+/t1/1BIrveq2Fe9HJqENxZmMCILmrPI7WhS/pePpIOx85v6/H2z1Vy7AI08GV2TzfXocg==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   json-schema-traverse@0.3.1:
     resolution: {integrity: sha512-4JD/Ivzg7PoW8NzdrBSr3UFwC9mHgvI7Z6z3QGBsSHgKaRTUDmyZAAKJo2UbG1kUVfS9WS8bi36N49U1xw43DA==}

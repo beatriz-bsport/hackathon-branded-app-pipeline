@@ -129,7 +129,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     (
       date: DateTime,
       offersByDay: { [key: string]: Array<Offer> },
-      startWeekOnDaySelected,
+      startWeekOnDaySelected: boolean,
     ) => {
       const morning: Array<Array<Offer>> = [];
       const afternoon: Array<Array<Offer>> = [];
@@ -411,7 +411,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const periodOffers = this.getOffersByPeriod(
       date,
       offersByDay,
-      this.props.startWeekOnDaySelected,
+      !!this.props.startWeekOnDaySelected,
     );
     const start_date = this.props.startWeekOnDaySelected
       ? date

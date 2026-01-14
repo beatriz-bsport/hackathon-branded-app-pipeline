@@ -6,6 +6,8 @@ import { SubscriptionEventForm } from "#src/components/MarketingNotificationEdit
 import { PAYMENT_PACK_TYPE, PRIVATE_PASS_TYPE } from "#src/utils/schemas/types";
 import { NOTIFICATION_TYPE_TO_REFINED_TYPE } from "#src/utils/types";
 
+import { BirthdayEventForm } from "./Birthday/BirthdayEventForm";
+
 export const TriggerConditionStep = () => {
   const { formData } = useFormStepContext();
   const notificationType = formData.triggerType?.notificationType;
@@ -19,6 +21,10 @@ export const TriggerConditionStep = () => {
     notificationType === PAYMENT_PACK_TYPE
   ) {
     return <PassEventForm itemIds={itemIds} passType={notificationType} />;
+  }
+
+  if (notificationType === "birthday") {
+    return <BirthdayEventForm />;
   }
 
   if (notificationType === "subscription") {

@@ -1,16 +1,7 @@
 import { useEffect } from "react";
 
 import {
-  fetchMarketingNotificationsAction,
-  selectMarketingNotificationList,
-  useMarketingNotificationStore,
-} from "@bsport/store-cdp-marketing-notification";
-import { useAsync } from "@bsport/use-async";
-
-import { useFetchMarketingNotificationDependencies } from "#src/hooks/api/use-fetch-marketing-notification-dependencies";
-import { fetch } from "#src/utils/fetch";
-import { extractAllNotificationIds } from "#src/utils/notificationMetadata";
-import {
+  BIRTHDAY_NOTIFICATION,
   BOOKING_CREATION_NOTIFICATION,
   CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
   CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
@@ -20,7 +11,15 @@ import {
   SUBSCRIPTION_NOTIFICATION_CREATION,
   SUBSCRIPTION_NOTIFICATION_END,
   SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
-} from "#src/utils/types";
+  fetchMarketingNotificationsAction,
+  selectMarketingNotificationList,
+  useMarketingNotificationStore,
+} from "@bsport/store-cdp-marketing-notification";
+import { useAsync } from "@bsport/use-async";
+
+import { useFetchMarketingNotificationDependencies } from "#src/hooks/api/use-fetch-marketing-notification-dependencies";
+import { fetch } from "#src/utils/fetch";
+import { extractAllNotificationIds } from "#src/utils/notificationMetadata";
 
 const fetchMarketingNotificationListBound =
   fetchMarketingNotificationsAction.bind(null, fetch);
@@ -80,6 +79,7 @@ export function useFetchMarketingNotificationList() {
   useEffect(() => {
     fetchMarketingNotificationList({
       kind__in: [
+        BIRTHDAY_NOTIFICATION,
         PRIVATE_BOOKING_CREATION_NOTIFICATION,
         BOOKING_CREATION_NOTIFICATION,
         CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,

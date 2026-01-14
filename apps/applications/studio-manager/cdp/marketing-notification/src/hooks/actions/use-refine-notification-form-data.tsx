@@ -202,7 +202,10 @@ export const useRefineNotificationFormData = () => {
     ) {
       return getPassesEventRules({ triggerType, triggerCondition });
     }
-    return 0; // Birthday
+    return {
+      smartlist_exclude: triggerCondition.excludedSmartlists,
+      smartlist_include: triggerCondition.includedSmartlists,
+    };
   };
 
   return { getTriggerConditionKind, getTriggerEventRules };

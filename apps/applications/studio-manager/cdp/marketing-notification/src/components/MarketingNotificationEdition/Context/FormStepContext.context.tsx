@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 
 import type {
   BookingTriggerConfigValidationFormData,
+  CommonTriggerConfigValidationFormData,
   NotificationContentFormData,
   PassTriggerConfigValidationFormData,
   PassesType,
@@ -31,7 +32,7 @@ export type PassTriggerCondition = {
 
 export type BirthdayTriggerCondition = {
   type: "birthday";
-};
+} & CommonTriggerConfigValidationFormData;
 
 export type TriggerConditionStepProps =
   | BookingTriggerCondition

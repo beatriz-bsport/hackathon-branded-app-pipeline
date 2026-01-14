@@ -71,6 +71,17 @@ type BaseAutocompleteProps = Omit<
   hideChips?: boolean;
   /** Whether to display selected items in the base items list, as they are grouped in a "Selected" section */
   showSelectedItemsInBase?: boolean;
+  /**
+   * Whether to provide a custom logic for toggling items (select or unselect).
+   * Should return the final array of ids to keep. If single choice, ensure the length of the array is 1 or 0.
+   * */
+  onToggleItem?: ({
+    prev,
+    toggledItem,
+  }: {
+    prev: string[];
+    toggledItem: string;
+  }) => string[];
 };
 
 export type AutocompleteProps = BaseAutocompleteProps &
@@ -101,6 +112,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
   hideChips = false,
   showSelectedItemsInBase = false,
   onClear,
+  onToggleItem,
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
@@ -150,6 +162,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     mapIdToOption,
     multiSelect,
     onSelect,
+    onToggleItem,
     // Type assertion needed: onSelect signature varies based on multiSelect discriminant
   } as UseSelectedItemsProps);
 

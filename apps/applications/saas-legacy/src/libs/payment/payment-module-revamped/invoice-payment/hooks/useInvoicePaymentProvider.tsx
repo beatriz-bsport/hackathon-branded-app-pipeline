@@ -8,6 +8,7 @@ import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group.js';
 
@@ -148,6 +149,11 @@ export const useInvoicePaymentProvider = ({
     () =>
       PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_STRIPE].filter(
         (paymentMethod) => {
+          // Exclude TWINT from invoice payment methods
+          if (paymentMethod === PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT) {
+            return false;
+          }
+
           if (paymentMethodAvailableBasket) {
             return paymentMethodAvailableBasket.length
               ? paymentMethodAvailableBasket.includes(paymentMethod)

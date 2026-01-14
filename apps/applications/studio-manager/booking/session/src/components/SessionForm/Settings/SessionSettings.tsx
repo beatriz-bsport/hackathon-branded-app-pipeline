@@ -5,11 +5,14 @@ import { Alert, Divider, Title } from "@bsport/kaizen-primitive-core";
 
 import { LevelSelectorField } from "#src/components/SessionForm/level/level-selector-field";
 import { useCreditFactor } from "#src/hooks/useCreditFactor";
+import { selectSelectedGroupActivity } from "#src/stores/session-creation/selectors";
+import { useSessionCreationStore } from "#src/stores/session-creation/store";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionCapacityField } from "./SessionCapacityField";
 import { SessionCreditsField } from "./SessionCreditField";
 import { SessionPartnershipSettings } from "./SessionPartnershipSettings";
+import { BroadcastLinkField } from "./broadcast-link-field";
 import { HybridSessionField } from "./hybrid-session-field";
 
 export const SessionSettings: FC<{
@@ -22,6 +25,10 @@ export const SessionSettings: FC<{
   const { watch } = useFormContext();
 
   const { getCreditsDividedDisplay } = useCreditFactor();
+
+  const isSelectedGroupActivityBroadcast = useSessionCreationStore(
+    selectSelectedGroupActivity,
+  )?.is_broadcast;
 
   const credits = watch("credits");
 
@@ -50,7 +57,13 @@ export const SessionSettings: FC<{
         </Alert>
       )}
       <LevelSelectorField fieldIdPrefix={fieldIdPrefix} />
-      <HybridSessionField fieldIdPrefix={fieldIdPrefix} />
+
+      {!isSelectedGroupActivityBroadcast ? (
+        <HybridSessionField fieldIdPrefix={fieldIdPrefix} />
+      ) : (
+        <BroadcastLinkField fieldIdPrefix={fieldIdPrefix} />
+      )}
+
       <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>
   );

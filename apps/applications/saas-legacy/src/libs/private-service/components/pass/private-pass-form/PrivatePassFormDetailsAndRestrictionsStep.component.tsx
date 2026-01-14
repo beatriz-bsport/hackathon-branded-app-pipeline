@@ -107,7 +107,7 @@ type PrivatePassFormDetailsAndRestrictionsStepProps = {
   tagList: Array<Tag<TagGroup>>;
 };
 
-const getExcludedSlots = (
+export const getExcludedSlots = (
   ps: PrivateServiceWithSlots,
   cps: Array<CompatiblePrivateService>,
 ): number[] => {
@@ -117,7 +117,7 @@ const getExcludedSlots = (
   return ps_cps.excluded_slot_ids;
 };
 
-const getIncludedSlots = (
+export const getIncludedSlots = (
   ps: PrivateServiceWithSlots,
   cps: Array<CompatiblePrivateService>,
 ): PrivateSlot[] => {

@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 import type { BookingTemporality } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
-import { TimeUnitType } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
+import {
+  DEFAULT_TIMING_VALUE,
+  type TimeUnitType,
+} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
 
 import { i18nInstance } from "../i18n";
 import type {
@@ -28,11 +31,11 @@ export const bookingTriggerConfigValidationSchema = z
     excludedSmartlists: z.array(z.number()).optional(),
   })
   .superRefine((data, ctx) => {
-    if (data.timingValue < 1) {
+    if (data.timingValue < DEFAULT_TIMING_VALUE) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: i18nInstance.t(
-          "steps.notificationRules.errors.atLeastOneTimeValue",
+          "steps.notificationRules.errors.positiveValue",
           {
             timeUnit: data.timingUnit,
             ns: "sm-marketing-notification_marketingNotificationsModal",

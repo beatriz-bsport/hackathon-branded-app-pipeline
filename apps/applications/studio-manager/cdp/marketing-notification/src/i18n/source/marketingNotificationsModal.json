@@ -8,9 +8,26 @@
       "success": "Notification rule saved",
       "failure": "Your notification rule could not be saved"
     },
-    "edit": {
+    "update": {
       "success": "Your changes were saved",
       "failure": "Your changes could not be saved"
+    },
+    "delete": {
+      "success": "Automation deleted",
+      "failure": "Automation couldn't be deleted. Please try again. "
+    }
+  },
+  "deleteModal": {
+    "title": "Delete automation?",
+    "description": {
+      "paymentPack": "This notification will no longer be active for the associated passes.",
+      "privatePass": "This notification will no longer be active for the associated appointment passes.",
+      "other": "All notifications associated with this automation will no longer be active. ",
+      "warning": "Heads up: this action is permanent and cannot be undone. "
+    },
+    "actions": {
+      "confirm": "Delete",
+      "cancel": "Back"
     }
   },
   "steps": {
@@ -24,8 +41,8 @@
       "errors": {
         "noEmailTemplate": "Select a template",
         "tooLong": {
-          "pushNotificationTitle": "Title cannot exceed {{ count }} characters",
-          "pushNotificationContent": "Content cannot exceed {{ count }} characters"
+          "pushNotificationTitle": "Title must not be longer than {{ count }} characters",
+          "pushNotificationContent": "Content must not be longer than {{ count }} characters"
         },
         "noContent": {
           "pushNotificationTitle": "Fill in the push notification title",
@@ -46,7 +63,7 @@
       "title": "Select which trigger type will start the automation",
       "selectAllPasses": {
         "checkbox": {
-          "label": "Apply this notification for all Appointment Passes"
+          "label": "Apply this notification to all appointment passes"
         }
       },
       "notificationType": {
@@ -57,7 +74,7 @@
           "establishment": "Establishment",
           "workshop": "Workshop",
           "privateService": "Appointment",
-          "paymentPack": "Standard Pass",
+          "paymentPack": "Pass",
           "privatePass": "Appointment Pass",
           "subscription": "Subscription",
           "birthday": "Birthday"
@@ -115,8 +132,8 @@
           "loading": "Searching Smartlists..."
         },
         "errors": {
-          "notEmpty": "Select a trigger to continue",
-          "atLeastOne": "Select a trigger to continue"
+          "notEmpty": "Select an item to continue",
+          "atLeastOne": "Select an item to continue"
         }
       }
     },
@@ -124,7 +141,7 @@
       "title": "Set up an automation",
       "errors": {
         "noFloat": "Must be a whole number without decimal points",
-        "atLeastOneTimeValue": "Must be at least 1 {{ timeUnit }}",
+        "positiveValue": "Must be at least 0 {{ timeUnit }}",
         "smartlistShouldBeFilledWhenToggled": "Select a Smartlist or deactivate this option to continue"
       },
       "smartlists": {
@@ -162,8 +179,8 @@
               "after": "After the first subscription invoice"
             },
             "subscriptionEnd": {
-              "before": "Before the end of their subscription",
-              "after": "After the end of their subscription"
+              "before": "Before the end of subscription",
+              "after": "After the end of subscription"
             }
           }
         },
@@ -185,16 +202,16 @@
           },
           "subscriptionCreation": {
             "before": {
-              "hour_one": "hour before the subscription creation",
-              "hour_other": "hours before the subscription creation",
-              "day_one": "day before the subscription creation",
-              "day_other": "days before the subscription creation"
+              "hour_one": "hour before subscription creation",
+              "hour_other": "hours before subscription creation",
+              "day_one": "day before subscription creation",
+              "day_other": "days before subscription creation"
             },
             "after": {
-              "hour_one": "hour after the subscription creation",
-              "hour_other": "hours after the subscription creation",
-              "day_one": "day after the subscription creation",
-              "day_other": "days after the subscription creation"
+              "hour_one": "hour after subscription creation",
+              "hour_other": "hours after subscription creation",
+              "day_one": "day after subscription creation",
+              "day_other": "days after subscription creation"
             }
           },
           "subscriptionFirstBilling": {
@@ -213,16 +230,16 @@
           },
           "subscriptionEnd": {
             "before": {
-              "hour_one": "hour before the end of their subscription",
-              "hour_other": "hours before the end of their subscription",
-              "day_one": "day before the end of their subscription",
-              "day_other": "days before the end of their subscription"
+              "hour_one": "hour before the end of subscription",
+              "hour_other": "hours before the end of subscription",
+              "day_one": "day before the end of subscription",
+              "day_other": "days before the end of subscription"
             },
             "after": {
-              "hour_one": "hour after the end of their subscription",
-              "hour_other": "hours after the end of their subscription",
-              "day_one": "day after the end of their subscription",
-              "day_other": "days after the end of their subscription"
+              "hour_one": "hour after the end of subscription",
+              "hour_other": "hours after the end of subscription",
+              "day_one": "day after the end of subscription",
+              "day_other": "days after the end of subscription"
             }
           }
         }
@@ -314,17 +331,17 @@
         }
       },
       "subscription": {
-        "statusLabel": "Send this notification at a member's",
+        "statusLabel": "Send this notification",
         "statuses": {
           "subscriptionCreation": "The first subscription is created",
-          "subscriptionFirstBilling": "The first subscription invoice",
+          "subscriptionFirstBilling": "The first subscription is billed",
           "subscriptionEnd": "End of their subscription"
         }
       },
       "pass": {
         "name": {
           "label": "Notification name",
-          "placeholder": "Name this notification",
+          "placeholder": "Give this notification a name ",
           "required": "The name of the notification is required."
         },
         "actionLabel": "Send this notification when",
@@ -334,8 +351,8 @@
           "daysExpired": "Pass has expired"
         },
         "errors": {
-          "notEnoughDaysLeft": "Value should be greater than 0 for the numbers of days left.",
-          "notificationNameRequired": "Provide a notification name"
+          "notEnoughDaysLeft": "Value must be greater than 0 ",
+          "notificationNameRequired": "Give your notification a name to continue"
         },
         "eventOccurence": {
           "label": "Send this notification when a pass has",
@@ -348,12 +365,25 @@
             "suffix_other": "Remaining days"
           }
         },
+        "creditsLeft": {
+          "label": "Send this notification",
+          "bookingCompleted": {
+            "label": "After completing the booking",
+            "suffix_one": "hour after booking",
+            "suffix_other": "hours after booking"
+          },
+          "sessionEnd": {
+            "label": "After the end of the session",
+            "suffix_one": "hour after the end of the session",
+            "suffix_other": "hours after the end of the session"
+          }
+        },
         "includedInContract": {
           "label": "Choose when to send this notification",
           "infos": "By default, this notification is sent to all members with this pass. If you select “Skip if a pass is part of a subscription”, members who hold the pass through a subscription will not receive it.",
           "options": {
-            "everyPass": "Send to everyone with this Pass",
-            "outsideSubscription": "Skip if Pass is part of a subscription"
+            "everyPass": "Send to everyone with this pass",
+            "outsideSubscription": "Skip if pass is part of a subscription"
           }
         }
       }

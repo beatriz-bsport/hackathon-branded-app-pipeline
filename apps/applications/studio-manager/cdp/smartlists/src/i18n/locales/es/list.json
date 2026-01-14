@@ -1,1 +1,98 @@
-{}
+{
+  "title": "Smartlists",
+  "addSmartlist": "Crear Smartlist",
+  "loading": "Cargando Smartlists...",
+  "search": "Buscar Smartlists",
+  "emptyState": {
+    "title": "Aún no hay Smartlists",
+    "subtitle": "Crear tu primera Smartlist para segmentar a los clientes con etiquetas, enviar mensajes dirigidos y seguir el compromiso."
+  },
+  "emptySearch": {
+    "title": "No se encontraron Smartlists",
+    "subtitle": "Intenta borrar los filtros para ver más resultados",
+    "clearFilters": "Borrar filtros"
+  },
+  "duplicateModal": {
+    "title": "¿Duplicar Smartlist?",
+    "description": "Puedes editar <b>{{name}}</b> después",
+    "buttons": {
+      "duplicate": "Duplicar",
+      "cancel": "Cerrar"
+    }
+  },
+  "deleteModal": {
+    "title": "¿Eliminar Smartlist?",
+    "description": "Una vez que elimines <b>{{name}}</b>, los mensajes programados o el etiquetado automático ya no se ejecutarán, pero los miembros etiquetados previamente no se verán afectados.",
+    "warning": "Atención: este cambio es permanente y no se puede deshacer",
+    "audienceWarning": "Las Smartlists utilizadas en los flujos de trabajo de Audience no se pueden eliminar. ",
+    "cannotBeDeleted": "Esta Smartlist se está utilizando actualmente en flujos de trabajo de Audience y no se puede eliminar en esta página.",
+    "audienceCallToAction": "Para eliminar esta Smartlist, ve a la página de Audience y elimínala de los flujos de trabajo asociados.",
+    "buttons": {
+      "delete": "Eliminar",
+      "cancel": "Mantener"
+    }
+  },
+  "toasts": {
+    "success": {
+      "duplicated": "Smartlist duplicada",
+      "open": "Abrir",
+      "saved": "Smartlist actualizada",
+      "created": "Smartlist creada",
+      "deleted": "Smartlist eliminada",
+      "undo": "Deshacer",
+      "actionUndone": "Cambio deshecho"
+    },
+    "error": {
+      "duplicateFailed": "Algo salió mal al duplicar la Smartlist. Por favor, inténtalo de nuevo. ",
+      "updateFailed": "Algo salió mal al actualizar la Smartlist. Por favor, inténtalo de nuevo. ",
+      "createFailed": "Algo salió mal al crear la Smartlist. Por favor, inténtalo de nuevo. ",
+      "deleteFailed": "No se pudo eliminar la Smartlist. Por favor, inténtalo de nuevo. ",
+      "deleteError": {
+        "101000": "Algo salió mal al duplicar la Smartlist. Por favor, inténtalo de nuevo.",
+        "101001": "La Smartlist no pudo ser eliminada ya que se está utilizando actualmente en comunicaciones activas. Por favor, elimínala de las comunicaciones o contacta con soporte para obtener ayuda. ",
+        "101002": "La Smartlist no pudo ser eliminada porque se está utilizando en flujos de trabajo activos de Audience. Por favor, ve a la página de Audience para eliminarla del flujo de trabajo asociado. "
+      }
+    }
+  },
+  "inlineActions": {
+    "duplicate": "Duplicar Smartlist",
+    "edit": "Modificar",
+    "delete": "Eliminar Smartlist"
+  },
+  "dropdownActions": {
+    "duplicate": "Duplicar",
+    "edit": "Renombrar",
+    "delete": "Eliminar"
+  },
+  "createForm": {
+    "title": "Crear Smartlist",
+    "subtitle": "Añadir un nombre y una descripción a esta Smartlist para que puedas encontrarla más tarde.",
+    "actions": {
+      "create": "Crear",
+      "cancel": "Cerrar"
+    }
+  },
+  "editForm": {
+    "fields": {
+      "name": {
+        "label": "Nombre",
+        "placeholder": "p. ej. Clientes que pagaron a través de Stripe",
+        "required": "Dale un nombre a tu Smartlist para que puedas encontrarla más tarde",
+        "maxLength": "El nombre debe tener menos de 200 caracteres"
+      },
+      "description": {
+        "label": "Descripción",
+        "placeholder": "p. ej. Clientes que pagaron a través de Stripe"
+      }
+    },
+    "actions": {
+      "save": "Guardar",
+      "cancel": "Cerrar",
+      "create": "Crear"
+    },
+    "title": {
+      "edit": "Editar Smartlist",
+      "add": "Crear Smartlist"
+    }
+  }
+}

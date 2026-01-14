@@ -110,10 +110,13 @@
   "cancelModal": {
     "title": "Cancel session?",
     "description": "You can restore this session at any time but you won’t be able to retrieve any bookings related to this session.",
-    "bookingsAlert_one": "<strong>{{number}} member </strong> who booked this session will have their credits refunded",
-    "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this session will have their credits refunded",
+    "bookingsAlert_one": "<strong>{{number}} member </strong> who booked this session will have their credits refunded.",
+    "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this session will have their credits refunded.",
+    "groupSessionAlert": "This session is part of the group <strong>{{groupName}}</strong>.",
     "notificationLabel": "Send a notification to all members who booked this session",
+    "cancelLinkedSessions": "Cancel linked sessions (both online and on-site)",
     "cancelFutureSessions": "Cancel future sessions too",
+    "cancelFutureSessionsForGroup": "Cancel future sessions of {{groupName}}",
     "futureSessionsHeader": "Sessions ({{number}})",
     "descriptionFutureSessions": "Select which sessions will be cancelled",
     "cancelButton": "Back",
@@ -136,5 +139,28 @@
     "errorMessage": "An error occurred while cancelling the sessions. Please try again later.",
     "successMessage_one": "Multiple sessions cancelled on {{startDate}}.",
     "successMessage_other": "Multiple sessions cancelled between {{startDate}} and {{endDate}}."
+  },
+  "deleteModal": {
+    "title": "Permanently delete session?",
+    "description": "Deleting this session will remove any booking records. If there were bookings and members weren’t refunded when it was canceled, their credits will also be lost.",
+    "commonAlert": "Just a heads up: this action is permanent and cannot be undone.",
+    "groupSessionAlert": "This session is part of the group <strong>{{groupName}}</strong>.",
+    "deleteFutureSessions": "Delete future sessions",
+    "deleteFutureSessionsForGroup": "Delete future sessions of {{groupName}}",
+    "futureSessionsHeader": "Sessions ({{number}})",
+    "descriptionFutureSessions": "Select which sessions will be deleted",
+    "cancelButton": "Back",
+    "confirmButton": "Permanently delete",
+    "errorMessage": "An error occurred while deleting the session. Please try again later.",
+    "successMessage_one": "Session deleted",
+    "successMessage_other": "Sessions deleted"
+  },
+  "restoreModal": {
+    "title": "Restore session?",
+    "description": "Restoring this session will make it visible again to members. You can cancel it again at any time.",
+    "cancelButton": "Back",
+    "confirmButton": "Restore",
+    "errorMessage": "An error occurred while restoring the session. Please try again later.",
+    "successMessage": "Session restored"
   }
 }

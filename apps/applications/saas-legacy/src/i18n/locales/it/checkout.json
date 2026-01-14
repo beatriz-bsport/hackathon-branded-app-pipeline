@@ -130,7 +130,15 @@
       "offerGuestBooked": "La mia prenotazione per gli ospiti",
       "offerGuestBooked_plural": "Le mie prenotazioni per gli ospiti",
       "unableToBookSession": "Impossibile prenotare la sessione",
-      "unableToBookSession_plural": "Impossibile prenotare le sessioni"
+      "unableToBookSession_plural": "Impossibile prenotare le sessioni",
+      "doorAccessInfo": {
+        "proximityProof": {
+          "message": "Hai acquistato un pass che include l’accesso alla porta. Per utilizzarlo, scarica l’app e vai al tuo profilo. Avvicina il telefono alla porta e tocca “Apri porta” per aprirla. ",
+          "title": "Accesso alla porta acquistato"
+        },
+        "message": "Hai acquistato un pass che include l’accesso alla porta. Per utilizzarlo, vai al tuo profilo e tocca “Apri porta”.",
+        "title": "Accesso alla porta acquistato"
+      }
     },
     "actions": {
       "back": "Precedente",

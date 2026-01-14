@@ -1034,6 +1034,9 @@
   "companyTheme": {
     "update": {
       "error": "Error when saving changes",
+      "customError": {
+        "80003": "The cover image size exceeds the maximum allowed size of 1MB. Please compress the image and try again."
+      },
       "success": "Changes have been saved"
     },
     "provincialTax": {

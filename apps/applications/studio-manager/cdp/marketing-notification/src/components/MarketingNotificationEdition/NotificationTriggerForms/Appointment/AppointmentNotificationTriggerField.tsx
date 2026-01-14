@@ -68,6 +68,9 @@ export const AppointmentNotificationTriggerField = ({
     setFormValue(
       "bookingEventKind",
       APPOINTMENT_ACTIONS_MAP_TO_APPOINTMENT_EVENT_KIND[newAction],
+      {
+        shouldValidate: true,
+      },
     );
     setSelectedAppointmentAction(newAction);
   };

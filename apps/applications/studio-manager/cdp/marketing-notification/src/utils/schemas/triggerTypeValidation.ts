@@ -11,6 +11,7 @@ export const triggerTypeValidationFormSchema = z
     itemIds: z.array(z.number()).optional(),
     notificationType: z.custom<SelectableNotificationType>(),
     shouldContainAllPasses: z.boolean().optional(),
+    draftMarketingNotificationId: z.number().optional(),
   })
   .superRefine((data, ctx) => {
     const itemIdsLength = data.itemIds ? data.itemIds.length : 0;

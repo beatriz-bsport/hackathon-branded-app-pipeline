@@ -3,8 +3,8 @@ import pick from "lodash/pick";
 
 import { fetchSimilarSessionsAPI } from "@bsport/api-book";
 
-import { fetch } from "../utils/fetch";
-import { SESSIONS_QUERY_KEY } from "./constants";
+import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
+import { fetch } from "#src/utils/fetch";
 
 const SESSIONS_WITH_PENDING_REQUESTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 

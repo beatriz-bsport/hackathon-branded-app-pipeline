@@ -194,11 +194,13 @@ class BsportWidget extends Component<Props> {
   }
 
   onWindowOpen = (url: string) => {
+    const currentUrl = window?.location?.href ?? '';
     const uri = new SafeURI(url)
       .safeAddQuery('context', 'widget')
       .safeAddQuery('dialogMode', this.props.dialogMode)
       .safeAddQuery('widgetType', this.props.widgetType)
-      .safeAddQuery('parentElementId', this.props.parentElement);
+      .safeAddQuery('parentElementId', this.props.parentElement)
+      .safeAddQuery('parentUrl', currentUrl);
 
     const finalURL = this.props.utmTrackingConfiguration
       ? uri.toString() +

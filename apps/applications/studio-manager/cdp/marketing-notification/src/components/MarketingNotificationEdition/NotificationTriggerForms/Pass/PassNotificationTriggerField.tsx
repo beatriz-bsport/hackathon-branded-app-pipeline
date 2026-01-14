@@ -9,6 +9,7 @@ import {
 } from "#src/utils/schemas/types";
 
 import { PassActionField } from "./PassActionField";
+import { PassCreditsEventTimingField } from "./PassCreditsEventTimingField";
 import { PassEventOccurenceField } from "./PassEventOccurenceField";
 import { PassNameField } from "./PassNameField";
 import { PassSubscriptionFilteringField } from "./PassSubscriptionFilteringField";
@@ -19,12 +20,17 @@ import {
   PASS_ACTION_DAYS_LEFT,
   PASS_ACTION_EVENT_TYPE_CREDITS,
   PASS_ACTION_EVENT_TYPE_DAYS,
+  PASS_CREDITS_LEFT_BOOKING_COMPLETED,
   PASS_SUBSCRIPTION_FILTERING_IN,
   PASS_SUBSCRIPTION_FILTERING_OUT,
   type PassActionEventType,
   type PassSubscriptionFilteringType,
 } from "./types";
-import { isValidPassAction, isValidPassSubscriptionFiltering } from "./utils";
+import {
+  isValidPassAction,
+  isValidPassCreditsLeftAction,
+  isValidPassSubscriptionFiltering,
+} from "./utils";
 
 type PassNotificationTriggerFieldProps = {
   passType: PassesType;
@@ -38,6 +44,9 @@ export const PassNotificationTriggerField = ({
   setFormValue,
   watchFormValue,
 }: PassNotificationTriggerFieldProps) => {
+  const creditsEventKind =
+    watchFormValue("creditsEventKind") ?? PASS_CREDITS_LEFT_BOOKING_COMPLETED;
+  const hours = watchFormValue("hours") ?? DEFAULT_PASS_EVENT_OCCURENCE;
   const creditsLeft =
     watchFormValue("creditsLeft") ?? DEFAULT_PASS_EVENT_OCCURENCE;
   const passEventAction = watchFormValue("passEventAction");
@@ -54,7 +63,7 @@ export const PassNotificationTriggerField = ({
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const newAction = event.target.value;
-    setFormValue("notificationName", newAction, { shouldValidate: true });
+    setFormValue("name", newAction, { shouldValidate: true });
   };
 
   const handlePassActionUpdate = (
@@ -118,6 +127,31 @@ export const PassNotificationTriggerField = ({
     }
   };
 
+  const handlePassCreditsLeftEventUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const newEventKind = event.target.value;
+    if (!isValidPassCreditsLeftAction(newEventKind)) {
+      console.warn(
+        "[Marketing Notification Modal] - Pass Credits Left event kind type do not have a valid type",
+      );
+      return;
+    }
+
+    setFormValue("creditsEventKind", newEventKind, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  };
+
+  const handlePassTimingUpdate = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const parsed = parseInt(event.target.value, 10);
+    const newAmount = Number.isNaN(parsed) ? 0 : parsed;
+    setFormValue("hours", newAmount, { shouldValidate: true });
+  };
+
   const eventType: PassActionEventType =
     passEventAction === PASS_ACTION_CREDITS_LEFT
       ? PASS_ACTION_EVENT_TYPE_CREDITS
@@ -144,6 +178,14 @@ export const PassNotificationTriggerField = ({
         fieldError={passEventOccurrenceError}
         onChange={handleEventOccurenceUpdate}
       />
+      {passEventAction === PASS_ACTION_CREDITS_LEFT ? (
+        <PassCreditsEventTimingField
+          selectedKind={creditsEventKind}
+          hours={hours}
+          onChange={handlePassCreditsLeftEventUpdate}
+          onAmountChange={handlePassTimingUpdate}
+        />
+      ) : null}
       <Divider orientation="horizontal" weight="thin" />
       <PassSubscriptionFilteringField
         value={selectedSubscriptionFiltering}

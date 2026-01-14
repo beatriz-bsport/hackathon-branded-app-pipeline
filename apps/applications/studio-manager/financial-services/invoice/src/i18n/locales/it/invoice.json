@@ -1,0 +1,40 @@
+{
+  "invoiceListTitle": "Ricevute",
+  "invoiceType": {
+    "reversed": "Ricevuta (stornata)",
+    "return": "Ricevute rimborsata",
+    "credit_payment": "Regolazione del saldo",
+    "migration": "Migrazione",
+    "regular": "Ricevuta"
+  },
+  "invoiceStatus": {
+    "draft": "Bozza",
+    "open": "Aperta",
+    "paid": "Pagata",
+    "voided": "Annullato",
+    "refunded": "Rimborsata"
+  },
+  "tableColumnLabel": {
+    "number": "Numero",
+    "date": "Data",
+    "member": "Cliente",
+    "amount": "Importo",
+    "type": "Tipo",
+    "status": "Status"
+  },
+  "filters": {
+    "is": "è",
+    "is-not": "non è"
+  },
+  "emptyTable": {
+    "title": "Ancora nessuna ricevuta",
+    "description": "Una volta che fatturi i clienti, le loro ricevute appariranno qui."
+  },
+  "download": {
+    "title": "Scarica...",
+    "pdf": "Ricevute (PDF)",
+    "receipt": "Ricezione del pagamento (PDF)",
+    "explainPdfDraft": "Le ricevute sono ancora una bozza, il pdf non è disponibile.",
+    "label": "Scarica ricevuta"
+  }
+}

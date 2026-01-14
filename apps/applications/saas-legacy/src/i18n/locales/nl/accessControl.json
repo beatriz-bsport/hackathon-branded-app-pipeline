@@ -82,7 +82,8 @@
       }
     },
     "passExpiration": "Geldig tot {{- expirationDate }}",
-    "atHome": "Thuis"
+    "atHome": "Thuis",
+    "checkedInTo": "Ingecheckt bij:"
   },
   "settings": {
     "title": "Tijdsbestek voor toetreding van leden",

@@ -13,8 +13,10 @@ import { Contract } from '../types';
 
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
 import SubscriptionContractFormDrawer from './SubscriptionContractFormDrawer.component';
+import ContractOneObjectFormDrawer from './contract/contract-revamp/ContractOneObjectFormDrawer.component';
 
 type Props = {
+  shouldDisplayNewSubscriptionContractForm?: boolean,
   displayStopSubscriptionFromMemberSide?: boolean,
   t: TFunction,
   classes: Object,
@@ -44,8 +46,29 @@ type Props = {
   onCreate?: (data: any, options: OptionCallback) => void,
   onRestore?: (id: number, options?: OptionCallback) => void,
   tagList?: Array<Tag<number>>,
+
+  fetchSelectedContractCompatibleServicePasses?: (contract: Contract) => void,
+
+  categoryList?: Array<Category>,
+  metaActivityList?: Array<MetaActivity>,
+  availableEstablishmentList?: Array<Establishment>,
+  allowGuestMaster?: boolean,
+
+  privateServices?: Array<PrivateServiceWithSlots>,
+  compatibleServicePass?: Array<ServiceCompatibilityPass>,
+  bookkeepingAccounts?: BookkeepingAccount[],
+  bookkeepingAccountById?: Record<number, BookkeepingAccount>,
+  provincialTax?: number,
 };
 export const SubscriptionContractList = (props: Props) => {
+  const onEditionFormOpen = (contract: Contract) => {
+    if (!!props?.shouldDisplayNewSubscriptionContractForm) {
+      props.fetchSelectedContractCompatibleServicePasses?.(contract);
+    }
+
+    props.setContractToEdit(contract);
+  };
+
   return (
     <div>
       {props.contractList?.length === 0 && !props.loading
@@ -64,7 +87,7 @@ export const SubscriptionContractList = (props: Props) => {
               divider={props.divider}
               onClick={props.onClick ? () => props.onClick(c.id) : null}
               onDelete={props.onDelete}
-              onEdit={props.onEdit ? () => props.setContractToEdit(c) : null}
+              onEdit={props.onEdit ? () => onEditionFormOpen(c) : null}
               onRegister={props.onRegister ? () => props.onRegister(c) : null}
               onRestore={props.onRestore}
               selected={c.id === props.selectedContract}
@@ -103,57 +126,131 @@ export const SubscriptionContractList = (props: Props) => {
           )}
         </div>
       )}
-      <SubscriptionContractFormDrawer
-        displayStopSubscriptionFromMemberSide={
-          !!props?.displayStopSubscriptionFromMemberSide
-        }
-        initial={props.contractToEdit}
-        onClose={() => {
-          props.setCreateOpen(false);
-          props.setContractToEdit(null);
-        }}
-        onSubmit={(data, options) => {
-          props.onCreate(data, {
-            onSuccess: () => {
+      {!!props?.shouldDisplayNewSubscriptionContractForm ? (
+        <>
+          <ContractOneObjectFormDrawer
+            allowGuestMaster={!!props?.allowGuestMaster}
+            availableEstablishmentList={props?.availableEstablishmentList}
+            bookkeepingAccountById={props?.bookkeepingAccountById}
+            bookkeepingAccounts={props?.bookkeepingAccounts}
+            categoryList={props?.categoryList}
+            compatibleServicePass={props?.compatibleServicePass}
+            displayStopSubscriptionFromMemberSide={
+              !!props?.displayStopSubscriptionFromMemberSide
+            }
+            initial={props.contractToEdit}
+            metaActivityList={props?.metaActivityList}
+            onClose={() => {
               props.setCreateOpen(false);
-              if (options && options.onSuccess) options.onSuccess();
-            },
-            onError: (err) => {
-              props.setCreateOpen(false);
-              if (options && options.onError) options.onError(err);
-            },
-          });
-        }}
-        open={props.createOpen}
-        paymentComboList={props.paymentComboList}
-        paymentPackList={props.paymentPackList}
-        privatePassList={props.privatePassList}
-        tagList={props.tagList}
-      />
-      <SubscriptionContractFormDrawer
-        displayStopSubscriptionFromMemberSide={
-          !!props?.displayStopSubscriptionFromMemberSide
-        }
-        initial={props.contractToEdit}
-        onClose={() => props.setContractToEdit(null)}
-        onSubmit={(data, options) => {
-          props.onEdit(data, {
-            onSuccess: () => {
               props.setContractToEdit(null);
-              if (options && options.onSuccess) options.onSuccess();
-            },
-            onError: (err) => {
-              if (options && options.onError) options.onError(err);
-            },
-          });
-        }}
-        open={!!props.contractToEdit}
-        paymentComboList={props.paymentComboList}
-        paymentPackList={props.paymentPackList}
-        privatePassList={props.privatePassList}
-        processing={props.processing}
-        tagList={props.tagList}
-      />
+            }}
+            onSubmit={(data, options) => {
+              props.onCreate(data, {
+                onSuccess: () => {
+                  props.setCreateOpen(false);
+                  if (options && options.onSuccess) options.onSuccess();
+                },
+                onError: (err) => {
+                  props.setCreateOpen(false);
+                  if (options && options.onError) options.onError(err);
+                },
+              });
+            }}
+            open={props.createOpen}
+            paymentPackList={props.paymentPackList}
+            privatePassList={props.privatePassList}
+            privateServices={props?.privateServices}
+            provincialTax={props?.provincialTax}
+            tagList={props.tagList}
+          />
+          <ContractOneObjectFormDrawer
+            allowGuestMaster={!!props?.allowGuestMaster}
+            availableEstablishmentList={props?.availableEstablishmentList}
+            bookkeepingAccountById={props?.bookkeepingAccountById}
+            bookkeepingAccounts={props?.bookkeepingAccounts}
+            categoryList={props?.categoryList}
+            compatibleServicePass={props?.compatibleServicePass}
+            displayStopSubscriptionFromMemberSide={
+              !!props?.displayStopSubscriptionFromMemberSide
+            }
+            initial={props.contractToEdit}
+            metaActivityList={props?.metaActivityList}
+            onClose={() => props.setContractToEdit(null)}
+            onSubmit={(data, options) => {
+              props.onEdit(data, {
+                onSuccess: () => {
+                  props.setContractToEdit(null);
+                  if (options && options.onSuccess) options.onSuccess();
+                },
+                onError: (err) => {
+                  if (options && options.onError) options.onError(err);
+                },
+              });
+            }}
+            open={!!props.contractToEdit}
+            paymentPackList={props.paymentPackList}
+            privatePassList={props.privatePassList}
+            privateServices={props?.privateServices}
+            processing={props.processing}
+            provincialTax={props?.provincialTax}
+            tagList={props.tagList}
+          />
+        </>
+      ) : (
+        <>
+          <SubscriptionContractFormDrawer
+            displayStopSubscriptionFromMemberSide={
+              !!props?.displayStopSubscriptionFromMemberSide
+            }
+            initial={props.contractToEdit}
+            onClose={() => {
+              props.setCreateOpen(false);
+              props.setContractToEdit(null);
+            }}
+            onSubmit={(data, options) => {
+              props.onCreate(data, {
+                onSuccess: () => {
+                  props.setCreateOpen(false);
+                  if (options && options.onSuccess) options.onSuccess();
+                },
+                onError: (err) => {
+                  props.setCreateOpen(false);
+                  if (options && options.onError) options.onError(err);
+                },
+              });
+            }}
+            open={props.createOpen}
+            paymentComboList={props.paymentComboList}
+            paymentPackList={props.paymentPackList}
+            privatePassList={props.privatePassList}
+            tagList={props.tagList}
+          />
+          <SubscriptionContractFormDrawer
+            displayStopSubscriptionFromMemberSide={
+              !!props?.displayStopSubscriptionFromMemberSide
+            }
+            initial={props.contractToEdit}
+            onClose={() => props.setContractToEdit(null)}
+            onSubmit={(data, options) => {
+              props.onEdit(data, {
+                onSuccess: () => {
+                  props.setContractToEdit(null);
+                  if (options && options.onSuccess) options.onSuccess();
+                },
+                onError: (err) => {
+                  if (options && options.onError) options.onError(err);
+                },
+              });
+            }}
+            open={!!props.contractToEdit}
+            paymentComboList={props.paymentComboList}
+            paymentPackList={props.paymentPackList}
+            privatePassList={props.privatePassList}
+            processing={props.processing}
+            tagList={props.tagList}
+          />
+        </>
+      )}
     </div>
   );
 };

@@ -22,12 +22,14 @@ type Props = Pick<
   | 'creditAccountBalance'
   | 'email'
   | 'firstName'
+  | 'iosAppUrl'
   | 'lastName'
   | 'photo'
   | 'showAccountBalance'
   | 'showBarcodeButton'
   | 'regularizeBalanceAllowed'
   | 'companyId'
+  | 'androidAppUrl'
 > & {
   isMobile: boolean;
   handleToggleBarcodeModal: () => void;
@@ -45,6 +47,8 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
   showBarcodeButton,
   regularizeBalanceAllowed,
   companyId,
+  iosAppUrl,
+  androidAppUrl,
 }) => {
   const { toggleRegularizeBalancePortal } = useContext(ConsumerProfileContext);
   const { t } = useTranslation('consumerSpace');
@@ -134,7 +138,11 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
         >
           {t('reworked.myProfile.barCode.entryBarcode')}
         </Button>
-        <DoorAccessButton companyId={companyId} />
+        <DoorAccessButton
+          androidAppUrl={androidAppUrl}
+          companyId={companyId}
+          iosAppUrl={iosAppUrl}
+        />
       </div>
     </ConsumerCardSection>
   );

@@ -34,9 +34,10 @@
       },
       "tooltip": {
         "classIsFull": "Ce cours est complet",
+        "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} place restante dans le cours",
         "hasEmptySpots_other": "{{ count }} places restantes dans le cours",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} place en attente sur la liste d'attente",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} Membres sur liste d’attente",
         "hasEmptySpotsForWaitlist_other": "{{ count }} places en attente sur la liste d'attente"
       }
     }

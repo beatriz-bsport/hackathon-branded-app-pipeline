@@ -12,6 +12,7 @@ export const FeatureFlags = {
   FISKALY_SIGN_ES: 'fiskaly_sign_es',
   AUDIENCE_TEMPLATES: 'audience_workflow_templates',
   INVOICE_SEQUENTIAL_NUMBERING: 'invoice_sequential_numbering',
+  NEW_SUBSCRIPTION_CONTRACTS: 'new-subscription-contracts',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

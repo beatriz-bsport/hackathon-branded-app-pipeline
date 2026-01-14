@@ -83,7 +83,7 @@ import { Subscription } from '#src/libs/subscription/types';
 import ConfirmationMessage from '#src/libs/checkout/components/ConfirmationMessage';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
-import Alert from '#Fabrique/Alert';
+import DoorAccessPurchasedAlert from '#src/libs/self-service-access/components/DoorAccessPurchasedAlert.component';
 import MarketplaceBookingAddGuestModal, {
   AddGuestFormValues,
 } from '#src/libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
@@ -576,17 +576,12 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                 status={confirmationStatus}
               />
               {hasDoorAccess && showCallToActionButtons && (
-                <div style={{ marginTop: '24px' }}>
-                  <Alert
-                    actionText={t('validation.actions.viewMyProfile')}
-                    color="info"
-                    onActionClick={this.props.goToMemberProfilePage}
-                    title={t('validation.sections.doorAccessInfo.title')}
-                    variant="weak"
-                  >
-                    {t('validation.sections.doorAccessInfo.message')}
-                  </Alert>
-                </div>
+                <DoorAccessPurchasedAlert
+                  androidAppUrl={this.props.companyTheme.android_app_url}
+                  companyId={this.props.companyId}
+                  iosAppUrl={this.props.companyTheme.ios_app_url}
+                  onViewProfile={this.props.goToMemberProfilePage}
+                />
               )}
             </div>
             <div

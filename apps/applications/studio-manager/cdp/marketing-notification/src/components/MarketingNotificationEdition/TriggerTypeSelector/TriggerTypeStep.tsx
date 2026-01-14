@@ -73,25 +73,22 @@ export const TriggerTypeStep = () => {
   const [shouldRefreshItemSelector, setShouldRefreshItemSelector] =
     useState(false);
   const { formData, setStepValid, updateForm } = useFormStepContext();
-  const [selectedTriggerType, setSelectedTriggerType] =
-    useState<SelectableNotificationType>(
-      formData.triggerType?.notificationType ??
-        NOTIFICATION_ADVANCED_TYPE.groupActivity,
-    );
 
-  const defaultValues: TriggerTypeValidationFormData = {
-    itemIds: formData.triggerType?.itemIds ?? [],
-    notificationType:
-      formData.triggerType?.notificationType ??
-      NOTIFICATION_ADVANCED_TYPE.groupActivity,
-    shouldContainAllPasses:
-      formData?.triggerType?.shouldContainAllPasses ?? false,
-  };
+  const notificationType =
+    formData?.triggerType?.notificationType ??
+    NOTIFICATION_ADVANCED_TYPE.groupActivity;
+
+  const defaultItemIds = formData?.triggerType?.itemIds ?? [];
 
   const methods = useFormController({
     mode: "onBlur",
     schema: triggerTypeValidationFormSchema,
-    defaultValues,
+    values: {
+      itemIds: defaultItemIds,
+      notificationType,
+      shouldContainAllPasses:
+        formData?.triggerType?.shouldContainAllPasses ?? false,
+    },
   });
 
   const {
@@ -100,8 +97,6 @@ export const TriggerTypeStep = () => {
     trigger: trigggerFormValidationCheck,
     formState: { isValid, errors },
   } = methods;
-
-  const formValues = getFormValues();
 
   // Memoized computations
   const { selectOptions, translationToTypeMap, selectedConfig } =
@@ -132,7 +127,7 @@ export const TriggerTypeStep = () => {
       );
 
       const currentConfig = TRIGGER_CONFIG.find(
-        (config) => config.type === selectedTriggerType,
+        (config) => config.type === notificationType,
       );
 
       return {
@@ -140,21 +135,20 @@ export const TriggerTypeStep = () => {
         translationToTypeMap: translationMap,
         selectedConfig: currentConfig,
       };
-    }, [selectedTriggerType]);
+    }, [notificationType]);
 
   const handleSelectTriggerItems = ({ itemIds }: { itemIds: number[] }) => {
     setFormValue("itemIds", itemIds, {
       shouldValidate: true,
     });
-    setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
+    handleUpdateFormData();
   };
 
   const handleTriggerSelect = (translationLabel: string) => {
     const triggerType = translationToTypeMap[translationLabel];
-    setSelectedTriggerType(triggerType);
-    setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
     setFormValue("notificationType", triggerType, { shouldValidate: true });
     setFormValue("itemIds", [], { shouldValidate: true });
+    handleUpdateFormData();
   };
 
   const currentLabel = selectedConfig
@@ -171,18 +165,16 @@ export const TriggerTypeStep = () => {
     setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
   }, [isValid]);
 
-  useEffect(() => {
+  const handleUpdateFormData = () => {
+    const formValues = getFormValues();
     updateForm({
+      ...formData,
       triggerType: {
         type: "triggerType",
         ...formValues,
       },
     });
-  }, [
-    formValues?.itemIds,
-    formValues?.notificationType,
-    formValues?.shouldContainAllPasses,
-  ]);
+  };
 
   return (
     <div className="flex flex-col gap-md w-full">
@@ -223,7 +215,9 @@ export const TriggerTypeStep = () => {
             key={String(shouldRefreshItemSelector)}
             selectedConfig={selectedConfig}
             onSelectTriggerType={handleSelectTriggerItems}
-            selectedValues={formValues?.itemIds}
+            selectedValues={
+              defaultItemIds?.length > 0 ? defaultItemIds : undefined
+            }
             textfieldProps={{
               id: "item-ids-selector-textfield",
               status: errors.itemIds ? "error" : "default",
@@ -232,8 +226,8 @@ export const TriggerTypeStep = () => {
             }}
           />
         </FormField>
-        {selectedTriggerType === "privatePass" ||
-        selectedTriggerType === "paymentPack" ? (
+        {notificationType === "privatePass" ||
+        notificationType === "paymentPack" ? (
           <FormField<
             TriggerTypeValidationFormData,
             "shouldContainAllPasses",
@@ -250,6 +244,7 @@ export const TriggerTypeStep = () => {
                 form.setValue("itemIds", [], { shouldValidate: true });
                 setShouldRefreshItemSelector((prev) => !prev);
                 form.trigger();
+                handleUpdateFormData();
               },
             })}
           >

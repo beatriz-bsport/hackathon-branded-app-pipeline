@@ -8,6 +8,7 @@ import {
 import type {
   CancelMultipleSessionsParams,
   CancelSessionParams,
+  DeleteSessionParams,
   FetchSessionsParams,
   ListSessionsWithPendingReplacementRequestIdsParams,
   ManagerSession,
@@ -18,6 +19,22 @@ import type {
 
 const API_URL = "book/v1";
 const API_URL_SESSION = `${API_URL}/offer`;
+
+export const fetchSessionsAPIConfig = (
+  params: FetchSessionsParams | PaginatedFetchSessionsParams,
+): string => {
+  return `${API_URL_SESSION}/${buildUrlParams(params)}`;
+};
+
+export const fetchSessionsAPI = async (
+  fetch: Fetch<PaginatedResponse<Session>>,
+  params: FetchSessionsParams,
+): Promise<PaginatedResponse<Session>> => {
+  const uri = fetchSessionsAPIConfig(params);
+  const { data: fetchedData } = await fetch(uri);
+
+  return fetchedData;
+};
 
 export const fetchMinimalSessionsAPIConfig = (
   params: FetchSessionsParams,
@@ -121,6 +138,47 @@ export const cancelSessionAPI = async (
   params: CancelSessionParams,
 ): Promise<string | null> => {
   const [uri, init] = cancelSessionAPIConfig(id, params);
+  const { backgroundTaskUuid } = await fetch(uri, init);
+  return backgroundTaskUuid;
+};
+
+export const restoreSessionAPIConfig = (id: number): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/${id}/restore/`,
+    {
+      method: "PUT",
+    },
+  ];
+};
+
+export const restoreSessionAPI = async (
+  fetch: Fetch<Session>,
+  id: number,
+): Promise<Session> => {
+  const [uri, init] = restoreSessionAPIConfig(id);
+  const { data } = await fetch(uri, init);
+  return data;
+};
+
+export const deleteSessionAPIConfig = (
+  id: number,
+  params: DeleteSessionParams,
+): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/manager/${id}/delete/`,
+    {
+      method: "DELETE",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const deleteSessionAPI = async (
+  fetch: Fetch<void>,
+  id: number,
+  params: DeleteSessionParams,
+): Promise<string | null> => {
+  const [uri, init] = deleteSessionAPIConfig(id, params);
   const { backgroundTaskUuid } = await fetch(uri, init);
   return backgroundTaskUuid;
 };

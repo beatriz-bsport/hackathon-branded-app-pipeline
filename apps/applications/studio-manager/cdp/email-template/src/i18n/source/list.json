@@ -115,7 +115,7 @@
     },
     "deleteTemplateModal": {
       "title": "Delete email template?",
-      "description": "Once you delete <b>{{emailTemplateTitle}}</b>,  it will no longer be visible to members. \n\nIt will also be removed any transactional emails that it's been linked to.",
+      "description": "Once you delete <b>{{emailTemplateTitle}}</b>,  it will no longer be visible to members. It'll also be removed from any transactional emails that it's been linked to.",
       "confirmButton": "Delete",
       "cancelButton": "Keep",
       "onSuccess": {
@@ -162,7 +162,7 @@
     },
     "deleteCategoryModal": {
       "title": "Delete category?",
-      "description": "Once you delete <b>{{categoryName}}</b> , it will no longer be visible. \n\nAll items organized under this category will be now be uncategorized. ",
+      "description": "Once you delete <b>{{categoryName}}</b> , it will no longer be visible. All templates organized under this category will be now be uncategorized. ",
       "confirmButton": "Delete",
       "cancelButton": "Keep",
       "onSuccess": {
@@ -182,7 +182,7 @@
       "title": "Rename email template?",
       "textInput": {
         "label": "Name",
-        "placeholder": "Give your template a name "
+        "placeholder": "Give your template a name to continue"
       },
       "confirmButton": "Rename",
       "cancelButton": "Close",

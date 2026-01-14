@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { CancelSessionParams, cancelSessionAPI } from "@bsport/api-book";
+import { DeleteSessionParams, deleteSessionAPI } from "@bsport/api-book";
 import { toast } from "@bsport/kaizen-primitive-core";
 
+import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
 import {
   BACKGROUND_TASK_ERRORS,
@@ -10,16 +11,14 @@ import {
 } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
 
-import { SESSIONS_QUERY_KEY } from "../constants";
+const deleteSession = deleteSessionAPI.bind(null, fetch);
 
-const cancelSession = cancelSessionAPI.bind(null, fetch);
-
-interface CancelSessionVariables {
+interface DeleteSessionVariables {
   id: number;
-  params: CancelSessionParams;
+  params: DeleteSessionParams;
 }
 
-const getCountForTranslation = (params: CancelSessionParams): number => {
+const getCountForTranslation = (params: DeleteSessionParams): number => {
   if (params.apply_to_all_similar_offers) {
     return 2;
   }
@@ -29,14 +28,14 @@ const getCountForTranslation = (params: CancelSessionParams): number => {
   return 1; // Only the single session
 };
 
-export const useCancelSession = () => {
+export const useDeleteSession = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("sessionList");
   const waitForBackgroundTask = useWaitForBackgroundTask(fetch);
 
-  return useMutation<string | null, Error, CancelSessionVariables>({
-    mutationFn: async ({ id, params }: CancelSessionVariables) => {
-      const backgroundTaskUuid = await cancelSession(id, params);
+  return useMutation<string | null, Error, DeleteSessionVariables>({
+    mutationFn: async ({ id, params }: DeleteSessionVariables) => {
+      const backgroundTaskUuid = await deleteSession(id, params);
 
       if (backgroundTaskUuid) {
         return waitForBackgroundTask(backgroundTaskUuid);
@@ -49,7 +48,7 @@ export const useCancelSession = () => {
       toast({
         status: "default",
         //@ts-expect-error Translations with variables are not yet typed
-        description: t("cancelModal.successMessage", {
+        description: t("deleteModal.successMessage", {
           count: getCountForTranslation(variables.params),
         }),
       });
@@ -58,7 +57,7 @@ export const useCancelSession = () => {
       if (error.message === BACKGROUND_TASK_ERRORS.TASK_FAILURE) {
         toast({
           status: "critical",
-          description: t("cancelModal.errorMessage"),
+          description: t("deleteModal.errorMessage"),
         });
         return;
       }

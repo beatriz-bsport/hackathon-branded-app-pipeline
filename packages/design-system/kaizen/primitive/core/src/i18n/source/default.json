@@ -37,7 +37,7 @@
     "confirmButtonLabel": "Send report",
     "toast": {
       "success": "Report sent successfully",
-      "failure": "An error occured when sending a Feedback"
+      "failure": "An error occurred while sending feedback"
     }
   },
   "detailsLayout": {
@@ -91,7 +91,7 @@
   },
   "copyToClipboard": {
     "copied": "Copied to clipboard",
-    "failed": "Failed to copy to clipboard",
+    "failed": "Couldn't copy to clipboard. Please try again. ",
     "tooltip": "Click to copy"
   },
   "detailDrawer": {

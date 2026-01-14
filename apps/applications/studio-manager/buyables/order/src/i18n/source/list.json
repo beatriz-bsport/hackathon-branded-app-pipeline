@@ -20,11 +20,11 @@
     "loading": "Loading orders ...",
     "emptyState": {
       "title": "No orders yet",
-      "emptyDatabase": "Manage and track orders from your webshop here",
-      "emptySearch": "Looks like there are no orders currently marked as {{ status }}."
+      "emptyDatabase": "Once clients buy products from your store, you can track and manage orders on this page. ",
+      "emptySearch": "There are no orders currently marked as {{ status }}."
     },
     "rows": {
-      "memberArchived": "archived"
+      "memberArchived": "Archived"
     }
   }
 }

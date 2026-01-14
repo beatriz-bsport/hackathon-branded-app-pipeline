@@ -34,9 +34,10 @@
       },
       "tooltip": {
         "classIsFull": "Esta clase está llena",
+        "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} sitio disponible en la clase",
         "hasEmptySpots_other": "{{ count }} sitios disponibles en la clase",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} sitio pendiente en la lista de espera",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} Miembros en lista de espera",
         "hasEmptySpotsForWaitlist_other": "{{ count }} sitios pendientes en la lista de espera"
       }
     }

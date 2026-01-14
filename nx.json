@@ -42,6 +42,14 @@
   },
   "plugins": [
     {
+      "plugin": "@bsport/nx-federation",
+      "options": {
+        "devTargetName": "dev-mfe",
+        "devSingleTargetName": "dev-mfe:single",
+        "watchDeps": true
+      }
+    },
+    {
       "plugin": "@nx/storybook/plugin",
       "options": {
         "buildStorybookTargetName": "build-storybook",

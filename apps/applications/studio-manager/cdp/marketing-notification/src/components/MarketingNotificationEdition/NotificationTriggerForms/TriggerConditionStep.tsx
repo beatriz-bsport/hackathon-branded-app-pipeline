@@ -8,11 +8,11 @@ import { NOTIFICATION_TYPE_TO_REFINED_TYPE } from "#src/utils/types";
 
 export const TriggerConditionStep = () => {
   const { formData } = useFormStepContext();
-  const notificationType =
-    formData.triggerType?.notificationType ?? "groupActivity";
+  const notificationType = formData.triggerType?.notificationType;
   const itemIds = formData.triggerType?.itemIds ?? [];
-  const notificationRefinedType =
-    NOTIFICATION_TYPE_TO_REFINED_TYPE[notificationType];
+  const notificationRefinedType = notificationType
+    ? NOTIFICATION_TYPE_TO_REFINED_TYPE[notificationType]
+    : "";
 
   if (
     notificationType === PRIVATE_PASS_TYPE ||
@@ -29,7 +29,7 @@ export const TriggerConditionStep = () => {
     return <AppointmentEventForm itemIds={itemIds} />;
   }
 
-  if (notificationRefinedType === "booking") {
+  if (notificationRefinedType === "booking" && notificationType) {
     return (
       <BookingEventForm itemIds={itemIds} notificationType={notificationType} />
     );

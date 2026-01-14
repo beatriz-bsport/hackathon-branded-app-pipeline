@@ -1,0 +1,21 @@
+{
+  "createModal": {
+    "title": "Create a new Gift Card",
+    "buttons": {
+      "cancel": "Cancel",
+      "create": "Create"
+    }
+  },
+  "formFields": {
+    "genericErrors": {
+      "fieldIsRequired": "This field is required."
+    },
+    "name": {
+      "label": "Name",
+      "errorMaxLength": "Name length must be under {{ maxLength }} characters."
+    },
+    "description": {
+      "label": "Description"
+    }
+  }
+}

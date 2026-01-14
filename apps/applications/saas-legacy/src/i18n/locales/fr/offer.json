@@ -301,7 +301,7 @@
           "partnership": {
             "title": "Intégrations d'agrégateurs",
             "availableOnPartnership": "Sur les agrégateurs (ClassPass, OneFit...)",
-            "partnerMaxBookingCount": "Nombre maximal de réservations provenant de Wellhub et Urban Sports Club combinés (les autres agrégateurs ne sont pas concernés par ce paramètre)",
+            "partnerMaxBookingCount": "Nombre maximal de réservations provenant de myClubs, Wellhub et Urban Sports Club combinés (les autres agrégateurs ne sont pas concernés par ce paramètre)",
             "uscIntegrationWarning": "Votre intégration à la marketplace Urban Sports Club est active, toute séance débordant sur 2 jours ou plus n'y apparaîtra pas.",
             "uscIntegrationWorkshopWarning": "Les ateliers ne sont pas compatibles avec la marketplace Urban Sports Club, cette séance n'y appraîtra pas.",
             "wellhubProduct": {
@@ -309,7 +309,7 @@
               "helperText": "Ces produits sont proposés par votre studio sur la plateforme Wellhub. Pour plus d'informations, consultez la section « Partenariat » dans le portail des partenaires de votre compte Wellhub.",
               "title": "Vos produits disponibles sur Wellhub :"
             },
-            "subtitle": "Comprend : ClassPass, Urban Sports Club, Wellpass et Wellhub pour les réservations externes.",
+            "subtitle": "Comprend : ClassPass, myClubs, Urban Sports Club, Wellpass et Wellhub pour les réservations externes.",
             "enablePartneshipBookings": "Permettre les réservations via les agrégateurs"
           },
           "isNotifyConsumers": "Voulez-vous informer vos clients de cette modification ?",

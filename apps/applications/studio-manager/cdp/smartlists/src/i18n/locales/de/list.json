@@ -1,1 +1,98 @@
-{}
+{
+  "title": "Smartlists",
+  "addSmartlist": "Smartlist erstellen",
+  "loading": "Smartlists werden geladen ...",
+  "search": "Smartlists durchsuchen",
+  "emptyState": {
+    "title": "Noch keine Smartlists verfügbar",
+    "subtitle": "Erstelle deine erste Smartlist, um Kunden mit Tags zu segmentieren, gezielte Nachrichten zu senden und das Engagement zu verfolgen."
+  },
+  "emptySearch": {
+    "title": "Keine Smartlists gefunden",
+    "subtitle": "Versuche, die Filter zu löschen, um mehr Ergebnisse zu sehen.",
+    "clearFilters": "Alle Filter löschen"
+  },
+  "duplicateModal": {
+    "title": "Smartlist duplizieren?",
+    "description": "Du kannst <b>{{name}}</b> danach bearbeiten.",
+    "buttons": {
+      "duplicate": "Duplizieren",
+      "cancel": "Schließen"
+    }
+  },
+  "deleteModal": {
+    "title": "Smartlist löschen?",
+    "description": "Sobald du <b>{{name}}</b> löscht, werden geplante Nachrichten oder automatische Markierungen nicht mehr ausgeführt, aber zuvor markierte Mitglieder bleiben unberührt.",
+    "warning": "Achtung: Diese Änderung ist dauerhaft und kann nicht rückgängig gemacht werden.",
+    "audienceWarning": "Smartlists, die in Audience-Workflows verwendet werden, können nicht gelöscht werden. ",
+    "cannotBeDeleted": "Diese Smartlist wird derzeit in Audience-Workflows verwendet und kann auf dieser Seite nicht gelöscht werden.",
+    "audienceCallToAction": "Um diese Smartlist zu löschen, gehe zur Audience-Seite und entferne sie aus den zugehörigen Workflows.",
+    "buttons": {
+      "delete": "Löschen",
+      "cancel": "Behalten"
+    }
+  },
+  "toasts": {
+    "success": {
+      "duplicated": "Smartlist dupliziert",
+      "open": "Öffnen",
+      "saved": "Smartlist aktualisiert",
+      "created": "Smartlist erstellt",
+      "deleted": "Smartlist gelöscht",
+      "undo": "Rückgängig",
+      "actionUndone": "Änderung rückgängig gemacht"
+    },
+    "error": {
+      "duplicateFailed": "Die Smartlist konnte nicht dupliziert werden. Bitte versuche es nochmal. ",
+      "updateFailed": "Die Smartlist konnte nicht aktualisiert werden. Bitte versuche es nochmal. ",
+      "createFailed": "Die Smartlist konnte nicht erstellt werden. Bitte versuche es nochmal. ",
+      "deleteFailed": "Die Smartlist konnte nicht gelöscht werden. Bitte versuche es erneut. ",
+      "deleteError": {
+        "101000": "Die Smartlist konnte nicht dupliziert werden. Bitte versuche es nochmal.",
+        "101001": "Die Smartlist konnte nicht gelöscht werden, da sie derzeit in aktiven Kommunikationen verwendet wird. Bitte entferne sie aus den Kommunikationen oder kontaktiere den Support für Hilfe. ",
+        "101002": "Die Smartlist konnte nicht gelöscht werden, da sie in aktiven Audience-Workflows verwendet wird. Bitte gehe zur Audience-Seite, um sie aus dem zugehörigen Workflow zu entfernen. "
+      }
+    }
+  },
+  "inlineActions": {
+    "duplicate": "Smartlist duplizieren",
+    "edit": "Bearbeiten",
+    "delete": "Smartlist löschen"
+  },
+  "dropdownActions": {
+    "duplicate": "Duplizieren",
+    "edit": "Umbenennen",
+    "delete": "Löschen"
+  },
+  "createForm": {
+    "title": "Smartlist erstellen",
+    "subtitle": "Hinzufügen eines Namens und einer Beschreibung für diese Smartlist, damit du sie später wiederfinden kannst.",
+    "actions": {
+      "create": "Erstellen",
+      "cancel": "Schließen"
+    }
+  },
+  "editForm": {
+    "fields": {
+      "name": {
+        "label": "Name",
+        "placeholder": "z. B. Kunden, die mit Stripe bezahlt haben",
+        "required": "Gib deiner Smartlist einen Namen, damit du sie später wiederfinden kannst.",
+        "maxLength": "Der Name muss unter 200 Zeichen sein"
+      },
+      "description": {
+        "label": "Beschreibung",
+        "placeholder": "z. B. Kunden, die mit Stripe bezahlt haben"
+      }
+    },
+    "actions": {
+      "save": "Speichern",
+      "cancel": "Schließen",
+      "create": "Erstellen"
+    },
+    "title": {
+      "edit": "Smartlist bearbeiten",
+      "add": "Smartlist erstellen"
+    }
+  }
+}

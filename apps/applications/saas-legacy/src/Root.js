@@ -132,7 +132,8 @@ export class Root extends Component<Props> {
      * injected by the widget
      */
     if (query.context && query.context === 'widget') {
-      WidgetUtils.setWidgetContext();
+      WidgetUtils.setWidgetContext(query.parentUrl);
+
       if (
         query.dialogMode &&
         ['string', 'number'].includes(typeof query.dialogMode)

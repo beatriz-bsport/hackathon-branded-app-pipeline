@@ -10,4 +10,4 @@ export type TemporalityType =
 
 export type TimeUnitType = typeof TIME_UNIT_HOUR | typeof TIME_UNIT_DAY;
 
-export const DEFAULT_TIMING_VALUE = 1;
+export const DEFAULT_TIMING_VALUE = 0;

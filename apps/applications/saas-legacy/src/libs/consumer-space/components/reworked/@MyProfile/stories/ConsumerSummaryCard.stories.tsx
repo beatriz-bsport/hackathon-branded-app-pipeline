@@ -42,6 +42,8 @@ const defaultArgs: Omit<
   officialDocumentId: member.official_document_id,
   phoneNumber: member.official_document_id,
   photo: member.photo,
+  iosAppUrl: 'https://example.com/ios',
+  androidAppUrl: 'https://example.com/android',
   spiviPrivacySettingsAccepted: member.spivi_privacy_settings_accepted,
   spiviPrivacySettingsLoading: false,
   isLoading: false,

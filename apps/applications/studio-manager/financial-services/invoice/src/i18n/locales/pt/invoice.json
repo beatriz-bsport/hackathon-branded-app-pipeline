@@ -1,0 +1,40 @@
+{
+  "invoiceListTitle": "Fatura",
+  "invoiceType": {
+    "reversed": "Faturas (revertida)",
+    "return": "Faturas reembolsada",
+    "credit_payment": "Ajuste de saldo",
+    "migration": "Migração",
+    "regular": "Fatura"
+  },
+  "invoiceStatus": {
+    "draft": "Rascunho",
+    "open": "Aberto",
+    "paid": "Pago",
+    "voided": "Anulado",
+    "refunded": "Reembolsado"
+  },
+  "tableColumnLabel": {
+    "number": "Número",
+    "date": "Data",
+    "member": "Cliente",
+    "amount": "Montante",
+    "type": "Tipo",
+    "status": "Estado"
+  },
+  "filters": {
+    "is": "é",
+    "is-not": "não é"
+  },
+  "emptyTable": {
+    "title": "Ainda não há fatura",
+    "description": "Assim que você cobrar os clientes, as faturas deles aparecerão aqui."
+  },
+  "download": {
+    "title": "Baixar...",
+    "pdf": "Faturas (PDF)",
+    "receipt": "Recibo de pagamento (PDF)",
+    "explainPdfDraft": "A faturas ainda é um rascunho, o pdf não está disponível.",
+    "label": "Baixar fatura"
+  }
+}

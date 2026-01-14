@@ -1,3 +1,4 @@
+import { cx } from "class-variance-authority";
 import React, { useCallback, useState } from "react";
 
 import Body from "#src/components/Body";
@@ -5,6 +6,7 @@ import Button from "#src/components/Button";
 import Icon from "#src/components/Icon";
 import Title from "#src/components/Title";
 import Dialog, { type DialogSize } from "#src/components/private/Dialog";
+import { useMatchMedia } from "#src/hooks";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import Footer from "./Footer";
@@ -60,6 +62,7 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
+  const isMobile = !useMatchMedia("sm");
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   // Handle stepper logic
@@ -151,14 +154,79 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
 
       <div
         data-component="Kaizen-ModalStepper-Body"
-        className="flex items-start gap-md p-md min-h-full overflow-y-auto"
+        className={cx(
+          {
+            "flex-col": isMobile,
+            flex: !isMobile,
+          },
+          "items-start gap-md p-sm min-h-full overflow-y-auto",
+        )}
       >
         <div
           data-component="Kaizen-ModalStepper-Steps"
-          className="flex flex-col items-start gap-md p-md border-r-stroke-thin border-r-stroke-weak h-full"
+          className="flex flex-col items-start gap-sm p-md border-r-stroke-thin border-r-stroke-weak h-full"
         >
-          {steps.map((step, index) => {
-            return (
+          {isMobile ? (
+            <>
+              <div className="flex items-center w-full">
+                {steps.map((step, index) => {
+                  const isActive = index === currentStep;
+                  const isCompleted = index < currentStep;
+                  const isLast = index === steps.length - 1;
+
+                  return (
+                    <React.Fragment key={step.label}>
+                      <div className="flex flex-col items-center">
+                        <div
+                          className={cx(
+                            "flex items-center justify-center",
+                            "w-element-lg h-element-lg",
+                            "rounded-circle",
+                            "transition-all",
+                            {
+                              "bg-surface-main-strong text-onsurface-default-onstrong":
+                                isActive,
+                              "bg-surface-default-weak border-stroke-thin border-stroke-weak text-onsurface-weak":
+                                !isActive && !isCompleted,
+                              "bg-surface-main-weak border-stroke-thin border-stroke-main text-onsurface-main-strong":
+                                isCompleted,
+                            },
+                          )}
+                        >
+                          <Body
+                            htmlVariant="span"
+                            size="sm"
+                            weight="strong"
+                            color="inherit"
+                          >
+                            {index + 1}
+                          </Body>
+                        </div>
+                      </div>
+                      {!isLast && (
+                        <div
+                          className={cx("h-stroke-thin flex-1 mx-2xs", {
+                            "bg-stroke-main": isCompleted,
+                            "bg-stroke-weak": !isCompleted,
+                          })}
+                        />
+                      )}
+                    </React.Fragment>
+                  );
+                })}
+              </div>
+              <Body
+                htmlVariant="p"
+                size="lg"
+                weight="strong"
+                color="default"
+                className=""
+              >
+                {steps[currentStep].label}
+              </Body>
+            </>
+          ) : (
+            steps.map((step, index) => (
               <div
                 key={step.label}
                 className="inline-flex items-center gap-2xs"
@@ -172,8 +240,8 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
                   {step.label}
                 </Body>
               </div>
-            );
-          })}
+            ))
+          )}
         </div>
         <div
           data-component="Kaizen-ModalStepper-Body-Content"

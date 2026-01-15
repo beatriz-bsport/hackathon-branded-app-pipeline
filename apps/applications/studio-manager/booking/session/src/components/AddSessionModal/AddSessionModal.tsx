@@ -5,6 +5,8 @@ import {
   goToNextStep,
   goToPreviousStep,
   resetForm,
+  saveStepFormData,
+  setStepValid,
 } from "#src/stores/session-creation/actions";
 import {
   selectCurrentStep,
@@ -76,6 +78,18 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
         name_override: selectedGroupActivity?.name || "",
         description_override: selectedGroupActivity?.description || "",
       });
+    }
+
+    if (currentStep === SESSION_CREATION_STEPS.CONFIGURE_SESSION) {
+      const data = configureSessionMethods.getValues();
+      saveStepFormData({
+        step: SESSION_CREATION_STEPS.CONFIGURE_SESSION,
+        data,
+      });
+      setStepValid(
+        SESSION_CREATION_STEPS.CONFIGURE_SESSION,
+        configureSessionMethods.formState.isValid,
+      );
     }
 
     if (!isLastStep) {

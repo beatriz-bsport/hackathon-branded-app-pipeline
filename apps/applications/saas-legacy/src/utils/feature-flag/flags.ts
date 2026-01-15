@@ -4,6 +4,7 @@ export const FeatureFlags = {
   HOMEPAGE: 'homepage',
   EXPRESS_PASS_CHECKOUT: 'express-pass-checkout',
   TRIAL_ANALYSIS: 'insights_trial_analysis_page',
+  SCHEDULE_ANALYSIS: 'insights_schedule_analysis_page',
   AUDIENCE_SMS_MARKETING_ACTIONS: 'audience_sms_marketing_actions',
   MEMBER_AREA_BASKET_UNIFIED: 'member-area-basket-unified',
   WEBVIEW_BASKET_AP_GP: 'webview-basket-ap-gp',

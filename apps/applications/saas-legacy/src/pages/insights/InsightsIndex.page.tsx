@@ -51,6 +51,9 @@ const InsightsIndex: React.FC = () => {
   const { t } = useTranslation(['b2b_insights']);
   const history = useHistory();
   const isTrialAnalysisEnabled = useSafeFlag(FeatureFlags.TRIAL_ANALYSIS);
+  const isScheduleAnalysisInsightEnabled = useSafeFlag(
+    FeatureFlags.SCHEDULE_ANALYSIS,
+  );
 
   const handleGoToReport = (path: string) => () => {
     history.push(path);
@@ -61,14 +64,20 @@ const InsightsIndex: React.FC = () => {
       requiredPermission={[
         'report.Payments.invoices.allowed_actions.read',
         'report.Club.subscription.allowed_actions.read',
+        'report.Bookings.bookings.allowed_actions.read',
       ]}
     >
       {([
         hasInvoicesReportPermission,
         hasSubscriptionReportPermission,
+        hasBookingsReportPermission,
       ]: boolean[]) => {
         // Hide entire Insights page if user has neither permission
-        if (!hasInvoicesReportPermission && !hasSubscriptionReportPermission) {
+        if (
+          !hasInvoicesReportPermission &&
+          !hasSubscriptionReportPermission &&
+          !hasBookingsReportPermission
+        ) {
           return <div className={classes.pageContainer}></div>;
         }
 
@@ -123,6 +132,37 @@ const InsightsIndex: React.FC = () => {
                 </div>
               </div>
             )}
+
+            {isScheduleAnalysisInsightEnabled &&
+              hasBookingsReportPermission && (
+                <div className={classes.titleContainer}>
+                  <Typography component="h2" variant="h5">
+                    {t('sections.bookings', { defaultValue: 'Bookings' })}
+                  </Typography>
+                  <Divider className={classes.divider} />
+                  <div className={classes.sectionItemContainer}>
+                    <Card className={classes.card} variant="outlined">
+                      <CardActionArea
+                        className={classes.cardActionArea}
+                        onClick={handleGoToReport(
+                          INSIGHTS_ROUTES.SCHEDULE_ANALYSIS,
+                        )}
+                      >
+                        <Typography color="textPrimary" variant="body1">
+                          {t('monitorSchedule.title', {
+                            defaultValue: 'Schedule analysis',
+                          })}
+                        </Typography>
+                        <Typography color="textSecondary" variant="body2">
+                          {t('monitorSchedule.description', {
+                            defaultValue: 'Analyze your schedule and bookings.',
+                          })}
+                        </Typography>
+                      </CardActionArea>
+                    </Card>
+                  </div>
+                </div>
+              )}
           </div>
         );
       }}

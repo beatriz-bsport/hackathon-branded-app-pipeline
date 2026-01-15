@@ -2,6 +2,7 @@ export const INSIGHTS_ROUTES = {
   INDEX: '/insights',
   TRIAL_ANALYSIS: '/insights/acquisition_performance',
   RECURRING_REVENUE: '/insights/recurring_revenue',
+  SCHEDULE_ANALYSIS: '/insights/schedule_analysis',
 } as const;
 
 export const INSIGHTS_TRANSLATION_NAMESPACES = [
@@ -9,4 +10,5 @@ export const INSIGHTS_TRANSLATION_NAMESPACES = [
   'titles',
   'trial-analysis',
   'subscription-events',
+  'schedule-analysis',
 ];

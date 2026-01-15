@@ -1,6 +1,6 @@
 export const INSIGHTS_ROUTES = {
   INDEX: '/insights',
-  TRIAL_ANALYSIS: '/insights/trial_analysis',
+  TRIAL_ANALYSIS: '/insights/acquisition_performance',
   RECURRING_REVENUE: '/insights/recurring_revenue',
 } as const;
 

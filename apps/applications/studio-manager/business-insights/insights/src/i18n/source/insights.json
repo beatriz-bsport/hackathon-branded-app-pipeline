@@ -9,8 +9,8 @@
   },
   "items": {
     "trial": {
-      "title": "Trial offers",
-      "description": "Discover more about acquisition, conversion rates and how you can increase the effectiveness of your trial offer"
+      "title": "Acquisition & Conversion Performance",
+      "description": "Understand how first-time purchases convert into returning customers, identify drop-offs, and optimize your acquisition"
     },
     "recurring": {
       "title": "Subscription performance",
@@ -19,7 +19,7 @@
   },
   "pages": {
     "trialAnalysis": {
-      "title": "Trial offers"
+      "title": "Acquisition & Conversion Performance"
     },
     "recurringRevenue": {
       "title": "Subscription performance"

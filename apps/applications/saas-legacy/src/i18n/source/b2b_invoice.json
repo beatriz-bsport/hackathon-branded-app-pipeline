@@ -87,7 +87,7 @@
     },
     "sequentialNumbering": {
       "title": "Set up sequential invoice numbering",
-      "subtitle": "Your invoices will be automatically numbered in sequence (1, 2, 3...). Customise the start date and numbering format to set it up.",
+      "subtitle": "Your invoices will be automatically numbered in sequence (1, 2, 3...). Set the start date and numbering format to get started.",
       "warning": "<0>Heads up:</0> You won't be able to change this later. Please review carefully before clicking 'Save'.",
       "selectLabel": "Start date",
       "beginningOfNextMonth": "Beginning of next month ({{nextMonth}})",

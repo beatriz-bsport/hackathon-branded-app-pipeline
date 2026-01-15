@@ -87,7 +87,12 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     console.log("Form submitted");
   };
 
-  const checkIfCurrentStepValid = () => isCurrentStepValid;
+  const checkIfCurrentStepValid = () => {
+    if (currentStep === SESSION_CREATION_STEPS.CONFIGURE_SESSION) {
+      return configureSessionMethods.formState.isValid;
+    }
+    return isCurrentStepValid;
+  };
 
   return (
     <ModalStepper
@@ -115,7 +120,6 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       confirmButton={{
         label: t("addSessionModal.buttons.createSession"),
         color: "main",
-        disabled: !isCurrentStepValid,
         onClick: handleConfirm,
       }}
       cancelButton={{

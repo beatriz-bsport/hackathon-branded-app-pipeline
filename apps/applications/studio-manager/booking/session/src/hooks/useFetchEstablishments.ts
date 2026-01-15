@@ -29,12 +29,17 @@ const establishmentsQueryOptions = (
   });
 };
 
-export const useFetchEstablishments = (
+export const useFetchEstablishments = <T = Record<string, Establishment>>(
   establishmentIds: number[] = [],
   enabled = true,
+  options?: {
+    select?: (data: Establishment[]) => T;
+  },
 ) => {
   return useQuery({
     ...establishmentsQueryOptions(establishmentIds, enabled),
-    select: (establishments) => keyBy(establishments, "id"),
+    select:
+      options?.select ??
+      ((establishments) => keyBy(establishments, "id") as unknown as T),
   });
 };

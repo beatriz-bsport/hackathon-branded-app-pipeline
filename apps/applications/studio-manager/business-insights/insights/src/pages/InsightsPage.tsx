@@ -28,7 +28,7 @@ const InsightsPage = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const filterRef = useRef<{ resetFilters: () => void }>(null);
 
-  const { access } = useInsightAccess();
+  const access = useInsightAccess();
 
   const rows = useMemo(() => {
     const baseRows = createInsightRows(t, access);

@@ -14,8 +14,7 @@ import { useTranslation } from "#src/utils/i18n";
  */
 const RecurringRevenuePage = () => {
   const { t } = useTranslation("insights");
-  const { isAllowed, isLoading: isLoadingPermission } =
-    useInsightGate("recurring");
+  const { isAllowed, isLoading } = useInsightGate("recurring");
   const {
     iframeUrl,
     isLoading: isLoadingUrl,
@@ -24,8 +23,8 @@ const RecurringRevenuePage = () => {
 
   const pageTitle = t("pages.recurringRevenue.title");
 
-  // Wait for permissions to load before redirecting
-  if (isLoadingPermission) {
+  // Wait for permissions and feature flags to be loaded before redirecting
+  if (isLoading) {
     return (
       <InsightDetailLayout title={pageTitle} isLoading={true} error={null}>
         {null}

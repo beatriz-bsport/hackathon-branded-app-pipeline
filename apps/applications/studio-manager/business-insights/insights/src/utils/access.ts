@@ -1,3 +1,5 @@
+import { useCallback, useMemo } from "react";
+
 import {
   type DeepKeys,
   type WithSignature,
@@ -10,38 +12,14 @@ import {
 } from "@bsport/sm-backbone";
 
 import {
-  type InsightFlagId,
-  InsightFlags,
+  INSIGHT_ACCESS_REQUIREMENTS,
+  INSIGHT_IDS,
+  type InsightId,
   useInsightFlagValues,
-} from "#src/utils/featureFlags";
+} from "#src/utils/insightAccessRequirements";
 
-type InsightAccessRequirement = {
-  permission: DeepKeys<ObjectLevelPermissions>;
-  featureFlag?: InsightFlagId;
-};
+export type { InsightId } from "#src/utils/insightAccessRequirements";
 
-/**
- * Single place to define access requirements for each insight page.
- * - `permission` controls backend/role access
- * - `featureFlag` (optional) controls rollout
- */
-export const INSIGHT_ACCESS_REQUIREMENTS = {
-  trial: {
-    // Trial Analysis is gated by invoices read
-    permission: "report.Payments.invoices.allowed_actions.read",
-    featureFlag: InsightFlags.TRIAL_ANALYSIS,
-  },
-  recurring: {
-    permission: "report.Club.subscription.allowed_actions.read",
-    featureFlag: undefined,
-  },
-  schedule: {
-    permission: "report.Bookings.bookings.allowed_actions.read",
-    featureFlag: InsightFlags.SCHEDULE_ANALYSIS,
-  },
-} as const satisfies Record<string, InsightAccessRequirement>;
-
-export type InsightId = keyof typeof INSIGHT_ACCESS_REQUIREMENTS;
 type InsightBooleans = Record<InsightId, boolean>;
 export type InsightPermissions = InsightBooleans;
 export type InsightAccess = InsightBooleans;
@@ -50,53 +28,38 @@ export type InsightAccess = InsightBooleans;
  * Computes access for each insight (permission + optional feature flag).
  * This avoids scattering permission/flag logic across pages and filters.
  */
-export const useInsightAccess = (): {
-  access: InsightAccess;
-  permissions: InsightPermissions;
-  isLoadingPermissions: boolean;
-  flagsReady: boolean;
-} => {
+export const useInsightAccess = (): InsightAccess => {
   const userRole = dataAccessLayer.useUserRole();
-  const isLoadingPermissions = userRole === undefined;
   const { flagsReady } = useFlagsStatus();
+  const flags = useInsightFlagValues();
 
-  const insightFlagValues = useInsightFlagValues();
+  const objectLevelPermissions = userRole?.object_level_permissions;
 
-  const hasPermissionForPath = (path: DeepKeys<ObjectLevelPermissions>) => {
-    return checkHasPermission<WithSignature<ObjectLevelPermissions>>({
-      permissions: userRole?.object_level_permissions,
-      path,
-    });
-  };
-
-  const insightIds = Object.keys(INSIGHT_ACCESS_REQUIREMENTS) as InsightId[];
-
-  const permissions = insightIds.reduce<InsightPermissions>(
-    (acc, insightId) => {
-      acc[insightId] = hasPermissionForPath(
-        INSIGHT_ACCESS_REQUIREMENTS[insightId].permission,
-      );
-      return acc;
+  const getHasPermission = useCallback(
+    (path: DeepKeys<ObjectLevelPermissions>) => {
+      return checkHasPermission<WithSignature<ObjectLevelPermissions>>({
+        permissions: objectLevelPermissions,
+        path,
+      });
     },
-    {} as InsightPermissions,
+    [objectLevelPermissions],
   );
 
-  const access = insightIds.reduce<InsightAccess>((acc, insightId) => {
-    const requirement = INSIGHT_ACCESS_REQUIREMENTS[insightId];
-    const isEnabledByFlag = requirement.featureFlag
-      ? flagsReady && insightFlagValues[requirement.featureFlag]
-      : true;
+  return useMemo(() => {
+    return INSIGHT_IDS.reduce<InsightAccess>((acc, insightId) => {
+      const requirement = INSIGHT_ACCESS_REQUIREMENTS[insightId];
 
-    acc[insightId] = permissions[insightId] && isEnabledByFlag;
-    return acc;
-  }, {} as InsightAccess);
+      const isFeatureEnabled = requirement.featureFlag
+        ? Boolean(flags[insightId]) && flagsReady
+        : true;
 
-  return {
-    access,
-    permissions,
-    isLoadingPermissions,
-    flagsReady,
-  };
+      const hasPermission = getHasPermission(requirement.permission);
+
+      acc[insightId] = isFeatureEnabled && hasPermission;
+
+      return acc;
+    }, {} as InsightAccess);
+  }, [flags, flagsReady, getHasPermission]);
 };
 
 /**
@@ -106,12 +69,24 @@ export const useInsightAccess = (): {
 export const useInsightGate = (
   insightId: InsightId,
 ): { isAllowed: boolean; isLoading: boolean } => {
-  const { access, isLoadingPermissions, flagsReady } = useInsightAccess();
+  const userRole = dataAccessLayer.useUserRole();
+  const { flagsReady } = useFlagsStatus();
+  const flags = useInsightFlagValues();
+
   const requirement = INSIGHT_ACCESS_REQUIREMENTS[insightId];
   const requiresFlag = Boolean(requirement.featureFlag);
+  const isFeatureEnabled = requiresFlag ? Boolean(flags[insightId]) : true;
+
+  const hasPermission = checkHasPermission<
+    WithSignature<ObjectLevelPermissions>
+  >({
+    permissions: userRole?.object_level_permissions,
+    path: requirement.permission,
+  });
 
   return {
-    isAllowed: access[insightId],
-    isLoading: isLoadingPermissions || (requiresFlag && !flagsReady),
+    isAllowed:
+      hasPermission && (requiresFlag ? flagsReady && isFeatureEnabled : true),
+    isLoading: requiresFlag && !flagsReady,
   };
 };

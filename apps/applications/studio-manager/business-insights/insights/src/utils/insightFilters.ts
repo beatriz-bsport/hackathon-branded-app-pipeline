@@ -20,8 +20,8 @@ export const createInsightRows = (
 ): InsightRow[] => {
   return INSIGHT_ITEMS.filter((item) => {
     // If an item is governed by access rules, enforce them.
-    // Otherwise, default to hidden.
-    return item.id in access ? access[item.id as keyof InsightAccess] : false;
+    // Otherwise, default to shown.
+    return item.id in access ? access[item.id as keyof InsightAccess] : true;
   }).map((item) => ({
     ...item,
     title: t(`items.${item.id}.title`),

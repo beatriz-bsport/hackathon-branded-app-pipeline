@@ -419,18 +419,18 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
             throw paymentMethodSetupResponse.error;
           }
           setSuccess(true);
+          setProcessing(false);
           if (onSuccess) {
             onSuccess(paymentMethodSetupResponse);
+          }
+          if (doNotOpenInDialog) {
+            onDialogClose();
           }
         } catch (err) {
           setError(true);
           err.code && setStripeErrorCode(err.code);
           err.decline_code && setStripeDeclineCode(err.decline_code);
-        } finally {
           setProcessing(false);
-          if (doNotOpenInDialog) {
-            onDialogClose();
-          }
         }
       },
       [
@@ -646,8 +646,8 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                   </span>
                 </div>
               )}
-              {!(error || success) && <PaymentMethodInput type={type} />}
-              {isSepaDebitBillingAddressRequired && !error && !success && (
+              {!success && <PaymentMethodInput type={type} />}
+              {isSepaDebitBillingAddressRequired && !success && (
                 <input
                   className="bs-collect-payment-method__mandate__field"
                   onChange={handleChangeLineOne}
@@ -657,7 +657,6 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                 />
               )}
               {type === MarketplacePaymentMethods.sepa &&
-                !error &&
                 !success &&
                 !doNotOpenInDialog && (
                   <div className="bs-collect-payment-method__mandate__terms">
@@ -665,7 +664,6 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                   </div>
                 )}
               {type === MarketplacePaymentMethods.bacs &&
-                !error &&
                 !success &&
                 !doNotOpenInDialog && (
                   <div className="bs-collect-payment-method__mandate__terms">

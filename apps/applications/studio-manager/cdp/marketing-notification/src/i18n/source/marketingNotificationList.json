@@ -29,7 +29,7 @@
       },
       "filtered": {
         "title": "No notifications matching your search",
-        "description": "Try to clear your filters to see your current notifications",
+        "description": "Try clearing your filters to see your current notifications",
         "primaryAction": "Clear filters"
       }
     },
@@ -131,6 +131,9 @@
     },
     "triggerTiming": {
       "booking": {
+        "immediate": {
+          "immediate": "Sent on trigger"
+        },
         "before": {
           "day_one": "Sent {{count}} day before the session",
           "day_other": "Sent {{count}} days before the session",

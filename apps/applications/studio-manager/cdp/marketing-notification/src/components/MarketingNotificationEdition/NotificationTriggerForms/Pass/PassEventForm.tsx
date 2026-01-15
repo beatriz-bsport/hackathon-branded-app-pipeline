@@ -23,6 +23,7 @@ import { PassNotificationTriggerField } from "./PassNotificationTriggerField";
 import {
   DEFAULT_PASS_EVENT_OCCURENCE,
   PASS_ACTION_CREDITS_LEFT,
+  PASS_CREDITS_LEFT_BOOKING_COMPLETED,
 } from "./types";
 import { getPassFormData } from "./utils";
 
@@ -40,12 +41,15 @@ export const PassEventForm = ({ itemIds, passType }: PassEventFormProps) => {
     mode: "onBlur",
     defaultValues: {
       passIds: itemIds,
-      notificationName: passFormData?.notificationName || undefined,
+      name: passFormData?.name || undefined,
       passEventAction:
         passFormData?.passEventAction || PASS_ACTION_CREDITS_LEFT,
       shouldContainAllPasses:
         formData.triggerType?.shouldContainAllPasses || false,
       creditsLeft: passFormData?.creditsLeft || DEFAULT_PASS_EVENT_OCCURENCE,
+      hours: passFormData?.hours || 0,
+      creditsEventKind:
+        passFormData?.creditsEventKind || PASS_CREDITS_LEFT_BOOKING_COMPLETED,
       daysLeft: passFormData?.daysLeft || DEFAULT_PASS_EVENT_OCCURENCE,
       disabledInContract: passFormData?.disabledInContract || false,
       isPassExpirationCheck: passFormData?.isPassExpirationCheck || false,
@@ -152,7 +156,8 @@ export const PassEventForm = ({ itemIds, passType }: PassEventFormProps) => {
     formValues?.isPassExpirationCheck,
     formValues?.excludedSmartlists,
     formValues?.includedSmartlists,
-    formValues?.notificationName,
+    formValues?.name,
+    formValues?.creditsEventKind,
     formValues?.passEventAction,
     formValues?.passIds,
     formValues?.passesType,

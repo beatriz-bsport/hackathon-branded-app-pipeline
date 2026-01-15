@@ -6,11 +6,25 @@ import {
 } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
+import { WIDGET_PARENT_DOMAIN_STORAGE_KEY } from './constants';
 import { WidgetMessageType } from './types';
 class WidgetUtils {
-  static setWidgetContext() {
+  static setWidgetContext(parentUrl?: string) {
     // @ts-expect-error
     window.env.APP_CONTEXT = 'widget';
+
+    // Store parent domain early to use as fallback when document.referrer is empty
+    // This happens when referrer policy blocks it or after navigation
+    const urlToStore = parentUrl ?? document.referrer ?? '';
+    if (urlToStore && sessionStorage) {
+      try {
+        const url = new URL(urlToStore);
+        // Store only the origin (domain) to avoid storing unnecessary path/query params
+        sessionStorage.setItem(WIDGET_PARENT_DOMAIN_STORAGE_KEY, url.origin);
+      } catch (_e) {
+        // If URL parsing fails, silently skip storing (malformed URL)
+      }
+    }
   }
 
   static isWidget() {

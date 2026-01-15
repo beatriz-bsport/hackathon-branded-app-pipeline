@@ -1,1 +1,12 @@
-{}
+{
+  "status": {
+    "label": "Status",
+    "values": {
+      "toBeProcessed": "In attesa",
+      "cancelled": "Annullato",
+      "clickAndCollect": "Da ritirare",
+      "sent": "Inviato",
+      "initialized": "Inizializzato"
+    }
+  }
+}

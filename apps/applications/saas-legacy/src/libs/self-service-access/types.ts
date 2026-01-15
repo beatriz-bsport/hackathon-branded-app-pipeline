@@ -3,6 +3,7 @@ export type AccessControlProvider = {
   provider_type: 'kisi';
   geofencing_protection_enabled: boolean;
   geofencing_protection_radius: number;
+  proximity_proof_protection_enabled: boolean;
   timezone: string;
 };
 

@@ -68,3 +68,9 @@ export const CSS_SUPPORTED_EXPORTABLE_COMPONENTS = [
   EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2,
   EXPORTABLE_COMPONENT_TYPE_REFERRAL,
 ];
+
+/**
+ * SessionStorage key for storing the parent domain when widget is embedded in an iframe.
+ * Used as fallback when document.referrer is empty.
+ */
+export const WIDGET_PARENT_DOMAIN_STORAGE_KEY = 'bsport_widget_parent_domain';

@@ -2,11 +2,13 @@ import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
 
 import namespaces from "#src/i18n/namespaces.json";
 import type commonTranslations from "#src/i18n/source/common.json";
+import type giftcardDetailsTranslations from "#src/i18n/source/giftcard-details.json";
 import type imageUploadTranslations from "#src/i18n/source/imageUpload.json";
 
 type Translations = {
   common: typeof commonTranslations;
   imageUpload: typeof imageUploadTranslations;
+  "giftcard-details": typeof giftcardDetailsTranslations;
 };
 
 const applicationName = __GIFTCARD__.__I18N_NAMESPACE_PREFIX__;

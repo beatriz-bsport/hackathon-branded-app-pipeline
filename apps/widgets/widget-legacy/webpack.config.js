@@ -11,13 +11,14 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 const getConfig = () => {
   const configOverride = process.env.DEST_CONFIG;
-  if (
-    configOverride &&
-    ['local', 'dev', 'production', 'staging', 'local-fe-dev-be'].includes(
-      configOverride,
-    )
-  ) {
-    return `./config.${configOverride}`;
+  if (configOverride) {
+    const configPath = `./config.${configOverride}`;
+    try {
+      require.resolve(configPath);
+      return configPath;
+    } catch (e) {
+      // Config file doesn't exist, fall through to default logic
+    }
   }
   if (devMode) {
     return './config.local';

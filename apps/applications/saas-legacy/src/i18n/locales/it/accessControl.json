@@ -67,7 +67,8 @@
       "green": "Valido"
     },
     "noPreviousPhoto": "Il membro non ha immagini precedenti",
-    "noSpotAllocated": "Nessun posto assegnato"
+    "noSpotAllocated": "Nessun posto assegnato",
+    "checkedInTo": "Check-in effettuato presso:"
   },
   "memberVisit": {
     "warnings": {

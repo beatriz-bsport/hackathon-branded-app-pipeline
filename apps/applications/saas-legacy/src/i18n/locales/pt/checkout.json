@@ -154,7 +154,15 @@
       "offerGuestBooked": "Minha reserva de convidado",
       "offerGuestBooked_plural": "Minhas reservas de convidados",
       "unableToBookSession": "Não é possível reservar a sessão",
-      "unableToBookSession_plural": "Não é possível marcar sessões"
+      "unableToBookSession_plural": "Não é possível marcar sessões",
+      "doorAccessInfo": {
+        "proximityProof": {
+          "message": "Você comprou um passe que inclui acesso à porta. Para usá-lo, baixe o app e vá ao seu perfil. Aproxime o telefone da porta e toque em “Abrir porta” para abri-la. ",
+          "title": "Acesso à porta adquirido"
+        },
+        "message": "Você comprou um passe que inclui acesso à porta. Para usá-lo, vá ao seu perfil e toque em “Abrir porta”.",
+        "title": "Acesso à porta adquirido"
+      }
     },
     "bookingItem": {
       "bookingItemStatus": {

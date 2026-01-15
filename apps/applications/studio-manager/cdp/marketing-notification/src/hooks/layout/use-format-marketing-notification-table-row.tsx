@@ -36,13 +36,20 @@ export const useFormatMarketingNotificationTableRow = ({
       const isEmailTemplateValid =
         typeof notification.email_design === "number" &&
         notification.email_design in emailTemplatesById;
+      const notificationCustomName =
+        "name" in notification.event_rules &&
+        typeof notification.event_rules.name === "string"
+          ? notification.event_rules.name
+          : undefined;
       return {
         id: notification.id,
         notificationType,
-        triggerType: formatNotificationTriggerName({
-          marketingNotification: notification,
-          triggerType: notificationType,
-        }),
+        triggerType:
+          notificationCustomName ||
+          formatNotificationTriggerName({
+            marketingNotification: notification,
+            triggerType: notificationType,
+          }),
         triggerDate: formatNotificationTriggerTiming({
           marketingNotification: notification,
           triggerType: notificationType,

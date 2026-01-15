@@ -395,6 +395,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
 
 const connector = connect(
   (state: RootState) => ({
+    bookedOffers: getBookedOffers(state),
     workshopsLoading: state.metaActivity.loading,
     workshops: getWorkshopsByAllIds(state),
     allWorkshops: getWorkshops(state),
@@ -459,11 +460,6 @@ export const MarketplaceWorkshopBase = compose<Props, OwnProps>(
 export default compose(
   marketplaceCssHoc(),
   withRouter,
-  // avoid conflict with widget
-  connect((state: RootState) => ({
-    bookedOffers: getBookedOffers(state),
-  })),
-
   withReplaceQueryParams(
     [
       'f_coaches',

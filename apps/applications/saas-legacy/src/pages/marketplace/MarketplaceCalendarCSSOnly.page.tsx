@@ -324,21 +324,13 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   start_date = () => {
     const paramsStartDate = this.getSelectedDate(this.props.otherParams.date);
 
-    return (
-      this.getStartCalendarWeekOnToday()
-        ? paramsStartDate.toISODate()
-        : paramsStartDate.startOf('week', { useLocaleWeeks: true }).toISODate()
-    ) as string;
+    return this.getStartCalendarWeekOnToday()
+      ? paramsStartDate
+      : paramsStartDate.startOf('week', { useLocaleWeeks: true });
   };
 
   end_date = () => {
-    const paramsStartDate = this.getSelectedDate(this.props.otherParams.date);
-
-    return (
-      this.getStartCalendarWeekOnToday()
-        ? paramsStartDate.plus({ days: 7 }).toISODate()
-        : paramsStartDate.endOf('week', { useLocaleWeeks: true }).toISODate()
-    ) as string;
+    return this.start_date().plus({ days: 7 });
   };
 
   fetchData = () => {
@@ -479,8 +471,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   getOfferListParamsWithDates = (): OfferListParams => {
     return {
       ...this.getOfferListParams(),
-      min_date: this.start_date(),
-      max_date: this.end_date(),
+      min_date: this.start_date().toISODate() as string,
+      max_date: this.end_date().toISODate() as string,
     };
   };
 

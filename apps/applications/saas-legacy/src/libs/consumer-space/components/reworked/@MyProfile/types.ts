@@ -40,6 +40,8 @@ export type ConsumerSummaryCardProps = {
   officialDocumentId: string;
   phoneNumber: string;
   photo: string;
+  iosAppUrl?: string;
+  androidAppUrl?: string;
   showAccountBalance: boolean;
   showBarcodeButton: boolean;
   showMembershipNumber: boolean;

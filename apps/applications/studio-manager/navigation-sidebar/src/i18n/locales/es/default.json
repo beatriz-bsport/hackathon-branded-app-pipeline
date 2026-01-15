@@ -1,61 +1,234 @@
 {
-  "revampCard": {
-    "goBackToOldUi": "Volver a la antigua interfaz de usuario",
-    "betaFeedbackLink": "Comentarios sobre la versión beta"
+  "common": {
+    "back": "Atrás",
+    "new": "Nuevo",
+    "search": "Buscar contactos"
   },
   "menus": {
-    "myStudio": {
-      "establishments": "Establecimientos",
-      "teachers": "Profesores",
-      "title": "Mi estudio"
+    "popover": {
+      "settings": "Ajustes",
+      "attendance": "Asistencia",
+      "ledger": "Libro mayor",
+      "tutorials": "Tutoriales",
+      "help": "Centro de ayuda",
+      "feedback": "Tablero de comentarios",
+      "logout": "Cerrar sesión"
     },
-    "membersHub": {
-      "tags": "Etiquetas",
-      "forms": "Formularios",
-      "members": "Miembros",
-      "title": "Centro de Miembros"
-    },
-    "finance": {
-      "payroll": "Nóminas",
-      "expenses": "Gastos",
-      "directDebits": "Domiciliaciones bancarias",
-      "payouts": "Pagos",
-      "invoices": "Facturas",
-      "title": "Finanzas"
-    },
-    "reporting": "Reportes",
-    "dashboard": "Dashboard / Visión general",
-    "marketing": {
-      "promotions": "Promociones",
-      "audience": "Audience",
-      "smartlists": "Smartlists",
-      "emailTemplates": "Plantillas de email",
-      "marketingNotifications": "Notificaciones a los miembros",
-      "title": "Marketing"
-    },
-    "products": {
-      "orders": "Pedidos",
-      "videosAndEbooks": "Videos & eBooks",
-      "giftcards": "Tarjetas de regalo",
-      "packs": "Packs",
-      "webshop": "Tienda",
-      "title": "Productos"
+    "inbox": "Inbox",
+    "notifications": "Notificaciones",
+    "home": "Inicio",
+    "calendar": "Calendario",
+    "schedule": "Horario",
+    "accessControl": "Access Control",
+    "classes": {
+      "title": "Clases",
+      "activities": "Clases grupales",
+      "workshops": "Talleres",
+      "appointments": "Citas"
     },
     "memberships": {
-      "subscriptions": "Suscripciones",
+      "title": "Pases y Suscripciones",
       "passes": "Pases",
-      "title": "Suscripciones"
+      "appointmentPasses": "Pases de cita",
+      "subscriptions": "Suscripciones"
     },
-    "classes": {
-      "appointments": "Citas",
-      "workshops": "Talleres",
-      "activities": "Actividades",
-      "title": "Clases"
+    "products": {
+      "title": "Tienda",
+      "webshop": "Productos",
+      "packs": "Packs",
+      "giftcards": "Tarjetas de regalo",
+      "videosAndEbooks": "Oferta Digital",
+      "playlists": "Colecciones",
+      "orders": "Pedidos"
     },
-    "accessControl": "Control de acceso",
-    "schedule": "Horario",
-    "calendar": "Calendario",
-    "notifications": "Notificaciones",
-    "inbox": "Bandeja de entrada"
+    "marketing": {
+      "title": "Marketing",
+      "marketingNotifications": "Notificaciones",
+      "emailTemplates": "Plantillas",
+      "smartlists": "Smartlists",
+      "audience": "Audience",
+      "promotions": "Promociones",
+      "customForms": "Formularios personalizados"
+    },
+    "dashboard": "Dashboard",
+    "reporting": "Reportes",
+    "analytics": {
+      "title": "Analíticas",
+      "insights": "Visión empresarial",
+      "reports": "Informes"
+    },
+    "finance": {
+      "title": "Finanzas",
+      "invoices": "Facturas",
+      "payouts": "Pagos",
+      "directDebits": "Cuotas",
+      "expenses": "Gastos",
+      "payroll": "Nóminas"
+    },
+    "membersHub": {
+      "title": "Contactos",
+      "members": "Perfiles",
+      "forms": "Formularios",
+      "tags": "Etiquetas",
+      "performanceTracking": "Programas"
+    },
+    "myStudio": {
+      "title": "Estudio",
+      "teachers": "Profesores",
+      "establishments": "Establecimientos",
+      "substitutions": "Sustituciones"
+    },
+    "settings": {
+      "title": "Ajustes",
+      "general": "General",
+      "marketplace": "Área de Miembros",
+      "widgets": "Widgets",
+      "permissions": "Permisos",
+      "personalization": "Personalización",
+      "brandedApp": "Personalización de la app",
+      "teacherView": "Vista del profesor",
+      "memberForms": "Formularios de miembros",
+      "livestreaming": "Transmisión en vivo",
+      "transactionalNotifications": "Notificaciones transaccionales",
+      "payroll": "Nóminas",
+      "paymentMethods": "Método de pago",
+      "paymentFacilities": "Modalidades de Pago",
+      "billing": "Facturación",
+      "company": "Empresa",
+      "waitlist": "Lista de espera",
+      "webhook": "Webhook",
+      "partnership": "Colaboración",
+      "activeCampaign": "ActiveCampaign",
+      "referral": "Recomendación",
+      "quicksale": "PDV",
+      "oldWebshop": "Ajustes de la tienda en línea",
+      "quickbooks": "Quickbooks",
+      "bsportSubscription": "suscripción bsport",
+      "temporaryPassword": "Contraseña temporal",
+      "changeLanguage": "Cambiar idioma"
+    }
+  },
+  "revampCard": {
+    "betaFeedbackLink": "Compartir opiniones",
+    "goBackToOldUi": "Antiguo Back Office"
+  },
+  "languages": {
+    "french": "Francés",
+    "englishUK": "Inglés (Reino Unido)",
+    "englishUS": "Inglés (EE. UU.)",
+    "spanish": "Español",
+    "dutch": "Holandés",
+    "german": "Alemán",
+    "italian": "Italiano",
+    "portuguese": "Portugués",
+    "debug": "Debug (cimode)"
+  },
+  "notifications": {
+    "title": "Centro de notificaciones",
+    "empty": {
+      "title": "Estás al día",
+      "description": "Nada que mostrar por ahora"
+    },
+    "tabs": {
+      "billing": "Facturación",
+      "orders": "Pedidos",
+      "tasks": "Tareas",
+      "unpaidAppointments": "Citas no pagadas",
+      "tutorials": "Tutoriales",
+      "companyOnboarding": "Información legal",
+      "privateBookingIncomplete": "Cita por completar"
+    },
+    "billing": {
+      "loading": "Cargando notificaciones de facturación...",
+      "empty": {
+        "title": "No hay notificaciones de facturación",
+        "description": "Todas tus notificaciones de facturación aparecerán aquí"
+      },
+      "paid": "Pagado:",
+      "due": "Vence:",
+      "itemTitle": "Facturas impagada",
+      "itemDescription": "Facturas aún no ha sido finalizada."
+    },
+    "orders": {
+      "loading": "Cargando pedidos...",
+      "empty": {
+        "title": "No hay pedidos",
+        "description": "Todos tus pedidos aparecerán aquí"
+      },
+      "itemTitle": "Pedido pendiente",
+      "paidByFormat": "Pagado por <strong>{{name}}</strong> en la tienda"
+    },
+    "tasks": {
+      "loading": "Cargando tareas...",
+      "empty": {
+        "title": "Sin tareas",
+        "description": "Todas tus tareas aparecerán aquí"
+      }
+    },
+    "unpaidAppointments": {
+      "title": "Citas no pagadas",
+      "itemTitle": "Cita no pagada",
+      "loading": "Cargando citas pendientes de pago...",
+      "credits": "Créditos pendientes",
+      "empty": {
+        "title": "No citas pendientes de pago",
+        "description": "No tienes citas pendientes de pago"
+      }
+    },
+    "tutorials": {
+      "loading": "Cargando tutoriales...",
+      "empty": {
+        "title": "No hay tutoriales",
+        "description": "Todas tus notificaciones de tutoriales aparecerán aquí"
+      },
+      "newSection": {
+        "title": "Nueva sección",
+        "description": "El tutorial {{sectionName}} ha sido añadido, entrena ahora mismo."
+      },
+      "newLesson": {
+        "title": "Nueva lección",
+        "description": "Lección {{lessonName}} añadida a la sección {{sectionName}}"
+      }
+    },
+    "companyOnboarding": {
+      "loading": "Cargando notificaciones de incorporación de la empresa...",
+      "empty": {
+        "title": "No hay notificaciones de incorporación de la empresa",
+        "description": "Todas tus notificaciones de incorporación de la empresa aparecerán aquí"
+      },
+      "creation": {
+        "title": "Los pagos en línea están desactivados actualmente",
+        "content": "Por favor, revisa tu información legal y bancaria para poder procesar pagos en línea."
+      },
+      "payout": {
+        "title": "Datos bancarios incompletos",
+        "content": "Los pagos no se pueden procesar debido a que la verificación de la cuenta no se ha completado o se ha realizado incorrectamente."
+      },
+      "verification": {
+        "title": "Gestión empresarial",
+        "content": "Varios documentos están pendientes de validación para verificar tu cuenta. La fecha límite es: {{date}}.",
+        "contentGeneric": "Varios documentos están pendientes de validación para verificar tu cuenta."
+      },
+      "paypal": {
+        "title": "Los pagos de PayPal están desactivados",
+        "primaryEmailConfirmation": "El correo de tu cuenta de PayPal requiere confirmación. Por favor, revisa tu cuenta de PayPal para resolver este problema.",
+        "requiresMoreInformation": "Tu cuenta de PayPal requiere información adicional o validación por parte de PayPal. Por favor, revisa tu cuenta de PayPal para resolver este problema.",
+        "issueCheckAccount": "Hay un problema con tu cuenta de PayPal. Por favor, revisa tu cuenta de PayPal para resolver este problema.",
+        "issueRepeatOnboarding": "Hay un problema con tu cuenta de PayPal. Por favor, repite el proceso de conexión usando la misma cuenta para resolver este problema."
+      },
+      "generic": {
+        "title": "Se requiere incorporación de la empresa",
+        "content": "Por favor, completa el proceso de incorporación de tu empresa."
+      }
+    },
+    "privateBookingIncomplete": {
+      "loading": "Cargando citas para completar...",
+      "empty": {
+        "title": "No hay citas por completar",
+        "description": "Todas tus citas tienen profesores asignados"
+      },
+      "member": "Miembros: {{userName}}",
+      "date": "Fecha: {{date}}"
+    }
   }
 }

@@ -10,25 +10,24 @@
     },
     "addFormModal": {
       "title": "Maak nieuw formulier aan",
-      "description": "Geef je nieuwe formulier een naam om te beginnen!",
       "input": {
-        "label": "Formuliernaam",
+        "label": "Naam",
         "placeholder": "Voeg een formuliernaam toe..."
       },
       "actions": {
-        "cancel": "Annuleren",
+        "cancel": "Sluiten",
         "create": "Creëer"
       },
       "errors": {
-        "nameTooLong": "De naam is niet geldig, de maximale lengte is {{ maximalLength }} tekens.",
-        "nameTooShort": "De naam is niet geldig, de minimale lengte is {{ minimalLength }} tekens.",
-        "nameRequired": "De naam is niet geldig, je kunt geen lege naam invoeren."
+        "nameTooLong": "Naam mag maximaal {{ maximalLength }} tekens bevatten",
+        "nameTooShort": "Naam moet minimaal {{ minimalLength }} tekens bevatten",
+        "nameRequired": "Geef je formulier een naam om door te gaan"
       }
     },
     "archiveModal": {
       "actions": {
         "archive": "Archiveer",
-        "cancel": "Terug"
+        "cancel": "Behouden"
       },
       "title": "Archief formulier?",
       "description": "Leden zullen <b>{{ name }}</b> niet meer zien, maar je kunt er toegang toe krijgen vanuit je archief."
@@ -36,35 +35,35 @@
     "duplicateModal": {
       "actions": {
         "duplicate": "Dupliceren",
-        "cancel": "Terug"
+        "cancel": "Sluiten"
       },
       "title": "Formulier dupliceren?",
       "description": {
         "verification": "Dupliceren <b>{{ name }}</b>?",
-        "effect": "Je kunt <b>{{ name }}</b> later bewerken."
+        "effect": "Je kunt <b>{{ name }}</b> bewerken na"
       }
     }
   },
   "toasts": {
     "messageCreated": {
       "success": "Formulier aangemaakt",
-      "error": "Je formulier kon niet worden aangemaakt"
+      "error": " Het formulier kon niet worden hersteld. Probeer het opnieuw."
     },
     "messageArchived": {
       "success": "Formulier gearchiveerd",
-      "error": "Je formulier kon niet worden gearchiveerd"
+      "error": " Formulier kon niet worden gearchiveerd. Probeer het opnieuw."
     },
     "messageRestored": {
       "success": "Formulier hersteld",
-      "error": "Je formulier kon niet worden hersteld"
+      "error": " Het formulier kon niet worden hersteld. Probeer het opnieuw."
     },
     "messageDuplicated": {
       "success": "Formulier gedupliceerd",
-      "error": "Je formulier kon niet worden gedupliceerd "
+      "error": " Formulier kon niet worden gedupliceerd. Probeer het opnieuw."
     },
     "messageUndone": {
-      "success": "Actie ongedaan gemaakt",
-      "error": "Actie ongedaan maken mislukt"
+      "success": "Wijziging ongedaan gemaakt",
+      "error": "De wijziging kan niet ongedaan worden gemaakt. Probeer het opnieuw."
     },
     "actions": {
       "undo": "Ongedaan maken",
@@ -87,7 +86,7 @@
       },
       "archivedList": {
         "title": "Nog geen gearchiveerde formulieren",
-        "subtitle": "Alle formulieren die hierheen zijn verplaatst, kunnen worden hersteld."
+        "subtitle": "Alle formulieren die je archiveren, worden hier weergegeven. Je kunt ze op elk moment herstellen. "
       },
       "search": {
         "title": "Geen formulieren gevonden",
@@ -101,5 +100,9 @@
       "search": "Zoek een formulier",
       "switchToArchived": "Gearchiveerde formulieren"
     }
+  },
+  "list": {
+    "questions": "{{count}} vraag",
+    "questions_other": "{{count}} vragen"
   }
 }

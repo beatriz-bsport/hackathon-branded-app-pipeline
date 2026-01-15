@@ -48,7 +48,7 @@
         "totalEmailsSent": "Total emails sent",
         "recipientsTotal_one": "({{count}} member)",
         "recipientsTotal_other": "({{count}} members)",
-        "openRate": "Open Rate"
+        "openRate": "Open rate"
       },
       "allNotifications": {
         "title": "All notifications",
@@ -58,7 +58,7 @@
         },
         "helper": {
           "title": "Performance Status",
-          "content": "This summary shows the performance of both emails and push notifications by displaying their status.",
+          "content": "This summary shows the performance of both emails and push notifications.",
           "status": {
             "sent": {
               "label": "Sent",

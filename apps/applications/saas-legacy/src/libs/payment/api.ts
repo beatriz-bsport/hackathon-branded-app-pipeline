@@ -23,6 +23,7 @@ import {
   postAuth,
 } from '#src/http';
 import Config from '#src/config';
+import { WIDGET_PARENT_DOMAIN_STORAGE_KEY } from '#src/libs/widget/constants';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 const API_URI_BUSINESS_INSIGHTS =
@@ -320,16 +321,18 @@ export const checkStripePaymentMethodDomainRegistration = async (
       'Authentication token is required for domain registration check',
     );
   }
-  if (!document.referrer) {
-    throw new Error(
-      'Document referrer is required for domain registration check',
-    );
-  }
+
+  // Get parent page domain - use document.referrer first, fallback to sessionStorage
+  // (stored in WidgetUtils.setWidgetContext() when widget loads, in case document.referrer is empty)
+  const storedParentDomain =
+    sessionStorage.getItem(WIDGET_PARENT_DOMAIN_STORAGE_KEY) || '';
+  const referrer = document.referrer || storedParentDomain || '';
+
   return post<{ is_registered: boolean }>(
     `${API_V1_URI}/payment_backend/stripe/stripe-payment-method-domain/check_domain_registration/`,
     { company_id },
     {
-      'X-React-Referrer': document.referrer,
+      'X-React-Referrer': referrer,
       Authorization: `Token ${token}`,
     },
   );

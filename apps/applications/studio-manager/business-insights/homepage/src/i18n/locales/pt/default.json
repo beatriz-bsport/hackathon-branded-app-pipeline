@@ -34,9 +34,10 @@
       },
       "tooltip": {
         "classIsFull": "Esta aula está cheia",
+        "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} vaga restante na aula",
         "hasEmptySpots_other": "{{ count }} vagas restantes na aula",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} vaga pendente na lista de espera",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} Membros na Lista de Espera",
         "hasEmptySpotsForWaitlist_other": "{{ count }} vagas pendentes na lista de espera"
       }
     }

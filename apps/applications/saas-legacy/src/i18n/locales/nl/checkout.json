@@ -131,7 +131,15 @@
       "offerGuestBooked": "Mijn gastreservering",
       "offerGuestBooked_plural": "Mijn gastreserveringen",
       "unableToBookSession": "Het is niet mogelijk om een sessie te boeken",
-      "unableToBookSession_plural": "Het is niet mogelijk om sessies te boeken"
+      "unableToBookSession_plural": "Het is niet mogelijk om sessies te boeken",
+      "doorAccessInfo": {
+        "proximityProof": {
+          "message": "Je hebt een pas gekocht met deurtoegang. Download de app en ga naar je profiel. Houd je telefoon bij de deur en tik op ‘Deur openen’ om deze te openen. ",
+          "title": "Deurtoegang gekocht"
+        },
+        "message": "Je hebt een pas gekocht met deurtoegang. Ga naar je profiel en tik op ‘Deur openen’ om deze te gebruiken.",
+        "title": "Deurtoegang gekocht"
+      }
     },
     "actions": {
       "back": "Terug",

@@ -122,7 +122,10 @@ export const PushNotificationForm: React.FC<PushNotificationFormProps> = ({
           ...defaultProps,
           helperText: `${field.value?.length || 0}/${PUSH_NOTIFICATION_TITLE_MAX_LENGTH}`,
           onClear: () => {
-            setFormValue("pushNotificationTitle", "", { shouldValidate: true });
+            setFormValue("pushNotificationTitle", "", {
+              shouldValidate: true,
+              shouldDirty: true,
+            });
           },
         })}
       >

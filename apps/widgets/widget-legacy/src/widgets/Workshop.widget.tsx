@@ -6,7 +6,7 @@ import type {
   WithStyles,
 } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 
-import MarketplaceWorkshop from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceWorkshop.page';
+import { MarketplaceWorkshopBase } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceWorkshop.page';
 import { OwnProps as MarketplaceWorkshopOwnProps } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceWorkshop.page';
 import type {
   MarketplaceFilters,
@@ -53,7 +53,7 @@ const MarketplaceWorkshopBaseStyled = compose<
       validationSchema: CalendarOnlineFilterValidationSchema,
     },
   ]),
-)(MarketplaceWorkshop);
+)(MarketplaceWorkshopBase);
 
 type OwnProps = {
   companyId: number;

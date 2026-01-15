@@ -1,1 +1,98 @@
-{}
+{
+  "title": "Smartlists",
+  "addSmartlist": "Maak Smartlist aan",
+  "loading": "Bezig met laden van Smartlists...",
+  "search": "Zoek Smartlists",
+  "emptyState": {
+    "title": "Nog geen Smartlists",
+    "subtitle": "Maak je eerste Smartlist om klanten te segmenteren met tags, gerichte berichten te sturen en betrokkenheid te volgen."
+  },
+  "emptySearch": {
+    "title": "Geen Smartlists gevonden",
+    "subtitle": "Probeer filters te wissen om meer resultaten te zien",
+    "clearFilters": "Filters wissen"
+  },
+  "duplicateModal": {
+    "title": "Smartlist dupliceren?",
+    "description": "Je kunt <b>{{name}}</b> bewerken nadat",
+    "buttons": {
+      "duplicate": "Dupliceren",
+      "cancel": "Sluiten"
+    }
+  },
+  "deleteModal": {
+    "title": "Verwijder Smartlist?",
+    "description": "Zodra je <b>{{name}}</b> verwijdert, zullen geplande berichten of automatische tagging niet meer worden uitgevoerd, maar eerder getagde Leden worden niet beïnvloed.",
+    "warning": "Let op: deze wijziging is permanent en kan niet ongedaan worden gemaakt",
+    "audienceWarning": "Smartlists die in Audience-workflows worden gebruikt, kunnen niet worden verwijderd. ",
+    "cannotBeDeleted": "Deze Smartlist wordt momenteel gebruikt in Audience-workflows en kan niet op deze pagina worden verwijderd.",
+    "audienceCallToAction": "Om deze Smartlist te verwijderen, ga naar de Audience-pagina en verwijder deze uit de bijbehorende workflows.",
+    "buttons": {
+      "delete": "Verwijderen",
+      "cancel": "Behouden"
+    }
+  },
+  "toasts": {
+    "success": {
+      "duplicated": "Smartlist gedupliceerd",
+      "open": "Open",
+      "saved": "Smartlist bijgewerkt",
+      "created": "Smartlist aangemaakt",
+      "deleted": "Smartlist verwijderd",
+      "undo": "Ongedaan maken",
+      "actionUndone": "Wijziging ongedaan gemaakt"
+    },
+    "error": {
+      "duplicateFailed": "Er is iets misgegaan bij het dupliceren van de Smartlist. Probeer het opnieuw. ",
+      "updateFailed": "De Smartlist kon niet worden bijgewerkt. Probeer het opnieuw. ",
+      "createFailed": "Er is iets misgegaan bij het aanmaken van de Smartlist. Probeer het opnieuw. ",
+      "deleteFailed": "De Smartlist kon niet worden verwijderd. Probeer het opnieuw. ",
+      "deleteError": {
+        "101000": "Er is iets misgegaan bij het dupliceren van de Smartlist. Probeer het opnieuw.",
+        "101001": "Smartlist kan niet worden verwijderd omdat deze momenteel wordt gebruikt in actieve communicatie. Verwijder het uit de communicatie of neem contact op met de ondersteuning voor hulp. ",
+        "101002": "Smartlist kan niet worden verwijderd omdat deze wordt gebruikt in actieve Audience-workflows. Ga naar de Audience-pagina om het uit de bijbehorende workflow te verwijderen. "
+      }
+    }
+  },
+  "inlineActions": {
+    "duplicate": "Dupliceer Smartlist",
+    "edit": "Bewerken",
+    "delete": "Verwijder Smartlist"
+  },
+  "dropdownActions": {
+    "duplicate": "Dupliceren",
+    "edit": "Hernoemen",
+    "delete": "Verwijderen"
+  },
+  "createForm": {
+    "title": "Maak Smartlist aan",
+    "subtitle": "Toevoegen een naam en beschrijving aan deze Smartlist zodat je deze later kunt terugvinden.",
+    "actions": {
+      "create": "Maken",
+      "cancel": "Sluiten"
+    }
+  },
+  "editForm": {
+    "fields": {
+      "name": {
+        "label": "Naam",
+        "placeholder": "bijv. Klanten die via Stripe hebben betaald",
+        "required": "Geef je Smartlist een naam zodat je deze later kunt terugvinden",
+        "maxLength": "Naam moet minder dan 200 tekens bevatten"
+      },
+      "description": {
+        "label": "Beschrijving",
+        "placeholder": "bijv. Klanten die via Stripe hebben betaald"
+      }
+    },
+    "actions": {
+      "save": "Opslaan",
+      "cancel": "Sluiten",
+      "create": "Creëer"
+    },
+    "title": {
+      "edit": "Bewerk Smartlist",
+      "add": "Maak Smartlist aan"
+    }
+  }
+}

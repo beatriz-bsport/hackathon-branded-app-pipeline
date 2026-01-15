@@ -9,6 +9,7 @@ import type { BookingTemporality } from "#src/components/MarketingNotificationEd
 import { TimeUnitType } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
 import {
   APPOINTMENT_PASS_ACTIONS_MAP_TO_EVENT_KIND,
+  CREDITS_LEFT_EVENTS_MAP_TO_EVENT_KIND,
   PASS_ACTION_CREDITS_LEFT,
   PAYMENT_PASS_ACTIONS_MAP_TO_EVENT_KIND,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Pass/types";
@@ -19,7 +20,7 @@ import {
   PassesType,
 } from "#src/utils/schemas/types";
 
-const TIME_OPTION_NOT_SELECTED = null;
+const TIME_OPTION_NOT_SELECTED = 0;
 
 export const useRefineNotificationFormData = () => {
   const getTriggerConditionKind = (
@@ -110,12 +111,20 @@ export const useRefineNotificationFormData = () => {
 
     const occurenceEventParams =
       triggerCondition.passEventAction === PASS_ACTION_CREDITS_LEFT
-        ? { credits_left: creditsLeft }
+        ? {
+            credits_left: creditsLeft,
+            hours: triggerCondition.hours,
+            kind: triggerCondition.creditsEventKind
+              ? CREDITS_LEFT_EVENTS_MAP_TO_EVENT_KIND[
+                  triggerCondition.creditsEventKind
+                ]
+              : null,
+          }
         : { days_left: daysLeftRefined };
     return {
       ...occurenceEventParams,
       ...finerGrainParams,
-      name: triggerCondition.notificationName,
+      name: triggerCondition.name,
       disabled_if_in_contract: triggerCondition.disabledInContract,
       event_based: false,
       smartlist_exclude: triggerCondition.excludedSmartlists,

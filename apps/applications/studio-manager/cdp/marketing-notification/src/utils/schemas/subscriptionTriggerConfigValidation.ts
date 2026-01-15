@@ -1,8 +1,9 @@
 import { z } from "zod";
 
-import type {
-  TemporalityType,
-  TimeUnitType,
+import {
+  DEFAULT_TIMING_VALUE,
+  type TemporalityType,
+  type TimeUnitType,
 } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
 
 import { i18nInstance } from "../i18n";
@@ -21,11 +22,11 @@ export const subscriptionTriggerConfigValidationSchema = z
     excludedSmartlists: z.array(z.number()).optional(),
   })
   .superRefine((data, ctx) => {
-    if (data.timingValue < 1) {
+    if (data.timingValue < DEFAULT_TIMING_VALUE) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: i18nInstance.t(
-          "steps.notificationRules.errors.atLeastOneTimeValue",
+          "steps.notificationRules.errors.positiveValue",
           {
             timeUnit: data.timingUnit,
             ns: "sm-marketing-notification_marketingNotificationsModal",

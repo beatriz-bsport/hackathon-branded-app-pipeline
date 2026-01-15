@@ -403,7 +403,10 @@
     "amount_upcoming_cts": "Geplande betaling",
     "payment_method_twint": "TWINT",
     "payment_method_google_pay": "Google Pay",
-    "payment_method_apple_pay": "Apple Pay"
+    "payment_method_apple_pay": "Apple Pay",
+    "door_name": "Deurnaam",
+    "door_distance": "Afstand deur (m)",
+    "door_id": "Deur-ID"
   },
   "report": {
     "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -458,7 +461,8 @@
     "dispute": "Geschil",
     "billing_plan": "Abonnement",
     "members_purchase": "Aankopen van leden",
-    "referral_grant": "Doorverwijzer"
+    "referral_grant": "Doorverwijzer",
+    "access_monitoring": "Toegang tot de studio"
   },
   "globalCategories": {
     "subheader": {

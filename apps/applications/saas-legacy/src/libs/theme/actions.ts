@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 
 import { SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION } from '@bsport/common/lib/master-data/error-codes/spivi.js';
+
 import { Settings } from 'luxon';
 import api, {
   fetchCompanyThemeWithCache as fetchCompanyThemeWithCacheAPI,
@@ -8,6 +9,8 @@ import api, {
 import { Dispatch, OptionCallback } from '../../state/types';
 import { CompanyTheme } from './types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
+
+export const COMPANY_THEME_COVER_SIZE_EXCEPTION = 80003;
 
 export const themeDetail = {
   error: createAction('THEME/DETAIL/ERROR'),
@@ -128,6 +131,14 @@ export function updateCompanyTheme(
           dispatch(
             snackbarError(
               `snackbar:spivi.error.${err.response?.data?.error_code}`,
+            ),
+          );
+        } else if (
+          err.response?.data?.error_code === COMPANY_THEME_COVER_SIZE_EXCEPTION
+        ) {
+          dispatch(
+            snackbarError(
+              `companyTheme.update.customError.${err.response?.data?.error_code}`,
             ),
           );
         } else {

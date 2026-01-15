@@ -630,7 +630,10 @@
     "updated_status": "Estado atualizado",
     "admission": "Admissão",
     "kind": "Tipo",
-    "billing_date_start": "Primeira data de faturação"
+    "billing_date_start": "Primeira data de faturação",
+    "door_name": "Nome porta",
+    "door_distance": "Distância porta (m)",
+    "door_id": "ID porta"
   },
   "categories": {
     "activityByCoach": "Atividades e workshops por professor",
@@ -676,7 +679,8 @@
     "members": "Novos membros",
     "on_spot_payments": "Pagamentos no local",
     "dispute": "Conflito no pagamento",
-    "referral_grant": "Referência"
+    "referral_grant": "Referência",
+    "access_monitoring": "Acesso ao estúdio"
   },
   "header": {
     "save": "Guardar",

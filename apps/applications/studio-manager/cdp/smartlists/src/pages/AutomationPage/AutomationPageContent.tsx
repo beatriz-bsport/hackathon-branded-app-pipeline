@@ -1,10 +1,13 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useOutletContext } from "react-router";
 
 import {
   Body,
+  Button,
   Card,
   Chip,
+  DropdownMenu,
+  type DropdownMenuItems,
   ErrorFallback,
   type GenericTableColumn,
   Icon,
@@ -17,6 +20,7 @@ import {
   type AutomatedCampaignWithAnalytics,
   useAutomatedCampaignAnalytics,
 } from "#src/api/use-automated-campaign-analytics";
+import { DeleteAutomationModal } from "#src/components/DeleteAutomationModal";
 import { useTranslation } from "#src/utils/i18n";
 
 type AutomationPageContext = {
@@ -33,6 +37,14 @@ export const AutomationPageContent = () => {
   const { t, i18n } = useTranslation("details");
 
   const campaigns = useAutomatedCampaignAnalytics(smartlistId);
+
+  const [automationToDelete, setAutomationToDelete] = useState<TableRow | null>(
+    null,
+  );
+
+  const handleCloseDeleteModal = () => {
+    setAutomationToDelete(null);
+  };
 
   const columns: GenericTableColumn<TableRow>[] = useMemo(
     () => [
@@ -165,6 +177,53 @@ export const AutomationPageContent = () => {
           );
         },
       },
+      {
+        id: "actions",
+        type: "custom",
+        align: "center",
+        header: "",
+        render: (row) => {
+          const items: DropdownMenuItems = [
+            {
+              id: "edit",
+              label: t("automation.messages.actions.edit"),
+              iconLeft: "edit-02",
+            },
+            {
+              id: "delete",
+              label: t("automation.messages.actions.delete"),
+              iconLeft: "trash-01",
+            },
+          ];
+
+          return (
+            <DropdownMenu
+              items={items}
+              onSelectOption={({ setIsPopoverOpened, id }) => {
+                setIsPopoverOpened(false);
+                if (id === "delete") {
+                  setAutomationToDelete(row);
+                } else if (id === "edit") {
+                  // TODO: Implement edit action
+                  console.log(`Edit action for automation: ${row.id}`);
+                }
+              }}
+              placement="bottom-right"
+              target={({ setIsPopoverOpened }) => (
+                <Button
+                  kind="icon-button"
+                  intent="flat"
+                  icon="dots-vertical"
+                  onClick={() => setIsPopoverOpened(true)}
+                  color="default"
+                  label="open-actions-menu"
+                  size="md"
+                />
+              )}
+            />
+          );
+        },
+      },
     ],
     [i18n.language],
   );
@@ -179,18 +238,28 @@ export const AutomationPageContent = () => {
   );
 
   return (
-    <Card padding="none" className="overflow-hidden">
-      <Table
-        columns={columns}
-        rows={rows}
-        emptyStateProps={{
-          isEmpty: rows.length === 0,
-          emptyConfig: {
-            title: t("automation.messages.emptyState"),
-          },
-        }}
-      />
-    </Card>
+    <>
+      <Card padding="none" className="overflow-hidden">
+        <Table
+          columns={columns}
+          rows={rows}
+          emptyStateProps={{
+            isEmpty: rows.length === 0,
+            emptyConfig: {
+              title: t("automation.messages.emptyState"),
+            },
+          }}
+        />
+      </Card>
+      {automationToDelete && (
+        <DeleteAutomationModal
+          isOpen
+          onClose={handleCloseDeleteModal}
+          smartlistId={smartlistId}
+          automation={automationToDelete}
+        />
+      )}
+    </>
   );
 };
 

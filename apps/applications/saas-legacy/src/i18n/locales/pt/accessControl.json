@@ -82,7 +82,8 @@
       }
     },
     "passExpiration": "Válido até {{- expirationDate }}",
-    "atHome": "Em casa"
+    "atHome": "Em casa",
+    "checkedInTo": "Check-in efetuado em:"
   },
   "settings": {
     "title": "Prazo de inscrição dos membros",

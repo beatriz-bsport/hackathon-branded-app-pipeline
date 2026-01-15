@@ -86,12 +86,16 @@ export const SmartlistsFormField = ({
             {isEnabled && (
               <div className="ml-sm">
                 <SmartlistsSelector
-                  onSelectSmartlists={(smartlists) =>
+                  onSelectSmartlists={(smartlists) => {
+                    const ids = (smartlists || [])
+                      .map((smartlist) => smartlist?.id)
+                      .filter(Boolean);
+
                     onSmartlistsChange?.({
                       type,
-                      smartlistIds: smartlists.map((smartlist) => smartlist.id),
-                    })
-                  }
+                      smartlistIds: ids,
+                    });
+                  }}
                   textfieldProps={textfieldProps}
                   defaultValues={defaultValues}
                 />

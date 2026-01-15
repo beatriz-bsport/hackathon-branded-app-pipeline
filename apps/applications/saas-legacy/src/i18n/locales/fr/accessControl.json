@@ -82,7 +82,8 @@
       }
     },
     "passExpiration": "Valide jusqu'au {{- expirationDate }}",
-    "atHome": "À domicile"
+    "atHome": "À domicile",
+    "checkedInTo": "Enregistré(e) à :"
   },
   "settings": {
     "title": "Période d'entrée des membres",

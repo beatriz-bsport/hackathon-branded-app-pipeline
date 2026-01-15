@@ -28,11 +28,13 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
   firstName,
   gender,
   isLoading,
+  iosAppUrl,
   lastName,
   membershipId,
   officialDocumentId,
   phoneNumber,
   photo,
+  androidAppUrl,
   showAccountBalance,
   showBarcodeButton,
   showMembershipNumber,
@@ -48,11 +50,13 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
     <div className="bs-consumer-summary-card__container">
       <Card className={clsx('bs-consumer-summary-card__root')}>
         <ConsumerSummaryCardHeader
+          androidAppUrl={androidAppUrl}
           companyId={companyId}
           creditAccountBalance={creditAccountBalance}
           email={email}
           firstName={firstName}
           handleToggleBarcodeModal={toggleBarcodeModal}
+          iosAppUrl={iosAppUrl}
           isMobile={isMobile}
           lastName={lastName}
           photo={photo}

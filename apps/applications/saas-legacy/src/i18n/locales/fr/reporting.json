@@ -58,7 +58,8 @@
     "members_purchase": "Achats des membres",
     "billing_plan": "Souscription",
     "franchise_shared_pass": "Utilisations cartes partagées",
-    "referral_grant": "Parrainage"
+    "referral_grant": "Parrainage",
+    "access_monitoring": "Accès au studio"
   },
   "header": {
     "sum": "Somme",
@@ -491,7 +492,10 @@
     "amount_upcoming_cts": "Montant à venir",
     "payment_method_twint": "TWINT",
     "payment_method_google_pay": "Google Pay",
-    "payment_method_apple_pay": "Apple Pay"
+    "payment_method_apple_pay": "Apple Pay",
+    "door_name": "Nom porte",
+    "door_distance": "Distance porte (m)",
+    "door_id": "ID porte"
   },
   "yes": "Oui",
   "no": "Non",

@@ -140,6 +140,37 @@ or
 pnpm exec nx dev @bsport/[name-of-the-application]
 ```
 
+**Note:** For Studio Manager apps with Module Federation, consider using `pnpm exec nx dev-mfe` instead (see below) for automatic remote management and dependency watching.
+
+#### Module Federation Development (Recommended)
+
+For Studio Manager apps that use Module Federation, use the `dev-mfe` command for automatic remote management and dependency watching:
+
+```sh
+pnpm exec nx dev-mfe @bsport/sm-giftcard
+```
+
+This command will:
+
+- Auto-detect and start required remote apps (e.g., navigation sidebar)
+- Watch workspace dependencies (`@bsport/*` packages) and auto-rebuild on changes
+- Start the main Vite dev server
+
+**Common options:**
+
+```sh
+# Run standalone (without remotes)
+pnpm exec nx dev-mfe @bsport/sm-giftcard --remotes=
+
+# Run with debug output (show all remote logs)
+pnpm exec nx dev-mfe @bsport/sm-giftcard --debug
+
+# Disable dependency watching
+pnpm exec nx dev-mfe @bsport/sm-giftcard --watchDeps=false
+```
+
+For more details, see [tools/nx-federation/README.md](./tools/nx-federation/README.md).
+
 #### Run all revamped application
 
 To have a full vision of the future Studio Manager backoffice, we have a special app : the [host app](./apps/applications/studio-manager/host/README.md).
@@ -153,7 +184,11 @@ cd apps/applications/studio-manager/host && pnpm run dev
 or
 
 ```sh
+# Using dev command
 pnpm exec nx dev @bsport/sm-host
+
+# Or using dev-mfe (recommended - auto-starts all remotes)
+pnpm exec nx dev-mfe @bsport/sm-host
 ```
 
 ### Run Kaizen primitive components library

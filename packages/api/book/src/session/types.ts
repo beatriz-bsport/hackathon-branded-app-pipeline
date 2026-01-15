@@ -129,6 +129,11 @@ export type CancelSessionParams = {
   cancel_linked_hybrid_offer: boolean;
 };
 
+export type DeleteSessionParams = {
+  apply_to_all_similar_offers: boolean;
+  selected_similar_offer_ids?: number[];
+};
+
 export type ListSessionsWithPendingReplacementRequestIdsParams = {
   offer_id_list: number[];
 };

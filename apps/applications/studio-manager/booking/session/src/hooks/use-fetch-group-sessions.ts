@@ -1,38 +1,38 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
+import keyBy from "lodash/keyBy";
 
-import {
-  type FetchSessionsParams,
-  fetchMinimalSessionsAPI,
-} from "@bsport/api-book";
-import type { DateTime } from "@bsport/datetime-manipulation";
+import { fetchGroupSessionsAPI } from "@bsport/api-book";
 
 import { fetch } from "../utils/fetch";
-import { SESSIONS_QUERY_KEY } from "./constants";
 
-const fetchMinimalSessions = fetchMinimalSessionsAPI.bind(null, fetch);
+const GROUP_SESSIONS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
-const groupSessionsQueryOptions = (params: FetchSessionsParams) => {
+const fetchGroupSessions = fetchGroupSessionsAPI.bind(null, fetch);
+
+const groupSessionsQueryOptions = (
+  groupSessionIds: number[],
+  enabled: boolean,
+) => {
+  const groupSessionIdsSorted = [...groupSessionIds].sort();
   return queryOptions({
-    queryKey: [`${SESSIONS_QUERY_KEY}_group`, params],
+    queryKey: ["groupSessions", groupSessionIdsSorted],
     queryFn: () =>
-      fetchMinimalSessions({
-        ...params,
-        with_group: true,
+      fetchGroupSessions({
+        id__in: groupSessionIdsSorted,
+        page: 1,
+        page_size: groupSessionIdsSorted.length,
       }),
+    enabled: enabled && groupSessionIdsSorted.length > 0,
+    staleTime: GROUP_SESSIONS_STALE_TIME,
   });
 };
 
 export const useFetchGroupSessions = (
-  start: DateTime | null,
-  end: DateTime | null,
-  params: FetchSessionsParams,
+  groupSessionIds: number[] = [],
+  enabled = true,
 ) => {
   return useQuery({
-    ...groupSessionsQueryOptions({
-      ...params,
-      min_date: start?.toISODate() ?? "",
-      max_date: end?.toISODate() ?? "",
-    }),
-    enabled: !!start && !!end,
+    ...groupSessionsQueryOptions(groupSessionIds, enabled),
+    select: (groupSessions) => keyBy(groupSessions.results, "id"),
   });
 };

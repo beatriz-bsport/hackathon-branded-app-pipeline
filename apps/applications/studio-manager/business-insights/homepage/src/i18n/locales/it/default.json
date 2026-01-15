@@ -37,7 +37,7 @@
         "hasEmptySpots": "",
         "hasEmptySpots_one": "{{ count }} posto disponibile in classe",
         "hasEmptySpots_other": "{{ count }} posti rimasti in classe",
-        "hasEmptySpotsForWaitlist_one": "{{ count }} posto in sospeso nella lista d'attesa",
+        "hasEmptySpotsForWaitlist_one": "{{ count }} membri in Lista d’attesa",
         "hasEmptySpotsForWaitlist_other": "{{ count }} posti in attesa nella lista d'attesa"
       }
     }

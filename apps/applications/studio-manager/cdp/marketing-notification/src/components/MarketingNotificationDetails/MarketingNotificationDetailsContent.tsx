@@ -10,6 +10,7 @@ import { MarketingNotificationPerformanceDetails } from "#src/components/Marketi
 import { MarketingNotificationTriggerDetails } from "#src/components/MarketingNotificationDetails/Trigger/MarketingNotificationTriggerDetails";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { usePermissionsChecker } from "#src/hooks/permissions/use-permissions-checker";
+import type { NotificationModalActions } from "#src/pages/MarketingNotificationListPage";
 import { useTranslation } from "#src/utils/i18n";
 
 import { MarketingNotificationContentDetails } from "./Content/MarketingNotificationContentDetails";
@@ -24,11 +25,21 @@ function isNotificationSegment(value: string): value is NotificationSegments {
 
 type MarketingNotificationDetailsContentProps = {
   notification: MarketingNotification | null;
+  handleSelectMarketingNotificationAction: ({
+    action,
+    marketingNotificationId,
+  }: {
+    action: NotificationModalActions;
+    marketingNotificationId: number;
+  }) => void;
 };
 
 export const MarketingNotificationDetailsContent: React.FC<
   MarketingNotificationDetailsContentProps
-> = ({ notification }: MarketingNotificationDetailsContentProps) => {
+> = ({
+  notification,
+  handleSelectMarketingNotificationAction,
+}: MarketingNotificationDetailsContentProps) => {
   const { t } = useTranslation([
     "marketingNotificationList",
     "marketingNotificationDetails",
@@ -75,8 +86,18 @@ export const MarketingNotificationDetailsContent: React.FC<
             notificationId={notification.id}
           />
           <NotificationActionsMenu
-            onEdit={(id) => console.log("edit", id)}
-            onDelete={(id) => console.log("delete", id)}
+            onEdit={(id) =>
+              handleSelectMarketingNotificationAction({
+                marketingNotificationId: id,
+                action: "edit",
+              })
+            }
+            onDelete={(id) =>
+              handleSelectMarketingNotificationAction({
+                marketingNotificationId: id,
+                action: "delete",
+              })
+            }
             notificationId={notification.id}
           />
         </div>

@@ -24,7 +24,7 @@
     "bsportTemplateInfo": {
       "title": "bsport templates",
       "description": {
-        "firstStep": "Duplicate the template that you want to use, then edit and send the copied version to members directly from this page. ",
+        "firstStep": "Duplicate the template that you want to use, then edit and send the copied version to your clients.",
         "secondStep": "Then select the copy of the email when sending a communication."
       },
       "quit": "Quit"
@@ -56,7 +56,7 @@
       "title": "Email template saved"
     },
     "error": {
-      "missingFields": "Issue occured trying to save your changes : ",
+      "missingFields": "Couldn't save your changes: ",
       "problemWhileSaving": "Unable to save changes - please try again"
     }
   },
@@ -69,13 +69,13 @@
     "label": "Email subject",
     "placeholder": "Add an email subject",
     "error": {
-      "notProvided": "No email subject provided",
+      "notProvided": "Add an email subject to continue",
       "tooLong": "Email subject too long"
     }
   },
   "templateDesign": {
     "error": {
-      "notProvided": "No template design provided"
+      "notProvided": "Add content to your email template to continue"
     }
   },
   "templateCategory": {

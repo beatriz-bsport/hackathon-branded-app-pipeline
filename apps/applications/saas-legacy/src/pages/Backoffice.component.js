@@ -187,16 +187,6 @@ const OfferManagement = asyncComponent(() =>
 const SearchResults = asyncComponent(() => import('./SearchResults.component'));
 const Shop = asyncComponent(() => import('./shop/Shop.router'));
 const Reporting = asyncComponent(() => import('./reporting/Reporting.router'));
-
-const SubscriptionEvents = asyncComponent(() =>
-  import('./subscription-events/SubscriptionEvents.router'),
-);
-const TrialAnalysis = asyncComponent(() =>
-  import('./trial-analysis/TrialAnalysis.router'),
-);
-const ScheduleAnalysis = asyncComponent(() =>
-  import('./schedule-analysis/ScheduleAnalysis.router'),
-);
 const Insights = asyncComponent(() => import('./insights/Insights.router'));
 const PaymentCombo = asyncComponent(() =>
   import('./payment-combo/PaymentCombo.router'),
@@ -467,10 +457,6 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route component={EmailTemplate} path="/email-template" />
       <Route component={Giftcard} path="/giftcard" />
       <Route component={Reporting} path="/reporting/" />
-
-      <Route component={SubscriptionEvents} path="/subscription-events/" />
-      <Route component={TrialAnalysis} path="/trial-analysis/" />
-      <Route component={ScheduleAnalysis} path="/schedule-analysis/" />
       <Route component={Insights} path="/insights" />
       <Route component={PaymentCombo} path="/combo/" />
       <Route component={PrivateService} path="/private-service" />

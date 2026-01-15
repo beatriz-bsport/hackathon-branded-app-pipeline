@@ -652,6 +652,8 @@ export const getFormattedQueryParamsFromContext = memoize(
         };
       case CONTEXT_SMARTLIST:
         return { smartlist: communicationObjectId };
+      case CONTEXT_MEMBER:
+        return { id__in: [communicationObjectId] };
       default:
         return {};
     }

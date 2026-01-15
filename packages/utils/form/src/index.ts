@@ -1,7 +1,11 @@
 export { Form, type FormProps } from "./Form";
 export { FormField } from "./FormField";
 export { ControlledForm, type ControlledFormProps } from "./ControlledForm";
-export { useFormContext } from "react-hook-form";
+export {
+  useFormContext,
+  type FieldPath,
+  type FieldValues,
+} from "react-hook-form";
 export {
   useFormController,
   type UseFormControllerOutput,

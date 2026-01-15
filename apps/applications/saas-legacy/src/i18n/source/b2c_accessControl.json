@@ -5,7 +5,7 @@
       "unlockDoor": "Unlock door"
     },
     "modal": {
-      "title": "Open door"
+      "title": "Door access"
     },
     "loading": {
       "geolocation": "Loading geo location...",

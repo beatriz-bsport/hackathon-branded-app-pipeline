@@ -58,7 +58,7 @@ export const FileUploadStory: Story = {
     fileUploadTrackerList: undefined,
     handleUploadFile: simulateUploadToBackend,
     inline: false,
-    inputId: "file-upload-main",
+    id: "file-upload-main",
     inputName: "file-uploader",
     multiple: true,
     onFileDrop: undefined,
@@ -75,7 +75,7 @@ export const FileUploadHandy: Story = {
   },
   args: {
     handleUploadFile: simulateUploadToBackend,
-    inputId: "file-upload-handy",
+    id: "file-upload-handy",
     customTexts: {
       fileExtensionList: "All documents accepted !",
     },
@@ -145,6 +145,6 @@ export const FileUploadFullyControlled: Story = {
   },
   args: {
     handleUploadFile: simulateUploadToBackend,
-    inputId: "file-upload-controlled",
+    id: "file-upload-controlled",
   },
 };

@@ -35,6 +35,19 @@
         "limitExplanation": "Why this number?"
       },
       "minMaxError": "Max price should be greater than min price"
+    },
+    "expirationDays": {
+      "toggle": {
+        "label": "Set validity period"
+      },
+      "input": {
+        "label": "Days valid after activation",
+        "suffixDays": "Days"
+      }
+    },
+    "cover": {
+      "helperText": "Suggested format: 1280 x 720 pixels, file size under 2MB",
+      "extensions": "JPG, PNG, SVG"
     }
   }
 }

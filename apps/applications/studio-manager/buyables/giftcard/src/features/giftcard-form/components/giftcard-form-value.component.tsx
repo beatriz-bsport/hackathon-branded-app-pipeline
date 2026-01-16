@@ -1,10 +1,11 @@
 import type { FC } from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
-import { FormField } from "@bsport/form";
-import { Link, Toggle, type ToggleProps } from "@bsport/kaizen-primitive-core";
+import { getCurrencyCode } from "@bsport/currency";
+import { Link } from "@bsport/kaizen-primitive-core";
 
-import { FormPriceField } from "#src/components/form-price-field.component";
+import { FormNumberField } from "#src/components/form-number-field.component";
+import { FormToggle } from "#src/components/form-toggle.component";
 import { useTranslation } from "#src/utils/i18n";
 
 import { FIELD_CONSTRAINTS } from "../constants";
@@ -15,14 +16,23 @@ type GiftcardFormValueProps = {
   methods: GiftcardFormMethods;
 };
 
-const INTERCOM_ARTICLE =
-  "https://intercom.help/bsport-helpcenter/en/articles/12730161-how-to-set-up-a-custom-amount-gift-card";
+function getIntercomArticleLink({
+  language,
+  articleId,
+}: {
+  language: string;
+  articleId: string;
+}) {
+  return `https://intercom.help/bsport-helpcenter/${language}/articles/${articleId}`;
+}
+
+const INTERCOM_ARTICLE_ID = "12730161";
 
 export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
   formId,
   methods,
 }) => {
-  const { t } = useTranslation("giftcard-details");
+  const { t, i18n } = useTranslation("giftcard-details");
 
   const hasCustomPrice = methods.watch("hasCustomPrice");
   const maxPrice = methods.watch("max_price");
@@ -35,58 +45,49 @@ export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
     statusText: t("formFields.customValue.minMaxError"),
   } as const;
 
+  const priceField = {
+    suffix: {
+      type: "text",
+      value: getCurrencyCode().toLocaleUpperCase(),
+    },
+    min: FIELD_CONSTRAINTS.PRICE_MIN,
+    max: FIELD_CONSTRAINTS.PRICE_MAX,
+  } as const;
+
   return (
     <>
-      <FormPriceField<GiftcardFormData, "price">
+      <FormNumberField<GiftcardFormData, "price">
         fieldName="price"
         id={`${formId}-value`}
-        min={FIELD_CONSTRAINTS.PRICE_MIN}
-        max={FIELD_CONSTRAINTS.PRICE_MAX}
         label={t("formFields.value.label")}
         helperText={t("formFields.value.helperText")}
         required={!hasCustomPrice}
         disabled={hasCustomPrice}
+        {...priceField}
       />
 
-      <FormField<GiftcardFormData, "hasCustomPrice", ToggleProps>
-        name="hasCustomPrice"
-        mapProps={({ defaultProps, field }) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { statusText: _, ...otherDefaultProps } = defaultProps;
-          return {
-            ...otherDefaultProps,
-            // Required to avoid conflict with typing of Toggle.value
-            value: "",
-            checked: field.value,
-          };
-        }}
-      >
-        {/** @ts-expect-error Pass props implicitely - FormField is forwarding the `checked` props */}
-        <Toggle
-          id={`${formId}-toggle-custom-price`}
-          label={t("formFields.customValue.toggle.label")}
-        />
-      </FormField>
+      <FormToggle<GiftcardFormData, "hasCustomPrice">
+        fieldName="hasCustomPrice"
+        id={`${formId}-toggle-custom-price`}
+        label={t("formFields.customValue.toggle.label")}
+      />
 
       {hasCustomPrice && (
         <div className="ml-[40px]">
-          <FormPriceField<GiftcardFormData, "min_price">
+          <FormNumberField<GiftcardFormData, "min_price">
             fieldName="min_price"
             id={`${formId}-min-price`}
-            min={FIELD_CONSTRAINTS.PRICE_MIN}
-            max={FIELD_CONSTRAINTS.PRICE_MAX}
             label={t("formFields.customValue.minimumValue.label")}
             helperText={t("formFields.customValue.minimumValue.helperText")}
             required={hasCustomPrice}
             disabled={!hasCustomPrice}
+            {...priceField}
             {...(hasMinMaxPriceIssue ? minMaxError : {})}
           />
 
-          <FormPriceField<GiftcardFormData, "max_price">
+          <FormNumberField<GiftcardFormData, "max_price">
             fieldName="max_price"
             id={`${formId}-max-price`}
-            min={FIELD_CONSTRAINTS.PRICE_MIN}
-            max={FIELD_CONSTRAINTS.PRICE_MAX}
             label={t("formFields.customValue.maximumValue.label")}
             helperText={t("formFields.customValue.maximumValue.helperText", {
               maxPriceWithCurrency: getCurrencyDisplayWithPrice(
@@ -95,12 +96,16 @@ export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
             })}
             required={hasCustomPrice}
             disabled={!hasCustomPrice}
+            {...priceField}
             {...(hasMinMaxPriceIssue ? minMaxError : {})}
           />
 
           <Link
             color="main"
-            href={INTERCOM_ARTICLE}
+            href={getIntercomArticleLink({
+              articleId: INTERCOM_ARTICLE_ID,
+              language: i18n.language,
+            })}
             weight="weak"
             className="text-body-sm"
             rel="noopener noreferrer"

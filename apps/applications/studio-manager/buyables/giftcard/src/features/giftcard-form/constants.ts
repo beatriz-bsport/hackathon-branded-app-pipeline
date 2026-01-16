@@ -5,6 +5,7 @@ export const FIELD_CONSTRAINTS = {
   NAME_MAX_LENGTH: 500,
   PRICE_MIN: 1,
   PRICE_MAX: 1500,
+  EXPIRATION_DAYS_MIN: 1,
 };
 
 export const GIFTCARD_FORM_DATA_DEFAULT: GiftcardFormData = {
@@ -14,4 +15,7 @@ export const GIFTCARD_FORM_DATA_DEFAULT: GiftcardFormData = {
   max_price: FIELD_CONSTRAINTS.PRICE_MAX,
   min_price: FIELD_CONSTRAINTS.PRICE_MIN,
   price: FIELD_CONSTRAINTS.PRICE_MIN,
+  hasExpirationDays: false,
+  expiration_days: 365,
+  cover: null,
 };

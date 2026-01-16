@@ -7,10 +7,11 @@ import type { GiftcardFormSchema } from "./types";
 
 export const useGiftcardFormSchema = () => {
   const { t } = useTranslation("giftcard-details");
+  const requiredErrorMessage = t("formFields.genericErrors.fieldIsRequired");
 
   const priceInput = z
     .number({
-      required_error: t("formFields.genericErrors.fieldIsRequired"),
+      required_error: requiredErrorMessage,
     })
     .int()
     .min(FIELD_CONSTRAINTS.PRICE_MIN)
@@ -50,15 +51,32 @@ export const useGiftcardFormSchema = () => {
       }
     });
 
+  const expirationDaysSchema = z.discriminatedUnion("hasExpirationDays", [
+    // Case 1: hasExpirationDays = false → expiration_days is not expected
+    z.object({
+      hasExpirationDays: z.literal(false),
+      expiration_days: z
+        .number()
+        .nullable()
+        .transform(() => null),
+    }),
+
+    // Case 2: hasExpirationDays = true → expiration_days is required
+    z.object({
+      hasExpirationDays: z.literal(true),
+      expiration_days: z
+        .number({ required_error: requiredErrorMessage })
+        .int()
+        .min(FIELD_CONSTRAINTS.EXPIRATION_DAYS_MIN),
+    }),
+  ]);
+
   return z
     .object({
       // Identity section
       name: z
         .string()
-        .min(
-          FIELD_CONSTRAINTS.TEXTFIELD_MIN_LENGTH,
-          t("formFields.genericErrors.fieldIsRequired"),
-        )
+        .min(FIELD_CONSTRAINTS.TEXTFIELD_MIN_LENGTH, requiredErrorMessage)
         .max(
           FIELD_CONSTRAINTS.NAME_MAX_LENGTH,
           t("formFields.name.errorMaxLength", {
@@ -67,10 +85,9 @@ export const useGiftcardFormSchema = () => {
         ),
       description: z
         .string()
-        .min(
-          FIELD_CONSTRAINTS.TEXTFIELD_MIN_LENGTH,
-          t("formFields.genericErrors.fieldIsRequired"),
-        ),
+        .min(FIELD_CONSTRAINTS.TEXTFIELD_MIN_LENGTH, requiredErrorMessage),
+      cover: z.instanceof(File).nullable(),
     })
+    .and(expirationDaysSchema)
     .and(priceSchema) satisfies GiftcardFormSchema;
 };

@@ -89,19 +89,26 @@ export const useSessionSchema = () => {
       is_hybrid: z.boolean(),
       coach: z.number().nullable(),
       coach_payment_rule: z.number().nullable(),
-      broadcast_link: z
-        .string()
-        .url()
-        .refine(
-          (val) =>
-            (val.startsWith("http://") || val.startsWith("https://")) &&
-            !val.includes(" "),
-          {
-            message: t(
-              "addSessionModal.steps.configureSession.settings.broadcast.error",
-            ),
-          },
-        ),
+      // Two options here: empty string (no link, if zoom app enabled or if the selected group activity is not livestream) or valid URL
+      broadcast_link: z.string().refine(
+        (val) => {
+          if (val === "") return true;
+          try {
+            new URL(val);
+            return (
+              (val.startsWith("http://") || val.startsWith("https://")) &&
+              !val.includes(" ")
+            );
+          } catch {
+            return false;
+          }
+        },
+        {
+          message: t(
+            "addSessionModal.steps.configureSession.settings.broadcast.error",
+          ),
+        },
+      ),
       establishment: z.number().nullable(),
       room_blueprint: z.number().nullish(),
     })

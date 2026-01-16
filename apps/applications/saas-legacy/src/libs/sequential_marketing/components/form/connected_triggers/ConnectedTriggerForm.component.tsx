@@ -8,10 +8,13 @@ import type { ConnectedTrigger } from '#src/libs/sequential_marketing/types';
 import type { SmartList } from '#src/libs/smart-list/types';
 
 import { getTriggerKind } from '#src/libs/sequential_marketing/components/helpers/utils';
-import { uniqueTriggerValidationSchema } from './validationSchema';
+import { getUniqueTriggerValidationSchema } from './validation/getValidationSchema';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import ConnectedTriggerContent from './ConnectedTriggerContent.component';
 
 export type Props = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  allowHourlyTimeout?: boolean;
   smartlists: Immutable.ImmutableArray<SmartList>;
   updateTrigger: (value: ConnectedTrigger) => void;
   updateFormValidation: (isValid: boolean) => void;
@@ -22,6 +25,8 @@ type FormValues = {
 };
 
 type HOCProps = Props & FormValues;
+
+type HOCPropsWithoutFeatureFlag = Omit<HOCProps, 'allowHourlyTimeout'>;
 
 /**
  * Form component to create and edit a ConnectedTrigger.
@@ -82,7 +87,26 @@ const withFormikWrapper = withFormik<HOCProps, FormValues>({
     setSubmitting(false);
   },
   validateOnMount: true,
-  validationSchema: uniqueTriggerValidationSchema,
+  validationSchema: ({ allowHourlyTimeout }: HOCProps) =>
+    getUniqueTriggerValidationSchema(!!allowHourlyTimeout),
 });
 
-export default React.memo(withFormikWrapper(ConnectedTriggerForm));
+const ConnectedTriggerFormWithFormik = withFormikWrapper(ConnectedTriggerForm);
+
+/**
+ * Wrapper component that injects the feature flag value
+ */
+const ConnectedTriggerFormWithFeatureFlag: React.FC<
+  HOCPropsWithoutFeatureFlag
+> = (props) => {
+  const allowHourlyTimeout = useSafeFlag(FeatureFlags.AUDIENCE_HOURLY_TIMEOUT);
+
+  return (
+    <ConnectedTriggerFormWithFormik
+      {...props}
+      allowHourlyTimeout={allowHourlyTimeout}
+    />
+  );
+};
+
+export default React.memo(ConnectedTriggerFormWithFeatureFlag);

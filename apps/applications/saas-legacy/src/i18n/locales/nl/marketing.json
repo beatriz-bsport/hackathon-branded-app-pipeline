@@ -620,9 +620,7 @@
       },
       "timeout": {
         "timeout_days_chip": "{{ count }} dag(en)",
-        "timeout_days_chip_plural": "{{ count }} dagen",
-        "timout_days_chip": "{{ days }} dag(en)",
-        "timout_days_chip_plural": "{{ days }} dagen"
+        "timeout_days_chip_plural": "{{ count }} dagen"
       },
       "trigger": "Trigger",
       "exit": "Einde",

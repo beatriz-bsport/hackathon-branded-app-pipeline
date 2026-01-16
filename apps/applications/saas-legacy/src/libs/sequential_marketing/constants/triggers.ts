@@ -86,3 +86,8 @@ export const TRIGGER_LEFT_HANDLE_STYLE = {
 export const TRIGGER_RIGHT_HANDLE_STYLE = {
   right: '0px',
 };
+
+// ============= TRIGGER LIMITS =============
+
+export const MAX_TOTAL_TRIGGERS = 5;
+export const MAX_TOTAL_TRIGGERS_WITH_TIMEOUT = 6;

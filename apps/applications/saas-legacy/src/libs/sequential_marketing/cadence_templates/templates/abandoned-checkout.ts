@@ -68,6 +68,7 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
           trigger_config: {
             identifier: TriggerIdentifier.EVENT,
             timeout: null,
+            timeout_hours: null,
             event_type:
               SequentialMarketingEventListened.CADENCE_EVENT_BASKET_ADD_ITEM,
             filtered_pks: null,
@@ -91,6 +92,7 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
           trigger_config: {
             identifier: TriggerIdentifier.EVENT,
             timeout: null,
+            timeout_hours: null,
             event_type:
               SequentialMarketingEventListened.CADENCE_EVENT_BASKET_FINALIZED,
             filtered_pks: null,
@@ -114,6 +116,7 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
           trigger_config: {
             identifier: TriggerIdentifier.TIMEOUT,
             timeout: 2,
+            timeout_hours: 0,
             event_type: null,
             filtered_pks: null,
           },
@@ -170,6 +173,7 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
             trigger_config: {
               identifier: TriggerIdentifier.TIMEOUT,
               timeout: 1,
+              timeout_hours: 0,
               event_type: null,
               filtered_pks: null,
             },

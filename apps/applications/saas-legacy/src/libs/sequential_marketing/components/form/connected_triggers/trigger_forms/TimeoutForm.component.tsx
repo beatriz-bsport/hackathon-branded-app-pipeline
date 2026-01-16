@@ -9,7 +9,7 @@ import type {
   ConnectedTrigger,
   TriggerTimeoutConfig,
 } from '#src/libs/sequential_marketing/types';
-import useTimeOutContext from '../hooks/useTimeOutContext.hook';
+import useTimeoutContext from '../hooks/useTimeoutContext.hook';
 
 type Props = {
   trigger: ConnectedTrigger;
@@ -21,8 +21,8 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
 
   const classes = useStyles();
 
-  const { timeoutValue, changeTimeOut, handleChangeTimeOut } =
-    useTimeOutContext();
+  const { timeoutValue, changeTimeout, handleChangeTimeout } =
+    useTimeoutContext();
 
   const handleUpdateTriggerWithNewTimeout = React.useCallback(
     (newTimeout: number) => {
@@ -53,22 +53,22 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
       }
 
       handleUpdateTriggerWithNewTimeout(newTimeout);
-      handleChangeTimeOut?.(ev);
+      handleChangeTimeout?.(ev);
     },
-    [handleChangeTimeOut, handleUpdateTriggerWithNewTimeout],
+    [handleChangeTimeout, handleUpdateTriggerWithNewTimeout],
   );
 
   React.useEffect(() => {
     const timeout = (trigger?.trigger_config as TriggerTimeoutConfig)?.timeout;
     if (timeoutValue) {
-      changeTimeOut(timeoutValue);
+      changeTimeout(timeoutValue);
       handleUpdateTriggerWithNewTimeout(timeoutValue);
     } else if (timeout || timeout === 0) {
-      changeTimeOut(timeout);
+      changeTimeout(timeout);
     }
     // To prevent execution of useEffect when the trigger or timeout value changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [handleUpdateTriggerWithNewTimeout, changeTimeOut]);
+  }, [handleUpdateTriggerWithNewTimeout, changeTimeout]);
 
   return (
     <>

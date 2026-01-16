@@ -620,9 +620,7 @@
       },
       "timeout": {
         "timeout_days_chip": "{{ count }} jour",
-        "timeout_days_chip_plural": "{{ count }} jours",
-        "timout_days_chip": "{{ days }} jour",
-        "timout_days_chip_plural": "{{ days }} jours"
+        "timeout_days_chip_plural": "{{ count }} jours"
       },
       "trigger": "Déclencheur",
       "exit": "Sortie",

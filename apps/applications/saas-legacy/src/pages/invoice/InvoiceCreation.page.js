@@ -51,6 +51,10 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
 import { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import { Theme as CompanyThemeType } from '../../libs/theme/types';
+import {
+  FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 type Props = {
   member?: Member,
@@ -82,7 +86,7 @@ type Props = {
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>,
   invoiceConfiguration: InvoiceConfigurationSerializer,
   isInvoiceConfigurationLoading: boolean,
-};
+} & FeatureFlagProps;
 
 type State = {
   dateDialogOpen: boolean,
@@ -98,8 +102,18 @@ export class InvoiceCreation extends Component<Props, State> {
   componentDidMount() {
     this.props.fetchMember(this.props.memberId);
     this.props.fetchShopItems();
-    this.props.fetchPaymentPackList({ disabled: false, page_size: 7000 });
-    this.props.fetchPrivatePassList();
+    this.props.fetchPaymentPackList({
+      disabled: false,
+      page_size: 7000,
+      ...(this.props.shouldDisplayNewSubscriptionContracts && {
+        from_subscription: false,
+      }),
+    });
+    this.props.fetchPrivatePassList({
+      ...(this.props.shouldDisplayNewSubscriptionContracts && {
+        from_subscription: false,
+      }),
+    });
     this.props.fetchPaymentComboList();
     this.props.fetchInvoiceConfiguration();
     if (this.props.companyTheme.enable_multi_localization) {
@@ -276,4 +290,5 @@ export default compose(
       )} - ${member ? member.name : ' '}`,
   ),
   withMemberBannerHOC(({ member }) => member),
+  withFeatureFlags,
 )(InvoiceCreation);

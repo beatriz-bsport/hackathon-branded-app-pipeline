@@ -88,7 +88,6 @@ import {
   withPaymentPack,
 } from '#src/libs/subscription/selectors';
 import {
-  createOrUpdateContract as createOrUpdateContractAction,
   fetchContractList as fetchContractListAction,
   deleteContract,
   restoreContract,
@@ -774,7 +773,6 @@ const mapDispatchToProps = {
   fetchContractList: fetchContractListAction,
   fetchSubscriptionBulk: fetchSubscriptionBulkAction,
   fetchPaymentComboList,
-  createOrUpdateContract: createOrUpdateContractAction,
   searchMembers,
   deleteContract,
   restoreContract,

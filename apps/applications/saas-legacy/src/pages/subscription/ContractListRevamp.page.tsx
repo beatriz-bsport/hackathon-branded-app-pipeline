@@ -63,6 +63,7 @@ import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors'
 import {
   getAvailableEstablishmentList,
   getEnabledEstablishmentBillingGroups,
+  getStaffEstablishmentBillingGroupSelector,
 } from '../../libs/establishment/selectors';
 import { fetchMetaActivities as fetchMetaActivitiesAction } from '#src/libs/meta-activity/actions';
 
@@ -96,6 +97,7 @@ import {
   createContract as createContractAction,
   updateContract as updateContractAction,
 } from '../../libs/subscription/actions';
+import { fetchCompanyUserRoles } from '../../libs/role/actions';
 
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '#src/state/types';
@@ -588,6 +590,9 @@ export class SubscriptionList extends React.Component<Props, State> {
                 companyId={this.props.companyId}
                 // @ts-expect-error
                 contract={this.props.selectedContractData}
+                defaultBillingGroup={
+                  this.props.staffDefaultEstablishmentBillingGroup
+                }
                 enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
                   {
                     currency: this.props.theme.currency,
@@ -745,6 +750,8 @@ const mapStateToProps = (state: RootState) => ({
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   stripeReaders: getStripeReaders(state),
   establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+  staffDefaultEstablishmentBillingGroup:
+    getStaffEstablishmentBillingGroupSelector(state),
   allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   availableEstablishmentList: getAvailableEstablishmentList(state),
   metaActivityList: uniqBy(
@@ -778,6 +785,7 @@ const mapDispatchToProps = {
   goToContractDetail: (contractId: number) =>
     push(`/subscription/contract/${contractId}`),
   fetchStripeReaders,
+  fetchCompanyUserRoles,
   fetchMarketingNotificationList,
   fetchEstablishments,
   registerContractBackground: registerContractBackgroundAction,
@@ -822,11 +830,15 @@ const withStateHandlersSetter = {
 const mapWithHandlers = {
   openContractRegister:
     ({
+      fetchCompanyUserRoles: fetchCompanyUserRolesAction,
       setContractRegisterOpen,
       setSelectedContract,
       setMemberToBill,
-    }: WithHandlerType<typeof withStateHandlersSetter>) =>
+    }: WithHandlerType<typeof withStateHandlersSetter> &
+      typeof mapDispatchToProps) =>
     (contract: Contract) => {
+      // @debt(3, 2, 2): Replace with /role/me to avoid fetching all roles.
+      fetchCompanyUserRolesAction();
       setSelectedContract(contract.id);
       setContractRegisterOpen(true);
       setMemberToBill(null);

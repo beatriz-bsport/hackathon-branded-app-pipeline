@@ -56,6 +56,7 @@ import InvoiceInfoDialog from '../../libs/invoice/components/InvoiceInfoDialog.c
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
 import { fetchNumberVideoPurchase } from '../../libs/video/actions';
 import { checkInvoiceInfoActions } from '../../libs/invoice/actions';
+import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '../../libs/role/actions';
 import {
   fetchContractList as fetchContractListAction,
   registerContractBackground as registerContractBackgroundAction,
@@ -77,7 +78,10 @@ import {
   fetchEstablishments,
   fetchAllEstablishmentBillingGroup as fetchEstablishmentBillingGroupAction,
 } from '../../libs/establishment/actions';
-import { getEnabledEstablishmentBillingGroups } from '../../libs/establishment/selectors';
+import {
+  getEnabledEstablishmentBillingGroups,
+  getStaffEstablishmentBillingGroupSelector,
+} from '../../libs/establishment/selectors';
 import type { CustomFormFilled } from '../../libs/custom-form/types';
 import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import type { OptionCallback } from '../../state/types';
@@ -175,6 +179,7 @@ type Props = {
   fetchProgram: (params: any) => void,
   programList: Array<PerformanceTrackingProgram>,
   fetchStripeReaders: () => void,
+  fetchCompanyUserRoles: () => void,
   stripeReaders: StripeReader[],
   companyId: number,
   registerContractBackground: (
@@ -189,6 +194,7 @@ type Props = {
   pageHeight: number,
   objectLevelPermissions: ObjectLevelPermissions,
   establishmentBillingGroups?: EstablishmentBillingGroup,
+  staffDefaultEstablishmentBillingGroup: EstablishmentBillingGroup | null,
 };
 
 const getTabsData = (
@@ -294,6 +300,8 @@ export class MemberDetail extends React.Component<Props> {
     };
     this.props.fetchStripeReaders();
     if (Number.isInteger(this.props.id)) {
+      // @debt(3, 2, 2): Replace with /role/me to avoid fetching all roles.
+      this.props.fetchCompanyUserRoles();
       this.props.fetchPaymentMethodList();
       this.props.fetchCountObjects(this.props.id);
       this.props.fetchFiltersSettings();
@@ -525,6 +533,9 @@ export class MemberDetail extends React.Component<Props> {
             contract={this.props.contractToBill}
             contractList={this.props.contractList}
             contractLoading={this.props.contractLoading}
+            defaultBillingGroup={
+              this.props.staffDefaultEstablishmentBillingGroup
+            }
             enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
               {
                 currency: this.props.theme.currency,
@@ -595,6 +606,8 @@ export default compose(
       numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
       objectLevelPermissions: getObjectPermissions(state),
       establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+      staffDefaultEstablishmentBillingGroup:
+        getStaffEstablishmentBillingGroupSelector(state),
     }),
     {
       billMember: (id) => pushRouter(`/invoice/bill-member/${id}/`),
@@ -622,6 +635,7 @@ export default compose(
       displayBackgroundDialog: displayBackgroundDialogAction,
       deletebackgroundDialog: deletebackgroundDialogAction,
       getUnreadAnswersCountAction,
+      fetchCompanyUserRoles: fetchCompanyUserRolesAction,
     },
   ),
   withHandlers({

@@ -39,6 +39,7 @@ type Props = {
   stripeReaders: StripeReader[],
   companyId?: number,
   cardBillingDetailsMandatory: boolean,
+  defaultBillingGroup?: EstablishmentBillingGroup,
 };
 
 type State = {
@@ -117,6 +118,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                 date={DateTime.fromMillis(
                   subscriptionData.first_billing_timestamp * 1000,
                 )}
+                defaultBillingGroup={this.props.defaultBillingGroup}
                 enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
                   {
                     currency: this.props.companyTheme.currency,

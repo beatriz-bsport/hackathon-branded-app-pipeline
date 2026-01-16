@@ -307,6 +307,11 @@ export function EstablishmentBillingGroupSelector(props: Props) {
     [selectOption, establishmentBillingGroups],
   );
 
+  // Position fixed when portaling to document.body, which makes react-select compute placement
+  // relative to the viewport and avoids the dropdown being stuck at the bottom of the modal.
+  const menuPortalTarget = targetParentElement ? null : document.body;
+  const menuPosition = targetParentElement ? 'absolute' : 'fixed';
+
   return (
     <Select
       className={classes.root}
@@ -322,7 +327,9 @@ export function EstablishmentBillingGroupSelector(props: Props) {
       }
       isRequired={isRequired}
       isSearchable={false}
-      menuPortalTarget={!targetParentElement && document.querySelector('body')}
+      menuPlacement="auto"
+      menuPortalTarget={menuPortalTarget}
+      menuPosition={menuPosition}
       onChange={handleChange}
       options={getGroupedEstablishmentBillingGroupOptions([
         ...establishmentBillingGroups,

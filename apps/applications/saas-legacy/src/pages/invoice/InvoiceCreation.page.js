@@ -36,7 +36,9 @@ import { fetchAllEstablishmentBillingGroup } from '../../libs/establishment/acti
 import {
   getAvailableEstablishmentList,
   getEnabledEstablishmentBillingGroups,
+  getStaffEstablishmentBillingGroupSelector,
 } from '../../libs/establishment/selectors';
+import { fetchCompanyUserRoles } from '../../libs/role/actions';
 import themeSelectors from '../../libs/theme/selectors';
 import {
   getGiftcardBackgroundImageList,
@@ -66,6 +68,7 @@ type Props = {
   fetchGiftcardList: () => void,
   fetchPaymentComboList: () => void,
   fetchAllEstablishmentBillingGroup: (params: { company: number }) => void,
+  fetchCompanyUserRoles: () => void,
   fetchInvoiceConfiguration: () => void,
   fetchGiftcardBackgroundImageList: () => void,
   initialItems: { withPrivatePass?: string, withCredit?: string },
@@ -75,6 +78,7 @@ type Props = {
   establishmentBillingGroups: EstablishmentBillingGroup[],
   establishmentLoading: boolean,
   companyTheme: CompanyThemeType,
+  staffDefaultEstablishmentBillingGroup?: EstablishmentBillingGroup | null,
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>,
   invoiceConfiguration: InvoiceConfigurationSerializer,
   isInvoiceConfigurationLoading: boolean,
@@ -102,6 +106,7 @@ export class InvoiceCreation extends Component<Props, State> {
       this.props.fetchAllEstablishmentBillingGroup({
         params: { company: this.props.companyTheme.company },
       });
+      this.props.fetchCompanyUserRoles();
     }
     this.props.fetchGiftcardList();
     this.props.fetchGiftcardBackgroundImageList(
@@ -163,6 +168,11 @@ export class InvoiceCreation extends Component<Props, State> {
       <div>
         <InvoiceFormV2
           availableBuyableItems={this.props.availableBuyableItems}
+          defaultEstablishmentBillingGroup={
+            this.props.companyTheme.enable_multi_localization
+              ? this.props.staffDefaultEstablishmentBillingGroup
+              : null
+          }
           displayNewWebshop={!!this.props.companyTheme?.display_new_webshop}
           enableMultiLocalization={
             this.props.companyTheme.enable_multi_localization
@@ -220,6 +230,8 @@ export default compose(
       giftcardBackgroundImageList: getGiftcardBackgroundImageList(state),
       invoiceConfiguration: state.invoice.configuration.result,
       isInvoiceConfigurationLoading: state.invoice.configuration.loading,
+      staffDefaultEstablishmentBillingGroup:
+        getStaffEstablishmentBillingGroupSelector(state),
     }),
     {
       fetchShopItems,
@@ -236,6 +248,7 @@ export default compose(
       goToInvoice: (uuid) => pushRouter(`/invoice/${uuid}/`),
       fetchGiftcardList,
       fetchAllEstablishmentBillingGroup,
+      fetchCompanyUserRoles,
       fetchInvoiceConfiguration: fetchInvoiceConfigurationAction,
     },
   ),

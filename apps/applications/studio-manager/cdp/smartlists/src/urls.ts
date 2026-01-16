@@ -4,6 +4,7 @@ export const URLS = {
   PARAMETER: "/:id/parameter",
   AUTOMATION: "/:id/automation",
   CAMPAIGN: "/:id/campaign",
+  AUTOMATION_MESSAGE: "/:id/automation/message/:messageId",
 } as const;
 
 export const LEGACY_URLS = {

@@ -10,7 +10,7 @@ import {
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
 import { LEGACY_URLS } from "#src/urls";
-import { useSmartlistFlag } from "#src/utils/feature-flags/use-smartlist-flag";
+import { flags, useFlag } from "#src/utils/feature-flags";
 import { useTranslation } from "#src/utils/i18n";
 
 import { usePrefetchSmartlistDetail } from "../../api/use-smartlist-detail";
@@ -49,7 +49,7 @@ export const SmartlistList: FC<SmartlistListProps> = ({
 }) => {
   const { t } = useTranslation("list");
   const navigate = useNavigate();
-  const isSmartlistEnabled = useSmartlistFlag();
+  const isSmartlistEnabled = useFlag(flags.smartlist);
 
   const prefetchSmartlistDetail = usePrefetchSmartlistDetail();
 

@@ -13,6 +13,10 @@ type BasketPaymentContextType = {
   setTermsAccepted: (value: boolean) => void;
   instalmentPaymentSelectedId: number | null;
   setInstalmentPaymentSelectedId: (id: number | null) => void;
+  isInternalAccountAmountEditing: boolean;
+  setIsInternalAccountAmountEditing: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
   isEstablishmentBillingGroupSelected: boolean;
   setIsEstablishmentBillingGroupSelected: React.Dispatch<
     React.SetStateAction<boolean>
@@ -50,6 +54,8 @@ export const BasketPaymentProvider: React.FC<BasketPaymentProviderProps> = ({
   const [termsAccepted, setTermsAccepted] = useState(initialTermsAccepted);
   const [instalmentPaymentSelectedId, setInstalmentPaymentSelectedId] =
     useState<number | null>(initialInstalmentPaymentSelectedId);
+  const [isInternalAccountAmountEditing, setIsInternalAccountAmountEditing] =
+    useState(false);
   const [
     isEstablishmentBillingGroupSelected,
     setIsEstablishmentBillingGroupSelected,
@@ -77,6 +83,8 @@ export const BasketPaymentProvider: React.FC<BasketPaymentProviderProps> = ({
         setTermsAccepted,
         instalmentPaymentSelectedId,
         setInstalmentPaymentSelectedId,
+        isInternalAccountAmountEditing,
+        setIsInternalAccountAmountEditing,
         isEstablishmentBillingGroupSelected,
         setIsEstablishmentBillingGroupSelected,
         selectedEstablishmentBillingGroup,
@@ -98,6 +106,8 @@ export const useBasketPaymentContext = (): BasketPaymentContextType => {
       setTermsAccepted: () => {},
       instalmentPaymentSelectedId: null,
       setInstalmentPaymentSelectedId: () => {},
+      isInternalAccountAmountEditing: false,
+      setIsInternalAccountAmountEditing: () => {},
       isEstablishmentBillingGroupSelected: false,
       setIsEstablishmentBillingGroupSelected: () => {},
       selectedEstablishmentBillingGroup: null,

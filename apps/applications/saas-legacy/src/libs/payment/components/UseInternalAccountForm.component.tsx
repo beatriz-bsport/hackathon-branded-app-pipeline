@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import grey from '@material-ui/core/colors/grey';
@@ -17,6 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import clsx from 'clsx';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import type { Basket } from '#src/libs/checkout/types';
+import { useBasketPaymentContext } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
 import CheckoutContext from '../../../pages/checkout/basket/CheckoutContext';
 import type { OptionCallback } from '../../../state/types';
 // @ts-expect-error
@@ -56,13 +57,14 @@ export const UseInternalAccountForm: React.FC<Props> = ({
   const { t } = useTranslation('checkout');
   const isCheckoutContext = React.useContext(CheckoutContext);
   const classes = useStyles({ isCheckoutContext, open });
+  const { setIsInternalAccountAmountEditing } = useBasketPaymentContext();
   const [isUseInternalAccountProcessing, setIsUseInternalAccountProcessing] =
     React.useState(false);
 
   const handleUseInternalAccountBasketSubmit = React.useCallback(
     (values) => {
       setIsUseInternalAccountProcessing(true);
-      onBasketSubmit(values.amount, {
+      onBasketSubmit?.(values.amount, {
         onSuccess: () => {
           setOpen(false);
           setIsUseInternalAccountProcessing(false);
@@ -74,6 +76,24 @@ export const UseInternalAccountForm: React.FC<Props> = ({
     },
     [onBasketSubmit],
   );
+
+  useEffect(() => {
+    setIsInternalAccountAmountEditing(open);
+  }, [open, setIsInternalAccountAmountEditing]);
+
+  const handleAmountFocus = useCallback(
+    (formik) => () => {
+      if (formik.values.amount === 0) {
+        formik.setFieldValue('amount', '');
+      }
+    },
+    [],
+  );
+
+  const handleCancelClick = useCallback(() => {
+    setIsInternalAccountAmountEditing(false);
+    setOpen(false);
+  }, [setIsInternalAccountAmountEditing]);
 
   return (
     <>
@@ -130,7 +150,9 @@ export const UseInternalAccountForm: React.FC<Props> = ({
                     <Collapse in={open}>
                       <div className={classes.flexCollaspe}>
                         <PriceField
+                          allowEmpty
                           fullWidth
+                          InputLabelProps={{ shrink: true }}
                           InputProps={{
                             endAdornment: (
                               <InputAdornment position="start">
@@ -158,10 +180,12 @@ export const UseInternalAccountForm: React.FC<Props> = ({
                             creditAccountBalance,
                           )}`}
                           name="amount"
+                          onFocus={handleAmountFocus(formik)}
+                          value={formik.values.amount || ''}
                           variant="outlined"
                         />
                         <div className={classes.flexButtons}>
-                          <IconButton onClick={() => setOpen(false)}>
+                          <IconButton onClick={handleCancelClick}>
                             <CancelIcon />
                           </IconButton>
                         </div>

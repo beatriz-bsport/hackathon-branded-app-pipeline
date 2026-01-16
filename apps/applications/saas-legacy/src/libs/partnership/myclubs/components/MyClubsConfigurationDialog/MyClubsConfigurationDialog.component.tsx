@@ -53,9 +53,11 @@ const MyClubsConfigurationDialog: React.FC<Props> = ({
   const title = useMemo(
     () =>
       isCreation
-        ? t('myclubs.configuration.dialog.title.creation')
+        ? isCreateSuccess
+          ? t('myclubs.configuration.dialog.title.creationSuccess')
+          : t('myclubs.configuration.dialog.title.creation')
         : t('myclubs.configuration.dialog.title.edition', { externalId }),
-    [isCreation, t, externalId],
+    [isCreation, isCreateSuccess, t, externalId],
   );
 
   const handleCloseDialog = React.useCallback(() => {

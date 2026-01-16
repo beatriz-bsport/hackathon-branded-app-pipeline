@@ -47,7 +47,7 @@ const computeWarningDialogKeys = (
     title: isEdit
       ? 'myclubs.configuration.dialog.title.edition'
       : 'myclubs.configuration.dialog.title.deletion',
-    alertTitle: 'myclubs.configuration.dialog.unlink.title',
+    subtitle: 'myclubs.configuration.dialog.unlink.title',
     alertContent: 'myclubs.configuration.dialog.unlink.content',
     confirmAction: 'myclubs.configuration.dialog.action.confirm',
     cancelAction: 'myclubs.configuration.dialog.action.cancel',
@@ -124,10 +124,16 @@ const MyClubsConfiguration: React.FC<Props> = ({
     setIsConfigurationDialogOpen(true);
     setCreatedVenue(null);
   }, []);
-  const closeConfigurationDialog = useCallback(() => {
+  const closeConfigurationDialog = useCallback((reset: boolean = true) => {
     setIsConfigurationDialogOpen(false);
-    setSelectedVenueToEdit(null);
-    setCreatedVenue(null);
+    if (reset) {
+      // Material applies a 300ms fade out animation on dialog close
+      // Wait before resetting to prevent its style from changing before closing
+      setTimeout(() => {
+        setSelectedVenueToEdit(null);
+        setCreatedVenue(null);
+      }, 300);
+    }
   }, []);
 
   /* Warning Dialog */
@@ -187,15 +193,17 @@ const MyClubsConfiguration: React.FC<Props> = ({
 
       if (removedEstablishments.length > 0) {
         // Show warning dialog for confirmation before removing establishments
-        closeConfigurationDialog();
+        closeConfigurationDialog(false);
         openWarningDialog(
           async () => {
             await updatePartnershipVenue(selectedVenueToEdit.id, values);
-            setSelectedVenueToEdit(null);
             fetchPartnershipVenues();
             showSnackbarSuccess(
               t('myclubs.configuration.dialog.notification.update.success'),
             );
+            // Material applies a 300ms fade out animation on dialog close
+            // Wait before resetting to prevent its style from changing before closing
+            setTimeout(() => setSelectedVenueToEdit(null), 300);
             closeWarningDialog();
           },
           () => {
@@ -209,7 +217,6 @@ const MyClubsConfiguration: React.FC<Props> = ({
       }
 
       await updatePartnershipVenue(selectedVenueToEdit.id, values);
-      setSelectedVenueToEdit(null);
       closeConfigurationDialog();
       fetchPartnershipVenues();
       showSnackbarSuccess(

@@ -49,7 +49,9 @@ const SuccessDialogContent: React.FC<Props> = ({
           </Trans>
         </Typography>
         <Typography variant="body2">
-          {externalId}
+          {t(`${partnershipIdentifier}.configuration.dialog.field.externalId`, {
+            externalId,
+          })}
           <CopyExternalIdButton
             externalId={externalId}
             partnershipIdentifier={partnershipIdentifier}

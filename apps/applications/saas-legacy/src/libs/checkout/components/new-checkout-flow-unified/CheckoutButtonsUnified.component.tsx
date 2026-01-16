@@ -53,8 +53,11 @@ export const CheckoutButtonsUnified: React.FC<CheckoutButtonsProps> = ({
     [isPayLaterInfoDisplayed],
   );
 
-  const { instalmentPaymentSelectedId, termsAccepted } =
-    useBasketPaymentContext();
+  const {
+    instalmentPaymentSelectedId,
+    isInternalAccountAmountEditing,
+    termsAccepted,
+  } = useBasketPaymentContext();
   const { generalTermsAndConditions } = useCompanyPaymentSettings(
     paymentContext.companyId,
   );
@@ -91,12 +94,13 @@ export const CheckoutButtonsUnified: React.FC<CheckoutButtonsProps> = ({
   // Only disable payment buttons if terms not accepted
   const buttonsWithTerms = paymentButtonsConfiguration.map((btnConfig) => {
     if (
-      (btnConfig.button.id === SUBMIT_BUTTONS.PAY_NOW_BUTTON.id ||
+      isInternalAccountAmountEditing ||
+      ((btnConfig.button.id === SUBMIT_BUTTONS.PAY_NOW_BUTTON.id ||
         btnConfig.button.id === SUBMIT_BUTTONS.PAYPAL_BUTTON.id ||
         btnConfig.button.id === SUBMIT_BUTTONS.PAY_LATER_BUTTON.id ||
         btnConfig.button.id === SUBMIT_BUTTONS.CONFIRM_BUTTON.id) &&
-      !termsAccepted &&
-      generalTermsAndConditions.length > 0
+        !termsAccepted &&
+        generalTermsAndConditions.length > 0)
     ) {
       return {
         ...btnConfig,

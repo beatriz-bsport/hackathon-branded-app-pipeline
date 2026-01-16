@@ -19,6 +19,10 @@ import {
   SESSION_CREATION_STEPS,
   useSessionCreationStore,
 } from "#src/stores/session-creation/store";
+import {
+  SessionCreationFormAdvancedOptionsData,
+  SessionCreationFormData,
+} from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useSessionSchema } from "../SessionForm/schemas";
@@ -35,12 +39,12 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
 
   const configureSessionFormData = useSessionCreationStore(
     selectStepFormData(SESSION_CREATION_STEPS.CONFIGURE_SESSION),
-  );
+  ) as SessionCreationFormData;
 
-  const sessionSchema = useSessionSchema();
+  const { configureSessionSchema } = useSessionSchema();
 
   const configureSessionMethods = useFormController({
-    schema: sessionSchema,
+    schema: configureSessionSchema,
     mode: "onSubmit",
     shouldFocusError: true,
     defaultValues: configureSessionFormData,

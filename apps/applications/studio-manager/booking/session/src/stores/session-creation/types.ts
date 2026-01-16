@@ -87,3 +87,8 @@ export type SessionCreationFormData = Pick<
   recurrencePattern: MonthlyRecurrencePattern;
   recurrenceEndDate: Date | null;
 };
+
+export type SessionCreationFormAdvancedOptionsData = Pick<
+  SessionCreate,
+  "allow_guest_offer" | "blacklist_tags" | "whitelist_tags"
+>;

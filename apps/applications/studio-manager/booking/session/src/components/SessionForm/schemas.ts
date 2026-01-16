@@ -12,12 +12,18 @@ import {
   MonthlyRecurrencePattern,
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
-import type { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type {
+  SessionCreationFormAdvancedOptionsData,
+  SessionCreationFormData,
+} from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { LevelFormData } from "./types";
 
 export type SessionCreationFormSchema = z.ZodType<SessionCreationFormData>;
+
+export type SessionCreationFormAdvancedOptionsSchema =
+  z.ZodType<SessionCreationFormAdvancedOptionsData>;
 
 export const MAX_YEARS_AHEAD = 3;
 
@@ -27,7 +33,7 @@ export const useSessionSchema = () => {
   const locale = i18n.language;
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
-  return z
+  const configureSessionSchema = z
     .object({
       allowCustomNameAndDescription: z.boolean(),
       name_override: z.string(),
@@ -273,6 +279,14 @@ export const useSessionSchema = () => {
         path: ["partner_max_booking_count"],
       },
     ) satisfies SessionCreationFormSchema;
+
+  const advancedOptionsSchema = z.object({
+    allow_guest_offer: z.boolean(),
+    blacklist_tags: z.array(z.number().int()),
+    whitelist_tags: z.array(z.number().int()),
+  }) satisfies SessionCreationFormAdvancedOptionsSchema;
+
+  return { configureSessionSchema, advancedOptionsSchema };
 };
 
 export const useLevelSchema = () => {

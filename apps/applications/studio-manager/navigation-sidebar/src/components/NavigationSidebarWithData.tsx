@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { setLocalAPIEnv } from "@bsport/fetch";
 import {
   ErrorBoundaryWrapper,
   FeatureFlagsProvider,
@@ -14,6 +15,11 @@ import NavigationSidebar, {
 
 const fetchSharedData = fetchSharedDataAction.bind(null, fetch);
 
+/**
+ * Export the NavigationSidebar that is used in the Legacy Backoffice,
+ * and handles itself the fetch to shared data.
+ * In revamp apps, it is handled in the AppWrapper of sm-backbone.
+ */
 export const NavigationSidebarWithData: React.FC<NavigationSidebarProps> = (
   props,
 ) => {
@@ -21,6 +27,8 @@ export const NavigationSidebarWithData: React.FC<NavigationSidebarProps> = (
   useEffect(() => {
     const performFetch = async () => {
       try {
+        // In compat mode, set the api env in the window
+        setLocalAPIEnv(__API_ENV__);
         await fetchSharedData();
       } catch (error) {
         console.error("Failed to fetch shared data:", error);

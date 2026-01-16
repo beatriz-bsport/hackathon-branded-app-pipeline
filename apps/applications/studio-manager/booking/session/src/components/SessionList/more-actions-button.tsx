@@ -3,6 +3,7 @@ import React, { useCallback } from "react";
 import { Button, Item, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 type MoreActionsButtonProps = {
   onParticipantsExport: () => void;
@@ -13,6 +14,20 @@ export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
   onCancelMultipleSessions,
 }) => {
   const { t } = useTranslation("sessionList");
+  const hasCancelMultipleSessionsPermission = useObjectLevelPermission(
+    "planning.calendar.allowed_actions.bulkCancellation",
+  );
+  const hasCancelActivitySessionsPermission = useObjectLevelPermission(
+    "session.activity.allowed_actions.delete",
+  );
+  const hasCancelWorkshopSessionsPermission = useObjectLevelPermission(
+    "session.workshop.allowed_actions.delete",
+  );
+
+  const canCancelMultipleSessions =
+    hasCancelMultipleSessionsPermission &&
+    (hasCancelActivitySessionsPermission ||
+      hasCancelWorkshopSessionsPermission);
 
   const getMenuItems = useCallback(
     (
@@ -38,9 +53,17 @@ export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
           setIsPopoverOpened(false);
         },
       };
-      return [exportParticipantsAction, cancelMultipleSessionsAction];
+      return [
+        exportParticipantsAction,
+        ...(canCancelMultipleSessions ? [cancelMultipleSessionsAction] : []),
+      ];
     },
-    [t, onParticipantsExport, onCancelMultipleSessions],
+    [
+      t,
+      onParticipantsExport,
+      onCancelMultipleSessions,
+      canCancelMultipleSessions,
+    ],
   );
 
   return (

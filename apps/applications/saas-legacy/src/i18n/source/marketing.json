@@ -469,6 +469,10 @@
         "triggerTimeoutLabel": "Trigger after",
         "triggerTimeoutDays": "day.",
         "triggerTimeoutDays_plural": "days.",
+        "triggerTimeoutDaysAnd": "day and",
+        "triggerTimeoutDaysAnd_plural": "days and",
+        "triggerTimeoutHours": "hour.",
+        "triggerTimeoutHours_plural": "hours.",
         "trigger_timeout_explain_value_selected": "If the member is still present in the cadence after {{ days }} days then it will automatically be removed from the cadence and considered lost.",
         "trigger_timeout_select_label": "days maximum in the cadence",
         "trigger_timeout_title": "Time limit",
@@ -499,7 +503,12 @@
         "triggerCannotBeEmpty": "You have to select an input type.",
         "minimumConnectedTrigger": "You have to select at least one trigger.",
         "maximumConnectedTrigger": "You cannot set up more than five triggers.",
-        "timeoutMustBeStrictPositive": "The time limit must be at least 1 day."
+        "timeoutMustBeStrictPositive": "The time delay must be at least 1 day.",
+        "timeoutMustBeStrictPositiveWithHourlyTimeout": "The time delay must be at least 1 hour.",
+        "timeoutDaysMustBePositive": "The number of days must be positive.",
+        "timeoutHoursMustBePositive": "The number of hours must be positive.",
+        "timeoutHoursMustBeMax23": "The number of hours must not exceed 23.",
+        "timeoutRequired": "The time delay is required."
       },
       "marketing_action": {
         "1": "Send an email",
@@ -621,8 +630,8 @@
       "timeout": {
         "timeout_days_chip": "{{ count }} day",
         "timeout_days_chip_plural": "{{ count }} days",
-        "timout_days_chip": "{{ days }} day",
-        "timout_days_chip_plural": "{{ days }} days"
+        "timeout_hours_chip": "{{ count }} hour",
+        "timeout_hours_chip_plural": "{{ count }} hours"
       },
       "trigger": "Trigger",
       "exit": "Exit",
@@ -763,8 +772,13 @@
       "lostTrigger": {
         "timeout": {
           "title": "Time limit",
-          "label": "Days inactive in the {{ workflowLowerCase }}",
-          "helperText": "Members will exit the {{ workflowLowerCase }} if no progress is made after this number of days"
+          "label": "Days inactive in the {{ workflowLowerCase }}:",
+          "helperText": "Members will exit the {{ workflowLowerCase }} if no progress is made after this number of days.",
+          "helperTextWithHourlyTimeout": "Members will exit the {{ workflowLowerCase }} if no progress is made after this period of inactivity.",
+          "days": "day and",
+          "days_plural": "days and",
+          "hours": "hour",
+          "hours_plural": "hours"
         },
         "addTrigger": "Add exit trigger",
         "helperText": "Set when your objective is considered not met: define a time limit for it and/or specific trigger(s) after which the member will unsuccessfully exit this {{ workflowLowerCase }}.",

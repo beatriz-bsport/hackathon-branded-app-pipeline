@@ -14,6 +14,7 @@ export const FeatureFlags = {
   AUDIENCE_TEMPLATES: 'audience_workflow_templates',
   INVOICE_SEQUENTIAL_NUMBERING: 'invoice_sequential_numbering',
   NEW_SUBSCRIPTION_CONTRACTS: 'new-subscription-contracts',
+  AUDIENCE_HOURLY_TIMEOUT: 'audience_hourly_timeout',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

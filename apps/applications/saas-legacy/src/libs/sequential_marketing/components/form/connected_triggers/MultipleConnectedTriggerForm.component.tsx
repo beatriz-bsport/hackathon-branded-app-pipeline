@@ -13,17 +13,21 @@ import {
   DestinationStatus,
   TriggerIdentifier,
   TriggerKind,
+  MAX_TOTAL_TRIGGERS_WITH_TIMEOUT,
 } from '#src/libs/sequential_marketing/constants';
 import { getConnectedTriggerDefaultValues } from '#src/libs/sequential_marketing/components/graph/hooks/utils';
 import { getTriggerKind } from '#src/libs/sequential_marketing/components/helpers/utils';
 import MenuSelectorTextButton from '#src/components/menu/text';
-import { multipleTriggersValidationSchema } from './validationSchema';
+import { getMultipleTriggersValidationSchema } from './validation/getValidationSchema';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 import CollapsibleConnectedTriggerContent from './CollapsibleConnectedTriggerContent.component';
 import useConnectedTriggerChoices from './hooks/useConnectedTriggerChoices.hook';
 import LostTriggerTimeoutForm from './trigger_forms/LostTriggerTimeoutForm.component';
+import LostTriggerTimeoutFormWithHourlyTimeout from './trigger_forms/LostTriggerTimeoutFormWithHourlyTimeout.component';
 
 type Props = {
+  allowHourlyTimeout?: boolean;
   customColor: string;
   smartlists: Immutable.ImmutableArray<SmartList>;
   destinationKind?: DestinationKind;
@@ -41,6 +45,7 @@ type FormValues = {
 
 type HOCProps = Props & FormValues;
 
+type HOCPropsWithoutFeatureFlag = Omit<HOCProps, 'allowHourlyTimeout'>;
 /**
  * Form component to create and edit multiple ConnectedTriggers.
  *
@@ -56,6 +61,7 @@ type HOCProps = Props & FormValues;
  *                                                            Used to disable submitButton if not valid.
 = */
 const MultipleConnectedTriggerForm: React.FC<Props> = ({
+  allowHourlyTimeout,
   customColor,
   smartlists,
   destinationKind,
@@ -223,12 +229,19 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      {isOutput && !!lostOutputTimeoutTrigger && (
-        <LostTriggerTimeoutForm
-          trigger={lostOutputTimeoutTrigger}
-          updateValue={updateLostOutputTimeoutTrigger}
-        />
-      )}
+      {isOutput &&
+        !!lostOutputTimeoutTrigger &&
+        (!!allowHourlyTimeout ? (
+          <LostTriggerTimeoutFormWithHourlyTimeout
+            trigger={lostOutputTimeoutTrigger}
+            updateValue={updateLostOutputTimeoutTrigger}
+          />
+        ) : (
+          <LostTriggerTimeoutForm
+            trigger={lostOutputTimeoutTrigger}
+            updateValue={updateLostOutputTimeoutTrigger}
+          />
+        ))}
       {!!connectedTriggerList?.length && (
         <div className={classes.content}>
           {connectedTriggerList.map((connectedTrigger, index) => (
@@ -281,14 +294,40 @@ const withFormikWrapper = withFormik<HOCProps, FormValues>({
     setSubmitting(false);
   },
   validateOnMount: true,
-  validationSchema: ({ connectedTriggers }: HOCProps) =>
-    multipleTriggersValidationSchema(
-      !!connectedTriggers?.find(
-        (trigger) =>
-          !trigger?.disabled &&
-          trigger.trigger_config?.identifier === TriggerIdentifier.TIMEOUT,
-      ) && 6,
-    ),
+  validationSchema: ({ connectedTriggers, allowHourlyTimeout }: HOCProps) => {
+    const hasTimeoutTrigger = !!connectedTriggers?.find(
+      (trigger) =>
+        !trigger?.disabled &&
+        trigger.trigger_config?.identifier === TriggerIdentifier.TIMEOUT,
+    );
+    const maxTriggers = hasTimeoutTrigger
+      ? MAX_TOTAL_TRIGGERS_WITH_TIMEOUT
+      : undefined;
+    return getMultipleTriggersValidationSchema(
+      maxTriggers,
+      !!allowHourlyTimeout,
+    );
+  },
 });
 
-export default React.memo(withFormikWrapper(MultipleConnectedTriggerForm));
+const MultipleConnectedTriggerFormWithFormik = withFormikWrapper(
+  MultipleConnectedTriggerForm,
+);
+
+/**
+ * Wrapper component that injects the feature flag value
+ */
+const MultipleConnectedTriggerFormWithFeatureFlag: React.FC<
+  HOCPropsWithoutFeatureFlag
+> = (props) => {
+  const allowHourlyTimeout = useSafeFlag(FeatureFlags.AUDIENCE_HOURLY_TIMEOUT);
+
+  return (
+    <MultipleConnectedTriggerFormWithFormik
+      {...props}
+      allowHourlyTimeout={allowHourlyTimeout}
+    />
+  );
+};
+
+export default React.memo(MultipleConnectedTriggerFormWithFeatureFlag);

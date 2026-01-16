@@ -355,7 +355,12 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       this.props.onlineFilter,
     );
 
-    if (prevProps.filters !== this.props.filters) {
+    const filtersPropsHasChanged = !isEqual(
+      prevProps.filters,
+      this.props.filters,
+    );
+
+    if (filtersPropsHasChanged) {
       this.setState({ filters: this.props.filters });
     }
 

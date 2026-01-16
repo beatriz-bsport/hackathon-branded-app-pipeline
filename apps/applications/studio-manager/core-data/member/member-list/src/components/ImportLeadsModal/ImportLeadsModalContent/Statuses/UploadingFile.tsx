@@ -88,7 +88,7 @@ export const UploadingFile: React.FC<UploadingFileProps> = ({
   return (
     <>
       <FileUpload
-        inputId="file-upload-leads"
+        id="file-upload-leads"
         fileExtensionList={["csv"]}
         multiple={false}
         autoUpload

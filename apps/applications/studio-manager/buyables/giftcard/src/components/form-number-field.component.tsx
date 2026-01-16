@@ -1,6 +1,6 @@
+import { clsx } from "clsx";
 import type { ReactElement } from "react";
 
-import { getCurrencyCode } from "@bsport/currency";
 import { type FieldPath, type FieldValues, FormField } from "@bsport/form";
 import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
 
@@ -9,7 +9,7 @@ type NumberFieldPath<T extends FieldValues> = {
   [K in FieldPath<T>]: T[K] extends number | null ? K : never;
 }[FieldPath<T>];
 
-type FormPriceFieldProps<
+type FormNumberFieldProps<
   TFormValues extends FieldValues,
   TFieldName extends
     NumberFieldPath<TFormValues> = NumberFieldPath<TFormValues>,
@@ -18,7 +18,7 @@ type FormPriceFieldProps<
   fieldName: TFieldName;
 } & Partial<TextFieldProps>;
 
-export const FormPriceField = <
+export const FormNumberField = <
   TFormValues extends FieldValues,
   TFieldName extends
     NumberFieldPath<TFormValues> = NumberFieldPath<TFormValues>,
@@ -27,7 +27,7 @@ export const FormPriceField = <
   fieldName,
   className,
   ...additionalProps
-}: FormPriceFieldProps<TFormValues, TFieldName>): ReactElement => {
+}: FormNumberFieldProps<TFormValues, TFieldName>): ReactElement => {
   return (
     <FormField<TFormValues, TFieldName, TextFieldProps>
       name={fieldName}
@@ -46,11 +46,7 @@ export const FormPriceField = <
     >
       <TextField
         id={id}
-        className={["w-full", className ?? ""].join(" ")}
-        suffix={{
-          type: "text",
-          value: getCurrencyCode().toLocaleUpperCase(),
-        }}
+        className={clsx("w-full", className ?? "")}
         type="number"
       />
     </FormField>

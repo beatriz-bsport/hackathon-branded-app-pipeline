@@ -106,6 +106,7 @@ type Props = {
   fetchEstablishments: () => void,
   fetchAllEstablishmentBillingGroup: () => void,
   establishmentBillingGroups: EstablishmentBillingGroup[],
+  staffDefaultEstablishmentBillingGroup: EstablishmentBillingGroup | null,
   companyTheme: CompanyTheme,
   memberDetails: { [id: number]: Member },
 
@@ -198,6 +199,7 @@ export class BookerModuleManager extends PureComponent<Props, State> {
         this.props.offer.group?.id ?? this.props.offer.group,
       );
     }
+    // @debt(3, 2, 2): Replace with /role/me to avoid fetching all roles.
     this.props.fetchCompanyUserRoles();
     this.setState({ isNotifyClientPreselected: this.props.isAutoBooking });
   }
@@ -486,6 +488,9 @@ export class BookerModuleManager extends PureComponent<Props, State> {
                       voucherReason,
                       establishmentBillingGroupId,
                     )
+                  }
+                  staffDefaultEstablishmentBillingGroup={
+                    this.props.staffDefaultEstablishmentBillingGroup
                   }
                 />
               )}

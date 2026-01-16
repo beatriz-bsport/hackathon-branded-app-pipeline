@@ -153,6 +153,7 @@ export const UserWithRoleList: React.FC<Props> = ({
             deleteUser={() => deleteUserRole(user.id)}
             editedFieldCount={getUserRoleEditedFieldCount(user)}
             editUserSelectedFranchisees={editUserSelectedFranchisees(user)}
+            establishmentBillingGroups={establishmentBillingGroups}
             franchiseeList={franchiseeList}
             franchiseeListLoading={franchiseeListLoading}
             franchiseRoles={franchiseRoles}

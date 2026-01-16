@@ -44,11 +44,13 @@ import {
 import {
   getAvailableEstablishmentList,
   getEnabledEstablishmentBillingGroups,
+  getStaffEstablishmentBillingGroupSelector,
 } from '../../libs/establishment/selectors';
 import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import type { Theme as CompanyTheme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
+import { fetchCompanyUserRoles } from '../../libs/role/actions';
 
 type Props = {
   member: Member,
@@ -72,6 +74,8 @@ type Props = {
   stripeReaders: StripeReader[],
   companyId: number,
   onlinePaymentEnabled: boolean,
+  staffDefaultEstablishmentBillingGroup: EstablishmentBillingGroup | null,
+  fetchCompanyUserRoles: () => void,
 };
 type State = {
   tempSubscription?: SubscriptionData,
@@ -90,6 +94,8 @@ export class SubscriptionCreate extends Component<Props, State> {
     this.props.fetchPaymentComboList();
     this.props.fetchEstablishments();
     this.props.fetchStripeReaders();
+    // @debt(3, 2, 2): Replace with /role/me to avoid fetching all roles.
+    this.props.fetchCompanyUserRoles();
     if (this.props.companyTheme.enable_multi_localization) {
       this.props.fetchAllEstablishmentBillingGroup({
         params: { company: this.props.companyId },
@@ -137,6 +143,9 @@ export class SubscriptionCreate extends Component<Props, State> {
           <SubscriptionScheduleChecker
             companyId={this.props.companyId}
             companyTheme={this.props.companyTheme}
+            defaultBillingGroup={
+              this.props.staffDefaultEstablishmentBillingGroup
+            }
             enableMultiLocalization={
               this.props.companyTheme.enable_multi_localization
             }
@@ -205,6 +214,8 @@ export default compose(
       stripeReaders: getStripeReaders(state),
       onlinePaymentEnabled: state.theme.theme.online_payment_enabled,
       establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+      staffDefaultEstablishmentBillingGroup:
+        getStaffEstablishmentBillingGroupSelector(state),
     }),
     {
       fetchPaymentMethodList: fetchPaymentMethodListAction,
@@ -216,6 +227,7 @@ export default compose(
       fetchPaymentComboList,
       fetchEstablishments,
       fetchStripeReaders,
+      fetchCompanyUserRoles,
       fetchAllEstablishmentBillingGroup:
         fetchAllEstablishmentBillingGroupAction,
     },

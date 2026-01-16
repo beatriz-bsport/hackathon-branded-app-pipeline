@@ -53,6 +53,7 @@ import {
 import {
   getAvailableEstablishmentList,
   getEnabledEstablishmentBillingGroups,
+  getStaffEstablishmentBillingGroupSelector,
 } from '../../libs/establishment/selectors';
 import BookingModuleManagerComponent from '../../libs/booking/components/booker-module/BookerModuleManager.component';
 import { RootState } from '../../reducers';
@@ -80,6 +81,8 @@ export default compose(
       maxoutLoading: state.consumerPaymentPack.maxout_booking.loading,
       establishments: getAvailableEstablishmentList(state),
       establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+      staffDefaultEstablishmentBillingGroup:
+        getStaffEstablishmentBillingGroupSelector(state),
       companyTheme: themeSelectors.getTheme(state),
       companyId: state.theme.theme.company,
       similarOfferGroup: withMetaActivity(

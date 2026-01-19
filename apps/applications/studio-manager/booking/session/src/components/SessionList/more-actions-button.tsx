@@ -24,6 +24,10 @@ export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
     "session.workshop.allowed_actions.delete",
   );
 
+  const hasExportParticipantsPermission = useObjectLevelPermission(
+    "export.allowed_actions.planning",
+  );
+
   const canCancelMultipleSessions =
     hasCancelMultipleSessionsPermission &&
     (hasCancelActivitySessionsPermission ||
@@ -54,7 +58,7 @@ export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
         },
       };
       return [
-        exportParticipantsAction,
+        ...(hasExportParticipantsPermission ? [exportParticipantsAction] : []),
         ...(canCancelMultipleSessions ? [cancelMultipleSessionsAction] : []),
       ];
     },
@@ -63,31 +67,34 @@ export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
       onParticipantsExport,
       onCancelMultipleSessions,
       canCancelMultipleSessions,
+      hasExportParticipantsPermission,
     ],
   );
 
   return (
-    <Popover>
-      <Popover.Anchor>
-        {({ setIsPopoverOpened }) => (
-          <Button
-            kind="icon-button"
-            icon="dots-vertical"
-            onClick={() => setIsPopoverOpened(true)}
-            size="md"
-            intent="default"
-            color="main"
-            label={t("moreActions.label")}
-          />
-        )}
-      </Popover.Anchor>
-      <Popover.Content placement="bottom-right">
-        {({ setIsPopoverOpened }) => (
-          <div className="flex flex-col gap-sm">
-            <Menu items={getMenuItems(setIsPopoverOpened)} />
-          </div>
-        )}
-      </Popover.Content>
-    </Popover>
+    (hasExportParticipantsPermission || canCancelMultipleSessions) && (
+      <Popover>
+        <Popover.Anchor>
+          {({ setIsPopoverOpened }) => (
+            <Button
+              kind="icon-button"
+              icon="dots-vertical"
+              onClick={() => setIsPopoverOpened(true)}
+              size="md"
+              intent="default"
+              color="main"
+              label={t("moreActions.label")}
+            />
+          )}
+        </Popover.Anchor>
+        <Popover.Content placement="bottom-right">
+          {({ setIsPopoverOpened }) => (
+            <div className="flex flex-col gap-sm">
+              <Menu items={getMenuItems(setIsPopoverOpened)} />
+            </div>
+          )}
+        </Popover.Content>
+      </Popover>
+    )
   );
 };

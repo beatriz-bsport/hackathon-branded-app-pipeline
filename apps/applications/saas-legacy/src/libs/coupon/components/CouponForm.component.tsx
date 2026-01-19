@@ -79,6 +79,10 @@ import {
   FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_OLD_WEBSHOP,
   FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED,
 } from '#src/libs/shop/components/ShopReworkedProductList/constants';
+import {
+  type FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 const {
   trackFormAdd,
@@ -105,7 +109,8 @@ type Props = {
   tagList: Array<Tag<TagGroupAPI>>;
   tagsLoading: boolean;
   displayNewWebshop: boolean;
-} & WithObjectSearch;
+} & WithObjectSearch &
+  FeatureFlagProps;
 
 type State = {
   with_expiration_date: boolean;
@@ -549,6 +554,9 @@ export class CouponForm extends React.Component<Props, State> {
                   this.state.applies_to === BUYABLE_ITEM_PASS
                     ? this.state.only_on_objects
                     : [],
+                ...(this.props.shouldDisplayNewSubscriptionContracts && {
+                  from_subscription: false,
+                }),
               }}
               components={{
                 Option: paymentPackOption,
@@ -652,6 +660,9 @@ export class CouponForm extends React.Component<Props, State> {
                   this.state.applies_to === BUYABLE_ITEM_PRIVATE_PASS
                     ? this.state.only_on_objects
                     : [],
+                ...(this.props.shouldDisplayNewSubscriptionContracts && {
+                  from_subscription: false,
+                }),
               }}
               components={{
                 Option: privatePassOption,
@@ -1081,4 +1092,5 @@ export default compose(
   // @ts-expect-error
   withStyles(styles),
   withObjectSearch,
+  withFeatureFlags,
 )(CouponForm);

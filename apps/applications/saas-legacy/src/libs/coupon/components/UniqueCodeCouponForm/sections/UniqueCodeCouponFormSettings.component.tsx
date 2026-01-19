@@ -37,6 +37,7 @@ import {
   FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_OLD_WEBSHOP,
   FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED,
 } from '#src/libs/shop/components/ShopReworkedProductList/constants';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 type Props = {
   isProcessing: boolean;
@@ -53,6 +54,10 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
 
   const { values, setFieldValue, errors } =
     useFormikContext<UniqueCodeCouponCreationPayload>();
+
+  const shouldDisplayNewSubscriptionContracts = useSafeFlag(
+    FeatureFlags.NEW_SUBSCRIPTION_CONTRACTS,
+  );
 
   // Filtered values
 
@@ -186,6 +191,9 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
                   values?.only_on_objects && {
                     id__not_in: values.only_on_objects,
                   }),
+                ...(shouldDisplayNewSubscriptionContracts && {
+                  from_subscription: false,
+                }),
               }}
               components={{ Option: paymentPackOption }}
               disabled={isProcessing}
@@ -275,6 +283,9 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({
                   values?.only_on_objects && {
                     id__not_in: values.only_on_objects,
                   }),
+                ...(shouldDisplayNewSubscriptionContracts && {
+                  from_subscription: false,
+                }),
               }}
               components={{
                 Option: privatePassOption,

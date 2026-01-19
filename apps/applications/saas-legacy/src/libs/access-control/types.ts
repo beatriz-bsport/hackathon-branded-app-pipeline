@@ -90,6 +90,7 @@ export type MemberVisitREST = {
 export type AccessControlPolicy = {
   booked_session_time_interval_before_visit: string;
   booked_session_time_interval_after_visit: string;
+  automatic_check_in_enabled: boolean;
 };
 
 export type AccessControlBookingOrPrivateBooking = {

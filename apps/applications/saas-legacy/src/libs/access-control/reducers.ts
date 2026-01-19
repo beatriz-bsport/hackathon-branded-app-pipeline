@@ -53,6 +53,7 @@ export const initialState: Immutable.Immutable<AccessControlState> =
       policy: {
         booked_session_time_interval_after_visit: '',
         booked_session_time_interval_before_visit: '',
+        automatic_check_in_enabled: false,
       },
     },
     nextBookingOrPrivateBooking: {

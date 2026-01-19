@@ -123,8 +123,11 @@ class WidgetUtils {
     WidgetUtils.postMessage({ type, ...(data || {}) });
   }
 
-  static sendBridgeLoginSuccess() {
-    WidgetUtils.postMessage({ type: WidgetMessageType.IFRAME_LOGIN_SUCCESS });
+  static sendBridgeLoginSuccess(hasNextPage: boolean) {
+    WidgetUtils.postMessage({
+      type: WidgetMessageType.IFRAME_LOGIN_SUCCESS,
+      data: { closeModal: !hasNextPage },
+    });
   }
   static sendBridgeLogout() {
     WidgetUtils.postMessage({ type: WidgetMessageType.IFRAME_LOGOUT });

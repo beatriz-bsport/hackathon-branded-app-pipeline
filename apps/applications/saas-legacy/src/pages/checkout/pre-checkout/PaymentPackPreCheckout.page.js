@@ -28,6 +28,7 @@ import {
 import { fetchOne } from '../../../libs/payment-packs/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import analyticsUtils from '../../../components/analytics/analytics';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 type Props = {
   location: Object,
@@ -94,6 +95,10 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
   }
 
   goToPassMarketplace = () => {
+    if (WidgetUtils.isWidget() && this.props.theme) {
+      this.props.push(`/checkout-s/${this.props.theme.company}?context=widget`);
+      return;
+    }
     if (this.props.theme && this.props.theme.scheduleURL) {
       let url = this.props.theme.scheduleURL;
       if (!url.startsWith('https://')) {

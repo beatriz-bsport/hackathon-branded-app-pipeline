@@ -69,7 +69,12 @@ type UnhandledEventData = {
   type: WidgetMessageType;
   authenticated?: unknown;
   count?: unknown;
-  data?: { videoId: unknown; playbackUrl: unknown; accessDenied: unknown };
+  data?: {
+    videoId: unknown;
+    playbackUrl: unknown;
+    accessDenied: unknown;
+    closeModal?: boolean;
+  };
   offer_ids?: unknown;
   username?: unknown;
   videoId?: number;
@@ -83,7 +88,7 @@ export const handleBridgeMessage =
       case WidgetMessageType.IFRAME_LOGIN_SUCCESS:
         dispatch(responseAuthenticatedStatus(true));
         dispatch(forceWidgetRefresh());
-        dispatch(closeUserInteractionPortal());
+        if (eventData.data?.closeModal) dispatch(closeUserInteractionPortal());
         break;
 
       case WidgetMessageType.RESPONSE_AUTHENTICATED_STATUS:

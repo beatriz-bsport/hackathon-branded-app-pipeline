@@ -79,7 +79,7 @@
     "private_service": "Appointments",
     "bookButton": {
       "book": "Book",
-      "isPast": "Completed",
+      "isPast": "Closed",
       "notAvailable": "Cancelled",
       "bookOption": "Waitlist",
       "notBookableYet": "Available soon",

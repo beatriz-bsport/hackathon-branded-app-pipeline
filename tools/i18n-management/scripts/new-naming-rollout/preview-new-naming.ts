@@ -2,16 +2,12 @@ import { input } from "@inquirer/prompts";
 import { Command } from "commander";
 import path from "path";
 
-import { LANGUAGES } from "#src/languages";
+import { getLanguageTranslation } from "#src/utils/get-language-translations";
 import { replaceTermInString } from "#src/utils/replace-term-in-string";
 import { selectLanguages } from "#src/utils/select-languages";
 import { selectProjects } from "#src/utils/select-projects";
 
-import {
-  ensureDir,
-  getFlattenKeyValuePairs,
-  joinDirJsonTranslations,
-} from "../utils";
+import { ensureDir, getFlattenKeyValuePairs } from "../utils";
 import { generateTranslationUpdateXlsx } from "./xlsx-utils";
 
 const program = new Command();
@@ -105,7 +101,11 @@ async function main({
 
       if (!title) {
         // Define title for the xlsx file
-        title = `transform-${previousTermSingular.toLowerCase()}-into-${newTermSingular.toLowerCase()}`;
+        const sanitizedPrevious = previousTermSingular
+          .toLowerCase()
+          .replace(" ", "-");
+        const sanitizedNew = newTermSingular.toLowerCase().replace(" ", "-");
+        title = `transform-${sanitizedPrevious}-into-${sanitizedNew}`;
       }
     }
   }
@@ -118,13 +118,12 @@ async function main({
   for (const project of selectedProjects) {
     for (const languageConfig of languagesConfigs) {
       const { id: language, ...termConfig } = languageConfig;
-      // Retrieve the path to the language folder
-      const languagePath =
-        language === LANGUAGES.ENGLISH ? "source" : `locales/${language}`;
-      const languageDir = path.resolve(project.pathToI18n, languagePath);
 
       // Build a big JSON containing all strings of the language
-      const languageTranslations = joinDirJsonTranslations(languageDir);
+      const { languageTranslations } = getLanguageTranslation({
+        language,
+        pathToI18n: project.pathToI18n,
+      });
 
       // Convert this JSON in a list of flatten-key/string pair
       const flattenKeyValuePairs =
@@ -201,9 +200,8 @@ async function main({
     "¤ Convert the validated columns into Checkbox to ease the validation process",
   );
   console.info("¤ Share the file with your PM or content reviewer");
-  /** @todo Next ticket -> do the "apply" */
   console.info(
-    "¤ Once reviewed, use the implement-new-naming script to apply the xlsx file (updated version to download)",
+    "¤ Once reviewed, use the translation:implement-new-naming script to apply the xlsx file (updated version to download)",
   );
   console.groupEnd();
 }

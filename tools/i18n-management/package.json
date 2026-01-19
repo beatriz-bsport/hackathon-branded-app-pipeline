@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
+    "translation:implement-new-naming": "tsx ./scripts/new-naming-rollout/implement-new-naming.ts",
     "translation:migrate": "tsx ./scripts/import-legacy-translations.ts",
     "translation:preview-new-naming": "tsx ./scripts/new-naming-rollout/preview-new-naming.ts",
     "translation:update": "TS_NODE_TRANSPILE_ONLY=1 TS_NODE_COMPILER_OPTIONS=\"{\\\"module\\\":\\\"commonjs\\\"}\" node -r ts-node/register ./scripts/build-public-locales-files.ts"

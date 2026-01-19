@@ -1043,6 +1043,7 @@
     "template": {
       "createFromScratch": "Create new {{ workflowLowerCase }}",
       "useTemplate": "Use template",
+      "createFromScratchTitle": "New {{ workflowLowerCase }}",
       "createFromScratchDescription": "Create a {{ workflowLowerCase }} to automate your Audience actions.",
       "addCadenceDialog": {
         "title": "Choose a template or create a new {{ workflowLowerCase }} "

@@ -42,6 +42,7 @@ const CadenceTemplatePicker: React.FC<Props> = ({
             description={template.description}
             image={template.cover}
             onButtonClick={handleTemplateClick(template)}
+            title={template.title}
             variant="template"
           />
         ))}

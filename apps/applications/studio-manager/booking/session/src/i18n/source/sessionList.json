@@ -128,6 +128,8 @@
   "cancelMultipleSessionsModal": {
     "title": "Cancel multiple sessions?",
     "description": "You can restore these sessions at any time, but you won’t be able to retrieve any bookings related to them. If you applied filters before cancelling, those filters will be kept for the selected period.",
+    "activityOnly": "As you don't have the permission to cancel workshop sessions, only group activity sessions will be cancelled.",
+    "workshopOnly": "As you don't have the permission to cancel group activity sessions, only workshop sessions will be cancelled.",
     "dateRangeLabel": "Time period",
     "cancelAlert_one": "<strong>{{sessionsNumber}} sessions scheduled on {{startDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
     "cancelAlert_other": "<strong>{{sessionsNumber}} sessions scheduled between {{startDate}} and {{endDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",

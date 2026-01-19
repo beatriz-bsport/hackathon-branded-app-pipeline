@@ -102,9 +102,7 @@ export const CancelMultipleSessionsModal: FC<{
     if (hasCancelActivitySessionsPermission) {
       return { is_workshop: false };
     }
-    if (hasCancelWorkshopSessionsPermission) {
-      return { is_workshop: true };
-    }
+    return { is_workshop: true };
   }, [
     hasCancelActivitySessionsPermission,
     hasCancelWorkshopSessionsPermission,
@@ -171,6 +169,13 @@ export const CancelMultipleSessionsModal: FC<{
         <Body htmlVariant="p" size="lg">
           {t("cancelMultipleSessionsModal.description")}
         </Body>
+        {globalFilter.is_workshop !== undefined && (
+          <Alert status="info">
+            {globalFilter.is_workshop
+              ? t("cancelMultipleSessionsModal.workshopOnly")
+              : t("cancelMultipleSessionsModal.activityOnly")}
+          </Alert>
+        )}
         <div className="flex flex-col gap-xs">
           <Body size="md" htmlVariant="p">
             {t("cancelMultipleSessionsModal.dateRangeLabel")}

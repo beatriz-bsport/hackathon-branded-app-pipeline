@@ -60,6 +60,7 @@ import {
   DateField,
   // @ts-expect-error
 } from '../../../components/forms';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -119,6 +120,10 @@ export const PaymentComboForm: React.FC<Props> = ({
   const { values: valuesFormik, setFieldValue } = useFormikContext();
 
   const { getResultsById } = useObjectSearch();
+
+  const shouldDisplayNewSubscriptionContracts = useSafeFlag(
+    FeatureFlags.NEW_SUBSCRIPTION_CONTRACTS,
+  );
 
   const isEmpty =
     // @ts-expect-error
@@ -264,6 +269,9 @@ export const PaymentComboForm: React.FC<Props> = ({
               <ObjectSearchComponent
                 additionalParams={{
                   id__not_in: f.form.values.payment_pack_ids,
+                  ...(shouldDisplayNewSubscriptionContracts && {
+                    from_subscription: false,
+                  }),
                 }}
                 components={{
                   Option: paymentPackOption,
@@ -343,7 +351,12 @@ export const PaymentComboForm: React.FC<Props> = ({
           }) => (
             <div>
               <ObjectSearchComponent
-                additionalParams={{ id__not_in: private_pass_ids }}
+                additionalParams={{
+                  id__not_in: private_pass_ids,
+                  ...(shouldDisplayNewSubscriptionContracts && {
+                    from_subscription: false,
+                  }),
+                }}
                 components={{
                   Option: privatePassOption,
                 }}

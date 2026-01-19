@@ -318,6 +318,7 @@ type APIParamsMap = {
   payment_pack_template: FranchiseProductTemplateQueryParams;
   universal_payment_pack_template: FranchiseProductTemplateQueryParams;
   communication_sent_group_config: void;
+  from_subscription: boolean;
 };
 
 export type FuzzySearchFilterParams<T extends SearchObjectType> =

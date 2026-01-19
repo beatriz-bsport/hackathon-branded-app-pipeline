@@ -9,7 +9,11 @@
     "project:find-unused-keys": "tsx ./scripts/find-unused-keys.ts",
     "project:transform": "tsx ./scripts/transform-project-structure.ts",
     "project:translate-missing-strings": "tsx ./scripts/translate-missing-strings.ts",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
     "translation:migrate": "tsx ./scripts/import-legacy-translations.ts",
+    "translation:preview-new-naming": "tsx ./scripts/new-naming-rollout/preview-new-naming.ts",
     "translation:update": "TS_NODE_TRANSPILE_ONLY=1 TS_NODE_COMPILER_OPTIONS=\"{\\\"module\\\":\\\"commonjs\\\"}\" node -r ts-node/register ./scripts/build-public-locales-files.ts"
   },
   "dependencies": {
@@ -19,6 +23,8 @@
   "devDependencies": {
     "@babel/parser": "^7.28.3",
     "@babel/traverse": "^7.28.3",
+    "@bsport/config-vitest": "workspace:*",
+    "@e965/xlsx": "^0.20.3",
     "@inquirer/prompts": "^7.3.3",
     "@types/babel__traverse": "^7.28.0",
     "@types/fs-extra": "^11.0.1",
@@ -27,6 +33,7 @@
     "inquirer-select-pro": "1.0.0-alpha.9",
     "json-beautify": "^1.1.1",
     "json-merger": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.2"
   }
 }

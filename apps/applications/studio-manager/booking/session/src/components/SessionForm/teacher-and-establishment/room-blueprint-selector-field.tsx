@@ -42,10 +42,11 @@ export const RoomBlueprintSelectorField: FC<{ fieldIdPrefix: string }> = ({
           setValue(
             "room_blueprint",
             selectedRoomBlueprintId ? Number(selectedRoomBlueprintId) : null,
+            { shouldValidate: true },
           );
         },
         onClear: () => {
-          setValue("room_blueprint", null);
+          setValue("room_blueprint", null, { shouldValidate: true });
         },
       })}
     >

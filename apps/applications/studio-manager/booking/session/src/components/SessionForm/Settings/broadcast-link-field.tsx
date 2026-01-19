@@ -33,7 +33,10 @@ export const BroadcastLinkField: FC<{
       mapProps={({ defaultProps, field, form }) => ({
         ...defaultProps,
         onClear: () => {
-          form.setValue("broadcast_link", "", { shouldDirty: true });
+          form.setValue("broadcast_link", "", {
+            shouldDirty: true,
+            shouldValidate: true,
+          });
           field.onBlur();
         },
       })}

@@ -170,6 +170,7 @@ export type ManagerSession = {
   has_spivi_error: boolean;
   id: number;
   is_broadcast: boolean;
+  is_workshop: boolean;
   level: number;
   linked_hybrid_offer_id?: number | null;
   manager_only: boolean;

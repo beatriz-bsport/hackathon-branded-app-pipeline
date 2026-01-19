@@ -1,5 +1,6 @@
 import { Result } from "typescript-result";
 
+import { fetchTagGroupsAPI, fetchTagsAPI } from "@bsport/api-core";
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 
 import {
@@ -7,9 +8,7 @@ import {
   createTagGroupAPI,
   deleteTagAPI,
   deleteTagGroupAPI,
-  fetchTagGroupsAPI,
   fetchTagUsagesAPI,
-  fetchTagsAPI,
   updateTagAPI,
   updateTagGroupAPI,
 } from "#src/api";
@@ -54,17 +53,15 @@ import {
  * ```
  */
 export const fetchTagsAction: Action<void, Tag[]> = async (fetch) => {
-  const [uri, init] = fetchTagsAPI();
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const tags = await fetchTagsAPI(fetch);
 
       setTags({
-        tags: data,
+        tags,
       });
 
-      return data;
+      return tags;
     },
     (error) =>
       createErrorWithContext(error, {
@@ -92,17 +89,15 @@ export const fetchTagsAction: Action<void, Tag[]> = async (fetch) => {
  * ```
  */
 export const fetchTagGroupsAction: Action<void, TagGroup[]> = async (fetch) => {
-  const [uri, init] = fetchTagGroupsAPI();
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const groups = await fetchTagGroupsAPI(fetch);
 
       setTagGroups({
-        groups: data,
+        groups,
       });
 
-      return data;
+      return groups;
     },
     (error) =>
       createErrorWithContext(error, {

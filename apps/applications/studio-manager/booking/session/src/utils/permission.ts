@@ -27,3 +27,15 @@ export const useObjectLevelPermission = (
     path,
   });
 };
+
+export const useAnyObjectLevelPermissions = (
+  paths: DeepKeys<ObjectLevelPermissions>[],
+) => {
+  const userRole = dataAccessLayer.useUserRole();
+  return paths.some((path) =>
+    checkHasPermission<WithSignature<ObjectLevelPermissions>>({
+      permissions: userRole?.object_level_permissions,
+      path,
+    }),
+  );
+};

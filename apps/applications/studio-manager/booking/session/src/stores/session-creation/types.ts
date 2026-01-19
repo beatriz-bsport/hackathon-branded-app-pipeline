@@ -19,13 +19,13 @@ export type SessionBase = {
   description_override: string;
   duration_minute: number;
   effectif: number;
-  establishment: number;
+  establishment: number | null;
   level: number;
   manager_only: boolean;
   meta_activity?: number;
   name_override: string;
   partner_max_booking_count: number;
-  room_blueprint?: number;
+  room_blueprint?: number | null;
   sync_on_spivi?: boolean;
   waiting_list_max_size: number;
   wellhub_product_id?: number | null;
@@ -74,6 +74,8 @@ export type SessionCreationFormData = Pick<
   | "coach"
   | "coach_payment_rule"
   | "broadcast_link"
+  | "establishment"
+  | "room_blueprint"
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;

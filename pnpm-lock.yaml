@@ -2897,9 +2897,15 @@ importers:
 
   packages/design-system/kaizen/business-components:
     devDependencies:
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../utils/fetch
       '@bsport/kaizen-tokens':
         specifier: workspace:*
         version: link:../tokens
+      '@bsport/local-storage-auth-token':
+        specifier: workspace:*
+        version: link:../../../local-storage/auth-token
       '@chromatic-com/storybook':
         specifier: ^3.2.2
         version: 3.2.2(react@19.2.0)(storybook@8.6.14(prettier@3.3.3))
@@ -3085,6 +3091,9 @@ importers:
 
   packages/design-system/kaizen/storybook:
     devDependencies:
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../utils/fetch
       '@bsport/kaizen-tokens':
         specifier: workspace:*
         version: link:../tokens

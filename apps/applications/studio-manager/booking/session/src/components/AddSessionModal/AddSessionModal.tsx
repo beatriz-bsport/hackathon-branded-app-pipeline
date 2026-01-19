@@ -28,6 +28,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { useSessionSchema } from "../SessionForm/schemas";
 import { ChooseActivityStep } from "./ChooseActivityStep";
 import { ConfigureSessionStep } from "./ConfigureSessionStep";
+import { AdvancedOptionsStep } from "./advanced-options-step";
 
 type AddSessionModalProps = {
   isOpen: boolean;
@@ -41,13 +42,24 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     selectStepFormData(SESSION_CREATION_STEPS.CONFIGURE_SESSION),
   ) as SessionCreationFormData;
 
-  const { configureSessionSchema } = useSessionSchema();
+  const advancedOptionsFormData = useSessionCreationStore(
+    selectStepFormData(SESSION_CREATION_STEPS.ADVANCED_OPTIONS),
+  ) as SessionCreationFormAdvancedOptionsData;
+
+  const { advancedOptionsSchema, configureSessionSchema } = useSessionSchema();
 
   const configureSessionMethods = useFormController({
     schema: configureSessionSchema,
     mode: "onSubmit",
     shouldFocusError: true,
     defaultValues: configureSessionFormData,
+  });
+
+  const advancedOptionsMethods = useFormController({
+    schema: advancedOptionsSchema,
+    mode: "onSubmit",
+    shouldFocusError: true,
+    defaultValues: advancedOptionsFormData,
   });
 
   const selectedGroupActivity = useSessionCreationStore(
@@ -130,7 +142,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
         },
         {
           label: t("addSessionModal.steps.advancedOptions.label"),
-          content: <>Advanced Options Step</>,
+          content: <AdvancedOptionsStep methods={advancedOptionsMethods} />,
           validate: checkIfCurrentStepValid,
         },
       ]}

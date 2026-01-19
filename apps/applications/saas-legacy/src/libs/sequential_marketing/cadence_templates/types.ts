@@ -102,6 +102,7 @@ export type CadenceConfigData = {
 };
 
 export type CadenceTemplate = {
+  title: string;
   description: string;
   cover: string;
   getConfig: (t: TFunction) => CadenceConfigData;

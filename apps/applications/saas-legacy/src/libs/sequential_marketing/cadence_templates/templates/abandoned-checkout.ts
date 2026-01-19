@@ -232,6 +232,7 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
 };
 
 export const AbandonedCheckoutRecovery: CadenceTemplate = {
+  title: 'audience.template.configs.abandonedCartRecovery.name',
   description: 'audience.template.configs.abandonedCartRecovery.description',
   cover: ABANDONED_CHECKOUT_COVER,
   getConfig: getAbandonedCheckoutConfig,

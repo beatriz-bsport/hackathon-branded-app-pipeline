@@ -11,7 +11,7 @@ import CadenceTemplatePicker from '#src/libs/sequential_marketing/components/Cad
 import type { CadenceConfigData } from '#src/libs/sequential_marketing/cadence_templates/types';
 
 const DIALOG_MAX_WIDTH = 1130;
-const DIALOG_MAX_HEIGHT = 800;
+const DIALOG_MAX_HEIGHT = 870;
 
 const useStyles = makeStyles((theme) => ({
   root: {

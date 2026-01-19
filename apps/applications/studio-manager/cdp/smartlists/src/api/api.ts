@@ -32,6 +32,9 @@ export const smartlistKeys = {
   automatedCampaigns: (id: string) =>
     [...smartlistKeys.detail(id), "automated-campaigns"] as const,
 
+  automatedCampaignDetail: (messageId: string) =>
+    [...smartlistKeys.all, "automated-campaign", messageId] as const,
+
   campaignSent: (id: string) =>
     [...smartlistKeys.detail(id), "campaign-sent"] as const,
 } as const;
@@ -75,6 +78,16 @@ const fetchCampaignSent = async (
   return data.results;
 };
 
+const fetchAutomatedCampaignDetail = async (
+  messageId: string,
+): Promise<AutomatedCampaign> => {
+  const { data } = await fetch<AutomatedCampaign>(
+    `${API_URL}/automated_campaign/${messageId}/`,
+  );
+
+  return data;
+};
+
 /**
  * Deletes an automated campaign
  * @param id - ID of the automated campaign to delete
@@ -114,4 +127,10 @@ export const campaignSentQueryOptions = (smartlistId: string) =>
         page_size: 100,
         page: 1,
       }),
+  });
+
+export const automatedCampaignDetailQueryOptions = (messageId: string) =>
+  queryOptions({
+    queryKey: smartlistKeys.automatedCampaignDetail(messageId),
+    queryFn: () => fetchAutomatedCampaignDetail(messageId),
   });

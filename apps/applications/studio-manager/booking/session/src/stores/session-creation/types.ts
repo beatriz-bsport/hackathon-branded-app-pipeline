@@ -14,7 +14,7 @@ export type SessionBase = {
   blacklist_tags: number[];
   broadcast_link: string;
   coach_payment_rule: number | null;
-  coach: number;
+  coach: number | null;
   credits: number;
   description_override: string;
   duration_minute: number;
@@ -71,6 +71,9 @@ export type SessionCreationFormData = Pick<
   | "duration_minute"
   | "level"
   | "is_hybrid"
+  | "coach"
+  | "coach_payment_rule"
+  | "broadcast_link"
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;

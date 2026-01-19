@@ -4,8 +4,8 @@ import { DashboardIframe } from "#src/components/DashboardIframe";
 import { InsightDetailLayout } from "#src/components/InsightDetailLayout";
 import { DASHBOARD_TYPES } from "#src/constants";
 import { usePresignedUrl } from "#src/hooks/api";
+import { useInsightGate } from "#src/utils/access";
 import { useTranslation } from "#src/utils/i18n";
-import { useRecurringPermission } from "#src/utils/permissions";
 
 /**
  * Recurring Revenue dashboard page.
@@ -14,7 +14,7 @@ import { useRecurringPermission } from "#src/utils/permissions";
  */
 const RecurringRevenuePage = () => {
   const { t } = useTranslation("insights");
-  const hasPermission = useRecurringPermission();
+  const { isAllowed, isLoading } = useInsightGate("recurring");
   const {
     iframeUrl,
     isLoading: isLoadingUrl,
@@ -23,8 +23,17 @@ const RecurringRevenuePage = () => {
 
   const pageTitle = t("pages.recurringRevenue.title");
 
+  // Wait for permissions and feature flags to be loaded before redirecting
+  if (isLoading) {
+    return (
+      <InsightDetailLayout title={pageTitle} isLoading={true} error={null}>
+        {null}
+      </InsightDetailLayout>
+    );
+  }
+
   // Redirect if no permission
-  if (!hasPermission) {
+  if (!isAllowed) {
     return <Navigate to="/" replace />;
   }
 

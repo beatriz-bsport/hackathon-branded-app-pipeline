@@ -1,0 +1,138 @@
+{
+  "pages": {
+    "memberList": "Profile",
+    "archivedMemberList": "Archivierte Profile"
+  },
+  "actions": {
+    "addMember": "Profil erstellen ",
+    "importLeads": "Leads importieren",
+    "download": "Herunterladen"
+  },
+  "memberTable": {
+    "loading": "Profile werden geladen ...",
+    "emptySearch": {
+      "subtitle": "Keine Profile gefunden – versuche, die Filter zu löschen, um mehr Ergebnisse zu sehen"
+    },
+    "emptyList": {
+      "activeMode": {
+        "title": "Noch keine Profile",
+        "subtitle": "Füge Kontaktprofile hinzu oder importiere Leads, um loszulegen."
+      },
+      "archivedMode": {
+        "title": "Keine archivierten Profile"
+      }
+    },
+    "headers": {
+      "name": "Name",
+      "email": "E-Mail",
+      "balance": "Kontostand",
+      "joinDate": "Beitrittsdatum"
+    },
+    "tooltips": {
+      "archive": "Profil archivieren",
+      "restore": "Profil wiederherstellen"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "E-Mail kopieren"
+    },
+    "loading": {
+      "activeList": "Profile werden geladen ...",
+      "archivedList": "Archivierte Profile werden geladen ..."
+    }
+  },
+  "listPage": {
+    "archiveModal": {
+      "title": "Profil archivieren?",
+      "description": {
+        "action": "Sobald du {{ name }} archivierst, ist das Profil nicht mehr aktiv. ",
+        "effect": "Du kannst dieses Profil jederzeit aus deinem Archiv wiederherstellen."
+      },
+      "alertIrregularity": {
+        "adviseRegularization": "Bevor du dieses Profil archivierst, empfehlen wir, zuerst das Kontoguthaben des Profils auszugleichen. Dies liegt an einem der folgenden Gründe: ",
+        "items": {
+          "negativeBalance": "Negativer Kontostand",
+          "unpaidInvoices": "Eine oder mehrere unbezahlte Rechnungen",
+          "currentSubscription": "Profil hat ein aktives Abonnement",
+          "autorenewalSubscriptions": "Dieses Profil enthält ein Abo, das automatisch verlängert wird.",
+          "futureBookings": "Profil hat zukünftige Buchungen",
+          "recurringBookings": "Profile hat wiederkehrende Buchungen",
+          "scheduledAppointments": "Profil hat Termine geplant"
+        }
+      },
+      "buttons": {
+        "cancel": "Schließen",
+        "archive": "Archivieren"
+      }
+    }
+  },
+  "toasts": {
+    "actions": {
+      "undo": "Änderung rückgängig machen"
+    },
+    "emailCopied": "E-Mail in die Zwischenablage kopiert",
+    "messageUndone": {
+      "success": "Änderung rückgängig gemacht",
+      "error": "Änderung konnte nicht rückgängig gemacht werden. Bitte versuche es nochmal. "
+    },
+    "messageArchived": {
+      "success": "Profil archiviert",
+      "error": "Profil konnte nicht archiviert werden. Bitte versuche es erneut."
+    },
+    "messageRestored": {
+      "success": "Profil wiederhergestellt",
+      "error": "Profil konnte nicht wiederhergestellt werden. Bitte versuche es erneut."
+    }
+  },
+  "filters": {
+    "label": "Filter",
+    "operators": {
+      "is": "ist",
+      "isNot": "ist nicht"
+    }
+  },
+  "importLeadsModal": {
+    "title": "Leads importieren",
+    "description": "Lade eine CSV-Datei hoch, um deine Leads in das bsport Back Office zu importieren.",
+    "moreHelpSection": "Brauchst du Hilfe damit? <key>Besuche unser Help Center</key>",
+    "uploadFile": {
+      "extensionCSVOnly": "Nur CSV-Dateien",
+      "workInProgress": "Leads werden importiert ...",
+      "wipDoNotRefresh": "Bitte aktualisiere oder verlasse diese Seite nicht.",
+      "errors": {
+        "wrongNumberOfColumns": {
+          "title": "Die Datei hat nicht die erforderliche Anzahl an Spalten.",
+          "formatIndication": "Bitte folge <key>unserem Format</key>, um deine Leads erfolgreich zu importieren."
+        },
+        "invalidFileType": "Ungültiger Dateityp - bitte lade eine CSV-Datei hoch",
+        "datasetTooLarge": "Dieser Datensatz ist zu groß. Bitte reduziere ihn auf maximal 100.000 Zeilen.",
+        "wrongEncoding": "Diese Dateicodierung geht leider nicht. Bitte nutze eine Datei im UTF-8-Format."
+      }
+    },
+    "importSuccess": {
+      "title": "Leads erfolgreich importiert",
+      "outputText": "Deine CSV-Datei der erfolgreich importierten Leads:",
+      "outputFilename": "Zeilen_erfolgreich",
+      "importedLeadsNumber_one": "{{ count }} Leads wurden importiert",
+      "importedLeadsNumber_other": "{{ count }} Leads wurden importiert"
+    },
+    "importPartialSuccess": {
+      "title": "Einige Zeilen in der Datei enthielten Fehler und konnten nicht verarbeitet werden.",
+      "outputText": "Hier ist eine CSV-Datei der Leads, die aufgrund fehlerhafter Zeilen nicht importiert werden konnten.",
+      "outputFilename": "Zeilen_fehlgeschlagen"
+    },
+    "otherImportInProgress": {
+      "title": "Du importierst gerade andere Leads.",
+      "subtitle": "Bitte warte, bis der Import abgeschlossen ist, bevor du einen neuen startest."
+    },
+    "importError": {
+      "title": "Import fehlgeschlagen",
+      "unknownError": "Beim Import ist ein Fehler aufgetreten. Bitte versuche es nochmal."
+    },
+    "importTimeout": {
+      "title": "Die Aktualisierung ist abgelaufen. Bitte versuche es nochmal.",
+      "comeBackLater": "Der Import dauert länger als erwartet - bitte komm später wieder."
+    }
+  }
+}

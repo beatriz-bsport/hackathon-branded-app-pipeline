@@ -2,7 +2,7 @@
   "common": {
     "back": "Zurück",
     "new": "Neu",
-    "search": "Suche nach Mitgliedern"
+    "search": "Kontakte suchen"
   },
   "menus": {
     "popover": {
@@ -54,7 +54,7 @@
     "reporting": "Berichte",
     "analytics": {
       "title": "Analysen",
-      "insights": "Einblicke",
+      "insights": "Erkenntnisse",
       "reports": "Berichte"
     },
     "finance": {

@@ -67,7 +67,8 @@ export interface TriggerEmptyConfig extends TriggerConfigBaseDict {
 
 export interface TriggerTimeoutConfig extends TriggerConfigBaseDict {
   identifier: TriggerIdentifier.TIMEOUT;
-  timeout: number;
+  timeout: number; // Timeout in days
+  timeout_hours?: number; // Additional timeout in hours
 }
 
 export interface TriggerEventConfig extends TriggerConfigBaseDict {

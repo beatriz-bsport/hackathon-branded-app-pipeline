@@ -733,6 +733,7 @@
     "universalPass": "Universal passes may be used for group activities and appointments."
   },
   "detailTitles": {
+    "name": "Benefit",
     "vod": "Video On Demand",
     "restrictions": "Restrictions",
     "tags": "Tags",

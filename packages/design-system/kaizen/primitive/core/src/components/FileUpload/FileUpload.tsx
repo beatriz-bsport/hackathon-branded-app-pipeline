@@ -33,7 +33,7 @@ export type FileUploadProps = {
     onUploadProgress: (progressEvent: ProgressEvent) => void,
   ) => Promise<{ status: FileUploadStatus; customMessage?: string }>;
   inline?: boolean;
-  inputId: string;
+  id: string;
   inputName?: string;
   multiple?: boolean;
   onFileDrop?: (params: {
@@ -65,7 +65,7 @@ export type FileUploadProps = {
  * @param props.fileUploadTrackerList State value to track the list of upload processes.
  * @param props.handleUploadFile Function to handle file uploads. Receives a `File` object as an argument.
  * @param props.inline Whether to display the component in an inline style.
- * @param props.inputId Unique identifier of the input.
+ * @param props.id Unique identifier of the input.
  * @param props.inputName Name to pass to the underlying `<input>` element.
  * @param props.multiple Whether to allow selecting multiple files.
  * @param props.onFileDrop Callback function invoked after a FileList is detected in the dropzone.
@@ -83,7 +83,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   fileUploadTrackerList,
   handleUploadFile,
   inline,
-  inputId,
+  id,
   inputName,
   multiple,
   onFileDrop,
@@ -280,7 +280,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   ]);
 
   return (
-    <div data-component="Kaizen-FileUpload">
+    <div data-component="Kaizen-FileUpload" className="w-full">
       {renderFileUploadInput ? (
         <FileUploadInput
           className={className}
@@ -289,7 +289,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
           handleAddFiles={handleAddFiles}
           fileExtensionList={fileExtensionList}
           inline={inline}
-          inputId={inputId}
+          inputId={id}
           inputName={inputName}
           multiple={multiple}
           onFileDrop={onFileDrop}

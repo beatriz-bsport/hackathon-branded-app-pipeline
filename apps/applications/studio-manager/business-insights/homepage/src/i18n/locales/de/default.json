@@ -18,7 +18,7 @@
       "class": "Kurs",
       "teacher": "Lehrkraft",
       "teacherSubstitution": "Vertretung",
-      "classFillRate": "Auslastungsrate"
+      "classFillRate": "Auslastung"
     },
     "emptyList": "Keine bevorstehenden Kurse",
     "teacher": {
@@ -63,7 +63,7 @@
     "unavailable": "Metriken sind derzeit nicht verfügbar"
   },
   "insightsPanel": {
-    "title": "Einblicke auf einen Blick",
+    "title": "Erkenntnisse im Überblick",
     "unavailable": "Einblicke sind derzeit nicht verfügbar"
   }
 }

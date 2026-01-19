@@ -21,8 +21,12 @@ import { Coach } from '#src/libs/associated-coach/types';
 import PasswordInput from '../../../components/input/PasswordInput.component';
 import { Role, UserRoleData, SelectFieldItem } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
-// @ts-expect-error
-import COMMON_ROLES, { OWNER_ROLE } from '../role-types';
+import COMMON_ROLES, {
+  OWNER_ROLE,
+  ADMIN_ROLE,
+  STAFF_ROLE,
+  // @ts-expect-error
+} from '#src/libs/role/role-types';
 import { getRoleName } from '../utils';
 import { useAdvancedRoleSettings } from '../hooks/advancedRoleSettings';
 import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
@@ -233,6 +237,28 @@ export class CreateStaffUser extends React.Component<Props, State> {
       selectedEstablishmentBillingGroup,
     } = this.props;
 
+    // Disable submit button if:
+    // 1. Access monitoring is required but no establishments selected
+    // 2. POS role requires billing group but none selected
+    const isAccessMonitoringRequired =
+      hasAccessMonitoringUpsell &&
+      roles?.find((r) => r.id === this.state.role)?.permissions?.navigationMenu
+        ?.accessMonitoring?.perform &&
+      !selectedEstablishments.length;
+    const isBillingGroupRequiredForPOS =
+      this.getCustomRole()?.id === RoleType.USER_ROLE_QUICKSALE &&
+      !!establishmentBillingGroups?.length &&
+      !selectedEstablishmentBillingGroup?.value;
+
+    // Show advanced role settings if:
+    // 1. Admin or Staff role with billing groups selected
+    // 2. Custom role with role selected
+    const shouldShowAdvancedRoleSettings =
+      ((this.state.role === ADMIN_ROLE || this.state.role === STAFF_ROLE) &&
+        !!establishmentBillingGroups?.length) ||
+      (!Object.values(COMMON_ROLES).includes(this.state.role) &&
+        !!this.state.role);
+
     return (
       <form>
         <Dialog open={open}>
@@ -318,41 +344,44 @@ export class CreateStaffUser extends React.Component<Props, State> {
                   ))}
               </Select>
             </FormControl>
-            {!Object.values(COMMON_ROLES).includes(this.state.role) &&
-              !!this.state.role && (
-                <div className={classes.advancedRoleSettingsContainer}>
-                  <AdvancedRoleSettingsForm
-                    withTitle
-                    coachListLoading={coachListLoading}
-                    coachOptions={coachOptions}
-                    customRole={this.getCustomRole()}
-                    establishmentBillingGroupOptions={
-                      establishmentBillingGroupOptions
-                    }
-                    establishmentBillingGroups={establishmentBillingGroups}
-                    establishmentGroupListLoading={
-                      establishmentGroupListLoading
-                    }
-                    establishmentListLoading={establishmentListLoading}
-                    establishmentOptions={establishmentOptions}
-                    handleSelectCoaches={handleSelectCoaches}
-                    handleSelectEstablishmentBillingGroup={
-                      handleSelectEstablishmentBillingGroup
-                    }
-                    handleSelectEstablishments={handleSelectEstablishments}
-                    handleSelectSite={handleSelectSite}
-                    hasAccessMonitoringUpsell={hasAccessMonitoringUpsell}
-                    hasMultiLocationUpsell={hasMultiLocationUpsell}
-                    selectedCoaches={selectedCoaches}
-                    selectedEstablishmentBillingGroup={
-                      selectedEstablishmentBillingGroup
-                    }
-                    selectedEstablishments={selectedEstablishments}
-                    selectedSite={selectedSite}
-                    sitesOptions={siteOptions}
-                  />
-                </div>
-              )}
+            {shouldShowAdvancedRoleSettings && (
+              <div className={classes.advancedRoleSettingsContainer}>
+                <AdvancedRoleSettingsForm
+                  coachListLoading={coachListLoading}
+                  coachOptions={coachOptions}
+                  customRole={this.getCustomRole()}
+                  establishmentBillingGroupOptions={
+                    establishmentBillingGroupOptions
+                  }
+                  establishmentBillingGroups={establishmentBillingGroups}
+                  establishmentGroupListLoading={establishmentGroupListLoading}
+                  establishmentListLoading={establishmentListLoading}
+                  establishmentOptions={establishmentOptions}
+                  handleSelectCoaches={handleSelectCoaches}
+                  handleSelectEstablishmentBillingGroup={
+                    handleSelectEstablishmentBillingGroup
+                  }
+                  handleSelectEstablishments={handleSelectEstablishments}
+                  handleSelectSite={handleSelectSite}
+                  hasAccessMonitoringUpsell={hasAccessMonitoringUpsell}
+                  hasMultiLocationUpsell={hasMultiLocationUpsell}
+                  selectedCoaches={selectedCoaches}
+                  selectedEstablishmentBillingGroup={
+                    selectedEstablishmentBillingGroup
+                  }
+                  selectedEstablishments={selectedEstablishments}
+                  selectedSite={selectedSite}
+                  showOnlyBillingGroup={
+                    this.state.role === ADMIN_ROLE ||
+                    this.state.role === STAFF_ROLE
+                  }
+                  sitesOptions={siteOptions}
+                  withTitle={
+                    !Object.values(COMMON_ROLES).includes(this.state.role)
+                  }
+                />
+              </div>
+            )}
           </DialogContent>
           <DialogActions>
             <Button color="secondary" onClick={onClose}>
@@ -361,10 +390,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
             <Button
               color="primary"
               disabled={
-                hasAccessMonitoringUpsell &&
-                roles?.find((r) => r.id === this.state.role)?.permissions
-                  ?.navigationMenu?.accessMonitoring?.perform &&
-                !selectedEstablishments.length
+                isAccessMonitoringRequired || isBillingGroupRequiredForPOS
               }
               id="button_role_save"
               onClick={this.onSubmit}

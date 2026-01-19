@@ -40,14 +40,35 @@ export const useConnectedTriggerChip = () => {
         case TriggerIdentifier.EMPTY:
           return connected_trigger_config.filtering_config?.smartlist_pk ===
             smartlist?.id
-            ? smartlist.name
+            ? smartlist?.name || ''
             : '';
+
         case TriggerIdentifier.EVENT:
           return getEventTriggerDetailText(connected_trigger_config);
+
         case TriggerIdentifier.TIMEOUT:
-          return t('cadence.triggers.timeout.timeout_days_chip', {
-            count: connected_trigger_config.trigger_config?.timeout ?? 0,
-          });
+          const timeoutDays =
+            connected_trigger_config?.trigger_config?.timeout ?? 0;
+          const timeoutHours =
+            connected_trigger_config?.trigger_config?.timeout_hours ?? 0;
+
+          const timeoutDayLabel = t(
+            'cadence.triggers.timeout.timeout_days_chip',
+            { count: timeoutDays },
+          );
+          const timeoutHourLabel = t(
+            'cadence.triggers.timeout.timeout_hours_chip',
+            { count: timeoutHours },
+          );
+
+          if (!timeoutDays) {
+            return timeoutHourLabel;
+          }
+          if (!timeoutHours) {
+            return timeoutDayLabel;
+          }
+          return timeoutDayLabel + ' + ' + timeoutHourLabel;
+
         default:
           return 'Error';
       }

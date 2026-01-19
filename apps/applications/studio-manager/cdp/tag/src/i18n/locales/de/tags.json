@@ -1,1 +1,278 @@
-{}
+{
+  "page": {
+    "title": "Tags",
+    "filters": {
+      "label": "Kategorie",
+      "operators": {
+        "is": "ist",
+        "isNot": "ist nicht"
+      }
+    },
+    "actions": {
+      "createTagGroup": {
+        "label": "Kategorie hinzufügen"
+      },
+      "createTag": {
+        "label": "Tag erstellen"
+      }
+    },
+    "loadingState": {
+      "message": "Lade Tags..."
+    },
+    "emptyFilteredPageState": {
+      "title": "Keine Tags gefunden",
+      "description": "Versuche, die Filter zu löschen, um mehr Ergebnisse zu sehen.",
+      "secondaryButtonLabel": "Alle Filter löschen"
+    },
+    "emptyPageState": {
+      "title": "Noch keine Tags",
+      "description": "Erstelle Tags, um deine Kontakte gezielt anzusprechen und zu analysieren"
+    },
+    "emptyMainTagState": {
+      "description": "Du hast noch keine Tags für dieser Kategorie erstellt."
+    }
+  },
+  "tagGroupList": {
+    "actions": {
+      "addSubTag": "Tag erstellen",
+      "rename": "Umbenennen",
+      "delete": "Löschen"
+    },
+    "items": {
+      "tooltip": {
+        "delete": "Löschen"
+      }
+    }
+  },
+  "tagGroupModal": {
+    "title": {
+      "add": "Kategorie hinzufügen",
+      "update": "Kategorie bearbeiten"
+    },
+    "formField": {
+      "tagGroupName": {
+        "label": "Name",
+        "placeholder": "Gib deiner Kategorie einen Namen",
+        "errors": {
+          "required": "Bitte gib dieser Kategorie einen Namen",
+          "alreadyInUse": "Dieser Name ist bereits vergeben",
+          "tooLong": "Der Name darf maximal {{ max }} Zeichen enthalten",
+          "tooShort": "Name muss mindestens {{ min }} Zeichen lang sein"
+        }
+      }
+    },
+    "actions": {
+      "add": "Hinzufügen",
+      "update": "Speichern",
+      "cancel": "Schließen",
+      "goTo": "Kategorie anzeigen"
+    },
+    "result": {
+      "createSuccess": {
+        "title": "Kategorie erstellt"
+      },
+      "updateSuccess": {
+        "title": "Kategorie aktualisiert"
+      },
+      "updateFailure": {
+        "title": "Konnte die Kategorie aufgrund eines technischen Problems nicht aktualisieren. Bitte versuche es erneut oder kontaktiere den Support. "
+      },
+      "createFailure": {
+        "title": "Konnte die Kategorie nicht erstellen. Bitte versuche es erneut. "
+      }
+    }
+  },
+  "tagModal": {
+    "title": {
+      "create": "Tag erstellen",
+      "update": "Tag bearbeiten"
+    },
+    "formField": {
+      "mainTagAssociated": {
+        "label": "Kategorie",
+        "placeholder": "Kategorie auswählen",
+        "errors": {
+          "required": "Ein Tag muss eine Kategorie haben"
+        }
+      },
+      "tagName": {
+        "label": "Tag",
+        "placeholder": "Gib deinem Tag einen Namen",
+        "errors": {
+          "required": "Gib diesem Tag einen Namen",
+          "alreadyInUse": "Dieser Name ist bereits vergeben",
+          "tooLong": "Der Name darf maximal {{ max }} Zeichen enthalten",
+          "tooShort": "Name muss mindestens {{ min}} Zeichen lang sein"
+        }
+      },
+      "tagColor": {
+        "label": "Farbe",
+        "placeholder": "#FFFFFF"
+      }
+    },
+    "actions": {
+      "create": "Erstellen",
+      "update": "Aktualisieren",
+      "cancel": "Schließen",
+      "goTo": "Tag anzeigen"
+    },
+    "result": {
+      "createSuccess": {
+        "title": "Tag wurde erstellt"
+      },
+      "createFailure": {
+        "title": "Das Tag konnte nicht gespeichert werden. Bitte versuche es nochmal. "
+      },
+      "updateSuccess": {
+        "title": "Tag aktualisiert"
+      },
+      "updateFailure": {
+        "title": "Das Tag konnte nicht aktualisiert werden. Bitte versuche es nochmal. "
+      }
+    }
+  },
+  "deleteMainTagModal": {
+    "title": "Kategorie dauerhaft löschen?",
+    "description": "Wenn du diese Kategorie löschst, werden alle damit verbundenen Tags von {{ number }} Kontakten dauerhaft entfernt.",
+    "alerts": {
+      "tagInUse": {
+        "description": "Hinweis: Wenn du diese Kategorie löschst, werden außerdem die zugehörigen Tag-Regeln entfernt, die noch in bedingten Workflows aktiv sind, wie z.B. Audience oder Smartlists.",
+        "confirmCheckbox": {
+          "label": "Bitte bestätigen:",
+          "description": "Ich verstehe, dass die Tags, die mit dieser Kategorie verbunden sind, dauerhaft gelöscht werden. Ferner verstehe ich, dass dies zu Problemen mit anderen Workflows führen kann, sofern die Tags dort verwendet werden.",
+          "confirmButtonTooltip": "Bitte überprüfe die Auswirkungen dieser Änderung, bevor du fortfährst."
+        }
+      }
+    },
+    "actions": {
+      "confirm": "Löschen",
+      "cancel": "Behalten"
+    },
+    "result": {
+      "success": {
+        "title": "Kategorie gelöscht"
+      },
+      "failure": {
+        "title": "Die Kategorie konnte nicht gelöscht werden. Bitte versuche es nochmal oder überprüfe, ob sie in anderen Workflows verwendet wird."
+      }
+    }
+  },
+  "deleteSubTagModal": {
+    "title": "Tag dauerhaft löschen?",
+    "description": "Wenn du dieses Tag löschst, wird es dauerhaft von {{number}} Kontakten, denen es zugewiesen ist, entfernt.",
+    "alerts": {
+      "tagInUse": {
+        "description": "Achtung: Das Löschen dieses Tags wirkt sich auch auf alle bedingten Workflows aus, in denen es verwendet wird (wie z. B. Smartlists oder Audience).",
+        "confirmCheckbox": {
+          "label": "Bitte bestätigen:",
+          "description": "Ich verstehe, dass dieses Tag dauerhaft gelöscht wird und eine Auswirkung auf alle zugehörigen Workflows haben kann.",
+          "confirmButtonTooltip": "Bitte überprüfe die Auswirkungen dieser Änderung, bevor du fortfährst."
+        }
+      }
+    },
+    "actions": {
+      "confirm": "Löschen",
+      "cancel": "Behalten"
+    },
+    "result": {
+      "success": {
+        "title": "Tag gelöscht"
+      },
+      "failure": {
+        "title": "Der Tag konnte nicht gelöscht werden. Bitte versuche es noch einmal oder prüfe, ob der Tag in bedingten Workflows verwendet wird."
+      }
+    }
+  },
+  "tagsDetails": {
+    "members": "Kunden",
+    "actions": {
+      "tagAll": "Tag alle",
+      "untagAll": "Tag entfernen",
+      "edit": "Bearbeiten"
+    },
+    "tooltip": {
+      "close": "Schließen",
+      "tagMember": "Tag hinzufügen",
+      "untagMember": "Tag entfernen",
+      "editTag": "Name oder Farbe ändern",
+      "previousSubTag": "Vorheriges Tag anzeigen",
+      "nextSubTag": "Nächstes Tag anzeigen"
+    },
+    "segmentedControl": {
+      "tagged": "Tag hinzugefügt",
+      "untagged": "Untagged"
+    },
+    "memberList": {
+      "actions": {
+        "tag": {
+          "success": {
+            "title": "Kontakt getaggt"
+          },
+          "failure": {
+            "title": "Das Tag konnte dem Kontakt nicht hinzugefügt werden. Bitte versuche es nochmal. "
+          }
+        },
+        "untag": {
+          "success": {
+            "title": "Kontakt nicht mehr getaggt"
+          },
+          "failure": {
+            "title": "Das Tag konnte dem Kontakt nicht hinzugefügt werden. Bitte versuche es nochmal. "
+          }
+        }
+      },
+      "loadingState": {
+        "tagged": "Lade markierte Kunden...",
+        "untagged": "Lade ungetaggte Kunden..."
+      },
+      "emptyState": {
+        "title": {
+          "tagged": "Noch keine getaggten Kontakte",
+          "untagged": "Noch keine Kontakte ohne Tag"
+        },
+        "description": {
+          "untagged": "Füge deinen Kontakten ein Tag hinzu, indem du auf das '+'-Symbol neben dem Namen in der Liste der nicht getaggten Kontakten klickst.",
+          "tagged": "Entferne ein Tag von Kontakten, indem du auf das '-' Symbol neben dem Namen in der Liste der getaggten Kontakten klickst."
+        }
+      }
+    }
+  },
+  "updateMemberTagBatchModal": {
+    "title": {
+      "tag": "Allen Mitgliedern dieses Tag hinzufügen?",
+      "untag": "Allen Mitgliedern dieses Tag entfernen?"
+    },
+    "description": {
+      "tag": "Füge das \"{{tagName}}\" Tag diesen {{number}} Kontakten hinzu?",
+      "untag": "Entferne das {{tagName}}-Tag von {{number}} Kontakten?"
+    },
+    "actions": {
+      "tag": "Tag hinzufügen",
+      "untag": "Tag entfernen",
+      "cancel": "Schließen",
+      "undo": "Rückgängig"
+    },
+    "loading": {
+      "tag": "Tagging {{number}} Kunden...",
+      "untag": "Tag wird gerade von {{number}}Kontakten entfernt ..."
+    },
+    "results": {
+      "tag": {
+        "success": {
+          "title": "Das Tag wurde allen Kontakten hinzugefügt."
+        },
+        "failure": {
+          "title": "Das Tag konnte den Kontakten nicht hinzugefügt werden. Bitte versuche es nochmal. "
+        }
+      },
+      "untag": {
+        "success": {
+          "title": "Das Tag wurde von allen Kontakten entfernt."
+        },
+        "failure": {
+          "title": "Tag konnte nicht entfernt werden. Bitte versuche es noch einmal. "
+        }
+      }
+    }
+  }
+}

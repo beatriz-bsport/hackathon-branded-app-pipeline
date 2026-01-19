@@ -136,6 +136,18 @@ const steps: StepConfig[] = [
       </div>
     ),
   },
+  {
+    label: "Step 4",
+    icon: "flag-uk",
+    content: (
+      <div className="flex flex-col gap-md">
+        <Body htmlVariant="p" size="md">
+          This is the final step. When you click the confirm button on this
+          step, the modal will close.
+        </Body>
+      </div>
+    ),
+  },
 ];
 
 const defaultArgs: ModalStepperProps = {

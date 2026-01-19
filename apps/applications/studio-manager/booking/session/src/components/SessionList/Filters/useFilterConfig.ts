@@ -1,6 +1,10 @@
 import type { FilterProps } from "@bsport/kaizen-primitive-core";
 
-import { setFilters } from "#src/stores/session-list";
+import {
+  selectFilters,
+  setFilters,
+  useSessionListStore,
+} from "#src/stores/session-list";
 import { useTranslation } from "#src/utils/i18n";
 
 import {
@@ -19,6 +23,7 @@ import { useTeacherFilter } from "./use-teacher-filter";
 
 export const useFilterConfig = (): FilterProps => {
   const { t } = useTranslation("sessionList");
+  const filters = useSessionListStore(selectFilters);
 
   const teacherFilter = useTeacherFilter();
   const establishmentFilter = useEstablishmentFilter();
@@ -103,5 +108,6 @@ export const useFilterConfig = (): FilterProps => {
     ],
     selectFieldLabel: t("table.filters.label"),
     onFilterChange: setFilters,
+    defaultFilters: filters,
   };
 };

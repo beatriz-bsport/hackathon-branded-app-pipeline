@@ -11,9 +11,13 @@ import {
   useSessionListStore,
 } from "#src/stores/session-list";
 import { useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 export const DisplaySettings: React.FC = () => {
   const { t } = useTranslation("sessionList");
+  const hasShowCancelledSessionsPermission = useObjectLevelPermission(
+    "planning.calendar.allowed_actions.readCancellations",
+  );
 
   const onChangeCalendarView = (value: string) => {
     if (value === CalendarView.DAILY || value === CalendarView.RANGE) {
@@ -48,12 +52,14 @@ export const DisplaySettings: React.FC = () => {
           value={calendarView}
         />
       </div>
-      <Toggle
-        id="show-cancelled-sessions"
-        label={t("displaySettings.showCancelledSessions.label")}
-        checked={showCancelledSessions}
-        onToggleChange={setShowCancelledSessions}
-      />
+      {hasShowCancelledSessionsPermission && (
+        <Toggle
+          id="show-cancelled-sessions"
+          label={t("displaySettings.showCancelledSessions.label")}
+          checked={showCancelledSessions}
+          onToggleChange={setShowCancelledSessions}
+        />
+      )}
     </div>
   );
 };

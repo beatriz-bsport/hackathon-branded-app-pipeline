@@ -57,6 +57,7 @@ type OwnProps = {
   enableMultiLocalization: boolean;
   stripeReaders: StripeReader[];
   companyId?: number;
+  defaultBillingGroup?: EstablishmentBillingGroup | null;
   // the three next props are used in handler
   // eslint-disable-next-line
   onSuccess?: () => void;
@@ -294,6 +295,7 @@ export const SubscriptionContractRegister = (props: Props) => {
           companyId={props.companyId}
           contract={props.contract}
           date={props.date}
+          defaultBillingGroup={props.defaultBillingGroup || undefined}
           enabledPaymentMethods={props.enabledPaymentMethods}
           enableMultiLocalization={props.enableMultiLocalization}
           establishmentBillingGroups={props.establishmentBillingGroups}

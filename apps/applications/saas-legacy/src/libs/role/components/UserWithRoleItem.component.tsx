@@ -26,12 +26,14 @@ import { DEFAULT_ROLES } from '#src/libs/role/constants';
 // @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { Role, UserRole, SelectFieldItem, FranchiseRole } from '../types';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import { MaterialStyleType } from '../../../utils/types';
 import { getRoleName, getOptionsFromIds } from '../utils';
 import COMMON_ROLES, {
   OWNER_ROLE,
   CHECKIN_APP_ROLE,
   ADMIN_ROLE,
+  STAFF_ROLE,
   // @ts-expect-error
 } from '../role-types';
 
@@ -56,6 +58,7 @@ type OwnProps = {
   deleteUser: (id: number) => void;
   editedFieldCount: number;
   editUserSelectedFranchisees?: (franchiseeIds: number[]) => void;
+  establishmentBillingGroups?: EstablishmentBillingGroup[];
   franchiseeList: Array<Company>;
   franchiseeListLoading: boolean;
   franchiseRoles?: FranchiseRole[];
@@ -105,6 +108,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
       classes,
       deleteUser,
       editedFieldCount,
+      establishmentBillingGroups,
       franchiseeList,
       franchiseeListLoading,
       franchiseRoles,
@@ -184,10 +188,19 @@ class UserWithRoleItem extends React.Component<Props, State> {
 
     const isRelatedToFranchisor = !!this.props.user.franchise_user;
 
+    // Admin/Staff users allow editing billing group only (no other settings).
+    const canEditBillingGroupForCommonRoles =
+      !!establishmentBillingGroups?.length &&
+      hasOwnerPermission &&
+      !isFranchisor &&
+      (roleId === ADMIN_ROLE || roleId === STAFF_ROLE);
+
     const canEditUserRoleAdvancedSettings =
-      !(
+      (!(
         isRoleIn(Object.values(COMMON_ROLES)) || roleIdentifier === ADMIN_ROLE
-      ) && hasOwnerPermission;
+      ) &&
+        hasOwnerPermission) ||
+      canEditBillingGroupForCommonRoles;
 
     const canDeleteUserRole = !isRoleIn([OWNER_ROLE]) && hasOwnerPermission;
 

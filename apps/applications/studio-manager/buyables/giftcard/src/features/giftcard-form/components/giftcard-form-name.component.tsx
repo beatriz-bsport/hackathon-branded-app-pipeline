@@ -5,8 +5,7 @@ import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { GIFTCARD_FORM_DATA_DEFAULT } from "../constants";
-import { FIELD_CONSTRAINTS } from "../schema";
+import { FIELD_CONSTRAINTS, GIFTCARD_FORM_DATA_DEFAULT } from "../constants";
 import type { GiftcardFormData } from "../types";
 
 type GiftcardFormNameProps = {
@@ -27,8 +26,8 @@ export const GiftcardFormName: FC<GiftcardFormNameProps> = ({ formId }) => {
         onClear: () => {
           form.setValue("name", GIFTCARD_FORM_DATA_DEFAULT.name, {
             shouldDirty: true,
+            shouldValidate: true,
           });
-          field.onBlur(); // Trigger validation
         },
       })}
     >

@@ -18,7 +18,7 @@ export const PERMISSIONS_PATHS: Record<
   attendance: ["navigationMenu.payments.clockIn"],
   audience: ["navigationMenu.marketing.cadence"],
   calendar: ["navigationMenu.calendar"],
-  customForm: ["navigationMenu.calendar"],
+  customForm: ["navigationMenu.marketing.customForms"],
   dashboard: ["navigationMenu.dashboard"],
   directDebit: ["navigationMenu.payments.directDebits"],
   emailTemplate: ["navigationMenu.marketing.templates"],

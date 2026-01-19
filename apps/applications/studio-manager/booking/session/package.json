@@ -24,6 +24,7 @@
     "@bsport/api-book": "workspace:*",
     "@bsport/api-business-insights": "workspace:*",
     "@bsport/api-core": "workspace:*",
+    "@bsport/api-financial-services": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/fetch": "workspace:*",

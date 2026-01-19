@@ -3,8 +3,11 @@ import { type FC, useId } from "react";
 import { ControlledForm, useFormController } from "@bsport/form";
 import { Modal } from "@bsport/kaizen-primitive-core";
 
+import { GiftcardFormCover } from "#src/features/giftcard-form/components/giftcard-form-cover.component";
 import { GiftcardFormDescription } from "#src/features/giftcard-form/components/giftcard-form-description.component";
+import { GiftcardFormExpirationDays } from "#src/features/giftcard-form/components/giftcard-form-expiration-days.component";
 import { GiftcardFormName } from "#src/features/giftcard-form/components/giftcard-form-name.component";
+import { GiftcardFormValue } from "#src/features/giftcard-form/components/giftcard-form-value.component";
 import { GIFTCARD_FORM_DATA_DEFAULT } from "#src/features/giftcard-form/constants";
 import { useGiftcardFormSchema } from "#src/features/giftcard-form/schema";
 import type { GiftcardFormSchema } from "#src/features/giftcard-form/types";
@@ -26,7 +29,7 @@ export const GiftcardCreateModal: FC<GiftcardCreateModalProps> = ({
   const giftcardFormSchema = useGiftcardFormSchema();
 
   const methods = useFormController<GiftcardFormSchema>({
-    mode: "onBlur",
+    mode: "onChange",
     schema: giftcardFormSchema,
     defaultValues: GIFTCARD_FORM_DATA_DEFAULT,
   });
@@ -68,8 +71,11 @@ export const GiftcardCreateModal: FC<GiftcardCreateModalProps> = ({
     >
       <ControlledForm id={formId} onSubmit={console.log} {...methods}>
         <div className="flex flex-col gap-md w-full">
+          <GiftcardFormCover formId={formId} methods={methods} />
+          <GiftcardFormValue formId={formId} methods={methods} />
           <GiftcardFormName formId={formId} />
           <GiftcardFormDescription formId={formId} />
+          <GiftcardFormExpirationDays formId={formId} methods={methods} />
         </div>
       </ControlledForm>
     </Modal>

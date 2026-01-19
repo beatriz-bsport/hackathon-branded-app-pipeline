@@ -99,31 +99,6 @@ pnpm exec nx start-dev @bsport/saas-legacy
 pnpm exec nx run @bsport/saas-legacy:start-dev
 ```
 
-#### Set the Backend API for revamped application
-
-The API Url for the backend is abstracted and handled at monorepository level by the `set-api-environment.ts` script. Anywhere from your location in the workspace, you can run
-
-```sh
-# Connect to dev backend
-pnpm run -w api-environment:set dev
-# Connect to statging
-pnpm run -w api-environment:set staging
-# Connect to local
-pnpm run -w api-environment:set local
-# Connect to feature-branch
-pnpm run -w api-environment:set feature-branch -fb NAME-OF-YOUR-API-FEATURE-BRANCH
-```
-
-You can always get some help on the command by running
-
-```sh
-pnpm run -w api-environment:set -h
-```
-
-#### Feature Flags (Unleash)
-
-See [docs/feature_flags.md](./docs/feature_flags.md) for all details on feature flag setup, usage and CLI.
-
 #### Run a revamped application
 
 All our revamped applications work in a consistent way. Apps dedicated to the future Studio Manager backoffice are located under [apps/applications/studio-manager](./apps/applications/studio-manager/README.md).
@@ -190,6 +165,14 @@ pnpm exec nx dev @bsport/sm-host
 # Or using dev-mfe (recommended - auto-starts all remotes)
 pnpm exec nx dev-mfe @bsport/sm-host
 ```
+
+#### Set the Backend API for revamped application in local
+
+See [docs/api_env.md](./docs/api_env.md#how-to-target-a-specific-backend-locally-) for all details on setup and usage.
+
+#### Feature Flags (Unleash)
+
+See [docs/feature_flags.md](./docs/feature_flags.md) for all details on feature flag setup, usage and CLI.
 
 ### Run Kaizen primitive components library
 

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 
 import { FormField } from "@bsport/form";
 import {
@@ -23,7 +23,7 @@ export const PackFormTags: React.FC<PackFormTagsProps> = ({
 }) => {
   const { t } = useTranslation("details");
 
-  const { tagGroups, tagIdToTagMap } = useTags();
+  const { tagGroups, tagIdToTagMap, tagIdToTagGroup } = useTags();
 
   const tagGroupOptions: Array<{ title: string; options: Array<MenuOption> }> =
     useMemo(() => {
@@ -48,6 +48,38 @@ export const PackFormTags: React.FC<PackFormTagsProps> = ({
         };
       });
     }, [tagIdToTagMap, tagGroups]);
+
+  /**
+   * Custom toggling logic to apply in the Autocomplete
+   */
+  const onToggleItem = useCallback(
+    ({
+      prev,
+      toggledItem,
+    }: {
+      prev: string[];
+      toggledItem: string;
+    }): string[] => {
+      // Case 1: Item was present => unchecked it
+      if (prev.includes(toggledItem)) {
+        return prev.filter((id) => id !== toggledItem);
+      }
+
+      const tagGroup = tagIdToTagGroup[parseInt(toggledItem, 10)];
+
+      // Case 2: Item is not in a group => check it
+      if (!tagGroup) {
+        return [...prev, toggledItem].sort();
+      }
+
+      // Case 3: Item is in a group => check it and uncheck other tags from same group
+      return [
+        ...prev.filter((id) => !tagGroup.tags.includes(parseInt(id, 10))),
+        toggledItem,
+      ].sort();
+    },
+    [tagIdToTagGroup],
+  );
 
   return (
     <div>
@@ -81,7 +113,8 @@ export const PackFormTags: React.FC<PackFormTagsProps> = ({
               form.formState.defaultValues?.tags_on_consumer_item_creation ?? []
             )
               .filter((id) => id !== undefined)
-              .map((id) => id.toString()),
+              .map((id) => id.toString())
+              .sort(),
           };
         }}
       >
@@ -100,6 +133,8 @@ export const PackFormTags: React.FC<PackFormTagsProps> = ({
           }}
           searchMode="local"
           debounceValue={100}
+          onToggleItem={onToggleItem}
+          showSelectedItemsInBase
         />
       </FormField>
     </div>

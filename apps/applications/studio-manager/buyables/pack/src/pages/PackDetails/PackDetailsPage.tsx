@@ -32,6 +32,7 @@ const convertIntoPackFormData = (pack: Pack): PackFormEditData => {
     shop_items,
     price,
     tax,
+    tags_on_consumer_item_creation,
     ...initialValues
   } = pack;
 
@@ -44,6 +45,7 @@ const convertIntoPackFormData = (pack: Pack): PackFormEditData => {
     shop_item_ids: (shop_items ?? []).map((webshopItem) => webshopItem.id),
     price: parseInt(price),
     tax: parseInt(tax),
+    tags_on_consumer_item_creation: [...tags_on_consumer_item_creation].sort(),
   };
 };
 

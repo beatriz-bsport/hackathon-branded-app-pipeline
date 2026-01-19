@@ -32,6 +32,11 @@ import {
   useEmailTemplateStore,
 } from "@bsport/store-cdp-email-template";
 import {
+  BIRTHDAY_NOTIFICATION,
+  selectMarketingNotificationList,
+  useMarketingNotificationStore,
+} from "@bsport/store-cdp-marketing-notification";
+import {
   selectAllMappedSmartlists,
   selectSearchedSmartlists,
   useSmartlistStore,
@@ -113,6 +118,14 @@ export const useGetMarketingNotificationDependenciesData = () => {
     [emailTemplateSummaries],
   );
 
+  const marketingNotifications = useMarketingNotificationStore(
+    selectMarketingNotificationList,
+  );
+
+  const isBirthdayNotificationSet = !!marketingNotifications.find(
+    (notification) => notification.kind === BIRTHDAY_NOTIFICATION,
+  );
+
   return {
     searchedAppointments,
     searchedAppointmentPasses,
@@ -132,5 +145,6 @@ export const useGetMarketingNotificationDependenciesData = () => {
     passesById,
     smartlistsById,
     subscriptionsById,
+    isBirthdayNotificationSet,
   };
 };

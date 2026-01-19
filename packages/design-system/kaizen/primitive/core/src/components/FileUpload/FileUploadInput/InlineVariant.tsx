@@ -34,7 +34,7 @@ const InlineVariant: React.FC<{ buttonTitle?: string }> = ({ buttonTitle }) => {
         "active:shadow-action-call-to-action-pressed",
         "active:bg-surface-action-main-strong-pressed",
         // Container
-        "rounded-sm border-0 w-fit p-2xs",
+        "rounded-sm border-0 w-fit p-xs",
       )}
     >
       <Icon size="sm" icon="upload-01" />

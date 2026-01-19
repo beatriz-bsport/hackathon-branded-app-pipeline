@@ -1,13 +1,11 @@
 import groupBy from "lodash/groupBy";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { getLocalNow } from "@bsport/datetime-manipulation";
 import {
   ListLayout,
   useEmptyState,
   useLoadingState,
 } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
 import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions/cancel-multiple-sessions-modal";
@@ -33,14 +31,12 @@ import {
   selectModalState,
   selectSelectedDate,
   setLocale,
-  setSelectedDate,
   useSessionListStore,
 } from "../stores/session-list";
 
 const ListPage: React.FC = () => {
   const { t, i18n } = useTranslation("sessionList");
   const intlLocale = i18n?.language;
-  const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   const selectedDate = useSessionListStore(selectSelectedDate);
   const detailsModalState = useSessionListStore(selectModalState);
@@ -63,22 +59,11 @@ const ListPage: React.FC = () => {
     close: closeCancelMultipleSessionsModal,
   } = useModal();
 
-  const hasInitializedDate = useRef(false);
-
   useEffect(() => {
     if (intlLocale) {
       setLocale(intlLocale);
     }
   }, [intlLocale]);
-
-  useEffect(() => {
-    if (!hasInitializedDate.current && companyTimeZone && intlLocale) {
-      setSelectedDate(
-        getLocalNow({ locale: intlLocale, zone: companyTimeZone }),
-      );
-      hasInitializedDate.current = true;
-    }
-  }, [intlLocale, companyTimeZone]);
 
   // Determine fetch params based on selected date type
   const fetchParams =

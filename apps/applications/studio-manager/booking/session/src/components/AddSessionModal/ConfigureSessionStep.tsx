@@ -6,6 +6,7 @@ import { SessionDetails } from "#src/components/SessionForm/Details/SessionDetai
 import { SessionSettings } from "#src/components/SessionForm/Settings/SessionSettings";
 import { SessionTimeAndDate } from "#src/components/SessionForm/TimeAndDate/SessionTimeAndDate";
 import { SessionCreationFormSchema } from "#src/components/SessionForm/schemas";
+import { SessionTeacherAndEstablishment } from "#src/components/SessionForm/teacher-and-establishment/teacher-and-establishment";
 
 export const ConfigureSessionStep: FC<{
   methods: UseFormControllerOutput<SessionCreationFormSchema>;
@@ -23,6 +24,7 @@ export const ConfigureSessionStep: FC<{
       <SessionDetails fieldIdPrefix={formId} />
       <SessionTimeAndDate fieldIdPrefix={formId} />
       <SessionSettings fieldIdPrefix={formId} />
+      <SessionTeacherAndEstablishment fieldIdPrefix={formId} />
     </ControlledForm>
   );
 };

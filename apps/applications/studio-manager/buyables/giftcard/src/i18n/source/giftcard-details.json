@@ -2,7 +2,7 @@
   "createModal": {
     "title": "Create a new Gift Card",
     "buttons": {
-      "cancel": "Cancel",
+      "cancel": "Close",
       "create": "Create"
     }
   },
@@ -16,6 +16,38 @@
     },
     "description": {
       "label": "Description"
+    },
+    "value": {
+      "label": "Value",
+      "helperText": "This will also be the price of the Gift Card"
+    },
+    "customValue": {
+      "toggle": {
+        "label": "Custom value"
+      },
+      "minimumValue": {
+        "label": "Minimum",
+        "helperText": "Enter a whole number of at least 1"
+      },
+      "maximumValue": {
+        "label": "Maximum",
+        "helperText": "Enter a whole number up to {{ maxPriceWithCurrency }}",
+        "limitExplanation": "Why this number?"
+      },
+      "minMaxError": "Max price should be greater than min price"
+    },
+    "expirationDays": {
+      "toggle": {
+        "label": "Set validity period"
+      },
+      "input": {
+        "label": "Days valid after activation",
+        "suffixDays": "Days"
+      }
+    },
+    "cover": {
+      "helperText": "Suggested format: 1280 x 720 pixels, file size under 2MB",
+      "extensions": "JPG, PNG, SVG"
     }
   }
 }

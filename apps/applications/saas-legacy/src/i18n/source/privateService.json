@@ -690,6 +690,7 @@
     "edit": "Edit",
     "disabledTitle": "Archived appointment passes",
     "detailTitles": {
+      "name": "Benefit",
       "paymentMeans": "Payment method",
       "privateServiceCompatibility": "Compatible appointments",
       "vod": "Video On Demand",

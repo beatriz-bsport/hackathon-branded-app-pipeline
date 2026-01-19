@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { useOutletContext } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
+import invariant from "tiny-invariant";
 
 import {
   Body,
@@ -34,6 +35,8 @@ type TableRow = AutomatedCampaignWithAnalytics & {
 
 export const AutomationPageContent = () => {
   const { smartlistId } = useOutletContext<AutomationPageContext>();
+  const navigate = useNavigate();
+
   const { t, i18n } = useTranslation("details");
 
   const campaigns = useAutomatedCampaignAnalytics(smartlistId);
@@ -201,11 +204,13 @@ export const AutomationPageContent = () => {
               items={items}
               onSelectOption={({ setIsPopoverOpened, id }) => {
                 setIsPopoverOpened(false);
+
                 if (id === "delete") {
                   setAutomationToDelete(row);
                 } else if (id === "edit") {
-                  // TODO: Implement edit action
-                  console.log(`Edit action for automation: ${row.id}`);
+                  navigate(`/${smartlistId}/automation/message/${row.id}`);
+                } else {
+                  invariant(false, `Unhandled action id: ${id}`);
                 }
               }}
               placement="bottom-right"

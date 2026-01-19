@@ -134,10 +134,10 @@
       "unableToBookSession_plural": "Es können keine Sitzungen gebucht werden",
       "doorAccessInfo": {
         "proximityProof": {
-          "message": "Du hast einen Pass mit Türzugang gekauft. Um ihn zu nutzen, lade die App herunter und gehe zu deinem Profil. Halte dein Smartphone an die Tür und tippe auf „Tür öffnen“. ",
+          "message": "Du hast einen Pass mit Türzugang gekauft. Um ihn zu nutzen, lade die App herunter und besuche dein Profil in der App. Halte dein Smartphone an die Tür und tippe auf „Tür öffnen“. ",
           "title": "Türzugang gekauft"
         },
-        "message": "Du hast einen Pass mit Türzugang gekauft. Um ihn zu nutzen, gehe zu deinem Profil und tippe auf „Tür öffnen“.",
+        "message": "Du hast einen Pass mit Türzugang gekauft. Um ihn zu nutzen, besuche dein Profil und tippe auf „Tür öffnen“.",
         "title": "Türzugang gekauft"
       }
     },

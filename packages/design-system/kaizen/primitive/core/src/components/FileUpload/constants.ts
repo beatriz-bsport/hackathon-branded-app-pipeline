@@ -43,7 +43,7 @@ const VIDEO_EXTENSIONS = [
   "flv",
 ] as const;
 
-const TEXT_EXTENSIONS = ["css", "csv", "html"];
+const TEXT_EXTENSIONS = ["css", "csv", "html"] as const;
 
 const MIME_CATEGORIES = ["image/*", "audio/*", "video/*", "text/*"] as const;
 

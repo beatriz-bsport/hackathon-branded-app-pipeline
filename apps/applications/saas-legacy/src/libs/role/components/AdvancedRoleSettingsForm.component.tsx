@@ -11,6 +11,11 @@ import InformationIcon from '#src/components/InformationIcon';
 import type { Role, SelectFieldItem } from '../types';
 import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import { RoleType } from '@bsport/common/lib/master-data/user-role';
+import COMMON_ROLES, {
+  ADMIN_ROLE,
+  STAFF_ROLE,
+  // @ts-expect-error
+} from '#src/libs/role/role-types';
 
 type Props = {
   coachListLoading: boolean;
@@ -29,6 +34,7 @@ type Props = {
   selectedSite: SelectFieldItem;
   sitesOptions: SelectFieldItem[];
   withTitle?: boolean;
+  showOnlyBillingGroup?: boolean;
   establishmentBillingGroups: EstablishmentBillingGroup[];
   selectedEstablishmentBillingGroup: SelectFieldItem | null;
   establishmentBillingGroupOptions: SelectFieldItem[];
@@ -77,6 +83,7 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
   selectedSite,
   sitesOptions,
   withTitle,
+  showOnlyBillingGroup = false,
   establishmentBillingGroups,
   selectedEstablishmentBillingGroup,
   establishmentBillingGroupOptions,
@@ -84,6 +91,21 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('role');
   const classes = useStyles();
+
+  // Check if the billing group field should be shown for this role
+  // It should be shown for: custom roles, Admin (4), Check-in | Wide (1), and POS (-1)
+  // It should NOT be shown for: Owner (0), Check-in | Limited (2), Check-in | Tablet (3)
+  const shouldShowBillingGroup =
+    !!establishmentBillingGroups?.length &&
+    customRole &&
+    (customRole.id === ADMIN_ROLE ||
+      customRole.id === STAFF_ROLE ||
+      customRole.id === RoleType.USER_ROLE_QUICKSALE ||
+      !Object.values(COMMON_ROLES).includes(customRole.id));
+
+  // Check if the billing group is required (only for POS role)
+  const isBillingGroupRequired =
+    customRole?.id === RoleType.USER_ROLE_QUICKSALE;
 
   return (
     <div className={classes.root}>
@@ -95,37 +117,40 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
           </Typography>
         </div>
       )}
-      <Section
-        helpText={t('forms.user.advancedSettingsModal.teacher.helpText')}
-        title={t('forms.user.advancedSettingsModal.teacher.title')}
-      >
-        <div className={classes.selectorField}>
-          <Typography className={classes.textSecondary} variant="body2">
-            {t('forms.user.advancedSettingsModal.teacher.subtitle')}
-          </Typography>
-          <MaterialUISelector
-            isMulti
-            withoutPortal
-            allOptionsPlaceholder={t(
-              'forms.user.advancedSettingsModal.teacher.allOptionsPlaceholder',
-            )}
-            defaultNumberShown={2}
-            isLoading={coachListLoading}
-            menuPlacement="bottom"
-            name="coaches"
-            onChange={handleSelectCoaches}
-            options={coachOptions}
-            placeholder={t(
-              'forms.user.advancedSettingsModal.teacher.placeholder',
-            )}
-            value={selectedCoaches}
-          />
-          <Typography color="textSecondary" variant="caption">
-            {t('forms.user.ifEmptySelectAll')}
-          </Typography>
-        </div>
-      </Section>
-      {hasAccessMonitoringUpsell &&
+      {!showOnlyBillingGroup && (
+        <Section
+          helpText={t('forms.user.advancedSettingsModal.teacher.helpText')}
+          title={t('forms.user.advancedSettingsModal.teacher.title')}
+        >
+          <div className={classes.selectorField}>
+            <Typography className={classes.textSecondary} variant="body2">
+              {t('forms.user.advancedSettingsModal.teacher.subtitle')}
+            </Typography>
+            <MaterialUISelector
+              isMulti
+              withoutPortal
+              allOptionsPlaceholder={t(
+                'forms.user.advancedSettingsModal.teacher.allOptionsPlaceholder',
+              )}
+              defaultNumberShown={2}
+              isLoading={coachListLoading}
+              menuPlacement="bottom"
+              name="coaches"
+              onChange={handleSelectCoaches}
+              options={coachOptions}
+              placeholder={t(
+                'forms.user.advancedSettingsModal.teacher.placeholder',
+              )}
+              value={selectedCoaches}
+            />
+            <Typography color="textSecondary" variant="caption">
+              {t('forms.user.ifEmptySelectAll')}
+            </Typography>
+          </div>
+        </Section>
+      )}
+      {!showOnlyBillingGroup &&
+        hasAccessMonitoringUpsell &&
         customRole?.permissions?.navigationMenu?.accessMonitoring?.perform && (
           <Section
             helpText={
@@ -226,28 +251,30 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
             </div>
           </Section>
         )}
-      {customRole?.id === RoleType.USER_ROLE_QUICKSALE &&
-        !!establishmentBillingGroups?.length && (
-          <Section
-            helpText={t(
-              'forms.user.advancedSettingsModal.establishmentBillingGroup.helpText',
-            )}
-            title={t(
+      {shouldShowBillingGroup && (
+        <Section
+          helpText={t(
+            'forms.user.advancedSettingsModal.establishmentBillingGroup.helpText',
+          )}
+          title={
+            t(
               'forms.user.advancedSettingsModal.establishmentBillingGroup.title',
-            )}
-          >
-            <div className={classes.selectorField}>
-              <MaterialUISelector
-                withoutPortal
-                menuPlacement="bottom"
-                name="establishmentBillingGroup"
-                onChange={handleSelectEstablishmentBillingGroup}
-                options={establishmentBillingGroupOptions}
-                value={selectedEstablishmentBillingGroup}
-              />
-            </div>
-          </Section>
-        )}
+            ) + (isBillingGroupRequired ? ' *' : '')
+          }
+        >
+          <div className={classes.selectorField}>
+            <MaterialUISelector
+              withoutPortal
+              isClearable={!isBillingGroupRequired}
+              menuPlacement="bottom"
+              name="establishmentBillingGroup"
+              onChange={handleSelectEstablishmentBillingGroup}
+              options={establishmentBillingGroupOptions}
+              value={selectedEstablishmentBillingGroup}
+            />
+          </div>
+        </Section>
+      )}
     </div>
   );
 };

@@ -12,6 +12,9 @@ import type {
 import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
 import { FranchiseRole, Role, UserRole } from '../types';
 import { useAdvancedRoleSettings } from '../hooks/advancedRoleSettings';
+import { RoleType } from '@bsport/common/lib/master-data/user-role';
+// @ts-expect-error
+import { ADMIN_ROLE, STAFF_ROLE } from '#src/libs/role/role-types';
 
 export type Props = {
   coachList: Coach[];
@@ -81,12 +84,27 @@ const AdvancedRoleSettingsModal: React.FC<Props> = ({
     establishmentBillingGroups,
   });
 
+  // Show only billing group for Admin and Check-in | Wide
+  const showOnlyBillingGroup =
+    customRole?.id === ADMIN_ROLE || customRole?.id === STAFF_ROLE;
+
+  // Disable confirm button if:
+  // 1. Access monitoring is required but no establishments selected
+  // 2. POS role requires billing group but none selected
+  const isAccessMonitoringRequired =
+    !showOnlyBillingGroup &&
+    hasAccessMonitoringUpsell &&
+    customRole?.permissions?.navigationMenu?.accessMonitoring?.perform &&
+    !selectedEstablishments?.length;
+  const isBillingGroupRequiredForPOS =
+    customRole?.id === RoleType.USER_ROLE_QUICKSALE &&
+    !!establishmentBillingGroups?.length &&
+    !selectedEstablishmentBillingGroup?.value;
+
   return (
     <ModalConfirm
       disableConfirm={
-        hasAccessMonitoringUpsell &&
-        customRole?.permissions?.navigationMenu?.accessMonitoring?.perform &&
-        !selectedEstablishments?.length
+        isAccessMonitoringRequired || isBillingGroupRequiredForPOS
       }
       handleCancel={onClose}
       handleConfirm={handleSubmit}
@@ -118,6 +136,7 @@ const AdvancedRoleSettingsModal: React.FC<Props> = ({
         selectedEstablishmentBillingGroup={selectedEstablishmentBillingGroup}
         selectedEstablishments={selectedEstablishments}
         selectedSite={selectedSite}
+        showOnlyBillingGroup={showOnlyBillingGroup}
         sitesOptions={siteOptions}
       />
     </ModalConfirm>

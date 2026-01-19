@@ -6,6 +6,7 @@ import { URLS } from "./urls";
 export const DASHBOARD_TYPES = {
   TRIAL_ANALYSIS: "trial_analysis",
   RECURRING_REVENUE: "recurring_revenue",
+  SCHEDULE_ANALYSIS: "schedule_analysis",
 } as const;
 
 /**
@@ -34,5 +35,11 @@ export const INSIGHT_ITEMS = [
     section: "financial",
     dashboardType: DASHBOARD_TYPES.RECURRING_REVENUE,
     link: URLS.RECURRING_REVENUE,
+  },
+  {
+    id: "schedule",
+    section: "booking",
+    dashboardType: DASHBOARD_TYPES.SCHEDULE_ANALYSIS,
+    link: URLS.SCHEDULE_ANALYSIS,
   },
 ] as const;

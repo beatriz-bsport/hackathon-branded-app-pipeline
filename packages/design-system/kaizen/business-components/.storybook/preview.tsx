@@ -2,6 +2,7 @@ import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react";
 import React, { Suspense, useEffect } from "react";
 
+import { setLocalAPIEnv } from "@bsport/fetch";
 import "@bsport/kaizen-tokens/src/index.css";
 
 import { I18nProvider } from "../financial-services/src/components/I18nProvider";
@@ -15,9 +16,21 @@ import {
   instanciateAppI18n,
   switchLanguage,
 } from "../financial-services/src/i18n/index";
+import { authenticateDev } from "./auth-helper";
 
 import "../../primitive/core/src/globals.css";
 import "../financial-services/src/globals.css";
+
+// Set API env and authenticate only for local Storybook builds
+if (typeof window !== "undefined") {
+  const storybookEnv = process.env.STORYBOOK_ENV || "local";
+  if (storybookEnv === "local") {
+    setLocalAPIEnv("dev");
+    authenticateDev().catch((error) => {
+      console.warn("Failed to authenticate in Storybook:", error);
+    });
+  }
+}
 
 const { i18nInstance } = instanciateAppI18n<Translations>({
   applicationName: i18nNamespacePrefix,

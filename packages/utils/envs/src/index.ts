@@ -33,6 +33,14 @@ export function getEnv(url?: string): Environment {
       return "production";
     }
 
+    // docs.infra.bsport.io/storybook -> storybook
+    if (
+      hostname === "docs.infra.bsport.io" &&
+      urlObj.pathname.startsWith("/storybook")
+    ) {
+      return "storybook" as Environment;
+    }
+
     // backoffice-{name}.chaos.bsport.io -> {name} (feature branch deployments)
     // Pattern: backoffice-{name}.chaos.bsport.io
     if (

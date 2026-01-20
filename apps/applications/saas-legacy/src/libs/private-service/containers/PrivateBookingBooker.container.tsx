@@ -78,6 +78,10 @@ import { OptionCallback } from '../../../state/types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
 import PrivateBookingWarningTagDialog from './PrivateBookingWarningTagDialog';
+import {
+  type FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 type OwnProps = {
   open: boolean;
@@ -94,7 +98,10 @@ type ConnectedProps = ReturnType<typeof mapStateToProps> &
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
 
-type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
+type OwnAndConnectedProps = OwnProps &
+  ConnectedProps &
+  StateHandlerType &
+  FeatureFlagProps;
 
 type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
@@ -690,7 +697,11 @@ const mapWithHandlers = {
   fetchPass:
     (props: OwnAndConnectedProps) =>
     (privateSlotId: number, memberId: number, date: string) => {
-      props.fetchCompatiblePrivatePass(privateSlotId);
+      props.fetchCompatiblePrivatePass(privateSlotId, {
+        ...(props.shouldDisplayNewSubscriptionContracts && {
+          from_subscription: false,
+        }),
+      });
       props.fetchCompatiblePrivateConsumerPass(privateSlotId, {
         member: memberId,
         date,
@@ -728,5 +739,6 @@ export default compose<any, OwnProps>(
   withStyles(styles),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(mapStateToProps, mapDispatchToProps),
+  withFeatureFlags,
   withHandlers(mapWithHandlers),
 )(PrivateBookingBooker);

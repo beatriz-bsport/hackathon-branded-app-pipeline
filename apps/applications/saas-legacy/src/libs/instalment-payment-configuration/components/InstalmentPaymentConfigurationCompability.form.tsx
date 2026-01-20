@@ -10,6 +10,7 @@ import {
   CheckboxField,
   ObjectSearchField,
 } from '#src/libs/custom-form/components/GenericFormik.input';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 type OwnProps = {
   is_available_on_all_payment_pack: boolean;
@@ -35,6 +36,10 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
   const { t } = useTranslation(['instalmentPayment', 'shop']);
   const classes = useStyles();
 
+  const shouldDisplayNewSubscriptionContracts = useSafeFlag(
+    FeatureFlags.NEW_SUBSCRIPTION_CONTRACTS,
+  );
+
   return (
     <div className={!isInDrawer ? classes.padding : classes.paddingTop}>
       <Grid container spacing={4}>
@@ -58,7 +63,12 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
             </Typography>
             <ObjectSearchField
               isMulti
-              additionalParams={{ disabled: false }}
+              additionalParams={{
+                disabled: false,
+                ...(shouldDisplayNewSubscriptionContracts && {
+                  from_subscription: false,
+                }),
+              }}
               isDisabled={is_available_on_all_payment_pack}
               name="payment_pack_list"
               placeholder={t('instalmentPayment:form.compability.selectPack')}
@@ -85,7 +95,12 @@ export const InstalmentPaymentConfigurationCompatibility: React.FC<Props> = ({
             </Typography>
             <ObjectSearchField
               isMulti
-              additionalParams={{ available: true }}
+              additionalParams={{
+                available: true,
+                ...(shouldDisplayNewSubscriptionContracts && {
+                  from_subscription: false,
+                }),
+              }}
               isDisabled={is_available_on_all_private_pass}
               name="private_pass_list"
               placeholder={t(

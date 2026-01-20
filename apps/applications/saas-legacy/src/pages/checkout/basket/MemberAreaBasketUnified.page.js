@@ -41,7 +41,6 @@ import {
   hasRedirectionFailed,
   removeQueryParamsFromUrl,
   shouldCheckPaymentStatus,
-  shouldNotRetrieveSecret,
   getBasketItemCount,
 } from '#src/libs/checkout/utils';
 import {
@@ -91,7 +90,6 @@ import CheckPaymentStatus from './CheckPaymentStatus.component';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import CheckoutContext from './CheckoutContext';
 
-import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 import { fetchProfile } from '#src/libs/consumer-space/actions';
 // @ts-expect-error js file
 import { auth as authActions } from '#src/actions';
@@ -121,11 +119,6 @@ import { getCheckoutItemType } from '#src/events/purchase/utils.ts';
 
 export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBasketUnifiedPageProps> {
   state = {
-    clientSecret: null,
-    paymentGroupId: null,
-    paymentGroupPriceCts: null,
-    customerSessionClientSecret: null,
-    clientSecretLoading: false,
     paymentEngine: PAYMENT_ENGINE_STRIPE,
     nextPaymentIntentStatusCheckSeconds: 1.5,
     hasTrackedCartViewedEvent: false,
@@ -182,15 +175,8 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
         }
       },
     });
-    if (this.props.auth.authenticated) {
-      this.props.fetchProfile();
-    }
     if (this.props.basket) {
-      this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
       analyticsUtils.viewCart(this.props.basket);
-      if (this.props.basket.total_price_cts) {
-        this.getSecret(this.state.paymentEngine);
-      }
     }
     if (this.props.auth.authenticated && this.props.basket?.member) {
       this.props.fetchMember(this.props.basket.member);
@@ -214,25 +200,12 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
       this.props.fetchPaymentMethod({ company: this.props.companyId });
     }
     if (this.props.basket && !prevProps.basket) {
-      this.props.fetchInstalmentPaymentByBasket(this.props.basket.id);
       analyticsUtils.viewCart(this.props.basket);
 
-      if (this.props.basket.total_price_cts) {
-        this.getSecret(this.state.paymentEngine);
-      }
       if (this.props.basket.member) {
         this.props.fetchMember(this.props.basket.member);
         this.props.fetchMembership(this.props.basket.member);
       }
-    }
-
-    if (
-      !!this.props.basket &&
-      !!prevProps.basket &&
-      this.props.basket.total_price_cts !== prevProps.basket.total_price_cts &&
-      this.props.basket.total_price_cts
-    ) {
-      this.getSecret(this.state.paymentEngine);
     }
 
     if (
@@ -266,38 +239,6 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
       });
     }
   }
-
-  getSecret = (paymentEngine: number) => {
-    const hasPaymentEngineChanged = paymentEngine !== this.state.paymentEngine;
-
-    if (shouldNotRetrieveSecret(this.props.queryParams)) {
-      return;
-    }
-    this.setState({ clientSecretLoading: true });
-    requestClientSecretAPI(paymentEngine, PAYMENT_INTENT_TYPE_BASKET, {
-      basket: this.props.basket.id,
-    })
-      .then((r) => {
-        // To avoid race condition when changing payment engine while client secret is loading
-        if (paymentEngine === this.state.paymentEngine) {
-          this.setState({
-            clientSecret: r.data.client_secret,
-            paymentGroupId: r.data.payment_group,
-            paymentGroupPriceCts: r.data.price_cts,
-            customerSessionClientSecret: r.data.customer_session_id,
-            clientSecretLoading: false,
-          });
-        }
-
-        // TEMP: While installment payments are not available on PayPal, we remove them from the backend when creating PayPal payment attempt. So we need to refetch the basket in this case.
-        // Should be removed with BS-4286
-        if (hasPaymentEngineChanged) this.props.refreshBasket();
-      })
-      .catch((err) => {
-        console.error(err);
-        this.setState({ clientSecretLoading: false });
-      });
-  };
 
   backToCalendar = () => {
     if (this.props.theme && this.props.theme.scheduleURL) {
@@ -460,8 +401,6 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
                     this.props.onRemoveInternalAccountPrepaidLine
                   }
                   patchBasket={this.props.patchCurrentBasket}
-                  paymentGroupId={this.state.paymentGroupId}
-                  paymentGroupPriceCts={this.state.paymentGroupPriceCts}
                   paymentMethodChoices={
                     this.props.theme.payment_method_available_basket || []
                   }

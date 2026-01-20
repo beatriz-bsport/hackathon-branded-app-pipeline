@@ -205,8 +205,8 @@
           },
           "externalId": "Partner-ID: {{ externalId }}"
         },
-        "helperTextCreateSuccess": "Kopieer en plak deze Partner-ID in je <1>myClubs-account</1> om de sessies in je geselecteerde Vestigingen beschikbaar te maken voor myClubs-klanten.",
-        "helperText": "Selecteer de Vestigingen die je wilt synchroniseren. Alle sessies in deze Vestigingen met myClubs ingeschakeld zijn beschikbaar voor boeking door myClubs-klanten.",
+        "helperTextCreateSuccess": "Kopieer en plak deze Partner-ID in je <1>myClubs-account</1> om de sessies in je geselecteerde vestigingen beschikbaar te maken voor myClubs-klanten.",
+        "helperText": "Selecteer de vestigingen die je wilt synchroniseren. Alle sessies in deze vestigingen met myClubs ingeschakeld zijn beschikbaar voor boeking door myClubs-klanten.",
         "title": {
           "deletion": "Verbinding verwijderen",
           "edition": "Verbinding {{ externalId }} bewerken",

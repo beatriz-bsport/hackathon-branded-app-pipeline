@@ -1,0 +1,119 @@
+{
+  "configuration": {
+    "verifactu": {
+      "title": "VERI*FACTU",
+      "description": "Configure o Fiskaly SIGN ES para compartilhar automaticamente faturas com a Agência Tributária Espanhola (AEAT) e cumprir os requisitos do VERI*FACTU. Insira os detalhes do representante para criar um acordo de colaboração social, que autoriza a bsport a transmitir faturas em seu nome.",
+      "info": "Este complemento ainda não está ativo na sua conta — por favor, entre em contato com o seu Gerente de Conta para solicitá-lo.",
+      "loading": "Carregando...",
+      "onboarding": {
+        "agreement_created": "Acordo de Colaboração Social",
+        "agreement_error": "Não foi possível criar o Acordo de Colaboração Social. Por favor, tente novamente. "
+      },
+      "signed_agreement": {
+        "details_title": "Detalhes do representante",
+        "edit": "Editar",
+        "full_name": "Nome e apelido do titular",
+        "dni_nie": "DNI/NIE",
+        "address": "Endereço",
+        "municipality": "Município",
+        "country": "País",
+        "agreement_title": "O Acordo de Colaboração Social está pronto para a sua assinatura",
+        "agreement_subtitle": "Siga os passos para validar seu Acordo de Colaboração Social",
+        "step1_text": "Descarregar PDF",
+        "step2_text": "O representante assina o PDF",
+        "step3_text": "Carregar PDF assinado",
+        "download_pdf": "Descarregar PDF",
+        "upload_pdf": "Carregar PDF",
+        "upload_info": "Carregue o PDF assinado para continuar",
+        "send_document": "Enviar documento",
+        "uploading": "Carregando...",
+        "upload_success": "Carregamos o acordo assinado com sucesso",
+        "upload_error": "Não foi possível carregar o acordo assinado. Por favor, tente novamente. "
+      },
+      "form": {
+        "sectionTitle": "Detalhes do representante",
+        "first_name": "Primeiro Nome",
+        "last_name": "Último nome",
+        "dni_nie": "DNI/NIE",
+        "dni_nie_invalid": "O número de DNI/NIE inserido não é válido.",
+        "postal_code_invalid": "O código postal deve ter de 3 a 10 caracteres e conter apenas letras, dígitos, espaços e hífens.",
+        "address": "Endereço",
+        "street_number": "Número da rua",
+        "postal_code": "Código de postal",
+        "city": "Cidade",
+        "municipality": "Município",
+        "country": "País",
+        "save_for_later": "Salvar para depois",
+        "save_for_later_success": "Detalhes do representante salvos com sucesso",
+        "representative_error": "Não foi possível salvar os detalhes do representante. Por favor, tente novamente. ",
+        "create_agreement": "Criar acordo",
+        "creating_agreement": "Criar...",
+        "chips": {
+          "vat_id_validated": "ID de IVA validado",
+          "vat_id_missing": "ID de IVA ausente",
+          "business_address_provided": "Endereço comercial fornecido",
+          "business_address_missing": "Endereço comercial ausente",
+          "invoice_identifiers_set_up": "Configuração de identificadores de fatura",
+          "invoice_identifiers_not_set_up": "Identificadores de fatura não configurados"
+        },
+        "alert": {
+          "content": "Atenção: Por favor, revise os detalhes cuidadosamente\nUma vez que você criar seu Acordo de Colaboração Social, não poderá editá-lo a menos que crie outro com uma nova assinatura. Por favor, certifique-se de que todas as informações estão corretas antes de continuar.",
+          "action": "Entendi"
+        },
+        "requirements": {
+          "vat_required": "ID de IVA necessário",
+          "address_required": "Endereço comercial necessário",
+          "vat_and_address_required": "ID de IVA e endereço comercial necessários",
+          "vat_description": "Adicione seu ID de IVA em Configurações -> Empresa para configurar o VERI*FACTU",
+          "address_description": "Forneça o endereço da sua empresa como parte do processo de integração do Stripe para configurar o VERI*FACTU",
+          "vat_and_address_description": "Adicionar seu ID de IVA em Configurações -> Empresa e complete seu onboarding no Stripe para fornecer o endereço da sua empresa. Ambos são exigidos pelas autoridades fiscais espanholas antes de configurar o VERI*FACTU.",
+          "go_to_settings": "Vá para Configurações",
+          "complete_stripe_onboarding": "Concluir o onboarding do Stripe",
+          "legal_identifier_required": "Identificadores de fatura necessários",
+          "legal_identifier_description": "Fale com o seu gerente de conta para configurar identificadores de fatura para o Sign-ES."
+        }
+      },
+      "active": {
+        "success_message": "Suas faturas agora são automaticamente transmitidas para a Agência Tributária Espanhola (AEAT)",
+        "agreement_title": "Acordo de Colaboração Social",
+        "agreement_subtitle": "Você pode acessar seu Acordo de Colaboração Social a qualquer momento através deste link",
+        "agreement_link": "Link para PDF",
+        "certificate_title": "Declaração de Responsabilidade VERI*FACTU",
+        "certificate_subtitle": "bsport Solutions está em conformidade com as regulamentações de faturação espanholas (Verifactu e TicketBAI). Baixe nossa declaração oficial de responsabilidade.",
+        "certificate_link": "certificado VERI*FACTU",
+        "certificate_extension_link": "Extensão da declaração de responsabilidade",
+        "certificate_error": "Não foi possível recuperar o certificado VERI*FACTU. Por favor, tente novamente. "
+      }
+    },
+    "sequentialNumbering": {
+      "title": "Configurar numeração sequencial de faturas",
+      "subtitle": "Suas faturas serão numeradas automaticamente em sequência (1, 2, 3...). Personalize a data de início e o formato de numeração para configurá-las.",
+      "warning": "<0>Atenção:</0> Você não poderá mudar isso depois. Por favor, revise cuidadosamente antes de clicar em 'Salvar'.",
+      "selectLabel": "Data de início (inclusive)",
+      "beginningOfNextMonth": "Início do próximo mês ({{nextMonth}})",
+      "beginningOfCurrentMonth": "Início do mês atual ({{currentMonth}})",
+      "infoNextMonth": "Faturas criadas antes desta data manterão seus números atuais.",
+      "infoCurrentMonth": "Se você escolher 'Início do mês atual (dezembro)' como a data de início, todas as faturas serão numeradas retroativamente a partir dessa data. Todas as faturas criadas antes permanecerão as mesmas.",
+      "prefixPlaceholder": "Prefixo (opcional)",
+      "prefixSuffixHelper": "Máximo de 7 caracteres, incluindo apenas letras, números e hífens. ",
+      "dateFormatLabel": "Formato de data",
+      "dateFormatYearOnly": "Ano apenas (AAAA)",
+      "dateFormatYearMonth": "Ano e mês (Ano e mês no formato AAAA-MM)",
+      "startingNumberLabel": "Número inicial*",
+      "startingNumberHelper": "Escolha o número a partir do qual suas faturas começarão e elas serão numeradas sequencialmente (por exemplo, 1, 2, 3)",
+      "startingNumberHelperExisting": "Esse número deve corresponder à última fatura do seu fornecedor de contabilidade externo.",
+      "previousInvoiceTitle": "Número da última fatura do mês anterior: <0>{{invoiceNumber}}</0>",
+      "viewInvoiceDetails": "Ver detalhes da fatura",
+      "startingNumberHint": "Seu número inicial deve ser: <0>{{startingNumber}}</0> (próximo na sequência)",
+      "renamingStartDate": "Data de início ",
+      "startingNumber": "Número inicial",
+      "invoiceNumberingFormat": "Formato de numeração de faturas",
+      "numberingExplanation": "Cada nova fatura será automaticamente sequenciada por 1. Por exemplo, se você começar em 1, suas faturas serão numeradas 000001, 000002, 000003, e assim por diante.",
+      "saveSuccess": "Numeração sequencial de faturas salva",
+      "suffixPlaceholder": "Sufixo (opcional)",
+      "previewFirstLine": "Suas Faturas serão numeradas da seguinte forma: <0>{{firstNumber}}</0>",
+      "previewSecondLine": "em seguida {{restNumbers}}, ...",
+      "useExternalAccountingProvider": "Eu uso um fornecedor externo de contabilidade"
+    }
+  }
+}

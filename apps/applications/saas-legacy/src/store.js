@@ -17,6 +17,7 @@ import networkErrorMiddleWare from './libs/network/redux-middleware';
 import { analyticsMiddleware } from './components/analytics/mixpanel/middleware';
 import { meiroAnalyticsMiddleware } from './components/analytics/meiro/middleware';
 import { widgetMiddleware } from './libs/widget/middleware';
+import { setPersistorForWidgetUtils } from './libs/widget/WidgetUtils';
 import createRootReducer from './reducers/index';
 
 const persistConfig = {
@@ -57,6 +58,9 @@ export default function initStore(initialState: Object = {}) {
     ),
   );
   const persistor = persistStore(store);
+
+  // Allow widget middleware to flush persist before closing iframe
+  setPersistorForWidgetUtils(persistor);
 
   // $FlowFixMe
   if (module.hot) {

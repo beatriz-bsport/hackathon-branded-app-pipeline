@@ -18,7 +18,7 @@ window.runtime.env.REACT_APP_SENTRY_DSN = '';
 window.runtime.env.I18N_TRANSLATION_DOMAIN = 'http://localhost:3000';
 window.runtime.env.PUBLIC_URL = 'http://localhost:8088';
 window.runtime.env.WIDGET_PROXY_BRIDGE_URL =
-  'http://localhost:4048/widget-proxy-bridge/';
+  'http://localhost:8088/widget-proxy-bridge/';
 
 if (!window.runtimeBsport) window.runtimeBsport = {};
 if (!window.runtimeBsport.env) window.runtimeBsport.env = {};

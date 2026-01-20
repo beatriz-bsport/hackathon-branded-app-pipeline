@@ -1,0 +1,119 @@
+{
+  "configuration": {
+    "verifactu": {
+      "title": "VERI*FACTU",
+      "description": "Configurez Fiskaly SIGN ES pour partager automatiquement les factures avec l'Agence fiscale espagnole (AEAT) et respecter les exigences de VERI*FACTU. Saisissez les coordonnées du représentant pour créer un accord de collaboration sociale, qui autorise bsport à transmettre les factures en votre nom.",
+      "info": "Ce service additionnel n'est pas encore actif sur votre compte — veuillez contacter votre gestionnaire de compte pour le demander.",
+      "loading": "En cours de chargement...",
+      "onboarding": {
+        "agreement_created": "Accord de collaboration sociale créé",
+        "agreement_error": "Impossible de créer l'accord de collaboration sociale. Veuillez réessayer. "
+      },
+      "signed_agreement": {
+        "details_title": "Détails du représentant",
+        "edit": "Modifier",
+        "full_name": "Nom et prénom du titulaire",
+        "dni_nie": "DNI/NIE",
+        "address": "Adresse",
+        "municipality": "Municipalité",
+        "country": "Pays",
+        "agreement_title": "L'accord de collaboration sociale est prêt pour votre signature",
+        "agreement_subtitle": "Suivez les étapes pour valider votre Accord de Collaboration Sociale",
+        "step1_text": "Télécharger le PDF",
+        "step2_text": "Le représentant signe le PDF",
+        "step3_text": "Téléchargez le PDF signé",
+        "download_pdf": "Télécharger le PDF",
+        "upload_pdf": "Télécharger le PDF",
+        "upload_info": "Téléchargez le PDF signé pour continuer",
+        "send_document": "Envoyer le document",
+        "uploading": "Téléchargement...",
+        "upload_success": "Accord signé téléchargé avec succès",
+        "upload_error": "Impossible de télécharger l'accord signé. Veuillez réessayer. "
+      },
+      "form": {
+        "sectionTitle": "Détails du représentant",
+        "first_name": "Prénom",
+        "last_name": "Nom",
+        "dni_nie": "DNI/NIE",
+        "dni_nie_invalid": "Le numéro DNI/NIE saisi n'est pas valide.",
+        "postal_code_invalid": "Le code postal doit comporter entre 3 et 10 caractères et ne contenir que des lettres, des chiffres, des espaces et des tirets.",
+        "address": "Adresse",
+        "street_number": "Numéro de rue",
+        "postal_code": "Code postal",
+        "city": "Ville",
+        "municipality": "Municipalité",
+        "country": "Pays",
+        "save_for_later": "Enregistrer pour plus tard",
+        "save_for_later_success": "Détails du représentant enregistrés avec succès",
+        "representative_error": "Impossible de sauvegarder les détails du représentant. Veuillez réessayer. ",
+        "create_agreement": "Créer un accord",
+        "creating_agreement": "Créer...",
+        "chips": {
+          "vat_id_validated": "Numéro de TVA validé",
+          "vat_id_missing": "Numéro de TVA manquant",
+          "business_address_provided": "Adresse professionnelle fournie",
+          "business_address_missing": "Adresse professionnelle manquante",
+          "invoice_identifiers_set_up": "Configuration des identifiants de facture",
+          "invoice_identifiers_not_set_up": "Identifiants de facture non configurés"
+        },
+        "alert": {
+          "content": "Attention : Veuillez vérifier les détails attentivement\nUne fois que vous avez créé votre Accord de Collaboration Sociale, vous ne pourrez plus le modifier à moins d'en créer un autre avec une nouvelle signature. Veuillez vous assurer que toutes les informations sont correctes avant de continuer.",
+          "action": "Compris"
+        },
+        "requirements": {
+          "vat_required": "Numéro de TVA requis",
+          "address_required": "Adresse professionnelle requise",
+          "vat_and_address_required": "Numéro de TVA et adresse professionnelle requis",
+          "vat_description": "Ajouter votre numéro de TVA dans Paramètres -> Société pour configurer VERI*FACTU",
+          "address_description": "Fournissez l'adresse de votre entreprise dans le cadre de l'intégration Stripe pour configurer VERI*FACTU",
+          "vat_and_address_description": "Ajouter votre numéro de TVA dans Paramètres -> Société et complétez votre intégration Stripe pour fournir votre adresse professionnelle. Les deux sont requis par les autorités fiscales espagnoles avant de configurer VERI*FACTU.",
+          "go_to_settings": "Accédez aux Paramètres",
+          "complete_stripe_onboarding": "Finaliser l'intégration Stripe",
+          "legal_identifier_required": "Identifiants de facture requis",
+          "legal_identifier_description": "Parlez à votre gestionnaire de compte pour configurer les identifiants de facture pour Sign-ES."
+        }
+      },
+      "active": {
+        "success_message": "Vos factures sont désormais automatiquement transmises à l'Agence fiscale espagnole (AEAT)",
+        "agreement_title": "Accord de Collaboration Sociale",
+        "agreement_subtitle": "Vous pouvez accéder à votre Accord de Collaboration Sociale à tout moment via ce lien",
+        "agreement_link": "Lien vers le PDF",
+        "certificate_title": "Déclaration de Responsabilité VERI*FACTU",
+        "certificate_subtitle": "bsport Solutions respecte les réglementations espagnoles en matière de facturation (Verifactu et TicketBAI). Téléchargez notre déclaration officielle de responsabilité.",
+        "certificate_link": "certificat VERI*FACTU",
+        "certificate_extension_link": "Extension de la déclaration de responsabilité",
+        "certificate_error": "Impossible de récupérer le certificat VERI*FACTU. Veuillez réessayer. "
+      }
+    },
+    "sequentialNumbering": {
+      "title": "Configurer la numérotation séquentielle des factures",
+      "subtitle": "Vos factures seront automatiquement numérotées en séquence (1, 2, 3...). Personnalisez la date de début et le format de numérotation pour les configurer.",
+      "warning": "<0>Attention : </0> Vous ne pourrez pas modifier cela plus tard. Veuillez vérifier attentivement avant de cliquer sur « Enregistrer ».",
+      "selectLabel": "Date de début",
+      "beginningOfNextMonth": "Début du mois prochain ({{nextMonth}})",
+      "beginningOfCurrentMonth": "Début du mois en cours ({{currentMonth}})",
+      "infoNextMonth": "Les Factures créées avant cette date garderont leurs numéros actuels.",
+      "infoCurrentMonth": "Si vous choisissez « Début du mois en cours (décembre) » comme date de début, toutes les Factures seront numérotées rétroactivement à partir de cette date. Toutes les Factures créées auparavant resteront inchangées.",
+      "prefixPlaceholder": "Préfixe (facultatif)",
+      "prefixSuffixHelper": "Maximum 7 caractères, y compris les lettres, les chiffres et les tirets uniquement. ",
+      "dateFormatLabel": "Format de date",
+      "dateFormatYearOnly": "Année uniquement (AAAA)",
+      "dateFormatYearMonth": "Année et mois (AAAA-MM)",
+      "startingNumberLabel": "Numéro de départ*",
+      "startingNumberHelper": "Choisissez le numéro à partir duquel commencer vos factures et elles seront numérotées séquentiellement (par exemple 1, 2, 3)",
+      "startingNumberHelperExisting": "Ce numéro doit correspondre à la dernière facture de votre prestataire de services comptables externe.",
+      "previousInvoiceTitle": "Numéro de la dernière facture du mois précédent : <0>{{invoiceNumber}}</0>",
+      "viewInvoiceDetails": "Afficher les détails de la facture",
+      "startingNumberHint": "Votre numéro de départ doit être : <0>{{startingNumber}}</0> (suivant dans la séquence)",
+      "renamingStartDate": "Date de début ",
+      "startingNumber": "Numéro de départ",
+      "invoiceNumberingFormat": "Format de numérotation des factures",
+      "numberingExplanation": "Chaque nouvelle facture sera automatiquement séquencée par 1. Par exemple, si vous commencez à 1, vos factures seront numérotées 000001, 000002, 000003, et ainsi de suite.",
+      "saveSuccess": "Numérotation séquentielle des factures enregistrée",
+      "suffixPlaceholder": "Suffixe (facultatif)",
+      "previewFirstLine": "Vos Factures seront numérotées comme suit : <0>{{firstNumber}}</0>",
+      "previewSecondLine": "puis {{restNumbers}}, ...",
+      "useExternalAccountingProvider": "J'utilise un prestataire de services comptables externe"
+    }
+  }
+}

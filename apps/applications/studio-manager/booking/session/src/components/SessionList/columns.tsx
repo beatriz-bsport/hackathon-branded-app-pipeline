@@ -7,7 +7,7 @@ import {
   fromIsoString,
   modifyTime,
 } from "@bsport/datetime-manipulation";
-import { Body, Button } from "@bsport/kaizen-primitive-core";
+import { Body } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { Columns, EnrichedSession, TableColumn } from "#src/types";
@@ -16,6 +16,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { CancelledSessionName } from "./CancelledSessionName";
 import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";
+import { AttendanceButton } from "./attendance-button";
 import { ShortcutActionsButton } from "./detail-actions/shortcut-actions-button";
 import { TeacherCell } from "./teacher-cell";
 
@@ -132,12 +133,9 @@ export const useSessionListColumns = () => {
     align: "center",
     render: (row: EnrichedSession) => (
       <div className="flex items-center gap-xs">
-        <Button
-          label={t("table.attendanceButton")}
-          size="sm"
-          intent="default"
-          color="main"
-          disabled={!row.available}
+        <AttendanceButton
+          isValidated={!row.roll_call_needs_validation}
+          available={row.available}
         />
         <ShortcutActionsButton session={row} />
       </div>

@@ -104,7 +104,7 @@
     },
     "bsportCredit": "Anticipo cliente",
     "card": "Tarjeta de pago",
-    "sepa": "Débito directo SEPA",
+    "sepa": "Domiciliación Bancaria",
     "bacs_debit": "BACS Direct Debit"
   },
   "contract": {

@@ -130,5 +130,92 @@
         }
       }
     }
+  },
+  "myclubs": {
+    "configuration": {
+      "panel": {
+        "footer": {
+          "addConnectionButton": "Partner-ID genereren"
+        },
+        "content": {
+          "table": {
+            "action": {
+              "reactivateTooltip": "Reactiveren"
+            },
+            "status": {
+              "deactivated": "Gedeactiveerd",
+              "pending": "In behandeling",
+              "active": "Verbonden"
+            },
+            "column": {
+              "status": "Status",
+              "establishments": "Vestigingen",
+              "externalId": "Partner-ID"
+            }
+          },
+          "title": "Partner-ID-verbinding"
+        },
+        "header": {
+          "subtitle": "Genereer en koppel Partner-ID’s om de sessies in je vestigingen met myClubs te synchroniseren. Je kunt het aantal beschikbare plaatsen voor deze aggregator aanpassen in de sessie-instellingen."
+        }
+      },
+      "dialog": {
+        "notification": {
+          "activate": {
+            "error": "Er is een fout opgetreden bij het activeren van de Partner-ID",
+            "success": "Partner-ID geactiveerd"
+          },
+          "update": {
+            "error": "Er is een fout opgetreden bij het bijwerken van de Partner-ID",
+            "success": "Partner-ID bijgewerkt"
+          },
+          "create": {
+            "error": "Er is een fout opgetreden bij het genereren van de Partner-ID",
+            "success": "Partner-ID gegenereerd"
+          },
+          "delete": {
+            "error": "Er is een fout opgetreden bij het verwijderen van de Partner-ID",
+            "success": "Partner-ID verwijderd"
+          }
+        },
+        "unlink": {
+          "content": "Toekomstige sessies die aan deze vestigingen zijn gekoppeld, worden geannuleerd op myClubs, inclusief alle boekingen die via myClubs zijn gemaakt.",
+          "title": "Je staat op het punt één of meerdere vestigingen los te koppelen van myClubs."
+        },
+        "activate": {
+          "content": "Na heractivering wordt de sessie automatisch opnieuw gesynchroniseerd.",
+          "subtitle": "Synchronisatie voor deze Partner-ID opnieuw activeren?",
+          "title": "Deze Partner-ID reactiveren"
+        },
+        "action": {
+          "reactivate": "Reactiveren",
+          "save": "Doorgaan",
+          "confirm": "Bevestigen",
+          "close": "Sluiten",
+          "cancel": "Annuleren",
+          "back": "Terug"
+        },
+        "field": {
+          "establishmentIds": {
+            "error": {
+              "required": "Selecteer minstens één vestiging"
+            },
+            "title": "Vestigingen",
+            "placeholder": "Koppel je vestiging(en)"
+          },
+          "externalId": "Partner-ID: {{ externalId }}"
+        },
+        "helperTextCreateSuccess": "Kopieer en plak deze Partner-ID in je <1>myClubs-account</1> om de sessies in je geselecteerde Vestigingen beschikbaar te maken voor myClubs-klanten.",
+        "helperText": "Selecteer de Vestigingen die je wilt synchroniseren. Alle sessies in deze Vestigingen met myClubs ingeschakeld zijn beschikbaar voor boeking door myClubs-klanten.",
+        "title": {
+          "deletion": "Verbinding verwijderen",
+          "edition": "Verbinding {{ externalId }} bewerken",
+          "creationSuccess": "Partner-ID kopiëren",
+          "creation": "Vestiging(en) kiezen"
+        }
+      },
+      "copied_to_clipboard": "ID succesvol naar het klembord gekopieerd"
+    },
+    "title": "myClubs"
   }
 }

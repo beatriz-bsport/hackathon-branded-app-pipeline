@@ -1,0 +1,119 @@
+{
+  "configuration": {
+    "verifactu": {
+      "title": "VERI*FACTU",
+      "description": "Configura Fiskaly SIGN ES per condividere automaticamente le ricevute con l'Agenzia delle Entrate spagnola (AEAT) e rispettare i requisiti VERI*FACTU. Inserisci i dettagli del rappresentante per creare un accordo di collaborazione sociale, che autorizza bsport a trasmettere le ricevute per tuo conto.",
+      "info": "Questo add-on non è ancora attivo sul tuo account — contatta il tuo Account Manager per richiederlo",
+      "loading": "Caricamento...",
+      "onboarding": {
+        "agreement_created": "Accordo di Collaborazione Sociale creato",
+        "agreement_error": "Non puoi creare l'Accordo di Collaborazione Sociale. Per favore, riprova. "
+      },
+      "signed_agreement": {
+        "details_title": "Dettagli del rappresentante",
+        "edit": "Modifica",
+        "full_name": "Nome e cognome del titolare",
+        "dni_nie": "DNI/NIE",
+        "address": "Indirizzo",
+        "municipality": "Comune",
+        "country": "Paese",
+        "agreement_title": "L'accordo di collaborazione sociale è pronto per la tua firma",
+        "agreement_subtitle": "Segui i passaggi per convalidare il tuo Accordo di Collaborazione Sociale",
+        "step1_text": "Scarica PDF",
+        "step2_text": "Il rappresentante firma il PDF",
+        "step3_text": "Carica PDF firmato",
+        "download_pdf": "Scarica PDF",
+        "upload_pdf": "Carica PDF",
+        "upload_info": "Carica il PDF firmato per continuare",
+        "send_document": "Invia documento",
+        "uploading": "Caricamento in corso...",
+        "upload_success": "Accordo firmato caricato con successo",
+        "upload_error": "Impossibile caricare l'accordo firmato. Riprova. "
+      },
+      "form": {
+        "sectionTitle": "Dettagli del rappresentante",
+        "first_name": "Nome",
+        "last_name": "Cognome",
+        "dni_nie": "DNI/NIE",
+        "dni_nie_invalid": "Il numero DNI/NIE inserito non è valido.",
+        "postal_code_invalid": "Il codice postale deve essere composto da 3-10 caratteri e contenere solo lettere, cifre, spazi e trattini.",
+        "address": "Indirizzo",
+        "street_number": "Numero civico",
+        "postal_code": "Codice postale",
+        "city": "Città",
+        "municipality": "Comune",
+        "country": "Paese",
+        "save_for_later": "Salva per dopo",
+        "save_for_later_success": "Dettagli del rappresentante salvati con successo",
+        "representative_error": "Non è stato possibile salvare i dettagli del rappresentante. Per favore riprova. ",
+        "create_agreement": "Crea accordo",
+        "creating_agreement": "Creando...",
+        "chips": {
+          "vat_id_validated": "Partita IVA convalidata",
+          "vat_id_missing": "ID IVA mancante",
+          "business_address_provided": "Indirizzo aziendale fornito",
+          "business_address_missing": "Indirizzo aziendale mancante",
+          "invoice_identifiers_set_up": "Impostazione degli identificatori di fattura",
+          "invoice_identifiers_not_set_up": "Identificatori di fattura non configurati"
+        },
+        "alert": {
+          "content": "Attenzione: Controlla attentamente i dettagli\nUna volta che crei il tuo Accordo di Collaborazione Sociale, non potrai modificarlo a meno che tu non ne crei un altro con una nuova firma. Assicurati che tutte le informazioni siano corrette prima di continuare.",
+          "action": "Capito"
+        },
+        "requirements": {
+          "vat_required": "Partita IVA richiesta",
+          "address_required": "Indirizzo aziendale richiesto",
+          "vat_and_address_required": "Partita IVA e indirizzo aziendale richiesti",
+          "vat_description": "Aggiungi il tuo ID IVA in Impostazioni -> Azienda per configurare VERI*FACTU",
+          "address_description": "Fornisci l'indirizzo della tua attività come parte del processo di onboarding di Stripe per configurare VERI*FACTU",
+          "vat_and_address_description": "Aggiungi il tuo ID IVA in Impostazioni -> Azienda e completa l'onboarding di Stripe per fornire l'indirizzo della tua attività. Entrambi sono richiesti dalle autorità fiscali spagnole prima di configurare VERI*FACTU.",
+          "go_to_settings": "Vai su Impostazioni",
+          "complete_stripe_onboarding": "Completa l'onboarding di Stripe",
+          "legal_identifier_required": "Identificatori di fattura richiesti",
+          "legal_identifier_description": "Parla con il tuo Account Manager per impostare gli identificatori di fattura per Sign-ES."
+        }
+      },
+      "active": {
+        "success_message": "Le tue ricevute vengono ora trasmesse automaticamente all'Agenzia delle Entrate spagnola (AEAT)",
+        "agreement_title": "Accordo di Collaborazione Sociale",
+        "agreement_subtitle": "Puoi accedere al tuo Accordo di Collaborazione Sociale in qualsiasi momento tramite questo link",
+        "agreement_link": "Collegamento al PDF",
+        "certificate_title": "Dichiarazione di Responsabilità VERI*FACTU",
+        "certificate_subtitle": "bsport Solutions è conforme alle normative spagnole sulla fatturazione (Verifactu e TicketBAI). Scarica la nostra dichiarazione ufficiale di responsabilità.",
+        "certificate_link": "Certificato VERI*FACTU",
+        "certificate_extension_link": "Estensione della dichiarazione di responsabilità",
+        "certificate_error": "Non è stato possibile recuperare il certificato VERI*FACTU. Per favore riprova. "
+      }
+    },
+    "sequentialNumbering": {
+      "title": "Imposta la numerazione sequenziale delle fatture",
+      "subtitle": "Le tue ricevute saranno numerate automaticamente in sequenza (1, 2, 3...). Personalizza la data di inizio e il formato di numerazione per configurarlo.",
+      "warning": "<0>Attenzione:</0> Non potrai modificarlo in seguito. Per favore, controlla attentamente prima di cliccare 'Salva'.",
+      "selectLabel": "Data d'inizio (inclusa)",
+      "beginningOfNextMonth": "Inizio del prossimo mese ({{nextMonth}})",
+      "beginningOfCurrentMonth": "Inizio del mese corrente ({{currentMonth}})",
+      "infoNextMonth": "Le ricevute create prima di questa data manterranno i loro numeri attuali.",
+      "infoCurrentMonth": "Se scegli \"Inizio del mese corrente (dicembre)\" come data d'inizio, tutte le ricevute saranno numerate retroattivamente a partire da questa data. Tutte le ricevute create prima rimarranno invariate.",
+      "prefixPlaceholder": "Prefisso (opzionale)",
+      "prefixSuffixHelper": "Massimo 7 caratteri, inclusi solo lettere, numeri e trattini. ",
+      "dateFormatLabel": "Formato data",
+      "dateFormatYearOnly": "Anno solo (AAAA)",
+      "dateFormatYearMonth": "Anno e mese (YYYY-MM)",
+      "startingNumberLabel": "Numero iniziale*",
+      "startingNumberHelper": "Scegli da quale numero iniziare le tue ricevute e queste verranno numerate in sequenza (es. 1, 2, 3)",
+      "startingNumberHelperExisting": "Questo numero dovrebbe corrispondere all'ultima fattura del tuo fornitore di contabilità esterno.",
+      "previousInvoiceTitle": "Numero dell'ultima fattura del mese precedente: <0>{{invoiceNumber}}</0>",
+      "viewInvoiceDetails": "Visualizza i dettagli della fattura",
+      "startingNumberHint": "Il tuo numero di partenza dovrebbe essere: <0>{{startingNumber}}</0> (prossimo nella sequenza)",
+      "renamingStartDate": "Data d'inizio",
+      "startingNumber": "Numero iniziale",
+      "invoiceNumberingFormat": "Formato di numerazione delle fatture",
+      "numberingExplanation": "Ogni nuova fattura verrà automaticamente numerata in sequenza di 1. Ad esempio, se inizi da 1, le tue fatture saranno numerate 000001, 000002, 000003, e così via.",
+      "saveSuccess": "Numerazione sequenziale delle ricevute salvata",
+      "suffixPlaceholder": "Suffisso (opzionale)",
+      "previewFirstLine": "Le tue fatture saranno numerate come segue: <0>{{firstNumber}}</0>",
+      "previewSecondLine": "poi {{restNumbers}}, ...",
+      "useExternalAccountingProvider": "Utilizzo un fornitore esterno per la contabilità"
+    }
+  }
+}

@@ -18,10 +18,10 @@
     "start:dev": "DEST_CONFIG=dev pnpm run start",
     "start:local": "DEST_CONFIG=local pnpm run start",
     "start:mix": "DEST_CONFIG=local-fe-dev-be pnpm run start:with-proxy",
-    "start:mix-prod": "DEST_CONFIG=local-fe-prod-be pnpm run start",
+    "start:mix:prod": "DEST_CONFIG=local-fe-prod-be pnpm run start:with-proxy prod",
     "start:production": "DEST_CONFIG=production pnpm run start",
     "start:staging": "DEST_CONFIG=staging pnpm run start",
-    "start:with-proxy": "./scripts/start-dev-with-proxy.sh",
+    "start:with-proxy": "./scripts/start-with-proxy.sh",
     "test": "jest",
     "test-update-snapshots": "jest --updateSnapshot"
   },

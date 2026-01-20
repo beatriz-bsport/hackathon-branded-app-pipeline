@@ -88,15 +88,17 @@ export const handleBridgeMessage =
       case WidgetMessageType.IFRAME_LOGIN_SUCCESS:
         dispatch(responseAuthenticatedStatus(true));
         dispatch(forceWidgetRefresh());
-        if (eventData.data?.closeModal) dispatch(closeUserInteractionPortal());
         break;
 
       case WidgetMessageType.RESPONSE_AUTHENTICATED_STATUS:
         dispatch(responseAuthenticatedStatus(eventData.data?.authenticated));
         break;
 
-      case WidgetMessageType.DISCONNECT:
       case WidgetMessageType.IFRAME_LOGOUT:
+        dispatch(bridgeRequestLogout());
+        break;
+
+      case WidgetMessageType.DISCONNECT:
         dispatch(disconnectWidget());
         dispatch(forceWidgetRefresh());
         break;

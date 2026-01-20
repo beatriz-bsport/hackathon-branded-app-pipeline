@@ -91,8 +91,6 @@ import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import CheckoutContext from './CheckoutContext';
 
 import { fetchProfile } from '#src/libs/consumer-space/actions';
-// @ts-expect-error js file
-import { auth as authActions } from '#src/actions';
 import {
   snackbarError,
   snackbarSuccess,
@@ -500,7 +498,6 @@ export default compose(
       };
     },
     {
-      disconnect: authActions.disconnect,
       goToUserSpace: (id) => pushRouter(getUserSpaceUrl(id)),
       fetchProfile,
 

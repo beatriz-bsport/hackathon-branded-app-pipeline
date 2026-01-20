@@ -107,9 +107,6 @@ export function fetchAccessLevel(
       if (!is_franchisor && !is_manager) {
         analyticsUtils.onSigninSuccess({ email: username });
       }
-      if (!is_manager && !is_franchisor && is_consumer) {
-        dispatch(errorLogin());
-      }
       dispatch(
         setLogin(
           {

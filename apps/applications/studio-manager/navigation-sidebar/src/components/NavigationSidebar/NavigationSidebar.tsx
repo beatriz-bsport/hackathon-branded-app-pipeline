@@ -237,6 +237,7 @@ const NavigationSidebarContent = ({
               }
             };
             logoutAction(navigateToLoginPage);
+            localStorage.removeItem("session-list-storage");
           }
           if (id === "attendance") {
             openAttendanceModal();

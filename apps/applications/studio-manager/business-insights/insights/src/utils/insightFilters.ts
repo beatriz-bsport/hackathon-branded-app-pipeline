@@ -1,6 +1,6 @@
 import { INSIGHT_ITEMS, INSIGHT_SECTIONS } from "#src/constants";
+import type { InsightAccess } from "#src/utils/access";
 import type { TFunction } from "#src/utils/i18n";
-import { type InsightPermissions } from "#src/utils/permissions";
 
 export interface InsightRow {
   id: string;
@@ -16,25 +16,12 @@ export interface InsightRow {
  */
 export const createInsightRows = (
   t: TFunction,
-  permissions: InsightPermissions,
-  isTrialAnalysisEnabled: boolean,
+  access: InsightAccess,
 ): InsightRow[] => {
-  // Hide all insights if user has no permissions at all
-  if (!Object.values(permissions).some(Boolean)) {
-    return [];
-  }
-
   return INSIGHT_ITEMS.filter((item) => {
-    if (!permissions[item.id]) {
-      return false;
-    }
-
-    // Filter out trial analysis if feature flag is disabled
-    if (item.id === "trial" && !isTrialAnalysisEnabled) {
-      return false;
-    }
-
-    return true;
+    // If an item is governed by access rules, enforce them.
+    // Otherwise, default to shown.
+    return item.id in access ? access[item.id as keyof InsightAccess] : true;
   }).map((item) => ({
     ...item,
     title: t(`items.${item.id}.title`),

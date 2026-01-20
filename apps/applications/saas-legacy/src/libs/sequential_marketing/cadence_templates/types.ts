@@ -33,7 +33,8 @@ export type CanvasData = {
 
 export type TriggerConfigData = {
   identifier: TriggerIdentifier;
-  timeout?: number | null;
+  timeout?: number | null; // Timeout in days
+  timeout_hours?: number | null; // Additional timeout in hours
   event_type?: SequentialMarketingEventListened | null;
   filtered_pks?: unknown[] | null;
 };
@@ -101,6 +102,7 @@ export type CadenceConfigData = {
 };
 
 export type CadenceTemplate = {
+  title: string;
   description: string;
   cover: string;
   getConfig: (t: TFunction) => CadenceConfigData;

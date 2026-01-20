@@ -622,8 +622,6 @@
         "basket_chip": "Cesta"
       },
       "timeout": {
-        "timout_days_chip": "{{ days }} día",
-        "timout_days_chip_plural": "{{ days }} días",
         "timeout_days_chip": "{{ count }} día",
         "timeout_days_chip_plural": "{{ count }} días"
       },

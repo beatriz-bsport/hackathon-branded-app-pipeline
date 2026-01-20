@@ -71,6 +71,7 @@ type Props = {
   closeDialog: () => void,
   isNotAllowedToOverbook?: Boolean,
   isCustomDiscountReasonRequired: boolean,
+  staffDefaultEstablishmentBillingGroup: EstablishmentBillingGroup | null,
 
   fetchIncompatibilitiesReasonsByOfferByConsumerPack: (
     cpp_id: number,
@@ -118,7 +119,9 @@ const BookingModuleRegisterMethodChoice = (props: Props) => {
   const [
     selectedEstablishmentBillingGroup,
     setSelectedEstablishmentBillingGroup,
-  ] = useState<EstablishmentBillingGroup | null>(null);
+  ] = useState<EstablishmentBillingGroup | null>(
+    props.staffDefaultEstablishmentBillingGroup || null,
+  );
 
   const [warnManagerOnInvoice, setWarnManagerOnInvoice] = useState(false);
 
@@ -347,6 +350,21 @@ const BookingModuleRegisterMethodChoice = (props: Props) => {
   React.useEffect(() => {
     setVoucherDialogOpen(false);
   }, [props.member]);
+
+  React.useEffect(() => {
+    if (
+      props.staffDefaultEstablishmentBillingGroup &&
+      !selectedEstablishmentBillingGroup
+    ) {
+      setSelectedEstablishmentBillingGroup(
+        props.staffDefaultEstablishmentBillingGroup,
+      );
+      setRequiredEstablishmentBillingGroupIsMissing(false);
+    }
+  }, [
+    props.staffDefaultEstablishmentBillingGroup,
+    selectedEstablishmentBillingGroup,
+  ]);
 
   return (
     <div className={classes.container}>

@@ -4,6 +4,8 @@ import memoize from 'memoize-one';
 import { withBookingNotification } from '#src/libs/marketing/selectors';
 import { getMemberDetail } from '#src/libs/member/selectors';
 import { RootState } from '../../reducers';
+import { getStaffEstablishmentBillingGroup } from '../role/utils';
+import type { UserRole } from '../role/types';
 import {
   AssociatedEstablishment,
   Establishment,
@@ -234,6 +236,32 @@ export const getDefaultEstablishmentBillingGroup = createSelector(
       ];
     if (defaultEstablishmentBillingGroup?.disabled) return null;
     return defaultEstablishmentBillingGroup;
+  },
+);
+
+export const getStaffEstablishmentBillingGroupSelector = createSelector(
+  [
+    getEnabledEstablishmentBillingGroups,
+    (state: RootState) => state.role.byId,
+    (state: RootState) => state.role.users,
+    (state: RootState) => state.auth,
+  ],
+  (enabledGroups, rolesById, users, auth) => {
+    if (!auth?.role || !auth?.username) {
+      return null;
+    }
+
+    let userRole: UserRole | undefined = undefined;
+
+    if (rolesById) {
+      const allRoles = Object.values(rolesById);
+      userRole = allRoles.find(
+        (role: UserRole) =>
+          role.role === auth.role && role.email === auth.username,
+      );
+    }
+
+    return getStaffEstablishmentBillingGroup(userRole, enabledGroups);
   },
 );
 

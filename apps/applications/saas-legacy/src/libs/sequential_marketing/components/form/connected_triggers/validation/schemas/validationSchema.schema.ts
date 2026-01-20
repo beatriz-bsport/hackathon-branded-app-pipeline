@@ -2,9 +2,14 @@ import * as Yup from 'yup';
 import {
   CADENCE_EVENT_ALL_CHOICES,
   FilterIdentifier,
+  MAX_TOTAL_TRIGGERS,
   TriggerIdentifier,
 } from '#src/libs/sequential_marketing/constants';
 
+/**
+ * Trigger validation schema for day-only delays
+ * Hours are optional and have no maximum limit (legacy behavior)
+ */
 const triggerValidationSchema = Yup.object().shape({
   trigger_config: Yup.object().shape({
     identifier: Yup.string().oneOf(Object.values(TriggerIdentifier)).required(),
@@ -28,6 +33,7 @@ const triggerValidationSchema = Yup.object().shape({
             },
           ),
       }),
+    timeout_hours: Yup.number().nullable(), // Hours are not checked when the corresponding feature flag is off
   }),
   destination_config: Yup.object().shape({
     source_id: Yup.number().nullable(),
@@ -59,6 +65,9 @@ export const multipleTriggersValidationSchema = (max?: number) =>
     connectedTriggers: Yup.array()
       .of(triggerValidationSchema)
       .min(1, 'marketing:cadence.form.error.minimumConnectedTrigger')
-      .max(max || 5, 'marketing:cadence.form.error.maximumConnectedTrigger')
+      .max(
+        max || MAX_TOTAL_TRIGGERS,
+        'marketing:cadence.form.error.maximumConnectedTrigger',
+      )
       .required(),
   });

@@ -93,8 +93,6 @@ import CheckoutContext from './CheckoutContext';
 
 import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 import { fetchProfile } from '#src/libs/consumer-space/actions';
-// @ts-expect-error js file
-import { auth as authActions } from '#src/actions';
 import {
   snackbarError,
   snackbarSuccess,
@@ -561,7 +559,6 @@ export default compose(
       };
     },
     {
-      disconnect: authActions.disconnect,
       goToUserSpace: (id) => pushRouter(getUserSpaceUrl(id)),
       fetchProfile,
 

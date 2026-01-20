@@ -23,15 +23,19 @@ const FILTER_ELEMENTS_DEFAULT: FilterElementState[] = [
 ];
 
 const Filter = forwardRef<{ resetFilters: () => void }, FilterProps>(
-  ({ onFilterChange, singleField, ...props }, ref) => {
+  ({ onFilterChange, singleField, defaultFilters, ...props }, ref) => {
     const isMobile = !useMatchMedia("sm");
     const i18nInstance = useKaizenI18nInstance();
     const { t } = useTranslation("default", { i18n: i18nInstance });
 
     const [filterElements, setFilterElements] = useState<FilterElementState[]>(
-      FILTER_ELEMENTS_DEFAULT,
+      defaultFilters && defaultFilters.length > 0
+        ? defaultFilters
+        : FILTER_ELEMENTS_DEFAULT,
     );
-    const nextIdRef = useRef(1);
+    const nextIdRef = useRef(
+      Math.max(...(defaultFilters?.map((f) => f.id) || [0])) + 1,
+    );
 
     /**
      * The version is incremented each time resetFilters is called.

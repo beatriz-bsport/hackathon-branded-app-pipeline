@@ -347,7 +347,8 @@ export const isTriggerValid = (trigger: ConnectedTrigger) => {
     case TriggerKind.ONLY_TIMEOUT:
       return (
         trigger?.trigger_config?.identifier === TriggerIdentifier.TIMEOUT &&
-        !!trigger?.trigger_config?.timeout
+        (!!trigger?.trigger_config?.timeout ||
+          !!trigger?.trigger_config?.timeout_hours)
       );
     case TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING:
       return (

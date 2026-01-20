@@ -622,8 +622,6 @@
         "basket_chip": "Carrello"
       },
       "timeout": {
-        "timout_days_chip": "{{ days }} giorno",
-        "timout_days_chip_plural": "{{ days }} giorni",
         "timeout_days_chip": "{{ count }} giorno",
         "timeout_days_chip_plural": "{{ count }} giorni"
       },

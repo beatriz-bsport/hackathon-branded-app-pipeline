@@ -60,7 +60,7 @@ export const GiftcardImageUploader: React.FC<GiftcardImageUploaderProps> = ({
         uploadFileCTA: t("imageUploadModal.uploadButton"),
       }}
       autoUpload
-      inputId={`giftcard-image-uploader-${isEmpty ? "empty-list" : "list"}`}
+      id={`giftcard-image-uploader-${isEmpty ? "empty-list" : "list"}`}
       inline
       disabled={isLoading}
       fileExtensionList={["jpeg", "jpg", "png"]}

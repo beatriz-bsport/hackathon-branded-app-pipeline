@@ -17,6 +17,7 @@ import {
   TriggerTypeSelector,
   type TriggerTypeSelectorProps,
 } from "#src/components/MarketingNotificationEdition/TriggerTypeSelector/TriggerTypeSelector";
+import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import { triggerTypeValidationFormSchema } from "#src/utils/schemas/triggerTypeValidation";
@@ -73,6 +74,8 @@ export const TriggerTypeStep = () => {
   const [shouldRefreshItemSelector, setShouldRefreshItemSelector] =
     useState(false);
   const { formData, setStepValid, updateForm } = useFormStepContext();
+  const { isBirthdayNotificationSet } =
+    useGetMarketingNotificationDependenciesData();
 
   const notificationType =
     formData?.triggerType?.notificationType ??
@@ -98,10 +101,14 @@ export const TriggerTypeStep = () => {
     formState: { isValid, errors },
   } = methods;
 
+  const triggerList = isBirthdayNotificationSet
+    ? TRIGGER_CONFIG.filter((trigger) => trigger.type !== "birthday")
+    : TRIGGER_CONFIG;
+
   // Memoized computations
   const { selectOptions, translationToTypeMap, selectedConfig } =
     useMemo(() => {
-      const options = TRIGGER_CONFIG.map((config) => ({
+      const options = triggerList.map((config) => ({
         id: config.type,
         label: String(
           t(
@@ -111,7 +118,7 @@ export const TriggerTypeStep = () => {
         ),
       }));
 
-      const translationMap = TRIGGER_CONFIG.reduce(
+      const translationMap = triggerList.reduce(
         (acc, config) => {
           const translation = String(
             t(
@@ -126,7 +133,7 @@ export const TriggerTypeStep = () => {
         {} as Record<string, SelectableNotificationType>,
       );
 
-      const currentConfig = TRIGGER_CONFIG.find(
+      const currentConfig = triggerList.find(
         (config) => config.type === notificationType,
       );
 
@@ -135,7 +142,7 @@ export const TriggerTypeStep = () => {
         translationToTypeMap: translationMap,
         selectedConfig: currentConfig,
       };
-    }, [notificationType]);
+    }, [notificationType, triggerList]);
 
   const handleSelectTriggerItems = ({ itemIds }: { itemIds: number[] }) => {
     setFormValue("itemIds", itemIds, {

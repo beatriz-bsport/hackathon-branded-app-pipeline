@@ -10,13 +10,15 @@ import EventForm from './trigger_forms/EventForm.component';
 import SmartlistForm from './trigger_forms/SmartlistForm.component';
 import EventAndSmartlistForm from './trigger_forms/EventAndSmartlistForm.component';
 import TimeoutForm from './trigger_forms/TimeoutForm.component';
+import TimeoutFormWithHourlyTimeout from './trigger_forms/TimeoutFormWithHourlyTimeout.component';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 type Props = {
   isFromMUIPopover?: boolean;
   trigger: ConnectedTrigger;
   kind: TriggerKind;
   smartlists: Immutable.ImmutableArray<SmartList>;
-  updateValue?: (data: ConnectedTrigger) => void;
+  updateValue: (data: ConnectedTrigger) => void;
 };
 
 const ConnectedTriggerContent: React.FC<Props> = ({
@@ -26,6 +28,7 @@ const ConnectedTriggerContent: React.FC<Props> = ({
   smartlists,
   updateValue,
 }) => {
+  const allowHourlyTimeout = useSafeFlag(FeatureFlags.AUDIENCE_HOURLY_TIMEOUT);
   switch (kind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
       return <EventForm trigger={trigger} updateValue={updateValue} />;
@@ -47,7 +50,14 @@ const ConnectedTriggerContent: React.FC<Props> = ({
         />
       );
     case TriggerKind.ONLY_TIMEOUT:
-      return <TimeoutForm trigger={trigger} updateValue={updateValue} />;
+      return allowHourlyTimeout ? (
+        <TimeoutFormWithHourlyTimeout
+          trigger={trigger}
+          updateValue={updateValue}
+        />
+      ) : (
+        <TimeoutForm trigger={trigger} updateValue={updateValue} />
+      );
     default:
       return null;
   }

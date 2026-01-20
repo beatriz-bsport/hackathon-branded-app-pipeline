@@ -149,9 +149,13 @@ export const initializeFormDataFromDraftMarketingNotification = (
     let triggerCondition: TriggerConditionStepProps;
 
     switch (triggerConditionFormType) {
-      case "birthday":
-        triggerCondition = { type: "birthday" };
+      case "birthday": {
+        const smartlistConfig = extractSmartlistConfig(
+          marketingNotification.event_rules,
+        );
+        triggerCondition = { type: "birthday", ...smartlistConfig };
         break;
+      }
 
       case "booking":
       case "appointment":

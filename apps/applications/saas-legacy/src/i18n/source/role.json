@@ -67,7 +67,7 @@
           "ifEmptySelectAll": "Leave empty to select all"
         },
         "establishmentBillingGroup": {
-          "title": "billing group *",
+          "title": "Billing group",
           "helpText": "All sales performed within this associated billing group will be billed from a single location. This includes invoices, reports, and stock inventory updates.",
           "description": "All sales performed within this associated billing group will be billed from a single location. This includes invoices, reports, and stock inventory updates."
         },

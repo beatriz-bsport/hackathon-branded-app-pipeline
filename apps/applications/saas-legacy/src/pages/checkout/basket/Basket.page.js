@@ -91,7 +91,6 @@ import {
 } from '../../../libs/payment/api';
 import { validateUnpaid as validateUnpaidAPI } from '../../../libs/checkout/api';
 
-import { auth as authActions } from '../../../actions';
 import {
   snackbarError,
   snackbarWarning,
@@ -783,7 +782,6 @@ export default compose(
       };
     },
     {
-      disconnect: authActions.disconnect,
       goToUserSpace: (id) => pushRouter(getUserSpaceUrl(id)),
       fetchProfile,
 

@@ -51,6 +51,7 @@ type OwnProps = {
   establishmentBillingGroups: EstablishmentBillingGroup[];
   establishmentLoading: boolean;
   enableMultiLocalization: boolean;
+  defaultEstablishmentBillingGroup?: EstablishmentBillingGroup | null;
   imageCarouselChangeable: boolean;
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
   displayNewWebshop: boolean;
@@ -88,7 +89,8 @@ export class InvoiceForm extends React.Component<Props, State> {
       invoiceItemList: [],
       appliedCoupons: [],
       couponLoading: false,
-      selectedEstablishmentBillingGroup: null,
+      selectedEstablishmentBillingGroup:
+        props.defaultEstablishmentBillingGroup || null,
       giftcardToConfigureList: [],
       giftcardConfigList: [],
       requiredEstablishmentIsMissing: false,
@@ -127,6 +129,21 @@ export class InvoiceForm extends React.Component<Props, State> {
       prevState.invoiceItemList !== this.state.invoiceItemList
     ) {
       this.refreshCouponsCompatibilityAndVoucher();
+    }
+
+    // @debt(3, 2, 2): In the revamp, the whole page should be loading while this data fetches.
+    if (
+      this.props.enableMultiLocalization &&
+      !this.state.selectedEstablishmentBillingGroup &&
+      this.props.defaultEstablishmentBillingGroup &&
+      this.props.defaultEstablishmentBillingGroup !==
+        prevProps.defaultEstablishmentBillingGroup &&
+      this.props.defaultEstablishmentBillingGroup?.disabled === false
+    ) {
+      this.setState({
+        selectedEstablishmentBillingGroup:
+          this.props.defaultEstablishmentBillingGroup,
+      });
     }
   }
 

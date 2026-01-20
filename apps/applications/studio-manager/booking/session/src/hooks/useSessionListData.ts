@@ -28,6 +28,7 @@ import { fetch } from "../utils/fetch";
 import {
   ADD_ON_IDENTIFIER_SUBTEACHER_TOOL,
   useCheckCompanyAddOn,
+  useObjectLevelPermission,
 } from "../utils/permission";
 import { SESSIONS_QUERY_KEY } from "./constants";
 import { useFetchSessionsWithPendingRequests } from "./session-api/fetch/use-fetch-sessions-with-pending-requests";
@@ -169,13 +170,19 @@ export const useSessionListData = (
   const showCancelledSessions = useSessionListStore(
     selectShowCancelledSessions,
   );
+  const hasShowCancelledSessionsPermission = useObjectLevelPermission(
+    "planning.calendar.allowed_actions.readCancellations",
+  );
+  const effectiveShowCancelledSessions = hasShowCancelledSessionsPermission
+    ? showCancelledSessions
+    : false;
 
   const { data: rawSessions = [], isLoading: isLoadingSessions } = useQuery(
     sessionsQueryOptions(
       minDateKey,
       maxDateKey,
       filterParams,
-      showCancelledSessions,
+      effectiveShowCancelledSessions,
     ),
   );
 

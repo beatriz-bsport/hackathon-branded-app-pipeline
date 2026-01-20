@@ -4,6 +4,7 @@ export const FeatureFlags = {
   HOMEPAGE: 'homepage',
   EXPRESS_PASS_CHECKOUT: 'express-pass-checkout',
   TRIAL_ANALYSIS: 'insights_trial_analysis_page',
+  SCHEDULE_ANALYSIS: 'insights_schedule_analysis_page',
   AUDIENCE_SMS_MARKETING_ACTIONS: 'audience_sms_marketing_actions',
   MEMBER_AREA_BASKET_UNIFIED: 'member-area-basket-unified',
   WEBVIEW_BASKET_AP_GP: 'webview-basket-ap-gp',
@@ -13,6 +14,7 @@ export const FeatureFlags = {
   AUDIENCE_TEMPLATES: 'audience_workflow_templates',
   INVOICE_SEQUENTIAL_NUMBERING: 'invoice_sequential_numbering',
   NEW_SUBSCRIPTION_CONTRACTS: 'new-subscription-contracts',
+  AUDIENCE_HOURLY_TIMEOUT: 'audience_hourly_timeout',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

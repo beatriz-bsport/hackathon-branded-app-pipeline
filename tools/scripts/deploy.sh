@@ -65,20 +65,20 @@ echo ""
 # Define Nx projects to build and deploy
 if [ "$FORCE_REDEPLOY" = "true" ]; then
   echo "🔱 Detecting projects to force redeploy..."
-  
+
   # Select all projects
   SELECTED_PROJECTS=$(pnpm exec nx show projects --sep=",")
-  
+
   # Select all MFE
   REVAMP_MFE=$(pnpm exec nx show projects --sep="," \
     --projects=tag:application:revamp --exclude="@bsport/template-*")
 else
   echo "🔱 Detecting affected projects..."
-  
+
   # Select only affected projects
   SELECTED_PROJECTS=$(pnpm exec nx show projects --sep="," \
     --affected --base="$NX_BASE" --head=HEAD)
-  
+
   # Select only affected MFE
   REVAMP_MFE=$(pnpm exec nx show projects --sep="," \
     --affected --base="$NX_BASE" --head=HEAD \
@@ -102,6 +102,10 @@ echo ""
 
 # Deploy affected projects
 echo "⏳ Deploying affected projects"
+
+# Ensure AWS CLI cache directory exists to prevent race conditions in parallel deploys
+mkdir -p "${HOME}/.aws/cli/cache" 2>/dev/null || true
+
 if [ "$FRONTEND_ONLY_FLAG" = "frontend-only" ]; then
   pnpm exec nx run-many --target=ci:deploy --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT" true
 else
@@ -116,7 +120,7 @@ if [ -n "$REVAMP_MFE" ]; then
   pnpm exec nx ci:build:mfe @bsport/sm-host "$REVAMP_MFE"
   echo "✅ All affected micro frontends have been rebuilt"
   echo ""
-  
+
   echo "⏳ Deploying affected micro frontends"
   pnpm exec nx ci:deploy:mfe @bsport/sm-host "$DEPLOY_ENVIRONMENT" "$REVAMP_MFE"
   echo "✅ All affected micro frontends have been deployed"

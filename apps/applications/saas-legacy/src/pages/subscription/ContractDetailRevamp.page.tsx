@@ -19,17 +19,39 @@ import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.
 import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 // @ts-expect-error
 import ContractDeleteDialog from '#src/libs/subscription/components/SubscriptionContractDeleteModal.component';
-import SubscriptionContractFormDrawer from '#src/libs/subscription/components/SubscriptionContractFormDrawer.component';
 import PaginatedSubscriptionList from '#src/libs/subscription/components/PaginatedSubscriptionList.component';
 import themeSelectors from '#src/libs/theme/selectors';
-import { Theme as CompanyTheme } from '#src/libs/theme/types';
+import type { Theme as CompanyTheme } from '#src/libs/theme/types';
 import { getContractDetailNotifications } from '#src/libs/marketing/selectors';
+import {
+  fetchPaymentPackList as fetchPaymentPackListAction,
+  fetchAllPaymentPackCategory,
+  refreshAllPaymentPack,
+  updatePaymentPackCompatibilities as updatePaymentPackCompatibilitiesAction,
+  fetchOne as fetchPaymentPackAction,
+} from '#src/libs/payment-packs/actions';
+import { fetchMetaActivities as fetchMetaActivitiesAction } from '#src/libs/meta-activity/actions';
+import {
+  fetchAllPrivateServices,
+  fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
+  fetchAllPrivateSlots,
+  fetchPrivatePassList,
+  fetchPrivatePassRetrieve as fetchPrivatePassRetrieveAction,
+  deleteCompatibleServicePass,
+  createCompatibleServicePass,
+  updateCompatibleServicePass,
+} from '#src/libs/private-service/actions';
 
-import { fetchPrivatePassList } from '#src/libs/private-service/actions';
 import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
 import { getAllSmartList } from '#src/libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
-import { getPrivatePassAvailable } from '#src/libs/private-service/selectors/private-pass';
+import {
+  getPrivatePassAvailable,
+  getCompatibilityPassWithService as getCompatibleServicePass,
+  withAvailable,
+  withServices,
+  getPrivatePass,
+} from '#src/libs/private-service/selectors/private-pass';
 import { fetchTags } from '#src/libs/tag/actions';
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import {
@@ -61,8 +83,14 @@ import {
   getContractDetailSubscription,
   getContractPauseList,
 } from '#src/libs/subscription/selectors';
-import { getEnabled as getPaymentPackEnabled } from '#src/libs/payment-packs/selectors';
-import ContractDetail from '#src/libs/subscription/components/contract/ContractDetail.component';
+import {
+  getEnabled as getPaymentPackEnabled,
+  withEstablishments,
+  withMetaActivities,
+  withSCT,
+  getPaymentPack,
+} from '#src/libs/payment-packs/selectors';
+import ContractDetail from '#src/libs/subscription/components/contract/contract-revamp/ContractDetailRevamp.component';
 import ContractPauseListItemDetail from '#src/libs/subscription/components/contract/ContractPauseListItemDetail.component';
 import {
   fetchContractDetail as fetchContractDetailAction,
@@ -70,15 +98,19 @@ import {
   createOrUpdateContractPause,
   updateOnlyContractPauseName,
   deleteContractPause,
-  createOrUpdateContract as createOrUpdateContractAction,
   fetchSubscriptionList as fetchSubscriptionListAction,
   fetchSubscriptionBulk,
   fetchContractPauseList,
+  updateContract as updateContractAction,
 } from '#src/libs/subscription/actions';
 import { fetchFilteredMembers as fetchFilteredMembersAction } from '#src/libs/member/actions';
-import { refreshAllPaymentPack } from '#src/libs/payment-packs/actions';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
+import { fetchEstablishments } from '../../libs/establishment/actions';
+
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
+
 import { snackbarSuccess } from '#src/libs/snackbar/actions';
-import {
+import type {
   Contract,
   ContractPauseDetails,
   Subscription,
@@ -87,11 +119,27 @@ import { getMergeTags } from '#src/libs/marketing/utils';
 import MarketingRuleFormContract from '#src/libs/marketing/components/marketing-rule-form/MarketingRuleFormContract.component';
 import MarketingRuleListItemContract from '#src/libs/marketing/components/marketing-rule-list-item/MarketingRuleListItemContract.component';
 import ContractPauseFormDialog from '#src/libs/subscription/components/contract/ContractPauseFormDialog.component';
-import { ResolvedGenericTags } from '#src/libs/email-editor/types';
+import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { RootState } from '../../reducers';
 import { getAvailablePaymentComboList } from '#src/libs/payment-combo/selectors';
-import { OptionCallback } from '../../state/types';
+import type { OptionCallback } from '../../state/types';
+import ContractOneObjectFormDrawer from '#src/libs/subscription/components/contract/contract-revamp/ContractOneObjectFormDrawer.component';
+import { getAvailableEstablishmentList } from '#src/libs/establishment/selectors';
+import { uniqBy } from 'lodash';
+import {
+  getActivitiesByIdList,
+  getEnabledMetaActivities,
+  getEnabledWorkshops,
+} from '#src/libs/meta-activity/selectors';
+import { getEditableSCTs } from '#src/libs/category/selectors';
+import {
+  getBookkeepingAccountById,
+  getBookkeepingAccountList,
+} from '#src/libs/payment/selectors';
+import { getPrivateServices } from '#src/libs/private-service/selectors/private-service';
+import type { PrivateServiceCompatibilityPass } from '#src/libs/private-service/types';
+import type { PaymentPackCompatibilitiesData } from '#src/libs/payment-packs/types';
 
 type OwnProps = {
   contractId: number;
@@ -124,6 +172,7 @@ type OwnProps = {
   setContractPauseToUpdate: (cp?: ContractPauseDetails) => void;
   fetchResolvedGenericTags: () => void;
   resolvedGenericTags: ResolvedGenericTags;
+  fetchCompatibleServicePasses: (privatePassId: number) => void;
 };
 
 type Props = OwnProps &
@@ -135,7 +184,13 @@ const SUBSCRIPTION_PAGINATION_SIZE = 7;
 
 export class ContractDetailPage extends Component<Props> {
   componentDidMount() {
-    this.props.fetchContractDetail(this.props.contractId);
+    this.props.fetchContractDetail(this.props.contractId, {
+      onSuccess: (contract) => {
+        if (!!contract?.private_pass) {
+          this.props.fetchCompatibleServicePasses(contract.private_pass);
+        }
+      },
+    });
     this.props.refreshAllPaymentPack();
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
@@ -148,6 +203,24 @@ export class ContractDetailPage extends Component<Props> {
       { onSuccess: () => this.props.setContractPauseLoading(false) },
     );
     this.props.fetchTags();
+    this.props.fetchEstablishments();
+    this.props.fetchMetaActivities();
+    this.props.fetchAllPaymentPackCategory();
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchBookkeepingAccountList();
+    this.props.fetchAllPrivateServices();
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    if (
+      !!this.props.contract?.private_pass &&
+      prevProps.privatePass?.private_services.length !==
+        this.props.privatePass?.private_services.length
+    ) {
+      this.props.fetchCompatibleServicePasses(
+        this.props.contract.private_pass.id,
+      );
+    }
   }
 
   onCreateNewContractPause = () => {
@@ -193,6 +266,19 @@ export class ContractDetailPage extends Component<Props> {
     this.props.submitEditForm(data, {
       onSuccess: () => {
         this.props.setContractToEdit(null);
+        if (!!this.props.contract?.payment_pack) {
+          this.props.fetchPaymentPackRetrieve(
+            this.props.contract.payment_pack.id,
+          );
+        }
+        if (!!this.props.contract?.private_pass) {
+          this.props.fetchPrivatePassRetrieve(
+            this.props.contract.private_pass.id,
+          );
+          this.props.fetchCompatibleServicePasses(
+            this.props.contract.private_pass.id,
+          );
+        }
         if (options && options.onSuccess) options.onSuccess();
       },
       onError: (err) => {
@@ -219,11 +305,32 @@ export class ContractDetailPage extends Component<Props> {
     },
   ]);
 
+  updatePaymentPackCompatibilities = (data: PaymentPackCompatibilitiesData) => {
+    if (!this.props.contract?.payment_pack) return;
+    this.props.updatePaymentPackCompatibilities({
+      paymentPackId: this.props.contract?.payment_pack.id,
+      data,
+    });
+  };
+
   render() {
     if (this.props.loading || !this.props.contract) {
       return <LinearProgress />;
     }
     const { classes, t } = this.props;
+
+    const categoryList = [...this.props.categoryList]
+      .filter(
+        (category) =>
+          this.props.metaActivityList.map((a) => a.SCT).indexOf(category.id) !==
+          -1,
+      )
+      .concat(this.props.videoCategories)
+      .filter(
+        (value, index, arr) =>
+          arr.findIndex((sct) => sct.id === value.id) === index,
+      );
+
     return (
       <ObjectLevelPermissionProvider
         requiredPermission={[
@@ -243,18 +350,37 @@ export class ContractDetailPage extends Component<Props> {
             <Grid container alignItems="stretch" spacing={3}>
               <Grid item className={classes.detailContainer} md={6} xs={12}>
                 <ContractDetail
+                  availableEstablishmentList={
+                    this.props.availableEstablishmentList
+                  }
+                  categoryList={categoryList}
                   company={this.getCompany(this.props.theme)}
-                  // @ts-expect-error
                   companyTheme={this.props.theme}
+                  compatibleServicePass={this.props.compatibleServicePass}
                   contract={this.props.contract}
+                  createCompatibleServicePass={
+                    this.props.createCompatibleServicePass
+                  }
+                  deleteCompatibleServicePass={
+                    this.props.deleteCompatibleServicePass
+                  }
                   displayStopSubscriptionFromMemberSide={
                     !!this.props.theme
                       ?.display_stop_subscription_from_member_side
                   }
-                  goToCombo={this.props.goToCombo}
-                  goToPack={this.props.goToPaymentPackDetail}
-                  goToPrivatePass={this.props.goToPrivatePass}
+                  metaActivityList={this.props.metaActivityList}
+                  // @ts-expect-error - Legacy HOC typing issue
+                  paymentPack={this.props.paymentPack}
+                  privatePass={this.props.privatePass}
+                  // @ts-expect-error - Legacy typing issue
+                  privateServices={this.props.privateServices}
                   snackbarSuccess={this.props.snackbarSuccess}
+                  updateCompatibleServicePass={
+                    this.props.updateCompatibleServicePass
+                  }
+                  updatePaymentPackCompatibilities={
+                    this.updatePaymentPackCompatibilities
+                  }
                 />
                 <MarketingRuleListItemContract
                   deleteNotification={this.props.deleteMarketingNotification}
@@ -396,19 +522,30 @@ export class ContractDetailPage extends Component<Props> {
                 onClose={this.closeDeleteContractModal}
               />
             </Grid>
-            <SubscriptionContractFormDrawer
+            <ContractOneObjectFormDrawer
+              allowGuestMaster={
+                this.props.theme.allow_guest_activatable &&
+                this.props.theme.allow_guest
+              }
+              availableEstablishmentList={this.props.availableEstablishmentList}
+              bookkeepingAccountById={this.props.bookkeepingAccountById}
+              bookkeepingAccounts={this.props.bookkeepingAccounts}
+              categoryList={categoryList}
+              compatibleServicePass={this.props.compatibleServicePass}
               displayStopSubscriptionFromMemberSide={
                 !!this.props.theme?.display_stop_subscription_from_member_side
               }
               initial={this.props.contract}
+              metaActivityList={this.props.metaActivityList}
               onClose={this.closeContractFormDrawer}
               onSubmit={this.submitContractForm}
               open={!!this.props.contractToEdit}
-              paymentComboList={this.props.paymentComboList}
-              // @ts-expect-error
               paymentPackList={this.props.paymentPackList}
               privatePassList={this.props.privatePassList}
-              // @ts-expect-error
+              // @ts-expect-error - Legacy typing issue
+              privateServices={this.props.privateServices}
+              provincialTax={this.props.theme?.provincial_tax_value}
+              // @ts-expect-error - Legacy typing issue
               tagList={this.props.allTagsWithTagGroup}
             />
           </div>
@@ -454,29 +591,65 @@ const styles = (theme: Theme) => ({
 });
 
 const connector = connect(
-  (state: RootState, { contractId }: { contractId: number }) => ({
-    loading: state.subscription.contract.loading,
-    subscriptions: getContractDetailSubscription(state),
+  (state: RootState, { contractId }: { contractId: number }) => {
     // @ts-expect-error
-    contract: withPaymentPack(getContract)(state, contractId),
-    paymentPackList: getPaymentPackEnabled(state),
-    privatePassList: getPrivatePassAvailable(state),
-    email_templates_list: getAllEmailTemplatesSummaries(state),
-    email_templates_details: getEmailTemplatesDetail(state),
-    emailListLoading: state.emailTemplate.loading,
-    emailDetailLoading: state.emailTemplate.detail.loading,
-    paymentComboList: getAvailablePaymentComboList(state),
-    theme: themeSelectors.getTheme(state),
-    // @ts-expect-error
-    contractPauseList: getContractPauseList(state, contractId),
-    subscriptionData: state.subscription.byId,
-    tagCategories: getTagCategories(state),
-    notifications: getContractDetailNotifications(state),
-    smartLists: getAllSmartList(state),
-    smartListLoading: state.smartList.loading,
-    resolvedGenericTags: getResolvedGenericTags(state),
-    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
-  }),
+    const contract = withPaymentPack(getContract)(state, contractId);
+
+    return {
+      loading: state.subscription.contract.loading,
+      subscriptions: getContractDetailSubscription(state),
+      contract,
+      paymentPack: !!contract?.payment_pack
+        ? withSCT(
+            // @ts-expect-error
+            withMetaActivities(
+              // @ts-expect-error
+              withEstablishments(getPaymentPack),
+            ),
+            // @ts-expect-error
+          )(state, contract.payment_pack.id)
+        : undefined,
+      privatePass: !!contract?.private_pass
+        ? withAvailable(withServices(getPrivatePass))(
+            state,
+            // @ts-expect-error
+            contract.private_pass.id,
+          )
+        : undefined,
+      paymentPackList: getPaymentPackEnabled(state),
+      privatePassList: getPrivatePassAvailable(state),
+      email_templates_list: getAllEmailTemplatesSummaries(state),
+      email_templates_details: getEmailTemplatesDetail(state),
+      emailListLoading: state.emailTemplate.loading,
+      emailDetailLoading: state.emailTemplate.detail.loading,
+      paymentComboList: getAvailablePaymentComboList(state),
+      theme: themeSelectors.getTheme(state),
+      // @ts-expect-error
+      contractPauseList: getContractPauseList(state, contractId),
+      subscriptionData: state.subscription.byId,
+      tagCategories: getTagCategories(state),
+      notifications: getContractDetailNotifications(state),
+      smartLists: getAllSmartList(state),
+      smartListLoading: state.smartList.loading,
+      resolvedGenericTags: getResolvedGenericTags(state),
+      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+      availableEstablishmentList: getAvailableEstablishmentList(state),
+      metaActivityList: uniqBy(
+        [
+          ...getEnabledMetaActivities(state),
+          ...getEnabledWorkshops(state),
+          ...getActivitiesByIdList(state, []),
+        ],
+        'id',
+      ),
+      categoryList: getEditableSCTs(state),
+      videoCategories: state.video.filterableParams.items.SCTs,
+      bookkeepingAccounts: getBookkeepingAccountList(state),
+      bookkeepingAccountById: getBookkeepingAccountById(state),
+      privateServices: getPrivateServices(state),
+      compatibleServicePass: getCompatibleServicePass(state),
+    };
+  },
   {
     fetchContractDetail: fetchContractDetailAction,
     fetchContractPauseList,
@@ -488,7 +661,6 @@ const connector = connect(
     fetchPrivatePassList,
     fetchTagList,
     fetchPaymentComboList,
-    createOrUpdateContract: createOrUpdateContractAction,
     fetchSubscriptionList: fetchSubscriptionListAction,
     fetchFilteredMembers: fetchFilteredMembersAction,
     fetchSubscriptionBulk,
@@ -510,6 +682,21 @@ const connector = connect(
     getSmartLists: fetchAllSmartLists,
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     fetchTags,
+    fetchPaymentPackList: fetchPaymentPackListAction,
+    fetchMetaActivities: fetchMetaActivitiesAction,
+    fetchAllPaymentPackCategory,
+    fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
+    fetchAllPrivateServices: () => fetchAllPrivateServices({ mine: true }),
+    fetchPrivateSlotsByService: fetchAllPrivateSlots,
+    fetchCompatibleServicePassList: fetchCompatibleServicePassListAction,
+    fetchEstablishments,
+    updateContract: updateContractAction,
+    updatePaymentPackCompatibilities: updatePaymentPackCompatibilitiesAction,
+    fetchPaymentPackRetrieve: fetchPaymentPackAction,
+    fetchPrivatePassRetrieve: fetchPrivatePassRetrieveAction,
+    createCompatibleServicePass,
+    deleteCompatibleServicePass,
+    updateCompatibleServicePass,
   },
 );
 
@@ -573,9 +760,9 @@ export default compose(
         setSelectedNotification(null);
       },
     submitEditForm:
-      ({ createOrUpdateContract, fetchContractDetail, contractId }) =>
+      ({ updateContract, fetchContractDetail, contractId }) =>
       (data: any, options: OptionCallback) => {
-        createOrUpdateContract(data, {
+        updateContract(data, {
           onSuccess: () => {
             fetchContractDetail(contractId);
             if (options && options.onSuccess) {
@@ -618,5 +805,24 @@ export default compose(
           id__in: subscriptions.map((b) => b.member),
         });
       },
+    fetchBookkeepingAccountList:
+      ({ fetchBookkeepingAccountList }) =>
+      () =>
+        fetchBookkeepingAccountList({ is_active: true }),
+    fetchCompatibleServicePasses:
+      ({ fetchCompatibleServicePassList, fetchPrivateSlotsByService }) =>
+      (privatePassId: number) =>
+        fetchCompatibleServicePassList(privatePassId, {
+          onSuccess: (csps: PrivateServiceCompatibilityPass[]) => {
+            const private_service__in = csps?.map(
+              (c: PrivateServiceCompatibilityPass) => c.private_service,
+            );
+            if (private_service__in?.length !== 0) {
+              fetchPrivateSlotsByService({
+                private_service__in,
+              });
+            }
+          },
+        }),
   }),
 )(ContractDetailPage);

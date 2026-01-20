@@ -421,8 +421,6 @@
     },
     "triggers": {
       "timeout": {
-        "timout_days_chip": "{{ days }} dia",
-        "timout_days_chip_plural": "{{ days }} dias",
         "timeout_days_chip": "{{ count }} dia",
         "timeout_days_chip_plural": "{{ count }} dias"
       },

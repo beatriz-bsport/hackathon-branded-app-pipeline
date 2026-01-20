@@ -44,6 +44,7 @@ type Props = {
   enableMultiLocalization: boolean,
   memberDetails: { [id: number]: Member },
   displayNewWebshop: boolean,
+  staffDefaultEstablishmentBillingGroup?: EstablishmentBillingGroup | null,
 };
 
 type State = {
@@ -65,9 +66,22 @@ export class QuickInvoice extends PureComponent<Props, State> {
       showInvoiceItemSelector: !props.editMode,
       invoiceItemList: [],
       processing: false,
-      selectedEstablishmentBillingGroup: null,
+      selectedEstablishmentBillingGroup:
+        props.staffDefaultEstablishmentBillingGroup || null,
       requiredEstablishmentBillingGroupIsMissing: false,
     };
+  }
+
+  componentDidMount() {
+    if (
+      !this.state.selectedEstablishmentBillingGroup &&
+      this.props.staffDefaultEstablishmentBillingGroup
+    ) {
+      this.setState({
+        selectedEstablishmentBillingGroup:
+          this.props.staffDefaultEstablishmentBillingGroup,
+      });
+    }
   }
 
   choseInvoiceItem = () => {

@@ -1,32 +1,38 @@
 import { lazy } from "react";
-import { Navigate, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 
+import { FeatureFlag } from "#src/components/FeatureFlag";
 import { URLS } from "#src/urls";
-import { useSmartlistFlag } from "#src/utils/feature-flags/use-smartlist-flag";
+import { flags } from "#src/utils/feature-flags";
 
 const ListPage = lazy(() => import("#src/pages/ListPage"));
 const DetailsPage = lazy(() => import("#src/pages/DetailsPage"));
 const ParameterPage = lazy(() => import("#src/pages/ParameterPage"));
 const CampaignPage = lazy(() => import("#src/pages/CampaignPage"));
 const AutomationPage = lazy(() => import("#src/pages/AutomationPage"));
-
-const FeatureFlaggedDetailsRoute = () => {
-  const isEnabled = useSmartlistFlag();
-
-  if (!isEnabled) {
-    return <Navigate to={URLS.INDEX} replace />;
-  }
-
-  return <DetailsPage />;
-};
+const AutomationMessagePage = lazy(
+  () => import("#src/pages/AutomationMessagePage"),
+);
 
 export const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<ListPage />} path={URLS.INDEX} />
       <Route
-        element={<FeatureFlaggedDetailsRoute />}
-        path={`${URLS.DETAILS}/*`}
+        path={URLS.AUTOMATION_MESSAGE}
+        element={
+          <FeatureFlag flag={flags.smartlist}>
+            <AutomationMessagePage />
+          </FeatureFlag>
+        }
+      />
+      <Route
+        path={URLS.DETAILS}
+        element={
+          <FeatureFlag flag={flags.smartlist}>
+            <DetailsPage />
+          </FeatureFlag>
+        }
       >
         <Route path="parameter" element={<ParameterPage />} />
         <Route path="campaign" element={<CampaignPage />} />

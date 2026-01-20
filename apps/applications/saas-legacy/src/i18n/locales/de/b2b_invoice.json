@@ -1,0 +1,119 @@
+{
+  "configuration": {
+    "verifactu": {
+      "title": "VERI*FACTU",
+      "description": "Richte Fiskaly SIGN ES ein, um Rechnungen automatisch mit der spanischen Steuerbehörde (AEAT) zu teilen und die Anforderungen von VERI*FACTU zu erfüllen. Gib die Details des Vertreters ein, um eine soziale Kooperationsvereinbarung zu erstellen, die bsport berechtigt, Rechnungen in deinem Namen zu übermitteln.",
+      "info": "Dieses Zusatzmodul ist in deinem Konto noch nicht aktiv – bitte kontaktiere deinen Account Manager, um es anzufordern.",
+      "loading": "Wird geladen...",
+      "onboarding": {
+        "agreement_created": "Soziale Kollaborationsvereinbarung erstellt",
+        "agreement_error": "Konnte die Social Collaboration Agreement nicht erstellen. Bitte versuche es erneut. "
+      },
+      "signed_agreement": {
+        "details_title": "Vertreterdetails",
+        "edit": "Bearbeiten",
+        "full_name": "Name und Vorname des Inhabers",
+        "dni_nie": "DNI/NIE",
+        "address": "Adresse",
+        "municipality": "Gemeinde",
+        "country": "Land",
+        "agreement_title": "Die Vereinbarung zur sozialen Zusammenarbeit ist bereit für deine Unterschrift",
+        "agreement_subtitle": "Folge den Schritten, um deine Vereinbarung zur sozialen Zusammenarbeit zu validieren.",
+        "step1_text": "PDF herunterladen",
+        "step2_text": "Vertreter unterschreibt das PDF",
+        "step3_text": "Hochgeladenes unterschriebenes PDF",
+        "download_pdf": "PDF herunterladen",
+        "upload_pdf": "PDF hochladen",
+        "upload_info": "Lade die unterschriebene PDF hoch, um fortzufahren",
+        "send_document": "Dokument senden",
+        "uploading": "Hochladen...",
+        "upload_success": "Die unterschriebene Vereinbarung wurde erfolgreich hochgeladen.",
+        "upload_error": "Konnte die unterzeichnete Vereinbarung nicht hochladen. Bitte versuche es erneut. "
+      },
+      "form": {
+        "sectionTitle": "Details des Vertreters",
+        "first_name": "Vorname",
+        "last_name": "Nachname",
+        "dni_nie": "DNI/NIE",
+        "dni_nie_invalid": "Die eingegebene DNI/NIE-Nummer ist nicht gültig.",
+        "postal_code_invalid": "Die Postleitzahl muss 3-10 Zeichen lang sein und darf nur Buchstaben, Ziffern, Leerzeichen und Bindestriche enthalten.",
+        "address": "Adresse",
+        "street_number": "Straßennummer",
+        "postal_code": "Postleitzahl",
+        "city": "Stadt",
+        "municipality": "Gemeinde",
+        "country": "Land",
+        "save_for_later": "Für später speichern",
+        "save_for_later_success": "Vertreterdetails erfolgreich gespeichert",
+        "representative_error": "Konnte die Vertreterdetails nicht speichern. Bitte versuche es erneut. ",
+        "create_agreement": "Vereinbarung erstellen",
+        "creating_agreement": "Erstellen...",
+        "chips": {
+          "vat_id_validated": "USt-IdNr. validiert",
+          "vat_id_missing": "USt-IdNr. fehlt",
+          "business_address_provided": "Geschäftsadresse angegeben",
+          "business_address_missing": "Geschäftsadresse fehlt",
+          "invoice_identifiers_set_up": "Einrichtungskennzeichen für Rechnungen",
+          "invoice_identifiers_not_set_up": "Rechnungskennungen nicht eingerichtet"
+        },
+        "alert": {
+          "content": "Achtung: Bitte überprüfe die Details sorgfältig\nSobald du deine Social Collaboration Agreement erstellt hast, kannst du sie nicht mehr bearbeiten, es sei denn, du erstellst eine neue mit einer neuen Unterschrift. Bitte stelle sicher, dass alle Informationen korrekt sind, bevor du fortfährst.",
+          "action": "Verstanden"
+        },
+        "requirements": {
+          "vat_required": "USt-IdNr. erforderlich",
+          "address_required": "Geschäftsadresse erforderlich",
+          "vat_and_address_required": "USt-IdNr. & Geschäftsadresse erforderlich",
+          "vat_description": "Füge deine USt-IdNr. unter Einstellungen -> Unternehmen hinzu, um VERI*FACTU einzurichten.",
+          "address_description": "Gib deine Geschäftsadresse im Rahmen des Stripe-Onboardings an, um VERI*FACTU einzurichten.",
+          "vat_and_address_description": "Füge deine Umsatzsteuer-ID in Einstellungen -> Unternehmen hinzu und schließe dein Stripe-Onboarding ab, um deine Geschäftsadresse anzugeben. Beides wird von den spanischen Steuerbehörden benötigt, bevor du VERI*FACTU einrichten kannst.",
+          "go_to_settings": "Gehe zu den Einstellungen",
+          "complete_stripe_onboarding": "Vervollständige das Stripe-Onboarding",
+          "legal_identifier_required": "Rechnungskennungen erforderlich",
+          "legal_identifier_description": "Sprich mit deinem Account Manager, um Rechnungskennungen für Sign-ES einzurichten."
+        }
+      },
+      "active": {
+        "success_message": "Deine Rechnungen werden jetzt automatisch an die spanische Steuerbehörde (AEAT) übermittelt.",
+        "agreement_title": "Soziale Kollaborationsvereinbarung",
+        "agreement_subtitle": "Du kannst jederzeit über diesen Link auf deine Vereinbarung zur sozialen Zusammenarbeit zugreifen.",
+        "agreement_link": "Link zur PDF",
+        "certificate_title": "VERI*FACTU Verantwortungserklärung",
+        "certificate_subtitle": "bsport Solutions erfüllt die spanischen Rechnungsstellungsvorschriften (Verifactu und TicketBAI). Lade unsere offizielle Verantwortungserklärung herunter.",
+        "certificate_link": "VERI*FACTU-Zertifikat",
+        "certificate_extension_link": "Verantwortungserklärungserweiterung",
+        "certificate_error": "Konnte das VERI*FACTU-Zertifikat nicht abrufen. Bitte versuche es erneut. "
+      }
+    },
+    "sequentialNumbering": {
+      "title": "Fortlaufende Rechnungsnummerierung einrichten",
+      "subtitle": "Deine Rechnungen werden automatisch fortlaufend nummeriert (1, 2, 3...). Passe das Startdatum und das Nummerierungsformat an, um es einzurichten.",
+      "warning": "<0>Achtung:</0> Du kannst das später nicht mehr ändern. Bitte überprüfe alles sorgfältig, bevor du auf 'Speichern' klickst.",
+      "selectLabel": "Startdatum",
+      "beginningOfNextMonth": "Anfang nächsten Monats ({{nextMonth}})",
+      "beginningOfCurrentMonth": "Anfang des aktuellen Monats ({{currentMonth}})",
+      "infoNextMonth": "Rechnungen, die vor diesem Datum erstellt wurden, behalten ihre aktuellen Nummern.",
+      "infoCurrentMonth": "Wenn du 'Anfang des aktuellen Monats (Dezember)' als Startdatum wählst, werden alle Rechnungen rückwirkend ab diesem Datum nummeriert. Alle zuvor erstellten Rechnungen bleiben unverändert.",
+      "prefixPlaceholder": "Präfix (optional)",
+      "prefixSuffixHelper": "Maximal 7 Zeichen, nur Buchstaben, Zahlen und Bindestriche. ",
+      "dateFormatLabel": "Datumsformat",
+      "dateFormatYearOnly": "Nur das Jahr (JJJJ)",
+      "dateFormatYearMonth": "Jahr und Monat (JJJJ-MM)",
+      "startingNumberLabel": "Startnummer*",
+      "startingNumberHelper": "Leg fest, ab welcher Zahl deine Rechnungen nummeriert werden (z. B. 1, 2, 3).",
+      "startingNumberHelperExisting": "Diese Nummer sollte mit der letzten Rechnung deines externen Buchhaltungsanbieters übereinstimmen.",
+      "previousInvoiceTitle": "Letzte Rechnungsnummer vom Vormonat: <0>{{invoiceNumber}}</0>",
+      "viewInvoiceDetails": "Rechnungsdetails anzeigen",
+      "startingNumberHint": "Deine Startnummer sollte sein: <0>{{startingNumber}}</0> (nächste in der Reihenfolge)",
+      "renamingStartDate": "Startdatum",
+      "startingNumber": "Startnummer",
+      "invoiceNumberingFormat": "Nummerierungsformat",
+      "numberingExplanation": "Jede neue Rechnung wird automatisch fortlaufend nummeriert. Wenn du zum Beispiel bei 1 anfängst, werden deine Rechnungen mit 000001, 000002, 000003 usw. nummeriert.",
+      "saveSuccess": "Fortlaufende Rechnungsnummerierung gespeichert",
+      "suffixPlaceholder": "Suffix (optional)",
+      "previewFirstLine": "Deine Rechnungen werden wie folgt nummeriert: <0>{{firstNumber}}</0>",
+      "previewSecondLine": "dann {{restNumbers}}, ...",
+      "useExternalAccountingProvider": "Ich nutze einen externen Buchhaltungsdienstleister"
+    }
+  }
+}

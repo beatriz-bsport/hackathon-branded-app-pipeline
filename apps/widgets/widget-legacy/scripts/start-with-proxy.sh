@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# Alternative startup script using Node.js proxy instead of nginx
+# Startup script using Node.js proxy instead of nginx
 # Use this if you don't have Docker or prefer a pure Node.js solution
+#
+# Usage:
+#   ./start-with-proxy.sh         # Default: dev environment
+#   ./start-with-proxy.sh dev     # Dev environment
+#   ./start-with-proxy.sh prod    # Production environment
 
 set -e
 
@@ -9,14 +14,28 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WIDGET_DIR="$(dirname "$SCRIPT_DIR")"
 ICHIZEN_ROOT="$(cd "$WIDGET_DIR/../../.." && pwd)"
 
-echo "🚀 Starting development environment with Node.js reverse proxy"
-echo ""
+# Parse environment argument (default to dev)
+ENV="${1:-dev}"
+
+# Validate environment
+if [[ "$ENV" != "dev" && "$ENV" != "prod" ]]; then
+    echo "❌ Error: Invalid environment '$ENV'. Use 'dev' or 'prod'."
+    exit 1
+fi
 
 # Colors for output
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
+RED='\033[0;31m'
 NC='\033[0m' # No Color
+
+if [[ "$ENV" == "prod" ]]; then
+    echo -e "${RED}🚀 Starting development environment with Node.js reverse proxy (PRODUCTION BACKEND)${NC}"
+else
+    echo "🚀 Starting development environment with Node.js reverse proxy (DEV BACKEND)"
+fi
+echo ""
 
 # Check if required directories exist
 SAAS_LEGACY_DIR="$ICHIZEN_ROOT/apps/applications/saas-legacy"
@@ -52,6 +71,14 @@ cleanup() {
 
 trap cleanup EXIT INT TERM
 
+# Set API environment for production
+if [[ "$ENV" == "prod" ]]; then
+    echo -e "${YELLOW}⚠️  WARNING: This will connect to PRODUCTION API${NC}"
+    echo -e "${BLUE}🔧 Setting API environment to production...${NC}"
+    cd "$ICHIZEN_ROOT"
+    pnpm run -w api-environment:set production --quiet
+fi
+
 # Start Node.js proxy
 echo -e "${BLUE}🔀 Starting Node.js reverse proxy (port 8088)...${NC}"
 cd "$WIDGET_DIR"
@@ -66,9 +93,16 @@ cd "$WIDGET_DIR"
 pnpm run start > /tmp/widget-dev.log 2>&1 &
 WIDGET_PID=$!
 
-echo -e "${BLUE}🌐 Starting main website dev server (port 3000)...${NC}"
-cd "$SAAS_LEGACY_DIR"
-pnpm run start-dev > /tmp/saas-legacy-dev.log 2>&1 &
+# Start saas-legacy with appropriate command
+if [[ "$ENV" == "prod" ]]; then
+    echo -e "${BLUE}🌐 Starting main website dev server with PRODUCTION API (port 3000)...${NC}"
+    cd "$SAAS_LEGACY_DIR"
+    pnpm run debug-only:start:production > /tmp/saas-legacy-dev.log 2>&1 &
+else
+    echo -e "${BLUE}🌐 Starting main website dev server (port 3000)...${NC}"
+    cd "$SAAS_LEGACY_DIR"
+    pnpm run start-dev > /tmp/saas-legacy-dev.log 2>&1 &
+fi
 SAAS_PID=$!
 
 echo -e "${BLUE}🔌 Starting proxy bridge dev server (port 4048)...${NC}"
@@ -91,7 +125,13 @@ sleep 5
 echo ""
 echo -e "${GREEN}✅ Development environment ready!${NC}"
 echo ""
-echo "⚠️ Be sure to run pnpm run -w api-environment:set ... so that fetch package is configured"
+
+if [[ "$ENV" == "prod" ]]; then
+    echo -e "${RED}⚠️  CONNECTED TO PRODUCTION API - BE CAREFUL WITH YOUR ACTIONS${NC}"
+else
+    echo "⚠️ Be sure to run pnpm run -w api-environment:set ... so that fetch package is configured"
+fi
+
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo -e "${YELLOW}📍 Access your application at:${NC}"
@@ -124,4 +164,3 @@ echo ""
 
 # Wait for all background processes
 wait
-

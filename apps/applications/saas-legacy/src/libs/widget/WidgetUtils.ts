@@ -5,9 +5,18 @@ import {
   DIALOG_MODE_DEACTIVATED,
 } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 
+import type { Persistor } from 'redux-persist';
+
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 import { WIDGET_PARENT_DOMAIN_STORAGE_KEY } from './constants';
 import { WidgetMessageType } from './types';
+
+let _persistor: Persistor | null = null;
+
+export function setPersistorForWidgetUtils(persistor: Persistor) {
+  _persistor = persistor;
+}
+
 class WidgetUtils {
   static setWidgetContext(parentUrl?: string) {
     // @ts-expect-error
@@ -110,10 +119,13 @@ class WidgetUtils {
     }
   }
 
-  private static postMessage(data: any) {
+  private static async postMessage(data: any) {
+    if (_persistor) await _persistor.flush();
+
     if (window.opener && window.opener.postMessage) {
       window.opener.postMessage({ ...data, source: 'bsport' }, '*');
     }
+
     if (window.parent && window.parent.postMessage) {
       window.parent.postMessage({ ...data, source: 'bsport' }, '*');
     }
@@ -124,7 +136,9 @@ class WidgetUtils {
   }
 
   static sendBridgeLoginSuccess() {
-    WidgetUtils.postMessage({ type: WidgetMessageType.IFRAME_LOGIN_SUCCESS });
+    WidgetUtils.postMessage({
+      type: WidgetMessageType.IFRAME_LOGIN_SUCCESS,
+    });
   }
   static sendBridgeLogout() {
     WidgetUtils.postMessage({ type: WidgetMessageType.IFRAME_LOGOUT });

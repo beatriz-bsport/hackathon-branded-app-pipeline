@@ -7,6 +7,8 @@ export function widgetMiddleware(_: MiddlewareAPI<Dispatch, RootState>) {
   return (next: Dispatch<any>) => (action: Action) => {
     const result = next(action);
 
+    if (!WidgetUtils.isWidget()) return result;
+
     if (action.type === authActionTypes.LOGIN_SUCCESSFUL) {
       WidgetUtils.sendBridgeLoginSuccess();
     }

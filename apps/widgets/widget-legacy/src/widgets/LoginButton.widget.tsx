@@ -12,7 +12,7 @@ import { getEnv } from '../utils/env';
 import { RootState } from '../reducers';
 import {
   bridgeRequestAuthenticationStatus,
-  bridgeRequestLogout,
+  bridgeRequestLogout as bridgeRequestLogoutAction,
 } from '../libs/bridge/actions';
 import { closeUserInteractionPortal as closeUserInteractionPortalAction } from '../libs/modal/actions';
 import { buildUrlParams } from '../utils/http';
@@ -148,7 +148,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = {
   bridgeRequestAuthenticationStatus,
-  bridgeRequestLogout,
+  bridgeRequestLogout: bridgeRequestLogoutAction,
   closeUserInteractionPortal: closeUserInteractionPortalAction,
 };
 

@@ -141,7 +141,7 @@
     "configuration": {
       "panel": {
         "footer": {
-          "addConnectionButton": "Genera ID partner"
+          "addConnectionButton": "Genera ID Partner"
         },
         "content": {
           "table": {
@@ -156,32 +156,32 @@
             "column": {
               "status": "Stato",
               "establishments": "Stabilimenti",
-              "externalId": "ID partner"
+              "externalId": "ID Partner"
             }
           },
-          "title": "Connessione ID partner"
+          "title": "Connessione ID Partner"
         },
         "header": {
-          "subtitle": "Genera e collega ID partner per sincronizzare le sessioni nei tuoi stabilimenti con myClubs. Potrai modificare il numero di posti disponibili per questo aggregatore nelle impostazioni della sessione."
+          "subtitle": "Genera e collega l'ID Partner per sincronizzare le sessioni nei tuoi stabilimenti con myClubs. Potrai modificare il numero di posti disponibili per questo aggregatore nelle impostazioni della sessione."
         }
       },
       "dialog": {
         "notification": {
           "activate": {
-            "error": "Si è verificato un errore durante l’attivazione dell’ID partner",
-            "success": "ID partner attivato"
+            "error": "Si è verificato un errore durante l’attivazione dell’ID Partner",
+            "success": "ID Partner attivato"
           },
           "update": {
-            "error": "Si è verificato un errore durante l’aggiornamento dell’ID partner",
-            "success": "ID partner aggiornato"
+            "error": "Si è verificato un errore durante l’aggiornamento dell’ID Partner",
+            "success": "ID Partner aggiornato"
           },
           "create": {
-            "error": "Si è verificato un errore durante la generazione dell’ID partner",
-            "success": "ID partner generato"
+            "error": "Si è verificato un errore durante la generazione dell’ID Partner",
+            "success": "ID Partner generato"
           },
           "delete": {
             "error": "Si è verificato un errore durante l’eliminazione dell’ID partner",
-            "success": "ID partner eliminato"
+            "success": "ID Partner eliminato"
           }
         },
         "unlink": {
@@ -190,8 +190,8 @@
         },
         "activate": {
           "content": "Una volta riattivata, la sessione inizierà automaticamente a sincronizzarsi di nuovo.",
-          "subtitle": "Riattivare la sincronizzazione per questo ID partner?",
-          "title": "Riattiva questo ID partner"
+          "subtitle": "Riattivare la sincronizzazione per questo ID Partner?",
+          "title": "Riattiva questo ID Partner"
         },
         "action": {
           "reactivate": "Riattiva",

@@ -130,5 +130,92 @@
         }
       }
     }
+  },
+  "myclubs": {
+    "configuration": {
+      "panel": {
+        "footer": {
+          "addConnectionButton": "Partner-ID generieren"
+        },
+        "content": {
+          "table": {
+            "action": {
+              "reactivateTooltip": "Reaktivieren"
+            },
+            "status": {
+              "deactivated": "Deaktiviert",
+              "pending": "Ausstehend",
+              "active": "Verbunden"
+            },
+            "column": {
+              "status": "Status",
+              "establishments": "Einrichtungen",
+              "externalId": "Partner-ID"
+            }
+          },
+          "title": "Partner-ID-Verbindung"
+        },
+        "header": {
+          "subtitle": "Erstellen und verknüpfen Sie Partner-IDs, um die Sessions in Ihren Einrichtungen mit myClubs zu synchronisieren. Sie können die Anzahl der verfügbaren Plätze für diesen Aggregator in den Session-Einstellungen anpassen."
+        }
+      },
+      "dialog": {
+        "notification": {
+          "activate": {
+            "error": "Beim Aktivieren der Partner-ID ist ein Fehler aufgetreten",
+            "success": "Partner-ID aktiviert"
+          },
+          "update": {
+            "error": "Beim Aktualisieren der Partner-ID ist ein Fehler aufgetreten",
+            "success": "Partner-ID aktualisiert"
+          },
+          "create": {
+            "error": "Beim Generieren der Partner-ID ist ein Fehler aufgetreten",
+            "success": "Partner-ID generiert"
+          },
+          "delete": {
+            "error": "Beim Löschen der Partner-ID ist ein Fehler aufgetreten",
+            "success": "Partner-ID gelöscht"
+          }
+        },
+        "unlink": {
+          "content": "Zukünftige Sessions, die mit diesen Einrichtungen verknüpft sind, werden auf myClubs storniert, einschließlich aller über myClubs vorgenommenen Buchungen.",
+          "title": "Sie sind dabei, eine oder mehrere Einrichtungen von myClubs zu trennen."
+        },
+        "activate": {
+          "content": "Nach der Reaktivierung beginnt die Session automatisch wieder mit der Synchronisierung.",
+          "subtitle": "Synchronisierung für diese Partner-ID reaktivieren?",
+          "title": "Diese Partner-ID reaktivieren"
+        },
+        "action": {
+          "reactivate": "Reaktivieren",
+          "save": "Weiter",
+          "confirm": "Bestätigen",
+          "close": "Schließen",
+          "cancel": "Abbrechen",
+          "back": "Zurück"
+        },
+        "field": {
+          "establishmentIds": {
+            "error": {
+              "required": "Bitte wählen Sie mindestens eine Einrichtung aus"
+            },
+            "title": "Einrichtungen",
+            "placeholder": "Ihre Einrichtung(en) verknüpfen"
+          },
+          "externalId": "Partner-ID: {{ externalId }}"
+        },
+        "helperTextCreateSuccess": "Kopieren Sie diese Partner-ID und fügen Sie sie in Ihr <1>myClubs-Konto</1> ein, um die Sessions in Ihren ausgewählten Einrichtungen für myClubs-Kunden verfügbar zu machen.",
+        "helperText": "Wählen Sie die Einrichtungen aus, die Sie synchronisieren möchten. Alle Sessions in diesen Einrichtungen mit aktiviertem myClubs sind für myClubs-Kunden buchbar.",
+        "title": {
+          "deletion": "Verbindung löschen",
+          "edition": "Verbindung {{ externalId }} bearbeiten",
+          "creationSuccess": "Partner-ID kopieren",
+          "creation": "Einrichtung(en) auswählen"
+        }
+      },
+      "copied_to_clipboard": "ID erfolgreich in die Zwischenablage kopiert"
+    },
+    "title": "myClubs"
   }
 }

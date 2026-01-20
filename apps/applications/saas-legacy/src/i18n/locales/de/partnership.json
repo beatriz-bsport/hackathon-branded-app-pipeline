@@ -135,7 +135,7 @@
     "configuration": {
       "panel": {
         "footer": {
-          "addConnectionButton": "Partner-ID generieren"
+          "addConnectionButton": "Partner-ID erstellen"
         },
         "content": {
           "table": {
@@ -156,34 +156,34 @@
           "title": "Partner-ID-Verbindung"
         },
         "header": {
-          "subtitle": "Erstellen und verknüpfen Sie Partner-IDs, um die Sessions in Ihren Einrichtungen mit myClubs zu synchronisieren. Sie können die Anzahl der verfügbaren Plätze für diesen Aggregator in den Session-Einstellungen anpassen."
+          "subtitle": "Erstelle und verknüpfe Partner-IDs, um die Kurse bei deinen Einrichtungen mit myClubs zu synchronisieren. Du kannst die Anzahl der verfügbaren Plätze für diesen Aggregator in den Kurs-Einstellungen ändern."
         }
       },
       "dialog": {
         "notification": {
           "activate": {
-            "error": "Beim Aktivieren der Partner-ID ist ein Fehler aufgetreten",
+            "error": "Beim Aktivieren der Partner-ID ist ein Fehler aufgetreten.",
             "success": "Partner-ID aktiviert"
           },
           "update": {
-            "error": "Beim Aktualisieren der Partner-ID ist ein Fehler aufgetreten",
+            "error": "Beim Aktualisieren der Partner-ID ist ein Fehler aufgetreten.",
             "success": "Partner-ID aktualisiert"
           },
           "create": {
-            "error": "Beim Generieren der Partner-ID ist ein Fehler aufgetreten",
-            "success": "Partner-ID generiert"
+            "error": "Beim Erstellen der Partner-ID ist ein Fehler aufgetreten.",
+            "success": "Partner-ID erstellt"
           },
           "delete": {
-            "error": "Beim Löschen der Partner-ID ist ein Fehler aufgetreten",
+            "error": "Beim Löschen der Partner-ID ist ein Fehler aufgetreten.",
             "success": "Partner-ID gelöscht"
           }
         },
         "unlink": {
-          "content": "Zukünftige Sessions, die mit diesen Einrichtungen verknüpft sind, werden auf myClubs storniert, einschließlich aller über myClubs vorgenommenen Buchungen.",
-          "title": "Sie sind dabei, eine oder mehrere Einrichtungen von myClubs zu trennen."
+          "content": "Zukünftige Kurse, die mit diesen Einrichtungen verknüpft sind, werden auf myClubs storniert, einschließlich aller Buchungen, die über myClubs vorgenommenen wurden.",
+          "title": "Du bist gerade dabei, eine oder mehrere Einrichtungen von myClubs zu trennen."
         },
         "activate": {
-          "content": "Nach der Reaktivierung beginnt die Session automatisch wieder mit der Synchronisierung.",
+          "content": "Nach der Reaktivierung beginnt die Synchronisierung automatisch.",
           "subtitle": "Synchronisierung für diese Partner-ID reaktivieren?",
           "title": "Diese Partner-ID reaktivieren"
         },
@@ -198,15 +198,15 @@
         "field": {
           "establishmentIds": {
             "error": {
-              "required": "Bitte wählen Sie mindestens eine Einrichtung aus"
+              "required": "Bitte wähle mindestens eine Einrichtung aus."
             },
             "title": "Einrichtungen",
-            "placeholder": "Ihre Einrichtung(en) verknüpfen"
+            "placeholder": "Verknüpfe deine Einrichtung(en)"
           },
           "externalId": "Partner-ID: {{ externalId }}"
         },
-        "helperTextCreateSuccess": "Kopieren Sie diese Partner-ID und fügen Sie sie in Ihr <1>myClubs-Konto</1> ein, um die Sessions in Ihren ausgewählten Einrichtungen für myClubs-Kunden verfügbar zu machen.",
-        "helperText": "Wählen Sie die Einrichtungen aus, die Sie synchronisieren möchten. Alle Sessions in diesen Einrichtungen mit aktiviertem myClubs sind für myClubs-Kunden buchbar.",
+        "helperTextCreateSuccess": "Kopiere diese Partner-ID und füge sie deinem <1>myClubs-Konto</1> hinzu, um die Kurse bei den ausgewählten Einrichtungen für myClubs-Kunden verfügbar zu machen.",
+        "helperText": "Wähle die Einrichtungen aus, die du synchronisieren möchtest. myClubs-Kunden können alle Kurse bei diesen Einrichtungen buchen, sofern die Einrichtungen myClubs aktiviert haben.",
         "title": {
           "deletion": "Verbindung löschen",
           "edition": "Verbindung {{ externalId }} bearbeiten",

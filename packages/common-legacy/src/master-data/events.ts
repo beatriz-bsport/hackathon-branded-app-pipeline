@@ -139,3 +139,5 @@ export enum INVOICE_EVENTS {
   UPDATE = 'invoice-update',
   REVERT = 'invoice-revert',
 }
+
+export const EVENT_LEAD_FORM_SUBMITTED = 'marketing-lead_form_submitted';

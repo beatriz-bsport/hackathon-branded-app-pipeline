@@ -2,6 +2,7 @@ import groupBy from "lodash/groupBy";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
+  ErrorFallback,
   ListLayout,
   useEmptyState,
   useLoadingState,
@@ -73,7 +74,11 @@ const ListPage: React.FC = () => {
         ? { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate }
         : null;
 
-  const { sessions, isLoading } = useSessionListData(fetchParams);
+  const {
+    sessions,
+    isLoading,
+    error: sessionDataError,
+  } = useSessionListData(fetchParams);
 
   const filteredSessions = useSearchSessions(sessions, searchQuery);
 
@@ -94,7 +99,10 @@ const ListPage: React.FC = () => {
   }, [openExportParticipantsModal, openCancelMultipleSessionsModal]);
 
   const { shouldRenderEmptyState, EmptyState } = useEmptyState({
-    isEmpty: !isLoading && Object.keys(sessionsByDate).length === 0,
+    isEmpty:
+      !isLoading &&
+      !sessionDataError &&
+      Object.keys(sessionsByDate).length === 0,
     emptyConfig: {
       title: t("emptyState.title"),
       subtitle: t("emptyState.subtitle"),
@@ -160,9 +168,16 @@ const ListPage: React.FC = () => {
       <ListLayout.Content>
         <DateNavigationHeader />
         <div className="flex flex-col gap-xl h-full mt-md">
-          {shouldRenderEmptyState ? <EmptyState /> : sessionDays}
+          {shouldRenderEmptyState && <EmptyState />}
+          {!shouldRenderEmptyState && !sessionDataError && sessionDays}
           {shouldRenderLoadingState && <LoadingState />}
+          {sessionDataError && (
+            <div className="flex flex-col items-center justify-center">
+              <ErrorFallback actionProps={ErrorFallback.DEFAULT_ACTION_PROPS} />
+            </div>
+          )}
         </div>
+
         <AddSessionModal
           isOpen={addSessionModalOpen}
           onClose={closeAddSessionModal}

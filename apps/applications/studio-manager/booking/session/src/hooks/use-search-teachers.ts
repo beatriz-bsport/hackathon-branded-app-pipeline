@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 
 import {
+  type FetchTeachersParams,
   type FuzzySearchTeacherParams,
   fuzzySearchTeachers,
 } from "@bsport/api-core";
@@ -19,23 +20,30 @@ const searchTeachers = async (params: FuzzySearchTeacherParams) => {
   return result.results;
 };
 
-const teachersQueryOptions = (searchValue: string) => {
+const teachersQueryOptions = (
+  searchValue: string,
+  params?: FetchTeachersParams,
+) => {
   return queryOptions({
-    queryKey: ["teachers", searchValue],
+    queryKey: ["teachers", searchValue, params],
     queryFn: () =>
       searchTeachers({
         queryString: searchValue,
         page: 1,
         page_size: TEACHERS_DEFAULT_PAGE_SIZE,
         disabled: false,
+        ...params,
       }),
     staleTime: TEACHERS_STALE_TIME,
   });
 };
 
-export const useSearchTeachers = (searchValue: string) => {
+export const useSearchTeachers = (
+  searchValue: string,
+  params?: FetchTeachersParams,
+) => {
   return useQuery({
-    ...teachersQueryOptions(searchValue),
+    ...teachersQueryOptions(searchValue, params),
     placeholderData: keepPreviousData,
     select: (teachers) =>
       teachers?.map((teacher) => ({

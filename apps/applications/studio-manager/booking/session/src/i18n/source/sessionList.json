@@ -65,6 +65,7 @@
     },
     "isLoading": "Loading sessions...",
     "attendanceButton": "Attendance",
+    "validatedAttendance": "Validated",
     "substitution": {
       "pendingRequest": "Substitution pending"
     },

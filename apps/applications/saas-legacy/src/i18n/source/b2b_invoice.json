@@ -101,7 +101,7 @@
       "dateFormatYearMonth": "Year and month (YYYY-MM)",
       "startingNumberLabel": "Starting number*",
       "startingNumberHelper": "Choose which number to start your invoices from and they'll be numbered sequentially (e.g. 1, 2, 3)",
-      "startingNumberHelperExisting": "Enter the next invoice number (must be above 1).",
+      "startingNumberHelperExisting": "Enter the next invoice number (one higher than your last invoice)",
       "previousInvoiceTitle": "Last invoice number from previous month: <0>{{invoiceNumber}}</0>",
       "viewInvoiceDetails": "View invoice details",
       "startingNumberHint": "Find this invoice's number in your external accounting system.",

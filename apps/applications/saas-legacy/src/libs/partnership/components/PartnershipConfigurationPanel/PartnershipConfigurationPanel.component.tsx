@@ -8,27 +8,27 @@ import {
   PartnershipConfigurationHeader,
 } from './components';
 
-import { PartnershipDisplayConfig, PartnershipVenue } from '../../types';
+import { PartnershipDisplayConfig, PartnershipAccount } from '../../types';
 
 type Props = {
   displayConfig: PartnershipDisplayConfig;
   slots?: { alert?: React.ReactNode };
-  partnershipVenues: PartnershipVenue[];
+  partnershipAccounts: PartnershipAccount[];
   loading: boolean;
-  onActivateVenue?: (venue: PartnershipVenue) => void;
-  onDeleteVenue: (venue: PartnershipVenue) => void;
-  onEditVenue: (venue: PartnershipVenue) => void;
+  onActivateAccount?: (account: PartnershipAccount) => void;
+  onDeleteAccount: (account: PartnershipAccount) => void;
+  onEditAccount: (account: PartnershipAccount) => void;
   onAddConnection: () => void;
   addConnectionDisabled?: boolean;
 };
 
 const PartnershipConfigurationPanel: React.FC<Props> = ({
   displayConfig,
-  partnershipVenues,
+  partnershipAccounts,
   loading,
-  onActivateVenue,
-  onDeleteVenue,
-  onEditVenue,
+  onActivateAccount,
+  onDeleteAccount,
+  onEditAccount,
   onAddConnection,
   addConnectionDisabled = false,
   slots,
@@ -41,10 +41,10 @@ const PartnershipConfigurationPanel: React.FC<Props> = ({
       <PartnershipConfigurationContent
         displayConfig={displayConfig}
         loading={loading}
-        onActivateVenue={onActivateVenue}
-        onDeleteVenue={onDeleteVenue}
-        onEditVenue={onEditVenue}
-        partnershipVenues={partnershipVenues}
+        onActivateAccount={onActivateAccount}
+        onDeleteAccount={onDeleteAccount}
+        onEditAccount={onEditAccount}
+        partnershipAccounts={partnershipAccounts}
       />
       <PartnershipConfigurationFooter
         addConnectionDisabled={addConnectionDisabled}

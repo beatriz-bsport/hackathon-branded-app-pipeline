@@ -159,7 +159,9 @@ const PayoutListItem: React.FC<Props> = ({
                   <PaymentListItemV2 paymentItem={p} />
                 </div>
                 <Button onClick={handleOpenInvoice(p.invoice)}>
-                  {t('payout.invoice', { uuid: p.invoice.slice(0, 8) })}
+                  {t('payout.invoice', {
+                    uuid: p.invoice_public_identifier,
+                  })}
                   <ArrowForwardIcon className={classes.iconRight} />
                 </Button>
               </div>

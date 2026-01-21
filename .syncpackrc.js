@@ -46,6 +46,17 @@ const config = {
         "!@bsport/widget-legacy",
       ],
     },
+    // Ensure luxon has the same version in our new pkgs and applications
+    {
+      dependencies: ["luxon"],
+      label: "Luxon - Use same version in all revamped pkgs and apps",
+      packages: [
+        // Exclude legacy packages
+        "!@bsport/saas-legacy",
+        "!@bsport/common",
+        "!@bsport/widget-legacy",
+      ],
+    },
   ],
 };
 

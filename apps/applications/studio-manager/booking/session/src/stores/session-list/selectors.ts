@@ -21,3 +21,6 @@ export const selectIsRestoreModalOpen = (state: SessionListState) =>
 
 export const selectIsDeleteModalOpen = (state: SessionListState) =>
   state.modalState?.type === ModalType.DELETE;
+
+export const selectDisplayedColumns = (state: SessionListState) =>
+  state.displayedColumns;

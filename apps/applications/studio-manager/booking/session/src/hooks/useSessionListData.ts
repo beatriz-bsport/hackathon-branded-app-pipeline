@@ -177,7 +177,11 @@ export const useSessionListData = (
     ? showCancelledSessions
     : false;
 
-  const { data: rawSessions = [], isLoading: isLoadingSessions } = useQuery(
+  const {
+    data: rawSessions = [],
+    isLoading: isLoadingSessions,
+    error,
+  } = useQuery(
     sessionsQueryOptions(
       minDateKey,
       maxDateKey,
@@ -232,5 +236,6 @@ export const useSessionListData = (
     sessions,
     isLoading:
       isLoadingSessions || isLoadingTeachers || isLoadingEstablishments,
+    error,
   };
 };

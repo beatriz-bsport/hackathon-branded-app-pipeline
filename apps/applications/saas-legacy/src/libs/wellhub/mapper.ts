@@ -1,9 +1,9 @@
-import { PartnershipVenue } from '#src/libs/partnership/types';
+import { PartnershipAccount } from '#src/libs/partnership/types';
 import { WellhubGym } from './types';
 
-export const mapWellhubGymToPartnershipVenue = (
+export const mapWellhubGymToPartnershipAccount = (
   wellhubGym: WellhubGym,
-): PartnershipVenue => ({
+): PartnershipAccount => ({
   id: wellhubGym.uuid,
   external_name: wellhubGym.gym_name,
   external_id: String(wellhubGym.gym_id),
@@ -11,7 +11,9 @@ export const mapWellhubGymToPartnershipVenue = (
   legacyObject: wellhubGym,
 });
 
-export const mapWellhubGymsToPartnershipVenues = (
+export const mapWellhubGymsToPartnershipAccounts = (
   wellhubGyms: WellhubGym[],
-): PartnershipVenue[] =>
-  wellhubGyms.map((wellhubGym) => mapWellhubGymToPartnershipVenue(wellhubGym));
+): PartnershipAccount[] =>
+  wellhubGyms.map((wellhubGym) =>
+    mapWellhubGymToPartnershipAccount(wellhubGym),
+  );

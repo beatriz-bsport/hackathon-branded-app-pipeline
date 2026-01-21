@@ -7,7 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import CopyExternalIdButton from '#src/libs/partnership/components/CopyExternalIdButton';
 import {
   PartnershipDisplayConfig,
-  PartnershipVenue,
+  PartnershipAccount,
 } from '#src/libs/partnership/types';
 import {
   Avatar,
@@ -24,7 +24,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import RestartAltIcon from '#src/components/icons/RestartAltIcon.component';
-import VenueStatusChip from '../VenueStatusChip.component';
+import AccountStatusChip from '../AccountStatusChip.component';
 import Tooltip from '#src/components/Tooltip.component';
 
 const CustomTableCell = React.memo(
@@ -38,60 +38,60 @@ const CustomTableCell = React.memo(
 
 type Props = {
   displayConfig: PartnershipDisplayConfig;
-  partnershipVenues: PartnershipVenue[];
+  partnershipAccounts: PartnershipAccount[];
   loading: boolean;
-  onActivateVenue?: (partnershipVenue: PartnershipVenue) => void;
-  onDeleteVenue: (partnershipVenue: PartnershipVenue) => void;
-  onEditVenue: (partnershipVenue: PartnershipVenue) => void;
+  onActivateAccount?: (partnershipAccount: PartnershipAccount) => void;
+  onDeleteAccount: (partnershipAccount: PartnershipAccount) => void;
+  onEditAccount: (partnershipAccount: PartnershipAccount) => void;
 };
 
-const isVenueDeactivated = (venue: PartnershipVenue) =>
-  !venue.active && !!venue.activated_at;
+const isAccountDeactivated = (account: PartnershipAccount) =>
+  !account.active && !!account.activated_at;
 
-const PartnershipVenueTable: React.FC<Props> = ({
+const PartnershipAccountTable: React.FC<Props> = ({
   displayConfig,
-  partnershipVenues,
+  partnershipAccounts,
   loading,
-  onActivateVenue,
-  onDeleteVenue,
-  onEditVenue,
+  onActivateAccount,
+  onDeleteAccount,
+  onEditAccount,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('partnership');
 
-  const venuesHaveStatus = useMemo(
-    () => partnershipVenues.some((venue) => venue.active !== undefined),
-    [partnershipVenues],
+  const accountsHaveStatus = useMemo(
+    () => partnershipAccounts.some((account) => account.active !== undefined),
+    [partnershipAccounts],
   );
 
-  const onEditVenueCallback = React.useCallback(
-    (partnershipVenue: PartnershipVenue) =>
+  const onEditAccountCallback = React.useCallback(
+    (partnershipAccount: PartnershipAccount) =>
       (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.stopPropagation();
         event.preventDefault();
-        onEditVenue(partnershipVenue);
+        onEditAccount(partnershipAccount);
       },
-    [onEditVenue],
+    [onEditAccount],
   );
 
-  const onDeleteVenueCallback = React.useCallback(
-    (partnershipVenue: PartnershipVenue) =>
+  const onDeleteAccountCallback = React.useCallback(
+    (partnershipAccount: PartnershipAccount) =>
       (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.stopPropagation();
         event.preventDefault();
-        onDeleteVenue(partnershipVenue);
+        onDeleteAccount(partnershipAccount);
       },
-    [onDeleteVenue],
+    [onDeleteAccount],
   );
 
-  const onActivateVenueCallback = React.useCallback(
-    (partnershipVenue: PartnershipVenue) =>
+  const onActivateAccountCallback = React.useCallback(
+    (partnershipAccount: PartnershipAccount) =>
       (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.stopPropagation();
         event.preventDefault();
-        onActivateVenue(partnershipVenue);
+        onActivateAccount(partnershipAccount);
       },
-    [onActivateVenue],
+    [onActivateAccount],
   );
 
   return (
@@ -108,7 +108,7 @@ const PartnershipVenueTable: React.FC<Props> = ({
               `${displayConfig.partnershipIdentifier}.configuration.panel.content.table.column.establishments`,
             )}
           </TableCell>
-          {venuesHaveStatus && (
+          {accountsHaveStatus && (
             <TableCell>
               {t(
                 `${displayConfig.partnershipIdentifier}.configuration.panel.content.table.column.status`,
@@ -126,37 +126,37 @@ const PartnershipVenueTable: React.FC<Props> = ({
         </TableRow>
       )}
       <TableBody>
-        {partnershipVenues?.map((partnershipVenue) => (
-          <TableRow key={partnershipVenue.id}>
+        {partnershipAccounts?.map((partnershipAccount) => (
+          <TableRow key={partnershipAccount.id}>
             <TableCell>
-              <div className={classes.venueRow}>
+              <div className={classes.accountRow}>
                 <Typography noWrap className={classes.idTitle} variant="body1">
-                  {partnershipVenue.external_name ||
-                    partnershipVenue.external_id}
+                  {partnershipAccount.external_name ||
+                    partnershipAccount.external_id}
                   {displayConfig.showCopyIdToClipboard && (
                     <CopyExternalIdButton
-                      externalId={partnershipVenue.external_id}
+                      externalId={partnershipAccount.external_id}
                       partnershipIdentifier={
                         displayConfig.partnershipIdentifier
                       }
                     />
                   )}
                 </Typography>
-                {partnershipVenue.external_name && (
+                {partnershipAccount.external_name && (
                   <Typography
                     noWrap
                     className={classes.idSubtitle}
                     variant="subtitle2"
                   >
-                    {partnershipVenue.external_id}
+                    {partnershipAccount.external_id}
                   </Typography>
                 )}
               </div>
             </TableCell>
             <TableCell>
               <div className={classes.establishmentsRow}>
-                {partnershipVenue.establishments &&
-                  partnershipVenue.establishments.map((establishment) => (
+                {partnershipAccount.establishments &&
+                  partnershipAccount.establishments.map((establishment) => (
                     <Chip
                       key={establishment.id}
                       avatar={
@@ -172,24 +172,27 @@ const PartnershipVenueTable: React.FC<Props> = ({
                   ))}
               </div>
             </TableCell>
-            {venuesHaveStatus && (
+            {accountsHaveStatus && (
               <TableCell>
-                <VenueStatusChip
-                  activatedAt={partnershipVenue.activated_at}
-                  active={partnershipVenue.active ?? false}
+                <AccountStatusChip
+                  activatedAt={partnershipAccount.activated_at}
+                  active={partnershipAccount.active ?? false}
                   partnershipIdentifier={displayConfig.partnershipIdentifier}
                 />
               </TableCell>
             )}
             <TableCell>
               <div className={classes.actionsRow}>
-                {!isVenueDeactivated(partnershipVenue) || !onActivateVenue ? (
+                {!isAccountDeactivated(partnershipAccount) ||
+                !onActivateAccount ? (
                   <>
-                    <IconButton onClick={onEditVenueCallback(partnershipVenue)}>
+                    <IconButton
+                      onClick={onEditAccountCallback(partnershipAccount)}
+                    >
                       <EditIcon color="primary" />
                     </IconButton>
                     <IconButton
-                      onClick={onDeleteVenueCallback(partnershipVenue)}
+                      onClick={onDeleteAccountCallback(partnershipAccount)}
                     >
                       <DeleteIcon className={classes.greyIcon} />
                     </IconButton>
@@ -205,7 +208,7 @@ const PartnershipVenueTable: React.FC<Props> = ({
                     }
                   >
                     <IconButton
-                      onClick={onActivateVenueCallback(partnershipVenue)}
+                      onClick={onActivateAccountCallback(partnershipAccount)}
                     >
                       <RestartAltIcon color="primary" />
                     </IconButton>
@@ -227,7 +230,7 @@ const useStyles = makeStyles((theme) => ({
   idSubtitle: {
     color: theme.palette.text.disabled,
   },
-  venueRow: {
+  accountRow: {
     alignItems: 'flex-start',
     display: 'flex',
     flexDirection: 'column',
@@ -250,4 +253,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(PartnershipVenueTable);
+export default React.memo(PartnershipAccountTable);

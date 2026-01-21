@@ -32,7 +32,7 @@ const computeStatus = (active: boolean, activatedAt?: Date): Status => {
   return Status.PENDING;
 };
 
-const VenueStatusChip: React.FC<Props> = ({
+const AccountStatusChip: React.FC<Props> = ({
   active,
   activatedAt,
   partnershipIdentifier,
@@ -103,4 +103,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(VenueStatusChip);
+export default React.memo(AccountStatusChip);

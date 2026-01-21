@@ -5,28 +5,28 @@ import { Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import InformationIcon from '#src/components/InformationIcon';
-import PartnershipVenueTable from './PartnershipVenueTable.component';
+import PartnershipAccountTable from './PartnershipAccountTable.component';
 import {
   PartnershipDisplayConfig,
-  PartnershipVenue,
+  PartnershipAccount,
 } from '#src/libs/partnership/types';
 
 type Props = {
   displayConfig: PartnershipDisplayConfig;
-  partnershipVenues: PartnershipVenue[];
+  partnershipAccounts: PartnershipAccount[];
   loading: boolean;
-  onDeleteVenue: (partnershipVenue: PartnershipVenue) => void;
-  onEditVenue: (partnershipVenue: PartnershipVenue) => void;
-  onActivateVenue?: (partnershipVenue: PartnershipVenue) => void;
+  onDeleteAccount: (partnershipAccount: PartnershipAccount) => void;
+  onEditAccount: (partnershipAccount: PartnershipAccount) => void;
+  onActivateAccount?: (partnershipAccount: PartnershipAccount) => void;
 };
 
 const PartnershipConfigurationContent: React.FC<Props> = ({
   displayConfig,
-  partnershipVenues,
+  partnershipAccounts,
   loading,
-  onDeleteVenue,
-  onEditVenue,
-  onActivateVenue,
+  onDeleteAccount,
+  onEditAccount,
+  onActivateAccount,
 }) => {
   const { t } = useTranslation('partnership');
   const classes = useStyles();
@@ -42,13 +42,13 @@ const PartnershipConfigurationContent: React.FC<Props> = ({
           <InformationIcon text={t(displayConfig.helperTextKey)} />
         )}
       </div>
-      <PartnershipVenueTable
+      <PartnershipAccountTable
         displayConfig={displayConfig}
         loading={loading}
-        onActivateVenue={onActivateVenue}
-        onDeleteVenue={onDeleteVenue}
-        onEditVenue={onEditVenue}
-        partnershipVenues={partnershipVenues}
+        onActivateAccount={onActivateAccount}
+        onDeleteAccount={onDeleteAccount}
+        onEditAccount={onEditAccount}
+        partnershipAccounts={partnershipAccounts}
       />
     </div>
   );

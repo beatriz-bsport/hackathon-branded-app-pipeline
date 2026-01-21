@@ -2,6 +2,7 @@ import uniqBy from "lodash/uniqBy";
 import { useMemo, useState } from "react";
 
 import type { FilterField } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 import { useDebounce } from "@bsport/use-debounce";
 
 import { useSearchTeachers } from "#src/hooks/use-search-teachers";
@@ -14,6 +15,7 @@ import { SessionFilterTypes, SessionFilters } from "./types";
 export const useTeacherFilter = (): FilterField => {
   const { t } = useTranslation("sessionList");
   const filters = useSessionListStore(selectFilters);
+  const restrictedTeachers = dataAccessLayer.useUserRestrictedTeachers();
 
   // Get persisted teacher IDs from filters
   const [persistedTeacherIds] = useState(() => {
@@ -31,7 +33,9 @@ export const useTeacherFilter = (): FilterField => {
   const { data: persistedTeachers } = useFetchTeachers(
     persistedTeacherIds,
     true,
-    {},
+    {
+      ...(restrictedTeachers.length > 0 ? { id__in: restrictedTeachers } : {}),
+    },
     (teachers) =>
       teachers?.map((teacher) => ({
         id: `${teacher.id}`,
@@ -44,7 +48,9 @@ export const useTeacherFilter = (): FilterField => {
   const [debouncedSearch, setDebouncedSearch] = useState(inputValue);
   const debouncedSetDebouncedSearch = useDebounce(setDebouncedSearch);
 
-  const { data: teachers } = useSearchTeachers(debouncedSearch);
+  const { data: teachers } = useSearchTeachers(debouncedSearch, {
+    ...(restrictedTeachers.length > 0 ? { id__in: restrictedTeachers } : {}),
+  });
 
   // Merge persisted teachers with search results, avoiding duplicates
   const allTeachers = useMemo(() => {

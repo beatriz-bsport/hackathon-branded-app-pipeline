@@ -14,6 +14,7 @@ import {
   fromIsoString,
   getIsoDate,
 } from "@bsport/datetime-manipulation";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { getParamsFromFilters } from "#src/components/SessionList/Filters/getParamsFromFilters";
@@ -128,6 +129,7 @@ const sessionsQueryOptions = (
   maxDateKey: string | null,
   filterParams: FetchSessionsParams,
   showCancelledSessions: boolean,
+  restrictedTeachers: number[],
 ) =>
   queryOptions({
     queryKey: [
@@ -136,6 +138,7 @@ const sessionsQueryOptions = (
       maxDateKey,
       filterParams,
       showCancelledSessions,
+      restrictedTeachers,
     ],
     queryFn: async () => {
       if (!minDateKey || !maxDateKey) {
@@ -149,6 +152,10 @@ const sessionsQueryOptions = (
       };
       if (!showCancelledSessions) {
         params["available"] = true;
+      }
+
+      if (restrictedTeachers.length > 0) {
+        params["coaches"] = restrictedTeachers;
       }
 
       const fetchedData = await fetchManagerSessions(fetch, params);
@@ -176,6 +183,7 @@ export const useSessionListData = (
   const effectiveShowCancelledSessions = hasShowCancelledSessionsPermission
     ? showCancelledSessions
     : false;
+  const restrictedTeachers = dataAccessLayer.useUserRestrictedTeachers();
 
   const {
     data: rawSessions = [],
@@ -187,6 +195,7 @@ export const useSessionListData = (
       maxDateKey,
       filterParams,
       effectiveShowCancelledSessions,
+      restrictedTeachers,
     ),
   );
 

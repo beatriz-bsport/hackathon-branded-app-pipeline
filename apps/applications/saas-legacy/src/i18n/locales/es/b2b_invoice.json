@@ -26,6 +26,7 @@
         "upload_pdf": "Subir PDF",
         "upload_info": "Sube el PDF firmado para continuar",
         "send_document": "Enviar documento",
+        "uploading": "Cargando...",
         "upload_success": "Acuerdo firmado subido con éxito",
         "upload_error": "No se pudo cargar el acuerdo firmado. Por favor, inténtalo de nuevo. "
       },
@@ -46,6 +47,7 @@
         "save_for_later_success": "Detalles del representante guardados con éxito",
         "representative_error": "No se pudieron guardar los detalles del representante. Por favor, inténtalo de nuevo. ",
         "create_agreement": "Crear acuerdo",
+        "creating_agreement": "Creando...",
         "chips": {
           "vat_id_validated": "ID de IVA validado",
           "vat_id_missing": "Falta el ID de IVA",
@@ -78,8 +80,40 @@
         "agreement_link": "Enlace al PDF",
         "certificate_title": "Declaración de Responsabilidad VERI*FACTU",
         "certificate_subtitle": "bsport Solutions cumple con las normativas de facturación españolas (Verifactu y TicketBAI). Descarga nuestra declaración oficial de responsabilidad.",
-        "certificate_link": "Certificado VERI*FACTU"
+        "certificate_link": "Certificado VERI*FACTU",
+        "certificate_extension_link": "Extensión de la declaración de responsabilidad",
+        "certificate_error": "No se pudo recuperar el certificado VERI*FACTU. Por favor, inténtalo de nuevo. "
       }
+    },
+    "sequentialNumbering": {
+      "title": "Configura la numeración secuencial de facturas",
+      "subtitle": "Tus Facturas se numerarán automáticamente en secuencia (1, 2, 3...). Personaliza la fecha de inicio y el formato de numeración para configurarlo.",
+      "warning": "<0>Atención:</0> No podrás cambiar esto más tarde. Por favor, revisa cuidadosamente antes de hacer clic en 'Guardar'.",
+      "selectLabel": "Fecha de inicio ",
+      "beginningOfNextMonth": "Inicio del próximo mes ({{nextMonth}})",
+      "beginningOfCurrentMonth": "Inicio del mes actual ({{currentMonth}})",
+      "infoNextMonth": "Las facturas creadas antes de esta fecha mantendrán sus números actuales.",
+      "infoCurrentMonth": "Si eliges 'Principio del mes actual' como la fecha de inicio, todas las facturas se numerarán retroactivamente desde esta fecha. Todas las facturas creadas antes permanecerán igual.",
+      "prefixPlaceholder": "Prefijo (opcional)",
+      "prefixSuffixHelper": "Máximo 7 caracteres, incluyendo solo letras, números y guiones. ",
+      "dateFormatLabel": "Formato de fecha",
+      "dateFormatYearOnly": "Año solamente (AAAA)",
+      "dateFormatYearMonth": "Año y mes (AAAA-MM)",
+      "startingNumberLabel": "Número inicial*",
+      "startingNumberHelper": "Elige el número con el que quieres empezar tus facturas y se numerarán secuencialmente (por ejemplo, 1, 2, 3)",
+      "startingNumberHelperExisting": "Introduce el siguiente número de factura (debe ser mayor a 1).",
+      "previousInvoiceTitle": "Número de la última factura del mes anterior: <0>{{invoiceNumber}}</0>",
+      "viewInvoiceDetails": "Ver detalles de la factura",
+      "startingNumberHint": "Encuentra el número de esta factura en tu sistema de contabilidad externo.",
+      "renamingStartDate": "Fecha de inicio ",
+      "startingNumber": "Número inicial",
+      "invoiceNumberingFormat": "Formato de numeración de facturas",
+      "numberingExplanation": "Cada nueva factura se numerará automáticamente en secuencia de 1. Por ejemplo, si comienzas en 1, tus facturas se numerarán 000001, 000002, 000003, y así sucesivamente.",
+      "saveSuccess": "La numeración secuencial de facturas se guardó",
+      "suffixPlaceholder": "Sufijo (opcional)",
+      "previewFirstLine": "Tus Facturas se numerarán de la siguiente manera: <0>{{firstNumber}}</0>",
+      "previewSecondLine": "luego {{restNumbers}}, ...",
+      "useExternalAccountingProvider": "Uso un proveedor externo de contabilidad"
     }
   }
 }

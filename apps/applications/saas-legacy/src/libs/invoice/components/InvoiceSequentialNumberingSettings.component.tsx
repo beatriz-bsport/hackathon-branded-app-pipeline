@@ -123,6 +123,11 @@ const InvoiceSequentialNumberingSettings: React.FC = () => {
   const suffixError =
     suffix !== '' && (suffix.length > 7 || !/^[a-zA-Z0-9-]*$/.test(suffix));
 
+  const isStartingNumberDisabled =
+    selectedOption === 'beginning_of_next_month' ||
+    (selectedOption === 'beginning_of_current_month' &&
+      !useExternalAccountingProvider);
+
   // Compute preview
   const preview = useMemo(() => {
     if (startingNumberError) {
@@ -376,13 +381,12 @@ const InvoiceSequentialNumberingSettings: React.FC = () => {
             </Typography>
             {preview && (
               <div className={classes.previewFirstNumber}>
-                <Typography variant="body2">
-                  <Trans
-                    components={[<strong key="bold" />]}
-                    i18nKey="b2b_invoice:configuration.sequentialNumbering.startingNumberHint"
-                    ns="b2b_invoice"
-                    values={{ startingNumber }}
-                  />
+                <Typography component="span" variant="body2">
+                  <strong>
+                    {t(
+                      'b2b_invoice:configuration.sequentialNumbering.startingNumberHint',
+                    )}
+                  </strong>
                 </Typography>
               </div>
             )}
@@ -391,11 +395,7 @@ const InvoiceSequentialNumberingSettings: React.FC = () => {
 
       <FormControl
         fullWidth
-        disabled={
-          selectedOption === 'beginning_of_next_month' ||
-          (selectedOption === 'beginning_of_current_month' &&
-            !useExternalAccountingProvider)
-        }
+        disabled={isStartingNumberDisabled}
         error={startingNumberError}
       >
         <InputLabel htmlFor="starting-number-input">
@@ -409,13 +409,15 @@ const InvoiceSequentialNumberingSettings: React.FC = () => {
           onChange={handleStartingNumberChange}
           value={startingNumber}
         />
-        <FormHelperText className={classes.helperText}>
-          {t(
-            lastInvoice && selectedOption === 'beginning_of_current_month'
-              ? 'b2b_invoice:configuration.sequentialNumbering.startingNumberHelperExisting'
-              : 'b2b_invoice:configuration.sequentialNumbering.startingNumberHelper',
-          )}
-        </FormHelperText>
+        {!isStartingNumberDisabled && (
+          <FormHelperText className={classes.helperText}>
+            {t(
+              lastInvoice && selectedOption === 'beginning_of_current_month'
+                ? 'b2b_invoice:configuration.sequentialNumbering.startingNumberHelperExisting'
+                : 'b2b_invoice:configuration.sequentialNumbering.startingNumberHelper',
+            )}
+          </FormHelperText>
+        )}
       </FormControl>
 
       <div className={classes.radioContainer}>

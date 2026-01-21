@@ -6,6 +6,7 @@ export type FeatureFlagProps = {
   showExpressCheckout: boolean;
   showAudienceTemplates: boolean;
   isInvoiceSequentialNumberingEnabled: boolean;
+  shouldDisplayNewSubscriptionContracts: boolean;
 };
 
 /**
@@ -21,12 +22,18 @@ export const withFeatureFlags = <TProps extends object>(
     const isInvoiceSequentialNumberingEnabled = useSafeFlag(
       FeatureFlags.INVOICE_SEQUENTIAL_NUMBERING,
     );
+    const shouldDisplayNewSubscriptionContracts = useSafeFlag(
+      FeatureFlags.NEW_SUBSCRIPTION_CONTRACTS,
+    );
 
     return (
       <WrappedComponent
         {...props}
         isInvoiceSequentialNumberingEnabled={
           isInvoiceSequentialNumberingEnabled
+        }
+        shouldDisplayNewSubscriptionContracts={
+          shouldDisplayNewSubscriptionContracts
         }
         showAudienceTemplates={showAudienceTemplates}
         showExpressCheckout={showExpressCheckout}

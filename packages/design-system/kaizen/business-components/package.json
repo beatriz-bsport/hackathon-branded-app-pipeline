@@ -13,7 +13,9 @@
     "storybook:dev": "sb dev"
   },
   "devDependencies": {
+    "@bsport/fetch": "workspace:*",
     "@bsport/kaizen-tokens": "workspace:*",
+    "@bsport/local-storage-auth-token": "workspace:*",
     "@chromatic-com/storybook": "^3.2.2",
     "@storybook/addon-essentials": "8.6.14",
     "@storybook/addon-interactions": "8.6.14",

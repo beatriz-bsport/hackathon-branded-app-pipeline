@@ -130,5 +130,92 @@
         }
       }
     }
+  },
+  "myclubs": {
+    "configuration": {
+      "panel": {
+        "footer": {
+          "addConnectionButton": "Gerar ID do parceiro"
+        },
+        "content": {
+          "table": {
+            "action": {
+              "reactivateTooltip": "Reativar"
+            },
+            "status": {
+              "deactivated": "Desativado",
+              "pending": "Pendente",
+              "active": "Ligado"
+            },
+            "column": {
+              "status": "Estado",
+              "establishments": "Estabelecimentos",
+              "externalId": "ID do parceiro"
+            }
+          },
+          "title": "Ligação de ID do parceiro"
+        },
+        "header": {
+          "subtitle": "Gere e ligue IDs de parceiro para sincronizar as sessões nos seus estabelecimentos com myClubs. Poderá ajustar o número de vagas disponíveis para este agregador nas definições da sessão."
+        }
+      },
+      "dialog": {
+        "notification": {
+          "activate": {
+            "error": "Ocorreu um erro ao ativar o ID do parceiro",
+            "success": "ID do parceiro ativado"
+          },
+          "update": {
+            "error": "Ocorreu um erro ao atualizar o ID do parceiro",
+            "success": "ID do parceiro atualizado"
+          },
+          "create": {
+            "error": "Ocorreu um erro ao gerar o ID do parceiro",
+            "success": "ID do parceiro gerado"
+          },
+          "delete": {
+            "error": "Ocorreu um erro ao eliminar o ID do parceiro",
+            "success": "ID do parceiro eliminado"
+          }
+        },
+        "unlink": {
+          "content": "As sessões futuras associadas a esses estabelecimentos serão canceladas no myClubs, incluindo todas as reservas feitas com myClubs.",
+          "title": "Está prestes a desvincular um ou vários estabelecimentos do myClubs."
+        },
+        "activate": {
+          "content": "Após a reativação, a sessão voltará a sincronizar automaticamente.",
+          "subtitle": "Reativar a sincronização para este ID do parceiro?",
+          "title": "Reativar este ID do parceiro"
+        },
+        "action": {
+          "reactivate": "Reativar",
+          "save": "Continuar",
+          "confirm": "Confirmar",
+          "close": "Fechar",
+          "cancel": "Cancelar",
+          "back": "Voltar"
+        },
+        "field": {
+          "establishmentIds": {
+            "error": {
+              "required": "Selecione pelo menos um estabelecimento"
+            },
+            "title": "Estabelecimentos",
+            "placeholder": "Ligar os seus estabelecimentos"
+          },
+          "externalId": "ID do parceiro: {{ externalId }}"
+        },
+        "helperTextCreateSuccess": "Copie e cole este ID do parceiro na sua <1>conta myClubs</1> para tornar as sessões nos seus Estabelecimentos selecionados disponíveis para clientes myClubs.",
+        "helperText": "Selecione os estabelecimentos que pretende sincronizar. Todas as sessões nesses Estabelecimentos com myClubs ativado estarão disponíveis para reserva para clientes myClubs.",
+        "title": {
+          "deletion": "Eliminar ligação",
+          "edition": "Editar ligação {{ externalId }}",
+          "creationSuccess": "Copiar ID do parceiro",
+          "creation": "Escolher estabelecimento(s)"
+        }
+      },
+      "copied_to_clipboard": "ID copiado com sucesso para a área de transferência"
+    },
+    "title": "myClubs"
   }
 }

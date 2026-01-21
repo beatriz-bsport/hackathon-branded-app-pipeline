@@ -100,6 +100,10 @@ import BookerModuleManager from './BookerModuleManager.component';
 import QuickInvoicePanel from './QuickInvoicePanel.component';
 import { mapFormData } from '../form.utils';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
+import {
+  FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 const COLLAPSE_ANIMATION_DURATION_MS = 300; // Material-UI Collapse default duration
@@ -350,7 +354,7 @@ type Props = {
   ) => void,
   selectedBookingForRefund: number | null,
   setSelectedBookingForRefund: () => void,
-};
+} & FeatureFlagProps;
 
 type State = {
   quickInvoices: QuickInvoice[], // put here non-saved invoice
@@ -386,7 +390,11 @@ export class OfferManagement extends Component<Props, State> {
     this.fetchOfferAndData();
     this.props.fetchProgram({ is_disabled: false }); // WILL BECOME USELESS
     this.props.fetchShopItems();
-    this.props.fetchPrivatePassList();
+    this.props.fetchPrivatePassList({
+      ...(this.props.shouldDisplayNewSubscriptionContracts && {
+        from_subscription: false,
+      }),
+    });
     this.props.fetchPaymentComboList();
     this.props.fetchCompanyUserRoles();
     if (this.props.offer) {
@@ -1909,4 +1917,5 @@ export default compose(
         }
       },
   }),
+  withFeatureFlags,
 )(OfferManagement);

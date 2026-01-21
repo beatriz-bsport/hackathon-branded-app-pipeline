@@ -145,6 +145,10 @@ import { fetchSmartListBulk } from '#src/libs/smart-list/actions';
 import { getSmartListDict } from '#src/libs/smart-list/selectors';
 import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
 import type { MarketingNotification } from '#src/libs/marketing/types';
+import {
+  type FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 type PaymentPackOption = {
   label: string;
@@ -180,7 +184,8 @@ type ConnectedProps = ReturnType<typeof mapStateToProps> &
 type OwnAndConnectedProps = OwnProps &
   ConnectedProps &
   StateHandlerType &
-  WithObjectSearch;
+  WithObjectSearch &
+  FeatureFlagProps;
 type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -272,6 +277,9 @@ export class PaymentPackList extends React.Component<Props, State> {
       count_consumer_payment_packs: true,
       disabled: false,
       page_size: 70000,
+      ...(this.props.shouldDisplayNewSubscriptionContracts && {
+        from_subscription: false,
+      }),
     });
     this.props.fetchAllPaymentPackCategory();
     this.props.fetchVideoFilterableParams({
@@ -428,7 +436,13 @@ export class PaymentPackList extends React.Component<Props, State> {
     this.setState((prevState: State) => {
       if (!prevState.showDisabled) {
         this.props.fetchPaymentPackList(
-          { page_size: 70000, count_consumer_payment_packs: true },
+          {
+            page_size: 70000,
+            count_consumer_payment_packs: true,
+            ...(this.props.shouldDisplayNewSubscriptionContracts && {
+              from_subscription: false,
+            }),
+          },
           { onSuccess: () => this.setState({ disabledLoading: false }) },
         );
         return { showDisabled: !prevState.showDisabled, disabledLoading: true };
@@ -566,7 +580,12 @@ export class PaymentPackList extends React.Component<Props, State> {
       onSuccess: (res) => {
         // condition to edit
         if (data?.id) {
-          this.props.refreshOptions('payment_pack', searchBarAdditionalParams);
+          this.props.refreshOptions('payment_pack', {
+            ...searchBarAdditionalParams,
+            ...(this.props.shouldDisplayNewSubscriptionContracts && {
+              from_subscription: false,
+            }),
+          });
         }
         options.onSuccess(res);
         this.props.refreshCompanyThemeAction(this.props.companyId, {
@@ -588,6 +607,9 @@ export class PaymentPackList extends React.Component<Props, State> {
               disabled: false,
               count_consumer_payment_packs: true,
               page_size: 70000,
+              ...(this.props.shouldDisplayNewSubscriptionContracts && {
+                from_subscription: false,
+              }),
             });
             if (res.linked_private_pass) {
               this.props.fetchPrivatePassList();
@@ -721,7 +743,13 @@ export class PaymentPackList extends React.Component<Props, State> {
                 {!!this.props.enabledPacks?.length && (
                   <div style={{ flex: 1 }}>
                     <ObjectSearchComponent
-                      additionalParams={searchBarAdditionalParams}
+                      additionalParams={{
+                        ...searchBarAdditionalParams,
+                        ...(this.props
+                          .shouldDisplayNewSubscriptionContracts && {
+                          from_subscription: false,
+                        }),
+                      }}
                       components={{
                         Option,
                       }}
@@ -1091,7 +1119,12 @@ const mapWithHandlers = {
     (paymentPackId: number, data: Partial<PaymentPack>) => {
       props.patchPaymentPack(paymentPackId, data, {
         onSuccess: (payload) => {
-          props.refreshOptions('payment_pack', searchBarAdditionalParams);
+          props.refreshOptions('payment_pack', {
+            ...searchBarAdditionalParams,
+            ...(!!props?.shouldDisplayNewSubscriptionContracts && {
+              from_subscription: false,
+            }),
+          });
           if (payload.linked_private_pass) {
             props.fetchPrivatePassList();
           }
@@ -1252,6 +1285,7 @@ export default compose<any, OwnProps>(
   withTranslation('paymentPack'),
   withStyles(styles),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
+  withFeatureFlags,
   connect(mapStateToProps, mapDispatchToProps),
   withTitle(({ t }: { t: TFunction }) =>
     t('titles:paymentPack.paymentPackList'),

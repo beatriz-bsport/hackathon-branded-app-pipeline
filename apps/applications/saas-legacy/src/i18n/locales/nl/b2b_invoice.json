@@ -1,0 +1,119 @@
+{
+  "configuration": {
+    "verifactu": {
+      "title": "VERI*FACTU",
+      "description": "Stel Fiskaly SIGN ES in om automatisch facturen te delen met de Spaanse Belastingdienst (AEAT) en te voldoen aan de VERI*FACTU-vereisten. Voer de gegevens van de vertegenwoordiger in om een sociale samenwerkingsovereenkomst te maken, die bsport machtigt om facturen namens jou te verzenden.",
+      "info": "Deze add-on is nog niet actief op je account — neem contact op met je Account Manager om deze aan te vragen",
+      "loading": "Bezig met laden...",
+      "onboarding": {
+        "agreement_created": "Overeenkomst voor sociale samenwerking aangemaakt",
+        "agreement_error": "Kon de Social Collaboration Agreement niet maken. Probeer het opnieuw. "
+      },
+      "signed_agreement": {
+        "details_title": "Gegevens van vertegenwoordiger",
+        "edit": "Bewerken",
+        "full_name": "Volledige naam",
+        "dni_nie": "DNI/NIE",
+        "address": "Adres",
+        "municipality": "Gemeente",
+        "country": "Land",
+        "agreement_title": "De overeenkomst voor sociale samenwerking is klaar voor je handtekening",
+        "agreement_subtitle": "Volg de stappen om je Sociale Samenwerkingsovereenkomst te valideren",
+        "step1_text": "Download PDF",
+        "step2_text": "Vertegenwoordiger ondertekent de PDF",
+        "step3_text": "Upload ondertekend PDF",
+        "download_pdf": "Download PDF",
+        "upload_pdf": "Upload PDF",
+        "upload_info": "Upload ondertekende PDF om door te gaan",
+        "send_document": "Stuur document",
+        "uploading": "Uploaden...",
+        "upload_success": "De ondertekende overeenkomst is succesvol geüpload.",
+        "upload_error": "Kon het ondertekende contract niet uploaden. Probeer het opnieuw. "
+      },
+      "form": {
+        "sectionTitle": "Gegevens van vertegenwoordiger",
+        "first_name": "Voornaam",
+        "last_name": "Achternaam",
+        "dni_nie": "DNI/NIE",
+        "dni_nie_invalid": "Het ingevoerde DNI/NIE-nummer is niet geldig.",
+        "postal_code_invalid": "Postcode moet 3-10 tekens bevatten en mag alleen letters, cijfers, spaties en streepjes bevatten.",
+        "address": "Adres",
+        "street_number": "Huisnummer",
+        "postal_code": "Postcode",
+        "city": "Stad",
+        "municipality": "Gemeente",
+        "country": "Land",
+        "save_for_later": "Bewaar voor later",
+        "save_for_later_success": "Vertegenwoordiger details succesvol opgeslagen",
+        "representative_error": "Kon je de gegevens van de vertegenwoordiger niet opslaan? Probeer het opnieuw. ",
+        "create_agreement": "Maken overeenkomst",
+        "creating_agreement": "Aan het maken...",
+        "chips": {
+          "vat_id_validated": "Btw-nummer gevalideerd",
+          "vat_id_missing": "BTW-nummer ontbreekt",
+          "business_address_provided": "Zakelijk adres verstrekt",
+          "business_address_missing": "Bedrijfsadres ontbreekt",
+          "invoice_identifiers_set_up": "Instellingen voor factuuridentificatie",
+          "invoice_identifiers_not_set_up": "Factuuridentificaties niet ingesteld"
+        },
+        "alert": {
+          "content": "Let op: Controleer de details zorgvuldig\nZodra je je Social Collaboration Agreement hebt gemaakt, kun je deze niet meer bewerken tenzij je een nieuwe maakt met een nieuwe handtekening. Zorg ervoor dat alle informatie correct is voordat je doorgaat.",
+          "action": "Begrepen"
+        },
+        "requirements": {
+          "vat_required": "BTW-nummer vereist",
+          "address_required": "Zakelijk adres vereist",
+          "vat_and_address_required": "BTW-nummer en bedrijfsadres vereist",
+          "vat_description": "Voeg je btw-id toe in Instellingen -> Bedrijf om VERI*FACTU in te stellen",
+          "address_description": "Geef je bedrijfsadres op als onderdeel van de Stripe-onboarding om VERI*FACTU in te stellen.",
+          "vat_and_address_description": "Voeg je btw-nummer toe in Instellingen -> Bedrijf en voltooi je Stripe-onboarding om je bedrijfsadres op te geven. Beide zijn vereist door de Spaanse belastingautoriteiten voordat je VERI*FACTU kunt instellen.",
+          "go_to_settings": "Ga naar Instellingen",
+          "complete_stripe_onboarding": "Voltooi Stripe-onboarding",
+          "legal_identifier_required": "Factuurnummers vereist",
+          "legal_identifier_description": "Praat met je accountmanager om factuuridentificaties voor Sign-ES in te stellen."
+        }
+      },
+      "active": {
+        "success_message": "Je facturen worden nu automatisch verzonden naar de Spaanse Belastingdienst (AEAT)",
+        "agreement_title": "Sociale Samenwerkingsovereenkomst",
+        "agreement_subtitle": "Je kunt op elk moment via deze link toegang krijgen tot je Social Collaboration Agreement.",
+        "agreement_link": "Link naar PDF",
+        "certificate_title": "VERI*FACTU Verantwoordelijkheidsverklaring",
+        "certificate_subtitle": "bsport Solutions voldoet aan de Spaanse factureringsvoorschriften (Verifactu en TicketBAI). Download onze officiële verantwoordelijkheidsverklaring.",
+        "certificate_link": "VERI*FACTU-certificaat",
+        "certificate_extension_link": "Verlenging van de verantwoordelijkheidsverklaring",
+        "certificate_error": "Kon het VERI*FACTU-certificaat niet ophalen. Probeer het opnieuw. "
+      }
+    },
+    "sequentialNumbering": {
+      "title": "Stel opeenvolgende factuurnummering in",
+      "subtitle": "je Facturen worden automatisch genummerd in volgorde (1, 2, 3...). Pas de startdatum en het nummeringsformaat aan om het in te stellen.",
+      "warning": "<0>Let op:</0> Je kunt dit later niet meer wijzigen. Controleer het zorgvuldig voordat je op 'Opslaan' klikt.",
+      "selectLabel": "Startdatum",
+      "beginningOfNextMonth": "Begin volgende maand ({{nextMonth}})",
+      "beginningOfCurrentMonth": "Begin van de huidige maand ({{currentMonth}})",
+      "infoNextMonth": "Facturen die vóór deze datum zijn gemaakt, behouden hun huidige nummers.",
+      "infoCurrentMonth": "Als je 'Begin van de huidige maand' als startdatum kiest, worden alle facturen met terugwerkende kracht vanaf deze datum genummerd. Alle eerder gemaakte facturen blijven hetzelfde.",
+      "prefixPlaceholder": "Voorvoegsel (optioneel)",
+      "prefixSuffixHelper": "Maximaal 7 tekens, alleen letters, cijfers en koppeltekens. ",
+      "dateFormatLabel": "Datumnotatie",
+      "dateFormatYearOnly": "Jaar alleen (JJJJ)",
+      "dateFormatYearMonth": "Jaar en maand (YYYY-MM)",
+      "startingNumberLabel": "Startnummer*",
+      "startingNumberHelper": "Kies vanaf welk nummer je je facturen wilt laten beginnen en ze worden opeenvolgend genummerd (bijv. 1, 2, 3)",
+      "startingNumberHelperExisting": "Voer het volgende factuurnummer in (moet hoger zijn dan 1).",
+      "previousInvoiceTitle": "Laatste factuurnummer van vorige maand: <0>{{invoiceNumber}}</0>",
+      "viewInvoiceDetails": "Bekijk factuurdetails",
+      "startingNumberHint": "Zoek het nummer van deze factuur in je externe boekhoudsysteem.",
+      "renamingStartDate": "Startdatum",
+      "startingNumber": "Startnummer",
+      "invoiceNumberingFormat": "Factuurnummering formaat",
+      "numberingExplanation": "Elke nieuwe factuur wordt automatisch met 1 opgevolgd. Als je bijvoorbeeld bij 1 begint, worden je facturen genummerd als 000001, 000002, 000003, enzovoort.",
+      "saveSuccess": "Opeenvolgende factuurnummering opgeslagen",
+      "suffixPlaceholder": "Achtervoegsel (optioneel)",
+      "previewFirstLine": "Je factuur wordt als volgt genummerd: <0>{{firstNumber}}</0>",
+      "previewSecondLine": "dan {{restNumbers}}, ...",
+      "useExternalAccountingProvider": "Ik gebruik een externe boekhoudservice."
+    }
+  }
+}

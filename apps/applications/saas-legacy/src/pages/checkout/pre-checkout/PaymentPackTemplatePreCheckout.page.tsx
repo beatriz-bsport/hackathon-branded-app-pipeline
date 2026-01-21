@@ -37,6 +37,7 @@ import {
 } from '../../../libs/payment-packs/actions';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import analyticsUtils from '#src/components/analytics/analytics';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 type OwnProps = {
   location: Object;
@@ -122,6 +123,10 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
   }
 
   goToPassMarketplace = () => {
+    if (WidgetUtils.isWidget() && this.props.theme) {
+      this.props.push(`/checkout-s/${this.props.theme.company}?context=widget`);
+      return;
+    }
     if (this.props.theme && this.props.theme.scheduleURL) {
       let url = this.props.theme.scheduleURL;
       if (!url.startsWith('https://')) {

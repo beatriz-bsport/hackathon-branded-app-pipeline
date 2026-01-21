@@ -2,26 +2,26 @@
   "configurationType": {
     "1": {
       "label": "Etablissements indépendants",
-      "helperText": "Chaque établissement apparaitra comme un lieu indépendant sur ClassPass"
+      "helperText": "Chaque établissement apparaitra comme lieu indépendant sur ClassPass."
     },
     "2": {
       "label": "Fusionner tous les établissements",
-      "helperText": "Tous les établissements apparaitront comme un seul et unique établissement"
+      "helperText": "Tous les établissements fusionnés apparaîtront comme un seul établissement."
     },
     "3": {
       "label": "Avancé",
-      "helperText": "Grouper les établissements similaires par adresse"
+      "helperText": "Grouper les établissements similaires par adresse."
     }
   },
   "pageTitle": "Partenariat",
   "parameters": {
-    "establishmentMergeMaster": "Fusionner dans cet établissement ⬇️",
+    "establishmentMergeMaster": "Fusionner dans cet établissement:",
     "establishmentMergedAs": "Fusionner ces établissements",
     "partnerId": "Partner ID : {{ company }}",
     "venueIds": "Venue IDs : {{ establishmentIdList }}",
     "enabled": "Actif",
     "allEstablishment": "Toutes les salles",
-    "pleaseChoseEstablishment": "Veuillez sélectionnez un établissement",
+    "pleaseChoseEstablishment": "Veuillez sélectionner un établissement.",
     "establishment": "Etablissement",
     "configurationTitle": "Configurez votre intégration",
     "add": "Ajouter",
@@ -36,10 +36,12 @@
       },
       "venueIds": "Venue IDs"
     },
-    "description": "Pour mettre en place votre intégration ClassPass, contactez ClassPass via votre tableau de bord partenaire. Fournissez votre Partner ID et les ID des établissements que vous souhaitez activer sur ClassPass. Veuillez noter que les séances ou les rendez-vous dans ces établissements n'apparaîtront pas sur ClassPass tant que la configuration n'aura pas été entièrement confirmée par ClassPass."
+    "description": "Pour mettre en place votre intégration ClassPass, contactez ClassPass via votre tableau de bord partenaire. Fournissez votre Partner ID et les ID des établissements que vous souhaitez activer sur ClassPass. Veuillez noter que les séances ou les rendez-vous dans ces établissements n'apparaîtront pas sur ClassPass tant que la configuration n'aura pas été entièrement confirmée par ClassPass.",
+    "establishmentId": "Vos ID de lieu sont : {{ establishmentIdList }}",
+    "companyId": "Votre ID partenaire est : {{ company }}"
   },
   "requestDialog": {
-    "explain": "Vous avez demandé l'intégration bsport X classpass, votre chargé de compte va vous contacter pour valider cette opération",
+    "explain": "Vous avez demandé l'intégration de ClassPass avec bsport. Votre chargé de compte va vous contacter pour valider cette demande.",
     "close": "Bien compris"
   },
   "actions": {
@@ -134,5 +136,92 @@
         "placeholder": "Sélectionnez un produit Wellhub"
       }
     }
+  },
+  "myclubs": {
+    "configuration": {
+      "panel": {
+        "footer": {
+          "addConnectionButton": "Générer un ID partenaire"
+        },
+        "content": {
+          "table": {
+            "action": {
+              "reactivateTooltip": "Réactiver"
+            },
+            "status": {
+              "deactivated": "Désactivé",
+              "pending": "En attente",
+              "active": "Connecté"
+            },
+            "column": {
+              "status": "Statut",
+              "establishments": "Établissements",
+              "externalId": "ID partenaire"
+            }
+          },
+          "title": "Connexion ID partenaire"
+        },
+        "header": {
+          "subtitle": "Générez et liez des ID partenaires pour synchroniser les séances de vos établissements avec myClubs. Vous pourrez modifier le nombre de places disponibles pour cet agrégateur dans les paramètres de séance."
+        }
+      },
+      "dialog": {
+        "notification": {
+          "activate": {
+            "error": "Une erreur est survenue lors de l’activation de l’ID partenaire",
+            "success": "ID partenaire activé"
+          },
+          "update": {
+            "error": "Une erreur est survenue lors de la mise à jour de l’ID partenaire",
+            "success": "ID partenaire mis à jour"
+          },
+          "create": {
+            "error": "Une erreur est survenue lors de la génération de l’ID partenaire",
+            "success": "ID partenaire généré"
+          },
+          "delete": {
+            "error": "Une erreur est survenue lors de la suppression de l’ID partenaire",
+            "success": "ID partenaire supprimé"
+          }
+        },
+        "unlink": {
+          "content": "Les prochaines séances liées à ces établissements seront annulées sur myClubs, y compris toutes les réservations effectuées via myClubs.",
+          "title": "Vous êtes sur le point de dissocier un ou plusieurs établissements de myClubs."
+        },
+        "activate": {
+          "content": "Une fois réactivée, la session recommencera automatiquement à se synchroniser.",
+          "subtitle": "Réactiver la synchronisation pour cet ID partenaire ?",
+          "title": "Réactiver cet ID partenaire"
+        },
+        "action": {
+          "reactivate": "Réactiver",
+          "save": "Continuer",
+          "confirm": "Confirmer",
+          "close": "Fermer",
+          "cancel": "Annuler",
+          "back": "Retour"
+        },
+        "field": {
+          "establishmentIds": {
+            "error": {
+              "required": "Veuillez sélectionner au moins un établissement"
+            },
+            "title": "Établissements",
+            "placeholder": "Lier vos établissements"
+          },
+          "externalId": "ID partenaire : {{ externalId }}"
+        },
+        "helperTextCreateSuccess": "Copiez et collez cet ID partenaire dans votre <1>compte myClubs</1> afin de rendre les sessions de vos établissements sélectionnés disponibles pour les clients myClubs.",
+        "helperText": "Sélectionnez les établissements que vous souhaitez synchroniser. Toutes les sessions de ces établissements ayant myClubs activé pourront être réservées par vos clients myClubs.",
+        "title": {
+          "deletion": "Supprimer la connexion",
+          "edition": "Modifier la connexion {{ externalId }}",
+          "creationSuccess": "Copier l’ID partenaire",
+          "creation": "Choisir un ou plusieurs établissements"
+        }
+      },
+      "copied_to_clipboard": "ID copié avec succès dans le presse-papiers"
+    },
+    "title": "myClubs"
   }
 }

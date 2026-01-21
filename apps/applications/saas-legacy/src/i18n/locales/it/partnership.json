@@ -136,5 +136,92 @@
         "placeholder": "Selezionare un prodotto Wellhub"
       }
     }
+  },
+  "myclubs": {
+    "configuration": {
+      "panel": {
+        "footer": {
+          "addConnectionButton": "Genera ID Partner"
+        },
+        "content": {
+          "table": {
+            "action": {
+              "reactivateTooltip": "Riattiva"
+            },
+            "status": {
+              "deactivated": "Disattivato",
+              "pending": "In sospeso",
+              "active": "Connesso"
+            },
+            "column": {
+              "status": "Stato",
+              "establishments": "Stabilimenti",
+              "externalId": "ID Partner"
+            }
+          },
+          "title": "Connessione ID Partner"
+        },
+        "header": {
+          "subtitle": "Genera e collega l'ID Partner per sincronizzare le sessioni nei tuoi stabilimenti con myClubs. Potrai modificare il numero di posti disponibili per questo aggregatore nelle impostazioni della sessione."
+        }
+      },
+      "dialog": {
+        "notification": {
+          "activate": {
+            "error": "Si è verificato un errore durante l’attivazione dell’ID Partner",
+            "success": "ID Partner attivato"
+          },
+          "update": {
+            "error": "Si è verificato un errore durante l’aggiornamento dell’ID Partner",
+            "success": "ID Partner aggiornato"
+          },
+          "create": {
+            "error": "Si è verificato un errore durante la generazione dell’ID Partner",
+            "success": "ID Partner generato"
+          },
+          "delete": {
+            "error": "Si è verificato un errore durante l’eliminazione dell’ID partner",
+            "success": "ID Partner eliminato"
+          }
+        },
+        "unlink": {
+          "content": "Le sessioni future collegate a questi stabilimenti saranno annullate su myClubs, incluse tutte le prenotazioni effettuate tramite myClubs.",
+          "title": "Stai per scollegare uno o più stabilimenti da myClubs."
+        },
+        "activate": {
+          "content": "Una volta riattivata, la sessione inizierà automaticamente a sincronizzarsi di nuovo.",
+          "subtitle": "Riattivare la sincronizzazione per questo ID Partner?",
+          "title": "Riattiva questo ID Partner"
+        },
+        "action": {
+          "reactivate": "Riattiva",
+          "save": "Continua",
+          "confirm": "Conferma",
+          "close": "Chiudi",
+          "cancel": "Annulla",
+          "back": "Indietro"
+        },
+        "field": {
+          "establishmentIds": {
+            "error": {
+              "required": "Seleziona almeno uno stabilimento"
+            },
+            "title": "Stabilimenti",
+            "placeholder": "Collega i tuoi stabilimenti"
+          },
+          "externalId": "ID partner: {{ externalId }}"
+        },
+        "helperTextCreateSuccess": "Copia e incolla questo ID partner nel tuo <1>account myClubs</1> per rendere disponibili le sessioni nei tuoi stabilimenti selezionati per i clienti myClubs.",
+        "helperText": "Seleziona gli stabilimenti che desideri sincronizzare. Tutte le sessioni in questi stabilimenti con myClubs abilitato saranno disponibili per la prenotazione per i clienti myClubs.",
+        "title": {
+          "deletion": "Elimina connessione",
+          "edition": "Modifica connessione {{ externalId }}",
+          "creationSuccess": "Copia ID partner",
+          "creation": "Scegli Stabilimento/i"
+        }
+      },
+      "copied_to_clipboard": "ID copiato correttamente negli appunti"
+    },
+    "title": "myClubs"
   }
 }

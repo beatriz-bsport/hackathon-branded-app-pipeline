@@ -99,6 +99,11 @@ export function getFullUri(uri: string) {
     return `${apiBaseUrl}/${uri}`;
   }
 
+  if (env === "storybook") {
+    const apiBaseUrl = MAP_ENV_TO_API_URL.dev;
+    return `${apiBaseUrl}/${uri}`;
+  }
+
   if (isEnvFeatureBranch(env)) {
     const isFrontendOnly = getIsFrontendOnly();
     const apiBaseUrl = isFrontendOnly

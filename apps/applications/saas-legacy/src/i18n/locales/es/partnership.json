@@ -136,5 +136,92 @@
         "placeholder": "Seleccione un producto Wellhub"
       }
     }
+  },
+  "myclubs": {
+    "configuration": {
+      "panel": {
+        "footer": {
+          "addConnectionButton": "Generar ID de socio"
+        },
+        "content": {
+          "table": {
+            "action": {
+              "reactivateTooltip": "Reactivar"
+            },
+            "status": {
+              "deactivated": "Desactivado",
+              "pending": "Pendiente",
+              "active": "Conectado"
+            },
+            "column": {
+              "status": "Estado",
+              "establishments": "Establecimientos",
+              "externalId": "ID de socio"
+            }
+          },
+          "title": "Conexión de ID de socio"
+        },
+        "header": {
+          "subtitle": "Genera y vincula ID de socio para sincronizar las sesiones de tus establecimientos con myClubs. Podrás ajustar el número de plazas disponibles para este agregador en la configuración de la sesión."
+        }
+      },
+      "dialog": {
+        "notification": {
+          "activate": {
+            "error": "Se produjo un error al activar el ID de socio",
+            "success": "ID de socio activado"
+          },
+          "update": {
+            "error": "Se produjo un error al actualizar el ID de socio",
+            "success": "ID de socio actualizado"
+          },
+          "create": {
+            "error": "Se produjo un error al generar el ID de socio",
+            "success": "ID de socio generado"
+          },
+          "delete": {
+            "error": "Se produjo un error al eliminar el ID de socio",
+            "success": "ID de socio eliminado"
+          }
+        },
+        "unlink": {
+          "content": "Las próximas sesiones vinculadas a esos establecimientos se cancelarán en myClubs, incluidas las reservas realizadas con myClubs.",
+          "title": "Estás a punto de desvincular uno o varios establecimientos de myClubs."
+        },
+        "activate": {
+          "content": "Una vez reactivada, la sesión volverá a sincronizarse automáticamente.",
+          "subtitle": "¿Reactivar la sincronización para este ID de socio?",
+          "title": "Reactivar este ID de socio"
+        },
+        "action": {
+          "reactivate": "Reactivar",
+          "save": "Continuar",
+          "confirm": "Confirmar",
+          "close": "Cerrar",
+          "cancel": "Cancelar",
+          "back": "Atrás"
+        },
+        "field": {
+          "establishmentIds": {
+            "error": {
+              "required": "Por favor, selecciona al menos un establecimiento"
+            },
+            "title": "Establecimientos",
+            "placeholder": "Vincular tus establecimientos"
+          },
+          "externalId": "ID de socio: {{ externalId }}"
+        },
+        "helperTextCreateSuccess": "Copia y pega este ID de socio en tu <1>cuenta de myClubs</1> para que las sesiones de tus establecimientos seleccionados estén disponibles para los clientes de myClubs.",
+        "helperText": "Selecciona los establecimientos que deseas sincronizar. Todas las sesiones de estos Establecimientos con myClubs habilitado estarán disponibles para reservar para los clientes de myClubs.",
+        "title": {
+          "deletion": "Eliminar conexión",
+          "edition": "Editar conexión {{ externalId }}",
+          "creationSuccess": "Copiar ID de socio",
+          "creation": "Elegir Establecimiento(s)"
+        }
+      },
+      "copied_to_clipboard": "ID copiado al portapapeles correctamente"
+    },
+    "title": "myClubs"
   }
 }

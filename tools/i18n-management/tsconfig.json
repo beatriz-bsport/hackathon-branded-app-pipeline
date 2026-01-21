@@ -1,4 +1,17 @@
 {
   "extends": "../../tools/config/typescript/src/ts-package/tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "strict": true,
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "paths": {
+      "#src/*": ["./src/*"]
+    }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
   "include": ["./src", "./scripts"]
 }

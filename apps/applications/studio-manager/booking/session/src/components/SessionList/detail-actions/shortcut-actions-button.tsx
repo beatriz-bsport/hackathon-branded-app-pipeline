@@ -16,6 +16,7 @@ import {
 } from "#src/stores/session-list";
 import type { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 type ShortcutActionsButtonProps = {
   session: EnrichedSession;
@@ -27,6 +28,25 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
   const { t } = useTranslation("sessionList");
   const { copyToClipboard } = useCopyToClipboard();
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
+  const isWorkshop = session.is_workshop;
+
+  const hasEditPermission = useObjectLevelPermission(
+    isWorkshop
+      ? "session.workshop.allowed_actions.edit"
+      : "session.activity.allowed_actions.edit",
+  );
+
+  const hasCancelPermission = useObjectLevelPermission(
+    isWorkshop
+      ? "session.workshop.allowed_actions.delete"
+      : "session.activity.allowed_actions.delete",
+  );
+
+  const hasCreatePermission = useObjectLevelPermission(
+    isWorkshop
+      ? "session.workshop.allowed_actions.create"
+      : "session.activity.allowed_actions.create",
+  );
 
   const getMenuItems = useCallback(
     (
@@ -97,23 +117,41 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
       };
 
       const availableActions = [
-        editShortcutAction,
-        duplicateShortcutAction,
+        ...(hasEditPermission ? [editShortcutAction] : []),
+        ...(hasCreatePermission ? [duplicateShortcutAction] : []),
         ...(companyId ? [copyLinkShortcutAction] : []),
-        cancelShortcutAction,
+        ...(hasCancelPermission ? [cancelShortcutAction] : []),
       ];
 
       const unavailableActions = [
-        restoreShortcutAction,
-        editShortcutAction,
-        duplicateShortcutAction,
-        deleteShortcutAction,
+        ...(hasEditPermission ? [restoreShortcutAction] : []),
+        ...(hasEditPermission ? [editShortcutAction] : []),
+        ...(hasCreatePermission ? [duplicateShortcutAction] : []),
+        ...(hasCancelPermission ? [deleteShortcutAction] : []),
       ];
 
       return session.available ? availableActions : unavailableActions;
     },
-    [t, session, copyToClipboard, companyId],
+    [
+      t,
+      session,
+      copyToClipboard,
+      companyId,
+      hasEditPermission,
+      hasCancelPermission,
+      hasCreatePermission,
+    ],
   );
+
+  const hasAnyPermission =
+    hasEditPermission || hasCreatePermission || hasCancelPermission;
+  const showMenu = session.available
+    ? !!companyId || hasAnyPermission
+    : hasAnyPermission;
+
+  if (!showMenu) {
+    return <div className="w-xl" />; // to keep button column width consistent
+  }
 
   return (
     <Popover>

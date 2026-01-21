@@ -5,6 +5,8 @@ import {
   goToNextStep,
   goToPreviousStep,
   resetForm,
+  saveStepFormData,
+  setStepValid,
 } from "#src/stores/session-creation/actions";
 import {
   selectCurrentStep,
@@ -78,6 +80,18 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       });
     }
 
+    if (currentStep === SESSION_CREATION_STEPS.CONFIGURE_SESSION) {
+      const data = configureSessionMethods.getValues();
+      saveStepFormData({
+        step: SESSION_CREATION_STEPS.CONFIGURE_SESSION,
+        data,
+      });
+      setStepValid(
+        SESSION_CREATION_STEPS.CONFIGURE_SESSION,
+        configureSessionMethods.formState.isValid,
+      );
+    }
+
     if (!isLastStep) {
       goToNextStep();
       return;
@@ -87,7 +101,12 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     console.log("Form submitted");
   };
 
-  const checkIfCurrentStepValid = () => isCurrentStepValid;
+  const checkIfCurrentStepValid = () => {
+    if (currentStep === SESSION_CREATION_STEPS.CONFIGURE_SESSION) {
+      return configureSessionMethods.formState.isValid;
+    }
+    return isCurrentStepValid;
+  };
 
   return (
     <ModalStepper
@@ -115,7 +134,6 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       confirmButton={{
         label: t("addSessionModal.buttons.createSession"),
         color: "main",
-        disabled: !isCurrentStepValid,
         onClick: handleConfirm,
       }}
       cancelButton={{

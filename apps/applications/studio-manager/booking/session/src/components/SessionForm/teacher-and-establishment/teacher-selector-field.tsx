@@ -34,6 +34,7 @@ export const TeacherSelectorField: FC<{ fieldIdPrefix: string }> = ({
           setValue(
             "coach",
             selectedTeacherId ? Number(selectedTeacherId) : null,
+            { shouldValidate: true },
           );
         },
       })}

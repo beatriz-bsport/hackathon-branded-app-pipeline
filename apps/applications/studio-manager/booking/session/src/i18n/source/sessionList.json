@@ -21,7 +21,8 @@
       "participants": "Participants",
       "teacher": "Teacher",
       "establishment": "Establishment",
-      "sessionType": "Session type"
+      "sessionType": "Session type",
+      "actions": "Actions"
     },
     "filters": {
       "label": "Filters",
@@ -78,6 +79,9 @@
     }
   },
   "displaySettings": {
+    "displayedColumns": {
+      "label": "Visible columns"
+    },
     "calendarView": {
       "label": "View",
       "options": {

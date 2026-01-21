@@ -1,20 +1,36 @@
 import React from "react";
 
-import { Body, SegmentedControl, Toggle } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Button,
+  SegmentedControl,
+  Toggle,
+} from "@bsport/kaizen-primitive-core";
 
 import {
-  CalendarView,
-  selectCalendarView,
-  selectShowCancelledSessions,
   setCalendarView,
   setShowCancelledSessions,
+  toggleColumn,
+} from "#src/stores/session-list/actions";
+import {
+  selectCalendarView,
+  selectDisplayedColumns,
+  selectShowCancelledSessions,
+} from "#src/stores/session-list/selectors";
+import {
+  CalendarView,
   useSessionListStore,
-} from "#src/stores/session-list";
+} from "#src/stores/session-list/store";
+import { Columns } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
+import { useSessionListColumns } from "./columns";
+
 export const DisplaySettings: React.FC = () => {
   const { t } = useTranslation("sessionList");
+  const columns = useSessionListColumns();
+  const displayedColumns = useSessionListStore(selectDisplayedColumns);
   const hasShowCancelledSessionsPermission = useObjectLevelPermission(
     "planning.calendar.allowed_actions.readCancellations",
   );
@@ -31,8 +47,8 @@ export const DisplaySettings: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col gap-lg">
-      <div className="p-xs flex flex-col gap-xs">
+    <div className="flex flex-col gap-lg max-w-[260px] p-xs">
+      <div className="flex flex-col gap-xs">
         <Body size="md" weight="weak">
           {t("displaySettings.calendarView.label")}
         </Body>
@@ -60,6 +76,27 @@ export const DisplaySettings: React.FC = () => {
           onToggleChange={setShowCancelledSessions}
         />
       )}
+      <div className="flex flex-col gap-xs">
+        <Body size="md" weight="weak">
+          {t("displaySettings.displayedColumns.label")}
+        </Body>
+        <div className="flex flex-wrap gap-xs">
+          {columns.map((column) => (
+            <Button
+              key={column.id}
+              label={column.label}
+              size="sm"
+              intent="default"
+              onClick={() => toggleColumn(column.id as Columns)}
+              color={
+                displayedColumns.includes(column.id as Columns)
+                  ? "selected"
+                  : "main"
+              }
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

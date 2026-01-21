@@ -10,7 +10,8 @@ import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { bindStore } from "@bsport/store-base";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
-import type { EnrichedSession } from "#src/types";
+import { DEFAULT_COLUMNS } from "#src/constants";
+import type { Columns, EnrichedSession } from "#src/types";
 
 export enum CalendarView {
   DAILY = "daily",
@@ -36,6 +37,7 @@ export interface SessionListState {
   showCancelledSessions: boolean;
   filters: FilterElementState[];
   modalState: ModalState;
+  displayedColumns: Columns[];
 }
 
 export const getInitialState = (): SessionListState => {
@@ -47,6 +49,7 @@ export const getInitialState = (): SessionListState => {
     locale: "en-US",
     filters: [],
     modalState: null,
+    displayedColumns: DEFAULT_COLUMNS,
   };
 };
 

@@ -5,6 +5,8 @@ import { Button } from "@bsport/kaizen-primitive-core";
 
 import BillingFlowModal from "./BillingFlowModal";
 
+const MEMBER_ID = 29612631;
+
 const meta: Meta<typeof BillingFlowModal> = {
   component: BillingFlowModal,
   title: "BillingFlowModal",
@@ -33,7 +35,7 @@ export const Default: Story = {
         <BillingFlowModal
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-          memberId={123}
+          memberId={MEMBER_ID}
         />
       </>
     );

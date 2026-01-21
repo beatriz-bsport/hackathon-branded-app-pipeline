@@ -1,7 +1,8 @@
 {
   "billingFlowModal": {
     "title": "Create invoice",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "loadingMemberInfo": "Loading member information..."
   },
   "memberSelectorModal": {
     "title": "Select a member",

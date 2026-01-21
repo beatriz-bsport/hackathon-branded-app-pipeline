@@ -1,15 +1,3 @@
-import { useTranslation } from 'react-i18next';
-import SvgIcon from '@material-ui/core/SvgIcon';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import GroupIcon from '@material-ui/icons/Group';
-import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
-import ErrorIcon from '@material-ui/icons/Error';
-import TimerIcon from '@material-ui/icons/Timer';
-import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
-import ReceiptIcon from '@material-ui/icons/Receipt';
-import CreditCardIcon from '@material-ui/icons/CreditCard';
-
 import {
   EventsCategory,
   TriggerIdentifier,
@@ -31,31 +19,8 @@ import type {
   StepMarketingActionsTagSpec,
   TriggerEventConfig,
 } from '#src/libs/sequential_marketing/types';
-import type { SmartList } from '#src/libs/smart-list/types';
 import type { EmailTemplateSummary } from '#src/libs/email-editor/types';
 import type { Tag } from '#src/libs/tag/types';
-
-type TriggerIconProps = {
-  connected_trigger_config: ConnectedTrigger;
-};
-
-type TriggerTextProps = {
-  connected_trigger_config: ConnectedTrigger;
-  smartlist?: SmartList | undefined;
-};
-
-/**
- * @description Dictionnary linking each cadence event category to its corresponding SvgIcon
- */
-const categoryIconDict: {
-  [key in EventsCategory]: typeof SvgIcon;
-} = {
-  [EventsCategory.CADENCE_EVENT_PURCHASE_CATEGORY]: ShoppingCartIcon,
-  [EventsCategory.CADENCE_EVENT_BOOKING_CATEGORY]: ConfirmationNumberIcon,
-  [EventsCategory.CADENCE_EVENT_BASKET_CATEGORY]: ShoppingBasketIcon,
-  [EventsCategory.CADENCE_EVENT_INVOICE_CATEGORY]: ReceiptIcon,
-  [EventsCategory.CADENCE_EVENT_BILLING_PLAN_CATEGORY]: CreditCardIcon,
-};
 
 /**
  * @description Dictionnary linking each cadence event category to its corresponding icon name
@@ -66,17 +31,6 @@ const categoryStringIconDict = {
   [EventsCategory.CADENCE_EVENT_BASKET_CATEGORY]: 'ShoppingBasket',
   [EventsCategory.CADENCE_EVENT_INVOICE_CATEGORY]: 'Receipt',
   [EventsCategory.CADENCE_EVENT_BILLING_PLAN_CATEGORY]: 'CreditCard',
-};
-
-/**
- * @description Dictionnary linking each cadence event category to its corresponding naming key for translation
- */
-const categoryChipDict: { [key in EventsCategory]: string } = {
-  [EventsCategory.CADENCE_EVENT_PURCHASE_CATEGORY]: 'purchase_chip',
-  [EventsCategory.CADENCE_EVENT_BOOKING_CATEGORY]: 'book_chip',
-  [EventsCategory.CADENCE_EVENT_BASKET_CATEGORY]: 'basket_chip',
-  [EventsCategory.CADENCE_EVENT_INVOICE_CATEGORY]: 'invoice_chip',
-  [EventsCategory.CADENCE_EVENT_BILLING_PLAN_CATEGORY]: 'billing_plan_chip',
 };
 
 /**
@@ -101,32 +55,6 @@ export const marketingActionIconDict: { [key in MarketingActions]: string } = {
   [MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE]: 'LibraryBooks',
 };
 
-/** Get the SvgIcon which corresponds to the eventType in parameter
- * @param {Events} eventType - Sequential marketing event type
- * @returns {SvgIcon} - Return the corresponding SvgIcon
- */
-const getEventCategoryIcon = (eventType: Events): typeof SvgIcon => {
-  for (const category of CADENCE_EVENT_CATEGORY_CHOICES) {
-    if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category]?.includes(eventType)) {
-      return categoryIconDict[category];
-    }
-  }
-  return ErrorIcon;
-};
-
-/** Get the naming translation key which corresponds to the eventType in parameter
- * @param {Events} eventType - Sequential marketing event type
- * @returns {string} - Return the corresponding naming used as key for translation
- */
-export const getEventCategoryText = (eventType: Events): string => {
-  for (const category of CADENCE_EVENT_CATEGORY_CHOICES) {
-    if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category]?.includes(eventType)) {
-      return categoryChipDict[category];
-    }
-  }
-  return 'label';
-};
-
 /** Get the icon name which corresponds to the eventType in parameter
  * @param {Events} eventType - Sequential marketing event type
  * @returns {string} - Return the corresponding icon name used to build a CustomMuiIcon
@@ -138,84 +66,6 @@ export const getEventCategoryIconAsString = (eventType: Events): string => {
     }
   }
   return TRIGGER_DEFAULT_ICON;
-};
-
-/** Function returning the SvgIcon which corresponds to the ConnectedTrigger in parameter
- * @param {ConnectedTrigger} connected_trigger_config - Cadence ConnectedTrigger config
- * @returns {SvgIcon} - Return the corresponding SvgIcon
- */
-export const TriggerIcon = ({ connected_trigger_config }: TriggerIconProps) => {
-  switch (connected_trigger_config?.trigger_config?.identifier) {
-    case TriggerIdentifier.EMPTY:
-      if (connected_trigger_config?.filtering_config?.smartlist_pk) {
-        return GroupIcon;
-      }
-      return AllInclusiveIcon;
-    case TriggerIdentifier.EVENT:
-      return getEventCategoryIcon(
-        connected_trigger_config?.trigger_config?.event_type,
-      );
-    case TriggerIdentifier.TIMEOUT:
-      return TimerIcon;
-    default:
-      return ErrorIcon;
-  }
-};
-
-/** Function returning the name corresponding to the connected trigger in parameter
- * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
- * @param {SmartList} smartlist - Smartlist used in connected_trigger_config filtering
- * @returns {string} - Return the corresponding translated name
- */
-export const TriggerText = ({
-  connected_trigger_config,
-  smartlist,
-}: TriggerTextProps) => {
-  const { t } = useTranslation('marketing');
-
-  switch (connected_trigger_config?.trigger_config?.identifier) {
-    case TriggerIdentifier.EMPTY:
-      if (
-        connected_trigger_config?.filtering_config?.smartlist_pk &&
-        connected_trigger_config?.filtering_config?.smartlist_pk ===
-          smartlist?.id
-      ) {
-        return smartlist.name;
-      }
-      return t('All');
-    case TriggerIdentifier.EVENT:
-      return t(
-        `cadence.triggers.events.${getEventCategoryText(
-          connected_trigger_config?.trigger_config?.event_type,
-        )}`,
-      );
-    case TriggerIdentifier.TIMEOUT:
-      return t('cadence.triggers.timeout.timeout_days_chip', {
-        count: connected_trigger_config?.trigger_config?.timeout ?? 0,
-      });
-    default:
-      return t('Error');
-  }
-};
-
-/** Function returning the exact name corresponding to the event connected trigger in parameter
- * @param {ConnectedTrigger} connected_trigger_config - Cadence event connected trigger config
- * @returns {string} - Return the corresponding translated name
- */
-export const EventTriggerDetailText = ({
-  connected_trigger_config,
-}: TriggerTextProps) => {
-  const { t } = useTranslation('marketing');
-
-  if (
-    connected_trigger_config?.trigger_config?.identifier !==
-    TriggerIdentifier.EVENT
-  ) {
-    return TriggerText({ connected_trigger_config });
-  }
-  return t(
-    `cadence.form.event.${connected_trigger_config?.trigger_config?.event_type}`,
-  );
 };
 
 /** Get the trigger kind of the connected trigger in parameter

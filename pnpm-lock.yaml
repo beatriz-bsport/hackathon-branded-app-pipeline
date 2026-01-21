@@ -3056,12 +3056,30 @@ importers:
 
   packages/design-system/kaizen/business-components/financial-services:
     dependencies:
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../../utils/fetch
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../utils/i18n
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../primitive/core
+      '@bsport/local-storage-auth-token':
+        specifier: workspace:*
+        version: link:../../../../local-storage/auth-token
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../../../stores/base
+      '@bsport/store-core-data-member':
+        specifier: workspace:*
+        version: link:../../../../stores/core-data/member
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../hooks/use-async
+      '@bsport/use-debounce':
+        specifier: workspace:*
+        version: link:../../../../hooks/use-debounce
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -3071,6 +3089,9 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
       zod:
         specifier: ^3.25.64
         version: 3.25.67

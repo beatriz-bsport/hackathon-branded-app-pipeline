@@ -34,11 +34,18 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/local-storage-auth-token": "workspace:*",
+    "@bsport/store-base": "workspace:*",
+    "@bsport/store-core-data-member": "workspace:*",
+    "@bsport/use-async": "workspace:*",
+    "@bsport/use-debounce": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "typescript-result": "^3.1.1",
     "zod": "^3.25.64"
   },
   "devDependencies": {

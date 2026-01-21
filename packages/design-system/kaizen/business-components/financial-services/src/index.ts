@@ -4,6 +4,14 @@ export {
   default as BillingFlowModal,
   type BillingFlowModalProps,
 } from "./components/billing/BillingFlowModal";
+export {
+  default as MemberCard,
+  type MemberCardProps,
+} from "./components/member/MemberCard";
+export {
+  default as MemberSelectorModal,
+  type MemberSelectorModalProps,
+} from "./components/member/MemberSelectorModal";
 
 // Export i18n utilities for consuming applications
 export {

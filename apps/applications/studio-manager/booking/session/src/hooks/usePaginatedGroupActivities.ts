@@ -9,7 +9,7 @@ import {
   type FetchGroupActivitiesParams,
   type SearchGroupActivitiesParams,
   fetchGroupActivitiesAndWorkshops,
-  searchGroupActivities,
+  searchGroupActivitiesAndWorkshopsAPI,
 } from "@bsport/api-book";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
@@ -42,9 +42,9 @@ const searchGroupActivitiesQueryOptions = (
   enabled: boolean,
 ) =>
   queryOptions({
-    queryKey: ["searchGroupActivities", params],
+    queryKey: ["searchGroupActivitiesAndWorkshops", params],
     queryFn: async () => {
-      const data = await searchGroupActivities(fetch, params);
+      const data = await searchGroupActivitiesAndWorkshopsAPI(fetch, params);
       return data;
     },
     enabled,

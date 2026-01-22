@@ -41,7 +41,8 @@ const mapGroupActivitiesUrlParams = ({
 });
 
 /**
- * Fetches a paginated list of group activities based on the provided parameters.
+ * Fetches a paginated list of group activities ONLY based on the provided parameters.
+ * Use `fetchGroupActivitiesAndWorkshops` to fetch both group activities and workshops.
  *
  * @param params - The parameters for fetching group activities.
  * @param params.customerEnabled - Whether customer-related activities should be included.
@@ -103,12 +104,34 @@ export const fetchGroupActivitiesAndWorkshops = async (
   return data;
 };
 
+const searchGroupActivitiesAPIConfig = (
+  params: SearchGroupActivitiesParams,
+): ApiConfig => {
+  return [
+    `${META_ACTIVITY_URL}/search/${buildUrlParams({
+      ...mapGroupActivitiesUrlParams({ ...params, isWorkshop: false }),
+      q: params.searchQuery ?? "",
+    })}`,
+  ];
+};
+
 /**
- * Searches a paginated list of group activities based on the provided parameters.
+ * Searches a paginated list of group activities ONLY based on the provided parameters.
+ * Use `searchGroupActivitiesAndWorkshops` to search both group activities and workshops.
  *
  * @param params - The parameters for searching group activities.
  */
-const searchGroupActivitiesAPI = (
+export const searchGroupActivitiesAPI = async (
+  fetch: Fetch<SearchResponse<MetaActivity>>,
+  params: SearchGroupActivitiesParams,
+): Promise<SearchResponse<MetaActivity>> => {
+  const [uri, init] = searchGroupActivitiesAPIConfig(params);
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+const searchGroupActivitiesAndWorkshopsAPIConfig = (
   params: SearchGroupActivitiesParams,
 ): ApiConfig => {
   return [
@@ -119,16 +142,20 @@ const searchGroupActivitiesAPI = (
   ];
 };
 
-export const searchGroupActivities = async (
+/**
+ * Searches a paginated list of group activities and workshops based on the provided parameters.
+ *
+ * @param params - The parameters for searching group activities.
+ */
+export const searchGroupActivitiesAndWorkshopsAPI = async (
   fetch: Fetch<SearchResponse<MetaActivity>>,
   params: SearchGroupActivitiesParams,
 ): Promise<SearchResponse<MetaActivity>> => {
-  const [uri, init] = searchGroupActivitiesAPI(params);
+  const [uri, init] = searchGroupActivitiesAndWorkshopsAPIConfig(params);
   const { data } = await fetch(uri, init);
 
   return data;
 };
-
 /**
  * Check if a group activity can be archived based on its ID
  *

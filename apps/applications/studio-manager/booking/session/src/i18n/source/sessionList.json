@@ -24,6 +24,12 @@
       "sessionType": "Session type",
       "actions": "Actions"
     },
+    "datetime": {
+      "shortDayIdentifier_one": "day",
+      "shortDayIdentifier_other": "days",
+      "shortHourIdentifier": "h",
+      "shortMinuteIdentifier": "min"
+    },
     "filters": {
       "label": "Filters",
       "is": "is",

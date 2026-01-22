@@ -8,8 +8,8 @@ import { useMemo } from "react";
 import {
   type FetchGroupActivitiesParams,
   type SearchGroupActivitiesParams,
-  fetchGroupActivities,
-  searchGroupActivities,
+  fetchGroupActivitiesAndWorkshops,
+  searchGroupActivitiesAndWorkshopsAPI,
 } from "@bsport/api-book";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
@@ -29,7 +29,7 @@ const groupActivitiesQueryOptions = (
   queryOptions({
     queryKey: ["groupActivities", params],
     queryFn: async () => {
-      const data = await fetchGroupActivities(fetch, params);
+      const data = await fetchGroupActivitiesAndWorkshops(fetch, params);
       return data;
     },
     enabled,
@@ -42,9 +42,9 @@ const searchGroupActivitiesQueryOptions = (
   enabled: boolean,
 ) =>
   queryOptions({
-    queryKey: ["searchGroupActivities", params],
+    queryKey: ["searchGroupActivitiesAndWorkshops", params],
     queryFn: async () => {
-      const data = await searchGroupActivities(fetch, params);
+      const data = await searchGroupActivitiesAndWorkshopsAPI(fetch, params);
       return data;
     },
     enabled,

@@ -10,7 +10,7 @@ import {
   duplicateGroupActivity,
   fetchGroupActivities,
   fetchGroupActivitiesAndWorkshops,
-  searchGroupActivities,
+  searchGroupActivitiesAPI,
   unarchiveGroupActivity,
 } from "@bsport/api-book";
 import type {
@@ -76,7 +76,7 @@ export const searchGroupActivitiesAction: Action<
 > = async (fetch, params) => {
   return Result.try(
     async () => {
-      const data = await searchGroupActivities(fetch, params);
+      const data = await searchGroupActivitiesAPI(fetch, params);
 
       setGroupActivities({
         groupActivities: data.results,

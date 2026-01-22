@@ -8,7 +8,7 @@ import { useMemo } from "react";
 import {
   type FetchGroupActivitiesParams,
   type SearchGroupActivitiesParams,
-  fetchGroupActivities,
+  fetchGroupActivitiesAndWorkshops,
   searchGroupActivities,
 } from "@bsport/api-book";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
@@ -29,7 +29,7 @@ const groupActivitiesQueryOptions = (
   queryOptions({
     queryKey: ["groupActivities", params],
     queryFn: async () => {
-      const data = await fetchGroupActivities(fetch, params);
+      const data = await fetchGroupActivitiesAndWorkshops(fetch, params);
       return data;
     },
     enabled,

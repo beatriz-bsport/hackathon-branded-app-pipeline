@@ -1,0 +1,91 @@
+{
+  "pages": {
+    "active": "Professores",
+    "archived": "Professores arquivados"
+  },
+  "activeList": {
+    "actions": {
+      "addTeacher": "Criar professor"
+    },
+    "addTeacherModal": {
+      "title": "Criar professor",
+      "input": {
+        "label": "E-mail",
+        "placeholder": "teacher@email.com",
+        "helper": "O perfil do professor será vinculado automaticamente se já tivermos este endereço de e-mail",
+        "missingEmailError": "Digite o e-mail do professor para criar o perfil."
+      },
+      "actions": {
+        "back": "Fechar",
+        "add": "Criar",
+        "open": "Abrir"
+      },
+      "linkedTeacher": "Professor vinculado com sucesso",
+      "errors": {
+        "staffExists": "Este e-mail já está vinculado a uma conta de funcionário",
+        "staffFranchiseExists": "Isso já está vinculado a uma conta de franquia de funcionários"
+      }
+    },
+    "archiveModal": {
+      "buttons": {
+        "archive": "Arquivar",
+        "back": "Manter"
+      },
+      "title": "Arquivar professor?",
+      "description": {
+        "action": "Uma vez que você arquivar {{ name }}, o perfil dele não estará mais ativo.\n\n",
+        "effect": "Você pode restaurar este professor a qualquer momento do seu arquivo."
+      }
+    }
+  },
+  "toasts": {
+    "messageArchived": {
+      "success": "Professor arquivado",
+      "error": "O Professor não pôde ser arquivado. Por favor, tente novamente."
+    },
+    "messageRestored": {
+      "success": "Professor restaurado",
+      "error": "O Professor não pôde ser restaurado. Por favor, tente novamente."
+    },
+    "messageUndone": {
+      "success": "Mudança desfeita",
+      "error": "A alteração não pode ser anulada. Por favor, tente novamente."
+    },
+    "emailCopied": "Email copiado para a área de transferência",
+    "phoneCopied": "Telefone copiado para a área de transferência",
+    "actions": {
+      "undo": "Desfazer"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Nome",
+      "email": "E-mail",
+      "phone": "Telemóvel"
+    },
+    "loading": {
+      "activeList": "Carregando professores ...",
+      "archivedList": "Carregando professores arquivados ..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "Ainda não há professores",
+        "subtitle": "Comece a adicionar professores ao seu estúdio"
+      },
+      "archivedList": {
+        "title": "Ainda não há professores arquivados",
+        "subtitle": "Qualquer professor movido para cá pode ser restaurado"
+      }
+    },
+    "tooltips": {
+      "archive": "Arquivar professor",
+      "restore": "Restaurar professor"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "Copiar email",
+      "copyPhone": "Copiar o telefone"
+    }
+  }
+}

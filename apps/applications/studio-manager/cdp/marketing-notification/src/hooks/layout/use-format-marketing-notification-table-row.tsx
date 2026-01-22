@@ -43,7 +43,7 @@ export const useFormatMarketingNotificationTableRow = ({
           : undefined;
       return {
         id: notification.id,
-        notificationType,
+        notificationType: notificationType ?? "",
         triggerType:
           notificationCustomName ||
           formatNotificationTriggerName({

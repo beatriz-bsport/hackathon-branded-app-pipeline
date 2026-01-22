@@ -73,9 +73,9 @@
           "location": "Location",
           "establishment": "Establishment",
           "workshop": "Workshop",
-          "privateService": "Appointment",
-          "paymentPack": "Pass",
-          "privatePass": "Appointment Pass",
+          "appointment": "Appointment",
+          "pass": "Standard Pass",
+          "appointmentPass": "Appointment Pass",
           "subscription": "Subscription",
           "birthday": "Birthday"
         }

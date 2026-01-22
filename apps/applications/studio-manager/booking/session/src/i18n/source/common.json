@@ -29,6 +29,8 @@
     }
   },
   "backgroundTask": {
-    "processing": "Processing..."
+    "processing": "Processing...",
+    "genericError": "An error has occurred. Check your connection and try refreshing the page.",
+    "timeoutError": "The server took too long to respond. Try refreshing the page"
   }
 }

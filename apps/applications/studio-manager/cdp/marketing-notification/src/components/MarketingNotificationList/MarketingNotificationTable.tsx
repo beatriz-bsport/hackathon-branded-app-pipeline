@@ -2,7 +2,6 @@ import { DetailDrawer, Table } from "@bsport/kaizen-primitive-core";
 
 import { MarketingNotificationDetailsContent } from "#src/components/MarketingNotificationDetails/MarketingNotificationDetailsContent";
 import { getTableColumns } from "#src/components/MarketingNotificationList/MarketingNotificationTableConfig";
-import { useDrawerQueryParam } from "#src/hooks/actions/use-drawer-query-params";
 import { useMarketingNotificationNavigation } from "#src/hooks/actions/use-marketing-notification-navigation";
 import { useFetchMarketingNotificationList } from "#src/hooks/api/use-fetch-marketing-notification-list";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
@@ -40,20 +39,15 @@ export const MarketingNotificationTable = ({
 
   const { isUserMarketingNotificationManager } = usePermissionsChecker();
   const { isPushNotificationUpsellActivated } = useUpsellChecker();
-  const { openId, openDrawer, closeDrawer } = useDrawerQueryParam();
   const {
     selectedMarketingNotification,
     setSelectedMarketingNotification,
     navigateToNextMarketingNotification,
     navigateToPreviousMarketingNotification,
   } = useMarketingNotificationNavigation({
-    baseNotificationEventId: openId ? parseInt(openId, 10) : undefined,
     marketingNotification: marketingNotificationsList,
     onNavigate: (notificationEventId: number) => {
-      if (notificationEventId !== selectedMarketingNotification?.id) {
-        openDrawer(notificationEventId);
-      } else {
-        closeDrawer();
+      if (notificationEventId === selectedMarketingNotification?.id) {
         setSelectedMarketingNotification(null);
       }
     },
@@ -68,7 +62,6 @@ export const MarketingNotificationTable = ({
 
   const openMarketingNotificationDetail = (notificationId: number) => {
     if (selectedMarketingNotification?.id === notificationId) {
-      closeDrawer();
       setSelectedMarketingNotification(null);
       return;
     }
@@ -79,7 +72,6 @@ export const MarketingNotificationTable = ({
       return;
     }
     setSelectedMarketingNotification(marketingNotification);
-    openDrawer(notificationId);
   };
 
   const handleSelectMarketingNotificationAction = ({
@@ -186,7 +178,6 @@ export const MarketingNotificationTable = ({
         isOpen={!!selectedMarketingNotification}
         onClose={() => {
           setSelectedMarketingNotification(null);
-          closeDrawer();
         }}
         actionsConfig={[
           {

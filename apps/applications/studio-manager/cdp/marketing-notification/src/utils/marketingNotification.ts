@@ -2,10 +2,10 @@ import type { MetaActivity } from "@bsport/api-book";
 import {
   BIRTHDAY_NOTIFICATION,
   BOOKING_CREATION_NOTIFICATION,
-  BookingCreationEventRules,
+  type BookingCreationEventRules,
   CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
   CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
-  MarketingNotification,
+  type MarketingNotification,
   PRIVATE_BOOKING_CREATION_NOTIFICATION,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
@@ -15,7 +15,7 @@ import {
 } from "@bsport/store-cdp-marketing-notification";
 
 import { NOTIFICATION_ADVANCED_TYPE } from "./constants";
-import type { NotificationType, SelectableNotificationType } from "./types";
+import type { NotificationType } from "./types";
 
 const isMarketingNotificationEstablishmentType = (
   eventRules: MarketingNotification["event_rules"],
@@ -36,15 +36,13 @@ const isMarketingNotificationGroupActivityType = (
 const TRIGGER_TYPE_MAP: Record<number, string> = {
   [BIRTHDAY_NOTIFICATION]: NOTIFICATION_ADVANCED_TYPE.birthday,
   [PRIVATE_BOOKING_CREATION_NOTIFICATION]:
-    NOTIFICATION_ADVANCED_TYPE.privateService,
-  [CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT]:
-    NOTIFICATION_ADVANCED_TYPE.paymentPack,
-  [CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME]:
-    NOTIFICATION_ADVANCED_TYPE.paymentPack,
+    NOTIFICATION_ADVANCED_TYPE.appointment,
+  [CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT]: NOTIFICATION_ADVANCED_TYPE.pass,
+  [CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME]: NOTIFICATION_ADVANCED_TYPE.pass,
   [PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT]:
-    NOTIFICATION_ADVANCED_TYPE.privatePass,
+    NOTIFICATION_ADVANCED_TYPE.appointmentPass,
   [PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME]:
-    NOTIFICATION_ADVANCED_TYPE.privatePass,
+    NOTIFICATION_ADVANCED_TYPE.appointmentPass,
   [SUBSCRIPTION_NOTIFICATION_CREATION]: NOTIFICATION_ADVANCED_TYPE.subscription,
   [SUBSCRIPTION_NOTIFICATION_END]: NOTIFICATION_ADVANCED_TYPE.subscription,
   [SUBSCRIPTION_NOTIFICATION_FIRST_BILLING]:
@@ -57,11 +55,10 @@ type ResolveTypeParams = {
   availableGroupActivitiesById: Record<number, MetaActivity>;
 };
 
-const resolveBookingCreationType = <T extends string | null>(
+const resolveBookingCreationType = (
   eventRules: MarketingNotification["event_rules"],
   availableGroupActivitiesById: Record<number, MetaActivity>,
-  fallback: T,
-): SelectableNotificationType | T => {
+): NotificationType | null => {
   if (isMarketingNotificationEstablishmentType(eventRules))
     return NOTIFICATION_ADVANCED_TYPE.establishment;
   if (isMarketingNotificationLocationType(eventRules))
@@ -69,7 +66,7 @@ const resolveBookingCreationType = <T extends string | null>(
 
   if (isMarketingNotificationGroupActivityType(eventRules)) {
     const metaActivityId = eventRules?.meta_activity_id;
-    if (!metaActivityId) return fallback;
+    if (!metaActivityId) return null;
 
     const metaActivity = availableGroupActivitiesById[metaActivityId];
     return metaActivity?.is_workshop
@@ -77,41 +74,33 @@ const resolveBookingCreationType = <T extends string | null>(
       : NOTIFICATION_ADVANCED_TYPE.groupActivity;
   }
 
-  return fallback;
+  return null;
 };
 
 const getMarketingNotificationType = ({
   availableGroupActivitiesById,
   kind,
   eventRules,
-}: ResolveTypeParams): NotificationType => {
+}: ResolveTypeParams): NotificationType | null => {
   if (kind in TRIGGER_TYPE_MAP)
     return TRIGGER_TYPE_MAP[kind] as NotificationType;
 
   if (kind === BOOKING_CREATION_NOTIFICATION)
-    return resolveBookingCreationType(
-      eventRules,
-      availableGroupActivitiesById,
-      NOTIFICATION_ADVANCED_TYPE.unknown,
-    );
+    return resolveBookingCreationType(eventRules, availableGroupActivitiesById);
 
-  return NOTIFICATION_ADVANCED_TYPE.unknown;
+  return null;
 };
 
 const getMarketingSelectableNotificationType = ({
   availableGroupActivitiesById,
   kind,
   eventRules,
-}: ResolveTypeParams): SelectableNotificationType | null => {
+}: ResolveTypeParams): NotificationType | null => {
   if (kind in TRIGGER_TYPE_MAP)
-    return TRIGGER_TYPE_MAP[kind] as SelectableNotificationType;
+    return TRIGGER_TYPE_MAP[kind] as NotificationType;
 
   if (kind === BOOKING_CREATION_NOTIFICATION)
-    return resolveBookingCreationType(
-      eventRules,
-      availableGroupActivitiesById,
-      null,
-    );
+    return resolveBookingCreationType(eventRules, availableGroupActivitiesById);
 
   return null;
 };

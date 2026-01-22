@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-import type { BookingTemporality } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
+import type { BookingTemporality } from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Booking/types";
 import {
   DEFAULT_TIMING_VALUE,
   type TimeUnitType,
-} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
+} from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Common/types";
 
 import { i18nInstance } from "../i18n";
 import type {

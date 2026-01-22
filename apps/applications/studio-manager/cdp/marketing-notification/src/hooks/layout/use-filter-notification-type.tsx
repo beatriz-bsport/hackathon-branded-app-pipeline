@@ -6,6 +6,7 @@ import type {
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
+import { notificationTypeFilters } from "#src/utils/types";
 
 const FILTER_IS = "is" as const;
 const FILTER_IS_NOT = "isNot" as const;
@@ -14,18 +15,6 @@ export type MarketingNotificationFilterParams = {
   notification_type_included: string[]; // Union of selected notification type
   notification_type_excluded: string[]; // Union of excluded notification type
 };
-
-const notificationTypeFilters = [
-  "groupActivity",
-  "workshop",
-  "location",
-  "establishment",
-  "subscription",
-  "paymentPack",
-  "privatePass",
-  "privateService",
-  "birthday",
-];
 
 export const useFilterNotificationType = () => {
   const { t } = useTranslation("marketingNotificationList");

@@ -1,24 +1,34 @@
 import type {
   TemporalityType,
   TimeUnitType,
-} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
+} from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Common/types";
 import type {
   PassAction,
   PassCreditsLeftEventKind,
-} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Pass/types";
+} from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Pass/types";
 
-import { SelectableNotificationType } from "../types";
+import {
+  APPOINTMENT_PASS_TYPE,
+  BIRTHDAY_TYPE,
+  type NotificationType,
+  PASS_TYPE,
+  type PassesType,
+  SUBSCRIPTION_TYPE,
+} from "../types";
 
 export type TriggerTypeValidationFormData = {
   draftMarketingNotificationId?: number;
-  notificationType: SelectableNotificationType;
+  notificationType: NotificationType;
   itemIds?: number[];
   shouldContainAllPasses?: boolean;
 };
 
-export type BookingSelectableNotificationType = Omit<
-  SelectableNotificationType,
-  "birthday" | "privatePass" | "paymentPack" | "subscription"
+export type BookingSelectableNotificationType = Exclude<
+  NotificationType,
+  | typeof BIRTHDAY_TYPE
+  | typeof PASS_TYPE
+  | typeof APPOINTMENT_PASS_TYPE
+  | typeof SUBSCRIPTION_TYPE
 >;
 
 export type BookingTriggerConfigValidationFormData = {
@@ -34,11 +44,6 @@ export type SubscriptionTriggerConfigValidationFormData = {
   contractId: number;
 } & CommonTriggerConfigValidationFormData &
   TimeTriggerConfigValidationFormData;
-
-export const PAYMENT_PACK_TYPE = "paymentPack";
-export const PRIVATE_PASS_TYPE = "privatePass";
-
-export type PassesType = typeof PAYMENT_PACK_TYPE | typeof PRIVATE_PASS_TYPE;
 
 export type PassTriggerConfigValidationFormData = {
   name: string;

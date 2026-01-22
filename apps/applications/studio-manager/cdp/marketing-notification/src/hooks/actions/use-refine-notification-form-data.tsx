@@ -4,21 +4,28 @@ import {
   PRIVATE_BOOKING_CREATION_NOTIFICATION,
 } from "@bsport/store-cdp-marketing-notification";
 
-import type { TriggerConditionStepProps } from "#src/components/MarketingNotificationEdition/Context/FormStepContext.context";
-import type { BookingTemporality } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Booking/types";
-import { TimeUnitType } from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Common/types";
+import type { TriggerConditionStepProps } from "#src/components/MarketingNotificationBuilder/Context/FormStepContext.context";
+import type { BookingTemporality } from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Booking/types";
+import { TimeUnitType } from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Common/types";
 import {
   APPOINTMENT_PASS_ACTIONS_MAP_TO_EVENT_KIND,
   CREDITS_LEFT_EVENTS_MAP_TO_EVENT_KIND,
   PASS_ACTION_CREDITS_LEFT,
   PAYMENT_PASS_ACTIONS_MAP_TO_EVENT_KIND,
-} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Pass/types";
+} from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Pass/types";
+import { PassTriggerConfigValidationFormData } from "#src/utils/schemas/types";
 import {
-  PAYMENT_PACK_TYPE,
-  PRIVATE_PASS_TYPE,
-  PassTriggerConfigValidationFormData,
-  PassesType,
-} from "#src/utils/schemas/types";
+  APPOINTMENT_PASS_TYPE,
+  APPOINTMENT_TYPE,
+  BOOKING_TYPE,
+  ESTABLISHMENT_TYPE,
+  GROUP_ACTIVITY_TYPE,
+  LOCATION_TYPE,
+  PASS_TYPE,
+  type PassesType,
+  SUBSCRIPTION_TYPE,
+  WORKSHOP_TYPE,
+} from "#src/utils/types";
 
 const TIME_OPTION_NOT_SELECTED = 0;
 
@@ -26,21 +33,21 @@ export const useRefineNotificationFormData = () => {
   const getTriggerConditionKind = (
     triggerCondition: TriggerConditionStepProps,
   ) => {
-    if (triggerCondition.type === "booking") {
+    if (triggerCondition.type === BOOKING_TYPE) {
       return BOOKING_CREATION_NOTIFICATION;
     }
-    if (triggerCondition.type === "appointment") {
+    if (triggerCondition.type === APPOINTMENT_TYPE) {
       return PRIVATE_BOOKING_CREATION_NOTIFICATION;
     }
-    if (triggerCondition.type === "subscription") {
+    if (triggerCondition.type === SUBSCRIPTION_TYPE) {
       return triggerCondition.subscriptionEventKind;
     }
-    if (triggerCondition.type === PRIVATE_PASS_TYPE) {
+    if (triggerCondition.type === APPOINTMENT_PASS_TYPE) {
       return APPOINTMENT_PASS_ACTIONS_MAP_TO_EVENT_KIND[
         triggerCondition?.passEventAction
       ];
     }
-    if (triggerCondition.type === PAYMENT_PACK_TYPE) {
+    if (triggerCondition.type === PASS_TYPE) {
       return PAYMENT_PASS_ACTIONS_MAP_TO_EVENT_KIND[
         triggerCondition?.passEventAction
       ];
@@ -98,7 +105,7 @@ export const useRefineNotificationFormData = () => {
       : daysLeft;
 
     const finerGrainParams =
-      triggerType === PRIVATE_PASS_TYPE
+      triggerType === APPOINTMENT_PASS_TYPE
         ? {
             private_pass_ids: passIds,
             contains_all_private_passes:
@@ -136,7 +143,7 @@ export const useRefineNotificationFormData = () => {
     triggerCondition: TriggerConditionStepProps,
   ) => {
     const triggerType = triggerCondition.type;
-    if (triggerType === "booking") {
+    if (triggerType === BOOKING_TYPE) {
       const eventRulesTiming = getEventRuleDaysAndHours({
         timingTemporality: triggerCondition.timingTemporality,
         timingUnit: triggerCondition.timingUnit,
@@ -146,16 +153,16 @@ export const useRefineNotificationFormData = () => {
         days: eventRulesTiming.days,
         hours: eventRulesTiming.hours,
         establishment_id:
-          triggerCondition.notificationType === "location"
+          triggerCondition.notificationType === LOCATION_TYPE
             ? triggerCondition.bookingItemId
             : null,
         establishment_group_id:
-          triggerCondition.notificationType === "establishment"
+          triggerCondition.notificationType === ESTABLISHMENT_TYPE
             ? triggerCondition.bookingItemId
             : null,
         meta_activity_id:
-          triggerCondition.notificationType === "workshop" ||
-          triggerCondition.notificationType === "groupActivity"
+          triggerCondition.notificationType === WORKSHOP_TYPE ||
+          triggerCondition.notificationType === GROUP_ACTIVITY_TYPE
             ? triggerCondition.bookingItemId
             : null,
         event_based: true,
@@ -165,7 +172,7 @@ export const useRefineNotificationFormData = () => {
         smartlist_include: triggerCondition.includedSmartlists,
       };
     }
-    if (triggerType === "appointment") {
+    if (triggerType === APPOINTMENT_TYPE) {
       const eventRulesTiming = getEventRuleDaysAndHours({
         timingTemporality: triggerCondition.timingTemporality,
         timingUnit: triggerCondition.timingUnit,
@@ -182,7 +189,7 @@ export const useRefineNotificationFormData = () => {
         smartlist_include: triggerCondition.includedSmartlists,
       };
     }
-    if (triggerCondition.type === "subscription") {
+    if (triggerCondition.type === SUBSCRIPTION_TYPE) {
       const eventRulesTiming = getEventRuleDaysAndHours({
         timingTemporality: triggerCondition.timingTemporality,
         timingUnit: triggerCondition.timingUnit,
@@ -196,10 +203,7 @@ export const useRefineNotificationFormData = () => {
         smartlist_include: triggerCondition.includedSmartlists,
       };
     }
-    if (
-      triggerType === PRIVATE_PASS_TYPE ||
-      triggerType === PAYMENT_PACK_TYPE
-    ) {
+    if (triggerType === APPOINTMENT_PASS_TYPE || triggerType === PASS_TYPE) {
       return getPassesEventRules({ triggerType, triggerCondition });
     }
     return {

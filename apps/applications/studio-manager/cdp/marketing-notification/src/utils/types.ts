@@ -1,3 +1,32 @@
+export const BOOKING_TYPE = "booking";
+export const APPOINTMENT_TYPE = "appointment";
+export const SUBSCRIPTION_TYPE = "subscription";
+export const BIRTHDAY_TYPE = "birthday";
+
+export const GROUP_ACTIVITY_TYPE = "groupActivity";
+export const WORKSHOP_TYPE = "workshop";
+export const LOCATION_TYPE = "location";
+export const ESTABLISHMENT_TYPE = "establishment";
+
+export const PASSES_UNION_TYPE = "passes";
+
+export const PASS_TYPE = "pass";
+export const APPOINTMENT_PASS_TYPE = "appointmentPass";
+
+export type PassesType = typeof PASS_TYPE | typeof APPOINTMENT_PASS_TYPE;
+
+export const notificationTypeFilters = [
+  GROUP_ACTIVITY_TYPE,
+  WORKSHOP_TYPE,
+  LOCATION_TYPE,
+  ESTABLISHMENT_TYPE,
+  SUBSCRIPTION_TYPE,
+  APPOINTMENT_PASS_TYPE,
+  PASS_TYPE,
+  APPOINTMENT_TYPE,
+  BIRTHDAY_TYPE,
+];
+
 export type MarketingNotificationTableRowParams = {
   openPreview: (notificationId: number) => void;
   editNotification: (notificationId: number) => void;
@@ -25,6 +54,8 @@ export type MarketingNotificationTableRowData = {
   isEmailNotificationBroken: boolean;
   isNotificationActive: boolean;
   isAbleToUpdateNotification: boolean;
+  onRowClick?: () => void;
+  isActive?: boolean;
 };
 
 export type MarketingNotificationRecipientsTableRowData = {
@@ -38,55 +69,25 @@ export type MarketingNotificationRecipientsTableRowData = {
   recipientsRelationshipsCount?: number;
 };
 
-export const BIRTHDAY_NOTIFICATION = 0;
-export const PRIVATE_BOOKING_CREATION_NOTIFICATION = 1;
-export const BOOKING_CREATION_NOTIFICATION = 2;
-export const CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME = 3;
-export const CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT = 4;
-export const PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME = 5;
-export const PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT = 6;
-export const SUBSCRIPTION_NOTIFICATION_CREATION = 7;
-export const SUBSCRIPTION_NOTIFICATION_FIRST_BILLING = 8;
-export const SUBSCRIPTION_NOTIFICATION_END = 9;
-
-export const MarketingNotificationTitleByEventRulesKindMap: Record<
-  number,
-  string
-> = {
-  [BIRTHDAY_NOTIFICATION]: "Birthday",
-  [PRIVATE_BOOKING_CREATION_NOTIFICATION]: "Appointment Creation",
-  [BOOKING_CREATION_NOTIFICATION]: "Booking Creation",
-  [CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME]: "Payment Pack - Time",
-  [CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT]: "Payment Pack - Credit",
-  [PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME]: "Appointment Pass - Time",
-  [PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT]: "Appointment Pass - Credit",
-  [SUBSCRIPTION_NOTIFICATION_CREATION]: "Subscription - Creation",
-  [SUBSCRIPTION_NOTIFICATION_FIRST_BILLING]: "Subscription - First Billing",
-  [SUBSCRIPTION_NOTIFICATION_END]: "Subscription",
-};
-
 export type NotificationType =
-  | "birthday"
-  | "location"
-  | "establishment"
-  | "groupActivity"
-  | "workshop"
-  | "privateService"
-  | "paymentPack"
-  | "privatePass"
-  | "subscription"
-  | "unknown"
-  | "unknown_groupActivity";
+  | typeof BIRTHDAY_TYPE
+  | typeof LOCATION_TYPE
+  | typeof ESTABLISHMENT_TYPE
+  | typeof GROUP_ACTIVITY_TYPE
+  | typeof WORKSHOP_TYPE
+  | typeof APPOINTMENT_TYPE
+  | typeof PASS_TYPE
+  | typeof APPOINTMENT_PASS_TYPE
+  | typeof SUBSCRIPTION_TYPE;
 
 // We use a refined type to group some base notification types together
 // For example, location, groupActivity, workshop and privateService are all booking-related notifications
 // and are therefore grouped under the "booking" refined type
 export type RefinedNotificationType =
-  | "birthday"
-  | "booking"
-  | "passes"
-  | "subscription"
-  | "unknown";
+  | typeof BIRTHDAY_TYPE
+  | typeof BOOKING_TYPE
+  | typeof PASSES_UNION_TYPE
+  | typeof SUBSCRIPTION_TYPE;
 
 export type TriggerTimingConfig = {
   unit: "hour" | "day" | "credit" | "immediate";
@@ -111,17 +112,15 @@ export const NOTIFICATION_TYPE_TO_REFINED_TYPE: Record<
   NotificationType,
   RefinedNotificationType
 > = {
-  birthday: "birthday",
-  location: "booking",
-  workshop: "booking",
-  groupActivity: "booking",
-  establishment: "booking",
-  privateService: "booking",
-  unknown_groupActivity: "booking",
-  paymentPack: "passes",
-  privatePass: "passes",
-  subscription: "subscription",
-  unknown: "unknown",
+  birthday: BIRTHDAY_TYPE,
+  location: BOOKING_TYPE,
+  workshop: BOOKING_TYPE,
+  groupActivity: BOOKING_TYPE,
+  establishment: BOOKING_TYPE,
+  appointment: BOOKING_TYPE,
+  pass: PASSES_UNION_TYPE,
+  appointmentPass: PASSES_UNION_TYPE,
+  subscription: SUBSCRIPTION_TYPE,
 };
 
 export type PassListItemData = {
@@ -131,41 +130,32 @@ export type PassListItemData = {
   price: string;
 };
 
-type ExcludedNotificationTypesFromSelector =
-  | "unknown"
-  | "unknown_groupActivity";
-
-export type SelectableNotificationType = Exclude<
-  NotificationType,
-  ExcludedNotificationTypesFromSelector
->;
-
 export type TriggerTypeSelectorConfig = {
-  type: SelectableNotificationType;
+  type: NotificationType;
   translationKey: string;
   mode?: "groupActivity" | "workshop" | "all";
 };
 
 export type NotificationFormType =
-  | "birthday"
-  | "booking"
-  | "paymentPack"
-  | "privatePass"
-  | "subscription"
-  | "appointment";
+  | typeof BIRTHDAY_TYPE
+  | typeof BOOKING_TYPE
+  | typeof PASS_TYPE
+  | typeof APPOINTMENT_PASS_TYPE
+  | typeof SUBSCRIPTION_TYPE
+  | typeof APPOINTMENT_TYPE;
 
 // Notification type mapping, its linked to the refined notification type and help us to associate them together
 export const SELECTABLE_NOTIFICATION_TYPE_TO_REFINED_TYPE: Record<
-  SelectableNotificationType,
+  NotificationType,
   NotificationFormType
 > = {
-  birthday: "birthday",
-  location: "booking",
-  workshop: "booking",
-  groupActivity: "booking",
-  establishment: "booking",
-  privateService: "appointment",
-  paymentPack: "paymentPack",
-  privatePass: "privatePass",
-  subscription: "subscription",
+  birthday: BIRTHDAY_TYPE,
+  location: BOOKING_TYPE,
+  workshop: BOOKING_TYPE,
+  groupActivity: BOOKING_TYPE,
+  establishment: BOOKING_TYPE,
+  appointment: APPOINTMENT_TYPE,
+  pass: PASS_TYPE,
+  appointmentPass: APPOINTMENT_PASS_TYPE,
+  subscription: SUBSCRIPTION_TYPE,
 };

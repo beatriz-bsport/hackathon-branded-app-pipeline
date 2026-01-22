@@ -19,11 +19,16 @@ import {
   SESSION_CREATION_STEPS,
   useSessionCreationStore,
 } from "#src/stores/session-creation/store";
+import {
+  SessionCreationFormAdvancedOptionsData,
+  SessionCreationFormData,
+} from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useSessionSchema } from "../SessionForm/schemas";
 import { ChooseActivityStep } from "./ChooseActivityStep";
 import { ConfigureSessionStep } from "./ConfigureSessionStep";
+import { AdvancedOptionsStep } from "./advanced-options-step";
 
 type AddSessionModalProps = {
   isOpen: boolean;
@@ -35,15 +40,26 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
 
   const configureSessionFormData = useSessionCreationStore(
     selectStepFormData(SESSION_CREATION_STEPS.CONFIGURE_SESSION),
-  );
+  ) as SessionCreationFormData;
 
-  const sessionSchema = useSessionSchema();
+  const advancedOptionsFormData = useSessionCreationStore(
+    selectStepFormData(SESSION_CREATION_STEPS.ADVANCED_OPTIONS),
+  ) as SessionCreationFormAdvancedOptionsData;
+
+  const { advancedOptionsSchema, configureSessionSchema } = useSessionSchema();
 
   const configureSessionMethods = useFormController({
-    schema: sessionSchema,
+    schema: configureSessionSchema,
     mode: "onSubmit",
     shouldFocusError: true,
     defaultValues: configureSessionFormData,
+  });
+
+  const advancedOptionsMethods = useFormController({
+    schema: advancedOptionsSchema,
+    mode: "onSubmit",
+    shouldFocusError: true,
+    defaultValues: advancedOptionsFormData,
   });
 
   const selectedGroupActivity = useSessionCreationStore(
@@ -126,7 +142,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
         },
         {
           label: t("addSessionModal.steps.advancedOptions.label"),
-          content: <>Advanced Options Step</>,
+          content: <AdvancedOptionsStep methods={advancedOptionsMethods} />,
           validate: checkIfCurrentStepValid,
         },
       ]}

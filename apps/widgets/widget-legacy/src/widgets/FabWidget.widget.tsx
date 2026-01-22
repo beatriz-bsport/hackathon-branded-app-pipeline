@@ -81,7 +81,7 @@ const FabWidget = (props: Props) => {
     fetchCurrentBasket(companyId);
     fetchBookingsAndPrivateBookings({
       page: 1,
-      date_start: new Date().toISOString().split('T')[0],
+      only_future: true,
       company: companyId,
     });
   }, [companyId]);

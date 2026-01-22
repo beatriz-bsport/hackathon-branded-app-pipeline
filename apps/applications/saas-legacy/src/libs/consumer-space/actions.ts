@@ -355,6 +355,7 @@ export enum BookingsAndPrivateBookingsTypeEnum {
 export function fetchBookingsAndPrivateBookings(args: {
   company: number;
   date_start?: string;
+  only_future?: boolean;
   page?: number;
 }): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
@@ -393,6 +394,9 @@ export function fetchBookingsAndPrivateBookings(args: {
           ordering: 'offer__date_start',
         };
         if (args.date_start) params.min_date = args.date_start;
+        if (args.only_future) {
+          params.future_booking = true;
+        }
 
         const promise = fetchBookingListAPI(params);
         promises.push(promise);
@@ -413,6 +417,9 @@ export function fetchBookingsAndPrivateBookings(args: {
           ordering: 'date_start', // -date_start
         };
         if (args.date_start) params.date_start__gte = args.date_start;
+        if (args.only_future) {
+          params.strictly_future_booking = true;
+        }
 
         const promise = fetchPrivateBookings(params);
         promises.push(promise);

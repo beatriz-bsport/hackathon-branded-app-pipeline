@@ -142,12 +142,12 @@
           "edition": "Edit Connection {{ externalId }}",
           "deletion": "Delete Connection"
         },
-        "helperText": "Select which establishments you want to synchronise with myClubs. This will make all sessions in these establishments available to myClubs customers.",
+        "helperText": "Select which establishments you want to synchronise. All sessions in these establishments that have myClubs enabled will be available to book for myClubs customers.",
         "helperTextCreateSuccess": "Copy and paste this Partner ID into your <1>myClubs account</1> to make the sessions in your selected establishments available to myClubs customers.",
         "field": {
           "externalId": "Partner ID: {{ externalId }}",
           "establishmentIds": {
-            "placeholder": "Link your bsport establishment(s)",
+            "placeholder": "Link your establishment(s)",
             "title": "Establishments",
             "error": {
               "required": "Please select at least one establishment"
@@ -164,12 +164,12 @@
         },
         "activate": {
           "title": "Reactivate this Partner ID",
-          "subtitle": "Are you sure you want to reactivate synchronization for this Partner ID?",
+          "subtitle": "Reactivate synchronisation for this Partner ID?",
           "content": "Once reactivated, session will start syncing again automatically."
         },
         "unlink": {
           "title": "You are about to unlink one or several establishments from myClubs.",
-          "content": "Upcoming sessions linked to those establishments will be canceled on myClubs, along with any myClubs booking."
+          "content": "Upcoming sessions linked to those establishments will be cancelled on myClubs, including any bookings made with myClubs."
         },
         "notification": {
           "delete": {

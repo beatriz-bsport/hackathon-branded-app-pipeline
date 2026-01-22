@@ -909,7 +909,7 @@
         "explainIsEmpty": "Configure your appointments (e.g. name, duration, cost, etc.)."
       },
       "last_discard_minutes": {
-        "explain": "Cancellations will be refunded up to {{ days }} day(s), {{ hours }} hours(s), and {{ minutes }} minute(s) before the start of the appointment."
+        "explain": "Cancellations made at least {{ days }} day(s), {{ hours }} hours, and {{ minutes }} minute(s) before the start of the appointment will be refunded as credits."
       },
       "last_booking_minutes": {
         "explain": "Members can book up to {{days}} day(s), {{hours}} hour(s), and {{ minutes }} minute(s) before the start of the appointment."

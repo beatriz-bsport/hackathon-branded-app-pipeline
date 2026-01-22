@@ -46,6 +46,8 @@
     "translation:fillup": "pnpm --filter=@bsport/i18n-management project:translate-missing-strings",
     "translation:keys": "pnpm --filter=@bsport/i18n-management project:find-unused-keys",
     "translation:migrate": "pnpm exec nx translation:migrate @bsport/i18n-management",
+    "translation:new-naming:implement": "pnpm --filter=@bsport/i18n-management translation:implement-new-naming",
+    "translation:new-naming:preview": "pnpm --filter=@bsport/i18n-management translation:preview-new-naming",
     "translation:project:transform": "pnpm --filter=@bsport/i18n-management project:transform",
     "translation:update": "pnpm --silent --filter=@bsport/i18n-management translation:update",
     "utils": "ts-node tools/toolkit-cli/src/index.ts"

@@ -135,6 +135,10 @@ import { getPrivatePassNotifications } from '#src/libs/marketing/selectors';
 import type { MarketingNotification } from '#src/libs/marketing/types';
 import { OptionCallback } from '#src/state/types';
 import { fetchEstablishments } from '#src/libs/establishment/actions';
+import {
+  type FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 const {
   trackFormAdd,
@@ -192,7 +196,8 @@ type ConnectedProps = ReturnType<typeof mapStateToProps> &
 type OwnAndConnectedProps = OwnProps &
   ConnectedProps &
   StateHandlerType &
-  WithObjectSearch;
+  WithObjectSearch &
+  FeatureFlagProps;
 
 type Props = OwnAndConnectedProps &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -220,7 +225,11 @@ export class PrivatePassList extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.fetchPrivatePassList();
+    this.props.fetchPrivatePassList({
+      ...(this.props.shouldDisplayNewSubscriptionContracts && {
+        from_subscription: false,
+      }),
+    });
     this.props.fetchAllPrivateServices();
     this.props.fetchAllPrivatePassCategory();
 
@@ -455,10 +464,12 @@ export class PrivatePassList extends React.Component<Props, State> {
         // @ts-expect-error
         onSuccess: (res: PrivatePass) => {
           this.props.selectedPrivatePass?.id &&
-            this.props.refreshOptions(
-              'private_pass',
-              searchBarAdditionalParams,
-            );
+            this.props.refreshOptions('private_pass', {
+              ...searchBarAdditionalParams,
+              ...(this.props.shouldDisplayNewSubscriptionContracts && {
+                from_subscription: false,
+              }),
+            });
           if (options?.onSuccess) options.onSuccess();
           this.props.closePrivatePassForm();
           addToNotifications?.forEach((n) =>
@@ -566,7 +577,12 @@ export class PrivatePassList extends React.Component<Props, State> {
               <div className={classes.buttonRow}>
                 <div style={{ flex: 1 }}>
                   <ObjectSearchComponent
-                    additionalParams={searchBarAdditionalParams}
+                    additionalParams={{
+                      ...searchBarAdditionalParams,
+                      ...(this.props.shouldDisplayNewSubscriptionContracts && {
+                        from_subscription: false,
+                      }),
+                    }}
                     components={{
                       Option,
                     }}
@@ -1004,7 +1020,12 @@ const mapWithHandlers = {
   deletePrivatePass: (props: OwnAndConnectedProps) => (id: number) => {
     props.deletePrivatePass(id, {
       onSuccess: () => {
-        props.refreshOptions('private_pass', searchBarAdditionalParams);
+        props.refreshOptions('private_pass', {
+          ...searchBarAdditionalParams,
+          ...(!!props?.shouldDisplayNewSubscriptionContracts && {
+            from_subscription: false,
+          }),
+        });
       },
     });
     props.closePrivatePassForm();
@@ -1082,5 +1103,6 @@ export default compose(
     false,
   ),
   withObjectSearch,
+  withFeatureFlags,
   withHandlers(mapWithHandlers),
 )(PrivatePassList);

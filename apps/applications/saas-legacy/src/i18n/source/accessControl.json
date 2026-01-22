@@ -92,6 +92,8 @@
     "minutes": "Minutes",
     "afterTitle": "Entry period before session starts",
     "beforeTitle": "Entry period after session starts",
+    "automaticCheckIn": "Auto check-in",
+    "automaticCheckInDescription": "Members who enter via Access Control will be automatically marked as present for any classes they're booked into.",
     "isStudioWide": "Settings are applied studio-wide.",
     "errors": {
       "required": "This field is required",

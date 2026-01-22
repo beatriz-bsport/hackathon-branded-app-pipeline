@@ -24,6 +24,7 @@
     "@bsport/permissions": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/use-async": "workspace:*",
+    "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.2.0"
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-federation": "workspace:*",
+    "@types/luxon": "^3.4.2",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14",

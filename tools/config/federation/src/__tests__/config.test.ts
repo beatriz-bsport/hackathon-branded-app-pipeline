@@ -179,6 +179,10 @@ describe("getConfig", () => {
         "@bsport/datetime-formatting": {
           singleton: true,
         },
+        luxon: {
+          singleton: true,
+          requiredVersion: "^3.4.4",
+        },
       },
     });
   });

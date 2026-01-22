@@ -313,6 +313,10 @@ export const getConfig = (config: {
       "@bsport/datetime-formatting": {
         singleton: true,
       },
+      luxon: {
+        singleton: true,
+        requiredVersion: packageJson.dependencies["luxon"] ?? "^3.4.4",
+      },
     },
     exposes,
     remotes,

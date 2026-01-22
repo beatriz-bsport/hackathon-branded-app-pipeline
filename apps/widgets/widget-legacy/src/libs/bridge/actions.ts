@@ -69,7 +69,12 @@ type UnhandledEventData = {
   type: WidgetMessageType;
   authenticated?: unknown;
   count?: unknown;
-  data?: { videoId: unknown; playbackUrl: unknown; accessDenied: unknown };
+  data?: {
+    videoId: unknown;
+    playbackUrl: unknown;
+    accessDenied: unknown;
+    closeModal?: boolean;
+  };
   offer_ids?: unknown;
   username?: unknown;
   videoId?: number;

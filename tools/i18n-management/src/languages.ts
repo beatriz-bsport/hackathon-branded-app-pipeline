@@ -21,4 +21,4 @@ export const LOCALES = [
   LANGUAGES.GERMAN,
   LANGUAGES.ITALIAN,
   LANGUAGES.PORTUGUESE,
-];
+] as const;

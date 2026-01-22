@@ -410,7 +410,7 @@
     "general": "Gültig für {{ duration_days }} Tage, {{ duration_months }} Monat(e) und {{ duration_years }} Jahr(e)",
     "years": "{{ count }} Jahr",
     "years_plural": "{{ count }} Jahre",
-    "months": "{{ count }} Monat",
+    "months": "{{ count }} Monat(e)",
     "days": "{{ count }} Tag",
     "days_plural": "{{ count }} Tage",
     "and": " und ",

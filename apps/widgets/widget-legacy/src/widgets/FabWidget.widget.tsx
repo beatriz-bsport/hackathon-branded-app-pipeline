@@ -41,7 +41,7 @@ import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-
 import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '@bsport/saas-legacy/src/libs/checkout/actions';
 import { fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction } from '@bsport/saas-legacy/src/libs/consumer-space/actions';
-import { getAllBookingAndPrivateBooking } from '@bsport/saas-legacy/src/libs/consumer-space/selectors';
+import { getAllBookingAndPrivateBookingCount } from '@bsport/saas-legacy/src/libs/consumer-space/selectors';
 import { getCurrentBasket } from '@bsport/saas-legacy/src/libs/checkout/selectors';
 import { CheckoutItem } from '@bsport/saas-legacy/src/libs/checkout/types';
 
@@ -73,7 +73,7 @@ const FabWidget = (props: Props) => {
     fabShowSubscription,
     fetchCurrentBasket,
     fetchBookingsAndPrivateBookings,
-    currentBookings,
+    currentBookingsCount,
     currentBasket,
   } = props;
 
@@ -140,7 +140,7 @@ const FabWidget = (props: Props) => {
     fabShowSubscription();
   };
 
-  const bookingsCount = currentBookings.length;
+  const bookingsCount = currentBookingsCount;
   const basketCount =
     currentBasket?.checkout_items?.reduce(
       (s: number, a: CheckoutItem) => s + a.quantity,
@@ -363,7 +363,7 @@ const styles = (theme: Theme) =>
 const mapStateToProps = (state: RootState) => ({
   dialogUrl: state.modal.url,
   authenticated: state.auth.authenticated,
-  currentBookings: getAllBookingAndPrivateBooking(state),
+  currentBookingsCount: getAllBookingAndPrivateBookingCount(state),
   currentBasket: getCurrentBasket(state),
 });
 

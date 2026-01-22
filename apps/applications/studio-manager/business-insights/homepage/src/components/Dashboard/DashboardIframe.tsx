@@ -77,10 +77,11 @@ export const DashboardIframe: FC<DashboardIframeProps> = ({
       const urlObj = new URL(src);
       urlObj.searchParams.set(":lng", lng);
       urlObj.searchParams.set(":responsive_height", "true");
+      urlObj.searchParams.set(":hide_element_interactions", "true");
       return urlObj.toString();
     } catch {
       const separator = src.includes("?") ? "&" : "?";
-      return `${src}${separator}:lng=${encodeURIComponent(lng)}&:responsive_height=true`;
+      return `${src}${separator}:lng=${encodeURIComponent(lng)}&:responsive_height=true&:hide_element_interactions=true`;
     }
   }, [src, i18n.language]);
 

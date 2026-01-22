@@ -1,0 +1,138 @@
+{
+  "pages": {
+    "memberList": "Profils",
+    "archivedMemberList": "Profils archivés"
+  },
+  "actions": {
+    "addMember": "Créer un profil",
+    "importLeads": "Importer des prospects",
+    "download": "Télécharger"
+  },
+  "memberTable": {
+    "loading": "Chargement des profils...",
+    "emptySearch": {
+      "subtitle": "Aucun profil trouvé - essayez de supprimer les filtres pour voir plus de résultats"
+    },
+    "emptyList": {
+      "activeMode": {
+        "title": "Aucun profil pour le moment",
+        "subtitle": "Ajoutez des profils contacts ou importez des leads pour commencer"
+      },
+      "archivedMode": {
+        "title": "Aucun profil archivé"
+      }
+    },
+    "headers": {
+      "name": "Nom",
+      "email": "Email",
+      "balance": "Solde du compte",
+      "joinDate": "Date d'adhésion"
+    },
+    "tooltips": {
+      "archive": "Archiver le profil",
+      "restore": "Restaurer le profil"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "Copier l'email"
+    },
+    "loading": {
+      "activeList": "Chargement des profils . . .",
+      "archivedList": "Chargement des profils archivés . . . "
+    }
+  },
+  "listPage": {
+    "archiveModal": {
+      "title": "Archiver le profil ?",
+      "description": {
+        "action": "Une fois que vous archivez {{ name }}, son profil ne sera plus actif. ",
+        "effect": "Vous pouvez restaurer ce profil à tout moment depuis votre archive."
+      },
+      "alertIrregularity": {
+        "adviseRegularization": "Avant d'archiver ce profil, nous vous recommandons de régler d'abord le solde du compte du profil. Cela est dû à l'une des raisons suivantes : ",
+        "items": {
+          "negativeBalance": "Solde de compte négatif",
+          "unpaidInvoices": "Une ou plusieurs factures impayées",
+          "currentSubscription": "Le profil a un abonnement actif",
+          "autorenewalSubscriptions": "Le profil a un abonnement qui est configuré pour se renouveler automatiquement",
+          "futureBookings": "Le profil a des réservations futures",
+          "recurringBookings": "Le profil a des réservations récurrentes",
+          "scheduledAppointments": "Le profil a des rendez-vous programmés"
+        }
+      },
+      "buttons": {
+        "cancel": "Fermer",
+        "archive": "Archiver"
+      }
+    }
+  },
+  "toasts": {
+    "actions": {
+      "undo": "Annuler"
+    },
+    "emailCopied": "Email copié dans le presse-papiers",
+    "messageUndone": {
+      "success": "Modification annulée",
+      "error": "La modification n'a pas pu être annulée. Veuillez réessayer. "
+    },
+    "messageArchived": {
+      "success": "Profil archivé",
+      "error": "Le profil n'a pas pu être archivé. Veuillez réessayer."
+    },
+    "messageRestored": {
+      "success": "Profil restauré",
+      "error": "Le profil n'a pas pu être restauré. Veuillez réessayer."
+    }
+  },
+  "filters": {
+    "label": "Filtre",
+    "operators": {
+      "is": "est",
+      "isNot": "n'est pas"
+    }
+  },
+  "importLeadsModal": {
+    "title": "Importer les leads",
+    "description": "Téléchargez un fichier CSV pour importer vos prospects dans le Back Office de bsport",
+    "moreHelpSection": "Besoin d'aide avec cela ? <key>Visitez notre centre d'aide</key>",
+    "uploadFile": {
+      "extensionCSVOnly": "Fichier CSV uniquement",
+      "workInProgress": "Importation des prospects ...",
+      "wipDoNotRefresh": "Veuillez ne pas actualiser ou quitter cette page",
+      "errors": {
+        "wrongNumberOfColumns": {
+          "title": "Le fichier ne contient pas le nombre requis de colonnes",
+          "formatIndication": "Veuillez suivre <key>notre format</key> pour importer vos prospects avec succès"
+        },
+        "invalidFileType": "Type de fichier invalide - veuillez télécharger un fichier CSV",
+        "datasetTooLarge": "Ensemble de données trop volumineux. Veuillez réduire à un maximum de 100 000 lignes.",
+        "wrongEncoding": "Encodage de fichier incompatible - veuillez utiliser UTF-8"
+      }
+    },
+    "importSuccess": {
+      "title": "Leads importés avec succès",
+      "outputText": "Votre fichier CSV des pistes importées avec succès :",
+      "outputFilename": "lignes_succès",
+      "importedLeadsNumber_one": "{{ count }} Leads importés",
+      "importedLeadsNumber_other": "{{ count }} Lead importée"
+    },
+    "importPartialSuccess": {
+      "title": "Certaines lignes du fichier contenaient des erreurs et n'ont pas pu être traitées.",
+      "outputText": "Voici un fichier CSV des leads qui n'ont pas pu être importés en raison de lignes incorrectes.",
+      "outputFilename": "lignes_échec"
+    },
+    "otherImportInProgress": {
+      "title": "Une importation est déjà en cours",
+      "subtitle": "Veuillez attendre la fin de l'importation avant d'en lancer une nouvelle."
+    },
+    "importError": {
+      "title": "Échec de l'importation",
+      "unknownError": "Une erreur inconnue s'est produite lors de l'importation, veuillez réessayer."
+    },
+    "importTimeout": {
+      "title": "Le rafraîchissement a expiré. Veuillez réessayer.",
+      "comeBackLater": "L'importation prend plus de temps que prévu - veuillez revenir plus tard"
+    }
+  }
+}

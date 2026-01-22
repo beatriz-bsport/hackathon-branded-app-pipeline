@@ -1,0 +1,91 @@
+{
+  "pages": {
+    "active": "Docenten",
+    "archived": "Gearchiveerde docenten"
+  },
+  "activeList": {
+    "actions": {
+      "addTeacher": "Docent aanmaken"
+    },
+    "addTeacherModal": {
+      "title": "Docent aanmaken",
+      "input": {
+        "label": "Email",
+        "placeholder": "teacher@email.com",
+        "helper": "Het profiel van de docent wordt automatisch gekoppeld als dit emailadres al bekend is",
+        "missingEmailError": "Voer het emailadres van de docent in om hun profiel aan te maken"
+      },
+      "actions": {
+        "back": "Sluiten",
+        "add": "Maken",
+        "open": "Open"
+      },
+      "linkedTeacher": "Docenten succesvol gekoppeld",
+      "errors": {
+        "staffExists": "Dit emailadres is al gekoppeld aan een personeelsaccount",
+        "staffFranchiseExists": "Dit is al gekoppeld aan een personeelsfranchiseaccount"
+      }
+    },
+    "archiveModal": {
+      "buttons": {
+        "archive": "Archiveren",
+        "back": "Behouden"
+      },
+      "title": "Instructeur archiveren?",
+      "description": {
+        "action": "Zodra je {{ name }} archiveert, zijn ze niet langer actief. \n\n",
+        "effect": "Je kunt deze docent op elk moment uit je archief herstellen."
+      }
+    }
+  },
+  "toasts": {
+    "messageArchived": {
+      "success": "Docenten gearchiveerd",
+      "error": "De docent kon niet worden gearchiveerd. Probeer het opnieuw."
+    },
+    "messageRestored": {
+      "success": "Docenten hersteld",
+      "error": "De docent kon niet worden hersteld. Probeer het opnieuw."
+    },
+    "messageUndone": {
+      "success": "Wijziging ongedaan gemaakt",
+      "error": "De wijziging kan niet ongedaan worden gemaakt. Probeer het opnieuw\n"
+    },
+    "emailCopied": "E-mail gekopieerd naar klembord",
+    "phoneCopied": "Telefoon gekopieerd naar klembord",
+    "actions": {
+      "undo": "Ongedaan maken"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Naam",
+      "email": "E-mail",
+      "phone": "Telefoon"
+    },
+    "loading": {
+      "activeList": "Docent laden ...",
+      "archivedList": "Bezig met het laden van gearchiveerde docenten ..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "Nog geen docenten",
+        "subtitle": "Begin met het toevoegen van docenten aan je studio"
+      },
+      "archivedList": {
+        "title": "Nog geen gearchiveerde docenten",
+        "subtitle": "Alle docenten die hierheen zijn verplaatst, kunnen worden hersteld."
+      }
+    },
+    "tooltips": {
+      "archive": "Docent archiveren",
+      "restore": "Herstel instructeur"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "E-mail kopiëren",
+      "copyPhone": "Kopieer telefoonnummer"
+    }
+  }
+}

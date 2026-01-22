@@ -1,0 +1,91 @@
+{
+  "pages": {
+    "active": "Insegnanti",
+    "archived": "Insegnanti archiviati"
+  },
+  "activeList": {
+    "actions": {
+      "addTeacher": "Aggiungi insegnante"
+    },
+    "addTeacherModal": {
+      "title": "Crea un insegnante",
+      "input": {
+        "label": "Email",
+        "placeholder": "teacher@email.com",
+        "helper": "Il profilo dell'Insegnante verrà collegato automaticamente se abbiamo già questo indirizzo email.",
+        "missingEmailError": "Devi inserire l'email dell'insegnante per creare il suo profilo"
+      },
+      "actions": {
+        "back": "Chiudi",
+        "add": "Crea",
+        "open": "Apri"
+      },
+      "linkedTeacher": "Insegnante collegato con successo",
+      "errors": {
+        "staffExists": "Questa email è già collegata a un account del personale",
+        "staffFranchiseExists": "Questo è già collegato a un account franchising del personale"
+      }
+    },
+    "archiveModal": {
+      "buttons": {
+        "archive": "Archivia",
+        "back": "Mantieni"
+      },
+      "title": "Archiviare insegnante?",
+      "description": {
+        "action": "Una volta che archivia {{ name }}, il loro profilo non sarà più attivo.\n\n",
+        "effect": "Puoi ripristinare questo insegnante in qualsiasi momento dal tuo archivio."
+      }
+    }
+  },
+  "toasts": {
+    "messageArchived": {
+      "success": "Insegnanto archiviato",
+      "error": "L'Insegnanti non può essere archiviato. Per favore riprova."
+    },
+    "messageRestored": {
+      "success": "Insegnanto ripristinato",
+      "error": "L'Insegnanti non può essere ripristinato. Per favore riprova."
+    },
+    "messageUndone": {
+      "success": "Cambiamento annullato",
+      "error": "La modifica non può essere annullata. Riprova."
+    },
+    "emailCopied": "Email copiata negli appunti",
+    "phoneCopied": "Telefono copiato negli appunti",
+    "actions": {
+      "undo": "Annulla"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Nome",
+      "email": "Email",
+      "phone": "Telefono"
+    },
+    "loading": {
+      "activeList": "Caricamento insegnanti ...",
+      "archivedList": "Caricamento degli insegnanti archiviati ..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "Ancora nessun insegnante",
+        "subtitle": "Inizia ad aggiungere insegnanti al tuo studio"
+      },
+      "archivedList": {
+        "title": "Ancora nessun insegnante archiviato",
+        "subtitle": "Qualsiasi insegnante spostato qui può essere ripristinato"
+      }
+    },
+    "tooltips": {
+      "archive": "Archivia insegnante",
+      "restore": "Ripristina insegnante"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "Copia Email",
+      "copyPhone": "Copia telefono"
+    }
+  }
+}

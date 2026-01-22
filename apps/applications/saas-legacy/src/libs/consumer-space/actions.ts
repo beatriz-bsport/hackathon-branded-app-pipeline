@@ -356,10 +356,7 @@ export function fetchBookingsAndPrivateBookings(args: {
   member: number;
   date_start?: string;
   page?: number;
-  options?: OptionCallback<BookingOrPrivateBooking[]>;
-  type?: BookingsAndPrivateBookingsTypeEnum;
   mine?: boolean;
-  forceRefetch?: boolean;
 }): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     args.page === 1 && dispatch(consumerBookingAndPrivateBookingReset());
@@ -385,9 +382,8 @@ export function fetchBookingsAndPrivateBookings(args: {
       const promises: Promise<null | any>[] = [];
 
       if (
-        (bookingRest.length < pageSize &&
-          bookingAndPrivateBooking.booking.next_page) ||
-        args.forceRefetch
+        bookingRest.length < pageSize &&
+        bookingAndPrivateBooking.booking.next_page
       ) {
         const params: any = {
           member: args.member,
@@ -399,31 +395,6 @@ export function fetchBookingsAndPrivateBookings(args: {
         };
         if (args.date_start) params.min_date = args.date_start;
 
-        if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
-          delete params.min_date;
-          params.max_date = args.date_start;
-          params.ordering = '-offer__date_start';
-        }
-
-        if (args.type === BookingsAndPrivateBookingsTypeEnum.beforeDateEnd) {
-          delete params.min_date;
-          params.before_date_end = true;
-        }
-
-        if (
-          args.type ===
-          BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly
-        ) {
-          delete params.min_date;
-          params.before_date_end = true;
-          params.start_until_datetime = DateTime.now()
-            .endOf('day')
-            .plus({ hours: 2 })
-            .toISO();
-          params.page_size = 1;
-          params.page = 1;
-        }
-
         const promise = fetchBookingListAPI(params);
         promises.push(promise);
       } else {
@@ -431,9 +402,8 @@ export function fetchBookingsAndPrivateBookings(args: {
       }
 
       if (
-        (privateBookingRest.length < pageSize &&
-          bookingAndPrivateBooking.privateBooking.next_page) ||
-        args.forceRefetch
+        privateBookingRest.length < pageSize &&
+        bookingAndPrivateBooking.privateBooking.next_page
       ) {
         const params: any = {
           member: args.member,
@@ -443,31 +413,6 @@ export function fetchBookingsAndPrivateBookings(args: {
           ordering: 'date_start', // -date_start
         };
         if (args.date_start) params.date_start__gte = args.date_start;
-
-        if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
-          delete params.date_start__gte;
-          params.date_start__lte = args.date_start;
-          params.ordering = '-date_start';
-        }
-
-        if (args.type === BookingsAndPrivateBookingsTypeEnum.beforeDateEnd) {
-          delete params.date_start__gte;
-          params.before_date_end = true;
-        }
-
-        if (
-          args.type ===
-          BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly
-        ) {
-          delete params.date_start__gte;
-          params.before_date_end = true;
-          params.start_until_datetime = DateTime.now()
-            .endOf('day')
-            .plus({ hours: 2 })
-            .toISO();
-          params.page_size = 1;
-          params.page = 1;
-        }
 
         const promise = fetchPrivateBookings(params);
         promises.push(promise);
@@ -511,10 +456,6 @@ export function fetchBookingsAndPrivateBookings(args: {
 
       let sortedByDateAll = sortBookingAndPrivateBookingList(all);
 
-      if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
-        sortedByDateAll = sortedByDateAll.reverse();
-      }
-
       const sortedByDatePaged = sortedByDateAll.splice(0, pageSize);
 
       bookingRest = [];
@@ -556,10 +497,6 @@ export function fetchBookingsAndPrivateBookings(args: {
       };
 
       await dispatch(consumerBookingAndPrivateBookingSuccess(payload));
-      if (args.options && args.options.onSuccess) {
-        // @ts-expect-error
-        args.options.onSuccess(payload);
-      }
     } catch (err) {
       console.error(err);
       dispatch(consumerBookingAndPrivateBookingError(err));

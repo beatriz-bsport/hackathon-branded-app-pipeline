@@ -101,7 +101,7 @@
       "dateFormatYearMonth": "Jaar en maand (YYYY-MM)",
       "startingNumberLabel": "Startnummer*",
       "startingNumberHelper": "Kies vanaf welk nummer je je facturen wilt laten beginnen en ze worden opeenvolgend genummerd (bijv. 1, 2, 3)",
-      "startingNumberHelperExisting": "Voer het volgende factuurnummer in (moet hoger zijn dan 1).",
+      "startingNumberHelperExisting": "Voer het volgende factuurnummer in (één hoger dan je laatste factuur)",
       "previousInvoiceTitle": "Laatste factuurnummer van vorige maand: <0>{{invoiceNumber}}</0>",
       "viewInvoiceDetails": "Bekijk factuurdetails",
       "startingNumberHint": "Zoek het nummer van deze factuur in je externe boekhoudsysteem.",

@@ -705,6 +705,7 @@ export type PrivateBookingFilterParams = {
   is_recurrent?: boolean;
   is_unpaid?: boolean;
   member?: number;
+  only_mine?: boolean;
   page_size?: number;
   page?: number;
   strictly_past_booking?: boolean;

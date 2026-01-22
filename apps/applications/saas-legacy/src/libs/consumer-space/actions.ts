@@ -353,10 +353,9 @@ export enum BookingsAndPrivateBookingsTypeEnum {
 }
 
 export function fetchBookingsAndPrivateBookings(args: {
-  member: number;
+  company: number;
   date_start?: string;
   page?: number;
-  mine?: boolean;
 }): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     args.page === 1 && dispatch(consumerBookingAndPrivateBookingReset());
@@ -386,10 +385,10 @@ export function fetchBookingsAndPrivateBookings(args: {
         bookingAndPrivateBooking.booking.next_page
       ) {
         const params: any = {
-          member: args.member,
+          company: args.company,
+          mine: true,
           page: bookingPage,
           page_size: pageSize,
-          mine: args?.mine ?? true,
           booking_status_code: BOOKING_STATUS_OK.id,
           ordering: 'offer__date_start',
         };
@@ -406,7 +405,8 @@ export function fetchBookingsAndPrivateBookings(args: {
         bookingAndPrivateBooking.privateBooking.next_page
       ) {
         const params: any = {
-          member: args.member,
+          company: args.company,
+          only_mine: true,
           booking_status_code: BOOKING_STATUS_OK.id,
           page: privateBookingPage,
           page_size: pageSize,

@@ -82,7 +82,7 @@ const FabWidget = (props: Props) => {
     fetchBookingsAndPrivateBookings({
       page: 1,
       date_start: new Date().toISOString().split('T')[0],
-      member: companyId,
+      company: companyId,
     });
   }, [companyId]);
 

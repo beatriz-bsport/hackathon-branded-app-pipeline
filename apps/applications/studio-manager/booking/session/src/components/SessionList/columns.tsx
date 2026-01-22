@@ -11,7 +11,7 @@ import { Body } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { Columns, EnrichedSession, TableColumn } from "#src/types";
-import { useTranslation } from "#src/utils/i18n";
+import { TFunction, useTranslation } from "#src/utils/i18n";
 
 import { CancelledSessionName } from "./CancelledSessionName";
 import { ParticipantsCell } from "./ParticipantsCell";
@@ -19,6 +19,35 @@ import { SessionTypeChips } from "./SessionTypeChips";
 import { AttendanceButton } from "./attendance-button";
 import { ShortcutActionsButton } from "./detail-actions/shortcut-actions-button";
 import { TeacherCell } from "./teacher-cell";
+
+export function formatMinutes(minutesNumber: number, t: TFunction) {
+  if (minutesNumber === 999999) {
+    return t("w:never");
+  }
+  const dayIdentifier = "table.datetime.shortDayIdentifier";
+  const hourIdentifier = "table.datetime.shortHourIdentifier";
+  const minuteIdentifier = "table.datetime.shortMinuteIdentifier";
+
+  const minutesMinusDays = minutesNumber % (60 * 24);
+  const minutesMinusHours = minutesNumber % 60;
+
+  const days = parseInt((minutesNumber / (60 * 24)).toString(), 10);
+  const hours = parseInt((minutesMinusDays / 60).toString(), 10);
+
+  let readableDuration = "";
+  if (days) {
+    readableDuration += `${days}${"\u00A0"}${t(dayIdentifier, { count: days })} `;
+  }
+  if (hours) {
+    readableDuration += `${hours}${"\u00A0"}${t(hourIdentifier)} `;
+  }
+
+  if (minutesMinusHours || readableDuration === "") {
+    readableDuration += `${minutesMinusHours}${"\u00A0"}${t(minuteIdentifier)}`;
+  }
+
+  return readableDuration;
+}
 
 export const useSessionListColumns = () => {
   const { t, i18n } = useTranslation("sessionList");
@@ -41,9 +70,18 @@ export const useSessionListColumns = () => {
         duration: { minute: row.duration_minute },
         operator: "plus",
       });
-
       const timeFormatter = (dateTime: DateTime) =>
         formatDateTimeFromDate(dateTime, DATETIME_FORMATS.TIME_SIMPLE);
+
+      const spanMultipleDays = startDate.toISODate() !== endDate.toISODate();
+
+      if (spanMultipleDays) {
+        return (
+          <Body htmlVariant="p" size="md">
+            {`${timeFormatter(startDate)} - ${formatMinutes(row.duration_minute, t)}`}
+          </Body>
+        );
+      }
 
       return (
         <Body htmlVariant="p" size="md">

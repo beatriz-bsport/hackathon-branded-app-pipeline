@@ -101,7 +101,7 @@
       "dateFormatYearMonth": "Año y mes (AAAA-MM)",
       "startingNumberLabel": "Número inicial*",
       "startingNumberHelper": "Elige el número con el que quieres empezar tus facturas y se numerarán secuencialmente (por ejemplo, 1, 2, 3)",
-      "startingNumberHelperExisting": "Introduce el siguiente número de factura (debe ser mayor a 1).",
+      "startingNumberHelperExisting": "Introduce el siguiente número de factura (uno más que tu última factura)",
       "previousInvoiceTitle": "Número de la última factura del mes anterior: <0>{{invoiceNumber}}</0>",
       "viewInvoiceDetails": "Ver detalles de la factura",
       "startingNumberHint": "Encuentra el número de esta factura en tu sistema de contabilidad externo.",

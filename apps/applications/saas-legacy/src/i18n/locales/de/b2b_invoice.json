@@ -101,7 +101,7 @@
       "dateFormatYearMonth": "Jahr und Monat (JJJJ-MM)",
       "startingNumberLabel": "Startnummer*",
       "startingNumberHelper": "Leg fest, ab welcher Zahl deine Rechnungen nummeriert werden (z. B. 1, 2, 3).",
-      "startingNumberHelperExisting": "Gib die nächste Rechnungsnummer ein (muss über 1 sein).",
+      "startingNumberHelperExisting": "Gib die nächste Rechnungsnummer ein (eine Nummer höher als deine letzte Rechnung)",
       "previousInvoiceTitle": "Letzte Rechnungsnummer vom Vormonat: <0>{{invoiceNumber}}</0>",
       "viewInvoiceDetails": "Rechnungsdetails anzeigen",
       "startingNumberHint": "Finde die Rechnungsnummer in deinem externen Buchhaltungssystem.",

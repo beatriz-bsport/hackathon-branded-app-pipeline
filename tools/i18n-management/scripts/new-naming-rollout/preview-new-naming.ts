@@ -17,6 +17,8 @@ program
   .description(
     "Generate an excel for preview and validation of new terms rollout.\n" +
       "For each language you want to edit, you need to provide the singular and plural forms of the previous and the new terms.\n" +
+      "You can provide multiple previous terms by separating them with ';'. Careful: the order is important.\n" +
+      "Example: VOD;Videos & eBooks;eBooks;Videos. Note that we first replace Videos & eBooks, and then eBooks alone.\n" +
       "The script is case sensitive, but will apply your inputs with lower case and first letter in upper case as well.\n" +
       "Example: Private pass/Private passes => It will handle Private pass (input), Private Pass (1st letter upper case), private pass (lowercase).\n" +
       "If you don't provide any language, an interactive selector will help you make the configuration.",
@@ -28,6 +30,11 @@ program
   .option(
     "-l, --languages <string>",
     "Languages to scan. Separate the names with ','. To select them all, set to `*`",
+  )
+  .option(
+    "-sp, --skip-plural",
+    "Whether to skip the inputs to provide plural, in case singular=plural (no distinction).",
+    false,
   )
   .action(main)
   .parse(process.argv);
@@ -50,9 +57,11 @@ type TrackingDataStructure = {
 async function main({
   projects,
   languages,
+  skipPlural,
 }: {
   projects?: string;
   languages?: string;
+  skipPlural?: boolean;
 }) {
   // Step 1 - Select projects to scan and transform
   const selectedProjects = await selectProjects({
@@ -69,42 +78,62 @@ async function main({
   const languagesConfigs: LanguageConfig[] = [];
   {
     for (const language of selectedLanguages) {
-      const previousTermSingular = await input({
-        message: `${language} | What is the word you wish to replace (singular) ?`,
+      const previousTermsSingular = await input({
+        message: `${language} | What are the words you wish to replace (singular) ?`,
         required: true,
       });
 
-      const previousTermPlural = await input({
-        message: `${language} | What is the word you wish to replace (plural) ?`,
-        required: true,
-        default: previousTermSingular,
-      });
+      const previousTermsPlural = skipPlural
+        ? previousTermsSingular
+        : await input({
+            message: `${language} | What are the words you wish to replace (plural) ?`,
+            required: true,
+            default: previousTermsSingular,
+            validate: (value) => {
+              const singularLength = previousTermsSingular.split(";").length;
+              const pluralLength = value.split(";").length;
+              return pluralLength === singularLength;
+            },
+          });
 
       const newTermSingular = await input({
         message: `${language} | What is the new term to replace with (singular) ?`,
         required: true,
       });
 
-      const newTermPlural = await input({
-        message: `${language} | What is the new term to replace with (plural) ?`,
-        required: true,
-        default: newTermSingular,
-      });
+      const newTermPlural = skipPlural
+        ? newTermSingular
+        : await input({
+            message: `${language} | What is the new term to replace with (plural) ?`,
+            required: true,
+            default: newTermSingular,
+          });
 
-      languagesConfigs.push({
-        id: language,
-        previousTermSingular,
-        previousTermPlural,
-        newTermSingular,
-        newTermPlural,
-      });
+      const previousTermSingularList = previousTermsSingular.split(";");
+      const previousTermsPluralList = previousTermsPlural.split(";");
+
+      if (previousTermSingularList.length !== previousTermsPluralList.length) {
+        throw new Error(
+          `Singular and plural lists don't have the same length for language ${language}`,
+        );
+      }
+
+      for (let idx = 0; idx < previousTermSingularList.length; idx++) {
+        languagesConfigs.push({
+          id: language,
+          previousTermSingular: previousTermSingularList[idx],
+          previousTermPlural: previousTermsPluralList[idx],
+          newTermSingular,
+          newTermPlural,
+        });
+      }
 
       if (!title) {
         // Define title for the xlsx file
-        const sanitizedPrevious = previousTermSingular
+        const sanitizedPrevious = previousTermSingularList[0]
           .toLowerCase()
-          .replace(" ", "-");
-        const sanitizedNew = newTermSingular.toLowerCase().replace(" ", "-");
+          .replaceAll(" ", "-");
+        const sanitizedNew = newTermSingular.toLowerCase().replaceAll(" ", "-");
         title = `transform-${sanitizedPrevious}-into-${sanitizedNew}`;
       }
     }

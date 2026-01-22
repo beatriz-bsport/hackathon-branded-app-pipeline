@@ -55,7 +55,7 @@ export async function linkByEmail(email: string) {
 }
 
 export async function deleteCoach(id: number) {
-  return deleteAuth(`${API_V1_URI}/coach/${id}`);
+  return deleteAuth(`${API_V1_URI}/coach/${id}/`);
 }
 
 export async function restoreCoach(id: number) {

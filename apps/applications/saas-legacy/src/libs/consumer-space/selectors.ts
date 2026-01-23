@@ -1041,6 +1041,17 @@ export const getInvoiceComplementaryInformation = createSelector(
   (invoideByUiid, invoiceUiid) => invoideByUiid[invoiceUiid],
 );
 
+export const getConsumerInvoiceByUuidLoading = (state: RootState) =>
+  state.consumerReworked.myInvoices.byUuid?.loading ?? false;
+
+export const getConsumerInvoiceByUuidError = (state: RootState) =>
+  state.consumerReworked.myInvoices.byUuid?.error ?? null;
+
+export const getConsumerInvoiceByUuid = (
+  state: RootState,
+  uuid: string,
+): ConsumerInvoiceREST | undefined => _getInvoicesRESTByUuid(state)[uuid];
+
 export const getUnpaidInvoicesCount = (state: RootState) =>
   state.consumerReworked.myInvoices.unpaid.count;
 export const getPaidInvoicesCount = (state: RootState) =>

@@ -21,7 +21,7 @@ import MarketplaceActivityDialogV2 from '#src/libs/marketplace/components/@Activ
 import { getCurrentBasket } from '#src/libs/checkout/selectors';
 
 import themeSelectors from '#src/libs/theme/selectors';
-import { getCoaches } from '#src/libs/associated-coach/selectors';
+import { getAllCoaches } from '#src/libs/associated-coach/selectors';
 import {
   getMetaActivitiesDict as getMetaActivitiesWorkshopsDict,
   getPureMetaActivitiesDict,
@@ -788,7 +788,7 @@ const mapStateToProps = (state: RootState) => ({
   offers: getMarketplaceOfferList(state),
   genderCount: getBookedGenderOffer(state),
   events: state.offer.calendar,
-  coaches: getCoaches(state),
+  coaches: getAllCoaches(state),
   establishments: getAllEstablishments(state),
   metaActivities: getPureMetaActivitiesDict(state),
   metaActivitiesWorkshops: getMetaActivitiesWorkshopsDict(state),

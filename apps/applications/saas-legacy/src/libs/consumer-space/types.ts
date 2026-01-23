@@ -192,6 +192,7 @@ export type ConsumerStateReworked = {
     complementary: ErrorAndLoading & {
       byUuid: { [uuid: string]: ConsumerInvoiceComplementary };
     };
+    byUuid: ErrorAndLoading;
     unpaid: ErrorAndLoading & ConsumerInvoiceReworked;
     paid: ErrorAndLoading & ConsumerInvoiceReworked;
     refunded: ErrorAndLoading & ConsumerInvoiceReworked;

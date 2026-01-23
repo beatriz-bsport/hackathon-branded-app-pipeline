@@ -9,6 +9,7 @@ import api, {
   fetchMyPassesTabs as fetchMyPassesTabsAPI,
   fetchConsumerInvoices as fetchConsumerInvoicesAPI,
   fetchConsumerInvoicesComplementary as fetchConsumerInvoicesComplementaryAPI,
+  fetchConsumerInvoiceByUuid as fetchConsumerInvoiceByUuidAPI,
 } from '#src/libs/consumer-space/api';
 import {
   cancelBookingV2 as cancelBookingV2API,
@@ -1706,6 +1707,36 @@ export function fetchConsumerInvoicesComplementary(
       dispatch(fetchConsumerInvoicesComplementaryActions.error(error));
     } finally {
       dispatch(fetchConsumerInvoicesComplementaryActions.isLoading(false));
+    }
+  };
+}
+
+export const fetchConsumerInvoiceByUuidActions = {
+  isLoading: createAction<boolean>('CONSUMER_INVOICE/BY_UUID/LOADING'),
+  error: createAction<Error | null>('CONSUMER_INVOICE/BY_UUID/ERROR'),
+  success: createAction<ConsumerInvoiceREST>(
+    'CONSUMER_INVOICE/BY_UUID/SUCCESS',
+  ),
+};
+
+export function fetchConsumerInvoiceByUuid(
+  uuid: string,
+  options?: OptionCallback<ConsumerInvoiceREST>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchConsumerInvoiceByUuidActions.isLoading(true));
+      dispatch(fetchConsumerInvoiceByUuidActions.error(null));
+
+      const response = await fetchConsumerInvoiceByUuidAPI(uuid);
+      dispatch(fetchConsumerInvoiceByUuidActions.success(response.data));
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      options?.onError?.(error);
+      dispatch(fetchConsumerInvoiceByUuidActions.error(error));
+    } finally {
+      dispatch(fetchConsumerInvoiceByUuidActions.isLoading(false));
     }
   };
 }

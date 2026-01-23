@@ -17,9 +17,14 @@ export const TeacherSelectorField: FC<{ fieldIdPrefix: string }> = ({
 }) => {
   const { t } = useTranslation("sessionCreation");
 
+  const restrictedTeachers = dataAccessLayer.useUserRestrictedTeachers();
+
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
-  const { data: teachers, isLoading } = useFetchAllTeachers(companyId);
+  const { data: teachers, isLoading } = useFetchAllTeachers({
+    ...(restrictedTeachers.length > 0 ? { id__in: restrictedTeachers } : {}),
+    company: companyId,
+  });
 
   const teacherItems: MenuOption[] = (teachers ?? []).map((teacher) => ({
     id: teacher.id.toString(),

@@ -1,6 +1,6 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-import { fetchFlatTeachers } from "@bsport/api-core";
+import { FetchTeachersParams, fetchFlatTeachers } from "@bsport/api-core";
 
 import { fetch } from "#src/utils/fetch";
 
@@ -8,17 +8,17 @@ const TEACHERS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 const fetchTeachers = fetchFlatTeachers.bind(null, fetch);
 
-const allTeachersQueryOptions = (companyId?: number, enabled = true) => {
+const allTeachersQueryOptions = (params: FetchTeachersParams = {}) => {
   return queryOptions({
-    queryKey: ["teachers", "all", companyId],
-    queryFn: () => fetchTeachers({ company: companyId }),
-    enabled: enabled,
+    queryKey: ["teachers", "all", params],
+    queryFn: () => fetchTeachers(params),
+    enabled: Boolean(params.company),
     staleTime: TEACHERS_STALE_TIME,
   });
 };
 
-export const useFetchAllTeachers = (companyId?: number, enabled = true) => {
+export const useFetchAllTeachers = (params: FetchTeachersParams = {}) => {
   return useQuery({
-    ...allTeachersQueryOptions(companyId, enabled),
+    ...allTeachersQueryOptions(params),
   });
 };

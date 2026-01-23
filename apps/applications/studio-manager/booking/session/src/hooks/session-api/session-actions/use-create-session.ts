@@ -8,10 +8,7 @@ import { toast } from "@bsport/kaizen-primitive-core";
 
 import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
-import {
-  useHandleBackgroundTaskError,
-  useWaitForBackgroundTask,
-} from "#src/utils/fetch-background-task";
+import { useWaitForBackgroundTask } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
 
 type CreateSessionOptions = {
@@ -25,9 +22,8 @@ export const useCreateSession = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("sessionCreation");
 
-  const waitForBackgroundTask = useWaitForBackgroundTask(fetch);
-
-  const handleBackgroundTaskError = useHandleBackgroundTaskError();
+  const { waitForBackgroundTask, handleBackgroundTaskError } =
+    useWaitForBackgroundTask(fetch);
 
   return useMutation<string | null, Error, CreateSessionOptions>({
     mutationFn: async ({ payload, onEarlySuccess }) => {

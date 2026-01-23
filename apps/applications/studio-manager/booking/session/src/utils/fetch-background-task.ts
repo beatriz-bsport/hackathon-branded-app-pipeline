@@ -11,28 +11,12 @@ export const BACKGROUND_TASK_ERRORS = {
   TIMEOUT: "Background task timed out",
 };
 
-export const useHandleBackgroundTaskError = () => {
+export const useWaitForBackgroundTask = (fetchFn: Fetch) => {
   const { t } = useTranslation("common");
 
-  return (error: Error, taskFailureDescription: string) => {
-    const errorMessages = {
-      [BACKGROUND_TASK_ERRORS.TASK_FAILURE]: taskFailureDescription,
-      [BACKGROUND_TASK_ERRORS.ENDPOINT_FAILURE]: t(
-        "backgroundTask.genericError",
-      ),
-      [BACKGROUND_TASK_ERRORS.TIMEOUT]: t("backgroundTask.timeoutError"),
-    };
-
-    const description = errorMessages[error.message];
-    if (description) {
-      toast({ status: "critical", description });
-    }
-  };
-};
-export const useWaitForBackgroundTask = (fetchFn: Fetch) => {
   const addProcessingToast = useAddProcessingToast();
 
-  return (uuid: string): Promise<string> => {
+  const waitForBackgroundTask = (uuid: string): Promise<string> => {
     const fetchBackgroundTask = fetchBackgroundTaskAction.bind(null, fetchFn);
 
     const toastId = addProcessingToast();
@@ -61,4 +45,24 @@ export const useWaitForBackgroundTask = (fetchFn: Fetch) => {
       });
     });
   };
+
+  const handleBackgroundTaskError = (
+    error: Error,
+    taskFailureDescription: string,
+  ) => {
+    const errorMessages = {
+      [BACKGROUND_TASK_ERRORS.TASK_FAILURE]: taskFailureDescription,
+      [BACKGROUND_TASK_ERRORS.ENDPOINT_FAILURE]: t(
+        "backgroundTask.genericError",
+      ),
+      [BACKGROUND_TASK_ERRORS.TIMEOUT]: t("backgroundTask.timeoutError"),
+    };
+
+    const description = errorMessages[error.message];
+    if (description) {
+      toast({ status: "critical", description });
+    }
+  };
+
+  return { waitForBackgroundTask, handleBackgroundTaskError };
 };

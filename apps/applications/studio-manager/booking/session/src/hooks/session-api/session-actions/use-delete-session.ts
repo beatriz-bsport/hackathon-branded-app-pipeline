@@ -5,10 +5,7 @@ import { toast } from "@bsport/kaizen-primitive-core";
 
 import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
-import {
-  useHandleBackgroundTaskError,
-  useWaitForBackgroundTask,
-} from "#src/utils/fetch-background-task";
+import { useWaitForBackgroundTask } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
 
 const deleteSession = deleteSessionAPI.bind(null, fetch);
@@ -31,8 +28,9 @@ const getCountForTranslation = (params: DeleteSessionParams): number => {
 export const useDeleteSession = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("sessionList");
-  const waitForBackgroundTask = useWaitForBackgroundTask(fetch);
-  const handleBackgroundTaskError = useHandleBackgroundTaskError();
+
+  const { handleBackgroundTaskError, waitForBackgroundTask } =
+    useWaitForBackgroundTask(fetch);
 
   return useMutation<string | null, Error, DeleteSessionVariables>({
     mutationFn: async ({ id, params }: DeleteSessionVariables) => {

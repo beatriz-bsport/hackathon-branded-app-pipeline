@@ -34,6 +34,8 @@ import type { PaymentMethod } from '../../payment/types';
 import type { OptionCallback } from '../../../state/types';
 import { PLANNED_INVOICE_TIME_CONFIGURATION } from '../constants';
 
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
+
 type OwnProps = {
   member: Member | null;
   searchLoading?: boolean;
@@ -139,6 +141,10 @@ const ContractPickerDialog = (props: PickerProps) => (
 export const SubscriptionContractRegister = (props: Props) => {
   const { t } = useTranslation('subscription');
 
+  const shouldDisplayNewSubscriptionContracts = useSafeFlag(
+    FeatureFlags.NEW_SUBSCRIPTION_CONTRACTS,
+  );
+
   const [alertPickedDateInThePast, setAlertPickedDateInThePast] =
     useState(false);
 
@@ -215,7 +221,9 @@ export const SubscriptionContractRegister = (props: Props) => {
             contractList={props.contractList}
             contractLoading={props.contractLoading}
             goToCustomSubscriptionForm={
-              hasCreateCustomPlanPermission && props.goToCustomSubscriptionForm
+              !shouldDisplayNewSubscriptionContracts &&
+              hasCreateCustomPlanPermission &&
+              props.goToCustomSubscriptionForm
             }
             onChangeContract={props.onChangeContract}
             onClose={props.onClose}

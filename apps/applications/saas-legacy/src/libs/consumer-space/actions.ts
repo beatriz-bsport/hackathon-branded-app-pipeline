@@ -353,7 +353,7 @@ export enum BookingsAndPrivateBookingsTypeEnum {
 }
 
 export function fetchBookingsAndPrivateBookings(args: {
-  company: number;
+  member: number;
   date_start?: string;
   only_future?: boolean;
   page?: number;
@@ -386,8 +386,7 @@ export function fetchBookingsAndPrivateBookings(args: {
         bookingAndPrivateBooking.booking.next_page
       ) {
         const params: any = {
-          company: args.company,
-          mine: true,
+          member: args.member,
           page: bookingPage,
           page_size: pageSize,
           booking_status_code: BOOKING_STATUS_OK.id,
@@ -409,8 +408,7 @@ export function fetchBookingsAndPrivateBookings(args: {
         bookingAndPrivateBooking.privateBooking.next_page
       ) {
         const params: any = {
-          company: args.company,
-          only_mine: true,
+          member: args.member,
           booking_status_code: BOOKING_STATUS_OK.id,
           page: privateBookingPage,
           page_size: pageSize,

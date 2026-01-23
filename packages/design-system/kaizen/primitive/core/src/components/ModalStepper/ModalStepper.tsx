@@ -156,19 +156,19 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
         data-component="Kaizen-ModalStepper-Body"
         className={cx(
           {
-            "flex-col": isMobile,
-            flex: !isMobile,
+            "flex-col items-start overflow-y-auto": isMobile,
+            "flex items-stretch": !isMobile,
           },
-          "items-start gap-md p-sm min-h-full overflow-y-auto",
+          "gap-md p-sm min-h-0",
         )}
       >
         <div
           data-component="Kaizen-ModalStepper-Steps"
-          className="flex flex-col items-start gap-sm p-md border-r-stroke-thin border-r-stroke-weak h-full"
+          className="flex flex-col items-start gap-sm p-md border-r-stroke-thin border-r-stroke-weak"
         >
           {isMobile ? (
             <>
-              <div className="flex items-center w-full">
+              <div className="flex items-center w-full overflow-auto">
                 {steps.map((step, index) => {
                   const isActive = index === currentStep;
                   const isCompleted = index < currentStep;

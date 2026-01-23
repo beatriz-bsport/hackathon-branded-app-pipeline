@@ -25,16 +25,18 @@ export const SessionPartnershipSettings: FC<{ fieldIdPrefix: string }> = ({
     <>
       <SessionPartnershipToggleField fieldIdPrefix={fieldIdPrefix} />
       {isPartnershipAvailable && (
-        <SessionCapacityField
-          fieldIdPrefix={fieldIdPrefix}
-          label={t(
-            "addSessionModal.steps.configureSession.settings.partnership.capacity.label",
-          )}
-          fieldName="partner_max_booking_count"
-          helperText={t(
-            "addSessionModal.steps.configureSession.settings.partnership.capacity.helperText",
-          )}
-        />
+        <div className="ml-xl">
+          <SessionCapacityField
+            fieldIdPrefix={fieldIdPrefix}
+            label={t(
+              "addSessionModal.steps.configureSession.settings.partnership.capacity.label",
+            )}
+            fieldName="partner_max_booking_count"
+            helperText={t(
+              "addSessionModal.steps.configureSession.settings.partnership.capacity.helperText",
+            )}
+          />
+        </div>
       )}
     </>
   );

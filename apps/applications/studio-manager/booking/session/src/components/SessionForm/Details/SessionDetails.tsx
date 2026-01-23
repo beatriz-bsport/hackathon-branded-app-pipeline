@@ -45,8 +45,10 @@ export const SessionDetails: FC<{
         {t("addSessionModal.steps.configureSession.details.title")}
       </Title>
       <OverrideToggle fieldIdPrefix={fieldIdPrefix} />
-      <SessionNameField fieldIdPrefix={fieldIdPrefix} />
-      <SessionDescriptionField fieldIdPrefix={fieldIdPrefix} />
+      <div className="flex flex-col gap-md ml-xl">
+        <SessionNameField fieldIdPrefix={fieldIdPrefix} />
+        <SessionDescriptionField fieldIdPrefix={fieldIdPrefix} />
+      </div>
       <VisibilitySelector
         fieldIdPrefix={fieldIdPrefix}
         fieldName="manager_only"

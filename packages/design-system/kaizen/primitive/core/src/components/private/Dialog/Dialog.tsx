@@ -22,7 +22,7 @@ const variants = {
   },
   position: {
     centered:
-      "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[70%]",
+      "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[90%]",
     bottom: "fixed bottom-[6px] left-1/2 -translate-x-1/2 max-h-[50vh]",
   },
   isVisible: {

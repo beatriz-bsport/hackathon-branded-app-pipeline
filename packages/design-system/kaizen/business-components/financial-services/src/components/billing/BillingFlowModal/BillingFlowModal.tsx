@@ -2,10 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useId } from "react";
 
 import { ControlledForm, useFormController } from "@bsport/form";
-import { Modal } from "@bsport/kaizen-primitive-core";
+import { Card, Modal, Title } from "@bsport/kaizen-primitive-core";
 import { useAsync } from "@bsport/use-async";
 
 import { getMembers } from "#src/actions/member";
+import ItemTypeSelector, {
+  INVOICE_ITEMS_KINDS,
+  type InvoiceItemKind,
+} from "#src/components/billing/ItemTypeSelector";
 import MemberCard from "#src/components/member/MemberCard";
 import MemberSelectorModal from "#src/components/member/MemberSelectorModal";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
@@ -25,6 +29,9 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   const formId = `billing-flow-modal-${useId()}`;
 
   const [isMemberSelectorOpen, setIsMemberSelectorOpen] = useState(false);
+  const [selectedItemType, setSelectedItemType] = useState<InvoiceItemKind>(
+    INVOICE_ITEMS_KINDS.pass,
+  );
 
   const methods = useFormController({
     mode: "onBlur",
@@ -58,12 +65,14 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   useEffect(() => {
     if (!isOpen) {
       setIsMemberSelectorOpen(false);
+      setSelectedItemType(INVOICE_ITEMS_KINDS.pass);
     }
   }, [isOpen]);
 
   const handleClose = () => {
     methods.reset();
     setIsMemberSelectorOpen(false);
+    setSelectedItemType(INVOICE_ITEMS_KINDS.pass);
     onClose();
   };
 
@@ -111,7 +120,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
             console.log(data);
           }}
           id={formId}
-          className="flex flex-col gap-md"
+          className="flex flex-col gap-lg"
         >
           {/* Member Card Section */}
           {isLoadingMember ? (
@@ -126,9 +135,32 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
             />
           )}
 
-          {/* TODO: Add remaining form content (items, summary, etc.) */}
-          <div className="flex flex-col gap-md">
-            <p>Billing Flow Modal - Content to be implemented</p>
+          <div className="flex gap-lg">
+            {/* Add Item Section */}
+            <div className="flex flex-col flex-1">
+              <Title htmlVariant="h4" color="default" weight="strong">
+                {t("billingFlowModal.addItem")}
+              </Title>
+              <div className="mt-md">
+                <Card elevated={false}>
+                  <ItemTypeSelector
+                    label={t("itemTypeSelector.label")}
+                    value={selectedItemType}
+                    onSelect={setSelectedItemType}
+                  />
+                </Card>
+              </div>
+            </div>
+
+            {/* Summary Section */}
+            <div className="flex flex-col flex-1">
+              <Title htmlVariant="h4" color="default" weight="strong">
+                {t("billingFlowModal.summary")}
+              </Title>
+              <div className="mt-md">
+                <Card elevated={false}></Card>
+              </div>
+            </div>
           </div>
         </ControlledForm>
       </Modal>

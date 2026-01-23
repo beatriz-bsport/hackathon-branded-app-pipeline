@@ -9,7 +9,7 @@ const MEMBER_ID = 29612631;
 
 const meta: Meta<typeof BillingFlowModal> = {
   component: BillingFlowModal,
-  title: "BillingFlowModal",
+  title: "billing/BillingFlowModal",
   parameters: {
     layout: "centered",
   },

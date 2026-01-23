@@ -18,13 +18,12 @@ import withReplaceQueryParams from '#src/hocs/with-replace-query-params.hoc';
 import { addItemToBasket as addItemToBasketAction } from '#src/libs/checkout/actions';
 import MarketplaceCalendarComponent from '#src/libs/marketplace/components/@Calendar/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
 import MarketplaceActivityDialogV2 from '#src/libs/marketplace/components/@Activity/MarketplaceActivityDialogCSSOnly/MarketplaceActivityDialogCSSOnly.component';
-import { getCurrentBasket } from '#src/libs/checkout/selectors';
 
 import themeSelectors from '#src/libs/theme/selectors';
 import { getAllCoaches } from '#src/libs/associated-coach/selectors';
 import {
-  getMetaActivitiesDict as getMetaActivitiesWorkshopsDict,
-  getPureMetaActivitiesDict,
+  getPageMetaActivities,
+  getPagePureMetaActivities,
 } from '#src/libs/meta-activity/selectors';
 import {
   getOffersListByGroup as getOffersListByGroupSelector,
@@ -790,11 +789,10 @@ const mapStateToProps = (state: RootState) => ({
   events: state.offer.calendar,
   coaches: getAllCoaches(state),
   establishments: getAllEstablishments(state),
-  metaActivities: getPureMetaActivitiesDict(state),
-  metaActivitiesWorkshops: getMetaActivitiesWorkshopsDict(state),
+  metaActivities: getPagePureMetaActivities(state),
+  metaActivitiesWorkshops: getPageMetaActivities(state),
   theme: themeSelectors.getTheme(state),
   group: getGroupData(state),
-  currentBasket: getCurrentBasket(state),
   establishmentGroupList: groupWithEstablishment(
     getAssociatedEstablishmentGroup,
   )(state),

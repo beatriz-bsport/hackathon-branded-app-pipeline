@@ -2,7 +2,9 @@
   "billingFlowModal": {
     "title": "Create invoice",
     "cancel": "Cancel",
-    "loadingMemberInfo": "Loading member information..."
+    "loadingMemberInfo": "Loading member information...",
+    "addItem": "Add Item",
+    "summary": "Summary"
   },
   "memberSelectorModal": {
     "title": "Select a member",
@@ -12,5 +14,14 @@
     "emptyState": "Choose a member to create an invoice",
     "emptySearch": "No members found",
     "loading": "Loading members..."
+  },
+  "itemTypeSelector": {
+    "label": "Type",
+    "pass": "Pass",
+    "appointmentPass": "Appointment Pass",
+    "product": "Products",
+    "pack": "Pack",
+    "giftcard": "Gift Card",
+    "subscription": "Subscription"
   }
 }

@@ -5,6 +5,11 @@ export {
   type BillingFlowModalProps,
 } from "./components/billing/BillingFlowModal";
 export {
+  default as ItemTypeSelector,
+  type ItemTypeSelectorProps,
+  type InvoiceItemType,
+} from "./components/billing/ItemTypeSelector";
+export {
   default as MemberCard,
   type MemberCardProps,
 } from "./components/member/MemberCard";

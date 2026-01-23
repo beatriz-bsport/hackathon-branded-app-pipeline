@@ -19,7 +19,9 @@ export const TeacherSelectorField: FC<{ fieldIdPrefix: string }> = ({
 
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
-  const { data: teachers, isLoading } = useFetchAllTeachers(companyId);
+  const { data: teachers, isLoading } = useFetchAllTeachers({
+    company: companyId,
+  });
 
   const teacherItems: MenuOption[] = (teachers ?? []).map((teacher) => ({
     id: teacher.id.toString(),

@@ -46,6 +46,7 @@ type OwnProps = {
   updatePaymentPackCompatibilities: (
     data: PaymentPackCompatibilitiesData,
   ) => void;
+  openContractForm: (() => void) | undefined;
 
   isManager?: boolean;
 };
@@ -59,6 +60,14 @@ type State = {
 export class PaymentPackDetailsCard extends Component<Props, State> {
   state = {
     compatibilityDialogOpen: false,
+  };
+
+  onEditCompatibility = () => {
+    if (!this.props.openContractForm) {
+      return;
+    }
+    this.props.openContractForm();
+    this.setState({ compatibilityDialogOpen: false });
   };
 
   renderCardHeader = () => {
@@ -275,9 +284,10 @@ export class PaymentPackDetailsCard extends Component<Props, State> {
                 {t('detailTitles.compatibility')}
               </Typography>
             </div>
-            {categories.length ||
-            establishments.length ||
-            metaActivities.length ? (
+            {(categories.length ||
+              establishments.length ||
+              metaActivities.length) &&
+            !!this.props.openContractForm ? (
               <IconButton
                 color="primary"
                 onClick={() => this.setState({ compatibilityDialogOpen: true })}
@@ -413,6 +423,7 @@ export class PaymentPackDetailsCard extends Component<Props, State> {
                 onClose={() =>
                   this.setState({ compatibilityDialogOpen: false })
                 }
+                onModify={this.onEditCompatibility}
                 open={this.state.compatibilityDialogOpen}
               />
             </Paper>

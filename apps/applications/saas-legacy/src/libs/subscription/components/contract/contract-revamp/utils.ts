@@ -204,15 +204,15 @@ export const formValuesToContract = (
       sct_ids:
         details_values.categories && details_values.categories.length
           ? details_values.categories
-          : null,
+          : [],
       meta_activity_ids:
         details_values.metaActivities && details_values.metaActivities.length
           ? details_values.metaActivities
-          : null,
+          : [],
       establishment_ids:
         details_values.establishments && details_values.establishments.length
           ? details_values.establishments
-          : null,
+          : [],
       max_bookings_per_day: details_values.max_bookings_per_day ?? null,
       max_bookings_per_week: details_values.max_bookings_per_week ?? null,
       max_bookings_per_month: details_values.max_bookings_per_month ?? null,

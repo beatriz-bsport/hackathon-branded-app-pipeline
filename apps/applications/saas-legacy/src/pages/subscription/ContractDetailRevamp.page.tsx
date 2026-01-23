@@ -30,7 +30,10 @@ import {
   updatePaymentPackCompatibilities as updatePaymentPackCompatibilitiesAction,
   fetchOne as fetchPaymentPackAction,
 } from '#src/libs/payment-packs/actions';
-import { fetchMetaActivities as fetchMetaActivitiesAction } from '#src/libs/meta-activity/actions';
+import {
+  fetchActivitiesCompany,
+  fetchMetaActivities as fetchMetaActivitiesAction,
+} from '#src/libs/meta-activity/actions';
 import {
   fetchAllPrivateServices,
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAction,
@@ -203,6 +206,7 @@ export class ContractDetailPage extends Component<Props> {
       { onSuccess: () => this.props.setContractPauseLoading(false) },
     );
     this.props.fetchTags();
+    this.props.fetchActivitiesCompany(this.props.companyId);
     this.props.fetchEstablishments();
     this.props.fetchMetaActivities();
     this.props.fetchAllPaymentPackCategory();
@@ -369,6 +373,9 @@ export class ContractDetailPage extends Component<Props> {
                       ?.display_stop_subscription_from_member_side
                   }
                   metaActivityList={this.props.metaActivityList}
+                  openContractForm={
+                    hasEditPermission ? this.onContractEdit : undefined
+                  }
                   // @ts-expect-error - Legacy HOC typing issue
                   paymentPack={this.props.paymentPack}
                   privatePass={this.props.privatePass}
@@ -596,6 +603,7 @@ const connector = connect(
     const contract = withPaymentPack(getContract)(state, contractId);
 
     return {
+      companyId: themeSelectors.getTheme(state).company,
       loading: state.subscription.contract.loading,
       subscriptions: getContractDetailSubscription(state),
       contract,
@@ -671,10 +679,6 @@ const connector = connect(
     fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
     goToList: () => push('/subscription/contract'),
     goToSubscription: (id: number) => push(`/subscription/${id}`),
-    goToPaymentPackDetail: (packId: number) => push(`/payment-pack/${packId}/`),
-    goToPrivatePass: (packId: number) =>
-      push(`/private-service/pass/${packId}/`),
-    goToCombo: (id: number) => push(`/combo/${id}/`),
     updateMarketingNotification: updateMarketingNotificationAction,
     deleteMarketingNotification: deleteMarketingNotificationAction,
     createNotification: createMarketingNotificationAction,
@@ -683,6 +687,7 @@ const connector = connect(
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     fetchTags,
     fetchPaymentPackList: fetchPaymentPackListAction,
+    fetchActivitiesCompany,
     fetchMetaActivities: fetchMetaActivitiesAction,
     fetchAllPaymentPackCategory,
     fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,

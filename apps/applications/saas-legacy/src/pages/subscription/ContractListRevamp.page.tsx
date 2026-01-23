@@ -65,7 +65,10 @@ import {
   getEnabledEstablishmentBillingGroups,
   getStaffEstablishmentBillingGroupSelector,
 } from '../../libs/establishment/selectors';
-import { fetchMetaActivities as fetchMetaActivitiesAction } from '#src/libs/meta-activity/actions';
+import {
+  fetchActivitiesCompany,
+  fetchMetaActivities as fetchMetaActivitiesAction,
+} from '#src/libs/meta-activity/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -174,6 +177,7 @@ export class SubscriptionList extends React.Component<Props, State> {
       ],
     });
     this.props.fetchEstablishments();
+    this.props.fetchActivitiesCompany(this.props.companyId);
     this.props.fetchMetaActivities();
     this.props.fetchAllPaymentPackCategory();
     if (this.props.theme.enable_multi_localization) {
@@ -792,6 +796,7 @@ const mapDispatchToProps = {
   fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
   fetchTags,
   fetchPaymentPackList: fetchPaymentPackListAction,
+  fetchActivitiesCompany,
   fetchMetaActivities: fetchMetaActivitiesAction,
   fetchAllPaymentPackCategory,
   createContract: createContractAction,

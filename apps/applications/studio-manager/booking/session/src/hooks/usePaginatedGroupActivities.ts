@@ -14,6 +14,8 @@ import {
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import { useObjectLevelPermission } from "#src/utils/permission";
+
 import { fetch } from "../utils/fetch";
 
 type ConfigurableSearchParams = {
@@ -59,6 +61,20 @@ export const usePaginatedGroupActivities = ({
   customerEnabled: boolean;
   searchParams?: ConfigurableSearchParams;
 }) => {
+  const hasCreateActivitySessionsPermission = useObjectLevelPermission(
+    "session.activity.allowed_actions.create",
+  );
+  const hasCreateWorkshopSessionsPermission = useObjectLevelPermission(
+    "session.workshop.allowed_actions.create",
+  );
+
+  const isWorkshop =
+    hasCreateActivitySessionsPermission && hasCreateWorkshopSessionsPermission
+      ? undefined
+      : hasCreateActivitySessionsPermission
+        ? false
+        : true;
+
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
@@ -66,6 +82,7 @@ export const usePaginatedGroupActivities = ({
 
   const fetchParams: FetchGroupActivitiesParams = {
     customerEnabled,
+    ...(isWorkshop !== undefined && { isWorkshop }),
     page: currentPage,
     pageSize: currentPageSize,
   };

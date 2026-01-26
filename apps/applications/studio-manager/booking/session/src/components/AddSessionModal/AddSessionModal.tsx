@@ -71,7 +71,13 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     resetForm();
   };
 
-  const handleClose = () => {
+  const handleClickOutisde = () => {
+    if (
+      configureSessionMethods.formState.isDirty ||
+      advancedOptionsMethods.formState.isDirty
+    ) {
+      return;
+    }
     onClose?.();
   };
 
@@ -156,9 +162,9 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
         label: t("addSessionModal.buttons.cancel"),
         onClick: handleClickOnCancel,
       }}
-      onClickOutside={handleClose}
+      onClickOutside={handleClickOutisde}
       onCloseButtonClick={handleCloseButtonClick}
-      onClose={handleClose}
+      onClose={() => onClose?.()}
     />
   );
 };

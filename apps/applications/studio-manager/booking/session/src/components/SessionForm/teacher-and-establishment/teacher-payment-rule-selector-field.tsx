@@ -58,10 +58,11 @@ export const TeacherPaymentRuleSelectorField: FC<{ fieldIdPrefix: string }> = ({
             selectedTeacherPaymentRuleId
               ? Number(selectedTeacherPaymentRuleId)
               : null,
+            { shouldValidate: true },
           );
         },
         onClear: () => {
-          setValue("coach_payment_rule", null);
+          setValue("coach_payment_rule", null, { shouldValidate: true });
         },
       })}
     >

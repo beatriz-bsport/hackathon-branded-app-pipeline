@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import type { SelectableNotificationType } from "#src/utils/types";
+import type { NotificationType } from "#src/utils/types";
 
 import { NOTIFICATION_ADVANCED_TYPE } from "../constants";
 import { i18nInstance } from "../i18n";
@@ -9,7 +9,7 @@ import type { TriggerTypeValidationFormData } from "./types";
 export const triggerTypeValidationFormSchema = z
   .object({
     itemIds: z.array(z.number()).optional(),
-    notificationType: z.custom<SelectableNotificationType>(),
+    notificationType: z.custom<NotificationType>(),
     shouldContainAllPasses: z.boolean().optional(),
     draftMarketingNotificationId: z.number().optional(),
   })
@@ -18,8 +18,8 @@ export const triggerTypeValidationFormSchema = z
     if (
       !data.shouldContainAllPasses &&
       itemIdsLength < 1 &&
-      (data.notificationType === NOTIFICATION_ADVANCED_TYPE.paymentPack ||
-        data.notificationType === NOTIFICATION_ADVANCED_TYPE.privatePass)
+      (data.notificationType === NOTIFICATION_ADVANCED_TYPE.pass ||
+        data.notificationType === NOTIFICATION_ADVANCED_TYPE.appointmentPass)
     ) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

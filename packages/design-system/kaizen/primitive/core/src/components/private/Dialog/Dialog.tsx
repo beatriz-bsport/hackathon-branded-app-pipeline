@@ -22,7 +22,7 @@ const variants = {
   },
   position: {
     centered:
-      "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[70%]",
+      "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[90%]",
     bottom: "fixed bottom-[6px] left-1/2 -translate-x-1/2 max-h-[50vh]",
   },
   isVisible: {
@@ -95,6 +95,7 @@ const Dialog: React.FC<DialogProps> = ({
 
   const { setOverflowHidden, resetOverflow } = useDocumentOverflow();
   const dialogRef = useFocusManagement<HTMLDivElement>(open && isVisible);
+  const backdropRef = React.useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
     setIsVisible(false);
@@ -132,12 +133,13 @@ const Dialog: React.FC<DialogProps> = ({
     }
   }, [open]);
 
-  useEscapeKeydownListener(handleClose, open);
+  useEscapeKeydownListener(handleClose, open, backdropRef);
 
   if (!open && !isMounted) return null;
 
   return createPortal(
     <div
+      ref={backdropRef}
       data-component="Kaizen-Dialog"
       className={cx(
         "fixed inset-[0] z-[999] bg-surface-blanket transition ease-out duration-default",

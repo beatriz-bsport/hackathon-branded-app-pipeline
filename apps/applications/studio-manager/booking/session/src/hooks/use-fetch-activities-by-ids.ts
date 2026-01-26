@@ -1,12 +1,12 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-import { fetchGroupActivities } from "@bsport/api-book";
+import { fetchGroupActivitiesAndWorkshops } from "@bsport/api-book";
 
 import { fetch } from "../utils/fetch";
 
 const ACTIVITIES_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
-const fetchActivitiesByIds = fetchGroupActivities.bind(null, fetch);
+const fetchActivitiesByIds = fetchGroupActivitiesAndWorkshops.bind(null, fetch);
 
 const activitiesByIdsQueryOptions = (ids: number[]) => {
   return queryOptions({

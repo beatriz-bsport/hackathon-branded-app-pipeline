@@ -15,11 +15,11 @@ import {
   useGeneratePassesTriggerTiming,
   useGenerateSubscriptionTriggerTiming,
 } from "#src/utils/notificationTriggerTiming";
-import { isBookingEventRules } from "#src/utils/typeGuards";
 import {
   NOTIFICATION_TYPE_TO_REFINED_TYPE,
   type NotificationType,
 } from "#src/utils/types";
+import { isBookingEventRules } from "#src/utils/typesGuards";
 import {
   isMarketingNotificationBookingType,
   isMarketingNotificationPaymentPackCreditsType,
@@ -60,9 +60,12 @@ export const useFormatNotificationTriggerName = () => {
     triggerType,
     marketingNotification,
   }: {
-    triggerType: NotificationType;
+    triggerType: NotificationType | null;
     marketingNotification: MarketingNotification;
   }): string => {
+    if (!triggerType) {
+      return "";
+    }
     const entityIds = extractEntityId(marketingNotification);
     const entityName = findEntityName(triggerType, entityIds, {
       groupActivitiesById,
@@ -104,7 +107,6 @@ export const useFormatNotificationTriggerName = () => {
           entityName,
         );
 
-      case NOTIFICATION_BASE_TYPE.unknown:
       default:
         return "";
     }
@@ -117,9 +119,12 @@ export const useFormatNotificationTriggerName = () => {
     triggerType,
     marketingNotification,
   }: {
-    triggerType: NotificationType;
+    triggerType: NotificationType | null;
     marketingNotification: MarketingNotification;
   }): string => {
+    if (!triggerType) {
+      return "";
+    }
     // Get refined trigger type
     const refinedTriggerType = NOTIFICATION_TYPE_TO_REFINED_TYPE[triggerType];
 
@@ -164,7 +169,7 @@ export const useFormatNotificationTriggerName = () => {
         return "";
       }
 
-      case NOTIFICATION_BASE_TYPE.unknown:
+      case null:
       default:
         return "";
     }

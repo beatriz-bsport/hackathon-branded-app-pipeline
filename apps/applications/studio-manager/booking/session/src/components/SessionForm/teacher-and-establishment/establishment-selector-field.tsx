@@ -31,6 +31,7 @@ export const EstablishmentSelectorField: FC<{ fieldIdPrefix: string }> = ({
           setValue(
             "establishment",
             selectedEstablishmentId ? Number(selectedEstablishmentId) : null,
+            { shouldValidate: true },
           );
         },
       })}

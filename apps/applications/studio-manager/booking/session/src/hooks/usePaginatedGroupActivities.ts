@@ -8,11 +8,13 @@ import { useMemo } from "react";
 import {
   type FetchGroupActivitiesParams,
   type SearchGroupActivitiesParams,
-  fetchGroupActivities,
-  searchGroupActivities,
+  fetchGroupActivitiesAndWorkshops,
+  searchGroupActivitiesAndWorkshopsAPI,
 } from "@bsport/api-book";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 import { fetch } from "../utils/fetch";
 
@@ -29,7 +31,7 @@ const groupActivitiesQueryOptions = (
   queryOptions({
     queryKey: ["groupActivities", params],
     queryFn: async () => {
-      const data = await fetchGroupActivities(fetch, params);
+      const data = await fetchGroupActivitiesAndWorkshops(fetch, params);
       return data;
     },
     enabled,
@@ -42,9 +44,9 @@ const searchGroupActivitiesQueryOptions = (
   enabled: boolean,
 ) =>
   queryOptions({
-    queryKey: ["searchGroupActivities", params],
+    queryKey: ["searchGroupActivitiesAndWorkshops", params],
     queryFn: async () => {
-      const data = await searchGroupActivities(fetch, params);
+      const data = await searchGroupActivitiesAndWorkshopsAPI(fetch, params);
       return data;
     },
     enabled,
@@ -59,6 +61,20 @@ export const usePaginatedGroupActivities = ({
   customerEnabled: boolean;
   searchParams?: ConfigurableSearchParams;
 }) => {
+  const hasCreateActivitySessionsPermission = useObjectLevelPermission(
+    "session.activity.allowed_actions.create",
+  );
+  const hasCreateWorkshopSessionsPermission = useObjectLevelPermission(
+    "session.workshop.allowed_actions.create",
+  );
+
+  const isWorkshop =
+    hasCreateActivitySessionsPermission && hasCreateWorkshopSessionsPermission
+      ? undefined
+      : hasCreateActivitySessionsPermission
+        ? false
+        : true;
+
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
@@ -66,6 +82,7 @@ export const usePaginatedGroupActivities = ({
 
   const fetchParams: FetchGroupActivitiesParams = {
     customerEnabled,
+    ...(isWorkshop !== undefined && { isWorkshop }),
     page: currentPage,
     pageSize: currentPageSize,
   };

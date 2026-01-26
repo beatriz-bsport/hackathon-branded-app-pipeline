@@ -105,6 +105,12 @@ export const fetchConsumerInvoicesComplementary = (params: {
   );
 };
 
+export const fetchConsumerInvoiceByUuid = (uuid: string) => {
+  return getAuth<ConsumerInvoiceREST>(
+    `${API_V1_URI_FS}/payment/consumer_invoices/${uuid}/`,
+  );
+};
+
 export default {
   fetchFutureBookings: fetchConsumerFutureBookings,
   fetchPastBookings: fetchConsumerPastBookings,

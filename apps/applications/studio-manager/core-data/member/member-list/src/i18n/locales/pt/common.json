@@ -1,0 +1,138 @@
+{
+  "pages": {
+    "memberList": "Perfis",
+    "archivedMemberList": "Perfis arquivados"
+  },
+  "actions": {
+    "addMember": "Criar perfil",
+    "importLeads": "Importar leads",
+    "download": "Descarregar"
+  },
+  "memberTable": {
+    "loading": "Carregando perfis...",
+    "emptySearch": {
+      "subtitle": "Nenhum perfil encontrado - tente limpar os filtros para ver mais resultados"
+    },
+    "emptyList": {
+      "activeMode": {
+        "title": "Ainda não tem perfis",
+        "subtitle": "Adicionar perfis de contactos ou importar leads para começar"
+      },
+      "archivedMode": {
+        "title": "Nenhum perfil arquivado"
+      }
+    },
+    "headers": {
+      "name": "Nome",
+      "email": "E-mail",
+      "balance": "Saldo da conta",
+      "joinDate": "Data de Adesão"
+    },
+    "tooltips": {
+      "archive": "Arquivar perfil",
+      "restore": "Restaurar perfil"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "Copiar email"
+    },
+    "loading": {
+      "activeList": "Carregando perfis . . .",
+      "archivedList": "Carregando perfis arquivados . . . "
+    }
+  },
+  "listPage": {
+    "archiveModal": {
+      "title": "Arquivar perfil?",
+      "description": {
+        "action": "Uma vez que arquivar {{ name }}, o perfil dele não estará mais ativo. ",
+        "effect": "Você pode restaurar este perfil a qualquer momento do seu arquivo."
+      },
+      "alertIrregularity": {
+        "adviseRegularization": "Antes de arquivar este perfil, recomendamos que você quite o saldo da conta do perfil primeiro. Isso se deve a um dos seguintes motivos: ",
+        "items": {
+          "negativeBalance": "Saldo negativo na conta",
+          "unpaidInvoices": "Uma ou mais faturas não pagas",
+          "currentSubscription": "O perfil tem uma assinatura ativa",
+          "autorenewalSubscriptions": "O perfil tem uma assinatura configurada para renovação automática",
+          "futureBookings": "Perfil tem reservas futuras",
+          "recurringBookings": "Perfil tem reservas recorrentes",
+          "scheduledAppointments": "Perfil tem compromissos agendados"
+        }
+      },
+      "buttons": {
+        "cancel": "Fechar",
+        "archive": "Arquivar"
+      }
+    }
+  },
+  "toasts": {
+    "actions": {
+      "undo": "Desfazer"
+    },
+    "emailCopied": "Email copiado para a área de transferência",
+    "messageUndone": {
+      "success": "Mudança desfeita",
+      "error": "A alteração não pode ser anulada. Por favor, tente novamente. "
+    },
+    "messageArchived": {
+      "success": "Perfil arquivado",
+      "error": "O perfil não pôde ser arquivado. Por favor, tente novamente."
+    },
+    "messageRestored": {
+      "success": "Perfil restaurado",
+      "error": "O Perfil não pôde ser restaurado. Por favor, tente novamente."
+    }
+  },
+  "filters": {
+    "label": "Filtro",
+    "operators": {
+      "is": "é",
+      "isNot": "não é"
+    }
+  },
+  "importLeadsModal": {
+    "title": "Importar leads",
+    "description": "Envie um arquivo CSV para importar seus leads no bsport Back Office",
+    "moreHelpSection": "Precisa de ajuda com isso? <key>Visit our Help Center</key>",
+    "uploadFile": {
+      "extensionCSVOnly": "Arquivo CSV apenas",
+      "workInProgress": "Importando leads ...",
+      "wipDoNotRefresh": "Por favor, não atualize ou saia desta página",
+      "errors": {
+        "wrongNumberOfColumns": {
+          "title": "O arquivo não possui o número necessário de colunas",
+          "formatIndication": "Por favor, siga <key>o nosso formato</key> para importar seus leads com sucesso"
+        },
+        "invalidFileType": "Tipo de arquivo inválido - por favor, envie um arquivo CSV",
+        "datasetTooLarge": "Conjunto de dados muito grande - reduza para no máximo 100.000 linhas",
+        "wrongEncoding": "Codificação de arquivo incompatível - por favor, use UTF-8"
+      }
+    },
+    "importSuccess": {
+      "title": "Leads importados com sucesso",
+      "outputText": "Seu arquivo CSV de leads importados com sucesso:",
+      "outputFilename": "linhas_sucesso",
+      "importedLeadsNumber_one": "{{ count }} Leads foram importados",
+      "importedLeadsNumber_other": "{{ count }} Leads foram importados"
+    },
+    "importPartialSuccess": {
+      "title": "Algumas linhas no arquivo continham erros e não puderam ser processadas.",
+      "outputText": "Aqui está um arquivo CSV dos Leads que não puderam ser importados devido a linhas incorretas.",
+      "outputFilename": "falha_nas_linhas"
+    },
+    "otherImportInProgress": {
+      "title": "Uma importação já está em andamento",
+      "subtitle": "Aguarde a importação terminar antes de iniciar uma nova."
+    },
+    "importError": {
+      "title": "Falha na importação",
+      "unknownError": "Ocorreu um erro desconhecido durante a importação, por favor, tente novamente"
+    },
+    "importTimeout": {
+      "title": "O tempo de atualização expirou. Por favor, tente novamente.",
+      "comeBackLater": "A importação está demorando mais do que o esperado - por favor, volte mais tarde"
+    }
+  }
+}

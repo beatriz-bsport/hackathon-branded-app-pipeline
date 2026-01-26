@@ -1,20 +1,32 @@
+import {
+  APPOINTMENT_PASS_TYPE,
+  APPOINTMENT_TYPE,
+  BIRTHDAY_TYPE,
+  BOOKING_TYPE,
+  ESTABLISHMENT_TYPE,
+  GROUP_ACTIVITY_TYPE,
+  LOCATION_TYPE,
+  PASSES_UNION_TYPE,
+  PASS_TYPE,
+  SUBSCRIPTION_TYPE,
+  WORKSHOP_TYPE,
+} from "./types";
+
 export const NOTIFICATION_BASE_TYPE = {
-  unknown: "unknown",
-  birthday: "birthday",
-  booking: "booking",
-  passes: "passes",
-  subscription: "subscription",
+  birthday: BIRTHDAY_TYPE,
+  booking: BOOKING_TYPE,
+  passes: PASSES_UNION_TYPE,
+  subscription: SUBSCRIPTION_TYPE,
 };
 
 export const NOTIFICATION_ADVANCED_TYPE = {
-  unknown: "unknown",
-  birthday: "birthday",
-  location: "location",
-  establishment: "establishment",
-  workshop: "workshop",
-  groupActivity: "groupActivity",
-  privateService: "privateService",
-  paymentPack: "paymentPack",
-  privatePass: "privatePass",
-  subscription: "subscription",
+  birthday: BIRTHDAY_TYPE,
+  location: LOCATION_TYPE,
+  establishment: ESTABLISHMENT_TYPE,
+  workshop: WORKSHOP_TYPE,
+  groupActivity: GROUP_ACTIVITY_TYPE,
+  appointment: APPOINTMENT_TYPE,
+  pass: PASS_TYPE,
+  appointmentPass: APPOINTMENT_PASS_TYPE,
+  subscription: SUBSCRIPTION_TYPE,
 } as const;

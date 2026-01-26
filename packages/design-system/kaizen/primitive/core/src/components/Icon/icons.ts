@@ -200,6 +200,7 @@ const icons = {
   "package-x": React.lazy(
     async () => await import("./assets/package-x.svg?react"),
   ),
+  package: React.lazy(async () => await import("./assets/package.svg?react")),
   "pencil-02": React.lazy(
     async () => await import("./assets/pencil-02.svg?react"),
   ),
@@ -217,6 +218,9 @@ const icons = {
   "refresh-cw-01": React.lazy(
     async () => await import("./assets/refresh-cw-01.svg?react"),
   ),
+  "refresh-cw-04": React.lazy(
+    async () => await import("./assets/refresh-cw-04.svg?react"),
+  ),
   "reverse-left": React.lazy(
     async () => await import("./assets/reverse-left.svg?react"),
   ),
@@ -232,6 +236,9 @@ const icons = {
   ),
   "share-03": React.lazy(
     async () => await import("./assets/share-03.svg?react"),
+  ),
+  "shopping-bag-01": React.lazy(
+    async () => await import("./assets/shopping-bag-01.svg?react"),
   ),
   "shopping-cart-03": React.lazy(
     async () => await import("./assets/shopping-cart-03.svg?react"),

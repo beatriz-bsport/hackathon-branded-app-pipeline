@@ -4,10 +4,11 @@ import {
   PASS_ACTION_DAYS_LEFT,
   type PassAction,
   type PassCreditsLeftEventKind,
-} from "#src/components/MarketingNotificationEdition/NotificationTriggerForms/Pass/types";
+} from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Pass/types";
 
 import { i18nInstance } from "../i18n";
-import type { PassTriggerConfigValidationFormData, PassesType } from "./types";
+import type { PassesType } from "../types";
+import type { PassTriggerConfigValidationFormData } from "./types";
 
 export const passTriggerConfigValidationSchema = z
   .object({

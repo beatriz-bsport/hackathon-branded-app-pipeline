@@ -4,29 +4,26 @@ import type { Appointment } from "@bsport/store-booking-appointment";
 import type { AppointmentPass } from "@bsport/store-buyables-appointment-pass";
 import type { Pass } from "@bsport/store-buyables-pass";
 import type { Subscription } from "@bsport/store-buyables-subscription";
-import type {
-  BookingCreationEventRules,
-  MarketingNotification,
-} from "@bsport/store-cdp-marketing-notification";
-
-import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
-import { useTranslation } from "#src/utils/i18n";
 import {
-  hasEstablishmentId,
-  hasMetaActivityId,
-  hasPrivateServiceId,
-} from "#src/utils/typeGuards";
-import {
+  type BookingCreationEventRules,
   CONSUMER_PAYMENT_PACK_NOTIFICATION_CREDIT,
   CONSUMER_PAYMENT_PACK_NOTIFICATION_TIME,
-  type NotificationType,
+  type MarketingNotification,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_CREDIT,
   PRIVATE_CONSUMER_PASS_NOTIFICATION_TIME,
   SUBSCRIPTION_NOTIFICATION_CREATION,
   SUBSCRIPTION_NOTIFICATION_END,
   SUBSCRIPTION_NOTIFICATION_FIRST_BILLING,
-  TRIGGER_KINDS,
-} from "#src/utils/types";
+} from "@bsport/store-cdp-marketing-notification";
+
+import { NOTIFICATION_ADVANCED_TYPE } from "#src/utils/constants";
+import { useTranslation } from "#src/utils/i18n";
+import { type NotificationType, TRIGGER_KINDS } from "#src/utils/types";
+import {
+  hasEstablishmentId,
+  hasMetaActivityId,
+  hasPrivateServiceId,
+} from "#src/utils/typesGuards";
 
 /**
  * Extracts the primary entity ID from a marketing notification's event rules.
@@ -135,20 +132,20 @@ const findEntityName = (
       return establishment?.name ?? NOTIFICATION_ADVANCED_TYPE.establishment;
     }
 
-    case NOTIFICATION_ADVANCED_TYPE.privateService: {
+    case NOTIFICATION_ADVANCED_TYPE.appointment: {
       const appointment = appointmentsById[entityIds[0]];
-      return appointment?.name ?? NOTIFICATION_ADVANCED_TYPE.privateService;
+      return appointment?.name ?? NOTIFICATION_ADVANCED_TYPE.appointment;
     }
 
-    case NOTIFICATION_ADVANCED_TYPE.paymentPack: {
+    case NOTIFICATION_ADVANCED_TYPE.pass: {
       const firstPass = passesById[entityIds[0]];
-      return firstPass?.name ?? NOTIFICATION_ADVANCED_TYPE.paymentPack;
+      return firstPass?.name ?? NOTIFICATION_ADVANCED_TYPE.pass;
     }
 
-    case NOTIFICATION_ADVANCED_TYPE.privatePass: {
+    case NOTIFICATION_ADVANCED_TYPE.appointmentPass: {
       const firstAppointmentPass = appointmentPassesById[entityIds[0]];
       return (
-        firstAppointmentPass?.name ?? NOTIFICATION_ADVANCED_TYPE.privatePass
+        firstAppointmentPass?.name ?? NOTIFICATION_ADVANCED_TYPE.appointmentPass
       );
     }
 

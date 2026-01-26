@@ -1,0 +1,138 @@
+{
+  "pages": {
+    "memberList": "Profielen",
+    "archivedMemberList": "Gearchiveerde profielen"
+  },
+  "actions": {
+    "addMember": "Profiel aanmaken",
+    "importLeads": "Importeer leads",
+    "download": "Download"
+  },
+  "memberTable": {
+    "loading": "Profielen laden...",
+    "emptySearch": {
+      "subtitle": "Geen profielen gevonden - probeer filters te wissen om meer resultaten te zien"
+    },
+    "emptyList": {
+      "activeMode": {
+        "title": "Nog geen profielen",
+        "subtitle": "Voeg contactprofielen toe of importeer leads om te beginnen"
+      },
+      "archivedMode": {
+        "title": "Geen gearchiveerde profielen"
+      }
+    },
+    "headers": {
+      "name": "Naam",
+      "email": "E-mail",
+      "balance": "Saldo",
+      "joinDate": "Lid sinds"
+    },
+    "tooltips": {
+      "archive": "Profiel archiveren",
+      "restore": "Herstel profiel"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "E-mail kopiëren"
+    },
+    "loading": {
+      "activeList": "Profielen laden . . .",
+      "archivedList": "Bezig met laden van gearchiveerde profielen . . . "
+    }
+  },
+  "listPage": {
+    "archiveModal": {
+      "title": "Profiel archiveren?",
+      "description": {
+        "action": "Zodra je {{ name }} archiveert, is hun profiel niet langer actief. ",
+        "effect": "Je kunt dit profiel op elk moment uit je archief herstellen."
+      },
+      "alertIrregularity": {
+        "adviseRegularization": "Voordat je dit profiel archiveert, raden we aan om eerst het saldo van het profiel te vereffenen. Dit komt door een van de volgende redenen: ",
+        "items": {
+          "negativeBalance": "Negatief saldo op de rekening",
+          "unpaidInvoices": "Een of meer onbetaalde facturen",
+          "currentSubscription": "Het profiel heeft een actief abonnement",
+          "autorenewalSubscriptions": "profiel heeft een abonnement dat automatisch wordt verlengd",
+          "futureBookings": "Profiel heeft toekomstige boekingen",
+          "recurringBookings": "Profiel heeft terugkerende boekingen",
+          "scheduledAppointments": "Profiel heeft geplande afspraken"
+        }
+      },
+      "buttons": {
+        "cancel": "Sluiten",
+        "archive": "Archiveren"
+      }
+    }
+  },
+  "toasts": {
+    "actions": {
+      "undo": "Ongedaan maken"
+    },
+    "emailCopied": "E-mail gekopieerd naar klembord",
+    "messageUndone": {
+      "success": "Wijziging ongedaan gemaakt",
+      "error": "De wijziging kan niet ongedaan worden gemaakt. Probeer het opnieuw. "
+    },
+    "messageArchived": {
+      "success": "Profiel gearchiveerd",
+      "error": "Profiel kon niet worden gearchiveerd. Probeer het opnieuw."
+    },
+    "messageRestored": {
+      "success": "Profiel hersteld",
+      "error": "Profiel kon niet worden hersteld. Probeer het opnieuw."
+    }
+  },
+  "filters": {
+    "label": "Filter",
+    "operators": {
+      "is": "is",
+      "isNot": "is niet"
+    }
+  },
+  "importLeadsModal": {
+    "title": "Leads importeren",
+    "description": "Upload een CSV-bestand om je leads te importeren in bsport Back Office",
+    "moreHelpSection": "Heb je hier hulp bij nodig? <key>Bezoek ons Helpcentrum</key>",
+    "uploadFile": {
+      "extensionCSVOnly": "Alleen CSV-bestand",
+      "workInProgress": "Importeer leads ...",
+      "wipDoNotRefresh": "Gelieve deze pagina niet te verversen of te verlaten",
+      "errors": {
+        "wrongNumberOfColumns": {
+          "title": "Dit bestand heeft niet het vereiste aantal kolommen.",
+          "formatIndication": "Volg alsjeblieft <key>ons formaat</key> om je leads succesvol te importeren"
+        },
+        "invalidFileType": "Ongeldig bestandstype - upload een CSV-bestand alsjeblieft",
+        "datasetTooLarge": "Dataset te groot - verklein tot max. 100.000 rijen",
+        "wrongEncoding": "Bestandsindeling incompatibel - gebruik alsjeblieft UTF-8"
+      }
+    },
+    "importSuccess": {
+      "title": "Leads succesvol geïmporteerd",
+      "outputText": "Je CSV-bestand met succesvol geïmporteerde leads:",
+      "outputFilename": "rijen_succes",
+      "importedLeadsNumber_one": "{{ count }} Leads zijn geïmporteerd",
+      "importedLeadsNumber_other": "{{ count }} Leads zijn geïmporteerd"
+    },
+    "importPartialSuccess": {
+      "title": "Sommige rijen in het bestand bevatten fouten en konden niet worden verwerkt.",
+      "outputText": "Hier is een CSV-bestand van de Leads die niet konden worden geïmporteerd vanwege onjuiste rijen.",
+      "outputFilename": "rijen_fout"
+    },
+    "otherImportInProgress": {
+      "title": "Een import is al bezig",
+      "subtitle": "Wacht alsjeblieft tot de import klaar is voordat je een nieuwe maakt."
+    },
+    "importError": {
+      "title": "Import mislukt",
+      "unknownError": "Er is een onbekende fout opgetreden tijdens het importeren, probeer het opnieuw."
+    },
+    "importTimeout": {
+      "title": "Verversing is verlopen. Probeer het opnieuw.",
+      "comeBackLater": "De import duurt langer dan verwacht - kom later terug."
+    }
+  }
+}

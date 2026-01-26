@@ -182,7 +182,18 @@
         }
       },
       "advancedOptions": {
-        "label": "Advanced options"
+        "label": "Advanced options",
+        "bookForAGuest": {
+          "title": "Booking for a guest",
+          "fieldLabel": "Allow booking for a guest"
+        },
+        "tags": {
+          "title": "Tags",
+          "subTitle": "Use tags to make this session available only to certain segments of your member base.",
+          "addTags": "Add tags",
+          "whiteListTagsLabel": "Authorised members",
+          "blackListTagsLabel": "Unauthorised members"
+        }
       }
     },
     "buttons": {

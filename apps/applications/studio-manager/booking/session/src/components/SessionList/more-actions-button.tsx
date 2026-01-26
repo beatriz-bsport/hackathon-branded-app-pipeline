@@ -3,6 +3,7 @@ import React, { useCallback } from "react";
 import { Button, Item, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 type MoreActionsButtonProps = {
   onParticipantsExport: () => void;
@@ -13,6 +14,24 @@ export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
   onCancelMultipleSessions,
 }) => {
   const { t } = useTranslation("sessionList");
+  const hasCancelMultipleSessionsPermission = useObjectLevelPermission(
+    "planning.calendar.allowed_actions.bulkCancellation",
+  );
+  const hasCancelActivitySessionsPermission = useObjectLevelPermission(
+    "session.activity.allowed_actions.delete",
+  );
+  const hasCancelWorkshopSessionsPermission = useObjectLevelPermission(
+    "session.workshop.allowed_actions.delete",
+  );
+
+  const hasExportParticipantsPermission = useObjectLevelPermission(
+    "export.allowed_actions.planning",
+  );
+
+  const canCancelMultipleSessions =
+    hasCancelMultipleSessionsPermission &&
+    (hasCancelActivitySessionsPermission ||
+      hasCancelWorkshopSessionsPermission);
 
   const getMenuItems = useCallback(
     (
@@ -38,33 +57,44 @@ export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
           setIsPopoverOpened(false);
         },
       };
-      return [exportParticipantsAction, cancelMultipleSessionsAction];
+      return [
+        ...(hasExportParticipantsPermission ? [exportParticipantsAction] : []),
+        ...(canCancelMultipleSessions ? [cancelMultipleSessionsAction] : []),
+      ];
     },
-    [t, onParticipantsExport, onCancelMultipleSessions],
+    [
+      t,
+      onParticipantsExport,
+      onCancelMultipleSessions,
+      canCancelMultipleSessions,
+      hasExportParticipantsPermission,
+    ],
   );
 
   return (
-    <Popover>
-      <Popover.Anchor>
-        {({ setIsPopoverOpened }) => (
-          <Button
-            kind="icon-button"
-            icon="dots-vertical"
-            onClick={() => setIsPopoverOpened(true)}
-            size="md"
-            intent="default"
-            color="main"
-            label={t("moreActions.label")}
-          />
-        )}
-      </Popover.Anchor>
-      <Popover.Content placement="bottom-right">
-        {({ setIsPopoverOpened }) => (
-          <div className="flex flex-col gap-sm">
-            <Menu items={getMenuItems(setIsPopoverOpened)} />
-          </div>
-        )}
-      </Popover.Content>
-    </Popover>
+    (hasExportParticipantsPermission || canCancelMultipleSessions) && (
+      <Popover>
+        <Popover.Anchor>
+          {({ setIsPopoverOpened }) => (
+            <Button
+              kind="icon-button"
+              icon="dots-vertical"
+              onClick={() => setIsPopoverOpened(true)}
+              size="md"
+              intent="default"
+              color="main"
+              label={t("moreActions.label")}
+            />
+          )}
+        </Popover.Anchor>
+        <Popover.Content placement="bottom-right">
+          {({ setIsPopoverOpened }) => (
+            <div className="flex flex-col gap-sm">
+              <Menu items={getMenuItems(setIsPopoverOpened)} />
+            </div>
+          )}
+        </Popover.Content>
+      </Popover>
+    )
   );
 };

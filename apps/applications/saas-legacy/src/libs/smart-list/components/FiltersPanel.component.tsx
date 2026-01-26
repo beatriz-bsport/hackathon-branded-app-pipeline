@@ -87,7 +87,6 @@ import type {
   PrivateService,
 } from '#src/libs/private-service/types';
 import type { SmartList } from '#src/libs/smart-list/types';
-import type { UpsellSumup } from '#src/libs/company/types';
 import type {
   CommunicationScheduled,
   SmartListPopupSending,
@@ -154,7 +153,7 @@ type Props = {
   customForms: CustomForm[];
   customLevels: Level[];
   establishments: Establishment[];
-  featureList: UpsellSumup[];
+  hasUpsellIdentifier: (identifier: number) => boolean;
   fetchBulkItems: any;
   fetchItems: any;
   filters: any[];
@@ -362,10 +361,8 @@ export class FiltersPanel extends Component<Props, State> {
   render() {
     const { classes, t, filters } = this.props;
 
-    const hasCustomAppUpsell = memoize((featureList: Array<UpsellSumup>) =>
-      featureList
-        .map((feature) => feature.upsell_identifier)
-        .includes(UPSELL_IDENTIFIER_CUSTOM_APP),
+    const hasCustomAppUpsell = memoize(() =>
+      this.props.hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP),
     );
 
     const sanitizedCSVExportDate = this.props.csvExportDate
@@ -395,7 +392,7 @@ export class FiltersPanel extends Component<Props, State> {
                   label={t('usedInFranchiseCommmunication')}
                 />
               )}
-              {hasCustomAppUpsell(this.props.featureList) && (
+              {hasCustomAppUpsell() && (
                 <div className={classes.smartListPopupButtonContainer}>
                   <Button
                     className={classes.smartListPopupButton}

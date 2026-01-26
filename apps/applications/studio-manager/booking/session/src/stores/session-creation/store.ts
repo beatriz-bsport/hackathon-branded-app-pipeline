@@ -10,7 +10,10 @@ import {
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
 
-import type { SessionCreate, SessionCreationFormData } from "./types";
+import type {
+  SessionCreationFormAdvancedOptionsData,
+  SessionCreationFormData,
+} from "./types";
 
 export enum SESSION_CREATION_STEPS {
   CHOOSE_GROUP_ACTIVITY = 0,
@@ -28,7 +31,7 @@ export interface SessionCreationState {
   selectedGroupActivity: MetaActivity | null;
   formData: {
     [SESSION_CREATION_STEPS.CONFIGURE_SESSION]: SessionCreationFormData;
-    [SESSION_CREATION_STEPS.ADVANCED_OPTIONS]: Partial<SessionCreate>;
+    [SESSION_CREATION_STEPS.ADVANCED_OPTIONS]: SessionCreationFormAdvancedOptionsData;
   };
 }
 
@@ -72,7 +75,11 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   room_blueprint: null,
 };
 
-export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {};
+export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {
+  allow_guest_offer: true,
+  blacklist_tags: [],
+  whitelist_tags: [],
+};
 
 export const getInitialState = (): SessionCreationState => ({
   currentStep: SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY,

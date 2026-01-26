@@ -54,10 +54,10 @@ export const getTableColumns = ({
     align: "start",
     render: (row) => {
       return (
-        <div className="flex flex-col gap-xs max-w-[500px]">
+        <div className="flex flex-col gap-xs">
           <Tooltip placement="bottom" label={row.triggerType}>
             <Body
-              className="overflow-hidden text-ellipsis"
+              className="max-w-[500px] overflow-hidden text-ellipsis"
               htmlVariant="p"
               size="md"
               color="default"

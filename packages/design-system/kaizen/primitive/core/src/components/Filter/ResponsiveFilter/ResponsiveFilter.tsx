@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 
 import Button from "#src/components/Button";
 import Divider from "#src/components/Divider";
@@ -18,6 +18,8 @@ export const ResponsiveFilter = (props: ResponsiveFilterProps) => {
     FilterElementState[]
   >(props.filterElements);
 
+  const [cachedValues, setCachedValues] = useState<Record<string, string>>({});
+
   useEffect(() => {
     setLocalFilterElements(props.filterElements);
   }, [props.filterElements]);
@@ -25,6 +27,32 @@ export const ResponsiveFilter = (props: ResponsiveFilterProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const filtersAppliedCount = useFiltersAppliedCount(props.filterElements);
+
+  const updateCachedValues = useCallback(
+    (element: FilterElementState) => {
+      if (!element.field) return;
+
+      const field = props.fields[element.field];
+      if (!field || !element.valueIds.length) return;
+
+      const newCache: Record<string, string> = {};
+      element.valueIds.forEach((valueId) => {
+        const value = field.values.find((v) => v.id === valueId);
+        if (value) {
+          newCache[valueId] = value.label;
+        }
+      });
+
+      setCachedValues((prev) => ({ ...prev, ...newCache }));
+    },
+    [props.fields],
+  );
+
+  useEffect(() => {
+    props.filterElements.forEach((element) => {
+      updateCachedValues(element);
+    });
+  }, [props.filterElements, updateCachedValues]);
 
   const handleApply = () => {
     const completeFilters = localFilterElements.filter((el) =>
@@ -82,6 +110,7 @@ export const ResponsiveFilter = (props: ResponsiveFilterProps) => {
 
       if (updated[index]) {
         updated[index].valueIds = valueIds;
+        updateCachedValues(updated[index]);
       }
 
       return updated;
@@ -163,6 +192,7 @@ export const ResponsiveFilter = (props: ResponsiveFilterProps) => {
                 onOperatorChange={handleOperatorChange}
                 onValuesChange={handleValuesChange}
                 onDelete={() => handleDeleteFilter(element.id)}
+                cachedValues={cachedValues}
               />
               {isElementComplete(element) && !props.singleField && (
                 <Divider weight="thin" />

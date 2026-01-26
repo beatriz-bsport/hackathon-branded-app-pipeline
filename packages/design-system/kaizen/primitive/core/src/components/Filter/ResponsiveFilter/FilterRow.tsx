@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import Button from "#src/components/Button";
 import DropdownMenu from "#src/components/DropdownMenu";
@@ -34,22 +34,23 @@ const FilterRow = ({
 
   const selectedField = element.field ? fields[element.field] : null;
 
-  const getFieldByValueId = (valueId: string) => {
-    if (!selectedField) {
-      return null;
-    }
-    const currentValue = selectedField.values.find(
-      (value) => value.id === valueId,
-    );
+  const getFieldByValueId = useCallback(
+    (valueId: string) => {
+      if (!selectedField) return null;
 
-    if (currentValue) {
-      return { id: currentValue.id, label: currentValue.label };
-    }
-    if (cachedValues[valueId]) {
-      return { id: valueId, label: cachedValues[valueId] };
-    }
-    return null;
-  };
+      const currentValue = selectedField.values.find(
+        (value) => value.id === valueId,
+      );
+
+      return (
+        currentValue ??
+        (cachedValues[valueId]
+          ? { id: valueId, label: cachedValues[valueId] }
+          : null)
+      );
+    },
+    [selectedField, cachedValues],
+  );
 
   const filterOptions = useMemo(
     () =>

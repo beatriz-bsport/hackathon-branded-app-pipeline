@@ -90,8 +90,8 @@ export const DisplaySettings: React.FC = () => {
               onClick={() => toggleColumn(column.id as Columns)}
               color={
                 displayedColumns.includes(column.id as Columns)
-                  ? "selected"
-                  : "main"
+                  ? "main"
+                  : "selected"
               }
             />
           ))}

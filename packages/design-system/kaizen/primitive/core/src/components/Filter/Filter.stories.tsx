@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import Button from "#src/components/Button";
 
@@ -139,5 +139,76 @@ export const FilterWithSingleCategory: Story = {
       },
     },
     singleField: true,
+  },
+};
+
+const FRUIT_ITEMS = [
+  { id: "apple", label: "Apple" },
+  { id: "banana", label: "Banana" },
+  { id: "cherry", label: "Cherry" },
+  { id: "date", label: "Date" },
+  { id: "elderberry", label: "Elderberry" },
+  { id: "fig", label: "Fig" },
+  { id: "grape", label: "Grape" },
+  { id: "honeydew", label: "Honeydew" },
+];
+const VEGETABLE_ITEMS = [
+  { id: "carrot", label: "Carrot" },
+  { id: "broccoli", label: "Broccoli" },
+  { id: "spinach", label: "Spinach" },
+  { id: "potato", label: "Potato" },
+  { id: "onion", label: "Onion" },
+  { id: "lettuce", label: "Lettuce" },
+  { id: "cabbage", label: "Cabbage" },
+  { id: "celery", label: "Celery" },
+];
+export const FilterWithSearch: Story = {
+  name: "Filter with search",
+  args,
+  render: (args) => {
+    const [searchFruitValues, setSearchFruitValues] = useState("");
+    const [searchVegetableValues, setSearchVegetableValues] = useState("");
+    const fruitValues = FRUIT_ITEMS.filter((fruit) =>
+      fruit.label.toLowerCase().includes(searchFruitValues.toLowerCase()),
+    );
+    const vegetableValues = VEGETABLE_ITEMS.filter((vegetable) =>
+      vegetable.label
+        .toLowerCase()
+        .includes(searchVegetableValues.toLowerCase()),
+    );
+    const props = {
+      ...args,
+      fields: {
+        fruit: {
+          id: "fruit",
+          label: "Fruit",
+          availableFilters: ["is", "is-not"],
+          values: fruitValues,
+          multiSelect: true,
+          searchConfig: {
+            placeholder: "Search fruits",
+            value: searchFruitValues,
+            onChange: (value: string) => {
+              setSearchFruitValues(value);
+            },
+          },
+        },
+        vegetable: {
+          id: "vegetable",
+          label: "Vegetable",
+          availableFilters: ["is", "is-not"],
+          values: vegetableValues,
+          multiSelect: false,
+          searchConfig: {
+            placeholder: "Search vegetables",
+            value: searchVegetableValues,
+            onChange: (value: string) => {
+              setSearchVegetableValues(value);
+            },
+          },
+        },
+      },
+    };
+    return <Filter {...props} />;
   },
 };

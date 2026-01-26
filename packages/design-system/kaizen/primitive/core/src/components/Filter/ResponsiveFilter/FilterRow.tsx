@@ -121,7 +121,6 @@ const FilterRow = ({
           }}
           fullWidth
         />
-
         {element.field && (
           <Button
             color="main"
@@ -198,6 +197,7 @@ const FilterRow = ({
                 }
               }}
               fullWidth
+              searchConfig={selectedField?.searchConfig}
             />
           </div>
         </>

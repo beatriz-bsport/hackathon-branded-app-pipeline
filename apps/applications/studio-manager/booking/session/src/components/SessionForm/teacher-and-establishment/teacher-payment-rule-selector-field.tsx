@@ -10,9 +10,10 @@ import { useSessionCreationStore } from "#src/stores/session-creation/store";
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-export const TeacherPaymentRuleSelectorField: FC<{ fieldIdPrefix: string }> = ({
-  fieldIdPrefix,
-}) => {
+export const TeacherPaymentRuleSelectorField: FC<{
+  fieldIdPrefix: string;
+  defaultSelectedId: number | null;
+}> = ({ fieldIdPrefix, defaultSelectedId }) => {
   const { t } = useTranslation("sessionCreation");
 
   const { watch } = useFormContext<SessionCreationFormData>();
@@ -48,6 +49,10 @@ export const TeacherPaymentRuleSelectorField: FC<{ fieldIdPrefix: string }> = ({
     label: rule.name,
   }));
 
+  const defaultSelectedIds = useMemo(() => {
+    return defaultSelectedId !== null ? [defaultSelectedId.toString()] : [];
+  }, [defaultSelectedId]);
+
   return (
     <FormField<SessionCreationFormData, "coach_payment_rule", AutocompleteProps>
       name="coach_payment_rule"
@@ -79,6 +84,7 @@ export const TeacherPaymentRuleSelectorField: FC<{ fieldIdPrefix: string }> = ({
         }}
         loadingProps={{ isLoading }}
         disabled={!isCoachSelected}
+        defaultSelectedIds={defaultSelectedIds}
       />
     </FormField>
   );

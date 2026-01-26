@@ -129,6 +129,10 @@ export const getAllBookingAndPrivateBooking = (state: RootState) => {
   return all;
 };
 
+export const getAllBookingAndPrivateBookingCount = (state: RootState) => {
+  return state.consumer.bookingAndPrivateBooking.count;
+};
+
 /*  REWORKED CONSUMER SPACE */
 
 const _getConsumerBookingsList = createSelector(

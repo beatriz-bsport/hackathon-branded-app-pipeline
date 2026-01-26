@@ -23,7 +23,7 @@ import {
 import { withEstablishment } from '#src/libs/offer/selectors';
 import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import type { StripeInit } from '#src/libs/payment/types';
-import { requestSetupIntentSecretNoAuth as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import asyncComponent from '../../AsyncComponent';
 import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { fetchPaymentMethodList } from '../../libs/payment/actions';
@@ -49,6 +49,7 @@ type Props = {
   date: string,
   memberId: number,
   contractId: number,
+  offerId?: number | null,
   fetchPaymentMethodList: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   requestSetupIntentSecret: () => void,
@@ -138,6 +139,7 @@ export class ContractPayment extends React.Component<Props, State> {
         coupon: coupon_code,
         with_prorata: !!this.props.contract?.month_billing_day,
         establishment_billing_group_id: establishmentBillingGroupId,
+        ...(this.props.offerId ? { offer_id: this.props.offerId } : {}),
       },
       {
         onBackgroundSuccess: (responseData) => {
@@ -148,7 +150,7 @@ export class ContractPayment extends React.Component<Props, State> {
         onError: () => this.setState({ processing: false }),
         onBackgroundError: () => this.setState({ processing: false }),
       },
-      true,
+      false,
     );
   };
 
@@ -220,6 +222,9 @@ export default compose(
   withProps(({ location }) => ({
     date: parseQueryString(location.search).date,
     memberId: parseInt(parseQueryString(location.search).member, 10),
+    offerId: parseQueryString(location.search).offerId
+      ? parseInt(parseQueryString(location.search).offerId, 10)
+      : null,
   })),
   withStyles(styles),
   routerParamsToProps({ contractId: 'contractId' }),

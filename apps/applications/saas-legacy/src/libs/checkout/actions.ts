@@ -20,7 +20,6 @@ import {
   assignInstalmentPayment as assignInstalmentPaymentAPI,
   attachCoupon as attachCouponAPI,
   attachPayment as attachPaymentAPI,
-  attachPaymentUnauthenticated as attachPaymentUnauthenticatedAPI,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAPI,
   createQuicksaleBasket as createQuicksaleBasketAPI,
   dropQuicksaleBasket as dropQuicksaleBasketAPI,
@@ -218,7 +217,7 @@ export function attachPaymentToBasketId(
     dispatch(currentBasket.error(null));
 
     try {
-      const response = await attachPaymentUnauthenticatedAPI(basketId, data);
+      const response = await attachPaymentAPI(basketId, data);
       if (response.data.is_finalized) {
         dispatch(currentBasket.success(response.data));
       }

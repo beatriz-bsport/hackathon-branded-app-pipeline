@@ -40,10 +40,7 @@ import {
   getCoachById,
   getAllCoaches,
 } from '#src/libs/associated-coach/selectors';
-import {
-  getWorkshopsByAllIds,
-  getWorkshops,
-} from '#src/libs/meta-activity/selectors';
+import { getWorkshopsByAllIds } from '#src/libs/meta-activity/selectors';
 import {
   getBookedOffers,
   getOffersListByMetaActivity as getOffersListByMetaActivitySelector,
@@ -134,7 +131,6 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   offerDetailsloading,
   allEstablishments,
   workshops,
-  allWorkshops,
   establishmentGroupList,
   customLevels,
   getOffersListByMetaActivity,
@@ -180,8 +176,6 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   );
 
   const compatibleWorkshops = getCompatibleWorkshops(workshops);
-  // @ts-expect-error
-  const allCompatibleWorkshops = getCompatibleWorkshops(allWorkshops);
 
   // CDM
   useEffect(() => {
@@ -360,7 +354,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
         establishments={allEstablishments}
         filters={filters}
         hideCoach={theme && theme.hideCoach}
-        metaActivities={allCompatibleWorkshops}
+        metaActivities={workshops}
         setFilters={setFilters}
         showMultiLocalization={theme.enable_multi_localization}
         variant="workshop"
@@ -398,7 +392,6 @@ const connector = connect(
     bookedOffers: getBookedOffers(state),
     workshopsLoading: state.metaActivity.loading,
     workshops: getWorkshopsByAllIds(state),
-    allWorkshops: getWorkshops(state),
     getCoach: getCoachById(state),
     getLevel: getLevelsDetails(state),
     getEstablishment: getEstablishmentById(state),

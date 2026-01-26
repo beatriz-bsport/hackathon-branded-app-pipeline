@@ -1,5 +1,6 @@
 import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { Suspense, useEffect } from "react";
 
 import { setLocalAPIEnv } from "@bsport/fetch";
@@ -21,21 +22,32 @@ import { authenticateDev } from "./auth-helper";
 import "../../primitive/core/src/globals.css";
 import "../financial-services/src/globals.css";
 
-// Set API env and authenticate only for local Storybook builds
+// Set API environment to dev for local storybook
 if (typeof window !== "undefined") {
-  const storybookEnv = process.env.STORYBOOK_ENV || "local";
-  if (storybookEnv === "local") {
-    setLocalAPIEnv("dev");
-    authenticateDev().catch((error) => {
-      console.warn("Failed to authenticate in Storybook:", error);
-    });
-  }
+  setLocalAPIEnv("dev");
+}
+
+// Authenticate with dev credentials on Storybook load
+if (typeof window !== "undefined") {
+  authenticateDev().catch((error) => {
+    console.warn("Failed to authenticate in Storybook:", error);
+  });
 }
 
 const { i18nInstance } = instanciateAppI18n<Translations>({
   applicationName: i18nNamespacePrefix,
   namespaces: i18nNamespaces,
   inMemoryTranslationsLoader,
+});
+
+// Create a QueryClient instance for React Query
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
 });
 
 const preview: Preview = {
@@ -49,11 +61,13 @@ const preview: Preview = {
 
       return (
         <React.StrictMode>
-          <Suspense fallback={<p>Loading translations ...</p>}>
-            <I18nProvider kaizenI18nInstance={i18nInstance}>
-              <Story />
-            </I18nProvider>
-          </Suspense>
+          <QueryClientProvider client={queryClient}>
+            <Suspense fallback={<p>Loading translations ...</p>}>
+              <I18nProvider kaizenI18nInstance={i18nInstance}>
+                <Story />
+              </I18nProvider>
+            </Suspense>
+          </QueryClientProvider>
         </React.StrictMode>
       );
     },

@@ -7,8 +7,8 @@ import { useSessionListStore } from "#src/stores/session-list/store";
 import type { Columns, EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
-import { SessionCards } from "./SessionCards";
 import { useSessionListColumns } from "./columns";
+import { SessionCards } from "./session-cards";
 
 type SessionTableProps = {
   sessions: EnrichedSession[];

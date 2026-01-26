@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
@@ -101,7 +103,11 @@ export const useSessionListColumns = () => {
     },
   };
 
-  const sessionClassName = "truncate max-w-[202px]";
+  const sessionClassName = clsx(
+    "truncate max-w-[202px] text-title-sm font-strong leading-md",
+    "lg:text-body-md lg:font-weak line-height-body-md lg:leading-sm",
+  );
+
   const sessionNameColumn: TableColumn = {
     header: t("table.headers.sessionName"),
     label: t("table.headers.sessionName"),

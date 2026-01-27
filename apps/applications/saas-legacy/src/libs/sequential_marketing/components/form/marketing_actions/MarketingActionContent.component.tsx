@@ -38,7 +38,7 @@ const MarketingActionContent: React.FC<Props> = ({
   const classes = useStyles();
 
   switch (getMarketingActionType(marketingAction)) {
-    case MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL:
+    case MarketingActions.WRITTEN_EMAIL:
       return (
         <WrittenEmailForm
           marketingAction={marketingAction}
@@ -47,7 +47,7 @@ const MarketingActionContent: React.FC<Props> = ({
           withoutValidation={withoutValidation}
         />
       );
-    case MarketingActions.CADENCE_MARKETING_ACTION_SMS:
+    case MarketingActions.SMS:
       return (
         <div className={classes.smsContainer}>
           <SmsForm
@@ -59,7 +59,7 @@ const MarketingActionContent: React.FC<Props> = ({
           <SmsCostWarningAlert />
         </div>
       );
-    case MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE:
+    case MarketingActions.EMAIL_TEMPLATE:
       return (
         <TemplateEmailForm
           emailDetailList={emailDetailList}
@@ -74,7 +74,7 @@ const MarketingActionContent: React.FC<Props> = ({
           withoutValidation={withoutValidation}
         />
       );
-    case MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT:
+    case MarketingActions.ADD_TAG:
       return (
         <div className={classes.tagSelector}>
           <TagForm
@@ -85,7 +85,7 @@ const MarketingActionContent: React.FC<Props> = ({
           />
         </div>
       );
-    case MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION:
+    case MarketingActions.PUSH_NOTIFICATION:
       return (
         <NotificationForm
           marketingAction={marketingAction}

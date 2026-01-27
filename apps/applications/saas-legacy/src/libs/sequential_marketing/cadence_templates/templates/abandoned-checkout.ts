@@ -159,7 +159,7 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
                 'audience.template.configs.abandonedCartRecovery.steps.reminder.actions.push_notification.text',
               ),
               communication_kind:
-                MarketingActionCommunicationKind.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+                MarketingActionCommunicationKind.PUSH_NOTIFICATION,
             },
           },
         ],
@@ -209,7 +209,7 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
                 'audience.template.configs.abandonedCartRecovery.steps.entry.actions.push_notification.text',
               ),
               communication_kind:
-                MarketingActionCommunicationKind.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+                MarketingActionCommunicationKind.PUSH_NOTIFICATION,
             },
           },
           {
@@ -222,7 +222,7 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
               email_design: getEntryEmailDesign(),
               text_content: '',
               communication_kind:
-                MarketingActionCommunicationKind.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+                MarketingActionCommunicationKind.EMAIL_TEMPLATE,
             },
           },
         ],

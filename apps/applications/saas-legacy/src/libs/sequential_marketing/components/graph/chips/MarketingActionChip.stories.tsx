@@ -70,7 +70,7 @@ export const Email = Template.bind({});
 Email.args = {
   marketingAction: stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+    communication_kind: MarketingActions.WRITTEN_EMAIL,
   }),
 };
 
@@ -78,7 +78,7 @@ export const Sms = Template.bind({});
 Sms.args = {
   marketingAction: stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+    communication_kind: MarketingActions.SMS,
   }),
 };
 
@@ -86,8 +86,7 @@ export const PushNotif = Template.bind({});
 PushNotif.args = {
   marketingAction: stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind:
-      MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+    communication_kind: MarketingActions.PUSH_NOTIFICATION,
   }),
 };
 
@@ -95,8 +94,7 @@ export const TemplateEmail = Template.bind({});
 TemplateEmail.args = {
   marketingAction: stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind:
-      MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+    communication_kind: MarketingActions.EMAIL_TEMPLATE,
     email_design: emailTemplateSummaryList[1].id,
   }),
   getEmailTemplate: getEmailTemplate,

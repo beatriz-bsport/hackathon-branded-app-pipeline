@@ -48,12 +48,11 @@ export const triggerIconByKind: { [key in TriggerKind]: string } = {
  * @description Dictionnary linking each MarketingAction to its corresponding icon name
  */
 export const marketingActionIconDict: { [key in MarketingActions]: string } = {
-  [MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL]: 'Mail',
-  [MarketingActions.CADENCE_MARKETING_ACTION_SMS]: 'Textsms',
-  [MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION]:
-    'Notifications',
-  [MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT]: 'Label',
-  [MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE]: 'LibraryBooks',
+  [MarketingActions.WRITTEN_EMAIL]: 'Mail',
+  [MarketingActions.SMS]: 'Textsms',
+  [MarketingActions.PUSH_NOTIFICATION]: 'Notifications',
+  [MarketingActions.ADD_TAG]: 'Label',
+  [MarketingActions.EMAIL_TEMPLATE]: 'LibraryBooks',
 };
 
 /** Get the icon name which corresponds to the eventType in parameter
@@ -120,17 +119,13 @@ export const getMarketingActionChipIcon = (
 
   switch (marketingAction?.kind) {
     case MarketingActionKind.TAG:
-      return marketingActionIconDict[
-        MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT
-      ];
+      return marketingActionIconDict[MarketingActions.ADD_TAG];
     case MarketingActionKind.COMMUNICATION:
       actionSpec =
         marketingAction?.action_spec as StepMarketingActionsCommunicationSpec;
       return marketingActionIconDict[actionSpec.communication_kind];
     default:
-      return marketingActionIconDict[
-        MarketingActions.CADENCE_MARKETING_ACTION_SMS
-      ];
+      return marketingActionIconDict[MarketingActions.SMS];
   }
 };
 
@@ -159,12 +154,12 @@ export const getMarketingActionChipName = ({
       actionSpec =
         marketingAction.action_spec as StepMarketingActionsCommunicationSpec;
       switch (actionSpec.communication_kind) {
-        case MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL:
-        case MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION:
+        case MarketingActions.WRITTEN_EMAIL:
+        case MarketingActions.PUSH_NOTIFICATION:
           return actionSpec?.subject;
-        case MarketingActions.CADENCE_MARKETING_ACTION_SMS:
+        case MarketingActions.SMS:
           return actionSpec?.text_content;
-        case MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE:
+        case MarketingActions.EMAIL_TEMPLATE:
           return (
             !!getEmailTemplate &&
             getEmailTemplate(actionSpec?.email_design?.toString())?.title

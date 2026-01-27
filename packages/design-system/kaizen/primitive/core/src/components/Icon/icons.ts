@@ -21,6 +21,9 @@ const icons = {
   "arrow-right": React.lazy(
     async () => await import("./assets/arrow-right.svg?react"),
   ),
+  "arrow-square-right": React.lazy(
+    async () => await import("./assets/arrow-square-right.svg?react"),
+  ),
   "atom-02": React.lazy(async () => await import("./assets/atom-02.svg?react")),
   "award-03": React.lazy(
     async () => await import("./assets/award-03.svg?react"),

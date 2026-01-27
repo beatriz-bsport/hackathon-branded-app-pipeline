@@ -63,7 +63,6 @@ type Props = {
   theme: Theme;
   variant?: 'activityName' | 'coach' | 'time';
   groupSessionByPeriod: boolean;
-  events: Array<Event>;
   onSearch: (searchText: string) => void;
   onClearInput: () => void;
   isSearching: boolean;
@@ -164,9 +163,6 @@ export const MarketplaceCalendar = (props: Props) => {
         <div className="bs-calendar__datePicker">
           <MarketplaceDatePicker
             dateSelected={selectedDate}
-            // @ts-expect-error
-            events={props.events}
-            offerFilters={filters}
             onSelect={onSelectDate}
             startWeekOnDaySelected={startWeekOnDaySelected}
           />

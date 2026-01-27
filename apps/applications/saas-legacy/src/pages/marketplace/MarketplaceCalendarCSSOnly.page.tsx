@@ -691,7 +691,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
               ? this.state.filteredEstablishments
               : establishments) as ReadonlyArray<Establishment>
           }
-          events={this.props.events}
           filters={this.state.filters}
           filtersOpen={this.props.otherParams.filtersOpen === 'true'}
           forceDayDisplayOnly={this.props.otherParams.onlyDay === 'true'}

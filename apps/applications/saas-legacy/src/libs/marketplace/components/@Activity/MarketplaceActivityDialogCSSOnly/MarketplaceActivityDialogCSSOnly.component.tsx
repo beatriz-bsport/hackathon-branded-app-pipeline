@@ -18,11 +18,12 @@ import MarketplaceActivityV2 from '../MarketplaceActivityCSSOnly';
 import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 import { trackGroupActivitySessionViewedEvent } from '#src/events/booking/trackers';
 import './MarketplaceActivityDialogCSSOnly.css';
+import { ImmutableObject } from 'seamless-immutable';
 
 export type Props = {
   companyTheme: CompanyTheme;
   open: boolean;
-  metaActivities: { [key: number]: MetaActivity };
+  metaActivities: ImmutableObject<{ [key: number]: MetaActivity }>;
   establishments: ReadonlyArray<Establishment>;
   coaches: Array<Coach>;
   customLevels: Array<Level>;

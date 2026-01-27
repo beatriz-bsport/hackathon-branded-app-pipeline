@@ -26,6 +26,7 @@ import MarketplaceWeekTimetableV2, {
 
 import './MarketplaceCalendarCSSOnly.css';
 import { MarketplaceFiltersSetter } from '#src/libs/marketplace/types';
+import { ImmutableObject } from 'seamless-immutable';
 
 const LoadingIndicator = () => (
   <div className="bs-calendar--loading">
@@ -43,7 +44,7 @@ type Props = {
   onClickOffer: () => void;
   coaches: Array<Coach>;
   establishments: ReadonlyArray<Establishment>;
-  metaActivities: { [key: number]: MetaActivity };
+  metaActivities: ImmutableObject<{ [key: number]: MetaActivity }>;
   setFilters: MarketplaceFiltersSetter;
   filters: any;
   forceDayDisplayOnly: boolean;

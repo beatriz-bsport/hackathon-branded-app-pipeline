@@ -12,7 +12,9 @@ export const getMetaActivityAbstractDict = (state: RootState) =>
 export const getPureMetaActivitiesDict = createSelector(
   getMetaActivityAbstractDict,
   (data) => {
-    const defaultDict: { [key: number]: MetaActivity } = {};
+    const defaultDict = Immutable<{
+      [key: number]: MetaActivity;
+    }>({});
     if (Object.values(data)) {
       const metaActivities = Object.values(data).filter((v) => !v.is_workshop);
       return Immutable<{ [key: number]: MetaActivity }>(
@@ -32,7 +34,9 @@ export const getPureMetaActivitiesDict = createSelector(
 export const getMetaActivitiesDict = createSelector(
   getMetaActivityAbstractDict,
   (data) => {
-    const defaultDict: { [key: number]: MetaActivity } = {};
+    const defaultDict = Immutable<{
+      [key: number]: MetaActivity;
+    }>({});
     if (Object.values(data)) {
       const metaActivities = Object.values(data);
       return Immutable<{ [key: number]: MetaActivity }>(

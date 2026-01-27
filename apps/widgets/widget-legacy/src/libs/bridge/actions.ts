@@ -35,31 +35,12 @@ export function bridgeRequestLogout() {
   };
 }
 
-export function bridgeRequestVideoPlaybackUrl(videoId: number) {
-  return async (dispatch: any) => {
-    dispatch(getVideoPlaybackUrlActions.isLoading(true));
-    dispatch(getVideoPlaybackUrlActions.error(null));
-    dispatch(getVideoPlaybackUrlActions.accessDenied(false));
-    sendBridgeMessage({
-      type: WidgetMessageType.REQUEST_PLAYBACK_URL,
-      data: { videoId },
-    });
-  };
-}
-
 // Internal Actions to mutate the reducer
 // --------------------------------------
 export const authenticationStatusActions = {
   success: createAction('BRIDGE/AUTHENTICATION/SUCCESS'),
   hasBeenReceived: createAction('BRIDGE/AUTHENTICATION/RECEIVED'),
   error: createAction('BRIDGE/AUTHENTICATION/ERROR'),
-};
-
-export const getVideoPlaybackUrlActions = {
-  success: createAction('VIDEO/PLAYBACK_URL/SUCCESS'),
-  isLoading: createAction('VIDEO/PLAYBACK_URL/LOADING'),
-  error: createAction('VIDEO/PLAYBACK_URL/ERROR'),
-  accessDenied: createAction('VIDEO/PLAYBACK_URL/ACCESS_DENIED'),
 };
 
 // Second part: how to handle messages
@@ -105,45 +86,7 @@ export const handleBridgeMessage =
 
       case WidgetMessageType.VIDEO_REGISTERED:
         dispatch(closeUserInteractionPortal());
-        dispatch(bridgeRequestVideoPlaybackUrl(eventData.videoId));
-        break;
-
-      case WidgetMessageType.RESPONSE_PLAYBACK_URL_ACCESS_DENIED:
-        if (
-          eventData.data?.accessDenied === false ||
-          eventData.data?.accessDenied === true
-        ) {
-          dispatch(
-            getVideoPlaybackUrlActions.accessDenied(
-              eventData.data.accessDenied,
-            ),
-          );
-        }
-        break;
-
-      case WidgetMessageType.RESPONSE_PLAYBACK_URL_ERROR:
-        dispatch(
-          getVideoPlaybackUrlActions.success({
-            videoId: eventData.data.videoId,
-            playbackUrl: '',
-          }),
-        );
-        dispatch(getVideoPlaybackUrlActions.isLoading(false));
-        dispatch(getVideoPlaybackUrlActions.error(null));
-        break;
-
-      case WidgetMessageType.RESPONSE_PLAYBACK_URL_SUCCESS:
-        if (eventData.data?.playbackUrl) {
-          dispatch(
-            getVideoPlaybackUrlActions.success({
-              videoId: eventData.data.videoId,
-              playbackUrl: eventData.data.playbackUrl,
-            }),
-          );
-          dispatch(closeUserInteractionPortal());
-        }
-        dispatch(getVideoPlaybackUrlActions.isLoading(false));
-        dispatch(getVideoPlaybackUrlActions.error(null));
+        dispatch(forceWidgetRefresh());
         break;
 
       case WidgetMessageType.PAYMENT_SUCCESS:

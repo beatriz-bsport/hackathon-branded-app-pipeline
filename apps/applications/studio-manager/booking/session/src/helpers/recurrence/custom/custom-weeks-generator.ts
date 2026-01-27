@@ -2,6 +2,7 @@ import {
   getStartOf,
   isWithinRange,
   toDate,
+  toDateTime,
 } from "@bsport/datetime-manipulation";
 
 import type { CustomWeeksConfig } from "#src/helpers/recurrence/types";
@@ -20,6 +21,10 @@ export function generateCustomWeeksDates(config: CustomWeeksConfig): Date[] {
 
   const dates: Date[] = [];
 
+  const originalDateTime = toDateTime(config.startDate, config.timezone);
+
+  const { hour, minute, second, millisecond } = originalDateTime;
+
   const startDateTime = getStartOf(config.startDate, "day", config.timezone);
 
   const endDateTime = getStartOf(config.endDate, "day", config.timezone);
@@ -31,7 +36,13 @@ export function generateCustomWeeksDates(config: CustomWeeksConfig): Date[] {
     // Process all selected weekdays in this week
     selectedWeekdays.forEach((weekday) => {
       // Set to the specific weekday (1=Monday, 7=Sunday)
-      const occurrence = currentWeek.set({ weekday });
+      const occurrence = currentWeek.set({
+        weekday,
+        hour,
+        minute,
+        second,
+        millisecond,
+      });
 
       if (isWithinRange(occurrence, startDateTime, endDateTime)) {
         dates.push(toDate(occurrence));

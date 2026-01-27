@@ -544,6 +544,7 @@
         "102": "Basket",
         "103": "Billing",
         "104": "Subscription",
+        "105": "Member",
         "billing_plan-renew": "Renewal",
         "billing_plan-stop": "Stop",
         "billing_plan-pause": "Pause",
@@ -559,7 +560,8 @@
         "private_consumer_pass-create": "Appointment pass",
         "consumer_payment_pack-create": "Pass",
         "provision_update-create": "Shop Item",
-        "consumer_giftcard-create": "Gift Card"
+        "consumer_giftcard-create": "Gift Card",
+        "marketing-lead_form_submitted": "Lead form submitted"
       },
       "exit": {
         "exit_fail_label": "No",
@@ -625,7 +627,8 @@
         "purchase_chip": "Purchase",
         "billing_plan_chip": "Subscription",
         "invoice_chip": "Billing",
-        "basket_chip": "Basket"
+        "basket_chip": "Basket",
+        "member_chip": "Member"
       },
       "timeout": {
         "timeout_days_chip": "{{ count }} day",

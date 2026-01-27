@@ -1,67 +1,70 @@
 import useAsyncFn from '#src/hooks/useAsyncFn';
 import {
-  activatePartnershipVenue,
-  createPartnershipVenue,
-  deletePartnershipVenue,
-  getPartnershipVenues,
-  updatePartnershipVenue,
+  activatePartnershipAccount,
+  createPartnershipAccount,
+  deletePartnershipAccount,
+  getPartnershipAccounts,
+  updatePartnershipAccount,
 } from './api';
 
-export const useGetPartnershipVenues = (partnershipId: number) => {
-  const doFetchPartnershipVenues = async () => {
-    const partnershipVenueResponse = await getPartnershipVenues({
+export const useGetPartnershipAccounts = (partnershipId: number) => {
+  const doFetchPartnershipAccounts = async () => {
+    const partnershipAccountResponse = await getPartnershipAccounts({
       partnership: partnershipId,
     });
 
-    return partnershipVenueResponse.data;
+    return partnershipAccountResponse.data;
   };
 
-  return useAsyncFn(doFetchPartnershipVenues, [partnershipId]);
+  return useAsyncFn(doFetchPartnershipAccounts, [partnershipId]);
 };
 
-export const useCreatePartnershipVenue = (partnershipId: number) => {
-  const doCreatePartnershipVenues = async (data: {
+export const useCreatePartnershipAccount = (partnershipId: number) => {
+  const doCreatePartnershipAccounts = async (data: {
     establishmentIds: number[];
   }) => {
-    const partnershipVenueResponse = await createPartnershipVenue({
+    const partnershipAccountResponse = await createPartnershipAccount({
       establishment_group: data.establishmentIds,
       partnership: partnershipId,
     });
 
-    return partnershipVenueResponse.data;
+    return partnershipAccountResponse.data;
   };
 
-  return useAsyncFn(doCreatePartnershipVenues, [partnershipId]);
+  return useAsyncFn(doCreatePartnershipAccounts, [partnershipId]);
 };
 
-export const useDeletePartnershipVenue = () => {
-  const doDeletePartnershipVenue = async (venueId: string) => {
-    await deletePartnershipVenue(venueId);
+export const useDeletePartnershipAccount = () => {
+  const doDeletePartnershipAccount = async (accountId: string) => {
+    await deletePartnershipAccount(accountId);
   };
 
-  return useAsyncFn(doDeletePartnershipVenue, []);
+  return useAsyncFn(doDeletePartnershipAccount, []);
 };
 
-export const useUpdatePartnershipVenue = (partnershipId: number) => {
-  const doUpdatePartnershipVenue = async (
-    venueId: string,
+export const useUpdatePartnershipAccount = (partnershipId: number) => {
+  const doUpdatePartnershipAccount = async (
+    accountId: string,
     data: { establishmentIds: number[] },
   ) => {
-    const partnershipVenueResponse = await updatePartnershipVenue(venueId, {
-      partnership: partnershipId,
-      establishment_group: data.establishmentIds,
-    });
+    const partnershipAccountResponse = await updatePartnershipAccount(
+      accountId,
+      {
+        partnership: partnershipId,
+        establishment_group: data.establishmentIds,
+      },
+    );
 
-    return partnershipVenueResponse.data;
+    return partnershipAccountResponse.data;
   };
 
-  return useAsyncFn(doUpdatePartnershipVenue, [partnershipId]);
+  return useAsyncFn(doUpdatePartnershipAccount, [partnershipId]);
 };
 
-export const useActivatePartnershipVenue = () => {
-  const doActivatePartnershipVenue = async (venueId: string) => {
-    await activatePartnershipVenue(venueId);
+export const useActivatePartnershipAccount = () => {
+  const doActivatePartnershipAccount = async (accountId: string) => {
+    await activatePartnershipAccount(accountId);
   };
 
-  return useAsyncFn(doActivatePartnershipVenue, []);
+  return useAsyncFn(doActivatePartnershipAccount, []);
 };

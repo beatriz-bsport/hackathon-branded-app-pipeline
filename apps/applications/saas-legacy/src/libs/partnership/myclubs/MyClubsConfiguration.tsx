@@ -2,14 +2,14 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PartnershipConfigurationPanel from '#src/libs/partnership/components/PartnershipConfigurationPanel';
 import {
   PartnershipIdentifier,
-  PartnershipVenue,
+  PartnershipAccount,
 } from '#src/libs/partnership/types';
 import {
-  useCreatePartnershipVenue,
-  useDeletePartnershipVenue,
-  useUpdatePartnershipVenue,
-  useGetPartnershipVenues,
-  useActivatePartnershipVenue,
+  useCreatePartnershipAccount,
+  useDeletePartnershipAccount,
+  useUpdatePartnershipAccount,
+  useGetPartnershipAccounts,
+  useActivatePartnershipAccount,
 } from '#src/libs/partnership/hooks';
 import MyClubsLogoIcon from '#src/components/icons/MyClubsLogoIcon.component';
 import { Establishment } from '#src/libs/establishment/types';
@@ -63,57 +63,56 @@ const MyClubsConfiguration: React.FC<Props> = ({
   const { t } = useTranslation('partnership');
 
   const [
-    { loading: fetchVenuesLoading, value: partnershipVenues },
-    fetchPartnershipVenues,
-  ] = useGetPartnershipVenues(myClubsPartnershipId);
-  const [createActionState, createPartnershipVenue] =
-    useCreatePartnershipVenue(myClubsPartnershipId);
-  const [deleteActionState, deletePartnershipVenue] =
-    useDeletePartnershipVenue();
-  const [updateActionState, updatePartnershipVenue] =
-    useUpdatePartnershipVenue(myClubsPartnershipId);
-  const [activateActionState, activatePartnershipVenue] =
-    useActivatePartnershipVenue();
+    { loading: fetchAccountsLoading, value: partnershipAccounts },
+    fetchPartnershipAccounts,
+  ] = useGetPartnershipAccounts(myClubsPartnershipId);
+  const [createActionState, createPartnershipAccount] =
+    useCreatePartnershipAccount(myClubsPartnershipId);
+  const [deleteActionState, deletePartnershipAccount] =
+    useDeletePartnershipAccount();
+  const [updateActionState, updatePartnershipAccount] =
+    useUpdatePartnershipAccount(myClubsPartnershipId);
+  const [activateActionState, activatePartnershipAccount] =
+    useActivatePartnershipAccount();
 
-  const [createdVenue, setCreatedVenue] = useState<PartnershipVenue | null>(
-    null,
-  );
-  const [selectedVenueToEdit, setSelectedVenueToEdit] =
-    useState<PartnershipVenue | null>(null);
-  const [selectedVenueToActivate, setSelectedVenueToActivate] =
-    useState<PartnershipVenue | null>(null);
+  const [createdAccount, setCreatedAccount] =
+    useState<PartnershipAccount | null>(null);
+  const [selectedAccountToEdit, setSelectedAccountToEdit] =
+    useState<PartnershipAccount | null>(null);
+  const [selectedAccountToActivate, setSelectedAccountToActivate] =
+    useState<PartnershipAccount | null>(null);
 
   const warningDialogKeys = useMemo(
     () =>
       computeWarningDialogKeys(
-        selectedVenueToEdit !== null,
-        selectedVenueToActivate !== null,
+        selectedAccountToEdit !== null,
+        selectedAccountToActivate !== null,
       ),
-    [selectedVenueToEdit, selectedVenueToActivate],
+    [selectedAccountToEdit, selectedAccountToActivate],
   );
   useEffect(() => {
-    fetchPartnershipVenues();
-  }, [myClubsPartnershipId, fetchPartnershipVenues]);
+    fetchPartnershipAccounts();
+  }, [myClubsPartnershipId, fetchPartnershipAccounts]);
 
-  // The list of establishment IDs linked to the venue being edited
+  // The list of establishment IDs linked to the account being edited
   const selectedEstablishmentIds = useMemo(
     () =>
-      selectedVenueToEdit?.establishments.map(
+      selectedAccountToEdit?.establishments.map(
         (establishment) => establishment.id,
       ) || [],
-    [selectedVenueToEdit],
+    [selectedAccountToEdit],
   );
 
-  // The list of establishment IDs already linked to other venues
+  // The list of establishment IDs already linked to other accounts
   // These ids will be disabled in the establishment selector
   const establishmentsLinkedIds = useMemo(
     () =>
-      partnershipVenues
-        ? partnershipVenues.flatMap((venue) =>
-            venue.establishments.map((establishment) => establishment.id),
+      partnershipAccounts
+        ? partnershipAccounts.flatMap((account) =>
+            account.establishments.map((establishment) => establishment.id),
           )
         : [],
-    [partnershipVenues],
+    [partnershipAccounts],
   );
 
   /* Configuration Dialog */
@@ -122,7 +121,7 @@ const MyClubsConfiguration: React.FC<Props> = ({
 
   const openConfigurationDialog = useCallback(() => {
     setIsConfigurationDialogOpen(true);
-    setCreatedVenue(null);
+    setCreatedAccount(null);
   }, []);
   const closeConfigurationDialog = useCallback((reset: boolean = true) => {
     setIsConfigurationDialogOpen(false);
@@ -130,8 +129,8 @@ const MyClubsConfiguration: React.FC<Props> = ({
       // Material applies a 300ms fade out animation on dialog close
       // Wait before resetting to prevent its style from changing before closing
       setTimeout(() => {
-        setSelectedVenueToEdit(null);
-        setCreatedVenue(null);
+        setSelectedAccountToEdit(null);
+        setCreatedAccount(null);
       }, 300);
     }
   }, []);
@@ -162,29 +161,29 @@ const MyClubsConfiguration: React.FC<Props> = ({
 
   /* Action Handlers */
 
-  // DELETE: Remove partnership venue
-  const deleteVenue = useCallback(
-    async (venue: PartnershipVenue) => {
-      await deletePartnershipVenue(venue.id);
-      fetchPartnershipVenues();
+  // DELETE: Remove partnership account
+  const deleteAccount = useCallback(
+    async (account: PartnershipAccount) => {
+      await deletePartnershipAccount(account.id);
+      fetchPartnershipAccounts();
       showSnackbarSuccess(
         t('myclubs.configuration.dialog.notification.delete.success'),
       );
       closeWarningDialog();
     },
     [
-      deletePartnershipVenue,
-      fetchPartnershipVenues,
+      deletePartnershipAccount,
+      fetchPartnershipAccounts,
       showSnackbarSuccess,
       closeWarningDialog,
       t,
     ],
   );
 
-  // EDIT: Update partnership venue
-  const updateVenue = useCallback(
+  // EDIT: Update partnership account
+  const updateAccount = useCallback(
     async (values: FormValues) => {
-      if (!selectedVenueToEdit) return;
+      if (!selectedAccountToEdit) return;
 
       // Check if any establishments were removed
       const removedEstablishments = selectedEstablishmentIds.filter(
@@ -196,39 +195,39 @@ const MyClubsConfiguration: React.FC<Props> = ({
         closeConfigurationDialog(false);
         openWarningDialog(
           async () => {
-            await updatePartnershipVenue(selectedVenueToEdit.id, values);
-            fetchPartnershipVenues();
+            await updatePartnershipAccount(selectedAccountToEdit.id, values);
+            fetchPartnershipAccounts();
             showSnackbarSuccess(
               t('myclubs.configuration.dialog.notification.update.success'),
             );
             // Material applies a 300ms fade out animation on dialog close
             // Wait before resetting to prevent its style from changing before closing
-            setTimeout(() => setSelectedVenueToEdit(null), 300);
+            setTimeout(() => setSelectedAccountToEdit(null), 300);
             closeWarningDialog();
           },
           () => {
             // Reopen configuration dialog on cancel
             closeWarningDialog();
-            setSelectedVenueToEdit(selectedVenueToEdit);
+            setSelectedAccountToEdit(selectedAccountToEdit);
             openConfigurationDialog();
           },
         );
         return;
       }
 
-      await updatePartnershipVenue(selectedVenueToEdit.id, values);
+      await updatePartnershipAccount(selectedAccountToEdit.id, values);
       closeConfigurationDialog();
-      fetchPartnershipVenues();
+      fetchPartnershipAccounts();
       showSnackbarSuccess(
         t('myclubs.configuration.dialog.notification.update.success'),
       );
     },
     [
-      selectedVenueToEdit,
+      selectedAccountToEdit,
       selectedEstablishmentIds,
-      updatePartnershipVenue,
+      updatePartnershipAccount,
       closeConfigurationDialog,
-      fetchPartnershipVenues,
+      fetchPartnershipAccounts,
       showSnackbarSuccess,
       t,
       openWarningDialog,
@@ -237,69 +236,74 @@ const MyClubsConfiguration: React.FC<Props> = ({
     ],
   );
 
-  // CREATE: Add new partnership venue
-  const createVenue = useCallback(
+  // CREATE: Add new partnership account
+  const createAccount = useCallback(
     async (values: FormValues) => {
-      const createdValue = await createPartnershipVenue(values);
+      const createdValue = await createPartnershipAccount(values);
       if (createdValue) {
-        setCreatedVenue(createdValue);
-        fetchPartnershipVenues();
+        setCreatedAccount(createdValue);
+        fetchPartnershipAccounts();
         showSnackbarSuccess(
           t('myclubs.configuration.dialog.notification.create.success'),
         );
       }
     },
-    [createPartnershipVenue, fetchPartnershipVenues, showSnackbarSuccess, t],
+    [
+      createPartnershipAccount,
+      fetchPartnershipAccounts,
+      showSnackbarSuccess,
+      t,
+    ],
   );
 
-  // ACTIVATE: Activate a disabled partnership venue
-  const activateVenue = useCallback(
-    async (venue: PartnershipVenue) => {
-      await activatePartnershipVenue(venue.id);
-      fetchPartnershipVenues();
+  // ACTIVATE: Activate a disabled partnership account
+  const activateAccount = useCallback(
+    async (account: PartnershipAccount) => {
+      await activatePartnershipAccount(account.id);
+      fetchPartnershipAccounts();
       showSnackbarSuccess(
         t('myclubs.configuration.dialog.notification.activate.success'),
       );
       closeWarningDialog();
       // Material applies a 300ms fade out animation on dialog close
       // Wait before resetting to prevent its style from changing before closing
-      setTimeout(() => setSelectedVenueToActivate(null), 300);
+      setTimeout(() => setSelectedAccountToActivate(null), 300);
     },
     [
-      activatePartnershipVenue,
-      fetchPartnershipVenues,
+      activatePartnershipAccount,
+      fetchPartnershipAccounts,
       showSnackbarSuccess,
       closeWarningDialog,
       t,
     ],
   );
 
-  const handleActivateVenue = useCallback(
-    (venue: PartnershipVenue) => {
-      setSelectedVenueToActivate(venue);
+  const handleActivateAccount = useCallback(
+    (account: PartnershipAccount) => {
+      setSelectedAccountToActivate(account);
       openWarningDialog(
         () => {
-          activateVenue(venue);
+          activateAccount(account);
         },
         () => {
           closeWarningDialog();
-          setSelectedVenueToActivate(null);
+          setSelectedAccountToActivate(null);
         },
       );
     },
-    [activateVenue, openWarningDialog, closeWarningDialog],
+    [activateAccount, openWarningDialog, closeWarningDialog],
   );
 
-  const handleDeleteVenue = useCallback(
-    (venue: PartnershipVenue) => {
-      openWarningDialog(() => deleteVenue(venue));
+  const handleDeleteAccount = useCallback(
+    (account: PartnershipAccount) => {
+      openWarningDialog(() => deleteAccount(account));
     },
-    [deleteVenue, openWarningDialog],
+    [deleteAccount, openWarningDialog],
   );
 
-  const handleEditVenue = useCallback(
-    (venue: PartnershipVenue) => {
-      setSelectedVenueToEdit(venue);
+  const handleEditAccount = useCallback(
+    (account: PartnershipAccount) => {
+      setSelectedAccountToEdit(account);
       openConfigurationDialog();
     },
     [openConfigurationDialog],
@@ -307,13 +311,13 @@ const MyClubsConfiguration: React.FC<Props> = ({
 
   const handleFormSubmit = useCallback(
     async (values: FormValues) => {
-      if (selectedVenueToEdit) {
-        await updateVenue(values);
+      if (selectedAccountToEdit) {
+        await updateAccount(values);
       } else {
-        await createVenue(values);
+        await createAccount(values);
       }
     },
-    [selectedVenueToEdit, updateVenue, createVenue],
+    [selectedAccountToEdit, updateAccount, createAccount],
   );
 
   /* Error management */
@@ -359,21 +363,23 @@ const MyClubsConfiguration: React.FC<Props> = ({
           icon: <MyClubsLogoIcon />,
           showCopyIdToClipboard: true,
         }}
-        loading={fetchVenuesLoading}
-        onActivateVenue={handleActivateVenue}
+        loading={fetchAccountsLoading}
+        onActivateAccount={handleActivateAccount}
         onAddConnection={openConfigurationDialog}
-        onDeleteVenue={handleDeleteVenue}
-        onEditVenue={handleEditVenue}
-        partnershipVenues={partnershipVenues ?? []}
+        onDeleteAccount={handleDeleteAccount}
+        onEditAccount={handleEditAccount}
+        partnershipAccounts={partnershipAccounts ?? []}
       />
       <PartnershipConfigurationDialog
         establishmentIds={selectedEstablishmentIds}
         establishmentIdsLinked={establishmentsLinkedIds}
         establishments={establishments}
         externalId={
-          createdVenue?.external_id || selectedVenueToEdit?.external_id || ''
+          createdAccount?.external_id ||
+          selectedAccountToEdit?.external_id ||
+          ''
         }
-        isCreation={selectedVenueToEdit == null}
+        isCreation={selectedAccountToEdit == null}
         isLoading={createActionState.loading || updateActionState.loading}
         isOpen={isConfigurationDialogOpen}
         onClose={closeConfigurationDialog}
@@ -381,7 +387,7 @@ const MyClubsConfiguration: React.FC<Props> = ({
         partnershipIdentifier={PartnershipIdentifier.MYCLUBS}
       />
       <PartnershipWarningDialog
-        dialogType={selectedVenueToActivate ? 'info' : 'error'}
+        dialogType={selectedAccountToActivate ? 'info' : 'error'}
         isOpen={isWarningDialogOpen}
         onCancel={warningOnCancelCallback ?? closeWarningDialog}
         onClose={closeWarningDialog}

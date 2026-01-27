@@ -12,12 +12,18 @@ import {
   MonthlyRecurrencePattern,
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
-import type { SessionCreationFormData } from "#src/stores/session-creation/types";
+import type {
+  SessionCreationFormAdvancedOptionsData,
+  SessionCreationFormData,
+} from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { LevelFormData } from "./types";
 
 export type SessionCreationFormSchema = z.ZodType<SessionCreationFormData>;
+
+export type SessionCreationFormAdvancedOptionsSchema =
+  z.ZodType<SessionCreationFormAdvancedOptionsData>;
 
 export const MAX_YEARS_AHEAD = 3;
 
@@ -27,7 +33,7 @@ export const useSessionSchema = () => {
   const locale = i18n.language;
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
-  return z
+  const configureSessionSchema = z
     .object({
       allowCustomNameAndDescription: z.boolean(),
       name_override: z.string(),
@@ -89,19 +95,26 @@ export const useSessionSchema = () => {
       is_hybrid: z.boolean(),
       coach: z.number().nullable(),
       coach_payment_rule: z.number().nullable(),
-      broadcast_link: z
-        .string()
-        .url()
-        .refine(
-          (val) =>
-            (val.startsWith("http://") || val.startsWith("https://")) &&
-            !val.includes(" "),
-          {
-            message: t(
-              "addSessionModal.steps.configureSession.settings.broadcast.error",
-            ),
-          },
-        ),
+      // Two options here: empty string (no link, if zoom app enabled or if the selected group activity is not livestream) or valid URL
+      broadcast_link: z.string().refine(
+        (val) => {
+          if (val === "") return true;
+          try {
+            new URL(val);
+            return (
+              (val.startsWith("http://") || val.startsWith("https://")) &&
+              !val.includes(" ")
+            );
+          } catch {
+            return false;
+          }
+        },
+        {
+          message: t(
+            "addSessionModal.steps.configureSession.settings.broadcast.error",
+          ),
+        },
+      ),
       establishment: z.number().nullable(),
       room_blueprint: z.number().nullish(),
     })
@@ -266,6 +279,14 @@ export const useSessionSchema = () => {
         path: ["partner_max_booking_count"],
       },
     ) satisfies SessionCreationFormSchema;
+
+  const advancedOptionsSchema = z.object({
+    allow_guest_offer: z.boolean(),
+    blacklist_tags: z.array(z.number().int()),
+    whitelist_tags: z.array(z.number().int()),
+  }) satisfies SessionCreationFormAdvancedOptionsSchema;
+
+  return { configureSessionSchema, advancedOptionsSchema };
 };
 
 export const useLevelSchema = () => {

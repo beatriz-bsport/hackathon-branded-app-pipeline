@@ -35,6 +35,10 @@ const useUserRole = () => {
   return useRoleStore((state) => selectCompanyRole(state, roleId ?? -1));
 };
 
+const useUserRestrictedTeachers = () => {
+  return useUserAccess()?.coaches_selected_in_role ?? [];
+};
+
 export const dataAccessLayer = {
   useCompanyFeatures,
   useCompanyTheme,
@@ -42,4 +46,5 @@ export const dataAccessLayer = {
   useUserRole,
   useCompanyRoles,
   updateCompanyThemeAction,
+  useUserRestrictedTeachers,
 };

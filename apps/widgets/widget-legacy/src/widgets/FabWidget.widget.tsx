@@ -1,5 +1,8 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { compose } from 'recompose';
+import {
+  createStyles,
+  withStyles,
+} from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
+import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '@bsport/saas-legacy/src/libs/membership/actions';
 import {
   Badge,
   ButtonBase,
@@ -8,24 +11,31 @@ import {
   Portal,
   Tooltip,
 } from '@material-ui/core';
-import {
-  withStyles,
-  createStyles,
-} from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
+import React, { useCallback, useEffect, useState } from 'react';
+import { compose } from 'recompose';
+
 import type {
-  WithStyles,
   Theme,
+  WithStyles,
 } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
-import PersonIcon from '@material-ui/icons/Person';
 import CreditCard from '@material-ui/icons/CreditCard';
 import HomeIcon from '@material-ui/icons/Home';
+import PersonIcon from '@material-ui/icons/Person';
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import TodayIcon from '@material-ui/icons/Today';
-import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
+import { fetchCurrentBasket as fetchCurrentBasketAction } from '@bsport/saas-legacy/src/libs/checkout/actions';
+import { getCurrentBasket } from '@bsport/saas-legacy/src/libs/checkout/selectors';
+import { CheckoutItem } from '@bsport/saas-legacy/src/libs/checkout/types';
+import { fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction } from '@bsport/saas-legacy/src/libs/consumer-space/actions';
+import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-space/constants';
+import { getAllBookingAndPrivateBookingCount } from '@bsport/saas-legacy/src/libs/consumer-space/selectors';
+import { getMembership } from '@bsport/saas-legacy/src/libs/membership/selectors';
+import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { ConnectedProps, connect } from 'react-redux';
-import { RootState } from '../reducers';
+import { bridgeRequestLogout as bridgeRequestLogoutAction } from '../libs/bridge/actions';
 import {
   closeUserInteractionPortal as closeUserInteractionPortalAction,
   fabShowBasket as fabShowBasketAction,
@@ -34,16 +44,9 @@ import {
   fabShowProfile as fabShowProfileAction,
   fabShowSubscription as fabShowSubscriptionAction,
 } from '../libs/modal/actions';
+import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
-import { bridgeRequestLogout as bridgeRequestLogoutAction } from '../libs/bridge/actions';
 import { buildUrlParams } from '../utils/http';
-import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-space/constants';
-import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
-import { fetchCurrentBasket as fetchCurrentBasketAction } from '@bsport/saas-legacy/src/libs/checkout/actions';
-import { fetchBookingsAndPrivateBookings as fetchBookingsAndPrivateBookingsAction } from '@bsport/saas-legacy/src/libs/consumer-space/actions';
-import { getAllBookingAndPrivateBooking } from '@bsport/saas-legacy/src/libs/consumer-space/selectors';
-import { getCurrentBasket } from '@bsport/saas-legacy/src/libs/checkout/selectors';
-import { CheckoutItem } from '@bsport/saas-legacy/src/libs/checkout/types';
 
 type OwnProps = {
   companyId: number;
@@ -73,18 +76,25 @@ const FabWidget = (props: Props) => {
     fabShowSubscription,
     fetchCurrentBasket,
     fetchBookingsAndPrivateBookings,
-    currentBookings,
+    fetchMembershipByCompany,
+    currentBookingsCount,
     currentBasket,
+    membership,
   } = props;
 
-  const fetchData = useCallback(() => {
+  const fetchBasket = useCallback(() => {
     fetchCurrentBasket(companyId);
-    fetchBookingsAndPrivateBookings({
-      page: 1,
-      date_start: new Date().toISOString().split('T')[0],
-      member: companyId,
-    });
   }, [companyId]);
+
+  const fetchBookingsCount = useCallback(() => {
+    if (membership?.id) {
+      fetchBookingsAndPrivateBookings({
+        page: 1,
+        only_future: true,
+        member: membership?.id,
+      });
+    }
+  }, [membership?.id]);
 
   useEffect(() => {
     WidgetUtils.setConsumerSpaceContext(ConsumerSpaceContextEnum.FAB);
@@ -92,7 +102,10 @@ const FabWidget = (props: Props) => {
 
   useEffect(() => {
     const { PUBLIC_URL } = getEnv();
-    fetchData();
+    if (authenticated) {
+      fetchMembershipByCompany(companyId);
+    }
+    fetchBasket();
     if (
       dialogUrl.includes(
         `${PUBLIC_URL}/login${buildUrlParams({
@@ -104,6 +117,12 @@ const FabWidget = (props: Props) => {
       setShowActions(true);
     }
   }, [authenticated, companyId]);
+
+  useEffect(() => {
+    if (authenticated && membership?.id) {
+      fetchBookingsCount();
+    }
+  }, [authenticated, membership?.id, fetchBookingsCount]);
 
   const onClick = () => {
     if (authenticated) {
@@ -140,7 +159,7 @@ const FabWidget = (props: Props) => {
     fabShowSubscription();
   };
 
-  const bookingsCount = currentBookings.length;
+  const bookingsCount = currentBookingsCount;
   const basketCount =
     currentBasket?.checkout_items?.reduce(
       (s: number, a: CheckoutItem) => s + a.quantity,
@@ -360,10 +379,11 @@ const styles = (theme: Theme) =>
     },
   });
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   dialogUrl: state.modal.url,
   authenticated: state.auth.authenticated,
-  currentBookings: getAllBookingAndPrivateBooking(state),
+  membership: getMembership(state, ownProps.companyId),
+  currentBookingsCount: getAllBookingAndPrivateBookingCount(state),
   currentBasket: getCurrentBasket(state),
 });
 
@@ -377,6 +397,7 @@ const mapDispatchToProps = {
   bridgeRequestLogout: bridgeRequestLogoutAction,
   fetchCurrentBasket: fetchCurrentBasketAction,
   fetchBookingsAndPrivateBookings: fetchBookingsAndPrivateBookingsAction,
+  fetchMembershipByCompany: fetchMembershipByCompanyAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

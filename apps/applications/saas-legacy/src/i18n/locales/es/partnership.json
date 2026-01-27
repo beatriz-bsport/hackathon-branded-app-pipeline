@@ -207,17 +207,17 @@
               "required": "Por favor, selecciona al menos un establecimiento"
             },
             "title": "Establecimientos",
-            "placeholder": "Vincular tus establecimientos"
+            "placeholder": "Vincula tu(s) establecimiento(s)"
           },
           "externalId": "ID de socio: {{ externalId }}"
         },
         "helperTextCreateSuccess": "Copia y pega este ID de socio en tu <1>cuenta de myClubs</1> para que las sesiones de tus establecimientos seleccionados estén disponibles para los clientes de myClubs.",
-        "helperText": "Selecciona los establecimientos que deseas sincronizar. Todas las sesiones de estos Establecimientos con myClubs habilitado estarán disponibles para reservar para los clientes de myClubs.",
+        "helperText": "Selecciona los establecimientos que deseas sincronizar. Todas las sesiones de estos establecimientos con myClubs habilitado estarán disponibles para reservar para los clientes de myClubs.",
         "title": {
           "deletion": "Eliminar conexión",
           "edition": "Editar conexión {{ externalId }}",
           "creationSuccess": "Copiar ID de socio",
-          "creation": "Elegir Establecimiento(s)"
+          "creation": "Elegir establecimiento(s)"
         }
       },
       "copied_to_clipboard": "ID copiado al portapapeles correctamente"

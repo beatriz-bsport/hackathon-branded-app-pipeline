@@ -29,6 +29,7 @@ import {
   useSessionListStore,
 } from "#src/stores/session-list";
 import { Trans, useTranslation } from "#src/utils/i18n";
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 import { getParamsFromFilters } from "../Filters/getParamsFromFilters";
 
@@ -84,19 +85,43 @@ export const CancelMultipleSessionsModal: FC<{
       : "";
   };
 
+  const hasCancelActivitySessionsPermission = useObjectLevelPermission(
+    "session.activity.allowed_actions.delete",
+  );
+  const hasCancelWorkshopSessionsPermission = useObjectLevelPermission(
+    "session.workshop.allowed_actions.delete",
+  );
+
+  const globalFilter = useMemo(() => {
+    if (
+      hasCancelActivitySessionsPermission &&
+      hasCancelWorkshopSessionsPermission
+    ) {
+      return {};
+    }
+    if (hasCancelActivitySessionsPermission) {
+      return { is_workshop: false };
+    }
+    return { is_workshop: true };
+  }, [
+    hasCancelActivitySessionsPermission,
+    hasCancelWorkshopSessionsPermission,
+  ]);
+
   const filters = useSessionListStore(selectFilters);
   const filterParams = getParamsFromFilters(filters);
+  const cancelSessionsParams = { ...filterParams, ...globalFilter };
 
   const { data: numberOfCancelledSessions } = useFetchNumberOfSessionsToCancel(
     cancelRange ? cancelRange[0] : null,
     cancelRange ? cancelRange[1] : null,
-    filterParams,
+    cancelSessionsParams,
   );
 
   const { data: groupSessions } = useFetchSessions(
     cancelRange ? cancelRange[0] : null,
     cancelRange ? cancelRange[1] : null,
-    { ...filterParams, available: true, with_group: true },
+    { ...cancelSessionsParams, available: true, with_group: true },
   );
 
   const cancelMultipleSessions = useCancelMultipleSessions();
@@ -107,7 +132,7 @@ export const CancelMultipleSessionsModal: FC<{
       cancelMultipleSessions.mutate({
         startDate: cancelRange[0],
         endDate: cancelRange[1],
-        params: filterParams,
+        params: cancelSessionsParams,
         locale: i18n.language,
       });
     }
@@ -144,6 +169,13 @@ export const CancelMultipleSessionsModal: FC<{
         <Body htmlVariant="p" size="lg">
           {t("cancelMultipleSessionsModal.description")}
         </Body>
+        {globalFilter.is_workshop !== undefined && (
+          <Alert status="info">
+            {globalFilter.is_workshop
+              ? t("cancelMultipleSessionsModal.workshopOnly")
+              : t("cancelMultipleSessionsModal.activityOnly")}
+          </Alert>
+        )}
         <div className="flex flex-col gap-xs">
           <Body size="md" htmlVariant="p">
             {t("cancelMultipleSessionsModal.dateRangeLabel")}

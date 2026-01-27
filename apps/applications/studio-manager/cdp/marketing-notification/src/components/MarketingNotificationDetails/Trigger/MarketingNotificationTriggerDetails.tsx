@@ -6,6 +6,7 @@ import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-
 import { useFormatNotificationTriggerName } from "#src/hooks/layout/use-format-notification-trigger-name";
 import { useTranslation } from "#src/utils/i18n";
 import { getMarketingNotificationType } from "#src/utils/marketingNotification";
+import { APPOINTMENT_PASS_TYPE, PASS_TYPE } from "#src/utils/types";
 
 export const MarketingNotificationTriggerDetails = ({
   notification,
@@ -93,8 +94,8 @@ export const MarketingNotificationTriggerDetails = ({
           </div>
         ) : null}
       </div>
-      {(notificationType === "paymentPack" ||
-        notificationType === "privatePass") && (
+      {(notificationType === PASS_TYPE ||
+        notificationType === APPOINTMENT_PASS_TYPE) && (
         <>
           <Divider weight="thin" orientation="horizontal" />
           <div className="flex flex-col gap-2xs">
@@ -103,7 +104,7 @@ export const MarketingNotificationTriggerDetails = ({
             </Title>
             <MarketingNotificationPassList
               passType={
-                notificationType === "paymentPack" ? "payment" : "appointment"
+                notificationType === PASS_TYPE ? "payment" : "appointment"
               }
               notification={notification}
             />

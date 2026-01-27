@@ -507,13 +507,13 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           establishments={this.props.establishments}
           exportMemberTable={() => getMemberTable(this.props.id)}
           exportMemberTableBackground={this.handleBackgroundCsvExport}
-          featureList={this.props.featureList}
           fetchBulkItems={fetchBulkItems}
           fetchCommunicationsPaginatedMembers={
             this.props.fetchCommunicationsPaginatedMembers
           }
           fetchItems={fetchItems}
           filters={this.props.smartlist_filters}
+          hasUpsellIdentifier={this.hasUpsellIdentifier}
           loading={this.props.loading}
           memberList={this.props.members.displayItems}
           memberLoading={this.props.members.loading}

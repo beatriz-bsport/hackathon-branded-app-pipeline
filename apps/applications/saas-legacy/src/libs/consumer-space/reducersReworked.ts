@@ -26,6 +26,7 @@ import {
   fetchConsumerPaidInvoicesActions,
   fetchConsumerRefundedInvoicesActions,
   fetchConsumerInvoicesComplementaryActions,
+  fetchConsumerInvoiceByUuidActions,
   fetchConsumerGuestNumberEligibleByOfferBulk,
   fetchMyBookingOptionsPositionAsMemberByOfferIdsActions,
 } from '#src/libs/consumer-space/actions';
@@ -372,6 +373,10 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
         error: null,
         loading: false,
         byUuid: {},
+      },
+      byUuid: {
+        error: null,
+        loading: false,
       },
       unpaid: {
         error: null,
@@ -1840,6 +1845,33 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
                 }),
                 {},
               ),
+            },
+          },
+        },
+        { deep: true },
+      );
+    },
+    [fetchConsumerInvoiceByUuidActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['myInvoices', 'byUuid', 'loading'], payload);
+    },
+    [fetchConsumerInvoiceByUuidActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['myInvoices', 'byUuid', 'error'], payload);
+    },
+    [fetchConsumerInvoiceByUuidActions.success.toString()]: (
+      state,
+      { payload }: { payload: ConsumerInvoiceREST },
+    ) => {
+      return state.merge(
+        {
+          myInvoices: {
+            restByUuid: {
+              [payload.uuid]: payload,
             },
           },
         },

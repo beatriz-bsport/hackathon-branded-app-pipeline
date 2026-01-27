@@ -6,7 +6,7 @@ import {
 
 import {
   type SearchGroupActivitiesParams,
-  searchGroupActivities,
+  searchGroupActivitiesAndWorkshopsAPI,
 } from "@bsport/api-book";
 
 import { fetch } from "../utils/fetch";
@@ -15,13 +15,13 @@ const ACTIVITIES_DEFAULT_PAGE_SIZE = 20;
 const ACTIVITIES_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 const searchActivities = async (params: SearchGroupActivitiesParams) => {
-  const result = await searchGroupActivities(fetch, params);
+  const result = await searchGroupActivitiesAndWorkshopsAPI(fetch, params);
   return result.results;
 };
 
 const activitiesQueryOptions = (searchValue: string) => {
   return queryOptions({
-    queryKey: ["activities", searchValue],
+    queryKey: ["activities_and_workshops", searchValue],
     queryFn: () =>
       searchActivities({
         searchQuery: searchValue,

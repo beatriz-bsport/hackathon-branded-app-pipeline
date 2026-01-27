@@ -7,12 +7,12 @@
       "label": "Notification type",
       "notificationTypeLabel": {
         "location": "Location",
-        "privateService": "Appointment",
+        "appointment": "Appointment",
         "groupActivity": "Group Activity",
         "workshop": "Workshop",
         "establishment": "Establishment",
-        "paymentPack": "Pass",
-        "privatePass": "Appointment Pass",
+        "pass": "Pass",
+        "appointmentPass": "Appointment Pass",
         "subscription": "Subscription",
         "birthday": "Birthday"
       },
@@ -56,9 +56,9 @@
       "groupActivity": "Group Activity",
       "workshop": "Workshop",
       "establishment": "Establishment",
-      "privateService": "Appointment",
-      "privatePass": "Appointment Pass",
-      "paymentPack": "Pass",
+      "appointment": "Appointment",
+      "appointmentPass": "Appointment Pass",
+      "pass": "Pass",
       "subscription": "Subscription",
       "birthday": "Birthday",
       "metaActivity": "Booking"
@@ -76,7 +76,7 @@
       "edit": "Edit",
       "delete": "Delete"
     },
-    "brokenEmailTooltip": "This automation cannot run as the email template was deleted",
+    "brokenEmailTooltip": "This email automation cannot run as the email template is not found, update the template to fix it. This does not affect push notifications if you set up one.",
     "triggerType": {
       "booking": {
         "attended": {

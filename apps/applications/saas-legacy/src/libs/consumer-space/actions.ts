@@ -9,6 +9,7 @@ import api, {
   fetchMyPassesTabs as fetchMyPassesTabsAPI,
   fetchConsumerInvoices as fetchConsumerInvoicesAPI,
   fetchConsumerInvoicesComplementary as fetchConsumerInvoicesComplementaryAPI,
+  fetchConsumerInvoiceByUuid as fetchConsumerInvoiceByUuidAPI,
 } from '#src/libs/consumer-space/api';
 import {
   cancelBookingV2 as cancelBookingV2API,
@@ -355,11 +356,8 @@ export enum BookingsAndPrivateBookingsTypeEnum {
 export function fetchBookingsAndPrivateBookings(args: {
   member: number;
   date_start?: string;
+  only_future?: boolean;
   page?: number;
-  options?: OptionCallback<BookingOrPrivateBooking[]>;
-  type?: BookingsAndPrivateBookingsTypeEnum;
-  mine?: boolean;
-  forceRefetch?: boolean;
 }): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     args.page === 1 && dispatch(consumerBookingAndPrivateBookingReset());
@@ -385,43 +383,19 @@ export function fetchBookingsAndPrivateBookings(args: {
       const promises: Promise<null | any>[] = [];
 
       if (
-        (bookingRest.length < pageSize &&
-          bookingAndPrivateBooking.booking.next_page) ||
-        args.forceRefetch
+        bookingRest.length < pageSize &&
+        bookingAndPrivateBooking.booking.next_page
       ) {
         const params: any = {
           member: args.member,
           page: bookingPage,
           page_size: pageSize,
-          mine: args?.mine ?? true,
           booking_status_code: BOOKING_STATUS_OK.id,
           ordering: 'offer__date_start',
         };
         if (args.date_start) params.min_date = args.date_start;
-
-        if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
-          delete params.min_date;
-          params.max_date = args.date_start;
-          params.ordering = '-offer__date_start';
-        }
-
-        if (args.type === BookingsAndPrivateBookingsTypeEnum.beforeDateEnd) {
-          delete params.min_date;
-          params.before_date_end = true;
-        }
-
-        if (
-          args.type ===
-          BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly
-        ) {
-          delete params.min_date;
-          params.before_date_end = true;
-          params.start_until_datetime = DateTime.now()
-            .endOf('day')
-            .plus({ hours: 2 })
-            .toISO();
-          params.page_size = 1;
-          params.page = 1;
+        if (args.only_future) {
+          params.future_booking = true;
         }
 
         const promise = fetchBookingListAPI(params);
@@ -431,9 +405,8 @@ export function fetchBookingsAndPrivateBookings(args: {
       }
 
       if (
-        (privateBookingRest.length < pageSize &&
-          bookingAndPrivateBooking.privateBooking.next_page) ||
-        args.forceRefetch
+        privateBookingRest.length < pageSize &&
+        bookingAndPrivateBooking.privateBooking.next_page
       ) {
         const params: any = {
           member: args.member,
@@ -443,30 +416,8 @@ export function fetchBookingsAndPrivateBookings(args: {
           ordering: 'date_start', // -date_start
         };
         if (args.date_start) params.date_start__gte = args.date_start;
-
-        if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
-          delete params.date_start__gte;
-          params.date_start__lte = args.date_start;
-          params.ordering = '-date_start';
-        }
-
-        if (args.type === BookingsAndPrivateBookingsTypeEnum.beforeDateEnd) {
-          delete params.date_start__gte;
-          params.before_date_end = true;
-        }
-
-        if (
-          args.type ===
-          BookingsAndPrivateBookingsTypeEnum.todayNextBookingUntil2amOnly
-        ) {
-          delete params.date_start__gte;
-          params.before_date_end = true;
-          params.start_until_datetime = DateTime.now()
-            .endOf('day')
-            .plus({ hours: 2 })
-            .toISO();
-          params.page_size = 1;
-          params.page = 1;
+        if (args.only_future) {
+          params.strictly_future_booking = true;
         }
 
         const promise = fetchPrivateBookings(params);
@@ -511,10 +462,6 @@ export function fetchBookingsAndPrivateBookings(args: {
 
       let sortedByDateAll = sortBookingAndPrivateBookingList(all);
 
-      if (args.type === BookingsAndPrivateBookingsTypeEnum.past) {
-        sortedByDateAll = sortedByDateAll.reverse();
-      }
-
       const sortedByDatePaged = sortedByDateAll.splice(0, pageSize);
 
       bookingRest = [];
@@ -556,10 +503,6 @@ export function fetchBookingsAndPrivateBookings(args: {
       };
 
       await dispatch(consumerBookingAndPrivateBookingSuccess(payload));
-      if (args.options && args.options.onSuccess) {
-        // @ts-expect-error
-        args.options.onSuccess(payload);
-      }
     } catch (err) {
       console.error(err);
       dispatch(consumerBookingAndPrivateBookingError(err));
@@ -1706,6 +1649,36 @@ export function fetchConsumerInvoicesComplementary(
       dispatch(fetchConsumerInvoicesComplementaryActions.error(error));
     } finally {
       dispatch(fetchConsumerInvoicesComplementaryActions.isLoading(false));
+    }
+  };
+}
+
+export const fetchConsumerInvoiceByUuidActions = {
+  isLoading: createAction<boolean>('CONSUMER_INVOICE/BY_UUID/LOADING'),
+  error: createAction<Error | null>('CONSUMER_INVOICE/BY_UUID/ERROR'),
+  success: createAction<ConsumerInvoiceREST>(
+    'CONSUMER_INVOICE/BY_UUID/SUCCESS',
+  ),
+};
+
+export function fetchConsumerInvoiceByUuid(
+  uuid: string,
+  options?: OptionCallback<ConsumerInvoiceREST>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchConsumerInvoiceByUuidActions.isLoading(true));
+      dispatch(fetchConsumerInvoiceByUuidActions.error(null));
+
+      const response = await fetchConsumerInvoiceByUuidAPI(uuid);
+      dispatch(fetchConsumerInvoiceByUuidActions.success(response.data));
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      options?.onError?.(error);
+      dispatch(fetchConsumerInvoiceByUuidActions.error(error));
+    } finally {
+      dispatch(fetchConsumerInvoiceByUuidActions.isLoading(false));
     }
   };
 }

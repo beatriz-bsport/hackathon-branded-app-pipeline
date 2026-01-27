@@ -1,14 +1,8 @@
-import type { TFunction } from 'i18next';
-import Immutable from 'seamless-immutable';
-
 import {
   MarketingActionKind,
   MarketingActions,
-  CADENCE_MARKETING_ACTION_CHOICES,
-  SequentialMarketingColors,
 } from '#src/libs/sequential_marketing/constants';
 
-import { marketingActionIconDict } from '#src/libs/sequential_marketing/components/helpers/utils';
 import type {
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
@@ -96,25 +90,6 @@ export const getMarketingActionPartialValues = (
   }
 };
 
-export const getMarketingActionOptions = (
-  t: TFunction,
-  addMarketingAction: (type: MarketingActions) => void,
-) => {
-  const handleAddMarketingAction = (type: MarketingActions) => () =>
-    addMarketingAction?.(type);
-
-  const marketingActionList = CADENCE_MARKETING_ACTION_CHOICES.map(
-    (marketingAction) => ({
-      label: t(`cadence.form.marketing_action.${marketingAction}`),
-      icon: marketingActionIconDict[marketingAction],
-      onClick: handleAddMarketingAction(marketingAction),
-      customColor: SequentialMarketingColors.INNER_STEP_COLOR,
-    }),
-  );
-
-  return Immutable(marketingActionList);
-};
-
 export const getMarketingActionType = (
   marketingAction: Partial<StepMarketingActions>,
 ) => {
@@ -124,15 +99,4 @@ export const getMarketingActionType = (
     return actionSpec.communication_kind;
   }
   return MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT;
-};
-
-export const getMarketingActionsAsDraft = (
-  marketingActions?: StepMarketingActions[],
-) => {
-  const initialMarketingActionsAsDraft: DraftMarketingAction[] =
-    marketingActions?.map((marketingAction) => ({
-      type: getMarketingActionType(marketingAction),
-      marketingAction,
-    })) ?? [];
-  return initialMarketingActionsAsDraft;
 };

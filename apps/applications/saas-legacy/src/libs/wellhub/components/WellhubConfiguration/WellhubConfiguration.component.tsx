@@ -15,9 +15,9 @@ import WellhubIcon from '#src/components/icons/WellhubIcon.component';
 import PartnershipConfigurationPanel from '#src/libs/partnership/components/PartnershipConfigurationPanel';
 import {
   PartnershipIdentifier,
-  PartnershipVenue,
+  PartnershipAccount,
 } from '#src/libs/partnership/types';
-import { mapWellhubGymsToPartnershipVenues } from '#src/libs/wellhub/mapper';
+import { mapWellhubGymsToPartnershipAccounts } from '#src/libs/wellhub/mapper';
 import WellhubProductAlert from '#src/libs/wellhub/components/WellhubProductAlert';
 
 type Props = {
@@ -80,23 +80,23 @@ const WellhubConfiguration: React.FC<Props> = ({
     React.useState<WellhubGym | null>(null);
 
   const handleEditWellhubGym = React.useCallback(
-    (partnershipVenue: PartnershipVenue) => {
+    (partnershipAccount: PartnershipAccount) => {
       openConfigurationDialog();
-      setWellhubGymToEdit(partnershipVenue.legacyObject as WellhubGym);
+      setWellhubGymToEdit(partnershipAccount.legacyObject as WellhubGym);
     },
     [openConfigurationDialog],
   );
 
   const handleDeleteWellhubGym = React.useCallback(
-    (partnershipVenue: PartnershipVenue) => {
+    (partnershipAccount: PartnershipAccount) => {
       openWarningUnlinkDialog();
-      setWellhubGymToDelete(partnershipVenue.legacyObject as WellhubGym);
+      setWellhubGymToDelete(partnershipAccount.legacyObject as WellhubGym);
     },
     [openWarningUnlinkDialog],
   );
 
-  const wellhubPartnershipVenues = React.useMemo(
-    () => mapWellhubGymsToPartnershipVenues(wellhubGyms),
+  const wellhubPartnershipAccounts = React.useMemo(
+    () => mapWellhubGymsToPartnershipAccounts(wellhubGyms),
     [wellhubGyms],
   );
 
@@ -259,9 +259,9 @@ const WellhubConfiguration: React.FC<Props> = ({
         }}
         loading={wellhubLoading}
         onAddConnection={openConfigurationDialog}
-        onDeleteVenue={handleDeleteWellhubGym}
-        onEditVenue={handleEditWellhubGym}
-        partnershipVenues={wellhubPartnershipVenues}
+        onDeleteAccount={handleDeleteWellhubGym}
+        onEditAccount={handleEditWellhubGym}
+        partnershipAccounts={wellhubPartnershipAccounts}
         slots={{
           alert: (
             <WellhubProductAlert

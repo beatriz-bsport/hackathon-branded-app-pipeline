@@ -2,6 +2,7 @@ import groupBy from "lodash/groupBy";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
+  ErrorFallback,
   ListLayout,
   useEmptyState,
   useLoadingState,
@@ -16,6 +17,7 @@ import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
 import { useModal } from "#src/hooks/use-modal";
 import { useTranslation } from "#src/utils/i18n";
+import { useAnyObjectLevelPermissions } from "#src/utils/permission";
 
 import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
 import { DisplaySettings } from "../components/SessionList/DisplaySettings";
@@ -42,6 +44,11 @@ const ListPage: React.FC = () => {
   const detailsModalState = useSessionListStore(selectModalState);
 
   const [searchQuery, setSearchQuery] = useState("");
+
+  const hasCreateSessionPermission = useAnyObjectLevelPermissions([
+    "session.activity.allowed_actions.create",
+    "session.workshop.allowed_actions.create",
+  ]);
 
   const {
     isOpen: addSessionModalOpen,
@@ -73,7 +80,11 @@ const ListPage: React.FC = () => {
         ? { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate }
         : null;
 
-  const { sessions, isLoading } = useSessionListData(fetchParams);
+  const {
+    sessions,
+    isLoading,
+    error: sessionDataError,
+  } = useSessionListData(fetchParams);
 
   const filteredSessions = useSearchSessions(sessions, searchQuery);
 
@@ -94,17 +105,22 @@ const ListPage: React.FC = () => {
   }, [openExportParticipantsModal, openCancelMultipleSessionsModal]);
 
   const { shouldRenderEmptyState, EmptyState } = useEmptyState({
-    isEmpty: !isLoading && Object.keys(sessionsByDate).length === 0,
+    isEmpty:
+      !isLoading &&
+      !sessionDataError &&
+      Object.keys(sessionsByDate).length === 0,
     emptyConfig: {
       title: t("emptyState.title"),
       subtitle: t("emptyState.subtitle"),
-      ctaButtonConfig: {
-        label: t("addSession"),
-        onClick: openAddSessionModal,
-        iconLeft: "plus",
-        intent: "call-to-action",
-        color: "main",
-      },
+      ctaButtonConfig: hasCreateSessionPermission
+        ? {
+            label: t("addSession"),
+            onClick: openAddSessionModal,
+            iconLeft: "plus",
+            intent: "call-to-action",
+            color: "main",
+          }
+        : undefined,
     },
   });
 
@@ -113,8 +129,9 @@ const ListPage: React.FC = () => {
     message: t("table.isLoading"),
   });
 
-  const callToActionButton = useMemo(
-    () => (
+  const callToActionButton = useMemo(() => {
+    if (!hasCreateSessionPermission) return null;
+    return (
       <ListLayout.Button
         iconLeft="plus"
         intent="call-to-action"
@@ -122,9 +139,8 @@ const ListPage: React.FC = () => {
         label={t("addSession")}
         onClick={openAddSessionModal}
       />
-    ),
-    [t, openAddSessionModal],
-  );
+    );
+  }, [t, openAddSessionModal, hasCreateSessionPermission]);
 
   const sessionDays = useMemo(
     () =>
@@ -160,9 +176,16 @@ const ListPage: React.FC = () => {
       <ListLayout.Content>
         <DateNavigationHeader />
         <div className="flex flex-col gap-xl h-full mt-md">
-          {shouldRenderEmptyState ? <EmptyState /> : sessionDays}
+          {shouldRenderEmptyState && <EmptyState />}
+          {!shouldRenderEmptyState && !sessionDataError && sessionDays}
           {shouldRenderLoadingState && <LoadingState />}
+          {sessionDataError && (
+            <div className="flex flex-col items-center justify-center">
+              <ErrorFallback actionProps={ErrorFallback.DEFAULT_ACTION_PROPS} />
+            </div>
+          )}
         </div>
+
         <AddSessionModal
           isOpen={addSessionModalOpen}
           onClose={closeAddSessionModal}

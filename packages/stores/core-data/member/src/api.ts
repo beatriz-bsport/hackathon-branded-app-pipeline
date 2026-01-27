@@ -27,6 +27,7 @@ export type SearchMembersParams = {
     only_archived?: boolean;
   };
   text: string;
+  count?: number;
 };
 
 export const searchMembersAPI = (params: SearchMembersParams): ApiConfig => {
@@ -37,6 +38,14 @@ export const searchMembersAPI = (params: SearchMembersParams): ApiConfig => {
       body: JSON.stringify(params),
     },
   ];
+};
+
+export type GetMemberParams = {
+  memberId: number;
+};
+
+export const getMemberAPI = (params: GetMemberParams): ApiConfig => {
+  return [`${API_URL}/${params.memberId}/`];
 };
 
 export const archiveMemberAPI = (params: { memberId: number }): ApiConfig => {

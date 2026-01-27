@@ -1,0 +1,91 @@
+{
+  "pages": {
+    "active": "Lehrkraft",
+    "archived": "Archivierte Trainer"
+  },
+  "activeList": {
+    "actions": {
+      "addTeacher": "Lehrkraft erstellen"
+    },
+    "addTeacherModal": {
+      "title": "Lehrkraft erstellen",
+      "input": {
+        "label": "E-Mail",
+        "placeholder": "teacher@email.com",
+        "helper": "Das Lehrerprofil wird automatisch verknüpft, wenn wir diese E-Mail-Adresse bereits haben.",
+        "missingEmailError": "Gib die E-Mail-Adresse des Lehrers ein, um sein Profil zu erstellen."
+      },
+      "actions": {
+        "back": "Schließen",
+        "add": "Erstellen",
+        "open": "Öffnen"
+      },
+      "linkedTeacher": "Lehrer erfolgreich verknüpft",
+      "errors": {
+        "staffExists": "Diese E-Mail ist bereits mit einem Mitarbeiterkonto verknüpft.",
+        "staffFranchiseExists": "Dies ist bereits mit einem Mitarbeiter-Franchise-Konto verknüpft."
+      }
+    },
+    "archiveModal": {
+      "buttons": {
+        "archive": "Archiv",
+        "back": "Behalten"
+      },
+      "title": "Lehrer archivieren?",
+      "description": {
+        "action": "Sobald du {{ name }} archivierst, wird das Profil nicht mehr aktiv sein.\n\n",
+        "effect": "Du kannst diesen Lehrer jederzeit aus deinem Archiv wiederherstellen."
+      }
+    }
+  },
+  "toasts": {
+    "messageArchived": {
+      "success": "Lehrer archiviert",
+      "error": "Lehrer konnte nicht archiviert werden. Bitte versuche es erneut."
+    },
+    "messageRestored": {
+      "success": "Lehrkraft wiederhergestellt",
+      "error": "Lehrkraft konnte nicht wiederhergestellt werden. Bitte versuche es nochmal."
+    },
+    "messageUndone": {
+      "success": "Änderung rückgängig gemacht",
+      "error": "Änderung konnte nicht rückgängig gemacht werden. Bitte versuche es erneut."
+    },
+    "emailCopied": "E-Mail in die Zwischenablage kopiert",
+    "phoneCopied": "Telefon in die Zwischenablage kopiert",
+    "actions": {
+      "undo": "Doch archivieren"
+    }
+  },
+  "table": {
+    "headers": {
+      "name": "Name",
+      "email": "E-Mail",
+      "phone": "Telefon"
+    },
+    "loading": {
+      "activeList": "Lehrkräfte werden geladen ...",
+      "archivedList": "Archivierte Lehrkräfte werden geladen ..."
+    },
+    "empty": {
+      "activeList": {
+        "title": "Noch keine Lehrkräfte vorhanden",
+        "subtitle": "Füge die ersten Lehrkräfte deinem Studio hinzu"
+      },
+      "archivedList": {
+        "title": "Noch keine archivierten Lehrkräfte",
+        "subtitle": "Jede Lehrkraft, die du hier archivierst, kann wiederhergestellt werden."
+      }
+    },
+    "tooltips": {
+      "archive": "Lehrkraft archivieren",
+      "restore": "Lehrer wiederherstellen"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "E-Mail kopieren",
+      "copyPhone": "Telefon kopieren"
+    }
+  }
+}

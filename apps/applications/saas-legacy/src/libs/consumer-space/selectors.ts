@@ -129,6 +129,10 @@ export const getAllBookingAndPrivateBooking = (state: RootState) => {
   return all;
 };
 
+export const getAllBookingAndPrivateBookingCount = (state: RootState) => {
+  return state.consumer.bookingAndPrivateBooking.count;
+};
+
 /*  REWORKED CONSUMER SPACE */
 
 const _getConsumerBookingsList = createSelector(
@@ -1040,6 +1044,17 @@ export const getInvoiceComplementaryInformation = createSelector(
   [_getInvoicesComplementaryByUuid, (state: RootState, uuid: string) => uuid],
   (invoideByUiid, invoiceUiid) => invoideByUiid[invoiceUiid],
 );
+
+export const getConsumerInvoiceByUuidLoading = (state: RootState) =>
+  state.consumerReworked.myInvoices.byUuid?.loading ?? false;
+
+export const getConsumerInvoiceByUuidError = (state: RootState) =>
+  state.consumerReworked.myInvoices.byUuid?.error ?? null;
+
+export const getConsumerInvoiceByUuid = (
+  state: RootState,
+  uuid: string,
+): ConsumerInvoiceREST | undefined => _getInvoicesRESTByUuid(state)[uuid];
 
 export const getUnpaidInvoicesCount = (state: RootState) =>
   state.consumerReworked.myInvoices.unpaid.count;

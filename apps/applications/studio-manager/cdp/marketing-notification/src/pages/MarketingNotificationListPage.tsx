@@ -4,7 +4,7 @@ import { ListLayout } from "@bsport/kaizen-primitive-core";
 import { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
 
 import { DeleteTagModal } from "#src/components/Common/Modal/DeleteMarketingNotificationModal";
-import { EditMarketingNotificationModalWrapper } from "#src/components/MarketingNotificationEdition/EditMarketingNotificationModal";
+import { EditMarketingNotificationModalWrapper } from "#src/components/MarketingNotificationBuilder/EditMarketingNotificationModal";
 import { MarketingNotificationTable } from "#src/components/MarketingNotificationList/MarketingNotificationTable";
 import { useFilterNotificationType } from "#src/hooks/layout/use-filter-notification-type";
 import { useTranslation } from "#src/utils/i18n";

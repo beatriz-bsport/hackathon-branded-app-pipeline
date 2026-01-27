@@ -8,44 +8,44 @@ import {
 
 import Config from '#src/config';
 import {
-  PartnershipVenue,
-  PartnershipVenueFilters,
-  PartnershipVenuePayload,
+  PartnershipAccount,
+  PartnershipAccountFilters,
+  PartnershipAccountPayload,
 } from '#src/libs/partnership/types';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
-export const getPartnershipVenues = (params: PartnershipVenueFilters) => {
-  return getAuth<PartnershipVenue[]>(
-    `${API_V1_URI}/partnership/partnership_venue/${buildUrlParams(params)}`,
+export const getPartnershipAccounts = (params: PartnershipAccountFilters) => {
+  return getAuth<PartnershipAccount[]>(
+    `${API_V1_URI}/partnership/partnership_account/${buildUrlParams(params)}`,
   );
 };
 
-export const createPartnershipVenue = (data: PartnershipVenuePayload) => {
-  return postAuth<PartnershipVenue>(
-    `${API_V1_URI}/partnership/partnership_venue/create_venue/`,
+export const createPartnershipAccount = (data: PartnershipAccountPayload) => {
+  return postAuth<PartnershipAccount>(
+    `${API_V1_URI}/partnership/partnership_account/create_venue/`,
     data,
   );
 };
 
-export const deletePartnershipVenue = (venueId: string) => {
-  return deleteAuth<PartnershipVenue>(
-    `${API_V1_URI}/partnership/partnership_venue/${venueId}/`,
+export const deletePartnershipAccount = (accountId: string) => {
+  return deleteAuth<PartnershipAccount>(
+    `${API_V1_URI}/partnership/partnership_account/${accountId}/`,
   );
 };
 
-export const updatePartnershipVenue = (
-  venueId: string,
-  data: PartnershipVenuePayload,
+export const updatePartnershipAccount = (
+  accountId: string,
+  data: PartnershipAccountPayload,
 ) => {
-  return patchAuth<PartnershipVenue>(
-    `${API_V1_URI}/partnership/partnership_venue/${venueId}/`,
+  return patchAuth<PartnershipAccount>(
+    `${API_V1_URI}/partnership/partnership_account/${accountId}/`,
     data,
   );
 };
 
-export const activatePartnershipVenue = (venueId: string) => {
-  return postAuth<PartnershipVenue>(
-    `${API_V1_URI}/partnership/partnership_venue/${venueId}/activate/`,
+export const activatePartnershipAccount = (accountId: string) => {
+  return postAuth<PartnershipAccount>(
+    `${API_V1_URI}/partnership/partnership_account/${accountId}/activate/`,
   );
 };

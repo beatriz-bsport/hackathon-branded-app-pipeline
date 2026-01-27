@@ -5,6 +5,8 @@ import {
   goToNextStep,
   goToPreviousStep,
   resetForm,
+  saveStepFormData,
+  setStepValid,
 } from "#src/stores/session-creation/actions";
 import {
   selectCurrentStep,
@@ -17,11 +19,16 @@ import {
   SESSION_CREATION_STEPS,
   useSessionCreationStore,
 } from "#src/stores/session-creation/store";
+import {
+  SessionCreationFormAdvancedOptionsData,
+  SessionCreationFormData,
+} from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useSessionSchema } from "../SessionForm/schemas";
 import { ChooseActivityStep } from "./ChooseActivityStep";
 import { ConfigureSessionStep } from "./ConfigureSessionStep";
+import { AdvancedOptionsStep } from "./advanced-options-step";
 
 type AddSessionModalProps = {
   isOpen: boolean;
@@ -33,15 +40,26 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
 
   const configureSessionFormData = useSessionCreationStore(
     selectStepFormData(SESSION_CREATION_STEPS.CONFIGURE_SESSION),
-  );
+  ) as SessionCreationFormData;
 
-  const sessionSchema = useSessionSchema();
+  const advancedOptionsFormData = useSessionCreationStore(
+    selectStepFormData(SESSION_CREATION_STEPS.ADVANCED_OPTIONS),
+  ) as SessionCreationFormAdvancedOptionsData;
+
+  const { advancedOptionsSchema, configureSessionSchema } = useSessionSchema();
 
   const configureSessionMethods = useFormController({
-    schema: sessionSchema,
+    schema: configureSessionSchema,
     mode: "onSubmit",
     shouldFocusError: true,
     defaultValues: configureSessionFormData,
+  });
+
+  const advancedOptionsMethods = useFormController({
+    schema: advancedOptionsSchema,
+    mode: "onSubmit",
+    shouldFocusError: true,
+    defaultValues: advancedOptionsFormData,
   });
 
   const selectedGroupActivity = useSessionCreationStore(
@@ -78,6 +96,18 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       });
     }
 
+    if (currentStep === SESSION_CREATION_STEPS.CONFIGURE_SESSION) {
+      const data = configureSessionMethods.getValues();
+      saveStepFormData({
+        step: SESSION_CREATION_STEPS.CONFIGURE_SESSION,
+        data,
+      });
+      setStepValid(
+        SESSION_CREATION_STEPS.CONFIGURE_SESSION,
+        configureSessionMethods.formState.isValid,
+      );
+    }
+
     if (!isLastStep) {
       goToNextStep();
       return;
@@ -87,7 +117,12 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     console.log("Form submitted");
   };
 
-  const checkIfCurrentStepValid = () => isCurrentStepValid;
+  const checkIfCurrentStepValid = () => {
+    if (currentStep === SESSION_CREATION_STEPS.CONFIGURE_SESSION) {
+      return configureSessionMethods.formState.isValid;
+    }
+    return isCurrentStepValid;
+  };
 
   return (
     <ModalStepper
@@ -107,7 +142,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
         },
         {
           label: t("addSessionModal.steps.advancedOptions.label"),
-          content: <>Advanced Options Step</>,
+          content: <AdvancedOptionsStep methods={advancedOptionsMethods} />,
           validate: checkIfCurrentStepValid,
         },
       ]}
@@ -115,7 +150,6 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       confirmButton={{
         label: t("addSessionModal.buttons.createSession"),
         color: "main",
-        disabled: !isCurrentStepValid,
         onClick: handleConfirm,
       }}
       cancelButton={{

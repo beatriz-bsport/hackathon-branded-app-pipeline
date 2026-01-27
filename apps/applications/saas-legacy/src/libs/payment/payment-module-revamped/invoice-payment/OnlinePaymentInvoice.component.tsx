@@ -28,7 +28,7 @@ type Props = {
   companyId: number;
   onConfirmPaymentError?: () => void;
   onCancelPaymentBeforeConfirming?: () => void;
-  onConfirmPaymentSuccess: (callback?: () => void) => void;
+  onConfirmPaymentSuccess?: (callback?: () => void) => void;
   stripePaymentElementConfig: StripePaymentElementConfig;
 
   // BAD: hiding confirmation button on New checkout flow and new member profile
@@ -156,7 +156,8 @@ const OnlinePaymentInvoice: React.FC<Props> = forwardRef(
           options: {
             onSuccess: (paymentIntentStatus: number) => {
               if (hasBackendProcessedPayment(paymentIntentStatus)) {
-                setTimeout(onConfirmPaymentSuccess, 2000);
+                onConfirmPaymentSuccess &&
+                  setTimeout(onConfirmPaymentSuccess, 2000);
               } else {
                 // retry
                 setTimeout(onSuccessfulPayment, 1000);

@@ -42,7 +42,7 @@ const SmsForm: React.FC<Props> = ({
         email_design: null,
         text_content: '',
         subject: '',
-        communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+        communication_kind: MarketingActions.SMS,
       };
     }, [formik.values.action_spec]);
 

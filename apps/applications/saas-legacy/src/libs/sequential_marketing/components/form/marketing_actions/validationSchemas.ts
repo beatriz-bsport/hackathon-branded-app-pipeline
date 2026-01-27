@@ -25,7 +25,7 @@ export const notificationValidationSchema = Yup.object().shape({
         (item) => !!item,
       ),
     communication_kind: Yup.number().oneOf([
-      MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+      MarketingActions.PUSH_NOTIFICATION,
     ]),
   }),
 });
@@ -42,9 +42,7 @@ export const smsValidationSchema = Yup.object().shape({
         'communication_content_must_not_be_empty',
         (item) => !!item,
       ),
-    communication_kind: Yup.number().oneOf([
-      MarketingActions.CADENCE_MARKETING_ACTION_SMS,
-    ]),
+    communication_kind: Yup.number().oneOf([MarketingActions.SMS]),
   }),
 });
 
@@ -69,9 +67,7 @@ export const templateEmailValidationSchema = Yup.object().shape({
         'email_design_must_be_selected',
         (item) => !!item,
       ),
-    communication_kind: Yup.number().oneOf([
-      MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
-    ]),
+    communication_kind: Yup.number().oneOf([MarketingActions.EMAIL_TEMPLATE]),
   }),
 });
 
@@ -94,9 +90,7 @@ export const writtenEmailValidationSchema = Yup.object().shape({
         'communication_title_must_not_be_empty',
         (item) => !!item,
       ),
-    communication_kind: Yup.number().oneOf([
-      MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
-    ]),
+    communication_kind: Yup.number().oneOf([MarketingActions.WRITTEN_EMAIL]),
   }),
 });
 
@@ -116,38 +110,37 @@ const marketingActionValidationSchema = Yup.object().shape({
       then: Yup.object().shape({
         communication_kind: Yup.number().oneOf(
           CADENCE_MARKETING_ACTION_CHOICES.filter(
-            (kind) =>
-              kind !== MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT,
+            (kind) => kind !== MarketingActions.ADD_TAG,
           ),
         ),
         subject: Yup.string()
           .when('communication_kind', {
-            is: MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+            is: MarketingActions.PUSH_NOTIFICATION,
             then: Yup.string().required(),
           })
           .when('communication_kind', {
-            is: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+            is: MarketingActions.WRITTEN_EMAIL,
             then: Yup.string().required(),
           })
           .when('communication_kind', {
-            is: MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+            is: MarketingActions.EMAIL_TEMPLATE,
             then: Yup.string().required(),
           }),
         text_content: Yup.string()
           .when('communication_kind', {
-            is: MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+            is: MarketingActions.PUSH_NOTIFICATION,
             then: Yup.string().required(),
           })
           .when('communication_kind', {
-            is: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+            is: MarketingActions.WRITTEN_EMAIL,
             then: Yup.string().required(),
           })
           .when('communication_kind', {
-            is: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+            is: MarketingActions.SMS,
             then: Yup.string().required(),
           }),
         email_design: Yup.number().nullable().when('communication_kind', {
-          is: MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+          is: MarketingActions.EMAIL_TEMPLATE,
           then: Yup.number().required(),
         }),
         tag_id: Yup.number().nullable(),

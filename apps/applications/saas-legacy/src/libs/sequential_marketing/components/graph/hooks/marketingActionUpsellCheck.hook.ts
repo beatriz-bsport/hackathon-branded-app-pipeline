@@ -29,10 +29,8 @@ export const useMarketingActionUpsellCheck = (
       : null;
 
   const isPushNotification =
-    communicationKind ===
-    MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION;
-  const isSms =
-    communicationKind === MarketingActions.CADENCE_MARKETING_ACTION_SMS;
+    communicationKind === MarketingActions.PUSH_NOTIFICATION;
+  const isSms = communicationKind === MarketingActions.SMS;
 
   const hasPushNotificationUpsell = hasUpsell(
     featureList,

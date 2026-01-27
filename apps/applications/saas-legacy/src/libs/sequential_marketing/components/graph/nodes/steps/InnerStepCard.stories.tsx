@@ -119,20 +119,19 @@ const emailTemplateSummary = companyEmailListFactory(1, 1)[0];
 
 const emailMarketingAction = stepMarketingActionFactory({
   kind: MarketingActionKind.COMMUNICATION,
-  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+  communication_kind: MarketingActions.WRITTEN_EMAIL,
 });
 const smsMarketingAction = stepMarketingActionFactory({
   kind: MarketingActionKind.COMMUNICATION,
-  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+  communication_kind: MarketingActions.SMS,
 });
 const pushNotificationMarketingAction = stepMarketingActionFactory({
   kind: MarketingActionKind.COMMUNICATION,
-  communication_kind:
-    MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+  communication_kind: MarketingActions.PUSH_NOTIFICATION,
 });
 const emailTemplateMarketingAction = stepMarketingActionFactory({
   kind: MarketingActionKind.COMMUNICATION,
-  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+  communication_kind: MarketingActions.EMAIL_TEMPLATE,
   email_design: emailTemplateSummary.id,
 });
 const tagMarketingAction = stepMarketingActionFactory({

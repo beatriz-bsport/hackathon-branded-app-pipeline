@@ -45,22 +45,21 @@ const Template: ComponentStory<typeof CadenceNodeContent> = (
 
 const emailMarketingAction = stepMarketingActionFactory({
   kind: MarketingActionKind.COMMUNICATION,
-  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+  communication_kind: MarketingActions.WRITTEN_EMAIL,
 });
 
 const marketingActionList = [
   stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+    communication_kind: MarketingActions.WRITTEN_EMAIL,
   }),
   stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+    communication_kind: MarketingActions.SMS,
   }),
   stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind:
-      MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+    communication_kind: MarketingActions.PUSH_NOTIFICATION,
   }),
 ];
 

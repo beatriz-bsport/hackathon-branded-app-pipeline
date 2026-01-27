@@ -42,8 +42,7 @@ const WrittenEmailForm: React.FC<Props> = ({
         email_design: null,
         text_content: '',
         subject: '',
-        communication_kind:
-          MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+        communication_kind: MarketingActions.WRITTEN_EMAIL,
       };
     }, [formik.values.action_spec]);
 

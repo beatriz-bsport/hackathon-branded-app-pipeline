@@ -74,8 +74,7 @@ const NotificationTemplate: ComponentStory<typeof NotificationForm> = (
 );
 
 let notification = stepMarketingActionFactory({
-  communication_kind:
-    MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+  communication_kind: MarketingActions.PUSH_NOTIFICATION,
   kind: MarketingActionKind.COMMUNICATION,
 });
 
@@ -97,7 +96,7 @@ const SmsTemplate: ComponentStory<typeof SmsForm> = (args: SmsFormProps) => (
 );
 
 let sms = stepMarketingActionFactory({
-  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+  communication_kind: MarketingActions.SMS,
   kind: MarketingActionKind.COMMUNICATION,
 });
 
@@ -119,7 +118,7 @@ const TagTemplate: ComponentStory<typeof TagForm> = (args: TagFormProps) => (
 );
 
 let tag = stepMarketingActionFactory({
-  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT,
+  communication_kind: MarketingActions.ADD_TAG,
   kind: MarketingActionKind.TAG,
 });
 
@@ -141,7 +140,7 @@ const TemplateEmailTemplate: ComponentStory<typeof TemplateEmailForm> = (
 ) => <TemplateEmailForm {...args} />;
 
 let templateEmail = stepMarketingActionFactory({
-  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+  communication_kind: MarketingActions.EMAIL_TEMPLATE,
   kind: MarketingActionKind.COMMUNICATION,
 });
 
@@ -170,7 +169,7 @@ const WrittenEmailTemplate: ComponentStory<typeof WrittenEmailForm> = (
 );
 
 let writtenEmail = stepMarketingActionFactory({
-  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+  communication_kind: MarketingActions.WRITTEN_EMAIL,
   kind: MarketingActionKind.COMMUNICATION,
 });
 

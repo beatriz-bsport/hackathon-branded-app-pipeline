@@ -20,9 +20,9 @@ const SessionTable: React.FC<SessionTableProps> = ({
   isLoading,
 }: SessionTableProps) => {
   const { t } = useTranslation("sessionList");
-  const columns = useSessionListColumns();
   const displayedColumns = useSessionListStore(selectDisplayedColumns);
   const isMobile = !useMatchMedia("lg");
+  const columns = useSessionListColumns(isMobile);
 
   const filteredColumns = useMemo(
     () =>

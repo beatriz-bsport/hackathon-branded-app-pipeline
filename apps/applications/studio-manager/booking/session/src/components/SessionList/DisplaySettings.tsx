@@ -5,6 +5,7 @@ import {
   Button,
   SegmentedControl,
   Toggle,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import {
@@ -29,7 +30,8 @@ import { useSessionListColumns } from "./columns";
 
 export const DisplaySettings: React.FC = () => {
   const { t } = useTranslation("sessionList");
-  const columns = useSessionListColumns();
+  const isMobile = !useMatchMedia("lg");
+  const columns = useSessionListColumns(isMobile);
   const displayedColumns = useSessionListStore(selectDisplayedColumns);
   const hasShowCancelledSessionsPermission = useObjectLevelPermission(
     "planning.calendar.allowed_actions.readCancellations",

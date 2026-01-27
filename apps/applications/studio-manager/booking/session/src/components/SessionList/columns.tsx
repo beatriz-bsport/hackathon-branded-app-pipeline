@@ -51,7 +51,7 @@ export function formatMinutes(minutesNumber: number, t: TFunction) {
   return readableDuration;
 }
 
-export const useSessionListColumns = () => {
+export const useSessionListColumns = (isMobile: boolean) => {
   const { t, i18n } = useTranslation("sessionList");
   const intlLocale = i18n?.language;
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
@@ -186,13 +186,23 @@ export const useSessionListColumns = () => {
     ),
   };
 
-  return [
-    timeColumn,
-    sessionNameColumn,
-    teacherNameColumn,
-    participantsColumn,
-    establishmentNameColumn,
-    sessionTypeColumn,
-    actionsColumn,
-  ];
+  return isMobile
+    ? [
+        timeColumn,
+        sessionNameColumn,
+        teacherNameColumn,
+        establishmentNameColumn,
+        participantsColumn,
+        sessionTypeColumn,
+        actionsColumn,
+      ]
+    : [
+        timeColumn,
+        sessionNameColumn,
+        teacherNameColumn,
+        participantsColumn,
+        establishmentNameColumn,
+        sessionTypeColumn,
+        actionsColumn,
+      ];
 };

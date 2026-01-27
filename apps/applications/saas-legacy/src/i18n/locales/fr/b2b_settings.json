@@ -8,7 +8,12 @@
       "placeholder": "domaine.com",
       "saveTooltip": "Attention : Une fois ajoutés, les domaines ne peuvent pas être modifiés",
       "addButton": "Ajouter un autre domaine",
-      "validationError": "L'URL du domaine doit être dans un format valide, par exemple domaine.com"
+      "validationError": "L'URL du domaine doit être dans un format valide, par exemple domaine.com",
+      "errors": {
+        "4005": "Le nombre maximum de domaines de moyen de paiement doit être de 15 ou moins. Veuillez supprimer un domaine avant d'en ajouter un nouveau.",
+        "4007": "Ce domaine est déjà enregistré. Les domaines ne peuvent être enregistrés qu'une seule fois dans tous les studios. Lorsque les domaines sont partagés au sein d'une franchise, les paiements seront toujours effectués sur ce site.",
+        "default": "Une erreur s'est produite lors de l'enregistrement du domaine. Veuillez réessayer. "
+      }
     }
   }
 }

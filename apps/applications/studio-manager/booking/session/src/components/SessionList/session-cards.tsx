@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Card } from "@bsport/kaizen-primitive-core";
+import { Body, Card } from "@bsport/kaizen-primitive-core";
 
 import { Columns, type EnrichedSession, type TableColumn } from "#src/types";
 
@@ -72,7 +72,11 @@ const renderColumnContent = (column: TableColumn, row: EnrichedSession) => {
     return column.render(row);
   }
   if ("keyPath" in column) {
-    return <div>{row[column.keyPath as keyof EnrichedSession]}</div>;
+    return (
+      <Body htmlVariant="p" size="md">
+        {row[column.keyPath as keyof EnrichedSession]}
+      </Body>
+    );
   }
 
   throw new Error(

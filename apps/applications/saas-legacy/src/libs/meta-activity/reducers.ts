@@ -141,10 +141,6 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
     },
     [metaActivityBulkActions.success.toString()]: (state, { payload }) => {
       return state
-        .set(
-          'allIds',
-          payload.map((ma: MetaActivity) => ma.id),
-        )
         .merge(
           {
             byId: payload.reduce(

@@ -104,6 +104,11 @@
     "title": "No sessions added yet",
     "subtitle": "Add a new session to get started"
   },
+  "emptySearchState": {
+    "title": "No sessions found",
+    "subtitle": "No sessions match your criteria. Clear your filters and try again.",
+    "action": "Clear Filters"
+  },
   "exportParticipantsModal": {
     "title": "Export list of participants?",
     "description": "Choose a date to export the participant list for the entire day, broken down by session.",

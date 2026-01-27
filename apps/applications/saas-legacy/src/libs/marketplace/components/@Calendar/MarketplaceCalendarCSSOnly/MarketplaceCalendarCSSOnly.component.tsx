@@ -25,7 +25,6 @@ import MarketplaceWeekTimetableV2, {
 } from '../MarketplaceWeekTimeTableCSSOnly/MarketplaceWeekTimeTableCSSOnly.component';
 
 import './MarketplaceCalendarCSSOnly.css';
-import { ImmutableArray } from 'seamless-immutable';
 import { MarketplaceFiltersSetter } from '#src/libs/marketplace/types';
 
 const LoadingIndicator = () => (
@@ -43,7 +42,7 @@ type Props = {
   loading: boolean;
   onClickOffer: () => void;
   coaches: Array<Coach>;
-  establishments: ImmutableArray<Establishment>;
+  establishments: ReadonlyArray<Establishment>;
   metaActivities: { [key: number]: MetaActivity };
   setFilters: MarketplaceFiltersSetter;
   filters: any;

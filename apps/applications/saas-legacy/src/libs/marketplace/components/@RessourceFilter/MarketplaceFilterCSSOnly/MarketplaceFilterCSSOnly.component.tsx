@@ -21,13 +21,12 @@ import type {
 import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component';
 
 import './MarketplaceFilterCSSOnly.css';
-import { ImmutableArray } from 'seamless-immutable';
 import { Theme } from '@material-ui/core';
 
 export type OwnProps = {
   coaches: Coach[];
   hideCoach: boolean;
-  establishments: ImmutableArray<Establishment>;
+  establishments: ReadonlyArray<Establishment>;
   establishmentGroupList: Array<EstablishmentGroup>;
   metaActivities: { [key: number]: MetaActivity };
   filters: MarketplaceFilters;

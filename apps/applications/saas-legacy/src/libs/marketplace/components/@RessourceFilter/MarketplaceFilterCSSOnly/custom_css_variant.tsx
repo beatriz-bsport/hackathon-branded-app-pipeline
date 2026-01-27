@@ -105,7 +105,6 @@ export const MARKETPLACE_CALENDAR_FILTER_PREVIEW: React.FC<{
     <MarketplaceFilterCSSOnly
       {...componentProps}
       showMultiLocalization={showMultiLocalization}
-      theme={theme}
     />
   );
 });

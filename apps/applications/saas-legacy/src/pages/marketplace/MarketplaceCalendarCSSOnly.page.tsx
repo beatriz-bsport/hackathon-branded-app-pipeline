@@ -689,7 +689,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           establishments={
             (this.state.filters.establishment_group__in?.length
               ? this.state.filteredEstablishments
-              : establishments) ?? []
+              : establishments) as ReadonlyArray<Establishment>
           }
           events={this.props.events}
           filters={this.state.filters}
@@ -731,11 +731,10 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           coaches={coaches}
           companyTheme={this.props.theme}
           customLevels={this.props.customLevels}
-          //@ts-expect-error
           establishments={
-            this.state.filters.establishment_group__in?.length
+            (this.state.filters.establishment_group__in?.length
               ? this.state.filteredEstablishments ?? []
-              : establishments
+              : establishments) as ReadonlyArray<Establishment>
           }
           group={this.props.group}
           hideCoach={this.props.theme && this.props.theme.hideCoach}

@@ -47,7 +47,7 @@ export type Props = {
   showOfferFilling: boolean;
   hideCoach: boolean;
   offersByDay: { [key: string]: Array<Offer> };
-  establishments: Array<Establishment>;
+  establishments: ReadonlyArray<Establishment>;
   genderCount: Object;
   group: Object;
   metaActivities: Array<MetaActivity>;

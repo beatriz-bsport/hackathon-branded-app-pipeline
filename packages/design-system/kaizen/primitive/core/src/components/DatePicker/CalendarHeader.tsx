@@ -21,6 +21,7 @@ type CalendarHeaderProps = {
   mode: "single" | "range";
   years?: number[];
   onSelect: (date: DateTime) => void;
+  isMobile?: boolean;
 };
 
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({
@@ -28,6 +29,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   mode,
   years,
   onSelect,
+  isMobile = false,
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
@@ -105,10 +107,12 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         </div>
       ) : (
         <div className="flex">
-          <div className={`flex center gap-xs w-[258px]`}>
+          <div className={`flex center gap-xs ${!isMobile ? "w-[258px]" : ""}`}>
             {getMonthYearDisplay(0)}
           </div>
-          <div className="flex center gap-xs">{getMonthYearDisplay(1)}</div>
+          {!isMobile && (
+            <div className="flex center gap-xs">{getMonthYearDisplay(1)}</div>
+          )}
         </div>
       )}
 

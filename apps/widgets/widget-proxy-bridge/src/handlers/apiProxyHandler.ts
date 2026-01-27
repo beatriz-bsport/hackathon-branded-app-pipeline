@@ -1,6 +1,11 @@
-import { getFetch } from "@bsport/fetch";
+import { HTTPException, getFetch } from "@bsport/fetch";
 
-import { APIRequestConfig, BridgeEvents, EventPayload } from "../types";
+import {
+  APIRequestConfig,
+  ApiError,
+  BridgeEvents,
+  EventPayload,
+} from "../types";
 import { debugLog, listenOnMessage, postMessageToParent } from "../utils";
 
 const fetch = getFetch();
@@ -16,6 +21,10 @@ const makeUrlRelative = (url: string) => {
     sanitizedPathname = sanitizedPathname + "/";
   }
   return sanitizedPathname + parsedUrl.search;
+};
+
+const isFetchError = (error: unknown): error is HTTPException => {
+  return error instanceof HTTPException;
 };
 
 const sendAPIRequest = async (config: APIRequestConfig) => {
@@ -62,9 +71,24 @@ export const handleAPIMessages = () => {
           key: requestId,
         });
       } catch (e) {
+        const fetchError: ApiError | null = isFetchError(e)
+          ? {
+              message: e.message,
+              config: {},
+              name: e.name,
+              response: {
+                status: e.statusCode,
+                data: e.message,
+                headers: {},
+                statusText: e.statusCode.toString(),
+                config: {},
+              },
+            }
+          : null;
+
         postMessageToParent({
           type: BridgeEvents.API_ERROR,
-          data: e,
+          data: fetchError ?? e,
           key: requestId,
         });
       }

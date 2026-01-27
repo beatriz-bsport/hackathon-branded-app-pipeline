@@ -21,3 +21,25 @@ export type APIRequestConfig = {
   data: BodyInit;
   headers: Record<string, string>;
 };
+
+export interface FetchError {
+  message: string;
+  statusCode: number;
+}
+
+export interface AxiosResponse<T = unknown> {
+  data: T;
+  status: number;
+  statusText: string;
+  headers: Record<string, unknown>;
+  config: Record<string, unknown>;
+  request?: unknown;
+}
+
+// Copied from Axios Response to keep retro compatibility
+export interface ApiError extends Error {
+  config: Record<string, unknown>;
+  code?: string;
+  request?: unknown;
+  response?: AxiosResponse;
+}

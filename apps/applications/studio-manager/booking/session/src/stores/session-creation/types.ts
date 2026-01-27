@@ -76,6 +76,7 @@ export type SessionCreationFormData = Pick<
   | "broadcast_link"
   | "establishment"
   | "room_blueprint"
+  | "sync_on_spivi"
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;

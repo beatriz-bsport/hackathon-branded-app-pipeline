@@ -184,10 +184,17 @@ describe("generateWeeklyDates", () => {
       const result = generateWeeklyDates(config);
 
       expect(result).toHaveLength(3);
-      // Verify exact dates (Mondays: Jan 6, 13, 20)
-      expect(result[0].getDate()).toBe(6);
-      expect(result[1].getDate()).toBe(13);
-      expect(result[2].getDate()).toBe(20);
+      // Verify dates in the target timezone (America/New_York)
+      // Use Intl.DateTimeFormat to get the date in the target timezone
+      const getDateInTimezone = (date: Date, tz: string) =>
+        new Intl.DateTimeFormat("en-US", {
+          timeZone: tz,
+          day: "numeric",
+        }).format(date);
+
+      expect(getDateInTimezone(result[0], config.timezone)).toBe("6");
+      expect(getDateInTimezone(result[1], config.timezone)).toBe("13");
+      expect(getDateInTimezone(result[2], config.timezone)).toBe("20");
     });
 
     it("should handle DST transitions correctly across different timezones", () => {

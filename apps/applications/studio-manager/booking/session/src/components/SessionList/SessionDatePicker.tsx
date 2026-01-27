@@ -57,6 +57,7 @@ export const SessionDatePicker: React.FC = () => {
       dateFormat={isMobile ? "short" : "medium"}
       dateValue={datePickerValue}
       disableDate={disableDate}
+      popoverPlacement="bottom"
     />
   );
 };

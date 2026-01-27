@@ -31,7 +31,6 @@ import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 import { CustomMuiIcon } from '#src/components/icons/CustomMuiIcon.component';
 import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
 import FinnerGrainSpecificItemSelector from '#src/libs/sequential_marketing/components/form/connected_triggers/trigger_forms/FinnerGrainItemSelector.component';
-import useWhitelistFinnerGrainEvents from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useWhitelistFinnerGrainEvents.hook';
 
 type Props = {
   trigger: ConnectedTrigger;
@@ -57,8 +56,6 @@ const EventAndSmartlistForm: React.FC<Props> = ({
 
   const { eventSelected, selectEvent, CADENCE_EVENT_GROUPED_OPTIONS } =
     useEventContext();
-  const { isAudienceFinnerGrainEventsActivated } =
-    useWhitelistFinnerGrainEvents();
 
   const {
     smartlistSelected,
@@ -106,8 +103,7 @@ const EventAndSmartlistForm: React.FC<Props> = ({
         ?.filtered_pks;
       if (
         filteredItemsIds &&
-        CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(event) &&
-        isAudienceFinnerGrainEventsActivated
+        CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(event)
       ) {
         setInitialFinnerGrainItemIds(filteredItemsIds);
         setToggleSpecificItems(true);
@@ -129,7 +125,6 @@ const EventAndSmartlistForm: React.FC<Props> = ({
     selectFinnerGrainEventSearchObject,
     t,
     trigger,
-    isAudienceFinnerGrainEventsActivated,
   ]);
 
   const handleSelectEvent = React.useCallback(
@@ -231,8 +226,7 @@ const EventAndSmartlistForm: React.FC<Props> = ({
         {eventSelected &&
           CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(
             eventSelected.value,
-          ) &&
-          isAudienceFinnerGrainEventsActivated && (
+          ) && (
             <FormControlLabel
               control={<Switch checked={toggleSpecificItems} color="primary" />}
               label={t(

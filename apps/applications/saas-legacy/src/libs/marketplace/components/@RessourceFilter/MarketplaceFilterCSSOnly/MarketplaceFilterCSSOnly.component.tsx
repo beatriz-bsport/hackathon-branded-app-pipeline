@@ -1,14 +1,12 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { pure } from 'recompose';
 
-import { withTheme } from '@material-ui/styles';
+import { withTheme } from '@material-ui/core/styles';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
 import { Level } from '#src/libs/level/types';
 import { getLevelColor, getLevelTranslation } from '#src/libs/level/utils';
 import { getGroupedEstablishmentOptions } from '#src/libs/establishment/components/EstablishmentSelector.component';
-import { CompanyTheme } from '#src/libs/theme/types';
 import MarketplaceCalendarSearch from '#src/libs/marketplace/components/@Calendar/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
 import {
   Establishment,
@@ -23,12 +21,13 @@ import type {
 import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component';
 
 import './MarketplaceFilterCSSOnly.css';
+import { ImmutableArray } from 'seamless-immutable';
+import { Theme } from '@material-ui/core';
 
-export type Props = {
+export type OwnProps = {
   coaches: Coach[];
   hideCoach: boolean;
-  establishments: Establishment[];
-  allEstablishments: Establishment[];
+  establishments: ImmutableArray<Establishment>;
   establishmentGroupList: Array<EstablishmentGroup>;
   metaActivities: { [key: number]: MetaActivity };
   filters: MarketplaceFilters;
@@ -36,11 +35,12 @@ export type Props = {
   variant: 'activity' | 'workshop';
   showMultiLocalization: boolean;
   customLevels: Level[];
-  theme: CompanyTheme;
   onSearch: (searchText: string) => void;
   onClearInput: () => void;
   coachDisplay?: MarketPlaceCoachDisplay;
 };
+
+type Props = OwnProps & { theme: Theme };
 
 const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   customLevels,
@@ -48,16 +48,15 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   metaActivities,
   variant,
   establishments,
-  allEstablishments,
   establishmentGroupList,
   setFilters,
   showMultiLocalization,
   hideCoach,
   filters,
-  theme,
   onSearch,
   onClearInput,
   coachDisplay,
+  theme,
 }) => {
   const { t } = useTranslation([
     'coach',
@@ -72,7 +71,6 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
         ...customLevels.map((level) => ({
           value: level.id,
           label: getLevelTranslation(level.id, level.name, t),
-          // @ts-expect-error
           levelColor: getLevelColor(level.id, level.color, theme),
         })),
       ].sort((a, b) => a.value - b.value),
@@ -117,19 +115,6 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
     // @ts-expect-error
     return defaultArray;
   }, [metaActivities]);
-
-  const disabledEstablishmentOptions = useMemo(() => {
-    const options: { label: string; value: number }[] = [];
-    filters?.establishments?.forEach((id: number) => {
-      if (!establishments?.find((est: Establishment) => est.id === id)) {
-        const label = (allEstablishments ?? []).find(
-          (est: Establishment) => est.id === id,
-        )?.title;
-        options.push({ label, value: id });
-      }
-    });
-    return options;
-  }, [filters.establishments, allEstablishments, establishments]);
 
   const establishmentGroupOption = useMemo(
     () =>
@@ -197,8 +182,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
       <MarketplaceFilter
         id="bs-marketplace-calendar-filters__establishment"
         onSelect={handleChange('establishments')}
-        // @ts-expect-error
-        options={establishmentsOptions.concat(disabledEstablishmentOptions)}
+        options={establishmentsOptions}
         selectedOptions={filters.establishments}
         text={t('establishment:room')}
       />
@@ -218,4 +202,4 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   );
 };
 
-export default pure(withTheme(MarketplaceFilterCSSOnly));
+export default React.memo(withTheme(MarketplaceFilterCSSOnly));

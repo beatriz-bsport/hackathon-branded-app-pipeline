@@ -679,7 +679,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     return (
       <>
         <MarketplaceCalendarComponent
-          // @ts-expect-error
           activeCustomLevels={activeCustomLevels}
           bookedOffers={this.props.bookedOffers}
           coaches={coaches}
@@ -688,9 +687,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           customLevels={customLevels}
           establishmentGroupList={establishmentGroupList}
           establishments={
-            this.state.filters.establishment_group__in?.length
+            (this.state.filters.establishment_group__in?.length
               ? this.state.filteredEstablishments
-              : establishments
+              : establishments) ?? []
           }
           events={this.props.events}
           filters={this.state.filters}

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 // @ts-expect-error
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, TFunction, WithTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import groupBy from 'lodash/groupBy';
 
@@ -25,6 +25,8 @@ import MarketplaceWeekTimetableV2, {
 } from '../MarketplaceWeekTimeTableCSSOnly/MarketplaceWeekTimeTableCSSOnly.component';
 
 import './MarketplaceCalendarCSSOnly.css';
+import { ImmutableArray } from 'seamless-immutable';
+import { MarketplaceFiltersSetter } from '#src/libs/marketplace/types';
 
 const LoadingIndicator = () => (
   <div className="bs-calendar--loading">
@@ -41,10 +43,9 @@ type Props = {
   loading: boolean;
   onClickOffer: () => void;
   coaches: Array<Coach>;
-  establishments: Array<Establishment>;
+  establishments: ImmutableArray<Establishment>;
   metaActivities: { [key: number]: MetaActivity };
-  // @ts-expect-error
-  setFilters: (any) => void;
+  setFilters: MarketplaceFiltersSetter;
   filters: any;
   forceDayDisplayOnly: boolean;
   onClickBook: (offer: Offer) => void;
@@ -69,7 +70,7 @@ type Props = {
   isSearching: boolean;
   startWeekOnDaySelected?: boolean;
   isCardModeDisplay: boolean;
-};
+} & WithTranslation;
 
 export const MarketplaceCalendar = (props: Props) => {
   const {
@@ -182,10 +183,8 @@ export const MarketplaceCalendar = (props: Props) => {
           filters={filters}
           hideCoach={props.hideCoach}
           metaActivities={metaActivities}
-          offers={offers}
           onClearInput={onClearInput}
           onSearch={onSearch}
-          // @ts-expect-error
           setFilters={setFilters}
           showMultiLocalization={props.showMultiLocalization}
           variant="activity"
@@ -228,5 +227,4 @@ export const MarketplaceCalendar = (props: Props) => {
   );
 };
 
-// @ts-expect-error
 export default withTranslation('privateService')(pure(MarketplaceCalendar));

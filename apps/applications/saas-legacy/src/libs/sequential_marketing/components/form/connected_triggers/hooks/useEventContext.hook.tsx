@@ -6,8 +6,6 @@ import {
   CADENCE_EVENT_GROUPED_BY_CATEGORY,
   Events,
 } from '#src/libs/sequential_marketing/constants';
-import { CADENCE_EVENT_GROUPED_BY_CATEGORY_WITHOUT_NEW_PURCHASE_EVENTS } from '#src/libs/sequential_marketing/constants/event';
-import useWhitelistFinnerGrainEvents from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useWhitelistFinnerGrainEvents.hook';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 export type EventOption = { label: string; value: Events };
@@ -35,8 +33,7 @@ const getExcludedEvents = (featureFlags: {
 
 export const useEventContext = () => {
   const { t } = useTranslation('marketing');
-  const { isAudienceFinnerGrainEventsActivated } =
-    useWhitelistFinnerGrainEvents();
+
   const showLeadFormSubmittedEvent = useSafeFlag(
     FeatureFlags.AUDIENCE_LEAD_FORM_SUBMITTED_EVENT,
   );
@@ -59,13 +56,8 @@ export const useEventContext = () => {
 
     return CADENCE_EVENT_CATEGORY_CHOICES.reduce<CategoryOption[]>(
       (previousValue, currentValue) => {
-        const cadenceEventGroupedByCategoryList =
-          isAudienceFinnerGrainEventsActivated
-            ? CADENCE_EVENT_GROUPED_BY_CATEGORY
-            : CADENCE_EVENT_GROUPED_BY_CATEGORY_WITHOUT_NEW_PURCHASE_EVENTS;
-
         // Filter out excluded events from this category
-        const filteredEvents = cadenceEventGroupedByCategoryList[currentValue]
+        const filteredEvents = CADENCE_EVENT_GROUPED_BY_CATEGORY[currentValue]
           .filter((event: Events) => !excludedEvents.includes(event))
           .map((child: Events) => ({
             label: t(`cadence.form.event.${child}`),
@@ -87,7 +79,7 @@ export const useEventContext = () => {
       },
       [] as CategoryOption[],
     );
-  }, [t, isAudienceFinnerGrainEventsActivated, showLeadFormSubmittedEvent]);
+  }, [t, showLeadFormSubmittedEvent]);
 
   return {
     eventSelected,

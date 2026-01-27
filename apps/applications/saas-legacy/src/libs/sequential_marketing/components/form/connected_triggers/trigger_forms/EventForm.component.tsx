@@ -21,7 +21,6 @@ import useEventContext, {
 import { removeFilteredPks } from '#src/libs/sequential_marketing/utils';
 
 import FinnerGrainSpecificItemSelector from '#src/libs/sequential_marketing/components/form/connected_triggers/trigger_forms/FinnerGrainItemSelector.component';
-import useWhitelistFinnerGrainEvents from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useWhitelistFinnerGrainEvents.hook';
 
 type Props = {
   trigger: ConnectedTrigger;
@@ -36,8 +35,6 @@ const EventForm: React.FC<Props> = ({ trigger, updateValue }) => {
     React.useState<number[]>([]);
   const [searchedObjectType, setSearchedObjectType] =
     React.useState<CadenceFinnerGrainEventsSearchObjectTypes | null>(null);
-  const { isAudienceFinnerGrainEventsActivated } =
-    useWhitelistFinnerGrainEvents();
 
   const { eventSelected, selectEvent, CADENCE_EVENT_GROUPED_OPTIONS } =
     useEventContext();
@@ -80,20 +77,13 @@ const EventForm: React.FC<Props> = ({ trigger, updateValue }) => {
         ?.filtered_pks;
       if (
         filteredItemsIds &&
-        CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(event) &&
-        isAudienceFinnerGrainEventsActivated
+        CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(event)
       ) {
         setInitialFinnerGrainItemIds(filteredItemsIds);
         setToggleSpecificItems(true);
       }
     }
-  }, [
-    selectEvent,
-    t,
-    trigger,
-    selectFinnerGrainEventSearchObject,
-    isAudienceFinnerGrainEventsActivated,
-  ]);
+  }, [selectEvent, t, trigger, selectFinnerGrainEventSearchObject]);
 
   const handleSelectEvent = React.useCallback(
     (option: EventOption) => {
@@ -172,8 +162,7 @@ const EventForm: React.FC<Props> = ({ trigger, updateValue }) => {
       {eventSelected &&
         CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(
           eventSelected.value,
-        ) &&
-        isAudienceFinnerGrainEventsActivated && (
+        ) && (
           <FormControlLabel
             control={<Switch checked={toggleSpecificItems} color="primary" />}
             label={t(

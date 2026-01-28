@@ -489,7 +489,7 @@
         },
         "title": "Aanleiding",
         "event_or_smartlist_helper": "Leden moeten aan de criteria van het geselecteerde Evenement voldoen óf deel uitmaken van de geselecteerde Smartlists(s) om in deze cadence terecht te komen.",
-        "finnerGrain": {
+        "finerGrain": {
           "specifyItemsToggleLabel": "Artikelen specificeren",
           "purchaseLabelTitle": "Aangekochte artikel(en)"
         }
@@ -848,7 +848,7 @@
           "workflow": "De invoer in de {{ workflowLowerCase }} wordt gedaan via :"
         },
         "event_or_smartlist_helper": "Leden moeten overeenkomen met de gebeurtenis of deel uitmaken van de smartlist om in de {{ workflowLowerCase }}",
-        "oneOrMoreFinnerGrainDisabledText": "Een bepaald artikel staat momenteel niet in uw productenlijst."
+        "oneOrMoreFinerGrainDisabledText": "Een bepaald artikel staat momenteel niet in uw productenlijst."
       },
       "audienceNameLabel": "Naam van de {{ workflowLowerCase }}",
       "multipleVisit": {
@@ -901,7 +901,7 @@
       "title": "Hoe bewerk je {{ workflowLowerCase }}"
     },
     "workflow": {
-      "finnerGrainIssues": "Eén of meerdere opgegeven items zijn niet meer beschikbaar."
+      "finerGrainIssues": "Eén of meerdere opgegeven items zijn niet meer beschikbaar."
     },
     "audienceIndexHelper": "De volgorde van de {{ workflowPluralLowerCase }} bepaalt de volgorde van prioriteit: als een lid 2 verschillende {{ workflowPluralLowerCase }} tegelijk kan invoeren, dan beginnen ze met de hoogste in de lijst.",
     "workflowMetrics": {

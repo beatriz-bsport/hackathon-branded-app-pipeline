@@ -345,14 +345,14 @@ export type EntryStepFlowVersionData = {
   position: { x: number; y: number };
 };
 
-export type CadenceFinnerGrainEventsSearchObjectTypes =
+export type CadenceFinerGrainEventsSearchObjectTypes =
   | 'payment_pack'
   | 'shop_item'
   | 'giftcard'
   | 'private_pass'
   | 'contract';
 
-export type FinnerGrainEventBaseSetup = {
+export type FinerGrainEventBaseSetup = {
   eventType: string;
   itemIds: number[];
 };

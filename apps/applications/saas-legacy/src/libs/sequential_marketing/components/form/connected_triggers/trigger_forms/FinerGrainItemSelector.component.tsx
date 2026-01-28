@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 
 import type { SelectOption } from '#src/libs/types';
-import type { CadenceFinnerGrainEventsSearchObjectTypes } from '#src/libs/sequential_marketing/types';
+import type { CadenceFinerGrainEventsSearchObjectTypes } from '#src/libs/sequential_marketing/types';
 
 import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
@@ -43,15 +43,15 @@ const searchbarResultCustomTheme = createTheme({
   },
 });
 
-type FinnerGrainSpecificItemSelectorProps = {
+type FinerGrainSpecificItemSelectorProps = {
   open: boolean;
-  searchedObjectType: CadenceFinnerGrainEventsSearchObjectTypes;
+  searchedObjectType: CadenceFinerGrainEventsSearchObjectTypes;
   handleSpecificItemChange: (event: SelectOption<number>[]) => void;
   defaultItemsIds: number[];
 };
 
-const FinnerGrainSpecificItemSelector: React.FC<
-  FinnerGrainSpecificItemSelectorProps
+const FinerGrainSpecificItemSelector: React.FC<
+  FinerGrainSpecificItemSelectorProps
 > = ({
   defaultItemsIds,
   open,
@@ -74,7 +74,7 @@ const FinnerGrainSpecificItemSelector: React.FC<
       {open && searchedObjectType && (
         <div className={styles.specificItemSearchBarContainer}>
           <Typography variant="body2">
-            {t('cadence.form.trigger.finnerGrain.purchaseLabelTitle')}
+            {t('cadence.form.trigger.finerGrain.purchaseLabelTitle')}
           </Typography>
           <MuiThemeProvider theme={searchbarResultCustomTheme}>
             <ObjectSearchComponent
@@ -121,4 +121,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default React.memo(FinnerGrainSpecificItemSelector);
+export default React.memo(FinerGrainSpecificItemSelector);

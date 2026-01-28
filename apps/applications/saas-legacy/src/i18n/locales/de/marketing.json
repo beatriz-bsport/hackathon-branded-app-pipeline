@@ -489,7 +489,7 @@
         },
         "title": "Auslöser",
         "event_or_smartlist_helper": "Die Mitglieder müssen zum Ereignis passen oder Teil der Smartlist sein, um in die Kadenz zu passen",
-        "finnerGrain": {
+        "finerGrain": {
           "specifyItemsToggleLabel": "Artikel hinzufügen",
           "purchaseLabelTitle": "Erworbene Artikel"
         }
@@ -848,7 +848,7 @@
           "workflow": "Der Eintrag in den {{ workflowLowerCase }} erfolgt über :"
         },
         "event_or_smartlist_helper": "Die Mitglieder müssen dem Ereignis entsprechen oder Teil der Smartlist sein, um in den {{ workflowLowerCase }} zu passen",
-        "oneOrMoreFinnerGrainDisabledText": "Der ausgewählte Artikel ist derzeit nicht in deiner Produktliste enthalten."
+        "oneOrMoreFinerGrainDisabledText": "Der ausgewählte Artikel ist derzeit nicht in deiner Produktliste enthalten."
       },
       "audienceNameLabel": "Name",
       "multipleVisit": {
@@ -901,7 +901,7 @@
       "title": "So bearbeiten Sie Ihren {{ workflowLowerCase }}"
     },
     "workflow": {
-      "finnerGrainIssues": "Einer oder mehrere angegebene Artikel sind nicht mehr verfügbar."
+      "finerGrainIssues": "Einer oder mehrere angegebene Artikel sind nicht mehr verfügbar."
     },
     "audienceIndexHelper": "Wenn du mehrere Workflows erstellt hast, kannst du sie nach oben und unten verschieben, um die gewünschte Priorität zu setzen. Wenn Mitgliedern 2 Workflows zur Verfügung gestellt werden, werden sie mit dem ersten Workflow in dieser Liste anfangen.",
     "workflowMetrics": {

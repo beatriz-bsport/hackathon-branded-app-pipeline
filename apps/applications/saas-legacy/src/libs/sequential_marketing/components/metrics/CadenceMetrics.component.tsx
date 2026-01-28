@@ -245,7 +245,7 @@ const CadenceMetrics: React.FC<Props> = ({
           severity="error"
           variant="outlined"
         >
-          {t('audience.workflow.finnerGrainIssues')}
+          {t('audience.workflow.finerGrainIssues')}
         </Alert>
       )}
       <div className={classes.metrics}>

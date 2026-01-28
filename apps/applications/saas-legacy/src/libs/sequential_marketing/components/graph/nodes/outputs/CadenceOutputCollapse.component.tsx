@@ -17,14 +17,14 @@ export type CadenceOutputCollapseProps = {
   children: React.ReactNode;
   isOpen?: boolean;
   disabled?: boolean;
-  hasFinnerGrainItemsError: boolean;
+  hasFinerGrainItemsError: boolean;
 };
 
 const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
   children,
   isOpen,
   disabled,
-  hasFinnerGrainItemsError,
+  hasFinerGrainItemsError,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -66,7 +66,7 @@ const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
               {t('cadence.cadenceCard.outputRules')}
             </Typography>
           </div>
-          {hasFinnerGrainItemsError && (
+          {hasFinerGrainItemsError && (
             <div className={classes.errorBackground}>
               <WarningIcon className={classes.errorIcon} color="error" />
             </div>

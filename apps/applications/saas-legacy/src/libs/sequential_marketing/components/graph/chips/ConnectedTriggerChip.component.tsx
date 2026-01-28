@@ -18,8 +18,8 @@ import type {
 import type { SmartList } from '#src/libs/smart-list/types';
 import { CadenceChip } from './CadenceChip.component';
 import useConnectedTriggerChip from './useConnectedTriggerChip.hook';
-import FinnerGrainEventItemContainer from '#src/libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeFinnerGrainItemData.component';
-import { CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST } from '#src/libs/sequential_marketing/constants/event';
+import FinerGrainEventItemContainer from '#src/libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeFinerGrainItemData.component';
+import { CADENCE_FINER_GRAIN_ALLOWED_EVENTS_LIST } from '#src/libs/sequential_marketing/constants/event';
 
 export type ConnectedTriggerChipProps = {
   connectedTrigger: ConnectedTrigger;
@@ -60,10 +60,10 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
           />
           {'filtered_pks' in connectedTrigger.trigger_config &&
             'event_type' in connectedTrigger.trigger_config &&
-            CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(
+            CADENCE_FINER_GRAIN_ALLOWED_EVENTS_LIST.includes(
               connectedTrigger.trigger_config.event_type,
             ) && (
-              <FinnerGrainEventItemContainer
+              <FinerGrainEventItemContainer
                 color={color}
                 disabled={disabled}
                 eventType={connectedTrigger.trigger_config.event_type}
@@ -86,10 +86,10 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
           />
           {'filtered_pks' in connectedTrigger.trigger_config &&
             'event_type' in connectedTrigger.trigger_config &&
-            CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(
+            CADENCE_FINER_GRAIN_ALLOWED_EVENTS_LIST.includes(
               connectedTrigger.trigger_config.event_type,
             ) && (
-              <FinnerGrainEventItemContainer
+              <FinerGrainEventItemContainer
                 color={color}
                 disabled={disabled}
                 eventType={connectedTrigger.trigger_config.event_type}

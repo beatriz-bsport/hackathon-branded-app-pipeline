@@ -98,6 +98,11 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                 {t('header.teacher')}
               </Typography>
             </TableCell>
+            <TableCell>
+              <Typography align="left" className={classes.weight500}>
+                {t('header.teacher_override')}
+              </Typography>
+            </TableCell>
           </>
         );
 
@@ -167,6 +172,15 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
               </Typography>
             </TableCell>
           </>
+        );
+
+      case ReplacementDisplays.REPLACEMENT_DISPLAY_CONFIRM:
+        return (
+          <TableCell>
+            <Typography align="left" className={classes.weight500}>
+              {t('header.action')}
+            </Typography>
+          </TableCell>
         );
 
       default:

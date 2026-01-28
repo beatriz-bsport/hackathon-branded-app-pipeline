@@ -1111,6 +1111,7 @@
       "50012": "This teacher replied that he did not wish to be a substitute for this session.",
       "50013": "You can no longer answer this substitution request.",
       "50015": "You cannot answer your own substitution request",
+      "50016": "You cannot be marked as unavailable",
       "50020": "This substitution request has been denied: impossible to delete it",
       "50021": "You cannot specify establishments and locations at the same time.",
       "80002": "The value 'Number of days request late' must be greater than the value 'Number of days registration closed'.",
@@ -1122,6 +1123,9 @@
     "cancelReplacementRequest": {
       "error": "An error occurred while deleting the request.",
       "success": "The substitution request has been deleted."
+    },
+    "markSubstituteAsUnavailable": {
+      "error": "Failed to cancel your substitution."
     },
     "updateCoachReplacementPreferences": {
       "error": "Impossible to save rules",

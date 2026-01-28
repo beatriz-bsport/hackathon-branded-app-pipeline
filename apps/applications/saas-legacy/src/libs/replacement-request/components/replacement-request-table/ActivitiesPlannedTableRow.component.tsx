@@ -26,6 +26,7 @@ import {
 import { Coach } from '#src/libs/associated-coach/types';
 import { Offer } from '#src/libs/offer/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
+import { ReplacementOffer } from '#src/libs/replacement-request/types';
 import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,
@@ -35,7 +36,7 @@ type Props = {
   timezoneName: string;
   nbLateRequestsLeft?: number;
   daysBeforeOfferReplacementRequestIsLate?: number;
-  offer: Offer<
+  offer: ReplacementOffer<
     Coach,
     Establishment,
     MetaActivity,
@@ -268,7 +269,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
                 {t('header.teacher')}
               </Typography>
               <Typography className={classes.mobileSmallFont}>
-                {offer.coach.name}
+                {offer.coach_author?.name || offer.coach.name}
               </Typography>
             </div>
             <div>
@@ -278,7 +279,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
                 {t('header.teacher_override')}
               </Typography>
               <Typography className={classes.mobileSmallFont}>
-                {offer.coach_override.name}
+                {offer.selected_coach?.name || offer.coach_override?.name}
               </Typography>
             </div>
           </div>
@@ -334,10 +335,14 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
         ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_HISTORY && (
         <>
           <TableCell className={classes.tableCell}>
-            <Typography>{offer.coach.name}</Typography>
+            <Typography>
+              {offer.coach_author?.name || offer.coach.name}
+            </Typography>
           </TableCell>
           <TableCell className={classes.tableCell}>
-            <Typography>{offer.coach_override.name}</Typography>
+            <Typography>
+              {offer.selected_coach?.name || offer.coach_override?.name}
+            </Typography>
           </TableCell>
         </>
       )}

@@ -221,7 +221,8 @@
   },
   "confirmations": {
     "description": "You have been added as a substitute teacher for the following sessions.",
-    "title": "Confirmations"
+    "title": "Confirmations",
+    "unavailable": "I'm unavailable"
   },
   "requests": {
     "cancel": "Cancel",

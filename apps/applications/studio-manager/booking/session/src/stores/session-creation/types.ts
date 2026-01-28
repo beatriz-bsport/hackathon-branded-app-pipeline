@@ -77,6 +77,7 @@ export type SessionCreationFormData = Pick<
   | "establishment"
   | "room_blueprint"
   | "sync_on_spivi"
+  | "wellhub_product_id"
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;

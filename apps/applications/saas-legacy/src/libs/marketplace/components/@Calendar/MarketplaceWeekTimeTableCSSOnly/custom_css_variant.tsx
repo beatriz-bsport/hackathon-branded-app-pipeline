@@ -52,7 +52,6 @@ const usePropsFromVariation = (
     forceDayDisplayOnly: false,
     onClickOffer: () => {},
     onClickBook: () => {},
-    onClickBookOption: () => {},
     onSelectDate: () => {},
     getLevel: {},
     loading: false,

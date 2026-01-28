@@ -41,7 +41,7 @@ type Props = {
   genderCount: Object;
   group: Object;
   loading: boolean;
-  onClickOffer: () => void;
+  onClickOffer: (offerId: number) => void;
   coaches: Array<Coach>;
   establishments: ReadonlyArray<Establishment>;
   metaActivities: ImmutableObject<{ [key: number]: MetaActivity }>;

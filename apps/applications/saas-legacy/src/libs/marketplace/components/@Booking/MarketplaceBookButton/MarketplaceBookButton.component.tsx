@@ -17,14 +17,13 @@ import { MetaActivity } from '#src/libs/meta-activity/types';
 
 import { isDateInThePast } from '#src/utils/datetime';
 import './MarketplaceBookButton.css';
-import { ImmutableObject } from 'seamless-immutable';
 
 export type Props = {
   offer: OfferREST;
   group: OffersGroup;
   className?: string;
   isRegistered?: boolean;
-  metaActivity: MetaActivity | ImmutableObject<MetaActivity>;
+  metaActivity: MetaActivity;
   isHidden?: boolean;
 };
 

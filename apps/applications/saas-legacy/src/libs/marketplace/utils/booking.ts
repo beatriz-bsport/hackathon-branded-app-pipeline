@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 import isEqual from 'lodash/isEqual';
-import Immutable, { ImmutableObject } from 'seamless-immutable';
+import Immutable from 'seamless-immutable';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
 import { OFFER_BOOKABLE_STATUS_ALREADY_BOOKED } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 
@@ -23,7 +23,7 @@ import { isTooSoonToBookOffer } from './offer';
 
 export const getBookingButtonTraduction = (
   offer: Offer_FULL,
-  metaActivity: MetaActivity | ImmutableObject<MetaActivity>,
+  metaActivity: MetaActivity,
   isRegistered: boolean = false,
   t: TFunction,
 ) => {
@@ -57,7 +57,7 @@ export const getBookingButtonTraduction = (
 
 const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
   offer: Offer_FULL,
-  metaActivity: MetaActivity | ImmutableObject<MetaActivity>,
+  metaActivity: MetaActivity,
   isRegistered: boolean = false,
   t: TFunction,
 ) => {

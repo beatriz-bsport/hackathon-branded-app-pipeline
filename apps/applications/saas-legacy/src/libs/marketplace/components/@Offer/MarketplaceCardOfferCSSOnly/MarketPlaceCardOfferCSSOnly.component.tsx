@@ -31,12 +31,11 @@ import FemaleIcon from '../../../../../components/icons/FemaleIcon.component';
 import MaleIcon from '../../../../../components/icons/MaleIcon.component';
 import './MarketplaceCardOfferCSSOnly.css';
 import OfferPriceTag from '#src/components/css-only/OfferPriceTag';
-import { ImmutableObject } from 'seamless-immutable';
 
 type OwnProps = {
   offer: OfferREST;
   genderCount: Object;
-  metaActivities: ImmutableObject<{ [key: number]: MetaActivity }>;
+  metaActivities: { [key: number]: MetaActivity };
   establishments: ReadonlyArray<Establishment>;
   coaches: Array<Coach>;
   theme: Theme;

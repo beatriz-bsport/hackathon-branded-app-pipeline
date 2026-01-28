@@ -44,7 +44,7 @@ type Props = {
   onClickOffer: (offerId: number) => void;
   coaches: Array<Coach>;
   establishments: ReadonlyArray<Establishment>;
-  metaActivities: ImmutableObject<{ [key: number]: MetaActivity }>;
+  metaActivities: { [key: number]: MetaActivity };
   setFilters: MarketplaceFiltersSetter;
   filters: any;
   forceDayDisplayOnly: boolean;

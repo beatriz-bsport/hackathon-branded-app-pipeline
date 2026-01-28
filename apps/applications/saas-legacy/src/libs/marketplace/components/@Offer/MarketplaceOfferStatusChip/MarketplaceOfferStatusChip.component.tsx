@@ -17,13 +17,12 @@ import { CompanyTheme } from '#src/libs/theme/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
 
 import './styles.css';
-import { ImmutableObject } from 'seamless-immutable';
 
 export type Props = {
   offer: OfferREST;
   isRegistered: boolean;
   showLabel?: boolean;
-  metaActivity: MetaActivity | ImmutableObject<MetaActivity>;
+  metaActivity: MetaActivity;
   companyTheme: CompanyTheme;
 };
 

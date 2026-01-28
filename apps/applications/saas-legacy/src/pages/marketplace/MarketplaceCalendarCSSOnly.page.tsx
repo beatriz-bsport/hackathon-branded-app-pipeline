@@ -680,8 +680,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           loading={this.state.isLoading}
           metaActivities={
             this.props.theme.show_workshops_customer
-              ? this.props.metaActivitiesWorkshops
-              : metaActivities
+              ? this.props.metaActivitiesWorkshops.asMutable({ deep: true })
+              : metaActivities.asMutable({ deep: true })
           }
           nextAvailableOffer={this.props.nextAvailableOffer}
           offers={this.state.offerSearchResult?.offerList ?? this.props.offers}
@@ -716,8 +716,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           mapContainerClassName={this.props.mapContainerClassName}
           metaActivities={
             this.props.theme.show_workshops_customer
-              ? this.props.metaActivitiesWorkshops
-              : metaActivities
+              ? this.props.metaActivitiesWorkshops.asMutable({ deep: true })
+              : metaActivities.asMutable({ deep: true })
           }
           offer={this.state.offer as Offer}
           // @ts-expect-error

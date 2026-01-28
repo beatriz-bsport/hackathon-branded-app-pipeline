@@ -42,7 +42,6 @@ import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 import './MarketplaceOfferListItemCSSOnly.css';
 import OfferPriceTag from '#src/components/css-only/OfferPriceTag';
 import analyticsUtils from '#src/components/analytics/analytics';
-import { ImmutableObject } from 'seamless-immutable';
 
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',
@@ -54,7 +53,7 @@ export type Props = {
   showOfferFilling: boolean;
   offer: OfferREST;
   genderCount: Object;
-  metaActivity: MetaActivity | ImmutableObject<MetaActivity>;
+  metaActivity: MetaActivity;
   variant?: MarketplaceCalendarVariant;
   theme: CompanyTheme;
   hideCoach: boolean;

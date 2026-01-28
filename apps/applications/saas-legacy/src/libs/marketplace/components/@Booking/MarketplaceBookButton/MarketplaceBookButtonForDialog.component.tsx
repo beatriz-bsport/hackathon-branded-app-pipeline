@@ -14,14 +14,13 @@ import {
   isOfferInGroupLockedByPreviousOfferInPast,
 } from '../../../utils';
 import './MarketplaceBookButtonForDialog.css';
-import { ImmutableObject } from 'seamless-immutable';
 
 type Props = {
   offer: Offer_FULL;
   isRegistered?: boolean;
   group?: OffersGroup;
   onClickBook: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  metaActivity: MetaActivity | ImmutableObject<MetaActivity>;
+  metaActivity: MetaActivity;
 };
 
 const MarketplaceBookButtonForDialog: React.FC<Props> = ({

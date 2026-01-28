@@ -31,7 +31,6 @@ import {
   isOfferInGroupLockedByPreviousOfferInPast,
 } from '#src/libs/marketplace/utils';
 import './MarketplaceWeekTimeTableCSSOnly.css';
-import { ImmutableObject } from 'seamless-immutable';
 
 const SPLIT_AFTERNOON = 12;
 const SPLIT_EVENNING = 17;
@@ -50,7 +49,7 @@ export type Props = {
   establishments: ReadonlyArray<Establishment>;
   genderCount: Object;
   group: Object;
-  metaActivities: ImmutableObject<{ [key: number]: MetaActivity }>;
+  metaActivities: { [key: number]: MetaActivity };
   coaches: Array<Coach>;
   showOfferGender?: boolean;
   bookedOffers?: number[];

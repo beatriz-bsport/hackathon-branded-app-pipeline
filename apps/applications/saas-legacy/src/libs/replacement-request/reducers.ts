@@ -15,12 +15,14 @@ import {
   fetchHasRequestsLinkedToCancelledOffersActions,
   fetchReplacementRequestConfigurationActions,
   updateReplacementRequestConfigurationActions,
+  fetchSubstitutionHistoryActions,
 } from './actions';
 
 import {
   ReplacementRequest,
   ReplacementRequestCoachAnswer,
   ReplacementRequestState,
+  SubstitutionHistoryItem,
 } from './types';
 
 const initialState: Immutable.Immutable<ReplacementRequestState> =
@@ -49,6 +51,13 @@ const initialState: Immutable.Immutable<ReplacementRequestState> =
       page: 1,
       loading: false,
       hasUnseen: false,
+    },
+    substitutionHistory: {
+      items: [],
+      count: 0,
+      page: 1,
+      loading: false,
+      error: null,
     },
     replacementRequestCoachAnswer: {
       error: null,
@@ -329,6 +338,28 @@ export default handleActions<Immutable.Immutable<ReplacementRequestState>>(
       state,
       { payload },
     ) => state.setIn(['configuration', 'configuration'], payload),
+    [fetchSubstitutionHistoryActions.loading.toString()]: (
+      state,
+      { payload },
+    ) => state.setIn(['substitutionHistory', 'loading'], payload),
+    [fetchSubstitutionHistoryActions.error.toString()]: (state, { payload }) =>
+      state.setIn(['substitutionHistory', 'error'], payload),
+    [fetchSubstitutionHistoryActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          results: SubstitutionHistoryItem[];
+          count: number;
+          page: number;
+        };
+      },
+    ) =>
+      state
+        .setIn(['substitutionHistory', 'items'], payload.results)
+        .setIn(['substitutionHistory', 'count'], payload.count)
+        .setIn(['substitutionHistory', 'page'], payload.page),
   },
   initialState,
 );

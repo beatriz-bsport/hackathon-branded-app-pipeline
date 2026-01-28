@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
@@ -15,52 +15,64 @@ import ActivitiesToReplaceTable from '#src/libs/replacement-request/components/r
 
 import {
   ReplacementDisplays,
+  ReplacementRequestStatus,
   PAGE_SIZE,
 } from '#src/libs/replacement-request/constants';
-import {
-  getOfferCalendarStateData,
-  withCoach,
-  withEstablishment,
-  withMetaActivity,
-} from '#src/libs/offer/selectors';
-import { withCustomLevel } from '#src/libs/level/selectors';
+import { ReplacementRequestAPIData } from '#src/libs/replacement-request/types';
 import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
 import {
   withEstablishment as groupWithEstablishment,
   getAssociatedEstablishmentGroup,
 } from '#src/libs/establishment/selectors';
-import { fetchAllOffersPaginated as fetchAllOffersPaginatedAction } from '#src/libs/offer/actions';
+import {
+  getAllReplacementRequests,
+  withCompleteOffer,
+} from '#src/libs/replacement-request/selectors';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
 } from '#src/libs/establishment/actions';
 import { fetchActivitiesCompany as fetchActivitiesCompanyAction } from '#src/libs/meta-activity/actions';
 import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';
+import {
+  fetchAllReplacementRequests as fetchAllReplacementRequestsAction,
+  markSubstituteAsUnavailable as markSubstituteAsUnavailableAction,
+} from '#src/libs/replacement-request/actions';
 import { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
+import ReplacementRequestReasonDialog from '#src/libs/replacement-request/components/dialogs/ReplacementRequestReasonDialog.component';
+import { OptionCallback } from '../../../state/types';
 
 type ConnectProps = ConnectedProps<typeof connector>;
 type Props = ConnectProps & WithHandlerType<typeof handlers>;
+const FIRST_PAGE_INDEX = 1;
 
-export const CoachReplacement: React.FC<Props> = (props: Props) => {
+export const CoachReplacementConfirmations: React.FC<Props> = (
+  props: Props,
+) => {
   const {
     fetchLevelList,
     fetchActivitiesCompany,
     fetchAllEstablishmentGroup,
     fetchEstablishments,
-    fetchReplacementOffers,
-    offerCount,
-    offerPage,
+    fetchConfirmedReplacementRequests,
     companyId,
-    replacementOfferList,
+    replacementRequestCount,
+    replacementRequestPage,
     replacementRequestLoading,
+    offerBulkLoading,
     establishmentGroupLoading,
     metaActivityLoading,
     establishmentLoading,
-    offerBulkLoading,
     companyTheme,
   } = props;
   const classes = useStyles();
+
+  const [unavailableDialogOpen, setUnavailableDialogOpen] = useState(false);
+  const [selectedRequestId, setSelectedRequestId] = useState<number | null>(
+    null,
+  );
 
   const { t } = useTranslation('replacement');
 
@@ -82,11 +94,14 @@ export const CoachReplacement: React.FC<Props> = (props: Props) => {
     companyId,
   ]);
 
-  useEffect(() => fetchReplacementOffers(1), [fetchReplacementOffers]);
+  useEffect(
+    () => fetchConfirmedReplacementRequests(FIRST_PAGE_INDEX),
+    [fetchConfirmedReplacementRequests],
+  );
 
   const totalPages = useMemo(
-    () => Math.ceil(offerCount / PAGE_SIZE),
-    [offerCount],
+    () => Math.ceil(replacementRequestCount / PAGE_SIZE),
+    [replacementRequestCount],
   );
 
   const isLoading = useMemo(
@@ -123,22 +138,49 @@ export const CoachReplacement: React.FC<Props> = (props: Props) => {
               props.companyTheme.enable_multi_localization
             }
             establishmentGroups={props.establishmentGroupList}
+            handleMarkSubstituteAsUnavailable={(requestId) => {
+              setSelectedRequestId(requestId);
+              setUnavailableDialogOpen(true);
+            }}
             isLoading={isLoading}
-            offers={replacementOfferList}
             replacementDisplay={ReplacementDisplays.REPLACEMENT_DISPLAY_CONFIRM}
+            replacementRequestList={props.replacementRequestList}
             timezoneName={companyTheme.timezone_name}
           />
         </TableContainer>
-        {offerCount > 0 && (
+        {replacementRequestCount > 0 && (
           <Pagination
             className={classes.pagination}
             count={totalPages}
-            onChange={(ev, value) => fetchReplacementOffers(value)}
-            // fetch requested page on page change
-            page={offerPage}
+            onChange={(ev, value) => fetchConfirmedReplacementRequests(value)}
+            page={replacementRequestPage}
           />
         )}
       </Paper>
+      <ReplacementRequestReasonDialog
+        atLeastOneLateRequest={false}
+        lateReplacementRequestStatus={null as any}
+        nbLateRequestsLeft={0}
+        nbSelectedOffers={1}
+        onClose={() => {
+          setUnavailableDialogOpen(false);
+          setSelectedRequestId(null);
+        }}
+        onCloseAfterSuccess={() => {
+          setUnavailableDialogOpen(false);
+          setSelectedRequestId(null);
+        }}
+        onSubmit={(reason, options) => {
+          if (selectedRequestId) {
+            props.handleMarkSubstituteAsUnavailable(
+              selectedRequestId,
+              reason,
+              options as unknown as OptionCallback,
+            );
+          }
+        }}
+        open={unavailableDialogOpen}
+      />
     </>
   );
 };
@@ -188,11 +230,9 @@ const connector = connect(
     establishmentGroupList: groupWithEstablishment(
       getAssociatedEstablishmentGroup,
     )(state),
-    replacementOfferList: withEstablishment(
-      withCustomLevel(withMetaActivity(withCoach(getOfferCalendarStateData))),
-    )(state),
-    offerCount: state.offer.paginatedCalendar.count,
-    offerPage: state.offer.paginatedCalendar.page,
+    replacementRequestList: withCompleteOffer(getAllReplacementRequests)(state),
+    replacementRequestCount: state.replacementRequest.count,
+    replacementRequestPage: state.replacementRequest.page,
 
     replacementRequestLoading: state.replacementRequest.loading,
     establishmentGroupLoading: state.establishment.establishmentGroup.loading,
@@ -205,23 +245,84 @@ const connector = connect(
     fetchEstablishments: fetchEstablishmentsAction,
     fetchActivitiesCompany: fetchActivitiesCompanyAction,
     fetchLevelList: fetchLevelListAction,
-    fetchAllOffersPaginated: fetchAllOffersPaginatedAction,
+    fetchAllReplacementRequests: fetchAllReplacementRequestsAction,
+    fetchOfferBulk: fetchOfferBulkAction,
+    markSubstituteAsUnavailable: markSubstituteAsUnavailableAction,
   },
 );
 
 const handlers = {
-  fetchReplacementOffers:
-    ({ fetchAllOffersPaginated, companyId, coach }: ConnectProps) =>
+  fetchConfirmedReplacementRequests:
+    ({
+      fetchAllReplacementRequests,
+      fetchOfferBulk,
+      companyId,
+      coach,
+    }: ConnectProps) =>
     (page: number) => {
-      fetchAllOffersPaginated({
-        only_future: true,
-        available: true,
-        coach_override: coach.id,
-        company: companyId,
-        page_size: PAGE_SIZE,
-        page,
+      fetchAllReplacementRequests(
+        {
+          company: companyId,
+          approved_coach: coach.id,
+          status__in: [
+            ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_TEACHER_FOUND,
+          ],
+          offer_is_in_the_past: false,
+          page_size: PAGE_SIZE,
+          page,
+        },
+        {
+          onSuccess: (replacementRequestList: ReplacementRequestAPIData[]) => {
+            const offerIds = replacementRequestList.map((rr) => rr.offer);
+            fetchOfferBulk(offerIds);
+          },
+        },
+      );
+    },
+  handleMarkSubstituteAsUnavailable:
+    ({
+      markSubstituteAsUnavailable,
+      fetchAllReplacementRequests,
+      fetchOfferBulk,
+      companyId,
+      coach,
+      replacementRequestPage,
+    }: ConnectProps) =>
+    (
+      replacementRequestId: number,
+      reason: string,
+      options?: OptionCallback,
+    ) => {
+      markSubstituteAsUnavailable(replacementRequestId, reason, {
+        onSuccess: () => {
+          options?.onSuccess?.();
+          fetchAllReplacementRequests(
+            {
+              company: companyId,
+              approved_coach: coach.id,
+              status__in: [
+                ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_TEACHER_FOUND,
+              ],
+              offer_is_in_the_past: false,
+              page_size: PAGE_SIZE,
+              page: replacementRequestPage,
+            },
+            {
+              onSuccess: (
+                replacementRequestList: ReplacementRequestAPIData[],
+              ) => {
+                const offerIds = replacementRequestList.map((rr) => rr.offer);
+                fetchOfferBulk(offerIds);
+              },
+            },
+          );
+        },
+        onError: options?.onError,
       });
     },
 };
 
-export default compose(connector, withHandlers(handlers))(CoachReplacement);
+export default compose(
+  connector,
+  withHandlers(handlers),
+)(CoachReplacementConfirmations);

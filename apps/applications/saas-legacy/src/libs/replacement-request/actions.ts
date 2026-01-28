@@ -12,7 +12,9 @@ import {
   postponeReplacementRequestClosingDate as postponeReplacementRequestClosingDateAPI,
   approveReplacementRequestCoachAnswer as approveReplacementRequestCoachAnswerAPI,
   cancelReplacementRequest as cancelReplacementRequestAPI,
+  markSubstituteAsUnavailable as markSubstituteAsUnavailableAPI,
   fetchAllReplacementRequests as fetchAllReplacementRequestsAPI,
+  fetchSubstitutionHistory as fetchSubstitutionHistoryAPI,
 
   // Discipline Groups
   fetchDisciplineGroupList as fetchDisciplineGroupListAPI,
@@ -42,6 +44,8 @@ import {
   DisciplineGroupAPIData,
   ReplacementRequestCoachAnswerAPIData,
   ReplacementRequestConfiguration,
+  SubstitutionHistoryFilter,
+  SubstitutionHistoryItem,
 } from './types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
@@ -78,12 +82,11 @@ export const fetchAllReplacementRequests = (
     dispatch(fetchAllReplacementRequestsActions.error(null));
 
     try {
-      const response = await fetchAllReplacementRequestsAPI({
-        page: 1,
-        ...params,
-      });
-
       const page = params.page || 1;
+      const response = await fetchAllReplacementRequestsAPI({
+        ...params,
+        page,
+      });
       // @ts-expect-error
       const payload = { ...response.data, page };
       dispatch(fetchAllReplacementRequestsActions.success(payload));
@@ -259,6 +262,38 @@ export const cancelReplacementRequest = (
       } else {
         // @ts-expect-error
         dispatch(snackbarError('replacement.cancelReplacementRequest.error'));
+      }
+      dispatch(updateReplacementRequestActions.error());
+      options?.onError?.();
+    }
+    dispatch(updateReplacementRequestActions.loading(false));
+  };
+};
+
+export const markSubstituteAsUnavailable = (
+  requestId: number,
+  reason: string,
+  options?: OptionCallback,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateReplacementRequestActions.loading(true));
+    dispatch(updateReplacementRequestActions.error(null));
+    try {
+      const response = await markSubstituteAsUnavailableAPI(requestId, reason);
+
+      dispatch(updateReplacementRequestActions.success(response.data));
+      options?.onSuccess?.();
+    } catch (error) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
+        dispatch(
+          // @ts-expect-error
+          snackbarError(`replacement.errors.${error.response.data.error_code}`),
+        );
+      } else {
+        dispatch(
+          // @ts-expect-error
+          snackbarError('replacement.markSubstituteAsUnavailable.error'),
+        );
       }
       dispatch(updateReplacementRequestActions.error());
       options?.onError?.();
@@ -563,5 +598,40 @@ export const updateReplacementConfiguration = (
       options?.onError?.();
     }
     dispatch(updateReplacementRequestConfigurationActions.loading(false));
+  };
+};
+
+export const fetchSubstitutionHistoryActions = {
+  error: createAction('SUBSTITUTION_HISTORY/FETCH/ERROR'),
+  loading: createAction('SUBSTITUTION_HISTORY/FETCH/LOADING'),
+  success: createAction('SUBSTITUTION_HISTORY/FETCH/SUCCESS'),
+};
+
+export const fetchSubstitutionHistory = (
+  params: SubstitutionHistoryFilter,
+  options?: OptionCallback<SubstitutionHistoryItem[]>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchSubstitutionHistoryActions.loading(true));
+    dispatch(fetchSubstitutionHistoryActions.error(null));
+
+    try {
+      const response = await fetchSubstitutionHistoryAPI(params);
+      const page = params.page || 1;
+      const data = response.data;
+      const results = data.results ?? [];
+      const count = data.total_count ?? results.length;
+      const payload = {
+        results,
+        count,
+        page: data.current_page ?? page,
+      };
+      dispatch(fetchSubstitutionHistoryActions.success(payload));
+      options?.onSuccess?.(results);
+    } catch (error) {
+      dispatch(fetchSubstitutionHistoryActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(fetchSubstitutionHistoryActions.loading(false));
   };
 };

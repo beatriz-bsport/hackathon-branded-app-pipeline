@@ -39,30 +39,22 @@ import {
   PAGE_SIZE,
   ReplacementRequestStatus,
 } from '#src/libs/replacement-request/constants';
-import {
-  getOfferCalendarStateData,
-  withCoach,
-  withEstablishment,
-  withMetaActivity,
-} from '#src/libs/offer/selectors';
-import { withCustomLevel } from '#src/libs/level/selectors';
 import { getActiveCoaches } from '#src/libs/associated-coach/selectors';
 import { getEditableSCTs } from '#src/libs/category/selectors';
 import {
   withEstablishment as groupWithEstablishment,
   getAssociatedEstablishmentGroup,
   getAvailableEstablishmentList,
+  getAllEstablishmentsDict,
 } from '#src/libs/establishment/selectors';
+import { getLevelsDetails } from '#src/libs/level/selectors';
 import {
   getAllPendingReplacementRequests,
   withCompleteOffer,
   withCoachAnswers,
 } from '#src/libs/replacement-request/selectors';
 import { getEnabledMetaActivities } from '#src/libs/meta-activity/selectors';
-import {
-  fetchAllOffersPaginated as fetchAllOffersPaginatedAction,
-  fetchOfferBulk as fetchOfferBulkAction,
-} from '#src/libs/offer/actions';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
@@ -77,8 +69,12 @@ import {
   fetchAllReplacementRequestCoachAnswers as fetchAllReplacementRequestCoachAnswersAction,
   approveReplacementRequestCoachAnswer as approveReplacementRequestCoachAnswerAction,
   hasRequestsLinkedToCancelledOffers as fetchHasRequestsLinkedToCancelledOffersAction,
+  fetchSubstitutionHistory as fetchSubstitutionHistoryAction,
 } from '#src/libs/replacement-request/actions';
-import { ReplacementRequest } from '#src/libs/replacement-request/types';
+import {
+  ReplacementRequest,
+  SubstitutionHistoryItem,
+} from '#src/libs/replacement-request/types';
 import { Coach } from '#src/libs/associated-coach/types';
 import {
   Establishment,
@@ -564,7 +560,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
             <ActivitiesToReplaceTable
               enableMultiLocalization={companyTheme.enable_multi_localization}
               establishmentGroups={props.establishmentGroupList}
-              isLoading={props.offerListLoading}
+              isLoading={props.substitutionHistoryLoading}
               offers={props.replacementRequestOfferHistoryList}
               replacementDisplay={
                 ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_HISTORY
@@ -821,13 +817,52 @@ const selectStyles: Partial<
   }),
 };
 
+const transformSubstitutionHistoryToOffers = (
+  items: SubstitutionHistoryItem[],
+  establishmentById: Record<number, Establishment>,
+  levelById: ReturnType<typeof getLevelsDetails>,
+) =>
+  items.map(
+    (item) =>
+      ({
+        id: item.request_id ?? item.offer,
+        date_start: item.date_start,
+        duration_minute: item.duration_minute,
+        name_override: item.name_override,
+        meta_activity: { id: item.activity, name: item.activity_name },
+        customLevel: (item.level ? levelById[item.level] : null) ?? {
+          name: item.level_name,
+          color: item.level_color,
+        },
+        establishment: establishmentById[item.establishment_id] ?? {
+          id: item.establishment_id,
+          title: item.establishment_name,
+        },
+        coach: { id: item.coach, name: item.coach_name },
+        coach_author: {
+          id: item.coach_author,
+          name: item.coach_author_name,
+        },
+        coach_override: {
+          id: item.coach_override,
+          name: item.coach_override_name,
+        },
+        selected_coach: {
+          id: item.selected_coach,
+          name: item.selected_coach_name,
+        },
+      } as any),
+  );
+
 const connector = connect(
   (state: RootState) => ({
     companyTheme: state.theme.theme,
     companyId: state.theme.theme.company,
-    replacementRequestOfferHistoryList: withEstablishment(
-      withCustomLevel(withMetaActivity(withCoach(getOfferCalendarStateData))),
-    )(state),
+    replacementRequestOfferHistoryList: transformSubstitutionHistoryToOffers(
+      state.replacementRequest.substitutionHistory.items,
+      getAllEstablishmentsDict(state),
+      getLevelsDetails(state),
+    ),
     replacementRequestList: withCoachAnswers(
       withCompleteOffer(getAllPendingReplacementRequests),
     )(state),
@@ -844,7 +879,8 @@ const connector = connect(
     replacementRequestOfferHistoryFilter:
       state.userPreference.replacementRequestOfferHistoryFilter,
     offerBulkLoading: state.offer.bulk.loading,
-    offerListLoading: state.offer.loading,
+    substitutionHistoryLoading:
+      state.replacementRequest.substitutionHistory.loading,
     establishmentGroupLoading: state.establishment.establishmentGroup.loading,
     coachLoading: state.coach.loading,
     metaActivityLoading: state.metaActivity.loading,
@@ -854,15 +890,16 @@ const connector = connect(
       state.replacementRequest.updateRequest.loading,
     replacementRequestCount: state.replacementRequest.count,
     replacementRequestPage: state.replacementRequest.page,
-    replacementRequestOfferHistoryCount: state.offer.paginatedCalendar.count,
-    replacementRequestOfferHistoryPage: state.offer.paginatedCalendar.page,
+    replacementRequestOfferHistoryCount:
+      state.replacementRequest.substitutionHistory.count,
+    replacementRequestOfferHistoryPage:
+      state.replacementRequest.substitutionHistory.page,
     hasRequestsLinkedToCancelledOffers:
       state.replacementRequest.hasRequestsLinkedToCancelledOffers.exists,
     hasRequestsLinkedToCancelledOffersLoading:
       state.replacementRequest.hasRequestsLinkedToCancelledOffers.loading,
   }),
   {
-    fetchAllOffersPaginated: fetchAllOffersPaginatedAction,
     fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
     fetchEstablishments: fetchEstablishmentsAction,
     fetchActivitiesCompany: fetchActivitiesCompanyAction,
@@ -884,6 +921,7 @@ const connector = connect(
     fetchSpecificAlertKind: fetchSpecificAlertKindAction,
     fetchHasRequestsLinkedToCancelledOffers:
       fetchHasRequestsLinkedToCancelledOffersAction,
+    fetchSubstitutionHistory: fetchSubstitutionHistoryAction,
   },
 );
 
@@ -1008,30 +1046,15 @@ const handlers = {
   },
   fetchReplacementRequestOfferHistory:
     ({
-      fetchAllOffersPaginated,
+      fetchSubstitutionHistory,
       replacementRequestOfferHistoryFilter,
-      replacementRequestManagerFilter,
       companyId,
     }: ConnectProps) =>
     (page: number) => {
-      // Map replacement request filters to offer filters
-      const {
-        coach__in,
-        meta_activity__in: meta_activity,
-        establishment__in,
-        establishment_group__in,
-        category__in,
-      } = replacementRequestManagerFilter;
-
-      fetchAllOffersPaginated({
-        ...replacementRequestOfferHistoryFilter,
-        ...(coach__in ? { coach__in } : {}),
-        ...(meta_activity ? { meta_activity } : {}),
-        ...(establishment__in ? { establishment__in } : {}),
-        ...(establishment_group__in ? { establishment_group__in } : {}),
-        ...(category__in ? { category__in } : {}),
-        coach_override__isnull: false,
+      fetchSubstitutionHistory({
         company: companyId,
+        min_date: replacementRequestOfferHistoryFilter.min_date,
+        max_date: replacementRequestOfferHistoryFilter.max_date,
         page_size: PAGE_SIZE,
         page,
       });

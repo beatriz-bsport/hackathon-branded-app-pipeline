@@ -101,6 +101,7 @@ type Props = {
       Level
     >,
   ) => void;
+  handleMarkSubstituteAsUnavailable?: (requestId: number) => void;
 };
 
 export const ActivitiesToReplaceTable: React.FC<Props> = ({
@@ -115,6 +116,7 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
   handleCoachAnswer,
   handleExtensionAction,
   handleReplaceAction,
+  handleMarkSubstituteAsUnavailable,
   selectedOffers,
   handleRefuseAction,
   isLoading,
@@ -209,6 +211,9 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                     handleCoachAnswer={handleCoachAnswer}
                     handleDeleteAction={handleDeleteAction}
                     handleExtensionAction={handleExtensionAction}
+                    handleMarkSubstituteAsUnavailable={
+                      handleMarkSubstituteAsUnavailable
+                    }
                     handleRefuseAction={handleRefuseAction}
                     handleReplaceAction={handleReplaceAction}
                     isLastItem={index === replacementRequestList.length - 1}
@@ -309,6 +314,9 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                     handleCoachAnswer={handleCoachAnswer}
                     handleDeleteAction={handleDeleteAction}
                     handleExtensionAction={handleExtensionAction}
+                    handleMarkSubstituteAsUnavailable={
+                      handleMarkSubstituteAsUnavailable
+                    }
                     handleRefuseAction={handleRefuseAction}
                     handleReplaceAction={handleReplaceAction}
                     replacementDisplay={replacementDisplay}

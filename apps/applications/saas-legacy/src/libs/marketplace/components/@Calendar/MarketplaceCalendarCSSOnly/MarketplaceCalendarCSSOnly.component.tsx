@@ -26,7 +26,6 @@ import MarketplaceWeekTimetableV2, {
 
 import './MarketplaceCalendarCSSOnly.css';
 import { MarketplaceFiltersSetter } from '#src/libs/marketplace/types';
-import { ImmutableObject } from 'seamless-immutable';
 
 const LoadingIndicator = () => (
   <div className="bs-calendar--loading">

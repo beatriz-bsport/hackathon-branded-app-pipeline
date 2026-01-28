@@ -474,6 +474,9 @@ export class MarketingRuleListPage extends Component<Props, State> {
 
         <MarketingRuleFormGeneric
           closeForm={this.closeForm}
+          contracts={this.props.contracts}
+          // @ts-expect-error
+          createFormOpenType={this.state.createFormOpen}
           emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.emailDetailById}
           emailListLoading={this.props.emailListLoading}
@@ -496,9 +499,6 @@ export class MarketingRuleListPage extends Component<Props, State> {
           privateServices={this.props.privateServices}
           resolvedGenericTags={this.props.resolvedGenericTags}
           selectedNotification={this.state.editNotification}
-          contracts={this.props.contracts}
-          // @ts-expect-error
-          createFormOpenType={this.state.createFormOpen}
           smartListLoading={this.props.smartListLoading}
           // @ts-expect-error
           smartLists={this.props.smartLists}

@@ -11,7 +11,7 @@ import { pure } from 'recompose';
 import MarketplaceFilterComponent from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly/MarketplaceFilterCSSOnly.component';
 import { Level } from '#src/libs/level/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
-import { Offer, OfferREST } from '#src/libs/offer/types';
+import { OfferREST } from '#src/libs/offer/types';
 import { Theme } from '#src/libs/theme/types';
 import MarketplaceDatePicker from '#src/libs/marketplace/components/@Date/MarketplaceDatePicker';
 import { Coach } from '#src/libs/associated-coach/types';
@@ -53,7 +53,7 @@ type Props = {
   showOfferGender?: boolean;
   establishmentGroupList: Array<EstablishmentGroup>;
   showMultiLocalization: boolean;
-  nextAvailableOffer?: Offer;
+  nextAvailableOffer?: OfferREST;
   goToFirstAvailableSession: () => void;
   getLevel: { [id: number]: Level };
   bookedOffers?: number[];

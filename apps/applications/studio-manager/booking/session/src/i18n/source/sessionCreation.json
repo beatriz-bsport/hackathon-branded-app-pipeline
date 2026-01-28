@@ -47,14 +47,12 @@
             "title": "Choose whether this session will be visible on the Member Area",
             "options": {
               "visible": {
-                "buttonLabel": "Visible",
-                "label": "Visible on Member Area",
-                "description": "This session will be available to book on the Member Area."
+                "label": "Listed",
+                "description": "Offering will be visible on the Member Area"
               },
               "hidden": {
-                "buttonLabel": "Hidden",
-                "label": "Hidden on Member Area",
-                "description": "This session won't be available on the Member Area, but can be booked with a link or via the Back Office."
+                "label": "Unlisted",
+                "description": "Offering won't be visible on the Member Area but can be shared directly via a link"
               }
             }
           }

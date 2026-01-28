@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 
 import Button from "#src/components/Button";
@@ -65,6 +65,18 @@ const ExpandableSearchInput: React.FC<ExpandableSearchInputProps> = ({
   const [displayedAsInput, setDisplayedAsInput] = useState(false);
   const [value, setValue] = useState(inputValue || "");
   const [isOpened, setIsOpened] = useState(false);
+
+  useEffect(() => {
+    if (inputValue !== undefined) {
+      setValue(inputValue);
+      if (inputValue === "") {
+        setIsOpened(false);
+      } else {
+        setIsOpened(true);
+        setDisplayedAsInput(true);
+      }
+    }
+  }, [inputValue]);
 
   const handleButtonClick = useCallback(() => {
     flushSync(() => {

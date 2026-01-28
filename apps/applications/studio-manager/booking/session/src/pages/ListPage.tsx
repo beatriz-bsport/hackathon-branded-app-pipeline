@@ -112,6 +112,24 @@ const ListPage: React.FC = () => {
   const hasEmptyResults =
     !isLoading && !sessionDataError && Object.keys(sessionsByDate).length === 0;
 
+  const onClickEmptySearchState = useCallback(() => {
+    setSearchQuery("");
+    resetFilters?.();
+  }, [resetFilters]);
+
+  const isFilterEmpty = useMemo(() => {
+    return (
+      isEmpty(filters) ||
+      Object.values(filters).every((filterValue) => {
+        return (
+          filterValue.field === null &&
+          filterValue.filter === null &&
+          filterValue.valueIds.length === 0
+        );
+      })
+    );
+  }, [filters]);
+
   const { shouldRenderEmptyState, EmptyState } = useEmptyState({
     isEmpty: hasEmptyResults,
     emptyConfig: {
@@ -127,13 +145,14 @@ const ListPage: React.FC = () => {
           }
         : undefined,
     },
-    isEmptySearch: hasEmptyResults && !isEmpty(filters),
+    isEmptySearch:
+      hasEmptyResults && (!isFilterEmpty || searchQuery.length > 0),
     emptySearchConfig: {
       title: t("emptySearchState.title"),
       subtitle: t("emptySearchState.subtitle"),
       secondaryButtonConfig: {
         label: t("emptySearchState.action"),
-        onClick: resetFilters,
+        onClick: onClickEmptySearchState,
         iconLeft: "x-close",
         intent: "default",
         color: "main",

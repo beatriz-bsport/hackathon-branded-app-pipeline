@@ -1,5 +1,9 @@
 import { type DateTime, modifyTime } from "@bsport/datetime-manipulation";
-import { DatePicker, type SelectedDate } from "@bsport/kaizen-primitive-core";
+import {
+  DatePicker,
+  type SelectedDate,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 
 import {
   CalendarView,
@@ -42,15 +46,18 @@ export const SessionDatePicker: React.FC = () => {
       ? selectedDate.date
       : [selectedDate.minDate, selectedDate.maxDate];
 
+  const isMobile = !useMatchMedia("sm");
+
   return (
     <DatePicker
       id="daily-sessions-picker"
       mode={calendarView === CalendarView.DAILY ? "single" : "range"}
       displayAs="popover"
       onSelect={onDateChange}
-      dateFormat="medium"
+      dateFormat={isMobile ? "short" : "medium"}
       dateValue={datePickerValue}
       disableDate={disableDate}
+      popoverPlacement="bottom"
     />
   );
 };

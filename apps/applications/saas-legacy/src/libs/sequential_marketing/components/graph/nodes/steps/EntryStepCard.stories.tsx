@@ -49,22 +49,21 @@ const eventTrigger = triggerFactory(TriggerKind.ONLY_EVENT_TRIGGER);
 
 const emailMarketingAction = stepMarketingActionFactory({
   kind: MarketingActionKind.COMMUNICATION,
-  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+  communication_kind: MarketingActions.WRITTEN_EMAIL,
 });
 
 const marketingActionList = [
   stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+    communication_kind: MarketingActions.WRITTEN_EMAIL,
   }),
   stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+    communication_kind: MarketingActions.SMS,
   }),
   stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind:
-      MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+    communication_kind: MarketingActions.PUSH_NOTIFICATION,
   }),
 ];
 
@@ -77,21 +76,19 @@ const getEmailTemplate = (_id: string) => emailTemplateSummary;
 const marketingActionFullList = [
   stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+    communication_kind: MarketingActions.WRITTEN_EMAIL,
   }),
   stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+    communication_kind: MarketingActions.SMS,
   }),
   stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind:
-      MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+    communication_kind: MarketingActions.PUSH_NOTIFICATION,
   }),
   stepMarketingActionFactory({
     kind: MarketingActionKind.COMMUNICATION,
-    communication_kind:
-      MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+    communication_kind: MarketingActions.EMAIL_TEMPLATE,
     email_design: emailTemplateSummary.id,
   }),
   stepMarketingActionFactory({

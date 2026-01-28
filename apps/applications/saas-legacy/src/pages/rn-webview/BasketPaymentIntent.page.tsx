@@ -41,7 +41,7 @@ import {
   getOffersListFromBasket,
 } from '#src/libs/checkout/selectors';
 import { PaymentMethod, type StripeInit } from '#src/libs/payment/types';
-import { unauthenticatedRequestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
+import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 import { getUsableCreditAccountBalance } from '#src/libs/membership/selectors';
 import { Basket, PrepaidLine } from '#src/libs/checkout/types';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';

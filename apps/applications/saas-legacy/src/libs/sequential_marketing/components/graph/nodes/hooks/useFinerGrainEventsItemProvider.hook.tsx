@@ -29,11 +29,11 @@ import {
 } from '@bsport/common/lib/master-data/events.js';
 
 /***
- * @description Generic provider for finner grain events item data in Audience
- * This hook can be used to fetch the items through their ids by the eventType that you pass to the function
- * so that you can rely on him to fetch and get the wanted item from the finner grain events.
+ * @description Generic provider for finer-grain events item data in Audience
+ * This hook can be used to fetch the items through their IDs by the eventType that you pass to the function
+ * so that you can rely on it to fetch and get the desired item from the finer-grain events.
  * ***/
-export const useFinnerGrainEventsItemProvider = () => {
+export const useFinerGrainEventsItemProvider = () => {
   const dispatch = useDispatch();
   const paymentPacks = useSelector(
     createSelector([getPaymentPackById], (data) => data),
@@ -55,7 +55,7 @@ export const useFinnerGrainEventsItemProvider = () => {
     }),
   );
 
-  const handleFetchFinnerGrainEventsItem = React.useCallback(
+  const handleFetchFinerGrainEventsItem = React.useCallback(
     (eventType: string, itemIds: number[]) => {
       if (eventType === GIFTCARD_EVENTS.CREATE) {
         const filteredIds = itemIds?.filter((id) => !(id in giftCards));
@@ -95,7 +95,7 @@ export const useFinnerGrainEventsItemProvider = () => {
     ],
   );
 
-  const getFinnerGrainEventsItem = React.useCallback(
+  const getFinerGrainEventsItem = React.useCallback(
     (eventType: string, itemIds: number[]) => {
       if (eventType === GIFTCARD_EVENTS.CREATE) {
         return itemIds?.map((id) => giftCards[id]).filter((item) => item);
@@ -114,7 +114,7 @@ export const useFinnerGrainEventsItemProvider = () => {
     [giftCards, paymentPacks, appointmentPacks, subscriptions, shopItems],
   );
 
-  return { handleFetchFinnerGrainEventsItem, getFinnerGrainEventsItem };
+  return { handleFetchFinerGrainEventsItem, getFinerGrainEventsItem };
 };
 
-export default useFinnerGrainEventsItemProvider;
+export default useFinerGrainEventsItemProvider;

@@ -15,6 +15,7 @@ import type {
   MinimalSession,
   PaginatedFetchSessionsParams,
   Session,
+  SessionCreationPayload,
 } from "#src/session/types";
 
 const API_URL = "book/v1";
@@ -218,6 +219,27 @@ export const cancelMultipleSessionsAPI = async (
   params: CancelMultipleSessionsParams,
 ): Promise<string | null> => {
   const [uri, init] = cancelMultipleSessionsAPIConfig(params);
+  const { backgroundTaskUuid } = await fetch(uri, init);
+  return backgroundTaskUuid;
+};
+
+export const createSessionAPIConfig = (
+  data: SessionCreationPayload,
+): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/create_similar_offers/`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    },
+  ];
+};
+
+export const createSessionAPI = async (
+  fetch: Fetch<Session>,
+  data: SessionCreationPayload,
+): Promise<string | null> => {
+  const [uri, init] = createSessionAPIConfig(data);
   const { backgroundTaskUuid } = await fetch(uri, init);
   return backgroundTaskUuid;
 };

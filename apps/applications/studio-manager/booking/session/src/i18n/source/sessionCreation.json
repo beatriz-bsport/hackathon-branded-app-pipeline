@@ -115,7 +115,8 @@
               "label": "Spot scheduling",
               "placeholder": "Choose an option...",
               "helper": "Allow your students to book a spot in the room in advance"
-            }
+            },
+            "syncOnSpivi": "Automatically send the session details to Spivi"
           },
           "broadcast": {
             "label": "Link to the livestream",
@@ -199,12 +200,18 @@
     "buttons": {
       "cancel": "Cancel",
       "back": "Back",
-      "createSession": "Create session"
+      "createSession": "Create session",
+      "open": "Open"
+    },
+    "toasts": {
+      "sessionCreated_one": "Session created",
+      "sessionCreated_other": "Sessions created"
     },
     "errors": {
       "requiredField": "This field is required",
       "levelNameTooLong": "Level name cannot exceed 50 characters",
-      "generic": "An error occurred. Please try again."
+      "generic": "An error occurred. Please try again.",
+      "create": "An error occurred while creating the session. Please try again later."
     }
   }
 }

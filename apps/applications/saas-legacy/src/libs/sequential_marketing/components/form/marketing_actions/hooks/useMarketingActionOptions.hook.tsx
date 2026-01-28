@@ -44,11 +44,8 @@ export const useMarketingActionOptions = ({
         customColor || SequentialMarketingColors.MARKETING_ACTION_COLOR,
       // MVP: for now we want to restrict access to SMS action
       isDisabled:
-        (marketingActionKind ===
-          MarketingActions.CADENCE_MARKETING_ACTION_SMS &&
-          !isSmsUpsellActive) ||
-        (marketingActionKind ===
-          MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION &&
+        (marketingActionKind === MarketingActions.SMS && !isSmsUpsellActive) ||
+        (marketingActionKind === MarketingActions.PUSH_NOTIFICATION &&
           !isPushNotificationUpsellActive),
     })) ?? [];
 

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 
 import { FormField } from "@bsport/form";
 import {
@@ -12,9 +12,10 @@ import { useFetchAllTeachers } from "#src/hooks/use-fetch-all-teachers";
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-export const TeacherSelectorField: FC<{ fieldIdPrefix: string }> = ({
-  fieldIdPrefix,
-}) => {
+export const TeacherSelectorField: FC<{
+  fieldIdPrefix: string;
+  defaultSelectedId: number | null;
+}> = ({ fieldIdPrefix, defaultSelectedId }) => {
   const { t } = useTranslation("sessionCreation");
 
   const restrictedTeachers = dataAccessLayer.useUserRestrictedTeachers();
@@ -30,6 +31,10 @@ export const TeacherSelectorField: FC<{ fieldIdPrefix: string }> = ({
     id: teacher.id.toString(),
     label: teacher.name,
   }));
+
+  const defaultSelectedIds = useMemo(() => {
+    return defaultSelectedId !== null ? [defaultSelectedId.toString()] : [];
+  }, [defaultSelectedId]);
 
   return (
     <FormField<SessionCreationFormData, "coach", AutocompleteProps>
@@ -57,6 +62,7 @@ export const TeacherSelectorField: FC<{ fieldIdPrefix: string }> = ({
           required: true,
         }}
         loadingProps={{ isLoading }}
+        defaultSelectedIds={defaultSelectedIds}
       />
     </FormField>
   );

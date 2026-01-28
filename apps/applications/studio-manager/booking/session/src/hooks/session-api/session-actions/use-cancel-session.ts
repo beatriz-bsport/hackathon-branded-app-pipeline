@@ -5,10 +5,7 @@ import { toast } from "@bsport/kaizen-primitive-core";
 
 import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
-import {
-  BACKGROUND_TASK_ERRORS,
-  useWaitForBackgroundTask,
-} from "#src/utils/fetch-background-task";
+import { useWaitForBackgroundTask } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
 
 const cancelSession = cancelSessionAPI.bind(null, fetch);
@@ -31,7 +28,9 @@ const getCountForTranslation = (params: CancelSessionParams): number => {
 export const useCancelSession = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("sessionList");
-  const waitForBackgroundTask = useWaitForBackgroundTask(fetch);
+
+  const { handleBackgroundTaskError, waitForBackgroundTask } =
+    useWaitForBackgroundTask(fetch);
 
   return useMutation<string | null, Error, CancelSessionVariables>({
     mutationFn: async ({ id, params }: CancelSessionVariables) => {
@@ -54,27 +53,7 @@ export const useCancelSession = () => {
       });
     },
     onError: (error: Error) => {
-      if (error.message === BACKGROUND_TASK_ERRORS.TASK_FAILURE) {
-        toast({
-          status: "critical",
-          description: t("cancelModal.errorMessage"),
-        });
-        return;
-      }
-      if (error.message === BACKGROUND_TASK_ERRORS.ENDPOINT_FAILURE) {
-        toast({
-          status: "critical",
-          description: t("backgroundTask.genericError"),
-        });
-        return;
-      }
-      if (error.message === BACKGROUND_TASK_ERRORS.TIMEOUT) {
-        toast({
-          status: "critical",
-          description: t("backgroundTask.timeoutError"),
-        });
-        return;
-      }
+      handleBackgroundTaskError(error, t("cancelModal.errorMessage"));
     },
   });
 };

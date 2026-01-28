@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 
 import type {
-  CadenceFinnerGrainEventsSearchObjectTypes,
+  CadenceFinerGrainEventsSearchObjectTypes,
   ConnectedTrigger,
   TriggerEventConfig,
 } from '#src/libs/sequential_marketing/types';
@@ -23,15 +23,14 @@ import useEventContext, {
 import { removeFilteredPks } from '#src/libs/sequential_marketing/utils';
 
 import {
-  CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST,
+  CADENCE_FINER_GRAIN_ALLOWED_EVENTS_LIST,
   Events,
 } from '#src/libs/sequential_marketing/constants/event';
 import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
 import { CustomMuiIcon } from '#src/components/icons/CustomMuiIcon.component';
 import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
-import FinnerGrainSpecificItemSelector from '#src/libs/sequential_marketing/components/form/connected_triggers/trigger_forms/FinnerGrainItemSelector.component';
-import useWhitelistFinnerGrainEvents from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useWhitelistFinnerGrainEvents.hook';
+import FinerGrainItemSelector from '#src/libs/sequential_marketing/components/form/connected_triggers/trigger_forms/FinerGrainItemSelector.component';
 
 type Props = {
   trigger: ConnectedTrigger;
@@ -48,17 +47,15 @@ const EventAndSmartlistForm: React.FC<Props> = ({
   const [isEventMenuOpen, setIsEventMenuOpen] = React.useState(false);
   const [isSmartlistMenuOpen, setIsSmartlistMenuOpen] = React.useState(false);
   const [toggleSpecificItems, setToggleSpecificItems] = React.useState(false);
-  const [initialFinnerGrainItemIds, setInitialFinnerGrainItemIds] =
+  const [initialFinerGrainItemIds, setInitialFinerGrainItemIds] =
     React.useState<number[]>([]);
   const [searchedObjectType, setSearchedObjectType] =
-    React.useState<CadenceFinnerGrainEventsSearchObjectTypes | null>(null);
+    React.useState<CadenceFinerGrainEventsSearchObjectTypes | null>(null);
 
   const classes = useStyles();
 
   const { eventSelected, selectEvent, CADENCE_EVENT_GROUPED_OPTIONS } =
     useEventContext();
-  const { isAudienceFinnerGrainEventsActivated } =
-    useWhitelistFinnerGrainEvents();
 
   const {
     smartlistSelected,
@@ -67,7 +64,7 @@ const EventAndSmartlistForm: React.FC<Props> = ({
     SMARTLIST_OPTIONS,
   } = useSmartlistContext(smartlists);
 
-  const selectFinnerGrainEventSearchObject = React.useCallback(
+  const selectFinerGrainEventSearchObject = React.useCallback(
     (event: Events) => {
       switch (event) {
         case Events.CADENCE_EVENT_PURCHASE_PAYMENT_PACK:
@@ -101,15 +98,14 @@ const EventAndSmartlistForm: React.FC<Props> = ({
         label: t(`cadence.form.event.${event}`),
         value: event,
       });
-      selectFinnerGrainEventSearchObject(event);
+      selectFinerGrainEventSearchObject(event);
       const filteredItemsIds = (trigger?.trigger_config as TriggerEventConfig)
         ?.filtered_pks;
       if (
         filteredItemsIds &&
-        CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(event) &&
-        isAudienceFinnerGrainEventsActivated
+        CADENCE_FINER_GRAIN_ALLOWED_EVENTS_LIST.includes(event)
       ) {
-        setInitialFinnerGrainItemIds(filteredItemsIds);
+        setInitialFinerGrainItemIds(filteredItemsIds);
         setToggleSpecificItems(true);
       }
     }
@@ -125,11 +121,10 @@ const EventAndSmartlistForm: React.FC<Props> = ({
     selectEvent,
     selectSmartlist,
     setToggleSpecificItems,
-    setInitialFinnerGrainItemIds,
-    selectFinnerGrainEventSearchObject,
+    setInitialFinerGrainItemIds,
+    selectFinerGrainEventSearchObject,
     t,
     trigger,
-    isAudienceFinnerGrainEventsActivated,
   ]);
 
   const handleSelectEvent = React.useCallback(
@@ -141,12 +136,12 @@ const EventAndSmartlistForm: React.FC<Props> = ({
           event_type: option?.value,
         },
       };
-      selectFinnerGrainEventSearchObject(option?.value);
+      selectFinerGrainEventSearchObject(option?.value);
       selectEvent?.(option);
       updateValue?.(updatedTrigger);
       setToggleSpecificItems(false);
     },
-    [trigger, selectEvent, updateValue, selectFinnerGrainEventSearchObject],
+    [trigger, selectEvent, updateValue, selectFinerGrainEventSearchObject],
   );
 
   const handleSpecificItemChange = React.useCallback(
@@ -229,20 +224,19 @@ const EventAndSmartlistForm: React.FC<Props> = ({
           </div>
         </ClickAwayListener>
         {eventSelected &&
-          CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(
+          CADENCE_FINER_GRAIN_ALLOWED_EVENTS_LIST.includes(
             eventSelected.value,
-          ) &&
-          isAudienceFinnerGrainEventsActivated && (
+          ) && (
             <FormControlLabel
               control={<Switch checked={toggleSpecificItems} color="primary" />}
               label={t(
-                'cadence.form.trigger.finnerGrain.specifyItemsToggleLabel',
+                'cadence.form.trigger.finerGrain.specifyItemsToggleLabel',
               )}
               onClick={handleSpecificItemsToggle}
             />
           )}
-        <FinnerGrainSpecificItemSelector
-          defaultItemsIds={initialFinnerGrainItemIds}
+        <FinerGrainItemSelector
+          defaultItemsIds={initialFinerGrainItemIds}
           handleSpecificItemChange={handleSpecificItemChange}
           open={toggleSpecificItems}
           searchedObjectType={searchedObjectType}

@@ -34,11 +34,17 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/currency": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/local-storage-auth-token": "workspace:*",
     "@bsport/store-base": "workspace:*",
+    "@bsport/store-buyables-appointment-pass": "workspace:*",
+    "@bsport/store-buyables-giftcard": "workspace:*",
+    "@bsport/store-buyables-pack": "workspace:*",
+    "@bsport/store-buyables-pass": "workspace:*",
+    "@bsport/store-buyables-webshop": "workspace:*",
     "@bsport/store-core-data-member": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",
@@ -65,6 +71,9 @@
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.5.3",
     "vite-plugin-svgr": "^4.3.0"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.90.12"
   },
   "nx": {
     "tags": [

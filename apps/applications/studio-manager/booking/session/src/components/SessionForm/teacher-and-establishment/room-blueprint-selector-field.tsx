@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useMemo } from "react";
 
 import { FormField, useFormContext } from "@bsport/form";
 import { Autocomplete, AutocompleteProps } from "@bsport/kaizen-primitive-core";
@@ -7,9 +7,10 @@ import { useFetchRoomBlueprints } from "#src/hooks/use-fetch-room-blueprint";
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-export const RoomBlueprintSelectorField: FC<{ fieldIdPrefix: string }> = ({
-  fieldIdPrefix,
-}) => {
+export const RoomBlueprintSelectorField: FC<{
+  fieldIdPrefix: string;
+  defaultSelectedId: number | null;
+}> = ({ fieldIdPrefix, defaultSelectedId }) => {
   const { t } = useTranslation("sessionCreation");
 
   const { watch, setValue } = useFormContext<SessionCreationFormData>();
@@ -31,6 +32,10 @@ export const RoomBlueprintSelectorField: FC<{ fieldIdPrefix: string }> = ({
 
   const hasNoRoomBlueprints =
     roomBlueprintsItems.length === 0 || !watch("establishment");
+
+  const defaultSelectedIds = useMemo(() => {
+    return defaultSelectedId !== null ? [defaultSelectedId.toString()] : [];
+  }, [defaultSelectedId]);
 
   if (hasNoRoomBlueprints) return null;
 
@@ -66,6 +71,7 @@ export const RoomBlueprintSelectorField: FC<{ fieldIdPrefix: string }> = ({
         }}
         loadingProps={{ isLoading }}
         disabled={hasNoRoomBlueprints}
+        defaultSelectedIds={defaultSelectedIds}
       />
     </FormField>
   );

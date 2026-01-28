@@ -46,7 +46,7 @@
         "memberProfile": "Buyer member profile"
       },
       "errors": {
-        "failToGetInvoice": "Failed to access related invoice"
+        "failToGetInvoice": "Couldn't access related invoice. Please try again. "
       }
     }
   },
@@ -70,7 +70,7 @@
       },
       "tooltips": {
         "credits": "Credits",
-        "price": "Price",
+        "price": "Amount",
         "unavailableForMember": "Unlisted",
         "invisibleToStaff": "Hidden",
         "category": "Category"
@@ -116,15 +116,15 @@
     "advancedSection": {
       "title": "Advanced",
       "tagsSelector": {
-        "title": "Tag(s) after purchase",
-        "helperText": "Add tags to identify which member bought this pack.",
+        "title": "Tag after purchase",
+        "helperText": "Add tags to identify who buys this pack.",
         "placeholder": "Add tags..."
       }
     },
     "pricingSection": {
-      "title": "Cost & Payment",
+      "title": "Pricing",
       "price": {
-        "label": "Price",
+        "label": "Amount",
         "helperText": "Total value of items in this pack: {{ amount }}"
       },
       "taxToggle": {

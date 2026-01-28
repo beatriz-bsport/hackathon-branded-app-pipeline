@@ -1,11 +1,18 @@
 import type { FC } from "react";
 
-import { Divider, Title } from "@bsport/kaizen-primitive-core";
+import { Title } from "@bsport/kaizen-primitive-core";
 
+import { selectStepFormData } from "#src/stores/session-creation/selectors";
+import {
+  SESSION_CREATION_STEPS,
+  useSessionCreationStore,
+} from "#src/stores/session-creation/store";
+import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { EstablishmentSelectorField } from "./establishment-selector-field";
 import { RoomBlueprintSelectorField } from "./room-blueprint-selector-field";
+import { SyncOnSpiviField } from "./sync-on-spivi-field";
 import { TeacherPaymentRuleSelectorField } from "./teacher-payment-rule-selector-field";
 import { TeacherSelectorField } from "./teacher-selector-field";
 
@@ -13,18 +20,36 @@ export const SessionTeacherAndEstablishment: FC<{
   fieldIdPrefix: string;
 }> = ({ fieldIdPrefix }) => {
   const { t } = useTranslation("sessionCreation");
+
+  const { coach, coach_payment_rule, establishment, room_blueprint } =
+    useSessionCreationStore(
+      selectStepFormData(SESSION_CREATION_STEPS.CONFIGURE_SESSION),
+    ) as SessionCreationFormData;
+
   return (
-    <section className="flex flex-col gap-md">
+    <section className="flex flex-col gap-md pb-md">
       <Title htmlVariant="h5">
         {t(
           "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.title",
         )}
       </Title>
-      <TeacherSelectorField fieldIdPrefix={fieldIdPrefix} />
-      <TeacherPaymentRuleSelectorField fieldIdPrefix={fieldIdPrefix} />
-      <EstablishmentSelectorField fieldIdPrefix={fieldIdPrefix} />
-      <RoomBlueprintSelectorField fieldIdPrefix={fieldIdPrefix} />
-      <Divider orientation="horizontal" weight="thin" className="my-xl" />
+      <TeacherSelectorField
+        fieldIdPrefix={fieldIdPrefix}
+        defaultSelectedId={coach}
+      />
+      <TeacherPaymentRuleSelectorField
+        fieldIdPrefix={fieldIdPrefix}
+        defaultSelectedId={coach_payment_rule}
+      />
+      <EstablishmentSelectorField
+        fieldIdPrefix={fieldIdPrefix}
+        defaultSelectedId={establishment}
+      />
+      <RoomBlueprintSelectorField
+        fieldIdPrefix={fieldIdPrefix}
+        defaultSelectedId={room_blueprint}
+      />
+      <SyncOnSpiviField fieldIdPrefix={fieldIdPrefix} />
     </section>
   );
 };

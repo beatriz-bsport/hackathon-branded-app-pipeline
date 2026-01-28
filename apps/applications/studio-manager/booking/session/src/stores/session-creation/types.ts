@@ -25,7 +25,7 @@ export type SessionBase = {
   meta_activity?: number;
   name_override: string;
   partner_max_booking_count: number;
-  room_blueprint?: number | null;
+  room_blueprint: number | null;
   sync_on_spivi?: boolean;
   waiting_list_max_size: number;
   wellhub_product_id?: number | null;
@@ -76,6 +76,7 @@ export type SessionCreationFormData = Pick<
   | "broadcast_link"
   | "establishment"
   | "room_blueprint"
+  | "sync_on_spivi"
 > & {
   allowCustomNameAndDescription: boolean;
   startDateTime: Date;

@@ -25,7 +25,7 @@ import CadenceOutputCollapse from '#src/libs/sequential_marketing/components/gra
 import CadenceOutput from '#src/libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutput.component';
 import OutputWonTriggerBubble from '#src/libs/sequential_marketing/components/graph/bubbles/OutputWonTriggerBubble.component';
 import OutputLostTriggerBubble from '#src/libs/sequential_marketing/components/graph/bubbles/OutputLostTriggerBubble.component';
-import useFinnerGrainEventsItemProvider from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useFinnerGrainEventsItemProvider.hook';
+import useFinerGrainEventsItemProvider from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useFinerGrainEventsItemProvider.hook';
 
 import {
   DestinationStatus,
@@ -35,14 +35,14 @@ import {
 import type {
   ConnectedTrigger,
   CadenceInitialConfiguration,
-  FinnerGrainEventBaseSetup,
+  FinerGrainEventBaseSetup,
   TriggerEventConfig,
 } from '#src/libs/sequential_marketing/types';
 import type { SmartList } from '#src/libs/smart-list/types';
 import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#src/libs/sequential_marketing/constants/keywords';
 import Config from '#src/config';
 import {
-  checkIsValidFinnerGrainTrigger,
+  checkIsValidFinerGrainTrigger,
   getTriggerConfigType,
 } from '#src/libs/sequential_marketing/utils';
 
@@ -110,7 +110,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
 
   const [showMap, setShowMap] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(true);
-  const [hasFinnerGrainItemsError, setHasFinnerGrainItemsError] =
+  const [hasFinerGrainItemsError, setHasFinerGrainItemsError] =
     React.useState(false);
 
   const [anchorWonTriggerBubble, setAnchorWonTriggerBubble] =
@@ -118,8 +118,8 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
   const [anchorLostTriggerBubble, setAnchorLostTriggerBubble] =
     React.useState<HTMLElement | null>(null);
 
-  const { handleFetchFinnerGrainEventsItem, getFinnerGrainEventsItem } =
-    useFinnerGrainEventsItemProvider();
+  const { handleFetchFinerGrainEventsItem, getFinerGrainEventsItem } =
+    useFinerGrainEventsItemProvider();
 
   const openWonCriteriaBubble = React.useCallback((timeout?: number) => {
     const outputWon = document.getElementById('output_won');
@@ -304,9 +304,9 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
   );
   // ========================================================
 
-  // ================= CHECK FINNER GRAIN ERRORS IN EXIT RULES =================
+  // ================= CHECK FINER GRAIN ERRORS IN EXIT RULES =================
 
-  const getValidFinnerGrainTriggers = (triggers: ConnectedTrigger[]) => {
+  const getValidFinerGrainTriggers = (triggers: ConnectedTrigger[]) => {
     return triggers
       .filter(
         (trigger) =>
@@ -315,29 +315,29 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
       )
       .map((trigger) => {
         const triggerConfig = trigger.trigger_config as TriggerEventConfig;
-        return checkIsValidFinnerGrainTrigger(triggerConfig)
+        return checkIsValidFinerGrainTrigger(triggerConfig)
           ? {
               eventType: triggerConfig.event_type,
               itemIds: triggerConfig.filtered_pks || [],
             }
           : null;
       })
-      .filter(Boolean) as FinnerGrainEventBaseSetup[];
+      .filter(Boolean) as FinerGrainEventBaseSetup[];
   };
 
-  const checkIfExitRulesHaveFinnerGrainEventsErrors = React.useCallback(() => {
-    const triggersFinnerGrainItem: FinnerGrainEventBaseSetup[] = [
-      ...getValidFinnerGrainTriggers(wonConnectedTriggers || []),
-      ...getValidFinnerGrainTriggers(lostConnectedTriggers || []),
+  const checkIfExitRulesHaveFinerGrainEventsErrors = React.useCallback(() => {
+    const triggersFinerGrainItem: FinerGrainEventBaseSetup[] = [
+      ...getValidFinerGrainTriggers(wonConnectedTriggers || []),
+      ...getValidFinerGrainTriggers(lostConnectedTriggers || []),
     ];
 
-    triggersFinnerGrainItem?.forEach((trigger) =>
-      handleFetchFinnerGrainEventsItem(trigger.eventType, trigger.itemIds),
+    triggersFinerGrainItem?.forEach((trigger) =>
+      handleFetchFinerGrainEventsItem(trigger.eventType, trigger.itemIds),
     );
 
-    const numberOfValidEvents = triggersFinnerGrainItem.filter((trigger) => {
+    const numberOfValidEvents = triggersFinerGrainItem.filter((trigger) => {
       const events =
-        getFinnerGrainEventsItem(trigger.eventType, trigger.itemIds) || [];
+        getFinerGrainEventsItem(trigger.eventType, trigger.itemIds) || [];
       return !events.some(
         (element) =>
           ('private_services' in element && !element.available) ||
@@ -345,19 +345,19 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
       );
     }).length;
 
-    setHasFinnerGrainItemsError(
-      numberOfValidEvents !== triggersFinnerGrainItem?.length,
+    setHasFinerGrainItemsError(
+      numberOfValidEvents !== triggersFinerGrainItem?.length,
     );
   }, [
     wonConnectedTriggers,
     lostConnectedTriggers,
-    handleFetchFinnerGrainEventsItem,
-    getFinnerGrainEventsItem,
+    handleFetchFinerGrainEventsItem,
+    getFinerGrainEventsItem,
   ]);
 
   React.useEffect(() => {
-    checkIfExitRulesHaveFinnerGrainEventsErrors();
-  }, [checkIfExitRulesHaveFinnerGrainEventsErrors]);
+    checkIfExitRulesHaveFinerGrainEventsErrors();
+  }, [checkIfExitRulesHaveFinerGrainEventsErrors]);
 
   // ========================================================
 
@@ -396,7 +396,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
 
         <div className={classes.outputSection}>
           <CadenceOutputCollapse
-            hasFinnerGrainItemsError={hasFinnerGrainItemsError}
+            hasFinerGrainItemsError={hasFinerGrainItemsError}
             isOpen={creationMode}
           >
             <div id="output_won">

@@ -1,3 +1,5 @@
+import clsx from "clsx";
+
 import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
@@ -49,7 +51,7 @@ export function formatMinutes(minutesNumber: number, t: TFunction) {
   return readableDuration;
 }
 
-export const useSessionListColumns = () => {
+export const useSessionListColumns = (isMobile: boolean) => {
   const { t, i18n } = useTranslation("sessionList");
   const intlLocale = i18n?.language;
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
@@ -101,7 +103,11 @@ export const useSessionListColumns = () => {
     },
   };
 
-  const sessionClassName = "truncate max-w-[202px]";
+  const sessionClassName = clsx(
+    "truncate max-w-[202px] text-title-sm font-strong leading-md",
+    "lg:text-body-md lg:font-weak line-height-body-md lg:leading-sm",
+  );
+
   const sessionNameColumn: TableColumn = {
     header: t("table.headers.sessionName"),
     label: t("table.headers.sessionName"),
@@ -180,13 +186,23 @@ export const useSessionListColumns = () => {
     ),
   };
 
-  return [
-    timeColumn,
-    sessionNameColumn,
-    teacherNameColumn,
-    participantsColumn,
-    establishmentNameColumn,
-    sessionTypeColumn,
-    actionsColumn,
-  ];
+  return isMobile
+    ? [
+        timeColumn,
+        sessionNameColumn,
+        teacherNameColumn,
+        establishmentNameColumn,
+        participantsColumn,
+        sessionTypeColumn,
+        actionsColumn,
+      ]
+    : [
+        timeColumn,
+        sessionNameColumn,
+        teacherNameColumn,
+        participantsColumn,
+        establishmentNameColumn,
+        sessionTypeColumn,
+        actionsColumn,
+      ];
 };

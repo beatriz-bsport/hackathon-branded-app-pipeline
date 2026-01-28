@@ -1,12 +1,12 @@
 import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { Suspense, useEffect } from "react";
 
 import { setLocalAPIEnv } from "@bsport/fetch";
 import "@bsport/kaizen-tokens/src/index.css";
 
 import { authenticateDev } from "../../business-components/.storybook/auth-helper";
-// Business components i18n
 import { I18nProvider as FinancialServicesI18nProvider } from "../../business-components/financial-services/src/components/I18nProvider";
 import {
   type Translations as FinancialServicesTranslations,
@@ -56,6 +56,16 @@ const { i18nInstance: financialServicesI18nInstance } =
     inMemoryTranslationsLoader: financialServicesInMemoryTranslationsLoader,
   });
 
+// Create a QueryClient instance for React Query
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
 const preview: Preview = {
   decorators: [
     (Story, context) => {
@@ -69,15 +79,17 @@ const preview: Preview = {
 
       return (
         <React.StrictMode>
-          <Suspense fallback={<p>Loading translations ...</p>}>
-            <KaizenI18nProvider kaizenI18nInstance={primitiveI18nInstance}>
-              <FinancialServicesI18nProvider
-                kaizenI18nInstance={financialServicesI18nInstance}
-              >
-                <Story />
-              </FinancialServicesI18nProvider>
-            </KaizenI18nProvider>
-          </Suspense>
+          <QueryClientProvider client={queryClient}>
+            <Suspense fallback={<p>Loading translations ...</p>}>
+              <KaizenI18nProvider kaizenI18nInstance={primitiveI18nInstance}>
+                <FinancialServicesI18nProvider
+                  kaizenI18nInstance={financialServicesI18nInstance}
+                >
+                  <Story />
+                </FinancialServicesI18nProvider>
+              </KaizenI18nProvider>
+            </Suspense>
+          </QueryClientProvider>
         </React.StrictMode>
       );
     },

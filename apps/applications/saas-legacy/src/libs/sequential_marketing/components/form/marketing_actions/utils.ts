@@ -25,7 +25,7 @@ export const getMarketingActionPartialValues = (
   marketingActionId?: number,
 ): Partial<StepMarketingActions> => {
   switch (marketingActionType) {
-    case MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL:
+    case MarketingActions.WRITTEN_EMAIL:
       return {
         id: marketingActionId || null,
         name: '',
@@ -34,11 +34,10 @@ export const getMarketingActionPartialValues = (
           text_content: '',
           subject: '',
           email_design: null,
-          communication_kind:
-            MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+          communication_kind: MarketingActions.WRITTEN_EMAIL,
         },
       };
-    case MarketingActions.CADENCE_MARKETING_ACTION_SMS:
+    case MarketingActions.SMS:
       return {
         id: marketingActionId || null,
         name: '',
@@ -47,10 +46,10 @@ export const getMarketingActionPartialValues = (
           text_content: '',
           subject: '',
           email_design: null,
-          communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+          communication_kind: MarketingActions.SMS,
         },
       };
-    case MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION:
+    case MarketingActions.PUSH_NOTIFICATION:
       return {
         id: marketingActionId || null,
         name: '',
@@ -59,11 +58,10 @@ export const getMarketingActionPartialValues = (
           text_content: '',
           subject: '',
           email_design: null,
-          communication_kind:
-            MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+          communication_kind: MarketingActions.PUSH_NOTIFICATION,
         },
       };
-    case MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE:
+    case MarketingActions.EMAIL_TEMPLATE:
       return {
         id: marketingActionId || null,
         name: '',
@@ -72,11 +70,10 @@ export const getMarketingActionPartialValues = (
           text_content: '',
           subject: '',
           email_design: null,
-          communication_kind:
-            MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+          communication_kind: MarketingActions.EMAIL_TEMPLATE,
         },
       };
-    case MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT:
+    case MarketingActions.ADD_TAG:
       return {
         id: marketingActionId || null,
         name: '',
@@ -98,5 +95,5 @@ export const getMarketingActionType = (
       marketingAction.action_spec as StepMarketingActionsCommunicationSpec;
     return actionSpec.communication_kind;
   }
-  return MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT;
+  return MarketingActions.ADD_TAG;
 };

@@ -2,6 +2,7 @@ import {
   getStartOf,
   isWithinRange,
   toDate,
+  toDateTime,
 } from "@bsport/datetime-manipulation";
 
 import {
@@ -34,6 +35,9 @@ function generateByDayOfMonth(config: CustomMonthsConfig): Date[] {
 
   const dates: Date[] = [];
 
+  const originalDateTime = toDateTime(config.startDate, config.timezone);
+  const { hour, minute, second, millisecond } = originalDateTime;
+
   const startDateTime = getStartOf(config.startDate, "day", config.timezone);
   const endDateTime = getStartOf(config.endDate, "day", config.timezone);
 
@@ -42,7 +46,14 @@ function generateByDayOfMonth(config: CustomMonthsConfig): Date[] {
   // Continue while the current month could contain dates in our range
   while (current <= endDateTime) {
     // Check if the day exists in current month (e.g., Feb 31 doesn't exist)
-    const targetDate = current.set({ day: config.dayOfMonth });
+
+    const targetDate = current.set({
+      day: config.dayOfMonth,
+      hour,
+      minute,
+      second,
+      millisecond,
+    });
 
     if (
       targetDate.month === current.month &&
@@ -62,6 +73,9 @@ function generateByWeekdayPosition(config: CustomMonthsConfig): Date[] {
 
   const dates: Date[] = [];
 
+  const originalDateTime = toDateTime(config.startDate, config.timezone);
+  const { hour, minute, second, millisecond } = originalDateTime;
+
   const startDateTime = getStartOf(config.startDate, "day", config.timezone);
   const endDateTime = getStartOf(config.endDate, "day", config.timezone);
 
@@ -80,7 +94,13 @@ function generateByWeekdayPosition(config: CustomMonthsConfig): Date[] {
       occurrence &&
       isWithinRange(occurrence, startDateTime, endDateTime, config.timezone)
     ) {
-      dates.push(toDate(occurrence));
+      const occurrenceWithTime = occurrence.set({
+        hour,
+        minute,
+        second,
+        millisecond,
+      });
+      dates.push(toDate(occurrenceWithTime));
     }
 
     current = current.plus({ months: config.interval });

@@ -1,6 +1,8 @@
 import { useFormController } from "@bsport/form";
-import { ModalStepper } from "@bsport/kaizen-primitive-core";
+import { ModalStepper, toast } from "@bsport/kaizen-primitive-core";
 
+import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
+import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
 import {
   goToNextStep,
   goToPreviousStep,
@@ -38,6 +40,8 @@ type AddSessionModalProps = {
 export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
   const { t } = useTranslation("sessionCreation");
 
+  const { mutate: createSession, isPending } = useCreateSession();
+
   const configureSessionFormData = useSessionCreationStore(
     selectStepFormData(SESSION_CREATION_STEPS.CONFIGURE_SESSION),
   ) as SessionCreationFormData;
@@ -50,17 +54,19 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
 
   const configureSessionMethods = useFormController({
     schema: configureSessionSchema,
-    mode: "onSubmit",
+    mode: "onChange",
     shouldFocusError: true,
     defaultValues: configureSessionFormData,
   });
 
   const advancedOptionsMethods = useFormController({
     schema: advancedOptionsSchema,
-    mode: "onSubmit",
+    mode: "onChange",
     shouldFocusError: true,
     defaultValues: advancedOptionsFormData,
   });
+
+  const { buildPayload } = useSessionCreationPayload();
 
   const selectedGroupActivity = useSessionCreationStore(
     selectSelectedGroupActivity,
@@ -71,7 +77,13 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     resetForm();
   };
 
-  const handleClose = () => {
+  const handleClickOutisde = () => {
+    if (
+      configureSessionMethods.formState.isDirty ||
+      advancedOptionsMethods.formState.isDirty
+    ) {
+      return;
+    }
     onClose?.();
   };
 
@@ -83,6 +95,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
   };
 
   const currentStep = useSessionCreationStore(selectCurrentStep);
+
   const isCurrentStepValid = useSessionCreationStore(selectIsCurrentStepValid);
 
   const handleConfirm = () => {
@@ -108,24 +121,57 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       );
     }
 
+    if (currentStep === SESSION_CREATION_STEPS.ADVANCED_OPTIONS) {
+      const advancedData = advancedOptionsMethods.getValues();
+      setStepValid(
+        SESSION_CREATION_STEPS.ADVANCED_OPTIONS,
+        advancedOptionsMethods.formState.isValid,
+      );
+
+      try {
+        const payload = buildPayload({
+          configureSessionData: configureSessionFormData,
+          advancedOptionsData: advancedData,
+          metaActivityId: selectedGroupActivity?.id,
+        });
+
+        createSession({
+          payload,
+          onEarlySuccess: () => {
+            resetForm();
+            advancedOptionsMethods.reset();
+            configureSessionMethods.reset();
+            onClose?.();
+          },
+        });
+        return;
+      } catch (error) {
+        toast({
+          status: "critical",
+          description: t("addSessionModal.errors.create"),
+        });
+        console.error("Error building session payload:", error);
+        return;
+      }
+    }
     if (!isLastStep) {
       goToNextStep();
-      return;
     }
-
-    // Submit the form - actual business logic here
-    console.log("Form submitted");
   };
 
   const checkIfCurrentStepValid = () => {
     if (currentStep === SESSION_CREATION_STEPS.CONFIGURE_SESSION) {
       return configureSessionMethods.formState.isValid;
     }
+    if (currentStep === SESSION_CREATION_STEPS.ADVANCED_OPTIONS) {
+      return advancedOptionsMethods.formState.isValid;
+    }
     return isCurrentStepValid;
   };
 
   return (
     <ModalStepper
+      key={String(isOpen)}
       open={isOpen}
       title={t("addSessionModal.title")}
       size="lg"
@@ -151,14 +197,15 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
         label: t("addSessionModal.buttons.createSession"),
         color: "main",
         onClick: handleConfirm,
+        disabled: isPending,
       }}
       cancelButton={{
         label: t("addSessionModal.buttons.cancel"),
         onClick: handleClickOnCancel,
       }}
-      onClickOutside={handleClose}
+      onClickOutside={handleClickOutisde}
       onCloseButtonClick={handleCloseButtonClick}
-      onClose={handleClose}
+      onClose={() => onClose?.()}
     />
   );
 };

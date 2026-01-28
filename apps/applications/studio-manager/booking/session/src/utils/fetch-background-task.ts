@@ -1,7 +1,8 @@
 import { Fetch } from "@bsport/fetch";
-import { dismissToast } from "@bsport/kaizen-primitive-core";
+import { dismissToast, toast } from "@bsport/kaizen-primitive-core";
 import { fetchBackgroundTaskAction } from "@bsport/store-shared-background-task";
 
+import { useTranslation } from "./i18n";
 import { useAddProcessingToast } from "./processing-toast";
 
 export const BACKGROUND_TASK_ERRORS = {
@@ -11,9 +12,11 @@ export const BACKGROUND_TASK_ERRORS = {
 };
 
 export const useWaitForBackgroundTask = (fetchFn: Fetch) => {
+  const { t } = useTranslation("common");
+
   const addProcessingToast = useAddProcessingToast();
 
-  return (uuid: string): Promise<string> => {
+  const waitForBackgroundTask = (uuid: string): Promise<string> => {
     const fetchBackgroundTask = fetchBackgroundTaskAction.bind(null, fetchFn);
 
     const toastId = addProcessingToast();
@@ -42,4 +45,24 @@ export const useWaitForBackgroundTask = (fetchFn: Fetch) => {
       });
     });
   };
+
+  const handleBackgroundTaskError = (
+    error: Error,
+    taskFailureDescription: string,
+  ) => {
+    const errorMessages = {
+      [BACKGROUND_TASK_ERRORS.TASK_FAILURE]: taskFailureDescription,
+      [BACKGROUND_TASK_ERRORS.ENDPOINT_FAILURE]: t(
+        "backgroundTask.genericError",
+      ),
+      [BACKGROUND_TASK_ERRORS.TIMEOUT]: t("backgroundTask.timeoutError"),
+    };
+
+    const description = errorMessages[error.message];
+    if (description) {
+      toast({ status: "critical", description });
+    }
+  };
+
+  return { waitForBackgroundTask, handleBackgroundTaskError };
 };

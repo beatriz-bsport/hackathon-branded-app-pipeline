@@ -6,45 +6,45 @@ import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core';
 
 import SubdirectoryArrowRight from '#src/components/icons/SubdirectoryArrowRight';
-import useFinnerGrainEventsItemProvider from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useFinnerGrainEventsItemProvider.hook';
+import useFinerGrainEventsItemProvider from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useFinerGrainEventsItemProvider.hook';
 import { CadenceChip } from '#src/libs/sequential_marketing/components/graph/chips/CadenceChip.component';
 import { CadenceStatusColors } from '#src/libs/sequential_marketing/constants';
 
-type FinnerGrainEventItemContainerProps = {
+type FinerGrainEventItemContainerProps = {
   itemIds: number[];
   disabled: boolean;
   eventType: string;
   color: string;
 };
 
-const FinnerGrainEventItemContainer: React.FC<
-  FinnerGrainEventItemContainerProps
+const FinerGrainEventItemContainer: React.FC<
+  FinerGrainEventItemContainerProps
 > = ({ disabled, eventType, itemIds, color }) => {
   const { t } = useTranslation('marketing');
-  const classes = useFinnerGrainStyles();
-  const { handleFetchFinnerGrainEventsItem, getFinnerGrainEventsItem } =
-    useFinnerGrainEventsItemProvider();
+  const classes = useFinerGrainStyles();
+  const { handleFetchFinerGrainEventsItem, getFinerGrainEventsItem } =
+    useFinerGrainEventsItemProvider();
 
   React.useEffect(() => {
     if (eventType && itemIds)
-      handleFetchFinnerGrainEventsItem(eventType, itemIds);
-  }, [eventType, itemIds, handleFetchFinnerGrainEventsItem]);
+      handleFetchFinerGrainEventsItem(eventType, itemIds);
+  }, [eventType, itemIds, handleFetchFinerGrainEventsItem]);
 
   const itemList = React.useMemo(
-    () => eventType && itemIds && getFinnerGrainEventsItem(eventType, itemIds),
-    [getFinnerGrainEventsItem, eventType, itemIds],
+    () => eventType && itemIds && getFinerGrainEventsItem(eventType, itemIds),
+    [getFinerGrainEventsItem, eventType, itemIds],
   );
 
   if (!itemList || itemList.length <= 0) return null;
 
-  const hasOneOrSeveralFinnerGrainItemsDisabled =
+  const hasOneOrSeveralFinerGrainItemsDisabled =
     itemList.filter(
       (item) =>
         ('private_services' in item && !item?.available) || item?.disabled,
     )?.length > 0;
 
   return (
-    <div className={classes.finnerGrainContainer}>
+    <div className={classes.finerGrainContainer}>
       <div className={classes.filteredItemContainer}>
         <SubdirectoryArrowRight />
         <div className={classes.filteredItemChipContainer}>
@@ -56,7 +56,7 @@ const FinnerGrainEventItemContainer: React.FC<
                 filteredItem?.disabled;
 
               return (
-                <FinnerGrainEventSpecificItemChips
+                <FinerGrainEventSpecificItemChips
                   key={filteredItem?.id}
                   color={color}
                   disabled={disabled}
@@ -67,7 +67,7 @@ const FinnerGrainEventItemContainer: React.FC<
             })}
         </div>
       </div>
-      {hasOneOrSeveralFinnerGrainItemsDisabled && (
+      {hasOneOrSeveralFinerGrainItemsDisabled && (
         <Alert
           classes={{
             root: classes.alert,
@@ -76,22 +76,22 @@ const FinnerGrainEventItemContainer: React.FC<
           severity="error"
           variant="standard"
         >
-          {t('audience.form.trigger.oneOrMoreFinnerGrainDisabledText')}
+          {t('audience.form.trigger.oneOrMoreFinerGrainDisabledText')}
         </Alert>
       )}
     </div>
   );
 };
 
-type FinnerGrainEventSpecificItemChipsProps = {
+type FinerGrainEventSpecificItemChipsProps = {
   color: string;
   label: string;
   disabled: boolean;
   isItemArchived: boolean;
 };
 
-const FinnerGrainEventSpecificItemChips: React.FC<
-  FinnerGrainEventSpecificItemChipsProps
+const FinerGrainEventSpecificItemChips: React.FC<
+  FinerGrainEventSpecificItemChipsProps
 > = ({ color, label, disabled, isItemArchived }) => {
   const chipColor = React.useMemo(
     () => (isItemArchived ? CadenceStatusColors.ERROR_DARK_COLOR : color),
@@ -109,8 +109,8 @@ const FinnerGrainEventSpecificItemChips: React.FC<
   );
 };
 
-const useFinnerGrainStyles = makeStyles(() => ({
-  finnerGrainContainer: {
+const useFinerGrainStyles = makeStyles(() => ({
+  finerGrainContainer: {
     display: 'flex',
     flexDirection: 'column',
     gap: '8px',
@@ -133,4 +133,4 @@ const useFinnerGrainStyles = makeStyles(() => ({
   },
 }));
 
-export default React.memo(FinnerGrainEventItemContainer);
+export default React.memo(FinerGrainEventItemContainer);

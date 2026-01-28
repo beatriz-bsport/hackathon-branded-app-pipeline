@@ -8,7 +8,12 @@
       "placeholder": "domínio.com",
       "saveTooltip": "Atenção: Depois de adicionados, os domínios não podem ser editados",
       "addButton": "Adicionar outro domínio",
-      "validationError": "O URL do domínio deve estar em um formato válido, por exemplo, domain.com"
+      "validationError": "O URL do domínio deve estar em um formato válido, por exemplo, domain.com",
+      "errors": {
+        "4005": "O número máximo de domínios de métodos de pagamento deve ser 15 ou menos. Por favor, remova um domínio antes de adicionar um novo.",
+        "4007": "Este domínio já está registrado. Os domínios só podem ser registrados uma vez em todos os estúdios. Quando os domínios são compartilhados dentro de uma franquia, os pagamentos ainda serão feitos neste site.",
+        "default": "Ocorreu um erro ao registrar o domínio. Por favor, tente novamente. "
+      }
     }
   }
 }

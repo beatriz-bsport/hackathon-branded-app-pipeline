@@ -39,7 +39,7 @@ const initialState: Immutable.Immutable<UserPreference> =
       offer_available: true,
     },
     replacementRequestOfferHistoryFilter: {
-      timePeriod: 'last_month',
+      timePeriod: 'month',
       min_date: DateTime.now().minus({ month: 1 }).toISODate(),
       max_date: DateTime.now().toISODate(),
       // @ts-expect-error

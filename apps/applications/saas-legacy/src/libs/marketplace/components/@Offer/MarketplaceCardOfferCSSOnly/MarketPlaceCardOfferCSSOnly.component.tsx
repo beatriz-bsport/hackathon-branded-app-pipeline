@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { ArrowLeft } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import MarketplaceBookButton from '#src/libs/marketplace/components/@Booking/MarketplaceBookButton';
-import { Offer } from '#src/libs/offer/types';
+import { OfferREST } from '#src/libs/offer/types';
 import MarketplaceBroadcast from '#src/libs/marketplace/components/@Broadcast/MarketplaceBroadcastCSSOnly';
 import { Coach } from '#src/libs/associated-coach/types';
 import { Establishment } from '#src/libs/establishment/types';
@@ -31,11 +31,12 @@ import FemaleIcon from '../../../../../components/icons/FemaleIcon.component';
 import MaleIcon from '../../../../../components/icons/MaleIcon.component';
 import './MarketplaceCardOfferCSSOnly.css';
 import OfferPriceTag from '#src/components/css-only/OfferPriceTag';
+import { ImmutableObject } from 'seamless-immutable';
 
 type OwnProps = {
-  offer: Offer;
+  offer: OfferREST;
   genderCount: Object;
-  metaActivities: { [key: number]: MetaActivity };
+  metaActivities: ImmutableObject<{ [key: number]: MetaActivity }>;
   establishments: ReadonlyArray<Establishment>;
   coaches: Array<Coach>;
   theme: Theme;
@@ -44,7 +45,7 @@ type OwnProps = {
   showOfferFilling: boolean;
   showOfferGender: boolean;
   hideCoach: boolean;
-  onClickBook: (offer: Offer) => void;
+  onClickBook: (offer: OfferREST) => void;
   onClickOffer: (id: number) => void;
   getLevel: { [key: number]: Level };
   isBookingDisabled: boolean;
@@ -351,7 +352,6 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
             )}
             {!isOfferPassed && (
               <div className="bs-card-offer__content__status-chip">
-                {/* @ts-expect-error */}
                 <MarketplaceOfferStatusChip
                   companyTheme={theme}
                   isRegistered={isRegistered}

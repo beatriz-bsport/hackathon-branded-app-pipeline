@@ -35,12 +35,13 @@ import FACEBOOK_PNG from '../../../../../public/images/facebook.png';
 import INSTAGRAM_PNG from '../../../../../public/images/instagram.png';
 import './MarketplaceActivity.css';
 import OfferPriceTag from '#src/components/css-only/OfferPriceTag';
+import { ImmutableObject } from 'seamless-immutable';
 
 export type Props = {
   offer: Offer;
   coachDisplay?: MarketPlaceCoachDisplay;
   companyTheme: CompanyTheme;
-  metaActivities: { [key: number]: MetaActivity };
+  metaActivities: ImmutableObject<{ [key: number]: MetaActivity }>;
   establishments: ReadonlyArray<Establishment>;
   coaches: Array<Coach>;
   customLevels: Array<Level>;

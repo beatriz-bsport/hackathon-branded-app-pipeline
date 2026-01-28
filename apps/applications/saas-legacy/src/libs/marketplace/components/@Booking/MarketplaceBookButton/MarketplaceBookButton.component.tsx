@@ -11,19 +11,20 @@ import {
   getBookingButtonTraduction,
   isOfferInGroupLockedByPreviousOfferInPast,
 } from '#src/libs/marketplace/utils';
-import { Offer } from '#src/libs/offer/types';
+import { OfferREST } from '#src/libs/offer/types';
 import { OffersGroup } from '#src/libs/group-offer/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
 
 import { isDateInThePast } from '#src/utils/datetime';
 import './MarketplaceBookButton.css';
+import { ImmutableObject } from 'seamless-immutable';
 
 export type Props = {
-  offer: Offer;
+  offer: OfferREST;
   group: OffersGroup;
   className?: string;
   isRegistered?: boolean;
-  metaActivity: MetaActivity;
+  metaActivity: MetaActivity | ImmutableObject<MetaActivity>;
   isHidden?: boolean;
 };
 

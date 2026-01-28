@@ -38,6 +38,7 @@ import {
   formatMinutes,
   getUserZone,
 } from '#src/utils/datetime';
+import { ImmutableObject } from 'seamless-immutable';
 
 /**
  * @description Hook used in the component MarketplaceContractList for handling
@@ -260,7 +261,7 @@ export const useMarketplacePassFlatLists = ({
 export const useOfferHours = (
   offer: Offer | OfferWithSpotInformation | Offer_FULL | OfferREST,
   establishment: Establishment,
-  metaActivity: MetaActivity,
+  metaActivity: MetaActivity | ImmutableObject<MetaActivity>,
   theme: Theme,
 ) => {
   const { t } = useTranslation(['datetime']);

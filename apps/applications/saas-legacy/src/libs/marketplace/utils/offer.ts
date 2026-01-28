@@ -15,6 +15,7 @@ import {
   OFFER_NAME_CAPITALIZED_MAX_LENGTH,
   OFFER_NAME_MAX_LENGTH,
 } from '#src/libs/marketplace/constants';
+import { ImmutableObject } from 'seamless-immutable';
 
 /** @deprecated Use `isDateInThePast` instead. */
 export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {
@@ -52,7 +53,7 @@ export function isOfferInGroupLockedByPreviousOfferInPast(
 
 export function isTooSoonToBookOffer(
   offer: Offer_FULL,
-  metaActivity: MetaActivity,
+  metaActivity: MetaActivity | ImmutableObject<MetaActivity>,
 ) {
   // If the backend has computed the booking_window_status, then use it in prio
   if (!!offer.booking_window_status)
@@ -88,8 +89,8 @@ export const getPositionOfOfferInTheList = (offers: Offer[], index: number) => {
 };
 
 export const getOfferStatus = (
-  offer: Offer,
-  metaActivity: MetaActivity,
+  offer: Offer | OfferREST,
+  metaActivity: MetaActivity | ImmutableObject<MetaActivity>,
   isRegistered: boolean,
 ) => {
   if (!offer) {

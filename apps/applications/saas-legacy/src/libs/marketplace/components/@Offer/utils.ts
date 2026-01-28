@@ -1,13 +1,13 @@
-import { Offer } from '#src/libs/offer/types';
+import { Offer, OfferREST } from '#src/libs/offer/types';
 
 /**
  * Generates a unique identifier for the provided offer.
  *
- * @param {Offer} offer - The offer for which the identifier is generated.
+ * @param {Offer | OfferREST} offer - The offer for which the identifier is generated.
  * @returns {string} - The generated offer identifier.
  */
 export const generateUniqueOfferIdentifier = (
-  offer: Offer,
+  offer: Offer | OfferREST,
   prefix?: string,
 ): string => {
   // Check if the offer is not provided

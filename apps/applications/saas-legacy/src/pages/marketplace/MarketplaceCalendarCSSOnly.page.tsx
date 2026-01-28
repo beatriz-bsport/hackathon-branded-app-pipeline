@@ -533,17 +533,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.setState({ offerId: null });
   };
 
-  goToBook = (offer: Offer_FULL) => {
+  goToBook = (offer: OfferREST) => {
     this.closeOfferDialog();
-    if (offer.group?.full_booking_only) {
-      this.setState(
-        {
-          displayGroupPopup: { ...offer, redirect: 'book' },
-        },
-        () => this.props.fetchOffersInGroupAction(offer.group.id),
-      );
-      return;
-    }
     analyticsUtils.onGoToSessionBooking(offer);
     this.props.goToBook(offer.id, this.props.companyId);
   };

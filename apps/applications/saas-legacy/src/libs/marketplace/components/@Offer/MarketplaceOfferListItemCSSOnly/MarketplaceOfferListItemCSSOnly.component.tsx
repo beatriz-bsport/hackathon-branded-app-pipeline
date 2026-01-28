@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import MaleIcon from '#src/components/icons/MaleIcon.component';
 import FemaleIcon from '#src/components/icons/FemaleIcon.component';
 
-import { Offer } from '#src/libs/offer/types';
+import { OfferREST } from '#src/libs/offer/types';
 import { Coach } from '#src/libs/associated-coach/types';
 import { CompanyTheme } from '#src/libs/theme/types';
 import { Establishment } from '#src/libs/establishment/types';
@@ -42,6 +42,7 @@ import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 import './MarketplaceOfferListItemCSSOnly.css';
 import OfferPriceTag from '#src/components/css-only/OfferPriceTag';
 import analyticsUtils from '#src/components/analytics/analytics';
+import { ImmutableObject } from 'seamless-immutable';
 
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',
@@ -51,9 +52,9 @@ export const DISABLE_BOOKING_ELEMENTS_IDS = [
 
 export type Props = {
   showOfferFilling: boolean;
-  offer: Offer;
+  offer: OfferREST;
   genderCount: Object;
-  metaActivity: MetaActivity;
+  metaActivity: MetaActivity | ImmutableObject<MetaActivity>;
   variant?: MarketplaceCalendarVariant;
   theme: CompanyTheme;
   hideCoach: boolean;

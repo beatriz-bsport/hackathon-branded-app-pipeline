@@ -11,18 +11,19 @@ import { getOfferStatus } from '#src/libs/marketplace/utils';
 import PopOver from '#src/components/Popover';
 import Chip from '#src/components/css-only/Chip';
 
-import { MarketplaceOfferStatus, Offer } from '#src/libs/offer/types';
+import { MarketplaceOfferStatus, OfferREST } from '#src/libs/offer/types';
 import { CompanyTheme } from '#src/libs/theme/types';
 
 import { MetaActivity } from '#src/libs/meta-activity/types';
 
 import './styles.css';
+import { ImmutableObject } from 'seamless-immutable';
 
 export type Props = {
-  offer: Offer;
+  offer: OfferREST;
   isRegistered: boolean;
-  showLabel: boolean;
-  metaActivity: MetaActivity;
+  showLabel?: boolean;
+  metaActivity: MetaActivity | ImmutableObject<MetaActivity>;
   companyTheme: CompanyTheme;
 };
 

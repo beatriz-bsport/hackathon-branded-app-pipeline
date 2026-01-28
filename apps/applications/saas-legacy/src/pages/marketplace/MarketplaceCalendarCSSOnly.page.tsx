@@ -558,12 +558,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.props.setOtherParams('date')(formattedDate);
   };
 
-  toggleFiltersOpen = () => {
-    this.props.setOtherParams('filtersOpen')(
-      this.props.otherParams.filtersOpen === 'true' ? '' : 'true',
-    );
-  };
-
   goToFirstAvailableSession = () => {
     if (this.props.nextAvailableOffer?.date_start) {
       const newDate = DateTime.fromISO(
@@ -657,10 +651,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       establishments,
       coaches,
       activeCustomLevels,
-      customLevels,
       establishmentGroupList,
       metaActivities,
-      compactMode,
     } = this.props;
 
     return (
@@ -669,9 +661,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           activeCustomLevels={activeCustomLevels}
           bookedOffers={this.props.bookedOffers}
           coaches={coaches}
-          compactMode={compactMode}
-          companyId={this.props.companyId}
-          customLevels={customLevels}
           establishmentGroupList={establishmentGroupList}
           establishments={
             (this.state.filters.establishment_group__in?.length
@@ -679,7 +668,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
               : establishments) as ReadonlyArray<Establishment>
           }
           filters={this.state.filters}
-          filtersOpen={this.props.otherParams.filtersOpen === 'true'}
           forceDayDisplayOnly={this.props.otherParams.onlyDay === 'true'}
           genderCount={this.props.genderCount}
           getLevel={this.props.getLevel}
@@ -709,7 +697,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           showOfferGender={this.props.theme.show_booked_gender_offer}
           startWeekOnDaySelected={this.getStartCalendarWeekOnToday()}
           theme={this.props.theme}
-          toggleFiltersOpen={this.toggleFiltersOpen}
           variant={this.props.variant}
         />
         <MarketplaceActivityDialogV2

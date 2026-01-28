@@ -1,0 +1,92 @@
+import { useEffect, useRef } from "react";
+
+import { useFormContext } from "@bsport/form";
+import { dataAccessLayer } from "@bsport/sm-backbone";
+
+import { useFetchWellhubProducts } from "#src/hooks/use-fetch-wellhub-products";
+import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import {
+  ADD_ON_WELLHUB_INTEGRATION,
+  useCheckCompanyAddOn,
+} from "#src/utils/permission";
+
+import { useFetchAllEstablishments } from "./use-fetch-all-establishments";
+
+export const useWellhubProductField = (isLivestream: boolean) => {
+  const hasWellhubIntegration = useCheckCompanyAddOn(
+    ADD_ON_WELLHUB_INTEGRATION,
+  );
+
+  const company = dataAccessLayer.useCompanyTheme()?.company;
+
+  const { watch, setValue } = useFormContext<SessionCreationFormData>();
+  const selectedEstablishmentId = watch("establishment");
+  const isSessionAvailableOnPartnership = watch("available_on_partnership");
+  const selectedWellhubProductId = watch("wellhub_product_id");
+
+  const { data: establishments } = useFetchAllEstablishments({
+    company,
+    disabled_establishments: false,
+    enabled: hasWellhubIntegration && isSessionAvailableOnPartnership,
+  });
+
+  const wellhubGymId = selectedEstablishmentId
+    ? establishments?.find(({ id }) => id === selectedEstablishmentId)
+        ?.wellhub_gym
+    : undefined;
+
+  const { data: wellhubProducts } = useFetchWellhubProducts({
+    wellhubGymId,
+    isLivestream,
+    enabled: hasWellhubIntegration && isSessionAvailableOnPartnership,
+  });
+
+  const selectedWellhubProduct =
+    wellhubProducts?.find(
+      (product) => product.id === selectedWellhubProductId?.toString(),
+    ) ?? null;
+
+  const prevEstablishmentRef = useRef(selectedEstablishmentId);
+
+  useEffect(() => {
+    const establishmentChanged =
+      prevEstablishmentRef.current !== selectedEstablishmentId;
+    prevEstablishmentRef.current = selectedEstablishmentId;
+
+    const shouldClear =
+      establishmentChanged ||
+      (wellhubProducts &&
+        selectedWellhubProductId &&
+        !selectedWellhubProduct) ||
+      !isSessionAvailableOnPartnership;
+
+    if (wellhubProducts?.length === 1) {
+      const singleProductId = Number(wellhubProducts[0].id);
+      if (selectedWellhubProductId !== singleProductId) {
+        setValue("wellhub_product_id", singleProductId, {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
+      }
+    } else if (shouldClear) {
+      setValue("wellhub_product_id", null, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    }
+  }, [
+    wellhubProducts,
+    selectedWellhubProductId,
+    setValue,
+    selectedWellhubProduct,
+    selectedEstablishmentId,
+    isSessionAvailableOnPartnership,
+  ]);
+
+  return {
+    wellhubProducts,
+    selectedWellhubProduct,
+    isSessionAvailableOnPartnership,
+    setValue,
+  };
+};

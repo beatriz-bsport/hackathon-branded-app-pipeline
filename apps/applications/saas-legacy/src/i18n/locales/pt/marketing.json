@@ -289,7 +289,7 @@
         "triggerTimeoutLabel": "Acionamento após",
         "selectSmartlist": "Selecionar uma lista inteligente",
         "selectEvent": "Selecionar um evento",
-        "finnerGrain": {
+        "finerGrain": {
           "specifyItemsToggleLabel": "Especificar itens",
           "purchaseLabelTitle": "Item/s comprado/s"
         }
@@ -845,7 +845,7 @@
           "workflow": "A entrada no {{ workflowLowerCase }} é efectuada através de :"
         },
         "event_or_smartlist_helper": "Os membros terão de corresponder ao evento ou fazer parte da lista inteligente para se enquadrarem no {{ workflowLowerCase }}",
-        "oneOrMoreFinnerGrainDisabledText": "Um item especificado não existe atualmente na sua Lista de Produtos."
+        "oneOrMoreFinerGrainDisabledText": "Um item especificado não existe atualmente na sua Lista de Produtos."
       },
       "audienceStepHelper": "Defina o nome da etapa aqui: é aqui que poderá ver onde os membros se encontram na {{ workflowLowerCase }}",
       "createAudienceHelper": "Graças ao {{ workflowPluralLowerCase }},direcionar as acções de marketing que envia aos seus membros em função do seu comportamento na plataforma. Crie uma sequência de acções que os seus membros devem realizar para obter determinadas promoções ou etiquetas, por exemplo.",
@@ -979,7 +979,7 @@
       }
     },
     "workflow": {
-      "finnerGrainIssues": "Um ou vários artigos especificados já não estão disponíveis."
+      "finerGrainIssues": "Um ou vários artigos especificados já não estão disponíveis."
     },
     "smsWarning": {
       "alert": {

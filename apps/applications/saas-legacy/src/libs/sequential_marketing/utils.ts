@@ -13,7 +13,7 @@ import {
   DestinationStatus,
   TriggerIdentifier,
 } from '#src/libs/sequential_marketing/constants';
-import { CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST } from './constants/event';
+import { CADENCE_FINER_GRAIN_ALLOWED_EVENTS_LIST } from './constants/event';
 
 export const isCadenceInitialConfigurationCompleted = (
   cadenceMinimalConfigurationState: CadenceInitialConfigurationState,
@@ -167,13 +167,13 @@ export function getNodeToolbarTransform(
   return `translate(${pos[0]}px, ${pos[1]}px) translate(${shift[0]}%, ${shift[1]}%)`;
 }
 
-/** Clean the trigger config by removing the filtered_pks field out of it.
+/** Clean the trigger config by removing the filtered_pks field from it.
  *  Used when changing the event type on the audience event selector node.
- *  Allow to prevent issues where we could keep old filtered_pks values when switching
- *  to other events that doesn't have finner graining and to not keep wrong data
- *  between finner grainign events.
+ *  Prevents issues where old filtered_pks values could be retained when switching
+ *  to other events that don't have finer graining, and avoids keeping incorrect data
+ *  between finer graining events.
  *
- * @param {TriggerConfig} config - The base config we want to clean.
+ * @param {TriggerConfig} config - The base config to clean.
  * @returns {TriggerConfig} Cleaned config without a filtered_pks field.
  */
 export function removeFilteredPks(config: TriggerConfig): TriggerConfig {
@@ -187,13 +187,13 @@ export function removeFilteredPks(config: TriggerConfig): TriggerConfig {
 }
 
 /** The goal of this function is to take the trigger config parameter and to return
- *  a string to be able to assert and to validate wich precise trigger config type it
- *  is out of these 3 : TriggerEventConfig, TriggerTimeoutConfig, TriggerEmpty.
- *  'event_type' only belong to TriggerEventConfig, 'timeout' only belong to
- *  TriggerTimeoutConfig and if it is none of the 2 above then it a TriggerEmptyConfig.
+ *  a string to be able to assert and to validate which precise trigger config type it
+ *  is out of these 3: TriggerEventConfig, TriggerTimeoutConfig, TriggerEmptyConfig.
+ *  'event_type' only belongs to TriggerEventConfig, 'timeout' only belongs to
+ *  TriggerTimeoutConfig, and if it is none of the two above, then it is a TriggerEmptyConfig.
  *
  * @param {TriggerConfig} config - The base config we want to assert the type.
- * @returns {string} a string inidicating which trigger config type it is.
+ * @returns {string} a string indicating which trigger config type it is.
  */
 export function getTriggerConfigType(
   config: TriggerConfig,
@@ -205,12 +205,12 @@ export function getTriggerConfigType(
 
 /** The goal of this function is to take the trigger config parameter and to return
  *  a boolean to be able to assert and to validate if the trigger config is able to
- *  be used as finner grain trigger.
+ *  be used as finer grain trigger.
  *
  * @param {TriggerConfig} config - The base config we want to assert the type.
- * @returns {boolean} check if the trigger config as a valid finner grain setup
+ * @returns {boolean} check if the trigger config has a valid finer grain setup
  */
-export function checkIsValidFinnerGrainTrigger(config: TriggerConfig) {
+export function checkIsValidFinerGrainTrigger(config: TriggerConfig) {
   if (!config) return false;
 
   const isTriggerConfigObject = typeof config === 'object';
@@ -224,7 +224,7 @@ export function checkIsValidFinnerGrainTrigger(config: TriggerConfig) {
 
   return (
     eventConfig?.event_type != null &&
-    CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(eventConfig.event_type) &&
+    CADENCE_FINER_GRAIN_ALLOWED_EVENTS_LIST.includes(eventConfig.event_type) &&
     hasTriggerConfigFilteredKeys &&
     Array.isArray(eventConfig?.filtered_pks) &&
     eventConfig?.filtered_pks?.length > 0

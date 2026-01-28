@@ -84,7 +84,7 @@
         "ended": "Einde van {{entityName}}"
       },
       "passes": {
-        "finnerGraining": {
+        "finerGraining": {
           "credit_one": "{{count}} tegoed over in {{entityName}}",
           "credit_other": "{{count}} credits over in {{entityName}}",
           "validity_one": "{{count}} geldige dag over in {{entityName}}",

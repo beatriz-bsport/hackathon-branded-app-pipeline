@@ -493,7 +493,7 @@
         },
         "title": "Triggers",
         "event_or_smartlist_helper": "Members will have to match the event or be part of the smartlist to fit into the cadence",
-        "finnerGrain": {
+        "finerGrain": {
           "specifyItemsToggleLabel": "Specify items",
           "purchaseLabelTitle": "Item/s purchased"
         }
@@ -867,7 +867,7 @@
           "workflow": "The entry in the {{ workflowLowerCase }} is done via :"
         },
         "event_or_smartlist_helper": "Members will have to match the event or be part of the smartlist to fit into the {{ workflowLowerCase }}",
-        "oneOrMoreFinnerGrainDisabledText": "A specified item currently does not exist in your Products List."
+        "oneOrMoreFinerGrainDisabledText": "A specified item currently does not exist in your Products List."
       },
       "audienceNameLabel": "Name of the {{ workflowLowerCase }}",
       "multipleVisit": {
@@ -920,7 +920,7 @@
       "title": "How to edit your {{ workflowLowerCase }}"
     },
     "workflow": {
-      "finnerGrainIssues": "One or several specified items are no longer available."
+      "finerGrainIssues": "One or several specified items are no longer available."
     },
     "audienceIndexHelper": "The order of the {{ workflowPluralLowerCase }} sets the order of priority: if a member can enter 2 different {{ workflowPluralLowerCase }} at the same time, they will start with the highest in the list.",
     "workflowMetrics": {

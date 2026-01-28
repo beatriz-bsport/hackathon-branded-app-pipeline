@@ -30,8 +30,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "pre-commit": "sh ./scripts/pre-commit.sh",
-    "storybook:build": "sb build",
-    "storybook:dev": "sb dev",
+    "storybook:build": "pnpm exec storybook build",
+    "storybook:dev": "pnpm exec storybook dev",
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {

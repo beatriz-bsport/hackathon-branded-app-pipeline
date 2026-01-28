@@ -1,5 +1,5 @@
 import { withThemeByClassName } from "@storybook/addon-themes";
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import React, { Suspense, useEffect } from "react";
 
 import "@bsport/kaizen-tokens/src/index.css";
@@ -51,12 +51,10 @@ const preview: Preview = {
   ],
   parameters: {
     backgrounds: {
-      // Do not provide default value as the property overrides
-      // background-color which messes with light/dark mode switching
-      values: [
-        { name: "default", value: "#f0f0f0" },
-        { name: "strong", value: "#484848" },
-      ],
+      options: {
+        default: { name: "default", value: "#f0f0f0" },
+        strong: { name: "strong", value: "#484848" },
+      },
     },
   },
 

@@ -1,7 +1,7 @@
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import type { StorybookConfig } from "@storybook/react-vite";
 import { existsSync, readdirSync, statSync } from "fs";
-import { join, resolve } from "path";
+import { dirname, join, resolve } from "path";
 import tailwindcss from "tailwindcss";
 import { fileURLToPath } from "url";
 import { mergeConfig } from "vite";
@@ -44,8 +44,7 @@ const config: StorybookConfig = {
   ],
 
   addons: [
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
+    "@storybook/addon-docs",
     "@storybook/addon-themes",
     "@chromatic-com/storybook",
   ],
@@ -57,6 +56,11 @@ const config: StorybookConfig = {
 
   core: {
     disableTelemetry: true,
+  },
+
+  features: {
+    actions: true,
+    controls: true,
   },
 
   viteFinal: async (config) => {
@@ -170,3 +174,7 @@ export default config;
 // To customize your Vite configuration you can use the viteFinal field.
 // Check https://storybook.js.org/docs/react/builders/vite#configuration
 // and https://nx.dev/recipes/storybook/custom-builder-configs
+
+function getAbsolutePath(value: string) {
+  return dirname(fileURLToPath(import.meta.resolve(`${value}/package.json`)));
+}

@@ -68,7 +68,6 @@ const usePropsFromVariation = (
     coaches: coachList as Coach[],
     hideCoach: hideCoachSelected,
     establishments: establishmentList,
-    allEstablishments: [],
     establishmentGroupList,
     metaActivities: metaActivityList,
     customLevels: levelList as Level[],

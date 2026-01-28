@@ -218,6 +218,11 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
   similarVideoLoading: state.video.loading,
   loading: state.video.loading,
+  authenticated: state.auth.authenticated,
+  playbackUrl: getPlaybackUrlById(state, ownProps.videoId),
+  playbackUrlLoading: state.video.playbackUrl.loading,
+  accessDenied: state.video.playbackUrl.accessDenied,
+  videoPurchase: getLastVideoPurchasedByVideo(ownProps.videoId)(state),
 });
 
 const mapDispatchToProps = {
@@ -227,6 +232,7 @@ const mapDispatchToProps = {
   fetchAssociatedCoachBulk: fetchAssociatedCoachBulkAction,
   fetchVideoPurchase: fetchVideoPurchaseAction,
   push: pushRouter,
+  getPlaybackUrl,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -302,17 +308,5 @@ export default compose(
     // @ts-expect-error
     companyName: 'companyName',
   }),
-  connect(
-    (state: RootState, ownProps: OwnProps) => ({
-      authenticated: state.auth.authenticated,
-      playbackUrl: getPlaybackUrlById(state, ownProps.videoId),
-      playbackUrlLoading: state.video.playbackUrl.loading,
-      accessDenied: state.video.playbackUrl.accessDenied,
-      videoPurchase: getLastVideoPurchasedByVideo(ownProps.videoId)(state),
-    }),
-    {
-      getPlaybackUrl,
-    },
-  ),
   MarketplaceVideoDetailDataProvider,
 )(MarketplaceVideoDetail);

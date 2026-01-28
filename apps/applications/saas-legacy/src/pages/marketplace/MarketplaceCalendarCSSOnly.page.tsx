@@ -117,7 +117,6 @@ export type OwnProps = {
   compactMode: boolean;
   groupSessionByPeriod: boolean;
   variant?: 'activityName' | 'coach' | 'time';
-  onCompletePurchase?: (offerId: number, packId: number) => void;
   otherParams: {
     date: string;
     filtersOpen: 'true' | '';
@@ -128,10 +127,8 @@ export type OwnProps = {
     is_online: boolean | undefined;
   };
   setOtherParams: (key: string) => (value: any) => void;
-  goToPackPayment?: (packId: number, offerId: number) => void;
   goToBook?: (id: number, companyId: number) => void;
   goToBookOption?: (id: number, companyId: number) => void;
-  store?: any; // for the widget only
   mapContainerClassName?: string;
   nextAvailableOffer?: Offer;
   authenticated?: boolean;

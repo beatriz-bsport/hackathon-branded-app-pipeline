@@ -12,6 +12,8 @@ export const ADD_ON_IDENTIFIER_ZOOM_APP = 5;
 
 export const ADD_ON_IDENTIFIER_SPIVI = 30;
 
+export const ADD_ON_WELLHUB_INTEGRATION = 36;
+
 export const useCheckCompanyAddOn = (identifier: number) => {
   const companyAddOns = dataAccessLayer.useCompanyFeatures();
   return checkFeaturePermission({

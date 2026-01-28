@@ -13,7 +13,7 @@
     }
   },
   "upcomingClassesPanel": {
-    "title": "Nächsten Kurse",
+    "title": "Nächste Kurse",
     "headers": {
       "class": "Kurs",
       "teacher": "Lehrkraft",
@@ -59,7 +59,7 @@
     }
   },
   "keyMetrics": {
-    "title": "Hauptzahlen",
+    "title": "Kennzahlen",
     "unavailable": "Metriken sind derzeit nicht verfügbar"
   },
   "insightsPanel": {

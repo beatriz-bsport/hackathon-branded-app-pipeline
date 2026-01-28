@@ -79,7 +79,8 @@
             "wellhub": {
               "label": "Your available products on Wellhub",
               "placeholder": "Select a Wellhub product...",
-              "helperText": "These products are offered by your studio on the Wellhub platform. Go to 'Partnership' section in the Partner Portal of your Wellhub account for more information."
+              "helperText": "These products are offered by your studio on the Wellhub platform. Go to 'Partnership' section in the Partner Portal of your Wellhub account for more information.",
+              "error": "Wellhub product is required"
             }
           },
           "level": {

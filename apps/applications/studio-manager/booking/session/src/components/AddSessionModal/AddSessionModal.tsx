@@ -161,7 +161,10 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
 
   const checkIfCurrentStepValid = () => {
     if (currentStep === SESSION_CREATION_STEPS.CONFIGURE_SESSION) {
-      return configureSessionMethods.formState.isValid;
+      return (
+        configureSessionMethods.formState.isValid &&
+        Object.keys(configureSessionMethods.formState.errors).length === 0
+      );
     }
     if (currentStep === SESSION_CREATION_STEPS.ADVANCED_OPTIONS) {
       return advancedOptionsMethods.formState.isValid;

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 
 import Media, { ratios, sizes } from ".";
 import MediaImage from "./assets/media.jpg";

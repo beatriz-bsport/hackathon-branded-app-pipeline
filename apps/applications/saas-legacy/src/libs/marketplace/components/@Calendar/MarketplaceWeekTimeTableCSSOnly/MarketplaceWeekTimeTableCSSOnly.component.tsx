@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // @ts-expect-error
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, TFunction, WithTranslation } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
@@ -38,7 +38,7 @@ const DAY_PARTS = ['morning', 'afternoon', 'evening'];
 
 export type Props = {
   loading: boolean;
-  onClickOffer: () => void;
+  onClickOffer: (id: number) => void;
   onClickBook: (offer: Offer_FULL) => void;
   onClickBookOption: (offer: Offer_FULL) => void;
   getLevel: { [id: number]: Level };
@@ -62,7 +62,7 @@ export type Props = {
   forceDayDisplayOnly: boolean;
   isSearching: boolean;
   startWeekOnDaySelected?: boolean;
-};
+} & WithTranslation;
 
 type State = {
   panelsStatus: Array<boolean>;
@@ -112,7 +112,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   getEstablishment = memoize(
-    (establishments: Array<Establishment>, establishmentId: number) =>
+    (establishments: ReadonlyArray<Establishment>, establishmentId: number) =>
       establishments
         ? establishments.find((est) => est.id === establishmentId)
         : undefined,
@@ -500,5 +500,4 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   }
 }
 
-// @ts-expect-error
 export default withTranslation()(MarketplaceWeekTimetable);

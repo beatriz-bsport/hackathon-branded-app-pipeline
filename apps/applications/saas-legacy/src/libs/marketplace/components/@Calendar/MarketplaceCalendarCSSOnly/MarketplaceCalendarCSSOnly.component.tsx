@@ -11,7 +11,7 @@ import { pure } from 'recompose';
 import MarketplaceFilterComponent from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly/MarketplaceFilterCSSOnly.component';
 import { Level } from '#src/libs/level/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
-import { Offer } from '#src/libs/offer/types';
+import { Offer, OfferREST } from '#src/libs/offer/types';
 import { Theme } from '#src/libs/theme/types';
 import MarketplaceDatePicker from '#src/libs/marketplace/components/@Date/MarketplaceDatePicker';
 import { Coach } from '#src/libs/associated-coach/types';
@@ -37,7 +37,7 @@ const LoadingIndicator = () => (
 type Props = {
   onSelectDate: (date: string) => void;
   selectedDate: LuxonDateTime;
-  offers: Array<Offer>;
+  offers: Array<OfferREST>;
   genderCount: Object;
   group: Object;
   loading: boolean;
@@ -48,8 +48,8 @@ type Props = {
   setFilters: MarketplaceFiltersSetter;
   filters: any;
   forceDayDisplayOnly: boolean;
-  onClickBook: (offer: Offer) => void;
-  onClickBookOption: (offer: Offer) => void;
+  onClickBook: (offer: OfferREST) => void;
+  onClickBookOption: (offer: OfferREST) => void;
   showOfferFilling: boolean;
   hideCoach: boolean;
   showOfferGender?: boolean;
@@ -191,7 +191,6 @@ export const MarketplaceCalendar = (props: Props) => {
       ) : (
         <>
           <MarketplaceWeekTimetableV2
-            // @ts-expect-error
             bookedOffers={props.bookedOffers}
             coaches={props.coaches}
             date={selectedDate}

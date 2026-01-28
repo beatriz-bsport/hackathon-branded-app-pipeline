@@ -36,7 +36,7 @@ type OwnProps = {
   offer: Offer;
   genderCount: Object;
   metaActivities: { [key: number]: MetaActivity };
-  establishments: Array<Establishment>;
+  establishments: ReadonlyArray<Establishment>;
   coaches: Array<Coach>;
   theme: Theme;
   variant?: 'activityName' | 'coach' | 'time';

@@ -236,7 +236,7 @@ type State = {
   displayGroupPopup: (Offer_FULL & { redirect: string }) | null;
   filteredEstablishments: Array<Establishment> | null;
   filters: MarketplaceFilters;
-  offerSearchResult: { query: string; offerList: Offer[] | OfferREST[] | null };
+  offerSearchResult: { query: string; offerList: OfferREST[] | null };
   isLoading: boolean;
 };
 

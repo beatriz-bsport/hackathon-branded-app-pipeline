@@ -115,7 +115,8 @@
               "label": "Spot scheduling",
               "placeholder": "Choose an option...",
               "helper": "Allow your students to book a spot in the room in advance"
-            }
+            },
+            "syncOnSpivi": "Automatically send the session details to Spivi"
           },
           "broadcast": {
             "label": "Link to the livestream",

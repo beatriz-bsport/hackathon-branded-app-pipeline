@@ -117,6 +117,7 @@ export const useSessionSchema = () => {
       ),
       establishment: z.number().nullable(),
       room_blueprint: z.number().nullable(),
+      sync_on_spivi: z.boolean().optional(),
     })
     .refine(
       (data) => {

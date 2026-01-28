@@ -88,6 +88,9 @@ export const useSessionCreationPayload = () => {
         room_blueprint: configureSessionData.room_blueprint,
         meta_activity: metaActivityId,
         dates,
+        ...(configureSessionData.sync_on_spivi !== undefined && {
+          sync_on_spivi: configureSessionData.sync_on_spivi,
+        }),
 
         // Advanced options step data
         allow_guest_offer: advancedOptionsData.allow_guest_offer,

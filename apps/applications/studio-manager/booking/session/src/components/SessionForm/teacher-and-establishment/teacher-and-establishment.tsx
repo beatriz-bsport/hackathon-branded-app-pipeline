@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { Divider, Title } from "@bsport/kaizen-primitive-core";
+import { Title } from "@bsport/kaizen-primitive-core";
 
 import { selectStepFormData } from "#src/stores/session-creation/selectors";
 import {
@@ -12,6 +12,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { EstablishmentSelectorField } from "./establishment-selector-field";
 import { RoomBlueprintSelectorField } from "./room-blueprint-selector-field";
+import { SyncOnSpiviField } from "./sync-on-spivi-field";
 import { TeacherPaymentRuleSelectorField } from "./teacher-payment-rule-selector-field";
 import { TeacherSelectorField } from "./teacher-selector-field";
 
@@ -26,7 +27,7 @@ export const SessionTeacherAndEstablishment: FC<{
     ) as SessionCreationFormData;
 
   return (
-    <section className="flex flex-col gap-md">
+    <section className="flex flex-col gap-md pb-md">
       <Title htmlVariant="h5">
         {t(
           "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.title",
@@ -48,7 +49,7 @@ export const SessionTeacherAndEstablishment: FC<{
         fieldIdPrefix={fieldIdPrefix}
         defaultSelectedId={room_blueprint}
       />
-      <Divider orientation="horizontal" weight="thin" className="my-xl" />
+      <SyncOnSpiviField fieldIdPrefix={fieldIdPrefix} />
     </section>
   );
 };

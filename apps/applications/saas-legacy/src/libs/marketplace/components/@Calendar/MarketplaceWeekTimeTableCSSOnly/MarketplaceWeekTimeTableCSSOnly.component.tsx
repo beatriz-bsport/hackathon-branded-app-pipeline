@@ -36,7 +36,7 @@ const SPLIT_AFTERNOON = 12;
 const SPLIT_EVENNING = 17;
 const DAY_PARTS = ['morning', 'afternoon', 'evening'];
 
-export type Props = {
+export type OwnProps = {
   loading?: boolean;
   onClickOffer: (id: number) => void;
   onClickBook: (offer: OfferREST) => void;
@@ -61,7 +61,8 @@ export type Props = {
   forceDayDisplayOnly: boolean;
   isSearching: boolean;
   startWeekOnDaySelected?: boolean;
-} & WithTranslation;
+};
+type Props = OwnProps & WithTranslation;
 
 type State = {
   panelsStatus: Array<boolean>;

@@ -1,5 +1,5 @@
 import MarketplaceWeekTimeTable, {
-  Props,
+  OwnProps as Props,
 } from './MarketplaceWeekTimeTableCSSOnly.component';
 
 export type { Props };

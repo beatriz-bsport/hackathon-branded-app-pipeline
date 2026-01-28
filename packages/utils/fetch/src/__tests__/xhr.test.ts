@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { HTTPException } from "@bsport/http-exception";
 
 import { MAP_ENV_TO_API_URL } from "#src/uri-management";
+import { BACKGROUND_TASK_UUID_HEADER } from "#src/utils";
 
 import { getXhr } from "../xhr";
 import { server } from "./setup";
@@ -63,7 +64,7 @@ describe("getXhr", () => {
             {
               status: 200,
               headers: {
-                "x-background-task-uuid": taskUuid,
+                [BACKGROUND_TASK_UUID_HEADER]: taskUuid,
               },
             },
           );

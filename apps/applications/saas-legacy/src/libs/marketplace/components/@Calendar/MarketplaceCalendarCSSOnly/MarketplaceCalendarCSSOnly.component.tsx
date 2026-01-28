@@ -55,7 +55,7 @@ type Props = {
   showOfferGender?: boolean;
   establishmentGroupList: Array<EstablishmentGroup>;
   showMultiLocalization: boolean;
-  nextAvailableOffer: Offer;
+  nextAvailableOffer?: Offer;
   goToFirstAvailableSession: () => void;
   getLevel: { [id: number]: Level };
   bookedOffers?: number[];

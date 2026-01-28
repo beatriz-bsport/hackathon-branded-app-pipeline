@@ -715,28 +715,33 @@ const mapStateToProps = (
     memberTagList,
     authenticated,
   }: { memberTagList: number[]; authenticated: boolean },
-) => ({
-  currentBasket: getCurrentBasket(state),
-  theme: themeSelector.getTheme(state),
-  paymentComboList: getPaymentComboListAvailableOnline(state),
-  loading: state.paymentPack.loading,
-  establishmentLoading: state.establishment.bulkRetrieve.loading,
-  activityLoading: state.metaActivity.loading,
-  paymentPackByCategory: getPaymentPackCategoriesWithPacks(
-    state,
-    authenticated,
-    memberTagList,
-  ),
-  memberTagList: memberTagList ?? getMemberTagsIdsList(state),
-  authenticated: authenticated ?? state.auth.authenticated,
-  privatePassByCategory: getPrivatePassByCategoryWithPasses(
-    getPrivatePassAsConsumer,
-  )(state),
-  establishments: getAllEstablishmentsDict(state),
-  metaActivities: getMetaActivityAbstractDict(state),
-  privateServices: _getPrivateServicesById(state),
-  privateSlots: getAllPrivateSlotsDict(state),
-});
+) => {
+  const resolvedMemberTagList = memberTagList ?? getMemberTagsIdsList(state);
+  const resolvedAuthenticated = authenticated ?? state.auth.authenticated;
+
+  return {
+    currentBasket: getCurrentBasket(state),
+    theme: themeSelector.getTheme(state),
+    paymentComboList: getPaymentComboListAvailableOnline(state),
+    loading: state.paymentPack.loading,
+    establishmentLoading: state.establishment.bulkRetrieve.loading,
+    activityLoading: state.metaActivity.loading,
+    paymentPackByCategory: getPaymentPackCategoriesWithPacks(
+      state,
+      resolvedAuthenticated,
+      resolvedMemberTagList,
+    ),
+    memberTagList: resolvedMemberTagList,
+    authenticated: resolvedAuthenticated,
+    privatePassByCategory: getPrivatePassByCategoryWithPasses(
+      getPrivatePassAsConsumer,
+    )(state),
+    establishments: getAllEstablishmentsDict(state),
+    metaActivities: getMetaActivityAbstractDict(state),
+    privateServices: _getPrivateServicesById(state),
+    privateSlots: getAllPrivateSlotsDict(state),
+  };
+};
 
 const mapDispatchToProps = {
   fetchEstablishmentBulk: fetchEstablishmentBulkAction,

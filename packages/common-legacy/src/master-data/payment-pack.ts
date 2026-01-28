@@ -4,6 +4,9 @@ export const START_ON_FIRST_BOOKING = 0;
 export const START_ON_FIRST_ATTENDANCE = 1;
 export const START_ON_PURCHASE = 2;
 
+const isEmpty = <T>(arr?: T): boolean =>
+  !Array.isArray(arr) || arr.length === 0;
+
 export const filterUnaccessiblePaymentPack = (
   paymentPacks: PaymentPack[],
   {
@@ -11,48 +14,28 @@ export const filterUnaccessiblePaymentPack = (
     authenticated,
   }: { memberTagIdsList: number[]; authenticated: boolean },
 ) => {
-  if (Array.isArray(paymentPacks)) {
-    if (!authenticated) {
-      return paymentPacks
-        ? paymentPacks
-            .filter((pack) => !!pack)
-            .filter(
-              (pack) =>
-                pack.whitelist_tags &&
-                pack.whitelist_tags.length === 0 &&
-                pack.blacklist_tags &&
-                pack.blacklist_tags.length === 0,
-            )
-        : [];
-    }
-    if (memberTagIdsList.length === 0) {
-      return paymentPacks
-        ? paymentPacks.filter(
-            (pack) => pack.whitelist_tags && pack.whitelist_tags.length === 0,
-          )
-        : [];
-    }
-    return paymentPacks
-      ? paymentPacks
-          .filter((pack) => !!pack)
-          .filter(
-            (pack) =>
-              ((pack.blacklist_tags &&
-                pack.blacklist_tags.length !== 0 &&
-                !pack.blacklist_tags.some((tag) =>
-                  memberTagIdsList.includes(tag),
-                )) ||
-                !pack.blacklist_tags ||
-                pack.blacklist_tags.length === 0) &&
-              ((pack.whitelist_tags &&
-                pack.whitelist_tags.length !== 0 &&
-                pack.whitelist_tags.some((tag) =>
-                  memberTagIdsList.includes(tag),
-                )) ||
-                !pack.whitelist_tags ||
-                pack.whitelist_tags.length === 0),
-          )
-      : [];
+  if (isEmpty(paymentPacks)) return [];
+
+  const packs = paymentPacks.filter((pack) => !!pack);
+
+  if (!authenticated) {
+    return packs.filter(
+      (pack) => isEmpty(pack.whitelist_tags) && isEmpty(pack.blacklist_tags),
+    );
   }
-  return paymentPacks;
+
+  if (isEmpty(memberTagIdsList)) {
+    return packs.filter((pack) => isEmpty(pack.whitelist_tags));
+  }
+
+  return packs.filter((pack) => {
+    const blacklisted =
+      !isEmpty(pack.blacklist_tags) &&
+      pack.blacklist_tags.some((tag) => memberTagIdsList.includes(tag));
+    const whitelisted =
+      isEmpty(pack.whitelist_tags) ||
+      pack.whitelist_tags.some((tag) => memberTagIdsList.includes(tag));
+
+    return !blacklisted && whitelisted;
+  });
 };

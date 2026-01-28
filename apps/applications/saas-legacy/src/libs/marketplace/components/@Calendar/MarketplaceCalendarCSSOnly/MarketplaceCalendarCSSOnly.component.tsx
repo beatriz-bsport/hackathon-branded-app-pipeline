@@ -49,7 +49,6 @@ type Props = {
   filters: any;
   forceDayDisplayOnly: boolean;
   onClickBook: (offer: OfferREST) => void;
-  onClickBookOption: (offer: OfferREST) => void;
   showOfferFilling: boolean;
   hideCoach: boolean;
   showOfferGender?: boolean;
@@ -205,7 +204,6 @@ export const MarketplaceCalendar = (props: Props) => {
             metaActivities={metaActivities}
             offersByDay={offersByDay}
             onClickBook={props.onClickBook}
-            onClickBookOption={props.onClickBookOption}
             onClickOffer={props.onClickOffer}
             onSelectDate={props.onSelectDate}
             showDayParts={showDayParts}

@@ -41,7 +41,6 @@ export type Props = {
   loading?: boolean;
   onClickOffer: (id: number) => void;
   onClickBook: (offer: OfferREST) => void;
-  onClickBookOption: (offer: OfferREST) => void;
   getLevel: { [id: number]: Level };
   date: DateTime;
   t: TFunction;
@@ -104,10 +103,6 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
   handleBook = (offer: OfferREST) => () => {
     this.props.onClickBook(offer);
-  };
-
-  handleBookOption = (offer: OfferREST) => () => {
-    this.props.onClickBookOption(offer);
   };
 
   getEstablishment = memoize(
@@ -373,7 +368,6 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 metaActivity={metaActivity}
                 offer={offer}
                 onBook={this.handleBook(offer)}
-                onBookOption={this.handleBookOption(offer)}
                 onClick={this.props.onClickOffer}
                 // @ts-expect-error
                 position={position}

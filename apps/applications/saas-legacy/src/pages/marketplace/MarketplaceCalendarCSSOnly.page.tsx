@@ -699,7 +699,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           offers={this.state.offerSearchResult?.offerList ?? this.props.offers}
           onClearInput={this.handleClearSearchResult}
           onClickBook={this.goToBook}
-          onClickBookOption={this.props.goToBookOption}
           onClickOffer={this.openOfferDialog}
           onSearch={this.handleSearch}
           onSelectDate={this.handleDateChange}

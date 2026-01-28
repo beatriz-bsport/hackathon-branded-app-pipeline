@@ -1,8 +1,9 @@
 import { EventPayload } from "./types";
 
+const DEBUG = false;
+
 export const debugLog = (message: string, ...args: unknown[]) =>
-  // TODO: Remove this once it's working fine on production
-  console.debug(`[BRIDGE PROXY] ${message}`, ...args);
+  DEBUG && console.debug(`[BRIDGE PROXY] ${message}`, ...args);
 
 export const postMessageToParent = (payload: EventPayload) => {
   debugLog("Sending message to parent", payload);

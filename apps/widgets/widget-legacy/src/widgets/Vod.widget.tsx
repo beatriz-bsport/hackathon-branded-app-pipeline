@@ -8,51 +8,49 @@ import {
 import type { WithStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-import MarketplaceVideo from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideo.page';
-import MarketplaceVideoDetail from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideoDetail.page';
-import MarketplacePlaylistDetailPage from '@bsport/saas-legacy/src/pages/marketplace/MarketplacePlaylistDetail.page';
+import {
+  MarketplaceVideoDataProvider,
+  MarketplaceVideo as MarketplaceVideoComponent,
+} from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideo.page';
+import {
+  MarketplaceVideoDetailDataProvider,
+  MarketplaceVideoDetail as MarketplaceVideoDetailComponent,
+} from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideoDetail.page';
+import {
+  MarketplacePlaylistDetailDataProvider,
+  MarketplacePlaylistDetailPage as MarketplacePlaylistDetailComponent,
+} from '@bsport/saas-legacy/src/pages/marketplace/MarketplacePlaylistDetail.page';
 import {
   MarketplacePlaylistData,
   MarketplaceVODData,
 } from '@bsport/saas-legacy/src/libs/marketplace/types';
 import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
-import { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import { getEnv } from '../utils/env';
 
 import '../../vendor/video.css';
 
 type OwnProps = {
   companyId: number;
-  store: any;
   config: MarketplacePlaylistData & MarketplaceVODData;
   onRequestLogin: () => void;
-  theme: CompanyTheme;
   onWindowOpen: (popupWindow: any) => void;
   dialogMode: number;
 };
 
 type Props = OwnProps & WithStyles<typeof styles>;
 
-interface State {
-  videoId?: number;
-  playlistId?: number;
-  searchParams: {
-    coaches: string;
-    duration_second_range: string;
-    SCTs: string;
-    search: string;
-    levels: string;
-  };
-  showLogin?: boolean;
-  showSignup?: boolean;
-}
-
-const MarketPlaceVideoStyled = themify(MarketplaceVideo);
-const MarketplaceVideoDetailStyled = themify(MarketplaceVideoDetail);
-const MarketplacePlaylistStyled = themify(MarketplacePlaylistDetailPage);
+const MarketPlaceVideoStyled = themify(
+  MarketplaceVideoDataProvider(MarketplaceVideoComponent),
+);
+const MarketplaceVideoDetailStyled = themify(
+  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetailComponent),
+);
+const MarketplacePlaylistStyled = themify(
+  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailComponent),
+);
 
 const VODWidget = (props: Props) => {
-  const { companyId, onWindowOpen, classes, theme, store } = props;
+  const { companyId, onWindowOpen, classes } = props;
   const [videoId, setVideoId] = useState(props.config.videoId);
   const [playlistId, setPlaylistId] = useState(props.config.playlistId);
   const [searchParams, setSearchParams] = useState({
@@ -101,8 +99,6 @@ const VODWidget = (props: Props) => {
           companyName=""
           openVideo={openVideo}
           openPlaylist={(playlistId: number) => openPlaylist(playlistId)}
-          store={store}
-          theme={theme}
         />
       )}
 
@@ -119,8 +115,6 @@ const VODWidget = (props: Props) => {
               companyName=""
               requestVideoAccess={requestVideoAccess}
               openVideo={openVideo}
-              store={store}
-              theme={theme}
             />
           </div>
         </div>
@@ -146,8 +140,6 @@ const VODWidget = (props: Props) => {
               requestVideoAccess={requestVideoAccess}
               goToVideoInPlaylist={openPlaylist}
               replaceVideoInPlaylist={openPlaylist}
-              store={store}
-              theme={theme}
             />
           </div>
         </div>

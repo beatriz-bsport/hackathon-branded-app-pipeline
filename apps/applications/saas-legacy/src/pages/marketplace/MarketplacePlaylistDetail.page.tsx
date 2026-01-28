@@ -78,7 +78,6 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
     if (this.props.videoId) {
       this.props.retrieveVideo(this.props.videoId);
       if (this.props.authenticated) {
-        // @ts-expect-error
         this.props.getPlaybackUrl(this.props.videoId);
       }
     }
@@ -105,7 +104,6 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
       (this.props.videoId !== prevProps.videoId && this.props.authenticated) ||
       (this.props.authenticated && !prevProps.authenticated)
     ) {
-      // @ts-expect-error
       this.props.getPlaybackUrl(this.props.videoId);
     }
   }
@@ -140,7 +138,6 @@ export class MarketplacePlaylistDetailPage extends React.Component<Props> {
 
   onRegisterSuccess = () => {
     this.props.retrieveVideo(this.props.videoId);
-    // @ts-expect-error
     this.props.getPlaybackUrl(this.props.videoId);
     this.props.setRegisterVideoOpen(false);
   };
@@ -227,11 +224,17 @@ const styles = (theme: Theme) =>
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
   // @ts-expect-error
   video: withCoach(withCategory(getVideo))(state, ownProps.videoId),
-  // @ts-expect-error
+  // This fails in ci:compile, but not in my IDE right now, spent 5min to understand why but I can't figure it out
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   playlist: withCoachInVideo(getPlaylist)(state, ownProps.id),
   loading: state.playlist.loading,
   // @ts-expect-error
   selectedVideo: withCategory(withCoach(getVideo))(state, ownProps.videoId),
+  authenticated: state.auth.authenticated,
+  playbackUrl: getPlaybackUrlById(state, ownProps.videoId),
+  playbackUrlLoading: state.video.playbackUrl.loading,
+  accessDenied: state.video.playbackUrl.accessDenied,
 });
 
 const mapDispatchToProps = {
@@ -241,6 +244,7 @@ const mapDispatchToProps = {
   fetchVideoBulk: fetchVideoBulkAction,
   pushRouter: push,
   replaceRouter: replace,
+  getPlaybackUrl,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -331,16 +335,5 @@ export default compose(
     companyName: 'companyName',
     companyId: 'companyId:number',
   }),
-  connect(
-    (state: RootState, ownProps: OwnProps) => ({
-      authenticated: state.auth.authenticated,
-      playbackUrl: getPlaybackUrlById(state, ownProps.videoId),
-      playbackUrlLoading: state.video.playbackUrl.loading,
-      accessDenied: state.video.playbackUrl.accessDenied,
-    }),
-    {
-      getPlaybackUrl,
-    },
-  ),
   MarketplacePlaylistDetailDataProvider,
 )(MarketplacePlaylistDetailPage);

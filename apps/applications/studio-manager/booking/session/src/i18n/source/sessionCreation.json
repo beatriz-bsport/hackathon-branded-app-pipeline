@@ -129,7 +129,7 @@
           }
         },
         "timeAndDate": {
-          "title": "Time and date",
+          "title": "Date and time",
           "date": "Date",
           "time": "Time",
           "duration": {

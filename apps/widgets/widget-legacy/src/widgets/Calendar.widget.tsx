@@ -126,7 +126,6 @@ export const CalendarWidget = (props: Props) => {
       goToBook={onClickGoToBook}
       groupSessionByPeriod={config?.groupSessionByPeriod}
       mapContainerClassName="cleanslate"
-      onCompletePurchase={() => {}}
       onlineFilter={{
         is_online: onlineFilter.is_online ?? undefined,
       }}

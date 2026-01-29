@@ -5,6 +5,7 @@ import React, { KeyboardEvent, useCallback, useState } from "react";
 
 import Body from "#src/components/Body";
 import Icon, { type IconName } from "#src/components/Icon";
+import Loader from "#src/components/Loader";
 import Menu from "#src/components/Menu";
 import { Item, MenuOption } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
@@ -68,6 +69,10 @@ export type SelectProps = Omit<
     fullWidth?: boolean;
     label?: string;
     required?: boolean;
+    loadingProps?: {
+      isLoading: boolean;
+      message?: string | undefined;
+    };
   };
 
 /**
@@ -95,6 +100,8 @@ export type SelectProps = Omit<
  * @param props.fullWidth Optional Boolean to allow the Select component to take the whole available width of its parent.
  * @param props.label Optional String - gives a label title to the select field.
  * @param props.required Optional Boolean - Display a custom element next to the label if the select result is required.
+ * @param props.loadingProps  Loading state configuration.
+ *
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-select--docs
  */
 const Select: React.FC<SelectProps> = ({
@@ -116,6 +123,7 @@ const Select: React.FC<SelectProps> = ({
   fullWidth,
   label,
   required,
+  loadingProps,
   ...props
 }) => {
   const isControlled = value !== undefined;
@@ -213,17 +221,36 @@ const Select: React.FC<SelectProps> = ({
           }}
         </Popover.Anchor>
         <Popover.Content placement={popoverPlacement}>
-          {({ setIsPopoverOpened }) => (
-            <Menu
-              items={items}
-              disabled={disabled || false}
-              onSelectOption={(optionId) => {
-                handleSelect(optionId);
-                setIsPopoverOpened(false);
-              }}
-              aria-labelledby={id}
-            />
-          )}
+          {({ setIsPopoverOpened }) => {
+            if (loadingProps?.isLoading) {
+              const loadingMessage = loadingProps?.message;
+              return (
+                <div
+                  className="flex items-center justify-center p-2xs gap-md"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <Loader size="md" />
+
+                  {loadingMessage && (
+                    <Body htmlVariant="span">{loadingMessage}</Body>
+                  )}
+                </div>
+              );
+            }
+
+            return (
+              <Menu
+                items={items}
+                disabled={disabled || false}
+                onSelectOption={(optionId) => {
+                  handleSelect(optionId);
+                  setIsPopoverOpened(false);
+                }}
+                aria-labelledby={id}
+              />
+            );
+          }}
         </Popover.Content>
       </Popover>
 

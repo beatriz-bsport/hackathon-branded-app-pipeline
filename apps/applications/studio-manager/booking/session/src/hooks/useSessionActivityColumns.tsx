@@ -63,7 +63,7 @@ export const useSessionActivityColumns = <
                 label={t(
                   "addSessionModal.steps.chooseActivity.table.features.livestream.popoverLabel",
                 )}
-                placement="bottom"
+                placement="bottom-right"
               >
                 <Chip
                   color="default"

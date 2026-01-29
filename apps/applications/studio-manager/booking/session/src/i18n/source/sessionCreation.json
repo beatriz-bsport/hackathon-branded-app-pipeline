@@ -25,7 +25,7 @@
           },
           "features": {
             "livestream": {
-              "popoverLabel": "Live streaming is enabled for this activity"
+              "popoverLabel": "Livestream is enabled for this activity"
             },
             "notifications": {
               "popoverLabel": "Notifications are configured for this activity"

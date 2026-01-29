@@ -26,6 +26,7 @@ export enum ModalType {
   CANCEL = "cancel",
   RESTORE = "restore",
   DELETE = "delete",
+  DUPLICATE = "duplicate",
 }
 
 export type ModalState = { type: ModalType; session: EnrichedSession } | null;

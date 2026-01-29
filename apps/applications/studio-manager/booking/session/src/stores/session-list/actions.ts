@@ -94,6 +94,12 @@ export const openDeleteModal = (session: EnrichedSession) => {
   });
 };
 
+export const openDuplicateModal = (session: EnrichedSession) => {
+  sessionListStore.setState({
+    modalState: { type: ModalType.DUPLICATE, session },
+  });
+};
+
 export const closeModal = () => {
   sessionListStore.setState({ modalState: null });
 };

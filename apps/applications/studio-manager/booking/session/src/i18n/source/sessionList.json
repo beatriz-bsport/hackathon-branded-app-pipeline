@@ -168,6 +168,11 @@
     "successMessage_one": "Session deleted",
     "successMessage_other": "Sessions deleted"
   },
+  "duplicateModal": {
+    "title": "Duplicate session?",
+    "cancelButton": "Cancel",
+    "confirmButton": "Duplicate"
+  },
   "restoreModal": {
     "title": "Restore session?",
     "description": "Restoring this session will make it visible again to members. You can cancel it again at any time.",

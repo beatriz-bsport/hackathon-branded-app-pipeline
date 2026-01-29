@@ -12,6 +12,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import {
   openCancelModal,
   openDeleteModal,
+  openDuplicateModal,
   openRestoreModal,
 } from "#src/stores/session-list";
 import type { EnrichedSession } from "#src/types";
@@ -61,6 +62,8 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
           setIsPopoverOpened(false);
         },
       };
+
+      const canSessionBeDuplicated = !session.group;
       const duplicateShortcutAction: Item = {
         id: "duplicate-shortcut",
         label: t("table.shortcutActions.duplicate"),
@@ -68,6 +71,7 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         type: "button",
         onClick: () => {
           setIsPopoverOpened(false);
+          openDuplicateModal(session);
         },
       };
       const copyLinkShortcutAction: Item = {
@@ -118,7 +122,9 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
 
       const availableActions = [
         ...(hasEditPermission ? [editShortcutAction] : []),
-        ...(hasCreatePermission ? [duplicateShortcutAction] : []),
+        ...(hasCreatePermission && canSessionBeDuplicated
+          ? [duplicateShortcutAction]
+          : []),
         ...(companyId ? [copyLinkShortcutAction] : []),
         ...(hasCancelPermission ? [cancelShortcutAction] : []),
       ];
@@ -126,7 +132,9 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
       const unavailableActions = [
         ...(hasEditPermission ? [restoreShortcutAction] : []),
         ...(hasEditPermission ? [editShortcutAction] : []),
-        ...(hasCreatePermission ? [duplicateShortcutAction] : []),
+        ...(hasCreatePermission && canSessionBeDuplicated
+          ? [duplicateShortcutAction]
+          : []),
         ...(hasCancelPermission ? [deleteShortcutAction] : []),
       ];
 

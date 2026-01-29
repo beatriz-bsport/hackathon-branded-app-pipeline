@@ -1,6 +1,7 @@
 // eslint-disable-next-line max-classes-per-file
 import React, { Component } from 'react';
 import memoize from 'lodash/memoize';
+import isBoolean from 'lodash/isBoolean';
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import { RouteChildrenProps, withRouter } from 'react-router';
@@ -110,6 +111,8 @@ import analyticsUtils from '#src/components/analytics/analytics';
 import { trackCalendarViewedEvent } from '#src/events/booking/trackers';
 import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 
+const DEFAULT_CARD_MODE_DISPLAY_MIN_WIDTH = 1250;
+
 export type OwnProps = {
   companyId: number;
   compactMode: boolean;
@@ -158,7 +161,6 @@ export type FinalProps = Props &
 
 type ContainerWidthListenerProps = {
   containerWidth: number | undefined;
-  calendarRefContainer: React.Ref<null>;
 };
 
 type WidhContainerWidthListenerState = {
@@ -179,9 +181,6 @@ function withContainerWidthListener<
       constructor(props: FinalProps) {
         // @ts-expect-error FinalProps is not the right typing for Props received by the compose
         super(props);
-        // This reference is used to evaluate the size of the calendar,
-        // and to determine if it should be displayed in card mode or not.
-        // That way, we can enable or disable the fetching of the offers when updating the start date.
         this.calendarRefContainer = React.createRef();
       }
 
@@ -189,17 +188,22 @@ function withContainerWidthListener<
         containerWidth: null,
       };
 
+      setContainerWidth = () => {
+        const currentContainerWidth =
+          this.calendarRefContainer?.current?.clientWidth;
+        const previousContainerWidth = this.state.containerWidth;
+        if (currentContainerWidth !== previousContainerWidth) {
+          this.setState(() => ({
+            containerWidth: currentContainerWidth ?? null,
+          }));
+        }
+      };
+
       componentDidMount(): void {
+        this.setContainerWidth();
         // @ts-expect-error
         this.intervalId = setInterval(() => {
-          const currentContainerWidth =
-            this.calendarRefContainer?.current?.clientWidth;
-          const previousContainerWidth = this.state.containerWidth;
-          if (currentContainerWidth !== previousContainerWidth) {
-            this.setState(() => ({
-              containerWidth: currentContainerWidth ?? null,
-            }));
-          }
+          this.setContainerWidth();
         }, 500);
       }
 
@@ -210,11 +214,15 @@ function withContainerWidthListener<
 
       render() {
         return (
-          <WrappedComponent
-            {...this.props}
-            calendarRefContainer={this.calendarRefContainer}
-            containerWidth={this.state.containerWidth}
-          />
+          <div
+            ref={this.calendarRefContainer}
+            style={{ width: '100%', height: '100%' }}
+          >
+            <WrappedComponent
+              {...this.props}
+              containerWidth={this.state.containerWidth}
+            />
+          </div>
         );
       }
     }
@@ -236,11 +244,6 @@ type State = {
 export class MarketplaceCalendar extends Component<FinalProps, State> {
   constructor(props: FinalProps) {
     super(props);
-    // This reference is used to evaluate the size of the calendar,
-    // and to determine if it should be displayed in card mode or not.
-    // That way, we can enable or disable the fetching of the offers when updating the start date.
-    // @ts-expect-error
-    this.calendarRefContainer = React.createRef();
     this.state = {
       offerId: null,
       offer: null,
@@ -276,46 +279,34 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     };
   };
 
-  /**
-   *  @description Wheter or not the calendar must display its list or card version. For the widget this is configurable via the property compactMode.
-   *  compactMode can be null, true, false AND also undefined (parameter coming from the widget code-snippet and is often deleted from the dict).
-   * Thus, we must consider null and undefined equivalent and have to serve the same purpose -> let the container width establish the display behavior.
-   */
-  getIsCompact = () =>
-    (this.props.compactMode !== null && this.props.compactMode === true) ||
-    (!this.props.compactMode && (this.props.containerWidth ?? 1200) < 1250);
-
-  // Large calendar
-  getIsLarge = () =>
-    (this.props.compactMode != null && this.props.compactMode === false) ||
-    (this.props.compactMode == null &&
-      !((this.props.containerWidth ?? 1240) < 1250));
-
   // Card mode display
-  getIsCardModeDisplay = () =>
-    !(this.getIsCompact() && !this.getIsLarge()) ||
-    this.cardModeDisplayForcedByWidgetConfiguration();
-
-  cardModeDisplayForcedByWidgetConfiguration = () => {
-    if (!this.props.config?.cardModeDisplayMinWidth) {
-      return false;
+  getIsCardModeDisplay = () => {
+    if (isBoolean(this.props.compactMode)) {
+      return this.props.compactMode;
     }
-    try {
-      const cardModeDisplayMinWidth = parseFloat(
-        this.props.config?.cardModeDisplayMinWidth as string,
-      );
 
-      return (this.props.containerWidth ?? 1240) > cardModeDisplayMinWidth;
-    } catch (error) {
-      console.error(error);
-      return false;
+    if (!this.props.containerWidth) {
+      // Here we can't decide if we are in card mode or not, so we return null
+      return null;
     }
+
+    return this.props.containerWidth > this.getCardModeDisplayMinWidth();
+  };
+
+  getCardModeDisplayMinWidth = () => {
+    const cardModeDisplayMinWidth = parseFloat(
+      this.props.config?.cardModeDisplayMinWidth?.toString() ?? '',
+    );
+
+    return !isNaN(cardModeDisplayMinWidth)
+      ? cardModeDisplayMinWidth
+      : DEFAULT_CARD_MODE_DISPLAY_MIN_WIDTH;
   };
 
   getStartCalendarWeekOnToday = () =>
     // @ts-expect-error
     this.props.theme.start_calendar_week_on_today &&
-    this.getIsCardModeDisplay();
+    !!this.getIsCardModeDisplay();
 
   getSelectedDate = memoize((date: string | undefined) => {
     return date ? DateTime.fromISO(date) : DateTime.now();
@@ -330,7 +321,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   };
 
   end_date = () => {
-    return this.start_date().plus({ days: 7 });
+    // If this.getIsCardModeDisplay() is null, it means we don't know the size of the calendar,
+    // so we fetch offers for the 2 incoming weeks to be sure we have all displayed offers.
+    return this.start_date().plus({
+      days: this.getIsCardModeDisplay() !== null ? 7 : 14,
+    });
   };
 
   fetchData = () => {
@@ -707,7 +702,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           group={this.props.group}
           groupSessionByPeriod={this.props.groupSessionByPeriod}
           hideCoach={this.props.theme.hideCoach}
-          isCardModeDisplay={this.getIsCardModeDisplay()}
+          isCardModeDisplay={!!this.getIsCardModeDisplay()}
           isSearching={this.state.offerSearchResult.query.length > 0}
           loading={this.state.isLoading}
           metaActivities={
@@ -723,7 +718,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           onClickOffer={this.openOfferDialog}
           onSearch={this.handleSearch}
           onSelectDate={this.handleDateChange}
-          refContainer={this.props.calendarRefContainer}
           selectedDate={this.getSelectedDate(this.props.otherParams.date)}
           setFilters={this.props.setFilters || this.setFilters}
           showMultiLocalization={this.props.theme.enable_multi_localization}
@@ -848,8 +842,8 @@ const mapWithHandlers = {
 };
 
 export const CalendarDataContainer = compose(
-  marketplaceCssHoc(),
   withContainerWidthListener(),
+  marketplaceCssHoc(),
   withTranslation([
     'metaActivity',
     'marketplace',

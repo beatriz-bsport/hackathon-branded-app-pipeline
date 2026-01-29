@@ -17,6 +17,7 @@ export const WellhubProductSelectorField: FC<{
     wellhubProducts,
     selectedWellhubProduct,
     isSessionAvailableOnPartnership,
+    isLoadingWellhubProducts,
   } = useWellhubProductField(isLivestream);
 
   if (!wellhubProducts || !isSessionAvailableOnPartnership) return null;
@@ -50,6 +51,7 @@ export const WellhubProductSelectorField: FC<{
           "addSessionModal.steps.configureSession.settings.partnership.wellhub.helperText",
         )}
         required
+        loadingProps={{ isLoading: isLoadingWellhubProducts }}
       />
     </FormField>
   );

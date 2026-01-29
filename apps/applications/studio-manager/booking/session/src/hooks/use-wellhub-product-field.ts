@@ -53,6 +53,10 @@ export const useWellhubProductField = (isLivestream: boolean) => {
 
   const prevEstablishmentRef = useRef(selectedEstablishmentId);
 
+  const errorMessage = t(
+    "addSessionModal.steps.configureSession.settings.partnership.wellhub.error",
+  );
+
   useEffect(() => {
     const establishmentChanged =
       prevEstablishmentRef.current !== selectedEstablishmentId;
@@ -92,16 +96,13 @@ export const useWellhubProductField = (isLivestream: boolean) => {
   useEffect(() => {
     const isRequired =
       isSessionAvailableOnPartnership &&
-      !isLoadingWellhubProducts &&
-      !!wellhubProducts?.length &&
+      (isLoadingWellhubProducts || !!wellhubProducts?.length) &&
       selectedWellhubProductId == null;
 
     if (isRequired) {
       setError("wellhub_product_id", {
         type: "required",
-        message: t(
-          "addSessionModal.steps.configureSession.settings.partnership.wellhub.error",
-        ),
+        message: errorMessage,
       });
     } else {
       clearErrors("wellhub_product_id");
@@ -113,13 +114,14 @@ export const useWellhubProductField = (isLivestream: boolean) => {
     selectedWellhubProductId,
     setError,
     clearErrors,
-    t,
+    errorMessage,
   ]);
 
   return {
     wellhubProducts,
     selectedWellhubProduct,
     isSessionAvailableOnPartnership,
+    isLoadingWellhubProducts,
     setValue,
   };
 };

@@ -8,15 +8,23 @@ import {
 import type { WithStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-import MarketplaceVideo from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideo.page';
-import MarketplaceVideoDetail from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideoDetail.page';
-import MarketplacePlaylistDetailPage from '@bsport/saas-legacy/src/pages/marketplace/MarketplacePlaylistDetail.page';
+import {
+  MarketplaceVideoDataProvider,
+  MarketplaceVideo as MarketplaceVideoComponent,
+} from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideo.page';
+import {
+  MarketplaceVideoDetailDataProvider,
+  MarketplaceVideoDetail as MarketplaceVideoDetailComponent,
+} from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideoDetail.page';
+import {
+  MarketplacePlaylistDetailDataProvider,
+  MarketplacePlaylistDetailPage as MarketplacePlaylistDetailComponent,
+} from '@bsport/saas-legacy/src/pages/marketplace/MarketplacePlaylistDetail.page';
 import {
   MarketplacePlaylistData,
   MarketplaceVODData,
 } from '@bsport/saas-legacy/src/libs/marketplace/types';
 import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
-import { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import { getEnv } from '../utils/env';
 
 import '../../vendor/video.css';
@@ -31,9 +39,15 @@ type OwnProps = {
 
 type Props = OwnProps & WithStyles<typeof styles>;
 
-const MarketPlaceVideoStyled = themify(MarketplaceVideo);
-const MarketplaceVideoDetailStyled = themify(MarketplaceVideoDetail);
-const MarketplacePlaylistStyled = themify(MarketplacePlaylistDetailPage);
+const MarketPlaceVideoStyled = themify(
+  MarketplaceVideoDataProvider(MarketplaceVideoComponent),
+);
+const MarketplaceVideoDetailStyled = themify(
+  MarketplaceVideoDetailDataProvider(MarketplaceVideoDetailComponent),
+);
+const MarketplacePlaylistStyled = themify(
+  MarketplacePlaylistDetailDataProvider(MarketplacePlaylistDetailComponent),
+);
 
 const VODWidget = (props: Props) => {
   const { companyId, onWindowOpen, classes } = props;

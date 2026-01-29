@@ -130,8 +130,10 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
 
       try {
         const payload = buildPayload({
-          configureSessionData: configureSessionFormData,
-          advancedOptionsData: advancedData,
+          sessionData: {
+            ...configureSessionFormData,
+            ...advancedData,
+          },
           metaActivityId: selectedGroupActivity?.id,
         });
 

@@ -1,0 +1,9 @@
+{
+  "name": "@bsport/kaizen-storybook",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "implicitDependencies": [
+    "@bsport/kaizen-primitive-core",
+    "@bsport/kaizen-business-financial-services",
+    "@bsport/kaizen-tokens"
+  ]
+}

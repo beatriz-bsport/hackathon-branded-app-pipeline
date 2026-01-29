@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 
 import { FormField } from "@bsport/form";
 import { Autocomplete, AutocompleteProps } from "@bsport/kaizen-primitive-core";
@@ -9,9 +9,10 @@ import { useGroupedEstablishments } from "#src/hooks/use-grouped-establishments"
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-export const EstablishmentSelectorField: FC<{ fieldIdPrefix: string }> = ({
-  fieldIdPrefix,
-}) => {
+export const EstablishmentSelectorField: FC<{
+  fieldIdPrefix: string;
+  defaultSelectedId: number | null;
+}> = ({ fieldIdPrefix, defaultSelectedId }) => {
   const { t } = useTranslation("sessionCreation");
 
   const company = dataAccessLayer.useCompanyTheme()?.company;
@@ -22,6 +23,10 @@ export const EstablishmentSelectorField: FC<{ fieldIdPrefix: string }> = ({
   });
 
   const groupedEstablishments = useGroupedEstablishments(establishments);
+
+  const defaultSelectedIds = useMemo(() => {
+    return defaultSelectedId !== null ? [defaultSelectedId.toString()] : [];
+  }, [defaultSelectedId]);
 
   return (
     <FormField<SessionCreationFormData, "establishment", AutocompleteProps>
@@ -49,6 +54,7 @@ export const EstablishmentSelectorField: FC<{ fieldIdPrefix: string }> = ({
           required: true,
         }}
         loadingProps={{ isLoading }}
+        defaultSelectedIds={defaultSelectedIds}
       />
     </FormField>
   );

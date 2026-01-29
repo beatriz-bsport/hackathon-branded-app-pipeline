@@ -7,13 +7,13 @@
   "banner": {
     "close": "Banner schließen",
     "insights": {
-      "title": "Neu: Einblicke",
+      "title": "Neu: Erkenntnisse",
       "description": "Verfolge deine KPI-Trends, erkenne Chancen und manage Risiken",
       "ctaLabel": "Jetzt entdecken"
     }
   },
   "upcomingClassesPanel": {
-    "title": "Nächsten Kurse",
+    "title": "Nächste Kurse",
     "headers": {
       "class": "Kurs",
       "teacher": "Lehrkraft",
@@ -59,11 +59,11 @@
     }
   },
   "keyMetrics": {
-    "title": "Hauptzahlen",
+    "title": "Kennzahlen",
     "unavailable": "Metriken sind derzeit nicht verfügbar"
   },
   "insightsPanel": {
     "title": "Erkenntnisse im Überblick",
-    "unavailable": "Einblicke sind derzeit nicht verfügbar"
+    "unavailable": "Erkenntnisse sind derzeit nicht verfügbar"
   }
 }

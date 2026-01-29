@@ -7,8 +7,8 @@ import { useSessionListStore } from "#src/stores/session-list/store";
 import type { Columns, EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
-import { SessionCards } from "./SessionCards";
 import { useSessionListColumns } from "./columns";
+import { SessionCards } from "./session-cards";
 
 type SessionTableProps = {
   sessions: EnrichedSession[];
@@ -20,9 +20,9 @@ const SessionTable: React.FC<SessionTableProps> = ({
   isLoading,
 }: SessionTableProps) => {
   const { t } = useTranslation("sessionList");
-  const columns = useSessionListColumns();
   const displayedColumns = useSessionListStore(selectDisplayedColumns);
   const isMobile = !useMatchMedia("lg");
+  const columns = useSessionListColumns(isMobile);
 
   const filteredColumns = useMemo(
     () =>

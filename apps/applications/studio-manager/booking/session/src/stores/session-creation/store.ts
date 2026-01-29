@@ -73,6 +73,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   broadcast_link: "",
   establishment: null,
   room_blueprint: null,
+  sync_on_spivi: undefined,
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {

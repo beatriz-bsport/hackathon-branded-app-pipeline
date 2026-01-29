@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 import Button from "#src/components/Button";
 import DropdownMenu from "#src/components/DropdownMenu";
@@ -15,6 +15,7 @@ interface FilterRowProps {
   onOperatorChange: (index: number, operatorId: string) => void;
   onValuesChange: (index: number, valueIds: string[]) => void;
   onDelete: () => void;
+  cachedValues?: Record<string, string>;
 }
 
 const FilterRow = ({
@@ -26,11 +27,30 @@ const FilterRow = ({
   onOperatorChange,
   onValuesChange,
   onDelete,
+  cachedValues = {},
 }: FilterRowProps) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   const selectedField = element.field ? fields[element.field] : null;
+
+  const getFieldByValueId = useCallback(
+    (valueId: string) => {
+      if (!selectedField) return null;
+
+      const currentValue = selectedField.values.find(
+        (value) => value.id === valueId,
+      );
+
+      return (
+        currentValue ??
+        (cachedValues[valueId]
+          ? { id: valueId, label: cachedValues[valueId] }
+          : null)
+      );
+    },
+    [selectedField, cachedValues],
+  );
 
   const filterOptions = useMemo(
     () =>
@@ -57,16 +77,37 @@ const FilterRow = ({
     return result;
   }, [selectedField, filters]);
 
-  const valueOptions = useMemo(
-    () =>
-      selectedField
-        ? selectedField.values.map((val) => ({
-            id: val.id,
-            label: val.label,
-          }))
-        : [],
-    [selectedField],
-  );
+  const valueOptions = useMemo(() => {
+    if (!selectedField) return [];
+
+    if (!selectedField.multiSelect || !selectedField.searchConfig) {
+      return selectedField.values.map((value) => ({
+        id: value.id,
+        label: value.label,
+      }));
+    }
+
+    // For multi-select with search, show selected items at the top
+    const items = [];
+    if (!!element.valueIds && element.valueIds.length > 0) {
+      items.push(
+        ...element.valueIds
+          .map((valueId) => getFieldByValueId(valueId))
+          .filter((value) => value !== null),
+      );
+      items.push({ type: "divider" as const });
+    }
+    items.push(
+      ...selectedField.values
+        .filter((value) => !element.valueIds?.includes(value.id))
+        .map((value) => ({
+          id: value.id,
+          label: value.label,
+        })),
+    );
+
+    return items.filter(Boolean);
+  }, [selectedField, element.valueIds, cachedValues]);
 
   const formatValueDisplay = useMemo(() => {
     if (element.valueIds.length === 0) {
@@ -74,11 +115,11 @@ const FilterRow = ({
     }
 
     const labels = element.valueIds
-      .map((id) => selectedField?.values.find((v) => v.id === id)?.label)
+      .map((id) => getFieldByValueId(id)?.label)
       .filter(Boolean);
 
     return labels.join(", ");
-  }, [element.valueIds, selectedField?.values, t]);
+  }, [element.valueIds, selectedField, cachedValues, t]);
 
   const isMultiSelect = selectedField?.multiSelect ?? false;
 
@@ -121,7 +162,6 @@ const FilterRow = ({
           }}
           fullWidth
         />
-
         {element.field && (
           <Button
             color="main"
@@ -198,6 +238,7 @@ const FilterRow = ({
                 }
               }}
               fullWidth
+              searchConfig={selectedField?.searchConfig}
             />
           </div>
         </>

@@ -334,14 +334,14 @@ const useGeneratePassesTriggerType = () => {
             // If it's not applied to all, we then provide the first pass name found
             const translation = `${t(
               // @ts-expect-error bad plural management
-              "table.triggerType.passes.finnerGraining.credit",
+              "table.triggerType.passes.finerGraining.credit",
               {
                 count: event_rules.credits_left,
                 entityName,
               },
             )} ${
               hasMoreThanOnePass
-                ? t("table.triggerType.passes.finnerGraining.severalPass")
+                ? t("table.triggerType.passes.finerGraining.severalPass")
                 : ""
             }`;
             return String(translation);
@@ -371,14 +371,14 @@ const useGeneratePassesTriggerType = () => {
             } else {
               const translation = `${t(
                 // @ts-expect-error bad plural management
-                "table.triggerType.passes.finnerGraining.validity",
+                "table.triggerType.passes.finerGraining.validity",
                 {
                   count: daysLeft,
                   entityName,
                 },
               )} ${
                 hasMoreThanOnePass
-                  ? t("table.triggerType.passes.finnerGraining.severalPass")
+                  ? t("table.triggerType.passes.finerGraining.severalPass")
                   : ""
               }`;
               return String(translation);
@@ -397,14 +397,14 @@ const useGeneratePassesTriggerType = () => {
               // If it's not applied to all, we then provide the first pass name found
               const translation = `${t(
                 // @ts-expect-error bad plural management
-                "table.triggerType.passes.finnerGraining.expired",
+                "table.triggerType.passes.finerGraining.expired",
                 {
                   count: Math.abs(daysLeft),
                   entityName,
                 },
               )} ${
                 hasMoreThanOnePass
-                  ? t("table.triggerType.passes.finnerGraining.severalPass")
+                  ? t("table.triggerType.passes.finerGraining.severalPass")
                   : ""
               }`;
               return String(translation);

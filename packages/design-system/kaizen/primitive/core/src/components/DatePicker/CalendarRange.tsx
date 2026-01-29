@@ -10,6 +10,7 @@ import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import Divider from "#src/components/Divider";
 import TextField from "#src/components/TextField";
+import { useMatchMedia } from "#src/hooks";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import CalendarHeader from "./CalendarHeader";
@@ -91,6 +92,8 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
     setErrors([null, null]);
   };
 
+  const isMobile = !useMatchMedia("md");
+
   return (
     <div
       data-component="Kaizen-DatePicker-CalendarRange"
@@ -130,6 +133,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
         mode="range"
         years={years}
         onSelect={setDisplayMonth}
+        isMobile={isMobile}
       />
 
       <div className="flex gap-md">
@@ -139,13 +143,17 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
           onSelect={handleDateSelect}
           disableDate={disableDate}
         />
-        <Divider orientation="vertical" weight="thin" />
-        <Month
-          displayMonth={displayMonth.plus({ months: 1 })}
-          selectedDate={selectedDate}
-          onSelect={handleDateSelect}
-          disableDate={disableDate}
-        />
+        {!isMobile && (
+          <>
+            <Divider orientation="vertical" weight="thin" />
+            <Month
+              displayMonth={displayMonth.plus({ months: 1 })}
+              selectedDate={selectedDate}
+              onSelect={handleDateSelect}
+              disableDate={disableDate}
+            />
+          </>
+        )}
       </div>
     </div>
   );

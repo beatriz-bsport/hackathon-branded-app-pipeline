@@ -271,3 +271,30 @@ export type Session = {
   waiting_list_max_size: number;
   whitelist_tags: number[];
 };
+
+export type SessionCreationPayload = {
+  allow_guest_offer: boolean;
+  available_on_partnership: boolean;
+  blacklist_tags: number[];
+  broadcast_link: string;
+  coach_payment_rule: number | null;
+  coach: number;
+  credits: number;
+  dates: number[];
+  description_override: string;
+  duration_minute: number;
+  effectif: number;
+  establishment: number;
+  is_hybrid: boolean;
+  level: number;
+  manager_only: boolean;
+  meta_activity: number;
+  name_override: string;
+  partner_max_booking_count: number;
+  recurrence_id?: string;
+  room_blueprint?: number | null;
+  sync_on_spivi?: boolean;
+  waiting_list_max_size: number;
+  wellhub_product_id?: number | null;
+  whitelist_tags: number[];
+};

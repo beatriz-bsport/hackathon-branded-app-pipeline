@@ -489,7 +489,7 @@
         },
         "title": "Déclencheurs",
         "event_or_smartlist_helper": "Les membres devront correspondre à l'événement ou bien faire partie de la smartlist pour rentrer dans la cadence",
-        "finnerGrain": {
+        "finerGrain": {
           "specifyItemsToggleLabel": "Spécifier les objets",
           "purchaseLabelTitle": "Objet(s) acheté(s)"
         }
@@ -848,7 +848,7 @@
           "workflow": "L'entrée dans le {{ workflowLowerCase }} se fait via :"
         },
         "event_or_smartlist_helper": "Les membres devront correspondre à l'événement ou faire partie de la smartlist pour s'intégrer au {{ workflowLowerCase }}",
-        "oneOrMoreFinnerGrainDisabledText": "L'un des objets spécifiés n'existe pas dans votre liste de produits."
+        "oneOrMoreFinerGrainDisabledText": "L'un des objets spécifiés n'existe pas dans votre liste de produits."
       },
       "audienceNameLabel": "Nom du {{ workflowLowerCase }}",
       "multipleVisit": {
@@ -901,7 +901,7 @@
       "title": "Comment éditer votre {{ workflowLowerCase }}"
     },
     "workflow": {
-      "finnerGrainIssues": "Un ou plusieurs objets spécifiés ne sont plus disponibles."
+      "finerGrainIssues": "Un ou plusieurs objets spécifiés ne sont plus disponibles."
     },
     "audienceIndexHelper": "L'ordre des {{ workflowPluralLowerCase }} détermine la priorité : si un membre peut entrer dans deux {{ workflowPluralLowerCase }} différents en même temps, il commencera par le premier de la liste.",
     "workflowMetrics": {

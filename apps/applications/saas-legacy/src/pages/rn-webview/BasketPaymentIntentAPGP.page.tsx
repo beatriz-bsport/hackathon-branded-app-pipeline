@@ -56,7 +56,7 @@ import {
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
 import { validateUnpaid as validateUnpaidAPI } from '#src/libs/checkout/api';
-import { unauthenticatedRequestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
+import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 import { BasketPaymentProvider } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
 import { OnlinePaymentBasketUnified } from '#src/libs/checkout/components/new-checkout-flow-unified/OnlinePaymentBasketUnified.component';
 import BasketTaxInfo from '#src/libs/checkout/components/BasketTaxInfo.component';

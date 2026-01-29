@@ -67,7 +67,7 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
   const handleSubmit = React.useCallback(() => {
     if (
       !isEdition &&
-      marketingActionType === MarketingActions.CADENCE_MARKETING_ACTION_SMS &&
+      marketingActionType === MarketingActions.SMS &&
       smsCostWarningState !== 'dismissed'
     ) {
       setSmsCostWarningState('displayed');

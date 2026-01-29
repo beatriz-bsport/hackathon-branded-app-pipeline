@@ -33,7 +33,9 @@ export const SessionRecurrence: FC<{
     recurrenceWeekdays,
   } = watch();
 
-  const recurrenceConfig = useRecurrenceConfig({
+  const { getRecurrenceConfig } = useRecurrenceConfig();
+
+  const recurrenceConfig = getRecurrenceConfig({
     startDateTime,
     isRecurring,
     recurrenceEndDate,

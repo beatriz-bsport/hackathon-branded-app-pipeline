@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import Alert, { statuses, types } from "./Alert";
+import Alert, { layouts, statuses, types } from "./Alert";
 
 /**
  * The Alert component is a visual element that is used to convey important information to users.
@@ -30,6 +30,11 @@ const meta: Meta<typeof Alert> = {
     children: {
       table: { type: { summary: "ReactNode" } },
     },
+    layout: {
+      options: layouts,
+      control: { type: "inline-radio" },
+      table: { type: { summary: "string" } },
+    },
   },
 };
 
@@ -48,6 +53,7 @@ export const Primary: Story = {
     onButtonClick: () => console.log("Click button"),
     children:
       "Lorem ipsum dolor sit amet consectetur. Elementum mauris eget donec adipiscing morbi orci. In cursus urna morbi platea ullamcorper hendrerit. Adipiscing dolor tincidunt purus velit mattis. Vulputate risus massa nascetur at id est vitae feugiat.",
+    layout: "banner",
   },
 };
 
@@ -58,6 +64,19 @@ export const NoTitleShortChildren: Story = {
     type: "weak",
     children:
       "Lorem mattis. Vulputate risus massa nascetur at id est vitae feugiat.",
+    layout: "banner",
+  },
+};
+
+export const InlineLayout: Story = {
+  name: "Alert with title and short children and inline layout",
+  args: {
+    status: "default",
+    type: "weak",
+    title: "Title of this alert",
+    children:
+      "Lorem mattis. Vulputate risus massa nascetur at id est vitae feugiat.",
+    layout: "inline",
   },
 };
 
@@ -71,6 +90,7 @@ export const NoTitleShortChildrenWithButtons: Story = {
     buttonLabel: "Click me",
     onClearClick: () => console.log("Click close"),
     onButtonClick: () => console.log("Click button"),
+    layout: "banner",
   },
 };
 
@@ -81,6 +101,7 @@ export const NoTitleLongChildren: Story = {
     type: "weak",
     children:
       "Lorem ipsum dolor sit amet consectetur. Elementum mauris eget donec adipiscing morbi orci. In cursus urna morbi platea ullamcorper hendrerit. Adipiscing dolor tincidunt purus velit mattis. Vulputate risus massa nascetur at id est vitae feugiat",
+    layout: "banner",
   },
 };
 
@@ -91,5 +112,6 @@ export const TitleNoChildren: Story = {
     type: "weak",
     title:
       "Lorem mattis. Vulputate risus massa nascetur at id est vitae feugiat.",
+    layout: "banner",
   },
 };

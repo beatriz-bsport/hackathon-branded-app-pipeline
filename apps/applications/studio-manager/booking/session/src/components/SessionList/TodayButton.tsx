@@ -6,7 +6,7 @@ import {
   getLocalNow,
   isSameDay,
 } from "@bsport/datetime-manipulation";
-import { Button } from "@bsport/kaizen-primitive-core";
+import { Button, useMatchMedia } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import {
@@ -69,7 +69,19 @@ export const TodayButton: React.FC = () => {
     }
   }, [calendarView, selectedDate, today]);
 
-  return (
+  const isMobile = !useMatchMedia("sm");
+
+  return isMobile ? (
+    <Button
+      label={t("dateNavigation.todayButton")}
+      onClick={handleTodayClick}
+      size="md"
+      intent="default"
+      color="main"
+      kind="icon-button"
+      icon="arrow-square-right"
+    />
+  ) : (
     <Button
       label={t("dateNavigation.todayButton")}
       onClick={handleTodayClick}

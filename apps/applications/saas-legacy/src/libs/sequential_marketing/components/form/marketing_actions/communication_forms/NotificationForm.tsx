@@ -46,8 +46,7 @@ const NotificationForm: React.FC<Props> = ({
         email_design: null,
         text_content: '',
         subject: '',
-        communication_kind:
-          MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+        communication_kind: MarketingActions.PUSH_NOTIFICATION,
       };
     }, [formik?.values?.action_spec]);
 

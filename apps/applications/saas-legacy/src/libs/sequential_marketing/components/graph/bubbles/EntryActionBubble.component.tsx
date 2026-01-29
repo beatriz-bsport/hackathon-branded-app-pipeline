@@ -75,8 +75,7 @@ const EntryActionBubble: React.FC<Props> = ({
     for (const action of marketingActionList) {
       if (
         'communication_kind' in action.action_spec &&
-        action.action_spec.communication_kind ===
-          MarketingActions.CADENCE_MARKETING_ACTION_SMS
+        action.action_spec.communication_kind === MarketingActions.SMS
       ) {
         isSmsMarketingActionPresent = true;
         break;

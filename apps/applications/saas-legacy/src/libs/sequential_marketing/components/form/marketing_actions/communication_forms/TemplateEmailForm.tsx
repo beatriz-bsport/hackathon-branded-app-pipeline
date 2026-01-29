@@ -59,8 +59,7 @@ const TemplateEmailForm: React.FC<Props> = ({
         email_design: null,
         text_content: '',
         subject: '',
-        communication_kind:
-          MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+        communication_kind: MarketingActions.EMAIL_TEMPLATE,
       };
     }, [formik.values.action_spec]);
 

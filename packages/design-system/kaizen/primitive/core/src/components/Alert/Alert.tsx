@@ -48,6 +48,10 @@ const variants = {
     "strong:critical": ["bg-surface-status-critical-strong"],
     "strong:positive": ["bg-surface-status-positive-strong"],
   },
+  layout: {
+    banner: ["w-full"],
+    inline: ["w-fit"],
+  },
 } as const;
 
 const iconByStatus: Record<(typeof statuses)[number], IconName> = {
@@ -68,6 +72,8 @@ export const statuses = [
 
 export const types = ["weak", "strong"] as const;
 
+export const layouts = ["banner", "inline"] as const;
+
 const alert = cva(defaultClasses, {
   variants,
 });
@@ -75,6 +81,7 @@ const alert = cva(defaultClasses, {
 export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
   status: (typeof statuses)[number];
   type?: (typeof types)[number];
+  layout?: (typeof layouts)[number];
   title?: string;
   buttonLabel?: string;
   onClearClick?: MouseEventHandler<HTMLButtonElement>;
@@ -87,6 +94,7 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.className Classname to add to the alert.
  * @param props.status Status of the alert. Can be "default", "warning", "info", "critical", or "positive".
  * @param props.type Type of the alert. Can be "weak" or "strong".
+ * @param props.layout Layout of the alert. "banner" (default) for full-width, "inline" for fit-content.
  * @param props.title Title of the alert.
  * @param props.buttonLabel Text label of the button.
  * @param props.onClearClick Function to call when the alert is cleared.
@@ -98,6 +106,7 @@ const Alert: React.FC<AlertProps> = ({
   className,
   status,
   type = "weak",
+  layout = "banner",
   title,
   buttonLabel,
   onClearClick,
@@ -117,7 +126,7 @@ const Alert: React.FC<AlertProps> = ({
       data-component="Kaizen-Alert"
       aria-labelledby={title ? `${title}-title` : undefined}
       className={classNames(
-        `${alert({ className, statusByType: `${type}:${status}` as keyof typeof variants.statusByType })}`,
+        `${alert({ className, statusByType: `${type}:${status}` as keyof typeof variants.statusByType, layout })}`,
         { "text-onsurface-default-onstrong": type === "strong" },
       )}
       {...props}

@@ -233,7 +233,7 @@ const TextField: React.FC<TextFieldProps> = ({
         >
           <span>{label}</span>
           {required && (
-            <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
+            <span className="text-onsurface-status-critical-weak text-body-sm leading-xs">
               *
             </span>
           )}

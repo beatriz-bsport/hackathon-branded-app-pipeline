@@ -2,10 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useId } from "react";
 
 import { ControlledForm, useFormController } from "@bsport/form";
-import { Card, Modal, Title } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Button,
+  Card,
+  Modal,
+  Title,
+} from "@bsport/kaizen-primitive-core";
 import { useAsync } from "@bsport/use-async";
 
 import { getMembers } from "#src/actions/member";
+import ItemAutocomplete from "#src/components/billing/ItemAutocomplete";
 import ItemTypeSelector, {
   INVOICE_ITEMS_KINDS,
   type InvoiceItemKind,
@@ -18,6 +25,10 @@ import fetch from "#src/utils/fetch";
 
 import { DEFAULT_FORM_DATA, billingFlowFormDataSchema } from "./schema";
 import type { BillingFlowModalProps } from "./types";
+
+// Note: Currently routes to legacy backoffice (causes page reload).
+// In the future, this will route to the revamp subscription page which may use react-router.
+const LEGACY_URL_SUBSCRIPTION = "/subscriptions";
 
 const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   isOpen,
@@ -143,11 +154,42 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
               </Title>
               <div className="mt-md">
                 <Card elevated={false}>
-                  <ItemTypeSelector
-                    label={t("itemTypeSelector.label")}
-                    value={selectedItemType}
-                    onSelect={setSelectedItemType}
-                  />
+                  <div className="flex flex-col gap-md">
+                    <ItemTypeSelector
+                      label={t("itemTypeSelector.label")}
+                      value={selectedItemType}
+                      onSelect={setSelectedItemType}
+                    />
+                    {selectedItemType !== "subscription" ? (
+                      <ItemAutocomplete
+                        itemType={selectedItemType}
+                        textfieldProps={{
+                          label: t("billingFlowModal.searchItem"),
+                          placeholder: t(
+                            "billingFlowModal.searchItemPlaceholder",
+                          ),
+                          required: true,
+                        }}
+                        // TODO: Handle item selection
+                      />
+                    ) : (
+                      <div className="flex flex-col justify-center items-center text-center self-stretch py-xl gap-xs">
+                        <Body color="weak" className="max-w-[323px]">
+                          {t("billingFlowModal.subscriptionMessage")}
+                        </Body>
+                        <Button
+                          iconRight="share-03"
+                          label={t("billingFlowModal.goToSubscriptions")}
+                          size="md"
+                          color="main"
+                          intent="call-to-action"
+                          onClick={() =>
+                            window.open(LEGACY_URL_SUBSCRIPTION, "_blank")
+                          }
+                        />
+                      </div>
+                    )}
+                  </div>
                 </Card>
               </div>
             </div>

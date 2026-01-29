@@ -94,9 +94,7 @@ Edition.args = {
 
 export const SmsCreation = Template.bind({});
 SmsCreation.args = {
-  marketingAction: getMarketingActionPartialValues(
-    MarketingActions.CADENCE_MARKETING_ACTION_SMS,
-  ),
+  marketingAction: getMarketingActionPartialValues(MarketingActions.SMS),
   tagCategories: fakeTagCategories,
   submit: updateMarketingAction,
 };
@@ -104,7 +102,7 @@ SmsCreation.args = {
 export const WrittenEmailCreation = Template.bind({});
 WrittenEmailCreation.args = {
   marketingAction: getMarketingActionPartialValues(
-    MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+    MarketingActions.WRITTEN_EMAIL,
   ),
   tagCategories: fakeTagCategories,
   submit: updateMarketingAction,
@@ -113,7 +111,7 @@ WrittenEmailCreation.args = {
 export const TemplateEmailCreation = Template.bind({});
 TemplateEmailCreation.args = {
   marketingAction: getMarketingActionPartialValues(
-    MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+    MarketingActions.EMAIL_TEMPLATE,
   ),
   tagCategories: fakeTagCategories,
   emailSummaryList: EmailTemplateSummaryFactoryBot.EmailTemplateSummary.create(
@@ -125,7 +123,7 @@ TemplateEmailCreation.args = {
 export const PushNotifCreation = Template.bind({});
 PushNotifCreation.args = {
   marketingAction: getMarketingActionPartialValues(
-    MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+    MarketingActions.PUSH_NOTIFICATION,
   ),
   tagCategories: fakeTagCategories,
   submit: updateMarketingAction,
@@ -133,9 +131,7 @@ PushNotifCreation.args = {
 
 export const TagCreation = Template.bind({});
 TagCreation.args = {
-  marketingAction: getMarketingActionPartialValues(
-    MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT,
-  ),
+  marketingAction: getMarketingActionPartialValues(MarketingActions.ADD_TAG),
   tagList: tagListFactory(faker.number.int({ min: 2, max: 10 })),
   submit: updateMarketingAction,
 };

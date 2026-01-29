@@ -230,8 +230,7 @@ export function stepMarketingActionBatchFactory(
     return stepMarketingActionFactory({
       communication_kind: CADENCE_MARKETING_ACTION_CHOICES[kind],
       kind:
-        CADENCE_MARKETING_ACTION_CHOICES[kind] ===
-        MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT
+        CADENCE_MARKETING_ACTION_CHOICES[kind] === MarketingActions.ADD_TAG
           ? MarketingActionKind.TAG
           : MarketingActionKind.COMMUNICATION,
     });

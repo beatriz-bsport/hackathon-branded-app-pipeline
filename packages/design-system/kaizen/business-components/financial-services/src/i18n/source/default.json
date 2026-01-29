@@ -4,7 +4,11 @@
     "cancel": "Cancel",
     "loadingMemberInfo": "Loading member information...",
     "addItem": "Add Item",
-    "summary": "Summary"
+    "summary": "Summary",
+    "searchItem": "Item",
+    "searchItemPlaceholder": "Search an item...",
+    "subscriptionMessage": "Go to the Subscriptions page to bill the member for this item",
+    "goToSubscriptions": "Go to Subscriptions"
   },
   "memberSelectorModal": {
     "title": "Select a member",
@@ -23,5 +27,15 @@
     "pack": "Pack",
     "giftcard": "Gift Card",
     "subscription": "Subscription"
+  },
+  "itemAutocomplete": {
+    "openItemInNewTab": "Open item in new tab",
+    "credits": "{{count}} credit",
+    "credits_plural": "{{count}} credits",
+    "items": "{{count}} item",
+    "items_plural": "{{count}} items",
+    "validForDays": "Valid for {{count}} day",
+    "validForDays_plural": "Valid for {{count}} days",
+    "customAmountRange": "Custom: {{min}} - {{max}}"
   }
 }

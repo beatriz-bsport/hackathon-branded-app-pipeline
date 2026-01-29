@@ -186,6 +186,9 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
         </div>
       </div>
       <div className={classes.flexRow}>
+        <Typography>{replacementRequest.offer.establishment?.title}</Typography>
+      </div>
+      <div className={classes.flexRow}>
         <CoachAvatar coach={replacementRequest.offer.coach} />
         <Typography className={classes.grey} variant="body2">
           {replacementRequest.offer.coach.name}

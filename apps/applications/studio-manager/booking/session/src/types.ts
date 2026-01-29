@@ -1,7 +1,8 @@
 import type { ManagerSession } from "@bsport/api-book";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
-export type EnrichedSession = Omit<ManagerSession, "name_override"> & {
+// Careful, name is always present and represents the final name after overrides
+export type EnrichedSession = ManagerSession & {
   color?: string;
   teacherName?: string;
   originalTeacherName?: string;

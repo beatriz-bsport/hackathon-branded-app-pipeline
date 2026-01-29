@@ -58,14 +58,12 @@ const processSession =
     const establishment = establishmentsById[session.establishment];
     const group = session.group ? groupSessionsById[session.group] : undefined;
 
-    const { name_override, ...sessionWithoutOverride } = session;
-
     return {
-      ...sessionWithoutOverride,
+      ...session,
       teacherName: teacherOverride?.name ?? teacher?.name,
       originalTeacherName: teacher?.name,
       establishmentName: establishment?.title,
-      name: name_override || session.name,
+      name: session.name_override || session.name,
       color: session.meta_activity_color,
       hasPendingReplacementRequest: sessionsWithPendingRequests.includes(
         session.id,

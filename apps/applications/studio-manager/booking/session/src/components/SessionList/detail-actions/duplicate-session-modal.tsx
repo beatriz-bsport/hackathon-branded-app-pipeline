@@ -3,7 +3,7 @@ import { FC, useId, useMemo } from "react";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { fromIsoString, toDate } from "@bsport/datetime-manipulation";
 import { ControlledForm, useFormController } from "@bsport/form";
-import { Modal } from "@bsport/kaizen-primitive-core";
+import { Modal, toast } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionDuration } from "#src/components/SessionForm/TimeAndDate/SessionDuration";
@@ -14,6 +14,8 @@ import {
   MonthlyRecurrencePattern,
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
+import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
+import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
 import {
   closeModal,
   selectIsDuplicateModalOpen,
@@ -77,6 +79,44 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
     return `${session.name} - ${sessionDate}`;
   };
 
+  const { buildPayload } = useSessionCreationPayload();
+  const { mutate: createSession } = useCreateSession();
+
+  const handleConfirm = () => {
+    try {
+      const payload = buildPayload({
+        sessionData: {
+          ...session,
+          ...duplicateSessionMethods.getValues(),
+          credits: session.credit_price,
+          is_hybrid: !!session.linked_hybrid_offer_id,
+          coach_payment_rule: session.coach_payment_rule_id,
+          allowCustomNameAndDescription: true,
+          name_override: session.name_override ?? "",
+          description_override: session.description_override ?? "",
+          // TODO: add recurrence_id when link is selected
+        },
+        metaActivityId: session.meta_activity,
+      });
+
+      createSession({
+        payload,
+        onEarlySuccess: () => {
+          closeModal();
+          duplicateSessionMethods.reset();
+        },
+      });
+      return;
+    } catch (error) {
+      toast({
+        status: "critical",
+        description: t("duplicateModal.errorMessage"),
+      });
+      console.error("Error building session payload:", error);
+      return;
+    }
+  };
+
   return (
     <Modal
       open={isOpen}
@@ -86,6 +126,7 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
       onClose={closeModal}
       confirmButton={{
         label: t("duplicateModal.confirmButton"),
+        onClick: handleConfirm,
       }}
       cancelButton={{
         label: t("duplicateModal.cancelButton"),

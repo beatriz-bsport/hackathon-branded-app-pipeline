@@ -171,7 +171,8 @@
   "duplicateModal": {
     "title": "Duplicate session?",
     "cancelButton": "Cancel",
-    "confirmButton": "Duplicate"
+    "confirmButton": "Duplicate",
+    "errorMessage": "An error occurred while duplicating the session. Please try again later."
   },
   "restoreModal": {
     "title": "Restore session?",

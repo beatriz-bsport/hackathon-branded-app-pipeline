@@ -86,6 +86,13 @@ export type ErrorAndLoading = {
   error?: Error;
 };
 
+export type PaginatedState<T = void> = {
+  items: Array<T>;
+  loading: boolean;
+  count: number;
+  page: number;
+};
+
 export type ReworkedPaginationResponse<T> = {
   current_page: number; // The current page number
   total_pages: number; // Total number of pages available

@@ -8,6 +8,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import { useHistory } from 'react-router-dom';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
+import { HasSubscriptionsProvider } from '#src/hooks/useHasSubscriptions';
 import { INSIGHTS_ROUTES } from './constants';
 
 const useStyles = makeStyles((theme) => ({
@@ -82,88 +83,95 @@ const InsightsIndex: React.FC = () => {
         }
 
         return (
-          <div className={classes.pageContainer}>
-            {isTrialAnalysisEnabled && hasInvoicesReportPermission && (
-              <div className={classes.titleContainer}>
-                <Typography component="h2" variant="h5">
-                  {t('sections.memberInsights')}
-                </Typography>
-                <Divider className={classes.divider} />
-                <div className={classes.sectionItemContainer}>
-                  <Card className={classes.card} variant="outlined">
-                    <CardActionArea
-                      className={classes.cardActionArea}
-                      onClick={handleGoToReport(INSIGHTS_ROUTES.TRIAL_ANALYSIS)}
-                    >
-                      <Typography color="textPrimary" variant="body1">
-                        {t('trackTrialOffer.title')}
-                      </Typography>
-                      <Typography color="textSecondary" variant="body2">
-                        {t('trackTrialOffer.description')}
-                      </Typography>
-                    </CardActionArea>
-                  </Card>
-                </div>
-              </div>
-            )}
-
-            {hasSubscriptionReportPermission && (
-              <div className={classes.titleContainer}>
-                <Typography component="h2" variant="h5">
-                  {t('sections.financialHealth')}
-                </Typography>
-                <Divider className={classes.divider} />
-                <div className={classes.sectionItemContainer}>
-                  <Card className={classes.card} variant="outlined">
-                    <CardActionArea
-                      className={classes.cardActionArea}
-                      onClick={handleGoToReport(
-                        INSIGHTS_ROUTES.RECURRING_REVENUE,
-                      )}
-                    >
-                      <Typography color="textPrimary" variant="body1">
-                        {t('monitorRevenue.title')}
-                      </Typography>
-                      <Typography color="textSecondary" variant="body2">
-                        {t('monitorRevenue.description')}
-                      </Typography>
-                    </CardActionArea>
-                  </Card>
-                </div>
-              </div>
-            )}
-
-            {isScheduleAnalysisInsightEnabled &&
-              hasBookingsReportPermission && (
-                <div className={classes.titleContainer}>
-                  <Typography component="h2" variant="h5">
-                    {t('sections.bookings', { defaultValue: 'Bookings' })}
-                  </Typography>
-                  <Divider className={classes.divider} />
-                  <div className={classes.sectionItemContainer}>
-                    <Card className={classes.card} variant="outlined">
-                      <CardActionArea
-                        className={classes.cardActionArea}
-                        onClick={handleGoToReport(
-                          INSIGHTS_ROUTES.SCHEDULE_ANALYSIS,
-                        )}
-                      >
-                        <Typography color="textPrimary" variant="body1">
-                          {t('monitorSchedule.title', {
-                            defaultValue: 'Schedule analysis',
-                          })}
-                        </Typography>
-                        <Typography color="textSecondary" variant="body2">
-                          {t('monitorSchedule.description', {
-                            defaultValue: 'Analyze your schedule and bookings.',
-                          })}
-                        </Typography>
-                      </CardActionArea>
-                    </Card>
+          <HasSubscriptionsProvider enabled={hasSubscriptionReportPermission}>
+            {({ hasSubscriptions }) => (
+              <div className={classes.pageContainer}>
+                {isTrialAnalysisEnabled && hasInvoicesReportPermission && (
+                  <div className={classes.titleContainer}>
+                    <Typography component="h2" variant="h5">
+                      {t('sections.memberInsights')}
+                    </Typography>
+                    <Divider className={classes.divider} />
+                    <div className={classes.sectionItemContainer}>
+                      <Card className={classes.card} variant="outlined">
+                        <CardActionArea
+                          className={classes.cardActionArea}
+                          onClick={handleGoToReport(
+                            INSIGHTS_ROUTES.TRIAL_ANALYSIS,
+                          )}
+                        >
+                          <Typography color="textPrimary" variant="body1">
+                            {t('trackTrialOffer.title')}
+                          </Typography>
+                          <Typography color="textSecondary" variant="body2">
+                            {t('trackTrialOffer.description')}
+                          </Typography>
+                        </CardActionArea>
+                      </Card>
+                    </div>
                   </div>
-                </div>
-              )}
-          </div>
+                )}
+
+                {hasSubscriptionReportPermission && hasSubscriptions && (
+                  <div className={classes.titleContainer}>
+                    <Typography component="h2" variant="h5">
+                      {t('sections.financialHealth')}
+                    </Typography>
+                    <Divider className={classes.divider} />
+                    <div className={classes.sectionItemContainer}>
+                      <Card className={classes.card} variant="outlined">
+                        <CardActionArea
+                          className={classes.cardActionArea}
+                          onClick={handleGoToReport(
+                            INSIGHTS_ROUTES.RECURRING_REVENUE,
+                          )}
+                        >
+                          <Typography color="textPrimary" variant="body1">
+                            {t('monitorRevenue.title')}
+                          </Typography>
+                          <Typography color="textSecondary" variant="body2">
+                            {t('monitorRevenue.description')}
+                          </Typography>
+                        </CardActionArea>
+                      </Card>
+                    </div>
+                  </div>
+                )}
+
+                {isScheduleAnalysisInsightEnabled &&
+                  hasBookingsReportPermission && (
+                    <div className={classes.titleContainer}>
+                      <Typography component="h2" variant="h5">
+                        {t('sections.bookings', { defaultValue: 'Bookings' })}
+                      </Typography>
+                      <Divider className={classes.divider} />
+                      <div className={classes.sectionItemContainer}>
+                        <Card className={classes.card} variant="outlined">
+                          <CardActionArea
+                            className={classes.cardActionArea}
+                            onClick={handleGoToReport(
+                              INSIGHTS_ROUTES.SCHEDULE_ANALYSIS,
+                            )}
+                          >
+                            <Typography color="textPrimary" variant="body1">
+                              {t('monitorSchedule.title', {
+                                defaultValue: 'Schedule analysis',
+                              })}
+                            </Typography>
+                            <Typography color="textSecondary" variant="body2">
+                              {t('monitorSchedule.description', {
+                                defaultValue:
+                                  'Analyze your schedule and bookings.',
+                              })}
+                            </Typography>
+                          </CardActionArea>
+                        </Card>
+                      </div>
+                    </div>
+                  )}
+              </div>
+            )}
+          </HasSubscriptionsProvider>
         );
       }}
     </ObjectLevelPermissionProvider>

@@ -23,6 +23,7 @@
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/permissions": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
+    "@bsport/store-buyables-subscription": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "luxon": "^3.4.4",
     "react": "^19.2.0",

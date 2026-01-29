@@ -15,6 +15,7 @@ import {
   INSIGHT_ACCESS_REQUIREMENTS,
   INSIGHT_IDS,
   type InsightId,
+  useInsightAvailability,
   useInsightFlagValues,
 } from "#src/utils/insightAccessRequirements";
 
@@ -32,6 +33,7 @@ export const useInsightAccess = (): InsightAccess => {
   const userRole = dataAccessLayer.useUserRole();
   const { flagsReady } = useFlagsStatus();
   const flags = useInsightFlagValues();
+  const availability = useInsightAvailability();
 
   const objectLevelPermissions = userRole?.object_level_permissions;
 
@@ -55,11 +57,13 @@ export const useInsightAccess = (): InsightAccess => {
 
       const hasPermission = getHasPermission(requirement.permission);
 
-      acc[insightId] = isFeatureEnabled && hasPermission;
+      const isAvailable = availability[insightId] ?? true;
+
+      acc[insightId] = isFeatureEnabled && hasPermission && isAvailable;
 
       return acc;
     }, {} as InsightAccess);
-  }, [flags, flagsReady, getHasPermission]);
+  }, [availability, flags, flagsReady, getHasPermission]);
 };
 
 /**

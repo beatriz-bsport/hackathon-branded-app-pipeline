@@ -1312,6 +1312,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-buyables-subscription':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/buyables/subscription
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async

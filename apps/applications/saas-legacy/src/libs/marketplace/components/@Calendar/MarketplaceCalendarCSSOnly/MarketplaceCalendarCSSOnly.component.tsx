@@ -69,7 +69,6 @@ type Props = {
   isSearching: boolean;
   startWeekOnDaySelected?: boolean;
   isCardModeDisplay: boolean;
-  refContainer: React.RefObject<HTMLDivElement>;
 };
 
 export const MarketplaceCalendar = (props: Props) => {
@@ -90,7 +89,6 @@ export const MarketplaceCalendar = (props: Props) => {
     onClearInput,
     isSearching,
     startWeekOnDaySelected,
-    refContainer,
     theme,
   } = props;
 
@@ -161,7 +159,7 @@ export const MarketplaceCalendar = (props: Props) => {
   };
 
   return (
-    <div ref={refContainer} className="bs-calendar">
+    <div className="bs-calendar">
       {!forceDayDisplayOnly && (
         <div className="bs-calendar__datePicker">
           <MarketplaceDatePicker

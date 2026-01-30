@@ -27,7 +27,7 @@ export const HybridSessionField: FC<{
         />
       </FormField>
       {isChecked && (
-        <Alert status="info" className="ml-xl">
+        <Alert status="info">
           {t("addSessionModal.steps.configureSession.settings.hybrid.info")}
         </Alert>
       )}

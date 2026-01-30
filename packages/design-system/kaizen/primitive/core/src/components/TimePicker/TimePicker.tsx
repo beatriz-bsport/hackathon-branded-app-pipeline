@@ -1,5 +1,5 @@
 import { cx } from "class-variance-authority";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import { getIsMeridiemLocale } from "@bsport/datetime-manipulation";
 
@@ -73,6 +73,18 @@ const TimePicker: React.FC<TimePickerProps> = ({
   const meridiem = getIsMeridiemLocale(i18nInstance?.language ?? "en-US");
 
   const [selectedMeridiem, setSelectedMeridiem] = useState<Meridiem>("AM");
+
+  // Automatically set meridiem based on the value
+  useEffect(() => {
+    if (meridiem && value) {
+      const [hourStr] = value.split(":");
+      const hour = Number(hourStr);
+      const newMeridiem = hour >= 12 ? "PM" : "AM";
+      if (newMeridiem !== selectedMeridiem) {
+        setSelectedMeridiem(newMeridiem);
+      }
+    }
+  }, [value, meridiem, selectedMeridiem]);
 
   const timeOptions = useMemo(
     () =>

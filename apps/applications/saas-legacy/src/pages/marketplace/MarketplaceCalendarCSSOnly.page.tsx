@@ -664,7 +664,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           establishmentGroupList={establishmentGroupList}
           establishments={
             (this.state.filters.establishment_group__in?.length
-              ? this.state.filteredEstablishments
+              ? this.state.filteredEstablishments ?? []
               : establishments) as ReadonlyArray<Establishment>
           }
           filters={this.state.filters}

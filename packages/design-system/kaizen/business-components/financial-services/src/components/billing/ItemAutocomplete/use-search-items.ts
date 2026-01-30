@@ -6,19 +6,16 @@ import type { Pack } from "@bsport/store-buyables-pack";
 import type { Pass } from "@bsport/store-buyables-pass";
 import type { WebshopItem } from "@bsport/store-buyables-webshop";
 
-import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
-
 import type { ItemAutocompleteItemKind } from "./ItemAutocomplete";
+import { useItemTypeConfig } from "./create-item-type-config";
 import { fetchSearchItems } from "./fetch-search-items";
-import {
-  type RawAppointmentPassResponse,
-  type RawGiftcardResponse,
-  type RawPackResponse,
-  type RawPassResponse,
-  type RawWebshopItemResponse,
-  type TranslationFunction,
-  createItemTypeConfig,
-} from "./item-type-config";
+import type {
+  RawAppointmentPassResponse,
+  RawGiftcardResponse,
+  RawPackResponse,
+  RawPassResponse,
+  RawWebshopItemResponse,
+} from "./item-type-configs";
 
 const itemsQueryOptions = (
   itemType: ItemAutocompleteItemKind,
@@ -39,9 +36,7 @@ export const useSearchItems = ({
   itemType: ItemAutocompleteItemKind;
   searchInput: string;
 }) => {
-  const i18nInstance = useKaizenI18nInstance();
-  const { t } = useTranslation("default", { i18n: i18nInstance });
-  const itemTypeConfig = createItemTypeConfig(t as TranslationFunction);
+  const itemTypeConfig = useItemTypeConfig();
 
   return useQuery({
     ...itemsQueryOptions(itemType, searchInput || ""),

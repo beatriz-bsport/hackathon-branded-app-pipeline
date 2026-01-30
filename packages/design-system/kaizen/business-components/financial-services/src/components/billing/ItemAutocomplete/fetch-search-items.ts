@@ -7,7 +7,7 @@ import type { WebshopItem } from "@bsport/store-buyables-webshop";
 import fetch from "#src/utils/fetch";
 
 import type { ItemAutocompleteItemKind } from "./ItemAutocomplete";
-import { itemTypeEndpointConfig } from "./item-type-config";
+import { itemTypeEndpointConfig } from "./item-type-configs";
 
 type BuyableSearchResponse<T> = {
   count: number;

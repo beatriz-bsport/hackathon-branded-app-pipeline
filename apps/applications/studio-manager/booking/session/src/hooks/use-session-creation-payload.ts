@@ -94,6 +94,9 @@ export const useSessionCreationPayload = () => {
         allow_guest_offer: sessionData.allow_guest_offer,
         blacklist_tags: sessionData.blacklist_tags,
         whitelist_tags: sessionData.whitelist_tags,
+
+        // only for duplication
+        recurrence_id: sessionData.recurrence_id || undefined,
       };
     },
     [getRecurrenceConfig],

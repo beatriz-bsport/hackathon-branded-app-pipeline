@@ -1,11 +1,11 @@
 import { UseMutateFunction } from "@tanstack/react-query";
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { z } from "zod";
 
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { fromIsoString, toDate } from "@bsport/datetime-manipulation";
 import { ControlledForm, useFormController } from "@bsport/form";
-import { Alert, toast } from "@bsport/kaizen-primitive-core";
+import { Alert, Toggle, toast } from "@bsport/kaizen-primitive-core";
 
 import { SessionDuration } from "#src/components/SessionForm/TimeAndDate/SessionDuration";
 import { SessionStartDateTime } from "#src/components/SessionForm/TimeAndDate/SessionStartDateTime";
@@ -56,6 +56,10 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
     day: 1,
   });
 
+  const [shouldLinkNewSessions, setShouldLinkNewSessions] = useState(
+    recurrenceCount !== undefined && recurrenceCount > 1,
+  );
+
   const initialValues = useMemo(() => {
     // The new recurrence should start the day after the last session in the previous recurrence
     const endDate = newRecurrenceStartDate.plus({ day: 1 });
@@ -99,7 +103,9 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
           allowCustomNameAndDescription: true,
           name_override: session.name_override ?? "",
           description_override: session.description_override ?? "",
-          // TODO: add recurrence_id when link is selected
+          recurrence_id: shouldLinkNewSessions
+            ? session.recurrence_id
+            : undefined,
         },
         metaActivityId: session.meta_activity,
       });
@@ -160,6 +166,19 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
         <SessionDuration fieldIdPrefix={formId} />
         <SessionRecurrence fieldIdPrefix={formId} />
       </ControlledForm>
+      <Toggle
+        id="duplicate-link-sessions-toggle"
+        // @ts-expect-error our type does not handle the counts properly
+        label={t("duplicateModal.linkToOriginalSession", {
+          count: recurrenceCount,
+        })}
+        // @ts-expect-error our type does not handle the counts properly
+        helperText={t("duplicateModal.linkToOriginalSessionDescription", {
+          count: recurrenceCount,
+        })}
+        checked={shouldLinkNewSessions}
+        onChange={() => setShouldLinkNewSessions((prevState) => !prevState)}
+      />
     </div>
   );
 };

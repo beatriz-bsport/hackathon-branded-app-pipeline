@@ -89,6 +89,7 @@ export type SessionCreationFormData = SessionCreationDateTimeFormData &
     | "establishment"
     | "room_blueprint"
     | "sync_on_spivi"
+    | "recurrence_id"
     | "wellhub_product_id"
   > & {
     allowCustomNameAndDescription: boolean;

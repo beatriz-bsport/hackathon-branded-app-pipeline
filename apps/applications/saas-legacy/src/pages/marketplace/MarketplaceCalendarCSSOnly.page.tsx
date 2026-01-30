@@ -114,7 +114,7 @@ const DEFAULT_CARD_MODE_DISPLAY_MIN_WIDTH = 1250;
 
 export type OwnProps = {
   companyId: number;
-  cardMode: boolean;
+  cardMode?: boolean | null;
   groupSessionByPeriod: boolean;
   variant?: 'activityName' | 'coach' | 'time';
   otherParams: {

@@ -17,8 +17,8 @@ export type MarketplaceCommonFilter = {
 
 export type MarketplaceCalendarData = MarketplaceCommonFilter & {
   // @deprecated use cardMode instead
-  compactMode: true | false | null;
-  cardMode: true | false | null;
+  compactMode?: true | false | null;
+  cardMode?: true | false | null;
   todayOnly?: boolean;
 };
 

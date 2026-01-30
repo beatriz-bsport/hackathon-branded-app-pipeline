@@ -50,15 +50,17 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
   formRef,
 }) => {
   const { t, i18n } = useTranslation("sessionList");
+  const newRecurrenceStartDate = fromIsoString(lastDate ?? session.date_start, {
+    zone: companyTimezone,
+  }).plus({
+    day: 1,
+  });
 
   const initialValues = useMemo(() => {
     // The new recurrence should start the day after the last session in the previous recurrence
-    const startDate = fromIsoString(lastDate ?? session.date_start).plus({
-      day: 1,
-    });
-    const endDate = startDate.plus({ day: 1 });
+    const endDate = newRecurrenceStartDate.plus({ day: 1 });
     return {
-      startDateTime: toDate(startDate),
+      startDateTime: toDate(newRecurrenceStartDate),
       duration_minute: session.duration_minute,
       isRecurring: false,
       recurrenceType: RecurrenceType.WEEKLY,
@@ -76,7 +78,7 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
       recurrencePattern: MonthlyRecurrencePattern.NTH_WEEKDAY,
       recurrenceEndDate: toDate(endDate),
     };
-  }, [session.date_start, session.duration_minute, lastDate]);
+  }, [session.duration_minute, newRecurrenceStartDate]);
 
   const duplicateSessionMethods = useFormController({
     schema: duplicateSessionSchema,
@@ -140,7 +142,10 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
         onSubmit={() => console.log}
         className="w-full flex flex-col gap-md"
       >
-        <SessionStartDateTime fieldIdPrefix={formId} />
+        <SessionStartDateTime
+          fieldIdPrefix={formId}
+          disableBeforeStartDate={newRecurrenceStartDate}
+        />
         <SessionDuration fieldIdPrefix={formId} />
         <SessionRecurrence fieldIdPrefix={formId} />
       </ControlledForm>

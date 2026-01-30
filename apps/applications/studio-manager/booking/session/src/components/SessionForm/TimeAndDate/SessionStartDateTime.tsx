@@ -15,7 +15,8 @@ import { useTranslation } from "#src/utils/i18n";
 
 export const SessionStartDateTime: FC<{
   fieldIdPrefix: string;
-}> = ({ fieldIdPrefix }) => {
+  disableBeforeStartDate?: DateTime;
+}> = ({ fieldIdPrefix, disableBeforeStartDate }) => {
   const { t, i18n } = useTranslation("sessionCreation");
 
   const { watch, setValue, formState } = useFormContext();
@@ -94,6 +95,24 @@ export const SessionStartDateTime: FC<{
     [companyTimeZone, locale],
   );
 
+  const disableDateBeforeStartDate = useCallback(
+    (date: DateTime) => {
+      if (!companyTimeZone) return false;
+      if (!disableBeforeStartDate) return false;
+
+      const dateDT = date.setZone(companyTimeZone);
+      return dateDT.startOf("day") < disableBeforeStartDate.startOf("day");
+    },
+    [companyTimeZone, disableBeforeStartDate],
+  );
+
+  const disableDate = useCallback(
+    (date: DateTime) => {
+      return disableDateTooFar(date) || disableDateBeforeStartDate(date);
+    },
+    [disableDateTooFar, disableDateBeforeStartDate],
+  );
+
   const timeString = toDateTime(startDateTime, companyTimeZone).toFormat(
     "HH:mm",
   );
@@ -113,7 +132,7 @@ export const SessionStartDateTime: FC<{
             handleDateChange(date);
           }
         }}
-        disableDate={disableDateTooFar}
+        disableDate={disableDate}
         aria-required="true"
         status={error ? "error" : "default"}
         statusText={error?.toString()}

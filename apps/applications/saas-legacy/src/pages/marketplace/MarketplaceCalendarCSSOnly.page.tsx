@@ -115,7 +115,7 @@ const DEFAULT_CARD_MODE_DISPLAY_MIN_WIDTH = 1250;
 
 export type OwnProps = {
   companyId: number;
-  compactMode: boolean;
+  cardMode: boolean;
   groupSessionByPeriod: boolean;
   variant?: 'activityName' | 'coach' | 'time';
   onCompletePurchase?: (offerId: number, packId: number) => void;
@@ -281,8 +281,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   // Card mode display
   getIsCardModeDisplay = () => {
-    if (isBoolean(this.props.compactMode)) {
-      return this.props.compactMode;
+    if (isBoolean(this.props.cardMode)) {
+      return this.props.cardMode;
     }
 
     if (!this.props.containerWidth) {
@@ -673,7 +673,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       customLevels,
       establishmentGroupList,
       metaActivities,
-      compactMode,
     } = this.props;
 
     return (
@@ -683,7 +682,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           activeCustomLevels={activeCustomLevels}
           bookedOffers={this.props.bookedOffers}
           coaches={coaches}
-          compactMode={compactMode}
           companyId={this.props.companyId}
           customLevels={customLevels}
           establishmentGroupList={establishmentGroupList}
@@ -906,7 +904,7 @@ export default compose(
     'groupSessionByPeriod',
     'boolean',
   ]),
-  withQueryParamsToProps(['compactMode', 'compactMode', 'boolean']),
+  withQueryParamsToProps(['cardMode', 'cardMode', 'boolean']),
   withQueryParamsToProps(['variant']),
 
   withTranslation(['booking', 'titles']),

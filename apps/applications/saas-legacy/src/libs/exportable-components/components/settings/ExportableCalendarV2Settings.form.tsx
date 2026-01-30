@@ -63,15 +63,15 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
     establishmentGroupList,
   } = props;
 
-  const setCompactMode = useCallback(
+  const setCardMode = useCallback(
     (value: string) => {
       const newConfig: MarketplaceCalendarData = {
         ...config,
         todayOnly: value === TODAY_ONLY,
-        compactMode:
+        cardMode:
           value === RESPONSIVE_DISPLAY
             ? null
-            : value === TODAY_ONLY || value === LIST_DISPLAY,
+            : value === TODAY_ONLY || value === CALENDAR_DISPLAY,
       };
 
       onChange(newConfig);
@@ -79,19 +79,19 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
     [config, onChange],
   );
 
-  const compactMode = useMemo(() => {
+  const cardMode = useMemo(() => {
     if (config.todayOnly) {
       return TODAY_ONLY;
     }
 
-    if (config.compactMode) {
-      return LIST_DISPLAY;
+    if (config.cardMode) {
+      return CALENDAR_DISPLAY;
     }
 
-    if (config.compactMode === null) {
+    if (config.cardMode === null) {
       return RESPONSIVE_DISPLAY;
     }
-    return CALENDAR_DISPLAY;
+    return LIST_DISPLAY;
   }, [config]);
 
   const setVariant = useCallback(
@@ -126,14 +126,14 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
   return (
     <div className={classes.flexCol}>
       {showCompactMode && (
-        <FormControl className={classes.compactModeContainer}>
+        <FormControl className={classes.cardModeContainer}>
           <InputLabel>{t('widget:widget.choice')}</InputLabel>
           <Select
             className={classes.fullWidth}
             onChange={(ev: React.ChangeEvent<HTMLSelectElement>) =>
-              setCompactMode(ev.target.value)
+              setCardMode(ev.target.value)
             }
-            value={compactMode}
+            value={cardMode}
           >
             {COMPACT_MODE_TYPE.map((key) => {
               return (
@@ -146,8 +146,7 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
         </FormControl>
       )}
       {!config.todayOnly &&
-        (compactMode === CALENDAR_DISPLAY ||
-          compactMode === RESPONSIVE_DISPLAY) && (
+        (cardMode === CALENDAR_DISPLAY || cardMode === RESPONSIVE_DISPLAY) && (
           <FormControlLabel
             control={
               <Switch
@@ -160,7 +159,7 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
           />
         )}
 
-      <FormControl className={classes.compactModeContainer}>
+      <FormControl className={classes.cardModeContainer}>
         <InputLabel>{t('widget:widget.variant')}</InputLabel>
         <Select
           className={classes.fullWidth}
@@ -201,7 +200,7 @@ const useStyles = makeStyles((theme) => ({
   fullWidth: {
     width: '100%',
   },
-  compactModeContainer: {
+  cardModeContainer: {
     marginTop: theme.spacing(1),
   },
   todayOnly: {

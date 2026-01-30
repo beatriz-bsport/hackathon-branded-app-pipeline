@@ -184,7 +184,8 @@
             "recurrenceInterval": "Please specify how often to repeat the session",
             "recurrencePattern": "Please select a monthly recurrence pattern"
           },
-          "wellhubWarning": "Sessions shared via Wellhub will be automatically shortened to a maximum of 200 minutes."
+          "wellhubWarning": "Sessions shared via Wellhub will be automatically shortened to a maximum of 200 minutes.",
+          "uscWarning": "Your integration with the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear there."
         }
       },
       "advancedOptions": {

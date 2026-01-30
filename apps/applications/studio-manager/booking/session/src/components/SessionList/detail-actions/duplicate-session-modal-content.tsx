@@ -5,7 +5,7 @@ import { z } from "zod";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { fromIsoString, toDate } from "@bsport/datetime-manipulation";
 import { ControlledForm, useFormController } from "@bsport/form";
-import { Alert, Toggle, toast } from "@bsport/kaizen-primitive-core";
+import { Alert, Body, Toggle, toast } from "@bsport/kaizen-primitive-core";
 
 import { SessionDuration } from "#src/components/SessionForm/TimeAndDate/SessionDuration";
 import { SessionStartDateTime } from "#src/components/SessionForm/TimeAndDate/SessionStartDateTime";
@@ -59,6 +59,8 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
   const [shouldLinkNewSessions, setShouldLinkNewSessions] = useState(
     recurrenceCount !== undefined && recurrenceCount > 1,
   );
+
+  const isHybrid = !!session.linked_hybrid_offer_id;
 
   const initialValues = useMemo(() => {
     // The new recurrence should start the day after the last session in the previous recurrence
@@ -143,15 +145,22 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
   return (
     <div className="flex flex-col gap-xl">
       <Alert status="info">
-        {recurrenceCount && recurrenceCount > 1
-          ? t("duplicateModal.descriptionRecurrentSession", {
-              formattedDate: formatDateTime(
-                lastDate!,
-                DATETIME_FORMATS.FULL_DATETIME,
-                { locale: i18n.language, timeZone: companyTimezone },
-              ),
-            })
-          : t("duplicateModal.descriptionNoRecurrence")}
+        <Body htmlVariant="p" size="md" weight="weak" color="info">
+          {recurrenceCount && recurrenceCount > 1
+            ? t("duplicateModal.descriptionRecurrentSession", {
+                formattedDate: formatDateTime(
+                  lastDate!,
+                  DATETIME_FORMATS.FULL_DATETIME,
+                  { locale: i18n.language, timeZone: companyTimezone },
+                ),
+              })
+            : t("duplicateModal.descriptionNoRecurrence")}
+        </Body>
+        {isHybrid && (
+          <Body htmlVariant="p" size="md" weight="weak" color="info">
+            {t("duplicateModal.hybridSessionNotice")}
+          </Body>
+        )}
       </Alert>
       <ControlledForm
         id={formId}

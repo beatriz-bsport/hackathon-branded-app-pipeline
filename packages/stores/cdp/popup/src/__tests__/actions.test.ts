@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { createTestFetch, createTestXhr } from "@bsport/fetch/test";
 import { BackgroundTask } from "@bsport/store-shared-background-task";
 
 import { createSmartlistPopupAction, fetchPopupsAction } from "#src/actions";
@@ -8,7 +9,6 @@ import { popupStore } from "#src/store";
 import { CreateSmartlistPopupParams, Popup } from "#src/types";
 
 import mockPopups from "./fixtures/popups.json";
-import { createTestFetch, createTestXhr } from "./utils/fetch";
 
 describe("fetchPopupsAction", () => {
   it("should fetch and set popups in the store", async () => {

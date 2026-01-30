@@ -117,10 +117,14 @@ export const CalendarWidget = (props: Props) => {
     onWindowOpen(url);
   };
 
+  const cardMode =
+    config?.cardMode ??
+    (config?.compactMode ? !config?.compactMode : undefined);
+
   return (
     <MarketplaceCalendarStyled
       {...props}
-      compactMode={config ? config.compactMode : undefined}
+      cardMode={cardMode}
       companyId={companyId}
       filters={filters}
       goToBook={onClickGoToBook}

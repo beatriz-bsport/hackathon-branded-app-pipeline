@@ -114,7 +114,7 @@ const DEFAULT_CARD_MODE_DISPLAY_MIN_WIDTH = 1250;
 
 export type OwnProps = {
   companyId: number;
-  compactMode: boolean;
+  cardMode: boolean;
   groupSessionByPeriod: boolean;
   variant?: 'activityName' | 'coach' | 'time';
   otherParams: {
@@ -277,8 +277,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   // Card mode display
   getIsCardModeDisplay = () => {
-    if (isBoolean(this.props.compactMode)) {
-      return this.props.compactMode;
+    if (isBoolean(this.props.cardMode)) {
+      return this.props.cardMode;
     }
 
     if (!this.props.containerWidth) {
@@ -874,7 +874,7 @@ export default compose(
     'groupSessionByPeriod',
     'boolean',
   ]),
-  withQueryParamsToProps(['compactMode', 'compactMode', 'boolean']),
+  withQueryParamsToProps(['cardMode', 'cardMode', 'boolean']),
   withQueryParamsToProps(['variant']),
 
   withTranslation(['booking', 'titles']),

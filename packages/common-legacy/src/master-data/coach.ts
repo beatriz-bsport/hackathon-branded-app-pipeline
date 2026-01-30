@@ -5,7 +5,7 @@ export const getCoachDisplayName = (
   coachName?: string,
   coachFirstName?: string,
 ) => {
-  if (!coachDisplayOption || (!coachName && !coachFirstName)) return null;
+  if (!coachName && !coachFirstName) return null;
 
   const isOnlyFirstNameDisplayed = [
     MarketPlaceCoachDisplay.FIRST_NAME_WITH_PICTURE,

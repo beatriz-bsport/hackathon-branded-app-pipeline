@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Body, Button, type IconName } from "@bsport/kaizen-primitive-core";
 
@@ -17,7 +17,7 @@ export type InvoiceItemKind = keyof typeof INVOICE_ITEMS_KINDS;
 
 export type ItemTypeSelectorProps = {
   label?: string;
-  value?: InvoiceItemKind;
+  value?: InvoiceItemKind | null;
   defaultValue?: InvoiceItemKind;
   onSelect: (type: InvoiceItemKind) => void;
 };
@@ -57,12 +57,19 @@ const ItemTypeSelector: React.FC<ItemTypeSelectorProps> = ({
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   // Internal state for uncontrolled mode
-  const [internalSelected, setInternalSelected] = useState<InvoiceItemKind>(
-    defaultValue ?? INVOICE_ITEMS_KINDS.pass,
-  );
+  const [internalSelected, setInternalSelected] =
+    useState<InvoiceItemKind | null>(defaultValue ?? null);
 
-  // Use controlled value if provided, otherwise use internal state
-  const selectedValue = value ?? internalSelected;
+  // Sync internal state when controlled value changes (for uncontrolled mode)
+  useEffect(() => {
+    if (value === undefined && defaultValue !== undefined) {
+      setInternalSelected(defaultValue);
+    }
+  }, [value, defaultValue]);
+
+  // Use controlled value if provided (including null), otherwise use internal state
+  // When value is explicitly null, no item should be selected
+  const selectedValue = value !== undefined ? value : internalSelected;
 
   const itemTypes: Array<{
     value: InvoiceItemKind;
@@ -108,6 +115,15 @@ const ItemTypeSelector: React.FC<ItemTypeSelectorProps> = ({
     }
   };
 
+  // When value is null, no button should be selected
+  // Compare selectedValue with itemTypeValue - both should be InvoiceItemKind strings
+  const isSelected = (itemTypeValue: InvoiceItemKind) => {
+    if (selectedValue === null) {
+      return false;
+    }
+    return selectedValue === itemTypeValue;
+  };
+
   return (
     <div className="flex flex-col items-start gap-sm self-stretch">
       {label && (
@@ -121,7 +137,7 @@ const ItemTypeSelector: React.FC<ItemTypeSelectorProps> = ({
             key={itemType.value}
             kind="default"
             intent="default"
-            color={selectedValue === itemType.value ? "selected" : "main"}
+            color={isSelected(itemType.value) ? "selected" : "main"}
             size="md"
             label={itemType.label}
             iconLeft={itemType.icon}

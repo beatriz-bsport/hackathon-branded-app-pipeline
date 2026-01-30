@@ -183,7 +183,8 @@
             "recurrenceUnit": "Please select a recurrence unit (days, weeks, or months)",
             "recurrenceInterval": "Please specify how often to repeat the session",
             "recurrencePattern": "Please select a monthly recurrence pattern"
-          }
+          },
+          "wellhubWarning": "Sessions shared via Wellhub will be automatically shortened to a maximum of 200 minutes."
         }
       },
       "advancedOptions": {

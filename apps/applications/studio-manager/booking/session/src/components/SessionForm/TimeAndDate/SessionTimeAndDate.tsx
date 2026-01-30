@@ -6,6 +6,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { SessionDuration } from "./SessionDuration";
 import { SessionStartDateTime } from "./SessionStartDateTime";
+import { AggregatorWarning } from "./aggregator-warning";
 import { SessionRecurrence } from "./recurrence/session-recurrence";
 
 export const SessionTimeAndDate: FC<{
@@ -23,6 +24,7 @@ export const SessionTimeAndDate: FC<{
 
       <SessionDuration fieldIdPrefix={fieldIdPrefix} />
       <SessionRecurrence fieldIdPrefix={fieldIdPrefix} />
+      <AggregatorWarning />
       <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>
   );

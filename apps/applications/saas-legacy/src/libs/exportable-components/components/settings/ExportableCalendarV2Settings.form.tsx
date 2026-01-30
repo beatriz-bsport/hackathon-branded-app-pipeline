@@ -71,7 +71,9 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = (props) => {
         cardMode:
           value === RESPONSIVE_DISPLAY
             ? null
-            : value === TODAY_ONLY || value === CALENDAR_DISPLAY,
+            : value === TODAY_ONLY
+            ? false
+            : value === CALENDAR_DISPLAY,
       };
 
       onChange(newConfig);

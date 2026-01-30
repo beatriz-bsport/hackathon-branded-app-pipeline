@@ -18,6 +18,8 @@ export type AddedItem = {
   activationDate: null;
   billingDetail: null;
   itemName: string;
+  // Tax information (as percentage, e.g., 20.4 means 20.4%)
+  taxPercent?: number;
   // Pass-specific fields
   credits?: number | null;
   durationDays?: number | null;
@@ -218,6 +220,7 @@ export const useAddItemForm = ({
         itemName:
           selectedItem?.title ||
           t("billingFlowModal.itemNameFallback", { id: selectedItemId }),
+        taxPercent: selectedItem?.taxPercent ?? 0,
         credits: selectedItem?.credits ?? null,
         durationDays: selectedItem?.durationDays ?? null,
         durationMonths: selectedItem?.durationMonths ?? null,

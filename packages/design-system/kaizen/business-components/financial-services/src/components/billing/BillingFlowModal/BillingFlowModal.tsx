@@ -16,7 +16,7 @@ import type { Member } from "#src/types/member";
 import fetch from "#src/utils/fetch";
 
 import AddItemSection from "./AddItemSection";
-import SummarySection from "./SummarySection";
+import { SummarySection } from "./SummarySection";
 import { DEFAULT_FORM_DATA, billingFlowFormDataSchema } from "./schema";
 import type { BillingFlowModalProps } from "./types";
 import { type AddedItem, useAddItemForm } from "./use-add-item-form";

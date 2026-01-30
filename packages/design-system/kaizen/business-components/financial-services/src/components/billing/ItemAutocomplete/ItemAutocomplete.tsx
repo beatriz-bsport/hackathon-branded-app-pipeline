@@ -39,6 +39,7 @@ export type ItemAutocompleteItem = {
   description?: string;
   priceLabel?: string;
   imageUrl?: string;
+  taxPercent?: number;
 
   // TODO: Move to separate type when we know about all the item types.
   // Pass-specific fields.

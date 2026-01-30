@@ -172,6 +172,8 @@
     "title": "Duplicate session?",
     "cancelButton": "Cancel",
     "confirmButton": "Duplicate",
+    "descriptionNoRecurrence": "The new session will use the same settings as the duplicated one.",
+    "descriptionRecurrentSession": "The last session is on {{formattedDate}}. The new session will start after this date and will use the same settings as the duplicated session.",
     "errorMessage": "An error occurred while duplicating the session. Please try again later."
   },
   "restoreModal": {

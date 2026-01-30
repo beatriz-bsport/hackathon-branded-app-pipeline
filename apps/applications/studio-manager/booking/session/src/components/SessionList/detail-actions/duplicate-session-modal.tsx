@@ -3,7 +3,7 @@ import { FC, useId, useMemo } from "react";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { fromIsoString, toDate } from "@bsport/datetime-manipulation";
 import { ControlledForm, useFormController } from "@bsport/form";
-import { Modal, toast } from "@bsport/kaizen-primitive-core";
+import { Alert, Loader, Modal, toast } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionDuration } from "#src/components/SessionForm/TimeAndDate/SessionDuration";
@@ -14,6 +14,7 @@ import {
   MonthlyRecurrencePattern,
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
+import { useFetchRecurrenceFromSession } from "#src/hooks/session-api/fetch/use-fetch-recurrence-from-session";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
 import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
 import {
@@ -39,8 +40,18 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
   const formId = `session-form-duplicate-${useId()}`;
   const duplicateSessionSchema = useDuplicateSessionSchema();
 
+  const { data: recurrenceResponse, isLoading } = useFetchRecurrenceFromSession(
+    session.id,
+  );
+
+  const lastDate = recurrenceResponse?.last_offer.date_start;
+  const recurrenceCount = recurrenceResponse?.recurrence_count;
+
   const initialValues = useMemo(() => {
-    const startDate = fromIsoString(session.date_start);
+    // The new recurrence should start the day after the last session in the previous recurrence
+    const startDate = fromIsoString(lastDate ?? session.date_start).plus({
+      day: 1,
+    });
     const endDate = startDate.plus({ day: 1 });
     return {
       startDateTime: toDate(startDate),
@@ -61,7 +72,7 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
       recurrencePattern: MonthlyRecurrencePattern.NTH_WEEKDAY,
       recurrenceEndDate: toDate(endDate),
     };
-  }, [session.date_start, session.duration_minute]);
+  }, [session.date_start, session.duration_minute, lastDate]);
 
   const duplicateSessionMethods = useFormController({
     schema: duplicateSessionSchema,
@@ -80,7 +91,7 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
   };
 
   const { buildPayload } = useSessionCreationPayload();
-  const { mutate: createSession } = useCreateSession();
+  const { mutate: createSession, isPending } = useCreateSession();
 
   const handleConfirm = () => {
     try {
@@ -127,22 +138,42 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
       confirmButton={{
         label: t("duplicateModal.confirmButton"),
         onClick: handleConfirm,
+        disabled: isLoading || isPending,
       }}
       cancelButton={{
         label: t("duplicateModal.cancelButton"),
         onClick: closeModal,
       }}
     >
-      <ControlledForm
-        id={formId}
-        {...duplicateSessionMethods}
-        onSubmit={() => console.log}
-        className="w-full flex flex-col gap-md"
-      >
-        <SessionStartDateTime fieldIdPrefix={formId} />
-        <SessionDuration fieldIdPrefix={formId} />
-        <SessionRecurrence fieldIdPrefix={formId} />
-      </ControlledForm>
+      {isLoading ? (
+        <div className="grid place-content-center">
+          <Loader size="md" />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-xl">
+          <Alert status="info">
+            {recurrenceCount && recurrenceCount > 1
+              ? t("duplicateModal.descriptionRecurrentSession", {
+                  formattedDate: formatDateTime(
+                    lastDate!,
+                    DATETIME_FORMATS.FULL_DATETIME,
+                    { locale: i18n.language, timeZone: companyTimezone },
+                  ),
+                })
+              : t("duplicateModal.descriptionNoRecurrence")}
+          </Alert>
+          <ControlledForm
+            id={formId}
+            {...duplicateSessionMethods}
+            onSubmit={() => console.log}
+            className="w-full flex flex-col gap-md"
+          >
+            <SessionStartDateTime fieldIdPrefix={formId} />
+            <SessionDuration fieldIdPrefix={formId} />
+            <SessionRecurrence fieldIdPrefix={formId} />
+          </ControlledForm>
+        </div>
+      )}
     </Modal>
   );
 };

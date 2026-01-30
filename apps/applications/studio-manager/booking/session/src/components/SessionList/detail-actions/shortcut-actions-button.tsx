@@ -63,7 +63,12 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         },
       };
 
-      const canSessionBeDuplicated = !session.group;
+      const canSessionBeDuplicated =
+        !session.group &&
+        !session.isEstablishmentArchived &&
+        !session.isTeacherArchived &&
+        !session.isMetaActivityArchived;
+
       const duplicateShortcutAction: Item = {
         id: "duplicate-shortcut",
         label: t("table.shortcutActions.duplicate"),

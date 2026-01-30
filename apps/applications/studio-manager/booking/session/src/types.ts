@@ -10,6 +10,9 @@ export type EnrichedSession = ManagerSession & {
   hasPendingReplacementRequest?: boolean;
   // Name of the group session if the session is part of a group session
   groupName?: string;
+  isTeacherArchived?: boolean;
+  isEstablishmentArchived?: boolean;
+  isMetaActivityArchived?: boolean;
 };
 
 export type TableColumn = GenericTableColumn<EnrichedSession> & {

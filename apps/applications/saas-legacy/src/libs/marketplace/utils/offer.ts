@@ -88,7 +88,7 @@ export const getPositionOfOfferInTheList = (offers: Offer[], index: number) => {
 };
 
 export const getOfferStatus = (
-  offer: Offer,
+  offer: Offer | OfferREST,
   metaActivity: MetaActivity,
   isRegistered: boolean,
 ) => {

@@ -23,7 +23,7 @@ export type Props = {
   companyTheme: CompanyTheme;
   open: boolean;
   metaActivities: { [key: number]: MetaActivity };
-  establishments: Establishment[];
+  establishments: ReadonlyArray<Establishment>;
   coaches: Array<Coach>;
   customLevels: Array<Level>;
   offer: Offer;

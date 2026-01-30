@@ -562,7 +562,9 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                     goToEdit={this.editMetaActivity}
                     isWorkshop={false}
                     makeActivityCopy={this.props.makeActivityCopy}
-                    metaActivities={this.props.disabledMetaActivities}
+                    metaActivities={this.props.disabledMetaActivities.map(
+                      (metaActivity) => metaActivity.asMutable({ deep: true }),
+                    )}
                     restoreMetaActivity={this.restoreMetaActivity}
                   />
                   {!!this.props.disabledMetaActivitiesPagination?.nextPage &&

@@ -1,15 +1,15 @@
 // eslint-disable-next-line max-classes-per-file
-import React, { Component } from 'react';
-import memoize from 'lodash/memoize';
 import isBoolean from 'lodash/isBoolean';
-import { connect } from 'react-redux';
-import { compose, withHandlers } from 'recompose';
-import { RouteChildrenProps, withRouter } from 'react-router';
 import { push, replace as replaceRouter } from 'connected-react-router';
-import { WithTranslation, withTranslation } from 'react-i18next';
-import isEqual from 'lodash/isEqual';
-import { DateTime } from 'luxon';
 import { TFunction } from 'i18next';
+import isEqual from 'lodash/isEqual';
+import memoize from 'lodash/memoize';
+import { DateTime } from 'luxon';
+import React, { Component } from 'react';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { connect } from 'react-redux';
+import { RouteChildrenProps, withRouter } from 'react-router';
+import { compose, withHandlers } from 'recompose';
 
 import uniq from 'lodash/uniq';
 // @ts-expect-error
@@ -17,26 +17,25 @@ import withQueryParams from '#src/hocs/with-query-params.hoc';
 // @ts-expect-error
 import withReplaceQueryParams from '#src/hocs/with-replace-query-params.hoc';
 import { addItemToBasket as addItemToBasketAction } from '#src/libs/checkout/actions';
-import MarketplaceCalendarComponent from '#src/libs/marketplace/components/@Calendar/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
 import MarketplaceActivityDialogV2 from '#src/libs/marketplace/components/@Activity/MarketplaceActivityDialogCSSOnly/MarketplaceActivityDialogCSSOnly.component';
-import { getCurrentBasket } from '#src/libs/checkout/selectors';
+import MarketplaceCalendarComponent from '#src/libs/marketplace/components/@Calendar/MarketplaceCalendarCSSOnly/MarketplaceCalendarCSSOnly.component';
 
-import themeSelectors from '#src/libs/theme/selectors';
 import { getCoaches } from '#src/libs/associated-coach/selectors';
+import {
+  getGroupData,
+  getOffersListByGroup as getOffersListByGroupSelector,
+} from '#src/libs/group-offer/selectors';
+import {
+  CalendarFilterValidationSchema,
+  CalendarOnlineFilterValidationSchema,
+  doTextSearch,
+  isOfferInThePast,
+} from '#src/libs/marketplace/utils';
 import {
   getMetaActivitiesDict as getMetaActivitiesWorkshopsDict,
   getPureMetaActivitiesDict,
 } from '#src/libs/meta-activity/selectors';
-import {
-  getOffersListByGroup as getOffersListByGroupSelector,
-  getGroupData,
-} from '#src/libs/group-offer/selectors';
-import {
-  isOfferInThePast,
-  doTextSearch,
-  CalendarFilterValidationSchema,
-  CalendarOnlineFilterValidationSchema,
-} from '#src/libs/marketplace/utils';
+import themeSelectors from '#src/libs/theme/selectors';
 
 import {
   getAllEstablishments,
@@ -45,8 +44,8 @@ import {
 } from '#src/libs/establishment/selectors';
 
 import {
-  snackbarSuccess as snackbarSuccessActions,
   snackbarError as snackbarErrorActions,
+  snackbarSuccess as snackbarSuccessActions,
 } from '#src/libs/snackbar/actions';
 
 import {
@@ -59,57 +58,57 @@ import {
   getLevelsDetails,
 } from '#src/libs/level/selectors';
 
+import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '#src/libs/associated-coach/actions';
 import {
-  fetchMarketplaceOfferList as fetchOfferListAction,
-  fetchNextAvailableOffer as fetchNextAvailableOfferAction,
+  fetchAllEstablishmentGroup,
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+} from '#src/libs/establishment/actions';
+import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#src/libs/group-offer/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
+import {
   fetchBookedGender as fetchBookedGenderAction,
+  fetchNextAvailableOffer as fetchNextAvailableOfferAction,
+  fetchMarketplaceOfferList as fetchOfferListAction,
   fetchOfferRegisteredIds as fetchOfferRegisteredIdsAction,
   fetchOffersInGroup as fetchOffersInGroupAction,
 } from '#src/libs/offer/actions';
 import {
-  getMarketplaceOfferList,
-  getBookedOffers,
-  getNextAvailableOffer,
   getBookedGenderOffer,
+  getBookedOffers,
+  getMarketplaceOfferList,
+  getNextAvailableOffer,
 } from '#src/libs/offer/selectors';
-import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '#src/libs/associated-coach/actions';
-import {
-  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
-  fetchAllEstablishmentGroup,
-} from '#src/libs/establishment/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
-import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#src/libs/group-offer/actions';
 
 import withTitle from '#src/hocs/with-title.hoc';
 
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
+import {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import GroupRulePopup from '#src/libs/marketplace/components/@Offer/GroupRulePopup.dialog';
 import {
   Offer,
   OfferListParams,
   OfferREST,
   Offer_FULL,
 } from '#src/libs/offer/types';
-import {
-  Establishment,
-  EstablishmentGroup,
-} from '#src/libs/establishment/types';
-import GroupRulePopup from '#src/libs/marketplace/components/@Offer/GroupRulePopup.dialog';
-import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
 
 import withPostMessageOnPropsUpdate from '#src/hocs/postMessages/with-post-message-on-props-update';
 import withPostMessageToUpdateProps from '#src/hocs/postMessages/with-post-message-to-update-props';
 import { getBookCalendarUrl } from '#src/libs/marketplace/routing-utils';
 
+import analyticsUtils from '#src/components/analytics/analytics';
+import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import { trackCalendarViewedEvent } from '#src/events/booking/trackers';
 import type {
   MarketplaceComponentConfig,
   MarketplaceFilters,
   MarketplaceFiltersSetter,
 } from '#src/libs/marketplace/types';
-import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
-import analyticsUtils from '#src/components/analytics/analytics';
-import { trackCalendarViewedEvent } from '#src/events/booking/trackers';
-import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import { WithHandlerType } from '../../utils/types';
 
 const DEFAULT_CARD_MODE_DISPLAY_MIN_WIDTH = 1250;
 
@@ -118,7 +117,6 @@ export type OwnProps = {
   compactMode: boolean;
   groupSessionByPeriod: boolean;
   variant?: 'activityName' | 'coach' | 'time';
-  onCompletePurchase?: (offerId: number, packId: number) => void;
   otherParams: {
     date: string;
     filtersOpen: 'true' | '';
@@ -129,10 +127,8 @@ export type OwnProps = {
     is_online: boolean | undefined;
   };
   setOtherParams: (key: string) => (value: any) => void;
-  goToPackPayment?: (packId: number, offerId: number) => void;
   goToBook?: (id: number, companyId: number) => void;
   goToBookOption?: (id: number, companyId: number) => void;
-  store?: any; // for the widget only
   mapContainerClassName?: string;
   nextAvailableOffer?: Offer;
   authenticated?: boolean;
@@ -237,7 +233,7 @@ type State = {
   displayGroupPopup: (Offer_FULL & { redirect: string }) | null;
   filteredEstablishments: Array<Establishment> | null;
   filters: MarketplaceFilters;
-  offerSearchResult: { query: string; offerList: Offer[] | OfferREST[] | null };
+  offerSearchResult: { query: string; offerList: OfferREST[] | null };
   isLoading: boolean;
 };
 
@@ -537,17 +533,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.setState({ offerId: null });
   };
 
-  goToBook = (offer: Offer_FULL) => {
+  goToBook = (offer: OfferREST) => {
     this.closeOfferDialog();
-    if (offer.group?.full_booking_only) {
-      this.setState(
-        {
-          displayGroupPopup: { ...offer, redirect: 'book' },
-        },
-        () => this.props.fetchOffersInGroupAction(offer.group.id),
-      );
-      return;
-    }
     analyticsUtils.onGoToSessionBooking(offer);
     this.props.goToBook(offer.id, this.props.companyId);
   };
@@ -569,12 +556,6 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     const formattedDate = newDate.toISODate();
 
     this.props.setOtherParams('date')(formattedDate);
-  };
-
-  toggleFiltersOpen = () => {
-    this.props.setOtherParams('filtersOpen')(
-      this.props.otherParams.filtersOpen === 'true' ? '' : 'true',
-    );
   };
 
   goToFirstAvailableSession = () => {
@@ -670,31 +651,23 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       establishments,
       coaches,
       activeCustomLevels,
-      customLevels,
       establishmentGroupList,
       metaActivities,
-      compactMode,
     } = this.props;
 
     return (
       <>
         <MarketplaceCalendarComponent
-          // @ts-expect-error
           activeCustomLevels={activeCustomLevels}
           bookedOffers={this.props.bookedOffers}
           coaches={coaches}
-          compactMode={compactMode}
-          companyId={this.props.companyId}
-          customLevels={customLevels}
           establishmentGroupList={establishmentGroupList}
           establishments={
-            this.state.filters.establishment_group__in?.length
+            (this.state.filters.establishment_group__in?.length
               ? this.state.filteredEstablishments
-              : establishments
+              : establishments) as ReadonlyArray<Establishment>
           }
-          events={this.props.events}
           filters={this.state.filters}
-          filtersOpen={this.props.otherParams.filtersOpen === 'true'}
           forceDayDisplayOnly={this.props.otherParams.onlyDay === 'true'}
           genderCount={this.props.genderCount}
           getLevel={this.props.getLevel}
@@ -707,14 +680,13 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           loading={this.state.isLoading}
           metaActivities={
             this.props.theme.show_workshops_customer
-              ? this.props.metaActivitiesWorkshops
-              : metaActivities
+              ? this.props.metaActivitiesWorkshops.asMutable({ deep: true })
+              : metaActivities.asMutable({ deep: true })
           }
           nextAvailableOffer={this.props.nextAvailableOffer}
           offers={this.state.offerSearchResult?.offerList ?? this.props.offers}
           onClearInput={this.handleClearSearchResult}
           onClickBook={this.goToBook}
-          onClickBookOption={this.props.goToBookOption}
           onClickOffer={this.openOfferDialog}
           onSearch={this.handleSearch}
           onSelectDate={this.handleDateChange}
@@ -725,18 +697,16 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           showOfferGender={this.props.theme.show_booked_gender_offer}
           startWeekOnDaySelected={this.getStartCalendarWeekOnToday()}
           theme={this.props.theme}
-          toggleFiltersOpen={this.toggleFiltersOpen}
           variant={this.props.variant}
         />
         <MarketplaceActivityDialogV2
           coaches={coaches}
           companyTheme={this.props.theme}
           customLevels={this.props.customLevels}
-          //@ts-expect-error
           establishments={
-            this.state.filters.establishment_group__in?.length
+            (this.state.filters.establishment_group__in?.length
               ? this.state.filteredEstablishments ?? []
-              : establishments
+              : establishments) as ReadonlyArray<Establishment>
           }
           group={this.props.group}
           hideCoach={this.props.theme && this.props.theme.hideCoach}
@@ -746,8 +716,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           mapContainerClassName={this.props.mapContainerClassName}
           metaActivities={
             this.props.theme.show_workshops_customer
-              ? this.props.metaActivitiesWorkshops
-              : metaActivities
+              ? this.props.metaActivitiesWorkshops.asMutable({ deep: true })
+              : metaActivities.asMutable({ deep: true })
           }
           offer={this.state.offer as Offer}
           // @ts-expect-error
@@ -781,14 +751,12 @@ const GroupRulePopupContained = connect((state: RootState) => ({
 const mapStateToProps = (state: RootState) => ({
   offers: getMarketplaceOfferList(state),
   genderCount: getBookedGenderOffer(state),
-  events: state.offer.calendar,
   coaches: getCoaches(state),
   establishments: getAllEstablishments(state),
   metaActivities: getPureMetaActivitiesDict(state),
   metaActivitiesWorkshops: getMetaActivitiesWorkshopsDict(state),
   theme: themeSelectors.getTheme(state),
   group: getGroupData(state),
-  currentBasket: getCurrentBasket(state),
   establishmentGroupList: groupWithEstablishment(
     getAssociatedEstablishmentGroup,
   )(state),

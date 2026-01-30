@@ -41,7 +41,7 @@ export type Props = {
   coachDisplay?: MarketPlaceCoachDisplay;
   companyTheme: CompanyTheme;
   metaActivities: { [key: number]: MetaActivity };
-  establishments: Array<Establishment>;
+  establishments: ReadonlyArray<Establishment>;
   coaches: Array<Coach>;
   customLevels: Array<Level>;
   onClose: () => void;

@@ -1,11 +1,11 @@
 import { MarketPlaceCoachDisplay } from './personalization';
 
 export const getCoachDisplayName = (
-  coachDisplayOption: MarketPlaceCoachDisplay,
-  coachName: string,
-  coachFirstName: string,
+  coachDisplayOption?: MarketPlaceCoachDisplay,
+  coachName?: string,
+  coachFirstName?: string,
 ) => {
-  if (!coachName && !coachFirstName) return null;
+  if (!coachDisplayOption || (!coachName && !coachFirstName)) return null;
 
   const isOnlyFirstNameDisplayed = [
     MarketPlaceCoachDisplay.FIRST_NAME_WITH_PICTURE,

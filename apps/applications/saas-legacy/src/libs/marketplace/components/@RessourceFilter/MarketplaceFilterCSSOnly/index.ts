@@ -1,5 +1,5 @@
 import MarketplaceFilterCSSOnly, {
-  Props,
+  OwnProps as Props,
 } from './MarketplaceFilterCSSOnly.component';
 
 export type { Props };

@@ -244,7 +244,9 @@ const MarketplaceSettingsPages: React.FC<Props> = (props: Props) => {
           establishments={establishments}
           giftcards={giftcards}
           index={currentTab !== null ? currentTab : config.length}
-          metaActivities={metaActivities}
+          metaActivities={metaActivities.map((metaActivity) =>
+            metaActivity.asMutable({ deep: true }),
+          )}
           metaActivitiesWorkshop={
             metaActivitiesWorkshop as ImmutableArray<MetaActivity>
           }

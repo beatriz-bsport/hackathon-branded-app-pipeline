@@ -1,6 +1,7 @@
-import { BACKGROUND_TASK_UUID_HEADER } from "@bsport/fetch";
 import type { Fetch, Xhr } from "@bsport/store-base";
 import { HTTPException } from "@bsport/store-base";
+
+import { BACKGROUND_TASK_UUID_HEADER } from "./utils";
 
 /**
  * Error response payload structure from the API

@@ -3738,6 +3738,9 @@ importers:
       '@bsport/config-vitest':
         specifier: workspace:*
         version: link:../../../../tools/config/vitest
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../utils/fetch
 
   packages/stores/cdp/tag:
     dependencies:
@@ -4080,6 +4083,9 @@ importers:
       '@bsport/sentry':
         specifier: workspace:*
         version: link:../sentry
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../stores/base
       '@bsport/timezone-utils':
         specifier: workspace:*
         version: link:../datetime/timezone

@@ -132,8 +132,8 @@ export const fromConfigToUrl = (
       conf.levels &&
         conf.levels.length &&
         Object.assign(query, { levels: conf.levels.join(',') });
-      if (conf.compactMode) {
-        Object.assign(query, { compactMode: conf.compactMode });
+      if (conf.cardMode) {
+        Object.assign(query, { cardMode: conf.cardMode });
       }
       if (conf.variant) {
         Object.assign(query, { variant: conf.variant });

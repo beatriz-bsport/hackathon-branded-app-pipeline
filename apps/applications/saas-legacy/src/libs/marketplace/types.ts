@@ -32,7 +32,9 @@ export type MarketplaceOnlineFiltering = {
 
 export type MarketplaceCalendarData = MarketplaceCommonFilter &
   MarketplaceOnlineFiltering & {
+    // @deprecated use cardMode instead
     compactMode?: true | false | null;
+    cardMode?: true | false | null;
     todayOnly?: boolean;
     variant?: MarketplaceCalendarVariant;
     groupSessionByPeriod?: boolean;

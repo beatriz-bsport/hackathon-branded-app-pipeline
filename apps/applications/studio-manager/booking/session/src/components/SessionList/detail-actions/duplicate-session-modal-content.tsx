@@ -104,13 +104,24 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
         metaActivityId: session.meta_activity,
       });
 
-      createSession({
-        payload,
-        onEarlySuccess: () => {
-          closeModal();
-          duplicateSessionMethods.reset();
+      createSession(
+        {
+          payload,
+          onEarlySuccess: () => {
+            closeModal();
+            duplicateSessionMethods.reset();
+          },
         },
-      });
+        {
+          onError: (error) => {
+            toast({
+              status: "critical",
+              description: t("duplicateModal.errorMessage"),
+            });
+            console.error("Error creating duplicated session:", error);
+          },
+        },
+      );
     } catch (error) {
       toast({
         status: "critical",

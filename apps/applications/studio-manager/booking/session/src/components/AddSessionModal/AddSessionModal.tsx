@@ -137,15 +137,26 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
           metaActivityId: selectedGroupActivity?.id,
         });
 
-        createSession({
-          payload,
-          onEarlySuccess: () => {
-            resetForm();
-            advancedOptionsMethods.reset();
-            configureSessionMethods.reset();
-            onClose?.();
+        createSession(
+          {
+            payload,
+            onEarlySuccess: () => {
+              resetForm();
+              advancedOptionsMethods.reset();
+              configureSessionMethods.reset();
+              onClose?.();
+            },
           },
-        });
+          {
+            onError: (error) => {
+              toast({
+                status: "critical",
+                description: t("addSessionModal.errors.create"),
+              });
+              console.error("Error creating session:", error);
+            },
+          },
+        );
         return;
       } catch (error) {
         toast({

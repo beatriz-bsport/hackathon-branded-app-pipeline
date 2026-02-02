@@ -24,3 +24,6 @@ export const selectIsDeleteModalOpen = (state: SessionListState) =>
 
 export const selectDisplayedColumns = (state: SessionListState) =>
   state.displayedColumns;
+
+export const selectIsDuplicateModalOpen = (state: SessionListState) =>
+  state.modalState?.type === ModalType.DUPLICATE;

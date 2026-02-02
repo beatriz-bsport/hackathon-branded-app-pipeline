@@ -173,6 +173,19 @@
     "successMessage_one": "Session deleted",
     "successMessage_other": "Sessions deleted"
   },
+  "duplicateModal": {
+    "title": "Duplicate session?",
+    "cancelButton": "Cancel",
+    "confirmButton": "Duplicate",
+    "descriptionNoRecurrence": "The new session will use the same settings as the duplicated one.",
+    "descriptionRecurrentSession": "The last session is on {{formattedDate}}. The new session will start after this date and will use the same settings as the duplicated session.",
+    "hybridSessionNotice": "Duplicating this hybrid session will create both online and on-site sessions. Both will use the same settings as the duplicated session.",
+    "linkToOriginalSession_one": "Link to the original session",
+    "linkToOriginalSession_other": "Link to original sessions",
+    "linkToOriginalSessionDescription_one": "Link this duplicate to the original session to edit them all together and enable clients to book them as a Series. Leave unchecked to keep this session separate.",
+    "linkToOriginalSessionDescription_other": "Link this duplicate to the original sessions to edit them all together and enable clients to book them as a Series. Leave unchecked to keep this session separate.",
+    "errorMessage": "An error occurred while duplicating the session. Please try again later."
+  },
   "restoreModal": {
     "title": "Restore session?",
     "description": "Restoring this session will make it visible again to members. You can cancel it again at any time.",

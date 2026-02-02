@@ -37,7 +37,6 @@
       "duplicated": "Smartlist duplicated",
       "open": "Open",
       "saved": "Smartlist updated",
-      "created": "Smartlist created",
       "deleted": "Smartlist deleted",
       "undo": "Undo",
       "actionUndone": "Change undone"
@@ -66,7 +65,6 @@
   },
   "createForm": {
     "title": "Create Smartlist",
-    "subtitle": "Add a name and description for this Smartlist so you can find it later.",
     "actions": {
       "create": "Create",
       "cancel": "Close"
@@ -87,12 +85,10 @@
     },
     "actions": {
       "save": "Save",
-      "cancel": "Close",
-      "create": "Create"
+      "cancel": "Close"
     },
     "title": {
-      "edit": "Edit Smartlist",
-      "add": "Create Smartlist"
+      "edit": "Edit Smartlist"
     }
   }
 }

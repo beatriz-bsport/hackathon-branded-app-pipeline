@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash";
 import groupBy from "lodash/groupBy";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -30,6 +31,7 @@ import {
 } from "../hooks/useSessionListData";
 import {
   ModalType,
+  selectFilters,
   selectModalState,
   selectSelectedDate,
   setLocale,
@@ -104,11 +106,32 @@ const ListPage: React.FC = () => {
     ];
   }, [openExportParticipantsModal, openCancelMultipleSessionsModal]);
 
+  const { filterConfig, resetFilters, sessionFiltersRef } = useFilterConfig();
+
+  const filters = useSessionListStore(selectFilters);
+  const hasEmptyResults =
+    !isLoading && !sessionDataError && Object.keys(sessionsByDate).length === 0;
+
+  const onClickEmptySearchState = useCallback(() => {
+    setSearchQuery("");
+    resetFilters?.();
+  }, [resetFilters]);
+
+  const isFilterEmpty = useMemo(() => {
+    return (
+      isEmpty(filters) ||
+      Object.values(filters).every((filterValue) => {
+        return (
+          filterValue.field === null &&
+          filterValue.filter === null &&
+          filterValue.valueIds.length === 0
+        );
+      })
+    );
+  }, [filters]);
+
   const { shouldRenderEmptyState, EmptyState } = useEmptyState({
-    isEmpty:
-      !isLoading &&
-      !sessionDataError &&
-      Object.keys(sessionsByDate).length === 0,
+    isEmpty: hasEmptyResults,
     emptyConfig: {
       title: t("emptyState.title"),
       subtitle: t("emptyState.subtitle"),
@@ -121,6 +144,19 @@ const ListPage: React.FC = () => {
             color: "main",
           }
         : undefined,
+    },
+    isEmptySearch:
+      hasEmptyResults && (!isFilterEmpty || searchQuery.length > 0),
+    emptySearchConfig: {
+      title: t("emptySearchState.title"),
+      subtitle: t("emptySearchState.subtitle"),
+      secondaryButtonConfig: {
+        label: t("emptySearchState.action"),
+        onClick: onClickEmptySearchState,
+        iconLeft: "x-close",
+        intent: "default",
+        color: "main",
+      },
     },
   });
 
@@ -156,8 +192,6 @@ const ListPage: React.FC = () => {
     [sessionsByDate, isLoading, intlLocale],
   );
 
-  const filterConfig = useFilterConfig();
-
   return (
     <ListLayout>
       <ListLayout.Header
@@ -165,6 +199,7 @@ const ListPage: React.FC = () => {
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
         filterConfig={filterConfig}
+        filterRef={sessionFiltersRef}
         endGroupActions={endGroupActions}
         searchConfig={{
           id: "session-search",

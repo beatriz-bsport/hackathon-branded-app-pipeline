@@ -15,6 +15,7 @@ export type CadenceOutputProps = {
   status: DestinationStatus;
   triggerList: ConnectedTrigger[];
   disabled?: boolean;
+  buttonDisabled?: boolean;
   forceSelection?: boolean;
   isSelected?: boolean;
   getSmartlist: (id: number) => SmartList;
@@ -54,6 +55,7 @@ const CadenceOutput: React.FC<CadenceOutputProps> = ({
   status,
   triggerList,
   disabled,
+  buttonDisabled,
   forceSelection,
   isSelected,
   getSmartlist,
@@ -66,7 +68,7 @@ const CadenceOutput: React.FC<CadenceOutputProps> = ({
           ? SequentialMarketingColors.ENTRY_BORDER_COLOR
           : SequentialMarketingColors.LOSE_BORDER_COLOR
       }
-      disabled={disabled}
+      disabled={disabled || buttonDisabled}
       forceSelection={forceSelection}
       header={
         <CadenceOutputHeader

@@ -31,6 +31,7 @@ import {
   DestinationStatus,
   InitialConfigurationStep,
 } from '#src/libs/sequential_marketing/constants';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 import type {
   ConnectedTrigger,
@@ -121,6 +122,12 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
   const { handleFetchFinerGrainEventsItem, getFinerGrainEventsItem } =
     useFinerGrainEventsItemProvider();
 
+  const showWorkflowDetailsInAllModes = useSafeFlag(
+    FeatureFlags.AUDIENCE_VIEW_WORKFLOW_DETAILS_IN_ALL_MODES,
+  );
+
+  const canClickCadenceOutput = !showWorkflowDetailsInAllModes || editMode;
+
   const openWonCriteriaBubble = React.useCallback((timeout?: number) => {
     const outputWon = document.getElementById('output_won');
     if (timeout) {
@@ -139,7 +146,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
         setAnchorLostTriggerBubble(outputLost);
       }, timeout);
     } else {
-      setAnchorWonTriggerBubble(outputLost);
+      setAnchorLostTriggerBubble(outputLost);
     }
   }, []);
 
@@ -401,20 +408,26 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
           >
             <div id="output_won">
               <CadenceOutput
+                buttonDisabled={showWorkflowDetailsInAllModes && !editMode}
                 disabled={creationMode && !anchorWonTriggerBubble}
                 forceSelection={!!anchorWonTriggerBubble}
                 getSmartlist={getSmartlist}
-                onCardClick={openWonCriteriaBubble}
+                onCardClick={
+                  canClickCadenceOutput ? openWonCriteriaBubble : undefined
+                }
                 status={DestinationStatus.WIN}
                 triggerList={wonConnectedTriggers}
               />
             </div>
             <div id="output_lost">
               <CadenceOutput
+                buttonDisabled={showWorkflowDetailsInAllModes && !editMode}
                 disabled={creationMode && !anchorLostTriggerBubble}
                 forceSelection={!!anchorLostTriggerBubble}
                 getSmartlist={getSmartlist}
-                onCardClick={openLostCriteriaBubble}
+                onCardClick={
+                  canClickCadenceOutput ? openLostCriteriaBubble : undefined
+                }
                 status={DestinationStatus.FAIL}
                 triggerList={lostConnectedTriggers}
               />

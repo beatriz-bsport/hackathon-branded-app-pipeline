@@ -60,6 +60,7 @@
         "settings": {
           "title": "Settings",
           "effectif": "Total spots in class",
+          "exceedsRoomCapacity": "The number of spots exceeds the room capacity.",
           "waitlist": "Spots on Waitlist",
           "credits": {
             "label": "Credits",

@@ -18,6 +18,10 @@ type FormToggleProps<
   label: string;
 } & Partial<ToggleProps>;
 
+/**
+ * Use this component to control a Toggle with a form value
+ * @returns
+ */
 export const FormToggle = <
   TFormValues extends FieldValues,
   TFieldName extends

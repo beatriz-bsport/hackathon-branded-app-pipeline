@@ -1367,6 +1367,9 @@ importers:
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-business-components':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/business
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../../packages/design-system/kaizen/primitive/core
@@ -2996,6 +2999,9 @@ importers:
 
   packages/design-system/kaizen/business:
     dependencies:
+      '@bsport/form':
+        specifier: workspace:*
+        version: link:../../../utils/form
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../utils/i18n
@@ -3008,6 +3014,9 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+      zod:
+        specifier: ^3.25.64
+        version: 3.25.67
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -3036,6 +3045,9 @@ importers:
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
+      glob:
+        specifier: ^11.1.0
+        version: 11.1.0
       postcss:
         specifier: ^8.4.49
         version: 8.4.49
@@ -4114,6 +4126,9 @@ importers:
       react:
         specifier: ^19.2.0
         version: 19.2.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
       react-hook-form:
         specifier: ^7.58.0
         version: 7.58.1(react@19.2.0)
@@ -4453,7 +4468,7 @@ importers:
         specifier: ^9.3.0
         version: 9.5.0
       glob:
-        specifier: ^11.0.3
+        specifier: ^11.1.0
         version: 11.1.0
       inquirer-select-pro:
         specifier: 1.0.0-alpha.9

@@ -9,15 +9,21 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.es.js",
-      "default": "./dist/index.es.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
-    "./styles": {
-      "default": "./dist/style.css"
+    "./*": {
+      "types": "./dist/components/*/index.d.ts",
+      "import": "./dist/components/*/index.js",
+      "default": "./dist/components/*/index.js"
+    },
+    "./tailwind-content": {
+      "import": "./tailwind-content.mjs",
+      "default": "./tailwind-content.mjs"
     }
   },
-  "main": "./dist/index.es.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -43,6 +49,7 @@
     "@vitejs/plugin-react-swc": "^3.7.2",
     "autoprefixer": "^10.4.20",
     "classnames": "^2.5.1",
+    "glob": "^11.1.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14",
     "tslib": "^2.8.1",
@@ -51,13 +58,12 @@
     "vite-plugin-svgr": "^4.3.0"
   },
   "peerDependencies": {
+    "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
-  },
-  "engines": {
-    "node": ">=18.20.0"
+    "react-dom": "^19.2.0",
+    "zod": "^3.25.64"
   },
   "nx": {
     "tags": [

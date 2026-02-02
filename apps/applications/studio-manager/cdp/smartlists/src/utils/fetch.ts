@@ -1,3 +1,4 @@
-import { getFetch } from "@bsport/fetch";
+import { Fetch, Xhr, getFetch, getXhr } from "@bsport/fetch";
 
-export const fetch = getFetch();
+export const fetch: Fetch = getFetch();
+export const xhr: Xhr = getXhr();

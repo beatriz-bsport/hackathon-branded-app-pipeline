@@ -1,0 +1,42 @@
+{
+  "popup": {
+    "creation": {
+      "title": "Pop-up Campaign",
+      "continueButtonLabel": "Continue",
+      "alertMessage": "Only members who have downloaded your studio app will receive this notification.",
+      "messageSectionTitle": "Message",
+      "form": {
+        "campaignName": {
+          "label": "Campaign Name"
+        },
+        "name": {
+          "label": "Title",
+          "required": "This is required",
+          "maxLength": "Title must be at most 200 characters"
+        },
+        "link": {
+          "label": "Link",
+          "buttonLabel": "Test link",
+          "required": "This is required",
+          "maxLength": "Link must be at most 200 characters",
+          "invalidUrl": "Please enter a valid URL"
+        },
+        "image": {
+          "uploadLabel": "Upload an image",
+          "dragAndDropLabel": "or drag and drop it here",
+          "fileTypes": "JPG, PNG, SVG",
+          "uploadInstructions": "Recommended: 1280 x 720 pixels, file size under 2MB",
+          "previewAlt": "Pop-up image preview"
+        }
+      },
+      "toasts": {
+        "error": {
+          "createFailed": "Smartlist pop-up couldn't be created. Please try again."
+        },
+        "processing": {
+          "creatingPopup": "Creating pop-up..."
+        }
+      }
+    }
+  }
+}

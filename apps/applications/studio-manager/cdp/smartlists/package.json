@@ -24,6 +24,7 @@
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-base": "workspace:*",
+    "@bsport/store-cdp-popup": "workspace:*",
     "@bsport/store-cdp-sequential-marketing": "workspace:*",
     "@bsport/store-cdp-smartlist": "workspace:*",
     "@bsport/use-async": "workspace:*",

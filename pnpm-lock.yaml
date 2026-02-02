@@ -1950,6 +1950,9 @@ importers:
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../../../../packages/stores/base
+      '@bsport/store-cdp-popup':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/popup
       '@bsport/store-cdp-sequential-marketing':
         specifier: workspace:*
         version: link:../../../../../packages/stores/cdp/sequential-marketing
@@ -36150,7 +36153,9 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

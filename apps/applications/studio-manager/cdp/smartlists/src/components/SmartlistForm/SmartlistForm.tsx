@@ -31,7 +31,7 @@ export const SmartlistForm: React.FC<SmartlistFormProps> = ({
   id,
   onSubmit,
   ...methods
-}) => {
+}: SmartlistFormProps) => {
   const { t } = useTranslation("list");
   const fieldIdPrefix = useId();
 

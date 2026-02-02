@@ -20,7 +20,7 @@ const getBannerIdentifier = (identifier: string) => {
 function getBannerHasBeenCleared(bannerIdentifier: string) {
   try {
     return !!localStorage.getItem(bannerIdentifier);
-  } catch (error) {
+  } catch (_error) {
     console.warn("[Homepage] Could not get identifier from localStorage");
     return false;
   }
@@ -29,7 +29,7 @@ function getBannerHasBeenCleared(bannerIdentifier: string) {
 function setBannerHasBeenCleared(bannerIdentifier: string) {
   try {
     localStorage.setItem(bannerIdentifier, String(true));
-  } catch (error) {
+  } catch (_error) {
     console.warn("[Homepage] Could not set identifier in localStorage");
   }
 }

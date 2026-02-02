@@ -20,7 +20,7 @@ export default defineConfig({
         "test-utils": path.resolve(__dirname, "src/test-utils.ts"),
       },
       formats: ["es"], // Specify the output formats
-      fileName: (format, entryName) => `${entryName}.js`, // Customize the output file name
+      fileName: (_format, entryName) => `${entryName}.js`, // Customize the output file name
     },
   },
   resolve: {

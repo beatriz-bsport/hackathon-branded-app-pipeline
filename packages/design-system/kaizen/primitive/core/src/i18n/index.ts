@@ -32,7 +32,7 @@ export const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
     return (
       (await import(`./locales/${locale}/${namespace}.json`)).default || {}
     );
-  } catch (error) {
+  } catch (_error) {
     return {};
   }
 };

@@ -292,7 +292,7 @@ async function _getTempDirPath({
     const tempDirPath = path.resolve(await getMonorepoBasePath(), _tempDir);
     print(`¤ Temp directory path is ${tempDirPath}`);
     return tempDirPath;
-  } catch (error) {
+  } catch (_error) {
     throw new Error("Fail to get tempDirPath");
   }
 }
@@ -314,7 +314,7 @@ async function _createTempBranch({
     await exec(`git checkout --quiet -b ${tempBranch}`, {
       cwd: repoAbsolutePath,
     });
-  } catch (e) {
+  } catch (_e) {
     print(`! A branch named '${tempBranch}' already exists.`);
     print(`> git checkout ${tempBranch}`);
     await exec(`git checkout --quiet ${tempBranch}`, {
@@ -502,7 +502,7 @@ async function _addInitialRepoTempBranchAsRemote({
       cwd: monorepoBasePath,
     });
     print(`¤ Add remote.${tempRemote} pointing to ${repoAbsolutePath}`);
-  } catch (error) {
+  } catch (_error) {
     print(`! remote.${tempRemote} already exists`);
     print(`¤ Update the remote destination to ${repoAbsolutePath}`);
     print(
@@ -575,7 +575,7 @@ async function cleanup({
     await exec(`git remote remove ${tempRemote}`, {
       cwd: await getMonorepoBasePath(),
     });
-  } catch (e) {
+  } catch (_e) {
     if (!error) print(`! remote ${tempRemote} already removed`);
   }
 
@@ -594,7 +594,7 @@ async function cleanup({
   try {
     if (!error) print(`> git branch -D ${tempBranch}`);
     await exec(`git branch -D ${tempBranch}`, { cwd: repoAbsolutePath });
-  } catch (e) {
+  } catch (_e) {
     if (!error) print(`! branch ${tempBranch} not found`);
   }
   print("\n✅ Temp branches and remotes cleared");

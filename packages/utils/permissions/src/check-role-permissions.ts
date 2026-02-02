@@ -101,7 +101,7 @@ export function checkHasPermission<T extends GenericPermissions>({
   try {
     if (!permissions || !path) return false;
     return checkDeeperPermission(permissions, path);
-  } catch (error) {
+  } catch (_error) {
     return false;
   }
 }

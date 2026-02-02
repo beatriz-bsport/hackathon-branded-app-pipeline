@@ -57,7 +57,7 @@ export const formatVariableValue =
     const formatCSSVariable = options.formatCSSVariable;
 
     // Replace all occurrences of var(--...) with formatted variable names
-    const formattedValue = value.replace(VAR_REGEX, (match, p1) => {
+    const formattedValue = value.replace(VAR_REGEX, (_match, p1) => {
       const originalVariableName = p1;
       const formattedVariableName = formatCSSVariable(
         formatName(originalVariableName),

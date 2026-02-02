@@ -228,7 +228,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
         newProgressValue: 100,
         newCustomMessage: customMessage,
       });
-    } catch (error) {
+    } catch (_error) {
       // Set progress to 100% and update status to "error"
       handleUpdateFileTracker({
         file: fileUploadTracker.file,

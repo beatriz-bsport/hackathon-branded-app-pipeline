@@ -268,7 +268,7 @@ async function _checkGitRepositoryWithoutChanges({
     await exec("git diff --name-only --exit-code", {
       cwd: repoAbsolutePath,
     });
-  } catch (e) {
+  } catch (_e) {
     throw new Error(
       `❌ Some local changes have not been staged in your local project repository.`,
     );
@@ -295,7 +295,7 @@ async function _checkMonorepositoryWithoutChanges() {
     await exec("git diff --name-only --exit-code", {
       cwd: monorepoBasePath,
     });
-  } catch (e) {
+  } catch (_e) {
     throw new Error(
       `❌ Some local changes have not been staged in your local monorepository.`,
     );
@@ -710,7 +710,7 @@ async function _rebaseInitialOnDev({
   // Make sure the initial branch is up to date with dev without conflicts
   try {
     await exec(`git rebase dev`, { cwd: initialRepoAbsolutePath });
-  } catch (error) {
+  } catch (_error) {
     await exec("git rebase --abort", { cwd: initialRepoAbsolutePath });
     return `❌ Could not rebase ${initialBranch} on ${project}/dev`;
   }
@@ -729,7 +729,7 @@ async function _rebaseInitialOnTempBranchWithMovingCommit({
 }) {
   try {
     await exec(`git rebase ${tempBranch}`, { cwd: initialRepoAbsolutePath });
-  } catch (error) {
+  } catch (_error) {
     // Can happen if new files have been created in the open branch
     await inquirer.prompt([
       {
@@ -742,7 +742,7 @@ async function _rebaseInitialOnTempBranchWithMovingCommit({
     try {
       // Check a last time that the rebase have been finished
       await exec(`git rebase ${tempBranch}`, { cwd: initialRepoAbsolutePath });
-    } catch (err) {
+    } catch (_err) {
       await exec("git rebase --abort", { cwd: initialRepoAbsolutePath });
       return `❌ Could not rebase ${initialBranch} on ${tempBranch} containing moving commit`;
     }
@@ -766,7 +766,7 @@ async function _rebaseInitialOnTempBranchWithMovingCommit({
         "git add -A && git commit -m 'fix(migration): Move new files in monorepo data structure'",
         { cwd: initialRepoAbsolutePath },
       );
-    } catch (err) {
+    } catch (_err) {
       // Nothing to commit, continue
     }
   }
@@ -855,7 +855,7 @@ async function _mergeInitialGitHistoryInMonorepo({
       `export ECOSYSTEM_SKIP_HOOKS=true; git merge -m "temp merge commit" ${remoteBranch} --allow-unrelated-histories`,
       { cwd: monorepoBasePath },
     );
-  } catch (error) {
+  } catch (_error) {
     return `❌ Could not merge git history from ${remoteBranch} in monorepo`;
   }
 }
@@ -871,7 +871,7 @@ async function _rebaseImportBranchOnDevImportBranch({
 }) {
   try {
     await exec(`git rebase ${devImportBranch}`, { cwd: monorepoBasePath });
-  } catch (error) {
+  } catch (_error) {
     await exec("git rebase --abort", { cwd: monorepoBasePath });
     return `❌ Could not rebase ${branchName} on ${devImportBranch}`;
   }
@@ -975,7 +975,7 @@ async function _checkoutToDevImportBranch({
   if (currentGitBranch !== devImportBranch) {
     try {
       await exec(cmdGitCheckout, { cwd: monorepoBasePath });
-    } catch (error) {
+    } catch (_error) {
       // Expect error due to automatic husky scripts that basically failed in monorepo
     }
   }

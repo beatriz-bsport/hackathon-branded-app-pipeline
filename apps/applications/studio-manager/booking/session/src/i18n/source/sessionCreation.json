@@ -172,7 +172,8 @@
               "nthWeekday": "Nth weekday"
             },
             "info": "{{count}} session will be created",
-            "info_other": "{{count}} sessions will be created"
+            "info_other": "{{count}} sessions will be created",
+            "warning": "The recurrence settings are invalid. Only the initial session will be created. Adjust your settings to create recurring sessions."
           },
           "errors": {
             "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",

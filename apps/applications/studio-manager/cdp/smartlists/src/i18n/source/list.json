@@ -48,7 +48,7 @@
       "createFailed": "Smartlist couldn't be created. Please try again. ",
       "deleteFailed": "Smartlist couldn't be deleted. Please try again. ",
       "deleteError": {
-        "101000": "Unable to duplicate Smartlist, please try again",
+        "101000": "Smartlist couldn't be duplicated. Please try again.",
         "101001": "Smartlist couldn't be deleted as it's currently used in active communications. Please remove it from communications, or contact support for help. ",
         "101002": "Smartlist couldn't be deleted because it's being used in active Audience workflows. Please go to the Audience page to remove it from the associated workflow. "
       }

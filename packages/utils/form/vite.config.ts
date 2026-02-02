@@ -21,7 +21,12 @@ export default defineConfig({
     },
     rollupOptions: {
       // External dependencies that shouldn't be bundled
-      external: ["react", "react/jsx-dev-runtime", "react/jsx-runtime"],
+      external: [
+        "react",
+        "react-dom",
+        "react/jsx-dev-runtime",
+        "react/jsx-runtime",
+      ],
     },
   },
   resolve: {

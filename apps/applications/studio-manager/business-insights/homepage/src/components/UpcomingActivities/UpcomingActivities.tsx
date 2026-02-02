@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
-import { Card, Table } from "@bsport/kaizen-primitive-core";
+import { Card, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { HomepageSection } from "#src/components/HomepageSection";
 import { useFetchSessions } from "#src/hooks/useFetchSessions";
@@ -8,26 +8,14 @@ import { useFetchSubstitutionRequests } from "#src/hooks/useFetchSubstitutionReq
 import { useFetchTeachers } from "#src/hooks/useFetchTeachers";
 import { useTranslation } from "#src/utils/i18n";
 
-import { useUpcomingActivitiesColumns } from "./columns";
-import { useUpcomingActivitiesRows } from "./rows";
+import { UpcomingActivitiesList } from "./upcoming-activities-list.component";
+import { UpcomingActivitiesTable } from "./upcoming-activities-table.component";
 
 export const UpcomingActivities: React.FC = () => {
   const { t } = useTranslation("default");
-
-  // Hide headers on mobile (< 500px)
-  const [hideHeader, setHideHeader] = useState(
-    typeof window !== "undefined" && window.innerWidth < 500,
-  );
-
-  useEffect(() => {
-    const handleResize = () => {
-      setHideHeader(window.innerWidth < 500);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   const { isLoading: isLoadingTeachers, fetchTeachers } = useFetchTeachers();
+
+  const isMobile = !useMatchMedia("md");
 
   const {
     isLoading: isLoadingSubstitutionRequests,
@@ -44,15 +32,12 @@ export const UpcomingActivities: React.FC = () => {
       },
     });
 
-  const rows = useUpcomingActivitiesRows();
-  const hideSubstitute = !rows.some(
-    (row) => row.teacherSubstituteRequired || row.teacherSubstituteName,
-  );
-  const columns = useUpcomingActivitiesColumns({ hideSubstitute });
-
   useEffect(() => {
     fetchManagerSessions();
   }, [fetchManagerSessions, fetchSubstitutionRequests]);
+
+  const isLoading =
+    isLoadingSessions || isLoadingTeachers || isLoadingSubstitutionRequests;
 
   return (
     <HomepageSection
@@ -65,26 +50,11 @@ export const UpcomingActivities: React.FC = () => {
         className="overflow-x-auto mt-md max-h-[370px] min-h-[var(--card-min-height)] w-full"
         style={{ "--card-min-height": "100px" }}
       >
-        <Table
-          columns={columns}
-          rows={rows}
-          withVerticalBorders={false}
-          hideHeader={hideHeader}
-          emptyStateProps={{
-            isEmpty: rows.length === 0,
-            emptyConfig: {
-              title: t("upcomingClassesPanel.emptyList"),
-            },
-          }}
-          loadingProps={{
-            isLoading:
-              isLoadingSessions ||
-              isLoadingTeachers ||
-              isLoadingSubstitutionRequests,
-            className: "h-[var(--card-min-height)]",
-          }}
-          withHorizontalDivider={false}
-        />
+        {isMobile ? (
+          <UpcomingActivitiesList isLoading={isLoading} />
+        ) : (
+          <UpcomingActivitiesTable isLoading={isLoading} />
+        )}
       </Card>
     </HomepageSection>
   );

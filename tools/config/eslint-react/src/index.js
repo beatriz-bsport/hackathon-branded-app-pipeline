@@ -44,12 +44,27 @@ module.exports = [
         "warn",
         { allowConstantExport: true },
       ],
-      "@typescript-eslint/no-unused-vars": ["error", { caughtErrors: "none" }],
     },
   },
   reactHooks.configs["recommended-latest"],
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    rules: {
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          args: "all",
+          argsIgnorePattern: "^_",
+          caughtErrors: "all",
+          caughtErrorsIgnorePattern: "^_",
+          destructuredArrayIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          ignoreRestSiblings: true,
+        },
+      ],
+    },
+  },
   {
     ignores: [
       // Build package
@@ -69,6 +84,7 @@ module.exports = [
     rules: {
       "react-hooks/rules-of-hooks": "off",
       "react-hooks/exhaustive-deps": "off",
+      "@typescript-eslint/no-unused-vars": "off",
     },
   },
 ];

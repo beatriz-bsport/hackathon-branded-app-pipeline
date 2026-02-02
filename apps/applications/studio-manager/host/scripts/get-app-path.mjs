@@ -16,7 +16,7 @@ async function getProjectGraph() {
   try {
     // First try to read from cache
     return readCachedProjectGraph();
-  } catch (error) {
+  } catch (_error) {
     // If cache fails, create a new project graph
     return await createProjectGraphAsync();
   }

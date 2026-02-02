@@ -26,6 +26,19 @@ export type ReplacementRequest<
   has_requested_late: boolean;
 };
 
+export type ReplacementOffer<
+  C = number,
+  E = number,
+  M = number,
+  A = number,
+  T = number,
+  G = number,
+  L = number,
+> = Offer<C, E, M, A, T, G, L> & {
+  coach_author?: C;
+  selected_coach?: C;
+};
+
 export type ReplacementRequestCoachAnswer<C = number, R = number> = {
   id: number;
   date_created: string;
@@ -63,6 +76,7 @@ export type ReplacementRequestFilter = {
   company?: number;
   coach__in?: number[];
   coach?: number;
+  approved_coach?: number;
   establishment__in?: number[];
   establishment_group__in?: number[];
   category__in?: number[];
@@ -113,6 +127,13 @@ export type ReplacementRequestState = ErrorAndLoading & {
     page: number;
     loading: boolean;
     hasUnseen: boolean;
+  };
+  substitutionHistory: {
+    items: SubstitutionHistoryItem[];
+    count: number;
+    page: number;
+    loading: boolean;
+    error?: Error | null;
   };
   replacementRequestCoachAnswer: ErrorAndLoading & {
     byId: Record<number, ReplacementRequestCoachAnswer>;
@@ -188,4 +209,42 @@ export type ReplacementRequestConfiguration = {
   late_request_limitation_period_type: number;
   late_request_limitation_period_nb: number;
   max_late_requests_per_limitation_period: number;
+};
+
+export type SubstitutionHistoryItem = {
+  offer: number;
+  date_start: string;
+  duration_minute: number;
+  activity: number;
+  activity_name: string;
+  name_override: string | null;
+  company: number;
+  level: number | null;
+  level_name: string | null;
+  level_color: string | null;
+  establishment_id: number;
+  establishment_name: string;
+  coach: number;
+  coach_name: string;
+  coach_override: number | null;
+  coach_override_name: string | null;
+  coach_author: number | null;
+  coach_author_name: string | null;
+  request_id: number | null;
+  reason: string | null;
+  replacement_request_status: number | null;
+  selected_coach: number | null;
+  selected_coach_name: string | null;
+  date_requested?: string;
+  closing_date?: string;
+  closing_date_override?: string;
+};
+
+export type SubstitutionHistoryFilter = {
+  company: number;
+  coach?: number;
+  min_date?: string;
+  max_date?: string;
+  page?: number;
+  page_size?: number;
 };

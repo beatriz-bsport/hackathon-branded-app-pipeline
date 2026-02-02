@@ -35,8 +35,7 @@ const config: StorybookConfig = {
   stories: businessPackages,
 
   addons: [
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
+    "@storybook/addon-docs",
     "@storybook/addon-themes",
     "@chromatic-com/storybook",
   ],
@@ -48,6 +47,11 @@ const config: StorybookConfig = {
 
   core: {
     disableTelemetry: true,
+  },
+
+  features: {
+    actions: true,
+    controls: true,
   },
 
   viteFinal: async (config, { configType }) => {

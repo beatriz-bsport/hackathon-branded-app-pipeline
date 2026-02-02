@@ -1,5 +1,5 @@
-import { addons } from "@storybook/manager-api";
-import { create } from "@storybook/theming/create";
+import { addons } from "storybook/manager-api";
+import { create } from "storybook/theming/create";
 
 const env = process.env.STORYBOOK_ENV || "local";
 const sha = process.env.STORYBOOK_COMMIT_SHORT_SHA || "local";

@@ -39,6 +39,15 @@ export type ItemAutocompleteItem = {
   description?: string;
   priceLabel?: string;
   imageUrl?: string;
+  taxPercent?: number;
+
+  // TODO: Move to separate type when we know about all the item types.
+  // Pass-specific fields.
+  credits?: number | null;
+  durationDays?: number | null;
+  durationMonths?: number | null;
+  durationYears?: number | null;
+  validityDateRange?: { lower: string; upper: string } | null;
 };
 
 type ItemAutocompleteTextfieldProps = Omit<
@@ -52,6 +61,8 @@ export type ItemAutocompleteProps = VariantProps<typeof itemAutocomplete> & {
   className?: string;
   itemType: ItemAutocompleteItemKind;
   textfieldProps?: ItemAutocompleteTextfieldProps;
+  onSelect?: (itemId: string) => void;
+  onValueChange?: (value: string) => void;
 } & Omit<
     AutocompleteProps,
     | "items"
@@ -67,6 +78,8 @@ const ItemAutocomplete: React.FC<ItemAutocompleteProps> = ({
   itemType,
   textfieldProps,
   fullWidth = true,
+  onSelect: onSelectProp,
+  onValueChange: onValueChangeProp,
   ...restAutocompleteProps
 }: ItemAutocompleteProps) => {
   const i18nInstance = useKaizenI18nInstance();
@@ -102,6 +115,7 @@ const ItemAutocomplete: React.FC<ItemAutocompleteProps> = ({
 
   const handleSelect = (selectedValue: string) => {
     setSelectedItemId(selectedValue);
+    onSelectProp?.(selectedValue);
   };
 
   const handleValueChange = (value: string) => {
@@ -109,6 +123,7 @@ const ItemAutocomplete: React.FC<ItemAutocompleteProps> = ({
     if (value.trim() && selectedItemId) {
       setSelectedItemId(undefined);
     }
+    onValueChangeProp?.(value);
   };
 
   const handleOpenInNewTab = () => {

@@ -9,12 +9,17 @@
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
-      "import": "./build/lib.es.js",
-      "default": "./build/lib.es.js"
+      "import": "./build/index.js",
+      "default": "./build/index.js"
+    },
+    "./test": {
+      "types": "./build/test-utils.d.ts",
+      "import": "./build/test-utils.js",
+      "default": "./build/test-utils.js"
     }
   },
-  "main": "build/lib.es.js",
-  "module": "build/lib.es.js",
+  "main": "build/index.js",
+  "module": "build/index.js",
   "types": "build/index.d.ts",
   "files": [
     "build"
@@ -38,6 +43,7 @@
     "@bsport/local-storage-auth-token": "workspace:*",
     "@bsport/request-from-header": "workspace:*",
     "@bsport/sentry": "workspace:*",
+    "@bsport/store-base": "workspace:*",
     "@bsport/timezone-utils": "workspace:*"
   },
   "devDependencies": {

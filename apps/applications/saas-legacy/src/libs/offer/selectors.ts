@@ -394,7 +394,6 @@ export const getOfferAsEventList = createSelector(
         Immutable({
           ...o,
           meta_activity:
-            // @ts-expect-error
             metaActivityData[o.meta_activity] ||
             // @ts-expect-error
             workshopData[o.meta_activity] ||

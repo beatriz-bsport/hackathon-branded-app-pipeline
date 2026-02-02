@@ -9,7 +9,7 @@ import {
 } from '#src/libs/exportable-components/types';
 import { CompanyTheme } from '#src/libs/theme/types';
 import { offerFactory } from '#src/libs/offer/factories';
-import { Offer } from '#src/libs/offer/types';
+import { OfferREST } from '#src/libs/offer/types';
 import { OffersGroup } from '#src/libs/group-offer/types';
 // @ts-expect-error
 import MarketplaceBookButtonCss from './MarketplaceBookButton.css?raw';
@@ -109,7 +109,7 @@ const usePropsFromVariation = (
       available: isOfferAvailable,
       coach: offer.coach.id,
       establishment: offer.establishment.id,
-    } as Offer,
+    } as OfferREST,
     isRegistered,
     isHidden,
     metaActivity: metaActivityOverride,

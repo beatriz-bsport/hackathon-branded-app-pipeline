@@ -25,7 +25,7 @@
           },
           "features": {
             "livestream": {
-              "popoverLabel": "Live streaming is enabled for this activity"
+              "popoverLabel": "Livestream is enabled for this activity"
             },
             "notifications": {
               "popoverLabel": "Notifications are configured for this activity"
@@ -47,14 +47,12 @@
             "title": "Choose whether this session will be visible on the Member Area",
             "options": {
               "visible": {
-                "buttonLabel": "Visible",
-                "label": "Visible on Member Area",
-                "description": "This session will be available to book on the Member Area."
+                "label": "Listed",
+                "description": "Offering will be visible on the Member Area"
               },
               "hidden": {
-                "buttonLabel": "Hidden",
-                "label": "Hidden on Member Area",
-                "description": "This session won't be available on the Member Area, but can be booked with a link or via the Back Office."
+                "label": "Unlisted",
+                "description": "Offering won't be visible on the Member Area but can be shared directly via a link"
               }
             }
           }
@@ -75,6 +73,12 @@
               "label": "Allocated spots",
               "helperText": "This limit only applies when using Wellhub, Urban Sports Club or myClubs — other aggregators aren’t affected.",
               "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session."
+            },
+            "wellhub": {
+              "label": "Your available products on Wellhub",
+              "placeholder": "Select a Wellhub product...",
+              "helperText": "These products are offered by your studio on the Wellhub platform. Go to 'Partnership' section in the Partner Portal of your Wellhub account for more information.",
+              "error": "Wellhub product is required"
             }
           },
           "level": {
@@ -125,7 +129,7 @@
           }
         },
         "timeAndDate": {
-          "title": "Time and date",
+          "title": "Date and time",
           "date": "Date",
           "time": "Time",
           "duration": {

@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import type { DeepKeys } from "@bsport/permissions";
 import type { ObjectLevelPermissions } from "@bsport/sm-backbone";
 
+import { useHasSubscriptions } from "#src/hooks/api";
 import {
   type InsightFlagId,
   InsightFlags,
@@ -58,5 +59,23 @@ export const useInsightFlagValues = (): Partial<Record<InsightId, boolean>> => {
         schedule: hasScheduleAnalysis,
       }) satisfies Partial<Record<InsightId, boolean>>,
     [hasTrialAnalysis, hasScheduleAnalysis],
+  );
+};
+
+/**
+ * Returns custom availability conditions (outside permissions/flags).
+ * Keep insight-specific rules centralized here.
+ */
+export const useInsightAvailability = (): Partial<
+  Record<InsightId, boolean>
+> => {
+  const { hasSubscriptions } = useHasSubscriptions();
+
+  return useMemo(
+    () =>
+      ({
+        recurring: hasSubscriptions,
+      }) satisfies Partial<Record<InsightId, boolean>>,
+    [hasSubscriptions],
   );
 };

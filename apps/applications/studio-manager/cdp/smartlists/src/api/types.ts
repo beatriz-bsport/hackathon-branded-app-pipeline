@@ -1,4 +1,4 @@
-import type { CommunicationKind, EventKind } from "./constants";
+import type { CommunicationKind, EventKind, TagRuleKind } from "./constants";
 
 /**
  * Smartlist type from the API
@@ -82,3 +82,55 @@ export type AutomatedCampaignWithAnalytics = {
   total_read: number;
   total_click: number;
 };
+
+/**
+ * Tag Rule type from the API
+ * Endpoint: GET /api/v1/smartlist/auto_tag_rules/
+ */
+export type TagRule = {
+  id: number;
+  company_id: number;
+  smartlist: number;
+  tag: number;
+  kind: TagRuleKind;
+  date_created: string;
+};
+
+/**
+ * Tag type from the API
+ * Endpoint: GET /api/v1/tag/
+ */
+export type Tag = {
+  id: number;
+  name: string;
+  group: number;
+  color: string;
+  icon: string;
+  tag_template: number | null;
+};
+
+/**
+ * TagGroup type from the API
+ * Endpoint: GET /customer-data-platform/v0/tagging/tag-group/
+ */
+export type TagGroup = {
+  id: number;
+  name: string;
+  tags: number[];
+  kind: number;
+  tag_group_template: number | null;
+  is_created_for_zoho: boolean;
+};
+
+/**
+ * Combined type that includes tag rule + resolved tag name
+ */
+export type TagRuleWithTag = TagRule & {
+  tagName: string;
+  tagGroupName?: string;
+};
+
+/**
+ * Query params for fetching tag rules
+ */
+export type FetchTagRulesParams = { smartlist_id: string };

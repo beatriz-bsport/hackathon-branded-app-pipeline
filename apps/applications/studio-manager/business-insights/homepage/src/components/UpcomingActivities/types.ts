@@ -9,4 +9,5 @@ export type TableRowData = {
   emptySpotsCount: number;
   hasWaitingList: boolean;
   waitingListCount: number;
+  link?: string;
 };

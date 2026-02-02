@@ -29,7 +29,10 @@ import {
 } from '#src/libs/establishment/types';
 import { Coach } from '#src/libs/associated-coach/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
-import { ReplacementRequest } from '#src/libs/replacement-request/types';
+import {
+  ReplacementOffer,
+  ReplacementRequest,
+} from '#src/libs/replacement-request/types';
 import {
   ReplacementDisplays,
   ReplacementRequestCoachAnswerStatus,
@@ -39,6 +42,7 @@ import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,
 } from '../../../../utils/datetime';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 type Props = {
   timezoneName: string;
@@ -50,7 +54,17 @@ type Props = {
     number,
     number,
     Level
-  >;
+  > & {
+    offer: ReplacementOffer<
+      Coach,
+      Establishment,
+      MetaActivity,
+      number,
+      number,
+      number,
+      Level
+    >;
+  };
   enableMultiLocalization: boolean;
   establishmentGroups: EstablishmentGroup[];
   replacementDisplay: ReplacementDisplays;
@@ -93,6 +107,7 @@ type Props = {
       Level
     >,
   ) => void;
+  handleMarkSubstituteAsUnavailable?: (requestId: number) => void;
   isMobile: boolean;
   isLastItem: boolean;
 };
@@ -107,6 +122,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
   handleExtensionAction,
   handleReplaceAction,
   handleRefuseAction,
+  handleMarkSubstituteAsUnavailable,
   timezoneName,
   isLastItem,
   isMobile,
@@ -115,42 +131,38 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
 
   const { t } = useTranslation('replacement');
 
+  const offer = replacementRequest.offer;
+
   const establishmentGroupList = useMemo(
     () =>
       enableMultiLocalization
         ? establishmentGroups
-            .filter((eg) =>
-              eg.establishment.includes(replacementRequest.offer.establishment),
-            )
+            .filter((eg) => eg.establishment.includes(offer.establishment))
             .map((eg) => eg.name)
             .filter((eg) => !!eg)
         : [],
-    [
-      enableMultiLocalization,
-      establishmentGroups,
-      replacementRequest.offer.establishment,
-    ],
+    [enableMultiLocalization, establishmentGroups, offer.establishment],
   );
 
   const offerDateStartAsDateTime = useMemo(
     () =>
-      DateTime.fromISO(replacementRequest.offer.date_start).setZone(
-        replacementRequest.offer.timezone_name ?? timezoneName,
+      DateTime.fromISO(offer.date_start).setZone(
+        offer.timezone_name ?? timezoneName,
       ),
-    [replacementRequest.offer, timezoneName],
+    [offer, timezoneName],
   );
 
   const offerDateEndAsDateTime = useMemo(
     () =>
-      DateTime.fromISO(replacementRequest.offer.date_start)
-        .setZone(replacementRequest.offer.timezone_name ?? timezoneName)
-        .plus({ minute: replacementRequest.offer.duration_minute }),
-    [replacementRequest.offer, timezoneName],
+      DateTime.fromISO(offer.date_start)
+        .setZone(offer.timezone_name ?? timezoneName)
+        .plus({ minute: offer.duration_minute }),
+    [offer, timezoneName],
   );
 
   const timezone = useMemo(
-    () => replacementRequest.offer.timezone_name ?? timezoneName,
-    [replacementRequest.offer.timezone_name, timezoneName],
+    () => offer.timezone_name ?? timezoneName,
+    [offer.timezone_name, timezoneName],
   );
 
   const onClickDelete = useCallback(() => {
@@ -161,6 +173,10 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
     (answer: ReplacementRequestCoachAnswerStatus) =>
       handleCoachAnswer(answer, replacementRequest.id),
     [handleCoachAnswer, replacementRequest.id],
+  );
+
+  const allowEndlessSubstitutions = useSafeFlag(
+    FeatureFlags.BOOKING_ALLOW_ENDLESS_SUBSTITUTIONS,
   );
 
   if (isMobile) {
@@ -194,13 +210,13 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           {replacementDisplay ===
             ReplacementDisplays.REPLACEMENT_DISPLAY_MARKETPLACE && (
             <Typography className={classes.mobileSmallFont}>
-              {replacementRequest.offer.coach?.name}
+              {offer.coach?.name}
             </Typography>
           )}
           {replacementDisplay ===
             ReplacementDisplays.REPLACEMENT_DISPLAY_REQUEST_TEACHER_FOUND && (
             <Typography className={classes.mobileSmallFont}>
-              {replacementRequest.offer.coach_override?.name}
+              {offer.coach_override?.name}
             </Typography>
           )}
           {replacementDisplay ===
@@ -240,11 +256,10 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               <Typography
                 className={clsx(classes.mobileSmallFont, classes.weight500)}
               >
-                {replacementRequest.offer?.name_override ||
-                  replacementRequest.offer?.meta_activity?.name}
+                {offer?.name_override || offer?.meta_activity?.name}
               </Typography>
               <Typography className={classes.mobileSmallFont}>
-                {replacementRequest.offer?.establishment?.title}
+                {offer?.establishment?.title}
               </Typography>
               {enableMultiLocalization && (
                 <div className={classes.mobileMultiLoc}>
@@ -261,7 +276,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                 ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS && (
                 <>
                   <Typography className={classes.mobileSmallFont}>
-                    {replacementRequest.offer?.coach?.name}
+                    {offer?.coach?.name}
                   </Typography>
                   <ReplacementRequestClosingDateExtensionButton
                     isMobile={isMobile}
@@ -301,7 +316,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           <LevelChip
             isChip
             // @ts-expect-error
-            customLevel={replacementRequest.offer.customLevel}
+            customLevel={offer.customLevel}
             smallFont={isMobile}
           />
         </div>
@@ -346,6 +361,19 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               />
             </>
           )}
+          {replacementDisplay ===
+            ReplacementDisplays.REPLACEMENT_DISPLAY_CONFIRM &&
+            allowEndlessSubstitutions && (
+              <Button
+                className={classes.mobileDeleteButton}
+                color="primary"
+                onClick={() =>
+                  handleMarkSubstituteAsUnavailable?.(replacementRequest.id)
+                }
+              >
+                {t('confirmations.unavailable')}
+              </Button>
+            )}
         </div>
       </div>
     );
@@ -360,8 +388,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
         ].includes(replacementDisplay) ? (
           <TableCell className={classes.tableCell}>
             <Typography className={classes.weight500} variant="subtitle1">
-              {replacementRequest.offer?.name_override ||
-                replacementRequest.offer?.meta_activity?.name}
+              {offer?.name_override || offer?.meta_activity?.name}
             </Typography>
             <Typography className={classes.weight500} variant="subtitle2">
               {formatAsDatetimeAdapted(
@@ -405,8 +432,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             </Hidden>
             <TableCell className={classes.tableCell}>
               <Typography className={classes.weight500} variant="subtitle1">
-                {replacementRequest.offer?.name_override ||
-                  replacementRequest.offer?.meta_activity?.name}
+                {offer?.name_override || offer?.meta_activity?.name}
               </Typography>
             </TableCell>
           </>
@@ -417,13 +443,13 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             <LevelChip
               isChip
               // @ts-expect-error
-              customLevel={replacementRequest.offer.customLevel}
+              customLevel={offer.customLevel}
             />
           </div>
         </TableCell>
         <TableCell className={classes.tableCell}>
           <Typography variant="subtitle1">
-            {replacementRequest.offer?.establishment?.title}
+            {offer?.establishment?.title}
           </Typography>
         </TableCell>
         {enableMultiLocalization && (
@@ -481,13 +507,20 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                 </TableCell>
               </React.Fragment>
             )}
-            {replacementRequest.status ===
-              ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_TEACHER_FOUND && (
-              <TableCell className={classes.tableCell}>
-                <Typography>
-                  {replacementRequest.offer.coach_override?.name}
-                </Typography>
-              </TableCell>
+            {(replacementRequest.status ===
+              ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_TEACHER_FOUND ||
+              replacementRequest.status ===
+                ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_SUBSTITUTE_UNAVAILABLE) && (
+              <>
+                <TableCell className={classes.tableCell}>
+                  <Typography>
+                    {offer.coach_author?.name || offer.coach.name}
+                  </Typography>
+                </TableCell>
+                <TableCell className={classes.tableCell}>
+                  <Typography>{offer.coach_override?.name}</Typography>
+                </TableCell>
+              </>
             )}
           </React.Fragment>
         )}
@@ -495,7 +528,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           ReplacementDisplays.REPLACEMENT_DISPLAY_MARKETPLACE && (
           <React.Fragment>
             <TableCell className={classes.tableCell}>
-              <Typography>{replacementRequest.offer.coach?.name}</Typography>
+              <Typography>{offer.coach?.name}</Typography>
             </TableCell>
             <TableCell className={classes.tableCell}>
               <Typography>
@@ -521,7 +554,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS && (
           <>
             <TableCell className={classes.tableCell}>
-              <Typography>{replacementRequest.offer.coach?.name}</Typography>
+              <Typography>{offer.coach?.name}</Typography>
             </TableCell>
             <TableCell className={classes.tableCell}>
               <ReplacementRequestLateStatusChip
@@ -556,15 +589,27 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_HISTORY && (
           <>
             <TableCell className={classes.tableCell}>
-              <Typography>{replacementRequest.offer.coach?.name}</Typography>
+              <Typography>{offer.coach?.name}</Typography>
             </TableCell>
             <TableCell className={classes.tableCell}>
-              <Typography>
-                {replacementRequest.offer.coach_override?.name}
-              </Typography>
+              <Typography>{offer.coach_override?.name}</Typography>
             </TableCell>
           </>
         )}
+        {replacementDisplay ===
+          ReplacementDisplays.REPLACEMENT_DISPLAY_CONFIRM &&
+          allowEndlessSubstitutions && (
+            <TableCell className={classes.tableCell}>
+              <Button
+                color="primary"
+                onClick={() =>
+                  handleMarkSubstituteAsUnavailable?.(replacementRequest.id)
+                }
+              >
+                {t('confirmations.unavailable')}
+              </Button>
+            </TableCell>
+          )}
       </TableRow>
     </>
   );

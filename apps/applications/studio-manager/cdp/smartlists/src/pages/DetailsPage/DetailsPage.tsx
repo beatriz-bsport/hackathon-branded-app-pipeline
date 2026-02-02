@@ -1,5 +1,4 @@
-import { useQueryErrorResetBoundary } from "@tanstack/react-query";
-import { type PropsWithChildren, Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Link,
   NavLink,
@@ -8,50 +7,33 @@ import {
   useNavigate,
   useParams,
 } from "react-router";
-import invariant from "tiny-invariant";
 
-import { HTTPException } from "@bsport/fetch";
 import {
   Breadcrumbs,
   DetailsLayout,
-  ErrorFallback,
-  Loader,
   Tabs,
   type TabsProps,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
-import { ErrorBoundaryWrapper } from "@bsport/sm-backbone";
 
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
+import {
+  DetailPageErrorFallback,
+  PageLoader,
+  QueryBoundary,
+} from "#src/components/QueryBoundary";
 import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+import { invariant } from "#src/utils/invariant";
 
 export const DetailsPage = () => {
-  const { reset } = useQueryErrorResetBoundary();
-
   return (
-    <ErrorBoundaryWrapper
-      appName={__SMARTLISTS__.__SENTRY_SCOPE_TAG__}
-      fallback={({ error, resetError }) => (
-        <DetailErrorFallback
-          error={error}
-          onRetry={() => {
-            reset();
-            resetError();
-          }}
-        />
-      )}
+    <QueryBoundary
+      loadingFallback={<PageLoader />}
+      errorFallback={(props) => <DetailPageErrorFallback {...props} />}
     >
-      <Suspense
-        fallback={
-          <CenteredContainer>
-            <Loader size="xl" />
-          </CenteredContainer>
-        }
-      >
-        <Details />
-      </Suspense>
-    </ErrorBoundaryWrapper>
+      <Details />
+    </QueryBoundary>
   );
 };
 
@@ -126,61 +108,4 @@ function Details() {
       </DetailsLayout.Content>
     </DetailsLayout>
   );
-}
-
-type DetailErrorFallbackProps = {
-  error: Error;
-  onRetry: () => void;
-};
-
-function DetailErrorFallback({ error, onRetry }: DetailErrorFallbackProps) {
-  const { t } = useTranslation("details");
-
-  const navigate = useNavigate();
-
-  const isHttpError = error instanceof HTTPException;
-  const is404 = isHttpError && error.statusCode === 404;
-  const isServerError = isHttpError && error.type === "ServerError";
-
-  if (is404) {
-    return (
-      <CenteredContainer>
-        <ErrorFallback
-          title={t("error.notFound.title")}
-          subtitle={t("error.notFound.subtitle")}
-          description={t("error.notFound.description")}
-          actionProps={{
-            label: t("error.notFound.backToListLabel"),
-            onClick: () => navigate(URLS.INDEX),
-          }}
-        />
-      </CenteredContainer>
-    );
-  }
-
-  if (isServerError) {
-    return (
-      <CenteredContainer>
-        <ErrorFallback
-          title={t("error.serverError.title")}
-          subtitle={t("error.serverError.subtitle")}
-          description={t("error.serverError.description")}
-          actionProps={{
-            label: t("error.serverError.retryLabel"),
-            onClick: onRetry,
-          }}
-        />
-      </CenteredContainer>
-    );
-  }
-
-  return (
-    <CenteredContainer>
-      <ErrorFallback actionProps={ErrorFallback.DEFAULT_ACTION_PROPS} />
-    </CenteredContainer>
-  );
-}
-
-function CenteredContainer({ children }: PropsWithChildren) {
-  return <div className="grid place-content-center h-screen">{children}</div>;
 }

@@ -35,6 +35,12 @@ export interface SessionCreationState {
   };
 }
 
+const getTodayJSDateAt8AM = () => {
+  const date = getTodayJSDate();
+  date.setHours(8, 0, 0, 0);
+  return date;
+};
+
 export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   allowCustomNameAndDescription: false,
   name_override: "",
@@ -45,7 +51,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   effectif: 0,
   available_on_partnership: false,
   partner_max_booking_count: 0,
-  startDateTime: getTodayJSDate(),
+  startDateTime: getTodayJSDateAt8AM(),
   duration_minute: 60,
   isRecurring: false,
   recurrenceType: RecurrenceType.WEEKLY,
@@ -62,7 +68,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   recurrenceInterval: 1,
   recurrencePattern: MonthlyRecurrencePattern.NTH_WEEKDAY,
   recurrenceEndDate: (() => {
-    const defaultEndDate = getTodayJSDate();
+    const defaultEndDate = getTodayJSDateAt8AM();
     defaultEndDate.setDate(defaultEndDate.getDate() + 1);
     return defaultEndDate;
   })(),
@@ -74,6 +80,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   establishment: null,
   room_blueprint: null,
   sync_on_spivi: undefined,
+  wellhub_product_id: null,
 };
 
 export const DEFAULT_ADVANCED_OPTIONS_FORM_DATA = {

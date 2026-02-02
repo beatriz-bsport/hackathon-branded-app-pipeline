@@ -20,7 +20,7 @@ export const SessionDetails: FC<{
         "addSessionModal.steps.configureSession.details.visibilitySelector.options.visible.label",
       ),
       buttonLabel: t(
-        "addSessionModal.steps.configureSession.details.visibilitySelector.options.visible.buttonLabel",
+        "addSessionModal.steps.configureSession.details.visibilitySelector.options.visible.label",
       ),
       helperText: t(
         "addSessionModal.steps.configureSession.details.visibilitySelector.options.visible.description",
@@ -31,7 +31,7 @@ export const SessionDetails: FC<{
         "addSessionModal.steps.configureSession.details.visibilitySelector.options.hidden.label",
       ),
       buttonLabel: t(
-        "addSessionModal.steps.configureSession.details.visibilitySelector.options.hidden.buttonLabel",
+        "addSessionModal.steps.configureSession.details.visibilitySelector.options.hidden.label",
       ),
       helperText: t(
         "addSessionModal.steps.configureSession.details.visibilitySelector.options.hidden.description",
@@ -45,8 +45,10 @@ export const SessionDetails: FC<{
         {t("addSessionModal.steps.configureSession.details.title")}
       </Title>
       <OverrideToggle fieldIdPrefix={fieldIdPrefix} />
-      <SessionNameField fieldIdPrefix={fieldIdPrefix} />
-      <SessionDescriptionField fieldIdPrefix={fieldIdPrefix} />
+      <div className="flex flex-col gap-md ml-xl">
+        <SessionNameField fieldIdPrefix={fieldIdPrefix} />
+        <SessionDescriptionField fieldIdPrefix={fieldIdPrefix} />
+      </div>
       <VisibilitySelector
         fieldIdPrefix={fieldIdPrefix}
         fieldName="manager_only"

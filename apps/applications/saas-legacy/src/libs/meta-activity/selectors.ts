@@ -12,7 +12,9 @@ export const getMetaActivityAbstractDict = (state: RootState) =>
 export const getPureMetaActivitiesDict = createSelector(
   getMetaActivityAbstractDict,
   (data) => {
-    const defaultDict = {};
+    const defaultDict = Immutable<{
+      [key: number]: MetaActivity;
+    }>({});
     if (Object.values(data)) {
       const metaActivities = Object.values(data).filter((v) => !v.is_workshop);
       return Immutable<{ [key: number]: MetaActivity }>(
@@ -32,7 +34,9 @@ export const getPureMetaActivitiesDict = createSelector(
 export const getMetaActivitiesDict = createSelector(
   getMetaActivityAbstractDict,
   (data) => {
-    const defaultDict = {};
+    const defaultDict = Immutable<{
+      [key: number]: MetaActivity;
+    }>({});
     if (Object.values(data)) {
       const metaActivities = Object.values(data);
       return Immutable<{ [key: number]: MetaActivity }>(
@@ -83,7 +87,6 @@ export const getDisabledPureMetaActivities = createSelector(
   getPureMetaActivitiesDict,
   (metactivities) =>
     Immutable(Object.values(metactivities)).filter(
-      // @ts-expect-error
       (ma) => !ma.customer_enabled,
     ),
 );
@@ -100,14 +103,12 @@ export const getActivitiesByIdList = memoize((state: RootState, idList: any) =>
 export const getPagePureMetaActivities = createSelector(
   [getMetaActivitiesIdList, getPureMetaActivitiesDict],
   (idList, metaActivities) =>
-    // @ts-expect-error
     idList.map((id) => metaActivities[id]).filter((ma) => !!ma),
 );
 
 export const getPageMetaActivities = createSelector(
   [getMetaActivitiesIdList, getMetaActivitiesDict],
   (idList, metaActivities) =>
-    // @ts-expect-error
     idList.map((id) => metaActivities[id]).filter((ma) => !!ma),
 );
 
@@ -274,7 +275,6 @@ export const getDisabledMetaActivityIdList = (state: RootState) =>
 export const getDisabledMetaActivityList = createSelector(
   [getDisabledMetaActivityIdList, getPureMetaActivitiesDict],
   (idList, metaActivities) =>
-    // @ts-expect-error
     idList.map((id) => metaActivities[id]).filter((ma) => !!ma),
 );
 

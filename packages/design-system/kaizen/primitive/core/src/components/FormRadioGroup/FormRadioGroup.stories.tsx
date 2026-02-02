@@ -5,8 +5,8 @@ import {
   Stories,
   Subtitle,
   Title,
-} from "@storybook/blocks";
-import type { Meta, StoryObj } from "@storybook/react";
+} from "@storybook/addon-docs/blocks";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useEffect, useState } from "react";
 
 import Button from "#src/components/Button";

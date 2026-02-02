@@ -79,6 +79,7 @@ export {
   UPLOAD_STATUSES as FILE_UPLOAD_STATUSES,
   type FileUploadProps,
   type FileUploadStatus,
+  type FileUploadTracker,
 } from "./components/FileUpload";
 export {
   default as Filter,

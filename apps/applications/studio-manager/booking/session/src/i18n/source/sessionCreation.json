@@ -119,7 +119,8 @@
             "spotScheduling": {
               "label": "Spot scheduling",
               "placeholder": "Choose an option...",
-              "helper": "Allow your students to book a spot in the room in advance"
+              "helper": "Allow your students to book a spot in the room in advance",
+              "error": "A room plan must be selected for sessions synchronized with Spivi"
             },
             "syncOnSpivi": "Automatically send the session details to Spivi"
           },

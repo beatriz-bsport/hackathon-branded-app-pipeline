@@ -320,7 +320,13 @@ export const useSessionSchema = () => {
         ),
         path: ["effectif"],
       },
-    ) satisfies SessionCreationFormSchema;
+    )
+    .refine((data) => (data.sync_on_spivi ? !!data.room_blueprint : true), {
+      message: t(
+        "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.error",
+      ),
+      path: ["effectif"],
+    }) satisfies SessionCreationFormSchema;
 
   const advancedOptionsSchema = z.object({
     allow_guest_offer: z.boolean(),

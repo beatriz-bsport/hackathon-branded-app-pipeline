@@ -26,11 +26,6 @@
         "sms": "SMS",
         "push": "Push"
       },
-      "error": {
-        "title": "Failed to load automations",
-        "description": "We couldn't load the automated messages. Please try again.",
-        "retryLabel": "Retry"
-      },
       "actions": {
         "edit": "Edit",
         "delete": "Delete"
@@ -49,6 +44,27 @@
         },
         "error": {
           "deleteFailed": "Automation couldn't be deleted. Please try again."
+        }
+      }
+    },
+    "tagRules": {
+      "title": "Tag rules",
+      "description": "These tag rules apply or remove tags when profiles enter or exit the defined filters.",
+      "emptyState": "No tag rules yet",
+      "columns": {
+        "createdOn": "Created on",
+        "condition": "Condition",
+        "tag": "Tag"
+      },
+      "conditions": {
+        "joins": {
+          "text": "Customer joins Smartlist"
+        },
+        "present": {
+          "text": "Customer is present in Smartlist"
+        },
+        "leaves": {
+          "text": "Customer leaves Smartlist"
         }
       }
     }

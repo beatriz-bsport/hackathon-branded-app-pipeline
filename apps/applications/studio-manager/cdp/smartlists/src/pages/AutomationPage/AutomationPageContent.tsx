@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router";
-import invariant from "tiny-invariant";
 
 import {
   Body,
@@ -9,7 +8,6 @@ import {
   Chip,
   DropdownMenu,
   type DropdownMenuItems,
-  ErrorFallback,
   type GenericTableColumn,
   Icon,
   Table,
@@ -23,6 +21,7 @@ import {
 } from "#src/api/use-automated-campaign-analytics";
 import { DeleteAutomationModal } from "#src/components/DeleteAutomationModal";
 import { useTranslation } from "#src/utils/i18n";
+import { invariant } from "#src/utils/invariant";
 
 type AutomationPageContext = {
   smartlistId: string;
@@ -267,28 +266,3 @@ export const AutomationPageContent = () => {
     </>
   );
 };
-
-type AutomationErrorFallbackProps = {
-  onRetry: () => void;
-};
-
-export function AutomationErrorFallback({
-  onRetry,
-}: AutomationErrorFallbackProps) {
-  const { t } = useTranslation("details");
-
-  return (
-    <Card padding="none" className="overflow-hidden">
-      <div className="grid place-items-center">
-        <ErrorFallback
-          title={t("automation.messages.error.title")}
-          description={t("automation.messages.error.description")}
-          actionProps={{
-            label: t("automation.messages.error.retryLabel"),
-            onClick: onRetry,
-          }}
-        />
-      </div>
-    </Card>
-  );
-}

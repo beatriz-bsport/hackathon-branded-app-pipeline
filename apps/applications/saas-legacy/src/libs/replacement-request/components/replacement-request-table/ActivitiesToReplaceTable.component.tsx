@@ -206,6 +206,9 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                     key={replacementRequest.id}
                     isMobile
                     coach={coach || null}
+                    daysBeforeOfferReplacementRequestIsLate={
+                      daysBeforeOfferReplacementRequestIsLate
+                    }
                     enableMultiLocalization={enableMultiLocalization}
                     establishmentGroups={establishmentGroups}
                     handleCoachAnswer={handleCoachAnswer}
@@ -217,6 +220,7 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                     handleRefuseAction={handleRefuseAction}
                     handleReplaceAction={handleReplaceAction}
                     isLastItem={index === replacementRequestList.length - 1}
+                    nbLateRequestsLeft={nbLateRequestsLeft}
                     replacementDisplay={replacementDisplay}
                     replacementRequest={replacementRequest}
                     timezoneName={timezoneName}
@@ -309,6 +313,9 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                   <ActivitiesToReplaceTableRow
                     key={replacementRequest.id}
                     coach={coach || null}
+                    daysBeforeOfferReplacementRequestIsLate={
+                      daysBeforeOfferReplacementRequestIsLate
+                    }
                     enableMultiLocalization={enableMultiLocalization}
                     establishmentGroups={establishmentGroups}
                     handleCoachAnswer={handleCoachAnswer}
@@ -319,6 +326,7 @@ export const ActivitiesToReplaceTable: React.FC<Props> = ({
                     }
                     handleRefuseAction={handleRefuseAction}
                     handleReplaceAction={handleReplaceAction}
+                    nbLateRequestsLeft={nbLateRequestsLeft}
                     replacementDisplay={replacementDisplay}
                     replacementRequest={replacementRequest}
                     timezoneName={timezoneName}

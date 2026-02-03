@@ -110,7 +110,9 @@ const marketingActionValidationSchema = Yup.object().shape({
       then: Yup.object().shape({
         communication_kind: Yup.number().oneOf(
           CADENCE_MARKETING_ACTION_CHOICES.filter(
-            (kind) => kind !== MarketingActions.ADD_TAG,
+            (kind) =>
+              kind !== MarketingActions.ADD_TAG &&
+              kind !== MarketingActions.REMOVE_TAG,
           ),
         ),
         subject: Yup.string()

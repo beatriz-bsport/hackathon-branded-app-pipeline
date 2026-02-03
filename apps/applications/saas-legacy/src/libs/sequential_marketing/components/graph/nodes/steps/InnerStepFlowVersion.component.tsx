@@ -332,6 +332,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         <UniqueMarketingActionBubble
           {...data.marketingActionEssentials}
           marketingAction={marketingAction}
+          marketingActionList={data.marketingActionList}
           onCancel={handleCancelMarketingActionBubble}
           onConfirm={handleUpsertMarketingAction}
           onDelete={handleDeleteMarketingAction}

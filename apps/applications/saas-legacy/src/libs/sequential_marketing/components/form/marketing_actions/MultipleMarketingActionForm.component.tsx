@@ -138,6 +138,7 @@ const MultipleMarketingActionForm: React.FC<Props> = ({
               isLast={index === values.marketingActions.length - 1}
               isOpen={index === openItem}
               marketingAction={marketingAction}
+              marketingActionList={values.marketingActions}
               openOrCloseAction={handleEditAction(index)}
               resolvedGenericTags={resolvedGenericTags}
               tagCategories={tagCategories}

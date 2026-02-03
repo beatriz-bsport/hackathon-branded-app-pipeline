@@ -7,6 +7,7 @@ import {
   TriggerKind,
   MarketingActionKind,
   MarketingActions,
+  TagActionType,
   TRIGGER_TEMPORARY_ID,
   CADENCE_EVENT_CATEGORY_CHOICES,
   TRIGGER_DEFAULT_ICON,
@@ -52,6 +53,7 @@ export const marketingActionIconDict: { [key in MarketingActions]: string } = {
   [MarketingActions.SMS]: 'Textsms',
   [MarketingActions.PUSH_NOTIFICATION]: 'Notifications',
   [MarketingActions.ADD_TAG]: 'Label',
+  [MarketingActions.REMOVE_TAG]: 'LabelOff',
   [MarketingActions.EMAIL_TEMPLATE]: 'LibraryBooks',
 };
 
@@ -119,11 +121,16 @@ export const getMarketingActionChipIcon = (
 
   switch (marketingAction?.kind) {
     case MarketingActionKind.TAG:
-      return marketingActionIconDict[MarketingActions.ADD_TAG];
+      actionSpec = marketingAction?.action_spec as StepMarketingActionsTagSpec;
+      return marketingActionIconDict[
+        actionSpec?.tag_action_type === TagActionType.REMOVE
+          ? MarketingActions.REMOVE_TAG
+          : MarketingActions.ADD_TAG
+      ];
     case MarketingActionKind.COMMUNICATION:
       actionSpec =
         marketingAction?.action_spec as StepMarketingActionsCommunicationSpec;
-      return marketingActionIconDict[actionSpec.communication_kind];
+      return marketingActionIconDict[actionSpec?.communication_kind];
     default:
       return marketingActionIconDict[MarketingActions.SMS];
   }

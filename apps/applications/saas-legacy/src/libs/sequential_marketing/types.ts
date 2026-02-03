@@ -16,6 +16,7 @@ import type {
   InitialConfigurationStep,
   MarketingActionKind,
   MarketingActions,
+  TagActionType,
   TriggerIdentifier,
   TriggerKind,
 } from './constants';
@@ -119,6 +120,7 @@ export type StepMarketingActionsCommunicationSpec = {
 
 export type StepMarketingActionsTagSpec = {
   tag_id: number | null;
+  tag_action_type: TagActionType;
 };
 
 export type StepMarketingActions = {

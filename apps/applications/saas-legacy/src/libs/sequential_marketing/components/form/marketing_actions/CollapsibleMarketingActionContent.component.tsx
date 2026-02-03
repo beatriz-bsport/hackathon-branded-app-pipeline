@@ -26,6 +26,7 @@ type Props = {
   isLast: boolean;
   isOpen: boolean;
   marketingAction: Partial<StepMarketingActions>;
+  marketingActionList?: StepMarketingActions[];
   withoutCollapseAnimation: boolean;
   deleteAction: () => void;
   openOrCloseAction: () => void;
@@ -41,6 +42,7 @@ const CollapsibleMarketingActionContent: React.FC<Props> = ({
   isLast,
   isOpen,
   marketingAction,
+  marketingActionList,
   resolvedGenericTags,
   tagCategories,
   tagList,
@@ -121,6 +123,7 @@ const CollapsibleMarketingActionContent: React.FC<Props> = ({
               fetchEmailSummaryList={fetchEmailSummaryList}
               getEmailDetail={getEmailDetail}
               marketingAction={marketingAction}
+              marketingActionList={marketingActionList}
               resolvedGenericTags={resolvedGenericTags}
               submit={updateAction}
               tagCategories={tagCategories}

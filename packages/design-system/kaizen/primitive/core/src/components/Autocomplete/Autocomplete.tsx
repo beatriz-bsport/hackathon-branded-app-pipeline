@@ -157,14 +157,15 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     mapIdToOption,
   });
 
-  const { selectedItems, selectedItemsIds, toggleItem } = useSelectedItems({
-    defaultSelectedIds,
-    mapIdToOption,
-    multiSelect,
-    onSelect,
-    onToggleItem,
-    // Type assertion needed: onSelect signature varies based on multiSelect discriminant
-  } as UseSelectedItemsProps);
+  const { clearSelection, selectedItems, selectedItemsIds, toggleItem } =
+    useSelectedItems({
+      defaultSelectedIds,
+      mapIdToOption,
+      multiSelect,
+      onSelect,
+      onToggleItem,
+      // Type assertion needed: onSelect signature varies based on multiSelect discriminant
+    } as UseSelectedItemsProps);
 
   const { flatMenuItems, isListEmpty } = useAutocompleteItems({
     hideSelectedItemsInBase: !showSelectedItemsInBase,
@@ -217,6 +218,9 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
                 fullWidth={fullWidth || textfieldProps.fullWidth}
                 onClear={() => {
                   clearInput();
+                  if (!multiSelect) {
+                    clearSelection();
+                  }
                   onClear?.();
                 }}
               />

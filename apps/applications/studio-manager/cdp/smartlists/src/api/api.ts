@@ -6,8 +6,10 @@ import { fetch } from "#src/utils/fetch";
 
 import type {
   AutomatedCampaign,
+  CampaignScheduled,
   CampaignSent,
   FetchAutomatedCampaignsParams,
+  FetchCampaignScheduledParams,
   FetchCampaignSentParams,
   Smartlist,
   Tag,
@@ -15,8 +17,8 @@ import type {
   TagRule,
 } from "./types";
 
-const SMARTLIST_API_V1 = "api/v1/smartlist";
-const COMMUNICATION_API_V1 = "api/v1/communication";
+const SMARTLIST_API_V1 = "customer-data-platform/v1/smartlist";
+const COMMUNICATION_API_V1 = "communicate/v1";
 const CDP_API_V0 = "customer-data-platform/v0";
 
 /**
@@ -47,6 +49,9 @@ export const smartlistKeys = {
   tags: () => [...smartlistKeys.all, "tags"] as const,
 
   tagGroups: () => [...smartlistKeys.all, "tagGroups"] as const,
+
+  campaignScheduled: (id: string) =>
+    [...smartlistKeys.detail(id), "scheduled-campaigns"] as const,
 } as const;
 
 /**
@@ -82,7 +87,7 @@ const fetchCampaignSent = async (
     page: params.page ?? 1,
   });
   const { data } = await fetch<PaginatedResponse<CampaignSent>>(
-    `${COMMUNICATION_API_V1}/communication_sent/${urlParams}`,
+    `${COMMUNICATION_API_V1}/communication/communication_sent/${urlParams}`,
   );
 
   return data.results;
@@ -117,6 +122,22 @@ const fetchTagGroups = async (): Promise<TagGroup[]> => {
   const { data } = await fetch<TagGroup[]>(`${CDP_API_V0}/tagging/tag-group/`);
 
   return data;
+};
+
+const fetchCampaignScheduled = async (
+  params: FetchCampaignScheduledParams,
+): Promise<CampaignScheduled[]> => {
+  const urlParams = buildUrlParams({
+    page_size: params.page_size ?? 50,
+    page: params.page ?? 1,
+    smartlist_id__in: params.smartlist_id__in ?? [],
+    id__in: params.id__in ?? [],
+  });
+  const { data } = await fetch<PaginatedResponse<CampaignScheduled>>(
+    `${COMMUNICATION_API_V1}/communication/communication_scheduled/${urlParams}`,
+  );
+
+  return data.results;
 };
 
 /**
@@ -182,4 +203,24 @@ export const tagGroupsQueryOptions = () =>
   queryOptions({
     queryKey: smartlistKeys.tagGroups(),
     queryFn: () => fetchTagGroups(),
+  });
+
+/**
+ * Query Options for fetching campaign scheduled list
+ * @param smartlistId - ID of the smartlist
+ * @returns Query Options for fetching campaign scheduled list
+ * @productDecision we deliberately don't use the page_size and page parameters even if the API supports them.
+ * Its because we don't want to paginate the campaign scheduled list. We want to display the full list of campaign scheduled.
+ * And our investigations showed that most of the studios do not have near 10 camapign scheduled per smartlists so with 50 we are safe.
+ * This can be easily updated tho if needed.
+ */
+export const campaignScheduledQueryOptions = (smartlistId: string) =>
+  queryOptions({
+    queryKey: smartlistKeys.campaignScheduled(smartlistId),
+    queryFn: () =>
+      fetchCampaignScheduled({
+        smartlist_id__in: [Number(smartlistId)],
+        page_size: 50,
+        page: 1,
+      }),
   });

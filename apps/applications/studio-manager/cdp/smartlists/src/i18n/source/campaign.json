@@ -38,5 +38,29 @@
         }
       }
     }
+  },
+  "page": {
+    "campaignScheduled": {
+      "title": "Scheduled Campaigns"
+    }
+  },
+  "table": {
+    "campaignScheduled": {
+      "headers": {
+        "scheduledDate": "Scheduled",
+        "campaignName": "Campaign"
+      },
+      "moreActions": {
+        "label": "More actions",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "emptyState": {
+        "description": "Nothing scheduled yet"
+      },
+      "loadingState": {
+        "description": "Loading scheduled campaigns..."
+      }
+    }
   }
 }

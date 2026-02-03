@@ -65,7 +65,10 @@ import {
   getEnabledEstablishmentBillingGroups,
   getStaffEstablishmentBillingGroupSelector,
 } from '../../libs/establishment/selectors';
-import { fetchMetaActivities as fetchMetaActivitiesAction } from '#src/libs/meta-activity/actions';
+import {
+  fetchActivitiesCompany,
+  fetchMetaActivities as fetchMetaActivitiesAction,
+} from '#src/libs/meta-activity/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 
@@ -174,6 +177,7 @@ export class SubscriptionList extends React.Component<Props, State> {
       ],
     });
     this.props.fetchEstablishments();
+    this.props.fetchActivitiesCompany(this.props.companyId);
     this.props.fetchMetaActivities();
     this.props.fetchAllPaymentPackCategory();
     if (this.props.theme.enable_multi_localization) {
@@ -241,11 +245,13 @@ export class SubscriptionList extends React.Component<Props, State> {
     this.props.createContract(data, {
       onSuccess: () => {
         this.props.fetchContractList();
+        this.props.fetchPrivatePassList();
         this.setState({
           contractToEditFromSearch: null,
         });
+        this.props.onCloseCreate();
         this.refreshSearchBarOptions();
-        if (options && options.onSuccess) {
+        if (options?.onSuccess) {
           options.onSuccess();
         }
       },
@@ -259,12 +265,6 @@ export class SubscriptionList extends React.Component<Props, State> {
     this.props.updateContract(data, {
       onSuccess: () => {
         this.props.fetchContractList();
-        this.props.fetchPaymentPackBulk(
-          (this.props.contractListAvailableAll ?? []).map(
-            // @ts-expect-error - type is PaymentPack, not number
-            (c) => c?.payment_pack?.id,
-          ),
-        );
         this.props.fetchPrivatePassList();
         this.setState({
           contractToEditFromSearch: null,
@@ -660,8 +660,6 @@ export class SubscriptionList extends React.Component<Props, State> {
                 !!this.state.contractToEditFromSearch ||
                 this.props.createContractFormOpen
               }
-              paymentPackList={this.props.paymentPackList}
-              privatePassList={this.props.privatePassList}
               // @ts-expect-error - Legacy handler typing issue
               privateServices={this.props.privateServices}
               provincialTax={this.props.theme?.provincial_tax_value}
@@ -792,6 +790,7 @@ const mapDispatchToProps = {
   fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
   fetchTags,
   fetchPaymentPackList: fetchPaymentPackListAction,
+  fetchActivitiesCompany,
   fetchMetaActivities: fetchMetaActivitiesAction,
   fetchAllPaymentPackCategory,
   createContract: createContractAction,
@@ -952,6 +951,10 @@ const mapWithHandlers = {
 export default compose(
   withTranslation(['subscription', 'titles']),
   withStyles(styles),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('navigation:backofficeMenu.contract'),
+  ),
+  connect(mapStateToProps, mapDispatchToProps),
   withProps(({ fetchContractList, fetchPaymentPackBulk }) => ({
     fetchContractList: (params: any) =>
       fetchContractList(params, {
@@ -961,10 +964,6 @@ export default compose(
           ),
       }),
   })),
-  withTitle(({ t }: { t: TFunction }) =>
-    t('navigation:backofficeMenu.contract'),
-  ),
-  connect(mapStateToProps, mapDispatchToProps),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withObjectSearch,
   // @ts-expect-error

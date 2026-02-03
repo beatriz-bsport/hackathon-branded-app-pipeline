@@ -27,6 +27,7 @@ export const useCompatibilityForm = ({
   updatePassCompatibility,
 }: Props) => {
   const formik = useFormik<PaymentPackCompatibilitiesData>({
+    enableReinitialize: true,
     initialValues: {
       SCTs: paymentPackValues?.SCTs?.map((category) => category?.id) || [],
       establishments:

@@ -7,7 +7,6 @@ import type {
   ServiceCompatibilityPass,
 } from '#src/libs/private-service/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
-import type { PaymentPack } from '#src/libs/payment-packs/types';
 import {
   CREDIT_NUMBER_OPTION,
   type FormValues,
@@ -27,7 +26,6 @@ import {
   PENALTY_KIND_NEGATIVE_ACCOUNT,
 } from '#src/libs/payment-packs/constants';
 import { penaltyKindDict } from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
-import { ImmutableArray } from 'seamless-immutable';
 import { getFormInitial } from '#src/libs/private-service/utils';
 
 function isNumber(value: unknown): value is number {
@@ -51,16 +49,10 @@ export const getObjectTypeFromContract = (
 
 export const contractToFormValues = (
   contract: ContractWithPaymentPack<PrivatePass, PaymentCombo>,
-  paymentPackList: ImmutableArray<PaymentPack>,
-  privatePassList: PrivatePass[],
   compatibleServicePass?: Array<ServiceCompatibilityPass>,
 ): FormValues => {
-  const paymentPack = paymentPackList?.find(
-    (pp) => pp?.id === contract?.payment_pack?.id,
-  );
-  const privatePass = privatePassList?.find(
-    (pp) => pp?.id === contract?.private_pass?.id,
-  );
+  const paymentPack = contract.payment_pack;
+  const privatePass = contract.private_pass;
   const objectType = getObjectTypeFromContract(contract);
 
   return {
@@ -204,15 +196,15 @@ export const formValuesToContract = (
       sct_ids:
         details_values.categories && details_values.categories.length
           ? details_values.categories
-          : null,
+          : [],
       meta_activity_ids:
         details_values.metaActivities && details_values.metaActivities.length
           ? details_values.metaActivities
-          : null,
+          : [],
       establishment_ids:
         details_values.establishments && details_values.establishments.length
           ? details_values.establishments
-          : null,
+          : [],
       max_bookings_per_day: details_values.max_bookings_per_day ?? null,
       max_bookings_per_week: details_values.max_bookings_per_week ?? null,
       max_bookings_per_month: details_values.max_bookings_per_month ?? null,

@@ -101,6 +101,7 @@ export const useSelectedItems = ({
    * based on multiSelect and current state.
    * The toggle can be triggered from both the Selected Items section and the base list.
    */
+
   const toggleItem = useCallback(
     (itemId: string) => {
       const selectedId = getSelectedId(itemId);

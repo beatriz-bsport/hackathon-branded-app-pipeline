@@ -1,60 +1,60 @@
 {
   "pages": {
     "list": "Buoni Regalo",
-    "archivedList": "Archivio buoni regalo"
+    "archivedList": "Buoni regalo archiviato"
   },
   "listPage": {
     "header": {
       "buttons": {
-        "addGiftcard": "Aggiungi Buoni Regalo",
+        "addGiftcard": "Crea buono regalo",
         "openBankImage": "Libreria di immagini"
       }
     },
     "empty": {
-      "title": "Nessun Buono regalo ancora",
-      "subtitle": "Crea Buoni regalo per i Membri da condividere con amici e familiari"
+      "title": "Nessun buono regalo ancora",
+      "subtitle": "Crea buoni regalo per il membro da condividere con amici e familiari"
     },
     "archiveModal": {
-      "title": "Archiviare il Buono regalo?",
+      "title": "Archivia il buono regalo?",
       "description": {
         "lineOne": "'{{ name }}' non sarà più visibile ai Membri, ma gli acquisti attuali o precedenti non saranno influenzati.",
-        "lineTwo": "Puoi ripristinare questi Buoni Regalo in qualsiasi momento dal tuo archivio."
+        "lineTwo": "Puoi ripristinare questo buono regalo in qualsiasi momento dal tuo archivio."
       },
       "buttons": {
-        "cancel": "Indietro",
+        "cancel": "Mantieni",
         "archive": "Archivia"
       }
     },
     "duplicateModal": {
-      "title": "Duplicare i Buoni Regalo?",
+      "title": "Duplicare il buono regalo?",
       "description": {
         "action": "Puoi modificare '{{ name }}' una volta duplicato."
       },
       "buttons": {
-        "cancel": "Indietro",
+        "cancel": "Chiudi",
         "duplicate": "Duplica"
       }
     }
   },
   "archivedListPage": {
     "empty": {
-      "title": "Nessun Buono Regalo archiviato"
+      "title": "Nessun buono regalo archiviato"
     }
   },
   "toasts": {
     "successMessages": {
-      "restoreGiftcard": "Buoni Regalo ripristinata",
-      "archiveGiftcard": "Buoni regalo archiviata",
-      "duplicateGiftcard": "Buoni Regalo duplicata",
-      "deleteGiftcardImage": "Immagine del Buono Regalo eliminata",
-      "undoAction": "Azione annullata"
+      "restoreGiftcard": "Buono regalo ripristinata",
+      "archiveGiftcard": "Buono regalo archiviato",
+      "duplicateGiftcard": "Buono regalo duplicato",
+      "deleteGiftcardImage": "Elimina l'immagine del buono regalo",
+      "undoAction": "Cambiamento annullato"
     },
     "errorMessages": {
-      "restoreGiftcard": "Impossibile ripristinare il Buono Regalo, per favore riprova.",
-      "archiveGiftcard": "Impossibile archiviare il Buono Regalo, per favore riprova",
-      "duplicateGiftcard": "Impossibile duplicare i Buoni Regalo, per favore riprova.",
-      "undoAction": "Impossibile annullare l'azione, per favore riprova.",
-      "deleteGiftcardImage": "Impossibile eliminare l'immagine del Buono Regalo, per favore riprova."
+      "restoreGiftcard": "La gift card non può essere ripristinata. Per favore riprova. ",
+      "archiveGiftcard": "La gift card non può essere archiviata. Per favore riprova. ",
+      "duplicateGiftcard": "Impossibile duplicare la gift card. Per favore riprova. ",
+      "undoAction": "La modifica non può essere annullata. Riprova. ",
+      "deleteGiftcardImage": "L'immagine del buono regalo non può essere eliminata. Per favore riprova."
     },
     "actions": {
       "undo": "Annulla",
@@ -69,25 +69,32 @@
       "price": "Prezzo"
     },
     "values": {
-      "unavailable": "Nascosto",
-      "shared": "Visibile",
-      "unlimited": "Illimitato",
-      "expireInXDays": "{{ expiration }} giorni"
+      "unlisted": "Non in elenco",
+      "shared": "Centrale",
+      "expireInXDays": "{{ expiration }} giorni",
+      "customAmount": "Personalizzazione"
     },
     "tooltips": {
-      "archive": "Archivia Buoni Regalo",
-      "duplicate": "Duplica Buono Regalo",
-      "restore": "Ripristina Buoni Regalo",
-      "shared": "Elemento creato dall'account amministratore",
-      "unavailable": "Non visibile nell'Area Membri"
+      "archive": "Archivia Buono Regalo",
+      "duplicate": "Duplica buono regalo",
+      "restore": "Ripristina buoni regalo",
+      "shared": "Carta regalo creata dall'Account Principale",
+      "unlisted": "Buono regalo non elencata nell'Area Membri"
     },
     "loading": "Caricamento Buono Regalo"
+  },
+  "list": {
+    "actions": {
+      "archive": "Archivia",
+      "duplicate": "Duplica",
+      "restore": "Ripristinare"
+    }
   },
   "imageUploadModal": {
     "title": "Libreria di immagini",
     "uploadButton": "Carica immagine",
-    "description": "Aggiungi immagini personalizzate alla tua libreria in modo che i tuoi Membri possano personalizzare i loro Buoni Regalo. ",
-    "selectImage": "Seleziona un'immagine per visualizzarla in anteprima nel design dei Buoni Regalo",
+    "description": "Aggiungi immagini personalizzate alla tua libreria in modo che i tuoi clienti possano personalizzare i loro Bbuoni regalo.",
+    "selectImage": "Seleziona un'immagine per visualizzarla in anteprima nel design del buono regalo",
     "emptyList": "Nessuna immagine personalizzata ancora"
   }
 }

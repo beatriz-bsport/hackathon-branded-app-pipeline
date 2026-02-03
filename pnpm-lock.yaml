@@ -1935,6 +1935,9 @@ importers:
 
   apps/applications/studio-manager/cdp/smartlists:
     dependencies:
+      '@bsport/datetime-formatting':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime-formatting
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch

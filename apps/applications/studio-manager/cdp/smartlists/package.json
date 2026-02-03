@@ -18,6 +18,7 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/datetime-formatting": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",

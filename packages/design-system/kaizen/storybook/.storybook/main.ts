@@ -10,6 +10,7 @@ import svgr from "vite-plugin-svgr";
 const currentDir = fileURLToPath(new URL(".", import.meta.url));
 const businessComponentsDir = join(currentDir, "../../business-components");
 const coreSrcDir = resolve(currentDir, "../../primitive/core/src");
+const newBusinessSrcDir = resolve(currentDir, "../../business/src");
 
 // Auto-discover all business component packages
 const businessPackages = readdirSync(businessComponentsDir)
@@ -41,6 +42,12 @@ const config: StorybookConfig = {
     },
     // Business components - auto-discovered
     ...businessPackages,
+    // New Business components package
+    {
+      directory: "../../business/src",
+      files: "**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      titlePrefix: "Business",
+    },
   ],
 
   addons: [
@@ -109,6 +116,26 @@ const config: StorybookConfig = {
         // Handle primitive/core
         if (normalizedImporter.includes("primitive/core")) {
           const resolved = join(coreSrcDir, id.replace("#src/", ""));
+          for (const ext of [".ts", ".tsx"]) {
+            const withExt = resolved + ext;
+            if (existsSync(withExt)) {
+              return withExt;
+            }
+          }
+          if (existsSync(resolved)) {
+            for (const index of ["index.ts", "index.tsx"]) {
+              const indexPath = join(resolved, index);
+              if (existsSync(indexPath)) {
+                return indexPath;
+              }
+            }
+          }
+          return resolved;
+        }
+
+        // Handle new business
+        if (normalizedImporter.includes("business")) {
+          const resolved = join(newBusinessSrcDir, id.replace("#src/", ""));
           for (const ext of [".ts", ".tsx"]) {
             const withExt = resolved + ext;
             if (existsSync(withExt)) {

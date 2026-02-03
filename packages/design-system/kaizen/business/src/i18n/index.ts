@@ -6,7 +6,7 @@ import {
   getUseTranslation,
 } from "@bsport/i18n";
 
-import { KaizenI18nContext } from "#src/components/structural/i18n-provider";
+import { KaizenBusinessI18nContext } from "#src/components/structural/i18n-provider";
 import type bookingTranslations from "#src/i18n/source/booking.json";
 import type financialServicesTranslations from "#src/i18n/source/financial-services.json";
 
@@ -49,7 +49,7 @@ export const useTranslation = getUseTranslation<Translations>({
 
 /* Hook to retrieve the i18n instance to use in useTranslation options */
 export const useKaizenI18nInstance = () => {
-  const { kaizenI18nInstance } = useContext(KaizenI18nContext);
+  const { kaizenI18nInstance } = useContext(KaizenBusinessI18nContext);
   return kaizenI18nInstance;
 };
 

@@ -17,19 +17,9 @@ export const SubscriptionContractFormHoc = withFormik<
   SubscriptionContractFormDrawerPropsWithoutFormik,
   FormValues
 >({
-  mapPropsToValues: ({
-    initial,
-    paymentPackList,
-    privatePassList,
-    compatibleServicePass,
-  }) => {
+  mapPropsToValues: ({ initial, compatibleServicePass }) => {
     return !!initial
-      ? contractToFormValues(
-          initial,
-          paymentPackList,
-          privatePassList,
-          compatibleServicePass,
-        )
+      ? contractToFormValues(initial, compatibleServicePass)
       : emptyContractForms;
   },
   enableReinitialize: true,

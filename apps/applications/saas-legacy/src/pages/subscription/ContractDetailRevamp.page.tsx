@@ -49,7 +49,6 @@ import { fetchPaymentComboList } from '#src/libs/payment-combo/actions';
 import { getAllSmartList } from '#src/libs/smart-list/selectors';
 import { fetchAllSmartLists } from '#src/libs/smart-list/actions';
 import {
-  getPrivatePassAvailable,
   getCompatibilityPassWithService as getCompatibleServicePass,
   withAvailable,
   withServices,
@@ -87,7 +86,6 @@ import {
   getContractPauseList,
 } from '#src/libs/subscription/selectors';
 import {
-  getEnabled as getPaymentPackEnabled,
   withEstablishments,
   withMetaActivities,
   withSCT,
@@ -547,8 +545,6 @@ export class ContractDetailPage extends Component<Props> {
               onClose={this.closeContractFormDrawer}
               onSubmit={this.submitContractForm}
               open={!!this.props.contractToEdit}
-              paymentPackList={this.props.paymentPackList}
-              privatePassList={this.props.privatePassList}
               // @ts-expect-error - Legacy typing issue
               privateServices={this.props.privateServices}
               provincialTax={this.props.theme?.provincial_tax_value}
@@ -624,8 +620,6 @@ const connector = connect(
             contract.private_pass.id,
           )
         : undefined,
-      paymentPackList: getPaymentPackEnabled(state),
-      privatePassList: getPrivatePassAvailable(state),
       email_templates_list: getAllEmailTemplatesSummaries(state),
       email_templates_details: getEmailTemplatesDetail(state),
       emailListLoading: state.emailTemplate.loading,

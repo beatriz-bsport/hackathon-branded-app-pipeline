@@ -7,7 +7,6 @@ import type {
   ServiceCompatibilityPass,
 } from '#src/libs/private-service/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
-import type { PaymentPack } from '#src/libs/payment-packs/types';
 import {
   CREDIT_NUMBER_OPTION,
   type FormValues,
@@ -27,7 +26,6 @@ import {
   PENALTY_KIND_NEGATIVE_ACCOUNT,
 } from '#src/libs/payment-packs/constants';
 import { penaltyKindDict } from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
-import { ImmutableArray } from 'seamless-immutable';
 import { getFormInitial } from '#src/libs/private-service/utils';
 
 function isNumber(value: unknown): value is number {
@@ -51,16 +49,10 @@ export const getObjectTypeFromContract = (
 
 export const contractToFormValues = (
   contract: ContractWithPaymentPack<PrivatePass, PaymentCombo>,
-  paymentPackList: ImmutableArray<PaymentPack>,
-  privatePassList: PrivatePass[],
   compatibleServicePass?: Array<ServiceCompatibilityPass>,
 ): FormValues => {
-  const paymentPack = paymentPackList?.find(
-    (pp) => pp?.id === contract?.payment_pack?.id,
-  );
-  const privatePass = privatePassList?.find(
-    (pp) => pp?.id === contract?.private_pass?.id,
-  );
+  const paymentPack = contract.payment_pack;
+  const privatePass = contract.private_pass;
   const objectType = getObjectTypeFromContract(contract);
 
   return {

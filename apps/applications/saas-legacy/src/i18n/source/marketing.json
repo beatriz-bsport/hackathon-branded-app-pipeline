@@ -516,6 +516,7 @@
         "3": "Send push notification",
         "4": "Add a tag",
         "5": "Send an email template",
+        "6": "Remove a tag",
         "form": {
           "helper": "Select one or more actions to perform when a member enters this stage. This option is facultative.",
           "reset": "Delete",

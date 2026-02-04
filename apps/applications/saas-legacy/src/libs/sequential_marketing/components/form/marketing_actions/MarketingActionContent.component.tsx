@@ -6,7 +6,10 @@ import type {
   MarketingActionEssentials,
   StepMarketingActions,
 } from '#src/libs/sequential_marketing/types';
-import { getMarketingActionType } from '#src/libs/sequential_marketing/components/form/marketing_actions/utils';
+import {
+  filterUnusedTags,
+  getMarketingActionType,
+} from '#src/libs/sequential_marketing/components/form/marketing_actions/utils';
 
 import NotificationForm from '#src/libs/sequential_marketing/components/form/marketing_actions/communication_forms/NotificationForm';
 import SmsForm from '#src/libs/sequential_marketing/components/form/marketing_actions/communication_forms/SMS/SmsForm';
@@ -18,6 +21,7 @@ import SmsCostWarningAlert from '#src/libs/sequential_marketing/components/form/
 type Props = {
   marketingAction: Partial<StepMarketingActions>;
   withoutValidation?: boolean;
+  marketingActionList?: StepMarketingActions[];
   submit?: (data: Partial<StepMarketingActions>) => void;
 } & MarketingActionEssentials;
 
@@ -28,6 +32,7 @@ const MarketingActionContent: React.FC<Props> = ({
   emailSummaryListLoading,
   tagCategories,
   marketingAction,
+  marketingActionList,
   resolvedGenericTags,
   tagList,
   withoutValidation,
@@ -36,6 +41,11 @@ const MarketingActionContent: React.FC<Props> = ({
   submit,
 }) => {
   const classes = useStyles();
+
+  const unusedTagList = React.useMemo(
+    () => filterUnusedTags(tagList, marketingActionList, marketingAction?.id),
+    [tagList, marketingActionList, marketingAction?.id],
+  );
 
   switch (getMarketingActionType(marketingAction)) {
     case MarketingActions.WRITTEN_EMAIL:
@@ -75,12 +85,13 @@ const MarketingActionContent: React.FC<Props> = ({
         />
       );
     case MarketingActions.ADD_TAG:
+    case MarketingActions.REMOVE_TAG:
       return (
         <div className={classes.tagSelector}>
           <TagForm
             marketingAction={marketingAction}
             submit={submit}
-            tagList={tagList}
+            tagList={unusedTagList}
             withoutValidation={withoutValidation}
           />
         </div>

@@ -18,6 +18,10 @@ type FormToggleProps<
   label: string;
 } & Partial<ToggleProps>;
 
+/**
+ * Use this component to control a Toggle with a form value
+ * @returns
+ */
 export const FormToggle = <
   TFormValues extends FieldValues,
   TFieldName extends
@@ -32,7 +36,6 @@ export const FormToggle = <
     <FormField<TFormValues, TFieldName, ToggleProps>
       name={fieldName}
       mapProps={({ defaultProps, field }) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { statusText: _, ...otherDefaultProps } = defaultProps;
         return {
           ...otherDefaultProps,

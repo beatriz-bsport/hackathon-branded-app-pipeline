@@ -80,7 +80,7 @@ export type OfferMinimal<C = number, E = number, M = number, L = number> = {
   available: boolean;
   establishment: E;
   coach: C;
-  coach_override: C;
+  coach_override?: C;
   activity: number;
   meta_activity: M;
   id: number;
@@ -437,7 +437,7 @@ export type OfferFormValues = {
   availableOnPartnership: boolean;
   broadcastLink: string | null;
   calendarSelectedDate?: string;
-  /* This value is only here to check if the custom name / description has changed. We use it to compare the field values to the  
+  /* This value is only here to check if the custom name / description has changed. We use it to compare the field values to the
   chosenMetaActivity.name and chosenMetaActivity.description */
   chosenMetaActivity?: MetaActivity;
   coach: number;

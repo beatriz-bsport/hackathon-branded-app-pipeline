@@ -1,12 +1,15 @@
 import {
   MarketingActionKind,
   MarketingActions,
+  TagActionType,
 } from '#src/libs/sequential_marketing/constants';
 
 import type {
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
+  StepMarketingActionsTagSpec,
 } from '#src/libs/sequential_marketing/types';
+import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
 
 export type DraftMarketingAction = {
   type: MarketingActions;
@@ -80,6 +83,17 @@ export const getMarketingActionPartialValues = (
         kind: MarketingActionKind.TAG,
         action_spec: {
           tag_id: null,
+          tag_action_type: TagActionType.ADD,
+        },
+      };
+    case MarketingActions.REMOVE_TAG:
+      return {
+        id: marketingActionId || null,
+        name: '',
+        kind: MarketingActionKind.TAG,
+        action_spec: {
+          tag_id: null,
+          tag_action_type: TagActionType.REMOVE,
         },
       };
     default:
@@ -92,8 +106,45 @@ export const getMarketingActionType = (
 ) => {
   if (marketingAction?.kind === MarketingActionKind.COMMUNICATION) {
     const actionSpec =
-      marketingAction.action_spec as StepMarketingActionsCommunicationSpec;
+      marketingAction?.action_spec as StepMarketingActionsCommunicationSpec;
     return actionSpec.communication_kind;
+  } else {
+    const actionSpec =
+      marketingAction?.action_spec as StepMarketingActionsTagSpec;
+    return actionSpec?.tag_action_type === TagActionType.REMOVE
+      ? MarketingActions.REMOVE_TAG
+      : MarketingActions.ADD_TAG;
   }
-  return MarketingActions.ADD_TAG;
+};
+
+/**
+ * Filters out tags that are already used in other marketing actions.
+ * When editing a marketing action, the currently selected tag remains available.
+ *
+ * @param tagList - Complete list of available tags
+ * @param marketingActionList - List of marketing actions in the current step
+ * @param currentMarketingActionId - ID of the marketing action being edited (optional)
+ * @returns Filtered list of tags that haven't been used yet
+ */
+export const filterUnusedTags = (
+  tagList: Tag<TagGroupAPI>[],
+  marketingActionList?: StepMarketingActions[],
+  currentMarketingActionId?: number,
+): Tag<TagGroupAPI>[] => {
+  if (!marketingActionList || marketingActionList.length === 0) {
+    return tagList;
+  }
+
+  // Extract tag IDs from all TAG-type marketing actions (excluding the current one)
+  const usedTagIds = marketingActionList
+    .filter(
+      (action) =>
+        action.kind === MarketingActionKind.TAG &&
+        (!currentMarketingActionId || action.id !== currentMarketingActionId),
+    )
+    .map((action) => (action.action_spec as StepMarketingActionsTagSpec).tag_id)
+    .filter((tagId): tagId is number => tagId !== null);
+
+  // Return only tags that haven't been used yet
+  return tagList.filter((tag) => !usedTagIds.includes(tag.id));
 };

@@ -17,6 +17,9 @@ export const FeatureFlags = {
   AUDIENCE_HOURLY_TIMEOUT: 'audience_hourly_timeout',
   AUDIENCE_LEAD_FORM_SUBMITTED_EVENT: 'audience_lead_form_submitted_event',
   BOOKING_ALLOW_ENDLESS_SUBSTITUTIONS: 'booking_allow_endless_substitutions',
+  AUDIENCE_VIEW_WORKFLOW_DETAILS_IN_ALL_MODES:
+    'audience_view_workflow_details_in_all_modes',
+  AUDIENCE_REMOVE_TAG_MARKETING_ACTION: 'audience_remove_tag_marketing_action',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

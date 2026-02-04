@@ -35,14 +35,17 @@ import {
 } from '#src/libs/replacement-request/types';
 import {
   ReplacementDisplays,
+  REPLACEMENT_REQUEST_DISABLED_REASONS,
   ReplacementRequestCoachAnswerStatus,
   ReplacementRequestStatus,
 } from '#src/libs/replacement-request/constants';
+import { isReplacementRequestToBeCreatedLate } from '#src/libs/replacement-request/utils';
 import {
   formatAsDatetimeAdapted,
   formatISOStringAsTime,
 } from '../../../../utils/datetime';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
+import Tooltip from '#src/components/Tooltip.component';
 
 type Props = {
   timezoneName: string;
@@ -108,6 +111,8 @@ type Props = {
     >,
   ) => void;
   handleMarkSubstituteAsUnavailable?: (requestId: number) => void;
+  nbLateRequestsLeft?: number;
+  daysBeforeOfferReplacementRequestIsLate?: number;
   isMobile: boolean;
   isLastItem: boolean;
 };
@@ -123,6 +128,8 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
   handleReplaceAction,
   handleRefuseAction,
   handleMarkSubstituteAsUnavailable,
+  nbLateRequestsLeft,
+  daysBeforeOfferReplacementRequestIsLate,
   timezoneName,
   isLastItem,
   isMobile,
@@ -178,6 +185,27 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
   const allowEndlessSubstitutions = useSafeFlag(
     FeatureFlags.BOOKING_ALLOW_ENDLESS_SUBSTITUTIONS,
   );
+
+  const reasonUnavailableDisabled = useMemo(() => {
+    if (replacementDisplay !== ReplacementDisplays.REPLACEMENT_DISPLAY_CONFIRM)
+      return '';
+    if (
+      isReplacementRequestToBeCreatedLate(
+        offer,
+        daysBeforeOfferReplacementRequestIsLate,
+      ) &&
+      nbLateRequestsLeft === 0
+    ) {
+      return REPLACEMENT_REQUEST_DISABLED_REASONS.REPLACEMENT_REQUEST_DISABLED_NO_LATE_REQUESTS_LEFT;
+    }
+    return '';
+  }, [
+    replacementDisplay,
+    offerDateStartAsDateTime,
+    offer,
+    daysBeforeOfferReplacementRequestIsLate,
+    nbLateRequestsLeft,
+  ]);
 
   if (isMobile) {
     return (
@@ -364,15 +392,23 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           {replacementDisplay ===
             ReplacementDisplays.REPLACEMENT_DISPLAY_CONFIRM &&
             allowEndlessSubstitutions && (
-              <Button
-                className={classes.mobileDeleteButton}
-                color="primary"
-                onClick={() =>
-                  handleMarkSubstituteAsUnavailable?.(replacementRequest.id)
-                }
+              <Tooltip
+                hide={reasonUnavailableDisabled === ''}
+                title={t(`unavailableReplacement.${reasonUnavailableDisabled}`)}
               >
-                {t('confirmations.unavailable')}
-              </Button>
+                <span>
+                  <Button
+                    className={classes.mobileDeleteButton}
+                    color="primary"
+                    disabled={reasonUnavailableDisabled !== ''}
+                    onClick={() =>
+                      handleMarkSubstituteAsUnavailable?.(replacementRequest.id)
+                    }
+                  >
+                    {t('confirmations.unavailable')}
+                  </Button>
+                </span>
+              </Tooltip>
             )}
         </div>
       </div>
@@ -600,14 +636,22 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           ReplacementDisplays.REPLACEMENT_DISPLAY_CONFIRM &&
           allowEndlessSubstitutions && (
             <TableCell className={classes.tableCell}>
-              <Button
-                color="primary"
-                onClick={() =>
-                  handleMarkSubstituteAsUnavailable?.(replacementRequest.id)
-                }
+              <Tooltip
+                hide={reasonUnavailableDisabled === ''}
+                title={t(`unavailableReplacement.${reasonUnavailableDisabled}`)}
               >
-                {t('confirmations.unavailable')}
-              </Button>
+                <span>
+                  <Button
+                    color="primary"
+                    disabled={reasonUnavailableDisabled !== ''}
+                    onClick={() =>
+                      handleMarkSubstituteAsUnavailable?.(replacementRequest.id)
+                    }
+                  >
+                    {t('confirmations.unavailable')}
+                  </Button>
+                </span>
+              </Tooltip>
             </TableCell>
           )}
       </TableRow>

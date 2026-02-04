@@ -18,6 +18,7 @@ import CadenceBubble from './CadenceBubble.component';
 
 type Props = {
   marketingAction?: Partial<StepMarketingActions>;
+  marketingActionList?: StepMarketingActions[];
   onConfirm: (data: Partial<StepMarketingActions>) => void;
   onCancel?: () => void;
   onDelete?: () => void;
@@ -25,6 +26,7 @@ type Props = {
 
 const UniqueMarketingActionBubble: React.FC<Props> = ({
   marketingAction,
+  marketingActionList,
   emailDetailList,
   emailDetailListLoading,
   emailSummaryList,
@@ -117,6 +119,7 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
           fetchEmailSummaryList={fetchEmailSummaryList}
           getEmailDetail={getEmailDetail}
           marketingAction={updatedMarketingAction}
+          marketingActionList={marketingActionList}
           resolvedGenericTags={resolvedGenericTags}
           tagCategories={tagCategories}
           tagList={tagList}

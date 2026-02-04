@@ -28,8 +28,17 @@ export const useActivityNameFilter = (): FilterField => {
   });
 
   // Fetch persisted activities by IDs
-  const { data: persistedActivities } =
-    useFetchActivitiesByIds(persistedActivityIds);
+  const { data: persistedActivities } = useFetchActivitiesByIds(
+    persistedActivityIds,
+    true,
+    {
+      select: (data) =>
+        data.results.map((activity) => ({
+          id: `${activity.id}`,
+          label: activity?.name,
+        })) || [],
+    },
+  );
 
   // Load activitynames for the activityname filter
   const [inputValue, setInputValue] = useState("");

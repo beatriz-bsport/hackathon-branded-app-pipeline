@@ -2,10 +2,10 @@ import type { FC } from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { getCurrencyCode } from "@bsport/currency";
+import { FormToggle } from "@bsport/kaizen-business-components/form/toggle";
 import { Link } from "@bsport/kaizen-primitive-core";
 
 import { FormNumberField } from "#src/components/form-number-field.component";
-import { FormToggle } from "#src/components/form-toggle.component";
 import { useTranslation } from "#src/utils/i18n";
 
 import { FIELD_CONSTRAINTS } from "../constants";

@@ -1,60 +1,60 @@
 {
   "pages": {
     "list": "Cadeaubonnen ",
-    "archivedList": "Archief cadeaubonnen"
+    "archivedList": "Gearchiveerde cadeaubonnen"
   },
   "listPage": {
     "header": {
       "buttons": {
-        "addGiftcard": "Cadeaubon toevoegen",
+        "addGiftcard": "Maken cadeaubon",
         "openBankImage": "Afbeeldingenbibliotheek"
       }
     },
     "empty": {
-      "title": "Nog geen cadeaubon",
+      "title": "Nog geen cadeaubonnen",
       "subtitle": "Maak cadeaubonnen die leden kunnen delen met vrienden en familie"
     },
     "archiveModal": {
       "title": "Cadeaubon archiveren?",
       "description": {
         "lineOne": "'{{ name }}' is niet meer zichtbaar voor leden maar huidige of eerdere aankopen worden niet beïnvloed.",
-        "lineTwo": "Je kunt deze cadeaubon op elk moment uit je archief herstellen."
+        "lineTwo": "Je kunt deze Cadeaubon op elk moment uit je archief herstellen."
       },
       "buttons": {
-        "cancel": "Terug",
+        "cancel": "Behouden",
         "archive": "Archiveren"
       }
     },
     "duplicateModal": {
-      "title": "Dupliceer cadeaubon?",
+      "title": "Duplicaat cadeaubon?",
       "description": {
         "action": "Je kunt '{{ name }}' bewerken zodra deze is gedupliceerd."
       },
       "buttons": {
-        "cancel": "Terug",
+        "cancel": "Sluiten",
         "duplicate": "Dupliceren"
       }
     }
   },
   "archivedListPage": {
     "empty": {
-      "title": "Geen gearchiveerde kadokaarte"
+      "title": "Geen gearchiveerde cadeaubonnen"
     }
   },
   "toasts": {
     "successMessages": {
       "restoreGiftcard": "Kadokaart hersteld",
       "archiveGiftcard": "Kadokaart gearchiveerd",
-      "duplicateGiftcard": "Kadokaarten gedupliceerd",
-      "deleteGiftcardImage": "Kadokaarten afbeelding verwijderd",
-      "undoAction": "Actie ongedaan gemaakt"
+      "duplicateGiftcard": "Kadokaart gedupliceerd",
+      "deleteGiftcardImage": "Kadokaart afbeelding verwijderd",
+      "undoAction": "Wijziging ongedaan gemaakt"
     },
     "errorMessages": {
-      "restoreGiftcard": "Kan cadeaubon niet herstellen, probeer het opnieuw.",
-      "archiveGiftcard": "Kan cadeaubon niet archiveren, probeer het opnieuw.",
-      "duplicateGiftcard": "Kan cadeaubon niet dupliceren, probeer het opnieuw.",
-      "undoAction": "Kan actie niet ongedaan maken, probeer het opnieuw.",
-      "deleteGiftcardImage": "Kan de afbeelding van de Kadokaarten niet verwijderen, probeer het opnieuw."
+      "restoreGiftcard": "De cadeaubon kon niet worden hersteld. Probeer het opnieuw. ",
+      "archiveGiftcard": "Cadeaubon kon niet worden gearchiveerd. Probeer het opnieuw. ",
+      "duplicateGiftcard": "Cadeaubon kon niet worden gedupliceerd. Probeer het opnieuw. ",
+      "undoAction": "De wijziging kan niet ongedaan worden gemaakt. Probeer het opnieuw. ",
+      "deleteGiftcardImage": "De afbeelding van de cadeaubon kon niet worden verwijderd. Probeer het opnieuw."
     },
     "actions": {
       "undo": "Ongedaan maken",
@@ -69,24 +69,31 @@
       "price": "Prijs"
     },
     "values": {
-      "unavailable": "Verborgen",
-      "shared": "Zichtbaar",
-      "unlimited": "Onbeperkt",
-      "expireInXDays": "{{ expiration }} dagen"
+      "unlisted": "Niet vermeld",
+      "shared": "Centraal",
+      "expireInXDays": "{{ expiration }} dagen",
+      "customAmount": "Personalisatie"
     },
     "tooltips": {
-      "archive": "Archive Kadokaarten",
+      "archive": "Cadeaubon archiveren",
       "duplicate": "Dupliceer cadeaubon",
-      "restore": "Herstel Kadokaarten",
-      "shared": "Item aangemaakt vanuit Admin Account",
-      "unavailable": "Niet zichtbaar in de Ledenruimte"
+      "restore": "Herstel cadeaubon",
+      "shared": "Cadeaubon aangemaakt vanuit Hoofdaccount",
+      "unlisted": "Cadeaubon niet vermeld in de Ledenruimte"
     },
     "loading": "Cadeaubon laden"
+  },
+  "list": {
+    "actions": {
+      "archive": "Archiveren",
+      "duplicate": "Dupliceren",
+      "restore": "Herstellen"
+    }
   },
   "imageUploadModal": {
     "title": "Afbeeldingenbibliotheek",
     "uploadButton": "Afbeelding uploaden",
-    "description": "Voeg aangepaste afbeeldingen toe aan je bibliotheek zodat je leden hun Kadokaarten kunnen personaliseren. ",
+    "description": "Voeg aangepaste afbeeldingen toe aan je bibliotheek zodat je leden hun cadeaubonnen kunnen personaliseren",
     "selectImage": "Kies een afbeelding om deze in het cadeaubonontwerp te bekijken",
     "emptyList": "Nog geen eigen afbeeldingen"
   }

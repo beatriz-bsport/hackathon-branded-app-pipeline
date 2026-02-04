@@ -298,3 +298,12 @@ export type SessionCreationPayload = {
   wellhub_product_id?: number | null;
   whitelist_tags: number[];
 };
+
+export type RecurrenceResponse = {
+  last_offer: {
+    id: number;
+    date_start: string;
+  };
+  recurrence_count: number;
+  recurrence_id: string;
+};

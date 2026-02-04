@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
 
 import TagSelector from '#src/libs/tag/components/TagSelector.selector';
+import { TagActionType } from '#src/libs/sequential_marketing/constants';
 import { tagValidationSchema } from '#src/libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
 
 import type { Tag, TagGroup, TagGroupAPI } from '#src/libs/tag/types';
@@ -49,10 +50,11 @@ const TagForm: React.FC<Props> = ({
   }, [handleSubmit, setFieldValue]);
 
   const actionSpec: StepMarketingActionsTagSpec = React.useMemo(() => {
-    if ('tag_id' in formik.values.action_spec) {
-      return formik.values.action_spec;
+    const action_spec = formik.values.action_spec;
+    if (!!action_spec && 'tag_id' in action_spec) {
+      return action_spec;
     }
-    return { tag_id: null };
+    return { tag_id: null, tag_action_type: TagActionType.ADD };
   }, [formik.values.action_spec]);
 
   return (

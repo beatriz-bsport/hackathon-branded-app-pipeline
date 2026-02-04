@@ -30,7 +30,7 @@
     "@types/babel__traverse": "^7.28.0",
     "@types/fs-extra": "^11.0.1",
     "commander": "^9.3.0",
-    "glob": "^11.0.3",
+    "glob": "^11.1.0",
     "inquirer-select-pro": "1.0.0-alpha.9",
     "json-beautify": "^1.1.1",
     "json-merger": "^2.0.0",

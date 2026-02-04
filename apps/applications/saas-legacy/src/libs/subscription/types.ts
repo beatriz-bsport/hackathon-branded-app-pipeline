@@ -200,6 +200,10 @@ export type ContractWithPaymentPack<
   commitment_period_unit: SubscriptionCommitmentPeriod | null;
 };
 
+export type PaymentPackWithContractId = PaymentPack & {
+  contract_id: number | null;
+};
+
 export type ContractInterval = 'month' | 'week';
 
 export type ContractPause = {

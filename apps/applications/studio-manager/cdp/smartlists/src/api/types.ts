@@ -134,3 +134,42 @@ export type TagRuleWithTag = TagRule & {
  * Query params for fetching tag rules
  */
 export type FetchTagRulesParams = { smartlist_id: string };
+
+/**
+ * Parameters for fetching scheduled campaigns.
+ */
+export type FetchCampaignScheduledParams = {
+  /** List of smartlists ids where you want to fetch the different scheduled communications linked to them. */
+  smartlist_id__in?: number[];
+
+  /** List of communication scheduled ids. */
+  id__in?: number[];
+
+  /** Number of items per page (for pagination). */
+  page_size?: number;
+
+  /** Page number of the results (for pagination). */
+  page?: number;
+};
+
+/**
+ * CommunicationScheduled type from the API
+ * Model: CommunicationScheduled
+ * Serializer: CommunicationScheduledSerializer
+ * Endpoint: GET /communicate/v1/communication/communication_scheduled/
+ */
+export type CampaignScheduled = {
+  id: number;
+  company: number | null;
+  smartlist: number | null;
+  communication_kind: CommunicationKind;
+  text: string | null;
+  email_design: number | null;
+  title: string | null;
+  datetime_scheduled: string; // ISO 8601 datetime
+  datetime_sent: string | null; // ISO 8601 or null
+  disabled: boolean;
+  // Deprecated but present in API
+  email_resend_delay: number;
+  email_resend_count: number;
+};

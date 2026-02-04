@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash";
 import groupBy from "lodash/groupBy";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -13,6 +14,7 @@ import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions
 import { ExportParticipantsModal } from "#src/components/SessionList/actions/export-participants-modal";
 import { CancelSessionModal } from "#src/components/SessionList/detail-actions/cancel-session-modal";
 import { DeleteSessionModal } from "#src/components/SessionList/detail-actions/delete-session-modal";
+import { DuplicateSessionModal } from "#src/components/SessionList/detail-actions/duplicate-session-modal";
 import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/restore-session-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
 import { useModal } from "#src/hooks/use-modal";
@@ -30,6 +32,7 @@ import {
 } from "../hooks/useSessionListData";
 import {
   ModalType,
+  selectFilters,
   selectModalState,
   selectSelectedDate,
   setLocale,
@@ -104,11 +107,32 @@ const ListPage: React.FC = () => {
     ];
   }, [openExportParticipantsModal, openCancelMultipleSessionsModal]);
 
+  const { filterConfig, resetFilters, sessionFiltersRef } = useFilterConfig();
+
+  const filters = useSessionListStore(selectFilters);
+  const hasEmptyResults =
+    !isLoading && !sessionDataError && Object.keys(sessionsByDate).length === 0;
+
+  const onClickEmptySearchState = useCallback(() => {
+    setSearchQuery("");
+    resetFilters?.();
+  }, [resetFilters]);
+
+  const isFilterEmpty = useMemo(() => {
+    return (
+      isEmpty(filters) ||
+      Object.values(filters).every((filterValue) => {
+        return (
+          filterValue.field === null &&
+          filterValue.filter === null &&
+          filterValue.valueIds.length === 0
+        );
+      })
+    );
+  }, [filters]);
+
   const { shouldRenderEmptyState, EmptyState } = useEmptyState({
-    isEmpty:
-      !isLoading &&
-      !sessionDataError &&
-      Object.keys(sessionsByDate).length === 0,
+    isEmpty: hasEmptyResults,
     emptyConfig: {
       title: t("emptyState.title"),
       subtitle: t("emptyState.subtitle"),
@@ -121,6 +145,19 @@ const ListPage: React.FC = () => {
             color: "main",
           }
         : undefined,
+    },
+    isEmptySearch:
+      hasEmptyResults && (!isFilterEmpty || searchQuery.length > 0),
+    emptySearchConfig: {
+      title: t("emptySearchState.title"),
+      subtitle: t("emptySearchState.subtitle"),
+      secondaryButtonConfig: {
+        label: t("emptySearchState.action"),
+        onClick: onClickEmptySearchState,
+        iconLeft: "x-close",
+        intent: "default",
+        color: "main",
+      },
     },
   });
 
@@ -156,8 +193,6 @@ const ListPage: React.FC = () => {
     [sessionsByDate, isLoading, intlLocale],
   );
 
-  const filterConfig = useFilterConfig();
-
   return (
     <ListLayout>
       <ListLayout.Header
@@ -165,6 +200,7 @@ const ListPage: React.FC = () => {
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
         filterConfig={filterConfig}
+        filterRef={sessionFiltersRef}
         endGroupActions={endGroupActions}
         searchConfig={{
           id: "session-search",
@@ -206,6 +242,9 @@ const ListPage: React.FC = () => {
         )}
         {detailsModalState?.type === ModalType.DELETE && (
           <DeleteSessionModal session={detailsModalState.session} />
+        )}
+        {detailsModalState?.type === ModalType.DUPLICATE && (
+          <DuplicateSessionModal session={detailsModalState.session} />
         )}
       </ListLayout.Content>
     </ListLayout>

@@ -43,6 +43,7 @@ import {
   getIsMetaActivityPublishedOnUSC,
 } from '#src/libs/meta-activity/selectors';
 
+import { fetchContractList as fetchContractListAction } from '#src/libs/subscription/actions';
 import {
   deleteMetaActivity as deleteMetaActivityAction,
   restoreMetaActivity,
@@ -90,6 +91,7 @@ import {
 
 import themeSelectors from '#src/libs/theme/selectors';
 import {
+  getActivityCompatiblePaymentPacksWithContractId,
   getActivityCompatiblePaymentPacks,
   getAllPaymentPackCategory,
 } from '#src/libs/payment-packs/selectors';
@@ -130,6 +132,10 @@ import withTitle from '../../hocs/with-title.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import { OptionCallback, PaginatedResponse } from '../../state/types';
+import {
+  withFeatureFlags,
+  type FeatureFlagProps,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 const MetaActivityMap = {
   cover_main: 'cover_main',
@@ -174,7 +180,8 @@ type Props = RouterParamsToProps &
   MetaActivityConnectedProps &
   MetaActivityHandlers &
   StateToProps &
-  WithObjectSearch;
+  WithObjectSearch &
+  FeatureFlagProps;
 
 type State = {
   showDisabled: boolean;
@@ -213,6 +220,9 @@ export class MetaActivityListPage extends React.Component<Props, State> {
       active: true,
       kind: BOOKING_CREATION_NOTIFICATION,
     });
+    if (this.props.shouldDisplayNewSubscriptionContracts) {
+      this.props.fetchContractList();
+    }
   }
 
   onShowDisabled = () => {
@@ -324,6 +334,9 @@ export class MetaActivityListPage extends React.Component<Props, State> {
         offerIsProcessing={this.props.offerIsProcessing}
         onClose={this.onCancelForm}
         paymentPackCategories={this.props.paymentPackCategories}
+        paymentPacksWithContractIdPaginated={
+          this.props?.paymentPacksWithContractIdPaginated
+        }
         resetPaymentPacks={this.props.resetPaymentPacks}
         roomBlueprints={this.props.roomBlueprints}
         SCTs={this.props.SCTs}
@@ -686,7 +699,13 @@ const styles = (theme: Theme) =>
 const connector = connect(
   (
     state: RootState,
-    { selectedMetaActivityId }: { selectedMetaActivityId: number | null },
+    {
+      selectedMetaActivityId,
+      shouldDisplayNewSubscriptionContracts = false,
+    }: {
+      selectedMetaActivityId: number | null;
+      shouldDisplayNewSubscriptionContracts: boolean;
+    },
   ) => ({
     metaActivities: uniqBy(
       [
@@ -723,6 +742,14 @@ const connector = connect(
     coaches: getActiveCoaches(state),
     upsertedMetaActivity: state.metaActivity.upsert.data,
     companyTheme: themeSelectors.getTheme(state),
+    ...(!!shouldDisplayNewSubscriptionContracts && {
+      paymentPacksWithContractIdPaginated: {
+        items: getActivityCompatiblePaymentPacksWithContractId(state),
+        count: state.paymentPack.byActivity.count,
+        page: state.paymentPack.byActivity.page,
+        loading: state.paymentPack.byActivity.loading,
+      },
+    }),
     compatiblePaymentPacks: {
       items: getActivityCompatiblePaymentPacks(state),
       count: state.paymentPack.byActivity.count,
@@ -781,6 +808,7 @@ const connector = connect(
     fetchCompanyTheme: refreshCompanyThemeAction,
     push,
     fetchIsMetaActivityPublishedOnUSC,
+    fetchContractList: fetchContractListAction,
   },
 );
 
@@ -915,6 +943,7 @@ export default compose(
   withStyles(styles),
   withTranslation(['metaActivity', 'titles', 'common']),
   withObjectSearch,
+  withFeatureFlags,
   withState('selectedMetaActivityId', 'setSelectedMetaActivityId', null),
   withState('activityToDelete', 'setActivityToDelete', null),
   routerParamsToProps({ id: 'id:number' }),

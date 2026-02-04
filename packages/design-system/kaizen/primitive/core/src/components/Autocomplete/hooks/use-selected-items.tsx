@@ -45,6 +45,13 @@ export const useSelectedItems = ({
   const [selectedItems, setSelectedItems] = useState<MenuOption[]>([]);
 
   /**
+   * Clear all selected items
+   */
+  const clearSelection = useCallback(() => {
+    setSelectedItems([]);
+  }, []);
+
+  /**
    * Issue - mapIdToOption & defaultSelectedIds are several renders behind.
    *
    * 1. We need to wait for both to be defined to set the initial value for selectedItems.
@@ -94,6 +101,7 @@ export const useSelectedItems = ({
    * based on multiSelect and current state.
    * The toggle can be triggered from both the Selected Items section and the base list.
    */
+
   const toggleItem = useCallback(
     (itemId: string) => {
       const selectedId = getSelectedId(itemId);
@@ -162,6 +170,7 @@ export const useSelectedItems = ({
   }, [selectedItems, multiSelect]);
 
   return {
+    clearSelection,
     selectedItems,
     selectedItemsIds,
     toggleItem,

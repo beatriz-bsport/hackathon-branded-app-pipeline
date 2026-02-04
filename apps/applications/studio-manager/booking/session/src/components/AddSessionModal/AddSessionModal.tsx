@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { useFormController } from "@bsport/form";
 import { ModalStepper, toast } from "@bsport/kaizen-primitive-core";
 
@@ -58,6 +60,23 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     shouldFocusError: true,
     defaultValues: configureSessionFormData,
   });
+
+  const {
+    setFocus,
+    formState: { errors },
+  } = configureSessionMethods;
+
+  const errorsCount = Object.keys(errors).length;
+
+  useEffect(() => {
+    if (!errorsCount) return;
+    const firstErrorField = Object.keys(errors)[0] as
+      | Parameters<typeof setFocus>[0]
+      | undefined;
+    if (firstErrorField) {
+      setFocus(firstErrorField);
+    }
+  }, [errorsCount, setFocus, errors]);
 
   const advancedOptionsMethods = useFormController({
     schema: advancedOptionsSchema,

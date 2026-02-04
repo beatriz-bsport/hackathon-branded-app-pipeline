@@ -52,6 +52,7 @@ import { SCT } from '#src/libs/category/types';
 import { Establishment } from '#src/libs/establishment/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
 import { emptyPaymentPackDetailsForms } from '../constants';
+import { START_ON_FIRST_ATTENDANCE } from '@bsport/common/lib/master-data/payment-pack';
 
 type Props = {
   isContractNotEditable: boolean;
@@ -533,8 +534,14 @@ export const PaymentPackDetailsForm = (props: Props) => {
             UPSELL_IDENTIFIER_ACCESS_MONITORING,
           ]);
 
+          const isAccessControlCompatible =
+            !initialPaymentPackDetails?.template_instance ||
+            (!paymentPackDetailsValues.only_vod_access &&
+              paymentPackDetailsValues.start_date_method !==
+                START_ON_FIRST_ATTENDANCE);
+
           return (
-            !initialPaymentPackDetails?.template_instance &&
+            isAccessControlCompatible &&
             hasAccessControlUpsell && (
               <>
                 <div className={classes.formContainer}>

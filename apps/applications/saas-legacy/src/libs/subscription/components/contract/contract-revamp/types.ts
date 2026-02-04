@@ -66,6 +66,8 @@ export type PaymentPackDetails = {
   applies_for_payroll: boolean;
   grants_door_access: boolean;
 
+  start_date_method: number;
+
   expiration_days_before_first_use: number;
 
   bookkeeping_account: number | null;
@@ -114,6 +116,8 @@ export type PaymentPackDetailsForms = Omit<
   penalty_kind: string;
   no_show_penalty_kind: string;
   off_peak_active: boolean;
+
+  start_date_method: number;
 
   establishments: number[] | undefined;
   metaActivities: number[] | undefined;

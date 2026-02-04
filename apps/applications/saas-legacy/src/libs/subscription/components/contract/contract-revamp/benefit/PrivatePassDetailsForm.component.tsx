@@ -208,7 +208,6 @@ export const PrivatePassDetailsForm = (props: Props) => {
           ]);
 
           return (
-            !initialPrivatePassDetails?.template_instance &&
             hasAccessControlUpsell && (
               <>
                 <div className={classes.formContainer}>

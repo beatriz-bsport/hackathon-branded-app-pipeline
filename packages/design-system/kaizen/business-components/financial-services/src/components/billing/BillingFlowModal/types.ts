@@ -149,17 +149,42 @@ export type Coupon = {
 };
 
 /**
- * Form data for invoice item
+ * Shared fields for one invoice item (builder default and added line).
  */
-export type InvoiceItemFormData = {
+type InvoiceItemBase = {
   type: ItemType;
-  buyableItemId: number | null;
   quantity: number;
   priceCts: number;
   discountPercent: number;
   discountAmountCts: number;
+  taxPercent?: number;
+  credits?: number | null;
+  durationDays?: number | null;
+  durationMonths?: number | null;
+  durationYears?: number | null;
+  validityDateRange?: { lower: string; upper: string } | null;
+};
+
+/**
+ * Form data for one invoice item (builder default or added line).
+ * Loose shape: buyableItemId/itemName optional or null before selection.
+ */
+export type InvoiceItemFormData = InvoiceItemBase & {
+  buyableItemId: number | null;
   activationDate: string | null;
   billingDetail: string | null;
+  itemName?: string;
+};
+
+/**
+ * One item in the billing flow form `items` array (added-item shape).
+ * Strict shape: required id/name, literal null for activation/billing.
+ */
+export type BillingFlowItem = InvoiceItemBase & {
+  buyableItemId: number;
+  activationDate: null;
+  billingDetail: null;
+  itemName: string;
 };
 
 /**
@@ -167,10 +192,10 @@ export type InvoiceItemFormData = {
  */
 export type BillingFlowFormData = {
   memberId: number | undefined;
-  items: InvoiceItemFormData[];
+  items: BillingFlowItem[];
   couponCodes: string[];
   footnote: string | null;
-  date: string; // Invoice date
+  date: Date;
 };
 
 /**

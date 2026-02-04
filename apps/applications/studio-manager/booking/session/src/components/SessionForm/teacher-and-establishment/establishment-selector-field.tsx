@@ -39,6 +39,9 @@ export const EstablishmentSelectorField: FC<{
             { shouldValidate: true },
           );
         },
+        onClear: () => {
+          setValue("establishment", null, { shouldValidate: true });
+        },
       })}
     >
       <Autocomplete

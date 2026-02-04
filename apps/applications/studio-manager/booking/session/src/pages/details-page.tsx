@@ -7,6 +7,7 @@ import {
   useLoadingState,
 } from "@bsport/kaizen-primitive-core";
 
+import { Header } from "#src/components/session-details/header";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -36,9 +37,7 @@ export const DetailsPage: FC = () => {
 
   return (
     <DetailsLayout {...detailsLayoutProps} withPanel>
-      <DetailsLayout.Header
-        pageTitle={session.name_override || session.activity_name}
-      />
+      <Header session={session} />
       <DetailsLayout.Content></DetailsLayout.Content>
       <DetailsLayout.Panel></DetailsLayout.Panel>
     </DetailsLayout>

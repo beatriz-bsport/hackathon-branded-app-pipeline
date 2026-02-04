@@ -1,3 +1,7 @@
 {
-  "loading": "Loading session details..."
+  "loading": "Loading session details...",
+  "tabs": {
+    "editor": "Editor",
+    "overview": "Overview"
+  }
 }

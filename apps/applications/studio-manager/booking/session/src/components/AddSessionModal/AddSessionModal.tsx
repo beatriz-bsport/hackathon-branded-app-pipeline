@@ -55,14 +55,12 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
   const configureSessionMethods = useFormController({
     schema: configureSessionSchema,
     mode: "onChange",
-    shouldFocusError: true,
     defaultValues: configureSessionFormData,
   });
 
   const advancedOptionsMethods = useFormController({
     schema: advancedOptionsSchema,
     mode: "onChange",
-    shouldFocusError: true,
     defaultValues: advancedOptionsFormData,
   });
 

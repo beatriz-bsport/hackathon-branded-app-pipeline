@@ -5,6 +5,8 @@ export const URLS = {
   AUTOMATION: "/:id/automation",
   CAMPAIGN: "/:id/campaign",
   AUTOMATION_MESSAGE: "/:id/automation/message/:messageId",
+  POPUP_CREATION: "/:id/popups/new",
+  POPUP_EDIT: "/:id/popups/:popupId/edit",
 } as const;
 
 export const LEGACY_URLS = {

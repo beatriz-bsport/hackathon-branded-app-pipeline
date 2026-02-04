@@ -1,7 +1,6 @@
 import { useId } from "react";
 import { useState } from "react";
 import { useParams } from "react-router";
-import invariant from "tiny-invariant";
 
 import { useFormController } from "@bsport/form";
 import {
@@ -19,6 +18,7 @@ import { PopupForm } from "#src/components/PopupForm/PopupForm";
 import { getPopupSchema } from "#src/components/PopupForm/schema";
 import { PopupFormData } from "#src/components/PopupForm/shared-types";
 import { useTranslation } from "#src/utils/i18n";
+import { invariant } from "#src/utils/invariant";
 
 import { useCreate } from "./use-create";
 

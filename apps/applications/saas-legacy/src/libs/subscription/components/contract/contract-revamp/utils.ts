@@ -27,6 +27,7 @@ import {
 } from '#src/libs/payment-packs/constants';
 import { penaltyKindDict } from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
 import { getFormInitial } from '#src/libs/private-service/utils';
+import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
 
 function isNumber(value: unknown): value is number {
   return typeof value === 'number' && !Number.isNaN(value);
@@ -97,6 +98,8 @@ export const contractToFormValues = (
               : 'block',
             penalty_days_blocked: paymentPack?.penalty_days_blocked || 7,
             penalty_account_value: paymentPack?.penalty_account_value || 10,
+            start_date_method:
+              paymentPack?.start_date_method ?? START_ON_PURCHASE,
             no_show_penalty_active:
               paymentPack?.no_show_penalty_active || false,
             no_show_penalty_threshold:
@@ -213,6 +216,7 @@ export const formValuesToContract = (
       only_vod_access: !!details_values.full_vod_access
         ? !!details_values.only_vod_access
         : false,
+      start_date_method: details_values.start_date_method ?? START_ON_PURCHASE,
       allow_guest_pass: !!details_values.allow_guest_pass,
       grants_door_access:
         !details_values.only_vod_access && !!details_values.grants_door_access,

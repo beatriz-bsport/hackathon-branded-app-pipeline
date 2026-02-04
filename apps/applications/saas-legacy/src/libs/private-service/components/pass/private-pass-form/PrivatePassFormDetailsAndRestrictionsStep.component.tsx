@@ -456,7 +456,6 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
           ]);
 
           return (
-            !props.initial?.template_instance &&
             hasAccessControlUpsell && (
               <>
                 <div className={classes.formContainer}>

@@ -32,6 +32,7 @@ import {
   UPSELL_IDENTIFIER_ACCESS_MONITORING,
   UPSELL_IDENTIFIER_KISI_INTEGRATION,
 } from '#src/libs/platform-billing/upsell-identifiers';
+import { START_ON_FIRST_ATTENDANCE } from '@bsport/common/lib/master-data/payment-pack';
 
 type Props = {
   initial: PaymentPack<PrivatePass>;
@@ -94,8 +95,13 @@ const PaymentPackFormDetailsAndRestrictionsStep = ({
             UPSELL_IDENTIFIER_ACCESS_MONITORING,
           ]);
 
+          const isAccessControlCompatible =
+            !initial?.template_instance ||
+            (!values.only_vod_access &&
+              values.start_date_method !== START_ON_FIRST_ATTENDANCE);
+
           return (
-            !initial?.template_instance &&
+            isAccessControlCompatible &&
             hasAccessControlUpsell && (
               <>
                 <div className={classes.formContainer}>

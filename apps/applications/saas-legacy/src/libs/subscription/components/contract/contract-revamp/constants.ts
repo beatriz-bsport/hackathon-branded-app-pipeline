@@ -1,6 +1,7 @@
 import { offPeakGroupDefault } from '#src/libs/payment-packs/utils';
 import type { CompatiblePrivateService } from '#src/libs/private-service/types';
 import { getCreditFactor } from '#src/libs/theme/selectors';
+import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
 import {
   CREDIT_NUMBER_OPTION,
   FormValues,
@@ -32,6 +33,7 @@ export const emptyPaymentPackDetailsForms: PaymentPackDetailsForms = {
   max_bookings_per_week: null,
   max_bookings_per_month: null,
   max_purchase_per_member: null,
+  start_date_method: START_ON_PURCHASE,
   categories: [],
   establishments: [],
   metaActivities: [],

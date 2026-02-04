@@ -8,7 +8,7 @@
       "validate": "Envía",
       "lastName": "Apellido",
       "firstName": "Nombre",
-      "email": "Dirección de correo electrónico",
+      "email": "Correo electrónico",
       "title": "Suscríbete al boletín de noticias"
     },
     "formV2": {

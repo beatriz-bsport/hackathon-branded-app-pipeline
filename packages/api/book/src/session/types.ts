@@ -143,6 +143,10 @@ export type CancelMultipleSessionsParams = FetchSessionsParams & {
   end: string;
 };
 
+export type RetrieveSessionParams = {
+  with_booking_window?: boolean;
+};
+
 export type ManagerSession = {
   activity: number;
   allow_guest_offer: boolean;

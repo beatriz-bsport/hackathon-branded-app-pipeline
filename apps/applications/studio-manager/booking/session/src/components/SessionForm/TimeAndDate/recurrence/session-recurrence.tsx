@@ -60,8 +60,15 @@ export const SessionRecurrence: FC<{
           <RecurrenceWeekdaysSelector fieldIdPrefix={fieldIdPrefix} />
           <RecurrencePatternSelector fieldIdPrefix={fieldIdPrefix} />
           <RecurrenceEndDate fieldIdPrefix={fieldIdPrefix} />
+          {recurrence?.length === 0 && (
+            <Alert status="warning" className="w-fit" layout="inline">
+              {t(
+                "addSessionModal.steps.configureSession.timeAndDate.recurrence.warning",
+              )}
+            </Alert>
+          )}
           {!!recurrence?.length && (
-            <Alert status="info" className="w-fit">
+            <Alert status="info" className="w-fit" layout="inline">
               {t(
                 "addSessionModal.steps.configureSession.timeAndDate.recurrence.info",
                 { count: recurrence.length },

@@ -19,7 +19,7 @@ export const EstablishmentSelectorField: FC<{
 
   const { data: establishments, isLoading } = useFetchAllEstablishments({
     company,
-    disabled: false,
+    disabled_establishments: false,
   });
 
   const groupedEstablishments = useGroupedEstablishments(establishments);

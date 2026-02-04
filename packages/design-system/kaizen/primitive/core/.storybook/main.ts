@@ -8,8 +8,7 @@ const config: StorybookConfig = {
   stories: ["../src/**/*.@(mdx|stories.@(js|jsx|ts|tsx))"],
 
   addons: [
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
+    "@storybook/addon-docs",
     "@storybook/addon-themes",
     "@chromatic-com/storybook",
   ],
@@ -17,6 +16,11 @@ const config: StorybookConfig = {
   framework: {
     name: "@storybook/react-vite",
     options: {},
+  },
+
+  features: {
+    actions: true,
+    controls: true,
   },
 
   // https://storybook.js.org/recipes/tailwindcss#3-add-a-theme-switcher-tool

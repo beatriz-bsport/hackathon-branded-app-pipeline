@@ -1,5 +1,5 @@
 import { withThemeByClassName } from "@storybook/addon-themes";
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { Suspense, useEffect } from "react";
 
@@ -81,10 +81,10 @@ const preview: Preview = {
   ],
   parameters: {
     backgrounds: {
-      values: [
-        { name: "default", value: "#f0f0f0" },
-        { name: "strong", value: "#484848" },
-      ],
+      options: {
+        default: { name: "default", value: "#f0f0f0" },
+        strong: { name: "strong", value: "#484848" },
+      },
     },
   },
 

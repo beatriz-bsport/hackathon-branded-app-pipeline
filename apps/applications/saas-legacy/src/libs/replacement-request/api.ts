@@ -1,3 +1,6 @@
+import type { AxiosResponse } from 'axios';
+
+import type { ReworkedPaginationResponse } from '#src/state/types';
 import {
   DisciplineGroupAPIData,
   AssignAssociatedCoachDisciplineGroupParams,
@@ -5,6 +8,8 @@ import {
   ReplacementRequestAPIData,
   ReplacementRequestConfiguration,
   ReplacementRequestCoachAnswerAPIData,
+  SubstitutionHistoryFilter,
+  SubstitutionHistoryItem,
 } from './types';
 import {
   getAuth,
@@ -44,6 +49,13 @@ export async function cancelReplacementRequest(id: number) {
   return postAuth(
     `${API_V1_URI}/replacement_request/${id}/cancel_request/`,
     {},
+  );
+}
+
+export async function markSubstituteAsUnavailable(id: number, reason: string) {
+  return postAuth(
+    `${API_V1_URI}/replacement_request/${id}/substitute_unavailable/`,
+    { reason },
   );
 }
 
@@ -144,5 +156,15 @@ export async function updateReplacementRequestConfiguration(
   return patchAuth(
     `${API_V1_URI}/replacement_request/configuration/${companyId}/`,
     data,
+  );
+}
+
+export async function fetchSubstitutionHistory(
+  params: SubstitutionHistoryFilter,
+): Promise<AxiosResponse<ReworkedPaginationResponse<SubstitutionHistoryItem>>> {
+  return getAuth(
+    `${API_V1_URI}/replacement_request/substitution_history/${buildUrlParams(
+      params,
+    )}`,
   );
 }

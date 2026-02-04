@@ -2,7 +2,10 @@ import type { FC } from "react";
 
 import { Title } from "@bsport/kaizen-primitive-core";
 
-import { selectStepFormData } from "#src/stores/session-creation/selectors";
+import {
+  selectSelectedGroupActivity,
+  selectStepFormData,
+} from "#src/stores/session-creation/selectors";
 import {
   SESSION_CREATION_STEPS,
   useSessionCreationStore,
@@ -15,6 +18,7 @@ import { RoomBlueprintSelectorField } from "./room-blueprint-selector-field";
 import { SyncOnSpiviField } from "./sync-on-spivi-field";
 import { TeacherPaymentRuleSelectorField } from "./teacher-payment-rule-selector-field";
 import { TeacherSelectorField } from "./teacher-selector-field";
+import { WellhubProductSelectorField } from "./wellhub-product-selector-field";
 
 export const SessionTeacherAndEstablishment: FC<{
   fieldIdPrefix: string;
@@ -25,6 +29,10 @@ export const SessionTeacherAndEstablishment: FC<{
     useSessionCreationStore(
       selectStepFormData(SESSION_CREATION_STEPS.CONFIGURE_SESSION),
     ) as SessionCreationFormData;
+
+  const selectedGroupActivity = useSessionCreationStore(
+    selectSelectedGroupActivity,
+  );
 
   return (
     <section className="flex flex-col gap-md pb-md">
@@ -48,6 +56,10 @@ export const SessionTeacherAndEstablishment: FC<{
       <RoomBlueprintSelectorField
         fieldIdPrefix={fieldIdPrefix}
         defaultSelectedId={room_blueprint}
+      />
+      <WellhubProductSelectorField
+        fieldIdPrefix={fieldIdPrefix}
+        isLivestream={selectedGroupActivity?.is_broadcast || false}
       />
       <SyncOnSpiviField fieldIdPrefix={fieldIdPrefix} />
     </section>

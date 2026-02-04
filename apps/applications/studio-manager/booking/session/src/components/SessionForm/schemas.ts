@@ -118,6 +118,7 @@ export const useSessionSchema = () => {
       establishment: z.number().nullable(),
       room_blueprint: z.number().nullable(),
       sync_on_spivi: z.boolean().optional(),
+      wellhub_product_id: z.number().nullish(),
     })
     .refine(
       (data) => {

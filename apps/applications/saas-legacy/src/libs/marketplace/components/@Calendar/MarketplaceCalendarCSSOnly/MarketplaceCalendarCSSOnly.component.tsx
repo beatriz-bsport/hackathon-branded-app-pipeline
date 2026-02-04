@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 // @ts-expect-error
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, TFunction, WithTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import groupBy from 'lodash/groupBy';
 
@@ -11,7 +11,7 @@ import { pure } from 'recompose';
 import MarketplaceFilterComponent from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly/MarketplaceFilterCSSOnly.component';
 import { Level } from '#src/libs/level/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
-import { Offer } from '#src/libs/offer/types';
+import { OfferREST } from '#src/libs/offer/types';
 import { Theme } from '#src/libs/theme/types';
 import MarketplaceDatePicker from '#src/libs/marketplace/components/@Date/MarketplaceDatePicker';
 import { Coach } from '#src/libs/associated-coach/types';
@@ -25,6 +25,7 @@ import MarketplaceWeekTimetableV2, {
 } from '../MarketplaceWeekTimeTableCSSOnly/MarketplaceWeekTimeTableCSSOnly.component';
 
 import './MarketplaceCalendarCSSOnly.css';
+import { MarketplaceFiltersSetter } from '#src/libs/marketplace/types';
 
 const LoadingIndicator = () => (
   <div className="bs-calendar--loading">
@@ -35,26 +36,24 @@ const LoadingIndicator = () => (
 type Props = {
   onSelectDate: (date: string) => void;
   selectedDate: LuxonDateTime;
-  offers: Array<Offer>;
+  offers: Array<OfferREST>;
   genderCount: Object;
   group: Object;
   loading: boolean;
-  onClickOffer: () => void;
+  onClickOffer: (offerId: number) => void;
   coaches: Array<Coach>;
-  establishments: Array<Establishment>;
+  establishments: ReadonlyArray<Establishment>;
   metaActivities: { [key: number]: MetaActivity };
-  // @ts-expect-error
-  setFilters: (any) => void;
+  setFilters: MarketplaceFiltersSetter;
   filters: any;
   forceDayDisplayOnly: boolean;
-  onClickBook: (offer: Offer) => void;
-  onClickBookOption: (offer: Offer) => void;
+  onClickBook: (offer: OfferREST) => void;
   showOfferFilling: boolean;
   hideCoach: boolean;
   showOfferGender?: boolean;
   establishmentGroupList: Array<EstablishmentGroup>;
   showMultiLocalization: boolean;
-  nextAvailableOffer: Offer;
+  nextAvailableOffer?: OfferREST;
   goToFirstAvailableSession: () => void;
   getLevel: { [id: number]: Level };
   bookedOffers?: number[];
@@ -63,13 +62,12 @@ type Props = {
   theme: Theme;
   variant?: 'activityName' | 'coach' | 'time';
   groupSessionByPeriod: boolean;
-  events: Array<Event>;
   onSearch: (searchText: string) => void;
   onClearInput: () => void;
   isSearching: boolean;
   startWeekOnDaySelected?: boolean;
   isCardModeDisplay: boolean;
-};
+} & WithTranslation;
 
 export const MarketplaceCalendar = (props: Props) => {
   const {
@@ -164,9 +162,6 @@ export const MarketplaceCalendar = (props: Props) => {
         <div className="bs-calendar__datePicker">
           <MarketplaceDatePicker
             dateSelected={selectedDate}
-            // @ts-expect-error
-            events={props.events}
-            offerFilters={filters}
             onSelect={onSelectDate}
             startWeekOnDaySelected={startWeekOnDaySelected}
           />
@@ -182,10 +177,8 @@ export const MarketplaceCalendar = (props: Props) => {
           filters={filters}
           hideCoach={props.hideCoach}
           metaActivities={metaActivities}
-          offers={offers}
           onClearInput={onClearInput}
           onSearch={onSearch}
-          // @ts-expect-error
           setFilters={setFilters}
           showMultiLocalization={props.showMultiLocalization}
           variant="activity"
@@ -196,7 +189,6 @@ export const MarketplaceCalendar = (props: Props) => {
       ) : (
         <>
           <MarketplaceWeekTimetableV2
-            // @ts-expect-error
             bookedOffers={props.bookedOffers}
             coaches={props.coaches}
             date={selectedDate}
@@ -211,7 +203,6 @@ export const MarketplaceCalendar = (props: Props) => {
             metaActivities={metaActivities}
             offersByDay={offersByDay}
             onClickBook={props.onClickBook}
-            onClickBookOption={props.onClickBookOption}
             onClickOffer={props.onClickOffer}
             onSelectDate={props.onSelectDate}
             showDayParts={showDayParts}
@@ -228,5 +219,4 @@ export const MarketplaceCalendar = (props: Props) => {
   );
 };
 
-// @ts-expect-error
 export default withTranslation('privateService')(pure(MarketplaceCalendar));

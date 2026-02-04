@@ -1,4 +1,4 @@
-export { ErrorBoundary } from "@bsport/sentry";
+export { ErrorBoundary, captureException } from "@bsport/sentry";
 export { AppWrapper } from "./wrappers/AppWrapper";
 export { ErrorBoundaryWrapper } from "./wrappers/ErrorBoundaryWrapper";
 export { SidebarLayout } from "./components/SidebarLayout";

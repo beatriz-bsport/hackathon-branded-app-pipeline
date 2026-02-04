@@ -10,6 +10,15 @@ import { fetch } from "../utils/fetch";
 
 const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
+type FetchAllEstablishmentsParams = {
+  enabled?: boolean;
+  page?: number | undefined;
+  page_size?: number | undefined;
+  id__in?: number[] | undefined;
+  disabled_establishments?: boolean;
+  company?: number;
+};
+
 const fetchAllEstablishments = async ({
   company,
   page_size,
@@ -26,12 +35,21 @@ const fetchAllEstablishments = async ({
 const allEstablishmentsQueryOptions = ({
   company,
   page_size,
-  disabled,
-}: FetchEstablishmentParams) => {
+  disabled_establishments,
+  enabled,
+}: FetchAllEstablishmentsParams) => {
   return queryOptions({
-    queryKey: ["all-establishments", { company, page_size, disabled }],
-    queryFn: () => fetchAllEstablishments({ company, page_size, disabled }),
-    enabled: !!company,
+    queryKey: [
+      "all-establishments",
+      { company, page_size, disabled: disabled_establishments },
+    ],
+    queryFn: () =>
+      fetchAllEstablishments({
+        company,
+        page_size,
+        disabled: disabled_establishments,
+      }),
+    enabled: enabled && !!company,
     staleTime: ESTABLISHMENTS_STALE_TIME,
   });
 };
@@ -46,13 +64,15 @@ const allEstablishmentsQueryOptions = ({
 export const useFetchAllEstablishments = ({
   company,
   page_size = 1000,
-  disabled,
-}: FetchEstablishmentParams) => {
+  disabled_establishments,
+  enabled = true,
+}: FetchAllEstablishmentsParams) => {
   return useQuery({
     ...allEstablishmentsQueryOptions({
       company,
       page_size,
-      disabled,
+      disabled_establishments,
+      enabled,
     }),
   });
 };

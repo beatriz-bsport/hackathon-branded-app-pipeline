@@ -245,7 +245,7 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
         </div>
         <div
           data-component="Kaizen-ModalStepper-Body-Content"
-          className="flex flex-1 p-lg overflow-auto"
+          className="flex flex-1 p-lg overflow-y-auto overflow-x-hidden"
         >
           {steps[currentStep].content}
         </div>

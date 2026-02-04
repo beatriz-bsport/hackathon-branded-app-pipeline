@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import isBoolean from 'lodash/isBoolean';
 import { Offer } from '#src/libs/offer/types';
 import { buildUrlParams } from '../../http';
 import {
@@ -132,7 +133,7 @@ export const fromConfigToUrl = (
       conf.levels &&
         conf.levels.length &&
         Object.assign(query, { levels: conf.levels.join(',') });
-      if (conf.cardMode) {
+      if (isBoolean(conf.cardMode)) {
         Object.assign(query, { cardMode: conf.cardMode });
       }
       if (conf.variant) {

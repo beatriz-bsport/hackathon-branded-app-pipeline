@@ -68,7 +68,6 @@ const usePropsFromVariation = (
     coaches: coachList as Coach[],
     hideCoach: hideCoachSelected,
     establishments: establishmentList,
-    allEstablishments: [],
     establishmentGroupList,
     metaActivities: metaActivityList,
     customLevels: levelList as Level[],
@@ -105,7 +104,6 @@ export const MARKETPLACE_CALENDAR_FILTER_PREVIEW: React.FC<{
     <MarketplaceFilterCSSOnly
       {...componentProps}
       showMultiLocalization={showMultiLocalization}
-      theme={theme}
     />
   );
 });

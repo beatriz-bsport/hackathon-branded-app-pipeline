@@ -2,20 +2,16 @@ import React from "react";
 
 import {
   Body,
-  Chip,
-  type ChipProps,
   type GenericTableColumn,
-  type IconName,
-  Tooltip,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { UpcomingActivityFillRate } from "./fill-rate.component";
 import type { TableRowData } from "./types";
 
 type TableColumn = GenericTableColumn<TableRowData>;
-
-const RATE_FULL = 100;
 
 // eslint-disable-next-line react-refresh/only-export-components
 const BodyWithSubtext: React.FC<{
@@ -113,6 +109,8 @@ export const useUpcomingActivitiesColumns = ({
     },
   };
 
+  const isLargeScreen = useMatchMedia("lg");
+
   const columnFillRate: TableColumn = {
     id: "homepage-activities-fill-rate",
     type: "custom",
@@ -123,64 +121,14 @@ export const useUpcomingActivitiesColumns = ({
       </span>
     ),
     render: (row) => {
-      const rate = row.fillRate;
-      const hasPeopleInWaitingList =
-        row.hasWaitingList && row.waitingListCount > 0;
-
-      // Determine occupancy chip color and icon
-      let rateColor: ChipProps["color"];
-      let rateIcon: IconName;
-      if (rate < 50) {
-        rateColor = "critical";
-        rateIcon = "alert-circle";
-      } else if (rate < 70) {
-        rateColor = "warning";
-        rateIcon = "contrast-02";
-      } else {
-        rateColor = "positive";
-        rateIcon = "check-circle";
-      }
-
-      // Occupancy tooltip
-      const occupancyTooltip: string =
-        rate >= RATE_FULL
-          ? t("upcomingClassesPanel.rates.tooltip.classIsFull")
-          : t("upcomingClassesPanel.rates.tooltip.hasEmptySpots", {
-              count: row.emptySpotsCount,
-            });
-
       return (
-        <div className="flex flex-col sm:flex-row items-center gap-2xs ">
-          <div className="h-6 flex items-center">
-            <Tooltip placement="top" label={occupancyTooltip}>
-              <Chip
-                type="weak"
-                size="lg"
-                color={rateColor}
-                iconLeft={rateIcon}
-                label={`${rate}%`}
-              />
-            </Tooltip>
-          </div>
-          {hasPeopleInWaitingList && (
-            <div className="h-6 flex items-center">
-              <Tooltip
-                placement="top"
-                label={t("upcomingClassesPanel.rates.badge.waitingCount", {
-                  count: row.waitingListCount,
-                })}
-              >
-                <Chip
-                  type="weak"
-                  size="lg"
-                  color="info"
-                  iconLeft="clock"
-                  label={`${row.waitingListCount}`}
-                />
-              </Tooltip>
-            </div>
-          )}
-        </div>
+        <UpcomingActivityFillRate
+          emptySpotsCount={row.emptySpotsCount}
+          fillRate={row.fillRate}
+          hasWaitingList={row.hasWaitingList}
+          waitingListCount={row.waitingListCount}
+          tooltipPlacement={isLargeScreen ? "top" : "top-right"}
+        />
       );
     },
   };

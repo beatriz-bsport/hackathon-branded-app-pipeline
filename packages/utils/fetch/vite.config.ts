@@ -15,9 +15,12 @@ export default defineConfig({
   build: {
     outDir: "build",
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"), // Entry point of your library
+      entry: {
+        index: path.resolve(__dirname, "src/index.ts"),
+        "test-utils": path.resolve(__dirname, "src/test-utils.ts"),
+      },
       formats: ["es"], // Specify the output formats
-      fileName: (format) => `lib.${format}.js`, // Customize the output file name
+      fileName: (format, entryName) => `${entryName}.js`, // Customize the output file name
     },
   },
   resolve: {

@@ -308,7 +308,9 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
               giftcards={this.props.giftcards}
               hideTypeSelector={this.props.hideTypeSelector}
               isFranchisor={this.props.isFranchisor}
-              metaActivities={this.props.metaActivities}
+              metaActivities={this.props.metaActivities.map((metaActivity) =>
+                metaActivity.asMutable({ deep: true }),
+              )}
               // @ts-expect-error
               metaActivitiesWorkshop={this.props.metaActivitiesWorkshop}
               onComponentTypeChange={this.onComponentTypeChange}

@@ -147,12 +147,6 @@ export const useNavigationElements = ({
           ...navigationUrls.homepage,
         },
         {
-          icon: "bar-line-chart",
-          id: "dashboard",
-          label: t("menus.dashboard"),
-          ...navigationUrls.dashboard,
-        },
-        {
           icon: "calendar",
           id: "calendar",
           label: t("menus.calendar"),
@@ -322,6 +316,11 @@ export const useNavigationElements = ({
               id: "reports",
               label: t("menus.analytics.reports"),
               ...navigationUrls.reporting,
+            },
+            {
+              id: "dashboard",
+              label: t("menus.dashboard"),
+              ...navigationUrls.dashboard,
             },
           ],
         },

@@ -16,6 +16,7 @@ export const FeatureFlags = {
   NEW_SUBSCRIPTION_CONTRACTS: 'new-subscription-contracts',
   AUDIENCE_HOURLY_TIMEOUT: 'audience_hourly_timeout',
   AUDIENCE_LEAD_FORM_SUBMITTED_EVENT: 'audience_lead_form_submitted_event',
+  BOOKING_ALLOW_ENDLESS_SUBSTITUTIONS: 'booking_allow_endless_substitutions',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

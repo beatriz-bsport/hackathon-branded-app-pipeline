@@ -20,7 +20,7 @@ export const useUpcomingActivitiesRows = (): Array<TableRowData> => {
       id: session.id,
       activityDate: formatDateTime(
         session.date_start,
-        DATETIME_FORMATS.TIME_SIMPLE,
+        DATETIME_FORMATS.SCHEDULE,
         { locale: i18n.language, timeZone: companyTimezone },
       ),
       activityName: session.name,

@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
+import { createTestFetch } from "@bsport/fetch/test";
+
 import {
   createSmartlistAction,
   deleteSmartlistAction,
@@ -17,7 +19,6 @@ import { smartlistStore } from "#src/store";
 import type { Smartlist, SmartlistSearchResult } from "#src/types";
 
 import mockSmartlists from "./fixtures/smartlists.json";
-import { createTestFetch } from "./utils/fetch";
 
 beforeEach(() => {
   smartlistStore.setState({

@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // @ts-expect-error
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, TFunction, WithTranslation } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
@@ -18,7 +18,7 @@ import {
 } from '#src/utils/datetime';
 import MarketPlaceCardOfferV2 from '#src/libs/marketplace/components/@Offer/MarketplaceCardOfferCSSOnly';
 import MarketPlaceOfferListItemComponent from '#src/libs/marketplace/components/@Offer/MarketplaceOfferListItemCSSOnly';
-import { Offer_FULL, Offer } from '#src/libs/offer/types';
+import { OfferREST } from '#src/libs/offer/types';
 import { Level } from '#src/libs/level/types';
 import { Theme } from '#src/libs/theme/types';
 import { generateUniqueOfferIdentifier } from '#src/libs/marketplace/components/@Offer/utils';
@@ -36,21 +36,20 @@ const SPLIT_AFTERNOON = 12;
 const SPLIT_EVENNING = 17;
 const DAY_PARTS = ['morning', 'afternoon', 'evening'];
 
-export type Props = {
-  loading: boolean;
-  onClickOffer: () => void;
-  onClickBook: (offer: Offer_FULL) => void;
-  onClickBookOption: (offer: Offer_FULL) => void;
+export type OwnProps = {
+  loading?: boolean;
+  onClickOffer: (id: number) => void;
+  onClickBook: (offer: OfferREST) => void;
   getLevel: { [id: number]: Level };
   date: DateTime;
   t: TFunction;
   showOfferFilling: boolean;
   hideCoach: boolean;
-  offersByDay: { [key: string]: Array<Offer> };
-  establishments: Array<Establishment>;
+  offersByDay: { [key: string]: Array<OfferREST> };
+  establishments: ReadonlyArray<Establishment>;
   genderCount: Object;
   group: Object;
-  metaActivities: Array<MetaActivity>;
+  metaActivities: { [key: number]: MetaActivity };
   coaches: Array<Coach>;
   showOfferGender?: boolean;
   bookedOffers?: number[];
@@ -63,6 +62,7 @@ export type Props = {
   isSearching: boolean;
   startWeekOnDaySelected?: boolean;
 };
+type Props = OwnProps & WithTranslation;
 
 type State = {
   panelsStatus: Array<boolean>;
@@ -70,7 +70,7 @@ type State = {
 
 export const getWeekOffers = (
   selectedDate: DateTime,
-  offersByDay: { [key: string]: Array<Offer> },
+  offersByDay: { [key: string]: Array<OfferREST> },
   themeOptions?: { startWeekOnDaySelected?: boolean },
 ) => {
   const date_start = themeOptions?.startWeekOnDaySelected
@@ -101,18 +101,12 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     }));
   };
 
-  handleBook = (offer: Offer) => () => {
-    // @ts-expect-error
+  handleBook = (offer: OfferREST) => () => {
     this.props.onClickBook(offer);
   };
 
-  handleBookOption = (offer: Offer) => () => {
-    // @ts-expect-error
-    this.props.onClickBookOption(offer);
-  };
-
   getEstablishment = memoize(
-    (establishments: Array<Establishment>, establishmentId: number) =>
+    (establishments: ReadonlyArray<Establishment>, establishmentId: number) =>
       establishments
         ? establishments.find((est) => est.id === establishmentId)
         : undefined,
@@ -128,29 +122,29 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   getOffersByPeriod = memoize(
     (
       date: DateTime,
-      offersByDay: { [key: string]: Array<Offer> },
+      offersByDay: { [key: string]: Array<OfferREST> },
       startWeekOnDaySelected: boolean,
     ) => {
-      const morning: Array<Array<Offer>> = [];
-      const afternoon: Array<Array<Offer>> = [];
-      const evening: Array<Array<Offer>> = [];
+      const morning: Array<Array<OfferREST>> = [];
+      const afternoon: Array<Array<OfferREST>> = [];
+      const evening: Array<Array<OfferREST>> = [];
       const weekOffers = getWeekOffers(date, offersByDay, {
         startWeekOnDaySelected,
       });
-      (weekOffers ?? []).map((dayOffers: Array<Offer>, i) => {
+      (weekOffers ?? []).map((dayOffers: Array<OfferREST>, i) => {
         morning[i] = dayOffers.filter(
-          (offer: Offer) =>
+          (offer: OfferREST) =>
             DateTime.fromISO(offer.date_start).hour < SPLIT_AFTERNOON,
         );
 
-        afternoon[i] = dayOffers.filter((offer: Offer) => {
+        afternoon[i] = dayOffers.filter((offer: OfferREST) => {
           const offerStarHour = DateTime.fromISO(offer.date_start).hour;
           return (
             offerStarHour >= SPLIT_AFTERNOON && offerStarHour < SPLIT_EVENNING
           );
         });
         evening[i] = dayOffers.filter(
-          (offer: Offer) =>
+          (offer: OfferREST) =>
             DateTime.fromISO(offer.date_start).hour >= SPLIT_EVENNING,
         );
         return true;
@@ -160,7 +154,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   );
 
   getOffersByDay = memoize(
-    (date: DateTime, offersByDay: Record<string, Array<Offer>>) => {
+    (date: DateTime, offersByDay: Record<string, Array<OfferREST>>) => {
       return offersByDay[date.toISODate() ?? 'invalid'] ?? [];
     },
   );
@@ -215,12 +209,12 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     ) : null;
   };
 
-  renderOffersRows = (offersRows: Array<Array<Offer>>) => {
+  renderOffersRows = (offersRows: Array<Array<OfferREST>>) => {
     return (
       <>
         {offersRows.map((row, idx) => (
           <React.Fragment key={`row-${row?.[0]?.id ?? idx}`}>
-            {row.map((o: Offer, index) => {
+            {row.map((o: OfferREST, index) => {
               // @ts-expect-error
               const groupData = this.props.group?.[o?.group];
               if (o === undefined) {
@@ -244,7 +238,6 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 >
                   <MarketPlaceCardOfferV2
                     key={o.id}
-                    coach={o.coach_override || o.coach}
                     coaches={this.props.coaches}
                     establishments={this.props.establishments}
                     genderCount={this.props.genderCount}
@@ -265,9 +258,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     isRegistered={this.props.bookedOffers?.includes(o?.id)}
                     metaActivities={this.props.metaActivities}
                     offer={o}
-                    // @ts-expect-error
                     onClickBook={this.props.onClickBook}
-                    onClickBookOption={this.props.onClickBookOption}
                     onClickOffer={this.props.onClickOffer}
                     showOfferFilling={this.props.showOfferFilling}
                     showOfferGender={this.props.showOfferGender}
@@ -284,8 +275,8 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   renderOffersCardVersion = (
-    periodOffers: Array<Array<Array<Offer>>>,
-    offersByDay: Record<string, Array<Offer>>,
+    periodOffers: Array<Array<Array<OfferREST>>>,
+    offersByDay: Record<string, Array<OfferREST>>,
   ) => {
     const weekOffers = getWeekOffers(this.props.date, offersByDay, {
       startWeekOnDaySelected: this.props.startWeekOnDaySelected,
@@ -305,7 +296,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
 
   renderDayOffersListVersion = (
     main_date: DateTime,
-    offersByDay: Record<string, Array<Offer>>,
+    offersByDay: Record<string, Array<OfferREST>>,
   ) => {
     const day_offers = this.getOffersByDay(main_date, offersByDay);
     const mainDateFormated = formatAsDateWithWeekday(
@@ -327,7 +318,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
         </div>
 
         <div className="bs-week__listMode__content__day__offers">
-          {day_offers.map((offer: Offer, index: number) => {
+          {day_offers.map((offer: OfferREST, index: number) => {
             const establishments = this.props.establishments;
             const coaches = this.props.coaches;
             const position = [];
@@ -377,7 +368,6 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 metaActivity={metaActivity}
                 offer={offer}
                 onBook={this.handleBook(offer)}
-                onBookOption={this.handleBookOption(offer)}
                 onClick={this.props.onClickOffer}
                 // @ts-expect-error
                 position={position}
@@ -478,7 +468,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     <div className="bs-week__header__date__dots">
                       {this.getOffersByDay(currentDate, offersByDay)
                         .slice(0, 3)
-                        .map((offer: Offer, j: number) => (
+                        .map((offer: OfferREST, j: number) => (
                           <div key={`dots-${j}_${offer.id}`}> • </div>
                         ))}
                     </div>
@@ -500,5 +490,4 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   }
 }
 
-// @ts-expect-error
 export default withTranslation()(MarketplaceWeekTimetable);

@@ -91,14 +91,12 @@ export const useSessionCreationPayload = () => {
         ...(configureSessionData.sync_on_spivi !== undefined && {
           sync_on_spivi: configureSessionData.sync_on_spivi,
         }),
+        wellhub_product_id: configureSessionData.wellhub_product_id,
 
         // Advanced options step data
         allow_guest_offer: advancedOptionsData.allow_guest_offer,
         blacklist_tags: advancedOptionsData.blacklist_tags,
         whitelist_tags: advancedOptionsData.whitelist_tags,
-
-        // TODO: wellhub product selection
-        wellhub_product_id: null,
       };
     },
     [getRecurrenceConfig],

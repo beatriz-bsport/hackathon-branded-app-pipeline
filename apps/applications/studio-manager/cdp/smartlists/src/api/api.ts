@@ -10,10 +10,14 @@ import type {
   FetchAutomatedCampaignsParams,
   FetchCampaignSentParams,
   Smartlist,
+  Tag,
+  TagGroup,
+  TagRule,
 } from "./types";
 
-const API_URL = "api/v1/smartlist";
-const COMMUNICATE_API_URL = "api/v1/communication";
+const SMARTLIST_API_V1 = "api/v1/smartlist";
+const COMMUNICATION_API_V1 = "api/v1/communication";
+const CDP_API_V0 = "customer-data-platform/v0";
 
 /**
  * Query Key Factory
@@ -37,13 +41,19 @@ export const smartlistKeys = {
 
   campaignSent: (id: string) =>
     [...smartlistKeys.detail(id), "campaign-sent"] as const,
+
+  tagRules: (id: string) => [...smartlistKeys.all, "tag-rules", id] as const,
+
+  tags: () => [...smartlistKeys.all, "tags"] as const,
+
+  tagGroups: () => [...smartlistKeys.all, "tagGroups"] as const,
 } as const;
 
 /**
  * Fetch functions
  */
 const fetchSmartlistDetail = async (id: string): Promise<Smartlist> => {
-  const { data } = await fetch<Smartlist>(`${API_URL}/group/${id}`);
+  const { data } = await fetch<Smartlist>(`${SMARTLIST_API_V1}/group/${id}`);
 
   return data;
 };
@@ -56,7 +66,7 @@ const fetchAutomatedCampaigns = async (
     exclude_disabled: params.exclude_disabled ?? true,
   });
   const { data } = await fetch<PaginatedResponse<AutomatedCampaign>>(
-    `${API_URL}/automated_campaign/${urlParams}`,
+    `${SMARTLIST_API_V1}/automated_campaign/${urlParams}`,
   );
 
   return data.results;
@@ -72,7 +82,7 @@ const fetchCampaignSent = async (
     page: params.page ?? 1,
   });
   const { data } = await fetch<PaginatedResponse<CampaignSent>>(
-    `${COMMUNICATE_API_URL}/communication_sent/${urlParams}`,
+    `${COMMUNICATION_API_V1}/communication_sent/${urlParams}`,
   );
 
   return data.results;
@@ -82,8 +92,29 @@ const fetchAutomatedCampaignDetail = async (
   messageId: string,
 ): Promise<AutomatedCampaign> => {
   const { data } = await fetch<AutomatedCampaign>(
-    `${API_URL}/automated_campaign/${messageId}/`,
+    `${SMARTLIST_API_V1}/automated_campaign/${messageId}/`,
   );
+
+  return data;
+};
+
+const fetchTagRules = async (smartlistId: string): Promise<TagRule[]> => {
+  const urlParams = buildUrlParams({ smartlist_id: smartlistId });
+  const { data } = await fetch<TagRule[]>(
+    `${SMARTLIST_API_V1}/tagrules/${urlParams}`,
+  );
+
+  return data;
+};
+
+const fetchTags = async (): Promise<Tag[]> => {
+  const { data } = await fetch<Tag[]>(`${CDP_API_V0}/tagging/tag/`);
+
+  return data;
+};
+
+const fetchTagGroups = async (): Promise<TagGroup[]> => {
+  const { data } = await fetch<TagGroup[]>(`${CDP_API_V0}/tagging/tag-group/`);
 
   return data;
 };
@@ -93,7 +124,7 @@ const fetchAutomatedCampaignDetail = async (
  * @param id - ID of the automated campaign to delete
  */
 export const deleteAutomatedCampaign = async (id: number): Promise<void> => {
-  await fetch(`${API_URL}/automated_campaign/${id}/`, {
+  await fetch(`${SMARTLIST_API_V1}/automated_campaign/${id}/`, {
     method: "DELETE",
   });
 };
@@ -133,4 +164,22 @@ export const automatedCampaignDetailQueryOptions = (messageId: string) =>
   queryOptions({
     queryKey: smartlistKeys.automatedCampaignDetail(messageId),
     queryFn: () => fetchAutomatedCampaignDetail(messageId),
+  });
+
+export const tagRulesQueryOptions = (smartlistId: string) =>
+  queryOptions({
+    queryKey: smartlistKeys.tagRules(smartlistId),
+    queryFn: () => fetchTagRules(smartlistId),
+  });
+
+export const tagsQueryOptions = () =>
+  queryOptions({
+    queryKey: smartlistKeys.tags(),
+    queryFn: () => fetchTags(),
+  });
+
+export const tagGroupsQueryOptions = () =>
+  queryOptions({
+    queryKey: smartlistKeys.tagGroups(),
+    queryFn: () => fetchTagGroups(),
   });

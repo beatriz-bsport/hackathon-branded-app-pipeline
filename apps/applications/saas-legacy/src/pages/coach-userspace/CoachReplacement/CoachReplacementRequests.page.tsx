@@ -25,18 +25,18 @@ import {
   PAGE_SIZE,
   ReplacementRequestPaginationByStatus,
 } from '#src/libs/replacement-request/constants';
-import { ReplacementRequestAPIData } from '#src/libs/replacement-request/types';
 import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
 
 import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
 import {
   withEstablishment as groupWithEstablishment,
   getAssociatedEstablishmentGroup,
+  getAllEstablishmentsDict,
 } from '#src/libs/establishment/selectors';
+import { getLevelsDetails } from '#src/libs/level/selectors';
 import {
   withCompleteOffer,
   getAllPendingReplacementRequestsSpecificPagination,
-  getAllTeacherFoundReplacementRequestsSpecificPagination,
 } from '#src/libs/replacement-request/selectors';
 import { fetchAssociatedCoachesList as fetchAssociatedCoachesListAction } from '#src/libs/associated-coach/actions';
 import {
@@ -50,8 +50,14 @@ import {
   cancelReplacementRequest as cancelReplacementRequestAction,
   fetchHasUnseenConfirmedRequests as fetchHasUnseenConfirmedRequestsAction,
   markConfirmedRequestsAsSeen as markConfirmedRequestsAsSeenAction,
+  fetchSubstitutionHistory as fetchSubstitutionHistoryAction,
 } from '#src/libs/replacement-request/actions';
 import { updateReplacementRequestLastSeen as updateReplacementRequestLastSeenAPI } from '#src/libs/replacement-request/api';
+import {
+  ReplacementRequestAPIData,
+  SubstitutionHistoryItem,
+} from '#src/libs/replacement-request/types';
+import { Establishment } from '#src/libs/establishment/types';
 import { WithHandlerType } from '../../../utils/types';
 import { RootState } from '../../../reducers';
 
@@ -331,6 +337,58 @@ const useStyles = makeStyles((theme) => ({
   expandButton: { marginRight: theme.spacing(1) },
 }));
 
+const transformSubstitutionHistoryToReplacementRequests = (
+  items: SubstitutionHistoryItem[],
+  establishmentById: Record<number, Establishment>,
+  levelById: ReturnType<typeof getLevelsDetails>,
+) =>
+  items.map(
+    (item) =>
+      ({
+        id: item.request_id ?? item.offer,
+        reason: item.reason ?? '',
+        status:
+          item.replacement_request_status ??
+          ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_TEACHER_FOUND,
+        company: item.company,
+        date_requested: item.date_requested ?? '',
+        closing_date: item.closing_date ?? item.date_start ?? '',
+        closing_date_override: item.closing_date_override ?? '',
+        coach_answer: [],
+        has_requested_late: false,
+        offer: {
+          id: item.offer,
+          date_start: item.date_start,
+          duration_minute: item.duration_minute,
+          name_override: item.name_override,
+          meta_activity: { id: item.activity, name: item.activity_name },
+          customLevel: (item.level ? levelById[item.level] : null) ?? {
+            name: item.level_name,
+            color: item.level_color,
+          },
+          establishment: {
+            ...(establishmentById[item.establishment_id] ?? {
+              id: item.establishment_id,
+              title: item.establishment_name,
+            }),
+          },
+          coach: { id: item.coach, name: item.coach_name },
+          coach_author: {
+            id: item.coach_author,
+            name: item.coach_author_name,
+          },
+          coach_override: {
+            id: item.coach_override,
+            name: item.coach_override_name,
+          },
+          selected_coach: {
+            id: item.selected_coach,
+            name: item.selected_coach_name,
+          },
+        },
+      } as any),
+  );
+
 const connector = connect(
   (state: RootState) => ({
     companyTheme: state.theme.theme,
@@ -338,21 +396,23 @@ const connector = connect(
     pendingReplacementRequestList: withCompleteOffer(
       getAllPendingReplacementRequestsSpecificPagination,
     )(state),
-    teacherFoundReplacementRequestList: withCompleteOffer(
-      getAllTeacherFoundReplacementRequestsSpecificPagination,
-    )(state),
+    teacherFoundReplacementRequestList:
+      transformSubstitutionHistoryToReplacementRequests(
+        state.replacementRequest.substitutionHistory.items,
+        getAllEstablishmentsDict(state),
+        getLevelsDetails(state),
+      ),
     pendingRequestsPage: state.replacementRequest.pendingRequests.page,
     pendingRequestsCount: state.replacementRequest.pendingRequests.count,
-    teacherFoundRequestsPage:
-      state.replacementRequest.teacherFoundRequests.page,
+    teacherFoundRequestsPage: state.replacementRequest.substitutionHistory.page,
     teacherFoundRequestsCount:
-      state.replacementRequest.teacherFoundRequests.count,
+      state.replacementRequest.substitutionHistory.count,
 
     replacementRequestUpdateLoading:
       state.replacementRequest.updateRequest.loading,
     replacementRequestLoading:
       state.replacementRequest.pendingRequests.loading ||
-      state.replacementRequest.teacherFoundRequests.loading,
+      state.replacementRequest.substitutionHistory.loading,
     offerBulkLoading: state.offer.bulk.loading,
     coachLoading: state.coach.loading,
     metaActivityLoading: state.metaActivity.loading,
@@ -378,6 +438,7 @@ const connector = connect(
     cancelReplacementRequest: cancelReplacementRequestAction,
     fetchHasUnseenConfirmedRequests: fetchHasUnseenConfirmedRequestsAction,
     markConfirmedRequestsAsSeen: markConfirmedRequestsAsSeenAction,
+    fetchSubstitutionHistory: fetchSubstitutionHistoryAction,
   },
 );
 
@@ -413,33 +474,14 @@ const handlers = {
       );
     },
   fetchMyTeacherFoundRequests:
-    ({
-      coach,
-      fetchAllReplacementRequests,
-      fetchOfferBulk,
-      companyId,
-    }: ConnectProps) =>
+    ({ coach, fetchSubstitutionHistory, companyId }: ConnectProps) =>
     (page: number) => {
-      const params = {
+      fetchSubstitutionHistory({
         company: companyId,
         coach: coach.id,
-        status__in: [
-          ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_TEACHER_FOUND,
-        ],
-        offer_is_in_the_past: false,
         page_size: PAGE_SIZE,
         page,
-      };
-      fetchAllReplacementRequests(
-        params,
-        {
-          onSuccess: (replacementRequestList: ReplacementRequestAPIData[]) => {
-            const offerIds = replacementRequestList.map((rr) => rr.offer);
-            fetchOfferBulk(offerIds);
-          },
-        },
-        ReplacementRequestPaginationByStatus.TeacherFound,
-      );
+      });
     },
 };
 

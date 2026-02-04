@@ -13,3 +13,11 @@ export const EventKind = {
 } as const;
 
 export type EventKind = (typeof EventKind)[keyof typeof EventKind];
+
+export const TagRuleKind = {
+  TAG_ON_JOIN_AND_UNTAG_ON_LEFT: 1,
+  TAG_ON_JOIN_AND_KEEP_TAG: 2,
+  TAG_ON_LEFT: 3,
+} as const;
+
+export type TagRuleKind = (typeof TagRuleKind)[keyof typeof TagRuleKind];

@@ -52,7 +52,6 @@ const usePropsFromVariation = (
     forceDayDisplayOnly: false,
     onClickOffer: () => {},
     onClickBook: () => {},
-    onClickBookOption: () => {},
     onSelectDate: () => {},
     getLevel: {},
     loading: false,
@@ -77,8 +76,10 @@ export const MARKETPLACE_WEEK_TIME_TABLE_PREVIEW: React.FC<{
   const componentProps = usePropsFromVariation(variationsSelected);
   return (
     <MarketplaceWeekTimeTableCSSOnly
+      hideCoach={false}
       showOfferFilling={theme.show_offers_filling}
       showOfferGender={theme.show_booked_gender_offer}
+      theme={theme}
       {...componentProps}
     />
   );

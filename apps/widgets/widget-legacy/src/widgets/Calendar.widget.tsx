@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import isBoolean from 'lodash/isBoolean';
 import {
   MarketplaceCalendar,
   CalendarDataContainer,
@@ -29,7 +30,6 @@ import {
 import '../../vendor/map.css';
 
 import { getEnv } from '../utils/env';
-
 import { bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction } from '../libs/bridge/actions';
 
 const getNowISODate = () => {
@@ -119,7 +119,7 @@ export const CalendarWidget = (props: Props) => {
 
   const cardMode =
     config?.cardMode ??
-    (config?.compactMode ? !config?.compactMode : undefined);
+    (isBoolean(config?.compactMode) ? !config.compactMode : undefined);
 
   return (
     <MarketplaceCalendarStyled
@@ -130,7 +130,6 @@ export const CalendarWidget = (props: Props) => {
       goToBook={onClickGoToBook}
       groupSessionByPeriod={config?.groupSessionByPeriod}
       mapContainerClassName="cleanslate"
-      onCompletePurchase={() => {}}
       onlineFilter={{
         is_online: onlineFilter.is_online ?? undefined,
       }}

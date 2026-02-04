@@ -551,6 +551,7 @@
       "trimester": "Last 3 months",
       "year": "Last year",
       "next_year": "Upcoming year",
+      "last_month": "Previous month",
       "next_trimester": "Upcoming three months",
       "next_month": "Upcoming month",
       "next_week": "Upcoming week",

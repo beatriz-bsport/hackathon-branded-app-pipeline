@@ -22,7 +22,7 @@ export const useCreate = ({
         onSuccess?.();
 
         if (popup) {
-          navigate(`/smartlist/${popup.smartlist_id}/campaign`);
+          navigate(`/${popup.smartlist_id}/campaign`);
         }
       },
       onFailure: () => {

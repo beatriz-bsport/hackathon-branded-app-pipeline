@@ -1,1 +1,1 @@
-export { default } from "./AddItemSection";
+export { default as AddItemSection } from "./AddItemSection";

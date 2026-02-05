@@ -11,7 +11,7 @@ import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 import type { Member } from "#src/types/member";
 import fetch from "#src/utils/fetch";
 
-import AddItemSection from "./AddItemSection";
+import { AddItemSection } from "./AddItemSection";
 import { SummarySection } from "./SummarySection";
 import { ADD_ITEM_DEFAULT, DEFAULT_FORM_DATA } from "./defaults";
 import { billingFlowFormStateSchema } from "./schema";

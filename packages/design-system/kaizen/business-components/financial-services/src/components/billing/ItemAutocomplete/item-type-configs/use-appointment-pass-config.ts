@@ -5,6 +5,7 @@ import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 import { itemTypeEndpointConfig } from "./endpoints";
 import { getPriceFromItem } from "./price";
 import type { ItemTypeConfig, RawAppointmentPassResponse } from "./types";
+import { parseTaxPercent } from "./utils";
 
 export const useAppointmentPassConfig =
   (): ItemTypeConfig<RawAppointmentPassResponse> => {
@@ -35,6 +36,7 @@ export const useAppointmentPassConfig =
             durationMonths: item.duration_months ?? null,
             durationYears: item.duration_years ?? null,
             validityDateRange: null,
+            taxPercent: parseTaxPercent(item.tax),
           };
         },
       }),

@@ -60,6 +60,7 @@ export const useGiftcardConfig = (): ItemTypeConfig<RawGiftcardResponse> => {
           id: String(item.id),
           title: item.name,
           priceLabel,
+          taxPercent: 0,
           description:
             descriptionParts.length > 0
               ? descriptionParts.join(DESCRIPTION_PARTS_SEPARATOR)

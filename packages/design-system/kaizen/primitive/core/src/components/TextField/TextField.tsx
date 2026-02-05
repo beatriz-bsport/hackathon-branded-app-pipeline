@@ -274,7 +274,7 @@ const TextField: React.FC<TextFieldProps> = ({
           {prefix && Object.keys(prefix).length > 0 && (
             <div
               data-component="Kaizen-TextField-Prefix"
-              className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weak"
+              className="flex px-xs items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weak"
             >
               {prefix.type === "text" ? (
                 <span>{prefix.value}</span>
@@ -362,7 +362,7 @@ const TextField: React.FC<TextFieldProps> = ({
           {suffix && Object.keys(suffix).length > 0 && (
             <div
               data-component="Kaizen-TextField-Suffix"
-              className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak"
+              className="flex px-xs justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak"
             >
               {suffix?.type === "text" ? (
                 <span>{suffix.value}</span>

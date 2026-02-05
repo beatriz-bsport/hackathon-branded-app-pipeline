@@ -2,6 +2,12 @@ import { FC } from "react";
 
 import { Divider, Title } from "@bsport/kaizen-primitive-core";
 
+import { type SessionVisibilityType } from "#src/events/constants";
+import {
+  sessionCreationCustomizeNameToggleEnabledEvent,
+  sessionCreationVisibilitySelectEvent,
+} from "#src/events/session-creation/events";
+import { analyticsClient } from "#src/utils/analytics";
 import { useTranslation } from "#src/utils/i18n";
 
 import { OverrideToggle } from "./OverrideToggle";
@@ -39,12 +45,31 @@ export const SessionDetails: FC<{
     },
   };
 
+  const trackOverrideToggleChange = (checked: boolean) => {
+    analyticsClient.track(
+      sessionCreationCustomizeNameToggleEnabledEvent({
+        customize_name_toggle_enabled: checked,
+      }),
+    );
+  };
+
+  const trackVisibilityChange = (value: SessionVisibilityType) => {
+    analyticsClient.track(
+      sessionCreationVisibilitySelectEvent({
+        session_visibility: value,
+      }),
+    );
+  };
+
   return (
     <section className="flex flex-col gap-md">
       <Title htmlVariant="h5">
         {t("addSessionModal.steps.configureSession.details.title")}
       </Title>
-      <OverrideToggle fieldIdPrefix={fieldIdPrefix} />
+      <OverrideToggle
+        fieldIdPrefix={fieldIdPrefix}
+        trackOverrideToggleChange={trackOverrideToggleChange}
+      />
       <div className="flex flex-col gap-md ml-xl">
         <SessionNameField fieldIdPrefix={fieldIdPrefix} />
         <SessionDescriptionField fieldIdPrefix={fieldIdPrefix} />
@@ -57,6 +82,7 @@ export const SessionDetails: FC<{
           "addSessionModal.steps.configureSession.details.visibilitySelector.title",
         )}
         buttonClassName="min-w-component-select"
+        trackVisibilityChange={trackVisibilityChange}
       />
       <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>

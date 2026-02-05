@@ -14,6 +14,8 @@ export const SessionCreationStep = [
 
 export const SessionVisibility = ["listed", "unlisted"] as const;
 
+export type SessionVisibilityType = (typeof SessionVisibility)[number];
+
 export const RecurrenceInterval = [
   "weekly",
   "custom-days",

@@ -1023,6 +1023,7 @@ const styles = (theme: Object) => ({
     flexGrow: 1,
     display: 'flex',
     flexDirection: 'column',
+    minWidth: 0,
   },
   fullContent: {
     display: 'flex',

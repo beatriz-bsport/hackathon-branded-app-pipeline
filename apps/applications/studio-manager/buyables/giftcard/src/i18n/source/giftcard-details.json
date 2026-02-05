@@ -1,6 +1,6 @@
 {
   "createModal": {
-    "title": "Create a new Gift Card",
+    "title": "Create a new gift card",
     "buttons": {
       "cancel": "Close",
       "create": "Create"
@@ -12,14 +12,14 @@
     },
     "name": {
       "label": "Name",
-      "errorMaxLength": "Name length must be under {{ maxLength }} characters."
+      "errorMaxLength": "Name length be under {{ maxLength }} characters."
     },
     "description": {
       "label": "Description"
     },
     "value": {
       "label": "Value",
-      "helperText": "This will also be the price of the Gift Card"
+      "helperText": "This will also be the price of the gift card"
     },
     "customValue": {
       "toggle": {

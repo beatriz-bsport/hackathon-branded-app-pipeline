@@ -14,7 +14,7 @@ import { getItemUrl } from "./get-item-url";
 import { useAutocompleteItems } from "./use-autocomplete-items";
 
 // Exclude subscription type from ItemAutocomplete - TODO in a next iteration
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+
 const { subscription: _, ...ITEM_AUTOCOMPLETE_ITEM_KINDS } =
   INVOICE_ITEMS_KINDS;
 export { ITEM_AUTOCOMPLETE_ITEM_KINDS };

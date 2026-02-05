@@ -12,6 +12,7 @@ import {
   CADENCE_MARKETING_ACTION_MAX_NUMBER,
   MarketingActions,
   MarketingActionKind,
+  TagActionType,
 } from './marketing_actions';
 
 import {
@@ -96,6 +97,7 @@ export {
   // MARKETING ACTIONS
   MarketingActions,
   MarketingActionKind,
+  TagActionType,
   CADENCE_MARKETING_ACTION_CHOICES,
   CADENCE_MARKETING_ACTION_MAX_NUMBER,
   // TRIGGER

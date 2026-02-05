@@ -104,7 +104,6 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
       replacementDisplay === ReplacementDisplays.REPLACEMENT_DISPLAY_CALENDAR &&
       reasonCoachCannotAskForReplacement(
         coach,
-        // @ts-expect-error
         offer,
         hasPendingReplacementRequest,
         hasRefusedReplacementRequest,

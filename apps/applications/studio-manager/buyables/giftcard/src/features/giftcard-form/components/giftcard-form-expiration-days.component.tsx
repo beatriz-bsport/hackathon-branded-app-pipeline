@@ -1,7 +1,8 @@
 import type { FC } from "react";
 
+import { FormToggle } from "@bsport/kaizen-business-components/form/toggle";
+
 import { FormNumberField } from "#src/components/form-number-field.component";
-import { FormToggle } from "#src/components/form-toggle.component";
 import { useTranslation } from "#src/utils/i18n";
 
 import { FIELD_CONSTRAINTS } from "../constants";

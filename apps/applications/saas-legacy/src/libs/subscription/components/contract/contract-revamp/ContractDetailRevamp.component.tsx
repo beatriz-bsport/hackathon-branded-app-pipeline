@@ -71,6 +71,7 @@ type Props = {
     data: any,
     options?: { onSuccess?: () => void; onError?: () => void },
   ) => void;
+  openContractForm: (() => void) | undefined;
 };
 
 const ContractDetail = (props: Props) => {
@@ -266,6 +267,7 @@ const ContractDetail = (props: Props) => {
           availableEstablishmentList={props.availableEstablishmentList}
           isManager={manager_only}
           metaActivityList={props.metaActivityList}
+          openContractForm={props.openContractForm}
           pack={props.paymentPack}
           SCTList={props.categoryList}
           updatePaymentPackCompatibilities={

@@ -15,12 +15,12 @@
       }
     },
     "categories": {
-      "member": "Member signup",
+      "member": "Client sign-up",
       "booking": "Bookings",
       "private_booking": "Appointments",
       "recurrent_private_booking": "Recurring appointments",
       "payment_pack": "Penalties",
-      "giftcard": "Gift Cards",
+      "giftcard": "Gift cards",
       "offer": "Sessions",
       "replacement_request": "Substitutions",
       "waiting-list": "Waitlists",
@@ -33,20 +33,20 @@
   "notificationRuleEventDetails": {
     "toast": {
       "create": {
-        "failure": "Couldn't create notification. Please try again. "
+        "failure": "Couldn't create notification rule. Please try again. "
       },
       "update": {
-        "failure": "Couldn't update notification. Please try again. "
+        "failure": "Couldn't update notification rule. Please try again. "
       },
       "delete": {
-        "failure": "Couldn't delete email notification. Please try again. "
+        "failure": "Couldn't delete email notification rule. Please try again. "
       }
     },
     "table": {
       "headers": {
         "name": "Notification",
         "email": "Email",
-        "pushNotification": "Push Notification"
+        "pushNotification": "Push notification"
       },
       "tooltip": {
         "pushNotificationHelper": {

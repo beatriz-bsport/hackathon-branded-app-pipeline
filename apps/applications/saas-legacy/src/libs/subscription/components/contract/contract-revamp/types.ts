@@ -1,14 +1,10 @@
 import type { SCT } from '#src/libs/category/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
-import type {
-  OffPeakSchedule,
-  PaymentPack,
-} from '#src/libs/payment-packs/types';
+import type { OffPeakSchedule } from '#src/libs/payment-packs/types';
 import type { BookkeepingAccount } from '#src/libs/payment/types';
 import type {
   CompatiblePrivateService,
-  PrivatePass,
   PrivateServiceWithSlots,
   ServiceCompatibilityPass,
 } from '#src/libs/private-service/types';
@@ -19,7 +15,6 @@ import type {
 import { Tag } from '#src/libs/tag/types';
 import type { OptionCallback } from '#src/state/types';
 import type { FormikProps } from 'formik';
-import type { ImmutableArray } from 'seamless-immutable';
 
 export type FormValues = Omit<
   ContractWithPaymentPack,
@@ -65,6 +60,8 @@ export type PaymentPackDetails = {
   allow_guest_pass: boolean;
   applies_for_payroll: boolean;
   grants_door_access: boolean;
+
+  start_date_method: number;
 
   expiration_days_before_first_use: number;
 
@@ -114,6 +111,8 @@ export type PaymentPackDetailsForms = Omit<
   penalty_kind: string;
   no_show_penalty_kind: string;
   off_peak_active: boolean;
+
+  start_date_method: number;
 
   establishments: number[] | undefined;
   metaActivities: number[] | undefined;
@@ -175,9 +174,6 @@ export type SubscriptionContractFormDrawerPropsWithoutFormik = {
 
   initial: ContractWithPaymentPack | null;
   tagList?: Array<Tag>;
-
-  paymentPackList: ImmutableArray<PaymentPack>;
-  privatePassList: PrivatePass[];
 
   allowGuestMaster: boolean;
   availableEstablishmentList: Establishment[];

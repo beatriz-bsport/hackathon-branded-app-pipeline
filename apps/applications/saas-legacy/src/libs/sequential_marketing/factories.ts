@@ -11,6 +11,7 @@ import {
   MarketingActionKind,
   MarketingActions,
   CadenceStatus,
+  TagActionType,
 } from './constants';
 import type {
   Cadence,
@@ -163,7 +164,10 @@ export function cadenceStepFactory({
 function stepMarketingActionsTagSpecFactory({
   tag_id,
 }: Partial<StepMarketingActionsTagSpec>): StepMarketingActionsTagSpec {
-  return { tag_id: tag_id || faker.number.int() };
+  return {
+    tag_id: tag_id || faker.number.int(),
+    tag_action_type: TagActionType.ADD,
+  };
 }
 
 function stepMarketingActionsCommunicationSpecFactory({

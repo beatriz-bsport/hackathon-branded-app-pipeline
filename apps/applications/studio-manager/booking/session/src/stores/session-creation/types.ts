@@ -58,28 +58,8 @@ export type SessionEdit = SessionBase & {
   propagate_coach_override_value: number;
 };
 
-export type SessionCreationFormData = Pick<
-  SessionCreate,
-  | "name_override"
-  | "description_override"
-  | "manager_only"
-  | "credits"
-  | "waiting_list_max_size"
-  | "effectif"
-  | "available_on_partnership"
-  | "partner_max_booking_count"
-  | "duration_minute"
-  | "level"
-  | "is_hybrid"
-  | "coach"
-  | "coach_payment_rule"
-  | "broadcast_link"
-  | "establishment"
-  | "room_blueprint"
-  | "sync_on_spivi"
-  | "wellhub_product_id"
-> & {
-  allowCustomNameAndDescription: boolean;
+export type SessionCreationDateTimeFormData = {
+  duration_minute: number;
   startDateTime: Date;
   isRecurring: boolean;
   recurrenceType: RecurrenceType;
@@ -89,6 +69,31 @@ export type SessionCreationFormData = Pick<
   recurrencePattern: MonthlyRecurrencePattern;
   recurrenceEndDate: Date | null;
 };
+
+export type SessionCreationFormData = SessionCreationDateTimeFormData &
+  Pick<
+    SessionCreate,
+    | "name_override"
+    | "description_override"
+    | "manager_only"
+    | "credits"
+    | "waiting_list_max_size"
+    | "effectif"
+    | "available_on_partnership"
+    | "partner_max_booking_count"
+    | "level"
+    | "is_hybrid"
+    | "coach"
+    | "coach_payment_rule"
+    | "broadcast_link"
+    | "establishment"
+    | "room_blueprint"
+    | "sync_on_spivi"
+    | "recurrence_id"
+    | "wellhub_product_id"
+  > & {
+    allowCustomNameAndDescription: boolean;
+  };
 
 export type SessionCreationFormAdvancedOptionsData = Pick<
   SessionCreate,

@@ -65,7 +65,7 @@ export function getXhr() {
             );
 
             resolve({ data: parsed as T, status, backgroundTaskUuid });
-          } catch (error) {
+          } catch (_error) {
             reject(
               new HTTPException({
                 path: uri,

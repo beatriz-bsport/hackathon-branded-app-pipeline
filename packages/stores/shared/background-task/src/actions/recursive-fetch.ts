@@ -76,7 +76,7 @@ export const performRecursiveFetch = async <
 
     delay = RETRY_TIMEOUTS[timeoutIndex];
     nextTimeoutIndex = nextTimeoutIndex + 1;
-  } catch (error) {
+  } catch (_error) {
     delay = RETRY_ON_FAIL_DELAY;
     nextRetryOnFailIndex = nextRetryOnFailIndex + 1;
   }

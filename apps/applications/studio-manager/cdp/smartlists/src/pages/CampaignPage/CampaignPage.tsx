@@ -1,3 +1,10 @@
+import { QueryBoundary } from "#src/components/QueryBoundary";
+import { CampaignScheduledList } from "#src/components/ScheduledCommunicationList/CampaignScheduledList";
+
 export const CampaignPage = () => {
-  return <div>Campaigns content coming soon</div>;
+  return (
+    <QueryBoundary>
+      <CampaignScheduledList />
+    </QueryBoundary>
+  );
 };

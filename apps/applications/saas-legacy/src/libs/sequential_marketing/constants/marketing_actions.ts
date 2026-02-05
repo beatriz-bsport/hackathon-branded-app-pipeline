@@ -6,12 +6,18 @@ export enum MarketingActionKind {
   TAG = 'TAG',
 }
 
+export enum TagActionType {
+  ADD = 'add',
+  REMOVE = 'remove',
+}
+
 export enum MarketingActions {
   WRITTEN_EMAIL = 1,
   SMS = 2,
   PUSH_NOTIFICATION = 3,
   ADD_TAG = 4,
   EMAIL_TEMPLATE = 5,
+  REMOVE_TAG = 6,
 }
 
 export const CADENCE_MARKETING_ACTION_CHOICES = [
@@ -20,6 +26,7 @@ export const CADENCE_MARKETING_ACTION_CHOICES = [
   MarketingActions.PUSH_NOTIFICATION,
   MarketingActions.EMAIL_TEMPLATE,
   MarketingActions.ADD_TAG,
+  MarketingActions.REMOVE_TAG,
 ];
 
 export const CADENCE_COMMUNICATION_FIELD_HEIGHT = 5;

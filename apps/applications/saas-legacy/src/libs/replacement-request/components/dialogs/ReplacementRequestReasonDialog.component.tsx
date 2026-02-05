@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -46,6 +46,14 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
   const [reason, setReason] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!open) {
+      setReason('');
+      setLoading(false);
+      setSuccess(false);
+    }
+  }, [open]);
 
   const { t } = useTranslation('replacement');
 

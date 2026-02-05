@@ -57,7 +57,7 @@
     },
     "error": {
       "missingFields": "Couldn't save your changes: ",
-      "problemWhileSaving": "Unable to save changes - please try again"
+      "problemWhileSaving": "Couldn't save changes. Please try again"
     }
   },
   "leaveConfirmationModal": {
@@ -69,13 +69,13 @@
     "label": "Email subject",
     "placeholder": "Add an email subject",
     "error": {
-      "notProvided": "Add an email subject to continue",
+      "notProvided": "Add an email subject to save your template",
       "tooLong": "Email subject too long"
     }
   },
   "templateDesign": {
     "error": {
-      "notProvided": "Add content to your email template to continue"
+      "notProvided": "Add content to your email template to save it"
     }
   },
   "templateCategory": {

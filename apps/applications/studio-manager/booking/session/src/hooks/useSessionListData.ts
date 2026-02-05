@@ -5,6 +5,7 @@ import {
   type FetchSessionsParams,
   GroupSession,
   type ManagerSession,
+  MetaActivity,
   fetchManagerSessions,
 } from "@bsport/api-book";
 import { Teacher } from "@bsport/api-core";
@@ -33,6 +34,7 @@ import {
 } from "../utils/permission";
 import { SESSIONS_QUERY_KEY } from "./constants";
 import { useFetchSessionsWithPendingRequests } from "./session-api/fetch/use-fetch-sessions-with-pending-requests";
+import { useFetchActivitiesByIds } from "./use-fetch-activities-by-ids";
 import { useFetchGroupSessions } from "./use-fetch-group-sessions";
 import { useFetchEstablishments } from "./useFetchEstablishments";
 import { useFetchTeachers } from "./useFetchTeachers";
@@ -49,6 +51,7 @@ const processSession =
     establishmentsById: Record<number, Establishment>,
     sessionsWithPendingRequests: number[],
     groupSessionsById: Record<number, GroupSession>,
+    activitiesById: Record<number, MetaActivity>,
   ) =>
   (session: ManagerSession): EnrichedSession => {
     const teacher = teachersById[session.coach];
@@ -57,20 +60,22 @@ const processSession =
       : undefined;
     const establishment = establishmentsById[session.establishment];
     const group = session.group ? groupSessionsById[session.group] : undefined;
-
-    const { name_override, ...sessionWithoutOverride } = session;
+    const activity = activitiesById[session.meta_activity];
 
     return {
-      ...sessionWithoutOverride,
+      ...session,
       teacherName: teacherOverride?.name ?? teacher?.name,
       originalTeacherName: teacher?.name,
       establishmentName: establishment?.title,
-      name: name_override || session.name,
+      name: session.name_override || session.name,
       color: session.meta_activity_color,
       hasPendingReplacementRequest: sessionsWithPendingRequests.includes(
         session.id,
       ),
       groupName: group?.name,
+      isTeacherArchived: teacher ? teacher.disabled : false,
+      isEstablishmentArchived: establishment ? establishment.disabled : false,
+      isMetaActivityArchived: activity ? !activity.customer_enabled : false,
     };
   };
 
@@ -85,6 +90,7 @@ const extractRelatedIds = (sessions: ManagerSession[]) => {
   const establishmentIds = new Set<number>();
   const sessionIds = new Set<number>();
   const groupIds = new Set<number>();
+  const activityIds = new Set<number>();
 
   sessions.forEach((session) => {
     teacherIds.add(session.coach);
@@ -96,6 +102,7 @@ const extractRelatedIds = (sessions: ManagerSession[]) => {
     if (session.group) {
       groupIds.add(session.group);
     }
+    activityIds.add(session.meta_activity);
   });
 
   return {
@@ -103,6 +110,7 @@ const extractRelatedIds = (sessions: ManagerSession[]) => {
     establishmentIds: Array.from(establishmentIds),
     sessionIds: Array.from(sessionIds),
     groupIds: Array.from(groupIds),
+    activityIds: Array.from(activityIds),
   };
 };
 
@@ -199,10 +207,8 @@ export const useSessionListData = (
     ),
   );
 
-  const { teacherIds, establishmentIds, sessionIds, groupIds } = useMemo(
-    () => extractRelatedIds(rawSessions),
-    [rawSessions],
-  );
+  const { teacherIds, establishmentIds, sessionIds, groupIds, activityIds } =
+    useMemo(() => extractRelatedIds(rawSessions), [rawSessions]);
   const shouldFetchPendingRequests = useCheckCompanyAddOn(
     ADD_ON_IDENTIFIER_SUBTEACHER_TOOL,
   );
@@ -221,6 +227,10 @@ export const useSessionListData = (
     groupIds,
     !isLoadingSessions,
   );
+  const { data: activitiesById = {} } = useFetchActivitiesByIds(
+    activityIds,
+    !isLoadingSessions,
+  );
 
   const sessions = useMemo(
     () =>
@@ -230,6 +240,7 @@ export const useSessionListData = (
           establishmentsById,
           sessionsWithPendingRequests,
           groupSessionsById,
+          activitiesById,
         ),
       ),
     [
@@ -238,6 +249,7 @@ export const useSessionListData = (
       establishmentsById,
       sessionsWithPendingRequests,
       groupSessionsById,
+      activitiesById,
     ],
   );
 

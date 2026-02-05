@@ -403,7 +403,7 @@
       }
     },
     "stripe": {
-      "update": "Adresse speichern"
+      "update": "Stripe Informationen aktualisieren"
     }
   },
   "platformCustomerEntity": {

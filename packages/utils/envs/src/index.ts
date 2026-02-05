@@ -61,7 +61,7 @@ export function getEnv(url?: string): Environment {
 
     // Default fallback
     return "local";
-  } catch (error) {
+  } catch (_error) {
     // If URL parsing fails, return local
     return "local";
   }

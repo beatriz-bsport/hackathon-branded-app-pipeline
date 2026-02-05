@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import type { FilterProps } from "@bsport/kaizen-primitive-core";
 
 import {
@@ -21,9 +23,10 @@ import { useLevelFilter } from "./use-level-filter";
 import { useLocationFilter } from "./use-location-filter";
 import { useTeacherFilter } from "./use-teacher-filter";
 
-export const useFilterConfig = (): FilterProps => {
+export const useFilterConfig = () => {
   const { t } = useTranslation("sessionList");
   const filters = useSessionListStore(selectFilters);
+  const filterRef = useRef<{ resetFilters: () => void }>(null);
 
   const teacherFilter = useTeacherFilter();
   const establishmentFilter = useEstablishmentFilter();
@@ -35,7 +38,7 @@ export const useFilterConfig = (): FilterProps => {
   const categoryFilter = useCategoryFilter();
   const activityNameFilter = useActivityNameFilter();
 
-  return {
+  const filterConfig: FilterProps = {
     fields: {
       "activity-category": categoryFilter,
       "activity-name": activityNameFilter,
@@ -109,5 +112,11 @@ export const useFilterConfig = (): FilterProps => {
     selectFieldLabel: t("table.filters.label"),
     onFilterChange: setFilters,
     defaultFilters: filters,
+  };
+
+  return {
+    filterConfig,
+    resetFilters: filterRef?.current?.resetFilters,
+    sessionFiltersRef: filterRef,
   };
 };

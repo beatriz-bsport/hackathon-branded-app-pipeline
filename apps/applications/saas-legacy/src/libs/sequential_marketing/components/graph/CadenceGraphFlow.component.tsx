@@ -29,6 +29,7 @@ import type {
 import type { OptionCallback } from '../../../../state/types';
 import { useNodeTypes, useGraphStyles, useGraph } from './hooks';
 import CadenceGraphViewPort from './CadenceGraphViewPort.component';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 const rfStyle = {
   backgroundColor: 'transparent',
@@ -165,6 +166,10 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     width: 0,
     height: 0,
   });
+
+  const showWorkflowDetailsInAllModes = useSafeFlag(
+    FeatureFlags.AUDIENCE_VIEW_WORKFLOW_DETAILS_IN_ALL_MODES,
+  );
 
   const openEntryActionBubble = React.useCallback(
     () => setIsEntryActionBubbleOpen(true),
@@ -319,7 +324,9 @@ export const CadenceGraphFlow: React.FC<Props> = ({
         className={clsx({
           [classes.blurDisabledOverLay]: creationMode,
           [classes.clearDisabledOverLay]:
-            !creationMode && (cadence.active || !cadenceEditMode),
+            !showWorkflowDetailsInAllModes &&
+            !creationMode &&
+            (cadence.active || !cadenceEditMode),
         })}
         id="react-flow-div"
       />
@@ -348,8 +355,8 @@ export const CadenceGraphFlow: React.FC<Props> = ({
         fitViewOptions={{ maxZoom: 1, minZoom: 0 }}
         maxZoom={2}
         nodes={creationMode ? repositionedEntryNode : nodes}
-        nodesConnectable={cadenceEditMode}
-        nodesDraggable={cadenceEditMode}
+        nodesConnectable={showWorkflowDetailsInAllModes || cadenceEditMode}
+        nodesDraggable={showWorkflowDetailsInAllModes || cadenceEditMode}
         nodeTypes={nodeTypes}
         onConnect={onConnect}
         onEdgesChange={onEdgesChange}

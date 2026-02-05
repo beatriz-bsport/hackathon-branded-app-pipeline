@@ -11,8 +11,7 @@ import type {
 import { useRecurrenceConfig } from "./useRecurrenceConfig";
 
 type BuildPayloadParams = {
-  configureSessionData: SessionCreationFormData;
-  advancedOptionsData: SessionCreationFormAdvancedOptionsData;
+  sessionData: SessionCreationFormData & SessionCreationFormAdvancedOptionsData;
   metaActivityId?: number;
 };
 
@@ -25,8 +24,7 @@ export const useSessionCreationPayload = () => {
 
   const buildPayload = useCallback(
     ({
-      configureSessionData,
-      advancedOptionsData,
+      sessionData,
       metaActivityId,
     }: BuildPayloadParams): SessionCreationPayload => {
       if (!metaActivityId) {
@@ -43,7 +41,7 @@ export const useSessionCreationPayload = () => {
         recurrencePattern,
         recurrenceUnit,
         recurrenceWeekdays,
-      } = configureSessionData;
+      } = sessionData;
 
       const recurrenceConfig = getRecurrenceConfig({
         startDateTime,
@@ -65,38 +63,40 @@ export const useSessionCreationPayload = () => {
 
       return {
         // Configure session step data
-        name_override: configureSessionData.allowCustomNameAndDescription
-          ? configureSessionData.name_override
+        name_override: sessionData.allowCustomNameAndDescription
+          ? sessionData.name_override
           : "",
-        description_override: configureSessionData.allowCustomNameAndDescription
-          ? configureSessionData.description_override
+        description_override: sessionData.allowCustomNameAndDescription
+          ? sessionData.description_override
           : "",
-        manager_only: configureSessionData.manager_only,
-        credits: configureSessionData.credits,
-        waiting_list_max_size: configureSessionData.waiting_list_max_size,
-        effectif: configureSessionData.effectif,
-        available_on_partnership: configureSessionData.available_on_partnership,
-        partner_max_booking_count:
-          configureSessionData.partner_max_booking_count,
-        duration_minute: configureSessionData.duration_minute,
-        level: configureSessionData.level,
-        is_hybrid: configureSessionData.is_hybrid,
-        coach: configureSessionData.coach!,
-        coach_payment_rule: configureSessionData.coach_payment_rule,
-        broadcast_link: configureSessionData.broadcast_link,
-        establishment: configureSessionData.establishment!,
-        room_blueprint: configureSessionData.room_blueprint,
+        manager_only: sessionData.manager_only,
+        credits: sessionData.credits,
+        waiting_list_max_size: sessionData.waiting_list_max_size,
+        effectif: sessionData.effectif,
+        available_on_partnership: sessionData.available_on_partnership,
+        partner_max_booking_count: sessionData.partner_max_booking_count,
+        duration_minute: sessionData.duration_minute,
+        level: sessionData.level,
+        is_hybrid: sessionData.is_hybrid,
+        coach: sessionData.coach!,
+        coach_payment_rule: sessionData.coach_payment_rule,
+        broadcast_link: sessionData.broadcast_link,
+        establishment: sessionData.establishment!,
+        room_blueprint: sessionData.room_blueprint,
         meta_activity: metaActivityId,
         dates,
-        ...(configureSessionData.sync_on_spivi !== undefined && {
-          sync_on_spivi: configureSessionData.sync_on_spivi,
+        ...(sessionData.sync_on_spivi !== undefined && {
+          sync_on_spivi: sessionData.sync_on_spivi,
         }),
-        wellhub_product_id: configureSessionData.wellhub_product_id,
+        wellhub_product_id: sessionData.wellhub_product_id,
 
         // Advanced options step data
-        allow_guest_offer: advancedOptionsData.allow_guest_offer,
-        blacklist_tags: advancedOptionsData.blacklist_tags,
-        whitelist_tags: advancedOptionsData.whitelist_tags,
+        allow_guest_offer: sessionData.allow_guest_offer,
+        blacklist_tags: sessionData.blacklist_tags,
+        whitelist_tags: sessionData.whitelist_tags,
+
+        // only for duplication
+        recurrence_id: sessionData.recurrence_id || undefined,
       };
     },
     [getRecurrenceConfig],

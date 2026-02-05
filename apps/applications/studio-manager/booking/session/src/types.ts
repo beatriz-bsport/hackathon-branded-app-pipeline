@@ -1,7 +1,8 @@
 import type { ManagerSession } from "@bsport/api-book";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
-export type EnrichedSession = Omit<ManagerSession, "name_override"> & {
+// Careful, name is always present and represents the final name after overrides
+export type EnrichedSession = ManagerSession & {
   color?: string;
   teacherName?: string;
   originalTeacherName?: string;
@@ -9,6 +10,9 @@ export type EnrichedSession = Omit<ManagerSession, "name_override"> & {
   hasPendingReplacementRequest?: boolean;
   // Name of the group session if the session is part of a group session
   groupName?: string;
+  isTeacherArchived?: boolean;
+  isEstablishmentArchived?: boolean;
+  isMetaActivityArchived?: boolean;
 };
 
 export type TableColumn = GenericTableColumn<EnrichedSession> & {

@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
-
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TableContainer from '@material-ui/core/TableContainer';
 import Paper from '@material-ui/core/Paper';
@@ -18,8 +17,15 @@ import {
   ReplacementRequestStatus,
   PAGE_SIZE,
 } from '#src/libs/replacement-request/constants';
-import { ReplacementRequestAPIData } from '#src/libs/replacement-request/types';
-import { getMyAssociatedCoachProfile } from '#src/libs/associated-coach/selectors';
+import {
+  ReplacementRequest,
+  ReplacementRequestAPIData,
+} from '#src/libs/replacement-request/types';
+import {
+  getMyAssociatedCoachProfile,
+  getCoachLateReplacementRequestStatus,
+} from '#src/libs/associated-coach/selectors';
+import { CoachLateReplacementRequestStatus } from '#src/libs/associated-coach/types';
 import {
   withEstablishment as groupWithEstablishment,
   getAssociatedEstablishmentGroup,
@@ -28,6 +34,7 @@ import {
   getAllReplacementRequests,
   withCompleteOffer,
 } from '#src/libs/replacement-request/selectors';
+import { isReplacementRequestToBeCreatedLate } from '#src/libs/replacement-request/utils';
 import { fetchOfferBulk as fetchOfferBulkAction } from '#src/libs/offer/actions';
 import {
   fetchEstablishments as fetchEstablishmentsAction,
@@ -39,6 +46,7 @@ import {
   fetchAllReplacementRequests as fetchAllReplacementRequestsAction,
   markSubstituteAsUnavailable as markSubstituteAsUnavailableAction,
 } from '#src/libs/replacement-request/actions';
+import { retrieveAssociatedCoachLateReplacementRequestStatus as retrieveAssociatedCoachLateReplacementRequestStatusAction } from '#src/libs/associated-coach/actions';
 import { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
 import ReplacementRequestReasonDialog from '#src/libs/replacement-request/components/dialogs/ReplacementRequestReasonDialog.component';
@@ -57,6 +65,8 @@ export const CoachReplacementConfirmations: React.FC<Props> = (
     fetchAllEstablishmentGroup,
     fetchEstablishments,
     fetchConfirmedReplacementRequests,
+    fetchLateReplacementRequestStatus,
+    lateReplacementRequestStatus,
     companyId,
     replacementRequestCount,
     replacementRequestPage,
@@ -73,8 +83,30 @@ export const CoachReplacementConfirmations: React.FC<Props> = (
   const [selectedRequestId, setSelectedRequestId] = useState<number | null>(
     null,
   );
+  const [interactiveNbLateRequestsLeft, setInteractiveNbLateRequestsLeft] =
+    useState<number | null>(null);
 
   const { t } = useTranslation('replacement');
+
+  const fetchLateReplacementRequestStatusHandler = useCallback(
+    () =>
+      fetchLateReplacementRequestStatus({
+        onSuccess: (replacementStatus) => {
+          if (replacementStatus.is_late_replacement_request_limited) {
+            setInteractiveNbLateRequestsLeft(
+              Math.max(
+                0,
+                replacementStatus.max_late_requests_per_limitation_period -
+                  replacementStatus.nb_late_requests_in_current_limitation_period,
+              ),
+            );
+          } else {
+            setInteractiveNbLateRequestsLeft(null);
+          }
+        },
+      }),
+    [fetchLateReplacementRequestStatus],
+  );
 
   useEffect(() => {
     fetchLevelList({
@@ -86,18 +118,36 @@ export const CoachReplacementConfirmations: React.FC<Props> = (
       company: companyId,
       disabled: false,
     });
+    fetchLateReplacementRequestStatusHandler();
   }, [
     fetchLevelList,
     fetchActivitiesCompany,
     fetchAllEstablishmentGroup,
     fetchEstablishments,
     companyId,
+    fetchLateReplacementRequestStatusHandler,
   ]);
 
   useEffect(
     () => fetchConfirmedReplacementRequests(FIRST_PAGE_INDEX),
     [fetchConfirmedReplacementRequests],
   );
+
+  const selectedRequestIsLate = useMemo(() => {
+    if (!selectedRequestId || !lateReplacementRequestStatus) return false;
+    const selectedRequest = props.replacementRequestList?.find(
+      (rr: ReplacementRequest) => rr.id === selectedRequestId,
+    );
+    if (!selectedRequest?.offer?.date_start) return false;
+    return isReplacementRequestToBeCreatedLate(
+      selectedRequest.offer,
+      lateReplacementRequestStatus.days_before_offer_replacement_request_is_late,
+    );
+  }, [
+    selectedRequestId,
+    lateReplacementRequestStatus,
+    props.replacementRequestList,
+  ]);
 
   const totalPages = useMemo(
     () => Math.ceil(replacementRequestCount / PAGE_SIZE),
@@ -134,6 +184,9 @@ export const CoachReplacementConfirmations: React.FC<Props> = (
         <TableContainer>
           <ActivitiesToReplaceTable
             coach={props.coach}
+            daysBeforeOfferReplacementRequestIsLate={
+              lateReplacementRequestStatus?.days_before_offer_replacement_request_is_late
+            }
             enableMultiLocalization={
               props.companyTheme.enable_multi_localization
             }
@@ -143,6 +196,7 @@ export const CoachReplacementConfirmations: React.FC<Props> = (
               setUnavailableDialogOpen(true);
             }}
             isLoading={isLoading}
+            nbLateRequestsLeft={interactiveNbLateRequestsLeft}
             replacementDisplay={ReplacementDisplays.REPLACEMENT_DISPLAY_CONFIRM}
             replacementRequestList={props.replacementRequestList}
             timezoneName={companyTheme.timezone_name}
@@ -158,9 +212,9 @@ export const CoachReplacementConfirmations: React.FC<Props> = (
         )}
       </Paper>
       <ReplacementRequestReasonDialog
-        atLeastOneLateRequest={false}
-        lateReplacementRequestStatus={null as any}
-        nbLateRequestsLeft={0}
+        atLeastOneLateRequest={selectedRequestIsLate}
+        lateReplacementRequestStatus={lateReplacementRequestStatus}
+        nbLateRequestsLeft={interactiveNbLateRequestsLeft}
         nbSelectedOffers={1}
         onClose={() => {
           setUnavailableDialogOpen(false);
@@ -172,11 +226,13 @@ export const CoachReplacementConfirmations: React.FC<Props> = (
         }}
         onSubmit={(reason, options) => {
           if (selectedRequestId) {
-            props.handleMarkSubstituteAsUnavailable(
-              selectedRequestId,
-              reason,
-              options as unknown as OptionCallback,
-            );
+            props.handleMarkSubstituteAsUnavailable(selectedRequestId, reason, {
+              onSuccess: () => {
+                fetchLateReplacementRequestStatusHandler();
+                options?.onSuccess?.();
+              },
+              onError: options?.onError,
+            });
           }
         }}
         open={unavailableDialogOpen}
@@ -239,6 +295,7 @@ const connector = connect(
     metaActivityLoading: state.metaActivity.loading,
     establishmentLoading: state.establishment.loading,
     offerBulkLoading: state.offer.bulk.loading,
+    lateReplacementRequestStatus: getCoachLateReplacementRequestStatus(state),
   }),
   {
     fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
@@ -248,10 +305,25 @@ const connector = connect(
     fetchAllReplacementRequests: fetchAllReplacementRequestsAction,
     fetchOfferBulk: fetchOfferBulkAction,
     markSubstituteAsUnavailable: markSubstituteAsUnavailableAction,
+    retrieveAssociatedCoachLateReplacementRequestStatus:
+      retrieveAssociatedCoachLateReplacementRequestStatusAction,
   },
 );
 
 const handlers = {
+  fetchLateReplacementRequestStatus:
+    ({
+      coach,
+      retrieveAssociatedCoachLateReplacementRequestStatus,
+      companyId,
+    }: ConnectProps) =>
+    (options?: OptionCallback<CoachLateReplacementRequestStatus>) => {
+      retrieveAssociatedCoachLateReplacementRequestStatus(
+        coach.id,
+        { company: companyId },
+        options,
+      );
+    },
   fetchConfirmedReplacementRequests:
     ({
       fetchAllReplacementRequests,

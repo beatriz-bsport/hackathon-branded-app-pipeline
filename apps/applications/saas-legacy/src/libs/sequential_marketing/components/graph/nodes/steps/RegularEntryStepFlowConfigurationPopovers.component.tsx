@@ -152,6 +152,7 @@ const RegularEntryStepFlowConfigurationPopovers: React.FC<Props> = ({
         <UniqueMarketingActionBubble
           {...data.marketingActionEssentials}
           marketingAction={marketingAction}
+          marketingActionList={data.marketingActionList}
           onCancel={handleCancelMarketingActionBubble}
           onConfirm={handleUpsertMarketingAction}
           onDelete={handleDeleteMarketingAction}

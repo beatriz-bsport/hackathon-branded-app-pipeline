@@ -16,8 +16,9 @@ import { mapFormData } from '../../../pages/form.utils';
 import MetaActivityForm from './MetaActivityForm.component';
 import OfferCreateForm from '../../offer/OfferCreateForm.component';
 import CompatiblePaymentPacks from './MetaActivityCompatiblePacks.component';
-import { OptionCallback } from '../../../state/types';
+import { OptionCallback, PaginatedState } from '../../../state/types';
 
+import type { PaymentPackWithContractId } from '#src/libs/subscription/types';
 import { Establishment } from '../../establishment/types';
 import { PaymentPack } from '../../payment-packs/types';
 import { RoomBlueprint } from '../../spot-scheduling/types';
@@ -40,6 +41,7 @@ type Props = {
   loading?: boolean,
   compatiblePacksLoading: boolean,
   compatiblePaymentPacks: Array<PaymentPack>,
+  paymentPacksWithContractIdPaginated?: PaginatedState<PaymentPackWithContractId>,
   availableEstablishments: Array<Establishment>,
   fetchEstablishments: () => void,
   SCTs: any[],
@@ -273,6 +275,9 @@ export class MetaActivityCreateDrawer extends Component<Props> {
         onSubmit={this.props.createPaymentPack}
         paymentPackCategories={this.props.paymentPackCategories}
         paymentPacks={this.props.compatiblePaymentPacks}
+        paymentPacksWithContractIdPaginated={
+          this.props.paymentPacksWithContractIdPaginated
+        }
         tagList={this.props.allTagsWithTagGroup}
       />
     );

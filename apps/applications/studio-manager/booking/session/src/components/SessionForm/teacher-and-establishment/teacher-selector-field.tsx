@@ -47,6 +47,9 @@ export const TeacherSelectorField: FC<{
             { shouldValidate: true },
           );
         },
+        onClear: () => {
+          setValue("coach", null, { shouldValidate: true });
+        },
       })}
     >
       <Autocomplete

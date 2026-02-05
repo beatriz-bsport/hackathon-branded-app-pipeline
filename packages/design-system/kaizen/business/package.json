@@ -9,15 +9,21 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.es.js",
-      "default": "./dist/index.es.js"
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
     },
-    "./styles": {
-      "default": "./dist/style.css"
+    "./*": {
+      "types": "./dist/components/*/index.d.ts",
+      "import": "./dist/components/*/index.js",
+      "default": "./dist/components/*/index.js"
+    },
+    "./tailwind-content": {
+      "import": "./tailwind-content.mjs",
+      "default": "./tailwind-content.mjs"
     }
   },
-  "main": "./dist/index.es.js",
-  "module": "./dist/index.es.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
@@ -26,24 +32,33 @@
     "build": "tsc && vite build --logLevel warn",
     "ci:compile": "tsc --noEmit",
     "component:add": "pnpm exec hygen component new",
+    "dev": "STORYBOOK_ENV=local STORYBOOK_COMMIT_SHORT_SHA=$(git rev-parse --short=8 HEAD) pnpm run storybook:dev",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "pre-commit": "sh ./scripts/pre-commit.sh",
+    "storybook:build": "pnpm exec storybook build",
+    "storybook:dev": "pnpm exec storybook dev",
     "translation:update": "pnpm run -w translation:update"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/kaizen-tokens": "workspace:*",
+    "@bsport/local-storage-auth-token": "workspace:*",
     "@nx/vite": "21.6.10",
+    "@storybook/addon-docs": "10.1.11",
+    "@storybook/addon-themes": "10.1.11",
+    "@storybook/react-vite": "10.1.11",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.3",
     "@vitejs/plugin-react-swc": "^3.7.2",
     "autoprefixer": "^10.4.20",
     "classnames": "^2.5.1",
+    "glob": "^11.1.0",
     "postcss": "^8.4.49",
+    "storybook": "10.1.11",
     "tailwindcss": "^3.4.14",
     "tslib": "^2.8.1",
     "vite": "^5.4.11",
@@ -51,13 +66,13 @@
     "vite-plugin-svgr": "^4.3.0"
   },
   "peerDependencies": {
+    "@bsport/fetch": "workspace:*",
+    "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
-  },
-  "engines": {
-    "node": ">=18.20.0"
+    "react-dom": "^19.2.0",
+    "zod": "^3.25.64"
   },
   "nx": {
     "tags": [

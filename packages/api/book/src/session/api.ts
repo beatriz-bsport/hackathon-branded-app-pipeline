@@ -14,6 +14,7 @@ import type {
   ManagerSession,
   MinimalSession,
   PaginatedFetchSessionsParams,
+  RecurrenceResponse,
   Session,
   SessionCreationPayload,
 } from "#src/session/types";
@@ -242,4 +243,17 @@ export const createSessionAPI = async (
   const [uri, init] = createSessionAPIConfig(data);
   const { backgroundTaskUuid } = await fetch(uri, init);
   return backgroundTaskUuid;
+};
+
+const fetchRecurrenceFromSessionAPIConfig = (sessionId: number) => {
+  return [`${API_URL_SESSION}/${sessionId}/recurrence/`];
+};
+
+export const fetchRecurrenceFromSessionAPI = async (
+  fetch: Fetch<RecurrenceResponse>,
+  sessionId: number,
+): Promise<RecurrenceResponse> => {
+  const [uri] = fetchRecurrenceFromSessionAPIConfig(sessionId);
+  const { data: recurrenceId } = await fetch(uri);
+  return recurrenceId;
 };

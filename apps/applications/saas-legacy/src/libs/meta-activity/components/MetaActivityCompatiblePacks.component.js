@@ -13,11 +13,14 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { URLS_PERMISSIONS } from '#src/libs/role/constants';
 import PaymentPackFormDrawer from '#src/libs/payment-packs/components/PaymentPackForm';
 import type { PaymentPack } from '../../payment-packs/types';
+import type { PaymentPackWithContractId } from '#src/libs/subscription/types';
+import type { PaginatedState } from '#src/state/types';
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 
 import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
 import CheckPermissionComponent from '../../role/components/CheckPermission.component';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 const PAGE_SIZE = 10;
 
@@ -25,6 +28,7 @@ type Props = {
   t: TFunction,
   goToMetaActivity: (id: number) => void,
   paymentPacks: Array<PaymentPack>,
+  paymentPacksWithContractIdPaginated?: PaginatedState<PaymentPackWithContractId>,
   classes: Object,
   metaActivity: MetaActivity,
   fetchPaymentPacksAsConsumer: (metaActiviyId: number) => void,
@@ -42,6 +46,11 @@ const [ADD_PASS_PERMISSION] = URLS_PERMISSIONS['/payment-pack'];
 export function CompatiblePaymentPacks(props: Props) {
   const [openPaymentPackForm, setOpenPaymentPackForm] =
     React.useState<boolean>(false);
+
+  const shouldDisplayNewSubscriptionContracts = useSafeFlag(
+    FeatureFlags.NEW_SUBSCRIPTION_CONTRACTS,
+  );
+
   const closeDrawer = () => {
     setOpenPaymentPackForm(false);
   };
@@ -63,6 +72,43 @@ export function CompatiblePaymentPacks(props: Props) {
     return null;
   }, []);
 
+  const renderContractWithPaymentPackListItem = useCallback(
+    (paymentPackWithContractId) => {
+      if (paymentPackWithContractId) {
+        const link = paymentPackWithContractId.contract_id
+          ? `/subscription/contract/${paymentPackWithContractId.contract_id}`
+          : `/payment-pack/${paymentPackWithContractId.id}`;
+
+        return (
+          <PaymentPackListItem
+            key={paymentPackWithContractId.id}
+            divider
+            hidePacksNumber
+            onClick={() => openNewBackOfficeWindow(link)}
+            pack={{
+              ...paymentPackWithContractId,
+              // Override flags to hide "manager only" / "not usable by staff" icons for contract-based packs
+              ...(paymentPackWithContractId.contract_id && {
+                manager_only: false,
+                is_usable_by_staff: true,
+              }),
+            }}
+          />
+        );
+      }
+      return null;
+    },
+    [],
+  );
+
+  const paymentPacks = shouldDisplayNewSubscriptionContracts
+    ? props.paymentPacksWithContractIdPaginated
+    : props.paymentPacks;
+
+  const renderPaymentPacks = shouldDisplayNewSubscriptionContracts
+    ? renderContractWithPaymentPackListItem
+    : renderPaymentPackListItem;
+
   return (
     <div>
       <List className={props.classes.list}>
@@ -73,10 +119,10 @@ export function CompatiblePaymentPacks(props: Props) {
         </div>
         <PaginatedListBase
           itemPerPage={PAGE_SIZE}
-          items={props.paymentPacks.items}
+          items={paymentPacks.items}
           listProps={{ disablePadding: 'true', dense: 'true' }}
-          loading={props.paymentPacks.loading}
-          nbItems={props.paymentPacks.count}
+          loading={paymentPacks.loading}
+          nbItems={paymentPacks.count}
           onPageRequested={(page: number, pageSize: number) =>
             props.fetchPaymentPacksAsConsumer(
               props.metaActivity.id,
@@ -84,7 +130,7 @@ export function CompatiblePaymentPacks(props: Props) {
               pageSize,
             )
           }
-          page={props.paymentPacks.page}
+          page={paymentPacks.page}
           renderEmpty={() => (
             <div>
               <Typography
@@ -97,9 +143,10 @@ export function CompatiblePaymentPacks(props: Props) {
               <Divider />
             </div>
           )}
-          renderItem={renderPaymentPackListItem}
+          renderItem={renderPaymentPacks}
         />
       </List>
+
       <div className={props.classes.buttonContainer}>
         <CheckPermissionComponent requiredPermissions={ADD_PASS_PERMISSION}>
           <Button className={props.classes.button} onClick={toggleDrawerOpen}>

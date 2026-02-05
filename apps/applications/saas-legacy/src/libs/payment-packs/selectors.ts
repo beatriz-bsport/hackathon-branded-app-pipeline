@@ -27,6 +27,7 @@ import {
   withAllowed,
   withAllowedOnArray,
 } from '../franchise/selectors';
+import { Contract } from '#src/libs/subscription/types';
 
 type PaymentPackSelector<LPP = number | null> = (
   state: RootState,
@@ -272,6 +273,28 @@ export const getActivityCompatiblePaymentPackAllIds = (state: RootState) =>
 export const getActivityCompatiblePaymentPacks = createSelector(
   [getActivityCompatiblePaymentPackAllIds, getPaymentPackById],
   (idList, paymentPacks) => idList.map((id: number) => paymentPacks[id]),
+);
+
+const getAllContracts = (state: RootState) =>
+  Object.values(state.subscription.contract.byId);
+
+export const getActivityCompatiblePaymentPacksWithContractId = createSelector(
+  [getActivityCompatiblePaymentPacks, getAllContracts],
+  (paymentPacks: PaymentPack[], contracts: Contract[]) => {
+    const contractByPaymentPackId = new Map(
+      contracts
+        .filter((contract) => !!contract?.payment_pack)
+        .map((contract) => [contract.payment_pack, contract]),
+    );
+
+    return paymentPacks.map((paymentPack) => {
+      const contract = contractByPaymentPackId.get(paymentPack.id);
+      return {
+        ...paymentPack,
+        contract_id: contract?.id ?? null,
+      };
+    });
+  },
 );
 
 const _getPaymentPackForBookingIds = (state: RootState) =>

@@ -33,7 +33,7 @@ export async function getAffectedProjects(
     });
     const output = JSON.parse(stdout) as NXPrintAffectedOutput;
     return output.projects;
-  } catch (e) {
+  } catch (_e) {
     throw new Error(`Failed to parse output of "${commandToExecute}`);
   }
 }

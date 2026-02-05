@@ -14,6 +14,7 @@ import MarketingActionContent from './MarketingActionContent.component';
 import { uniqueMarketingActionValidationSchema } from './validationSchemas';
 
 export type Props = {
+  marketingActionList?: StepMarketingActions[];
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit?: (
     value: Partial<StepMarketingActions>,
@@ -34,6 +35,7 @@ const UniqueMarketingActionForm: React.FC<Props> = ({
   emailDetailListLoading,
   emailSummaryList,
   emailSummaryListLoading,
+  marketingActionList,
   tagCategories,
   resolvedGenericTags,
   tagList,
@@ -66,6 +68,7 @@ const UniqueMarketingActionForm: React.FC<Props> = ({
           fetchEmailSummaryList={fetchEmailSummaryList}
           getEmailDetail={getEmailDetail}
           marketingAction={values.marketingAction}
+          marketingActionList={marketingActionList}
           resolvedGenericTags={resolvedGenericTags}
           submit={updateMarketingAction}
           tagCategories={tagCategories}

@@ -118,7 +118,7 @@ async function getProjectEvents(
         // @ts-expect-error unknown object, not Zod schema
         const output: ZodJsonSchema = zodToJsonSchema(obj);
         validatedSchema.push(output);
-      } catch (error) {
+      } catch (_error) {
         LOGGER.unexpectedObject(path.relative(ICHIZEN_ROOT_PATH, registerFile));
       }
     }

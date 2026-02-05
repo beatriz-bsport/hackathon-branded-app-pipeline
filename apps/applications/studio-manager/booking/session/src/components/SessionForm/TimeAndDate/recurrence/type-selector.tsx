@@ -3,6 +3,7 @@ import { FC } from "react";
 import { FormField, useFormContext } from "@bsport/form";
 import { Select, type SelectProps } from "@bsport/kaizen-primitive-core";
 
+import { isRecurrenceTypeValidType } from "#src/components/SessionForm/TimeAndDate/recurrence/utils";
 import { RecurrenceType } from "#src/helpers/recurrence/types";
 import type { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -41,11 +42,15 @@ export const RecurrenceTypeSelector: FC<{ fieldIdPrefix: string }> = ({
     <FormField<SessionCreationFormData, "recurrenceType", SelectProps>
       name="recurrenceType"
       mapProps={() => ({
-        onSelectId: (selectedOptionId) => {
-          setValue("recurrenceType", selectedOptionId as RecurrenceType, {
-            shouldValidate: true,
-            shouldDirty: true,
-          });
+        onChange: (selectedOptionId) => {
+          if (isRecurrenceTypeValidType(selectedOptionId)) {
+            setValue("recurrenceType", selectedOptionId, {
+              shouldValidate: true,
+              shouldDirty: true,
+            });
+          } else {
+            console.warn(`Invalid recurrence type: ${selectedOptionId}`);
+          }
         },
         value: displayValue,
       })}

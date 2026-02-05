@@ -572,7 +572,7 @@ export const Basic: Story = {
                 label="Icon (optional)"
                 items={iconItems as SelectProps["items"]}
                 value={newOption.icon || ""}
-                onSelect={(option: string) => {
+                onChange={(option: string) => {
                   console.log(option);
                   setNewOption({
                     ...newOption,

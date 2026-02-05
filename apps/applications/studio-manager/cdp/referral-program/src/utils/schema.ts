@@ -1,9 +1,10 @@
 import { z } from "zod";
 
 import { i18nInstance } from "#src/utils/i18n";
-import {
-  type ReferralProgramFormData,
+import type {
+  ReferralProgramFormData,
   ReferringRewardOptionType,
+  TimeUnit,
 } from "#src/utils/types";
 
 const httpUrlRegex =
@@ -122,7 +123,7 @@ export const referralProgramSchema = z
       ),
     referringRewardType: z.custom<ReferringRewardOptionType>(),
     applicationTimeLimitInterval: z.coerce.number(),
-    applicationTimeLimitUnit: z.string(),
+    applicationTimeLimitUnit: z.custom<TimeUnit>(),
     toggleTagReferredMember: z.boolean(),
     tagReferredMember: z.number().nullable(),
     toggleLinkRedirection: z.boolean(),

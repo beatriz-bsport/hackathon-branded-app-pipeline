@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useFormController } from "@bsport/form";
 import { ModalStepper, toast } from "@bsport/kaizen-primitive-core";
 
+import { SessionCreationStep } from "#src/events/constants";
+import { sessionCreationCloseButtonClickedEvent } from "#src/events/session-creation/events";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
 import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
 import {
@@ -27,6 +29,7 @@ import {
   SessionCreationFormAdvancedOptionsData,
   SessionCreationFormData,
 } from "#src/stores/session-creation/types";
+import { analyticsClient } from "#src/utils/analytics";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useSessionSchema } from "../SessionForm/schemas";
@@ -92,6 +95,11 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
   const handleCloseButtonClick = () => {
     onClose?.();
     resetForm();
+    analyticsClient.track(
+      sessionCreationCloseButtonClickedEvent({
+        current_step: SessionCreationStep[currentStep],
+      }),
+    );
   };
 
   const handleClickOutisde = () => {

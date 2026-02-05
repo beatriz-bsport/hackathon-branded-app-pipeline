@@ -1,4 +1,3 @@
-import { clsx } from "clsx";
 import type { ReactElement } from "react";
 
 import { type FieldPath, type FieldValues, FormField } from "@bsport/form";
@@ -44,11 +43,7 @@ export const FormNumberField = <
         };
       }}
     >
-      <TextField
-        id={id}
-        className={clsx("w-full", className ?? "")}
-        type="number"
-      />
+      <TextField id={id} className={className ?? ""} type="number" />
     </FormField>
   );
 };

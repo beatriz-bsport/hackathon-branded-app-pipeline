@@ -93,7 +93,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
               id: String(idx),
               label: month,
             }))}
-            onSelect={handleMonthChange}
+            onChange={handleMonthChange}
           />
           <Select
             className={`min-w-[82px]`}
@@ -102,7 +102,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
               id: String(year),
               label: String(year),
             }))}
-            onSelect={handleYearChange}
+            onChange={handleYearChange}
           />
         </div>
       ) : (

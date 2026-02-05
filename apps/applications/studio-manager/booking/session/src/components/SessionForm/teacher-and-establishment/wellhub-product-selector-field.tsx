@@ -26,7 +26,7 @@ export const WellhubProductSelectorField: FC<{
     <FormField<SessionCreationFormData, "wellhub_product_id", SelectProps>
       name="wellhub_product_id"
       mapProps={({ form: { setValue } }) => ({
-        onSelectId: (selectedOptionId) => {
+        onChange: (selectedOptionId) => {
           const nextValue =
             selectedOptionId == null ? null : Number(selectedOptionId);
           setValue("wellhub_product_id", nextValue, {

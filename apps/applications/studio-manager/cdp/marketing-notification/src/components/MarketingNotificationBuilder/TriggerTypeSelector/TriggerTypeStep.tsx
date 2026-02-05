@@ -24,9 +24,16 @@ import { triggerTypeValidationFormSchema } from "#src/utils/schemas/triggerTypeV
 import { type TriggerTypeValidationFormData } from "#src/utils/schemas/types";
 import {
   APPOINTMENT_PASS_TYPE,
-  NotificationType,
+  APPOINTMENT_TYPE,
+  BIRTHDAY_TYPE,
+  ESTABLISHMENT_TYPE,
+  GROUP_ACTIVITY_TYPE,
+  LOCATION_TYPE,
+  type NotificationType,
   PASS_TYPE,
-  TriggerTypeSelectorConfig,
+  SUBSCRIPTION_TYPE,
+  type TriggerTypeSelectorConfig,
+  WORKSHOP_TYPE,
 } from "#src/utils/types";
 
 // Centralized configuration
@@ -71,6 +78,22 @@ const TRIGGER_CONFIG: TriggerTypeSelectorConfig[] = [
   },
 ] as const;
 
+function isValidSelectableNotificationType(
+  notificationType: string,
+): notificationType is NotificationType {
+  return (
+    notificationType === GROUP_ACTIVITY_TYPE ||
+    notificationType === WORKSHOP_TYPE ||
+    notificationType === ESTABLISHMENT_TYPE ||
+    notificationType === LOCATION_TYPE ||
+    notificationType === APPOINTMENT_PASS_TYPE ||
+    notificationType === PASS_TYPE ||
+    notificationType === APPOINTMENT_TYPE ||
+    notificationType === SUBSCRIPTION_TYPE ||
+    notificationType === BIRTHDAY_TYPE
+  );
+}
+
 export const TriggerTypeStep = () => {
   const { t } = useTranslation("marketingNotificationsModal");
   const [shouldRefreshItemSelector, setShouldRefreshItemSelector] =
@@ -108,43 +131,25 @@ export const TriggerTypeStep = () => {
     : TRIGGER_CONFIG;
 
   // Memoized computations
-  const { selectOptions, translationToTypeMap, selectedConfig } =
-    useMemo(() => {
-      const options = triggerList.map((config) => ({
-        id: config.type,
-        label: String(
-          t(
-            //@ts-expect-error bad management of dynamic keys
-            `steps.triggerType.notificationType.choices.${config.translationKey}`,
-          ),
+  const { selectOptions, selectedConfig } = useMemo(() => {
+    const options = triggerList.map((config) => ({
+      id: config.type,
+      label: String(
+        t(
+          //@ts-expect-error bad management of dynamic keys
+          `steps.triggerType.notificationType.choices.${config.translationKey}`,
         ),
-      }));
+      ),
+    }));
+    const currentConfig = triggerList.find(
+      (config) => config.type === notificationType,
+    );
 
-      const translationMap = triggerList.reduce(
-        (acc, config) => {
-          const translation = String(
-            t(
-              //@ts-expect-error bad management of dynamic keys
-              `steps.triggerType.notificationType.choices.${config.translationKey}`,
-            ),
-          );
-
-          acc[translation] = config.type;
-          return acc;
-        },
-        {} as Record<string, NotificationType>,
-      );
-
-      const currentConfig = triggerList.find(
-        (config) => config.type === notificationType,
-      );
-
-      return {
-        selectOptions: options,
-        translationToTypeMap: translationMap,
-        selectedConfig: currentConfig,
-      };
-    }, [notificationType, triggerList]);
+    return {
+      selectOptions: options,
+      selectedConfig: currentConfig,
+    };
+  }, [notificationType, triggerList]);
 
   const handleSelectTriggerItems = ({ itemIds }: { itemIds: number[] }) => {
     setFormValue("itemIds", itemIds, {
@@ -153,8 +158,14 @@ export const TriggerTypeStep = () => {
     handleUpdateFormData();
   };
 
-  const handleTriggerSelect = (translationLabel: string) => {
-    const triggerType = translationToTypeMap[translationLabel];
+  const handleTriggerSelect = (triggerType: string) => {
+    if (!isValidSelectableNotificationType(triggerType)) {
+      console.warn(
+        "[Marketing Notification Builder] Trigger type is not a valid selectable notification type",
+      );
+      return;
+    }
+    setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
     setFormValue("notificationType", triggerType, { shouldValidate: true });
     setFormValue("itemIds", [], { shouldValidate: true });
     handleUpdateFormData();
@@ -212,7 +223,7 @@ export const TriggerTypeStep = () => {
             id="notification-trigger-type-select"
             value={currentLabel}
             items={selectOptions}
-            onSelect={handleTriggerSelect}
+            onChange={handleTriggerSelect}
           />
         </FormField>
         <FormField<

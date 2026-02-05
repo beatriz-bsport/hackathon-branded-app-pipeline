@@ -266,7 +266,7 @@ const Pagination: React.FC<PaginationProps> = ({
               id={props.id ? `${props.id}-select` : undefined}
               size="sm"
               value={currentItems.toString()}
-              onSelect={handleRowsPerPageChange}
+              onChange={handleRowsPerPageChange}
               disabled={disabled}
               items={rowsPerPageOptions.map((option) => ({
                 id: `pagination-option-${option}`,

@@ -10,12 +10,3 @@ export function formatCategoriesForSelector(
     value: category.id.toString(),
   }));
 }
-
-export function getSelectedCategoryId(
-  categories: EmailTemplateCategory[],
-  selectedCategory: string | null,
-): number | null {
-  if (!selectedCategory) return null;
-  const category = categories.find((cat) => cat.name === selectedCategory);
-  return category ? category.id : null;
-}

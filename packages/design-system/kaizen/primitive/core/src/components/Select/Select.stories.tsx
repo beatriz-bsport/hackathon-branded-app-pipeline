@@ -95,18 +95,18 @@ export const Primary: Story = {
     name: "select-1",
     size: "md",
     status: "default",
-    defaultValue: "Select an option",
+    defaultValue: "mango",
     items: [
-      { id: "option-1", label: "Option 1" },
-      { id: "option-2", label: "Option 2" },
-      { id: "option-3", label: "Option 3" },
+      { id: "mango", label: "Option Mango" },
+      { id: "banana", label: "Option Banana" },
+      { id: "orange", label: "Option Orange" },
     ],
     iconLeft: "arrow-right",
     disabled: false,
     helperText: "",
     errorText: "",
     popoverPlacement: undefined,
-    onSelect: (option) => console.log(`Selected option: ${option}`),
+    onChange: (option) => console.log(`Selected option: ${option}`),
     fullWidth: false,
     label: "Select an option",
     required: false,
@@ -122,28 +122,29 @@ export const ControlledValue: Story = {
     const [value, setValue] = useState(args.value);
 
     const handleSelect = (option: string) => {
-      setValue(option.replace("Option", "Opt. "));
+      console.log("option selected : ", option);
+      setValue(option);
     };
 
-    return <Select {...args} value={value} onSelect={handleSelect} />;
+    return <Select {...args} value={value} onChange={handleSelect} />;
   },
   args: {
     id: "select-1",
     name: "select-1",
     size: "md",
     status: "default",
-    value: "Select an option",
     items: [
-      { id: "option-1", label: "Option 1" },
-      { id: "option-2", label: "Option 2" },
-      { id: "option-3", label: "Option 3" },
+      { id: "react", label: "Select React" },
+      { id: "vue", label: "Select Vue" },
+      { id: "angular", label: "Select Angular" },
     ],
+    value: "react",
     iconLeft: "arrow-right",
     disabled: false,
     helperText: "",
     errorText: "",
     popoverPlacement: undefined,
-    onSelect: (option) => console.log(`Selected option: ${option}`),
+    onChange: (option) => console.log(`Selected option: ${option}`),
     label: "Select an option",
     required: true,
   },

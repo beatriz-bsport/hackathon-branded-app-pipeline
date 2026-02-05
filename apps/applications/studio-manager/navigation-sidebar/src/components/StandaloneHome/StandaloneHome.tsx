@@ -32,7 +32,7 @@ export const StandaloneHome = () => {
             i18nInstance.resolvedLanguage?.toLocaleUpperCase() ||
             "Select language"
           }
-          onSelect={(lng) => {
+          onChange={(lng) => {
             i18nInstance.changeLanguage(lng.toLowerCase());
           }}
         />

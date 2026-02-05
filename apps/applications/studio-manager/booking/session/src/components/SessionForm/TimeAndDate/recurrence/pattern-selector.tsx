@@ -4,6 +4,7 @@ import { FormField, useFormContext } from "@bsport/form";
 import { Select, SelectProps } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { isMonthlyRecurrencePatternValidType } from "#src/components/SessionForm/TimeAndDate/recurrence/utils";
 import { getWeekdayPositionInMonth } from "#src/helpers/recurrence/custom/month.utils";
 import {
   CustomRecurrenceUnit,
@@ -90,15 +91,17 @@ export const RecurrencePatternSelector: FC<{ fieldIdPrefix: string }> = ({
     <FormField<SessionCreationFormData, "recurrencePattern", SelectProps>
       name="recurrencePattern"
       mapProps={() => ({
-        onSelectId: (selectedOptionId) => {
-          setValue(
-            "recurrencePattern",
-            selectedOptionId as MonthlyRecurrencePattern,
-            {
+        onChange: (selectedOptionId) => {
+          if (isMonthlyRecurrencePatternValidType(selectedOptionId)) {
+            setValue("recurrencePattern", selectedOptionId, {
               shouldValidate: true,
               shouldDirty: true,
-            },
-          );
+            });
+          } else {
+            console.warn(
+              `Invalid monthly recurrence pattern: ${selectedOptionId}`,
+            );
+          }
         },
         value: displayValue,
       })}

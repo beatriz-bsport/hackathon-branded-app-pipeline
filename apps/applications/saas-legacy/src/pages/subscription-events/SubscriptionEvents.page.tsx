@@ -4,10 +4,13 @@ import { Box, CircularProgress } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { getAuth } from '../../http';
 import { appendSigmaLocale } from '../../utils/sigma';
 import Config from '../../config';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { hasPremiumInsightsAccess } from '#src/pages/insights/utils/premium-insights';
+import type { RootState } from '#src/reducers';
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -51,6 +54,16 @@ interface SubscriptionEventsResponse {
 }
 
 const SubscriptionEvents: React.FC = () => {
+  const featureList = useSelector(
+    (state: RootState) => state.company.feature.data,
+  );
+
+  const hasPremiumInsights = hasPremiumInsightsAccess(featureList);
+
+  if (!hasPremiumInsights) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <ObjectLevelPermissionProvider requiredPermission="report.Club.subscription.allowed_actions.read">
       {(hasPermission: boolean) => {

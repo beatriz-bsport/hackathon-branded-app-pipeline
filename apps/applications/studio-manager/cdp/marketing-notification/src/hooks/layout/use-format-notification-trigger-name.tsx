@@ -3,6 +3,7 @@ import type { MarketingNotification } from "@bsport/store-cdp-marketing-notifica
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { NOTIFICATION_BASE_TYPE } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
+import { getMarketingNotificationType } from "#src/utils/marketingNotification";
 import {
   extractEntityId,
   findEntityName,
@@ -175,8 +176,45 @@ export const useFormatNotificationTriggerName = () => {
     }
   };
 
+  const checkNotificationEntityExistence = ({
+    marketingNotification,
+  }: {
+    marketingNotification: MarketingNotification;
+  }): boolean => {
+    const entityType = getMarketingNotificationType({
+      kind: marketingNotification.kind,
+      eventRules: marketingNotification.event_rules,
+      availableGroupActivitiesById: groupActivitiesById,
+    });
+    if (!entityType) {
+      return false;
+    }
+    const entityIds = extractEntityId(marketingNotification);
+    const entityName = findEntityName(entityType, entityIds, {
+      groupActivitiesById,
+      establishmentsById,
+      appointmentsById,
+      appointmentPassesById,
+      subscriptionsById,
+      passesById,
+      locationsById,
+    });
+
+    // If the notification is a birthday then there is no entity linked, if its a pass/appointment pass
+    // then we also have to check that its not just allowing all passes of their type by default
+    return (
+      entityType === "birthday" ||
+      ("contains_all_payment_packs" in marketingNotification.event_rules &&
+        marketingNotification.event_rules.contains_all_payment_packs) ||
+      ("contains_all_private_passes" in marketingNotification.event_rules &&
+        marketingNotification.event_rules.contains_all_private_passes) ||
+      entityName?.length > 0
+    );
+  };
+
   return {
     formatNotificationTriggerName,
     formatNotificationTriggerTiming,
+    checkNotificationEntityExistence,
   };
 };

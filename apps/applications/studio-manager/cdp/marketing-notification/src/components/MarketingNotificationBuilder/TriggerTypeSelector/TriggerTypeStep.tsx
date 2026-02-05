@@ -270,7 +270,9 @@ export const TriggerTypeStep = () => {
           >
             <Checkbox
               id="checkbox-select-all-pass-notification"
-              label={t("steps.triggerType.selectAllPasses.checkbox.label")}
+              label={t(
+                `steps.triggerType.selectAllPasses.checkbox.label.${notificationType}`,
+              )}
               value={
                 methods.getValues("shouldContainAllPasses")
                   ? "checked"

@@ -12,6 +12,24 @@ import {
 import { useCompanyData } from "#src/hooks/api/use-company-data";
 import type { MarketingNotificationRecipientsTableRowData } from "#src/utils/types";
 
+function getCommunicationTitle(communication: CommunicationSent) {
+  if (communication?.title) {
+    return communication.title;
+  } else if (communication?.data?.subject) {
+    return communication.data.subject;
+  }
+  return "";
+}
+
+function getCommunicationBody(communication: CommunicationSent) {
+  if (communication?.text) {
+    return communication.text;
+  } else if (communication?.data?.body) {
+    return communication.data.body;
+  }
+  return "";
+}
+
 /**
  * Hook for formatting communication recipients data for table display.
  *
@@ -72,6 +90,10 @@ export function useFormatCommunicationRecipients(
           status: communication.status,
           isNotificationRead: mainRecipient?.read_count > 0 || false,
           recipientsRelationshipsCount,
+          notificationContent: {
+            title: getCommunicationTitle(communication),
+            body: getCommunicationBody(communication),
+          },
         };
       });
     }, [communicationSentList, recipients, userLocale, companyTimezone]);

@@ -12,6 +12,8 @@
     "quantity": "Quantity",
     "price": "Price",
     "applyDiscount": "Apply Discount",
+    "discountTypePercentage": "Percentage",
+    "discountTypeAmount": "Amount",
     "clear": "Clear",
     "addItemButton": "Add item",
     "emptyState": {

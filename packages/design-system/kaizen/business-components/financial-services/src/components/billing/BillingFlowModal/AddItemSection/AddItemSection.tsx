@@ -18,7 +18,7 @@ import type { ItemAutocompleteItem } from "#src/components/billing/ItemAutocompl
 import { useSearchItems } from "#src/components/billing/ItemAutocomplete/use-search-items";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
-import { DiscountToggleField } from "./DiscountToggleField";
+import { AddProductDiscount } from "./AddProductDiscount";
 import { ItemAutocompleteField } from "./ItemAutocompleteField";
 import { ItemTypeSelectorField } from "./ItemTypeSelectorField";
 import { PriceField } from "./PriceField";
@@ -94,7 +94,7 @@ const AddItemSection: React.FC = () => {
               <>
                 {selectedItemType !== "giftcard" && <QuantityField />}
                 <PriceField />
-                <DiscountToggleField />
+                <AddProductDiscount />
 
                 <Divider weight="thin" />
 

@@ -53,6 +53,14 @@ export type CampaignSent = {
   total_click: number;
   date_created: string;
   kind: CommunicationKind;
+  title?: string;
+  text?: string;
+  sms_text?: string;
+  data: {
+    subject?: string;
+    body?: string;
+    provider_id?: string;
+  };
   metadata: {
     smartlist_id?: number;
     automated_campaign_id?: number;
@@ -64,7 +72,9 @@ export type CampaignSent = {
  */
 export type FetchCampaignSentParams = {
   smartlist: number;
-  only_automated_campaign: boolean;
+  only_automated_campaign?: boolean;
+  no_automated_campaign?: boolean;
+  without_member_info?: boolean;
   page_size?: number;
   page?: number;
 };

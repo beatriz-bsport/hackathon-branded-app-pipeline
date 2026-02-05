@@ -3,7 +3,7 @@ import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { CampaignScheduled } from "#src/api/types";
 import { i18nInstance } from "#src/utils/i18n";
 
-import { CampaignScheduledTableRowData } from "./CampaignScheduledTableConfig";
+import { CampaignScheduledTableRowData } from "./use-campaign-scheduled-table-columns";
 
 const CAMPAIGN_SCHEDULED_ROW_PREFIX = "campaign-scheduled-row";
 const CAMPAIGN_SCHEDULED_ROW_ID = (campaignId: number) =>

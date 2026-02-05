@@ -84,6 +84,11 @@ export const TimingField = ({
     },
   )}`;
 
+  const notificationTimingError =
+    isNaN(timeValue) || timeValue < 0
+      ? t(`steps.notificationRules.errors.positiveValue.${timeUnit}`)
+      : null;
+
   const handleTimingTemporalityUpdate = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -184,9 +189,9 @@ export const TimingField = ({
           />
         </FormField>
       </div>
-      <Alert type="weak" status="info">
+      <Alert type="weak" status={notificationTimingError ? "critical" : "info"}>
         <Body htmlVariant="p" size="md">
-          {String(notificationTimingSummary)}
+          {notificationTimingError ?? String(notificationTimingSummary)}
         </Body>
       </Alert>
     </div>

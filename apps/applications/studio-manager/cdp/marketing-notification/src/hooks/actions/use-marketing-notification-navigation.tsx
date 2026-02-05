@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 
 import type { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
 
+import { MARKETING_NOTIFICATION_LIST_ITEM_ID } from "#src/utils/constants";
+
 type UseMarketingNotificationNavigationProps = {
   marketingNotification: MarketingNotification[];
   baseNotificationEventId?: number;
@@ -29,6 +31,18 @@ export const useMarketingNotificationNavigation = (
     [marketingNotification],
   );
 
+  const scrollScreenIntoNavigatedTag = (tagId: number) => {
+    const tagElement = document.getElementById(
+      MARKETING_NOTIFICATION_LIST_ITEM_ID(tagId),
+    );
+    if (tagElement) {
+      tagElement.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  };
+
   // Implement maps to avoid the find() calls
   const navigateMarketingNotifications = ({
     direction,
@@ -54,8 +68,13 @@ export const useMarketingNotificationNavigation = (
     const notificationEventToNavigate = mappedMarketingNotificationsById.get(
       nextNotificationEventId,
     );
-    onNavigate?.(notificationEventToNavigate?.id || 0);
-    setSelectedMarketingNotification(notificationEventToNavigate || null);
+    if (!notificationEventToNavigate) {
+      console.warn("Not able to find the next notification to navigate to.");
+      return;
+    }
+    onNavigate?.(notificationEventToNavigate.id);
+    scrollScreenIntoNavigatedTag(notificationEventToNavigate.id);
+    setSelectedMarketingNotification(notificationEventToNavigate);
   };
 
   useEffect(() => {

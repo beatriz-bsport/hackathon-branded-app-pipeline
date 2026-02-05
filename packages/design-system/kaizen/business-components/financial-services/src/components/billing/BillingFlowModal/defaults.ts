@@ -18,7 +18,6 @@ export const ADD_ITEM_DEFAULT = {
   addItemDiscountPercent: 0,
   addItemDiscountAmountCts: 0,
   addItemDiscountReason: "",
-  isDiscountReasonRequired: false,
 } as const;
 
 /**

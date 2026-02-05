@@ -47,6 +47,8 @@ export type ItemAutocompleteItem = {
   durationMonths?: number | null;
   durationYears?: number | null;
   validityDateRange?: { lower: string; upper: string } | null;
+  // Giftcard specific fields.
+  hiddenFromMemberArea?: boolean;
 };
 
 type ItemAutocompleteTextfieldProps = Omit<

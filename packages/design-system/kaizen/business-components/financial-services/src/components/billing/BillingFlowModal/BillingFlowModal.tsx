@@ -14,6 +14,7 @@ import fetch from "#src/utils/fetch";
 import { AddItemSection } from "./AddItemSection";
 import { SummarySection } from "./SummarySection";
 import { ADD_ITEM_DEFAULT, DEFAULT_FORM_DATA } from "./defaults";
+import { useInvoiceConfiguration } from "./hooks/use-invoice-configuration";
 import { billingFlowFormStateSchema } from "./schema";
 import type { BillingFlowModalProps } from "./types";
 
@@ -27,6 +28,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   const formId = `billing-flow-modal-${useId()}`;
 
   const [isMemberSelectorOpen, setIsMemberSelectorOpen] = useState(false);
+  const { isDiscountReasonRequired } = useInvoiceConfiguration();
 
   const methods = useFormController({
     mode: "onBlur",
@@ -35,7 +37,6 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
       ...DEFAULT_FORM_DATA,
       ...ADD_ITEM_DEFAULT,
       memberId: memberId ?? undefined,
-      isDiscountReasonRequired: false,
     },
   });
 
@@ -62,8 +63,17 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    setValue("isDiscountReasonRequired", isDiscountReasonRequired);
+  }, [isDiscountReasonRequired, setValue]);
+
   const handleClose = () => {
-    methods.reset();
+    methods.reset({
+      ...DEFAULT_FORM_DATA,
+      ...ADD_ITEM_DEFAULT,
+      memberId: memberId ?? undefined,
+      isDiscountReasonRequired,
+    });
     setIsMemberSelectorOpen(false);
     onClose();
   };

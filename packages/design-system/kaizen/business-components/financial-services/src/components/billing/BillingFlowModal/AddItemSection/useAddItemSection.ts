@@ -26,6 +26,9 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
   const selectedItemId = watch("addItemSelectedItemId");
   const quantity = watch("addItemQuantity");
   const priceCts = watch("addItemPriceCts");
+  const applyDiscount = watch("addItemApplyDiscount");
+  const discountReason = watch("addItemDiscountReason");
+  const isDiscountReasonRequired = watch("isDiscountReasonRequired");
 
   const resetAddItemFields = useCallback(
     (options?: { keepItemType?: boolean }) => {
@@ -38,7 +41,11 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
           current.addItemSelectedItemType;
       }
 
-      reset({ ...current, ...addItemDefaults });
+      reset({
+        ...current,
+        ...addItemDefaults,
+        isDiscountReasonRequired: current.isDiscountReasonRequired,
+      });
     },
     [getValues, reset],
   );
@@ -59,6 +66,16 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
 
     const discountPercent = watch("addItemDiscountPercent");
     const discountAmountCts = watch("addItemDiscountAmountCts");
+
+    const isDiscountApplied =
+      applyDiscount && (discountPercent > 0 || discountAmountCts > 0);
+    if (
+      isDiscountApplied &&
+      isDiscountReasonRequired &&
+      !discountReason.trim()
+    ) {
+      return null;
+    }
 
     return {
       type: selectedItemType,
@@ -83,7 +100,9 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
     selectedItem,
     selectedItemId,
     selectedItemType,
-    watch,
+    applyDiscount,
+    discountReason,
+    isDiscountReasonRequired,
   ]);
 
   const handleAddItem = useCallback(() => {

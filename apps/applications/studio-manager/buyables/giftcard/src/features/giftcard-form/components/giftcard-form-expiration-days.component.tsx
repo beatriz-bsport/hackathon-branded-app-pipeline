@@ -1,8 +1,8 @@
 import type { FC } from "react";
 
+import { FormNumberField } from "@bsport/kaizen-business-components/form/number-field";
 import { FormToggle } from "@bsport/kaizen-business-components/form/toggle";
 
-import { FormNumberField } from "#src/components/form-number-field.component";
 import { useTranslation } from "#src/utils/i18n";
 
 import { FIELD_CONSTRAINTS } from "../constants";
@@ -40,6 +40,7 @@ export const GiftcardFormExpirationDays: FC<
               type: "text",
               value: t("formFields.expirationDays.input.suffixDays"),
             }}
+            className="w-full"
           />
         </div>
       )}

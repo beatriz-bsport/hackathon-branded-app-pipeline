@@ -2,10 +2,10 @@ import type { FC } from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { getCurrencyCode } from "@bsport/currency";
+import { FormNumberField } from "@bsport/kaizen-business-components/form/number-field";
 import { FormToggle } from "@bsport/kaizen-business-components/form/toggle";
 import { Link } from "@bsport/kaizen-primitive-core";
 
-import { FormNumberField } from "#src/components/form-number-field.component";
 import { useTranslation } from "#src/utils/i18n";
 
 import { FIELD_CONSTRAINTS } from "../constants";
@@ -52,6 +52,7 @@ export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
     },
     min: FIELD_CONSTRAINTS.PRICE_MIN,
     max: FIELD_CONSTRAINTS.PRICE_MAX,
+    className: "w-full",
   } as const;
 
   return (

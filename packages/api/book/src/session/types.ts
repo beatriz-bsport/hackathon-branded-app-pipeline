@@ -119,7 +119,10 @@ export type PaginatedFetchSessionsParams = FetchSessionsParams & {
   page_size?: number;
 
   /** Page number of the results*/
-  page: number;
+  page?: number;
+
+  /** Ordering of the results */
+  ordering?: string;
 };
 
 export type CancelSessionParams = {

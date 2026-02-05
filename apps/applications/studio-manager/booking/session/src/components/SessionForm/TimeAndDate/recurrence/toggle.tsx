@@ -6,9 +6,10 @@ import { Toggle, ToggleProps } from "@bsport/kaizen-primitive-core";
 import type { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-export const RecurrenceToggle: FC<{ fieldIdPrefix: string }> = ({
-  fieldIdPrefix,
-}) => {
+export const RecurrenceToggle: FC<{
+  fieldIdPrefix: string;
+  trackRecurrenceToggle?: (isRecurring: boolean) => void;
+}> = ({ fieldIdPrefix, trackRecurrenceToggle }) => {
   const { t } = useTranslation("sessionCreation");
 
   const { watch } = useFormContext<SessionCreationFormData>();
@@ -24,6 +25,7 @@ export const RecurrenceToggle: FC<{ fieldIdPrefix: string }> = ({
             shouldValidate: true,
             shouldDirty: true,
           });
+          trackRecurrenceToggle?.(checked);
           if (!checked) {
             form.clearErrors("recurrenceWeekdays");
           }

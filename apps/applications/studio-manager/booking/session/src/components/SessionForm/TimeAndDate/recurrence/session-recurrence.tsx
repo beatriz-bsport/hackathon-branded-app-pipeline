@@ -17,7 +17,8 @@ import { RecurrenceWeekdaysSelector } from "./weekdays-selector";
 
 export const SessionRecurrence: FC<{
   fieldIdPrefix: string;
-}> = ({ fieldIdPrefix }) => {
+  trackRecurrenceToggle?: (isRecurring: boolean) => void;
+}> = ({ fieldIdPrefix, trackRecurrenceToggle }) => {
   const { t } = useTranslation("sessionCreation");
 
   const { watch } = useFormContext<SessionCreationFormData>();
@@ -52,7 +53,10 @@ export const SessionRecurrence: FC<{
 
   return (
     <>
-      <RecurrenceToggle fieldIdPrefix={fieldIdPrefix} />
+      <RecurrenceToggle
+        fieldIdPrefix={fieldIdPrefix}
+        trackRecurrenceToggle={trackRecurrenceToggle}
+      />
       {isRecurring && (
         <div className="flex flex-col gap-md ml-xl">
           <RecurrenceTypeSelector fieldIdPrefix={fieldIdPrefix} />

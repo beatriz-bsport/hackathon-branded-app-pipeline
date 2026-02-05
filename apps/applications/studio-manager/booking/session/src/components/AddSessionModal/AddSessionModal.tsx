@@ -4,7 +4,10 @@ import { useFormController } from "@bsport/form";
 import { ModalStepper, toast } from "@bsport/kaizen-primitive-core";
 
 import { SessionCreationStep } from "#src/events/constants";
-import { sessionCreationCloseButtonClickedEvent } from "#src/events/session-creation/events";
+import {
+  sessionCreationBackClickedEvent,
+  sessionCreationCloseButtonClickedEvent,
+} from "#src/events/session-creation/events";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
 import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
 import {
@@ -113,7 +116,20 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
   };
 
   const handleClickOnCancel = () => {
-    if (currentStep === SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY) {
+    const isFirstStep =
+      currentStep === SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY;
+
+    analyticsClient.track(
+      isFirstStep
+        ? sessionCreationCloseButtonClickedEvent({
+            current_step: SessionCreationStep[currentStep],
+          })
+        : sessionCreationBackClickedEvent({
+            current_step: SessionCreationStep[currentStep],
+          }),
+    );
+
+    if (isFirstStep) {
       resetForm();
     }
     goToPreviousStep();

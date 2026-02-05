@@ -42,7 +42,14 @@
   "page": {
     "campaignScheduled": {
       "title": "Scheduled Campaigns"
+    },
+    "sentCampaigns": {
+      "title": "Sent Campaigns"
     }
+  },
+  "actions": {
+    "openPopUps": "Review pop-ups",
+    "generateReport": "Generate Report"
   },
   "table": {
     "campaignScheduled": {
@@ -60,6 +67,29 @@
       },
       "loadingState": {
         "description": "Loading scheduled campaigns..."
+      }
+    },
+    "campaignSent": {
+      "headers": {
+        "sentDate": "Sent date",
+        "campaignName": "Campaign",
+        "campaignAnalytics": "Analytics"
+      },
+      "analytics": {
+        "recipients": "Recipients",
+        "deliveryRate": "Delivery rate",
+        "openCount": "Opens",
+        "clickCount": "Clicks"
+      },
+      "moreActions": {
+        "label": "More actions",
+        "preview": "Preview"
+      },
+      "emptyState": {
+        "description": "Nothing sent yet"
+      },
+      "loadingState": {
+        "description": "Loading sent campaigns ..."
       }
     }
   }

@@ -8,11 +8,11 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
-import { useFetchCampaignScheduled } from "#src/api/use-fetch-scheduled-campaigns";
+import { useFetchCampaignScheduled } from "#src/api/use-fetch-campaign-scheduled";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
-import { getTableColumns } from "./CampaignScheduledTableConfig";
+import { useCampaignScheduledTableColumns } from "./use-campaign-scheduled-table-columns";
 import { formatCampaignScheduledTableRow } from "./utils";
 
 export const CampaignScheduledList = () => {
@@ -25,8 +25,7 @@ export const CampaignScheduledList = () => {
 
   const tableRows = formatCampaignScheduledTableRow(campaignScheduled);
 
-  const tableColumns = getTableColumns({
-    t,
+  const tableColumns = useCampaignScheduledTableColumns({
     onEdit: (campaignId) =>
       console.log("Placeholder : Edit scheduled campaign : ", campaignId),
     onDelete: (campaignId) =>
@@ -63,6 +62,9 @@ export const CampaignScheduledList = () => {
                 className="flex flex-row gap-sm"
                 onClick={() => toggleOpen()}
               >
+                <Title htmlVariant="h1" weight="strong">
+                  {t("page.campaignScheduled.title")}
+                </Title>
                 <Button
                   label="Open"
                   intent="flat"
@@ -71,9 +73,6 @@ export const CampaignScheduledList = () => {
                   icon={isCollapseOpen ? "chevron-down" : "chevron-up"}
                   size="md"
                 />
-                <Title htmlVariant="h1" weight="strong">
-                  {t("page.campaignScheduled.title")}
-                </Title>
               </div>
             );
           }}

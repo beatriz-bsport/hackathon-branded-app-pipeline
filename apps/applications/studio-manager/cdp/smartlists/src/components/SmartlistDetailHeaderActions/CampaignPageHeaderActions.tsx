@@ -1,5 +1,3 @@
-import { useCallback, useMemo } from "react";
-
 import {
   Button,
   type Item,
@@ -9,51 +7,33 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
-const EDIT_ACTION_ID = "edit";
-const DELETE_ACTION_ID = "delete";
+export const GENERATE_REPORT_ACTION_ID = "generateReport";
 
-type NotificationActionsMenuProps = {
-  campaignId: number;
-  onEdit: (notificationId: number) => void;
-  onDelete: (notificationId: number) => void;
+type CampaignPageHeaderActionsProps = {
+  onGenerateReport: () => void;
 };
 
-export const CampaignScheduledActionDropdown = ({
-  onEdit,
-  onDelete,
-  campaignId,
-}: NotificationActionsMenuProps) => {
+export const CampaignPageHeaderActions = ({
+  onGenerateReport,
+}: CampaignPageHeaderActionsProps) => {
   const { t } = useTranslation("campaign");
 
   const handleMenuItemClick = (itemId: string) => {
     switch (itemId) {
-      case EDIT_ACTION_ID:
-        onEdit(campaignId);
-        break;
-      case DELETE_ACTION_ID:
-        onDelete(campaignId);
+      case GENERATE_REPORT_ACTION_ID:
+        onGenerateReport();
         break;
       default:
         break;
     }
   };
 
-  const getMenuItems = useCallback((): Item[] => {
-    return [
-      {
-        id: EDIT_ACTION_ID,
-        label: t("table.campaignScheduled.moreActions.edit"),
-        iconLeft: "edit-02",
-      },
-      {
-        id: DELETE_ACTION_ID,
-        label: t("table.campaignScheduled.moreActions.delete"),
-        iconLeft: "trash-01",
-      },
-    ];
-  }, []);
-
-  const menuItems = useMemo(() => getMenuItems(), [getMenuItems]);
+  const menuItems: Item[] = [
+    {
+      id: GENERATE_REPORT_ACTION_ID,
+      label: t("actions.generateReport"),
+    },
+  ];
 
   return (
     <Popover>

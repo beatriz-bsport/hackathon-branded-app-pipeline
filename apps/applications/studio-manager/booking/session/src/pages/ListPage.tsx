@@ -17,8 +17,10 @@ import { DeleteSessionModal } from "#src/components/SessionList/detail-actions/d
 import { DuplicateSessionModal } from "#src/components/SessionList/detail-actions/duplicate-session-modal";
 import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/restore-session-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
+import { sessionCreationOpensEvent } from "#src/events/session-creation/events";
 import { useModal } from "#src/hooks/use-modal";
 import { ModalType } from "#src/types";
+import { analyticsClient } from "#src/utils/analytics";
 import { useTranslation } from "#src/utils/i18n";
 import { useAnyObjectLevelPermissions } from "#src/utils/permission";
 
@@ -118,6 +120,11 @@ const ListPage: React.FC = () => {
     resetFilters?.();
   }, [resetFilters]);
 
+  const onClickAddSession = useCallback(() => {
+    openAddSessionModal();
+    analyticsClient.track(sessionCreationOpensEvent({}));
+  }, [openAddSessionModal]);
+
   const isFilterEmpty = useMemo(() => {
     return (
       isEmpty(filters) ||
@@ -139,7 +146,7 @@ const ListPage: React.FC = () => {
       ctaButtonConfig: hasCreateSessionPermission
         ? {
             label: t("addSession"),
-            onClick: openAddSessionModal,
+            onClick: onClickAddSession,
             iconLeft: "plus",
             intent: "call-to-action",
             color: "main",
@@ -174,10 +181,10 @@ const ListPage: React.FC = () => {
         intent="call-to-action"
         color="main"
         label={t("addSession")}
-        onClick={openAddSessionModal}
+        onClick={onClickAddSession}
       />
     );
-  }, [t, openAddSessionModal, hasCreateSessionPermission]);
+  }, [t, onClickAddSession, hasCreateSessionPermission]);
 
   const sessionDays = useMemo(
     () =>

@@ -7,6 +7,7 @@ import { SessionCreationStep } from "#src/events/constants";
 import {
   sessionCreationBackClickedEvent,
   sessionCreationCloseButtonClickedEvent,
+  sessionCreationNextClickedEvent,
 } from "#src/events/session-creation/events";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
 import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
@@ -209,6 +210,11 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       }
     }
     if (!isLastStep) {
+      analyticsClient.track(
+        sessionCreationNextClickedEvent({
+          current_step: SessionCreationStep[currentStep],
+        }),
+      );
       goToNextStep();
     }
   };

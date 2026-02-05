@@ -71,7 +71,7 @@ export const sessionCreationCreateSessionButtonClickedEventSchema = z
       .boolean()
       .describe("Whether the session being created is recurrent"),
     session_recurrence_end_date: z
-      .date()
+      .string()
       .nullable()
       .describe(
         "The end date of the session recurrence, null if the session is not recurrent",

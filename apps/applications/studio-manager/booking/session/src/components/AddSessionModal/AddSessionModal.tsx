@@ -3,12 +3,20 @@ import { useEffect } from "react";
 import { useFormController } from "@bsport/form";
 import { ModalStepper, toast } from "@bsport/kaizen-primitive-core";
 
-import { SessionCreationStep } from "#src/events/constants";
+import {
+  RecurrenceIntervalMapping,
+  SessionCreationStep,
+} from "#src/events/constants";
 import {
   sessionCreationBackClickedEvent,
   sessionCreationCloseButtonClickedEvent,
+  sessionCreationCreateSessionButtonClickedEvent,
   sessionCreationNextClickedEvent,
 } from "#src/events/session-creation/events";
+import {
+  CustomRecurrenceUnit,
+  RecurrenceType,
+} from "#src/helpers/recurrence/types";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
 import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
 import {
@@ -164,6 +172,35 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     }
 
     if (currentStep === SESSION_CREATION_STEPS.ADVANCED_OPTIONS) {
+      // Only for Mixpanel tracking purpose
+
+      const isRecurring = configureSessionFormData.isRecurring;
+
+      const recurrenceIntervalToTrack =
+        configureSessionFormData.recurrenceType === RecurrenceType.WEEKLY
+          ? RecurrenceIntervalMapping[RecurrenceType.WEEKLY]
+          : RecurrenceIntervalMapping[configureSessionFormData.recurrenceUnit];
+
+      const shouldTrackRecurrenceRule =
+        isRecurring &&
+        configureSessionFormData.recurrenceUnit === CustomRecurrenceUnit.MONTHS;
+
+      analyticsClient.track(
+        sessionCreationCreateSessionButtonClickedEvent({
+          session_is_recurrent: isRecurring,
+          session_recurrence_end_date: isRecurring
+            ? (configureSessionFormData.recurrenceEndDate?.toISOString() ??
+              null)
+            : null,
+          session_recurrence_interval_selected: isRecurring
+            ? recurrenceIntervalToTrack
+            : null,
+          session_recurrence_rule: shouldTrackRecurrenceRule
+            ? configureSessionFormData.recurrencePattern
+            : null,
+        }),
+      );
+
       const advancedData = advancedOptionsMethods.getValues();
       setStepValid(
         SESSION_CREATION_STEPS.ADVANCED_OPTIONS,

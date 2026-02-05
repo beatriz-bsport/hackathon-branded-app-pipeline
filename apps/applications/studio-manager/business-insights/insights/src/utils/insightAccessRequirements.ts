@@ -13,6 +13,13 @@ import {
 export type InsightAccessRequirement = {
   permission: DeepKeys<ObjectLevelPermissions>;
   featureFlag?: InsightFlagId;
+  upsell?: {
+    identifier: number;
+  };
+};
+
+const PREMIUM_INSIGHTS_UPSELL = {
+  identifier: 45,
 };
 
 /**
@@ -25,14 +32,17 @@ export const INSIGHT_ACCESS_REQUIREMENTS = {
     // Trial Analysis is gated by invoices read
     permission: "report.Payments.invoices.allowed_actions.read",
     featureFlag: InsightFlags.TRIAL_ANALYSIS,
+    upsell: undefined,
   },
   recurring: {
     permission: "report.Club.subscription.allowed_actions.read",
     featureFlag: undefined,
+    upsell: undefined,
   },
   schedule: {
     permission: "report.Bookings.bookings.allowed_actions.read",
     featureFlag: InsightFlags.SCHEDULE_ANALYSIS,
+    upsell: PREMIUM_INSIGHTS_UPSELL,
   },
 } as const satisfies Record<string, InsightAccessRequirement>;
 

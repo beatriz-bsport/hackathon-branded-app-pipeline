@@ -138,6 +138,7 @@ export type TagGroup = {
 export type TagRuleWithTag = TagRule & {
   tagName: string;
   tagGroupName?: string;
+  tagColor?: string;
 };
 
 /**

@@ -89,9 +89,11 @@ const TagRulesContent = () => {
                 ? `${row.tagGroupName}: ${row.tagName}`
                 : row.tagName
             }
+            customColor={row.tagColor}
             type="weak"
+            size="lg"
+            rounded="lg"
             color="default"
-            size="sm"
           />
         ),
       },
@@ -111,6 +113,7 @@ const TagRulesContent = () => {
   return (
     <Card padding="none" className="overflow-hidden">
       <Table
+        rowHeight="lg"
         columns={columns}
         rows={rows}
         emptyStateProps={{

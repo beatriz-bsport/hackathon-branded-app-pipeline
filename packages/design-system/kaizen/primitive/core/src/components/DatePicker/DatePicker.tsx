@@ -17,8 +17,12 @@ import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 import DateInputField from "./DateInputField";
 import DatePickerContent from "./DatePickerContent";
 import type { ShortcutItem } from "./Shortcuts";
+import {
+  type SelectedDate,
+  getSanitizedDate as getSanitizedDateForMode,
+} from "./datePickerValidation";
 
-export type SelectedDate = DateTime | [DateTime | null, DateTime | null] | null;
+export type { SelectedDate };
 
 export type DatePickerProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
@@ -26,7 +30,7 @@ export type DatePickerProps = Omit<
 > & {
   id: string;
   mode: "single" | "range";
-  displayAs: "popover" | "modal";
+  displayAs: "popover" | "modal" | "content";
   isInputField?: boolean;
   open?: boolean;
   dateFormat?: "short" | "medium";
@@ -49,18 +53,23 @@ export type DatePickerProps = Omit<
 
 /**
  * A configurable date picker component supporting single date or date range selection.
- * Can be displayed as a popover or modal with optional shortcut presets and localization support.
+ * Can be displayed as a popover, modal, or content-only with optional shortcut presets and localization support.
  *
  * Supports both controlled and uncontrolled modes:
  * - Uncontrolled: Use `defaultValue` for initial value, component manages its own state
  * - Controlled: Use `dateValue` prop, parent manages state via `onSelect` callback
  *
+ * **displayAs="content"** renders only the calendar/shortcuts content with no popover or modal wrapper.
+ * Use it to embed the picker inside your own layout (e.g. custom modal, drawer, or inline).
+ * Validation is applied internally; you can also use the exported `getSanitizedDate(mode, value)` helper
+ * to normalize dates when integrating in other contexts (e.g. before submitting a form).
+ *
  * @param props.className Additional CSS classes to style the component.
  * @param props.id Unique ID for the date picker element.
  * @param props.mode The mode of the date picker, either "single" or "range".
- * @param props.displayAs The display mode of the date picker, either "popover" or "modal". The popover doesn't require any anchor element.
+ * @param props.displayAs The display mode: "popover" (anchor + dropdown), "modal" (dialog), or "content" (content only, no wrapper).
  * @param props.isInputField Whether the date picker is used as an input field. Only applicable when displayAs is "popover" and mode "single".
- * @param props.open Whether the date picker is open or not.
+ * @param props.open Whether the date picker is open or not. Used when displayAs is "modal".
  * @param props.onConfirm Callback function to call when a date is selected.
  * @param props.onClose Callback function to call when the date picker is closed.
  * @param props.calendarYears The number of years to display in the calendar, defaults to 10.
@@ -132,12 +141,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   }, [mode, selectedDate, updateSelectedDate, defaultValue]);
 
   const getSanitizedDate = useCallback(
-    (value: SelectedDate): SelectedDate => {
-      if (mode === "single") {
-        return value;
-      }
-      return Array.isArray(value) ? value : [null, null];
-    },
+    (value: SelectedDate): SelectedDate => getSanitizedDateForMode(mode, value),
     [mode],
   );
 
@@ -198,6 +202,26 @@ const DatePicker: React.FC<DatePickerProps> = ({
         )
       : t("datePicker.datePlaceholder");
   };
+
+  if (displayAs === "content") {
+    return (
+      <DatePickerContent
+        className={className}
+        id={id}
+        mode={mode}
+        displayAs={displayAs}
+        calendarYears={calendarYears}
+        disableDate={disableDate}
+        sanitizedSelected={sanitizedSelected}
+        hideSelector={false}
+        shortcuts={shortcuts}
+        manuallySelected={isManuallySelected}
+        onCalendarSelect={handleCalendarSelect}
+        onShortcutSelect={handleShortcutSelect}
+        {...props}
+      />
+    );
+  }
 
   if (displayAs === "popover")
     return (

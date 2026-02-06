@@ -44,3 +44,14 @@ export const sessionListViewedEventSchema = z
       .describe("The list of filters currently applied on the session list"),
   })
   .describe("When the user views the session list page");
+
+export const sessionListCalendarViewChangedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_calendar_view_changed"),
+    calendar_view: z
+      .enum([CalendarView.DAILY, CalendarView.RANGE])
+      .describe("The time interval for which sessions are displayed"),
+  })
+  .describe(
+    "When the user changes the calendar view to display sessions for a different time interval",
+  );

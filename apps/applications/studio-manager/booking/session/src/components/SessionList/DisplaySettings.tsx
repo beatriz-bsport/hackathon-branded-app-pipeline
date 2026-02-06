@@ -8,6 +8,7 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
+import { sessionListCalendarViewChangedEvent } from "#src/events/session-list/events";
 import {
   setCalendarView,
   setShowCancelledSessions,
@@ -20,6 +21,7 @@ import {
 } from "#src/stores/session-list/selectors";
 import { useSessionListStore } from "#src/stores/session-list/store";
 import { CalendarView, Columns } from "#src/types";
+import { analyticsTrackEvent } from "#src/utils/analytics-track-event";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
@@ -37,6 +39,9 @@ export const DisplaySettings: React.FC = () => {
   const onChangeCalendarView = (value: string) => {
     if (value === CalendarView.DAILY || value === CalendarView.RANGE) {
       setCalendarView(value as CalendarView);
+      analyticsTrackEvent(sessionListCalendarViewChangedEvent, {
+        calendar_view: value,
+      });
     }
   };
   const calendarView = useSessionListStore(selectCalendarView);

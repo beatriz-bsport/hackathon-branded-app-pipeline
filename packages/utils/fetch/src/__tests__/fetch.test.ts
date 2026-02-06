@@ -121,6 +121,26 @@ describe("getFetch", () => {
       expect(result.backgroundTaskUuid).toBe(null);
     });
 
+    it("should handle blob response type", async () => {
+      const mockBlob = new Blob(["blob content"], { type: "image/png" });
+      server.use(
+        http.get(`${baseUrl}/platform/v1/blob`, () => {
+          return new Response(mockBlob, {
+            status: 200,
+            headers: { "Content-Type": "image/png" },
+          });
+        }),
+      );
+
+      const result = await fetchFn("platform/v1/blob", {
+        responseType: "blob",
+      });
+
+      expect(result.data.constructor.name).toBe("Blob");
+      expect(result.status).toBe(200);
+      expect(result.backgroundTaskUuid).toBe(null);
+    });
+
     it("should include background task UUID when present in response headers", async () => {
       const mockData = { id: 1 };
       const taskUuid = "task-uuid-123";

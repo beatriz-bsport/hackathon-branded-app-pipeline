@@ -9,6 +9,14 @@ export const updatePopup = (updatedPopup: Popup) => {
 
     if (!id) return state;
 
+    if (!state.byId[id]) {
+      return {
+        byId: { ...state.byId, [id]: updatedPopup },
+        ids: [...state.ids, id],
+        count: state.count + 1,
+      };
+    }
+
     return {
       byId: { ...state.byId, [id]: updatedPopup },
     };
@@ -31,7 +39,7 @@ export const addPopup = (newPopup: Popup) => {
   });
 };
 
-export const setPopups = ({ popups: popups }: { popups: Popup[] }) => {
+export const setPopups = ({ popups }: { popups: Popup[] }) => {
   popupStore.setState(() => {
     const byId = popups.reduce(
       (acc, popup) => {

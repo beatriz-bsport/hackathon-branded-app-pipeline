@@ -11,6 +11,7 @@ import type {
   FetchAutomatedCampaignsParams,
   FetchCampaignScheduledParams,
   FetchCampaignSentParams,
+  Popup,
   Smartlist,
   Tag,
   TagGroup,
@@ -20,6 +21,8 @@ import type {
 const SMARTLIST_API_V1 = "customer-data-platform/v1/smartlist";
 const COMMUNICATION_API_V1 = "communicate/v1";
 const CDP_API_V0 = "customer-data-platform/v0";
+const POPUPS_API_URL =
+  "member-experience/v1/mobile_app/manager/custom_popup_links";
 
 /**
  * Query Key Factory
@@ -69,6 +72,12 @@ export const smartlistKeys = {
 
   campaignScheduled: (id: string) =>
     [...smartlistKeys.detail(id), "scheduled-campaigns"] as const,
+
+  popupDetail: (popupId: number) =>
+    [...smartlistKeys.all, "popup", popupId] as const,
+
+  popupImages: (popupId: number, imageUrl: string) =>
+    [...smartlistKeys.all, "popup-image", popupId, imageUrl] as const,
 } as const;
 
 /**
@@ -175,6 +184,20 @@ export const deleteAutomatedCampaign = async (id: number): Promise<void> => {
   });
 };
 
+const fetchPopupDetail = async (popupId: number): Promise<Popup> => {
+  const { data } = await fetch<Popup>(`${POPUPS_API_URL}/${popupId}/`);
+  return data;
+};
+
+const fetchPopupImage = async (imageUrl: string): Promise<File> => {
+  const url = new URL(imageUrl);
+  const filename = url.pathname.split("/").pop() || "popup-image.jpg";
+  const { data } = await fetch<Blob>(imageUrl, {
+    responseType: "blob",
+  });
+  return new File([data], filename, { type: data.type });
+};
+
 /**
  * Query Options
  */
@@ -182,6 +205,18 @@ export const smartlistDetailQueryOptions = (id: string) =>
   queryOptions({
     queryKey: smartlistKeys.detail(id),
     queryFn: () => fetchSmartlistDetail(id),
+  });
+
+export const popupDetailQueryOptions = (popupId: number) =>
+  queryOptions({
+    queryKey: smartlistKeys.popupDetail(popupId),
+    queryFn: () => fetchPopupDetail(popupId),
+  });
+
+export const popupImageQueryOptions = (popupId: number, imageUrl: string) =>
+  queryOptions({
+    queryKey: smartlistKeys.popupImages(popupId, imageUrl),
+    queryFn: () => fetchPopupImage(imageUrl),
   });
 
 export const automatedCampaignsQueryOptions = (smartlistId: string) =>

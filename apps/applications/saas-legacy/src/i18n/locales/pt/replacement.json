@@ -205,11 +205,12 @@
     "until": "Até {{-date}}",
     "filters": "Filtros",
     "description": "As seguintes atividades precisam de um professor substituto. Está disponível?",
-    "title": "Marketplace"
+    "title": "Área de membro"
   },
   "confirmations": {
     "description": "Foi adicionado como professor substituto para as seguintes atividades.",
-    "title": "Confirmações"
+    "title": "Confirmações",
+    "unavailable": "Solicitar substituição "
   },
   "requests": {
     "cancel": "Cancelar",

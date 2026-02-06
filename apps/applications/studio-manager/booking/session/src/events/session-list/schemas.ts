@@ -55,3 +55,29 @@ export const sessionListCalendarViewChangedEventSchema = z
   .describe(
     "When the user changes the calendar view to display sessions for a different time interval",
   );
+
+export const sessionListVisibleColumnsClickedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_visible_columns_clicked"),
+    calendar_column_name: z
+      .enum([
+        Columns.TIME,
+        Columns.SESSION_NAME,
+        Columns.TEACHER,
+        Columns.PARTICIPANTS,
+        Columns.ESTABLISHMENT,
+        Columns.SESSION_TYPE,
+        Columns.ACTIONS,
+      ])
+      .describe(
+        "The column for which the user clicks on the visible columns settings",
+      ),
+    calendar_column_visibility: z
+      .enum(["visible", "hidden"])
+      .describe(
+        "Whether the column is currently visible or hidden when the user clicks on the visible columns settings",
+      ),
+  })
+  .describe(
+    "When the user clicks on the visible columns settings for a specific column, whether to show or hide it",
+  );

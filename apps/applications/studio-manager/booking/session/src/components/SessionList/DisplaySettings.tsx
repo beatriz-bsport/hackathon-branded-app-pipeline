@@ -8,7 +8,10 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
-import { sessionListCalendarViewChangedEvent } from "#src/events/session-list/events";
+import {
+  sessionListCalendarViewChangedEvent,
+  sessionListVisibleColumnsClickedEvent,
+} from "#src/events/session-list/events";
 import {
   setCalendarView,
   setShowCancelledSessions,
@@ -44,6 +47,16 @@ export const DisplaySettings: React.FC = () => {
       });
     }
   };
+
+  const handleToggleColumn = (column: Columns) => {
+    const wasVisible = displayedColumns.includes(column);
+    toggleColumn(column);
+    analyticsTrackEvent(sessionListVisibleColumnsClickedEvent, {
+      calendar_column_name: column,
+      calendar_column_visibility: wasVisible ? "hidden" : "visible",
+    });
+  };
+
   const calendarView = useSessionListStore(selectCalendarView);
 
   const showCancelledSessions = useSessionListStore(
@@ -91,7 +104,7 @@ export const DisplaySettings: React.FC = () => {
               label={column.label}
               size="sm"
               intent="default"
-              onClick={() => toggleColumn(column.id as Columns)}
+              onClick={() => handleToggleColumn(column.id as Columns)}
               color={
                 displayedColumns.includes(column.id as Columns)
                   ? "main"

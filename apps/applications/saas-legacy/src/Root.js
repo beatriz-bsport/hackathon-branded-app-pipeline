@@ -219,29 +219,10 @@ export class Root extends Component<Props> {
     onboardingManagerClient.initUser(params);
   }
 
-  // Function to send a scroll-up post message to the parent widget
-  sendScrollUpPostMessageToWidget = () => {
-    // Check if the current environment is within a widget and the widget is in deactivated dialog mode
-    if (
-      WidgetUtils.isWidget() &&
-      WidgetUtils.getDialogMode() === DIALOG_MODE_DEACTIVATED
-    ) {
-      // Create a message object to be sent via postMessage
-      const message = {
-        type: 'bsport-widget-scrollup',
-        data: {
-          parentElementId: WidgetUtils.getParentElementId(),
-        },
-      };
-      // Send the message to the parent window using postMessage
-      window?.parent?.postMessage(message, '*');
-    }
-  };
-
   componentDidUpdate(prevProps: Props) {
     if (prevProps.location !== this.props.location) {
       // Call the function to send a scroll-up post message to the widget
-      this.sendScrollUpPostMessageToWidget();
+      WidgetUtils.sendScrollUpPostMessageToWidget();
       if (this.props.location && this.props.location.pathname) {
         if (this.props.location.pathname.includes('/spot-scheduling')) {
           document.body.style.overflowX = 'hidden';

@@ -31,6 +31,9 @@ export const RecurrenceRule = [
   MonthlyRecurrencePattern.DAY_OF_MONTH,
   MonthlyRecurrencePattern.NTH_WEEKDAY,
 ] as const;
+
+export type RecurrenceRuleType = (typeof RecurrenceRule)[number];
+
 export type RecurrenceIntervalType = (typeof RecurrenceInterval)[number];
 
 export const RecurrenceIntervalMapping = {

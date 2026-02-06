@@ -3,7 +3,10 @@ import { FC } from "react";
 import { useFormContext } from "@bsport/form";
 import { Alert } from "@bsport/kaizen-primitive-core";
 
-import { RecurrenceIntervalType } from "#src/events/constants";
+import {
+  RecurrenceIntervalType,
+  RecurrenceRuleType,
+} from "#src/events/constants";
 import { generateRecurrenceDates } from "#src/helpers/recurrence";
 import { useRecurrenceConfig } from "#src/hooks/useRecurrenceConfig";
 import type { SessionCreationFormData } from "#src/stores/session-creation/types";
@@ -20,7 +23,13 @@ export const SessionRecurrence: FC<{
   fieldIdPrefix: string;
   trackRecurrenceToggle?: (isRecurring: boolean) => void;
   trackRecurrenceType?: (recurrenceType: RecurrenceIntervalType) => void;
-}> = ({ fieldIdPrefix, trackRecurrenceToggle, trackRecurrenceType }) => {
+  trackRecurrenceRule?: (recurrenceRule: RecurrenceRuleType) => void;
+}> = ({
+  fieldIdPrefix,
+  trackRecurrenceToggle,
+  trackRecurrenceType,
+  trackRecurrenceRule,
+}) => {
   const { t } = useTranslation("sessionCreation");
 
   const { watch } = useFormContext<SessionCreationFormData>();
@@ -70,7 +79,10 @@ export const SessionRecurrence: FC<{
             trackRecurrenceType={trackRecurrenceType}
           />
           <RecurrenceWeekdaysSelector fieldIdPrefix={fieldIdPrefix} />
-          <RecurrencePatternSelector fieldIdPrefix={fieldIdPrefix} />
+          <RecurrencePatternSelector
+            fieldIdPrefix={fieldIdPrefix}
+            trackRecurrenceRule={trackRecurrenceRule}
+          />
           <RecurrenceEndDate fieldIdPrefix={fieldIdPrefix} />
           {recurrence?.length === 0 && (
             <Alert status="warning" className="w-fit" layout="inline">

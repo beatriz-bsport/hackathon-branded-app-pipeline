@@ -23,6 +23,10 @@ import OnboardingPageTracker from './components/onboarding/OnboardingPageTracker
 import { removeTrackingScripts } from './components/analytics/utils.ts';
 import type { NetworkState } from './libs/network/types';
 import { onboardingManagerClient } from './components/onboarding/onboardingManagerClient.ts';
+import {
+  type FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -115,7 +119,7 @@ type Props = {
   username: string,
   company_role?: number,
   franchise_role?: number,
-};
+} & FeatureFlagProps;
 
 export class Root extends Component<Props> {
   UNSAFE_componentWillMount() {
@@ -166,13 +170,22 @@ export class Root extends Component<Props> {
       WidgetUtils.setConsumerSpaceContext(query.consumerspacecontext);
     }
 
-    if (this.props.isManager) {
-      await onboardingManagerClient.loadScript();
-      this.initOnboardingUser();
-    }
+    this.initOnboardingUser();
   }
 
   initOnboardingUser(prevProps) {
+    if (!this.props.toggleAppcues) {
+      console.warn(
+        '[Onboarding Manager] cannot initialize Appcues user, feature flag deactivated',
+      );
+      return;
+    }
+    if (!this.props.isManager) {
+      console.warn(
+        '[Onboarding Manager] cannot initialize Appcues, user is not a manager',
+      );
+      return;
+    }
     const { id, username, company_role, franchise_role, theme } = this.props;
 
     if (!id || !username) {
@@ -186,12 +199,13 @@ export class Root extends Component<Props> {
       prevProps.company_role === company_role &&
       prevProps.franchise_role === franchise_role &&
       prevProps.theme?.company === theme?.company &&
-      prevProps.theme?.franchisor === theme?.franchisor
+      prevProps.theme?.franchisor === theme?.franchisor &&
+      prevProps.toggleAppcues === this.props.toggleAppcues
     ) {
       return;
     }
 
-    onboardingManagerClient.initUser({
+    const params = {
       user_id: String(id),
       username,
       company_role,
@@ -200,7 +214,9 @@ export class Root extends Component<Props> {
       franchise_id: theme?.franchisor,
       environment: Config.NODE_ENV,
       app: 'saas-legacy',
-    });
+    };
+
+    onboardingManagerClient.initUser(params);
   }
 
   // Function to send a scroll-up post message to the parent widget
@@ -237,9 +253,7 @@ export class Root extends Component<Props> {
       }
     }
 
-    if (this.props.isManager) {
-      this.initOnboardingUser(prevProps);
-    }
+    this.initOnboardingUser(prevProps);
   }
 
   render() {
@@ -385,6 +399,7 @@ const mapDispatchToProps = {
 
 export default compose(
   withRouter,
+  withFeatureFlags,
   withQueryParams([['membership'], 'queryParams']),
   withProps(({ queryParams }) => ({
     companyId: parseInt(queryParams?.membership),

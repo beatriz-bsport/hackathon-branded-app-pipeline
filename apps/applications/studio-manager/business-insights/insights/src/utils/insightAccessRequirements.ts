@@ -34,6 +34,11 @@ export const INSIGHT_ACCESS_REQUIREMENTS = {
     featureFlag: InsightFlags.TRIAL_ANALYSIS,
     upsell: undefined,
   },
+  community_health: {
+    permission: "report.Club.members_purchase.allowed_actions.read",
+    featureFlag: InsightFlags.COMMUNITY_HEALTH,
+    upsell: PREMIUM_INSIGHTS_UPSELL,
+  },
   recurring: {
     permission: "report.Club.subscription.allowed_actions.read",
     featureFlag: undefined,
@@ -42,7 +47,7 @@ export const INSIGHT_ACCESS_REQUIREMENTS = {
   schedule: {
     permission: "report.Bookings.bookings.allowed_actions.read",
     featureFlag: InsightFlags.SCHEDULE_ANALYSIS,
-    upsell: PREMIUM_INSIGHTS_UPSELL,
+    upsell: undefined,
   },
 } as const satisfies Record<string, InsightAccessRequirement>;
 
@@ -60,15 +65,17 @@ export const INSIGHT_IDS = Object.keys(
  */
 export const useInsightFlagValues = (): Partial<Record<InsightId, boolean>> => {
   const hasTrialAnalysis = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);
+  const hasCommunityHealth = useInsightFlag(InsightFlags.COMMUNITY_HEALTH);
   const hasScheduleAnalysis = useInsightFlag(InsightFlags.SCHEDULE_ANALYSIS);
 
   return useMemo(
     () =>
       ({
         trial: hasTrialAnalysis,
+        community_health: hasCommunityHealth,
         schedule: hasScheduleAnalysis,
       }) satisfies Partial<Record<InsightId, boolean>>,
-    [hasTrialAnalysis, hasScheduleAnalysis],
+    [hasTrialAnalysis, hasCommunityHealth, hasScheduleAnalysis],
   );
 };
 

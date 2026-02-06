@@ -34,7 +34,7 @@ const RecurringRevenuePage = () => {
 
   // Redirect if no permission
   if (!isAllowed) {
-    return <Navigate to="/" replace />;
+    return <Navigate to=".." replace />;
   }
 
   return (

@@ -11,11 +11,5 @@ export const hasPremiumInsightsAccess = (
   );
 
   if (!premiumUpsell) return false;
-
-  // Paid access.
-  if (!premiumUpsell.is_free_trial) return true;
-
-  // Free-trial access (treat null remaining days as active).
-  const remainingDays = premiumUpsell.trial_remaining_days;
-  return remainingDays === null || remainingDays > 0;
+  return true;
 };

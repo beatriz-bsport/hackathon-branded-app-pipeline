@@ -6,4 +6,5 @@ export interface PresignedUrlResponse {
 export type DashboardType =
   | "trial_analysis"
   | "recurring_revenue"
-  | "schedule_analysis";
+  | "schedule_analysis"
+  | "community_health";

@@ -61,7 +61,19 @@
     "invalidStartDate": "Invalid start date",
     "invalidEndDate": "Invalid end date",
     "rangeLabel": "From {{ start }} to {{end}}",
-    "datePlaceholder": "MM/DD/YYYY"
+    "datePlaceholder": "MM/DD/YYYY",
+    "shortcuts": {
+      "today": "Today",
+      "last4weeks": "Last 4 weeks",
+      "lastWeek": "Last 7 days",
+      "lastQuarter": "Last 3 months",
+      "monthToDate": "Month to date",
+      "yearToDate": "Year to date",
+      "nextWeek": "Next 7 days",
+      "nextMonth": "Next month",
+      "nextQuarter": "Next 3 months",
+      "nextYear": "Next year"
+    }
   },
   "modal": {
     "back": "Back",

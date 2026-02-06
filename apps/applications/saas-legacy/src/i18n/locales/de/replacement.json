@@ -217,11 +217,12 @@
     "until": "Bis {{-date}}",
     "filters": "Filter",
     "description": "Die folgende Kurse benötigen eine Vertretungslehrkraft. Sind Sie verfügbar?",
-    "title": "Marketplace"
+    "title": "Mitgliederbereich"
   },
   "confirmations": {
     "description": "Sie wurden als Vertretungslehrkraft für die folgenden Kurse hinzugefügt.",
-    "title": "Bestätigungen"
+    "title": "Bestätigungen",
+    "unavailable": "Vertretung anfragen "
   },
   "requests": {
     "cancel": "Abbrechen",

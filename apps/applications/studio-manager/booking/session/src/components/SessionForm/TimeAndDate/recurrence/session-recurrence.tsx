@@ -65,7 +65,10 @@ export const SessionRecurrence: FC<{
             fieldIdPrefix={fieldIdPrefix}
             trackRecurrenceType={trackRecurrenceType}
           />
-          <RecurrenceFrequencySelector fieldIdPrefix={fieldIdPrefix} />
+          <RecurrenceFrequencySelector
+            fieldIdPrefix={fieldIdPrefix}
+            trackRecurrenceType={trackRecurrenceType}
+          />
           <RecurrenceWeekdaysSelector fieldIdPrefix={fieldIdPrefix} />
           <RecurrencePatternSelector fieldIdPrefix={fieldIdPrefix} />
           <RecurrenceEndDate fieldIdPrefix={fieldIdPrefix} />

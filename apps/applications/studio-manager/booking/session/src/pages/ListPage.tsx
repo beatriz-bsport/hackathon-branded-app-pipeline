@@ -17,6 +17,7 @@ import { DeleteSessionModal } from "#src/components/SessionList/detail-actions/d
 import { DuplicateSessionModal } from "#src/components/SessionList/detail-actions/duplicate-session-modal";
 import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/restore-session-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
+import { useTrackSessionListViewed } from "#src/events/hooks/use-track-session-list-viewed";
 import { sessionCreationOpensEvent } from "#src/events/session-creation/events";
 import { useModal } from "#src/hooks/use-modal";
 import { ModalType } from "#src/types";
@@ -124,6 +125,9 @@ const ListPage: React.FC = () => {
     openAddSessionModal();
     analyticsClient.track(sessionCreationOpensEvent({}));
   }, [openAddSessionModal]);
+
+  // Tracks the display settings on Mixpanel when the user lands on the page.
+  useTrackSessionListViewed();
 
   const isFilterEmpty = useMemo(() => {
     return (

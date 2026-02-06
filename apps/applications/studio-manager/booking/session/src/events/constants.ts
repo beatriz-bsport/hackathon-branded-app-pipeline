@@ -1,4 +1,8 @@
-import { MonthlyRecurrencePattern } from "#src/helpers/recurrence/types";
+import {
+  CustomRecurrenceUnit,
+  MonthlyRecurrencePattern,
+  RecurrenceType,
+} from "#src/helpers/recurrence/types";
 
 export const SessionType = [
   "group-activity",
@@ -27,3 +31,11 @@ export const RecurrenceRule = [
   MonthlyRecurrencePattern.DAY_OF_MONTH,
   MonthlyRecurrencePattern.NTH_WEEKDAY,
 ] as const;
+export type RecurrenceIntervalType = (typeof RecurrenceInterval)[number];
+
+export const RecurrenceIntervalMapping = {
+  [RecurrenceType.WEEKLY]: RecurrenceInterval[0],
+  [CustomRecurrenceUnit.DAYS]: RecurrenceInterval[1],
+  [CustomRecurrenceUnit.WEEKS]: RecurrenceInterval[2],
+  [CustomRecurrenceUnit.MONTHS]: RecurrenceInterval[3],
+};

@@ -3,6 +3,7 @@ import { FC } from "react";
 import { useFormContext } from "@bsport/form";
 import { Alert } from "@bsport/kaizen-primitive-core";
 
+import { RecurrenceIntervalType } from "#src/events/constants";
 import { generateRecurrenceDates } from "#src/helpers/recurrence";
 import { useRecurrenceConfig } from "#src/hooks/useRecurrenceConfig";
 import type { SessionCreationFormData } from "#src/stores/session-creation/types";
@@ -18,7 +19,8 @@ import { RecurrenceWeekdaysSelector } from "./weekdays-selector";
 export const SessionRecurrence: FC<{
   fieldIdPrefix: string;
   trackRecurrenceToggle?: (isRecurring: boolean) => void;
-}> = ({ fieldIdPrefix, trackRecurrenceToggle }) => {
+  trackRecurrenceType?: (recurrenceType: RecurrenceIntervalType) => void;
+}> = ({ fieldIdPrefix, trackRecurrenceToggle, trackRecurrenceType }) => {
   const { t } = useTranslation("sessionCreation");
 
   const { watch } = useFormContext<SessionCreationFormData>();
@@ -59,7 +61,10 @@ export const SessionRecurrence: FC<{
       />
       {isRecurring && (
         <div className="flex flex-col gap-md ml-xl">
-          <RecurrenceTypeSelector fieldIdPrefix={fieldIdPrefix} />
+          <RecurrenceTypeSelector
+            fieldIdPrefix={fieldIdPrefix}
+            trackRecurrenceType={trackRecurrenceType}
+          />
           <RecurrenceFrequencySelector fieldIdPrefix={fieldIdPrefix} />
           <RecurrenceWeekdaysSelector fieldIdPrefix={fieldIdPrefix} />
           <RecurrencePatternSelector fieldIdPrefix={fieldIdPrefix} />

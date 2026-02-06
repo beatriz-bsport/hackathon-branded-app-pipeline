@@ -3,7 +3,9 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import Icon, { IconName } from "#src/components/Icon";
 
+import { getAccessibleChipColors } from "./color-contrast";
 import { colors, defaultClasses, sizes, variants } from "./constants";
+import { isHexColor, normalizeHex } from "./hex-utils";
 
 const chip = cva(defaultClasses, {
   variants,
@@ -11,17 +13,23 @@ const chip = cva(defaultClasses, {
 
 type VariantChipsProps = Omit<
   VariantProps<typeof chip>,
-  "type" | "colorByType"
+  "type" | "colorByType" | "rounded"
 >;
+
+type ChipType = "weak" | "strong";
+type ChipColor = (typeof colors)[number];
+type ChipColorByType = `${ChipType}:${ChipColor}`;
 
 export type ChipProps = React.HTMLAttributes<HTMLDivElement> &
   VariantChipsProps & {
     label?: string;
-    type: "weak" | "strong";
-    color: (typeof colors)[number];
+    type: ChipType;
+    color: ChipColor;
     size: keyof typeof sizes;
     iconLeft?: IconName;
     dismissible?: boolean;
+    customColor?: string;
+    rounded?: "lg";
     onClick?: () => void;
   };
 
@@ -35,6 +43,9 @@ export type ChipProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.size Size of the chip. Can be "sm" or "lg".
  * @param props.iconLeft Optional icon to display on the left side of the chip.
  * @param props.dismissible Boolean to define if the chip is dismissible.
+ * @param props.dismissible Boolean to define if the chip is dismissible.
+ * @param props.customColor Optional hex color to override chip colors.
+ * @param props.rounded Optional border radius override (lg).
  * @param props.onClick Function to call when the chip is dismissed.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-chip--docs
  */
@@ -46,7 +57,10 @@ const Chip: React.FC<ChipProps> = ({
   size,
   iconLeft,
   dismissible,
+  customColor,
+  rounded,
   onClick,
+  style,
   ...props
 }) => {
   const [dismissed, setDismissed] = useState(false);
@@ -84,17 +98,49 @@ const Chip: React.FC<ChipProps> = ({
     [dismissible, size],
   );
 
+  const customColors = useMemo(() => {
+    if (!customColor) {
+      return null;
+    }
+
+    if (!isHexColor(customColor)) {
+      return null;
+    }
+
+    const normalizedHex = normalizeHex(customColor);
+    return getAccessibleChipColors(normalizedHex);
+  }, [customColor]);
+
+  const chipStyle = useMemo<React.CSSProperties | undefined>(() => {
+    if (!customColors) {
+      return style;
+    }
+
+    return {
+      ...style,
+      backgroundColor: customColors.background,
+      color: customColors.text,
+      boxShadow: `inset 0 0 0 1px ${customColors.border}`,
+    };
+  }, [customColors, style]);
+
   const shouldRender = useMemo(() => !dismissed, [dismissed]);
   if (!shouldRender) return null;
+
+  const colorByType: ChipColorByType = `${type}:${color}`;
+  const roundedVariant = rounded ?? "default";
+  const chipClassName = chip({
+    className,
+    size,
+    rounded: roundedVariant,
+    colorByType,
+  });
 
   return (
     <div
       data-component="Kaizen-Chip"
-      className={chip({
-        className,
-        size,
-        colorByType: `${type}:${color}` as keyof typeof variants.colorByType,
-      })}
+      className={chipClassName}
+      style={chipStyle}
       {...props}
     >
       {renderedIconLeft}

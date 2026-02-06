@@ -81,3 +81,18 @@ export const sessionListVisibleColumnsClickedEventSchema = z
   .describe(
     "When the user clicks on the visible columns settings for a specific column, whether to show or hide it",
   );
+
+export const sessionListDisplayCancelledSessionClickedEventSchema = z
+  .object({
+    eventType: z
+      .string()
+      .default("session_list_display_cancelled_sessions_clicked"),
+    cancelled_sessions_displayed: z
+      .boolean()
+      .describe(
+        "Whether the user chooses to show or hide cancelled sessions in the session list",
+      ),
+  })
+  .describe(
+    "When the user clicks on the setting to show or hide cancelled sessions in the session list",
+  );

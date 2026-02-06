@@ -10,6 +10,7 @@ import {
 
 import {
   sessionListCalendarViewChangedEvent,
+  sessionListDisplayCancelledSessionClickedEvent,
   sessionListVisibleColumnsClickedEvent,
 } from "#src/events/session-list/events";
 import {
@@ -57,6 +58,13 @@ export const DisplaySettings: React.FC = () => {
     });
   };
 
+  const handleToggleShowCancelledSessions = (value: boolean) => {
+    setShowCancelledSessions(value);
+    analyticsTrackEvent(sessionListDisplayCancelledSessionClickedEvent, {
+      cancelled_sessions_displayed: value,
+    });
+  };
+
   const calendarView = useSessionListStore(selectCalendarView);
 
   const showCancelledSessions = useSessionListStore(
@@ -90,7 +98,7 @@ export const DisplaySettings: React.FC = () => {
           id="show-cancelled-sessions"
           label={t("displaySettings.showCancelledSessions.label")}
           checked={showCancelledSessions}
-          onToggleChange={setShowCancelledSessions}
+          onToggleChange={handleToggleShowCancelledSessions}
         />
       )}
       <div className="flex flex-col gap-xs">

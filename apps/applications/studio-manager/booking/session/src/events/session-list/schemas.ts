@@ -121,3 +121,11 @@ export const sessionListFiltersChangedEventSchema = z
   .describe(
     "When the user applies, changes or removes filters on the session list",
   );
+
+export const sessionListDashboardButtonClickedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_dashboard_button_clicked"),
+  })
+  .describe(
+    "When the user clicks on the button to go to the dashboard from the session list page",
+  );

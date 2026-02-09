@@ -3,25 +3,25 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "@bsport/kaizen-primitive-core";
 
 import { smartlistKeys } from "#src/api/api";
-import { useDeleteAutomatedCampaign } from "#src/api/use-delete-automated-campaign";
+import { useDeleteTagRule as useDeleteTagRuleMutation } from "#src/api/use-delete-tag-rule";
 import { useTranslation } from "#src/utils/i18n";
 
-export const useDeleteAutomation = () => {
+export const useDeleteTagRule = () => {
   const { t } = useTranslation("details");
 
   const queryClient = useQueryClient();
 
-  const { deleteAutomatedCampaign: deleteTrigger, isLoading: isDeleting } =
-    useDeleteAutomatedCampaign({
+  const { deleteTagRule: deleteTrigger, isLoading: isDeleting } =
+    useDeleteTagRuleMutation({
       onSuccess: (_data, variables) => {
         queryClient.invalidateQueries({
-          queryKey: smartlistKeys.automatedCampaigns(variables.smartlistId),
+          queryKey: smartlistKeys.tagRules(variables.smartlistId),
         });
 
         toast({
           status: "default",
           icon: "trash-01",
-          title: t("automation.messages.toasts.success.deleted"),
+          title: t("automation.tagRules.toasts.success.deleted"),
           buttonIcon: "x-close",
         });
       },
@@ -29,21 +29,21 @@ export const useDeleteAutomation = () => {
         toast({
           status: "critical",
           icon: "alert-circle",
-          title: t("automation.messages.toasts.error.deleteFailed"),
+          title: t("automation.tagRules.toasts.error.deleteFailed"),
           buttonIcon: "x-close",
         });
       },
     });
 
-  const deleteAutomation = (params: {
+  const deleteTagRule = (params: {
     smartlistId: string;
-    automationId: number;
+    tagRuleId: number;
   }) => {
-    deleteTrigger({ id: params.automationId, smartlistId: params.smartlistId });
+    deleteTrigger({ id: params.tagRuleId, smartlistId: params.smartlistId });
   };
 
   return {
-    deleteAutomation,
+    deleteTagRule,
     isDeleting,
   } as const;
 };

@@ -18,6 +18,7 @@ import { DuplicateSessionModal } from "#src/components/SessionList/detail-action
 import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/restore-session-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
 import { useModal } from "#src/hooks/use-modal";
+import { ModalType } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 import { useAnyObjectLevelPermissions } from "#src/utils/permission";
 
@@ -31,7 +32,6 @@ import {
   useSessionListData,
 } from "../hooks/useSessionListData";
 import {
-  ModalType,
   selectFilters,
   selectModalState,
   selectSelectedDate,
@@ -162,7 +162,7 @@ const ListPage: React.FC = () => {
   });
 
   const { shouldRenderLoadingState, LoadingState } = useLoadingState({
-    isLoading: isLoading && Object.keys(sessionsByDate).length === 0,
+    isLoading,
     message: t("table.isLoading"),
   });
 
@@ -186,11 +186,10 @@ const ListPage: React.FC = () => {
           key={date}
           date={date}
           sessions={sessions}
-          isLoading={isLoading}
           locale={intlLocale || "en-US"}
         />
       )),
-    [sessionsByDate, isLoading, intlLocale],
+    [sessionsByDate, intlLocale],
   );
 
   return (
@@ -212,13 +211,16 @@ const ListPage: React.FC = () => {
       <ListLayout.Content>
         <DateNavigationHeader />
         <div className="flex flex-col gap-xl h-full mt-md">
-          {shouldRenderEmptyState && <EmptyState />}
-          {!shouldRenderEmptyState && !sessionDataError && sessionDays}
-          {shouldRenderLoadingState && <LoadingState />}
-          {sessionDataError && (
+          {shouldRenderEmptyState ? (
+            <EmptyState />
+          ) : shouldRenderLoadingState ? (
+            <LoadingState />
+          ) : sessionDataError ? (
             <div className="flex flex-col items-center justify-center">
               <ErrorFallback actionProps={ErrorFallback.DEFAULT_ACTION_PROPS} />
             </div>
+          ) : (
+            sessionDays
           )}
         </div>
 

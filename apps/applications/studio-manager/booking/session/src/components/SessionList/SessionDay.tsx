@@ -9,14 +9,12 @@ import SessionTable from "./SessionTable";
 type SessionDayProps = {
   date: string;
   sessions: EnrichedSession[];
-  isLoading: boolean;
   locale: string;
 };
 
 const SessionDay: React.FC<SessionDayProps> = ({
   date,
   sessions,
-  isLoading,
   locale,
 }: SessionDayProps) => {
   const localizedDate = fromIsoString(date, {
@@ -26,7 +24,7 @@ const SessionDay: React.FC<SessionDayProps> = ({
     // Scroll margin top is needed when scrolling using the Today button.
     <div data-date={date} className="scroll-mt-2xl">
       <SessionDayTitle date={localizedDate} sessions={sessions} />
-      <SessionTable sessions={sessions} isLoading={isLoading} />
+      <SessionTable sessions={sessions} />
     </div>
   );
 };

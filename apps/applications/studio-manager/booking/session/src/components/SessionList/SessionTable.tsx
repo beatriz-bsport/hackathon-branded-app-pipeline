@@ -5,21 +5,17 @@ import { Table, useMatchMedia } from "@bsport/kaizen-primitive-core";
 import { selectDisplayedColumns } from "#src/stores/session-list/selectors";
 import { useSessionListStore } from "#src/stores/session-list/store";
 import type { Columns, EnrichedSession } from "#src/types";
-import { useTranslation } from "#src/utils/i18n";
 
 import { useSessionListColumns } from "./columns";
 import { SessionCards } from "./session-cards";
 
 type SessionTableProps = {
   sessions: EnrichedSession[];
-  isLoading: boolean;
 };
 
 const SessionTable: React.FC<SessionTableProps> = ({
   sessions,
-  isLoading,
 }: SessionTableProps) => {
-  const { t } = useTranslation("sessionList");
   const displayedColumns = useSessionListStore(selectDisplayedColumns);
   const isMobile = !useMatchMedia("lg");
   const columns = useSessionListColumns(isMobile);
@@ -33,23 +29,10 @@ const SessionTable: React.FC<SessionTableProps> = ({
   );
 
   if (isMobile) {
-    return (
-      <SessionCards
-        columns={filteredColumns}
-        isLoading={isLoading}
-        rows={sessions}
-      />
-    );
+    return <SessionCards columns={filteredColumns} rows={sessions} />;
   }
 
-  return (
-    <Table
-      columns={filteredColumns}
-      rowHeight="sm"
-      loadingProps={{ isLoading, message: t("table.isLoading") }}
-      rows={sessions}
-    />
-  );
+  return <Table columns={filteredColumns} rowHeight="sm" rows={sessions} />;
 };
 
 export default memo(SessionTable);

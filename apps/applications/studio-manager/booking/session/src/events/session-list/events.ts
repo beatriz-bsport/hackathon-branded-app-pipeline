@@ -2,6 +2,7 @@ import { generateSafeEvent } from "#src/utils/generate-safe-events";
 
 import {
   sessionListCalendarViewChangedEventSchema,
+  sessionListCancelMultipleSessionTimePeriodSelectedEventSchema,
   sessionListCancelMultipleSessionsConfirmButtonClickedEventSchema,
   sessionListDashboardButtonClickedEventSchema,
   sessionListDisplayCancelledSessionClickedEventSchema,
@@ -48,4 +49,9 @@ export const sessionListExportParticipantConfirmButtonClickedEvent =
 export const sessionListCancelMultipleSessionsConfirmButtonClickedEvent =
   generateSafeEvent(
     sessionListCancelMultipleSessionsConfirmButtonClickedEventSchema,
+  );
+
+export const sessionListCancelMultipleSessionTimePeriodSelectedEvent =
+  generateSafeEvent(
+    sessionListCancelMultipleSessionTimePeriodSelectedEventSchema,
   );

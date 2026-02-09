@@ -20,7 +20,10 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionSummaryList } from "#src/components/common/session-summary-list";
-import { sessionListCancelMultipleSessionsConfirmButtonClickedEvent } from "#src/events/session-list/events";
+import {
+  sessionListCancelMultipleSessionTimePeriodSelectedEvent,
+  sessionListCancelMultipleSessionsConfirmButtonClickedEvent,
+} from "#src/events/session-list/events";
 import { useCancelMultipleSessions } from "#src/hooks/session-api/bulk-actions/use-cancel-multiple-sessions";
 import { useFetchNumberOfSessionsToCancel } from "#src/hooks/session-api/bulk-actions/use-fetch-number-of-cancelled-sessions";
 import { useFetchSessions } from "#src/hooks/session-api/fetch/use-fetch-sessions";
@@ -71,6 +74,17 @@ export const CancelMultipleSessionsModal: FC<{
   const handleDateChange = (date: SelectedDate) => {
     if (!date || !Array.isArray(date)) {
       return;
+    }
+    if (date[0] && date[1]) {
+      analyticsTrackSafeEvent(
+        sessionListCancelMultipleSessionTimePeriodSelectedEvent,
+        {
+          time_period_value: {
+            start_date: date[0].toISODate()!,
+            end_date: date[1].toISODate()!,
+          },
+        },
+      );
     }
     setCancelRange([date[0], date[1]]);
   };

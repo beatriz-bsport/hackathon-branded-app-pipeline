@@ -210,3 +210,25 @@ export const sessionListCancelMultipleSessionsConfirmButtonClickedEventSchema =
     .describe(
       "When the user clicks on the confirm button to cancel multiple sessions in the session list",
     );
+
+export const sessionListCancelMultipleSessionTimePeriodSelectedEventSchema = z
+  .object({
+    eventType: z
+      .string()
+      .default("session_list_cancel_multiple_sessions_time_period_selected"),
+    time_period_value: z.object({
+      start_date: z
+        .string()
+        .describe(
+          "The start date of the time period for which the user cancels multiple sessions",
+        ),
+      end_date: z
+        .string()
+        .describe(
+          "The end date of the time period for which the user cancels multiple sessions",
+        ),
+    }),
+  })
+  .describe(
+    "When the user selects a time period to cancel multiple sessions in the session list",
+  );

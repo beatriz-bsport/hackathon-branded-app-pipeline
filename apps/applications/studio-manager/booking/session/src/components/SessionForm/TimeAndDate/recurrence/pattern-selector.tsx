@@ -89,17 +89,17 @@ export const RecurrencePatternSelector: FC<{
       name="recurrencePattern"
       mapProps={() => ({
         onChange: (selectedOptionId) => {
-          if (isMonthlyRecurrencePatternValidType(selectedOptionId)) {
-            setValue("recurrencePattern", selectedOptionId, {
-              shouldValidate: true,
-              shouldDirty: true,
-            });
-            trackRecurrenceRule?.(selectedOptionId);
-          } else {
+          if (!isMonthlyRecurrencePatternValidType(selectedOptionId)) {
             console.warn(
               `Invalid monthly recurrence pattern: ${selectedOptionId}`,
             );
+            return;
           }
+          setValue("recurrencePattern", selectedOptionId, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          trackRecurrenceRule?.(selectedOptionId);
         },
         value: selectedValue,
       })}

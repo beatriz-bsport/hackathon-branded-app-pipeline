@@ -47,22 +47,22 @@ export const RecurrenceTypeSelector: FC<{
       name="recurrenceType"
       mapProps={() => ({
         onChange: (selectedOptionId) => {
-          if (isRecurrenceTypeValidType(selectedOptionId)) {
-            setValue("recurrenceType", selectedOptionId, {
-              shouldValidate: true,
-              shouldDirty: true,
-            });
-            if (selectedOptionId === RecurrenceType.WEEKLY) {
-              trackRecurrenceType?.(
-                RecurrenceIntervalMapping[RecurrenceType.WEEKLY],
-              );
-              return;
-            }
-            // When user select "custom", we use the recurrenceUnit in the event (custom-days, custom-weeks, custom-months)
-            trackRecurrenceType?.(RecurrenceIntervalMapping[recurrenceUnit]);
-          } else {
+          if (!isRecurrenceTypeValidType(selectedOptionId)) {
             console.warn(`Invalid recurrence type: ${selectedOptionId}`);
+            return;
           }
+          setValue("recurrenceType", selectedOptionId, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          if (selectedOptionId === RecurrenceType.WEEKLY) {
+            trackRecurrenceType?.(
+              RecurrenceIntervalMapping[RecurrenceType.WEEKLY],
+            );
+            return;
+          }
+          // When user select "custom", we use the recurrenceUnit in the event (custom-days, custom-weeks, custom-months)
+          trackRecurrenceType?.(RecurrenceIntervalMapping[recurrenceUnit]);
         },
         value: selectedValue,
       })}

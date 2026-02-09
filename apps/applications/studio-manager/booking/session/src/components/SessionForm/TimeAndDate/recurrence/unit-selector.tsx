@@ -46,15 +46,15 @@ export const RecurrenceUnitSelector: FC<{
       name="recurrenceUnit"
       mapProps={() => ({
         onChange: (selectedOptionId) => {
-          if (isCustomRecurrenceUnitValidType(selectedOptionId)) {
-            setValue("recurrenceUnit", selectedOptionId, {
-              shouldValidate: true,
-              shouldDirty: true,
-            });
-            trackRecurrenceType?.(RecurrenceIntervalMapping[selectedOptionId]);
-          } else {
+          if (!isCustomRecurrenceUnitValidType(selectedOptionId)) {
             console.warn(`Invalid recurrence unit: ${selectedOptionId}`);
+            return;
           }
+          setValue("recurrenceUnit", selectedOptionId, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          trackRecurrenceType?.(RecurrenceIntervalMapping[selectedOptionId]);
         },
         value: selectedValue,
       })}

@@ -3,6 +3,8 @@ import { z } from "zod";
 import { CalendarView } from "#src/types";
 import { Columns } from "#src/types";
 
+import { SearchClearSource } from "../constants";
+
 export const sessionListViewedEventSchema = z
   .object({
     eventType: z.string().default("session_list_viewed"),
@@ -232,3 +234,13 @@ export const sessionListCancelMultipleSessionTimePeriodSelectedEventSchema = z
   .describe(
     "When the user selects a time period to cancel multiple sessions in the session list",
   );
+
+export const sessionListSearchClearedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_search_cleared"),
+    search_value: z.string().describe("The search query that the user cleared"),
+    source: z
+      .enum([SearchClearSource.CLEAR_BUTTON, SearchClearSource.CLEAR_FILTERS])
+      .describe("The source from which the user cleared the search query"),
+  })
+  .describe("When the user clears the search input in the session list");

@@ -35,7 +35,7 @@ export const WellhubProductSelectorField: FC<{
           });
         },
         value:
-          selectedWellhubProduct?.label ??
+          selectedWellhubProduct?.id ??
           t(
             "addSessionModal.steps.configureSession.settings.partnership.wellhub.placeholder",
           ),

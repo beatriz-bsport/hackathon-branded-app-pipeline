@@ -167,3 +167,23 @@ export const sessionListSessionClickedEventSchema = z
       ),
   })
   .describe("When the user clicks on a session in the session list");
+
+export const sessionListExportParticipantConfirmButtonClickedEventSchema = z
+  .object({
+    eventType: z
+      .string()
+      .default("session_list_export_participant_confirm_button_clicked"),
+    day_selected: z
+      .string()
+      .describe(
+        "The day for which the user clicks to export participants of a session",
+      ),
+    calendar_filters_toggle_value: z
+      .boolean()
+      .describe(
+        "Whether the user has toggled on the calendar filters when exporting participants of a session",
+      ),
+  })
+  .describe(
+    "When the user clicks on the confirm button to export participants of a session in the session list",
+  );

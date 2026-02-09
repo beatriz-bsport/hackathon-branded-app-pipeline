@@ -129,3 +129,41 @@ export const sessionListDashboardButtonClickedEventSchema = z
   .describe(
     "When the user clicks on the button to go to the dashboard from the session list page",
   );
+
+export const sessionListSessionClickedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_session_clicked"),
+    session_id: z
+      .number()
+      .describe("The id of the session that the user clicks on"),
+    session_name: z
+      .string()
+      .describe("The name of the session that the user clicks on"),
+    session_date: z
+      .string()
+      .describe("The date of the session that the user clicks on"),
+    participant_number: z
+      .number()
+      .describe(
+        "The number of participants registered for the session that the user clicks on",
+      ),
+    teacher_name: z
+      .string()
+      .describe(
+        "The name of the teacher of the session that the user clicks on",
+      ),
+    teacher_id: z
+      .number()
+      .describe("The id of the teacher of the session that the user clicks on"),
+    session_type: z
+      .string()
+      .describe(
+        "The type of the session that the user clicks on (e.g. group activity, workshop)",
+      ),
+    session_is_online: z
+      .boolean()
+      .describe(
+        "Whether the session that the user clicks on is an online session",
+      ),
+  })
+  .describe("When the user clicks on a session in the session list");

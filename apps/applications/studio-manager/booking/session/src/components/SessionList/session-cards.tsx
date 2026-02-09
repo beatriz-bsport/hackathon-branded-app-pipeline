@@ -40,7 +40,12 @@ const SessionCard: React.FC<SessionCardProps> = ({ columns, row }) => {
   }
 
   return (
-    <Card className="flex w-full p-md">
+    <Card
+      className="flex w-full p-md"
+      onClick={row.onRowClick}
+      actionable
+      elevated
+    >
       <div className="flex flex-col gap-xs grow">
         {columnsWithoutAction.map((column) => (
           <div key={column.id}>{renderColumnContent(column, row)}</div>
@@ -60,7 +65,7 @@ const renderColumnContent = (column: TableColumn, row: EnrichedSession) => {
   if ("keyPath" in column) {
     return (
       <Body htmlVariant="p" size="md">
-        {row[column.keyPath as keyof EnrichedSession]}
+        {row[column.keyPath as keyof Omit<EnrichedSession, "onRowClick">]}
       </Body>
     );
   }

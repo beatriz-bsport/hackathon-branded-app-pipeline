@@ -72,7 +72,11 @@ import { fetchAssociatedCoachesList as fetchAssociatedCoaches } from '../libs/as
 // -----------------------------
 //
 //
-import { getPermissions, getObjectPermissions } from '../libs/role/selectors';
+import {
+  getPermissions,
+  getObjectPermissions,
+  getUserRole,
+} from '../libs/role/selectors';
 import { ObjectLevelPermissions } from '../libs/role/types';
 import {
   fetchUserTutorialCompletion,
@@ -274,6 +278,9 @@ type Props = {
   loadingImpersonation: boolean,
   classes: Object,
   username: string,
+  userId: number,
+  userRole: string,
+  email: string,
   fetchMoreAlertingKind: (number) => void,
   fetchCompanyTheme: () => void,
   getFeatureList: () => void,
@@ -796,11 +803,7 @@ export class Backoffice extends Component<Props, State> {
       return <Redirect to={redirectionUrl} />;
     }
 
-    const { language } = i18n;
-    const isoLanguage = getCurrentLanguageIsoCode(language);
-
     const isInboxPath = this.props.browserLocation.pathname.includes('/inbox/');
-
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <PermissionContext.Provider value={this.props.permissions}>
@@ -883,23 +886,12 @@ export class Backoffice extends Component<Props, State> {
               >
                 {!isInboxPath && (
                   <Intercom
-                    company={
-                      this.props.theme && this.props.theme.company_name
-                        ? {
-                            name: this.props.theme.company_name,
-                            id: this.props.theme.company,
-                          }
-                        : {}
-                    }
                     email={this.props.username}
                     environment={Config.REACT_APP_SENTRY_ENVIRONMENT || 'dev'}
+                    role={this.props.userRole.name}
                     theme={this.props.theme}
-                    {...(this.props.name ? { name: this.props.name } : {})}
-                    action_color={this.props.theme.primary_color}
-                    language_override={isoLanguage}
-                    release={RELEASE}
-                    role={this.props.permissions.name}
-                    user_id={this.props.username}
+                    userId={this.props.userId}
+                    userName={this.props.name}
                   />
                 )}
 
@@ -1067,7 +1059,9 @@ export default compose(
       ),
       nbTutorialAlerting: alertingSelectors.countTutorialAlerting(state),
       userAcknowlegdePlatformTutorial: userAcknowlegdePlatformTutorial(state),
-      username: state.auth.username,
+      username: state.auth.name,
+      email: state.auth.username,
+      userId: state.auth.id,
       userAuthState: state.auth,
       name: state.auth.name,
       roleId: state.auth.role,
@@ -1077,6 +1071,7 @@ export default compose(
       featureListLoading: state.company.feature.loading,
       checkingEmailValidation: state.login.emailValidation.loading,
       permissions: getPermissions(state),
+      userRole: getUserRole(state),
       onSpotPaymentReportId: state.paymentBackend.onSpotPaymentReport.id,
       is_consumer: state.auth.is_consumer && !state.auth.is_manager,
       featureList: state.company.feature.data.upsell,

@@ -199,6 +199,16 @@ const fetchPopupImage = async (imageUrl: string): Promise<File> => {
 };
 
 /**
+ * Deletes a tag rule
+ * @param id - ID of the tag rule to delete
+ */
+export const deleteTagRule = async (id: number): Promise<void> => {
+  await fetch(`${SMARTLIST_API_V1}/tagrules/${id}/`, {
+    method: "DELETE",
+  });
+};
+
+/**
  * Query Options
  */
 export const smartlistDetailQueryOptions = (id: string) =>

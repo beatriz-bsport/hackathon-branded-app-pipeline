@@ -492,14 +492,23 @@
         "finerGrain": {
           "specifyItemsToggleLabel": "Artikel hinzufügen",
           "purchaseLabelTitle": "Erworbene Artikel"
-        }
+        },
+        "triggerTimeoutHours": "Stunde.",
+        "triggerTimeoutHours_plural": "Stunden.",
+        "triggerTimeoutDaysAnd": "Tag und",
+        "triggerTimeoutDaysAnd_plural": "Tage und"
       },
       "win_step": "Erfolgreicher Ausgang",
       "error": {
         "triggerCannotBeEmpty": "Sie müssen eine Eingabeart auswählen.",
         "minimumConnectedTrigger": "Sie müssen mindestens einen Auslöser auswählen.",
         "maximumConnectedTrigger": "Sie können nicht mehr als fünf Auslöser einrichten.",
-        "timeoutMustBeStrictPositive": "Die Frist muss mindestens einen Tag betragen."
+        "timeoutMustBeStrictPositive": "Die Verzögerung muss mindestens 1 Tag betragen.",
+        "timeoutRequired": "Die Verzögerung ist erforderlich.",
+        "timeoutHoursMustBeMax23": "Die Anzahl der Stunden darf 23 nicht überschreiten.",
+        "timeoutHoursMustBePositive": "Die Anzahl der Stunden muss positiv sein.",
+        "timeoutDaysMustBePositive": "Die Anzahl der Tage muss positiv sein.",
+        "timeoutMustBeStrictPositiveWithHourlyTimeout": "Die Verzögerung muss mindestens 1 Stunde betragen."
       },
       "marketing_action": {
         "1": "E-Mail senden",
@@ -513,7 +522,8 @@
           "submit": "Validieren"
         },
         "defaultName": "Standardmäßige Bezeichnung",
-        "select_tag": "Ein Tag wählen"
+        "select_tag": "Ein Tag wählen",
+        "6": "Ein Tag entfernen"
       },
       "event": {
         "1": "Kurspass",
@@ -550,7 +560,9 @@
         "private_consumer_pass-create": "Privat-Pass",
         "consumer_payment_pack-create": "Kurspass",
         "provision_update-create": "Shop-Artikel",
-        "consumer_giftcard-create": "Gutschein"
+        "consumer_giftcard-create": "Gutschein",
+        "marketing-lead_form_submitted": "Lead-Formular gesendet",
+        "105": "Mitglied"
       },
       "exit": {
         "exit_fail_label": "Nein",
@@ -616,11 +628,14 @@
         "purchase_chip": "Kaufen",
         "billing_plan_chip": "Abonnement",
         "invoice_chip": "Rechnungsstellung",
-        "basket_chip": "Warenkorb"
+        "basket_chip": "Warenkorb",
+        "member_chip": "Mitglied"
       },
       "timeout": {
         "timeout_days_chip": "{{ count }} Tag",
-        "timeout_days_chip_plural": "{{ count }} Tage"
+        "timeout_days_chip_plural": "{{ count }} Tage",
+        "timeout_hours_chip": "{{ count }} Stunde",
+        "timeout_hours_chip_plural": "{{ count }} Stunden"
       },
       "trigger": "Auslöser",
       "exit": "Ausgang",
@@ -762,7 +777,12 @@
         "timeout": {
           "title": "Zeitlimit",
           "label": "Tage inaktiv in {{ workflowLowerCase }}",
-          "helperText": "Mitglieder verlassen den {{ workflowLowerCase }} , wenn nach dieser Anzahl von Tagen keine Fortschritte erzielt wurden"
+          "helperText": "Mitglieder verlassen den {{ workflowLowerCase }} , wenn nach dieser Anzahl von Tagen keine Fortschritte erzielt wurden",
+          "hours": "Stunde",
+          "hours_plural": "Stunden",
+          "days": "Tag und",
+          "days_plural": "Tage und",
+          "helperTextWithHourlyTimeout": "Mitglieder verlassen den/die {{ workflowLowerCase }}, wenn nach dieser Inaktivitätsdauer kein Fortschritt erzielt wird."
         },
         "addTrigger": "Ausgangsauslöser hinzufügen",
         "helperText": "Hier legst du fest, wann ein Kriterium als \"nicht erfolgreich\" abgeschlossen gilt.",
@@ -865,7 +885,7 @@
     "graph": {
       "alert": {
         "switchToEditMode": "Sie befinden sich im Ansichtsmodus, klicken Sie auf BEARBEITEN, um den {{ workflowLowerCase }} zu bearbeiten.",
-        "audienceIsActive": "Ihr {{ workflowLowerCase }} ist im Gange, bitte unterbrechen Sie ihn zum Ändern."
+        "audienceIsActive": "Dein {{ workflowLowerCase }} ist derzeit aktiv. Pausiere es zuerst, um es zu bearbeiten. "
       }
     },
     "activate": {
@@ -1049,7 +1069,8 @@
       },
       "createFromScratchDescription": "Erstelle ein {{ workflowCamelCase }}, um deine Audience-Aktionen zu automatisieren.",
       "useTemplate": "Vorlage verwenden",
-      "createFromScratch": "Neue {{ workflowCamelCase }} erstellen"
+      "createFromScratch": "Neue {{ workflowCamelCase }} erstellen",
+      "createFromScratchTitle": "Neuer {{ workflowLowerCase }}"
     },
     "upsells": {
       "warning": {

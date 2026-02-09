@@ -1,9 +1,21 @@
+/**
+ * DEPRECATION NOTICE
+ * We disabled the initialization of Rudderstack as
+ * - we are moving away to use Mixpanel instead
+ * - we exceeding our quota
+ * - we are not using rudderstack anymore
+ * - it won't be integrated in the revamp
+ */
 import * as rudderanalytics from 'rudder-sdk-js';
 import { captureException as SentryCaptureException } from '@sentry/react';
 import Config from '../../../config';
 import { TrackProperties, UserTraits } from './type';
 
+/**
+ * @deprecated See DEPRECATION NOTICE
+ */
 export function rudderInitialize() {
+  return;
   try {
     rudderanalytics.load(
       Config.REACT_APP_RUDDERSTACK_KEY,
@@ -15,10 +27,14 @@ export function rudderInitialize() {
   }
 }
 
+/**
+ * @deprecated See DEPRECATION NOTICE
+ */
 export async function rudderStackIdentify(params: {
   userId: string;
   userTraits: UserTraits;
 }) {
+  return;
   try {
     rudderanalytics?.identify(params.userId, params.userTraits, {
       All: false,
@@ -47,12 +63,16 @@ function handleAddData(additional_data) {
   return { data: additional_data };
 }
 
+/**
+ * @deprecated See DEPRECATION NOTICE
+ */
 export async function rudderStackObjectTrack(
   object_type: string, // "payment_pack"
   event_type_group: string, // "form"
   event_type_action: string, // "add"
   data: TrackProperties = {}, // { id, name, SCT}...
 ) {
+  return;
   try {
     rudderanalytics?.track(
       `${object_type}:${event_type_group}:${event_type_action}`,
@@ -69,10 +89,17 @@ export async function rudderStackObjectTrack(
   }
 }
 
+/**
+ * @deprecated See DEPRECATION NOTICE
+ */
 export const rudderStackFormTrackingFunctionsRegistry = (
   object_identifier: string,
 ) => ({
+  /**
+   * @deprecated See DEPRECATION NOTICE
+   */
   trackFormAdd: (id?: number, additional_data: TrackProperties = {}) => {
+    return;
     try {
       // prepare the {data: } field
       const formatAddData = handleAddData(additional_data);
@@ -84,10 +111,14 @@ export const rudderStackFormTrackingFunctionsRegistry = (
       SentryCaptureException(err);
     }
   },
+  /**
+   * @deprecated See DEPRECATION NOTICE
+   */
   trackFormSubmitIntent: (
     id?: number,
     additional_data: TrackProperties = {},
   ) => {
+    return;
     try {
       // prepare the {data: } field
       const formatAddData = handleAddData(additional_data);
@@ -99,7 +130,11 @@ export const rudderStackFormTrackingFunctionsRegistry = (
       SentryCaptureException(err);
     }
   },
+  /**
+   * @deprecated See DEPRECATION NOTICE
+   */
   trackFormSuccess: (id?: number, additional_data: TrackProperties = {}) => {
+    return;
     try {
       // prepare the {data: } field
       const formatAddData = handleAddData(additional_data);
@@ -111,7 +146,11 @@ export const rudderStackFormTrackingFunctionsRegistry = (
       SentryCaptureException(err);
     }
   },
+  /**
+   * @deprecated See DEPRECATION NOTICE
+   */
   trackFormCancel: (id?: number, additional_data: TrackProperties = {}) => {
+    return;
     try {
       // prepare the {data: } field
       const formatAddData = handleAddData(additional_data);
@@ -125,10 +164,14 @@ export const rudderStackFormTrackingFunctionsRegistry = (
   },
 });
 
+/**
+ * @deprecated See DEPRECATION NOTICE
+ */
 export async function rudderStackPage(parsedQueryString: {
   // @ts-expect-error
   [key: any]: string;
 }) {
+  return;
   try {
     rudderanalytics?.page(
       { params: parsedQueryString },

@@ -14,7 +14,7 @@ export type DatePickerContentProps = React.HTMLAttributes<HTMLDivElement> & {
   className?: string;
   id: string;
   mode: "single" | "range";
-  displayAs: "popover" | "modal";
+  displayAs: "popover" | "modal" | "content";
   calendarYears?: number[];
   disableDate?: (date: DateTime, selectedDate: SelectedDate) => boolean;
   sanitizedSelected: SelectedDate;
@@ -69,16 +69,18 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
           />
         )}
       </div>
-      {displayAs === "modal" && shortcuts && shortcuts.length > 0 && (
-        <>
-          <Divider orientation="vertical" weight="thin" />
-          <Shortcuts
-            items={shortcuts}
-            onSelect={onShortcutSelect}
-            resetSelection={manuallySelected}
-          />
-        </>
-      )}
+      {(displayAs === "modal" || displayAs === "content") &&
+        shortcuts &&
+        shortcuts.length > 0 && (
+          <>
+            <Divider orientation="vertical" weight="thin" />
+            <Shortcuts
+              items={shortcuts}
+              onSelect={onShortcutSelect}
+              resetSelection={manuallySelected}
+            />
+          </>
+        )}
     </div>
   );
 };

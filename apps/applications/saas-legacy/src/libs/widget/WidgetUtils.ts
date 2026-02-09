@@ -119,6 +119,24 @@ class WidgetUtils {
     }
   }
 
+  static sendScrollUpPostMessageToWidget() {
+    // Check if the current environment is within a widget and the widget is in deactivated dialog mode
+    if (
+      WidgetUtils.isWidget() &&
+      WidgetUtils.getDialogMode() === DIALOG_MODE_DEACTIVATED
+    ) {
+      // Create a message object to be sent via postMessage
+      const message = {
+        type: 'bsport-widget-scrollup',
+        data: {
+          parentElementId: WidgetUtils.getParentElementId(),
+        },
+      };
+      // Send the message to the parent window using postMessage
+      window?.parent?.postMessage(message, '*');
+    }
+  }
+
   private static async postMessage(data: any) {
     if (_persistor) await _persistor.flush();
 

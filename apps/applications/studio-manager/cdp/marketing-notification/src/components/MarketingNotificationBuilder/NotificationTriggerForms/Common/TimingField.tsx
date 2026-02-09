@@ -61,16 +61,6 @@ export const TimingField = ({
     selectedTemporality ?? TEMPORALITY_BEFORE,
   );
 
-  const timeUnitMappedToTranslations = {
-    [t("steps.notificationRules.timing.timeUnit.options.hour")]: TIME_UNIT_HOUR,
-    [t("steps.notificationRules.timing.timeUnit.options.day")]: TIME_UNIT_DAY,
-  };
-
-  const translationsKeyToTimeUnitMap = {
-    [TIME_UNIT_HOUR]: t("steps.notificationRules.timing.timeUnit.options.hour"),
-    [TIME_UNIT_DAY]: t("steps.notificationRules.timing.timeUnit.options.day"),
-  };
-
   const notificationTimingSummary = `${t(
     "steps.notificationRules.timing.timingValuePrefix.content",
     {
@@ -84,6 +74,11 @@ export const TimingField = ({
     },
   )}`;
 
+  const notificationTimingError =
+    isNaN(timeValue) || timeValue < 0
+      ? t(`steps.notificationRules.errors.positiveValue.${timeUnit}`)
+      : null;
+
   const handleTimingTemporalityUpdate = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -94,8 +89,7 @@ export const TimingField = ({
     }
   };
 
-  const handleTimingUnitSelection = (option: string) => {
-    const newTimeUnit = timeUnitMappedToTranslations[option];
+  const handleTimingUnitSelection = (newTimeUnit: string) => {
     if (isTimeUnitTypeCorrect(newTimeUnit)) {
       updateTimingUnit(newTimeUnit);
       setTimeUnit(newTimeUnit);
@@ -141,8 +135,7 @@ export const TimingField = ({
           name="timingUnit"
           mapProps={({ defaultProps }) => ({
             ...defaultProps,
-            value: translationsKeyToTimeUnitMap[timeUnit],
-            onSelect: handleTimingUnitSelection,
+            value: timeUnit,
           })}
         >
           <Select
@@ -161,6 +154,7 @@ export const TimingField = ({
                 id: TIME_UNIT_DAY,
               },
             ]}
+            onChange={handleTimingUnitSelection}
           />
         </FormField>
         <FormField<
@@ -184,9 +178,9 @@ export const TimingField = ({
           />
         </FormField>
       </div>
-      <Alert type="weak" status="info">
+      <Alert type="weak" status={notificationTimingError ? "critical" : "info"}>
         <Body htmlVariant="p" size="md">
-          {String(notificationTimingSummary)}
+          {notificationTimingError ?? String(notificationTimingSummary)}
         </Body>
       </Alert>
     </div>

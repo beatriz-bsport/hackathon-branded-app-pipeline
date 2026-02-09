@@ -52,6 +52,8 @@ const pagination = cva(defaultClasses);
 
 const button = cva(buttonClasses, { variants: buttonVariants });
 
+const PAGINATION_OPTION_PREFIX = "pagination-option";
+
 const DEFAULT_ROWS_PER_PAGE_OPTIONS = [10, 25, 50, 100] as const;
 
 export type PaginationProps = React.HTMLAttributes<HTMLDivElement> &
@@ -161,9 +163,11 @@ const Pagination: React.FC<PaginationProps> = ({
   );
 
   const handleRowsPerPageChange = (option: string) => {
-    setLocalRowsPerPage(Number(option));
-    onRowsPerPageChange?.(Number(option));
-    onPageSettingsChange?.(1, Number(option));
+    const splitOption = option.split("-");
+    const optionValue = splitOption[splitOption.length - 1];
+    setLocalRowsPerPage(Number(optionValue));
+    onRowsPerPageChange?.(Number(optionValue));
+    onPageSettingsChange?.(1, Number(optionValue));
   };
 
   // Returns an array of { label, value } for each page button
@@ -265,11 +269,11 @@ const Pagination: React.FC<PaginationProps> = ({
             <Select
               id={props.id ? `${props.id}-select` : undefined}
               size="sm"
-              value={currentItems.toString()}
-              onSelect={handleRowsPerPageChange}
+              value={`${PAGINATION_OPTION_PREFIX}-${currentItems}`}
+              onChange={handleRowsPerPageChange}
               disabled={disabled}
               items={rowsPerPageOptions.map((option) => ({
-                id: `pagination-option-${option}`,
+                id: `${PAGINATION_OPTION_PREFIX}-${option}`,
                 label: option.toString(),
               }))}
             />

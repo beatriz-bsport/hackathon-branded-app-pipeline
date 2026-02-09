@@ -5,6 +5,7 @@ import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 import { itemTypeEndpointConfig } from "./endpoints";
 import { getPriceFromItem } from "./price";
 import type { ItemTypeConfig, RawPackResponse } from "./types";
+import { parsePackTaxPercent } from "./utils";
 
 export const usePackConfig = (): ItemTypeConfig<RawPackResponse> => {
   const i18nInstance = useKaizenI18nInstance();
@@ -25,6 +26,7 @@ export const usePackConfig = (): ItemTypeConfig<RawPackResponse> => {
           id: String(item.id),
           title: item.name,
           priceLabel,
+          taxPercent: parsePackTaxPercent(item),
           description:
             itemCount > 0
               ? t("itemAutocomplete.items", { count: itemCount })

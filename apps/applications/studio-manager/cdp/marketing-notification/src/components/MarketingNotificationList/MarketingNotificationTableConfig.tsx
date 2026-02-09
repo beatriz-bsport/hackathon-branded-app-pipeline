@@ -1,7 +1,9 @@
 import {
   Body,
+  Button,
   Chip,
   type GenericTableColumn,
+  Icon,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
@@ -53,6 +55,41 @@ export const getTableColumns = ({
     type: "custom",
     align: "start",
     render: (row) => {
+      if (row.isNotificationEntityMissing) {
+        return (
+          <div className="flex flex-col gap-xs">
+            <Tooltip placement="bottom" label={row.triggerType}>
+              <Body
+                className="max-w-[500px] overflow-hidden text-ellipsis"
+                htmlVariant="p"
+                size="md"
+                color="critical"
+                weight="weak"
+              >
+                {t(
+                  `table.brokenNotification.missingEntity.${row.notificationType}`,
+                )}
+              </Body>
+            </Tooltip>
+            <div className="flex flex-row gap-xs">
+              <Icon
+                size="sm"
+                icon="alert-triangle"
+                className="text-onsurface-status-critical-weak"
+              />
+              <Body
+                className="overflow-hidden text-ellipsis"
+                htmlVariant="p"
+                size="sm"
+                color="critical"
+                weight="stronger"
+              >
+                {t("table.brokenNotification.canDelete")}
+              </Body>
+            </div>
+          </div>
+        );
+      }
       return (
         <div className="flex flex-col gap-xs">
           <Tooltip placement="bottom" label={row.triggerType}>
@@ -88,9 +125,12 @@ export const getTableColumns = ({
     align: "center",
     render: (row) => {
       const getEmailChip = () => {
-        if (row.isEmailNotificationBroken) {
+        if (row.isEmailTemplateMissing) {
           return (
-            <Tooltip placement="bottom" label={t("table.brokenEmailTooltip")}>
+            <Tooltip
+              placement="bottom"
+              label={t("table.brokenNotification.missingEmail.tooltip")}
+            >
               <Chip
                 size="lg"
                 type="weak"
@@ -134,15 +174,32 @@ export const getTableColumns = ({
     type: "custom",
     align: "center",
     render: (row) => {
+      if (row.isNotificationEntityMissing) {
+        return (
+          <Button
+            id={`${row.id}-delete-notification`}
+            color="critical"
+            intent="call-to-action"
+            size="md"
+            iconLeft="trash-01"
+            label={t("table.actions.delete")}
+            disabled={!permissions.isUserMarketingNotificationManager}
+            onClick={(event) => {
+              event.stopPropagation();
+              deleteNotification(row.notificationId);
+            }}
+          />
+        );
+      }
       return (
         <NotificationToggle
           isActive={row.isNotificationActive}
-          disabled={
-            !permissions.isUserMarketingNotificationManager ||
-            !row.isAbleToUpdateNotification
+          isEmailTemplateMissing={row.isEmailTemplateMissing}
+          isPushNotificationSet={row.isPushNotificationSet}
+          isUserMarketingNotificationManager={
+            permissions.isUserMarketingNotificationManager
           }
-          notificationId={row.id}
-          isEmailNotificationBroken={row.isEmailNotificationBroken}
+          notificationId={row.notificationId}
         />
       );
     },
@@ -155,12 +212,13 @@ export const getTableColumns = ({
     type: "custom",
     align: "end",
     render: (row) => {
+      if (row.isNotificationEntityMissing) return null;
       return (
         <NotificationActionsMenu
           onPreview={openPreview}
           onEdit={editNotification}
           onDelete={deleteNotification}
-          notificationId={row.id}
+          notificationId={row.notificationId}
         />
       );
     },

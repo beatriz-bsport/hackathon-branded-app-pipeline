@@ -1,4 +1,6 @@
-import { ModalType, type SessionListState } from "./store";
+import { ModalType } from "#src/types";
+
+import { type SessionListState } from "./store";
 
 export const selectCalendarView = (state: SessionListState) =>
   state.calendarView;

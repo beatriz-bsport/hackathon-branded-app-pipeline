@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import { FormField, useFormContext } from "@bsport/form";
 import {
@@ -23,11 +23,41 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
 }) => {
   const { t } = useTranslation(["common", "sessionCreation"]);
 
-  const { watch, setValue } = useFormContext<SessionCreationFormData>();
+  const { watch, setValue, formState, clearErrors } =
+    useFormContext<SessionCreationFormData>();
+
+  const error = formState.errors.recurrenceWeekdays;
+
+  const isRecurring = watch("isRecurring");
 
   const recurrenceType = watch("recurrenceType");
 
   const recurrenceUnit = watch("recurrenceUnit");
+
+  // Clear recurrenceWeekdays error when conditions change such that validation no longer applies
+  useEffect(() => {
+    if (!isRecurring) {
+      // Errors are cleared when recurrence is disabled
+      // in RecurrenceToggle component
+      return;
+    }
+
+    // For WEEKLY recurrence type
+    if (recurrenceType === RecurrenceType.WEEKLY) {
+      return; // Validation should apply
+    }
+
+    // For CUSTOM recurrence type with WEEKS unit
+    if (
+      recurrenceType === RecurrenceType.CUSTOM &&
+      recurrenceUnit === CustomRecurrenceUnit.WEEKS
+    ) {
+      return; // Validation should apply
+    }
+
+    // In all other cases, clear the error
+    clearErrors("recurrenceWeekdays");
+  }, [isRecurring, recurrenceType, recurrenceUnit, clearErrors]);
 
   if (
     recurrenceType !== RecurrenceType.WEEKLY &&
@@ -134,6 +164,14 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
           }}
         </Popover.Content>
       </Popover>
+      {!!error && (
+        <p
+          data-component="Recurrence-Weekdays-Error"
+          className="text-body-sm leading-xs text-ellipsis text-onsurface-status-critical-strong"
+        >
+          {error.message}
+        </p>
+      )}
       {selectedChips.length > 0 && (
         <div className="flex gap-md">
           {selectedChips.map((chip) => (

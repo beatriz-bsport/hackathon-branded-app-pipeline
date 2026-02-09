@@ -1,5 +1,4 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useRef } from "react";
 
 import { toast } from "@bsport/kaizen-primitive-core";
 
@@ -11,13 +10,12 @@ export const useDeleteAutomation = () => {
   const { t } = useTranslation("details");
 
   const queryClient = useQueryClient();
-  const smartlistIdRef = useRef<string>("");
 
   const { deleteAutomatedCampaign: deleteTrigger, isLoading: isDeleting } =
     useDeleteAutomatedCampaign({
-      onSuccess: () => {
+      onSuccess: (_data, variables) => {
         queryClient.invalidateQueries({
-          queryKey: smartlistKeys.automatedCampaigns(smartlistIdRef.current),
+          queryKey: smartlistKeys.automatedCampaigns(variables.smartlistId),
         });
 
         toast({
@@ -41,8 +39,7 @@ export const useDeleteAutomation = () => {
     smartlistId: string;
     automationId: number;
   }) => {
-    smartlistIdRef.current = params.smartlistId;
-    deleteTrigger({ id: params.automationId });
+    deleteTrigger({ id: params.automationId, smartlistId: params.smartlistId });
   };
 
   return {

@@ -35,12 +35,15 @@ export const SessionCapacityField: FC<{
   return (
     <FormField<SessionCreationFormData, typeof fieldName>
       name={fieldName}
-      mapProps={({ defaultProps, fieldState }) => ({
+      mapProps={({ defaultProps, fieldState, form }) => ({
         ...defaultProps,
         value: String(defaultProps.value ?? ""),
         onChange: (e) => {
           const numValue = parseInt(e.target.value, 10);
           defaultProps.onChange(isNaN(numValue) ? 0 : Math.max(0, numValue));
+          if (fieldName === "effectif") {
+            form.trigger("effectif"); // Trigger validation to check against roomBlueprintCapacity
+          }
         },
         status: fieldState.error ? "error" : "default",
         statusText: fieldState.error?.message,

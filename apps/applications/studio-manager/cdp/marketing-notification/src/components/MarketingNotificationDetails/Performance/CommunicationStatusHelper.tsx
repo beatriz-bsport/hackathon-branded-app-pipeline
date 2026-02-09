@@ -32,7 +32,7 @@ export const CommunicationStatusHelper = () => {
       description: t(
         "drawer.performance.allNotifications.helper.status.opened.description",
       ),
-      color: "info",
+      color: "main",
     },
     {
       title: t(

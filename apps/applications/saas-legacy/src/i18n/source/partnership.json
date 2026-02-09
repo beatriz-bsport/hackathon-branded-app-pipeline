@@ -72,6 +72,14 @@
             "error": {
               "required": "Please select at least one establishment"
             }
+          },
+          "unitId": {
+            "placeholder": "Unit ID number",
+            "error": {
+              "required": "Unit ID is required",
+              "positive": "Unit ID must be a positive number",
+              "unavailable": "Unit ID not available"
+            }
           }
         },
         "action": {

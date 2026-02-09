@@ -96,3 +96,28 @@ export const sessionListDisplayCancelledSessionClickedEventSchema = z
   .describe(
     "When the user clicks on the setting to show or hide cancelled sessions in the session list",
   );
+
+export const sessionListFiltersChangedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_filters_changed"),
+    filters: z
+      .array(
+        z.object({
+          field: z
+            .string()
+            .nullable()
+            .describe("The field on which the filter is applied"),
+          filter: z
+            .string()
+            .nullable()
+            .describe("The operator of the filter applied (e.g. is, is not)"),
+          valueIds: z
+            .array(z.string())
+            .describe("The value of the filter applied"),
+        }),
+      )
+      .describe("The list of filters currently applied on the session list"),
+  })
+  .describe(
+    "When the user applies, changes or removes filters on the session list",
+  );

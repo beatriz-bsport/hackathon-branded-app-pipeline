@@ -3,6 +3,7 @@ import { generateSafeEvent } from "#src/utils/generate-safe-events";
 import {
   sessionListCalendarViewChangedEventSchema,
   sessionListDisplayCancelledSessionClickedEventSchema,
+  sessionListFiltersChangedEventSchema,
   sessionListViewedEventSchema,
   sessionListVisibleColumnsClickedEventSchema,
 } from "./schemas";
@@ -21,4 +22,8 @@ export const sessionListVisibleColumnsClickedEvent = generateSafeEvent(
 
 export const sessionListDisplayCancelledSessionClickedEvent = generateSafeEvent(
   sessionListDisplayCancelledSessionClickedEventSchema,
+);
+
+export const sessionListFiltersChangedEvent = generateSafeEvent(
+  sessionListFiltersChangedEventSchema,
 );

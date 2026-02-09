@@ -1,6 +1,7 @@
 import { generateSafeEvent } from "#src/utils/generate-safe-events";
 
 import {
+  sessionListAttendanceButtonClickedEventSchema,
   sessionListCalendarViewChangedEventSchema,
   sessionListCancelMultipleSessionTimePeriodSelectedEventSchema,
   sessionListCancelMultipleSessionsConfirmButtonClickedEventSchema,
@@ -64,4 +65,8 @@ export const sessionListSearchChangedEvent = generateSafeEvent(
 
 export const sessionListSearchClearedEvent = generateSafeEvent(
   sessionListSearchClearedEventSchema,
+);
+
+export const sessionListAttendanceButtonClickedEvent = generateSafeEvent(
+  sessionListAttendanceButtonClickedEventSchema,
 );

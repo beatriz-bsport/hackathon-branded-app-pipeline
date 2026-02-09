@@ -251,3 +251,51 @@ export const sessionListSearchClearedEventSchema = z
       .describe("The source from which the user cleared the search query"),
   })
   .describe("When the user clears the search input in the session list");
+
+export const sessionListAttendanceButtonClickedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_attendance_button_clicked"),
+    session_id: z
+      .number()
+      .describe(
+        "The id of the session for which the user clicks on the attendance button",
+      ),
+    session_name: z
+      .string()
+      .describe(
+        "The name of the session for which the user clicks on the attendance button",
+      ),
+    session_date: z
+      .string()
+      .describe(
+        "The date of the session for which the user clicks on the attendance button",
+      ),
+    participant_number: z
+      .number()
+      .describe(
+        "The number of participants registered for the session for which the user clicks on the attendance button",
+      ),
+    teacher_name: z
+      .string()
+      .describe(
+        "The name of the teacher of the session for which the user clicks on the attendance button",
+      ),
+    teacher_id: z
+      .number()
+      .describe(
+        "The id of the teacher of the session for which the user clicks on the attendance button",
+      ),
+    session_type: z
+      .string()
+      .describe(
+        "The type of the session for which the user clicks on the attendance button (e.g. group activity, workshop)",
+      ),
+    session_is_online: z
+      .boolean()
+      .describe(
+        "Whether the session for which the user clicks on the attendance button is an online session",
+      ),
+  })
+  .describe(
+    "When the user clicks on the attendance button of a session in the session list",
+  );

@@ -16,6 +16,7 @@ import {
   sessionListCopyLinkButtonClickedEvent,
   sessionListDuplicateButtonClickedEvent,
   sessionListEditButtonClickedEvent,
+  sessionListRestoreButtonClickedEvent,
 } from "#src/events/session-list/events";
 import {
   openCancelModal,
@@ -158,6 +159,10 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "unarchive",
         type: "button",
         onClick: () => {
+          analyticsTrackSafeEvent(
+            sessionListRestoreButtonClickedEvent,
+            trackingProperties,
+          );
           setIsPopoverOpened(false);
           openRestoreModal(session);
         },

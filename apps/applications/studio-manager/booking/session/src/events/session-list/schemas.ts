@@ -385,368 +385,110 @@ export const sessionListAttendanceConfirmButtonClickedEventSchema = z
   })
   .describe("When the user clicks on the attendance confirm button");
 
-export const sessionListEditButtonClickedEventSchema = z
-  .object({
-    eventType: z.string().default("session_list_edit_button_clicked"),
-    session_id: z
-      .number()
-      .describe(
-        "The id of the session for which the user clicks on the edit button",
-      ),
-    session_name: z
-      .string()
-      .describe(
-        "The name of the session for which the user clicks on the edit button",
-      ),
-    session_start_date_time: z
-      .string()
-      .describe(
-        "The date and time of the session for which the user clicks on the edit button",
-      ),
-    participant_number: z
-      .number()
-      .describe(
-        "The number of participants registered for the session for which the user clicks on the edit button",
-      ),
-    teacher_name: z
-      .string()
-      .describe(
-        "The name of the teacher of the session for which the user clicks on the edit button",
-      ),
-    teacher_id: z
-      .number()
-      .describe(
-        "The id of the teacher of the session for which the user clicks on the edit button",
-      ),
-    session_type: z
-      .string()
-      .describe(
-        "The type of the session for which the user clicks on the edit button (e.g. group activity, workshop)",
-      ),
-    session_is_online: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the edit button is an online session",
-      ),
-    session_available: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the edit button is still available when editing (i.e. not cancelled or already took place)",
-      ),
-    session_duration: z
-      .number()
-      .describe(
-        "The duration in minutes of the session for which the user clicks on the edit button",
-      ),
-    session_visibility: z
-      .enum(SessionVisibility)
-      .describe(
-        "The visibility of the session for which the user clicks on the edit button",
-      ),
-  })
-  .describe("When the user clicks on the edit button");
+const createSessionListActionButtonClickedEventSchema = (
+  action: string,
+  eventType: string,
+  availableVerb: string,
+) =>
+  z
+    .object({
+      eventType: z.string().default(eventType),
+      session_id: z
+        .number()
+        .describe(
+          `The id of the session for which the user clicks on the ${action} button`,
+        ),
+      session_name: z
+        .string()
+        .describe(
+          `The name of the session for which the user clicks on the ${action} button`,
+        ),
+      session_start_date_time: z
+        .string()
+        .describe(
+          `The date and time of the session for which the user clicks on the ${action} button`,
+        ),
+      participant_number: z
+        .number()
+        .describe(
+          `The number of participants registered for the session for which the user clicks on the ${action} button`,
+        ),
+      teacher_name: z
+        .string()
+        .describe(
+          `The name of the teacher of the session for which the user clicks on the ${action} button`,
+        ),
+      teacher_id: z
+        .number()
+        .describe(
+          `The id of the teacher of the session for which the user clicks on the ${action} button`,
+        ),
+      session_type: z
+        .string()
+        .describe(
+          `The type of the session for which the user clicks on the ${action} button (e.g. group activity, workshop)`,
+        ),
+      session_is_online: z
+        .boolean()
+        .describe(
+          `Whether the session for which the user clicks on the ${action} button is an online session`,
+        ),
+      session_available: z
+        .boolean()
+        .describe(
+          `Whether the session for which the user clicks on the ${action} button is still available when ${availableVerb} (i.e. not cancelled or already took place)`,
+        ),
+      session_duration: z
+        .number()
+        .describe(
+          `The duration in minutes of the session for which the user clicks on the ${action} button`,
+        ),
+      session_visibility: z
+        .enum(SessionVisibility)
+        .describe(
+          `The visibility of the session for which the user clicks on the ${action} button`,
+        ),
+    })
+    .describe(`When the user clicks on the ${action} button`);
 
-export const sessionListDuplicateButtonClickedEventSchema = z
-  .object({
-    eventType: z.string().default("session_list_duplicate_button_clicked"),
-    session_id: z
-      .number()
-      .describe(
-        "The id of the session for which the user clicks on the duplicate button",
-      ),
-    session_name: z
-      .string()
-      .describe(
-        "The name of the session for which the user clicks on the duplicate button",
-      ),
-    session_start_date_time: z
-      .string()
-      .describe(
-        "The date and time of the session for which the user clicks on the duplicate button",
-      ),
-    participant_number: z
-      .number()
-      .describe(
-        "The number of participants registered for the session for which the user clicks on the duplicate button",
-      ),
-    teacher_name: z
-      .string()
-      .describe(
-        "The name of the teacher of the session for which the user clicks on the duplicate button",
-      ),
-    teacher_id: z
-      .number()
-      .describe(
-        "The id of the teacher of the session for which the user clicks on the duplicate button",
-      ),
-    session_type: z
-      .string()
-      .describe(
-        "The type of the session for which the user clicks on the duplicate button (e.g. group activity, workshop)",
-      ),
-    session_is_online: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the duplicate button is an online session",
-      ),
-    session_available: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the duplicate button is still available when duplicating (i.e. not cancelled or already took place)",
-      ),
-    session_duration: z
-      .number()
-      .describe(
-        "The duration in minutes of the session for which the user clicks on the duplicate button",
-      ),
-    session_visibility: z
-      .enum(SessionVisibility)
-      .describe(
-        "The visibility of the session for which the user clicks on the duplicate button",
-      ),
-  })
-  .describe("When the user clicks on the duplicate button");
+export const sessionListEditButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "edit",
+    "session_list_edit_button_clicked",
+    "editing",
+  );
 
-export const sessionListCopyLinkButtonClickedEventSchema = z
-  .object({
-    eventType: z.string().default("session_list_copy_link_button_clicked"),
-    session_id: z
-      .number()
-      .describe(
-        "The id of the session for which the user clicks on the copy link button",
-      ),
-    session_name: z
-      .string()
-      .describe(
-        "The name of the session for which the user clicks on the copy link button",
-      ),
-    session_start_date_time: z
-      .string()
-      .describe(
-        "The date and time of the session for which the user clicks on the copy link button",
-      ),
-    participant_number: z
-      .number()
-      .describe(
-        "The number of participants registered for the session for which the user clicks on the copy link button",
-      ),
-    teacher_name: z
-      .string()
-      .describe(
-        "The name of the teacher of the session for which the user clicks on the copy link button",
-      ),
-    teacher_id: z
-      .number()
-      .describe(
-        "The id of the teacher of the session for which the user clicks on the copy link button",
-      ),
-    session_type: z
-      .string()
-      .describe(
-        "The type of the session for which the user clicks on the copy link button (e.g. group activity, workshop)",
-      ),
-    session_is_online: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the copy link button is an online session",
-      ),
-    session_available: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the copy link button is still available when copyining the link (i.e. not cancelled or already took place)",
-      ),
-    session_duration: z
-      .number()
-      .describe(
-        "The duration in minutes of the session for which the user clicks on the copy link button",
-      ),
-    session_visibility: z
-      .enum(SessionVisibility)
-      .describe(
-        "The visibility of the session for which the user clicks on the copy link button",
-      ),
-  })
-  .describe("When the user clicks on the copy link button");
+export const sessionListDuplicateButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "duplicate",
+    "session_list_duplicate_button_clicked",
+    "duplicating",
+  );
 
-export const sessionListCancelButtonClickedEventSchema = z
-  .object({
-    eventType: z.string().default("session_list_cancel_button_clicked"),
-    session_id: z
-      .number()
-      .describe(
-        "The id of the session for which the user clicks on the cancel button",
-      ),
-    session_name: z
-      .string()
-      .describe(
-        "The name of the session for which the user clicks on the cancel button",
-      ),
-    session_start_date_time: z
-      .string()
-      .describe(
-        "The date and time of the session for which the user clicks on the cancel button",
-      ),
-    participant_number: z
-      .number()
-      .describe(
-        "The number of participants registered for the session for which the user clicks on the cancel button",
-      ),
-    teacher_name: z
-      .string()
-      .describe(
-        "The name of the teacher of the session for which the user clicks on the cancel button",
-      ),
-    teacher_id: z
-      .number()
-      .describe(
-        "The id of the teacher of the session for which the user clicks on the cancel button",
-      ),
-    session_type: z
-      .string()
-      .describe(
-        "The type of the session for which the user clicks on the cancel button (e.g. group activity, workshop)",
-      ),
-    session_is_online: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the cancel button is an online session",
-      ),
-    session_available: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the cancel button is still available when canceling (i.e. not cancelled or already took place)",
-      ),
-    session_duration: z
-      .number()
-      .describe(
-        "The duration in minutes of the session for which the user clicks on the cancel button",
-      ),
-    session_visibility: z
-      .enum(SessionVisibility)
-      .describe(
-        "The visibility of the session for which the user clicks on the cancel button",
-      ),
-  })
-  .describe("When the user clicks on the cancel button");
+export const sessionListCopyLinkButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "copy link",
+    "session_list_copy_link_button_clicked",
+    "copying the link",
+  );
 
-export const sessionListRestoreButtonClickedEventSchema = z
-  .object({
-    eventType: z.string().default("session_list_restore_button_clicked"),
-    session_id: z
-      .number()
-      .describe(
-        "The id of the session for which the user clicks on the restore button",
-      ),
-    session_name: z
-      .string()
-      .describe(
-        "The name of the session for which the user clicks on the restore button",
-      ),
-    session_start_date_time: z
-      .string()
-      .describe(
-        "The date and time of the session for which the user clicks on the restore button",
-      ),
-    participant_number: z
-      .number()
-      .describe(
-        "The number of participants registered for the session for which the user clicks on the restore button",
-      ),
-    teacher_name: z
-      .string()
-      .describe(
-        "The name of the teacher of the session for which the user clicks on the restore button",
-      ),
-    teacher_id: z
-      .number()
-      .describe(
-        "The id of the teacher of the session for which the user clicks on the restore button",
-      ),
-    session_type: z
-      .string()
-      .describe(
-        "The type of the session for which the user clicks on the restore button (e.g. group activity, workshop)",
-      ),
-    session_is_online: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the restore button is an online session",
-      ),
-    session_available: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the restore button is still available when restoring (i.e. not cancelled or already took place)",
-      ),
-    session_duration: z
-      .number()
-      .describe(
-        "The duration in minutes of the session for which the user clicks on the restore button",
-      ),
-    session_visibility: z
-      .enum(SessionVisibility)
-      .describe(
-        "The visibility of the session for which the user clicks on the restore button",
-      ),
-  })
-  .describe("When the user clicks on the restore button");
+export const sessionListCancelButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "cancel",
+    "session_list_cancel_button_clicked",
+    "canceling",
+  );
 
-export const sessionListDeleteButtonClickedEventSchema = z
-  .object({
-    eventType: z.string().default("session_list_delete_button_clicked"),
-    session_id: z
-      .number()
-      .describe(
-        "The id of the session for which the user clicks on the delete button",
-      ),
-    session_name: z
-      .string()
-      .describe(
-        "The name of the session for which the user clicks on the delete button",
-      ),
-    session_start_date_time: z
-      .string()
-      .describe(
-        "The date and time of the session for which the user clicks on the delete button",
-      ),
-    participant_number: z
-      .number()
-      .describe(
-        "The number of participants registered for the session for which the user clicks on the delete button",
-      ),
-    teacher_name: z
-      .string()
-      .describe(
-        "The name of the teacher of the session for which the user clicks on the delete button",
-      ),
-    teacher_id: z
-      .number()
-      .describe(
-        "The id of the teacher of the session for which the user clicks on the delete button",
-      ),
-    session_type: z
-      .string()
-      .describe(
-        "The type of the session for which the user clicks on the delete button (e.g. group activity, workshop)",
-      ),
-    session_is_online: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the delete button is an online session",
-      ),
-    session_available: z
-      .boolean()
-      .describe(
-        "Whether the session for which the user clicks on the delete button is still available when restoring (i.e. not cancelled or already took place)",
-      ),
-    session_duration: z
-      .number()
-      .describe(
-        "The duration in minutes of the session for which the user clicks on the delete button",
-      ),
-    session_visibility: z
-      .enum(SessionVisibility)
-      .describe(
-        "The visibility of the session for which the user clicks on the delete button",
-      ),
-  })
-  .describe("When the user clicks on the delete button");
+export const sessionListRestoreButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "restore",
+    "session_list_restore_button_clicked",
+    "restoring",
+  );
+
+export const sessionListDeleteButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "delete",
+    "session_list_delete_button_clicked",
+    "restoring",
+  );

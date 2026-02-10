@@ -16,6 +16,7 @@ export type EnrichedSession = ManagerSession & {
   isTeacherArchived?: boolean;
   isEstablishmentArchived?: boolean;
   isMetaActivityArchived?: boolean;
+  onRowClick?: () => void;
 };
 
 export type TableColumn = GenericTableColumn<EnrichedSession> & {

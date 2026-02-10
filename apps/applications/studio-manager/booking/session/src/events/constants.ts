@@ -44,3 +44,8 @@ export const RecurrenceIntervalMapping = {
   [CustomRecurrenceUnit.WEEKS]: RecurrenceInterval[2],
   [CustomRecurrenceUnit.MONTHS]: RecurrenceInterval[3],
 };
+
+export enum SearchClearSource {
+  CLEAR_BUTTON = "clear_button",
+  CLEAR_FILTERS = "clear_filters",
+}

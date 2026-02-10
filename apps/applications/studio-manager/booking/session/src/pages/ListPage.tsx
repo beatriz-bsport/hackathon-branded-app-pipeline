@@ -17,8 +17,13 @@ import { DeleteSessionModal } from "#src/components/SessionList/detail-actions/d
 import { DuplicateSessionModal } from "#src/components/SessionList/detail-actions/duplicate-session-modal";
 import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/restore-session-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
+import { SearchClearSource } from "#src/events/constants";
 import { useTrackSessionListViewed } from "#src/events/hooks/use-track-session-list-viewed";
 import { sessionCreationOpensEvent } from "#src/events/session-creation/events";
+import {
+  sessionListSearchChangedEvent,
+  sessionListSearchClearedEvent,
+} from "#src/events/session-list/events";
 import { useModal } from "#src/hooks/use-modal";
 import { ModalType } from "#src/types";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
@@ -41,6 +46,8 @@ import {
   setLocale,
   useSessionListStore,
 } from "../stores/session-list";
+
+export const DEFAULT_DEBOUNCE_DELAY = 200;
 
 const ListPage: React.FC = () => {
   const { t, i18n } = useTranslation("sessionList");
@@ -117,9 +124,13 @@ const ListPage: React.FC = () => {
     !isLoading && !sessionDataError && Object.keys(sessionsByDate).length === 0;
 
   const onClickEmptySearchState = useCallback(() => {
+    analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
+      search_value: searchQuery,
+      source: SearchClearSource.CLEAR_FILTERS,
+    });
     setSearchQuery("");
     resetFilters?.();
-  }, [resetFilters]);
+  }, [resetFilters, searchQuery]);
 
   const onClickAddSession = useCallback(() => {
     openAddSessionModal();
@@ -215,8 +226,20 @@ const ListPage: React.FC = () => {
         searchConfig={{
           id: "session-search",
           inputValue: searchQuery,
-          onInputValueChange: setSearchQuery,
-          onClear: () => setSearchQuery(""),
+          onInputValueChange: (value: string) => {
+            analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
+              search_value: value,
+            });
+            setSearchQuery(value);
+          },
+          debounceValue: DEFAULT_DEBOUNCE_DELAY,
+          onClear: () => {
+            analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
+              search_value: searchQuery,
+              source: SearchClearSource.CLEAR_BUTTON,
+            });
+            setSearchQuery("");
+          },
         }}
       />
       <ListLayout.Content>

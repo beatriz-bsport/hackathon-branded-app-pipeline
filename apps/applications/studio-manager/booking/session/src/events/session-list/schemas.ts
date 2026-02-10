@@ -3,6 +3,8 @@ import { z } from "zod";
 import { CalendarView } from "#src/types";
 import { Columns } from "#src/types";
 
+import { SearchClearSource } from "../constants";
+
 export const sessionListViewedEventSchema = z
   .object({
     eventType: z.string().default("session_list_viewed"),
@@ -121,3 +123,131 @@ export const sessionListFiltersChangedEventSchema = z
   .describe(
     "When the user applies, changes or removes filters on the session list",
   );
+
+export const sessionListDashboardButtonClickedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_dashboard_button_clicked"),
+  })
+  .describe(
+    "When the user clicks on the button to go to the dashboard from the session list page",
+  );
+
+export const sessionListSessionClickedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_session_clicked"),
+    session_id: z
+      .number()
+      .describe("The id of the session that the user clicks on"),
+    session_name: z
+      .string()
+      .describe("The name of the session that the user clicks on"),
+    session_date: z
+      .string()
+      .describe("The date of the session that the user clicks on"),
+    participant_number: z
+      .number()
+      .describe(
+        "The number of participants registered for the session that the user clicks on",
+      ),
+    teacher_name: z
+      .string()
+      .describe(
+        "The name of the teacher of the session that the user clicks on",
+      ),
+    teacher_id: z
+      .number()
+      .describe("The id of the teacher of the session that the user clicks on"),
+    session_type: z
+      .string()
+      .describe(
+        "The type of the session that the user clicks on (e.g. group activity, workshop)",
+      ),
+    session_is_online: z
+      .boolean()
+      .describe(
+        "Whether the session that the user clicks on is an online session",
+      ),
+  })
+  .describe("When the user clicks on a session in the session list");
+
+export const sessionListExportParticipantConfirmButtonClickedEventSchema = z
+  .object({
+    eventType: z
+      .string()
+      .default("session_list_export_participant_confirm_button_clicked"),
+    day_selected: z
+      .string()
+      .describe(
+        "The day for which the user clicks to export participants of a session",
+      ),
+    calendar_filters_toggle_value: z
+      .boolean()
+      .describe(
+        "Whether the user has toggled on the calendar filters when exporting participants of a session",
+      ),
+  })
+  .describe(
+    "When the user clicks on the confirm button to export participants of a session in the session list",
+  );
+
+export const sessionListCancelMultipleSessionsConfirmButtonClickedEventSchema =
+  z
+    .object({
+      eventType: z
+        .string()
+        .default("session_list_cancel_multiple_sessions_button_clicked"),
+      time_period_value: z.object({
+        start_date: z
+          .string()
+          .describe(
+            "The start date of the time period for which the user cancels multiple sessions",
+          ),
+        end_date: z
+          .string()
+          .describe(
+            "The end date of the time period for which the user cancels multiple sessions",
+          ),
+      }),
+    })
+    .describe(
+      "When the user clicks on the confirm button to cancel multiple sessions in the session list",
+    );
+
+export const sessionListCancelMultipleSessionTimePeriodSelectedEventSchema = z
+  .object({
+    eventType: z
+      .string()
+      .default("session_list_cancel_multiple_sessions_time_period_selected"),
+    time_period_value: z.object({
+      start_date: z
+        .string()
+        .describe(
+          "The start date of the time period for which the user cancels multiple sessions",
+        ),
+      end_date: z
+        .string()
+        .describe(
+          "The end date of the time period for which the user cancels multiple sessions",
+        ),
+    }),
+  })
+  .describe(
+    "When the user selects a time period to cancel multiple sessions in the session list",
+  );
+
+export const sessionListSearchChangedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_search_changed"),
+    search_value: z.string().describe("The search query that the user input"),
+  })
+  .describe("When the user input a value in the session list search bar");
+
+export const sessionListSearchClearedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_search_cleared"),
+    search_value: z.string().describe("The search query that the user cleared"),
+    source: z
+      .enum([SearchClearSource.CLEAR_BUTTON, SearchClearSource.CLEAR_FILTERS])
+      .describe("The source from which the user cleared the search query"),
+  })
+  .describe("When the user clears the search input in the session list");

@@ -4,3 +4,5 @@
  */
 
 export * from "./session-creation/schemas";
+
+export * from "./session-list/schemas";

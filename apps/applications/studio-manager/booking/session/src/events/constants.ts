@@ -4,6 +4,8 @@ import {
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
 
+// Session creation related constants
+
 export const SessionType = [
   "group-activity",
   "workshop",

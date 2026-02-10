@@ -1,21 +1,21 @@
 {
-  "name": "@bsport/store-buyables-giftcard",
+  "name": "@bsport/api-buyables",
   "version": "0.0.0",
   "private": true,
-  "description": "Store package to manage Giftcard Data Access Layer",
+  "description": "API endpoints and types for the buyables API",
   "license": "UNLICENSED",
-  "author": "David Bretaud <david.bretaud@bsport.io>",
+  "author": "Charles Castelain <charles.castelain@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./build/index.d.ts",
+      "types": "./build/lib.d.ts",
       "import": "./build/lib.es.js",
       "default": "./build/lib.es.js"
     }
   },
   "main": "build/lib.es.js",
   "module": "build/lib.es.js",
-  "types": "build/index.d.ts",
+  "types": "build/lib.d.ts",
   "files": [
     "build"
   ],
@@ -29,10 +29,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "@bsport/api-buyables": "workspace:*",
-    "@bsport/store-base": "workspace:*",
-    "typescript-result": "^3.1.1",
-    "zustand": "^5.0.3"
+    "@bsport/store-base": "workspace:*"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*"

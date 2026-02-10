@@ -66,6 +66,17 @@ export const ItemAutocompleteField: React.FC = () => {
           setValue("addItemSelectedItemPriceCts", itemPriceCts, {
             shouldDirty: true,
           });
+
+          if (selectedItemType === "giftcard" && item) {
+            setValue("addItemGiftcardRecipientName", item.title, {
+              shouldDirty: true,
+            });
+            setValue(
+              "addItemSelectedItemExpirationDays",
+              item.expirationDays ?? null,
+              { shouldDirty: true },
+            );
+          }
         },
         onValueChange: (value: string) => {
           setValue("addItemSearchValue", value, { shouldDirty: true });

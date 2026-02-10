@@ -21,6 +21,25 @@ export const ADD_ITEM_DEFAULT = {
 } as const;
 
 /**
+ * Default values for giftcard fields (used when resetting giftcard form)
+ */
+export const GIFTCARD_FIELDS_DEFAULT = {
+  addItemGiftcardRecipientName: "",
+  addItemGiftcardFrom: "",
+  addItemGiftcardTo: "",
+  addItemGiftcardPersonalMessage: "",
+  addItemGiftcardDeliveryFormat: "pdf",
+  addItemSelectedItemExpirationDays: null,
+  // PDF-specific
+  addItemGiftcardValidFrom: getTodayJSDate().toISOString(),
+  // Email-specific
+  addItemGiftcardBackgroundImage: null,
+  addItemGiftcardRecipientEmails: [],
+  addItemGiftcardScheduledDate: getTodayJSDate().toISOString(),
+  addItemGiftcardScheduledTime: "07:00",
+} as const;
+
+/**
  * Default form values
  */
 export const DEFAULT_FORM_DATA: z.infer<typeof billingFlowFormDataSchema> = {

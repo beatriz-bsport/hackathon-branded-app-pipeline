@@ -23,6 +23,7 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   const isPass = item.type === "pass" || item.type === "appointment_pass";
+  const isGiftcard = item.type === "giftcard";
   const { validityDescription, creditsDescription } = useItemDescriptions(item);
 
   const hasDiscount = item.discountPercent > 0 || item.discountAmountCts > 0;
@@ -41,7 +42,7 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
               {creditsDescription}
             </Body>
           )}
-          {isPass && validityDescription && (
+          {(isPass || isGiftcard) && validityDescription && (
             <Body htmlVariant="span" size="md" color="weak">
               {validityDescription}
             </Body>

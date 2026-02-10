@@ -8,6 +8,14 @@ export const useItemDescriptions = (item: InvoiceItemFormData) => {
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   const getValidityDescription = (): string | null => {
+    // Giftcard validity: show expiration days
+    if (item.type === "giftcard") {
+      return item.expirationDays != null
+        ? t("billingFlowModal.validity", { count: item.expirationDays })
+        : t("billingFlowModal.validity_unlimited");
+    }
+
+    // Pass validity: validityDateRange or duration parts
     // Note: validityDateRange is already parsed from JSON string in item-type-configs
     // (e.g., use-pass-config.ts). The backend returns validity_daterange as a JSON string,
     // but it's transformed to { lower: string, upper: string } during item configuration.

@@ -54,6 +54,7 @@ export const useGiftcardConfig = (): ItemTypeConfig<RawGiftcardResponse> => {
               ? item.cover
               : undefined,
           hiddenFromMemberArea: item.manager_only ?? false,
+          expirationDays: item.expiration_days ?? null,
         };
       },
     }),

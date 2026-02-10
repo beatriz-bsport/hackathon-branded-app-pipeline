@@ -11,6 +11,7 @@ import {
   sessionListCancelMultipleSessionsConfirmButtonClickedEventSchema,
   sessionListCopyLinkButtonClickedEventSchema,
   sessionListDashboardButtonClickedEventSchema,
+  sessionListDeleteButtonClickedEventSchema,
   sessionListDisplayCancelledSessionClickedEventSchema,
   sessionListDuplicateButtonClickedEventSchema,
   sessionListEditButtonClickedEventSchema,
@@ -108,4 +109,8 @@ export const sessionListCancelButtonClickedEvent = generateSafeEvent(
 
 export const sessionListRestoreButtonClickedEvent = generateSafeEvent(
   sessionListRestoreButtonClickedEventSchema,
+);
+
+export const sessionListDeleteButtonClickedEvent = generateSafeEvent(
+  sessionListDeleteButtonClickedEventSchema,
 );

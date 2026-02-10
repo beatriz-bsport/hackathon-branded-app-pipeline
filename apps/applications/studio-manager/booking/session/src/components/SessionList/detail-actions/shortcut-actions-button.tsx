@@ -14,6 +14,7 @@ import { SessionVisibilityType } from "#src/events/constants";
 import {
   sessionListCancelButtonClickedEvent,
   sessionListCopyLinkButtonClickedEvent,
+  sessionListDeleteButtonClickedEvent,
   sessionListDuplicateButtonClickedEvent,
   sessionListEditButtonClickedEvent,
   sessionListRestoreButtonClickedEvent,
@@ -173,6 +174,10 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "trash-01",
         type: "button",
         onClick: () => {
+          analyticsTrackSafeEvent(
+            sessionListDeleteButtonClickedEvent,
+            trackingProperties,
+          );
           setIsPopoverOpened(false);
           openDeleteModal(session);
         },

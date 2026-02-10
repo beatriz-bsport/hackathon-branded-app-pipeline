@@ -1,5 +1,7 @@
 import { useSuspenseQueries } from "@tanstack/react-query";
 
+import { PaginatedResponse } from "@bsport/store-base";
+
 import {
   automatedCampaignsQueryOptions,
   campaignSentQueryOptions,
@@ -15,12 +17,15 @@ import type {
  * Joins automated campaigns with their analytics data from campaign_sent.
  */
 const combineAutomatedCampaignAnalytics = (
-  results: [{ data: AutomatedCampaign[] }, { data: CampaignSent[] }],
+  results: [
+    { data: AutomatedCampaign[] },
+    { data: PaginatedResponse<CampaignSent> },
+  ],
 ): AutomatedCampaignWithAnalytics[] => {
   const [automatedCampaigns, campaignSent] = results;
 
   const analyticsMap = new Map(
-    campaignSent.data
+    campaignSent.data.results
       .filter((campaign) => campaign.metadata?.automated_campaign_id)
       .map((campaign) => [
         campaign.metadata.automated_campaign_id,
@@ -69,7 +74,12 @@ export const useAutomatedCampaignAnalytics = (smartlistId: string) => {
   return useSuspenseQueries({
     queries: [
       automatedCampaignsQueryOptions(smartlistId),
-      campaignSentQueryOptions(smartlistId),
+      campaignSentQueryOptions({
+        smartlist: Number(smartlistId),
+        only_automated_campaign: true,
+        page: 1,
+        page_size: 100,
+      }),
     ],
     combine: combineAutomatedCampaignAnalytics,
   });

@@ -76,7 +76,27 @@
       "edit": "Edit",
       "delete": "Delete"
     },
-    "brokenEmailTooltip": "This email automation cannot run as the email template is not found, update the template to fix it. This does not affect push notifications if you set up one.",
+    "brokenNotification": {
+      "canDelete": "You can delete this automation",
+      "missingEmail": {
+        "description": "The email template linked to this automation was deleted. Add a new template to restore the automation.",
+        "tooltip": "This automation can’t run because its email template was deleted. Add a new template to fix it."
+      },
+      "pushNotification": {
+        "stillWorking": "Push notifications are still working."
+      },
+      "missingEntity": {
+        "groupActivity": "Missing linked group activity",
+        "workshop": "Missing linked workshop",
+        "location": "Missing linked location",
+        "establishment": "Missing linked establishment",
+        "appointment": "Missing linked appointment",
+        "subscription": "Missing linked subscription",
+        "pass": "Missing linked pass",
+        "appointmentPass": "Missing linked appointment pass",
+        "description": "The object linked to this automation was deleted. This automation cannot be used anymore, you can delete it."
+      }
+    },
     "triggerType": {
       "booking": {
         "attended": {
@@ -98,9 +118,9 @@
             "afterX_other": "After {{count}} bookings canceled on time in {{entityName}}"
           },
           "tooLate": {
-            "any": "Any late cancelation in {{entityName}}",
-            "afterX_one": "After {{count}} late cancelations in {{entityName}}",
-            "afterX_other": "After {{count}} late cancelations in {{entityName}}"
+            "any": "Any late cancellation in {{entityName}}",
+            "afterX_one": "After {{count}} late cancellation in {{entityName}}",
+            "afterX_other": "After {{count}} late cancellations in {{entityName}}"
           }
         }
       },

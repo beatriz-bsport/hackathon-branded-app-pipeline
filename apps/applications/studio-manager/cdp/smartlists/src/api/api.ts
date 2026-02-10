@@ -11,6 +11,7 @@ import type {
   FetchAutomatedCampaignsParams,
   FetchCampaignScheduledParams,
   FetchCampaignSentParams,
+  Popup,
   Smartlist,
   Tag,
   TagGroup,
@@ -20,6 +21,8 @@ import type {
 const SMARTLIST_API_V1 = "customer-data-platform/v1/smartlist";
 const COMMUNICATION_API_V1 = "communicate/v1";
 const CDP_API_V0 = "customer-data-platform/v0";
+const POPUPS_API_URL =
+  "member-experience/v1/mobile_app/manager/custom_popup_links";
 
 /**
  * Query Key Factory
@@ -41,8 +44,25 @@ export const smartlistKeys = {
   automatedCampaignDetail: (messageId: string) =>
     [...smartlistKeys.all, "automated-campaign", messageId] as const,
 
-  campaignSent: (id: string) =>
-    [...smartlistKeys.detail(id), "campaign-sent"] as const,
+  campaignSent: (
+    id: string,
+    page: number,
+    page_size: number,
+    filters?: {
+      only_automated_campaign?: boolean;
+      no_automated_campaign?: boolean;
+      without_member_info?: boolean;
+    },
+  ) =>
+    [
+      ...smartlistKeys.detail(id),
+      "campaign-sent",
+      page,
+      page_size,
+      filters?.only_automated_campaign ?? null,
+      filters?.no_automated_campaign ?? null,
+      filters?.without_member_info ?? null,
+    ] as const,
 
   tagRules: (id: string) => [...smartlistKeys.all, "tag-rules", id] as const,
 
@@ -52,6 +72,12 @@ export const smartlistKeys = {
 
   campaignScheduled: (id: string) =>
     [...smartlistKeys.detail(id), "scheduled-campaigns"] as const,
+
+  popupDetail: (popupId: number) =>
+    [...smartlistKeys.all, "popup", popupId] as const,
+
+  popupImages: (popupId: number, imageUrl: string) =>
+    [...smartlistKeys.all, "popup-image", popupId, imageUrl] as const,
 } as const;
 
 /**
@@ -79,18 +105,26 @@ const fetchAutomatedCampaigns = async (
 
 const fetchCampaignSent = async (
   params: FetchCampaignSentParams,
-): Promise<CampaignSent[]> => {
+): Promise<PaginatedResponse<CampaignSent>> => {
   const urlParams = buildUrlParams({
     smartlist: params.smartlist,
-    only_automated_campaign: params.only_automated_campaign,
     page_size: params.page_size ?? 100,
     page: params.page ?? 1,
+    ...(typeof params.only_automated_campaign === "boolean"
+      ? { only_automated_campaign: params.only_automated_campaign }
+      : {}),
+    ...(typeof params.without_member_info === "boolean"
+      ? { without_member_info: params.without_member_info }
+      : {}),
+    ...(typeof params.no_automated_campaign === "boolean"
+      ? { no_automated_campaign: params.no_automated_campaign }
+      : {}),
   });
   const { data } = await fetch<PaginatedResponse<CampaignSent>>(
     `${COMMUNICATION_API_V1}/communication/communication_sent/${urlParams}`,
   );
 
-  return data.results;
+  return data;
 };
 
 const fetchAutomatedCampaignDetail = async (
@@ -150,6 +184,30 @@ export const deleteAutomatedCampaign = async (id: number): Promise<void> => {
   });
 };
 
+const fetchPopupDetail = async (popupId: number): Promise<Popup> => {
+  const { data } = await fetch<Popup>(`${POPUPS_API_URL}/${popupId}/`);
+  return data;
+};
+
+const fetchPopupImage = async (imageUrl: string): Promise<File> => {
+  const url = new URL(imageUrl);
+  const filename = url.pathname.split("/").pop() || "popup-image.jpg";
+  const { data } = await fetch<Blob>(imageUrl, {
+    responseType: "blob",
+  });
+  return new File([data], filename, { type: data.type });
+};
+
+/**
+ * Deletes a tag rule
+ * @param id - ID of the tag rule to delete
+ */
+export const deleteTagRule = async (id: number): Promise<void> => {
+  await fetch(`${SMARTLIST_API_V1}/tagrules/${id}/`, {
+    method: "DELETE",
+  });
+};
+
 /**
  * Query Options
  */
@@ -157,6 +215,18 @@ export const smartlistDetailQueryOptions = (id: string) =>
   queryOptions({
     queryKey: smartlistKeys.detail(id),
     queryFn: () => fetchSmartlistDetail(id),
+  });
+
+export const popupDetailQueryOptions = (popupId: number) =>
+  queryOptions({
+    queryKey: smartlistKeys.popupDetail(popupId),
+    queryFn: () => fetchPopupDetail(popupId),
+  });
+
+export const popupImageQueryOptions = (popupId: number, imageUrl: string) =>
+  queryOptions({
+    queryKey: smartlistKeys.popupImages(popupId, imageUrl),
+    queryFn: () => fetchPopupImage(imageUrl),
   });
 
 export const automatedCampaignsQueryOptions = (smartlistId: string) =>
@@ -169,17 +239,34 @@ export const automatedCampaignsQueryOptions = (smartlistId: string) =>
       }),
   });
 
-export const campaignSentQueryOptions = (smartlistId: string) =>
-  queryOptions({
-    queryKey: smartlistKeys.campaignSent(smartlistId),
+export const campaignSentQueryOptions = ({
+  smartlist,
+  page,
+  page_size,
+  only_automated_campaign,
+  no_automated_campaign,
+  without_member_info,
+}: FetchCampaignSentParams) => {
+  const currentPage = page ?? 1;
+  const currentPageSize = page_size ?? 10;
+  return queryOptions({
+    queryKey: smartlistKeys.campaignSent(
+      String(smartlist),
+      currentPage,
+      currentPageSize,
+      { only_automated_campaign, no_automated_campaign, without_member_info },
+    ),
     queryFn: () =>
       fetchCampaignSent({
-        smartlist: Number(smartlistId),
-        only_automated_campaign: true,
-        page_size: 100,
-        page: 1,
+        smartlist,
+        page: currentPage,
+        page_size: currentPageSize,
+        only_automated_campaign,
+        no_automated_campaign,
+        without_member_info,
       }),
   });
+};
 
 export const automatedCampaignDetailQueryOptions = (messageId: string) =>
   queryOptions({

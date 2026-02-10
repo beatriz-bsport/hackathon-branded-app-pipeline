@@ -7,6 +7,7 @@
       "trigger": "Trigger",
       "content": "Content"
     },
+    "missingEmailTemplate": "The email template linked to this automation was deleted. Add a new one to restore the automation.",
     "content": {
       "email": {
         "title": "Email",
@@ -43,6 +44,12 @@
       }
     },
     "performance": {
+      "contentPreviewModal": {
+        "title": "Notification Content",
+        "buttons": {
+          "confirm": "Close"
+        }
+      },
       "emails": {
         "title": "Emails",
         "totalEmailsSent": "Total emails sent",

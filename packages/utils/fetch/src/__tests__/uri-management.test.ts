@@ -288,5 +288,11 @@ describe("uri-management", () => {
 
       expect(res).toBe(`${MAP_ENV_TO_API_URL.dev}/users/v1/123`);
     });
+
+    it("returns the same URI if it already complete", () => {
+      const completeUri = "https://api.example.com/users/v1/123";
+      const res = getFullUri(completeUri);
+      expect(res).toBe(completeUri);
+    });
   });
 });

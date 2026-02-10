@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { icons } from "#src/components/Icon";
 
@@ -42,6 +42,18 @@ const meta: Meta<typeof Chip> = {
       control: { type: "boolean" },
       table: { defaultValue: { summary: "false" } },
     },
+    customColor: {
+      control: { type: "text" },
+      table: { type: { summary: "string" } },
+    },
+    rounded: {
+      options: [undefined, "lg"],
+      control: { type: "inline-radio" },
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "undefined" },
+      },
+    },
     onClick: {
       table: { type: { summary: "function" } },
     },
@@ -69,6 +81,22 @@ export const Primary: Story = {
     size: "lg",
     iconLeft: undefined,
     dismissible: false,
+    customColor: undefined,
+    rounded: undefined,
     onClick: () => console.log("Dismissed"),
+  },
+};
+
+export const CustomColor: Story = {
+  name: "Chip - Custom color",
+  args: {
+    label: "Custom color",
+    type: "weak",
+    color: "default",
+    size: "lg",
+    customColor: "#7C3AED",
+    dismissible: false,
+    rounded: "lg",
+    iconLeft: undefined,
   },
 };

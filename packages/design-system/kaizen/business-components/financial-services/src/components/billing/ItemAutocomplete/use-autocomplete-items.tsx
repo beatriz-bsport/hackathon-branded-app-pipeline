@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import {
   type AutocompleteItems,
   Body,
-  Button,
+  Icon,
   Media,
 } from "@bsport/kaizen-primitive-core";
 
@@ -13,7 +13,6 @@ import type { ItemAutocompleteItemKind } from "./ItemAutocomplete";
 import { useSearchItems } from "./use-search-items";
 
 // Exclude subscription type from ItemAutocomplete - TODO in a next iteration
-
 const { subscription: _, ...ITEM_AUTOCOMPLETE_ITEM_KINDS } =
   INVOICE_ITEMS_KINDS;
 
@@ -36,37 +35,36 @@ export const useAutocompleteItems = ({
 
   const autocompleteItems = useMemo<AutocompleteItems>(
     () =>
-      (query.data ?? []).map((item) => ({
-        id: item.id,
-        label: item.title,
-        description: item.description,
-        leftSlot:
-          typesWithImages.includes(itemType) || item.imageUrl ? (
-            <Media
-              src={item.imageUrl || ""}
-              alt={item.title}
-              size="sm"
-              ratio="1:1"
-            />
-          ) : undefined,
-        rightSlot: (
-          <div className="flex items-center gap-xs">
-            {item.priceLabel ? (
-              <Body htmlVariant="span" size="md" color="weak">
-                {item.priceLabel}
-              </Body>
-            ) : null}
-            <Button
-              kind="icon-button"
-              icon="info-circle"
-              size="md"
-              intent="flat"
-              color="default"
-              label="Item info"
-            />
-          </div>
-        ),
-      })),
+      (query.data ?? []).map((item) => {
+        const showHiddenInfo =
+          itemType === ITEM_AUTOCOMPLETE_ITEM_KINDS.giftcard &&
+          item.hiddenFromMemberArea === true;
+
+        return {
+          id: item.id,
+          label: item.title,
+          description: item.description,
+          leftSlot:
+            typesWithImages.includes(itemType) || item.imageUrl ? (
+              <Media
+                src={item.imageUrl || ""}
+                alt={item.title}
+                size="sm"
+                ratio="1:1"
+              />
+            ) : undefined,
+          rightSlot: (
+            <div className="flex items-center gap-xs">
+              {showHiddenInfo ? <Icon icon="eye-off" size="sm" /> : null}
+              {item.priceLabel ? (
+                <Body htmlVariant="span" size="md" color="weak">
+                  {item.priceLabel}
+                </Body>
+              ) : null}
+            </div>
+          ),
+        };
+      }),
     [query.data, itemType],
   );
 

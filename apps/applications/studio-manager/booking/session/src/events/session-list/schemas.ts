@@ -252,6 +252,44 @@ export const sessionListSearchClearedEventSchema = z
   })
   .describe("When the user clears the search input in the session list");
 
+export const sessionListAllAttendanceButtonClickedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_all_attendance_button_clicked"),
+    date: z
+      .string()
+      .describe(
+        "The date for which the user clicks on the attendance button to validate all sessions",
+      ),
+    number_of_sessions: z
+      .number()
+      .describe(
+        "The number of sessions displayed for the day for which the user clicks on the attendance button to validate all sessions",
+      ),
+  })
+  .describe(
+    "When the user clicks on the attendance button to validate all sessions for a specific day in the session list",
+  );
+
+export const sessionListAllAttendanceonfirmButtonClickedEventSchema = z
+  .object({
+    eventType: z
+      .string()
+      .default("session_list_all_attendance_confirm_button_clicked"),
+    date: z
+      .string()
+      .describe(
+        "The date for which the user clicks on the confirm button to validate all sessions",
+      ),
+    number_of_sessions: z
+      .number()
+      .describe(
+        "The number of sessions displayed for the day for which the user clicks on the confirm button to validate all sessions",
+      ),
+  })
+  .describe(
+    "When the user clicks on the confirm button after clicking on the attendance button to validate all sessions for a specific day in the session list",
+  );
+
 export const sessionListAttendanceButtonClickedEventSchema = z
   .object({
     eventType: z.string().default("session_list_attendance_button_clicked"),

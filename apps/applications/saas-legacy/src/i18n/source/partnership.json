@@ -72,7 +72,7 @@
             "error": {
               "required": "Please select at least one establishment"
             }
-          },
+          }
         },
         "action": {
           "back": "Back",

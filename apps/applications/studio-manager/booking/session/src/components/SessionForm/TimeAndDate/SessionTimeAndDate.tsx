@@ -11,7 +11,7 @@ import {
   sessionCreationRecurrenceRuleSelectedEvent,
   sessionCreationRecurrenceToggleEnabledEvent,
 } from "#src/events/session-creation/events";
-import { analyticsClient } from "#src/utils/analytics";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionDuration } from "./SessionDuration";
@@ -25,27 +25,21 @@ export const SessionTimeAndDate: FC<{
   const { t } = useTranslation("sessionCreation");
 
   const trackRecurrenceToggle = (isRecurring: boolean) => {
-    analyticsClient.track(
-      sessionCreationRecurrenceToggleEnabledEvent({
-        session_is_recurrent: isRecurring,
-      }),
-    );
+    analyticsTrackSafeEvent(sessionCreationRecurrenceToggleEnabledEvent, {
+      session_is_recurrent: isRecurring,
+    });
   };
 
   const trackRecurrenceType = (recurrenceType: RecurrenceIntervalType) => {
-    analyticsClient.track(
-      sessionCreationRecurrenceIntervalEvent({
-        session_recurrence_interval_selected: recurrenceType,
-      }),
-    );
+    analyticsTrackSafeEvent(sessionCreationRecurrenceIntervalEvent, {
+      session_recurrence_interval_selected: recurrenceType,
+    });
   };
 
   const trackRecurrenceRule = (recurrenceRule: RecurrenceRuleType) => {
-    analyticsClient.track(
-      sessionCreationRecurrenceRuleSelectedEvent({
-        session_recurrence_rule: recurrenceRule,
-      }),
-    );
+    analyticsTrackSafeEvent(sessionCreationRecurrenceRuleSelectedEvent, {
+      session_recurrence_rule: recurrenceRule,
+    });
   };
 
   return (

@@ -21,7 +21,7 @@ import { useTrackSessionListViewed } from "#src/events/hooks/use-track-session-l
 import { sessionCreationOpensEvent } from "#src/events/session-creation/events";
 import { useModal } from "#src/hooks/use-modal";
 import { ModalType } from "#src/types";
-import { analyticsClient } from "#src/utils/analytics";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 import { useAnyObjectLevelPermissions } from "#src/utils/permission";
 
@@ -123,7 +123,7 @@ const ListPage: React.FC = () => {
 
   const onClickAddSession = useCallback(() => {
     openAddSessionModal();
-    analyticsClient.track(sessionCreationOpensEvent({}));
+    analyticsTrackSafeEvent(sessionCreationOpensEvent, {});
   }, [openAddSessionModal]);
 
   // Tracks the display settings on Mixpanel when the user lands on the page.

@@ -1,4 +1,4 @@
-import { generateEvent } from "@bsport/analytics";
+import { generateSafeEvent } from "#src/utils/generate-safe-events";
 
 import {
   sessionCreationActivitySelectedEventSchema,
@@ -14,46 +14,46 @@ import {
   sessionCreationVisibilitySelectEventSchema,
 } from "./schemas";
 
-export const sessionCreationOpensEvent = generateEvent(
+export const sessionCreationOpensEvent = generateSafeEvent(
   sessionCreationOpensEventSchema,
 );
 
-export const sessionCreationActivitySelectedEvent = generateEvent(
+export const sessionCreationActivitySelectedEvent = generateSafeEvent(
   sessionCreationActivitySelectedEventSchema,
 );
 
-export const sessionCreationCloseButtonClickedEvent = generateEvent(
+export const sessionCreationCloseButtonClickedEvent = generateSafeEvent(
   sessionCreationCloseButtonClickedEventSchema,
 );
 
-export const sessionCreationBackClickedEvent = generateEvent(
+export const sessionCreationBackClickedEvent = generateSafeEvent(
   sessionCreationBackClickedEventSchema,
 );
 
-export const sessionCreationNextClickedEvent = generateEvent(
+export const sessionCreationNextClickedEvent = generateSafeEvent(
   sessionCreationNextClickedEventSchema,
 );
 
-export const sessionCreationCreateSessionButtonClickedEvent = generateEvent(
+export const sessionCreationCreateSessionButtonClickedEvent = generateSafeEvent(
   sessionCreationCreateSessionButtonClickedEventSchema,
 );
 
-export const sessionCreationCustomizeNameToggleEnabledEvent = generateEvent(
+export const sessionCreationCustomizeNameToggleEnabledEvent = generateSafeEvent(
   sessionCreationCustomizeNameToggleEnabledEventSchema,
 );
 
-export const sessionCreationVisibilitySelectEvent = generateEvent(
+export const sessionCreationVisibilitySelectEvent = generateSafeEvent(
   sessionCreationVisibilitySelectEventSchema,
 );
 
-export const sessionCreationRecurrenceToggleEnabledEvent = generateEvent(
+export const sessionCreationRecurrenceToggleEnabledEvent = generateSafeEvent(
   sessionCreationRecurrenceToggleEnabledEventSchema,
 );
 
-export const sessionCreationRecurrenceIntervalEvent = generateEvent(
+export const sessionCreationRecurrenceIntervalEvent = generateSafeEvent(
   sessionCreationRecurrenceIntervalEventSchema,
 );
 
-export const sessionCreationRecurrenceRuleSelectedEvent = generateEvent(
+export const sessionCreationRecurrenceRuleSelectedEvent = generateSafeEvent(
   sessionCreationRecurrenceRuleSelectedEventSchemas,
 );

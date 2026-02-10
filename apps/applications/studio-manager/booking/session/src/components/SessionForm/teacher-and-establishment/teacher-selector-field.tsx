@@ -45,7 +45,7 @@ export const TeacherSelectorField: FC<{
           setValue(
             "coach",
             selectedTeacherId ? Number(selectedTeacherId) : null,
-            { shouldValidate: true },
+            { shouldValidate: true, shouldDirty: true },
           );
         },
         onClear: () => {

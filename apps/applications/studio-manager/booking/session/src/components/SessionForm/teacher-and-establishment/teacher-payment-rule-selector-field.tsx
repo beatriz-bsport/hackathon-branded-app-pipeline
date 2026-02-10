@@ -63,7 +63,7 @@ export const TeacherPaymentRuleSelectorField: FC<{
             selectedTeacherPaymentRuleId
               ? Number(selectedTeacherPaymentRuleId)
               : null,
-            { shouldValidate: true },
+            { shouldValidate: true, shouldDirty: true },
           );
         },
         onClear: () => {

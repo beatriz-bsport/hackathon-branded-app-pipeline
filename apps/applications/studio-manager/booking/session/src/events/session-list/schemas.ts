@@ -235,6 +235,13 @@ export const sessionListCancelMultipleSessionTimePeriodSelectedEventSchema = z
     "When the user selects a time period to cancel multiple sessions in the session list",
   );
 
+export const sessionListSearchChangedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_search_changed"),
+    search_value: z.string().describe("The search query that the user input"),
+  })
+  .describe("When the user input a value in the session list search bar");
+
 export const sessionListSearchClearedEventSchema = z
   .object({
     eventType: z.string().default("session_list_search_cleared"),

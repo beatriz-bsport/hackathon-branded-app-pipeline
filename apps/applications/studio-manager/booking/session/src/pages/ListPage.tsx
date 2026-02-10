@@ -20,7 +20,10 @@ import { MoreActionsButton } from "#src/components/SessionList/more-actions-butt
 import { SearchClearSource } from "#src/events/constants";
 import { useTrackSessionListViewed } from "#src/events/hooks/use-track-session-list-viewed";
 import { sessionCreationOpensEvent } from "#src/events/session-creation/events";
-import { sessionListSearchClearedEvent } from "#src/events/session-list/events";
+import {
+  sessionListSearchChangedEvent,
+  sessionListSearchClearedEvent,
+} from "#src/events/session-list/events";
 import { useModal } from "#src/hooks/use-modal";
 import { ModalType } from "#src/types";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
@@ -43,6 +46,8 @@ import {
   setLocale,
   useSessionListStore,
 } from "../stores/session-list";
+
+export const DEFAULT_DEBOUNCE_DELAY = 200;
 
 const ListPage: React.FC = () => {
   const { t, i18n } = useTranslation("sessionList");
@@ -221,7 +226,13 @@ const ListPage: React.FC = () => {
         searchConfig={{
           id: "session-search",
           inputValue: searchQuery,
-          onInputValueChange: setSearchQuery,
+          onInputValueChange: (value: string) => {
+            analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
+              search_value: value,
+            });
+            setSearchQuery(value);
+          },
+          debounceValue: DEFAULT_DEBOUNCE_DELAY,
           onClear: () => {
             analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
               search_value: searchQuery,

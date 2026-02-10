@@ -8,6 +8,7 @@ import {
   sessionListDisplayCancelledSessionClickedEventSchema,
   sessionListExportParticipantConfirmButtonClickedEventSchema,
   sessionListFiltersChangedEventSchema,
+  sessionListSearchChangedEventSchema,
   sessionListSearchClearedEventSchema,
   sessionListSessionClickedEventSchema,
   sessionListViewedEventSchema,
@@ -56,6 +57,10 @@ export const sessionListCancelMultipleSessionTimePeriodSelectedEvent =
   generateSafeEvent(
     sessionListCancelMultipleSessionTimePeriodSelectedEventSchema,
   );
+
+export const sessionListSearchChangedEvent = generateSafeEvent(
+  sessionListSearchChangedEventSchema,
+);
 
 export const sessionListSearchClearedEvent = generateSafeEvent(
   sessionListSearchClearedEventSchema,

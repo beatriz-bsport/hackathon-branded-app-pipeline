@@ -506,3 +506,64 @@ export const sessionListDuplicateButtonClickedEventSchema = z
       ),
   })
   .describe("When the user clicks on the duplicate button");
+
+export const sessionListCopyLinkButtonClickedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_copy_link_button_clicked"),
+    session_id: z
+      .number()
+      .describe(
+        "The id of the session for which the user clicks on the copy link button",
+      ),
+    session_name: z
+      .string()
+      .describe(
+        "The name of the session for which the user clicks on the copy link button",
+      ),
+    session_start_date_time: z
+      .string()
+      .describe(
+        "The date and time of the session for which the user clicks on the copy link button",
+      ),
+    participant_number: z
+      .number()
+      .describe(
+        "The number of participants registered for the session for which the user clicks on the copy link button",
+      ),
+    teacher_name: z
+      .string()
+      .describe(
+        "The name of the teacher of the session for which the user clicks on the copy link button",
+      ),
+    teacher_id: z
+      .number()
+      .describe(
+        "The id of the teacher of the session for which the user clicks on the copy link button",
+      ),
+    session_type: z
+      .string()
+      .describe(
+        "The type of the session for which the user clicks on the copy link button (e.g. group activity, workshop)",
+      ),
+    session_is_online: z
+      .boolean()
+      .describe(
+        "Whether the session for which the user clicks on the copy link button is an online session",
+      ),
+    session_available: z
+      .boolean()
+      .describe(
+        "Whether the session for which the user clicks on the copy link button is still available when copyining the link (i.e. not cancelled or already took place)",
+      ),
+    session_duration: z
+      .number()
+      .describe(
+        "The duration in minutes of the session for which the user clicks on the copy link button",
+      ),
+    session_visibility: z
+      .enum(SessionVisibility)
+      .describe(
+        "The visibility of the session for which the user clicks on the copy link button",
+      ),
+  })
+  .describe("When the user clicks on the copy link button");

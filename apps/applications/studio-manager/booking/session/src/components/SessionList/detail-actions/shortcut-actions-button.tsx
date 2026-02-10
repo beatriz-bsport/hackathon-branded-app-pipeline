@@ -12,6 +12,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionVisibilityType } from "#src/events/constants";
 import {
+  sessionListCopyLinkButtonClickedEvent,
   sessionListDuplicateButtonClickedEvent,
   sessionListEditButtonClickedEvent,
 } from "#src/events/session-list/events";
@@ -124,6 +125,10 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         type: "button",
         disabled: !companyId,
         onClick: () => {
+          analyticsTrackSafeEvent(
+            sessionListCopyLinkButtonClickedEvent,
+            trackingProperties,
+          );
           if (companyId) {
             copyToClipboard(
               `${window.location.origin}/customer/payment/offer/${session.id}?membership=${companyId}`,

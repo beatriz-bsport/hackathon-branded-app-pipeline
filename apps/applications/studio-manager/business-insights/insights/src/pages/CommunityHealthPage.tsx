@@ -8,23 +8,22 @@ import { useInsightGate } from "#src/utils/access";
 import { useTranslation } from "#src/utils/i18n";
 
 /**
- * Schedule Analysis dashboard page.
- * Displays analytics for studio management and schedule performance in an embedded iframe.
- * Protected route - requires bookings (group sessions) permission.
+ * Community Health dashboard page.
+ * Displays community engagement/retention analytics in an embedded iframe.
+ * Protected route - requires subscription permission and feature flag.
  */
-
-const ScheduleAnalysisPage = () => {
+const CommunityHealthPage = () => {
   const { t } = useTranslation("insights");
-  const { isAllowed, isLoading } = useInsightGate("schedule");
+  const { isAllowed, isLoading } = useInsightGate("community_health");
+
   const {
     iframeUrl,
     isLoading: isLoadingUrl,
     error,
-  } = usePresignedUrl(DASHBOARD_TYPES.SCHEDULE_ANALYSIS);
+  } = usePresignedUrl(DASHBOARD_TYPES.COMMUNITY_HEALTH);
 
-  const pageTitle = t("pages.scheduleAnalysis.title");
+  const pageTitle = t("pages.communityHealth.title");
 
-  // Wait for permissions and flags to load before redirecting
   if (isLoading) {
     return (
       <InsightDetailLayout title={pageTitle} isLoading={true} error={null}>
@@ -33,7 +32,6 @@ const ScheduleAnalysisPage = () => {
     );
   }
 
-  // Only redirect if permissions are loaded and explicitly false or feature flag is off
   if (!isAllowed) {
     return <Navigate to=".." replace />;
   }
@@ -49,4 +47,4 @@ const ScheduleAnalysisPage = () => {
   );
 };
 
-export default ScheduleAnalysisPage;
+export default CommunityHealthPage;

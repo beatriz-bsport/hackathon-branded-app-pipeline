@@ -35,7 +35,7 @@ const TrialAnalysisPage = () => {
 
   // Redirect if no permission or feature flag is off
   if (!isAllowed) {
-    return <Navigate to="/" replace />;
+    return <Navigate to=".." replace />;
   }
 
   return (

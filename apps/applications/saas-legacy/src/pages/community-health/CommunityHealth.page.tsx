@@ -11,7 +11,9 @@ import Config from '../../config';
 import { appendSigmaLocale } from '../../utils/sigma';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
-
+import { useSelector } from 'react-redux';
+import { hasPremiumInsightsAccess } from '#src/pages/insights/utils/premium-insights';
+import type { RootState } from '#src/reducers';
 const useStyles = makeStyles((_theme) => ({
   root: {
     display: 'flex',
@@ -47,32 +49,37 @@ const useStyles = makeStyles((_theme) => ({
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1;
 
-interface ScheduleAnalysisResponse {
+interface CommunityHealthResponse {
   presigned_url?: string;
   embed_url?: string;
 }
 
-const ScheduleAnalysis: React.FC = () => {
-  const isScheduleAnalysisEnabled = useSafeFlag(FeatureFlags.SCHEDULE_ANALYSIS);
+const CommunityHealth: React.FC = () => {
+  const isCommunityHealthEnabled = useSafeFlag(FeatureFlags.COMMUNITY_HEALTH);
+  const featureList = useSelector(
+    (state: RootState) => state.company.feature.data,
+  );
+
+  const hasPremiumInsights = hasPremiumInsightsAccess(featureList);
 
   // Redirect to dashboard if feature flag is disabled
-  if (!isScheduleAnalysisEnabled) {
+  if (!isCommunityHealthEnabled || !hasPremiumInsights) {
     return <Redirect to="/dashboard" />;
   }
 
   return (
-    <ObjectLevelPermissionProvider requiredPermission="report.Bookings.bookings.allowed_actions.read">
+    <ObjectLevelPermissionProvider requiredPermission="report.Club.members_purchase.allowed_actions.read">
       {(hasPermission: boolean) => {
         if (!hasPermission) {
           return <Redirect to="/dashboard" />;
         }
-        return <ScheduleAnalysisContent />;
+        return <CommunityHealthContent />;
       }}
     </ObjectLevelPermissionProvider>
   );
 };
 
-const ScheduleAnalysisContent: React.FC = () => {
+const CommunityHealthContent: React.FC = () => {
   const { i18n } = useTranslation();
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
@@ -80,31 +87,30 @@ const ScheduleAnalysisContent: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchScheduleAnalysisUrl = async () => {
+    const fetchCommunityHealthUrl = async () => {
       try {
-        let response;
-        let data: ScheduleAnalysisResponse;
-        response = await getAuth<ScheduleAnalysisResponse>(
-          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=schedule_analysis`,
+        const response = await getAuth<CommunityHealthResponse>(
+          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=community_health`,
         );
-        data = response.data as ScheduleAnalysisResponse;
+        const data = response.data as CommunityHealthResponse;
+
         if (data.presigned_url) {
           setIframeUrl(appendSigmaLocale(data.presigned_url, i18n.language));
         } else {
           setError('Unable to load dashboard. Please refresh the page.');
         }
       } catch (err) {
-        console.error('Error fetching schedule analysis dashboard:', err);
+        console.error('Error fetching community health dashboard:', err);
         setError('Failed to load dashboard. Please refresh the page.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchScheduleAnalysisUrl();
+    fetchCommunityHealthUrl();
   }, [i18n.language]);
 
-  const title = 'Schedule Performance';
+  const title = 'Community Health';
 
   return (
     <Box className={classes.root}>
@@ -131,4 +137,4 @@ const ScheduleAnalysisContent: React.FC = () => {
   );
 };
 
-export default ScheduleAnalysis;
+export default CommunityHealth;

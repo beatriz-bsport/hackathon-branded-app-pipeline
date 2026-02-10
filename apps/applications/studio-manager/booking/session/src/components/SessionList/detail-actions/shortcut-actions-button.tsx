@@ -12,6 +12,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionVisibilityType } from "#src/events/constants";
 import {
+  sessionListCancelButtonClickedEvent,
   sessionListCopyLinkButtonClickedEvent,
   sessionListDuplicateButtonClickedEvent,
   sessionListEditButtonClickedEvent,
@@ -143,6 +144,10 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "calendar-minus-02",
         type: "button",
         onClick: () => {
+          analyticsTrackSafeEvent(
+            sessionListCancelButtonClickedEvent,
+            trackingProperties,
+          );
           setIsPopoverOpened(false);
           openCancelModal(session);
         },

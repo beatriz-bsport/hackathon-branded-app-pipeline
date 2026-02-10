@@ -6,6 +6,7 @@ import {
   sessionListAttendanceButtonClickedEventSchema,
   sessionListAttendanceConfirmButtonClickedEventSchema,
   sessionListCalendarViewChangedEventSchema,
+  sessionListCancelButtonClickedEventSchema,
   sessionListCancelMultipleSessionTimePeriodSelectedEventSchema,
   sessionListCancelMultipleSessionsConfirmButtonClickedEventSchema,
   sessionListCopyLinkButtonClickedEventSchema,
@@ -98,4 +99,8 @@ export const sessionListDuplicateButtonClickedEvent = generateSafeEvent(
 
 export const sessionListCopyLinkButtonClickedEvent = generateSafeEvent(
   sessionListCopyLinkButtonClickedEventSchema,
+);
+
+export const sessionListCancelButtonClickedEvent = generateSafeEvent(
+  sessionListCancelButtonClickedEventSchema,
 );

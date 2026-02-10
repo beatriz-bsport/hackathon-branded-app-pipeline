@@ -3,7 +3,7 @@ import { captureException } from "@bsport/sm-backbone";
 import type { SafeEventResult } from "#src/types";
 import { analyticsClient } from "#src/utils/analytics";
 
-export function analyticsTrackEvent<
+export function analyticsTrackSafeEvent<
   TInput,
   TOutput extends { eventType: string },
 >(

@@ -25,7 +25,7 @@ import {
 } from "#src/stores/session-list/selectors";
 import { useSessionListStore } from "#src/stores/session-list/store";
 import { CalendarView, Columns } from "#src/types";
-import { analyticsTrackEvent } from "#src/utils/analytics-track-event";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
@@ -43,7 +43,7 @@ export const DisplaySettings: React.FC = () => {
   const onChangeCalendarView = (value: string) => {
     if (value === CalendarView.DAILY || value === CalendarView.RANGE) {
       setCalendarView(value as CalendarView);
-      analyticsTrackEvent(sessionListCalendarViewChangedEvent, {
+      analyticsTrackSafeEvent(sessionListCalendarViewChangedEvent, {
         calendar_view: value,
       });
     }
@@ -52,7 +52,7 @@ export const DisplaySettings: React.FC = () => {
   const handleToggleColumn = (column: Columns) => {
     const wasVisible = displayedColumns.includes(column);
     toggleColumn(column);
-    analyticsTrackEvent(sessionListVisibleColumnsClickedEvent, {
+    analyticsTrackSafeEvent(sessionListVisibleColumnsClickedEvent, {
       calendar_column_name: column,
       calendar_column_visibility: wasVisible ? "hidden" : "visible",
     });
@@ -60,7 +60,7 @@ export const DisplaySettings: React.FC = () => {
 
   const handleToggleShowCancelledSessions = (value: boolean) => {
     setShowCancelledSessions(value);
-    analyticsTrackEvent(sessionListDisplayCancelledSessionClickedEvent, {
+    analyticsTrackSafeEvent(sessionListDisplayCancelledSessionClickedEvent, {
       cancelled_sessions_displayed: value,
     });
   };

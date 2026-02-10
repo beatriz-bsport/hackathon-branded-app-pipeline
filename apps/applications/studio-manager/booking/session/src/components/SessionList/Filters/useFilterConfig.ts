@@ -11,7 +11,7 @@ import {
   setFilters,
   useSessionListStore,
 } from "#src/stores/session-list";
-import { analyticsTrackEvent } from "#src/utils/analytics-track-event";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
 import {
@@ -44,7 +44,7 @@ export const useFilterConfig = () => {
   const activityNameFilter = useActivityNameFilter();
 
   const onFilterChange = useCallback((newFilters: FilterElementState[]) => {
-    analyticsTrackEvent(sessionListFiltersChangedEvent, {
+    analyticsTrackSafeEvent(sessionListFiltersChangedEvent, {
       filters: newFilters,
     });
     setFilters(newFilters);

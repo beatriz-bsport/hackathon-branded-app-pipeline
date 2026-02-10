@@ -8,7 +8,7 @@ import {
   selectShowCancelledSessions,
   useSessionListStore,
 } from "#src/stores/session-list";
-import { analyticsTrackEvent } from "#src/utils/analytics-track-event";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 
 /**
  * Custom hook to track the session list view event with the current display settings.
@@ -24,7 +24,7 @@ export const useTrackSessionListViewed = () => {
   const filters = useSessionListStore(selectFilters);
 
   useEffect(() => {
-    analyticsTrackEvent(sessionListViewedEvent, {
+    analyticsTrackSafeEvent(sessionListViewedEvent, {
       calendar_view,
       displayed_columns,
       cancelled_sessions_displayed,

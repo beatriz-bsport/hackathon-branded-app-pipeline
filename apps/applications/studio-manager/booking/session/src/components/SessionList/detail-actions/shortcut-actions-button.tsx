@@ -11,7 +11,10 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionVisibilityType } from "#src/events/constants";
-import { sessionListEditButtonClickedEvent } from "#src/events/session-list/events";
+import {
+  sessionListDuplicateButtonClickedEvent,
+  sessionListEditButtonClickedEvent,
+} from "#src/events/session-list/events";
 import {
   openCancelModal,
   openDeleteModal,
@@ -106,6 +109,10 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "copy-03",
         type: "button",
         onClick: () => {
+          analyticsTrackSafeEvent(
+            sessionListDuplicateButtonClickedEvent,
+            trackingProperties,
+          );
           setIsPopoverOpened(false);
           openDuplicateModal(session);
         },

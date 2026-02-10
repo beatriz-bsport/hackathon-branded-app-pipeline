@@ -3,7 +3,7 @@ import { z } from "zod";
 import { CalendarView } from "#src/types";
 import { Columns } from "#src/types";
 
-import { SearchClearSource } from "../constants";
+import { SearchClearSource, SessionVisibility } from "../constants";
 
 export const sessionListViewedEventSchema = z
   .object({
@@ -251,3 +251,244 @@ export const sessionListSearchClearedEventSchema = z
       .describe("The source from which the user cleared the search query"),
   })
   .describe("When the user clears the search input in the session list");
+
+export const sessionListAllAttendanceButtonClickedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_all_attendance_button_clicked"),
+    date: z
+      .string()
+      .describe(
+        "The date for which the user clicks on the attendance button to validate all sessions",
+      ),
+    number_of_sessions: z
+      .number()
+      .describe(
+        "The number of sessions displayed for the day for which the user clicks on the attendance button to validate all sessions",
+      ),
+  })
+  .describe(
+    "When the user clicks on the attendance button to validate all sessions for a specific day in the session list",
+  );
+
+export const sessionListAllAttendanceonfirmButtonClickedEventSchema = z
+  .object({
+    eventType: z
+      .string()
+      .default("session_list_all_attendance_confirm_button_clicked"),
+    date: z
+      .string()
+      .describe(
+        "The date for which the user clicks on the confirm button to validate all sessions",
+      ),
+    number_of_sessions: z
+      .number()
+      .describe(
+        "The number of sessions displayed for the day for which the user clicks on the confirm button to validate all sessions",
+      ),
+  })
+  .describe(
+    "When the user clicks on the confirm button after clicking on the attendance button to validate all sessions for a specific day in the session list",
+  );
+
+export const sessionListAttendanceButtonClickedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_attendance_button_clicked"),
+    session_id: z
+      .number()
+      .describe(
+        "The id of the session for which the user clicks on the attendance button",
+      ),
+    session_name: z
+      .string()
+      .describe(
+        "The name of the session for which the user clicks on the attendance button",
+      ),
+    session_date: z
+      .string()
+      .describe(
+        "The date of the session for which the user clicks on the attendance button",
+      ),
+    participant_number: z
+      .number()
+      .describe(
+        "The number of participants registered for the session for which the user clicks on the attendance button",
+      ),
+    teacher_name: z
+      .string()
+      .describe(
+        "The name of the teacher of the session for which the user clicks on the attendance button",
+      ),
+    teacher_id: z
+      .number()
+      .describe(
+        "The id of the teacher of the session for which the user clicks on the attendance button",
+      ),
+    session_type: z
+      .string()
+      .describe(
+        "The type of the session for which the user clicks on the attendance button (e.g. group activity, workshop)",
+      ),
+    session_is_online: z
+      .boolean()
+      .describe(
+        "Whether the session for which the user clicks on the attendance button is an online session",
+      ),
+  })
+  .describe(
+    "When the user clicks on the attendance button of a session in the session list",
+  );
+export const sessionListAttendanceConfirmButtonClickedEventSchema = z
+  .object({
+    eventType: z
+      .string()
+      .default("session_list_attendace_confirm_button_clicked"),
+    session_id: z
+      .number()
+      .describe(
+        "The id of the session for which the user clicks on the attendance confirm button",
+      ),
+    session_name: z
+      .string()
+      .describe(
+        "The name of the session for which the user clicks on the attendance confirm button",
+      ),
+    session_date: z
+      .string()
+      .describe(
+        "The date of the session for which the user clicks on the attendance confirm button",
+      ),
+    participant_number: z
+      .number()
+      .describe(
+        "The number of participants registered for the session for which the user clicks on the attendance confirm button",
+      ),
+    teacher_name: z
+      .string()
+      .describe(
+        "The name of the teacher of the session for which the user clicks on the attendance confirm button",
+      ),
+    teacher_id: z
+      .number()
+      .describe(
+        "The id of the teacher of the session for which the user clicks on the attendance confirm button",
+      ),
+    session_type: z
+      .string()
+      .describe(
+        "The type of the session for which the user clicks on the attendance confirm button (e.g. group activity, workshop)",
+      ),
+    session_is_online: z
+      .boolean()
+      .describe(
+        "Whether the session for which the user clicks on the attendance confirm button is an online session",
+      ),
+  })
+  .describe("When the user clicks on the attendance confirm button");
+
+const createSessionListActionButtonClickedEventSchema = (
+  action: string,
+  eventType: string,
+  availableVerb: string,
+) =>
+  z
+    .object({
+      eventType: z.string().default(eventType),
+      session_id: z
+        .number()
+        .describe(
+          `The id of the session for which the user clicks on the ${action} button`,
+        ),
+      session_name: z
+        .string()
+        .describe(
+          `The name of the session for which the user clicks on the ${action} button`,
+        ),
+      session_start_date_time: z
+        .string()
+        .describe(
+          `The date and time of the session for which the user clicks on the ${action} button`,
+        ),
+      participant_number: z
+        .number()
+        .describe(
+          `The number of participants registered for the session for which the user clicks on the ${action} button`,
+        ),
+      teacher_name: z
+        .string()
+        .describe(
+          `The name of the teacher of the session for which the user clicks on the ${action} button`,
+        ),
+      teacher_id: z
+        .number()
+        .describe(
+          `The id of the teacher of the session for which the user clicks on the ${action} button`,
+        ),
+      session_type: z
+        .string()
+        .describe(
+          `The type of the session for which the user clicks on the ${action} button (e.g. group activity, workshop)`,
+        ),
+      session_is_online: z
+        .boolean()
+        .describe(
+          `Whether the session for which the user clicks on the ${action} button is an online session`,
+        ),
+      session_available: z
+        .boolean()
+        .describe(
+          `Whether the session for which the user clicks on the ${action} button is still available when ${availableVerb} (i.e. not cancelled or already took place)`,
+        ),
+      session_duration: z
+        .number()
+        .describe(
+          `The duration in minutes of the session for which the user clicks on the ${action} button`,
+        ),
+      session_visibility: z
+        .enum(SessionVisibility)
+        .describe(
+          `The visibility of the session for which the user clicks on the ${action} button`,
+        ),
+    })
+    .describe(`When the user clicks on the ${action} button`);
+
+export const sessionListEditButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "edit",
+    "session_list_edit_button_clicked",
+    "editing",
+  );
+
+export const sessionListDuplicateButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "duplicate",
+    "session_list_duplicate_button_clicked",
+    "duplicating",
+  );
+
+export const sessionListCopyLinkButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "copy link",
+    "session_list_copy_link_button_clicked",
+    "copying the link",
+  );
+
+export const sessionListCancelButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "cancel",
+    "session_list_cancel_button_clicked",
+    "canceling",
+  );
+
+export const sessionListRestoreButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "restore",
+    "session_list_restore_button_clicked",
+    "restoring",
+  );
+
+export const sessionListDeleteButtonClickedEventSchema =
+  createSessionListActionButtonClickedEventSchema(
+    "delete",
+    "session_list_delete_button_clicked",
+    "restoring",
+  );

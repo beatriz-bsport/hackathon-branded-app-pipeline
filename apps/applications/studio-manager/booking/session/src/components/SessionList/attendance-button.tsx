@@ -7,11 +7,13 @@ import { useTranslation } from "#src/utils/i18n";
 type AttendanceButtonProps = {
   isValidated: boolean;
   available: boolean;
+  onClick?: () => void;
 };
 
 export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
   isValidated,
   available,
+  onClick,
 }) => {
   const { t } = useTranslation("sessionList");
   return isValidated ? (
@@ -29,6 +31,10 @@ export const AttendanceButton: React.FC<AttendanceButtonProps> = ({
       intent="default"
       color="main"
       disabled={!available}
+      onClick={(event) => {
+        event.stopPropagation();
+        onClick?.();
+      }}
     />
   );
 };

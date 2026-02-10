@@ -5,9 +5,11 @@ import {
   Body,
   Icon,
   Media,
+  Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
 import { INVOICE_ITEMS_KINDS } from "#src/components/billing/ItemTypeSelector";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import type { ItemAutocompleteItemKind } from "./ItemAutocomplete";
 import { useSearchItems } from "./use-search-items";
@@ -28,6 +30,8 @@ export const useAutocompleteItems = ({
   itemType: ItemAutocompleteItemKind;
   searchInput: string;
 }) => {
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
   const query = useSearchItems({
     itemType,
     searchInput,
@@ -55,7 +59,14 @@ export const useAutocompleteItems = ({
             ) : undefined,
           rightSlot: (
             <div className="flex items-center gap-xs">
-              {showHiddenInfo ? <Icon icon="eye-off" size="sm" /> : null}
+              {showHiddenInfo ? (
+                <Tooltip
+                  label={t("itemAutocomplete.hiddenGiftcardTooltip")}
+                  placement="bottom-right"
+                >
+                  <Icon icon="package-x" size="sm" />
+                </Tooltip>
+              ) : null}
               {item.priceLabel ? (
                 <Body htmlVariant="span" size="md" color="weak">
                   {item.priceLabel}

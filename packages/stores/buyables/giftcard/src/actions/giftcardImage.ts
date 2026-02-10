@@ -1,16 +1,16 @@
 import { Result } from "typescript-result";
 
-import type { Action, PaginatedResponse, XhrAction } from "@bsport/store-base";
-
 import {
   type FetchGiftcardImagesParams,
+  type GiftcardImage,
   type UploadGiftcardImageParams,
   archiveGiftcardImageAPI,
   fetchGiftcardImagesAPI,
   restoreGiftcardImageAPI,
   uploadGiftcardImageAPI,
-} from "#src/api";
-import type { GiftcardImage } from "#src/types";
+} from "@bsport/api-buyables";
+import type { Action, PaginatedResponse, XhrAction } from "@bsport/store-base";
+import { createErrorWithContext } from "@bsport/store-base";
 
 import { setGiftcardImages, updateGiftcardImage } from "./store";
 
@@ -24,11 +24,9 @@ export const fetchGiftcardImagesAction: Action<
   FetchGiftcardImagesParams,
   PaginatedResponse<GiftcardImage>
 > = async (fetch, params) => {
-  const [uri, init] = fetchGiftcardImagesAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await fetchGiftcardImagesAPI(fetch, params);
 
       setGiftcardImages({
         giftcardImages: data.results,
@@ -38,7 +36,11 @@ export const fetchGiftcardImagesAction: Action<
 
       return data;
     },
-    (error) => new Error("Failed to fetch giftcardImages", { cause: error }),
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fetch giftcardImages",
+        params,
+      }),
   );
 };
 
@@ -50,19 +52,18 @@ export const archiveGiftcardImageAction: Action<
   { id: number },
   GiftcardImage
 > = async (fetch, params) => {
-  const [uri, init] = archiveGiftcardImageAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await archiveGiftcardImageAPI(fetch, params);
 
       updateGiftcardImage(data);
 
       return data;
     },
     (error) =>
-      new Error(`Failed to archive giftcard image n°${params.id}`, {
-        cause: error,
+      createErrorWithContext(error, {
+        message: `Failed to archive giftcard image n°${params.id}`,
+        params,
       }),
   );
 };
@@ -75,19 +76,18 @@ export const restoreGiftcardImageAction: Action<
   { id: number },
   GiftcardImage
 > = async (fetch, params) => {
-  const [uri, init] = restoreGiftcardImageAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await restoreGiftcardImageAPI(fetch, params);
 
       updateGiftcardImage(data);
 
       return data;
     },
     (error) =>
-      new Error(`Failed to restore giftcard image n°${params.id}`, {
-        cause: error,
+      createErrorWithContext(error, {
+        message: `Failed to restore giftcard image n°${params.id}`,
+        params,
       }),
   );
 };
@@ -101,11 +101,9 @@ export const uploadGiftcardImageAction: XhrAction<
   UploadGiftcardImageParams,
   void
 > = async (xhr, params) => {
-  const [uri, init] = uploadGiftcardImageAPI(params);
-
   return Result.try(
     async () => {
-      await xhr(uri, init);
+      await uploadGiftcardImageAPI(xhr, params);
     },
     (error) => {
       if (params.signal.aborted) {

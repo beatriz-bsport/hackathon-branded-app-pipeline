@@ -1,5 +1,6 @@
+import type { Giftcard, GiftcardImage } from "@bsport/api-buyables";
+
 import { giftcardStore } from "#src/store";
-import type { Giftcard, GiftcardImage } from "#src/types";
 
 export const updateGiftcard = (updatedGiftcard: Giftcard) => {
   giftcardStore.setState((state) => {

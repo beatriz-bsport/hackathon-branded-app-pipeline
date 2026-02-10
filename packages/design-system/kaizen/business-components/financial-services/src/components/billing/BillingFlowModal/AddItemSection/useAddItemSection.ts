@@ -29,6 +29,12 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
   const applyDiscount = watch("addItemApplyDiscount");
   const discountReason = watch("addItemDiscountReason");
   const isDiscountReasonRequired = watch("isDiscountReasonRequired");
+  const giftcardRecipientName = watch("addItemGiftcardRecipientName");
+  const giftcardFrom = watch("addItemGiftcardFrom");
+  const giftcardTo = watch("addItemGiftcardTo");
+  const giftcardValidFrom = watch("addItemGiftcardValidFrom");
+  const giftcardDeliveryFormat = watch("addItemGiftcardDeliveryFormat");
+  const giftcardRecipientEmails = watch("addItemGiftcardRecipientEmails");
 
   const resetAddItemFields = useCallback(
     (options?: { keepItemType?: boolean }) => {
@@ -77,7 +83,27 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
       return null;
     }
 
-    return {
+    if (selectedItemType === "giftcard") {
+      if (
+        !giftcardRecipientName?.trim() ||
+        !giftcardFrom?.trim() ||
+        !giftcardTo?.trim()
+      )
+        return null;
+
+      // PDF delivery requires validFrom
+      if (giftcardDeliveryFormat === "pdf" && !giftcardValidFrom?.trim())
+        return null;
+
+      // Email delivery requires recipient emails
+      if (
+        giftcardDeliveryFormat === "email" &&
+        giftcardRecipientEmails.length === 0
+      )
+        return null;
+    }
+
+    const baseItem = {
       type: selectedItemType,
       buyableItemId: Number(selectedItemId),
       quantity: quantityForItem,
@@ -93,7 +119,27 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
       durationMonths: selectedItem?.durationMonths ?? null,
       durationYears: selectedItem?.durationYears ?? null,
       validityDateRange: selectedItem?.validityDateRange ?? null,
+      expirationDays: selectedItem?.expirationDays ?? null,
     };
+
+    // Add giftcard-specific fields if it's a giftcard
+    if (selectedItemType === "giftcard") {
+      return {
+        ...baseItem,
+        giftcardRecipientName: watch("addItemGiftcardRecipientName"),
+        giftcardFrom: watch("addItemGiftcardFrom"),
+        giftcardTo: watch("addItemGiftcardTo"),
+        giftcardPersonalMessage: watch("addItemGiftcardPersonalMessage"),
+        giftcardDeliveryFormat: watch("addItemGiftcardDeliveryFormat"),
+        giftcardValidFrom: watch("addItemGiftcardValidFrom"),
+        giftcardBackgroundImage: watch("addItemGiftcardBackgroundImage"),
+        giftcardRecipientEmails: watch("addItemGiftcardRecipientEmails"),
+        giftcardScheduledDate: watch("addItemGiftcardScheduledDate"),
+        giftcardScheduledTime: watch("addItemGiftcardScheduledTime"),
+      };
+    }
+
+    return baseItem;
   }, [
     priceCts,
     quantity,
@@ -103,6 +149,12 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
     applyDiscount,
     discountReason,
     isDiscountReasonRequired,
+    giftcardRecipientName,
+    giftcardFrom,
+    giftcardTo,
+    giftcardValidFrom,
+    giftcardDeliveryFormat,
+    giftcardRecipientEmails,
   ]);
 
   const handleAddItem = useCallback(() => {

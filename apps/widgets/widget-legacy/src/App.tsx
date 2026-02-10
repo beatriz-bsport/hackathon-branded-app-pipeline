@@ -289,7 +289,7 @@ class BsportWidget extends Component<Props> {
             )}
 
             <div
-              className={classNames({
+              className={classNames(classes.widgetContainer, {
                 [classes.widgetContainerHidden]:
                   shouldDisplayInPageInteractionPortal(
                     dialogMode,
@@ -362,6 +362,9 @@ const styles = () =>
       flexDirection: 'column',
       alignItems: 'center',
       backgroundColor: 'transparent !important',
+    },
+    widgetContainer: {
+      width: '100%',
     },
     widgetContainerHidden: {
       display: 'none',

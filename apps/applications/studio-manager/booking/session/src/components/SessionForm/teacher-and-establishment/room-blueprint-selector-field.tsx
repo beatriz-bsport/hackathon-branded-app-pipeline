@@ -67,6 +67,7 @@ export const RoomBlueprintSelectorField: FC<{
           const capacity = getSpotCount(selectedBlueprint);
           setValue("room_blueprint", Number(selectedRoomBlueprintId), {
             shouldValidate: true,
+            shouldDirty: true,
           });
           setValue("roomBlueprintCapacity", capacity > 0 ? capacity : null);
           trigger("effectif");

@@ -5,6 +5,9 @@ import { URLS } from "#src/urls";
 
 const InsightsPage = lazy(() => import("#src/pages/InsightsPage"));
 const TrialAnalysisPage = lazy(() => import("#src/pages/TrialAnalysisPage"));
+const CommunityHealthPage = lazy(
+  () => import("#src/pages/CommunityHealthPage"),
+);
 const RecurringRevenuePage = lazy(
   () => import("#src/pages/RecurringRevenuePage"),
 );
@@ -17,6 +20,7 @@ export const AppRoutes = () => {
     <Routes>
       <Route element={<InsightsPage />} index />
       <Route element={<TrialAnalysisPage />} path={URLS.TRIAL_ANALYSIS} />
+      <Route element={<CommunityHealthPage />} path={URLS.COMMUNITY_HEALTH} />
       <Route element={<RecurringRevenuePage />} path={URLS.RECURRING_REVENUE} />
       <Route element={<ScheduleAnalysisPage />} path={URLS.SCHEDULE_ANALYSIS} />
       <Route element={<Navigate to=".." />} path="*" />

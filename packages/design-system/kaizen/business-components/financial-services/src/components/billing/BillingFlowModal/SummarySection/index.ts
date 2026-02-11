@@ -1,1 +1,1 @@
-export { default as SummarySection } from "./SummarySection";
+export { SummarySection } from "./SummarySection";

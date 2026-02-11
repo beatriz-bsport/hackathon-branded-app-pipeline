@@ -11,7 +11,7 @@ import { SummaryItemRow } from "./SummaryItemRow";
 import { SummaryTotals } from "./SummaryTotals";
 import { calculateTotals } from "./utils";
 
-const SummarySection: React.FC = () => {
+export const SummarySection: React.FC = () => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
   const { watch, setValue } = useFormContext<BillingFlowFormState>();
@@ -71,5 +71,3 @@ const SummarySection: React.FC = () => {
     </div>
   );
 };
-
-export default SummarySection;

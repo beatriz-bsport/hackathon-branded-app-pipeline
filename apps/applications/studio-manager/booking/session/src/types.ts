@@ -1,3 +1,5 @@
+import { ZodError } from "zod";
+
 import type { ManagerSession } from "@bsport/api-book";
 import { type DateTime } from "@bsport/datetime-manipulation";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
@@ -14,6 +16,7 @@ export type EnrichedSession = ManagerSession & {
   isTeacherArchived?: boolean;
   isEstablishmentArchived?: boolean;
   isMetaActivityArchived?: boolean;
+  onRowClick?: () => void;
 };
 
 export type TableColumn = GenericTableColumn<EnrichedSession> & {
@@ -47,3 +50,13 @@ export enum ModalType {
 }
 
 export type ModalState = { type: ModalType; session: EnrichedSession } | null;
+
+export type SafeEventError = {
+  eventType: string;
+  zodError: ZodError;
+};
+
+export type SafeEventResult<T> = {
+  event: T;
+  errors: SafeEventError | null;
+};

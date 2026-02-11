@@ -1,15 +1,15 @@
 import { Result } from "typescript-result";
 
-import type { Action, PaginatedResponse } from "@bsport/store-base";
-
 import {
   type FetchGiftcardsParams,
+  type Giftcard,
   archiveGiftcardAPI,
   duplicateGiftcardAPI,
   fetchGiftcardsAPI,
   restoreGiftcardAPI,
-} from "#src/api";
-import type { Giftcard } from "#src/types";
+} from "@bsport/api-buyables";
+import type { Action, PaginatedResponse } from "@bsport/store-base";
+import { createErrorWithContext } from "@bsport/store-base";
 
 import { setGiftcards, updateGiftcard } from "./store";
 
@@ -24,11 +24,9 @@ export const fetchGiftcardsAction: Action<
   FetchGiftcardsParams,
   PaginatedResponse<Giftcard>
 > = async (fetch, params) => {
-  const [uri, init] = fetchGiftcardsAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await fetchGiftcardsAPI(fetch, params);
 
       setGiftcards({
         giftcards: data.results,
@@ -38,7 +36,11 @@ export const fetchGiftcardsAction: Action<
 
       return data;
     },
-    (error) => new Error("Failed to fetch giftcards", { cause: error }),
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fetch giftcards",
+        params,
+      }),
   );
 };
 
@@ -50,18 +52,19 @@ export const archiveGiftcardAction: Action<{ id: number }, Giftcard> = async (
   fetch,
   params,
 ) => {
-  const [uri, init] = archiveGiftcardAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await archiveGiftcardAPI(fetch, params);
 
       updateGiftcard(data);
 
       return data;
     },
     (error) =>
-      new Error(`Failed to archive giftcard n°${params.id}`, { cause: error }),
+      createErrorWithContext(error, {
+        message: `Failed to archive giftcard n°${params.id}`,
+        params,
+      }),
   );
 };
 
@@ -73,18 +76,19 @@ export const restoreGiftcardAction: Action<{ id: number }, Giftcard> = async (
   fetch,
   params,
 ) => {
-  const [uri, init] = restoreGiftcardAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await restoreGiftcardAPI(fetch, params);
 
       updateGiftcard(data);
 
       return data;
     },
     (error) =>
-      new Error(`Failed to restore giftcard n°${params.id}`, { cause: error }),
+      createErrorWithContext(error, {
+        message: `Failed to restore giftcard n°${params.id}`,
+        params,
+      }),
   );
 };
 
@@ -96,19 +100,18 @@ export const duplicateGiftcardAction: Action<{ id: number }, Giftcard> = async (
   fetch,
   params,
 ) => {
-  const [uri, init] = duplicateGiftcardAPI(params);
-
   return Result.try(
     async () => {
-      const { data } = await fetch(uri, init);
+      const data = await duplicateGiftcardAPI(fetch, params);
 
       updateGiftcard(data);
 
       return data;
     },
     (error) =>
-      new Error(`Failed to duplicate giftcard n°${params.id}`, {
-        cause: error,
+      createErrorWithContext(error, {
+        message: `Failed to duplicate giftcard n°${params.id}`,
+        params,
       }),
   );
 };

@@ -2936,6 +2936,16 @@ importers:
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
 
+  packages/api/buyables:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../stores/base
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
   packages/api/core:
     dependencies:
       '@bsport/store-base':
@@ -3135,6 +3145,9 @@ importers:
 
   packages/design-system/kaizen/business-components/financial-services:
     dependencies:
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../../api/buyables
       '@bsport/api-financial-services':
         specifier: workspace:*
         version: link:../../../../api/financial-services
@@ -3180,6 +3193,9 @@ importers:
       '@bsport/store-core-data-member':
         specifier: workspace:*
         version: link:../../../../stores/core-data/member
+      '@bsport/timezone-utils':
+        specifier: workspace:*
+        version: link:../../../../utils/datetime/timezone
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../hooks/use-async
@@ -3547,6 +3563,9 @@ importers:
 
   packages/stores/buyables/giftcard:
     dependencies:
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../api/buyables
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

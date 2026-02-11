@@ -1,1 +1,2 @@
-export { default as AddItemSection } from "./AddItemSection";
+export { AddItemSection } from "./AddItemSection";
+export { GiftCardDetails } from "./GiftCardDetails";

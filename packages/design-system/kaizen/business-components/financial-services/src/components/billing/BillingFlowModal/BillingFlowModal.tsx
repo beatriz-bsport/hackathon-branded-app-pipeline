@@ -13,7 +13,11 @@ import fetch from "#src/utils/fetch";
 
 import { AddItemSection } from "./AddItemSection";
 import { SummarySection } from "./SummarySection";
-import { ADD_ITEM_DEFAULT, DEFAULT_FORM_DATA } from "./defaults";
+import {
+  ADD_ITEM_DEFAULT,
+  DEFAULT_FORM_DATA,
+  GIFTCARD_FIELDS_DEFAULT,
+} from "./defaults";
 import { useInvoiceConfiguration } from "./hooks/use-invoice-configuration";
 import { billingFlowFormStateSchema } from "./schema";
 import type { BillingFlowModalProps } from "./types";
@@ -36,6 +40,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
     defaultValues: {
       ...DEFAULT_FORM_DATA,
       ...ADD_ITEM_DEFAULT,
+      ...GIFTCARD_FIELDS_DEFAULT,
       memberId: memberId ?? undefined,
     },
   });
@@ -71,6 +76,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
     methods.reset({
       ...DEFAULT_FORM_DATA,
       ...ADD_ITEM_DEFAULT,
+      ...GIFTCARD_FIELDS_DEFAULT,
       memberId: memberId ?? undefined,
       isDiscountReasonRequired,
     });

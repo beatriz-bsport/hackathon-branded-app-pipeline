@@ -19,6 +19,7 @@ import { useSearchItems } from "#src/components/billing/ItemAutocomplete/use-sea
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import { AddProductDiscount } from "./AddProductDiscount";
+import { GiftCardDetails } from "./GiftCardDetails";
 import { ItemAutocompleteField } from "./ItemAutocompleteField";
 import { ItemTypeSelectorField } from "./ItemTypeSelectorField";
 import { PriceField } from "./PriceField";
@@ -32,7 +33,7 @@ const LEGACY_URL_SUBSCRIPTION = "/subscriptions";
  * Add-item section: composes field components and section-level actions.
  * Must be rendered inside the billing flow ControlledForm.
  */
-const AddItemSection: React.FC = () => {
+export const AddItemSection: React.FC = () => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
   const { watch } = useFormContext<BillingFlowFormState>();
@@ -96,6 +97,10 @@ const AddItemSection: React.FC = () => {
                 <PriceField />
                 <AddProductDiscount />
 
+                {selectedItemType === "giftcard" && selectedItemId && (
+                  <GiftCardDetails />
+                )}
+
                 <Divider weight="thin" />
 
                 <div className="flex justify-end gap-sm">
@@ -133,5 +138,3 @@ const AddItemSection: React.FC = () => {
     </div>
   );
 };
-
-export default AddItemSection;

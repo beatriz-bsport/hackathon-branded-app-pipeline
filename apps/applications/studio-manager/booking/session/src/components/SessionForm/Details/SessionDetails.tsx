@@ -7,7 +7,7 @@ import {
   sessionCreationCustomizeNameToggleEnabledEvent,
   sessionCreationVisibilitySelectEvent,
 } from "#src/events/session-creation/events";
-import { analyticsClient } from "#src/utils/analytics";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
 import { OverrideToggle } from "./OverrideToggle";
@@ -46,19 +46,15 @@ export const SessionDetails: FC<{
   };
 
   const trackOverrideToggleChange = (checked: boolean) => {
-    analyticsClient.track(
-      sessionCreationCustomizeNameToggleEnabledEvent({
-        customize_name_toggle_enabled: checked,
-      }),
-    );
+    analyticsTrackSafeEvent(sessionCreationCustomizeNameToggleEnabledEvent, {
+      customize_name_toggle_enabled: checked,
+    });
   };
 
   const trackVisibilityChange = (value: SessionVisibilityType) => {
-    analyticsClient.track(
-      sessionCreationVisibilitySelectEvent({
-        session_visibility: value,
-      }),
-    );
+    analyticsTrackSafeEvent(sessionCreationVisibilitySelectEvent, {
+      session_visibility: value,
+    });
   };
 
   return (

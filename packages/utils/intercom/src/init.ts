@@ -1,6 +1,5 @@
 import {
   DEFAULT_ACTION_COLOR,
-  DEFAULT_ALIGNMENT,
   DEFAULT_CUSTOM_LAUNCHER_SELECTOR,
   DEFAULT_LANGUAGE_OVERRIDE,
   INTERCOM_APP_ID,
@@ -156,7 +155,6 @@ export const initIntercomWidget = ({
   customLauncherSelector,
   actionColor,
   appIdOverride,
-  alignment,
 }: IntercomBootParams) => {
   const showDebugLog =
     environment !== "production" && environment !== "staging";
@@ -227,7 +225,7 @@ export const initIntercomWidget = ({
     custom_launcher_selector:
       customLauncherSelector ?? DEFAULT_CUSTOM_LAUNCHER_SELECTOR,
     action_color: actionColor ?? DEFAULT_ACTION_COLOR,
-    alignment: alignment ?? DEFAULT_ALIGNMENT,
+    alignment: "left",
     release: RELEASE_SHA,
   });
 

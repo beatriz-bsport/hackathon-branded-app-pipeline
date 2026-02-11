@@ -350,27 +350,138 @@ export const useSessionSchema = () => {
 };
 
 export const useSessionEditSchema = () => {
-  const { configureSessionSchema, advancedOptionsSchema } = useSessionSchema();
+  const { t, i18n } = useTranslation("sessionCreation");
+  const locale = i18n.language;
+  const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
-  const editFieldsSchema = advancedOptionsSchema.extend({
-    id: z.number(),
-    meta_activity: z.number(),
-    overrideTeacherPayrollRule: z.boolean(),
-    coach_override: z.number().nullable(),
-    credit_price_override: z.number().optional(),
-    custom_selection_ids: z.array(z.number().int()),
-    custom_selection: z.boolean(),
-    modifyAllDates: z.boolean(),
-    notifyConsumers: z.boolean(),
-    propagate_coach_override_value: z.number(),
-  });
+  const sessionEditSchema = z
+    .object({
+      // Date & Time
+      startDateTime: z
+        .date({
+          required_error: t("addSessionModal.errors.requiredField"),
+          invalid_type_error: t(
+            "addSessionModal.steps.configureSession.timeAndDate.errors.invalidDate",
+          ),
+        })
+        .refine(
+          (date) => {
+            const maxDate = modifyTime({
+              datetime: getLocalNow({ zone: companyTimeZone, locale }),
+              duration: { year: MAX_YEARS_AHEAD },
+              operator: "plus",
+            });
+            return toDateTime(date).setZone(companyTimeZone) <= maxDate;
+          },
+          {
+            message: t(
+              "addSessionModal.steps.configureSession.timeAndDate.errors.dateTooFar",
+            ),
+          },
+        ),
+      duration_minute: z
+        .number({
+          required_error: t("addSessionModal.errors.requiredField"),
+        })
+        .positive(
+          t(
+            "addSessionModal.steps.configureSession.timeAndDate.errors.durationNull",
+          ),
+        ),
+      // Details
+      name_override: z.string(),
+      description_override: z.string(),
 
-  const sessionEditSchema = z.intersection(
-    configureSessionSchema,
-    editFieldsSchema,
-  );
+      // Settings
+      manager_only: z.boolean(),
+      credits: z.number().min(0),
+      waiting_list_max_size: z.number().min(0),
+      effectif: z.number().min(0),
+      available_on_partnership: z.boolean(),
+      partner_max_booking_count: z.number().min(0),
+      level: z.number().int(),
+      coach: z.number(),
+      coach_payment_rule: z.number().nullable(),
+      broadcast_link: z.string().refine(
+        (val) => {
+          if (val === "") return true;
+          try {
+            new URL(val);
+            return (
+              (val.startsWith("http://") || val.startsWith("https://")) &&
+              !val.includes(" ")
+            );
+          } catch {
+            return false;
+          }
+        },
+        {
+          message: t(
+            "addSessionModal.steps.configureSession.settings.broadcast.error",
+          ),
+        },
+      ),
+      establishment: z.number(),
+      room_blueprint: z.number().nullable(),
+      roomBlueprintCapacity: z.number().nullable(),
+      sync_on_spivi: z.boolean().optional(),
+      wellhub_product_id: z.number().nullish(),
 
-  return { configureSessionSchema, editFieldsSchema, sessionEditSchema };
+      // Advanced options
+      allow_guest_offer: z.boolean(),
+      blacklist_tags: z.array(z.number().int()),
+      whitelist_tags: z.array(z.number().int()),
+
+      // Edit-specific fields
+      meta_activity: z.number(),
+      overrideTeacherPayrollRule: z.boolean(),
+      coach_override: z.number().nullable(),
+      credit_price_override: z.number().optional(),
+      custom_selection_ids: z.array(z.number().int()),
+      custom_selection: z.boolean(),
+      modifyAllDates: z.boolean(),
+      notifyConsumers: z.boolean(),
+      propagate_coach_override_value: z.number(),
+    })
+    .refine(
+      (data) =>
+        !data.overrideTeacherPayrollRule || data.coach_payment_rule != null,
+      {
+        message: t("addSessionModal.errors.requiredField"),
+        path: ["coach_payment_rule"],
+      },
+    )
+    .refine(
+      (data) =>
+        !data.available_on_partnership ||
+        data.partner_max_booking_count <= data.effectif,
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.settings.partnership.capacity.error",
+        ),
+        path: ["partner_max_booking_count"],
+      },
+    )
+    .refine(
+      (data) =>
+        data.roomBlueprintCapacity != null
+          ? data.effectif <= data.roomBlueprintCapacity
+          : true,
+      {
+        message: t(
+          "addSessionModal.steps.configureSession.settings.exceedsRoomCapacity",
+        ),
+        path: ["effectif"],
+      },
+    )
+    .refine((data) => (data.sync_on_spivi ? !!data.room_blueprint : true), {
+      message: t(
+        "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.error",
+      ),
+      path: ["effectif"],
+    }) satisfies z.ZodType<SessionEditFormData>;
+
+  return { sessionEditSchema };
 };
 
 export const useLevelSchema = () => {

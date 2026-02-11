@@ -300,7 +300,7 @@
           "emailTaken": {
             "contactCompany": "Tuttavia, nel frattempo è stato creato un account con l'indirizzo {{ email }}. Questa richiesta è ora decaduta. Se l'indirizzo email {{ email }} ti appartiene ma non hai creato l'account associato, contatta direttamente il tuo studio.",
             "helper": "Lo studio {{- company }} aveva fatto una richiesta per cambiare la tua email di accesso al tuo spazio personale:",
-            "title": "Email di accesso già presa"
+            "title": "Questo indirizzo email è già registrato. Potresti averlo utilizzato per iscriverti presso un altro studio. Accedi o reimposta la password per continuare."
           },
           "delayExceeded": {
             "contactCompany": "Se vuoi richiedere di nuovo un cambio di indirizzo di accesso, contatta il tuo studio.",

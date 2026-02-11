@@ -53,6 +53,7 @@ export const fromSessionToFormData = (
     broadcast_link: session.broadcast_link ?? "",
     // Teacher and establishment
     coach: session.coach,
+    overrideTeacherPayrollRule: false,
     coach_payment_rule: session.coach_payment_rule_id,
     establishment: session.establishment,
     room_blueprint: session.room_blueprint,

@@ -22,4 +22,6 @@ export type SessionEditFormData = SessionCreationFormData &
     | "modifyAllDates"
     | "notifyConsumers"
     | "propagate_coach_override_value"
-  >;
+  > & {
+    overrideTeacherPayrollRule: boolean;
+  };

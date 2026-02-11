@@ -4,7 +4,6 @@
     "date_created": "2026-01-21T11:40:10.157398+01:00",
     "link": "https://example.com/welcome",
     "name": "Welcome Popup",
-    "image": "http://localhost:8000/images/welcome-popup.jpg",
     "smartlist_id": 5,
     "smartlist_name": "New Visitors",
     "smartlist_popup_id": 10
@@ -14,7 +13,6 @@
     "date_created": "2026-01-20T11:40:10.157398+01:00",
     "link": "https://example.com/discount",
     "name": "Discount Offer",
-    "image": "http://localhost:8000/images/discount-offer.jpg",
     "smartlist_id": 6,
     "smartlist_name": "Cool Customers",
     "smartlist_popup_id": 11

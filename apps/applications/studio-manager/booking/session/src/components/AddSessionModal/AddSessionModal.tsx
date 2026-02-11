@@ -1,22 +1,6 @@
-import { useEffect } from "react";
-
 import { useFormController } from "@bsport/form";
 import { ModalStepper, toast } from "@bsport/kaizen-primitive-core";
 
-import {
-  RecurrenceIntervalMapping,
-  SessionCreationStep,
-} from "#src/events/constants";
-import {
-  sessionCreationBackClickedEvent,
-  sessionCreationCloseButtonClickedEvent,
-  sessionCreationCreateSessionButtonClickedEvent,
-  sessionCreationNextClickedEvent,
-} from "#src/events/session-creation/events";
-import {
-  CustomRecurrenceUnit,
-  RecurrenceType,
-} from "#src/helpers/recurrence/types";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
 import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
 import {
@@ -41,7 +25,6 @@ import {
   SessionCreationFormAdvancedOptionsData,
   SessionCreationFormData,
 } from "#src/stores/session-creation/types";
-import { analyticsClient } from "#src/utils/analytics";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useSessionSchema } from "../SessionForm/schemas";
@@ -72,29 +55,14 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
   const configureSessionMethods = useFormController({
     schema: configureSessionSchema,
     mode: "onChange",
+    shouldFocusError: true,
     defaultValues: configureSessionFormData,
   });
-
-  const {
-    setFocus,
-    formState: { errors },
-  } = configureSessionMethods;
-
-  const errorsCount = Object.keys(errors).length;
-
-  useEffect(() => {
-    if (!errorsCount) return;
-    const firstErrorField = Object.keys(errors)[0] as
-      | Parameters<typeof setFocus>[0]
-      | undefined;
-    if (firstErrorField) {
-      setFocus(firstErrorField);
-    }
-  }, [errorsCount, setFocus, errors]);
 
   const advancedOptionsMethods = useFormController({
     schema: advancedOptionsSchema,
     mode: "onChange",
+    shouldFocusError: true,
     defaultValues: advancedOptionsFormData,
   });
 
@@ -107,11 +75,6 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
   const handleCloseButtonClick = () => {
     onClose?.();
     resetForm();
-    analyticsClient.track(
-      sessionCreationCloseButtonClickedEvent({
-        current_step: SessionCreationStep[currentStep],
-      }),
-    );
   };
 
   const handleClickOutisde = () => {
@@ -125,20 +88,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
   };
 
   const handleClickOnCancel = () => {
-    const isFirstStep =
-      currentStep === SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY;
-
-    analyticsClient.track(
-      isFirstStep
-        ? sessionCreationCloseButtonClickedEvent({
-            current_step: SessionCreationStep[currentStep],
-          })
-        : sessionCreationBackClickedEvent({
-            current_step: SessionCreationStep[currentStep],
-          }),
-    );
-
-    if (isFirstStep) {
+    if (currentStep === SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY) {
       resetForm();
     }
     goToPreviousStep();
@@ -172,35 +122,6 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     }
 
     if (currentStep === SESSION_CREATION_STEPS.ADVANCED_OPTIONS) {
-      // Only for Mixpanel tracking purpose
-
-      const isRecurring = configureSessionFormData.isRecurring;
-
-      const recurrenceIntervalToTrack =
-        configureSessionFormData.recurrenceType === RecurrenceType.WEEKLY
-          ? RecurrenceIntervalMapping[RecurrenceType.WEEKLY]
-          : RecurrenceIntervalMapping[configureSessionFormData.recurrenceUnit];
-
-      const shouldTrackRecurrenceRule =
-        isRecurring &&
-        configureSessionFormData.recurrenceUnit === CustomRecurrenceUnit.MONTHS;
-
-      analyticsClient.track(
-        sessionCreationCreateSessionButtonClickedEvent({
-          session_is_recurrent: isRecurring,
-          session_recurrence_end_date: isRecurring
-            ? (configureSessionFormData.recurrenceEndDate?.toISOString() ??
-              null)
-            : null,
-          session_recurrence_interval_selected: isRecurring
-            ? recurrenceIntervalToTrack
-            : null,
-          session_recurrence_rule: shouldTrackRecurrenceRule
-            ? configureSessionFormData.recurrencePattern
-            : null,
-        }),
-      );
-
       const advancedData = advancedOptionsMethods.getValues();
       setStepValid(
         SESSION_CREATION_STEPS.ADVANCED_OPTIONS,
@@ -247,11 +168,6 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       }
     }
     if (!isLastStep) {
-      analyticsClient.track(
-        sessionCreationNextClickedEvent({
-          current_step: SessionCreationStep[currentStep],
-        }),
-      );
       goToNextStep();
     }
   };

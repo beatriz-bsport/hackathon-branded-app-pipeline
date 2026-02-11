@@ -1,8 +1,4 @@
 import type {
-  BookingAction,
-  BookingOccurrenceType,
-} from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Booking/types";
-import type {
   TemporalityType,
   TimeUnitType,
 } from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Common/types";
@@ -39,8 +35,6 @@ export type BookingTriggerConfigValidationFormData = {
   notificationType: BookingSelectableNotificationType;
   bookingEventKind: number;
   bookingOccurrence: number;
-  bookingOccurrenceType: BookingOccurrenceType;
-  bookingActionType: BookingAction;
   bookingItemId: number;
 } & CommonTriggerConfigValidationFormData &
   TimeTriggerConfigValidationFormData;

@@ -119,10 +119,7 @@ export type PaginatedFetchSessionsParams = FetchSessionsParams & {
   page_size?: number;
 
   /** Page number of the results*/
-  page?: number;
-
-  /** Ordering of the results */
-  ordering?: string;
+  page: number;
 };
 
 export type CancelSessionParams = {
@@ -144,10 +141,6 @@ export type ListSessionsWithPendingReplacementRequestIdsParams = {
 export type CancelMultipleSessionsParams = FetchSessionsParams & {
   start: string;
   end: string;
-};
-
-export type RetrieveSessionParams = {
-  with_booking_window?: boolean;
 };
 
 export type ManagerSession = {

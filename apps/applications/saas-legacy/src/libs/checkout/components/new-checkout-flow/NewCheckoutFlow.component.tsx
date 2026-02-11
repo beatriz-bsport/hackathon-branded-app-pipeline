@@ -126,6 +126,7 @@ type Props = {
   useInternalAccount?: (amount: number) => void;
   validateUnpaid: (options: OptionCallback) => void;
   goToMarketplace: () => void;
+  goToCalendar: () => void;
   goToMyProfile: () => void;
   basketItemRemovalStatusLoading: boolean;
   paymentEngine: number;
@@ -187,6 +188,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
   useInternalAccount,
   validateUnpaid,
   goToMarketplace,
+  goToCalendar,
   goToMyProfile,
   basketItemRemovalStatusLoading,
   monitorExpiredItemRemoval,
@@ -386,6 +388,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
     return (
       <div className={classes.container}>
         <EmptyBasket
+          goToCalendar={goToCalendar}
           goToMarketplace={goToMarketplace}
           goToMyProfile={goToMyProfile}
         />

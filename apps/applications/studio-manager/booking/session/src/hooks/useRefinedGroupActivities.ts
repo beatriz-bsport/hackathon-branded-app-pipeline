@@ -1,6 +1,5 @@
 import type { MetaActivity } from "@bsport/api-book";
 
-import { sessionCreationActivitySelectedEvent } from "#src/events/session-creation/events";
 import {
   setSelectedGroupActivity,
   setStepValid,
@@ -10,7 +9,6 @@ import {
   SESSION_CREATION_STEPS,
   useSessionCreationStore,
 } from "#src/stores/session-creation/store";
-import { analyticsClient } from "#src/utils/analytics";
 import { useTranslation } from "#src/utils/i18n";
 
 import { usePaginatedGroupActivities } from "./usePaginatedGroupActivities";
@@ -34,14 +32,6 @@ export const useRefinedGroupActivities = ({
   );
 
   const handleRowClick = (activity: MetaActivity) => {
-    analyticsClient.track(
-      sessionCreationActivitySelectedEvent({
-        activity_id: activity.id,
-        activity_name: activity.name,
-        activity_type: activity.is_workshop ? "workshop" : "group-activity",
-        search_value: searchQuery || null,
-      }),
-    );
     setSelectedGroupActivity(activity);
     setStepValid(SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY, !!activity);
   };

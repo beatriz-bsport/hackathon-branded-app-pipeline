@@ -19,7 +19,7 @@ export type ItemTypeSelectorProps = {
   label?: string;
   value?: InvoiceItemKind | null;
   defaultValue?: InvoiceItemKind;
-  onSelect?: (type: InvoiceItemKind) => void;
+  onSelect: (type: InvoiceItemKind) => void;
 };
 
 /**
@@ -109,7 +109,7 @@ const ItemTypeSelector: React.FC<ItemTypeSelectorProps> = ({
   ];
 
   const handleItemTypeSelect = (itemType: InvoiceItemKind) => {
-    onSelect?.(itemType);
+    onSelect(itemType);
     if (value === undefined) {
       setInternalSelected(itemType);
     }

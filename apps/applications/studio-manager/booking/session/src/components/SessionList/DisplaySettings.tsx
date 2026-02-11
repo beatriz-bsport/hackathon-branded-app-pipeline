@@ -18,8 +18,11 @@ import {
   selectDisplayedColumns,
   selectShowCancelledSessions,
 } from "#src/stores/session-list/selectors";
-import { useSessionListStore } from "#src/stores/session-list/store";
-import { CalendarView, Columns } from "#src/types";
+import {
+  CalendarView,
+  useSessionListStore,
+} from "#src/stores/session-list/store";
+import { Columns } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 

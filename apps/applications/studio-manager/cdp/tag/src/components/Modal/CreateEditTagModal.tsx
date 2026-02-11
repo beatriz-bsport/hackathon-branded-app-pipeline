@@ -1,3 +1,5 @@
+import { useMemo } from "react";
+
 import { ControlledForm, useFormController } from "@bsport/form";
 import { Modal, toast } from "@bsport/kaizen-primitive-core";
 import type { Tag, TagGroup } from "@bsport/store-cdp-tag";
@@ -26,9 +28,6 @@ type ModalProps = {
   onFailure?: () => void;
 };
 
-const NO_TAG_GROUP_ITEM = 0;
-const DEFAULT_TAG_COLOR_WHITE = "#FFFFFF";
-
 export const CreateEditTagModal: React.FC<Props> = ({
   isOpen,
   tagDraft,
@@ -46,21 +45,27 @@ export const CreateEditTagModal: React.FC<Props> = ({
     schema: createEditTagSchema,
     defaultValues: {
       tagName: tagDraft?.name ?? "",
-      tagGroup: tagDraft?.group ?? preselectedTagGroupId ?? NO_TAG_GROUP_ITEM,
-      color: tagDraft?.color ?? DEFAULT_TAG_COLOR_WHITE,
+      tagGroup: tagDraft?.group ?? preselectedTagGroupId ?? 0,
+      color: tagDraft?.color ?? "#FFFFFF",
     },
   });
 
-  const tagGroupOptions = [
-    ...tagGroupList.map((tagGroup) => ({
-      id: String(tagGroup.id),
-      label: tagGroup.name,
-    })),
-    {
-      id: String(NO_TAG_GROUP_ITEM),
-      label: t("tagModal.formField.mainTagAssociated.placeholder"),
-    },
-  ];
+  const tagGroupOptions = tagGroupList.map((tagGroup) => ({
+    id: `tag-group-option-${tagGroup.id}`,
+    label: tagGroup.name,
+  }));
+
+  const tagGroupMapByName: Record<string, number> = useMemo(
+    () =>
+      tagGroupList.reduce(
+        (acc, tagGroup) => ({
+          ...acc,
+          [tagGroup.name]: tagGroup.id,
+        }),
+        {},
+      ),
+    [tagGroupList],
+  );
 
   const handleFailure = (error: Error) => {
     if (error.name === TAG_NAME_ALREADY_EXIST_ERROR_CODE) {
@@ -157,6 +162,7 @@ export const CreateEditTagModal: React.FC<Props> = ({
       <ControlledForm id={formId} onSubmit={handleSubmit} {...methods}>
         <CreateEditTagForm
           isEdition={!tagDraft}
+          tagGroupMapByName={tagGroupMapByName}
           tagGroupOptions={tagGroupOptions}
           {...methods}
         />

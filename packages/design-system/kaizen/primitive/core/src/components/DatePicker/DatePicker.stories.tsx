@@ -3,24 +3,14 @@ import { useState } from "react";
 
 import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
 
-import Body from "#src/components/Body";
 import Button from "#src/components/Button";
-import DetailDrawer from "#src/components/DetailDrawer";
-import Modal from "#src/components/Modal";
 import { Placements } from "#src/hooks/placement-classes.hook";
 
 import DatePicker from "./DatePicker";
-import type { ShortcutItem } from "./Shortcuts";
-import { getSanitizedDate } from "./datePickerValidation";
-import {
-  LAST_WEEK_SHORTCUT,
-  NEXT_MONTH_RANGE_SHORTCUT,
-  NEXT_WEEK_RANGE_SHORTCUT,
-} from "./shortcutUtils";
 
 /**
  * A configurable date picker component supporting single date or date range selection.<br>
- * Can be displayed as a popover, modal, or content-only with optional shortcut presets and localization support.<br>
+ * Can be displayed as a popover or modal with optional shortcut presets and localization support.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=5920-373124" target="_blank">Figma</a><br>
  */
 const meta: Meta<typeof DatePicker> = {
@@ -29,7 +19,7 @@ const meta: Meta<typeof DatePicker> = {
     id: { control: "text" },
     mode: { options: ["single", "range"], control: { type: "inline-radio" } },
     displayAs: {
-      options: ["popover", "modal", "content"],
+      options: ["popover", "modal"],
       control: { type: "inline-radio" },
     },
     isInputField: { control: { type: "boolean" } },
@@ -167,7 +157,9 @@ export const DatePickerModalWithDisabledPastDates: Story = {
     id: "datepicker-2",
     mode: "single",
     displayAs: "modal",
-    disableDate: (date: DateTime) => date < getLocalNow({}).startOf("day"),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    disableDate: (date: DateTime, _selectedDate) =>
+      date < getLocalNow({}).startOf("day"),
     shortcuts,
   },
 };
@@ -252,7 +244,6 @@ export const DatePickerRangeWithShortcuts: Story = {
     displayAs: "modal",
     shortcuts: [
       {
-        id: "this-weekend",
         label: "This Weekend",
         getDate: () => {
           const today = getLocalNow({});
@@ -262,10 +253,22 @@ export const DatePickerRangeWithShortcuts: Story = {
           return [saturday, sunday];
         },
       },
-      NEXT_MONTH_RANGE_SHORTCUT,
-      LAST_WEEK_SHORTCUT,
       {
-        id: "next-6-months",
+        label: "Next Month",
+        getDate: () => {
+          const today = getLocalNow({});
+          return [today, today.plus({ months: 1 })];
+        },
+      },
+      {
+        label: "Last Week",
+        getDate: () => {
+          const today = getLocalNow({});
+          const lastWeek = today.minus({ days: 7 });
+          return [lastWeek, today];
+        },
+      },
+      {
         label: "Next 6 Months",
         getDate: () => {
           const today = getLocalNow({});
@@ -508,7 +511,6 @@ export const ControlledRangeDatePicker: Story = {
     displayAs: "popover",
     shortcuts: [
       {
-        id: "this-weekend",
         label: "This Weekend",
         getDate: () => {
           const today = getLocalNow({});
@@ -518,376 +520,13 @@ export const ControlledRangeDatePicker: Story = {
           return [saturday, sunday];
         },
       },
-      NEXT_MONTH_RANGE_SHORTCUT,
-    ],
-  },
-};
-
-/**
- * Renders only the date picker content (calendar + optional shortcuts) with no popover or modal.<br>
- * Use displayAs="content" to embed the picker in your own layout (e.g. custom modal, drawer, or inline).<br>
- * Selection is handled via onSelect/onConfirm; use getSanitizedDate(mode, value) when you need to normalize values elsewhere.
- */
-export const DatePickerContentSingle: Story = {
-  name: "DatePicker content only (single)",
-  render: (args) => {
-    const [selectedDate, setSelectedDate] = useState<DateTime | null>(null);
-
-    return (
-      <div className="rounded-lg border border-solid border-luna-grey-200 p-lg">
-        <p className="mb-md text-sm text-luna-grey-700">
-          Embedded content – no wrapper. Selected:{" "}
-          {selectedDate?.toLocaleString() ?? "None"}
-        </p>
-        <DatePicker
-          {...args}
-          displayAs="content"
-          dateValue={selectedDate}
-          onSelect={(date) => setSelectedDate(date as DateTime)}
-        />
-      </div>
-    );
-  },
-  args: {
-    id: "datepicker-content-single",
-    mode: "single",
-    displayAs: "content",
-    shortcuts,
-  },
-};
-
-/**
- * Content-only mode in range selection with shortcuts.<br>
- * Same as content single but shows how shortcuts and range selection work when embedded.
- */
-export const DatePickerContentRange: Story = {
-  name: "DatePicker content only (range)",
-  render: (args) => {
-    const [selectedRange, setSelectedRange] = useState<
-      [DateTime | null, DateTime | null]
-    >([null, null]);
-
-    const formatRange = () => {
-      if (!selectedRange[0] && !selectedRange[1]) return "None";
-      if (selectedRange[0] && !selectedRange[1])
-        return `${selectedRange[0].toLocaleString()} – (select end date)`;
-      if (selectedRange[0] && selectedRange[1])
-        return `${selectedRange[0].toLocaleString()} – ${selectedRange[1].toLocaleString()}`;
-      return "Invalid range";
-    };
-
-    return (
-      <div className="rounded-lg border border-solid border-luna-grey-200 p-lg">
-        <p className="mb-md text-sm text-luna-grey-700">
-          Embedded range picker. Selected: {formatRange()}
-        </p>
-        <DatePicker
-          {...args}
-          displayAs="content"
-          dateValue={selectedRange}
-          onSelect={(date) => {
-            if (Array.isArray(date)) {
-              setSelectedRange(date as [DateTime | null, DateTime | null]);
-            }
-          }}
-        />
-      </div>
-    );
-  },
-  args: {
-    id: "datepicker-content-range",
-    mode: "range",
-    displayAs: "content",
-    shortcuts: [
       {
-        id: "this-weekend",
-        label: "This Weekend",
+        label: "Next Month",
         getDate: () => {
           const today = getLocalNow({});
-          const daysUntilSaturday = (6 - today.weekday + 7) % 7;
-          const saturday = today.plus({ days: daysUntilSaturday });
-          const sunday = saturday.plus({ days: 1 });
-          return [saturday, sunday];
+          return [today, today.plus({ months: 1 })];
         },
       },
-      NEXT_MONTH_RANGE_SHORTCUT,
     ],
-  },
-};
-
-/**
- * Demonstrates using getSanitizedDate when integrating the selected value in another context (e.g. form submit).<br>
- * The helper ensures range mode always gets [start, end] and single mode gets a single value or null.
- */
-export const DatePickerContentWithValidationHelper: Story = {
-  name: "DatePicker content with getSanitizedDate",
-  render: (args) => {
-    const [selectedDate, setSelectedDate] = useState<DateTime | null>(
-      getLocalNow({}),
-    );
-
-    const handleSimulatedSubmit = () => {
-      const sanitized = getSanitizedDate("single", selectedDate);
-      console.log("Sanitized value for submit:", sanitized);
-      alert(`Sanitized value: ${sanitized?.toLocaleString() ?? "null"}`);
-    };
-
-    return (
-      <div className="rounded-lg border border-solid border-luna-grey-200 p-lg">
-        <p className="mb-md text-sm text-luna-grey-700">
-          Content mode + getSanitizedDate(mode, value) for use in forms or other
-          contexts.
-        </p>
-        <DatePicker
-          {...args}
-          displayAs="content"
-          dateValue={selectedDate}
-          onSelect={(date) => setSelectedDate(date as DateTime)}
-        />
-        <div className="mt-md flex gap-sm">
-          <Button
-            label="Simulate submit (log sanitized value)"
-            size="sm"
-            intent="default"
-            color="main"
-            onClick={handleSimulatedSubmit}
-          />
-        </div>
-      </div>
-    );
-  },
-  args: {
-    id: "datepicker-content-validation",
-    mode: "single",
-    displayAs: "content",
-    shortcuts,
-  },
-};
-
-/**
- * DatePicker content embedded in a fully customized Kaizen Modal.<br>
- * Uses displayAs="content" and custom footer buttons. Fake validation on confirm:
- * date is required, and (for demo) date must be today or in the future.
- */
-export const DatePickerContentInCustomModal: Story = {
-  name: "DatePicker content in custom Modal",
-  render: (args) => {
-    const [open, setOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState<DateTime | null>(null);
-    const [validationError, setValidationError] = useState<string | null>(null);
-
-    const handleClose = () => {
-      setOpen(false);
-      setValidationError(null);
-    };
-
-    const handleConfirm = () => {
-      const sanitized = getSanitizedDate("single", selectedDate);
-
-      // Fake validation: required
-      if (sanitized === null) {
-        setValidationError("Please select a date.");
-        return;
-      }
-
-      // Fake validation: date must be today or in the future
-      const today = getLocalNow({}).startOf("day");
-      if (sanitized < today) {
-        setValidationError("Date must be today or in the future.");
-        return;
-      }
-
-      setValidationError(null);
-      setOpen(false);
-      alert(`Confirmed date: ${sanitized?.toLocaleString() ?? "null"}`);
-    };
-
-    return (
-      <div className="p-md">
-        <Button
-          intent="default"
-          color="main"
-          size="md"
-          label="Open date picker modal"
-          onClick={() => setOpen(true)}
-        />
-
-        <Modal
-          open={open}
-          size="md"
-          title="Choose a date"
-          description="Select a date for your booking. It must be today or a future date."
-          onClose={handleClose}
-          cancelButton={{
-            label: "Cancel",
-            onClick: handleClose,
-          }}
-          confirmButton={{
-            label: "Confirm",
-            onClick: handleConfirm,
-          }}
-          footerDirection="row"
-        >
-          <div className="space-y-md">
-            {validationError && (
-              <Body size="sm" color="critical">
-                {validationError}
-              </Body>
-            )}
-            <DatePicker
-              {...args}
-              id="datepicker-custom-modal"
-              displayAs="content"
-              mode="single"
-              dateValue={selectedDate}
-              onSelect={(date) => {
-                setSelectedDate(date as DateTime);
-                setValidationError(null);
-              }}
-              shortcuts={shortcuts}
-            />
-          </div>
-        </Modal>
-      </div>
-    );
-  },
-  args: {
-    id: "datepicker-custom-modal",
-    mode: "single",
-    displayAs: "content",
-    shortcuts,
-  },
-};
-
-const rangeShortcuts: ShortcutItem[] = [
-  {
-    id: "this-weekend",
-    label: "This Weekend",
-    getDate: (): [DateTime, DateTime] => {
-      const today = getLocalNow({});
-      const daysUntilSaturday = (6 - today.weekday + 7) % 7;
-      const saturday = today.plus({ days: daysUntilSaturday });
-      const sunday = saturday.plus({ days: 1 });
-      return [saturday, sunday];
-    },
-  },
-  NEXT_WEEK_RANGE_SHORTCUT,
-];
-
-/**
- * DatePicker content embedded in a Kaizen Detail Drawer.<br>
- * Uses displayAs="content" with range mode. Fake validation on Apply:
- * both dates required and end date must be after start date.
- */
-export const DatePickerContentInDetailDrawer: Story = {
-  name: "DatePicker content in Detail Drawer",
-  render: (args) => {
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [selectedRange, setSelectedRange] = useState<
-      [DateTime | null, DateTime | null]
-    >([null, null]);
-    const [validationError, setValidationError] = useState<string | null>(null);
-
-    const handleClose = () => {
-      setIsDrawerOpen(false);
-      setValidationError(null);
-    };
-
-    const handleApply = () => {
-      const sanitized = getSanitizedDate("range", selectedRange);
-
-      if (!Array.isArray(sanitized)) {
-        setValidationError("Invalid range.");
-        return;
-      }
-
-      const [start, end] = sanitized;
-
-      // Fake validation: both dates required
-      if (!start || !end) {
-        setValidationError("Please select both start and end dates.");
-        return;
-      }
-
-      // Fake validation: end must be after start
-      if (end <= start) {
-        setValidationError("End date must be after start date.");
-        return;
-      }
-
-      setValidationError(null);
-      setIsDrawerOpen(false);
-      alert(
-        `Applied range: ${start.toLocaleString()} - ${end.toLocaleString()}`,
-      );
-    };
-
-    return (
-      <div className="p-md min-h-[400px]">
-        <Button
-          intent="default"
-          color="main"
-          size="md"
-          label="Open date range drawer"
-          onClick={() => setIsDrawerOpen(true)}
-        />
-
-        <DetailDrawer
-          id="datepicker-detail-drawer"
-          isOpen={isDrawerOpen}
-          onClose={handleClose}
-          actionsConfig={[
-            {
-              id: "drawer-cancel",
-              label: "Cancel",
-              size: "md",
-              intent: "flat",
-              color: "default",
-              onClick: handleClose,
-            },
-            {
-              id: "drawer-apply",
-              label: "Apply",
-              size: "md",
-              intent: "call-to-action",
-              color: "main",
-              onClick: handleApply,
-            },
-          ]}
-        >
-          <div className="space-y-md">
-            <h2 className="text-lg font-semibold">Select date range</h2>
-            <Body size="sm" color="weak">
-              Choose a start and end date. End date must be after start date.
-            </Body>
-            {validationError && (
-              <Body size="sm" color="critical">
-                {validationError}
-              </Body>
-            )}
-            <DatePicker
-              {...args}
-              id="datepicker-detail-drawer"
-              displayAs="content"
-              mode="range"
-              dateValue={selectedRange}
-              onSelect={(date) => {
-                if (Array.isArray(date)) {
-                  setSelectedRange(date as [DateTime | null, DateTime | null]);
-                  setValidationError(null);
-                }
-              }}
-              shortcuts={rangeShortcuts}
-            />
-          </div>
-        </DetailDrawer>
-      </div>
-    );
-  },
-  args: {
-    id: "datepicker-detail-drawer",
-    mode: "range",
-    displayAs: "content",
-    shortcuts: rangeShortcuts,
   },
 };

@@ -2,14 +2,9 @@ import { useMutation } from "@tanstack/react-query";
 
 import { deleteAutomatedCampaign } from "./api";
 
-type DeleteAutomatedCampaignVariables = {
-  id: number;
-  smartlistId: string;
-};
-
 type UseDeleteAutomatedCampaignParams = {
-  onSuccess?: (data: void, variables: DeleteAutomatedCampaignVariables) => void;
-  onError?: (error: Error, variables: DeleteAutomatedCampaignVariables) => void;
+  onSuccess?: () => void;
+  onError?: (error: Error) => void;
 };
 
 /**
@@ -24,8 +19,7 @@ export function useDeleteAutomatedCampaign({
   onError,
 }: UseDeleteAutomatedCampaignParams = {}) {
   const mutation = useMutation({
-    mutationFn: (params: DeleteAutomatedCampaignVariables) =>
-      deleteAutomatedCampaign(params.id),
+    mutationFn: (params: { id: number }) => deleteAutomatedCampaign(params.id),
     onSuccess,
     onError,
   });

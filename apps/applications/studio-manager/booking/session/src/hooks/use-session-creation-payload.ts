@@ -55,12 +55,10 @@ export const useSessionCreationPayload = () => {
       });
 
       // TODO: Refacto this to use Luxon throughout the app
-      const generatedDates = recurrenceConfig
-        ? generateRecurrenceDates(recurrenceConfig)
-        : [startDateTime];
-
       const dates = (
-        generatedDates?.length > 0 ? generatedDates : [startDateTime]
+        recurrenceConfig
+          ? generateRecurrenceDates(recurrenceConfig)
+          : [startDateTime]
       ).map((date) => Math.floor(date.getTime() / 1000)); // Convert to UNIX timestamp in seconds
 
       return {

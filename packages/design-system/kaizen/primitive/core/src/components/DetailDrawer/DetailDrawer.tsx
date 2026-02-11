@@ -35,7 +35,6 @@ const variants = {
       "left-0",
       "w-full",
       "h-[90vh]", // Partial height on mobile
-      "max-h-screen", // Partial height on mobile (iOS issues of height calculations requires this to not have content blocked by the top search bar on safari or other browsers)
       "border-t-stroke-thin",
     ],
   },
@@ -65,6 +64,9 @@ const headerClasses = [
   "border-b-stroke-thin",
   "border-b-stroke-divider",
   "bg-surface-default-elevated",
+  "sticky",
+  "top-0",
+  "z-10",
 ] as const;
 
 const header = cva(headerClasses);

@@ -15,7 +15,6 @@ import type {
   MinimalSession,
   PaginatedFetchSessionsParams,
   RecurrenceResponse,
-  RetrieveSessionParams,
   Session,
   SessionCreationPayload,
 } from "#src/session/types";
@@ -257,23 +256,4 @@ export const fetchRecurrenceFromSessionAPI = async (
   const [uri] = fetchRecurrenceFromSessionAPIConfig(sessionId);
   const { data: recurrenceId } = await fetch(uri);
   return recurrenceId;
-};
-
-export const retrieveSessionAPIConfig = (
-  sessionId: number,
-  params: RetrieveSessionParams = {
-    with_booking_window: false,
-  },
-): ApiConfig => {
-  return [`${API_URL_SESSION}/${sessionId}/${buildUrlParams(params)}`];
-};
-
-export const retrieveSessionAPI = async (
-  fetch: Fetch<Session>,
-  sessionId: number,
-  params?: RetrieveSessionParams,
-): Promise<Session> => {
-  const [uri, init] = retrieveSessionAPIConfig(sessionId, params);
-  const { data: session } = await fetch(uri, init);
-  return session;
 };

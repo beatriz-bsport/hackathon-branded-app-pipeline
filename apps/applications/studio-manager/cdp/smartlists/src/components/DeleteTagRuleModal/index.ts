@@ -1,1 +1,0 @@
-export { DeleteTagRuleModal } from "./DeleteTagRuleModal";

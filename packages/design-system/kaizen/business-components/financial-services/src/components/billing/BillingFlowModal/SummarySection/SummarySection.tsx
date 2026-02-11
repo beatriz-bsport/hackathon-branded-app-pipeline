@@ -1,9 +1,8 @@
 import React from "react";
 
-import { useFormContext } from "@bsport/form";
 import { Body, Card, Divider, Title } from "@bsport/kaizen-primitive-core";
 
-import type { BillingFlowFormState } from "#src/components/billing/BillingFlowModal/schema";
+import type { AddedItem } from "#src/components/billing/BillingFlowModal/use-add-item-form";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import { SummaryEmptyState } from "./SummaryEmptyState";
@@ -11,19 +10,22 @@ import { SummaryItemRow } from "./SummaryItemRow";
 import { SummaryTotals } from "./SummaryTotals";
 import { calculateTotals } from "./utils";
 
-const SummarySection: React.FC = () => {
+export type SummaryItem = AddedItem;
+
+export type SummarySectionProps = {
+  items: SummaryItem[];
+  onItemDelete?: (itemIndex: number) => void;
+};
+
+const SummarySection: React.FC<SummarySectionProps> = ({
+  items,
+  onItemDelete,
+}) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
-  const { watch, setValue } = useFormContext<BillingFlowFormState>();
 
-  const items = watch("items") ?? [];
   const itemCount = items.length;
   const itemCountText = t("billingFlowModal.itemCount", { count: itemCount });
-
-  const handleItemDelete = (itemIndex: number) => {
-    const newItems = items.filter((_, index) => index !== itemIndex);
-    setValue("items", newItems, { shouldDirty: true });
-  };
 
   const { totalCts, totalBeforeTaxCts } = calculateTotals(items);
 
@@ -53,7 +55,7 @@ const SummarySection: React.FC = () => {
                     <React.Fragment key={`${item.buyableItemId}-${index}`}>
                       <SummaryItemRow
                         item={item}
-                        onDelete={() => handleItemDelete(index)}
+                        onDelete={() => onItemDelete?.(index)}
                       />
                       {index < items.length - 1 && <Divider weight="thin" />}
                     </React.Fragment>

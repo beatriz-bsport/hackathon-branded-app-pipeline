@@ -1,5 +1,4 @@
 import type { MetaActivity } from "@bsport/api-book";
-import { EmailTemplateSummary } from "@bsport/store-cdp-email-template";
 import {
   BIRTHDAY_NOTIFICATION,
   BOOKING_CREATION_NOTIFICATION,
@@ -106,22 +105,4 @@ const getMarketingSelectableNotificationType = ({
   return null;
 };
 
-const checkIfEmailTemplateIsMissing = ({
-  marketingNotification,
-  emailTemplatesById,
-}: {
-  marketingNotification: MarketingNotification;
-  emailTemplatesById: Record<number, EmailTemplateSummary>;
-}) => {
-  return (
-    !marketingNotification ||
-    typeof marketingNotification.email_design !== "number" ||
-    marketingNotification.email_design in emailTemplatesById === false
-  );
-};
-
-export {
-  getMarketingNotificationType,
-  getMarketingSelectableNotificationType,
-  checkIfEmailTemplateIsMissing,
-};
+export { getMarketingNotificationType, getMarketingSelectableNotificationType };

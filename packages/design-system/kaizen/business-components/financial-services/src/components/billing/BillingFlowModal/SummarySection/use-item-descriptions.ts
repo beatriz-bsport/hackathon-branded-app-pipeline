@@ -1,17 +1,17 @@
-import type { InvoiceItemFormData } from "#src/components/billing/BillingFlowModal/types";
+import type { AddedItem } from "#src/components/billing/BillingFlowModal/use-add-item-form";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import { formatDate } from "./utils";
 
-export const useItemDescriptions = (item: InvoiceItemFormData) => {
+export const useItemDescriptions = (item: AddedItem) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   const getValidityDescription = (): string | null => {
     // Note: validityDateRange is already parsed from JSON string in item-type-configs
-    // (e.g., use-pass-config.ts). The backend returns validity_daterange as a JSON string,
+    // (e.g., pass.ts). The backend returns validity_daterange as a JSON string,
     // but it's transformed to { lower: string, upper: string } during item configuration.
-    // See: ItemAutocomplete/item-type-configs/use-pass-config.ts for the parsing logic.
+    // See: ItemAutocomplete/item-type-configs/pass.ts for the parsing logic.
     if (item.validityDateRange?.lower && item.validityDateRange?.upper) {
       return t("billingFlowModal.validityDateRange", {
         lower: formatDate(item.validityDateRange.lower, i18nInstance?.language),

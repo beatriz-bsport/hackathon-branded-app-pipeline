@@ -1,10 +1,6 @@
 import type { MetaActivity } from "@bsport/api-book";
 import type { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
 
-import {
-  BOOKING_OCCURENCE_ANY_BOOKING,
-  BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
-} from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Booking/types";
 import { getMarketingSelectableNotificationType } from "#src/utils/marketingNotification";
 import {
   APPOINTMENT_PASS_TYPE,
@@ -83,10 +79,6 @@ const createBookingTriggerCondition = (
     bookingItemId: itemIds[0],
     bookingEventKind: eventRules.kind,
     bookingOccurrence: eventRules.notify_booking_nb,
-    bookingOccurrenceType:
-      eventRules.notify_booking_nb === 0
-        ? BOOKING_OCCURENCE_ANY_BOOKING
-        : BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
     ...timingConfig,
     ...smartlistConfig,
   };

@@ -83,6 +83,7 @@ type Props = {
   companyId: number;
   enableMultiLocalization?: boolean;
   goBack: () => void;
+  goToCalendar: () => void;
   goToMarketplace: () => void;
   goToMyProfile: () => void;
   isExcludingTax: boolean;
@@ -114,6 +115,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
   companyId,
   enableMultiLocalization,
   goBack,
+  goToCalendar,
   goToMarketplace,
   goToMyProfile,
   isExcludingTax,
@@ -246,6 +248,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
     return (
       <div className={classes.container}>
         <EmptyBasket
+          goToCalendar={goToCalendar}
           goToMarketplace={goToMarketplace}
           goToMyProfile={goToMyProfile}
         />

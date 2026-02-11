@@ -6,7 +6,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useFetchRecurrenceFromSession } from "#src/hooks/session-api/fetch/use-fetch-recurrence-from-session";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
-import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
+import { useSessionPayload } from "#src/hooks/use-session-payload";
 import {
   closeModal,
   selectIsDuplicateModalOpen,
@@ -48,7 +48,7 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
     return `${session.name} - ${sessionDate}`;
   };
 
-  const { buildPayload } = useSessionCreationPayload();
+  const { buildCreationPayload } = useSessionPayload();
   const { mutate: createSession, isPending } = useCreateSession();
 
   return (
@@ -84,7 +84,7 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
           companyTimezone={companyTimezone}
           formId={formId}
           duplicateSessionSchema={duplicateSessionSchema}
-          buildPayload={buildPayload}
+          buildPayload={buildCreationPayload}
           createSession={createSession}
           formRef={formRef}
         />

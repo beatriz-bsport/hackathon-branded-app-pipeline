@@ -26,7 +26,7 @@ import {
   openRestoreModal,
 } from "#src/stores/session-list";
 import type { EnrichedSession } from "#src/types";
-import { URLS } from "#src/urls";
+import { getDetailsUrl } from "#src/urls";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
@@ -96,7 +96,7 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
             sessionListEditButtonClickedEvent,
             trackingProperties,
           );
-          navigate(URLS.DETAILS(session.id));
+          navigate(getDetailsUrl(session.id));
           setIsPopoverOpened(false);
         },
       };

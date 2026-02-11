@@ -8,6 +8,9 @@ import {
   type RefAttributes,
   forwardRef,
 } from "react";
+import { Result } from "typescript-result";
+
+import { useAsync } from "@bsport/use-async";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
@@ -309,8 +312,8 @@ const detailsLayoutConfirmation = cva(
 type DetailsLayoutConfirmationProps = PropsWithChildren<
   HTMLAttributes<HTMLDivElement>
 > & {
-  onDiscard: () => void;
-  onSave: () => void;
+  onDiscard: () => void | Promise<void>;
+  onSave: () => void | Promise<void>;
 };
 
 /**
@@ -328,6 +331,20 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
   const { hasUnsavedChanges, confirmationRef } = useLayoutContext();
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
+
+  const [{ isLoading: discardLoading }, handleDiscard] = useAsync({
+    asyncFn: async () => {
+      await onDiscard();
+      return Result.ok(undefined);
+    },
+  });
+
+  const [{ isLoading: saveLoading }, handleSave] = useAsync({
+    asyncFn: async () => {
+      await onSave();
+      return Result.ok(undefined);
+    },
+  });
 
   return (
     <div
@@ -355,14 +372,18 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
               size="md"
               intent="flat"
               color="default"
-              onClick={onDiscard}
+              onClick={handleDiscard}
+              loading={discardLoading}
+              disabled={saveLoading || discardLoading}
             />
             <Button
               label={t("detailsLayout.confirmation.save")}
               size="md"
               intent="default"
               color="main"
-              onClick={onSave}
+              onClick={handleSave}
+              loading={saveLoading}
+              disabled={saveLoading || discardLoading}
             />
           </div>
         </>

@@ -41,6 +41,10 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
     toggleHasUnsavedChanges(isDirty);
   }, [isDirty, toggleHasUnsavedChanges]);
 
+  useEffect(() => {
+    methods.reset(fromSessionToFormData(session));
+  }, [session, methods]);
+
   const resetForm = () => {
     methods.reset();
   };

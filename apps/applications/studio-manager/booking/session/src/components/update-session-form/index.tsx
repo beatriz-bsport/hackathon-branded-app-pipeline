@@ -4,13 +4,10 @@ import { SessionWithActivity } from "@bsport/api-book";
 import { ControlledForm, useFormController } from "@bsport/form";
 import { DetailsLayout, useDetailsLayout } from "@bsport/kaizen-primitive-core";
 
-import { SessionDetails } from "#src/components/SessionForm/Details/SessionDetails";
-import { SessionTimeAndDate } from "#src/components/SessionForm/TimeAndDate/SessionTimeAndDate";
 import { BookForAGuestField } from "#src/components/SessionForm/advanced-options/book-for-a-guest-field";
 import TagSelectorForm from "#src/components/SessionForm/advanced-options/tag-selector-form";
 import { useSessionEditSchema } from "#src/components/SessionForm/schemas";
 import { EstablishmentSection } from "#src/components/SessionForm/teacher-and-establishment/establishment-section";
-import { SessionTeacherAndEstablishment } from "#src/components/SessionForm/teacher-and-establishment/teacher-and-establishment";
 import { TeacherSection } from "#src/components/SessionForm/teacher-and-establishment/teacher-section";
 import { Header } from "#src/components/session-details/header";
 import { fromSessionToFormData } from "#src/components/update-session-form/mapper";
@@ -18,6 +15,7 @@ import useEditSession from "#src/hooks/session-api/session-actions/use-edit-sess
 import { useSessionPayload } from "#src/hooks/use-session-payload";
 
 import { SettingsSection } from "./settings-section";
+import { TimeAndDateSection } from "./time-and-date-section";
 
 type PropsType = { session: SessionWithActivity };
 
@@ -74,9 +72,7 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
             roomBlueprintId={session.room_blueprint}
             metaActivity={session.meta_activity}
           />
-          <SessionDetails fieldIdPrefix={formId} />
-          <SessionTimeAndDate fieldIdPrefix={formId} />
-          <SessionTeacherAndEstablishment fieldIdPrefix={formId} />
+          <TimeAndDateSection fieldIdPrefix={formId} isEditMode />
         </DetailsLayout.Content>
         <DetailsLayout.Panel>
           <BookForAGuestField fieldIdPrefix={formId} />

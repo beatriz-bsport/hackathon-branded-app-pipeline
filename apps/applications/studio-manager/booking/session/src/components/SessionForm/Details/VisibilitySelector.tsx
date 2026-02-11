@@ -18,11 +18,9 @@ import {
   type RadioGroupProps,
 } from "@bsport/kaizen-primitive-core";
 
-import { type SessionVisibilityType } from "#src/events/constants";
-
 enum VISIBILITY_VALUES {
-  VISIBLE = "listed",
-  HIDDEN = "unlisted",
+  VISIBLE = "visible",
+  HIDDEN = "hidden",
 }
 
 export type VisibilityOption = {
@@ -87,11 +85,6 @@ export type VisibilitySelectorProps<
    * Additional props to pass to the RadioGroup
    */
   radioGroupProps?: Partial<RadioGroupProps>;
-  /**
-   * Callback to track visibility changes, receives the new visibility value
-   * Use this to send analytics events when the visibility is changed
-   */
-  trackVisibilityChange?: (value: SessionVisibilityType) => void;
 };
 
 /**
@@ -141,7 +134,6 @@ export const VisibilitySelector = <
   radioGroupProps,
   fieldName,
   onFormChange,
-  trackVisibilityChange,
 }: VisibilitySelectorProps<TSchema, TFieldName>): React.ReactElement => {
   const { watch } = useFormContext<TSchema>();
 
@@ -253,9 +245,6 @@ export const VisibilitySelector = <
                         shouldDirty: true,
                         shouldValidate: true,
                       },
-                    );
-                    trackVisibilityChange?.(
-                      event.target.value as SessionVisibilityType,
                     );
                     onFormChange?.(newFieldValue, form);
                     setIsPopoverOpened(false);

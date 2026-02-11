@@ -1,7 +1,7 @@
 {
   "pageTitle": "Insights",
   "sections": {
-    "member": "Community & Marketing",
+    "member": "Member Insights",
     "financial": "Financial Health",
     "booking": "Booking Performance",
     "teacher": "Teacher Performance",
@@ -12,31 +12,24 @@
       "title": "Acquisition & Conversion Performance",
       "description": "Understand how first-time purchases convert into returning customers, identify drop-offs, and optimize your acquisition"
     },
-    "community_health": {
-      "title": "Community Health",
-      "description": "Track client activity, retention, and churn to understand the health of your community"
-    },
     "recurring": {
       "title": "Subscriptions Performance",
       "description": "Track health of subscriptions, analyse recurring revenue, and spot risks or opportunities"
     },
     "schedule": {
-      "title": "Schedule Performance",
-      "description": "Optimise schedule performance to maximise enrolment and earned revenue"
+      "title": "Schedule",
+      "description": "Analyse studio management and schedule performance to optimize your group sessions"
     }
   },
   "pages": {
     "trialAnalysis": {
       "title": "Acquisition & Conversion Performance"
     },
-    "communityHealth": {
-      "title": "Community Health"
-    },
     "recurringRevenue": {
       "title": "Subscriptions Performance"
     },
     "scheduleAnalysis": {
-      "title": "Schedule Performance"
+      "title": "Schedule"
     }
   },
   "errors": {

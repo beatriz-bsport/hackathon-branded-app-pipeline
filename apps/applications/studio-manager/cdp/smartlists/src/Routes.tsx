@@ -13,8 +13,6 @@ const AutomationPage = lazy(() => import("#src/pages/AutomationPage"));
 const AutomationMessagePage = lazy(
   () => import("#src/pages/AutomationMessagePage"),
 );
-const PopupCreationPage = lazy(() => import("#src/pages/PopupCreationPage"));
-const PopupEditPage = lazy(() => import("#src/pages/PopupEditPage"));
 
 export const AppRoutes = () => {
   return (
@@ -40,22 +38,6 @@ export const AppRoutes = () => {
         <Route path="campaign" element={<CampaignPage />} />
         <Route path="automation" element={<AutomationPage />} />
       </Route>
-      <Route
-        path={URLS.POPUP_CREATION}
-        element={
-          <FeatureFlag flag={flags.smartlist}>
-            <PopupCreationPage />
-          </FeatureFlag>
-        }
-      />
-      <Route
-        path={URLS.POPUP_EDIT}
-        element={
-          <FeatureFlag flag={flags.smartlist}>
-            <PopupEditPage />
-          </FeatureFlag>
-        }
-      />
     </Routes>
   );
 };

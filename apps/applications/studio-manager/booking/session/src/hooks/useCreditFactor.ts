@@ -35,7 +35,6 @@ const getCreditsDividedDisplay = (
   return new Intl.NumberFormat(locale, {
     maximumFractionDigits: 2,
     minimumFractionDigits: 0,
-    useGrouping: false,
   }).format(valueDivided);
 };
 

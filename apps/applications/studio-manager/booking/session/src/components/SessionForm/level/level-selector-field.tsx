@@ -46,10 +46,7 @@ export const LevelSelectorField: FC<{ fieldIdPrefix: string }> = ({
         name="level"
         mapProps={({ form: { setValue } }) => ({
           onLevelSelect: (levelId: number) => {
-            setValue("level", levelId, {
-              shouldValidate: true,
-              shouldDirty: true,
-            });
+            setValue("level", levelId, { shouldValidate: true });
           },
         })}
       >

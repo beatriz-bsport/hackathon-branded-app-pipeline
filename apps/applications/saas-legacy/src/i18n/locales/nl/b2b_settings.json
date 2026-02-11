@@ -8,12 +8,7 @@
       "placeholder": "domein.com",
       "saveTooltip": "Let op: Zodra toegevoegd, kunnen domeinen niet worden bewerkt",
       "addButton": "Voeg een ander domein toe",
-      "validationError": "De domein-URL moet in een geldig formaat zijn, bijv. domein.com",
-      "errors": {
-        "4005": "Het maximale aantal domeinen voor betaalmethode moet 15 of minder zijn. Verwijder een domein voordat je een nieuw domein toevoegt.",
-        "4007": "Deze domeinnaam is al geregistreerd. Domeinen kunnen slechts één keer worden geregistreerd voor alle studio's. Wanneer domeinen binnen een franchise worden gedeeld, zullen betalingen nog steeds op deze site worden verwerkt.",
-        "default": "Er is een fout opgetreden bij het registreren van het domein. Probeer het opnieuw. "
-      }
+      "validationError": "De domein-URL moet in een geldig formaat zijn, bijv. domein.com"
     }
   }
 }

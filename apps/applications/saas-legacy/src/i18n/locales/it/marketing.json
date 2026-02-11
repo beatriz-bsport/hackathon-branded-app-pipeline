@@ -470,8 +470,7 @@
           "helper": "Seleziona una o più azioni da eseguire quando un membro entra in questa fase. Questa opzione è facoltativa.",
           "reset": "Elimina",
           "submit": "Convalida"
-        },
-        "6": "Rimuovi un tag"
+        }
       },
       "event": {
         "1": "Pacchetto",
@@ -508,9 +507,7 @@
         "private_consumer_pass-create": "Pacchetto privato",
         "consumer_payment_pack-create": "Pacchetto",
         "consumer_giftcard-create": "Gift Card",
-        "provision_update-create": "Articolo dello shop",
-        "marketing-lead_form_submitted": "Modulo lead inviato",
-        "105": "Membro"
+        "provision_update-create": "Articolo dello shop"
       },
       "exit": {
         "exit_fail_label": "No",
@@ -552,11 +549,7 @@
         "finerGrain": {
           "purchaseLabelTitle": "Articolo/i acquistato/i",
           "specifyItemsToggleLabel": "Specificare gli articoli"
-        },
-        "triggerTimeoutHours": "ora.",
-        "triggerTimeoutHours_plural": "ore.",
-        "triggerTimeoutDaysAnd": "giorno e",
-        "triggerTimeoutDaysAnd_plural": "giorni e"
+        }
       },
       "next": "Seguente",
       "previous": "Precedente",
@@ -577,14 +570,9 @@
       "cancel": "Cancella",
       "error": {
         "triggerCannotBeEmpty": "È necessario selezionare un tipo di voce.",
-        "timeoutMustBeStrictPositive": "Il ritardo deve essere di almeno 1 giorno.",
+        "timeoutMustBeStrictPositive": "Il limite di tempo deve essere di almeno 1 giorno.",
         "maximumConnectedTrigger": "Non puoi impostare più di cinque eventi scatenanti.",
-        "minimumConnectedTrigger": "Devi selezionare almeno un evento scatenante.",
-        "timeoutRequired": "Il ritardo è obbligatorio.",
-        "timeoutHoursMustBeMax23": "Il numero di ore non deve superare 23.",
-        "timeoutHoursMustBePositive": "Il numero di ore deve essere positivo.",
-        "timeoutDaysMustBePositive": "Il numero di giorni deve essere positivo.",
-        "timeoutMustBeStrictPositiveWithHourlyTimeout": "Il ritardo deve essere di almeno 1 ora."
+        "minimumConnectedTrigger": "Devi selezionare almeno un evento scatenante."
       },
       "delete": "Elimina",
       "updateSubmit": "Conferma"
@@ -631,14 +619,11 @@
         "purchase_chip": "Acquista",
         "billing_plan_chip": "Quota",
         "invoice_chip": "Contabilizzazione",
-        "basket_chip": "Carrello",
-        "member_chip": "Membro"
+        "basket_chip": "Carrello"
       },
       "timeout": {
         "timeout_days_chip": "{{ count }} giorno",
-        "timeout_days_chip_plural": "{{ count }} giorni",
-        "timeout_hours_chip": "{{ count }} ora",
-        "timeout_hours_chip_plural": "{{ count }} ore"
+        "timeout_days_chip_plural": "{{ count }} giorni"
       },
       "trigger": "Trigger",
       "exit": "Uscita",
@@ -763,14 +748,9 @@
         "helperText": "Stabilire quando l'obiettivo è considerato non raggiunto: definire un limite di tempo e/o uno o più trigger specifici dopo i quali il membro uscirà senza successo da questo {{ workflowLowerCase }}.",
         "addTrigger": "Aggiungi un evento di uscita dal flusso",
         "timeout": {
-          "helperText": "I membri usciranno dal {{ workflowLowerCase }} se non si registrano progressi dopo questo numero di giorni.",
-          "label": "Giorni di inattività in {{ workflowLowerCase }}.",
-          "title": "Tempo limite",
-          "hours": "ora",
-          "hours_plural": "ore",
-          "days": "giorno e",
-          "days_plural": "giorni e",
-          "helperTextWithHourlyTimeout": "I membri usciranno dal {{ workflowLowerCase }} se non viene fatto alcun progresso dopo questo periodo di inattività."
+          "helperText": "I membri usciranno dal {{ workflowLowerCase }} se non si registrano progressi dopo questo numero di giorni",
+          "label": "Giorni di inattività in {{ workflowLowerCase }}",
+          "title": "Tempo limite"
         }
       },
       "lostAction": {
@@ -897,7 +877,7 @@
     "graph": {
       "alert": {
         "switchToEditMode": "In modalità di visualizzazione, fare clic su MODIFICA per modificare il {{ workflowLowerCase }}.",
-        "audienceIsActive": "Il tuo {{ workflowLowerCase }} è attualmente attivo. Mettilo prima in pausa per modificarlo. "
+        "audienceIsActive": "Il flusso di lavoro {{ workflowLowerCase }} è in corso, si prega di sospenderlo per modificarlo."
       }
     },
     "archive": {
@@ -1076,8 +1056,7 @@
       },
       "createFromScratchDescription": "Crea un {{ workflowLowerCase }} per automatizzare le azioni di Audience.",
       "useTemplate": "Utilizza template",
-      "createFromScratch": "Crea nuovo {{ workflowLowerCase }}",
-      "createFromScratchTitle": "Nuovo {{ workflowLowerCase }}"
+      "createFromScratch": "Crea nuovo {{ workflowLowerCase }}"
     },
     "upsells": {
       "warning": {

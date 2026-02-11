@@ -3,15 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import { HasSubscriptionsProvider } from '#src/hooks/useHasSubscriptions';
-import { hasPremiumInsightsAccess } from '#src/pages/insights/utils/premium-insights';
-import type { RootState } from '#src/reducers';
 import { INSIGHTS_ROUTES } from './constants';
-import InsightCard from './components/InsightCard';
 
 const useStyles = makeStyles((theme) => ({
   pageContainer: {
@@ -37,21 +35,26 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     gap: theme.spacing(1),
   },
+  card: {
+    display: 'flex',
+  },
+  cardActionArea: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    padding: theme.spacing(2),
+  },
 }));
 
 const InsightsIndex: React.FC = () => {
   const classes = useStyles();
   const { t } = useTranslation(['b2b_insights']);
   const history = useHistory();
-  const featureList = useSelector(
-    (state: RootState) => state.company.feature.data,
-  );
-  const hasPremiumInsights = hasPremiumInsightsAccess(featureList);
   const isTrialAnalysisEnabled = useSafeFlag(FeatureFlags.TRIAL_ANALYSIS);
   const isScheduleAnalysisInsightEnabled = useSafeFlag(
     FeatureFlags.SCHEDULE_ANALYSIS,
   );
-  const isCommunityHealthEnabled = useSafeFlag(FeatureFlags.COMMUNITY_HEALTH);
 
   const handleGoToReport = (path: string) => () => {
     history.push(path);
@@ -62,29 +65,19 @@ const InsightsIndex: React.FC = () => {
       requiredPermission={[
         'report.Payments.invoices.allowed_actions.read',
         'report.Club.subscription.allowed_actions.read',
-        'report.Club.members_purchase.allowed_actions.read',
         'report.Bookings.bookings.allowed_actions.read',
       ]}
     >
       {([
         hasInvoicesReportPermission,
         hasSubscriptionReportPermission,
-        hasMembersPurchaseReportPermission,
         hasBookingsReportPermission,
       ]: boolean[]) => {
         // Hide entire Insights page if user has neither permission
-        const hasTrialAnalysisAccess =
-          isTrialAnalysisEnabled && hasInvoicesReportPermission;
-        const hasCommunityHealthAccess =
-          isCommunityHealthEnabled &&
-          hasPremiumInsights &&
-          hasMembersPurchaseReportPermission;
         if (
           !hasInvoicesReportPermission &&
           !hasSubscriptionReportPermission &&
-          !hasBookingsReportPermission &&
-          !hasTrialAnalysisAccess &&
-          !hasCommunityHealthAccess
+          !hasBookingsReportPermission
         ) {
           return <div className={classes.pageContainer}></div>;
         }
@@ -93,35 +86,31 @@ const InsightsIndex: React.FC = () => {
           <HasSubscriptionsProvider enabled={hasSubscriptionReportPermission}>
             {({ hasSubscriptions }) => (
               <div className={classes.pageContainer}>
-                {hasTrialAnalysisAccess || hasCommunityHealthAccess ? (
+                {isTrialAnalysisEnabled && hasInvoicesReportPermission && (
                   <div className={classes.titleContainer}>
                     <Typography component="h2" variant="h5">
                       {t('sections.memberInsights')}
                     </Typography>
                     <Divider className={classes.divider} />
                     <div className={classes.sectionItemContainer}>
-                      {hasTrialAnalysisAccess ? (
-                        <InsightCard
-                          description={t('trackTrialOffer.description')}
+                      <Card className={classes.card} variant="outlined">
+                        <CardActionArea
+                          className={classes.cardActionArea}
                           onClick={handleGoToReport(
                             INSIGHTS_ROUTES.TRIAL_ANALYSIS,
                           )}
-                          title={t('trackTrialOffer.title')}
-                        />
-                      ) : null}
-
-                      {hasCommunityHealthAccess ? (
-                        <InsightCard
-                          description={t('monitorCommunityHealth.description')}
-                          onClick={handleGoToReport(
-                            INSIGHTS_ROUTES.COMMUNITY_HEALTH,
-                          )}
-                          title={t('monitorCommunityHealth.title')}
-                        />
-                      ) : null}
+                        >
+                          <Typography color="textPrimary" variant="body1">
+                            {t('trackTrialOffer.title')}
+                          </Typography>
+                          <Typography color="textSecondary" variant="body2">
+                            {t('trackTrialOffer.description')}
+                          </Typography>
+                        </CardActionArea>
+                      </Card>
                     </div>
                   </div>
-                ) : null}
+                )}
 
                 {hasSubscriptionReportPermission && hasSubscriptions && (
                   <div className={classes.titleContainer}>
@@ -130,13 +119,21 @@ const InsightsIndex: React.FC = () => {
                     </Typography>
                     <Divider className={classes.divider} />
                     <div className={classes.sectionItemContainer}>
-                      <InsightCard
-                        description={t('monitorRevenue.description')}
-                        onClick={handleGoToReport(
-                          INSIGHTS_ROUTES.RECURRING_REVENUE,
-                        )}
-                        title={t('monitorRevenue.title')}
-                      />
+                      <Card className={classes.card} variant="outlined">
+                        <CardActionArea
+                          className={classes.cardActionArea}
+                          onClick={handleGoToReport(
+                            INSIGHTS_ROUTES.RECURRING_REVENUE,
+                          )}
+                        >
+                          <Typography color="textPrimary" variant="body1">
+                            {t('monitorRevenue.title')}
+                          </Typography>
+                          <Typography color="textSecondary" variant="body2">
+                            {t('monitorRevenue.description')}
+                          </Typography>
+                        </CardActionArea>
+                      </Card>
                     </div>
                   </div>
                 )}
@@ -145,17 +142,30 @@ const InsightsIndex: React.FC = () => {
                   hasBookingsReportPermission && (
                     <div className={classes.titleContainer}>
                       <Typography component="h2" variant="h5">
-                        {t('sections.bookings')}
+                        {t('sections.bookings', { defaultValue: 'Bookings' })}
                       </Typography>
                       <Divider className={classes.divider} />
                       <div className={classes.sectionItemContainer}>
-                        <InsightCard
-                          description={t('monitorSchedule.description')}
-                          onClick={handleGoToReport(
-                            INSIGHTS_ROUTES.SCHEDULE_ANALYSIS,
-                          )}
-                          title={t('monitorSchedule.title')}
-                        />
+                        <Card className={classes.card} variant="outlined">
+                          <CardActionArea
+                            className={classes.cardActionArea}
+                            onClick={handleGoToReport(
+                              INSIGHTS_ROUTES.SCHEDULE_ANALYSIS,
+                            )}
+                          >
+                            <Typography color="textPrimary" variant="body1">
+                              {t('monitorSchedule.title', {
+                                defaultValue: 'Schedule analysis',
+                              })}
+                            </Typography>
+                            <Typography color="textSecondary" variant="body2">
+                              {t('monitorSchedule.description', {
+                                defaultValue:
+                                  'Analyze your schedule and bookings.',
+                              })}
+                            </Typography>
+                          </CardActionArea>
+                        </Card>
                       </div>
                     </div>
                   )}

@@ -1,5 +1,4 @@
-import React, { useCallback, useMemo } from "react";
-import { useNavigate } from "react-router";
+import React, { useCallback } from "react";
 
 import {
   Button,
@@ -10,15 +9,6 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { SessionVisibilityType } from "#src/events/constants";
-import {
-  sessionListCancelButtonClickedEvent,
-  sessionListCopyLinkButtonClickedEvent,
-  sessionListDeleteButtonClickedEvent,
-  sessionListDuplicateButtonClickedEvent,
-  sessionListEditButtonClickedEvent,
-  sessionListRestoreButtonClickedEvent,
-} from "#src/events/session-list/events";
 import {
   openCancelModal,
   openDeleteModal,
@@ -26,8 +16,6 @@ import {
   openRestoreModal,
 } from "#src/stores/session-list";
 import type { EnrichedSession } from "#src/types";
-import { URLS } from "#src/urls";
-import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
@@ -39,27 +27,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
   session,
 }) => {
   const { t } = useTranslation("sessionList");
-  const navigate = useNavigate();
-
-  const trackingProperties = useMemo(
-    () => ({
-      session_id: session.id,
-      session_name: session.name,
-      session_start_date_time: session.date_start,
-      participant_number: session.nb_bookings,
-      teacher_name: session.teacherName!,
-      teacher_id: session.coach_override ?? session.coach,
-      session_type: session.is_workshop ? "workshop" : "group_activity",
-      session_is_online: session.is_broadcast,
-      session_available: session.available,
-      session_duration: session.duration_minute,
-      session_visibility: (session.manager_only
-        ? "unlisted"
-        : "listed") as SessionVisibilityType,
-    }),
-    [session],
-  );
-
   const { copyToClipboard } = useCopyToClipboard();
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
   const isWorkshop = session.is_workshop;
@@ -92,11 +59,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "edit-02",
         type: "button",
         onClick: () => {
-          analyticsTrackSafeEvent(
-            sessionListEditButtonClickedEvent,
-            trackingProperties,
-          );
-          navigate(URLS.DETAILS(session.id));
           setIsPopoverOpened(false);
         },
       };
@@ -113,10 +75,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "copy-03",
         type: "button",
         onClick: () => {
-          analyticsTrackSafeEvent(
-            sessionListDuplicateButtonClickedEvent,
-            trackingProperties,
-          );
           setIsPopoverOpened(false);
           openDuplicateModal(session);
         },
@@ -128,10 +86,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         type: "button",
         disabled: !companyId,
         onClick: () => {
-          analyticsTrackSafeEvent(
-            sessionListCopyLinkButtonClickedEvent,
-            trackingProperties,
-          );
           if (companyId) {
             copyToClipboard(
               `${window.location.origin}/customer/payment/offer/${session.id}?membership=${companyId}`,
@@ -146,10 +100,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "calendar-minus-02",
         type: "button",
         onClick: () => {
-          analyticsTrackSafeEvent(
-            sessionListCancelButtonClickedEvent,
-            trackingProperties,
-          );
           setIsPopoverOpened(false);
           openCancelModal(session);
         },
@@ -160,10 +110,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "unarchive",
         type: "button",
         onClick: () => {
-          analyticsTrackSafeEvent(
-            sessionListRestoreButtonClickedEvent,
-            trackingProperties,
-          );
           setIsPopoverOpened(false);
           openRestoreModal(session);
         },
@@ -174,10 +120,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "trash-01",
         type: "button",
         onClick: () => {
-          analyticsTrackSafeEvent(
-            sessionListDeleteButtonClickedEvent,
-            trackingProperties,
-          );
           setIsPopoverOpened(false);
           openDeleteModal(session);
         },
@@ -211,8 +153,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
       hasEditPermission,
       hasCancelPermission,
       hasCreatePermission,
-      navigate,
-      trackingProperties,
     ],
   );
 
@@ -233,10 +173,7 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
           <Button
             kind="icon-button"
             icon="dots-vertical"
-            onClick={(event) => {
-              event.stopPropagation(); // Prevent triggering row click
-              setIsPopoverOpened(true);
-            }}
+            onClick={() => setIsPopoverOpened(true)}
             size="md"
             intent="flat"
             color="default"

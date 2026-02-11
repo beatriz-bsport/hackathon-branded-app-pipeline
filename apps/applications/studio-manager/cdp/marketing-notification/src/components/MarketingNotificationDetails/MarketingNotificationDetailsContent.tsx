@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router";
 
-import {
-  Alert,
-  Button,
-  SegmentedControl,
-  Title,
-} from "@bsport/kaizen-primitive-core";
+import { SegmentedControl, Title } from "@bsport/kaizen-primitive-core";
 import { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
 
 import { NotificationActionsMenu } from "#src/components/Common/NotificationActionsMenu";
@@ -14,11 +9,9 @@ import { NotificationToggle } from "#src/components/Common/NotificationToggle";
 import { MarketingNotificationPerformanceDetails } from "#src/components/MarketingNotificationDetails/Performance/MarketingNotificationPerformanceDetails";
 import { MarketingNotificationTriggerDetails } from "#src/components/MarketingNotificationDetails/Trigger/MarketingNotificationTriggerDetails";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
-import { useFormatNotificationTriggerName } from "#src/hooks/layout/use-format-notification-trigger-name";
 import { usePermissionsChecker } from "#src/hooks/permissions/use-permissions-checker";
 import type { NotificationModalActions } from "#src/pages/MarketingNotificationListPage";
 import { useTranslation } from "#src/utils/i18n";
-import { checkIfEmailTemplateIsMissing } from "#src/utils/marketingNotification";
 
 import { MarketingNotificationContentDetails } from "./Content/MarketingNotificationContentDetails";
 
@@ -60,8 +53,6 @@ export const MarketingNotificationDetailsContent: React.FC<
       ? currentSearchParam
       : "performance",
   );
-  const { checkNotificationEntityExistence } =
-    useFormatNotificationTriggerName();
   const { emailTemplatesById } = useGetMarketingNotificationDependenciesData();
 
   const { isUserMarketingNotificationManager } = usePermissionsChecker();
@@ -72,22 +63,14 @@ export const MarketingNotificationDetailsContent: React.FC<
     setCurrentSearchParam(value);
   };
 
+  const isEmailTemplateValid =
+    !!notification &&
+    typeof notification.email_design === "number" &&
+    notification.email_design in emailTemplatesById;
+
   if (!notification) {
     return null;
   }
-
-  const isNotificationEntityExisting = notification
-    ? checkNotificationEntityExistence({
-        marketingNotification: notification,
-      })
-    : false;
-  const isEmailTemplateMissing = checkIfEmailTemplateIsMissing({
-    marketingNotification: notification,
-    emailTemplatesById: emailTemplatesById,
-  });
-  const isPushNotificationSet =
-    Boolean(notification?.push_notification_title?.trim()) &&
-    Boolean(notification?.push_notification_content?.trim());
 
   return (
     <div className="flex flex-col gap-md">
@@ -95,55 +78,29 @@ export const MarketingNotificationDetailsContent: React.FC<
         <Title htmlVariant="h3" weight="strong">
           {t("drawer.overview", { ns: "marketingNotificationDetails" })}
         </Title>
-        {isNotificationEntityExisting ? (
-          <>
-            {isUserMarketingNotificationManager ? (
-              <div className="flex flex-row gap-sm">
-                {" "}
-                <NotificationToggle
-                  isActive={notification.active}
-                  isEmailTemplateMissing={isEmailTemplateMissing}
-                  isPushNotificationSet={isPushNotificationSet}
-                  isUserMarketingNotificationManager={
-                    isUserMarketingNotificationManager
-                  }
-                  notificationId={notification.id}
-                />
-                <NotificationActionsMenu
-                  onEdit={() =>
-                    handleSelectMarketingNotificationAction({
-                      marketingNotificationId: notification.id,
-                      action: "edit",
-                    })
-                  }
-                  onDelete={() =>
-                    handleSelectMarketingNotificationAction({
-                      marketingNotificationId: notification.id,
-                      action: "delete",
-                    })
-                  }
-                  notificationId={notification.id}
-                />
-              </div>
-            ) : null}
-          </>
-        ) : (
-          <Button
-            id={`${notification.id}-detail-drawer-delete-notification`}
-            color="critical"
-            intent="call-to-action"
-            size="md"
-            iconLeft="trash-01"
-            label={t("table.actions.delete")}
+        <div className="flex flex-row gap-sm">
+          <NotificationToggle
+            isEmailNotificationBroken={!isEmailTemplateValid}
+            isActive={!!notification.active}
             disabled={!isUserMarketingNotificationManager}
-            onClick={() => {
-              handleSelectMarketingNotificationAction({
-                marketingNotificationId: notification.id,
-                action: "delete",
-              });
-            }}
+            notificationId={notification.id}
           />
-        )}
+          <NotificationActionsMenu
+            onEdit={(id) =>
+              handleSelectMarketingNotificationAction({
+                marketingNotificationId: id,
+                action: "edit",
+              })
+            }
+            onDelete={(id) =>
+              handleSelectMarketingNotificationAction({
+                marketingNotificationId: id,
+                action: "delete",
+              })
+            }
+            notificationId={notification.id}
+          />
+        </div>
       </div>
       <SegmentedControl
         fullWidth
@@ -172,16 +129,6 @@ export const MarketingNotificationDetailsContent: React.FC<
         ]}
         onChangeValue={handleChangeSegmentedControl}
       />
-      {isEmailTemplateMissing ? (
-        <Alert type="weak" status="critical">
-          {t("table.brokenNotification.missingEmail.description")}
-        </Alert>
-      ) : null}
-      {!isNotificationEntityExisting ? (
-        <Alert type="weak" status="critical">
-          {t("table.brokenNotification.missingEntity.description")}
-        </Alert>
-      ) : null}
       {selectedOption === "performance" ? (
         <MarketingNotificationPerformanceDetails notification={notification} />
       ) : selectedOption === "trigger" ? (

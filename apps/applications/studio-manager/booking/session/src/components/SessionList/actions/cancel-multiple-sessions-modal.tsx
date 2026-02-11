@@ -20,10 +20,6 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionSummaryList } from "#src/components/common/session-summary-list";
-import {
-  sessionListCancelMultipleSessionTimePeriodSelectedEvent,
-  sessionListCancelMultipleSessionsConfirmButtonClickedEvent,
-} from "#src/events/session-list/events";
 import { useCancelMultipleSessions } from "#src/hooks/session-api/bulk-actions/use-cancel-multiple-sessions";
 import { useFetchNumberOfSessionsToCancel } from "#src/hooks/session-api/bulk-actions/use-fetch-number-of-cancelled-sessions";
 import { useFetchSessions } from "#src/hooks/session-api/fetch/use-fetch-sessions";
@@ -32,7 +28,6 @@ import {
   selectSelectedDate,
   useSessionListStore,
 } from "#src/stores/session-list";
-import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { Trans, useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
@@ -74,17 +69,6 @@ export const CancelMultipleSessionsModal: FC<{
   const handleDateChange = (date: SelectedDate) => {
     if (!date || !Array.isArray(date)) {
       return;
-    }
-    if (date[0] && date[1]) {
-      analyticsTrackSafeEvent(
-        sessionListCancelMultipleSessionTimePeriodSelectedEvent,
-        {
-          time_period_value: {
-            start_date: date[0].toISODate()!,
-            end_date: date[1].toISODate()!,
-          },
-        },
-      );
     }
     setCancelRange([date[0], date[1]]);
   };
@@ -144,15 +128,6 @@ export const CancelMultipleSessionsModal: FC<{
 
   const handleCancelMultipleSessions = () => {
     if (confirmTick && cancelRange && cancelRange[0] && cancelRange[1]) {
-      analyticsTrackSafeEvent(
-        sessionListCancelMultipleSessionsConfirmButtonClickedEvent,
-        {
-          time_period_value: {
-            start_date: cancelRange[0].toISODate()!,
-            end_date: cancelRange[1].toISODate()!,
-          },
-        },
-      );
       onClose();
       cancelMultipleSessions.mutate({
         startDate: cancelRange[0],

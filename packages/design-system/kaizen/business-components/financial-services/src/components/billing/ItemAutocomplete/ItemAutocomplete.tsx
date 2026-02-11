@@ -14,6 +14,7 @@ import { getItemUrl } from "./get-item-url";
 import { useAutocompleteItems } from "./use-autocomplete-items";
 
 // Exclude subscription type from ItemAutocomplete - TODO in a next iteration
+
 const { subscription: _, ...ITEM_AUTOCOMPLETE_ITEM_KINDS } =
   INVOICE_ITEMS_KINDS;
 export { ITEM_AUTOCOMPLETE_ITEM_KINDS };
@@ -47,9 +48,6 @@ export type ItemAutocompleteItem = {
   durationMonths?: number | null;
   durationYears?: number | null;
   validityDateRange?: { lower: string; upper: string } | null;
-  // Giftcard specific fields.
-  hiddenFromMemberArea?: boolean;
-  expirationDays?: number | null;
 };
 
 type ItemAutocompleteTextfieldProps = Omit<

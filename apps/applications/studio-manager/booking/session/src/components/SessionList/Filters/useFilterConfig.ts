@@ -1,17 +1,12 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 
-import type {
-  FilterElementState,
-  FilterProps,
-} from "@bsport/kaizen-primitive-core";
+import type { FilterProps } from "@bsport/kaizen-primitive-core";
 
-import { sessionListFiltersChangedEvent } from "#src/events/session-list/events";
 import {
   selectFilters,
   setFilters,
   useSessionListStore,
 } from "#src/stores/session-list";
-import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
 import {
@@ -42,13 +37,6 @@ export const useFilterConfig = () => {
   const levelFilter = useLevelFilter();
   const categoryFilter = useCategoryFilter();
   const activityNameFilter = useActivityNameFilter();
-
-  const onFilterChange = useCallback((newFilters: FilterElementState[]) => {
-    analyticsTrackSafeEvent(sessionListFiltersChangedEvent, {
-      filters: newFilters,
-    });
-    setFilters(newFilters);
-  }, []);
 
   const filterConfig: FilterProps = {
     fields: {
@@ -122,7 +110,7 @@ export const useFilterConfig = () => {
       },
     ],
     selectFieldLabel: t("table.filters.label"),
-    onFilterChange,
+    onFilterChange: setFilters,
     defaultFilters: filters,
   };
 

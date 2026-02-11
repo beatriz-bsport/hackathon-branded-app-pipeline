@@ -1,7 +1,8 @@
 import { createStore } from "zustand/vanilla";
 
-import type { Giftcard, GiftcardImage } from "@bsport/api-buyables";
 import { type PaginatedState, bindStore } from "@bsport/store-base";
+
+import type { Giftcard, GiftcardImage } from "#src/types";
 
 export interface GiftcardState {
   giftcards: PaginatedState<Giftcard>;

@@ -53,11 +53,6 @@ export const SessionStartDateTime: FC<{
         shouldValidate: true,
         shouldDirty: true,
       });
-
-      setValue("recurrenceEndDate", newDateTime.plus({ day: 1 }).toJSDate(), {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
     },
     [startDateTime, setValue, companyTimeZone],
   );

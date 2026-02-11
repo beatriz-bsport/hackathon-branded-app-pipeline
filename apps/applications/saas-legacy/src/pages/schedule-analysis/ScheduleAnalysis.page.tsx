@@ -104,7 +104,7 @@ const ScheduleAnalysisContent: React.FC = () => {
     fetchScheduleAnalysisUrl();
   }, [i18n.language]);
 
-  const title = 'Schedule Performance';
+  const title = 'Schedule Analysis';
 
   return (
     <Box className={classes.root}>

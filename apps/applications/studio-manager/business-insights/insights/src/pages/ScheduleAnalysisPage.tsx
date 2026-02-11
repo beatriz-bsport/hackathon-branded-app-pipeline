@@ -35,7 +35,7 @@ const ScheduleAnalysisPage = () => {
 
   // Only redirect if permissions are loaded and explicitly false or feature flag is off
   if (!isAllowed) {
-    return <Navigate to=".." replace />;
+    return <Navigate to="/" replace />;
   }
 
   return (

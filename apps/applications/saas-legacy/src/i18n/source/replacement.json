@@ -222,7 +222,7 @@
   "confirmations": {
     "description": "You have been added as a substitute teacher for the following sessions.",
     "title": "Confirmations",
-    "unavailable": "Request substitution "
+    "unavailable": "I'm unavailable"
   },
   "requests": {
     "cancel": "Cancel",

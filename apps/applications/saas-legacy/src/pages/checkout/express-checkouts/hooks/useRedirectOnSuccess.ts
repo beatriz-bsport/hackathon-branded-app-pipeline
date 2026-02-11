@@ -12,13 +12,9 @@ type CleanLocalStorageAndRedirectParams<
   onSuccess?: T;
 };
 
-export const useRedirectToUrl = () => {
-  const dispatch = useDispatch();
-  return (redirectUrl: string) => dispatch(push(redirectUrl));
-};
-
 export const useRedirectOnSuccess = () => {
-  const redirectToUrl = useRedirectToUrl();
+  const dispatch = useDispatch();
+  const pushUrl = (redirectUrl: string) => dispatch(push(redirectUrl));
 
   const cleanLocalStorageAndRedirect = <
     T extends (...args: unknown[]) => unknown,
@@ -47,7 +43,7 @@ export const useRedirectOnSuccess = () => {
     if (canPerformRedirection && memberId) {
       onSuccess?.();
       removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID);
-      redirectToUrl(url);
+      pushUrl(url);
     }
   };
   return { cleanLocalStorageAndRedirect };

@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { NO_CATEGORY_IDENTIFIER } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 export type EmailTemplateFormData = {
@@ -27,7 +26,7 @@ export const useEmailTemplateForm = ({
   const fallbackData: EmailTemplateFormData = {
     title: t("details.defaultTitle"),
     subject: "",
-    category: NO_CATEGORY_IDENTIFIER,
+    category: t("templateCategory.noCategory"),
     stringifiedDesign: null,
   };
 

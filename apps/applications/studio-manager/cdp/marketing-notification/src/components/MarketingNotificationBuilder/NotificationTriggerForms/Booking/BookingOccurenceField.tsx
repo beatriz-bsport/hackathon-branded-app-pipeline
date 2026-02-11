@@ -1,14 +1,9 @@
 import { FormField } from "@bsport/form";
-import {
-  FormRadioGroup,
-  TextField,
-  useMatchMedia,
-} from "@bsport/kaizen-primitive-core";
+import { FormRadioGroup, TextField } from "@bsport/kaizen-primitive-core";
 
 import {
   BOOKING_OCCURENCE_ANY_BOOKING,
   BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
-  BookingAction,
 } from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Booking/types";
 import { useTranslation } from "#src/utils/i18n";
 import type { BookingTriggerConfigValidationFormData } from "#src/utils/schemas/types";
@@ -21,7 +16,6 @@ import type { BookingTriggerConfigValidationFormData } from "#src/utils/schemas/
 const SPECIFIC_AMOUNT_SELECTOR_MIN_VALUE = 1;
 
 type BookingOccurrenceFieldProps = {
-  bookingAction: BookingAction;
   amount: number;
   value: string;
   onAmountChange: (newValue: number) => void;
@@ -29,13 +23,11 @@ type BookingOccurrenceFieldProps = {
 };
 
 export const BookingOccurrenceField = ({
-  bookingAction,
   amount,
   value,
   onAmountChange,
   onChange,
 }: BookingOccurrenceFieldProps) => {
-  const isMobile = !useMatchMedia("sm");
   const { t } = useTranslation("marketingNotificationsModal");
   return (
     <FormRadioGroup
@@ -45,14 +37,12 @@ export const BookingOccurrenceField = ({
       options={[
         {
           value: BOOKING_OCCURENCE_ANY_BOOKING,
-          label: t(
-            `steps.notificationRules.booking.occurrences.anyBooking.${bookingAction}`,
-          ),
+          label: t("steps.notificationRules.booking.occurrences.anyBooking"),
         },
         {
           value: BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
           label: t(
-            `steps.notificationRules.booking.occurrences.specificAmount.${bookingAction}`,
+            "steps.notificationRules.booking.occurrences.specificAmount",
           ),
           element: (
             <FormField<
@@ -71,16 +61,10 @@ export const BookingOccurrenceField = ({
               <TextField
                 id="booking-amount-field"
                 type="number"
-                suffix={
-                  isMobile
-                    ? undefined
-                    : {
-                        type: "text",
-                        value: t(
-                          `steps.notificationRules.booking.amountSuffix.${bookingAction}`,
-                        ),
-                      }
-                }
+                suffix={{
+                  type: "text",
+                  value: t("steps.notificationRules.booking.amountSuffix"),
+                }}
               />
             </FormField>
           ),

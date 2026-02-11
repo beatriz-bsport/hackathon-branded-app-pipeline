@@ -11,6 +11,7 @@ import Button from "#src/components/Button";
 import Select from "#src/components/Select";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
+const MIN_ABBREVIATION_LENGTH = 3;
 const YEARS_RANGE = 11;
 const YEARS_OFFSET = 5;
 const BASE_MONTH_COUNT = 12;
@@ -38,7 +39,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   const handleNextMonth = () => onSelect(displayMonth.plus({ months: 1 }));
 
   const handleMonthChange = (id: string) => {
-    const monthIndex = parseInt(id, 10);
+    const monthIndex = months.indexOf(id);
     if (monthIndex >= 0) {
       // Luxon months are 1-indexed
       onSelect(displayMonth.set({ month: monthIndex + 1, day: 1 }));
@@ -62,11 +63,14 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
     [i18nInstance?.language],
   );
 
-  const selectedMonthIndex = useMemo(() => {
-    // Luxon months are 1-indexed; return index in months list (0–11) as string for Select value
-    const index = displayMonth.month - 1;
-    return String(index >= 0 && index < months.length ? index : 0);
-  }, [displayMonth.month, months.length]);
+  const selectLabel = useMemo(() => {
+    // Luxon months are 1-indexed
+    const month = months[displayMonth.month - 1];
+    if (!month) return "";
+    return month.length > MIN_ABBREVIATION_LENGTH
+      ? month.slice(0, MIN_ABBREVIATION_LENGTH) + "."
+      : month;
+  }, [displayMonth, months]);
 
   const getMonthYearDisplay = (delta: number) => {
     const monthIndex = (displayMonth.month - 1 + delta) % BASE_MONTH_COUNT;
@@ -84,12 +88,12 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
         <div className="flex center gap-xs">
           <Select
             className={`min-w-[73px]`}
-            value={selectedMonthIndex}
+            value={selectLabel}
             items={months.map((month, idx) => ({
               id: String(idx),
               label: month,
             }))}
-            onChange={handleMonthChange}
+            onSelect={handleMonthChange}
           />
           <Select
             className={`min-w-[82px]`}
@@ -98,7 +102,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
               id: String(year),
               label: String(year),
             }))}
-            onChange={handleYearChange}
+            onSelect={handleYearChange}
           />
         </div>
       ) : (

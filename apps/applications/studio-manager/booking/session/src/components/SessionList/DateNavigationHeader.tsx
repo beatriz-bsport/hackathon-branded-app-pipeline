@@ -4,12 +4,12 @@ import { modifyTime } from "@bsport/datetime-manipulation";
 import { Button } from "@bsport/kaizen-primitive-core";
 
 import {
+  CalendarView,
   selectCalendarView,
   selectSelectedDate,
   setUniqueDate,
   useSessionListStore,
 } from "#src/stores/session-list";
-import { CalendarView } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionDatePicker } from "./SessionDatePicker";

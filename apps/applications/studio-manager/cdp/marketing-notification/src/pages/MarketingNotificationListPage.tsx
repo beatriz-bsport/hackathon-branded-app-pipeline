@@ -7,7 +7,6 @@ import { DeleteTagModal } from "#src/components/Common/Modal/DeleteMarketingNoti
 import { EditMarketingNotificationModalWrapper } from "#src/components/MarketingNotificationBuilder/EditMarketingNotificationModal";
 import { MarketingNotificationTable } from "#src/components/MarketingNotificationList/MarketingNotificationTable";
 import { useFilterNotificationType } from "#src/hooks/layout/use-filter-notification-type";
-import { usePermissionsChecker } from "#src/hooks/permissions/use-permissions-checker";
 import { useTranslation } from "#src/utils/i18n";
 
 export type NotificationModalActions = "create" | "delete" | "edit" | undefined;
@@ -24,7 +23,6 @@ const MarketingNotificationListPage: React.FC = () => {
     MarketingNotification | undefined
   >(undefined);
   const { t } = useTranslation("marketingNotificationList");
-  const { isUserMarketingNotificationManager } = usePermissionsChecker();
   const handleCloseModal = () => {
     setCurrentInlineAction(undefined);
     setDraftMarketingNotification(undefined);
@@ -37,18 +35,16 @@ const MarketingNotificationListPage: React.FC = () => {
       <ListLayout.Header
         pageTitle={t("page.title")}
         callToActionButton={
-          isUserMarketingNotificationManager ? (
-            <ListLayout.Button
-              color="main"
-              intent="call-to-action"
-              label={t("page.actions.createNotificationButton")}
-              iconLeft="plus"
-              onClick={() => {
-                setCurrentInlineAction("create");
-                setDraftMarketingNotification(undefined);
-              }}
-            />
-          ) : undefined
+          <ListLayout.Button
+            color="main"
+            intent="call-to-action"
+            label={t("page.actions.createNotificationButton")}
+            iconLeft="plus"
+            onClick={() => {
+              setCurrentInlineAction("create");
+              setDraftMarketingNotification(undefined);
+            }}
+          />
         }
         filterConfig={filterConfig}
         filterRef={filterRef}

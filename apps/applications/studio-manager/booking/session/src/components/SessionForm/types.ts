@@ -1,27 +1,23 @@
-import {
-  SessionCreationFormAdvancedOptionsData,
-  SessionCreationFormData,
-  SessionEdit,
-} from "#src/stores/session-creation/types";
+import { SessionEdit } from "#src/stores/session-creation/types";
 
 export type LevelFormData = {
   name: string;
   color: string;
 };
 
-export type SessionEditFormData = SessionCreationFormData &
-  SessionCreationFormAdvancedOptionsData &
-  Pick<
-    SessionEdit,
-    | "id"
-    | "meta_activity"
-    | "coach_override"
-    | "credit_price_override"
-    | "custom_selection_ids"
-    | "custom_selection"
-    | "modifyAllDates"
-    | "notifyConsumers"
-    | "propagate_coach_override_value"
-  > & {
-    overrideTeacherPayrollRule: boolean;
-  };
+export type SessionEditFormData = Omit<
+  SessionEdit,
+  "id" | "date_start" | "coach" | "establishment"
+> & {
+  // Form uses Date instead of ISO string
+  startDateTime: Date;
+
+  // Non-nullable in edit form
+  coach: number;
+  establishment: number;
+
+  // Form-specific fields
+  recurrence_id?: string;
+  overrideTeacherPayrollRule: boolean;
+  roomBlueprintCapacity: number | null;
+};

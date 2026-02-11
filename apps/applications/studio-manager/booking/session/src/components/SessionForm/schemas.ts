@@ -19,12 +19,19 @@ import type {
 } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-import { LevelFormData } from "./types";
+import { LevelFormData, SessionEditFormData } from "./types";
 
 export type SessionCreationFormSchema = z.ZodType<SessionCreationFormData>;
 
 export type SessionCreationFormAdvancedOptionsSchema =
   z.ZodType<SessionCreationFormAdvancedOptionsData>;
+
+export type SessionFormData = SessionCreationFormData &
+  SessionCreationFormAdvancedOptionsData;
+
+export type SessionFormSchema = z.ZodType<SessionFormData>;
+
+export type SessionEditFormSchema = z.ZodType<SessionEditFormData>;
 
 export const MAX_YEARS_AHEAD = 3;
 
@@ -334,7 +341,35 @@ export const useSessionSchema = () => {
     whitelist_tags: z.array(z.number().int()),
   }) satisfies SessionCreationFormAdvancedOptionsSchema;
 
-  return { configureSessionSchema, advancedOptionsSchema };
+  const sessionSchema = z.intersection(
+    configureSessionSchema,
+    advancedOptionsSchema,
+  );
+
+  return { configureSessionSchema, advancedOptionsSchema, sessionSchema };
+};
+
+export const useSessionEditSchema = () => {
+  const { configureSessionSchema, advancedOptionsSchema } = useSessionSchema();
+
+  const editFieldsSchema = advancedOptionsSchema.extend({
+    id: z.number(),
+    meta_activity: z.number(),
+    coach_override: z.number().nullable(),
+    credit_price_override: z.number().optional(),
+    custom_selection_ids: z.array(z.number().int()),
+    custom_selection: z.boolean(),
+    modifyAllDates: z.boolean(),
+    notifyConsumers: z.boolean(),
+    propagate_coach_override_value: z.number(),
+  });
+
+  const sessionEditSchema = z.intersection(
+    configureSessionSchema,
+    editFieldsSchema,
+  );
+
+  return { configureSessionSchema, editFieldsSchema, sessionEditSchema };
 };
 
 export const useLevelSchema = () => {

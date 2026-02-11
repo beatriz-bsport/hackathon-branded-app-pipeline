@@ -18,7 +18,7 @@ import {
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
-import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
+import { useSessionPayload } from "#src/hooks/use-session-payload";
 import {
   goToNextStep,
   goToPreviousStep,
@@ -98,7 +98,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     defaultValues: advancedOptionsFormData,
   });
 
-  const { buildPayload } = useSessionCreationPayload();
+  const { buildCreationPayload } = useSessionPayload();
 
   const selectedGroupActivity = useSessionCreationStore(
     selectSelectedGroupActivity,
@@ -203,7 +203,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       );
 
       try {
-        const payload = buildPayload({
+        const payload = buildCreationPayload({
           sessionData: {
             ...configureSessionFormData,
             ...advancedData,

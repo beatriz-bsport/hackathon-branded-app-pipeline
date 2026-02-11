@@ -1,19 +1,19 @@
 import { FC } from "react";
 import { NavLink } from "react-router";
 
-import type { Session } from "@bsport/api-book";
+import type { SessionWithActivity } from "@bsport/api-book";
 import { DetailsLayout, Tabs, TabsProps } from "@bsport/kaizen-primitive-core";
 
-import { URLS } from "#src/urls";
+import { getDetailsUrl } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
-export const Header: FC<{ session: Session }> = ({ session }) => {
+export const Header: FC<{ session: SessionWithActivity }> = ({ session }) => {
   const { t } = useTranslation("sessionDetails");
 
   const TABS_CONFIG = [
     {
       id: "session-details-editor-view-tab",
-      href: URLS.DETAILS(session.id),
+      href: getDetailsUrl(session.id),
       label: t("tabs.editor"),
       end: true, // :id => active is true | :id/anything-else => active is false
     },

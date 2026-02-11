@@ -1,0 +1,13 @@
+{
+  "editSessionForm": {
+    "toasts": {
+      "sessionEdited": "Session edited"
+    },
+    "buttons": {
+      "open": "Open"
+    },
+    "errors": {
+      "edit": "Failed to edit session"
+    }
+  }
+}

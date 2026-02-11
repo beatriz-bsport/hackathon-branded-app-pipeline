@@ -4,9 +4,11 @@ import namespaces from "#src/i18n/namespaces.json";
 import type common from "#src/i18n/source/common.json";
 import type sessionCreation from "#src/i18n/source/sessionCreation.json";
 import type sessionDetails from "#src/i18n/source/sessionDetails.json";
+import type sessionEdit from "#src/i18n/source/sessionEdit.json";
 import type sessionList from "#src/i18n/source/sessionList.json";
 
 type Translations = {
+  sessionEdit: typeof sessionEdit;
   sessionList: typeof sessionList;
   common: typeof common;
   sessionCreation: typeof sessionCreation;

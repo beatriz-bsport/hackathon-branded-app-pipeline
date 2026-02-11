@@ -1525,6 +1525,9 @@ importers:
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-business-components':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/business
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../../packages/design-system/kaizen/primitive/core

@@ -1,0 +1,4 @@
+export const PAYMENT_METHOD_IDENTIFIERS = {
+  ONLINE_PAYMENTS_ID: 0,
+  ONSITE_PAYMENTS_ID: 9,
+} as const;

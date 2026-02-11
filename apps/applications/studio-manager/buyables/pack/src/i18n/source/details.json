@@ -139,12 +139,8 @@
         "errorMissingNumber": "Add a maximum amount or unselect this option to continue"
       },
       "paymentMethod": {
-        "label": "Payment methods",
+        "label": "Accepted payment methods",
         "helperText": "Choose at least one ",
-        "checkboxes": {
-          "onlinePayments": "Online ",
-          "onsitePayments": "In-person"
-        },
         "alertVisibilityHidden": "Hidden packs can still be shared with members using a link and paid for via online payment.",
         "errorMissingPaymentMethod": "Select a payment method"
       }

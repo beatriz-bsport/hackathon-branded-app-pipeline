@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { PAYMENT_METHOD_IDENTIFIERS } from "@bsport/kaizen-business-components/buyables/payment-methods-form";
 import type { PackFormData } from "@bsport/store-buyables-pack";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -11,10 +12,6 @@ export const FIELD_PRICE_MINIMUM = 0;
 export const FIELD_TAX_RATE_MINIMUM = 0;
 export const FIELD_TAX_RATE_MAXIMUM = 100;
 export const FIELD_MAX_NB_PURCHASE_MINIMUM = 0;
-export const PAYMENT_METHOD_IDENTIFIERS = {
-  ONLINE_PAYMENTS_ID: 0,
-  ONSITE_PAYMENTS_ID: 9,
-} as const;
 
 export const DEFAULT_FORM_DATA: PackFormData = {
   description: "",

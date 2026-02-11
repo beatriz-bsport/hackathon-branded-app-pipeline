@@ -3,6 +3,7 @@ import { FC, useEffect, useId } from "react";
 import { SessionWithActivity } from "@bsport/api-book";
 import { ControlledForm, useFormController } from "@bsport/form";
 import { DetailsLayout, useDetailsLayout } from "@bsport/kaizen-primitive-core";
+import { Title } from "@bsport/kaizen-primitive-core";
 
 import { BookForAGuestField } from "#src/components/SessionForm/advanced-options/book-for-a-guest-field";
 import TagSelectorForm from "#src/components/SessionForm/advanced-options/tag-selector-form";
@@ -13,13 +14,17 @@ import { Header } from "#src/components/session-details/header";
 import { fromSessionToFormData } from "#src/components/update-session-form/mapper";
 import useEditSession from "#src/hooks/session-api/session-actions/use-edit-session";
 import { useSessionPayload } from "#src/hooks/use-session-payload";
+import { useTranslation } from "#src/utils/i18n";
 
+import { VisibilitySelector } from "../SessionForm/Details/VisibilitySelector";
+import DetailsForm from "./details-form";
 import { SettingsSection } from "./settings-section";
 import { TimeAndDateSection } from "./time-and-date-section";
 
 type PropsType = { session: SessionWithActivity };
 
 const UpdateSessionForm: FC<PropsType> = ({ session }) => {
+  const { t } = useTranslation("sessionEdit");
   const { detailsLayoutProps, toggleHasUnsavedChanges } = useDetailsLayout();
 
   const { buildEditionPayload } = useSessionPayload();
@@ -79,8 +84,23 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
           <TimeAndDateSection fieldIdPrefix={formId} isEditMode />
         </DetailsLayout.Content>
         <DetailsLayout.Panel>
-          <BookForAGuestField fieldIdPrefix={formId} />
-          <TagSelectorForm fieldIdPrefix={formId} />
+          <div className="flex flex-col gap-lg">
+            <div className="flex flex-col gap-xs">
+              <Title htmlVariant="h5" weight="strong">
+                {t("editSessionForm.content.visibilitySelector.title")}
+              </Title>
+              <VisibilitySelector
+                fieldIdPrefix={formId}
+                fieldName="manager_only"
+                title={t("editSessionForm.content.visibilitySelector.label")}
+                buttonClassName="w-full max-w-component-select"
+              />
+            </div>
+            <BookForAGuestField fieldIdPrefix={formId} />
+            <DetailsForm fieldIdPrefix={formId} />
+
+            <TagSelectorForm fieldIdPrefix={formId} />
+          </div>
         </DetailsLayout.Panel>
         <DetailsLayout.Confirmation
           onDiscard={resetForm}

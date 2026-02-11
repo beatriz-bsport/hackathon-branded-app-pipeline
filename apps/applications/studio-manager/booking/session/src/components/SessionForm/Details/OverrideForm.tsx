@@ -6,7 +6,10 @@ import { Toggle, ToggleProps } from "@bsport/kaizen-primitive-core";
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-export const OverrideToggle: FC<{
+import { SessionDescriptionField } from "./SessionDescriptionField";
+import { SessionNameField } from "./SessionNameField";
+
+const OverrideToggle: FC<{
   fieldIdPrefix: string;
   trackOverrideToggleChange?: (checked: boolean) => void;
 }> = ({ fieldIdPrefix, trackOverrideToggleChange }) => {
@@ -46,3 +49,28 @@ export const OverrideToggle: FC<{
     </FormField>
   );
 };
+
+type OverrideFormProps = {
+  fieldIdPrefix: string;
+  trackOverrideToggleChange?: (checked: boolean) => void;
+};
+
+const OverrideForm: FC<OverrideFormProps> = ({
+  fieldIdPrefix,
+  trackOverrideToggleChange,
+}) => {
+  return (
+    <>
+      <OverrideToggle
+        fieldIdPrefix={fieldIdPrefix}
+        trackOverrideToggleChange={trackOverrideToggleChange}
+      />
+      <div className="flex flex-col gap-md ml-xl">
+        <SessionNameField fieldIdPrefix={fieldIdPrefix} />
+        <SessionDescriptionField fieldIdPrefix={fieldIdPrefix} />
+      </div>
+    </>
+  );
+};
+
+export default OverrideForm;

@@ -18,6 +18,7 @@ import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_FEE,
 } from '@bsport/common/lib/master-data/buyable-items.js';
+import isEmpty from 'lodash/isEmpty';
 
 import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
 import PriceCount from '#src/libs/checkout/components/new-checkout-flow/PriceCount';
@@ -328,7 +329,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
       basket.checkout_items.filter(
         (checkoutItem) =>
           !BILL_CHECKOUT_ITEMS.includes(checkoutItem.buyable_item_identifier) &&
-          !checkoutItem.extra_data?.offers_data,
+          isEmpty(checkoutItem.extra_data?.offers_data),
       ),
     [basket.checkout_items],
   );

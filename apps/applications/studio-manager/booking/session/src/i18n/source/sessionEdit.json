@@ -24,7 +24,9 @@
       "visibilitySelector": {
         "title": "Visibility",
         "label": "Select visibility"
-      }
+      },
+      "substituteTeacherLabel": "Substitute teacher",
+      "substituteTeacherPlaceholder": "Choose a teacher..."
     }
   },
   "saveSessionModal": {

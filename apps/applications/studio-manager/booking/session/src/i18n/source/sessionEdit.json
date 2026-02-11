@@ -13,7 +13,8 @@
       "creditWarning": "Older bookings do not take into account changes in credits.",
       "teacherSectionTitle": "Teacher",
       "teacherPayrollRuleOverrideLabel": "Override teacher payment rule",
-      "teacherPayrollRuleOverrideDescription": "If disabled, the default rule from the teacher profile will be applied"
+      "teacherPayrollRuleOverrideDescription": "If disabled, the default rule from the teacher profile will be applied",
+      "establishmentSectionTitle": "Establishment"
     }
   }
 }

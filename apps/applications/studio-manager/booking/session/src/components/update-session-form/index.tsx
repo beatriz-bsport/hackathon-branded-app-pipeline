@@ -9,6 +9,7 @@ import { SessionTimeAndDate } from "#src/components/SessionForm/TimeAndDate/Sess
 import { BookForAGuestField } from "#src/components/SessionForm/advanced-options/book-for-a-guest-field";
 import TagSelectorForm from "#src/components/SessionForm/advanced-options/tag-selector-form";
 import { useSessionEditSchema } from "#src/components/SessionForm/schemas";
+import { EstablishmentSection } from "#src/components/SessionForm/teacher-and-establishment/establishment-section";
 import { SessionTeacherAndEstablishment } from "#src/components/SessionForm/teacher-and-establishment/teacher-and-establishment";
 import { TeacherSection } from "#src/components/SessionForm/teacher-and-establishment/teacher-section";
 import { Header } from "#src/components/session-details/header";
@@ -66,6 +67,12 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
             fieldIdPrefix={formId}
             coach={session.coach}
             coachPayrollRule={session.coach_payment_rule_id}
+          />
+          <EstablishmentSection
+            fieldIdPrefix={formId}
+            establishmentId={session.establishment}
+            roomBlueprintId={session.room_blueprint}
+            metaActivity={session.meta_activity}
           />
           <SessionDetails fieldIdPrefix={formId} />
           <SessionTimeAndDate fieldIdPrefix={formId} />

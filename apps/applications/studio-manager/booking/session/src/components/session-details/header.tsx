@@ -37,7 +37,7 @@ export const Header: FC<{ session: SessionWithActivity }> = ({ session }) => {
   return (
     <DetailsLayout.Header
       // TODO: replace with watch(<session name field>) when the form is implemented
-      pageTitle={session.name_override || session.activity_name}
+      pageTitle={session.name_override || session.name}
       pageTabs={tabsConfig}
     />
   );

@@ -236,7 +236,7 @@
             "title": "Alterar o seu email de início de sessão"
           },
           "emailTaken": {
-            "title": "O email de início de sessão já foi utilizado",
+            "title": "Este e-mail já está registado. Pode tê-lo utilizado para se inscrever noutro estúdio. Inicie sessão ou redefina a sua palavra-passe para continuar.",
             "helper": "O estúdio {{- company}} fez um pedido para alterar o seu email de início de sessão para o seu espaço pessoal :",
             "contactCompany": "No entretanto, foi criada uma conta com o endereço {{ email }}. Este pedido caducou. Se o endereço de email {{ email }} lhe pertencer mas não tiver criado a conta associada, contacte diretamente o seu estúdio."
           },

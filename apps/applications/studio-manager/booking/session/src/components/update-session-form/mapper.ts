@@ -42,12 +42,13 @@ export const fromSessionToFormData = (
     description_override: session.description_override ?? "",
     // Settings
     manager_only: session.manager_only,
-    credits: 0,
+    credits: session.credit_price,
     waiting_list_max_size: session.waiting_list_max_size,
     effectif: session.effectif,
     available_on_partnership: session.available_on_partnership,
     partner_max_booking_count: session.partner_max_booking_count,
     level: session.level,
+    // TODO: remove is_hybrid as it's only used in the creation form
     is_hybrid: !!session.linked_hybrid_offer_id,
     broadcast_link: session.broadcast_link ?? "",
     // Teacher and establishment

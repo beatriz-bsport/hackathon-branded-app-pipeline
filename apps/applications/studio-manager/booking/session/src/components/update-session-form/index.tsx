@@ -5,7 +5,6 @@ import { ControlledForm, useFormController } from "@bsport/form";
 import { DetailsLayout, useDetailsLayout } from "@bsport/kaizen-primitive-core";
 
 import { SessionDetails } from "#src/components/SessionForm/Details/SessionDetails";
-import { SessionSettings } from "#src/components/SessionForm/Settings/SessionSettings";
 import { SessionTimeAndDate } from "#src/components/SessionForm/TimeAndDate/SessionTimeAndDate";
 import { BookForAGuestField } from "#src/components/SessionForm/advanced-options/book-for-a-guest-field";
 import TagSelectorForm from "#src/components/SessionForm/advanced-options/tag-selector-form";
@@ -15,6 +14,8 @@ import { Header } from "#src/components/session-details/header";
 import { fromSessionToFormData } from "#src/components/update-session-form/mapper";
 import useEditSession from "#src/hooks/session-api/session-actions/use-edit-session";
 import { useSessionPayload } from "#src/hooks/use-session-payload";
+
+import { SettingsSection } from "./settings-section";
 
 type PropsType = { session: SessionWithActivity };
 
@@ -56,7 +57,10 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
       <DetailsLayout {...detailsLayoutProps} withPanel>
         <Header session={session} />
         <DetailsLayout.Content className="max-w-none">
-          <SessionSettings fieldIdPrefix={formId} />
+          <SettingsSection
+            fieldIdPrefix={formId}
+            metaActivity={session.meta_activity}
+          />
           <SessionDetails fieldIdPrefix={formId} />
           <SessionTimeAndDate fieldIdPrefix={formId} />
           <SessionTeacherAndEstablishment fieldIdPrefix={formId} />

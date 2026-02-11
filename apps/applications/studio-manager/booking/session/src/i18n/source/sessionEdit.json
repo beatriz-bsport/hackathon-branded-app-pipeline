@@ -8,6 +8,9 @@
     },
     "errors": {
       "edit": "Failed to edit session"
+    },
+    "content": {
+      "creditWarning": "Older bookings do not take into account changes in credits."
     }
   }
 }

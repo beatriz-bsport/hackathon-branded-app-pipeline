@@ -93,11 +93,10 @@
   },
   "confirmations": {
     "title": "Conferme",
-    "description": "Sei stato aggiunto come insegnante supplente per i seguenti corsi.",
-    "unavailable": "Richiedi sostituzione "
+    "description": "Sei stato aggiunto come insegnante supplente per i seguenti corsi."
   },
   "marketplace": {
-    "title": "Area Membri",
+    "title": "Marketplace",
     "description": "I seguenti corsi richiedono un insegnante supplente. Sei disponibile ?",
     "filters": "Filtri",
     "until": "Fino a {{-date}}"

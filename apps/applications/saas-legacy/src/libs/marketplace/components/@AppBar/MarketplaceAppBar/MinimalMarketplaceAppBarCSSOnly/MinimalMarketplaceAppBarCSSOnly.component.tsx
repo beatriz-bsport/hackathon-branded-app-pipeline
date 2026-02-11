@@ -42,7 +42,6 @@ export const MinimalMarketplaceAppBarCSSOnly: React.FC<Props> = ({
         setIsMenuOpen(true);
         const currentTarget = event.currentTarget;
         setAnchorEl(currentTarget);
-        return;
       }
       requestLogin?.();
     },

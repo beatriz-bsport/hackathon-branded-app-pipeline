@@ -60,7 +60,6 @@
         "settings": {
           "title": "Settings",
           "effectif": "Total spots in class",
-          "exceedsRoomCapacity": "The number of spots exceeds the room capacity.",
           "waitlist": "Spots on Waitlist",
           "credits": {
             "label": "Credits",
@@ -119,8 +118,7 @@
             "spotScheduling": {
               "label": "Spot scheduling",
               "placeholder": "Choose an option...",
-              "helper": "Allow your students to book a spot in the room in advance",
-              "error": "A room plan must be selected for sessions synchronized with Spivi"
+              "helper": "Allow your students to book a spot in the room in advance"
             },
             "syncOnSpivi": "Automatically send the session details to Spivi"
           },
@@ -172,8 +170,7 @@
               "nthWeekday": "Nth weekday"
             },
             "info": "{{count}} session will be created",
-            "info_other": "{{count}} sessions will be created",
-            "warning": "The recurrence settings are invalid. Only the initial session will be created. Adjust your settings to create recurring sessions."
+            "info_other": "{{count}} sessions will be created"
           },
           "errors": {
             "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",
@@ -186,9 +183,7 @@
             "recurrenceUnit": "Please select a recurrence unit (days, weeks, or months)",
             "recurrenceInterval": "Please specify how often to repeat the session",
             "recurrencePattern": "Please select a monthly recurrence pattern"
-          },
-          "wellhubWarning": "Sessions shared via Wellhub will be automatically shortened to a maximum of 200 minutes.",
-          "uscWarning": "Your integration with the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear there."
+          }
         }
       },
       "advancedOptions": {

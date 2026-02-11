@@ -486,7 +486,7 @@ export const ModalStepForm: Story = {
               defaultValue="Next step is blocked now!"
               items={[{ id: "option-1", label: "Pass to next step" }]}
               iconLeft="arrow-right"
-              onChange={(opt) => setSelectedOption(opt)}
+              onSelect={(opt) => setSelectedOption(opt)}
             />
           </div>
         ),

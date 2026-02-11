@@ -1,29 +1,31 @@
-import { ToggleButton } from "@bsport/kaizen-primitive-core";
+import { Body, ToggleButton } from "@bsport/kaizen-primitive-core";
 
 import { useToggleMarketingNotification } from "#src/hooks/api/use-toggle-marketing-notification";
 import { useTranslation } from "#src/utils/i18n";
 
 type NotificationToggleProps = {
+  isEmailNotificationBroken: boolean;
   isActive: boolean;
+  disabled: boolean;
   notificationId: number;
-  isEmailTemplateMissing: boolean;
-  isPushNotificationSet: boolean;
-  isUserMarketingNotificationManager: boolean;
 };
 
 export const NotificationToggle = ({
+  isEmailNotificationBroken,
   isActive,
-  isEmailTemplateMissing,
-  isPushNotificationSet,
-  isUserMarketingNotificationManager,
+  disabled,
   notificationId,
 }: NotificationToggleProps) => {
   const { handleToggleMarketingNotification } =
     useToggleMarketingNotification();
   const { t } = useTranslation("marketingNotificationList");
-  const disabled =
-    !isUserMarketingNotificationManager ||
-    (isEmailTemplateMissing && !isPushNotificationSet && !isActive);
+  if (isEmailNotificationBroken) {
+    return (
+      <Body size="md" weight="strong" htmlVariant="p" color="critical">
+        {t("table.notificationState.broken")}
+      </Body>
+    );
+  }
   return (
     <ToggleButton
       id={`marketing-notification-checkbox-action-${notificationId}`}

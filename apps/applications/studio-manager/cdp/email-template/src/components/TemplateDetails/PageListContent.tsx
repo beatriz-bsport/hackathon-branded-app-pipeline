@@ -23,7 +23,6 @@ import { useEmailTemplateForm } from "#src/hooks/forms/use-email-template-form";
 import { useDetailPageHeader } from "#src/hooks/layout/useDetailPageHeader";
 import { useTemplateNavigation } from "#src/hooks/useTemplateNavigation";
 import {
-  NO_CATEGORY_IDENTIFIER,
   UNLAYER_EDITOR_MIN_HEIGHT,
   UNLAYER_PROJECT_ID,
 } from "#src/utils/constants";
@@ -32,7 +31,10 @@ import {
   getMergeTags,
 } from "#src/utils/emailEditor";
 import { useTranslation } from "#src/utils/i18n";
-import { formatCategoriesForSelector } from "#src/utils/selectorFormatter";
+import {
+  formatCategoriesForSelector,
+  getSelectedCategoryId,
+} from "#src/utils/selectorFormatter";
 
 type Props = {
   emailTemplateDetail: EmailTemplateDetail | null;
@@ -66,7 +68,7 @@ export const PageListContent: React.FC<Props> = ({
   const formattedCategories = [
     ...formatCategoriesForSelector(categoriesList),
     {
-      id: NO_CATEGORY_IDENTIFIER,
+      id: "no-category",
       label: t("templateCategory.noCategory"),
       value: t("templateCategory.noCategory"),
     },
@@ -94,17 +96,14 @@ export const PageListContent: React.FC<Props> = ({
     });
   };
 
-  const currentEmailCategoryId = categoriesList.find(
-    (category) => category.id === emailTemplateDetail?.category,
-  )?.id;
-
   const initialData = useMemo(
     () => ({
       title: emailTemplateDetail?.title || t("details.defaultTitle"),
       subject: emailTemplateDetail?.subject || "",
-      category: currentEmailCategoryId
-        ? String(currentEmailCategoryId)
-        : NO_CATEGORY_IDENTIFIER,
+      category:
+        categoriesList.find(
+          (category) => category.id === emailTemplateDetail?.category,
+        )?.name || t("templateCategory.noCategory"),
       stringifiedDesign: emailTemplateDetail?.design || null,
     }),
     [emailTemplateDetail, categoriesList, t],
@@ -192,10 +191,7 @@ export const PageListContent: React.FC<Props> = ({
         const templateData = {
           title: formData.title,
           subject: formData.subject,
-          category:
-            formData.category === NO_CATEGORY_IDENTIFIER
-              ? null
-              : parseInt(formData.category),
+          category: getSelectedCategoryId(categoriesList, formData.category),
           html: data.html,
           design: data.design,
           company_id: companyId ?? null,

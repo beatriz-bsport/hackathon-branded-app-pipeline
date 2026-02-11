@@ -3,19 +3,13 @@ import { FC } from "react";
 import { FormField, useFormContext } from "@bsport/form";
 import { Select, SelectProps } from "@bsport/kaizen-primitive-core";
 
-import { isCustomRecurrenceUnitValidType } from "#src/components/SessionForm/TimeAndDate/recurrence/utils";
-import {
-  RecurrenceIntervalMapping,
-  RecurrenceIntervalType,
-} from "#src/events/constants";
 import { CustomRecurrenceUnit } from "#src/helpers/recurrence/types";
 import type { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-export const RecurrenceUnitSelector: FC<{
-  fieldIdPrefix: string;
-  trackRecurrenceType?: (recurrenceType: RecurrenceIntervalType) => void;
-}> = ({ fieldIdPrefix, trackRecurrenceType }) => {
+export const RecurrenceUnitSelector: FC<{ fieldIdPrefix: string }> = ({
+  fieldIdPrefix,
+}) => {
   const { t } = useTranslation("sessionCreation");
   const { watch, setValue } = useFormContext<SessionCreationFormData>();
   const selectedValue = watch("recurrenceUnit");
@@ -41,22 +35,20 @@ export const RecurrenceUnitSelector: FC<{
     },
   ];
 
+  const displayValue =
+    options.find((option) => option.id === selectedValue)?.label || "";
+
   return (
     <FormField<SessionCreationFormData, "recurrenceUnit", SelectProps>
       name="recurrenceUnit"
       mapProps={() => ({
-        onChange: (selectedOptionId) => {
-          if (!isCustomRecurrenceUnitValidType(selectedOptionId)) {
-            console.warn(`Invalid recurrence unit: ${selectedOptionId}`);
-            return;
-          }
-          setValue("recurrenceUnit", selectedOptionId, {
+        onSelectId: (selectedOptionId) => {
+          setValue("recurrenceUnit", selectedOptionId as CustomRecurrenceUnit, {
             shouldValidate: true,
             shouldDirty: true,
           });
-          trackRecurrenceType?.(RecurrenceIntervalMapping[selectedOptionId]);
         },
-        value: selectedValue,
+        value: displayValue,
       })}
     >
       <Select

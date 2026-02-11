@@ -64,10 +64,7 @@ export const MarketingNotificationPerformanceDetails = ({
           </Body>
         </div>
       ) : (
-        <CommunicationSentRecipientTable
-          key={notification.id}
-          notification={notification}
-        />
+        <CommunicationSentRecipientTable notification={notification} />
       )}
     </div>
   );

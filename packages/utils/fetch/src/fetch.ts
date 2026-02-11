@@ -13,7 +13,7 @@ import {
 export function getFetch() {
   return async <T = string>(
     uri: string,
-    init?: RequestInit & { responseType?: "text" | "json" | "buffer" | "blob" },
+    init?: RequestInit & { responseType?: "text" | "json" | "buffer" },
   ): Promise<ResponseType<T>> => {
     const headers = getHeaders({
       "Content-Type": "application/json",
@@ -33,8 +33,6 @@ export function getFetch() {
         payload = await response.text();
       } else if (responseType === "buffer") {
         payload = await response.arrayBuffer();
-      } else if (responseType === "blob") {
-        payload = await response.blob();
       } else {
         payload = await response.json();
       }

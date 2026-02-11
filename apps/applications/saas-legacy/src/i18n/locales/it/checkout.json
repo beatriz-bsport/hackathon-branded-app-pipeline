@@ -38,7 +38,7 @@
       "hasReachedMaxUses": "È stato raggiunto il numero massimo di utilizzi per il referral link.",
       "missingAmountBeforeApplication": "L'importo minimo di acquisto non è stato raggiunto. Si rischia di perdere il proprio referral link. Solo {{ missingAmount }} in più per poter usufruire dello sconto!"
     },
-    "expressCheckoutTitle": "Portafogli digitali"
+    "expressCheckoutTitle": "Carteras digitales"
   },
   "paymentIntent": {
     "isProcessing": "Attendere prego"

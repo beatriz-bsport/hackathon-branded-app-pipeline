@@ -7,7 +7,7 @@ import Body from "#src/components/Body";
 import Icon, { type IconName } from "#src/components/Icon";
 import Loader from "#src/components/Loader";
 import Menu from "#src/components/Menu";
-import { Item } from "#src/components/Menu/types";
+import { Item, MenuOption } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
 import { Placements } from "#src/hooks/placement-classes.hook";
 
@@ -52,7 +52,7 @@ const select = cva(defaultClasses, { variants });
 
 export type SelectProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
-  "onChange"
+  "onSelect"
 > &
   VariantProps<typeof select> & {
     name?: string;
@@ -64,7 +64,8 @@ export type SelectProps = Omit<
     helperText?: string;
     errorText?: string;
     popoverPlacement?: (typeof Placements)[number];
-    onChange?: (option: string) => void;
+    onSelect?: (option: string) => void;
+    onSelectId?: (optionId: string) => void;
     fullWidth?: boolean;
     label?: string;
     required?: boolean;
@@ -86,7 +87,7 @@ export type SelectProps = Omit<
  * @param props.name Name of the hidden input for form submissions.
  * @param props.size Size of the select. Can be "sm" or "md".
  * @param props.status Status of the select. Can be "default", "critical", or "positive".
- * @param props.value Controlled selected value. The value should be equal to the id of one of the options. Use this prop to manage the selected value externally.
+ * @param props.value Controlled selected value. Use this prop to manage the selected value externally.
  * @param props.defaultValue Default selected value (uncontrolled). Use this prop to initialize the selected value internally.
  * @param props.items List of selectable items. Each item should include an `id` and `label`.
  * @param props.iconLeft Icon displayed on the left side of the select button.
@@ -94,7 +95,8 @@ export type SelectProps = Omit<
  * @param props.helperText Text below the select to provide additional information.
  * @param props.errorText Text to display when the select is in error.
  * @param props.popoverPlacement Placement of the popover. Defaults to `"bottom-left"`. Can be any valid placement from the `Placements` type.
- * @param props.onChange Function to call when an option is selected. Receives the selected option's id as an argument.
+ * @param props.onSelect Function to call when an option is selected. Receives the selected option's label or id as an argument.
+ * @param props.onSelectId Function to call when an option is selected. Receives the selected option's id as an argument.
  * @param props.fullWidth Optional Boolean to allow the Select component to take the whole available width of its parent.
  * @param props.label Optional String - gives a label title to the select field.
  * @param props.required Optional Boolean - Display a custom element next to the label if the select result is required.
@@ -116,7 +118,8 @@ const Select: React.FC<SelectProps> = ({
   helperText,
   errorText,
   popoverPlacement = "bottom-left",
-  onChange,
+  onSelect,
+  onSelectId,
   fullWidth,
   label,
   required,
@@ -130,24 +133,21 @@ const Select: React.FC<SelectProps> = ({
   );
 
   // The displayed value depends on whether it's controlled or uncontrolled
-  const selectedValueId = isControlled ? value : internalValue;
-
-  // Find the selected item, ensure it's not a DividerItem (which lacks 'label')
-  const selectedItem = items.find(
-    (item): item is { id: string; label: string } =>
-      "id" in item && item.id === selectedValueId && "label" in item,
-  );
-  const selectedValue = selectedItem?.label ?? "";
+  const selectedValue = isControlled ? value : internalValue;
 
   const handleSelect = useCallback(
     (optionId: string) => {
+      const option = items.find((item) => (item as MenuOption).id === optionId);
+      const newValue = (option as MenuOption)?.label || optionId;
+
       if (!isControlled) {
-        setInternalValue(optionId);
+        setInternalValue(newValue);
       }
 
-      onChange?.(optionId);
+      onSelect?.(newValue);
+      onSelectId?.(optionId);
     },
-    [isControlled, items, onChange],
+    [isControlled, items, onSelect, onSelectId],
   );
 
   return (

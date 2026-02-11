@@ -35,7 +35,7 @@
         "description": "Any members who haven't received this message yet won't receive it.",
         "buttons": {
           "delete": "Delete",
-          "cancel": "Cancel"
+          "cancel": "Keep"
         }
       },
       "toasts": {
@@ -65,26 +65,6 @@
         },
         "leaves": {
           "text": "Customer leaves Smartlist"
-        }
-      },
-      "actions": {
-        "delete": "Delete",
-        "menu": "Actions menu"
-      },
-      "deleteModal": {
-        "title": "Delete tag rule?",
-        "description": "This tag rule for {{tagGroupName}} \"{{tagName}}\" will be permanently removed.",
-        "buttons": {
-          "delete": "Delete",
-          "cancel": "Cancel"
-        }
-      },
-      "toasts": {
-        "success": {
-          "deleted": "Tag rule deleted"
-        },
-        "error": {
-          "deleteFailed": "Tag rule couldn't be deleted. Please try again."
         }
       }
     }

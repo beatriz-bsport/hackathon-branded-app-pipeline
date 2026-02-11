@@ -1,16 +1,11 @@
 // @flow
 
 import React from 'react';
-import i18n from '#src/i18n';
-import { getCurrentLanguageIsoCode } from '#src/utils/language';
 
 export default (eventName, secondToTrack) =>
   function (WrappedComponent) {
     return class extends React.Component {
       componentDidMount() {
-        const { language } = i18n;
-        const isoLanguage = getCurrentLanguageIsoCode(language);
-
         this.timeoutList = (secondToTrack ?? []).map((second) =>
           setTimeout(() => {
             window.Intercom &&
@@ -21,7 +16,6 @@ export default (eventName, secondToTrack) =>
                   pause: second,
                   eventType: 'stay',
                   id: eventName,
-                  language_override: isoLanguage,
                 },
               );
           }, second * 1000),

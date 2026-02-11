@@ -1,13 +1,35 @@
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import { createStore } from "zustand/vanilla";
 
-import { fromIsoString, getLocalNow } from "@bsport/datetime-manipulation";
+import {
+  type DateTime,
+  fromIsoString,
+  getLocalNow,
+} from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { bindStore } from "@bsport/store-base";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { DEFAULT_COLUMNS } from "#src/constants";
-import { CalendarView, Columns, DateSelection, ModalState } from "#src/types";
+import type { Columns, EnrichedSession } from "#src/types";
+
+export enum CalendarView {
+  DAILY = "daily",
+  RANGE = "range",
+}
+
+export type DateSelection =
+  | { type: "single"; date: DateTime }
+  | { type: "range"; minDate: DateTime | null; maxDate: DateTime | null };
+
+export enum ModalType {
+  CANCEL = "cancel",
+  RESTORE = "restore",
+  DELETE = "delete",
+  DUPLICATE = "duplicate",
+}
+
+export type ModalState = { type: ModalType; session: EnrichedSession } | null;
 
 export interface SessionListState {
   calendarView: CalendarView;

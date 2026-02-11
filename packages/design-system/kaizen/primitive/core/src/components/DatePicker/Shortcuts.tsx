@@ -9,7 +9,6 @@ import type { SelectedDate } from "./DatePicker";
 const SHORTCUT_MENU_MIN_WIDTH = 220;
 
 export type ShortcutItem = {
-  id: string;
   label: string;
   getDate: () => SelectedDate;
 };

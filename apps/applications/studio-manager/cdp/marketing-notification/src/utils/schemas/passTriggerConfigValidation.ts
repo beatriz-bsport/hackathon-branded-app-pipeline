@@ -12,7 +12,14 @@ import type { PassTriggerConfigValidationFormData } from "./types";
 
 export const passTriggerConfigValidationSchema = z
   .object({
-    name: z.custom<string>(),
+    name: z.string({
+      message: i18nInstance.t(
+        "steps.notificationRules.pass.errors.notificationNameRequired",
+        {
+          ns: "sm-marketing-notification_marketingNotificationsModal",
+        },
+      ),
+    }),
     passIds: z.array(z.number()),
     // Here we do not store the kind directly because the actions daysLeft and daysExpired share the same kind (3 or 5 based on passType) and there is no way of easily telling them apart in the form
     passEventAction: z.custom<PassAction>(),
@@ -30,18 +37,6 @@ export const passTriggerConfigValidationSchema = z
     excludedSmartlists: z.array(z.number()).optional(),
   })
   .superRefine((data, ctx) => {
-    if (!data.name) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: i18nInstance.t(
-          "steps.notificationRules.pass.errors.notificationNameRequired",
-          {
-            ns: "sm-marketing-notification_marketingNotificationsModal",
-          },
-        ),
-        path: ["name"],
-      });
-    }
     if (data.passEventAction === PASS_ACTION_DAYS_LEFT && data.daysLeft === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,

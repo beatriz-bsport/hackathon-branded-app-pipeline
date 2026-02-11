@@ -269,7 +269,6 @@ export const useSessionSchema = () => {
       ),
       establishment: z.number().nullable(),
       room_blueprint: z.number().nullable(),
-      roomBlueprintCapacity: z.number().nullable(),
       sync_on_spivi: z.boolean().optional(),
       wellhub_product_id: z.number().nullish(),
     }).shape,
@@ -308,25 +307,7 @@ export const useSessionSchema = () => {
         ),
         path: ["partner_max_booking_count"],
       },
-    )
-    .refine(
-      (data) =>
-        data.roomBlueprintCapacity != null
-          ? data.effectif <= data.roomBlueprintCapacity
-          : true,
-      {
-        message: t(
-          "addSessionModal.steps.configureSession.settings.exceedsRoomCapacity",
-        ),
-        path: ["effectif"],
-      },
-    )
-    .refine((data) => (data.sync_on_spivi ? !!data.room_blueprint : true), {
-      message: t(
-        "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.error",
-      ),
-      path: ["effectif"],
-    }) satisfies SessionCreationFormSchema;
+    );
 
   const advancedOptionsSchema = z.object({
     allow_guest_offer: z.boolean(),

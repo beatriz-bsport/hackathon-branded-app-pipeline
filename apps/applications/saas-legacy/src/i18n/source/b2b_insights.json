@@ -3,12 +3,6 @@
         "insights": {
             "title": "Insights"
         },
-        "communityHealth": {
-            "title": "Community Health"
-        },
-        "scheduleAnalysis": {
-            "title": "Schedule Performance"
-        },
         "recurringRevenue": {
             "title": "Monitor Subscriptions Performance"
         },
@@ -17,9 +11,8 @@
         }
     },
     "sections": {
-        "memberInsights": "Community & Marketing",
-        "financialHealth": "Financial Health",
-        "bookings": "Bookings"
+        "memberInsights": "Clients and Community Health",
+        "financialHealth": "Financial Health"
     },
     "trackTrialOffer": {
         "title": "Acquisition & Conversion Performance",
@@ -28,13 +21,5 @@
     "monitorRevenue": {
         "title": "Monitor Subscriptions Performance",
         "description": "Track subscription health, analyse recurring revenue, and spot risks or opportunities"
-    },
-    "monitorCommunityHealth": {
-        "title": "Community Health",
-        "description": "Track client activity, retention, and churn to understand the health of your community"
-    },
-    "monitorSchedule": {
-        "title": "Schedule Performance",
-        "description": "Optimise schedule performance to maximise enrolment and earned revenue"
     }
 }

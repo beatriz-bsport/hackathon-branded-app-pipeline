@@ -4,7 +4,6 @@ export const { flags: InsightFlags, useFlag: useInsightFlag } =
   makeFeatureFlags({
     TRIAL_ANALYSIS: "insights_trial_analysis_page",
     SCHEDULE_ANALYSIS: "insights_schedule_analysis_page",
-    COMMUNITY_HEALTH: "insights_community_health",
   } as const);
 
 export type InsightFlagId = (typeof InsightFlags)[keyof typeof InsightFlags];

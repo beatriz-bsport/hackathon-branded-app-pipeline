@@ -76,12 +76,12 @@
         "unit": {
           "label": "Select interval of time limit",
           "choices": {
-            "days_one": "Day",
-            "weeks_one": "Week",
-            "months_one": "Month",
-            "days_other": "Days",
-            "weeks_other": "Weeks",
-            "months_other": "Months"
+            "day_one": "Day",
+            "week_one": "Week",
+            "month_one": "Month",
+            "day_other": "Days",
+            "week_other": "Weeks",
+            "month_other": "Months"
           },
           "errors": {}
         },

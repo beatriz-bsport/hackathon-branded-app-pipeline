@@ -13,14 +13,11 @@ import {
 } from "#src/components/MarketingNotificationBuilder/Context/FormStepContext.context";
 import { BookingNotificationTriggerField } from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Booking/BookingNotificationTriggerField";
 import {
-  BOOKING_EVENT_KIND_MAP_TO_BOOKING_ACTIONS,
   BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND,
   BOOKING_STATUS_PRESENT,
   BOOKING_TEMPORALITY_BEFORE,
   BOOKING_TIME_UNIT_HOUR,
-  DEFAULT_BOOKING_ACTION_TYPE,
   DEFAULT_BOOKING_OCCURRENCE,
-  DEFAULT_BOOKING_OCCURRENCE_TYPE,
 } from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Booking/types";
 import { getBookingFormData } from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Booking/utils";
 import {
@@ -58,16 +55,6 @@ export const BookingEventForm = ({
       bookingItemId: itemIds[0],
       bookingOccurrence:
         bookingFormData?.bookingOccurrence || DEFAULT_BOOKING_OCCURRENCE,
-      bookingActionType:
-        bookingFormData?.bookingEventKind != null
-          ? (BOOKING_EVENT_KIND_MAP_TO_BOOKING_ACTIONS[
-              bookingFormData.bookingEventKind
-            ] ?? DEFAULT_BOOKING_ACTION_TYPE)
-          : DEFAULT_BOOKING_ACTION_TYPE,
-
-      bookingOccurrenceType:
-        bookingFormData?.bookingOccurrenceType ||
-        DEFAULT_BOOKING_OCCURRENCE_TYPE,
       bookingEventKind:
         bookingFormData?.bookingEventKind ||
         BOOKING_STATUS_MAP_TO_BOOKING_EVENT_KIND[BOOKING_STATUS_PRESENT],

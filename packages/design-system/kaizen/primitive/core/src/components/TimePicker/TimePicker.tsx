@@ -222,7 +222,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
               { id: "PM", label: "PM" },
             ]}
             value={selectedMeridiem}
-            onChange={(val) => {
+            onSelect={(val) => {
               setSelectedMeridiem(val as Meridiem);
               handleUpdate(undefined, val as Meridiem);
             }}

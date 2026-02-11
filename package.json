@@ -16,7 +16,6 @@
     "api-environment:set": "ts-node tools/toolkit-cli/src/index.ts api-environment:set",
     "build": "nx build",
     "build:all": "nx run-many --all --target=build",
-    "ci:compile:all": "pnpm exec nx run-many --all --target=ci:compile",
     "cleanup": "bash tools/scripts/cleanup-and-rebuild.sh",
     "docs:events": "pnpm exec nx docs:generate @bsport/analytics",
     "feature-flags-environment:set": "ts-node tools/toolkit-cli/src/index.ts feature-flags-environment:set",

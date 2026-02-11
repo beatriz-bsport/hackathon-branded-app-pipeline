@@ -1,11 +1,6 @@
 import { z } from "zod";
 
-import {
-  BOOKING_OCCURENCE_SPECIFIC_AMOUNT,
-  BookingAction,
-  type BookingOccurrenceType,
-  type BookingTemporality,
-} from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Booking/types";
+import type { BookingTemporality } from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Booking/types";
 import {
   DEFAULT_TIMING_VALUE,
   type TimeUnitType,
@@ -22,15 +17,13 @@ export const bookingTriggerConfigValidationSchema = z
     notificationType: z.custom<BookingSelectableNotificationType>(),
     bookingItemId: z.number(),
     bookingEventKind: z.number(),
-    bookingActionType: z.custom<BookingAction>(),
-    bookingOccurrenceType: z.custom<BookingOccurrenceType>(),
     bookingOccurrence: z.number().int({
       message: i18nInstance.t("steps.notificationRules.errors.noFloat", {
         ns: "sm-marketing-notification_marketingNotificationsModal",
       }),
     }),
     timingUnit: z.custom<TimeUnitType>(),
-    timingValue: z.custom<number>(),
+    timingValue: z.number(),
     timingTemporality: z.custom<BookingTemporality>(),
     toggleIncludedSmartlists: z.boolean(),
     includedSmartlists: z.array(z.number()).optional(),
@@ -38,32 +31,11 @@ export const bookingTriggerConfigValidationSchema = z
     excludedSmartlists: z.array(z.number()).optional(),
   })
   .superRefine((data, ctx) => {
-    if (
-      data.bookingOccurrenceType === BOOKING_OCCURENCE_SPECIFIC_AMOUNT &&
-      data.bookingOccurrence === 0
-    ) {
+    if (data.timingValue < DEFAULT_TIMING_VALUE) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: i18nInstance.t(
-          `steps.notificationRules.errors.bookingOccurence.atLeastOne.${data.bookingActionType}`,
-          {
-            timeUnit: data.timingUnit,
-            ns: "sm-marketing-notification_marketingNotificationsModal",
-          },
-        ),
-        path: ["bookingOccurrence"],
-      });
-    }
-    const timingValue = data.timingValue;
-    if (
-      typeof timingValue !== "number" ||
-      Number.isNaN(timingValue) ||
-      timingValue < DEFAULT_TIMING_VALUE
-    ) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: i18nInstance.t(
-          `steps.notificationRules.errors.positiveValue.${data.timingUnit}`,
+          "steps.notificationRules.errors.positiveValue",
           {
             timeUnit: data.timingUnit,
             ns: "sm-marketing-notification_marketingNotificationsModal",

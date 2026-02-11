@@ -1,8 +1,12 @@
 import { z } from "zod";
 
-import type { BillingFlowItem, ItemType } from "./types";
+import type { ItemType } from "./types";
 
-/** Item type constants for form selection. */
+/**
+ * Item type constants for form selection
+ * These values are used throughout the codebase for type checking and validation
+ * Export as const array to enable reuse and easy maintenance
+ */
 export const ITEM_TYPES = [
   "pass",
   "appointment_pass",
@@ -11,11 +15,6 @@ export const ITEM_TYPES = [
   "giftcard",
   "subscription",
 ] as const satisfies readonly ItemType[];
-
-/** Constants for validation. */
-export const FROM_TO_MAX_LENGTH = 40;
-export const NAME_AND_PERSONAL_MESSAGE_PDF_MAX_LENGTH = 150;
-export const PERSONAL_MESSAGE_EMAIL_MAX_LENGTH = 2000;
 
 /**
  * Schema for invoice item form data
@@ -42,119 +41,7 @@ export const invoiceItemFormDataSchema = z.object({
 });
 
 /**
- * Schema for one line item in the billing flow (itemName, taxPercent, etc.).
- */
-export const addedItemSchema = invoiceItemFormDataSchema
-  .extend({
-    buyableItemId: z.number().positive(),
-    activationDate: z.null(),
-    billingDetail: z.null(),
-    itemName: z.string(),
-    taxPercent: z.number().optional(),
-    credits: z.number().nullish(),
-    durationDays: z.number().nullish(),
-    durationMonths: z.number().nullish(),
-    durationYears: z.number().nullish(),
-    validityDateRange: z
-      .object({ lower: z.string(), upper: z.string() })
-      .nullish(),
-    // Giftcard fields (required when type is giftcard)
-    giftcardRecipientName: z.string().optional(),
-    giftcardFrom: z.string().optional(),
-    giftcardTo: z.string().optional(),
-    giftcardPersonalMessage: z.string().optional(),
-    giftcardDeliveryFormat: z.enum(["pdf", "email"]).optional(),
-    expirationDays: z.number().nullable().optional(),
-    // PDF-specific fields
-    giftcardValidFrom: z.string().optional(),
-    // Email-specific fields
-    giftcardBackgroundImage: z.string().nullable().optional(),
-    giftcardRecipientEmails: z.array(z.string()).optional(),
-    giftcardScheduledDate: z.string().optional(),
-    giftcardScheduledTime: z.string().optional(),
-  })
-  .superRefine((data, ctx) => {
-    if (data.type === "giftcard") {
-      // Check common required giftcard fields
-      if (
-        !data.giftcardRecipientName ||
-        data.giftcardRecipientName.trim() === ""
-      ) {
-        ctx.addIssue({
-          path: ["giftcardRecipientName"],
-          code: "custom",
-          message: "Recipient name is required for gift cards.",
-        });
-      }
-      if (!data.giftcardFrom || data.giftcardFrom.trim() === "") {
-        ctx.addIssue({
-          path: ["giftcardFrom"],
-          code: "custom",
-          message: "Sender (from) is required for gift cards.",
-        });
-      }
-      if (!data.giftcardTo || data.giftcardTo.trim() === "") {
-        ctx.addIssue({
-          path: ["giftcardTo"],
-          code: "custom",
-          message: "Recipient (to) is required for gift cards.",
-        });
-      }
-      if (!data.giftcardDeliveryFormat) {
-        ctx.addIssue({
-          path: ["giftcardDeliveryFormat"],
-          code: "custom",
-          message: "Delivery format is required for gift cards.",
-        });
-      }
-
-      // Delivery format specific fields
-      if (data.giftcardDeliveryFormat === "pdf") {
-        if (!data.giftcardValidFrom || data.giftcardValidFrom.trim() === "") {
-          ctx.addIssue({
-            path: ["giftcardValidFrom"],
-            code: "custom",
-            message: "Valid from date is required for PDF gift cards.",
-          });
-        }
-      } else if (data.giftcardDeliveryFormat === "email") {
-        if (
-          !Array.isArray(data.giftcardRecipientEmails) ||
-          data.giftcardRecipientEmails.length === 0
-        ) {
-          ctx.addIssue({
-            path: ["giftcardRecipientEmails"],
-            code: "custom",
-            message:
-              "At least one recipient email is required for email gift cards.",
-          });
-        } else {
-          data.giftcardRecipientEmails.forEach((email, i) => {
-            if (!email || typeof email !== "string" || email.trim() === "") {
-              ctx.addIssue({
-                path: ["giftcardRecipientEmails", i],
-                code: "custom",
-                message: "Recipient email must be a non-empty string.",
-              });
-            }
-          });
-        }
-        if (
-          data.giftcardBackgroundImage == null ||
-          data.giftcardBackgroundImage === ""
-        ) {
-          ctx.addIssue({
-            path: ["giftcardBackgroundImage"],
-            code: "custom",
-            message: "Background image is required for email gift cards.",
-          });
-        }
-      }
-    }
-  }) satisfies z.ZodType<BillingFlowItem>;
-
-/**
- * Schema for billing flow form data (submitted shape)
+ * Schema for billing flow form data
  */
 export const billingFlowFormDataSchema = z.object({
   memberId: z
@@ -164,51 +51,36 @@ export const billingFlowFormDataSchema = z.object({
       message: "Member is required",
     })
     .transform((val: number | null) => (val === null ? undefined : val)),
-  items: z.array(addedItemSchema).min(1, "At least one item is required"),
+  items: z
+    .array(invoiceItemFormDataSchema)
+    .min(1, "At least one item is required"),
   couponCodes: z.array(z.string()),
   footnote: z.string().nullable(),
-  date: z.date({ required_error: "Invoice date is required" }),
+  date: z.string().min(1, "Invoice date is required"),
 });
-
-/** Builder state (not validated on submit). */
-const billingFlowBuilderStateSchema = z.object({
-  addItemSelectedItemType: z.enum(ITEM_TYPES).nullable(),
-  addItemSelectedItemId: z.string().nullable(),
-  addItemSelectedItemPriceCts: z.number(),
-  addItemQuantity: z.number(),
-  addItemPriceCts: z.number().min(0).nullable(),
-  addItemSearchValue: z.string(),
-  addItemApplyDiscount: z.boolean(),
-  addItemDiscountPercent: z.number(),
-  addItemDiscountAmountCts: z.number(),
-  addItemDiscountReason: z.string(),
-  isDiscountReasonRequired: z.boolean(),
-  // Giftcard fields (common)
-  addItemGiftcardRecipientName: z.string(),
-  addItemGiftcardFrom: z.string().max(FROM_TO_MAX_LENGTH),
-  addItemGiftcardTo: z.string().max(FROM_TO_MAX_LENGTH),
-  addItemGiftcardPersonalMessage: z.string(),
-  addItemGiftcardDeliveryFormat: z.enum(["pdf", "email"]),
-  addItemSelectedItemExpirationDays: z.number().nullable(),
-  // Giftcard fields (PDF only)
-  addItemGiftcardValidFrom: z.string(),
-  // Giftcard fields (email only)
-  addItemGiftcardBackgroundImage: z.string().nullable(),
-  addItemGiftcardRecipientEmails: z.array(z.string()),
-  addItemGiftcardScheduledDate: z.string(),
-  addItemGiftcardScheduledTime: z.string(),
-});
-
-/** Full form state schema (submitted shape + builder state) for useFormController defaultValues. */
-export const billingFlowFormStateSchema = billingFlowFormDataSchema.merge(
-  billingFlowBuilderStateSchema,
-);
-
-/** Inferred type for form state. */
-export type BillingFlowFormState = z.infer<typeof billingFlowFormStateSchema>;
 
 /**
- * Price input pattern (UI-level): allow empty, integers, or decimals with up to 2 digits.
- * Accepts both dot and comma as decimal separators.
+ * Default form values
  */
-export const PRICE_INPUT_PATTERN = /^\d*(?:[.,]\d{0,2})?$/;
+export const DEFAULT_FORM_DATA: z.infer<typeof billingFlowFormDataSchema> = {
+  memberId: undefined,
+  items: [],
+  couponCodes: [],
+  footnote: null,
+  date: new Date().toISOString().split("T")[0], // Today's date in YYYY-MM-DD format
+};
+
+/**
+ * Default invoice item form data
+ */
+export const DEFAULT_ITEM_FORM_DATA: z.infer<typeof invoiceItemFormDataSchema> =
+  {
+    type: "pass", // Default to pass for first item
+    buyableItemId: null,
+    quantity: 1,
+    priceCts: 0,
+    discountPercent: 0,
+    discountAmountCts: 0,
+    activationDate: null,
+    billingDetail: null,
+  };

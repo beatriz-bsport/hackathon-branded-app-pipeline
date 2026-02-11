@@ -492,23 +492,14 @@
         "finerGrain": {
           "specifyItemsToggleLabel": "Artikelen specificeren",
           "purchaseLabelTitle": "Aangekochte artikel(en)"
-        },
-        "triggerTimeoutHours": "uur.",
-        "triggerTimeoutHours_plural": "uren.",
-        "triggerTimeoutDaysAnd": "dag en",
-        "triggerTimeoutDaysAnd_plural": "dagen en"
+        }
       },
       "win_step": "Gewonnen",
       "error": {
         "triggerCannotBeEmpty": "U moet een invoertype kiezen.",
         "minimumConnectedTrigger": "Selecteer ten minste één Aanleiding.",
         "maximumConnectedTrigger": "Je kunt maximaal vijf Aanleidingen instellen.",
-        "timeoutMustBeStrictPositive": "De vertraging moet minstens 1 dag zijn.",
-        "timeoutRequired": "De vertraging is verplicht.",
-        "timeoutHoursMustBeMax23": "Het aantal uren mag niet hoger zijn dan 23.",
-        "timeoutHoursMustBePositive": "Het aantal uren moet positief zijn.",
-        "timeoutDaysMustBePositive": "Het aantal dagen moet positief zijn.",
-        "timeoutMustBeStrictPositiveWithHourlyTimeout": "De vertraging moet minstens 1 uur zijn."
+        "timeoutMustBeStrictPositive": "De termijn moet minstens 1 dag bedragen."
       },
       "marketing_action": {
         "1": "Nieuwe e-mail",
@@ -522,8 +513,7 @@
           "submit": "Bevestigen"
         },
         "defaultName": "Standaardnaam",
-        "select_tag": "Selecteer een tag",
-        "6": "Een tag verwijderen"
+        "select_tag": "Selecteer een tag"
       },
       "event": {
         "1": "Leskaarten",
@@ -560,9 +550,7 @@
         "private_consumer_pass-create": "Afspraakkaarten",
         "consumer_payment_pack-create": "Leskaarten",
         "provision_update-create": "Winkelartikel",
-        "consumer_giftcard-create": "Cadeaukaart",
-        "marketing-lead_form_submitted": "Leadformulier ingediend",
-        "105": "Lid"
+        "consumer_giftcard-create": "Cadeaukaart"
       },
       "exit": {
         "exit_fail_label": "Verloren",
@@ -628,14 +616,11 @@
         "purchase_chip": "Aankoop",
         "billing_plan_chip": "Abonnementen",
         "invoice_chip": "Factuur",
-        "basket_chip": "Winkelmand",
-        "member_chip": "Lid"
+        "basket_chip": "Winkelmand"
       },
       "timeout": {
         "timeout_days_chip": "{{ count }} dag(en)",
-        "timeout_days_chip_plural": "{{ count }} dagen",
-        "timeout_hours_chip": "{{ count }} uur",
-        "timeout_hours_chip_plural": "{{ count }} uren"
+        "timeout_days_chip_plural": "{{ count }} dagen"
       },
       "trigger": "Trigger",
       "exit": "Einde",
@@ -777,12 +762,7 @@
         "timeout": {
           "title": "Tijdslimiet",
           "label": "Dagen inactief in de {{ workflowLowerCase }}",
-          "helperText": "Leden zullen de {{ workflowLowerCase }} verlaten als er na dit aantal dagen geen vooruitgang is geboekt",
-          "hours": "uur",
-          "hours_plural": "uren",
-          "days": "dag en",
-          "days_plural": "dagen en",
-          "helperTextWithHourlyTimeout": "Leden verlaten de {{ workflowLowerCase }} als er geen voortgang wordt geboekt na deze periode van inactiviteit."
+          "helperText": "Leden zullen de {{ workflowLowerCase }} verlaten als er na dit aantal dagen geen vooruitgang is geboekt"
         },
         "addTrigger": "Een uitgangstrigger toevoegen",
         "helperText": "Definieer wat wordt beschouwd als een mislukking, het lid wordt gemarkeerd als 'Verloren' bij het verlaten van de {{ workflowLowerCase }}. Stel ook de maximale tijd in dat een lid aanwezig kan zijn in {{ workflowLowerCase }}.",
@@ -885,7 +865,7 @@
     "graph": {
       "alert": {
         "switchToEditMode": "U bevindt zich in de weergavemodus. Klik op EDIT om de {{ workflowLowerCase }} te bewerken.",
-        "audienceIsActive": "Je {{ workflowLowerCase }} is momenteel actief. Pauzeer deze eerst om hem te bewerken. "
+        "audienceIsActive": "Uw {{ workflowLowerCase }} is bezig, onderbreek het om het aan te passen."
       }
     },
     "activate": {
@@ -1069,8 +1049,7 @@
       },
       "createFromScratchDescription": "Maak een {{ workflowLowerCase }} om je Audience-acties te automatiseren.",
       "useTemplate": "Sjabloon gebruiken",
-      "createFromScratch": "Nieuw {{ workflowLowerCase }} maken",
-      "createFromScratchTitle": "Nieuwe {{ workflowLowerCase }}"
+      "createFromScratch": "Nieuw {{ workflowLowerCase }} maken"
     },
     "upsells": {
       "warning": {

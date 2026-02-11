@@ -8,7 +8,6 @@ import InsightsIndex from '#src/pages/insights/InsightsIndex.page';
 import TrialAnalysis from '#src/pages/trial-analysis/TrialAnalysis.page';
 import SubscriptionEvents from '#src/pages/subscription-events/SubscriptionEvents.page';
 import ScheduleAnalysis from '#src/pages/schedule-analysis/ScheduleAnalysis.page';
-import CommunityHealth from '#src/pages/community-health/CommunityHealth.page';
 import { INSIGHTS_ROUTES, INSIGHTS_TRANSLATION_NAMESPACES } from './constants';
 
 type Props = {};
@@ -31,13 +30,12 @@ const SubscriptionEventsWithTitle = compose(
 
 const ScheduleAnalysisWithTitle = compose(
   withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
-  withTitle(({ t }) => t('b2b_insights:pages.scheduleAnalysis.title')),
+  withTitle(({ t }) =>
+    t('b2b_insights:pages.scheduleAnalysis.title', {
+      defaultValue: 'Schedule analysis',
+    }),
+  ),
 )(ScheduleAnalysis);
-
-const CommunityHealthWithTitle = compose(
-  withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
-  withTitle(({ t }) => t('b2b_insights:pages.communityHealth.title')),
-)(CommunityHealth);
 
 const InsightsRouter: React.FC<Props> = () => {
   return (
@@ -61,11 +59,6 @@ const InsightsRouter: React.FC<Props> = () => {
         exact
         component={ScheduleAnalysisWithTitle}
         path={INSIGHTS_ROUTES.SCHEDULE_ANALYSIS}
-      />
-      <Route
-        exact
-        component={CommunityHealthWithTitle}
-        path={INSIGHTS_ROUTES.COMMUNITY_HEALTH}
       />
       <Redirect to={INSIGHTS_ROUTES.INDEX} />
     </Switch>

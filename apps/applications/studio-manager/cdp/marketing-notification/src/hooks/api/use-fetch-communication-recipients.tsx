@@ -106,12 +106,6 @@ export function useFetchCommunicationRecipients({
     fetchCommunicationSentPaginated,
   ]);
 
-  useEffect(() => {
-    return () => {
-      setPageSettings(DEFAULT_PAGE, DEFAULT_PAGE_SIZE);
-    };
-  }, [communicationObjectId]);
-
   const paginationParams: PaginationProps | undefined =
     communicationSentCount > currentPageSize
       ? {

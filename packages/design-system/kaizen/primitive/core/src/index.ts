@@ -44,8 +44,6 @@ export {
   default as DatePicker,
   type DatePickerProps,
   type SelectedDate,
-  useDatePickerShortcuts,
-  type ShortcutKey,
 } from "./components/DatePicker";
 export {
   default as DetailDrawer,

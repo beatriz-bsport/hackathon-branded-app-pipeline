@@ -36,14 +36,11 @@ export const EstablishmentSelectorField: FC<{
           setValue(
             "establishment",
             selectedEstablishmentId ? Number(selectedEstablishmentId) : null,
-            { shouldValidate: true, shouldDirty: true },
+            { shouldValidate: true },
           );
         },
         onClear: () => {
-          setValue("establishment", null, {
-            shouldValidate: true,
-            shouldDirty: true,
-          });
+          setValue("establishment", null, { shouldValidate: true });
         },
       })}
     >

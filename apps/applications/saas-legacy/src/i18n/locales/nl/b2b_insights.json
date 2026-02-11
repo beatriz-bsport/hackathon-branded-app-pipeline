@@ -1,40 +1,25 @@
 {
-    "pages": {
-        "insights": {
-            "title": "Inzichten"
-        },
-        "communityHealth": {
-            "title": "Communitygezondheid"
-        },
-        "scheduleAnalysis": {
-            "title": "Roosterprestaties"
-        },
-        "recurringRevenue": {
-            "title": "Prestaties van abonnementen monitoren"
-        },
-        "trialAnalysis": {
-            "title": "Acquisitie- en Conversieprestaties"
-        }
+  "pages": {
+    "insights": {
+      "title": "Inzichten"
     },
-    "sections": {
-        "memberInsights": "Community & Marketing",
-        "financialHealth": "Financiële Gezondheid",
-        "bookings": "Reserveringen"
+    "recurringRevenue": {
+      "title": "Prestaties van abonnementen monitoren"
     },
-    "trackTrialOffer": {
-        "title": "Acquisitie- en Conversieprestaties",
-        "description": "Begrijp hoe eerste aankopen omgezet worden in terugkerende klanten, identificeer uitval en optimaliseer je acquisitie."
-    },
-    "monitorRevenue": {
-        "title": "Prestaties van abonnementen monitoren",
-        "description": "Volg de gezondheid van abonnementen, analyseer terugkerende inkomsten en identificeer risico's of kansen"
-    },
-    "monitorCommunityHealth": {
-        "title": "Communitygezondheid",
-        "description": "Volg de activiteit, retentie en churn van klanten om de gezondheid van je community te begrijpen"
-    },
-    "monitorSchedule": {
-        "title": "Roosterprestaties",
-        "description": "Optimaliseer de roosterprestaties om de inschrijvingen en de verdiende omzet te maximaliseren"
+    "trialAnalysis": {
+      "title": "Monitor de prestaties van ledenwerving"
     }
+  },
+  "sections": {
+    "memberInsights": "Leden Inzichten",
+    "financialHealth": "Financiële Gezondheid"
+  },
+  "trackTrialOffer": {
+    "title": "Volg de prestaties van het proefaanbod",
+    "description": "Ontdek meer over acquisitie, conversieratio's en hoe je de effectiviteit van je proefaanbod kunt verhogen."
+  },
+  "monitorRevenue": {
+    "title": "Prestaties van abonnementen monitoren",
+    "description": "Volg de gezondheid van abonnementen, analyseer terugkerende inkomsten en identificeer risico's of kansen"
+  }
 }

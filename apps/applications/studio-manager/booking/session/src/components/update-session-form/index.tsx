@@ -33,7 +33,7 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
     defaultValues: fromSessionToFormData(session),
   });
 
-  const isDirty = methods.formState.isDirty;
+  const isDirty = Object.keys(methods.formState.dirtyFields).length > 0;
 
   const formId = `session-form-update-${useId()}`;
 

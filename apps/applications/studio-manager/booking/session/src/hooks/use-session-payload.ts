@@ -148,7 +148,7 @@ export const useSessionPayload = () => {
       coach_payment_rule: formData.overrideTeacherPayrollRule
         ? formData.coach_payment_rule
         : session.coach_payment_rule_id,
-      coach_override: session.coach_override,
+      coach_override: formData.coach_override,
       establishment: formData.establishment,
       room_blueprint: formData.room_blueprint,
       ...(formData.sync_on_spivi !== undefined && {

@@ -71,6 +71,7 @@ const config: UserConfig = {
     react(),
     dts({
       insertTypesEntry: true,
+      rollupTypes: false,
       tsconfigPath: resolve(__dirname, "./tsconfig.dts.json"),
       exclude: [
         "**/*.stories.tsx",

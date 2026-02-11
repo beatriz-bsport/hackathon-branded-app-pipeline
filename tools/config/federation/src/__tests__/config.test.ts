@@ -158,6 +158,9 @@ describe("getConfig", () => {
         "@bsport/i18n": {
           singleton: true,
         },
+        "@bsport/kaizen-business-components": {
+          singleton: true,
+        },
         "@bsport/kaizen-primitive-core": {
           singleton: true,
         },

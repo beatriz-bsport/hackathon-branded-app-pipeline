@@ -1,20 +1,11 @@
 import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react-vite";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { setLocalAPIEnv } from "@bsport/fetch";
+import { FLAG_EMOJIS, LOCALES, switchLanguage } from "@bsport/i18n";
 import "@bsport/kaizen-primitive-core/styles";
 
-import { KaizenBusinessI18nProvider } from "../src/components/structural/i18n-provider";
-import {
-  FLAG_EMOJIS,
-  LOCALES,
-  type Translations,
-  i18nNamespacePrefix,
-  i18nNamespaces,
-  instanciateAppI18n,
-  switchLanguage,
-} from "../src/i18n";
 import { authenticateDev } from "./auth-helper";
 
 // Set API environment to dev for local storybook
@@ -29,11 +20,6 @@ if (typeof window !== "undefined") {
   });
 }
 
-const { i18nInstance } = instanciateAppI18n<Translations>({
-  applicationName: i18nNamespacePrefix,
-  namespaces: i18nNamespaces,
-});
-
 const preview: Preview = {
   decorators: [
     (Story, context) => {
@@ -45,11 +31,7 @@ const preview: Preview = {
 
       return (
         <React.StrictMode>
-          <Suspense fallback={<p>Loading translations ...</p>}>
-            <KaizenBusinessI18nProvider kaizenI18nInstance={i18nInstance}>
-              <Story />
-            </KaizenBusinessI18nProvider>
-          </Suspense>
+          <Story />
         </React.StrictMode>
       );
     },

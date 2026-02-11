@@ -23,7 +23,7 @@ const useLanguageItems = (): DropdownMenuItems => {
       iconLeft: "flag-uk",
     },
     {
-      id: LANGUAGES.ENGLISH,
+      id: LANGUAGES.ENGLISH_US,
       label: t("languages.englishUS"),
       iconLeft: "flag-us",
     },

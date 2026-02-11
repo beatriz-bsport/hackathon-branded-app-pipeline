@@ -12,7 +12,6 @@ const COLUMN_I18N_KEY = "Key";
 const PREVIOUS_SUFFIX = "previous";
 const NEW_SUFFIX = "new";
 const VALIDATED_SUFFIX = "validated";
-const NOTES_SUFFIX = "notes";
 
 function buildHeaders(languages: string[]): string[] {
   const base = [COLUMN_PROJECT, COLUMN_NAMESPACE, COLUMN_I18N_KEY];
@@ -21,7 +20,6 @@ function buildHeaders(languages: string[]): string[] {
     `${language}_${PREVIOUS_SUFFIX}`,
     `${language}_${NEW_SUFFIX}`,
     `${language}_${VALIDATED_SUFFIX}`,
-    `${language}_${NOTES_SUFFIX}`,
   ]);
 
   return [...base, ...languagesColumns];

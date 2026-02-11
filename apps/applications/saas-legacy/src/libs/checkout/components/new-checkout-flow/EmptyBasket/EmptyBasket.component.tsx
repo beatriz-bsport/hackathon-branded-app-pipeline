@@ -10,10 +10,15 @@ import './styles.css';
 
 export type Props = {
   goToMarketplace: () => void;
+  goToCalendar: () => void;
   goToMyProfile: () => void;
 };
 
-const EmptyBasket: React.FC<Props> = ({ goToMarketplace, goToMyProfile }) => {
+const EmptyBasket: React.FC<Props> = ({
+  goToMarketplace,
+  goToCalendar,
+  goToMyProfile,
+}) => {
   const { t } = useTranslation('checkout');
 
   const isWidget = WidgetUtils.isWidget();
@@ -31,14 +36,21 @@ const EmptyBasket: React.FC<Props> = ({ goToMarketplace, goToMyProfile }) => {
     if (isWidget) {
       return {
         label: t('validation.actions.goToCalendar'),
-        onClick: WidgetUtils.closeModal,
+        onClick: goToCalendar,
       };
     }
     return {
       label: t('myBasket.goToMarketplace'),
       onClick: goToMarketplace,
     };
-  }, [goToMarketplace, goToMyProfile, isLoginWidget, isWidget, t]);
+  }, [
+    goToCalendar,
+    goToMarketplace,
+    goToMyProfile,
+    isLoginWidget,
+    isWidget,
+    t,
+  ]);
 
   return (
     <StatusMessageWithIcon

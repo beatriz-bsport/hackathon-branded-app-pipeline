@@ -492,23 +492,14 @@
         "finerGrain": {
           "specifyItemsToggleLabel": "Spécifier les objets",
           "purchaseLabelTitle": "Objet(s) acheté(s)"
-        },
-        "triggerTimeoutHours": "heure.",
-        "triggerTimeoutHours_plural": "heures.",
-        "triggerTimeoutDaysAnd": "jour et",
-        "triggerTimeoutDaysAnd_plural": "jours et"
+        }
       },
       "win_step": "Sortie réussie",
       "error": {
         "triggerCannotBeEmpty": "Vous devez sélectionner un type d'entrée.",
         "minimumConnectedTrigger": "Vous devez sélectionner au moins un déclencheur.",
         "maximumConnectedTrigger": "Vous ne pouvez pas définir plus de cinq déclencheurs.",
-        "timeoutMustBeStrictPositive": "Le délai doit être d’au moins 1 jour.",
-        "timeoutRequired": "Le délai est requis.",
-        "timeoutHoursMustBeMax23": "Le nombre d’heures ne doit pas dépasser 23.",
-        "timeoutHoursMustBePositive": "Le nombre d’heures doit être positif.",
-        "timeoutDaysMustBePositive": "Le nombre de jours doit être positif.",
-        "timeoutMustBeStrictPositiveWithHourlyTimeout": "Le délai doit être d’au moins 1 heure."
+        "timeoutMustBeStrictPositive": "La limite de temps doit être d'au moins 1 jour."
       },
       "marketing_action": {
         "1": "Envoyer un e-mail",
@@ -522,8 +513,7 @@
           "submit": "Valider"
         },
         "defaultName": "Nom par défaut",
-        "select_tag": "Sélectionner un tag",
-        "6": "Supprimer un tag"
+        "select_tag": "Sélectionner un tag"
       },
       "event": {
         "1": "Carte de cours",
@@ -560,9 +550,7 @@
         "private_consumer_pass-create": "Carte de Rendez-vous",
         "consumer_payment_pack-create": "Carte de cours",
         "provision_update-create": "Article du magasin",
-        "consumer_giftcard-create": "Carte cadeau",
-        "marketing-lead_form_submitted": "Formulaire de lead soumis",
-        "105": "Membre"
+        "consumer_giftcard-create": "Carte cadeau"
       },
       "exit": {
         "exit_fail_label": "Non",
@@ -628,14 +616,11 @@
         "purchase_chip": "Achat",
         "billing_plan_chip": "Souscription",
         "invoice_chip": "Facturation",
-        "basket_chip": "Panier",
-        "member_chip": "Membre"
+        "basket_chip": "Panier"
       },
       "timeout": {
         "timeout_days_chip": "{{ count }} jour",
-        "timeout_days_chip_plural": "{{ count }} jours",
-        "timeout_hours_chip": "{{ count }} heure",
-        "timeout_hours_chip_plural": "{{ count }} heures"
+        "timeout_days_chip_plural": "{{ count }} jours"
       },
       "trigger": "Déclencheur",
       "exit": "Sortie",
@@ -776,13 +761,8 @@
       "lostTrigger": {
         "timeout": {
           "title": "Délai",
-          "label": "Jours d'inactivité dans le {{ workflowLowerCase }}.",
-          "helperText": "Les membres quitteront le {{ workflowLowerCase }} si aucun progrès n'est réalisé après ce nombre de jours.",
-          "hours": "heure",
-          "hours_plural": "heures",
-          "days": "jour et",
-          "days_plural": "jours et",
-          "helperTextWithHourlyTimeout": "Les membres quitteront le {{ workflowLowerCase }} si aucun progrès n’est réalisé après cette période d’inactivité."
+          "label": "Jours d'inactivité dans le {{ workflowLowerCase }}",
+          "helperText": "Les membres quitteront le {{ workflowLowerCase }} si aucun progrès n'est réalisé après ce nombre de jours"
         },
         "addTrigger": "Ajouter un déclencheur de sortie",
         "helperText": "Définissez ce qui considère votre objectif comme non atteint : déterminez un délai après lequel le membre sortira sans succès de ce {{ workflowLowerCase }} et/ou un - ou plusieurs - déclencheurs spécifiques.",
@@ -885,7 +865,7 @@
     "graph": {
       "alert": {
         "switchToEditMode": "Vous êtes en mode visualisation, cliquez sur EDITER pour éditer le {{ workflowLowerCase }}.",
-        "audienceIsActive": "Votre {{ workflowLowerCase }} est actuellement actif. Mettez-le d’abord en pause pour le modifier. "
+        "audienceIsActive": "Votre {{ workflowLowerCase }} est en cours, veuillez le mettre en pause pour le modifier."
       }
     },
     "activate": {
@@ -1069,8 +1049,7 @@
       },
       "createFromScratchDescription": "Créez un {{ workflowLowerCase }} pour automatiser vos actions Audience.",
       "useTemplate": "Utiliser le modèle",
-      "createFromScratch": "Créer un nouveau {{ workflowLowerCase }}",
-      "createFromScratchTitle": "Nouveau {{ workflowLowerCase }}"
+      "createFromScratch": "Créer un nouveau {{ workflowLowerCase }}"
     },
     "upsells": {
       "warning": {

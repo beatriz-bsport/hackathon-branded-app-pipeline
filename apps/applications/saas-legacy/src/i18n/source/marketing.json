@@ -885,7 +885,7 @@
     "graph": {
       "alert": {
         "switchToEditMode": "You are in view mode, click on EDIT to edit the {{ workflowLowerCase }}.",
-        "audienceIsActive": "Your {{ workflowLowerCase }} is currently active. Pause it first to edit it. "
+        "audienceIsActive": "Your {{ workflowLowerCase }} is ongoing, please pause it to modify."
       }
     },
     "activate": {

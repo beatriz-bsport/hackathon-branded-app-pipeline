@@ -30,11 +30,3 @@ export const NOTIFICATION_ADVANCED_TYPE = {
   appointmentPass: APPOINTMENT_PASS_TYPE,
   subscription: SUBSCRIPTION_TYPE,
 } as const;
-
-export const MARKETING_NOTIFICATION_LIST_ITEM_SUFFIX =
-  "marketing-notification-table-item";
-
-export const MARKETING_NOTIFICATION_LIST_ITEM_ID = (notificationId: number) =>
-  `${MARKETING_NOTIFICATION_LIST_ITEM_SUFFIX}-${notificationId}`;
-
-export const ESCAPE_KEYBOARD_KEY = "Escape";

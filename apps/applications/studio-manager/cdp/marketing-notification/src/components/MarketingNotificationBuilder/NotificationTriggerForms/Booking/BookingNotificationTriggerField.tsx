@@ -77,7 +77,6 @@ export const BookingNotificationTriggerField = ({
       );
       return;
     }
-    setFormValue("bookingActionType", newAction);
     if (newAction === BOOKING_ACTION_MAKES_BOOKING) {
       setSelectedBookingStatus(BOOKING_STATUS_PRESENT);
       setFormValue(
@@ -125,7 +124,6 @@ export const BookingNotificationTriggerField = ({
       );
       return;
     }
-    setFormValue("bookingOccurrenceType", newOccurenceType);
     if (newOccurenceType === BOOKING_OCCURENCE_ANY_BOOKING) {
       setFormValue(
         "bookingOccurrence",
@@ -171,16 +169,13 @@ export const BookingNotificationTriggerField = ({
         onChange={handleBookingStatusUpdate}
       />
 
-      {selectedBookingAction === BOOKING_ACTION_MAKES_BOOKING ? (
-        <Alert type="weak" status="default">
-          <Body htmlVariant="p" size="md">
-            {t(`steps.notificationRules.booking.alerts.defaultToAbsent`)}
-          </Body>
-        </Alert>
-      ) : null}
+      <Alert type="weak" status="default">
+        <Body htmlVariant="p" size="md">
+          {t(`steps.notificationRules.booking.alerts.${selectedBookingStatus}`)}
+        </Body>
+      </Alert>
 
       <BookingOccurrenceField
-        bookingAction={selectedBookingAction}
         value={selectedBookingOccurrence.occurrenceType}
         amount={selectedBookingOccurrence.amount}
         onChange={handleBookingOccurenceTypeUpdate}

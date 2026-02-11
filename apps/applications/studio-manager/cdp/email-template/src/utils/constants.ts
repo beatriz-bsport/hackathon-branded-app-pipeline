@@ -10,5 +10,3 @@ export enum CompanyTypeEnum {
   COMPANY = "company",
   FRANCHISE = "franchise",
 }
-
-export const NO_CATEGORY_IDENTIFIER = "no-category";

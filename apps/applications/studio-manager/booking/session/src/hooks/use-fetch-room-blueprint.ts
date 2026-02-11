@@ -25,7 +25,5 @@ export const roomBlueprintQueryOptions = (params?: RoomBlueprintFilters) => {
 export const useFetchRoomBlueprints = (params?: RoomBlueprintFilters) => {
   return useQuery({
     ...roomBlueprintQueryOptions(params),
-    select: (roomBlueprints) =>
-      roomBlueprints?.filter((roomBlueprint) => !roomBlueprint.disabled),
   });
 };

@@ -32,7 +32,6 @@ const combineTagRulesWithTags = (
       ...rule,
       tagName: tag.name,
       tagGroupName,
-      tagColor: tag.color,
     };
   });
 };

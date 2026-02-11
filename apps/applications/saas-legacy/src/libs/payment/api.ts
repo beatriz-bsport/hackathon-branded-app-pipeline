@@ -179,7 +179,7 @@ export const updateIntentToSavePaymentMethodWebview = async (data: any) => {
 };
 
 export const fetchPayoutList = async (params: any) => {
-  return getAuth(`${API_V1_URI}/payout/${buildUrlParams(params)}`);
+  return getAuth(`${API_V1_URI}/payment/payout/${buildUrlParams(params)}`);
 };
 
 export const updatePaymentGroupPriceCts = async (
@@ -308,7 +308,7 @@ export const fetchStripePayoutList = async (params: {
   starting_after?: string;
 }) => {
   return getAuth<StripePayout[]>(
-    `${API_V1_URI}/payout/stripe/${buildUrlParams(params)}`,
+    `${API_V1_URI}/payment/stripe/payout${buildUrlParams(params)}`,
   );
 };
 

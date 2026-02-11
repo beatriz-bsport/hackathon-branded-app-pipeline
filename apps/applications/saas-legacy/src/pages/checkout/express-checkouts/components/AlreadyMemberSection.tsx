@@ -6,7 +6,6 @@ import Typography from '#src/components/css-only/Fabrique/Typography';
 import ButtonV2 from '#src/components/css-only/Fabrique/ButtonV2';
 import { TypographyVariant } from '#src/components/css-only/Fabrique/Typography/constants';
 import { ButtonColor } from '#src/components/css-only/Fabrique/ButtonV2/constants';
-import { useRedirectToUrl } from '../hooks/useRedirectOnSuccess';
 
 type AlreadyMemberSectionProps = {
   loginUrl: string;
@@ -16,8 +15,6 @@ export const AlreadyMemberSection: React.FC<AlreadyMemberSectionProps> = ({
   loginUrl,
 }) => {
   const { t } = useTranslation('booking');
-  const redirectToUrl = useRedirectToUrl();
-  const redirectToLogin = () => redirectToUrl(loginUrl);
 
   return (
     <>
@@ -26,7 +23,7 @@ export const AlreadyMemberSection: React.FC<AlreadyMemberSectionProps> = ({
       </Typography>
       <ButtonV2
         color={ButtonColor.PRIMARY}
-        onClick={redirectToLogin}
+        href={loginUrl}
         size="sm"
         variant="outlined"
       >

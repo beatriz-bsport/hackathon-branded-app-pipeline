@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
 // We need to use the referencre to the bsport saas instance of material ui
@@ -69,7 +68,6 @@ import {
 } from './utils/http';
 import { SafeURI } from './widgets/utils';
 import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-space/constants';
-import { shouldDisplayInPageInteractionPortal } from './libs/modal/helpers';
 
 const ConsumerSpaceWidget = asyncComponent(
   () => import('./widgets/ConsumerSpace.widget'),
@@ -110,7 +108,7 @@ const NewsletterV2Widget = asyncComponent(
   () => import('./widgets/NewsletterV2.widget'),
 );
 const UserInteractionPortal = asyncComponent(
-  () => import('./components/UserInteractionPortal'),
+  () => import('./libs/modal/UserInteractionPortal.component'),
 );
 const LoginButtonWidget = asyncComponent(
   () => import('./widgets/LoginButton.widget'),
@@ -287,43 +285,19 @@ class BsportWidget extends Component<Props> {
                 fromWidget
               />
             )}
-
-            <div
-              className={classNames(classes.widgetContainer, {
-                [classes.widgetContainerHidden]:
-                  shouldDisplayInPageInteractionPortal(
-                    dialogMode,
-                    allowNoPopup,
-                    this.props.dialog.url,
-                  ),
-              })}
-            >
-              <Widget
-                key={`widget-${this.props.widgetRefreshKey}`}
-                companyId={companyId}
-                franchiseId={franchiseId}
-                config={config[widgetType] || {}}
-                store={store}
-                theme={theme}
-                onWindowOpen={this.onWindowOpen}
-                dialogMode={dialogMode}
-                parentElement={parentElement}
-                uniqueWidgetId={uniqueWidgetId}
-                usePostMessageIframeDimensions={usePostMessageIframeDimensions}
-                isBackofficePreview={isBackofficePreview}
-              />
-            </div>
-            <UserInteractionPortal
-              url={this.props.dialog.url}
-              dialogMode={this.props.dialog.dialogMode}
-              onClose={this.props.closeUserInteractionPortal}
-              fullScreenPopup={this.props.fullScreenPopup}
-              allowNoPopup={allowNoPopup}
-              parentElementId={this.props.parentElement}
-              styles={styles || this.props.theme.widget_theme}
-              customConfiguration={this.props.customConfiguration}
+            <Widget
+              key={`widget-${this.props.widgetRefreshKey}`}
+              companyId={companyId}
+              franchiseId={franchiseId}
+              config={config[widgetType] || {}}
+              store={store}
+              theme={theme}
+              onWindowOpen={this.onWindowOpen}
+              dialogMode={dialogMode}
+              parentElement={parentElement}
+              uniqueWidgetId={uniqueWidgetId}
               usePostMessageIframeDimensions={usePostMessageIframeDimensions}
-              usePostMessageIfameScrollup={usePostMessageIfameScrollup}
+              isBackofficePreview={isBackofficePreview}
             />
             {!!this.props.theme &&
               !this.props.theme.is_premium &&
@@ -332,6 +306,18 @@ class BsportWidget extends Component<Props> {
                 <BsportLogo theme={this.props.theme} />
               )}
             <Snackbar theme={this.props.theme} />
+            <UserInteractionPortal
+              url={this.props.dialog.url}
+              dialogMode={this.props.dialog.dialogMode}
+              onClose={this.props.closeUserInteractionPortal}
+              fullScreenPopup={this.props.fullScreenPopup}
+              allowNoPopup={allowNoPopup}
+              parentElement={this.props.parentElement}
+              styles={styles || this.props.theme.widget_theme}
+              customConfiguration={this.props.customConfiguration}
+              usePostMessageIframeDimensions={usePostMessageIframeDimensions}
+              usePostMessageIfameScrollup={usePostMessageIfameScrollup}
+            />
             <WidgetBridge
               companyId={companyId}
               companyName={this.props.theme.company_name}
@@ -362,12 +348,6 @@ const styles = () =>
       flexDirection: 'column',
       alignItems: 'center',
       backgroundColor: 'transparent !important',
-    },
-    widgetContainer: {
-      width: '100%',
-    },
-    widgetContainerHidden: {
-      display: 'none',
     },
   });
 

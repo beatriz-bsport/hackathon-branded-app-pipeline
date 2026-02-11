@@ -1,9 +1,5 @@
 import { FormField } from "@bsport/form";
-import {
-  FormRadioGroup,
-  TextField,
-  useMatchMedia,
-} from "@bsport/kaizen-primitive-core";
+import { FormRadioGroup, TextField } from "@bsport/kaizen-primitive-core";
 
 import type { AppointmentAction } from "#src/components/MarketingNotificationBuilder/NotificationTriggerForms/Appointment/types";
 import {
@@ -29,7 +25,6 @@ export const AppointmentOccurrenceField = ({
   onAmountChange,
   onChange,
 }: AppointmentOccurrenceFieldProps) => {
-  const isMobile = !useMatchMedia("sm");
   const { t } = useTranslation("marketingNotificationsModal");
 
   const appoitnmentOccurenceTranslationKeyActionBased: "attend" | "cancel" =
@@ -69,16 +64,12 @@ export const AppointmentOccurrenceField = ({
               <TextField
                 id="booking-amount-field"
                 type="number"
-                suffix={
-                  isMobile
-                    ? undefined
-                    : {
-                        type: "text",
-                        value: t(
-                          `steps.notificationRules.appointment.amountSuffix.${appoitnmentOccurenceTranslationKeyActionBased}`,
-                        ),
-                      }
-                }
+                suffix={{
+                  type: "text",
+                  value: t(
+                    `steps.notificationRules.appointment.amountSuffix.${appoitnmentOccurenceTranslationKeyActionBased}`,
+                  ),
+                }}
               />
             </FormField>
           ),

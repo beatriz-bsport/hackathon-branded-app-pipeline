@@ -19,12 +19,8 @@ export const defaultClasses = [
 
 export const variants = {
   size: {
-    sm: ["text-body-sm"],
-    lg: ["text-body-md", "py-2xs"],
-  },
-  rounded: {
-    default: ["rounded-sm"],
-    lg: ["rounded-lg"],
+    sm: ["rounded-xs", "text-body-sm"],
+    lg: ["rounded-sm", "text-body-md", "py-2xs"],
   },
   colorByType: {
     "weak:default": [

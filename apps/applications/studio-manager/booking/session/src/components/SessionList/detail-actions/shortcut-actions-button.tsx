@@ -1,5 +1,4 @@
 import React, { useCallback } from "react";
-import { useNavigate } from "react-router";
 
 import {
   Button,
@@ -17,7 +16,6 @@ import {
   openRestoreModal,
 } from "#src/stores/session-list";
 import type { EnrichedSession } from "#src/types";
-import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
@@ -29,8 +27,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
   session,
 }) => {
   const { t } = useTranslation("sessionList");
-  const navigate = useNavigate();
-
   const { copyToClipboard } = useCopyToClipboard();
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
   const isWorkshop = session.is_workshop;
@@ -63,7 +59,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "edit-02",
         type: "button",
         onClick: () => {
-          navigate(URLS.DETAILS(session.id));
           setIsPopoverOpened(false);
         },
       };
@@ -158,7 +153,6 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
       hasEditPermission,
       hasCancelPermission,
       hasCreatePermission,
-      navigate,
     ],
   );
 

@@ -1,8 +1,12 @@
 import { z } from "zod";
 
-import type { BillingFlowItem, ItemType } from "./types";
+import type { ItemType } from "./types";
 
-/** Item type constants for form selection. */
+/**
+ * Item type constants for form selection
+ * These values are used throughout the codebase for type checking and validation
+ * Export as const array to enable reuse and easy maintenance
+ */
 export const ITEM_TYPES = [
   "pass",
   "appointment_pass",
@@ -37,25 +41,7 @@ export const invoiceItemFormDataSchema = z.object({
 });
 
 /**
- * Schema for one line item in the billing flow (itemName, taxPercent, etc.).
- */
-export const addedItemSchema = invoiceItemFormDataSchema.extend({
-  buyableItemId: z.number().positive(),
-  activationDate: z.null(),
-  billingDetail: z.null(),
-  itemName: z.string(),
-  taxPercent: z.number().optional(),
-  credits: z.number().nullish(),
-  durationDays: z.number().nullish(),
-  durationMonths: z.number().nullish(),
-  durationYears: z.number().nullish(),
-  validityDateRange: z
-    .object({ lower: z.string(), upper: z.string() })
-    .nullish(),
-}) satisfies z.ZodType<BillingFlowItem>;
-
-/**
- * Schema for billing flow form data (submitted shape)
+ * Schema for billing flow form data
  */
 export const billingFlowFormDataSchema = z.object({
   memberId: z
@@ -65,37 +51,36 @@ export const billingFlowFormDataSchema = z.object({
       message: "Member is required",
     })
     .transform((val: number | null) => (val === null ? undefined : val)),
-  items: z.array(addedItemSchema).min(1, "At least one item is required"),
+  items: z
+    .array(invoiceItemFormDataSchema)
+    .min(1, "At least one item is required"),
   couponCodes: z.array(z.string()),
   footnote: z.string().nullable(),
-  date: z.date({ required_error: "Invoice date is required" }),
+  date: z.string().min(1, "Invoice date is required"),
 });
-
-/** Builder state (not validated on submit). */
-const billingFlowBuilderStateSchema = z.object({
-  addItemSelectedItemType: z.enum(ITEM_TYPES).nullable(),
-  addItemSelectedItemId: z.string().nullable(),
-  addItemSelectedItemPriceCts: z.number(),
-  addItemQuantity: z.number(),
-  addItemPriceCts: z.number().min(0).nullable(),
-  addItemSearchValue: z.string(),
-  addItemApplyDiscount: z.boolean(),
-  addItemDiscountPercent: z.number(),
-  addItemDiscountAmountCts: z.number(),
-  addItemDiscountReason: z.string(),
-  isDiscountReasonRequired: z.boolean(),
-});
-
-/** Full form state schema (submitted shape + builder state) for useFormController defaultValues. */
-export const billingFlowFormStateSchema = billingFlowFormDataSchema.merge(
-  billingFlowBuilderStateSchema,
-);
-
-/** Inferred type for form state. */
-export type BillingFlowFormState = z.infer<typeof billingFlowFormStateSchema>;
 
 /**
- * Price input pattern (UI-level): allow empty, integers, or decimals with up to 2 digits.
- * Accepts both dot and comma as decimal separators.
+ * Default form values
  */
-export const PRICE_INPUT_PATTERN = /^\d*(?:[.,]\d{0,2})?$/;
+export const DEFAULT_FORM_DATA: z.infer<typeof billingFlowFormDataSchema> = {
+  memberId: undefined,
+  items: [],
+  couponCodes: [],
+  footnote: null,
+  date: new Date().toISOString().split("T")[0], // Today's date in YYYY-MM-DD format
+};
+
+/**
+ * Default invoice item form data
+ */
+export const DEFAULT_ITEM_FORM_DATA: z.infer<typeof invoiceItemFormDataSchema> =
+  {
+    type: "pass", // Default to pass for first item
+    buyableItemId: null,
+    quantity: 1,
+    priceCts: 0,
+    discountPercent: 0,
+    discountAmountCts: 0,
+    activationDate: null,
+    billingDetail: null,
+  };

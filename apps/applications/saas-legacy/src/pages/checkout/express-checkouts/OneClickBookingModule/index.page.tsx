@@ -12,7 +12,7 @@ import type { RootState } from '#src/reducers';
 import { Redirect } from 'react-router-dom';
 //@ts-expect-error
 import withQueryParams from '#src/hocs/with-query-params.hoc';
-import { useRedirectToUrl } from '#src/pages/checkout/express-checkouts/hooks/useRedirectOnSuccess';
+
 import {
   getLoginUrl,
   getOfferBookerUrl,
@@ -118,8 +118,6 @@ const OneClickBookingModule: React.FC<Props> = ({
   const onCheckPaymentStatusFail = useCheckPaymentStatusFail(setQueryParams);
 
   const { goBackToCalendar } = useNavigation(companyId);
-  const redirectToUrl = useRedirectToUrl();
-  const redirectToLogin = () => redirectToUrl(loginToBookerUrl);
 
   const memberId =
     getItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID) ?? '';
@@ -462,7 +460,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                 ))}
                 <ButtonV2
                   color={ButtonColor.SECONDARY}
-                  onClick={redirectToLogin}
+                  href={loginToBookerUrl}
                   size={ButtonSize.SM}
                   variant={ButtonVariant.TEXT}
                 >

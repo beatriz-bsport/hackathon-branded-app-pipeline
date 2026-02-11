@@ -8,7 +8,7 @@
       "validate": "Envía",
       "lastName": "Apellido",
       "firstName": "Nombre",
-      "email": "Correo electrónico",
+      "email": "Dirección de correo electrónico",
       "title": "Suscríbete al boletín de noticias"
     },
     "formV2": {
@@ -493,9 +493,7 @@
         "private_consumer_pass-create": "Pase de cita",
         "consumer_payment_pack-create": "Bono",
         "consumer_giftcard-create": "Tarjeta de regalo",
-        "provision_update-create": "Comprar Artículo",
-        "marketing-lead_form_submitted": "Formulario de lead enviado",
-        "105": "Miembro"
+        "provision_update-create": "Comprar Artículo"
       },
       "exit": {
         "exit_fail_label": "No",
@@ -537,11 +535,7 @@
         "finerGrain": {
           "purchaseLabelTitle": "Artículo/s comprado/s",
           "specifyItemsToggleLabel": "Especificar artículos"
-        },
-        "triggerTimeoutHours": "hora.",
-        "triggerTimeoutHours_plural": "horas.",
-        "triggerTimeoutDaysAnd": "día y",
-        "triggerTimeoutDaysAnd_plural": "días y"
+        }
       },
       "previous": "Anterior",
       "next": "Siguiente",
@@ -562,14 +556,9 @@
       "cancel": "Cancelar",
       "error": {
         "triggerCannotBeEmpty": "Tiene que seleccionar un tipo de ingreso.",
-        "timeoutMustBeStrictPositive": "El retraso debe ser de al menos 1 día.",
+        "timeoutMustBeStrictPositive": "El plazo debe ser de al menos 1 día.",
         "maximumConnectedTrigger": "No se pueden configurar más de cinco activadores.",
-        "minimumConnectedTrigger": "Debe seleccionar al menos un activador.",
-        "timeoutRequired": "El retraso es obligatorio.",
-        "timeoutHoursMustBeMax23": "El número de horas no debe superar 23.",
-        "timeoutHoursMustBePositive": "El número de horas debe ser positivo.",
-        "timeoutDaysMustBePositive": "El número de días debe ser positivo.",
-        "timeoutMustBeStrictPositiveWithHourlyTimeout": "El retraso debe ser de al menos 1 hora."
+        "minimumConnectedTrigger": "Debe seleccionar al menos un activador."
       },
       "marketing_action": {
         "1": "Enviar correo",
@@ -583,8 +572,7 @@
           "submit": "Guardar"
         },
         "defaultName": "Nombre por defecto",
-        "select_tag": "Seleccionar una etiqueta",
-        "6": "Eliminar una etiqueta"
+        "select_tag": "Seleccionar una etiqueta"
       },
       "delete": "Borrar",
       "updateSubmit": "Validar"
@@ -631,14 +619,11 @@
         "purchase_chip": "Compra",
         "billing_plan_chip": "Cuota",
         "invoice_chip": "Facturación",
-        "basket_chip": "Cesta",
-        "member_chip": "Miembro"
+        "basket_chip": "Cesta"
       },
       "timeout": {
         "timeout_days_chip": "{{ count }} día",
-        "timeout_days_chip_plural": "{{ count }} días",
-        "timeout_hours_chip": "{{ count }} hora",
-        "timeout_hours_chip_plural": "{{ count }} horas"
+        "timeout_days_chip_plural": "{{ count }} días"
       },
       "trigger": "Desencadenante",
       "exit": "Salida",
@@ -768,14 +753,9 @@
         "helperText": "Establezca cuándo se considera que su objetivo no se ha cumplido: defina un límite de tiempo para ello y/o un desencadenante o desencadenantes específicos tras los cuales el miembro saldrá sin éxito de este {{ workflowLowerCase }}.",
         "addTrigger": "Añadir un activador de salida",
         "timeout": {
-          "helperText": "Los miembros saldrán del {{ workflowLowerCase }} si no se produce ningún avance tras este número de días.",
-          "label": "Días inactivo en {{ workflowLowerCase }}.",
-          "title": "Límite de tiempo",
-          "hours": "hora",
-          "hours_plural": "horas",
-          "days": "día y",
-          "days_plural": "días y",
-          "helperTextWithHourlyTimeout": "Los miembros saldrán del {{ workflowLowerCase }} si no se realiza ningún progreso después de este período de inactividad."
+          "helperText": "Los miembros saldrán del {{ workflowLowerCase }} si no se produce ningún avance tras este número de días",
+          "label": "Días inactivo en {{ workflowLowerCase }}",
+          "title": "Límite de tiempo"
         }
       },
       "wonAction": {
@@ -890,7 +870,7 @@
     "graph": {
       "alert": {
         "switchToEditMode": "Usted está en el modo de vista, haga clic en EDITAR para editar el {{ workflowLowerCase }}.",
-        "audienceIsActive": "Tu {{ workflowLowerCase }} está actualmente activo. Paúsalo primero para editarlo. "
+        "audienceIsActive": "Su {{ workflowLowerCase }} está en curso, por favor, páuselo para modificarlo."
       }
     },
     "activate": {
@@ -1076,8 +1056,7 @@
       },
       "createFromScratchDescription": "Crea un {{ workflowLowerCase }} para automatizar tus acciones de Audience.",
       "useTemplate": "Usar plantilla",
-      "createFromScratch": "Crear {{ workflowLowerCase }}",
-      "createFromScratchTitle": "Nuevo {{ workflowLowerCase }}"
+      "createFromScratch": "Crear {{ workflowLowerCase }}"
     },
     "upsells": {
       "warning": {

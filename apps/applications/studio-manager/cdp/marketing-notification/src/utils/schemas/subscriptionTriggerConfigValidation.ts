@@ -14,7 +14,7 @@ export const subscriptionTriggerConfigValidationSchema = z
     contractId: z.number(),
     subscriptionEventKind: z.number(),
     timingUnit: z.custom<TimeUnitType>(),
-    timingValue: z.custom<number>(),
+    timingValue: z.number(),
     timingTemporality: z.custom<TemporalityType>(),
     toggleIncludedSmartlists: z.boolean(),
     includedSmartlists: z.array(z.number()).optional(),
@@ -22,16 +22,11 @@ export const subscriptionTriggerConfigValidationSchema = z
     excludedSmartlists: z.array(z.number()).optional(),
   })
   .superRefine((data, ctx) => {
-    const timingValue = data.timingValue;
-    if (
-      typeof timingValue !== "number" ||
-      Number.isNaN(timingValue) ||
-      timingValue < DEFAULT_TIMING_VALUE
-    ) {
+    if (data.timingValue < DEFAULT_TIMING_VALUE) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: i18nInstance.t(
-          `steps.notificationRules.errors.positiveValue.${data.timingUnit}`,
+          "steps.notificationRules.errors.positiveValue",
           {
             timeUnit: data.timingUnit,
             ns: "sm-marketing-notification_marketingNotificationsModal",

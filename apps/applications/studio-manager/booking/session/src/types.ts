@@ -1,5 +1,4 @@
 import type { ManagerSession } from "@bsport/api-book";
-import { type DateTime } from "@bsport/datetime-manipulation";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
 // Careful, name is always present and represents the final name after overrides
@@ -29,21 +28,3 @@ export enum Columns {
   SESSION_TYPE = "sessionType",
   ACTIONS = "actions",
 }
-
-export enum CalendarView {
-  DAILY = "daily",
-  RANGE = "range",
-}
-
-export type DateSelection =
-  | { type: "single"; date: DateTime }
-  | { type: "range"; minDate: DateTime | null; maxDate: DateTime | null };
-
-export enum ModalType {
-  CANCEL = "cancel",
-  RESTORE = "restore",
-  DELETE = "delete",
-  DUPLICATE = "duplicate",
-}
-
-export type ModalState = { type: ModalType; session: EnrichedSession } | null;

@@ -63,10 +63,7 @@
       "title": "Select which trigger type will start the automation",
       "selectAllPasses": {
         "checkbox": {
-          "label": {
-            "pass": "Apply this notification to all passes",
-            "appointmentPass": "Apply this notification to all appointment passes"
-          }
+          "label": "Apply this notification to all appointment passes"
         }
       },
       "notificationType": {
@@ -144,17 +141,8 @@
       "title": "Set up an automation",
       "errors": {
         "noFloat": "Must be a whole number without decimal points",
-        "positiveValue": {
-          "hour": "Timing must be 0 hour or longer",
-          "day": "Timing must be 0 day or longer"
-        },
-        "smartlistShouldBeFilledWhenToggled": "Select a Smartlist or deactivate this option to continue",
-        "bookingOccurence": {
-          "atLeastOne": {
-            "makesBooking": "Must be 1 booking or more",
-            "makesCancellation": "Must be 1 cancellation or more"
-          }
-        }
+        "positiveValue": "Must be at least 0 {{ timeUnit }}",
+        "smartlistShouldBeFilledWhenToggled": "Select a Smartlist or deactivate this option to continue"
       },
       "smartlists": {
         "included": {
@@ -260,11 +248,11 @@
         "actionLabel": "Send this notification when a member",
         "actions": {
           "makesBooking": "Makes a booking",
-          "makesCancellation": "Makes a cancellation"
+          "makesCancellation": "Makes a cancelation"
         },
         "statusLabel": {
           "attendance": "Send this notification when members are marked as",
-          "cancellation": "Send this notification when cancellation was"
+          "cancellation": "Send this notification when cancelation was"
         },
         "statusOptions": {
           "present": "Present",
@@ -274,21 +262,15 @@
         },
         "occurrenceLabel": "Send this notification when",
         "occurrences": {
-          "anyBooking": {
-            "makesBooking": "A member makes any booking",
-            "makesCancellation": "A member makes any cancellation"
-          },
-          "specificAmount": {
-            "makesBooking": "A member reaches a specific amount of bookings",
-            "makesCancellation": "A member reaches a specific amount of cancellations"
-          }
+          "anyBooking": "A member makes any booking",
+          "specificAmount": "A member reaches a specific amount of bookings"
         },
-        "amountSuffix": {
-          "makesBooking": "Bookings",
-          "makesCancellation": "Cancellations"
-        },
+        "amountSuffix": "Bookings",
         "alerts": {
-          "defaultToAbsent": "Your settings are configured to mark members as absent by default"
+          "present": "Your settings are configured to mark members as present by default",
+          "absent": "Your settings are configured to mark members as absent by default",
+          "refunded": "Your settings are configured to mark members as refunded by default",
+          "tooLate": "Your settings are configured to not issue refunds for late members"
         },
         "timing": {
           "temporality": {
@@ -329,8 +311,8 @@
         "actionLabel": "Send this notification when a member",
         "actions": {
           "attend": "Attends their booked appointment",
-          "cancelOnTime": "Cancels their appointment within the cancellation window",
-          "cancelTooLate": "Cancels their appointment outside the cancellation window"
+          "cancelOnTime": "Cancels their appointment within the cancelation window",
+          "cancelTooLate": "Cancels their appointment outside the cancelation window"
         },
         "occurrenceLabel": "Send this notification when",
         "occurrences": {
@@ -339,13 +321,13 @@
             "specificAmount": "A member reaches a specific amount of bookings"
           },
           "cancel": {
-            "anyBooking": "A member makes any cancellation",
-            "specificAmount": "A member reaches a specific amount of cancellation"
+            "anyBooking": "A member makes any cancelation",
+            "specificAmount": "A member reaches a specific amount of cancelations"
           }
         },
         "amountSuffix": {
           "attend": "Bookings",
-          "cancel": "cancellation"
+          "cancel": "Cancelations"
         }
       },
       "subscription": {

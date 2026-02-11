@@ -4,8 +4,6 @@ import { FormField, useFormContext } from "@bsport/form";
 import { Select, SelectProps } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { isMonthlyRecurrencePatternValidType } from "#src/components/SessionForm/TimeAndDate/recurrence/utils";
-import { RecurrenceRuleType } from "#src/events/constants";
 import { getWeekdayPositionInMonth } from "#src/helpers/recurrence/custom/month.utils";
 import {
   CustomRecurrenceUnit,
@@ -15,10 +13,9 @@ import {
 import type { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-export const RecurrencePatternSelector: FC<{
-  fieldIdPrefix: string;
-  trackRecurrenceRule?: (recurrenceRule: RecurrenceRuleType) => void;
-}> = ({ fieldIdPrefix, trackRecurrenceRule }) => {
+export const RecurrencePatternSelector: FC<{ fieldIdPrefix: string }> = ({
+  fieldIdPrefix,
+}) => {
   const { t } = useTranslation(["common", "sessionCreation"]);
 
   const { watch, setValue } = useFormContext<SessionCreationFormData>();
@@ -84,24 +81,26 @@ export const RecurrencePatternSelector: FC<{
     },
   ];
 
+  const displayValue =
+    selectedValue === MonthlyRecurrencePattern.DAY_OF_MONTH
+      ? dayOfMonthLabel
+      : nthWeekdayLabel;
+
   return (
     <FormField<SessionCreationFormData, "recurrencePattern", SelectProps>
       name="recurrencePattern"
       mapProps={() => ({
-        onChange: (selectedOptionId) => {
-          if (!isMonthlyRecurrencePatternValidType(selectedOptionId)) {
-            console.warn(
-              `Invalid monthly recurrence pattern: ${selectedOptionId}`,
-            );
-            return;
-          }
-          setValue("recurrencePattern", selectedOptionId, {
-            shouldValidate: true,
-            shouldDirty: true,
-          });
-          trackRecurrenceRule?.(selectedOptionId);
+        onSelectId: (selectedOptionId) => {
+          setValue(
+            "recurrencePattern",
+            selectedOptionId as MonthlyRecurrencePattern,
+            {
+              shouldValidate: true,
+              shouldDirty: true,
+            },
+          );
         },
-        value: selectedValue,
+        value: displayValue,
       })}
     >
       <Select

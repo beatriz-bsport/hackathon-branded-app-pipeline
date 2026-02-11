@@ -6,6 +6,7 @@ import { Columns, type EnrichedSession, type TableColumn } from "#src/types";
 
 type SessionCardsProps = {
   columns: TableColumn[];
+  isLoading: boolean;
   rows: EnrichedSession[];
 };
 
@@ -17,7 +18,20 @@ type SessionCardProps = {
 export const SessionCards: React.FC<SessionCardsProps> = ({
   columns,
   rows,
+  isLoading,
 }) => {
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-xs p-md">
+        {Array.from({ length: 2 }).map((_, index) => (
+          <div
+            key={index}
+            className="h-[220px] w-full bg-[#F0F0F0] rounded-md animate-pulse"
+          />
+        ))}
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col gap-sm px-sm">
       {rows.map((row) => (

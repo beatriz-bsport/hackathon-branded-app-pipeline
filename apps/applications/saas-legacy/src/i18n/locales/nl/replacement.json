@@ -217,12 +217,11 @@
     "until": "Tot {{-date}}",
     "filters": "Filters",
     "description": "De volgende sessies hebben een plaatsvervanger nodig. Ben je beschikbaar?",
-    "title": "Ledenruimte"
+    "title": "Marketplace"
   },
   "confirmations": {
     "description": "Je bent als plaatsvervanger aangewezen voor de volgende sessies.",
-    "title": "Bevestigingen",
-    "unavailable": "Vervanging aanvragen "
+    "title": "Bevestigingen"
   },
   "requests": {
     "cancel": "Annuleren",

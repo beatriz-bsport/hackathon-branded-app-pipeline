@@ -9,38 +9,56 @@ type EditTagFormProps = Omit<
   "onSubmit" | "children"
 > & {
   isEdition: boolean;
+  tagGroupMapByName: Record<string, number>;
   tagGroupOptions: SelectProps["items"];
 };
 
+function findRecordValueByKey(
+  map: Record<string, number>,
+  value: number,
+): string | undefined {
+  return Object.keys(map).find((key) => map[key] === value);
+}
+
 export const CreateEditTagForm: React.FC<EditTagFormProps> = ({
   isEdition,
+  tagGroupMapByName,
   tagGroupOptions,
   ...methods
 }: EditTagFormProps) => {
   const { t } = useTranslation("tags");
-
-  const { watch, setValue } = methods;
-
-  const selectedTagGroup = watch("tagGroup");
-
   return (
     <div>
       {isEdition ? (
-        <Select
-          required
-          fullWidth
-          status={
-            methods.formState.errors.tagGroup?.message ? "critical" : "default"
-          }
-          errorText={methods.formState.errors.tagGroup?.message}
-          id="edit-tag-group-select"
-          label={t("tagModal.formField.mainTagAssociated.label")}
-          items={tagGroupOptions}
-          value={String(selectedTagGroup)}
-          onChange={(option: string) => {
-            setValue("tagGroup", parseInt(option), { shouldValidate: true });
-          }}
-        />
+        <FormField<CreateEditTagData, "tagGroup", SelectProps>
+          name="tagGroup"
+          mapProps={({ defaultProps, field }) => ({
+            ...defaultProps,
+            value:
+              field.value === 0
+                ? t("tagModal.formField.mainTagAssociated.placeholder")
+                : findRecordValueByKey(tagGroupMapByName, field.value) || "",
+            onSelect: (option: string) => {
+              const selectedGroup = tagGroupMapByName[option];
+              field.onChange(selectedGroup);
+              field.onBlur();
+            },
+          })}
+        >
+          <Select
+            required
+            fullWidth
+            status={
+              methods.formState.errors.tagGroup?.message
+                ? "critical"
+                : "default"
+            }
+            errorText={methods.formState.errors.tagGroup?.message}
+            id="edit-tag-group-select"
+            label={t("tagModal.formField.mainTagAssociated.label")}
+            items={tagGroupOptions}
+          />
+        </FormField>
       ) : null}
       <FormField<CreateEditTagData, "tagName">
         name="tagName"

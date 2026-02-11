@@ -57,6 +57,7 @@ export const MarketingNotificationTable = ({
     useFormatMarketingNotificationTableRow({
       groupActivitiesById,
       emailTemplatesById,
+      canToggleNotification: isUserMarketingNotificationManager,
     });
 
   const openMarketingNotificationDetail = (notificationId: number) => {
@@ -211,7 +212,7 @@ export const MarketingNotificationTable = ({
       >
         <MarketingNotificationDetailsContent
           handleSelectMarketingNotificationAction={
-            handleSelectMarketingNotificationAction
+            handleMarketingNotificationModalAction
           }
           notification={selectedMarketingNotification}
         />

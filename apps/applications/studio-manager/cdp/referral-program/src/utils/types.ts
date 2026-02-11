@@ -6,14 +6,21 @@ export type ReferralProgramFormData = {
   referringRewardPercentage: number;
   referringRewardAmount: string;
   applicationTimeLimitInterval: number;
-  applicationTimeLimitUnit: TimeUnit;
+  applicationTimeLimitUnit: string;
   toggleTagReferredMember: boolean;
   tagReferredMember: number | null;
   toggleLinkRedirection: boolean;
   redirectLink: string | null;
 };
 
-export const timeUnits = ["days", "weeks", "months"] as const;
+// Map first letter of units to full unit string to allow reverse search (translations -> unit)
+export const unitMap: Record<string, "day" | "week" | "month"> = {
+  d: "day",
+  w: "week",
+  m: "month",
+};
+
+export const timeUnits = ["day", "week", "month"] as const;
 export type TimeUnit = (typeof timeUnits)[number];
 
 export const referringRewardTypeValues = {

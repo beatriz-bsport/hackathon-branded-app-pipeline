@@ -8,13 +8,15 @@ import {
 } from "@bsport/i18n";
 
 import type bookingTranslations from "#src/i18n/source/booking.json";
+import type buyablesTranslations from "#src/i18n/source/buyables.json";
 import type financialServicesTranslations from "#src/i18n/source/financial-services.json";
 
 import i18nNamespaces from "./namespaces.json";
 
 export type Translations = {
-  "financial-services": typeof financialServicesTranslations;
   booking: typeof bookingTranslations;
+  buyables: typeof buyablesTranslations;
+  "financial-services": typeof financialServicesTranslations;
 };
 
 /**

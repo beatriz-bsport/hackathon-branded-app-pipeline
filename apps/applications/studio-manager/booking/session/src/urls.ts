@@ -1,12 +1,34 @@
 import { generatePath } from "react-router";
 
+import { makeFeatureFlags } from "@bsport/sm-backbone";
+
+export const { flags, useFlag: useBookingManagementFlag } = makeFeatureFlags({
+  BOOKINGS_MANAGEMENT_REVAMP: "booking_bookings_management_revamped",
+} as const);
+
 export const URLS = {
-  DETAILS_SLUG: ":id",
-  EDIT_SLUG: ":id/edit",
+  BOOKINGS_MANAGEMENT_REVAMP: ":sessionId",
+  EDIT_SLUG: ":sessionId/edit",
 } as const;
 
-export const getDetailsUrl = (id: number) =>
-  generatePath(URLS.DETAILS_SLUG, { id: String(id) });
+export const LEGACY_URLS = {
+  BOOKINGS_MANAGEMENT_REVAMP: `/offer/:sessionId`,
+} as const;
 
-export const getEditUrl = (id: number) =>
-  generatePath(URLS.EDIT_SLUG, { id: String(id) });
+export const useUrls = () => {
+  const shouldUseBookingManagementRevamp = useBookingManagementFlag(
+    flags.BOOKINGS_MANAGEMENT_REVAMP,
+  );
+
+  return {
+    getBookingsManagementUrl: (id: number) =>
+      generatePath(
+        shouldUseBookingManagementRevamp
+          ? URLS.BOOKINGS_MANAGEMENT_REVAMP
+          : LEGACY_URLS.BOOKINGS_MANAGEMENT_REVAMP,
+        { sessionId: String(id) },
+      ),
+    getEditUrl: (id: number) =>
+      generatePath(URLS.EDIT_SLUG, { sessionId: String(id) }),
+  };
+};

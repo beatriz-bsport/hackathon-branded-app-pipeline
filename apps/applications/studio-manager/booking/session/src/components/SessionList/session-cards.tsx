@@ -65,7 +65,14 @@ const renderColumnContent = (column: TableColumn, row: EnrichedSession) => {
   if ("keyPath" in column) {
     return (
       <Body htmlVariant="p" size="md">
-        {row[column.keyPath as keyof Omit<EnrichedSession, "onRowClick">]}
+        {
+          row[
+            column.keyPath as keyof Omit<
+              EnrichedSession,
+              "onRowClick" | "navigateToBookingsManagement"
+            >
+          ]
+        }
       </Body>
     );
   }

@@ -3,5 +3,10 @@
   "tabs": {
     "editor": "Editor",
     "overview": "Overview"
+  },
+  "header": {
+    "listedSessionChip": "Listed",
+    "unlistedSessionChip": "Unlisted",
+    "cancelledSessionChip": "Cancelled"
   }
 }

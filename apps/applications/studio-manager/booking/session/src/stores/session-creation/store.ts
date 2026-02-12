@@ -79,6 +79,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   broadcast_link: "",
   establishment: null,
   room_blueprint: null,
+  roomBlueprintCapacity: null,
   sync_on_spivi: undefined,
   wellhub_product_id: null,
 };

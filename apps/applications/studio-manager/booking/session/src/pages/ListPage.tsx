@@ -17,7 +17,16 @@ import { DeleteSessionModal } from "#src/components/SessionList/detail-actions/d
 import { DuplicateSessionModal } from "#src/components/SessionList/detail-actions/duplicate-session-modal";
 import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/restore-session-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
+import { SearchClearSource } from "#src/events/constants";
+import { useTrackSessionListViewed } from "#src/events/hooks/use-track-session-list-viewed";
+import { sessionCreationOpensEvent } from "#src/events/session-creation/events";
+import {
+  sessionListSearchChangedEvent,
+  sessionListSearchClearedEvent,
+} from "#src/events/session-list/events";
 import { useModal } from "#src/hooks/use-modal";
+import { ModalType } from "#src/types";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 import { useAnyObjectLevelPermissions } from "#src/utils/permission";
 
@@ -31,13 +40,14 @@ import {
   useSessionListData,
 } from "../hooks/useSessionListData";
 import {
-  ModalType,
   selectFilters,
   selectModalState,
   selectSelectedDate,
   setLocale,
   useSessionListStore,
 } from "../stores/session-list";
+
+export const DEFAULT_DEBOUNCE_DELAY = 200;
 
 const ListPage: React.FC = () => {
   const { t, i18n } = useTranslation("sessionList");
@@ -114,9 +124,21 @@ const ListPage: React.FC = () => {
     !isLoading && !sessionDataError && Object.keys(sessionsByDate).length === 0;
 
   const onClickEmptySearchState = useCallback(() => {
+    analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
+      search_value: searchQuery,
+      source: SearchClearSource.CLEAR_FILTERS,
+    });
     setSearchQuery("");
     resetFilters?.();
-  }, [resetFilters]);
+  }, [resetFilters, searchQuery]);
+
+  const onClickAddSession = useCallback(() => {
+    openAddSessionModal();
+    analyticsTrackSafeEvent(sessionCreationOpensEvent, {});
+  }, [openAddSessionModal]);
+
+  // Tracks the display settings on Mixpanel when the user lands on the page.
+  useTrackSessionListViewed();
 
   const isFilterEmpty = useMemo(() => {
     return (
@@ -139,7 +161,7 @@ const ListPage: React.FC = () => {
       ctaButtonConfig: hasCreateSessionPermission
         ? {
             label: t("addSession"),
-            onClick: openAddSessionModal,
+            onClick: onClickAddSession,
             iconLeft: "plus",
             intent: "call-to-action",
             color: "main",
@@ -162,7 +184,7 @@ const ListPage: React.FC = () => {
   });
 
   const { shouldRenderLoadingState, LoadingState } = useLoadingState({
-    isLoading: isLoading && Object.keys(sessionsByDate).length === 0,
+    isLoading,
     message: t("table.isLoading"),
   });
 
@@ -174,10 +196,10 @@ const ListPage: React.FC = () => {
         intent="call-to-action"
         color="main"
         label={t("addSession")}
-        onClick={openAddSessionModal}
+        onClick={onClickAddSession}
       />
     );
-  }, [t, openAddSessionModal, hasCreateSessionPermission]);
+  }, [t, onClickAddSession, hasCreateSessionPermission]);
 
   const sessionDays = useMemo(
     () =>
@@ -186,11 +208,10 @@ const ListPage: React.FC = () => {
           key={date}
           date={date}
           sessions={sessions}
-          isLoading={isLoading}
           locale={intlLocale || "en-US"}
         />
       )),
-    [sessionsByDate, isLoading, intlLocale],
+    [sessionsByDate, intlLocale],
   );
 
   return (
@@ -205,20 +226,35 @@ const ListPage: React.FC = () => {
         searchConfig={{
           id: "session-search",
           inputValue: searchQuery,
-          onInputValueChange: setSearchQuery,
-          onClear: () => setSearchQuery(""),
+          onInputValueChange: (value: string) => {
+            analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
+              search_value: value,
+            });
+            setSearchQuery(value);
+          },
+          debounceValue: DEFAULT_DEBOUNCE_DELAY,
+          onClear: () => {
+            analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
+              search_value: searchQuery,
+              source: SearchClearSource.CLEAR_BUTTON,
+            });
+            setSearchQuery("");
+          },
         }}
       />
       <ListLayout.Content>
         <DateNavigationHeader />
         <div className="flex flex-col gap-xl h-full mt-md">
-          {shouldRenderEmptyState && <EmptyState />}
-          {!shouldRenderEmptyState && !sessionDataError && sessionDays}
-          {shouldRenderLoadingState && <LoadingState />}
-          {sessionDataError && (
+          {shouldRenderEmptyState ? (
+            <EmptyState />
+          ) : shouldRenderLoadingState ? (
+            <LoadingState />
+          ) : sessionDataError ? (
             <div className="flex flex-col items-center justify-center">
               <ErrorFallback actionProps={ErrorFallback.DEFAULT_ACTION_PROPS} />
             </div>
+          ) : (
+            sessionDays
           )}
         </div>
 

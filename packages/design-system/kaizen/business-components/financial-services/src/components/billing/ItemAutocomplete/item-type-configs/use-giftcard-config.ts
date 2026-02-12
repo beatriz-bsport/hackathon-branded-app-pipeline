@@ -1,7 +1,5 @@
 import { useMemo } from "react";
 
-import { getCurrencyDisplayWithPrice } from "@bsport/currency";
-
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import { itemTypeEndpointConfig } from "./endpoints";
@@ -27,30 +25,14 @@ export const useGiftcardConfig = (): ItemTypeConfig<RawGiftcardResponse> => {
     (): ItemTypeConfig<RawGiftcardResponse> => ({
       ...itemTypeEndpointConfig.giftcard,
       getListItemConfiguration: (item: RawGiftcardResponse) => {
-        const { priceLabel } = getPriceFromItem(item);
+        const { priceLabel, price } = getPriceFromItem(item);
 
         const descriptionParts: string[] = [];
         if (item.expiration_days != null) {
           descriptionParts.push(
             String(
-              t("itemAutocomplete.validForDays", {
+              t("itemAutocomplete.days", {
                 count: item.expiration_days,
-              }),
-            ),
-          );
-        }
-        if (
-          item.card_type === GIFT_CARD_TYPE.FREE_AMOUNT &&
-          item.min_price &&
-          item.max_price
-        ) {
-          const minFormatted = getCurrencyDisplayWithPrice(item.min_price);
-          const maxFormatted = getCurrencyDisplayWithPrice(item.max_price);
-          descriptionParts.push(
-            String(
-              t("itemAutocomplete.customAmountRange", {
-                min: minFormatted,
-                max: maxFormatted,
               }),
             ),
           );
@@ -59,17 +41,20 @@ export const useGiftcardConfig = (): ItemTypeConfig<RawGiftcardResponse> => {
         return {
           id: String(item.id),
           title: item.name,
-          priceLabel,
+          priceLabel: price == null ? t("itemAutocomplete.custom") : priceLabel,
+          taxPercent: 0,
           description:
             descriptionParts.length > 0
               ? descriptionParts.join(DESCRIPTION_PARTS_SEPARATOR)
-              : undefined,
+              : t("itemAutocomplete.unlimited"),
           imageUrl:
             item.cover &&
             typeof item.cover === "string" &&
             item.cover.trim() !== ""
               ? item.cover
               : undefined,
+          hiddenFromMemberArea: item.manager_only ?? false,
+          expirationDays: item.expiration_days ?? null,
         };
       },
     }),

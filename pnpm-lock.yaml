@@ -207,6 +207,9 @@ importers:
       '@bsport/consent-management':
         specifier: workspace:*
         version: link:../../../packages/consent-management
+      '@bsport/intercom':
+        specifier: workspace:*
+        version: link:../../../packages/utils/intercom
       '@bsport/onboarding-manager':
         specifier: workspace:*
         version: link:../../../packages/utils/onboarding-manager
@@ -474,9 +477,6 @@ importers:
       react-infinite-scroll-component:
         specifier: ^6.1.0
         version: 6.1.0(react@16.10.2)
-      react-intercom:
-        specifier: ^1.0.15
-        version: 1.0.15
       react-leaflet:
         specifier: ^2.0.0
         version: 2.8.0(leaflet@1.9.4)(react-dom@16.10.2(react@16.10.2))(react@16.10.2)
@@ -1103,6 +1103,9 @@ importers:
 
   apps/applications/studio-manager/booking/session:
     dependencies:
+      '@bsport/analytics':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/analytics
       '@bsport/api-book':
         specifier: workspace:*
         version: link:../../../../../packages/api/book
@@ -2933,6 +2936,16 @@ importers:
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
 
+  packages/api/buyables:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../stores/base
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
   packages/api/core:
     dependencies:
       '@bsport/store-base':
@@ -3132,12 +3145,21 @@ importers:
 
   packages/design-system/kaizen/business-components/financial-services:
     dependencies:
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../../api/buyables
+      '@bsport/api-financial-services':
+        specifier: workspace:*
+        version: link:../../../../api/financial-services
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../../utils/currency
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../utils/datetime-formatting
+      '@bsport/datetime-manipulation':
+        specifier: workspace:*
+        version: link:../../../../utils/datetime/manipulation
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../utils/fetch
@@ -3171,6 +3193,9 @@ importers:
       '@bsport/store-core-data-member':
         specifier: workspace:*
         version: link:../../../../stores/core-data/member
+      '@bsport/timezone-utils':
+        specifier: workspace:*
+        version: link:../../../../utils/datetime/timezone
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../hooks/use-async
@@ -3538,6 +3563,9 @@ importers:
 
   packages/stores/buyables/giftcard:
     dependencies:
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../api/buyables
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base
@@ -17918,9 +17946,6 @@ packages:
     resolution: {integrity: sha512-jjPykG6orULQ/2Zcatm6vtCs9mdksYZQs4HTmlHAxbkK2NHGFVBrSLDh4k/RpMWVXECZO6za1i6iF7srRKp/KQ==}
     engines: {node: '>= 0.8'}
 
-  prop-types@15.5.8:
-    resolution: {integrity: sha512-QiDx7s0lWoAVxmEmOYnn3rIZGduup2PZgj3rta5O5y0NfPKu3ApWi+GdMfTto7PmO/5+p4yamSLMZkj0jaTL4A==}
-
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
 
@@ -18268,10 +18293,6 @@ packages:
     resolution: {integrity: sha512-GURDaYzoLbW8pMGXwYPDBIv6nqei4kK7LPRZ9q9HCZF54wqXz/dnylBp/kfE9XmekBhHvLDdcYeyIwSrvtOiWg==}
     peerDependencies:
       react: ^16.8.4 || ^17.0.0
-
-  react-intercom@1.0.15:
-    resolution: {integrity: sha512-e4NhmearKjdxmu6EjiA0d29FqEXJUvWtyxo4ioipNsKBD7gZgvtyJMty9UhNRSf9RoPqtSX2Fw4ooy6Ld86ddw==}
-    deprecated: Package no longer maintained. Use at your own risk.
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -24017,7 +24038,9 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:
@@ -36196,9 +36219,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:
@@ -39976,10 +39997,6 @@ snapshots:
       object.assign: 4.1.5
       reflect.ownkeys: 1.1.4
 
-  prop-types@15.5.8:
-    dependencies:
-      fbjs: 0.8.18
-
   prop-types@15.8.1:
     dependencies:
       loose-envify: 1.4.0
@@ -40461,10 +40478,6 @@ snapshots:
       is-dom: 1.1.0
       prop-types: 15.8.1
       react: 16.10.2
-
-  react-intercom@1.0.15:
-    dependencies:
-      prop-types: 15.5.8
 
   react-is@16.13.1: {}
 

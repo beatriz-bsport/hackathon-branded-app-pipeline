@@ -379,7 +379,6 @@ export class MemberAreaBasketUnifiedPage extends React.Component<MemberAreaBaske
                     this.props.theme?.enable_multi_localization
                   }
                   goBack={this.handleGoBack}
-                  goToCalendar={this.props.goToCalendar}
                   goToMarketplace={this.props.goToMarketplace}
                   goToMyProfile={this.props.goToMyProfile}
                   instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
@@ -732,22 +731,6 @@ export default compose(
       ({ companyId, theme, push }) =>
       () => {
         push(getMarketplaceRoute(theme.company_name, companyId));
-      },
-    /** WIDGET ONLY
-     *
-     * When having an empty basket the redirect should be to calendar.\
-     * We also want to hide the navgation app bar since widget
-     */
-    goToCalendar:
-      ({ companyId, theme, push }) =>
-      () => {
-        push(
-          getMarketplaceRoute(
-            theme.company_name,
-            companyId,
-            'calendar?hideNavigation=true',
-          ),
-        );
       },
     goToMyProfile:
       ({ companyId, push }) =>

@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
+import isEmpty from 'lodash/isEmpty';
 import Immutable, { ImmutableArray } from 'seamless-immutable';
 import { isWidthDown, makeStyles } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
@@ -83,7 +84,6 @@ type Props = {
   companyId: number;
   enableMultiLocalization?: boolean;
   goBack: () => void;
-  goToCalendar: () => void;
   goToMarketplace: () => void;
   goToMyProfile: () => void;
   isExcludingTax: boolean;
@@ -115,7 +115,6 @@ export const NewCheckoutFlow: React.FC<Props> = ({
   companyId,
   enableMultiLocalization,
   goBack,
-  goToCalendar,
   goToMarketplace,
   goToMyProfile,
   isExcludingTax,
@@ -184,7 +183,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
       basket.checkout_items.filter(
         (checkoutItem) =>
           !BILL_CHECKOUT_ITEMS.includes(checkoutItem.buyable_item_identifier) &&
-          !checkoutItem.extra_data?.offers_data,
+          isEmpty(checkoutItem.extra_data?.offers_data),
       ),
     [basket.checkout_items],
   );
@@ -248,7 +247,6 @@ export const NewCheckoutFlow: React.FC<Props> = ({
     return (
       <div className={classes.container}>
         <EmptyBasket
-          goToCalendar={goToCalendar}
           goToMarketplace={goToMarketplace}
           goToMyProfile={goToMyProfile}
         />

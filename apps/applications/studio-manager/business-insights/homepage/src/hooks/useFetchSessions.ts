@@ -1,5 +1,9 @@
 import { useCallback } from "react";
 
+import {
+  PaginatedFetchSessionsParams,
+  fetchSessionsAPI,
+} from "@bsport/api-book";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { fetchManagerSessionsAction } from "@bsport/store-booking-session";
 import { useAsync } from "@bsport/use-async";
@@ -19,9 +23,29 @@ export const useFetchSessions = (params: {
   const companyTimezone = useCompanyTimezone();
 
   const handleFetchManagerSessions = useCallback(async () => {
+    // 1) Probe: fetch the next upcoming session only
+    // 2) Fetch: load the full list of manager sessions for that session's day
+    //    (or fall back to today's upcoming if there's no next session at all)
+    let nextSessionDateStart: string | null = null;
+    try {
+      // Use the paginated offer list endpoint as a probe to fetch exactly the next upcoming session.
+      const probeParams: PaginatedFetchSessionsParams = {
+        only_future_strict: true,
+        available: true,
+        ordering: "date_start",
+        page_size: 1,
+      };
+
+      const probeResult = await fetchSessionsAPI(fetch, probeParams);
+      nextSessionDateStart = probeResult.results[0]?.date_start ?? null;
+    } catch (error) {
+      console.error(error);
+      nextSessionDateStart = null;
+    }
+
     const todayUTC = new Date();
-    const todayCompanyTimezone = formatDateTime(
-      todayUTC.toISOString(),
+    const nextSessionCompanyDate = formatDateTime(
+      nextSessionDateStart ? nextSessionDateStart : todayUTC.toISOString(),
       DATETIME_FORMATS.ISO_DATE,
       { timeZone: companyTimezone },
     );
@@ -29,7 +53,7 @@ export const useFetchSessions = (params: {
     return fetchManagerSessionsAction(fetch, {
       only_future_strict: true,
       available: true,
-      date: todayCompanyTimezone, // YYYY-MM-DD
+      date: nextSessionCompanyDate,
     });
   }, [companyTimezone]);
 

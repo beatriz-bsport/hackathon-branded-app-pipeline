@@ -52,9 +52,9 @@ export const EmailEditorForm: React.FC<Props> = ({
           id="category-selector"
           size="md"
           items={categoriesList}
-          value={category as string}
+          value={category}
           popoverPlacement="bottom-left"
-          onSelect={(option) => {
+          onChange={(option) => {
             handleChange("category", option);
           }}
         />

@@ -217,11 +217,12 @@
     "until": "Jusqu'au {{-date}}",
     "filters": "Filtres",
     "description": "Les cours suivants ont besoin d'un professeur remplaçant. Êtes-vous disponible ?",
-    "title": "Marketplace"
+    "title": "Espace membre"
   },
   "confirmations": {
     "description": "Vous avez été ajouté comme professeur remplaçant sur les cours suivants.",
-    "title": "Confirmations"
+    "title": "Confirmations",
+    "unavailable": "Demander un remplacement "
   },
   "requests": {
     "cancel": "Annuler",

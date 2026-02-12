@@ -3,6 +3,7 @@ import { FC } from "react";
 import { useFormContext } from "@bsport/form";
 
 import { Label } from "#src/components/SessionForm/label";
+import { RecurrenceIntervalType } from "#src/events/constants";
 import { RecurrenceType } from "#src/helpers/recurrence/types";
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -10,9 +11,10 @@ import { useTranslation } from "#src/utils/i18n";
 import { RecurrenceInterval } from "./interval";
 import { RecurrenceUnitSelector } from "./unit-selector";
 
-export const RecurrenceFrequencySelector: FC<{ fieldIdPrefix: string }> = ({
-  fieldIdPrefix,
-}) => {
+export const RecurrenceFrequencySelector: FC<{
+  fieldIdPrefix: string;
+  trackRecurrenceType?: (recurrenceType: RecurrenceIntervalType) => void;
+}> = ({ fieldIdPrefix, trackRecurrenceType }) => {
   const { t } = useTranslation("sessionCreation");
 
   const { watch } = useFormContext<SessionCreationFormData>();
@@ -32,7 +34,10 @@ export const RecurrenceFrequencySelector: FC<{ fieldIdPrefix: string }> = ({
       />
       <div className="flex gap-md">
         <RecurrenceInterval fieldIdPrefix={fieldIdPrefix} />
-        <RecurrenceUnitSelector fieldIdPrefix={fieldIdPrefix} />
+        <RecurrenceUnitSelector
+          fieldIdPrefix={fieldIdPrefix}
+          trackRecurrenceType={trackRecurrenceType}
+        />
       </div>
     </div>
   );

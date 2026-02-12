@@ -24,7 +24,7 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({
       defaultValue={
         i18nInstance.resolvedLanguage?.toLocaleUpperCase() || "Select language"
       }
-      onSelect={(language) => {
+      onChange={(language) => {
         switchLanguage(language as Locale);
       }}
     />

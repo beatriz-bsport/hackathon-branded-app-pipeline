@@ -149,7 +149,7 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
         // @ts-expect-error: Error must be better typed
         wellhubGymAvailabilityError?.response?.data?.error_message ??
         (!isGymIdAvailable
-          ? t('wellhub.configuration.dialog.field.unitId.error.unavailable')
+          ? t('wellhub.configuration.dialog.field.externalId.error.unavailable')
           : undefined)
       );
     }
@@ -237,7 +237,7 @@ const WellhubConfigurationDialog: React.FC<Props> = ({
           errorMessage={unitIdErrorMessage}
           isLoading={isValidating || wellhubGymAvailabilityLoading}
           isValid={isGymIdAvailable}
-          label={t('wellhub.configuration.dialog.field.unitId.placeholder')}
+          label={t('wellhub.configuration.dialog.field.externalId.placeholder')}
           name="unitId"
           withValidationIcon={!!values?.unitId}
         />

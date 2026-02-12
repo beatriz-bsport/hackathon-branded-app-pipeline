@@ -45,15 +45,16 @@ export type MarketingNotificationTableRowParams = {
 };
 
 export type MarketingNotificationTableRowData = {
-  id: number;
+  id: string;
+  notificationId: number;
   notificationType: string;
   triggerType: string;
   triggerDate: string;
   isEmailNotificationSet: boolean;
   isPushNotificationSet: boolean;
-  isEmailNotificationBroken: boolean;
+  isEmailTemplateMissing: boolean;
   isNotificationActive: boolean;
-  isAbleToUpdateNotification: boolean;
+  isNotificationEntityMissing: boolean;
   onRowClick?: () => void;
   isActive?: boolean;
 };
@@ -67,6 +68,10 @@ export type MarketingNotificationRecipientsTableRowData = {
   status: number;
   isNotificationRead: boolean;
   recipientsRelationshipsCount?: number;
+  notificationContent: {
+    title: string;
+    body: string;
+  };
 };
 
 export type NotificationType =

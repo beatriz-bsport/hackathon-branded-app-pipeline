@@ -19,6 +19,8 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { getParamsFromFilters } from "#src/components/SessionList/Filters/getParamsFromFilters";
+import { sessionListSessionClickedEvent } from "#src/events/session-list/events";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 
 import {
   selectFilters,
@@ -62,12 +64,16 @@ const processSession =
     const group = session.group ? groupSessionsById[session.group] : undefined;
     const activity = activitiesById[session.meta_activity];
 
+    const sessionName = session.name_override || session.name;
+
+    const teacherName = teacherOverride?.name ?? teacher?.name;
+
     return {
       ...session,
-      teacherName: teacherOverride?.name ?? teacher?.name,
+      teacherName: teacherName,
       originalTeacherName: teacher?.name,
       establishmentName: establishment?.title,
-      name: session.name_override || session.name,
+      name: sessionName,
       color: session.meta_activity_color,
       hasPendingReplacementRequest: sessionsWithPendingRequests.includes(
         session.id,
@@ -76,6 +82,18 @@ const processSession =
       isTeacherArchived: teacher ? teacher.disabled : false,
       isEstablishmentArchived: establishment ? establishment.disabled : false,
       isMetaActivityArchived: activity ? !activity.customer_enabled : false,
+      onRowClick: () => {
+        analyticsTrackSafeEvent(sessionListSessionClickedEvent, {
+          session_id: session.id,
+          session_name: sessionName,
+          session_date: session.date_start,
+          teacher_name: teacherName,
+          teacher_id: teacherOverride?.id ?? teacher?.id,
+          participant_number: session.nb_attendant,
+          session_type: session?.is_workshop ? "workshop" : "group-activity",
+          session_is_online: session.is_broadcast,
+        });
+      },
     };
   };
 

@@ -4,11 +4,11 @@ export const WellhubConfigurationValidationSchema = Yup.object().shape({
   unitId: Yup.number()
     .nullable(true)
     .required(
-      'partnership:wellhub.configuration.dialog.field.unitId.error.required',
+      'partnership:wellhub.configuration.dialog.field.externalId.error.required',
     )
     .min(
       0,
-      'partnership:wellhub.configuration.dialog.field.unitId.error.positive',
+      'partnership:wellhub.configuration.dialog.field.externalId.error.positive',
     ),
   establishmentIds: Yup.array()
     .of(Yup.number())

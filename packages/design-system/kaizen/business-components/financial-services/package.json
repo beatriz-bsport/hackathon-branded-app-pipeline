@@ -34,8 +34,11 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-buyables": "workspace:*",
+    "@bsport/api-financial-services": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
@@ -47,6 +50,7 @@
     "@bsport/store-buyables-pass": "workspace:*",
     "@bsport/store-buyables-webshop": "workspace:*",
     "@bsport/store-core-data-member": "workspace:*",
+    "@bsport/timezone-utils": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",
     "class-variance-authority": "^0.7.0",

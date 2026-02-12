@@ -1,16 +1,17 @@
+import { cx } from "class-variance-authority";
 import React from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { Body, Button, Icon, Title } from "@bsport/kaizen-primitive-core";
 
-import type { AddedItem } from "#src/components/billing/BillingFlowModal/use-add-item-form";
+import type { InvoiceItemFormData } from "#src/components/billing/BillingFlowModal/types";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import { useItemDescriptions } from "./use-item-descriptions";
 import { itemTypeIcon } from "./utils";
 
 export type SummaryItemRowProps = {
-  item: AddedItem;
+  item: InvoiceItemFormData;
   onDelete?: () => void;
 };
 
@@ -22,7 +23,10 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   const isPass = item.type === "pass" || item.type === "appointment_pass";
+  const isGiftcard = item.type === "giftcard";
   const { validityDescription, creditsDescription } = useItemDescriptions(item);
+
+  const hasDiscount = item.discountPercent > 0 || item.discountAmountCts > 0;
 
   return (
     <div className="flex flex-start self-stretch p-2xs">
@@ -38,7 +42,7 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
               {creditsDescription}
             </Body>
           )}
-          {isPass && validityDescription && (
+          {(isPass || isGiftcard) && validityDescription && (
             <Body htmlVariant="span" size="md" color="weak">
               {validityDescription}
             </Body>
@@ -71,13 +75,24 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
             }}
           />
         </div>
-        <Body
-          className="bg-surface-default-weak px-xs py-2xs rounded-md"
-          htmlVariant="span"
-          size="md"
-        >
-          {getCurrencyDisplayWithPrice((item.quantity * item.priceCts) / 100)}
-        </Body>
+        <div className="flex items-end gap-2xs bg-surface-default-weak px-xs py-2xs rounded-md">
+          {hasDiscount && (
+            <Body className="line-through" htmlVariant="span" size="md">
+              {getCurrencyDisplayWithPrice(
+                (item.quantity * (item.priceCts + item.discountAmountCts)) /
+                  100,
+              )}
+            </Body>
+          )}
+          <Body
+            className={cx(hasDiscount && "text-onsurface-main-strong")}
+            htmlVariant="span"
+            size="md"
+            weight={hasDiscount ? "strong" : undefined}
+          >
+            {getCurrencyDisplayWithPrice((item.quantity * item.priceCts) / 100)}
+          </Body>
+        </div>
       </div>
     </div>
   );

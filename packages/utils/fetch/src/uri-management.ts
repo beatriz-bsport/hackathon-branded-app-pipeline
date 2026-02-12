@@ -92,39 +92,44 @@ export const getLegacyUri = (uri: string) => {
  * Build final URI of a request by combining the request URL with the backend domain
  */
 export function getFullUri(uri: string) {
-  const env = getEnv();
+  try {
+    new URL(uri);
+    return uri; // If parsing succeeds, it's a complete URL, return as is
+  } catch (_) {
+    const env = getEnv();
 
-  if (isEnvDeployedEnvironment(env)) {
-    const apiBaseUrl = MAP_ENV_TO_API_URL[env];
-    return `${apiBaseUrl}/${uri}`;
-  }
+    if (isEnvDeployedEnvironment(env)) {
+      const apiBaseUrl = MAP_ENV_TO_API_URL[env];
+      return `${apiBaseUrl}/${uri}`;
+    }
 
-  if (env === "storybook") {
-    const apiBaseUrl = MAP_ENV_TO_API_URL.dev;
-    return `${apiBaseUrl}/${uri}`;
-  }
+    if (env === "storybook") {
+      const apiBaseUrl = MAP_ENV_TO_API_URL.dev;
+      return `${apiBaseUrl}/${uri}`;
+    }
 
-  if (isEnvFeatureBranch(env)) {
-    const isFrontendOnly = getIsFrontendOnly();
-    const apiBaseUrl = isFrontendOnly
-      ? MAP_ENV_TO_API_URL.dev
-      : getApiFeatureBranchUrl(env);
+    if (isEnvFeatureBranch(env)) {
+      const isFrontendOnly = getIsFrontendOnly();
+      const apiBaseUrl = isFrontendOnly
+        ? MAP_ENV_TO_API_URL.dev
+        : getApiFeatureBranchUrl(env);
 
-    const versionizedUri = isFrontendOnly
-      ? uri // Aligned with dev
-      : getLegacyUri(uri);
+      const versionizedUri = isFrontendOnly
+        ? uri // Aligned with dev
+        : getLegacyUri(uri);
+
+      return `${apiBaseUrl}/${versionizedUri}`;
+    }
+
+    const apiBaseUrl = getLocalAPIBaseUrl();
+    const isLegacyAPI =
+      apiBaseUrl.includes(API_SUFFIX_FEATURE_BRANCH) ||
+      apiBaseUrl.includes(MAP_ENV_TO_API_URL.local);
+
+    const versionizedUri = isLegacyAPI ? getLegacyUri(uri) : uri;
 
     return `${apiBaseUrl}/${versionizedUri}`;
   }
-
-  const apiBaseUrl = getLocalAPIBaseUrl();
-  const isLegacyAPI =
-    apiBaseUrl.includes(API_SUFFIX_FEATURE_BRANCH) ||
-    apiBaseUrl.includes(MAP_ENV_TO_API_URL.local);
-
-  const versionizedUri = isLegacyAPI ? getLegacyUri(uri) : uri;
-
-  return `${apiBaseUrl}/${versionizedUri}`;
 }
 
 /**

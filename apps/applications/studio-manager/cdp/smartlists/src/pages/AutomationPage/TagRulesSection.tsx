@@ -1,10 +1,13 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useOutletContext } from "react-router";
 
 import {
   Body,
+  Button,
   Card,
   Chip,
+  DropdownMenu,
+  type DropdownMenuItems,
   type GenericTableColumn,
   Icon,
   IconName,
@@ -13,6 +16,7 @@ import {
 
 import { TagRuleKind } from "#src/api/constants";
 import { type TagRuleWithTag, useTagRules } from "#src/api/use-tag-rules";
+import { DeleteTagRuleModal } from "#src/components/DeleteTagRuleModal";
 import { useTranslation } from "#src/utils/i18n";
 
 import { invariant } from "../../utils/invariant";
@@ -25,7 +29,13 @@ const TagRulesContent = () => {
   const { smartlistId } = useOutletContext<{ smartlistId: string }>();
   const tagRules = useTagRules(smartlistId);
 
-  const { t, i18n } = useTranslation("details");
+  const { t } = useTranslation("details");
+
+  const [tagRuleToDelete, setTagRuleToDelete] = useState<TableRow | null>(null);
+
+  const handleCloseDeleteModal = () => {
+    setTagRuleToDelete(null);
+  };
 
   const columns: GenericTableColumn<TableRow>[] = useMemo(
     () => [
@@ -89,14 +99,55 @@ const TagRulesContent = () => {
                 ? `${row.tagGroupName}: ${row.tagName}`
                 : row.tagName
             }
+            customColor={row.tagColor}
             type="weak"
+            size="lg"
+            rounded="lg"
             color="default"
-            size="sm"
           />
         ),
       },
+      {
+        id: "actions",
+        type: "custom",
+        align: "end",
+        header: "",
+        render: (row) => {
+          const items: DropdownMenuItems = [
+            {
+              id: "delete",
+              label: t("automation.tagRules.actions.delete"),
+              iconLeft: "trash-01",
+            },
+          ];
+
+          return (
+            <DropdownMenu
+              items={items}
+              onSelectOption={({ setIsPopoverOpened, id }) => {
+                setIsPopoverOpened(false);
+                if (id === "delete") {
+                  setTagRuleToDelete(row);
+                }
+              }}
+              placement="bottom-right"
+              target={({ setIsPopoverOpened }) => (
+                <Button
+                  kind="icon-button"
+                  intent="flat"
+                  icon="dots-vertical"
+                  onClick={() => setIsPopoverOpened(true)}
+                  color="default"
+                  label={t("automation.tagRules.actions.menu")}
+                  size="md"
+                />
+              )}
+            />
+          );
+        },
+      },
     ],
-    [i18n.language],
+    [t],
   );
 
   const rows: TableRow[] = useMemo(
@@ -109,18 +160,29 @@ const TagRulesContent = () => {
   );
 
   return (
-    <Card padding="none" className="overflow-hidden">
-      <Table
-        columns={columns}
-        rows={rows}
-        emptyStateProps={{
-          isEmpty: rows.length === 0,
-          emptyConfig: {
-            title: t("automation.tagRules.emptyState"),
-          },
-        }}
-      />
-    </Card>
+    <>
+      <Card padding="none" className="overflow-hidden">
+        <Table
+          rowHeight="lg"
+          columns={columns}
+          rows={rows}
+          emptyStateProps={{
+            isEmpty: rows.length === 0,
+            emptyConfig: {
+              title: t("automation.tagRules.emptyState"),
+            },
+          }}
+        />
+      </Card>
+      {tagRuleToDelete && (
+        <DeleteTagRuleModal
+          isOpen
+          onClose={handleCloseDeleteModal}
+          smartlistId={smartlistId}
+          tagRule={tagRuleToDelete}
+        />
+      )}
+    </>
   );
 };
 

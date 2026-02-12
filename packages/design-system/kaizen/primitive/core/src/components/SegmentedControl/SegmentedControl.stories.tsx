@@ -571,8 +571,9 @@ export const Basic: Story = {
                 id="option-icon"
                 label="Icon (optional)"
                 items={iconItems as SelectProps["items"]}
-                value={newOption.icon || ""}
-                onSelect={(option: string) => {
+                defaultValue={iconItems[0].id || ""}
+                value={newOption.icon?.toString() || ""}
+                onChange={(option: string) => {
                   console.log(option);
                   setNewOption({
                     ...newOption,

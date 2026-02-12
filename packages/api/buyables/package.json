@@ -1,0 +1,42 @@
+{
+  "name": "@bsport/api-buyables",
+  "version": "0.0.0",
+  "private": true,
+  "description": "API endpoints and types for the buyables API",
+  "license": "UNLICENSED",
+  "author": "Charles Castelain <charles.castelain@bsport.io>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/lib.d.ts",
+      "import": "./build/lib.es.js",
+      "default": "./build/lib.es.js"
+    }
+  },
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "vite build --logLevel warn",
+    "ci:compile": "tsc",
+    "dev": "vite build --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "@bsport/store-base": "workspace:*"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*"
+  },
+  "nx": {
+    "tags": [
+      "postinstall"
+    ]
+  }
+}

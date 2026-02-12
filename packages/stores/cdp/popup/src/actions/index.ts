@@ -11,10 +11,19 @@ import {
   fetchBackgroundTaskAction,
 } from "@bsport/store-shared-background-task";
 
-import { createSmartlistPopupAPI, fetchPopupsAPI } from "#src/api";
-import type { CreateSmartlistPopupParams, Popup } from "#src/types";
+import {
+  createSmartlistPopupAPI,
+  editPopupAPI,
+  fetchPopupAPI,
+  fetchPopupsAPI,
+} from "#src/api";
+import type {
+  CreateSmartlistPopupParams,
+  EditPopupParams,
+  Popup,
+} from "#src/types";
 
-import { setPopups } from "./store";
+import { setPopups, updatePopup } from "./store";
 
 /**
  * Fetches a list of popups.
@@ -36,6 +45,26 @@ export const fetchPopupsAction: Action<null, Popup[]> = async (fetch) => {
   );
 };
 
+/**
+ * Fetches a popup by ID.
+ */
+export const fetchPopupAction: Action<number, Popup> = async (fetch, id) => {
+  const [uri, init] = fetchPopupAPI(id);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+      const popup = { ...data, custom_popup_id: id };
+      updatePopup(popup);
+      return popup;
+    },
+    (error) => createErrorWithContext(error, "Failed to fetch popup"),
+  );
+};
+
+/**
+ * Sends the create smartlist popup request. Returns the background task UUID that should be handled in getCreationResult.
+ */
 const createSmartlistPopupActionRaw: XhrAction<
   CreateSmartlistPopupParams,
   string | null
@@ -50,6 +79,9 @@ const createSmartlistPopupActionRaw: XhrAction<
   );
 };
 
+/**
+ * Gets the result of the popup creation background task.
+ */
 const getCreationResult: Action<string, BackgroundTask<Popup>> = async (
   fetch,
   uuid,
@@ -83,7 +115,7 @@ const getCreationResult: Action<string, BackgroundTask<Popup>> = async (
 };
 
 /**
- * Creates a smartlist popup
+ * Creates a smartlist popup, including handling the background task and refreshing the popup list.
  */
 export const createSmartlistPopupAction = async (
   params: CreateSmartlistPopupParams,
@@ -141,4 +173,26 @@ export const createSmartlistPopupAction = async (
   await fetchPopupsAction(fetchList, null);
 
   return Result.ok(popup);
+};
+
+export const editPopupAction = async (
+  params: EditPopupParams,
+  xhr: Xhr<Popup>,
+  fetchList: Fetch<Popup[]>,
+) => {
+  const editPopup = async (
+    params: EditPopupParams,
+  ): Promise<Result<Popup, Error>> => {
+    const [uri, init] = editPopupAPI(params);
+    return Result.try(
+      async () => {
+        const { data } = await xhr(uri, init);
+        await fetchPopupsAction(fetchList, null);
+        return data;
+      },
+      (error) => createErrorWithContext(error, "Failed to edit popup"),
+    );
+  };
+
+  return await editPopup(params);
 };

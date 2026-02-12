@@ -12,7 +12,9 @@ import {
 import { Body } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { sessionListAttendanceButtonClickedEvent } from "#src/events/session-list/events";
 import { Columns, EnrichedSession, TableColumn } from "#src/types";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { TFunction, useTranslation } from "#src/utils/i18n";
 
 import { CancelledSessionName } from "./CancelledSessionName";
@@ -55,6 +57,19 @@ export const useSessionListColumns = (isMobile: boolean) => {
   const { t, i18n } = useTranslation("sessionList");
   const intlLocale = i18n?.language;
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
+
+  const trackAttendanceButtonClicked = (row: EnrichedSession) => {
+    analyticsTrackSafeEvent(sessionListAttendanceButtonClickedEvent, {
+      session_id: row.id,
+      session_name: row.name,
+      session_date: row.date_start,
+      participant_number: row.nb_bookings,
+      teacher_name: row.teacherName ?? "",
+      teacher_id: row.coach_override ?? row.coach,
+      session_type: row.is_workshop ? "workshop" : "group_activity",
+      session_is_online: row.is_broadcast,
+    });
+  };
 
   const timeColumn: TableColumn = {
     header: t("table.headers.time"),
@@ -180,6 +195,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
         <AttendanceButton
           isValidated={!row.roll_call_needs_validation}
           available={row.available}
+          onClick={() => trackAttendanceButtonClicked(row)}
         />
         <ShortcutActionsButton session={row} />
       </div>

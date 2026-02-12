@@ -25,6 +25,7 @@ export const TeacherSelectorField: FC<{
   const { data: teachers, isLoading } = useFetchAllTeachers({
     ...(restrictedTeachers.length > 0 ? { id__in: restrictedTeachers } : {}),
     company: companyId,
+    disabled: false,
   });
 
   const teacherItems: MenuOption[] = (teachers ?? []).map((teacher) => ({
@@ -44,7 +45,7 @@ export const TeacherSelectorField: FC<{
           setValue(
             "coach",
             selectedTeacherId ? Number(selectedTeacherId) : null,
-            { shouldValidate: true },
+            { shouldValidate: true, shouldDirty: true },
           );
         },
         onClear: () => {

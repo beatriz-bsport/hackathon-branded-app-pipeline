@@ -3,6 +3,7 @@ import { useCallback, useMemo } from "react";
 import {
   type DeepKeys,
   type WithSignature,
+  checkFeaturePermission,
   checkHasPermission,
 } from "@bsport/permissions";
 import {
@@ -31,6 +32,7 @@ export type InsightAccess = InsightBooleans;
  */
 export const useInsightAccess = (): InsightAccess => {
   const userRole = dataAccessLayer.useUserRole();
+  const companyFeatures = dataAccessLayer.useCompanyFeatures();
   const { flagsReady } = useFlagsStatus();
   const flags = useInsightFlagValues();
   const availability = useInsightAvailability();
@@ -57,13 +59,21 @@ export const useInsightAccess = (): InsightAccess => {
 
       const hasPermission = getHasPermission(requirement.permission);
 
+      const hasUpsellAccess = requirement.upsell
+        ? checkFeaturePermission({
+            features: companyFeatures,
+            identifier: requirement.upsell.identifier,
+          })
+        : true;
+
       const isAvailable = availability[insightId] ?? true;
 
-      acc[insightId] = isFeatureEnabled && hasPermission && isAvailable;
+      acc[insightId] =
+        isFeatureEnabled && hasPermission && hasUpsellAccess && isAvailable;
 
       return acc;
     }, {} as InsightAccess);
-  }, [availability, flags, flagsReady, getHasPermission]);
+  }, [availability, companyFeatures, flags, flagsReady, getHasPermission]);
 };
 
 /**
@@ -74,6 +84,7 @@ export const useInsightGate = (
   insightId: InsightId,
 ): { isAllowed: boolean; isLoading: boolean } => {
   const userRole = dataAccessLayer.useUserRole();
+  const companyFeatures = dataAccessLayer.useCompanyFeatures();
   const { flagsReady } = useFlagsStatus();
   const flags = useInsightFlagValues();
 
@@ -88,9 +99,18 @@ export const useInsightGate = (
     path: requirement.permission,
   });
 
+  const hasUpsellAccess = requirement.upsell
+    ? checkFeaturePermission({
+        features: companyFeatures,
+        identifier: requirement.upsell.identifier,
+      })
+    : true;
+
   return {
     isAllowed:
-      hasPermission && (requiresFlag ? flagsReady && isFeatureEnabled : true),
+      hasPermission &&
+      hasUpsellAccess &&
+      (requiresFlag ? flagsReady && isFeatureEnabled : true),
     isLoading: requiresFlag && !flagsReady,
   };
 };

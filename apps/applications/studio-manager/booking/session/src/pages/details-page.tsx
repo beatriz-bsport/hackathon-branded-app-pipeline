@@ -10,7 +10,7 @@ import { useTranslation } from "#src/utils/i18n";
 export const DetailsPage: FC = () => {
   const { t } = useTranslation("sessionDetails");
 
-  const { id } = useParams();
+  const { sessionId: id } = useParams<{ sessionId: string }>();
   const sessionId = id ? Number(id) : undefined;
 
   const { data: session, isLoading } =

@@ -222,7 +222,6 @@ const TextField: React.FC<TextFieldProps> = ({
         "flex flex-col gap-2xs",
         {
           "opacity-sm pointer-events-none": disabled,
-          "max-w-element-4xl": !fullWidth,
         },
         containerClassName ?? "",
       )}
@@ -253,6 +252,7 @@ const TextField: React.FC<TextFieldProps> = ({
               "before:shadow-border-thin-critical": status === "error",
               "shadow-focused": isInputFocused && status === "default",
               "w-full": fullWidth,
+              "max-w-element-4xl": !fullWidth,
               "bg-surface-default-weak": type === "search",
             },
           )}

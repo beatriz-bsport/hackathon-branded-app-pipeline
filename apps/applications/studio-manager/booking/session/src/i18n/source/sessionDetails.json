@@ -7,6 +7,7 @@
   "header": {
     "listedSessionChip": "Listed",
     "unlistedSessionChip": "Unlisted",
-    "cancelledSessionChip": "Cancelled"
+    "cancelledSessionChip": "Cancelled",
+    "subtitle": "{{date}}  ·  {{startTime}} – {{endTime}} ({{duration}}min)"
   }
 }

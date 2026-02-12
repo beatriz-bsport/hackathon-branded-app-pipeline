@@ -197,7 +197,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
           available={row.available}
           onClick={() => {
             trackAttendanceButtonClicked(row);
-            row.navigateToBookingsManagement?.(row);
+            row.navigateToBookingsManagement?.(row.id);
           }}
         />
         <ShortcutActionsButton session={row} />

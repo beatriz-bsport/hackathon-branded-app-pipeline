@@ -26,7 +26,7 @@ import {
   openRestoreModal,
 } from "#src/stores/session-list";
 import type { EnrichedSession } from "#src/types";
-import { getDetailsUrl } from "#src/urls";
+import { useUrls } from "#src/urls";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
@@ -40,6 +40,7 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
 }) => {
   const { t } = useTranslation("sessionList");
   const navigate = useNavigate();
+  const { getEditUrl } = useUrls();
 
   const trackingProperties = useMemo(
     () => ({
@@ -96,7 +97,7 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
             sessionListEditButtonClickedEvent,
             trackingProperties,
           );
-          navigate(getDetailsUrl(session.id));
+          navigate(getEditUrl(session.id));
           setIsPopoverOpened(false);
         },
       };
@@ -208,6 +209,7 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
       session,
       copyToClipboard,
       companyId,
+      getEditUrl,
       hasEditPermission,
       hasCancelPermission,
       hasCreatePermission,

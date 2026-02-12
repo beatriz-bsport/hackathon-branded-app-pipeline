@@ -10,7 +10,7 @@ export const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<ListPage />} index />
-      <Route element={<DetailsPage />} path={URLS.DETAILS_SLUG} />
+      <Route element={<DetailsPage />} path={URLS.BOOKINGS_MANAGEMENT_REVAMP} />
       <Route element={<DetailsPage />} path={URLS.EDIT_SLUG} />
     </Routes>
   );

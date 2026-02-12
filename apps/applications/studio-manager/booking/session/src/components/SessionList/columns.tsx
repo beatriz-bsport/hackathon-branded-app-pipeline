@@ -195,7 +195,10 @@ export const useSessionListColumns = (isMobile: boolean) => {
         <AttendanceButton
           isValidated={!row.roll_call_needs_validation}
           available={row.available}
-          onClick={() => trackAttendanceButtonClicked(row)}
+          onClick={() => {
+            trackAttendanceButtonClicked(row);
+            row.navigateToBookingsManagement?.(row);
+          }}
         />
         <ShortcutActionsButton session={row} />
       </div>

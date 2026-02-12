@@ -1,6 +1,6 @@
 import type { IconName } from "@bsport/kaizen-primitive-core";
 
-import type { AddedItem } from "#src/components/billing/BillingFlowModal/use-add-item-form";
+import type { InvoiceItemFormData } from "#src/components/billing/BillingFlowModal/types";
 import {
   INVOICE_ITEMS_KINDS,
   type InvoiceItemKind,
@@ -28,7 +28,7 @@ export const formatDate = (dateStr: string, language?: string): string => {
   }
 };
 
-export const calculateTotals = (items: AddedItem[]) => {
+export const calculateTotals = (items: InvoiceItemFormData[]) => {
   const totalCts = items.reduce(
     (sum, item) => sum + item.quantity * item.priceCts,
     0,

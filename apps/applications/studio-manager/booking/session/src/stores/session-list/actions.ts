@@ -1,9 +1,9 @@
 import { type DateTime, getWeekBounds } from "@bsport/datetime-manipulation";
 import { FilterElementState } from "@bsport/kaizen-primitive-core";
 
-import type { Columns, EnrichedSession } from "#src/types";
+import { CalendarView, Columns, EnrichedSession, ModalType } from "#src/types";
 
-import { CalendarView, ModalType, sessionListStore } from "./store";
+import { sessionListStore } from "./store";
 
 export const setCalendarView = (calendarView: CalendarView) => {
   sessionListStore.setState((state) => {

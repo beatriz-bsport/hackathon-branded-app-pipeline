@@ -1,5 +1,6 @@
 import {
   DEFAULT_ACTION_COLOR,
+  DEFAULT_ALIGNMENT,
   DEFAULT_CUSTOM_LAUNCHER_SELECTOR,
   DEFAULT_LANGUAGE_OVERRIDE,
   INTERCOM_APP_ID,
@@ -18,13 +19,22 @@ type IntercomBootParams = {
   companyLocale?: string;
   customLauncherSelector?: string;
   actionColor?: string;
+  /** Position of the launcher on screen: "left" or "right". Default is "right". */
+  alignment?: "left" | "right";
 };
 
 declare global {
   interface Window {
-    Intercom?: (eventName: string, properties: Record<string, unknown>) => void;
+    Intercom?: IntercomInstance;
   }
 }
+
+/*
+ * Intercom Instance type definition
+ * @see https://www.npmjs.com/package/@intercom/messenger-js-sdk/v/0.0.18?activeTab=code
+ */
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+export type IntercomInstance = Function;
 
 const LOGGER_PREFIX = "[Intercom Widget Init]: ";
 
@@ -141,6 +151,7 @@ export const initIntercomScript = ({
  * @param companyLocale: Company locale set in the CompanyTheme data model code of the language you want to be used by Intercom, eg: "en_EN"
  * @param actionColor: Hexa decimal code of the color related to the user, eg: "#EN3412"
  * @param appIdOverride: Parameter to set if you want to override bsport base intercom app Id, usually you do not want to override it.
+ * @param alignment: Position of the launcher on screen: "left" or "right". Default is "right".
  * @returns A boolean that indicates if every operation were succesfull or not.
  */
 export const initIntercomWidget = ({
@@ -155,6 +166,7 @@ export const initIntercomWidget = ({
   customLauncherSelector,
   actionColor,
   appIdOverride,
+  alignment,
 }: IntercomBootParams) => {
   const showDebugLog =
     environment !== "production" && environment !== "staging";
@@ -225,6 +237,7 @@ export const initIntercomWidget = ({
     custom_launcher_selector:
       customLauncherSelector ?? DEFAULT_CUSTOM_LAUNCHER_SELECTOR,
     action_color: actionColor ?? DEFAULT_ACTION_COLOR,
+    alignment: alignment ?? DEFAULT_ALIGNMENT,
     release: RELEASE_SHA,
   });
 

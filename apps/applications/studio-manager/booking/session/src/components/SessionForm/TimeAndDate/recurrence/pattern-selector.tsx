@@ -4,6 +4,8 @@ import { FormField, useFormContext } from "@bsport/form";
 import { Select, SelectProps } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { isMonthlyRecurrencePatternValidType } from "#src/components/SessionForm/TimeAndDate/recurrence/utils";
+import { RecurrenceRuleType } from "#src/events/constants";
 import { getWeekdayPositionInMonth } from "#src/helpers/recurrence/custom/month.utils";
 import {
   CustomRecurrenceUnit,
@@ -13,9 +15,10 @@ import {
 import type { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-export const RecurrencePatternSelector: FC<{ fieldIdPrefix: string }> = ({
-  fieldIdPrefix,
-}) => {
+export const RecurrencePatternSelector: FC<{
+  fieldIdPrefix: string;
+  trackRecurrenceRule?: (recurrenceRule: RecurrenceRuleType) => void;
+}> = ({ fieldIdPrefix, trackRecurrenceRule }) => {
   const { t } = useTranslation(["common", "sessionCreation"]);
 
   const { watch, setValue } = useFormContext<SessionCreationFormData>();
@@ -81,26 +84,24 @@ export const RecurrencePatternSelector: FC<{ fieldIdPrefix: string }> = ({
     },
   ];
 
-  const displayValue =
-    selectedValue === MonthlyRecurrencePattern.DAY_OF_MONTH
-      ? dayOfMonthLabel
-      : nthWeekdayLabel;
-
   return (
     <FormField<SessionCreationFormData, "recurrencePattern", SelectProps>
       name="recurrencePattern"
       mapProps={() => ({
-        onSelectId: (selectedOptionId) => {
-          setValue(
-            "recurrencePattern",
-            selectedOptionId as MonthlyRecurrencePattern,
-            {
-              shouldValidate: true,
-              shouldDirty: true,
-            },
-          );
+        onChange: (selectedOptionId) => {
+          if (!isMonthlyRecurrencePatternValidType(selectedOptionId)) {
+            console.warn(
+              `Invalid monthly recurrence pattern: ${selectedOptionId}`,
+            );
+            return;
+          }
+          setValue("recurrencePattern", selectedOptionId, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+          trackRecurrenceRule?.(selectedOptionId);
         },
-        value: displayValue,
+        value: selectedValue,
       })}
     >
       <Select

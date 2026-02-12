@@ -12,6 +12,11 @@
     "quantity": "Quantity",
     "price": "Price",
     "applyDiscount": "Apply Discount",
+    "discountTypePercentage": "Percentage",
+    "discountTypeAmount": "Amount",
+    "discountReason": "Reason for discount",
+    "discountReasonPlaceholder": "e.g. first time customer, loyalty reward, etc.",
+    "discountReasonCharacterCount": "Characters {{current}}/{{max}}",
     "clear": "Clear",
     "addItemButton": "Add item",
     "emptyState": {
@@ -85,9 +90,13 @@
     "items": "{{count}} items",
     "items_one": "{{count}} item",
     "items_other": "{{count}} items",
-    "validForDays": "Valid for {{count}} days",
-    "validForDays_one": "Valid for {{count}} day",
-    "validForDays_other": "Valid for {{count}} days",
-    "customAmountRange": "Custom: {{min}} - {{max}}"
+    "days": "",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "unlimited": "Unlimited",
+    "custom": "Custom",
+    "customAmountRange": "Custom: {{min}} - {{max}}",
+    "hiddenChipLabel": "Hidden",
+    "hiddenGiftcardTooltip": "This gift card won't be available to buy on the Member Area"
   }
 }

@@ -5,21 +5,18 @@ import { Modal } from "@bsport/kaizen-primitive-core";
 import { useAsync } from "@bsport/use-async";
 
 import { getMembers } from "#src/actions/member";
-import {
-  INVOICE_ITEMS_KINDS,
-  type InvoiceItemKind,
-} from "#src/components/billing/ItemTypeSelector";
 import MemberCard from "#src/components/member/MemberCard";
 import MemberSelectorModal from "#src/components/member/MemberSelectorModal";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 import type { Member } from "#src/types/member";
 import fetch from "#src/utils/fetch";
 
-import AddItemSection from "./AddItemSection";
+import { AddItemSection } from "./AddItemSection";
 import { SummarySection } from "./SummarySection";
-import { DEFAULT_FORM_DATA, billingFlowFormDataSchema } from "./schema";
+import { ADD_ITEM_DEFAULT, DEFAULT_FORM_DATA } from "./defaults";
+import { useInvoiceConfiguration } from "./hooks/use-invoice-configuration";
+import { billingFlowFormStateSchema } from "./schema";
 import type { BillingFlowModalProps } from "./types";
-import { type AddedItem, useAddItemForm } from "./use-add-item-form";
 
 const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   isOpen,
@@ -31,47 +28,14 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   const formId = `billing-flow-modal-${useId()}`;
 
   const [isMemberSelectorOpen, setIsMemberSelectorOpen] = useState(false);
-  const [selectedItemType, setSelectedItemType] =
-    useState<InvoiceItemKind | null>(INVOICE_ITEMS_KINDS.pass);
-
-  const [items, setItems] = useState<AddedItem[]>([]);
-
-  const handleItemDelete = (itemIndex: number) => {
-    setItems((prev) => {
-      const newItems = prev.filter((_, index) => index !== itemIndex);
-      methods.setValue("items", newItems, {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
-      return newItems;
-    });
-  };
-
-  const addItemForm = useAddItemForm({
-    selectedItemType,
-    onItemTypeReset: () => {
-      setSelectedItemType(null);
-    },
-    onItemAdded: (newItem) => {
-      setItems((prev) => [...prev, newItem]);
-      const currentItems = methods.getValues("items") || [];
-      methods.setValue("items", [...currentItems, newItem], {
-        shouldDirty: true,
-        shouldValidate: true,
-      });
-    },
-  });
-
-  const handleItemTypeSelect = (type: InvoiceItemKind) => {
-    addItemForm.resetForm();
-    setSelectedItemType(type);
-  };
+  const { isDiscountReasonRequired } = useInvoiceConfiguration();
 
   const methods = useFormController({
     mode: "onBlur",
-    schema: billingFlowFormDataSchema,
+    schema: billingFlowFormStateSchema,
     defaultValues: {
       ...DEFAULT_FORM_DATA,
+      ...ADD_ITEM_DEFAULT,
       memberId: memberId ?? undefined,
     },
   });
@@ -84,11 +48,8 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
     return getMembers(fetch, { memberId: id });
   };
 
-  const [{ isLoading: isLoadingMember, data: member }, fetchMember] = useAsync<
-    typeof handleFetchMember
-  >({
-    asyncFn: handleFetchMember,
-  });
+  const [{ isLoading: isLoadingMember, data: fetchedMember }, fetchMember] =
+    useAsync<typeof handleFetchMember>({ asyncFn: handleFetchMember });
 
   useEffect(() => {
     if (formMemberId) {
@@ -99,20 +60,26 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   useEffect(() => {
     if (!isOpen) {
       setIsMemberSelectorOpen(false);
-      setSelectedItemType(INVOICE_ITEMS_KINDS.pass);
-      setItems([]);
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    setValue("isDiscountReasonRequired", isDiscountReasonRequired);
+  }, [isDiscountReasonRequired, setValue]);
+
   const handleClose = () => {
-    methods.reset();
+    methods.reset({
+      ...DEFAULT_FORM_DATA,
+      ...ADD_ITEM_DEFAULT,
+      memberId: memberId ?? undefined,
+      isDiscountReasonRequired,
+    });
     setIsMemberSelectorOpen(false);
-    setItems([]);
     onClose();
   };
 
-  const handleMemberSelect = (member: Member) => {
-    setValue("memberId", member.id, {
+  const handleMemberSelect = (selectedMember: Member) => {
+    setValue("memberId", selectedMember.id, {
       shouldDirty: true,
       shouldValidate: true,
     });
@@ -165,23 +132,18 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
           ) : (
             <MemberCard
               className="bg-surface-default-weaker"
-              member={member ?? null}
+              member={fetchedMember ?? null}
               onEditClick={handleOpenMemberSelector}
             />
           )}
 
           <div className="flex gap-lg">
-            <AddItemSection
-              selectedItemType={selectedItemType}
-              onItemTypeSelect={handleItemTypeSelect}
-              addItemForm={addItemForm}
-            />
-            <SummarySection items={items} onItemDelete={handleItemDelete} />
+            <AddItemSection />
+            <SummarySection />
           </div>
         </ControlledForm>
       </Modal>
 
-      {/* Member Selector Modal */}
       <MemberSelectorModal
         isOpen={isMemberSelectorOpen}
         onClose={() => setIsMemberSelectorOpen(false)}

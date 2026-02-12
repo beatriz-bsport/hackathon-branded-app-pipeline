@@ -32,6 +32,23 @@ export type AutomatedCampaign = {
 };
 
 /**
+ * Get Popups from the API
+ * Endpoint for lists: GET member-experience/v1/mobile_app/manager/custom_popup_links/
+ * Endpoint for individual popups: GET member-experience/v1/mobile_app/manager/custom_popup_links/{id}
+ * Backend serializer: AppPopupLinkSerializer
+ */
+export type Popup = {
+  custom_popup_id: number;
+  name: string;
+  link: string;
+  image: string;
+  date_created: string; // ISO 8601 datetime string
+  smartlist_popup_id?: number;
+  smartlist_id?: number;
+  smartlist_name?: string;
+};
+
+/**
  * Query params for fetching automated campaigns
  */
 export type FetchAutomatedCampaignsParams = {
@@ -53,6 +70,14 @@ export type CampaignSent = {
   total_click: number;
   date_created: string;
   kind: CommunicationKind;
+  title?: string;
+  text?: string;
+  sms_text?: string;
+  data: {
+    subject?: string;
+    body?: string;
+    provider_id?: string;
+  };
   metadata: {
     smartlist_id?: number;
     automated_campaign_id?: number;
@@ -64,7 +89,9 @@ export type CampaignSent = {
  */
 export type FetchCampaignSentParams = {
   smartlist: number;
-  only_automated_campaign: boolean;
+  only_automated_campaign?: boolean;
+  no_automated_campaign?: boolean;
+  without_member_info?: boolean;
   page_size?: number;
   page?: number;
 };
@@ -128,6 +155,7 @@ export type TagGroup = {
 export type TagRuleWithTag = TagRule & {
   tagName: string;
   tagGroupName?: string;
+  tagColor?: string;
 };
 
 /**

@@ -182,7 +182,7 @@ export const AutomationPageContent = () => {
       {
         id: "actions",
         type: "custom",
-        align: "center",
+        align: "end",
         header: "",
         render: (row) => {
           const items: DropdownMenuItems = [
@@ -247,6 +247,7 @@ export const AutomationPageContent = () => {
         <Table
           columns={columns}
           rows={rows}
+          rowHeight="lg"
           emptyStateProps={{
             isEmpty: rows.length === 0,
             emptyConfig: {

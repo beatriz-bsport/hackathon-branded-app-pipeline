@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import { FormField, useFormContext } from "@bsport/form";
 import { Toggle } from "@bsport/kaizen-primitive-core";
@@ -16,7 +16,7 @@ export const SyncOnSpiviField: FC<{ fieldIdPrefix: string }> = ({
 }) => {
   const { t } = useTranslation("sessionCreation");
 
-  const { watch } = useFormContext<SessionCreationFormData>();
+  const { watch, setValue } = useFormContext<SessionCreationFormData>();
 
   const isChecked = watch("sync_on_spivi") ?? false;
 
@@ -34,6 +34,12 @@ export const SyncOnSpiviField: FC<{ fieldIdPrefix: string }> = ({
     !isLoading &&
     !!roomBlueprints?.find(({ id }) => id === selectedBlueprintId)
       ?.spivi_box_id;
+
+  useEffect(() => {
+    if (!isLoading && (!hasSpiviAddOn || !selectedBlueprintHasSpiviBox)) {
+      setValue("sync_on_spivi", undefined);
+    }
+  }, [selectedBlueprintHasSpiviBox, hasSpiviAddOn, setValue, isLoading]);
 
   if (!hasSpiviAddOn || !selectedBlueprintHasSpiviBox) return null;
 

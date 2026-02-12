@@ -96,6 +96,7 @@ export type TextFieldProps = Omit<
   autocomplete?: HTMLInputAutoCompleteAttribute;
   max?: number | string;
   min?: number | string;
+  step?: number | string;
   maxLength?: number;
   minLength?: number;
 };
@@ -125,6 +126,7 @@ export type TextFieldProps = Omit<
  * @param props.inputRef Optionnal - React ref to the input element, useful for focusing the input programmatically.
  * @param props.min Minimal value that can be inserted in the field
  * @param props.max Maximal value that can be inserted in the field
+ * @param props.step Step of the value that can be inserted in the field
  * @param props.minLength Minimal length of the value that can be inserted in the field
  * @param props.maxLength Maximal length of the value that can be inserted in the field
  */
@@ -154,6 +156,7 @@ const TextField: React.FC<TextFieldProps> = ({
   autocomplete = "off",
   min,
   max,
+  step,
   maxLength,
   minLength,
   ...props
@@ -271,7 +274,7 @@ const TextField: React.FC<TextFieldProps> = ({
           {prefix && Object.keys(prefix).length > 0 && (
             <div
               data-component="Kaizen-TextField-Prefix"
-              className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weak"
+              className="flex px-xs items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weak"
             >
               {prefix.type === "text" ? (
                 <span>{prefix.value}</span>
@@ -326,6 +329,7 @@ const TextField: React.FC<TextFieldProps> = ({
               autoComplete={autocomplete}
               min={min}
               max={max}
+              step={step}
               minLength={minLength}
               maxLength={maxLength}
               {...props}
@@ -358,7 +362,7 @@ const TextField: React.FC<TextFieldProps> = ({
           {suffix && Object.keys(suffix).length > 0 && (
             <div
               data-component="Kaizen-TextField-Suffix"
-              className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak"
+              className="flex px-xs justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak"
             >
               {suffix?.type === "text" ? (
                 <span>{suffix.value}</span>

@@ -123,12 +123,14 @@ export const useSessionPayload = () => {
       duration_minute: formData.duration_minute,
 
       // Details
-      name_override: formData.allowCustomNameAndDescription
-        ? formData.name_override
-        : "",
-      description_override: formData.allowCustomNameAndDescription
-        ? formData.description_override
-        : "",
+      name_override:
+        formData.name_override === session.meta_activity?.name
+          ? ""
+          : formData.name_override,
+      description_override:
+        formData.description_override === session.meta_activity?.description
+          ? ""
+          : formData.description_override,
 
       // Settings
       manager_only: formData.manager_only,
@@ -140,12 +142,12 @@ export const useSessionPayload = () => {
       broadcast_link: formData.broadcast_link,
 
       // Teacher and establishment
-      coach: formData.coach!,
+      coach: formData.coach,
       coach_payment_rule: formData.overrideTeacherPayrollRule
         ? formData.coach_payment_rule
         : session.coach_payment_rule_id,
       coach_override: session.coach_override,
-      establishment: formData.establishment!,
+      establishment: formData.establishment,
       room_blueprint: formData.room_blueprint,
       ...(formData.sync_on_spivi !== undefined && {
         sync_on_spivi: formData.sync_on_spivi,

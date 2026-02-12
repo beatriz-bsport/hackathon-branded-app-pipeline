@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React from "react";
 
 import Badge, { type BadgeProps } from "#src/components/Badge";
+import Body from "#src/components/Body";
 import Breadcrumbs, {
   type BreadcrumbsProps,
 } from "#src/components/Breadcrumbs";
@@ -23,6 +24,7 @@ export type PageActionsSectionProps = {
   pageStatusChip?: ChipProps;
   pageTabs?: TabsProps;
   pageTitle: string;
+  pageSubtitle?: string;
 } & CustomActionsSectionProps;
 
 const PageActionsSection: React.FC<PageActionsSectionProps> = ({
@@ -35,6 +37,7 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
   pageStatusBadge,
   pageTabs,
   pageTitle,
+  pageSubtitle,
   startGroupActions,
 }) => {
   const i18n = useKaizenI18nInstance();
@@ -89,6 +92,7 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
           )}
         </div>
       </div>
+      {pageSubtitle && <Body>{pageSubtitle}</Body>}
       {pageTabs && (
         <div className="flex flex-row justify-between items-center pb-[var(--kz-spacing-xs)] sm:pb-[0px]">
           <Tabs {...pageTabs} orientation="horizontal" className="sm:pt-xs" />

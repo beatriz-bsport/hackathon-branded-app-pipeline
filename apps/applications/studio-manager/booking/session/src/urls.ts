@@ -7,6 +7,7 @@ export const { flags, useFlag: useBookingManagementFlag } = makeFeatureFlags({
 } as const);
 
 export const URLS = {
+  INDEX: "/",
   BOOKINGS_MANAGEMENT_REVAMP: ":sessionId",
   EDIT_SLUG: ":sessionId/edit",
 } as const;
@@ -40,9 +41,12 @@ export const useUrls = () => {
   const getEditUrl = (id: number) =>
     generatePath(URLS.EDIT_SLUG, { sessionId: String(id) });
 
+  const getIndexUrl = () => URLS.INDEX;
+
   return {
     navigateToBookingsManagement,
     getBookingsManagementUrl,
     getEditUrl,
+    getIndexUrl,
   };
 };

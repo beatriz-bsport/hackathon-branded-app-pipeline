@@ -8,6 +8,7 @@
     "listedSessionChip": "Listed",
     "unlistedSessionChip": "Unlisted",
     "cancelledSessionChip": "Cancelled",
-    "subtitle": "{{date}}  ·  {{startTime}} – {{endTime}} ({{duration}}min)"
+    "subtitle": "{{date}}  ·  {{startTime}} – {{endTime}} ({{duration}}min)",
+    "breadcrumbs": "Calendar"
   }
 }

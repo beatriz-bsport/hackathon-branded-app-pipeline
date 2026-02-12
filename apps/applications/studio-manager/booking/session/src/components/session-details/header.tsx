@@ -1,10 +1,11 @@
 import { FC, useMemo } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 
 import type { SessionWithActivity } from "@bsport/api-book";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { fromIsoString, modifyTime } from "@bsport/datetime-manipulation";
 import {
+  Breadcrumbs,
   ChipProps,
   DetailsLayout,
   Tabs,
@@ -18,7 +19,7 @@ import { SessionStatus } from "./constants";
 
 export const Header: FC<{ session: SessionWithActivity }> = ({ session }) => {
   const { t, i18n } = useTranslation("sessionDetails");
-  const { getEditUrl } = useUrls();
+  const { getEditUrl, getIndexUrl } = useUrls();
   const locale = i18n?.language;
 
   const subtitle = useMemo(() => {
@@ -115,6 +116,12 @@ export const Header: FC<{ session: SessionWithActivity }> = ({ session }) => {
     },
   };
 
+  const breadcrumbs = [
+    <Link key="to-session-list" to={getIndexUrl()}>
+      <Breadcrumbs.Item text={t("header.breadcrumbs")} />
+    </Link>,
+  ];
+
   return (
     <DetailsLayout.Header
       // TODO: replace with watch(<session name field>) when the form is implemented
@@ -122,6 +129,7 @@ export const Header: FC<{ session: SessionWithActivity }> = ({ session }) => {
       pageTabs={tabsConfig}
       pageStatusChip={statusChips[sessionStatus]}
       pageSubtitle={subtitle}
+      BreadcrumbsItems={breadcrumbs}
     />
   );
 };

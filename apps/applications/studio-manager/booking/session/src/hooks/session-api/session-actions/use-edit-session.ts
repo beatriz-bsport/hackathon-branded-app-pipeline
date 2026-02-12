@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 
 import { type SessionEditPayload, editSessionAPI } from "@bsport/api-book";
 import { toast } from "@bsport/kaizen-primitive-core";
 
 import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
+import { useUrls } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useWaitForBackgroundTask } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
@@ -20,6 +22,9 @@ const useEditSession = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("sessionEdit");
 
+  const navigate = useNavigate();
+  const { getBookingsManagementUrl } = useUrls();
+
   const { waitForBackgroundTask, handleBackgroundTaskError } =
     useWaitForBackgroundTask(fetch);
 
@@ -35,15 +40,14 @@ const useEditSession = () => {
 
       return null;
     },
-    onSuccess: (_) => {
+    onSuccess: (_, { sessionId }) => {
       queryClient.invalidateQueries({ queryKey: [SESSIONS_QUERY_KEY] });
       toast({
         status: "default",
         description: t("editSessionForm.toasts.sessionEdited"),
         buttonLabel: t("editSessionForm.buttons.open"),
         onButtonClick: () => {
-          // TODO: Open the created session details page
-          // Intentionally left blank for now
+          navigate(getBookingsManagementUrl(sessionId));
         },
       });
     },

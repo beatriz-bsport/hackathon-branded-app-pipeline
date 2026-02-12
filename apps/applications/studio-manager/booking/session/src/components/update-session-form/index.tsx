@@ -2,7 +2,11 @@ import { FC, useEffect, useId } from "react";
 
 import { SessionWithActivity } from "@bsport/api-book";
 import { ControlledForm, useFormController } from "@bsport/form";
-import { DetailsLayout, useDetailsLayout } from "@bsport/kaizen-primitive-core";
+import {
+  DetailsLayout,
+  Divider,
+  useDetailsLayout,
+} from "@bsport/kaizen-primitive-core";
 import { Title } from "@bsport/kaizen-primitive-core";
 
 import { BookForAGuestField } from "#src/components/SessionForm/advanced-options/book-for-a-guest-field";
@@ -46,10 +50,6 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
     toggleHasUnsavedChanges(isDirty);
   }, [isDirty, toggleHasUnsavedChanges]);
 
-  useEffect(() => {
-    methods.reset(fromSessionToFormData(session));
-  }, [session, methods]);
-
   const resetForm = () => {
     methods.reset();
   };
@@ -59,6 +59,8 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
       sessionId: session.id,
       payload: buildEditionPayload(methods.getValues(), session),
     });
+
+    methods.reset(methods.getValues());
   };
 
   return (
@@ -95,10 +97,11 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
                 title={t("editSessionForm.content.visibilitySelector.label")}
                 buttonClassName="w-full max-w-component-select"
               />
+              <BookForAGuestField fieldIdPrefix={formId} />
             </div>
-            <BookForAGuestField fieldIdPrefix={formId} />
+            <Divider orientation="horizontal" weight="thin" className="my-xs" />
             <DetailsForm fieldIdPrefix={formId} />
-
+            <Divider orientation="horizontal" weight="thin" className="my-xs" />
             <TagSelectorForm fieldIdPrefix={formId} />
           </div>
         </DetailsLayout.Panel>

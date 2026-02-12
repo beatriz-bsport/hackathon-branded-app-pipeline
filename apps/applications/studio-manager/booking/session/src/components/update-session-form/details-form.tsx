@@ -5,6 +5,7 @@ import { Title } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 import OverrideForm from "../SessionForm/Details/OverrideForm";
+import ActivitySelector from "./activity-selector";
 
 type DetailsFormProps = {
   fieldIdPrefix: string;
@@ -18,6 +19,7 @@ const DetailsForm: FC<DetailsFormProps> = ({ fieldIdPrefix }) => {
       <Title htmlVariant="h5" weight="strong">
         {t("editSessionForm.content.detailsForm.title")}
       </Title>
+      <ActivitySelector fieldIdPrefix={fieldIdPrefix} />
       <OverrideForm fieldIdPrefix={fieldIdPrefix} />
     </div>
   );

@@ -30,8 +30,6 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
 
   const activity = watch("meta_activity");
 
-  console.log("activity", activity);
-
   const { data: selectedActivity } = useFetchActivitiesByIds(
     [activity],
     !!activity,

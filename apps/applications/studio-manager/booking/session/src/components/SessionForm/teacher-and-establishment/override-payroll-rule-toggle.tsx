@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import { FormField, useFormContext } from "@bsport/form";
-import { Toggle } from "@bsport/kaizen-primitive-core";
+import { Toggle, ToggleProps } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -17,13 +17,20 @@ export const OverridePayrollRuleToggle: FC<{ fieldIdPrefix: string }> = ({
   const isChecked = watch("overrideTeacherPayrollRule");
 
   return (
-    <FormField<
-      SessionEditFormData,
-      "overrideTeacherPayrollRule"
-    > name="overrideTeacherPayrollRule">
+    <FormField<SessionEditFormData, "overrideTeacherPayrollRule", ToggleProps>
+      name="overrideTeacherPayrollRule"
+      mapProps={({ form }) => ({
+        onToggleChange: (checked: boolean) => {
+          form.setValue("overrideTeacherPayrollRule", checked, {
+            shouldValidate: false,
+            shouldDirty: false,
+          });
+        },
+      })}
+    >
       <Toggle
         checked={isChecked}
-        id={`${fieldIdPrefix}-session-partnership-toggle`}
+        id={`${fieldIdPrefix}-override-payroll-rule-toggle`}
         label={t("editSessionForm.content.teacherPayrollRuleOverrideLabel")}
         helperText={t(
           "editSessionForm.content.teacherPayrollRuleOverrideDescription",

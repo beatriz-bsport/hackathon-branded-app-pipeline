@@ -83,6 +83,9 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
             required: true,
             label: t("editSessionForm.content.chooseActivity.label"),
           }}
+          menuProps={{
+            className: "max-h-[300px] overflow-y-auto",
+          }}
           loadingProps={{ isLoading }}
           onValueChange={(event: string) => {
             setSearchQuery(event);

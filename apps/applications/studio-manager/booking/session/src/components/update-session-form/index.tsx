@@ -86,7 +86,7 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
           <TimeAndDateSection fieldIdPrefix={formId} isEditMode />
         </DetailsLayout.Content>
         <DetailsLayout.Panel>
-          <div className="flex flex-col gap-lg">
+          <div className="flex flex-col gap-lg pb-xl">
             <div className="flex flex-col gap-xs">
               <Title htmlVariant="h5" weight="strong">
                 {t("editSessionForm.content.visibilitySelector.title")}
@@ -99,9 +99,9 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
               />
               <BookForAGuestField fieldIdPrefix={formId} />
             </div>
-            <Divider orientation="horizontal" weight="thin" className="my-xs" />
+            <Divider orientation="horizontal" weight="thin" />
             <DetailsForm fieldIdPrefix={formId} />
-            <Divider orientation="horizontal" weight="thin" className="my-xs" />
+            <Divider orientation="horizontal" weight="thin" />
             <TagSelectorForm fieldIdPrefix={formId} />
           </div>
         </DetailsLayout.Panel>

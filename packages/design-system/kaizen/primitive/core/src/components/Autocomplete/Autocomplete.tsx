@@ -4,7 +4,7 @@ import React, { ChangeEvent, FocusEvent, useEffect, useState } from "react";
 
 import Body from "#src/components/Body";
 import Loader from "#src/components/Loader";
-import Menu from "#src/components/Menu";
+import Menu, { MenuProps } from "#src/components/Menu";
 import type { MenuOption } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
 import TextField, { type TextFieldProps } from "#src/components/TextField";
@@ -42,6 +42,8 @@ type BaseAutocompleteProps = Omit<
 > & {
   /** Props passed to the underlying TextField component */
   textfieldProps: TextFieldProps;
+  /** Props passed to the underlying Menu component */
+  menuProps?: Partial<MenuProps>;
   /** List of items to provide as autocompletion options */
   items: AutocompleteItems;
   /** Whether the popover should take the full width of its container */
@@ -97,6 +99,7 @@ export type AutocompleteProps = BaseAutocompleteProps &
 const Autocomplete: React.FC<AutocompleteProps> = ({
   className,
   textfieldProps,
+  menuProps,
   items,
   fullWidth = false,
   debounceValue = 300,
@@ -281,6 +284,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
                   }
                 }}
                 selectedValues={Array.from(selectedItemsIds)}
+                {...(menuProps ?? {})}
               />
             );
           }}

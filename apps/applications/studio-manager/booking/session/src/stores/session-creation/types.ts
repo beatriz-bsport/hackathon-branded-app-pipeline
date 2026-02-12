@@ -93,6 +93,7 @@ export type SessionCreationFormData = SessionCreationDateTimeFormData &
     | "wellhub_product_id"
   > & {
     allowCustomNameAndDescription: boolean;
+    roomBlueprintCapacity: number | null;
   };
 
 export type SessionCreationFormAdvancedOptionsData = Pick<

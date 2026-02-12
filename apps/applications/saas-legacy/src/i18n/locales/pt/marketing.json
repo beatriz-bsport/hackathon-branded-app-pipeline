@@ -292,7 +292,11 @@
         "finerGrain": {
           "specifyItemsToggleLabel": "Especificar itens",
           "purchaseLabelTitle": "Item/s comprado/s"
-        }
+        },
+        "triggerTimeoutHours": "hora.",
+        "triggerTimeoutHours_plural": "horas.",
+        "triggerTimeoutDaysAnd": "dia e",
+        "triggerTimeoutDaysAnd_plural": "dias e"
       },
       "delete": "Eliminar",
       "updateTitle": "Alterar o nome da sequência",
@@ -325,13 +329,19 @@
           "submit": "Confirmar"
         },
         "defaultName": "Nome predefinido",
-        "select_tag": "Selecionar uma etiqueta"
+        "select_tag": "Selecionar uma etiqueta",
+        "6": "Remover uma etiqueta"
       },
       "error": {
-        "timeoutMustBeStrictPositive": "O prazo deve ser de, pelo menos, 1 dia.",
+        "timeoutMustBeStrictPositive": "O atraso deve ser de pelo menos 1 dia.",
         "triggerCannotBeEmpty": "É necessário selecionar um tipo de entrada.",
         "maximumConnectedTrigger": "Não é possível definir mais de cinco accionadores.",
-        "minimumConnectedTrigger": "É necessário selecionar pelo menos um acionador."
+        "minimumConnectedTrigger": "É necessário selecionar pelo menos um acionador.",
+        "timeoutRequired": "O atraso é obrigatório.",
+        "timeoutHoursMustBeMax23": "O número de horas não deve exceder 23.",
+        "timeoutHoursMustBePositive": "O número de horas deve ser positivo.",
+        "timeoutDaysMustBePositive": "O número de dias deve ser positivo.",
+        "timeoutMustBeStrictPositiveWithHourlyTimeout": "O atraso deve ser de pelo menos 1 hora."
       },
       "event": {
         "1": "Passe de aulas",
@@ -368,7 +378,9 @@
         "private_booking-cancel": "Cancelamento de Aula Privada",
         "private_booking-create": "Aulas privadas",
         "provision_update-create": "Item da loja",
-        "consumer_giftcard-create": "Cartão de oferta"
+        "consumer_giftcard-create": "Cartão de oferta",
+        "marketing-lead_form_submitted": "Formulário de lead enviado",
+        "105": "Membro"
       },
       "exit": {
         "exit_fail_label": "Perdido",
@@ -422,7 +434,9 @@
     "triggers": {
       "timeout": {
         "timeout_days_chip": "{{ count }} dia",
-        "timeout_days_chip_plural": "{{ count }} dias"
+        "timeout_days_chip_plural": "{{ count }} dias",
+        "timeout_hours_chip": "{{ count }} hora",
+        "timeout_hours_chip_plural": "{{ count }} horas"
       },
       "trigger": "Acionador",
       "exit": "Saída",
@@ -443,7 +457,8 @@
         "invoice_chip": "Faturação",
         "basket_chip": "Carrinho",
         "book_chip": "Reserva",
-        "purchase_chip": "Comprar"
+        "purchase_chip": "Comprar",
+        "member_chip": "Membro"
       },
       "changeKind": "Alterar para"
     },
@@ -552,9 +567,14 @@
         "helperText": "Definir o que é considerado uma falha, o membro será marcado como \"Perdido\" ao sair do {{ workflowLowerCase }}. Também define o tempo máximo que um membro pode estar presente no {{ workflowLowerCase }}",
         "addTrigger": "Adicionar um acionador de saída",
         "timeout": {
-          "helperText": "Os membros sairão do {{ workflowLowerCase }} se não houver progresso após esse número de dias",
-          "label": "Dias inativos no {{ workflowLowerCase }}",
-          "title": "Tempo limite"
+          "helperText": "Os membros sairão do {{ workflowLowerCase }} se não houver progresso após esse número de dias.",
+          "label": "Dias inativos no {{ workflowLowerCase }}.",
+          "title": "Tempo limite",
+          "hours": "hora",
+          "hours_plural": "horas",
+          "days": "dia e",
+          "days_plural": "dias e",
+          "helperTextWithHourlyTimeout": "Os membros sairão do {{ workflowLowerCase }} se nenhum progresso for feito após este período de inatividade."
         }
       },
       "wonAction": {
@@ -880,7 +900,7 @@
     "graph": {
       "alert": {
         "switchToEditMode": "Se estiver no modo de visualização, clique em EDITAR para editar o {{ workflowLowerCase }}",
-        "audienceIsActive": "Seu {{ workflowLowerCase }} está a decorrer, faça uma pausa para o modificar."
+        "audienceIsActive": "O seu {{ workflowLowerCase }} está atualmente ativo. Pause-o primeiro para o editar. "
       }
     },
     "archive": {
@@ -1053,7 +1073,8 @@
       },
       "createFromScratchDescription": "Cria um {{ workflowLowerCase }} para automatizar as tuas ações do Audience.",
       "useTemplate": "Usar modelo",
-      "createFromScratch": "Criar novo {{ workflowLowerCase }}"
+      "createFromScratch": "Criar novo {{ workflowLowerCase }}",
+      "createFromScratchTitle": "Novo {{ workflowLowerCase }}"
     },
     "upsells": {
       "warning": {

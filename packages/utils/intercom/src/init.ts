@@ -225,6 +225,7 @@ export const initIntercomWidget = ({
     custom_launcher_selector:
       customLauncherSelector ?? DEFAULT_CUSTOM_LAUNCHER_SELECTOR,
     action_color: actionColor ?? DEFAULT_ACTION_COLOR,
+    alignment: "left",
     release: RELEASE_SHA,
   });
 

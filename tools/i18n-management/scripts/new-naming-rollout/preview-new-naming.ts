@@ -69,8 +69,19 @@ async function main({
   });
 
   // Step 2 - Select languages to scan and transform
-  const selectedLanguages = await selectLanguages({
-    initialLanguages: languages,
+  const selectedLanguages = (
+    await selectLanguages({
+      initialLanguages: languages,
+    })
+  ).sort((a, b) => {
+    // English first
+    if (a === "en") {
+      return -1;
+    }
+    if (b === "en") {
+      return 1;
+    }
+    return 0;
   });
 
   // Step 3 - Request inputs with previous and new terms
@@ -205,6 +216,8 @@ async function main({
         entry?.newString ?? "",
         // Column {lang}_validated
         false,
+        // Column {lang}_notes
+        "",
       );
     }
     return row;

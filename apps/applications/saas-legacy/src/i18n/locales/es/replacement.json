@@ -61,11 +61,12 @@
     "until": "Hasta {{-date}}",
     "filters": "Filtros",
     "description": "Las siguientes sesiones necesitan un profesor sustituto. ¿Estás disponible?",
-    "title": "Marketplace"
+    "title": "Área de Miembros"
   },
   "confirmations": {
     "description": "Has sido añadido como profesor sustituto en las siguientes sesiones.",
-    "title": "Confirmaciones"
+    "title": "Confirmaciones",
+    "unavailable": "Solicitar sustitución "
   },
   "requests": {
     "cancel": "Cancelar",

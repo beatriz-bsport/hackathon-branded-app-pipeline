@@ -38,7 +38,7 @@
       "hasReachedMaxUses": "Se ha alcanzado el número máximo de usos del enlace de recomendación.",
       "missingAmountBeforeApplication": "No se ha alcanzado el importe mínimo de compra. Te arriesgas a perder tu enlace de recomendación. ¡Sólo {{ missingAmount }} más para poder disfrutar del descuento!"
     },
-    "expressCheckoutTitle": "Portafogli digitali"
+    "expressCheckoutTitle": "Carteras digitales"
   },
   "autoAdd": {
     "paymentPack": {

@@ -1,57 +1,27 @@
-import React, { useCallback, useMemo } from "react";
+import React from "react";
 
-import {
-  type DateTime,
-  getIsoDate,
-  getLocalNow,
-  isSameDay,
-} from "@bsport/datetime-manipulation";
+import { isSameDay } from "@bsport/datetime-manipulation";
 import { Button, useMatchMedia } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { useToday } from "#src/hooks/use-today";
 import {
-  CalendarView,
   selectCalendarView,
   selectSelectedDate,
   setSelectedDate,
   setUniqueDate,
   useSessionListStore,
 } from "#src/stores/session-list";
+import { CalendarView } from "#src/types";
+import { isInRange, scrollToDate } from "#src/utils/dates";
 import { useTranslation } from "#src/utils/i18n";
 
-const scrollToDate = (date: DateTime) => {
-  const dateString = getIsoDate(date);
-  const dateElement = document.querySelector(`[data-date="${dateString}"]`);
-  if (dateElement) {
-    dateElement.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-};
-
-const isInRange = (
-  date: DateTime,
-  minDate: DateTime | null,
-  maxDate: DateTime | null,
-) => {
-  if (minDate && maxDate) {
-    return date >= minDate && date <= maxDate;
-  }
-  return false;
-};
-
 export const TodayButton: React.FC = () => {
-  const { t, i18n } = useTranslation("sessionList");
-  const intlLocale = i18n?.language;
-  const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
-
+  const { t } = useTranslation("sessionList");
+  const today = useToday();
   const calendarView = useSessionListStore(selectCalendarView);
   const selectedDate = useSessionListStore(selectSelectedDate);
 
-  const today = useMemo(
-    () => getLocalNow({ locale: intlLocale, zone: companyTimeZone }),
-    [intlLocale, companyTimeZone],
-  );
-
-  const handleTodayClick = useCallback(() => {
+  const handleTodayClick = () => {
     if (calendarView === CalendarView.DAILY && selectedDate.type === "single") {
       const selectedDateTime = selectedDate.date;
       if (!isSameDay(selectedDateTime, today)) {
@@ -67,7 +37,7 @@ export const TodayButton: React.FC = () => {
       // Switch to daily view with today selected
       setUniqueDate(today);
     }
-  }, [calendarView, selectedDate, today]);
+  };
 
   const isMobile = !useMatchMedia("sm");
 

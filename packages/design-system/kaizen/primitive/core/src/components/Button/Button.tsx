@@ -136,11 +136,11 @@ const Button: React.FC<Props> = ({
   size,
   loading = false,
   fullWidth = false,
+  icon,
+  iconLeft,
+  iconRight,
   ...props
 }) => {
-  // Extract icon props
-  const { icon, iconLeft, iconRight } = props;
-
   // For icon-button kind, use the single icon prop
   // For default kind, use iconLeft/iconRight
   const leftIcon = kind === "icon-button" ? icon : iconLeft;

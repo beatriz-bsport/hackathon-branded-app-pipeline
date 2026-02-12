@@ -24,7 +24,7 @@
       "success": "Updated successfully"
     },
     "tabs": {
-      "overview": "Overview",
+      "overview": "Purchases",
       "editor": "Editor"
     }
   },
@@ -36,14 +36,14 @@
     },
     "table": {
       "columns": {
-        "issueDate": "Issue date",
+        "issueDate": "Purchase date",
         "buyer": "Buyer",
         "value": "Value"
       },
       "actions": {
         "openPrefix": "Open...",
         "invoice": "Invoice",
-        "memberProfile": "Buyer member profile"
+        "memberProfile": "Open client profile"
       },
       "errors": {
         "failToGetInvoice": "Couldn't access related invoice. Please try again. "

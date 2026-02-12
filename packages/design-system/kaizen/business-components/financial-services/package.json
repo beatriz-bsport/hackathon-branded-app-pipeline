@@ -34,8 +34,10 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-financial-services": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",

@@ -112,7 +112,7 @@ export const useFormatMarketingNotificationRecipientsTableColumns =
         if (row.isNotificationRead) {
           chipConfig = {
             ...chipConfig,
-            color: "positive",
+            color: "main",
             label: t(
               "drawer.performance.allNotifications.helper.status.opened.label",
             ),
@@ -120,7 +120,7 @@ export const useFormatMarketingNotificationRecipientsTableColumns =
         } else if (row.status === EmailStatus.DELIVERED) {
           chipConfig = {
             ...chipConfig,
-            color: "info",
+            color: "positive",
             label: t(
               "drawer.performance.allNotifications.helper.status.sent.label",
             ),

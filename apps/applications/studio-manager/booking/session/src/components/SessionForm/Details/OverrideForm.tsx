@@ -12,12 +12,9 @@ import { SessionNameField } from "./SessionNameField";
 const OverrideToggle: FC<{
   fieldIdPrefix: string;
   trackOverrideToggleChange?: (checked: boolean) => void;
-}> = ({ fieldIdPrefix, trackOverrideToggleChange }) => {
+  isChecked: boolean;
+}> = ({ fieldIdPrefix, trackOverrideToggleChange, isChecked }) => {
   const { t } = useTranslation("sessionCreation");
-
-  const { watch } = useFormContext();
-
-  const isChecked = watch("allowCustomNameAndDescription");
 
   return (
     <FormField<
@@ -29,8 +26,8 @@ const OverrideToggle: FC<{
       mapProps={({ form }) => ({
         onToggleChange: (checked) => {
           form.setValue("allowCustomNameAndDescription", checked, {
-            shouldValidate: true,
-            shouldDirty: true,
+            shouldValidate: false,
+            shouldDirty: false,
           });
           trackOverrideToggleChange?.(checked);
         },
@@ -59,16 +56,22 @@ const OverrideForm: FC<OverrideFormProps> = ({
   fieldIdPrefix,
   trackOverrideToggleChange,
 }) => {
+  const { watch } = useFormContext();
+
+  const isChecked = watch("allowCustomNameAndDescription");
   return (
     <>
       <OverrideToggle
         fieldIdPrefix={fieldIdPrefix}
         trackOverrideToggleChange={trackOverrideToggleChange}
+        isChecked={isChecked}
       />
-      <div className="flex flex-col gap-md ml-xl">
-        <SessionNameField fieldIdPrefix={fieldIdPrefix} />
-        <SessionDescriptionField fieldIdPrefix={fieldIdPrefix} />
-      </div>
+      {isChecked && (
+        <div className="flex flex-col gap-md ml-xl">
+          <SessionNameField fieldIdPrefix={fieldIdPrefix} />
+          <SessionDescriptionField fieldIdPrefix={fieldIdPrefix} />
+        </div>
+      )}
     </>
   );
 };

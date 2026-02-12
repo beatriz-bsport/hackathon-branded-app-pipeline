@@ -36,10 +36,14 @@ export const fromSessionToFormData = (
     recurrenceEndDate: null,
     // Details
     allowCustomNameAndDescription: !!(
-      session.name_override ?? session.description_override
+      session.name_override || session.description_override
     ),
-    name_override: session.name_override ?? "",
-    description_override: session.description_override ?? "",
+    name_override: session.name_override
+      ? session.name_override
+      : (session.name ?? ""),
+    description_override: session.description_override
+      ? session.description_override
+      : (session.meta_activity?.description ?? ""),
     // Settings
     manager_only: session.manager_only,
     credits: session.credit_price,

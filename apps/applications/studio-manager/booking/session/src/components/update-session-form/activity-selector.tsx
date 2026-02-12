@@ -30,6 +30,8 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
 
   const activity = watch("meta_activity");
 
+  console.log("activity", activity);
+
   const { data: selectedActivity } = useFetchActivitiesByIds(
     [activity],
     !!activity,
@@ -82,9 +84,10 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
             placeholder: selectedActivity?.name,
             required: true,
             label: t("editSessionForm.content.chooseActivity.label"),
+            className: "max-w-component-select",
           }}
           menuProps={{
-            className: "max-h-[300px] overflow-y-auto",
+            className: "max-h-component-select overflow-y-auto",
           }}
           loadingProps={{ isLoading }}
           onValueChange={(event: string) => {

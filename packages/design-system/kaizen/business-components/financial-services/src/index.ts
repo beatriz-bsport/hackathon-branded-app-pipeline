@@ -1,6 +1,7 @@
 export {
   default as BillingFlowModal,
   type BillingFlowModalProps,
+  type BillingFlowFormData,
 } from "./components/billing/BillingFlowModal";
 export {
   default as ItemAutocomplete,

@@ -196,7 +196,7 @@ export type BillingFlowItem = InvoiceItemBase &
 export type BillingFlowFormData = {
   memberId: number | undefined;
   items: BillingFlowItem[];
-  couponCodes: string[];
+  promoCodes: string[];
   footnote: string | null;
   date: Date;
 };
@@ -207,6 +207,7 @@ export type BillingFlowFormData = {
 export type BillingFlowModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: (data: BillingFlowFormData) => void | Promise<void>;
   memberId?: number;
 };
 

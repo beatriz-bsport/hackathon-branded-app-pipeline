@@ -5,6 +5,7 @@ import { FormField, useFormContext } from "@bsport/form";
 import {
   Body,
   Button,
+  Divider,
   TextField,
   type TextFieldProps,
 } from "@bsport/kaizen-primitive-core";
@@ -62,8 +63,6 @@ export const PromoCodeSection: React.FC = () => {
                     size="md"
                     color="default"
                     weight="weak"
-                    // TODO: Check with design applying custom colors
-                    className="text-onsurface-main-strong"
                   >
                     {t("billingFlowModal.promoCode.detail", { code })}
                   </Body>
@@ -80,10 +79,8 @@ export const PromoCodeSection: React.FC = () => {
                 <Body
                   htmlVariant="span"
                   size="md"
-                  color="default"
+                  color="positive"
                   weight="strong"
-                  // TODO: Check with design applying custom colors
-                  className="text-onsurface-main-strong"
                 >
                   {getCurrencyDisplayWithPrice(voucher)}
                 </Body>
@@ -95,10 +92,9 @@ export const PromoCodeSection: React.FC = () => {
 
       {!showPromoCodeInput ? (
         <Button
-          // TODO: Check with design applying custom colors
-          className="w-fit text-onsurface-action-weak-main"
+          className="w-fit"
           intent="flat"
-          color="default"
+          color="main"
           size="md"
           label={t("billingFlowModal.addPromoCode")}
           onClick={() => setShowPromoCodeInput(true)}
@@ -146,6 +142,8 @@ export const PromoCodeSection: React.FC = () => {
           {errorMessage}
         </Body>
       )}
+
+      {promoCodes.length > 0 && <Divider className="mt-sm" weight="thin" />}
     </div>
   );
 };

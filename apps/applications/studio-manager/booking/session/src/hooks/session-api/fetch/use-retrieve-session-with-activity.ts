@@ -1,13 +1,10 @@
-import { RetrieveSessionParams, SessionWithActivity } from "@bsport/api-book";
+import { SessionWithActivity } from "@bsport/api-book";
 
-import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
+import { useRetrieveManagerSession } from "#src/hooks/session-api/fetch/use-retrieve-manager-session";
 import { useFetchActivitiesByIds } from "#src/hooks/use-fetch-activities-by-ids";
 
-export const useRetrieveSessionWithActivity = (
-  sessionId?: number,
-  params?: RetrieveSessionParams,
-) => {
-  const sessionQuery = useRetrieveSession(sessionId, params);
+export const useRetrieveSessionWithActivity = (sessionId?: number) => {
+  const sessionQuery = useRetrieveManagerSession(sessionId);
   const session = sessionQuery.data;
 
   const activitiesQuery = useFetchActivitiesByIds(

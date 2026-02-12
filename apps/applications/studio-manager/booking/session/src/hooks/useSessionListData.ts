@@ -1,6 +1,5 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { useNavigate } from "react-router";
 
 import {
   type FetchSessionsParams,
@@ -56,7 +55,7 @@ const processSession =
     sessionsWithPendingRequests: number[],
     groupSessionsById: Record<number, GroupSession>,
     activitiesById: Record<number, MetaActivity>,
-    navigateToBookingsManagement: (session: EnrichedSession) => void,
+    navigateToBookingsManagement: (sessionId: number) => void,
   ) =>
   (session: ManagerSession): EnrichedSession => {
     const teacher = teachersById[session.coach];
@@ -97,7 +96,7 @@ const processSession =
           session_is_online: session.is_broadcast,
         });
 
-        navigateToBookingsManagement(session);
+        navigateToBookingsManagement(session.id);
       },
       navigateToBookingsManagement,
     };
@@ -206,7 +205,7 @@ export const useSessionListData = (
   const filters = useSessionListStore(selectFilters);
   const filterParams = getParamsFromFilters(filters);
 
-  const { getBookingsManagementUrl } = useUrls();
+  const { navigateToBookingsManagement } = useUrls();
 
   const showCancelledSessions = useSessionListStore(
     selectShowCancelledSessions,
@@ -218,8 +217,6 @@ export const useSessionListData = (
     ? showCancelledSessions
     : false;
   const restrictedTeachers = dataAccessLayer.useUserRestrictedTeachers();
-
-  const navigate = useNavigate();
 
   const {
     data: rawSessions = [],
@@ -261,10 +258,6 @@ export const useSessionListData = (
   );
 
   const sessions = useMemo(() => {
-    const navigateToBookingsManagement = (session: EnrichedSession) => {
-      navigate(getBookingsManagementUrl(session.id));
-    };
-
     return rawSessions.map(
       processSession(
         teachersById,
@@ -282,8 +275,7 @@ export const useSessionListData = (
     sessionsWithPendingRequests,
     groupSessionsById,
     activitiesById,
-    getBookingsManagementUrl,
-    navigate,
+    navigateToBookingsManagement,
   ]);
 
   return {

@@ -12,8 +12,6 @@ export const invariant: typeof tinyinvariant = (condition, message) => {
 
   if (!condition) {
     const errorMessage = typeof message === "function" ? message() : message;
-    const error = new Error(errorMessage ?? "Invalid invariant");
-    captureException(error);
-    throw error;
+    captureException(new Error(errorMessage ?? "Invalid invariant"));
   }
 };

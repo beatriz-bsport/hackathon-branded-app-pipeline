@@ -28,11 +28,20 @@ export const formatDate = (dateStr: string, language?: string): string => {
   }
 };
 
-export const calculateTotals = (items: InvoiceItemFormData[]) => {
+export const calculateTotals = (
+  items: InvoiceItemFormData[],
+  promoCodeDiscountCts = 0,
+) => {
   const totalCts = items.reduce(
     (sum, item) => sum + item.quantity * item.priceCts,
     0,
   );
+
+  const totalDiscountCts = Math.min(
+    Math.max(promoCodeDiscountCts, 0),
+    totalCts,
+  );
+  const totalAfterDiscountCts = Math.max(totalCts - totalDiscountCts, 0);
 
   const totalBeforeTaxCts = items.reduce((sum, item) => {
     const itemTotalCts = item.quantity * item.priceCts;
@@ -43,5 +52,14 @@ export const calculateTotals = (items: InvoiceItemFormData[]) => {
     return sum + itemTotalBeforeTaxCts;
   }, 0);
 
-  return { totalCts, totalBeforeTaxCts };
+  const totalBeforeTaxAfterDiscountCts =
+    totalCts > 0
+      ? Math.round((totalBeforeTaxCts * totalAfterDiscountCts) / totalCts)
+      : 0;
+
+  return {
+    totalCts,
+    totalBeforeTaxCts: totalBeforeTaxAfterDiscountCts,
+    totalAfterDiscountCts,
+  };
 };

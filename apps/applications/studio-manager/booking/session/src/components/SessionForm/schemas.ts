@@ -355,6 +355,7 @@ export const useSessionEditSchema = () => {
   const editFieldsSchema = advancedOptionsSchema.extend({
     id: z.number(),
     meta_activity: z.number(),
+    overrideTeacherPayrollRule: z.boolean(),
     coach_override: z.number().nullable(),
     credit_price_override: z.number().optional(),
     custom_selection_ids: z.array(z.number().int()),

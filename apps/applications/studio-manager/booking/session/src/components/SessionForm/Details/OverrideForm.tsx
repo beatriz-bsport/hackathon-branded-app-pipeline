@@ -6,15 +6,15 @@ import { Toggle, ToggleProps } from "@bsport/kaizen-primitive-core";
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
-export const OverrideToggle: FC<{
+import { SessionDescriptionField } from "./SessionDescriptionField";
+import { SessionNameField } from "./SessionNameField";
+
+const OverrideToggle: FC<{
   fieldIdPrefix: string;
   trackOverrideToggleChange?: (checked: boolean) => void;
-}> = ({ fieldIdPrefix, trackOverrideToggleChange }) => {
+  isChecked: boolean;
+}> = ({ fieldIdPrefix, trackOverrideToggleChange, isChecked }) => {
   const { t } = useTranslation("sessionCreation");
-
-  const { watch } = useFormContext();
-
-  const isChecked = watch("allowCustomNameAndDescription");
 
   return (
     <FormField<
@@ -26,8 +26,8 @@ export const OverrideToggle: FC<{
       mapProps={({ form }) => ({
         onToggleChange: (checked) => {
           form.setValue("allowCustomNameAndDescription", checked, {
-            shouldValidate: true,
-            shouldDirty: true,
+            shouldValidate: false,
+            shouldDirty: false,
           });
           trackOverrideToggleChange?.(checked);
         },
@@ -46,3 +46,34 @@ export const OverrideToggle: FC<{
     </FormField>
   );
 };
+
+type OverrideFormProps = {
+  fieldIdPrefix: string;
+  trackOverrideToggleChange?: (checked: boolean) => void;
+};
+
+const OverrideForm: FC<OverrideFormProps> = ({
+  fieldIdPrefix,
+  trackOverrideToggleChange,
+}) => {
+  const { watch } = useFormContext();
+
+  const isChecked = watch("allowCustomNameAndDescription");
+  return (
+    <>
+      <OverrideToggle
+        fieldIdPrefix={fieldIdPrefix}
+        trackOverrideToggleChange={trackOverrideToggleChange}
+        isChecked={isChecked}
+      />
+      {isChecked && (
+        <div className="flex flex-col gap-md ml-xl">
+          <SessionNameField fieldIdPrefix={fieldIdPrefix} />
+          <SessionDescriptionField fieldIdPrefix={fieldIdPrefix} />
+        </div>
+      )}
+    </>
+  );
+};
+
+export default OverrideForm;

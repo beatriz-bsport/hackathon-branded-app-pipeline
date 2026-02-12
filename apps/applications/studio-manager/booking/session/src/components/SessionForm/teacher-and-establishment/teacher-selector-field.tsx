@@ -40,21 +40,20 @@ export const TeacherSelectorField: FC<{
   return (
     <FormField<SessionCreationFormData, "coach", AutocompleteProps>
       name="coach"
-      mapProps={({ form: { setValue } }) => ({
+      mapProps={({ form }) => ({
         onSelect: (selectedTeacherId: string) => {
-          setValue(
+          if (!selectedTeacherId) return;
+          form.setValue(
             "coach",
             selectedTeacherId ? Number(selectedTeacherId) : null,
             { shouldValidate: true, shouldDirty: true },
           );
         },
-        onClear: () => {
-          setValue("coach", null, { shouldValidate: true });
-        },
       })}
     >
       <Autocomplete
         items={teacherItems}
+        fullWidth
         textfieldProps={{
           id: `${fieldIdPrefix}-teacher-selector`,
           label: t(
@@ -64,6 +63,10 @@ export const TeacherSelectorField: FC<{
             "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.teacher.placeholder",
           ),
           required: true,
+          className: "max-w-component-select",
+        }}
+        menuProps={{
+          className: "max-h-component-select overflow-y-auto",
         }}
         loadingProps={{ isLoading }}
         defaultSelectedIds={defaultSelectedIds}

@@ -36,22 +36,28 @@ export const fromSessionToFormData = (
     recurrenceEndDate: null,
     // Details
     allowCustomNameAndDescription: !!(
-      session.name_override ?? session.description_override
+      session.name_override || session.description_override
     ),
-    name_override: session.name_override ?? "",
-    description_override: session.description_override ?? "",
+    name_override: session.name_override
+      ? session.name_override
+      : (session.name ?? ""),
+    description_override: session.description_override
+      ? session.description_override
+      : (session.meta_activity?.description ?? ""),
     // Settings
     manager_only: session.manager_only,
-    credits: 0,
+    credits: session.credit_price,
     waiting_list_max_size: session.waiting_list_max_size,
     effectif: session.effectif,
     available_on_partnership: session.available_on_partnership,
     partner_max_booking_count: session.partner_max_booking_count,
     level: session.level,
+    // TODO: remove is_hybrid as it's only used in the creation form
     is_hybrid: !!session.linked_hybrid_offer_id,
     broadcast_link: session.broadcast_link ?? "",
     // Teacher and establishment
     coach: session.coach,
+    overrideTeacherPayrollRule: false,
     coach_payment_rule: session.coach_payment_rule_id,
     establishment: session.establishment,
     room_blueprint: session.room_blueprint,

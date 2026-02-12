@@ -21,6 +21,7 @@ export const SessionDescriptionField: FC<{
       disabled={isDisabled}
     >
       <TextArea
+        className="bg-surface-default"
         id={`${fieldIdPrefix}-session-description-override`}
         label={t("addSessionModal.steps.configureSession.details.description")}
         required={!isDisabled}

@@ -141,7 +141,9 @@ export const useSessionPayload = () => {
 
       // Teacher and establishment
       coach: formData.coach!,
-      coach_payment_rule: formData.coach_payment_rule,
+      coach_payment_rule: formData.overrideTeacherPayrollRule
+        ? formData.coach_payment_rule
+        : session.coach_payment_rule_id,
       coach_override: session.coach_override,
       establishment: formData.establishment!,
       room_blueprint: formData.room_blueprint,

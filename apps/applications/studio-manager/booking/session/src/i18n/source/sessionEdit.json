@@ -8,6 +8,23 @@
     },
     "errors": {
       "edit": "Failed to edit session"
+    },
+    "content": {
+      "creditWarning": "Older bookings do not take into account changes in credits.",
+      "teacherSectionTitle": "Teacher",
+      "teacherPayrollRuleOverrideLabel": "Override teacher payment rule",
+      "teacherPayrollRuleOverrideDescription": "If disabled, the default rule from the teacher profile will be applied",
+      "chooseActivity": {
+        "label": "Activity"
+      },
+      "detailsForm": {
+        "title": "Details"
+      },
+      "establishmentSectionTitle": "Establishment",
+      "visibilitySelector": {
+        "title": "Visibility",
+        "label": "Select visibility"
+      }
     }
   }
 }

@@ -31,24 +31,20 @@ export const EstablishmentSelectorField: FC<{
   return (
     <FormField<SessionCreationFormData, "establishment", AutocompleteProps>
       name="establishment"
-      mapProps={({ form: { setValue } }) => ({
+      mapProps={({ form }) => ({
         onSelect: (selectedEstablishmentId: string) => {
-          setValue(
+          if (!selectedEstablishmentId) return;
+          form.setValue(
             "establishment",
             selectedEstablishmentId ? Number(selectedEstablishmentId) : null,
             { shouldValidate: true, shouldDirty: true },
           );
         },
-        onClear: () => {
-          setValue("establishment", null, {
-            shouldValidate: true,
-            shouldDirty: true,
-          });
-        },
       })}
     >
       <Autocomplete
         items={groupedEstablishments}
+        fullWidth
         textfieldProps={{
           id: `${fieldIdPrefix}-establishment-selector`,
           label: t(
@@ -58,6 +54,10 @@ export const EstablishmentSelectorField: FC<{
             "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.establishment.placeholder",
           ),
           required: true,
+          className: "max-w-component-select",
+        }}
+        menuProps={{
+          className: "max-h-component-select overflow-y-auto",
         }}
         loadingProps={{ isLoading }}
         defaultSelectedIds={defaultSelectedIds}

@@ -68,6 +68,8 @@ export const TagSelectorField: FC<TagSelectorProps> = ({ id, label, name }) => {
       >
         <Autocomplete
           key={id}
+          className="w-full max-w-component-select"
+          fullWidth
           multiSelect
           popoverPlacement="bottom-right"
           items={items}

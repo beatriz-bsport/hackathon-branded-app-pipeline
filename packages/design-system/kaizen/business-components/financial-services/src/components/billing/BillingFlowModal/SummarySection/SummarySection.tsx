@@ -17,15 +17,24 @@ export const SummarySection: React.FC = () => {
   const { watch, setValue } = useFormContext<BillingFlowFormState>();
 
   const items = watch("items") ?? [];
+  const promoCodes = watch("promoCodes");
+  const promoCodeDiscountCts = watch("promoCodeDiscountCts");
   const itemCount = items.length;
   const itemCountText = t("billingFlowModal.itemCount", { count: itemCount });
 
   const handleItemDelete = (itemIndex: number) => {
     const newItems = items.filter((_, index) => index !== itemIndex);
     setValue("items", newItems, { shouldDirty: true });
+    if (newItems.length === 0 && promoCodes.length > 0) {
+      setValue("promoCodes", [], { shouldDirty: true });
+      setValue("promoCodeDiscountCts", 0, { shouldDirty: true });
+    }
   };
 
-  const { totalCts, totalBeforeTaxCts } = calculateTotals(items);
+  const { totalBeforeTaxCts, totalAfterDiscountCts } = calculateTotals(
+    items,
+    promoCodeDiscountCts,
+  );
 
   return (
     <div className="flex flex-col flex-1">
@@ -62,7 +71,7 @@ export const SummarySection: React.FC = () => {
               </div>
               <SummaryTotals
                 totalBeforeTaxCts={totalBeforeTaxCts}
-                totalCts={totalCts}
+                totalAfterDiscountCts={totalAfterDiscountCts}
               />
             </div>
           )}

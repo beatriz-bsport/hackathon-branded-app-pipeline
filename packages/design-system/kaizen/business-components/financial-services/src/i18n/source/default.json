@@ -47,6 +47,15 @@
         "notApplicable": "This promo code is not applicable."
       }
     },
+    "addFootnote": "Add footnote",
+    "footnote": "Footnote:",
+    "footnoteModal": {
+      "title": "Invoice footnote",
+      "description": "Add an optional note that will appear at the bottom of the invoice for your customer (e.g. conditions of purchase, payment terms, or thank-you note)",
+      "label": "Footnote",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
     "itemCount": "{{count}} items",
     "itemCount_one": "1 item",
     "itemCount_other": "{{count}} items",

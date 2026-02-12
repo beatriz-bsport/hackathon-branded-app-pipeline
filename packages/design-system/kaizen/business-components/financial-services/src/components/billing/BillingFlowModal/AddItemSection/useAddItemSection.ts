@@ -2,9 +2,14 @@ import { useCallback, useMemo } from "react";
 
 import { useFormContext } from "@bsport/form";
 
-import { ADD_ITEM_DEFAULT } from "#src/components/billing/BillingFlowModal/defaults";
+import {
+  ADD_ITEM_DEFAULT,
+  ADD_ITEM_DEFAULT_KEYS,
+  GIFTCARD_DEFAULT_KEYS,
+  GIFTCARD_FIELDS_DEFAULT,
+} from "#src/components/billing/BillingFlowModal/defaults";
 import type { BillingFlowFormState } from "#src/components/billing/BillingFlowModal/schema";
-import type { InvoiceItemFormData } from "#src/components/billing/BillingFlowModal/types";
+import type { BillingFlowItem } from "#src/components/billing/BillingFlowModal/types";
 import type { ItemAutocompleteItem } from "#src/components/billing/ItemAutocomplete";
 
 type Options = {
@@ -12,7 +17,7 @@ type Options = {
 };
 
 type Return = {
-  itemToAdd: InvoiceItemFormData | null;
+  itemToAdd: BillingFlowItem | null;
   handleAddItem: () => void;
   resetAddItemFields: (options?: { keepItemType?: boolean }) => void;
   handleClear: () => void;
@@ -36,21 +41,52 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
   const giftcardDeliveryFormat = watch("addItemGiftcardDeliveryFormat");
   const giftcardRecipientEmails = watch("addItemGiftcardRecipientEmails");
 
+  /**
+   * Resets only add-item (and giftcard) fields via setValue.
+   * Use this after adding an item so we don't call reset()
+   * (which would overwrite `items` and clear `isDirty`).
+   */
+  const applyAddItemDefaults = useCallback(
+    (options?: { keepItemType?: boolean }) => {
+      const { keepItemType = false } = options ?? {};
+      const addItemDefaults: Pick<
+        BillingFlowFormState,
+        keyof typeof ADD_ITEM_DEFAULT
+      > = { ...ADD_ITEM_DEFAULT };
+      if (keepItemType) {
+        const current = getValues();
+        addItemDefaults.addItemSelectedItemType =
+          current.addItemSelectedItemType;
+      } else {
+        addItemDefaults.addItemSelectedItemType = null;
+      }
+      ADD_ITEM_DEFAULT_KEYS.forEach((key) =>
+        setValue(key, addItemDefaults[key], { shouldValidate: true }),
+      );
+      GIFTCARD_DEFAULT_KEYS.forEach((key) =>
+        setValue(key, GIFTCARD_FIELDS_DEFAULT[key], { shouldValidate: true }),
+      );
+    },
+    [getValues, setValue],
+  );
+
   const resetAddItemFields = useCallback(
     (options?: { keepItemType?: boolean }) => {
       const { keepItemType = false } = options ?? {};
       const current = getValues();
-      const addItemDefaults = { ...ADD_ITEM_DEFAULT };
+      const addItemDefaults: Pick<
+        BillingFlowFormState,
+        keyof typeof ADD_ITEM_DEFAULT
+      > = { ...ADD_ITEM_DEFAULT };
 
       if (keepItemType) {
-        (addItemDefaults as BillingFlowFormState).addItemSelectedItemType =
+        addItemDefaults.addItemSelectedItemType =
           current.addItemSelectedItemType;
       }
 
       reset({
         ...current,
         ...addItemDefaults,
-        isDiscountReasonRequired: current.isDiscountReasonRequired,
       });
     },
     [getValues, reset],
@@ -60,7 +96,7 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
     resetAddItemFields({ keepItemType: true });
   }, [resetAddItemFields]);
 
-  const itemToAdd = useMemo<InvoiceItemFormData | null>(() => {
+  const itemToAdd = useMemo<BillingFlowItem | null>(() => {
     const price = priceCts ?? 0;
     if (!selectedItemId?.trim() || selectedItemType == null || price < 0) {
       return null;
@@ -161,19 +197,15 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
     if (!itemToAdd) return;
 
     const currentItems = watch("items");
+    const newItems = [...currentItems, itemToAdd];
 
-    setValue(
-      "items",
-      [...currentItems, itemToAdd as BillingFlowFormState["items"][number]],
-      {
-        shouldDirty: true,
-        shouldValidate: true,
-      },
-    );
+    setValue("items", newItems, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
 
-    resetAddItemFields({ keepItemType: false });
-    setValue("addItemSelectedItemType", null, { shouldDirty: true });
-  }, [itemToAdd, resetAddItemFields, setValue, watch]);
+    applyAddItemDefaults({ keepItemType: false });
+  }, [itemToAdd, applyAddItemDefaults, setValue, watch]);
 
   return {
     itemToAdd,

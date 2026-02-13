@@ -1,9 +1,15 @@
 import { z } from "zod";
 
+import { fromIsoString } from "@bsport/datetime-manipulation";
 import { PAYMENT_METHOD_IDENTIFIERS } from "@bsport/kaizen-business-components/buyables/payment-methods-form";
-import type { PackFormData } from "@bsport/store-buyables-pack";
+import type {
+  PackFormData as PackFormDataAPI,
+  PackFormEditData as PackFormEditDataAPI,
+} from "@bsport/store-buyables-pack";
 
 import { useTranslation } from "#src/utils/i18n";
+
+import { useGetDisablePast } from "./utils";
 
 export const TEXTFIELD_MIN_LENGTH = 1;
 export const FIELD_NAME_MAX_LENGTH = 200;
@@ -13,7 +19,12 @@ export const FIELD_TAX_RATE_MINIMUM = 0;
 export const FIELD_TAX_RATE_MAXIMUM = 100;
 export const FIELD_MAX_NB_PURCHASE_MINIMUM = 0;
 
-export const DEFAULT_FORM_DATA: PackFormData = {
+export type PackFormData = PackFormDataAPI & { hasExpirationDate: boolean };
+export type PackFormEditData = PackFormEditDataAPI & {
+  hasExpirationDate: boolean;
+};
+
+export const DEFAULT_FORM_DATA = {
   description: "",
   name: "",
   is_usable_by_staff: true,
@@ -23,6 +34,7 @@ export const DEFAULT_FORM_DATA: PackFormData = {
   shop_item_ids: [],
   price: 0,
   tax: 0,
+  hasExpirationDate: false,
   expiration_date: null,
   max_purchase_per_member: null,
   use_payment_combo_tax_on_items: false,
@@ -32,58 +44,104 @@ export const DEFAULT_FORM_DATA: PackFormData = {
   highlighted_as_recommended: false,
   new_member_only: false,
   tags_on_consumer_item_creation: [],
-} satisfies PackFormData;
+} satisfies PackFormData & { hasExpirationDate: boolean };
 
 export type PackFormSchema = z.ZodType<PackFormData>;
 
 export const usePackSchema = () => {
   const { t } = useTranslation("details");
+  const requiredErrorMessage = t("formFields.requiredField");
 
-  return z.object({
-    // Identity section
-    name: z
-      .string()
-      .min(TEXTFIELD_MIN_LENGTH, t("formFields.requiredField"))
-      .max(FIELD_NAME_MAX_LENGTH, t("formFields.name.errorMaxLength")),
-    description: z
-      .string()
-      .min(TEXTFIELD_MIN_LENGTH, t("formFields.requiredField"))
-      .max(
-        FIELD_DESCRIPTION_MAX_LENGTH,
-        t("formFields.description.errorMaxLength"),
-      ),
+  const disablePast = useGetDisablePast();
 
-    // Content section
-    payment_pack_ids: z.array(z.number()),
-    private_pass_ids: z.array(z.number()),
-    shop_item_ids: z.array(z.number()),
+  const errorMissingDate = t(
+    "formFields.visibilitySection.dateLimitSelector.errorMissingDate",
+  );
+  const expirationDateInput = z.discriminatedUnion("hasExpirationDate", [
+    // Case 1: hasExpirationDate = false → expiration_date is not expected
+    z.object({
+      hasExpirationDate: z.literal(false),
+      expiration_date: z
+        .string()
+        .nullable()
+        .transform(() => null),
+    }),
 
-    // Pricing section
-    price: z.coerce.number().min(FIELD_PRICE_MINIMUM),
-    tax: z.coerce
-      .number()
-      .min(FIELD_TAX_RATE_MINIMUM)
-      .max(FIELD_TAX_RATE_MAXIMUM),
-    max_purchase_per_member: z.coerce
-      .number()
-      .min(FIELD_MAX_NB_PURCHASE_MINIMUM)
-      .nullable(),
-    use_payment_combo_tax_on_items: z.boolean(),
-    available_payment_method_identifiers: z
-      .array(z.coerce.number())
-      .min(
-        1,
-        t("formFields.pricingSection.paymentMethod.errorMissingPaymentMethod"),
-      ),
+    // Case 2: hasExpirationDate = true → expiration_date is required, and to be in the future
+    z.object({
+      hasExpirationDate: z.literal(true),
+      expiration_date: z
+        .string({
+          required_error: errorMissingDate,
+          invalid_type_error: errorMissingDate,
+        })
+        .refine(
+          (date: string | null) => {
+            if (!date) {
+              return false;
+            }
+            return !disablePast(fromIsoString(date));
+          },
+          (date: string | null) => {
+            const message = date
+              ? t(
+                  "formFields.visibilitySection.dateLimitSelector.errorPastDate",
+                )
+              : errorMissingDate;
+            return { message };
+          },
+        ),
+    }),
+  ]);
 
-    // Visibility section
-    expiration_date: z.string().nullable(),
-    highlighted_as_recommended: z.boolean(),
-    new_member_only: z.boolean(),
-    is_usable_by_staff: z.boolean(),
-    manager_only: z.boolean(),
+  return z
+    .object({
+      // Identity section
+      name: z
+        .string()
+        .min(TEXTFIELD_MIN_LENGTH, requiredErrorMessage)
+        .max(FIELD_NAME_MAX_LENGTH, t("formFields.name.errorMaxLength")),
+      description: z
+        .string()
+        .min(TEXTFIELD_MIN_LENGTH, requiredErrorMessage)
+        .max(
+          FIELD_DESCRIPTION_MAX_LENGTH,
+          t("formFields.description.errorMaxLength"),
+        ),
 
-    // Tags section
-    tags_on_consumer_item_creation: z.array(z.number()),
-  }) satisfies PackFormSchema;
+      // Content section
+      payment_pack_ids: z.array(z.number()),
+      private_pass_ids: z.array(z.number()),
+      shop_item_ids: z.array(z.number()),
+
+      // Pricing section
+      price: z.coerce.number().min(FIELD_PRICE_MINIMUM),
+      tax: z.coerce
+        .number()
+        .min(FIELD_TAX_RATE_MINIMUM)
+        .max(FIELD_TAX_RATE_MAXIMUM),
+      max_purchase_per_member: z.coerce
+        .number()
+        .min(FIELD_MAX_NB_PURCHASE_MINIMUM)
+        .nullable(),
+      use_payment_combo_tax_on_items: z.boolean(),
+      available_payment_method_identifiers: z
+        .array(z.coerce.number())
+        .min(
+          1,
+          t(
+            "formFields.pricingSection.paymentMethod.errorMissingPaymentMethod",
+          ),
+        ),
+
+      // Visibility section
+      highlighted_as_recommended: z.boolean(),
+      new_member_only: z.boolean(),
+      is_usable_by_staff: z.boolean(),
+      manager_only: z.boolean(),
+
+      // Tags section
+      tags_on_consumer_item_creation: z.array(z.number()),
+    })
+    .and(expirationDateInput) satisfies PackFormSchema;
 };

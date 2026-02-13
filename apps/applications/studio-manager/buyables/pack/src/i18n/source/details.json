@@ -165,7 +165,8 @@
       "dateLimitSelector": {
         "toggleLabel": "Date limit for purchase",
         "fieldLabel": "Available until",
-        "errorMissingDate": "Add a date or deactivate this option to continue"
+        "errorMissingDate": "Add a date or deactivate this option to continue",
+        "errorPastDate": "The expiration date must be today or future"
       },
       "additionalRules": {
         "label": "Additional rules",
@@ -199,6 +200,7 @@
     "pricing": "Pricing",
     "credits": "Credits",
     "selectPreviousItem": "Select previous item",
-    "selectNextItem": "Select next item"
+    "selectNextItem": "Select next item",
+    "seeDetails": "See more"
   }
 }

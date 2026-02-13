@@ -3,12 +3,13 @@ import { useNavigate } from "react-router";
 
 import { ControlledForm, useFormController } from "@bsport/form";
 import { DetailsLayout, useDetailsLayout } from "@bsport/kaizen-primitive-core";
-import type { Pack, PackFormEditData } from "@bsport/store-buyables-pack";
+import type { Pack } from "@bsport/store-buyables-pack";
 
 import { PackDeleteModal } from "#src/components/PackDeleteModal";
 import { PackEditNameModal } from "#src/components/PackEditNameModal";
 import {
   DEFAULT_FORM_DATA,
+  type PackFormEditData,
   type PackFormSchema,
   usePackSchema,
 } from "#src/components/PackForm/schema";
@@ -33,6 +34,7 @@ const convertIntoPackFormData = (pack: Pack): PackFormEditData => {
     price,
     tax,
     tags_on_consumer_item_creation,
+    expiration_date,
     ...initialValues
   } = pack;
 
@@ -46,6 +48,8 @@ const convertIntoPackFormData = (pack: Pack): PackFormEditData => {
     price: parseInt(price),
     tax: parseInt(tax),
     tags_on_consumer_item_creation: [...tags_on_consumer_item_creation].sort(),
+    expiration_date,
+    hasExpirationDate: !!expiration_date,
   };
 };
 

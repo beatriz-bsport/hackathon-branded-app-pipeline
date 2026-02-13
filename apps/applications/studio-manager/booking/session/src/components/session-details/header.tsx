@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, useId, useMemo } from "react";
 import { Link, NavLink } from "react-router";
 
 import type { SessionWithActivity } from "@bsport/api-book";
@@ -15,9 +15,14 @@ import {
 import { useUrls } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
+import { ShortcutActionsButton } from "../update-session-form/shortcut-actions-button";
 import { SessionStatus } from "./constants";
 
-export const Header: FC<{ session: SessionWithActivity }> = ({ session }) => {
+export const Header: FC<{
+  session: SessionWithActivity;
+  onOpenCancelSessionModal: () => void;
+  onOpenDuplicateSessionModal: () => void;
+}> = ({ session, onOpenCancelSessionModal, onOpenDuplicateSessionModal }) => {
   const { t, i18n } = useTranslation("sessionDetails");
   const { getEditUrl, getIndexUrl } = useUrls();
   const locale = i18n?.language;
@@ -122,6 +127,8 @@ export const Header: FC<{ session: SessionWithActivity }> = ({ session }) => {
     </Link>,
   ];
 
+  const key = useId();
+
   return (
     <DetailsLayout.Header
       // TODO: replace with watch(<session name field>) when the form is implemented
@@ -130,6 +137,14 @@ export const Header: FC<{ session: SessionWithActivity }> = ({ session }) => {
       pageStatusChip={statusChips[sessionStatus]}
       pageSubtitle={subtitle}
       BreadcrumbsItems={breadcrumbs}
+      endGroupActions={[
+        <ShortcutActionsButton
+          onOpenCancelSessionModal={onOpenCancelSessionModal}
+          onOpenDuplicateSessionModal={onOpenDuplicateSessionModal}
+          session={session}
+          key={key}
+        />,
+      ]}
     />
   );
 };

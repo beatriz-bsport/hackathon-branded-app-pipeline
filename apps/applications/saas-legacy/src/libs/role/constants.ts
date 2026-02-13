@@ -78,6 +78,7 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/replacement/discipline-group': ['navigationMenu.myClub.replacement'],
   '/replacement/management': ['navigationMenu.myClub.replacement'],
   '/reporting': ['navigationMenu.reporting'],
+  '/reporting/categories': ['navigationMenu.reporting'],
   // '/search': ['member.allowed_actions.accessProfile'],
   // '/search/results': ['member.allowed_actions.search'],
   '/settings/active-campaign': ['navigationMenu.settings.activeCampaign'],

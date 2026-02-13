@@ -13,6 +13,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { useUrls } from "#src/urls";
+import { formatMinutes } from "#src/utils/format-minutes";
 import { useTranslation } from "#src/utils/i18n";
 
 import { ShortcutActionsButton } from "../update-session-form/shortcut-actions-button";
@@ -45,13 +46,26 @@ export const Header: FC<{
       formatOptions,
     );
 
+    const startDateTime = fromIsoString(session.date_start, {
+      zone: session.timezone_name,
+    });
+
     const endDateTime = modifyTime({
-      datetime: fromIsoString(session.date_start, {
-        zone: session.timezone_name,
-      }),
+      datetime: startDateTime,
       duration: { minute: session.duration_minute },
       operator: "plus",
     });
+
+    const spanMultipleDays =
+      startDateTime.toISODate() !== endDateTime.toISODate();
+
+    if (spanMultipleDays) {
+      return t("header.subtitleMultiDay", {
+        date,
+        startTime,
+        duration: formatMinutes(session.duration_minute, t),
+      });
+    }
 
     const endTime = endDateTime.toISO()
       ? formatDateTime(

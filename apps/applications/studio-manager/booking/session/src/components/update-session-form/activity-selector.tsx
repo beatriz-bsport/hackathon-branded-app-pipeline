@@ -1,4 +1,5 @@
 import first from "lodash/first";
+import uniqBy from "lodash/uniqBy";
 import { FC, useMemo, useState } from "react";
 
 import { FormField, useFormContext } from "@bsport/form";
@@ -40,10 +41,10 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
 
   const items = useMemo(
     () =>
-      [
-        ...(selectedActivity ? [selectedActivity] : []),
-        ...groupedActivities,
-      ].map((activity) => ({
+      uniqBy(
+        [...(selectedActivity ? [selectedActivity] : []), ...groupedActivities],
+        "id",
+      ).map((activity) => ({
         label: activity.name,
         id: activity.id.toString(),
       })),

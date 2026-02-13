@@ -12,12 +12,12 @@ import { useTranslation } from "#src/utils/i18n";
 
 export const TeacherPaymentRuleSelectorField: FC<{
   fieldIdPrefix: string;
-  defaultSelectedId: number | null;
-}> = ({ fieldIdPrefix, defaultSelectedId }) => {
+}> = ({ fieldIdPrefix }) => {
   const { t } = useTranslation("sessionCreation");
 
   const { watch } = useFormContext<SessionCreationFormData>();
 
+  const coachPaymentRule = watch("coach_payment_rule");
   const isCoachSelected = !!watch("coach");
 
   const { data: paymentRules, isLoading } = useFetchTeacherPaymentRules();
@@ -50,8 +50,14 @@ export const TeacherPaymentRuleSelectorField: FC<{
   }));
 
   const defaultSelectedIds = useMemo(() => {
-    return defaultSelectedId !== null ? [defaultSelectedId.toString()] : [];
-  }, [defaultSelectedId]);
+    return coachPaymentRule !== null ? [coachPaymentRule.toString()] : [];
+  }, [coachPaymentRule]);
+
+  const selectedPaymentRuleId = useMemo(() => {
+    return coachPaymentRule !== null
+      ? paymentRuleItems.find((rule) => rule.id === coachPaymentRule.toString())
+      : null;
+  }, [coachPaymentRule, paymentRuleItems]);
 
   return (
     <FormField<SessionCreationFormData, "coach_payment_rule", AutocompleteProps>
@@ -72,15 +78,18 @@ export const TeacherPaymentRuleSelectorField: FC<{
       })}
     >
       <Autocomplete
+        clearOnSelect
         items={paymentRuleItems}
         textfieldProps={{
           id: `${fieldIdPrefix}-payment-rule-selector`,
           label: t(
             "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.payroll.label",
           ),
-          placeholder: t(
-            "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.payroll.placeholder",
-          ),
+          placeholder:
+            selectedPaymentRuleId?.label ??
+            t(
+              "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.payroll.placeholder",
+            ),
         }}
         loadingProps={{ isLoading }}
         disabled={!isCoachSelected}

@@ -317,17 +317,20 @@ export type SessionEditPayload = Omit<
   coach_override: number | null;
   credit_price_override?: number;
   credits?: number;
-  custom_selection_ids: number[];
-  custom_selection: boolean;
   date_start: string;
   description_override?: string;
   id: number;
   manager_only: boolean;
   meta_activity: number;
-  modifyAllDates: boolean;
   name_override?: string;
-  notifyConsumers: boolean;
   propagate_coach_override_value: number;
+} & SessionEditActions;
+
+export type SessionEditActions = {
+  custom_selection_ids: number[];
+  custom_selection: boolean;
+  modifyAllDates: boolean;
+  notifyConsumers: boolean;
 };
 
 export type RecurrenceResponse = {

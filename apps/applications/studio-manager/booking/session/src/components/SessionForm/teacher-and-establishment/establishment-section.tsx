@@ -12,24 +12,16 @@ import { WellhubProductSelectorField } from "./wellhub-product-selector-field";
 
 export const EstablishmentSection: FC<{
   fieldIdPrefix: string;
-  establishmentId: number;
-  roomBlueprintId: number | null;
   metaActivity: MetaActivity;
-}> = ({ fieldIdPrefix, establishmentId, roomBlueprintId, metaActivity }) => {
+}> = ({ fieldIdPrefix, metaActivity }) => {
   const { t } = useTranslation("sessionEdit");
   return (
     <section className="flex flex-col gap-md">
       <Title htmlVariant="h5">
         {t("editSessionForm.content.establishmentSectionTitle")}
       </Title>
-      <EstablishmentSelectorField
-        fieldIdPrefix={fieldIdPrefix}
-        defaultSelectedId={establishmentId}
-      />
-      <RoomBlueprintSelectorField
-        fieldIdPrefix={fieldIdPrefix}
-        defaultSelectedId={roomBlueprintId}
-      />
+      <EstablishmentSelectorField fieldIdPrefix={fieldIdPrefix} />
+      <RoomBlueprintSelectorField fieldIdPrefix={fieldIdPrefix} />
       <WellhubProductSelectorField
         fieldIdPrefix={fieldIdPrefix}
         isLivestream={metaActivity?.is_broadcast || false}

@@ -1,5 +1,6 @@
-import { Fetch } from "@bsport/fetch";
+import { type Fetch } from "@bsport/fetch";
 import { dismissToast, toast } from "@bsport/kaizen-primitive-core";
+import { type BackgroundTask } from "@bsport/store-shared-background-task";
 import { fetchBackgroundTaskAction } from "@bsport/store-shared-background-task";
 
 import { useTranslation } from "./i18n";
@@ -16,8 +17,11 @@ export const useWaitForBackgroundTask = (fetchFn: Fetch) => {
 
   const addProcessingToast = useAddProcessingToast();
 
-  const waitForBackgroundTask = (uuid: string): Promise<string> => {
-    const fetchBackgroundTask = fetchBackgroundTaskAction.bind(null, fetchFn);
+  const waitForBackgroundTask = <T = unknown>(uuid: string): Promise<T> => {
+    const fetchBackgroundTask = (fetchBackgroundTaskAction<T>).bind(
+      null,
+      fetchFn,
+    );
 
     const toastId = addProcessingToast();
 
@@ -25,8 +29,8 @@ export const useWaitForBackgroundTask = (fetchFn: Fetch) => {
       fetchBackgroundTask({
         uuid,
         callbacks: {
-          onSuccess: () => {
-            resolve(uuid);
+          onSuccess: (value: BackgroundTask<T>) => {
+            resolve(value.return_value);
             dismissToast(toastId);
           },
           onTaskFailure: () => {

@@ -2,6 +2,7 @@ import { useCallback } from "react";
 
 import type {
   SessionCreationPayload,
+  SessionEditActions,
   SessionEditPayload,
   SessionWithActivity,
 } from "@bsport/api-book";
@@ -112,6 +113,7 @@ export const useSessionPayload = () => {
   const buildEditionPayload = (
     formData: SessionEditFormData,
     session: SessionWithActivity,
+    editActions: SessionEditActions,
   ): SessionEditPayload => {
     return {
       // Identity
@@ -162,10 +164,7 @@ export const useSessionPayload = () => {
 
       // Edit-specific defaults
       propagate_coach_override_value: 0,
-      custom_selection_ids: [],
-      custom_selection: false,
-      modifyAllDates: false,
-      notifyConsumers: false,
+      ...editActions,
     };
   };
 

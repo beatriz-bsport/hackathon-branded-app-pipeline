@@ -298,6 +298,8 @@ const detailsLayoutConfirmation = cva(
     "items-center",
     "justify-between",
     "gap-xs",
+    "sticky",
+    "top-0",
   ],
   {
     variants: {

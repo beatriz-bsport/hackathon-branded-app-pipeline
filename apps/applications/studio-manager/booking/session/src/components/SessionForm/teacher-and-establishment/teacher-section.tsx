@@ -12,9 +12,7 @@ import { TeacherPaymentRuleSelectorField } from "./teacher-payment-rule-selector
 
 export const TeacherSection: FC<{
   fieldIdPrefix: string;
-  coach: number;
-  coachPayrollRule: number | null;
-}> = ({ fieldIdPrefix, coach, coachPayrollRule }) => {
+}> = ({ fieldIdPrefix }) => {
   const { t } = useTranslation("sessionEdit");
 
   const { watch } = useFormContext<SessionEditFormData>();
@@ -26,16 +24,10 @@ export const TeacherSection: FC<{
       <Title htmlVariant="h5">
         {t("editSessionForm.content.teacherSectionTitle")}
       </Title>
-      <TeacherSelectorField
-        fieldIdPrefix={fieldIdPrefix}
-        defaultSelectedId={coach}
-      />
+      <TeacherSelectorField fieldIdPrefix={fieldIdPrefix} />
       <OverridePayrollRuleToggle fieldIdPrefix={fieldIdPrefix} />
       {shouldOverrideTeacherPayrollRule && (
-        <TeacherPaymentRuleSelectorField
-          fieldIdPrefix={fieldIdPrefix}
-          defaultSelectedId={coachPayrollRule}
-        />
+        <TeacherPaymentRuleSelectorField fieldIdPrefix={fieldIdPrefix} />
       )}
       <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>

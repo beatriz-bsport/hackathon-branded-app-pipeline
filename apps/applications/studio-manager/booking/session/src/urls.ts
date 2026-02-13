@@ -34,7 +34,7 @@ export const useUrls = () => {
     const url = getBookingsManagementUrl(id);
     const navigateTo = shouldUseBookingManagementRevamp
       ? navigate
-      : window.location.assign;
+      : (target: string) => window.location.assign(target);
     navigateTo(url);
   };
 

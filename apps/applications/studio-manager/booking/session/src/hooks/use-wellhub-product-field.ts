@@ -11,7 +11,7 @@ import {
   useCheckCompanyAddOn,
 } from "#src/utils/permission";
 
-import { useFetchAllEstablishments } from "./use-fetch-all-establishments";
+import { useFetchAllEstablishments } from "./use-fetch-establishments";
 
 export const useWellhubProductField = (isLivestream: boolean) => {
   const { t } = useTranslation("sessionCreation");

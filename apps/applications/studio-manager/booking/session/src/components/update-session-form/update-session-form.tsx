@@ -1,6 +1,6 @@
 import { FC, useEffect, useId } from "react";
 
-import { SessionWithActivity } from "@bsport/api-book";
+import { SessionEditActions, SessionWithActivity } from "@bsport/api-book";
 import { ControlledForm, useFormController } from "@bsport/form";
 import {
   DetailsLayout,
@@ -25,6 +25,7 @@ import { VisibilitySelector } from "../SessionForm/Details/VisibilitySelector";
 import { CancelSessionModal } from "../SessionList/detail-actions/cancel-session-modal";
 import { DuplicateSessionModal } from "../SessionList/detail-actions/duplicate-session-modal";
 import DetailsForm from "./details-form";
+import { SaveSessionModal } from "./save-modal";
 import { SettingsSection } from "./settings-section";
 import { TimeAndDateSection } from "./time-and-date-section";
 
@@ -50,6 +51,7 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
   const { buildEditionPayload } = useSessionPayload();
 
   const { sessionEditSchema } = useSessionEditSchema();
+  const { isOpen, open, close } = useModal();
 
   const { mutateAsync: editSession } = useEditSession();
   const methods = useFormController({
@@ -70,14 +72,16 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
     methods.reset();
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (editActions: SessionEditActions) => {
     await editSession({
       sessionId: session.id,
-      payload: buildEditionPayload(methods.getValues(), session),
+      payload: buildEditionPayload(methods.getValues(), session, editActions),
     });
 
     methods.reset(methods.getValues());
   };
+
+  const openSaveModal = methods.handleSubmit(open);
 
   return (
     <>
@@ -90,18 +94,12 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
           />
           <DetailsLayout.Content className="max-w-none">
             <SettingsSection
-              fieldIdPrefix={formId}
               metaActivity={session.metaActivity}
-            />
-            <TeacherSection
               fieldIdPrefix={formId}
-              coach={session.coach}
-              coachPayrollRule={session.coach_payment_rule_id}
             />
+            <TeacherSection fieldIdPrefix={formId} />
             <EstablishmentSection
               fieldIdPrefix={formId}
-              establishmentId={session.establishment}
-              roomBlueprintId={session.room_blueprint}
               metaActivity={session.metaActivity}
             />
             <TimeAndDateSection fieldIdPrefix={formId} isEditMode />
@@ -128,9 +126,15 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
           </DetailsLayout.Panel>
           <DetailsLayout.Confirmation
             onDiscard={resetForm}
-            onSave={handleSubmit}
+            onSave={openSaveModal}
           />
         </DetailsLayout>
+        <SaveSessionModal
+          session={session}
+          saveForm={handleSubmit}
+          isOpen={isOpen}
+          closeModal={close}
+        />
       </ControlledForm>
       <DuplicateSessionModal
         session={session}

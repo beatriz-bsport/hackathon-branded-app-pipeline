@@ -1,32 +1,63 @@
+import uniqBy from "lodash/uniqBy";
 import { FC, useMemo } from "react";
 
-import { FormField } from "@bsport/form";
+import { FormField, useFormContext } from "@bsport/form";
 import { Autocomplete, AutocompleteProps } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { useFetchAllEstablishments } from "#src/hooks/use-fetch-all-establishments";
+import {
+  useFetchAllEstablishments,
+  useFetchEstablishment,
+} from "#src/hooks/use-fetch-establishments";
 import { useGroupedEstablishments } from "#src/hooks/use-grouped-establishments";
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const EstablishmentSelectorField: FC<{
   fieldIdPrefix: string;
-  defaultSelectedId: number | null;
-}> = ({ fieldIdPrefix, defaultSelectedId }) => {
+}> = ({ fieldIdPrefix }) => {
   const { t } = useTranslation("sessionCreation");
 
+  const { watch } = useFormContext<SessionCreationFormData>();
+
+  const establishmentId = watch("establishment");
   const company = dataAccessLayer.useCompanyTheme()?.company;
 
-  const { data: establishments, isLoading } = useFetchAllEstablishments({
-    company,
-    disabled_establishments: false,
-  });
+  const { data: allEstablishments, isLoading: isLoadingAllEstablishments } =
+    useFetchAllEstablishments({
+      company,
+      disabled_establishments: false,
+    });
 
-  const groupedEstablishments = useGroupedEstablishments(establishments);
+  const {
+    data: selectedEstablishment,
+    isLoading: isLoadingSelectedEstablishment,
+  } = useFetchEstablishment(establishmentId ?? undefined);
+
+  const isLoading =
+    isLoadingAllEstablishments || isLoadingSelectedEstablishment;
+
+  const groupedEstablishments = useGroupedEstablishments(
+    uniqBy(
+      [
+        ...(selectedEstablishment ? [selectedEstablishment] : []),
+        ...(allEstablishments ?? []),
+      ],
+      "id",
+    ),
+  );
 
   const defaultSelectedIds = useMemo(() => {
-    return defaultSelectedId !== null ? [defaultSelectedId.toString()] : [];
-  }, [defaultSelectedId]);
+    return establishmentId != null ? [establishmentId.toString()] : [];
+  }, [establishmentId]);
+
+  const selectedEstablishmentItem = useMemo(() => {
+    return groupedEstablishments
+      .flatMap((group) => group.options)
+      ?.find(
+        (establishment) => establishment.id === establishmentId?.toString(),
+      );
+  }, [establishmentId, groupedEstablishments]);
 
   return (
     <FormField<SessionCreationFormData, "establishment", AutocompleteProps>
@@ -44,15 +75,18 @@ export const EstablishmentSelectorField: FC<{
     >
       <Autocomplete
         items={groupedEstablishments}
+        clearOnSelect
         fullWidth
         textfieldProps={{
           id: `${fieldIdPrefix}-establishment-selector`,
           label: t(
             "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.establishment.label",
           ),
-          placeholder: t(
-            "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.establishment.placeholder",
-          ),
+          placeholder:
+            selectedEstablishmentItem?.label ??
+            t(
+              "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.establishment.placeholder",
+            ),
           required: true,
           className: "max-w-component-select",
         }}

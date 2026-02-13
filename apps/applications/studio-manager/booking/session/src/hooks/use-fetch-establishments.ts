@@ -1,4 +1,5 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
+import first from "lodash/first";
 
 import {
   Establishment,
@@ -74,5 +75,21 @@ export const useFetchAllEstablishments = ({
       disabled_establishments,
       enabled,
     }),
+  });
+};
+
+const establishmentQueryOptions = (id?: number) => {
+  return queryOptions({
+    queryKey: ["establishments", id],
+    queryFn: () => fetchEstablishments(fetch, { id__in: id ? [id] : [] }),
+    enabled: Boolean(id),
+    staleTime: ESTABLISHMENTS_STALE_TIME,
+    select: (establishment) => first(establishment.results),
+  });
+};
+
+export const useFetchEstablishment = (id?: number) => {
+  return useQuery({
+    ...establishmentQueryOptions(id),
   });
 };

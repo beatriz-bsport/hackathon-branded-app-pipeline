@@ -94,6 +94,31 @@ export const usePackSchema = () => {
     }),
   ]);
 
+  const paymentMethodsSchema = z.discriminatedUnion("manager_only", [
+    // Case 1: manager_only = false → available_payment_method_identifiers have at least 1 item
+    z.object({
+      manager_only: z.literal(false),
+      available_payment_method_identifiers: z
+        .array(z.coerce.number())
+        .min(
+          1,
+          t(
+            "formFields.pricingSection.paymentMethod.errorMissingPaymentMethod",
+          ),
+        ),
+    }),
+
+    // Case 2: manager_only = true → available_payment_method_identifiers is defined to fallback
+    z.object({
+      manager_only: z.literal(true),
+      available_payment_method_identifiers: z
+        .array(z.coerce.number())
+        .transform(
+          () => DEFAULT_FORM_DATA.available_payment_method_identifiers,
+        ),
+    }),
+  ]);
+
   return z
     .object({
       // Identity section
@@ -125,14 +150,6 @@ export const usePackSchema = () => {
         .min(FIELD_MAX_NB_PURCHASE_MINIMUM)
         .nullable(),
       use_payment_combo_tax_on_items: z.boolean(),
-      available_payment_method_identifiers: z
-        .array(z.coerce.number())
-        .min(
-          1,
-          t(
-            "formFields.pricingSection.paymentMethod.errorMissingPaymentMethod",
-          ),
-        ),
 
       // Visibility section
       highlighted_as_recommended: z.boolean(),
@@ -143,5 +160,6 @@ export const usePackSchema = () => {
       // Tags section
       tags_on_consumer_item_creation: z.array(z.number()),
     })
-    .and(expirationDateInput) satisfies PackFormSchema;
+    .and(expirationDateInput)
+    .and(paymentMethodsSchema) satisfies PackFormSchema;
 };

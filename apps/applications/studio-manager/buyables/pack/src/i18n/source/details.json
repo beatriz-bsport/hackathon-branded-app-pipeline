@@ -1,4 +1,5 @@
 {
+  "modelName": "Pack",
   "createModal": {
     "title": "Create a new pack",
     "buttons": {
@@ -148,19 +149,7 @@
     "visibilitySection": {
       "title": "Visibility",
       "visibilitySelector": {
-        "label": "Select the visibility of this pack",
-        "options": {
-          "visible": {
-            "shortTitle": "Visible",
-            "fullTitle": "Listed on Member Area",
-            "description": "Your pack will be listed on the Member Area for your members to buy."
-          },
-          "hidden": {
-            "shortTitle": "Unlisted",
-            "fullTitle": "Unlisted on Member Area",
-            "description": "Your pack won't be listed on the Member Area but can be shared with a link or purchased via the Back Office."
-          }
-        }
+        "label": "Select the visibility of this pack"
       },
       "dateLimitSelector": {
         "toggleLabel": "Date limit for purchase",

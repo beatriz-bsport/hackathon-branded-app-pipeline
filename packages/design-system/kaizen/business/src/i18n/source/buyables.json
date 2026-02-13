@@ -11,5 +11,15 @@
         "helperText": "Cash or cheque"
       }
     }
+  },
+  "visibilitySelector": {
+    "optionVisible": {
+      "label": "Listed",
+      "description": "This {{ buyable }} will be visible on the Member Area"
+    },
+    "optionHidden": {
+      "label": "Unlisted",
+      "description": "This {{ buyable }} won't be visible on the Member Area but can be shared via a link"
+    }
   }
 }

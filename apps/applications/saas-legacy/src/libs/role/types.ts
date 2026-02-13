@@ -504,6 +504,7 @@ export type ProtectedUrls =
   | '/replacement/discipline-group'
   | '/replacement/management'
   | '/reporting'
+  | '/reporting/categories'
   | '/schedule'
   | '/search'
   | '/search/results'

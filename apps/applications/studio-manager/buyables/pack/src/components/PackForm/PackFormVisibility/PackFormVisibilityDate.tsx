@@ -42,10 +42,16 @@ export const PackFormVisibilityDate: FC<PackFormVisibilityDateProps> = ({
         <FormField<PackFormData, "expiration_date", DatePickerProps>
           name="expiration_date"
           mapProps={({ defaultProps, field, form }) => {
-            const defaultValue = form.formState.defaultValues?.expiration_date;
+            const defaultValueAsString =
+              defaultProps.value ??
+              form.formState.defaultValues?.expiration_date;
+
+            const dateValue = defaultValueAsString
+              ? fromIsoString(defaultValueAsString)
+              : undefined;
+
             return {
               ...defaultProps,
-              value: defaultProps.value,
               onSelect: (selectedDate) => {
                 const nextValue =
                   !!selectedDate && !Array.isArray(selectedDate)
@@ -59,9 +65,7 @@ export const PackFormVisibilityDate: FC<PackFormVisibilityDateProps> = ({
 
                 field.onBlur();
               },
-              defaultValue: defaultValue
-                ? fromIsoString(defaultValue)
-                : undefined,
+              defaultValue: dateValue,
             };
           }}
         >

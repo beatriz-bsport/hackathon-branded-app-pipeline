@@ -18,8 +18,16 @@ import type { DropdownMenuItemProps } from "./types";
  * ```
  */
 export function DropdownMenuItem(props: DropdownMenuItemProps) {
-  const { id, children, disabled, icon, avatar, rightSlot, description } =
-    props;
+  const {
+    id,
+    children,
+    disabled,
+    icon,
+    avatar,
+    rightSlot,
+    description,
+    leftSlot,
+  } = props;
 
   const {
     searchValue,
@@ -74,6 +82,7 @@ export function DropdownMenuItem(props: DropdownMenuItemProps) {
           role: "menuitemcheckbox",
           "aria-checked": isSelected,
         }}
+        leftSlot={leftSlot}
       />
     );
   }
@@ -101,6 +110,7 @@ export function DropdownMenuItem(props: DropdownMenuItemProps) {
       avatar={avatar}
       rightSlot={rightSlot}
       description={description}
+      leftSlot={leftSlot}
     />
   );
 }

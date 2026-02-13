@@ -8,6 +8,9 @@ import "@bsport/kaizen-primitive-core/styles";
 
 import { authenticateDev } from "./auth-helper";
 
+import "../../primitive/core/src/globals.css";
+import "../src/globals.css";
+
 // Set API environment to dev for local storybook
 if (typeof window !== "undefined") {
   setLocalAPIEnv("dev");

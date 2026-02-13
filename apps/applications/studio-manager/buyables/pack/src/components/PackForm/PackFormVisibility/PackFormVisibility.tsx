@@ -1,14 +1,15 @@
 import React from "react";
 
 import type { UseFormControllerOutput } from "@bsport/form";
-import { Title, useMatchMedia } from "@bsport/kaizen-primitive-core";
+import { VisibilitySelector } from "@bsport/kaizen-business-components/buyables/visibility-selector";
+import { Body, Title } from "@bsport/kaizen-primitive-core";
+import type { PackFormData } from "@bsport/store-buyables-pack";
 
 import { useTranslation } from "#src/utils/i18n";
 
 import type { PackFormSchema } from "../schema";
 import { PackFormVisibilityDate } from "./PackFormVisibilityDate";
 import { PackFormVisibilityRules } from "./PackFormVisibilityRules";
-import { PackFormVisibilitySelector } from "./PackFormVisibilitySelector";
 
 type PackFormVisibilityProps = {
   discardId?: number;
@@ -29,8 +30,6 @@ export const PackFormVisibility: React.FC<PackFormVisibilityProps> = ({
   methods,
 }) => {
   const { t } = useTranslation("details");
-  const isMobile = !useMatchMedia("sm");
-  const isCreationFlow = discardId == null;
 
   return (
     <section className="flex flex-col gap-sm">
@@ -38,10 +37,14 @@ export const PackFormVisibility: React.FC<PackFormVisibilityProps> = ({
         {t("formFields.visibilitySection.title")}
       </Title>
 
-      <PackFormVisibilitySelector
-        fieldIdPrefix={fieldIdPrefix}
-        methods={methods}
-        placement={isMobile || isCreationFlow ? "bottom-left" : "bottom-right"}
+      <Body size="md" htmlVariant="p">
+        {t("formFields.visibilitySection.visibilitySelector.label")}
+      </Body>
+
+      <VisibilitySelector<PackFormData, "manager_only">
+        fieldName="manager_only"
+        asHiddenSelector
+        buyableName={t("modelName")}
       />
 
       <PackFormVisibilityDate

@@ -2,6 +2,7 @@ import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import react from "@vitejs/plugin-react-swc";
 import { globSync } from "glob";
 import { resolve } from "path";
+import tailwindcss from "tailwindcss";
 import type { UserConfig } from "vite";
 import dts from "vite-plugin-dts";
 import svgr from "vite-plugin-svgr";
@@ -84,6 +85,11 @@ const config: UserConfig = {
   resolve: {
     alias: {
       "#src": resolve(__dirname, "src"),
+    },
+  },
+  css: {
+    postcss: {
+      plugins: [tailwindcss],
     },
   },
 };

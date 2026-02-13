@@ -128,6 +128,7 @@ const useKaizenI18nInstance = () => {
 };
 
 export {
+  i18nInstance,
   useTranslation,
   useKaizenI18nInstance,
   withKaizenBusinessI18n,

@@ -68,6 +68,7 @@
         }
       },
       "actions": {
+        "edit": "Edit",
         "delete": "Delete",
         "menu": "Actions menu"
       },

@@ -25,11 +25,20 @@ type TableRow = TagRuleWithTag & {
   id: number;
 };
 
-const TagRulesContent = () => {
+const COLUMN_IDS = {
+  CREATED_ON: "created-on",
+  CONDITION: "condition",
+  TAG: "tag",
+  ACTIONS: "actions",
+};
+
+const TagRulesContent = (
+  { compact }: { compact?: boolean } = { compact: false },
+) => {
   const { smartlistId } = useOutletContext<{ smartlistId: string }>();
   const tagRules = useTagRules(smartlistId);
 
-  const { t } = useTranslation("details");
+  const { t, i18n } = useTranslation("details");
 
   const [tagRuleToDelete, setTagRuleToDelete] = useState<TableRow | null>(null);
 
@@ -37,16 +46,16 @@ const TagRulesContent = () => {
     setTagRuleToDelete(null);
   };
 
-  const columns: GenericTableColumn<TableRow>[] = useMemo(
-    () => [
+  const columns: GenericTableColumn<TableRow>[] = useMemo(() => {
+    const allColumns: GenericTableColumn<TableRow>[] = [
       {
-        id: "created-on",
+        id: COLUMN_IDS.CREATED_ON,
         header: t("automation.tagRules.columns.createdOn"),
         type: "date",
         keyPath: "date_created",
       },
       {
-        id: "condition",
+        id: COLUMN_IDS.CONDITION,
         header: t("automation.tagRules.columns.condition"),
         type: "custom",
         render: (row) => {
@@ -81,7 +90,11 @@ const TagRulesContent = () => {
           return (
             <div className="flex items-center gap-xs">
               <Icon icon={icon} size="sm" className={color} />
-              <Body size="md" color="weak">
+              <Body
+                size="md"
+                color="weak"
+                className="whitespace-normal break-words"
+              >
                 {text}
               </Body>
             </div>
@@ -89,7 +102,7 @@ const TagRulesContent = () => {
         },
       },
       {
-        id: "tag",
+        id: COLUMN_IDS.TAG,
         header: t("automation.tagRules.columns.tag"),
         type: "custom",
         render: (row) => (
@@ -108,12 +121,17 @@ const TagRulesContent = () => {
         ),
       },
       {
-        id: "actions",
+        id: COLUMN_IDS.ACTIONS,
         type: "custom",
         align: "end",
         header: "",
         render: (row) => {
           const items: DropdownMenuItems = [
+            {
+              id: "edit",
+              label: t("automation.tagRules.actions.edit"),
+              iconLeft: "edit-02",
+            },
             {
               id: "delete",
               label: t("automation.tagRules.actions.delete"),
@@ -146,9 +164,15 @@ const TagRulesContent = () => {
           );
         },
       },
-    ],
-    [t],
-  );
+    ];
+
+    return compact
+      ? allColumns.filter((col) => col.id !== COLUMN_IDS.CREATED_ON)
+      : allColumns;
+
+    // we should't add t as dependency, instead we add the language
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [compact, i18n.language]);
 
   const rows: TableRow[] = useMemo(
     () =>

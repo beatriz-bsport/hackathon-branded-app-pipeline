@@ -229,3 +229,6 @@ export {
   i18nNamespacePrefix,
   inMemoryTranslationsLoader,
 } from "./i18n";
+
+// ----- Utilities -----
+export { cx, cva, type VariantProps } from "class-variance-authority";

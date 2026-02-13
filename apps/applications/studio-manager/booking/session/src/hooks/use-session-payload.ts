@@ -116,7 +116,7 @@ export const useSessionPayload = () => {
     return {
       // Identity
       id: session.id,
-      meta_activity: session.meta_activity?.id,
+      meta_activity: session.meta_activity,
 
       // Date/time
       date_start: formData.startDateTime.toISOString(),
@@ -124,11 +124,11 @@ export const useSessionPayload = () => {
 
       // Details
       name_override:
-        formData.name_override === session.meta_activity?.name
+        formData.name_override === session.metaActivity?.name
           ? ""
           : formData.name_override,
       description_override:
-        formData.description_override === session.meta_activity?.description
+        formData.description_override === session.metaActivity?.description
           ? ""
           : formData.description_override,
 

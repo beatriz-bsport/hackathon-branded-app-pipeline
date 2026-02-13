@@ -70,7 +70,7 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
         <DetailsLayout.Content className="max-w-none">
           <SettingsSection
             fieldIdPrefix={formId}
-            metaActivity={session.meta_activity}
+            metaActivity={session.metaActivity}
           />
           <TeacherSection
             fieldIdPrefix={formId}
@@ -81,7 +81,7 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
             fieldIdPrefix={formId}
             establishmentId={session.establishment}
             roomBlueprintId={session.room_blueprint}
-            metaActivity={session.meta_activity}
+            metaActivity={session.metaActivity}
           />
           <TimeAndDateSection fieldIdPrefix={formId} isEditMode />
         </DetailsLayout.Content>

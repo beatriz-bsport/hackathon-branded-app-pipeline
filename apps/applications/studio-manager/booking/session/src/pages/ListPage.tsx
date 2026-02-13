@@ -40,6 +40,7 @@ import {
   useSessionListData,
 } from "../hooks/useSessionListData";
 import {
+  closeModal,
   selectFilters,
   selectModalState,
   selectSelectedDate,
@@ -271,7 +272,11 @@ const ListPage: React.FC = () => {
           onClose={closeCancelMultipleSessionsModal}
         />
         {detailsModalState?.type === ModalType.CANCEL && (
-          <CancelSessionModal session={detailsModalState.session} />
+          <CancelSessionModal
+            session={detailsModalState.session}
+            isOpen={detailsModalState.type === ModalType.CANCEL}
+            onClose={closeModal}
+          />
         )}
         {detailsModalState?.type === ModalType.RESTORE && (
           <RestoreSessionModal session={detailsModalState.session} />
@@ -280,7 +285,11 @@ const ListPage: React.FC = () => {
           <DeleteSessionModal session={detailsModalState.session} />
         )}
         {detailsModalState?.type === ModalType.DUPLICATE && (
-          <DuplicateSessionModal session={detailsModalState.session} />
+          <DuplicateSessionModal
+            session={detailsModalState.session}
+            isOpen={detailsModalState.type === ModalType.DUPLICATE}
+            onClose={closeModal}
+          />
         )}
       </ListLayout.Content>
     </ListLayout>

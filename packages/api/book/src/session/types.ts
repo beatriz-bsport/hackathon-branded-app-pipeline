@@ -339,6 +339,6 @@ export type RecurrenceResponse = {
   recurrence_id: string;
 };
 
-export type SessionWithActivity = Omit<ManagerSession, "meta_activity"> & {
-  meta_activity: MetaActivity;
+export type SessionWithActivity = ManagerSession & {
+  metaActivity: MetaActivity;
 };

@@ -16,7 +16,7 @@ export const useRetrieveSessionWithActivity = (sessionId?: number) => {
   const activity = session?.meta_activity ? activitiesQuery.data : undefined;
 
   const sessionWithActivity: SessionWithActivity | undefined =
-    session && activity ? { ...session, meta_activity: activity } : undefined;
+    session && activity ? { ...session, metaActivity: activity } : undefined;
 
   return {
     data: sessionWithActivity,

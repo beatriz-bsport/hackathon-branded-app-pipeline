@@ -3,5 +3,21 @@
   "tabs": {
     "editor": "Editor",
     "overview": "Overview"
+  },
+  "header": {
+    "listedSessionChip": "Listed",
+    "unlistedSessionChip": "Unlisted",
+    "cancelledSessionChip": "Cancelled",
+    "subtitle": "{{date}}  ·  {{startTime}} – {{endTime}} ({{duration}}min)",
+    "subtitleMultiDay": "{{date}}  ·  {{startTime}} – {{duration}}",
+    "breadcrumbs": "Calendar"
+  },
+  "table": {
+    "datetime": {
+      "shortDayIdentifier_one": "day",
+      "shortDayIdentifier_other": "days",
+      "shortHourIdentifier": "h",
+      "shortMinuteIdentifier": "min"
+    }
   }
 }

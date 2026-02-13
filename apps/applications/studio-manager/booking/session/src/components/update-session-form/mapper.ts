@@ -18,7 +18,7 @@ export const fromSessionToFormData = (
       : (session.name ?? ""),
     description_override: session.description_override
       ? session.description_override
-      : (session.meta_activity?.description ?? ""),
+      : (session.metaActivity?.description ?? ""),
     // Settings
     manager_only: session.manager_only,
     credits: session.credit_price,
@@ -43,7 +43,7 @@ export const fromSessionToFormData = (
     whitelist_tags: session.whitelist_tags ?? [],
     blacklist_tags: session.blacklist_tags ?? [],
     // Edit-specific fields
-    meta_activity: session.meta_activity?.id,
+    meta_activity: session.meta_activity,
     coach_override: session.coach_override ?? null,
     credit_price_override: session.credit_price_override,
     custom_selection_ids: [],

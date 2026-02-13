@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
@@ -38,11 +39,14 @@ const ResponsiveTable = withStyles(() => ({
 const MUITableCell = withStyles((theme) => ({
   root: {
     borderBottom: 'none',
-    padding: theme.spacing(1, 0, 0, 0),
+    padding: theme.spacing(0.5, 0, 0.5, 0),
   },
 }))(TableCell);
 
-const getChipInfoFromStatus = (status: DestinationStatus, t: TFunction) => {
+const getChipInfoFromStatus = (
+  status: DestinationStatus | null,
+  t: TFunction,
+) => {
   switch (status) {
     case DestinationStatus.WIN:
       return {
@@ -61,7 +65,7 @@ const getChipInfoFromStatus = (status: DestinationStatus, t: TFunction) => {
   }
 };
 
-const getChipFromStatus = (status: DestinationStatus, t: TFunction) => {
+const getChipFromStatus = (status: DestinationStatus | null, t: TFunction) => {
   const { label, icon, color } = getChipInfoFromStatus(status, t);
   return (
     <CustomChip
@@ -72,6 +76,8 @@ const getChipFromStatus = (status: DestinationStatus, t: TFunction) => {
     />
   );
 };
+
+const MEMBER_PROFILE_REDIRECTION = (memberId: number) => `/member/${memberId}`;
 
 type Props = {
   isHistoric: boolean;
@@ -92,11 +98,25 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('marketing');
+  const history = useHistory();
   const shouldDisplayTime = useSafeFlag(
     FeatureFlags.AUDIENCE_DISPLAY_TIME_IN_MEMBER_TABLE,
   );
+  const allowMemberClick = useSafeFlag(
+    FeatureFlags.AUDIENCE_ALLOW_CLICK_ON_MEMBER_TABLE,
+  );
 
   const formatDate = shouldDisplayTime ? formatAsDatetime : formatAsDate;
+
+  const handleMemberClick = (memberId: number) => (event: React.MouseEvent) => {
+    // Allow native browser behavior for Ctrl/Cmd+Click to open in new tab
+    if (event.ctrlKey || event.metaKey) {
+      return;
+    }
+
+    event.preventDefault();
+    history.push(MEMBER_PROFILE_REDIRECTION(memberId));
+  };
 
   const getStepName = React.useCallback(
     (stepId: number): string => {
@@ -163,7 +183,21 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
       <TableBody>
         {!isHistoric &&
           membersInData?.map((member) => (
-            <TableRow key={`present-member:${member.member_id}`}>
+            <TableRow
+              key={`present-member:${member.member_id}`}
+              component={allowMemberClick ? 'a' : 'tr'}
+              hover={allowMemberClick}
+              href={
+                allowMemberClick
+                  ? MEMBER_PROFILE_REDIRECTION(member.member_id)
+                  : undefined
+              }
+              onClick={
+                allowMemberClick
+                  ? handleMemberClick(member.member_id)
+                  : undefined
+              }
+            >
               <MUITableCell className={classes.memberCell}>
                 <Avatar
                   className={classes.avatar}
@@ -190,7 +224,21 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
           ))}
         {isHistoric &&
           membersOutData?.map((member, index) => (
-            <TableRow key={`member-historic:${member.member_id}-${index}`}>
+            <TableRow
+              key={`member-historic:${member.member_id}-${index}`}
+              component={allowMemberClick ? 'a' : 'tr'}
+              hover={allowMemberClick}
+              href={
+                allowMemberClick
+                  ? MEMBER_PROFILE_REDIRECTION(member.member_id)
+                  : undefined
+              }
+              onClick={
+                allowMemberClick
+                  ? handleMemberClick(member.member_id)
+                  : undefined
+              }
+            >
               <MUITableCell className={classes.memberCell}>
                 <Avatar
                   className={classes.avatar}

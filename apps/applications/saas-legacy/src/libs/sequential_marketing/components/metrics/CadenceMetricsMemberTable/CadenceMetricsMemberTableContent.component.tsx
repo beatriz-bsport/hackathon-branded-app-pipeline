@@ -12,13 +12,14 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import CustomChip from '#src/components/chip/CustomChip.component';
 import {
   CadenceMetricsSizes,
   DestinationStatus,
   SequentialMarketingColors,
 } from '#src/libs/sequential_marketing/constants';
-import { formatAsDate } from '#src/utils/datetime';
+import { formatAsDate, formatAsDatetime } from '#src/utils/datetime';
 
 import type {
   CadenceMembersInData,
@@ -62,7 +63,14 @@ const getChipInfoFromStatus = (status: DestinationStatus, t: TFunction) => {
 
 const getChipFromStatus = (status: DestinationStatus, t: TFunction) => {
   const { label, icon, color } = getChipInfoFromStatus(status, t);
-  return <CustomChip displayedValue={label} icon={icon} mainColor={color} />;
+  return (
+    <CustomChip
+      align="right"
+      displayedValue={label}
+      icon={icon}
+      mainColor={color}
+    />
+  );
 };
 
 type Props = {
@@ -84,6 +92,11 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('marketing');
+  const shouldDisplayTime = useSafeFlag(
+    FeatureFlags.AUDIENCE_DISPLAY_TIME_IN_MEMBER_TABLE,
+  );
+
+  const formatDate = shouldDisplayTime ? formatAsDatetime : formatAsDate;
 
   const getStepName = React.useCallback(
     (stepId: number): string => {
@@ -98,13 +111,22 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
     <ResponsiveTable>
       <TableHead>
         <TableRow className={classes.header}>
-          <MUITableCell className={classes.restrictedRowWidth}>
+          <MUITableCell
+            className={
+              isHistoric
+                ? classes.historicRestrictedRowWidth
+                : classes.currentRestrictedRowWidth
+            }
+          >
             <Typography className={classes.headerWeight} variant="subtitle1">
               {t('audience.memberTable.tableColumnLabel.member')}
             </Typography>
           </MUITableCell>
           {!isHistoric && (
-            <MUITableCell align="left" className={classes.restrictedRowWidth}>
+            <MUITableCell
+              align="left"
+              className={classes.currentRestrictedRowWidth}
+            >
               <Typography className={classes.headerWeight} variant="subtitle1">
                 {t('audience.memberTable.tableColumnLabel.currentStep')}
               </Typography>
@@ -125,7 +147,7 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
                   {t('audience.memberTable.tableColumnLabel.exitDate')}
                 </Typography>
               </MUITableCell>
-              <MUITableCell align="right">
+              <MUITableCell align="right" className={classes.statusColumn}>
                 <Typography
                   className={classes.headerWeight}
                   variant="subtitle1"
@@ -161,7 +183,7 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
               </MUITableCell>
               <MUITableCell align="right">
                 <Typography noWrap variant="body2">
-                  {formatAsDate(member.entry_date)}
+                  {formatDate(member.entry_date)}
                 </Typography>
               </MUITableCell>
             </TableRow>
@@ -183,15 +205,15 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
               </MUITableCell>
               <MUITableCell align="inherit">
                 <Typography noWrap variant="body2">
-                  {formatAsDate(member.entry_date)}
+                  {formatDate(member.entry_date)}
                 </Typography>
               </MUITableCell>
               <MUITableCell>
                 <Typography noWrap variant="body2">
-                  {formatAsDate(member.exit_date)}
+                  {formatDate(member.exit_date)}
                 </Typography>
               </MUITableCell>
-              <MUITableCell align="right">
+              <MUITableCell align="right" className={classes.statusColumn}>
                 {getChipFromStatus(member.status, t)}
               </MUITableCell>
             </TableRow>
@@ -202,8 +224,15 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
-  restrictedRowWidth: {
+  currentRestrictedRowWidth: {
     width: '40%',
+  },
+  historicRestrictedRowWidth: {
+    width: '35%',
+  },
+  statusColumn: {
+    width: '15%',
+    whiteSpace: 'nowrap',
   },
   header: {
     height: CadenceMetricsSizes.MEMBER_TABLE_HEADER_HEIGHT,

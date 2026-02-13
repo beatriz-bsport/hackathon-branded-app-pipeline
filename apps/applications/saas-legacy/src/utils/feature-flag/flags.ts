@@ -22,6 +22,8 @@ export const FeatureFlags = {
     'audience_view_workflow_details_in_all_modes',
   AUDIENCE_REMOVE_TAG_MARKETING_ACTION: 'audience_remove_tag_marketing_action',
   TOGGLE_APPCUES: 'toggle_appcues',
+  AUDIENCE_DISPLAY_TIME_IN_MEMBER_TABLE:
+    'audience_display_time_in_member_table',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

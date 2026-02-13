@@ -1,16 +1,18 @@
-import { Body, Title } from "@bsport/kaizen-primitive-core";
+import { Body, Title, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
-import { QueryBoundary } from "#src/components/QueryBoundary";
+import { CardLoader, QueryBoundary } from "#src/components/QueryBoundary";
 import { useTranslation } from "#src/utils/i18n";
 
-import { AutomationPageContent } from "./AutomationPageContent";
+import { MessagesSection } from "./MessagesSection";
 import { TagRulesSection } from "./TagRulesSection";
 
 export const AutomationPage = () => {
   const { t } = useTranslation("details");
 
+  const isMobile = !useMatchMedia("md");
+
   return (
-    <div className="flex flex-col gap-lg p-lg">
+    <div className="flex flex-col gap-lg p-0 md:p-md">
       <section className="flex flex-col gap-sm">
         <Title htmlVariant="h2" weight="stronger">
           {t("automation.messages.title")}
@@ -21,7 +23,7 @@ export const AutomationPage = () => {
       </section>
 
       <QueryBoundary>
-        <AutomationPageContent />
+        <MessagesSection compact={isMobile} />
       </QueryBoundary>
 
       <section className="flex flex-col gap-sm">
@@ -33,8 +35,8 @@ export const AutomationPage = () => {
         </Body>
       </section>
 
-      <QueryBoundary>
-        <TagRulesSection />
+      <QueryBoundary loadingFallback={<CardLoader size="lg" />}>
+        <TagRulesSection compact={isMobile} />
       </QueryBoundary>
     </div>
   );

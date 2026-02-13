@@ -11,6 +11,7 @@ import {
   type GenericTableColumn,
   Icon,
   Table,
+  Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
 import { CommunicationKind, EventKind } from "#src/api/constants";
@@ -32,7 +33,19 @@ type TableRow = AutomatedCampaignWithAnalytics & {
   id: number;
 };
 
-export const AutomationPageContent = () => {
+const COLUMN_IDS = {
+  CREATED_ON: "created-on",
+  CHANNEL: "channel",
+  CONDITION: "condition",
+  OPEN: "open",
+  CLICKS: "clicks",
+  RECIPIENTS: "recipients",
+  ACTIONS: "actions",
+};
+
+export const MessagesSection = (
+  { compact }: { compact?: boolean } = { compact: false },
+) => {
   const { smartlistId } = useOutletContext<AutomationPageContext>();
   const navigate = useNavigate();
 
@@ -48,18 +61,19 @@ export const AutomationPageContent = () => {
     setAutomationToDelete(null);
   };
 
-  const columns: GenericTableColumn<TableRow>[] = useMemo(
-    () => [
+  const columns: GenericTableColumn<TableRow>[] = useMemo(() => {
+    const allColumns: GenericTableColumn<TableRow>[] = [
       {
-        id: "created-on",
+        id: COLUMN_IDS.CREATED_ON,
         header: t("automation.messages.columns.createdOn"),
         type: "date",
         keyPath: "date_created",
       },
       {
-        id: "channel",
-        header: "",
+        id: COLUMN_IDS.CHANNEL,
+        header: compact ? t("automation.messages.columns.condition") : "",
         type: "custom",
+        align: compact ? "center" : undefined,
         render: (row) => {
           const channelMap: Record<
             number,
@@ -83,22 +97,27 @@ export const AutomationPageContent = () => {
           };
 
           const channel = channelMap[row.communication_kind];
-          if (!channel) return null;
+
+          if (!channel) {
+            return null;
+          }
 
           return (
-            <Chip
-              type="weak"
-              color="default"
-              size="lg"
-              iconLeft={channel.icon}
-              aria-label={channel.label}
-            />
+            <Tooltip label={channel.label}>
+              <Chip
+                type="weak"
+                color="default"
+                size="lg"
+                iconLeft={channel.icon}
+                aria-label={channel.label}
+              />
+            </Tooltip>
           );
         },
       },
       {
-        id: "condition",
-        header: t("automation.messages.columns.condition"),
+        id: COLUMN_IDS.CONDITION,
+        header: compact ? "" : t("automation.messages.columns.condition"),
         type: "custom",
         render: (row) => {
           const isJoin = row.event_kind === EventKind.JOIN;
@@ -112,10 +131,16 @@ export const AutomationPageContent = () => {
 
           return (
             <div className="flex flex-col gap-xs">
-              <Body size="md">{row.title ?? ""}</Body>
+              <Body size="md" className="whitespace-normal break-words">
+                {row.title ?? ""}
+              </Body>
               <div className="flex items-center gap-xs">
                 <Icon icon={icon} size="sm" className={color} />
-                <Body size="md" color="weak">
+                <Body
+                  size="md"
+                  color="weak"
+                  className="whitespace-normal break-words"
+                >
                   {text}
                 </Body>
               </div>
@@ -124,7 +149,7 @@ export const AutomationPageContent = () => {
         },
       },
       {
-        id: "recipients",
+        id: COLUMN_IDS.RECIPIENTS,
         header: t("automation.messages.columns.analytics"),
         type: "custom",
         align: "center",
@@ -138,7 +163,7 @@ export const AutomationPageContent = () => {
         ),
       },
       {
-        id: "opens",
+        id: COLUMN_IDS.OPEN,
         header: "",
         type: "custom",
         align: "center",
@@ -159,7 +184,7 @@ export const AutomationPageContent = () => {
         },
       },
       {
-        id: "clicks",
+        id: COLUMN_IDS.CLICKS,
         header: "",
         type: "custom",
         align: "center",
@@ -180,7 +205,7 @@ export const AutomationPageContent = () => {
         },
       },
       {
-        id: "actions",
+        id: COLUMN_IDS.ACTIONS,
         type: "custom",
         align: "end",
         header: "",
@@ -228,9 +253,22 @@ export const AutomationPageContent = () => {
           );
         },
       },
-    ],
-    [i18n.language],
-  );
+    ];
+
+    const compactHiddenColumns = [
+      COLUMN_IDS.CREATED_ON,
+      COLUMN_IDS.RECIPIENTS,
+      COLUMN_IDS.OPEN,
+      COLUMN_IDS.CLICKS,
+    ];
+
+    return compact
+      ? allColumns.filter((col) => !compactHiddenColumns.includes(col.id))
+      : allColumns;
+
+    // we should't add t as dependency, instead we add the language
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [i18n.language, navigate, smartlistId, compact]);
 
   const rows: TableRow[] = useMemo(
     () =>

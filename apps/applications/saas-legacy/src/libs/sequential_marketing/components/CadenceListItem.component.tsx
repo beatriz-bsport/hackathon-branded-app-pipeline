@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import {
   CadenceStatus,
   SequentialMarketingColors,
@@ -36,6 +37,7 @@ type Props = {
   sortable?: boolean;
   withoutIndex?: boolean;
   onDelete?: (cadence: Cadence) => void;
+  onDuplicate?: (cadence: Cadence) => void;
   onEdit?: (cadence: Cadence) => void;
   onOpen?: (cadence: Cadence) => void;
   onRestore?: (cadence: Cadence) => void;
@@ -51,13 +53,17 @@ export const CadenceListItem: React.FC<Props> = ({
   sortable,
   withoutIndex,
   onDelete,
+  onDuplicate,
   onEdit,
   onOpen,
   onRestore,
   onSelect,
 }) => {
   const classes = useListItemStyles({ archived, selected });
-  const { t } = useTranslation('marketing');
+  const { t } = useTranslation('b2b_audience');
+  const isWorkflowDuplicationEnabled = useSafeFlag(
+    FeatureFlags.AUDIENCE_WORKFLOW_DUPLICATION,
+  );
 
   const { listeners, attributes, setNodeRef, transform, transition } =
     useSortable({
@@ -83,6 +89,10 @@ export const CadenceListItem: React.FC<Props> = ({
     onDelete(cadence);
   }, [onDelete, cadence]);
 
+  const handleDuplicate = React.useCallback(() => {
+    onDuplicate?.(cadence);
+  }, [onDuplicate, cadence]);
+
   const handleRestore = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       event.stopPropagation();
@@ -99,23 +109,35 @@ export const CadenceListItem: React.FC<Props> = ({
     [onSelect, cadence],
   );
 
+  const showDuplicateOption = isWorkflowDuplicationEnabled && !!onDuplicate;
+
   const actions = React.useMemo(
     () =>
       Immutable([
         {
-          label: t('audience.listItem.labels.edit'),
+          label: t('workflowList.item.menu.edit'),
           icon: 'Settings',
           onClick: handleEdit,
           customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
         },
         {
-          label: t('audience.listItem.labels.archive'),
+          label: t('workflowList.item.menu.archive'),
           icon: 'Delete',
           onClick: handleDelete,
           customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
         },
+        ...(showDuplicateOption
+          ? [
+              {
+                label: t('workflowList.item.menu.duplicate'),
+                icon: 'FileCopy',
+                onClick: handleDuplicate,
+                customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
+              },
+            ]
+          : []),
       ]),
-    [handleEdit, handleDelete, t],
+    [handleEdit, handleDelete, handleDuplicate, showDuplicateOption, t],
   );
 
   return (
@@ -169,7 +191,7 @@ export const CadenceListItem: React.FC<Props> = ({
               size="small"
               variant="outlined"
             >
-              {t('audience.listItem.labels.open')}
+              {t('workflowList.item.buttons.open')}
             </Button>
           )}
           {!archived && onSelect && (
@@ -178,7 +200,7 @@ export const CadenceListItem: React.FC<Props> = ({
               size="small"
               variant="outlined"
             >
-              {t('audience.listItem.labels.metrics')}
+              {t('workflowList.item.buttons.viewMetrics')}
             </SecondaryActionButton>
           )}
           {archived && onRestore && (
@@ -189,14 +211,14 @@ export const CadenceListItem: React.FC<Props> = ({
               startIcon={<RestoreFromTrashIcon />}
               variant="outlined"
             >
-              {t('audience.listItem.labels.unarchive')}
+              {t('workflowList.item.buttons.unarchive')}
             </Button>
           )}
           {!archived && (
             <NestedMenuSelectorIconButton
               noTextWrap
               actionList={actions}
-              tooltipText={t('audience.listItem.tooltip.moreActions')}
+              tooltipText={t('workflowList.item.menu.tooltip')}
             />
           )}
         </div>

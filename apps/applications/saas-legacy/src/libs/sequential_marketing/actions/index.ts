@@ -16,6 +16,9 @@ import {
   // RESTORE
   restoreCadenceActions,
   restoreCadence,
+  // DUPLICATE
+  duplicateCadenceActions,
+  duplicateCadence,
   // ACTIVATE
   activateCadenceActions,
   activateCadence,
@@ -120,6 +123,8 @@ export {
   archiveCadence,
   restoreCadenceActions,
   restoreCadence,
+  duplicateCadenceActions,
+  duplicateCadence,
   activateCadenceActions,
   activateCadence,
   shutOffCadenceActions,

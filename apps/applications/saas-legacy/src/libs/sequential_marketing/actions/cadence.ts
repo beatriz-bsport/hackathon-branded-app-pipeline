@@ -7,12 +7,16 @@ import {
   updateCadence as updateCadenceAPI,
   archiveCadence as archiveCadenceAPI,
   restoreCadence as restoreCadenceAPI,
+  duplicateCadence as duplicateCadenceAPI,
   activateCadence as activateCadenceAPI,
   shutOffCadence as shutOffCadenceAPI,
   setCadenceInitialConfiguration as setCadenceInitialConfigurationAPI,
   patchCadenceInitialConfiguration as patchCadenceInitialConfigurationAPI,
 } from '#src/libs/sequential_marketing/api';
-import { ERROR_CADENCE_FREE_TRIAL_QUOTA_REACHED } from '#src/libs/sequential_marketing/constants';
+import {
+  ERROR_CADENCE_FREE_TRIAL_QUOTA_REACHED,
+  ERROR_CADENCE_NOT_INITIALIZED_FOR_DUPLICATION,
+} from '#src/libs/sequential_marketing/constants';
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
 import { isErrorWithCustomCode } from '#src/libs/utils';
 
@@ -140,6 +144,42 @@ export function restoreCadence(id: number, options?: OptionCallback<Cadence>) {
     }
 
     dispatch(restoreCadenceActions.isLoading(false));
+  };
+}
+
+export const duplicateCadenceActions = {
+  isLoading: createAction<boolean>('CADENCE_WIP/DUPLICATE/IS_LOADING'),
+  error: createAction<Error | null>('CADENCE_WIP/DUPLICATE/ERROR'),
+  success: createAction<Cadence>('CADENCE_WIP/DUPLICATE/SUCCESS'),
+};
+
+export function duplicateCadence(
+  id: number,
+  options?: OptionCallback<Cadence>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(duplicateCadenceActions.isLoading(true));
+    dispatch(duplicateCadenceActions.error(null));
+
+    try {
+      const response = await duplicateCadenceAPI(id);
+      dispatch(duplicateCadenceActions.success(response.data));
+      dispatch(snackbarSuccess('audience.duplicate.success'));
+      options?.onSuccess?.(response.data);
+    } catch (error: any) {
+      dispatch(duplicateCadenceActions.error(error));
+      if (
+        error?.response?.data?.error_code ===
+        ERROR_CADENCE_NOT_INITIALIZED_FOR_DUPLICATION
+      ) {
+        dispatch(snackbarError('audience.duplicate.uninitializedWorkflow'));
+      } else {
+        dispatch(snackbarError('audience.duplicate.error'));
+      }
+      options?.onError?.(error);
+    }
+
+    dispatch(duplicateCadenceActions.isLoading(false));
   };
 }
 

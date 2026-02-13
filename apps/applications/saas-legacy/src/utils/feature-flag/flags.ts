@@ -24,6 +24,7 @@ export const FeatureFlags = {
   TOGGLE_APPCUES: 'toggle_appcues',
   AUDIENCE_DISPLAY_TIME_IN_MEMBER_TABLE:
     'audience_display_time_in_member_table',
+  AUDIENCE_WORKFLOW_DUPLICATION: 'audience_workflow_duplication',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

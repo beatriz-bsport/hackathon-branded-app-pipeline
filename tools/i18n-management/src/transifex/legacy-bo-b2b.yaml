@@ -4,3 +4,8 @@ filters:
     source_language: en
     source_files_expression: "apps/applications/saas-legacy/src/i18n/source/b2b_<file>.json"
     translation_files_expression: "apps/applications/saas-legacy/src/i18n/locales/<lang>/b2b_<file>.json"
+  - filter_type: file
+    file_format: KEYVALUEJSON
+    source_language: en
+    source_file: apps/applications/saas-legacy/src/i18n/source/snackbar.json
+    translation_files_expression: "apps/applications/saas-legacy/src/i18n/locales/<lang>/snackbar.json"

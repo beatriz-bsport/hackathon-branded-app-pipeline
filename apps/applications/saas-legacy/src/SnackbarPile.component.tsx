@@ -72,7 +72,7 @@ export const SnackbarPile: React.FC<Props> = ({
   deleteAccessControlSnackbar,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation(['snackbar']);
+  const { t } = useTranslation('snackbar');
 
   const handleDeleteTopSnackbar = React.useCallback(
     (snackbarId: number) => () => deleteTopSnackbar(snackbarId),
@@ -91,31 +91,35 @@ export const SnackbarPile: React.FC<Props> = ({
 
   const uniqTopMessages = React.useMemo(
     () =>
-      uniq(topMessages?.map((snack) => snack.id))?.map((snackId) =>
-        topMessages?.find((snack) => snack.id === snackId),
-      ) ?? [],
+      uniq(topMessages?.map((snack) => snack.id))
+        ?.map((snackId) => topMessages?.find((snack) => snack.id === snackId))
+        .filter((snack) => !!snack) ?? [],
     [topMessages],
   );
 
   const uniqBottomMessages = React.useMemo(
     () =>
-      uniq(bottomMessages?.map((snack) => snack.id))?.map((snackId) =>
-        bottomMessages?.find((snack) => snack.id === snackId),
-      ) ?? [],
+      uniq(bottomMessages?.map((snack) => snack.id))
+        ?.map((snackId) =>
+          bottomMessages?.find((snack) => snack.id === snackId),
+        )
+        .filter((snack) => !!snack) ?? [],
     [bottomMessages],
   );
 
   const uniqAccessControlMessages = React.useMemo(
     () =>
-      uniq(accessControlMessages?.map((snack) => snack.id))?.map((snackId) =>
-        accessControlMessages?.find((snack) => snack.id === snackId),
-      ) ?? [],
+      uniq(accessControlMessages?.map((snack) => snack.id))
+        ?.map((snackId) =>
+          accessControlMessages?.find((snack) => snack.id === snackId),
+        )
+        .filter((snack) => !!snack) ?? [],
     [accessControlMessages],
   );
 
   return (
     <div>
-      {uniqTopMessages?.map((snack) => (
+      {uniqTopMessages.map((snack) => (
         <Snackbar
           key={`topMessage-${snack.id}-${snack.message}`}
           open
@@ -137,7 +141,8 @@ export const SnackbarPile: React.FC<Props> = ({
           />
         </Snackbar>
       ))}
-      {uniqAccessControlMessages?.map((snack) => (
+
+      {uniqAccessControlMessages.map((snack) => (
         <AccessControlSnackBar
           key={`accessControlMessage-${snack.id}`}
           open
@@ -151,7 +156,8 @@ export const SnackbarPile: React.FC<Props> = ({
           member={snack.member}
         />
       ))}
-      {uniqBottomMessages?.map((snack) => (
+
+      {uniqBottomMessages.map((snack) => (
         <Snackbar
           key={`bottomMessage-${snack.id}-${snack.message}`}
           open

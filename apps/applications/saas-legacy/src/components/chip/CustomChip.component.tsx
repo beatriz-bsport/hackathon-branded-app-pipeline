@@ -9,11 +9,14 @@ import Chip from '@material-ui/core/Chip';
 import MuiIcon from '#src/components/MuiIcon.component';
 import ToolTip from '#src/components/Tooltip.component';
 
+type ChipAlign = 'default' | 'right' | 'left';
+
 type StylesProps = {
   mainColor?: string;
   iconColor?: string;
   maxWidth?: string;
   autoOverflow?: boolean;
+  align?: ChipAlign;
 };
 
 export type CustomChipProps = {
@@ -133,9 +136,16 @@ export const CustomChip: React.FC<CustomChipProps> = ({
   iconColor,
   maxWidth,
   autoOverflow,
+  align = 'default',
   onDelete,
 }) => {
-  const classes = useStyles({ iconColor, mainColor, maxWidth, autoOverflow });
+  const classes = useStyles({
+    iconColor,
+    mainColor,
+    maxWidth,
+    autoOverflow,
+    align,
+  });
 
   const [isBackgroundDisplayed, setIsBackgroundDisplayed] = useState(false);
 
@@ -242,6 +252,11 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   },
   outerDiv: {
     display: 'flex',
+    justifyContent: ({ align }) => {
+      if (align === 'right') return 'flex-end';
+      if (align === 'left') return 'flex-start';
+      return undefined;
+    },
     overflow: ({ autoOverflow }) => (autoOverflow ? 'auto' : 'unset'),
   },
 }));

@@ -41,6 +41,7 @@ export type DropdownMenuItemProps = {
   rightSlot?: ReactNode;
   description?: string;
   onClick?: () => void;
+  leftSlot?: ReactNode;
 };
 
 export type DropdownMenuTitleProps = {

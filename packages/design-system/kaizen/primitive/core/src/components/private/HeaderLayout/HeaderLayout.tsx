@@ -57,6 +57,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
   pageStatusChip,
   pageTabs,
   pageTitle,
+  pageSubtitle,
   searchConfig,
   startGroupActions,
   ...props
@@ -86,6 +87,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
         pageStatusChip={pageStatusChip}
         pageTabs={pageTabs}
         pageTitle={pageTitle}
+        pageSubtitle={pageSubtitle}
         startGroupActions={startGroupActions}
       />
       <DataActionsSection

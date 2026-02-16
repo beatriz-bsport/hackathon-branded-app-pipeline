@@ -109,53 +109,53 @@ export type OfferBookingOption = {
 };
 
 export type Offer<
-  C = number,
-  E = number,
-  M = number,
-  A = number,
-  T = number,
-  G = number,
-  L = number,
+  Coach = number,
+  Establishment = number,
+  MetaActivity = number,
+  Activity = number,
+  Tag = number,
+  Group = number,
+  Level = number,
 > = {
   activity_id: number;
-  activity: A;
+  activity: Activity;
   allow_guest_offer: boolean;
   available_on_partnership: boolean;
   available: boolean;
-  blacklist_tags: T[];
+  blacklist_tags: Tag[];
   booking_window_end_datetime?: string;
   booking_window_start_datetime?: string;
   booking_window_status?: BookingWindowStatus;
   broadcast_info?: BroadcastInfo;
   broadcast_link: string;
   category: string;
-  coach_override?: C;
+  coach_override?: Coach;
   coach_payment_rule_id: number | null;
-  coach: C;
+  coach: Coach;
   company: number;
   cover_main: string;
   credit_price: number;
-  custom_level: L;
+  custom_level: Level;
   date_end: string;
   date_roll_call_last_modified?: string;
   date_start: string;
   description_override?: string;
   duration_minute: number;
   effectif: number;
-  establishment: E;
+  establishment: Establishment;
   female?: number;
   full: boolean;
-  group: G;
+  group: Group;
   id: number;
   internal_note?: string;
   is_broadcast: boolean;
   level_id: number;
-  level: L;
+  level: Level;
   linked_hybrid_offer_id: number | null;
   male?: number;
   manager_only: boolean;
   meta_activity_id: number;
-  meta_activity: M;
+  meta_activity: MetaActivity;
   name_override?: string;
   name: string;
   nb_bookings: number;
@@ -175,7 +175,7 @@ export type Offer<
   title: string;
   validated_booking_count: number;
   waiting_list_max_size: number;
-  whitelist_tags: T[];
+  whitelist_tags: Tag[];
 };
 
 /**

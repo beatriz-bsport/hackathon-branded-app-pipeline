@@ -89,9 +89,7 @@ const Radio: React.FC<RadioProps> = ({
     () =>
       label || value ? (
         <div id={`${id}-menu-radio-item-label`} className="flex cursor-pointer">
-          <Body htmlVariant="span" className="pr-xs">
-            {label ?? value}
-          </Body>
+          <Body htmlVariant="span">{label ?? value}</Body>
         </div>
       ) : null,
     [label, value, id],
@@ -103,7 +101,8 @@ const Radio: React.FC<RadioProps> = ({
         <Body
           id={`${id}-menu-radio-item-description`}
           htmlVariant="span"
-          className="pr-xs text-[14px] text-onsurface-weak"
+          size="md"
+          color="weak"
         >
           {description}
         </Body>
@@ -135,7 +134,7 @@ const Radio: React.FC<RadioProps> = ({
         tabIndex={-1}
         {...props}
       />
-      <div className="flex items-center justify-between w-full">
+      <div className="flex items-center justify-between w-full gap-xs">
         <div className="flex items-center gap-xs">
           {leftSlot ?? renderedAvatar ?? renderedIcon}
           <div className="flex flex-col">

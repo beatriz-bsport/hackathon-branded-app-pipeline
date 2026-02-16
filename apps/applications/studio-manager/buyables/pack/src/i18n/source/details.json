@@ -1,4 +1,5 @@
 {
+  "modelName": "Pack",
   "createModal": {
     "title": "Create a new pack",
     "buttons": {
@@ -139,12 +140,8 @@
         "errorMissingNumber": "Add a maximum amount or unselect this option to continue"
       },
       "paymentMethod": {
-        "label": "Payment methods",
+        "label": "Accepted payment methods",
         "helperText": "Choose at least one ",
-        "checkboxes": {
-          "onlinePayments": "Online ",
-          "onsitePayments": "In-person"
-        },
         "alertVisibilityHidden": "Hidden packs can still be shared with members using a link and paid for via online payment.",
         "errorMissingPaymentMethod": "Select a payment method"
       }
@@ -152,24 +149,13 @@
     "visibilitySection": {
       "title": "Visibility",
       "visibilitySelector": {
-        "label": "Select the visibility of this pack",
-        "options": {
-          "visible": {
-            "shortTitle": "Visible",
-            "fullTitle": "Listed on Member Area",
-            "description": "Your pack will be listed on the Member Area for your members to buy."
-          },
-          "hidden": {
-            "shortTitle": "Unlisted",
-            "fullTitle": "Unlisted on Member Area",
-            "description": "Your pack won't be listed on the Member Area but can be shared with a link or purchased via the Back Office."
-          }
-        }
+        "label": "Select the visibility of this pack"
       },
       "dateLimitSelector": {
         "toggleLabel": "Date limit for purchase",
         "fieldLabel": "Available until",
-        "errorMissingDate": "Add a date or deactivate this option to continue"
+        "errorMissingDate": "Add a date or deactivate this option to continue",
+        "errorPastDate": "The expiration date must be today or future"
       },
       "additionalRules": {
         "label": "Additional rules",
@@ -203,6 +189,7 @@
     "pricing": "Pricing",
     "credits": "Credits",
     "selectPreviousItem": "Select previous item",
-    "selectNextItem": "Select next item"
+    "selectNextItem": "Select next item",
+    "seeDetails": "See more"
   }
 }

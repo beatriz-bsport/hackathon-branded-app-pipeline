@@ -1203,6 +1203,11 @@
     "update": {
       "error": "An error occurred when editing the {{ workflowLowerCase }}",
       "success": "Your {{ workflowLowerCase }} has been updated"
+    },
+    "duplicate": {
+      "error": "An error occurred when duplicating the {{ workflowLowerCase }}",
+      "uninitializedWorkflow": "Cannot duplicate an uninitialized {{ workflowLowerCase }}",
+      "success": "The {{ workflowLowerCase }} has been duplicated successfully"
     }
   },
   "giftCard": {

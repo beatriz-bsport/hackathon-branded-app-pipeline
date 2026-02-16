@@ -8,23 +8,21 @@ import { SessionSummaryList } from "#src/components/common/session-summary-list"
 import { useFetchSessionsInGroup } from "#src/hooks/session-api/fetch/use-fetch-sessions-in-group";
 import { useFetchSimilarSessions } from "#src/hooks/session-api/fetch/use-fetch-similar-sessions";
 import { useCancelSession } from "#src/hooks/session-api/session-actions/use-cancel-session";
-import {
-  closeModal,
-  selectIsCancelModalOpen,
-  useSessionListStore,
-} from "#src/stores/session-list";
 import { EnrichedSession } from "#src/types";
 import { TFunction, Trans, useTranslation } from "#src/utils/i18n";
 
 type CancelSessionModalProps = {
   session: EnrichedSession;
+  isOpen: boolean;
+  onClose: () => void;
 };
 export const CancelSessionModal: FC<CancelSessionModalProps> = ({
   session,
+  isOpen,
+  onClose,
 }) => {
   const { t, i18n } = useTranslation("sessionList");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
-  const isOpen = useSessionListStore(selectIsCancelModalOpen);
 
   const [shouldSendNotification, setShouldSendNotification] = useState(true);
   const [shouldCancelFutureSessions, setShouldCancelFutureSessions] =
@@ -68,7 +66,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
     (session.group || selectedIds.length < similarSessions.length);
 
   const handleConfirm = () => {
-    closeModal();
+    onClose();
     cancelSession.mutate({
       id: session.id,
       params: {
@@ -111,7 +109,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
       size="md"
       title={t("cancelModal.title")}
       description={getDescription()}
-      onClose={closeModal}
+      onClose={onClose}
       confirmButton={{
         label: t("cancelModal.confirmButton"),
         color: "critical",
@@ -119,7 +117,7 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
       }}
       cancelButton={{
         label: t("cancelModal.cancelButton"),
-        onClick: closeModal,
+        onClick: onClose,
       }}
     >
       <div className="flex flex-col gap-md">

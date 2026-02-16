@@ -91,6 +91,12 @@ export const restoreCadence = (id: number) => {
   );
 };
 
+export const duplicateCadence = (id: number) => {
+  return postAuth<Cadence>(
+    `${API_V1_URI}/sequential_marketing/cadence/${id}/duplicate/`,
+  );
+};
+
 export const activateCadence = (id: number) => {
   return postAuth<Cadence>(
     `${API_V1_URI}/sequential_marketing/cadence/${id}/activate/`,

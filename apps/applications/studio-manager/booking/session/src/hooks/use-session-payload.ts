@@ -1,7 +1,13 @@
 import { useCallback } from "react";
 
-import { type SessionCreationPayload } from "@bsport/api-book";
+import type {
+  SessionCreationPayload,
+  SessionEditActions,
+  SessionEditPayload,
+  SessionWithActivity,
+} from "@bsport/api-book";
 
+import type { SessionEditFormData } from "#src/components/SessionForm/types";
 import { generateRecurrenceDates } from "#src/helpers/recurrence";
 import type {
   SessionCreationFormAdvancedOptionsData,
@@ -16,13 +22,13 @@ type BuildPayloadParams = {
 };
 
 /**
- * Returns a function to build the API payload from the form data collected across the session creation steps.
- * Call buildPayload in your submit handler.
+ * Returns a function to build the API payload from the form data collected across the session creation and edition steps.
+ * Call buildCreationPayload or buildEditionPayload in your submit handlers.
  */
-export const useSessionCreationPayload = () => {
+export const useSessionPayload = () => {
   const { getRecurrenceConfig } = useRecurrenceConfig();
 
-  const buildPayload = useCallback(
+  const buildCreationPayload = useCallback(
     ({
       sessionData,
       metaActivityId,
@@ -104,5 +110,63 @@ export const useSessionCreationPayload = () => {
     [getRecurrenceConfig],
   );
 
-  return { buildPayload };
+  const buildEditionPayload = (
+    formData: SessionEditFormData,
+    session: SessionWithActivity,
+    editActions: SessionEditActions,
+  ): SessionEditPayload => {
+    return {
+      // Identity
+      id: session.id,
+      meta_activity: session.meta_activity,
+
+      // Date/time
+      date_start: formData.startDateTime.toISOString(),
+      duration_minute: formData.duration_minute,
+
+      // Details
+      name_override:
+        formData.name_override === session.metaActivity?.name
+          ? ""
+          : formData.name_override,
+      description_override:
+        formData.description_override === session.metaActivity?.description
+          ? ""
+          : formData.description_override,
+
+      // Settings
+      manager_only: formData.manager_only,
+      waiting_list_max_size: formData.waiting_list_max_size,
+      effectif: formData.effectif,
+      available_on_partnership: formData.available_on_partnership,
+      partner_max_booking_count: formData.partner_max_booking_count,
+      level: formData.level,
+      broadcast_link: formData.broadcast_link,
+
+      // Teacher and establishment
+      coach: formData.coach,
+      coach_payment_rule: formData.overrideTeacherPayrollRule
+        ? formData.coach_payment_rule
+        : session.coach_payment_rule_id,
+      coach_override: session.coach_override,
+      establishment: formData.establishment,
+      room_blueprint: formData.room_blueprint,
+      ...(formData.sync_on_spivi !== undefined && {
+        sync_on_spivi: formData.sync_on_spivi,
+      }),
+      wellhub_product_id: formData.wellhub_product_id,
+      recurrence_id: formData.recurrence_id,
+
+      // Advanced options
+      allow_guest_offer: formData.allow_guest_offer,
+      blacklist_tags: formData.blacklist_tags,
+      whitelist_tags: formData.whitelist_tags,
+
+      // Edit-specific defaults
+      propagate_coach_override_value: 0,
+      ...editActions,
+    };
+  };
+
+  return { buildCreationPayload, buildEditionPayload };
 };

@@ -234,7 +234,7 @@ const styles = () =>
   });
 
 export default compose<OwnProps, Props>(
-  withTranslation(['navigation, coach', 'common']),
+  withTranslation(['navigation', 'coach', 'common']),
   mapRouterParamsToProps({ id: 'coachId:number' }),
   connector,
   withStyles(styles),

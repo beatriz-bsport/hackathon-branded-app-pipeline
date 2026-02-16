@@ -100,6 +100,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
 
 export const REVAMP_URLS_PRODUCTION = {
   insights: "/insights",
+  calendar: "/session",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   homepage: REVAMP_URLS_DEVELOPMENT.homepage,

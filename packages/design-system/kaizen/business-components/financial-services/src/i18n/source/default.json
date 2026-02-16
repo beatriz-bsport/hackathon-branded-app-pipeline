@@ -28,6 +28,34 @@
     "addPromoCode": "Add promo code",
     "totalBeforeTax": "Total before tax",
     "total": "Total",
+    "promoCode": {
+      "addLabel": "Add promo code",
+      "addButton": "Apply",
+      "removeLabel": "Remove promo code",
+      "discount": "Promo code discount",
+      "applied": "Applied promo codes",
+      "detail": "Promo code: {{code}}",
+      "errors": {
+        "5000": "You cannot provide a code that has already been used in another coupon.",
+        "5001": "Some of the unique codes cannot be added as they have already been registered.",
+        "5003": "Some unique codes are already registered in another coupon.",
+        "5004": "This code can only be applied to one item.",
+        "5006": "This unique code is already linked to an open basket",
+        "45009": "This gift card code cannot be applied to this basket",
+        "45010": "The gift card has been well associated to your account, but could not be activated because it is before the activation date",
+        "notFound": "This promo code is not valid.",
+        "notApplicable": "This promo code is not applicable."
+      }
+    },
+    "addFootnote": "Add footnote",
+    "footnote": "Footnote:",
+    "footnoteModal": {
+      "title": "Invoice footnote",
+      "description": "Add an optional note that will appear at the bottom of the invoice for your customer (e.g. conditions of purchase, payment terms, or thank-you note)",
+      "label": "Footnote",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
     "itemCount": "{{count}} items",
     "itemCount_one": "1 item",
     "itemCount_other": "{{count}} items",

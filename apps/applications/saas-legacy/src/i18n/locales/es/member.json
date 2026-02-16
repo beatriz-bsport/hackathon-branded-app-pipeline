@@ -275,7 +275,7 @@
           "emailTaken": {
             "contactCompany": "Sin embargo, mientras tanto se ha creado una cuenta con la dirección {{ email }}. Esta solicitud ya ha caducado. Si la dirección de correo electrónico {{ email }} le pertenece pero no ha creado la cuenta asociada, póngase en contacto directamente con su estudio.",
             "helper": "El estudio {{- company }} había hecho una solicitud para cambiar su correo electrónico de acceso a su espacio personal:",
-            "title": "El correo electrónico de inicio de sesión ya está ocupado"
+            "title": "Este correo electrónico ya está registrado. Es posible que lo hayas utilizado para registrarte en otro estudio. Inicia sesión o restablece tu contraseña para continuar."
           },
           "delayExceeded": {
             "contactCompany": "Si desea volver a solicitar un cambio de dirección de acceso, póngase en contacto con su estudio.",

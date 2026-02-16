@@ -17,6 +17,7 @@ export type EnrichedSession = ManagerSession & {
   isEstablishmentArchived?: boolean;
   isMetaActivityArchived?: boolean;
   onRowClick?: () => void;
+  navigateToBookingsManagement?: (sessionId: number) => void;
 };
 
 export type TableColumn = GenericTableColumn<EnrichedSession> & {

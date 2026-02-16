@@ -1,23 +1,17 @@
-import React, { useState } from "react";
+import type { FC } from "react";
 
-import {
-  type DateTime,
-  fromIsoString,
-  getIsoDate,
-  getLocalNow,
-} from "@bsport/datetime-manipulation";
+import { fromIsoString, getIsoDate } from "@bsport/datetime-manipulation";
 import { FormField, type UseFormControllerOutput } from "@bsport/form";
+import { FormToggle } from "@bsport/kaizen-business-components/form/toggle";
 import {
   DatePicker,
   type DatePickerProps,
-  Toggle,
 } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
-import type { PackFormData } from "@bsport/store-buyables-pack";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import type { PackFormSchema } from "../schema";
+import type { PackFormData, PackFormSchema } from "../schema";
+import { useGetDisablePast } from "../utils";
 
 type PackFormVisibilityDateProps = {
   fieldIdPrefix: string;
@@ -25,68 +19,39 @@ type PackFormVisibilityDateProps = {
   methods: UseFormControllerOutput<PackFormSchema>;
 };
 
-export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
+export const PackFormVisibilityDate: FC<PackFormVisibilityDateProps> = ({
   fieldIdPrefix,
   isDetailsView,
   methods,
 }) => {
-  const { t, i18n } = useTranslation("details");
-  const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
+  const { t } = useTranslation("details");
 
-  const initialExpirationDate =
-    methods.formState.defaultValues?.expiration_date;
-  const [addExpirationDate, setAddExpirationDate] = useState(
-    !!initialExpirationDate,
-  );
-  // State to remember the latest selected value before closing toggle
-  const [expirationDateDraft, setExpirationDateDraft] = useState<
-    string | null | undefined
-  >(null);
+  const hasExpirationDate = methods.watch("hasExpirationDate");
 
-  const today = getLocalNow({ locale: i18n.language, zone: companyTimezone });
-  const disablePast = (date: DateTime) =>
-    date.startOf("day") < today.startOf("day");
-
-  const statusText = t(
-    "formFields.visibilitySection.dateLimitSelector.errorMissingDate",
-  );
+  const disablePast = useGetDisablePast();
 
   return (
     <>
-      <Toggle
-        checked={addExpirationDate}
+      <FormToggle<PackFormData, "hasExpirationDate">
+        fieldName="hasExpirationDate"
         id={`${fieldIdPrefix}-visibility-toggle-add-expiration-date`}
         label={t("formFields.visibilitySection.dateLimitSelector.toggleLabel")}
-        onToggleChange={(checked) => {
-          if (!checked) {
-            // Save the draft value before closing
-            setExpirationDateDraft(methods.watch("expiration_date"));
-            // Reset to null when closing the toggle
-            methods.setValue("expiration_date", null, {
-              shouldDirty: true,
-            });
-          } else {
-            // Revert the reset to the latest save data
-            methods.setValue("expiration_date", expirationDateDraft, {
-              shouldDirty: true,
-            });
-          }
-          setAddExpirationDate(
-            typeof checked === "boolean" ? checked : !addExpirationDate,
-          );
-        }}
-        className="w-fit"
       />
-      {addExpirationDate && (
+
+      {hasExpirationDate && (
         <FormField<PackFormData, "expiration_date", DatePickerProps>
           name="expiration_date"
           mapProps={({ defaultProps, field, form }) => {
-            const defaultValue =
-              expirationDateDraft ??
+            const defaultValueAsString =
+              defaultProps.value ??
               form.formState.defaultValues?.expiration_date;
+
+            const dateValue = defaultValueAsString
+              ? fromIsoString(defaultValueAsString)
+              : undefined;
+
             return {
               ...defaultProps,
-              value: defaultProps.value,
               onSelect: (selectedDate) => {
                 const nextValue =
                   !!selectedDate && !Array.isArray(selectedDate)
@@ -95,15 +60,12 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
 
                 form.setValue("expiration_date", nextValue, {
                   shouldDirty: true,
+                  shouldValidate: true,
                 });
 
                 field.onBlur();
               },
-              defaultValue: defaultValue
-                ? fromIsoString(defaultValue)
-                : undefined,
-              status: defaultProps.value ? undefined : "error",
-              statusText: defaultProps.value ? undefined : statusText,
+              defaultValue: dateValue,
             };
           }}
         >
@@ -116,7 +78,7 @@ export const PackFormVisibilityDate: React.FC<PackFormVisibilityDateProps> = ({
             }}
             disableDate={disablePast}
             isInputField
-            required={addExpirationDate}
+            required
             label={t(
               "formFields.visibilitySection.dateLimitSelector.fieldLabel",
             )}

@@ -141,10 +141,6 @@
       "paymentMethod": {
         "label": "Betaalmethoden",
         "helperText": "Kies er minstens één ",
-        "checkboxes": {
-          "onlinePayments": "Online ",
-          "onsitePayments": "Persoonlijk"
-        },
         "alertVisibilityHidden": "Verborgen Pakketten kunnen nog steeds met leden worden gedeeld via een link en betaald worden via online betaling.",
         "errorMissingPaymentMethod": "Selecteer een betaalmethode"
       }

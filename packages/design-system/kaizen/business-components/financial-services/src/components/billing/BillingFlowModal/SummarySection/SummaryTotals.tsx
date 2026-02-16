@@ -1,38 +1,30 @@
 import React from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
-import { Body, Button, Divider } from "@bsport/kaizen-primitive-core";
+import { Body } from "@bsport/kaizen-primitive-core";
 
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
+import { PromoCodeSection } from "./PromoCodeSection";
+
 export type SummaryTotalsProps = {
   totalBeforeTaxCts: number;
-  totalCts: number;
+  totalAfterDiscountCts: number;
 };
 
 export const SummaryTotals: React.FC<SummaryTotalsProps> = ({
   totalBeforeTaxCts,
-  totalCts,
+  totalAfterDiscountCts,
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   return (
-    <>
-      <Divider weight="thin" />
-      <div className="flex items-center flex-shrink-0">
-        <Button
-          intent="flat"
-          color="main"
-          size="md"
-          label={t("billingFlowModal.addPromoCode")}
-          onClick={() => {
-            /* TODO: Implement promo code functionality */
-          }}
-        />
-      </div>
-      <div className="flex flex-col gap-xs px-md flex-shrink-0">
-        <div className="flex justify-between items-center">
+    <div className="flex flex-col gap-md">
+      <PromoCodeSection />
+
+      <div className="flex flex-col gap-sm">
+        <div className="flex justify-between items-center px-md">
           <Body htmlVariant="span" size="md" color="weak">
             {t("billingFlowModal.totalBeforeTax")}
           </Body>
@@ -40,15 +32,15 @@ export const SummaryTotals: React.FC<SummaryTotalsProps> = ({
             {getCurrencyDisplayWithPrice(totalBeforeTaxCts / 100)}
           </Body>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center px-md">
           <Body htmlVariant="span" size="lg" color="default" weight="strong">
             {t("billingFlowModal.total")}
           </Body>
           <Body htmlVariant="span" size="lg" color="default" weight="strong">
-            {getCurrencyDisplayWithPrice(totalCts / 100)}
+            {getCurrencyDisplayWithPrice(totalAfterDiscountCts / 100)}
           </Body>
         </div>
       </div>
-    </>
+    </div>
   );
 };

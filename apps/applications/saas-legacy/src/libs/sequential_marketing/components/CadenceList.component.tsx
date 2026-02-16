@@ -38,6 +38,7 @@ type Props = {
   onOpen?: (cadence: Cadence) => void;
   onClickItem?: (cadence: Cadence) => void;
   onDelete?: (cadence: Cadence) => void;
+  onDuplicate?: (cadence: Cadence) => void;
   onEdit?: (cadence: Cadence) => void;
   onRestore?: (id: number) => void;
   updateCadencePriorityIndex?: (
@@ -54,6 +55,7 @@ export const CadenceList: React.FC<Props> = ({
   onOpen,
   onClickItem,
   onDelete,
+  onDuplicate,
   onEdit,
   onRestore,
   updateCadencePriorityIndex,
@@ -236,6 +238,7 @@ export const CadenceList: React.FC<Props> = ({
               cadence={cadence}
               hasInvalidPaths={cadence.has_disabled_finer_grained_items}
               onDelete={onDelete}
+              onDuplicate={onDuplicate}
               onEdit={onEdit}
               onOpen={onOpen}
               onRestore={onRestore && handleRestoreCadence}

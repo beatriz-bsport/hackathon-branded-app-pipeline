@@ -1,0 +1,67 @@
+type InvoiceDetailsPayment = {
+  uuid: string;
+  id: number;
+  price: string;
+  payment_received: boolean;
+  payment_method: number;
+  payment_note: string;
+  invoice: string;
+  invoice_public_identifier: string;
+  stripe_charge_id: string;
+  date: string;
+  reverted: boolean;
+  is_method_editable: boolean;
+  is_returnable: boolean;
+  transaction_fee: string;
+  payment_engine: number;
+  is_v2: boolean;
+  is_processing: boolean;
+  returned_amount: string;
+};
+
+type InvoiceDetailsInvoiceItem = {
+  id: number;
+  price: string;
+  total_price_notax: string;
+  total_price: string;
+  invoice: string;
+  voucher: string;
+  object_id: number;
+  content_type: number;
+  subtitle: string;
+  name: string;
+  reverted: boolean;
+  incremental_consumer_giftcard_identifier?: string | null;
+  consumer_giftcard_kind?: string | null;
+  voucher_reasons?: string[];
+};
+
+export type UpdateInvoiceFooterResponse = {
+  uuid: string;
+  invoice_legal_identifier: string | null;
+  invoice_type: number;
+  date: string;
+  member: number;
+  voucher: string;
+  price_due: string;
+  price_payed: string;
+  fully_payed: boolean;
+  payments: InvoiceDetailsPayment[];
+  invoice_items: InvoiceDetailsInvoiceItem[];
+  is_finalized: boolean;
+  stripe_invoice_pdf: string | null;
+  reverted: boolean;
+  plannedinvoice: number;
+  billing_plan: number | null;
+  is_v2: boolean;
+  is_draft: boolean;
+  amount_due_cts: number;
+  amount_paid_cts: number;
+  reverse_invoices: string[];
+  source_invoice: string | null;
+  custom_footer: string;
+  establishment: number | null;
+  establishment_billing_group: number | null;
+  quickbooks_metadata: object;
+  is_quick_invoice: boolean | null;
+};

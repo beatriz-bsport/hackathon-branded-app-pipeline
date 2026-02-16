@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router";
 
+import { useVisibilityBadgeConfig } from "@bsport/kaizen-business-components/buyables/visibility-selector";
 import {
   Breadcrumbs,
   type HeaderLayoutProps,
@@ -60,19 +61,7 @@ export const useDetailsHeaderConfigs = ({
 
   // ----- Visibility chip -----
 
-  const visibilityBadge = hidden
-    ? t(
-        "formFields.visibilitySection.visibilitySelector.options.hidden.shortTitle",
-      )
-    : t(
-        "formFields.visibilitySection.visibilitySelector.options.visible.shortTitle",
-      );
-
-  const statusBadge = {
-    color: hidden ? "default" : "main",
-    size: "lg",
-    text: visibilityBadge,
-  } as const;
+  const statusBadge = useVisibilityBadgeConfig(!hidden);
 
   // ----- Breadcrumbs -----
 

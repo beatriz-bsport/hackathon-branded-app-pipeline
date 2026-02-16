@@ -20,6 +20,7 @@ import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { getParamsFromFilters } from "#src/components/SessionList/Filters/getParamsFromFilters";
 import { sessionListSessionClickedEvent } from "#src/events/session-list/events";
+import { useUrls } from "#src/urls";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 
 import {
@@ -54,6 +55,7 @@ const processSession =
     sessionsWithPendingRequests: number[],
     groupSessionsById: Record<number, GroupSession>,
     activitiesById: Record<number, MetaActivity>,
+    navigateToBookingsManagement: (sessionId: number) => void,
   ) =>
   (session: ManagerSession): EnrichedSession => {
     const teacher = teachersById[session.coach];
@@ -93,7 +95,10 @@ const processSession =
           session_type: session?.is_workshop ? "workshop" : "group-activity",
           session_is_online: session.is_broadcast,
         });
+
+        navigateToBookingsManagement(session.id);
       },
+      navigateToBookingsManagement,
     };
   };
 
@@ -200,6 +205,8 @@ export const useSessionListData = (
   const filters = useSessionListStore(selectFilters);
   const filterParams = getParamsFromFilters(filters);
 
+  const { navigateToBookingsManagement } = useUrls();
+
   const showCancelledSessions = useSessionListStore(
     selectShowCancelledSessions,
   );
@@ -250,26 +257,26 @@ export const useSessionListData = (
     !isLoadingSessions,
   );
 
-  const sessions = useMemo(
-    () =>
-      rawSessions.map(
-        processSession(
-          teachersById,
-          establishmentsById,
-          sessionsWithPendingRequests,
-          groupSessionsById,
-          activitiesById,
-        ),
+  const sessions = useMemo(() => {
+    return rawSessions.map(
+      processSession(
+        teachersById,
+        establishmentsById,
+        sessionsWithPendingRequests,
+        groupSessionsById,
+        activitiesById,
+        navigateToBookingsManagement,
       ),
-    [
-      rawSessions,
-      teachersById,
-      establishmentsById,
-      sessionsWithPendingRequests,
-      groupSessionsById,
-      activitiesById,
-    ],
-  );
+    );
+  }, [
+    rawSessions,
+    teachersById,
+    establishmentsById,
+    sessionsWithPendingRequests,
+    groupSessionsById,
+    activitiesById,
+    navigateToBookingsManagement,
+  ]);
 
   return {
     sessions,

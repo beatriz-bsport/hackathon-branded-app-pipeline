@@ -1,5 +1,5 @@
 import { type VariantProps, cva } from "class-variance-authority";
-import React, { useEffect, useId, useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 
 import {
   Autocomplete,
@@ -63,6 +63,7 @@ export type ItemAutocompleteProps = VariantProps<typeof itemAutocomplete> & {
   className?: string;
   itemType: ItemAutocompleteItemKind;
   textfieldProps?: ItemAutocompleteTextfieldProps;
+  selectedItemId?: string | null;
   onSelect?: (itemId: string) => void;
   onValueChange?: (value: string) => void;
 } & Omit<
@@ -80,6 +81,7 @@ const ItemAutocomplete: React.FC<ItemAutocompleteProps> = ({
   itemType,
   textfieldProps,
   fullWidth = true,
+  selectedItemId: selectedItemIdProp,
   onSelect: onSelectProp,
   onValueChange: onValueChangeProp,
   ...restAutocompleteProps
@@ -88,9 +90,11 @@ const ItemAutocomplete: React.FC<ItemAutocompleteProps> = ({
   const { t } = useTranslation("default", { i18n: i18nInstance });
   const textFieldId = useId();
   const [searchValue, setSearchValue] = useState("");
+  const [resetCounter, setResetCounter] = useState(0);
   const [selectedItemId, setSelectedItemId] = useState<string | undefined>(
     undefined,
   );
+  const previousSelectedItemIdRef = useRef<string | undefined>(undefined);
 
   const { items: autocompleteItems, isLoading } = useAutocompleteItems({
     itemType,
@@ -101,6 +105,22 @@ const ItemAutocomplete: React.FC<ItemAutocompleteProps> = ({
     () => (selectedItemId ? [selectedItemId] : []),
     [selectedItemId],
   );
+
+  // Keep local selection synced with external form state.
+  useEffect(() => {
+    const nextSelectedItemId = selectedItemIdProp ?? undefined;
+    setSelectedItemId(nextSelectedItemId);
+
+    if (!nextSelectedItemId) {
+      setSearchValue("");
+    }
+
+    if (previousSelectedItemIdRef.current && !nextSelectedItemId) {
+      setResetCounter((prev) => prev + 1);
+    }
+
+    previousSelectedItemIdRef.current = nextSelectedItemId;
+  }, [selectedItemIdProp]);
 
   // Clear selection when itemType changes
   useEffect(() => {
@@ -113,6 +133,8 @@ const ItemAutocomplete: React.FC<ItemAutocompleteProps> = ({
   const handleClear = () => {
     setSelectedItemId(undefined);
     setSearchValue("");
+    onSelectProp?.("");
+    onValueChangeProp?.("");
   };
 
   const handleSelect = (selectedValue: string) => {
@@ -139,7 +161,7 @@ const ItemAutocomplete: React.FC<ItemAutocompleteProps> = ({
     <div className={itemAutocomplete({ className, fullWidth })}>
       <div className="flex items-end gap-xs">
         <Autocomplete
-          key={itemType}
+          key={`${itemType}-${resetCounter}`}
           {...{
             ...restAutocompleteProps,
             items: autocompleteItems,

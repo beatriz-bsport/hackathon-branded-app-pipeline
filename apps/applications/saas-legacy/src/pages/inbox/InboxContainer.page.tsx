@@ -25,9 +25,7 @@ import {
 import { getFeatureList as getFeatureListAction } from '#src/libs/company/actions';
 // @ts-expect-error
 import { getUpsellPackageByIdentifier } from '#src/libs/platform-billing/selectors';
-import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
-import UpsellPackageSubscriptionDrawer from '#src/libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
+import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureRequestDialog.component';
 
 import type { UpsellPackage } from '#src/libs/company/types';
 import InboxPanel from './InboxPanel.page';
@@ -36,11 +34,6 @@ import InboxThreadList from './InboxThreadList.page';
 import type { RootState } from '../../reducers';
 
 const INBOX_PANEL_WIDTH = 378;
-
-const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
-  rudderStackFormTrackingFunctionsRegistry(
-    SegmentAnalyticsFormObjectIdentifier.UpsellSubscription,
-  );
 
 type State = {
   contextSelected: ChatThreadKinds;
@@ -54,7 +47,6 @@ type InboxConnectedProps = { id?: number } & State &
 
 type WithHandlers = {
   fetchThreadOrRedirectToTheList: () => void;
-  onRequestUpsell: () => void;
 };
 
 type Props = {
@@ -66,9 +58,7 @@ type Props = {
   WithTranslation;
 
 type ComponentState = {
-  openSubscribtionForm: boolean;
-  openConfirmationDialog: boolean;
-  upsellSubscriptionLoading: boolean;
+  openFeatureRequestDialog: boolean;
 };
 
 const styles = (theme: Theme) =>
@@ -122,9 +112,7 @@ const styles = (theme: Theme) =>
 
 class InboxContainer extends React.PureComponent<Props, ComponentState> {
   state: ComponentState = {
-    openSubscribtionForm: false,
-    openConfirmationDialog: false,
-    upsellSubscriptionLoading: false,
+    openFeatureRequestDialog: false,
   };
 
   componentDidMount() {
@@ -160,37 +148,14 @@ class InboxContainer extends React.PureComponent<Props, ComponentState> {
       return;
     }
     this.setState({
-      openSubscribtionForm: true,
+      openFeatureRequestDialog: true,
     });
-    trackFormAdd(this.props.upsellPackage?.id);
+    this.props.requestUpsellPackage(UPSELL_IDENTIFIER_INBOX);
   };
 
-  handleSubscribeUpsellPackage = () => {
-    if (!this.props.upsellPackage) {
-      return;
-    }
-    this.setState({ upsellSubscriptionLoading: true });
-    trackFormSubmitIntent(this.props.upsellPackage?.id);
-    this.props.subscribeUpsellPackage(this.props.upsellPackage?.id, {
-      onSuccess: () => {
-        trackFormSuccess(this.props.upsellPackage?.id);
-        this.handleCloseSubscriptionForm();
-        this.setState({ upsellSubscriptionLoading: false });
-        this.setState({ openConfirmationDialog: true });
-      },
-      onError: () => {
-        this.handleCloseSubscriptionForm();
-        this.setState({ upsellSubscriptionLoading: false });
-      },
-    });
+  handleCloseFeatureRequestDialog = () => {
+    this.setState({ openFeatureRequestDialog: false });
   };
-
-  handleCloseSubscriptionForm = () => {
-    this.setState({ openSubscribtionForm: false });
-  };
-
-  handleCloseConfirmationDialog = () =>
-    this.setState({ openConfirmationDialog: false });
 
   render() {
     const {
@@ -284,15 +249,9 @@ class InboxContainer extends React.PureComponent<Props, ComponentState> {
             thread={thread}
           />
         </div>
-        <UpsellPackageSubscriptionDrawer
-          loading={this.state.upsellSubscriptionLoading}
-          onClose={this.handleCloseSubscriptionForm}
-          onCloseDialog={this.handleCloseConfirmationDialog}
-          onKnowMore={this.props.onRequestUpsell}
-          onSubscribe={this.handleSubscribeUpsellPackage}
-          open={this.state.openSubscribtionForm}
-          openDialog={this.state.openConfirmationDialog}
-          upsellPackage={this.props.upsellPackage}
+        <FeatureRequestDialog
+          onClose={this.handleCloseFeatureRequestDialog}
+          open={this.state.openFeatureRequestDialog}
         />
       </div>
     );
@@ -334,15 +293,6 @@ export default compose(
             goToThreadList();
           },
         });
-      },
-    onRequestUpsell:
-      ({ requestUpsellPackage }: InboxConnectedProps) =>
-      () => {
-        requestUpsellPackage(UPSELL_IDENTIFIER_INBOX);
-        // // @ts-expect-error
-        // window.Intercom('trackEvent', 'Upsell feature requested', {
-        //   upsellIdentifier: UPSELL_IDENTIFIER_INBOX,
-        // });
       },
   }),
   withWidth(),

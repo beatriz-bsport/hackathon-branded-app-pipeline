@@ -7,6 +7,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import { API_V1_URL } from "../constants";
 import type {
   FetchGiftcardImagesParams,
   FetchGiftcardsParams,
@@ -16,7 +17,7 @@ import type {
   UploadGiftcardImageParams,
 } from "./types";
 
-const API_URL = "buyable/v1/giftcard";
+const API_URL = `${API_V1_URL}/giftcard`;
 
 // ----- Giftcard -----
 

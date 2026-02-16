@@ -25,7 +25,7 @@
         "daysBeforeNoShowHelpText": "Esta definição permite aplicar penalizações às ausências dos membros com um passe ilimitado.",
         "title": "Ausente (não compareceu)",
         "alert": "Estas definições só se aplicam a penalizações de não comparência em passes ilimitados. Para ativar as seguintes contagens, é necessário validar a chamada para cada aula.",
-        "sendMail": "Enviar uma mensagem de e-mail <0/> <1/> após a chamada para avisar o membro de que terá uma falta de comparência se for indicado como ausente.",
+        "sendMail": "Envie um e-mail <0/> <1/> horas após a chamada para avisar os membros marcados como ausentes de que serão considerados no-show, salvo se for apresentado um motivo válido. ",
         "sendMailHelpText": "Para ativar/desativar o e-mail, vá as Configurações > Correio eletrónico transacional> Penalização> Notificação de ausência"
       },
       "coachUserspace": {

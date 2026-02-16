@@ -154,7 +154,6 @@ const GiftcardSender: React.FC<SenderProps> = React.memo(
 
 type ReceiverProps = {
   consumerGiftcard: ConsumerGiftcard;
-  giftcard: Giftcard | GiftcardTemplate;
   disableItemIfNoMember?: boolean;
   memberReceiver?: Member;
   selected?: boolean;
@@ -170,7 +169,6 @@ type ReceiverProps = {
 const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
   ({
     consumerGiftcard,
-    giftcard,
     disableItemIfNoMember,
     memberReceiver,
     selected,
@@ -226,12 +224,12 @@ const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
           ).toFixed(2)}
         /${getCurrencyDisplayWithPrice(consumerGiftcard.price_bought)}`}
         </span>
-        {!!giftcard.expiration_days && (
+        {!!consumerGiftcard.expiration_date && (
           <span>
             {` - ${t('consumerGiftcard.expiresOn', {
-              d: DateTime.fromISO(consumerGiftcard.date_activated)
-                .plus({ days: giftcard.expiration_days })
-                .toLocaleString(DateTime.DATE_SHORT),
+              d: DateTime.fromISO(
+                consumerGiftcard.expiration_date,
+              ).toLocaleString(DateTime.DATE_SHORT),
             })}`}
           </span>
         )}
@@ -475,7 +473,6 @@ const ConsumerGiftcardListItem: React.FC<Props> = ({
     <GiftcardReceiver
       consumerGiftcard={consumerGiftcard}
       disableItemIfNoMember={disableItemIfNoMember}
-      giftcard={giftcard}
       memberReceiver={memberReceiver}
       onClick={onClickReceiver}
       onClickSeeDetails={onClickSeeDetails}

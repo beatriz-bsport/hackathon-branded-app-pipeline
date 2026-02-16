@@ -165,6 +165,10 @@ export const withCoachAnswers = memoize((selector: (state: RootState) => any) =>
       if (!Array.isArray(replacementRequests)) {
         return {
           ...replacementRequests,
+          coach_author:
+            coaches.find(
+              (coach) => coach.id === replacementRequests.coach_author,
+            ) || replacementRequests.coach_author,
           coach_answer: replacementRequests.coach_answer
             // @ts-expect-error
             .map((answerId) => coachAnswers.find((ca) => ca.id === answerId))
@@ -182,6 +186,9 @@ export const withCoachAnswers = memoize((selector: (state: RootState) => any) =>
 
       return replacementRequests.map((rr) => ({
         ...rr,
+        coach_author:
+          coaches.find((coach) => coach.id === rr.coach_author) ||
+          rr.coach_author,
         coach_answer: rr.coach_answer
           // @ts-expect-error
           .map((answerId) => coachAnswers.find((ca) => ca.id === answerId))

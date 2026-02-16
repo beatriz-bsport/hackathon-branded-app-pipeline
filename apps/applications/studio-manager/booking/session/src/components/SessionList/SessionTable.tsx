@@ -32,7 +32,14 @@ const SessionTable: React.FC<SessionTableProps> = ({
     return <SessionCards columns={filteredColumns} rows={sessions} />;
   }
 
-  return <Table columns={filteredColumns} rowHeight="sm" rows={sessions} />;
+  return (
+    <Table
+      className="cursor-pointer"
+      columns={filteredColumns}
+      rowHeight="sm"
+      rows={sessions}
+    />
+  );
 };
 
 export default memo(SessionTable);

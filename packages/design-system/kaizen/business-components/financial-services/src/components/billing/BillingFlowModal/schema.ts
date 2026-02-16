@@ -15,6 +15,7 @@ export const ITEM_TYPES = [
 /** Constants for validation. */
 export const FROM_TO_MAX_LENGTH = 40;
 export const NAME_AND_PERSONAL_MESSAGE_PDF_MAX_LENGTH = 150;
+export const FOOTNOTE_MAX_LENGTH = 150;
 export const PERSONAL_MESSAGE_EMAIL_MAX_LENGTH = 2000;
 
 /**
@@ -165,10 +166,46 @@ export const billingFlowFormDataSchema = z.object({
     })
     .transform((val: number | null) => (val === null ? undefined : val)),
   items: z.array(addedItemSchema).min(1, "At least one item is required"),
-  couponCodes: z.array(z.string()),
-  footnote: z.string().nullable(),
+  promoCodes: z.array(z.string()),
+  footnote: z.string().max(FOOTNOTE_MAX_LENGTH).nullable(),
   date: z.date({ required_error: "Invoice date is required" }),
 });
+
+export type BillingFlowFormData = z.infer<typeof billingFlowFormDataSchema>;
+
+export type AddItemFieldsDefault = {
+  addItemSelectedItemType: ItemType | null;
+  addItemSelectedItemId: string | null;
+  addItemSelectedItemPriceCts: number;
+  addItemQuantity: number;
+  addItemPriceCts: number | null;
+  addItemSearchValue: string;
+  addItemApplyDiscount: boolean;
+  addItemDiscountPercent: number;
+  addItemDiscountAmountCts: number;
+  addItemDiscountReason: string;
+  promoCode: string;
+  promoCodeDiscountCts: number;
+};
+
+export type GiftcardFieldsDefault = {
+  addItemGiftcardRecipientName: string;
+  addItemGiftcardFrom: string;
+  addItemGiftcardTo: string;
+  addItemGiftcardPersonalMessage: string;
+  addItemGiftcardDeliveryFormat: "pdf" | "email";
+  addItemSelectedItemExpirationDays: number | null;
+  addItemGiftcardValidFrom: string;
+  addItemGiftcardBackgroundImage: string | null;
+  addItemGiftcardRecipientEmails: string[];
+  addItemGiftcardScheduledDate: string;
+  addItemGiftcardScheduledTime: string;
+};
+
+export type BillingFlowBuilderState = AddItemFieldsDefault &
+  GiftcardFieldsDefault & {
+    isDiscountReasonRequired: boolean;
+  };
 
 /** Builder state (not validated on submit). */
 const billingFlowBuilderStateSchema = z.object({
@@ -183,6 +220,8 @@ const billingFlowBuilderStateSchema = z.object({
   addItemDiscountAmountCts: z.number(),
   addItemDiscountReason: z.string(),
   isDiscountReasonRequired: z.boolean(),
+  promoCode: z.string(),
+  promoCodeDiscountCts: z.number(),
   // Giftcard fields (common)
   addItemGiftcardRecipientName: z.string(),
   addItemGiftcardFrom: z.string().max(FROM_TO_MAX_LENGTH),
@@ -197,7 +236,7 @@ const billingFlowBuilderStateSchema = z.object({
   addItemGiftcardRecipientEmails: z.array(z.string()),
   addItemGiftcardScheduledDate: z.string(),
   addItemGiftcardScheduledTime: z.string(),
-});
+}) satisfies z.ZodType<BillingFlowBuilderState>;
 
 /** Full form state schema (submitted shape + builder state) for useFormController defaultValues. */
 export const billingFlowFormStateSchema = billingFlowFormDataSchema.merge(
@@ -205,7 +244,8 @@ export const billingFlowFormStateSchema = billingFlowFormDataSchema.merge(
 );
 
 /** Inferred type for form state. */
-export type BillingFlowFormState = z.infer<typeof billingFlowFormStateSchema>;
+export type BillingFlowFormState = BillingFlowFormData &
+  BillingFlowBuilderState;
 
 /**
  * Price input pattern (UI-level): allow empty, integers, or decimals with up to 2 digits.

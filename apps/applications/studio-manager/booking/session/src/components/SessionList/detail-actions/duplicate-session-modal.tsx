@@ -6,12 +6,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useFetchRecurrenceFromSession } from "#src/hooks/session-api/fetch/use-fetch-recurrence-from-session";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
-import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
-import {
-  closeModal,
-  selectIsDuplicateModalOpen,
-  useSessionListStore,
-} from "#src/stores/session-list";
+import { useSessionPayload } from "#src/hooks/use-session-payload";
 import { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -20,13 +15,16 @@ import { useDuplicateSessionSchema } from "./duplicate-session-schema";
 
 type DuplicateSessionModalProps = {
   session: EnrichedSession;
+  isOpen: boolean;
+  onClose: () => void;
 };
 export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
   session,
+  isOpen,
+  onClose,
 }) => {
   const { t, i18n } = useTranslation("sessionList");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
-  const isOpen = useSessionListStore(selectIsDuplicateModalOpen);
   const formRef = useRef<(() => void) | null>(null);
 
   const formId = `session-form-duplicate-${useId()}`;
@@ -48,7 +46,7 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
     return `${session.name} - ${sessionDate}`;
   };
 
-  const { buildPayload } = useSessionCreationPayload();
+  const { buildCreationPayload } = useSessionPayload();
   const { mutate: createSession, isPending } = useCreateSession();
 
   return (
@@ -57,7 +55,7 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
       size="md"
       title={t("duplicateModal.title")}
       description={getDescription()}
-      onClose={closeModal}
+      onClose={onClose}
       confirmButton={{
         label: t("duplicateModal.confirmButton"),
         onClick: () => {
@@ -69,7 +67,7 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
       }}
       cancelButton={{
         label: t("duplicateModal.cancelButton"),
-        onClick: closeModal,
+        onClick: onClose,
       }}
     >
       {isLoading ? (
@@ -84,7 +82,7 @@ export const DuplicateSessionModal: FC<DuplicateSessionModalProps> = ({
           companyTimezone={companyTimezone}
           formId={formId}
           duplicateSessionSchema={duplicateSessionSchema}
-          buildPayload={buildPayload}
+          buildPayload={buildCreationPayload}
           createSession={createSession}
           formRef={formRef}
         />

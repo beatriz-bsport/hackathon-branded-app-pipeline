@@ -19,6 +19,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { type SessionVisibilityType } from "#src/events/constants";
+import { useTranslation } from "#src/utils/i18n";
 
 enum VISIBILITY_VALUES {
   VISIBLE = "listed",
@@ -59,10 +60,6 @@ export type VisibilitySelectorProps<
    * Title displayed above the selector button
    */
   title?: string;
-  /**
-   * Text content for standard visible/hidden options
-   */
-  labels: VisibilitySelectorLabels;
   /**
    * Additional CSS classes for the button
    */
@@ -110,18 +107,6 @@ export type VisibilitySelectorProps<
  *     title="Visibility"
  *     methods={methods}
  *     fieldName="manager_only"
- *     labels={{
- *       visible: {
- *         label: "Visible to members",
- *         buttonLabel: "Visible",
- *         helperText: "All members can see this"
- *       },
- *       hidden: {
- *         label: "Hidden from members",
- *         buttonLabel: "Hidden",
- *         helperText: "Only managers can see this"
- *       }
- *     }}
  *     onFormChange={(value, form) => {
  *       console.log('Visibility changed to:', value);
  *     }}
@@ -135,7 +120,6 @@ export const VisibilitySelector = <
 >({
   fieldIdPrefix,
   title,
-  labels,
   buttonClassName,
   disabled = false,
   radioGroupProps,
@@ -143,6 +127,32 @@ export const VisibilitySelector = <
   onFormChange,
   trackVisibilityChange,
 }: VisibilitySelectorProps<TSchema, TFieldName>): React.ReactElement => {
+  const { t } = useTranslation("sessionCreation");
+
+  const labels = {
+    visible: {
+      label: t(
+        "addSessionModal.steps.configureSession.details.visibilitySelector.options.visible.label",
+      ),
+      buttonLabel: t(
+        "addSessionModal.steps.configureSession.details.visibilitySelector.options.visible.label",
+      ),
+      helperText: t(
+        "addSessionModal.steps.configureSession.details.visibilitySelector.options.visible.description",
+      ),
+    },
+    hidden: {
+      label: t(
+        "addSessionModal.steps.configureSession.details.visibilitySelector.options.hidden.label",
+      ),
+      buttonLabel: t(
+        "addSessionModal.steps.configureSession.details.visibilitySelector.options.hidden.label",
+      ),
+      helperText: t(
+        "addSessionModal.steps.configureSession.details.visibilitySelector.options.hidden.description",
+      ),
+    },
+  };
   const { watch } = useFormContext<TSchema>();
 
   const fieldValue = watch(fieldName);
@@ -195,7 +205,7 @@ export const VisibilitySelector = <
   ];
 
   return (
-    <Popover>
+    <Popover fullWidth>
       <Popover.Anchor>
         {({ setIsPopoverOpened }) => (
           <>
@@ -223,10 +233,7 @@ export const VisibilitySelector = <
                 size="md"
                 iconRight="chevron-down"
                 onClick={() => setIsPopoverOpened(true)}
-                className={clsx(
-                  "min-w-component-select justify-between",
-                  buttonClassName,
-                )}
+                className={clsx("justify-between", buttonClassName)}
                 disabled={disabled}
               />
             </div>

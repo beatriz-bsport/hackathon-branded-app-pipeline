@@ -11,7 +11,7 @@ import {
   useCheckCompanyAddOn,
 } from "#src/utils/permission";
 
-import { useFetchAllEstablishments } from "./use-fetch-all-establishments";
+import { useFetchAllEstablishments } from "./use-fetch-establishments";
 
 export const useWellhubProductField = (isLivestream: boolean) => {
   const { t } = useTranslation("sessionCreation");
@@ -73,14 +73,14 @@ export const useWellhubProductField = (isLivestream: boolean) => {
       const singleProductId = Number(wellhubProducts[0].id);
       if (selectedWellhubProductId !== singleProductId) {
         setValue("wellhub_product_id", singleProductId, {
-          shouldValidate: true,
-          shouldDirty: true,
+          shouldValidate: false,
+          shouldDirty: false,
         });
       }
     } else if (shouldClear) {
       setValue("wellhub_product_id", null, {
-        shouldValidate: true,
-        shouldDirty: true,
+        shouldValidate: false,
+        shouldDirty: false,
       });
     }
   }, [

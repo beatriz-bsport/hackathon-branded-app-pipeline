@@ -272,7 +272,7 @@
           "emailTaken": {
             "contactCompany": "Es wurde bereits ein Konto mit \"{{ email }}\" als Anmelde-E-Mail-Adresse erstellt. Bitte wenden Sie sich direkt an das Studio, falls diese E-Mail-Adresse Ihnen gehört, Sie aber kein Konto mit dieser E-Mail-Adresse erstellt haben.",
             "helper": "{{- company}} hat Sie aufgefordert, die Anmelde-E-Mail-Adresse für Ihr Konto zu ändern:",
-            "title": "Anmelde-E-Mail-Adresse bereits in Verwendung."
+            "title": "Diese E-Mail-Adresse ist bereits registriert. Möglicherweise hast du sie verwendet, um dich bei einem anderen Studio anzumelden. Bitte melde dich an oder setze dein Passwort zurück, um fortzufahren."
           },
           "delayExceeded": {
             "contactCompany": "Wenn Sie erneut eine Änderung Ihrer Anmeldeadresse beantragen möchten, wenden Sie sich bitte an Ihr Studio.",

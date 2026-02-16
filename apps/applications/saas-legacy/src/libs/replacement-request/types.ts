@@ -6,13 +6,13 @@ import {
 } from './constants';
 
 export type ReplacementRequest<
-  C = number,
-  E = number,
-  M = number,
-  A = number,
-  T = number,
-  G = number,
-  L = number,
+  Coach = number,
+  Establishment = number,
+  MetaActivity = number,
+  Activity = number,
+  Tag = number,
+  Group = number,
+  Level = number,
 > = {
   id: number;
   company: number;
@@ -21,7 +21,8 @@ export type ReplacementRequest<
   date_requested: string;
   closing_date: string;
   closing_date_override: string;
-  offer: Offer<C, E, M, A, T, G, L>;
+  offer: Offer<Coach, Establishment, MetaActivity, Activity, Tag, Group, Level>;
+  coach_author: Coach;
   coach_answer: ReplacementRequestCoachAnswer[];
   has_requested_late: boolean;
 };

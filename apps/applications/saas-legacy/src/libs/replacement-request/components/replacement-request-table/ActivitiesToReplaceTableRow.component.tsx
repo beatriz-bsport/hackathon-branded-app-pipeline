@@ -238,13 +238,13 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           {replacementDisplay ===
             ReplacementDisplays.REPLACEMENT_DISPLAY_MARKETPLACE && (
             <Typography className={classes.mobileSmallFont}>
-              {offer.coach?.name}
+              {replacementRequest.coach_author?.name}
             </Typography>
           )}
           {replacementDisplay ===
             ReplacementDisplays.REPLACEMENT_DISPLAY_REQUEST_TEACHER_FOUND && (
             <Typography className={classes.mobileSmallFont}>
-              {offer.coach_override?.name}
+              {replacementRequest.coach_author?.name}
             </Typography>
           )}
           {replacementDisplay ===
@@ -550,7 +550,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               <>
                 <TableCell className={classes.tableCell}>
                   <Typography>
-                    {offer.coach_author?.name || offer.coach.name}
+                    {replacementRequest.coach_author?.name}
                   </Typography>
                 </TableCell>
                 <TableCell className={classes.tableCell}>
@@ -564,7 +564,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           ReplacementDisplays.REPLACEMENT_DISPLAY_MARKETPLACE && (
           <React.Fragment>
             <TableCell className={classes.tableCell}>
-              <Typography>{offer.coach?.name}</Typography>
+              <Typography>{replacementRequest.coach_author?.name}</Typography>
             </TableCell>
             <TableCell className={classes.tableCell}>
               <Typography>

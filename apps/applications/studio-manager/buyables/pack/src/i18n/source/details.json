@@ -1,5 +1,8 @@
 {
-  "modelName": "Pack",
+  "modelName": {
+    "singular": "Pack",
+    "plural": "Packs"
+  },
   "createModal": {
     "title": "Create a new pack",
     "buttons": {
@@ -140,9 +143,6 @@
         "errorMissingNumber": "Add a maximum amount or unselect this option to continue"
       },
       "paymentMethod": {
-        "label": "Accepted payment methods",
-        "helperText": "Choose at least one ",
-        "alertVisibilityHidden": "Hidden packs can still be shared with members using a link and paid for via online payment.",
         "errorMissingPaymentMethod": "Select a payment method"
       }
     },

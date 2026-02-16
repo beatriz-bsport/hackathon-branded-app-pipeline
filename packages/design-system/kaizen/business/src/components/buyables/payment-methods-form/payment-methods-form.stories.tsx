@@ -18,6 +18,8 @@ This component is intended for use in workflows where **payment method selection
 - Ensuring payment method IDs are validated and typed as a list of numbers.
 - Integrating payment method selection into form state for easy submission and validation.
 
+It is linked to the Visibility status of the buyable it is intended for. When \`isHidden\` is set to \`true\`, an alert is displayed.
+
 ### How to import?
 
 \`\`\`tsx
@@ -50,6 +52,8 @@ const methods = useFormController({
   >
     id="buyables-payment-methods-example"
     fieldName="available_payment_method_identifiers"
+    isHidden={...}
+    buyableName="Packs"
     ...
   />
 </ControlledForm>
@@ -67,6 +71,20 @@ const meta: Meta<PaymentMethodsFormComponent> = {
       source: {
         code: metaSourceCode,
       },
+    },
+  },
+  argTypes: {
+    label: {
+      table: { type: { summary: "string" } },
+      control: { type: "text" },
+    },
+    helperText: {
+      table: { type: { summary: "string" } },
+      control: { type: "text" },
+    },
+    buyableName: {
+      table: { type: { summary: "string" } },
+      control: { type: "text" },
     },
   },
   render: (args) => {
@@ -101,7 +119,10 @@ const meta: Meta<PaymentMethodsFormComponent> = {
   tags: ["autodocs"],
   args: {
     required: true,
-    helperText: "This is a helper text",
+    helperText: undefined,
+    label: undefined,
+    isHidden: false,
+    buyableName: "Packs",
   },
 };
 

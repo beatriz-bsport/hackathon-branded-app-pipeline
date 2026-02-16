@@ -140,9 +140,9 @@ echo "⏳ Invalidate CloudFront distribution"
 
 # CLOUDFRONT_INVALIDATION_TOKEN is a Gitlab CI/CD variable
 curl --get \
-  --data-urlencode paths='["/studio/*"]' \
-  --data-urlencode distribution_id=${CLOUDFRONT_ID} \
-  --data-urlencode token=${CLOUDFRONT_INVALIDATION_TOKEN} \
+  --data-urlencode 'paths=["/studio/*"]' \
+  --data-urlencode "distribution_id=${CLOUDFRONT_ID}" \
+  --data-urlencode "token=${CLOUDFRONT_INVALIDATION_TOKEN}" \
   ${CLOUDFRONT_INVALIDATION_LAMBDA_URL}
 
 echo "*"

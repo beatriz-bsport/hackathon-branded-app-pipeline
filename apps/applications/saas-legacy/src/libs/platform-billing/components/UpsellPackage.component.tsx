@@ -27,7 +27,6 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 import memoize from 'lodash/memoize';
 import { UpsellPackage } from '#src/libs/company/types';
-import { getUpsellPriceString } from '#src/libs/platform-billing/utils';
 import {
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_IDENTIFIER_VOD,
@@ -156,27 +155,13 @@ const createUpsellPackageComponent = memoize(
     (props: Props) => {
       const classes = useStyles();
       const { t } = useTranslation('platformBilling');
-      const {
-        upsellPackage,
-        onKnowMore,
-        handleSubscribe,
-        isUsingBundledPricing,
-      } = props;
-      const canSubscribe =
-        !!handleSubscribe &&
-        upsellPackage.subscribe_from_backoffice &&
-        !isUsingBundledPricing;
+      const { upsellPackage, onKnowMore } = props;
       const UpsellCustomIcon =
         MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT[upsellIdentifier];
 
       const showMoreUpsellInformation = useCallback(() => {
         return onKnowMore ? onKnowMore(upsellPackage.upsell_identifier) : {};
       }, [onKnowMore, upsellPackage.upsell_identifier]);
-
-      const showSubscribe = useCallback(
-        () => handleSubscribe?.(upsellPackage),
-        [handleSubscribe, upsellPackage],
-      );
 
       return (
         <Paper className={classes.paperContainer}>
@@ -192,23 +177,12 @@ const createUpsellPackageComponent = memoize(
             </div>
           </div>
           <div className={classes.bottomContainer}>
-            <Typography variant="h6">
-              {!isUsingBundledPricing && getUpsellPriceString(upsellPackage, t)}
-            </Typography>
+            <div />
             <div className={classes.buttonContainer}>
-              {onKnowMore && !canSubscribe && (
+              {onKnowMore && (
                 <Button onClick={showMoreUpsellInformation} variant="outlined">
                   <HelpOutlinedIcon className={classes.iconLeft} />
                   {t('upsellPackage.knowMore')}
-                </Button>
-              )}
-              {canSubscribe && (
-                <Button
-                  color="primary"
-                  onClick={showSubscribe}
-                  variant="contained"
-                >
-                  {t('upsellPackage.seeMore')}
                 </Button>
               )}
             </div>

@@ -20,8 +20,6 @@ const UpsellPackageList = React.memo(
   (props: {
     upsellPackageList: UpsellPackage[];
     onKnowMore?: (upsellIdentifier: number) => void;
-    handleSubscribe?: (upsellPackage: UpsellPackage) => void;
-    is_using_bundled_pricing?: boolean;
   }) => {
     const classes = useStyles();
     return (
@@ -42,8 +40,6 @@ const UpsellPackageList = React.memo(
                 sm={12}
               >
                 <UpsellPackageComponent
-                  handleSubscribe={props.handleSubscribe}
-                  isUsingBundledPricing={props.is_using_bundled_pricing}
                   onKnowMore={props.onKnowMore}
                   upsellPackage={up}
                 />
@@ -57,7 +53,6 @@ const UpsellPackageList = React.memo(
 
 type Props = {
   onKnowMore: (upsellIdentifier: number) => void;
-  handleSubscribe: (upsellPackage: UpsellPackage) => void;
   platformSubscription: PlatformSubscription;
   subscribedUpsellPackages: UpsellPackage[];
   nonSubscribedUpsellPackages: UpsellPackage[];
@@ -65,7 +60,6 @@ type Props = {
 
 export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
   onKnowMore,
-  handleSubscribe,
   platformSubscription,
   subscribedUpsellPackages,
   nonSubscribedUpsellPackages,
@@ -101,12 +95,7 @@ export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
             {t('upsellPackage.myAddonTitle')}
           </Typography>
           <Divider className={classes.sectionDivider} />
-          <UpsellPackageList
-            is_using_bundled_pricing={
-              platformSubscription.is_using_bundled_pricing
-            }
-            upsellPackageList={subscribedUpsellPackages}
-          />
+          <UpsellPackageList upsellPackageList={subscribedUpsellPackages} />
         </React.Fragment>
       )}
       {nonSubscribedUpsellPackages?.length > 0 && (
@@ -116,10 +105,6 @@ export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
           </Typography>
           <Divider className={classes.sectionDivider} />
           <UpsellPackageList
-            handleSubscribe={handleSubscribe}
-            is_using_bundled_pricing={
-              platformSubscription.is_using_bundled_pricing
-            }
             onKnowMore={onKnowMore}
             upsellPackageList={nonSubscribedUpsellPackagesToShow}
           />

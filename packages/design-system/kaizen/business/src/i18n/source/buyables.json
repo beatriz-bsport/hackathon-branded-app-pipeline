@@ -1,6 +1,7 @@
 {
   "paymentMethods": {
     "label": "Accepted payment methods",
+    "helperText": "Choose at least one payment method",
     "options": {
       "onlinePayment": {
         "label": "Online (default)",
@@ -10,7 +11,8 @@
         "label": "In-person",
         "helperText": "Cash or cheque"
       }
-    }
+    },
+    "alertVisibilityHidden": "Hidden {{ buyable }} can still be shared with members using a link and paid for via online payment."
   },
   "visibilitySelector": {
     "optionVisible": {

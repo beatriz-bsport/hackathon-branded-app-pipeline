@@ -1,0 +1,43 @@
+{
+  "editSessionForm": {
+    "toasts": {
+      "sessionEdited": "Session edited"
+    },
+    "buttons": {
+      "open": "Open"
+    },
+    "errors": {
+      "edit": "Failed to edit session"
+    },
+    "content": {
+      "creditWarning": "Older bookings do not take into account changes in credits.",
+      "teacherSectionTitle": "Teacher",
+      "teacherPayrollRuleOverrideLabel": "Override teacher payment rule",
+      "teacherPayrollRuleOverrideDescription": "If disabled, the default rule from the teacher profile will be applied",
+      "chooseActivity": {
+        "label": "Activity"
+      },
+      "detailsForm": {
+        "title": "Details"
+      },
+      "establishmentSectionTitle": "Establishment",
+      "visibilitySelector": {
+        "title": "Visibility",
+        "label": "Select visibility"
+      }
+    }
+  },
+  "saveSessionModal": {
+    "title": "Save session",
+    "description": "Save the session with the changes you made.",
+    "confirmButton": "Save",
+    "cancelButton": "Cancel",
+    "futureSessionsHeader": "Future sessions",
+    "descriptionFutureSessions": "Select the future sessions you want to update.",
+    "notificationLabel": "Update members about changes",
+    "notificationDescription": "Members who have booked this session will receive an email or push notification to inform them of the changes that have been made.",
+    "updateFutureSessions": "Apply these changes to similar sessions",
+    "updateFutureSessionsForGroup": "Apply these changes to the other sessions in that group",
+    "passesAlert": "Session changes <strong>may affect pass compatibility</strong>. After editing, check they still match the establishment/teacher."
+  }
+}

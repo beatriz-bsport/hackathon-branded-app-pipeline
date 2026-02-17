@@ -5,6 +5,7 @@ export const FeatureFlags = {
   EXPRESS_PASS_CHECKOUT: 'express-pass-checkout',
   TRIAL_ANALYSIS: 'insights_trial_analysis_page',
   SCHEDULE_ANALYSIS: 'insights_schedule_analysis_page',
+  COMMUNITY_HEALTH: 'insights_community_health',
   AUDIENCE_SMS_MARKETING_ACTIONS: 'audience_sms_marketing_actions',
   MEMBER_AREA_BASKET_UNIFIED: 'member-area-basket-unified',
   WEBVIEW_BASKET_AP_GP: 'webview-basket-ap-gp',
@@ -21,6 +22,10 @@ export const FeatureFlags = {
     'audience_view_workflow_details_in_all_modes',
   AUDIENCE_REMOVE_TAG_MARKETING_ACTION: 'audience_remove_tag_marketing_action',
   TOGGLE_APPCUES: 'toggle_appcues',
+  AUDIENCE_DISPLAY_TIME_IN_MEMBER_TABLE:
+    'audience_display_time_in_member_table',
+  AUDIENCE_WORKFLOW_DUPLICATION: 'audience_workflow_duplication',
+  AUDIENCE_ALLOW_CLICK_ON_MEMBER_TABLE: 'audience_allow_click_on_member_table',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

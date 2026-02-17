@@ -10,12 +10,14 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { sessionListExportParticipantConfirmButtonClickedEvent } from "#src/events/session-list/events";
 import { useExportParticipantsList } from "#src/hooks/session-api/bulk-actions/use-export-participants";
 import {
   selectFilters,
   selectSelectedDate,
   useSessionListStore,
 } from "#src/stores/session-list";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
 import { getParamsFromFilters } from "../Filters/getParamsFromFilters";
@@ -28,6 +30,7 @@ export const ExportParticipantsModal: FC<{
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
   const currentSelectedDate = useSessionListStore(selectSelectedDate);
+
   const defaultDatePickerValue =
     currentSelectedDate.type === "single"
       ? currentSelectedDate.date
@@ -66,6 +69,13 @@ export const ExportParticipantsModal: FC<{
   };
 
   const handleExport = () => {
+    analyticsTrackSafeEvent(
+      sessionListExportParticipantConfirmButtonClickedEvent,
+      {
+        calendar_filters_toggle_value: applyFilters,
+        day_selected: exportDate.toISODate()!,
+      },
+    );
     onClose();
     exportParticipantList.mutate({
       date: exportDate,

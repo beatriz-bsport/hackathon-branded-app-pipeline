@@ -293,7 +293,7 @@
           "emailTaken": {
             "contactCompany": "Er bestaat al een account dat \"{{ email }}\" als e-mailadres voor het inloggen gebruikt. Gelieve direct de studio voor ondersteuning contacteren indien dit e-mailadres van jou is en als je geen toegang hebt tot het account met dit e-mailadres.",
             "helper": "{{- company }} verzoekt je om je e-mailadres voor het inloggen van je account te wijzigen:",
-            "title": "Dit e-mailadres is al in gebruik."
+            "title": "Dit e-mailadres is al geregistreerd. Mogelijk heb je het gebruikt om je bij een andere studio aan te melden. Log in of stel je wachtwoord opnieuw in om verder te gaan."
           },
           "delayExceeded": {
             "contactCompany": "Gelieve direct de studio contacteren indien je je e-mailadres voor het inloggen opnieuw wilt wijzigen.",

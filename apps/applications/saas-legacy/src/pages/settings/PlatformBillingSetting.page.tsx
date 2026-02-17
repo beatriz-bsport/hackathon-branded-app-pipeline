@@ -53,9 +53,7 @@ import CompanyPlatformBillinGroupDetail from '#src/libs/platform-billing/compone
 import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureRequestDialog.component';
 import PayoutList from '#src/libs/payment/components/PayoutList.component';
 import { getFeatureList } from '#src/libs/company/actions';
-// import StripeBalance from '#src/libs/payment/components/StripeBalance.component';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
-import { closeIntercom, openIntercomConversation } from '#src/utils/intercom';
 
 import type {
   PlatformInvoice,
@@ -63,17 +61,11 @@ import type {
 } from '#src/libs/platform-billing/type';
 import type { PaymentMethod, StripePayout } from '#src/libs/payment/types';
 import type { FeatureList, UpsellPackage } from '#src/libs/company/types';
-import UpsellPackageSubscriptionDrawer from '#src/libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
 import { getTheme } from '#src/libs/theme/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
 import type { CompanyTheme } from '#src/libs/theme/types';
-
-const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
-  rudderStackFormTrackingFunctionsRegistry(
-    SegmentAnalyticsFormObjectIdentifier.UpsellSubscription,
-  );
 
 const { trackFormSubmitIntent: trackFormSubmitIntentUpsellRequest } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -159,32 +151,6 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
     this.props.fetchStripePayoutList();
   }
 
-  handleOpenSubscriptionForm = (upsellPackage: UpsellPackage) => {
-    this.setState({
-      openSubscribeModal: true,
-      selectedUpsellPackage: upsellPackage,
-    });
-    trackFormAdd(upsellPackage.id);
-  };
-
-  handleSubscribeUpsellPackage = (upsellPackage: UpsellPackage) => {
-    trackFormSubmitIntent(upsellPackage.id);
-    this.setState({ upsellSubscriptionLoading: true });
-    this.props.subscribeUpsellPackage(upsellPackage.id, {
-      onSuccess: () => {
-        trackFormSuccess(upsellPackage.id);
-        this.handleCloseSubscriptionForm();
-        this.setState({ upsellSubscriptionLoading: false });
-        this.setState({ openConfirmationDialog: true });
-        this.props.fetchFeatureList();
-      },
-      onError: () => {
-        this.handleCloseSubscriptionForm();
-        this.setState({ upsellSubscriptionLoading: false });
-      },
-    });
-  };
-
   handleRequestUpsell = (upsellIdentifier: number, sourceComponent: string) => {
     trackFormSubmitIntentUpsellRequest(upsellIdentifier, {
       source_component: sourceComponent,
@@ -224,12 +190,6 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
         'CompanyPlatformBillingGroupDetail',
       );
 
-    const handleRequestUpsellInDrawer = (upsell_identifier: number) =>
-      this.handleRequestUpsell(
-        upsell_identifier,
-        'UpsellPackageSubscriptionDrawer',
-      );
-
     if (loading) {
       return <BackofficeLinearProgress />;
     }
@@ -247,13 +207,6 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
                 stripePayoutList={this.props.stripePayoutList}
               />
             </Grid>
-            {/* <Grid item xs={12} md={6} className={classes.leftColumn}>
-            <StripeBalance
-              stripeBalanceAvailable={this.props.stripeBalanceAvailable}
-              stripeBalancePending={this.props.stripeBalancePending}
-              stripeBalanceLoading={this.props.stripeBalanceLoading}
-            />
-          </Grid> */}
           </Grid>
         )}
         <CompanyPlatformBillingPaymentDetail
@@ -268,27 +221,17 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
           refreshSavedPaymentMethodList={this.props.fetchPaymentMethodList}
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
         />
-        <CompanyPlatformBillinGroupDetail
-          handleSubscribe={this.handleOpenSubscriptionForm}
-          nonSubscribedUpsellPackages={this.props.nonSubscribedUpsellPackages}
-          onKnowMore={handleRequestUpsellInPage}
-          platformSubscription={this.props.platformSubscription}
-          subscribedUpsellPackages={this.props.subscribedUpsellPackages}
-        />
+        {this.props.platformSubscription && (
+          <CompanyPlatformBillinGroupDetail
+            nonSubscribedUpsellPackages={this.props.nonSubscribedUpsellPackages}
+            onKnowMore={handleRequestUpsellInPage}
+            platformSubscription={this.props.platformSubscription}
+            subscribedUpsellPackages={this.props.subscribedUpsellPackages}
+          />
+        )}
         <FeatureRequestDialog
           onClose={this.props.onCloseFeatureRequest}
           open={this.props.openFeatureRequest}
-        />
-
-        <UpsellPackageSubscriptionDrawer
-          loading={this.state.upsellSubscriptionLoading}
-          onClose={this.handleCloseSubscriptionForm}
-          onCloseDialog={this.handleCloseConfirmationModal}
-          onKnowMore={handleRequestUpsellInDrawer}
-          onSubscribe={this.handleSubscribeUpsellPackage}
-          open={this.state.openSubscribeModal}
-          openDialog={this.state.openConfirmationDialog}
-          upsellPackage={this.state.selectedUpsellPackage}
         />
       </div>
     );
@@ -327,9 +270,6 @@ export default compose(
       stripePayoutList: getStripePayoutList(state),
       hasMorePayout: !!state.paymentBackend.stripePayout.hasMore,
       payoutLoading: state.paymentBackend.stripePayout.loading,
-      // stripeBalanceAvailable: state.paymentBackend.balance.amountAvailable,
-      // stripeBalancePending: state.paymentBackend.balance.amountPending,
-      // stripeBalanceLoading: state.paymentBackend.balance.isLoading,
       subscribedUpsellPackages: getSubscribedUpsellPackages(state),
       nonSubscribedUpsellPackages: getNonSubscribedUpsellPackages(state),
       theme: getTheme(state),
@@ -390,25 +330,16 @@ export default compose(
       ({ fetchPaymentMethodList }) =>
       () =>
         fetchPaymentMethodList({ as_company: true }),
-    /*
-    onKnowMore: () => (readable_identifier) => {
-      window.Intercom('trackEvent', 'Upsell info requested', {
-        readable_identifier,
-      });
-    },
-    */
     onRequestUpsell:
       ({ requestUpsellPackage, setOpenFeatureRequest }) =>
       (upsellIdentifier: number) => {
         setOpenFeatureRequest(true);
-        openIntercomConversation();
         requestUpsellPackage(upsellIdentifier);
       },
     onCloseFeatureRequest:
       ({ setOpenFeatureRequest }) =>
       () => {
         setOpenFeatureRequest(false);
-        closeIntercom();
       },
   }),
 )(PlatformBillingSetting);

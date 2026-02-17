@@ -24,10 +24,8 @@
     "@bsport/envs": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",
-    "@bsport/i18n": "workspace:*",
-    "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/permissions": "workspace:*",
-    "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-buyables-appointment-pass": "workspace:*",
     "@bsport/store-buyables-pack": "workspace:*",
     "@bsport/store-buyables-pass": "workspace:*",
@@ -37,12 +35,7 @@
     "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
-    "clsx": "^2.1.1",
-    "luxon": "^3.4.4",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-router": "^7.2.0",
-    "zod": "^3.25.64"
+    "clsx": "^2.1.1"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
@@ -52,6 +45,16 @@
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.11"
+  },
+  "peerDependencies": {
+    "@bsport/i18n": "workspace:*",
+    "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/sm-backbone": "workspace:*",
+    "luxon": "^3.4.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router": "^7.2.0",
+    "zod": "^3.25.64"
   },
   "federation": {
     "devPort": 4152,

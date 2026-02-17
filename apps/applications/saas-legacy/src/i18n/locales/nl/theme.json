@@ -169,7 +169,7 @@
         "notAvailable": "Deze optie is momenteel niet beschikbaar, omdat je eerst een onbeperkte leskaart met no-show sancties moet aanmaken.",
         "error": "De e-mail ter kennisgeving van afwezigheid kan niet worden verzonden nadat het lid is beschouwd als een no-show.",
         "sendMailHelpText": "Om de e-mail in/uit te schakelen gaat u naar Instellingen> Transactiemails> Sanctie> Verzuimmelding",
-        "sendMail": "Stuur een e-mail <0/> <1/> na het gesprek om het lid te waarschuwen dat hij als no show wordt beschouwd als hij als afwezig wordt aangemerkt.",
+        "sendMail": "Verstuur een e-mail <0/> <1/> uur na de aanwezigheidscontrole om leden die als afwezig zijn gemarkeerd te waarschuwen dat ze als no-show worden beschouwd, tenzij een geldige reden wordt opgegeven. ",
         "daysBeforeNoShowHelpText": "Met deze instelling kunnen boetes worden toegepast op afwezigheden van leden met een onbeperkte kaart.",
         "daysBeforeNoShow": "Beschouw het lid als (no-show) <0/> <1/> na de oproep op sessies waar hij/zij als afwezig is aangegeven.",
         "alert": "Deze instellingen gelden alleen voor no-show boetes op onbeperkte kaarten. Om de volgende tellingen te activeren, moet u de oproep voor elke cursus valideren.",

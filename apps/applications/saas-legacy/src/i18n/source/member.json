@@ -248,7 +248,7 @@
           "emailTaken": {
             "contactCompany": "An account using \"{{ email }}\" as login email address has already been created. Please contact the studio directly for assistance, should this email address belong to you but if you didn't create any account with this email address.",
             "helper": "{{- company }} requested to change the login email address of your account:",
-            "title": "This email address is already in use."
+            "title": "This email is already registered. You may have used it to sign up at another studio. Please log in or reset your password to continue."
           },
           "renewed": {
             "contactCompany": "Please contact your studio directly if you didn't receive or can't find the most recent request validation email.",

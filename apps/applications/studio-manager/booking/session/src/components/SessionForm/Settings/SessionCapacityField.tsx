@@ -53,7 +53,6 @@ export const SessionCapacityField: FC<{
         id={`${fieldIdPrefix}-session-${fieldName}`}
         label={label}
         required
-        containerProps={{ className: "max-w-full" }}
         type="number"
         helperText={helperText}
       />

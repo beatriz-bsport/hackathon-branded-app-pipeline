@@ -274,7 +274,7 @@
             "contactCompany": "Si vous souhaitez demander de nouveau un changement d'adresse de connexion merci de contacter votre studio."
           },
           "emailTaken": {
-            "title": "Email de connexion déjà pris",
+            "title": "Cette adresse e-mail est déjà enregistrée. Vous l’avez peut-être utilisée pour vous inscrire dans un autre studio. Connectez-vous ou réinitialisez votre mot de passe pour continuer.",
             "helper": "Le studio {{- company}} avait fait une demande pour changer votre email de connexion à votre espace personnel :",
             "contactCompany": "Cependant un compte utilisant l'adresse {{ email }} a été crée entre-temps. Cette demande est désormais caduc. Si l'adresse email {{ email }} vous appartient mais que vous n'êtes pas à l'origine de la création du compte associé, merci de contacter directement votre studio."
           }

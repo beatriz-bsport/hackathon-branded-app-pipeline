@@ -86,16 +86,12 @@ const meta: Meta<FormToggleComponent> = {
 
 export default meta;
 
-/**
- * Default - Inherit configuration from the meta object
- * Goal: Manipulate the story.
- */
+// Default - Inherit configuration from the meta object.
+// Goal: Manipulate the story.
 export const Default: StoryObj<FormToggleComponent> = {};
 
-/**
- * Documentation - Inherit configuration from the meta object
- * Goal: Add story description to dive into implementation details.
- */
+// Documentation - Inherit configuration from the meta object.
+// Goal: Add story description to dive into implementation details.
 export const Documentation: StoryObj<FormToggleComponent> = {
   parameters: {
     docs: {

@@ -115,8 +115,8 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
         {
           trigger_config: {
             identifier: TriggerIdentifier.TIMEOUT,
-            timeout: 2,
-            timeout_hours: 0,
+            timeout: 0,
+            timeout_hours: 2,
             event_type: null,
             filtered_pks: null,
           },
@@ -172,8 +172,8 @@ const getAbandonedCheckoutConfig = (t: TFunction): CadenceConfigData => {
           {
             trigger_config: {
               identifier: TriggerIdentifier.TIMEOUT,
-              timeout: 1,
-              timeout_hours: 0,
+              timeout: 0,
+              timeout_hours: 1,
               event_type: null,
               filtered_pks: null,
             },

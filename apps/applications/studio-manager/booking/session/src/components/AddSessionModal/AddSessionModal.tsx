@@ -18,7 +18,7 @@ import {
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
-import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
+import { useSessionPayload } from "#src/hooks/use-session-payload";
 import {
   goToNextStep,
   goToPreviousStep,
@@ -41,7 +41,7 @@ import {
   SessionCreationFormAdvancedOptionsData,
   SessionCreationFormData,
 } from "#src/stores/session-creation/types";
-import { analyticsClient } from "#src/utils/analytics";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useSessionSchema } from "../SessionForm/schemas";
@@ -98,7 +98,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     defaultValues: advancedOptionsFormData,
   });
 
-  const { buildPayload } = useSessionCreationPayload();
+  const { buildCreationPayload } = useSessionPayload();
 
   const selectedGroupActivity = useSessionCreationStore(
     selectSelectedGroupActivity,
@@ -107,11 +107,9 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
   const handleCloseButtonClick = () => {
     onClose?.();
     resetForm();
-    analyticsClient.track(
-      sessionCreationCloseButtonClickedEvent({
-        current_step: SessionCreationStep[currentStep],
-      }),
-    );
+    analyticsTrackSafeEvent(sessionCreationCloseButtonClickedEvent, {
+      current_step: SessionCreationStep[currentStep],
+    });
   };
 
   const handleClickOutisde = () => {
@@ -121,6 +119,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     ) {
       return;
     }
+    resetForm();
     onClose?.();
   };
 
@@ -128,14 +127,13 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
     const isFirstStep =
       currentStep === SESSION_CREATION_STEPS.CHOOSE_GROUP_ACTIVITY;
 
-    analyticsClient.track(
+    analyticsTrackSafeEvent(
       isFirstStep
-        ? sessionCreationCloseButtonClickedEvent({
-            current_step: SessionCreationStep[currentStep],
-          })
-        : sessionCreationBackClickedEvent({
-            current_step: SessionCreationStep[currentStep],
-          }),
+        ? sessionCreationCloseButtonClickedEvent
+        : sessionCreationBackClickedEvent,
+      {
+        current_step: SessionCreationStep[currentStep],
+      },
     );
 
     if (isFirstStep) {
@@ -185,21 +183,18 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
         isRecurring &&
         configureSessionFormData.recurrenceUnit === CustomRecurrenceUnit.MONTHS;
 
-      analyticsClient.track(
-        sessionCreationCreateSessionButtonClickedEvent({
-          session_is_recurrent: isRecurring,
-          session_recurrence_end_date: isRecurring
-            ? (configureSessionFormData.recurrenceEndDate?.toISOString() ??
-              null)
-            : null,
-          session_recurrence_interval_selected: isRecurring
-            ? recurrenceIntervalToTrack
-            : null,
-          session_recurrence_rule: shouldTrackRecurrenceRule
-            ? configureSessionFormData.recurrencePattern
-            : null,
-        }),
-      );
+      analyticsTrackSafeEvent(sessionCreationCreateSessionButtonClickedEvent, {
+        session_is_recurrent: isRecurring,
+        session_recurrence_end_date: isRecurring
+          ? (configureSessionFormData.recurrenceEndDate?.toISOString() ?? null)
+          : null,
+        session_recurrence_interval_selected: isRecurring
+          ? recurrenceIntervalToTrack
+          : null,
+        session_recurrence_rule: shouldTrackRecurrenceRule
+          ? configureSessionFormData.recurrencePattern
+          : null,
+      });
 
       const advancedData = advancedOptionsMethods.getValues();
       setStepValid(
@@ -208,7 +203,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       );
 
       try {
-        const payload = buildPayload({
+        const payload = buildCreationPayload({
           sessionData: {
             ...configureSessionFormData,
             ...advancedData,
@@ -247,11 +242,9 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       }
     }
     if (!isLastStep) {
-      analyticsClient.track(
-        sessionCreationNextClickedEvent({
-          current_step: SessionCreationStep[currentStep],
-        }),
-      );
+      analyticsTrackSafeEvent(sessionCreationNextClickedEvent, {
+        current_step: SessionCreationStep[currentStep],
+      });
       goToNextStep();
     }
   };

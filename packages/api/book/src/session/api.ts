@@ -18,6 +18,7 @@ import type {
   RetrieveSessionParams,
   Session,
   SessionCreationPayload,
+  SessionEditPayload,
 } from "#src/session/types";
 
 const API_URL = "book/v1";
@@ -242,6 +243,29 @@ export const createSessionAPI = async (
   data: SessionCreationPayload,
 ): Promise<string | null> => {
   const [uri, init] = createSessionAPIConfig(data);
+  const { backgroundTaskUuid } = await fetch(uri, init);
+  return backgroundTaskUuid;
+};
+
+export const editSessionAPIConfig = (
+  sessionId: number,
+  data: SessionEditPayload,
+): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/${sessionId}/`,
+    {
+      method: "PUT",
+      body: JSON.stringify(data),
+    },
+  ];
+};
+
+export const editSessionAPI = async (
+  fetch: Fetch<Session>,
+  sessionId: number,
+  data: SessionEditPayload,
+): Promise<string | null> => {
+  const [uri, init] = editSessionAPIConfig(sessionId, data);
   const { backgroundTaskUuid } = await fetch(uri, init);
   return backgroundTaskUuid;
 };

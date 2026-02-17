@@ -22,14 +22,14 @@ const getSpotCount = (roomBlueprint: RoomBlueprint | undefined): number => {
 
 export const RoomBlueprintSelectorField: FC<{
   fieldIdPrefix: string;
-  defaultSelectedId: number | null;
-}> = ({ fieldIdPrefix, defaultSelectedId }) => {
+}> = ({ fieldIdPrefix }) => {
   const { t } = useTranslation("sessionCreation");
 
   const { watch, setValue, trigger } =
     useFormContext<SessionCreationFormData>();
 
   const establishmentId = watch("establishment");
+  const roomBlueprintId = watch("room_blueprint");
 
   useEffect(() => {
     setValue("room_blueprint", null);
@@ -50,8 +50,14 @@ export const RoomBlueprintSelectorField: FC<{
     roomBlueprintsItems.length === 0 || !watch("establishment");
 
   const defaultSelectedIds = useMemo(() => {
-    return defaultSelectedId !== null ? [defaultSelectedId.toString()] : [];
-  }, [defaultSelectedId]);
+    return roomBlueprintId !== null ? [roomBlueprintId.toString()] : [];
+  }, [roomBlueprintId]);
+
+  const selectedRoomBlueprint = useMemo(() => {
+    return roomBlueprintsItems.find(
+      (blueprint) => blueprint.id === roomBlueprintId?.toString(),
+    );
+  }, [roomBlueprintId, roomBlueprintsItems]);
 
   if (hasNoRoomBlueprints) return null;
 
@@ -67,6 +73,7 @@ export const RoomBlueprintSelectorField: FC<{
           const capacity = getSpotCount(selectedBlueprint);
           setValue("room_blueprint", Number(selectedRoomBlueprintId), {
             shouldValidate: true,
+            shouldDirty: true,
           });
           setValue("roomBlueprintCapacity", capacity > 0 ? capacity : null);
           trigger("effectif");
@@ -80,14 +87,17 @@ export const RoomBlueprintSelectorField: FC<{
     >
       <Autocomplete
         items={roomBlueprintsItems}
+        clearOnSelect
         textfieldProps={{
           id: `${fieldIdPrefix}-room-blueprint-selector`,
           label: t(
             "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.label",
           ),
-          placeholder: t(
-            "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.placeholder",
-          ),
+          placeholder:
+            selectedRoomBlueprint?.label ??
+            t(
+              "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.placeholder",
+            ),
           helperText: t(
             "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.helper",
           ),

@@ -13,14 +13,19 @@ import fetch from "#src/utils/fetch";
 
 import { AddItemSection } from "./AddItemSection";
 import { SummarySection } from "./SummarySection";
-import { ADD_ITEM_DEFAULT, DEFAULT_FORM_DATA } from "./defaults";
+import {
+  ADD_ITEM_DEFAULT,
+  DEFAULT_FORM_DATA,
+  GIFTCARD_FIELDS_DEFAULT,
+} from "./defaults";
 import { useInvoiceConfiguration } from "./hooks/use-invoice-configuration";
 import { billingFlowFormStateSchema } from "./schema";
-import type { BillingFlowModalProps } from "./types";
+import type { BillingFlowFormData, BillingFlowModalProps } from "./types";
 
 const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   isOpen,
   onClose,
+  onSubmit,
   memberId,
 }: BillingFlowModalProps) => {
   const i18nInstance = useKaizenI18nInstance();
@@ -36,6 +41,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
     defaultValues: {
       ...DEFAULT_FORM_DATA,
       ...ADD_ITEM_DEFAULT,
+      ...GIFTCARD_FIELDS_DEFAULT,
       memberId: memberId ?? undefined,
     },
   });
@@ -71,6 +77,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
     methods.reset({
       ...DEFAULT_FORM_DATA,
       ...ADD_ITEM_DEFAULT,
+      ...GIFTCARD_FIELDS_DEFAULT,
       memberId: memberId ?? undefined,
       isDiscountReasonRequired,
     });
@@ -99,6 +106,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
       <Modal
         open={isOpen}
         size="lg"
+        className="h-[90%]"
         title={t("billingFlowModal.title")}
         onClose={handleClose}
         onCloseButtonClick={handleClose}
@@ -117,12 +125,9 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
       >
         <ControlledForm
           {...methods}
-          onSubmit={(data) => {
-            // TODO: Handle form submission
-            console.log(data);
-          }}
+          onSubmit={(data) => onSubmit(data as BillingFlowFormData)}
           id={formId}
-          className="flex flex-col gap-lg"
+          className="flex flex-col h-full gap-lg"
         >
           {/* Member Card Section */}
           {isLoadingMember ? (
@@ -137,7 +142,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
             />
           )}
 
-          <div className="flex gap-lg">
+          <div className="flex flex-1 gap-lg">
             <AddItemSection />
             <SummarySection />
           </div>

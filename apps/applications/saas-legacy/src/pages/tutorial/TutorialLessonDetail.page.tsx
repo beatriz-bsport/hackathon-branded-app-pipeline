@@ -26,8 +26,6 @@ import {
   getTutorialLessonLoadingState,
 } from '#src/libs/platform-tutorial/selectors';
 import { getPermissions } from '#src/libs/role/selectors';
-// @ts-expect-error
-import { getUpsellPackageByIdentifier } from '#src/libs/platform-billing/selectors';
 
 import {
   updateTutorialLessonViewedStatus as updateTutorialLessonViewedStatusAction,
@@ -63,18 +61,10 @@ import {
   ALL_TUTORIAL_LESSONS_FINISH_DIALOG_OPEN_QUERY_PARAMS,
   TUTORIAL_GENERIC_DIALOG_SECTION_FINISH,
 } from '#src/libs/platform-tutorial/constant';
-import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
-import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
-import UpsellPackageSubscriptionDrawer from '#src/libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
 import { WithHandlerType } from '../../utils/types';
 import { RootState } from '../../reducers';
 // @ts-expect-error
 import { getLanguage } from '../../i18n';
-
-const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
-  rudderStackFormTrackingFunctionsRegistry(
-    SegmentAnalyticsFormObjectIdentifier.UpsellSubscription,
-  );
 
 type OwnProps = {
   id: number;
@@ -105,18 +95,10 @@ type Props = OwnAndConnectedProps &
   WithStyles &
   State;
 
-type ComponentState = {
-  openSubscribtionForm: boolean;
-  openConfirmationDialog: boolean;
-  upsellSubscriptionLoading: boolean;
-};
+type ComponentState = {};
 
 class TutorialLessonDetail extends React.Component<Props, ComponentState> {
-  state: ComponentState = {
-    openSubscribtionForm: false,
-    openConfirmationDialog: false,
-    upsellSubscriptionLoading: false,
-  };
+  state: ComponentState = {};
 
   componentDidMount(): void {
     this.props.updateUserAcknowlegdeTutorial();
@@ -264,45 +246,16 @@ class TutorialLessonDetail extends React.Component<Props, ComponentState> {
     this.goToMenu();
   };
 
-  handleOpenSubscribtionForm = () => {
-    this.setState({
-      openSubscribtionForm: true,
-    });
-    trackFormAdd(this.props.associatedUpsellPackage?.id);
-  };
-
-  handleSubscribeUpsellPackage = () => {
-    trackFormSubmitIntent(this.props.associatedUpsellPackage?.id);
-    this.setState({ upsellSubscriptionLoading: true });
-    this.props.subscribeUpsellPackage(this.props.associatedUpsellPackage?.id, {
-      onSuccess: () => {
-        trackFormSuccess(this.props.associatedUpsellPackage?.id);
-        this.handleCloseSubscriptionForm();
-        this.setState({ upsellSubscriptionLoading: false });
-        this.setState({ openConfirmationDialog: true });
-      },
-      onError: () => {
-        this.handleCloseSubscriptionForm();
-        this.setState({ upsellSubscriptionLoading: false });
-      },
-    });
-  };
-
-  handleCloseSubscriptionForm = () => {
-    this.setState({ openSubscribtionForm: false });
-  };
-
-  handleCloseConfirmationDialog = () =>
-    this.setState({ openConfirmationDialog: false });
-
   render() {
     const { classes, t } = this.props;
     const lessonsId = this.props.section?.lessons?.map((lesson) => lesson.id);
     const selectedLessonId = lessonsId?.indexOf(this.props.selectedLesson?.id);
     const previousLessonId =
-      selectedLessonId > 0 ? lessonsId[selectedLessonId - 1] : null;
+      selectedLessonId && lessonsId && selectedLessonId > 0
+        ? lessonsId[selectedLessonId - 1]
+        : null;
     const nextLessonId =
-      selectedLessonId < (lessonsId ?? []).length - 1
+      selectedLessonId && lessonsId && selectedLessonId < lessonsId.length - 1
         ? lessonsId[selectedLessonId + 1]
         : null;
     if (this.props.isLessonLoading) {
@@ -323,11 +276,8 @@ class TutorialLessonDetail extends React.Component<Props, ComponentState> {
             {t('lessonHeader.backToList')}
           </Button>
         )}
-
         <TutorialLessonHeader
-          associatedUpsellPackage={this.props.associatedUpsellPackage}
           goToLesson={this.props.goToLesson}
-          handleSubscribe={this.handleOpenSubscribtionForm}
           onKnowMore={this.props.onRequestUpsell}
           section={this.props.section}
           selectedLesson={this.props.selectedLesson}
@@ -353,16 +303,6 @@ class TutorialLessonDetail extends React.Component<Props, ComponentState> {
         <FeatureRequestDialog
           onClose={() => this.props.setOpenFeatureRequest(false)}
           open={this.props.openFeatureRequest}
-        />
-        <UpsellPackageSubscriptionDrawer
-          loading={this.state.upsellSubscriptionLoading}
-          onClose={this.handleCloseSubscriptionForm}
-          onCloseDialog={this.handleCloseConfirmationDialog}
-          onKnowMore={this.props.onRequestUpsell}
-          onSubscribe={this.handleSubscribeUpsellPackage}
-          open={this.state.openSubscribtionForm}
-          openDialog={this.state.openConfirmationDialog}
-          upsellPackage={this.props.associatedUpsellPackage}
         />
       </div>
     );
@@ -410,14 +350,6 @@ const mapStateToProps = (
     tutorial_completion: getUserTutorialCompletion(state),
     permissions: getPermissions(state),
     isLessonLoading: getTutorialLessonLoadingState(state),
-    associatedUpsellPackage: getUpsellPackageByIdentifier(
-      state,
-      // The data structure of the API is ready for a OneToMany relation between Tutorial lessons and upsells.
-      // That is why the upsells identifiers are stored in a list.
-      // Nevertheless, upsell_identifiers shouldn't be of length greater than 1.
-      selectedLesson?.upsell_identifiers?.[0],
-      { must_expensive: true },
-    ),
   };
 };
 

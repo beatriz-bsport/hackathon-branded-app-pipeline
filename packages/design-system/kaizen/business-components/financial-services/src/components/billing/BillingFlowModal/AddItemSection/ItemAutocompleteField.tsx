@@ -36,6 +36,7 @@ export const ItemAutocompleteField: React.FC = () => {
   const { watch } = useFormContext<BillingFlowFormState>();
 
   const selectedItemType = watch("addItemSelectedItemType");
+  const selectedItemId = watch("addItemSelectedItemId");
   const itemSearchValue = watch("addItemSearchValue");
 
   // For useSearchItems, we need a valid item type. Use "pass" as fallback for the hook call,
@@ -66,6 +67,17 @@ export const ItemAutocompleteField: React.FC = () => {
           setValue("addItemSelectedItemPriceCts", itemPriceCts, {
             shouldDirty: true,
           });
+
+          if (selectedItemType === "giftcard" && item) {
+            setValue("addItemGiftcardRecipientName", item.title, {
+              shouldDirty: true,
+            });
+            setValue(
+              "addItemSelectedItemExpirationDays",
+              item.expirationDays ?? null,
+              { shouldDirty: true },
+            );
+          }
         },
         onValueChange: (value: string) => {
           setValue("addItemSearchValue", value, { shouldDirty: true });
@@ -74,6 +86,7 @@ export const ItemAutocompleteField: React.FC = () => {
     >
       <ItemAutocomplete
         itemType={selectedItemType}
+        selectedItemId={selectedItemId}
         textfieldProps={{
           label: t("billingFlowModal.searchItem"),
           placeholder: t("billingFlowModal.searchItemPlaceholder"),

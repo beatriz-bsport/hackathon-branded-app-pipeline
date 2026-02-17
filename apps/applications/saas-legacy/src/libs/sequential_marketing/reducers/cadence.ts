@@ -8,6 +8,7 @@ import {
   fetchCadenceListActions,
   archiveCadenceActions,
   restoreCadenceActions,
+  duplicateCadenceActions,
   activateCadenceActions,
   shutOffCadenceActions,
   upsertCadenceInitialConfigurationActions,
@@ -126,6 +127,27 @@ export default handleActions<ImmutableCadenceState, any>(
       { payload }: { payload: Cadence },
     ) => {
       return state.setIn(['byId', payload.id.toString()], payload);
+    },
+
+    [duplicateCadenceActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.set('loading', payload);
+    },
+    [duplicateCadenceActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.set('error', payload);
+    },
+    [duplicateCadenceActions.success.toString()]: (
+      state,
+      { payload }: { payload: Cadence },
+    ) => {
+      return state
+        .set('allIds', [...state.allIds, payload.id])
+        .setIn(['byId', payload.id.toString()], payload);
     },
 
     [activateCadenceActions.isLoading.toString()]: (

@@ -21,6 +21,8 @@ import { useCreatePack } from "#src/hooks/useCreatePack";
 import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
+import { sanitizeDataBeforeSubmit } from "../PackForm/utils";
+
 type PackCreateModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -122,17 +124,13 @@ export const PackCreateModal: React.FC<PackCreateModalProps> = ({
         <ControlledForm
           id={formId}
           onSubmit={(data) => {
-            const finalData: PackFormData = {
+            const finalData: PackFormData = sanitizeDataBeforeSubmit({
               ...DEFAULT_FORM_DATA,
               ...data,
               payment_pack_ids: passes,
               private_pass_ids: appointmentPasses,
               shop_item_ids: webshopItems,
-              // Sanitize Payment Methods
-              available_payment_method_identifiers: data.manager_only
-                ? DEFAULT_FORM_DATA.available_payment_method_identifiers
-                : data.available_payment_method_identifiers,
-            };
+            });
             createPack(finalData);
           }}
           {...methods}

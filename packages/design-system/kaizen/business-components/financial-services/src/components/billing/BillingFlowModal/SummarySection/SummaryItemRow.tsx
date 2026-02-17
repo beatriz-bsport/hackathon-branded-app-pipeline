@@ -23,6 +23,7 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
   const isPass = item.type === "pass" || item.type === "appointment_pass";
+  const isGiftcard = item.type === "giftcard";
   const { validityDescription, creditsDescription } = useItemDescriptions(item);
 
   const hasDiscount = item.discountPercent > 0 || item.discountAmountCts > 0;
@@ -34,14 +35,16 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
           <Icon icon={itemTypeIcon[item.type]} size="sm" />
         </div>
         <div className="flex flex-col flex-1 items-start">
-          <Title htmlVariant="h5">{item.itemName}</Title>
+          <Title htmlVariant="h5" color="default">
+            {item.itemName}
+          </Title>
 
           {isPass && creditsDescription && (
             <Body htmlVariant="span" size="md" color="weak">
               {creditsDescription}
             </Body>
           )}
-          {isPass && validityDescription && (
+          {(isPass || isGiftcard) && validityDescription && (
             <Body htmlVariant="span" size="md" color="weak">
               {validityDescription}
             </Body>
@@ -61,7 +64,8 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
             label={t("billingFlowModal.deleteItem")}
             onClick={onDelete}
           />
-          <Button
+          {/* TODO: Implement edit functionality */}
+          {/* <Button
             className="p-xs"
             kind="icon-button"
             intent="flat"
@@ -70,9 +74,8 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
             icon="edit-02"
             label={t("billingFlowModal.editItem")}
             onClick={() => {
-              /* TODO: Implement edit functionality */
             }}
-          />
+          /> */}
         </div>
         <div className="flex items-end gap-2xs bg-surface-default-weak px-xs py-2xs rounded-md">
           {hasDiscount && (

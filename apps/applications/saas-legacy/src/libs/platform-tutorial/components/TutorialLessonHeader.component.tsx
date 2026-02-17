@@ -23,7 +23,7 @@ import ToolTip from '#src/components/Tooltip.component';
 import MuiIcon from '#src/components/MuiIcon.component';
 import InfoBox from '#src/components/box/InfoBox.component';
 
-import type { FeatureList, UpsellPackage } from '#src/libs/company/types';
+import type { FeatureList } from '#src/libs/company/types';
 import LessonStatusChips from './TutorialLessonStatusChip.component';
 import { isLessonCompleted, isUpsellNotSubscribed } from '../utils';
 import type {
@@ -40,17 +40,13 @@ export type Props = {
     | SeamlessImmutable.Immutable<TutorialCompletion>;
   goToLesson: (sectionId: number | string, lessonId: number | string) => void;
   onKnowMore: (id: number) => void;
-  handleSubscribe: () => void;
-  associatedUpsellPackage?: UpsellPackage;
 };
 
 const TutorialLessonHeader: React.FC<Props> = ({
-  associatedUpsellPackage,
   section,
   selectedLesson,
   tutorial_completion,
   goToLesson,
-  handleSubscribe,
   onKnowMore,
 }: Props) => {
   const classes = useStyles();
@@ -108,7 +104,7 @@ const TutorialLessonHeader: React.FC<Props> = ({
               },
             )}
             defaultIcon="BusinessCenter"
-            icon={section?.icon}
+            icon={section?.icon || ''}
           />
         </div>
         <Typography className={classes.textContainer} variant="h4">
@@ -123,7 +119,7 @@ const TutorialLessonHeader: React.FC<Props> = ({
             <ToolTip
               key={`lesson_button_${lesson.id}`}
               placement="bottom"
-              title={lesson?.translated_name}
+              title={lesson?.translated_name || ''}
             >
               <Button
                 disableElevation
@@ -182,20 +178,10 @@ const TutorialLessonHeader: React.FC<Props> = ({
                     content={t('lessonHeader.warning')}
                     variant="outlined"
                   />
-                  {associatedUpsellPackage?.subscribe_from_backoffice ? (
-                    <Button
-                      color="primary"
-                      onClick={handleSubscribe}
-                      variant="contained"
-                    >
-                      {t('platformBilling:upsellPackage.seeMore')}
-                    </Button>
-                  ) : (
-                    <Button onClick={handleKnowMore} variant="outlined">
-                      <HelpOutlinedIcon className={classes.iconLeft} />
-                      {t('platformBilling:upsellPackage.knowMore')}
-                    </Button>
-                  )}
+                  <Button onClick={handleKnowMore} variant="outlined">
+                    <HelpOutlinedIcon className={classes.iconLeft} />
+                    {t('platformBilling:upsellPackage.knowMore')}
+                  </Button>
                 </div>
               )}
             </>

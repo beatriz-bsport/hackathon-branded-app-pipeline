@@ -1,4 +1,10 @@
-import { Card, ErrorFallback, Loader } from "@bsport/kaizen-primitive-core";
+import {
+  Card,
+  ErrorFallback,
+  Loader,
+  type VariantProps,
+  cva,
+} from "@bsport/kaizen-primitive-core";
 
 export const PageLoader = () => (
   <div className="grid place-content-center h-screen">
@@ -6,9 +12,23 @@ export const PageLoader = () => (
   </div>
 );
 
-export const CardLoader = () => (
+const cardLoaderVariants = cva("grid place-content-center", {
+  variants: {
+    size: {
+      md: "min-h-36",
+      lg: "min-h-96",
+    },
+  },
+  defaultVariants: {
+    size: "md",
+  },
+});
+
+type CardLoaderProps = VariantProps<typeof cardLoaderVariants>;
+
+export const CardLoader = ({ size }: CardLoaderProps) => (
   <Card padding="none" className="overflow-hidden">
-    <div className="h-36 grid place-items-center">
+    <div className={cardLoaderVariants({ size })}>
       <Loader size="lg" />
     </div>
   </Card>

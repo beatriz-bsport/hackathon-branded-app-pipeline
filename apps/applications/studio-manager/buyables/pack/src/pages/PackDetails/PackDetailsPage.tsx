@@ -3,15 +3,19 @@ import { useNavigate } from "react-router";
 
 import { ControlledForm, useFormController } from "@bsport/form";
 import { DetailsLayout, useDetailsLayout } from "@bsport/kaizen-primitive-core";
-import type { Pack, PackFormEditData } from "@bsport/store-buyables-pack";
+import type {
+  Pack,
+  PackFormEditData as PackFormEditDataAPI,
+} from "@bsport/store-buyables-pack";
 
 import { PackDeleteModal } from "#src/components/PackDeleteModal";
 import { PackEditNameModal } from "#src/components/PackEditNameModal";
 import {
-  DEFAULT_FORM_DATA,
+  type PackFormEditData,
   type PackFormSchema,
   usePackSchema,
 } from "#src/components/PackForm/schema";
+import { sanitizeDataBeforeSubmit } from "#src/components/PackForm/utils";
 import { SelectedItemsContextProvider } from "#src/contexts/selectedItemsContext";
 import { useDisclosure } from "#src/hooks/useDisclosure";
 import { useUpdatePack } from "#src/hooks/useUpdatePack";
@@ -33,6 +37,7 @@ const convertIntoPackFormData = (pack: Pack): PackFormEditData => {
     price,
     tax,
     tags_on_consumer_item_creation,
+    expiration_date,
     ...initialValues
   } = pack;
 
@@ -46,6 +51,8 @@ const convertIntoPackFormData = (pack: Pack): PackFormEditData => {
     price: parseInt(price),
     tax: parseInt(tax),
     tags_on_consumer_item_creation: [...tags_on_consumer_item_creation].sort(),
+    expiration_date,
+    hasExpirationDate: !!expiration_date,
   };
 };
 
@@ -117,13 +124,9 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
     }
 
     const formValues = methods.getValues();
-    const finalData: PackFormEditData = {
+    const finalData: PackFormEditDataAPI = {
       id: pack.id,
-      ...formValues,
-      // Sanitize Payment Methods
-      available_payment_method_identifiers: formValues.manager_only
-        ? DEFAULT_FORM_DATA.available_payment_method_identifiers
-        : formValues.available_payment_method_identifiers,
+      ...sanitizeDataBeforeSubmit(formValues),
     };
 
     handleUpdatePack(finalData);

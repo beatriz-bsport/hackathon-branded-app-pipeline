@@ -169,23 +169,26 @@ type InvoiceItemBase = {
  * Form data for one invoice item (builder default or added line).
  * Loose shape: buyableItemId/itemName optional or null before selection.
  */
-export type InvoiceItemFormData = InvoiceItemBase & {
-  buyableItemId: number | null;
-  activationDate: string | null;
-  billingDetail: string | null;
-  itemName?: string;
-};
+export type InvoiceItemFormData = InvoiceItemBase &
+  Partial<GiftcardData> & {
+    buyableItemId: number | null;
+    activationDate: string | null;
+    billingDetail: string | null;
+    itemName?: string;
+  };
 
 /**
  * One item in the billing flow form `items` array (added-item shape).
  * Strict shape: required id/name, literal null for activation/billing.
+ * Giftcard fields are optional but present when type is "giftcard".
  */
-export type BillingFlowItem = InvoiceItemBase & {
-  buyableItemId: number;
-  activationDate: null;
-  billingDetail: null;
-  itemName: string;
-};
+export type BillingFlowItem = InvoiceItemBase &
+  Partial<GiftcardData> & {
+    buyableItemId: number;
+    activationDate: null;
+    billingDetail: null;
+    itemName: string;
+  };
 
 /**
  * Form data for billing flow
@@ -193,7 +196,7 @@ export type BillingFlowItem = InvoiceItemBase & {
 export type BillingFlowFormData = {
   memberId: number | undefined;
   items: BillingFlowItem[];
-  couponCodes: string[];
+  promoCodes: string[];
   footnote: string | null;
   date: Date;
 };
@@ -204,5 +207,28 @@ export type BillingFlowFormData = {
 export type BillingFlowModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  onSubmit: (data: BillingFlowFormData) => void | Promise<void>;
   memberId?: number;
+};
+
+/** Delivery format for giftcard (PDF or email). */
+export type GiftcardDeliveryFormat = "pdf" | "email";
+
+/**
+ * Giftcard-specific data (used in both form builder state and added items)
+ */
+export type GiftcardData = {
+  expirationDays: number | null;
+  giftcardRecipientName: string;
+  giftcardFrom: string;
+  giftcardTo: string;
+  giftcardPersonalMessage: string;
+  giftcardDeliveryFormat: GiftcardDeliveryFormat;
+  // PDF-specific fields
+  giftcardValidFrom: string;
+  // Email-specific fields
+  giftcardBackgroundImage: string | null;
+  giftcardRecipientEmails: string[];
+  giftcardScheduledDate: string;
+  giftcardScheduledTime: string;
 };

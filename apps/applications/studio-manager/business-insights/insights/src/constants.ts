@@ -7,6 +7,7 @@ export const DASHBOARD_TYPES = {
   TRIAL_ANALYSIS: "trial_analysis",
   RECURRING_REVENUE: "recurring_revenue",
   SCHEDULE_ANALYSIS: "schedule_analysis",
+  COMMUNITY_HEALTH: "community_health",
 } as const;
 
 /**
@@ -29,6 +30,12 @@ export const INSIGHT_ITEMS = [
     section: "member",
     dashboardType: DASHBOARD_TYPES.TRIAL_ANALYSIS,
     link: URLS.TRIAL_ANALYSIS,
+  },
+  {
+    id: "community_health",
+    section: "member",
+    dashboardType: DASHBOARD_TYPES.COMMUNITY_HEALTH,
+    link: URLS.COMMUNITY_HEALTH,
   },
   {
     id: "recurring",

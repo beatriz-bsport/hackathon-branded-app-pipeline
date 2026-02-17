@@ -16,7 +16,7 @@ import {
   RecurrenceType,
 } from "#src/helpers/recurrence/types";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
-import { useSessionCreationPayload } from "#src/hooks/use-session-creation-payload";
+import { useSessionPayload } from "#src/hooks/use-session-payload";
 import { closeModal } from "#src/stores/session-list";
 import { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -28,7 +28,7 @@ export type DuplicateModalContentProps = {
   companyTimezone: string | undefined;
   formId: string;
   duplicateSessionSchema: z.ZodSchema;
-  buildPayload: ReturnType<typeof useSessionCreationPayload>["buildPayload"];
+  buildPayload: ReturnType<typeof useSessionPayload>["buildCreationPayload"];
   createSession: UseMutateFunction<
     unknown,
     Error,

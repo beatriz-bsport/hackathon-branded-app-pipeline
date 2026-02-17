@@ -1,3 +1,4 @@
+import { cx } from "class-variance-authority";
 import React from "react";
 
 import { useFormContext } from "@bsport/form";
@@ -19,6 +20,7 @@ import { useSearchItems } from "#src/components/billing/ItemAutocomplete/use-sea
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import { AddProductDiscount } from "./AddProductDiscount";
+import { GiftCardDetails } from "./GiftCardDetails";
 import { ItemAutocompleteField } from "./ItemAutocompleteField";
 import { ItemTypeSelectorField } from "./ItemTypeSelectorField";
 import { PriceField } from "./PriceField";
@@ -32,7 +34,7 @@ const LEGACY_URL_SUBSCRIPTION = "/subscriptions";
  * Add-item section: composes field components and section-level actions.
  * Must be rendered inside the billing flow ControlledForm.
  */
-const AddItemSection: React.FC = () => {
+export const AddItemSection: React.FC = () => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
   const { watch } = useFormContext<BillingFlowFormState>();
@@ -63,75 +65,84 @@ const AddItemSection: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex flex-col flex-1 gap-md">
       <Title htmlVariant="h4" color="default" weight="strong">
         {t("billingFlowModal.addItem")}
       </Title>
-      <div className="mt-md">
-        <Card elevated={false} className="h-full">
+      <Card
+        elevated={false}
+        className={cx(
+          "flex flex-col gap-md justify-between",
+          selectedItemType && "h-full",
+        )}
+      >
+        <div className="flex flex-col gap-md">
+          <ItemTypeSelectorField />
+          {selectedItemType === null ? null : showItemForm ? (
+            <ItemAutocompleteField />
+          ) : (
+            <div className="flex flex-col justify-center items-center text-center self-stretch py-xl gap-xs">
+              <Body color="weak" className="max-w-[323px]">
+                {t("billingFlowModal.subscriptionMessage")}
+              </Body>
+              <Button
+                iconRight="share-03"
+                label={t("billingFlowModal.goToSubscriptions")}
+                size="md"
+                color="main"
+                intent="call-to-action"
+                onClick={handleGoToSubscriptions}
+                data-testid="billing-flow-go-to-subscriptions-button"
+              />
+            </div>
+          )}
+
+          {showItemForm && (
+            <>
+              {selectedItemType !== "giftcard" && <QuantityField />}
+              <PriceField />
+              <AddProductDiscount />
+
+              {selectedItemType === "giftcard" && selectedItemId && (
+                <GiftCardDetails />
+              )}
+            </>
+          )}
+        </div>
+        {showItemForm && (
           <div className="flex flex-col gap-md">
-            <ItemTypeSelectorField />
-            {selectedItemType === null ? null : showItemForm ? (
-              <ItemAutocompleteField />
-            ) : (
-              <div className="flex flex-col justify-center items-center text-center self-stretch py-xl gap-xs">
-                <Body color="weak" className="max-w-[323px]">
-                  {t("billingFlowModal.subscriptionMessage")}
-                </Body>
-                <Button
-                  iconRight="share-03"
-                  label={t("billingFlowModal.goToSubscriptions")}
-                  size="md"
-                  color="main"
-                  intent="call-to-action"
-                  onClick={handleGoToSubscriptions}
-                  data-testid="billing-flow-go-to-subscriptions-button"
-                />
-              </div>
-            )}
+            <Divider weight="thin" />
 
-            {showItemForm && (
-              <>
-                {selectedItemType !== "giftcard" && <QuantityField />}
-                <PriceField />
-                <AddProductDiscount />
-
-                <Divider weight="thin" />
-
-                <div className="flex justify-end gap-sm">
-                  <Button
-                    kind="default"
-                    intent="flat"
-                    color="default"
-                    size="md"
-                    label={t("billingFlowModal.clear")}
-                    onClick={handleClear}
-                    disabled={
-                      !selectedItemId &&
-                      quantity === 1 &&
-                      (priceCts === 0 || priceCts === null)
-                    }
-                    data-testid="billing-flow-clear-button"
-                  />
-                  <Button
-                    kind="default"
-                    intent="call-to-action"
-                    color="main"
-                    size="md"
-                    iconLeft="plus"
-                    label={t("billingFlowModal.addItemButton")}
-                    onClick={handleAddItem}
-                    disabled={itemToAdd == null}
-                    data-testid="billing-flow-add-item-button"
-                  />
-                </div>
-              </>
-            )}
+            <div className="flex justify-end gap-sm">
+              <Button
+                kind="default"
+                intent="flat"
+                color="default"
+                size="md"
+                label={t("billingFlowModal.clear")}
+                onClick={handleClear}
+                disabled={
+                  !selectedItemId &&
+                  quantity === 1 &&
+                  (priceCts === 0 || priceCts === null)
+                }
+                data-testid="billing-flow-clear-button"
+              />
+              <Button
+                kind="default"
+                intent="call-to-action"
+                color="main"
+                size="md"
+                iconLeft="plus"
+                label={t("billingFlowModal.addItemButton")}
+                onClick={handleAddItem}
+                disabled={itemToAdd == null}
+                data-testid="billing-flow-add-item-button"
+              />
+            </div>
           </div>
-        </Card>
-      </div>
+        )}
+      </Card>
     </div>
   );
 };
-
-export default AddItemSection;

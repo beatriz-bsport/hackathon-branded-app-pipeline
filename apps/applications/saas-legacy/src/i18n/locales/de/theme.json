@@ -185,7 +185,7 @@
         "errorValidatedTime": "Die Zeit, die vergeht, bevor die Buchung eines Mitglieds als Abwesenheit gilt, muss größer als 0 sein",
         "alert": "Diese Einstellungen gelten nur für Abwesenheiten bei unbegrenzten Pässen. Um die folgenden Zählungen auszulösen, müssen Sie die Zählung für jede Sitzung aufrufen.",
         "daysBeforeNoShow": "Betrachten Sie das Mitglied als (abwesend) <0/> <1/> nach der Bestätigung der Anwesenheit der Einheiten, in denen es als abwesend aufgeführt wurde.",
-        "sendMail": "Senden Sie nach der Bestätigung der Anwesenheit eine E-Mail <0/> <1/>, um das Mitglied darüber zu informieren, dass es als abwesend gilt, wenn es als abwesend angegeben wurde.",
+        "sendMail": "Sende <0/> <1/> Stunden nach der Anwesenheitskontrolle eine E-Mail, um Mitglieder, die als abwesend markiert sind, zu warnen, dass sie als No-Show gelten, sofern kein gültiger Grund angegeben wird. ",
         "error": "Die E-Mail zur Benachrichtigung über die Abwesenheit kann nicht mehr gesendet werden, nachdem das Mitglied als abwesend betrachtet wird.",
         "errorEmailTime": "Die Zeit, die verstrichen ist, bevor die E-Mail mit der Warnung an das Mitglied gesendet wird, dass seine Buchung als \"Abwesenheit\" betrachtet wird, muss größer als 0 sein",
         "notAvailable": "Du hast aktuell keinen Zugriff auf diese Einstellung. Bitte erstelle zunächst einen unbegrenzten Kurspass mit Abzügen für Abwesenheiten von Mitgliedern.",

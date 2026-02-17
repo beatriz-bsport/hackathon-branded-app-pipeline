@@ -24,6 +24,7 @@ import {
   updateCadence as updateCadenceAction,
   archiveCadence as archiveCadenceAction,
   restoreCadence as restoreCadenceAction,
+  duplicateCadence as duplicateCadenceAction,
   fetchGlobalMetrics as fetchGlobalMetricsAction,
   fetchPresentMembersData as fetchPresentMembersDataAction,
   fetchMembersHistoric as fetchMembersHistoricAction,
@@ -224,6 +225,10 @@ export class CadenceListPage extends React.Component<Props> {
     trackFormAdd(cadence.id, { info: 'User wants to edit this audience' });
     this.props.setCadenceToEdit(cadence);
     this.props.setOpenCreationForm(true);
+  };
+
+  handleDuplicateCadence = (cadence: Cadence) => {
+    this.props.duplicateCadence(cadence.id);
   };
 
   handleUpsertCadence = (
@@ -467,6 +472,7 @@ export class CadenceListPage extends React.Component<Props> {
               cadences={cadenceList}
               onClickItem={this.handleSelectCadence}
               onDelete={this.handleSetCadenceToArchive}
+              onDuplicate={this.handleDuplicateCadence}
               onEdit={this.handleSetCadenceToEdit}
               onOpen={this.handleGoToCadencePage}
               selectedId={this.props.selectedCadence?.id}
@@ -677,6 +683,19 @@ const mapWithHandlers = {
   restoreCadence: (props: ConnectedPropsAndState) => (id: number) =>
     props.restoreCadenceAction(id),
 
+  duplicateCadence:
+    (props: ConnectedPropsAndState) =>
+    (id: number, options?: OptionCallback<Cadence>) => {
+      props.duplicateCadenceAction(id, {
+        onSuccess: (cadence) => {
+          options?.onSuccess?.(cadence);
+        },
+        onError: () => {
+          options?.onError?.();
+        },
+      });
+    },
+
   fetchGlobalMetrics:
     (props: ConnectedPropsAndState) =>
     (cadenceId: number, date_filter?: CadenceGlobalMetricsParams) =>
@@ -810,6 +829,7 @@ const connector = connect(
     updateCadenceAction,
     archiveCadenceAction,
     restoreCadenceAction,
+    duplicateCadenceAction,
     createCadenceFromTemplateAction,
     // METRICS
     fetchGlobalMetricsAction,

@@ -2,15 +2,8 @@ import type { FC } from "react";
 
 import { Title } from "@bsport/kaizen-primitive-core";
 
-import {
-  selectSelectedGroupActivity,
-  selectStepFormData,
-} from "#src/stores/session-creation/selectors";
-import {
-  SESSION_CREATION_STEPS,
-  useSessionCreationStore,
-} from "#src/stores/session-creation/store";
-import { SessionCreationFormData } from "#src/stores/session-creation/types";
+import { selectSelectedGroupActivity } from "#src/stores/session-creation/selectors";
+import { useSessionCreationStore } from "#src/stores/session-creation/store";
 import { useTranslation } from "#src/utils/i18n";
 
 import { EstablishmentSelectorField } from "./establishment-selector-field";
@@ -25,11 +18,6 @@ export const SessionTeacherAndEstablishment: FC<{
 }> = ({ fieldIdPrefix }) => {
   const { t } = useTranslation("sessionCreation");
 
-  const { coach, coach_payment_rule, establishment, room_blueprint } =
-    useSessionCreationStore(
-      selectStepFormData(SESSION_CREATION_STEPS.CONFIGURE_SESSION),
-    ) as SessionCreationFormData;
-
   const selectedGroupActivity = useSessionCreationStore(
     selectSelectedGroupActivity,
   );
@@ -41,22 +29,10 @@ export const SessionTeacherAndEstablishment: FC<{
           "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.title",
         )}
       </Title>
-      <TeacherSelectorField
-        fieldIdPrefix={fieldIdPrefix}
-        defaultSelectedId={coach}
-      />
-      <TeacherPaymentRuleSelectorField
-        fieldIdPrefix={fieldIdPrefix}
-        defaultSelectedId={coach_payment_rule}
-      />
-      <EstablishmentSelectorField
-        fieldIdPrefix={fieldIdPrefix}
-        defaultSelectedId={establishment}
-      />
-      <RoomBlueprintSelectorField
-        fieldIdPrefix={fieldIdPrefix}
-        defaultSelectedId={room_blueprint}
-      />
+      <TeacherSelectorField fieldIdPrefix={fieldIdPrefix} />
+      <TeacherPaymentRuleSelectorField fieldIdPrefix={fieldIdPrefix} />
+      <EstablishmentSelectorField fieldIdPrefix={fieldIdPrefix} />
+      <RoomBlueprintSelectorField fieldIdPrefix={fieldIdPrefix} />
       <WellhubProductSelectorField
         fieldIdPrefix={fieldIdPrefix}
         isLivestream={selectedGroupActivity?.is_broadcast || false}

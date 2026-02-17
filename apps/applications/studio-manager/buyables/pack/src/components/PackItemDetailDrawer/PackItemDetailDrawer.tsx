@@ -2,11 +2,13 @@ import type { FC } from "react";
 
 import {
   Body,
+  Button,
   DetailDrawer,
   Divider,
   Title,
 } from "@bsport/kaizen-primitive-core";
 
+import { ITEM_VARIANTS } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import type { FormattedData } from "#src/utils/stores-interface";
 
@@ -90,6 +92,29 @@ export const PackItemDetailDrawer: FC<PackItemDetailDrawerProps> = ({
                 </Body>
               </div>
             ) : null}
+
+            <Button
+              kind="default"
+              label={t("itemDetailDrawer.seeDetails")}
+              intent="default"
+              color="main"
+              iconRight="link-external-02"
+              size="md"
+              className="w-fit"
+              onClick={() => {
+                let nextLocation: string = "/";
+                if (item.variant === ITEM_VARIANTS.webshopItem) {
+                  nextLocation = `/shop/${item.id}`;
+                }
+                if (item.variant === ITEM_VARIANTS.appointmentPass) {
+                  nextLocation = `/private-service/pass/${item.id}`;
+                }
+                if (item.variant === ITEM_VARIANTS.pass) {
+                  nextLocation = `/payment-pack/${item.id}`;
+                }
+                window.location.assign(nextLocation);
+              }}
+            />
           </div>
         </>
       ) : null}

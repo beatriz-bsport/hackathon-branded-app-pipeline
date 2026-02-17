@@ -111,6 +111,11 @@ export function initI18n({
       fallbackLng: getFallbackLanguage,
       // array of allowed languages
       supportedLngs: Object.values(LANGUAGES),
+      // strategy to define which language codes to lookup. Example: given set language is en-US:
+      //  - 'all' ⇒ ['en-US', 'en', 'dev']
+      //  - 'currentOnly' ⇒ 'en-US'
+      //  - 'languageOnly' ⇒ 'en'
+      load: "languageOnly",
       debug: debug,
       // language detector options
       detection: {

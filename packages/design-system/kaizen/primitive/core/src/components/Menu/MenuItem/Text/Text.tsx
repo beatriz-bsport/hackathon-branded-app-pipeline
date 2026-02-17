@@ -50,22 +50,14 @@ const Text: React.FC<TextProps> = ({
   );
 
   const renderedLabel = useMemo(
-    () =>
-      label ? (
-        <Body htmlVariant="span" className="pr-xs">
-          {label}
-        </Body>
-      ) : null,
+    () => (label ? <Body htmlVariant="span">{label}</Body> : null),
     [label],
   );
 
   const renderedDescription = useMemo(
     () =>
       description ? (
-        <Body
-          htmlVariant="span"
-          className="pr-xs text-[14px] text-onsurface-weak"
-        >
+        <Body htmlVariant="span" size="md" color="weak">
           {description}
         </Body>
       ) : null,
@@ -78,7 +70,7 @@ const Text: React.FC<TextProps> = ({
       className={menuItemText({ className })}
       {...props}
     >
-      <div className="flex items-center justify-between w-full">
+      <div className="flex items-center justify-between w-full gap-xs">
         <div className="flex gap-xs items-center">
           {leftSlot ?? renderedAvatar ?? renderedIcon}
           <div className="flex flex-col">

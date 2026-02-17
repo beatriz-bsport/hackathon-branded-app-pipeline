@@ -1,3 +1,5 @@
+import type { MetaActivity } from "#src/group-activity";
+
 export type FetchSessionsParams = {
   /** Minimum session date (inclusive). Format: YYYY-MM-DD. */
   min_date?: string;
@@ -306,6 +308,31 @@ export type SessionCreationPayload = {
   whitelist_tags: number[];
 };
 
+export type SessionEditPayload = Omit<
+  SessionCreationPayload,
+  "dates" | "credits" | "is_hybrid"
+> & {
+  allow_guest_offer: boolean;
+  available_on_partnership: boolean;
+  coach_override: number | null;
+  credit_price_override?: number;
+  credits?: number;
+  date_start: string;
+  description_override?: string;
+  id: number;
+  manager_only: boolean;
+  meta_activity: number;
+  name_override?: string;
+  propagate_coach_override_value: number;
+} & SessionEditActions;
+
+export type SessionEditActions = {
+  custom_selection_ids: number[];
+  custom_selection: boolean;
+  modifyAllDates: boolean;
+  notifyConsumers: boolean;
+};
+
 export type RecurrenceResponse = {
   last_offer: {
     id: number;
@@ -313,4 +340,8 @@ export type RecurrenceResponse = {
   };
   recurrence_count: number;
   recurrence_id: string;
+};
+
+export type SessionWithActivity = ManagerSession & {
+  metaActivity: MetaActivity;
 };

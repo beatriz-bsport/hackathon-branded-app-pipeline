@@ -541,7 +541,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
             onSubmit={this.props.submitTheme}
             theme={this.props.theme}
           />
-          <Paper className={classes.paper}>
+          {/* <Paper className={classes.paper}>
             <div className={classes.header}>
               <Typography component="h3" variant="h6">
                 {t('configuration.nf525')}
@@ -558,7 +558,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               <AttachIcon className={classes.leftIcon} />
               {t('configuration.nf525Button')}
             </Button>
-          </Paper>
+          </Paper> */}
           {isCompanySpanish && (
             <div className={classes.content}>
               <VerifactuSettings />

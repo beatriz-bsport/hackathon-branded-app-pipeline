@@ -169,7 +169,7 @@
         "notAvailable": "La gestión de no presentarse no está disponible. Para activarla, primero debes crear un pase ilimitado con penalizaciones por no presentarse.",
         "error": "El correo electrónico de notificación de ausencia no puede enviarse después de que se considere que el miembro no se ha presentado.",
         "sendMailHelpText": "Para activar/desactivar el correo electrónico, vaya a Parámetros> Notificaciones transaccionales> Penalización> Notificación de ausencia",
-        "sendMail": "Enviar un correo electrónico <0/> <1/> después de pasar lista para notificar al socio que se considerará que no se ha presentado si figura como ausente.",
+        "sendMail": "Envía un correo electrónico <0/> <1/> horas después del pase de lista para advertir a los miembros marcados como ausentes que se les considerará no-show a menos que se proporcione un motivo válido. ",
         "daysBeforeNoShowHelpText": "Este ajuste le permite aplicar penalizaciones a los socios con pase ilimitado que no se presenten.",
         "daysBeforeNoShow": "Considerar al miembro como (no presentado) <0/> <1/> tras el pase de lista en las sesiones en las que figure como ausente.",
         "alert": "Estos ajustes sólo se aplican a las penalizaciones por no presentarse en tarjetas ilimitadas. Para activar los siguientes cargos, debe validar la convocatoria para cada curso.",

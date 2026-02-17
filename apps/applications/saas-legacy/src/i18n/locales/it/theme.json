@@ -176,7 +176,7 @@
         }
       },
       "noShow": {
-        "sendMail": "Invia un'email <0/> <1/> dopo l'appello per avvisare il membro che sarà considerato come no show se indicato come assente.",
+        "sendMail": "Invia un’email <0/> <1/> ore dopo l’appello per avvisare i membri contrassegnati come assenti che saranno considerati no-show a meno che non venga fornita una motivazione valida. ",
         "errorValidatedTime": "Il tempo trascorso prima di considerare un membro come no-show deve essere maggiore di 0",
         "errorEmailTime": "Il tempo trascorso prima dell'invio dell'email per avvisare il membro che non si presenterà deve essere maggiore di 0",
         "title": "Assenza (no-show)",

@@ -48,7 +48,7 @@ const TransactionalNotification = lazy(
   () => import("sm-transactional-notification/App"),
 );
 const MarketingNotification = lazy(
-  () => import("sm-marketing-notification/App"),
+  () => import("@bsport/sm-marketing-notification"),
 );
 
 // ----- Business Insights -----

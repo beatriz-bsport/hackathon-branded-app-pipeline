@@ -8,5 +8,6 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     ...SM_BACKBONE_CONTENT_PATHS,
+    "node_modules/@bsport/sm-marketing-notification/src/**/*.{js,ts,jsx,tsx}",
   ],
 };

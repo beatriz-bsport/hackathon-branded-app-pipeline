@@ -18,7 +18,6 @@ import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_INTENT_STATUS_SUCCESS,
-  PAYMENT_INTENT_TYPE_BASKET,
 } from '@bsport/common/lib/master-data/payment-group.js';
 
 import {
@@ -56,7 +55,6 @@ import {
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
 import { validateUnpaid as validateUnpaidAPI } from '#src/libs/checkout/api';
-import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 import { BasketPaymentProvider } from '#src/libs/checkout/components/new-checkout-flow-unified/BasketPaymentContext';
 import { OnlinePaymentBasketUnified } from '#src/libs/checkout/components/new-checkout-flow-unified/OnlinePaymentBasketUnified.component';
 import BasketTaxInfo from '#src/libs/checkout/components/BasketTaxInfo.component';
@@ -89,7 +87,6 @@ import {
   getSubTotal,
   hasRedirectionFailed,
   shouldCheckPaymentStatus,
-  shouldNotRetrieveSecret,
 } from '#src/libs/checkout/utils';
 import { loadDefaultEstablishmentBillingGroup } from '#src/libs/marketplace/utils/booking';
 import { isErrorWithCustomCode } from '#src/libs/utils';
@@ -225,7 +222,6 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         this.props.fetchInstalmentPaymentByBasket(this.props.basketId);
 
         if (!basket.is_finalized) {
-          this.getSecret(this.state.paymentEngine);
           this.props.fetchMembershipByBasket(
             {
               basket_uuid: this.props.basketId,
@@ -275,31 +271,6 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       );
     }
   }
-
-  getSecret = (paymentEngine: number) => {
-    if (shouldNotRetrieveSecret(this.props.queryParams)) {
-      return;
-    }
-    this.setState({ clientSecretLoading: true });
-    requestClientSecretAPI(paymentEngine, PAYMENT_INTENT_TYPE_BASKET, {
-      basket: this.props.basketId,
-    })
-      .then((r) => {
-        // To avoid race condition when changing payment engine while client secret is loading
-        if (paymentEngine === this.state.paymentEngine) {
-          this.setState({
-            clientSecret: r.data.client_secret,
-            paymentGroupId: r.data.payment_group,
-            paymentGroupPriceCts: r.data.price_cts,
-            clientSecretLoading: false,
-          });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        this.setState({ clientSecretLoading: false });
-      });
-  };
 
   onSelectInstalmentPayment = (
     instalment_payment_id: number,

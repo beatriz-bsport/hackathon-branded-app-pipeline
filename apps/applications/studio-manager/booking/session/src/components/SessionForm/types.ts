@@ -1,3 +1,5 @@
+import { DateTime } from "@bsport/datetime-manipulation";
+
 import { SessionEdit } from "#src/stores/session-creation/types";
 
 export type LevelFormData = {
@@ -10,7 +12,7 @@ export type SessionEditFormData = Omit<
   "id" | "date_start" | "coach" | "establishment"
 > & {
   // Form uses Date instead of ISO string
-  startDateTime: Date;
+  startDateTime: DateTime;
 
   // Non-nullable in edit form
   coach: number;

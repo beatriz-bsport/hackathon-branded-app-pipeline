@@ -84,6 +84,7 @@ else
     --affected --base="$NX_BASE" --head=HEAD \
     --projects=tag:application:revamp --exclude="@bsport/template-*")
 fi
+
 echo "These are the projects:"
 echo "$SELECTED_PROJECTS" | sed "s/,/\n/g"
 echo "These are the related Micro Frontends":

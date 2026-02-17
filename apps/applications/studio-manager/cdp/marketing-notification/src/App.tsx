@@ -12,9 +12,7 @@ import "./index.css";
  */
 const App: React.FC = () => {
   return (
-    <ErrorBoundaryWrapper
-      appName={__MARKETING_NOTIFICATION__.__SENTRY_SCOPE_TAG__}
-    >
+    <ErrorBoundaryWrapper appName="sm-marketing-notification">
       <AppI18nextProvider>
         <AppRoutes />
       </AppI18nextProvider>

@@ -16,8 +16,6 @@ import themeSelectors from '../../libs/theme/selectors';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import {
   upsert,
-  addImageToMetaActivity as addImageToWorkshop,
-  removeImageFromWorkshop,
   fetchMetaActivities as fetchMetaActivitiesAction,
 } from '../../libs/meta-activity/actions';
 import { getWorkshop } from '../../libs/meta-activity/selectors';
@@ -78,17 +76,12 @@ export class WorkshopActivityEditPage extends React.Component<Props> {
       return <LinearProgress />;
     }
 
-    const imageUploader = {
-      onAddImage: (file: File) => addImage(id, file),
-      onRemoveImage: (imageId: number) => removeImage(id, imageId),
-    };
     return (
       <Grid container alignItems="center" justify="center">
         <Grid item lg={9} xs={12}>
           <Paper>
             <MetaActivityForm
               is_broadcast_enabled
-              imageUploader={id ? imageUploader : null}
               initial={{ ...initialData, images: (initial || {}).images || [] }}
               metaActivityNames={[]}
               onCancel={this.props.goToPreviousPage}
@@ -118,8 +111,6 @@ export default compose(
     {
       upsertWorkshopActivity: upsert,
       goToPreviousPage: goBack,
-      addImage: addImageToWorkshop,
-      removeImage: removeImageFromWorkshop,
       goToWorkshop: (id: number) =>
         routerPush(`/workshop-activity/${id}/general`),
       fetchMetaActivities: fetchMetaActivitiesAction,

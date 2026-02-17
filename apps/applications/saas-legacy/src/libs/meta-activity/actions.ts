@@ -11,7 +11,6 @@ import type {
 
 import { getFreshPureMetaActivityList } from './selectors';
 
-import { postAuth, deleteAuth } from '../../http';
 import {
   fetchMetaActivityDetails as fetchMetaActivityDetailsAPI,
   updateMetaActivity as updateMetaActivityAPI,
@@ -42,9 +41,6 @@ import {
 } from './types';
 
 import { PAGINATION_SIZE } from './constants';
-import Config from '../../config';
-
-const API_URI_BOOK = Config.REACT_APP_BASE_URI_BOOK_V0;
 
 export const metaActivityBulkActions = {
   isLoading: createAction('META_ACTIVITIES/BULK/IS_LOADING'),
@@ -333,63 +329,6 @@ export function fetchCompanyActivities(id: number): ThunkAction {
   };
 }
 
-export const addImage = {
-  isLoading: createAction('META_ACTIVITIES/ADD_IMAGE/IS_LOADING'),
-  error: createAction('META_ACTIVITIES/ADD_IMAGE/ERROR'),
-  success: createAction('META_ACTIVITIES/ADD_IMAGE/SUCCESS'),
-};
-
-export function addImageToMetaActivity(id: number, image: File): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(addImage.isLoading({ id, loading: true }));
-    dispatch(addImage.error(null));
-
-    try {
-      const data = new FormData();
-      data.append('image', image);
-
-      const response = await postAuth(
-        `${API_URI_BOOK}/meta-activities/${id}/images/`,
-        data,
-      );
-      dispatch(addImage.success({ id, image: response.data }));
-    } catch (error) {
-      console.error(error);
-      dispatch(addImage.error(error));
-      Sentry.captureException(error);
-    }
-    dispatch(addImage.isLoading({ id, loading: false }));
-  };
-}
-
-export const removeImage = {
-  isLoading: createAction('META_ACTIVITIES/REMOVE_IMAGE/IS_LOADING'),
-  error: createAction('META_ACTIVITIES/REMOVE_IMAGE/ERROR'),
-  success: createAction('META_ACTIVITIES/REMOVE_IMAGE/SUCCESS'),
-};
-
-export function removeImageFromMetaActivity(
-  id: number,
-  imageId: number,
-): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(removeImage.isLoading({ id, imageId, loading: true }));
-    dispatch(removeImage.error(null));
-
-    try {
-      await deleteAuth(
-        `${API_URI_BOOK}/meta-activities/${id}/images/${imageId}/`,
-      );
-      dispatch(removeImage.success({ id, imageId }));
-    } catch (error) {
-      console.error(error);
-      dispatch(removeImage.error(error));
-      Sentry.captureException(error);
-    }
-    dispatch(removeImage.isLoading({ id, imageId, loading: false }));
-  };
-}
-
 export const upsertActions = {
   isLoading: createAction('META_ACTIVITY/UPSERT/IS_LOADING'),
   error: createAction('META_ACTIVITY/UPSERT/ERROR'),
@@ -503,25 +442,6 @@ export function fetchWorkshopList(
       if (options && options.onError) options.onError(error);
     }
     dispatch(workshopListingActions.isLoading(false));
-  };
-}
-
-export function removeImageFromWorkshop(id: number, imageId: number) {
-  return async (dispatch: Dispatch) => {
-    dispatch(removeImage.isLoading({ id, imageId, loading: true }));
-    dispatch(removeImage.error(null));
-
-    try {
-      await deleteAuth(
-        `${API_URI_BOOK}/meta-activities/${id}/images/${imageId}/`,
-      );
-      dispatch(removeImage.success({ id, imageId }));
-    } catch (error) {
-      console.error(error);
-      dispatch(removeImage.error(error));
-      Sentry.captureException(error);
-    }
-    dispatch(removeImage.isLoading({ id, imageId, loading: false }));
   };
 }
 

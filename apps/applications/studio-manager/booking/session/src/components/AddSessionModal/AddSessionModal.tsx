@@ -186,7 +186,7 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
       analyticsTrackSafeEvent(sessionCreationCreateSessionButtonClickedEvent, {
         session_is_recurrent: isRecurring,
         session_recurrence_end_date: isRecurring
-          ? (configureSessionFormData.recurrenceEndDate?.toISOString() ?? null)
+          ? (configureSessionFormData.recurrenceEndDate?.toISO() ?? null)
           : null,
         session_recurrence_interval_selected: isRecurring
           ? recurrenceIntervalToTrack

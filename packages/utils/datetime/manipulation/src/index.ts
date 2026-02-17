@@ -1,8 +1,8 @@
-import { Info } from "luxon";
+import { Info, Zone } from "luxon";
 
 import { type DateTime, LuxonDateTime } from "./constants";
 
-export type { DateTime } from "./constants";
+export { type DateTime, LuxonDateTime } from "./constants";
 
 /**
  * Represents the starting day of the week.
@@ -72,7 +72,7 @@ export const getLocalNow = ({
   zone,
   locale,
 }: {
-  zone?: string;
+  zone?: string | Zone;
   locale?: string;
 }): DateTime =>
   LuxonDateTime.now()

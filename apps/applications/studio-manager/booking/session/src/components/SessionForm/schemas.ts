@@ -7,6 +7,7 @@ import {
 } from "@bsport/datetime-manipulation";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { TeacherSubstitutionPropagationMode } from "#src/constants";
 import {
   CustomRecurrenceUnit,
   MonthlyRecurrencePattern,
@@ -441,7 +442,9 @@ export const useSessionEditSchema = () => {
       custom_selection: z.boolean(),
       modifyAllDates: z.boolean(),
       notifyConsumers: z.boolean(),
-      propagate_coach_override_value: z.number(),
+      propagate_coach_override_value: z.nativeEnum(
+        TeacherSubstitutionPropagationMode,
+      ),
     })
     .refine(
       (data) =>

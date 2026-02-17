@@ -8,6 +8,7 @@ import type {
 } from "@bsport/api-book";
 
 import type { SessionEditFormData } from "#src/components/SessionForm/types";
+import { TeacherSubstitutionPropagationMode } from "#src/constants";
 import { generateRecurrenceDates } from "#src/helpers/recurrence";
 import type {
   SessionCreationFormAdvancedOptionsData,
@@ -163,7 +164,10 @@ export const useSessionPayload = () => {
       whitelist_tags: formData.whitelist_tags,
 
       // Edit-specific defaults
-      propagate_coach_override_value: 0,
+      propagate_coach_override_value:
+        editActions.modifyAllDates || editActions.custom_selection
+          ? TeacherSubstitutionPropagationMode.PROPAGATE_TO_ALL
+          : TeacherSubstitutionPropagationMode.NO_PROPAGATION,
       ...editActions,
     };
   };

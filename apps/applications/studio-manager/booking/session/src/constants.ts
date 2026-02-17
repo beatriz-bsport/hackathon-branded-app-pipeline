@@ -9,3 +9,9 @@ export const DEFAULT_COLUMNS = [
   Columns.SESSION_TYPE,
   Columns.ACTIONS,
 ];
+
+export enum TeacherSubstitutionPropagationMode {
+  NO_PROPAGATION = 0,
+  PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY = 1,
+  PROPAGATE_TO_ALL = 2,
+}

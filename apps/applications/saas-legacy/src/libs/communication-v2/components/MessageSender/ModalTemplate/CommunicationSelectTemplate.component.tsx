@@ -31,7 +31,7 @@ import {
 export type Props = {
   currentTitle: string;
   emailDetailList: Record<number, EmailTemplateDetail>;
-  selectedTemplate: number;
+  selectedTemplate?: number;
   elementContext: 'dialog' | 'body';
   fetchEmailSummaryList: () => void;
   updateCurrentTitle: (title: string) => void;
@@ -73,7 +73,7 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   );
 
   const onSelectTemplate = useCallback(
-    (eventValue: number) => {
+    (eventValue?: number) => {
       if (eventValue) {
         const params: FetchTemplateDetailsParams = {
           templateId: eventValue,
@@ -102,12 +102,14 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   }, []);
 
   const onEditClick = useCallback(() => {
+    if (!selectedTemplate) return;
     setDisplayRefreshAlert(true);
     const url = `/email-template/${selectedTemplate}/edit`;
     openNewBackOfficeWindow(url);
   }, [selectedTemplate]);
 
   const onRefreshClick = useCallback(() => {
+    if (!selectedTemplate) return;
     const params: FetchTemplateDetailsParams = {
       templateId: selectedTemplate,
     };
@@ -122,13 +124,22 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   );
 
   useEffect(() => {
+    if (selectedTemplate) {
+      fetchTemplateDetails({ templateId: selectedTemplate });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedTemplate]);
+
+  useEffect(() => {
     if (selectedTemplate && !loadingTemplateDetails) {
       setDisplayTemplatePreview(true);
     }
   }, [selectedTemplate, loadingTemplateDetails]);
 
   const html =
-    !loadingTemplateDetails && emailDetailList?.[selectedTemplate]?.html;
+    selectedTemplate &&
+    !loadingTemplateDetails &&
+    emailDetailList?.[selectedTemplate]?.html;
 
   return (
     <div className={classes.contentContainer}>

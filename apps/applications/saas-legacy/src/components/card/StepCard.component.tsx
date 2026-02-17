@@ -164,7 +164,7 @@ const StepCard: React.FC<StepCardProps> = ({
               customHoverBackgroundColor={actionListColor}
               informationText={actionListLabel}
             >
-              <IconButton color="inherit" size="small">
+              <IconButton color="inherit" disabled={disabled} size="small">
                 <AddCircleIcon fontSize="small" />
               </IconButton>
             </MenuSelectorCustomButton>

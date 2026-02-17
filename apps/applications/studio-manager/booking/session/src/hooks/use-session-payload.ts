@@ -61,14 +61,13 @@ export const useSessionPayload = () => {
         recurrenceWeekdays,
       });
 
-      // TODO: Refacto this to use Luxon throughout the app
       const generatedDates = recurrenceConfig
         ? generateRecurrenceDates(recurrenceConfig)
         : [startDateTime];
 
       const dates = (
         generatedDates?.length > 0 ? generatedDates : [startDateTime]
-      ).map((date) => Math.floor(date.getTime() / 1000)); // Convert to UNIX timestamp in seconds
+      ).map((dateTime) => Math.floor(dateTime.toSeconds())); // Convert to UNIX timestamp in seconds
 
       return {
         // Configure session step data
@@ -122,7 +121,7 @@ export const useSessionPayload = () => {
       meta_activity: session.meta_activity,
 
       // Date/time
-      date_start: formData.startDateTime.toISOString(),
+      date_start: formData.startDateTime.toISO()!,
       duration_minute: formData.duration_minute,
 
       // Details

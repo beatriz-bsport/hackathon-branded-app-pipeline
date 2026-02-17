@@ -277,12 +277,14 @@ export function getISOWeekday(date: DateTime, zone: string): WeekStartDay {
   return date.setZone(zone ?? date.zone).weekday as WeekStartDay;
 }
 
-export function getStartOf(
-  date: Date,
-  unit: "day" | "month" | "year" | "week",
-  zone?: string,
-): DateTime {
-  return toDateTime(date, zone).startOf(unit);
+export function getStartOf({
+  dateTime,
+  unit,
+}: {
+  dateTime: DateTime;
+  unit: "day" | "month" | "year" | "week";
+}): DateTime {
+  return dateTime.startOf(unit);
 }
 
 export * from "./converters";

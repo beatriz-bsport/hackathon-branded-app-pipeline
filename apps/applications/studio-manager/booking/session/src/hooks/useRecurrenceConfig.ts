@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { toDateTime } from "@bsport/datetime-manipulation";
+import { DateTime } from "@bsport/datetime-manipulation";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { getWeekdayPositionInMonth } from "#src/helpers/recurrence/custom/month.utils";
@@ -13,14 +13,14 @@ import {
 } from "#src/helpers/recurrence/types";
 
 export type RecurrenceInputs = {
-  startDateTime: Date;
+  startDateTime: DateTime;
   isRecurring: boolean;
   recurrenceType: RecurrenceType;
   recurrenceWeekdays: WeekdaySelection;
   recurrenceUnit: CustomRecurrenceUnit;
   recurrenceInterval: number;
   recurrencePattern: MonthlyRecurrencePattern;
-  recurrenceEndDate: Date | null;
+  recurrenceEndDate: DateTime | null;
 };
 
 /**
@@ -93,14 +93,13 @@ export const useRecurrenceConfig = () => {
           startDateTime,
           companyTimeZone,
         );
-        const startDT = toDateTime(startDateTime, companyTimeZone);
         return {
           ...baseConfig,
           type: RecurrenceType.CUSTOM,
           unit: CustomRecurrenceUnit.MONTHS,
           interval: recurrenceInterval,
           pattern: recurrencePattern,
-          dayOfMonth: startDT.day,
+          dayOfMonth: startDateTime.day,
           weekdayPosition,
         };
       }

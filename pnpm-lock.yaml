@@ -1382,6 +1382,9 @@ importers:
       '@bsport/store-buyables-giftcard':
         specifier: workspace:*
         version: link:../../../../../packages/stores/buyables/giftcard
+      '@bsport/store-cdp-tag':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/tag
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async

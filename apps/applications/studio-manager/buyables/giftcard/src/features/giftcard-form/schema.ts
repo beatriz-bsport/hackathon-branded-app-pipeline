@@ -2,12 +2,12 @@ import { z } from "zod";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { FIELD_CONSTRAINTS } from "./constants";
+import { FIELD_CONSTRAINTS, GIFTCARD_FORM_DATA_DEFAULT } from "./constants";
 import type { GiftcardFormSchema } from "./types";
 
 export const useGiftcardFormSchema = () => {
   const { t } = useTranslation("giftcard-details");
-  const requiredErrorMessage = t("formFields.genericErrors.fieldIsRequired");
+  const requiredErrorMessage = t("formFields.errors.fieldIsRequired");
 
   const priceInput = z
     .number({
@@ -71,9 +71,28 @@ export const useGiftcardFormSchema = () => {
     }),
   ]);
 
+  const paymentMethodsSchema = z.discriminatedUnion("manager_only", [
+    // Case 1: manager_only = false → available_payment_method_identifiers have at least 1 item
+    z.object({
+      manager_only: z.literal(false),
+      available_payment_method_identifiers: z
+        .array(z.coerce.number())
+        .min(1, t("formFields.errors.errorMissingPaymentMethod")),
+    }),
+
+    // Case 2: manager_only = true → available_payment_method_identifiers is defined to fallback
+    z.object({
+      manager_only: z.literal(true),
+      available_payment_method_identifiers: z
+        .array(z.coerce.number())
+        .transform(
+          () => GIFTCARD_FORM_DATA_DEFAULT.available_payment_method_identifiers,
+        ),
+    }),
+  ]);
+
   return z
     .object({
-      // Identity section
       name: z
         .string()
         .min(FIELD_CONSTRAINTS.TEXTFIELD_MIN_LENGTH, requiredErrorMessage)
@@ -87,7 +106,10 @@ export const useGiftcardFormSchema = () => {
         .string()
         .min(FIELD_CONSTRAINTS.TEXTFIELD_MIN_LENGTH, requiredErrorMessage),
       cover: z.instanceof(File).nullable(),
+      tags_on_consumer_item_creation: z.array(z.number()),
+      bookkeeping_account: z.number().nullable(),
     })
     .and(expirationDaysSchema)
-    .and(priceSchema) satisfies GiftcardFormSchema;
+    .and(priceSchema)
+    .and(paymentMethodsSchema) satisfies GiftcardFormSchema;
 };

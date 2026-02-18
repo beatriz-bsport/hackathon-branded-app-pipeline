@@ -26,6 +26,8 @@ export const FeatureFlags = {
     'audience_display_time_in_member_table',
   AUDIENCE_WORKFLOW_DUPLICATION: 'audience_workflow_duplication',
   AUDIENCE_ALLOW_CLICK_ON_MEMBER_TABLE: 'audience_allow_click_on_member_table',
+  LEAD_ACQUISITION_WIDGET_REQUIRE_RECAPTCHA:
+    'lead-acquisition-widget-require-recaptcha',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

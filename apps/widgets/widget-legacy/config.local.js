@@ -59,3 +59,7 @@ window.runtime.env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V0 =
   'http://localhost:8000/api-v0';
 window.runtime.env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1 =
   'http://localhost:8000/api/v1';
+window.runtime.env.REACT_APP_UNLEASH_PROXY_URL =
+  'http://localhost:4242/api/frontend';
+window.runtime.env.REACT_APP_UNLEASH_CLIENT_KEY =
+  'default:development.unleash-insecure-frontend-api-token';

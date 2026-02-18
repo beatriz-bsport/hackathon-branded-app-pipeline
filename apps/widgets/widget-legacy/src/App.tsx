@@ -11,6 +11,7 @@ import {
 } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import i18n from '@bsport/saas-legacy/src/i18n';
+import FeatureFlagsProvider from '@bsport/saas-legacy/src/utils/feature-flag/FeatureFlagsProvider';
 import {
   EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON,
   EXPORTABLE_COMPONENT_TYPE_VOD,
@@ -267,86 +268,90 @@ class BsportWidget extends Component<Props> {
       <div className={classes.container}>
         <WidgetTracker isBackofficePreview={isBackofficePreview} />
         <React.Suspense fallback={<CircularProgress />}>
-          <MuiThemeProvider
-            theme={
-              franchiseId
-                ? getFranchiseTheme({
-                    cover: franchisor.cover,
-                    primaryRGB: franchisor.primaryRGB,
-                    secondaryRGB: franchisor.secondaryRGB,
-                  })
-                : getTheme(this.props.theme)
-            }
-          >
-            <ApplyCustomTheme
-              styles={styles || this.props.theme.widget_theme}
-            />
-            {!!this.props.customConfiguration && (
-              <ApplyCustomCssStyles
-                customConfiguration={this.props.customConfiguration}
-                fromWidget
-              />
-            )}
-
-            <div
-              className={classNames(classes.widgetContainer, {
-                [classes.widgetContainerHidden]:
-                  shouldDisplayInPageInteractionPortal(
-                    dialogMode,
-                    allowNoPopup,
-                    this.props.dialog.url,
-                  ),
-              })}
+          <FeatureFlagsProvider>
+            <MuiThemeProvider
+              theme={
+                franchiseId
+                  ? getFranchiseTheme({
+                      cover: franchisor.cover,
+                      primaryRGB: franchisor.primaryRGB,
+                      secondaryRGB: franchisor.secondaryRGB,
+                    })
+                  : getTheme(this.props.theme)
+              }
             >
-              <Widget
-                key={`widget-${this.props.widgetRefreshKey}`}
-                companyId={companyId}
-                franchiseId={franchiseId}
-                config={config[widgetType] || {}}
-                store={store}
-                theme={theme}
-                onWindowOpen={this.onWindowOpen}
-                dialogMode={dialogMode}
-                parentElement={parentElement}
-                uniqueWidgetId={uniqueWidgetId}
-                usePostMessageIframeDimensions={usePostMessageIframeDimensions}
-                isBackofficePreview={isBackofficePreview}
+              <ApplyCustomTheme
+                styles={styles || this.props.theme.widget_theme}
               />
-            </div>
-            <UserInteractionPortal
-              url={this.props.dialog.url}
-              dialogMode={this.props.dialog.dialogMode}
-              onClose={this.props.closeUserInteractionPortal}
-              fullScreenPopup={this.props.fullScreenPopup}
-              allowNoPopup={allowNoPopup}
-              parentElementId={this.props.parentElement}
-              styles={styles || this.props.theme.widget_theme}
-              customConfiguration={this.props.customConfiguration}
-              usePostMessageIframeDimensions={usePostMessageIframeDimensions}
-              usePostMessageIfameScrollup={usePostMessageIfameScrollup}
-            />
-            {!!this.props.theme &&
-              !this.props.theme.is_premium &&
-              this.props.widgetType !==
-                EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON && (
-                <BsportLogo theme={this.props.theme} />
+              {!!this.props.customConfiguration && (
+                <ApplyCustomCssStyles
+                  customConfiguration={this.props.customConfiguration}
+                  fromWidget
+                />
               )}
-            <Snackbar theme={this.props.theme} />
-            <WidgetBridge
-              companyId={companyId}
-              companyName={this.props.theme.company_name}
-              isBackofficePreview={isBackofficePreview}
-              consumerSpaceContext={this.getConsumerSpaceContext()}
-            />
 
-            {this.props.showFab && !window.bsportModalUrlOpen && (
-              <FabWidget
+              <div
+                className={classNames(classes.widgetContainer, {
+                  [classes.widgetContainerHidden]:
+                    shouldDisplayInPageInteractionPortal(
+                      dialogMode,
+                      allowNoPopup,
+                      this.props.dialog.url,
+                    ),
+                })}
+              >
+                <Widget
+                  key={`widget-${this.props.widgetRefreshKey}`}
+                  companyId={companyId}
+                  franchiseId={franchiseId}
+                  config={config[widgetType] || {}}
+                  store={store}
+                  theme={theme}
+                  onWindowOpen={this.onWindowOpen}
+                  dialogMode={dialogMode}
+                  parentElement={parentElement}
+                  uniqueWidgetId={uniqueWidgetId}
+                  usePostMessageIframeDimensions={
+                    usePostMessageIframeDimensions
+                  }
+                  isBackofficePreview={isBackofficePreview}
+                />
+              </div>
+              <UserInteractionPortal
+                url={this.props.dialog.url}
+                dialogMode={this.props.dialog.dialogMode}
+                onClose={this.props.closeUserInteractionPortal}
+                fullScreenPopup={this.props.fullScreenPopup}
+                allowNoPopup={allowNoPopup}
+                parentElementId={this.props.parentElement}
+                styles={styles || this.props.theme.widget_theme}
+                customConfiguration={this.props.customConfiguration}
+                usePostMessageIframeDimensions={usePostMessageIframeDimensions}
+                usePostMessageIfameScrollup={usePostMessageIfameScrollup}
+              />
+              {!!this.props.theme &&
+                !this.props.theme.is_premium &&
+                this.props.widgetType !==
+                  EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON && (
+                  <BsportLogo theme={this.props.theme} />
+                )}
+              <Snackbar theme={this.props.theme} />
+              <WidgetBridge
                 companyId={companyId}
                 companyName={this.props.theme.company_name}
-                onWindowOpen={this.onWindowOpen}
+                isBackofficePreview={isBackofficePreview}
+                consumerSpaceContext={this.getConsumerSpaceContext()}
               />
-            )}
-          </MuiThemeProvider>
+
+              {this.props.showFab && !window.bsportModalUrlOpen && (
+                <FabWidget
+                  companyId={companyId}
+                  companyName={this.props.theme.company_name}
+                  onWindowOpen={this.onWindowOpen}
+                />
+              )}
+            </MuiThemeProvider>
+          </FeatureFlagsProvider>
         </React.Suspense>
       </div>
     );

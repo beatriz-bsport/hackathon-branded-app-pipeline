@@ -34,6 +34,7 @@
     "@bsport/sentry": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
+    "@bsport/sm-referral-program": "workspace:*",
     "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -99,10 +100,6 @@
       "sm-custom-form": {
         "devPort": 4302,
         "watchPath": "../cdp/custom-form/src/**/*"
-      },
-      "sm-referral-program": {
-        "devPort": 4303,
-        "watchPath": "../cdp/referral-program/src/**/*"
       },
       "sm-tag": {
         "devPort": 4304,

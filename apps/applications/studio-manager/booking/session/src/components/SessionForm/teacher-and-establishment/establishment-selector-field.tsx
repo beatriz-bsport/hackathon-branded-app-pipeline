@@ -75,7 +75,6 @@ export const EstablishmentSelectorField: FC<{
     >
       <Autocomplete
         items={groupedEstablishments}
-        clearOnSelect
         fullWidth
         textfieldProps={{
           id: `${fieldIdPrefix}-establishment-selector`,

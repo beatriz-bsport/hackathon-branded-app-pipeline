@@ -23,7 +23,13 @@ export const Header: FC<{
   session: SessionWithActivity;
   onOpenCancelSessionModal: () => void;
   onOpenDuplicateSessionModal: () => void;
-}> = ({ session, onOpenCancelSessionModal, onOpenDuplicateSessionModal }) => {
+  onOpenRestoreSessionModal: () => void;
+}> = ({
+  session,
+  onOpenCancelSessionModal,
+  onOpenDuplicateSessionModal,
+  onOpenRestoreSessionModal,
+}) => {
   const { t, i18n } = useTranslation("sessionDetails");
   const { getEditUrl, getIndexUrl } = useUrls();
   const locale = i18n?.language;
@@ -155,6 +161,7 @@ export const Header: FC<{
         <ShortcutActionsButton
           onOpenCancelSessionModal={onOpenCancelSessionModal}
           onOpenDuplicateSessionModal={onOpenDuplicateSessionModal}
+          onOpenRestoreSessionModal={onOpenRestoreSessionModal}
           session={session}
           key={key}
         />,

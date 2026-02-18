@@ -24,6 +24,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { VisibilitySelector } from "../SessionForm/Details/VisibilitySelector";
 import { CancelSessionModal } from "../SessionList/detail-actions/cancel-session-modal";
 import { DuplicateSessionModal } from "../SessionList/detail-actions/duplicate-session-modal";
+import { RestoreSessionModal } from "../SessionList/detail-actions/restore-session-modal";
 import DetailsForm from "./details-form";
 import { SaveSessionModal } from "./save-modal";
 import { SettingsSection } from "./settings-section";
@@ -44,6 +45,12 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
     isOpen: isDuplicateSessionModalOpen,
     close: onCloseDuplicateSessionModal,
     open: onOpenDuplicateSessionModal,
+  } = useModal();
+
+  const {
+    isOpen: isRestoreSessionModalOpen,
+    close: onCloseRestoreSessionModal,
+    open: onOpenRestoreSessionModal,
   } = useModal();
 
   const { detailsLayoutProps, toggleHasUnsavedChanges } = useDetailsLayout();
@@ -91,6 +98,7 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
             session={session}
             onOpenCancelSessionModal={onOpenCancelSessionModal}
             onOpenDuplicateSessionModal={onOpenDuplicateSessionModal}
+            onOpenRestoreSessionModal={onOpenRestoreSessionModal}
           />
           <DetailsLayout.Content className="max-w-none">
             <SettingsSection
@@ -145,6 +153,11 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
         session={session}
         isOpen={isCancelSessionModalOpen}
         onClose={onCloseCancelSessionModal}
+      />
+      <RestoreSessionModal
+        session={session}
+        isOpen={isRestoreSessionModalOpen}
+        onClose={onCloseRestoreSessionModal}
       />
     </>
   );

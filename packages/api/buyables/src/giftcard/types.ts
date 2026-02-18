@@ -101,3 +101,19 @@ export type UploadGiftcardImageParams = {
   signal: AbortSignal;
   onUploadProgress: (progressEvent: ProgressEvent) => void;
 };
+
+export type CreateGiftcardKeys = Pick<
+  Giftcard,
+  | "name"
+  | "description"
+  | "manager_only"
+  | "expiration_days"
+  | "bookkeeping_account"
+  | "cover"
+  | "available_payment_method_identifiers"
+  | "tags_on_consumer_item_creation"
+  | "price"
+  | "max_price"
+  | "min_price"
+  | "card_type"
+>;

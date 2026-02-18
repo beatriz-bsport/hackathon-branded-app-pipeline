@@ -8,6 +8,7 @@ export {
   restoreGiftcardImageAPI,
   archiveGiftcardImageAPI,
   uploadGiftcardImageAPI,
+  createGiftcardAPI,
 } from "./api";
 export {
   GIFTCARD_TYPES,
@@ -17,4 +18,5 @@ export {
   type FetchGiftcardsParams,
   type FetchGiftcardImagesParams,
   type UploadGiftcardImageParams,
+  type CreateGiftcardKeys,
 } from "./types";

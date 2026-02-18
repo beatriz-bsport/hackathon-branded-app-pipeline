@@ -15,7 +15,11 @@ import { GiftcardFormVisibilitySelector } from "#src/features/giftcard-form/comp
 import { GIFTCARD_FORM_DATA_DEFAULT } from "#src/features/giftcard-form/constants";
 import { useGiftcardFormSchema } from "#src/features/giftcard-form/schema";
 import type { GiftcardFormSchema } from "#src/features/giftcard-form/types";
+import { transformFormStateIntoAPIData } from "#src/features/giftcard-form/utils";
+import { LEGACY_ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+
+import { useCreateGiftcard } from "./use-create-giftcard";
 
 type GiftcardCreateModalProps = {
   isOpen: boolean;
@@ -31,6 +35,13 @@ export const GiftcardCreateModal: FC<GiftcardCreateModalProps> = ({
   const formId = `giftcard-form-create-${useId()}`;
 
   const giftcardFormSchema = useGiftcardFormSchema();
+
+  const { createGiftcard, isLoading } = useCreateGiftcard({
+    onSuccess: (value) => {
+      onClose();
+      window.location.assign(LEGACY_ROUTES.DETAILS(value.id));
+    },
+  });
 
   const methods = useFormController<GiftcardFormSchema>({
     mode: "onChange",
@@ -66,14 +77,22 @@ export const GiftcardCreateModal: FC<GiftcardCreateModalProps> = ({
         label: t("createModal.buttons.create"),
         type: "submit",
         form: formId,
-        disabled: !isValid || !isDirty || isSubmitting,
+        iconLeft: isLoading ? "loading" : undefined,
+        disabled: !isValid || !isDirty || isSubmitting || isLoading,
       }}
       cancelButton={{
         label: t("createModal.buttons.cancel"),
         onClick: closeModal,
       }}
     >
-      <ControlledForm id={formId} onSubmit={console.log} {...methods}>
+      <ControlledForm
+        id={formId}
+        onSubmit={(data) => {
+          const finalData = transformFormStateIntoAPIData(data);
+          createGiftcard(finalData);
+        }}
+        {...methods}
+      >
         <div className="flex flex-col gap-md w-full">
           <GiftcardFormCover formId={formId} methods={methods} />
 

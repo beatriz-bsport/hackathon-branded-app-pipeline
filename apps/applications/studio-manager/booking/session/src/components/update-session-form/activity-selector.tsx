@@ -89,7 +89,6 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
       >
         <Autocomplete
           fullWidth
-          clearOnSelect
           searchMode="remote"
           popoverPlacement="bottom-right"
           defaultSelectedIds={activity ? [activity.toString()] : []}

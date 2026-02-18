@@ -87,7 +87,6 @@ export const RoomBlueprintSelectorField: FC<{
     >
       <Autocomplete
         items={roomBlueprintsItems}
-        clearOnSelect
         textfieldProps={{
           id: `${fieldIdPrefix}-room-blueprint-selector`,
           label: t(

@@ -78,7 +78,6 @@ export const TeacherPaymentRuleSelectorField: FC<{
       })}
     >
       <Autocomplete
-        clearOnSelect
         items={paymentRuleItems}
         textfieldProps={{
           id: `${fieldIdPrefix}-payment-rule-selector`,

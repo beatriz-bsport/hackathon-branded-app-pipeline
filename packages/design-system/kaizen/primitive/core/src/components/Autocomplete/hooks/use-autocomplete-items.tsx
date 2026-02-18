@@ -114,33 +114,24 @@ function filterGroupItems({
   items: GroupItems[];
   selectedItemsIds: Set<string>;
 }): GroupItems[] {
-  const groupsWithFilteredOptions = items.map((groupOption) => {
-    return {
-      title: groupOption.title,
-      options: filterFlatItems({
-        hideSelectedItemsInBase,
-        input,
-        isLocalSearch,
-        selectedItemsIds,
-        items: groupOption.options,
-      }),
-    };
-  });
+  return items
+    .map((groupOption) => {
+      const titleMatchesSearch =
+        isLocalSearch &&
+        areStringsMatching({ label: groupOption.title, input });
 
-  const filteredGroups = groupsWithFilteredOptions.filter((group) => {
-    if (group.options.length > 0) {
-      return true;
-    }
-
-    const titleMatchesSearch = areStringsMatching({
-      label: group.title,
-      input,
-    });
-
-    return isLocalSearch && titleMatchesSearch;
-  });
-
-  return filteredGroups;
+      return {
+        title: groupOption.title,
+        options: filterFlatItems({
+          hideSelectedItemsInBase,
+          input: titleMatchesSearch ? "" : input,
+          isLocalSearch,
+          selectedItemsIds,
+          items: groupOption.options,
+        }),
+      };
+    })
+    .filter((group) => group.options.length > 0);
 }
 
 /**

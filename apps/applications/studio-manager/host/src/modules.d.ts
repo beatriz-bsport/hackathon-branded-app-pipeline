@@ -91,11 +91,6 @@ declare module "sm-custom-form/App" {
   export default App;
 }
 
-declare module "sm-referral-program/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
 declare module "sm-tag/App" {
   const App: BaseApp["App"];
   export default App;

@@ -29,7 +29,6 @@
   "dependencies": {
     "@bsport/api-book": "workspace:*",
     "@bsport/api-core": "workspace:*",
-    "@bsport/fetch": "workspace:*",
     "@bsport/permissions": "workspace:*",
     "@bsport/store-booking-appointment": "workspace:*",
     "@bsport/store-booking-group-activity": "workspace:*",
@@ -59,6 +58,7 @@
   "peerDependencies": {
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",

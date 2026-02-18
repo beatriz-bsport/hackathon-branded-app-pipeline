@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build:spa": "vite build",
+    "ci:deploy": "./scripts/ci-deploy.sh",
     "dev:spa": "vite",
     "dev:spa:local": "VITE_STAGE=local vite",
     "preview:spa": "vite preview",

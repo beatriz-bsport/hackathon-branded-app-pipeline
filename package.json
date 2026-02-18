@@ -117,7 +117,7 @@
     "type-fest": "^4.26.1",
     "typescript": "^5.6.3",
     "vite": "^5.4.11",
-    "vite-plugin-dts": "^4.5.3",
+    "vite-plugin-dts": "^4.5.4",
     "vite-plugin-restart": "^0.4.2",
     "vite-plugin-svgr": "^4.3.0",
     "vitest": "^3.2.4"

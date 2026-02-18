@@ -307,7 +307,7 @@ const NewsletterFormV2: React.FC<Props> = React.memo(
                           }}
                           onErrored={() => setIsCaptchaValidated(false)}
                           onExpired={() => setIsCaptchaValidated(false)}
-                          sitekey={`${Config.REACT_APP_RECAPTCHA_V2}`}
+                          sitekey={Config.REACT_APP_RECAPTCHA_V2}
                         />
                       )}
 

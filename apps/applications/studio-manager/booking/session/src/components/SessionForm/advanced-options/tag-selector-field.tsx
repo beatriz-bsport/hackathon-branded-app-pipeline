@@ -56,7 +56,8 @@ export const TagSelectorField: FC<TagSelectorProps> = ({ id, label, name }) => {
         AutocompleteProps
       >
         name={name}
-        mapProps={({ form: { setValue } }) => ({
+        mapProps={({ form: { setValue, formState } }) => ({
+          defaultSelectedIds: formState.defaultValues?.[name]?.map(String),
           onSelect: (values: string[]) => {
             setValue(
               name,

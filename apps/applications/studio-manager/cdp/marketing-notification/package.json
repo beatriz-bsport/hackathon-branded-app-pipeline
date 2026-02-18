@@ -5,8 +5,17 @@
   "description": "Studio Manager Marketing Notification App",
   "author": "Théo Steffanetti <theo.steffanetti@bsport.io>",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/lib.es.d.ts",
+      "import": "./build/lib.es.js"
+    }
+  },
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.es.d.ts",
   "scripts": {
-    "build": "tsc -b && vite build --logLevel warn",
+    "build": "tsc -b && vite build --mode production --logLevel warn",
     "build:preview": "vite build --mode preview",
     "ci:compile": "tsc -b",
     "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
@@ -20,24 +29,6 @@
   "dependencies": {
     "@bsport/api-book": "workspace:*",
     "@bsport/api-core": "workspace:*",
-    "@bsport/fetch": "workspace:*",
-    "@bsport/form": "workspace:*",
-    "@bsport/i18n": "workspace:*",
-    "@bsport/kaizen-primitive-core": "workspace:*",
-    "@bsport/sm-backbone": "workspace:*",
-    "dompurify": "^3.2.6",
-    "luxon": "^3.4.4",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-router": "^7.2.0",
-    "typescript-result": "^3.1.1",
-    "zod": "^3.25.64"
-  },
-  "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*",
-    "@bsport/config-federation": "workspace:*",
-    "@bsport/currency": "workspace:*",
-    "@bsport/datetime-formatting": "workspace:*",
     "@bsport/permissions": "workspace:*",
     "@bsport/store-booking-appointment": "workspace:*",
     "@bsport/store-booking-group-activity": "workspace:*",
@@ -52,11 +43,31 @@
     "@bsport/store-core-data-establishment": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
+    "dompurify": "^3.2.6",
+    "typescript-result": "^3.1.1"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-federation": "workspace:*",
     "@types/luxon": "^3.4.2",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.11"
+  },
+  "peerDependencies": {
+    "@bsport/currency": "workspace:*",
+    "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/fetch": "workspace:*",
+    "@bsport/form": "workspace:*",
+    "@bsport/i18n": "workspace:*",
+    "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/sm-backbone": "workspace:*",
+    "luxon": "^3.4.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router": "^7.2.0",
+    "zod": "^3.25.64"
   },
   "federation": {
     "devPort": 4306,
@@ -72,7 +83,6 @@
   },
   "nx": {
     "tags": [
-      "application:revamp",
       "scope:studio"
     ]
   }

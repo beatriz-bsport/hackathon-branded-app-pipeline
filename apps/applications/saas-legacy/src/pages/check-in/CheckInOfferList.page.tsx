@@ -191,17 +191,17 @@ export class CheckInOfferListPage extends React.Component<Props, State> {
     this.props.lockCheckInFilter();
   };
 
-  establishmentList =
-    this.props.establishments?.length === 0 &&
-    isLocalStorageEstablishementListValid()
-      ? getLocalStorageEstablishementList()
-      : this.props.establishments;
-
   render() {
+    const establishmentList =
+      this.props.establishments?.length === 0 &&
+      isLocalStorageEstablishementListValid()
+        ? getLocalStorageEstablishementList()
+        : this.props.establishments;
+
     return (
       <div className={this.props.classes.container}>
         <CheckInOfferList
-          establishments={this.establishmentList}
+          establishments={establishmentList}
           isCheckInFilterLocked={this.props.isCheckInFilterLocked}
           minutesToConvert={this.props.totalCheckInCutOffMinutes}
           offerFilters={this.props.offerFilters}

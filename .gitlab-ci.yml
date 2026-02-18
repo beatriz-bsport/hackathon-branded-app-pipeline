@@ -34,7 +34,6 @@ include:
     file: "/includes/ci.yaml"
   - local: "/tools/ci/common.yml"
   - local: "/tools/ci/validate-mr-title.yml"
-  - local: "/tools/ci/deploy-widget-test-site.yml"
   - local: "/tools/ci/merge-request-open.yml"
   - local: "/tools/ci/analyze.yml"
   - local: "/tools/ci/deploy-feature-branch.yml"

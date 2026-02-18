@@ -5,8 +5,6 @@ import uniq from 'lodash/uniq';
 import {
   metaActivityListActions,
   metaActivityDetailActions,
-  removeImage,
-  addImage,
   upsertActions,
   deleteAction,
   listingActions,
@@ -157,20 +155,6 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
     },
     [metaActivityBulkActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
-    },
-    [addImage.success.toString()]: (state, { payload }) => {
-      const { image } = payload.image;
-      const { images } = state.byId[payload.id];
-      return state.setIn(
-        ['byId', payload.id, 'images'],
-        [image].concat(images),
-      );
-    },
-    [removeImage.success.toString()]: (state, { payload }) => {
-      const images = state.byId[payload.id].images.filter(
-        (i) => i.id !== payload.imageId,
-      );
-      return state.setIn(['byId', payload.id, 'images'], images);
     },
     [upsertActions.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['upsert', 'loading'], payload);

@@ -1,7 +1,9 @@
 import type { ReactElement } from "react";
 
-import { type FieldPath, type FieldValues, FormField } from "@bsport/form";
+import { type FieldValues, FormField } from "@bsport/form";
 import {
+  Alert,
+  Body,
   CheckboxGroup,
   type CheckboxGroupProps,
 } from "@bsport/kaizen-primitive-core";
@@ -11,13 +13,9 @@ import {
   useTranslation,
   withKaizenBusinessI18n,
 } from "#src/i18n";
+import type { NumberListFieldPath } from "#src/utils/form-types";
 
 import { PAYMENT_METHOD_IDENTIFIERS } from "./constants";
-
-// Enforce the selected name to be within the FieldValues and to resolve to a field of number array
-type NumberListFieldPath<T extends FieldValues> = {
-  [K in FieldPath<T>]: T[K] extends number[] ? K : never;
-}[FieldPath<T>];
 
 type PaymentMethodsFormProps<
   TFormValues extends FieldValues,
@@ -26,7 +24,16 @@ type PaymentMethodsFormProps<
 > = {
   id: string;
   fieldName: TFieldName;
-} & Partial<CheckboxGroupProps>;
+} & Partial<CheckboxGroupProps> &
+  (
+    | {
+        /** Whether the buyable is hidden, in order to display an internal status */
+        isHidden: true;
+        /** Name of the buyable (plural preference) to display in the hidden alert */
+        buyableName: string;
+      }
+    | { isHidden: false; buyableName?: string }
+  );
 
 const PaymentMethodsFormInner = <
   TFormValues extends FieldValues,
@@ -35,10 +42,27 @@ const PaymentMethodsFormInner = <
 >({
   id,
   fieldName,
+  label,
+  helperText,
+  isHidden,
+  buyableName,
   ...additionalProps
 }: PaymentMethodsFormProps<TFormValues, TFieldName>): ReactElement => {
   const i18n = useKaizenI18nInstance();
   const { t } = useTranslation("buyables", { i18n });
+
+  if (isHidden) {
+    return (
+      <div>
+        <Body htmlVariant="p" size="md">
+          {t("paymentMethods.label")}
+        </Body>
+        <Alert status="info">
+          {t("paymentMethods.alertVisibilityHidden", { buyable: buyableName })}
+        </Alert>
+      </div>
+    );
+  }
 
   return (
     <FormField<TFormValues, TFieldName, CheckboxGroupProps>
@@ -78,7 +102,8 @@ const PaymentMethodsFormInner = <
     >
       <CheckboxGroup
         id={id}
-        label={t("paymentMethods.label")}
+        label={label ?? t("paymentMethods.label")}
+        helperText={helperText ?? t("paymentMethods.helperText")}
         options={[
           {
             id: String(PAYMENT_METHOD_IDENTIFIERS.ONLINE_PAYMENTS_ID),

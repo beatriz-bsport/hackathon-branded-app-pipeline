@@ -134,8 +134,8 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
           <MUITableCell
             className={
               isHistoric
-                ? classes.historicRestrictedRowWidth
-                : classes.currentRestrictedRowWidth
+                ? classes.historicMemberColumn
+                : classes.currentMemberColumn
             }
           >
             <Typography className={classes.headerWeight} variant="subtitle1">
@@ -143,10 +143,7 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
             </Typography>
           </MUITableCell>
           {!isHistoric && (
-            <MUITableCell
-              align="left"
-              className={classes.currentRestrictedRowWidth}
-            >
+            <MUITableCell align="left">
               <Typography className={classes.headerWeight} variant="subtitle1">
                 {t('audience.memberTable.tableColumnLabel.currentStep')}
               </Typography>
@@ -272,10 +269,10 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
-  currentRestrictedRowWidth: {
+  currentMemberColumn: {
     width: '40%',
   },
-  historicRestrictedRowWidth: {
+  historicMemberColumn: {
     width: '35%',
   },
   statusColumn: {

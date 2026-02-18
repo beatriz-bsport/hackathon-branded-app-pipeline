@@ -135,7 +135,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       </div>
       {!data.isFirstConfigurationMode && (
         <Handle
-          isConnectable
+          isConnectable={!data.disabled}
           onConnect={handleConnectStepWithLink}
           position={Position.Right}
           style={RIGHT_HANDLE_STYLE}

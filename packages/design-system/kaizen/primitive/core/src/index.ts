@@ -8,6 +8,7 @@ export {
   default as Autocomplete,
   type AutocompleteProps,
   type AutocompleteItems,
+  type MenuOptionWithColor,
 } from "./components/Autocomplete";
 export { default as Avatar, type AvatarProps } from "./components/Avatar";
 export {

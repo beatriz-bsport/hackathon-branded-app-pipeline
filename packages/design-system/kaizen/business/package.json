@@ -43,6 +43,7 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-core": "workspace:*",
     "clsx": "^2.1.1"
   },
   "devDependencies": {

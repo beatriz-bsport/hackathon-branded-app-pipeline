@@ -42,9 +42,7 @@ import {
   useWebshopStore,
 } from "@bsport/store-buyables-webshop";
 import {
-  selectTagGroupMappedByTagId,
   selectTagGroups,
-  selectTagMappedByTagId,
   selectTags,
   useTagStore,
 } from "@bsport/store-cdp-tag";
@@ -124,9 +122,7 @@ export const useCategoriesCount = () => {
 export const useTags = () => {
   const tags = useTagStore(selectTags);
   const tagGroups = useTagStore(selectTagGroups);
-  const tagIdToTagMap = useTagStore(selectTagMappedByTagId);
-  const tagIdToTagGroup = useTagStore(selectTagGroupMappedByTagId);
-  return { tags, tagGroups, tagIdToTagMap, tagIdToTagGroup };
+  return { tags, tagGroups };
 };
 
 export { AppointmentPass, Pass, WebshopItem };

@@ -77,6 +77,7 @@ export const EstablishmentSelectorField: FC<{
         items={groupedEstablishments}
         clearOnSelect
         fullWidth
+        showSelectedItemsInBase
         textfieldProps={{
           id: `${fieldIdPrefix}-establishment-selector`,
           label: t(

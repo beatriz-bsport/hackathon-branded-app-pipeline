@@ -68,6 +68,7 @@ export const TagSelectorField: FC<TagSelectorProps> = ({ id, label, name }) => {
       >
         <Autocomplete
           key={id}
+          showSelectedItemsInBase
           className="w-full max-w-component-select"
           fullWidth
           multiSelect

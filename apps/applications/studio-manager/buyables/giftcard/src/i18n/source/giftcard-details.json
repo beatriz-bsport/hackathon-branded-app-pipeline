@@ -8,6 +8,10 @@
     "buttons": {
       "cancel": "Close",
       "create": "Create"
+    },
+    "submitResponse": {
+      "error": "Couldn't create Gift Card. Please try again.",
+      "success": "Successfully created Gift Card."
     }
   },
   "formFields": {

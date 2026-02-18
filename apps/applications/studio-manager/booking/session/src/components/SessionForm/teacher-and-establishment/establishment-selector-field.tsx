@@ -76,6 +76,7 @@ export const EstablishmentSelectorField: FC<{
       <Autocomplete
         items={groupedEstablishments}
         fullWidth
+        showSelectedItemsInBase
         textfieldProps={{
           id: `${fieldIdPrefix}-establishment-selector`,
           label: t(

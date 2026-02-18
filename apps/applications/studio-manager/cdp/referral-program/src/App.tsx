@@ -12,7 +12,7 @@ import "./index.css";
  */
 const App: React.FC = () => {
   return (
-    <ErrorBoundaryWrapper appName="sm-referral-program">
+    <ErrorBoundaryWrapper appName={__REFERRAL_PROGRAM__.__SENTRY_SCOPE_TAG__}>
       <AppI18nextProvider>
         <AppRoutes />
       </AppI18nextProvider>

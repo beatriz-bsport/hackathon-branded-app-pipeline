@@ -197,11 +197,11 @@ export type BillingFlowItem = InvoiceItemBase &
  * Form data for billing flow
  */
 export type BillingFlowFormData = {
-  member: Member | null;
+  member: { id: number } | null;
   items: BillingFlowItem[];
   promoCodes: string[];
   footnote: string | null;
-  date: Date;
+  date: string;
   passActivationDate: Date;
   establishmentBillingGroupId: number | null;
 };
@@ -211,9 +211,10 @@ export type BillingFlowFormData = {
  */
 export type BillingFlowModalProps = {
   isOpen: boolean;
-  onClose: () => void;
-  onSubmit: (data: BillingFlowFormData) => void | Promise<void>;
   memberId?: number;
+  onClose?: () => void;
+  onError?: (error: Error) => void;
+  onSubmit?: (data: BillingFlowFormData, invoiceUuid: string) => void;
 };
 
 /** Delivery format for giftcard (PDF or email). */

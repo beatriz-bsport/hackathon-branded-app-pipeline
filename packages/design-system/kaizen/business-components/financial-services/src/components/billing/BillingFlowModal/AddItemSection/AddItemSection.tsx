@@ -10,6 +10,7 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
+import { useAddItemSection } from "#src/components/billing/BillingFlowModal/hooks/use-add-item-section";
 import type { BillingFlowFormState } from "#src/components/billing/BillingFlowModal/schema";
 import {
   getSearchItemType,
@@ -25,7 +26,6 @@ import { ItemAutocompleteField } from "./ItemAutocompleteField";
 import { ItemTypeSelectorField } from "./ItemTypeSelectorField";
 import { PriceField } from "./PriceField";
 import { QuantityField } from "./QuantityField";
-import { useAddItemSection } from "./useAddItemSection";
 
 // Note: Currently routes to legacy backoffice (causes page reload).
 const LEGACY_URL_SUBSCRIPTION = "/subscriptions";

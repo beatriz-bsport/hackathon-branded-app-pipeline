@@ -18,15 +18,17 @@ import {
   DEFAULT_FORM_DATA,
   GIFTCARD_FIELDS_DEFAULT,
 } from "./defaults";
+import { useCreateInvoice } from "./hooks/use-create-invoice";
 import { useInvoiceConfiguration } from "./hooks/use-invoice-configuration";
 import { billingFlowFormStateSchema } from "./schema";
-import type { BillingFlowFormData, BillingFlowModalProps } from "./types";
+import type { BillingFlowModalProps } from "./types";
 
 const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   isOpen,
-  onClose,
-  onSubmit,
   memberId,
+  onClose,
+  onError,
+  onSubmit,
 }: BillingFlowModalProps) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
@@ -45,8 +47,23 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
     },
   });
 
-  const { formState, setValue } = methods;
-  const { isDirty, isSubmitting, isValid } = formState;
+  const { formState, setValue, watch } = methods;
+  const { isDirty, isSubmitting, isValid, errors } = formState;
+  const items = watch("items") ?? [];
+
+  // Errors related to promo codes do not prevent invoice creation;
+  // users can proceed even if an invalid promo code is applied.
+  const hasOnlyPromoCodeError =
+    !isValid && Object.keys(errors).length === 1 && "promoCodes" in errors;
+  const isConfirmDisabled =
+    !isDirty ||
+    isSubmitting ||
+    items.length === 0 ||
+    (!isValid && !hasOnlyPromoCodeError);
+
+  const { mutateAsync } = useCreateInvoice({ onError, onSubmit });
+  const handleFormSubmit = () =>
+    mutateAsync(methods.getValues()).catch((error) => onError?.(error));
 
   const handleFetchMember = async (id: number) => {
     return getMembers(fetch, { memberId: id });
@@ -91,7 +108,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
       member: fetchedMember ?? null,
     });
     setIsMemberSelectorOpen(false);
-    onClose();
+    onClose?.();
   };
 
   const handleMemberSelect = (selectedMember: Member) => {
@@ -126,7 +143,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
           label: t("billingFlowModal.title"),
           type: "submit",
           form: formId,
-          disabled: !isDirty || isSubmitting || !isValid,
+          disabled: isConfirmDisabled,
         }}
         cancelButton={{
           label: t("billingFlowModal.cancel"),
@@ -135,7 +152,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
       >
         <ControlledForm
           {...methods}
-          onSubmit={(data) => onSubmit(data as BillingFlowFormData)}
+          onSubmit={handleFormSubmit}
           id={formId}
           className="flex flex-col h-full gap-lg"
         >

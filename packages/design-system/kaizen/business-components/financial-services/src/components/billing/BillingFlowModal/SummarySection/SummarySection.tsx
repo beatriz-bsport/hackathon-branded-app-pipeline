@@ -131,7 +131,11 @@ export const SummarySection: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col flex-1 gap-md max-h-[550px]">
+    // To fit the section in the modal and avoid scrolling, we need to subtract the height of the header and footer from the modal height.
+    <div
+      className="flex flex-col flex-1 gap-md max-h-[calc(90vh-var(--header-footer-size))]"
+      style={{ "--header-footer-size": "248px" }}
+    >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-xs">
           <Title htmlVariant="h4" color="default" weight="strong">
@@ -148,7 +152,7 @@ export const SummarySection: React.FC = () => {
             <Button
               intent="flat"
               color="main"
-              size="md"
+              size="sm"
               label={t("billingFlowModal.addFootnote")}
               onClick={() => setIsFootnoteModalOpen(true)}
             />
@@ -258,7 +262,6 @@ export const SummarySection: React.FC = () => {
                   id={`billing-group-${billingGroupSelectId}`}
                   fullWidth
                   label={t("billingFlowModal.billingGroup")}
-                  placeholder={t("billingFlowModal.billingGroup")}
                   items={establishmentBillingGroups.map((bg) => ({
                     id: String(bg.id),
                     label: bg.name,

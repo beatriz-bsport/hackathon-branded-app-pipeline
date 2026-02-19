@@ -37,6 +37,7 @@ import {
   type WithAuthor,
 } from '#src/libs/invoice/types';
 import { formatAsDatetimeAdapted } from '#src/utils/datetime';
+import { InvoiceStatusEnum } from '#src/libs/invoice/types';
 
 type Props = {
   editEstablishmentBillingGroupIsLoading: boolean;
@@ -158,7 +159,11 @@ export const InvoiceHeader = (props: Props) => {
     invoiceHeaderType = 'titleRevert';
   } else if (invoice.invoice_type === INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER) {
     invoiceHeaderType = 'titleReceipt';
-  } else if (invoice.reverse_invoices && !!invoice.reverse_invoices.length) {
+  } else if (
+    [InvoiceStatusEnum.VOIDED, InvoiceStatusEnum.REFUNDED].includes(
+      invoice.status,
+    )
+  ) {
     invoiceHeaderType = 'titleReverted';
   }
 

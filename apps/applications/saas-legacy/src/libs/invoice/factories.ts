@@ -5,6 +5,7 @@ import { PaymentEngine, PaymentItem } from '#src/libs/invoice/payment/types';
 import { PaymentMethodsChoices } from '#src/libs/invoice/payment/constants';
 import { ExportInvoiceErrorCode, ExportInvoiceStatus } from './constants';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
+import { InvoiceStatusEnum } from './types';
 
 /**
  * Generates an invoice with Faker. You can use the options parameter to alter properties of the returned object.
@@ -35,6 +36,7 @@ export function invoiceFactory(options?: Partial<Invoice>): Invoice {
     invoice_items: options?.invoice_items ?? [],
     invoice_legal_identifier: options?.invoice_legal_identifier ?? null,
     invoice_type: options?.invoice_type ?? InvoiceType.REGULAR,
+    status: options?.status ?? InvoiceStatusEnum.OPEN,
     is_draft: options?.is_draft ?? false,
     is_finalized: options?.is_finalized ?? false,
     is_member_pos: options?.is_member_pos ?? false,

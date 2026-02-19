@@ -122,6 +122,7 @@ export type Invoice<M = number, PI = number, II = number> = {
   quickbooks_status: number;
   is_quick_invoice: boolean | null;
   invoice_type: InvoiceType;
+  status: InvoiceStatusEnum;
   reverse_invoices: Array<string>;
   revert_reason: string | null;
   is_v2: boolean;

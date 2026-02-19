@@ -134,7 +134,10 @@ const PaymentActions: FC<{
   }
 
   const shouldPaymentPanelActionsBeDisplayed =
-    !props.is_reverse && !props.invoice.reverse_invoices?.length;
+    !props.is_reverse &&
+    ![InvoiceStatusEnum.VOIDED, InvoiceStatusEnum.REFUNDED].includes(
+      props.invoice.status,
+    );
 
   return (
     <React.Fragment>
@@ -542,7 +545,10 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               <Typography
                 color={amountToPayCts > 0 ? 'error' : 'primary'}
                 style={
-                  props.invoice.reverse_invoices.length
+                  [
+                    InvoiceStatusEnum.VOIDED,
+                    InvoiceStatusEnum.REFUNDED,
+                  ].includes(props.invoice.status)
                     ? {
                         textDecoration: 'line-through',
                       }

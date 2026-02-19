@@ -30,6 +30,7 @@ import RedButton from '#src/components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PlannedPaymentEvent, Invoice } from '../types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import { InvoiceStatusEnum } from '#src/libs/invoice/types';
 
 type Props = {
   invoice: Invoice;
@@ -239,9 +240,9 @@ export const PlannedPaymentEventListItem = (props: Props) => {
             props.plannedPaymentEvent.status ===
               PLANNED_PAYMENT_EVENT_STATUS_CANCELED
           ) &&
-            (!props.invoice.reverse_invoices ||
-              // @ts-expect-error
-              !props.reverse_invoices?.length) &&
+            ![InvoiceStatusEnum.REFUNDED, InvoiceStatusEnum.VOIDED].includes(
+              props.invoice.status,
+            ) &&
             !props.invoice.reverted && (
               // @ts-expect-error
               <IconButton onClick={(ev) => setMenuAnchorEl(ev.currentTarget)}>

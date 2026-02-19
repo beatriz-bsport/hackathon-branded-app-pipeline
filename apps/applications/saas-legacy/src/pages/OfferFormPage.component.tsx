@@ -52,6 +52,8 @@ import {
   getEnabledMetaActivities,
   getEnabledWorkshops,
 } from '../libs/meta-activity/selectors';
+import { getTheme } from '#src/libs/theme/selectors';
+import { REVAMPED_CALENDAR_URL } from '#src/revamp';
 
 type OwnProps = {
   goBack: () => void;
@@ -85,6 +87,15 @@ export class OfferFormPage extends Component<Props, {}> {
     });
   };
 
+  navigateToCalendar = () => {
+    if (this.props.revampedBackofficeEnabled) {
+      // No better way to navigate to the revamp for now
+      window.location.assign(REVAMPED_CALENDAR_URL);
+    } else {
+      this.props.push('/calendar');
+    }
+  };
+
   createOffers = async (data: OfferCreate) => {
     this.props.createOffers(
       {
@@ -94,7 +105,7 @@ export class OfferFormPage extends Component<Props, {}> {
       {
         onSuccess: () => {
           this.props.fetchAllOffers();
-          this.props.push('/calendar');
+          this.navigateToCalendar();
         },
       },
     );
@@ -162,6 +173,9 @@ const styles = () =>
 
 const connector = connect(
   (state: RootState) => ({
+    revampedBackofficeEnabled:
+      getTheme(state)?.revamped_backoffice_enabled &&
+      state.auth?.has_enabled_revamped_backoffice,
     processing: state.offer.create.loading,
     error: state.offer.create.error,
     metaActivities: [

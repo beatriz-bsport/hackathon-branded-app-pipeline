@@ -89,6 +89,14 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
 
   if (!replacementRequest) return null;
 
+  const coachAuthor =
+    replacementRequest.coach_author &&
+    typeof replacementRequest.coach_author === 'object'
+      ? replacementRequest.coach_author
+      : null;
+  const coachAuthorName =
+    coachAuthor?.name || replacementRequest.offer.coach?.name || '';
+
   if (success)
     return (
       <GenericResponsiveDialog maxWidth="sm" open={open}>
@@ -130,7 +138,7 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
         <Typography className={classes.confirmAndSuccess} variant="body1">
           {t('coachAnswers.confirmation.description', {
             coach_override: selectedCoachAnswer.coach.name,
-            coach: replacementRequest.offer.coach.name,
+            coach: coachAuthorName,
           })}
         </Typography>
         <div className={classes.buttonContainer}>
@@ -189,9 +197,9 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
         <Typography>{replacementRequest.offer.establishment?.title}</Typography>
       </div>
       <div className={classes.flexRow}>
-        <CoachAvatar coach={replacementRequest.offer.coach} />
+        <CoachAvatar coach={coachAuthor || replacementRequest.offer.coach} />
         <Typography className={classes.grey} variant="body2">
-          {replacementRequest.offer.coach.name}
+          {coachAuthorName}
         </Typography>
       </div>
 

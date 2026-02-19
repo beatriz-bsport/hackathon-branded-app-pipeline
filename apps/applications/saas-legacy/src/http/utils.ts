@@ -129,6 +129,11 @@ export function getAuthToken() {
   );
 }
 
+export function getAuthTokenValue(): string | null {
+  const token = getAuthToken();
+  return token !== 'null' ? token : null;
+}
+
 export function getAccessControlBroadcastsChannelId() {
   return getItemInStorage('local', 'bsport:accm-channel:id');
 }

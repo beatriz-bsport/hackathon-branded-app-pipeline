@@ -93,11 +93,13 @@ export const GIFTCARD_FIELDS_DEFAULT: GiftcardFieldsDefault = {
  * Default form values
  */
 export const DEFAULT_FORM_DATA: z.infer<typeof billingFlowFormDataSchema> = {
-  memberId: undefined,
+  member: null,
   items: [],
   promoCodes: [],
   footnote: null,
   date: getTodayJSDate(),
+  passActivationDate: getTodayJSDate(),
+  establishmentBillingGroupId: null,
 };
 
 /**

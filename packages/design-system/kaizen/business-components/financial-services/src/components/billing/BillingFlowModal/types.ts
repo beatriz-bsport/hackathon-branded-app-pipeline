@@ -95,6 +95,7 @@ export type Member = {
   membership_id: string | null;
   phone: string | null;
   company: number;
+  default_establishment_billing_group?: number | null;
 };
 
 /**
@@ -175,6 +176,7 @@ export type InvoiceItemFormData = InvoiceItemBase &
     activationDate: string | null;
     billingDetail: string | null;
     itemName?: string;
+    startDateMethod?: number;
   };
 
 /**
@@ -188,17 +190,20 @@ export type BillingFlowItem = InvoiceItemBase &
     activationDate: null;
     billingDetail: null;
     itemName: string;
+    startDateMethod?: number;
   };
 
 /**
  * Form data for billing flow
  */
 export type BillingFlowFormData = {
-  memberId: number | undefined;
+  member: Member | null;
   items: BillingFlowItem[];
   promoCodes: string[];
   footnote: string | null;
   date: Date;
+  passActivationDate: Date;
+  establishmentBillingGroupId: number | null;
 };
 
 /**

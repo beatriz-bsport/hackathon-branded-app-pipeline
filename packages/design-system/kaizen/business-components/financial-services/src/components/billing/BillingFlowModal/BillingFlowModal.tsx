@@ -42,26 +42,35 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
       ...DEFAULT_FORM_DATA,
       ...ADD_ITEM_DEFAULT,
       ...GIFTCARD_FIELDS_DEFAULT,
-      memberId: memberId ?? undefined,
     },
   });
 
-  const { formState, setValue, watch } = methods;
+  const { formState, setValue } = methods;
   const { isDirty, isSubmitting, isValid } = formState;
-  const formMemberId = watch("memberId");
 
   const handleFetchMember = async (id: number) => {
     return getMembers(fetch, { memberId: id });
   };
 
+  // TODO: Move fetchMember to packages/api/community-and-engagement
+  // to use react-query instead of useAsync.
   const [{ isLoading: isLoadingMember, data: fetchedMember }, fetchMember] =
     useAsync<typeof handleFetchMember>({ asyncFn: handleFetchMember });
 
   useEffect(() => {
-    if (formMemberId) {
-      fetchMember(formMemberId);
+    if (memberId) {
+      fetchMember(memberId);
     }
-  }, [formMemberId, fetchMember]);
+  }, [fetchMember, memberId]);
+
+  useEffect(() => {
+    if (fetchedMember) {
+      setValue("member", fetchedMember, {
+        shouldDirty: !!formState.dirtyFields.member,
+        shouldValidate: true,
+      });
+    }
+  }, [fetchedMember, formState.dirtyFields.member, setValue]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -78,18 +87,19 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
       ...DEFAULT_FORM_DATA,
       ...ADD_ITEM_DEFAULT,
       ...GIFTCARD_FIELDS_DEFAULT,
-      memberId: memberId ?? undefined,
       isDiscountReasonRequired,
+      member: fetchedMember ?? null,
     });
     setIsMemberSelectorOpen(false);
     onClose();
   };
 
   const handleMemberSelect = (selectedMember: Member) => {
-    setValue("memberId", selectedMember.id, {
+    setValue("member", selectedMember, {
       shouldDirty: true,
       shouldValidate: true,
     });
+    fetchMember(selectedMember.id);
     setIsMemberSelectorOpen(false);
   };
 

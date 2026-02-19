@@ -156,6 +156,7 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
       durationYears: selectedItem?.durationYears ?? null,
       validityDateRange: selectedItem?.validityDateRange ?? null,
       expirationDays: selectedItem?.expirationDays ?? null,
+      startDateMethod: selectedItem?.startDateMethod,
     };
 
     // Add giftcard-specific fields if it's a giftcard

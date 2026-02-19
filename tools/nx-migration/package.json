@@ -1,0 +1,19 @@
+{
+  "name": "@bsport/nx-migration",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nx generator plugin for migrating Studio Manager apps to workspace libraries",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@nx/devkit": "21.6.10",
+    "tslib": "^2.8.1"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
+  },
+  "//": "Source-only package: Nx consumes TypeScript directly via ts-node. No build step required.",
+  "generators": "./generators.json"
+}

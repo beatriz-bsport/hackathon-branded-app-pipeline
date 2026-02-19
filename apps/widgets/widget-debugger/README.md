@@ -39,7 +39,7 @@ The HTML environment is automatically deployed to GitLab Pages when changes are 
 
 **https://bsport.gitlab.io/ichizen/**
 
-This allows you to test widgets in a production-like environment without running the development server locally. The deployment is configured in `tools/ci/deploy-widget-test-site.yml` and publishes the `apps/tools/widget-debugger/src/html` directory.
+This allows you to test widgets in a production-like environment without running the development server locally. The deployment is done as a micro frontend under the /widget-debugger path.
 
 ## How to Use
 

@@ -55,6 +55,7 @@ export const createNewsletterMember = (data: {
   first_name: string;
   last_name?: string;
   tag_id?: number;
+  recaptcha?: string;
 }) => {
   return post(`${MARKETING_ENDPOINT}/marketing_newsletter`, data);
 };

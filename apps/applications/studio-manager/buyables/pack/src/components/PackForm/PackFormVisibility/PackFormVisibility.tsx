@@ -44,7 +44,7 @@ export const PackFormVisibility: React.FC<PackFormVisibilityProps> = ({
       <VisibilitySelector<PackFormData, "manager_only">
         fieldName="manager_only"
         asHiddenSelector
-        buyableName={t("modelName")}
+        buyableName={t("modelName.singular")}
       />
 
       <PackFormVisibilityDate

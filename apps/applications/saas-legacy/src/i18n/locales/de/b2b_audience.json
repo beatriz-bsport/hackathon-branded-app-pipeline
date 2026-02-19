@@ -1,0 +1,17 @@
+{
+  "workflowList": {
+    "item": {
+      "buttons": {
+        "open": "Öffnen",
+        "viewMetrics": "Statistik",
+        "unarchive": "Archivieren rückgängig machen"
+      },
+      "menu": {
+        "edit": "Einstellungen bearbeiten",
+        "archive": "Archivieren",
+        "duplicate": "Duplizieren",
+        "tooltip": "Weitere Optionen"
+      }
+    }
+  }
+}

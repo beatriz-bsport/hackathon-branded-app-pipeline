@@ -8,6 +8,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { SessionEditFormData } from "../types";
 import { OverridePayrollRuleToggle } from "./override-payroll-rule-toggle";
+import { SubstituteTeacherSelectorField } from "./substitute-teacher-selector-field";
 import { TeacherPaymentRuleSelectorField } from "./teacher-payment-rule-selector-field";
 
 export const TeacherSection: FC<{
@@ -25,6 +26,7 @@ export const TeacherSection: FC<{
         {t("editSessionForm.content.teacherSectionTitle")}
       </Title>
       <TeacherSelectorField fieldIdPrefix={fieldIdPrefix} />
+      <SubstituteTeacherSelectorField fieldIdPrefix={fieldIdPrefix} />
       <OverridePayrollRuleToggle fieldIdPrefix={fieldIdPrefix} />
       {shouldOverrideTeacherPayrollRule && (
         <TeacherPaymentRuleSelectorField fieldIdPrefix={fieldIdPrefix} />

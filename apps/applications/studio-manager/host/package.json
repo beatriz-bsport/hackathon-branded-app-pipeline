@@ -21,19 +21,25 @@
   },
   "dependencies": {
     "@bsport/analytics": "workspace:*",
+    "@bsport/currency": "workspace:*",
+    "@bsport/datetime-formatting": "workspace:*",
     "@bsport/envs": "workspace:*",
     "@bsport/fetch": "workspace:*",
+    "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/intercom": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/onboarding-manager": "workspace:*",
     "@bsport/request-from-header": "workspace:*",
+    "@bsport/sentry": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
-    "@bsport/use-pagination-query-params": "workspace:*",
+    "@bsport/sm-marketing-notification": "workspace:*",
+    "@bsport/sm-referral-program": "workspace:*",
     "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router": "^7.2.0"
+    "react-router": "^7.2.0",
+    "zod": "^3.25.64"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
@@ -95,10 +101,6 @@
         "devPort": 4302,
         "watchPath": "../cdp/custom-form/src/**/*"
       },
-      "sm-referral-program": {
-        "devPort": 4303,
-        "watchPath": "../cdp/referral-program/src/**/*"
-      },
       "sm-tag": {
         "devPort": 4304,
         "watchPath": "../cdp/tag/src/**/*"
@@ -106,10 +108,6 @@
       "sm-transactional-notification": {
         "devPort": 4305,
         "watchPath": "../cdp/transactional-notification/src/**/*"
-      },
-      "sm-marketing-notification": {
-        "devPort": 4306,
-        "watchPath": "../cdp/marketing-notification/src/**/*"
       },
       "sm-insights": {
         "devPort": 4350,

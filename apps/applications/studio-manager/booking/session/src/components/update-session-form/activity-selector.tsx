@@ -10,7 +10,8 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { useFetchActivitiesByIds } from "#src/hooks/use-fetch-activities-by-ids";
-import { useRefinedGroupActivities } from "#src/hooks/useRefinedGroupActivities";
+import { useInfiniteGroupActivities } from "#src/hooks/use-infinite-group-activities";
+import { useInfiniteScroll } from "#src/hooks/use-infinite-scroll";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionEditFormData } from "../SessionForm/types";
@@ -25,11 +26,26 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { isLoading, groupedActivities } = useRefinedGroupActivities({
-    searchQuery,
+  const {
+    isLoading,
+    groupActivities,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useInfiniteGroupActivities({
+    customerEnabled: true,
+    searchParams: {
+      searchQuery,
+    },
   });
 
   const activity = watch("meta_activity");
+
+  const { onScroll: handleMenuScroll } = useInfiniteScroll({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
 
   const { data: selectedActivity } = useFetchActivitiesByIds(
     [activity],
@@ -42,13 +58,13 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
   const items = useMemo(
     () =>
       uniqBy(
-        [...(selectedActivity ? [selectedActivity] : []), ...groupedActivities],
+        [...(selectedActivity ? [selectedActivity] : []), ...groupActivities],
         "id",
       ).map((activity) => ({
         label: activity.name,
         id: activity.id.toString(),
       })),
-    [selectedActivity, groupedActivities],
+    [selectedActivity, groupActivities],
   );
 
   return (
@@ -87,6 +103,7 @@ const ActivitySelector: FC<ActivitySelectorProps> = ({ fieldIdPrefix }) => {
           }}
           menuProps={{
             className: "max-h-component-select overflow-y-auto",
+            onScroll: handleMenuScroll,
           }}
           loadingProps={{ isLoading }}
           onValueChange={(event: string) => {

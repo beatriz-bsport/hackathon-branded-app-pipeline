@@ -2,4 +2,4 @@
 /// <reference types="vite/types/importMeta.d.ts" />
 /// <reference types="@bsport/config-federation/vite" />
 
-declare const __REFERRAL_PROGRAM__: FederationVariables;
+declare const __REFERRAL_PROGRAM__: Pick<FederationVariables, "__BASENAME__">;

@@ -42,13 +42,13 @@ const Invoice = lazy(() => import("sm-invoice/App"));
 const EmailTemplate = lazy(() => import("sm-email-template/App"));
 const Smartlists = lazy(() => import("sm-smartlists/App"));
 const CustomForm = lazy(() => import("sm-custom-form/App"));
-const ReferralProgram = lazy(() => import("sm-referral-program/App"));
+const ReferralProgram = lazy(() => import("@bsport/sm-referral-program"));
 const Tag = lazy(() => import("sm-tag/App"));
 const TransactionalNotification = lazy(
   () => import("sm-transactional-notification/App"),
 );
 const MarketingNotification = lazy(
-  () => import("sm-marketing-notification/App"),
+  () => import("@bsport/sm-marketing-notification"),
 );
 
 // ----- Business Insights -----

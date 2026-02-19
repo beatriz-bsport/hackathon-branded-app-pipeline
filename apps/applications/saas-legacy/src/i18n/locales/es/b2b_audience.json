@@ -1,0 +1,17 @@
+{
+  "workflowList": {
+    "item": {
+      "buttons": {
+        "open": "Abrir",
+        "viewMetrics": "Métricas",
+        "unarchive": "Desarchivar"
+      },
+      "menu": {
+        "edit": "Editar ajustes",
+        "archive": "Archivar",
+        "duplicate": "Duplicar",
+        "tooltip": "Más acciones"
+      }
+    }
+  }
+}

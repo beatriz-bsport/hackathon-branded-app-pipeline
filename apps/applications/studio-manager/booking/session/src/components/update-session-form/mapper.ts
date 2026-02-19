@@ -2,6 +2,7 @@ import type { SessionWithActivity } from "@bsport/api-book";
 import { fromIsoString } from "@bsport/datetime-manipulation";
 
 import type { SessionEditFormData } from "#src/components/SessionForm/types";
+import { TeacherSubstitutionPropagationMode } from "#src/constants";
 
 export const fromSessionToFormData = (
   session: SessionWithActivity,
@@ -50,6 +51,7 @@ export const fromSessionToFormData = (
     custom_selection: false,
     modifyAllDates: false,
     notifyConsumers: false,
-    propagate_coach_override_value: 0,
+    propagate_coach_override_value:
+      TeacherSubstitutionPropagationMode.NO_PROPAGATION,
   };
 };

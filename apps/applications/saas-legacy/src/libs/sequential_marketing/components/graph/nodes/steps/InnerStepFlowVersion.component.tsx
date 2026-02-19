@@ -256,7 +256,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   return (
     <>
       <Handle
-        isConnectable
+        isConnectable={!data.disabled}
         position={Position.Left}
         style={LEFT_HANDLE_STYLE}
         type={HandleTypeChoices.TARGET}
@@ -280,7 +280,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         />
       </div>
       <Handle
-        isConnectable
+        isConnectable={!data.disabled}
         onConnect={handleConnectStepWithLink}
         position={Position.Right}
         style={RIGHT_HANDLE_STYLE}

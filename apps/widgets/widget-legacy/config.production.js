@@ -70,3 +70,9 @@ window.runtime.env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V0 =
   'https://api.production.bsport.io/staff-management/v0';
 window.runtime.env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1 =
   'https://api.production.bsport.io/staff-management/v1';
+window.runtime.env.REACT_APP_UNLEASH_PROXY_URL =
+  'https://unleash.tooling.bsport.io/api/frontend';
+window.runtime.env.REACT_APP_UNLEASH_CLIENT_KEY =
+  'default:production.71464c7970fcbcc8392a28909f14b0eb221b9c21577f2c3ee611beb2';
+window.runtime.env.REACT_APP_RECAPTCHA_V2 =
+  '6Lds67IZAAAAAFaPGpfl_ALgtV2t6Re63MBtCshi'; // gitleaks:allow

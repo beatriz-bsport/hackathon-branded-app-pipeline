@@ -17,15 +17,16 @@ import { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 const NewsletterFormV2Styled = themify(NewsletterFormBase);
 
 type Props = {
-  config?: MarketplaceNewsletterV2Data,
-  companyId: number,
-  theme: CompanyTheme,
+  config?: MarketplaceNewsletterV2Data;
+  companyId: number;
+  theme: CompanyTheme;
 };
 
 type MemberParams = {
-  email: string,
-  first_name: string,
-  last_name: string,
+  email: string;
+  first_name: string;
+  last_name: string;
+  recaptcha: string;
 };
 
 export const NewsletterWidget: React.FC<Props> = ({
@@ -34,23 +35,32 @@ export const NewsletterWidget: React.FC<Props> = ({
   config,
 }) => {
   const dispatch = useDispatch();
+  const onError = (options: OptionCallback) => {
+    options?.onError?.();
+    dispatch(snackbarError('marketing:newsletter.messages.error'));
+  };
   const onSubmit = async (
-    { email, first_name, last_name }: MemberParams,
+    { email, first_name, last_name, recaptcha }: MemberParams,
     options: OptionCallback,
   ) => {
-    const res = await createNewsletterMember({
-      email,
-      first_name,
-      last_name,
-      company: companyId,
-      ...(config?.tag_id ? { tag_id: config?.tag_id } : {}),
-    });
+    try {
+      const res = await createNewsletterMember({
+        email,
+        first_name,
+        last_name,
+        company: companyId,
+        ...(config?.tag_id ? { tag_id: config?.tag_id } : {}),
+        recaptcha: recaptcha,
+      });
 
-    if (res.status === 200) {
-      options?.onSuccess && options?.onSuccess?.();
-      dispatch(snackbarSuccess('marketing:newsletter.messages.success'));
-    } else {
-      dispatch(snackbarError('marketing:newsletter.messages.error'));
+      if (res.status === 200) {
+        options?.onSuccess?.();
+        dispatch(snackbarSuccess('marketing:newsletter.messages.success'));
+      } else {
+        onError(options);
+      }
+    } catch (err) {
+      onError(options);
     }
   };
 

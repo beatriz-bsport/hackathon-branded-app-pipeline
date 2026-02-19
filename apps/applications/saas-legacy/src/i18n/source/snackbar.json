@@ -1206,7 +1206,7 @@
     },
     "duplicate": {
       "error": "An error occurred when duplicating the {{ workflowLowerCase }}",
-      "uninitializedWorkflow": "Cannot duplicate an uninitialized {{ workflowLowerCase }}",
+      "uninitializedWorkflow": "Cannot duplicate a {{ workflowLowerCase }} that has not been set up",
       "success": "The {{ workflowLowerCase }} has been duplicated successfully"
     }
   },

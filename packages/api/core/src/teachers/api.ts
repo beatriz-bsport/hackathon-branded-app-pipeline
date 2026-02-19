@@ -12,9 +12,10 @@ import type {
   Teacher,
 } from "#src/teachers/types";
 
-const API_URL = "core-data/v1";
-const API_URL_COACH = `${API_URL}/coach`;
-const API_URL_ASSOCIATED_COACH = `${API_URL}/associated_coach`;
+import { API_V1_URL } from "../constants";
+
+const API_URL_COACH = `${API_V1_URL}/coach`;
+const API_URL_ASSOCIATED_COACH = `${API_V1_URL}/associated_coach`;
 
 const fetchTeachersAPIConfig = (
   params: PaginatedFetchTeachersParams | FetchTeachersParams,

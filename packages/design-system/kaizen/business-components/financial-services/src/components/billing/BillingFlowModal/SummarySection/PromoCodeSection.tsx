@@ -25,7 +25,8 @@ export const PromoCodeSection: React.FC = () => {
   const inputId = `promo-code-${useId()}`;
   const promoCodes = watch("promoCodes");
   const promoCode = watch("promoCode") ?? "";
-  const memberId = watch("memberId");
+  const member = watch("member");
+  const memberId = member?.id;
 
   const {
     appliedCoupons,

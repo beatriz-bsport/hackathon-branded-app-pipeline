@@ -1,16 +1,23 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useState } from "react";
 
+import { toDate, toDateTime } from "@bsport/datetime-manipulation";
 import { useFormContext } from "@bsport/form";
 import {
   Body,
   Button,
   Card,
+  DatePicker,
   Divider,
+  Icon,
+  Select,
+  type SelectedDate,
   Title,
+  Tooltip,
   useEmptyState,
 } from "@bsport/kaizen-primitive-core";
 
 import { FootnoteModal } from "#src/components/billing/BillingFlowModal/FootnoteModal";
+import { useEstablishmentBillingGroups } from "#src/components/billing/BillingFlowModal/hooks/use-establishment-billing-groups";
 import type { BillingFlowFormState } from "#src/components/billing/BillingFlowModal/schema";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
@@ -18,10 +25,25 @@ import { SummaryItemRow } from "./SummaryItemRow";
 import { SummaryTotals } from "./SummaryTotals";
 import { calculateTotals } from "./utils";
 
+// Pass/appointment_pass start_date_method: start from billing date (valid from the billing date).
+const START_ON_PURCHASE = 2;
+
 export const SummarySection: React.FC = () => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
   const { watch, setValue } = useFormContext<BillingFlowFormState>();
+  const passesDatePickerId = useId();
+  const billingGroupSelectId = useId();
+  // TODO: Business components should have the wrapper to get the companyId.
+  const companyId = 2;
+
+  const {
+    data: establishmentBillingGroups = [],
+    isLoading: isBillingGroupsLoading,
+  } = useEstablishmentBillingGroups(companyId);
+
+  const showBillingGroup =
+    isBillingGroupsLoading || (establishmentBillingGroups?.length ?? 0) > 0;
 
   const items = watch("items") ?? [];
   const promoCodes = watch("promoCodes");
@@ -44,6 +66,40 @@ export const SummarySection: React.FC = () => {
   const footnote = watch("footnote");
   const [isFootnoteModalOpen, setIsFootnoteModalOpen] = useState(false);
   const hasFootnote = footnote != null && footnote.trim() !== "";
+
+  const passActivationDate = watch("passActivationDate");
+  const establishmentBillingGroupId = watch("establishmentBillingGroupId");
+  const member = watch("member");
+
+  useEffect(() => {
+    if (establishmentBillingGroupId != null) return;
+
+    const defaultBillingGroupId =
+      member?.default_establishment_billing_group ??
+      (establishmentBillingGroups.length > 0
+        ? establishmentBillingGroups[0].id
+        : null);
+
+    if (defaultBillingGroupId != null) {
+      setValue("establishmentBillingGroupId", defaultBillingGroupId);
+    }
+  }, [
+    member?.default_establishment_billing_group,
+    establishmentBillingGroupId,
+    establishmentBillingGroups,
+  ]);
+
+  const { showPassesRow, passesWithBillingDateCount } = useMemo(() => {
+    const passTypes = items.filter(
+      (item) =>
+        (item.type === "pass" || item.type === "appointment_pass") &&
+        item.startDateMethod === START_ON_PURCHASE,
+    );
+    return {
+      showPassesRow: passTypes.length > 0,
+      passesWithBillingDateCount: passTypes.length,
+    };
+  }, [items]);
 
   const handleItemDelete = (itemIndex: number) => {
     const newItems = items.filter((_, index) => index !== itemIndex);
@@ -158,6 +214,81 @@ export const SummarySection: React.FC = () => {
             <Body htmlVariant="span" size="md" weight="weak">
               {footnote}
             </Body>
+          </Card>
+        )}
+        {itemCount > 0 && (showPassesRow || showBillingGroup) && (
+          <Card className="flex gap-lg bg-surface-default-weaker">
+            {showPassesRow && (
+              <div className="flex gap-xs items-end">
+                <DatePicker
+                  id={`passes-activation-date-${passesDatePickerId}`}
+                  label={t("billingFlowModal.passes")}
+                  mode="single"
+                  displayAs="popover"
+                  isInputField
+                  required
+                  dateValue={
+                    passActivationDate
+                      ? (toDateTime(passActivationDate) as SelectedDate)
+                      : undefined
+                  }
+                  onSelect={(date: SelectedDate) => {
+                    const dt = !Array.isArray(date) ? date : null;
+                    setValue(
+                      "passActivationDate",
+                      dt ? toDate(dt) : new Date(),
+                      { shouldDirty: true },
+                    );
+                  }}
+                />
+                <Tooltip
+                  placement="top"
+                  label={t("billingFlowModal.passesActivationDateTooltip", {
+                    count: passesWithBillingDateCount,
+                  })}
+                >
+                  <Icon icon="info-circle" size="sm" className="my-xs" />
+                </Tooltip>
+              </div>
+            )}
+            {showPassesRow && showBillingGroup && <Divider weight="thin" />}
+            {showBillingGroup && (
+              <div className="flex gap-xs items-end">
+                <Select
+                  id={`billing-group-${billingGroupSelectId}`}
+                  fullWidth
+                  label={t("billingFlowModal.billingGroup")}
+                  placeholder={t("billingFlowModal.billingGroup")}
+                  items={establishmentBillingGroups.map((bg) => ({
+                    id: String(bg.id),
+                    label: bg.name,
+                  }))}
+                  value={
+                    establishmentBillingGroupId
+                      ? String(establishmentBillingGroupId)
+                      : undefined
+                  }
+                  onChange={(optionId) => {
+                    setValue(
+                      "establishmentBillingGroupId",
+                      optionId ? Number(optionId) : null,
+                      { shouldDirty: true },
+                    );
+                  }}
+                  required
+                  loadingProps={{
+                    isLoading: isBillingGroupsLoading,
+                    message: t("billingFlowModal.loadingBillingGroups"),
+                  }}
+                />
+                <Tooltip
+                  placement="top-right"
+                  label={t("billingFlowModal.billingGroupTooltip")}
+                >
+                  <Icon icon="info-circle" size="sm" className="my-xs" />
+                </Tooltip>
+              </div>
+            )}
           </Card>
         )}
       </div>

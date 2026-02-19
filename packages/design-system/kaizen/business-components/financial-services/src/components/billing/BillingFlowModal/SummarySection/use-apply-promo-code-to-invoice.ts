@@ -87,7 +87,8 @@ export const useApplyPromoCodeToInvoice = (): UseApplyPromoCodeResult => {
   const errorMessage =
     getFieldState("promoCodes", formState).error?.message ?? null;
 
-  const memberId = watch("memberId");
+  const member = watch("member");
+  const memberId = member?.id;
   const items = watch("items");
   const promoCodes = watch("promoCodes");
 

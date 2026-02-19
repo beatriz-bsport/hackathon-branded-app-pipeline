@@ -3175,6 +3175,9 @@ importers:
       '@bsport/api-buyables':
         specifier: workspace:*
         version: link:../../../../api/buyables
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../../api/core
       '@bsport/api-financial-services':
         specifier: workspace:*
         version: link:../../../../api/financial-services

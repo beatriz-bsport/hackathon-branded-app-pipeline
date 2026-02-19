@@ -22,4 +22,5 @@ export type Member = {
   tags: Array<number>;
   total_unpaid_amount: string;
   user_id: number;
+  default_establishment_billing_group?: number | null;
 };

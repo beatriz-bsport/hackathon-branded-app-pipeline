@@ -1,15 +1,14 @@
 import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
+import { API_URL_PAYMENT_INVOICES } from "../constants";
 import type { UpdateInvoiceFooterResponse } from "./types";
-
-const API_URL = "financial-services/v1/payment/invoices";
 
 const updateInvoiceFooterAPIConfig = (
   invoiceUuid: string,
   customFooter: string,
 ): ApiConfig => {
   return [
-    `${API_URL}/${invoiceUuid}/update_footer/`,
+    `${API_URL_PAYMENT_INVOICES}/${invoiceUuid}/update_footer/`,
     {
       method: "POST",
       body: JSON.stringify({ custom_footer: customFooter }),

@@ -173,7 +173,7 @@ export const billingFlowFormDataSchema = z.object({
   items: z.array(addedItemSchema).min(1, "At least one item is required"),
   promoCodes: z.array(z.string()),
   footnote: z.string().max(FOOTNOTE_MAX_LENGTH).nullable(),
-  date: z.date({ required_error: "Invoice date is required" }),
+  date: z.string({ required_error: "Invoice date is required" }),
   passActivationDate: z.date({
     required_error: "Pass activation date is required",
   }),

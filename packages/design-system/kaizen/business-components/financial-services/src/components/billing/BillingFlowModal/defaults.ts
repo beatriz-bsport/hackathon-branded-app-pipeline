@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { getTodayJSDate } from "@bsport/datetime-manipulation";
+import { getLocalNow, getTodayJSDate } from "@bsport/datetime-manipulation";
 
 import {
   type AddItemFieldsDefault,
@@ -70,6 +70,9 @@ export const GIFTCARD_DEFAULT_KEYS = [
   "addItemGiftcardScheduledTime",
 ] as const satisfies ReadonlyArray<keyof GiftcardFieldsDefault>;
 
+const todayIso =
+  getLocalNow({}).startOf("day").toISO() ?? new Date().toISOString();
+
 /**
  * Default values for giftcard fields (used when resetting giftcard form)
  */
@@ -81,11 +84,11 @@ export const GIFTCARD_FIELDS_DEFAULT: GiftcardFieldsDefault = {
   addItemGiftcardDeliveryFormat: "pdf",
   addItemSelectedItemExpirationDays: null,
   // PDF-specific
-  addItemGiftcardValidFrom: getTodayJSDate().toISOString(),
+  addItemGiftcardValidFrom: todayIso,
   // Email-specific
   addItemGiftcardBackgroundImage: null,
   addItemGiftcardRecipientEmails: [],
-  addItemGiftcardScheduledDate: getTodayJSDate().toISOString(),
+  addItemGiftcardScheduledDate: todayIso,
   addItemGiftcardScheduledTime: "07:00",
 } satisfies GiftcardFieldsDefault;
 
@@ -97,7 +100,7 @@ export const DEFAULT_FORM_DATA: z.infer<typeof billingFlowFormDataSchema> = {
   items: [],
   promoCodes: [],
   footnote: null,
-  date: getTodayJSDate(),
+  date: todayIso,
   passActivationDate: getTodayJSDate(),
   establishmentBillingGroupId: null,
 };

@@ -12,9 +12,8 @@ import {
   type ToggleProps,
 } from "@bsport/kaizen-primitive-core";
 
+import type { BillingFlowFormState } from "#src/components/billing/BillingFlowModal/schema";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
-
-import type { BillingFlowFormState } from "../schema";
 
 const DISCOUNT_MODE_PERCENTAGE = "percentage";
 const DISCOUNT_MODE_AMOUNT = "amount";

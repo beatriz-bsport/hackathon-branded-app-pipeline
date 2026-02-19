@@ -35,6 +35,10 @@ export const Default: Story = {
         <BillingFlowModal
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
+          onSubmit={(data, invoiceUuid) => {
+            window.console.log("Created invoice:", invoiceUuid, data);
+            setIsOpen(false);
+          }}
           memberId={MEMBER_ID}
         />
       </>

@@ -3,9 +3,8 @@ import React, { useId } from "react";
 import { FormField } from "@bsport/form";
 import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
 
+import type { BillingFlowFormState } from "#src/components/billing/BillingFlowModal/schema";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
-
-import type { BillingFlowFormState } from "../schema";
 
 export const QuantityField: React.FC = () => {
   const i18nInstance = useKaizenI18nInstance();

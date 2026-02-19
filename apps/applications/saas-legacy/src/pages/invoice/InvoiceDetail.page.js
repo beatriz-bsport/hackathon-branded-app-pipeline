@@ -13,6 +13,8 @@ import { push as pushRouter } from 'connected-react-router';
 import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group.js';
 import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } from '@bsport/common/lib/master-data/invoice-type.js';
 import withTitle from '#src/hocs/with-title.hoc';
+
+import { InvoiceStatusEnum } from '#src/libs/invoice/types';
 import {
   getInvoice,
   withMember,
@@ -1139,7 +1141,14 @@ export default compose(
           },
         }),
     revertInvoice:
-      ({ revertInvoice, goToInvoice, uuid }) =>
+      ({
+        revertInvoice,
+        goToInvoice,
+        uuid,
+        fetchInvoice,
+        closeRevertDialog,
+        fetchPlannedPaymentEventList,
+      }) =>
       (reverse_type, payment_method_to_reverse, revert_reason, options) => {
         revertInvoice(
           uuid,
@@ -1150,9 +1159,18 @@ export default compose(
           },
           {
             onSuccess: (invoice) => {
-              goToInvoice(
-                invoice.reverse_invoices[invoice.reverse_invoices.length - 1],
-              );
+              // VOIDED invoices don't have any reverse invoice
+              if (invoice.status == InvoiceStatusEnum.REFUNDED) {
+                goToInvoice(
+                  invoice.reverse_invoices[invoice.reverse_invoices.length - 1],
+                );
+              } else {
+                closeRevertDialog();
+                fetchInvoice(uuid);
+                fetchPlannedPaymentEventList({
+                  invoice: uuid,
+                });
+              }
               if (options && options.onSuccess) {
                 options.onSuccess(invoice);
               }

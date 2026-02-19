@@ -61,6 +61,7 @@ import type { OptionCallback } from '../../../state/types';
 import { getReceiptUrl as getReceiptUrlAPI } from '../api';
 import { ExportInvoiceStatus } from '#src/libs/invoice/constants';
 import { downloadDocument } from '#src/utils/downloader';
+import { InvoiceStatusEnum } from '#src/libs/invoice/types';
 
 type Props = {
   applyGiftcardOnInvoice: (
@@ -118,7 +119,11 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
     React.useState<boolean>(false);
   const classes = useStyles();
   let invoiceType = 'regular';
-  if (invoice.reverse_invoices && invoice.reverse_invoices.length) {
+  if (
+    [InvoiceStatusEnum.VOIDED, InvoiceStatusEnum.REFUNDED].includes(
+      invoice.status,
+    )
+  ) {
     invoiceType = 'reversed';
   } else if (invoice.invoice_type === INVOICE_TYPE_MIGRATION) {
     invoiceType = 'migration';

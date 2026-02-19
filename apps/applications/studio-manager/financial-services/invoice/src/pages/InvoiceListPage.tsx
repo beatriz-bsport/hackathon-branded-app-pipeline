@@ -100,7 +100,9 @@ export const InvoiceListPage = () => {
       case INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER:
         return "credit_payment";
       default:
-        return invoice.reverse_invoices && invoice.reverse_invoices.length
+        return [InvoiceStatusEnum.VOIDED, InvoiceStatusEnum.REFUNDED].includes(
+          invoice.status,
+        )
           ? "reversed"
           : "regular";
     }

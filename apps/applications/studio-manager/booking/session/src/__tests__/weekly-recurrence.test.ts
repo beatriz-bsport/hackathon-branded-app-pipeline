@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 
+import { fromIsoString } from "@bsport/datetime-manipulation";
+
 import { RecurrenceType } from "#src/helpers/recurrence/types";
 import { generateWeeklyDates } from "#src/helpers/recurrence/weekly/generator";
 
@@ -17,8 +19,8 @@ describe("generateWeeklyDates", () => {
           6: false,
           7: false,
         },
-        startDate: new Date("2025-01-01"),
-        endDate: new Date("2025-01-31"),
+        startDate: fromIsoString("2025-01-01"),
+        endDate: fromIsoString("2025-01-31"),
         timezone: "Europe/Paris",
       };
 
@@ -39,8 +41,8 @@ describe("generateWeeklyDates", () => {
           6: false,
           7: false,
         },
-        startDate: new Date("2025-01-01T10:00:00"),
-        endDate: new Date("2025-01-31T10:00:00"),
+        startDate: fromIsoString("2025-01-01T10:00:00"),
+        endDate: fromIsoString("2025-01-31T10:00:00"),
         timezone: "Europe/Paris",
       };
 
@@ -48,10 +50,10 @@ describe("generateWeeklyDates", () => {
 
       // January 2025: Mondays are 6, 13, 20, 27
       expect(result).toHaveLength(4);
-      expect(result[0].getDate()).toBe(6);
-      expect(result[1].getDate()).toBe(13);
-      expect(result[2].getDate()).toBe(20);
-      expect(result[3].getDate()).toBe(27);
+      expect(result[0].day).toBe(6);
+      expect(result[1].day).toBe(13);
+      expect(result[2].day).toBe(20);
+      expect(result[3].day).toBe(27);
     });
 
     it("should generate dates for multiple selected weekdays", () => {
@@ -66,8 +68,8 @@ describe("generateWeeklyDates", () => {
           6: false,
           7: false,
         },
-        startDate: new Date("2025-01-01T10:00:00"),
-        endDate: new Date("2025-01-15T10:00:00"),
+        startDate: fromIsoString("2025-01-01T10:00:00"),
+        endDate: fromIsoString("2025-01-15T10:00:00"),
         timezone: "Europe/Paris",
       };
 
@@ -75,11 +77,11 @@ describe("generateWeeklyDates", () => {
 
       // Jan 1 = Wed, so: Wed 1, Mon 6, Wed 8, Mon 13, Wed 15
       expect(result).toHaveLength(5);
-      expect(result[0].getDate()).toBe(1); // Wednesday
-      expect(result[1].getDate()).toBe(6); // Monday
-      expect(result[2].getDate()).toBe(8); // Wednesday
-      expect(result[3].getDate()).toBe(13); // Monday
-      expect(result[4].getDate()).toBe(15); // Wednesday
+      expect(result[0].day).toBe(1); // Wednesday
+      expect(result[1].day).toBe(6); // Monday
+      expect(result[2].day).toBe(8); // Wednesday
+      expect(result[3].day).toBe(13); // Monday
+      expect(result[4].day).toBe(15); // Wednesday
     });
   });
 
@@ -96,8 +98,8 @@ describe("generateWeeklyDates", () => {
           6: false,
           7: false,
         },
-        startDate: new Date("2025-01-01T10:00:00"), // Wednesday
-        endDate: new Date("2025-01-20T10:00:00"),
+        startDate: fromIsoString("2025-01-01T10:00:00"), // Wednesday
+        endDate: fromIsoString("2025-01-20T10:00:00"),
         timezone: "Europe/Paris",
       };
 
@@ -105,9 +107,9 @@ describe("generateWeeklyDates", () => {
 
       // Should skip Jan 1 (Wed) and start from Jan 6 (Mon)
       expect(result).toHaveLength(3);
-      expect(result[0].getDate()).toBe(6);
-      expect(result[1].getDate()).toBe(13);
-      expect(result[2].getDate()).toBe(20);
+      expect(result[0].day).toBe(6);
+      expect(result[1].day).toBe(13);
+      expect(result[2].day).toBe(20);
     });
 
     it("should include start date when it matches a selected weekday", () => {
@@ -122,8 +124,8 @@ describe("generateWeeklyDates", () => {
           6: false,
           7: false,
         },
-        startDate: new Date("2025-01-06T10:00:00"), // Monday
-        endDate: new Date("2025-01-20T10:00:00"),
+        startDate: fromIsoString("2025-01-06T10:00:00"), // Monday
+        endDate: fromIsoString("2025-01-20T10:00:00"),
         timezone: "Europe/Paris",
       };
 
@@ -131,9 +133,9 @@ describe("generateWeeklyDates", () => {
 
       // Should include Jan 6 (the start date itself)
       expect(result).toHaveLength(3);
-      expect(result[0].getDate()).toBe(6);
-      expect(result[1].getDate()).toBe(13);
-      expect(result[2].getDate()).toBe(20);
+      expect(result[0].day).toBe(6);
+      expect(result[1].day).toBe(13);
+      expect(result[2].day).toBe(20);
     });
   });
 
@@ -150,8 +152,8 @@ describe("generateWeeklyDates", () => {
           6: false,
           7: false,
         },
-        startDate: new Date("2025-01-01T10:00:00"),
-        endDate: new Date("2025-01-17T10:00:00"), // Friday
+        startDate: fromIsoString("2025-01-01T10:00:00"),
+        endDate: fromIsoString("2025-01-17T10:00:00"), // Friday
         timezone: "Europe/Paris",
       };
 
@@ -159,7 +161,7 @@ describe("generateWeeklyDates", () => {
 
       // Fridays: Jan 3, 10, 17
       expect(result).toHaveLength(3);
-      expect(result[2].getDate()).toBe(17); // End date included
+      expect(result[2].day).toBe(17); // End date included
     });
   });
 
@@ -176,8 +178,8 @@ describe("generateWeeklyDates", () => {
           6: false,
           7: false,
         },
-        startDate: new Date("2025-01-06T23:00:00Z"), // Monday 18:00 in New York
-        endDate: new Date("2025-01-20T23:00:00Z"),
+        startDate: fromIsoString("2025-01-06T23:00:00Z"), // Monday 18:00 in New York
+        endDate: fromIsoString("2025-01-20T23:00:00Z"),
         timezone: "America/New_York",
       };
 
@@ -186,15 +188,9 @@ describe("generateWeeklyDates", () => {
       expect(result).toHaveLength(3);
       // Verify dates in the target timezone (America/New_York)
       // Use Intl.DateTimeFormat to get the date in the target timezone
-      const getDateInTimezone = (date: Date, tz: string) =>
-        new Intl.DateTimeFormat("en-US", {
-          timeZone: tz,
-          day: "numeric",
-        }).format(date);
-
-      expect(getDateInTimezone(result[0], config.timezone)).toBe("6");
-      expect(getDateInTimezone(result[1], config.timezone)).toBe("13");
-      expect(getDateInTimezone(result[2], config.timezone)).toBe("20");
+      expect(result[0].setZone(config.timezone).day).toBe(6);
+      expect(result[1].setZone(config.timezone).day).toBe(13);
+      expect(result[2].setZone(config.timezone).day).toBe(20);
     });
 
     it("should handle DST transitions correctly across different timezones", () => {
@@ -213,9 +209,13 @@ describe("generateWeeklyDates", () => {
           7: true, // Sunday
         },
         // Start: March 2, 2025 (Sunday) in Chatham timezone
-        startDate: new Date("2025-03-01T11:00:00.000Z"), // March 2 00:00 CHADT (UTC+13:45)
+        startDate: fromIsoString("2025-03-02T00:00:00", {
+          zone: "Pacific/Chatham",
+        }),
         // End: April 13, 2025 (Sunday) in Chatham timezone
-        endDate: new Date("2025-04-12T11:15:00.000Z"), // April 13 00:00 CHAST (UTC+12:45, after DST ends)
+        endDate: fromIsoString("2025-04-13T00:00:00", {
+          zone: "Pacific/Chatham",
+        }),
         timezone: "Pacific/Chatham", // Company timezone
       };
 
@@ -226,42 +226,21 @@ describe("generateWeeklyDates", () => {
 
       // Verify exact dates in Chatham timezone
       const expectedDates = [2, 9, 16, 23, 30, 6, 13]; // Day of month
-      const expectedMonths = [2, 2, 2, 2, 2, 3, 3]; // 0-indexed: 2=March, 3=April
+      const expectedMonths = [3, 3, 3, 3, 3, 4, 4]; // 1-indexed: 3=March, 4=April
 
-      result.forEach((date, index) => {
+      result.forEach((dateTime, index) => {
         // Convert to Chatham timezone to check the actual calendar date
-        const dateStr = date.toLocaleString("en-US", {
-          timeZone: "Pacific/Chatham",
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-          weekday: "long",
-        });
+        const chathamDate = dateTime.setZone("Pacific/Chatham");
 
-        expect(dateStr).toContain("Sunday"); // Verify it's a Sunday
-
-        const parts = new Intl.DateTimeFormat("en-US", {
-          timeZone: "Pacific/Chatham",
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-        }).formatToParts(date);
-
-        const day = parseInt(parts.find((p) => p.type === "day")?.value || "0");
-        const month =
-          parseInt(parts.find((p) => p.type === "month")?.value || "0") - 1; // 0-indexed
-
-        expect(day).toBe(expectedDates[index]);
-        expect(month).toBe(expectedMonths[index]);
+        expect(chathamDate.weekdayLong).toBe("Sunday"); // Verify it's a Sunday
+        expect(chathamDate.day).toBe(expectedDates[index]);
+        expect(chathamDate.month).toBe(expectedMonths[index]);
       });
 
       // Verify weekly spacing is maintained (7 days apart)
       // if DST handling was broken, dates might be 6.96 or 7.04 days apart instead of exactly 7
       for (let i = 1; i < result.length; i++) {
-        const daysDiff = Math.round(
-          (result[i].getTime() - result[i - 1].getTime()) /
-            (1000 * 60 * 60 * 24),
-        );
+        const daysDiff = result[i].diff(result[i - 1], "days").days;
         expect(daysDiff).toBe(7);
       }
     });
@@ -280,8 +259,8 @@ describe("generateWeeklyDates", () => {
           6: false,
           7: false,
         },
-        startDate: new Date("2025-01-01T10:00:00"),
-        endDate: new Date("2025-12-31T10:00:00"),
+        startDate: fromIsoString("2025-01-01T10:00:00"),
+        endDate: fromIsoString("2025-12-31T10:00:00"),
         timezone: "Europe/Paris",
       };
 
@@ -305,8 +284,8 @@ describe("generateWeeklyDates", () => {
           6: false,
           7: false,
         },
-        startDate: new Date("2024-02-01T10:00:00"), // 2024 is leap year
-        endDate: new Date("2024-02-29T10:00:00"),
+        startDate: fromIsoString("2024-02-01T10:00:00"), // 2024 is leap year
+        endDate: fromIsoString("2024-02-29T10:00:00"),
         timezone: "Europe/Paris",
       };
 
@@ -314,7 +293,7 @@ describe("generateWeeklyDates", () => {
 
       // February 2024 has 4 Mondays (5, 12, 19, 26)
       expect(result).toHaveLength(4);
-      expect(result[3].getDate()).toBe(26);
+      expect(result[3].day).toBe(26);
     });
 
     it("should handle month boundaries correctly", () => {
@@ -329,8 +308,8 @@ describe("generateWeeklyDates", () => {
           6: false,
           7: false,
         },
-        startDate: new Date("2025-01-27T10:00:00"), // Last Monday of Jan
-        endDate: new Date("2025-02-10T10:00:00"),
+        startDate: fromIsoString("2025-01-27T10:00:00"), // Last Monday of Jan
+        endDate: fromIsoString("2025-02-10T10:00:00"),
         timezone: "Europe/Paris",
       };
 
@@ -338,9 +317,9 @@ describe("generateWeeklyDates", () => {
 
       // Jan 27, Feb 3, Feb 10
       expect(result).toHaveLength(3);
-      expect(result[0].getMonth()).toBe(0); // January
-      expect(result[1].getMonth()).toBe(1); // February
-      expect(result[2].getMonth()).toBe(1); // February
+      expect(result[0].month).toBe(1); // January
+      expect(result[1].month).toBe(2); // February
+      expect(result[2].month).toBe(2); // February
     });
   });
 });

@@ -1,8 +1,8 @@
 import {
+  DateTime,
   getStartOf,
   isWithinRange,
   modifyTime,
-  toDateTime,
 } from "@bsport/datetime-manipulation";
 
 import type { WeeklyRecurrenceConfig } from "#src/helpers/recurrence/types";
@@ -13,19 +13,29 @@ import { findNextMatchingWeekday, getSelectedWeekdays } from "./utils";
  * Weekly recurrence generator
  * Generates dates on selected weekdays every week
  */
-export function generateWeeklyDates(config: WeeklyRecurrenceConfig): Date[] {
+export function generateWeeklyDates(
+  config: WeeklyRecurrenceConfig,
+): DateTime[] {
   const selectedWeekdays = getSelectedWeekdays(config.weekdays);
 
   if (selectedWeekdays.length === 0) {
     return [];
   }
 
-  const dates: Date[] = [];
+  const dates: DateTime[] = [];
 
   // Convert dates to the target timezone to get the correct calendar dates
-  const startDateTime = getStartOf(config.startDate, "day", config.timezone);
-  const endDateTime = getStartOf(config.endDate, "day", config.timezone);
-  const originalDateTime = toDateTime(config.startDate, config.timezone);
+  const startDateTime = getStartOf({
+    dateTime: config.startDate,
+    unit: "day",
+  });
+
+  const endDateTime = getStartOf({
+    dateTime: config.endDate,
+    unit: "day",
+  });
+
+  const originalDateTime = config.startDate;
   const { hour, minute, second, millisecond } = originalDateTime;
 
   let current = startDateTime;
@@ -52,7 +62,7 @@ export function generateWeeklyDates(config: WeeklyRecurrenceConfig): Date[] {
       second,
       millisecond,
     });
-    dates.push(dateWithTime.toJSDate());
+    dates.push(dateWithTime);
     const next = findNextMatchingWeekday(
       modifyTime({
         datetime: current,

@@ -4,7 +4,6 @@ import {
   type DateTime,
   getLocalNow,
   modifyTime,
-  toDateTime,
 } from "@bsport/datetime-manipulation";
 import { FormField, useFormContext } from "@bsport/form";
 import { DatePicker, DatePickerProps } from "@bsport/kaizen-primitive-core";
@@ -41,7 +40,7 @@ export const RecurrenceEndDate: FC<{ fieldIdPrefix: string }> = ({
 
       const newDateTime = newDate?.setZone(companyTimeZone);
 
-      setValue("recurrenceEndDate", newDateTime.toJSDate(), {
+      setValue("recurrenceEndDate", newDateTime, {
         shouldValidate: true,
         shouldDirty: true,
       });
@@ -54,9 +53,8 @@ export const RecurrenceEndDate: FC<{ fieldIdPrefix: string }> = ({
       if (!companyTimeZone) return false;
 
       const dateDT = date.setZone(companyTimeZone);
-      const startDT = toDateTime(startDate, companyTimeZone);
 
-      if (dateDT < startDT) {
+      if (dateDT < startDate) {
         return true;
       }
 
@@ -77,7 +75,7 @@ export const RecurrenceEndDate: FC<{ fieldIdPrefix: string }> = ({
       name="recurrenceEndDate"
       mapProps={({ fieldState }) => ({
         onSelect: (date) => handleDateChange(date as DateTime | null),
-        dateValue: toDateTime(endDate ?? new Date(), companyTimeZone),
+        dateValue: endDate,
         status: fieldState.error ? "error" : "default",
         statusText: fieldState.error?.message,
       })}

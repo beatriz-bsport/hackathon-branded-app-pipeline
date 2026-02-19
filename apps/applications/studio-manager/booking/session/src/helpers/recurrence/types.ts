@@ -1,3 +1,5 @@
+import { DateTime } from "@bsport/datetime-manipulation";
+
 export enum RecurrenceType {
   WEEKLY = "weekly",
   CUSTOM = "custom",
@@ -24,8 +26,8 @@ export type WeekdayPosition = {
 };
 
 type BaseConfig = {
-  startDate: Date;
-  endDate: Date;
+  startDate: DateTime;
+  endDate: DateTime;
   timezone: string;
 };
 

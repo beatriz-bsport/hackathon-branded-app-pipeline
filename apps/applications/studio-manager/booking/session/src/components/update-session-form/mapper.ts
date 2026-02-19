@@ -7,7 +7,7 @@ import { TeacherSubstitutionPropagationMode } from "#src/constants";
 export const fromSessionToFormData = (
   session: SessionWithActivity,
 ): SessionEditFormData => {
-  const startDateTime = fromIsoString(session.date_start).toJSDate();
+  const startDateTime = fromIsoString(session.date_start);
 
   return {
     // Date/time

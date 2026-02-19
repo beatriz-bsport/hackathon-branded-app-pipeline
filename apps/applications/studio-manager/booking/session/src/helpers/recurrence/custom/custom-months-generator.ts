@@ -1,8 +1,7 @@
 import {
+  DateTime,
   getStartOf,
   isWithinRange,
-  toDate,
-  toDateTime,
 } from "@bsport/datetime-manipulation";
 
 import {
@@ -20,7 +19,9 @@ import {
  * - DAY_OF_MONTH: e.g., "12th of every month"
  * - WEEKDAY_POSITION: e.g., "2nd Friday of every month"
  */
-export function generateCustomMonthsDates(config: CustomMonthsConfig): Date[] {
+export function generateCustomMonthsDates(
+  config: CustomMonthsConfig,
+): DateTime[] {
   if (config.pattern === MonthlyRecurrencePattern.DAY_OF_MONTH) {
     return generateByDayOfMonth(config);
   } else {
@@ -28,20 +29,30 @@ export function generateCustomMonthsDates(config: CustomMonthsConfig): Date[] {
   }
 }
 
-function generateByDayOfMonth(config: CustomMonthsConfig): Date[] {
+function generateByDayOfMonth(config: CustomMonthsConfig): DateTime[] {
   if (!config.dayOfMonth) {
     throw new Error("dayOfMonth is required for DAY_OF_MONTH pattern");
   }
 
-  const dates: Date[] = [];
+  const dates: DateTime[] = [];
 
-  const originalDateTime = toDateTime(config.startDate, config.timezone);
+  const originalDateTime = config.startDate;
   const { hour, minute, second, millisecond } = originalDateTime;
 
-  const startDateTime = getStartOf(config.startDate, "day", config.timezone);
-  const endDateTime = getStartOf(config.endDate, "day", config.timezone);
+  const startDateTime = getStartOf({
+    dateTime: config.startDate,
+    unit: "day",
+  });
 
-  let current = startDateTime.startOf("month");
+  const endDateTime = getStartOf({
+    dateTime: config.endDate,
+    unit: "day",
+  });
+
+  let current = getStartOf({
+    dateTime: startDateTime,
+    unit: "month",
+  });
 
   // Continue while the current month could contain dates in our range
   while (current <= endDateTime) {
@@ -59,7 +70,7 @@ function generateByDayOfMonth(config: CustomMonthsConfig): Date[] {
       targetDate.month === current.month &&
       isWithinRange(targetDate, startDateTime, endDateTime, config.timezone)
     ) {
-      dates.push(toDate(targetDate));
+      dates.push(targetDate);
     }
 
     current = current.plus({ months: config.interval });
@@ -68,18 +79,28 @@ function generateByDayOfMonth(config: CustomMonthsConfig): Date[] {
   return dates;
 }
 
-function generateByWeekdayPosition(config: CustomMonthsConfig): Date[] {
+function generateByWeekdayPosition(config: CustomMonthsConfig): DateTime[] {
   const pattern = getWeekdayPositionInMonth(config.startDate, config.timezone);
 
-  const dates: Date[] = [];
+  const dates: DateTime[] = [];
 
-  const originalDateTime = toDateTime(config.startDate, config.timezone);
+  const originalDateTime = config.startDate;
   const { hour, minute, second, millisecond } = originalDateTime;
 
-  const startDateTime = getStartOf(config.startDate, "day", config.timezone);
-  const endDateTime = getStartOf(config.endDate, "day", config.timezone);
+  const startDateTime = getStartOf({
+    dateTime: config.startDate,
+    unit: "day",
+  });
 
-  let current = startDateTime.startOf("month");
+  const endDateTime = getStartOf({
+    dateTime: config.endDate,
+    unit: "day",
+  });
+
+  let current = getStartOf({
+    dateTime: startDateTime,
+    unit: "month",
+  });
 
   // Continue while the current month could contain dates in our range
   while (current <= endDateTime) {
@@ -100,7 +121,7 @@ function generateByWeekdayPosition(config: CustomMonthsConfig): Date[] {
         second,
         millisecond,
       });
-      dates.push(toDate(occurrenceWithTime));
+      dates.push(occurrenceWithTime);
     }
 
     current = current.plus({ months: config.interval });

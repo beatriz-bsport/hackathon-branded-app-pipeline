@@ -1,8 +1,9 @@
 import { createStore } from "zustand/vanilla";
 
 import type { MetaActivity } from "@bsport/api-book";
-import { getTodayJSDate } from "@bsport/datetime-manipulation";
+import { getLocalNow } from "@bsport/datetime-manipulation";
 import { bindStore } from "@bsport/store-base";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import {
   CustomRecurrenceUnit,
@@ -35,11 +36,8 @@ export interface SessionCreationState {
   };
 }
 
-const getTodayJSDateAt8AM = () => {
-  const date = getTodayJSDate();
-  date.setHours(8, 0, 0, 0);
-  return date;
-};
+const now = getLocalNow({ zone: getCompanyTimezone() });
+const today8AM = now.set({ hour: 8, minute: 0, second: 0, millisecond: 0 });
 
 export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   allowCustomNameAndDescription: false,
@@ -51,7 +49,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   effectif: 0,
   available_on_partnership: false,
   partner_max_booking_count: 0,
-  startDateTime: getTodayJSDateAt8AM(),
+  startDateTime: today8AM,
   duration_minute: 60,
   isRecurring: false,
   recurrenceType: RecurrenceType.WEEKLY,
@@ -67,11 +65,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   recurrenceUnit: CustomRecurrenceUnit.DAYS,
   recurrenceInterval: 1,
   recurrencePattern: MonthlyRecurrencePattern.NTH_WEEKDAY,
-  recurrenceEndDate: (() => {
-    const defaultEndDate = getTodayJSDateAt8AM();
-    defaultEndDate.setDate(defaultEndDate.getDate() + 1);
-    return defaultEndDate;
-  })(),
+  recurrenceEndDate: null,
   level: DEFAULT_LEVEL_ID,
   is_hybrid: false,
   coach: null,

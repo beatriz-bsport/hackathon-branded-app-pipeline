@@ -1,9 +1,8 @@
 import { FC } from "react";
 
-import { toDateTime } from "@bsport/datetime-manipulation";
+import { modifyTime } from "@bsport/datetime-manipulation";
 import { useFormContext } from "@bsport/form";
 import { Alert, Body } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -28,21 +27,24 @@ export const AggregatorWarning: FC = () => {
     UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
   );
 
-  const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
-
   const sessionDuration = watch("duration_minute");
 
   const startDateTime = watch("startDateTime");
 
   const isSessionAvailableOnPartnership = watch("available_on_partnership");
 
-  const startDT = toDateTime(startDateTime, companyTimeZone);
+  const datetimeEnd =
+    startDateTime && sessionDuration != null
+      ? modifyTime({
+          datetime: startDateTime,
+          duration: { minute: sessionDuration },
+          operator: "plus",
+        })
+      : null;
 
-  const datetimeEnd = startDT.plus({
-    minute: sessionDuration,
-  });
-
-  const offerSpreadOnTwoDays = !startDT.hasSame(datetimeEnd, "day");
+  const offerSpreadOnTwoDays = datetimeEnd
+    ? !startDateTime.hasSame(datetimeEnd, "day")
+    : false;
 
   const showWellhubWarning =
     hasWellhubIntegration &&

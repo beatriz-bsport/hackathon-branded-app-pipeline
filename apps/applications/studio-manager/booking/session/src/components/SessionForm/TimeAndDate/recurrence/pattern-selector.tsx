@@ -45,7 +45,7 @@ export const RecurrencePatternSelector: FC<{
       ? getWeekdayPositionInMonth(startDate, companyTimezone)
       : null;
 
-  const dayOfTheMonth = startDate ? startDate.getDate() : 1;
+  const dayOfTheMonth = startDate?.day ?? 1;
 
   // "Monthly on the second Friday"
   const nthWeekdayLabel: string = t(

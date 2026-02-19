@@ -74,6 +74,7 @@ import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 import { AlreadyMemberSection } from '#src/pages/checkout/express-checkouts/components/AlreadyMemberSection';
 
 import './index.css';
+import { getAuthTokenValue } from '#src/http/utils';
 
 enum RedirectStatus {
   SUCCEEDED = 'succeeded',
@@ -361,6 +362,12 @@ const OneClickBookingModule: React.FC<Props> = ({
     bookableStatusState?.value?.shouldRedirect ||
     !!offerState?.value?.offer?.group
   ) {
+    return <Redirect to={loginToBookerUrl} />;
+  }
+
+  // This case should never happen, but if it does we prefer to redirect to the login page as
+  // the email of the user is probably taken and they will need to login
+  if (memberId && !getAuthTokenValue()) {
     return <Redirect to={loginToBookerUrl} />;
   }
 

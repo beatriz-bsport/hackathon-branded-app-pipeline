@@ -40,7 +40,7 @@ echo ""
 # Check if required directories exist
 SAAS_LEGACY_DIR="$ICHIZEN_ROOT/apps/applications/saas-legacy"
 PROXY_BRIDGE_DIR="$ICHIZEN_ROOT/apps/widgets/widget-proxy-bridge"
-WIDGET_DEBUGGER_DIR="$ICHIZEN_ROOT/apps/tools/widget-debugger"
+WIDGET_DEBUGGER_DIR="$ICHIZEN_ROOT/apps/widgets/widget-debugger"
 
 if [ ! -d "$SAAS_LEGACY_DIR" ]; then
     echo "❌ Error: saas-legacy directory not found at $SAAS_LEGACY_DIR"

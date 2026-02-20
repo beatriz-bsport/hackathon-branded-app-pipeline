@@ -1,5 +1,6 @@
-import { FC, useEffect } from "react";
+import { FC, useCallback, useEffect } from "react";
 
+import { getISOWeekday } from "@bsport/datetime-manipulation";
 import { FormField, useFormContext } from "@bsport/form";
 import {
   Button,
@@ -33,6 +34,44 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
   const recurrenceType = watch("recurrenceType");
 
   const recurrenceUnit = watch("recurrenceUnit");
+
+  const startDateTime = watch("startDateTime");
+
+  const selectedWeekdays = watch("recurrenceWeekdays");
+
+  const onSelectOption = useCallback(
+    (
+      optionId: string,
+      { shouldDirty = true }: { shouldDirty?: boolean } = {},
+    ) => {
+      const selectedWeekdays = watch("recurrenceWeekdays");
+      const weekday = Number(optionId) as ISOWeekday;
+      const isSelected = selectedWeekdays[weekday];
+
+      const updatedWeekdays = {
+        ...selectedWeekdays,
+        [weekday]: !isSelected,
+      };
+
+      setValue("recurrenceWeekdays", updatedWeekdays, {
+        shouldValidate: true,
+        shouldDirty,
+      });
+    },
+    [watch, setValue],
+  );
+
+  // Set default weekday when startDateTime changes and no weekdays are selected
+  useEffect(() => {
+    if (!startDateTime) return;
+    const anySelected =
+      selectedWeekdays && Object.values(selectedWeekdays).some(Boolean);
+
+    if (!anySelected) {
+      const startDay = getISOWeekday(startDateTime);
+      onSelectOption(startDay.toString());
+    }
+  }, [startDateTime, selectedWeekdays, onSelectOption]);
 
   // Clear recurrenceWeekdays error when conditions change such that validation no longer applies
   useEffect(() => {
@@ -80,21 +119,6 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
     id: day.toString(),
     label: t(`session.weekdays.${day}`, { ns: "common" }),
   }));
-
-  const onSelectOption = (optionId: string) => {
-    const selectedWeekdays = watch("recurrenceWeekdays");
-    const weekday = Number(optionId) as ISOWeekday;
-    const isSelected = selectedWeekdays[weekday];
-
-    const updatedWeekdays = {
-      ...selectedWeekdays,
-      [weekday]: !isSelected,
-    };
-    setValue("recurrenceWeekdays", updatedWeekdays, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-  };
 
   const selectedChips = (() => {
     const selectedWeekdays = watch("recurrenceWeekdays");

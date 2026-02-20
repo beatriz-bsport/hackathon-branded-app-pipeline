@@ -1,7 +1,12 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import { ControlledForm, useFormController } from "@bsport/form";
-import { Modal } from "@bsport/kaizen-primitive-core";
+import {
+  Accordion,
+  Modal,
+  Title,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import { useAsync } from "@bsport/use-async";
 
 import { getMembers } from "#src/actions/member";
@@ -12,7 +17,11 @@ import type { Member } from "#src/types/member";
 import fetch from "#src/utils/fetch";
 
 import { AddItemSection } from "./AddItemSection";
-import { SummarySection } from "./SummarySection";
+import {
+  SummaryFootnoteButton,
+  SummarySection,
+  SummaryTitle,
+} from "./SummarySection";
 import {
   ADD_ITEM_DEFAULT,
   DEFAULT_FORM_DATA,
@@ -33,8 +42,16 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
   const formId = `billing-flow-modal-${useId()}`;
+  const isMobile = !useMatchMedia("sm");
 
   const [isMemberSelectorOpen, setIsMemberSelectorOpen] = useState(false);
+  const [isFootnoteModalOpen, setIsFootnoteModalOpen] = useState(false);
+  const addItemCollapseSetOpenRef = useRef<
+    ((value: boolean | ((prev: boolean) => boolean)) => void) | null
+  >(null);
+  const summaryCollapseSetOpenRef = useRef<
+    ((value: boolean | ((prev: boolean) => boolean)) => void) | null
+  >(null);
   const { isDiscountReasonRequired } = useInvoiceConfiguration();
 
   const methods = useFormController({
@@ -50,6 +67,16 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   const { formState, setValue, watch } = methods;
   const { isDirty, isSubmitting, isValid, errors } = formState;
   const items = watch("items") ?? [];
+
+  const openSummarySection = useCallback(() => {
+    addItemCollapseSetOpenRef.current?.(false);
+    summaryCollapseSetOpenRef.current?.(true);
+  }, []);
+
+  const openAddItemSection = useCallback(() => {
+    addItemCollapseSetOpenRef.current?.(true);
+    summaryCollapseSetOpenRef.current?.(false);
+  }, []);
 
   // Errors related to promo codes do not prevent invoice creation;
   // users can proceed even if an invalid promo code is applied.
@@ -92,6 +119,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
   useEffect(() => {
     if (!isOpen) {
       setIsMemberSelectorOpen(false);
+      setIsFootnoteModalOpen(false);
     }
   }, [isOpen]);
 
@@ -108,6 +136,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
       member: fetchedMember ?? null,
     });
     setIsMemberSelectorOpen(false);
+    setIsFootnoteModalOpen(false);
     onClose?.();
   };
 
@@ -169,10 +198,59 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
             />
           )}
 
-          <div className="flex flex-1 gap-lg">
-            <AddItemSection />
-            <SummarySection />
-          </div>
+          {isMobile ? (
+            <Accordion className="flex flex-1 flex-col gap-lg">
+              <Accordion.Item
+                initiallyOpen
+                className="gap-md"
+                ariaLabel={t("billingFlowModal.addItem")}
+                header={
+                  <Title htmlVariant="h4" color="default" weight="strong">
+                    {t("billingFlowModal.addItem")}
+                  </Title>
+                }
+                setOpenRef={addItemCollapseSetOpenRef}
+              >
+                <AddItemSection onOpenSummarySection={openSummarySection} />
+              </Accordion.Item>
+
+              <Accordion.Item
+                className="gap-md pb-md"
+                ariaLabel={t("billingFlowModal.summary")}
+                header={<SummaryTitle />}
+                headerActions={
+                  <SummaryFootnoteButton
+                    onAddFootnoteClick={() => setIsFootnoteModalOpen(true)}
+                  />
+                }
+                setOpenRef={summaryCollapseSetOpenRef}
+              >
+                <SummarySection
+                  openAddItemSection={openAddItemSection}
+                  isFootnoteModalOpen={isFootnoteModalOpen}
+                  setIsFootnoteModalOpen={setIsFootnoteModalOpen}
+                />
+              </Accordion.Item>
+            </Accordion>
+          ) : (
+            <div className="flex flex-1 gap-lg">
+              <div className="flex flex-col flex-1 gap-md">
+                <Title htmlVariant="h4" color="default" weight="strong">
+                  {t("billingFlowModal.addItem")}
+                </Title>
+                <AddItemSection />
+              </div>
+              <div className="flex flex-col flex-1 gap-md">
+                <SummaryTitle
+                  onAddFootnoteClick={() => setIsFootnoteModalOpen(true)}
+                />
+                <SummarySection
+                  isFootnoteModalOpen={isFootnoteModalOpen}
+                  setIsFootnoteModalOpen={setIsFootnoteModalOpen}
+                />
+              </div>
+            </div>
+          )}
         </ControlledForm>
       </Modal>
 

@@ -1,7 +1,11 @@
 import { createStore } from "zustand/vanilla";
 
 import type { MetaActivity } from "@bsport/api-book";
-import { getLocalNow } from "@bsport/datetime-manipulation";
+import {
+  getLocalNow,
+  getStartOf,
+  modifyTime,
+} from "@bsport/datetime-manipulation";
 import { bindStore } from "@bsport/store-base";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
@@ -38,6 +42,11 @@ export interface SessionCreationState {
 
 const now = getLocalNow({ zone: getCompanyTimezone() });
 const today8AM = now.set({ hour: 8, minute: 0, second: 0, millisecond: 0 });
+const defaultEndDate = modifyTime({
+  datetime: now,
+  duration: { day: 1 },
+  operator: "plus",
+});
 
 export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   allowCustomNameAndDescription: false,
@@ -65,7 +74,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   recurrenceUnit: CustomRecurrenceUnit.DAYS,
   recurrenceInterval: 1,
   recurrencePattern: MonthlyRecurrencePattern.NTH_WEEKDAY,
-  recurrenceEndDate: null,
+  recurrenceEndDate: getStartOf({ dateTime: defaultEndDate, unit: "day" }),
   level: DEFAULT_LEVEL_ID,
   is_hybrid: false,
   coach: null,

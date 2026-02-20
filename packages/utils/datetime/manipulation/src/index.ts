@@ -273,7 +273,10 @@ export function isWithinRange(
 /**
  * Get ISO weekday from DateTime (1 = Monday, 7 = Sunday)
  */
-export function getISOWeekday(date: DateTime, zone: string): WeekStartDay {
+export function getISOWeekday(
+  date: DateTime,
+  zone?: string | Zone,
+): WeekStartDay {
   return date.setZone(zone ?? date.zone).weekday as WeekStartDay;
 }
 

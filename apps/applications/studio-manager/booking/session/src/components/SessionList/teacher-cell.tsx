@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Body, Icon, Tooltip } from "@bsport/kaizen-primitive-core";
+import { Avatar, Body, Icon, Tooltip } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -9,6 +9,8 @@ type TeacherCellProps = {
   originalTeacherName?: string;
   coach_override?: number | null;
   hasPendingReplacementRequest?: boolean;
+  teacherAvatar?: string;
+  teacherInitials?: string;
 };
 
 const FormerTeacher = ({ name }: { name?: string }) => (
@@ -27,6 +29,8 @@ export const TeacherCell: React.FC<TeacherCellProps> = ({
   originalTeacherName,
   coach_override,
   hasPendingReplacementRequest,
+  teacherAvatar,
+  teacherInitials,
 }) => {
   const { t } = useTranslation("sessionList");
   return (
@@ -43,9 +47,17 @@ export const TeacherCell: React.FC<TeacherCellProps> = ({
         </div>
       ) : (
         <div className="flex gap-md items-center">
-          <Body htmlVariant="p" size="md" className="truncate max-w-[140px]">
-            {teacherName}
-          </Body>
+          <div className="flex gap-xs items-center">
+            <Avatar
+              shape="round"
+              size="sm"
+              src={teacherAvatar}
+              initials={teacherInitials}
+            />
+            <Body htmlVariant="p" size="md" className="truncate max-w-[140px]">
+              {teacherName}
+            </Body>
+          </div>
           {coach_override && <FormerTeacher name={originalTeacherName} />}
         </div>
       )}

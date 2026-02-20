@@ -141,6 +141,8 @@ export const useSessionListColumns = (isMobile: boolean) => {
     render: (row: EnrichedSession) => (
       <TeacherCell
         teacherName={row.teacherName}
+        teacherAvatar={row.teacherAvatar}
+        teacherInitials={row.teacherInitials}
         originalTeacherName={row.originalTeacherName}
         coach_override={row.coach_override}
         hasPendingReplacementRequest={row.hasPendingReplacementRequest}

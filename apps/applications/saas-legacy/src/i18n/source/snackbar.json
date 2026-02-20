@@ -463,7 +463,10 @@
       }
     },
     "createOrUpdate": {
-      "error": "Impossible to save relationship"
+      "error": "Impossible to save relationship",
+      "90007": "You cannot merge a member with itself",
+      "90008": "The members you are trying to merge are not from the same company",
+      "90009": "You cannot give access to the account of a teacher or staff"
     },
     "create": {
       "success": "Relationship saved"

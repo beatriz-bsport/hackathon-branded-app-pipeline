@@ -23,9 +23,11 @@ import CheckPermission from '#src/libs/role/components/CheckPermission.component
 import CheckInButton from '#src/libs/access-control/components/CheckInButton.component';
 import AvatarWithBadge from './AvatarWithBadge.component';
 import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
+import { PrivateConsumerPass } from '#src/libs/private-service/types';
 
 type Props = {
   bottomCredit?: boolean;
+  privateConsumerPass: PrivateConsumerPass | null;
   disableAccessMonitoringButton?: boolean;
   firstBooking?: boolean;
   firstPrivateBooking: boolean;
@@ -50,6 +52,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   isPreventUpdateMetricValue,
   member,
   memberLoading,
+  privateConsumerPass,
   programDataLoading,
   programList,
   createMemberProgram,
@@ -100,7 +103,23 @@ export const MemberMinimalListItem: React.FC<Props> = ({
     );
   }
 
-  const secondaryInfo = [member.phone, member.email].filter(Boolean).join(' ');
+  const memberContactInfo = [member.phone, member.email]
+    .filter(Boolean)
+    .join(' ');
+
+  const passAvailableCredits = privateConsumerPass?.private_pass?.credits
+    ? privateConsumerPass.private_pass.credits -
+      (privateConsumerPass.used_credits || 0)
+    : null;
+  const privateConsumerPassInfo = [
+    privateConsumerPass?.private_pass?.name,
+    passAvailableCredits !== null
+      ? `${passAvailableCredits}/${privateConsumerPass?.private_pass?.credits}`
+      : null,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   const isBirthday = member?.birthday
     ? DateTime.now().day === DateTime.fromISO(member.birthday).day &&
       DateTime.now().month === DateTime.fromISO(member.birthday).month
@@ -150,7 +169,22 @@ export const MemberMinimalListItem: React.FC<Props> = ({
                     </Typography>
                   </div>
                 }
-                secondary={hasMemberReadInfoPermission && secondaryInfo}
+                secondary={
+                  hasMemberReadInfoPermission && (
+                    <>
+                      {memberContactInfo && (
+                        <Typography color="textSecondary" variant="body2">
+                          {memberContactInfo}
+                        </Typography>
+                      )}
+                      {privateConsumerPassInfo && (
+                        <Typography color="textSecondary" variant="body2">
+                          {privateConsumerPassInfo}
+                        </Typography>
+                      )}
+                    </>
+                  )
+                }
                 secondaryTypographyProps={{
                   noWrap: true,
                 }}

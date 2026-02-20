@@ -2,7 +2,6 @@ import { z } from "zod";
 
 import {
   DateTime,
-  LuxonDateTime,
   getLocalNow,
   modifyTime,
 } from "@bsport/datetime-manipulation";
@@ -40,7 +39,7 @@ export const MAX_YEARS_AHEAD = 3;
 export const useDateTimeSchemaObject = () => {
   const { t } = useTranslation("sessionCreation");
   const validDateTime = z.custom<DateTime>(
-    (val) => val instanceof LuxonDateTime && val.isValid,
+    (val) => val.isLuxonDateTime && val.isValid,
     {
       message: t(
         "addSessionModal.steps.configureSession.timeAndDate.errors.invalidDate",
@@ -352,7 +351,7 @@ export const useSessionSchema = () => {
 export const useSessionEditSchema = () => {
   const { t } = useTranslation("sessionCreation");
   const validDateTime = z.custom<DateTime>(
-    (val) => val instanceof LuxonDateTime && val.isValid,
+    (val) => val.isLuxonDateTime && val.isValid,
     {
       message: t(
         "addSessionModal.steps.configureSession.timeAndDate.errors.invalidDate",

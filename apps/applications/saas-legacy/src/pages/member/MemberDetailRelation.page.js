@@ -185,11 +185,15 @@ export class MemberDetailRelation extends React.Component<Props> {
     this.props.goToRelationDetail(this.props.memberId, relationId);
   };
 
-  createOrUpdateRelation = (data) => {
+  createOrUpdateRelation = (data, options) => {
     this.props.createOrUpdateRelation(data, {
       onSuccess: () => {
+        options?.onSuccess();
         this.fetchRelationList();
         this.props.setOpenRelationFormDialog(null);
+      },
+      onError: () => {
+        options?.onError();
       },
     });
   };

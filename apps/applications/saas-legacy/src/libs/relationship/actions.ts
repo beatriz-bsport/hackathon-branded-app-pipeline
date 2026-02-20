@@ -29,6 +29,7 @@ import type {
   PrivateConsumerPassLink,
 } from './types';
 import type { MemberMinimal } from '#src/libs/member/types';
+import { AxiosError } from 'axios';
 
 export const memberRelationCreateOrUpdateActions = {
   isLoading: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/LOADING'),
@@ -53,10 +54,18 @@ export function createOrUpdateRelation(
         dispatch(snackbarSuccess('relationship.create.success'));
       }
       if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
-      console.error(err);
-      dispatch(memberRelationCreateOrUpdateActions.error(err));
-      dispatch(snackbarError('relationship.createOrUpdate.error'));
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      const errorCode = String(axiosError?.response?.data?.error_code);
+      if (
+        isErrorWithCustomCode(axiosError) &&
+        ['90007', '90008', '90009'].includes(errorCode)
+      ) {
+        dispatch(snackbarError(`relationship.createOrUpdate.${errorCode}`));
+      } else {
+        dispatch(snackbarError('relationship.createOrUpdate.error'));
+      }
+      dispatch(memberRelationCreateOrUpdateActions.error(error));
       if (options && options.onError) options.onError();
     }
     dispatch(memberRelationCreateOrUpdateActions.isLoading(false));

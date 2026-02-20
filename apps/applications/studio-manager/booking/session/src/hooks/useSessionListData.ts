@@ -22,6 +22,7 @@ import { getParamsFromFilters } from "#src/components/SessionList/Filters/getPar
 import { sessionListSessionClickedEvent } from "#src/events/session-list/events";
 import { useUrls } from "#src/urls";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
+import { getTeacherInitials } from "#src/utils/get-teacher-initials";
 
 import {
   selectFilters,
@@ -70,9 +71,18 @@ const processSession =
 
     const teacherName = teacherOverride?.name ?? teacher?.name;
 
+    const teacherAvatar = teacherOverride?.photo ?? teacher?.photo;
+
+    const teacherInitials = getTeacherInitials({
+      teacher,
+      teacherOverride,
+    });
+
     return {
       ...session,
       teacherName: teacherName,
+      teacherAvatar: teacherAvatar ?? "",
+      teacherInitials,
       originalTeacherName: teacher?.name,
       establishmentName: establishment?.title,
       name: sessionName,

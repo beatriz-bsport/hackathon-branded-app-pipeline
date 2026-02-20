@@ -7,11 +7,7 @@ import {
   TagSelector,
   type TagSelectorProps,
 } from "#src/components/cdp/tag-selector";
-import {
-  useKaizenI18nInstance,
-  useTranslation,
-  withKaizenBusinessI18n,
-} from "#src/i18n";
+import { i18nInstance, useTranslation } from "#src/i18n";
 import type { NumberListFieldPath } from "#src/utils/form-types";
 
 type TagsAfterPurchaseSelectorProps<
@@ -23,7 +19,7 @@ type TagsAfterPurchaseSelectorProps<
   "placeholder" | "multiSelect"
 > & { containerClassName?: string };
 
-const TagsAfterPurchaseSelectorInner = <
+export const TagsAfterPurchaseSelector = <
   TFormValues extends FieldValues,
   TFieldName extends
     NumberListFieldPath<TFormValues> = NumberListFieldPath<TFormValues>,
@@ -31,8 +27,7 @@ const TagsAfterPurchaseSelectorInner = <
   containerClassName,
   ...props
 }: TagsAfterPurchaseSelectorProps<TFormValues, TFieldName>): ReactElement => {
-  const i18n = useKaizenI18nInstance();
-  const { t } = useTranslation("buyables", { i18n });
+  const { t } = useTranslation("buyables", { i18n: i18nInstance });
   return (
     <div className={containerClassName ?? ""}>
       <Title htmlVariant="h5" weight="strong">
@@ -52,6 +47,4 @@ const TagsAfterPurchaseSelectorInner = <
   );
 };
 
-export const TagsAfterPurchaseSelector = withKaizenBusinessI18n(
-  TagsAfterPurchaseSelectorInner,
-) as typeof TagsAfterPurchaseSelectorInner;
+TagsAfterPurchaseSelector.displayName = "KaizenTagsAfterPurchaseSelector";

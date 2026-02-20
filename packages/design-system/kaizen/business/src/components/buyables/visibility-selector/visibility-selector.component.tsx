@@ -10,11 +10,7 @@ import {
   cx,
 } from "@bsport/kaizen-primitive-core";
 
-import {
-  useKaizenI18nInstance,
-  useTranslation,
-  withKaizenBusinessI18n,
-} from "#src/i18n";
+import { i18nInstance, useTranslation } from "#src/i18n";
 import type { BooleanFieldPath } from "#src/utils/form-types";
 
 const VISIBILITY_VALUES = {
@@ -61,7 +57,7 @@ type VisibilitySelectorProps<
   popoverPlacement?: Placement;
 };
 
-const VisibilitySelectorInner = <
+export const VisibilitySelector = <
   TFormValues extends FieldValues,
   TFieldName extends
     BooleanFieldPath<TFormValues> = BooleanFieldPath<TFormValues>,
@@ -75,8 +71,7 @@ const VisibilitySelectorInner = <
 }: VisibilitySelectorProps<TFormValues, TFieldName>): ReactElement => {
   const formContext = useFormContext<TFormValues>();
 
-  const i18n = useKaizenI18nInstance();
-  const { t } = useTranslation("buyables", { i18n });
+  const { t } = useTranslation("buyables", { i18n: i18nInstance });
 
   if (!formContext) {
     throw new Error(
@@ -207,8 +202,4 @@ const VisibilitySelectorInner = <
   );
 };
 
-VisibilitySelectorInner.displayName = "KaizenVisibilitySelector";
-
-export const VisibilitySelector = withKaizenBusinessI18n(
-  VisibilitySelectorInner,
-) as typeof VisibilitySelectorInner;
+VisibilitySelector.displayName = "KaizenVisibilitySelector";

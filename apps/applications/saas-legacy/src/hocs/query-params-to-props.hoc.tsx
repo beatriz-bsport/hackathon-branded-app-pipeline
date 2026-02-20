@@ -17,7 +17,8 @@ export default function withQueryParamsToProps([
   ) => {
     return class extends React.PureComponent<any> {
       render() {
-        const { search } = this.props.location;
+        // In widget full-page mode there is no React Router, so location can be undefined
+        const search = this.props.location?.search ?? '';
         const regex = new RegExp(`${paramsName}=([^(&|$)]*)`);
         const match = regex.exec(search);
 

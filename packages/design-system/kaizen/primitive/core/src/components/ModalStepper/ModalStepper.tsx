@@ -1,5 +1,5 @@
 import { cx } from "class-variance-authority";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
@@ -7,6 +7,7 @@ import Icon from "#src/components/Icon";
 import Title from "#src/components/Title";
 import Dialog, { type DialogSize } from "#src/components/private/Dialog";
 import { useMatchMedia } from "#src/hooks";
+import { useScrollReset } from "#src/hooks/use-scroll-reset";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import Footer from "./Footer";
@@ -65,6 +66,8 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
   const isMobile = !useMatchMedia("sm");
   const { t } = useTranslation("default", { i18n: i18nInstance });
 
+  const { mobileRef, desktopRef, scrollToTop } = useScrollReset(isMobile);
+
   // Handle stepper logic
   const [currentStep, setCurrentStep] = useState(initialStep);
   const currentStepConfig = steps[currentStep];
@@ -111,6 +114,10 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
     },
     [currentStepConfig, isLastStep, confirmButton],
   );
+
+  useEffect(() => {
+    scrollToTop();
+  }, [currentStep, isMobile, scrollToTop]);
 
   return (
     <Dialog
@@ -161,6 +168,7 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
           },
           "gap-md p-sm min-h-0",
         )}
+        ref={mobileRef}
       >
         <div
           data-component="Kaizen-ModalStepper-Steps"
@@ -246,6 +254,7 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
         <div
           data-component="Kaizen-ModalStepper-Body-Content"
           className="flex flex-1 p-lg overflow-y-auto overflow-x-hidden"
+          ref={desktopRef}
         >
           {steps[currentStep].content}
         </div>

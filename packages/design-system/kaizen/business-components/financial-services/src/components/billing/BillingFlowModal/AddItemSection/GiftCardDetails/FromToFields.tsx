@@ -26,7 +26,7 @@ export const FromToFields: React.FC = () => {
   }, [member]);
 
   return (
-    <div className="grid grid-cols-2 gap-md">
+    <div className="grid grid-cols-1 gap-md sm:grid-cols-2">
       <FormField<BillingFlowFormState, "addItemGiftcardFrom", TextFieldProps>
         name="addItemGiftcardFrom"
         mapProps={({ field, form: { setValue } }) => ({

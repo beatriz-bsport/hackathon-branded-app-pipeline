@@ -151,7 +151,10 @@ const Select: React.FC<SelectProps> = ({
   );
 
   return (
-    <div data-component="Kaizen-Select" className="flex flex-col gap-2xs">
+    <div
+      data-component="Kaizen-Select"
+      className={classNames("flex flex-col gap-2xs", { "w-full": fullWidth })}
+    >
       {label && (
         <label
           htmlFor={id}

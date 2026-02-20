@@ -2,13 +2,7 @@ import { cx } from "class-variance-authority";
 import React from "react";
 
 import { useFormContext } from "@bsport/form";
-import {
-  Body,
-  Button,
-  Card,
-  Divider,
-  Title,
-} from "@bsport/kaizen-primitive-core";
+import { Body, Button, Card, Divider } from "@bsport/kaizen-primitive-core";
 
 import { useAddItemSection } from "#src/components/billing/BillingFlowModal/hooks/use-add-item-section";
 import type { BillingFlowFormState } from "#src/components/billing/BillingFlowModal/schema";
@@ -30,11 +24,13 @@ import { QuantityField } from "./QuantityField";
 // Note: Currently routes to legacy backoffice (causes page reload).
 const LEGACY_URL_SUBSCRIPTION = "/subscriptions";
 
-/**
- * Add-item section: composes field components and section-level actions.
- * Must be rendered inside the billing flow ControlledForm.
- */
-export const AddItemSection: React.FC = () => {
+type AddItemSectionProps = {
+  onOpenSummarySection?: () => void;
+};
+
+export const AddItemSection: React.FC<AddItemSectionProps> = ({
+  onOpenSummarySection,
+}) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
   const { watch } = useFormContext<BillingFlowFormState>();
@@ -66,9 +62,6 @@ export const AddItemSection: React.FC = () => {
 
   return (
     <div className="flex flex-col flex-1 gap-md">
-      <Title htmlVariant="h4" color="default" weight="strong">
-        {t("billingFlowModal.addItem")}
-      </Title>
       <Card
         elevated={false}
         className={cx(
@@ -135,7 +128,10 @@ export const AddItemSection: React.FC = () => {
                 size="md"
                 iconLeft="plus"
                 label={t("billingFlowModal.addItemButton")}
-                onClick={handleAddItem}
+                onClick={() => {
+                  handleAddItem();
+                  onOpenSummarySection?.();
+                }}
                 disabled={itemToAdd == null}
                 data-testid="billing-flow-add-item-button"
               />

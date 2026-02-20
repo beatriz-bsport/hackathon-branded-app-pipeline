@@ -3,6 +3,11 @@ import "@bsport/kaizen-tokens/src/index.css";
 
 import "./globals.css";
 
+export {
+  default as Accordion,
+  type AccordionItemProps,
+  type AccordionProps,
+} from "./components/Accordion";
 export { default as Alert, type AlertProps } from "./components/Alert";
 export {
   default as Autocomplete,

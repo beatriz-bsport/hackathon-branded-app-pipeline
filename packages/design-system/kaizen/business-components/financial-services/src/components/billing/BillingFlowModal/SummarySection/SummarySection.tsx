@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo } from "react";
 
 import { toDate, toDateTime } from "@bsport/datetime-manipulation";
 import { useFormContext } from "@bsport/form";
@@ -11,7 +11,6 @@ import {
   Icon,
   Select,
   type SelectedDate,
-  Title,
   Tooltip,
   useEmptyState,
 } from "@bsport/kaizen-primitive-core";
@@ -28,7 +27,17 @@ import { calculateTotals } from "./utils";
 // Pass/appointment_pass start_date_method: start from billing date (valid from the billing date).
 const START_ON_PURCHASE = 2;
 
-export const SummarySection: React.FC = () => {
+type SummarySectionProps = {
+  openAddItemSection?: () => void;
+  isFootnoteModalOpen: boolean;
+  setIsFootnoteModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export const SummarySection: React.FC<SummarySectionProps> = ({
+  openAddItemSection,
+  isFootnoteModalOpen,
+  setIsFootnoteModalOpen,
+}) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
   const { watch, setValue } = useFormContext<BillingFlowFormState>();
@@ -46,10 +55,8 @@ export const SummarySection: React.FC = () => {
     isBillingGroupsLoading || (establishmentBillingGroups?.length ?? 0) > 0;
 
   const items = watch("items") ?? [];
-  const promoCodes = watch("promoCodes");
   const promoCodeDiscountCts = watch("promoCodeDiscountCts");
   const itemCount = items.length;
-  const itemCountText = t("billingFlowModal.itemCount", { count: itemCount });
 
   const emptyTitle = t("billingFlowModal.emptyState.title");
   const emptySubtitle = t("billingFlowModal.emptyState.subtitle");
@@ -64,7 +71,6 @@ export const SummarySection: React.FC = () => {
   });
 
   const footnote = watch("footnote");
-  const [isFootnoteModalOpen, setIsFootnoteModalOpen] = useState(false);
   const hasFootnote = footnote != null && footnote.trim() !== "";
 
   const passActivationDate = watch("passActivationDate");
@@ -104,12 +110,12 @@ export const SummarySection: React.FC = () => {
   const handleItemDelete = (itemIndex: number) => {
     const newItems = items.filter((_, index) => index !== itemIndex);
     setValue("items", newItems, { shouldDirty: true });
-    if (newItems.length === 0 && promoCodes.length > 0) {
+
+    if (newItems.length === 0) {
       setValue("promoCodes", [], { shouldDirty: true });
       setValue("promoCodeDiscountCts", 0, { shouldDirty: true });
-    }
-    if (newItems.length === 0 && footnote?.trim() !== "") {
       setValue("footnote", null, { shouldDirty: true });
+      openAddItemSection?.();
     }
   };
 
@@ -117,6 +123,11 @@ export const SummarySection: React.FC = () => {
     items,
     promoCodeDiscountCts,
   );
+
+  const handleCloseFootnoteModal = () => {
+    setIsFootnoteModalOpen(false);
+  };
+
   const handleSaveFootnote = (value: string) => {
     const trimmed = value.trim();
     setValue("footnote", trimmed === "" ? null : trimmed, {
@@ -131,34 +142,10 @@ export const SummarySection: React.FC = () => {
   };
 
   return (
-    // To fit the section in the modal and avoid scrolling, we need to subtract the height of the header and footer from the modal height.
     <div
-      className="flex flex-col flex-1 gap-md max-h-[calc(90vh-var(--header-footer-size))]"
-      style={{ "--header-footer-size": "248px" }}
+      className="flex flex-col flex-1 gap-md sm:max-h-[calc(90vh-var(--header-footer-size))]"
+      style={{ "--header-footer-size": "288px" }}
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-xs">
-          <Title htmlVariant="h4" color="default" weight="strong">
-            {t("billingFlowModal.summary")}
-          </Title>
-          {itemCount > 0 && (
-            <Body htmlVariant="span" size="md" color="weak">
-              · {itemCountText}
-            </Body>
-          )}
-        </div>
-        {itemCount > 0 && !hasFootnote && (
-          <div className="flex items-center">
-            <Button
-              intent="flat"
-              color="main"
-              size="sm"
-              label={t("billingFlowModal.addFootnote")}
-              onClick={() => setIsFootnoteModalOpen(true)}
-            />
-          </div>
-        )}
-      </div>
       <div className="flex flex-col flex-1 min-h-0 gap-xs">
         <Card className="flex flex-col flex-1 min-h-0 bg-surface-default-weaker">
           {shouldRenderEmptyState ? (
@@ -176,6 +163,17 @@ export const SummarySection: React.FC = () => {
                       {index < items.length - 1 && <Divider weight="thin" />}
                     </React.Fragment>
                   ))}
+                  {openAddItemSection && itemCount > 0 && (
+                    <Button
+                      intent="flat"
+                      color="main"
+                      size="sm"
+                      iconLeft="plus"
+                      label={t("billingFlowModal.addItemButton")}
+                      onClick={openAddItemSection}
+                      className="w-fit m-2xs"
+                    />
+                  )}
                 </div>
               </div>
               <Divider weight="thin" />
@@ -221,7 +219,7 @@ export const SummarySection: React.FC = () => {
           </Card>
         )}
         {itemCount > 0 && (showPassesRow || showBillingGroup) && (
-          <Card className="flex gap-lg bg-surface-default-weaker">
+          <Card className="flex flex-col gap-lg sm:flex-row">
             {showPassesRow && (
               <div className="flex gap-xs items-end">
                 <DatePicker
@@ -257,7 +255,7 @@ export const SummarySection: React.FC = () => {
             )}
             {showPassesRow && showBillingGroup && <Divider weight="thin" />}
             {showBillingGroup && (
-              <div className="flex gap-xs items-end">
+              <div className="flex gap-xs items-end w-full">
                 <Select
                   id={`billing-group-${billingGroupSelectId}`}
                   fullWidth
@@ -298,7 +296,7 @@ export const SummarySection: React.FC = () => {
 
       <FootnoteModal
         isOpen={isFootnoteModalOpen}
-        onClose={() => setIsFootnoteModalOpen(false)}
+        onClose={handleCloseFootnoteModal}
         onSave={handleSaveFootnote}
         initialValue={footnote}
       />

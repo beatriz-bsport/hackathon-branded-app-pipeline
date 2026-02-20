@@ -44,7 +44,6 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
       optionId: string,
       { shouldDirty = true }: { shouldDirty?: boolean } = {},
     ) => {
-      const selectedWeekdays = watch("recurrenceWeekdays");
       const weekday = Number(optionId) as ISOWeekday;
       const isSelected = selectedWeekdays[weekday];
 
@@ -58,7 +57,7 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
         shouldDirty,
       });
     },
-    [watch, setValue],
+    [setValue, selectedWeekdays],
   );
 
   // Set default weekday when startDateTime changes and no weekdays are selected
@@ -106,7 +105,6 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
   }
 
   const getSelectedWeekdayIds = (): string[] => {
-    const selectedWeekdays = watch("recurrenceWeekdays");
     if (!selectedWeekdays) return [];
     return Object.keys(selectedWeekdays).filter(
       (key) => selectedWeekdays[Number(key) as ISOWeekday],
@@ -121,7 +119,6 @@ export const RecurrenceWeekdaysSelector: FC<{ fieldIdPrefix: string }> = ({
   }));
 
   const selectedChips = (() => {
-    const selectedWeekdays = watch("recurrenceWeekdays");
     if (!selectedWeekdays) return [];
     return options.filter(
       (option) => selectedWeekdays[Number(option.id) as ISOWeekday],

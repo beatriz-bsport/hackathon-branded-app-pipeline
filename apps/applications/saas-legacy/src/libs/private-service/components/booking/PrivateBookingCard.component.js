@@ -1,5 +1,5 @@
 // @flow
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { compose, withStateHandlers } from 'recompose';
 import { useTranslation } from 'react-i18next';
 
@@ -53,6 +53,7 @@ import EstablishmentListItem from '../../../establishment/components/Establishme
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
 import RedChip from '../../../../components/chip/RedChip.component';
 import RedButton from '../../../../components/button/RedButton.component';
+import { useGetPrivateConsumerPass } from '../hooks';
 import type { PrivateBookingWithRelatedFields } from '../../types';
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 
@@ -128,6 +129,15 @@ export const PrivateBookingCard = (props: Props) => {
   const [openAllocationModal, setOpenAllocationModal] = React.useState(false);
   const [unpaidInvoicesSectionOpened, setUnpaidInvoicesSectionOpened] =
     React.useState(true);
+
+  const [{ value: privateConsumerPass }, fetchPrivateConsumerPass] =
+    useGetPrivateConsumerPass();
+
+  useEffect(() => {
+    if (private_booking?.private_consumer_pass) {
+      fetchPrivateConsumerPass(private_booking.private_consumer_pass);
+    }
+  }, [private_booking?.private_consumer_pass, fetchPrivateConsumerPass]);
 
   const applyGiftcardOnInvoice = (
     invoiceUuid: string,
@@ -358,6 +368,7 @@ export const PrivateBookingCard = (props: Props) => {
                       ? () => props.goToMember(private_booking.member.id)
                       : null
                   }
+                  privateConsumerPass={privateConsumerPass}
                   programDataLoading={props.programDataLoading}
                   programList={props.programList}
                   updateMemberMetricValue={props.updateMemberMetricValue}

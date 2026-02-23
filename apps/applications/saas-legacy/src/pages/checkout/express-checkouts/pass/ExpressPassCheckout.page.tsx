@@ -77,6 +77,7 @@ import { STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID } from '#src/actions/constants';
 import { getItemInStorage } from '#src/utils/storage';
 
 import './express-pass-checkout.css';
+import { getAuthTokenValue } from '#src/http/utils';
 import analyticsUtils from '#src/components/analytics/analytics';
 
 enum RedirectStatus {
@@ -402,6 +403,12 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
   }
 
   if (!!passCardData?.paymentPackData?.paymentPack?.whitelist_tags?.length) {
+    return <Redirect to={loginToPaymentPackUrl} />;
+  }
+
+  // This case should never happen, but if it does we prefer to redirect to the login page as
+  // the email of the user is probably taken and they will need to login
+  if (memberId && !getAuthTokenValue()) {
     return <Redirect to={loginToPaymentPackUrl} />;
   }
 

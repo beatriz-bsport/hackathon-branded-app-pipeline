@@ -2,6 +2,11 @@ import Immutable from 'seamless-immutable';
 import { v4 as uuidv4 } from 'uuid';
 
 import { validateEmailActions } from '#src/libs/login/actions';
+import { removeItemInStorage } from '#src/utils/storage';
+import {
+  STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES,
+  STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID,
+} from '#src/actions/constants';
 import {
   setAuthToken,
   setAccessControlBroadcastsChannelId,
@@ -84,6 +89,8 @@ export default function authReducers(state = initialState, action = {}) {
     case actionTypes.DISCONNECT:
       setAuthToken(null);
       setAccessControlBroadcastsChannelId(null);
+      removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID);
+      removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
       return initialState;
 
     case actionTypes.LOGIN_INITIATED:

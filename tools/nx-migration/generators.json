@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "migrate-to-library": {
+      "implementation": "./src/generators/migrate-to-library/generator",
+      "schema": "./src/generators/migrate-to-library/schema.json",
+      "description": "Migrate a Studio Manager app from Module Federation to workspace library"
+    }
+  }
+}

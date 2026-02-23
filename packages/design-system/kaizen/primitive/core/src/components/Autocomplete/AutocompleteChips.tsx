@@ -1,12 +1,13 @@
 import { type FC, useMemo } from "react";
 
 import Chip from "#src/components/Chip";
-import type { MenuOption } from "#src/components/Menu/types";
+
+import type { MenuOptionWithColor } from "./types";
 
 type AutocompleteChipsProps = {
   hideChips: boolean;
   multiSelect: boolean;
-  selectedItems: MenuOption[];
+  selectedItems: MenuOptionWithColor[];
   onDismissChip: (chipId: string) => void;
 };
 
@@ -28,6 +29,7 @@ export const AutocompleteChips: FC<AutocompleteChipsProps> = ({
           id: item.id,
           label: item.label || "",
           type: "weak" as const,
+          customColor: item.customColor,
           color: "main" as const,
           size: "lg" as const,
           dismissible: true,

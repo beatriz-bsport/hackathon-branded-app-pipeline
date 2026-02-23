@@ -77,6 +77,7 @@ export const usePassConfig = (): ItemTypeConfig<RawPassResponse> => {
           durationYears: item.duration_years ?? null,
           validityDateRange: parseValidityDateRange(item.validity_daterange),
           taxPercent: parseTaxPercent(item.tax),
+          startDateMethod: item.start_date_method,
         };
       },
     }),

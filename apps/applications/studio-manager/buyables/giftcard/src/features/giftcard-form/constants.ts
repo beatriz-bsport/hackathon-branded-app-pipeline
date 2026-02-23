@@ -1,3 +1,5 @@
+import { PAYMENT_METHOD_IDENTIFIERS } from "@bsport/kaizen-business-components/buyables/payment-methods-form";
+
 import type { GiftcardFormData } from "./types";
 
 export const FIELD_CONSTRAINTS = {
@@ -18,4 +20,10 @@ export const GIFTCARD_FORM_DATA_DEFAULT: GiftcardFormData = {
   hasExpirationDays: false,
   expiration_days: 365,
   cover: null,
+  available_payment_method_identifiers: [
+    PAYMENT_METHOD_IDENTIFIERS.ONLINE_PAYMENTS_ID,
+  ],
+  tags_on_consumer_item_creation: [],
+  manager_only: false,
+  bookkeeping_account: null,
 };

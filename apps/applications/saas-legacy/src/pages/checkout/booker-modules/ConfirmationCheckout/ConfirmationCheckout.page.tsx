@@ -59,7 +59,11 @@ import type {
   ExtraDataFromQueryParams,
   UserRegistrationResponse,
 } from '#src/libs/booker-module/types';
-import { BuyableItemOptions, type Basket } from '#src/libs/checkout/types';
+import {
+  BuyableItemOptions,
+  ERROR_CONFIRMATION_STATUS,
+  type Basket,
+} from '#src/libs/checkout/types';
 
 import MarketplaceOfferBookingList from '#src/libs/marketplace/components/@Booking/MarketplaceOfferBookingList';
 
@@ -107,6 +111,7 @@ import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 import { trackBookingConfirmedEvent } from '#src/events/booking/trackers';
 
 import './styles.css';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 type QueryParams = {
   basket: string;
@@ -155,6 +160,8 @@ const buildUrlForWidget = (path: string, theme: CompanyTheme, params?: any) => {
 };
 
 export class ConfirmationCheckout extends React.PureComponent<Props, State> {
+  private hasTriggeredPaymentSuccessAnalytics = { current: false };
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -166,6 +173,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
     if (prevProps.offerBookedIdList !== this.props.offerBookedIdList) {
       this.fetchOfferData();
     }
+    this.tryTriggerPaymentSuccessAnalytics();
   }
 
   componentDidMount() {
@@ -207,7 +215,55 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
       );
       this.props.fetchBillinPlan(parsedBillingPlanId, {});
     }
+    this.tryTriggerPaymentSuccessAnalytics();
   }
+
+  tryTriggerPaymentSuccessAnalytics = () => {
+    if (this.hasTriggeredPaymentSuccessAnalytics.current) return;
+
+    const {
+      basket,
+      billingPlan,
+      offerBookedList,
+      offerNotBookableIdWithErrorCodeList,
+    } = this.props;
+    if (!basket) return;
+    const errorCode = offerNotBookableIdWithErrorCodeList[0]?.[1];
+    const userRegistrationResponse = this.getParsedUserRegistrationResponse();
+    const isFromOneClickCheckout = !!this.props.queryParams?.express_checkout;
+    const isPartiallyConfirmed =
+      !!offerNotBookableIdWithErrorCodeList?.length &&
+      !!offerBookedList?.length;
+
+    const confirmationStatus = isFromOneClickCheckout
+      ? getOneClickCheckoutConfirmationStatus(
+          this.isError(),
+          errorCode,
+          offerBookedList,
+          basket,
+        )
+      : getConfirmationStatus(
+          this.isError(),
+          errorCode,
+          offerBookedList,
+          basket,
+          billingPlan,
+          this.props.offerPreBookedIdList,
+          userRegistrationResponse?.extra_data?.[0]?.booking_for_invitee_only,
+          isPartiallyConfirmed,
+        );
+
+    const isValidConfirmation =
+      confirmationStatus &&
+      !ERROR_CONFIRMATION_STATUS.includes(confirmationStatus);
+    const hasCheckoutItems =
+      basket?.checkout_items && basket.checkout_items.length > 0;
+
+    if (isValidConfirmation && hasCheckoutItems) {
+      this.hasTriggeredPaymentSuccessAnalytics.current = true;
+      analyticsUtils.onPaymentSuccess(basket);
+    }
+  };
 
   handleExpressCheckoutLogin = () => {
     if (

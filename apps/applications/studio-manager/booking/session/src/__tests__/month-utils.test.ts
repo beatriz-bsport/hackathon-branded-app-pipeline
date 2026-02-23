@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { toDateTime } from "@bsport/datetime-manipulation";
+import { fromIsoString } from "@bsport/datetime-manipulation";
 
 import {
   getOccurrenceByPosition,
@@ -10,7 +10,7 @@ import {
 describe("getWeekdayPositionInMonth", () => {
   describe("first occurrence", () => {
     it("should identify first Monday of the month", () => {
-      const date = new Date("2025-01-06T10:00:00"); // First Monday of January 2025
+      const date = fromIsoString("2025-01-06T10:00:00"); // First Monday of January 2025
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -19,7 +19,7 @@ describe("getWeekdayPositionInMonth", () => {
     });
 
     it("should identify first Sunday of the month", () => {
-      const date = new Date("2025-01-05T10:00:00"); // First Sunday of January 2025
+      const date = fromIsoString("2025-01-05T10:00:00"); // First Sunday of January 2025
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -30,7 +30,7 @@ describe("getWeekdayPositionInMonth", () => {
 
   describe("second occurrence", () => {
     it("should identify second Monday of the month", () => {
-      const date = new Date("2025-01-13T10:00:00"); // Second Monday of January 2025
+      const date = fromIsoString("2025-01-13T10:00:00"); // Second Monday of January 2025
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -39,7 +39,7 @@ describe("getWeekdayPositionInMonth", () => {
     });
 
     it("should identify second Tuesday of the month", () => {
-      const date = new Date("2025-01-14T10:00:00"); // Second Tuesday of January 2025
+      const date = fromIsoString("2025-01-14T10:00:00"); // Second Tuesday of January 2025
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -50,7 +50,7 @@ describe("getWeekdayPositionInMonth", () => {
 
   describe("third occurrence", () => {
     it("should identify third Wednesday of the month", () => {
-      const date = new Date("2025-01-15T10:00:00"); // Third Wednesday of January 2025
+      const date = fromIsoString("2025-01-15T10:00:00"); // Third Wednesday of January 2025
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -61,7 +61,7 @@ describe("getWeekdayPositionInMonth", () => {
 
   describe("fourth occurrence", () => {
     it("should identify fourth Saturday of the month", () => {
-      const date = new Date("2025-01-25T10:00:00"); // Last Saturday of January 2025
+      const date = fromIsoString("2025-01-25T10:00:00"); // Last Saturday of January 2025
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -72,7 +72,7 @@ describe("getWeekdayPositionInMonth", () => {
 
   describe("last occurrence", () => {
     it("should identify last Monday of the month", () => {
-      const date = new Date("2025-01-27T10:00:00"); // Last Monday of January 2025
+      const date = fromIsoString("2025-01-27T10:00:00"); // Last Monday of January 2025
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -81,7 +81,7 @@ describe("getWeekdayPositionInMonth", () => {
     });
 
     it("should identify last Sunday of the month", () => {
-      const date = new Date("2025-02-23T10:00:00"); // Last Sunday of February 2025
+      const date = fromIsoString("2025-02-23T10:00:00"); // Last Sunday of February 2025
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -92,7 +92,7 @@ describe("getWeekdayPositionInMonth", () => {
 
   describe("edge cases", () => {
     it("should handle months with 5 occurrences of a weekday", () => {
-      const date = new Date("2025-01-29T10:00:00"); // Fifth Wednesday of January 2025
+      const date = fromIsoString("2025-01-29T10:00:00"); // Fifth Wednesday of January 2025
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -102,7 +102,7 @@ describe("getWeekdayPositionInMonth", () => {
     });
 
     it("should handle February in non-leap year", () => {
-      const date = new Date("2025-02-24T10:00:00"); // Last Monday of February 2025
+      const date = fromIsoString("2025-02-24T10:00:00"); // Last Monday of February 2025
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -111,7 +111,7 @@ describe("getWeekdayPositionInMonth", () => {
     });
 
     it("should handle February in leap year", () => {
-      const date = new Date("2024-02-29T10:00:00"); // Last Thursday of February 2024 (leap year)
+      const date = fromIsoString("2024-02-29T10:00:00"); // Last Thursday of February 2024 (leap year)
 
       const result = getWeekdayPositionInMonth(date, "Europe/Paris");
 
@@ -124,10 +124,7 @@ describe("getWeekdayPositionInMonth", () => {
 describe("getOccurrenceByPosition", () => {
   describe("first occurrence", () => {
     it("should get first Monday of the month", () => {
-      const monthStart = toDateTime(
-        new Date("2025-01-01T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthStart = fromIsoString("2025-01-01T10:00:00");
 
       const result = getOccurrenceByPosition(monthStart, 1, 1, "Europe/Paris");
 
@@ -137,10 +134,7 @@ describe("getOccurrenceByPosition", () => {
     });
 
     it("should get first Sunday of the month", () => {
-      const monthStart = toDateTime(
-        new Date("2025-01-01T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthStart = fromIsoString("2025-01-01T10:00:00");
 
       const result = getOccurrenceByPosition(monthStart, 7, 1, "Europe/Paris");
 
@@ -152,10 +146,7 @@ describe("getOccurrenceByPosition", () => {
 
   describe("second occurrence", () => {
     it("should get second Tuesday of the month", () => {
-      const monthStart = toDateTime(
-        new Date("2025-01-01T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthStart = fromIsoString("2025-01-01T10:00:00");
 
       const result = getOccurrenceByPosition(monthStart, 2, 2, "Europe/Paris");
 
@@ -167,10 +158,7 @@ describe("getOccurrenceByPosition", () => {
 
   describe("third occurrence", () => {
     it("should get third Saturday of the month", () => {
-      const monthStart = toDateTime(
-        new Date("2025-01-01T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthStart = fromIsoString("2025-01-01T10:00:00");
 
       const result = getOccurrenceByPosition(monthStart, 6, 3, "Europe/Paris");
 
@@ -182,10 +170,7 @@ describe("getOccurrenceByPosition", () => {
 
   describe("fourth occurrence", () => {
     it("should get fourth Friday of the month", () => {
-      const monthStart = toDateTime(
-        new Date("2025-01-01T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthStart = fromIsoString("2025-01-01T10:00:00");
 
       const result = getOccurrenceByPosition(monthStart, 5, 4, "Europe/Paris");
 
@@ -195,10 +180,7 @@ describe("getOccurrenceByPosition", () => {
     });
 
     it("should return null if fourth occurrence doesn't exist", () => {
-      const monthStart = toDateTime(
-        new Date("2025-02-01T10:00:00"),
-        "Europe/Paris",
-      ); // February 2025
+      const monthStart = fromIsoString("2025-02-01T10:00:00"); // February 2025
 
       const result = getOccurrenceByPosition(monthStart, 7, 4, "Europe/Paris");
 
@@ -213,10 +195,7 @@ describe("getOccurrenceByPosition", () => {
 
   describe("last occurrence", () => {
     it("should get last Sunday of the month", () => {
-      const monthStart = toDateTime(
-        new Date("2025-01-01T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthStart = fromIsoString("2025-01-01T10:00:00");
 
       const result = getOccurrenceByPosition(monthStart, 7, -1, "Europe/Paris");
 
@@ -226,10 +205,7 @@ describe("getOccurrenceByPosition", () => {
     });
 
     it("should get last day of February in non-leap year", () => {
-      const monthStart = toDateTime(
-        new Date("2025-02-01T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthStart = fromIsoString("2025-02-01T10:00:00");
 
       const result = getOccurrenceByPosition(monthStart, 5, -1, "Europe/Paris");
 
@@ -239,10 +215,7 @@ describe("getOccurrenceByPosition", () => {
     });
 
     it("should get last day of February in leap year", () => {
-      const monthStart = toDateTime(
-        new Date("2024-02-01T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthStart = fromIsoString("2024-02-01T10:00:00");
 
       const result = getOccurrenceByPosition(monthStart, 4, -1, "Europe/Paris");
 
@@ -254,10 +227,7 @@ describe("getOccurrenceByPosition", () => {
 
   describe("edge cases", () => {
     it("should handle months with 5 occurrences of a weekday", () => {
-      const monthStart = toDateTime(
-        new Date("2025-01-01T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthStart = fromIsoString("2025-01-01T10:00:00");
 
       const result = getOccurrenceByPosition(monthStart, 3, 4, "Europe/Paris");
 
@@ -280,10 +250,7 @@ describe("getOccurrenceByPosition", () => {
 
   describe("month boundary validation", () => {
     it("should validate that returned date is in the same month", () => {
-      const monthStart = toDateTime(
-        new Date("2025-02-01T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthStart = fromIsoString("2025-02-01T10:00:00");
 
       const result = getOccurrenceByPosition(monthStart, 1, 4, "Europe/Paris");
 
@@ -294,10 +261,7 @@ describe("getOccurrenceByPosition", () => {
     });
 
     it("should use any date in the month as monthStart", () => {
-      const monthMiddle = toDateTime(
-        new Date("2025-01-15T10:00:00"),
-        "Europe/Paris",
-      );
+      const monthMiddle = fromIsoString("2025-01-15T10:00:00");
 
       const result = getOccurrenceByPosition(monthMiddle, 1, 1, "Europe/Paris");
 

@@ -1,5 +1,5 @@
 import { FC, useId, useMemo } from "react";
-import { Link, NavLink } from "react-router";
+import { Link } from "react-router";
 
 import type { SessionWithActivity } from "@bsport/api-book";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
@@ -8,8 +8,6 @@ import {
   Breadcrumbs,
   ChipProps,
   DetailsLayout,
-  Tabs,
-  TabsProps,
 } from "@bsport/kaizen-primitive-core";
 
 import { useUrls } from "#src/urls";
@@ -23,9 +21,15 @@ export const Header: FC<{
   session: SessionWithActivity;
   onOpenCancelSessionModal: () => void;
   onOpenDuplicateSessionModal: () => void;
-}> = ({ session, onOpenCancelSessionModal, onOpenDuplicateSessionModal }) => {
+  onOpenRestoreSessionModal: () => void;
+}> = ({
+  session,
+  onOpenCancelSessionModal,
+  onOpenDuplicateSessionModal,
+  onOpenRestoreSessionModal,
+}) => {
   const { t, i18n } = useTranslation("sessionDetails");
-  const { getEditUrl, getIndexUrl } = useUrls();
+  const { getIndexUrl } = useUrls();
   const locale = i18n?.language;
 
   const subtitle = useMemo(() => {
@@ -89,25 +93,6 @@ export const Header: FC<{
     t,
   ]);
 
-  const TABS_CONFIG = [
-    {
-      id: "session-details-editor-view-tab",
-      to: getEditUrl(session.id),
-      label: t("tabs.editor"),
-    },
-  ];
-
-  const tabsConfig: TabsProps = {
-    TabsItems: TABS_CONFIG.map(({ id, to, label }) => (
-      <NavLink to={to} id={id} key={id} end={true}>
-        {({ isActive }) => (
-          <Tabs.Item id={id} label={label} isActive={isActive} />
-        )}
-      </NavLink>
-    )),
-    orientation: "horizontal",
-  };
-
   const sessionStatus = !session.available
     ? SessionStatus.CANCELLED
     : session.manager_only
@@ -145,9 +130,7 @@ export const Header: FC<{
 
   return (
     <DetailsLayout.Header
-      // TODO: replace with watch(<session name field>) when the form is implemented
       pageTitle={session.name_override || session.name}
-      pageTabs={tabsConfig}
       pageStatusChip={statusChips[sessionStatus]}
       pageSubtitle={subtitle}
       BreadcrumbsItems={breadcrumbs}
@@ -155,6 +138,7 @@ export const Header: FC<{
         <ShortcutActionsButton
           onOpenCancelSessionModal={onOpenCancelSessionModal}
           onOpenDuplicateSessionModal={onOpenDuplicateSessionModal}
+          onOpenRestoreSessionModal={onOpenRestoreSessionModal}
           session={session}
           key={key}
         />,

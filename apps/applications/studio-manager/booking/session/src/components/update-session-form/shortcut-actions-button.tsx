@@ -17,12 +17,14 @@ type ShortcutActionsButtonProps = {
   session: SessionWithActivity;
   onOpenCancelSessionModal: () => void;
   onOpenDuplicateSessionModal: () => void;
+  onOpenRestoreSessionModal: () => void;
 };
 
 export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
   session,
   onOpenCancelSessionModal,
   onOpenDuplicateSessionModal,
+  onOpenRestoreSessionModal,
 }) => {
   const { t } = useTranslation("sessionList");
 
@@ -40,6 +42,12 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
     isWorkshop
       ? "session.workshop.allowed_actions.create"
       : "session.activity.allowed_actions.create",
+  );
+
+  const hasEditPermission = useObjectLevelPermission(
+    isWorkshop
+      ? "session.workshop.allowed_actions.edit"
+      : "session.activity.allowed_actions.edit",
   );
 
   const getMenuItems = useCallback(
@@ -81,6 +89,16 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
           onOpenCancelSessionModal();
         },
       };
+      const restoreShortcutAction: Item = {
+        id: "restore-shortcut",
+        label: t("table.shortcutActions.restore"),
+        iconLeft: "unarchive",
+        type: "button",
+        onClick: () => {
+          setIsPopoverOpened(false);
+          onOpenRestoreSessionModal();
+        },
+      };
 
       const availableActions = [
         ...(companyId ? [copyLinkShortcutAction] : []),
@@ -89,6 +107,7 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
       ];
 
       const unavailableActions = [
+        ...(hasEditPermission ? [restoreShortcutAction] : []),
         ...(hasCreatePermission ? [duplicateShortcutAction] : []),
       ];
 
@@ -103,10 +122,13 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
       hasCreatePermission,
       onOpenCancelSessionModal,
       onOpenDuplicateSessionModal,
+      onOpenRestoreSessionModal,
+      hasEditPermission,
     ],
   );
 
-  const hasAnyPermission = hasCreatePermission || hasCancelPermission;
+  const hasAnyPermission =
+    hasCreatePermission || hasCancelPermission || hasEditPermission;
 
   if (!hasAnyPermission) {
     return null;

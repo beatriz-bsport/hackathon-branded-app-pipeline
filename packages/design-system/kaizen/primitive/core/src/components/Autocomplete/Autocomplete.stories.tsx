@@ -415,8 +415,8 @@ const items = [
   {
     title: "Europe",
     options: [
-      { id: "english", label: "English" },
-      { id: "french", label: "French" },
+      { id: "english", label: "English", customColor: "#f44" },
+      { id: "french", label: "French", customColor: "#0f5" },
       { id: "german", label: "German" },
       { id: "spanish", label: "Spanish" },
       { id: "portuguese", label: "Portuguese" },

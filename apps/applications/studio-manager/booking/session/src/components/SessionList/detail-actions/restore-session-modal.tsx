@@ -5,28 +5,26 @@ import { Body, Modal } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useRestoreSession } from "#src/hooks/session-api/session-actions/use-restore-session";
-import {
-  closeModal,
-  selectIsRestoreModalOpen,
-  useSessionListStore,
-} from "#src/stores/session-list";
 import { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 type RestoreSessionModalProps = {
   session: EnrichedSession;
+  isOpen: boolean;
+  onClose: () => void;
 };
 export const RestoreSessionModal: FC<RestoreSessionModalProps> = ({
   session,
+  isOpen,
+  onClose,
 }) => {
   const { t, i18n } = useTranslation("sessionList");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
-  const isOpen = useSessionListStore(selectIsRestoreModalOpen);
 
   const restoreSession = useRestoreSession();
 
   const handleConfirm = () => {
-    closeModal();
+    onClose();
     restoreSession.mutate(session.id);
   };
 
@@ -36,7 +34,7 @@ export const RestoreSessionModal: FC<RestoreSessionModalProps> = ({
       DATETIME_FORMATS.MEDIUM_DATETIME,
       { locale: i18n.language, timeZone: companyTimezone },
     );
-    return `${session.name} - ${sessionDate}`;
+    return `${session.name_override ?? session.name} - ${sessionDate}`;
   };
 
   return (
@@ -45,14 +43,14 @@ export const RestoreSessionModal: FC<RestoreSessionModalProps> = ({
       size="md"
       title={t("restoreModal.title")}
       description={getDescription()}
-      onClose={closeModal}
+      onClose={onClose}
       confirmButton={{
         label: t("restoreModal.confirmButton"),
         onClick: handleConfirm,
       }}
       cancelButton={{
         label: t("restoreModal.cancelButton"),
-        onClick: closeModal,
+        onClick: onClose,
       }}
     >
       <div className="flex flex-col gap-md">

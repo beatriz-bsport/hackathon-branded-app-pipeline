@@ -1,9 +1,10 @@
 import { z } from "zod";
 
 import {
+  DateTime,
+  LuxonDateTime,
   getLocalNow,
   modifyTime,
-  toDateTime,
 } from "@bsport/datetime-manipulation";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
@@ -37,26 +38,30 @@ export type SessionEditFormSchema = z.ZodType<SessionEditFormData>;
 export const MAX_YEARS_AHEAD = 3;
 
 export const useDateTimeSchemaObject = () => {
-  const { t, i18n } = useTranslation("sessionCreation");
-  const locale = i18n.language;
-  const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
+  const { t } = useTranslation("sessionCreation");
+  const validDateTime = z.custom<DateTime>(
+    (val) => val instanceof LuxonDateTime && val.isValid,
+    {
+      message: t(
+        "addSessionModal.steps.configureSession.timeAndDate.errors.invalidDate",
+      ),
+    },
+  );
 
   return z.object({
-    startDateTime: z
-      .date({
-        required_error: t("addSessionModal.errors.requiredField"),
-        invalid_type_error: t(
-          "addSessionModal.steps.configureSession.timeAndDate.errors.invalidDate",
-        ),
+    startDateTime: validDateTime
+      .refine((dateTime) => dateTime !== null, {
+        message: t("addSessionModal.errors.requiredField"),
       })
       .refine(
-        (date) => {
-          const maxDate = modifyTime({
-            datetime: getLocalNow({ zone: companyTimeZone, locale }),
-            duration: { year: MAX_YEARS_AHEAD },
-            operator: "plus",
+        (dateTime) => {
+          const timeZone = dateTime.zone;
+
+          const maxDate = getLocalNow({ zone: timeZone }).plus({
+            years: MAX_YEARS_AHEAD,
           });
-          return toDateTime(date).setZone(companyTimeZone) <= maxDate;
+
+          return dateTime <= maxDate;
         },
         {
           message: t(
@@ -87,7 +92,7 @@ export const useDateTimeSchemaObject = () => {
     recurrenceUnit: z.nativeEnum(CustomRecurrenceUnit),
     recurrenceInterval: z.number().int().positive(),
     recurrencePattern: z.nativeEnum(MonthlyRecurrencePattern),
-    recurrenceEndDate: z.date().nullable(),
+    recurrenceEndDate: validDateTime.nullable(),
   });
 };
 
@@ -128,10 +133,7 @@ export const useRefineDateTimeSchema = <
     .refine(
       (data) => {
         if (!data.isRecurring || !data.recurrenceEndDate) return true;
-        return (
-          toDateTime(data.recurrenceEndDate, companyTimeZone) >
-          toDateTime(data.startDateTime, companyTimeZone)
-        );
+        return data.recurrenceEndDate > data.startDateTime;
       },
       {
         message: t(
@@ -149,9 +151,7 @@ export const useRefineDateTimeSchema = <
           duration: { year: MAX_YEARS_AHEAD },
           operator: "plus",
         });
-        return (
-          toDateTime(data.recurrenceEndDate).setZone(companyTimeZone) <= maxDate
-        );
+        return data.recurrenceEndDate <= maxDate;
       },
       {
         message: t(
@@ -247,7 +247,6 @@ export const useSessionSchema = () => {
       manager_only: z.boolean(),
       credits: z.number().min(0),
       waiting_list_max_size: z.number().min(0),
-      // TODO : ADD VALIDATION FOR EFFECTIF BASED ON ROOM BLUEPRINT CAPACITY
       effectif: z.number().min(0),
       available_on_partnership: z.boolean(),
       partner_max_booking_count: z.number().min(0),
@@ -351,28 +350,32 @@ export const useSessionSchema = () => {
 };
 
 export const useSessionEditSchema = () => {
-  const { t, i18n } = useTranslation("sessionCreation");
-  const locale = i18n.language;
-  const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
+  const { t } = useTranslation("sessionCreation");
+  const validDateTime = z.custom<DateTime>(
+    (val) => val instanceof LuxonDateTime && val.isValid,
+    {
+      message: t(
+        "addSessionModal.steps.configureSession.timeAndDate.errors.invalidDate",
+      ),
+    },
+  );
 
   const sessionEditSchema = z
     .object({
       // Date & Time
-      startDateTime: z
-        .date({
-          required_error: t("addSessionModal.errors.requiredField"),
-          invalid_type_error: t(
-            "addSessionModal.steps.configureSession.timeAndDate.errors.invalidDate",
-          ),
+      startDateTime: validDateTime
+        .refine((dateTime) => dateTime !== null, {
+          message: t("addSessionModal.errors.requiredField"),
         })
         .refine(
-          (date) => {
-            const maxDate = modifyTime({
-              datetime: getLocalNow({ zone: companyTimeZone, locale }),
-              duration: { year: MAX_YEARS_AHEAD },
-              operator: "plus",
+          (dateTime) => {
+            const timeZone = dateTime.zone;
+
+            const maxDate = getLocalNow({ zone: timeZone }).plus({
+              years: MAX_YEARS_AHEAD,
             });
-            return toDateTime(date).setZone(companyTimeZone) <= maxDate;
+
+            return dateTime <= maxDate;
           },
           {
             message: t(

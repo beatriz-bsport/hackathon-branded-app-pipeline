@@ -10,10 +10,9 @@ import {
   type TextFieldProps,
 } from "@bsport/kaizen-primitive-core";
 
+import { useApplyPromoCodeToInvoice } from "#src/components/billing/BillingFlowModal/hooks/use-apply-promo-code-to-invoice";
 import type { BillingFlowFormState } from "#src/components/billing/BillingFlowModal/schema";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
-
-import { useApplyPromoCodeToInvoice } from "./use-apply-promo-code-to-invoice";
 
 export const PromoCodeSection: React.FC = () => {
   const i18nInstance = useKaizenI18nInstance();
@@ -25,7 +24,8 @@ export const PromoCodeSection: React.FC = () => {
   const inputId = `promo-code-${useId()}`;
   const promoCodes = watch("promoCodes");
   const promoCode = watch("promoCode") ?? "";
-  const memberId = watch("memberId");
+  const member = watch("member");
+  const memberId = member?.id;
 
   const {
     appliedCoupons,

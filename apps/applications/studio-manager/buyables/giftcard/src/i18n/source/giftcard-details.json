@@ -1,14 +1,23 @@
 {
+  "modelName": {
+    "singular": "Gift Card",
+    "plural": "Gift Cards"
+  },
   "createModal": {
     "title": "Create a new gift card",
     "buttons": {
       "cancel": "Close",
       "create": "Create"
+    },
+    "submitResponse": {
+      "error": "Couldn't create Gift Card. Please try again.",
+      "success": "Successfully created Gift Card."
     }
   },
   "formFields": {
-    "genericErrors": {
-      "fieldIsRequired": "This field is required."
+    "errors": {
+      "fieldIsRequired": "This field is required.",
+      "errorMissingPaymentMethod": "Select a payment method"
     },
     "name": {
       "label": "Name",
@@ -49,5 +58,10 @@
       "helperText": "Suggested format: 1280 x 720 pixels, file size under 2MB",
       "extensions": "JPG, PNG, SVG"
     }
+  },
+  "sections": {
+    "pricing": "Pricing",
+    "visibility": "Visibility",
+    "advanced": "Advanced"
   }
 }

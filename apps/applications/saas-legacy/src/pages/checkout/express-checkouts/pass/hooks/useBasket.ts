@@ -15,6 +15,7 @@ import { usePassCardDataContext } from '#src/pages/checkout/express-checkouts/pa
 import { trackAddToCartEvent } from '#src/events/purchase/utils';
 import { parseQueryString } from '#src/http';
 import { getCheckoutItemData } from '../utils';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 export const useBasket = () => {
   const { companyId, passId, passType } = usePassCardDataContext();
@@ -77,6 +78,11 @@ export const useBasket = () => {
         basket: updatedBasket,
         buyableItemId: checkoutItemData.buyable_item_id,
       });
+      if (updatedBasket && 'checkout_items' in updatedBasket) {
+        updatedBasket.checkout_items.forEach((item) => {
+          analyticsUtils.addItemToCart(item);
+        });
+      }
       return updatedBasket;
     },
     [companyId, passId, passType],

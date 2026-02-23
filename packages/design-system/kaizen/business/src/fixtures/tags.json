@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "A silver eagle",
+    "group": 1,
+    "color": "#2b31d4",
+    "icon": "",
+    "tag_template": null
+  },
+  {
+    "id": 2,
+    "name": "A golden bird",
+    "group": 1,
+    "color": "#fcab80",
+    "icon": "",
+    "tag_template": null
+  },
+  {
+    "id": 3,
+    "name": "A nice song",
+    "group": 2,
+    "color": "#d04949",
+    "icon": "",
+    "tag_template": null
+  },
+  {
+    "id": 4,
+    "name": "An insane techno sound",
+    "group": 2,
+    "color": "#167958",
+    "icon": "",
+    "tag_template": null
+  },
+  {
+    "id": 5,
+    "name": "A rolling ball",
+    "group": 3,
+    "color": "#982525",
+    "icon": "",
+    "tag_template": null
+  },
+  {
+    "id": 6,
+    "name": "A flying plane",
+    "group": 3,
+    "color": "#e7a3ff",
+    "icon": "",
+    "tag_template": null
+  }
+]

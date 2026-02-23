@@ -1,0 +1,49 @@
+{
+  "name": "@bsport/config-library",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Configuration for library-mode (migrated from MFE) apps",
+  "license": "UNLICENSED",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js",
+      "default": "./build/index.js"
+    }
+  },
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "rimraf build > /dev/null && tsc > /dev/null",
+    "dev": "tsc --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@bsport/config-federation": "workspace:*",
+    "zod": "^3.25.64"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-vitest": "workspace:*",
+    "@types/node": "^22.13.15",
+    "rimraf": "^6.0.1",
+    "vite": "^5.4.11",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "nx": {
+    "tags": [
+      "tools:config-library",
+      "postinstall"
+    ]
+  }
+}

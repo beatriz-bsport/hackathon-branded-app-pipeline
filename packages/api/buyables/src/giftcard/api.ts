@@ -19,7 +19,9 @@ import type {
 
 const API_URL = `${API_V1_URL}/giftcard`;
 
-// ----- Giftcard -----
+// #region Giftcard
+
+// ----------------------------------------------------------------------------
 
 export const fetchGiftcardsAPIConfig = (
   params: FetchGiftcardsParams,
@@ -38,6 +40,8 @@ export const fetchGiftcardsAPI = async (
   return data;
 };
 
+// ----------------------------------------------------------------------------
+
 export const restoreGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
   return [`${API_URL}/giftcard/${id}/restore/`, { method: "POST" }];
 };
@@ -53,6 +57,8 @@ export const restoreGiftcardAPI = async (
   return data;
 };
 
+// ----------------------------------------------------------------------------
+
 export const archiveGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
   return [`${API_URL}/giftcard/${id}`, { method: "DELETE" }];
 };
@@ -67,6 +73,8 @@ export const archiveGiftcardAPI = async (
 
   return data;
 };
+
+// ----------------------------------------------------------------------------
 
 export const duplicateGiftcardAPIConfig = ({
   id,
@@ -87,7 +95,26 @@ export const duplicateGiftcardAPI = async (
   return data;
 };
 
-// ----- GiftcardImageBackground -----
+// ----------------------------------------------------------------------------
+
+export const createGiftcardAPIConfig = (data: FormData): XhrApiConfig => {
+  return [`${API_URL}/giftcard/`, { method: "POST", formData: data }];
+};
+
+export const createGiftcardAPI = async (
+  fetch: Xhr<Giftcard>,
+  params: FormData,
+): Promise<Giftcard> => {
+  const [uri, init] = createGiftcardAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+// #endregion
+
+// region GiftcardImageBackground
 
 export const fetchGiftcardBackgroundListAPIConfig = (
   params: FetchGiftcardImagesParams | number,
@@ -96,6 +123,17 @@ export const fetchGiftcardBackgroundListAPIConfig = (
     return [`${API_URL}/giftcard_background_image/?company=${params}`];
   }
   return [`${API_URL}/giftcard_background_image${buildUrlParams(params)}`];
+};
+
+export const fetchGiftcardBackgroundListAPI = async (
+  fetch: Fetch<GiftcardBackgroundListResponse>,
+  companyId: number,
+): Promise<GiftcardBackgroundListResponse> => {
+  const [uri, init] = fetchGiftcardBackgroundListAPIConfig(companyId);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
 };
 
 export const fetchGiftcardImagesAPI = async (
@@ -108,6 +146,8 @@ export const fetchGiftcardImagesAPI = async (
 
   return data;
 };
+
+// ----------------------------------------------------------------------------
 
 /** @note This endpoint does not exist yet */
 export const restoreGiftcardImageAPIConfig = ({
@@ -132,6 +172,8 @@ export const restoreGiftcardImageAPI = async (
   return data;
 };
 
+// ----------------------------------------------------------------------------
+
 export const archiveGiftcardImageAPIConfig = ({
   id,
 }: {
@@ -153,6 +195,8 @@ export const archiveGiftcardImageAPI = async (
 
   return data;
 };
+
+// ----------------------------------------------------------------------------
 
 export const uploadGiftcardImageAPIConfig = ({
   file,
@@ -177,13 +221,4 @@ export const uploadGiftcardImageAPI = async (
   await xhr(uri, init);
 };
 
-export const fetchGiftcardBackgroundListAPI = async (
-  fetch: Fetch<GiftcardBackgroundListResponse>,
-  companyId: number,
-): Promise<GiftcardBackgroundListResponse> => {
-  const [uri, init] = fetchGiftcardBackgroundListAPIConfig(companyId);
-
-  const { data } = await fetch(uri, init);
-
-  return data;
-};
+// #endregion

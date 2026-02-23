@@ -279,7 +279,11 @@ const ListPage: React.FC = () => {
           />
         )}
         {detailsModalState?.type === ModalType.RESTORE && (
-          <RestoreSessionModal session={detailsModalState.session} />
+          <RestoreSessionModal
+            session={detailsModalState.session}
+            isOpen={detailsModalState.type === ModalType.RESTORE}
+            onClose={closeModal}
+          />
         )}
         {detailsModalState?.type === ModalType.DELETE && (
           <DeleteSessionModal session={detailsModalState.session} />

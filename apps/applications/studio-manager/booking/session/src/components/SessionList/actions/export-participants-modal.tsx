@@ -1,3 +1,4 @@
+import { isUndefined, omitBy } from "lodash";
 import { FC, useEffect, useState } from "react";
 
 import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
@@ -65,7 +66,11 @@ export const ExportParticipantsModal: FC<{
       activity__in,
       levels: level_in,
     } = getParamsFromFilters(filters);
-    return { establishments, coaches, activity__in, level_in };
+
+    return omitBy(
+      { establishments, coaches, activity__in, level_in },
+      isUndefined,
+    );
   };
 
   const handleExport = () => {

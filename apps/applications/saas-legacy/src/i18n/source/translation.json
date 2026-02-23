@@ -820,14 +820,14 @@
       "passwordMismatch": "These passwords don't match.",
       "passwordChangedSuccess": "Your password has been successfully modified!",
       "passwordTooEasy": "Your password must contain at least 6 character and both letters and numbers.",
-      "confirmPassword": "Confirm",
-      "password": "Password",
-      "changePasswordTitle": "Edit password",
-      "tokenExpired": "Please renew your password again, as this page has expired.",
-      "resetAgainPassword": "Renew password request"
+      "confirmPassword": "Confirm password",
+      "password": "New password",
+      "changePasswordTitle": "Reset password",
+      "tokenExpired": "Page expired. Please try again. ",
+      "resetAgainPassword": "Reset password request"
     },
     "passwordResetConfirmation": {
-      "title": "Your password has been successfully updated",
+      "title": "Your password has been successfully changed",
       "subtitle": "You can click on “Continue” to log in again",
       "continue": "Continue"
     },

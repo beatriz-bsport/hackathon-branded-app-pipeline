@@ -12,7 +12,9 @@ import type {
   SearchEstablishmentParams,
 } from "#src/establishments/types";
 
-const ESTABLISHMENT_API_URL = "core-data/v1/establishment";
+import { API_V1_URL } from "../constants";
+
+const ESTABLISHMENT_API_URL = `${API_V1_URL}/establishment`;
 
 const fetchEstablishmentsAPI = (
   params: FetchEstablishmentParams = {},

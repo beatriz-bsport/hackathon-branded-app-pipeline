@@ -74,7 +74,6 @@ export const SubstituteTeacherSelectorField: FC<{
       })}
     >
       <Autocomplete
-        clearOnSelect
         items={teacherItems}
         textfieldProps={{
           id: `${fieldIdPrefix}-substitute-teacher-selector`,

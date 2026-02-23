@@ -2,7 +2,6 @@ import type { z } from "zod";
 
 import type { UseFormControllerOutput } from "@bsport/form";
 
-/** @todo Follow same pattern as in legacy file: libs/giftcard/components/GiftcardFormDrawer/types.ts */
 export type GiftcardFormData = {
   // Identity section
   name: string;
@@ -13,9 +12,15 @@ export type GiftcardFormData = {
   min_price: number | null;
   max_price: number | null;
   hasCustomPrice: boolean;
+  available_payment_method_identifiers: number[];
+  bookkeeping_account: number | null;
   // Expiration Days section
   hasExpirationDays: boolean; // -> Control the toggle
   expiration_days: number | null;
+  // Visibility
+  manager_only: boolean;
+  // Advanced
+  tags_on_consumer_item_creation: number[];
 };
 
 export type GiftcardFormSchema = z.ZodType<GiftcardFormData>;

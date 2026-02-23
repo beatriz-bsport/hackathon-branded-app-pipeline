@@ -16,7 +16,7 @@ import { GIFTCARD_FORM_DATA_DEFAULT } from "#src/features/giftcard-form/constant
 import { useGiftcardFormSchema } from "#src/features/giftcard-form/schema";
 import type { GiftcardFormSchema } from "#src/features/giftcard-form/types";
 import { transformFormStateIntoAPIData } from "#src/features/giftcard-form/utils";
-import { LEGACY_ROUTES } from "#src/urls";
+import { useGiftcardNavigation } from "#src/hooks/useGiftcardNavigation";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useCreateGiftcard } from "./use-create-giftcard";
@@ -36,10 +36,12 @@ export const GiftcardCreateModal: FC<GiftcardCreateModalProps> = ({
 
   const giftcardFormSchema = useGiftcardFormSchema();
 
+  const { navigateToGiftcardDetails } = useGiftcardNavigation();
+
   const { createGiftcard, isLoading } = useCreateGiftcard({
     onSuccess: (value) => {
       onClose();
-      window.location.assign(LEGACY_ROUTES.DETAILS(value.id));
+      navigateToGiftcardDetails(value.id);
     },
   });
 

@@ -354,6 +354,7 @@ type Props = {
   ) => void,
   selectedBookingForRefund: number | null,
   setSelectedBookingForRefund: () => void,
+  revampedBackofficeEnabled: boolean,
 } & FeatureFlagProps;
 
 type State = {
@@ -983,6 +984,7 @@ export class OfferManagement extends Component<Props, State> {
               offerId={this.props.offerId}
               offerLoading={this.props.offerLoading || !this.props.offer}
               refresh={this.refreshNavigationHeader}
+              revampedBackofficeEnabled={this.props.revampedBackofficeEnabled}
             />
           </Grid>
         </Grid>
@@ -1158,6 +1160,7 @@ export class OfferManagement extends Component<Props, State> {
             offerLoading={this.props.offerLoading || !this.props.offer}
             offerMetaActivity={offerMetaActivity}
             refresh={this.refreshNavigationHeader}
+            revampedBackofficeEnabled={this.props.revampedBackofficeEnabled}
           />
         </Grid>
         <Grid item lg={6} xs={12}>

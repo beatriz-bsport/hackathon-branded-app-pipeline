@@ -22,6 +22,7 @@ import {
 } from '../../events/booking/trackers';
 
 import { compose } from 'recompose';
+import { REVAMPED_CALENDAR_URL } from '#src/revamp';
 
 const getDateDictionnary = (offer) => {
   const date = offer
@@ -42,6 +43,7 @@ type Props = {
   goToCalendar: ({ year: number, month: number, day: number }) => void,
   refresh: () => void,
   offerMetaActivity: MetaActivity,
+  revampedBackofficeEnabled: boolean,
 };
 
 export const OfferNavigationHeader = (props: Props) => {
@@ -81,6 +83,16 @@ export const OfferNavigationHeader = (props: Props) => {
     }
     props.goToOffer(props.offer.next_offer);
   };
+
+  const navigateToCalendar = () => {
+    if (props.revampedBackofficeEnabled) {
+      // No better way to navigate to the revamp for now
+      window.location.assign(REVAMPED_CALENDAR_URL);
+      return;
+    }
+    const dateDictionary = getDateDictionnary(props.offer);
+    props.goToCalendar(dateDictionary);
+  };
   return (
     <Paper className={props.classes.headerContainer}>
       <div className={props.classes.titleBanner}>
@@ -103,9 +115,7 @@ export const OfferNavigationHeader = (props: Props) => {
             justifyContent: 'center',
           }}
         >
-          <Button
-            onClick={() => props.goToCalendar(getDateDictionnary(props.offer))}
-          >
+          <Button onClick={navigateToCalendar}>
             <TodayIcon className={props.classes.leftIcon} />
             {props.offer && !props.offerLoading && props.offer.date_start
               ? DateTime.fromISO(props.offer.date_start)

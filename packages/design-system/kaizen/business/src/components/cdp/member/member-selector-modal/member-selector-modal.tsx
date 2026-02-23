@@ -1,0 +1,128 @@
+import React, { useEffect, useId, useRef, useState } from "react";
+
+import type { Member } from "@bsport/api-cdp";
+import { Modal, TextField } from "@bsport/kaizen-primitive-core";
+import type { Fetch } from "@bsport/store-base";
+
+import { i18nInstance, useTranslation } from "#src/i18n";
+
+import { MemberSelectorList } from "./member-selector-list";
+
+export type MemberSelectorModalProps = {
+  fetch: Fetch<Member[]>;
+  isOpen: boolean;
+  onClose: () => void;
+  onSelect: (member: Member) => void;
+  onOpenProfile?: (memberId: number) => void;
+};
+
+export const MemberSelectorModal: React.FC<MemberSelectorModalProps> = ({
+  fetch,
+  isOpen,
+  onClose,
+  onSelect,
+  onOpenProfile,
+}) => {
+  const { t } = useTranslation("cdp", { i18n: i18nInstance });
+
+  const [searchInput, setSearchInput] = useState("");
+
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setSearchInput("");
+      if (inputRef.current) {
+        inputRef.current.value = "";
+      }
+      setSelectedMember(null);
+    }
+  }, [isOpen]);
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (isOpen && inputRef?.current) {
+      inputRef.current?.focus?.();
+    }
+  }, [isOpen]);
+
+  const textFieldId = useId();
+
+  const handleClose = () => {
+    setSelectedMember(null);
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+    setSearchInput("");
+    onClose();
+  };
+
+  const handleSelect = (member: Member) => {
+    setSelectedMember(member);
+  };
+
+  const handleConfirm = () => {
+    if (selectedMember) {
+      onSelect(selectedMember);
+      handleClose();
+    }
+  };
+
+  const handleOpenProfile = (memberId: number) => {
+    if (onOpenProfile) {
+      onOpenProfile(memberId);
+    } else {
+      // Default: open in new tab
+      const memberUrl = `/member/${memberId}/info`;
+      window.open(memberUrl, "_blank");
+    }
+  };
+
+  return (
+    <Modal
+      size="lg"
+      open={isOpen}
+      title={t("memberSelectorModal.title")}
+      onClose={handleClose}
+      onCloseButtonClick={handleClose}
+      onClickOutside={handleClose}
+      confirmButton={{
+        color: "main",
+        label: t("memberSelectorModal.selectMember"),
+        type: "button",
+        onClick: handleConfirm,
+        disabled: !selectedMember,
+      }}
+      cancelButton={{
+        label: t("memberSelectorModal.cancel"),
+        onClick: handleClose,
+      }}
+    >
+      <div className="flex flex-col gap-md">
+        <TextField
+          id={textFieldId}
+          type="search"
+          iconLeft="search-refraction"
+          autoFocus
+          fullWidth
+          inputRef={inputRef}
+          onChange={(e) => {
+            setSearchInput(e.target.value.trim());
+          }}
+          onClear={() => setSearchInput("")}
+          placeholder={t("memberSelectorModal.searchPlaceholder")}
+        />
+        <MemberSelectorList
+          fetch={fetch}
+          searchInput={searchInput}
+          onSelect={handleSelect}
+          onOpenProfile={handleOpenProfile}
+          selectedMemberId={selectedMember?.id}
+        />
+      </div>
+    </Modal>
+  );
+};
+
+MemberSelectorModal.displayName = "KaizenMemberSelectorModal";

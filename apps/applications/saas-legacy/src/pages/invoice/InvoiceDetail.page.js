@@ -1148,6 +1148,7 @@ export default compose(
         fetchInvoice,
         closeRevertDialog,
         fetchPlannedPaymentEventList,
+        fetchInvoiceItemList,
       }) =>
       (reverse_type, payment_method_to_reverse, revert_reason, options) => {
         revertInvoice(
@@ -1169,6 +1170,10 @@ export default compose(
                 fetchInvoice(uuid);
                 fetchPlannedPaymentEventList({
                   invoice: uuid,
+                });
+                fetchInvoiceItemList({
+                  invoice__uuid: uuid,
+                  page_size: 100,
                 });
               }
               if (options && options.onSuccess) {

@@ -2970,6 +2970,16 @@ importers:
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
 
+  packages/api/cdp:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../stores/base
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
   packages/api/core:
     dependencies:
       '@bsport/store-base':
@@ -3039,6 +3049,9 @@ importers:
 
   packages/design-system/kaizen/business:
     dependencies:
+      '@bsport/api-cdp':
+        specifier: workspace:*
+        version: link:../../../api/cdp
       '@bsport/api-core':
         specifier: workspace:*
         version: link:../../../api/core
@@ -3054,6 +3067,18 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../primitive/core
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../../stores/base
+      '@bsport/store-core-data-member':
+        specifier: workspace:*
+        version: link:../../../stores/core-data/member
+      '@bsport/use-debounce':
+        specifier: workspace:*
+        version: link:../../../hooks/use-debounce
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1

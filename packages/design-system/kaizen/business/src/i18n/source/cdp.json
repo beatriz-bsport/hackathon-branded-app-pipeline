@@ -1,0 +1,11 @@
+{
+  "memberSelectorModal": {
+    "title": "Select a member",
+    "cancel": "Cancel",
+    "selectMember": "Select member",
+    "searchPlaceholder": "Search members...",
+    "emptyState": "Choose a member to create an invoice",
+    "emptySearch": "No members found",
+    "loading": "Loading members..."
+  }
+}

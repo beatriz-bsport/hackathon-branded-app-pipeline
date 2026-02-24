@@ -64,6 +64,20 @@
     "openPopUps": "Review pop-ups",
     "generateReport": "Generate Report"
   },
+  "generateReportModal": {
+    "title": "Generate report",
+    "description": "Define a date range to include in your report",
+    "toast": {
+      "pending": "Processing...",
+      "success": "Report successfully generated. The document was directly downloaded.",
+      "generationFailed": "There was an issue generating your report. Try again.",
+      "downloadFailed": "There was an issue downloading your report. Try again."
+    },
+    "buttons": {
+      "confirm": "Generate report",
+      "cancel": "Cancel"
+    }
+  },
   "table": {
     "campaignScheduled": {
       "headers": {

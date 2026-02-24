@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 
 import { CampaignScheduledList } from "#src/components/CampaignScheduledList/CampaignScheduledList";
 import { CampaignSentList } from "#src/components/CampaignSentList/CampaignSentList";
@@ -10,14 +10,6 @@ export const CampaignPage = () => {
   invariant(id, "Expected id param to be defined");
   return (
     <div>
-      <QueryBoundary>
-        <div>
-          <Link to={`/${id}/popups/new`}>Create pop-up</Link>
-        </div>
-        <div>
-          <Link to={`/${id}/popups/123/edit`}>Edit pop-up</Link>
-        </div>
-      </QueryBoundary>
       <div className="flex flex-col gap-md">
         <QueryBoundary>
           <CampaignScheduledList />

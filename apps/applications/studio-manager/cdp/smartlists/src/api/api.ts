@@ -6,11 +6,14 @@ import { fetch } from "#src/utils/fetch";
 
 import type {
   AutomatedCampaign,
+  BackgroundTaskStatusResponse,
   CampaignScheduled,
   CampaignSent,
   FetchAutomatedCampaignsParams,
   FetchCampaignScheduledParams,
   FetchCampaignSentParams,
+  GenerateReportParams,
+  GenerateReportResult,
   Popup,
   Smartlist,
   Tag,
@@ -197,6 +200,45 @@ const fetchPopupImage = async (imageUrl: string): Promise<File> => {
   });
   return new File([data], filename, { type: data.type });
 };
+
+export async function generateCampaignReport(
+  params: GenerateReportParams,
+): Promise<GenerateReportResult> {
+  const searchParams = new URLSearchParams({
+    start_date: params.startDate,
+    end_date: params.endDate,
+  });
+
+  const { backgroundTaskUuid } = await fetch<BackgroundTaskStatusResponse>(
+    `${SMARTLIST_API_V1}/group/${params.smartlistId}/export-campaigns-background/?${searchParams.toString()}`,
+    {
+      method: "POST",
+    },
+  );
+
+  if (!backgroundTaskUuid) {
+    throw new Error("Missing background task id in response header");
+  }
+
+  return { backgroundTaskUuid };
+}
+
+export async function getBackgroundTaskStatus(
+  taskUuid: string,
+): Promise<BackgroundTaskStatusResponse> {
+  const { data } = await fetch<BackgroundTaskStatusResponse>(
+    `platform/v1/background_task/${taskUuid}`,
+    {
+      method: "GET",
+    },
+  );
+
+  if (!data) {
+    throw new Error("Failed to fetch background task status");
+  }
+
+  return data;
+}
 
 /**
  * Deletes a tag rule

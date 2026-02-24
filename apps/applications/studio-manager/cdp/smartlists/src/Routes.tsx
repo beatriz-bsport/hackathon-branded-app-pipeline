@@ -5,6 +5,12 @@ import { FeatureFlag } from "#src/components/FeatureFlag";
 import { URLS } from "#src/urls";
 import { flags } from "#src/utils/feature-flags";
 
+import {
+  AUTOMATION_TAB_PATH,
+  CAMPAIGN_TAB_PATH,
+  PARAMETER_TAB_PATH,
+} from "./utils/constants";
+
 const ListPage = lazy(() => import("#src/pages/ListPage"));
 const DetailsPage = lazy(() => import("#src/pages/DetailsPage"));
 const ParameterPage = lazy(() => import("#src/pages/ParameterPage"));
@@ -36,9 +42,9 @@ export const AppRoutes = () => {
           </FeatureFlag>
         }
       >
-        <Route path="parameter" element={<ParameterPage />} />
-        <Route path="campaign" element={<CampaignPage />} />
-        <Route path="automation" element={<AutomationPage />} />
+        <Route path={PARAMETER_TAB_PATH} element={<ParameterPage />} />
+        <Route path={CAMPAIGN_TAB_PATH} element={<CampaignPage />} />
+        <Route path={AUTOMATION_TAB_PATH} element={<AutomationPage />} />
       </Route>
       <Route
         path={URLS.POPUP_CREATION}

@@ -1,4 +1,4 @@
-image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-ichizen:v1.0.2
+image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-ichizen:v1.0.3
 
 variables:
   AWS_REGION: eu-west-3
@@ -41,6 +41,7 @@ include:
   - local: "/tools/ci/merge-branches.yml"
   - local: "/tools/ci/e2e.yml"
   - local: "/tools/ci/security-scan.yml"
+  - local: "/tools/ci/ephemeral-environment.yml"
 
 workflow:
   rules:

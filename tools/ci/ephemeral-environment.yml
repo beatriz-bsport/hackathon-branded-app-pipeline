@@ -1,0 +1,15 @@
+Ephemeral Environment:
+  stage: deploy-feature-branch
+  extends:
+    - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
+  before_script: !reference [.pnpm-setup, before_script]
+  environment:
+    name: "review/${CI_MERGE_REQUEST_IID}"
+    url: "https://preview-${CI_MERGE_REQUEST_IID}.backoffice.chaos.bsport.io"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+      allow_failure: true
+  script:
+    - echo "🔱 Building the ephemeral environment for this merge request"
+    - bash tools/scripts/deploy-ephemeral-environment.sh dev dev true

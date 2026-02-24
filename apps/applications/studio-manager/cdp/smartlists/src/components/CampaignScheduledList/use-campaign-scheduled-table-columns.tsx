@@ -19,6 +19,7 @@ export type CampaignScheduledTableRowData = {
   campaignName: string;
   scheduledDate: string;
   scheduledHour: string;
+  link: string;
 };
 
 export type CampaignScheduledTableRowParams = {

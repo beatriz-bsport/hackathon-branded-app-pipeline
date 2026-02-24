@@ -30,3 +30,12 @@ export const BackgroundTaskStatus = {
 
 export type BackgroundTaskStatus =
   (typeof BackgroundTaskStatus)[keyof typeof BackgroundTaskStatus];
+
+export const CommunicationStatus = {
+  PROCESSING: 1,
+  FAILED: 2,
+  DELIVERED: 3,
+} as const;
+
+export type CommunicationStatus =
+  (typeof CommunicationStatus)[keyof typeof CommunicationStatus];

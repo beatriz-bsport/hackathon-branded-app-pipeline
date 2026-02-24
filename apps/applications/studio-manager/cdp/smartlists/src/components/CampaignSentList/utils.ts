@@ -1,6 +1,8 @@
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
 import type { CampaignSent } from "#src/api/types";
+import { CAMPAIGN_SENT_DETAILS_URL } from "#src/urls";
+import { getFallbackCampaignName } from "#src/utils/campaignUtils";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { CampaignSentTableRowData } from "./use-campaign-sent-table-columns";
@@ -9,25 +11,13 @@ const CAMPAIGN_SENT_ROW_PREFIX = "campaign-sent-row";
 const CAMPAIGN_SENT_ROW_ID = (campaignUuid: string) =>
   `${CAMPAIGN_SENT_ROW_PREFIX}-${campaignUuid}`;
 
-function getFallbackCampaignName(campaignSent: CampaignSent) {
-  if (campaignSent.title) {
-    return campaignSent.title;
-  }
-  if (campaignSent.text) {
-    return campaignSent.text;
-  }
-  if (campaignSent.sms_text) {
-    return campaignSent.sms_text;
-  }
-  if (campaignSent.data?.subject) {
-    return campaignSent.data.subject;
-  }
-  return "";
-}
-
-function formatCampaignSentTableRow(
-  campaignSentList: CampaignSent[],
-): CampaignSentTableRowData[] {
+function formatCampaignSentTableRow({
+  campaignSentList,
+  smartlistId,
+}: {
+  campaignSentList: CampaignSent[];
+  smartlistId: string;
+}): CampaignSentTableRowData[] {
   return campaignSentList.map((campaignSent) => ({
     id: CAMPAIGN_SENT_ROW_ID(campaignSent.uuid),
     campaignUuid: campaignSent.uuid,
@@ -52,6 +42,10 @@ function formatCampaignSentTableRow(
       openCount: campaignSent.total_read,
       clickCount: campaignSent.total_click,
     },
+    link: CAMPAIGN_SENT_DETAILS_URL({
+      campaignUuid: campaignSent.uuid,
+      smartlistId: smartlistId,
+    }),
   }));
 }
 

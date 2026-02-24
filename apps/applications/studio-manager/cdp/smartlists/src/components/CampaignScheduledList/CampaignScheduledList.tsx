@@ -8,7 +8,7 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
-import { useFetchCampaignScheduled } from "#src/api/use-fetch-campaign-scheduled";
+import { useFetchCampaignScheduledList } from "#src/api/use-fetch-campaign-scheduled-list";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -21,9 +21,12 @@ export const CampaignScheduledList = () => {
   invariant(smartlistId, "Expected id param to be defined");
 
   const { data: campaignScheduled, isLoading: campaignScheduledLoading } =
-    useFetchCampaignScheduled(smartlistId);
+    useFetchCampaignScheduledList(smartlistId);
 
-  const tableRows = formatCampaignScheduledTableRow(campaignScheduled);
+  const tableRows = formatCampaignScheduledTableRow({
+    campaignScheduledList: campaignScheduled,
+    smartlistId,
+  });
 
   const tableColumns = useCampaignScheduledTableColumns({
     onEdit: (campaignId) =>

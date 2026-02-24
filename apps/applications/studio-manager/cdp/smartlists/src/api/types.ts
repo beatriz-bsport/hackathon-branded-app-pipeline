@@ -1,6 +1,7 @@
 import type {
   BackgroundTaskStatus,
   CommunicationKind,
+  CommunicationStatus,
   EventKind,
   TagRuleKind,
 } from "./constants";
@@ -75,6 +76,8 @@ export type CampaignSent = {
   total_click: number;
   date_created: string;
   kind: CommunicationKind;
+  status: CommunicationStatus;
+  has_been_read: boolean;
   title?: string;
   text?: string;
   sms_text?: string;
@@ -214,7 +217,7 @@ export type GenerateReportParams = {
 };
 
 export type GenerateReportResult = {
-  backgroundTaskUuid: string; // Id that should be used for the polling of the backgeound task result
+  backgroundTaskUuid: string; // Id that should be used for the polling of the background task result
 };
 
 export type BackgroundTaskStatusResponse = {

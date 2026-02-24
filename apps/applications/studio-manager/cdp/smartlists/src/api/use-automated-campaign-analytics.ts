@@ -4,7 +4,7 @@ import { PaginatedResponse } from "@bsport/store-base";
 
 import {
   automatedCampaignsQueryOptions,
-  campaignSentQueryOptions,
+  campaignSentListQueryOptions,
 } from "./api";
 import type {
   AutomatedCampaign,
@@ -74,7 +74,7 @@ export const useAutomatedCampaignAnalytics = (smartlistId: string) => {
   return useSuspenseQueries({
     queries: [
       automatedCampaignsQueryOptions(smartlistId),
-      campaignSentQueryOptions({
+      campaignSentListQueryOptions({
         smartlist: Number(smartlistId),
         only_automated_campaign: true,
         page: 1,

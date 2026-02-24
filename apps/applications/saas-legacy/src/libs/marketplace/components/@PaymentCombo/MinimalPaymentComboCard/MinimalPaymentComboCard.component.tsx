@@ -91,7 +91,7 @@ const MinimalPaymentComboCard: React.FC<Props> = ({
             rowStart={1}
           >
             <InitialPrice
-              isExcludingTax={isExcludingTax}
+              isExcludingTax={!!isExcludingTax}
               paymentCombo={paymentCombo}
             />
             <Price
@@ -101,7 +101,7 @@ const MinimalPaymentComboCard: React.FC<Props> = ({
                   'bs-minimal-payment-combo-card__price-item__price',
               }}
               formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-              isExcludingTax={isExcludingTax}
+              isExcludingTax={!!isExcludingTax}
               tax={paymentCombo.tax}
             />
           </GridItem>
@@ -129,7 +129,7 @@ const MinimalPaymentComboCard: React.FC<Props> = ({
   );
 };
 
-export const MinimalPaymentComboCardForStorybook = marketplaceCssHoc()(
+export const MinimalPaymentComboCardForStorybook = marketplaceCssHoc<Props>()(
   MinimalPaymentComboCard,
 );
 

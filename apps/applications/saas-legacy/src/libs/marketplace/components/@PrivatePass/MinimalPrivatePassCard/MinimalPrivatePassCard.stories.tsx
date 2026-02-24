@@ -22,10 +22,7 @@ export default {
 
 const Template: ComponentStory<typeof MinimalPrivatePassCard> = (
   args: Props,
-) => (
-  //@ts-expect-error
-  <MinimalPrivatePassCardForStorybook {...args} />
-);
+) => <MinimalPrivatePassCardForStorybook {...args} />;
 
 export const Loading = Template.bind({});
 Loading.args = {

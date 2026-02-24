@@ -143,7 +143,7 @@ const MinimalPaymentPackCard: React.FC<Props> = ({
   );
 };
 
-export const MinimalPaymentPackCardForStorybook = marketplaceCssHoc()(
+export const MinimalPaymentPackCardForStorybook = marketplaceCssHoc<Props>()(
   MinimalPaymentPackCard,
 );
 

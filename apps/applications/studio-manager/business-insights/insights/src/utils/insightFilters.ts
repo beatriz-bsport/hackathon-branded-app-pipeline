@@ -61,7 +61,7 @@ export const filterBySearch = (
   );
 };
 
-type SectionKey = "member" | "financial" | "booking" | "teacher" | "marketing";
+type SectionKey = "communityMarketing" | "financial" | "operations";
 
 /**
  * Creates a chip configuration for an insight row
@@ -72,26 +72,20 @@ export const createChipForRow = (row: InsightRow, t: TFunction) => {
   // Get the section label with proper typing
   const getSectionLabel = (sectionId: string): string => {
     const validSections: SectionKey[] = [
-      "member",
+      "communityMarketing",
       "financial",
-      "booking",
-      "teacher",
-      "marketing",
+      "operations",
     ];
 
     if (validSections.includes(sectionId as SectionKey)) {
       // Use direct key mapping for type safety
       switch (sectionId as SectionKey) {
-        case "member":
-          return t("sections.member");
+        case "communityMarketing":
+          return t("sections.communityMarketing");
         case "financial":
           return t("sections.financial");
-        case "booking":
-          return t("sections.booking");
-        case "teacher":
-          return t("sections.teacher");
-        case "marketing":
-          return t("sections.marketing");
+        case "operations":
+          return t("sections.operations");
         default:
           return sectionId;
       }

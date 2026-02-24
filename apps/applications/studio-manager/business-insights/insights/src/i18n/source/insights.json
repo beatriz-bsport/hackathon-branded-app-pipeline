@@ -1,11 +1,9 @@
 {
   "pageTitle": "Insights",
   "sections": {
-    "member": "Community & Marketing",
+    "communityMarketing": "Community & Marketing",
     "financial": "Financial Health",
-    "booking": "Booking Performance",
-    "teacher": "Teacher Performance",
-    "marketing": "Marketing Performance"
+    "operations": "Operations"
   },
   "items": {
     "trial": {

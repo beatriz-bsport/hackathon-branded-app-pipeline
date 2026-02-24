@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Avatar, Body, Icon, Tooltip } from "@bsport/kaizen-primitive-core";
+import { Avatar, Body, Icon } from "@bsport/kaizen-primitive-core";
 
+import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import { useTranslation } from "#src/utils/i18n";
 
 type TeacherCellProps = {
@@ -37,12 +38,12 @@ export const TeacherCell: React.FC<TeacherCellProps> = ({
     <>
       {hasPendingReplacementRequest ? (
         <div className="flex gap-xs items-center">
-          <Tooltip
+          <ResponsiveTooltip
             label={t("table.substitution.pendingRequest")}
             placement="bottom"
           >
             <Icon icon="clock" size="sm" />
-          </Tooltip>
+          </ResponsiveTooltip>
           <FormerTeacher name={originalTeacherName} />
         </div>
       ) : (

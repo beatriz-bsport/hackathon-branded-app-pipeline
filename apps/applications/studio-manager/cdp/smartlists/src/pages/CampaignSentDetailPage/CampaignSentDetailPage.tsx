@@ -8,7 +8,7 @@ import {
 
 import { useFetchCampaignSentDetail } from "#src/api/use-fetch-campaign-sent-detail";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
-import { CampaignContent } from "#src/components/CampaignDetails/CampaignContent";
+import { CampaignSentDetails } from "#src/components/CampaignSentDetails/CampaignSentDetails";
 import {
   DetailPageErrorFallback,
   PageLoader,
@@ -30,12 +30,12 @@ export const CampaignSentDetailPage = () => {
       loadingFallback={<PageLoader />}
       errorFallback={(props) => <DetailPageErrorFallback {...props} />}
     >
-      <CampaignSentDetail />
+      <CampaignSentDetailPageContent />
     </QueryBoundary>
   );
 };
 
-function CampaignSentDetail() {
+function CampaignSentDetailPageContent() {
   const { t: tList } = useTranslation("list");
   const { id, uuid } = useParams<{ id: string; uuid: string }>();
   invariant(id, "Expected id param to be defined");
@@ -69,7 +69,7 @@ function CampaignSentDetail() {
         BreadcrumbsItems={breadcrumbsItems}
       />
       <DetailsLayout.Content>
-        <CampaignContent
+        <CampaignSentDetails
           campaignUuid={uuid}
           campaignKind={campaignSentDetail.kind}
           campaignStatus={getCampaignStatus(campaignSentDetail)}

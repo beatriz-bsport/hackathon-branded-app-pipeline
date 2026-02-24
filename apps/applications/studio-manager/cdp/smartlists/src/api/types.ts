@@ -226,3 +226,25 @@ export type BackgroundTaskStatusResponse = {
   task_name: string;
   uuid: string;
 };
+
+/**
+ * Email Template Detail type from the API
+ * Model: EmailDesign
+ * Serializer: EmailDesignSerializer
+ * Endpoint: GET /api/v0/email_design/email_detail/{emailTemplateId}/
+ */
+export type EmailTemplateDetail = {
+  design: string;
+  html: string;
+  franchisor_id?: number;
+  available: boolean;
+  available_for_companies: number[];
+  category: number | null;
+  company_id: number | null;
+  date_modified: string;
+  id: number;
+  is_default_bsport_template: boolean;
+  ordering_in_category: number;
+  subject: string;
+  title: string;
+};

@@ -70,6 +70,7 @@ import {
 } from '#src/pages/checkout/express-checkouts/hooks/useLightSignUpOperations';
 import { trackPaymentViewedEvent } from '#src/events/booking/trackers';
 import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 import { AlreadyMemberSection } from '#src/pages/checkout/express-checkouts/components/AlreadyMemberSection';
 
@@ -195,6 +196,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   const establishment = offerState.value?.establishment;
   const coach = offerState.value?.coach;
   const paymentPacks = offerState.value?.paymentPacks;
+  const isWorkshop = offerState.value?.metaActivity?.is_workshop ?? null;
 
   const isSelectedPaymentPackFree = !paymentPacks?.find(
     ({ id }) => id === selectedPaymentPackId,
@@ -258,6 +260,13 @@ const OneClickBookingModule: React.FC<Props> = ({
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [companyId, offerId]);
+
+  useEffect(() => {
+    if (basket) {
+      analyticsUtils.beginCheckout(basket);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [basket?.id]);
 
   const cleanLocalStorageAndRedirect = useCallback(() => {
     const basketId = queryParams?.basket_redirection
@@ -351,6 +360,19 @@ const OneClickBookingModule: React.FC<Props> = ({
       }),
     );
   }, [shouldDisplayOnlinePayment, offer, metaActivity]);
+
+  useEffect(() => {
+    if (!!offer && !!coach && !!establishment && !!metaActivity) {
+      analyticsUtils.onAddSessionToBookingList({
+        sessionId: offer.id,
+        metaActivityName: metaActivity.name,
+        establishmentName: establishment.title,
+        coachName: coach.name,
+        startDate: offer.date_start,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isWorkshop, offer?.id, coach?.id, establishment?.id, metaActivity?.id]);
 
   // @debt(4, 2, 2) This works because we do not set the authenticated state in the redux store
   // when we are on the one click booking page (we are just storing the token in the local storage)

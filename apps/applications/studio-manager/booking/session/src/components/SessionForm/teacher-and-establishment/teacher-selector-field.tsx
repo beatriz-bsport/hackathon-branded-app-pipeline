@@ -72,7 +72,6 @@ export const TeacherSelectorField: FC<{
     >
       <Autocomplete
         items={teacherItems}
-        clearOnSelect
         fullWidth
         textfieldProps={{
           id: `${fieldIdPrefix}-teacher-selector`,

@@ -1,8 +1,8 @@
-import { Info } from "luxon";
+import { Info, Zone } from "luxon";
 
 import { type DateTime, LuxonDateTime } from "./constants";
 
-export type { DateTime } from "./constants";
+export { type DateTime, LuxonDateTime } from "./constants";
 
 /**
  * Represents the starting day of the week.
@@ -72,7 +72,7 @@ export const getLocalNow = ({
   zone,
   locale,
 }: {
-  zone?: string;
+  zone?: string | Zone;
   locale?: string;
 }): DateTime =>
   LuxonDateTime.now()
@@ -273,16 +273,21 @@ export function isWithinRange(
 /**
  * Get ISO weekday from DateTime (1 = Monday, 7 = Sunday)
  */
-export function getISOWeekday(date: DateTime, zone: string): WeekStartDay {
+export function getISOWeekday(
+  date: DateTime,
+  zone?: string | Zone,
+): WeekStartDay {
   return date.setZone(zone ?? date.zone).weekday as WeekStartDay;
 }
 
-export function getStartOf(
-  date: Date,
-  unit: "day" | "month" | "year" | "week",
-  zone?: string,
-): DateTime {
-  return toDateTime(date, zone).startOf(unit);
+export function getStartOf({
+  dateTime,
+  unit,
+}: {
+  dateTime: DateTime;
+  unit: "day" | "month" | "year" | "week";
+}): DateTime {
+  return dateTime.startOf(unit);
 }
 
 export * from "./converters";

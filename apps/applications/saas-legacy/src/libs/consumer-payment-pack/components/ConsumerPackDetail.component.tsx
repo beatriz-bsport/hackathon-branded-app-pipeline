@@ -32,6 +32,7 @@ import type {
 } from '../types';
 // @ts-expect-error
 import ConsumerPaymentPackCreditRefundListItem from './ConsumerPaymentPackCreditRefundListItem.component';
+import { InvoiceStatusEnum } from '#src/libs/invoice/types';
 
 const PENALTY_KIND_BLOCK_CPP = 0;
 const PENALTY_KIND_NEGATIVE_ACCOUNT = 1;
@@ -90,7 +91,9 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
     (!props.consumerPack.payment_pack.unlimited &&
       !props.consumerPack.available_credits) ||
     // if original invoice is already refunded (the normal way)
-    props.invoice?.reverse_invoices?.length > 0 ||
+    [InvoiceStatusEnum.REFUNDED, InvoiceStatusEnum.VOIDED].includes(
+      props.invoice?.status,
+    ) ||
     // if there is already a partial refund on the consumer pack
     (props.consumerPaymentPackCreditRefundList &&
       props.consumerPaymentPackCreditRefundList.length > 0);

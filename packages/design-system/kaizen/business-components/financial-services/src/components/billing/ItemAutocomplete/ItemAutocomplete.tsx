@@ -47,6 +47,7 @@ export type ItemAutocompleteItem = {
   durationMonths?: number | null;
   durationYears?: number | null;
   validityDateRange?: { lower: string; upper: string } | null;
+  startDateMethod?: number;
   // Giftcard specific fields.
   hiddenFromMemberArea?: boolean;
   expirationDays?: number | null;

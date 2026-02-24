@@ -1472,7 +1472,13 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     const formattedOffer = this.refineOffers(offer);
 
-    analyticsUtils.onAddSessionToBookingList(formattedOffer);
+    analyticsUtils.onAddSessionToBookingList({
+      sessionId: formattedOffer.id,
+      metaActivityName: formattedOffer.meta_activity.name,
+      establishmentName: formattedOffer.establishment.title,
+      coachName: formattedOffer.coach.name,
+      startDate: formattedOffer.date_start,
+    });
     this.setState(
       (prevState: State) => ({
         selectedOffers: [

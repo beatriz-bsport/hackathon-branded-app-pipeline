@@ -16,5 +16,6 @@ export const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
   }
 };
 
-export const i18nNamespacePrefix = "sm-referral-program";
+export const i18nNamespacePrefix =
+  __REFERRAL_PROGRAM__.__I18N_NAMESPACE_PREFIX__;
 export const i18nNamespaces: string[] = ["settings"];

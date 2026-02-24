@@ -1,3 +1,5 @@
+import type { DateTime } from "@bsport/datetime-manipulation";
+
 import {
   CustomRecurrenceUnit,
   MonthlyRecurrencePattern,
@@ -60,14 +62,14 @@ export type SessionEdit = SessionBase & {
 
 export type SessionCreationDateTimeFormData = {
   duration_minute: number;
-  startDateTime: Date;
+  startDateTime: DateTime;
   isRecurring: boolean;
   recurrenceType: RecurrenceType;
   recurrenceWeekdays: WeekdaySelection;
   recurrenceUnit: CustomRecurrenceUnit;
   recurrenceInterval: number;
   recurrencePattern: MonthlyRecurrencePattern;
-  recurrenceEndDate: Date | null;
+  recurrenceEndDate: DateTime | null;
 };
 
 export type SessionCreationFormData = SessionCreationDateTimeFormData &

@@ -23,6 +23,7 @@
     "@bsport/form": "workspace:*",
     "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/store-buyables-giftcard": "workspace:*",
+    "@bsport/store-cdp-tag": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
     "clsx": "^2.1.1"

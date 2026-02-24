@@ -23,5 +23,10 @@
       "label": "Unlisted",
       "description": "This {{ buyable }} won't be visible on the Member Area but can be shared via a link"
     }
+  },
+  "tagsAfterPurchaseSelector": {
+    "placeholder": "Add tags",
+    "title": "Tag after purchase",
+    "description": "Add tags to identify which member bought this item."
   }
 }

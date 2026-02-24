@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
-    "@bsport/config-federation": "workspace:*",
+    "@bsport/config-library": "workspace:*",
     "@types/luxon": "^3.4.2",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",

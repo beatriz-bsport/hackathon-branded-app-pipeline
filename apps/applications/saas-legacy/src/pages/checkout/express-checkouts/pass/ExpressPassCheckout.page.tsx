@@ -78,6 +78,7 @@ import { getItemInStorage } from '#src/utils/storage';
 
 import './express-pass-checkout.css';
 import { getAuthTokenValue } from '#src/http/utils';
+import analyticsUtils from '#src/components/analytics/analytics';
 
 enum RedirectStatus {
   SUCCEEDED = 'succeeded',
@@ -182,8 +183,12 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
             }
           }
         : undefined,
-      onImmediateCreateSuccess: async () => await purchaseFreePass(),
-      onImmediateUpdateSuccess: async () => await purchaseFreePass(),
+      onImmediateCreateSuccess: async () => {
+        await purchaseFreePass();
+      },
+      onImmediateUpdateSuccess: async () => {
+        await purchaseFreePass();
+      },
       shouldSkip: authenticated,
     });
 
@@ -288,6 +293,7 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
     if (validityResult && !validityResult.isValid) {
       return;
     }
+
     if (!currentBasket) {
       const basket = await addItemToBasketAndFetch();
       if (!basket) return;
@@ -310,7 +316,30 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
     if (memberId && !currentBasket) {
       addItemToBasketAndFetch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (currentBasket) {
+      analyticsUtils.beginCheckout(currentBasket);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentBasket?.id]);
+
+  useEffect(() => {
+    if (!passCardData) {
+      return;
+    }
+
+    if (passCardData.paymentComboData) {
+      analyticsUtils.viewBuyableItem(passCardData.paymentComboData);
+    } else if (passCardData.paymentPackData?.paymentPack) {
+      analyticsUtils.viewBuyableItem(passCardData.paymentPackData.paymentPack);
+    } else if (passCardData.privatePassData?.privatePass) {
+      analyticsUtils.viewBuyableItem(passCardData.privatePassData.privatePass);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [passCardData?.passId]);
 
   useEffect(() => {
     if (!isPassFree) {

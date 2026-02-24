@@ -262,9 +262,15 @@ const analyticsUtils = {
       })),
     };
 
+    trackMeiro('purchase', gtmPayload);
+    if (payload.total_price_cts === 0) {
+      analyticsUtils.trackGTM('bsport:free-purchase:success', gtmPayload);
+      analyticsUtils.trackMetaPixel('BsportFreePurchase', metaPixelPayload);
+      return;
+    }
+
     analyticsUtils.trackGTM('purchase', gtmPayload);
     analyticsUtils.trackMetaPixel('Purchase', metaPixelPayload);
-    trackMeiro('purchase', gtmPayload);
   },
 
   // Workshop - Session events
@@ -377,13 +383,25 @@ const analyticsUtils = {
     trackMeiro('bsport_workshop_go_to_booking', gtmPayload);
   },
 
-  onAddSessionToBookingList: (payload: Offer_FULL) => {
+  onAddSessionToBookingList: ({
+    sessionId,
+    metaActivityName,
+    establishmentName,
+    coachName,
+    startDate,
+  }: {
+    sessionId: number;
+    metaActivityName: string;
+    establishmentName: string;
+    coachName: string;
+    startDate: string;
+  }) => {
     const analyticsPayload: SessionFullPayload = {
-      sessionId: payload.id,
-      metaActivityName: payload.meta_activity.name,
-      establishmentName: payload.establishment.title,
-      coach: payload.coach.name,
-      date: payload.date_start,
+      sessionId,
+      metaActivityName,
+      establishmentName,
+      coach: coachName,
+      date: startDate,
     };
     analyticsUtils.trackGTM('bsport:booking:add-session', analyticsPayload);
     analyticsUtils.trackMetaPixel('BsportBookingAddSession', analyticsPayload);

@@ -4,11 +4,12 @@ import {
   type FetchGiftcardsParams,
   type Giftcard,
   archiveGiftcardAPI,
+  createGiftcardAPI,
   duplicateGiftcardAPI,
   fetchGiftcardsAPI,
   restoreGiftcardAPI,
 } from "@bsport/api-buyables";
-import type { Action, PaginatedResponse } from "@bsport/store-base";
+import type { Action, PaginatedResponse, XhrAction } from "@bsport/store-base";
 import { createErrorWithContext } from "@bsport/store-base";
 
 import { setGiftcards, updateGiftcard } from "./store";
@@ -112,6 +113,28 @@ export const duplicateGiftcardAction: Action<{ id: number }, Giftcard> = async (
       createErrorWithContext(error, {
         message: `Failed to duplicate giftcard n°${params.id}`,
         params,
+      }),
+  );
+};
+
+/**
+ * Create a Giftcard with the provided data in the FormData params
+ */
+export const createGiftcardAction: XhrAction<FormData, Giftcard> = async (
+  xhr,
+  params,
+) => {
+  return Result.try(
+    async () => {
+      const data = await createGiftcardAPI(xhr, params);
+
+      updateGiftcard(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to create giftcard",
       }),
   );
 };

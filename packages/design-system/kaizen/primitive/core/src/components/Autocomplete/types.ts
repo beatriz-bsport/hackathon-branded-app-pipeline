@@ -1,13 +1,15 @@
 import type { MenuOption } from "#src/components/Menu/types";
 
+export type MenuOptionWithColor = MenuOption & { customColor?: string };
+
 export type AutocompleteItems =
   | Array<{
       title: string;
-      options: MenuOption[];
+      options: MenuOptionWithColor[];
     }>
-  | MenuOption[];
+  | MenuOptionWithColor[];
 
-export type MapIdToOption = Map<string, MenuOption>;
+export type MapIdToOption = Map<string, MenuOptionWithColor>;
 
 export type MultiSelectAutocompleteProps = {
   /** Enable multi-selection mode using checkboxes instead of radio buttons */

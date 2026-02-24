@@ -40,8 +40,18 @@ const useEditSession = () => {
 
       return null;
     },
-    onSuccess: (_, { sessionId }) => {
-      queryClient.invalidateQueries({ queryKey: [SESSIONS_QUERY_KEY] });
+    onSuccess: async (_, { sessionId }) => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: [SESSIONS_QUERY_KEY],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: [`${SESSIONS_QUERY_KEY}_similar`, sessionId],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: [`${SESSIONS_QUERY_KEY}_in_group`],
+        }),
+      ]);
       toast({
         status: "default",
         description: t("editSessionForm.toasts.sessionEdited"),

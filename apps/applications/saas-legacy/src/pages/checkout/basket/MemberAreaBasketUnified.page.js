@@ -632,7 +632,6 @@ export default compose(
                 offersBooked: bookedSessionListData,
               });
           }
-          analyticsUtils.onPaymentSuccess(basket);
           analyticsClientB2C.track(
             trackPurchaseConfirmation({
               cart_value: Number(basket.total_price ?? '0'),

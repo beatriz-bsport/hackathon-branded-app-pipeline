@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "id": "MigrateToLibrary",
+  "title": "Migrate SM app from Module Federation to workspace library",
+  "type": "object",
+  "properties": {
+    "appName": {
+      "type": "string",
+      "description": "App name without @bsport/ prefix (e.g., sm-giftcard)",
+      "$default": { "$source": "argv", "index": 0 },
+      "x-prompt": "What SM app do you want to migrate?"
+    }
+  },
+  "required": ["appName"]
+}

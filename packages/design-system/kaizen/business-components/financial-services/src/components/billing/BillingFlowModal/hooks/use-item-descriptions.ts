@@ -1,7 +1,6 @@
+import { formatDate } from "#src/components/billing/BillingFlowModal/SummarySection/utils";
 import type { InvoiceItemFormData } from "#src/components/billing/BillingFlowModal/types";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
-
-import { formatDate } from "./utils";
 
 export const useItemDescriptions = (item: InvoiceItemFormData) => {
   const i18nInstance = useKaizenI18nInstance();

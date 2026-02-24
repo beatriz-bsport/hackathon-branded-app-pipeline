@@ -304,7 +304,8 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                 ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS && (
                 <>
                   <Typography className={classes.mobileSmallFont}>
-                    {offer?.coach?.name}
+                    {replacementRequest.coach_author?.name ||
+                      offer?.coach?.name}
                   </Typography>
                   <ReplacementRequestClosingDateExtensionButton
                     isMobile={isMobile}
@@ -590,7 +591,9 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           ReplacementDisplays.REPLACEMENT_REQUEST_MANAGER_ACTIONS && (
           <>
             <TableCell className={classes.tableCell}>
-              <Typography>{offer.coach?.name}</Typography>
+              <Typography>
+                {replacementRequest.coach_author?.name || offer.coach?.name}
+              </Typography>
             </TableCell>
             <TableCell className={classes.tableCell}>
               <ReplacementRequestLateStatusChip

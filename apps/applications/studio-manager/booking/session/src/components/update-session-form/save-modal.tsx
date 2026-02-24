@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 
 import { SessionEditActions, SessionWithActivity } from "@bsport/api-book";
 import { useFormContext } from "@bsport/form";
@@ -23,10 +23,11 @@ export const SaveSessionModal: FC<SaveSessionModalProps> = ({
 }) => {
   const { t } = useTranslation("sessionEdit");
 
+  const [selectedSessionIds, setSelectedSessionIds] = useState<string[]>([]);
+
   const { watch, setValue } = useFormContext();
   const shouldSendNotification = watch("shouldSendNotification");
   const shouldUpdateFutureSessions = watch("shouldUpdateFutureSessions");
-  const selectedSessionIds = watch("selectedSessionIds");
 
   const { data: regularSimilarSessions } = useFetchSimilarSessions(
     session.id,
@@ -72,10 +73,7 @@ export const SaveSessionModal: FC<SaveSessionModalProps> = ({
 
   useEffect(() => {
     if (similarSessions) {
-      setValue(
-        "selectedSessionIds",
-        similarSessions.map((s) => `${s.id}`),
-      );
+      setSelectedSessionIds(similarSessions.map((s) => `${s.id}`));
     }
   }, [similarSessions]);
 
@@ -148,9 +146,7 @@ export const SaveSessionModal: FC<SaveSessionModalProps> = ({
                   isSelectable
                   originalSessionId={session.id}
                   selectedIds={selectedSessionIds}
-                  setSelectedIds={(selectedIds) =>
-                    setValue("selectedSessionIds", selectedIds)
-                  }
+                  setSelectedIds={setSelectedSessionIds}
                   title={t("saveSessionModal.futureSessionsHeader", {
                     number: similarSessions.length,
                   })}

@@ -105,6 +105,9 @@ export class RelationForm extends React.Component<Props, State> {
             },
             {
               onSuccess: () => actions.setSubmitting(false),
+              onError: () => {
+                actions.setSubmitting(false);
+              },
             },
           );
         }}

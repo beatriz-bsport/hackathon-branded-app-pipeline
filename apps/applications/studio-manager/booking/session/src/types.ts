@@ -8,6 +8,8 @@ import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 export type EnrichedSession = ManagerSession & {
   color?: string;
   teacherName?: string;
+  teacherAvatar?: string;
+  teacherInitials?: string;
   originalTeacherName?: string;
   establishmentName?: string;
   hasPendingReplacementRequest?: boolean;

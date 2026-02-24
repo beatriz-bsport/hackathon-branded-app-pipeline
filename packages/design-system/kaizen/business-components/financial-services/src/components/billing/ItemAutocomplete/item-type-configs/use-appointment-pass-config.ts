@@ -37,6 +37,7 @@ export const useAppointmentPassConfig =
             durationYears: item.duration_years ?? null,
             validityDateRange: null,
             taxPercent: parseTaxPercent(item.tax),
+            startDateMethod: item.start_date_method,
           };
         },
       }),

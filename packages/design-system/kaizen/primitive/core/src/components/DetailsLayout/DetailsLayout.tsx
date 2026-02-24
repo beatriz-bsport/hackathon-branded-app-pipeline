@@ -339,6 +339,7 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
       await onDiscard();
       return Result.ok(undefined);
     },
+    dependencies: [onDiscard],
   });
 
   const [{ isLoading: saveLoading }, handleSave] = useAsync({
@@ -346,6 +347,7 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
       await onSave();
       return Result.ok(undefined);
     },
+    dependencies: [onSave],
   });
 
   return (

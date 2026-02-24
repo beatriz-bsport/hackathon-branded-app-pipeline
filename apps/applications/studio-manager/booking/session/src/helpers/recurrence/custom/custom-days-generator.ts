@@ -1,18 +1,24 @@
 import {
+  DateTime,
   getStartOf,
   isWithinRange,
   modifyTime,
-  toDateTime,
 } from "@bsport/datetime-manipulation";
 
 import type { CustomDaysConfig } from "#src/helpers/recurrence/types";
 
-export function generateCustomDaysDates(config: CustomDaysConfig): Date[] {
-  const dates: Date[] = [];
+export function generateCustomDaysDates(config: CustomDaysConfig): DateTime[] {
+  const dates: DateTime[] = [];
 
-  const startDateTime = getStartOf(config.startDate, "day", config.timezone);
-  const endDateTime = getStartOf(config.endDate, "day", config.timezone);
-  const originalDateTime = toDateTime(config.startDate, config.timezone);
+  const startDateTime = getStartOf({
+    dateTime: config.startDate,
+    unit: "day",
+  });
+  const endDateTime = getStartOf({
+    dateTime: config.endDate,
+    unit: "day",
+  });
+  const originalDateTime = config.startDate;
 
   const { hour, minute, second, millisecond } = originalDateTime;
 
@@ -25,7 +31,7 @@ export function generateCustomDaysDates(config: CustomDaysConfig): Date[] {
       second,
       millisecond,
     });
-    dates.push(dateWithTime.toJSDate());
+    dates.push(dateWithTime);
     current = modifyTime({
       datetime: current,
       duration: { day: config.interval },

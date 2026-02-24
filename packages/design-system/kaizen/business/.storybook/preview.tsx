@@ -1,15 +1,28 @@
 import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react-vite";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 
 import { setLocalAPIEnv } from "@bsport/fetch";
 import { FLAG_EMOJIS, LOCALES, switchLanguage } from "@bsport/i18n";
+import { instanciateAppI18n } from "@bsport/i18n";
+import {
+  KaizenI18nProvider,
+  i18nNamespacePrefix,
+  i18nNamespaces,
+  inMemoryTranslationsLoader,
+} from "@bsport/kaizen-primitive-core";
 import "@bsport/kaizen-primitive-core/styles";
 
 import { authenticateDev } from "./auth-helper";
 
-import "../../primitive/core/src/globals.css";
 import "../src/globals.css";
+
+const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
+  applicationName: i18nNamespacePrefix,
+  namespaces: i18nNamespaces,
+  inMemoryTranslationsLoader: inMemoryTranslationsLoader,
+  debug: process.env.NODE_ENV !== "production",
+});
 
 // Set API environment to dev for local storybook
 if (typeof window !== "undefined") {
@@ -34,7 +47,11 @@ const preview: Preview = {
 
       return (
         <React.StrictMode>
-          <Story />
+          <Suspense fallback={<p>...Loading translations</p>}>
+            <KaizenI18nProvider kaizenI18nInstance={kaizenI18nInstance}>
+              <Story />
+            </KaizenI18nProvider>
+          </Suspense>
         </React.StrictMode>
       );
     },

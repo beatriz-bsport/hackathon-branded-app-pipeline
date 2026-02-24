@@ -8,11 +8,7 @@ import {
   type CheckboxGroupProps,
 } from "@bsport/kaizen-primitive-core";
 
-import {
-  useKaizenI18nInstance,
-  useTranslation,
-  withKaizenBusinessI18n,
-} from "#src/i18n";
+import { i18nInstance, useTranslation } from "#src/i18n";
 import type { NumberListFieldPath } from "#src/utils/form-types";
 
 import { PAYMENT_METHOD_IDENTIFIERS } from "./constants";
@@ -35,7 +31,7 @@ type PaymentMethodsFormProps<
     | { isHidden: false; buyableName?: string }
   );
 
-const PaymentMethodsFormInner = <
+export const PaymentMethodsForm = <
   TFormValues extends FieldValues,
   TFieldName extends
     NumberListFieldPath<TFormValues> = NumberListFieldPath<TFormValues>,
@@ -48,8 +44,7 @@ const PaymentMethodsFormInner = <
   buyableName,
   ...additionalProps
 }: PaymentMethodsFormProps<TFormValues, TFieldName>): ReactElement => {
-  const i18n = useKaizenI18nInstance();
-  const { t } = useTranslation("buyables", { i18n });
+  const { t } = useTranslation("buyables", { i18n: i18nInstance });
 
   if (isHidden) {
     return (
@@ -122,8 +117,4 @@ const PaymentMethodsFormInner = <
   );
 };
 
-PaymentMethodsFormInner.displayName = "KaizenPaymentMethodsFormInner";
-
-export const PaymentMethodsForm = withKaizenBusinessI18n(
-  PaymentMethodsFormInner,
-) as typeof PaymentMethodsFormInner;
+PaymentMethodsForm.displayName = "KaizenPaymentMethodsForm";

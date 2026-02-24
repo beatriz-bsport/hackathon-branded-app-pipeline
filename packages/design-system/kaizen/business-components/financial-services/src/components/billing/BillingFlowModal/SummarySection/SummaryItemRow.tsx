@@ -4,10 +4,10 @@ import React from "react";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { Body, Button, Icon, Title } from "@bsport/kaizen-primitive-core";
 
+import { useItemDescriptions } from "#src/components/billing/BillingFlowModal/hooks/use-item-descriptions";
 import type { InvoiceItemFormData } from "#src/components/billing/BillingFlowModal/types";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
-import { useItemDescriptions } from "./use-item-descriptions";
 import { itemTypeIcon } from "./utils";
 
 export type SummaryItemRowProps = {

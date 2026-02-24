@@ -1,6 +1,6 @@
-import React, { useId } from "react";
+import React, { useEffect, useId } from "react";
 
-import { FormField } from "@bsport/form";
+import { FormField, useFormContext } from "@bsport/form";
 import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
 
 import {
@@ -15,8 +15,18 @@ export const FromToFields: React.FC = () => {
   const fromId = useId();
   const toId = useId();
 
+  const { watch, setValue } = useFormContext<BillingFlowFormState>();
+  const member = watch("member");
+  const currentFrom = watch("addItemGiftcardFrom");
+
+  useEffect(() => {
+    if (!currentFrom && member?.firstname) {
+      setValue("addItemGiftcardFrom", member.firstname, { shouldDirty: true });
+    }
+  }, [member]);
+
   return (
-    <div className="grid grid-cols-2 gap-md">
+    <div className="grid grid-cols-1 gap-md sm:grid-cols-2">
       <FormField<BillingFlowFormState, "addItemGiftcardFrom", TextFieldProps>
         name="addItemGiftcardFrom"
         mapProps={({ field, form: { setValue } }) => ({
@@ -35,6 +45,7 @@ export const FromToFields: React.FC = () => {
           label={t("billingFlowModal.giftCardDetails.from")}
           maxLength={FROM_TO_MAX_LENGTH}
           required
+          placeholder={t("billingFlowModal.giftCardDetails.fromPlaceholder")}
         />
       </FormField>
 

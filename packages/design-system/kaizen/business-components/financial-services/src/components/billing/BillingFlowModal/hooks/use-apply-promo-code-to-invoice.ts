@@ -11,6 +11,7 @@ import {
 import { HTTPException } from "@bsport/fetch";
 import { useFormContext } from "@bsport/form";
 
+import { TYPE_TO_IDENTIFIER } from "#src/components/billing/BillingFlowModal/hooks/constants";
 import type { BillingFlowFormState } from "#src/components/billing/BillingFlowModal/schema";
 import type { BillingFlowItem } from "#src/components/billing/BillingFlowModal/types";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
@@ -26,14 +27,6 @@ type UseApplyPromoCodeResult = {
 };
 
 const applyPromoCodeToInvoice = applyPromoCodeToInvoiceAPI.bind(null, fetch);
-
-const TYPE_TO_IDENTIFIER: Record<string, number> = {
-  pass: 1, // PAYMENT_PACK_IDENTIFIER
-  appointment_pass: 9, // PRIVATE_PASS_IDENTIFIER
-  product: 2, // SHOP_ITEM_IDENTIFIER
-  pack: 10, // PAYMENT_COMBO_IDENTIFIER
-  giftcard: 11, // GIFTCARD_IDENTIFIER
-};
 
 const transformItemsToInvoiceItems = (
   items: BillingFlowItem[],
@@ -87,7 +80,8 @@ export const useApplyPromoCodeToInvoice = (): UseApplyPromoCodeResult => {
   const errorMessage =
     getFieldState("promoCodes", formState).error?.message ?? null;
 
-  const memberId = watch("memberId");
+  const member = watch("member");
+  const memberId = member?.id;
   const items = watch("items");
   const promoCodes = watch("promoCodes");
 

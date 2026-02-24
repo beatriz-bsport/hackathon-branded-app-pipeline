@@ -40,6 +40,7 @@ export const invoiceItemFormDataSchema = z.object({
     .min(0, "Discount amount must be greater than or equal to 0"),
   activationDate: z.string().nullable(),
   billingDetail: z.string().nullable(),
+  startDateMethod: z.number().optional(),
 });
 
 /**
@@ -59,6 +60,7 @@ export const addedItemSchema = invoiceItemFormDataSchema
     validityDateRange: z
       .object({ lower: z.string(), upper: z.string() })
       .nullish(),
+    startDateMethod: z.number().optional(),
     // Giftcard fields (required when type is giftcard)
     giftcardRecipientName: z.string().optional(),
     giftcardFrom: z.string().optional(),
@@ -158,17 +160,24 @@ export const addedItemSchema = invoiceItemFormDataSchema
  * Schema for billing flow form data (submitted shape)
  */
 export const billingFlowFormDataSchema = z.object({
-  memberId: z
-    .number()
-    .nullable()
-    .refine((val: number | null) => val !== null && val > 0, {
-      message: "Member is required",
+  member: z
+    .object({
+      id: z.number().positive(),
+      firstname: z.string().optional(),
+      default_establishment_billing_group: z.number().nullable().optional(),
     })
-    .transform((val: number | null) => (val === null ? undefined : val)),
+    .nullable()
+    .refine((val) => val != null && val.id > 0, {
+      message: "Member is required",
+    }),
   items: z.array(addedItemSchema).min(1, "At least one item is required"),
   promoCodes: z.array(z.string()),
   footnote: z.string().max(FOOTNOTE_MAX_LENGTH).nullable(),
-  date: z.date({ required_error: "Invoice date is required" }),
+  date: z.string({ required_error: "Invoice date is required" }),
+  passActivationDate: z.date({
+    required_error: "Pass activation date is required",
+  }),
+  establishmentBillingGroupId: z.number().nullable().default(null),
 });
 
 export type BillingFlowFormData = z.infer<typeof billingFlowFormDataSchema>;

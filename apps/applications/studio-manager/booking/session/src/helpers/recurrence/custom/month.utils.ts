@@ -5,8 +5,8 @@
 import {
   type DateTime,
   getISOWeekday,
+  getStartOf,
   modifyTime,
-  toDateTime,
 } from "@bsport/datetime-manipulation";
 
 import type {
@@ -19,25 +19,24 @@ import type {
  * e.g., Dec 12, 2025 (Friday) -> { position: 2, weekday: 5 }
  */
 export function getWeekdayPositionInMonth(
-  date: Date,
+  date: DateTime,
   zone: string,
 ): WeekdayPosition {
-  const dateTime = toDateTime(date, zone);
-  const weekday = getISOWeekday(dateTime, zone);
-  const dayOfMonth = dateTime.day;
+  const weekday = getISOWeekday(date, zone);
+  const dayOfMonth = date.day;
 
   let position = Math.floor((dayOfMonth - 1) / 7) + 1;
 
   // Check if it's the last occurrence
   const nextWeek = modifyTime({
-    datetime: toDateTime(date, zone),
+    datetime: date,
     duration: { week: 1 },
     operator: "plus",
   });
 
   // If the month has changed, it's the last occurrence
   // position is -1 for last
-  if (nextWeek.month !== dateTime.month) {
+  if (nextWeek.month !== date.month) {
     position = -1;
   }
 
@@ -64,7 +63,11 @@ export function getOccurrenceByPosition(
   }
 
   // Find first occurrence of weekday
-  let current = monthStart.setZone(zone ?? monthStart.zone).startOf("month");
+  let current = getStartOf({
+    dateTime: monthStart,
+    unit: "month",
+  });
+
   const targetMonth = current.month;
 
   while (

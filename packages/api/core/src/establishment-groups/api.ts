@@ -6,13 +6,14 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import { API_V1_URL } from "../constants";
 import type {
   EstablishmentGroup,
   FetchEstablishmentGroupQueryParams,
   SearchEstablishmentGroupSearchParams,
 } from "./types";
 
-const ESTABLISHMENT_GROUP_API_URL = "core-data/v1/establishment-group";
+const ESTABLISHMENT_GROUP_API_URL = `${API_V1_URL}/establishment-group`;
 
 const fetchEstablishmentGroupsAPI = (
   params: FetchEstablishmentGroupQueryParams = {},

@@ -25,6 +25,7 @@
     "server:build": "webpack -p --progress",
     "start": "concurrently --kill-others \"env=local pnpm run start:sidebar\" \"pnpm run start:main\"",
     "start-dev": "concurrently --kill-others \"env=dev pnpm run start:sidebar\" \"pnpm run start:dev\"",
+    "start-fb": "./scripts/start-fb.sh",
     "start-production": "concurrently --kill-others \"env=production pnpm run start:sidebar\" \"pnpm run start:production\"",
     "start-staging": "concurrently --kill-others \"env=staging pnpm run start:sidebar\" \"pnpm run start:staging\"",
     "start:dev": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && pnpm run translation:update && cp envs/dev-api-only public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",

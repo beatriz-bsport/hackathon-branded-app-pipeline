@@ -285,6 +285,14 @@ export enum ConfirmationStatus {
   OFFERS_PARTIALLY_CONFIRMED = 'offersPartiallyConfirmed',
 }
 
+export const ERROR_CONFIRMATION_STATUS = [
+  ConfirmationStatus.GENERIC_ERROR,
+  ConfirmationStatus.GENERIC_OFFER_ERROR,
+  ConfirmationStatus.OFFER_ONLY_BOOKING_ERROR,
+  ConfirmationStatus.OFFER_GENERIC_ERROR_WITH_PURCHASE,
+  ConfirmationStatus.OFFER_BOOKING_ERROR_WITH_PURCHASE,
+];
+
 export type ExpiredItemRemovalStatusPayload = {
   checkout_item_id: string;
   company: number;

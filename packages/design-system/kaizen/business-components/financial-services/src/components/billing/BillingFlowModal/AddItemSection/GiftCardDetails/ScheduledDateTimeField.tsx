@@ -30,7 +30,7 @@ export const ScheduledDateTimeField: React.FC = () => {
   };
 
   return (
-    <div className="flex items-end gap-xs">
+    <div className="flex flex-col gap-xs sm:flex-row sm:items-end">
       <FormField<
         BillingFlowFormState,
         "addItemGiftcardScheduledDate",

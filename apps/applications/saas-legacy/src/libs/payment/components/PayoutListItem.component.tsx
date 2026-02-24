@@ -75,7 +75,7 @@ const PayoutListItem: React.FC<Props> = ({
     },
   ];
 
-  if (bsportPayout) {
+  if (bsportPayout && (bsportPayout?.payments?.length ?? 0) > 0) {
     return (
       <div className={classes.container}>
         <div className={classes.innerContainer}>

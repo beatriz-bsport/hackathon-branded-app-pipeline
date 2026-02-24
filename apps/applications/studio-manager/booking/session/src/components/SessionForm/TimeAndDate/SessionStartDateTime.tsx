@@ -4,13 +4,13 @@ import {
   type DateTime,
   getLocalNow,
   modifyTime,
-  toDateTime,
 } from "@bsport/datetime-manipulation";
 import { useFormContext } from "@bsport/form";
 import { DatePicker, TimePicker } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { MAX_YEARS_AHEAD } from "#src/components/SessionForm/schemas";
+import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 export const SessionStartDateTime: FC<{
@@ -19,13 +19,10 @@ export const SessionStartDateTime: FC<{
 }> = ({ fieldIdPrefix, disableBeforeStartDate }) => {
   const { t, i18n } = useTranslation("sessionCreation");
 
-  const { watch, setValue, formState } = useFormContext();
+  const { watch, setValue, formState } =
+    useFormContext<SessionCreationFormData>();
 
   const startDateTime = watch("startDateTime");
-  const startDateTimeForDatePicker = toDateTime(
-    startDateTime,
-    dataAccessLayer.useCompanyTheme()?.timezone_name,
-  );
 
   const error = formState.errors.startDateTime?.message;
 
@@ -39,25 +36,32 @@ export const SessionStartDateTime: FC<{
       if (!newDate) {
         return;
       }
-      const currentDateTime = toDateTime(startDateTime, companyTimeZone);
       const newDateTime = newDate.setZone(companyTimeZone);
 
       const updatedDateTime = newDateTime.set({
-        hour: currentDateTime.hour,
-        minute: currentDateTime.minute,
+        hour: startDateTime.hour,
+        minute: startDateTime.minute,
         second: 0,
         millisecond: 0,
       });
 
-      setValue("startDateTime", updatedDateTime.toJSDate(), {
+      setValue("startDateTime", updatedDateTime, {
         shouldValidate: true,
         shouldDirty: true,
       });
 
-      setValue("recurrenceEndDate", newDateTime.plus({ day: 1 }).toJSDate(), {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
+      setValue(
+        "recurrenceEndDate",
+        modifyTime({
+          datetime: newDateTime,
+          duration: { day: 1 },
+          operator: "plus",
+        }),
+        {
+          shouldValidate: true,
+          shouldDirty: true,
+        },
+      );
     },
     [startDateTime, setValue, companyTimeZone],
   );
@@ -65,22 +69,25 @@ export const SessionStartDateTime: FC<{
   // When time changes, preserve the date
   const handleTimeChange = useCallback(
     (newTime: string) => {
-      const currentDateTime = toDateTime(startDateTime, companyTimeZone);
+      if (!newTime) {
+        return;
+      }
+
       const [hour, minute] = newTime.split(":").map(Number);
 
-      const updatedDateTime = currentDateTime.set({
+      const updatedDateTime = startDateTime.set({
         hour,
         minute,
         second: 0,
         millisecond: 0,
       });
 
-      setValue("startDateTime", updatedDateTime.toJSDate(), {
+      setValue("startDateTime", updatedDateTime, {
         shouldValidate: true,
         shouldDirty: true,
       });
     },
-    [startDateTime, setValue, companyTimeZone],
+    [startDateTime, setValue],
   );
 
   const disableDateTooFar = useCallback(
@@ -118,9 +125,7 @@ export const SessionStartDateTime: FC<{
     [disableDateTooFar, disableDateBeforeStartDate],
   );
 
-  const timeString = toDateTime(startDateTime, companyTimeZone).toFormat(
-    "HH:mm",
-  );
+  const timeString = startDateTime?.toFormat("HH:mm");
 
   return (
     <div className="flex flex-col gap-sm md:flex-row md:gap-md">
@@ -131,7 +136,7 @@ export const SessionStartDateTime: FC<{
         label={t("addSessionModal.steps.configureSession.timeAndDate.date")}
         required
         mode="single"
-        defaultValue={startDateTimeForDatePicker}
+        defaultValue={startDateTime}
         onSelect={(date) => {
           if (!Array.isArray(date)) {
             handleDateChange(date);

@@ -1,11 +1,10 @@
 import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
+import { API_URL_PAYMENT } from "../constants";
 import type { InvoiceConfigurationResponse } from "./types";
 
-const API_URL = "financial-services/v1/payment";
-
 const fetchInvoiceConfigurationAPIConfig = (): ApiConfig => {
-  return [`${API_URL}/configuration/me/`];
+  return [`${API_URL_PAYMENT}/configuration/me/`];
 };
 
 export const fetchInvoiceConfigurationAPI = async (

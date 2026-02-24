@@ -1,3 +1,4 @@
+import analyticsUtils from '#src/components/analytics/analytics';
 import useAsyncFn from '#src/hooks/useAsyncFn';
 import {
   fetchCurrentBasket,
@@ -27,6 +28,7 @@ export const handleUserRegistration = async ({
 
   if (!!checkoutItems?.length && basket?.id) {
     await removeItemFromBasket(basket.id, checkoutItems[0]);
+    analyticsUtils.removeItemFromCart(basket?.checkout_items[0]);
   }
 
   const { data: userRegistrationResponse } = await postUserRegistration({
@@ -40,6 +42,11 @@ export const handleUserRegistration = async ({
     ...(email && { email }),
   });
   const { data: updatedBasket } = await fetchCurrentBasket(companyId);
+
+  updatedBasket?.checkout_items.forEach((item) => {
+    analyticsUtils.viewBuyableItem(item);
+    analyticsUtils.addItemToCart(item);
+  });
 
   return { basket: updatedBasket, userRegistrationResponse };
 };

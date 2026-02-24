@@ -110,6 +110,8 @@ const AnalyticCard: React.FC<AnalyticCardProps> = ({
                   onMouseLeave={() =>
                     handleLeaveTriggerOrContent(setIsPopoverOpened)
                   }
+                  onBlur={() => handleLeaveTriggerOrContent(setIsPopoverOpened)}
+                  onFocus={() => handleOpenByHover(setIsPopoverOpened)}
                 />
               )}
             </Popover.Anchor>
@@ -121,6 +123,8 @@ const AnalyticCard: React.FC<AnalyticCardProps> = ({
                   onMouseLeave={() =>
                     handleLeaveTriggerOrContent(setIsPopoverOpened)
                   }
+                  onBlur={() => handleLeaveTriggerOrContent(setIsPopoverOpened)}
+                  onFocus={() => handleOpenByHover(setIsPopoverOpened)}
                 >
                   <div className="flex flex-col gap-xs">
                     {typeof infoContent === "string" ? (

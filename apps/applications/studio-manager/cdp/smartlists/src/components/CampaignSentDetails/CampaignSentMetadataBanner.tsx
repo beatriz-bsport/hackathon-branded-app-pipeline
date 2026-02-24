@@ -15,14 +15,14 @@ import {
   STREAMLINED_COMMUNICATION_STATUS_FAILED,
   STREAMLINED_COMMUNICATION_STATUS_OPENED,
   STREAMLINED_COMMUNICATION_STATUS_PROCESSING,
+  StreamlinedCommunicationStatus,
 } from "#src/utils/types";
 
-import type { CampaignSentDetailsProps } from "./CampaignSentDetails";
-
-type CampaignSentMetadataBannerProps = Omit<
-  CampaignSentDetailsProps,
-  "campaignUuid" | "campaignContent"
-> & {
+type CampaignSentMetadataBannerProps = {
+  campaignKind: CommunicationKind;
+  campaignStatus?: StreamlinedCommunicationStatus;
+  campaignDate: string;
+  campaignTotalRecipients?: number;
   onPreview: () => void;
 };
 

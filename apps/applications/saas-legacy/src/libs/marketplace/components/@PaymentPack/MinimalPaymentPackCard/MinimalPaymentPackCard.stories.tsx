@@ -22,10 +22,7 @@ export default {
 
 const Template: ComponentStory<typeof MinimalPaymentPackCard> = (
   args: Props,
-) => (
-  //@ts-expect-error
-  <MinimalPaymentPackCardForStorybook {...args} />
-);
+) => <MinimalPaymentPackCardForStorybook {...args} />;
 
 export const Loading = Template.bind({});
 Loading.args = {

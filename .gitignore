@@ -70,9 +70,6 @@ vitest.config.*.timestamp*
 # Module Federation
 **/.__mf__temp
 
-# CLAUDE
-CLAUDE.md
-.claude
 
 # Windsurf
 .windsurfrules

@@ -7,6 +7,7 @@ import withTitle from '#src/hocs/with-title.hoc';
 import InsightsIndex from '#src/pages/insights/InsightsIndex.page';
 import TrialAnalysis from '#src/pages/trial-analysis/TrialAnalysis.page';
 import SubscriptionEvents from '#src/pages/subscription-events/SubscriptionEvents.page';
+import BookingsInsight from '#src/pages/bookings-insight/BookingsInsight.page';
 import ScheduleAnalysis from '#src/pages/schedule-analysis/ScheduleAnalysis.page';
 import CommunityHealth from '#src/pages/community-health/CommunityHealth.page';
 import { INSIGHTS_ROUTES, INSIGHTS_TRANSLATION_NAMESPACES } from './constants';
@@ -28,6 +29,11 @@ const SubscriptionEventsWithTitle = compose(
   withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
   withTitle(({ t }) => t('b2b_insights:pages.recurringRevenue.title')),
 )(SubscriptionEvents);
+
+const BookingsInsightWithTitle = compose(
+  withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
+  withTitle(({ t }) => t('b2b_insights:pages.bookingInsight.title')),
+)(BookingsInsight);
 
 const ScheduleAnalysisWithTitle = compose(
   withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
@@ -56,6 +62,11 @@ const InsightsRouter: React.FC<Props> = () => {
         exact
         component={SubscriptionEventsWithTitle}
         path={INSIGHTS_ROUTES.RECURRING_REVENUE}
+      />
+      <Route
+        exact
+        component={BookingsInsightWithTitle}
+        path={INSIGHTS_ROUTES.BOOKING_INSIGHT}
       />
       <Route
         exact

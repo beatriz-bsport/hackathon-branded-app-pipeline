@@ -51,6 +51,7 @@ const InsightsIndex: React.FC = () => {
   const isScheduleAnalysisInsightEnabled = useSafeFlag(
     FeatureFlags.SCHEDULE_ANALYSIS,
   );
+  const isBookingInsightEnabled = useSafeFlag(FeatureFlags.BOOKING);
   const isCommunityHealthEnabled = useSafeFlag(FeatureFlags.COMMUNITY_HEALTH);
 
   const handleGoToReport = (path: string) => () => {
@@ -79,12 +80,17 @@ const InsightsIndex: React.FC = () => {
           isCommunityHealthEnabled &&
           hasPremiumInsights &&
           hasMembersPurchaseReportPermission;
+        const hasScheduleAnalysisAccess =
+          isScheduleAnalysisInsightEnabled && hasBookingsReportPermission;
+        const hasBookingInsightAccess =
+          isBookingInsightEnabled && hasBookingsReportPermission;
         if (
           !hasInvoicesReportPermission &&
           !hasSubscriptionReportPermission &&
-          !hasBookingsReportPermission &&
           !hasTrialAnalysisAccess &&
-          !hasCommunityHealthAccess
+          !hasCommunityHealthAccess &&
+          !hasScheduleAnalysisAccess &&
+          !hasBookingInsightAccess
         ) {
           return <div className={classes.pageContainer}></div>;
         }
@@ -141,14 +147,23 @@ const InsightsIndex: React.FC = () => {
                   </div>
                 )}
 
-                {isScheduleAnalysisInsightEnabled &&
-                  hasBookingsReportPermission && (
-                    <div className={classes.titleContainer}>
-                      <Typography component="h2" variant="h5">
-                        {t('sections.bookings')}
-                      </Typography>
-                      <Divider className={classes.divider} />
-                      <div className={classes.sectionItemContainer}>
+                {(hasBookingInsightAccess || hasScheduleAnalysisAccess) && (
+                  <div className={classes.titleContainer}>
+                    <Typography component="h2" variant="h5">
+                      {t('sections.bookings')}
+                    </Typography>
+                    <Divider className={classes.divider} />
+                    <div className={classes.sectionItemContainer}>
+                      {hasBookingInsightAccess ? (
+                        <InsightCard
+                          description={t('monitorBookings.description')}
+                          onClick={handleGoToReport(
+                            INSIGHTS_ROUTES.BOOKING_INSIGHT,
+                          )}
+                          title={t('monitorBookings.title')}
+                        />
+                      ) : null}
+                      {hasScheduleAnalysisAccess ? (
                         <InsightCard
                           description={t('monitorSchedule.description')}
                           onClick={handleGoToReport(
@@ -156,9 +171,10 @@ const InsightsIndex: React.FC = () => {
                           )}
                           title={t('monitorSchedule.title')}
                         />
-                      </div>
+                      ) : null}
                     </div>
-                  )}
+                  </div>
+                )}
               </div>
             )}
           </HasSubscriptionsProvider>

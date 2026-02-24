@@ -94,7 +94,7 @@ const MinimalPaymentPackCard: React.FC<Props> = ({
             >
               {formattedQuantity && (
                 <span className="bs-minimal-payment-pack-card__title-item__quantity">
-                  {formattedQuantity}
+                  {`${formattedQuantity}${nbsp}`}
                 </span>
               )}
               {paymentPack.name}

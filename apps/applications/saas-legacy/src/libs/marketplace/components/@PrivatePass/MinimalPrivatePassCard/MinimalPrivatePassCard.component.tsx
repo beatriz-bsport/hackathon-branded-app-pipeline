@@ -77,7 +77,7 @@ const MinimalPrivatePassCard: React.FC<Props> = ({
           >
             {formattedQuantity && (
               <span className="bs-minimal-private-pass-card__title-item__quantity">
-                {formattedQuantity}
+                {`${formattedQuantity}${nbsp}`}
               </span>
             )}
             <div className="bs-minimal-private-pass-card__title-item__name">

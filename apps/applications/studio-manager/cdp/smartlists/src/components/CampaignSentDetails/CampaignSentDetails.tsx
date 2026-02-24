@@ -7,6 +7,7 @@ import { StreamlinedCommunicationStatus } from "#src/utils/types";
 
 import { CampaignSentContentPreview } from "./CampaignSentContentPreview";
 import { CampaignSentMetadataBanner } from "./CampaignSentMetadataBanner";
+import { CampaignSentPerformance } from "./CampaignSentPerformance";
 
 export type CampaignSentDetailsProps = {
   campaignUuid: string;
@@ -19,26 +20,48 @@ export type CampaignSentDetailsProps = {
     body: string;
     emailTemplateId?: number;
   };
+  performance: {
+    deliveryRate?: string;
+    openRate?: string;
+    clickRate?: string;
+    unsubscribedRate?: string;
+    totalOpened?: number;
+    totalClicked?: number;
+    totalUnsubscribed?: number;
+  };
 };
 
 export const CampaignSentDetails = ({
+  campaignUuid,
   campaignKind,
   campaignStatus,
   campaignDate,
   campaignTotalRecipients,
   campaignContent,
+  performance,
 }: CampaignSentDetailsProps) => {
   const [isContentPreviewOpen, setIsContentPreviewOpen] = useState(false);
   const companyTheme = dataAccessLayer.useCompanyTheme();
 
   return (
-    <div>
+    <div className="flex flex-col gap-md">
       <CampaignSentMetadataBanner
         campaignKind={campaignKind}
         campaignStatus={campaignStatus}
         campaignDate={campaignDate}
         campaignTotalRecipients={campaignTotalRecipients}
         onPreview={() => setIsContentPreviewOpen(true)}
+      />
+      <CampaignSentPerformance
+        campaignUuid={campaignUuid}
+        deliveryRate={performance.deliveryRate}
+        openRate={performance.openRate}
+        clickRate={performance.clickRate}
+        unsubscribedRate={performance.unsubscribedRate}
+        totalRecipients={campaignTotalRecipients}
+        totalOpened={performance.totalOpened}
+        totalClicked={performance.totalClicked}
+        totalUnsubscribed={performance.totalUnsubscribed}
       />
       <CampaignSentContentPreview
         open={isContentPreviewOpen}

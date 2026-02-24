@@ -248,3 +248,13 @@ export type EmailTemplateDetail = {
   subject: string;
   title: string;
 };
+
+export type CampaignSentPerformanceReport = {
+  delivery_count: number;
+  last_open: string;
+  top_links: { [key: string]: number };
+  /** @deprecated - do not use */
+  planned_resends: number;
+  /** @deprecated - do not use */
+  resent_on: string;
+};

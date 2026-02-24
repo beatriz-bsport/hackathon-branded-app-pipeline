@@ -79,6 +79,36 @@ function CampaignSentDetailPageContent() {
             subject: getFallbackCampaignTitle(campaignSentDetail),
             body: getFallbackCampaignContent(campaignSentDetail),
           }}
+          performance={{
+            totalOpened: campaignSentDetail.total_read ?? undefined,
+            totalClicked: campaignSentDetail.total_click ?? undefined,
+            // as of the 16/02/2026 - We do not have the delivery rate in the campaign sent detail, so we leave it undefined
+            deliveryRate: undefined,
+            // as of the 16/02/2026 - We do not have open rate in the campaign sent detail, so we will calcul it here which is a bad pattern to not reproduce
+            openRate: campaignSentDetail.total_read
+              ? Number.parseFloat(
+                  (
+                    (campaignSentDetail.total_read /
+                      campaignSentDetail.total_recipients) *
+                    100
+                  ).toFixed(2),
+                ).toString()
+              : undefined,
+            // as of the 16/02/2026 - We do not have click rate in the campaign sent detail, so we will calcul it here which is a bad pattern to not reproduce
+            clickRate: campaignSentDetail.total_click
+              ? Number.parseFloat(
+                  (
+                    (campaignSentDetail.total_click /
+                      campaignSentDetail.total_recipients) *
+                    100
+                  ).toFixed(2),
+                ).toString()
+              : undefined,
+            // as of the 16/02/2026 - We do not have unsubscribed rate in the campaign sent detail, so we leave it undefined
+            unsubscribedRate: undefined,
+            // as of the 16/02/2026 - We do not have the total unsubscribed numbers in the campaign sent detail, so we leave it undefined
+            totalUnsubscribed: undefined,
+          }}
         />
       </DetailsLayout.Content>
     </DetailsLayout>

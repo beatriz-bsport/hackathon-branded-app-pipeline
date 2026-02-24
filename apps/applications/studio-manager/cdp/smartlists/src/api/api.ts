@@ -13,6 +13,7 @@ import type {
   BackgroundTaskStatusResponse,
   CampaignScheduled,
   CampaignSent,
+  CampaignSentPerformanceReport,
   EmailTemplateDetail,
   FetchAutomatedCampaignsParams,
   FetchCampaignScheduledParams,
@@ -75,6 +76,14 @@ export const smartlistKeys = {
 
   campaignSentDetail: (campaignUuid: string) =>
     [...smartlistKeys.all, "campaign-sent", "detail", campaignUuid] as const,
+
+  campaignSentPerformanceReport: (campaignUuid: string) =>
+    [
+      ...smartlistKeys.all,
+      "campaign-sent",
+      "performance-report",
+      campaignUuid,
+    ] as const,
 
   tagRules: (id: string) => [...smartlistKeys.all, "tag-rules", id] as const,
 
@@ -155,6 +164,16 @@ const fetchCampaignSent = async (
 ): Promise<CampaignSent> => {
   const { data } = await fetch<CampaignSent>(
     `${COMMUNICATION_API_V1}/communication/communication_sent/${campaignUuid}/`,
+  );
+
+  return data;
+};
+
+const fetchCampaignSentPerformanceReport = async (
+  campaignUuid: string,
+): Promise<CampaignSentPerformanceReport> => {
+  const { data } = await fetch<CampaignSentPerformanceReport>(
+    `${COMMUNICATION_API_V1}/communication/communication_sent/${campaignUuid}/report/`,
   );
 
   return data;
@@ -377,6 +396,27 @@ export const campaignSentDetailQueryOptions = ({
       } catch (error) {
         throw createErrorWithContext(error, {
           message: "Failed to fetch campaign sent detail",
+          params: { campaignUuid },
+        });
+      }
+    },
+  });
+};
+
+export const campaignSentPerformanceReportQueryOptions = ({
+  campaignUuid,
+}: {
+  campaignUuid: string;
+}) => {
+  return queryOptions({
+    queryKey: smartlistKeys.campaignSentPerformanceReport(campaignUuid),
+    queryFn: async () => {
+      try {
+        const result = await fetchCampaignSentPerformanceReport(campaignUuid);
+        return result;
+      } catch (error) {
+        throw createErrorWithContext(error, {
+          message: "Failed to fetch campaign sent performance report",
           params: { campaignUuid },
         });
       }

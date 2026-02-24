@@ -148,6 +148,46 @@
         "subject": "Email Subject",
         "dynamicContentWarning": "Dynamic content may not appear in the preview"
       }
+    },
+    "performance": {
+      "title": "Campaign performance",
+      "empty": "No performance data available",
+      "deliveryRate": {
+        "title": "Delivery rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} email delivered",
+        "subtitle_other": "{{count}} emails delivered",
+        "subtitle_zero": "No emails delivered"
+      },
+      "openRate": {
+        "title": "Open rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} recipient opened the email",
+        "subtitle_other": "{{count}} recipients opened the email",
+        "subtitle_zero": "No recipients opened the email"
+      },
+      "clickRate": {
+        "title": "Click rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} recipient clicked at least once",
+        "subtitle_other": "{{count}} recipients clicked at least once",
+        "subtitle_zero": "No recipients clicked at least once"
+      },
+      "unsubscribedRate": {
+        "title": "Unsubscribed rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} unsubscribed from this email",
+        "subtitle_other": "{{count}} unsubscribed from this email",
+        "subtitle_zero": "No unsubscribed from this email"
+      },
+      "clickPerformance": {
+        "empty": "No click performance data available",
+        "title": "Click performance",
+        "click": "",
+        "click_one": "{{count}} click",
+        "click_other": "{{count}} clicks",
+        "click_zero": "No clicks"
+      }
     }
   }
 }

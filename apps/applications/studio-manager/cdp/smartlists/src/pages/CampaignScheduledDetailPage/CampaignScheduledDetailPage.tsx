@@ -8,7 +8,7 @@ import {
 
 import { useFetchCampaignScheduledDetail } from "#src/api/use-fetch-campaign-scheduled-detail";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
-import { CampaignContent } from "#src/components/CampaignDetails/CampaignContent";
+import { CampaignScheduledDetails } from "#src/components/CampaignScheduledDetails/CampaignScheduledDetails";
 import {
   DetailPageErrorFallback,
   PageLoader,
@@ -18,7 +18,6 @@ import { URLS } from "#src/urls";
 import { getFallbackCampaignScheduledName } from "#src/utils/campaignUtils";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
-import { STREAMLINED_COMMUNICATION_STATUS_SCHEDULED } from "#src/utils/types";
 
 export const CampaignScheduledDetailPage = () => {
   return (
@@ -64,10 +63,9 @@ function CampaignScheduledDetail() {
         BreadcrumbsItems={breadcrumbsItems}
       />
       <DetailsLayout.Content>
-        <CampaignContent
+        <CampaignScheduledDetails
           campaignUuid={uuid}
           campaignKind={campaignScheduledDetail.communication_kind}
-          campaignStatus={STREAMLINED_COMMUNICATION_STATUS_SCHEDULED}
           campaignDate={campaignScheduledDetail.datetime_scheduled}
           campaignContent={{
             subject: campaignScheduledDetail.title ?? "",

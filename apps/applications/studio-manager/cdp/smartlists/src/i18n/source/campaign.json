@@ -143,7 +143,11 @@
         "sentDate": "Sent on",
         "recipients": "Total recipients"
       },
-      "previewButton": "View message"
+      "previewButton": "View message",
+      "contentPreview": {
+        "subject": "Email Subject",
+        "dynamicContentWarning": "Dynamic content may not appear in the preview"
+      }
     }
   }
 }

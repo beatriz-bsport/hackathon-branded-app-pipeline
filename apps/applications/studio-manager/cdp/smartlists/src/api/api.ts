@@ -13,6 +13,7 @@ import type {
   BackgroundTaskStatusResponse,
   CampaignScheduled,
   CampaignSent,
+  EmailTemplateDetail,
   FetchAutomatedCampaignsParams,
   FetchCampaignScheduledParams,
   FetchCampaignSentParams,
@@ -30,6 +31,7 @@ const COMMUNICATION_API_V1 = "communicate/v1";
 const CDP_API_V0 = "customer-data-platform/v0";
 const POPUPS_API_URL =
   "member-experience/v1/mobile_app/manager/custom_popup_links";
+const EMAIL_TEMPLATE_API_V1 = "customer-data-platform/v1/email_design";
 
 /**
  * Query Key Factory
@@ -96,6 +98,9 @@ export const smartlistKeys = {
 
   popupImages: (popupId: number, imageUrl: string) =>
     [...smartlistKeys.all, "popup-image", popupId, imageUrl] as const,
+
+  emailTemplateDetail: (emailTemplateId: number) =>
+    [...smartlistKeys.all, "email-template", emailTemplateId] as const,
 } as const;
 
 /**
@@ -285,6 +290,16 @@ export const deleteTagRule = async (id: number): Promise<void> => {
   });
 };
 
+const fetchEmailTemplateDetail = async (
+  emailTemplateId: number,
+): Promise<EmailTemplateDetail> => {
+  const { data } = await fetch<EmailTemplateDetail>(
+    `${EMAIL_TEMPLATE_API_V1}/${emailTemplateId}/`,
+  );
+
+  return data;
+};
+
 /**
  * Query Options
  */
@@ -419,5 +434,12 @@ export const campaignScheduledDetailQueryOptions = (
   return queryOptions({
     queryKey: smartlistKeys.campaignScheduledDetail(campaignScheduledId),
     queryFn: () => fetchCampaignScheduled(campaignScheduledId),
+  });
+};
+
+export const emailTemplateDetailQueryOptions = (emailTemplateId: number) => {
+  return queryOptions({
+    queryKey: smartlistKeys.emailTemplateDetail(emailTemplateId),
+    queryFn: () => fetchEmailTemplateDetail(emailTemplateId),
   });
 };

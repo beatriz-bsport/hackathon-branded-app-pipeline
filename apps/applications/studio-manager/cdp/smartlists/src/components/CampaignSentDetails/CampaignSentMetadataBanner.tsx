@@ -15,18 +15,24 @@ import {
   STREAMLINED_COMMUNICATION_STATUS_FAILED,
   STREAMLINED_COMMUNICATION_STATUS_OPENED,
   STREAMLINED_COMMUNICATION_STATUS_PROCESSING,
-  STREAMLINED_COMMUNICATION_STATUS_SCHEDULED,
 } from "#src/utils/types";
 
-import type { CampaignContentProps } from "./CampaignContent";
+import type { CampaignSentDetailsProps } from "./CampaignSentDetails";
 
-export const CampaignMetadataBanner = ({
+type CampaignSentMetadataBannerProps = Omit<
+  CampaignSentDetailsProps,
+  "campaignUuid" | "campaignContent"
+> & {
+  onPreview: () => void;
+};
+
+export const CampaignSentMetadataBanner = ({
   campaignKind,
   campaignStatus,
   campaignDate,
   campaignTotalRecipients,
-  campaignContent,
-}: Omit<CampaignContentProps, "campaignUuid">) => {
+  onPreview,
+}: CampaignSentMetadataBannerProps) => {
   const { t } = useTranslation("campaign");
   const { language } = i18nInstance;
 
@@ -46,10 +52,6 @@ export const CampaignMetadataBanner = ({
   };
 
   const communicationStatusChips = {
-    [STREAMLINED_COMMUNICATION_STATUS_SCHEDULED]: {
-      label: t("campaignStatus.scheduled"),
-      color: "default",
-    },
     [STREAMLINED_COMMUNICATION_STATUS_DELIVERED]: {
       label: t("campaignStatus.delivered"),
       color: "positive",
@@ -77,9 +79,7 @@ export const CampaignMetadataBanner = ({
   );
 
   const shouldDisplayRecipientsCount =
-    campaignTotalRecipients != null &&
-    campaignStatus !== STREAMLINED_COMMUNICATION_STATUS_SCHEDULED &&
-    campaignKind !== CommunicationKind.PUSH;
+    campaignTotalRecipients != null && campaignKind !== CommunicationKind.PUSH;
 
   return (
     <Card>
@@ -118,9 +118,7 @@ export const CampaignMetadataBanner = ({
         </div>
         <div id="campaign-date" className="flex flex-col gap-xs">
           <Body size="sm" color="weak">
-            {campaignStatus === STREAMLINED_COMMUNICATION_STATUS_SCHEDULED
-              ? t("campaignDetails.metadataBanner.headers.scheduledDate")
-              : t("campaignDetails.metadataBanner.headers.sentDate")}
+            {t("campaignDetails.metadataBanner.headers.sentDate")}
           </Body>
           <Body weight="stronger" size="lg">
             {formattedDate}
@@ -143,7 +141,7 @@ export const CampaignMetadataBanner = ({
           size="md"
           label={t("campaignDetails.metadataBanner.previewButton")}
           onClick={() => {
-            console.log(campaignContent);
+            onPreview();
           }}
         />
       </div>

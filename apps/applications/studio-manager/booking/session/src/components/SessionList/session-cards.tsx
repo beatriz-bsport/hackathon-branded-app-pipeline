@@ -1,3 +1,4 @@
+import { partition } from "lodash";
 import React from "react";
 
 import { Body, Card } from "@bsport/kaizen-primitive-core";
@@ -28,9 +29,9 @@ export const SessionCards: React.FC<SessionCardsProps> = ({
 };
 
 const SessionCard: React.FC<SessionCardProps> = ({ columns, row }) => {
-  const actionColumn = columns.find((column) => column.id === Columns.ACTIONS);
-  const columnsWithoutAction = columns.filter(
-    (column) => column.id !== Columns.ACTIONS,
+  const [[actionColumn], columnsWithoutAction] = partition(
+    columns,
+    (column) => column.id === Columns.MOBILE_ACTIONS,
   );
 
   if (actionColumn && !("render" in actionColumn)) {

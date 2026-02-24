@@ -8,6 +8,8 @@ export const DEFAULT_COLUMNS = [
   Columns.ESTABLISHMENT,
   Columns.SESSION_TYPE,
   Columns.ACTIONS,
+  Columns.ATTENDANCE,
+  Columns.MOBILE_ACTIONS,
 ];
 
 export enum TeacherSubstitutionPropagationMode {

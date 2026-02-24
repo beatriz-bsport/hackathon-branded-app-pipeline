@@ -24,6 +24,8 @@ export const sessionListViewedEventSchema = z
           Columns.ESTABLISHMENT,
           Columns.SESSION_TYPE,
           Columns.ACTIONS,
+          Columns.ATTENDANCE,
+          Columns.MOBILE_ACTIONS,
         ]),
       )
       .describe("The columns displayed in the session list"),

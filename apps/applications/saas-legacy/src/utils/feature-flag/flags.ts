@@ -5,6 +5,7 @@ export const FeatureFlags = {
   EXPRESS_PASS_CHECKOUT: 'express-pass-checkout',
   TRIAL_ANALYSIS: 'insights_trial_analysis_page',
   SCHEDULE_ANALYSIS: 'insights_schedule_analysis_page',
+  BOOKING: 'insights_booking',
   COMMUNITY_HEALTH: 'insights_community_health',
   AUDIENCE_SMS_MARKETING_ACTIONS: 'audience_sms_marketing_actions',
   MEMBER_AREA_BASKET_UNIFIED: 'member-area-basket-unified',

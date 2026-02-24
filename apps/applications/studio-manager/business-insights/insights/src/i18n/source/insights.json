@@ -20,6 +20,10 @@
       "title": "Subscriptions Performance",
       "description": "Track health of subscriptions, analyse recurring revenue, and spot risks or opportunities"
     },
+    "booking": {
+      "title": "Bookings & Pass Usage",
+      "description": "Track booking patterns, pass usage, behaviours, and waitlist trends to optimise attendance and capacity"
+    },
     "schedule": {
       "title": "Schedule Performance",
       "description": "Optimise schedule performance to maximise enrolment and earned revenue"
@@ -34,6 +38,9 @@
     },
     "recurringRevenue": {
       "title": "Subscriptions Performance"
+    },
+    "bookingInsight": {
+      "title": "Bookings & Pass Usage"
     },
     "scheduleAnalysis": {
       "title": "Schedule Performance"

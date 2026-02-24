@@ -5,12 +5,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
 import { useTranslation } from 'react-i18next';
 import { Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { getAuth } from '../../http';
 import Config from '../../config';
 import { appendSigmaLocale } from '../../utils/sigma';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
+import { hasInsightsForEssentialAccess } from '#src/pages/insights/utils/premium-insights';
+import type { RootState } from '#src/reducers';
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -54,9 +57,13 @@ interface ScheduleAnalysisResponse {
 
 const ScheduleAnalysis: React.FC = () => {
   const isScheduleAnalysisEnabled = useSafeFlag(FeatureFlags.SCHEDULE_ANALYSIS);
+  const featureList = useSelector(
+    (state: RootState) => state.company.feature.data,
+  );
+  const hasInsightsForEssential = hasInsightsForEssentialAccess(featureList);
 
-  // Redirect to dashboard if feature flag is disabled
-  if (!isScheduleAnalysisEnabled) {
+  // Redirect to dashboard if feature flag or upsell is disabled
+  if (!isScheduleAnalysisEnabled || !hasInsightsForEssential) {
     return <Redirect to="/dashboard" />;
   }
 

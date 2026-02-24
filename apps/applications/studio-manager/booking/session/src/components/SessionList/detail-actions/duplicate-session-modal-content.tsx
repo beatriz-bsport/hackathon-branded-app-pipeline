@@ -3,7 +3,7 @@ import { FC, useMemo, useState } from "react";
 import { z } from "zod";
 
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
-import { fromIsoString, toDate } from "@bsport/datetime-manipulation";
+import { fromIsoString } from "@bsport/datetime-manipulation";
 import { ControlledForm, useFormController } from "@bsport/form";
 import { Alert, Body, Toggle, toast } from "@bsport/kaizen-primitive-core";
 
@@ -66,7 +66,7 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
     // The new recurrence should start the day after the last session in the previous recurrence
     const endDate = newRecurrenceStartDate.plus({ day: 1 });
     return {
-      startDateTime: toDate(newRecurrenceStartDate),
+      startDateTime: newRecurrenceStartDate,
       duration_minute: session.duration_minute,
       isRecurring: false,
       recurrenceType: RecurrenceType.WEEKLY,
@@ -82,7 +82,7 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
       recurrenceUnit: CustomRecurrenceUnit.DAYS,
       recurrenceInterval: 1,
       recurrencePattern: MonthlyRecurrencePattern.NTH_WEEKDAY,
-      recurrenceEndDate: toDate(endDate),
+      recurrenceEndDate: endDate,
     };
   }, [session.duration_minute, newRecurrenceStartDate]);
 

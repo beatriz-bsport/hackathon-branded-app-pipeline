@@ -7,29 +7,21 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
-const EDIT_ACTION_ID = "edit";
-const DELETE_ACTION_ID = "delete";
+export const GENERATE_REPORT_ACTION_ID = "generateReport";
 
-type CampaignScheduledActionDropdownProps = {
-  campaignId: number;
-  onEdit: (campaignId: number) => void;
-  onDelete: (campaignId: number) => void;
+type SmartlistHeaderActionDropdownProps = {
+  onGenerateReport: () => void;
 };
 
-export const CampaignScheduledActionDropdown = ({
-  onEdit,
-  onDelete,
-  campaignId,
-}: CampaignScheduledActionDropdownProps) => {
+export const SmartlistHeaderActionDropdown = ({
+  onGenerateReport,
+}: SmartlistHeaderActionDropdownProps) => {
   const { t } = useTranslation("campaign");
 
   const handleMenuItemClick = (itemId: string) => {
     switch (itemId) {
-      case EDIT_ACTION_ID:
-        onEdit(campaignId);
-        break;
-      case DELETE_ACTION_ID:
-        onDelete(campaignId);
+      case GENERATE_REPORT_ACTION_ID:
+        onGenerateReport();
         break;
       default:
         break;
@@ -38,14 +30,9 @@ export const CampaignScheduledActionDropdown = ({
 
   const menuItems: Item[] = [
     {
-      id: EDIT_ACTION_ID,
-      label: t("table.campaignScheduled.moreActions.edit"),
-      iconLeft: "edit-02",
-    },
-    {
-      id: DELETE_ACTION_ID,
-      label: t("table.campaignScheduled.moreActions.delete"),
-      iconLeft: "trash-01",
+      id: GENERATE_REPORT_ACTION_ID,
+      label: t("actions.generateReport"),
+      iconLeft: "download-01",
     },
   ];
 
@@ -55,7 +42,7 @@ export const CampaignScheduledActionDropdown = ({
         {({ setIsPopoverOpened }) => (
           <Button
             kind="icon-button"
-            label={t("table.campaignScheduled.moreActions.label")}
+            label={t("table.campaignSent.moreActions.label")}
             icon="dots-vertical"
             color="default"
             intent="flat"

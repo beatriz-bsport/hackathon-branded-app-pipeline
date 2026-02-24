@@ -1,4 +1,9 @@
-import type { CommunicationKind, EventKind, TagRuleKind } from "./constants";
+import type {
+  BackgroundTaskStatus,
+  CommunicationKind,
+  EventKind,
+  TagRuleKind,
+} from "./constants";
 
 /**
  * Smartlist type from the API
@@ -200,4 +205,21 @@ export type CampaignScheduled = {
   // Deprecated but present in API
   email_resend_delay: number;
   email_resend_count: number;
+};
+
+export type GenerateReportParams = {
+  smartlistId: string;
+  startDate: string; // format yyyy-MM-dd
+  endDate: string; // format yyyy-MM-dd
+};
+
+export type GenerateReportResult = {
+  backgroundTaskUuid: string; // Id that should be used for the polling of the backgeound task result
+};
+
+export type BackgroundTaskStatusResponse = {
+  return_value: string | object;
+  status: BackgroundTaskStatus;
+  task_name: string;
+  uuid: string;
 };

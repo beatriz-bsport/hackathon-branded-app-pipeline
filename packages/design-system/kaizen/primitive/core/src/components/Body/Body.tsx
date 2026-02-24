@@ -8,6 +8,8 @@ const defaultClasses = [] as const;
 
 const variants = {
   size: {
+    display: ["text-body-display", "leading-xl", "space-y-md"],
+    xl: ["text-body-xl", "leading-lg", "space-y-md"],
     lg: ["text-body-lg", "leading-md", "space-y-md"],
     md: ["text-body-md", "leading-sm", "space-y-sm"],
     sm: ["text-body-sm", "leading-xs", "space-y-xs"],

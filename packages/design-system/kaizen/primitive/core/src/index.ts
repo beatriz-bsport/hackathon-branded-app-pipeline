@@ -10,6 +10,10 @@ export {
 } from "./components/Accordion";
 export { default as Alert, type AlertProps } from "./components/Alert";
 export {
+  default as AnalyticCard,
+  type AnalyticCardProps,
+} from "./components/AnalyticCard";
+export {
   default as Autocomplete,
   type AutocompleteProps,
   type AutocompleteItems,

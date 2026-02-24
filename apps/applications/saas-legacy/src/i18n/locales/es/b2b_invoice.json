@@ -111,7 +111,7 @@
       "numberingExplanation": "Cada nueva factura se numerará automáticamente en secuencia de 1. Por ejemplo, si comienzas en 1, tus facturas se numerarán 000001, 000002, 000003, y así sucesivamente.",
       "saveSuccess": "La numeración secuencial de facturas se guardó",
       "suffixPlaceholder": "Sufijo (opcional)",
-      "previewFirstLine": "Tus Facturas se numerarán de la siguiente manera: <0>{{firstNumber}}</0>",
+      "previewFirstLine": "Tus facturas se numerarán de la siguiente manera: <0>{{firstNumber}}</0>",
       "previewSecondLine": "luego {{restNumbers}}, ...",
       "useExternalAccountingProvider": "Uso un proveedor externo de contabilidad"
     }

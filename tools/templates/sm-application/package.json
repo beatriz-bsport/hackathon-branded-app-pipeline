@@ -4,8 +4,17 @@
   "private": true,
   "description": "Template to init Studio Manager application",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/lib.es.d.ts",
+      "import": "./build/lib.es.js"
+    }
+  },
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.es.d.ts",
   "scripts": {
-    "build": "tsc -b && vite build --logLevel warn",
+    "build": "tsc -b && vite build --mode production --logLevel warn",
     "build:preview": "vite build --mode preview",
     "ci:compile": "tsc -b",
     "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
@@ -17,7 +26,17 @@
     "project:init": "node scripts/init.mjs",
     "translation:update": "pnpm run -w translation:update"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-library": "workspace:*",
+    "@types/luxon": "^3.4.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.14",
+    "vite": "^5.4.11"
+  },
+  "peerDependencies": {
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
@@ -26,15 +45,6 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router": "^7.2.0"
-  },
-  "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*",
-    "@bsport/config-federation": "workspace:*",
-    "@types/luxon": "^3.4.2",
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.14",
-    "vite": "^5.4.11"
   },
   "federation": {
     "devPort": 4060,
@@ -50,7 +60,6 @@
   },
   "nx": {
     "tags": [
-      "application:revamp",
       "scope:studio"
     ]
   }

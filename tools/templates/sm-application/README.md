@@ -20,7 +20,7 @@ Select `apps/applications/studio-manager` location for your application, and sel
 
 1. Define the right `appType` in your `vite.config.ts`. It should be your business domain.
 
-2. Set an available devPort in your `package.json` :
+2. Set an available devPort in your `package.json` for local development:
 
 ```jsonc
   "federation": {
@@ -30,11 +30,7 @@ Select `apps/applications/studio-manager` location for your application, and sel
 
 It should belong to the port range defined in `/tools/config/federation/src/config.ts`, and not be used by another application of your business domain.
 
-3. Add your application to the `studio-manager/host` app : port in `package.json`, route in the `Root.tsx`.
-
-4. You should also update the `studio-manager/host/scripts/apps.txt` file in order to have the new application running when you are running the host app.
-
-5. You should also update in the `studio-manager/navigation-sidebar/src/urls.ts` file the `REVAMP_URLS_DEVELOPMENT` if you want the navigation bar to have the correct url to navigate without enabling the app on Pre-Prod and Prod environement (this is the current feature flagging system we have).
+3. You should also update in the `studio-manager/navigation-sidebar/src/urls.ts` file the `REVAMP_URLS_DEVELOPMENT` if you want the navigation bar to have the correct url to navigate without enabling the app on Pre-Prod and Prod environement (this is the current feature flagging system we have).
 
 ---
 
@@ -79,7 +75,17 @@ To build your application for local preview :
 pnpm run build:preview
 ```
 
-:warning: The application is not built with react, as it is aimed to be shared in the Module Federation architecture. You need to run the host app in preview mode as well.
+The application is built as an ES library. To use it, add it as a workspace dependency in the consuming app:
+
+```jsonc
+"@bsport/your-app-name": "workspace:*"
+```
+
+Then install dependencies to link the package:
+
+```sh
+pnpm install --ignore-scripts
+```
 
 ### Build your application for deployment
 

@@ -66,6 +66,9 @@ export function downloadFileFromUrl(
 
   // Cross-origin (e.g. CDN): avoid CORS by using a hidden iframe. The server should send
   // Content-Disposition: attachment so the browser starts the download without opening a new window.
+  // Note: onSuccess/onError callbacks are best-effort for cross-origin downloads.
+  // The iframe's onload event may not fire for attachment downloads, and onerror
+  // only catches network-level failures.
   const iframe = document.createElement("iframe");
   iframe.style.display = "none";
   iframe.style.position = "absolute";

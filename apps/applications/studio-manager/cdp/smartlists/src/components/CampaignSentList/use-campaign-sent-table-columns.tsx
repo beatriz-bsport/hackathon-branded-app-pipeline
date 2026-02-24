@@ -26,6 +26,7 @@ export type CampaignSentTableRowData = {
   sentDate: string;
   sentHour: string;
   campaignAnalytics?: CampaignAnalytics;
+  link: string;
 };
 
 export type CampaignSentTableRowParams = {

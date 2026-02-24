@@ -4,7 +4,7 @@ import invariant from "tiny-invariant";
 import { Button, Card, Table, Title } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { useFetchCampaignSent } from "#src/api/use-fetch-campaign-sent";
+import { useFetchCampaignSentList } from "#src/api/use-fetch-campaign-sent-list";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useCampaignSentTableColumns } from "./use-campaign-sent-table-columns";
@@ -22,13 +22,16 @@ export const CampaignSentList = () => {
   const {
     data: { results: campaignSent, count },
     isLoading: campaignSentLoading,
-  } = useFetchCampaignSent({
+  } = useFetchCampaignSentList({
     smartlistId,
     page: currentPage,
     pageSize: currentPageSize,
   });
 
-  const tableRows = formatCampaignSentTableRow(campaignSent);
+  const tableRows = formatCampaignSentTableRow({
+    campaignSentList: campaignSent,
+    smartlistId,
+  });
 
   const tableColumns = useCampaignSentTableColumns({
     onPreview: (campaignId) =>

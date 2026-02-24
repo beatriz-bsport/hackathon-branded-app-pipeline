@@ -1,8 +1,8 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { campaignSentQueryOptions } from "./api";
+import { campaignSentListQueryOptions } from "./api";
 
-export const useFetchCampaignSent = ({
+export const useFetchCampaignSentList = ({
   smartlistId,
   page,
   pageSize,
@@ -12,7 +12,7 @@ export const useFetchCampaignSent = ({
   pageSize: number;
 }) => {
   return useSuspenseQuery(
-    campaignSentQueryOptions({
+    campaignSentListQueryOptions({
       smartlist: Number(smartlistId),
       page,
       page_size: pageSize,

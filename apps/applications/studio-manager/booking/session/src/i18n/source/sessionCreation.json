@@ -65,7 +65,7 @@
           "credits": {
             "label": "Credits",
             "helperText": "Number of credits required to book the session",
-            "decimalHelperText": "This session will cost {{count}} credits",
+            "decimalHelperText": "This session will cost {{credits}} credits",
             "warning": "Double-check: you’re entering credits, not a price."
           },
           "partnership": {

@@ -29,7 +29,7 @@ export const SettingsSection: FC<{
     formState: { dirtyFields },
   } = useFormContext<SessionEditFormData>();
 
-  const { getCreditsDividedDisplay } = useCreditFactor();
+  const { getCreditsDividedValue } = useCreditFactor();
 
   const isSelectedGroupActivityBroadcast = useSessionCreationStore(
     selectSelectedGroupActivity,
@@ -39,10 +39,10 @@ export const SettingsSection: FC<{
 
   const isCreditsDirty = dirtyFields.credits;
 
-  const displayValue = Number(getCreditsDividedDisplay(credits)) || 0;
+  const creditValue = getCreditsDividedValue(credits) || 0;
 
   const shouldDisplayCreditLimitWarning =
-    displayValue > CREDITS_LIMIT_BEFORE_WARNING;
+    creditValue > CREDITS_LIMIT_BEFORE_WARNING;
 
   const shouldDisplayBroadcastLinkField =
     metaActivity?.is_broadcast || isSelectedGroupActivityBroadcast;

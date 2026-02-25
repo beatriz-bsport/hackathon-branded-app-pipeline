@@ -23,7 +23,7 @@ export const SessionTeacherAndEstablishment: FC<{
   );
 
   return (
-    <section className="flex flex-col gap-md pb-md">
+    <section className="flex flex-col gap-md">
       <Title htmlVariant="h5">
         {t(
           "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.title",

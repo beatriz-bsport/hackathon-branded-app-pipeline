@@ -35,6 +35,8 @@
       },
       "configureSession": {
         "label": "Configure session",
+        "nameAndDescription": "Name and description",
+        "nameAndDescriptionHelperText": "These fields are inherited from the parent activity. Toggle customization to override with session-specific values.",
         "details": {
           "title": "Details",
           "sessionName": "Session name",

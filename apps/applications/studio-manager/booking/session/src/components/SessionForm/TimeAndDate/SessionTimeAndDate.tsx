@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Divider, Title } from "@bsport/kaizen-primitive-core";
+import { Title } from "@bsport/kaizen-primitive-core";
 
 import {
   RecurrenceIntervalType,
@@ -58,7 +58,6 @@ export const SessionTimeAndDate: FC<{
         trackRecurrenceRule={trackRecurrenceRule}
       />
       <AggregatorWarning />
-      <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>
   );
 };

@@ -198,9 +198,13 @@ function formatByType(
 
     // Combined datetime formats
     case DATETIME_FORMATS.FULL_DATETIME: {
-      const fullDate = dateTime.toLocaleString(DateTime.DATE_FULL);
-      const time12 = dateTime.toFormat("h:mm a");
-      return `${fullDate} at ${time12}`;
+      const fullDate = dateTime
+        .setLocale(options.locale)
+        .toLocaleString(DateTime.DATE_FULL);
+      const time = dateTime
+        .setLocale(options.locale)
+        .toLocaleString(DateTime.TIME_SIMPLE);
+      return `${fullDate}, ${time}`;
     }
 
     case DATETIME_FORMATS.MEDIUM_DATETIME:

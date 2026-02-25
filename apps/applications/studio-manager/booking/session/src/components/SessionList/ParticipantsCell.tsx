@@ -30,11 +30,12 @@ export const ParticipantsCell: React.FC<ParticipantsCellProps> = ({
       >
         {`${nb_bookings} / ${effectif}`}
       </Body>
-      {available && (
+      {available && !!waiting_list_max_size && (
         <div className="flex items-center text-onsurface-weak lg:gap-xs">
           <ResponsiveTooltip label={t("table.waitlist")} placement="bottom">
             <Icon icon="hourglass-03" size="sm" />
           </ResponsiveTooltip>
+
           <Body htmlVariant="p" size="md" color="weak">
             {`${nb_option} / ${waiting_list_max_size}`}
           </Body>

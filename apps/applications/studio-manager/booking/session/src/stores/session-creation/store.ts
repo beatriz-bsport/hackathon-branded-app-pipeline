@@ -54,7 +54,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   description_override: "",
   manager_only: false,
   credits: 1,
-  waiting_list_max_size: 0,
+  waiting_list_max_size: 5,
   effectif: 0,
   available_on_partnership: false,
   partner_max_booking_count: 0,

@@ -830,7 +830,7 @@
   "invisibleForStaffToolTip": "Unsichtbar für Mitarbeiter",
   "billing_plan_status": {
     "0": "Noch nicht begonnen",
-    "1": "In Bearbeitung",
+    "1": "Aktiv",
     "2": "Gestoppt",
     "3": "Pausiert",
     "4": "Abgeschlossen"

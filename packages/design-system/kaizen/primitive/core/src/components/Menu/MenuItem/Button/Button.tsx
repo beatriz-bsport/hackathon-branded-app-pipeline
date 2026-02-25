@@ -2,6 +2,7 @@ import { type VariantProps, cva } from "class-variance-authority";
 import React, { useMemo } from "react";
 
 import Avatar from "#src/components/Avatar";
+import Body from "#src/components/Body";
 import Icon from "#src/components/Icon";
 import MenuItemIndicator from "#src/components/Menu/MenuItem/Indicator";
 import {
@@ -9,6 +10,8 @@ import {
   menuItemVariants,
 } from "#src/components/Menu/MenuItem/constants";
 import type { Button as ButtonType } from "#src/components/Menu/MenuItem/types";
+
+import { MenuItemLayout } from "../MenuItemLayout";
 
 const button = cva(defaultMenuItemClasses, {
   variants: menuItemVariants,
@@ -72,7 +75,7 @@ const Button: React.FC<ButtonProps> = ({
   );
 
   const renderedLabel = useMemo(
-    () => (label ? <span className="pr-xs">{label}</span> : null),
+    () => (label ? <Body htmlVariant="span">{label}</Body> : null),
     [label],
   );
 
@@ -83,13 +86,13 @@ const Button: React.FC<ButtonProps> = ({
       {...props}
     >
       <MenuItemIndicator disabled={disabled} />
-      <div className="flex items-center justify-between w-full">
-        <div className="flex items-center gap-xs">
-          {leftSlot ?? renderedAvatar ?? renderedIcon}
-          {renderedLabel}
-        </div>
-        {rightSlot ?? null}
-      </div>
+      <MenuItemLayout
+        label={renderedLabel}
+        startSlot={leftSlot}
+        avatar={renderedAvatar}
+        icon={renderedIcon}
+        endSlot={rightSlot}
+      />
     </button>
   );
 };

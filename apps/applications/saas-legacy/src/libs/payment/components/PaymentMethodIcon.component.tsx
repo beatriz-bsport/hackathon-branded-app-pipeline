@@ -21,7 +21,7 @@ import {
 
 import BACS_DEBIT_LOGO from '#src/libs/payment/icons/bacs-direct-debit.png';
 import BANCONTACT_LOGO from '#src/libs/payment/icons/bancontact.png';
-import IDEAL_LOGO from '#src/libs/payment/icons/ideal.png';
+import IDEAL_LOGO from '#src/libs/payment/icons/ideal-wero.svg';
 import PAYPAL_LOGO from '#src/libs/payment/icons/paypal.png';
 import SEPA_LOGO from '#src/libs/payment/icons/sepa.svg';
 import TWINT_LOGO from '#src/libs/payment/icons/twint.svg';
@@ -67,7 +67,9 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
         />
       );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
-      return <img alt="ideal" className={classes.iconLg} src={IDEAL_LOGO} />;
+      return (
+        <img alt="iDEAL | Wero" className={classes.iconLg} src={IDEAL_LOGO} />
+      );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
       return (
         <img

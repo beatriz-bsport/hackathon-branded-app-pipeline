@@ -1,6 +1,6 @@
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import type { StorybookConfig } from "@storybook/react-vite";
-import { existsSync, readdirSync, statSync } from "fs";
+import { existsSync } from "fs";
 import { dirname, join, resolve } from "path";
 import tailwindcss from "tailwindcss";
 import { fileURLToPath } from "url";
@@ -8,29 +8,8 @@ import { mergeConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 
 const currentDir = fileURLToPath(new URL(".", import.meta.url));
-const businessComponentsDir = join(currentDir, "../../business-components");
 const coreSrcDir = resolve(currentDir, "../../primitive/core/src");
-const newBusinessSrcDir = resolve(currentDir, "../../business/src");
-
-// Auto-discover all business component packages
-const businessPackages = readdirSync(businessComponentsDir)
-  .filter((name) => {
-    const packagePath = join(businessComponentsDir, name);
-    try {
-      return (
-        statSync(packagePath).isDirectory() &&
-        name !== "node_modules" &&
-        statSync(join(packagePath, "src/components")).isDirectory()
-      );
-    } catch {
-      return false;
-    }
-  })
-  .map((packageName) => ({
-    directory: `../../business-components/${packageName}/src/components`,
-    files: "**/*.stories.@(js|jsx|ts|tsx|mdx)",
-    titlePrefix: `Business Components/${packageName.charAt(0).toUpperCase() + packageName.slice(1)}`,
-  }));
+const businessSrcDir = resolve(currentDir, "../../business/src");
 
 const config: StorybookConfig = {
   stories: [
@@ -40,9 +19,7 @@ const config: StorybookConfig = {
       files: "**/*.stories.@(js|jsx|ts|tsx|mdx)",
       titlePrefix: "Primitive",
     },
-    // Business components - auto-discovered
-    ...businessPackages,
-    // New Business components package
+    // Business components package
     {
       directory: "../../business/src",
       files: "**/*.stories.@(js|jsx|ts|tsx|mdx)",
@@ -71,47 +48,22 @@ const config: StorybookConfig = {
   },
 
   viteFinal: async (config) => {
-    // Set environment variable for business-components i18n
+    // Set environment variable for business package i18n
     config.define = {
       ...config.define,
       "import.meta.env.VITE_I18N_NAMESPACE_PREFIX": JSON.stringify(
-        "kaizen-business-financial-services",
+        "kaizen-business-components",
       ),
     };
 
-    // Resolve #src for business-components files
-    const resolveBusinessComponentsSrc = () => ({
-      name: "resolve-business-components-src",
+    // Resolve #src for primitive and business files
+    const resolveKaizenSrc = () => ({
+      name: "resolve-kaizen-src",
       enforce: "pre",
       resolveId(id: string, importer?: string) {
         if (!id.startsWith("#src/") || !importer) return null;
 
         const normalizedImporter = importer.replace(/\\/g, "/");
-
-        // Handle business-components package
-        const businessMatch = normalizedImporter.match(
-          /business-components\/([^/]+)\//,
-        );
-        if (businessMatch) {
-          const packageName = businessMatch[1];
-          const packageSrc = join(businessComponentsDir, packageName, "src");
-          const resolved = join(packageSrc, id.replace("#src/", ""));
-          for (const ext of [".ts", ".tsx"]) {
-            const withExt = resolved + ext;
-            if (existsSync(withExt)) {
-              return withExt;
-            }
-          }
-          if (existsSync(resolved)) {
-            for (const index of ["index.ts", "index.tsx"]) {
-              const indexPath = join(resolved, index);
-              if (existsSync(indexPath)) {
-                return indexPath;
-              }
-            }
-          }
-          return resolved;
-        }
 
         // Handle primitive/core
         if (normalizedImporter.includes("primitive/core")) {
@@ -133,9 +85,9 @@ const config: StorybookConfig = {
           return resolved;
         }
 
-        // Handle new business
+        // Handle business
         if (normalizedImporter.includes("business")) {
-          const resolved = join(newBusinessSrcDir, id.replace("#src/", ""));
+          const resolved = join(businessSrcDir, id.replace("#src/", ""));
           for (const ext of [".ts", ".tsx"]) {
             const withExt = resolved + ext;
             if (existsSync(withExt)) {
@@ -158,7 +110,7 @@ const config: StorybookConfig = {
     });
 
     return mergeConfig(config, {
-      plugins: [svgr(), nxViteTsPaths(), resolveBusinessComponentsSrc()],
+      plugins: [svgr(), nxViteTsPaths(), resolveKaizenSrc()],
       css: {
         postcss: {
           plugins: [tailwindcss()],

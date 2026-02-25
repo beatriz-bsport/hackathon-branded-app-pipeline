@@ -43,13 +43,25 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-buyables": "workspace:*",
     "@bsport/api-cdp": "workspace:*",
     "@bsport/api-core": "workspace:*",
+    "@bsport/api-financial-services": "workspace:*",
+    "@bsport/currency": "workspace:*",
+    "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/store-base": "workspace:*",
+    "@bsport/store-buyables-appointment-pass": "workspace:*",
+    "@bsport/store-buyables-giftcard": "workspace:*",
+    "@bsport/store-buyables-pack": "workspace:*",
+    "@bsport/store-buyables-pass": "workspace:*",
+    "@bsport/store-buyables-webshop": "workspace:*",
     "@bsport/store-core-data-member": "workspace:*",
+    "@bsport/timezone-utils": "workspace:*",
+    "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",
-    "@tanstack/react-query": "^5.90.12",
-    "clsx": "^2.1.1"
+    "clsx": "^2.1.1",
+    "tiny-invariant": "^1.3.3",
+    "typescript-result": "^3.1.1"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
@@ -59,6 +71,7 @@
     "@storybook/addon-docs": "10.1.11",
     "@storybook/addon-themes": "10.1.11",
     "@storybook/react-vite": "10.1.11",
+    "@tanstack/react-query": "^5.90.12",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.3",
@@ -78,6 +91,7 @@
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@tanstack/react-query": "^5.90.12",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "zod": "^3.25.64"

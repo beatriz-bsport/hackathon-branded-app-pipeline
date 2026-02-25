@@ -7,7 +7,7 @@ import {
 import type bookingTranslations from "#src/i18n/source/booking.json";
 import type buyablesTranslations from "#src/i18n/source/buyables.json";
 import type cdpTranslations from "#src/i18n/source/cdp.json";
-import type financialServicesTranslations from "#src/i18n/source/financial-services.json";
+import type coreTranslations from "#src/i18n/source/core.json";
 
 import i18nNamespaces from "./namespaces.json";
 
@@ -19,7 +19,7 @@ export type Translations = {
   booking: typeof bookingTranslations;
   buyables: typeof buyablesTranslations;
   cdp: typeof cdpTranslations;
-  "financial-services": typeof financialServicesTranslations;
+  core: typeof coreTranslations;
 };
 
 /**

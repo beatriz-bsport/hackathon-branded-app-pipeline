@@ -100,7 +100,6 @@ export const DEFAULT_FORM_DATA: z.infer<typeof billingFlowFormDataSchema> = {
   items: [],
   promoCodes: [],
   footnote: null,
-  date: todayIso,
   passActivationDate: getTodayJSDate(),
   establishmentBillingGroupId: null,
 };

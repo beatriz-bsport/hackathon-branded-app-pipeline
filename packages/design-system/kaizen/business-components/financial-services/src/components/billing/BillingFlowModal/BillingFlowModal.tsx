@@ -10,7 +10,7 @@ import {
 import { useAsync } from "@bsport/use-async";
 
 import { getMembers } from "#src/actions/member";
-import MemberCard from "#src/components/member/MemberCard";
+import { MemberAndBillingGroupCard } from "#src/components/billing/BillingFlowModal/MemberAndBillingGroupCard";
 import MemberSelectorModal from "#src/components/member/MemberSelectorModal";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 import type { Member } from "#src/types/member";
@@ -191,7 +191,7 @@ const BillingFlowModal: React.FC<BillingFlowModalProps> = ({
               {t("billingFlowModal.loadingMemberInfo")}
             </div>
           ) : (
-            <MemberCard
+            <MemberAndBillingGroupCard
               className="bg-surface-default-weaker"
               member={fetchedMember ?? null}
               onEditClick={handleOpenMemberSelector}

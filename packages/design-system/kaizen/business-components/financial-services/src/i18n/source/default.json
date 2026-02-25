@@ -24,6 +24,7 @@
       "subtitle": "Add items to the invoice to bill the member"
     },
     "editItem": "Edit item",
+    "editMember": "Edit member",
     "deleteItem": "Delete item",
     "addPromoCode": "Add promo code",
     "totalBeforeTax": "Total before tax",

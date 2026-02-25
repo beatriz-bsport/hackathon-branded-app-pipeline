@@ -97,7 +97,10 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
               <AddProductDiscount />
 
               {selectedItemType === "giftcard" && selectedItemId && (
-                <GiftCardDetails />
+                <>
+                  <Divider orientation="horizontal" weight="thin" />
+                  <GiftCardDetails />
+                </>
               )}
             </>
           )}

@@ -28,6 +28,9 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
 
   const hasDiscount = item.discountPercent > 0 || item.discountAmountCts > 0;
 
+  const displayName =
+    item.quantity >= 2 ? `${item.quantity}x ${item.itemName}` : item.itemName;
+
   return (
     <div className="flex flex-start self-stretch p-2xs">
       <div className="flex flex-start flex-1 gap-md">
@@ -36,7 +39,7 @@ export const SummaryItemRow: React.FC<SummaryItemRowProps> = ({
         </div>
         <div className="flex flex-col flex-1 items-start">
           <Title htmlVariant="h5" color="default">
-            {item.itemName}
+            {displayName}
           </Title>
 
           {isPass && creditsDescription && (

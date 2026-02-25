@@ -11,6 +11,8 @@ import {
 } from "#src/components/Menu/MenuItem/constants";
 import { Radio as RadioType } from "#src/components/Menu/MenuItem/types";
 
+import { MenuItemLayout } from "../MenuItemLayout";
+
 const radio = cva(baseMenuItemClasses, {
   variants: menuItemVariants,
 });
@@ -134,16 +136,14 @@ const Radio: React.FC<RadioProps> = ({
         tabIndex={-1}
         {...props}
       />
-      <div className="flex items-center justify-between w-full gap-xs">
-        <div className="flex items-center gap-xs">
-          {leftSlot ?? renderedAvatar ?? renderedIcon}
-          <div className="flex flex-col">
-            {renderedLabel}
-            {renderedDescription}
-          </div>
-        </div>
-        {rightSlot ?? null}
-      </div>
+      <MenuItemLayout
+        label={renderedLabel}
+        startSlot={leftSlot}
+        avatar={renderedAvatar}
+        icon={renderedIcon}
+        description={renderedDescription}
+        endSlot={rightSlot}
+      />
     </label>
   );
 };

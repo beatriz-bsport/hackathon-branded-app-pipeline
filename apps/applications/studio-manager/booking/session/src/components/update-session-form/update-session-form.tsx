@@ -101,14 +101,14 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
             onOpenRestoreSessionModal={onOpenRestoreSessionModal}
           />
           <DetailsLayout.Content className="max-w-none">
-            <SettingsSection
-              metaActivity={session.metaActivity}
-              fieldIdPrefix={formId}
-            />
             <TeacherSection fieldIdPrefix={formId} />
             <EstablishmentSection
               fieldIdPrefix={formId}
               metaActivity={session.metaActivity}
+            />
+            <SettingsSection
+              metaActivity={session.metaActivity}
+              fieldIdPrefix={formId}
             />
             <TimeAndDateSection fieldIdPrefix={formId} isEditMode />
           </DetailsLayout.Content>

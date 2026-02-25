@@ -1,6 +1,8 @@
 import React from "react";
 
-import { Chip, type IconName, Tooltip } from "@bsport/kaizen-primitive-core";
+import { Chip, type IconName } from "@bsport/kaizen-primitive-core";
+
+import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 
 type IconChipProps = {
   tooltip: string;
@@ -8,7 +10,11 @@ type IconChipProps = {
 };
 
 export const IconChip: React.FC<IconChipProps> = ({ tooltip, icon }) => (
-  <Tooltip label={tooltip} placement="bottom" className="whitespace-normal">
+  <ResponsiveTooltip
+    label={tooltip}
+    placement="bottom"
+    className="whitespace-normal"
+  >
     <Chip color="default" size="lg" type="weak" iconLeft={icon} />
-  </Tooltip>
+  </ResponsiveTooltip>
 );

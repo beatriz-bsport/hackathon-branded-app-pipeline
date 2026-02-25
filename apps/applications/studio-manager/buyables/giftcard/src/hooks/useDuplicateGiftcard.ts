@@ -19,7 +19,7 @@ export const useDuplicateGiftcard = ({
 }) => {
   // Retrieve generic toast, navigation and translations
   const { handleActionFailed } = useToasts();
-  const { navigateToGiftcardDetail } = useGiftcardNavigation();
+  const { navigateToGiftcardDetails } = useGiftcardNavigation();
   const { t } = useTranslation("common");
 
   // ----- Perform action -----
@@ -40,7 +40,7 @@ export const useDuplicateGiftcard = ({
           ? {
               buttonLabel: t("toasts.actions.open"),
               onButtonClick: () => {
-                navigateToGiftcardDetail(giftcardCopy.id);
+                navigateToGiftcardDetails(giftcardCopy.id);
               },
             }
           : {}),
@@ -51,11 +51,7 @@ export const useDuplicateGiftcard = ({
       handleActionFailed(t("toasts.errorMessages.duplicateGiftcard"));
       handleCloseModal();
     },
-    dependencies: [
-      handleActionFailed,
-      navigateToGiftcardDetail,
-      fetchGiftcards,
-    ],
+    dependencies: [handleActionFailed, fetchGiftcards],
   });
 
   return {

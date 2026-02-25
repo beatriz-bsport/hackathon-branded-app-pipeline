@@ -6,6 +6,7 @@ import {
   archiveGiftcardAPI,
   createGiftcardAPI,
   duplicateGiftcardAPI,
+  fetchGiftcardAPI,
   fetchGiftcardsAPI,
   restoreGiftcardAPI,
 } from "@bsport/api-buyables";
@@ -40,6 +41,26 @@ export const fetchGiftcardsAction: Action<
     (error) =>
       createErrorWithContext(error, {
         message: "Failed to fetch giftcards",
+        params,
+      }),
+  );
+};
+
+export const fetchGiftcardAction: Action<{ id: number }, Giftcard> = async (
+  fetch,
+  params,
+) => {
+  return Result.try(
+    async () => {
+      const data = await fetchGiftcardAPI(fetch, params);
+
+      updateGiftcard(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to fetch giftcard n°${params.id}`,
         params,
       }),
   );

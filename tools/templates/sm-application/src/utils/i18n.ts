@@ -1,6 +1,10 @@
 import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
 
-import namespaces from "#src/i18n/namespaces.json";
+import {
+  i18nNamespacePrefix,
+  i18nNamespaces,
+  inMemoryTranslationsLoader,
+} from "#src/i18n";
 import type namespaceAlphaTranslations from "#src/i18n/source/namespaceAlpha.json";
 import type namespaceBetaTranslations from "#src/i18n/source/namespaceBeta.json";
 
@@ -9,9 +13,6 @@ type Translations = {
   namespaceBeta: typeof namespaceBetaTranslations;
 };
 
-const applicationName = __SM_APPLICATION__.__I18N_NAMESPACE_PREFIX__;
-const applicationUrl = __SM_APPLICATION__.__APPLICATION_BASE_URL__;
-
 export const {
   i18nInstance,
   useTranslation,
@@ -19,9 +20,9 @@ export const {
   getFixedNamespace,
   AppI18nextProvider,
 } = instanciateAppI18n<Translations>({
-  applicationName,
-  applicationUrl,
-  namespaces,
+  applicationName: i18nNamespacePrefix,
+  namespaces: i18nNamespaces,
+  inMemoryTranslationsLoader,
   debug: import.meta.env.DEV,
 });
 

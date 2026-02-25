@@ -21,3 +21,21 @@ export const TagRuleKind = {
 } as const;
 
 export type TagRuleKind = (typeof TagRuleKind)[keyof typeof TagRuleKind];
+
+export const BackgroundTaskStatus = {
+  PENDING: 0,
+  SUCCESS: 1,
+  FAILED: 2,
+} as const;
+
+export type BackgroundTaskStatus =
+  (typeof BackgroundTaskStatus)[keyof typeof BackgroundTaskStatus];
+
+export const CommunicationStatus = {
+  PROCESSING: 1,
+  FAILED: 2,
+  DELIVERED: 3,
+} as const;
+
+export type CommunicationStatus =
+  (typeof CommunicationStatus)[keyof typeof CommunicationStatus];

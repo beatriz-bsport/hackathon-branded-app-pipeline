@@ -16,12 +16,8 @@
     "loading": "Loading pack",
     "canNotFindPack": "Pack not found",
     "buttons": {
-      "copyPaymentLink": "Copy payment link",
       "renamePack": "Rename pack",
       "deletePack": "Delete pack"
-    },
-    "toasts": {
-      "paymentLinkCopied": "Link copied"
     },
     "updatePack": {
       "failToUpdate": "Couldn't update pack. Please try again. ",
@@ -118,12 +114,7 @@
       }
     },
     "advancedSection": {
-      "title": "Advanced",
-      "tagsSelector": {
-        "title": "Tag after purchase",
-        "helperText": "Add tags to identify who buys this pack.",
-        "placeholder": "Add tags..."
-      }
+      "title": "Advanced"
     },
     "pricingSection": {
       "title": "Pricing",

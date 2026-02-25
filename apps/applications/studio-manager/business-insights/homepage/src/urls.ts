@@ -21,11 +21,6 @@ export const PUBLIC_URLS = {
 };
 
 export const LEGACY_URLS = {
-  CALENDAR_OFFER: ({
-    isoDate,
-    sessionId,
-  }: {
-    isoDate: string;
-    sessionId: number;
-  }) => `/calendar/${isoDate.replaceAll("-", "/")}/${sessionId}`,
+  // TODO: replace with a link to the new session management page once it's implemented
+  SESSION_MANAGEMENT: (sessionId: number) => `/offer/${sessionId}`,
 } as const;

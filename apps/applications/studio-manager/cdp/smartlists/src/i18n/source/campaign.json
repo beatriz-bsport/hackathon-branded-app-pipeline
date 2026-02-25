@@ -1,4 +1,17 @@
 {
+  "communicationKind": {
+    "email": "Email",
+    "sms": "SMS",
+    "push": "Push"
+  },
+  "campaignStatus": {
+    "scheduled": "Scheduled",
+    "delivered": "Delivered",
+    "processing": "Sending",
+    "failed": "Failed",
+    "opened": "Opened",
+    "na": "N/A"
+  },
   "popup": {
     "creation": {
       "title": "Pop-up Campaign",
@@ -64,6 +77,21 @@
     "openPopUps": "Review pop-ups",
     "generateReport": "Generate Report"
   },
+  "generateReportModal": {
+    "title": "Generate report",
+    "description": "Define a date range to include in your report",
+    "toast": {
+      "pending": "Processing...",
+      "success": "Report successfully generated. The document was directly downloaded.",
+      "startReportGenerationFailed": "There was an issue starting the generation of your report. Try again.",
+      "generationFailed": "There was an issue generating your report. Try again.",
+      "downloadFailed": "There was an issue downloading your report. Try again."
+    },
+    "buttons": {
+      "confirm": "Generate report",
+      "cancel": "Cancel"
+    }
+  },
   "table": {
     "campaignScheduled": {
       "headers": {
@@ -103,6 +131,62 @@
       },
       "loadingState": {
         "description": "Loading sent campaigns ..."
+      }
+    }
+  },
+  "campaignDetails": {
+    "metadataBanner": {
+      "headers": {
+        "channel": "Campaign channel",
+        "status": "Status",
+        "scheduledDate": "Scheduled on",
+        "sentDate": "Sent on",
+        "recipients": "Total recipients"
+      },
+      "previewButton": "View message",
+      "contentPreview": {
+        "subject": "Email Subject",
+        "dynamicContentWarning": "Dynamic content may not appear in the preview"
+      }
+    },
+    "performance": {
+      "title": "Campaign performance",
+      "empty": "No performance data available",
+      "deliveryRate": {
+        "title": "Delivery rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} email delivered",
+        "subtitle_other": "{{count}} emails delivered",
+        "subtitle_zero": "No emails delivered"
+      },
+      "openRate": {
+        "title": "Open rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} recipient opened the email",
+        "subtitle_other": "{{count}} recipients opened the email",
+        "subtitle_zero": "No recipients opened the email"
+      },
+      "clickRate": {
+        "title": "Click rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} recipient clicked at least once",
+        "subtitle_other": "{{count}} recipients clicked at least once",
+        "subtitle_zero": "No recipients clicked at least once"
+      },
+      "unsubscribedRate": {
+        "title": "Unsubscribed rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} unsubscribed from this email",
+        "subtitle_other": "{{count}} unsubscribed from this email",
+        "subtitle_zero": "No unsubscribed from this email"
+      },
+      "clickPerformance": {
+        "empty": "No click performance data available",
+        "title": "Click performance",
+        "click": "",
+        "click_one": "{{count}} click",
+        "click_other": "{{count}} clicks",
+        "click_zero": "No clicks"
       }
     }
   }

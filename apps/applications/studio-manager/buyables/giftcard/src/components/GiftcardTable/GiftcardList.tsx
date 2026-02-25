@@ -8,7 +8,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { type Giftcard } from "@bsport/store-buyables-giftcard";
 
-import { LEGACY_ROUTES } from "#src/urls";
+import { useGiftcardNavigation } from "#src/hooks/useGiftcardNavigation";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { EmptyConfig, GiftcardHandler } from "./types";
@@ -52,6 +52,8 @@ export const GiftcardList: FC<GiftcardListProps> = ({
   emptyConfig,
 }) => {
   const { t } = useTranslation("common");
+
+  const { navigateToGiftcardDetails } = useGiftcardNavigation();
 
   const listItems: ListItemProps[] = giftcardList.map((giftcard) => {
     const buttons: ActionButton[] = [];
@@ -147,7 +149,7 @@ export const GiftcardList: FC<GiftcardListProps> = ({
         alt: giftcard.name,
         size: "md",
       },
-      link: mode === "active" ? LEGACY_ROUTES.DETAILS(giftcard.id) : undefined,
+      onItemClick: () => navigateToGiftcardDetails(giftcard.id),
       buttons,
       dropdownConfig: { visibleActionsDisplayLimit: 0 },
       chips,

@@ -1,5 +1,6 @@
 import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react-vite";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { Suspense, useEffect } from "react";
 
 import { setLocalAPIEnv } from "@bsport/fetch";
@@ -22,6 +23,16 @@ const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
   namespaces: i18nNamespaces,
   inMemoryTranslationsLoader: inMemoryTranslationsLoader,
   debug: process.env.NODE_ENV !== "production",
+});
+
+// Create a QueryClient instance for React Query
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
 });
 
 // Set API environment to dev for local storybook
@@ -47,11 +58,13 @@ const preview: Preview = {
 
       return (
         <React.StrictMode>
-          <Suspense fallback={<p>...Loading translations</p>}>
-            <KaizenI18nProvider kaizenI18nInstance={kaizenI18nInstance}>
-              <Story />
-            </KaizenI18nProvider>
-          </Suspense>
+          <QueryClientProvider client={queryClient}>
+            <Suspense fallback={<p>...Loading translations</p>}>
+              <KaizenI18nProvider kaizenI18nInstance={kaizenI18nInstance}>
+                <Story />
+              </KaizenI18nProvider>
+            </Suspense>
+          </QueryClientProvider>
         </React.StrictMode>
       );
     },

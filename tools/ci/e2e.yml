@@ -12,3 +12,18 @@ Test Staging:
     project: bsport/trailblazer-tests
     strategy: mirror
   allow_failure: true
+
+Test Production:
+  stage: post-deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "production" && $CI_PIPELINE_SOURCE == "push"
+      when: on_success
+    - when: never
+  needs:
+    - job: Deploy Production
+  variables:
+    ENV: production
+  trigger:
+    project: bsport/trailblazer-tests
+    strategy: mirror
+  allow_failure: true

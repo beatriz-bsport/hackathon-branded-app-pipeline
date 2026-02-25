@@ -60,8 +60,7 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
   // Internal counter to force rerendering by injecting it into key props
   const [discardId, setDiscardId] = useState(0);
 
-  const { detailsLayoutProps, toggleIsPanelOpened, toggleHasUnsavedChanges } =
-    useDetailsLayout();
+  const { detailsLayoutProps, toggleHasUnsavedChanges } = useDetailsLayout();
 
   const navigate = useNavigate();
 
@@ -155,7 +154,6 @@ export const PackDetailsPage: FC<PackDetailsPageProps> = ({ pack }) => {
             onDeleteClick={onOpenDeleteModal}
             onEditTitleClick={onOpenEditNameModal}
             pack={pack}
-            toggleIsPanelOpened={toggleIsPanelOpened}
           />
 
           <SelectedItemsContextProvider

@@ -42,6 +42,23 @@ export const fetchGiftcardsAPI = async (
 
 // ----------------------------------------------------------------------------
 
+export const fetchGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
+  return [`${API_URL}/giftcard/${id}/`];
+};
+
+export const fetchGiftcardAPI = async (
+  fetch: Fetch<Giftcard>,
+  params: { id: number },
+): Promise<Giftcard> => {
+  const [uri, init] = fetchGiftcardAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+// ----------------------------------------------------------------------------
+
 export const restoreGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
   return [`${API_URL}/giftcard/${id}/restore/`, { method: "POST" }];
 };

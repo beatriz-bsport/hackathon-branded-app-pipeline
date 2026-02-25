@@ -42,16 +42,19 @@ export function getEnv(url?: string): Environment {
     }
 
     // backoffice-{name}.chaos.bsport.io -> {name} (feature branch deployments)
-    // Pattern: backoffice-{name}.chaos.bsport.io
-    if (
-      hostname.endsWith(".chaos.bsport.io") &&
-      hostname.startsWith("backoffice-")
-    ) {
-      const name = hostname.slice(
-        "backoffice-".length,
-        hostname.length - ".chaos.bsport.io".length,
-      );
-      return name as Environment;
+    // preview-{name}.chaos.bsport.io -> dev (frontend-only ephemeral environments)
+    // Patterns:
+    // - backoffice-{name}.chaos.bsport.io
+    // - preview-{name}.chaos.bsport.io
+    if (hostname.endsWith(".chaos.bsport.io")) {
+      if (hostname.startsWith("preview-")) return "dev";
+      if (hostname.startsWith("backoffice-")) {
+        const name = hostname.slice(
+          "backoffice-".length,
+          -".chaos.bsport.io".length,
+        );
+        return name as Environment;
+      }
     }
 
     // Default to production for any other bsport.io domain

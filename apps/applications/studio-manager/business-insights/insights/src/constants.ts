@@ -6,6 +6,7 @@ import { URLS } from "./urls";
 export const DASHBOARD_TYPES = {
   TRIAL_ANALYSIS: "trial_analysis",
   RECURRING_REVENUE: "recurring_revenue",
+  BOOKING_INSIGHT: "booking",
   SCHEDULE_ANALYSIS: "schedule_analysis",
   COMMUNITY_HEALTH: "community_health",
 } as const;
@@ -14,11 +15,9 @@ export const DASHBOARD_TYPES = {
  * Insight sections with their corresponding icons
  */
 export const INSIGHT_SECTIONS = [
-  { id: "member", icon: "user-01" },
+  { id: "communityMarketing", icon: "user-01" },
   { id: "financial", icon: "coins-stacked-01" },
-  { id: "booking", icon: "calendar" },
-  { id: "teacher", icon: "spacing-width-02" },
-  { id: "marketing", icon: "announcement-01" },
+  { id: "operations", icon: "calendar" },
 ] as const;
 
 /**
@@ -27,13 +26,13 @@ export const INSIGHT_SECTIONS = [
 export const INSIGHT_ITEMS = [
   {
     id: "trial",
-    section: "member",
+    section: "communityMarketing",
     dashboardType: DASHBOARD_TYPES.TRIAL_ANALYSIS,
     link: URLS.TRIAL_ANALYSIS,
   },
   {
     id: "community_health",
-    section: "member",
+    section: "communityMarketing",
     dashboardType: DASHBOARD_TYPES.COMMUNITY_HEALTH,
     link: URLS.COMMUNITY_HEALTH,
   },
@@ -44,8 +43,14 @@ export const INSIGHT_ITEMS = [
     link: URLS.RECURRING_REVENUE,
   },
   {
+    id: "booking",
+    section: "operations",
+    dashboardType: DASHBOARD_TYPES.BOOKING_INSIGHT,
+    link: URLS.BOOKING_INSIGHT,
+  },
+  {
     id: "schedule",
-    section: "booking",
+    section: "operations",
     dashboardType: DASHBOARD_TYPES.SCHEDULE_ANALYSIS,
     link: URLS.SCHEDULE_ANALYSIS,
   },

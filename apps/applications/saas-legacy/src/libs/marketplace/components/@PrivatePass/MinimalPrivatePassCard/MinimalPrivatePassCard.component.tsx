@@ -77,7 +77,7 @@ const MinimalPrivatePassCard: React.FC<Props> = ({
           >
             {formattedQuantity && (
               <span className="bs-minimal-private-pass-card__title-item__quantity">
-                {formattedQuantity}
+                {`${formattedQuantity}${nbsp}`}
               </span>
             )}
             <div className="bs-minimal-private-pass-card__title-item__name">
@@ -102,7 +102,7 @@ const MinimalPrivatePassCard: React.FC<Props> = ({
                   'bs-minimal-private-pass-card__price-item__price',
               }}
               formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-              isExcludingTax={isExcludingTax}
+              isExcludingTax={!!isExcludingTax}
               tax={privatePass.tax}
             />
           </GridItem>
@@ -125,7 +125,7 @@ const MinimalPrivatePassCard: React.FC<Props> = ({
   );
 };
 
-export const MinimalPrivatePassCardForStorybook = marketplaceCssHoc()(
+export const MinimalPrivatePassCardForStorybook = marketplaceCssHoc<Props>()(
   MinimalPrivatePassCard,
 );
 

@@ -12,7 +12,6 @@ import type { TableRowData } from "./types";
 export const useUpcomingActivitiesRows = (): Array<TableRowData> => {
   const { i18n } = useTranslation("default");
   const sessions = useSessionsWithTeacher();
-  const today = new Date();
   const companyTimezone = useCompanyTimezone();
 
   return sessions.map((session) => {
@@ -34,14 +33,7 @@ export const useUpcomingActivitiesRows = (): Array<TableRowData> => {
       hasWaitingList: !session.waiting_list_disabled,
       waitingListCount: session.nb_option,
       emptySpotsCount: Math.max(0, session.effectif - session.nb_bookings),
-      link: LEGACY_URLS.CALENDAR_OFFER({
-        isoDate: formatDateTime(
-          today.toISOString(),
-          DATETIME_FORMATS.ISO_DATE,
-          { timeZone: companyTimezone },
-        ),
-        sessionId: session.id,
-      }),
+      link: LEGACY_URLS.SESSION_MANAGEMENT(session.id),
     };
   });
 };

@@ -12,12 +12,8 @@
     "loading": "Laden pakket",
     "canNotFindPack": "Pakket niet gevonden",
     "buttons": {
-      "copyPaymentLink": "Kopieer betalingslink",
       "renamePack": "Pakket hernoemen",
       "deletePack": "Verwijder pakket"
-    },
-    "toasts": {
-      "paymentLinkCopied": "Link gekopieerd"
     },
     "updatePack": {
       "failToUpdate": "Kon het pakket niet bijwerken. Probeer het opnieuw. ",
@@ -114,12 +110,7 @@
       }
     },
     "advancedSection": {
-      "title": "Geavanceerd",
-      "tagsSelector": {
-        "title": "Tag(s) na aankoop",
-        "helperText": "Voeg tags toe om te identificeren welk lid dit pakket heeft gekocht.",
-        "placeholder": "Toevoegen tags..."
-      }
+      "title": "Geavanceerd"
     },
     "pricingSection": {
       "title": "Kosten & Betaling",

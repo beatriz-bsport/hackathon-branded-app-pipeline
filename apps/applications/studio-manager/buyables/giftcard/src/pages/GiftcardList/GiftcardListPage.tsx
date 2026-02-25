@@ -9,7 +9,7 @@ import {
 
 import { GiftcardCreateModal } from "#src/features/giftcard-create-modal";
 import { useDisclosure } from "#src/hooks/useDisclosure";
-import { ROUTES } from "#src/urls";
+import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { GiftcardImageUploadModal } from "./GiftcardImageUploadModal";
@@ -32,7 +32,7 @@ export const GiftcardListPage: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const navigateToArchivePage = () => navigate(ROUTES.ARCHIVED);
+  const navigateToArchivePage = () => navigate(URLS.ARCHIVED);
 
   const { endGroupActions } = ListLayout.useAdaptiveActions({
     endGroupActions: [

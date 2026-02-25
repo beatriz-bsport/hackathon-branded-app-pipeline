@@ -8,7 +8,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { GIFTCARD_TYPES, type Giftcard } from "@bsport/store-buyables-giftcard";
 
-import { LEGACY_ROUTES } from "#src/urls";
+import { useGiftcardNavigation } from "#src/hooks/useGiftcardNavigation";
 import { useTranslation } from "#src/utils/i18n";
 
 import { GiftcardList } from "./GiftcardList";
@@ -38,6 +38,8 @@ export const GiftcardTable: FC<GiftcardTableProps> = ({
 }) => {
   const { t } = useTranslation("common");
 
+  const { navigateToGiftcardDetails } = useGiftcardNavigation();
+
   const tableColumns = useTableColumns({
     handleArchive,
     handleDuplicate,
@@ -61,7 +63,7 @@ export const GiftcardTable: FC<GiftcardTableProps> = ({
           expiration: giftcard.expiration_days,
         })
       : "Unlimited",
-    link: mode === "active" ? LEGACY_ROUTES.DETAILS(giftcard.id) : undefined, // Navigation blocked for archived items
+    onRowClick: () => navigateToGiftcardDetails(giftcard.id),
   }));
 
   // Configure empty state based on the mode

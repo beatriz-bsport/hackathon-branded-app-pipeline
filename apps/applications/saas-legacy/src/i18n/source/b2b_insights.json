@@ -9,6 +9,9 @@
         "scheduleAnalysis": {
             "title": "Schedule Performance"
         },
+        "bookingInsight": {
+            "title": "Bookings & Pass Usage"
+        },
         "recurringRevenue": {
             "title": "Monitor Subscriptions Performance"
         },
@@ -19,7 +22,7 @@
     "sections": {
         "memberInsights": "Community & Marketing",
         "financialHealth": "Financial Health",
-        "bookings": "Bookings"
+        "bookings": "Operations"
     },
     "trackTrialOffer": {
         "title": "Acquisition & Conversion Performance",
@@ -36,5 +39,9 @@
     "monitorSchedule": {
         "title": "Schedule Performance",
         "description": "Optimise schedule performance to maximise enrolment and earned revenue"
+    },
+    "monitorBookings": {
+        "title": "Bookings & Pass Usage",
+        "description": "Track bookings and pass usage to optimise attendance and capacity"
     }
 }

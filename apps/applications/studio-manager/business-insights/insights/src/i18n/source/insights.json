@@ -1,11 +1,9 @@
 {
   "pageTitle": "Insights",
   "sections": {
-    "member": "Community & Marketing",
+    "communityMarketing": "Community & Marketing",
     "financial": "Financial Health",
-    "booking": "Booking Performance",
-    "teacher": "Teacher Performance",
-    "marketing": "Marketing Performance"
+    "operations": "Operations"
   },
   "items": {
     "trial": {
@@ -19,6 +17,10 @@
     "recurring": {
       "title": "Subscriptions Performance",
       "description": "Track health of subscriptions, analyse recurring revenue, and spot risks or opportunities"
+    },
+    "booking": {
+      "title": "Bookings & Pass Usage",
+      "description": "Track booking patterns, pass usage, behaviours, and waitlist trends to optimise attendance and capacity"
     },
     "schedule": {
       "title": "Schedule Performance",
@@ -34,6 +36,9 @@
     },
     "recurringRevenue": {
       "title": "Subscriptions Performance"
+    },
+    "bookingInsight": {
+      "title": "Bookings & Pass Usage"
     },
     "scheduleAnalysis": {
       "title": "Schedule Performance"

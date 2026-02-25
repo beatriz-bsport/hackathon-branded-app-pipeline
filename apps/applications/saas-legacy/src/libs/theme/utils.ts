@@ -61,7 +61,7 @@ export const minsToHrMins = (minutesToConvert: number) => {
  * @param credits The number of credits to be divided.
  * @returns The result of dividing the credits by the credit factor.
  */
-export const getCreditsDividedValue = (credits: number) => {
+export const getCreditsDividedValue = (credits?: number | null) => {
   return (credits || 0) / getCreditFactor();
 };
 
@@ -73,7 +73,7 @@ export const getCreditsDividedValue = (credits: number) => {
  *          - If the divided value has only one decimal, it is returned with one decimal place.
  *          - If the divided value has two or more decimals, it is returned with two decimal places.
  */
-export const getCreditsDividedDisplay = (credits: number) => {
+export const getCreditsDividedDisplay = (credits?: number | null) => {
   const valueDivided = getCreditsDividedValue(credits);
 
   // If the value is an integer, return the value itself.

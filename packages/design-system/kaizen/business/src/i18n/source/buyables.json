@@ -28,5 +28,9 @@
     "placeholder": "Add tags",
     "title": "Tag after purchase",
     "description": "Add tags to identify which member bought this item."
+  },
+  "copyPaymentLinkButton": {
+    "toastSuccess": "Link copied",
+    "tooltip": "Copy payment link"
   }
 }

@@ -29,24 +29,21 @@ import {
 const deliveryFormatToKind = (format: GiftcardDeliveryFormat): number =>
   format === "email" ? GIFTCARD_KIND_EMAIL : GIFTCARD_KIND_PDF;
 
+/** Returns one unit of the item (unit price and unit voucher). */
 const itemToBuyableItem = (item: BillingFlowItem): CreateInvoiceBuyableItem => {
-  const lineTotalCts = item.priceCts * item.quantity;
-  const price = (lineTotalCts / 100).toFixed(2);
+  const price = (item.priceCts / 100).toFixed(2);
   const voucher =
     item.discountPercent > 0
-      ? (
-          (item.priceCts * item.quantity * item.discountPercent) /
-          10000
-        ).toFixed(2)
+      ? ((item.priceCts * item.discountPercent) / 10000).toFixed(2)
       : item.discountAmountCts > 0
-        ? ((item.discountAmountCts * item.quantity) / 100).toFixed(2)
+        ? (item.discountAmountCts / 100).toFixed(2)
         : "0.00";
   return {
     buyable_item_id: item.buyableItemId,
     buyable_item_identifier: TYPE_TO_IDENTIFIER[item.type] ?? 0,
     price,
     voucher,
-    voucher_reason: "",
+    voucher_reason: item.discountReason,
   };
 };
 
@@ -102,12 +99,13 @@ const buildGiftcardConfigList = (
 const mapFormDataToCreateInvoiceRequest = (
   data: BillingFlowFormData,
 ): CreateInvoiceRequest => {
-  const buyable_items = data.items.map(itemToBuyableItem);
+  const buyable_items = data.items.flatMap((item) =>
+    Array.from({ length: item.quantity }, () => itemToBuyableItem(item)),
+  );
   const giftcard_config_list = buildGiftcardConfigList(data.items);
   return {
     member: data.member!.id,
-    date:
-      data.date?.trim() || getLocalNow({}).toISO() || new Date().toISOString(),
+    date: getLocalNow({}).toISO() ?? new Date().toISOString(),
     is_v2: true,
     buyable_items,
     coupon_codes: data.promoCodes.length > 0 ? data.promoCodes : undefined,

@@ -146,6 +146,7 @@ export const useAddItemSection = ({ selectedItem }: Options): Return => {
       priceCts: price,
       discountPercent,
       discountAmountCts,
+      discountReason: discountReason.trim(),
       activationDate: null,
       billingDetail: null,
       itemName: selectedItem?.title ?? "",

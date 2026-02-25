@@ -6,16 +6,7 @@ import React, { Suspense, useEffect } from "react";
 import { setLocalAPIEnv } from "@bsport/fetch";
 import "@bsport/kaizen-tokens/src/index.css";
 
-import { authenticateDev } from "../../business-components/.storybook/auth-helper";
-import { I18nProvider as FinancialServicesI18nProvider } from "../../business-components/financial-services/src/components/I18nProvider";
-import {
-  type Translations as FinancialServicesTranslations,
-  i18nNamespacePrefix as financialServicesI18nNamespacePrefix,
-  i18nNamespaces as financialServicesI18nNamespaces,
-  inMemoryTranslationsLoader as financialServicesInMemoryTranslationsLoader,
-  instanciateAppI18n as instanciateFinancialServicesI18n,
-  switchLanguage as switchFinancialServicesLanguage,
-} from "../../business-components/financial-services/src/i18n/index";
+import { authenticateDev } from "../../business/.storybook/auth-helper";
 import { KaizenI18nProvider } from "../../primitive/core/src";
 import {
   FLAG_EMOJIS,
@@ -48,14 +39,6 @@ const { i18nInstance: primitiveI18nInstance } =
     inMemoryTranslationsLoader: primitiveInMemoryTranslationsLoader,
   });
 
-// Initialize business components i18n
-const { i18nInstance: financialServicesI18nInstance } =
-  instanciateFinancialServicesI18n<FinancialServicesTranslations>({
-    applicationName: financialServicesI18nNamespacePrefix,
-    namespaces: financialServicesI18nNamespaces,
-    inMemoryTranslationsLoader: financialServicesInMemoryTranslationsLoader,
-  });
-
 // Create a QueryClient instance for React Query
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -74,7 +57,6 @@ const preview: Preview = {
       // When the locale global changes, set the new locale in both i18n instances
       useEffect(() => {
         switchPrimitiveLanguage(locale);
-        switchFinancialServicesLanguage(locale);
       }, [locale]);
 
       return (
@@ -82,11 +64,7 @@ const preview: Preview = {
           <QueryClientProvider client={queryClient}>
             <Suspense fallback={<p>Loading translations ...</p>}>
               <KaizenI18nProvider kaizenI18nInstance={primitiveI18nInstance}>
-                <FinancialServicesI18nProvider
-                  kaizenI18nInstance={financialServicesI18nInstance}
-                >
-                  <Story />
-                </FinancialServicesI18nProvider>
+                <Story />
               </KaizenI18nProvider>
             </Suspense>
           </QueryClientProvider>

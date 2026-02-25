@@ -18,9 +18,5 @@
       "#src/*": ["../primitive/core/src/*"]
     }
   },
-  "include": [
-    ".storybook",
-    "../primitive/core/src",
-    "../business-components/**/src"
-  ]
+  "include": [".storybook", "../primitive/core/src", "../business/src"]
 }

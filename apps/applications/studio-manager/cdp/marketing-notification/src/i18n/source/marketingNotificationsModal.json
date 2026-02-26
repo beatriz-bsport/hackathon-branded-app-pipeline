@@ -3,6 +3,11 @@
     "create": "Create a notification",
     "edit": "Edit notification"
   },
+  "buttons": {
+    "create": "Create",
+    "edit": "Edit",
+    "cancel": "Cancel"
+  },
   "toast": {
     "create": {
       "success": "Notification rule saved",

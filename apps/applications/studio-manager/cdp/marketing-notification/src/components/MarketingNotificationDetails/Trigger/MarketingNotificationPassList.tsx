@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useSearchParams } from "react-router";
 
 import { Card, List } from "@bsport/kaizen-primitive-core";
 import type { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
@@ -22,6 +23,7 @@ export const MarketingNotificationPassList = ({
   notification,
 }: MarketingNotificationPassesListProps) => {
   const { t } = useTranslation("marketingNotificationDetails");
+  const [, setSearchParams] = useSearchParams();
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
   const { formatPassesInListItems, passIds, allPassesIncluded } =
@@ -45,6 +47,14 @@ export const MarketingNotificationPassList = ({
 
   useEffect(() => {
     setPageSettings(DEFAULT_PAGE, DEFAULT_PAGE_SIZE);
+    return () => {
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete("page");
+        next.delete("page_size");
+        return next;
+      });
+    };
   }, []);
 
   return (

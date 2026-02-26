@@ -77,7 +77,8 @@ export const useGenericSearch = <
   const { searchInput = "", storeConfig } = config;
 
   const { searchFn, filterFn, data, initialValue } = storeConfig;
-  const [isHydrating, setIsHydrating] = useState<boolean>(!!initialValue);
+  const [isAutocompleteReady, setIsAutocompleteReady] =
+    useState<boolean>(!!initialValue);
 
   const [{ isLoading }, fetchItems] = useAsync<typeof searchFn>({
     asyncFn: searchFn,
@@ -86,10 +87,10 @@ export const useGenericSearch = <
   const [, hydrateItems] = useAsync<typeof searchFn>({
     asyncFn: searchFn,
     onSuccess: () => {
-      setIsHydrating(false);
+      setIsAutocompleteReady(false);
     },
     onFailure: () => {
-      setIsHydrating(false);
+      setIsAutocompleteReady(false);
     },
   });
 
@@ -138,7 +139,7 @@ export const useGenericSearch = <
     results: filteredData,
     search: performSearch,
     isLoading,
-    isHydrating,
+    isAutocompleteReady,
     isEmptySearch,
   };
 };

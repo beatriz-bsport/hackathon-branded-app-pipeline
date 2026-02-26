@@ -83,6 +83,7 @@ export const MetaActivitySelector = ({
             ...params,
             page: 1,
             pageSize: 10,
+            inIdList: params?.id__in?.split(",").map(Number),
             isWorkshop: mode === "all" ? undefined : mode === "workshop",
           }),
         data: filteredActivities,

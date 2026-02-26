@@ -26,7 +26,13 @@
         "label": "Select visibility"
       },
       "substituteTeacherLabel": "Substitute teacher",
-      "substituteTeacherPlaceholder": "Choose a teacher..."
+      "substituteTeacherPlaceholder": "Choose a teacher...",
+      "hybridSessionAlert": {
+        "onSiteDescription": "This on-site session is paired with an online session.",
+        "broadcastDescription": "This online session is paired to an on-site session. Certain details can only be updated from the on-site session.",
+        "goToOnsiteSession": "On-site session",
+        "goToOnlineSession": "Online session"
+      }
     }
   },
   "saveSessionModal": {

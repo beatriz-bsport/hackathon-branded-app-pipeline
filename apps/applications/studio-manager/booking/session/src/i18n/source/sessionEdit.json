@@ -41,5 +41,14 @@
     "updateFutureSessions": "Apply these changes to similar sessions",
     "updateFutureSessionsForGroup": "Apply these changes to the other sessions in that group",
     "passesAlert": "Session changes <strong>may affect pass compatibility</strong>. After editing, check they still match the establishment/teacher."
+  },
+  "USCWarningModal": {
+    "title": "Edit session",
+    "description": "If you update the date, time, or establishment, all current bookings on USC will be cancelled. A new session will be created on USC, and users will need to book again",
+    "alert_one": "<strong>{{count}} member</strong> who booked this session will have their credits refunded",
+    "alert_other": "<strong>{{count}} members</strong> who booked this session will have their credits refunded",
+    "alert_zero": "No members have booked this session, so no credits will be refunded",
+    "confirmButton": "Continue",
+    "cancelButton": "Back"
   }
 }

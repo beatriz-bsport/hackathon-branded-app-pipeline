@@ -158,7 +158,8 @@
     "cancelButton": "Close",
     "errorMessage": "An error occurred while cancelling the sessions. Please try again later.",
     "successMessage_one": "Multiple sessions cancelled on {{startDate}}.",
-    "successMessage_other": "Multiple sessions cancelled between {{startDate}} and {{endDate}}."
+    "successMessage_other": "Multiple sessions cancelled between {{startDate}} and {{endDate}}.",
+    "helperText": "You can create a single-day entry by selecting the same start and end date"
   },
   "deleteModal": {
     "title": "Permanently delete session?",

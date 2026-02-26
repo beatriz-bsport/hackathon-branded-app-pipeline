@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 import { ControlledForm, FormField, useFormController } from "@bsport/form";
 import {
@@ -96,13 +96,11 @@ function isValidSelectableNotificationType(
 
 export const TriggerTypeStep = () => {
   const { t } = useTranslation("marketingNotificationsModal");
-  const [shouldRefreshItemSelector, setShouldRefreshItemSelector] =
-    useState(false);
   const { formData, setStepValid, updateForm } = useFormStepContext();
   const { isBirthdayNotificationSet } =
     useGetMarketingNotificationDependenciesData();
 
-  const notificationType =
+  const initialNotificationType =
     formData?.triggerType?.notificationType ??
     NOTIFICATION_ADVANCED_TYPE.groupActivity;
 
@@ -113,18 +111,27 @@ export const TriggerTypeStep = () => {
     schema: triggerTypeValidationFormSchema,
     values: {
       itemIds: defaultItemIds,
-      notificationType,
+      notificationType: initialNotificationType,
       shouldContainAllPasses:
         formData?.triggerType?.shouldContainAllPasses ?? false,
     },
   });
 
   const {
-    getValues: getFormValues,
     setValue: setFormValue,
     trigger: trigggerFormValidationCheck,
+    watch: watchFormValues,
     formState: { isValid, errors },
   } = methods;
+
+  // Watch notificationType from form to get reactive updates
+  const watchedNotificationType =
+    watchFormValues("notificationType") ?? initialNotificationType;
+  // Watch notificationType from form to get reactive updates
+  const watchedItemsIds = watchFormValues("itemIds") ?? defaultItemIds;
+  const watchedShouldContainAllPasses = watchFormValues(
+    "shouldContainAllPasses",
+  );
 
   const triggerList = isBirthdayNotificationSet
     ? TRIGGER_CONFIG.filter((trigger) => trigger.type !== "birthday")
@@ -142,59 +149,61 @@ export const TriggerTypeStep = () => {
       ),
     }));
     const currentConfig = triggerList.find(
-      (config) => config.type === notificationType,
+      (config) => config.type === watchedNotificationType,
     );
 
     return {
       selectOptions: options,
       selectedConfig: currentConfig,
     };
-  }, [notificationType, triggerList]);
+  }, [watchedNotificationType, triggerList]);
 
   const handleSelectTriggerItems = ({ itemIds }: { itemIds: number[] }) => {
     setFormValue("itemIds", itemIds, {
       shouldValidate: true,
     });
-    handleUpdateFormData();
+    if (
+      watchedNotificationType === PASS_TYPE ||
+      watchedNotificationType === APPOINTMENT_PASS_TYPE
+    ) {
+      setFormValue("shouldContainAllPasses", false, {
+        shouldValidate: true,
+      });
+    }
+    updateForm({
+      ...formData,
+      triggerType: {
+        type: "triggerType",
+        itemIds: itemIds,
+        notificationType: watchedNotificationType,
+        shouldContainAllPasses: false,
+      },
+    });
   };
 
   const handleTriggerSelect = (triggerType: string) => {
+    setFormValue("itemIds", [], { shouldValidate: true });
     if (!isValidSelectableNotificationType(triggerType)) {
       console.warn(
         "[Marketing Notification Builder] Trigger type is not a valid selectable notification type",
       );
       return;
     }
-    setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
     setFormValue("notificationType", triggerType, { shouldValidate: true });
-    setFormValue("itemIds", [], { shouldValidate: true });
-    handleUpdateFormData();
-  };
-
-  const currentLabel = selectedConfig
-    ? String(
-        t(
-          //@ts-expect-error bad management of dynamic keys
-          `steps.triggerType.notificationType.choices.${selectedConfig.translationKey}`,
-          { returnObjects: false },
-        ),
-      )
-    : "";
-
-  useEffect(() => {
-    setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
-  }, [isValid]);
-
-  const handleUpdateFormData = () => {
-    const formValues = getFormValues();
     updateForm({
       ...formData,
       triggerType: {
         type: "triggerType",
-        ...formValues,
+        itemIds: [],
+        shouldContainAllPasses: false,
+        notificationType: triggerType,
       },
     });
   };
+
+  useEffect(() => {
+    setStepValid(NOTIFICATION_TYPE_STEP_IDENTIFIER, isValid);
+  }, [isValid]);
 
   return (
     <div className="flex flex-col gap-md w-full">
@@ -203,6 +212,7 @@ export const TriggerTypeStep = () => {
         id="trigger-type-validation-form"
         onSubmit={() => {}}
         {...methods}
+        className="flex flex-col gap-md w-full"
       >
         <FormField<
           TriggerTypeValidationFormData,
@@ -212,18 +222,19 @@ export const TriggerTypeStep = () => {
           name="notificationType"
           mapProps={({ defaultProps, fieldState }) => ({
             ...defaultProps,
-            value: currentLabel,
             errorText: fieldState.error?.message,
             status: fieldState.error?.message ? "critical" : "default",
+            onChange: (value) => {
+              handleTriggerSelect(value);
+            },
           })}
         >
           <Select
             fullWidth
             label={t("steps.triggerType.notificationType.label")}
             id="notification-trigger-type-select"
-            value={currentLabel}
+            value={selectedConfig?.type}
             items={selectOptions}
-            onChange={handleTriggerSelect}
           />
         </FormField>
         <FormField<
@@ -232,22 +243,22 @@ export const TriggerTypeStep = () => {
           TriggerTypeSelectorProps
         > name="itemIds">
           <TriggerTypeSelector
-            key={String(shouldRefreshItemSelector)}
             selectedConfig={selectedConfig}
             onSelectTriggerType={handleSelectTriggerItems}
             selectedValues={
-              defaultItemIds?.length > 0 ? defaultItemIds : undefined
+              watchedItemsIds?.length > 0 ? watchedItemsIds : undefined
             }
             textfieldProps={{
               id: "item-ids-selector-textfield",
               status: errors.itemIds ? "error" : "default",
               helperText: errors.itemIds ? errors.itemIds.message : undefined,
               onBlur: () => trigggerFormValidationCheck("itemIds"),
+              disabled: !!watchedShouldContainAllPasses,
             }}
           />
         </FormField>
-        {notificationType === PASS_TYPE ||
-        notificationType === APPOINTMENT_PASS_TYPE ? (
+        {watchedNotificationType === PASS_TYPE ||
+        watchedNotificationType === APPOINTMENT_PASS_TYPE ? (
           <FormField<
             TriggerTypeValidationFormData,
             "shouldContainAllPasses",
@@ -262,16 +273,23 @@ export const TriggerTypeStep = () => {
                   shouldValidate: true,
                 });
                 form.setValue("itemIds", [], { shouldValidate: true });
-                setShouldRefreshItemSelector((prev) => !prev);
-                form.trigger();
-                handleUpdateFormData();
+                updateForm({
+                  ...formData,
+                  triggerType: {
+                    type: "triggerType",
+                    itemIds: [],
+                    notificationType: watchedNotificationType,
+                    shouldContainAllPasses: isChecked,
+                  },
+                });
               },
             })}
           >
             <Checkbox
+              className="w-fit"
               id="checkbox-select-all-pass-notification"
               label={t(
-                `steps.triggerType.selectAllPasses.checkbox.label.${notificationType}`,
+                `steps.triggerType.selectAllPasses.checkbox.label.${watchedNotificationType}`,
               )}
               value={
                 methods.getValues("shouldContainAllPasses")

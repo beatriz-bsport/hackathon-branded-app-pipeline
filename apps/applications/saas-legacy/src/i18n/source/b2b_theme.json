@@ -1,0 +1,13 @@
+{
+  "personalization": {
+    "marketing": {
+      "title": "Marketing",
+      "form": {
+        "doubleOptIn": {
+          "label": "Enable double opt-in for marketing emails",
+          "description": "Marketing consent is only turned on after customers confirm via the double opt-in email."
+        }
+      }
+    }
+  }
+}

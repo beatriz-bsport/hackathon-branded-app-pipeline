@@ -152,6 +152,7 @@ export type Theme = {
   one_click_checkout_enabled: boolean;
   revamped_passes_page_enabled: boolean;
   revamped_backoffice_enabled: boolean;
+  is_marketing_double_opt_in_enabled: boolean;
 };
 
 export type ThemeState = {

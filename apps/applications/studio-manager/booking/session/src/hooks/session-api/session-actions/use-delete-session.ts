@@ -50,6 +50,7 @@ export const useDeleteSession = () => {
         description: t("deleteModal.successMessage", {
           count: getCountForTranslation(variables.params),
         }),
+        icon: "trash-01",
       });
     },
     onError: (error: Error) => {

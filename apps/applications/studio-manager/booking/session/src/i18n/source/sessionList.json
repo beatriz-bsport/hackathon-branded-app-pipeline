@@ -119,7 +119,8 @@
     "applyFilterDescription": "If unselected, the list will be exported without filters.",
     "cancelButton": "Close",
     "confirmButton": "Export",
-    "errorMessage": "An error occurred while exporting the participant list. Please try again."
+    "errorMessage": "An error occurred while exporting the participant list. Please try again.",
+    "successMessage": "File exported successfully"
   },
   "backgroundTask": {
     "genericError": "An error has occurred. Check your connection and try refreshing the page.",

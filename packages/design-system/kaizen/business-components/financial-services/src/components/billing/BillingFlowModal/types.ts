@@ -158,6 +158,7 @@ type InvoiceItemBase = {
   priceCts: number;
   discountPercent: number;
   discountAmountCts: number;
+  discountReason: string;
   taxPercent?: number;
   credits?: number | null;
   durationDays?: number | null;
@@ -201,7 +202,6 @@ export type BillingFlowFormData = {
   items: BillingFlowItem[];
   promoCodes: string[];
   footnote: string | null;
-  date: string;
   passActivationDate: Date;
   establishmentBillingGroupId: number | null;
 };

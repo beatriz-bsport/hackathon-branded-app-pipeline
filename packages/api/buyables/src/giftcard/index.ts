@@ -1,5 +1,6 @@
 export {
   fetchGiftcardsAPI,
+  fetchGiftcardAPI,
   restoreGiftcardAPI,
   archiveGiftcardAPI,
   duplicateGiftcardAPI,

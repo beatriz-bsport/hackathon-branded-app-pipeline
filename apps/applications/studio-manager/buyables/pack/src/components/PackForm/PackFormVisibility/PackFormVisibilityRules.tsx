@@ -90,9 +90,12 @@ export const PackFormVisibilityRules: React.FC<
             name={config.field satisfies keyof PackFormData}
             key={key}
             mapProps={({ defaultProps }) => {
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              const { value, onChange, statusText, ...otherProps } =
-                defaultProps;
+              const {
+                value,
+                onChange,
+                statusText: _,
+                ...otherProps
+              } = defaultProps;
 
               if (config.reverseBoolean) {
                 return {

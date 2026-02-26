@@ -10,17 +10,17 @@ import { useTranslation } from "#src/utils/i18n";
 const EDIT_ACTION_ID = "edit";
 const DELETE_ACTION_ID = "delete";
 
-type NotificationActionsMenuProps = {
+type CampaignScheduledActionDropdownProps = {
   campaignId: number;
-  onEdit: (notificationId: number) => void;
-  onDelete: (notificationId: number) => void;
+  onEdit: (campaignId: number) => void;
+  onDelete: (campaignId: number) => void;
 };
 
 export const CampaignScheduledActionDropdown = ({
   onEdit,
   onDelete,
   campaignId,
-}: NotificationActionsMenuProps) => {
+}: CampaignScheduledActionDropdownProps) => {
   const { t } = useTranslation("campaign");
 
   const handleMenuItemClick = (itemId: string) => {

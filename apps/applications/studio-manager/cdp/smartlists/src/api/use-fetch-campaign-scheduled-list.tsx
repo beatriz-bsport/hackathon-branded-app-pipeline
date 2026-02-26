@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { campaignScheduledQueryOptions } from "./api";
+import { campaignScheduledListQueryOptions } from "./api";
 
 /**
  * Hook that combines automated campaigns with their analytics data
@@ -9,6 +9,6 @@ import { campaignScheduledQueryOptions } from "./api";
  * Joins the data by matching metadata.automated_campaign_id from campaign_sent
  * with the automated campaign id.
  */
-export const useFetchCampaignScheduled = (smartlistId: string) => {
-  return useSuspenseQuery(campaignScheduledQueryOptions(smartlistId));
+export const useFetchCampaignScheduledList = (smartlistId: string) => {
+  return useSuspenseQuery(campaignScheduledListQueryOptions(smartlistId));
 };

@@ -44,6 +44,11 @@ export const INSIGHT_ACCESS_REQUIREMENTS = {
     featureFlag: undefined,
     upsell: undefined,
   },
+  booking: {
+    permission: "report.Bookings.bookings.allowed_actions.read",
+    featureFlag: InsightFlags.BOOKING_INSIGHT,
+    upsell: undefined,
+  },
   schedule: {
     permission: "report.Bookings.bookings.allowed_actions.read",
     featureFlag: InsightFlags.SCHEDULE_ANALYSIS,
@@ -66,6 +71,7 @@ export const INSIGHT_IDS = Object.keys(
 export const useInsightFlagValues = (): Partial<Record<InsightId, boolean>> => {
   const hasTrialAnalysis = useInsightFlag(InsightFlags.TRIAL_ANALYSIS);
   const hasCommunityHealth = useInsightFlag(InsightFlags.COMMUNITY_HEALTH);
+  const hasBookingInsight = useInsightFlag(InsightFlags.BOOKING_INSIGHT);
   const hasScheduleAnalysis = useInsightFlag(InsightFlags.SCHEDULE_ANALYSIS);
 
   return useMemo(
@@ -73,9 +79,15 @@ export const useInsightFlagValues = (): Partial<Record<InsightId, boolean>> => {
       ({
         trial: hasTrialAnalysis,
         community_health: hasCommunityHealth,
+        booking: hasBookingInsight,
         schedule: hasScheduleAnalysis,
       }) satisfies Partial<Record<InsightId, boolean>>,
-    [hasTrialAnalysis, hasCommunityHealth, hasScheduleAnalysis],
+    [
+      hasTrialAnalysis,
+      hasCommunityHealth,
+      hasBookingInsight,
+      hasScheduleAnalysis,
+    ],
   );
 };
 

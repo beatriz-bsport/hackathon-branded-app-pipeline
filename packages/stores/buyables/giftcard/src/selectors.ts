@@ -7,8 +7,8 @@ export const selectGiftcards = (state: GiftcardState) => {
   return ids.map((id) => byId[id]);
 };
 
-export const selectGiftcard = (state: GiftcardState, id: number) =>
-  state.giftcards.byId[id];
+export const selectGiftcard = (state: GiftcardState, id?: number) =>
+  id ? state.giftcards.byId[id] : null;
 
 export const selectGiftcardsCount = (state: GiftcardState) =>
   state.giftcards.count;

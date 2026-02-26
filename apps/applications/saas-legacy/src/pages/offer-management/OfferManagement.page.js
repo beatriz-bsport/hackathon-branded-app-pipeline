@@ -270,6 +270,9 @@ export default compose(
       availableBuyableItems: getBuyableItem(state),
       // theme
       company_theme: themeSelectors.getTheme(state),
+      revampedBackofficeEnabled:
+        themeSelectors.getTheme(state)?.revamped_backoffice_enabled &&
+        state.auth?.has_enabled_revamped_backoffice,
       payment_method_available_manager:
         state.theme.theme.payment_method_available_manager,
       roomBlueprintById: state.spotScheduling.roomBlueprint.byId,

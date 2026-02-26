@@ -83,7 +83,8 @@
       "restore": "Restore",
       "delete": "Permanently delete",
       "label": "Shortcut actions"
-    }
+    },
+    "waitlist": "Waitlist"
   },
   "displaySettings": {
     "displayedColumns": {

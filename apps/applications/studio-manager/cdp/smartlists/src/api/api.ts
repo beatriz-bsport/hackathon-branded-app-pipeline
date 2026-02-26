@@ -1,16 +1,25 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { type PaginatedResponse, buildUrlParams } from "@bsport/store-base";
+import {
+  type PaginatedResponse,
+  buildUrlParams,
+  createErrorWithContext,
+} from "@bsport/store-base";
 
 import { fetch } from "#src/utils/fetch";
 
 import type {
   AutomatedCampaign,
+  BackgroundTaskStatusResponse,
   CampaignScheduled,
   CampaignSent,
+  CampaignSentPerformanceReport,
+  EmailTemplateDetail,
   FetchAutomatedCampaignsParams,
   FetchCampaignScheduledParams,
   FetchCampaignSentParams,
+  GenerateReportParams,
+  GenerateReportResult,
   Popup,
   Smartlist,
   Tag,
@@ -23,6 +32,7 @@ const COMMUNICATION_API_V1 = "communicate/v1";
 const CDP_API_V0 = "customer-data-platform/v0";
 const POPUPS_API_URL =
   "member-experience/v1/mobile_app/manager/custom_popup_links";
+const EMAIL_TEMPLATE_API_V1 = "customer-data-platform/v1/email_design";
 
 /**
  * Query Key Factory
@@ -44,7 +54,7 @@ export const smartlistKeys = {
   automatedCampaignDetail: (messageId: string) =>
     [...smartlistKeys.all, "automated-campaign", messageId] as const,
 
-  campaignSent: (
+  campaignSentList: (
     id: string,
     page: number,
     page_size: number,
@@ -64,20 +74,42 @@ export const smartlistKeys = {
       filters?.without_member_info ?? null,
     ] as const,
 
+  campaignSentDetail: (campaignUuid: string) =>
+    [...smartlistKeys.all, "campaign-sent", "detail", campaignUuid] as const,
+
+  campaignSentPerformanceReport: (campaignUuid: string) =>
+    [
+      ...smartlistKeys.all,
+      "campaign-sent",
+      "performance-report",
+      campaignUuid,
+    ] as const,
+
   tagRules: (id: string) => [...smartlistKeys.all, "tag-rules", id] as const,
 
   tags: () => [...smartlistKeys.all, "tags"] as const,
 
   tagGroups: () => [...smartlistKeys.all, "tagGroups"] as const,
 
-  campaignScheduled: (id: string) =>
+  campaignScheduledList: (id: string) =>
     [...smartlistKeys.detail(id), "scheduled-campaigns"] as const,
+
+  campaignScheduledDetail: (campaignScheduledId: string) =>
+    [
+      ...smartlistKeys.all,
+      "campaign-scheduled",
+      "detail",
+      campaignScheduledId,
+    ] as const,
 
   popupDetail: (popupId: number) =>
     [...smartlistKeys.all, "popup", popupId] as const,
 
   popupImages: (popupId: number, imageUrl: string) =>
     [...smartlistKeys.all, "popup-image", popupId, imageUrl] as const,
+
+  emailTemplateDetail: (emailTemplateId: number) =>
+    [...smartlistKeys.all, "email-template", emailTemplateId] as const,
 } as const;
 
 /**
@@ -103,7 +135,7 @@ const fetchAutomatedCampaigns = async (
   return data.results;
 };
 
-const fetchCampaignSent = async (
+const fetchCampaignSentList = async (
   params: FetchCampaignSentParams,
 ): Promise<PaginatedResponse<CampaignSent>> => {
   const urlParams = buildUrlParams({
@@ -122,6 +154,26 @@ const fetchCampaignSent = async (
   });
   const { data } = await fetch<PaginatedResponse<CampaignSent>>(
     `${COMMUNICATION_API_V1}/communication/communication_sent/${urlParams}`,
+  );
+
+  return data;
+};
+
+const fetchCampaignSent = async (
+  campaignUuid: string,
+): Promise<CampaignSent> => {
+  const { data } = await fetch<CampaignSent>(
+    `${COMMUNICATION_API_V1}/communication/communication_sent/${campaignUuid}/`,
+  );
+
+  return data;
+};
+
+const fetchCampaignSentPerformanceReport = async (
+  campaignUuid: string,
+): Promise<CampaignSentPerformanceReport> => {
+  const { data } = await fetch<CampaignSentPerformanceReport>(
+    `${COMMUNICATION_API_V1}/communication/communication_sent/${campaignUuid}/report/`,
   );
 
   return data;
@@ -158,7 +210,7 @@ const fetchTagGroups = async (): Promise<TagGroup[]> => {
   return data;
 };
 
-const fetchCampaignScheduled = async (
+const fetchCampaignScheduledList = async (
   params: FetchCampaignScheduledParams,
 ): Promise<CampaignScheduled[]> => {
   const urlParams = buildUrlParams({
@@ -172,6 +224,16 @@ const fetchCampaignScheduled = async (
   );
 
   return data.results;
+};
+
+const fetchCampaignScheduled = async (
+  campaignScheduledId: string,
+): Promise<CampaignScheduled> => {
+  const { data } = await fetch<CampaignScheduled>(
+    `${COMMUNICATION_API_V1}/communication/communication_scheduled/${campaignScheduledId}/`,
+  );
+
+  return data;
 };
 
 /**
@@ -198,6 +260,45 @@ const fetchPopupImage = async (imageUrl: string): Promise<File> => {
   return new File([data], filename, { type: data.type });
 };
 
+export async function generateCampaignReport(
+  params: GenerateReportParams,
+): Promise<GenerateReportResult> {
+  const searchParams = new URLSearchParams({
+    start_date: params.startDate,
+    end_date: params.endDate,
+  });
+
+  const { backgroundTaskUuid } = await fetch<BackgroundTaskStatusResponse>(
+    `${SMARTLIST_API_V1}/group/${params.smartlistId}/export-campaigns-background/?${searchParams.toString()}`,
+    {
+      method: "POST",
+    },
+  );
+
+  if (!backgroundTaskUuid) {
+    throw new Error("Missing background task id in response header");
+  }
+
+  return { backgroundTaskUuid };
+}
+
+export async function getBackgroundTaskStatus(
+  taskUuid: string,
+): Promise<BackgroundTaskStatusResponse> {
+  const { data } = await fetch<BackgroundTaskStatusResponse>(
+    `platform/v1/background_task/${taskUuid}`,
+    {
+      method: "GET",
+    },
+  );
+
+  if (!data) {
+    throw new Error("Failed to fetch background task status");
+  }
+
+  return data;
+}
+
 /**
  * Deletes a tag rule
  * @param id - ID of the tag rule to delete
@@ -206,6 +307,16 @@ export const deleteTagRule = async (id: number): Promise<void> => {
   await fetch(`${SMARTLIST_API_V1}/tagrules/${id}/`, {
     method: "DELETE",
   });
+};
+
+const fetchEmailTemplateDetail = async (
+  emailTemplateId: number,
+): Promise<EmailTemplateDetail> => {
+  const { data } = await fetch<EmailTemplateDetail>(
+    `${EMAIL_TEMPLATE_API_V1}/${emailTemplateId}/`,
+  );
+
+  return data;
 };
 
 /**
@@ -239,7 +350,7 @@ export const automatedCampaignsQueryOptions = (smartlistId: string) =>
       }),
   });
 
-export const campaignSentQueryOptions = ({
+export const campaignSentListQueryOptions = ({
   smartlist,
   page,
   page_size,
@@ -250,14 +361,14 @@ export const campaignSentQueryOptions = ({
   const currentPage = page ?? 1;
   const currentPageSize = page_size ?? 10;
   return queryOptions({
-    queryKey: smartlistKeys.campaignSent(
+    queryKey: smartlistKeys.campaignSentList(
       String(smartlist),
       currentPage,
       currentPageSize,
       { only_automated_campaign, no_automated_campaign, without_member_info },
     ),
     queryFn: () =>
-      fetchCampaignSent({
+      fetchCampaignSentList({
         smartlist,
         page: currentPage,
         page_size: currentPageSize,
@@ -265,6 +376,51 @@ export const campaignSentQueryOptions = ({
         no_automated_campaign,
         without_member_info,
       }),
+  });
+};
+
+export const campaignSentDetailQueryOptions = ({
+  campaignUuid,
+  onSuccess,
+}: {
+  campaignUuid: string;
+  onSuccess?: (data: CampaignSent) => void;
+}) => {
+  return queryOptions({
+    queryKey: smartlistKeys.campaignSentDetail(campaignUuid),
+    queryFn: async () => {
+      try {
+        const result = await fetchCampaignSent(campaignUuid);
+        onSuccess?.(result);
+        return result;
+      } catch (error) {
+        throw createErrorWithContext(error, {
+          message: "Failed to fetch campaign sent detail",
+          params: { campaignUuid },
+        });
+      }
+    },
+  });
+};
+
+export const campaignSentPerformanceReportQueryOptions = ({
+  campaignUuid,
+}: {
+  campaignUuid: string;
+}) => {
+  return queryOptions({
+    queryKey: smartlistKeys.campaignSentPerformanceReport(campaignUuid),
+    queryFn: async () => {
+      try {
+        const result = await fetchCampaignSentPerformanceReport(campaignUuid);
+        return result;
+      } catch (error) {
+        throw createErrorWithContext(error, {
+          message: "Failed to fetch campaign sent performance report",
+          params: { campaignUuid },
+        });
+      }
+    },
   });
 };
 
@@ -301,13 +457,29 @@ export const tagGroupsQueryOptions = () =>
  * And our investigations showed that most of the studios do not have near 10 camapign scheduled per smartlists so with 50 we are safe.
  * This can be easily updated tho if needed.
  */
-export const campaignScheduledQueryOptions = (smartlistId: string) =>
+export const campaignScheduledListQueryOptions = (smartlistId: string) =>
   queryOptions({
-    queryKey: smartlistKeys.campaignScheduled(smartlistId),
+    queryKey: smartlistKeys.campaignScheduledList(smartlistId),
     queryFn: () =>
-      fetchCampaignScheduled({
+      fetchCampaignScheduledList({
         smartlist_id__in: [Number(smartlistId)],
         page_size: 50,
         page: 1,
       }),
   });
+
+export const campaignScheduledDetailQueryOptions = (
+  campaignScheduledId: string,
+) => {
+  return queryOptions({
+    queryKey: smartlistKeys.campaignScheduledDetail(campaignScheduledId),
+    queryFn: () => fetchCampaignScheduled(campaignScheduledId),
+  });
+};
+
+export const emailTemplateDetailQueryOptions = (emailTemplateId: number) => {
+  return queryOptions({
+    queryKey: smartlistKeys.emailTemplateDetail(emailTemplateId),
+    queryFn: () => fetchEmailTemplateDetail(emailTemplateId),
+  });
+};

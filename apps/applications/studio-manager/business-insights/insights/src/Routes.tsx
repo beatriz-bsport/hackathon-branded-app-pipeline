@@ -11,6 +11,9 @@ const CommunityHealthPage = lazy(
 const RecurringRevenuePage = lazy(
   () => import("#src/pages/RecurringRevenuePage"),
 );
+const BookingsInsightPage = lazy(
+  () => import("#src/pages/BookingsInsightPage"),
+);
 const ScheduleAnalysisPage = lazy(
   () => import("#src/pages/ScheduleAnalysisPage"),
 );
@@ -22,6 +25,7 @@ export const AppRoutes = () => {
       <Route element={<TrialAnalysisPage />} path={URLS.TRIAL_ANALYSIS} />
       <Route element={<CommunityHealthPage />} path={URLS.COMMUNITY_HEALTH} />
       <Route element={<RecurringRevenuePage />} path={URLS.RECURRING_REVENUE} />
+      <Route element={<BookingsInsightPage />} path={URLS.BOOKING_INSIGHT} />
       <Route element={<ScheduleAnalysisPage />} path={URLS.SCHEDULE_ANALYSIS} />
       <Route element={<Navigate to=".." />} path="*" />
     </Routes>

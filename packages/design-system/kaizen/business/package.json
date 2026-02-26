@@ -43,7 +43,12 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-cdp": "workspace:*",
     "@bsport/api-core": "workspace:*",
+    "@bsport/store-base": "workspace:*",
+    "@bsport/store-core-data-member": "workspace:*",
+    "@bsport/use-debounce": "workspace:*",
+    "@tanstack/react-query": "^5.90.12",
     "clsx": "^2.1.1"
   },
   "devDependencies": {

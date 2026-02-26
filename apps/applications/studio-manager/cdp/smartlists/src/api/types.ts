@@ -1,4 +1,10 @@
-import type { CommunicationKind, EventKind, TagRuleKind } from "./constants";
+import type {
+  BackgroundTaskStatus,
+  CommunicationKind,
+  CommunicationStatus,
+  EventKind,
+  TagRuleKind,
+} from "./constants";
 
 /**
  * Smartlist type from the API
@@ -70,6 +76,8 @@ export type CampaignSent = {
   total_click: number;
   date_created: string;
   kind: CommunicationKind;
+  status: CommunicationStatus;
+  has_been_read: boolean;
   title?: string;
   text?: string;
   sms_text?: string;
@@ -200,4 +208,53 @@ export type CampaignScheduled = {
   // Deprecated but present in API
   email_resend_delay: number;
   email_resend_count: number;
+};
+
+export type GenerateReportParams = {
+  smartlistId: string;
+  startDate: string; // format yyyy-MM-dd
+  endDate: string; // format yyyy-MM-dd
+};
+
+export type GenerateReportResult = {
+  backgroundTaskUuid: string; // Id that should be used for the polling of the background task result
+};
+
+export type BackgroundTaskStatusResponse = {
+  return_value: string | object;
+  status: BackgroundTaskStatus;
+  task_name: string;
+  uuid: string;
+};
+
+/**
+ * Email Template Detail type from the API
+ * Model: EmailDesign
+ * Serializer: EmailDesignSerializer
+ * Endpoint: GET /api/v0/email_design/email_detail/{emailTemplateId}/
+ */
+export type EmailTemplateDetail = {
+  design: string;
+  html: string;
+  franchisor_id?: number;
+  available: boolean;
+  available_for_companies: number[];
+  category: number | null;
+  company_id: number | null;
+  date_modified: string;
+  id: number;
+  is_default_bsport_template: boolean;
+  ordering_in_category: number;
+  subject: string;
+  title: string;
+};
+
+export type CampaignSentPerformanceReport = {
+  delivery_count: number;
+  last_open: string;
+  top_links: { [key: string]: number };
+  /** @deprecated - do not use */
+  planned_resends: number;
+  /** @deprecated - do not use */
+  resent_on: string;
 };

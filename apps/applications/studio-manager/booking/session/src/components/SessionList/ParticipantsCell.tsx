@@ -1,6 +1,8 @@
 import React from "react";
 
-import { Body, Icon } from "@bsport/kaizen-primitive-core";
+import { Body, Icon, Tooltip } from "@bsport/kaizen-primitive-core";
+
+import { useTranslation } from "#src/utils/i18n";
 
 type ParticipantsCellProps = {
   nb_bookings: number;
@@ -15,23 +17,28 @@ export const ParticipantsCell: React.FC<ParticipantsCellProps> = ({
   nb_option,
   waiting_list_max_size,
   available,
-}) => (
-  <div className="flex gap-sm items-center">
-    <Body
-      htmlVariant="p"
-      size="md"
-      className="lg:w-2xl"
-      color={available ? "inherit" : "weak"}
-    >
-      {`${nb_bookings} / ${effectif}`}
-    </Body>
-    {available && (
-      <div className="flex items-center text-onsurface-weak lg:gap-xs">
-        <Icon icon="hourglass-03" size="sm" />
-        <Body htmlVariant="p" size="md" color="weak">
-          {`${nb_option} / ${waiting_list_max_size}`}
-        </Body>
-      </div>
-    )}
-  </div>
-);
+}) => {
+  const { t } = useTranslation("sessionList");
+  return (
+    <div className="flex gap-sm items-center">
+      <Body
+        htmlVariant="p"
+        size="md"
+        className="lg:w-2xl"
+        color={available ? "inherit" : "weak"}
+      >
+        {`${nb_bookings} / ${effectif}`}
+      </Body>
+      {available && (
+        <div className="flex items-center text-onsurface-weak lg:gap-xs">
+          <Tooltip label={t("table.waitlist")} placement="bottom">
+            <Icon icon="hourglass-03" size="sm" />
+          </Tooltip>
+          <Body htmlVariant="p" size="md" color="weak">
+            {`${nb_option} / ${waiting_list_max_size}`}
+          </Body>
+        </div>
+      )}
+    </div>
+  );
+};

@@ -282,6 +282,23 @@ export async function generateCampaignReport(
   return { backgroundTaskUuid };
 }
 
+export async function exportCampaignAsync(
+  campaignUuid: string,
+): Promise<{ backgroundTaskUuid: string }> {
+  const { backgroundTaskUuid } = await fetch<BackgroundTaskStatusResponse>(
+    `${COMMUNICATION_API_V1}/communication/communication_sent/${campaignUuid}/export-campaign-async/`,
+    {
+      method: "POST",
+    },
+  );
+
+  if (!backgroundTaskUuid) {
+    throw new Error("Missing background task id in response");
+  }
+
+  return { backgroundTaskUuid };
+}
+
 export async function getBackgroundTaskStatus(
   taskUuid: string,
 ): Promise<BackgroundTaskStatusResponse> {

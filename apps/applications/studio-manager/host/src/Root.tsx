@@ -36,7 +36,7 @@ const MemberList = lazy(() => import("sm-member-list/App"));
 const Teacher = lazy(() => import("sm-teacher/App"));
 
 // ----- Financial Services -----
-const Invoice = lazy(() => import("sm-invoice/App"));
+const Invoice = lazy(() => import("@bsport/sm-invoice"));
 
 // ----- Customer Data Platform -----
 const EmailTemplate = lazy(() => import("sm-email-template/App"));

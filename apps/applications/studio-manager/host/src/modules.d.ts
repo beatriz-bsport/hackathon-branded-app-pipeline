@@ -70,12 +70,6 @@ declare module "sm-teacher/App" {
   export default App;
 }
 
-// ----- Financial Services -----
-declare module "sm-invoice/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
 // ----- Customer Data Platform -----
 declare module "sm-email-template/App" {
   const App: BaseApp["App"];

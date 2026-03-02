@@ -5,9 +5,11 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { CommunicationKind } from "#src/api/constants";
 import { StreamlinedCommunicationStatus } from "#src/utils/types";
 
+import { QueryBoundary } from "../QueryBoundary";
 import { CampaignSentContentPreview } from "./CampaignSentContentPreview";
 import { CampaignSentMetadataBanner } from "./CampaignSentMetadataBanner";
 import { CampaignSentPerformance } from "./CampaignSentPerformance";
+import { CampaignSentRecipientTable } from "./CampaignSentRecipientTable";
 
 export type CampaignSentDetailsProps = {
   campaignUuid: string;
@@ -52,24 +54,34 @@ export const CampaignSentDetails = ({
         campaignTotalRecipients={campaignTotalRecipients}
         onPreview={() => setIsContentPreviewOpen(true)}
       />
-      <CampaignSentPerformance
-        campaignUuid={campaignUuid}
-        deliveryRate={performance.deliveryRate}
-        openRate={performance.openRate}
-        clickRate={performance.clickRate}
-        unsubscribedRate={performance.unsubscribedRate}
-        totalRecipients={campaignTotalRecipients}
-        totalOpened={performance.totalOpened}
-        totalClicked={performance.totalClicked}
-        totalUnsubscribed={performance.totalUnsubscribed}
-      />
-      <CampaignSentContentPreview
-        open={isContentPreviewOpen}
-        onClose={() => setIsContentPreviewOpen(false)}
-        campaignKind={campaignKind}
-        campaignContent={campaignContent}
-        companyName={companyTheme?.company_name || ""}
-      />
+      <QueryBoundary>
+        <CampaignSentPerformance
+          campaignUuid={campaignUuid}
+          deliveryRate={performance.deliveryRate}
+          openRate={performance.openRate}
+          clickRate={performance.clickRate}
+          unsubscribedRate={performance.unsubscribedRate}
+          totalRecipients={campaignTotalRecipients}
+          totalOpened={performance.totalOpened}
+          totalClicked={performance.totalClicked}
+          totalUnsubscribed={performance.totalUnsubscribed}
+        />
+      </QueryBoundary>
+      <QueryBoundary>
+        <CampaignSentRecipientTable
+          campaignUuid={campaignUuid}
+          campaignKind={campaignKind}
+        />
+      </QueryBoundary>
+      <QueryBoundary>
+        <CampaignSentContentPreview
+          open={isContentPreviewOpen}
+          onClose={() => setIsContentPreviewOpen(false)}
+          campaignKind={campaignKind}
+          campaignContent={campaignContent}
+          companyName={companyTheme?.company_name || ""}
+        />
+      </QueryBoundary>
     </div>
   );
 };

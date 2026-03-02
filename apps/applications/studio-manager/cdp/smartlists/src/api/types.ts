@@ -1,6 +1,7 @@
 import type {
   BackgroundTaskStatus,
   CommunicationKind,
+  CommunicationRecipientStatus,
   CommunicationStatus,
   EventKind,
   TagRuleKind,
@@ -258,4 +259,32 @@ export type CampaignSentPerformanceReport = {
   planned_resends: number;
   /** @deprecated - do not use */
   resent_on: string;
+};
+
+export type FetchCampaignRecipientParams = {
+  campaign: string; // campaign_id (UUID string)
+  page?: number;
+  page_size?: number;
+};
+
+export type CampaignRecipient = {
+  id: number;
+  communication_sent: number;
+  has_been_read: boolean;
+  is_answer: boolean;
+  member: number; // member_id
+  sms_error_code: string | null;
+  sms_extra_segments_billed: boolean;
+  sms_num_segments: number | null;
+  campaign: string; // campaign_uuid
+  email: string;
+  phonenumber: string;
+  sms_message_sid: string;
+  last_read: number;
+  links_opened: string[];
+  links_opened_count: number;
+  number_of_resends: number;
+  read_count: number;
+  spam_report: boolean;
+  status: CommunicationRecipientStatus;
 };

@@ -105,7 +105,7 @@ export const useGiftcardFormSchema = () => {
       description: z
         .string()
         .min(FIELD_CONSTRAINTS.TEXTFIELD_MIN_LENGTH, requiredErrorMessage),
-      cover: z.instanceof(File).nullable(),
+      cover: z.custom<string | File>().nullable(),
       tags_on_consumer_item_creation: z.array(z.number()),
       bookkeeping_account: z.number().nullable(),
     })

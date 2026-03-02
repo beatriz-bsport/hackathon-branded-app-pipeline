@@ -4,12 +4,13 @@ export {
   restoreGiftcardAPI,
   archiveGiftcardAPI,
   duplicateGiftcardAPI,
+  createGiftcardAPI,
+  updateGiftcardAPI,
   fetchGiftcardBackgroundListAPI,
   fetchGiftcardImagesAPI,
   restoreGiftcardImageAPI,
   archiveGiftcardImageAPI,
   uploadGiftcardImageAPI,
-  createGiftcardAPI,
 } from "./api";
 export {
   GIFTCARD_TYPES,

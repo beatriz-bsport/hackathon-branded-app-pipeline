@@ -9,6 +9,7 @@ import {
   fetchGiftcardAPI,
   fetchGiftcardsAPI,
   restoreGiftcardAPI,
+  updateGiftcardAPI,
 } from "@bsport/api-buyables";
 import type { Action, PaginatedResponse, XhrAction } from "@bsport/store-base";
 import { createErrorWithContext } from "@bsport/store-base";
@@ -156,6 +157,28 @@ export const createGiftcardAction: XhrAction<FormData, Giftcard> = async (
     (error) =>
       createErrorWithContext(error, {
         message: "Failed to create giftcard",
+      }),
+  );
+};
+
+/**
+ * Update a Giftcard with the provided data in the FormData params
+ */
+export const updateGiftcardAction: XhrAction<
+  { id: number; data: FormData },
+  Giftcard
+> = async (xhr, params) => {
+  return Result.try(
+    async () => {
+      const data = await updateGiftcardAPI(xhr, params);
+
+      updateGiftcard(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to update giftcard ${params.id}`,
       }),
   );
 };

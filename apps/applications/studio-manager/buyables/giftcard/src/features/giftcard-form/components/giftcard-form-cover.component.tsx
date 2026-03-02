@@ -71,7 +71,9 @@ export const GiftcardFormCover: FC<GiftcardFormCoverProps> = ({
           handleUploadFile: async (file) => {
             // Create a url to preview the file
             const fileUrl = createUrl(file);
-            form.setValue("cover", file);
+            form.setValue("cover", file, {
+              shouldDirty: true,
+            });
 
             // Add loading animation (the cover is updated asynchronously)
             await new Promise((r) => setTimeout(r, 300));

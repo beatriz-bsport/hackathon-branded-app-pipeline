@@ -4,6 +4,7 @@ import {
   type Giftcard,
 } from "@bsport/store-buyables-giftcard";
 
+import { GIFTCARD_FORM_DATA_DEFAULT } from "./constants";
 import type { GiftcardFormData } from "./types";
 
 /**
@@ -82,11 +83,17 @@ export function transformFormStateIntoAPIData(
 export function transformGiftcardIntoFormState(
   giftcard: Giftcard,
 ): GiftcardFormData {
-  const { price, ...otherFields } = giftcard;
+  const { price, min_price, max_price, ...otherFields } = giftcard;
   return {
     ...otherFields,
     price:
-      price != null && typeof price === "string" ? parseInt(price, 10) : null,
+      price != null && typeof price === "string"
+        ? parseInt(price, 10)
+        : GIFTCARD_FORM_DATA_DEFAULT.price,
+    min_price:
+      min_price != null ? min_price : GIFTCARD_FORM_DATA_DEFAULT.min_price,
+    max_price:
+      max_price != null ? max_price : GIFTCARD_FORM_DATA_DEFAULT.max_price,
     hasCustomPrice: giftcard.card_type === GIFTCARD_TYPES.CUSTOM,
     hasExpirationDays: giftcard.expiration_days != null,
   };

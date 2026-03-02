@@ -5,9 +5,15 @@ import { DetailsLayout, useDetailsLayout } from "@bsport/kaizen-primitive-core";
 import { Giftcard } from "@bsport/store-buyables-giftcard";
 
 import { GiftcardEditorHeader } from "#src/features/giftcard-editor-header";
+import { GiftcardEditorContent } from "#src/features/giftcard-editor/giftcard-editor-content";
+import { GiftcardEditorPanel } from "#src/features/giftcard-editor/giftcard-editor-panel";
 import { useGiftcardFormSchema } from "#src/features/giftcard-form/schema";
 import type { GiftcardFormSchema } from "#src/features/giftcard-form/types";
-import { transformGiftcardIntoFormState } from "#src/features/giftcard-form/utils";
+import {
+  transformFormStateIntoAPIData,
+  transformGiftcardIntoFormState,
+} from "#src/features/giftcard-form/utils";
+import { useUpdateGiftcard } from "#src/hooks/api/use-update-giftcard";
 
 type GiftcardEditorPageProps = {
   giftcard: Giftcard;
@@ -33,6 +39,13 @@ export const GiftcardEditorPage: FC<GiftcardEditorPageProps> = ({
 
   // ========== CONFIRMATION ==========
 
+  const { updateGiftcard, isUpdating } = useUpdateGiftcard({
+    onSuccess: (giftcard) => {
+      // Reset default state form with latest giftcard data
+      methods.reset(transformGiftcardIntoFormState(giftcard));
+    },
+  });
+
   const isDirty = methods.formState.isDirty;
 
   useEffect(() => {
@@ -46,22 +59,34 @@ export const GiftcardEditorPage: FC<GiftcardEditorPageProps> = ({
 
   const saveChanges = async () => {
     const formIsOkay = await methods.trigger();
+
+    if (isUpdating) {
+      console.warn("[Form] New values are being processed");
+      return;
+    }
+
     if (!formIsOkay) {
       console.warn("[Form] Invalid:", {
         errors: methods.formState.errors,
       });
       return;
     }
-    // @todo In future PR, plug it to update endpoint
-    console.info("[Form] Everything okay !");
+
+    const formValues = methods.getValues();
+    updateGiftcard({
+      id: giftcard.id,
+      data: transformFormStateIntoAPIData(formValues),
+    });
   };
 
   return (
     <ControlledForm {...methods} onSubmit={() => {}} id={formId}>
-      <DetailsLayout {...detailsLayoutProps} withPanel={false}>
+      <DetailsLayout {...detailsLayoutProps} withPanel={true}>
         <GiftcardEditorHeader giftcard={giftcard} methods={methods} />
 
-        <DetailsLayout.Content>{giftcard.name}</DetailsLayout.Content>
+        <GiftcardEditorContent formId={formId} methods={methods} />
+
+        <GiftcardEditorPanel formId={formId} />
 
         <DetailsLayout.Confirmation
           onDiscard={discardChanges}

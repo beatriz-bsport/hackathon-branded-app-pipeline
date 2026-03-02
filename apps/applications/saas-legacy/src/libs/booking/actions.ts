@@ -36,6 +36,7 @@ import {
   updateOfferWithCancelledBookingsToRetry as updateOfferWithCancelledBookingsToRetryAPI,
   setSpotForMember,
   refundBooking as refundBookingAPI,
+  swapBookingPass as swapBookingPassAPI,
 } from './api';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
@@ -200,6 +201,19 @@ export const setSpotForBooking = (
   options?: OptionCallback,
 ) => {
   return updateBooking(id, { spot_id }, options, setSpotForMember);
+};
+
+export const swapBookingPass = (
+  id: number,
+  consumer_payment_pack_id: number,
+  options?: OptionCallback,
+) => {
+  return updateBooking(
+    id,
+    { consumer_payment_pack_id },
+    options,
+    swapBookingPassAPI,
+  );
 };
 
 export const discardAttendance = (id: number, options?: OptionCallback) =>

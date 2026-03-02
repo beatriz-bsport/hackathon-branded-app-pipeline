@@ -34,6 +34,7 @@
     "@bsport/sentry": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/sm-custom-form": "workspace:*",
+    "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
     "luxon": "^3.4.4",
@@ -85,10 +86,6 @@
       "sm-group-activity": {
         "devPort": 4200,
         "watchPath": "../booking/group-activity/src/**/*"
-      },
-      "sm-invoice": {
-        "devPort": 4250,
-        "watchPath": "../financial-services/invoice/src/**/*"
       },
       "sm-email-template": {
         "devPort": 4300,

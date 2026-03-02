@@ -12,6 +12,7 @@ import {
   Icon,
   Table,
   Tooltip,
+  toast,
 } from "@bsport/kaizen-primitive-core";
 
 import { CommunicationKind, EventKind } from "#src/api/constants";
@@ -20,9 +21,11 @@ import {
   type AutomatedCampaignWithAnalytics,
   useAutomatedCampaignAnalytics,
 } from "#src/api/use-automated-campaign-analytics";
+import { useExportCampaign } from "#src/api/use-export-campaign";
 import { DeleteAutomationModal } from "#src/components/DeleteAutomationModal";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
+import { downloadFileFromUrl } from "#src/utils/utils";
 
 type AutomationPageContext = {
   smartlistId: string;
@@ -43,6 +46,14 @@ const COLUMN_IDS = {
   ACTIONS: "actions",
 };
 
+const INLINE_ACTIONS = {
+  EXPORT: "export",
+  EDIT: "edit",
+  DELETE: "delete",
+};
+
+const TOAST_TIMEOUT = 3000;
+
 export const MessagesSection = (
   { compact }: { compact?: boolean } = { compact: false },
 ) => {
@@ -56,6 +67,34 @@ export const MessagesSection = (
   const [automationToDelete, setAutomationToDelete] = useState<TableRow | null>(
     null,
   );
+
+  const exportCampaign = useExportCampaign({
+    onSuccess: (cdnUrl) => {
+      downloadFileFromUrl(cdnUrl, {
+        onSuccess: () => {
+          toast({
+            status: "positive",
+            icon: "download-01",
+            description: t("automation.messages.toasts.success.exported"),
+          });
+        },
+        onError: () => {
+          toast({
+            status: "critical",
+            icon: "alert-circle",
+            description: t("automation.messages.toasts.error.exportFailed"),
+          });
+        },
+      });
+    },
+    onError: () => {
+      toast({
+        status: "critical",
+        icon: "alert-circle",
+        description: t("automation.messages.toasts.error.exportFailed"),
+      });
+    },
+  });
 
   const handleCloseDeleteModal = () => {
     setAutomationToDelete(null);
@@ -212,26 +251,50 @@ export const MessagesSection = (
         render: (row) => {
           const items: DropdownMenuItems = [
             {
-              id: "edit",
+              id: INLINE_ACTIONS.EDIT,
               label: t("automation.messages.actions.edit"),
               iconLeft: "edit-02",
             },
             {
-              id: "delete",
+              id: INLINE_ACTIONS.DELETE,
               label: t("automation.messages.actions.delete"),
               iconLeft: "trash-01",
             },
           ];
+
+          if (
+            row.communication_kind === CommunicationKind.EMAIL &&
+            row.campaign_sent_uuid !== null
+          ) {
+            items.push({
+              id: INLINE_ACTIONS.EXPORT,
+              label: t("automation.messages.actions.export"),
+              iconLeft: "download-01",
+            });
+          }
 
           return (
             <DropdownMenu
               items={items}
               onSelectOption={({ setIsPopoverOpened, id }) => {
                 setIsPopoverOpened(false);
-
-                if (id === "delete") {
+                if (id === INLINE_ACTIONS.EXPORT) {
+                  invariant(
+                    row.campaign_sent_uuid !== null,
+                    "Export only available for rows with campaign_sent_uuid",
+                  );
+                  toast({
+                    status: "default",
+                    icon: "send-01",
+                    description: t(
+                      "automation.messages.toasts.info.exportPending",
+                    ),
+                    duration: TOAST_TIMEOUT,
+                  });
+                  exportCampaign.mutate(row.campaign_sent_uuid);
+                } else if (id === INLINE_ACTIONS.DELETE) {
                   setAutomationToDelete(row);
-                } else if (id === "edit") {
+                } else if (id === INLINE_ACTIONS.EDIT) {
                   navigate(`/${smartlistId}/automation/message/${row.id}`);
                 } else {
                   invariant(false, `Unhandled action id: ${id}`);
@@ -268,7 +331,7 @@ export const MessagesSection = (
 
     // we should't add t as dependency, instead we add the language
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [i18n.language, navigate, smartlistId, compact]);
+  }, [i18n.language, navigate, smartlistId, compact, exportCampaign.mutate]);
 
   const rows: TableRow[] = useMemo(
     () =>

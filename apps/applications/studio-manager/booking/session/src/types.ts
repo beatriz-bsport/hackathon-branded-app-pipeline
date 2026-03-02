@@ -34,6 +34,8 @@ export enum Columns {
   ESTABLISHMENT = "establishment",
   SESSION_TYPE = "sessionType",
   ACTIONS = "actions",
+  ATTENDANCE = "attendance", // For mobile only, this column is grouped with actions column on desktop
+  MOBILE_ACTIONS = "mobile_actions", // For mobile only, this column is grouped with actions column on desktop
 }
 
 export enum CalendarView {

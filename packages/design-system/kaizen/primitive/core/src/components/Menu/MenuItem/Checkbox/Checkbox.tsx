@@ -3,6 +3,7 @@ import classNames from "classnames";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 
 import Avatar from "#src/components/Avatar";
+import Body from "#src/components/Body";
 import { CheckboxSVG } from "#src/components/Checkbox";
 import Icon from "#src/components/Icon";
 import Indicator from "#src/components/Menu/MenuItem/Indicator";
@@ -11,6 +12,8 @@ import {
   menuItemVariants,
 } from "#src/components/Menu/MenuItem/constants";
 import { CheckBox as CheckBoxType } from "#src/components/Menu/MenuItem/types";
+
+import { MenuItemLayout } from "../MenuItemLayout";
 
 const checkbox = cva(defaultMenuItemClasses, {
   variants: menuItemVariants,
@@ -144,13 +147,14 @@ const Checkbox: React.FC<CheckboxProps> = ({
         />
         <CheckboxSVG value={value} />
       </div>
-      <div className="flex items-center justify-between w-full">
-        <div className="flex gap-xs items-center">
-          {leftSlot ?? renderedAvatar ?? renderedIcon}
-          <span>{label}</span>
-        </div>
-        {rightSlot ?? null}
-      </div>
+
+      <MenuItemLayout
+        label={<Body htmlVariant="span">{label}</Body>}
+        startSlot={leftSlot}
+        avatar={renderedAvatar}
+        icon={renderedIcon}
+        endSlot={rightSlot}
+      />
     </label>
   );
 };

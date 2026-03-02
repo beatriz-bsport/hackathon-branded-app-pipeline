@@ -13,7 +13,6 @@ import { useAsync } from "@bsport/use-async";
 import {
   DEFAULT_PAGE,
   DEFAULT_PAGE_SIZE,
-  usePaginationQueryParams,
 } from "@bsport/use-pagination-query-params";
 
 import { useFormatCommunicationRecipients } from "#src/hooks/layout/use-format-communication-recipients";
@@ -42,12 +41,15 @@ const fetchCommunicationRecipientsBound =
  */
 export function useFetchCommunicationRecipients({
   communicationObjectId,
+  currentPage,
+  currentPageSize,
+  setPageSettings,
 }: {
   communicationObjectId?: number;
+  currentPage: number;
+  currentPageSize: number;
+  setPageSettings: (page: number, pageSize: number) => void;
 }) {
-  const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams();
-
   const [, fetchCommunicationRecipients] = useAsync<
     typeof fetchCommunicationRecipientsBound
   >({
@@ -106,14 +108,8 @@ export function useFetchCommunicationRecipients({
     fetchCommunicationSentPaginated,
   ]);
 
-  useEffect(() => {
-    return () => {
-      setPageSettings(DEFAULT_PAGE, DEFAULT_PAGE_SIZE);
-    };
-  }, [communicationObjectId]);
-
   const paginationParams: PaginationProps | undefined =
-    communicationSentCount > currentPageSize
+    communicationSentCount > (currentPageSize ?? DEFAULT_PAGE_SIZE)
       ? {
           currentPage,
           rowsPerPage: currentPageSize,

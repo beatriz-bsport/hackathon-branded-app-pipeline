@@ -1,7 +1,7 @@
 import { FetchGroupActivitiesParams } from "@bsport/api-book";
 import {
   fetchGroupActivitiesAndWorkshopsAction,
-  searchGroupActivitiesAction,
+  searchGroupActivitiesAndWorkshopsAction,
 } from "@bsport/store-booking-group-activity";
 import { useAsync } from "@bsport/use-async";
 
@@ -26,7 +26,7 @@ export const useFetchGroupActivities = () => {
     query: string,
     params?: FetchGroupActivitiesParams,
   ) => {
-    return await searchGroupActivitiesAction(fetch, {
+    return await searchGroupActivitiesAndWorkshopsAction(fetch, {
       searchQuery: query,
       ...params,
     });

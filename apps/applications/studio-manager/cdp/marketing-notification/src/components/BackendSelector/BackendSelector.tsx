@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import {
   Autocomplete,
+  AutocompleteItems,
   type AutocompleteProps,
+  MenuOptionWithColor,
   type TextFieldProps,
 } from "@bsport/kaizen-primitive-core";
 
@@ -30,7 +32,7 @@ export type BackendSelectorProps<TParams, TResult> = {
    * @param results - Array of search results from store
    * @returns Array of autocomplete items with id, label, and optional description
    */
-  optionsFormatter?: (results: TResult[]) => AutocompleteProps["items"];
+  optionsFormatter?: (results: TResult[]) => AutocompleteItems;
 
   /**
    * Props to customize the underlying text field component.
@@ -74,6 +76,11 @@ export type BackendSelectorProps<TParams, TResult> = {
   multiSelect?: boolean;
 };
 
+const isGroupItems = (
+  items: AutocompleteItems,
+): items is { title: string; options: MenuOptionWithColor[] }[] =>
+  Array.isArray(items) && items.length > 0 && "options" in items[0];
+
 /**
  * A generic backend selector component that provides search functionality
  * through Zustand store data injection with optional API triggers.
@@ -104,9 +111,15 @@ export const BackendSelector = <
 }: BackendSelectorProps<TParams, TResult>) => {
   const { t } = useTranslation("marketingNotificationList");
   const [searchInput, setSearchInput] = useState("");
+  const [cachedSelectedItems, setCachedSelectedItems] =
+    useState<AutocompleteItems>([]);
+
+  // Track if component has initialized and if we've seen the first onSelect call
+  const isInitializedRef = useRef(false);
+  const hasSeenFirstSelectRef = useRef(false);
 
   // Use the generic search hook
-  const { results, isLoading, isHydrating } = useGenericSearch<
+  const { results, isLoading, isAutocompleteReady } = useGenericSearch<
     TParams,
     TResult
   >({
@@ -117,12 +130,42 @@ export const BackendSelector = <
     },
   });
 
-  // Memoized function to compute autocomplete items
-  const formatResults = (results: TResult[]): AutocompleteProps["items"] => {
+  const formatResults = (results: TResult[]): AutocompleteItems => {
+    // Create a set of IDs from cachedSelectedItems for fast lookup
+    const cachedSelectedIds = new Set(
+      cachedSelectedItems.flatMap((item) =>
+        "options" in item ? item.options.map((opt) => opt.id) : [item.id],
+      ),
+    );
+
     if (optionsFormatter) {
-      return optionsFormatter(results);
+      const formattedResults = optionsFormatter(results);
+
+      if (isGroupItems(formattedResults)) {
+        // Keep group structure; inside each group, filter options to exclude ids in cachedSelectedIds
+        const filtered: { title: string; options: MenuOptionWithColor[] }[] =
+          formattedResults.map((item) => ({
+            title: item.title,
+            options: item.options.filter(
+              (option) => !cachedSelectedIds.has(option.id),
+            ),
+          }));
+        const cached: { title: string; options: MenuOptionWithColor[] }[] =
+          isGroupItems(cachedSelectedItems) ? cachedSelectedItems : [];
+        return [...filtered, ...cached];
+      }
+
+      // Flat items branch
+      const filtered = formattedResults.filter(
+        (item) => !cachedSelectedIds.has(item.id),
+      );
+      const cached: MenuOptionWithColor[] = isGroupItems(cachedSelectedItems)
+        ? []
+        : cachedSelectedItems;
+      return [...filtered, ...cached];
     }
-    return results.map((result) => {
+
+    const formattedResults: MenuOptionWithColor[] = results.map((result) => {
       const item = result as SearchResultItem;
       return {
         id: item.id?.toString() || "",
@@ -130,13 +173,129 @@ export const BackendSelector = <
         description: item?.subject || item?.description || "",
       };
     });
-  };
 
+    const filtered = formattedResults.filter(
+      (item) => !cachedSelectedIds.has(item.id),
+    );
+    const cached: MenuOptionWithColor[] = isGroupItems(cachedSelectedItems)
+      ? []
+      : cachedSelectedItems;
+    return [...filtered, ...cached];
+  };
   const itemsList = formatResults(results);
 
-  if (isHydrating) {
-    return <div className={className}>Loading...</div>; // Placeholder while hydrating
-  }
+  // Compute valid default selected IDs - only include IDs that are actually in the items list
+  // This prevents race conditions where defaultValues are set before items are loaded
+  const validDefaultSelectedIds = useMemo(() => {
+    if (!defaultValues || defaultValues.length === 0) {
+      return undefined;
+    }
+
+    // Create a set of available item IDs for fast lookup
+    const availableIds = new Set(
+      itemsList.flatMap((item) =>
+        "options" in item ? item.options.map((opt) => opt.id) : [item.id],
+      ),
+    );
+
+    // Filter defaultValues to only include IDs that are present in itemsList
+    const validIds = defaultValues.filter((id) => availableIds.has(id));
+
+    // Only return if we have valid IDs and hydration is complete
+    // If hydration is still in progress, return undefined to prevent premature selection
+    return !isAutocompleteReady && validIds.length > 0 ? validIds : undefined;
+  }, [defaultValues, itemsList, isAutocompleteReady]);
+
+  // Mark as initialized once hydration completes
+  useEffect(() => {
+    if (!isAutocompleteReady) {
+      isInitializedRef.current = true;
+    }
+  }, [isAutocompleteReady]);
+
+  // Wrapper for onSelect that prevents the initial empty array call during initialization
+  const handleSelect = (value: string | string[]) => {
+    if (!onSelect || isAutocompleteReady) {
+      return;
+    }
+
+    // Check if this is an empty value (empty string or empty array)
+    const isEmpty =
+      value === "" || (Array.isArray(value) && value.length === 0);
+    const isArray = Array.isArray(value);
+    // If component is initialized and this is the first call with empty value, ignore it
+    // This prevents the race condition where Autocomplete calls onSelect with [] during initialization
+    if (isInitializedRef.current && !hasSeenFirstSelectRef.current && isEmpty) {
+      hasSeenFirstSelectRef.current = true;
+      return;
+    }
+
+    // Mark that we've seen a select call
+    hasSeenFirstSelectRef.current = true;
+
+    // Only call onSelect if component is initialized
+    if (isInitializedRef.current) {
+      onSelect(value);
+      const resolveItemById = (itemId: string) => {
+        for (const item of itemsList) {
+          if ("id" in item && item.id === itemId) return item;
+          if ("options" in item) {
+            const opt = item.options.find((o) => o.id === itemId);
+            if (opt) {
+              return {
+                id: opt.id,
+                label: opt.label,
+              } as AutocompleteProps["items"][number];
+            }
+          }
+        }
+        return undefined;
+      };
+      if (isArray) {
+        const selectedItems = value
+          .map(resolveItemById)
+          .filter(
+            (item): item is NonNullable<typeof item> => item !== undefined,
+          );
+
+        setCachedSelectedItems((prev) => {
+          // Create a set of existing item IDs for fast lookup
+          const existingIds = new Set(
+            prev.flatMap((item) =>
+              "options" in item ? item.options.map((opt) => opt.id) : [item.id],
+            ),
+          );
+
+          // Filter out items that already exist
+          const newItems = selectedItems.filter(
+            (item) => "id" in item && !existingIds.has(item.id),
+          );
+
+          return [...prev, ...newItems] as AutocompleteProps["items"];
+        });
+      } else {
+        const selectedItem = resolveItemById(value);
+        if (selectedItem) {
+          setCachedSelectedItems((prev) => {
+            // Check if item already exists
+            const existingIds = new Set(
+              prev.flatMap((item) =>
+                "options" in item
+                  ? item.options.map((opt) => opt.id)
+                  : [item.id],
+              ),
+            );
+
+            // Only add if it doesn't already exist
+            if ("id" in selectedItem && !existingIds.has(selectedItem.id)) {
+              return [...prev, selectedItem] as AutocompleteProps["items"];
+            }
+            return prev;
+          });
+        }
+      }
+    }
+  };
 
   const autocompleteProps: AutocompleteProps = {
     fullWidth: true,
@@ -149,10 +308,10 @@ export const BackendSelector = <
       ...textfieldProps,
     },
     debounceValue: 500,
-    defaultSelectedIds: defaultValues,
+    defaultSelectedIds: validDefaultSelectedIds,
     items: itemsList,
     loadingProps: {
-      isLoading: isLoading && !isHydrating,
+      isLoading: isLoading && !isAutocompleteReady,
       message: loadingMessage || t("searching"),
     },
     onValueChange: (event: string) => {
@@ -161,6 +320,7 @@ export const BackendSelector = <
     onClear: () => {
       setSearchInput("");
       onClear?.();
+      setCachedSelectedItems([]);
     },
   };
 
@@ -169,9 +329,7 @@ export const BackendSelector = <
       <Autocomplete
         {...autocompleteProps}
         multiSelect={true}
-        onSelect={(value) => {
-          onSelect?.(value);
-        }}
+        onSelect={handleSelect}
       />
     );
   }
@@ -180,9 +338,7 @@ export const BackendSelector = <
     <Autocomplete
       {...autocompleteProps}
       multiSelect={false}
-      onSelect={(value) => {
-        onSelect?.(value);
-      }}
+      onSelect={handleSelect}
     />
   );
 };

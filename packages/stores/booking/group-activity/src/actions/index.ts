@@ -11,6 +11,7 @@ import {
   fetchGroupActivities,
   fetchGroupActivitiesAndWorkshops,
   searchGroupActivitiesAPI,
+  searchGroupActivitiesAndWorkshopsAPI,
   unarchiveGroupActivity,
 } from "@bsport/api-book";
 import type {
@@ -88,6 +89,30 @@ export const searchGroupActivitiesAction: Action<
       return data;
     },
     (error) => new Error("Failed to search group activities", { cause: error }),
+  );
+};
+
+export const searchGroupActivitiesAndWorkshopsAction: Action<
+  SearchGroupActivitiesParams,
+  SearchResponse<MetaActivity>
+> = async (fetch, params) => {
+  return Result.try(
+    async () => {
+      const data = await searchGroupActivitiesAndWorkshopsAPI(fetch, params);
+
+      setGroupActivities({
+        groupActivities: data.results,
+        count: data.count,
+        page: params?.page || 1,
+        search: true,
+      });
+
+      return data;
+    },
+    (error) =>
+      new Error("Failed to search group activities and workshops", {
+        cause: error,
+      }),
   );
 };
 

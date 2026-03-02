@@ -181,6 +181,32 @@ export const useSessionListColumns = (isMobile: boolean) => {
     ),
   };
 
+  const attendanceColumn: TableColumn = {
+    id: Columns.ATTENDANCE,
+    header: "",
+    type: "custom",
+    label: t("table.headers.attendance"),
+    align: "start",
+    render: (row: EnrichedSession) => (
+      <AttendanceButton
+        isValidated={!row.roll_call_needs_validation}
+        available={row.available}
+        onClick={() => {
+          trackAttendanceButtonClicked(row);
+          row.navigateToBookingsManagement?.(row.id);
+        }}
+      />
+    ),
+  };
+  const mobileActionsColumn: TableColumn = {
+    id: Columns.MOBILE_ACTIONS,
+    header: "",
+    type: "custom",
+    label: t("table.headers.actions"),
+    align: "center",
+    render: (row: EnrichedSession) => <ShortcutActionsButton session={row} />,
+  };
+
   return isMobile
     ? [
         timeColumn,
@@ -189,7 +215,8 @@ export const useSessionListColumns = (isMobile: boolean) => {
         establishmentNameColumn,
         participantsColumn,
         sessionTypeColumn,
-        actionsColumn,
+        attendanceColumn,
+        mobileActionsColumn,
       ]
     : [
         timeColumn,

@@ -9,131 +9,118 @@ import { Item } from "#src/components/Menu/types";
 
 import Menu from ".";
 
-const menuOptions: Item[] = [
-  { type: "title", label: "Menu title" },
+const LONG_DESCRIPTION =
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+
+const MENU_OPTIONS_WITH_LABEL_ONLY: Item[] = [
+  { type: "title", label: "Menu with label only" },
   {
-    id: "1",
+    id: "label-only-1",
+    label: "Base Option 1",
+  },
+  {
+    id: "label-only-2",
+    label: "Base Option 2",
+  },
+  { type: "divider" },
+];
+
+const MENU_OPTIONS_WITH_LABEL_AND_DESCRIPTION: Item[] = [
+  { type: "title", label: "Menu with label and description" },
+  {
+    id: "label-and-description-1",
     label: "Base Option 1",
     description: "This is the first option",
   },
   {
-    id: "2",
+    id: "label-and-description-2",
     label: "Base Option 2",
-    description: "This is the second option",
-  },
-  {
-    id: "3",
-    label: "Base Option 3",
-    description: "This is the third option",
+    description: LONG_DESCRIPTION,
   },
   { type: "divider" },
+];
+
+const MENU_OPTIONS_WITH_BUTTON: Item[] = [
+  { type: "title", label: "Menu with button" },
   {
-    id: "menu-button",
-    label: "Menu Button",
+    id: "button-1",
+    label: "Button 1",
     type: "button",
     onClick: () => {},
     iconLeft: "arrow-right",
   },
-];
-
-const menuOptionsMulti: Item[] = [
-  { type: "title", label: "Multi Select Mode" },
   {
-    id: "1",
-    label: "Option 1",
-  },
-  {
-    id: "2",
-    label: "Option 2",
-  },
-  {
-    id: "3",
-    label: "Option 3",
+    id: "button-2",
+    label: "Button 2",
+    type: "button",
+    onClick: () => {},
+    iconLeft: "link-external-02",
   },
   { type: "divider" },
 ];
 
-const menuOptionsWithAvatar: Item[] = [
+const MENU_OPTIONS_WITH_AVATAR: Item[] = [
   { type: "title", label: "Menu with avatars" },
   {
-    id: "1",
+    id: "avatar-1",
     label: "Option 1",
     avatar: { src: AvatarImage, initials: "BB" },
   },
   {
-    id: "2",
+    id: "avatar-2",
     label: "Option 2",
-    avatar: { src: AvatarImage, initials: "BB" },
-  },
-  {
-    id: "3",
-    label: "Option 3",
-    avatar: { src: AvatarImage, initials: "BB" },
+    avatar: { src: AvatarImage, initials: "DD" },
   },
   { type: "divider" },
 ];
 
-const menuOptionsTextWithAvatar: Item[] = [
+const MENU_OPTIONS_WITH_TEXT_TYPE: Item[] = [
   { type: "title", label: "Menu with text items" },
   {
-    id: "1",
+    id: "text-type-1",
     type: "text",
     label: "Option 1",
     avatar: { src: AvatarImage, initials: "BB" },
   },
   {
-    id: "2",
+    id: "text-type-2",
     type: "text",
     label: "Option 2",
-    avatar: { src: AvatarImage, initials: "BB" },
-  },
-  {
-    id: "3",
-    type: "text",
-    label: "Option 3",
     avatar: { src: AvatarImage, initials: "BB" },
   },
   { type: "divider" },
 ];
 
-const menuOptionsWithIcon: Item[] = [
+const MENU_OPTIONS_WITH_ICON: Item[] = [
   { type: "title", label: "Menu with icon" },
   {
-    id: "1",
+    id: "icon-1",
     label: "Option 1",
     iconLeft: "user-edit",
   },
   {
-    id: "2",
+    id: "icon-2",
     label: "Option 2",
-    iconLeft: "user-edit",
-  },
-  {
-    id: "3",
-    label: "Option 3",
     iconLeft: "user-edit",
   },
   { type: "divider" },
 ];
 
-const menuOptionsWithRightSlot: Item[] = [
+const MENU_OPTIONS_WITH_RIGHT_SLOT: Item[] = [
   { type: "title", label: "Menu items with right slots" },
   {
-    id: "1",
+    id: "right-slot-1",
     label: "Option 1",
-    iconLeft: "user-edit",
     rightSlot: <Badge color="default" size="sm" text="I'm a badge" />,
   },
   {
-    id: "2",
+    id: "right-slot-2",
     label: "Option 2",
-    iconLeft: "user-edit",
     rightSlot: <Chip color="info" label="I'm a chip" size="sm" type="strong" />,
   },
   {
-    id: "3",
+    id: "right-slot-3",
     label: "Option 3",
-    iconLeft: "user-edit",
     rightSlot: (
       <div className="flex gap-xs">
         <Badge color="default" size="sm" text="I'm a badge with an icon" />
@@ -144,21 +131,21 @@ const menuOptionsWithRightSlot: Item[] = [
   { type: "divider" },
 ];
 
-const menuOptionsWithLeftSlot: Item[] = [
+const MENU_OPTIONS_WITH_LEFT_SLOT: Item[] = [
   { type: "title", label: "Menu items with left slots" },
   {
-    id: "1",
+    id: "left-slot-1",
     label: "Option 1",
     leftSlot: <Badge color="default" size="sm" text="I'm a badge" />,
   },
   {
-    id: "2",
+    id: "left-slot-2",
     label: "Option 2",
     iconLeft: "user-edit",
     leftSlot: <Chip color="info" label="I'm a chip" size="sm" type="strong" />,
   },
   {
-    id: "3",
+    id: "left-slot-3",
     label: "Option 3",
     iconLeft: "user-edit",
     leftSlot: (
@@ -171,51 +158,42 @@ const menuOptionsWithLeftSlot: Item[] = [
   { type: "divider" },
 ];
 
-const singleMenuWithSubCategories: Item[] = [
-  { type: "title", label: "Tag Group 1" },
+const MENU_OPTIONS_WITH_EVERYTHING: Item[] = [
+  { type: "title", label: "Menu items with everything" },
   {
-    id: "1",
-    label: "Sub tag alpha",
+    id: "everything-1",
+    label: "Option 1",
+    description: LONG_DESCRIPTION,
+    iconLeft: "archive",
+    rightSlot: <Badge color="default" size="sm" text="I'm a badge" />,
+  },
+  {
+    id: "everything-2",
+    label: "Option 2",
+    description: LONG_DESCRIPTION,
+    rightSlot: <Chip color="info" label="I'm a chip" size="sm" type="strong" />,
+    leftSlot: <Chip color="info" label="I'm a chip" size="sm" type="strong" />,
+  },
+  {
+    id: "everything-3",
+    label: "Option 3",
+    description: LONG_DESCRIPTION,
+    avatar: { src: AvatarImage, initials: "BB" },
     rightSlot: (
-      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
+      <div className="flex gap-xs">
+        <Badge color="default" size="sm" text="I'm a badge with an icon" />
+        <Icon icon="chevron-right" size="sm" />
+      </div>
     ),
   },
   {
-    id: "2",
-    label: "Sub tag beta",
-    rightSlot: (
-      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
-    ),
+    id: "everything-4",
+    label: "Option 4 as text",
+    type: "text",
+    description: LONG_DESCRIPTION,
+    iconLeft: "message-text-square-02",
   },
-  {
-    id: "3",
-    label: "Sub tag omega",
-    rightSlot: (
-      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
-    ),
-  },
-  { type: "title", label: "Tag Group 2" },
-  {
-    id: "4",
-    label: "Sub tag charizard",
-    rightSlot: (
-      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
-    ),
-  },
-  {
-    id: "5",
-    label: "Sub tag pikachu",
-    rightSlot: (
-      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
-    ),
-  },
-  {
-    id: "6",
-    label: "Sub tag gengar",
-    rightSlot: (
-      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
-    ),
-  },
+  { type: "divider" },
 ];
 
 /**
@@ -235,6 +213,47 @@ const meta: Meta<typeof Menu> = {
   component: Menu,
   args: {
     disabled: false,
+    multiSelect: false,
+    className: "max-w-[400px]",
+    items: [
+      ...MENU_OPTIONS_WITH_LABEL_ONLY,
+      ...MENU_OPTIONS_WITH_LABEL_AND_DESCRIPTION,
+      ...MENU_OPTIONS_WITH_AVATAR,
+      ...MENU_OPTIONS_WITH_BUTTON,
+      ...MENU_OPTIONS_WITH_ICON,
+      ...MENU_OPTIONS_WITH_LEFT_SLOT,
+      ...MENU_OPTIONS_WITH_RIGHT_SLOT,
+      ...MENU_OPTIONS_WITH_TEXT_TYPE,
+      ...MENU_OPTIONS_WITH_EVERYTHING,
+    ],
+  },
+  render: (args) => {
+    const [selectedValues, setSelectedValues] = useState<string[]>([]);
+
+    const handleSelect = (itemId: string) => {
+      if (args.multiSelect) {
+        setSelectedValues((prevState) => {
+          const isSelected = prevState.includes(itemId);
+          return isSelected
+            ? prevState.filter((selected) => selected !== itemId)
+            : [...prevState, itemId];
+        });
+      } else {
+        setSelectedValues([itemId]);
+      }
+    };
+
+    useEffect(() => {
+      setSelectedValues([]);
+    }, [args.multiSelect]);
+
+    return (
+      <Menu
+        {...args}
+        onSelectOption={handleSelect}
+        selectedValues={selectedValues}
+      />
+    );
   },
 };
 
@@ -244,225 +263,28 @@ type Story = StoryObj<typeof Menu>;
 
 export const DefaultMenu: Story = {
   name: "Menu",
-  render: (args) => {
-    const [selectedValue, setSelectedValue] = useState<string[]>([]);
-    const [selectedValues, setSelectedValues] = useState<string[]>([]);
-
-    const handleSelect = (itemId: string) => {
-      setSelectedValue([itemId]);
-    };
-
-    const handleMultiSelect = (itemId: string) => {
-      setSelectedValues((prevState) => {
-        const isSelected = prevState.includes(itemId);
-        return isSelected
-          ? prevState.filter((selected) => selected !== itemId)
-          : [...prevState, itemId];
-      });
-    };
-
-    useEffect(() => {
-      setSelectedValues([]);
-    }, [args.multiSelect]);
-
-    return (
-      <div className="flex flex-col gap-md">
-        <Menu
-          {...args}
-          onSelectOption={handleSelect}
-          selectedValues={selectedValue}
-          multiSelect={false}
-          items={menuOptions}
-        />
-        <Menu
-          {...args}
-          onSelectOption={handleMultiSelect}
-          selectedValues={selectedValues}
-          multiSelect={true}
-          items={menuOptionsMulti}
-        />
-        <Menu {...args} items={menuOptionsTextWithAvatar} />
-      </div>
-    );
-  },
 };
 
 export const MenuWithAvatars: Story = {
-  name: "Menu with Avatars",
   args: {
-    items: menuOptionsWithAvatar,
-    multiSelect: false,
-  },
-  render: (args) => {
-    const [selectedValues, setSelectedValues] = useState<string[]>([]);
-
-    const handleSelect = (itemId: string) => {
-      if (args.multiSelect) {
-        setSelectedValues((prevState) => {
-          const isSelected = prevState.includes(itemId);
-          return isSelected
-            ? prevState.filter((selected) => selected !== itemId)
-            : [...prevState, itemId];
-        });
-      } else {
-        setSelectedValues([itemId]);
-      }
-    };
-
-    useEffect(() => {
-      setSelectedValues([]);
-    }, [args.multiSelect]);
-
-    return (
-      <Menu
-        {...args}
-        onSelectOption={handleSelect}
-        selectedValues={selectedValues}
-      />
-    );
+    items: MENU_OPTIONS_WITH_AVATAR,
   },
 };
 
 export const MenuWithIcons: Story = {
-  name: "Menu with Icons",
   args: {
-    items: menuOptionsWithIcon,
-    multiSelect: false,
-  },
-  render: (args) => {
-    const [selectedValues, setSelectedValues] = useState<string[]>([]);
-
-    const handleSelect = (itemId: string) => {
-      if (args.multiSelect) {
-        setSelectedValues((prevState) => {
-          const isSelected = prevState.includes(itemId);
-          return isSelected
-            ? prevState.filter((selected) => selected !== itemId)
-            : [...prevState, itemId];
-        });
-      } else {
-        setSelectedValues([itemId]);
-      }
-    };
-
-    useEffect(() => {
-      setSelectedValues([]);
-    }, [args.multiSelect]);
-
-    return (
-      <Menu
-        {...args}
-        onSelectOption={handleSelect}
-        selectedValues={selectedValues}
-      />
-    );
+    items: MENU_OPTIONS_WITH_ICON,
   },
 };
 
 export const MenuWithRightSlots: Story = {
-  name: "Menu Items with right slot",
   args: {
-    items: menuOptionsWithRightSlot,
-    multiSelect: false,
-  },
-  render: (args) => {
-    const [selectedValues, setSelectedValues] = useState<string[]>([]);
-
-    const handleSelect = (itemId: string) => {
-      if (args.multiSelect) {
-        setSelectedValues((prevState) => {
-          const isSelected = prevState.includes(itemId);
-          return isSelected
-            ? prevState.filter((selected) => selected !== itemId)
-            : [...prevState, itemId];
-        });
-      } else {
-        setSelectedValues([itemId]);
-      }
-    };
-
-    useEffect(() => {
-      setSelectedValues([]);
-    }, [args.multiSelect]);
-
-    return (
-      <Menu
-        {...args}
-        onSelectOption={handleSelect}
-        selectedValues={selectedValues}
-      />
-    );
+    items: MENU_OPTIONS_WITH_RIGHT_SLOT,
   },
 };
 
 export const MenuWithLeftSlots: Story = {
-  name: "Menu Items with left slot",
   args: {
-    items: menuOptionsWithLeftSlot,
-    multiSelect: false,
-  },
-  render: (args) => {
-    const [selectedValues, setSelectedValues] = useState<string[]>([]);
-
-    const handleSelect = (itemId: string) => {
-      if (args.multiSelect) {
-        setSelectedValues((prevState) => {
-          const isSelected = prevState.includes(itemId);
-          return isSelected
-            ? prevState.filter((selected) => selected !== itemId)
-            : [...prevState, itemId];
-        });
-      } else {
-        setSelectedValues([itemId]);
-      }
-    };
-
-    useEffect(() => {
-      setSelectedValues([]);
-    }, [args.multiSelect]);
-
-    return (
-      <Menu
-        {...args}
-        onSelectOption={handleSelect}
-        selectedValues={selectedValues}
-      />
-    );
-  },
-};
-
-export const SingleMenuWithSubCategories: Story = {
-  name: "Single Menu with sub categories",
-  args: {
-    items: singleMenuWithSubCategories,
-    multiSelect: true,
-  },
-  render: (args) => {
-    const [selectedValues, setSelectedValues] = useState<string[]>([]);
-
-    const handleSelect = (itemId: string) => {
-      if (args.multiSelect) {
-        setSelectedValues((prevState) => {
-          const isSelected = prevState.includes(itemId);
-          return isSelected
-            ? prevState.filter((selected) => selected !== itemId)
-            : [...prevState, itemId];
-        });
-      } else {
-        setSelectedValues([itemId]);
-      }
-    };
-
-    useEffect(() => {
-      setSelectedValues([]);
-    }, [args.multiSelect]);
-
-    return (
-      <Menu
-        {...args}
-        onSelectOption={handleSelect}
-        selectedValues={selectedValues}
-      />
-    );
+    items: MENU_OPTIONS_WITH_LEFT_SLOT,
   },
 };

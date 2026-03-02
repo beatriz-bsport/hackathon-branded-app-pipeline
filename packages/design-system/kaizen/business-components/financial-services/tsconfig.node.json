@@ -1,3 +1,0 @@
-{
-  "extends": "../../../../../tools/config/typescript/src/kaizen/tsconfig.node.json"
-}

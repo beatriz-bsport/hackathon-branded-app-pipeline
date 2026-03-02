@@ -22,7 +22,8 @@
       "teacher": "Teacher",
       "establishment": "Establishment",
       "sessionType": "Session type",
-      "actions": "Actions"
+      "actions": "Actions",
+      "attendance": "Attendance"
     },
     "datetime": {
       "shortDayIdentifier_one": "day",

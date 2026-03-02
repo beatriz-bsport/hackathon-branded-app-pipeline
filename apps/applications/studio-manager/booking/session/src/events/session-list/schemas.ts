@@ -24,6 +24,8 @@ export const sessionListViewedEventSchema = z
           Columns.ESTABLISHMENT,
           Columns.SESSION_TYPE,
           Columns.ACTIONS,
+          Columns.ATTENDANCE,
+          Columns.MOBILE_ACTIONS,
         ]),
       )
       .describe("The columns displayed in the session list"),
@@ -70,6 +72,8 @@ export const sessionListVisibleColumnsClickedEventSchema = z
         Columns.ESTABLISHMENT,
         Columns.SESSION_TYPE,
         Columns.ACTIONS,
+        Columns.ATTENDANCE,
+        Columns.MOBILE_ACTIONS,
       ])
       .describe(
         "The column for which the user clicks on the visible columns settings",

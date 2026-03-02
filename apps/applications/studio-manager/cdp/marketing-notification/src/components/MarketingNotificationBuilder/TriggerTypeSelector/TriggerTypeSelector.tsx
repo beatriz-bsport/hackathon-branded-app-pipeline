@@ -39,6 +39,7 @@ export const TriggerTypeSelector = ({
   ) {
     return (
       <MetaActivitySelector
+        key={String(selectedConfig.mode)}
         defaultValues={selectedValues}
         mode={
           isTriggerSelectorConfigMetaActivityType(selectedConfig)

@@ -64,7 +64,7 @@ export const EditMarketingNotificationModal = ({
     <ModalStepper
       key={String(isOpen)}
       open={isOpen}
-      title={t("title.create")}
+      title={draftMarketingNotification ? t("title.edit") : t("title.create")}
       size="lg"
       steps={[
         {
@@ -86,7 +86,9 @@ export const EditMarketingNotificationModal = ({
           : NOTIFICATION_TYPE_STEP_IDENTIFIER
       }
       confirmButton={{
-        label: "Create",
+        label: draftMarketingNotification
+          ? t("buttons.edit")
+          : t("buttons.create"),
         color: "main",
         disabled: isConfirmButtonDisabled,
         onClick: () => {
@@ -100,7 +102,7 @@ export const EditMarketingNotificationModal = ({
         },
       }}
       cancelButton={{
-        label: "Cancel",
+        label: t("buttons.cancel"),
         onClick: () => {
           if (
             (draftMarketingNotification &&
@@ -112,9 +114,7 @@ export const EditMarketingNotificationModal = ({
           goToPreviousStep();
         },
       }}
-      onClickOutside={() => {
-        handleClose?.();
-      }}
+      onClickOutside={() => {}}
       onClose={() => {
         handleClose?.();
       }}

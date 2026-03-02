@@ -10,6 +10,8 @@ import {
 } from "#src/components/Menu/MenuItem/constants";
 import type { Text as TextType } from "#src/components/Menu/MenuItem/types";
 
+import { MenuItemLayout } from "../MenuItemLayout";
+
 const menuItemText = cva(["pointer-events-none", ...defaultMenuItemClasses], {
   variants: menuItemVariants,
 });
@@ -70,16 +72,14 @@ const Text: React.FC<TextProps> = ({
       className={menuItemText({ className })}
       {...props}
     >
-      <div className="flex items-center justify-between w-full gap-xs">
-        <div className="flex gap-xs items-center">
-          {leftSlot ?? renderedAvatar ?? renderedIcon}
-          <div className="flex flex-col">
-            {renderedLabel}
-            {renderedDescription}
-          </div>
-        </div>
-        {rightSlot ?? null}
-      </div>
+      <MenuItemLayout
+        label={renderedLabel}
+        startSlot={leftSlot}
+        avatar={renderedAvatar}
+        icon={renderedIcon}
+        description={renderedDescription}
+        endSlot={rightSlot}
+      />
     </div>
   );
 };

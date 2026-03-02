@@ -6,9 +6,9 @@ import {
   Body,
   Chip,
   GenericTableColumn,
-  Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
+import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import { useTranslation } from "#src/utils/i18n";
 
 export const useSessionActivityColumns = <
@@ -59,7 +59,7 @@ export const useSessionActivityColumns = <
         return item.is_broadcast ? (
           <div className="flex flex-row gap-sm">
             <div key="group-activity-broadcast-chip" className="flex">
-              <Tooltip
+              <ResponsiveTooltip
                 label={t(
                   "addSessionModal.steps.chooseActivity.table.features.livestream.popoverLabel",
                 )}
@@ -71,7 +71,7 @@ export const useSessionActivityColumns = <
                   type="weak"
                   iconLeft="video-recorder"
                 />
-              </Tooltip>
+              </ResponsiveTooltip>
             </div>
           </div>
         ) : null;

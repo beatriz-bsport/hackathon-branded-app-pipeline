@@ -8,14 +8,17 @@ import {
 
 import { fetch } from "#src/utils/fetch";
 
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE_RECIPIENTS } from "./constants";
 import type {
   AutomatedCampaign,
   BackgroundTaskStatusResponse,
+  CampaignRecipient,
   CampaignScheduled,
   CampaignSent,
   CampaignSentPerformanceReport,
   EmailTemplateDetail,
   FetchAutomatedCampaignsParams,
+  FetchCampaignRecipientParams,
   FetchCampaignScheduledParams,
   FetchCampaignSentParams,
   GenerateReportParams,
@@ -83,6 +86,16 @@ export const smartlistKeys = {
       "campaign-sent",
       "performance-report",
       campaignUuid,
+    ] as const,
+
+  campaignSentRecipients: (campaign: string, page: number, page_size: number) =>
+    [
+      ...smartlistKeys.all,
+      "campaign-sent",
+      "recipients",
+      campaign,
+      page,
+      page_size,
     ] as const,
 
   tagRules: (id: string) => [...smartlistKeys.all, "tag-rules", id] as const,
@@ -236,6 +249,26 @@ const fetchCampaignScheduled = async (
   return data;
 };
 
+const fetchCampaignRecipients = async ({
+  campaign,
+  page,
+  page_size,
+}: FetchCampaignRecipientParams): Promise<
+  PaginatedResponse<CampaignRecipient>
+> => {
+  const { data } = await fetch<PaginatedResponse<CampaignRecipient>>(
+    `${COMMUNICATION_API_V1}/communication/communication_recipient/${buildUrlParams(
+      {
+        campaign,
+        page: page ?? DEFAULT_PAGE,
+        page_size: page_size ?? DEFAULT_PAGE_SIZE_RECIPIENTS,
+      },
+    )}`,
+  );
+
+  return data;
+};
+
 /**
  * Deletes an automated campaign
  * @param id - ID of the automated campaign to delete
@@ -277,6 +310,23 @@ export async function generateCampaignReport(
 
   if (!backgroundTaskUuid) {
     throw new Error("Missing background task id in response header");
+  }
+
+  return { backgroundTaskUuid };
+}
+
+export async function exportCampaignAsync(
+  campaignUuid: string,
+): Promise<{ backgroundTaskUuid: string }> {
+  const { backgroundTaskUuid } = await fetch<BackgroundTaskStatusResponse>(
+    `${COMMUNICATION_API_V1}/communication/communication_sent/${campaignUuid}/export-campaign-async/`,
+    {
+      method: "POST",
+    },
+  );
+
+  if (!backgroundTaskUuid) {
+    throw new Error("Missing background task id in response");
   }
 
   return { backgroundTaskUuid };
@@ -474,6 +524,19 @@ export const campaignScheduledDetailQueryOptions = (
   return queryOptions({
     queryKey: smartlistKeys.campaignScheduledDetail(campaignScheduledId),
     queryFn: () => fetchCampaignScheduled(campaignScheduledId),
+  });
+};
+
+export const campaignSentRecipientsQueryOptions = (
+  params: FetchCampaignRecipientParams,
+) => {
+  return queryOptions({
+    queryKey: smartlistKeys.campaignSentRecipients(
+      params.campaign,
+      params.page ?? DEFAULT_PAGE,
+      params.page_size ?? DEFAULT_PAGE_SIZE_RECIPIENTS,
+    ),
+    queryFn: () => fetchCampaignRecipients(params),
   });
 };
 

@@ -129,6 +129,29 @@ export const createGiftcardAPI = async (
   return data;
 };
 
+// ----------------------------------------------------------------------------
+
+export const updateGiftcardAPIConfig = ({
+  id,
+  data,
+}: {
+  id: number;
+  data: FormData;
+}): XhrApiConfig => {
+  return [`${API_URL}/giftcard/${id}/`, { method: "PATCH", formData: data }];
+};
+
+export const updateGiftcardAPI = async (
+  fetch: Xhr<Giftcard>,
+  params: { id: number; data: FormData },
+): Promise<Giftcard> => {
+  const [uri, init] = updateGiftcardAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
 // #endregion
 
 // region GiftcardImageBackground

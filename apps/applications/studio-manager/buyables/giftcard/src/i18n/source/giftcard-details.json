@@ -39,6 +39,10 @@
         "cancel": "Back",
         "rename": "Rename"
       }
+    },
+    "submitResponse": {
+      "error": "Couldn't update Gift Card. Please try again.",
+      "success": "Successfully updated Gift Card."
     }
   },
   "formFields": {

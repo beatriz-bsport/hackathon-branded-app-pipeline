@@ -116,6 +116,7 @@ export type AutomatedCampaignWithAnalytics = {
   total_recipients: number;
   total_read: number;
   total_click: number;
+  campaign_sent_uuid: string | null;
 };
 
 /**

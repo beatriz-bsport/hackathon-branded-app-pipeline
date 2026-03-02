@@ -33,6 +33,7 @@ const combineAutomatedCampaignAnalytics = (
           total_recipients: campaign.total_recipients,
           total_read: campaign.total_read,
           total_click: campaign.total_click,
+          uuid: campaign.uuid,
         },
       ]),
   );
@@ -49,6 +50,7 @@ const combineAutomatedCampaignAnalytics = (
         total_recipients: 0,
         total_read: 0,
         total_click: 0,
+        uuid: null,
       };
 
       return {
@@ -57,7 +59,10 @@ const combineAutomatedCampaignAnalytics = (
         communication_kind,
         date_created,
         title,
-        ...analytics,
+        total_recipients: analytics.total_recipients,
+        total_read: analytics.total_read,
+        total_click: analytics.total_click,
+        campaign_sent_uuid: analytics.uuid ?? null,
       };
     },
   );

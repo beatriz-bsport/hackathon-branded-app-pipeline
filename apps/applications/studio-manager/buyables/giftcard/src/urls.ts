@@ -14,4 +14,12 @@ export const LEGACY_URLS = {
   INDEX: "/giftcard",
   CREATE: "/giftcard/?isCreateFormOpen=true",
   DETAILS: (giftcardId: number) => `/giftcard/${giftcardId}/`,
+  PAYMENT_LINK: ({
+    companyId,
+    giftcardId,
+  }: {
+    companyId: number;
+    giftcardId: number | string;
+  }) =>
+    `${window.location.origin}/checkout/${companyId}/giftcard/${giftcardId}/?force=true`,
 } as const;

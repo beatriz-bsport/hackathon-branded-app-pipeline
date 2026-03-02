@@ -28,6 +28,19 @@
       }
     }
   },
+  "editor": {
+    "header": {
+      "archiveGiftcard": "Archive Gift Card",
+      "editGiftcardName": "Rename Gift Card"
+    },
+    "editNameModal": {
+      "title": "Rename Gift Card?",
+      "buttons": {
+        "cancel": "Back",
+        "rename": "Rename"
+      }
+    }
+  },
   "formFields": {
     "errors": {
       "fieldIsRequired": "This field is required.",

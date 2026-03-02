@@ -44,6 +44,11 @@ export const GiftcardFormCover: FC<GiftcardFormCoverProps> = ({
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
 
   useEffect(() => {
+    if (typeof cover === "string") {
+      setCoverPreview(cover);
+      return;
+    }
+
     const url = createUrl(cover);
     setCoverPreview(url);
 

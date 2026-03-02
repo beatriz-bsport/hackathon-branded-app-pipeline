@@ -119,10 +119,10 @@ export function CompatiblePaymentPacks(props: Props) {
         </div>
         <PaginatedListBase
           itemPerPage={PAGE_SIZE}
-          items={paymentPacks.items}
+          items={paymentPacks?.items}
           listProps={{ disablePadding: 'true', dense: 'true' }}
-          loading={paymentPacks.loading}
-          nbItems={paymentPacks.count}
+          loading={paymentPacks?.loading}
+          nbItems={paymentPacks?.count}
           onPageRequested={(page: number, pageSize: number) =>
             props.fetchPaymentPacksAsConsumer(
               props.metaActivity.id,

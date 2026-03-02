@@ -378,7 +378,24 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
       return state.setIn(['byOfferByMember', 'error'], payload);
     },
     [byOfferByMember.success.toString()]: (state, { payload }) => {
-      return state.setIn(['byOfferByMember', 'items'], payload);
+      const consumerPaymentPacks: ConsumerPaymentPack[] = Array.isArray(payload)
+        ? payload
+        : [];
+      const consumerPaymentPacksById = consumerPaymentPacks.reduce<
+        Record<number, ConsumerPaymentPack>
+      >((accumulator, consumerPaymentPack) => {
+        accumulator[consumerPaymentPack.id] = consumerPaymentPack;
+        return accumulator;
+      }, {});
+
+      return state
+        .setIn(['byOfferByMember', 'items'], consumerPaymentPacks)
+        .merge(
+          {
+            byId: consumerPaymentPacksById,
+          },
+          { deep: true },
+        );
     },
     [nonCompatibleByOfferByMember.isLoading.toString()]: (
       state,

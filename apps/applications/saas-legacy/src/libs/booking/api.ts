@@ -162,3 +162,12 @@ export function updateOfferWithCancelledBookingsToRetry(
 export const refundBooking = (id: number) => {
   return patchAuth<BookingREST>(`${API_V1_URI}/booking/${id}/refund/`, {});
 };
+
+export const swapBookingPass = (
+  id: number,
+  data: { consumer_payment_pack_id: number },
+) => {
+  return postAuth<BookingREST>(`${API_V1_URI}/booking/${id}/swap_pass/`, {
+    consumer_payment_pack_id: data.consumer_payment_pack_id,
+  });
+};

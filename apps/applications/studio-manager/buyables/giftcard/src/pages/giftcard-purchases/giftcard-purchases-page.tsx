@@ -20,7 +20,7 @@ export const GiftcardPurchasesPage: FC<GiftcardPurchasesPageProps> = ({
   return (
     <ListLayout>
       <ListLayout.Header pageTitle={giftcard?.name ?? ""} {...headerConfig} />
-      <ListLayout.Content>{JSON.stringify(giftcard)}</ListLayout.Content>
+      <ListLayout.Content>{giftcard?.name}</ListLayout.Content>
     </ListLayout>
   );
 };

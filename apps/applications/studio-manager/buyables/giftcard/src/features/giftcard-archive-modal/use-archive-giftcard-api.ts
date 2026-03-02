@@ -9,66 +9,77 @@ import { useToasts } from "#src/hooks/useToasts";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
+const restoreGiftcardBound = restoreGiftcardAction.bind(null, fetch);
+const archiveGiftcardBound = archiveGiftcardAction.bind(null, fetch);
+
 /**
  * Hook to create a complete handleArchive function that handles refresh callbacks and undo action
  */
 export const useArchiveGiftcard = ({
-  fetchGiftcards,
-  handleCloseModal,
+  onSuccess,
+  onUndoSuccess,
+  onError,
+  closeModal,
 }: {
-  fetchGiftcards: () => void;
-  handleCloseModal: () => void;
+  onSuccess?: () => void;
+  onUndoSuccess: () => void;
+  onError?: () => void;
+  closeModal: () => void;
 }) => {
   // Retrieve generic toasts and translations
   const { handleActionFailed, handleActionUndone } = useToasts();
-  const { t } = useTranslation("common");
+  const { t, i18n } = useTranslation("common");
 
   // ----- Undo action -----
 
-  const restoreGiftcard = async (id: number) => {
-    return restoreGiftcardAction(fetch, { id });
-  };
-
   const [{ isLoading: isLoadingUndo }, handleUndo] = useAsync<
-    typeof restoreGiftcard
+    typeof restoreGiftcardBound
   >({
-    asyncFn: restoreGiftcard,
+    asyncFn: restoreGiftcardBound,
     onSuccess: () => {
-      fetchGiftcards();
+      onUndoSuccess?.();
       handleActionUndone();
     },
     onFailure: () => {
       handleActionFailed(t("toasts.errorMessages.undoAction"));
     },
-    dependencies: [handleActionFailed, handleActionUndone, fetchGiftcards],
+    dependencies: [
+      handleActionFailed,
+      handleActionUndone,
+      onUndoSuccess,
+      i18n.language,
+    ],
   });
 
   // ----- Perform action -----
 
-  const archiveGiftcard = async ({ giftcardId }: { giftcardId: number }) => {
-    return archiveGiftcardAction(fetch, { id: giftcardId });
-  };
-
   const [{ isLoading: isLoadingArchive }, handleArchive] = useAsync<
-    typeof archiveGiftcard
+    typeof archiveGiftcardBound
   >({
-    asyncFn: archiveGiftcard,
-    onSuccess: ({ args: [{ giftcardId }] }) => {
-      fetchGiftcards();
+    asyncFn: archiveGiftcardBound,
+    onSuccess: ({ args: [{ id }] }) => {
+      onSuccess?.();
       toast({
         status: "default",
         icon: "archive",
         title: t("toasts.successMessages.archiveGiftcard"),
         buttonLabel: t("toasts.actions.undo"),
-        onButtonClick: () => handleUndo(giftcardId),
+        onButtonClick: () => handleUndo({ id }),
       });
-      handleCloseModal();
+      closeModal();
     },
     onFailure: () => {
+      onError?.();
       handleActionFailed(t("toasts.errorMessages.archiveGiftcard"));
-      handleCloseModal();
+      closeModal();
     },
-    dependencies: [handleActionFailed, handleActionUndone, fetchGiftcards],
+    dependencies: [
+      handleActionFailed,
+      handleActionUndone,
+      handleActionUndone,
+      i18n.language,
+      closeModal,
+    ],
   });
 
   return {

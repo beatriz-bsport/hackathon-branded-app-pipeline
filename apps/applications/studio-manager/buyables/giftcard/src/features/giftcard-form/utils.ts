@@ -1,6 +1,7 @@
 import {
   type CreateGiftcardKeys,
   GIFTCARD_TYPES,
+  type Giftcard,
 } from "@bsport/store-buyables-giftcard";
 
 import type { GiftcardFormData } from "./types";
@@ -9,7 +10,9 @@ import type { GiftcardFormData } from "./types";
  * Transform: form state values into API FormData
  * Ensuring we are adding the right keys by using API type
  */
-export function transformFormStateIntoAPIData(formState: GiftcardFormData) {
+export function transformFormStateIntoAPIData(
+  formState: GiftcardFormData,
+): FormData {
   const formData = new FormData();
 
   // Sanitize prices formState to correspond to backend
@@ -53,7 +56,7 @@ export function transformFormStateIntoAPIData(formState: GiftcardFormData) {
   appendField("manager_only", formState.manager_only);
   appendField(
     "expiration_days",
-    formState.hasExpirationDays ? "" : formState.expiration_days,
+    formState.hasExpirationDays ? formState.expiration_days : "",
   );
   appendField("bookkeeping_account", formState.bookkeeping_account);
   appendField(
@@ -74,4 +77,17 @@ export function transformFormStateIntoAPIData(formState: GiftcardFormData) {
   }
 
   return formData;
+}
+
+export function transformGiftcardIntoFormState(
+  giftcard: Giftcard,
+): GiftcardFormData {
+  const { price, ...otherFields } = giftcard;
+  return {
+    ...otherFields,
+    price:
+      price != null && typeof price === "string" ? parseInt(price, 10) : null,
+    hasCustomPrice: giftcard.card_type === GIFTCARD_TYPES.CUSTOM,
+    hasExpirationDays: giftcard.expiration_days != null,
+  };
 }

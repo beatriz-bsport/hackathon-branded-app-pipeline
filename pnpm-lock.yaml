@@ -1656,9 +1656,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../tools/config/federation
+        version: link:../../../../../tools/config/library
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../../../../packages/stores/base
@@ -2433,6 +2433,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../packages/utils/sm-backbone
+      '@bsport/sm-custom-form':
+        specifier: workspace:*
+        version: link:../cdp/custom-form
       '@bsport/sm-marketing-notification':
         specifier: workspace:*
         version: link:../cdp/marketing-notification

@@ -86,11 +86,6 @@ declare module "sm-smartlists/App" {
   export default App;
 }
 
-declare module "sm-custom-form/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
 declare module "sm-tag/App" {
   const App: BaseApp["App"];
   export default App;

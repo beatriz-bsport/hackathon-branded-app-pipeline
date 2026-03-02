@@ -33,6 +33,7 @@
     "@bsport/request-from-header": "workspace:*",
     "@bsport/sentry": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
+    "@bsport/sm-custom-form": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
     "luxon": "^3.4.4",
@@ -96,10 +97,6 @@
       "sm-smartlists": {
         "devPort": 4301,
         "watchPath": "../cdp/smartlists/src/**/*"
-      },
-      "sm-custom-form": {
-        "devPort": 4302,
-        "watchPath": "../cdp/custom-form/src/**/*"
       },
       "sm-tag": {
         "devPort": 4304,

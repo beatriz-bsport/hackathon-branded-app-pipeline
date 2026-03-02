@@ -4,6 +4,15 @@
     "sms": "SMS",
     "push": "Push"
   },
+  "recipientStatus": {
+    "bounced": "Bounced",
+    "unknown": "Unknown",
+    "deferred": "Deferred",
+    "dropped": "Dropped",
+    "pending": "Pending",
+    "delivered": "Delivered",
+    "processed": "Processed"
+  },
   "campaignStatus": {
     "scheduled": "Scheduled",
     "delivered": "Delivered",
@@ -93,6 +102,28 @@
     }
   },
   "table": {
+    "campaignRecipient": {
+      "emptyDate": "--",
+      "headers": {
+        "memberIdentity": "Member",
+        "lastOpened": "Last opened",
+        "openCount": "Opens",
+        "clickCount": "Clicks",
+        "status": "Status"
+      },
+      "emptyState": {
+        "description": "No recipients"
+      },
+      "loadingState": {
+        "description": "Loading recipients list..."
+      },
+      "moreActions": {
+        "navigateToMemberProfile": "Navigate to member profile",
+        "copyEmail": "Copy email",
+        "copyPhoneNumber": "Copy phone number",
+        "copyName": "Copy name"
+      }
+    },
     "campaignScheduled": {
       "headers": {
         "scheduledDate": "Scheduled",

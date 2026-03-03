@@ -57,6 +57,7 @@ import { OptionCallback } from '../../../state/types';
 import Config from '../../../config';
 import { StopSubscriptionInfoModal } from '#src/libs/theme/components/StopSubscriptionInfoModal';
 import { getIntercomLink } from '#src/intercom';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 interface FormikValues {
   show_offers_filling: boolean;
@@ -106,6 +107,7 @@ interface FormikValues {
   show_past_sessions_calendar: boolean;
   display_credit_price_for_offer: boolean;
   one_click_checkout_enabled: boolean;
+  is_marketing_double_opt_in_enabled: boolean;
 }
 type Props = {
   theme: CompanyTheme;
@@ -124,8 +126,11 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
   // @ts-expect-error
   theme,
 }) => {
-  const { t } = useTranslation(['theme', 'translation']);
+  const { t } = useTranslation(['theme', 'translation', 'b2b_theme']);
   const classes = useStyles();
+  const showMarketingDoubleOptInSetting = useSafeFlag(
+    FeatureFlags.MARKETING_DOUBLE_OPT_IN,
+  );
 
   const handleOnChangeCoachDisplay = React.useCallback(
     (option: { label: string; value: MarketPlaceCoachDisplay }) => {
@@ -1010,6 +1015,36 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
               </div>
             )}
           </div>
+          {showMarketingDoubleOptInSetting && (
+            <div className={classes.section}>
+              <Typography className={classes.namesHeader}>
+                {t('b2b_theme:personalization.marketing.title')}
+              </Typography>
+              <div className={classes.fieldWithHelperText}>
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={values.is_marketing_double_opt_in_enabled}
+                      onChange={(event) => {
+                        setFieldValue(
+                          'is_marketing_double_opt_in_enabled',
+                          event.target.checked,
+                        );
+                      }}
+                    />
+                  }
+                  label={t(
+                    'b2b_theme:personalization.marketing.form.doubleOptIn.label',
+                  )}
+                />
+                <Typography color="textSecondary" variant="caption">
+                  {t(
+                    'b2b_theme:personalization.marketing.form.doubleOptIn.description',
+                  )}
+                </Typography>
+              </div>
+            </div>
+          )}
           <div className={classes.section}>
             <Typography className={classes.namesHeader}>
               {t('forms.themePersonalization.resetPassword.title')}
@@ -1296,6 +1331,7 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
   hide_book_button: Yup.boolean().required(),
   show_past_sessions_calendar: Yup.boolean().required(),
   start_calendar_week_on_today: Yup.boolean().required(),
+  is_marketing_double_opt_in_enabled: Yup.boolean().required(),
 });
 
 const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
@@ -1393,6 +1429,8 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         start_calendar_week_on_today: theme.start_calendar_week_on_today,
         display_credit_price_for_offer: theme.display_credit_price_for_offer,
         one_click_checkout_enabled: theme.one_click_checkout_enabled,
+        is_marketing_double_opt_in_enabled:
+          theme.is_marketing_double_opt_in_enabled,
       };
     }
     return {
@@ -1442,6 +1480,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       start_calendar_week_on_today: false,
       display_credit_price_for_offer: false,
       one_click_checkout_enabled: false,
+      is_marketing_double_opt_in_enabled: false,
     };
   },
   validationSchema: ThemePersonalizeFormSchema,
@@ -1494,6 +1533,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       // @ts-expect-error
       'start_calendar_week_on_today',
       'one_click_checkout_enabled',
+      'is_marketing_double_opt_in_enabled',
     ];
     keys.forEach((key) => {
       if (key === 'show_studio_on_general_app') {

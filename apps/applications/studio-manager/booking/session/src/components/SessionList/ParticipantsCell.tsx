@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Body, Icon, Tooltip } from "@bsport/kaizen-primitive-core";
+import { Body, Icon } from "@bsport/kaizen-primitive-core";
 
+import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import { useTranslation } from "#src/utils/i18n";
 
 type ParticipantsCellProps = {
@@ -31,9 +32,9 @@ export const ParticipantsCell: React.FC<ParticipantsCellProps> = ({
       </Body>
       {available && (
         <div className="flex items-center text-onsurface-weak lg:gap-xs">
-          <Tooltip label={t("table.waitlist")} placement="bottom">
+          <ResponsiveTooltip label={t("table.waitlist")} placement="bottom">
             <Icon icon="hourglass-03" size="sm" />
-          </Tooltip>
+          </ResponsiveTooltip>
           <Body htmlVariant="p" size="md" color="weak">
             {`${nb_option} / ${waiting_list_max_size}`}
           </Body>

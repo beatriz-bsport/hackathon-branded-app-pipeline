@@ -23,7 +23,7 @@ export const SessionCreditsField: FC<{
       : t(
           "addSessionModal.steps.configureSession.settings.credits.decimalHelperText",
           {
-            count: Number(getCreditsDividedDisplay(credits)),
+            credits: getCreditsDividedDisplay(credits),
           },
         );
 

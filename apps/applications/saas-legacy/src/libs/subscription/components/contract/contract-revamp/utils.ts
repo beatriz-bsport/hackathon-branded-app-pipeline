@@ -208,10 +208,10 @@ export const formValuesToContract = (
         details_values.establishments && details_values.establishments.length
           ? details_values.establishments
           : [],
-      max_bookings_per_day: details_values.max_bookings_per_day ?? null,
-      max_bookings_per_week: details_values.max_bookings_per_week ?? null,
-      max_bookings_per_month: details_values.max_bookings_per_month ?? null,
-      max_purchase_per_member: details_values.max_purchase_per_member ?? null,
+      max_bookings_per_day: details_values.max_bookings_per_day || null,
+      max_bookings_per_week: details_values.max_bookings_per_week || null,
+      max_bookings_per_month: details_values.max_bookings_per_month || null,
+      max_purchase_per_member: details_values.max_purchase_per_member || null,
       full_vod_access: !!details_values.full_vod_access,
       only_vod_access: !!details_values.full_vod_access
         ? !!details_values.only_vod_access

@@ -39,3 +39,19 @@ export const CommunicationStatus = {
 
 export type CommunicationStatus =
   (typeof CommunicationStatus)[keyof typeof CommunicationStatus];
+
+export const CommunicationRecipientStatus = {
+  UNKNOWN: -1,
+  PENDING: 0,
+  PROCESSED: 1,
+  DROPPED: 2,
+  DEFERRED: 3, // Failed
+  DELIVERED: 4,
+  BOUNCED: 5,
+} as const;
+
+export type CommunicationRecipientStatus =
+  (typeof CommunicationRecipientStatus)[keyof typeof CommunicationRecipientStatus];
+
+export const DEFAULT_PAGE = 1;
+export const DEFAULT_PAGE_SIZE_RECIPIENTS = 10;

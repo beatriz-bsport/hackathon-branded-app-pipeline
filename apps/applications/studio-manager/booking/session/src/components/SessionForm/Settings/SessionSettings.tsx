@@ -24,7 +24,7 @@ export const SessionSettings: FC<{
 
   const { watch } = useFormContext();
 
-  const { getCreditsDividedDisplay } = useCreditFactor();
+  const { getCreditsDividedValue } = useCreditFactor();
 
   const isSelectedGroupActivityBroadcast = useSessionCreationStore(
     selectSelectedGroupActivity,
@@ -32,7 +32,7 @@ export const SessionSettings: FC<{
 
   const credits = watch("credits");
 
-  const displayValue = Number(getCreditsDividedDisplay(credits)) || 0;
+  const creditValue = getCreditsDividedValue(credits) || 0;
 
   return (
     <section className="flex flex-col gap-md">
@@ -51,7 +51,7 @@ export const SessionSettings: FC<{
         label={t("addSessionModal.steps.configureSession.settings.waitlist")}
       />
       <SessionCreditsField fieldIdPrefix={fieldIdPrefix} />
-      {displayValue > CREDITS_LIMIT_BEFORE_WARNING && (
+      {creditValue > CREDITS_LIMIT_BEFORE_WARNING && (
         <Alert status="warning" type="weak">
           {t("addSessionModal.steps.configureSession.settings.credits.warning")}
         </Alert>

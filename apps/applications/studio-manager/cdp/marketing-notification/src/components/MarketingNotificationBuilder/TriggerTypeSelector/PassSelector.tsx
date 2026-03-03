@@ -41,12 +41,18 @@ export const PassSelector = ({
       className="w-full"
       disabled={disabled}
       storeConfig={{
-        searchFn: (query, params) =>
-          handleSearchPasses(query, {
+        searchFn: (query, params) => {
+          const basePageSize = params?.page_size ?? 10;
+          const pageSize =
+            defaultValues.length > basePageSize
+              ? defaultValues.length
+              : basePageSize;
+          return handleSearchPasses(query, {
             ...params,
             page: 1,
-            page_size: 10,
-          }),
+            page_size: pageSize,
+          });
+        },
         data: searchedPasses,
       }}
       defaultValues={defaultValueAsString}

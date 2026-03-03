@@ -87,7 +87,6 @@ function Details() {
       console.error(error);
     },
   });
-  // const statusQuery = useBackgroundTaskStatus(taskId);
 
   const handleStart = async (selectedDate: SelectedDate) => {
     if (!Array.isArray(selectedDate) || selectedDate.length < 2) {
@@ -96,14 +95,17 @@ function Details() {
       );
       return;
     }
+
     const startDate = selectedDate[0]?.toFormat(
       REPORT_DATE_FILTER_LUXON_FORMAT,
     );
     const endDate = selectedDate[1]?.toFormat(REPORT_DATE_FILTER_LUXON_FORMAT);
+
     if (!startDate || !endDate) {
       console.warn("Could not generate report : no formatted date");
       return;
     }
+
     try {
       await generateCampaignReport.mutateAsync({
         smartlistId: id,
@@ -153,7 +155,10 @@ function Details() {
 
   const getEndGroupActionItems = () => {
     const pathname = location.pathname;
-    if (pathname.includes(CAMPAIGN_TAB_PATH)) {
+    if (
+      pathname.includes(CAMPAIGN_TAB_PATH) ||
+      pathname.includes(AUTOMATION_TAB_PATH)
+    ) {
       return [
         <SmartlistHeaderActionDropdown
           key="campaign-page-header-actions"

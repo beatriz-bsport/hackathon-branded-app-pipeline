@@ -32,5 +32,22 @@
   "copyPaymentLinkButton": {
     "toastSuccess": "Link copied",
     "tooltip": "Copy payment link"
+  },
+  "itemAutocomplete": {
+    "openItemInNewTab": "Open item in new tab",
+    "credits": "{{count}} credits",
+    "credits_one": "{{count}} credit",
+    "credits_other": "{{count}} credits",
+    "items": "{{count}} items",
+    "items_one": "{{count}} item",
+    "items_other": "{{count}} items",
+    "days": "",
+    "days_one": "{{count}} day",
+    "days_other": "{{count}} days",
+    "unlimited": "Unlimited",
+    "custom": "Custom",
+    "customAmountRange": "Custom: {{min}} - {{max}}",
+    "hiddenChipLabel": "Hidden",
+    "hiddenGiftcardTooltip": "This gift card won't be available to buy on the Member Area"
   }
 }

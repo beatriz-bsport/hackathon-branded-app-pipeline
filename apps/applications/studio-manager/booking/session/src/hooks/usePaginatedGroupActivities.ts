@@ -8,7 +8,6 @@ import { useMemo } from "react";
 import {
   type FetchGroupActivitiesParams,
   type SearchGroupActivitiesParams,
-  fetchGroupActivitiesAndWorkshops,
   searchGroupActivitiesAndWorkshopsAPI,
 } from "@bsport/api-book";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
@@ -24,24 +23,8 @@ type ConfigurableSearchParams = {
 
 const GROUP_ACTIVITIES_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
-const groupActivitiesQueryOptions = (
-  params: FetchGroupActivitiesParams,
-  enabled: boolean,
-) =>
-  queryOptions({
-    queryKey: ["groupActivities", params],
-    queryFn: async () => {
-      const data = await fetchGroupActivitiesAndWorkshops(fetch, params);
-      return data;
-    },
-    enabled,
-    placeholderData: keepPreviousData,
-    staleTime: GROUP_ACTIVITIES_STALE_TIME,
-  });
-
 const searchGroupActivitiesQueryOptions = (
   params: SearchGroupActivitiesParams,
-  enabled: boolean,
 ) =>
   queryOptions({
     queryKey: ["searchGroupActivitiesAndWorkshops", params],
@@ -49,7 +32,6 @@ const searchGroupActivitiesQueryOptions = (
       const data = await searchGroupActivitiesAndWorkshopsAPI(fetch, params);
       return data;
     },
-    enabled,
     placeholderData: keepPreviousData,
     staleTime: GROUP_ACTIVITIES_STALE_TIME,
   });
@@ -78,8 +60,6 @@ export const usePaginatedGroupActivities = ({
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
-  const isSearchMode = !!searchParams?.searchQuery;
-
   const fetchParams: FetchGroupActivitiesParams = {
     customerEnabled,
     ...(isWorkshop !== undefined && { isWorkshop }),
@@ -92,19 +72,12 @@ export const usePaginatedGroupActivities = ({
     searchQuery: searchParams?.searchQuery ?? "",
   };
 
-  const { data: fetchData, isLoading: isFetchLoading } = useQuery(
-    groupActivitiesQueryOptions(fetchParams, !isSearchMode),
+  const { data: searchData, isLoading } = useQuery(
+    searchGroupActivitiesQueryOptions(searchQueryParams),
   );
 
-  const { data: searchData, isLoading: isSearchLoading } = useQuery(
-    searchGroupActivitiesQueryOptions(searchQueryParams, isSearchMode),
-  );
-
-  const activeData = isSearchMode ? searchData : fetchData;
-  const isLoading = isFetchLoading || isSearchLoading;
-
-  const groupActivities = activeData?.results ?? [];
-  const totalItems = activeData?.count ?? 0;
+  const groupActivities = searchData?.results ?? [];
+  const totalItems = searchData?.count ?? 0;
 
   const paginationProps: PaginationProps = useMemo(
     () => ({

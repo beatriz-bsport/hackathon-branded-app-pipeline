@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 
 import { Card, Modal, Table, Title } from "@bsport/kaizen-primitive-core";
 import type { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
 import { CommunicationKind } from "@bsport/store-communicate-communication";
+import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { CommunicationStatusHelper } from "#src/components/MarketingNotificationDetails/Performance/CommunicationStatusHelper";
 import { useFetchCommunicationRecipients } from "#src/hooks/api/use-fetch-communication-recipients";
@@ -20,6 +22,9 @@ type CommunicationSentRecipientTableProps = {
 export const CommunicationSentRecipientTable = ({
   notification,
 }: CommunicationSentRecipientTableProps) => {
+  const [, setSearchParams] = useSearchParams();
+  const { currentPage, currentPageSize, setPageSettings } =
+    usePaginationQueryParams();
   const [notificationContent, setNotificationContent] = useState<
     | {
         title: string;
@@ -32,6 +37,9 @@ export const CommunicationSentRecipientTable = ({
   const { communicationRecipients, paginationParams } =
     useFetchCommunicationRecipients({
       communicationObjectId: notification.id,
+      currentPage,
+      currentPageSize,
+      setPageSettings,
     });
 
   const tableColumns = useFormatMarketingNotificationRecipientsTableColumns();
@@ -45,6 +53,17 @@ export const CommunicationSentRecipientTable = ({
       });
     },
   }));
+
+  useEffect(() => {
+    return () => {
+      setSearchParams((prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete("page");
+        next.delete("page_size");
+        return next;
+      });
+    };
+  }, []);
 
   return (
     <div className="flex flex-col gap-sm">

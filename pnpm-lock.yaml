@@ -207,9 +207,6 @@ importers:
       '@bsport/consent-management':
         specifier: workspace:*
         version: link:../../../packages/consent-management
-      '@bsport/onboarding-manager':
-        specifier: workspace:*
-        version: link:../../../packages/utils/onboarding-manager
       '@bsport/sm-navigation-sidebar':
         specifier: workspace:*
         version: link:../studio-manager/navigation-sidebar
@@ -2421,9 +2418,6 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
-      '@bsport/onboarding-manager':
-        specifier: workspace:*
-        version: link:../../../../packages/utils/onboarding-manager
       '@bsport/request-from-header':
         specifier: workspace:*
         version: link:../../../../packages/local-storage/request-from-header
@@ -23856,9 +23850,7 @@ snapshots:
       source-map: 0.6.1
       string-length: 2.0.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@jest/reporters@28.1.3(node-notifier@8.0.2)':
     dependencies:
@@ -36211,9 +36203,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

@@ -16,11 +16,11 @@ import {
 import { AppWrapper } from "@bsport/sm-backbone";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { OnboardingPageTracker } from "#src/components/OnboardingPageTracker";
+import { AppcuesTag } from "#src/components/onboarding/AppcuesTag";
 import { analyticsClient, debugActive } from "#src/utils/analytics";
 import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 
-import { onboardingManagerClient } from "./utils/onboarding";
+import { removeAppcuesScripts } from "./components/onboarding/appcues-scripts";
 
 // ----- Booking -----
 const GroupActivities = lazy(() => import("sm-group-activity/App"));
@@ -95,14 +95,36 @@ export function Root() {
         onLogoutCallback: () => {
           analyticsClient.resetIdentity();
           analyticsClient.overloadResetSuperProperties(); // Analytics tool level super properties
-          onboardingManagerClient.logOutUser();
+          removeAppcuesScripts();
         },
       }}
       loginUrl={loginUrl}
     >
-      <OnboardingPageTracker />
-      <AuthenticatedRoutes />
+      <AuthenticatedLayout />
     </AppWrapper>
+  );
+}
+
+function AuthenticatedLayout() {
+  const user = dataAccessLayer.useUserAccess();
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const toggleAppcues = useNavFlag(NavFlags.TOGGLE_APPCUES);
+
+  return (
+    <>
+      {toggleAppcues && (
+        <AppcuesTag
+          companyId={companyTheme?.company}
+          companyRole={user?.role}
+          email={user?.username}
+          franchiseId={companyTheme?.franchisor}
+          franchiseRole={user?.franchise_role}
+          userId={user?.id}
+          username={user?.name ?? user?.username}
+        />
+      )}
+      <AuthenticatedRoutes />
+    </>
   );
 }
 

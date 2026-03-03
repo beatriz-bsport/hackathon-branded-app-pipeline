@@ -45,6 +45,40 @@
       "success": "Successfully updated Gift Card."
     }
   },
+  "purchases": {
+    "status": {
+      "unclaimed": "Unclaimed",
+      "active": "Active",
+      "expired": "Expired",
+      "cancelled": "Cancelled",
+      "redeemed": "Redeemed"
+    },
+    "loading": "Loading purchased Gift Cards...",
+    "emptyList": {
+      "title": "No Gift Cards sold yet",
+      "subtitle": "Once a member buys a Gift Card, they'll be displayed here."
+    },
+    "displaySettings": {
+      "visibleColumns": "Visible columns"
+    },
+    "table": {
+      "columns": {
+        "issueDate": "Issue date",
+        "status": "Status",
+        "buyer": "Buyer",
+        "recipient": "Recipient",
+        "expiryDate": "Expiry Date",
+        "value": "Value",
+        "balance": "Balance",
+        "printableCode": "Code"
+      },
+      "rows": {
+        "emptyRecipient": "Not claimed",
+        "unlimited": "Unlimited",
+        "typeDigital": "Digital"
+      }
+    }
+  },
   "formFields": {
     "errors": {
       "fieldIsRequired": "This field is required.",

@@ -1358,9 +1358,18 @@ importers:
 
   apps/applications/studio-manager/buyables/giftcard:
     dependencies:
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/buyables
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../../../packages/utils/currency
+      '@bsport/datetime-formatting':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime-formatting
+      '@bsport/datetime-manipulation':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime/manipulation
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch

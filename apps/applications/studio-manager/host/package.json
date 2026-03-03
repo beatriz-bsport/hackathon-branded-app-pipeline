@@ -37,6 +37,7 @@
     "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
+    "@bsport/sm-smartlists": "workspace:*",
     "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -90,10 +91,6 @@
       "sm-email-template": {
         "devPort": 4300,
         "watchPath": "../cdp/email-template/src/**/*"
-      },
-      "sm-smartlists": {
-        "devPort": 4301,
-        "watchPath": "../cdp/smartlists/src/**/*"
       },
       "sm-tag": {
         "devPort": 4304,

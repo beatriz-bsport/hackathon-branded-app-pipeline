@@ -75,10 +75,6 @@ declare module "sm-email-template/App" {
   const App: BaseApp["App"];
   export default App;
 }
-declare module "sm-smartlists/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 
 declare module "sm-tag/App" {
   const App: BaseApp["App"];

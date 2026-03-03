@@ -18,7 +18,7 @@ import {
 type TableColumn = GenericTableColumn<TableRowData>;
 
 // eslint-disable-next-line react-refresh/only-export-components
-const AvatarWithName: FC<{ name: string; avatarSrc?: string }> = ({
+const AvatarWithName: FC<{ name?: string; avatarSrc?: string }> = ({
   name = "",
   avatarSrc,
 }) => {
@@ -72,7 +72,10 @@ export const useTableColumns = ({
       type: "custom",
       align: "start",
       render: (row) => (
-        <AvatarWithName name={row.buyer.name} avatarSrc={row.buyer.avatarSrc} />
+        <AvatarWithName
+          name={row.buyer?.name}
+          avatarSrc={row.buyer?.avatarSrc}
+        />
       ),
     };
 
@@ -91,8 +94,8 @@ export const useTableColumns = ({
         }
         return (
           <AvatarWithName
-            name={row.recipient.name}
-            avatarSrc={row.recipient.avatarSrc}
+            name={row.recipient?.name}
+            avatarSrc={row.recipient?.avatarSrc}
           />
         );
       },

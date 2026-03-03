@@ -1394,6 +1394,9 @@ importers:
       '@bsport/store-cdp-tag':
         specifier: workspace:*
         version: link:../../../../../packages/stores/cdp/tag
+      '@bsport/store-core-data-member':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/core-data/member
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async

@@ -11,15 +11,17 @@ import { GiftcardPurchasesMobile } from "./giftcard-purchases-mobile";
 
 type GiftcardPurchasesListProps = {
   selectedColumns: Record<AvailableColumn, boolean>;
+  giftcardId: number;
 };
 
 export const GiftcardPurchasesList: FC<GiftcardPurchasesListProps> = ({
   selectedColumns,
+  giftcardId,
 }) => {
   const { t } = useTranslation("giftcard-details");
 
   const { giftcardPurchases, isLoading, paginationParams, totalItems } =
-    useFetchGiftcardPurchases();
+    useFetchGiftcardPurchases(giftcardId);
 
   const loadingProps = {
     isLoading: isLoading,

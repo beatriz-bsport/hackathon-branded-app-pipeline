@@ -1,5 +1,5 @@
 export type PersonCell = {
   id: number;
-  name: string;
+  name?: string;
   avatarSrc?: string;
-};
+} | null;

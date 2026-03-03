@@ -9,6 +9,8 @@ import {
 
 import { API_V1_URL } from "../constants";
 import type {
+  ConsumerGiftcard,
+  FetchConsumerGiftcardsParams,
   FetchGiftcardImagesParams,
   FetchGiftcardsParams,
   Giftcard,
@@ -154,6 +156,25 @@ export const updateGiftcardAPI = async (
 
 // #endregion
 
+// region ConsumerGiftcard
+
+export const fetchConsumerGiftcardsAPIConfig = (
+  params: FetchConsumerGiftcardsParams,
+): ApiConfig => {
+  return [`${API_URL}/consumer_giftcard/${buildUrlParams(params)}`];
+};
+
+export const fetchConsumerGiftcardsAPI = async (
+  fetch: Fetch<PaginatedResponse<ConsumerGiftcard>>,
+  params: FetchConsumerGiftcardsParams,
+): Promise<PaginatedResponse<ConsumerGiftcard>> => {
+  const [uri, init] = fetchConsumerGiftcardsAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
 // region GiftcardImageBackground
 
 export const fetchGiftcardBackgroundListAPIConfig = (
@@ -189,7 +210,6 @@ export const fetchGiftcardImagesAPI = async (
 
 // ----------------------------------------------------------------------------
 
-/** @note This endpoint does not exist yet */
 export const restoreGiftcardImageAPIConfig = ({
   id,
 }: {

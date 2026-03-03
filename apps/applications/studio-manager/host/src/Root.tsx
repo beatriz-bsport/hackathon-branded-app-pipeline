@@ -39,7 +39,7 @@ const Teacher = lazy(() => import("sm-teacher/App"));
 const Invoice = lazy(() => import("@bsport/sm-invoice"));
 
 // ----- Customer Data Platform -----
-const EmailTemplate = lazy(() => import("sm-email-template/App"));
+const EmailTemplate = lazy(() => import("@bsport/sm-email-template"));
 const Smartlists = lazy(() => import("@bsport/sm-smartlists"));
 const CustomForm = lazy(() => import("@bsport/sm-custom-form"));
 const ReferralProgram = lazy(() => import("@bsport/sm-referral-program"));

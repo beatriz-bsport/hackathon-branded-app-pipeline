@@ -1,6 +1,10 @@
 import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
 
-import namespaces from "#src/i18n/namespaces.json";
+import {
+  i18nNamespacePrefix,
+  i18nNamespaces,
+  inMemoryTranslationsLoader,
+} from "#src/i18n";
 import type detailTranslations from "#src/i18n/source/detail.json";
 import type listTranslations from "#src/i18n/source/list.json";
 import type notificationRuleTranslations from "#src/i18n/source/notificationRule.json";
@@ -11,9 +15,6 @@ type Translations = {
   notificationRule: typeof notificationRuleTranslations;
 };
 
-const applicationName = __EMAIL_TEMPLATE__.__I18N_NAMESPACE_PREFIX__;
-const applicationUrl = __EMAIL_TEMPLATE__.__APPLICATION_BASE_URL__;
-
 export const {
   i18nInstance,
   useTranslation,
@@ -21,9 +22,9 @@ export const {
   getFixedNamespace,
   AppI18nextProvider,
 } = instanciateAppI18n<Translations>({
-  applicationName,
-  applicationUrl,
-  namespaces,
+  applicationName: i18nNamespacePrefix,
+  namespaces: i18nNamespaces,
+  inMemoryTranslationsLoader,
   debug: import.meta.env.DEV,
 });
 

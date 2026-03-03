@@ -3,6 +3,7 @@ interface AppcuesClient {
   page(): void;
   identify?(userId: string | number, attrs?: Record<string, unknown>): void;
   track?(eventName: string, props?: Record<string, unknown>): void;
+  reset?(): void;
   anonymous?(): void;
 }
 

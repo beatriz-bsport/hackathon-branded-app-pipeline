@@ -29,7 +29,6 @@
     "@bsport/i18n": "workspace:*",
     "@bsport/intercom": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
-    "@bsport/onboarding-manager": "workspace:*",
     "@bsport/request-from-header": "workspace:*",
     "@bsport/sentry": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",

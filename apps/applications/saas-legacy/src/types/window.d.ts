@@ -19,5 +19,14 @@ export declare global {
     intercomSettings?: IntercomSettings;
     Intercom: IntercomInstance | undefined;
     attachEvent: Function;
+    Appcues?: {
+      identify(
+        userId: string,
+        traits?: Record<string, string | number | boolean>,
+      ): void;
+      page(): void;
+      reset?(): void;
+    };
+    AppcuesSettings?: Record<string, unknown>;
   }
 }

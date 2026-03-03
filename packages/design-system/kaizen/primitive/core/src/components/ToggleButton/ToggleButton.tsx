@@ -102,9 +102,7 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
     ? checkedConfig.label
     : uncheckedConfig.label;
 
-  const iconName = isChecked
-    ? checkedConfig.icon || "check"
-    : uncheckedConfig.icon;
+  const iconName = isChecked ? checkedConfig.icon : uncheckedConfig.icon;
 
   const tooltipConfig = isChecked
     ? checkedConfig.tooltipConfig

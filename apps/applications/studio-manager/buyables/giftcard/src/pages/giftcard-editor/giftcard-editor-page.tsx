@@ -73,7 +73,7 @@ export const GiftcardEditorPage: FC<GiftcardEditorPageProps> = ({
     }
 
     const formValues = methods.getValues();
-    updateGiftcard({
+    await updateGiftcard({
       id: giftcard.id,
       data: transformFormStateIntoAPIData(formValues),
     });

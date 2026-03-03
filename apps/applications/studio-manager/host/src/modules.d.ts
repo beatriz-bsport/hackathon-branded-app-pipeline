@@ -71,11 +71,6 @@ declare module "sm-teacher/App" {
 }
 
 // ----- Customer Data Platform -----
-declare module "sm-email-template/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
 declare module "sm-tag/App" {
   const App: BaseApp["App"];
   export default App;

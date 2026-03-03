@@ -34,6 +34,7 @@
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/sm-custom-form": "workspace:*",
     "@bsport/sm-invoice": "workspace:*",
+    "@bsport/sm-email-template": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
@@ -86,10 +87,6 @@
       "sm-group-activity": {
         "devPort": 4200,
         "watchPath": "../booking/group-activity/src/**/*"
-      },
-      "sm-email-template": {
-        "devPort": 4300,
-        "watchPath": "../cdp/email-template/src/**/*"
       },
       "sm-tag": {
         "devPort": 4304,

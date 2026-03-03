@@ -1,5 +1,6 @@
 import {
   type ApiConfig,
+  type URLParams,
   type XhrApiConfig,
   buildUrlParams,
 } from "@bsport/store-base";
@@ -15,7 +16,8 @@ export type FetchMembersParams = {
   tags_excluded?: string; // Union of selected tags, ids of tags separated by commas
   exclude_archived?: boolean;
   email_confirmed?: boolean;
-} & Record<string, string | boolean | number>;
+  id__in?: number[];
+} & URLParams;
 
 export const fetchMembersAPI = (params: FetchMembersParams): ApiConfig => {
   return [`${API_URL}/${buildUrlParams(params)}`];

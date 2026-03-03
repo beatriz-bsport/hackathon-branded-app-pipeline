@@ -1,4 +1,4 @@
-import { type URLParams } from "@bsport/store-base";
+import type { URLParams } from "@bsport/store-base";
 
 import { CONSUMER_GIFTCARD_KIND } from "./constants";
 
@@ -151,6 +151,20 @@ export type UploadGiftcardImageParams = {
   file: File;
   signal: AbortSignal;
   onUploadProgress: (progressEvent: ProgressEvent) => void;
+};
+
+export type FetchConsumerGiftcardsParams = {
+  page: number;
+  page_size: number;
+  giftcard: number;
+  giftcard_template?: number;
+  as_received?: boolean;
+  as_sent?: boolean;
+  company?: number;
+  has_amount_left?: boolean;
+  id__in?: number[];
+  in_timeframe?: boolean;
+  active?: boolean;
 };
 
 export type CreateGiftcardKeys = Pick<

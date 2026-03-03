@@ -6,6 +6,7 @@ export {
   duplicateGiftcardAPI,
   createGiftcardAPI,
   updateGiftcardAPI,
+  fetchConsumerGiftcardsAPI,
   fetchGiftcardBackgroundListAPI,
   fetchGiftcardImagesAPI,
   restoreGiftcardImageAPI,
@@ -23,4 +24,5 @@ export {
   type FetchGiftcardImagesParams,
   type UploadGiftcardImageParams,
   type CreateGiftcardKeys,
+  type FetchConsumerGiftcardsParams,
 } from "./types";

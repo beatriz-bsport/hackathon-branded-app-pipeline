@@ -271,7 +271,7 @@ export const InvoiceHeaderFiskalyAlert: React.FC<Props> = ({
           {t('signEsStatus.tryAgain')}
         </Button>
       }
-      className={classes.alert}
+      classes={{ root: classes.alert, message: classes.alertMessage }}
       severity="warning"
       variant="standard"
     >
@@ -294,6 +294,12 @@ export const InvoiceHeaderFiskalyAlert: React.FC<Props> = ({
 const useStyles = makeStyles((theme: Theme) => ({
   alert: {
     borderRadius: theme.spacing(0.5),
+  },
+  alertMessage: {
+    maxWidth: '85%',
+    [theme.breakpoints.down('xs')]: {
+      maxWidth: '100%',
+    },
   },
   alertContent: {
     marginTop: theme.spacing(1),

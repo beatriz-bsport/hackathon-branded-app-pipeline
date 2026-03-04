@@ -170,8 +170,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
           invoice: invoiceToBill ? invoiceToBill.uuid : null,
           member: memberId,
           requested_price_cts: amountToBill
-            ? // @ts-expect-error
-              parseInt(parseFloat(amountToBill) * 100, 10)
+            ? Math.round(parseFloat(amountToBill) * 100)
             : null,
           ...(params || {}),
         },

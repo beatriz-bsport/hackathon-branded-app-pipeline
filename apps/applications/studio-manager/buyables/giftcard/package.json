@@ -18,12 +18,16 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-buyables": "workspace:*",
     "@bsport/currency": "workspace:*",
+    "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",
     "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/store-buyables-giftcard": "workspace:*",
     "@bsport/store-cdp-tag": "workspace:*",
+    "@bsport/store-core-data-member": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
     "clsx": "^2.1.1"

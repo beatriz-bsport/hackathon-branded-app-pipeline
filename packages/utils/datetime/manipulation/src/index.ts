@@ -270,6 +270,23 @@ export function isWithinRange(
   );
 }
 
+function normalizeDateTime(dateTime: DateTime) {
+  return dateTime.setZone(dateTime.zone).startOf("day").toMillis();
+}
+
+/**
+ * Determine if a date is in the past (strictly)
+ */
+export function isPast(date: string | DateTime): boolean {
+  const today = LuxonDateTime.now();
+  const dateToCompare =
+    typeof date === "string"
+      ? fromIsoString(date, { zone: today.zoneName })
+      : date;
+  const todayInSameZone = today.setZone(dateToCompare.zone);
+  return normalizeDateTime(dateToCompare) < normalizeDateTime(todayInSameZone);
+}
+
 /**
  * Get ISO weekday from DateTime (1 = Monday, 7 = Sunday)
  */

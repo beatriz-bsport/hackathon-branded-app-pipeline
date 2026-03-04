@@ -16,11 +16,11 @@ import {
 import { AppWrapper } from "@bsport/sm-backbone";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { OnboardingPageTracker } from "#src/components/OnboardingPageTracker";
+import { AppcuesTag } from "#src/components/onboarding/AppcuesTag";
 import { analyticsClient, debugActive } from "#src/utils/analytics";
 import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 
-import { onboardingManagerClient } from "./utils/onboarding";
+import { removeAppcuesScripts } from "./components/onboarding/appcues-scripts";
 
 // ----- Booking -----
 const GroupActivities = lazy(() => import("sm-group-activity/App"));
@@ -36,12 +36,12 @@ const MemberList = lazy(() => import("sm-member-list/App"));
 const Teacher = lazy(() => import("sm-teacher/App"));
 
 // ----- Financial Services -----
-const Invoice = lazy(() => import("sm-invoice/App"));
+const Invoice = lazy(() => import("@bsport/sm-invoice"));
 
 // ----- Customer Data Platform -----
-const EmailTemplate = lazy(() => import("sm-email-template/App"));
-const Smartlists = lazy(() => import("sm-smartlists/App"));
-const CustomForm = lazy(() => import("sm-custom-form/App"));
+const EmailTemplate = lazy(() => import("@bsport/sm-email-template"));
+const Smartlists = lazy(() => import("@bsport/sm-smartlists"));
+const CustomForm = lazy(() => import("@bsport/sm-custom-form"));
 const ReferralProgram = lazy(() => import("@bsport/sm-referral-program"));
 const Tag = lazy(() => import("sm-tag/App"));
 const TransactionalNotification = lazy(
@@ -95,14 +95,36 @@ export function Root() {
         onLogoutCallback: () => {
           analyticsClient.resetIdentity();
           analyticsClient.overloadResetSuperProperties(); // Analytics tool level super properties
-          onboardingManagerClient.logOutUser();
+          removeAppcuesScripts();
         },
       }}
       loginUrl={loginUrl}
     >
-      <OnboardingPageTracker />
-      <AuthenticatedRoutes />
+      <AuthenticatedLayout />
     </AppWrapper>
+  );
+}
+
+function AuthenticatedLayout() {
+  const user = dataAccessLayer.useUserAccess();
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const toggleAppcues = useNavFlag(NavFlags.TOGGLE_APPCUES);
+
+  return (
+    <>
+      {toggleAppcues && (
+        <AppcuesTag
+          companyId={companyTheme?.company}
+          companyRole={user?.role}
+          email={user?.username}
+          franchiseId={companyTheme?.franchisor}
+          franchiseRole={user?.franchise_role}
+          userId={user?.id}
+          username={user?.name ?? user?.username}
+        />
+      )}
+      <AuthenticatedRoutes />
+    </>
   );
 }
 

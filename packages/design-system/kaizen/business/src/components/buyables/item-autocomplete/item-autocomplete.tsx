@@ -57,6 +57,9 @@ export type ItemAutocompleteItem = {
   // Giftcard specific fields.
   hiddenFromMemberArea?: boolean;
   expirationDays?: number | null;
+  /** Custom amount giftcard: min/max in cents. */
+  minAmountCts?: number | null;
+  maxAmountCts?: number | null;
 };
 
 type ItemAutocompleteTextfieldProps = Omit<

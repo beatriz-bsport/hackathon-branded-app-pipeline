@@ -40,7 +40,10 @@ export const useGiftcardConfig = (): ItemTypeConfig<RawGiftcardResponse> => {
         return {
           id: String(item.id),
           title: item.name,
-          priceLabel: price == null ? t("itemAutocomplete.custom") : priceLabel,
+          priceLabel:
+            price == null || price === 0
+              ? t("itemAutocomplete.custom")
+              : priceLabel,
           taxPercent: 0,
           description:
             descriptionParts.length > 0
@@ -54,6 +57,10 @@ export const useGiftcardConfig = (): ItemTypeConfig<RawGiftcardResponse> => {
               : undefined,
           hiddenFromMemberArea: item.manager_only ?? false,
           expirationDays: item.expiration_days ?? null,
+          minAmountCts:
+            item.min_price != null ? Math.round(item.min_price * 100) : null,
+          maxAmountCts:
+            item.max_price != null ? Math.round(item.max_price * 100) : null,
         };
       },
     }),

@@ -8,6 +8,7 @@ export type FeatureFlagProps = {
   isInvoiceSequentialNumberingEnabled: boolean;
   shouldDisplayNewSubscriptionContracts: boolean;
   toggleAppcues: boolean;
+  showBookingDisplaySwapPass: boolean;
 };
 
 /**
@@ -27,6 +28,9 @@ export const withFeatureFlags = <TProps extends object>(
       FeatureFlags.NEW_SUBSCRIPTION_CONTRACTS,
     );
     const toggleAppcues = useSafeFlag(FeatureFlags.TOGGLE_APPCUES);
+    const showBookingDisplaySwapPass = useSafeFlag(
+      FeatureFlags.BOOKING_DISPLAY_SWAP_PASS,
+    );
 
     return (
       <WrappedComponent
@@ -38,6 +42,7 @@ export const withFeatureFlags = <TProps extends object>(
           shouldDisplayNewSubscriptionContracts
         }
         showAudienceTemplates={showAudienceTemplates}
+        showBookingDisplaySwapPass={showBookingDisplaySwapPass}
         showExpressCheckout={showExpressCheckout}
         toggleAppcues={toggleAppcues}
       />

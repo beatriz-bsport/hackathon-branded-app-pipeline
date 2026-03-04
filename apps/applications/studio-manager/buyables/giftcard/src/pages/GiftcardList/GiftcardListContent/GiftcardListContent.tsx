@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import { GiftcardTable } from "#src/components/GiftcardTable";
+import { GiftcardArchiveModal } from "#src/features/giftcard-archive-modal";
 import { useFetchPaginatedList } from "#src/hooks/useFetchPaginatedList";
 
-import { GiftcardArchiveModal } from "./GiftcardArchiveModal";
 import { GiftcardDuplicateModal } from "./GiftcardDuplicateModal";
 
 type GiftcardListProps = {
@@ -64,8 +64,8 @@ export const GiftcardListContent: React.FC<GiftcardListProps> = ({
           isOpen={!!giftcardToArchive}
           giftcardId={giftcardToArchive.giftcardId}
           giftcardName={giftcardToArchive.giftcardName}
-          refreshPageList={fetchGiftcardsPage}
-          onClose={handleCloseArchiveModal}
+          onSuccess={fetchGiftcardsPage}
+          closeModal={handleCloseArchiveModal}
         />
       )}
       {giftcardToDuplicate && (

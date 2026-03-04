@@ -1,5 +1,6 @@
 import { FC } from "react";
 
+import { ListLayout } from "@bsport/kaizen-primitive-core";
 import {
   selectGiftcard,
   useGiftcardStore,
@@ -27,6 +28,15 @@ export const GiftcardEditorEntry: FC = () => {
 
   if (isLoading && !giftcard) {
     return <GiftcardDetailsLoading />;
+  }
+
+  if (!giftcard) {
+    // Display a consistent layout to avoid flickering
+    return (
+      <ListLayout>
+        <ListLayout.Header pageTitle="" />
+      </ListLayout>
+    );
   }
 
   return <GiftcardEditorPage giftcard={giftcard} />;

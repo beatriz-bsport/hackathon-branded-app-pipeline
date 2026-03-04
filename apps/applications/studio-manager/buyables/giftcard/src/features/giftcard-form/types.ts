@@ -6,7 +6,7 @@ export type GiftcardFormData = {
   // Identity section
   name: string;
   description: string;
-  cover: File | null;
+  cover: File | string | null;
   // Pricing section
   price: number | null;
   min_price: number | null;

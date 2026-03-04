@@ -1,0 +1,24 @@
+{
+  "swapPass": {
+    "menuAction": "Swap Pass",
+    "dialog": {
+      "title": "Swap Pass",
+      "noCompatiblePasses": "No compatible passes",
+      "actions": {
+        "close": "Close",
+        "confirm": "Confirm"
+      },
+      "errors": {
+        "loadCompatiblePasses": "Could not load compatible passes.",
+        "swapFailed": "Could not swap pass. Please try again.",
+        "5347000": "Booking not found. Please refresh and try again.",
+        "5347001": "This booking is already using this pass.",
+        "5347002": "This pass does not belong to this member.",
+        "5347003": "This pass is not compatible with this booking.",
+        "5347004": "This pass is blocked and cannot be used.",
+        "5347005": "This pass does not have enough credits.",
+        "5347006": "Cannot swap pass on a partnership booking."
+      }
+    }
+  }
+}

@@ -156,6 +156,11 @@ import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { UpsellSumup } from '#src/libs/company/types';
 import { useRouteToHomepage } from '#src/revamp';
 import { checkHasBackofficeAccess } from '#src/utils/permissions';
+import { AppcuesTag } from '../components/onboarding/AppcuesTag';
+import {
+  type FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -315,6 +320,9 @@ type Props = {
   fetchOnSpotPaymentReport: () => void,
   onSpotPaymentReportId: number,
   roleId: number,
+  userId: number,
+  franchiseRole: number,
+  isManager: boolean,
   storedToken: string,
   fetchCompanyRoles: () => void,
   rolesLoading: boolean,
@@ -386,7 +394,7 @@ type Props = {
   userAuthState: AuthState,
   retrieveCommunicationSMSProviderVerification: () => void,
   hasEnabledRevampedBO: boolean,
-};
+} & FeatureFlagProps;
 
 const DELAY_BETWEEN_ALERTS = 10 * 60000;
 
@@ -801,6 +809,8 @@ export class Backoffice extends Component<Props, State> {
 
     const isInboxPath = this.props.browserLocation.pathname.includes('/inbox/');
 
+    const toggleAppcues = this.props.toggleAppcues;
+
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <PermissionContext.Provider value={this.props.permissions}>
@@ -812,6 +822,18 @@ export class Backoffice extends Component<Props, State> {
             }}
           >
             <BannerProvider>
+              {toggleAppcues && (
+                <AppcuesTag
+                  companyId={this.props.theme.company}
+                  companyRole={this.props.roleId}
+                  email={this.props.username}
+                  franchiseId={this.props.theme.franchisor}
+                  franchiseRole={this.props.franchiseRole}
+                  isManager={this.props.isManager}
+                  userId={this.props.userId}
+                  username={this.props.name}
+                />
+              )}
               <BackofficeDrawer
                 autoFocusMemberSearchBar={
                   !this.props.browserLocation.pathname.includes(
@@ -1070,6 +1092,9 @@ export default compose(
       username: state.auth.username,
       userAuthState: state.auth,
       name: state.auth.name,
+      isManager: state.auth.is_manager,
+      userId: state.auth.id,
+      franchiseRole: state.auth.franchise_role,
       roleId: state.auth.role,
       loadingImpersonation: state.auth.loadingImpersonation,
       theme: state.theme.theme,
@@ -1199,4 +1224,5 @@ export default compose(
   }),
   withRudderStackHistoryTracker,
   withAccessControlCheckInScanner,
+  withFeatureFlags,
 )(themedBackoffice);

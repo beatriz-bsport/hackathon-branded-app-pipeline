@@ -1,23 +1,63 @@
-import React, { useCallback, useEffect, useId, useState } from "react";
+import React, { useCallback, useEffect, useId } from "react";
 
-import { FormField, useFormContext } from "@bsport/form";
-import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
+import { useFormContext } from "@bsport/form";
 
-import {
-  type CheckoutFlowFormState,
-  PRICE_INPUT_PATTERN,
-} from "#src/components/core/checkout-flow-modal/schema";
+import type { CheckoutFlowFormState } from "#src/components/core/checkout-flow-modal/schema";
+import { FormPriceField } from "#src/components/form/price-field";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
-export const PriceField: React.FC = () => {
+function getResetCts(
+  selectedItemId: string | null,
+  defaultCts: number,
+  isCustomAmount: boolean,
+  customMinCts?: number,
+): number {
+  if (!selectedItemId) return 0;
+  if (isCustomAmount) return customMinCts ?? 0;
+  return defaultCts;
+}
+
+type PriceFieldProps = {
+  /** Custom amount giftcard: min/max in cents from the selected item. */
+  customAmountMinCts?: number;
+  customAmountMaxCts?: number;
+};
+
+export const PriceField: React.FC<PriceFieldProps> = ({
+  customAmountMinCts,
+  customAmountMaxCts,
+}) => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
   const { watch, setValue } = useFormContext<CheckoutFlowFormState>();
   const priceFieldId = `price-${useId()}`;
-  const [priceInputValue, setPriceInputValue] = useState<string>("");
 
-  const priceCts = watch("addItemPriceCts");
+  const selectedItemType = watch("addItemSelectedItemType");
   const selectedItemId = watch("addItemSelectedItemId");
   const selectedItemPriceCts = watch("addItemSelectedItemPriceCts");
+
+  const isCustomAmount =
+    selectedItemType === "giftcard" &&
+    selectedItemId &&
+    selectedItemPriceCts === 0;
+
+  const customMinCts =
+    customAmountMinCts != null && customAmountMinCts >= 0
+      ? customAmountMinCts
+      : undefined;
+  const customMaxCts =
+    customAmountMaxCts != null && customAmountMaxCts > 0
+      ? customAmountMaxCts
+      : undefined;
+  const normalizedCustomMaxCts =
+    customMinCts != null && customMaxCts != null && customMaxCts < customMinCts
+      ? undefined
+      : customMaxCts;
+
+  const defaultCts = selectedItemPriceCts ?? 0;
+  const maxCts =
+    selectedItemPriceCts != null && selectedItemPriceCts > 0
+      ? selectedItemPriceCts
+      : undefined;
 
   const resetDiscount = useCallback(
     (shouldDirty: boolean) => {
@@ -28,89 +68,80 @@ export const PriceField: React.FC = () => {
     [setValue],
   );
 
-  const updateDiscountFromPrice = useCallback(
-    (newPriceCts: number, originalPriceCts: number) => {
-      if (originalPriceCts > 0 && newPriceCts < originalPriceCts) {
-        const discountAmountCts = originalPriceCts - newPriceCts;
-        const discountPercent =
-          Math.round((discountAmountCts / originalPriceCts) * 10000) / 100;
+  const handlePriceCtsChange = useCallback(
+    (cts: number) => {
+      const originalPriceCts = selectedItemPriceCts ?? 0;
+
+      if (originalPriceCts > 0 && cts < originalPriceCts) {
+        const amountCts = originalPriceCts - cts;
         setValue("addItemApplyDiscount", true, { shouldDirty: true });
-        setValue("addItemDiscountAmountCts", discountAmountCts, {
-          shouldDirty: true,
-        });
-        setValue("addItemDiscountPercent", discountPercent, {
-          shouldDirty: true,
-        });
+        setValue("addItemDiscountAmountCts", amountCts, { shouldDirty: true });
+        setValue(
+          "addItemDiscountPercent",
+          Math.round((amountCts / originalPriceCts) * 10000) / 100,
+          { shouldDirty: true },
+        );
       } else {
         resetDiscount(true);
       }
     },
-    [setValue, resetDiscount],
+    [setValue, resetDiscount, selectedItemPriceCts],
   );
 
-  // Sync price and reset discount when selected item changes
+  // Reset price and discount when selection or mode changes.
   useEffect(() => {
-    if (selectedItemId != null) {
-      setValue("addItemPriceCts", selectedItemPriceCts, { shouldDirty: false });
-      setPriceInputValue((selectedItemPriceCts / 100).toFixed(2));
-    } else {
-      setValue("addItemPriceCts", 0, { shouldDirty: false });
-      setPriceInputValue("0.00");
-    }
+    const resetCts = getResetCts(
+      selectedItemId,
+      defaultCts,
+      Boolean(isCustomAmount),
+      customMinCts,
+    );
+    setValue("addItemPriceCts", resetCts, { shouldDirty: false });
     resetDiscount(false);
-  }, [selectedItemId, selectedItemPriceCts, setValue, resetDiscount]);
+  }, [
+    selectedItemId,
+    defaultCts,
+    isCustomAmount,
+    customMinCts,
+    setValue,
+    resetDiscount,
+  ]);
 
-  // Sync input display when priceCts changes externally (not while focused)
-  useEffect(() => {
-    if (document.activeElement?.id === priceFieldId) return;
-    const valueCts = priceCts ?? 0;
-    setPriceInputValue(valueCts === 0 ? "" : (valueCts / 100).toFixed(2));
-  }, [priceCts, priceFieldId]);
+  if (isCustomAmount) {
+    const minCts = customMinCts ?? 0;
+    const maxCtsCustom = normalizedCustomMaxCts;
+
+    const helperText =
+      customMinCts != null && normalizedCustomMaxCts != null
+        ? t("checkoutFlowModal.customValueHelper", {
+            min: customMinCts / 100,
+            max: normalizedCustomMaxCts / 100,
+          })
+        : undefined;
+
+    return (
+      <FormPriceField<CheckoutFlowFormState, "addItemPriceCts">
+        id={priceFieldId}
+        fieldName="addItemPriceCts"
+        minCts={minCts}
+        maxCts={maxCtsCustom}
+        allowDecimals={false}
+        disabled={!selectedItemId}
+        label={t("checkoutFlowModal.customValue")}
+        helperText={helperText}
+        onPriceChange={handlePriceCtsChange}
+      />
+    );
+  }
 
   return (
-    <FormField<CheckoutFlowFormState, "addItemPriceCts", TextFieldProps>
-      name="addItemPriceCts"
-      mapProps={({ form: { setValue: setFormValue }, field }) => ({
-        value: priceInputValue,
-        disabled: !selectedItemId,
-        onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-          const value = e.target.value;
-          if (!PRICE_INPUT_PATTERN.test(value)) return;
-          setPriceInputValue(value);
-
-          const normalized = value.trim().replace(/,/g, ".");
-          if (normalized === "") {
-            setFormValue("addItemPriceCts", 0, { shouldDirty: true });
-            resetDiscount(true);
-            return;
-          }
-
-          const parsed = parseFloat(normalized);
-          if (!Number.isFinite(parsed) || parsed < 0) return;
-
-          const maxCts =
-            selectedItemPriceCts > 0 ? selectedItemPriceCts : Infinity;
-          const newPriceCts = Math.min(Math.round(parsed * 100), maxCts);
-          setFormValue("addItemPriceCts", newPriceCts ?? 0, {
-            shouldDirty: true,
-          });
-          updateDiscountFromPrice(newPriceCts, selectedItemPriceCts);
-        },
-        onBlur: () => {
-          const valueCts = field.value ?? 0;
-          setPriceInputValue(valueCts === 0 ? "" : (valueCts / 100).toFixed(2));
-        },
-      })}
-    >
-      <TextField
-        className="w-[104px]"
-        id={priceFieldId}
-        label={t("checkoutFlowModal.price")}
-        type="number"
-        min={0}
-        step={0.01}
-        inputMode="decimal"
-      />
-    </FormField>
+    <FormPriceField<CheckoutFlowFormState, "addItemPriceCts">
+      id={priceFieldId}
+      fieldName="addItemPriceCts"
+      maxCts={maxCts}
+      disabled={!selectedItemId || selectedItemPriceCts === 0}
+      label={t("checkoutFlowModal.price")}
+      onPriceChange={handlePriceCtsChange}
+    />
   );
 };

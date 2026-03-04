@@ -1,0 +1,24 @@
+{
+  "swapPass": {
+    "menuAction": "Leskaarten wisselen",
+    "dialog": {
+      "title": "Leskaart wisselen",
+      "noCompatiblePasses": "Geen compatibele leskaarten",
+      "actions": {
+        "close": "Sluiten",
+        "confirm": "Bevestigen"
+      },
+      "errors": {
+        "loadCompatiblePasses": "Compatibele passen konden niet worden geladen.",
+        "swapFailed": "Leskaart kon niet worden omgewisseld. Probeer het opnieuw.",
+        "5347000": "Boekingen niet gevonden. Ververs de pagina en probeer het opnieuw.",
+        "5347001": "Deze boeking gebruikt deze leskaart al.",
+        "5347002": "Leskaart behoort niet tot dit Lid.",
+        "5347003": "Deze leskaart is niet compatibel met deze boeking.",
+        "5347004": "Leskaart is geblokkeerd en kan niet worden gebruikt.",
+        "5347005": "Jouw leskaart heeft niet genoeg credits.",
+        "5347006": "Je kunt geen leskaart wisselen bij een boeking via een aggregator."
+      }
+    }
+  }
+}

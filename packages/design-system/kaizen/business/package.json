@@ -87,6 +87,7 @@
     "vite-plugin-svgr": "^4.3.0"
   },
   "peerDependencies": {
+    "@bsport/currency": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",

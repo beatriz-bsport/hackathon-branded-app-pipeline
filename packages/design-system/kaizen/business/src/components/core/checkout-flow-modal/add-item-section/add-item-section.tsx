@@ -97,7 +97,10 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
           {showItemForm && (
             <>
               {selectedItemType !== "giftcard" && <QuantityField />}
-              <PriceField />
+              <PriceField
+                customAmountMinCts={selectedItem?.minAmountCts ?? undefined}
+                customAmountMaxCts={selectedItem?.maxAmountCts ?? undefined}
+              />
               <AddProductDiscount />
 
               {selectedItemType === "giftcard" && selectedItemId && (

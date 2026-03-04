@@ -34,6 +34,8 @@ export type RawPackResponse = Pack & {
 export type RawGiftcardResponse = Giftcard & {
   price_cts?: number;
   currency?: string;
+  min_price?: number | null;
+  max_price?: number | null;
 };
 
 export type ItemTypeConfig<T> = {

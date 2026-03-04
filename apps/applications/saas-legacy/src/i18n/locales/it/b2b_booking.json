@@ -1,0 +1,24 @@
+{
+  "swapPass": {
+    "menuAction": "Scambia Pass",
+    "dialog": {
+      "title": "Scambia Pass",
+      "noCompatiblePasses": "Nessun Pass compatibile",
+      "actions": {
+        "close": "Chiudi",
+        "confirm": "Confirma"
+      },
+      "errors": {
+        "loadCompatiblePasses": "Impossibile caricare i passes compatibili.",
+        "swapFailed": "Non è stato possibile scambiare l'abbonamento. Riprova.",
+        "5347000": "Prenotazione non trovata. Aggiorna la pagina e riprova.",
+        "5347001": "La prenotazione sta già usando questo pass.",
+        "5347002": "L'abbonamento non appartiene a questo membro.",
+        "5347003": "L'abbonamento non è compatibile con questa prenotazione.",
+        "5347004": "L'abbonamento è bloccato e non può essere utilizzato.",
+        "5347005": "Il pass non ha abbastanza crediti.",
+        "5347006": "Non puoi scambiare il pass per una prenotazione con gli aggregatori."
+      }
+    }
+  }
+}

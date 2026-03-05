@@ -66,12 +66,14 @@ export type NavigationSidebarProps = {
   disableRevampOnLegacyStore?: () => void;
   isLoadingData?: boolean;
   onLogoutCallback?: () => void;
+  compatClassName?: string;
 };
 
 const NavigationSidebarContent = ({
   navigate,
   disableRevampOnLegacyStore,
   onLogoutCallback,
+  compatClassName,
 }: NavigationSidebarProps) => {
   const { t } = useTranslation("default");
 
@@ -284,16 +286,19 @@ const NavigationSidebarContent = ({
         open={open}
         onClose={closeDialog}
         disableRevampOnLegacyStore={disableRevampOnLegacyStore}
+        className={compatClassName}
       />
       <TemporaryPasswordDialog
         isLoading={isLoadingTemporaryPassword}
         isOpen={isTemporaryPasswordDialogOpen}
         onClose={handleCloseTemporaryPasswordDialog}
+        className={compatClassName}
       />
       <NotificationsModal
         isOpen={isNotificationsModalOpen}
         onClose={closeNotificationsModal}
         navigate={navigate}
+        className={compatClassName}
       />
       {isAttendanceModalOpen &&
         user &&
@@ -304,6 +309,7 @@ const NavigationSidebarContent = ({
             userName={user.name}
             permissions={attendancePermissions}
             navigateInContext={navigateInContext}
+            className={compatClassName}
           />
         )}
       <SearchMemberModal
@@ -311,6 +317,7 @@ const NavigationSidebarContent = ({
         onClose={closeSearchMemberModal}
         navigate={navigate}
         navigateInContext={navigateInContext}
+        className={compatClassName}
       />
     </>
   );

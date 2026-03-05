@@ -1,5 +1,7 @@
 import type { FC, PropsWithChildren } from "react";
 
+import { cx } from "@bsport/kaizen-primitive-core";
+
 type NavigationSidebarContainerProps = PropsWithChildren<{
   className?: string;
 }>;
@@ -8,16 +10,20 @@ export const NavigationSidebarContainer: FC<
   NavigationSidebarContainerProps
 > = ({ className = "", children }) => {
   return (
-    <div
-      className={[
-        "h-screen w-[240px] py-md",
-        "shrink-0 flex flex-col",
-        "shadow-inner shadow-action-default-rest",
+    <aside
+      role="navigation"
+      className={cx(
+        // KaizenSidebar default classes
+        "w-layout-sidebar py-md",
+        "shrink-0",
+        "border-r-stroke-default border-r-stroke-thin",
         "bg-surface-page-navigation",
+        // KaizenSidebar desktop classes
+        "h-screen flex flex-col",
         className,
-      ].join(" ")}
+      )}
     >
       {children}
-    </div>
+    </aside>
   );
 };

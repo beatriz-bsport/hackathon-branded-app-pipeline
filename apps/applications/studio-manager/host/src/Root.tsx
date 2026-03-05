@@ -13,7 +13,7 @@ import {
   BSPORT_REQUEST_FROM_HEADER_VALUES,
   setBsportRequestFrom,
 } from "@bsport/request-from-header";
-import { AppWrapper } from "@bsport/sm-backbone";
+import { AppWrapper, captureException } from "@bsport/sm-backbone";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AppcuesTag } from "#src/components/onboarding/AppcuesTag";
@@ -168,6 +168,9 @@ const AuthenticatedRoutes = () => {
         companyName: companyName,
         companyLocale,
         actionColor: colorOverride,
+        onEmailValidationFailure: (error, context) => {
+          captureException(error, { extra: context });
+        },
       });
     }
   }, [user?.name, permissions?.name, companyTheme?.company]);

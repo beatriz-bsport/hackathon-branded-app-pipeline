@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Intercom from 'react-intercom';
 // @ts-expect-error
 import withSentryErrorReporting from '#src/hocs/error-boundary-hidden.hoc';
 import { Theme } from '#src/libs/theme/types';
+import { captureException } from '@sentry/react';
+import { SENTRY_FRONTEND_MODULE_TAG_NAME } from '#src/sentry/types';
 
 type Props = {
   email: string;
@@ -17,11 +19,32 @@ type Props = {
   theme?: Theme;
 };
 
+const shutdownIntercom = () => {
+  try {
+    window?.Intercom?.('shutdown');
+  } catch (err) {
+    console.error(err);
+    captureException(err, {
+      tags: {
+        component: 'Intercom',
+        [SENTRY_FRONTEND_MODULE_TAG_NAME]: 'customer-data-platform',
+      },
+    });
+  }
+};
 export const FORCE_DISPLAY_FOR_TESTING = false;
 
 export const IntercomComponent = (props: Props) => {
   const shouldHideENV = !['production', 'staging'].includes(props.environment);
   const shouldHideTHEME = props.theme?.hide_intercom;
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', shutdownIntercom);
+    return () => {
+      shutdownIntercom();
+      window.removeEventListener('beforeunload', shutdownIntercom);
+    };
+  }, []);
 
   if ((shouldHideENV || shouldHideTHEME) && !FORCE_DISPLAY_FOR_TESTING) {
     return null;

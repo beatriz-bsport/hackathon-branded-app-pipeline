@@ -7,7 +7,7 @@ import {
 } from "sm-navigation-sidebar/urls";
 
 import { getEnv } from "@bsport/envs";
-import { initIntercomWidget } from "@bsport/intercom";
+import { initIntercomWidget, shutdownIntercom } from "@bsport/intercom";
 import { Loader } from "@bsport/kaizen-primitive-core";
 import {
   BSPORT_REQUEST_FROM_HEADER_VALUES,
@@ -134,6 +134,14 @@ const AuthenticatedRoutes = () => {
   const permissions = dataAccessLayer.useUserRole();
   const env = getEnv();
   const isProductionEnvironment = ["production", "staging"].includes(env);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", shutdownIntercom);
+    return () => {
+      shutdownIntercom();
+      window.removeEventListener("beforeunload", shutdownIntercom);
+    };
+  }, []);
 
   useEffect(() => {
     if (companyTheme?.hide_intercom || !isProductionEnvironment) {

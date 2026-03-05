@@ -124,6 +124,7 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
     <NavLink
       key={item.id}
       to={item.href}
+      className={otherWrapperConfig?.className}
       onClick={() => {
         item?.navigationCallback?.();
         closeMobileSidebar();

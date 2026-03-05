@@ -19,6 +19,7 @@ type SearchMemberModalProps = {
   onClose: () => void;
   navigate?: (to: string) => void;
   navigateInContext: (to: string, isRevamped?: boolean) => void;
+  className?: string;
 };
 
 export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
@@ -26,6 +27,7 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
   onClose,
   navigate,
   navigateInContext,
+  className,
 }) => {
   const { t } = useTranslation("features");
 
@@ -82,6 +84,7 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
       open={isOpen}
       title={t("searchMembers.title")}
       onClose={handleClose}
+      className={className ?? ""}
     >
       <>
         <div className="flex flex-row items-stretch gap-xs">

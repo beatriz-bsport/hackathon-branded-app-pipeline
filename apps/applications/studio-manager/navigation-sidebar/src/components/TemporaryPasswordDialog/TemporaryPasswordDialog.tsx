@@ -20,6 +20,7 @@ type TemporaryPasswordDialogProps = {
   isLoading: boolean;
   isOpen: boolean;
   onClose: () => void;
+  className?: string;
 };
 
 const generateTemporaryPassword = generateTemporaryPasswordAction.bind(
@@ -29,7 +30,7 @@ const generateTemporaryPassword = generateTemporaryPasswordAction.bind(
 
 export const TemporaryPasswordDialog: React.FC<
   TemporaryPasswordDialogProps
-> = ({ isLoading, isOpen, onClose }) => {
+> = ({ isLoading, isOpen, onClose, className }) => {
   const { t } = useTranslation("features");
 
   const temporaryPassword = useAuthStore(selectTemporaryPassword);
@@ -100,6 +101,7 @@ export const TemporaryPasswordDialog: React.FC<
       size="md"
       confirmButton={confirmButton}
       cancelButton={cancelButton}
+      className={className ?? ""}
     >
       {isLoading ? (
         <div className="flex w-full flex-row justify-center">

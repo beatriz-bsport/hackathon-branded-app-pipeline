@@ -23,6 +23,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   isOpen,
   onClose,
   navigate,
+  className,
 }) => {
   const { t } = useTranslation("default");
 
@@ -46,6 +47,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
       open={isOpen}
       onClose={onModalClose}
       size="lg"
+      className={className ?? ""}
     >
       {tabs.length > 0 ? (
         <NotificationsNavigationProvider navigate={navigate} onClose={onClose}>

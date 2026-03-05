@@ -35,6 +35,7 @@ export interface NotificationsModalProps {
   isOpen: boolean;
   onClose: () => void;
   navigate?: (to: string) => void;
+  className?: string;
 }
 
 export interface TabConfiguration<

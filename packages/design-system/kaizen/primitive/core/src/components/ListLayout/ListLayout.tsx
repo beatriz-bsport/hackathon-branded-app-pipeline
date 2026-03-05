@@ -91,7 +91,7 @@ type ListLayoutContentProps = {
 const ListLayoutContent: React.FC<ListLayoutContentProps> = ({
   children,
   className,
-  showScrollbar = false,
+  showScrollbar = true,
 }) => {
   return (
     <div

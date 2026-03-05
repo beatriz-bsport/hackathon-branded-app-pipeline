@@ -10,6 +10,7 @@ export const URLS = {
   AUTOMATION_TAG_RULE: "/:id/automation/tag-rule/:tagRuleId",
   POPUP_CREATION: "/:id/popups/new",
   POPUP_EDIT: "/:id/popups/:popupId/edit",
+  CAMPAIGN_CREATION: "/:id/campaign/create",
 } as const;
 
 export const LEGACY_URLS = {
@@ -32,3 +33,9 @@ export const CAMPAIGN_SCHEDULED_DETAILS_URL = ({
   campaignId: number;
   smartlistId: string;
 }) => `/${smartlistId}/campaign/scheduled/${campaignId}`;
+
+export const EMAIL_CAMPAIGN_CREATION_URL = ({
+  smartlistId,
+}: {
+  smartlistId: string;
+}) => `/${smartlistId}/campaign/create/email`;

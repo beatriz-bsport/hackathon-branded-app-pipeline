@@ -36,6 +36,7 @@ const CDP_API_V0 = "customer-data-platform/v0";
 const POPUPS_API_URL =
   "member-experience/v1/mobile_app/manager/custom_popup_links";
 const EMAIL_TEMPLATE_API_V1 = "customer-data-platform/v1/email_design";
+const PLATFORM_BILLING_API_V1 = "financial-services/v1/platform_billing";
 
 /**
  * Query Key Factory
@@ -357,6 +358,22 @@ export const deleteTagRule = async (id: number): Promise<void> => {
   await fetch(`${SMARTLIST_API_V1}/tagrules/${id}/`, {
     method: "DELETE",
   });
+};
+
+/**
+ * Request an upsell package by identifier (creates HubSpot deal).
+ * Same endpoint as saas-legacy platform-billing requestUpsellPackage.
+ */
+export const requestUpsellPackage = async (
+  upsellIdentifier: number,
+): Promise<void> => {
+  await fetch(
+    `${PLATFORM_BILLING_API_V1}/upsell_package/request_upsell_by_identifier/`,
+    {
+      method: "POST",
+      body: JSON.stringify({ upsell_identifier: upsellIdentifier }),
+    },
+  );
 };
 
 const fetchEmailTemplateDetail = async (

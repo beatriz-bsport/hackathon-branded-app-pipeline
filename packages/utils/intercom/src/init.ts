@@ -19,10 +19,11 @@ type IntercomBootParams = {
   customLauncherSelector?: string;
   actionColor?: string;
 };
-
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+type IntercomInstance = Function;
 declare global {
   interface Window {
-    Intercom?: (eventName: string, properties: Record<string, unknown>) => void;
+    Intercom: IntercomInstance | undefined;
   }
 }
 
@@ -231,4 +232,33 @@ export const initIntercomWidget = ({
 
   logger.info("Intercom widget has been successfully initialized.");
   return true;
+};
+
+/**
+ * Shuts down the Intercom widget and clears the session.
+ * @returns A boolean that indicates if the shutdown was successful or not.
+ */
+export const shutdownIntercom = () => {
+  const logger = getLogger(true);
+
+  if (!window) {
+    logger.error("Cannot find a valid window reference");
+    return false;
+  }
+
+  if (!window.Intercom) {
+    logger.info("Intercom is not initialized, nothing to shutdown.");
+    return true;
+  }
+
+  try {
+    window.Intercom("shutdown");
+    logger.info("Intercom widget has been successfully shut down.");
+    return true;
+  } catch (err) {
+    logger.error(
+      err instanceof Error ? err.message : "Failed to shutdown Intercom widget",
+    );
+    return false;
+  }
 };

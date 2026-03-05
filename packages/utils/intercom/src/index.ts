@@ -1,1 +1,1 @@
-export { initIntercomWidget } from "#src/init";
+export { initIntercomWidget, shutdownIntercom } from "#src/init";

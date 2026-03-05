@@ -65,11 +65,6 @@ declare module "sm-member-list/App" {
   export default App;
 }
 
-declare module "sm-teacher/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
 // ----- Customer Data Platform -----
 declare module "sm-tag/App" {
   const App: BaseApp["App"];

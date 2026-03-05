@@ -33,11 +33,12 @@
     "@bsport/sentry": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/sm-custom-form": "workspace:*",
-    "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-email-template": "workspace:*",
+    "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
+    "@bsport/sm-teacher": "workspace:*",
     "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -63,10 +64,6 @@
       "sm-member-list": {
         "devPort": 4100,
         "watchPath": "../core-data/member/member-list/src/**/*"
-      },
-      "sm-teacher": {
-        "devPort": 4110,
-        "watchPath": "../core-data/teacher/src/**/*"
       },
       "sm-giftcard": {
         "devPort": 4150,

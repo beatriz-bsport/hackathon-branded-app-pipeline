@@ -33,7 +33,7 @@ const Pack = lazy(() => import("sm-pack/App"));
 
 // ----- Core-data -----
 const MemberList = lazy(() => import("sm-member-list/App"));
-const Teacher = lazy(() => import("sm-teacher/App"));
+const Teacher = lazy(() => import("@bsport/sm-teacher"));
 
 // ----- Financial Services -----
 const Invoice = lazy(() => import("@bsport/sm-invoice"));

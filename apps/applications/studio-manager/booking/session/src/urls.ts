@@ -7,7 +7,7 @@ export const { flags, useFlag: useBookingManagementFlag } = makeFeatureFlags({
 } as const);
 
 export const URLS = {
-  INDEX: "/",
+  INDEX: "..",
   BOOKINGS_MANAGEMENT_REVAMP: ":sessionId",
   EDIT_SLUG: ":sessionId/edit",
 } as const;

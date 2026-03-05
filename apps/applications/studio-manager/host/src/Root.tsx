@@ -28,7 +28,7 @@ const Session = lazy(() => import("sm-session/App"));
 
 // ----- Buyables -----
 const Giftcard = lazy(() => import("sm-giftcard/App"));
-const Order = lazy(() => import("sm-order/App"));
+const Order = lazy(() => import("@bsport/sm-order"));
 const Pack = lazy(() => import("sm-pack/App"));
 
 // ----- Core-data -----

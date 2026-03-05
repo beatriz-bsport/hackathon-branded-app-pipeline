@@ -85,6 +85,21 @@ const packageJsonAlreadyMigrated = `{
 }
 `;
 
+const packageJsonWithNxTags = `{
+  "name": "@bsport/sm-giftcard",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b && vite build --logLevel warn"
+  },
+  "devDependencies": {
+    "@bsport/config-federation": "workspace:*"
+  },
+  "nx": {
+    "tags": ["application:revamp", "scope:studio"]
+  }
+}
+`;
+
 const viteConfigBefore = `import { defineConfig } from "vite";
 import { getConfig } from "@bsport/config-federation";
 import packageJson from "./package.json";
@@ -184,6 +199,24 @@ describe("transformAppPackageJson", () => {
     expect(scripts.build).toBe(
       "tsc -b && vite build --mode production --logLevel warn",
     );
+  });
+
+  it("transformAppPackageJson removes application:revamp and adds postinstall tag", () => {
+    const tree = setupTreeWithPackageJson(packageJsonWithNxTags);
+
+    transformAppPackageJson(tree, appRoot);
+
+    const transformed = readJsonObject(tree, `${appRoot}/package.json`);
+    const nx = transformed.nx;
+    if (!isRecord(nx)) {
+      throw new Error("Expected nx object");
+    }
+    const tags = nx.tags;
+    if (!Array.isArray(tags)) {
+      throw new Error("Expected nx.tags array");
+    }
+
+    expect(tags).toEqual(["scope:studio", "postinstall"]);
   });
 
   it("transformAppPackageJson preserves federation block", () => {

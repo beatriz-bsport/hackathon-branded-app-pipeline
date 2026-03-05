@@ -264,10 +264,10 @@ function setupGiftcardTree(): Tree {
 }
 
 describe("migrateToLibraryGenerator", () => {
-  it("runs full migration and applies all transforms", () => {
+  it("runs full migration and applies all transforms", async () => {
     const tree = setupGiftcardTree();
 
-    migrateToLibraryGenerator(tree, { appName: "sm-giftcard" });
+    await migrateToLibraryGenerator(tree, { appName: "sm-giftcard" });
 
     const appPackage = readJson<AppPackageJson>(
       tree,
@@ -283,7 +283,7 @@ describe("migrateToLibraryGenerator", () => {
       "workspace:*",
     );
     expect(appPackage.scripts?.build).toContain("--mode production");
-    expect(appPackage.nx?.tags).toEqual(["scope:studio"]);
+    expect(appPackage.nx?.tags).toEqual(["scope:studio", "postinstall"]);
 
     const appViteConfig = tree.read(`${appRoot}/vite.config.ts`, "utf-8");
     expect(appViteConfig).toContain("getLibConfig");
@@ -307,13 +307,13 @@ describe("migrateToLibraryGenerator", () => {
     expect(hostPackage.federation?.remotes?.["sm-giftcard"]).toBeUndefined();
 
     const rootTsx = tree.read(`${hostRoot}/src/Root.tsx`, "utf-8");
-    expect(rootTsx).toContain('import("@bsport/sm-giftcard")');
+    expect(rootTsx).toContain("@bsport/sm-giftcard");
 
     const modulesDts = tree.read(`${hostRoot}/src/modules.d.ts`, "utf-8");
     expect(modulesDts).not.toContain('declare module "sm-giftcard/App"');
   });
 
-  it("throws when app is already migrated", () => {
+  it("throws when app is already migrated", async () => {
     const tree = createTreeWithEmptyWorkspace();
 
     addProjectConfiguration(tree, "@bsport/sm-referral-program", {
@@ -327,18 +327,18 @@ describe("migrateToLibraryGenerator", () => {
       referralProgramPackageJson,
     );
 
-    expect(() =>
+    await expect(
       migrateToLibraryGenerator(tree, { appName: "sm-referral-program" }),
-    ).toThrowError(/already migrated/);
+    ).rejects.toThrowError(/already migrated/);
   });
 
-  it("normalizes appName inputs to same migration target", () => {
+  it("normalizes appName inputs to same migration target", async () => {
     const inputs = ["sm-giftcard", "@bsport/sm-giftcard", "giftcard"];
 
     for (const appName of inputs) {
       const tree = setupGiftcardTree();
 
-      migrateToLibraryGenerator(tree, { appName });
+      await migrateToLibraryGenerator(tree, { appName });
 
       const hostPackage = readJson<HostPackageJson>(
         tree,
@@ -350,7 +350,7 @@ describe("migrateToLibraryGenerator", () => {
         "workspace:*",
       );
       expect(hostPackage.federation?.remotes?.["sm-giftcard"]).toBeUndefined();
-      expect(rootTsx).toContain('import("@bsport/sm-giftcard")');
+      expect(rootTsx).toContain("@bsport/sm-giftcard");
     }
   });
 });

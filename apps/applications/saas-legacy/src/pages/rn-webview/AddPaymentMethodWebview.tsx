@@ -32,7 +32,7 @@ import AddPaymentMethod from '#src/libs/payment/components/AddPaymentMethod.comp
 import type { RootState } from '../../reducers';
 
 type OwnProps = {
-  queryParams: RouterProps;
+  queryParams: RouterProps & { tab?: 'card' | 'sepa_debit' };
 };
 
 type RouterProps = {
@@ -93,10 +93,16 @@ export class AddPaymentMethodWebview extends React.Component<Props, State> {
           }
         }
 
+        const preselectedTab = this.props.queryParams?.tab;
+        const isValidPreselectedTab =
+          preselectedTab === 'card' || preselectedTab === 'sepa_debit';
+
         this.setState({
           isThemeLoading: false,
           stripePromise: loadStripe(theme.stripe_pk_key),
-          paymentMethodType: defaultPaymentMethodType,
+          paymentMethodType: isValidPreselectedTab
+            ? preselectedTab
+            : defaultPaymentMethodType,
         });
       },
     });
@@ -209,7 +215,7 @@ const styles = (theme: Theme) =>
 
 export default compose<any, OwnProps>(
   withQueryParams([
-    ['memberId', 'company', 'authToken'],
+    ['memberId', 'company', 'authToken', 'tab'],
     'queryParams',
     'setQueryParams',
   ]),

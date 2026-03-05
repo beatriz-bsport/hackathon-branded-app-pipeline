@@ -36,6 +36,7 @@
     "@bsport/sm-email-template": "workspace:*",
     "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
+    "@bsport/sm-order": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
     "@bsport/sm-teacher": "workspace:*",
@@ -72,10 +73,6 @@
       "sm-session": {
         "devPort": 4201,
         "watchPath": "../booking/session/src/**/*"
-      },
-      "sm-order": {
-        "devPort": 4151,
-        "watchPath": "../buyables/order/src/**/*"
       },
       "sm-pack": {
         "devPort": 4152,

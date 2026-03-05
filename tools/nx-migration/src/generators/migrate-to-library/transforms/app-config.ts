@@ -59,9 +59,20 @@ export function transformAppPackageJson(tree: Tree, appRoot: string): void {
       json.devDependencies["@bsport/config-library"] = "workspace:*";
     }
 
-    if (json.nx?.tags !== undefined) {
-      json.nx.tags = json.nx.tags.filter((tag) => tag !== "application:revamp");
+    if (json.nx === undefined) {
+      json.nx = { tags: [] };
     }
+
+    const existingTags = json.nx.tags ?? [];
+    const tagsWithoutRevamp = existingTags.filter(
+      (tag) => tag !== "application:revamp",
+    );
+
+    if (!tagsWithoutRevamp.includes("postinstall")) {
+      tagsWithoutRevamp.push("postinstall");
+    }
+
+    json.nx.tags = tagsWithoutRevamp;
 
     return json;
   });

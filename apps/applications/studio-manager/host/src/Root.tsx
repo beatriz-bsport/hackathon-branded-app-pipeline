@@ -24,7 +24,7 @@ import { removeAppcuesScripts } from "./components/onboarding/appcues-scripts";
 
 // ----- Booking -----
 const GroupActivities = lazy(() => import("@bsport/sm-group-activity"));
-const Session = lazy(() => import("sm-session/App"));
+const Session = lazy(() => import("@bsport/sm-session"));
 
 // ----- Buyables -----
 const Giftcard = lazy(() => import("sm-giftcard/App"));

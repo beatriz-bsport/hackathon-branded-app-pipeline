@@ -23,7 +23,7 @@ import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 import { removeAppcuesScripts } from "./components/onboarding/appcues-scripts";
 
 // ----- Booking -----
-const GroupActivities = lazy(() => import("sm-group-activity/App"));
+const GroupActivities = lazy(() => import("@bsport/sm-group-activity"));
 const Session = lazy(() => import("sm-session/App"));
 
 // ----- Buyables -----

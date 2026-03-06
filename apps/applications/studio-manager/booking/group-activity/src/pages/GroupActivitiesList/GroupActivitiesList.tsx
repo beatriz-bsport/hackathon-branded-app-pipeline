@@ -1,4 +1,4 @@
-import React from "react";
+import { type FC, useState } from "react";
 import { useNavigate } from "react-router";
 
 import type { MetaActivity } from "@bsport/api-book";
@@ -24,9 +24,9 @@ type Row = MetaActivity & {
   color: string;
 };
 
-export const GroupActivitiesList: React.FC = () => {
+export const GroupActivitiesList: FC = () => {
   const { t } = useTranslation("groupActivity");
-  const [searchQuery, setSearchQuery] = React.useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const columns = useTableColumns<Row>();
   const { fetchGroupActivities, paginationProps, isLoading } =
     usePaginatedGroupActivities({ customerEnabled: true });

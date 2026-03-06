@@ -34,10 +34,6 @@ declare module "sm-navigation-sidebar/urls" {
 }
 
 // ----- Booking -----
-declare module "sm-group-activity/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 
 declare module "sm-session/App" {
   const App: BaseApp["App"];

@@ -36,6 +36,12 @@ function CampaignScheduledDetail() {
   invariant(id, "Expected id param to be defined");
   invariant(uuid, "Expected uuid param to be defined");
 
+  const campaignScheduledId = Number.parseInt(uuid, 10);
+  invariant(
+    Number.isFinite(campaignScheduledId),
+    "Expected uuid param to be a numeric scheduled campaign id",
+  );
+
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(id);
   const { data: campaignScheduledDetail } =
     useFetchCampaignScheduledDetail(uuid);
@@ -64,7 +70,7 @@ function CampaignScheduledDetail() {
       />
       <DetailsLayout.Content>
         <CampaignScheduledDetails
-          campaignUuid={uuid}
+          campaignScheduledId={campaignScheduledId}
           campaignKind={campaignScheduledDetail.communication_kind}
           campaignDate={campaignScheduledDetail.datetime_scheduled}
           campaignContent={{

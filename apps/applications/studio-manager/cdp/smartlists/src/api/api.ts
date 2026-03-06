@@ -16,11 +16,15 @@ import type {
   CampaignScheduled,
   CampaignSent,
   CampaignSentPerformanceReport,
+  CommunicationPreviewRecipientsRequest,
+  CommunicationRecipientCount,
+  CommunicationRecipientMinimal,
   EmailTemplateDetail,
   FetchAutomatedCampaignsParams,
   FetchCampaignRecipientParams,
   FetchCampaignScheduledParams,
   FetchCampaignSentParams,
+  FetchCommunicationRecipientsPreviewParams,
   GenerateReportParams,
   GenerateReportResult,
   Popup,
@@ -124,7 +128,58 @@ export const smartlistKeys = {
 
   emailTemplateDetail: (emailTemplateId: number) =>
     [...smartlistKeys.all, "email-template", emailTemplateId] as const,
+
+  /**
+   * Key for communication preview count (recipients estimate).
+   * Uses a stable serialization so e.g. member_ids [1,2,3] and [3,2,1] share the same cache.
+   */
+  communicationRecipientsCountPreview: (
+    request: CommunicationPreviewRecipientsRequest,
+  ) =>
+    [
+      ...smartlistKeys.all,
+      "communication-recipients-count-preview",
+      ...getCommunicationPreviewKeyPayload(request),
+    ] as const,
+  /**
+   * Key for communication preview count (recipients estimate).
+   * Uses a stable serialization so e.g. member_ids [1,2,3] and [3,2,1] share the same cache.
+   */
+  communicationRecipientsPreview: (
+    request: FetchCommunicationRecipientsPreviewParams,
+  ) =>
+    [
+      ...smartlistKeys.all,
+      "communication-recipients-preview",
+      ...getCommunicationPreviewKeyPayload(request),
+      request.page ?? DEFAULT_PAGE,
+      request.page_size ?? DEFAULT_PAGE_SIZE_RECIPIENTS,
+    ] as const,
 } as const;
+
+/**
+ * Stable key payload for EstimateRequest so React Query cache keys are deterministic.
+ * Sorts member_ids for "members" target so order doesn't create duplicate cache entries.
+ */
+function getCommunicationPreviewKeyPayload(
+  request: CommunicationPreviewRecipientsRequest,
+): readonly (string | number | boolean | number[])[] {
+  const base: (string | number | boolean)[] = [
+    request.channel,
+    request.is_marketing,
+    request.target.type,
+  ];
+  switch (request.target.type) {
+    case "smartlist":
+      return [...base, request.target.smartlist_id];
+    case "offer":
+      return [...base, request.target.offer_id, request.target.booking_status];
+    case "members":
+      return [...base, [...request.target.member_ids].sort((a, b) => a - b)];
+    case "communication_scheduled":
+      return [...base, request.target.communication_scheduled_id];
+  }
+}
 
 /**
  * Fetch functions
@@ -386,6 +441,37 @@ const fetchEmailTemplateDetail = async (
   return data;
 };
 
+const fetchCommunicationRecipientsCountPreview = async (
+  request: CommunicationPreviewRecipientsRequest,
+): Promise<CommunicationRecipientCount> => {
+  const { data } = await fetch<CommunicationRecipientCount>(
+    `${COMMUNICATION_API_V1}/communication/preview/count/`,
+    {
+      method: "POST",
+      body: JSON.stringify(request),
+    },
+  );
+
+  return data;
+};
+
+const fetchCommunicationRecipientsPreview = async (
+  request: FetchCommunicationRecipientsPreviewParams,
+): Promise<PaginatedResponse<CommunicationRecipientMinimal>> => {
+  const urlParams = buildUrlParams({
+    page: request.page ?? DEFAULT_PAGE,
+    page_size: request.page_size ?? DEFAULT_PAGE_SIZE_RECIPIENTS,
+  });
+  const { data } = await fetch<
+    PaginatedResponse<CommunicationRecipientMinimal>
+  >(`${COMMUNICATION_API_V1}/communication/preview/recipients/${urlParams}`, {
+    method: "POST",
+    body: JSON.stringify(request),
+  });
+
+  return data;
+};
+
 /**
  * Query Options
  */
@@ -563,3 +649,19 @@ export const emailTemplateDetailQueryOptions = (emailTemplateId: number) => {
     queryFn: () => fetchEmailTemplateDetail(emailTemplateId),
   });
 };
+
+export const communicationRecipientsCountPreviewQueryOptions = (
+  request: CommunicationPreviewRecipientsRequest,
+) =>
+  queryOptions({
+    queryKey: smartlistKeys.communicationRecipientsCountPreview(request),
+    queryFn: () => fetchCommunicationRecipientsCountPreview(request),
+  });
+
+export const communicationRecipientsPreviewQueryOptions = (
+  request: FetchCommunicationRecipientsPreviewParams,
+) =>
+  queryOptions({
+    queryKey: smartlistKeys.communicationRecipientsPreview(request),
+    queryFn: () => fetchCommunicationRecipientsPreview(request),
+  });

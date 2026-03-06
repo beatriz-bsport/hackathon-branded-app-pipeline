@@ -1,5 +1,6 @@
 import type {
   BackgroundTaskStatus,
+  CommunicationChannel,
   CommunicationKind,
   CommunicationRecipientStatus,
   CommunicationStatus,
@@ -287,4 +288,60 @@ export type CampaignRecipient = {
   read_count: number;
   spam_report: boolean;
   status: CommunicationRecipientStatus;
+};
+
+/**
+ * Request payload for the communication preview count endpoint.
+ * API: POST /communicate/v1/communication/preview/count/
+ */
+export type CommunicationPreviewRecipientsRequest =
+  | {
+      channel: CommunicationChannel;
+      is_marketing: boolean;
+      target: { type: "smartlist"; smartlist_id: number };
+    }
+  | {
+      channel: CommunicationChannel;
+      is_marketing: boolean;
+      target: {
+        type: "offer";
+        offer_id: number;
+        booking_status: "confirmed" | "cancelled" | "waitlist";
+      };
+    }
+  | {
+      channel: CommunicationChannel;
+      is_marketing: boolean;
+      target: { type: "members"; member_ids: number[] };
+    }
+  | {
+      channel: CommunicationChannel;
+      is_marketing: boolean;
+      target: {
+        type: "communication_scheduled";
+        communication_scheduled_id: number;
+      };
+    };
+
+/**
+ * Request payload for the communication preview recipients endpoint.
+ * API: POST /communicate/v1/communication/preview/recipients/
+ */
+export type FetchCommunicationRecipientsPreviewParams = {
+  page?: number;
+  page_size?: number;
+} & CommunicationPreviewRecipientsRequest;
+
+/** Response from POST /communicate/v1/communication/preview/count/ */
+export type CommunicationRecipientCount = {
+  count: number;
+};
+
+/** Member data that is sent among the PaginatedResponse from POST /communicate/v1/communication/preview/recipients/ */
+export type CommunicationRecipientMinimal = {
+  id: number;
+  name: string;
+  email: string;
+  phone: string | null;
+  photo: string | null;
 };

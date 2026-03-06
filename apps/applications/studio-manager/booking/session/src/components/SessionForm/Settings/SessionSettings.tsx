@@ -26,7 +26,7 @@ export const SessionSettings: FC<{
 
   const CREDITS_LIMIT_BEFORE_WARNING = 5;
 
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
 
   const { getCreditsDividedValue } = useCreditFactor();
 
@@ -42,6 +42,15 @@ export const SessionSettings: FC<{
     analyticsTrackSafeEvent(sessionCreationVisibilitySelectEvent, {
       session_visibility: value,
     });
+  };
+
+  const handleChange = (managerOnly: boolean) => {
+    if (managerOnly) {
+      setValue("available_on_partnership", false, {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+    }
   };
 
   return (
@@ -82,6 +91,7 @@ export const SessionSettings: FC<{
         )}
         buttonClassName="min-w-component-select"
         trackVisibilityChange={trackVisibilityChange}
+        onFormChange={handleChange}
       />
     </section>
   );

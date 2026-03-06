@@ -37,5 +37,29 @@
     "explainPdfDraft": "The invoice is still a draft, pdf is not available.",
     "label": "Download invoice"
   },
-  "loading": "Loading invoices..."
+  "loading": "Loading invoices...",
+  "bulkExport": {
+    "modalTitle": "Export invoices",
+    "modalDescription": "Choose a time period to export invoices.",
+    "alertTitle": "You won't be able to export invoices migrated from previous providers.",
+    "alertDescription": "You won't be able to export invoices migrated from previous providers.",
+    "month": "Month",
+    "monthErrorCurrentOrFuture": "Invoices can't be exported for current or future months",
+    "monthErrorBeforeCutoff": "Invoices can't be exported before March 2025",
+    "year": "Year",
+    "cancel": "Cancel",
+    "download": "Download",
+    "downloading": "Preparing download...",
+    "toastDownloaded": "Invoices downloaded",
+    "successNoInvoices": "No invoices were generated for this period.",
+    "error": {
+      "14602": "Exports only available from March 2025 onwards.",
+      "14603": "Cannot download export for current or future month. Please wait until next month.",
+      "14604": "Export is being processed. Please check back later today or tomorrow (max 24h).",
+      "14605": "Export failed. Please contact support.",
+      "14606": "Export not available yet. Please check back later.",
+      "14607": "No invoices available for this period. Your company started invoicing later.",
+      "default": "Something went wrong. Please try again."
+    }
+  }
 }

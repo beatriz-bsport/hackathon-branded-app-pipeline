@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
   INVOICE_TYPE_MIGRATION,
   INVOICE_TYPE_REVERSE,
 } from "@bsport/common/lib/master-data/invoice-type.js";
-import { ChipProps, ListLayout } from "@bsport/kaizen-primitive-core";
+import { Button, ChipProps, ListLayout } from "@bsport/kaizen-primitive-core";
 import {
   type Invoice,
   InvoiceStatusEnum,
@@ -19,6 +19,7 @@ import {
 import { useAsync } from "@bsport/use-async";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import { BulkExportModal } from "#src/components/BulkExportModal";
 import {
   InvoiceTable,
   type InvoiceTableRow,
@@ -33,6 +34,8 @@ export const InvoiceListPage = () => {
   const invoices = useInvoiceStore(selectInvoices);
   const count = useInvoiceStore(selectCount);
   const { t } = useTranslation("invoice");
+
+  const [bulkExportModalOpen, setBulkExportModalOpen] = useState(false);
 
   const _fetchInvoicesPage = useCallback(async () => {
     return fetchInvoicesAction(fetch, {
@@ -143,18 +146,16 @@ export const InvoiceListPage = () => {
   return (
     <ListLayout className="w-full">
       <ListLayout.Header
-        // TODO: Uncomment when backend work is done
-        /*callToActionButton={
+        callToActionButton={
           <Button
-            iconLeft="bell-03"
             intent="call-to-action"
             color="main"
             size="md"
-            label="Export invoices"
-            onClick={() => console.log("Export invoices clicked")}
+            label={t("bulkExport.modalTitle")}
+            onClick={() => setBulkExportModalOpen(true)}
           />
         }
-        filterConfig={{
+        /*filterConfig={{
           filters: [
             { id: "is", label: t("filters.is") },
             { id: "is-not", label: t("filters.is-not") },
@@ -224,6 +225,11 @@ export const InvoiceListPage = () => {
           onDownloadReceipt={handleDownloadReceipt}
         />
       </ListLayout.Content>
+
+      <BulkExportModal
+        open={bulkExportModalOpen}
+        onClose={() => setBulkExportModalOpen(false)}
+      />
     </ListLayout>
   );
 };

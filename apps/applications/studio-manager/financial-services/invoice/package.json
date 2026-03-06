@@ -27,9 +27,11 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-financial-services": "workspace:*",
     "@bsport/common": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/store-financial-services-invoice": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*"

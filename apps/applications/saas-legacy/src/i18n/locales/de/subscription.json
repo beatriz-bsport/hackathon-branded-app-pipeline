@@ -421,7 +421,7 @@
         "explain": "Dieses Paket wird NUR auf Rechnungen, die nach der Erneuerung des Abonnements erstellt werden, anstelle des alten Pakets in Rechnung gestellt",
         "warning": "Die Abrechnung bleibt gleich. Wenn Sie den monatlichen Betrag erhöhen/verringern möchten, ändern Sie jede Rate einzeln.",
         "cancel": "Abbrechen",
-        "submit": "Registrieren",
+        "submit": "Speichern",
         "prewarning": "Wenn Sie bereits erstellte zukünftige Rechnungen ändern möchten, müssen Sie dieses Abonnement aufheben."
       }
     },

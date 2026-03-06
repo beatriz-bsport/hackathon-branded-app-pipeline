@@ -1,10 +1,11 @@
 import { FC, useId, useState } from "react";
 
-import { useFormController } from "@bsport/form";
+import { useFormContext, useFormController } from "@bsport/form";
 import { Alert, Modal } from "@bsport/kaizen-primitive-core";
 
 import { useLevelSchema } from "#src/components/SessionForm/schemas";
 import { useCreateLevel } from "#src/hooks/level/useCreateLevel";
+import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { LevelForm } from "./level-form";
@@ -14,6 +15,8 @@ export const CreateLevelModal: FC<{
   onClose: () => void;
 }> = ({ isOpen, onClose }) => {
   const { t } = useTranslation("sessionCreation");
+
+  const { setValue } = useFormContext<SessionCreationFormData>();
 
   const { mutate } = useCreateLevel();
 
@@ -64,8 +67,12 @@ export const CreateLevelModal: FC<{
           mutate(
             { data },
             {
-              onSuccess: () => {
+              onSuccess: (level) => {
                 createLevelMethods.reset();
+                setValue("level", level.id, {
+                  shouldDirty: true,
+                  shouldValidate: true,
+                });
                 setErrorMessage(null);
                 onClose();
               },

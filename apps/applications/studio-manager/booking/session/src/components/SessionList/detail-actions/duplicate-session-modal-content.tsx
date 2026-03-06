@@ -56,8 +56,11 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
     day: 1,
   });
 
+  const isPartOfRecurringSession =
+    recurrenceCount !== undefined && recurrenceCount > 1;
+
   const [shouldLinkNewSessions, setShouldLinkNewSessions] = useState(
-    recurrenceCount !== undefined && recurrenceCount > 1,
+    isPartOfRecurringSession,
   );
 
   const isHybrid = !!session.linked_hybrid_offer_id;
@@ -68,7 +71,7 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
     return {
       startDateTime: newRecurrenceStartDate,
       duration_minute: session.duration_minute,
-      isRecurring: false,
+      isRecurring: isPartOfRecurringSession,
       recurrenceType: RecurrenceType.WEEKLY,
       recurrenceWeekdays: {
         1: false,
@@ -84,7 +87,11 @@ export const DuplicateModalContent: FC<DuplicateModalContentProps> = ({
       recurrencePattern: MonthlyRecurrencePattern.NTH_WEEKDAY,
       recurrenceEndDate: endDate,
     };
-  }, [session.duration_minute, newRecurrenceStartDate]);
+  }, [
+    session.duration_minute,
+    newRecurrenceStartDate,
+    isPartOfRecurringSession,
+  ]);
 
   const duplicateSessionMethods = useFormController({
     schema: duplicateSessionSchema,

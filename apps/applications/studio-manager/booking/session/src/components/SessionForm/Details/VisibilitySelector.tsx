@@ -208,7 +208,7 @@ export const VisibilitySelector = <
     <Popover fullWidth>
       <Popover.Anchor>
         {({ setIsPopoverOpened }) => (
-          <>
+          <div className="flex flex-col gap-xs">
             {title && (
               <Body size="md" htmlVariant="p">
                 {title}
@@ -233,11 +233,14 @@ export const VisibilitySelector = <
                 size="md"
                 iconRight="chevron-down"
                 onClick={() => setIsPopoverOpened(true)}
-                className={clsx("justify-between", buttonClassName)}
+                className={clsx(
+                  "justify-between max-w-component-select",
+                  buttonClassName,
+                )}
                 disabled={disabled}
               />
             </div>
-          </>
+          </div>
         )}
       </Popover.Anchor>
       <Popover.Content placement="bottom-left" className="max-w-xs">

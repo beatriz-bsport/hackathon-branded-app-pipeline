@@ -1,14 +1,18 @@
 import { FC } from "react";
 
 import { useFormContext } from "@bsport/form";
-import { Alert, Divider, Title } from "@bsport/kaizen-primitive-core";
+import { Alert, Title } from "@bsport/kaizen-primitive-core";
 
 import { LevelSelectorField } from "#src/components/SessionForm/level/level-selector-field";
+import { SessionVisibilityType } from "#src/events/constants";
+import { sessionCreationVisibilitySelectEvent } from "#src/events/session-creation/events";
 import { useCreditFactor } from "#src/hooks/useCreditFactor";
 import { selectSelectedGroupActivity } from "#src/stores/session-creation/selectors";
 import { useSessionCreationStore } from "#src/stores/session-creation/store";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
+import { VisibilitySelector } from "../Details/VisibilitySelector";
 import { SessionCapacityField } from "./SessionCapacityField";
 import { SessionCreditsField } from "./SessionCreditField";
 import { SessionPartnershipSettings } from "./SessionPartnershipSettings";
@@ -22,7 +26,7 @@ export const SessionSettings: FC<{
 
   const CREDITS_LIMIT_BEFORE_WARNING = 5;
 
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
 
   const { getCreditsDividedValue } = useCreditFactor();
 
@@ -34,9 +38,24 @@ export const SessionSettings: FC<{
 
   const creditValue = getCreditsDividedValue(credits) || 0;
 
+  const trackVisibilityChange = (value: SessionVisibilityType) => {
+    analyticsTrackSafeEvent(sessionCreationVisibilitySelectEvent, {
+      session_visibility: value,
+    });
+  };
+
+  const handleChange = (managerOnly: boolean) => {
+    if (managerOnly) {
+      setValue("available_on_partnership", false, {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+    }
+  };
+
   return (
-    <section className="flex flex-col gap-md">
-      <Title htmlVariant="h5">
+    <section className="flex flex-col gap-md pb-md">
+      <Title htmlVariant="h5" weight="strong">
         {t("addSessionModal.steps.configureSession.settings.title")}
       </Title>
       <SessionCapacityField
@@ -64,7 +83,16 @@ export const SessionSettings: FC<{
         <BroadcastLinkField fieldIdPrefix={fieldIdPrefix} />
       )}
 
-      <Divider orientation="horizontal" weight="thin" className="my-xl" />
+      <VisibilitySelector
+        fieldIdPrefix={fieldIdPrefix}
+        fieldName="manager_only"
+        title={t(
+          "addSessionModal.steps.configureSession.details.visibilitySelector.title",
+        )}
+        buttonClassName="min-w-component-select"
+        trackVisibilityChange={trackVisibilityChange}
+        onFormChange={handleChange}
+      />
     </section>
   );
 };

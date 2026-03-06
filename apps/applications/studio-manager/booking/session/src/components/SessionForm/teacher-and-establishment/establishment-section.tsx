@@ -17,7 +17,7 @@ export const EstablishmentSection: FC<{
   const { t } = useTranslation("sessionEdit");
   return (
     <section className="flex flex-col gap-md">
-      <Title htmlVariant="h5">
+      <Title htmlVariant="h5" weight="strong">
         {t("editSessionForm.content.establishmentSectionTitle")}
       </Title>
       <EstablishmentSelectorField fieldIdPrefix={fieldIdPrefix} />

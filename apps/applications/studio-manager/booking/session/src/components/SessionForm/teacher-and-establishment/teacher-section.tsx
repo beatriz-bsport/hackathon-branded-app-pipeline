@@ -22,7 +22,7 @@ export const TeacherSection: FC<{
 
   return (
     <section className="flex flex-col gap-md">
-      <Title htmlVariant="h5">
+      <Title htmlVariant="h5" weight="strong">
         {t("editSessionForm.content.teacherSectionTitle")}
       </Title>
       <TeacherSelectorField fieldIdPrefix={fieldIdPrefix} />

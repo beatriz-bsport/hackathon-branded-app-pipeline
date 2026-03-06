@@ -19,6 +19,7 @@ import {
   useAttendanceModal,
   useAttendancePermissions,
 } from "#src/components/AttendanceModal";
+import { useCheckoutModalContainer } from "#src/components/CheckoutModal";
 import {
   NotificationsModal,
   useNotificationsModal,
@@ -35,6 +36,7 @@ import {
 import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
 import { HELP_CENTER, LEGACY_URLS, SETTINGS_URL, STUDIO_URL } from "#src/urls";
+import { fetch } from "#src/utils/fetch";
 import {
   AppI18nextProvider,
   instanciateAppI18n,
@@ -92,6 +94,20 @@ const NavigationSidebarContent = ({
   );
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const {
+    company: companyId,
+    company_name: companyName,
+    cover: companyLogo,
+  } = companyTheme ?? {};
+  const { openCheckoutModalFromNav, checkoutModalElement } =
+    useCheckoutModalContainer({
+      companyId: companyId ?? undefined,
+      fetch,
+      navigateInContext,
+      t,
+    });
+
   useAlerts();
 
   const navigationUrls = useMemo(
@@ -125,6 +141,7 @@ const NavigationSidebarContent = ({
     navigationUrls,
     handleOpenTemporaryPasswordDialog,
     handleOpenNotificationsModal: openNotificationsModal,
+    handleOpenCheckoutModal: openCheckoutModalFromNav,
   });
 
   const protectedElements = useProtectedItems(navigationElements);
@@ -199,12 +216,6 @@ const NavigationSidebarContent = ({
     );
   };
 
-  const companyTheme = dataAccessLayer.useCompanyTheme();
-  const {
-    company: companyId,
-    company_name: companyName,
-    cover: companyLogo,
-  } = companyTheme ?? {};
   const user = dataAccessLayer.useUserAccess();
 
   const sidebarContent = (
@@ -319,6 +330,7 @@ const NavigationSidebarContent = ({
         navigateInContext={navigateInContext}
         className={compatClassName}
       />
+      {checkoutModalElement}
     </>
   );
 

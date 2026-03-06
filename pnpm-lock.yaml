@@ -2487,6 +2487,9 @@ importers:
       '@bsport/sm-teacher':
         specifier: workspace:*
         version: link:../core-data/teacher
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
       luxon:
         specifier: ^3.4.4
         version: 3.5.0
@@ -2539,9 +2542,15 @@ importers:
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../packages/utils/fetch
+      '@bsport/form':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/form
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../packages/utils/i18n
+      '@bsport/kaizen-business-components':
+        specifier: workspace:*
+        version: link:../../../../packages/design-system/kaizen/business
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
@@ -2575,6 +2584,9 @@ importers:
       '@module-federation/bridge-react':
         specifier: ^0.13.1
         version: 0.13.1(react-dom@19.2.0(react@19.2.0))(react-router-dom@7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
       luxon:
         specifier: ^3.4.4
         version: 3.5.0
@@ -2587,6 +2599,9 @@ importers:
       react-router:
         specifier: ^7.2.0
         version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      zod:
+        specifier: ^3.25.64
+        version: 3.25.67
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -17810,6 +17825,7 @@ packages:
   prebuild-install@7.1.2:
     resolution: {integrity: sha512-UnNke3IQb6sgarcZIDU3gbMeTp/9SSU1DAIkil7PrqG1vZlBtY5msYccSKSHDqa3hNg436IXK+SNImReuA1wEQ==}
     engines: {node: '>=10'}
+    deprecated: No longer maintained. Please contact the author of the relevant native addon; alternatives are available.
     hasBin: true
 
   prelude-ls@1.1.2:

@@ -83,11 +83,13 @@ export const useNavigationElements = ({
   navigationUrls,
   handleOpenTemporaryPasswordDialog,
   handleOpenNotificationsModal,
+  handleOpenCheckoutModal,
 }: {
   menuSet?: MenuSet;
   navigationUrls: NavigationUrls;
   handleOpenTemporaryPasswordDialog: () => void;
   handleOpenNotificationsModal: () => void;
+  handleOpenCheckoutModal?: () => void;
 }) => {
   const { t } = useTranslation("default");
 
@@ -98,6 +100,9 @@ export const useNavigationElements = ({
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
   const isCalendarRevampEnabled = useNavFlag(NavFlags.CALENDAR_REVAMP);
   const isPacksRevampEnabled = useNavFlag(NavFlags.PACKS_REVAMP);
+  const isBillingFlowNewModalEnabled = useNavFlag(
+    NavFlags.FS_BILLING_FLOW_NEW_MODAL,
+  );
 
   // Company Theme flags
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -134,6 +139,14 @@ export const useNavigationElements = ({
                 value={totalAlertsCount}
               />
             ) : undefined,
+        },
+        {
+          icon: "shopping-cart-01",
+          id: "checkout",
+          label: t("menus.sellProducts"),
+          hidden: !isBillingFlowNewModalEnabled || !handleOpenCheckoutModal,
+          ...(isBillingFlowNewModalEnabled &&
+            handleOpenCheckoutModal && { onClick: handleOpenCheckoutModal }),
         },
         {
           type: "divider",
@@ -545,6 +558,7 @@ export const useNavigationElements = ({
   }, [
     handleOpenTemporaryPasswordDialog,
     handleOpenNotificationsModal,
+    handleOpenCheckoutModal,
     navigationUrls,
     t,
     totalAlertsCount,
@@ -552,6 +566,7 @@ export const useNavigationElements = ({
     isHomepageEnabled,
     isCalendarRevampEnabled,
     isPacksRevampEnabled,
+    isBillingFlowNewModalEnabled,
     isNewWebshopEnabled,
     hasSubstitutionToolAccess,
   ]);

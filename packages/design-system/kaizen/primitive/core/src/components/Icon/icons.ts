@@ -244,6 +244,9 @@ const icons = {
   "shopping-bag-01": React.lazy(
     async () => await import("./assets/shopping-bag-01.svg?react"),
   ),
+  "shopping-cart-01": React.lazy(
+    async () => await import("./assets/shopping-cart-01.svg?react"),
+  ),
   "shopping-cart-03": React.lazy(
     async () => await import("./assets/shopping-cart-03.svg?react"),
   ),

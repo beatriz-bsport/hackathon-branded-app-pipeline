@@ -42,6 +42,7 @@
     "@bsport/sm-referral-program": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
     "@bsport/sm-teacher": "workspace:*",
+    "@tanstack/react-query": "^5.90.12",
     "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "@bsport/common": "workspace:*",
-    "@bsport/fetch": "workspace:*",
     "@bsport/store-buyables-order": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
@@ -46,6 +45,7 @@
   "peerDependencies": {
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",

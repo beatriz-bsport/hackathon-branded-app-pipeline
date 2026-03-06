@@ -72,7 +72,3 @@ declare module "sm-transactional-notification/App" {
 }
 
 // ----- Business Insights -----
-declare module "sm-insights/App" {
-  const App: BaseApp["App"];
-  export default App;
-}

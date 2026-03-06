@@ -1334,9 +1334,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../tools/config/federation
+        version: link:../../../../../tools/config/library
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -2454,6 +2454,9 @@ importers:
       '@bsport/sm-homepage':
         specifier: workspace:*
         version: link:../business-insights/homepage
+      '@bsport/sm-insights':
+        specifier: workspace:*
+        version: link:../business-insights/insights
       '@bsport/sm-invoice':
         specifier: workspace:*
         version: link:../financial-services/invoice
@@ -23880,9 +23883,7 @@ snapshots:
       source-map: 0.6.1
       string-length: 2.0.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@jest/reporters@28.1.3(node-notifier@8.0.2)':
     dependencies:
@@ -36235,9 +36236,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

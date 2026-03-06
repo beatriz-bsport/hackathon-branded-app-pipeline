@@ -30,8 +30,6 @@
     "@bsport/api-book": "workspace:*",
     "@bsport/api-core": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
-    "@bsport/envs": "workspace:*",
-    "@bsport/fetch": "workspace:*",
     "@bsport/store-booking-session": "workspace:*",
     "@bsport/store-booking-substitution": "workspace:*",
     "@bsport/store-core-data-teacher": "workspace:*",
@@ -48,6 +46,8 @@
   },
   "peerDependencies": {
     "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/envs": "workspace:*",
+    "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",

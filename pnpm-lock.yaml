@@ -2351,6 +2351,12 @@ importers:
       '@bsport/common':
         specifier: workspace:*
         version: link:../../../../../packages/common-legacy
+      '@bsport/currency':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/currency
+      '@bsport/datetime-formatting':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime-formatting
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch

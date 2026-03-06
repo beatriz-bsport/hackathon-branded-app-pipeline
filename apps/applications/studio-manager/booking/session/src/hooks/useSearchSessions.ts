@@ -3,9 +3,12 @@ import { useMemo } from "react";
 
 import type { EnrichedSession } from "../types";
 
+const FUSE_THRESHOLD = 0.3;
+
 const FUSE_OPTIONS = {
   keys: ["name", "teacherName", "originalTeacherName", "establishmentName"],
   shouldSort: false,
+  threshold: FUSE_THRESHOLD,
 };
 
 export const useSearchSessions = (

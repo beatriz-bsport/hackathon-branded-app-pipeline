@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  type RefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import type {
   FilterElementState,
@@ -48,12 +55,12 @@ const toCategoryFilters = (
 
 export const useCategoryFilter = (): {
   categoryFiltersConfig: FilterProps;
-  categoryFiltersRef: React.RefObject<{ resetFilters: () => void }>;
+  categoryFiltersRef: RefObject<{ resetFilters: () => void } | null>;
   activeCategoryFilters: ActiveCategoryFilters;
   resetFilters?: () => void;
 } => {
   const { t } = useTranslation();
-  const filterRef = useRef<{ resetFilters: () => void }>(null);
+  const filterRef = useRef<{ resetFilters: () => void } | null>(null);
   const companyTheme = dataAccessLayer.useCompanyTheme();
   const companyId = companyTheme?.company;
 

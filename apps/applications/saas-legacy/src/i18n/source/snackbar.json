@@ -1244,7 +1244,9 @@
   },
   "privateSlot": {
     "notCompatibleWithPartnership": "The session was not saved. Please try again.",
-    "notAvailableForBookingAnymore": "This slot is not availablle anymore."
+    "notAvailableForBookingAnymore": "This slot is not available anymore.",
+    "coachNotAvailable": "Appointment can't be booked. Select a different teacher.",
+    "establishmentNotAvailable": "Appointment can't be booked. Select a different location."
   },
   "paypal": {
     "35009": "You cannot use an account that is already linked to another company.",

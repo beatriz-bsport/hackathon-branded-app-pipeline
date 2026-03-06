@@ -35,6 +35,7 @@
     "@bsport/sm-custom-form": "workspace:*",
     "@bsport/sm-email-template": "workspace:*",
     "@bsport/sm-homepage": "workspace:*",
+    "@bsport/sm-insights": "workspace:*",
     "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
     "@bsport/sm-order": "workspace:*",
@@ -90,10 +91,6 @@
       "sm-transactional-notification": {
         "devPort": 4305,
         "watchPath": "../cdp/transactional-notification/src/**/*"
-      },
-      "sm-insights": {
-        "devPort": 4350,
-        "watchPath": "../business-insights/insights/src/**/*"
       }
     }
   },

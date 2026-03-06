@@ -25,3 +25,13 @@ export const selectGiftcardImage = (state: GiftcardState, id: number) =>
 
 export const selectGiftcardImagesCount = (state: GiftcardState) =>
   state.giftcardImages.count;
+
+// ----- Selectors for consumerGiftcards -----
+
+export const selectConsumerGiftcards = (state: GiftcardState) => {
+  const { ids, byId } = state.consumerGiftcards;
+  return ids.map((id) => byId[id]);
+};
+
+export const selectConsumerGiftcardsCount = (state: GiftcardState) =>
+  state.consumerGiftcards.count;

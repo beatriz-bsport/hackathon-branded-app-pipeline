@@ -12,6 +12,8 @@
     "goToSubscriptions": "Go to Subscriptions",
     "quantity": "Quantity",
     "price": "Price",
+    "customValue": "Custom value",
+    "customValueHelper": "Enter a whole number between {{min}} and {{max}}",
     "applyDiscount": "Apply Discount",
     "discountTypePercentage": "Percentage",
     "discountTypeAmount": "Amount",

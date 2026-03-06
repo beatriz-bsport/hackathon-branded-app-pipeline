@@ -1,30 +1,41 @@
-import React from "react";
+import type { FC } from "react";
 
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
-import { useArchiveGiftcard } from "#src/hooks/useArchiveGiftcard";
+import { useFetchPaginatedList } from "#src/hooks/useFetchPaginatedList";
 import { useTranslation } from "#src/utils/i18n";
+
+import { useArchiveGiftcard } from "./use-archive-giftcard-api";
 
 type GiftcardArchiveModalProps = {
   giftcardId: number;
   giftcardName: string;
   isOpen: boolean;
-  onClose: () => void;
-  refreshPageList: () => void;
+  closeModal: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 };
 
-export const GiftcardArchiveModal: React.FC<GiftcardArchiveModalProps> = ({
+export const GiftcardArchiveModal: FC<GiftcardArchiveModalProps> = ({
   giftcardId,
   giftcardName,
   isOpen,
-  onClose,
-  refreshPageList,
+  closeModal,
+  onSuccess,
+  onError,
 }) => {
   const { t } = useTranslation("common");
 
+  // On undo success, refresh the list with the current parameters
+  const { fetchGiftcardsPage } = useFetchPaginatedList({
+    archived: false,
+  });
+
   const { handleArchive, isLoading } = useArchiveGiftcard({
-    fetchGiftcards: refreshPageList,
-    handleCloseModal: onClose,
+    onError,
+    onSuccess,
+    onUndoSuccess: fetchGiftcardsPage,
+    closeModal,
   });
 
   return (
@@ -33,18 +44,18 @@ export const GiftcardArchiveModal: React.FC<GiftcardArchiveModalProps> = ({
       confirmButton={{
         label: t("listPage.archiveModal.buttons.archive"),
         color: "critical",
-        onClick: () => handleArchive({ giftcardId }),
+        onClick: () => handleArchive({ id: giftcardId }),
         disabled: isLoading,
       }}
       cancelButton={{
         label: t("listPage.archiveModal.buttons.cancel"),
-        onClick: onClose,
+        onClick: closeModal,
         disabled: isLoading,
       }}
-      onCloseButtonClick={onClose}
+      onCloseButtonClick={closeModal}
       title={t("listPage.archiveModal.title")}
       size="md"
-      onClickOutside={onClose}
+      onClickOutside={closeModal}
     >
       <>
         <Body htmlVariant="p">

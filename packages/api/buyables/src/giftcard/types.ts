@@ -1,4 +1,6 @@
-import { type URLParams } from "@bsport/store-base";
+import type { URLParams } from "@bsport/store-base";
+
+import { CONSUMER_GIFTCARD_KIND } from "./constants";
 
 export const GIFTCARD_TYPES = {
   CUSTOM: "Free Amount", // Backend constraint
@@ -80,6 +82,55 @@ export type GiftcardImage = {
   image: string; // url
 };
 
+export type GiftcardRecipient = {
+  date_created: string;
+  email_sent_to: string;
+  consumer_giftcard: number;
+  sent: boolean;
+  id: number;
+};
+
+export type ConsumerGiftcardPersonnalizationElements = {
+  name: string;
+  message_is_from: string;
+  message_is_for: string;
+  message_content: string;
+  background_image: string | null;
+};
+
+type ConsumerGiftcardKind =
+  (typeof CONSUMER_GIFTCARD_KIND)[keyof typeof CONSUMER_GIFTCARD_KIND];
+
+export type ConsumerGiftcard<
+  GenericGiftcard = number,
+  GenericSrcMember = number,
+  GenericDstMember = number,
+> = ConsumerGiftcardPersonnalizationElements & {
+  id: number;
+  src_member: GenericSrcMember;
+  dst_member: GenericDstMember | null;
+  giftcard: GenericGiftcard;
+  date_created: string;
+  date_activated: string | null;
+  active: boolean;
+  planned_date_send: string;
+  invitation_sent: boolean;
+  consumed_amount_gifted: string; // decimal price
+  price_bought: string; // decimal price
+  giftcard_recipients: GiftcardRecipient[];
+  activation_code: string;
+  reverted?: boolean;
+  consumer_giftcard_source: number;
+  giftcard_company: number;
+  source_company_id: number;
+  incremental_identifier: string;
+  kind: ConsumerGiftcardKind;
+  pdf_link: string | null;
+  printable_code: string | null;
+  activation_datetime: string | null;
+  expiration_date: string | null;
+};
+
 export type GiftcardBackgroundListResponse = Array<GiftcardImage>;
 
 // ----- Params -----
@@ -100,6 +151,20 @@ export type UploadGiftcardImageParams = {
   file: File;
   signal: AbortSignal;
   onUploadProgress: (progressEvent: ProgressEvent) => void;
+};
+
+export type FetchConsumerGiftcardsParams = {
+  page: number;
+  page_size: number;
+  giftcard: number;
+  giftcard_template?: number;
+  as_received?: boolean;
+  as_sent?: boolean;
+  company?: number;
+  has_amount_left?: boolean;
+  id__in?: number[];
+  in_timeframe?: boolean;
+  active?: boolean;
 };
 
 export type CreateGiftcardKeys = Pick<

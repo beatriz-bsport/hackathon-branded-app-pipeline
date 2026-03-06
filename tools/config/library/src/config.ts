@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import type { UserConfig } from "vite";
+import type { Plugin, UserConfig } from "vite";
 import dts from "vite-plugin-dts";
 import { z } from "zod";
 
@@ -117,11 +117,32 @@ export function getLibConfig(config: {
       },
       rollupOptions: {
         external: [...peerDependencies, ...jsxRuntimeExternals],
-        output: {
-          banner: 'import * as React from "react";',
-        },
+        plugins: [injectReactPlugin()],
       },
       sourcemap: true,
+    },
+  };
+}
+
+function injectReactPlugin(): Plugin {
+  return {
+    name: "inject-react-namespace",
+    renderChunk(code) {
+      const hasReactImport =
+        /import\s+\*\s+as\s+React\s+from\s+['"]react['"]/.test(code);
+
+      if (hasReactImport) return null;
+
+      const codeWithoutComments = code
+        .replace(/\/\*[\s\S]*?\*\//g, "")
+        .replace(/\/\/.*/g, "");
+      const usesReactGlobal = /\bReact\./.test(codeWithoutComments);
+
+      if (usesReactGlobal) {
+        return { code: 'import * as React from "react";\n' + code, map: null };
+      }
+
+      return null;
     },
   };
 }

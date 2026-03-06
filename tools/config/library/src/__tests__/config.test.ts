@@ -98,12 +98,23 @@ describe("getLibConfig", () => {
     );
   });
 
-  it("adds react banner in production output", () => {
+  it("injects inject-react-namespace rollup plugin in production", () => {
+    const config = getLibConfig(createConfig({ mode: "production" }));
+    const plugins = config.build?.rollupOptions?.plugins as Array<{
+      name: string;
+    }>;
+
+    expect(plugins).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ name: "inject-react-namespace" }),
+      ]),
+    );
+  });
+
+  it("does not use static output banner in production", () => {
     const config = getLibConfig(createConfig({ mode: "production" }));
 
-    expect(config.build?.rollupOptions?.output).toEqual({
-      banner: 'import * as React from "react";',
-    });
+    expect(config.build?.rollupOptions?.output).toBeUndefined();
   });
 
   it("enables sourcemap in production", () => {

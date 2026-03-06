@@ -62,7 +62,6 @@ import {
 
 import { getBaseURL } from '../utils/urlUtils';
 import analyticsUtils from '../components/analytics/analytics';
-import { onboardingManagerClient } from '../components/onboarding/onboardingManagerClient';
 
 export const initiateInterface = createAction('initiate');
 
@@ -545,7 +544,6 @@ export function disconnect(callback) {
     removeItemInStorage('local', STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN);
     removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL);
     removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL);
-    onboardingManagerClient.logOutUser();
     dispatch((() => ({ type: types.DISCONNECT }))());
     if (callback && typeof callback === 'function') callback();
   };

@@ -1,4 +1,8 @@
-import type { Giftcard, GiftcardImage } from "@bsport/api-buyables";
+import type {
+  ConsumerGiftcard,
+  Giftcard,
+  GiftcardImage,
+} from "@bsport/api-buyables";
 
 import { giftcardStore } from "#src/store";
 
@@ -29,12 +33,8 @@ export const setGiftcards = ({
   page: number;
 }) => {
   giftcardStore.setState((state) => {
-    const byId = giftcards.reduce(
-      (acc, giftcard) => {
-        acc[giftcard.id] = giftcard;
-        return acc;
-      },
-      {} as { [key: number]: Giftcard },
+    const byId = Object.fromEntries(
+      giftcards.map((object) => [object.id, object]),
     );
 
     return {
@@ -76,18 +76,40 @@ export const setGiftcardImages = ({
   page: number;
 }) => {
   giftcardStore.setState((state) => {
-    const byId = giftcardImages.reduce(
-      (acc, giftcardImage) => {
-        acc[giftcardImage.id] = giftcardImage;
-        return acc;
-      },
-      {} as { [key: number]: GiftcardImage },
+    const byId = Object.fromEntries(
+      giftcardImages.map((object) => [object.id, object]),
     );
 
     return {
       giftcardImages: {
         ...state.giftcardImages, // In case other properties have been added to giftcardImages state
         ids: giftcardImages.map((giftcardImage) => giftcardImage.id),
+        byId,
+        count,
+        page,
+      },
+    };
+  });
+};
+
+export const setConsumerGiftcards = ({
+  objects,
+  count,
+  page,
+}: {
+  objects: ConsumerGiftcard[];
+  count: number;
+  page: number;
+}) => {
+  giftcardStore.setState((state) => {
+    const byId = Object.fromEntries(
+      objects.map((object) => [object.id, object]),
+    );
+
+    return {
+      consumerGiftcards: {
+        ...state.consumerGiftcards,
+        ids: objects.map((object) => object.id),
         byId,
         count,
         page,

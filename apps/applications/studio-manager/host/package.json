@@ -29,12 +29,15 @@
     "@bsport/i18n": "workspace:*",
     "@bsport/intercom": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
-    "@bsport/onboarding-manager": "workspace:*",
     "@bsport/request-from-header": "workspace:*",
     "@bsport/sentry": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
+    "@bsport/sm-custom-form": "workspace:*",
+    "@bsport/sm-invoice": "workspace:*",
+    "@bsport/sm-email-template": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
+    "@bsport/sm-smartlists": "workspace:*",
     "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -84,22 +87,6 @@
       "sm-group-activity": {
         "devPort": 4200,
         "watchPath": "../booking/group-activity/src/**/*"
-      },
-      "sm-invoice": {
-        "devPort": 4250,
-        "watchPath": "../financial-services/invoice/src/**/*"
-      },
-      "sm-email-template": {
-        "devPort": 4300,
-        "watchPath": "../cdp/email-template/src/**/*"
-      },
-      "sm-smartlists": {
-        "devPort": 4301,
-        "watchPath": "../cdp/smartlists/src/**/*"
-      },
-      "sm-custom-form": {
-        "devPort": 4302,
-        "watchPath": "../cdp/custom-form/src/**/*"
       },
       "sm-tag": {
         "devPort": 4304,

@@ -1,11 +1,16 @@
 import { createStore } from "zustand/vanilla";
 
-import type { Giftcard, GiftcardImage } from "@bsport/api-buyables";
+import type {
+  ConsumerGiftcard,
+  Giftcard,
+  GiftcardImage,
+} from "@bsport/api-buyables";
 import { type PaginatedState, bindStore } from "@bsport/store-base";
 
 export interface GiftcardState {
   giftcards: PaginatedState<Giftcard>;
   giftcardImages: PaginatedState<GiftcardImage>;
+  consumerGiftcards: PaginatedState<ConsumerGiftcard>;
 }
 
 const defaultState = {
@@ -20,6 +25,9 @@ export const giftcardStore = createStore<GiftcardState>()(() => ({
     ...defaultState,
   },
   giftcardImages: {
+    ...defaultState,
+  },
+  consumerGiftcards: {
     ...defaultState,
   },
 }));

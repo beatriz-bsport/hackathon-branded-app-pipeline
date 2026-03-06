@@ -1,4 +1,4 @@
-import { Card, Table } from "@bsport/kaizen-primitive-core";
+import { Card, Table, Title } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { CommunicationKind } from "#src/api/constants";
@@ -60,19 +60,24 @@ export const CampaignSentRecipientTable = ({
   };
 
   return (
-    <Card padding="none">
-      <Table
-        columns={tableColumns}
-        rows={tableRows}
-        emptyStateProps={tableEmptyState}
-        loadingProps={tableLoadingState}
-        paginationProps={{
-          currentPage,
-          rowsPerPage: currentPageSize,
-          totalItems: count,
-          onPageSettingsChange: setPageSettings,
-        }}
-      />
-    </Card>
+    <div className="flex flex-col gap-sm">
+      <Title htmlVariant="h2" weight="strong">
+        {t("table.campaignRecipient.recipientsList.title")}
+      </Title>
+      <Card padding="none">
+        <Table
+          columns={tableColumns}
+          rows={tableRows}
+          emptyStateProps={tableEmptyState}
+          loadingProps={tableLoadingState}
+          paginationProps={{
+            currentPage,
+            rowsPerPage: currentPageSize,
+            totalItems: count,
+            onPageSettingsChange: setPageSettings,
+          }}
+        />
+      </Card>
+    </div>
   );
 };

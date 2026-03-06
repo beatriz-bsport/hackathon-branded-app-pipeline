@@ -5,6 +5,7 @@ import {
   Card,
   Chip,
   type ChipProps,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { CommunicationKind } from "#src/api/constants";
@@ -35,6 +36,7 @@ export const CampaignSentMetadataBanner = ({
 }: CampaignSentMetadataBannerProps) => {
   const { t } = useTranslation("campaign");
   const { language } = i18nInstance;
+  const isMobile = !useMatchMedia("md");
 
   const communicationKindChips = {
     [CommunicationKind.EMAIL]: {
@@ -78,17 +80,22 @@ export const CampaignSentMetadataBanner = ({
     },
   );
 
-  const shouldDisplayRecipientsCount =
-    campaignTotalRecipients != null && campaignKind !== CommunicationKind.PUSH;
-
   return (
     <Card>
-      <div className="flex flex-row gap-md justify-between">
-        <div id="campaign-channel" className="flex flex-col gap-xs">
+      <div
+        className={
+          "grid grid-cols-1 gap-sm md:grid-cols-5 md:gap-md [grid-template-areas:'channel_status'_'date_recipients'_'button_button'] md:[grid-template-areas:'channel_status_date_recipients_button']"
+        }
+      >
+        <div
+          id="campaign-channel"
+          className="flex flex-col gap-xs [grid-area:channel]"
+        >
           <Body size="sm" color="weak">
             {t("campaignDetails.metadataBanner.headers.channel")}
           </Body>
           <Chip
+            className="w-fit"
             type="weak"
             color="default"
             size="lg"
@@ -96,11 +103,15 @@ export const CampaignSentMetadataBanner = ({
             label={communicationKindChips[campaignKind].label}
           />
         </div>
-        <div id="campaign-status" className="flex flex-col gap-xs">
+        <div
+          id="campaign-status"
+          className="flex flex-col gap-xs [grid-area:status]"
+        >
           <Body size="sm" color="weak">
             {t("campaignDetails.metadataBanner.headers.status")}
           </Body>
           <Chip
+            className="w-fit"
             type="weak"
             color={
               campaignStatus !== undefined
@@ -116,7 +127,10 @@ export const CampaignSentMetadataBanner = ({
             }
           />
         </div>
-        <div id="campaign-date" className="flex flex-col gap-xs">
+        <div
+          id="campaign-date"
+          className="flex flex-col gap-xs [grid-area:date]"
+        >
           <Body size="sm" color="weak">
             {t("campaignDetails.metadataBanner.headers.sentDate")}
           </Body>
@@ -124,26 +138,31 @@ export const CampaignSentMetadataBanner = ({
             {formattedDate}
           </Body>
         </div>
-        {shouldDisplayRecipientsCount ? (
-          <div id="campaign-recipients-count" className="flex flex-col gap-xs">
-            <Body size="sm" color="weak">
-              {t("campaignDetails.metadataBanner.headers.recipients")}
-            </Body>
-            <Body weight="stronger" size="lg">
-              {String(campaignTotalRecipients)}
-            </Body>
-          </div>
-        ) : null}
-        <Button
-          id="campaign-preview-button"
-          intent="default"
-          color="main"
-          size="md"
-          label={t("campaignDetails.metadataBanner.previewButton")}
-          onClick={() => {
-            onPreview();
-          }}
-        />
+        <div
+          id="campaign-recipients-count"
+          className="flex flex-col gap-xs [grid-area:recipients]"
+        >
+          <Body size="sm" color="weak">
+            {t("campaignDetails.metadataBanner.headers.recipients")}
+          </Body>
+          <Body weight="stronger" size="lg">
+            {String(
+              campaignTotalRecipients ??
+                t("campaignDetails.metadataBanner.noRecipients"),
+            )}
+          </Body>
+        </div>
+        <div className="[grid-area:button] self-center">
+          <Button
+            fullWidth={isMobile}
+            id="campaign-preview-button"
+            intent="default"
+            color="main"
+            size="md"
+            label={t("campaignDetails.metadataBanner.previewButton")}
+            onClick={() => onPreview()}
+          />
+        </div>
       </div>
     </Card>
   );

@@ -11,37 +11,26 @@ import { useTranslation } from "#src/utils/i18n";
 
 type CampaignSentPerformanceProps = {
   campaignUuid: string;
-  deliveryRate?: string;
   openRate?: string;
   clickRate?: string;
-  unsubscribedRate?: string;
-  totalRecipients?: number;
   totalOpened?: number;
   totalClicked?: number;
-  totalUnsubscribed?: number;
 };
 export const CampaignSentPerformance = ({
   campaignUuid,
-  deliveryRate,
   openRate,
   clickRate,
-  unsubscribedRate,
-  totalRecipients,
   totalOpened,
   totalClicked,
-  totalUnsubscribed,
 }: CampaignSentPerformanceProps) => {
   const { t } = useTranslation("campaign");
   const { data: performanceReport } = useFetchCampaignSentPerformanceReport({
     campaignUuid,
   });
 
-  const hasDeliveryRate = deliveryRate && totalRecipients;
-  const hasOpenRate = openRate && totalOpened;
-  const hasClickRate = clickRate && totalClicked;
-  const hasUnsubscribedRate = unsubscribedRate && totalUnsubscribed;
-  const hasPerformance =
-    hasDeliveryRate || hasOpenRate || hasClickRate || hasUnsubscribedRate;
+  const hasOpenRate = openRate != null && totalOpened != null;
+  const hasClickRate = clickRate != null && totalClicked != null;
+  const hasPerformance = hasOpenRate || hasClickRate;
 
   const topLinkMap = Object.entries(performanceReport?.top_links || {});
   const hasTopLinks = topLinkMap.length > 0;
@@ -53,20 +42,11 @@ export const CampaignSentPerformance = ({
         <Title htmlVariant="h2" weight="strong">
           {t("campaignDetails.performance.title")}
         </Title>
-        <div className="flex flex-row gap-xs">
-          {hasDeliveryRate && (
-            <AnalyticCard
-              fullWidth
-              title={t("campaignDetails.performance.deliveryRate.title")}
-              figure={`${String(deliveryRate)}%`}
-              subtitle={t("campaignDetails.performance.deliveryRate.subtitle", {
-                count: totalRecipients,
-              })}
-            />
-          )}
+        <div className="grid md:grid-cols-2 grid-cols-4 gap-xs md:[grid-template-areas:'open_click'] [grid-template-areas:'open_open_click_click']">
           {hasOpenRate && (
             <AnalyticCard
               fullWidth
+              className="[grid-area:open]"
               title={t("campaignDetails.performance.openRate.title")}
               figure={`${String(openRate)}%`}
               subtitle={t("campaignDetails.performance.openRate.subtitle", {
@@ -77,6 +57,7 @@ export const CampaignSentPerformance = ({
           {hasClickRate && (
             <AnalyticCard
               fullWidth
+              className="[grid-area:click]"
               title={t("campaignDetails.performance.clickRate.title")}
               figure={`${String(clickRate)}%`}
               subtitle={t("campaignDetails.performance.clickRate.subtitle", {
@@ -84,28 +65,15 @@ export const CampaignSentPerformance = ({
               })}
             />
           )}
-          {hasUnsubscribedRate && (
-            <AnalyticCard
-              fullWidth
-              title={t("campaignDetails.performance.unsubscribedRate.title")}
-              figure={`${String(unsubscribedRate)}%`}
-              subtitle={String(
-                t("campaignDetails.performance.unsubscribedRate.subtitle", {
-                  count: totalUnsubscribed,
-                }),
-              )}
-            />
-          )}
-          {!hasPerformance && (
-            <AnalyticCard
-              fullWidth
-              title={String(t("campaignDetails.performance.empty"))}
-              figure="---"
-            />
-          )}
         </div>
+        {!hasPerformance && (
+          <AnalyticCard
+            fullWidth
+            title={String(t("campaignDetails.performance.empty"))}
+            figure="---"
+          />
+        )}
       </div>
-
       <div className="flex flex-col gap-sm">
         <Title htmlVariant="h2" weight="strong">
           {t("campaignDetails.performance.clickPerformance.title")}

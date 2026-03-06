@@ -154,6 +154,9 @@
   },
   "table": {
     "campaignRecipient": {
+      "recipientsList": {
+        "title": "Recipients"
+      },
       "emptyDate": "--",
       "headers": {
         "memberIdentity": "Member",
@@ -169,6 +172,7 @@
         "description": "Loading recipients list..."
       },
       "moreActions": {
+        "label": "More actions",
         "navigateToMemberProfile": "Navigate to member profile",
         "copyEmail": "Copy email",
         "copyPhoneNumber": "Copy phone number",
@@ -176,6 +180,10 @@
       }
     },
     "campaignScheduled": {
+      "recipientsList": {
+        "title": "Recipients",
+        "description": "This list shows members who currently match your Smartlist. If the Smartlist changes before sending, the final list of recipients will be updated automatically."
+      },
       "headers": {
         "scheduledDate": "Scheduled",
         "campaignName": "Campaign"
@@ -218,6 +226,7 @@
   },
   "campaignDetails": {
     "metadataBanner": {
+      "noRecipients": "--",
       "headers": {
         "channel": "Campaign channel",
         "status": "Status",

@@ -53,5 +53,14 @@ export const CommunicationRecipientStatus = {
 export type CommunicationRecipientStatus =
   (typeof CommunicationRecipientStatus)[keyof typeof CommunicationRecipientStatus];
 
+export const CommunicationChannel = {
+  EMAIL: "email",
+  SMS: "sms",
+  PUSH: "push",
+} as const;
+
+export type CommunicationChannel =
+  (typeof CommunicationChannel)[keyof typeof CommunicationChannel];
+
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_PAGE_SIZE_RECIPIENTS = 10;

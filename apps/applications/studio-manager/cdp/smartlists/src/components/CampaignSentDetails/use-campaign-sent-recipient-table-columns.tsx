@@ -6,13 +6,14 @@ import {
   Chip,
   type ChipProps,
   type GenericTableColumn,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import {
   CommunicationKind,
   CommunicationRecipientStatus,
 } from "#src/api/constants";
-import { useTranslation } from "#src/utils/i18n";
+import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
 import { CampaignSentRecipientActionDropdown } from "./CampaignSentRecipientActionDropdown";
 
@@ -46,6 +47,7 @@ export const useCampaignSentTableColumns = ({
   copyContactInfo,
 }: CampaignSentTableRowParams): Array<TableColumn> => {
   const { t } = useTranslation("campaign");
+  const isMobile = !useMatchMedia("md");
   const columns = useMemo<Array<TableColumn>>(() => {
     const columnMemberIdentity: TableColumn = {
       header: t("table.campaignRecipient.headers.memberIdentity"),
@@ -53,14 +55,25 @@ export const useCampaignSentTableColumns = ({
       type: "custom",
       align: "start",
       render: (row) => (
-        <div className="flex flex-row gap-xs items-center">
+        <div className="flex flex-row gap-sm items-center">
           {/* TODO: Add avatar - when the discussion is resolved : https://bsport.slack.com/archives/C092DRALBL1/p1771415975643399 */}
           <Avatar shape="round" size="md" initials="A" />
           <div className="flex flex-col gap-2xs">
-            <Body size="md" htmlVariant="span">
+            <Body
+              className="max-w-38 overflow-hidden text-ellipsis"
+              size="lg"
+              htmlVariant="span"
+              weight="weak"
+            >
               {row.recipientName}
             </Body>
-            <Body size="md" htmlVariant="p" weight="weak">
+            <Body
+              className="max-w-38 overflow-hidden text-ellipsis"
+              size="md"
+              htmlVariant="p"
+              weight="weak"
+              color="weak"
+            >
               {row.campaignKind === CommunicationKind.EMAIL
                 ? row.recipientEmail
                 : row.recipientPhoneNumber}
@@ -107,7 +120,7 @@ export const useCampaignSentTableColumns = ({
       header: t("table.campaignRecipient.headers.status"),
       id: "column-status",
       type: "custom",
-      align: "start",
+      align: "center",
       render: (row) => {
         const recipientStatusChips = {
           [CommunicationRecipientStatus.BOUNCED]: {
@@ -161,7 +174,7 @@ export const useCampaignSentTableColumns = ({
       id: "column-more-action",
       keyPath: "",
       type: "custom",
-      align: "end",
+      align: "start",
       render: (row) => {
         const contactInfoToCopy = {
           [CommunicationKind.EMAIL]: row.recipientEmail,
@@ -181,15 +194,22 @@ export const useCampaignSentTableColumns = ({
       },
     };
 
-    return [
-      columnMemberIdentity,
-      columnLastOpenedDate,
-      columnMemberClicks,
-      columnMemberOpens,
-      columnStatus,
-      columnMoreActions,
-    ].filter(Boolean);
-  }, [navigateToMemberProfile, copyContactInfo, t]);
+    return isMobile
+      ? [columnMemberIdentity, columnStatus, columnMoreActions]
+      : [
+          columnMemberIdentity,
+          columnLastOpenedDate,
+          columnMemberClicks,
+          columnMemberOpens,
+          columnStatus,
+          columnMoreActions,
+        ].filter(Boolean);
+  }, [
+    navigateToMemberProfile,
+    copyContactInfo,
+    isMobile,
+    i18nInstance.language,
+  ]);
 
   return columns;
 };

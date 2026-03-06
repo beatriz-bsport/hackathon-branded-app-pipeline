@@ -543,14 +543,16 @@ export function updateIntentToSavePaymentMethod(
       options?.onSuccess?.(resultData);
     } catch (error) {
       console.error('Error updating intent to save payment method:', error);
+      const err = error as Error;
       dispatch(
         updateIntentToSavePaymentMethodActions.error({
           paymentGroupId,
-          error: error as Error,
+          error: err,
         }),
       );
 
-      options?.onError?.(error as Error);
+      options?.onError?.(err);
+      return err;
     } finally {
       dispatch(
         updateIntentToSavePaymentMethodActions.isLoading({
@@ -585,12 +587,20 @@ export function confirmStripePayment(
   return async (dispatch: Dispatch) => {
     try {
       if (args.paymentGroupId) {
-        await dispatch(
+        const updateError = await dispatch(
           updateIntentToSavePaymentMethod({
             save_for_later: !!args.saveForLater,
             payment_group_id: args.paymentGroupId,
           }),
         );
+
+        // When an instalment is selected, if the PM is not saved the next instalment will fail
+        // so we prevent the payment from going through.
+        if (args.saveForLater && updateError) {
+          dispatch(snackbarError('updateIntentToSavePaymentMethod.error'));
+          options?.onPaymentError?.(updateError as StripeError);
+          return;
+        }
       }
 
       // Only confirmPayment works with PaymentElement; the others require specific data.

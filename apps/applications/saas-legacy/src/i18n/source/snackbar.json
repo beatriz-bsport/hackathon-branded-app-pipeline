@@ -1034,6 +1034,9 @@
       "12909": "Payments are disabled for this studio"
     }
   },
+  "updateIntentToSavePaymentMethod": {
+    "error": "Unable to save payment method for future instalments. Please try again."
+  },
   "companyTheme": {
     "update": {
       "error": "Error when saving changes",

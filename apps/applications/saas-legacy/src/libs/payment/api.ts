@@ -164,7 +164,10 @@ export const fetchPaymentGroupList = async (params: any) => {
   );
 };
 
-export const updateIntentToSavePaymentMethod = async (data: any) => {
+export const updateIntentToSavePaymentMethod = async (data: {
+  payment_group_id: number;
+  save_for_later: boolean;
+}) => {
   return postAuth<{ client_secret: string }>(
     `${API_V1_URI}/payment/payment_group/update_intent_to_save_payment_method/`,
     data,

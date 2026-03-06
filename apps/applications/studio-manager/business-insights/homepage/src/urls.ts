@@ -20,6 +20,10 @@ export const PUBLIC_URLS = {
   },
 };
 
+export const URLS = {
+  INSIGHTS: "/insights",
+} as const;
+
 export const LEGACY_URLS = {
   // TODO: replace with a link to the new session management page once it's implemented
   SESSION_MANAGEMENT: (sessionId: number) => `/offer/${sessionId}`,

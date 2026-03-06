@@ -63,7 +63,7 @@ export const Banner: FC<BannerProps> = ({
         "bg-[image:var(--bg-url)]",
         "overflow-hidden",
       ].join(" ")}
-      style={{ "--bg-url": `url(${image})` }}
+      style={{ "--bg-url": `url("${image}")` }}
     >
       {/* Grid layout: left column expands, right column for close button */}
       <div className="grid grid-cols-[1fr_auto] gap-md p-lg">

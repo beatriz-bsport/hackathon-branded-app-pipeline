@@ -5,16 +5,7 @@ import {
   INVOICE_TYPE_MIGRATION,
   INVOICE_TYPE_REVERSE,
 } from "@bsport/common/lib/master-data/invoice-type.js";
-import {
-  Button,
-  Chip,
-  type GenericTableColumn,
-  ListLayout,
-  Menu,
-  Popover,
-  Table,
-  Tooltip,
-} from "@bsport/kaizen-primitive-core";
+import { ChipProps, ListLayout } from "@bsport/kaizen-primitive-core";
 import {
   type Invoice,
   InvoiceStatusEnum,
@@ -28,26 +19,13 @@ import {
 import { useAsync } from "@bsport/use-async";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import {
+  InvoiceTable,
+  type InvoiceTableRow,
+  useInvoiceTableColumns,
+} from "#src/components/InvoiceTable";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
-
-type TableDataRow = {
-  id: string;
-  uuid: string;
-  date: string;
-  member: string;
-  amount: number;
-  type: string;
-  status: Array<{
-    label: string;
-    color: "positive" | "critical" | "warning" | "default";
-  }>;
-  downloadPdf: {
-    uuid: string;
-    is_draft: boolean;
-    is_receipt_available: boolean;
-  };
-};
 
 export const InvoiceListPage = () => {
   const { currentPage, currentPageSize, setPageSettings } =
@@ -91,6 +69,15 @@ export const InvoiceListPage = () => {
     });
   }, []);
 
+  const handleDownloadReceipt = useCallback((invoiceUuid: string) => {
+    getReceiptUrlAction(fetch, invoiceUuid).then((response) => {
+      response.fold(
+        (value) => window.open(value, "_blank"),
+        (error) => console.error(error),
+      );
+    });
+  }, []);
+
   const getInvoiceType = useCallback((invoice: Invoice) => {
     switch (invoice.invoice_type) {
       case INVOICE_TYPE_MIGRATION:
@@ -108,145 +95,13 @@ export const InvoiceListPage = () => {
     }
   }, []);
 
-  const columns: GenericTableColumn<TableDataRow>[] = useMemo(
-    () => [
-      {
-        id: "uuid",
-        keyPath: "uuid",
-        header: t("tableColumnLabel.number"),
-        type: "string",
-      },
-      {
-        id: "date",
-        keyPath: "date",
-        header: t("tableColumnLabel.date"),
-        type: "date",
-      },
-      {
-        id: "memberLink",
-        keyPath: "member",
-        header: t("tableColumnLabel.member"),
-        type: "string",
-      },
-      {
-        id: "amount",
-        keyPath: "amount",
-        header: t("tableColumnLabel.amount"),
-        type: "price",
-        align: "end",
-        priceColoring: {
-          negative: "critical",
-        },
-      },
-      {
-        id: "type",
-        keyPath: "type",
-        header: t("tableColumnLabel.type"),
-        type: "string",
-      },
-      {
-        id: "status",
-        keyPath: "status",
-        header: t("tableColumnLabel.status"),
-        type: "custom",
-        render: (row) => (
-          <div className="flex gap-sm">
-            {row.status.map((status, index) => (
-              <Chip
-                key={index}
-                label={status.label}
-                color={status.color}
-                size="lg"
-                type="weak"
-              />
-            ))}
-          </div>
-        ),
-      },
-      {
-        id: "downloadPdf",
-        keyPath: "downloadPdf",
-        header: "",
-        type: "custom",
-        align: "center",
-        render: (row) => {
-          const button = (
-            <Popover>
-              <Popover.Anchor>
-                {({ setIsPopoverOpened }) => (
-                  <Button
-                    icon="download-01"
-                    intent="flat"
-                    kind="icon-button"
-                    label={t("download.label")}
-                    color="main"
-                    size="md"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      event.preventDefault();
-                      if (row.downloadPdf.is_receipt_available) {
-                        setIsPopoverOpened(true);
-                      } else {
-                        handleClickDownload(row.downloadPdf.uuid);
-                      }
-                    }}
-                    disabled={row.downloadPdf.is_draft}
-                  />
-                )}
-              </Popover.Anchor>
-              <Popover.Content placement="bottom-right">
-                {({ setIsPopoverOpened }) => (
-                  <Menu
-                    items={[
-                      { type: "title", label: t("download.title") },
-                      { id: "download-pdf", label: t("download.pdf") },
-                      { id: "download-receipt", label: t("download.receipt") },
-                    ]}
-                    onSelectOption={(id) => {
-                      setIsPopoverOpened(false);
+  const columns = useInvoiceTableColumns({
+    onDownloadPdf: handleClickDownload,
+    onDownloadReceipt: handleDownloadReceipt,
+  });
 
-                      if (id === "download-pdf") {
-                        handleClickDownload(row.downloadPdf.uuid);
-                      } else if (id === "download-receipt") {
-                        getReceiptUrlAction(fetch, row.downloadPdf.uuid).then(
-                          (response) => {
-                            response.fold(
-                              (value) => window.open(value, "_blank"),
-                              (error) => console.error(error),
-                            );
-                          },
-                        );
-                      }
-                    }}
-                  />
-                )}
-              </Popover.Content>
-            </Popover>
-          );
-
-          return row.downloadPdf.is_draft ? (
-            <Tooltip
-              label={t("download.explainPdfDraft")}
-              placement="bottom-right"
-            >
-              {button}
-            </Tooltip>
-          ) : (
-            button
-          );
-        },
-      },
-    ],
-    [handleClickDownload, t],
-  );
-
-  const getStatusColor = (
-    status: InvoiceStatusEnum,
-  ): "positive" | "critical" | "warning" | "default" => {
-    const statusColorMap: Record<
-      InvoiceStatusEnum,
-      "positive" | "critical" | "warning" | "default"
-    > = {
+  const getStatusColor = (status: InvoiceStatusEnum) => {
+    const statusColorMap: Record<InvoiceStatusEnum, ChipProps["color"]> = {
       [InvoiceStatusEnum.PAID]: "positive",
       [InvoiceStatusEnum.REFUNDED]: "critical",
       [InvoiceStatusEnum.VOIDED]: "warning",
@@ -256,7 +111,7 @@ export const InvoiceListPage = () => {
     return statusColorMap[status] ?? "default";
   };
 
-  const rows: TableDataRow[] = useMemo(
+  const rows: InvoiceTableRow[] = useMemo(
     () =>
       invoices.map((invoice) => ({
         id: `row-${invoice.uuid}`,
@@ -342,7 +197,7 @@ export const InvoiceListPage = () => {
         pageTitle={t("invoiceListTitle")}
       />
       <ListLayout.Content className="flex-col">
-        <Table
+        <InvoiceTable
           columns={columns}
           rows={rows}
           paginationProps={{
@@ -361,7 +216,12 @@ export const InvoiceListPage = () => {
               className: "h-full justify-center",
             },
           }}
-          loadingProps={{ isLoading: isLoading && invoices.length === 0 }}
+          loadingProps={{
+            isLoading: isLoading && invoices.length === 0,
+            message: t("loading"),
+          }}
+          onDownloadPdf={handleClickDownload}
+          onDownloadReceipt={handleDownloadReceipt}
         />
       </ListLayout.Content>
     </ListLayout>

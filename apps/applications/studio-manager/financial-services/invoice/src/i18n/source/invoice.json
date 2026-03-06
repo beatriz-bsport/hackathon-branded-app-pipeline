@@ -36,5 +36,6 @@
     "receipt": "Payment receipt (PDF)",
     "explainPdfDraft": "The invoice is still a draft, pdf is not available.",
     "label": "Download invoice"
-  }
+  },
+  "loading": "Loading invoices..."
 }

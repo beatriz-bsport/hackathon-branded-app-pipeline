@@ -244,7 +244,7 @@
       },
       "color": "Farbcode",
       "coach_capacity_used": {
-        "helperText": "Beispiel: Eine Lehrkraft kann zwei Mitglieder gleichzeitig auf zwei Rechnern betreuen.",
+        "helperText": "Zum Beispiel kann eine Lehrkraft zwei Mitglieder gleichzeitig betreuen.",
         "label": "Maximale Anzahl an Terminen, die eine Lehrkraft gleichzeitigen leiten kann",
         "alertText": "Eine Lehrkraft kann 1, 2, 3, 4, 6, oder 12 Termine gleichzeitig verwalten."
       },
@@ -1106,7 +1106,7 @@
       "explain2": "Mitglieder, die diesen Terminpass oder ein damit verbundenes Abonnement erworben haben, können ihn in jedem der neu kompatiblen Studios nutzen.",
       "actions": {
         "close": "Schließen",
-        "submit": "Registrieren"
+        "submit": "Speichern"
       },
       "explain1": "Die folgenden Studios werden diesen Terminpass automatisch anbieten, können aber weder den Preis noch die Guthabenanzahl ändern."
     },
@@ -1139,7 +1139,7 @@
       "submit": "Bestätigen",
       "actions": {
         "close": "Schließen",
-        "submit": "Registrieren"
+        "submit": "Speichern"
       },
       "editConfirmation": {
         "confirm": "Trotzdem speichern",

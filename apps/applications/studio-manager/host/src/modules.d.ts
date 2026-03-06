@@ -76,8 +76,3 @@ declare module "sm-insights/App" {
   const App: BaseApp["App"];
   export default App;
 }
-
-declare module "sm-homepage/App" {
-  const App: BaseApp["App"];
-  export default App;
-}

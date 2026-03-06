@@ -53,7 +53,7 @@ const MarketingNotification = lazy(
 
 // ----- Business Insights -----
 const Insights = lazy(() => import("sm-insights/App"));
-const Homepage = lazy(() => import("sm-homepage/App"));
+const Homepage = lazy(() => import("@bsport/sm-homepage"));
 
 // ----- Common -----
 const NavigationSidebar = lazy(

@@ -773,7 +773,7 @@
     },
     "form": {
       "actions": {
-        "submit": "Registrieren",
+        "submit": "Speichern",
         "close": "Schließen"
       },
       "submit": "Bestätigen",
@@ -827,7 +827,7 @@
     },
     "form": {
       "actions": {
-        "submit": "Registrieren",
+        "submit": "Speichern",
         "close": "Schließen"
       },
       "explain2": "Mitglieder, die diesen Pass oder ein damit verbundenes Abonnement erworben haben, können ihn in jedem der neu kompatiblen Studios nutzen.",

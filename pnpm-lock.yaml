@@ -1194,9 +1194,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../tools/config/federation
+        version: link:../../../../../tools/config/library
       '@bsport/config-vitest':
         specifier: workspace:*
         version: link:../../../../../tools/config/vitest
@@ -2484,6 +2484,9 @@ importers:
       '@bsport/sm-referral-program':
         specifier: workspace:*
         version: link:../cdp/referral-program
+      '@bsport/sm-session':
+        specifier: workspace:*
+        version: link:../booking/session
       '@bsport/sm-smartlists':
         specifier: workspace:*
         version: link:../cdp/smartlists

@@ -35,10 +35,6 @@ declare module "sm-navigation-sidebar/urls" {
 
 // ----- Booking -----
 
-declare module "sm-session/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 // ----- Buyables -----
 declare module "sm-giftcard/App" {
   const App: BaseApp["App"];

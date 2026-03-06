@@ -41,6 +41,7 @@
     "@bsport/sm-marketing-notification": "workspace:*",
     "@bsport/sm-order": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
+    "@bsport/sm-session": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
     "@bsport/sm-teacher": "workspace:*",
     "@tanstack/react-query": "^5.90.12",
@@ -73,10 +74,6 @@
       "sm-giftcard": {
         "devPort": 4150,
         "watchPath": "../buyables/giftcard/src/**/*"
-      },
-      "sm-session": {
-        "devPort": 4201,
-        "watchPath": "../booking/session/src/**/*"
       },
       "sm-pack": {
         "devPort": 4152,

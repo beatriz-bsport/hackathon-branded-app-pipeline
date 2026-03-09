@@ -70,7 +70,7 @@
           "go_to_settings": "Vá para Configurações",
           "complete_stripe_onboarding": "Concluir o onboarding do Stripe",
           "legal_identifier_required": "Identificadores de fatura necessários",
-          "legal_identifier_description": "Fale com o seu gerente de conta para configurar identificadores de fatura para o Sign-ES."
+          "legal_identifier_description": "Configure os identificadores de fatura para Sign-ES seguindo esta <0>folha de ajuda</0>."
         }
       },
       "active": {

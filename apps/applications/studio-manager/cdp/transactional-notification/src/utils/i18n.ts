@@ -1,6 +1,10 @@
 import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
 
-import namespaces from "#src/i18n/namespaces.json";
+import {
+  i18nNamespacePrefix,
+  i18nNamespaces,
+  inMemoryTranslationsLoader,
+} from "#src/i18n";
 import type communicationVariablesTranslations from "#src/i18n/source/communicationVariables.json";
 import type notificationRuleEventTranslations from "#src/i18n/source/notificationRuleEvent.json";
 import type transactionalNotificationTranslations from "#src/i18n/source/transactionalNotification.json";
@@ -11,10 +15,6 @@ type Translations = {
   communicationVariables: typeof communicationVariablesTranslations;
 };
 
-const applicationName =
-  __TRANSACTIONAL_NOTIFICATION__.__I18N_NAMESPACE_PREFIX__;
-const applicationUrl = __TRANSACTIONAL_NOTIFICATION__.__APPLICATION_BASE_URL__;
-
 export const {
   i18nInstance,
   useTranslation,
@@ -22,9 +22,9 @@ export const {
   getFixedNamespace,
   AppI18nextProvider,
 } = instanciateAppI18n<Translations>({
-  applicationName,
-  applicationUrl,
-  namespaces,
+  applicationName: i18nNamespacePrefix,
+  namespaces: i18nNamespaces,
+  inMemoryTranslationsLoader,
   debug: import.meta.env.DEV,
 });
 

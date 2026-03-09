@@ -1,0 +1,24 @@
+{
+  "swapPass": {
+    "menuAction": "Trocar Passe de Aula",
+    "dialog": {
+      "title": "Trocar Passe",
+      "noCompatiblePasses": "Nenhum passe de aulas compatível",
+      "actions": {
+        "close": "Fechar",
+        "confirm": "Confirmar"
+      },
+      "errors": {
+        "loadCompatiblePasses": "Não foi possível carregar passes de aulas compatíveis.",
+        "swapFailed": "Não foi possível trocar o passe. Por favor, tente novamente.",
+        "5347000": "Reserva não encontrada. Por favor, atualize e tente novamente.",
+        "5347001": "A reserva já está a usar este passe.",
+        "5347002": "O passe não pertence a esses membros.",
+        "5347003": "O passe não é compatível com esta reserva.",
+        "5347004": "O passe está bloqueado e não pode ser usado.",
+        "5347005": "O passe não tem créditos suficientes.",
+        "5347006": "Não é possível trocar o Passe de aula numa reserva de agregador."
+      }
+    }
+  }
+}

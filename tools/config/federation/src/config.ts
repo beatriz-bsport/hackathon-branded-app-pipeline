@@ -286,6 +286,11 @@ export const getConfig = (config: {
         singleton: true,
         requiredVersion: packageJson.dependencies["zod"] ?? "^3.0.0",
       },
+      "@tanstack/react-query": {
+        singleton: true,
+        requiredVersion:
+          packageJson.dependencies["@tanstack/react-query"] ?? "^5.90.12",
+      },
       "@bsport/analytics": {
         singleton: true,
       },

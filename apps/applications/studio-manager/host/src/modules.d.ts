@@ -34,22 +34,9 @@ declare module "sm-navigation-sidebar/urls" {
 }
 
 // ----- Booking -----
-declare module "sm-group-activity/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 
-declare module "sm-session/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 // ----- Buyables -----
 declare module "sm-giftcard/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
-declare module "sm-order/App" {
   const App: BaseApp["App"];
   export default App;
 }
@@ -65,29 +52,10 @@ declare module "sm-member-list/App" {
   export default App;
 }
 
-declare module "sm-teacher/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
 // ----- Customer Data Platform -----
 declare module "sm-tag/App" {
   const App: BaseApp["App"];
   export default App;
 }
 
-declare module "sm-transactional-notification/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
 // ----- Business Insights -----
-declare module "sm-insights/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
-declare module "sm-homepage/App" {
-  const App: BaseApp["App"];
-  export default App;
-}

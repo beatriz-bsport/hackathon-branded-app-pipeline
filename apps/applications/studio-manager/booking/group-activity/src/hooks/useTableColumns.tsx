@@ -1,12 +1,12 @@
 import capitalize from "lodash/capitalize";
 
+import type { MetaActivity } from "@bsport/api-book";
 import {
   Avatar,
   Body,
   Chip,
   GenericTableColumn,
 } from "@bsport/kaizen-primitive-core";
-import { MetaActivity } from "@bsport/store-booking-group-activity";
 
 import { useTranslation } from "#src/utils/i18n";
 

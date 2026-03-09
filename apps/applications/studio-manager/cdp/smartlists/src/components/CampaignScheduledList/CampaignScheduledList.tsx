@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { useParams } from "react-router";
 
 import {
@@ -8,7 +9,13 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
+import type { CampaignScheduled } from "#src/api/types";
 import { useFetchCampaignScheduledList } from "#src/api/use-fetch-campaign-scheduled-list";
+import { DeleteScheduledCommunicationModal } from "#src/components/DeleteScheduledCommunicationModal/DeleteScheduledCommunicationModal";
+import {
+  CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
+  type CampaignScheduledInlineActions,
+} from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -20,6 +27,11 @@ export const CampaignScheduledList = () => {
   const { id: smartlistId } = useParams<{ id: string }>();
   invariant(smartlistId, "Expected id param to be defined");
 
+  const [currentInlineAction, setCurrentInlineAction] =
+    useState<CampaignScheduledInlineActions | null>(null);
+  const [scheduledCampaignForAction, setScheduledCampaignForAction] =
+    useState<CampaignScheduled | null>(null);
+
   const { data: campaignScheduled, isLoading: campaignScheduledLoading } =
     useFetchCampaignScheduledList(smartlistId);
 
@@ -28,11 +40,26 @@ export const CampaignScheduledList = () => {
     smartlistId,
   });
 
+  const campaignScheduledById = useMemo(() => {
+    return (
+      campaignScheduled?.reduce(
+        (acc, campaign) => {
+          acc[campaign.id] = campaign;
+          return acc;
+        },
+        {} as Record<number, CampaignScheduled>,
+      ) ?? null
+    );
+  }, [campaignScheduled]);
+
   const tableColumns = useCampaignScheduledTableColumns({
     onEdit: (campaignId) =>
       console.log("Placeholder : Edit scheduled campaign : ", campaignId),
-    onDelete: (campaignId) =>
-      console.log("Placeholder : Delete scheduled campaign : ", campaignId),
+    onDelete: (campaignId) => {
+      const campaign = campaignScheduledById?.[campaignId] ?? null;
+      setScheduledCampaignForAction(campaign);
+      setCurrentInlineAction(CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION);
+    },
   });
 
   const doesSmartlistHaveCampaignScheduled = campaignScheduled?.length > 0;
@@ -91,6 +118,18 @@ export const CampaignScheduledList = () => {
           </Card>
         </Collapse.Content>
       </Collapse>
+      {currentInlineAction === CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION &&
+        scheduledCampaignForAction && (
+          <DeleteScheduledCommunicationModal
+            isOpen
+            onClose={() => {
+              setCurrentInlineAction(null);
+              setScheduledCampaignForAction(null);
+            }}
+            campaign={scheduledCampaignForAction}
+            smartlistId={smartlistId}
+          />
+        )}
     </div>
   );
 };

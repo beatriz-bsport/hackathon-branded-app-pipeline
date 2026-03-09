@@ -10,6 +10,7 @@ import {
 
 import {
   Breadcrumbs,
+  Button,
   DetailsLayout,
   type SelectedDate,
   Tabs,
@@ -21,6 +22,8 @@ import {
 import { useGenerateCampaignReport } from "#src/api/use-generate-campaign-report";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import { CampaignReportModal } from "#src/components/CampaignReportModal/CampaignReportModal";
+import { CampaignTypeSelectorModal } from "#src/components/CampaignTypeSelector/CampaignTypeSelectorModal";
+import { useCampaignTypeOptions } from "#src/components/CampaignTypeSelector/use-campaign-type-options";
 import {
   DetailPageErrorFallback,
   PageLoader,
@@ -54,15 +57,20 @@ export const DetailsPage = () => {
   );
 };
 
+const CAMPAIGN_TYPE_SELECTOR_ACTION_ID = "campaign-type-selector" as const;
+
 function Details() {
   const [inlineActions, setInlineActions] = useState<
-    typeof GENERATE_REPORT_ACTION_ID | null
+    | typeof GENERATE_REPORT_ACTION_ID
+    | typeof CAMPAIGN_TYPE_SELECTOR_ACTION_ID
+    | null
   >(null);
   const { t } = useTranslation("details");
   const { t: tList } = useTranslation("list");
   const { t: tCampaign } = useTranslation("campaign");
   const { id } = useParams<{ id: string }>();
   invariant(id, "Expected id param to be defined");
+  const campaignTypeOptions = useCampaignTypeOptions({ smartlistId: id });
 
   const generateCampaignReport = useGenerateCampaignReport({
     onSuccess: (cdnUrl) => {
@@ -126,7 +134,6 @@ function Details() {
   const location = useLocation();
 
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(id);
-
   const { detailsLayoutProps } = useDetailsLayout();
 
   const breadcrumbsItems = [
@@ -197,6 +204,16 @@ function Details() {
         pageTabs={tabsConfig}
         BreadcrumbsItems={breadcrumbsItems}
         endGroupActions={getEndGroupActionItems()}
+        callToActionButton={
+          <Button
+            color="main"
+            intent="call-to-action"
+            label={tCampaign("actions.createCampaign")}
+            iconLeft="plus"
+            size="md"
+            onClick={() => setInlineActions(CAMPAIGN_TYPE_SELECTOR_ACTION_ID)}
+          />
+        }
       />
       <DetailsLayout.Content>
         <Outlet context={{ smartlistId: id, smartlist }} />
@@ -215,6 +232,13 @@ function Details() {
             setInlineActions(null);
           }}
           onClose={() => setInlineActions(null)}
+        />
+      ) : null}
+      {inlineActions === CAMPAIGN_TYPE_SELECTOR_ACTION_ID ? (
+        <CampaignTypeSelectorModal
+          isOpen
+          onClose={() => setInlineActions(null)}
+          campaignTypeOptions={campaignTypeOptions}
         />
       ) : null}
     </DetailsLayout>

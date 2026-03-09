@@ -102,7 +102,7 @@ export const LevelSelector: FC<LevelSelectorProps> = ({
   ];
 
   return (
-    <Popover>
+    <Popover fullWidth>
       <Popover.Anchor>
         {({ setIsPopoverOpened }) => (
           <div className="flex flex-col gap-xs">
@@ -122,7 +122,7 @@ export const LevelSelector: FC<LevelSelectorProps> = ({
               size="md"
               iconRight="chevron-down"
               onClick={() => setIsPopoverOpened(true)}
-              className="min-w-component-select justify-between"
+              className="max-w-component-select justify-between"
             />
           </div>
         )}

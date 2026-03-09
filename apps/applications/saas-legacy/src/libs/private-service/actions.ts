@@ -2,6 +2,10 @@ import { createAction } from 'redux-actions';
 import { PRIVATE_BOOKING_INCOMPLETE_ALERT } from '@bsport/common/lib/master-data/alerting_kind.js';
 import { PRIVATE_SERVICE_NOT_COMPATIBLE_WITH_PARTNERSHIP } from '@bsport/common/lib/master-data/error-codes/private-service.js';
 import { PRIVATE_SLOT_NOT_COMPATIBLE_WITH_PARTNERSHIP } from '@bsport/common/lib/master-data/error-codes/private-slot.js';
+import {
+  CONSUMER_PRIVATE_PASS_CAN_NOT_BOOK_COACH_UNAVAILABLE,
+  CONSUMER_PRIVATE_PASS_CAN_NOT_BOOK_ESTABLISHMENT_UNAVAILABLE,
+} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 
 import { DateTime } from 'luxon';
 import uniq from 'lodash/uniq';
@@ -2257,6 +2261,12 @@ export function registerPrivateBooking(
                   'role.noMasterControl.overrideEstablishmentNotAllowed',
                 ),
               );
+            break;
+          case CONSUMER_PRIVATE_PASS_CAN_NOT_BOOK_COACH_UNAVAILABLE:
+            dispatch(snackbarError('privateSlot.coachNotAvailable'));
+            break;
+          case CONSUMER_PRIVATE_PASS_CAN_NOT_BOOK_ESTABLISHMENT_UNAVAILABLE:
+            dispatch(snackbarError('privateSlot.establishmentNotAvailable'));
             break;
           default:
             dispatch(

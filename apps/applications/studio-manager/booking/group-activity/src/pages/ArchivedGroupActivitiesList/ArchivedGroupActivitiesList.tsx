@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import { type FC, useEffect } from "react";
 import { Link } from "react-router";
 
+import type { MetaActivity } from "@bsport/api-book";
 import {
   Breadcrumbs,
   Button,
@@ -10,7 +11,6 @@ import {
   toast,
 } from "@bsport/kaizen-primitive-core";
 import {
-  type MetaActivity,
   archiveGroupActivityAction,
   unarchiveGroupActivityAction,
 } from "@bsport/store-booking-group-activity";
@@ -21,7 +21,7 @@ import { ROUTES } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-export const ArchivedGroupActivitiesList: React.FC = () => {
+export const ArchivedGroupActivitiesList: FC = () => {
   const { t } = useTranslation("groupActivity");
   const columns = useTableColumns<MetaActivity>();
 

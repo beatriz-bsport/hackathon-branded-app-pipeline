@@ -37,7 +37,7 @@ For target app (`apps/applications/studio-manager/.../<app>`):
    - adds `exports`, `main`, `module`, `types`
    - updates build script to use `vite build --mode production`
    - swaps `@bsport/config-federation` to `@bsport/config-library` in `devDependencies`
-   - removes `application:revamp` from `nx.tags`
+   - updates `nx.tags`: adds `postinstall`, removes `application:revamp`
 2. `vite.config.ts`
    - swaps `getConfig`/`@bsport/config-federation`
    - to `getLibConfig`/`@bsport/config-library`
@@ -55,6 +55,8 @@ For host app (`apps/applications/studio-manager/host`):
    - replaces `import("sm-foo/App")` with `import("@bsport/sm-foo")`
 6. `src/modules.d.ts`
    - removes `declare module "sm-foo/App"` block
+
+After applying file transforms, the generator runs formatting on changed files (target app + host).
 
 ## What It Does Not Change
 

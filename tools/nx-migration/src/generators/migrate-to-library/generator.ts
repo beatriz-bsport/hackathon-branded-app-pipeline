@@ -1,4 +1,4 @@
-import { Tree, logger, readJson } from "@nx/devkit";
+import { Tree, formatFiles, logger, readJson } from "@nx/devkit";
 
 import {
   transformAppPackageJson,
@@ -31,10 +31,10 @@ function normalizeAppName(input: string): string {
   return `sm-${bareName}`;
 }
 
-export function migrateToLibraryGenerator(
+export async function migrateToLibraryGenerator(
   tree: Tree,
   schema: MigrateToLibrarySchema,
-): void {
+): Promise<void> {
   const appName = normalizeAppName(schema.appName);
   const packageName = `@bsport/${appName}`;
 
@@ -60,6 +60,8 @@ export function migrateToLibraryGenerator(
   transformHostPackageJson(tree, hostRoot, appName, packageName);
   transformHostRootTsx(tree, hostRoot, appName, packageName);
   transformHostModulesDts(tree, hostRoot, appName);
+
+  await formatFiles(tree);
 
   logger.info(
     `Migration complete for ${packageName}. Review changes and run pnpm install.`,

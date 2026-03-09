@@ -8,7 +8,10 @@ import { useSelector } from 'react-redux';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import { HasSubscriptionsProvider } from '#src/hooks/useHasSubscriptions';
-import { hasPremiumInsightsAccess } from '#src/pages/insights/utils/premium-insights';
+import {
+  hasInsightsForEssentialAccess,
+  hasPremiumInsightsAccess,
+} from '#src/pages/insights/utils/premium-insights';
 import type { RootState } from '#src/reducers';
 import { INSIGHTS_ROUTES } from './constants';
 import InsightCard from './components/InsightCard';
@@ -47,6 +50,7 @@ const InsightsIndex: React.FC = () => {
     (state: RootState) => state.company.feature.data,
   );
   const hasPremiumInsights = hasPremiumInsightsAccess(featureList);
+  const hasInsightsForEssential = hasInsightsForEssentialAccess(featureList);
   const isTrialAnalysisEnabled = useSafeFlag(FeatureFlags.TRIAL_ANALYSIS);
   const isScheduleAnalysisInsightEnabled = useSafeFlag(
     FeatureFlags.SCHEDULE_ANALYSIS,
@@ -81,7 +85,9 @@ const InsightsIndex: React.FC = () => {
           hasPremiumInsights &&
           hasMembersPurchaseReportPermission;
         const hasScheduleAnalysisAccess =
-          isScheduleAnalysisInsightEnabled && hasBookingsReportPermission;
+          isScheduleAnalysisInsightEnabled &&
+          hasBookingsReportPermission &&
+          hasInsightsForEssential;
         const hasBookingInsightAccess =
           isBookingInsightEnabled && hasBookingsReportPermission;
         if (

@@ -16,11 +16,15 @@ import type {
   CampaignScheduled,
   CampaignSent,
   CampaignSentPerformanceReport,
+  CommunicationPreviewRecipientsRequest,
+  CommunicationRecipientCount,
+  CommunicationRecipientMinimal,
   EmailTemplateDetail,
   FetchAutomatedCampaignsParams,
   FetchCampaignRecipientParams,
   FetchCampaignScheduledParams,
   FetchCampaignSentParams,
+  FetchCommunicationRecipientsPreviewParams,
   GenerateReportParams,
   GenerateReportResult,
   Popup,
@@ -36,6 +40,7 @@ const CDP_API_V0 = "customer-data-platform/v0";
 const POPUPS_API_URL =
   "member-experience/v1/mobile_app/manager/custom_popup_links";
 const EMAIL_TEMPLATE_API_V1 = "customer-data-platform/v1/email_design";
+const PLATFORM_BILLING_API_V1 = "financial-services/v1/platform_billing";
 
 /**
  * Query Key Factory
@@ -123,7 +128,58 @@ export const smartlistKeys = {
 
   emailTemplateDetail: (emailTemplateId: number) =>
     [...smartlistKeys.all, "email-template", emailTemplateId] as const,
+
+  /**
+   * Key for communication preview count (recipients estimate).
+   * Uses a stable serialization so e.g. member_ids [1,2,3] and [3,2,1] share the same cache.
+   */
+  communicationRecipientsCountPreview: (
+    request: CommunicationPreviewRecipientsRequest,
+  ) =>
+    [
+      ...smartlistKeys.all,
+      "communication-recipients-count-preview",
+      ...getCommunicationPreviewKeyPayload(request),
+    ] as const,
+  /**
+   * Key for communication preview count (recipients estimate).
+   * Uses a stable serialization so e.g. member_ids [1,2,3] and [3,2,1] share the same cache.
+   */
+  communicationRecipientsPreview: (
+    request: FetchCommunicationRecipientsPreviewParams,
+  ) =>
+    [
+      ...smartlistKeys.all,
+      "communication-recipients-preview",
+      ...getCommunicationPreviewKeyPayload(request),
+      request.page ?? DEFAULT_PAGE,
+      request.page_size ?? DEFAULT_PAGE_SIZE_RECIPIENTS,
+    ] as const,
 } as const;
+
+/**
+ * Stable key payload for EstimateRequest so React Query cache keys are deterministic.
+ * Sorts member_ids for "members" target so order doesn't create duplicate cache entries.
+ */
+function getCommunicationPreviewKeyPayload(
+  request: CommunicationPreviewRecipientsRequest,
+): readonly (string | number | boolean | number[])[] {
+  const base: (string | number | boolean)[] = [
+    request.channel,
+    request.is_marketing,
+    request.target.type,
+  ];
+  switch (request.target.type) {
+    case "smartlist":
+      return [...base, request.target.smartlist_id];
+    case "offer":
+      return [...base, request.target.offer_id, request.target.booking_status];
+    case "members":
+      return [...base, [...request.target.member_ids].sort((a, b) => a - b)];
+    case "communication_scheduled":
+      return [...base, request.target.communication_scheduled_id];
+  }
+}
 
 /**
  * Fetch functions
@@ -249,6 +305,21 @@ const fetchCampaignScheduled = async (
   return data;
 };
 
+/**
+ * Deletes a scheduled communication
+ * @param scheduledCampaignId - ID of the scheduled campaign to delete
+ */
+export const deleteScheduledCommunication = async (
+  scheduledCampaignId: string,
+): Promise<void> => {
+  await fetch(
+    `${COMMUNICATION_API_V1}/communication/communication_scheduled/${scheduledCampaignId}/`,
+    {
+      method: "DELETE",
+    },
+  );
+};
+
 const fetchCampaignRecipients = async ({
   campaign,
   page,
@@ -359,12 +430,59 @@ export const deleteTagRule = async (id: number): Promise<void> => {
   });
 };
 
+/**
+ * Request an upsell package by identifier (creates HubSpot deal).
+ * Same endpoint as saas-legacy platform-billing requestUpsellPackage.
+ */
+export const requestUpsellPackage = async (
+  upsellIdentifier: number,
+): Promise<void> => {
+  await fetch(
+    `${PLATFORM_BILLING_API_V1}/upsell_package/request_upsell_by_identifier/`,
+    {
+      method: "POST",
+      body: JSON.stringify({ upsell_identifier: upsellIdentifier }),
+    },
+  );
+};
+
 const fetchEmailTemplateDetail = async (
   emailTemplateId: number,
 ): Promise<EmailTemplateDetail> => {
   const { data } = await fetch<EmailTemplateDetail>(
     `${EMAIL_TEMPLATE_API_V1}/${emailTemplateId}/`,
   );
+
+  return data;
+};
+
+const fetchCommunicationRecipientsCountPreview = async (
+  request: CommunicationPreviewRecipientsRequest,
+): Promise<CommunicationRecipientCount> => {
+  const { data } = await fetch<CommunicationRecipientCount>(
+    `${COMMUNICATION_API_V1}/communication/preview/count/`,
+    {
+      method: "POST",
+      body: JSON.stringify(request),
+    },
+  );
+
+  return data;
+};
+
+const fetchCommunicationRecipientsPreview = async (
+  request: FetchCommunicationRecipientsPreviewParams,
+): Promise<PaginatedResponse<CommunicationRecipientMinimal>> => {
+  const urlParams = buildUrlParams({
+    page: request.page ?? DEFAULT_PAGE,
+    page_size: request.page_size ?? DEFAULT_PAGE_SIZE_RECIPIENTS,
+  });
+  const { data } = await fetch<
+    PaginatedResponse<CommunicationRecipientMinimal>
+  >(`${COMMUNICATION_API_V1}/communication/preview/recipients/${urlParams}`, {
+    method: "POST",
+    body: JSON.stringify(request),
+  });
 
   return data;
 };
@@ -546,3 +664,19 @@ export const emailTemplateDetailQueryOptions = (emailTemplateId: number) => {
     queryFn: () => fetchEmailTemplateDetail(emailTemplateId),
   });
 };
+
+export const communicationRecipientsCountPreviewQueryOptions = (
+  request: CommunicationPreviewRecipientsRequest,
+) =>
+  queryOptions({
+    queryKey: smartlistKeys.communicationRecipientsCountPreview(request),
+    queryFn: () => fetchCommunicationRecipientsCountPreview(request),
+  });
+
+export const communicationRecipientsPreviewQueryOptions = (
+  request: FetchCommunicationRecipientsPreviewParams,
+) =>
+  queryOptions({
+    queryKey: smartlistKeys.communicationRecipientsPreview(request),
+    queryFn: () => fetchCommunicationRecipientsPreview(request),
+  });

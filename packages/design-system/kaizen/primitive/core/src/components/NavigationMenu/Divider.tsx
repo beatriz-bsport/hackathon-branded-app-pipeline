@@ -18,15 +18,11 @@ const NavigationMenuDivider: React.FC<DividerProps> = ({
   ...props
 }) => {
   return (
-    <div data-component="Kaizen-NavigationMenu-Divider">
-      <Divider
-        className={cx(
-          "border-stroke-thin mt-2xs mb-xs last:mb-[0px]",
-          className,
-        )}
-        {...props}
-      />
-    </div>
+    <Divider
+      data-component="Kaizen-NavigationMenu-Divider"
+      className={cx("border-stroke-thin my-2xs last:mb-[0px]", className)}
+      {...props}
+    />
   );
 };
 

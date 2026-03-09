@@ -7,13 +7,13 @@ import {
 } from "sm-navigation-sidebar/urls";
 
 import { getEnv } from "@bsport/envs";
-import { initIntercomWidget } from "@bsport/intercom";
+import { initIntercomWidget, shutdownIntercom } from "@bsport/intercom";
 import { Loader } from "@bsport/kaizen-primitive-core";
 import {
   BSPORT_REQUEST_FROM_HEADER_VALUES,
   setBsportRequestFrom,
 } from "@bsport/request-from-header";
-import { AppWrapper } from "@bsport/sm-backbone";
+import { AppWrapper, captureException } from "@bsport/sm-backbone";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AppcuesTag } from "#src/components/onboarding/AppcuesTag";
@@ -23,17 +23,17 @@ import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 import { removeAppcuesScripts } from "./components/onboarding/appcues-scripts";
 
 // ----- Booking -----
-const GroupActivities = lazy(() => import("sm-group-activity/App"));
-const Session = lazy(() => import("sm-session/App"));
+const GroupActivities = lazy(() => import("@bsport/sm-group-activity"));
+const Session = lazy(() => import("@bsport/sm-session"));
 
 // ----- Buyables -----
 const Giftcard = lazy(() => import("sm-giftcard/App"));
-const Order = lazy(() => import("sm-order/App"));
+const Order = lazy(() => import("@bsport/sm-order"));
 const Pack = lazy(() => import("sm-pack/App"));
 
 // ----- Core-data -----
 const MemberList = lazy(() => import("sm-member-list/App"));
-const Teacher = lazy(() => import("sm-teacher/App"));
+const Teacher = lazy(() => import("@bsport/sm-teacher"));
 
 // ----- Financial Services -----
 const Invoice = lazy(() => import("@bsport/sm-invoice"));
@@ -45,15 +45,15 @@ const CustomForm = lazy(() => import("@bsport/sm-custom-form"));
 const ReferralProgram = lazy(() => import("@bsport/sm-referral-program"));
 const Tag = lazy(() => import("sm-tag/App"));
 const TransactionalNotification = lazy(
-  () => import("sm-transactional-notification/App"),
+  () => import("@bsport/sm-transactional-notification"),
 );
 const MarketingNotification = lazy(
   () => import("@bsport/sm-marketing-notification"),
 );
 
 // ----- Business Insights -----
-const Insights = lazy(() => import("sm-insights/App"));
-const Homepage = lazy(() => import("sm-homepage/App"));
+const Insights = lazy(() => import("@bsport/sm-insights"));
+const Homepage = lazy(() => import("@bsport/sm-homepage"));
 
 // ----- Common -----
 const NavigationSidebar = lazy(
@@ -136,6 +136,14 @@ const AuthenticatedRoutes = () => {
   const isProductionEnvironment = ["production", "staging"].includes(env);
 
   useEffect(() => {
+    window.addEventListener("beforeunload", shutdownIntercom);
+    return () => {
+      shutdownIntercom();
+      window.removeEventListener("beforeunload", shutdownIntercom);
+    };
+  }, []);
+
+  useEffect(() => {
     if (companyTheme?.hide_intercom || !isProductionEnvironment) {
       console.log(
         "Intercom has not been initialized as we are not on production environment",
@@ -160,6 +168,9 @@ const AuthenticatedRoutes = () => {
         companyName: companyName,
         companyLocale,
         actionColor: colorOverride,
+        onEmailValidationFailure: (error, context) => {
+          captureException(error, { extra: context });
+        },
       });
     }
   }, [user?.name, permissions?.name, companyTheme?.company]);

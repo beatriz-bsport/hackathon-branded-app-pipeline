@@ -40,7 +40,7 @@ const updateLevelAPIConfig = (params: {
   data: Omit<Level, "id">;
 }): ApiConfig => {
   return [
-    `${API_URL}${params.id}`,
+    `${API_URL}${params.id}/`,
     {
       method: "PUT",
       body: JSON.stringify(params.data),

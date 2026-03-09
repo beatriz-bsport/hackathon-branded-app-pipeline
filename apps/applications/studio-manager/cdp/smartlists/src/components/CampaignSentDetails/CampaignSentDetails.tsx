@@ -23,13 +23,10 @@ export type CampaignSentDetailsProps = {
     emailTemplateId?: number;
   };
   performance: {
-    deliveryRate?: string;
     openRate?: string;
     clickRate?: string;
-    unsubscribedRate?: string;
     totalOpened?: number;
     totalClicked?: number;
-    totalUnsubscribed?: number;
   };
 };
 
@@ -46,7 +43,7 @@ export const CampaignSentDetails = ({
   const companyTheme = dataAccessLayer.useCompanyTheme();
 
   return (
-    <div className="flex flex-col gap-md">
+    <div className="flex flex-col gap-lg">
       <CampaignSentMetadataBanner
         campaignKind={campaignKind}
         campaignStatus={campaignStatus}
@@ -57,14 +54,10 @@ export const CampaignSentDetails = ({
       <QueryBoundary>
         <CampaignSentPerformance
           campaignUuid={campaignUuid}
-          deliveryRate={performance.deliveryRate}
           openRate={performance.openRate}
           clickRate={performance.clickRate}
-          unsubscribedRate={performance.unsubscribedRate}
-          totalRecipients={campaignTotalRecipients}
           totalOpened={performance.totalOpened}
           totalClicked={performance.totalClicked}
-          totalUnsubscribed={performance.totalUnsubscribed}
         />
       </QueryBoundary>
       <QueryBoundary>

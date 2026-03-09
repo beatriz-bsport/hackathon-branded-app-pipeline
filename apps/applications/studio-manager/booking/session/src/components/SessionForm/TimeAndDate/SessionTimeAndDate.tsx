@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import { Divider, Title } from "@bsport/kaizen-primitive-core";
+import { Title } from "@bsport/kaizen-primitive-core";
 
 import {
   RecurrenceIntervalType,
@@ -44,7 +44,7 @@ export const SessionTimeAndDate: FC<{
 
   return (
     <section className="flex flex-col gap-md">
-      <Title htmlVariant="h5">
+      <Title htmlVariant="h5" weight="strong">
         {t("addSessionModal.steps.configureSession.timeAndDate.title")}
       </Title>
 
@@ -58,7 +58,6 @@ export const SessionTimeAndDate: FC<{
         trackRecurrenceRule={trackRecurrenceRule}
       />
       <AggregatorWarning />
-      <Divider orientation="horizontal" weight="thin" className="my-xl" />
     </section>
   );
 };

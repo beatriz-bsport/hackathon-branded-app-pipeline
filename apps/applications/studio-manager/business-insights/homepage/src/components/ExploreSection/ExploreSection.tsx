@@ -1,8 +1,9 @@
 import type { FC } from "react";
 
+import logoBlogUrl from "#src/assets/logo-blog.png";
+import logoBsportUrl from "#src/assets/logo-bsport.png";
 import { HomepageSection } from "#src/components/HomepageSection";
 import { PUBLIC_URLS } from "#src/urls";
-import { getAssetUrl } from "#src/utils/assets";
 import { useTranslation } from "#src/utils/i18n";
 
 import { ExploreCard } from "./ExploreCard";
@@ -24,7 +25,7 @@ export const ExploreSection: FC = () => {
       >
         <ExploreCard
           link={PUBLIC_URLS.PRODUCT_UPDATES}
-          imageUrl={getAssetUrl("logo-bsport.png")}
+          imageUrl={logoBsportUrl}
           title={t(
             "exploreSection.exploreThePlatform.productUpdatesCard.title",
           )}
@@ -40,7 +41,7 @@ export const ExploreSection: FC = () => {
       >
         <ExploreCard
           link={PUBLIC_URLS.BLOG(i18n.language)}
-          imageUrl={getAssetUrl("logo-blog.png")}
+          imageUrl={logoBlogUrl}
           title={t("exploreSection.advices.latestNewsCard.title")}
           description={t("exploreSection.advices.latestNewsCard.description")}
         />

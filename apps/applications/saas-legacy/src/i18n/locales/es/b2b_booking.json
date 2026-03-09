@@ -1,0 +1,24 @@
+{
+  "swapPass": {
+    "menuAction": "Canjear pase",
+    "dialog": {
+      "title": "Canjear pase",
+      "noCompatiblePasses": "Ningún pase compatible",
+      "actions": {
+        "close": "Cerrar",
+        "confirm": "Confirmar"
+      },
+      "errors": {
+        "loadCompatiblePasses": "No se pudieron cargar pases compatibles.",
+        "swapFailed": "No se pudo canjear el pase. Por favor, inténtalo de nuevo.",
+        "5347000": "Reserva no encontrada. Por favor, actualiza y vuelve a intentarlo.",
+        "5347001": "Esta reserva ya está usando este pase.",
+        "5347002": "El pase no pertenece a este miembro.",
+        "5347003": "Tu pase no es compatible con esta reserva.",
+        "5347004": "El pase está bloqueado y no se puede usar.",
+        "5347005": "Tu pase no tiene suficientes créditos.",
+        "5347006": "No puedes cambiar el pase en una reserva de agregador."
+      }
+    }
+  }
+}

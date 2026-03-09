@@ -1,11 +1,11 @@
 import { defineConfig } from "vite";
 
-import { getConfig } from "@bsport/config-federation";
+import { getLibConfig } from "@bsport/config-library";
 
 import packageJson from "./package.json";
 
 export default defineConfig(({ mode }) => {
-  return getConfig({
+  return getLibConfig({
     mode,
     packageJson,
     appType: "business-insights",

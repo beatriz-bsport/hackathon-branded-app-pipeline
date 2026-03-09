@@ -45,6 +45,7 @@ import {
   fetchMember,
 } from '../../libs/member/actions';
 import withTitle from '../../hocs/with-title.hoc';
+import { withFeatureFlags } from '../../utils/feature-flag/withFeatureFlags';
 
 import { getAvailableContractListWithPaymentPack } from '../../libs/subscription/selectors';
 import SubscriptionContractRegister from '../../libs/subscription/components/SubscriptionContractRegister.component';
@@ -142,6 +143,7 @@ type Props = {
   member?: Member,
   pushToTab: (memberId: number, tab: string) => void,
   billMember: (id: number) => void,
+  pushRouter: (path: string) => void,
   openContractDialog: () => void,
   contractList: Array<Contract>,
   contractLoading: boolean,
@@ -195,6 +197,9 @@ type Props = {
   objectLevelPermissions: ObjectLevelPermissions,
   establishmentBillingGroups?: EstablishmentBillingGroup,
   staffDefaultEstablishmentBillingGroup: EstablishmentBillingGroup | null,
+  checkoutFlowModalEnabled?: boolean,
+  pathname?: string,
+  showRevampedSidebar?: boolean,
 };
 
 const getTabsData = (
@@ -365,7 +370,22 @@ export class MemberDetail extends React.Component<Props> {
     this.props.pushToTab(this.props.id, 'payment');
   };
 
-  handleBillMember = () => this.props.billMember(this.props.id);
+  handleBillMember = () => {
+    if (
+      this.props.checkoutFlowModalEnabled &&
+      this.props.showRevampedSidebar &&
+      this.props.pathname
+    ) {
+      const existingSearch =
+        (typeof window !== 'undefined' && window.location.search) || '';
+      const params = new URLSearchParams(existingSearch);
+      params.set('cfOpen', '');
+      params.set('memberId', this.props.id);
+      this.props.pushRouter(`${this.props.pathname}?${params.toString()}`);
+    } else {
+      this.props.billMember(this.props.id);
+    }
+  };
 
   handleGoToInvoice = () => this.props.goToInvoice(this.props.invoiceInfo.uuid);
 
@@ -608,9 +628,16 @@ export default compose(
       establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
       staffDefaultEstablishmentBillingGroup:
         getStaffEstablishmentBillingGroupSelector(state),
+      pathname:
+        state.router?.location?.pathname ??
+        (typeof window !== 'undefined' ? window.location.pathname : ''),
+      showRevampedSidebar:
+        !!state.auth.has_enabled_revamped_backoffice &&
+        !!state.theme.theme?.revamped_backoffice_enabled,
     }),
     {
       billMember: (id) => pushRouter(`/invoice/bill-member/${id}/`),
+      pushRouter,
       pushToTab: (id, tab) => pushRouter(`/member/${id}/${tab}`),
       fetchContractList: fetchContractListAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
@@ -732,4 +759,4 @@ export default compose(
   withQueryParams([['openChat'], 'queryParams', 'setQueryParams']),
   withTitle(({ member }) => (member ? member.name : '')),
   withMemberBannerHOC(({ member }) => member),
-)(MemberDetail);
+)(withFeatureFlags(MemberDetail));

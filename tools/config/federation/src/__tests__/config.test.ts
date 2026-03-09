@@ -132,6 +132,8 @@ describe("getConfig", () => {
       manifest: {
         fileName: "mf-manifest.json",
       },
+      exposes: undefined,
+      remotes: undefined,
       shared: {
         react: {
           singleton: true,
@@ -151,6 +153,10 @@ describe("getConfig", () => {
         zod: {
           singleton: true,
           requiredVersion: "^3.0.0",
+        },
+        "@tanstack/react-query": {
+          singleton: true,
+          requiredVersion: "^5.90.12",
         },
         "@bsport/analytics": {
           singleton: true,

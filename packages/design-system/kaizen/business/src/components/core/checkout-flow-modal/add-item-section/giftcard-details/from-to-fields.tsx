@@ -25,7 +25,7 @@ export const FromToFields: React.FC = () => {
   }, [member]);
 
   return (
-    <div className="grid grid-cols-1 gap-md sm:grid-cols-2">
+    <div className="grid gap-md max-sm:grid-cols-1 sm:grid-cols-2">
       <FormField<CheckoutFlowFormState, "addItemGiftcardFrom", TextFieldProps>
         name="addItemGiftcardFrom"
         mapProps={({ field, form: { setValue } }) => ({

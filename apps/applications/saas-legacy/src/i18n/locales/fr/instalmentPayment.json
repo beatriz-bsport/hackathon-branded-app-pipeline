@@ -43,7 +43,7 @@
     "paymentNumber_plural": "{{number_of_billing}} paiements",
     "fee": "Frais fixes",
     "minimumAmount": "Montant minimum du panier",
-    "compatibility": "Compabilité",
+    "compatibility": "Compatibilité",
     "seeAll": "tout voir",
     "packAvailableForAll": "Toutes les cartes de cours compatibles",
     "packAvailable": "{{length}} carte de cours compatible",

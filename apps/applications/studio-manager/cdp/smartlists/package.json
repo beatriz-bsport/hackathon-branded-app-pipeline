@@ -27,6 +27,8 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/datetime-manipulation": "workspace:*",
+    "@bsport/permissions": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "@bsport/store-cdp-popup": "workspace:*",
     "@bsport/store-cdp-sequential-marketing": "workspace:*",
@@ -77,7 +79,8 @@
   },
   "nx": {
     "tags": [
-      "scope:studio"
+      "scope:studio",
+      "postinstall"
     ]
   }
 }

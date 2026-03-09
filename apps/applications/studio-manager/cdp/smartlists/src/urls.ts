@@ -14,6 +14,7 @@ export const URLS = {
 } as const;
 
 export const LEGACY_URLS = {
+  AUDIENCE: "/audience",
   SMARTLIST_MEMBER: (smartlistId: number) =>
     `/smart-list/${smartlistId}/member`,
 } as const;

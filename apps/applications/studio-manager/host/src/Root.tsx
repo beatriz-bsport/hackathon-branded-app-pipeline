@@ -45,7 +45,7 @@ const CustomForm = lazy(() => import("@bsport/sm-custom-form"));
 const ReferralProgram = lazy(() => import("@bsport/sm-referral-program"));
 const Tag = lazy(() => import("sm-tag/App"));
 const TransactionalNotification = lazy(
-  () => import("sm-transactional-notification/App"),
+  () => import("@bsport/sm-transactional-notification"),
 );
 const MarketingNotification = lazy(
   () => import("@bsport/sm-marketing-notification"),

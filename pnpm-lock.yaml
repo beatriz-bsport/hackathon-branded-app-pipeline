@@ -2181,9 +2181,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../tools/config/federation
+        version: link:../../../../../tools/config/library
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -2493,6 +2493,9 @@ importers:
       '@bsport/sm-teacher':
         specifier: workspace:*
         version: link:../core-data/teacher
+      '@bsport/sm-transactional-notification':
+        specifier: workspace:*
+        version: link:../cdp/transactional-notification
       '@tanstack/react-query':
         specifier: ^5.90.12
         version: 5.90.12(react@19.2.0)

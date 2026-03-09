@@ -58,9 +58,4 @@ declare module "sm-tag/App" {
   export default App;
 }
 
-declare module "sm-transactional-notification/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
 // ----- Business Insights -----

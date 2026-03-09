@@ -180,6 +180,24 @@
       }
     },
     "campaignScheduled": {
+      "deleteModal": {
+        "title": "Delete scheduled campaign?",
+        "description": "This will permanently delete this campaign. The scheduled email will be canceled and will not be sent to the recipients.",
+        "warning": "Heads up: this change is permanent and cannot be undone.",
+        "cannotDeleteWithin5Min": "This campaign is scheduled to be sent in less than 5 minutes. It can no longer be deleted.",
+        "buttons": {
+          "delete": "Delete campaign",
+          "cancel": "Keep"
+        }
+      },
+      "toasts": {
+        "success": {
+          "deleted": "Scheduled campaign deleted"
+        },
+        "error": {
+          "deleteFailed": "Scheduled campaign couldn't be deleted. Please try again."
+        }
+      },
       "recipientsList": {
         "title": "Recipients",
         "description": "This list shows members who currently match your Smartlist. If the Smartlist changes before sending, the final list of recipients will be updated automatically."
@@ -235,6 +253,7 @@
         "recipients": "Total recipients"
       },
       "previewButton": "View message",
+      "deleteButton": "Delete",
       "contentPreview": {
         "subject": "Email Subject",
         "dynamicContentWarning": "Dynamic content may not appear in the preview"

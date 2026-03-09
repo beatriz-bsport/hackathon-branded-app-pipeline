@@ -305,6 +305,21 @@ const fetchCampaignScheduled = async (
   return data;
 };
 
+/**
+ * Deletes a scheduled communication
+ * @param scheduledCampaignId - ID of the scheduled campaign to delete
+ */
+export const deleteScheduledCommunication = async (
+  scheduledCampaignId: string,
+): Promise<void> => {
+  await fetch(
+    `${COMMUNICATION_API_V1}/communication/communication_scheduled/${scheduledCampaignId}/`,
+    {
+      method: "DELETE",
+    },
+  );
+};
+
 const fetchCampaignRecipients = async ({
   campaign,
   page,

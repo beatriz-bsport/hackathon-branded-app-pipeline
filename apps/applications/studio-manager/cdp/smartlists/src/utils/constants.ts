@@ -21,3 +21,12 @@ export const COMMUNICATION_CHANNEL_BY_KIND_MAP: Record<
   [CommunicationKind.SMS]: CommunicationChannel.SMS,
   [CommunicationKind.PUSH]: CommunicationChannel.PUSH,
 };
+
+export const CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION =
+  "delete-scheduled-communication";
+export const CAMPAIGN_SCHEDULED_EDIT_INLINE_ACTION =
+  "edit-scheduled-communication";
+
+export type CampaignScheduledInlineActions =
+  | typeof CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION
+  | typeof CAMPAIGN_SCHEDULED_EDIT_INLINE_ACTION;

@@ -1,25 +1,30 @@
 import type { FC } from "react";
 
-import { CONSUMER_GIFTCARD_KIND } from "@bsport/api-buyables";
+import { CONSUMER_GIFTCARD_KIND, type Giftcard } from "@bsport/api-buyables";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
-import { Title } from "@bsport/kaizen-primitive-core";
+import { Button, Title } from "@bsport/kaizen-primitive-core";
 
 import { AvatarWithName } from "#src/components/avatar-with-name";
+import { useDisclosure } from "#src/hooks/useDisclosure";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { GiftcardPurchase } from "../types";
 import { SectionItem } from "./section-item";
+import { ShareToRecipientModal } from "./share-to-recipient-modal";
 
 const NULL_DATE = "∅";
 
 type GiftcardPurchaseSectionRecipientProps = {
   selectedItem: GiftcardPurchase;
+  giftcard: Giftcard;
 };
 
 export const GiftcardPurchaseSectionRecipient: FC<
   GiftcardPurchaseSectionRecipientProps
-> = ({ selectedItem }) => {
+> = ({ selectedItem, giftcard }) => {
   const { t, i18n } = useTranslation("giftcard-details");
+
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   const recipient = selectedItem.dst_member;
 
@@ -51,11 +56,40 @@ export const GiftcardPurchaseSectionRecipient: FC<
       )
     : NULL_DATE;
 
+  const hasSendEmailButton =
+    selectedItem.kind === CONSUMER_GIFTCARD_KIND.DIGITAL;
+
   return (
     <section className="grid grid-cols-2 gap-md">
-      <Title htmlVariant="h3" weight="strong" className="col-span-2">
+      <Title
+        htmlVariant="h3"
+        weight="strong"
+        className={hasSendEmailButton ? "" : "col-span-2"}
+      >
         {t("purchases.detailDrawer.sectionRecipient.title")}
       </Title>
+
+      {hasSendEmailButton && (
+        <>
+          <Button
+            iconLeft="upload-01"
+            intent="default"
+            color="main"
+            size="sm"
+            className="w-fit ml-auto"
+            kind="default"
+            label={t("purchases.detailDrawer.sectionRecipient.shareButton")}
+            onClick={onOpen}
+          />
+
+          <ShareToRecipientModal
+            closeModal={onClose}
+            giftcardPurchase={selectedItem}
+            isOpen={isOpen}
+            companyId={giftcard.company}
+          />
+        </>
+      )}
 
       <SectionItem title={t("purchases.detailDrawer.sectionRecipient.name")}>
         {recipient ? (

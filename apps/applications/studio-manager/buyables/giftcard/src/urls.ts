@@ -21,6 +21,14 @@ export const LEGACY_URLS = {
     companyId: number;
     giftcardId: number | string;
   }) =>
-    `${window.location.origin}/checkout/${companyId}/giftcard/${giftcardId}/?force=true`,
+    `${window?.location?.origin ?? ""}/checkout/${companyId}/giftcard/${giftcardId}/?force=true`,
+  ACTIVATION_LINK: ({
+    companyId,
+    activationCode,
+  }: {
+    companyId: number;
+    activationCode: string;
+  }) =>
+    `${window?.location?.origin ?? ""}/checkout/${companyId}/giftcard/activation/${activationCode}`,
   INVOICE_LINK: (uuid: string) => `/invoice/${uuid}`,
 } as const;

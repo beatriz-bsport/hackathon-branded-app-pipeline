@@ -1,16 +1,19 @@
-import { ConsumerGiftcard } from "@bsport/api-buyables";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
 import { useTranslation } from "#src/utils/i18n";
 
 import { getStatusFromPurchasedGiftcard } from "../giftcard-purchase-status";
-import type { PersonCell } from "../types";
+import type { GiftcardPurchase } from "../types";
 import type { TableRowData } from "./constants";
 
 export const useTableRows = ({
   giftcardPurchases,
+  onItemClick,
+  selectedItem,
 }: {
-  giftcardPurchases: Array<ConsumerGiftcard<number, PersonCell, PersonCell>>;
+  giftcardPurchases: GiftcardPurchase[];
+  onItemClick: (value: GiftcardPurchase) => void;
+  selectedItem: GiftcardPurchase | null;
 }): TableRowData[] => {
   const { t, i18n } = useTranslation("giftcard-details");
 
@@ -41,6 +44,8 @@ export const useTableRows = ({
       id: item.id,
       status,
       value: parseFloat(item.price_bought),
+      onRowClick: () => onItemClick(item),
+      isActive: selectedItem?.id === item.id,
     };
   });
 };

@@ -22,4 +22,5 @@ export const LEGACY_URLS = {
     giftcardId: number | string;
   }) =>
     `${window.location.origin}/checkout/${companyId}/giftcard/${giftcardId}/?force=true`,
+  INVOICE_LINK: (uuid: string) => `/invoice/${uuid}`,
 } as const;

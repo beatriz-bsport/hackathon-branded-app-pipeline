@@ -37,6 +37,7 @@ const Teacher = lazy(() => import("@bsport/sm-teacher"));
 
 // ----- Financial Services -----
 const Invoice = lazy(() => import("@bsport/sm-invoice"));
+const Payout = lazy(() => import("@bsport/sm-payout"));
 
 // ----- Customer Data Platform -----
 const EmailTemplate = lazy(() => import("@bsport/sm-email-template"));
@@ -232,6 +233,7 @@ const AuthenticatedRoutes = () => {
 
     /* ----- Financial Services ----- */
     { url: urls.invoice, element: <Invoice /> },
+    { url: urls.payout, element: <Payout /> },
 
     /* ----- Customer Data Platform ----- */
     { url: urls.customForm, element: <CustomForm /> },

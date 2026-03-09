@@ -32,6 +32,7 @@ export const LEGACY_URLS: LegacyUrls = {
   order: "/order",
   pack: "/combo",
   pass: "/payment-pack",
+  payout: `${SETTINGS_URL}/platform-billing`,
   payroll: "/coach/performance",
   performanceTracking: "/performance-tracking",
   playlist: "/vod/playlist",
@@ -87,6 +88,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   giftcard: "/giftcard",
   homepage: "/",
   invoice: "/invoice",
+  payout: "/payout",
   member: "/member",
   order: "/order",
   pack: "/pack",
@@ -107,6 +109,7 @@ export const REVAMP_URLS_PRODUCTION = {
   member: "/member",
   order: "/order",
   pack: "/pack",
+  payout: REVAMP_URLS_DEVELOPMENT.payout,
   smartlist: "/smartlist",
   settings_referral: `${SETTINGS_URL}/referral-program`,
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
@@ -114,7 +117,7 @@ export const REVAMP_URLS_PRODUCTION = {
   teacher: "/teacher",
 } satisfies Partial<typeof REVAMP_URLS_DEVELOPMENT>; // Ensure that it's a subset of REVAMP_URLS_DEVELOPMENT
 
-const REVAMP_ONLY_KEYS: Array<string> = ["homepage", "payout"] satisfies Array<
+const REVAMP_ONLY_KEYS: Array<string> = ["homepage"] satisfies Array<
   keyof Urls
 >;
 

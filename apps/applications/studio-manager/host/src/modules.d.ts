@@ -22,6 +22,7 @@ declare module "sm-navigation-sidebar/urls" {
     member: string;
     order: string;
     pack: string;
+    payout: string;
     smartlist: string;
     teacher: string;
     settings_referral: string;

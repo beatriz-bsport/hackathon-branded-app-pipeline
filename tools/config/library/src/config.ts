@@ -124,25 +124,40 @@ export function getLibConfig(config: {
   };
 }
 
+export function generateReactBanner(
+  code: string,
+): { code: string; map: null } | null {
+  const codeWithoutComments = code
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\/\/.*/g, "");
+
+  const hasReactImport =
+    /import\s+\*\s+as\s+React\s+from\s+['"]react['"]/.test(
+      codeWithoutComments,
+    ) ||
+    /import\s+React(?:\s*,\s*\{[^}]*\})?\s+from\s+['"]react['"]/.test(
+      codeWithoutComments,
+    ) ||
+    /import\s+\{[^}]*\bas\s+React\b[^}]*\}\s+from\s+['"]react['"]/.test(
+      codeWithoutComments,
+    );
+
+  if (hasReactImport) return null;
+
+  const usesReactGlobal = /\bReact\./.test(codeWithoutComments);
+
+  if (usesReactGlobal) {
+    return { code: 'import * as React from "react";\n' + code, map: null };
+  }
+
+  return null;
+}
+
 function injectReactPlugin(): Plugin {
   return {
     name: "inject-react-namespace",
     renderChunk(code) {
-      const hasReactImport =
-        /import\s+\*\s+as\s+React\s+from\s+['"]react['"]/.test(code);
-
-      if (hasReactImport) return null;
-
-      const codeWithoutComments = code
-        .replace(/\/\*[\s\S]*?\*\//g, "")
-        .replace(/\/\/.*/g, "");
-      const usesReactGlobal = /\bReact\./.test(codeWithoutComments);
-
-      if (usesReactGlobal) {
-        return { code: 'import * as React from "react";\n' + code, map: null };
-      }
-
-      return null;
+      return generateReactBanner(code);
     },
   };
 }

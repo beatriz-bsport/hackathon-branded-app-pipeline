@@ -41,11 +41,6 @@ declare module "sm-giftcard/App" {
   export default App;
 }
 
-declare module "sm-pack/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
 // ----- Core-data -----
 declare module "sm-member-list/App" {
   const App: BaseApp["App"];

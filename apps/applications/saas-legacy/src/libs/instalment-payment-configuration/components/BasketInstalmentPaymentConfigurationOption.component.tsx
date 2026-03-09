@@ -77,24 +77,27 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
     [instalmentPayment, basketPrice],
   );
 
-  // Adjust the last instalment to cover the remaining balance
-  const lastInstalmentAmount = useMemo(() => {
-    if (number_of_billing === 1) return '0';
+  // Match backend: split remainder in cents, floor each payment, last gets remainder
+  const instalmentAmountList = useMemo(() => {
+    if (number_of_billing === 1) return [firstInstalmentAmount];
 
-    return (
-      (basketPrice - parseFloat(firstInstalmentAmount)) /
-      (number_of_billing - 1)
-    ).toFixed(2);
+    const totalCts = Math.round(basketPrice * 100);
+    const firstCts = Math.round(parseFloat(firstInstalmentAmount) * 100);
+    const remainderCts = totalCts - firstCts;
+    const nRemaining = number_of_billing - 1;
+    const baseAmountCts = Math.floor(remainderCts / nRemaining);
+    const lastAmountCts = remainderCts - baseAmountCts * (nRemaining - 1);
+
+    const baseAmounts = Array(nRemaining - 1)
+      .fill(null)
+      .map(() => (baseAmountCts / 100).toFixed(2));
+
+    return [
+      firstInstalmentAmount,
+      ...baseAmounts,
+      (lastAmountCts / 100).toFixed(2),
+    ];
   }, [basketPrice, firstInstalmentAmount, number_of_billing]);
-
-  const instalmentAmountList = new Array(number_of_billing)
-    .fill(0)
-    .map((_, index) => {
-      if (index === 0) {
-        return firstInstalmentAmount;
-      }
-      return lastInstalmentAmount;
-    });
 
   const handleChange = useCallback(() => {
     if (!checked && !!onSelect) {

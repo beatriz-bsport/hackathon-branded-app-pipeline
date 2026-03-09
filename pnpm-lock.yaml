@@ -1598,9 +1598,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../tools/config/federation
+        version: link:../../../../../tools/config/library
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -2445,6 +2445,9 @@ importers:
       '@bsport/intercom':
         specifier: workspace:*
         version: link:../../../../packages/utils/intercom
+      '@bsport/kaizen-business-components':
+        specifier: workspace:*
+        version: link:../../../../packages/design-system/kaizen/business
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
@@ -2481,6 +2484,9 @@ importers:
       '@bsport/sm-order':
         specifier: workspace:*
         version: link:../buyables/order
+      '@bsport/sm-pack':
+        specifier: workspace:*
+        version: link:../buyables/pack
       '@bsport/sm-referral-program':
         specifier: workspace:*
         version: link:../cdp/referral-program

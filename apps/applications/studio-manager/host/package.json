@@ -28,6 +28,7 @@
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/intercom": "workspace:*",
+    "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/request-from-header": "workspace:*",
     "@bsport/sentry": "workspace:*",
@@ -40,6 +41,7 @@
     "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
     "@bsport/sm-order": "workspace:*",
+    "@bsport/sm-pack": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
     "@bsport/sm-session": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
@@ -74,10 +76,6 @@
       "sm-giftcard": {
         "devPort": 4150,
         "watchPath": "../buyables/giftcard/src/**/*"
-      },
-      "sm-pack": {
-        "devPort": 4152,
-        "watchPath": "../buyables/pack/src/**/*"
       },
       "sm-tag": {
         "devPort": 4304,

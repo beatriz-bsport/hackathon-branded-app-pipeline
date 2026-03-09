@@ -29,7 +29,7 @@ const Session = lazy(() => import("@bsport/sm-session"));
 // ----- Buyables -----
 const Giftcard = lazy(() => import("sm-giftcard/App"));
 const Order = lazy(() => import("@bsport/sm-order"));
-const Pack = lazy(() => import("sm-pack/App"));
+const Pack = lazy(() => import("@bsport/sm-pack"));
 
 // ----- Core-data -----
 const MemberList = lazy(() => import("sm-member-list/App"));

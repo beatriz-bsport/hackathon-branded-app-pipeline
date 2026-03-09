@@ -24,6 +24,7 @@ import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import { CampaignReportModal } from "#src/components/CampaignReportModal/CampaignReportModal";
 import { CampaignTypeSelectorModal } from "#src/components/CampaignTypeSelector/CampaignTypeSelectorModal";
 import { useCampaignTypeOptions } from "#src/components/CampaignTypeSelector/use-campaign-type-options";
+import { CreateAutomationModal } from "#src/components/CreateAutomationModal";
 import {
   DetailPageErrorFallback,
   PageLoader,
@@ -43,6 +44,7 @@ import {
   GENERATE_REPORT_ACTION_ID,
   SmartlistHeaderActionDropdown,
 } from "./SmartlistHeaderActionDropdown";
+import { getDetailsActiveTabPath, getHeaderTabConfig } from "./header-actions";
 
 const REPORT_DATE_FILTER_LUXON_FORMAT = "yyyy-MM-dd";
 
@@ -58,11 +60,13 @@ export const DetailsPage = () => {
 };
 
 const CAMPAIGN_TYPE_SELECTOR_ACTION_ID = "campaign-type-selector" as const;
+const CREATE_AUTOMATION_ACTION_ID = "create-automation" as const;
 
 function Details() {
   const [inlineActions, setInlineActions] = useState<
     | typeof GENERATE_REPORT_ACTION_ID
     | typeof CAMPAIGN_TYPE_SELECTOR_ACTION_ID
+    | typeof CREATE_AUTOMATION_ACTION_ID
     | null
   >(null);
   const { t } = useTranslation("details");
@@ -160,12 +164,11 @@ function Details() {
     },
   ];
 
+  const activeTabPath = getDetailsActiveTabPath(location.pathname);
+  const headerTabConfig = getHeaderTabConfig(activeTabPath);
+
   const getEndGroupActionItems = () => {
-    const pathname = location.pathname;
-    if (
-      pathname.includes(CAMPAIGN_TAB_PATH) ||
-      pathname.includes(AUTOMATION_TAB_PATH)
-    ) {
+    if (headerTabConfig.showDropdown) {
       return [
         <SmartlistHeaderActionDropdown
           key="campaign-page-header-actions"
@@ -173,7 +176,35 @@ function Details() {
         />,
       ];
     }
-    return undefined;
+  };
+
+  const getCallToActionButton = () => {
+    switch (headerTabConfig.callToAction) {
+      case "campaign":
+        return (
+          <Button
+            color="main"
+            intent="call-to-action"
+            label={tCampaign("actions.createCampaign")}
+            iconLeft="plus"
+            size="md"
+            onClick={() => setInlineActions(CAMPAIGN_TYPE_SELECTOR_ACTION_ID)}
+          />
+        );
+      case "automation":
+        return (
+          <Button
+            color="main"
+            intent="call-to-action"
+            label={t("actions.createAutomation")}
+            iconLeft="plus"
+            size="md"
+            onClick={() => setInlineActions(CREATE_AUTOMATION_ACTION_ID)}
+          />
+        );
+      case null:
+        return;
+    }
   };
 
   useEffect(() => {
@@ -204,16 +235,7 @@ function Details() {
         pageTabs={tabsConfig}
         BreadcrumbsItems={breadcrumbsItems}
         endGroupActions={getEndGroupActionItems()}
-        callToActionButton={
-          <Button
-            color="main"
-            intent="call-to-action"
-            label={tCampaign("actions.createCampaign")}
-            iconLeft="plus"
-            size="md"
-            onClick={() => setInlineActions(CAMPAIGN_TYPE_SELECTOR_ACTION_ID)}
-          />
-        }
+        callToActionButton={getCallToActionButton()}
       />
       <DetailsLayout.Content>
         <Outlet context={{ smartlistId: id, smartlist }} />
@@ -240,6 +262,9 @@ function Details() {
           onClose={() => setInlineActions(null)}
           campaignTypeOptions={campaignTypeOptions}
         />
+      ) : null}
+      {inlineActions === CREATE_AUTOMATION_ACTION_ID ? (
+        <CreateAutomationModal isOpen onClose={() => setInlineActions(null)} />
       ) : null}
     </DetailsLayout>
   );

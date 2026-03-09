@@ -5,31 +5,30 @@ import {
   Popover,
 } from "@bsport/kaizen-primitive-core";
 
+import {
+  CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
+  CAMPAIGN_SCHEDULED_EDIT_INLINE_ACTION,
+} from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
-const EDIT_ACTION_ID = "edit";
-const DELETE_ACTION_ID = "delete";
-
-type CampaignScheduledActionDropdownProps = {
-  campaignId: number;
-  onEdit: (campaignId: number) => void;
-  onDelete: (campaignId: number) => void;
+type CampaignScheduledHeaderActionDropdownProps = {
+  onEdit: () => void;
+  onDelete: () => void;
 };
 
-export const CampaignScheduledActionDropdown = ({
+export const CampaignScheduledHeaderActionDropdown = ({
   onEdit,
   onDelete,
-  campaignId,
-}: CampaignScheduledActionDropdownProps) => {
+}: CampaignScheduledHeaderActionDropdownProps) => {
   const { t } = useTranslation("campaign");
 
   const handleMenuItemClick = (itemId: string) => {
     switch (itemId) {
-      case EDIT_ACTION_ID:
-        onEdit(campaignId);
+      case CAMPAIGN_SCHEDULED_EDIT_INLINE_ACTION:
+        onEdit();
         break;
-      case DELETE_ACTION_ID:
-        onDelete(campaignId);
+      case CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION:
+        onDelete();
         break;
       default:
         break;
@@ -38,12 +37,12 @@ export const CampaignScheduledActionDropdown = ({
 
   const menuItems: Item[] = [
     {
-      id: EDIT_ACTION_ID,
+      id: CAMPAIGN_SCHEDULED_EDIT_INLINE_ACTION,
       label: t("table.campaignScheduled.moreActions.edit"),
       iconLeft: "edit-02",
     },
     {
-      id: DELETE_ACTION_ID,
+      id: CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
       label: t("table.campaignScheduled.moreActions.delete"),
       iconLeft: "trash-01",
     },
@@ -61,7 +60,6 @@ export const CampaignScheduledActionDropdown = ({
             intent="flat"
             size="md"
             onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-              event.preventDefault();
               event.stopPropagation();
               setIsPopoverOpened((opened) => !opened);
             }}

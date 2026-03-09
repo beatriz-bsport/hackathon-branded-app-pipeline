@@ -2,7 +2,7 @@ import { Card, Table, Title } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { CommunicationKind } from "#src/api/constants";
-import { useFetchCampaignSentRecipients } from "#src/api/use-fetch-campaign-sent-recipients";
+import { useFetchCampaignSentRecipientsWithMemberData } from "#src/api/use-fetch-campaign-sent-recipients-with-member-data";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useCampaignSentTableColumns } from "./use-campaign-sent-recipient-table-columns";
@@ -26,7 +26,7 @@ export const CampaignSentRecipientTable = ({
   const {
     data: { results: campaignRecipientList, count },
     isLoading: campaignRecipientListLoading,
-  } = useFetchCampaignSentRecipients({
+  } = useFetchCampaignSentRecipientsWithMemberData({
     campaign: campaignUuid,
     page: currentPage,
     page_size: currentPageSize,

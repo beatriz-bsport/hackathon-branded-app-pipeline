@@ -12,7 +12,7 @@ import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE_RECIPIENTS } from "./constants";
 import type {
   AutomatedCampaign,
   BackgroundTaskStatusResponse,
-  CampaignRecipient,
+  CampaignRecipientWithMemberData,
   CampaignScheduled,
   CampaignSent,
   CampaignSentPerformanceReport,
@@ -320,15 +320,17 @@ export const deleteScheduledCommunication = async (
   );
 };
 
-const fetchCampaignRecipients = async ({
+const fetchCampaignRecipientsWithMemberData = async ({
   campaign,
   page,
   page_size,
 }: FetchCampaignRecipientParams): Promise<
-  PaginatedResponse<CampaignRecipient>
+  PaginatedResponse<CampaignRecipientWithMemberData>
 > => {
-  const { data } = await fetch<PaginatedResponse<CampaignRecipient>>(
-    `${COMMUNICATION_API_V1}/communication/communication_recipient/${buildUrlParams(
+  const { data } = await fetch<
+    PaginatedResponse<CampaignRecipientWithMemberData>
+  >(
+    `${COMMUNICATION_API_V1}/communication/communication_recipient_with_member_data/${buildUrlParams(
       {
         campaign,
         page: page ?? DEFAULT_PAGE,
@@ -645,7 +647,7 @@ export const campaignScheduledDetailQueryOptions = (
   });
 };
 
-export const campaignSentRecipientsQueryOptions = (
+export const campaignSentRecipientsWithMemberDataQueryOptions = (
   params: FetchCampaignRecipientParams,
 ) => {
   return queryOptions({
@@ -654,7 +656,7 @@ export const campaignSentRecipientsQueryOptions = (
       params.page ?? DEFAULT_PAGE,
       params.page_size ?? DEFAULT_PAGE_SIZE_RECIPIENTS,
     ),
-    queryFn: () => fetchCampaignRecipients(params),
+    queryFn: () => fetchCampaignRecipientsWithMemberData(params),
   });
 };
 

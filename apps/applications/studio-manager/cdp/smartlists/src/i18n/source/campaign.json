@@ -296,7 +296,11 @@
         "click": "",
         "click_one": "{{count}} click",
         "click_other": "{{count}} clicks",
-        "click_zero": "No clicks"
+        "click_zero": "No clicks",
+        "showMore": "Show {{count}} more",
+        "showMore_one": "Show {{count}} more",
+        "showMore_other": "Show {{count}} more",
+        "showLess": "Show less"
       }
     }
   }

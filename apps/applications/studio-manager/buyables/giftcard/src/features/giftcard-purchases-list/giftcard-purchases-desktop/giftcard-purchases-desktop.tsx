@@ -1,16 +1,17 @@
 import type { FC } from "react";
 
-import type { ConsumerGiftcard } from "@bsport/api-buyables";
 import { Table, type TableProps } from "@bsport/kaizen-primitive-core";
 
-import type { PersonCell } from "../types";
+import type { GiftcardPurchase } from "../types";
 import { useTableColumns } from "./columns";
 import type { AvailableColumn, TableRowData } from "./constants";
 import { useTableRows } from "./rows";
 
 type GiftcardPurchasesDesktopProps = {
-  giftcardPurchases: Array<ConsumerGiftcard<number, PersonCell, PersonCell>>;
+  giftcardPurchases: GiftcardPurchase[];
   selectedColumns: Record<AvailableColumn, boolean>;
+  onItemClick: (value: GiftcardPurchase) => void;
+  selectedItem: GiftcardPurchase | null;
 } & Pick<
   TableProps<TableRowData>,
   "paginationProps" | "emptyStateProps" | "loadingProps"
@@ -19,11 +20,13 @@ type GiftcardPurchasesDesktopProps = {
 export const GiftcardPurchasesDesktop: FC<GiftcardPurchasesDesktopProps> = ({
   giftcardPurchases,
   selectedColumns,
+  onItemClick,
+  selectedItem,
   ...tableProps
 }) => {
   const columns = useTableColumns({ selectedColumns });
 
-  const rows = useTableRows({ giftcardPurchases });
+  const rows = useTableRows({ giftcardPurchases, onItemClick, selectedItem });
 
   return <Table columns={columns} rowHeight="lg" rows={rows} {...tableProps} />;
 };

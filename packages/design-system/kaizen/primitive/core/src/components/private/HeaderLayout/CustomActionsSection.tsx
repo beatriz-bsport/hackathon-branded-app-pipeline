@@ -26,7 +26,7 @@ const CustomActionsSection: React.FC<CustomActionsSectionProps> = ({
           <div className="flex flex-row gap-2xs items-center">
             {startGroupActions}
           </div>
-          <Divider orientation="vertical" weight="thin" />
+          <Divider orientation="vertical" weight="extra-thin" />
         </>
       )}
       {(endGroupActions || callToActionButton) && (

@@ -1394,6 +1394,9 @@ importers:
       '@bsport/store-core-data-member':
         specifier: workspace:*
         version: link:../../../../../packages/stores/core-data/member
+      '@bsport/store-financial-services-invoice':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/financial-services/invoice
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async
@@ -3957,6 +3960,9 @@ importers:
 
   packages/stores/financial-services/invoice:
     dependencies:
+      '@bsport/api-financial-services':
+        specifier: workspace:*
+        version: link:../../../api/financial-services
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

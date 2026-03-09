@@ -77,6 +77,59 @@
         "unlimited": "Unlimited",
         "typeDigital": "Digital"
       }
+    },
+    "detailDrawer": {
+      "navigation": {
+        "selectPreviousItem": "Select previous item",
+        "selectNextItem": "Select next item"
+      },
+      "title": "Gift Card Details",
+      "downloadAsPdf": "Download Gift Card as a PDF",
+      "sectionDescription": {
+        "name": "Name",
+        "id": "ID: {{ identifier }}",
+        "balance": "Balance",
+        "validityPeriod": {
+          "label": "Validity period",
+          "unlimited": "Unlimited",
+          "numberOfDays": "",
+          "numberOfDays_one": "{{ count }} Day",
+          "numberOfDays_other": "{{ count }} Days"
+        },
+        "type": {
+          "label": "Type",
+          "print": "Print",
+          "digital": "Digital"
+        },
+        "code": {
+          "label": "Code",
+          "tooltip": "Share the Gift Card code with members so they can use it for purchases"
+        }
+      },
+      "sectionBuyer": {
+        "title": "Buyer",
+        "name": "Name",
+        "purchaseDate": "Purchase date",
+        "invoiceCard": {
+          "viewInvoiceButton": "View invoice",
+          "invoice": "Invoice {{ identifier }}",
+          "totalPrice": "Total: {{ price }}",
+          "invoiceStatus": {
+            "draft": "Draft",
+            "open": "Open",
+            "paid": "Paid",
+            "voided": "Voided",
+            "refunded": "Refunded"
+          }
+        }
+      },
+      "sectionRecipient": {
+        "title": "Recipient",
+        "name": "Name",
+        "sendingDate": "Sending date",
+        "activationDate": "Activation date",
+        "expirationDate": "Expiration date"
+      }
     }
   },
   "formFields": {

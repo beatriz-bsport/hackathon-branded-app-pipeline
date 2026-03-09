@@ -78,7 +78,10 @@ export const GiftcardPurchaseDetailDrawer: FC<
 
           <Divider weight="extra-thin" />
 
-          <GiftcardPurchaseSectionRecipient selectedItem={selectedItem} />
+          <GiftcardPurchaseSectionRecipient
+            giftcard={giftcard}
+            selectedItem={selectedItem}
+          />
         </>
       ) : null}
     </DetailDrawer>

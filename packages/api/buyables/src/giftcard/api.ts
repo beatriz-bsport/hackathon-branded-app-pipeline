@@ -16,6 +16,7 @@ import type {
   Giftcard,
   GiftcardBackgroundListResponse,
   GiftcardImage,
+  SendInvitationEmailParams,
   UploadGiftcardImageParams,
 } from "./types";
 
@@ -25,9 +26,7 @@ const API_URL = `${API_V1_URL}/giftcard`;
 
 // ----------------------------------------------------------------------------
 
-export const fetchGiftcardsAPIConfig = (
-  params: FetchGiftcardsParams,
-): ApiConfig => {
+const fetchGiftcardsAPIConfig = (params: FetchGiftcardsParams): ApiConfig => {
   return [`${API_URL}/giftcard${buildUrlParams(params)}`];
 };
 
@@ -44,7 +43,7 @@ export const fetchGiftcardsAPI = async (
 
 // ----------------------------------------------------------------------------
 
-export const fetchGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
+const fetchGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
   return [`${API_URL}/giftcard/${id}/`];
 };
 
@@ -61,7 +60,7 @@ export const fetchGiftcardAPI = async (
 
 // ----------------------------------------------------------------------------
 
-export const restoreGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
+const restoreGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
   return [`${API_URL}/giftcard/${id}/restore/`, { method: "POST" }];
 };
 
@@ -78,7 +77,7 @@ export const restoreGiftcardAPI = async (
 
 // ----------------------------------------------------------------------------
 
-export const archiveGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
+const archiveGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
   return [`${API_URL}/giftcard/${id}`, { method: "DELETE" }];
 };
 
@@ -95,11 +94,7 @@ export const archiveGiftcardAPI = async (
 
 // ----------------------------------------------------------------------------
 
-export const duplicateGiftcardAPIConfig = ({
-  id,
-}: {
-  id: number;
-}): ApiConfig => {
+const duplicateGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
   return [`${API_URL}/giftcard/${id}/copy/`, { method: "POST" }];
 };
 
@@ -116,7 +111,7 @@ export const duplicateGiftcardAPI = async (
 
 // ----------------------------------------------------------------------------
 
-export const createGiftcardAPIConfig = (data: FormData): XhrApiConfig => {
+const createGiftcardAPIConfig = (data: FormData): XhrApiConfig => {
   return [`${API_URL}/giftcard/`, { method: "POST", formData: data }];
 };
 
@@ -133,7 +128,7 @@ export const createGiftcardAPI = async (
 
 // ----------------------------------------------------------------------------
 
-export const updateGiftcardAPIConfig = ({
+const updateGiftcardAPIConfig = ({
   id,
   data,
 }: {
@@ -156,9 +151,11 @@ export const updateGiftcardAPI = async (
 
 // #endregion
 
+// ############################################################################
+
 // region ConsumerGiftcard
 
-export const fetchConsumerGiftcardsAPIConfig = (
+const fetchConsumerGiftcardsAPIConfig = (
   params: FetchConsumerGiftcardsParams,
 ): ApiConfig => {
   return [`${API_URL}/consumer_giftcard/${buildUrlParams(params)}`];
@@ -175,9 +172,56 @@ export const fetchConsumerGiftcardsAPI = async (
   return data;
 };
 
+// ----------------------------------------------------------------------------
+
+const fetchConsumerGiftcardAPIConfig = ({ id }: { id: number }): ApiConfig => {
+  return [`${API_URL}/consumer_giftcard/${id}/`];
+};
+
+export const fetchConsumerGiftcardAPI = async (
+  fetch: Fetch<ConsumerGiftcard>,
+  params: { id: number },
+): Promise<ConsumerGiftcard> => {
+  const [uri, init] = fetchConsumerGiftcardAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+// ----------------------------------------------------------------------------
+
+const sendEmailInvitationAPIConfig = ({
+  consumerGiftcardId,
+  recipientEmails,
+}: SendInvitationEmailParams): ApiConfig => {
+  return [
+    `${API_URL}/consumer_giftcard/${consumerGiftcardId}/send_email_invitation/`,
+    {
+      method: "POST",
+      body: JSON.stringify({ email_sent_to: recipientEmails }),
+    },
+  ];
+};
+
+export const sendEmailInvitationAPI = async (
+  fetch: Fetch<void>,
+  params: SendInvitationEmailParams,
+): Promise<void> => {
+  const [uri, init] = sendEmailInvitationAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+// #endregion
+
+// ############################################################################
+
 // region GiftcardImageBackground
 
-export const fetchGiftcardBackgroundListAPIConfig = (
+const fetchGiftcardBackgroundListAPIConfig = (
   params: FetchGiftcardImagesParams | number,
 ): ApiConfig => {
   if (typeof params === "number") {
@@ -210,11 +254,7 @@ export const fetchGiftcardImagesAPI = async (
 
 // ----------------------------------------------------------------------------
 
-export const restoreGiftcardImageAPIConfig = ({
-  id,
-}: {
-  id: number;
-}): ApiConfig => {
+const restoreGiftcardImageAPIConfig = ({ id }: { id: number }): ApiConfig => {
   return [
     `${API_URL}/giftcard_background_image/${id}/restore/`,
     { method: "POST" },
@@ -234,11 +274,7 @@ export const restoreGiftcardImageAPI = async (
 
 // ----------------------------------------------------------------------------
 
-export const archiveGiftcardImageAPIConfig = ({
-  id,
-}: {
-  id: number;
-}): ApiConfig => {
+const archiveGiftcardImageAPIConfig = ({ id }: { id: number }): ApiConfig => {
   return [
     `${API_URL}/giftcard_background_image/${id}/archive/`,
     { method: "POST" },
@@ -258,7 +294,7 @@ export const archiveGiftcardImageAPI = async (
 
 // ----------------------------------------------------------------------------
 
-export const uploadGiftcardImageAPIConfig = ({
+const uploadGiftcardImageAPIConfig = ({
   file,
   signal,
   onUploadProgress,

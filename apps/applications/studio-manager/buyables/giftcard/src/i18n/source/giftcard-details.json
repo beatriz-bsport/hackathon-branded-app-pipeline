@@ -125,10 +125,41 @@
       },
       "sectionRecipient": {
         "title": "Recipient",
+        "shareButton": "Share",
         "name": "Name",
         "sendingDate": "Sending date",
         "activationDate": "Activation date",
         "expirationDate": "Expiration date"
+      },
+      "shareModal": {
+        "notSentYet": {
+          "title": "Share Gift Card",
+          "description": "Update the recipient list for future invitation email, add more addresses, or copy the activation link. The Gift Card can only be activated once."
+        },
+        "alreadySent": {
+          "title": "Invitation email already sent",
+          "description": "The activation email has already been sent to the addresses below. You can still copy the activation link to share it directly with recipients."
+        },
+        "alreadyActivated": {
+          "title": "Gift Card already shared",
+          "description": "The Gift Card has already been activated."
+        },
+        "copyActivationLinkButton": "Copy activation link",
+        "addRecipientEmail": {
+          "label": "Add recipient email",
+          "placeholder": "Add email...",
+          "incorrectFormat": "Incorrect email format",
+          "emailAlreadyExist": "This email is already in the recipient list"
+        },
+        "buttons": {
+          "close": "Close",
+          "save": "Save"
+        },
+        "toasts": {
+          "linkCopied": "Link copied",
+          "invitationSent": "Recipient list updated",
+          "invitationSentFailed": "Failed to update recipient list"
+        }
       }
     }
   },

@@ -22,6 +22,7 @@ import {
   formatISOStringAsTime,
 } from '../../../../utils/datetime';
 import { BookingStatusCodeText } from '../../../booking/utils';
+import { SwapPassButton } from './SwapPassButton.component';
 
 type Props = {
   divider?: boolean;
@@ -155,6 +156,16 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
             </IconButton>
           </Tooltip>
         </ObjectLevelPermissionWrapper>
+      )}
+      {props.private_booking.booking_status_code === BOOKING_STATUS_OK.id && (
+        <SwapPassButton
+          currentPrivateConsumerPassId={
+            props.private_booking.private_consumer_pass
+          }
+          memberId={props.private_booking.member as number}
+          privateBookingId={props.private_booking.id}
+          privateSlotId={props.private_booking.private_slot as number}
+        />
       )}
       {props.onDelete && (
         <ObjectLevelPermissionWrapper

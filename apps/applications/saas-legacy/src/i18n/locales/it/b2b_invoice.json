@@ -70,7 +70,7 @@
           "go_to_settings": "Vai su Impostazioni",
           "complete_stripe_onboarding": "Completa l'onboarding di Stripe",
           "legal_identifier_required": "Identificatori di ricevuta richiesti",
-          "legal_identifier_description": "Parla con il tuo Account Manager per impostare gli identificatori di ricevuta per Sign-ES."
+          "legal_identifier_description": "Configura gli identificatori di fattura per Sign-ES seguendo questa <0>guida</0>."
         }
       },
       "active": {

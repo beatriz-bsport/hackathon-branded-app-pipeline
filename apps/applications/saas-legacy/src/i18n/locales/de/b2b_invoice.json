@@ -70,7 +70,7 @@
           "go_to_settings": "Gehe zu den Einstellungen",
           "complete_stripe_onboarding": "Vervollständige das Stripe-Onboarding",
           "legal_identifier_required": "Rechnungskennungen erforderlich",
-          "legal_identifier_description": "Sprich mit deinem Account Manager, um Rechnungskennungen für Sign-ES einzurichten."
+          "legal_identifier_description": "Richte Rechnungskennungen für Sign-ES ein, indem du diesem <0>Hilfeblatt</0> folgst."
         }
       },
       "active": {

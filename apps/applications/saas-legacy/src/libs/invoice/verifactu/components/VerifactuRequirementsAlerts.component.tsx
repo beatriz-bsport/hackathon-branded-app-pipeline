@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { Typography } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { Theme } from '@material-ui/core/styles';
@@ -94,9 +94,18 @@ const VerifactuRequirementsAlerts: React.FC<
               )}
             </Typography>
             <Typography variant="body2">
-              {t(
-                'configuration.verifactu.form.requirements.legal_identifier_description',
-              )}
+              <Trans
+                components={[
+                  <a
+                    key="helpsheet-link"
+                    href="https://intercom.help/bsport-helpcenter/articles/13529640-how-to-set-up-sequential-invoice-numbering"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  />,
+                ]}
+                i18nKey="configuration.verifactu.form.requirements.legal_identifier_description"
+                ns="b2b_invoice"
+              />
             </Typography>
           </div>
         </Alert>

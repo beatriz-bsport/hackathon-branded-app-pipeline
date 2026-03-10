@@ -33,11 +33,19 @@
     "@bsport/sentry": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/sm-custom-form": "workspace:*",
-    "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-email-template": "workspace:*",
+    "@bsport/sm-group-activity": "workspace:*",
+    "@bsport/sm-homepage": "workspace:*",
+    "@bsport/sm-insights": "workspace:*",
+    "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
+    "@bsport/sm-order": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
+    "@bsport/sm-session": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
+    "@bsport/sm-teacher": "workspace:*",
+    "@bsport/sm-transactional-notification": "workspace:*",
+    "@tanstack/react-query": "^5.90.12",
     "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -64,45 +72,17 @@
         "devPort": 4100,
         "watchPath": "../core-data/member/member-list/src/**/*"
       },
-      "sm-teacher": {
-        "devPort": 4110,
-        "watchPath": "../core-data/teacher/src/**/*"
-      },
       "sm-giftcard": {
         "devPort": 4150,
         "watchPath": "../buyables/giftcard/src/**/*"
-      },
-      "sm-session": {
-        "devPort": 4201,
-        "watchPath": "../booking/session/src/**/*"
-      },
-      "sm-order": {
-        "devPort": 4151,
-        "watchPath": "../buyables/order/src/**/*"
       },
       "sm-pack": {
         "devPort": 4152,
         "watchPath": "../buyables/pack/src/**/*"
       },
-      "sm-group-activity": {
-        "devPort": 4200,
-        "watchPath": "../booking/group-activity/src/**/*"
-      },
       "sm-tag": {
         "devPort": 4304,
         "watchPath": "../cdp/tag/src/**/*"
-      },
-      "sm-transactional-notification": {
-        "devPort": 4305,
-        "watchPath": "../cdp/transactional-notification/src/**/*"
-      },
-      "sm-insights": {
-        "devPort": 4350,
-        "watchPath": "../business-insights/insights/src/**/*"
-      },
-      "sm-homepage": {
-        "devPort": 4399,
-        "watchPath": "../business-insights/homepage/src/**/*"
       }
     }
   },

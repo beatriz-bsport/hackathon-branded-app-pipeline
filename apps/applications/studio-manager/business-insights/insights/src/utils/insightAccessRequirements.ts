@@ -22,6 +22,10 @@ const PREMIUM_INSIGHTS_UPSELL = {
   identifier: 45,
 };
 
+const INSIGHTS_FOR_ESSENTIAL_UPSELL = {
+  identifier: 46,
+};
+
 /**
  * Single place to define access requirements for each insight page.
  * - `permission` controls backend/role access
@@ -52,7 +56,7 @@ export const INSIGHT_ACCESS_REQUIREMENTS = {
   schedule: {
     permission: "report.Bookings.bookings.allowed_actions.read",
     featureFlag: InsightFlags.SCHEDULE_ANALYSIS,
-    upsell: undefined,
+    upsell: INSIGHTS_FOR_ESSENTIAL_UPSELL,
   },
 } as const satisfies Record<string, InsightAccessRequirement>;
 

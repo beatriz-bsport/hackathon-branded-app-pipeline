@@ -68,7 +68,8 @@
   },
   "nx": {
     "tags": [
-      "scope:studio"
+      "scope:studio",
+      "postinstall"
     ]
   }
 }

@@ -104,7 +104,7 @@
     "selectItemToStart": "Klicke auf ein Objekt, um einen Warenkorb zu beginnen",
     "memberModal": {
       "title": "Identifikation des Mitglieds",
-      "confirm": "Registrieren",
+      "confirm": "Speichern",
       "cancel": "Abbrechen"
     },
     "authenticationNecessary": "Für diesen Abschnitt ist die Authentifizierung eines Mitglieds erforderlich.",

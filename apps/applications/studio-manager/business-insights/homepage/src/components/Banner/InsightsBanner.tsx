@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router";
-import { REVAMP_URLS_DEVELOPMENT } from "sm-navigation-sidebar/urls";
 
-import { getAssetUrl } from "#src/utils/assets";
+import insightsBannerUrl from "#src/assets/insights-banner.svg";
+import { URLS } from "#src/urls";
 import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -12,12 +12,9 @@ export const InsightsBanner: FC = () => {
   const { t } = useTranslation("default");
   const navigate = useNavigate();
 
-  // Same URL regardless of the environment
-  const insightsUrl = REVAMP_URLS_DEVELOPMENT.insights;
-
   const isInsightsPageEnabled = useNavFlag(NavFlags.INSIGHTS_PAGE);
 
-  if (!isInsightsPageEnabled || !insightsUrl) {
+  if (!isInsightsPageEnabled) {
     return null;
   }
 
@@ -26,8 +23,8 @@ export const InsightsBanner: FC = () => {
       ctaLabel={t("banner.insights.ctaLabel")}
       description={t("banner.insights.description")}
       identifier="insights"
-      image={getAssetUrl("insights-banner.svg")}
-      onCTAClick={() => navigate(insightsUrl)}
+      image={insightsBannerUrl}
+      onCTAClick={() => navigate(URLS.INSIGHTS)}
       title={t("banner.insights.title")}
     />
   );

@@ -77,7 +77,7 @@ export const MemberAndBillingGroupCard: React.FC<
 
   return (
     <Card elevated={false} className={className}>
-      <div className="flex flex-col gap-md sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex gap-md max-sm:flex-col sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-row items-center gap-sm min-w-0">
           <Avatar
             src={photo}
@@ -107,7 +107,7 @@ export const MemberAndBillingGroupCard: React.FC<
           />
         </div>
         {showBillingGroup && (
-          <div className="flex gap-xs items-end w-full sm:w-auto sm:min-w-[200px]">
+          <div className="flex gap-xs items-end max-sm:w-full sm:w-auto sm:min-w-[200px]">
             <Select
               id={`billing-group-${billingGroupSelectId}`}
               fullWidth

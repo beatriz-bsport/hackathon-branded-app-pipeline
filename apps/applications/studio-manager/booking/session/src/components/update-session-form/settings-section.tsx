@@ -49,7 +49,7 @@ export const SettingsSection: FC<{
 
   return (
     <section className="flex flex-col gap-md">
-      <Title htmlVariant="h5">
+      <Title htmlVariant="h5" weight="strong">
         {t("addSessionModal.steps.configureSession.settings.title", {
           ns: "sessionCreation",
         })}

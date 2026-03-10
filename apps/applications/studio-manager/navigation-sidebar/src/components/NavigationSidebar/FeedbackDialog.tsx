@@ -52,6 +52,7 @@ interface FeedbackDialogProps {
   open: boolean;
   onClose: () => void;
   disableRevampOnLegacyStore?: () => void;
+  className?: string;
 }
 
 /**
@@ -124,6 +125,7 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
   open,
   onClose,
   disableRevampOnLegacyStore,
+  className,
 }) => {
   const { t, i18n } = useTranslation("feedbackDialog");
   const baseId = useId();
@@ -201,6 +203,7 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
         disabled: isLoading,
       }}
       onClose={onClose}
+      className={className ?? ""}
     >
       <div className="p-sm flex flex-col gap-xs">
         <div className="flex flex-col gap-md">

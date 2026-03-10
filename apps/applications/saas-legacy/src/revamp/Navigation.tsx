@@ -26,10 +26,10 @@ init({
 
 type NavigationSidebarProps = {
   className?: string;
+  compatClassName?: string;
   navigate: (path: string) => void;
   disableRevampOnLegacyStore?: () => void;
   onLogoutCallback?: () => void;
-  onMobileSidebarClose?: () => void;
 };
 
 const NavigationSidebarFallback = () => (
@@ -37,6 +37,7 @@ const NavigationSidebarFallback = () => (
     className={clsx(
       'navigation-sidebar-container',
       'backoffice-drawer-shared-container',
+      'compat-revamp-css',
       'navigation-sidebar-fallback',
     )}
   />
@@ -85,7 +86,9 @@ export const Navigation: React.FC<{
         className={clsx(
           'navigation-sidebar-container',
           'backoffice-drawer-shared-container',
+          'compat-revamp-css',
         )}
+        compatClassName="compat-revamp-css"
         disableRevampOnLegacyStore={disableRevampOnLegacyStore}
         navigate={navigate}
         onLogoutCallback={resetAnalyticsB2B}

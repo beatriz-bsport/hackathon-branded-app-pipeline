@@ -1,0 +1,24 @@
+{
+  "swapPass": {
+    "menuAction": "Changer la carte de cours",
+    "dialog": {
+      "title": "Échanger une Carte De Cours",
+      "noCompatiblePasses": "Aucune carte de cours compatible",
+      "actions": {
+        "close": "Fermer",
+        "confirm": "Valider"
+      },
+      "errors": {
+        "loadCompatiblePasses": "Impossible de charger les cartes de cours compatibles.",
+        "swapFailed": "Impossible d'échanger la carte de cours. Veuillez réessayer.",
+        "5347000": "Réservation introuvable. Veuillez rafraîchir et réessayer.",
+        "5347001": "Cette carte de cours est déjà utilisée pour cette réservation.",
+        "5347002": "La carte de cours n'appartient pas à ce membre.",
+        "5347003": "La carte de cours n'est pas compatible avec cette réservation.",
+        "5347004": "La carte de cours est bloquée et ne peut pas être utilisée.",
+        "5347005": "La carte de cours ne dispose pas de suffisamment de crédits.",
+        "5347006": "Impossible d'échanger une carte de cours sur une réservation d'agrégateurs."
+      }
+    }
+  }
+}

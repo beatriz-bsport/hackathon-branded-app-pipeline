@@ -15,12 +15,15 @@ export const SessionPartnershipToggleField: FC<{
 
   const isChecked = watch("available_on_partnership");
 
+  const managerOnly = watch("manager_only");
+
   return (
     <FormField<
       SessionCreationFormData,
       "available_on_partnership"
     > name="available_on_partnership">
       <Toggle
+        disabled={managerOnly}
         checked={isChecked}
         id={`${fieldIdPrefix}-session-partnership-toggle`}
         label={t(

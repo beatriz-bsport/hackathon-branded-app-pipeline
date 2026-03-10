@@ -143,5 +143,15 @@
     "pack": "Pack",
     "giftcard": "Gift Card",
     "subscription": "Subscription"
+  },
+  "createInvoiceErrors": {
+    "generic": "Unable to create the invoice. Please try again.",
+    "12104": "An error occurred with the internal account payment.",
+    "14300": "Cannot refresh total unpaid amount.",
+    "14500": "Invoice webhook validation error.",
+    "14501": "Invoice webhook amount computation error.",
+    "14502": "No consistent invoice number could be extracted.",
+    "15000": "Cannot create an invoice with buyable items that are unusable by staff.",
+    "99000": "Cannot use an item that is unusable by staff."
   }
 }

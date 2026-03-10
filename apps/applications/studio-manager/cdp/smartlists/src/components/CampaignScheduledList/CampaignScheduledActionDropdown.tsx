@@ -61,6 +61,7 @@ export const CampaignScheduledActionDropdown = ({
             intent="flat"
             size="md"
             onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+              event.preventDefault();
               event.stopPropagation();
               setIsPopoverOpened((opened) => !opened);
             }}

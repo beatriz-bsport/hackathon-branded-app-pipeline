@@ -1,11 +1,12 @@
 import { FC, useId, useState } from "react";
 
-import { useFormController } from "@bsport/form";
+import { useFormContext, useFormController } from "@bsport/form";
 import { Alert, Modal } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useFetchLevels } from "#src/hooks/level/useFetchLevels";
 import { useUpdateLevel } from "#src/hooks/level/useUpdateLevel";
+import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useLevelSchema } from "../schemas";
@@ -18,6 +19,8 @@ export const EditLevelModal: FC<{
 }> = ({ isOpen, onClose, levelId }) => {
   const { t } = useTranslation("sessionCreation");
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
+
+  const { setValue } = useFormContext<SessionCreationFormData>();
 
   const { mutate } = useUpdateLevel();
 
@@ -70,7 +73,11 @@ export const EditLevelModal: FC<{
           mutate(
             { data: { ...data, id: levelId } },
             {
-              onSuccess: () => {
+              onSuccess: (level) => {
+                setValue("level", level.id, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
                 setErrorMessage(null);
                 onClose();
               },

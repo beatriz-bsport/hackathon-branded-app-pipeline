@@ -16,6 +16,7 @@ type AttendanceModalProps = {
   userId: number;
   userName: string;
   navigateInContext: (to: string, isRevamp?: boolean) => void;
+  className?: string;
 };
 
 export const AttendanceModal: React.FC<AttendanceModalProps> = ({
@@ -24,6 +25,7 @@ export const AttendanceModal: React.FC<AttendanceModalProps> = ({
   userId,
   userName,
   navigateInContext,
+  className,
 }) => {
   const { t } = useTranslation("features");
 
@@ -67,6 +69,7 @@ export const AttendanceModal: React.FC<AttendanceModalProps> = ({
         disabled: isLoading,
       }}
       onClose={onClose}
+      className={className ?? ""}
     >
       <div className="flex flex-col items-start gap-md py-xs">
         {isInitialLoading ? (

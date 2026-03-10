@@ -72,11 +72,16 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
     );
   };
 
+  // Apply same margin bottom class as NavigationItem when wrapping it
+  // and ensure it's a block element (since margin does not apply on inline display)
+  const itemClassName = "mb-2xs last:mb-[0px] block";
+
   return (
     <NavigationLink
       item={item}
       navigate={navigate}
       renderElement={itemElement}
+      wrapperConfig={kind === "item" ? { className: itemClassName } : {}}
     />
   );
 };

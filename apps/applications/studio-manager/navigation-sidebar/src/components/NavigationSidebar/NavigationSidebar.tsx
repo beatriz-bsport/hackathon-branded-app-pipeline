@@ -19,6 +19,7 @@ import {
   useAttendanceModal,
   useAttendancePermissions,
 } from "#src/components/AttendanceModal";
+import { useCheckoutModalContainer } from "#src/components/CheckoutModal";
 import {
   NotificationsModal,
   useNotificationsModal,
@@ -35,6 +36,7 @@ import {
 import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
 import { HELP_CENTER, LEGACY_URLS, SETTINGS_URL, STUDIO_URL } from "#src/urls";
+import { fetch } from "#src/utils/fetch";
 import {
   AppI18nextProvider,
   instanciateAppI18n,
@@ -66,12 +68,14 @@ export type NavigationSidebarProps = {
   disableRevampOnLegacyStore?: () => void;
   isLoadingData?: boolean;
   onLogoutCallback?: () => void;
+  compatClassName?: string;
 };
 
 const NavigationSidebarContent = ({
   navigate,
   disableRevampOnLegacyStore,
   onLogoutCallback,
+  compatClassName,
 }: NavigationSidebarProps) => {
   const { t } = useTranslation("default");
 
@@ -89,6 +93,20 @@ const NavigationSidebarContent = ({
     isSettingsPage ? "settings" : "default",
   );
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const {
+    company: companyId,
+    company_name: companyName,
+    cover: companyLogo,
+  } = companyTheme ?? {};
+  const { openCheckoutModalFromNav, checkoutModalElement } =
+    useCheckoutModalContainer({
+      companyId: companyId ?? undefined,
+      fetch,
+      navigateInContext,
+      t,
+    });
 
   useAlerts();
 
@@ -123,6 +141,7 @@ const NavigationSidebarContent = ({
     navigationUrls,
     handleOpenTemporaryPasswordDialog,
     handleOpenNotificationsModal: openNotificationsModal,
+    handleOpenCheckoutModal: openCheckoutModalFromNav,
   });
 
   const protectedElements = useProtectedItems(navigationElements);
@@ -197,12 +216,6 @@ const NavigationSidebarContent = ({
     );
   };
 
-  const companyTheme = dataAccessLayer.useCompanyTheme();
-  const {
-    company: companyId,
-    company_name: companyName,
-    cover: companyLogo,
-  } = companyTheme ?? {};
   const user = dataAccessLayer.useUserAccess();
 
   const sidebarContent = (
@@ -284,16 +297,19 @@ const NavigationSidebarContent = ({
         open={open}
         onClose={closeDialog}
         disableRevampOnLegacyStore={disableRevampOnLegacyStore}
+        className={compatClassName}
       />
       <TemporaryPasswordDialog
         isLoading={isLoadingTemporaryPassword}
         isOpen={isTemporaryPasswordDialogOpen}
         onClose={handleCloseTemporaryPasswordDialog}
+        className={compatClassName}
       />
       <NotificationsModal
         isOpen={isNotificationsModalOpen}
         onClose={closeNotificationsModal}
         navigate={navigate}
+        className={compatClassName}
       />
       {isAttendanceModalOpen &&
         user &&
@@ -304,6 +320,7 @@ const NavigationSidebarContent = ({
             userName={user.name}
             permissions={attendancePermissions}
             navigateInContext={navigateInContext}
+            className={compatClassName}
           />
         )}
       <SearchMemberModal
@@ -311,7 +328,9 @@ const NavigationSidebarContent = ({
         onClose={closeSearchMemberModal}
         navigate={navigate}
         navigateInContext={navigateInContext}
+        className={compatClassName}
       />
+      {checkoutModalElement}
     </>
   );
 

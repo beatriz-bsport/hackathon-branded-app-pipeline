@@ -1,0 +1,24 @@
+{
+  "swapPass": {
+    "menuAction": "Kurspässe tauschen",
+    "dialog": {
+      "title": "Kurspässe tauschen",
+      "noCompatiblePasses": "Keine kompatiblen Kurspässe",
+      "actions": {
+        "close": "Schließen",
+        "confirm": "Bestätigen"
+      },
+      "errors": {
+        "loadCompatiblePasses": "Kompatible Pässe konnten nicht geladen werden.",
+        "swapFailed": "Kurspass konnte nicht getauscht werden. Bitte versuche es erneut.",
+        "5347000": "Buchung nicht gefunden. Bitte aktualisiere die Seite und versuche es erneut.",
+        "5347001": "Die Buchung verwendet bereits diesen Kurspass.",
+        "5347002": "Der Kurspass gehört nicht zu diesem Mitglied.",
+        "5347003": "Der Kurspass ist mit dieser Buchung nicht kompatibel.",
+        "5347004": "Der Kurspass ist gesperrt und kann nicht verwendet werden.",
+        "5347005": "Dein Kurspass hat nicht genügend Credits.",
+        "5347006": "Du kannst den Kurspass bei einer Aggregator-Buchung nicht tauschen."
+      }
+    }
+  }
+}

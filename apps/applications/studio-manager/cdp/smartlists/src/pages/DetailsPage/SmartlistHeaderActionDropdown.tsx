@@ -44,8 +44,8 @@ export const SmartlistHeaderActionDropdown = ({
             kind="icon-button"
             label={t("table.campaignSent.moreActions.label")}
             icon="dots-vertical"
-            color="default"
-            intent="flat"
+            color="main"
+            intent="default"
             size="md"
             onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
               event.stopPropagation();

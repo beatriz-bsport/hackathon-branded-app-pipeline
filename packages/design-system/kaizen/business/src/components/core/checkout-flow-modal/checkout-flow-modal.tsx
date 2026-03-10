@@ -6,13 +6,14 @@ import {
   Accordion,
   Modal,
   Title,
+  toast,
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import { useAsync } from "@bsport/use-async";
 
 import { MemberSelectorModal } from "#src/components/cdp/member/member-selector-modal";
 import { MemberAndBillingGroupCard } from "#src/components/core/checkout-flow-modal/member-and-billing-group-card";
-import { i18nInstance, useTranslation } from "#src/i18n";
+import { i18nInstance, i18nNamespacePrefix, useTranslation } from "#src/i18n";
 
 import { AddItemSection } from "./add-item-section";
 import {
@@ -31,6 +32,17 @@ import type { CheckoutFlowModalProps } from "./types";
 import { useCreateInvoice } from "./use-create-invoice";
 import { useInvoiceConfiguration } from "./use-invoice-configuration";
 
+/**
+ * Modal to build an invoice (add items, member, promo codes) and create it via API.
+ *
+ * @param companyId - Company for config and invoice creation
+ * @param fetch - Instance of the @bsport/fetch library
+ * @param isOpen - When false, modal is not rendered
+ * @param memberId - Optional pre-selected member; omit when user picks (e.g. "Sell products")
+ * @param onClose - Called when user closes the modal
+ * @param onError - Use for side-effects only (logging, analytics). Component already shows an error toast.
+ * @param onSubmit - Called on success with form data and invoice UUID
+ */
 export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
   companyId,
   fetch,
@@ -88,9 +100,36 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
     items.length === 0 ||
     (!isValid && !hasOnlyPromoCodeError);
 
-  const { mutateAsync } = useCreateInvoice({ fetch, onError, onSubmit });
-  const handleFormSubmit = () =>
-    mutateAsync(methods.getValues()).catch((error) => onError?.(error));
+  const handleCreateInvoiceError = useCallback(
+    (error: Error) => {
+      const code =
+        "customErrorCodes" in error && Array.isArray(error.customErrorCodes)
+          ? error.customErrorCodes[0]
+          : undefined;
+      const genericMessage = t("createInvoiceErrors.generic");
+      const message =
+        code != null
+          ? i18nInstance.t(`createInvoiceErrors.${code}`, {
+              ns: `${i18nNamespacePrefix}_core`,
+              defaultValue: genericMessage,
+            })
+          : genericMessage;
+      toast({
+        status: "critical",
+        icon: "alert-triangle",
+        description: message,
+      });
+      onError?.(error);
+    },
+    [t, onError],
+  );
+
+  const { mutateAsync } = useCreateInvoice({
+    fetch,
+    onError: handleCreateInvoiceError,
+    onSubmit,
+  });
+  const handleFormSubmit = () => mutateAsync(methods.getValues());
 
   const handleFetchMember = async (id: number) => {
     return getMember(fetch, { memberId: id });

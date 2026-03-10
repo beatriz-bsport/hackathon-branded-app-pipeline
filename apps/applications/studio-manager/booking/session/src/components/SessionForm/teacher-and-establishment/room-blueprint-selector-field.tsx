@@ -30,6 +30,7 @@ export const RoomBlueprintSelectorField: FC<{
 
   const establishmentId = watch("establishment");
   const roomBlueprintId = watch("room_blueprint");
+  const effectif = watch("effectif");
 
   useEffect(() => {
     setValue("room_blueprint", null);
@@ -76,7 +77,13 @@ export const RoomBlueprintSelectorField: FC<{
             shouldDirty: true,
           });
           setValue("roomBlueprintCapacity", capacity > 0 ? capacity : null);
-          trigger("effectif");
+          if (!effectif) {
+            // Only setting effectif if it's not already set, to avoid overwriting user's input
+            setValue("effectif", capacity, {
+              shouldValidate: true,
+              shouldDirty: true,
+            });
+          }
         },
         onClear: () => {
           setValue("room_blueprint", null, { shouldValidate: true });

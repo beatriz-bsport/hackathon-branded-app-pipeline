@@ -83,8 +83,59 @@
     }
   },
   "actions": {
+    "createCampaign": "Create campaign",
     "openPopUps": "Review pop-ups",
     "generateReport": "Generate Report"
+  },
+  "campaignTypeSelector": {
+    "title": "Create a new campaign",
+    "description": "Select your desired communication channel to get started:",
+    "addOnChip": "Add-on",
+    "email": {
+      "title": "Email",
+      "description": "Send a targeted email message to your smartlist"
+    },
+    "sms": {
+      "title": "SMS",
+      "description": "Send SMS messages to your members"
+    },
+    "push": {
+      "title": "Push Notification",
+      "description": "Send your members a notification via your studio app"
+    },
+    "popup": {
+      "title": "Pop-up",
+      "description": "Message appears when members open your app"
+    }
+  },
+  "upsellInterestConfirmationModal": {
+    "title": "We'll be in touch!",
+    "heading": "Thanks for your interest",
+    "description": "Your account manager will be in touch shortly to walk you through the details and answer any questions.",
+    "okButton": "OK"
+  },
+  "communicationPackageUpsellModal": {
+    "title": "Unlock the communication package",
+    "disclaimer": "This feature is an add-on. Contact your Account Manager for more information.",
+    "buttons": {
+      "cancel": "Cancel",
+      "getInTouch": "Get in touch"
+    },
+    "toast": {
+      "requestFailed": "Something went wrong. Please try again or contact your Account Manager."
+    },
+    "sms": {
+      "heading": "Reach members on every channel",
+      "description": "Reach your members instantly via SMS, push notifications, and email. Automate welcome messages, send timely reminders and loyalty offers, and share studio news that keeps them coming back."
+    },
+    "push": {
+      "heading": "Reach members on every channel",
+      "description": "Reach your members instantly via SMS, push notifications, and email. Automate welcome messages, send timely reminders and loyalty offers, and share studio news that keeps them coming back."
+    },
+    "popup": {
+      "heading": "Turn on in-app notifications",
+      "description": "Connect with your members in real time through your branded app. Send timely reminders, highlight key updates, and keep your studio visible on their home screen."
+    }
   },
   "generateReportModal": {
     "title": "Generate report",
@@ -103,6 +154,9 @@
   },
   "table": {
     "campaignRecipient": {
+      "recipientsList": {
+        "title": "Recipients"
+      },
       "emptyDate": "--",
       "headers": {
         "memberIdentity": "Member",
@@ -118,6 +172,7 @@
         "description": "Loading recipients list..."
       },
       "moreActions": {
+        "label": "More actions",
         "navigateToMemberProfile": "Navigate to member profile",
         "copyEmail": "Copy email",
         "copyPhoneNumber": "Copy phone number",
@@ -125,6 +180,28 @@
       }
     },
     "campaignScheduled": {
+      "deleteModal": {
+        "title": "Delete scheduled campaign?",
+        "description": "This will permanently delete this campaign. The scheduled email will be canceled and will not be sent to the recipients.",
+        "warning": "Heads up: this change is permanent and cannot be undone.",
+        "cannotDeleteWithin5Min": "This campaign is scheduled to be sent in less than 5 minutes. It can no longer be deleted.",
+        "buttons": {
+          "delete": "Delete campaign",
+          "cancel": "Keep"
+        }
+      },
+      "toasts": {
+        "success": {
+          "deleted": "Scheduled campaign deleted"
+        },
+        "error": {
+          "deleteFailed": "Scheduled campaign couldn't be deleted. Please try again."
+        }
+      },
+      "recipientsList": {
+        "title": "Recipients",
+        "description": "This list shows members who currently match your Smartlist. If the Smartlist changes before sending, the final list of recipients will be updated automatically."
+      },
       "headers": {
         "scheduledDate": "Scheduled",
         "campaignName": "Campaign"
@@ -167,6 +244,7 @@
   },
   "campaignDetails": {
     "metadataBanner": {
+      "noRecipients": "--",
       "headers": {
         "channel": "Campaign channel",
         "status": "Status",
@@ -175,6 +253,7 @@
         "recipients": "Total recipients"
       },
       "previewButton": "View message",
+      "deleteButton": "Delete",
       "contentPreview": {
         "subject": "Email Subject",
         "dynamicContentWarning": "Dynamic content may not appear in the preview"

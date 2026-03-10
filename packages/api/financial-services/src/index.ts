@@ -4,3 +4,4 @@ export * from "./invoice-create";
 export * from "./invoice-footer";
 export * from "./invoice";
 export * from "./teacher-payment-rules";
+export * from "./payout";

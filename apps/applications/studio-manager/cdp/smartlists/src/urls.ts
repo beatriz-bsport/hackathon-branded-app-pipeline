@@ -10,7 +10,7 @@ export const URLS = {
   AUTOMATION_TAG_RULE: "/:id/automation/tag-rule/:tagRuleId",
   POPUP_CREATION: "/:id/popups/new",
   POPUP_EDIT: "/:id/popups/:popupId/edit",
-  CAMPAIGN_CREATION: "/:id/campaign/create",
+  EMAIL_CAMPAIGN_CREATION: "/:id/campaign/create/email",
 } as const;
 
 export const LEGACY_URLS = {

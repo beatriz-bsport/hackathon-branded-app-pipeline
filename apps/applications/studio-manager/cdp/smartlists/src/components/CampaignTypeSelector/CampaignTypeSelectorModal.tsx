@@ -53,6 +53,7 @@ export const CampaignTypeSelectorModal = ({
     setIsConfirmationOpen(false);
     onClose();
   };
+
   return (
     <Modal
       open={isOpen}

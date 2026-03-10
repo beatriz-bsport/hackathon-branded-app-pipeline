@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
+import { icons } from "#src/components/Icon";
+
 import Alert, { layouts, statuses, types } from "./Alert";
 
 /**
@@ -33,6 +35,11 @@ const meta: Meta<typeof Alert> = {
     layout: {
       options: layouts,
       control: { type: "inline-radio" },
+      table: { type: { summary: "string" } },
+    },
+    customIcon: {
+      options: Object.keys(icons),
+      control: { type: "select" },
       table: { type: { summary: "string" } },
     },
   },

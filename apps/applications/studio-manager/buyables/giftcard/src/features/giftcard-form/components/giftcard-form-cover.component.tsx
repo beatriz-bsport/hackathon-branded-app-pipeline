@@ -14,7 +14,11 @@ import { useTranslation } from "#src/utils/i18n";
 
 import type { GiftcardFormData, GiftcardFormMethods } from "../types";
 
-type GiftcardFormCoverProps = { formId: string; methods: GiftcardFormMethods };
+type GiftcardFormCoverProps = {
+  formId: string;
+  methods: GiftcardFormMethods;
+  isSharedGiftcard?: boolean;
+};
 
 function createUrl(file: File | Blob | null) {
   if (!file) {
@@ -38,6 +42,7 @@ function createUrl(file: File | Blob | null) {
 export const GiftcardFormCover: FC<GiftcardFormCoverProps> = ({
   formId,
   methods,
+  isSharedGiftcard,
 }) => {
   const { t } = useTranslation("giftcard-details");
   const cover = methods.watch("cover");
@@ -97,6 +102,7 @@ export const GiftcardFormCover: FC<GiftcardFormCoverProps> = ({
           fileExtensionList={["image/*"]}
           multiple={false}
           autoUpload
+          disabled={isSharedGiftcard}
           customTexts={{
             fileExtensionList: t("formFields.cover.extensions"),
           }}

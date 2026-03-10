@@ -13,11 +13,12 @@ import type { GiftcardFormData } from "../types";
 
 type GiftcardFormTagsAfterPurchaseProps = {
   formId: string;
+  isSharedGiftcard?: boolean;
 };
 
 export const GiftcardFormTagsAfterPurchase: FC<
   GiftcardFormTagsAfterPurchaseProps
-> = ({ formId }) => {
+> = ({ formId, isSharedGiftcard }) => {
   useFetchTags();
 
   const tags = useTagStore(selectTags);
@@ -32,6 +33,7 @@ export const GiftcardFormTagsAfterPurchase: FC<
       id={`${formId}-tags-after-purchase`}
       tags={tags}
       tagGroups={tagGroups}
+      disabled={isSharedGiftcard}
     />
   );
 };

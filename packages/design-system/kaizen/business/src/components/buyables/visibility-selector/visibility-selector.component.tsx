@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import type { ReactElement } from "react";
 
 import { type FieldValues, FormField, useFormContext } from "@bsport/form";
 import {
@@ -7,7 +7,7 @@ import {
   type DropdownMenuProps,
   Icon,
   type Placement,
-  cx,
+  cva,
 } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/i18n";
@@ -29,6 +29,58 @@ const INDICATORS = {
   },
 } as const;
 
+const button = cva(
+  [
+    "transition ease-out duration-default",
+    // Flex config
+    "flex flex-row items-center justify-between",
+    "whitespace-nowrap",
+    // Background
+    "cursor-pointer",
+    "bg-surface-action-default-elevated-rest",
+    "shadow-action-default-rest",
+    // Text
+    "text-onsurface-action-main-rest",
+    "fill-onsurface-action-main-rest",
+    // Container
+    "rounded-md p-xs gap-xs",
+  ],
+  {
+    variants: {
+      disabled: {
+        true: [
+          "disabled:shadow-action-default-rest",
+          "disabled:opacity-md",
+          "disabled:cursor-not-allowed",
+        ],
+        false: [],
+      },
+      readonly: {
+        // And not disabled
+        true: [
+          "enabled:aria-readonly:shadow-action-default-rest",
+          "enabled:aria-readonly:cursor-default",
+        ],
+        false: [],
+      },
+    },
+    compoundVariants: [
+      {
+        disabled: false,
+        readonly: false,
+        className: [
+          // Hover and neither readonly or disabled
+          "hover:shadow-action-default-hovered",
+          "hover:bg-surface-action-default-elevated-hovered",
+          // Active and neither readonly or disabled
+          "active:shadow-action-default-pressed",
+          "active:bg-surface-action-default-elevated-pressed",
+        ],
+      },
+    ],
+  },
+);
+
 function getSelectedOption(value: boolean, isInverted: boolean) {
   if (isInverted) {
     return value ? VISIBILITY_VALUES.hidden : VISIBILITY_VALUES.visible;
@@ -44,6 +96,10 @@ type VisibilitySelectorProps<
   fieldName: TFieldName;
   /** The translation of your buyable. */
   buyableName: string;
+  /** Whether to disable interaction */
+  disabled?: boolean;
+  /** Whether to enable read only */
+  readonly?: boolean;
   /**
    * Whether the VisibilitySelector should have an opposite logic.
    * Make it mandatory to highlight visibility on this props.
@@ -64,6 +120,8 @@ export const VisibilitySelector = <
 >({
   fieldName,
   buyableName,
+  disabled,
+  readonly,
   asHiddenSelector = false,
   anchorClassName = "min-w-component-popover-min max-w-full",
   popoverClassName = "w-component-popover-min",
@@ -139,28 +197,15 @@ export const VisibilitySelector = <
             <button
               role="button"
               type="button"
-              onClick={() => setIsOpen(true)}
-              className={cx(
-                anchorClassName,
-                "transition ease-out duration-default",
-                "cursor-pointer",
-                // Flex config
-                "flex flex-row items-center justify-between",
-                "whitespace-nowrap",
-                // Background
-                "bg-surface-action-default-elevated-rest",
-                "active:bg-surface-action-default-elevated-pressed",
-                "hover:bg-surface-action-default-elevated-hovered",
-                // Shadow
-                "shadow-action-default-rest",
-                "active:shadow-action-default-pressed",
-                "hover:shadow-action-default-hovered",
-                // Text
-                "text-onsurface-action-main-rest",
-                "fill-onsurface-action-main-rest",
-                // Container
-                "rounded-md p-xs gap-xs",
-              )}
+              onClick={disabled || readonly ? undefined : () => setIsOpen(true)}
+              disabled={!!disabled}
+              aria-disabled={disabled ? "true" : "false"}
+              aria-readonly={readonly ? "true" : "false"}
+              className={button({
+                className: anchorClassName,
+                disabled: !!disabled,
+                readonly: !!readonly,
+              })}
               aria-label={activeOption.label}
             >
               <Icon

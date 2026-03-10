@@ -36,6 +36,7 @@ export const GiftcardEditorPage: FC<GiftcardEditorPageProps> = ({
   });
 
   const formId = `giftcard-form-editor-${useId()}`;
+  const isSharedGiftcard = giftcard.is_shared_giftcard;
 
   // ========== CONFIRMATION ==========
 
@@ -49,9 +50,9 @@ export const GiftcardEditorPage: FC<GiftcardEditorPageProps> = ({
   const isDirty = methods.formState.isDirty;
 
   useEffect(() => {
-    toggleHasUnsavedChanges(isDirty);
+    toggleHasUnsavedChanges(!isSharedGiftcard && isDirty);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDirty]);
+  }, [isDirty, isSharedGiftcard]);
 
   const discardChanges = () => {
     methods.reset();
@@ -84,9 +85,16 @@ export const GiftcardEditorPage: FC<GiftcardEditorPageProps> = ({
       <DetailsLayout {...detailsLayoutProps} withPanel={true}>
         <GiftcardEditorHeader giftcard={giftcard} methods={methods} />
 
-        <GiftcardEditorContent formId={formId} methods={methods} />
+        <GiftcardEditorContent
+          formId={formId}
+          methods={methods}
+          isSharedGiftcard={isSharedGiftcard}
+        />
 
-        <GiftcardEditorPanel formId={formId} />
+        <GiftcardEditorPanel
+          formId={formId}
+          isSharedGiftcard={isSharedGiftcard}
+        />
 
         <DetailsLayout.Confirmation
           onDiscard={discardChanges}

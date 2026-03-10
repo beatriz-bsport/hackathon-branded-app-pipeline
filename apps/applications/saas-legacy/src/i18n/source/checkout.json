@@ -130,7 +130,7 @@
           "paymentSuccess": "Payment confirmed!",
           "offerOnlySuccess": "Enjoy the session!",
           "offerOnlyGuestSuccess": "Enjoy the session with your guest!",
-          "expressCheckoutPassPurchaseSuccess": "Congratulations! You just bought a pass!"
+          "expressCheckoutPassPurchaseSuccess": "Congratulations! You just bought a pass"
         },
         "errors": {
           "genericOfferError": "Oops! The booking failed.",

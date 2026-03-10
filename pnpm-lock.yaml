@@ -1403,9 +1403,6 @@ importers:
       '@bsport/use-pagination-query-params':
         specifier: workspace:*
         version: link:../../../../../packages/utils/query-params/use-pagination
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       luxon:
         specifier: ^3.4.4
         version: 3.5.0
@@ -1425,9 +1422,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../tools/config/federation
+        version: link:../../../../../tools/config/library
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -2518,6 +2515,9 @@ importers:
       '@bsport/sm-email-template':
         specifier: workspace:*
         version: link:../cdp/email-template
+      '@bsport/sm-giftcard':
+        specifier: workspace:*
+        version: link:../buyables/giftcard
       '@bsport/sm-group-activity':
         specifier: workspace:*
         version: link:../booking/group-activity

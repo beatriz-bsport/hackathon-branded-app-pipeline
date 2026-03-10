@@ -27,7 +27,7 @@ const GroupActivities = lazy(() => import("@bsport/sm-group-activity"));
 const Session = lazy(() => import("@bsport/sm-session"));
 
 // ----- Buyables -----
-const Giftcard = lazy(() => import("sm-giftcard/App"));
+const Giftcard = lazy(() => import("@bsport/sm-giftcard"));
 const Order = lazy(() => import("@bsport/sm-order"));
 const Pack = lazy(() => import("@bsport/sm-pack"));
 

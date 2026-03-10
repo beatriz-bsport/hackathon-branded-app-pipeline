@@ -37,10 +37,6 @@ declare module "sm-navigation-sidebar/urls" {
 // ----- Booking -----
 
 // ----- Buyables -----
-declare module "sm-giftcard/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 
 // ----- Core-data -----
 declare module "sm-member-list/App" {

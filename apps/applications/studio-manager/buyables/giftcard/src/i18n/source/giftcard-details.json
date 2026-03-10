@@ -43,7 +43,8 @@
     "submitResponse": {
       "error": "Couldn't update Gift Card. Please try again.",
       "success": "Successfully updated Gift Card."
-    }
+    },
+    "sharedGiftcardCanNotBeEdited": "This Gift Card was created on the Central Account and some fields cannot be edited."
   },
   "purchases": {
     "status": {

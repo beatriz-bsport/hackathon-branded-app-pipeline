@@ -10,9 +10,13 @@ import type { GiftcardFormData } from "../types";
 
 type GiftcardFormNameProps = {
   formId: string;
+  isSharedGiftcard?: boolean;
 };
 
-export const GiftcardFormName: FC<GiftcardFormNameProps> = ({ formId }) => {
+export const GiftcardFormName: FC<GiftcardFormNameProps> = ({
+  formId,
+  isSharedGiftcard,
+}) => {
   const { t } = useTranslation("giftcard-details");
 
   return (
@@ -36,6 +40,7 @@ export const GiftcardFormName: FC<GiftcardFormNameProps> = ({ formId }) => {
         label={t("formFields.name.label")}
         required
         fullWidth
+        disabled={isSharedGiftcard}
       />
     </FormField>
   );

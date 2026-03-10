@@ -86,6 +86,7 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
   buttonLabel?: string;
   onClearClick?: MouseEventHandler<HTMLButtonElement>;
   onButtonClick?: MouseEventHandler<HTMLButtonElement>;
+  customIcon?: IconName;
 };
 
 /**
@@ -99,6 +100,7 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.buttonLabel Text label of the button.
  * @param props.onClearClick Function to call when the alert is cleared.
  * @param props.onButtonClick Function to call when the button is clicked.
+ * @param props.customIcon Override the default icon that is related to your alert status.
  * @param props.children Content of the alert.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-alert--docs
  */
@@ -111,6 +113,7 @@ const Alert: React.FC<AlertProps> = ({
   buttonLabel,
   onClearClick,
   onButtonClick,
+  customIcon,
   children,
   ...props
 }) => {
@@ -133,7 +136,7 @@ const Alert: React.FC<AlertProps> = ({
     >
       <div>
         <Icon
-          icon={iconByStatus[status]}
+          icon={customIcon || iconByStatus[status]}
           size="md"
           className={classNames({
             "text-onsurface-main-strong":

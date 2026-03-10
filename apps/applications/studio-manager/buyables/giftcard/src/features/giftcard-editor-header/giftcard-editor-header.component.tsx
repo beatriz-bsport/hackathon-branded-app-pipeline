@@ -55,30 +55,34 @@ export const GiftcardEditorHeader: FC<GiftcardEditorHeaderProps> = ({
   const { endGroupActions, startGroupActions, isMobile } =
     DetailsLayout.useAdaptiveActions({
       endGroupActions: [copyPaymentLinkButton],
-      startGroupActions: [
-        <Button
-          key="giftcard-editor-button-delete"
-          color="default"
-          intent="flat"
-          size="md"
-          icon="trash-01"
-          kind="icon-button"
-          label={t("editor.header.archiveGiftcard")}
-          onClick={openArchiveModal}
-        />,
-      ],
-      mobileOnlyActions: [
-        <Button
-          key="giftcard-editor-button-edit-name"
-          color="default"
-          intent="flat"
-          size="md"
-          icon="edit-02"
-          kind="icon-button"
-          label={t("editor.header.editGiftcardName")}
-          onClick={openEditNameModal}
-        />,
-      ],
+      startGroupActions: giftcard.is_shared_giftcard
+        ? []
+        : [
+            <Button
+              key="giftcard-editor-button-delete"
+              color="default"
+              intent="flat"
+              size="md"
+              icon="trash-01"
+              kind="icon-button"
+              label={t("editor.header.archiveGiftcard")}
+              onClick={openArchiveModal}
+            />,
+          ],
+      mobileOnlyActions: giftcard.is_shared_giftcard
+        ? []
+        : [
+            <Button
+              key="giftcard-editor-button-edit-name"
+              color="default"
+              intent="flat"
+              size="md"
+              icon="edit-02"
+              kind="icon-button"
+              label={t("editor.header.editGiftcardName")}
+              onClick={openEditNameModal}
+            />,
+          ],
     });
 
   const navigateToListPage = () => {
@@ -97,8 +101,10 @@ export const GiftcardEditorHeader: FC<GiftcardEditorHeaderProps> = ({
   /**
    * If defined, displays the edit button next to the title and assign onClick.
    * Since the mobile action is in the dropdown, make it undefined.
+   * It's disabled as well when the Giftcard is shared and can't be edited.
    */
-  const onEditTitleClick = isMobile ? undefined : openEditNameModal;
+  const onEditTitleClick =
+    isMobile || giftcard.is_shared_giftcard ? undefined : openEditNameModal;
 
   return (
     <>

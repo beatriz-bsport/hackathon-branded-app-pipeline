@@ -14,6 +14,7 @@ import type { GiftcardFormData, GiftcardFormMethods } from "../types";
 type GiftcardFormValueProps = {
   formId: string;
   methods: GiftcardFormMethods;
+  isSharedGiftcard?: boolean;
 };
 
 function getIntercomArticleLink({
@@ -31,6 +32,7 @@ const INTERCOM_ARTICLE_ID = "12730161";
 export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
   formId,
   methods,
+  isSharedGiftcard,
 }) => {
   const { t, i18n } = useTranslation("giftcard-details");
 
@@ -63,7 +65,7 @@ export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
         label={t("formFields.value.label")}
         helperText={t("formFields.value.helperText")}
         required={!hasCustomPrice}
-        disabled={hasCustomPrice}
+        disabled={hasCustomPrice || isSharedGiftcard}
         {...priceField}
       />
 
@@ -71,6 +73,7 @@ export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
         fieldName="hasCustomPrice"
         id={`${formId}-toggle-custom-price`}
         label={t("formFields.customValue.toggle.label")}
+        disabled={isSharedGiftcard}
       />
 
       {hasCustomPrice && (
@@ -81,7 +84,7 @@ export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
             label={t("formFields.customValue.minimumValue.label")}
             helperText={t("formFields.customValue.minimumValue.helperText")}
             required={hasCustomPrice}
-            disabled={!hasCustomPrice}
+            disabled={!hasCustomPrice || isSharedGiftcard}
             {...priceField}
             {...(hasMinMaxPriceIssue ? minMaxError : {})}
           />
@@ -96,7 +99,7 @@ export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
               ),
             })}
             required={hasCustomPrice}
-            disabled={!hasCustomPrice}
+            disabled={!hasCustomPrice || isSharedGiftcard}
             {...priceField}
             {...(hasMinMaxPriceIssue ? minMaxError : {})}
           />

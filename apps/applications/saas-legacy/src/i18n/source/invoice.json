@@ -511,7 +511,9 @@
       "14": "Client credit balance (debit)",
       "15": "Card (manual - card machine)",
       "16": "Bacs Direct Debit",
-      "17": "PayPal"
+      "17": "PayPal",
+      "19": "Apple Pay",
+      "20": "Google Pay"
     },
     "select": {
       "label": "Payment method",

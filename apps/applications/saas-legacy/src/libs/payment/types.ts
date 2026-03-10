@@ -42,7 +42,7 @@ export type PaymentConfigData = {
   payment_method_id: string | null;
 };
 
-export type Payout = {
+export type PayoutLegacy = {
   date_created: string;
   status: number;
   payments: Array<any>;
@@ -67,9 +67,118 @@ export type StripePayout = {
   amount_cts: number;
   status: number;
   date_created: number;
-  bsport_payout_object: Payout;
+  bsport_payout_object: PayoutLegacy;
   startingAfter: string | null;
   hasMore: boolean;
+};
+
+// New payout type
+export type Payout = {
+  id: number;
+  company: number;
+  _payment_backend_id: string;
+  date_created: string;
+  payment_provider_created_at: string;
+  amount_cts: number;
+  readable_identifier: string;
+  status: number;
+  reconciliation_status?:
+    | 'pending'
+    | 'processing'
+    | 'completed'
+    | 'partially_failed'
+    | 'skipped_manual';
+  is_included_in_payout: {
+    id: number;
+    readable_identifier: string;
+    payment_provider_date_created: string;
+  } | null;
+  amount_cts_from_previous_included_payouts: number;
+  balance_transaction_count: number;
+  payment_count: number;
+  refund_count: number;
+  dispute_count: number;
+  failed_direct_debit_original_count: number;
+  failed_direct_debit_reversal_count: number;
+  balance_transfer_count: number;
+  balance_transfer_refund_count: number;
+  adjustment_count: number;
+  application_fee_count: number;
+  application_fee_refund_count: number;
+  payout_failure_count: number;
+  payout_cancel_count: number;
+};
+
+export type PayoutListResponse = {
+  links: { next: string | null; previous: string | null };
+  next_page: number | null;
+  page: number;
+  count: number;
+  results: Payout[];
+};
+
+type PayoutRef = {
+  id: number;
+  readable_identifier: string;
+  date_created: string;
+};
+
+export type ReconciledBsportPayment = {
+  id: number;
+  uuid: string;
+  price: string;
+  payment_received: boolean;
+  payment_method: number;
+  date: string;
+  invoice: {
+    uuid: string;
+    public_identifier: string;
+    amount_due_cts: number;
+    issue_date: string;
+  };
+};
+
+export type BalanceTransactionDisplayType =
+  | 'payment'
+  | 'refund'
+  | 'dispute'
+  | 'failed_direct_debit_original'
+  | 'failed_direct_debit_reversal'
+  | 'balance_transfer'
+  | 'balance_transfer_refund'
+  | 'adjustment'
+  | 'application_fee'
+  | 'application_fee_refund'
+  | 'payout_failure'
+  | 'payout_cancel'
+  | 'other';
+
+export type BalanceTransaction = {
+  id: number;
+  payment_provider_id: string;
+  amount_cts: number;
+  fee_cts: number;
+  net_cts: number;
+  currency: string;
+  payment_provider_type: string;
+  reconciliation_status: 'success' | 'error' | 'pending';
+  error_type: string;
+  display_type: BalanceTransactionDisplayType;
+  description: string;
+  source_payment_method: string;
+  reconciled_bsport_payments: ReconciledBsportPayment[];
+  reversal_of_balance_transaction_id: number | null;
+  reversal_of_balance_transaction_payout: PayoutRef | null;
+  reversal_balance_transaction_payout: PayoutRef | null;
+  reconciled_bsport_payout: PayoutRef | null;
+};
+
+export type BalanceTransactionListResponse = {
+  links: { next: string | null; previous: string | null };
+  next_page: number | null;
+  page: number;
+  count: number;
+  results: BalanceTransaction[];
 };
 
 export type StripeBalance = {

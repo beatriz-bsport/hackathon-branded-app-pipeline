@@ -51,8 +51,13 @@ import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinea
 import CompanyPlatformBillingPaymentDetail from '#src/libs/platform-billing/components/CompanyPlatformBillingPaymentDetail.component';
 import CompanyPlatformBillinGroupDetail from '#src/libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
 import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureRequestDialog.component';
-import PayoutList from '#src/libs/payment/components/PayoutList.component';
+import PayoutListContainer from '#src/libs/payment/components/payout/PayoutListContainer.component';
+import PayoutListLegacy from '#src/libs/payment/components/PayoutListLegacy.component';
 import { getFeatureList } from '#src/libs/company/actions';
+import {
+  withFeatureFlags,
+  type FeatureFlagProps,
+} from '#src/utils/feature-flag/withFeatureFlags';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
 
 import type {
@@ -72,7 +77,7 @@ const { trackFormSubmitIntent: trackFormSubmitIntentUpsellRequest } =
     SegmentAnalyticsFormObjectIdentifier.UpsellRequest,
   );
 
-type Props = {
+type Props = FeatureFlagProps & {
   loading: boolean;
   savedPaymentMethodList: Array<PaymentMethod>;
   platformInvoiceList: Array<PlatformInvoice>;
@@ -87,7 +92,6 @@ type Props = {
   fetchPlatformBillingStageList: () => void;
   fetchUpsellPackages: () => void;
   fetchUpsellPackageSubscribedIds: () => void;
-  // fetchStripeBalance: () => void,
 
   classes: ClassNameMap;
   t: TFunction;
@@ -109,9 +113,6 @@ type Props = {
     payment_backend_payment_method_id: string;
     as_company: boolean;
   }) => void;
-  // stripeBalanceAvailable: number,
-  // stripeBalancePending: number,
-  // stripeBalanceLoading: boolean,
   subscribeUpsellPackage: (
     upsellIdentifier: number,
     options?: OptionCallback,
@@ -147,7 +148,6 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
     this.props.fetchPlatformBillingStageList();
     this.props.fetchUpsellPackages();
     this.props.fetchUpsellPackageSubscribedIds();
-    // this.props.fetchStripeBalance();
     this.props.fetchStripePayoutList();
   }
 
@@ -194,18 +194,24 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
       return <BackofficeLinearProgress />;
     }
 
+    const shouldShowNewPayoutFlow = this.props.fsNewPayoutFlow;
+
     return (
       <div className={classes.container}>
         {isOnlinePaymentEnabled && (
           <Grid container direction="row">
-            <Grid item className={classes.leftColumn} md={6} xs={12}>
-              <PayoutList
-                fetchMorePayoutList={this.props.fetchStripePayoutList}
-                hasMorePayout={this.props.hasMorePayout}
-                loading={this.props.payoutLoading}
-                openInvoice={this.props.onOpenInvoice}
-                stripePayoutList={this.props.stripePayoutList}
-              />
+            <Grid item className={classes.leftColumn} md={12} xs={12}>
+              {shouldShowNewPayoutFlow ? (
+                <PayoutListContainer theme={this.props.theme} />
+              ) : (
+                <PayoutListLegacy
+                  fetchMorePayoutList={this.props.fetchStripePayoutList}
+                  hasMorePayout={this.props.hasMorePayout}
+                  loading={this.props.payoutLoading}
+                  openInvoice={this.props.onOpenInvoice}
+                  stripePayoutList={this.props.stripePayoutList}
+                />
+              )}
             </Grid>
           </Grid>
         )}
@@ -261,6 +267,7 @@ const styles = (theme: Theme) =>
 export default compose(
   withTranslation(['platformBilling']),
   withStyles(styles),
+  withFeatureFlags,
   connect(
     (state: RootState) => ({
       savedPaymentMethodList: getSavedPaymentMethodList(state),
@@ -281,7 +288,6 @@ export default compose(
       retrievePlatformBillingGroup,
       fetchPlatformBillingPlanList,
       fetchPlatformBillingStageList,
-      // fetchStripeBalance: fetchStripeBalanceAction,
       fetchUpsellPackages: fetchUpsellPackagesAction,
       fetchUpsellPackageSubscribedIds: fetchUpsellPackageSubscribedIdsAction,
       checkSubscriptionSetup: checkSubscriptionSetupAction,

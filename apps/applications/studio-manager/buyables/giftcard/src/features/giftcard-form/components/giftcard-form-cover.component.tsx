@@ -1,4 +1,3 @@
-import { clsx } from "clsx";
 import { type FC, useEffect, useState } from "react";
 
 import { FormField } from "@bsport/form";
@@ -8,6 +7,7 @@ import {
   FileUpload,
   type FileUploadProps,
   Media,
+  cx,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -91,7 +91,7 @@ export const GiftcardFormCover: FC<GiftcardFormCoverProps> = ({
             };
           },
           inline: !!field.value,
-          className: clsx("w-full items-center flex-col", {
+          className: cx("w-full items-center flex-col", {
             flex: field.value,
           }),
         })}

@@ -89,6 +89,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   homepage: "/",
   invoice: "/invoice",
   payout: "/payout",
+  marketingNotification: "/marketing/notifications",
   member: "/member",
   order: "/order",
   pack: "/pack",
@@ -97,7 +98,6 @@ export const REVAMP_URLS_DEVELOPMENT = {
   settings_referral: `${SETTINGS_URL}/referral-program`,
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
   tag: "/tag",
-  marketingNotification: "/marketing/notifications",
 } as const satisfies Partial<Urls>;
 
 export const REVAMP_URLS_PRODUCTION = {
@@ -106,6 +106,7 @@ export const REVAMP_URLS_PRODUCTION = {
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   homepage: REVAMP_URLS_DEVELOPMENT.homepage,
+  marketingNotification: "/marketing/notifications",
   member: "/member",
   order: "/order",
   pack: "/pack",

@@ -160,7 +160,8 @@
       "backToMyProfile": "Volver a mi perfil",
       "seeAllPasses": "Ver todo los bonos",
       "bookAClass": "Reserva una clase",
-      "payAmountNow": "Paga {{ amount }} ahora"
+      "payAmountNow": "Paga {{ amount }} ahora",
+      "viewMyProfile": "Ir al perfil"
     },
     "bookingItem": {
       "bookingItemStatus": {
@@ -200,7 +201,8 @@
     "use": "Utilizar mi saldo",
     "myInternalAccount": "Mi saldo",
     "cancel": "Cancelar",
-    "useAsManager": "Utilizar el crédito de la cuenta interna"
+    "useAsManager": "Utilizar el crédito de la cuenta interna",
+    "use_minimal": "Usar"
   },
   "payment": {
     "total": "Total con IVA incluido",
@@ -225,5 +227,19 @@
     "title": "Ubicación preferida",
     "placeholder": "Ubicación",
     "helperText": "La ubicación preferida es aquella en la que tiene previsto utilizar su compra la mayor parte del tiempo. Esta información se utilizará para emitir su factura y únicamente a efectos de asignación de recursos. No determina dónde se puede utilizar su compra."
+  },
+  "passExpressCheckout": {
+    "errors": {
+      "ineligible": {
+        "paymentCombo": "Este pack no es compatible con el pago exprés"
+      },
+      "unavailable": {
+        "goBackButtonLabel": "Ver bonos disponibles",
+        "description": "Comprueba qué bonos están disponibles actualmente en tu estudio.",
+        "title": "Este bono ya no está disponible"
+      }
+    },
+    "payNow": "Pagar ahora",
+    "yourPass": "Tu bono seleccionado"
   }
 }

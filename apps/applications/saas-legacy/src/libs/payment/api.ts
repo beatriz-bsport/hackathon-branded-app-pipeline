@@ -1,5 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import type {
+  BalanceTransactionListResponse,
   BookkeepingAccount,
   CreatePaymentAttemptResponsePayload,
   DetachPaymentMethodPayload,
@@ -8,6 +9,7 @@ import type {
   InternalPaymentPayload,
   PaymentGroup,
   PaymentMethod,
+  PayoutListResponse,
   StripeBalance,
   StripePaymentMethodDomain,
   StripePayout,
@@ -50,10 +52,7 @@ export const updatePaymentMethodBillingDetails = async (data: {
 };
 
 export const detachPaymentMethod = async (
-  payload: DetachPaymentMethodPayload = {
-    payment_method_id: '',
-    member: undefined,
-  },
+  payload: DetachPaymentMethodPayload,
 ) => {
   return postAuth<DetachPaymentMethodResponse>(
     `${API_V1_URI}/payment/payment_method/detach/`,
@@ -181,8 +180,41 @@ export const updateIntentToSavePaymentMethodWebview = async (data: any) => {
   );
 };
 
-export const fetchPayoutList = async (params: any) => {
+export const fetchPayoutListLegacy = async (params: any) => {
   return getAuth(`${API_V1_URI}/payout/${buildUrlParams(params)}`);
+};
+
+const PAGE_SIZE = 10;
+
+export const fetchPayoutList = async (params: {
+  page: number;
+  page_size?: number;
+}) => {
+  const page_size = params.page_size ?? PAGE_SIZE;
+  return getAuth<PayoutListResponse>(
+    `${API_V1_URI}/payout/reconciliation/${buildUrlParams({
+      page: params.page,
+      page_size,
+    })}`,
+  );
+};
+
+const BT_PAGE_SIZE = 50;
+
+export const fetchPayoutBalanceTransactions = async (params: {
+  payout_id: number;
+  page: number;
+  page_size?: number;
+}) => {
+  const page_size = params.page_size ?? BT_PAGE_SIZE;
+  return getAuth<BalanceTransactionListResponse>(
+    `${API_V1_URI}/payout/reconciliation/${
+      params.payout_id
+    }/balance-transactions/${buildUrlParams({
+      page: params.page,
+      page_size,
+    })}`,
+  );
 };
 
 export const updatePaymentGroupPriceCts = async (

@@ -49,9 +49,5 @@ declare module "sm-member-list/App" {
 }
 
 // ----- Customer Data Platform -----
-declare module "sm-tag/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 
 // ----- Business Insights -----

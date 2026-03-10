@@ -2260,9 +2260,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../../tools/config/federation
+        version: link:../../../../../../tools/config/library
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -2533,6 +2533,9 @@ importers:
       '@bsport/sm-marketing-notification':
         specifier: workspace:*
         version: link:../cdp/marketing-notification
+      '@bsport/sm-member-list':
+        specifier: workspace:*
+        version: link:../core-data/member/member-list
       '@bsport/sm-order':
         specifier: workspace:*
         version: link:../buyables/order

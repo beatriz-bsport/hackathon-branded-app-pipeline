@@ -118,7 +118,8 @@
           "waitingList": "Je staat op de wachtlijst",
           "paymentSuccess": "Betaling bevestigd!",
           "offerOnlySuccess": "Geniet van de sessie!",
-          "offerOnlyGuestSuccess": "Geniet van de sessie met je gast!"
+          "offerOnlyGuestSuccess": "Geniet van de sessie met je gast!",
+          "expressCheckoutPassPurchaseSuccess": "Gefeliciteerd! Je hebt net een leskaart gekocht."
         },
         "errors": {
           "genericOfferError": "Oeps! De boeking is mislukt.",
@@ -160,7 +161,8 @@
       "backToMyProfile": "Terug naar profiel",
       "seeAllPasses": "Toon alle kaarten",
       "bookAClass": "Een les boeken",
-      "payAmountNow": "Betaal {{ amount }} nu"
+      "payAmountNow": "Betaal {{ amount }} nu",
+      "viewMyProfile": "Ga naar profiel"
     },
     "bookingItem": {
       "bookingItemStatus": {
@@ -199,7 +201,8 @@
     "use": "Mijn interne rekening (Wallet) gebruiken",
     "myInternalAccount": "Mijn interne rekening (Wallet)",
     "useMyInternalAccount": "Mijn interne rekening (Wallet) gebruiken",
-    "useAsManager": "Gebruik interne rekening (Wallet)"
+    "useAsManager": "Gebruik interne rekening (Wallet)",
+    "use_minimal": "Gebruiken"
   },
   "payment": {
     "total": "Totaal (incl. btw)",
@@ -224,5 +227,19 @@
     "title": "Gewenste locatie",
     "placeholder": "Locatie",
     "helperText": "De voorkeurslocatie is de locatie waar je van plan bent je aankoop te gebruiken en zal worden gebruikt om je factuur op te stellen."
+  },
+  "passExpressCheckout": {
+    "errors": {
+      "ineligible": {
+        "paymentCombo": "Pakket niet beschikbaar voor express checkout"
+      },
+      "unavailable": {
+        "goBackButtonLabel": "Bekijk beschikbare leskaarten",
+        "description": "Controleer welke leskaarten momenteel beschikbaar zijn in je studio.",
+        "title": "Deze leskaart is niet meer beschikbaar"
+      }
+    },
+    "payNow": "Nu betalen",
+    "yourPass": "Je geselecteerde leskaart"
   }
 }

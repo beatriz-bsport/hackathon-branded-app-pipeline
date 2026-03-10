@@ -41,6 +41,7 @@
     "@bsport/sm-insights": "workspace:*",
     "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
+    "@bsport/sm-member-list": "workspace:*",
     "@bsport/sm-order": "workspace:*",
     "@bsport/sm-pack": "workspace:*",
     "@bsport/sm-payout": "workspace:*",
@@ -72,10 +73,6 @@
       "sm-navigation-sidebar": {
         "devPort": 4050,
         "watchPath": "../navigation-sidebar/src/**/*"
-      },
-      "sm-member-list": {
-        "devPort": 4100,
-        "watchPath": "../core-data/member/member-list/src/**/*"
       }
     }
   },

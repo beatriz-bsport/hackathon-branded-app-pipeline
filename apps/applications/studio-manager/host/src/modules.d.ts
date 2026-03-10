@@ -39,10 +39,6 @@ declare module "sm-navigation-sidebar/urls" {
 // ----- Buyables -----
 
 // ----- Core-data -----
-declare module "sm-member-list/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 
 // ----- Customer Data Platform -----
 

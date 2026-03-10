@@ -2,7 +2,6 @@ import {
   DEFAULT_ACTION_COLOR,
   DEFAULT_CUSTOM_LAUNCHER_SELECTOR,
   DEFAULT_LANGUAGE_OVERRIDE,
-  EMAIL_VALIDATION_REGEXP,
   INTERCOM_APP_ID,
   RELEASE_SHA,
 } from "./constants";
@@ -67,7 +66,6 @@ export const checkIntercomWidgetConfigIsValid = ({
   environment,
   name,
   role,
-  onEmailValidationFailure,
 }: Partial<IntercomBootParams>) => {
   const logger = getLogger(true);
 
@@ -78,22 +76,6 @@ export const checkIntercomWidgetConfigIsValid = ({
 
   // We check both email and user_id because user_id is the primary key that we are using to identify the user and assign them to their
   // Intercom contact. And the user_id for use will always be equal to the email of the user currently connected to Intercom.
-  if (!EMAIL_VALIDATION_REGEXP.test(email.trim())) {
-    const errorMessage =
-      "Intercom widget skipped: email used as user_id has invalid format";
-    logger.error(errorMessage);
-    const error = new Error(errorMessage);
-    const context: EmailValidationFailureContext = {
-      email,
-      companyId,
-      companyName,
-      environment,
-      name,
-      role,
-    };
-    onEmailValidationFailure?.(error, context);
-    return false;
-  }
 
   if (!companyId) {
     logger.error("Cannot initialize Intercom widget without a company Id");

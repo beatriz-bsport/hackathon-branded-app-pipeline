@@ -46,6 +46,7 @@
     "@bsport/sm-referral-program": "workspace:*",
     "@bsport/sm-session": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
+    "@bsport/sm-tag": "workspace:*",
     "@bsport/sm-teacher": "workspace:*",
     "@bsport/sm-transactional-notification": "workspace:*",
     "@tanstack/react-query": "^5.90.12",
@@ -79,9 +80,25 @@
         "devPort": 4150,
         "watchPath": "../buyables/giftcard/src/**/*"
       },
+      "sm-session": {
+        "devPort": 4201,
+        "watchPath": "../booking/session/src/**/*"
+      },
+      "sm-pack": {
+        "devPort": 4152,
+        "watchPath": "../buyables/pack/src/**/*"
+      },
+      "sm-group-activity": {
+        "devPort": 4200,
+        "watchPath": "../booking/group-activity/src/**/*"
+      },
       "sm-tag": {
         "devPort": 4304,
         "watchPath": "../cdp/tag/src/**/*"
+      },
+      "sm-transactional-notification": {
+        "devPort": 4305,
+        "watchPath": "../cdp/transactional-notification/src/**/*"
       }
     }
   },

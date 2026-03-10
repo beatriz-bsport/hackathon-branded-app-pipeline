@@ -6,14 +6,6 @@ import withSentryErrorReporting from '#src/hocs/error-boundary-hidden.hoc';
 import { Theme } from '#src/libs/theme/types';
 import { SENTRY_FRONTEND_MODULE_TAG_NAME } from '#src/sentry/types';
 
-function isInvalidEmail(email: string | undefined): boolean {
-  return (
-    !email ||
-    typeof email !== 'string' ||
-    !EMAIL_VALIDATION_REGEXP.test(email.trim())
-  );
-}
-
 type Props = {
   email: string;
   company?: number;
@@ -25,12 +17,6 @@ type Props = {
   language_override?: string;
   theme?: Theme;
 };
-
-/** Regex to validate email format (used as user_id for Intercom). */
-export const EMAIL_VALIDATION_REGEXP = /^(.*)+@(.*)\.(.*)/;
-
-const INTERCOM_INVALID_EMAIL_ERROR_MESSAGE =
-  'Intercom widget skipped: invalid or missing email';
 
 const shutdownIntercom = () => {
   try {
@@ -60,23 +46,6 @@ export const IntercomComponent = (props: Props) => {
   }, []);
 
   if ((shouldHideENV || shouldHideTHEME) && !FORCE_DISPLAY_FOR_TESTING) {
-    return null;
-  }
-
-  // We check both email and user_id because user_id is the primary key that we are using to identify the user and assign them to their
-  // Intercom contact. And the user_id for use will always be equal to the email of the user currently connected to Intercom.
-  if (isInvalidEmail(props.user_id) || isInvalidEmail(props.email)) {
-    console.error('[Intercom]', INTERCOM_INVALID_EMAIL_ERROR_MESSAGE, {
-      email: props.email,
-      user_id: props.user_id,
-    });
-    captureException(new Error(INTERCOM_INVALID_EMAIL_ERROR_MESSAGE), {
-      extra: {
-        email: props.email,
-        user_id: props.user_id,
-        environment: props.environment,
-      },
-    });
     return null;
   }
 

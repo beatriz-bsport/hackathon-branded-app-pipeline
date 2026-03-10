@@ -27,6 +27,9 @@ const AutomationMessagePage = lazy(
 );
 const PopupCreationPage = lazy(() => import("#src/pages/PopupCreationPage"));
 const PopupEditPage = lazy(() => import("#src/pages/PopupEditPage"));
+const CreateEmailCampaignPage = lazy(
+  () => import("#src/pages/EmailCampaign/CreateEmailCampaign"),
+);
 
 export const AppRoutes = () => {
   return (
@@ -74,6 +77,14 @@ export const AppRoutes = () => {
         element={
           <FeatureFlag flag={flags.smartlist}>
             <PopupCreationPage />
+          </FeatureFlag>
+        }
+      />
+      <Route
+        path={URLS.EMAIL_CAMPAIGN_CREATION}
+        element={
+          <FeatureFlag flag={flags.smartlist}>
+            <CreateEmailCampaignPage />
           </FeatureFlag>
         }
       />

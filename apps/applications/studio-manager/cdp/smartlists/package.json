@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@bsport/datetime-manipulation": "workspace:*",
+    "@bsport/envs": "workspace:*",
     "@bsport/permissions": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "@bsport/store-cdp-popup": "workspace:*",

@@ -12,6 +12,7 @@ import {
   Breadcrumbs,
   Button,
   DetailsLayout,
+  IconName,
   type SelectedDate,
   Tabs,
   type TabsProps,
@@ -57,6 +58,17 @@ export const DetailsPage = () => {
       <Details />
     </QueryBoundary>
   );
+};
+
+export type CampaignTypeId = "email" | "sms" | "push" | "popup";
+
+export type CampaignTypeOption = {
+  id: CampaignTypeId;
+  icon: IconName;
+  titleKey: string;
+  descriptionKey: string;
+  showAddOnChip: boolean;
+  onClick: () => void;
 };
 
 const CAMPAIGN_TYPE_SELECTOR_ACTION_ID = "campaign-type-selector" as const;

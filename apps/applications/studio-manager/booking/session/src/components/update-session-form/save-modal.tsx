@@ -126,7 +126,7 @@ export const SaveSessionModal: FC<SaveSessionModalProps> = ({
             />
             {shouldUpdateFutureSessions && (
               <div className="flex flex-col gap-md ml-xl">
-                {session.nb_bookings > 0 && (
+                {(session.group || session.nb_bookings > 0) && (
                   <Alert status="info">
                     <Body htmlVariant="p" size="md" weight="weak" color="info">
                       <Trans

@@ -131,6 +131,9 @@ const icons = {
   "flag-pt": React.lazy(async () => await import("./assets/flag-pt.svg?react")),
   "flag-uk": React.lazy(async () => await import("./assets/flag-uk.svg?react")),
   "flag-us": React.lazy(async () => await import("./assets/flag-us.svg?react")),
+  "flip-forward": React.lazy(
+    async () => await import("./assets/flip-forward.svg?react"),
+  ),
   folder: React.lazy(async () => await import("./assets/folder.svg?react")),
   "gift-02": React.lazy(async () => await import("./assets/gift-02.svg?react")),
   "graduation-hat-02": React.lazy(

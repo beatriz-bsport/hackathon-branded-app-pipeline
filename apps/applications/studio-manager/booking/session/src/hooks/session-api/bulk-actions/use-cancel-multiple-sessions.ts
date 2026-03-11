@@ -74,6 +74,7 @@ export const useCancelMultipleSessions = () => {
           ),
           count: isSameDay(variables.startDate, variables.endDate) ? 1 : 2,
         }),
+        icon: "trash-01",
       });
     },
     onError: (error: Error) => {

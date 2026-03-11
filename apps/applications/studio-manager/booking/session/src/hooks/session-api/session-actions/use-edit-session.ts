@@ -50,6 +50,7 @@ const useEditSession = () => {
       toast({
         status: "default",
         description: t("editSessionForm.toasts.sessionEdited"),
+        icon: "check",
       });
     },
     onError: (error) => {

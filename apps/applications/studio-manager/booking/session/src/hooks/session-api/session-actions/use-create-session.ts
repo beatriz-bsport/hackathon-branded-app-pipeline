@@ -69,6 +69,7 @@ export const useCreateSession = () => {
           ns: "sessionCreation",
           count: variables.payload.dates.length,
         }),
+        icon: "check",
         ...buttonConfiguration,
       });
     },

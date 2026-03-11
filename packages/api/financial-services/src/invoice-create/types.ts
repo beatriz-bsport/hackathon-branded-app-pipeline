@@ -38,6 +38,7 @@ export type CreateInvoiceRequest = {
   coupon_codes?: string[];
   establishment_billing_group?: number | null;
   giftcard_config_list?: CreateInvoiceGiftcardConfig[];
+  custom_footer?: string;
 };
 
 type CreateInvoiceResponsePayment = {

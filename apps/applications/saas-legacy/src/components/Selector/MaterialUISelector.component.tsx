@@ -476,8 +476,12 @@ const SelectContext = createContext({
 });
 
 function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
+  const DEFAULT_MAX_HEIGHT = props.maxMenuHeight ?? 300;
+
   const classes = useStyles();
   const [selected, setSelected] = useState<T[]>([...props.getValue()]);
+  const [computedMaxHeight, setComputedMaxHeight] =
+    useState(DEFAULT_MAX_HEIGHT);
   const { t } = useTranslation(['common']);
   const displayedOption = [
     // @ts-expect-error
@@ -546,6 +550,32 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
     props.setValue(selected, 'select-option');
   };
 
+  useEffect(() => {
+    if (props.selectProps.menuRef?.current) {
+      const menuElement = props.selectProps.menuRef.current;
+      const menuRect = menuElement.getBoundingClientRect();
+
+      // Calculate the available space under the input
+      const buttonInFooterHeight = 58;
+      const footerHeight = props.isMulti ? buttonInFooterHeight : 0;
+      const availableSpace = window.innerHeight - menuRect.top - footerHeight;
+
+      // Cap the height at the available space or DEFAULT_MAX_HEIGHT
+      const MINIMAL_MAX_HEIGHT = 100;
+      const maxHeightComputed = Math.min(
+        Math.max(availableSpace, MINIMAL_MAX_HEIGHT),
+        DEFAULT_MAX_HEIGHT,
+      );
+
+      setComputedMaxHeight(maxHeightComputed);
+    }
+  }, [
+    props.children,
+    props.isMulti,
+    props.selectProps.menuRef,
+    DEFAULT_MAX_HEIGHT,
+  ]);
+
   return (
     <components.Menu {...props} getStyles={resetStyle}>
       <SelectContext.Provider
@@ -558,7 +588,7 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
           <div
             className={classes.list}
             style={{
-              maxHeight: props.maxMenuHeight,
+              maxHeight: computedMaxHeight,
             }}
           >
             {props.children}

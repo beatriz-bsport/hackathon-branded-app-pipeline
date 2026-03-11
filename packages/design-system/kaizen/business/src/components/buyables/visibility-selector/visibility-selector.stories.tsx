@@ -101,6 +101,16 @@ const meta: Meta<VisibilitySelectorComponent> = {
       table: { type: { summary: "string" } },
       control: { type: "text" },
     },
+    disabled: {
+      description: "Whether the global component is disabled",
+      control: "boolean",
+      table: { defaultValue: { summary: "false" } },
+    },
+    readonly: {
+      description: "Whether the global component is readonly",
+      control: "boolean",
+      table: { defaultValue: { summary: "false" } },
+    },
   },
   render: ({ asHiddenSelector, fieldName: _, ...args }) => {
     const schema = z.object({
@@ -135,6 +145,8 @@ const meta: Meta<VisibilitySelectorComponent> = {
   },
   args: {
     asHiddenSelector: false,
+    disabled: false,
+    readonly: false,
     popoverPlacement: "bottom-right",
     popoverClassName: "w-component-popover-min", // default value
     anchorClassName: "min-w-component-popover-min max-w-full", // default value

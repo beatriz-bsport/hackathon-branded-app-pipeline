@@ -92,6 +92,28 @@ export const setGiftcardImages = ({
   });
 };
 
+export const updateConsumerGiftcard = (
+  updatedConsumerGiftcard: ConsumerGiftcard,
+) => {
+  giftcardStore.setState((state) => {
+    if (!updatedConsumerGiftcard) return state;
+
+    const id = updatedConsumerGiftcard.id;
+
+    if (!id) return state;
+
+    return {
+      consumerGiftcards: {
+        ...state.consumerGiftcards,
+        byId: {
+          ...state.consumerGiftcards.byId,
+          [id]: updatedConsumerGiftcard,
+        },
+      },
+    };
+  });
+};
+
 export const setConsumerGiftcards = ({
   objects,
   count,

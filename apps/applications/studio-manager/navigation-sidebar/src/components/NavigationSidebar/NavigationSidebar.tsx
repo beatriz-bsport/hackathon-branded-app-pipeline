@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 
 import {
   Button,
@@ -330,30 +331,42 @@ const NavigationSidebarContent = ({
         navigateInContext={navigateInContext}
         className={compatClassName}
       />
-      {checkoutModalElement}
     </>
   );
+
+  const checkoutModalPortal =
+    checkoutModalElement && typeof document !== "undefined"
+      ? createPortal(checkoutModalElement, document.body)
+      : null;
 
   // Use responsive Sidebar for Studio Manager apps (isBridged = false)
   // Use simple NavigationSidebarContainer for saas-legacy (isBridged = true)
   if (isBridged) {
     return (
-      <NavigationSidebarContainer>{sidebarContent}</NavigationSidebarContainer>
+      <>
+        <NavigationSidebarContainer>
+          {sidebarContent}
+        </NavigationSidebarContainer>
+        {checkoutModalPortal}
+      </>
     );
   }
 
   return (
-    <SidebarProvider closeSidebar={() => setIsSidebarOpen(false)}>
-      <Sidebar
-        topbarSlot={
-          <SearchMemberTopbarButton onClick={openSearchMemberModal} />
-        }
-        isOpen={isSidebarOpen}
-        onOpenChange={setIsSidebarOpen}
-      >
-        {sidebarContent}
-      </Sidebar>
-    </SidebarProvider>
+    <>
+      <SidebarProvider closeSidebar={() => setIsSidebarOpen(false)}>
+        <Sidebar
+          topbarSlot={
+            <SearchMemberTopbarButton onClick={openSearchMemberModal} />
+          }
+          isOpen={isSidebarOpen}
+          onOpenChange={setIsSidebarOpen}
+        >
+          {sidebarContent}
+        </Sidebar>
+      </SidebarProvider>
+      {checkoutModalPortal}
+    </>
   );
 };
 

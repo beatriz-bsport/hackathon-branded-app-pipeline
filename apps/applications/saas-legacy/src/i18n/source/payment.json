@@ -207,6 +207,80 @@
     "dialog": {
       "title": "Payment Syncing Notification",
       "content": "There has been a syncing issue between Stripe and bsport. We are unable to display the details of this payout at the moment. However, rest assured that it will be processed and transferred to your bank account as per the usual procedure. To obtain more information about the amount sent, you can refer to the payment report covering the period between the date of this payout and the previous one."
+    },
+    "loadMore": "Load more",
+    "amountCarryOverFromPreviousPayouts": "Includes {{amount}} carried over from previous failed/cancelled payouts",
+    "reconciliationStatusLabel": "Reconciliation: {{status}}",
+    "reconciliationStatus": {
+      "success": "Success",
+      "pending": "Pending",
+      "error": "Error"
+    },
+    "reconciliationStatusPayout": {
+      "pending": "Reconciliation of balance transactions has not yet started",
+      "processing": "Reconciliation of balance transactions is currently running",
+      "completed": "Reconciliation of balance transactions has been completed",
+      "partially_failed": "Some balance transactions have not been reconciled",
+      "skipped_manual": "Reconciliation of balance transactions has been skipped"
+    },
+    "reconciliationStatusPayoutStatus": {
+      "pending": "Pending",
+      "processing": "Processing",
+      "completed": "Completed",
+      "partially_failed": "Partially failed",
+      "skipped_manual": "Skipped"
+    },
+    "table": {
+      "date": "Date",
+      "amount": "Amount",
+      "transactions": "Transactions",
+      "id": "ID",
+      "status": "Status"
+    },
+    "balanceTransactionTable": {
+      "type": "Type",
+      "paymentMethod": "Payment method",
+      "status": "Status",
+      "amount": "Amount",
+      "invoices": "Invoice(s)"
+    },
+    "balanceTransaction": {
+      "reversalInPayout": "Reversal in payout {{readable_identifier}}",
+      "reversalOf": "Reversal of transaction #{{id}}{{payoutInfo}}",
+      "reversalOfPayoutInfo": " — payout {{readable_identifier}}",
+      "fromPayout": "From payout {{readable_identifier}}",
+      "net": "net {{amount}}"
+    },
+    "summary": {
+      "reconciliation": "Reconciliation status",
+      "payments": "Payments",
+      "refunds": "Refunds",
+      "disputes": "Disputes",
+      "directDebitOriginal": "Direct debit original",
+      "directDebitReversal": "Direct debit reversal",
+      "transfers": "Transfers",
+      "transferRefunds": "Transfer refunds",
+      "adjustments": "Adjustments",
+      "appFees": "App fees",
+      "appFeeRefunds": "App fee refunds",
+      "payoutFailures": "Payout failures",
+      "payoutCancels": "Payout cancels",
+      "title": "Payout summary"
+    },
+    "displayType": {
+      "payment":                     { "label": "Payment",              "description": "A customer payment" },
+      "refund":                      { "label": "Refund",               "description": "A refund issued to a customer" },
+      "dispute":                     { "label": "Dispute",              "description": "A customer-initiated dispute (chargeback)" },
+      "failed_direct_debit_original":{ "label": "Failed direct debit",  "description": "A direct debit that failed to collect" },
+      "failed_direct_debit_reversal":{ "label": "Direct debit reversal","description": "A reversal following a failed direct debit" },
+      "balance_transfer":            { "label": "Transfer",             "description": "A balance transfer" },
+      "balance_transfer_refund":     { "label": "Transfer refund",      "description": "A refund of a balance transfer" },
+      "adjustment":                  { "label": "Adjustment",           "description": "A manual balance adjustment" },
+      "application_fee":             { "label": "App fee",              "description": "A platform fee" },
+      "application_fee_refund":      { "label": "App fee refund",       "description": "A refund of a platform fee" },
+      "payout_failure":              { "label": "Payout failure",       "description": "Funds returned after a failed payout" },
+      "payout_cancel":               { "label": "Payout cancel",        "description": "Funds returned after a cancelled payout" },
+      "other":                       { "label": "Other",                "description": "Another type of balance transaction" }
     }
   },
   "instalment": {

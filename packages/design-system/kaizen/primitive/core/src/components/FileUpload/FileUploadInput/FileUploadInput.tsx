@@ -89,16 +89,17 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
       fileExtensionList: fileExtensionListText,
     } = customTexts;
     return inline ? (
-      <InlineVariant buttonTitle={uploadFileCTA} />
+      <InlineVariant buttonTitle={uploadFileCTA} disabled={disabled ?? false} />
     ) : (
       <DefaultVariant
         dragAndDropFileCTAText={dragAndDropFileCTA}
         fileExtensionListText={fileExtensionListText}
         handleDropFiles={handleAddFilesFromDropzone}
         uploadFileCTAText={uploadFileCTA}
+        disabled={disabled ?? false}
       />
     );
-  }, [inline, customTexts, handleAddFiles, onFileDrop]);
+  }, [inline, customTexts, disabled, handleAddFiles, onFileDrop]);
 
   const { fileExtensionList: fileExtensionListText } = customTexts;
 
@@ -112,7 +113,7 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
         className="hidden"
         type="file"
         id={inputId}
-        aria-disabled={disabled}
+        aria-disabled={disabled ? "true" : "false"}
         disabled={disabled}
         onChange={handleAddFilesFromInput}
         multiple={multiple}

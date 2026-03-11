@@ -1,3 +1,6 @@
+/**
+ * Legacy payout list item (Stripe flow). Used when fs_new_payout_flow is off.
+ */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -37,7 +40,7 @@ type Props = {
   openInvoice?: (uuid: string) => void;
 };
 
-const PayoutListItem: React.FC<Props> = ({
+const PayoutListItemLegacy: React.FC<Props> = ({
   stripePayout,
   isOpen,
   tooglePayoutOpen,
@@ -63,7 +66,7 @@ const PayoutListItem: React.FC<Props> = ({
   );
 
   const handleOpenInvoice = React.useCallback(
-    (invoiceId) => () => openInvoice(invoiceId),
+    (invoiceId: string) => () => openInvoice?.(invoiceId),
     [openInvoice],
   );
 
@@ -153,7 +156,7 @@ const PayoutListItem: React.FC<Props> = ({
         </div>
         <Collapse in={isOpen}>
           <div className={classes.paymentContainer}>
-            {(bsportPayout.payments ?? []).map((p) => (
+            {(bsportPayout.payments ?? []).map((p: any) => (
               <div key={p.id} className={classes.paymentRow}>
                 <div style={{ width: '100%' }}>
                   <PaymentListItemV2 paymentItem={p} />
@@ -275,4 +278,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(PayoutListItem);
+export default React.memo(PayoutListItemLegacy);

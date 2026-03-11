@@ -6,14 +6,15 @@ import { useTranslation } from "#src/utils/i18n";
 
 import type { GiftcardFormData, GiftcardFormMethods } from "../types";
 
-type GiftcardFormExpirationDaysProps = {
+type GiftcardFormPaymentMethodsProps = {
   formId: string;
   methods: GiftcardFormMethods;
+  isSharedGiftcard?: boolean;
 };
 
 export const GiftcardFormPaymentMethods: FC<
-  GiftcardFormExpirationDaysProps
-> = ({ formId, methods }) => {
+  GiftcardFormPaymentMethodsProps
+> = ({ formId, methods, isSharedGiftcard }) => {
   const isHidden = methods.watch("manager_only");
   const { t } = useTranslation("giftcard-details");
 
@@ -27,6 +28,7 @@ export const GiftcardFormPaymentMethods: FC<
       required
       isHidden={isHidden}
       buyableName={t("modelName.plural")}
+      disabled={isSharedGiftcard}
     />
   );
 };

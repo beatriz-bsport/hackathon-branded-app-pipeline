@@ -1394,15 +1394,15 @@ importers:
       '@bsport/store-core-data-member':
         specifier: workspace:*
         version: link:../../../../../packages/stores/core-data/member
+      '@bsport/store-financial-services-invoice':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/financial-services/invoice
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async
       '@bsport/use-pagination-query-params':
         specifier: workspace:*
         version: link:../../../../../packages/utils/query-params/use-pagination
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       luxon:
         specifier: ^3.4.4
         version: 3.5.0
@@ -1422,9 +1422,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../tools/config/federation
+        version: link:../../../../../tools/config/library
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -1598,9 +1598,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../tools/config/federation
+        version: link:../../../../../tools/config/library
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -1959,6 +1959,9 @@ importers:
       '@bsport/datetime-manipulation':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime/manipulation
+      '@bsport/envs':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/envs
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -2105,9 +2108,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../tools/config/federation
+        version: link:../../../../../tools/config/library
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -2260,9 +2263,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
+      '@bsport/config-library':
         specifier: workspace:*
-        version: link:../../../../../../tools/config/federation
+        version: link:../../../../../../tools/config/library
       '@types/luxon':
         specifier: ^3.4.2
         version: 3.4.2
@@ -2419,6 +2422,55 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
 
+  apps/applications/studio-manager/financial-services/payout:
+    dependencies:
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/fetch
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/sm-backbone
+      luxon:
+        specifier: ^3.4.4
+        version: 3.5.0
+      react:
+        specifier: ^19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
+      react-router:
+        specifier: ^7.2.0
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/eslint-react
+      '@bsport/config-library':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/library
+      '@types/luxon':
+        specifier: ^3.4.2
+        version: 3.4.2
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.17))(@types/node@22.13.15)(typescript@5.9.3))
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
+
   apps/applications/studio-manager/host:
     dependencies:
       '@bsport/analytics':
@@ -2445,6 +2497,9 @@ importers:
       '@bsport/intercom':
         specifier: workspace:*
         version: link:../../../../packages/utils/intercom
+      '@bsport/kaizen-business-components':
+        specifier: workspace:*
+        version: link:../../../../packages/design-system/kaizen/business
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
@@ -2463,6 +2518,9 @@ importers:
       '@bsport/sm-email-template':
         specifier: workspace:*
         version: link:../cdp/email-template
+      '@bsport/sm-giftcard':
+        specifier: workspace:*
+        version: link:../buyables/giftcard
       '@bsport/sm-group-activity':
         specifier: workspace:*
         version: link:../booking/group-activity
@@ -2478,9 +2536,18 @@ importers:
       '@bsport/sm-marketing-notification':
         specifier: workspace:*
         version: link:../cdp/marketing-notification
+      '@bsport/sm-member-list':
+        specifier: workspace:*
+        version: link:../core-data/member/member-list
       '@bsport/sm-order':
         specifier: workspace:*
         version: link:../buyables/order
+      '@bsport/sm-pack':
+        specifier: workspace:*
+        version: link:../buyables/pack
+      '@bsport/sm-payout':
+        specifier: workspace:*
+        version: link:../financial-services/payout
       '@bsport/sm-referral-program':
         specifier: workspace:*
         version: link:../cdp/referral-program
@@ -2490,6 +2557,9 @@ importers:
       '@bsport/sm-smartlists':
         specifier: workspace:*
         version: link:../cdp/smartlists
+      '@bsport/sm-tag':
+        specifier: workspace:*
+        version: link:../cdp/tag
       '@bsport/sm-teacher':
         specifier: workspace:*
         version: link:../core-data/teacher
@@ -3951,6 +4021,9 @@ importers:
 
   packages/stores/financial-services/invoice:
     dependencies:
+      '@bsport/api-financial-services':
+        specifier: workspace:*
+        version: link:../../../api/financial-services
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base
@@ -23856,7 +23929,9 @@ snapshots:
       source-map: 0.6.1
       string-length: 2.0.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/reporters@28.1.3(node-notifier@8.0.2)':
     dependencies:
@@ -36209,7 +36284,9 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

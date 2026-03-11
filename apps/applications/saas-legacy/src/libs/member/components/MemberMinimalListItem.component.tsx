@@ -42,6 +42,7 @@ type Props = {
   onEdit?: () => void;
   updateMemberMetricValue: (data: any, options?: any) => void;
   onCheckin: () => void;
+  extraActions?: React.ReactNode;
 };
 
 export const MemberMinimalListItem: React.FC<Props> = ({
@@ -61,6 +62,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   onEdit,
   updateMemberMetricValue,
   onCheckin,
+  extraActions,
 }) => {
   const classes = useStyles();
   const [isMemberProgramDetailDialogOpen, setIsMemberProgramDetailDialogOpen] =
@@ -128,7 +130,8 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   const showVerticalDivider =
     (!!fetchPerformanceTrackingData && !!programList?.length) ||
     !!onEdit ||
-    !!onCheckin;
+    !!onCheckin ||
+    !!extraActions;
 
   return (
     <ObjectLevelPermissionProvider
@@ -202,6 +205,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
                 </IconButton>
               </Tooltip>
             )}
+            {extraActions}
             {!!onEdit && (
               <IconButton onClick={onEdit}>
                 <EditIcon />

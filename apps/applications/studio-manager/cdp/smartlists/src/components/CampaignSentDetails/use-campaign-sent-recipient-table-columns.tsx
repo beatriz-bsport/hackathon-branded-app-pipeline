@@ -24,6 +24,8 @@ export type CampaignSentRecipientTableRowData = {
   recipientPhoneNumber: string;
   recipientEmail: string;
   recipientName: string;
+  recipientAvatar: string;
+  recipientInitials: string;
   lastOpenedDate: string;
   lastOpenedHour: string;
   status: CommunicationRecipientStatus;
@@ -56,8 +58,12 @@ export const useCampaignSentTableColumns = ({
       align: "start",
       render: (row) => (
         <div className="flex flex-row gap-sm items-center">
-          {/* TODO: Add avatar - when the discussion is resolved : https://bsport.slack.com/archives/C092DRALBL1/p1771415975643399 */}
-          <Avatar shape="round" size="md" initials="A" />
+          <Avatar
+            shape="round"
+            size="md"
+            src={row.recipientAvatar}
+            initials={row.recipientInitials}
+          />
           <div className="flex flex-col gap-2xs">
             <Body
               className="max-w-38 overflow-hidden text-ellipsis"

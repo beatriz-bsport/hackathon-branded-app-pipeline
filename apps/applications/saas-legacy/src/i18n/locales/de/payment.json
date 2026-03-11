@@ -207,6 +207,80 @@
     "dialog": {
       "content": "Es gab ein Synchronisationsproblem zwischen Stripe und bsport. Wir können die Details dieser Auszahlung im Moment nicht anzeigen. Sie können jedoch sicher sein, dass der Betrag wie üblich bearbeitet und auf Ihr Bankkonto überwiesen wird. Weitere Informationen über den überwiesenen Betrag können Sie dem Zahlungsbericht entnehmen, der den Zeitraum zwischen dieser und der letzten Auszahlung abdeckt.",
       "title": "Zahlungssynchronisierungsbenachrichtigung"
+    },
+    "loadMore": "",
+    "amountCarryOverFromPreviousPayouts": "",
+    "reconciliationStatusLabel": "",
+    "reconciliationStatus": {
+      "success": "",
+      "pending": "",
+      "error": ""
+    },
+    "reconciliationStatusPayout": {
+      "pending": "",
+      "processing": "",
+      "completed": "",
+      "partially_failed": "",
+      "skipped_manual": ""
+    },
+    "reconciliationStatusPayoutStatus": {
+      "pending": "",
+      "processing": "",
+      "completed": "",
+      "partially_failed": "",
+      "skipped_manual": ""
+    },
+    "table": {
+      "date": "",
+      "amount": "",
+      "transactions": "",
+      "id": "",
+      "status": ""
+    },
+    "balanceTransactionTable": {
+      "type": "",
+      "paymentMethod": "",
+      "status": "",
+      "amount": "",
+      "invoices": ""
+    },
+    "balanceTransaction": {
+      "reversalInPayout": "",
+      "reversalOf": "",
+      "reversalOfPayoutInfo": "",
+      "fromPayout": "",
+      "net": ""
+    },
+    "summary": {
+      "reconciliation": "",
+      "payments": "",
+      "refunds": "",
+      "disputes": "",
+      "directDebitOriginal": "",
+      "directDebitReversal": "",
+      "transfers": "",
+      "transferRefunds": "",
+      "adjustments": "",
+      "appFees": "",
+      "appFeeRefunds": "",
+      "payoutFailures": "",
+      "payoutCancels": "",
+      "title": ""
+    },
+    "displayType": {
+      "payment":                     { "label": "", "description": "" },
+      "refund":                      { "label": "", "description": "" },
+      "dispute":                     { "label": "", "description": "" },
+      "failed_direct_debit_original":{ "label": "", "description": "" },
+      "failed_direct_debit_reversal":{ "label": "", "description": "" },
+      "balance_transfer":            { "label": "", "description": "" },
+      "balance_transfer_refund":     { "label": "", "description": "" },
+      "adjustment":                  { "label": "", "description": "" },
+      "application_fee":             { "label": "", "description": "" },
+      "application_fee_refund":      { "label": "", "description": "" },
+      "payout_failure":              { "label": "", "description": "" },
+      "payout_cancel":               { "label": "", "description": "" },
+      "other":                       { "label": "", "description": "" }
     }
   },
   "instalment": {

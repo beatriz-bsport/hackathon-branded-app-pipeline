@@ -90,4 +90,4 @@ export type Urls = {
   settings_mobilePersonalization: string;
 };
 
-export type LegacyUrls = Omit<Urls, "payout" | "homepage">;
+export type LegacyUrls = Omit<Urls, "homepage">;

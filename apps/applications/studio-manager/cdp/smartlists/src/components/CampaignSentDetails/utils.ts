@@ -6,7 +6,8 @@ import {
 } from "@bsport/datetime-formatting";
 
 import { CommunicationKind } from "#src/api/constants";
-import type { CampaignRecipient } from "#src/api/types";
+import type { CampaignRecipientWithMemberData } from "#src/api/types";
+import { getMemberInitialsFromFullName } from "#src/utils/memberUtils";
 
 import { CampaignSentRecipientTableRowData } from "./use-campaign-sent-recipient-table-columns";
 
@@ -21,7 +22,7 @@ function formatCampaignSentRecipientsTableRow({
   campaignKind,
   defaultEmptyDate,
 }: {
-  campaignRecipientList: CampaignRecipient[];
+  campaignRecipientList: CampaignRecipientWithMemberData[];
   campaignKind: CommunicationKind;
   defaultEmptyDate: string;
 }): CampaignSentRecipientTableRowData[] {
@@ -43,8 +44,9 @@ function formatCampaignSentRecipientsTableRow({
       memberId: recipient.member,
       recipientPhoneNumber: recipient.phonenumber,
       recipientEmail: recipient.email,
-      // TODO: Add recipient name - when the discussion is resolved : https://bsport.slack.com/archives/C092DRALBL1/p1771415975643399
-      recipientName: recipient.email,
+      recipientAvatar: recipient.avatar,
+      recipientInitials: getMemberInitialsFromFullName(recipient.full_name),
+      recipientName: recipient.full_name,
       lastOpenedDate: lastOpenedDate,
       lastOpenedHour: lastOpenedHour,
       status: recipient.status,

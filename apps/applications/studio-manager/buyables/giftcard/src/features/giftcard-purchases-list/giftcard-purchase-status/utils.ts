@@ -1,11 +1,11 @@
-import type { ConsumerGiftcard } from "@bsport/api-buyables";
 import { isPast } from "@bsport/datetime-manipulation";
 
+import type { GiftcardPurchase } from "../types";
 import type { GiftcardPurchaseStatus } from "./types";
 
 // CF decision tree: https://www.figma.com/board/by89KKY66udePz6d5WJbKE/States-graphes?node-id=0-1&p=f&t=OtTb48RqXPTTSe0G-0
 export function getStatusFromPurchasedGiftcard(
-  purchasedGiftcard: ConsumerGiftcard<number, unknown, unknown>,
+  purchasedGiftcard: GiftcardPurchase,
 ): GiftcardPurchaseStatus {
   if (purchasedGiftcard.reverted) {
     return "cancelled";

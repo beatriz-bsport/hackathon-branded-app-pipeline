@@ -14,7 +14,7 @@ const MaterialUISelectorPayout: React.FC<MaterialUISelectorPayoutProps> = ({
   defaultPayout,
   fetchIncrementalPayoutList,
   resetIncrementalPayouList,
-  fetchPayoutList,
+  fetchPayoutListLegacy,
   ...muiSelectProps
 }) => {
   const classes = useStyles();
@@ -26,13 +26,17 @@ const MaterialUISelectorPayout: React.FC<MaterialUISelectorPayoutProps> = ({
       page_size: 10,
     });
     if (value?.length > 0) {
-      fetchPayoutList({
+      fetchPayoutListLegacy({
         page_size: 300,
         id__in: value,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchIncrementalPayoutList, resetIncrementalPayouList, fetchPayoutList]);
+  }, [
+    fetchIncrementalPayoutList,
+    resetIncrementalPayouList,
+    fetchPayoutListLegacy,
+  ]);
 
   const handleFetch = useCallback(
     (page: number, search: string) => {

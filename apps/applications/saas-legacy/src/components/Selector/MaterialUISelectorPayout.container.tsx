@@ -4,12 +4,12 @@ import { compose } from 'recompose';
 import {
   resetIncrementalPayouList as resetIncrementalPayouListAction,
   fetchIncrementalPayoutList as fetchIncrementalPayoutListAction,
-  fetchPayoutList as fetchPayoutListAction,
+  fetchPayoutListLegacy as fetchPayoutListLegacyAction,
 } from '#src/libs/payment/actions';
 
 import {
   getIncrementalPayoutList,
-  getPayoutList,
+  getPayoutLegacyList,
 } from '#src/libs/payment/selectors';
 import { RootState } from '../../reducers';
 import MaterialUISelectorPayout from './MaterialUISelectorPayout.component';
@@ -29,12 +29,12 @@ const connector = connect(
 
     isLoading: state.paymentBackend.incrementalPayout.loading,
     nextPage: state.paymentBackend.incrementalPayout.nextPage,
-    defaultPayout: getPayoutList(state),
+    defaultPayout: getPayoutLegacyList(state),
   }),
   {
     resetIncrementalPayouList: resetIncrementalPayouListAction,
     fetchIncrementalPayoutList: fetchIncrementalPayoutListAction,
-    fetchPayoutList: fetchPayoutListAction,
+    fetchPayoutListLegacy: fetchPayoutListLegacyAction,
   },
 );
 

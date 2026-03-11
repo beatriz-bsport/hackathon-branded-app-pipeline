@@ -27,23 +27,24 @@ const GroupActivities = lazy(() => import("@bsport/sm-group-activity"));
 const Session = lazy(() => import("@bsport/sm-session"));
 
 // ----- Buyables -----
-const Giftcard = lazy(() => import("sm-giftcard/App"));
+const Giftcard = lazy(() => import("@bsport/sm-giftcard"));
 const Order = lazy(() => import("@bsport/sm-order"));
-const Pack = lazy(() => import("sm-pack/App"));
+const Pack = lazy(() => import("@bsport/sm-pack"));
 
 // ----- Core-data -----
-const MemberList = lazy(() => import("sm-member-list/App"));
+const MemberList = lazy(() => import("@bsport/sm-member-list"));
 const Teacher = lazy(() => import("@bsport/sm-teacher"));
 
 // ----- Financial Services -----
 const Invoice = lazy(() => import("@bsport/sm-invoice"));
+const Payout = lazy(() => import("@bsport/sm-payout"));
 
 // ----- Customer Data Platform -----
 const EmailTemplate = lazy(() => import("@bsport/sm-email-template"));
 const Smartlists = lazy(() => import("@bsport/sm-smartlists"));
 const CustomForm = lazy(() => import("@bsport/sm-custom-form"));
 const ReferralProgram = lazy(() => import("@bsport/sm-referral-program"));
-const Tag = lazy(() => import("sm-tag/App"));
+const Tag = lazy(() => import("@bsport/sm-tag"));
 const TransactionalNotification = lazy(
   () => import("@bsport/sm-transactional-notification"),
 );
@@ -232,6 +233,7 @@ const AuthenticatedRoutes = () => {
 
     /* ----- Financial Services ----- */
     { url: urls.invoice, element: <Invoice /> },
+    { url: urls.payout, element: <Payout /> },
 
     /* ----- Customer Data Platform ----- */
     { url: urls.customForm, element: <CustomForm /> },

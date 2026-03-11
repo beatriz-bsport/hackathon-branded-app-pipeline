@@ -26,7 +26,7 @@ export type TableRowData = {
   status: GiftcardPurchaseStatus;
 
   buyer: PersonCell;
-  recipient: PersonCell | null;
+  recipient: PersonCell;
 
   expiryDate: string | null; // string from backend, not formatted
   /** The initial value of the giftcard */
@@ -36,4 +36,7 @@ export type TableRowData = {
 
   /** If it's a printable card, its code, else null */
   printableCode: string | null;
+
+  onRowClick: () => void;
+  isActive: boolean;
 };

@@ -70,7 +70,7 @@
           "go_to_settings": "Ga naar Instellingen",
           "complete_stripe_onboarding": "Voltooi Stripe-onboarding",
           "legal_identifier_required": "Factuurnummers vereist",
-          "legal_identifier_description": "Praat met je accountmanager om factuuridentificaties voor Sign-ES in te stellen."
+          "legal_identifier_description": "Stel factuuridentificaties in voor Sign-ES door dit <0>hulpblad</0> te volgen."
         }
       },
       "active": {

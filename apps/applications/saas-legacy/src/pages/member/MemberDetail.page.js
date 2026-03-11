@@ -380,6 +380,7 @@ export class MemberDetail extends React.Component<Props> {
         (typeof window !== 'undefined' && window.location.search) || '';
       const params = new URLSearchParams(existingSearch);
       params.set('cfOpen', '');
+      params.set('cfTrigger', 'member_profile_page');
       params.set('memberId', this.props.id);
       this.props.pushRouter(`${this.props.pathname}?${params.toString()}`);
     } else {

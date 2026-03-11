@@ -16,6 +16,7 @@ import { MemberAndBillingGroupCard } from "#src/components/core/checkout-flow-mo
 import { i18nInstance, i18nNamespacePrefix, useTranslation } from "#src/i18n";
 
 import { AddItemSection } from "./add-item-section";
+import { CheckoutFlowTrackingProvider } from "./checkout-flow-tracking-context";
 import {
   ADD_ITEM_DEFAULT,
   DEFAULT_FORM_DATA,
@@ -29,6 +30,7 @@ import {
   SummaryTitle,
 } from "./summary-section";
 import type { CheckoutFlowModalProps } from "./types";
+import { useCheckoutFlowTracking } from "./use-checkout-flow-tracking";
 import { useCreateInvoice } from "./use-create-invoice";
 import { useInvoiceConfiguration } from "./use-invoice-configuration";
 
@@ -42,6 +44,9 @@ import { useInvoiceConfiguration } from "./use-invoice-configuration";
  * @param onClose - Called when user closes the modal
  * @param onError - Use for side-effects only (logging, analytics). Component already shows an error toast.
  * @param onSubmit - Called on success with form data and invoice UUID
+ * @param onTrack - Track function to emit checkout flow events
+ * @param startContext - Optional context for how the flow was opened (navbar, member profile, offer page)
+ * @param basketSessionId - Optional pre-generated basket session ID; one is generated when the modal opens if not provided
  */
 export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
   companyId,
@@ -51,6 +56,9 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
   onClose,
   onError,
   onSubmit,
+  onTrack,
+  startContext,
+  basketSessionId: externalBasketSessionId,
 }: CheckoutFlowModalProps) => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
   const formId = `checkout-flow-modal-${useId()}`;
@@ -64,6 +72,7 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
   const summaryCollapseSetOpenRef = useRef<
     ((value: boolean | ((prev: boolean) => boolean)) => void) | null
   >(null);
+  const hasTrackedDropRef = useRef(false);
   const { isDiscountReasonRequired } = useInvoiceConfiguration(fetch);
 
   const methods = useFormController({
@@ -75,6 +84,20 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
       ...GIFTCARD_FIELDS_DEFAULT,
     },
   });
+
+  const { track } = useCheckoutFlowTracking({
+    isOpen,
+    memberId,
+    startContext,
+    onTrack,
+    externalBasketSessionId,
+  });
+
+  useEffect(() => {
+    if (isOpen) {
+      hasTrackedDropRef.current = false;
+    }
+  }, [isOpen]);
 
   const { formState, setValue, watch } = methods;
   const { isDirty, isSubmitting, isValid, errors } = formState;
@@ -129,7 +152,49 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
     onError: handleCreateInvoiceError,
     onSubmit,
   });
-  const handleFormSubmit = () => mutateAsync(methods.getValues());
+
+  const handleFormSubmit = async () => {
+    const formData = methods.getValues();
+    const formItems = formData.items ?? [];
+    const rawFootnote = formData.footnote ?? "";
+    const trimmedFootnote = rawFootnote.trim();
+    const hasFootnote = trimmedFootnote.length > 0;
+
+    const completionPayload = {
+      basket_completion_trigger: "confirm" as const,
+      member_id: formData.member?.id ?? null,
+      nb_of_promo_code_applied: formData.promoCodes.length,
+      total_item_quantity: formItems.reduce(
+        (sum, item) => sum + item.quantity,
+        0,
+      ),
+      billing_group_id_selected: formData.establishmentBillingGroupId ?? null,
+      service_date: formData.passActivationDate?.toISOString(),
+      total_basket_price: formItems.reduce(
+        (sum, item) => sum + item.priceCts * item.quantity,
+        0,
+      ),
+      has_footnote: hasFootnote,
+      footnote_length: hasFootnote ? trimmedFootnote.length : undefined,
+    };
+
+    try {
+      const invoice = await mutateAsync(formData);
+      track("checkout_flow_completion", {
+        ...completionPayload,
+        invoice_creation_success: true,
+        invoice_id: invoice.uuid,
+      });
+      hasTrackedDropRef.current = true;
+    } catch (error) {
+      track("checkout_flow_completion", {
+        ...completionPayload,
+        invoice_creation_success: false,
+        invoice_creation_error:
+          error instanceof Error ? error.message : String(error),
+      });
+    }
+  };
 
   const handleFetchMember = async (id: number) => {
     return getMember(fetch, { memberId: id });
@@ -179,7 +244,43 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
     setValue("isDiscountReasonRequired", isDiscountReasonRequired);
   }, [isDiscountReasonRequired, setValue]);
 
-  const handleClose = () => {
+  const trackDrop = useCallback(
+    (cancelTrigger: "cancel_button" | "cross_button" | "escape_key") => {
+      if (hasTrackedDropRef.current) return;
+      hasTrackedDropRef.current = true;
+
+      const snapshot = methods.getValues();
+      const snapshotItems = snapshot.items ?? [];
+      const cancelPayload = {
+        member_id: snapshot.member?.id ?? null,
+        total_item_quantity: snapshotItems.reduce(
+          (sum, item) => sum + item.quantity,
+          0,
+        ),
+        nb_of_promo_code_applied: snapshot.promoCodes.length,
+        billing_group_id_selected: snapshot.establishmentBillingGroupId ?? null,
+        service_date: snapshot.passActivationDate?.toISOString(),
+        total_basket_price: snapshotItems.reduce(
+          (sum, item) => sum + item.priceCts * item.quantity,
+          0,
+        ),
+      };
+      if (cancelTrigger === "cancel_button") {
+        track("checkout_flow_cancel_button_clicked", cancelPayload);
+      } else if (cancelTrigger === "cross_button") {
+        track("checkout_flow_cross_button_clicked", cancelPayload);
+      } else {
+        track("checkout_flow_escape_key_button_clicked", cancelPayload);
+      }
+      track("checkout_flow_pay_cancel", {
+        ...cancelPayload,
+        basket_cancel_trigger: cancelTrigger,
+      });
+    },
+    [methods, track],
+  );
+
+  const handleClose = useCallback(() => {
     methods.reset({
       ...DEFAULT_FORM_DATA,
       ...ADD_ITEM_DEFAULT,
@@ -190,7 +291,22 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
     setIsMemberSelectorOpen(false);
     setIsFootnoteModalOpen(false);
     onClose?.();
-  };
+  }, [methods, isDiscountReasonRequired, fetchedMember, onClose]);
+
+  const handleCancelClose = useCallback(() => {
+    trackDrop("cancel_button");
+    handleClose();
+  }, [trackDrop, handleClose]);
+
+  const handleCrossClose = useCallback(() => {
+    trackDrop("cross_button");
+    handleClose();
+  }, [trackDrop, handleClose]);
+
+  const handleEscapeOrGenericClose = useCallback(() => {
+    trackDrop("escape_key");
+    handleClose();
+  }, [trackDrop, handleClose]);
 
   const handleMemberSelect = (selectedMember: Member) => {
     hasAutoOpenedMemberSelectorRef.current = false;
@@ -200,9 +316,16 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
     });
     fetchMember(selectedMember.id);
     setIsMemberSelectorOpen(false);
+    track("checkout_flow_member_search_member_selected", {
+      member_id: selectedMember.id,
+    });
   };
 
   const handleOpenMemberSelector = () => {
+    const member = methods.getValues().member;
+    track("checkout_flow_member_edit_button_clicked", {
+      member_id: member?.id,
+    });
     setIsMemberSelectorOpen(true);
   };
 
@@ -219,14 +342,14 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
   };
 
   return (
-    <>
+    <CheckoutFlowTrackingProvider track={track}>
       <Modal
         open={isOpen}
         size="lg"
         className="h-[90%]"
         title={t("checkoutFlowModal.title")}
-        onClose={handleClose}
-        onCloseButtonClick={handleClose}
+        onClose={handleEscapeOrGenericClose}
+        onCloseButtonClick={handleCrossClose}
         onClickOutside={() => {}}
         confirmButton={{
           color: "main",
@@ -237,7 +360,7 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
         }}
         cancelButton={{
           label: t("checkoutFlowModal.cancel"),
-          onClick: handleClose,
+          onClick: handleCancelClose,
         }}
       >
         <ControlledForm
@@ -287,7 +410,14 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
                 header={<SummaryTitle />}
                 headerActions={
                   <SummaryFootnoteButton
-                    onAddFootnoteClick={() => setIsFootnoteModalOpen(true)}
+                    onAddFootnoteClick={() => {
+                      track("checkout_flow_add_footnote_button_clicked", {
+                        has_footnote: false,
+                        footnote_length: undefined,
+                        member_id: methods.getValues().member?.id,
+                      });
+                      setIsFootnoteModalOpen(true);
+                    }}
                   />
                 }
                 setOpenRef={summaryCollapseSetOpenRef}
@@ -310,7 +440,14 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
               </div>
               <div className="flex flex-col flex-1 gap-md">
                 <SummaryTitle
-                  onAddFootnoteClick={() => setIsFootnoteModalOpen(true)}
+                  onAddFootnoteClick={() => {
+                    track("checkout_flow_add_footnote_button_clicked", {
+                      has_footnote: false,
+                      footnote_length: undefined,
+                      member_id: methods.getValues().member?.id,
+                    });
+                    setIsFootnoteModalOpen(true);
+                  }}
                 />
                 <SummarySection
                   fetch={fetch}
@@ -330,6 +467,6 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
         onSelect={handleMemberSelect}
         onOpenProfile={handleOpenMemberProfile}
       />
-    </>
+    </CheckoutFlowTrackingProvider>
   );
 };

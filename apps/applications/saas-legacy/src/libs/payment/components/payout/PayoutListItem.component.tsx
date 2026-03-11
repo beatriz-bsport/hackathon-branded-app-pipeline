@@ -113,7 +113,7 @@ const PayoutListItem: React.FC<Props> = ({
   );
 
   const dateFormatted = formatAsDate(
-    payout.payment_provider_created_at,
+    payout.payment_provider_date_created,
     timezoneName,
   );
   const amountDisplay = getCurrencyDisplayWithPrice(

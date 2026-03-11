@@ -78,7 +78,6 @@ export type Payout = {
   company: number;
   _payment_backend_id: string;
   date_created: string;
-  payment_provider_created_at: string;
   amount_cts: number;
   readable_identifier: string;
   status: number;
@@ -107,6 +106,7 @@ export type Payout = {
   application_fee_refund_count: number;
   payout_failure_count: number;
   payout_cancel_count: number;
+  payment_provider_date_created: string;
 };
 
 export type PayoutListResponse = {

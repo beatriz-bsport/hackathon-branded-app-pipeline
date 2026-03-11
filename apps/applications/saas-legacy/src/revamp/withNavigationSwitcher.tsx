@@ -37,6 +37,7 @@ export function withNavigationSwitcher(
             <Drawer
               anchor="left"
               ModalProps={{
+                keepMounted: true,
                 style: {
                   zIndex: COMPATIBILITY_Z_INDEX,
                 },

@@ -15,8 +15,10 @@ import {
   useEmptyState,
 } from "@bsport/kaizen-primitive-core";
 
+import { useCheckoutFlowTrack } from "#src/components/core/checkout-flow-modal/checkout-flow-tracking-context";
 import { FootnoteModal } from "#src/components/core/checkout-flow-modal/footnote-modal";
 import type { CheckoutFlowFormState } from "#src/components/core/checkout-flow-modal/schema";
+import type { FootnoteCloseReason } from "#src/components/core/checkout-flow-modal/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
 import { SummaryItemRow } from "./summary-item-row";
@@ -40,6 +42,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
   setIsFootnoteModalOpen,
 }) => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
+  const track = useCheckoutFlowTrack();
   const { watch, setValue } = useFormContext<CheckoutFlowFormState>();
   const passesDatePickerId = useId();
 
@@ -76,7 +79,24 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
     };
   }, [items]);
 
+  const member = watch("member");
+
   const handleItemDelete = (itemIndex: number) => {
+    const item = items[itemIndex];
+    if (item) {
+      track("checkout_flow_item_delete_button_clicked", {
+        item_type: item.type,
+        item_id: item.buyableItemId,
+        item_name: item.itemName,
+        item_price: item.priceCts,
+        item_quantity: item.quantity,
+        manual_discount_percentage:
+          item.discountPercent > 0 ? item.discountPercent : undefined,
+        manual_discount_amount:
+          item.discountAmountCts > 0 ? item.discountAmountCts : undefined,
+        member_id: member?.id,
+      });
+    }
     const newItems = items.filter((_, index) => index !== itemIndex);
     setValue("items", newItems, { shouldDirty: true });
 
@@ -93,19 +113,61 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
     promoCodeDiscountCts,
   );
 
-  const handleCloseFootnoteModal = () => {
+  const handleCloseFootnoteModal = (reason?: FootnoteCloseReason) => {
+    const currentFootnote = footnote ?? "";
+    const trimmed = currentFootnote.trim();
+    const hasFootnoteValue = trimmed.length > 0;
+    const footnoteLength = hasFootnoteValue ? trimmed.length : undefined;
+
+    if (reason === "cancel") {
+      track("checkout_flow_footnote_cancel_button_clicked", {
+        has_footnote: hasFootnoteValue,
+        footnote_length: footnoteLength,
+        member_id: member?.id,
+      });
+    } else if (reason === "cross") {
+      track("checkout_flow_footnote_cross_button_clicked", {
+        has_footnote: hasFootnoteValue,
+        footnote_length: footnoteLength,
+        member_id: member?.id,
+      });
+    } else if (reason === "escape") {
+      track("checkout_flow_footnote_escape_key_button_clicked", {
+        has_footnote: hasFootnoteValue,
+        footnote_length: footnoteLength,
+        member_id: member?.id,
+      });
+    }
     setIsFootnoteModalOpen(false);
   };
 
   const handleSaveFootnote = (value: string) => {
     const trimmed = value.trim();
+    const hasFootnoteValue = trimmed.length > 0;
+    const footnoteLength = hasFootnoteValue ? trimmed.length : undefined;
+
     setValue("footnote", trimmed === "" ? null : trimmed, {
       shouldDirty: true,
+    });
+    track("checkout_flow_footnote_save_button_clicked", {
+      has_footnote: hasFootnoteValue,
+      footnote_length: footnoteLength,
+      member_id: member?.id,
     });
     setIsFootnoteModalOpen(false);
   };
 
   const handleDeleteFootnote = () => {
+    const currentFootnote = footnote ?? "";
+    const trimmed = currentFootnote.trim();
+    const hasFootnoteValue = trimmed.length > 0;
+    const footnoteLength = hasFootnoteValue ? trimmed.length : undefined;
+
+    track("checkout_flow_footnote_delete_button_clicked", {
+      has_footnote: hasFootnoteValue,
+      footnote_length: footnoteLength,
+      member_id: member?.id,
+    });
     setValue("footnote", null, { shouldDirty: true });
     setIsFootnoteModalOpen(false);
   };
@@ -179,7 +241,17 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                   size="md"
                   icon="edit-02"
                   label={t("checkoutFlowModal.editItem")}
-                  onClick={() => setIsFootnoteModalOpen(true)}
+                  onClick={() => {
+                    track("checkout_flow_footnote_edit_button_clicked", {
+                      has_footnote: hasFootnote,
+                      footnote_length:
+                        hasFootnote && footnote
+                          ? footnote.trim().length || undefined
+                          : undefined,
+                      member_id: member?.id,
+                    });
+                    setIsFootnoteModalOpen(true);
+                  }}
                 />
               </div>
             </div>

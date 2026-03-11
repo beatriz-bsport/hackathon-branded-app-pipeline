@@ -45,6 +45,14 @@ const queryClient = new QueryClient();
       setIsOpen(false);
     }}
     memberId={MEMBER_ID}
+    startContext={{
+      basket_start_trigger: "navbar",
+      origin_url: window.location.href,
+    }}
+    onTrack={(eventName, properties) => {
+      // send to Mixpanel or your analytics
+      analytics.track(eventName, properties);
+    }}
   />
 </QueryClientProvider>
 `;
@@ -86,6 +94,14 @@ const meta: Meta<typeof CheckoutFlowModal> = {
             setIsOpen(false);
           }}
           memberId={MEMBER_ID}
+          startContext={{
+            basket_start_trigger: "member_profile_page",
+            origin_url:
+              typeof window !== "undefined" ? window.location.href : undefined,
+          }}
+          onTrack={(eventName, properties) => {
+            window.console.log("[CheckoutFlow] track", eventName, properties);
+          }}
         />
       </QueryClientProvider>
     );
@@ -130,6 +146,14 @@ export const WithoutMemberId: Story = {
             window.console.log("Created invoice:", invoiceUuid, data);
             setIsOpen(false);
           }}
+          startContext={{
+            basket_start_trigger: "navbar",
+            origin_url:
+              typeof window !== "undefined" ? window.location.href : undefined,
+          }}
+          onTrack={(eventName, properties) => {
+            window.console.log("[CheckoutFlow] track", eventName, properties);
+          }}
         />
       </QueryClientProvider>
     );
@@ -167,6 +191,9 @@ export const Documentation: Story = {
 | \`onClose\` | Called when the modal is closed (cancel or outside click) |
 | \`onError\` | Called when an error occurs during submit or configuration |
 | \`onSubmit\` | Called with \`(data: CheckoutFlowFormData, invoiceUuid: string)\` when the invoice is created successfully |
+| \`startContext\` | \`{ basket_start_trigger: 'navbar' \\| 'member_profile_page' \\| 'offer_page'; origin_url?: string }\` — how the flow was opened (for analytics) |
+| \`onTrack\` | \`(eventName: string, properties: Record<string, unknown>) => void\` — callback for checkout flow analytics events |
+| \`basketSessionId\` | Optional session ID; if omitted, one is generated when the modal opens |
         `,
       },
     },

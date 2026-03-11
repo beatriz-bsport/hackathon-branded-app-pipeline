@@ -23,6 +23,7 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/analytics": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/envs": "workspace:*",

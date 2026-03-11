@@ -5,6 +5,9 @@
   "description": "Application for studio managers to manage sessions",
   "author": "Elisabeth <elisabeth@bsport.io>",
   "type": "module",
+  "imports": {
+    "#src/*": "./src/*"
+  },
   "exports": {
     ".": {
       "types": "./build/lib.es.d.ts",

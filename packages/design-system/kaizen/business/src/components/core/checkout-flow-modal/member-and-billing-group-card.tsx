@@ -15,6 +15,7 @@ import {
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
+import { useCheckoutFlowTrack } from "#src/components/core/checkout-flow-modal/checkout-flow-tracking-context";
 import type { CheckoutFlowFormState } from "#src/components/core/checkout-flow-modal/schema";
 import { useEstablishmentBillingGroups } from "#src/components/core/checkout-flow-modal/use-establishment-billing-groups";
 import { i18nInstance, useTranslation } from "#src/i18n";
@@ -31,6 +32,7 @@ export const MemberAndBillingGroupCard: React.FC<
   MemberAndBillingGroupCardProps
 > = ({ companyId, fetch, member, onEditClick, className }) => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
+  const track = useCheckoutFlowTrack();
   const { watch, setValue, formState } =
     useFormContext<CheckoutFlowFormState>();
   const billingGroupSelectId = useId();
@@ -124,11 +126,16 @@ export const MemberAndBillingGroupCard: React.FC<
                   : undefined
               }
               onChange={(optionId) => {
-                setValue(
-                  "establishmentBillingGroupId",
-                  optionId ? Number(optionId) : null,
-                  { shouldDirty: true },
-                );
+                const newId = optionId ? Number(optionId) : null;
+                setValue("establishmentBillingGroupId", newId, {
+                  shouldDirty: true,
+                });
+                if (newId != null) {
+                  track("checkout_flow_billing_group_selected", {
+                    billing_group_id_selected: newId,
+                    member_id: member?.id,
+                  });
+                }
               }}
               required
               loadingProps={{

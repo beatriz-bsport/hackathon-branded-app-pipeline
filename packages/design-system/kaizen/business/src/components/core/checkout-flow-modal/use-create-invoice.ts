@@ -1,9 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import {
-  createInvoiceAPI,
-  updateInvoiceFooterAPI,
-} from "@bsport/api-financial-services";
+import { createInvoiceAPI } from "@bsport/api-financial-services";
 import type {
   CreateInvoiceBuyableItem,
   CreateInvoiceGiftcardConfig,
@@ -114,6 +111,7 @@ const mapFormDataToCreateInvoiceRequest = (
     establishment_billing_group: data.establishmentBillingGroupId ?? undefined,
     giftcard_config_list:
       giftcard_config_list.length > 0 ? giftcard_config_list : undefined,
+    custom_footer: data.footnote?.trim() ?? undefined,
   };
 };
 
@@ -127,23 +125,11 @@ export const useCreateInvoice = (options: UseCreateInvoiceOptions) => {
   const queryClient = useQueryClient();
   const { fetch: fetchInstance, onError, onSubmit } = options;
   const createInvoice = createInvoiceAPI.bind(null, fetchInstance);
-  const updateFooter = updateInvoiceFooterAPI.bind(null, fetchInstance);
 
   return useMutation<CreateInvoiceResponse, Error, CheckoutFlowFormData>({
     mutationFn: async (data) => {
       const payload = mapFormDataToCreateInvoiceRequest(data);
-      const invoice = await createInvoice(payload);
-
-      // TODO: Update backend create invoice endpoint to accept footnote in the payload
-      if (data.footnote?.trim()) {
-        try {
-          await updateFooter(invoice.uuid, data.footnote.trim());
-        } catch (error) {
-          onError?.(error as Error);
-        }
-      }
-
-      return invoice;
+      return createInvoice(payload);
     },
     onSuccess: (invoice, data) => {
       queryClient.invalidateQueries({ queryKey: [INVOICES_QUERY_KEY] });

@@ -2,24 +2,15 @@
 
 set -eE
 
-# List of applications to deploy
-# Check if second argument is provided (SM_AFFECTED_PROJECTS)
-if [ -n "$2" ]; then
-  # Use the provided list of affected projects
-  echo "Using provided list of affected projects"
-  # Convert literal \n to actual newlines
-  APPLICATIONS=$(echo "$2" | sed "s/,/\n/g")
+# Clean provided list (2nd arg) by converting literal \n to comma separator
+APPLICATIONS=$(echo $(printf "%b" "$2") | sed "s/ /,/g")
 
-  # Always include sm-host to ensure release SHA is injected into index.html
-  if ! echo "$APPLICATIONS" | grep -q "@bsport/sm-host"; then
-    echo "Adding @bsport/sm-host to deploy list for release SHA injection"
-    APPLICATIONS="@bsport/sm-host
+# Always include sm-host to ensure release SHA can be injected during deployment of MFE
+# Example: when sm-navigation-sidebar only is affected 
+if ! echo "$APPLICATIONS" | grep -q "@bsport/sm-host"; then
+  echo "Adding @bsport/sm-host to build list for release SHA injection"
+  APPLICATIONS="@bsport/sm-host
 $APPLICATIONS"
-  fi
-else
-  # Fall back to the fixed list of applications from apps.txt
-  echo "Using fixed list of applications from apps.txt"
-  APPLICATIONS=$(cat ./scripts/apps.txt)
 fi
 
 echo "*"

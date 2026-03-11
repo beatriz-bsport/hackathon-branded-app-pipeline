@@ -49,9 +49,6 @@
   },
   "federation": {
     "devPort": 4251,
-    "exposes": {
-      "./App": "./src/App"
-    },
     "remotes": {
       "sm-navigation-sidebar": {
         "devPort": 4050,
@@ -61,7 +58,8 @@
   },
   "nx": {
     "tags": [
-      "scope:studio"
+      "scope:studio",
+      "postinstall"
     ]
   }
 }

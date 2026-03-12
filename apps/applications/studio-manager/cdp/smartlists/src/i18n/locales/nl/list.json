@@ -37,7 +37,6 @@
       "duplicated": "Smartlist gedupliceerd",
       "open": "Open",
       "saved": "Smartlist bijgewerkt",
-      "created": "Smartlist aangemaakt",
       "deleted": "Smartlist verwijderd",
       "undo": "Ongedaan maken",
       "actionUndone": "Wijziging ongedaan gemaakt"
@@ -66,7 +65,6 @@
   },
   "createForm": {
     "title": "Maak Smartlist aan",
-    "subtitle": "Toevoegen een naam en beschrijving aan deze Smartlist zodat je deze later kunt terugvinden.",
     "actions": {
       "create": "Maken",
       "cancel": "Sluiten"
@@ -87,12 +85,10 @@
     },
     "actions": {
       "save": "Opslaan",
-      "cancel": "Sluiten",
-      "create": "Creëer"
+      "cancel": "Sluiten"
     },
     "title": {
-      "edit": "Bewerk Smartlist",
-      "add": "Maak Smartlist aan"
+      "edit": "Bewerk Smartlist"
     }
   }
 }

@@ -167,7 +167,8 @@
         "lastname": "Nombre estudiante",
         "firstname": "Nombre estudiante",
         "reset_password_url": "Enlace para restablecer la contraseña",
-        "email_confirmation_url": "Enlace de confirmación de correo electrónico"
+        "email_confirmation_url": "Enlace de confirmación de correo electrónico",
+        "marketing_email_double_opt_in_url": "Enlace de doble confirmación para correos de marketing"
       },
       "name": "Miembro"
     },
@@ -278,7 +279,8 @@
       "giftcard_message": "Mensaje de la tarjeta regalo",
       "giftcard_value": "Valor de la tarjeta regalo",
       "manage_changing_email_link": "Enlace de gestión de cambios de e-mail",
-      "pdf_link": "Enlace PDF de la tarjeta regalo"
+      "pdf_link": "Enlace PDF de la tarjeta regalo",
+      "marketing_email_double_opt_in_url": "Enlace de doble confirmación para correos de marketing"
     },
     "SpiviPerformance": {
       "tags": {

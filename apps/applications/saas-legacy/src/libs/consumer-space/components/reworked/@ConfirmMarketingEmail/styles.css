@@ -1,0 +1,68 @@
+.bs-confirm-marketing-email__container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--bs-space-size-6);
+  padding: 0 var(--bs-space-size-4);
+}
+
+.bs-confirm-marketing-email__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--bs-space-size-4);
+  max-width: 500px;
+  padding-left: var(--bs-space-size-8);
+  padding-right: var(--bs-space-size-8);
+  padding-top: var(--bs-space-size-6);
+  padding-bottom: var(--bs-space-size-8);
+}
+
+.bs-confirm-marketing-email__company-logo__container {
+  position: relative;
+}
+
+.bs-confirm-marketing-email__company-logo__wrapper {
+  position: relative;
+  padding-bottom: 56.2%;
+  text-align: start;
+  display: flex;
+  justify-content: center;
+  width: var(--bs-icon-size-3xl);
+}
+
+.bs-confirm-marketing-email__company-logo {
+  position: absolute;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.bs-confirm-marketing-email__title {
+  align-items: center;
+}
+
+.bs-confirm-marketing-email__subtitle {
+  color: var(--bs-color-text-default);
+  text-align: center;
+}
+
+.bs-confirm-marketing-email__divider {
+  width: 80%;
+  border: none;
+  border-top: 1px solid var(--bs-color-border-default);
+  margin: 0;
+}
+
+.bs-confirm-marketing-email__redirect {
+  color: var(--bs-color-text-default);
+  text-align: center;
+}
+
+.bs-confirm-marketing-email__footer {
+  color: var(--bs-color-text-tertiary, var(--bs-grey-600));
+  text-align: center;
+}

@@ -1,0 +1,14 @@
+{
+  "confirmMarketingEmail": {
+    "success": {
+      "title": "Subscription confirmed",
+      "text": "Your email address is now confirmed for marketing emails from {{companyName}}."
+    },
+    "error": {
+      "title": "Something went wrong",
+      "text": "We couldn't confirm your subscription. Please try again, or reach out to your studio for help."
+    },
+    "redirectToWebsite": "Redirecting to their website in {{ countdown }} seconds...",
+    "footer": "You can manage your communication preferences at any time from your member profile."
+  }
+}

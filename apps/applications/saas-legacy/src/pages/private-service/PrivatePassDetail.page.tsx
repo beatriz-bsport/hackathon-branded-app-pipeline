@@ -111,7 +111,10 @@ import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericRespon
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { setGenericFilterValue } from '#src/libs/payment-packs/utils';
 import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import {
+  getAllTagsWithTagGroup,
+  withEligibilityTags,
+} from '#src/libs/tag/selectors';
 import { fetchTags } from '#src/libs/tag/actions';
 import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
@@ -635,8 +638,10 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState, { id }: { id: number }) => ({
-  // @ts-expect-error
-  privatePass: withAvailable(withServices(getPrivatePass))(state, id),
+  privatePass: withEligibilityTags(
+    withAvailable(withServices(getPrivatePass)),
+    // @ts-expect-error
+  )(state, id),
   private_services: getPrivateServices(state),
   theme: themeSelectors.getTheme(state),
   consumerPass: {

@@ -1,0 +1,25 @@
+{
+  "eligibility": {
+    "dialog": {
+      "close": "Cerrar",
+      "edit": "Modificar",
+      "noUnauthorizedTag": "Ningún tag no autorizado",
+      "noAuthorizedTag": "Ningún tag autorizado",
+      "blackList": "Tags no autorizados",
+      "whiteList": "Tags autorizados"
+    },
+    "selectors": {
+      "notAllowed": "No disponible",
+      "allowed": "Disponible",
+      "header": "Etiquetas",
+      "doNotSelectToAllowAllMembers": "Deje este campo vacío para que esté disponible para todos los miembros.",
+      "helperText": "Utilice etiquetas para que esta oferta esté disponible o no para la compra por parte de determinados segmentos de su base de clientes."
+    },
+    "info": {
+      "blackList": "{{ count }} tag no autorizado",
+      "blackList_plural": "{{ count }} tag no autorizados",
+      "whiteList": "{{ count }} tag autorizado",
+      "whiteList_plural": "{{ count }} tag autorizados"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "eligibility": {
+    "dialog": {
+      "close": "Schließen",
+      "edit": "Bearbeiten",
+      "noUnauthorizedTag": "Keine unerlaubten Tags",
+      "noAuthorizedTag": "Keine Tags erlaubt",
+      "blackList": "Unerlaubte Tags",
+      "whiteList": "Erlaubte Tags"
+    },
+    "selectors": {
+      "notAllowed": "Nicht verfügbar",
+      "allowed": "Verfügbar",
+      "header": "Tags",
+      "doNotSelectToAllowAllMembers": "Leer lassen, um es allen Mitgliedern zu erlauben",
+      "helperText": "Mit Tags kannst du bestimmte Kunden vom Kauf dieses Passes ein- oder ausschließen."
+    },
+    "info": {
+      "blackList": "{{ count }} unzulässiger Tag",
+      "blackList_plural": "{{ count }} unzulässige Tags",
+      "whiteList": "{{ count }} zulässiger Tag",
+      "whiteList_plural": "{{ count }} zulässige Tags"
+    }
+  }
+}

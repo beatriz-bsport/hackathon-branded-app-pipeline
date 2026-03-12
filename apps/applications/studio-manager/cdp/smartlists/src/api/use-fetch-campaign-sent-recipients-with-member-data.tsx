@@ -1,15 +1,15 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { campaignSentRecipientsQueryOptions } from "./api";
+import { campaignSentRecipientsWithMemberDataQueryOptions } from "./api";
 import { FetchCampaignRecipientParams } from "./types";
 
-export const useFetchCampaignSentRecipients = ({
+export const useFetchCampaignSentRecipientsWithMemberData = ({
   campaign,
   page,
   page_size,
 }: FetchCampaignRecipientParams) => {
   return useSuspenseQuery(
-    campaignSentRecipientsQueryOptions({
+    campaignSentRecipientsWithMemberDataQueryOptions({
       campaign,
       page,
       page_size,

@@ -7,10 +7,14 @@ import { useTranslation } from "#src/utils/i18n";
 
 import type { GiftcardFormData } from "../types";
 
-type GiftcardFormDescriptionProps = { formId: string };
+type GiftcardFormDescriptionProps = {
+  formId: string;
+  isSharedGiftcard?: boolean;
+};
 
 export const GiftcardFormDescription: FC<GiftcardFormDescriptionProps> = ({
   formId,
+  isSharedGiftcard,
 }) => {
   const { t } = useTranslation("giftcard-details");
 
@@ -24,6 +28,7 @@ export const GiftcardFormDescription: FC<GiftcardFormDescriptionProps> = ({
         id={`${formId}-description`}
         label={t("formFields.description.label")}
         required
+        disabled={isSharedGiftcard}
       />
     </FormField>
   );

@@ -2,7 +2,12 @@ import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import { PaymentGroup } from '#src/libs/invoice/types';
 import { RootState } from '../../reducers';
-import type { Payout, StripePayout } from './types';
+import type {
+  BalanceTransaction,
+  Payout,
+  PayoutLegacy,
+  StripePayout,
+} from './types';
 
 const EMPTY_LIST = Immutable([]);
 const _getPaymentMethodLoading = (state: RootState) =>
@@ -46,13 +51,15 @@ export const getPaymentGroupRequiringActionList = createSelector(
     groupList.filter((pg) => pg.status === 150 && pg.invoice === uuid),
 );
 
-const _getPayoutListIds = (
+const _getPayoutLegacyListIds = (
   state: RootState,
-): Immutable.Immutable<Array<number>> => state.paymentBackend.payout.allIds;
-const _getPayoutData = (state: RootState) => state.paymentBackend.payout.byId;
+): Immutable.Immutable<Array<number>> =>
+  state.paymentBackend.payoutLegacy.allIds;
+const _getPayoutLegacyData = (state: RootState) =>
+  state.paymentBackend.payoutLegacy.byId;
 
-export const getPayoutList = createSelector(
-  [_getPayoutListIds, _getPayoutData],
+export const getPayoutLegacyList = createSelector(
+  [_getPayoutLegacyListIds, _getPayoutLegacyData],
   (ids, data) => ids.map((id) => data[id]),
 );
 
@@ -63,7 +70,7 @@ const _getIncrementalPayoutListIds = (
 
 const _getIncrementalPayoutData = (
   state: RootState,
-): Immutable.Immutable<{ [id: number]: Payout }> =>
+): Immutable.Immutable<{ [id: number]: PayoutLegacy }> =>
   state.paymentBackend.incrementalPayout.byId;
 
 export const getIncrementalPayoutList = createSelector(
@@ -110,6 +117,54 @@ export const getStripePayoutList = createSelector(
   [_getStripePayoutAllIds, _getStripePayoutData],
   (ids, data) => (ids ?? []).map((id) => data[id]).filter((payout) => !!payout),
 );
+
+export const getPayoutList = (state: RootState): Payout[] =>
+  state.paymentBackend.payout?.results ?? [];
+
+export const getPayoutLoading = (state: RootState): boolean =>
+  state.paymentBackend.payout?.loading ?? false;
+
+export const getPayoutLoadingMore = (state: RootState): boolean =>
+  state.paymentBackend.payout?.loadingMore ?? false;
+
+export const getPayoutNextPage = (state: RootState): number | null =>
+  state.paymentBackend.payout?.nextPage ?? null;
+
+export const getPayoutError = (state: RootState): string | null =>
+  state.paymentBackend.payout?.error ?? null;
+
+const getPayoutBalanceTransactionsByPayoutId = (state: RootState) =>
+  state.paymentBackend.payoutBalanceTransactions?.byPayoutId ?? {};
+
+export const getPayoutBalanceTransactions = (
+  state: RootState,
+  payoutId: number,
+): BalanceTransaction[] =>
+  getPayoutBalanceTransactionsByPayoutId(state)[payoutId]?.results ?? [];
+
+export const getPayoutBalanceTransactionsLoading = (
+  state: RootState,
+  payoutId: number,
+): boolean =>
+  getPayoutBalanceTransactionsByPayoutId(state)[payoutId]?.loading ?? false;
+
+export const getPayoutBalanceTransactionsLoadingMore = (
+  state: RootState,
+  payoutId: number,
+): boolean =>
+  getPayoutBalanceTransactionsByPayoutId(state)[payoutId]?.loadingMore ?? false;
+
+export const getPayoutBalanceTransactionsNextPage = (
+  state: RootState,
+  payoutId: number,
+): number | null =>
+  getPayoutBalanceTransactionsByPayoutId(state)[payoutId]?.nextPage ?? null;
+
+export const getPayoutBalanceTransactionsError = (
+  state: RootState,
+  payoutId: number,
+): string | null =>
+  getPayoutBalanceTransactionsByPayoutId(state)[payoutId]?.error ?? null;
 
 export const getStripeDomainListState = (state: RootState) =>
   state.paymentBackend.stripeDomainList;

@@ -22,6 +22,7 @@ declare module "sm-navigation-sidebar/urls" {
     member: string;
     order: string;
     pack: string;
+    payout: string;
     smartlist: string;
     teacher: string;
     settings_referral: string;
@@ -36,26 +37,9 @@ declare module "sm-navigation-sidebar/urls" {
 // ----- Booking -----
 
 // ----- Buyables -----
-declare module "sm-giftcard/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
-declare module "sm-pack/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 
 // ----- Core-data -----
-declare module "sm-member-list/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 
 // ----- Customer Data Platform -----
-declare module "sm-tag/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
 
 // ----- Business Insights -----

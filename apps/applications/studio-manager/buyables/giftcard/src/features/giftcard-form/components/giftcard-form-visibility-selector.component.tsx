@@ -6,7 +6,13 @@ import { useTranslation } from "#src/utils/i18n";
 
 import type { GiftcardFormData } from "../types";
 
-export const GiftcardFormVisibilitySelector: FC = () => {
+type GiftcardFormVisibilitySelectorProps = {
+  isSharedGiftcard?: boolean;
+};
+
+export const GiftcardFormVisibilitySelector: FC<
+  GiftcardFormVisibilitySelectorProps
+> = ({ isSharedGiftcard }) => {
   const { t } = useTranslation("giftcard-details");
 
   return (
@@ -14,6 +20,7 @@ export const GiftcardFormVisibilitySelector: FC = () => {
       fieldName="manager_only"
       asHiddenSelector
       buyableName={t("modelName.singular")}
+      readonly={isSharedGiftcard}
     />
   );
 };

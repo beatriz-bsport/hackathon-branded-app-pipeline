@@ -32,6 +32,7 @@ export const FeatureFlags = {
     'lead-acquisition-widget-require-recaptcha',
   MARKETING_DOUBLE_OPT_IN: 'marketing_double_opt_in',
   FS_BILLING_FLOW_NEW_MODAL: 'fs_billing_flow_new_modal',
+  FS_NEW_PAYOUT_FLOW: 'fs_new_payout_flow',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

@@ -18,7 +18,7 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { fetch } from "#src/utils/fetch";
 
-import type { PersonCell } from "../types";
+import type { GiftcardPurchase } from "../types";
 
 const fetchMembersBound = fetchMembersAction.bind(null, fetch);
 
@@ -28,7 +28,7 @@ function getAugmentedGiftcardPurchases({
 }: {
   giftcardPurchasesRaw: ConsumerGiftcard[];
   membersById: { [key: number]: Member };
-}) {
+}): GiftcardPurchase[] {
   if (!giftcardPurchasesRaw.length) {
     return [];
   }
@@ -58,7 +58,7 @@ function getAugmentedGiftcardPurchases({
           }
         : null,
     };
-  }) as Array<ConsumerGiftcard<number, PersonCell, PersonCell>>;
+  });
 }
 
 export const useFetchGiftcardPurchases = (giftcardId: number) => {

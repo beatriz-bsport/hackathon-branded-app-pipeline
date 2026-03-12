@@ -70,7 +70,7 @@
           "go_to_settings": "Accédez aux Paramètres",
           "complete_stripe_onboarding": "Finaliser l'intégration Stripe",
           "legal_identifier_required": "Identifiants de facture requis",
-          "legal_identifier_description": "Parlez à votre gestionnaire de compte pour configurer les identifiants de facture pour Sign-ES."
+          "legal_identifier_description": "Configurez les identifiants de facture pour Sign-ES en suivant cette <0>fiche pratique</0>."
         }
       },
       "active": {

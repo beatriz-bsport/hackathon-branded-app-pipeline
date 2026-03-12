@@ -43,7 +43,8 @@
     "submitResponse": {
       "error": "Couldn't update Gift Card. Please try again.",
       "success": "Successfully updated Gift Card."
-    }
+    },
+    "sharedGiftcardCanNotBeEdited": "This Gift Card was created on the Central Account and some fields cannot be edited."
   },
   "purchases": {
     "status": {
@@ -76,6 +77,90 @@
         "emptyRecipient": "Not claimed",
         "unlimited": "Unlimited",
         "typeDigital": "Digital"
+      }
+    },
+    "detailDrawer": {
+      "navigation": {
+        "selectPreviousItem": "Select previous item",
+        "selectNextItem": "Select next item"
+      },
+      "title": "Gift Card Details",
+      "downloadAsPdf": "Download Gift Card as a PDF",
+      "sectionDescription": {
+        "name": "Name",
+        "id": "ID: {{ identifier }}",
+        "balance": "Balance",
+        "validityPeriod": {
+          "label": "Validity period",
+          "unlimited": "Unlimited",
+          "numberOfDays": "",
+          "numberOfDays_one": "{{ count }} Day",
+          "numberOfDays_other": "{{ count }} Days"
+        },
+        "type": {
+          "label": "Type",
+          "print": "Print",
+          "digital": "Digital"
+        },
+        "code": {
+          "label": "Code",
+          "tooltip": "Share the Gift Card code with members so they can use it for purchases"
+        }
+      },
+      "sectionBuyer": {
+        "title": "Buyer",
+        "name": "Name",
+        "purchaseDate": "Purchase date",
+        "invoiceCard": {
+          "viewInvoiceButton": "View invoice",
+          "invoice": "Invoice {{ identifier }}",
+          "totalPrice": "Total: {{ price }}",
+          "invoiceStatus": {
+            "draft": "Draft",
+            "open": "Open",
+            "paid": "Paid",
+            "voided": "Voided",
+            "refunded": "Refunded"
+          }
+        }
+      },
+      "sectionRecipient": {
+        "title": "Recipient",
+        "shareButton": "Share",
+        "name": "Name",
+        "sendingDate": "Sending date",
+        "activationDate": "Activation date",
+        "expirationDate": "Expiration date"
+      },
+      "shareModal": {
+        "notSentYet": {
+          "title": "Share Gift Card",
+          "description": "Update the recipient list for future invitation email, add more addresses, or copy the activation link. The Gift Card can only be activated once."
+        },
+        "alreadySent": {
+          "title": "Invitation email already sent",
+          "description": "The activation email has already been sent to the addresses below. You can still copy the activation link to share it directly with recipients."
+        },
+        "alreadyActivated": {
+          "title": "Gift Card already shared",
+          "description": "The Gift Card has already been activated."
+        },
+        "copyActivationLinkButton": "Copy activation link",
+        "addRecipientEmail": {
+          "label": "Add recipient email",
+          "placeholder": "Add email...",
+          "incorrectFormat": "Incorrect email format",
+          "emailAlreadyExist": "This email is already in the recipient list"
+        },
+        "buttons": {
+          "close": "Close",
+          "save": "Save"
+        },
+        "toasts": {
+          "linkCopied": "Link copied",
+          "invitationSent": "Recipient list updated",
+          "invitationSentFailed": "Failed to update recipient list"
+        }
       }
     }
   },

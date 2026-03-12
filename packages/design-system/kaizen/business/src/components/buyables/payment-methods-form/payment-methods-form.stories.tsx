@@ -86,6 +86,11 @@ const meta: Meta<PaymentMethodsFormComponent> = {
       table: { type: { summary: "string" } },
       control: { type: "text" },
     },
+    disabled: {
+      description: "Whether the global component is disabled",
+      control: "boolean",
+      table: { defaultValue: { summary: "false" } },
+    },
   },
   render: (args) => {
     const schema = z.object({
@@ -122,6 +127,7 @@ const meta: Meta<PaymentMethodsFormComponent> = {
     helperText: undefined,
     label: undefined,
     isHidden: false,
+    disabled: false,
     buyableName: "Packs",
   },
 };

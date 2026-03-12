@@ -21,6 +21,7 @@ export type CheckboxGroupProps = React.HTMLAttributes<HTMLDivElement> &
     statusText?: string;
     status?: BodyColor;
     Checkboxes?: React.ReactNode[];
+    disabled?: boolean;
   };
 
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
@@ -36,6 +37,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   statusText,
   required,
   Checkboxes = [],
+  disabled,
   ...props
 }) => {
   const optionIds = options.map((option) => option.id).filter(Boolean);
@@ -86,7 +88,11 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
           })}
         >
           {options?.length > 0 ? (
-            <CheckboxGroupItems direction={direction} options={options} />
+            <CheckboxGroupItems
+              direction={direction}
+              options={options}
+              disabled={disabled}
+            />
           ) : (
             <>{Checkboxes}</>
           )}

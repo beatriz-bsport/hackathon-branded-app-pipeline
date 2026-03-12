@@ -10,11 +10,13 @@ type CheckboxGroupItemProps = Omit<
 
 export type CheckboxGroupItemsProps = {
   options: Array<CheckboxGroupItemProps>;
+  disabled?: boolean;
 } & Pick<CheckboxProps, "direction">;
 
 export const CheckboxGroupItems: React.FC<CheckboxGroupItemsProps> = ({
   options,
   direction,
+  disabled,
 }) => {
   const { getCheckboxState, toggleCheckbox } = useCheckboxContext();
 
@@ -24,6 +26,7 @@ export const CheckboxGroupItems: React.FC<CheckboxGroupItemsProps> = ({
         <Checkbox
           key={checkboxConfig.id}
           {...checkboxConfig}
+          disabled={disabled || checkboxConfig.disabled}
           direction={direction}
           value={getCheckboxState(checkboxConfig.id)}
           onChange={() => toggleCheckbox(checkboxConfig.id)}

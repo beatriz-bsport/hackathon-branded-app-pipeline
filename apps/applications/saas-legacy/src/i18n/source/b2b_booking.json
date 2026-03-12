@@ -17,7 +17,14 @@
         "5347003": "Pass is not compatible with this booking.",
         "5347004": "Pass is blocked and cannot be used.",
         "5347005": "Pass does not have enough credits.",
-        "5347006": "Can't swap pass on a aggregator booking."
+        "5347006": "Can't swap pass on a partnership booking.",
+        "5347100": "Pass not found. Please refresh and try again.",
+        "5347101": "Booking was already refunded.",
+        "5347102": "Booking is already using this pass.",
+        "5347103": "Pass does not belong to this member.",
+        "5347104": "Pass is not compatible with this appointment.",
+        "5347105": "Pass is blocked and cannot be used.",
+        "5347106": "Can't swap pass on a partnership booking."
       }
     }
   }

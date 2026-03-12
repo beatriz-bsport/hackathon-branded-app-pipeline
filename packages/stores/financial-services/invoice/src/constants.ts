@@ -1,7 +1,0 @@
-export const BUYABLE_IDENTIFIERS = {
-  PASS: 1,
-  APPOINTMENT_PASS: 9,
-  WEBSHOP_ITEM: 2,
-} as const;
-
-export const FLATTEN_BUYABLE_IDENTIFIERS = Object.values(BUYABLE_IDENTIFIERS);

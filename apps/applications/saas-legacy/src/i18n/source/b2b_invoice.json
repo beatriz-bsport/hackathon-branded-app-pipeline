@@ -70,7 +70,7 @@
           "go_to_settings": "Go to Settings",
           "complete_stripe_onboarding": "Complete Stripe onboarding",
           "legal_identifier_required": "Invoice identifiers required",
-          "legal_identifier_description": "Speak to your Account Manager to set up invoice identifiers for Sign-ES."
+          "legal_identifier_description": "Set up invoice identifiers for Sign-ES following this <0>helpsheet</0>."
         }
       },
       "active": {

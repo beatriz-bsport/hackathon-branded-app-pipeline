@@ -11,11 +11,12 @@ import type { GiftcardFormData, GiftcardFormMethods } from "../types";
 type GiftcardFormExpirationDaysProps = {
   formId: string;
   methods: GiftcardFormMethods;
+  isSharedGiftcard?: boolean;
 };
 
 export const GiftcardFormExpirationDays: FC<
   GiftcardFormExpirationDaysProps
-> = ({ formId, methods }) => {
+> = ({ formId, methods, isSharedGiftcard }) => {
   const { t } = useTranslation("giftcard-details");
 
   const hasExpirationDays = methods.watch("hasExpirationDays");
@@ -26,6 +27,7 @@ export const GiftcardFormExpirationDays: FC<
         fieldName="hasExpirationDays"
         id={`${formId}-toggle-expiration-days`}
         label={t("formFields.expirationDays.toggle.label")}
+        disabled={isSharedGiftcard}
       />
 
       {hasExpirationDays && (
@@ -41,6 +43,7 @@ export const GiftcardFormExpirationDays: FC<
               value: t("formFields.expirationDays.input.suffixDays"),
             }}
             className="w-full"
+            disabled={isSharedGiftcard}
           />
         </div>
       )}

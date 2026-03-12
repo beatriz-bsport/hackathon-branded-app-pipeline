@@ -1,4 +1,51 @@
 {
+  "email": {
+    "creation": {
+      "title": "Email Campaign",
+      "continueButtonLabel": "Continue",
+      "expectedRecipients": {
+        "label": "Expected Recipients",
+        "infoLabel": "Information about expected recipients",
+        "popover": {
+          "title": "How are we calculating this number?",
+          "intro": "This number is an estimate based on the Smartlist and delivery settings at the time of calculation. The final number of recipients may change before the campaign is sent.",
+          "listIntro": "We calculate this number by excluding:",
+          "exclusions": {
+            "noValidContact": {
+              "description": "Members without a valid contact method",
+              "example": "(e.g. no email address for email campaigns, no phone number for SMS)"
+            },
+            "optedOut": {
+              "description": "Members who have opted out of marketing communications (or are not opted in, depending on the campaign type)",
+              "example": "(e.g. no email address for email campaigns, no phone number for SMS)"
+            },
+            "invalidEmail": {
+              "description": "Invalid or unreachable email addresses",
+              "example": "(e.g. addresses that don't exist or can't receive emails)"
+            },
+            "systemEmails": {
+              "description": "System-generated or placeholder emails",
+              "example": "(such as temporary emails created by ClassPass)"
+            },
+            "smartlistChanges": {
+              "description": "Smartlist changes over time. Members may enter or leave the Smartlist between now and when the campaign is sent",
+              "example": "(e.g. members may enter or leave the Smartlist between now and when the campaign is sent)"
+            }
+          }
+        }
+      },
+      "form": {
+        "emailType": {
+          "label": "Select the type you're sending",
+          "required": "Please select the type of email you're sending",
+          "options": {
+            "marketing": "Marketing communications (eg. newsletter, promotions, discounts, etc)",
+            "informational": "Important announcements (eg. class-related reminders, policy changes, etc)"
+          }
+        }
+      }
+    }
+  },
   "communicationKind": {
     "email": "Email",
     "sms": "SMS",
@@ -296,7 +343,11 @@
         "click": "",
         "click_one": "{{count}} click",
         "click_other": "{{count}} clicks",
-        "click_zero": "No clicks"
+        "click_zero": "No clicks",
+        "showMore": "Show {{count}} more",
+        "showMore_one": "Show {{count}} more",
+        "showMore_other": "Show {{count}} more",
+        "showLess": "Show less"
       }
     }
   }

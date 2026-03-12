@@ -1,11 +1,6 @@
 import type { URLParams } from "@bsport/store-base";
 
-import { CONSUMER_GIFTCARD_KIND } from "./constants";
-
-export const GIFTCARD_TYPES = {
-  CUSTOM: "Free Amount", // Backend constraint
-  FIXED: "Fixed",
-} as const;
+import { CONSUMER_GIFTCARD_KIND, GIFTCARD_TYPES } from "./constants";
 
 // ----- Variants (type) -----
 
@@ -151,6 +146,11 @@ export type UploadGiftcardImageParams = {
   file: File;
   signal: AbortSignal;
   onUploadProgress: (progressEvent: ProgressEvent) => void;
+};
+
+export type SendInvitationEmailParams = {
+  recipientEmails: string[];
+  consumerGiftcardId: number;
 };
 
 export type FetchConsumerGiftcardsParams = {

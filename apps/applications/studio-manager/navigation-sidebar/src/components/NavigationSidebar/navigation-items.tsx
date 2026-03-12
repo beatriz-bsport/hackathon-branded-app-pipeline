@@ -350,7 +350,11 @@ export const useNavigationElements = ({
               label: t("menus.finance.invoices"),
               ...navigationUrls.invoice,
             },
-            // { id: "payouts", label: t("menus.finance.payouts"), ...navigationUrls.payout }, // --> Not published
+            {
+              id: "payouts",
+              label: t("menus.finance.payouts"),
+              ...navigationUrls.payout,
+            },
             {
               id: "direct-debits",
               label: t("menus.finance.directDebits"),

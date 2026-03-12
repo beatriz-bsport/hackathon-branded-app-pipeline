@@ -15,9 +15,11 @@ import {
   incrementalListPayoutActions,
   listBookkeepingAccountActions,
   listPaymentGroupActions,
-  listPayoutActions,
   listSavedPaymentMethodListActions,
   listStripeDomainActions,
+  listPayoutActions,
+  listPayoutBalanceTransactionsActions,
+  listPayoutLegacyActions,
   listStripePayoutActions,
   onSpotPaymentReportActions,
   registerStripeDomainActions,
@@ -54,7 +56,7 @@ const initialState = Immutable({
     loading: false,
     status: null,
   },
-  payout: {
+  payoutLegacy: {
     error: null,
     loading: false,
     allIds: [],
@@ -68,6 +70,16 @@ const initialState = Immutable({
     byId: {},
     startingAfter: null,
     hasMore: true,
+  },
+  payout: {
+    error: null,
+    loading: false,
+    loadingMore: false,
+    results: [],
+    nextPage: null,
+  },
+  payoutBalanceTransactions: {
+    byPayoutId: {},
   },
   incrementalPayout: {
     error: null,
@@ -112,17 +124,19 @@ const initialState = Immutable({
 
 export default handleActions(
   {
-    [listPayoutActions.success.toString()]: (state, { payload }) => {
+    [listPayoutLegacyActions.success.toString()]: (state, { payload }) => {
       const newIds = payload.results.map((po) => po.id);
       return state
         .setIn(
-          ['payout', 'allIds'],
-          payload.page === 1 ? newIds : [...state.payout.allIds, ...newIds],
+          ['payoutLegacy', 'allIds'],
+          payload.page === 1
+            ? newIds
+            : [...state.payoutLegacy.allIds, ...newIds],
         )
-        .setIn(['payout', 'nextPage'], payload.next_page)
+        .setIn(['payoutLegacy', 'nextPage'], payload.next_page)
         .merge(
           {
-            payout: {
+            payoutLegacy: {
               byId: payload.results.reduce((acc, v) => {
                 acc[v.id] = v;
                 return acc;
@@ -132,11 +146,11 @@ export default handleActions(
           { deep: true },
         );
     },
-    [listPayoutActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['payout', 'loading'], payload);
+    [listPayoutLegacyActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['payoutLegacy', 'loading'], payload);
     },
-    [listPayoutActions.error]: (state, { payload }) => {
-      return state.setIn(['payout', 'error'], payload);
+    [listPayoutLegacyActions.error]: (state, { payload }) => {
+      return state.setIn(['payoutLegacy', 'error'], payload);
     },
     [incrementalListPayoutActions.success.toString()]: (state, { payload }) => {
       const newIds = payload.results.map((po) => po.id);
@@ -317,6 +331,73 @@ export default handleActions(
     },
     [listStripePayoutActions.error]: (state, { payload }) => {
       return state.setIn(['stripePayout', 'error'], payload);
+    },
+    [listPayoutActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['payout', 'loading'], payload);
+    },
+    [listPayoutActions.isLoadingMore]: (state, { payload }) => {
+      return state.setIn(['payout', 'loadingMore'], payload);
+    },
+    [listPayoutActions.error]: (state, { payload }) => {
+      return state.setIn(['payout', 'error'], payload);
+    },
+    [listPayoutActions.success.toString()]: (state, { payload }) => {
+      const { results, nextPage, append } = payload;
+      return state
+        .setIn(
+          ['payout', 'results'],
+          append ? [...(state.payout.results || []), ...results] : results,
+        )
+        .setIn(['payout', 'nextPage'], nextPage);
+    },
+    [listPayoutBalanceTransactionsActions.isLoading]: (state, { payload }) => {
+      const { payoutId, loading } = payload;
+      const current =
+        state.payoutBalanceTransactions?.byPayoutId?.[payoutId] || {};
+      return state.setIn(
+        ['payoutBalanceTransactions', 'byPayoutId', payoutId],
+        { ...current, loading },
+      );
+    },
+    [listPayoutBalanceTransactionsActions.isLoadingMore]: (
+      state,
+      { payload },
+    ) => {
+      const { payoutId, loading } = payload;
+      const current =
+        state.payoutBalanceTransactions?.byPayoutId?.[payoutId] || {};
+      return state.setIn(
+        ['payoutBalanceTransactions', 'byPayoutId', payoutId],
+        { ...current, loadingMore: loading },
+      );
+    },
+    [listPayoutBalanceTransactionsActions.error]: (state, { payload }) => {
+      const { payoutId, error } = payload;
+      const current =
+        state.payoutBalanceTransactions?.byPayoutId?.[payoutId] || {};
+      return state.setIn(
+        ['payoutBalanceTransactions', 'byPayoutId', payoutId],
+        { ...current, error },
+      );
+    },
+    [listPayoutBalanceTransactionsActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      const { payoutId, results, nextPage, append } = payload;
+      const current =
+        state.payoutBalanceTransactions?.byPayoutId?.[payoutId] || {};
+      const newResults = append
+        ? [...(current.results || []), ...results]
+        : results;
+      return state.setIn(
+        ['payoutBalanceTransactions', 'byPayoutId', payoutId],
+        {
+          ...current,
+          results: newResults,
+          nextPage,
+        },
+      );
     },
     [listBookkeepingAccountActions.success.toString()]: (
       state,

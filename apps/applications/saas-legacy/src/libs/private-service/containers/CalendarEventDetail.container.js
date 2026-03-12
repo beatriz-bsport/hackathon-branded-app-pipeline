@@ -466,6 +466,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           onSetUnpaid={
             this.props.isCoach ? null : this.props.openSetUnpaidModal
           }
+          onSwapSuccess={this.props.refreshPrivateBookings}
           paymentGroupId={this.state.paymentGroupId}
           paymentGroupPriceCts={this.state.paymentGroupPriceCts}
           private_booking={privateBooking}

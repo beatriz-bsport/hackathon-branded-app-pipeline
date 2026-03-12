@@ -28,21 +28,27 @@
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/intercom": "workspace:*",
+    "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/request-from-header": "workspace:*",
     "@bsport/sentry": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/sm-custom-form": "workspace:*",
     "@bsport/sm-email-template": "workspace:*",
+    "@bsport/sm-giftcard": "workspace:*",
     "@bsport/sm-group-activity": "workspace:*",
     "@bsport/sm-homepage": "workspace:*",
     "@bsport/sm-insights": "workspace:*",
     "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",
+    "@bsport/sm-member-list": "workspace:*",
     "@bsport/sm-order": "workspace:*",
+    "@bsport/sm-pack": "workspace:*",
+    "@bsport/sm-payout": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
     "@bsport/sm-session": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
+    "@bsport/sm-tag": "workspace:*",
     "@bsport/sm-teacher": "workspace:*",
     "@bsport/sm-transactional-notification": "workspace:*",
     "@tanstack/react-query": "^5.90.12",
@@ -67,22 +73,6 @@
       "sm-navigation-sidebar": {
         "devPort": 4050,
         "watchPath": "../navigation-sidebar/src/**/*"
-      },
-      "sm-member-list": {
-        "devPort": 4100,
-        "watchPath": "../core-data/member/member-list/src/**/*"
-      },
-      "sm-giftcard": {
-        "devPort": 4150,
-        "watchPath": "../buyables/giftcard/src/**/*"
-      },
-      "sm-pack": {
-        "devPort": 4152,
-        "watchPath": "../buyables/pack/src/**/*"
-      },
-      "sm-tag": {
-        "devPort": 4304,
-        "watchPath": "../cdp/tag/src/**/*"
       }
     }
   },

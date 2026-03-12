@@ -1,0 +1,67 @@
+{
+  "name": "@bsport/sm-payout",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Application for Studio Managers to handle Payouts",
+  "author": "Charles Castelain <charles.castelain@bsport.io>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/lib.es.d.ts",
+      "import": "./build/lib.es.js"
+    }
+  },
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.es.d.ts",
+  "scripts": {
+    "build": "tsc -b && vite build --mode production --logLevel warn",
+    "build:preview": "vite build --mode preview",
+    "ci:compile": "tsc -b",
+    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
+    "dev:single": "vite",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "preview": "vite preview --mode preview",
+    "project:init": "node scripts/init.mjs",
+    "translation:update": "pnpm run -w translation:update"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-library": "workspace:*",
+    "@types/luxon": "^3.4.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.14",
+    "vite": "^5.4.11"
+  },
+  "peerDependencies": {
+    "@bsport/fetch": "workspace:*",
+    "@bsport/i18n": "workspace:*",
+    "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/sm-backbone": "workspace:*",
+    "luxon": "^3.4.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router": "^7.2.0"
+  },
+  "federation": {
+    "devPort": 4251,
+    "exposes": {
+      "./App": "./src/App"
+    },
+    "remotes": {
+      "sm-navigation-sidebar": {
+        "devPort": 4050,
+        "watchPath": "../navigation-sidebar/src/**/*"
+      }
+    }
+  },
+  "nx": {
+    "tags": [
+      "scope:studio"
+    ]
+  }
+}

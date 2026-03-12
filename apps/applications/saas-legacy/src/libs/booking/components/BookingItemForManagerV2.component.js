@@ -49,9 +49,6 @@ import RedButton from '#src/components/button/RedButton.component';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import { withFeatureFlags } from '#src/utils/feature-flag/withFeatureFlags';
-import { isErrorWithCustomCode } from '#src/libs/utils';
-import { snackbarError as snackbarErrorAction } from '#src/libs/snackbar/actions';
-
 import {
   formatAsDatetime,
   formatAsDate,
@@ -61,25 +58,15 @@ import {
 
 import type { Member } from '#src/libs/member/types';
 import { Booking } from '#src/libs/booking/types';
-import type { PaymentPack } from '#src/libs/payment-packs/types';
 import VaccinationBadge from '#src/libs/member/components/VaccinationBadge.component';
-import type { OptionCallback } from '#src/state/types';
 
 import type { PerformanceTrackingProgram } from '#src/libs/performance-tracking/types';
 
 import PlaceNumber from '#src/libs/spot-scheduling/component/PlaceNumber.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getActivityWorkshopPermission } from '#src/libs/role/permission-utils/utils';
-import { fetchByOfferByMember as fetchCompatibleConsumerPaymentPacksByOfferByMemberAction } from '#src/libs/consumer-payment-pack/actions';
-import { swapBookingPass as swapBookingPassAction } from '#src/libs/booking/actions';
-import {
-  filterCompatibleConsumerPaymentPacksForPassSwap,
-  getBookingConsumerPaymentPackId,
-  type CompatibleConsumerPaymentPack,
-} from '#src/libs/booking/services/swapPass.service';
-import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
 import NoShowChip from './NoShowChip.component';
-import SwapPassDialog from './SwapPassDialog.component';
+import SwapPassMenuItem from './SwapPassMenuItem.component';
 import { BookingStatusCodeText } from '../utils';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
 import { getIsLateBookingCancellation } from '../../../utils/datetime';
@@ -127,28 +114,12 @@ type Props = {
   dateRollCallLastModified?: string,
   getOfferMetaActivity: (metaActivityId: number) => MetaActivity,
   getBookingOffer: (offerId: number) => Offer,
-  paymentPacksById: { [key: string]: PaymentPack },
   showBookingDisplaySwapPass?: boolean,
-  fetchCompatibleConsumerPaymentPacksByOfferByMember: (
-    offerId: number,
-    memberId: number,
-    options?: OptionCallback<CompatibleConsumerPaymentPack[]>,
-  ) => void,
-  swapBookingPass: (
-    bookingId: number,
-    consumerPaymentPackId: number,
-    options?: OptionCallback<Booking>,
-  ) => void,
-  snackbarError: (message: string) => void,
   handleOpenRefundBookingDialog?: (
     id: number,
     isConsumerPaymentPackUnlimited: boolean,
   ) => void,
 };
-
-const SWAP_PASS_ERROR_CODES = [
-  5347000, 5347001, 5347002, 5347003, 5347004, 5347005, 5347006,
-];
 
 const getPackDate = (consumerPack) => {
   const { ending_date, starting_date } = consumerPack;
@@ -219,24 +190,12 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
 type State = {
   menuAnchor?: any,
   isMemberProgramDetailDialogOpen?: boolean,
-  isSwitchPassDialogOpen: boolean,
-  compatibleConsumerPaymentPacksForPassSwap: CompatibleConsumerPaymentPack[],
-  selectedConsumerPaymentPackIdForSwap: number | null,
-  isLoadingCompatibleConsumerPaymentPacksForPassSwap: boolean,
-  isSubmittingPassSwap: boolean,
-  passSwapErrorMessage: string | null,
   indexMemberFocused: number,
 };
 
 export class BookingItemForManager extends Component<Props, State> {
   state = {
     menuAnchor: null,
-    isSwitchPassDialogOpen: false,
-    compatibleConsumerPaymentPacksForPassSwap: [],
-    selectedConsumerPaymentPackIdForSwap: null,
-    isLoadingCompatibleConsumerPaymentPacksForPassSwap: false,
-    isSubmittingPassSwap: false,
-    passSwapErrorMessage: null,
   };
 
   getStatusStyleProps = (status?: boolean) => {
@@ -291,116 +250,6 @@ export class BookingItemForManager extends Component<Props, State> {
     e.stopPropagation();
     if (nextAction) nextAction();
     this.setState({ menuAnchor: null });
-  };
-
-  openSwitchPassDialog = () => {
-    const currentConsumerPaymentPackId = getBookingConsumerPaymentPackId(
-      this.props.booking,
-    );
-
-    this.setState({
-      isSwitchPassDialogOpen: true,
-      compatibleConsumerPaymentPacksForPassSwap: [],
-      selectedConsumerPaymentPackIdForSwap: null,
-      isLoadingCompatibleConsumerPaymentPacksForPassSwap: true,
-      isSubmittingPassSwap: false,
-      passSwapErrorMessage: null,
-    });
-
-    this.props.fetchCompatibleConsumerPaymentPacksByOfferByMember(
-      this.props.booking.offer,
-      this.props.booking.member,
-      {
-        onSuccess: (
-          compatibleConsumerPaymentPacks: CompatibleConsumerPaymentPack[] = [],
-        ) => {
-          const compatibleConsumerPaymentPacksForPassSwap =
-            filterCompatibleConsumerPaymentPacksForPassSwap(
-              compatibleConsumerPaymentPacks,
-              currentConsumerPaymentPackId,
-            );
-
-          this.setState({
-            compatibleConsumerPaymentPacksForPassSwap:
-              compatibleConsumerPaymentPacksForPassSwap,
-            isLoadingCompatibleConsumerPaymentPacksForPassSwap: false,
-          });
-        },
-        onError: () => {
-          this.setState({
-            compatibleConsumerPaymentPacksForPassSwap: [],
-            isLoadingCompatibleConsumerPaymentPacksForPassSwap: false,
-            passSwapErrorMessage: this.props.t(
-              'swapPass.dialog.errors.loadCompatiblePasses',
-              {
-                ns: 'b2b_booking',
-              },
-            ),
-          });
-        },
-      },
-    );
-  };
-
-  closeSwitchPassDialog = () => {
-    this.setState({
-      isSwitchPassDialogOpen: false,
-      compatibleConsumerPaymentPacksForPassSwap: [],
-      selectedConsumerPaymentPackIdForSwap: null,
-      isLoadingCompatibleConsumerPaymentPacksForPassSwap: false,
-      isSubmittingPassSwap: false,
-      passSwapErrorMessage: null,
-    });
-  };
-
-  handleSelectConsumerPaymentPackForSwap = (consumerPaymentPackId: number) => {
-    this.setState({
-      selectedConsumerPaymentPackIdForSwap: consumerPaymentPackId,
-      passSwapErrorMessage: null,
-    });
-  };
-
-  handleSubmitPassSwap = () => {
-    if (this.state.isSubmittingPassSwap) {
-      return;
-    }
-
-    if (!this.state.selectedConsumerPaymentPackIdForSwap) {
-      return;
-    }
-
-    this.setState({
-      isSubmittingPassSwap: true,
-      passSwapErrorMessage: null,
-    });
-
-    this.props.swapBookingPass(
-      this.props.booking.id,
-      this.state.selectedConsumerPaymentPackIdForSwap,
-      {
-        onSuccess: () => {
-          this.closeSwitchPassDialog();
-        },
-        onError: (error) => {
-          const errorCode = error?.response?.data?.error_code;
-          const hasKnownSwapPassErrorCode =
-            isErrorWithCustomCode(error) &&
-            SWAP_PASS_ERROR_CODES.includes(errorCode);
-          const errorTranslationKey = hasKnownSwapPassErrorCode
-            ? `swapPass.dialog.errors.${errorCode}`
-            : 'swapPass.dialog.errors.swapFailed';
-
-          this.props.snackbarError(`b2b_booking:${errorTranslationKey}`);
-
-          this.setState({
-            isSubmittingPassSwap: false,
-            passSwapErrorMessage: this.props.t(errorTranslationKey, {
-              ns: 'b2b_booking',
-            }),
-          });
-        },
-      },
-    );
   };
 
   handleProgramDetailClick = this.closeAndAction(() => {
@@ -512,15 +361,11 @@ export class BookingItemForManager extends Component<Props, State> {
               </MenuItem>
             )}
           {canDisplaySwitchPass && (
-            <MenuItem
-              className={classes.menuItem}
-              onClick={closeAndAction(this.openSwitchPassDialog)}
-            >
-              <SwapHorizIcon className={classes.icon} />
-              <Typography>
-                {t('swapPass.menuAction', { ns: 'b2b_booking' })}
-              </Typography>
-            </MenuItem>
+            <SwapPassMenuItem
+              booking={booking}
+              classes={classes}
+              onClose={() => this.setState({ menuAnchor: null })}
+            />
           )}
           <ObjectLevelPermissionProvider
             requiredPermission={[
@@ -831,15 +676,11 @@ export class BookingItemForManager extends Component<Props, State> {
                   open={Boolean(this.state.menuAnchor)}
                 >
                   {canDisplaySwitchPass && (
-                    <MenuItem
-                      className={classes.menuItem}
-                      onClick={closeAndAction(this.openSwitchPassDialog)}
-                    >
-                      <SwapHorizIcon className={classes.icon} />
-                      <Typography>
-                        {t('swapPass.menuAction', { ns: 'b2b_booking' })}
-                      </Typography>
-                    </MenuItem>
+                    <SwapPassMenuItem
+                      booking={booking}
+                      classes={classes}
+                      onClose={() => this.setState({ menuAnchor: null })}
+                    />
                   )}
                   <ObjectLevelPermissionProvider
                     requiredPermission={[
@@ -888,26 +729,6 @@ export class BookingItemForManager extends Component<Props, State> {
             )}
           </div>
         </Hidden>
-        <SwapPassDialog
-          compatibleConsumerPaymentPacks={
-            this.state.compatibleConsumerPaymentPacksForPassSwap
-          }
-          errorMessage={this.state.passSwapErrorMessage}
-          isLoading={
-            this.state.isLoadingCompatibleConsumerPaymentPacksForPassSwap
-          }
-          isOpen={this.state.isSwitchPassDialogOpen}
-          isSubmitting={this.state.isSubmittingPassSwap}
-          onClose={this.closeSwitchPassDialog}
-          onSelectConsumerPaymentPack={
-            this.handleSelectConsumerPaymentPackForSwap
-          }
-          onSubmit={this.handleSubmitPassSwap}
-          paymentPacksById={this.props.paymentPacksById}
-          selectedConsumerPaymentPackId={
-            this.state.selectedConsumerPaymentPackIdForSwap
-          }
-        />
       </div>
     );
   };
@@ -1240,17 +1061,8 @@ const styles = (theme) => ({
 export default compose(
   withTranslation(['booking', 'offer', 'b2b_booking']),
   withStyles(styles),
-  connect(
-    (state) => ({
-      paymentPacksById: getPaymentPackById(state),
-    }),
-    {
-      fetchCompatibleConsumerPaymentPacksByOfferByMember:
-        fetchCompatibleConsumerPaymentPacksByOfferByMemberAction,
-      push: routerPush,
-      snackbarError: snackbarErrorAction,
-      swapBookingPass: swapBookingPassAction,
-    },
-  ),
+  connect(null, {
+    push: routerPush,
+  }),
   withFeatureFlags,
 )(BookingItemForManager);

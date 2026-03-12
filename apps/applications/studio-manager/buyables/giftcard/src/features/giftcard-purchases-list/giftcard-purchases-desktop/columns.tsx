@@ -1,11 +1,8 @@
-import { type FC, useMemo } from "react";
+import { useMemo } from "react";
 
-import {
-  Avatar,
-  Body,
-  type GenericTableColumn,
-} from "@bsport/kaizen-primitive-core";
+import { Body, type GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
+import { AvatarWithName } from "#src/components/avatar-with-name";
 import { useTranslation } from "#src/utils/i18n";
 
 import { GiftcardPurchaseStatusChip } from "../giftcard-purchase-status";
@@ -16,30 +13,6 @@ import {
 } from "./constants";
 
 type TableColumn = GenericTableColumn<TableRowData>;
-
-// eslint-disable-next-line react-refresh/only-export-components
-const AvatarWithName: FC<{ name?: string; avatarSrc?: string }> = ({
-  name = "",
-  avatarSrc,
-}) => {
-  const initials = name
-    .split(" ")
-    .map((part) => (part.length > 0 ? part[0] : ""))
-    .join("")
-    .toUpperCase();
-  return (
-    <div className="flex flex-row gap-sm items-center">
-      <Avatar
-        size="md"
-        shape="round"
-        src={avatarSrc}
-        alt={name}
-        initials={initials}
-      />
-      <Body size="md">{name}</Body>
-    </div>
-  );
-};
 
 export const useTableColumns = ({
   selectedColumns,

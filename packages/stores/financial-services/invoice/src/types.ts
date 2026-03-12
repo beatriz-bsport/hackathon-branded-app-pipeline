@@ -1,7 +1,4 @@
-import { FLATTEN_BUYABLE_IDENTIFIERS } from "./constants";
-
-export type BuyableItemIdentifier =
-  (typeof FLATTEN_BUYABLE_IDENTIFIERS)[number];
+import type { BuyableItemIdentifier } from "@bsport/api-financial-services";
 
 export type Invoice<M = number, PI = number, II = number> = {
   amount_due_cts: number;

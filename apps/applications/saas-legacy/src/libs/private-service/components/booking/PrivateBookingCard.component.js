@@ -56,6 +56,7 @@ import RedButton from '../../../../components/button/RedButton.component';
 import { useGetPrivateConsumerPass } from '../hooks';
 import type { PrivateBookingWithRelatedFields } from '../../types';
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
+import { SwapPassButton } from './SwapPassButton.component';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
@@ -111,6 +112,7 @@ type Props = {
     options?: OptionCallback,
   ) => void,
   memberBulkLoading?: boolean,
+  onSwapSuccess?: () => void,
 };
 
 export const PrivateBookingCard = (props: Props) => {
@@ -356,6 +358,20 @@ export const PrivateBookingCard = (props: Props) => {
                 <MemberMinimalListItem
                   bottomCredit
                   createMemberProgram={props.createMemberProgram}
+                  extraActions={
+                    props.private_booking.booking_status_code ===
+                    BOOKING_STATUS_OK.id ? (
+                      <SwapPassButton
+                        currentPrivateConsumerPassId={
+                          props.private_booking.private_consumer_pass
+                        }
+                        memberId={props.private_booking.member.id}
+                        onSwapSuccess={props.onSwapSuccess}
+                        privateBookingId={props.private_booking.id}
+                        privateSlotId={props.private_booking.private_slot.id}
+                      />
+                    ) : null
+                  }
                   fetchPerformanceTrackingData={
                     props.fetchPerformanceTrackingData
                   }

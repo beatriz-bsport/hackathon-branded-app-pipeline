@@ -32,7 +32,7 @@ export const GiftcardPurchasesPage: FC<GiftcardPurchasesPageProps> = ({
       <ListLayout.Content>
         <GiftcardPurchasesList
           selectedColumns={selectedColumns}
-          giftcardId={giftcard.id}
+          giftcard={giftcard}
         />
       </ListLayout.Content>
     </ListLayout>

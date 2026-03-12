@@ -1,7 +1,7 @@
 import type { FC } from "react";
 
 import type { UseFormControllerOutput } from "@bsport/form";
-import { DetailsLayout, Title } from "@bsport/kaizen-primitive-core";
+import { Alert, DetailsLayout, Title } from "@bsport/kaizen-primitive-core";
 
 import { GiftcardFormCover } from "#src/features/giftcard-form/components/giftcard-form-cover.component";
 import { GiftcardFormDescription } from "#src/features/giftcard-form/components/giftcard-form-description.component";
@@ -15,29 +15,56 @@ import { useTranslation } from "#src/utils/i18n";
 type GiftcardEditorContentProps = {
   formId: string;
   methods: UseFormControllerOutput<GiftcardFormSchema>;
+  isSharedGiftcard?: boolean;
 };
 
 export const GiftcardEditorContent: FC<GiftcardEditorContentProps> = ({
   formId,
   methods,
+  isSharedGiftcard,
 }) => {
   const { t } = useTranslation("giftcard-details");
 
   return (
     <DetailsLayout.Content className="flex flex-col gap-md w-full">
-      <GiftcardFormCover formId={formId} methods={methods} />
+      {isSharedGiftcard && (
+        <Alert status="info" layout="banner" customIcon="lock-04">
+          {t("editor.sharedGiftcardCanNotBeEdited")}
+        </Alert>
+      )}
 
-      <GiftcardFormValue formId={formId} methods={methods} />
+      <GiftcardFormCover
+        formId={formId}
+        methods={methods}
+        isSharedGiftcard={isSharedGiftcard}
+      />
 
-      <GiftcardFormName formId={formId} />
-      <GiftcardFormDescription formId={formId} />
+      <GiftcardFormValue
+        formId={formId}
+        methods={methods}
+        isSharedGiftcard={isSharedGiftcard}
+      />
 
-      <GiftcardFormExpirationDays formId={formId} methods={methods} />
+      <GiftcardFormName formId={formId} isSharedGiftcard={isSharedGiftcard} />
+      <GiftcardFormDescription
+        formId={formId}
+        isSharedGiftcard={isSharedGiftcard}
+      />
+
+      <GiftcardFormExpirationDays
+        formId={formId}
+        methods={methods}
+        isSharedGiftcard={isSharedGiftcard}
+      />
 
       <Title htmlVariant="h4" weight="strong">
         {t("sections.pricing")}
       </Title>
-      <GiftcardFormPaymentMethods formId={formId} methods={methods} />
+      <GiftcardFormPaymentMethods
+        formId={formId}
+        methods={methods}
+        isSharedGiftcard={isSharedGiftcard}
+      />
     </DetailsLayout.Content>
   );
 };

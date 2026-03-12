@@ -202,9 +202,13 @@ export function getFirstInstalmentAmount(
     return (Math.trunc((basketPrice / number_of_billing) * 100) / 100).toFixed(
       2,
     );
-  if (custom_first_instalment_type === CustomFirstInstalmentType.AMOUNT)
-    return (customFirstInstalmentAmountAsNumber || 0).toFixed(2);
-  return (((custom_first_instalment_percent || 0) / 100) * basketPrice).toFixed(
-    2,
-  );
+  if (custom_first_instalment_type === CustomFirstInstalmentType.AMOUNT) {
+    const amount = customFirstInstalmentAmountAsNumber || 0;
+    const amountCts = Math.floor(amount * 100);
+    return (amountCts / 100).toFixed(2);
+  }
+  const basketCts = Math.round(basketPrice * 100);
+  const percent = custom_first_instalment_percent || 0;
+  const percentAmountCts = Math.floor((basketCts * percent) / 100);
+  return (percentAmountCts / 100).toFixed(2);
 }

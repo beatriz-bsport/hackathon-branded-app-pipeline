@@ -25,7 +25,9 @@ import {
   fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAPI,
   fetchPaymentGroupList as fetchPaymentGroupListAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
+  fetchPayoutListLegacy as fetchPayoutListLegacyAPI,
   fetchPayoutList as fetchPayoutListAPI,
+  fetchPayoutBalanceTransactions as fetchPayoutBalanceTransactionsAPI,
   fetchStripeBalance as fetchStripeBalanceAPI,
   fetchStripePaymentMethodDomains as fetchStripePaymentMethodDomainsAPI,
   fetchStripePayoutList as fetchStripePayoutListAPI,
@@ -42,6 +44,7 @@ import {
 } from './api';
 import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 import type {
+  BalanceTransaction,
   BookkeepingAccount,
   BookkeepingAccountSubmitParams,
   DetachPaymentMethodPayload,
@@ -52,6 +55,7 @@ import type {
   PaymentGroupBillingEstablishmentPayload,
   PaymentMethod,
   Payout,
+  PayoutLegacy,
   StripeBalance,
   StripePaymentMethodDomain,
   StripePayout,
@@ -253,14 +257,14 @@ export function resetIncrementalPayouList() {
 
 export function fetchIncrementalPayoutList(
   params: any = {},
-  options?: OptionCallback<Payout[]>,
+  options?: OptionCallback<PayoutLegacy[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(incrementalListPayoutActions.isLoading(true));
     dispatch(incrementalListPayoutActions.error(null));
 
     try {
-      const response = await fetchPayoutListAPI({
+      const response = await fetchPayoutListLegacyAPI({
         ...(params || {}),
       });
       dispatch(incrementalListPayoutActions.success(response.data));
@@ -276,36 +280,38 @@ export function fetchIncrementalPayoutList(
   };
 }
 
-export const listPayoutActions = {
-  isLoading: createAction('PAYOUT/LIST/LOADING'),
-  error: createAction('PAYOUT/LIST/ERROR'),
-  success: createAction('PAYOUT/LIST/SUCCESS'),
+export const listPayoutLegacyActions = {
+  isLoading: createAction('PAYOUT_LEGACY/LIST/LOADING'),
+  error: createAction('PAYOUT_LEGACY/LIST/ERROR'),
+  success: createAction('PAYOUT_LEGACY/LIST/SUCCESS'),
 };
 
-export function fetchPayoutList(
+export function fetchPayoutListLegacy(
   params: any = {},
-  options?: OptionCallback<Payout[]>,
+  options?: OptionCallback<PayoutLegacy[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    dispatch(listPayoutActions.isLoading(true));
-    dispatch(listPayoutActions.error(null));
-    const { nextPage } = getState().paymentBackend.payout;
+    dispatch(listPayoutLegacyActions.isLoading(true));
+    dispatch(listPayoutLegacyActions.error(null));
+    const { nextPage } = getState().paymentBackend.payoutLegacy;
     try {
-      const response = await fetchPayoutListAPI({
+      const response = await fetchPayoutListLegacyAPI({
         ...(params || {}),
         page: nextPage,
       });
-      // @ts-expect-error
-      dispatch(listPayoutActions.success({ ...response.data, page: nextPage }));
+      dispatch(
+        // @ts-expect-error
+        listPayoutLegacyActions.success({ ...response.data, page: nextPage }),
+      );
       if (options && options.onSuccess) {
         // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {
       console.error(err);
-      dispatch(listPayoutActions.error(err));
+      dispatch(listPayoutLegacyActions.error(err));
     }
-    dispatch(listPayoutActions.isLoading(false));
+    dispatch(listPayoutLegacyActions.isLoading(false));
   };
 }
 
@@ -568,7 +574,7 @@ export function fetchStripePayoutList(
     page_size: number;
     starting_after?: string;
   },
-  options?: OptionCallback<Payout[]>,
+  options?: OptionCallback<PayoutLegacy[]>,
 ): ThunkAction {
   return async (dispatch, getState: () => RootState) => {
     dispatch(listStripePayoutActions.isLoading(true));
@@ -592,6 +598,149 @@ export function fetchStripePayoutList(
       options?.onError?.(err);
     }
     dispatch(listStripePayoutActions.isLoading(false));
+  };
+}
+
+export const listPayoutActions = {
+  isLoading: createAction<boolean>('PAYOUT_RECONCILIATION/LIST/LOADING'),
+  isLoadingMore: createAction<boolean>(
+    'PAYOUT_RECONCILIATION/LIST/LOADING_MORE',
+  ),
+  error: createAction<string | null>('PAYOUT_RECONCILIATION/LIST/ERROR'),
+  success: createAction<{
+    results: Payout[];
+    nextPage: number | null;
+    append: boolean;
+  }>('PAYOUT_RECONCILIATION/LIST/SUCCESS'),
+};
+
+export function fetchPayoutList(
+  params: { page: number; append?: boolean },
+  options?: OptionCallback<{ results: Payout[]; next_page: number | null }>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    const { page, append = false } = params;
+    if (append) {
+      dispatch(listPayoutActions.isLoadingMore(true));
+    } else {
+      dispatch(listPayoutActions.isLoading(true));
+    }
+    dispatch(listPayoutActions.error(null));
+    try {
+      const response = await fetchPayoutListAPI({ page });
+      dispatch(
+        listPayoutActions.success({
+          results: response.data.results,
+          nextPage: response.data.next_page,
+          append,
+        }),
+      );
+      options?.onSuccess?.({
+        results: response.data.results,
+        next_page: response.data.next_page,
+      });
+    } catch (err: any) {
+      dispatch(
+        listPayoutActions.error(err?.message ?? 'Failed to load payouts'),
+      );
+      options?.onError?.(err);
+    } finally {
+      if (append) {
+        dispatch(listPayoutActions.isLoadingMore(false));
+      } else {
+        dispatch(listPayoutActions.isLoading(false));
+      }
+    }
+  };
+}
+
+export const listPayoutBalanceTransactionsActions = {
+  isLoading: createAction<{ payoutId: number; loading: boolean }>(
+    'PAYOUT_BALANCE_TRANSACTIONS/LIST/LOADING',
+  ),
+  isLoadingMore: createAction<{ payoutId: number; loading: boolean }>(
+    'PAYOUT_BALANCE_TRANSACTIONS/LIST/LOADING_MORE',
+  ),
+  error: createAction<{ payoutId: number; error: string | null }>(
+    'PAYOUT_BALANCE_TRANSACTIONS/LIST/ERROR',
+  ),
+  success: createAction<{
+    payoutId: number;
+    results: BalanceTransaction[];
+    nextPage: number | null;
+    append: boolean;
+  }>('PAYOUT_BALANCE_TRANSACTIONS/LIST/SUCCESS'),
+};
+
+export function fetchPayoutBalanceTransactions(
+  params: { payoutId: number; page: number; append?: boolean },
+  options?: OptionCallback<{
+    results: BalanceTransaction[];
+    next_page: number | null;
+  }>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    const { payoutId, page, append = false } = params;
+    if (append) {
+      dispatch(
+        listPayoutBalanceTransactionsActions.isLoadingMore({
+          payoutId,
+          loading: true,
+        }),
+      );
+    } else {
+      dispatch(
+        listPayoutBalanceTransactionsActions.isLoading({
+          payoutId,
+          loading: true,
+        }),
+      );
+    }
+    dispatch(
+      listPayoutBalanceTransactionsActions.error({ payoutId, error: null }),
+    );
+    try {
+      const response = await fetchPayoutBalanceTransactionsAPI({
+        payout_id: payoutId,
+        page,
+      });
+      dispatch(
+        listPayoutBalanceTransactionsActions.success({
+          payoutId,
+          results: response.data.results,
+          nextPage: response.data.next_page,
+          append,
+        }),
+      );
+      options?.onSuccess?.({
+        results: response.data.results,
+        next_page: response.data.next_page,
+      });
+    } catch (err: any) {
+      dispatch(
+        listPayoutBalanceTransactionsActions.error({
+          payoutId,
+          error: err?.message ?? 'Failed to load transactions',
+        }),
+      );
+      options?.onError?.(err);
+    } finally {
+      if (append) {
+        dispatch(
+          listPayoutBalanceTransactionsActions.isLoadingMore({
+            payoutId,
+            loading: false,
+          }),
+        );
+      } else {
+        dispatch(
+          listPayoutBalanceTransactionsActions.isLoading({
+            payoutId,
+            loading: false,
+          }),
+        );
+      }
+    }
   };
 }
 

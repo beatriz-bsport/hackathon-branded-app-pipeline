@@ -1,5 +1,7 @@
+/**
+ * Legacy payout list (Stripe flow). Used when fs_new_payout_flow is off.
+ */
 import React from 'react';
-
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -8,18 +10,20 @@ import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Divider } from '@material-ui/core';
 import type { StripePayout } from '../types';
-import PayoutListItem from './PayoutListItem.component';
+import PayoutListItemLegacy from './PayoutListItemLegacy.component';
 
-const useToogle = () => {
-  const [openedPayoutId, setOpenedPayoutId] = React.useState(null);
-  const tooglePayoutOpen = (id: number) => {
+const useToggle = () => {
+  const [openedPayoutId, setOpenedPayoutId] = React.useState<number | null>(
+    null,
+  );
+  const togglePayoutOpen = (id: number) => {
     if (id === openedPayoutId) {
       setOpenedPayoutId(null);
     } else {
       setOpenedPayoutId(id);
     }
   };
-  return [openedPayoutId, tooglePayoutOpen];
+  return [openedPayoutId, togglePayoutOpen] as const;
 };
 
 interface Props {
@@ -30,14 +34,14 @@ interface Props {
   openInvoice: (uuid: string) => void;
 }
 
-const PayoutList: React.FC<Props> = ({
+const PayoutListLegacy: React.FC<Props> = ({
   stripePayoutList,
   hasMorePayout,
   fetchMorePayoutList,
   loading,
   openInvoice,
 }) => {
-  const [openedPayoutId, tooglePayoutOpen] = useToogle();
+  const [openedPayoutId, togglePayoutOpen] = useToggle();
   const { t } = useTranslation(['payment']);
   const classes = useStyles();
 
@@ -65,12 +69,12 @@ const PayoutList: React.FC<Props> = ({
       )}
       <Paper>
         {stripePayoutList?.map((po) => (
-          <PayoutListItem
+          <PayoutListItemLegacy
             key={po.stripe_id}
             isOpen={po.stripe_id === openedPayoutId}
             openInvoice={openInvoice}
             stripePayout={po}
-            tooglePayoutOpen={tooglePayoutOpen}
+            tooglePayoutOpen={togglePayoutOpen}
           />
         ))}
       </Paper>
@@ -110,4 +114,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(PayoutList);
+export default React.memo(PayoutListLegacy);

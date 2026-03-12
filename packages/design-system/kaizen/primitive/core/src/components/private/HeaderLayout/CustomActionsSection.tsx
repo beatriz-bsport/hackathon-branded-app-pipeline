@@ -13,23 +13,26 @@ const CustomActionsSection: React.FC<CustomActionsSectionProps> = ({
   endGroupActions,
   startGroupActions,
 }) => {
-  if (!callToActionButton && !endGroupActions && !startGroupActions)
-    return null;
+  const hasStartGroupActions = !!startGroupActions?.length;
+  const hasEndSection = !!callToActionButton || !!endGroupActions?.length;
+  if (!hasStartGroupActions && !hasEndSection) return null;
 
   return (
     <div
       data-component="Kaizen-HeaderLayout-CustomActionsSection"
       className="flex flex-row gap-sm items-stretch"
     >
-      {startGroupActions && (
+      {hasStartGroupActions && (
         <>
           <div className="flex flex-row gap-2xs items-center">
             {startGroupActions}
           </div>
-          <Divider orientation="vertical" weight="thin" />
+          {hasEndSection && (
+            <Divider orientation="vertical" weight="extra-thin" />
+          )}
         </>
       )}
-      {(endGroupActions || callToActionButton) && (
+      {hasEndSection && (
         <div className="flex flex-row gap-2xs items-center">
           {endGroupActions}
           {callToActionButton}

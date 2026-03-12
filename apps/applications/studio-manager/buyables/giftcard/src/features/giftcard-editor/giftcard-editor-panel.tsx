@@ -8,10 +8,12 @@ import { useTranslation } from "#src/utils/i18n";
 
 type GiftcardEditorPanelProps = {
   formId: string;
+  isSharedGiftcard?: boolean;
 };
 
 export const GiftcardEditorPanel: FC<GiftcardEditorPanelProps> = ({
   formId,
+  isSharedGiftcard,
 }) => {
   const { t } = useTranslation("giftcard-details");
 
@@ -20,11 +22,14 @@ export const GiftcardEditorPanel: FC<GiftcardEditorPanelProps> = ({
       <Title htmlVariant="h4" weight="strong">
         {t("sections.visibility")}
       </Title>
-      <GiftcardFormVisibilitySelector />
+      <GiftcardFormVisibilitySelector isSharedGiftcard={isSharedGiftcard} />
 
       <Divider orientation="horizontal" weight="thin" />
 
-      <GiftcardFormTagsAfterPurchase formId={formId} />
+      <GiftcardFormTagsAfterPurchase
+        formId={formId}
+        isSharedGiftcard={isSharedGiftcard}
+      />
     </DetailsLayout.Panel>
   );
 };

@@ -17,23 +17,20 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
-import type { PaymentPack } from '#src/libs/payment-packs/types';
-import { formatAsDate } from '#src/utils/datetime';
-import {
-  getCompatibleConsumerPaymentPackName,
-  getConsumerPaymentPackPaymentPackId,
-  type CompatibleConsumerPaymentPack,
-} from '#src/libs/booking/services/swapPass.service';
+
+export type SwapPassItem = {
+  id: number;
+  name: string;
+  details: string;
+};
 
 type Props = {
   isOpen: boolean;
   isLoading?: boolean;
   isSubmitting?: boolean;
-  errorMessage?: string | null;
-  compatibleConsumerPaymentPacks?: CompatibleConsumerPaymentPack[];
-  paymentPacksById?: Record<number, PaymentPack>;
-  selectedConsumerPaymentPackId: number | null;
-  onSelectConsumerPaymentPack: (consumerPaymentPackId: number) => void;
+  items?: SwapPassItem[];
+  selectedItemId: number | null;
+  onSelectItem: (itemId: number) => void;
   onSubmit: () => void;
   onClose: () => void;
 } & WithStyles<typeof styles>;
@@ -42,16 +39,14 @@ const SwapPassDialog: React.FC<Props> = ({
   isOpen,
   isLoading = false,
   isSubmitting = false,
-  errorMessage = null,
-  compatibleConsumerPaymentPacks = [],
-  paymentPacksById,
-  selectedConsumerPaymentPackId,
-  onSelectConsumerPaymentPack,
+  items = [],
+  selectedItemId,
+  onSelectItem,
   onSubmit,
   onClose,
   classes,
 }) => {
-  const { t } = useTranslation(['b2b_booking', 'booking', 'paymentPack']);
+  const { t } = useTranslation(['b2b_booking']);
   const stopPropagation = (event: React.SyntheticEvent) =>
     event.stopPropagation();
 
@@ -74,97 +69,42 @@ const SwapPassDialog: React.FC<Props> = ({
             </div>
           )}
 
-          {!isLoading && !isSubmitting && !!errorMessage && (
-            <Typography color="error">{errorMessage}</Typography>
+          {!isLoading && !isSubmitting && items.length === 0 && (
+            <Typography>{t('swapPass.dialog.noCompatiblePasses')}</Typography>
           )}
 
-          {!isLoading &&
-            !isSubmitting &&
-            !errorMessage &&
-            compatibleConsumerPaymentPacks.length === 0 && (
-              <Typography>{t('swapPass.dialog.noCompatiblePasses')}</Typography>
-            )}
-
-          {!isLoading &&
-            !isSubmitting &&
-            compatibleConsumerPaymentPacks.length > 0 && (
-              <ul className={classes.list}>
-                {compatibleConsumerPaymentPacks.map(
-                  (compatibleConsumerPaymentPack, index) => (
-                    <li key={compatibleConsumerPaymentPack?.id ?? index}>
-                      <Button
-                        className={clsx(classes.listButton, {
-                          [classes.listButtonSelected]:
-                            selectedConsumerPaymentPackId ===
-                            compatibleConsumerPaymentPack.id,
-                        })}
-                        color="primary"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          onSelectConsumerPaymentPack(
-                            compatibleConsumerPaymentPack.id,
-                          );
-                        }}
-                        type="button"
-                        variant={
-                          selectedConsumerPaymentPackId ===
-                          compatibleConsumerPaymentPack.id
-                            ? 'contained'
-                            : 'text'
-                        }
+          {!isLoading && !isSubmitting && items.length > 0 && (
+            <ul className={classes.list}>
+              {items.map((item) => (
+                <li key={item.id}>
+                  <Button
+                    className={clsx(classes.listButton, {
+                      [classes.listButtonSelected]: selectedItemId === item.id,
+                    })}
+                    color="primary"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      onSelectItem(item.id);
+                    }}
+                    type="button"
+                    variant={selectedItemId === item.id ? 'contained' : 'text'}
+                  >
+                    <div className={classes.listButtonContent}>
+                      <Typography className={classes.passName}>
+                        {item.name}
+                      </Typography>
+                      <Typography
+                        className={classes.passDetails}
+                        variant="caption"
                       >
-                        <div className={classes.listButtonContent}>
-                          <Typography className={classes.passName}>
-                            {getCompatibleConsumerPaymentPackName(
-                              compatibleConsumerPaymentPack,
-                              index,
-                              paymentPacksById,
-                            )}
-                          </Typography>
-                          <Typography
-                            className={classes.passDetails}
-                            variant="caption"
-                          >
-                            {[
-                              (() => {
-                                const paymentPackId =
-                                  getConsumerPaymentPackPaymentPackId(
-                                    compatibleConsumerPaymentPack,
-                                  );
-                                const paymentPack =
-                                  paymentPackId !== null
-                                    ? paymentPacksById?.[paymentPackId]
-                                    : null;
-                                if (paymentPack?.unlimited) {
-                                  return t('booking:unlimited');
-                                }
-
-                                return `${
-                                  compatibleConsumerPaymentPack.available_credits
-                                } ${t('paymentPack:credits', {
-                                  count:
-                                    compatibleConsumerPaymentPack.available_credits,
-                                })}`;
-                              })(),
-                              compatibleConsumerPaymentPack.starting_date &&
-                              compatibleConsumerPaymentPack.ending_date
-                                ? `${formatAsDate(
-                                    compatibleConsumerPaymentPack.starting_date,
-                                  )}→${formatAsDate(
-                                    compatibleConsumerPaymentPack.ending_date,
-                                  )}`
-                                : null,
-                            ]
-                              .filter(Boolean)
-                              .join(' • ')}
-                          </Typography>
-                        </div>
-                      </Button>
-                    </li>
-                  ),
-                )}
-              </ul>
-            )}
+                        {item.details}
+                      </Typography>
+                    </div>
+                  </Button>
+                </li>
+              ))}
+            </ul>
+          )}
         </DialogContent>
 
         <DialogActions>
@@ -182,8 +122,8 @@ const SwapPassDialog: React.FC<Props> = ({
             disabled={
               isLoading ||
               isSubmitting ||
-              selectedConsumerPaymentPackId === null ||
-              compatibleConsumerPaymentPacks.length === 0
+              selectedItemId === null ||
+              items.length === 0
             }
             onClick={(event) => {
               event.stopPropagation();

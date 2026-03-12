@@ -165,6 +165,7 @@ const icons = {
   ),
   loading: React.lazy(async () => await import("./assets/loading.svg?react")),
   "lock-01": React.lazy(async () => await import("./assets/lock-01.svg?react")),
+  "lock-04": React.lazy(async () => await import("./assets/lock-04.svg?react")),
   "log-in-03": React.lazy(
     async () => await import("./assets/log-in-03.svg?react"),
   ),

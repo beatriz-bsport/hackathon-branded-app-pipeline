@@ -4,6 +4,40 @@
     "campaigns": "Campaigns",
     "automations": "Automations"
   },
+  "actions": {
+    "createAutomation": "Create automation",
+    "createAutomationModal": {
+      "title": "Create a new automation",
+      "description": "Automations run once daily. Don’t want to wait? Use <audienceLink>Audience</audienceLink>",
+      "audienceLinkLabel": "Audience",
+      "automationType": {
+        "selectLabel": "Select the automation you want to create:",
+        "automatedMessage": {
+          "title": "Automated Message",
+          "description": "Send messages once profiles enter or exit the defined filters"
+        },
+        "tagRule": {
+          "title": "Tag Rule",
+          "description": "Automatically tag users based on their actions"
+        }
+      },
+      "messageChannel": {
+        "selectLabel": "Select your desired communication channel to get started:",
+        "email": {
+          "title": "Email",
+          "description": "Send a targeted email message to your smartlist"
+        },
+        "sms": {
+          "title": "SMS",
+          "description": "Send an SMS message to text your members"
+        },
+        "push": {
+          "title": "Push Notification",
+          "description": "Send your members a notification via your studio app"
+        }
+      }
+    }
+  },
   "automation": {
     "messages": {
       "title": "Messages",

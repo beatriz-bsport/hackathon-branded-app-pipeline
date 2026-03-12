@@ -76,6 +76,11 @@ export const MyGroup = () => {
       control: "boolean",
       description: "Marks the field as required by adding an asterisk.",
     },
+    disabled: {
+      description: "Whether the global component is disabled",
+      control: "boolean",
+      table: { defaultValue: { summary: "false" } },
+    },
     helperText: {
       control: "text",
       description: "Additional helper text displayed below the label.",
@@ -116,6 +121,9 @@ export const MyGroup = () => {
       control: "object",
       description: "Initial selection for uncontrolled usage.",
     },
+  },
+  args: {
+    disabled: false,
   },
 };
 
@@ -210,6 +218,7 @@ export const Composable: Story = {
           <Checkbox
             key={config.id}
             {...config}
+            disabled={!!args.disabled}
             value={selection.has(config.id) ? "checked" : "unchecked"}
             onChange={(value) => {
               const nextState = new Set(selection);

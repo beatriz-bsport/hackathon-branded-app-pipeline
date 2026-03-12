@@ -1,6 +1,5 @@
 import type { FC } from "react";
 
-import type { ConsumerGiftcard } from "@bsport/api-buyables";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import {
   List,
@@ -14,14 +13,18 @@ import {
   GiftcardPurchaseStatusChip,
   getStatusFromPurchasedGiftcard,
 } from "./giftcard-purchase-status";
-import type { PersonCell } from "./types";
+import type { GiftcardPurchase } from "./types";
 
 type GiftcardPurchasesMobileProps = {
-  giftcardPurchases: Array<ConsumerGiftcard<number, PersonCell, PersonCell>>;
+  giftcardPurchases: GiftcardPurchase[];
+  onItemClick: (value: GiftcardPurchase) => void;
+  selectedItem: GiftcardPurchase | null;
 } & Pick<ListProps, "paginationProps" | "emptyStateProps" | "loadingProps">;
 
 export const GiftcardPurchasesMobile: FC<GiftcardPurchasesMobileProps> = ({
   giftcardPurchases,
+  onItemClick,
+  selectedItem,
   ...listProps
 }) => {
   const { t } = useTranslation("giftcard-details");
@@ -36,6 +39,8 @@ export const GiftcardPurchasesMobile: FC<GiftcardPurchasesMobileProps> = ({
       title: item.src_member?.name || "",
       description: `${t("purchases.table.columns.balance")}: ${getCurrencyDisplayWithPrice(balance)}`,
       customNode: <GiftcardPurchaseStatusChip status={status} />,
+      onClick: () => onItemClick(item),
+      isActive: selectedItem?.id === item.id,
     };
   });
 

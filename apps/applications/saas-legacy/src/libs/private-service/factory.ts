@@ -181,6 +181,8 @@ export const privatePassFactory = (options?: PrivatePassFactoryOptions) => {
       options?.isAppliesForPayroll ?? faker.datatype.boolean(),
     on_behalf_of_teacher:
       options?.isOnBehalfOfTeacher ?? faker.datatype.boolean(),
+    whitelist_tags: generateRandomIdList(faker, 3),
+    blacklist_tags: generateRandomIdList(faker, 3),
   };
 };
 

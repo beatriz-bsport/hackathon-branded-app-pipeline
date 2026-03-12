@@ -72,6 +72,8 @@ export interface PrivatePassFormValues {
   expiration_date: DateTime | null;
   description?: string | null;
   tags_on_consumer_item_creation?: Array<number>;
+  whitelist_tags?: Array<number>;
+  blacklist_tags?: Array<number>;
   bookkeeping_account?: number;
   grants_door_access: boolean;
 
@@ -166,6 +168,8 @@ export const PrivatePassForm = (props: Props) => {
             credits: props.initial?.credits,
             tags_on_consumer_item_creation:
               props.initial.tags_on_consumer_item_creation || [],
+            whitelist_tags: props.initial.whitelist_tags || [],
+            blacklist_tags: props.initial.blacklist_tags || [],
           }
         : {
             name: null,
@@ -195,6 +199,8 @@ export const PrivatePassForm = (props: Props) => {
             expiration_date_active: false,
             description: null,
             tags_on_consumer_item_creation: [],
+            whitelist_tags: [],
+            blacklist_tags: [],
             grants_door_access: false,
           },
     [props.initial],

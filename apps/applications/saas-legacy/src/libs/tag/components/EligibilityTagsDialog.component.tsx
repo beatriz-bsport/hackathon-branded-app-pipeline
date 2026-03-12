@@ -8,9 +8,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { makeStyles } from '@material-ui/core/styles';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
-
-import { Tag, TagGroup } from '../../tag/types';
-import TagChip from '../../tag/components/TagChip.component';
+import { Tag, TagGroup } from '../types';
+import { TagChip } from './TagChip.component';
 
 type Props = {
   whitelistTags: Array<Tag<TagGroup>>;
@@ -20,16 +19,16 @@ type Props = {
   open: boolean;
 };
 
-export const PaymentPackCompatibilityDialog = (props: Props) => {
+export const EligibilityTagsDialog = (props: Props) => {
   const classes = useStyles();
-  const { t } = useTranslation('paymentPack');
+  const { t } = useTranslation('b2b_tag');
   const { open, whitelistTags, blacklistTags } = props;
 
   const renderTags = (tags: Array<Tag<TagGroup>>, msg: string) => {
     if (tags?.length) {
       return tags.map((tag: Tag<TagGroup>) => (
-        <div className={classes.tag}>
-          <TagChip key={tag.id} size="small" tag={tag} />
+        <div key={tag.id} className={classes.tag}>
+          <TagChip size="small" tag={tag} />
         </div>
       ));
     }
@@ -40,27 +39,34 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
     <GenericResponsiveDialog maxWidth="sm" open={open}>
       <DialogContent>
         <div className={classes.tagsBlock}>
-          <Typography variant="h6">{t('whiteList')}</Typography>
+          <Typography variant="h6">
+            {t('eligibility.dialog.whiteList')}
+          </Typography>
           <Divider />
           <div className={classes.tagListSection}>
-            {renderTags(whitelistTags, t('noAuthorizedTag'))}
+            {renderTags(whitelistTags, t('eligibility.dialog.noAuthorizedTag'))}
           </div>
         </div>
 
         <div className={classes.tagsBlock}>
-          <Typography variant="h6">{t('blackList')}</Typography>
+          <Typography variant="h6">
+            {t('eligibility.dialog.blackList')}
+          </Typography>
           <Divider />
           <div className={classes.tagListSection}>
-            {renderTags(blacklistTags, t('noUnauthorizedTag'))}
+            {renderTags(
+              blacklistTags,
+              t('eligibility.dialog.noUnauthorizedTag'),
+            )}
           </div>
         </div>
       </DialogContent>
       <DialogActions>
         <Button id="button_exit" onClick={props.onClose}>
-          {t('actions.close')}
+          {t('eligibility.dialog.close')}
         </Button>
         <Button color="primary" id="button_modify" onClick={props.onModify}>
-          {t('actions.edit')}
+          {t('eligibility.dialog.edit')}
         </Button>
       </DialogActions>
     </GenericResponsiveDialog>
@@ -97,4 +103,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default PaymentPackCompatibilityDialog;
+export default EligibilityTagsDialog;

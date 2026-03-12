@@ -11,6 +11,7 @@ import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types'
 import { ErrorAndLoading } from '../../state/types';
 import { Company } from '../company/types';
 import type { MarketingNotification } from '../marketing/types';
+import type { TagsEligibility } from '#src/libs/tag/types';
 
 /* eslint-disable-next-line */
 const startDateMethodsTypes = [
@@ -77,7 +78,7 @@ export type PaymentPack<
   LPP = number | null,
   PPCategories = Array<number>,
   PPValidityRange = PaymentPackValidityRange,
-> = {
+> = TagsEligibility & {
   id: number;
   name: string;
   description?: string;
@@ -131,8 +132,6 @@ export type PaymentPack<
 
   start_on_first_user: boolean;
   notifications: Array<number>;
-  whitelist_tags: Array<number>;
-  blacklist_tags: Array<number>;
   tags_on_consumer_item_creation?: Array<number>;
   template_instance: number;
   linked_private_pass: LPP;

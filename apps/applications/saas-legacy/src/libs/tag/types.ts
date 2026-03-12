@@ -1,5 +1,10 @@
 import type { ErrorAndLoading } from '../types';
 
+export type TagsEligibility = {
+  whitelist_tags: number[];
+  blacklist_tags: number[];
+};
+
 export type Tag<TG = number> = {
   id: number;
   name: string;

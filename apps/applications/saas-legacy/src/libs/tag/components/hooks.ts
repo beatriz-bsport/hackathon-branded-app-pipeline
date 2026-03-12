@@ -1,5 +1,6 @@
 import React from 'react';
-import { Tag, TagGroup } from '#src/libs/tag/types';
+import { useTranslation } from 'react-i18next';
+import { Tag, TagGroup, TagsEligibility } from '#src/libs/tag/types';
 
 // Given a list of tags objects and a list of tag ids, evaluates if at least two tags from the
 // tag ids lis belong to the same group.
@@ -32,4 +33,30 @@ export const useHasTagsSameGroup = ({
   }, [tagsWithGroup, selectedTagsIds]);
 
   return hasTagsSameGroup;
+};
+
+export const useEligibilityTagsInfo = (eligible?: TagsEligibility) => {
+  const { t } = useTranslation('b2b_tag');
+
+  if (!eligible) return '';
+
+  const { blacklist_tags = [], whitelist_tags = [] } = eligible;
+  const nb_whitelistTags = whitelist_tags.length;
+  const nb_blacklistTags = blacklist_tags.length;
+
+  if (nb_blacklistTags && nb_whitelistTags) {
+    return `${t('eligibility.info.whiteList', {
+      count: nb_whitelistTags,
+    })} - ${t('eligibility.info.blackList', { count: nb_blacklistTags })}`;
+  }
+
+  if (nb_blacklistTags) {
+    return t('eligibility.info.blackList', { count: nb_blacklistTags });
+  }
+
+  if (nb_whitelistTags) {
+    return t('eligibility.info.whiteList', { count: nb_whitelistTags });
+  }
+
+  return '';
 };

@@ -14,6 +14,7 @@ import { Tag, TagGroup } from '#src/libs/tag/types';
 import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
 import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
 import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import { PaymentPackFormValues } from '../../types';
 
 type Props = {
@@ -21,7 +22,12 @@ type Props = {
   disabledUniversalPassFields: boolean;
 };
 export const PaymentPackFormAdvancedOptions = (props: Props) => {
-  const { tagList, disabledUniversalPassFields } = props;
+  const privatePassTagsEligibilityFeature = useSafeFlag(
+    FeatureFlags.APPOINTMENT_PASS_TAGS_ELIGIBILITY,
+  );
+  const { tagList } = props;
+  const disabledUniversalPassFields =
+    props.disabledUniversalPassFields && !privatePassTagsEligibilityFeature;
   const { t } = useTranslation('paymentPack');
   const [openAdvancedOptions, setOpenAdvancedOptions] =
     useState<boolean>(false);

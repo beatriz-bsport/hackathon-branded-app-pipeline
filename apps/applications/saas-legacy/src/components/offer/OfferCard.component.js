@@ -40,7 +40,7 @@ import { getRecurrenceTrad } from '#src/libs/group-offer/utils';
 import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
 import Sport from '../../libs/category/components/SCT.component';
 import RedButton from '../button/RedButton.component';
-import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
+import EligibilityTagsDialog from '#src/libs/tag/components/EligibilityTagsDialog.component';
 
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import OfferCardStastiticsContainer from '../../libs/offer/components/OfferCardStastisticsContainer.component';
@@ -245,7 +245,7 @@ export class OfferCard extends Component<Props, State> {
             hasCreateWorkshopPermission,
           ]: boolean[]) => (
             <div style={{ width: '100%' }}>
-              <PaymentPackTagsDialog
+              <EligibilityTagsDialog
                 blacklistTags={offer.blacklist_tags}
                 onClose={() => this.setState({ tagManagementDialog: false })}
                 onModify={() => {

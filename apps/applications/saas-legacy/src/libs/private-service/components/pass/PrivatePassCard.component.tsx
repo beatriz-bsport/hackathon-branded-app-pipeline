@@ -10,6 +10,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import LinkIcon from '@material-ui/icons/Link';
 import StarIcon from '@material-ui/icons/Star';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import IconButton from '@material-ui/core/IconButton';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
@@ -35,6 +37,8 @@ import {
 } from '#src/libs/theme/utils';
 import type { PrivatePass, PrivatePassCategory } from '../../types';
 import { getValidityInfo } from '../../utils';
+import { useEligibilityTagsInfo } from '#src/libs/tag/components/hooks';
+import EligibilityTagsDialog from '#src/libs/tag/components/EligibilityTagsDialog.component';
 
 type Props = {
   pass: PrivatePass;
@@ -48,6 +52,7 @@ type Props = {
 };
 
 export const PrivatePassCard: React.FC<Props> = (props) => {
+  const [tagsDialogOpen, setTagsDialogOpen] = React.useState(false);
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
 
@@ -61,7 +66,15 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
     tax,
     available_payment_method_identifiers,
     description,
+    blacklist_tags,
+    whitelist_tags,
   } = pass;
+  const tags = useEligibilityTagsInfo(pass);
+
+  const onEditPrivatePass = () => {
+    props.onEditButtonClick?.();
+    setTagsDialogOpen(false);
+  };
 
   const renderLinkToPaymentPage = () => {
     return pass.id && pass.company ? (
@@ -173,7 +186,7 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
                         className={`${classes.buttonWidth} ${classes.buttonAlign}`}
                         color="primary"
                         id="button_pass_modify"
-                        onClick={props.onEditButtonClick}
+                        onClick={onEditPrivatePass}
                       >
                         <Hidden xsDown>{t('privatePass.edit')}</Hidden>
                       </Button>
@@ -257,6 +270,41 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
               >
                 {t('privatePass.form.full_vod_access.label')}
               </Typography>
+            </div>
+          )}
+
+          {isManager && tags && (
+            <div className={classes.detailInfo}>
+              <div className={classes.titleWithSeeAll}>
+                <div className={classes.detailCategory}>
+                  <LocalOfferIcon className={classes.leftIcon} />
+                  <Typography variant="subtitle2">
+                    {t('privatePass.detailTitles.tags')}
+                  </Typography>
+                  <IconButton
+                    color="primary"
+                    onClick={() => setTagsDialogOpen(true)}
+                  >
+                    <VisibilityIcon fontSize="small" />
+                  </IconButton>
+                </div>
+              </div>
+              <Typography
+                className={classes.passInfo}
+                color="textSecondary"
+                variant="caption"
+              >
+                {tags}
+              </Typography>
+              <EligibilityTagsDialog
+                // @ts-expect-error
+                blacklistTags={blacklist_tags}
+                onClose={() => setTagsDialogOpen(false)}
+                onModify={onEditPrivatePass}
+                open={tagsDialogOpen}
+                // @ts-expect-error
+                whitelistTags={whitelist_tags}
+              />
             </div>
           )}
 
@@ -344,6 +392,11 @@ const useStyles = makeStyles((theme) => ({
   },
   passInfo: {
     marginLeft: theme.spacing(5),
+  },
+  titleWithSeeAll: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   detailContent: {
     marginTop: 0,

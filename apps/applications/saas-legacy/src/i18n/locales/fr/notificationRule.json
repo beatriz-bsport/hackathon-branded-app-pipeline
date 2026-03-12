@@ -64,7 +64,8 @@
         "lastname": "Nom élève",
         "unsubscribe_link": "Lien de désinscription newsletter",
         "reset_password_url": "Lien réinitialisation mot de passe",
-        "email_confirmation_url": "Lien confirmation d'email"
+        "email_confirmation_url": "Lien confirmation d'email",
+        "marketing_email_double_opt_in_url": "Lien de double confirmation pour les emails marketing"
       }
     },
     "Booking": {
@@ -232,7 +233,8 @@
       "giftcard_message": "Message de la carte cadeau",
       "giftcard_value": "Valeur de la carte cadeau",
       "manage_changing_email_link": "Lien de gestion du changement d'email",
-      "pdf_link": "Carte cadeau lien PDF"
+      "pdf_link": "Carte cadeau lien PDF",
+      "marketing_email_double_opt_in_url": "Lien de double confirmation pour les emails marketing"
     },
     "GuestInvitation": {
       "tags": {

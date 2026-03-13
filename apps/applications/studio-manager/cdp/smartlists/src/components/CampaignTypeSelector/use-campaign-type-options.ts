@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router";
-
 import { IconName } from "@bsport/kaizen-primitive-core";
 
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useUpsellChecker } from "#src/hooks/use-upsell-checker";
-import { EMAIL_CAMPAIGN_CREATION_URL } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 export type CampaignTypeId = "email" | "sms" | "push" | "popup";
@@ -26,7 +24,7 @@ export const useCampaignTypeOptions = ({
   const { showAddOnChipSms, showAddOnChipPush, showAddOnChipPopup } =
     useUpsellChecker();
 
-  const navigate = useNavigate();
+  const { navigateToSmartlistCampaignCreate } = useSmartlistNavigation();
 
   const options: CampaignTypeOption[] = [
     {
@@ -36,7 +34,7 @@ export const useCampaignTypeOptions = ({
       descriptionKey: t("campaignTypeSelector.email.description"),
       showAddOnChip: false,
       onClick: () => {
-        navigate(EMAIL_CAMPAIGN_CREATION_URL({ smartlistId }));
+        navigateToSmartlistCampaignCreate(smartlistId, "email");
       },
     },
     {
@@ -59,6 +57,9 @@ export const useCampaignTypeOptions = ({
       titleKey: t("campaignTypeSelector.popup.title"),
       descriptionKey: t("campaignTypeSelector.popup.description"),
       showAddOnChip: showAddOnChipPopup,
+      onClick: () => {
+        navigateToSmartlistCampaignCreate(smartlistId, "popup");
+      },
     },
   ];
 

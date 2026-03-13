@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router";
+import { Link, NavLink, Outlet, useLocation, useParams } from "react-router";
 
 import {
   Breadcrumbs,
@@ -31,6 +24,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { URLS } from "#src/urls";
 import {
   AUTOMATION_TAB_PATH,
@@ -45,7 +39,11 @@ import {
   GENERATE_REPORT_ACTION_ID,
   SmartlistHeaderActionDropdown,
 } from "./SmartlistHeaderActionDropdown";
-import { getDetailsActiveTabPath, getHeaderTabConfig } from "./header-actions";
+import {
+  type DetailsTabPath,
+  getDetailsActiveTabPath,
+  getHeaderTabConfig,
+} from "./header-actions";
 
 const REPORT_DATE_FILTER_LUXON_FORMAT = "yyyy-MM-dd";
 
@@ -146,9 +144,8 @@ function Details() {
     }
   };
 
-  const navigate = useNavigate();
   const location = useLocation();
-
+  const { navigateToSmartlistParameters } = useSmartlistNavigation();
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(id);
   const { detailsLayoutProps } = useDetailsLayout();
 
@@ -158,7 +155,11 @@ function Details() {
     </Link>,
   ];
 
-  const tabsConfig_items = [
+  const tabsConfig_items: Array<{
+    id: string;
+    path: DetailsTabPath;
+    label: string;
+  }> = [
     {
       id: "smartlist-parameters-tab",
       path: PARAMETER_TAB_PATH,
@@ -223,13 +224,13 @@ function Details() {
     const isAtBasePath = location.pathname === `/${id}`;
 
     if (isAtBasePath) {
-      navigate("parameter", { replace: true });
+      navigateToSmartlistParameters(id, { replace: true });
     }
-  }, [id, location.pathname, navigate]);
+  }, [id, location.pathname, navigateToSmartlistParameters]);
 
   const tabsConfig: TabsProps = {
     TabsItems: tabsConfig_items.map((tab) => (
-      <NavLink to={`/${id}/${tab.path}`} id={tab.id} key={tab.id} end>
+      <NavLink to={`../${id}/${tab.path}`} id={tab.id} key={tab.id} end>
         {({ isActive }) => (
           <Tabs.Item id={tab.id} label={tab.label} isActive={isActive} />
         )}

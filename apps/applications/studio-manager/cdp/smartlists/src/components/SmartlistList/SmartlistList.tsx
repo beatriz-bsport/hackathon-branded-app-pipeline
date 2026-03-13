@@ -1,5 +1,4 @@
 import { type FC } from "react";
-import { useNavigate } from "react-router";
 
 import {
   List,
@@ -9,6 +8,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { LEGACY_URLS } from "#src/urls";
 import { flags, useFlag } from "#src/utils/feature-flags";
 import { useTranslation } from "#src/utils/i18n";
@@ -48,7 +48,6 @@ export const SmartlistList: FC<SmartlistListProps> = ({
   actions,
 }) => {
   const { t } = useTranslation("list");
-  const navigate = useNavigate();
   const isSmartlistEnabled = useFlag(flags.smartlist);
 
   const prefetchSmartlistDetail = usePrefetchSmartlistDetail();
@@ -58,6 +57,7 @@ export const SmartlistList: FC<SmartlistListProps> = ({
   const { onEdit, onDuplicate, onDelete } = actions;
 
   const isMobile = !useMatchMedia("sm");
+  const { navigateToSmartlistCampaigns } = useSmartlistNavigation();
 
   const listItems: ListItemProps[] = smartlists.map((smartlist: Smartlist) => ({
     id: smartlist.id.toString(),
@@ -69,7 +69,8 @@ export const SmartlistList: FC<SmartlistListProps> = ({
     onClick: () => {
       if (isSmartlistEnabled) {
         prefetchSmartlistDetail(smartlist.id.toString());
-        navigate(`/${smartlist.id}`);
+
+        navigateToSmartlistCampaigns(smartlist.id.toString());
       } else {
         window.location.assign(LEGACY_URLS.SMARTLIST_MEMBER(smartlist.id));
       }

@@ -19,6 +19,7 @@ import type {
   CommunicationPreviewRecipientsRequest,
   CommunicationRecipientCount,
   CommunicationRecipientMinimal,
+  CreateAutomatedCampaignParams,
   EmailTemplateDetail,
   FetchAutomatedCampaignsParams,
   FetchCampaignRecipientParams,
@@ -202,6 +203,20 @@ const fetchAutomatedCampaigns = async (
   );
 
   return data.results;
+};
+
+export const createAutomatedCampaign = async (
+  params: CreateAutomatedCampaignParams,
+): Promise<AutomatedCampaign> => {
+  const { data } = await fetch<AutomatedCampaign>(
+    `${SMARTLIST_API_V1}/automated_campaign/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  );
+
+  return data;
 };
 
 const fetchCampaignSentList = async (

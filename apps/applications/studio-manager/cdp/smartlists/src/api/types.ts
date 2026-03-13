@@ -39,6 +39,15 @@ export type AutomatedCampaign = {
   max_communications_sent_per_member: number | null;
 };
 
+export type CreateAutomatedCampaignParams = {
+  smartlist: number;
+  event_kind: EventKind;
+  communication_kind: CommunicationKind;
+  title: string;
+  text: string;
+  max_communications_sent_per_member: number | null;
+};
+
 /**
  * Get Popups from the API
  * Endpoint for lists: GET member-experience/v1/mobile_app/manager/custom_popup_links/

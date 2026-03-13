@@ -9,3 +9,8 @@ export type BooleanFieldPath<T extends FieldValues> = {
 export type NumberListFieldPath<T extends FieldValues> = {
   [K in FieldPath<T>]: T[K] extends number[] ? K : never;
 }[FieldPath<T>];
+
+// Enforce the selected name to be within the FieldValues and to resolve to a number field
+export type NumberFieldPath<T extends FieldValues> = {
+  [K in FieldPath<T>]: T[K] extends number | null ? K : never;
+}[FieldPath<T>];

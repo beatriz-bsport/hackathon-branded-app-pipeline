@@ -1,6 +1,8 @@
-import { type VariantProps, cva } from "class-variance-authority";
+import { type VariantProps, cva, cx } from "class-variance-authority";
 import classNames from "classnames";
 import React, { useCallback } from "react";
+
+import { Label } from "#src/components/label";
 
 export const defaultClasses = [
   "relative",
@@ -123,23 +125,20 @@ const Toggle: React.FC<ToggleProps> = ({
           )}
         />
       </div>
-      <div className="flex" style={{ gridArea: "label" }}>
-        <label
-          htmlFor={id}
-          className={classNames("flex gap-2xs cursor-pointer w-full", {
-            "cursor-default": disabled,
+      <Label
+        htmlFor={id}
+        label={label}
+        required={required}
+        style={{ gridArea: "label" }}
+        className={cx(
+          "w-full",
+          disabled ? "cursor-default" : "cursor-pointer",
+          {
             "pl-xs": direction === "start",
             "pr-xs": direction === "end",
-          })}
-        >
-          <span>{label}</span>
-          {required && (
-            <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-              *
-            </span>
-          )}
-        </label>
-      </div>
+          },
+        )}
+      />
 
       <div style={{ gridArea: "empty" }} />
       <div

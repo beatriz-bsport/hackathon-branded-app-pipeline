@@ -195,7 +195,12 @@ export type OfferStatus = {
   taken_spots: number[];
 };
 
-export type PaymentPack = {
+export type TagsEligibility = {
+  whitelist_tags: Array<number>;
+  blacklist_tags: Array<number>;
+};
+
+export type PaymentPack = TagsEligibility & {
   id: number;
   name: string;
   price: number;
@@ -240,8 +245,6 @@ export type PaymentPack = {
   penalty_account_value: number;
   start_on_first_user: boolean;
   notifications: Array<number>;
-  whitelist_tags: Array<number>;
-  blacklist_tags: Array<number>;
 };
 
 export type ContractWithPaymentPack = {
@@ -273,7 +276,7 @@ export type PaymentComboItem<T> = {
   data: T;
 };
 
-export type PrivatePass = {
+export type PrivatePass = TagsEligibility & {
   id: number;
   name: string;
   credits: number;

@@ -648,6 +648,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     // Will need to update selectedOffers management for the grouped offer feature
     return getAvailablePaymentPacks(
       this.state.offersConstraint,
+      // @ts-expect-error
       this.props.paymentPackList,
       selectedOffers,
       this.props.offer,

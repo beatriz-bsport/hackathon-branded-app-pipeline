@@ -1,5 +1,5 @@
 import { getPrivatePassAsConsumer } from '#src/libs/private-service/selectors/private-pass';
-import { getPrivatePassByCategoryWithPasses } from '#src/libs/private-service/selectors/private-pass-category';
+import { getPrivatePassByCategoryWithEligiblePasses } from '#src/libs/private-service/selectors/private-pass-category';
 import { RootState } from '#src/reducers';
 import { useSelector } from 'react-redux';
 import { getPaymentPackCategoriesWithPacks } from '#src/libs/payment-packs/selectors';
@@ -48,8 +48,10 @@ export const usePasses = () => {
     ) ?? [];
   const categoriesWithAppointmentPacks =
     useSelector((state: RootState) =>
-      getPrivatePassByCategoryWithPasses(getPrivatePassAsConsumer)(
+      getPrivatePassByCategoryWithEligiblePasses(getPrivatePassAsConsumer)(
         state,
+        authenticated,
+        memberTaglist,
       )?.asMutable({ deep: true }),
     ) ?? [];
 

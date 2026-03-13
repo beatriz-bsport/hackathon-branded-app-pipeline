@@ -66,22 +66,24 @@ import {
   checkPrivateSlotUnpaidBookingEligibility,
   checkPrivateServiceTagEligibility,
 } from '../../../libs/private-service/actions';
+import { fetchMemberTagList } from '#src/libs/tag/actions';
 import type {
   PrivateSlot,
   PrivateConsumerPass,
   PrivatePassCategoryWithPasses,
   PrivateService,
   PrivateBooking,
-} from '../../../libs/private-service/types';
+} from '#src/libs/private-service/types';
 import type { OptionCallback } from '#src/state/types.ts';
 import type { Basket } from '../../../libs/checkout/types';
 import WidgetUtils from '../../../libs/widget/WidgetUtils';
-import { getPrivatePassByCategoryWithPasses } from '../../../libs/private-service/selectors/private-pass-category';
+import { getPrivatePassByCategoryWithEligiblePasses } from '#src/libs/private-service/selectors/private-pass-category';
 import { borderRadius } from 'react-select/lib/theme';
 import { LabelOff } from '@material-ui/icons';
 import { getMarketplaceRoute } from '../../../libs/marketplace/routing-utils';
 import { analyticsClientB2C } from '#src/components/analytics/mixpanel';
 import { trackBookingConfirmedEvent } from '#src/events/booking/trackers';
+import { getMemberTagsIdsList } from '#src/libs/tag/selectors';
 
 type Props = {
   privateServiceId: number,
@@ -101,6 +103,7 @@ type Props = {
   fetchCompatiblePrivatePass: (privateSlotId: number, params: any) => void,
   fetchCompatiblePrivateConsumerPass: (privateSlotId: number) => void,
   fetchAllPrivatePassCategory: (company: number) => void,
+  fetchMemberTagList: (company: number) => void,
 
   addItemToBasket: (
     basketId: string,
@@ -187,6 +190,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
 
     if (this.props.auth.authenticated) {
       this.props.fetchProfile();
+      this.props.fetchMemberTagList(this.props.company);
     }
     this.props.checkPrivateSlotUnpaidBookingEligibility({
       privateSlotId: this.props.privateSlotId,
@@ -470,31 +474,36 @@ export default compose(
     company: parseQueryString(location.search).membership,
   })),
   connect(
-    (state, { privateServiceId, privateSlotId }) => ({
-      auth: state.auth,
-      currentBasket: getCurrentBasket(state),
-      currentBasketLoading: state.checkout.basket.current.loading,
-      theme: themeSelectors.getTheme(state),
+    (state, { privateServiceId, privateSlotId }) => {
+      const resolvedMemberTagList = getMemberTagsIdsList(state);
+      const resolvedAuthenticated = state.auth.authenticated;
+      return {
+        auth: state.auth,
+        currentBasket: getCurrentBasket(state),
+        currentBasketLoading: state.checkout.basket.current.loading,
+        theme: themeSelectors.getTheme(state),
 
-      compatiblePrivateConsumerPass: getPrivateConsumerPassList(state),
-      compatiblePrivatePassByCategory: getPrivatePassByCategoryWithPasses(
-        getPrivatePassListWithPrivateService,
-      )(state),
-      compatibleWithUnpaidBooking: getUnPaidBookingAvailabilityForPrivateslot(
-        state,
-        privateSlotId,
-      ),
-      privateSlot: getPrivateSlot(state, privateSlotId),
-      privateService: getPrivateService(state, privateServiceId),
-      basket: getCurrentBasket(state),
-      loading:
-        state.privateService.privateService.loading ||
-        state.privateService.privatePass.loading ||
-        state.privateService.privateSlot.loading ||
-        state.privateService.privateConsumerPass.loading,
-      eligibleByTags: getPrivateServiceTagEligible(state, privateServiceId),
-      eligibleByTagsLoading: getPrivateServiceTagEligibleLoading(state),
-    }),
+        compatiblePrivateConsumerPass: getPrivateConsumerPassList(state),
+        compatiblePrivatePassByCategory:
+          getPrivatePassByCategoryWithEligiblePasses(
+            getPrivatePassListWithPrivateService,
+          )(state, resolvedAuthenticated, resolvedMemberTagList),
+        compatibleWithUnpaidBooking: getUnPaidBookingAvailabilityForPrivateslot(
+          state,
+          privateSlotId,
+        ),
+        privateSlot: getPrivateSlot(state, privateSlotId),
+        privateService: getPrivateService(state, privateServiceId),
+        basket: getCurrentBasket(state),
+        loading:
+          state.privateService.privateService.loading ||
+          state.privateService.privatePass.loading ||
+          state.privateService.privateSlot.loading ||
+          state.privateService.privateConsumerPass.loading,
+        eligibleByTags: getPrivateServiceTagEligible(state, privateServiceId),
+        eligibleByTagsLoading: getPrivateServiceTagEligibleLoading(state),
+      };
+    },
     {
       linkMeToCompany,
       fetchCompanyTheme,
@@ -506,6 +515,7 @@ export default compose(
       fetchPrivateService,
       fetchCompatiblePrivatePass,
       fetchCompatiblePrivateConsumerPass,
+      fetchMemberTagList,
       registerPrivateBooking,
       addItemToBasket,
       removeItemFromBasket,

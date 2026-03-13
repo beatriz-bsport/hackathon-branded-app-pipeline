@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
-import { filterUnaccessiblePaymentPack } from '@bsport/common/lib/master-data/payment-pack.js';
 
 import type { SCT } from '#src/libs/category/types';
 import { getAvailablePrivatePasses } from '#src/libs/private-service/selectors/private-pass';
@@ -28,6 +27,7 @@ import {
   withAllowedOnArray,
 } from '../franchise/selectors';
 import { Contract } from '#src/libs/subscription/types';
+import { filterIneligibleTags } from '@bsport/common/lib/master-data/tags-eligibility';
 
 type PaymentPackSelector<LPP = number | null> = (
   state: RootState,
@@ -259,8 +259,7 @@ export const getMarketplacePaymentPacks = createSelector(
       }),
     );
 
-    // @ts-expect-error
-    return filterUnaccessiblePaymentPack(paymentPacksWithCategories, {
+    return filterIneligibleTags(paymentPacksWithCategories, {
       memberTagIdsList: memberTagList,
       authenticated,
     });
@@ -823,8 +822,7 @@ export const excludeUnaccessiblePacks = memoize(
         }),
       ],
       (paymentPacks, { memberTagList, authenticated }) =>
-        // @ts-expect-error
-        filterUnaccessiblePaymentPack(paymentPacks, {
+        filterIneligibleTags(paymentPacks, {
           memberTagIdsList: memberTagList,
           authenticated,
         }),

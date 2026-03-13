@@ -3,11 +3,16 @@ import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
 
 import { RootState } from '../../../reducers';
-import { PrivatePass, PrivatePassCategoryWithPasses } from '../types';
+import type {
+  PrivatePass,
+  PrivatePassCategory,
+  PrivatePassCategoryWithPasses,
+} from '../types';
+import { filterIneligibleTags } from '@bsport/common/lib/master-data/tags-eligibility';
 
 export type PrivatePassByCategorySelector<LPP = number> = (
   state: RootState,
-) => Array<PrivatePass<LPP>> | PrivatePass<LPP>;
+) => Array<PrivatePass<LPP>>;
 
 const _getAllPrivatePassCategoryIds = (state: RootState) =>
   state.privateService.privatePassCategory.allIds;
@@ -24,31 +29,68 @@ export const getPrivatePassCategories = createSelector(
   },
 );
 
+const _passesByCategory = (
+  privatePassList: PrivatePass[],
+  privatePassCategoryIds: number[],
+  privatePassCategoryById: { [id: number]: PrivatePassCategory },
+) => {
+  return Immutable<PrivatePassCategoryWithPasses[]>([
+    // @ts-expect-error
+    ...privatePassCategoryIds.map((categoryId) => ({
+      ...privatePassCategoryById[categoryId],
+      passes: privatePassList.filter(
+        (pass: PrivatePass) => pass.category === categoryId,
+      ),
+    })),
+    // @ts-expect-error
+    {
+      name: '',
+      id: null,
+      category_ordering: privatePassCategoryIds.length,
+      passes: privatePassList.filter((pass: PrivatePass) => !pass.category),
+    },
+  ]);
+};
+
 export const getPrivatePassByCategoryWithPasses = memoize(
   (selector: PrivatePassByCategorySelector) =>
     createSelector(
       [selector, _getAllPrivatePassCategoryIds, _getPrivatePassCategoryById],
       (privatePassList, privatePassCategoryIds, privatePassCategoryById) => {
-        return Immutable<PrivatePassCategoryWithPasses[]>([
-          // @ts-expect-error
-          ...privatePassCategoryIds.map((categoryId) => ({
-            ...privatePassCategoryById[categoryId],
-            // @ts-expect-error
-            passes: privatePassList.filter(
-              (pass: PrivatePass) => pass.category === categoryId,
-            ),
-          })),
-          // @ts-expect-error
-          {
-            name: '',
-            id: null,
-            category_ordering: privatePassCategoryIds.length,
-            // @ts-expect-error
-            passes: privatePassList.filter(
-              (pass: PrivatePass) => !pass.category,
-            ),
-          },
-        ]);
+        return _passesByCategory(
+          privatePassList,
+          privatePassCategoryIds,
+          privatePassCategoryById,
+        );
+      },
+    ),
+);
+
+export const getPrivatePassByCategoryWithEligiblePasses = memoize(
+  (selector: PrivatePassByCategorySelector) =>
+    createSelector(
+      [
+        selector,
+        _getAllPrivatePassCategoryIds,
+        _getPrivatePassCategoryById,
+        (_, authenticated: boolean) => authenticated,
+        (_, __, memberTagList: number[]) => memberTagList,
+      ],
+      (
+        privatePassList,
+        privatePassCategoryIds,
+        privatePassCategoryById,
+        authenticated,
+        memberTagList,
+      ) => {
+        return _passesByCategory(
+          filterIneligibleTags(privatePassList, {
+            memberTagIdsList: memberTagList,
+            authenticated,
+          }),
+          privatePassCategoryIds,
+          privatePassCategoryById,
+        );
       },
     ),
 );

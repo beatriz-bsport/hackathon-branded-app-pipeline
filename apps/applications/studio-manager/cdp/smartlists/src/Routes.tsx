@@ -1,10 +1,12 @@
 import { lazy } from "react";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 
 import { FeatureFlag } from "#src/components/FeatureFlag";
+import { CampaignCreateEditRouter } from "#src/routers/CampaignCreateEditRouter";
 import { URLS } from "#src/urls";
 import { flags } from "#src/utils/feature-flags";
 
+import { AutomationCreateEditRouter } from "./routers/AutomationCreateEditRouter";
 import {
   AUTOMATION_TAB_PATH,
   CAMPAIGN_TAB_PATH,
@@ -25,32 +27,16 @@ const AutomationPage = lazy(() => import("#src/pages/AutomationPage"));
 const AutomationMessagePage = lazy(
   () => import("#src/pages/AutomationMessagePage"),
 );
-const AutomationPushCreationPage = lazy(
-  () => import("#src/pages/AutomationPushCreationPage"),
-);
-const PopupCreationPage = lazy(() => import("#src/pages/PopupCreationPage"));
-const PopupEditPage = lazy(() => import("#src/pages/PopupEditPage"));
-const CreateEmailCampaignPage = lazy(
-  () => import("#src/pages/EmailCampaign/CreateEmailCampaign"),
-);
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route element={<ListPage />} path={URLS.INDEX} />
+      <Route element={<ListPage />} index />
       <Route
         path={URLS.AUTOMATION_MESSAGE}
         element={
           <FeatureFlag flag={flags.smartlist}>
             <AutomationMessagePage />
-          </FeatureFlag>
-        }
-      />
-      <Route
-        path={URLS.AUTOMATION_PUSH_CREATION}
-        element={
-          <FeatureFlag flag={flags.smartlist}>
-            <AutomationPushCreationPage />
           </FeatureFlag>
         }
       />
@@ -83,30 +69,25 @@ export const AppRoutes = () => {
         <Route path={CAMPAIGN_TAB_PATH} element={<CampaignPage />} />
         <Route path={AUTOMATION_TAB_PATH} element={<AutomationPage />} />
       </Route>
+      {/* Campaign create/edit: single sub-router for all channels */}
       <Route
-        path={URLS.POPUP_CREATION}
+        path={`${URLS.CAMPAIGN}/*`}
         element={
           <FeatureFlag flag={flags.smartlist}>
-            <PopupCreationPage />
+            <CampaignCreateEditRouter />
           </FeatureFlag>
         }
       />
       <Route
-        path={URLS.EMAIL_CAMPAIGN_CREATION}
+        path={`${URLS.AUTOMATION_MESSAGES}/*`}
         element={
           <FeatureFlag flag={flags.smartlist}>
-            <CreateEmailCampaignPage />
+            <AutomationCreateEditRouter />
           </FeatureFlag>
         }
       />
-      <Route
-        path={URLS.POPUP_EDIT}
-        element={
-          <FeatureFlag flag={flags.smartlist}>
-            <PopupEditPage />
-          </FeatureFlag>
-        }
-      />
+
+      <Route element={<Navigate to={URLS.INDEX} />} path="*" />
     </Routes>
   );
 };

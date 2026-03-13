@@ -20,6 +20,7 @@ import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import { PopupForm } from "#src/components/PopupForm/PopupForm";
 import { getPopupSchema } from "#src/components/PopupForm/schema";
 import { PopupFormData } from "#src/components/PopupForm/shared-types";
+import { SMARTLIST_COMMUNICATION_URLS, URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -32,13 +33,16 @@ export const PopupEditPage = () => {
   const smartlistId = Number(rawSmartlistId);
   invariant(!isNaN(smartlistId), "Expected smartlist id to be a valid number");
 
-  const { popupId: rawPopupId } = useParams<{ popupId: string }>();
-  invariant(rawPopupId, "Expected popup id param to be defined");
+  const { entityId } = useParams<{
+    entityId: string;
+  }>();
+  invariant(entityId, "Expected popup id param to be defined");
 
-  const popupId = Number(rawPopupId);
+  const popupId = Number(entityId);
   invariant(!isNaN(popupId), "Expected popup id to be a valid number");
 
-  const { t } = useTranslation("campaign");
+  const { t: tCampaign } = useTranslation("campaign");
+  const { t: tList } = useTranslation("list");
   const { detailsLayoutProps } = useDetailsLayout();
 
   const [toastId, setToastId] = useState<string | null>(null);
@@ -48,7 +52,6 @@ export const PopupEditPage = () => {
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(
     String(smartlistId),
   );
-  const smartlistName = smartlist?.name ?? "";
 
   const { data: popup } = useFetchPopupDetailSuspenseQuery(popupId);
   const [isLoadingImage, setIsLoadingImage] = useState(true);
@@ -78,7 +81,7 @@ export const PopupEditPage = () => {
         key="continue-popup-edit-button"
         color="main"
         intent="call-to-action"
-        label={t("popup.edit.continueButtonLabel")}
+        label={tCampaign("popup.edit.continueButtonLabel")}
         size="md"
         type="submit"
         disabled={methods.formState.isSubmitting || isLoadingImage}
@@ -87,11 +90,20 @@ export const PopupEditPage = () => {
     ],
   });
 
+  const smartlistName = smartlist?.name ?? "";
+
   const breadcrumbsItems = [
     <Breadcrumbs.Item
-      id="breadcrumb-smartlist"
-      key="breadcrumb-smartlist"
+      key="breadcrumb-smartlists"
+      id="breadcrumb-smartlists"
+      text={tList("title")}
+      href={SMARTLIST_COMMUNICATION_URLS.SMARTLIST_ROUTE_FROM_SUBNAV}
+    />,
+    <Breadcrumbs.Item
+      key="breadcrumb-smartlists-campaigns"
+      id="breadcrumb-smartlists-campaigns"
       text={smartlistName}
+      href={URLS.campaignPath(smartlistId.toString())}
     />,
   ];
 
@@ -112,7 +124,7 @@ export const PopupEditPage = () => {
   const handleSubmit = async (data: PopupFormData) => {
     const processingToastId = toast({
       status: "default",
-      title: t("popup.edit.toasts.processing.editingPopup"),
+      title: tCampaign("popup.edit.toasts.processing.editingPopup"),
       onDismiss: () => setToastId(null),
     });
     setToastId(processingToastId);
@@ -128,12 +140,12 @@ export const PopupEditPage = () => {
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
-        pageTitle={t("popup.edit.title")}
+        pageTitle={tCampaign("popup.edit.title")}
         endGroupActions={endGroupActions}
         BreadcrumbsItems={breadcrumbsItems}
       />
       <DetailsLayout.Content>
-        <Alert status="default">{t("popup.edit.alertMessage")}</Alert>
+        <Alert status="default">{tCampaign("popup.edit.alertMessage")}</Alert>
         <PopupForm id={formId} onSubmit={handleSubmit} {...methods} />
       </DetailsLayout.Content>
     </DetailsLayout>

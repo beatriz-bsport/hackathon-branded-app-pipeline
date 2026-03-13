@@ -1,9 +1,8 @@
-import { useNavigate } from "react-router";
-
 import { toast } from "@bsport/kaizen-primitive-core";
 import type { EditPopupParams } from "@bsport/store-cdp-popup";
 
 import { useEditPopup } from "#src/api/use-edit-popup";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { fetch, xhr } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -17,12 +16,12 @@ export const useEdit = ({
   onFailure?: () => void;
 }) => {
   const { t } = useTranslation("campaign");
-  const navigate = useNavigate();
+  const { navigateToSmartlistCampaigns } = useSmartlistNavigation();
   const { editPopup: editTrigger, isLoading: isEditing } = useEditPopup({
     onSuccess: () => {
       onSuccess?.();
 
-      navigate(`/${smartlistId}/campaign`);
+      navigateToSmartlistCampaigns(smartlistId.toString());
     },
     onFailure: () => {
       onFailure?.();

@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 
 import { useFormController } from "@bsport/form";
 import {
@@ -19,7 +19,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
-import { URLS } from "#src/urls";
+import { SMARTLIST_COMMUNICATION_URLS, URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -54,18 +54,18 @@ function CreateEmailCampaign() {
   });
 
   const breadcrumbsItems = [
-    <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
-      <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
-    </Link>,
-    <Link
-      key="smartlists-item-campaign-breadcrumb"
-      to={`../${smartlistId}/campaign/`}
-    >
-      <Breadcrumbs.Item
-        id="breadcrumb-smartlists-campaigns"
-        text={smartlist?.name ?? ""}
-      />
-    </Link>,
+    <Breadcrumbs.Item
+      key="breadcrumb-smartlists"
+      id="breadcrumb-smartlists"
+      text={tList("title")}
+      href={SMARTLIST_COMMUNICATION_URLS.SMARTLIST_ROUTE_FROM_SUBNAV}
+    />,
+    <Breadcrumbs.Item
+      key="breadcrumb-smartlists-campaigns"
+      id="breadcrumb-smartlists-campaigns"
+      text={smartlist?.name ?? ""}
+      href={URLS.campaignPath(smartlistId.toString())}
+    />,
   ];
 
   const handleSubmit = (data: EmailCampaignFormData) => {

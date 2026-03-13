@@ -76,7 +76,10 @@ export const AutomationPushCreationPage = () => {
     <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
       <Breadcrumbs.Item id={ids.breadcrumbs.smartlists} text={tList("title")} />
     </Link>,
-    <Link key="smartlist-detail-breadcrumb" to={`/${smartlistId}/automation`}>
+    <Link
+      key="smartlist-detail-breadcrumb"
+      to={URLS.automationPath(smartlistId)}
+    >
       <Breadcrumbs.Item
         id={ids.breadcrumbs.smartlistName}
         text={smartlist.name}

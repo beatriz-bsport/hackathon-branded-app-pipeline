@@ -46,8 +46,8 @@ export const ToggleButtonGroup = <TValue extends string>({
             size={size}
             checked={selectedValue === option.value}
             disabled={disabled}
-            checkedConfig={{ label: option.label, icon: option.icon }}
-            uncheckedConfig={{ label: option.label, icon: option.icon }}
+            checkedConfig={{ label: option.label, iconLeft: option.icon }}
+            uncheckedConfig={{ label: option.label, iconLeft: option.icon }}
             onChange={({ checked }) => {
               if (!checked) return;
               onChangeValue?.(option.value);

@@ -22,6 +22,7 @@ export const EmailNameField: React.FC = () => {
         value: field.value,
         onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
           setValue("campaignName", e.target.value, {
+            shouldValidate: true,
             shouldDirty: true,
           });
         },
@@ -29,6 +30,7 @@ export const EmailNameField: React.FC = () => {
         maxLength: CAMPAIGN_NAME_MAX_LENGTH,
         onClear: () => {
           setValue("campaignName", "", {
+            shouldValidate: true,
             shouldDirty: true,
           });
         },

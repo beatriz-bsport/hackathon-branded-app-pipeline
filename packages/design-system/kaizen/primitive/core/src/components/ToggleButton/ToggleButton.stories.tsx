@@ -27,7 +27,7 @@ import ToggleButton from "./ToggleButton";
  * <ToggleButton
  *   id="notifications"
  *   uncheckedConfig={{ label: "Enable Notifications" }}
- *   checkedConfig={{ label: "Notifications Enabled", icon: "bell-03" }}
+ *   checkedConfig={{ label: "Notifications Enabled", iconLeft: "bell-03" }}
  *   checked={isEnabled}
  *   onChange={(checked) => setIsEnabled(checked)}
  * />
@@ -102,7 +102,7 @@ Each state is configured using a config object with:
       table: {
         type: {
           summary:
-            "{ label: string; icon?: IconName; tooltipConfig?: TooltipProps }",
+            "{ label: string; iconRight?: IconName; iconLeft?: IconName; tooltipConfig?: TooltipProps }",
         },
       },
     },
@@ -112,7 +112,7 @@ Each state is configured using a config object with:
       table: {
         type: {
           summary:
-            "{ label: string; icon?: IconName; tooltipConfig?: TooltipProps }",
+            "{ label: string; iconRight?: IconName; iconLeft?: IconName; tooltipConfig?: TooltipProps }",
         },
       },
     },
@@ -170,7 +170,7 @@ export const Primary: Story = {
     checked: false,
     checkedConfig: {
       label: "Feature Enabled",
-      icon: "check" as IconName,
+      iconLeft: "check" as IconName,
     },
     uncheckedConfig: {
       label: "Feature Disabled",
@@ -246,7 +246,7 @@ export const AllSizes: Story = {
           checked={false}
           checkedConfig={{
             label: `${size.toUpperCase()} Enabled`,
-            icon: "check" as IconName,
+            iconRight: "check" as IconName,
           }}
           uncheckedConfig={{
             label: `${size.toUpperCase()} Disabled`,
@@ -276,7 +276,7 @@ export const WithIcons: Story = {
           checked={false}
           checkedConfig={{
             label: "Connected",
-            icon: "wifi" as IconName,
+            iconLeft: "wifi" as IconName,
           }}
           uncheckedConfig={{
             label: "Disconnected",
@@ -294,11 +294,11 @@ export const WithIcons: Story = {
           checked={true}
           checkedConfig={{
             label: "Online",
-            icon: "wifi" as IconName,
+            iconLeft: "wifi" as IconName,
           }}
           uncheckedConfig={{
             label: "Offline",
-            icon: "wifi-off" as IconName,
+            iconLeft: "wifi-off" as IconName,
           }}
           size="md"
         />
@@ -314,7 +314,7 @@ export const WithIcons: Story = {
           }}
           uncheckedConfig={{
             label: "Notifications Off",
-            icon: "bell-off" as IconName,
+            iconLeft: "bell-off" as IconName,
           }}
           size="md"
         />
@@ -340,7 +340,7 @@ export const WithTooltips: Story = {
         checked={false}
         checkedConfig={{
           label: "Auto-save On",
-          icon: "save" as IconName,
+          iconLeft: "save" as IconName,
           tooltipConfig: {
             label: "Auto-save is currently enabled. Click to disable.",
             placement: "top",
@@ -376,7 +376,7 @@ export const FullWidth: Story = {
         checked={false}
         checkedConfig={{
           label: "Full Width Enabled",
-          icon: "check" as IconName,
+          iconLeft: "check" as IconName,
         }}
         uncheckedConfig={{
           label: "Full Width Disabled",
@@ -418,7 +418,7 @@ export const DisabledStates: Story = {
           checked={true}
           checkedConfig={{
             label: "Enabled",
-            icon: "check" as IconName,
+            iconLeft: "check" as IconName,
           }}
           uncheckedConfig={{ label: "Disabled" }}
           size="md"
@@ -454,7 +454,7 @@ export const ControlledVsUncontrolled: Story = {
               checked={controlledValue}
               checkedConfig={{
                 label: "Controlled On",
-                icon: "check" as IconName,
+                iconLeft: "check" as IconName,
               }}
               uncheckedConfig={{
                 label: "Controlled Off",
@@ -479,7 +479,7 @@ export const ControlledVsUncontrolled: Story = {
             id="uncontrolled-toggle"
             checkedConfig={{
               label: "Uncontrolled On",
-              icon: "check" as IconName,
+              iconLeft: "check" as IconName,
             }}
             uncheckedConfig={{
               label: "Uncontrolled Off",
@@ -524,7 +524,7 @@ export const InteractivePlayground: Story = {
     checked: false,
     checkedConfig: {
       label: "Active",
-      icon: "check" as IconName,
+      iconLeft: "check" as IconName,
       tooltipConfig: {
         label: "Click to deactivate",
         placement: "top",
@@ -545,12 +545,12 @@ export const InteractivePlayground: Story = {
     checkedConfig: {
       control: "object",
       description:
-        "Configuration for checked state: { label: string, icon?: IconName, tooltipConfig?: TooltipProps }",
+        "Configuration for checked state: { label: string, iconLeft?: IconName, tooltipConfig?: TooltipProps }",
     },
     uncheckedConfig: {
       control: "object",
       description:
-        "Configuration for unchecked state: { label: string, icon?: IconName, tooltipConfig?: TooltipProps }",
+        "Configuration for unchecked state: { label: string, iconLeft?: IconName, tooltipConfig?: TooltipProps }",
     },
   },
   parameters: {

@@ -1,8 +1,11 @@
 import { type FC, useCallback, useState } from "react";
 
 import { PayoutListItem } from "@bsport/api-financial-services";
-import { Alert, ListLayout, Modal } from "@bsport/kaizen-primitive-core";
+import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
+import { Alert, ListLayout } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { PayoutBalanceTransactionsModal } from "#src/components/payout-balance-transactions-modal";
 import { PayoutDetailDrawer } from "#src/components/payout-detail-drawer/payout-detail-drawer";
 import {
   PayoutTable,
@@ -13,15 +16,37 @@ import { usePaginatedPayouts } from "#src/hooks/use-paginated-payouts";
 import { useTranslation } from "#src/utils/i18n";
 
 const PayoutPage: FC = () => {
-  const { t } = useTranslation("payout");
-  const { payouts, paginationProps, isLoading, error } = usePaginatedPayouts();
+  const { t, i18n } = useTranslation("payout");
+  const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
+
+  const { payouts, paginationProps, isFetching, error } = usePaginatedPayouts();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState<PayoutListItem | null>(null);
 
-  const onDetailedClick = useCallback(() => setIsModalOpen(true), []);
+  const onDetailedClick = useCallback(
+    (id: number | string) => {
+      const numericId = typeof id === "string" ? Number(id) : id;
+      const payout = payouts.find((item) => item.id === numericId);
+
+      if (!payout) return;
+
+      setSelectedRow(payout);
+      setIsDrawerOpen(false);
+      setIsModalOpen(true);
+    },
+    [payouts],
+  );
 
   const columns = usePayoutTableColumns({ onDetailedClick });
+
+  const modalDate = selectedRow
+    ? formatDateTime(
+        selectedRow.payment_provider_date_created,
+        DATETIME_FORMATS.MEDIUM_DATE,
+        { locale: i18n.language, timeZone: companyTimezone },
+      )
+    : "";
 
   const rows: PayoutTableRow[] =
     error || !Array.isArray(payouts)
@@ -54,7 +79,7 @@ const PayoutPage: FC = () => {
           rows={rows}
           paginationProps={paginationProps}
           emptyStateProps={{
-            isEmpty: !error && !isLoading && rows.length === 0,
+            isEmpty: !error && !isFetching && rows.length === 0,
             emptyConfig: {
               title: t("emptyTable.title"),
               subtitle: t("emptyTable.description"),
@@ -62,7 +87,7 @@ const PayoutPage: FC = () => {
             },
           }}
           loadingProps={{
-            isLoading: isLoading && rows.length === 0,
+            isLoading: isFetching && rows.length === 0,
             message: t("loading"),
           }}
         />
@@ -77,12 +102,14 @@ const PayoutPage: FC = () => {
         />
       )}
 
-      <Modal
-        open={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        size="md"
-        title=""
-      />
+      {selectedRow && (
+        <PayoutBalanceTransactionsModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          payout={selectedRow}
+          dateLabel={modalDate}
+        />
+      )}
     </ListLayout>
   );
 };

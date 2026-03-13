@@ -14,7 +14,7 @@ import type { PayoutTableRow } from "./types";
 type TableColumn = GenericTableColumn<PayoutTableRow>;
 
 type UsePayoutTableColumnsParams = {
-  onDetailedClick: (row: PayoutTableRow) => void;
+  onDetailedClick: (id: number | string) => void;
 };
 
 const PAYOUT_RECONCILIATION_STATUS = {
@@ -112,7 +112,7 @@ export const usePayoutTableColumns = ({
           label={t("table.detailed")}
           onClick={(e) => {
             e.stopPropagation();
-            onDetailedClick(row);
+            onDetailedClick(row.id);
           }}
         />
       ),

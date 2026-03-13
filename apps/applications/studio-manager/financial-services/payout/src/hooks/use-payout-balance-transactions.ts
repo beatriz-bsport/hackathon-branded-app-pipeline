@@ -1,4 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useEffect, useRef } from "react";
 
 import {
   type PayoutBalanceTransactionsListResponse,
@@ -7,7 +8,7 @@ import {
 
 import { fetch } from "#src/utils/fetch";
 
-const DEFAULT_PAGE_SIZE = 20;
+export const DEFAULT_BT_PAGE_SIZE = 10;
 
 export type UsePayoutBalanceTransactionsParams = {
   payoutId: number | null;
@@ -18,7 +19,7 @@ export type UsePayoutBalanceTransactionsParams = {
 
 export type UsePayoutBalanceTransactionsResult = {
   data: PayoutBalanceTransactionsListResponse | undefined;
-  isLoading: boolean;
+  isFetching: boolean;
   error: Error | null;
 };
 
@@ -26,9 +27,20 @@ export const usePayoutBalanceTransactions = ({
   payoutId,
   enabled,
   page = 1,
-  pageSize = DEFAULT_PAGE_SIZE,
+  pageSize = DEFAULT_BT_PAGE_SIZE,
 }: UsePayoutBalanceTransactionsParams): UsePayoutBalanceTransactionsResult => {
-  const { data, isLoading, error } = useQuery({
+  const previousPayoutIdRef = useRef<number | null>(null);
+
+  const payoutIdChanged =
+    previousPayoutIdRef.current !== null &&
+    payoutId !== null &&
+    payoutId !== previousPayoutIdRef.current;
+
+  useEffect(() => {
+    previousPayoutIdRef.current = payoutId;
+  }, [payoutId]);
+
+  const { data, isFetching, error } = useQuery({
     queryKey: ["payout-balance-transactions", payoutId, page, pageSize],
     queryFn: () =>
       getPayoutBalanceTransactionsAPI(fetch, {
@@ -37,11 +49,12 @@ export const usePayoutBalanceTransactions = ({
         page_size: pageSize,
       }),
     enabled: enabled && payoutId != null,
+    placeholderData: payoutIdChanged ? undefined : keepPreviousData,
   });
 
   return {
     data,
-    isLoading,
+    isFetching,
     error,
   };
 };

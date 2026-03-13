@@ -53,7 +53,8 @@
       "processing": "Processing",
       "completed": "Completed",
       "partially_failed": "Partially failed",
-      "skipped_manual": "Skipped"
+      "skipped_manual": "Skipped",
+      "unknown": "Unknown"
     }
   },
   "status": {
@@ -63,5 +64,55 @@
     "failed": "Failed",
     "canceled": "Canceled",
     "unknown": "Unknown"
+  },
+  "modal": {
+    "title": "Detailed payout",
+    "description": "See all payments included in this payout. ({{date}})",
+    "error": "Error loading balance transactions",
+    "table": {
+      "type": "Type",
+      "paymentMethod": "Payment method",
+      "status": "Status",
+      "gross": "Gross",
+      "fees": "Fees",
+      "net": "Net",
+      "total": "Total"
+    },
+    "displayType": {
+      "payment": "Payment",
+      "refund": "Refund",
+      "dispute": "Dispute",
+      "failed_direct_debit_original": "Direct debit (original)",
+      "failed_direct_debit_reversal": "Direct debit (reversal)",
+      "balance_transfer": "Transfer",
+      "balance_transfer_refund": "Transfer refund",
+      "adjustment": "Adjustment",
+      "application_fee": "Application fee",
+      "application_fee_refund": "Application fee refund",
+      "payout": "Payout",
+      "payout_failure": "Payout failure",
+      "payout_cancel": "Payout canceled",
+      "other": "Other"
+    },
+    "paymentMethod": {
+      "card": "Card",
+      "sepa_debit": "SEPA",
+      "bacs_debit": "BACS",
+      "twint": "Twint",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay",
+      "bancontact": "Bancontact",
+      "ideal": "iDEAL"
+    },
+    "reconciliationStatus": {
+      "success": "Success",
+      "skipped": "Skipped",
+      "error": "Error",
+      "pending": "Pending"
+    },
+    "empty": {
+      "title": "No payments to display",
+      "description": "There are no payments included in this payout."
+    }
   }
 }

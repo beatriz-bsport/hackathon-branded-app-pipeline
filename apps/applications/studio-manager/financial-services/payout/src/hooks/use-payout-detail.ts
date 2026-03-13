@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import {
   type PayoutDetailResponse,
@@ -14,7 +14,7 @@ export type UsePayoutDetailParams = {
 
 export type UsePayoutDetailResult = {
   detail: PayoutDetailResponse | undefined;
-  isLoading: boolean;
+  isFetching: boolean;
   error: Error | null;
 };
 
@@ -22,15 +22,16 @@ export const usePayoutDetail = ({
   payoutId,
   enabled,
 }: UsePayoutDetailParams): UsePayoutDetailResult => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isFetching, error } = useQuery({
     queryKey: ["payout-detail", payoutId],
     queryFn: () => getPayoutDetailAPI(fetch, { payout_id: payoutId! }),
     enabled: enabled && payoutId != null,
+    placeholderData: keepPreviousData,
   });
 
   return {
     detail: data,
-    isLoading,
+    isFetching,
     error,
   };
 };

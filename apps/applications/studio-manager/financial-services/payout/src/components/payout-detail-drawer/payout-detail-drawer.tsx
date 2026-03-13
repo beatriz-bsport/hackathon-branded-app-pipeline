@@ -8,6 +8,7 @@ import {
   Body,
   Button,
   Chip,
+  type ChipProps,
   DetailDrawer,
   Divider,
   Title,
@@ -31,6 +32,69 @@ export type PayoutDetailDrawerProps = {
   row: PayoutListItem;
 };
 
+const RECONCILIATION_STATUS_KEYS = [
+  "pending",
+  "processing",
+  "completed",
+  "partially_failed",
+  "skipped_manual",
+  "unknown",
+] as const;
+
+type ReconciliationStatusKey = (typeof RECONCILIATION_STATUS_KEYS)[number];
+
+const RECONCILIATION_STATUS_I18N_KEYS: Record<
+  ReconciliationStatusKey,
+  | "drawer.reconciliationStatusPayoutStatus.pending"
+  | "drawer.reconciliationStatusPayoutStatus.processing"
+  | "drawer.reconciliationStatusPayoutStatus.completed"
+  | "drawer.reconciliationStatusPayoutStatus.partially_failed"
+  | "drawer.reconciliationStatusPayoutStatus.skipped_manual"
+  | "drawer.reconciliationStatusPayoutStatus.unknown"
+> = {
+  pending: "drawer.reconciliationStatusPayoutStatus.pending",
+  processing: "drawer.reconciliationStatusPayoutStatus.processing",
+  completed: "drawer.reconciliationStatusPayoutStatus.completed",
+  partially_failed: "drawer.reconciliationStatusPayoutStatus.partially_failed",
+  skipped_manual: "drawer.reconciliationStatusPayoutStatus.skipped_manual",
+  unknown: "drawer.reconciliationStatusPayoutStatus.unknown",
+};
+
+const RECONCILIATION_STATUS_COLORS: Record<
+  ReconciliationStatusKey,
+  ChipProps["color"]
+> = {
+  pending: "warning",
+  processing: "info",
+  completed: "positive",
+  partially_failed: "critical",
+  skipped_manual: "warning",
+  unknown: "default",
+};
+
+function getReconciliationStatusKey(
+  status: string | undefined,
+): ReconciliationStatusKey {
+  const key = status as ReconciliationStatusKey;
+  return RECONCILIATION_STATUS_KEYS.includes(key) ? key : "unknown";
+}
+
+function getReconciliationStatusColor(
+  status: string | undefined,
+): ChipProps["color"] {
+  return RECONCILIATION_STATUS_COLORS[getReconciliationStatusKey(status)];
+}
+
+type ReconciliationStatusTranslationKey =
+  (typeof RECONCILIATION_STATUS_I18N_KEYS)[ReconciliationStatusKey];
+
+function getReconciliationStatusLabel(
+  status: string | undefined,
+  t: (key: ReconciliationStatusTranslationKey) => string,
+): string {
+  return t(RECONCILIATION_STATUS_I18N_KEYS[getReconciliationStatusKey(status)]);
+}
+
 export const PayoutDetailDrawer: FC<PayoutDetailDrawerProps> = ({
   isOpen,
   onClose,
@@ -39,13 +103,14 @@ export const PayoutDetailDrawer: FC<PayoutDetailDrawerProps> = ({
 }) => {
   const { i18n, t } = useTranslation("payout");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
-  const { detail, error } = usePayoutDetail({
+  const { detail, error, isFetching } = usePayoutDetail({
     payoutId: row.id,
     enabled: isOpen,
   });
 
   const hasPreviousPayouts = row.amount_cts_from_previous_included_payouts > 0;
   const stats = detail?.balance_transaction_stats;
+  const isSummaryLoading = isFetching && !error;
 
   return (
     <DetailDrawer id="payout-detail-drawer" isOpen={isOpen} onClose={onClose}>
@@ -143,20 +208,30 @@ export const PayoutDetailDrawer: FC<PayoutDetailDrawerProps> = ({
         </Alert>
       )}
 
-      {stats && (
+      {isSummaryLoading && (
+        <Body size="lg" weight="weak">
+          {t("drawer.loading")}
+        </Body>
+      )}
+
+      {!isSummaryLoading && stats && (
         <div className="flex flex-col gap-2xs">
           {/* Reconciliation row (always first) */}
           <div className="flex justify-between">
             <Body size="lg" weight="weak">
               {t("drawer.reconciliation")}
             </Body>
-            <Body size="lg" weight="weak">
-              {t(
-                `drawer.reconciliationStatusPayoutStatus.${
-                  (detail?.reconciliation_status ?? "pending") as "pending"
-                }`,
+            <Chip
+              label={getReconciliationStatusLabel(
+                detail?.reconciliation_status,
+                t,
               )}
-            </Body>
+              color={getReconciliationStatusColor(
+                detail?.reconciliation_status,
+              )}
+              size="lg"
+              type="weak"
+            />
           </div>
 
           {Object.entries(stats.by_display_type).map(([key, stat]) => {

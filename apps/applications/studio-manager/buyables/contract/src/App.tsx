@@ -12,7 +12,7 @@ import "./index.css";
  */
 const App: React.FC = () => {
   return (
-    <ErrorBoundaryWrapper appName={__SM_APPLICATION__.__SENTRY_SCOPE_TAG__}>
+    <ErrorBoundaryWrapper appName={__CONTRACT__.__SENTRY_SCOPE_TAG__}>
       <AppI18nextProvider>
         <AppRoutes />
       </AppI18nextProvider>

@@ -1,12 +1,15 @@
+import type { FC } from "react";
+
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-const ListPage: React.FC = () => {
-  const { t } = useTranslation("namespaceAlpha");
+const ListPage: FC = () => {
+  const { t } = useTranslation("model-list");
+
   return (
     <ListLayout>
-      <ListLayout.Header pageTitle={t("helloName", { name: "John Doe" })} />
+      <ListLayout.Header pageTitle={t("name")} />
       <ListLayout.Content>
         <p>Your content</p>
       </ListLayout.Content>

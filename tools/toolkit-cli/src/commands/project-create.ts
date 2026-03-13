@@ -1,5 +1,6 @@
 import { spawn } from "child_process";
 import type { Command } from "commander";
+import { unlinkSync } from "fs";
 import fs from "fs-extra";
 import type { DistinctQuestion } from "inquirer";
 import inquirer from "inquirer";
@@ -300,7 +301,7 @@ Please edit the following file to include it: ${path.resolve(
       print("⏳ Found .prettierignore - fixing symlink...");
 
       try {
-        fs.removeSync(ignoreFile);
+        unlinkSync(ignoreFile);
 
         const target = path.relative(
           projectAbsPath,

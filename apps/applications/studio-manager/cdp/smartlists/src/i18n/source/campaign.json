@@ -34,6 +34,26 @@
           }
         }
       },
+      "delivery": {
+        "title": "Delivery",
+        "label": "Send now or in the future *",
+        "sendNow": "Send now",
+        "scheduleForLater": "Schedule for later",
+        "dateLabel": "Date",
+        "timeLabel": "Time",
+        "datePlaceholder": "DD/MM/YYYY",
+        "timePlaceholder": "00:00",
+        "warning": {
+          "nightTimeScheduled": "This message is scheduled to be sent in the nighttime. For better results, we recommend sending messages in the day time."
+        },
+        "validation": {
+          "scheduledDateRequired": "Please select a date.",
+          "scheduledTimeRequired": "Please select a time.",
+          "scheduledDateInvalid": "Please enter a valid date.",
+          "scheduledDateNotInPast": "The date cannot be in the past.",
+          "scheduledAtLeast5Minutes": "Messages must be scheduled at least 5 minutes in advance."
+        }
+      },
       "form": {
         "emailType": {
           "label": "Select the type you're sending",

@@ -61,7 +61,7 @@ export const getTableColumns = ({
             label: t(
               "notificationRuleEventDetails.table.notificationsToggle.activated",
             ),
-            icon: "check",
+            iconRight: "check",
           }}
           uncheckedConfig={{
             label: t(
@@ -112,7 +112,7 @@ export const getTableColumns = ({
             label: t(
               "notificationRuleEventDetails.table.notificationsToggle.activated",
             ),
-            icon: "check",
+            iconRight: "check",
           }}
           uncheckedConfig={{
             label: t(

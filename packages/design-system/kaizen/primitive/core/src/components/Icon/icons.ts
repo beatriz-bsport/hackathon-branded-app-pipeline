@@ -239,6 +239,7 @@ const icons = {
     async () => await import("./assets/search-refraction.svg?react"),
   ),
   "send-01": React.lazy(async () => await import("./assets/send-01.svg?react")),
+  "send-03": React.lazy(async () => await import("./assets/send-03.svg?react")),
   "settings-03": React.lazy(
     async () => await import("./assets/settings-03.svg?react"),
   ),

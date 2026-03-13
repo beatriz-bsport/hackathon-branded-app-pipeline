@@ -39,7 +39,7 @@ export const NotificationToggle = ({
       }}
       checkedConfig={{
         label: t("table.notificationState.enabled"),
-        icon: "check",
+        iconRight: "check",
       }}
       uncheckedConfig={{
         label: t("table.notificationState.disabled"),

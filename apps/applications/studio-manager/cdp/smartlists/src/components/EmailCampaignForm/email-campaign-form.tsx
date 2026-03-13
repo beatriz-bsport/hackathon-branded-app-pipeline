@@ -5,6 +5,7 @@ import { ControlledForm, type ControlledFormProps } from "@bsport/form";
 import { Card } from "@bsport/kaizen-primitive-core";
 
 import { EmailNameField } from "./EmailNameField";
+import { CampaignDeliveryModeSelector } from "./campaign-delivery-mode-selector";
 import { EMAIL_TYPE_MARKETING } from "./constants";
 import { EmailTypeField } from "./email-type-field";
 import { RecipientCountPreview } from "./recipient-count-preview";
@@ -50,6 +51,7 @@ export const EmailCampaignForm: React.FC<EmailCampaignFormProps> = ({
          */
         isProduction ? null : <EmailNameField />
       }
+      <CampaignDeliveryModeSelector />
     </ControlledForm>
   );
 };

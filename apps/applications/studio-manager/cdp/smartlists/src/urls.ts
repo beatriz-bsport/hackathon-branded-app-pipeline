@@ -3,6 +3,7 @@ export const URLS = {
   DETAILS: "/:id",
   PARAMETER: "/:id/parameter",
   AUTOMATION: "/:id/automation",
+  AUTOMATION_PUSH_CREATION: "/:id/automation/messages/push/new",
   CAMPAIGN: "/:id/campaign",
   CAMPAIGN_SCHEDULED_DETAILS: "/:id/campaign/scheduled/:uuid",
   CAMPAIGN_SENT_DETAILS: "/:id/campaign/sent/:uuid",
@@ -40,3 +41,9 @@ export const EMAIL_CAMPAIGN_CREATION_URL = ({
 }: {
   smartlistId: string;
 }) => `/${smartlistId}/campaign/create/email`;
+
+export const PUSH_AUTOMATION_CREATION_URL = ({
+  smartlistId,
+}: {
+  smartlistId: string;
+}) => `/${smartlistId}/automation/messages/push/new`;

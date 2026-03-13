@@ -1,0 +1,30 @@
+{
+  "bookkeepingAccount": {
+    "selector": {
+      "label": "Bookkeeping account",
+      "noAccounts": "No account found",
+      "tax": "Sales Tax / VAT: {{ value }}%",
+      "clearSelection": "Clear selected account",
+      "placeholder": "Select an account",
+      "createAccount": "Create new account"
+    },
+    "createModal": {
+      "title": "Create a new account",
+      "fieldRequired": "Field is required",
+      "fields": {
+        "accountNumber": "Account number",
+        "accountName": "Account name",
+        "vatRate": "VAT rate"
+      },
+      "buttons": {
+        "close": "Close",
+        "save": "Save"
+      },
+      "success": "Account created",
+      "errors": {
+        "accountNameMustBeUnique": "Bookkeeping Account name already used. It must be unique.",
+        "generic": "An error occured."
+      }
+    }
+  }
+}

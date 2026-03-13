@@ -1,6 +1,8 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import React, { useEffect, useState } from "react";
 
+import { Label } from "#src/components/label";
+
 import FormRadioField, { FormRadioOptionsProps } from "./FormRadioField";
 
 export const defaultClasses = ["flex flex-col gap-md"] as const;
@@ -91,19 +93,7 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
       data-component="Kaizen-FormRadioGroup"
       className="flex flex-col gap-xs"
     >
-      {label && (
-        <label
-          htmlFor={id}
-          className="flex gap-2xs text-onsurface-default text-body-md leading-sm"
-        >
-          <span>{label}</span>
-          {required && (
-            <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-              *
-            </span>
-          )}
-        </label>
-      )}
+      <Label required={required} label={label} />
 
       <fieldset
         className={radioGroup({ className })}

@@ -10,6 +10,7 @@ import React, {
 import Badge from "#src/components/Badge";
 import Button from "#src/components/Button";
 import Icon, { IconName } from "#src/components/Icon";
+import { Label } from "#src/components/label";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import ColorInput from "./ColorInput";
@@ -227,20 +228,7 @@ const TextField: React.FC<TextFieldProps> = ({
       )}
       {...otherContainerProps}
     >
-      {label && (
-        <label
-          data-component="Kaizen-TextField-Label"
-          htmlFor={id}
-          className="flex gap-2xs text-onsurface-default text-body-md leading-sm"
-        >
-          <span>{label}</span>
-          {required && (
-            <span className="text-onsurface-status-critical-weak text-body-sm leading-xs">
-              *
-            </span>
-          )}
-        </label>
-      )}
+      <Label htmlFor={id} required={required} label={label} />
       <div className="flex gap-xs items-start">
         <div
           className={classNames(

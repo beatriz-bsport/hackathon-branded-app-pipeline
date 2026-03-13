@@ -62,6 +62,10 @@ const meta: Meta<typeof RadioGroup> = {
       ),
     },
   },
+  args: {
+    required: false,
+    label: "Hello world",
+  },
 };
 
 export default meta;

@@ -2,6 +2,7 @@ import { cx } from "class-variance-authority";
 import React from "react";
 
 import Body, { type BodyColor } from "#src/components/Body";
+import { Label } from "#src/components/label";
 import {
   CheckboxProvider,
   type CheckboxProviderProps,
@@ -56,20 +57,7 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
             "items-start": direction === "start",
           })}
         >
-          <Body size="md" htmlVariant="p">
-            {label}
-            {required && (
-              <Body
-                htmlVariant="span"
-                size="sm"
-                color="critical"
-                weight="weak"
-                className="ml-2xs"
-              >
-                *
-              </Body>
-            )}
-          </Body>
+          <Label required={required} label={label} />
           {helperText && (
             <Body size="sm" weight="weak" color="weak">
               {helperText}

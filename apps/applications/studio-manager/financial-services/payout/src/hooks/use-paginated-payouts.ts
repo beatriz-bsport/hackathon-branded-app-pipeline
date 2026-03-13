@@ -29,7 +29,7 @@ const payoutListQueryOptions = ({ page, page_size }: PayoutListQueryParams) => {
 export type UsePaginatedPayoutsResult = {
   payouts: PayoutListItem[];
   paginationProps: PaginationProps;
-  isLoading: boolean;
+  isFetching: boolean;
   error: Error | null;
 };
 
@@ -37,7 +37,7 @@ export const usePaginatedPayouts = (): UsePaginatedPayoutsResult => {
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isFetching, error } = useQuery({
     ...payoutListQueryOptions({
       page: currentPage,
       page_size: currentPageSize,
@@ -52,17 +52,17 @@ export const usePaginatedPayouts = (): UsePaginatedPayoutsResult => {
       currentPage,
       rowsPerPage: currentPageSize,
       showRowsPerPageSelector: true,
-      disabled: isLoading,
+      disabled: isFetching,
       totalItems,
       onPageSettingsChange: setPageSettings,
     }),
-    [currentPage, currentPageSize, isLoading, totalItems, setPageSettings],
+    [currentPage, currentPageSize, isFetching, totalItems, setPageSettings],
   );
 
   return {
     payouts,
     paginationProps,
-    isLoading,
+    isFetching,
     error,
   };
 };

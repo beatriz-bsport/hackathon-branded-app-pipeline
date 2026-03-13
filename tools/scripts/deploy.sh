@@ -62,6 +62,8 @@ pnpm run -w translation:update
 echo "✅ Translations have been updated"
 echo ""
 
+STUDIO_MFE="@bsport/sm-host,@bsport/sm-navigation-sidebar"
+
 # Define Nx projects to build and deploy
 if [ "$FORCE_REDEPLOY" = "true" ]; then
   echo "🔱 Detecting projects to force redeploy..."
@@ -69,9 +71,6 @@ if [ "$FORCE_REDEPLOY" = "true" ]; then
   # Select all projects
   SELECTED_PROJECTS=$(pnpm exec nx show projects --sep=",")
 
-  # Select all MFE
-  REVAMP_MFE=$(pnpm exec nx show projects --sep="," \
-    --projects=tag:application:revamp --exclude="@bsport/template-*")
 else
   echo "🔱 Detecting affected projects..."
 
@@ -79,16 +78,12 @@ else
   SELECTED_PROJECTS=$(pnpm exec nx show projects --sep="," \
     --affected --base="$NX_BASE" --head=HEAD)
 
-  # Select only affected MFE
-  REVAMP_MFE=$(pnpm exec nx show projects --sep="," \
-    --affected --base="$NX_BASE" --head=HEAD \
-    --projects=tag:application:revamp --exclude="@bsport/template-*")
 fi
 
 echo "These are the projects:"
 echo "$SELECTED_PROJECTS" | sed "s/,/\n/g"
-echo "These are the related Micro Frontends":
-echo "$REVAMP_MFE" | sed "s/,/\n/g"
+echo "These are the Studio Manager Micro Frontends to deploy":
+echo "$STUDIO_MFE" | sed "s/,/\n/g"
 echo ""
 
 # Build affected projects
@@ -116,18 +111,14 @@ echo "✅ All affected projects have been deployed"
 echo ""
 
 # Handle Studio Manager micro frontends via the host app
-if [ -n "$REVAMP_MFE" ]; then
-  echo "⏳ Building affected micro frontends"
-  pnpm exec nx ci:build:mfe @bsport/sm-host "$REVAMP_MFE"
-  echo "✅ All affected micro frontends have been rebuilt"
-  echo ""
+echo "⏳ Building Studio Manager micro frontends"
+pnpm exec nx ci:build:mfe @bsport/sm-host "$STUDIO_MFE"
+echo "✅ Studio Manager micro frontends have been rebuilt"
+echo ""
 
-  echo "⏳ Deploying affected micro frontends"
-  pnpm exec nx ci:deploy:mfe @bsport/sm-host "$DEPLOY_ENVIRONMENT" "$REVAMP_MFE"
-  echo "✅ All affected micro frontends have been deployed"
-else
-  echo "ℹ️  No Studio Manager projects affected, skipping micro frontend deployment"
-fi
+echo "⏳ Deploying Studio Manager micro frontends"
+pnpm exec nx ci:deploy:mfe @bsport/sm-host "$DEPLOY_ENVIRONMENT" "$STUDIO_MFE"
+echo "✅ Studio Manager micro frontends have been deployed"
 echo ""
 
 echo "=========================================="

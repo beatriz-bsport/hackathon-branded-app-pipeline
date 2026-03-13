@@ -1,17 +1,15 @@
 #!/bin/sh
 
-set -e
+set -eu
 
 echo "*"
 
-# Clean provided list (1st arg) by converting literal \n to comma separator
-APPLICATIONS=$(echo $(printf "%b" "$1") | sed "s/ /,/g")
+DEFAULT_APPLICATIONS="@bsport/sm-host,@bsport/sm-navigation-sidebar"
+RAW_APPLICATIONS=${1:-$DEFAULT_APPLICATIONS}
+APPLICATIONS=$(printf "%b" "$RAW_APPLICATIONS" | tr '\n ' ',' | sed 's/,,*/,/g; s/^,//; s/,$//')
 
-# Always include sm-host to ensure release SHA can be injected during deployment of MFE
-# Example: when sm-navigation-sidebar only is affected 
-if ! echo "$APPLICATIONS" | grep -q "@bsport/sm-host"; then
-  echo "Adding @bsport/sm-host to build list for release SHA injection"
-  APPLICATIONS="@bsport/sm-host,$APPLICATIONS"
+if [ -z "$APPLICATIONS" ]; then
+  APPLICATIONS="$DEFAULT_APPLICATIONS"
 fi
 
 TODAY="$(date +%F)"

@@ -27,7 +27,13 @@
     "project:init": "node scripts/init.mjs",
     "translation:update": "pnpm run -w translation:update"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@bsport/api-financial-services": "workspace:*",
+    "@bsport/currency": "workspace:*",
+    "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/use-pagination-query-params": "workspace:*",
+    "@tanstack/react-query": "^5.90.12"
+  },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-library": "workspace:*",

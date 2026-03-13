@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
   return getLibConfig({
     mode,
     packageJson,
-    appType: "shared",
+    appType: "financial-services",
     rootDir: __dirname,
   });
 });

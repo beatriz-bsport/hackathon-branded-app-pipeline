@@ -1,6 +1,6 @@
 import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
-import { API_URL_PAYMENT } from "../constants";
+import { API_URL } from "../constants";
 import type {
   GetPayoutBalanceTransactionsRequest,
   GetPayoutDetailRequest,
@@ -18,7 +18,7 @@ const getPayoutListAPIConfig = (payload: GetPayoutListRequest): ApiConfig => {
   }
 
   return [
-    `${API_URL_PAYMENT}/payout/reconciliation/?${params.toString()}`,
+    `${API_URL}/payout/reconciliation/?${params.toString()}`,
     { method: "GET" },
   ];
 };
@@ -38,7 +38,7 @@ const getPayoutDetailAPIConfig = (
   payload: GetPayoutDetailRequest,
 ): ApiConfig => {
   return [
-    `${API_URL_PAYMENT}/payout/reconciliation/${payload.payout_id}/`,
+    `${API_URL}/payout/reconciliation/${payload.payout_id}/`,
     { method: "GET" },
   ];
 };
@@ -66,7 +66,7 @@ const getPayoutBalanceTransactionsAPIConfig = (
   }
 
   return [
-    `${API_URL_PAYMENT}/payout/reconciliation/${payload.payout_id}/balance-transactions/?${params.toString()}`,
+    `${API_URL}/payout/reconciliation/${payload.payout_id}/balance-transactions/?${params.toString()}`,
     { method: "GET" },
   ];
 };

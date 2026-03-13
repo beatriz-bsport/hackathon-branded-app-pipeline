@@ -50,6 +50,7 @@ function CreateEmailCampaign() {
     schema: getEmailCampaignSchema(),
     defaultValues: {
       emailType: EMAIL_TYPE_MARKETING,
+      campaignName: "",
     },
   });
 

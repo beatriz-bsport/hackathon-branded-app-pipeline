@@ -42,6 +42,11 @@
             "marketing": "Marketing communications (eg. newsletter, promotions, discounts, etc)",
             "informational": "Important announcements (eg. class-related reminders, policy changes, etc)"
           }
+        },
+        "campaignName": {
+          "label": "Campaign Name",
+          "required": "This is required",
+          "errorMaxLength": "Campaign name must be at most {{count}} characters"
         }
       }
     }

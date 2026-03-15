@@ -7,6 +7,7 @@ import { Card } from "@bsport/kaizen-primitive-core";
 import { EmailNameField } from "./EmailNameField";
 import { CampaignDeliveryModeSelector } from "./campaign-delivery-mode-selector";
 import { EMAIL_TYPE_MARKETING } from "./constants";
+import { ContentSection } from "./content-section";
 import { EmailTypeField } from "./email-type-field";
 import { RecipientCountPreview } from "./recipient-count-preview";
 import type { EmailCampaignFormData } from "./types.ts";
@@ -52,6 +53,7 @@ export const EmailCampaignForm: React.FC<EmailCampaignFormProps> = ({
         isProduction ? null : <EmailNameField />
       }
       <CampaignDeliveryModeSelector />
+      <ContentSection />
     </ControlledForm>
   );
 };

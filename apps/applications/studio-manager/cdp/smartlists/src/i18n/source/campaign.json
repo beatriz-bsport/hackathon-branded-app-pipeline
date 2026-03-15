@@ -67,6 +67,16 @@
           "label": "Campaign Name",
           "required": "This is required",
           "errorMaxLength": "Campaign name must be at most {{count}} characters"
+        },
+        "message": {
+          "title": "Message",
+          "textOnly": "Text only",
+          "emailTemplate": "Email template",
+          "subjectLabel": "Email subject",
+          "bodyLabel": "Email body",
+          "subjectRequired": "Email subject is required.",
+          "bodyRequired": "Email body is required.",
+          "emailTemplatePlaceholder": "Email template selection — coming soon."
         }
       }
     }

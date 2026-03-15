@@ -4,11 +4,23 @@ import {
   EMAIL_TYPE_INFORMATIONAL,
   EMAIL_TYPE_MARKETING,
   type EmailType,
+  MESSAGE_TYPE_EMAIL_TEMPLATE,
+  MESSAGE_TYPE_TEXT_ONLY,
+  MessageType,
 } from "./constants";
 
 export function isEmailTypeValid(emailType: string): emailType is EmailType {
   return (
     emailType === EMAIL_TYPE_MARKETING || emailType === EMAIL_TYPE_INFORMATIONAL
+  );
+}
+
+export function isMessageTypeValid(
+  messageType: string,
+): messageType is MessageType {
+  return (
+    messageType === MESSAGE_TYPE_TEXT_ONLY ||
+    messageType === MESSAGE_TYPE_EMAIL_TEMPLATE
   );
 }
 

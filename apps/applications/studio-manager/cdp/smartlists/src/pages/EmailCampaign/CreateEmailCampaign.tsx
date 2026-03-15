@@ -62,6 +62,9 @@ function CreateEmailCampaign() {
       deliveryMode: DELIVERY_MODE_SEND_NOW,
       scheduledDate: undefined,
       scheduledTime: undefined,
+      isTextOnly: true,
+      emailSubject: "",
+      emailBody: "",
     },
   });
 

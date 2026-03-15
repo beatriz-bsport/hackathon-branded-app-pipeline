@@ -6,4 +6,7 @@ export type EmailCampaignFormData = {
   deliveryMode: DeliveryMode;
   scheduledDate?: string;
   scheduledTime?: string;
+  isTextOnly: boolean;
+  emailSubject?: string;
+  emailBody?: string;
 };

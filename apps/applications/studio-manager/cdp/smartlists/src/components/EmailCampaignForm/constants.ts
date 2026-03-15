@@ -17,3 +17,13 @@ export const DELIVERY_MODE_VALUES = [
 ] as const;
 
 export type DeliveryMode = (typeof DELIVERY_MODE_VALUES)[number];
+
+export const MESSAGE_TYPE_TEXT_ONLY = "text_only" as const;
+export const MESSAGE_TYPE_EMAIL_TEMPLATE = "email_template" as const;
+
+export const MESSAGE_TYPE_VALUES = [
+  MESSAGE_TYPE_TEXT_ONLY,
+  MESSAGE_TYPE_EMAIL_TEMPLATE,
+] as const;
+
+export type MessageType = (typeof MESSAGE_TYPE_VALUES)[number];

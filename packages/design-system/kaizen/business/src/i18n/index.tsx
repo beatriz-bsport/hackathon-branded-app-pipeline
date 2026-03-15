@@ -9,6 +9,7 @@ import type buyablesTranslations from "#src/i18n/source/buyables.json";
 import type cdpTranslations from "#src/i18n/source/cdp.json";
 import type coreTranslations from "#src/i18n/source/core.json";
 import type financialServicesTranslations from "#src/i18n/source/financial-services.json";
+import type formTranslations from "#src/i18n/source/form.json";
 
 /**
  * ========== NAMESPACES ==========
@@ -28,6 +29,7 @@ export type Translations = {
   cdp: typeof cdpTranslations;
   core: typeof coreTranslations;
   "financial-services": typeof financialServicesTranslations;
+  form: typeof formTranslations;
 };
 
 /**

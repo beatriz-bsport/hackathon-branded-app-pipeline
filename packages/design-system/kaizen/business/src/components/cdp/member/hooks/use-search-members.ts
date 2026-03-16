@@ -1,7 +1,7 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-import { type Member, searchMembersAPI } from "@bsport/api-cdp";
+import { type Member, searchMembersAPI } from "@bsport/api-cdp/member";
 import type { Fetch } from "@bsport/store-base";
 import { useDebounce } from "@bsport/use-debounce";
 

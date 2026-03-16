@@ -17,7 +17,6 @@ const createPaymentPack = (
   tax: '20',
   credits: 10,
   unlimited: false,
-  nb_consumer_payment_packs: 0,
   max_bookings_per_day: null,
   max_bookings_per_week: null,
   max_bookings_per_month: null,

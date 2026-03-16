@@ -87,7 +87,6 @@ export type PaymentPack<
   tax: number;
   credits: number | null;
   unlimited: boolean;
-  nb_consumer_payment_packs: number;
   max_bookings_per_day: number | null;
   max_bookings_per_week: number | null;
   max_bookings_per_month: number | null;

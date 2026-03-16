@@ -63,7 +63,6 @@ export function CompatiblePaymentPacks(props: Props) {
         <PaymentPackListItem
           key={pack.id}
           divider
-          hidePacksNumber
           onClick={() => openNewBackOfficeWindow(`/payment-pack/${pack.id}`)}
           pack={pack}
         />
@@ -83,7 +82,6 @@ export function CompatiblePaymentPacks(props: Props) {
           <PaymentPackListItem
             key={paymentPackWithContractId.id}
             divider
-            hidePacksNumber
             onClick={() => openNewBackOfficeWindow(link)}
             pack={{
               ...paymentPackWithContractId,

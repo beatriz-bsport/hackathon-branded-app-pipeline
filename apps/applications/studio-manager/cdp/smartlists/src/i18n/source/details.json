@@ -155,6 +155,15 @@
             "exit": "Exit from Smartlist"
           }
         },
+        "triggerLimit": {
+          "label": "How many times should this automation be triggered for the same person?",
+          "options": {
+            "noLimit": "No limit (default)",
+            "once": "1 time",
+            "twice": "2 times",
+            "threeTimes": "3 times"
+          }
+        },
         "title": {
           "label": "Title",
           "placeholder": "",

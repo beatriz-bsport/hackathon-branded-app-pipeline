@@ -14,10 +14,11 @@ import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
-import { AutomationPushForm } from "./components/AutomationPushForm";
+import { AutomationPushForm } from "./AutomationPushForm";
 import { pushAutomationSchema } from "./schema";
 import {
   PUSH_AUTOMATION_EVENT_VALUES,
+  PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES,
   type PushAutomationFormData,
 } from "./types";
 import { useCreatePushAutomation } from "./use-create-push-automation";
@@ -46,6 +47,7 @@ export const AutomationPushCreationPage = () => {
     defaultValues: {
       automationName: "",
       eventKind: PUSH_AUTOMATION_EVENT_VALUES.ENTRY,
+      triggerLimit: PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES.NO_LIMIT,
       title: "",
       message: "",
     } satisfies PushAutomationFormData,

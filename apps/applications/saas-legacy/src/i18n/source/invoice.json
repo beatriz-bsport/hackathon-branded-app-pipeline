@@ -466,11 +466,12 @@
       "generatePaymentLink": "Generate a payment link"
     },
     "sumup": {
-      "amountRemaining": "Outstanding amount",
+      "amountRemaining": "Payment outstanding",
       "amountDue": "Total due",
       "title": "Overview",
-      "amountPaid": "Paid",
-      "amountBeingProcessed": "Amount in process"
+      "amountReceived": "Payment received",
+      "pendingPaymentsAmount": "Payment pending",
+      "plannedPaymentsAmount": "Payment planned"
     },
     "date": {
       "label": "Payment date"

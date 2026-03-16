@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchByOfferByMemberV2 } from '#src/libs/consumer-payment-pack/api';
+import { fetchByOfferByMember } from '#src/libs/consumer-payment-pack/actions';
 import { swapBookingPass as swapBookingPassAPI } from '#src/libs/booking/api';
 import { updateActions } from '#src/libs/booking/actions';
 import { snackbarError as snackbarErrorAction } from '#src/libs/snackbar/actions';
@@ -103,28 +103,29 @@ const SwapPassMenuItem: React.FC<Props> = ({ booking, classes, onClose }) => {
       setIsLoading(true);
       setIsSubmitting(false);
 
-      fetchByOfferByMemberV2(booking.offer, { member: booking.member })
-        .then((response) => {
-          const compatiblePacks: CompatibleConsumerPaymentPack[] =
-            (response.data as CompatibleConsumerPaymentPack[]) || [];
-          const swapPassItems = buildSwapPassItems(
-            compatiblePacks,
-            currentConsumerPaymentPackId,
-            paymentPacksById,
-            t,
-          );
-
-          setItems(swapPassItems);
-          setIsLoading(false);
-        })
-        .catch(() => {
-          dispatch(
-            snackbarErrorAction(
-              'b2b_booking:swapPass.dialog.errors.loadCompatiblePasses',
-            ),
-          );
-          close();
-        });
+      dispatch(
+        fetchByOfferByMember(booking.offer, booking.member, {
+          onSuccess: (compatiblePacks: CompatibleConsumerPaymentPack[]) => {
+            const swapPassItems = buildSwapPassItems(
+              compatiblePacks,
+              currentConsumerPaymentPackId,
+              paymentPacksById,
+              t,
+            );
+            setItems(swapPassItems);
+            setIsLoading(false);
+          },
+          onError: () => {
+            dispatch(
+              snackbarErrorAction(
+                'b2b_booking:swapPass.dialog.errors.loadCompatiblePasses',
+              ),
+            );
+            close();
+            setIsLoading(false);
+          },
+        }),
+      );
     },
     [booking, close, dispatch, paymentPacksById],
   );
@@ -152,6 +153,9 @@ const SwapPassMenuItem: React.FC<Props> = ({ booking, classes, onClose }) => {
 
         dispatch(snackbarErrorAction(`b2b_booking:${errorTranslationKey}`));
         close();
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
   }, [booking.id, close, dispatch, isSubmitting, selectedItemId]);
 

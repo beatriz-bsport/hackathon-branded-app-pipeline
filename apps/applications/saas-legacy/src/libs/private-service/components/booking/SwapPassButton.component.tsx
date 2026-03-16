@@ -106,7 +106,6 @@ export const SwapPassButton: React.FC<Props> = ({
             t,
           );
           setItems(passes);
-          setIsLoading(false);
         })
         .catch(() => {
           dispatch(
@@ -115,6 +114,9 @@ export const SwapPassButton: React.FC<Props> = ({
             ),
           );
           close();
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     },
     [close, currentPrivateConsumerPassId, dispatch, memberId, privateSlotId],
@@ -141,6 +143,9 @@ export const SwapPassButton: React.FC<Props> = ({
 
         dispatch(snackbarErrorAction(`b2b_booking:${errorTranslationKey}`));
         close();
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
   }, [
     close,

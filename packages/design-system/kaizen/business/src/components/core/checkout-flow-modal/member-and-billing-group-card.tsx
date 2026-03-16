@@ -1,6 +1,6 @@
 import React, { useEffect, useId } from "react";
 
-import type { Member } from "@bsport/api-cdp";
+import type { Member } from "@bsport/api-cdp/member";
 import type { EstablishmentBillingGroup } from "@bsport/api-core";
 import type { Fetch } from "@bsport/fetch";
 import { useFormContext } from "@bsport/form";

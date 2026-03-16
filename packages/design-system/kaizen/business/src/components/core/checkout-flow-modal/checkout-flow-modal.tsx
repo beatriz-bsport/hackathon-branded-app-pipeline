@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 
-import type { Member } from "@bsport/api-cdp";
+import type { Member } from "@bsport/api-cdp/member";
 import { ControlledForm, useFormController } from "@bsport/form";
 import {
   Accordion,

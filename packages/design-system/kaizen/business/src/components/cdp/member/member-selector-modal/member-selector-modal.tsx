@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 
-import type { Member } from "@bsport/api-cdp";
+import type { Member } from "@bsport/api-cdp/member";
 import { Modal, TextField } from "@bsport/kaizen-primitive-core";
 import type { Fetch } from "@bsport/store-base";
 

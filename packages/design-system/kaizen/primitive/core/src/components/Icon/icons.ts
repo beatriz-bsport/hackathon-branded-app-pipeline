@@ -14,6 +14,9 @@ const icons = {
   "announcement-01": React.lazy(
     async () => await import("./assets/announcement-01.svg?react"),
   ),
+  "apple-logo": React.lazy(
+    async () => await import("./assets/apple-logo.svg?react"),
+  ),
   archive: React.lazy(async () => await import("./assets/archive.svg?react")),
   "arrow-left": React.lazy(
     async () => await import("./assets/arrow-left.svg?react"),
@@ -31,6 +34,7 @@ const icons = {
   "bank-note-03": React.lazy(
     async () => await import("./assets/bank-note-03.svg?react"),
   ),
+  bank: React.lazy(async () => await import("./assets/bank.svg?react")),
   "bar-chart-10": React.lazy(
     async () => await import("./assets/bar-chart-10.svg?react"),
   ),
@@ -139,6 +143,9 @@ const icons = {
   ),
   folder: React.lazy(async () => await import("./assets/folder.svg?react")),
   "gift-02": React.lazy(async () => await import("./assets/gift-02.svg?react")),
+  "google-logo": React.lazy(
+    async () => await import("./assets/google-logo.svg?react"),
+  ),
   "graduation-hat-02": React.lazy(
     async () => await import("./assets/graduation-hat-02.svg?react"),
   ),

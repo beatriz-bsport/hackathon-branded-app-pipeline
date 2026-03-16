@@ -3,7 +3,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import {
   type PayoutDetailResponse,
   getPayoutDetailAPI,
-} from "@bsport/api-financial-services";
+} from "@bsport/api-financial-services/payout";
 
 import { fetch } from "#src/utils/fetch";
 

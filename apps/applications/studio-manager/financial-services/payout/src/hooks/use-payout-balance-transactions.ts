@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import {
   type PayoutBalanceTransactionsListResponse,
   getPayoutBalanceTransactionsAPI,
-} from "@bsport/api-financial-services";
+} from "@bsport/api-financial-services/payout";
 
 import { fetch } from "#src/utils/fetch";
 

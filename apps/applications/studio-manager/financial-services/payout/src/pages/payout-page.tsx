@@ -1,6 +1,6 @@
 import { type FC, useCallback, useState } from "react";
 
-import { PayoutListItem } from "@bsport/api-financial-services";
+import { type PayoutListItem } from "@bsport/api-financial-services/payout";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { Alert, ListLayout } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";

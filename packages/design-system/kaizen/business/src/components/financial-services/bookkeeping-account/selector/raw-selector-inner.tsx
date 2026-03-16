@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import type { BookkeepingAccount } from "@bsport/api-financial-services";
+import type { BookkeepingAccount } from "@bsport/api-financial-services/bookkeeping-account";
 import {
   Badge,
   Body,

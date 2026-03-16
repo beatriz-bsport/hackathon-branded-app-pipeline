@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import {
   type FetchBookkeepingAccountsParams,
   fetchBookkeepingAccountsQueryOptions,
-} from "@bsport/api-financial-services";
+} from "@bsport/api-financial-services/bookkeeping-account";
 import type { Fetch } from "@bsport/fetch";
 
 export type FetchBookkeepingAccountsQueryOptionsParams = {

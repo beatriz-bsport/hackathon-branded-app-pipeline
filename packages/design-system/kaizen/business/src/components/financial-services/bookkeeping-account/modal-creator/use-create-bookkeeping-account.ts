@@ -4,7 +4,7 @@ import {
   type BookkeepingAccount,
   type CreateBookkeepingAccountParams,
   createBookkeepingAccountAPI,
-} from "@bsport/api-financial-services";
+} from "@bsport/api-financial-services/bookkeeping-account";
 import type { Fetch, HTTPException } from "@bsport/fetch";
 
 export type UseCreateBookkeepingAccountParams = {

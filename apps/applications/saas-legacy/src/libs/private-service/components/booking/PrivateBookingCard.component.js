@@ -58,6 +58,12 @@ import type { PrivateBookingWithRelatedFields } from '../../types';
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import { SwapPassButton } from './SwapPassButton.component';
 
+// withRelatedFields selector replaces ID fields (member, private_slot, private_consumer_pass)
+// with full objects from the Redux store, but the PrivateBooking type still declares them as numbers.
+// This helper works around that mismatch until the types are properly reworked.
+const resolveId = (value) =>
+  typeof value === 'object' && value !== null ? value.id : value;
+
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
   goToMember?: (id: number) => void,
@@ -362,13 +368,15 @@ export const PrivateBookingCard = (props: Props) => {
                     props.private_booking.booking_status_code ===
                     BOOKING_STATUS_OK.id ? (
                       <SwapPassButton
-                        currentPrivateConsumerPassId={
-                          props.private_booking.private_consumer_pass
-                        }
-                        memberId={props.private_booking.member.id}
+                        currentPrivateConsumerPassId={resolveId(
+                          props.private_booking.private_consumer_pass,
+                        )}
+                        memberId={resolveId(props.private_booking.member)}
                         onSwapSuccess={props.onSwapSuccess}
                         privateBookingId={props.private_booking.id}
-                        privateSlotId={props.private_booking.private_slot.id}
+                        privateSlotId={resolveId(
+                          props.private_booking.private_slot,
+                        )}
                       />
                     ) : null
                   }

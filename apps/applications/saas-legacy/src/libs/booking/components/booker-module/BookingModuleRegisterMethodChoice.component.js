@@ -549,7 +549,6 @@ const BookingModuleRegisterMethodChoice = (props: Props) => {
                     <PaymentPackListItem
                       key={pack.id}
                       divider
-                      hidePacksNumber
                       isFlexContainerOnMobile
                       showDuration
                       onBookMultiple={
@@ -633,7 +632,6 @@ const BookingModuleRegisterMethodChoice = (props: Props) => {
                 })}
               >
                 <PaymentPackListItem
-                  hidePacksNumber
                   isFlexContainerOnMobile
                   showDuration
                   pack={selectedPack}

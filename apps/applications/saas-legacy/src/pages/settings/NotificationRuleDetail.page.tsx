@@ -28,7 +28,6 @@ import {
 
 import {
   getEventByGroup,
-  getRequiredTagsByEvent,
   getResolvedGenericTags,
   getTagCategories,
 } from '#src/libs/notification-rule/selectors';
@@ -91,7 +90,6 @@ const NotificationRuleDetail = (props: Props) => {
     push,
     t,
     eventName,
-    requiredTagsByEvent,
   } = props;
 
   useEffect(() => {
@@ -281,7 +279,7 @@ const NotificationRuleDetail = (props: Props) => {
                 onDeleteNotificationRule={deleteNotificationRule}
                 onDisable={handleSettingsDisable(event.notification_event)}
                 onSendCompany={handleSettingsCopy(event.notification_event)}
-                requiredTags={requiredTagsByEvent[event.notification_event]}
+                requiredTags={event.required_tags}
                 rule={event.rule}
                 sendCompany={
                   notificationRuleSettings?.[event.notification_event]
@@ -392,7 +390,6 @@ const connector = connect(
     resolvedGenericTags: getResolvedGenericTags(state),
     company: state.theme.theme.company,
     theme: state.theme.theme,
-    requiredTagsByEvent: getRequiredTagsByEvent(state),
   }),
   {
     fetchEventTypeList: fetchEventTypeListAction,

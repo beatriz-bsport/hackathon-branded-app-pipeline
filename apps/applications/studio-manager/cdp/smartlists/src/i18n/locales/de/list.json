@@ -37,7 +37,6 @@
       "duplicated": "Smartlist dupliziert",
       "open": "Öffnen",
       "saved": "Smartlist aktualisiert",
-      "created": "Smartlist erstellt",
       "deleted": "Smartlist gelöscht",
       "undo": "Rückgängig",
       "actionUndone": "Änderung rückgängig gemacht"
@@ -66,7 +65,6 @@
   },
   "createForm": {
     "title": "Smartlist erstellen",
-    "subtitle": "Hinzufügen eines Namens und einer Beschreibung für diese Smartlist, damit du sie später wiederfinden kannst.",
     "actions": {
       "create": "Erstellen",
       "cancel": "Schließen"
@@ -87,12 +85,10 @@
     },
     "actions": {
       "save": "Speichern",
-      "cancel": "Schließen",
-      "create": "Erstellen"
+      "cancel": "Schließen"
     },
     "title": {
-      "edit": "Smartlist bearbeiten",
-      "add": "Smartlist erstellen"
+      "edit": "Smartlist bearbeiten"
     }
   }
 }

@@ -98,6 +98,7 @@ export const useNavigationElements = ({
   // Feature flags
   const isAnalyticsEnabled = useNavFlag(NavFlags.INSIGHTS_PAGE);
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
+  const isPayoutsEnabled = useNavFlag(NavFlags.PAYOUTS_PAGE);
   const isCalendarRevampEnabled = useNavFlag(NavFlags.CALENDAR_REVAMP);
   const isPacksRevampEnabled = useNavFlag(NavFlags.PACKS_REVAMP);
   const isBillingFlowNewModalEnabled = useNavFlag(
@@ -354,6 +355,7 @@ export const useNavigationElements = ({
               id: "payouts",
               label: t("menus.finance.payouts"),
               ...navigationUrls.payout,
+              hidden: !isPayoutsEnabled,
             },
             {
               id: "direct-debits",
@@ -571,6 +573,7 @@ export const useNavigationElements = ({
     isCalendarRevampEnabled,
     isPacksRevampEnabled,
     isBillingFlowNewModalEnabled,
+    isPayoutsEnabled,
     isNewWebshopEnabled,
     hasSubstitutionToolAccess,
   ]);

@@ -149,6 +149,29 @@ export async function postUnsubscribe(unsubscribe_uuid: string) {
   return post(`${API_V1_URI}/member/unsubscribe/`, { unsubscribe_uuid });
 }
 
+export async function postConfirmMarketingEmail(
+  memberId: number,
+  confirmationToken: string,
+) {
+  // return post(`${API_V1_URI}/member/${memberId}/confirm-marketing-email/`, {
+  //   confirmationToken,
+  // });
+
+  if (confirmationToken == 'error') {
+    return Promise.reject({
+      response: {
+        status: 400,
+        data: { message: 'Simulated backend error' },
+      },
+    });
+  }
+
+  return Promise.resolve({
+    status: 200,
+    data: { message: 'Simulated backend success' },
+  });
+}
+
 export async function regularizeDebt(memberId: number, data: any) {
   return post(`${API_V1_URI}/member/${memberId}/regularize_debt/`, data);
 }

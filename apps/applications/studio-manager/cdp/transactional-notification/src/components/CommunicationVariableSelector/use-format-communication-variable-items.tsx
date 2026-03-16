@@ -22,6 +22,7 @@ export const communicationVariableTags: Record<string, string[]> = {
     "unsubscribe_link",
     "reset_password_url",
     "email_confirmation_url",
+    "marketing_email_double_opt_in_url",
   ],
   Booking: [
     "activity",

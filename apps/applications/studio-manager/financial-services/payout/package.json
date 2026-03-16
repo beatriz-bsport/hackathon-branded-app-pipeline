@@ -27,7 +27,14 @@
     "project:init": "node scripts/init.mjs",
     "translation:update": "pnpm run -w translation:update"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@bsport/api-financial-services": "workspace:*",
+    "@bsport/currency": "workspace:*",
+    "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/kaizen-business-components": "workspace:*",
+    "@bsport/use-pagination-query-params": "workspace:*",
+    "@tanstack/react-query": "^5.90.12"
+  },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-library": "workspace:*",
@@ -49,9 +56,6 @@
   },
   "federation": {
     "devPort": 4251,
-    "exposes": {
-      "./App": "./src/App"
-    },
     "remotes": {
       "sm-navigation-sidebar": {
         "devPort": 4050,
@@ -61,7 +65,8 @@
   },
   "nx": {
     "tags": [
-      "scope:studio"
+      "scope:studio",
+      "postinstall"
     ]
   }
 }

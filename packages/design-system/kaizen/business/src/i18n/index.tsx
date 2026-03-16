@@ -8,18 +8,28 @@ import type bookingTranslations from "#src/i18n/source/booking.json";
 import type buyablesTranslations from "#src/i18n/source/buyables.json";
 import type cdpTranslations from "#src/i18n/source/cdp.json";
 import type coreTranslations from "#src/i18n/source/core.json";
-
-import i18nNamespaces from "./namespaces.json";
+import type financialServicesTranslations from "#src/i18n/source/financial-services.json";
+import type formTranslations from "#src/i18n/source/form.json";
 
 /**
  * ========== NAMESPACES ==========
  */
+
+const i18nNamespaces: string[] = [
+  "booking",
+  "buyables",
+  "cdp",
+  "core",
+  "financial-services",
+];
 
 export type Translations = {
   booking: typeof bookingTranslations;
   buyables: typeof buyablesTranslations;
   cdp: typeof cdpTranslations;
   core: typeof coreTranslations;
+  "financial-services": typeof financialServicesTranslations;
+  form: typeof formTranslations;
 };
 
 /**
@@ -52,7 +62,7 @@ const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
 
 const { i18nInstance, useTranslation } = instanciateAppI18n<Translations>({
   applicationName: i18nNamespacePrefix,
-  namespaces: i18nNamespaces as string[],
+  namespaces: i18nNamespaces,
   inMemoryTranslationsLoader,
   debug: false,
 });

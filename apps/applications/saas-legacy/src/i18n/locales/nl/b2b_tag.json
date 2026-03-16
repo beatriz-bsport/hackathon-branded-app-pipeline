@@ -1,0 +1,25 @@
+{
+  "eligibility": {
+    "dialog": {
+      "close": "Sluiten",
+      "edit": "Bewerken",
+      "noUnauthorizedTag": "Er zijn geen afgekeurde tags om weer te geven.",
+      "noAuthorizedTag": "Er zijn geen goedgekeurde tags om weer te geven.",
+      "blackList": "Afgekeurde tags",
+      "whiteList": "Goedgekeurde tags"
+    },
+    "selectors": {
+      "notAllowed": "Niet beschikbaar",
+      "allowed": "Vrij",
+      "header": "Tags",
+      "doNotSelectToAllowAllMembers": "Laat dit veld leeg om het beschikbaar te maken voor alle leden.",
+      "helperText": "Gebruik tags om deze pas beschikbaar of niet beschikbaar te maken voor aankoop door bepaalde segmenten van je klantenbestand."
+    },
+    "info": {
+      "blackList": "{{ count }} afgekeurde tag",
+      "blackList_plural": "{{ count }} afgekeurde tags",
+      "whiteList": "{{ count }} goedgekeurde tag",
+      "whiteList_plural": "{{ count }} goedgekeurde tags"
+    }
+  }
+}

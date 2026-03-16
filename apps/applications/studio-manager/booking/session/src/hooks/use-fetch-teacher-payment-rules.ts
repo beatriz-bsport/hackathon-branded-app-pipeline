@@ -1,6 +1,6 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-import { fetchTeacherPaymentRulesAPI } from "@bsport/api-financial-services";
+import { fetchTeacherPaymentRulesAPI } from "@bsport/api-financial-services/teacher-payment-rules";
 
 import { fetch } from "#src/utils/fetch";
 

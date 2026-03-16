@@ -9,6 +9,7 @@ import type {
 } from "#src/components/buyables/item-autocomplete";
 import { ItemAutocomplete } from "#src/components/buyables/item-autocomplete";
 import { useSearchItems } from "#src/components/buyables/item-autocomplete/use-search-items";
+import { useCheckoutFlowTrack } from "#src/components/core/checkout-flow-modal/checkout-flow-tracking-context";
 import type { CheckoutFlowFormState } from "#src/components/core/checkout-flow-modal/schema";
 import {
   getSearchItemType,
@@ -39,7 +40,9 @@ export const ItemAutocompleteField: React.FC<ItemAutocompleteFieldProps> = ({
   fetch,
 }) => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
+  const track = useCheckoutFlowTrack();
   const { watch } = useFormContext<CheckoutFlowFormState>();
+  const quantity = watch("addItemQuantity");
 
   const selectedItemType = watch("addItemSelectedItemType");
   const selectedItemId = watch("addItemSelectedItemId");
@@ -84,6 +87,18 @@ export const ItemAutocompleteField: React.FC<ItemAutocompleteFieldProps> = ({
               item.expirationDays ?? null,
               { shouldDirty: true },
             );
+          }
+
+          if (item && selectedItemType) {
+            const priceCts = parsePriceCtsFromItem(item);
+            track("checkout_flow_item_selected", {
+              item_id: Number(itemId),
+              item_name: item.title,
+              item_type: selectedItemType,
+              item_quantity: quantity,
+              item_price: priceCts,
+              member_id: watch("member")?.id,
+            });
           }
         },
         onValueChange: (value: string) => {

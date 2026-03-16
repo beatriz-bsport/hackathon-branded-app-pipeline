@@ -105,7 +105,7 @@ export const NotificationRulePushNotificationDetails: React.FC<
             label: t(
               "notificationRuleEventDetails.table.notificationsToggle.activated",
             ),
-            icon: "check",
+            iconRight: "check",
           }}
           uncheckedConfig={{
             label: t(

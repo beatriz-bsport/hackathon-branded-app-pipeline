@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { Member } from "@bsport/api-cdp";
+import type { Member } from "@bsport/api-cdp/member";
 import { Button, type ListItemProps } from "@bsport/kaizen-primitive-core";
 
 type MemberListItemsParams = {

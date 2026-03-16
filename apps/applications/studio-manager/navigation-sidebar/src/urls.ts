@@ -110,7 +110,6 @@ export const REVAMP_URLS_PRODUCTION = {
   member: "/member",
   order: "/order",
   pack: "/pack",
-  payout: REVAMP_URLS_DEVELOPMENT.payout,
   smartlist: "/smartlist",
   settings_referral: `${SETTINGS_URL}/referral-program`,
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,

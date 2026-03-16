@@ -1,6 +1,7 @@
-import { type VariantProps, cva } from "class-variance-authority";
-import classNames from "classnames";
+import { type VariantProps, cva, cx } from "class-variance-authority";
 import React, { useCallback, useEffect, useRef } from "react";
+
+import { Label } from "#src/components/label";
 
 import CheckboxSVG from "./CheckboxSVG";
 
@@ -72,7 +73,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
   return (
     <div
       data-component="Kaizen-Checkbox"
-      className={classNames(
+      className={cx(
         checkbox({ className }),
         "grid grid-cols-[auto,1fr] grid-rows-[auto,auto,auto,1fr]",
         { "opacity-sm pointer-events-none": disabled },
@@ -85,13 +86,13 @@ const Checkbox: React.FC<CheckboxProps> = ({
       }}
     >
       <div
-        className={classNames("flex items-center", {
+        className={cx("flex items-center", {
           "justify-end": direction === "end",
         })}
         style={{ gridArea: "input" }}
       >
         <input
-          className={classNames(
+          className={cx(
             "appearance-none w-md h-md rounded-xs",
             "cursor-pointer disabled:cursor-default",
             "transition-colors duration-default ease-in-out",
@@ -135,27 +136,23 @@ const Checkbox: React.FC<CheckboxProps> = ({
       </div>
       {label && (
         <>
-          <div className="flex" style={{ gridArea: "label" }}>
-            <label
-              htmlFor={id}
-              className={classNames("flex gap-2xs cursor-pointer w-full", {
-                "cursor-default": disabled,
+          <Label
+            style={{ gridArea: "label" }}
+            htmlFor={id}
+            label={label}
+            required={required}
+            className={cx(
+              "w-full",
+              disabled ? "cursor-default" : "cursor-pointer",
+              {
                 "pl-xs": direction === "start",
                 "pr-xs": direction === "end",
-              })}
-            >
-              <span>{label}</span>
-              {required && (
-                <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-                  *
-                </span>
-              )}
-            </label>
-          </div>
-
+              },
+            )}
+          />
           <div style={{ gridArea: "empty" }} />
           <div
-            className={classNames("flex flex-col", {
+            className={cx("flex flex-col", {
               "pl-xs": direction === "start",
               "pr-xs": direction === "end",
             })}

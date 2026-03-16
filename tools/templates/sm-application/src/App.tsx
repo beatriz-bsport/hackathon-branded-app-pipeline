@@ -2,7 +2,7 @@ import { ErrorBoundaryWrapper } from "@bsport/sm-backbone";
 
 import { AppI18nextProvider } from "#src/utils/i18n";
 
-import { AppRoutes } from "./Routes";
+import { AppRoutes } from "./routes";
 
 import "./index.css";
 

@@ -37,7 +37,6 @@
       "duplicated": "Smartlist duplicada",
       "open": "Abrir",
       "saved": "Smartlist actualizada",
-      "created": "Smartlist creada",
       "deleted": "Smartlist eliminada",
       "undo": "Deshacer",
       "actionUndone": "Cambio deshecho"
@@ -66,7 +65,6 @@
   },
   "createForm": {
     "title": "Crear Smartlist",
-    "subtitle": "Añadir un nombre y una descripción a esta Smartlist para que puedas encontrarla más tarde.",
     "actions": {
       "create": "Crear",
       "cancel": "Cerrar"
@@ -87,12 +85,10 @@
     },
     "actions": {
       "save": "Guardar",
-      "cancel": "Cerrar",
-      "create": "Crear"
+      "cancel": "Cerrar"
     },
     "title": {
-      "edit": "Editar Smartlist",
-      "add": "Crear Smartlist"
+      "edit": "Editar Smartlist"
     }
   }
 }

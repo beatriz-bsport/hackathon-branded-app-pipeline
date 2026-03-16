@@ -11,6 +11,7 @@ import {
 import { type Fetch, HTTPException } from "@bsport/fetch";
 import { useFormContext } from "@bsport/form";
 
+import { useCheckoutFlowTrack } from "#src/components/core/checkout-flow-modal/checkout-flow-tracking-context";
 import { TYPE_TO_IDENTIFIER } from "#src/components/core/checkout-flow-modal/constants";
 import type { CheckoutFlowFormState } from "#src/components/core/checkout-flow-modal/schema";
 import type { CheckoutFlowItem } from "#src/components/core/checkout-flow-modal/types";
@@ -71,6 +72,7 @@ export const useApplyPromoCodeToInvoice = (
   fetch: Fetch,
 ): UseApplyPromoCodeResult => {
   const applyPromoCodeToInvoice = applyPromoCodeToInvoiceAPI.bind(null, fetch);
+  const track = useCheckoutFlowTrack();
 
   const { t } = useTranslation("core", { i18n: i18nInstance });
   const { watch, setValue, setError, clearErrors, getFieldState, formState } =
@@ -114,12 +116,17 @@ export const useApplyPromoCodeToInvoice = (
 
       return response;
     },
-    onSuccess: (response) => {
+    onSuccess: (response, { codes, isRefresh }) => {
       if (!response.can_be_applied || response.applied_coupons.length === 0) {
-        setError("promoCodes", {
-          type: "manual",
-          message: t("checkoutFlowModal.promoCode.errors.notFound"),
-        });
+        const errorMsg = t("checkoutFlowModal.promoCode.errors.notFound");
+        setError("promoCodes", { type: "manual", message: errorMsg });
+        if (!isRefresh) {
+          track("checkout_flow_apply_promo_code_button_clicked", {
+            promo_code: codes[0] ?? "",
+            promo_code_error: errorMsg,
+            member_id: memberId,
+          });
+        }
         return;
       }
 
@@ -136,21 +143,43 @@ export const useApplyPromoCodeToInvoice = (
         { shouldDirty: true },
       );
       clearErrors("promoCodes");
+
+      if (!isRefresh) {
+        const submittedCode = (codes[0] ?? "").trim().toLowerCase();
+        const appliedCoupon = response.applied_coupons.find(
+          (coupon) => coupon.code.trim().toLowerCase() === submittedCode,
+        );
+        track("checkout_flow_apply_promo_code_button_clicked", {
+          promo_code: codes[0] ?? "",
+          promo_code_id: appliedCoupon?.id,
+          promo_code_value: Math.round(
+            Math.abs(appliedCoupon?.voucher ?? 0) * 100,
+          ),
+          member_id: memberId,
+        });
+      }
     },
-    onError: (error: Error) => {
+    onError: (error: Error, { codes, isRefresh }) => {
       console.error("Failed to apply promo code:", error);
 
+      let errorText: string;
       if (error instanceof HTTPException && error.customErrorCodes.length > 0) {
         const errorCode = error.customErrorCodes[0];
-        const errorText = !isCouponErrorCode(errorCode)
+        errorText = !isCouponErrorCode(errorCode)
           ? t("checkoutFlowModal.promoCode.errors.notApplicable")
           : t(`checkoutFlowModal.promoCode.errors.${errorCode}`);
 
         setError("promoCodes", { type: "manual", message: errorText });
       } else {
-        setError("promoCodes", {
-          type: "manual",
-          message: t("checkoutFlowModal.promoCode.errors.notApplicable"),
+        errorText = t("checkoutFlowModal.promoCode.errors.notApplicable");
+        setError("promoCodes", { type: "manual", message: errorText });
+      }
+
+      if (!isRefresh) {
+        track("checkout_flow_apply_promo_code_button_clicked", {
+          promo_code: codes[0] ?? "",
+          promo_code_error: errorText,
+          member_id: memberId,
         });
       }
     },
@@ -177,6 +206,15 @@ export const useApplyPromoCodeToInvoice = (
   };
 
   const removePromoCode = (indexToRemove: number) => {
+    const removedCoupon = appliedCoupons[indexToRemove];
+    if (removedCoupon) {
+      track("checkout_flow_delete_promo_code_button_clicked", {
+        promo_code: removedCoupon.code,
+        promo_code_id: removedCoupon.id,
+        promo_code_value: Math.round(Math.abs(removedCoupon.voucher) * 100),
+        member_id: memberId,
+      });
+    }
     const remainingCoupons = appliedCoupons.filter(
       (_, idx) => idx !== indexToRemove,
     );

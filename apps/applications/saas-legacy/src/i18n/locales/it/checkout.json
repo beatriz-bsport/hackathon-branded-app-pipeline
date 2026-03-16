@@ -117,7 +117,8 @@
           "waitingList": "Ti sei iscritto alla lista di attesa",
           "paymentSuccess": "Pagamento confermato!",
           "offerOnlySuccess": "Goditi la sessione!",
-          "offerOnlyGuestSuccess": "Goditi la sessione con il tuo ospite!"
+          "offerOnlyGuestSuccess": "Goditi la sessione con il tuo ospite!",
+          "expressCheckoutPassPurchaseSuccess": "Congratulazioni! Hai appena acquistato un pass."
         },
         "errors": {
           "genericOfferError": "Oops! Prenotazione fallita.",
@@ -159,7 +160,8 @@
       "backToMyProfile": "Torna al mio profilo",
       "seeAllPasses": "Vedi tutti i pacchetti",
       "bookAClass": "Prenota una classe",
-      "payAmountNow": "Paga {{ amount }} ora"
+      "payAmountNow": "Paga {{ amount }} ora",
+      "viewMyProfile": "Vai al profilo"
     },
     "bookingItem": {
       "bookingItemStatus": {
@@ -199,7 +201,8 @@
     "myInternalAccount": "Il mio saldo cliente",
     "use": "Usa il mio saldo cliente",
     "label": "Importo disponibile : ",
-    "useAsManager": "Utilizza il saldo cliente"
+    "useAsManager": "Utilizza il saldo cliente",
+    "use_minimal": "Usa"
   },
   "payment": {
     "total": "Totale IVA inclusa",
@@ -224,5 +227,19 @@
     "title": "Sede preferita",
     "placeholder": "Sede",
     "helperText": "La sede preferita è quella in cui si prevede di utilizzare quanto acquistato per la maggior parte del tempo. Questa informazione verrà utilizzata per la ricevuta e solo per l'assegnazione delle risorse. Non determina il luogo in cui quanto acquistato può essere utilizzato."
+  },
+  "passExpressCheckout": {
+    "errors": {
+      "ineligible": {
+        "paymentCombo": "Pacchetto non idoneo al pagamento express"
+      },
+      "unavailable": {
+        "goBackButtonLabel": "Vedi i pacchetti disponibili",
+        "description": "Controlla quali pacchetti sono attualmente disponibili nel tuo studio.",
+        "title": "Questo pacchetto non è più disponibile"
+      }
+    },
+    "yourPass": "Il pacchetto selezionato",
+    "payNow": "Paga ora"
   }
 }

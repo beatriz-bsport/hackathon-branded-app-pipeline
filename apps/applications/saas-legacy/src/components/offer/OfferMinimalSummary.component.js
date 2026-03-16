@@ -29,7 +29,7 @@ import {
 
 import Tooltip from '../Tooltip.component';
 import EmptyListItem from '../LoadingListItem.component';
-import PaymentPackTagsDialog from '../../libs/payment-packs/components/PaymentPackTagsDialog.component';
+import EligibilityTagsDialog from '#src/libs/tag/components/EligibilityTagsDialog.component';
 import type { Offer } from '../../api/types';
 import DEFAULT_PROFILE_PICTURE_URL from '../../assets/constants';
 import RollCallChip from '../../libs/offer/components/RollCallChip.component';
@@ -240,7 +240,7 @@ export function OfferMinimalSummary(props: Props) {
 
   return (
     <>
-      <PaymentPackTagsDialog
+      <EligibilityTagsDialog
         blacklistTags={blacklist_tags}
         className={classes.noOverflow}
         onClose={() => setTagManagementDialog(false)}

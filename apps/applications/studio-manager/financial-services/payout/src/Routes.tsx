@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-const PayoutPage = lazy(() => import("#src/pages/PayoutPage"));
+const PayoutPage = lazy(() => import("#src/pages/payout-page"));
 
 export const AppRoutes = () => {
   return (

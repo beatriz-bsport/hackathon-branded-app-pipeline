@@ -1,6 +1,6 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-import { fetchInvoiceConfigurationAPI } from "@bsport/api-financial-services";
+import { fetchInvoiceConfigurationAPI } from "@bsport/api-financial-services/invoice-configuration";
 import type { Fetch } from "@bsport/fetch";
 
 import { INVOICE_CONFIGURATION_QUERY_KEY } from "./constants";

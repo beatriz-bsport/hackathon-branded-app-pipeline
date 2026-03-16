@@ -119,6 +119,7 @@ export {
   default as Indicator,
   type IndicatorProps,
 } from "./components/Indicator";
+export { Label, type LabelProps } from "./components/label";
 export { default as Link, type LinkProps } from "./components/Link";
 export {
   default as List,

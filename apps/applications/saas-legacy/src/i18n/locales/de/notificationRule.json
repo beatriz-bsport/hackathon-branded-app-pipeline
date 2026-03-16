@@ -134,7 +134,8 @@
         "firstname": "Vorname",
         "unsubscribe_link": "Vom Newsletter abmelden",
         "reset_password_url": "Link zum Zurücksetzen des Passwortes",
-        "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse"
+        "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse",
+        "marketing_email_double_opt_in_url": "Link zur doppelten Bestätigung für Marketing-E-Mails"
       },
       "name": "Mitglied"
     },
@@ -262,7 +263,8 @@
       "giftcard_message": "Geschenkgutschein-Nachricht",
       "giftcard_value": "Geschenkgutscheinwert",
       "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen",
-      "pdf_link": "Gutschein PDF-Link"
+      "pdf_link": "Gutschein PDF-Link",
+      "marketing_email_double_opt_in_url": "Link zur doppelten Bestätigung für Marketing-E-Mails"
     },
     "SpiviPerformance": {
       "tags": {

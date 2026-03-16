@@ -8,6 +8,8 @@ import { Company } from '../company/types';
 import { ErrorAndLoading, WithPagination } from '../types';
 import { DayTimeIntervals } from '#src/libs/private-service/constants';
 import { Interval as LuxonInterval } from 'luxon';
+import type { TagsEligibility } from '#src/libs/tag/types';
+
 export enum ResourceAttributionEnum {
   auto = 0,
   consumer = 1,
@@ -178,7 +180,7 @@ export type AvailabilityByEstablishmentAndCoach = {
   };
 };
 
-export type PrivatePass<LPP = number | null> = {
+export type PrivatePass<LPP = number | null> = TagsEligibility & {
   id: number;
   name: string;
   credits: number;
@@ -216,34 +218,35 @@ export type PrivatePassWithDetailedPrivateServices = PrivatePass & {
   private_services: Array<PrivateService>;
 };
 
-export type PrivatePassWithCompatibility<LPP = number | null> = {
-  id: number;
-  name: string;
-  credits: number;
-  price: number;
-  tax: number;
-  compatibility: { private_service: number; excluded_slot_ids: number[] }[];
-  manager_only: boolean;
-  available: boolean;
-  duration_days: number;
-  duration_months: number;
-  duration_years: number;
-  available_payment_method_identifiers: number[];
-  full_vod_access: boolean;
-  editable: boolean;
-  expiration_days_before_first_use: number;
-  start_date_method: number;
-  new_member_only: boolean;
-  company: number;
-  category: number;
-  ordering_in_category: number;
-  template_instance: number | null;
-  linked_payment_pack_template_instance?: number;
-  linked_payment_pack?: LPP;
-  is_usable_by_staff: boolean;
-  tags_on_consumer_item_creation?: Array<number>;
-  expiration_date: string | null;
-};
+export type PrivatePassWithCompatibility<LPP = number | null> =
+  TagsEligibility & {
+    id: number;
+    name: string;
+    credits: number;
+    price: number;
+    tax: number;
+    compatibility: { private_service: number; excluded_slot_ids: number[] }[];
+    manager_only: boolean;
+    available: boolean;
+    duration_days: number;
+    duration_months: number;
+    duration_years: number;
+    available_payment_method_identifiers: number[];
+    full_vod_access: boolean;
+    editable: boolean;
+    expiration_days_before_first_use: number;
+    start_date_method: number;
+    new_member_only: boolean;
+    company: number;
+    category: number;
+    ordering_in_category: number;
+    template_instance: number | null;
+    linked_payment_pack_template_instance?: number;
+    linked_payment_pack?: LPP;
+    is_usable_by_staff: boolean;
+    tags_on_consumer_item_creation?: Array<number>;
+    expiration_date: string | null;
+  };
 
 export type PrivateConsumerPass<AssociatedMember = number> = {
   no_private_booking_active: boolean;

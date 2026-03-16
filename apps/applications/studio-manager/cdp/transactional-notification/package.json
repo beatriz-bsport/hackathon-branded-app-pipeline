@@ -58,9 +58,6 @@
   },
   "federation": {
     "devPort": 4305,
-    "exposes": {
-      "./App": "./src/App"
-    },
     "remotes": {
       "sm-navigation-sidebar": {
         "devPort": 4050,

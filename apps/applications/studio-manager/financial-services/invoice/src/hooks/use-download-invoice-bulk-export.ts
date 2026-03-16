@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-import { downloadInvoiceBulkExportAPI } from "@bsport/api-financial-services";
+import { downloadInvoiceBulkExportAPI } from "@bsport/api-financial-services/invoice-bulk-export";
 import { HTTPException } from "@bsport/fetch";
 import { toast } from "@bsport/kaizen-primitive-core";
 

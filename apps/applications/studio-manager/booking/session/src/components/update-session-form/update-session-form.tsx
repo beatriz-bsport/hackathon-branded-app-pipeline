@@ -26,6 +26,7 @@ import { CancelSessionModal } from "../SessionList/detail-actions/cancel-session
 import { DuplicateSessionModal } from "../SessionList/detail-actions/duplicate-session-modal";
 import { RestoreSessionModal } from "../SessionList/detail-actions/restore-session-modal";
 import DetailsForm from "./details-form";
+import { HybridSessionAlert } from "./hybrid-session-alert";
 import { SaveSessionModal } from "./save-modal";
 import { SettingsSection } from "./settings-section";
 import { TimeAndDateSection } from "./time-and-date-section";
@@ -101,6 +102,11 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
             onOpenRestoreSessionModal={onOpenRestoreSessionModal}
           />
           <DetailsLayout.Content className="max-w-none">
+            <HybridSessionAlert session={session} />
+            <SettingsSection
+              metaActivity={session.metaActivity}
+              fieldIdPrefix={formId}
+            />
             <TeacherSection fieldIdPrefix={formId} />
             <EstablishmentSection
               fieldIdPrefix={formId}

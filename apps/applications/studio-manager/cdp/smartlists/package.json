@@ -27,6 +27,7 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-cdp": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/envs": "workspace:*",
     "@bsport/permissions": "workspace:*",
@@ -68,9 +69,6 @@
   },
   "federation": {
     "devPort": 4301,
-    "exposes": {
-      "./App": "./src/App"
-    },
     "remotes": {
       "sm-navigation-sidebar": {
         "devPort": 4050,

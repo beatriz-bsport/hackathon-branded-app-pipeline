@@ -1,6 +1,6 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-import { type Member, fetchMember } from "@bsport/api-cdp";
+import { type Member, fetchMember } from "@bsport/api-cdp/member";
 import type { Fetch } from "@bsport/store-base";
 
 const MEMBER_STALE_TIME = 2 * 60 * 1000; // 2 minutes

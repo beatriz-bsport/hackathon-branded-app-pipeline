@@ -8,6 +8,8 @@ import {
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import WarningIcon from '@material-ui/icons/Warning';
+import CheckIcon from '@material-ui/icons/Check';
+import BlockIcon from '@material-ui/icons/Block';
 import InfoIcon from '@material-ui/icons/Info';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -27,6 +29,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import InputLabel from '@material-ui/core/InputLabel';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
@@ -131,7 +134,10 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
   props: PrivatePassFormDetailsAndRestrictionsStepProps,
 ) => {
   const classes = useStyles();
-  const { t } = useTranslation('privateService');
+  const privatePassTagsEligibilityFeature = useSafeFlag(
+    FeatureFlags.APPOINTMENT_PASS_TAGS_ELIGIBILITY,
+  );
+  const { t } = useTranslation(['privateService', 'b2b_tag', 'member']);
   const {
     values,
     initialValues,
@@ -184,7 +190,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         values.credits,
         'privatePass.form.credits.decimalCredit.helperText',
         t,
-        t('privatePass.form.credits.helperText'),
+        t('privatePass.form.credits.helperText', { ns: 'privateService' }),
       ),
     [values.credits, t],
   );
@@ -272,7 +278,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         <div className={classes.row}>
           <WarningIcon color="error" />
           <Typography color="error" variant="body1">
-            {t('privatePass.form.franchise')}
+            {t('privatePass.form.franchise', { ns: 'privateService' })}
           </Typography>
         </div>
       )}
@@ -284,23 +290,29 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
           <div className={classes.infoText}>
             <WarningIcon className={classes.redIcon} />
             <Typography color="error" variant="caption">
-              {t('privatePass.form.universalPass.warningIsUniversalPass')}
+              {t('privatePass.form.universalPass.warningIsUniversalPass', {
+                ns: 'privateService',
+              })}
             </Typography>
           </div>
         )}
         <div className={classes.flexRowCenter}>
           <InfoIcon className={classes.iconLeft} />
           <Typography variant="h6">
-            {t('privatePass.form.categoryTitle.info')}
+            {t('privatePass.form.categoryTitle.info', { ns: 'privateService' })}
           </Typography>
         </div>
 
         <TextField
           fullWidth
           disabled={is_shared_from_franchise}
-          helperText={t('privatePass.form.name.helperText')}
+          helperText={t('privatePass.form.name.helperText', {
+            ns: 'privateService',
+          })}
           id="private-pass-name-field"
-          label={`${t('privatePass.form.name.label')}*`}
+          label={`${t('privatePass.form.name.label', {
+            ns: 'privateService',
+          })}*`}
           name="name"
         />
         <TextField
@@ -308,7 +320,9 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
           multiline
           disabled={is_shared_from_franchise}
           id="private-pass-description-field"
-          label={t('privatePass.form.description.label')}
+          label={t('privatePass.form.description.label', {
+            ns: 'privateService',
+          })}
           minRows={6}
           name="description"
           variant="outlined"
@@ -330,7 +344,9 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
             disabled={props.initial && props.initial.editable === false}
             helperText={creditHelperText}
             id="private-pass-credit-field"
-            label={t('privatePass.form.credits.label')}
+            label={t('privatePass.form.credits.label', {
+              ns: 'privateService',
+            })}
             name="credits"
             type="number"
           />
@@ -340,9 +356,11 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
             fullWidth
             className={classes.priceField}
             disabled={is_shared_from_franchise}
-            helperText={t('privatePass.form.price.helperText')}
+            helperText={t('privatePass.form.price.helperText', {
+              ns: 'privateService',
+            })}
             id="private-pass-price-field"
-            label={t('privatePass.form.price.label')}
+            label={t('privatePass.form.price.label', { ns: 'privateService' })}
             name="price"
           />
         </div>
@@ -367,7 +385,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
               inputProps: { min: 0, max: ALMOST_100, step: 0.005 },
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
-            label={t('privatePass.form.tax.label')}
+            label={t('privatePass.form.tax.label', { ns: 'privateService' })}
             max={ALMOST_100}
             name="tax"
             type="number"
@@ -379,11 +397,15 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         >
           <SwitchField
             disabled={props.initial || !!props.initial?.linked_payment_pack}
-            label={t('privatePass.form.universalPass.label')}
+            label={t('privatePass.form.universalPass.label', {
+              ns: 'privateService',
+            })}
             name="is_universal_pass"
           />
           <Typography color="textSecondary" variant="caption">
-            {t('privatePass.form.universalPass.helperText')}
+            {t('privatePass.form.universalPass.helperText', {
+              ns: 'privateService',
+            })}
           </Typography>
         </div>
         <div
@@ -392,49 +414,74 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         >
           <SwitchField
             disabled={is_shared_from_franchise}
-            label={t('privatePass.form.managerOnly.label')}
+            label={t('privatePass.form.managerOnly.label', {
+              ns: 'privateService',
+            })}
             name="manager_only"
           />
           <SwitchField
             disabled={values.manager_only}
-            helperText={t('member:forms.newMemberOnlyHelperText', {
+            helperText={t('forms.newMemberOnlyHelperText', {
               currency: getCurrencyDisplay(),
+              ns: 'member',
             })}
-            label={t('privatePass.form.new_member_only.label')}
+            label={t('privatePass.form.new_member_only.label', {
+              ns: 'privateService',
+            })}
             name="new_member_only"
           />
           <SwitchField
-            label={t('privatePass.form.full_vod_access.label')}
+            label={t('privatePass.form.full_vod_access.label', {
+              ns: 'privateService',
+            })}
             name="full_vod_access"
           />
           <SwitchField
             disabled={is_shared_from_franchise}
-            label={t('privatePass.listItem.unusableByStaff')}
+            label={t('privatePass.listItem.unusableByStaff', {
+              ns: 'privateService',
+            })}
             name="unusable_by_staff"
           />
           <SwitchField
-            helperText={t('privatePass.form.appliesForPayroll.helperText')}
-            label={t('privatePass.form.appliesForPayroll.label')}
+            helperText={t('privatePass.form.appliesForPayroll.helperText', {
+              ns: 'privateService',
+            })}
+            label={t('privatePass.form.appliesForPayroll.label', {
+              ns: 'privateService',
+            })}
             name="applies_for_payroll"
           />
           <SwitchField
-            helperText={t('privatePass.form.onBehalfOfTeacher.helperText')}
-            label={t('privatePass.form.onBehalfOfTeacher.label')}
+            helperText={t('privatePass.form.onBehalfOfTeacher.helperText', {
+              ns: 'privateService',
+            })}
+            label={t('privatePass.form.onBehalfOfTeacher.label', {
+              ns: 'privateService',
+            })}
             name="on_behalf_of_teacher"
           />
           <div className={classes.rowExpirationDate}>
             <SwitchField
               disabled={is_shared_from_franchise}
-              label={t('privatePass.form.expiration_date.label')}
+              label={t('privatePass.form.expiration_date.label', {
+                ns: 'privateService',
+              })}
               name="expiration_date_active"
             />
-            <ToolTip title={t('privatePass.form.expiration_date.tooltip')}>
+            <ToolTip
+              title={t('privatePass.form.expiration_date.tooltip', {
+                ns: 'privateService',
+              })}
+            >
               <InfoIcon color="disabled" />
             </ToolTip>
           </div>
           <Collapse in={values.expiration_date_active}>
             <InputLabel className={classes.inputLabelExpirationDate}>
-              {t('privatePass.form.expiration_date.helperText')}
+              {t('privatePass.form.expiration_date.helperText', {
+                ns: 'privateService',
+              })}
             </InputLabel>
             <DateField
               allowNullValue
@@ -475,7 +522,9 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         <div className={classes.flexRowCenter}>
           <PaymentIcon className={classes.iconLeft} />
           <Typography variant="h6">
-            {t('privatePass.form.categoryTitle.paymentMeans')}
+            {t('privatePass.form.categoryTitle.paymentMeans', {
+              ns: 'privateService',
+            })}
           </Typography>
         </div>
         <div className={classes.fieldBlock}>
@@ -485,6 +534,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
           >
             {t(
               'privatePass.form.available_payment_method_identifiers.helperText',
+              { ns: 'privateService' },
             )}
           </Typography>
           <div
@@ -499,6 +549,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
               <Typography variant="caption">
                 {t(
                   'privatePass.form.available_payment_method_identifiers.warning',
+                  { ns: 'privateService' },
                 )}
               </Typography>
             </div>
@@ -519,7 +570,9 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         <div className={classes.flexRowCenter}>
           <DateRangeIcon className={classes.iconLeft} />
           <Typography variant="h6">
-            {t('privatePass.form.categoryTitle.validity')}
+            {t('privatePass.form.categoryTitle.validity', {
+              ns: 'privateService',
+            })}
           </Typography>
         </div>
         <div className={`${classes.durationNbBlock} ${classes.flexRowCenter}`}>
@@ -528,7 +581,9 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
             disabled={props.initial && props.initial.editable === false}
             id="private-pass-duration-days"
             InputProps={{ min: 0, max: 30, step: 1 }}
-            label={t('privatePass.form.durationDays.label')}
+            label={t('privatePass.form.durationDays.label', {
+              ns: 'privateService',
+            })}
             name="duration_days"
             style={{ alignSelf: 'flex-start' }}
           />
@@ -536,20 +591,28 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
           <IntegerField
             fullWidth
             disabled={props.initial && props.initial.editable === false}
-            helperText={t('privatePass.form.durationMonths.helperText')}
+            helperText={t('privatePass.form.durationMonths.helperText', {
+              ns: 'privateService',
+            })}
             id="private-pass-duration-months"
             InputProps={{ min: 0, max: 24, step: 1 }}
-            label={t('privatePass.form.durationMonths.label')}
+            label={t('privatePass.form.durationMonths.label', {
+              ns: 'privateService',
+            })}
             name="duration_months"
           />
           <AddIcon className={classes.greyIcon} />
           <IntegerField
             fullWidth
             disabled={props.initial && props.initial.editable === false}
-            helperText={t('privatePass.form.durationYears.helperText')}
+            helperText={t('privatePass.form.durationYears.helperText', {
+              ns: 'privateService',
+            })}
             id="private-pass-duration-years"
             InputProps={{ min: 0, max: 30, step: 1 }}
-            label={t('privatePass.form.durationYears.label')}
+            label={t('privatePass.form.durationYears.label', {
+              ns: 'privateService',
+            })}
             name="duration_years"
           />
         </div>
@@ -561,16 +624,20 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         </Typography>
         <div style={{ paddingBottom: 16 }}>
           <Typography className={classes.startDate} variant="body1">
-            {t('privatePass.form.startDate')}
+            {t('privatePass.form.startDate', { ns: 'privateService' })}
           </Typography>
           <RadioGroupField
             choices={[
               {
-                label: t('privatePass.form.start_date_method.on_purchase'),
+                label: t('privatePass.form.start_date_method.on_purchase', {
+                  ns: 'privateService',
+                }),
                 value: START_ON_PURCHASE,
               },
               {
-                label: t('privatePass.form.start_date_method.on_booking'),
+                label: t('privatePass.form.start_date_method.on_booking', {
+                  ns: 'privateService',
+                }),
                 value: START_ON_FIRST_BOOKING,
               },
             ]}
@@ -587,9 +654,12 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
               disabled={props.initial && props.initial.editable === false}
               helperText={t(
                 'privatePass.form.expirationDaysBeforeFirstUse.helperText',
+                { ns: 'privateService' },
               )}
               id="private-pass-expiration-field"
-              label={t('privatePass.form.expirationDaysBeforeFirstUse.label')}
+              label={t('privatePass.form.expirationDaysBeforeFirstUse.label', {
+                ns: 'privateService',
+              })}
               name="expiration_days_before_first_use"
               type="number"
             />
@@ -606,7 +676,9 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         <div className={classes.flexRowCenter}>
           <DoneAllIcon className={classes.iconLeft} />
           <Typography variant="h6">
-            {t('privatePass.form.categoryTitle.compatibility')}
+            {t('privatePass.form.categoryTitle.compatibility', {
+              ns: 'privateService',
+            })}
           </Typography>
         </div>
 
@@ -629,6 +701,7 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
                               }
                               placeholder={t(
                                 'privatePass.form.selector.privateService',
+                                { ns: 'privateService' },
                               )}
                               privateServices={privateServices
                                 .filter((ps: PrivateServiceWithSlots) =>
@@ -713,11 +786,13 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
                                     <Typography variant="subtitle2">
                                       {t(
                                         'privatePass.compatibleServices.isEmpty',
+                                        { ns: 'privateService' },
                                       )}
                                     </Typography>
                                     <Typography variant="body2">
                                       {t(
                                         'privatePass.compatibleServices.unusable',
+                                        { ns: 'privateService' },
                                       )}
                                     </Typography>
                                   </div>
@@ -741,10 +816,14 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
                   />
                   <Dialog open={!!openDeleteCompatibilityDialog}>
                     <DialogTitle>
-                      {t('privateServiceCompatibility.delete.title')}
+                      {t('privateServiceCompatibility.delete.title', {
+                        ns: 'privateService',
+                      })}
                     </DialogTitle>
                     <DialogContent>
-                      {t('privateServiceCompatibility.delete.explain')}
+                      {t('privateServiceCompatibility.delete.explain', {
+                        ns: 'privateService',
+                      })}
                     </DialogContent>
                     <DialogActions>
                       <Button
@@ -753,7 +832,9 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
                           setOpenDeleteCompatibilityDialog(false);
                         }}
                       >
-                        {t('privateServiceCompatibility.delete.cancel')}
+                        {t('privateServiceCompatibility.delete.cancel', {
+                          ns: 'privateService',
+                        })}
                       </Button>
                       <Button
                         onClick={() => {
@@ -762,7 +843,9 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
                           setOpenDeleteCompatibilityDialog(false);
                         }}
                       >
-                        {t('privateServiceCompatibility.delete.submit')}
+                        {t('privateServiceCompatibility.delete.submit', {
+                          ns: 'privateService',
+                        })}
                       </Button>
                     </DialogActions>
                   </Dialog>
@@ -796,19 +879,129 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
         >
           <SettingsIcon />
           <Typography variant="h6">
-            {t('privatePass.form.advancedOptions.header')}
+            {t('privatePass.form.advancedOptions.header', {
+              ns: 'privateService',
+            })}
           </Typography>
           {openAdvancedOptions ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </ButtonBase>
 
         <Collapse in={openAdvancedOptions}>
+          {privatePassTagsEligibilityFeature && (
+            <div className={classes.section}>
+              <Typography className={classes.title}>
+                {t('eligibility.selectors.header', {
+                  ns: 'b2b_tag',
+                })}
+              </Typography>
+              <Typography variant="caption">
+                {t('eligibility.selectors.helperText', {
+                  ns: 'b2b_tag',
+                })}
+              </Typography>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <CheckIcon className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('eligibility.selectors.allowed', {
+                      ns: 'b2b_tag',
+                    })}
+                  </Typography>
+                </div>
+                <TagSelector
+                  closeMenuOnSelect
+                  inScrollBar
+                  isClearable
+                  allTagsWithTagGroup={[
+                    ...(props.tagList || [])?.filter(
+                      (tag) => !values?.blacklist_tags?.includes(tag.id),
+                    ),
+                  ]}
+                  onChange={(
+                    items: Array<{
+                      label: string;
+                      value: number;
+                      tag: Tag<TagGroup>;
+                    }>,
+                  ) => {
+                    return setFieldValue(
+                      'whitelist_tags',
+                      items.map((item) => item.value),
+                    );
+                  }}
+                  onDeleteTag={(itemId: number) =>
+                    setFieldValue(
+                      'whitelist_tags',
+                      values?.whitelist_tags?.filter(
+                        (tagId) => tagId !== itemId,
+                      ),
+                    )
+                  }
+                  placeholder={t(
+                    'eligibility.selectors.doNotSelectToAllowAllMembers',
+                    { ns: 'b2b_tag' },
+                  )}
+                  selectedTags={values?.whitelist_tags}
+                />
+              </div>
+              <div className={classes.tagSelector}>
+                <div className={classes.tagSelectorLabel}>
+                  <BlockIcon className={classes.tagSelectorLabelIcon} />
+                  <Typography variant="subtitle1">
+                    {t('eligibility.selectors.notAllowed', {
+                      ns: 'b2b_tag',
+                    })}
+                  </Typography>
+                </div>
+                <TagSelector
+                  closeMenuOnSelect
+                  inScrollBar
+                  isClearable
+                  allTagsWithTagGroup={[
+                    ...(props.tagList || [])?.filter(
+                      (tag) => !values?.whitelist_tags?.includes(tag.id),
+                    ),
+                  ]}
+                  onChange={(
+                    items: Array<{
+                      label: string;
+                      value: number;
+                      tag: Tag<TagGroup>;
+                    }>,
+                  ) => {
+                    return setFieldValue(
+                      'blacklist_tags',
+                      items.map((item) => item.value),
+                    );
+                  }}
+                  onDeleteTag={(itemId: number) =>
+                    setFieldValue(
+                      'blacklist_tags',
+                      values?.blacklist_tags?.filter(
+                        (tagId) => tagId !== itemId,
+                      ),
+                    )
+                  }
+                  placeholder={t(
+                    'eligibility.selectors.doNotSelectToAllowAllMembers',
+                    { ns: 'b2b_tag' },
+                  )}
+                  selectedTags={values?.blacklist_tags}
+                />
+              </div>
+            </div>
+          )}
+
           <div className={classes.section}>
             <Typography className={classes.title}>
-              {t('privatePass.form.advancedOptions.tag.tagsOnAcquisition')}
+              {t('privatePass.form.advancedOptions.tag.tagsOnAcquisition', {
+                ns: 'privateService',
+              })}
             </Typography>
             <Typography variant="caption">
               {t(
                 'privatePass.form.advancedOptions.tag.tagsOnAcquisitionHelper',
+                { ns: 'privateService' },
               )}
             </Typography>
             <TagSelector
@@ -818,7 +1011,10 @@ const PrivatePassFormDetailsAndRestrictionsStep = (
               allTagsWithTagGroup={props.tagList || []}
               onChange={onChangeTagsOnAcquisition}
               onDeleteTag={onDeleteTagsOnAcquisition}
-              placeholder={t('privatePass.form.advancedOptions.tag.selectTags')}
+              placeholder={t(
+                'privatePass.form.advancedOptions.tag.selectTags',
+                { ns: 'privateService' },
+              )}
               selectedTags={values.tags_on_consumer_item_creation}
             />
             {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
@@ -993,6 +1189,17 @@ const useStyles = makeStyles((theme: Theme) => ({
   title: {
     fontWeight: 500,
     color: '#000',
+  },
+  tagSelectorLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    paddingBottom: theme.spacing(1),
+  },
+  tagSelectorLabelIcon: {
+    marginRight: theme.spacing(1),
+  },
+  tagSelector: {
+    paddingBottom: theme.spacing(2),
   },
 }));
 

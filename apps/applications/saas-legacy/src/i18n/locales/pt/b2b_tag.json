@@ -1,0 +1,25 @@
+{
+  "eligibility": {
+    "dialog": {
+      "close": "Fechar",
+      "edit": "Editar",
+      "noUnauthorizedTag": "Sem etiquetas não autorizadas",
+      "noAuthorizedTag": "Nenhuma etiqueta autorizada",
+      "blackList": "Etiquetas não autorizadas",
+      "whiteList": "Etiquetas autorizadas"
+    },
+    "selectors": {
+      "notAllowed": "Não está disponível",
+      "allowed": "Disponível",
+      "header": "Etiquetas",
+      "doNotSelectToAllowAllMembers": "Deixar em branco para autorizar todos os membros",
+      "helperText": "Utilize as etiquetas para tornar o passe visível apenas para um grupo desejado de membros no mercado, ferramentas e aplicação. Pode selecionar etiquetas para tornar o passe visível apenas para membros com uma das etiquetas seleccionadas. Ou pode selecionar etiquetas para tornar o passe oculto apenas para os membros que possuam uma das etiquetas seleccionadas. "
+    },
+    "info": {
+      "blackList": "{{ count }} etiqueta não autorizada",
+      "blackList_plural": "{{ count }} etiquetas não autorizadas",
+      "whiteList": "{{ count }} etiqueta autorizada",
+      "whiteList_plural": "{{ count }} etiquetas autorizadas"
+    }
+  }
+}

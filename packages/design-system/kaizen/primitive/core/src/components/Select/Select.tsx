@@ -9,6 +9,7 @@ import Loader from "#src/components/Loader";
 import Menu from "#src/components/Menu";
 import { Item } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
+import { Label } from "#src/components/label";
 import { Placements } from "#src/hooks/placement-classes.hook";
 
 const defaultClasses = [
@@ -155,19 +156,8 @@ const Select: React.FC<SelectProps> = ({
       data-component="Kaizen-Select"
       className={classNames("flex flex-col gap-2xs", { "w-full": fullWidth })}
     >
-      {label && (
-        <label
-          htmlFor={id}
-          className="flex gap-2xs text-onsurface-default text-body-md leading-sm"
-        >
-          <span>{label}</span>
-          {required && (
-            <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-              *
-            </span>
-          )}
-        </label>
-      )}
+      <Label htmlFor={id} required={required} label={label} />
+
       <Popover className={classNames({ "w-full": fullWidth })}>
         <Popover.Anchor>
           {({ isPopoverOpened, setIsPopoverOpened }) => {

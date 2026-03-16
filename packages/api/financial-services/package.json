@@ -11,6 +11,21 @@
       "types": "./build/lib.d.ts",
       "import": "./build/lib.es.js",
       "default": "./build/lib.es.js"
+    },
+    "./*": {
+      "types": "./build/*/index.d.ts",
+      "import": "./build/lib.es.js",
+      "default": "./build/lib.es.js"
+    },
+    "./constants": {
+      "types": "./build/constants.d.ts",
+      "import": "./build/lib.es.js",
+      "default": "./build/lib.es.js"
+    },
+    "./types": {
+      "types": "./build/types.d.ts",
+      "import": "./build/lib.es.js",
+      "default": "./build/lib.es.js"
     }
   },
   "main": "build/lib.es.js",
@@ -33,6 +48,9 @@
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.90.12"
   },
   "nx": {
     "tags": [

@@ -102,6 +102,7 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.onButtonClick Function to call when the button is clicked.
  * @param props.customIcon Override the default icon that is related to your alert status.
  * @param props.children Content of the alert.
+ * @param props.icon Icon to display. If not provided, the icon will be determined by the status.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-alert--docs
  */
 const Alert: React.FC<AlertProps> = ({
@@ -122,6 +123,8 @@ const Alert: React.FC<AlertProps> = ({
   const isClearable = !!onClearClick;
   const isDisplayingActions = buttonLabel || isClearable;
 
+  const iconToDisplay = customIcon ?? iconByStatus[status];
+
   return (
     <div
       role="alert"
@@ -136,7 +139,7 @@ const Alert: React.FC<AlertProps> = ({
     >
       <div>
         <Icon
-          icon={customIcon || iconByStatus[status]}
+          icon={iconToDisplay}
           size="md"
           className={classNames({
             "text-onsurface-main-strong":

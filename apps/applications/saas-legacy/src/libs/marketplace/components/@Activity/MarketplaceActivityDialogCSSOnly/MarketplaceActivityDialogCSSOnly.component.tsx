@@ -55,7 +55,7 @@ export function MarketplaceActivityDialog(props: Props) {
   useEffect(() => {
     if (!open || !offer || !metaActivities) return;
 
-    analyticsClientB2C.track(
+    analyticsClientB2C.trackEvent(
       trackGroupActivitySessionViewedEvent({
         activity_id: offer.activity,
         activity_name: metaActivities[offer.meta_activity]?.name || '',

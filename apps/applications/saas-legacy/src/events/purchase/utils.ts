@@ -65,7 +65,7 @@ export const trackAddToCartEvent = ({
     return;
   }
 
-  analyticsClientB2C.track(
+  analyticsClientB2C.trackEvent(
     trackAddToCart({
       product_type: productType,
       product_name: addedItem.name,

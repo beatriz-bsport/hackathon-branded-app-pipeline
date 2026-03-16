@@ -346,14 +346,14 @@ const SlotSelectorPage: React.FC<PageProps> = ({
 
   useEffect(() => {
     if (showSessions && isFetchSuccessful && !!privateService) {
-      analyticsClientB2C.track(
+      analyticsClientB2C.trackEvent(
         trackAppointmentViewedEvent({
           activity_id: privateService.id,
           activity_name: privateService.name,
         }),
       );
       if (!!privateService?.slots?.length) {
-        analyticsClientB2C.track(
+        analyticsClientB2C.trackEvent(
           trackAppointmentSlotViewedEvent({
             activity_id: privateService.id,
             activity_name: privateService.name,

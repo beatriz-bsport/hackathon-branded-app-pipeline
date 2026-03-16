@@ -335,7 +335,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   componentDidMount() {
     this.props.resetLevels();
     this.fetchData();
-    analyticsClientB2C.track(trackCalendarViewedEvent({}));
+    analyticsClientB2C.trackEvent(trackCalendarViewedEvent({}));
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {

@@ -455,7 +455,7 @@ const withStateHandlersSetter = {
   toggleBarcodeDetector:
     ({ barcodeDetectorEnabled }: StateHandlerInit) =>
     () => {
-      analyticsClientB2B.track(trackBarcodeScanToggledEvent({}));
+      analyticsClientB2B.trackEvent(trackBarcodeScanToggledEvent({}));
       return {
         barcodeDetectorEnabled: !barcodeDetectorEnabled,
       };

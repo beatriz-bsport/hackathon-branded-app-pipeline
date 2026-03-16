@@ -61,7 +61,7 @@ export class ResetPassword extends Component<Props, State> {
         parseInt(this.props.membership),
       );
     }
-    analyticsClientB2C.track(trackResetPasswordViewedEvent({}));
+    analyticsClientB2C.trackEvent(trackResetPasswordViewedEvent({}));
   }
 
   updateEmail = (event: React.ChangeEvent<HTMLInputElement>) => {

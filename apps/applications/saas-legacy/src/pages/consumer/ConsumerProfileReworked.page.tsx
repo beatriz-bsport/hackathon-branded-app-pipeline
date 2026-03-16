@@ -79,7 +79,7 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 
 class ConsumerProfileReworked extends React.Component<Props> {
   componentDidMount() {
-    analyticsClientB2C.track(
+    analyticsClientB2C.trackEvent(
       trackMemberProfileViewedEvent({ page_type: 'profile' }),
     );
     if (!!this.props.membership?.id || !!this.props.companyId) {

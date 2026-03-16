@@ -2002,6 +2002,9 @@ importers:
 
   apps/applications/studio-manager/cdp/smartlists:
     dependencies:
+      '@bsport/api-cdp':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/cdp
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting
@@ -3191,6 +3194,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
 
   packages/api/core:
     dependencies:

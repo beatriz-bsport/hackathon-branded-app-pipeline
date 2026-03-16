@@ -9,8 +9,18 @@ export const PUSH_AUTOMATION_EVENT_VALUES = {
   EXIT: String(EventKind.LEAVE),
 } as const;
 
+export const PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES = {
+  NO_LIMIT: "no-limit",
+  ONCE: "1",
+  TWICE: "2",
+  THREE_TIMES: "3",
+} as const;
+
 export type PushAutomationEventValue =
   (typeof PUSH_AUTOMATION_EVENT_VALUES)[keyof typeof PUSH_AUTOMATION_EVENT_VALUES];
+
+export type PushAutomationTriggerLimitValue =
+  (typeof PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES)[keyof typeof PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES];
 
 export const isPushAutomationEventValue = (
   value: string,
@@ -24,6 +34,7 @@ export const isPushAutomationEventValue = (
 export type PushAutomationFormData = {
   automationName: string;
   eventKind: PushAutomationEventValue;
+  triggerLimit: PushAutomationTriggerLimitValue;
   title: string;
   message: string;
 };

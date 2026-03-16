@@ -8,8 +8,19 @@ import { useTranslation } from "#src/utils/i18n";
 
 import {
   PUSH_AUTOMATION_EVENT_VALUES,
+  PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES,
   type PushAutomationFormData,
 } from "./types";
+
+const mapTriggerLimitToMaxCommunicationsSentPerMember = (
+  triggerLimit: PushAutomationFormData["triggerLimit"],
+): number | null => {
+  if (triggerLimit === PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES.NO_LIMIT) {
+    return null;
+  }
+
+  return Number(triggerLimit);
+};
 
 export const useCreatePushAutomation = ({
   smartlistId,
@@ -47,7 +58,8 @@ export const useCreatePushAutomation = ({
           : EventKind.LEAVE,
       title: data.title,
       text: data.message,
-      max_communications_sent_per_member: null,
+      max_communications_sent_per_member:
+        mapTriggerLimitToMaxCommunicationsSentPerMember(data.triggerLimit),
     });
   };
 

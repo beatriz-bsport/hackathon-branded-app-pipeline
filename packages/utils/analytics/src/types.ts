@@ -31,7 +31,10 @@ export type EventError = {
 
 export type EventResult<T> =
   | { event: T; errors: null }
-  | { event: Partial<T> & Properties; errors: EventError };
+  | {
+      event: Partial<T> & Properties;
+      errors: EventError;
+    };
 
 /** Augment your type config using the generic T type (extensibility) */
 export type AnalyticsConfig<T = Record<string, unknown>> = {
@@ -235,6 +238,33 @@ declare global {
     MeiroEvents: MeiroEvents;
   }
 }
+
+export type AnalyticsClientOptions<
+  ExtraConfig = MixpanelConfig,
+  OptInOptions = MixpanelOptInOptions,
+  OptOutOptions = MixpanelOptOutOptions,
+> = {
+  adapter?: AnalyticsAdapter<ExtraConfig, OptInOptions, OptOutOptions>;
+  internalDebug?: boolean;
+  instanceName?: string;
+  /**
+   * Optional callback invoked when `trackEvent` encounters a Zod
+   * validation error. Use this to forward the error to your error-reporting
+   * tool (e.g. Sentry's `captureException`) without coupling this package
+   * to any specific implementation.
+   *
+   * @example
+   * ```ts
+   * import { captureException } from '@sentry/react';
+   *
+   * const analyticsClient = new AnalyticsClient({
+   *   onValidationError: ({ zodError, eventType }) =>
+   *     captureException(zodError, { tags: { eventType } }),
+   * });
+   * ```
+   */
+  onValidationError?: (error: EventError) => void;
+};
 
 export type AnalyticsClientInterface<
   ExtraConfig = MixpanelConfig,

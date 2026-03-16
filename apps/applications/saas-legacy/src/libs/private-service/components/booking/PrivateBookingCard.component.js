@@ -366,7 +366,7 @@ export const PrivateBookingCard = (props: Props) => {
                   createMemberProgram={props.createMemberProgram}
                   extraActions={
                     props.private_booking.booking_status_code ===
-                    BOOKING_STATUS_OK.id ? (
+                      BOOKING_STATUS_OK.id && !props.isCoach ? (
                       <SwapPassButton
                         currentPrivateConsumerPassId={resolveId(
                           props.private_booking.private_consumer_pass,

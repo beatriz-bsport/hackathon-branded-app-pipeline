@@ -37,6 +37,7 @@ const _getEventListWithRule = createSelector(
           notification_event,
           is_editable,
           is_instance_specific,
+          required_tags,
         }) => ({
           notification_event,
           is_instance_specific,
@@ -52,6 +53,7 @@ const _getEventListWithRule = createSelector(
             ruleList.find(
               (r) => r.notification_event === notification_event && !!r.company,
             ),
+          required_tags,
         }),
       )
       .map((e) => {

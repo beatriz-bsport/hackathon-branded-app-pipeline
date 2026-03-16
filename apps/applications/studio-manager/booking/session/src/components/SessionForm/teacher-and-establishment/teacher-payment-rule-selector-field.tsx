@@ -1,6 +1,6 @@
 import { type FC, useMemo } from "react";
 
-import { COACH_PAYMENT_RULE_TYPE } from "@bsport/api-financial-services";
+import { COACH_PAYMENT_RULE_TYPE } from "@bsport/api-financial-services/teacher-payment-rules";
 import { FormField, useFormContext } from "@bsport/form";
 import { Autocomplete, AutocompleteProps } from "@bsport/kaizen-primitive-core";
 

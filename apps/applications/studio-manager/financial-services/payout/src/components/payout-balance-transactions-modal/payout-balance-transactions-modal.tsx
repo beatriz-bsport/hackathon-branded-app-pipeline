@@ -3,13 +3,13 @@ import { type FC, useEffect, useMemo, useState } from "react";
 import type {
   PayoutBalanceTransaction,
   PayoutListItem,
-} from "@bsport/api-financial-services";
+} from "@bsport/api-financial-services/payout";
+import PaymentMethodChip from "@bsport/kaizen-business-components/financial-services/payment-method-chip";
 import {
   Alert,
   Button,
   Chip,
   type GenericTableColumn,
-  type IconName,
   Menu,
   Modal,
   type PaginationProps,
@@ -26,9 +26,7 @@ import { useTranslation } from "#src/utils/i18n";
 import {
   DISPLAY_TYPE_MAP,
   type ModalDisplayTypeKey,
-  type ModalPaymentMethodKey,
   type ModalReconciliationStatusKey,
-  PAYMENT_METHOD_MAP,
   RECONCILIATION_STATUS_CHIP_COLOR,
   RECONCILIATION_STATUS_MAP,
 } from "./types";
@@ -48,11 +46,6 @@ function getDisplayTypeKey(displayType: string): ModalDisplayTypeKey {
   return known !== undefined
     ? `modal.displayType.${known}`
     : "modal.displayType.other";
-}
-
-function getPaymentMethodKey(method: string): ModalPaymentMethodKey | null {
-  const known = PAYMENT_METHOD_MAP[method];
-  return known !== undefined ? `modal.paymentMethod.${known}` : null;
 }
 
 function getReconciliationStatusKey(
@@ -166,20 +159,8 @@ export const PayoutBalanceTransactionsModal: FC<
       type: "custom",
       render: (row) => {
         const method = row.source_payment_method;
-        if (!method) return null;
-        const labelKey = getPaymentMethodKey(method);
-        const label = labelKey ? t(labelKey) : method;
-        const iconLeft: IconName | undefined =
-          method === "card" ? "credit-card-02" : undefined;
-        return (
-          <Chip
-            label={label}
-            iconLeft={iconLeft}
-            color="default"
-            size="lg"
-            type="weak"
-          />
-        );
+
+        return <PaymentMethodChip type={method} />;
       },
     },
     {
@@ -227,8 +208,15 @@ export const PayoutBalanceTransactionsModal: FC<
       align: "center",
       render: (row) => {
         const invoices =
-          row.reconciled_bsport_payments?.map((payment) => payment.invoice) ??
-          [];
+          row.reconciled_bsport_payments
+            ?.map((payment) => payment.invoice)
+            .filter(
+              (invoice, index, self) =>
+                invoice != null &&
+                self.findIndex(
+                  (currentInvoice) => currentInvoice?.uuid === invoice.uuid,
+                ) === index,
+            ) ?? [];
 
         if (invoices.length === 0) return null;
 

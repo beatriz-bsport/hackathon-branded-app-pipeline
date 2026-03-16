@@ -5,12 +5,12 @@ import {
 } from "@tanstack/react-query";
 import { useMemo } from "react";
 
-import type {
-  GetPayoutListRequest,
-  PayoutListItem,
-  PayoutListResponse,
-} from "@bsport/api-financial-services";
-import { getPayoutListAPI } from "@bsport/api-financial-services";
+import {
+  type GetPayoutListRequest,
+  type PayoutListItem,
+  type PayoutListResponse,
+  getPayoutListAPI,
+} from "@bsport/api-financial-services/payout";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 

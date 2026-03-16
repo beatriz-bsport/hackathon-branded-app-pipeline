@@ -40,35 +40,6 @@ export const DISPLAY_TYPE_MAP: Record<string, BalanceTransactionDisplayType> =
   })();
 
 /**
- * Payment method source_payment_method from the API.
- * Used for the "Payment method" column.
- */
-export const PAYMENT_METHOD_TYPES = [
-  "card",
-  "sepa_debit",
-  "bacs_debit",
-  "twint",
-  "apple_pay",
-  "google_pay",
-  "bancontact",
-  "ideal",
-] as const;
-
-export type PaymentMethodType = (typeof PAYMENT_METHOD_TYPES)[number];
-
-/** i18n key for modal payment method column */
-export type ModalPaymentMethodKey = `modal.paymentMethod.${PaymentMethodType}`;
-
-/** String → payment method type map for safe lookup (no cast) */
-export const PAYMENT_METHOD_MAP: Record<string, PaymentMethodType> = (() => {
-  const m: Record<string, PaymentMethodType> = {};
-  for (const v of PAYMENT_METHOD_TYPES) {
-    m[v] = v;
-  }
-  return m;
-})();
-
-/**
  * Balance transaction reconciliation_status from the API.
  * Used for the "Status" column.
  */

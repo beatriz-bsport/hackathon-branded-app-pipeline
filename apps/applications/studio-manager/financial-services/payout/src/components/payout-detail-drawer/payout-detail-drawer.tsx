@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import type { PayoutListItem } from "@bsport/api-financial-services";
+import type { PayoutListItem } from "@bsport/api-financial-services/payout";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import {

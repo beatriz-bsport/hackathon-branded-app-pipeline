@@ -26,5 +26,8 @@
         "generic": "An error occured."
       }
     }
+  },
+  "paymentMethod": {
+    "card": "Card"
   }
 }

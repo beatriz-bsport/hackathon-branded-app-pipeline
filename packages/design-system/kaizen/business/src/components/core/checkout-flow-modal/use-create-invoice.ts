@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { createInvoiceAPI } from "@bsport/api-financial-services";
-import type {
-  CreateInvoiceBuyableItem,
-  CreateInvoiceGiftcardConfig,
-  CreateInvoiceRequest,
-  CreateInvoiceResponse,
-} from "@bsport/api-financial-services";
+import {
+  type CreateInvoiceBuyableItem,
+  type CreateInvoiceGiftcardConfig,
+  type CreateInvoiceRequest,
+  type CreateInvoiceResponse,
+  createInvoiceAPI,
+} from "@bsport/api-financial-services/invoice-create";
 import { fromIsoString, getLocalNow } from "@bsport/datetime-manipulation";
 import type { Fetch } from "@bsport/fetch";
 

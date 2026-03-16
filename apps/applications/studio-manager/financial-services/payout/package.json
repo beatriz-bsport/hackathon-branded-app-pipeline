@@ -31,6 +31,7 @@
     "@bsport/api-financial-services": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
     "@tanstack/react-query": "^5.90.12"
   },

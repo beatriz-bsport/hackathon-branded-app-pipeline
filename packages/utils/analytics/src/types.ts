@@ -3,6 +3,7 @@ import type {
   InTrackingOptions,
   OutTrackingOptions,
 } from "mixpanel-browser";
+import { type ZodError } from "zod";
 
 export type Serializable =
   | string
@@ -22,6 +23,15 @@ export type AnalyticsEvent<
 > = Payload & {
   eventType?: EventName; // Made optional for compatibility with saas legacy typing (fails in CI only)
 };
+
+export type EventError = {
+  eventType: string;
+  zodError: ZodError;
+};
+
+export type EventResult<T> =
+  | { event: T; errors: null }
+  | { event: Partial<T> & Properties; errors: EventError };
 
 /** Augment your type config using the generic T type (extensibility) */
 export type AnalyticsConfig<T = Record<string, unknown>> = {
@@ -111,6 +121,21 @@ export type AnalyticsAdapter<
 };
 
 export type AnalyticsAgnosticMethods = {
+  /**
+   * Track an event built with `generateEvent`. Handles validation
+   * errors by either dropping the event or tracking a best-effort fallback,
+   * and forwards any ZodError to the `onValidationError` callback supplied
+   * at construction time.
+   *
+   * @param eventResult - The result of an event generation attempt, containing either the fully validated event or a best-effort fallback along with validation errors.
+   * @param dropInvalidEvents - When `true`, events that fail validation are
+   *   not tracked at all. Defaults to `false` (best-effort fallback is sent).
+   */
+  trackEvent<TOutput extends { eventType: string }>(
+    eventResult: EventResult<TOutput>,
+    dropInvalidEvents?: boolean,
+  ): void;
+
   /**
    * Store properties to append to all events
    * @param properties New super properties to add to the Analytics client

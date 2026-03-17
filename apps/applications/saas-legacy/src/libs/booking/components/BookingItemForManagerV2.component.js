@@ -360,13 +360,27 @@ export class BookingItemForManager extends Component<Props, State> {
                 <Typography>{t('booking:refund')}</Typography>
               </MenuItem>
             )}
-          {canDisplaySwitchPass && (
-            <SwapPassMenuItem
-              booking={booking}
-              classes={classes}
-              onClose={() => this.setState({ menuAnchor: null })}
-            />
-          )}
+          <ObjectLevelPermissionProvider
+            requiredPermission={[
+              'reservation.activity.allowed_actions.edit',
+              'reservation.workshop.allowed_actions.edit',
+            ]}
+          >
+            {([hasActivityEditPermission, hasWorkshopEditPermission]) =>
+              canDisplaySwitchPass &&
+              getActivityWorkshopPermission(
+                bookingOfferMetaActivity?.is_workshop,
+                hasActivityEditPermission,
+                hasWorkshopEditPermission,
+              ) && (
+                <SwapPassMenuItem
+                  booking={booking}
+                  classes={classes}
+                  onClose={() => this.setState({ menuAnchor: null })}
+                />
+              )
+            }
+          </ObjectLevelPermissionProvider>
           <ObjectLevelPermissionProvider
             requiredPermission={[
               'reservation.activity.allowed_actions.editSpot',
@@ -675,13 +689,27 @@ export class BookingItemForManager extends Component<Props, State> {
                   onClose={closeAndAction()}
                   open={Boolean(this.state.menuAnchor)}
                 >
-                  {canDisplaySwitchPass && (
-                    <SwapPassMenuItem
-                      booking={booking}
-                      classes={classes}
-                      onClose={() => this.setState({ menuAnchor: null })}
-                    />
-                  )}
+                  <ObjectLevelPermissionProvider
+                    requiredPermission={[
+                      'reservation.activity.allowed_actions.edit',
+                      'reservation.workshop.allowed_actions.edit',
+                    ]}
+                  >
+                    {([hasActivityEditPermission, hasWorkshopEditPermission]) =>
+                      canDisplaySwitchPass &&
+                      getActivityWorkshopPermission(
+                        bookingOfferMetaActivity?.is_workshop,
+                        hasActivityEditPermission,
+                        hasWorkshopEditPermission,
+                      ) && (
+                        <SwapPassMenuItem
+                          booking={booking}
+                          classes={classes}
+                          onClose={() => this.setState({ menuAnchor: null })}
+                        />
+                      )
+                    }
+                  </ObjectLevelPermissionProvider>
                   <ObjectLevelPermissionProvider
                     requiredPermission={[
                       'reservation.activity.allowed_actions.editSpot',

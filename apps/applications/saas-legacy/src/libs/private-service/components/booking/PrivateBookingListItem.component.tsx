@@ -40,6 +40,7 @@ type Props = {
   onDelete?: () => void;
   onRestore?: () => void;
   onSetUnpaid?: () => void;
+  onSwapSuccess?: (newPassId: number) => void;
   setPrivateBookingUnpaidLoading?: boolean;
 };
 export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
@@ -171,6 +172,7 @@ export const PrivateBookingListItem: React.FC<Props> = (props: Props) => {
             props.private_booking.private_consumer_pass,
           )}
           memberId={resolveId(props.private_booking.member)}
+          onSwapSuccess={props.onSwapSuccess}
           privateBookingId={props.private_booking.id}
           privateSlotId={resolveId(props.private_booking.private_slot)}
         />

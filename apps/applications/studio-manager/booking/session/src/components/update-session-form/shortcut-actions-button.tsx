@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 
 import type { SessionWithActivity } from "@bsport/api-book";
 import {
@@ -10,6 +10,10 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { SessionVisibilityType } from "#src/events/constants.js";
+import { sessionUpdateRestoreButtonClickedEvent } from "#src/events/session-edition/events.js";
+import { useFetchTeacher } from "#src/hooks/use-fetch-teachers.js";
+import { analyticsClient } from "#src/utils/analytics";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
@@ -26,6 +30,28 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
   onOpenDuplicateSessionModal,
   onOpenRestoreSessionModal,
 }) => {
+  const teacherId = session.coach_override ?? session.coach;
+
+  const { data: teacher } = useFetchTeacher(teacherId);
+
+  const trackingProperties = useMemo(() => {
+    return {
+      session_id: session.id,
+      session_name: session.name,
+      session_start_date_time: session.date_start,
+      participant_number: session.nb_bookings,
+      teacher_name: teacher?.name,
+      teacher_id: session.coach_override ?? session.coach,
+      session_type: session.is_workshop ? "workshop" : "group_activity",
+      session_is_online: session.is_broadcast,
+      session_available: session.available,
+      session_duration: session.duration_minute,
+      session_visibility: (session.manager_only
+        ? "unlisted"
+        : "listed") as SessionVisibilityType,
+    };
+  }, [session, teacher]);
+
   const { t } = useTranslation("sessionList");
 
   const { copyToClipboard } = useCopyToClipboard();
@@ -95,6 +121,9 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "unarchive",
         type: "button",
         onClick: () => {
+          analyticsClient.trackEvent(
+            sessionUpdateRestoreButtonClickedEvent(trackingProperties),
+          );
           setIsPopoverOpened(false);
           onOpenRestoreSessionModal();
         },
@@ -124,6 +153,7 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
       onOpenDuplicateSessionModal,
       onOpenRestoreSessionModal,
       hasEditPermission,
+      trackingProperties,
     ],
   );
 

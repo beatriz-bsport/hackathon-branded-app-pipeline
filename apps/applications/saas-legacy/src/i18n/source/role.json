@@ -557,6 +557,9 @@
           },
           "refund": {
             "_label": "Refund"
+          },
+          "edit": {
+            "_label": "Edit bookings"
           }
         },
         "_label": "Workshop management"
@@ -589,6 +592,9 @@
           },
           "refund": {
             "_label": "Refund late cancelations"
+          },
+          "edit": {
+            "_label": "Edit bookings"
           }
         },
         "_label": "Group activities management"

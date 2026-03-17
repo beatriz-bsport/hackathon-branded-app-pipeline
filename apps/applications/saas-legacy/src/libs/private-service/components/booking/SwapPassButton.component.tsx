@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import SwapPassDialog, {
   type SwapPassItem,
 } from '#src/libs/booking/components/SwapPassDialog.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import {
   fetchCompatiblePrivateConsumerPass,
@@ -159,22 +160,27 @@ export const SwapPassButton: React.FC<Props> = ({
   if (!showSwapPass) return null;
 
   return (
-    <>
-      <Tooltip title={t('swapPass.menuAction', { ns: 'b2b_booking' })}>
-        <IconButton onClick={open}>
-          <SwapHorizIcon />
-        </IconButton>
-      </Tooltip>
-      <SwapPassDialog
-        isLoading={isLoading}
-        isOpen={isOpen}
-        isSubmitting={isSubmitting}
-        items={items}
-        onClose={close}
-        onSelectItem={setSelectedItemId}
-        onSubmit={handleSubmit}
-        selectedItemId={selectedItemId}
-      />
-    </>
+    <ObjectLevelPermissionWrapper
+      forcedBehavior="hidden"
+      requiredPermission="reservation.privateBooking.allowed_actions.edit"
+    >
+      <>
+        <Tooltip title={t('swapPass.menuAction', { ns: 'b2b_booking' })}>
+          <IconButton onClick={open}>
+            <SwapHorizIcon />
+          </IconButton>
+        </Tooltip>
+        <SwapPassDialog
+          isLoading={isLoading}
+          isOpen={isOpen}
+          isSubmitting={isSubmitting}
+          items={items}
+          onClose={close}
+          onSelectItem={setSelectedItemId}
+          onSubmit={handleSubmit}
+          selectedItemId={selectedItemId}
+        />
+      </>
+    </ObjectLevelPermissionWrapper>
   );
 };

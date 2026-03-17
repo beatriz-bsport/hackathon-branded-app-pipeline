@@ -38,6 +38,7 @@
     "304": "Activate digital gift card",
     "305": "Client email changed via the Back Office",
     "308": "Physical gift card activation",
+    "309": "Member double opt-in confirmation",
     "400": "Appointment canceled too late (for teachers)",
     "401": "Appointment canceled and member refunded (for teachers)",
     "402": "New appointment (for teachers)",

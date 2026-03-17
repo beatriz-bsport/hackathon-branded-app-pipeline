@@ -11,7 +11,12 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionVisibilityType } from "#src/events/constants.js";
-import { sessionUpdateRestoreButtonClickedEvent } from "#src/events/session-edition/events.js";
+import {
+  sessionUpdateCancelButtonClickedEvent,
+  sessionUpdateCopyLinkButtonClickedEvent,
+  sessionUpdateDuplicateButtonClickedEvent,
+  sessionUpdateRestoreButtonClickedEvent,
+} from "#src/events/session-edition/events.js";
 import { useFetchTeacher } from "#src/hooks/use-fetch-teachers.js";
 import { analyticsClient } from "#src/utils/analytics";
 import { useTranslation } from "#src/utils/i18n";
@@ -86,6 +91,9 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "copy-03",
         type: "button",
         onClick: () => {
+          analyticsClient.trackEvent(
+            sessionUpdateDuplicateButtonClickedEvent(trackingProperties),
+          );
           setIsPopoverOpened(false);
           onOpenDuplicateSessionModal();
         },
@@ -97,6 +105,9 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         type: "button",
         disabled: !companyId,
         onClick: () => {
+          analyticsClient.trackEvent(
+            sessionUpdateCopyLinkButtonClickedEvent(trackingProperties),
+          );
           if (companyId) {
             copyToClipboard(
               `${window.location.origin}/customer/payment/offer/${session.id}?membership=${companyId}`,
@@ -111,6 +122,9 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
         iconLeft: "calendar-minus-02",
         type: "button",
         onClick: () => {
+          analyticsClient.trackEvent(
+            sessionUpdateCancelButtonClickedEvent(trackingProperties),
+          );
           setIsPopoverOpened(false);
           onOpenCancelSessionModal();
         },

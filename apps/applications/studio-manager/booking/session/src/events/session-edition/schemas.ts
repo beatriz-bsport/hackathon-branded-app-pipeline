@@ -76,3 +76,24 @@ export const sessionUpdateRestoreButtonClickedEventSchema =
     "session_update_restore_button_clicked",
     "restoring",
   );
+
+export const sessionUpdateCancelButtonClickedEventSchema =
+  sessionUpdateActionButtonClickedEventSchema(
+    "cancel",
+    "session_update_cancel_button_clicked",
+    "cancelling",
+  );
+
+export const sessionUpdateCopyLinkButtonClickedEventSchema =
+  sessionUpdateActionButtonClickedEventSchema(
+    "copy link",
+    "session_update_copy_link_button_clicked",
+    "copying the link",
+  );
+
+export const sessionUpdateDuplicateButtonClickedEventSchema =
+  sessionUpdateActionButtonClickedEventSchema(
+    "duplicate",
+    "session_update_duplicate_session_button_clicked",
+    "duplicating",
+  );

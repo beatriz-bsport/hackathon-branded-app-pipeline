@@ -17,6 +17,7 @@ import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import { PopupForm } from "#src/components/PopupForm/PopupForm";
 import { getPopupSchema } from "#src/components/PopupForm/schema";
 import { PopupFormData } from "#src/components/PopupForm/shared-types";
+import { SMARTLIST_COMMUNICATION_URLS, URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -26,7 +27,8 @@ export const PopupCreationPage = () => {
   const { id: smartlistId } = useParams<{ id: string }>();
   invariant(smartlistId, "Expected smartlist id param to be defined");
 
-  const { t } = useTranslation("campaign");
+  const { t: tCampaign } = useTranslation("campaign");
+  const { t: tList } = useTranslation("list");
   const { detailsLayoutProps } = useDetailsLayout();
 
   const [toastId, setToastId] = useState<string | null>(null);
@@ -51,7 +53,7 @@ export const PopupCreationPage = () => {
         key="continue-popup-creation-button"
         color="main"
         intent="call-to-action"
-        label={t("popup.creation.continueButtonLabel")}
+        label={tCampaign("popup.creation.continueButtonLabel")}
         size="md"
         type="submit"
         disabled={methods.formState.isSubmitting}
@@ -65,9 +67,16 @@ export const PopupCreationPage = () => {
 
   const breadcrumbsItems = [
     <Breadcrumbs.Item
-      id="breadcrumb-smartlist"
-      key="breadcrumb-smartlist"
+      key="breadcrumb-smartlists"
+      id="breadcrumb-smartlists"
+      text={tList("title")}
+      href={SMARTLIST_COMMUNICATION_URLS.SMARTLIST_ROUTE_FROM_SUBNAV}
+    />,
+    <Breadcrumbs.Item
+      key="breadcrumb-smartlists-campaigns"
+      id="breadcrumb-smartlists-campaigns"
       text={smartlistName}
+      href={URLS.campaignPath(smartlistId.toString())}
     />,
   ];
 
@@ -87,7 +96,7 @@ export const PopupCreationPage = () => {
   const handleSubmit = async (data: PopupFormData) => {
     const processingToastId = toast({
       status: "default",
-      title: t("popup.creation.toasts.processing.creatingPopup"),
+      title: tCampaign("popup.creation.toasts.processing.creatingPopup"),
       onDismiss: () => setToastId(null),
     });
     setToastId(processingToastId);
@@ -103,12 +112,14 @@ export const PopupCreationPage = () => {
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
-        pageTitle={t("popup.creation.title")}
+        pageTitle={tCampaign("popup.creation.title")}
         endGroupActions={endGroupActions}
         BreadcrumbsItems={breadcrumbsItems}
       />
       <DetailsLayout.Content>
-        <Alert status="default">{t("popup.creation.alertMessage")}</Alert>
+        <Alert status="default">
+          {tCampaign("popup.creation.alertMessage")}
+        </Alert>
         <PopupForm id={formId} onSubmit={handleSubmit} {...methods} />
       </DetailsLayout.Content>
     </DetailsLayout>

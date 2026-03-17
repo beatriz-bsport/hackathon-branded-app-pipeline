@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
-import type { Member } from "@bsport/api-cdp";
+import type { Member } from "@bsport/api-cdp/member";
 import { Button } from "@bsport/kaizen-primitive-core";
 
-import fetch from "#src/utils/fetch";
+import { fetch } from "#src/utils/fetch";
 
 import { MemberSelectorModal } from "./member-selector-modal";
 

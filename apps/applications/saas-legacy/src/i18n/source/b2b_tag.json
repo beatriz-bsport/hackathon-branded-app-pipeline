@@ -1,0 +1,25 @@
+{
+  "eligibility": {
+    "dialog": {
+      "close": "Close",
+      "edit": "Edit",
+      "noUnauthorizedTag": "There are no refused tags to display.",
+      "noAuthorizedTag": "There are no authorized tags to display.",
+      "blackList": "Refused tags",
+      "whiteList": "Approved tags"
+    },
+    "selectors": {
+      "notAllowed": "Not available",
+      "allowed": "Available",
+      "header": "Tags",
+      "doNotSelectToAllowAllMembers": "Leave this field empty to make it available to all members.",
+      "helperText": "Use tags to make this pass available or not available for purchase to certain segments of your customer base."
+    },
+    "info": {
+      "blackList": "{{ count }} refused tag",
+      "blackList_plural": "{{ count }} refused tags",
+      "whiteList": "{{ count }} approved tag",
+      "whiteList_plural": "{{ count }} approved tags"
+    }
+  }
+}

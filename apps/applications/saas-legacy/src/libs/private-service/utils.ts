@@ -212,6 +212,19 @@ export const getFormInitial = (
   pass: PrivatePass,
   compatibleServicePass: Array<ServiceCompatibilityPass> = [],
 ) => {
+  const privatePass = {
+    ...pass,
+    blacklist_tags:
+      pass?.blacklist_tags?.map((tag) =>
+        // @ts-expect-error
+        typeof tag === 'number' ? tag : tag.id,
+      ) ?? [],
+    whitelist_tags:
+      pass?.whitelist_tags?.map((tag) =>
+        // @ts-expect-error
+        typeof tag === 'number' ? tag : tag.id,
+      ) ?? [],
+  };
   if (
     compatibleServicePass?.length > 0 &&
     compatibleServicePass?.filter(
@@ -224,12 +237,12 @@ export const getFormInitial = (
         excluded_slot_ids: cs.excluded_slot_ids,
       }),
     );
-    const initialPass = { ...pass, compatibility: private_services };
+    const initialPass = { ...privatePass, compatibility: private_services };
     delete initialPass.private_services;
     return initialPass;
   }
   // @ts-expect-error
-  const updatedPass = { ...pass, compatibility: [] };
+  const updatedPass = { ...privatePass, compatibility: [] };
   delete updatedPass.private_services;
   return updatedPass;
 };

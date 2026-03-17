@@ -33,13 +33,3 @@ declare module "sm-navigation-sidebar/urls" {
   export const REVAMP_URLS_PRODUCTION: Partial<typeof REVAMP_URLS_DEVELOPMENT>;
   export default REVAMP_URLS_DEVELOPMENT;
 }
-
-// ----- Booking -----
-
-// ----- Buyables -----
-
-// ----- Core-data -----
-
-// ----- Customer Data Platform -----
-
-// ----- Business Insights -----

@@ -1,3 +1,5 @@
+import type { PaymentMethodType } from "#src/types";
+
 export type PayoutListLinks = {
   next: string | null;
   previous: string | null;
@@ -105,7 +107,7 @@ export type PayoutBalanceTransaction = {
   error_type: string;
   display_type: string;
   description: string;
-  source_payment_method: string;
+  source_payment_method: PaymentMethodType;
   reconciled_bsport_payments: ReconciledBsportPayment[];
   reversal_of_balance_transaction_id: number | null;
   reversal_of_balance_transaction_payout: BalanceTransactionPayoutSummary | null;

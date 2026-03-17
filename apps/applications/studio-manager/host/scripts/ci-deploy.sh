@@ -1,124 +1,63 @@
 #!/bin/sh
 
-set -eE
+set -eu
 
-# List of applications to deploy
-# Check if second argument is provided (SM_AFFECTED_PROJECTS)
-if [ -n "$2" ]; then
-  # Use the provided list of affected projects
-  echo "Using provided list of affected projects"
-  # Convert literal \n to actual newlines
-  APPLICATIONS=$(echo "$2" | sed "s/,/\n/g")
+ENVIRONMENT=$1
+DEFAULT_APPLICATIONS="@bsport/sm-host,@bsport/sm-navigation-sidebar"
+RAW_APPLICATIONS=${2:-$DEFAULT_APPLICATIONS}
+APPLICATIONS=$(printf "%b" "$RAW_APPLICATIONS" | tr '\n ' ',' | sed 's/,,*/,/g; s/^,//; s/,$//')
 
-  # Always include sm-host to ensure release SHA is injected into index.html
-  if ! echo "$APPLICATIONS" | grep -q "@bsport/sm-host"; then
-    echo "Adding @bsport/sm-host to deploy list for release SHA injection"
-    APPLICATIONS="@bsport/sm-host
-$APPLICATIONS"
-  fi
-else
-  # Fall back to the fixed list of applications from apps.txt
-  echo "Using fixed list of applications from apps.txt"
-  APPLICATIONS=$(cat ./scripts/apps.txt)
+if [ -z "$APPLICATIONS" ]; then
+  APPLICATIONS="$DEFAULT_APPLICATIONS"
 fi
 
 echo "*"
 echo "⏳ Deploying Studio Manager applications"
-
-ENVIRONMENT=$1
-
 echo "Setting deploy config for $ENVIRONMENT"
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-. $REPO_ROOT/tools/scripts/set-deploy-config.sh "$ENVIRONMENT"
-
-
-S3_BUCKET="$S3_BUCKET/studio"
-
-# Capture script directory before changing directory
-SCRIPT_DIR="$(pwd)/scripts"
 
 ROOT_DIR=$(git rev-parse --show-toplevel)
-cd "$ROOT_DIR"
-echo "LOGS : THIS IS ROOT_DIR : $ROOT_DIR"
+. "$ROOT_DIR/tools/scripts/set-deploy-config.sh" "$ENVIRONMENT"
+S3_BUCKET="$S3_BUCKET/studio"
 
-for APPLICATION in $APPLICATIONS; do
-  echo "*"
-  echo "⏳ Copying $APPLICATION assets to S3"
-  PWD_BEGIN=$(pwd)
-  echo "📦 Starting directory: $PWD_BEGIN"
+for APPLICATION in $(printf "%s" "$APPLICATIONS" | tr ',' '\n'); do
+  case "$APPLICATION" in
+    @bsport/sm-host)
+      ASSET_PATH="apps/applications/studio-manager/host"
+      S3_URL="$S3_BUCKET"
+      ;;
+    @bsport/sm-navigation-sidebar)
+      ASSET_PATH="apps/applications/studio-manager/navigation-sidebar"
+      S3_URL="$S3_BUCKET/apps/navigation-sidebar"
+      ;;
+    *)
+      echo "⏭️ Skipping unsupported Studio Manager application: $APPLICATION"
+      continue
+      ;;
+  esac
 
-  # get the path relative to the application root, for example for @bsport/sm-host it will
-  # be "apps/applications/b2b/host"
-  ASSET_PATH=$(node "$SCRIPT_DIR/get-app-path.mjs" "$APPLICATION")
-  if [ $? -ne 0 ] || [ -z "$ASSET_PATH" ]; then
-    echo "Error: Failed to get project root for $APPLICATION (using devkit)"
-    exit 0
-  fi
-
-  # Debug output to see exact ASSET_PATH value
-  echo "DEBUG: ASSET_PATH='$ASSET_PATH'"
-
-  # Skip deployment if the asset path doesn't include 'apps/applications'
-  # Use grep to check if the path contains 'apps/applications'
-  if ! echo "$ASSET_PATH" | grep -q "apps/applications"; then
-    echo "⏭️ Skipping deployment for $APPLICATION: Path '$ASSET_PATH' is not in apps/applications"
-    continue
-  else
-    echo "✅ Path '$ASSET_PATH' contains 'apps/applications', proceeding with deployment"
-  fi
-
-  echo "Project root found: $ASSET_PATH"
-
-  cd "$ROOT_DIR/$ASSET_PATH"
-
-  # set S3_URL
-  if [ "$APPLICATION" = "@bsport/sm-host" ]; then
-    # for host we use the bucket root
-    S3_URL="$S3_BUCKET"
-  else
-    # Use current folder name as app name
-    APP_NAME=$(basename $(pwd))
-    echo "LOGS : THIS IS APP_NAME : $APP_NAME"
-    S3_URL="$S3_BUCKET/apps/$APP_NAME"
-  fi
-
-  echo "📦 Current directory: $(pwd)"
-  echo "📦 Checking dist directory:"
-  ls -la ./dist || echo "dist directory not found!"
-
-  if [ ! -d "./dist" ]; then
-    echo "❌ Error: dist directory does not exist in $(pwd)"
+  DIST_DIR="$ROOT_DIR/$ASSET_PATH/dist"
+  if [ ! -d "$DIST_DIR" ]; then
+    echo "❌ Error: dist directory does not exist in $ROOT_DIR/$ASSET_PATH"
     exit 1
   fi
 
-  # For sm-host only, inject the release SHA into index.html
   if [ "$APPLICATION" = "@bsport/sm-host" ]; then
-    echo "📦 Injecting release SHA ($CI_COMMIT_SHORT_SHA) into index.html"
-    sed -i'' -e "s/__RELEASE_SHA_PLACEHOLDER__/$CI_COMMIT_SHORT_SHA/g" ./dist/index.html
+    RELEASE_SHA=${CI_COMMIT_SHORT_SHA:-local}
+    sed -i'' -e "s/__RELEASE_SHA_PLACEHOLDER__/$RELEASE_SHA/g" "$DIST_DIR/index.html"
   fi
 
-  echo "📦 Uploading dist to $S3_URL"
-  # actl not needed for now, only for production
-  aws s3 cp ./dist/ $S3_URL --recursive --only-show-errors $ACL_PARAM
-
-  cd "$ROOT_DIR"
-
+  echo "📦 Uploading $APPLICATION dist to $S3_URL"
+  aws s3 cp "$DIST_DIR/" "$S3_URL" --recursive --only-show-errors ${ACL_PARAM:-}
   echo "✅ Success"
   echo "*"
 done
 
-echo "*"
 echo "⏳ Invalidate CloudFront distribution"
-# cloudfront invalidation must be executed inside the AWS account where the cloudfront distribution lives
-# to achieve this, we call a lambda function living there, which has the right permissions.
-
-# CLOUDFRONT_INVALIDATION_TOKEN is a Gitlab CI/CD variable
 curl --get \
   --data-urlencode 'paths=["/studio/*"]' \
   --data-urlencode "distribution_id=${CLOUDFRONT_ID}" \
   --data-urlencode "token=${CLOUDFRONT_INVALIDATION_TOKEN}" \
-  ${CLOUDFRONT_INVALIDATION_LAMBDA_URL}
+  "${CLOUDFRONT_INVALIDATION_LAMBDA_URL}"
 
-echo "*"
 echo "✅ Successfully deployed: $ENVIRONMENT"
 echo "*"

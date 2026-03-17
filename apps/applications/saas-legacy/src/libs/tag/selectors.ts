@@ -2,7 +2,7 @@ import memoize from 'memoize-one';
 import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag.js';
 import { createSelector } from 'reselect';
 
-import type { TagGroup, Tag, TagGroupAPI } from './types';
+import type { TagGroup, Tag, TagGroupAPI, TagsEligibility } from './types';
 import { RootState } from '../../reducers';
 
 const _getTags = (state: RootState) => state.tag.tag.items;
@@ -109,3 +109,26 @@ export const getAllTemplate: (state: RootState) => Array<TagGroup> =
         ),
       })),
   );
+
+type EligibilityTagsSelector<T extends TagsEligibility> = (
+  state: RootState,
+) => T | T[] | undefined;
+
+export const withEligibilityTags = memoize(
+  <T extends TagsEligibility>(selector: EligibilityTagsSelector<T>) =>
+    createSelector([selector, getAllTagsWithTagGroup], (items, tagList) => {
+      if (!items) return items;
+
+      const process = (item: T) => ({
+        ...item,
+        whitelist_tags: tagList.filter((tag) =>
+          item.whitelist_tags.includes(tag.id),
+        ),
+        blacklist_tags: tagList.filter((tag) =>
+          item.blacklist_tags.includes(tag.id),
+        ),
+      });
+
+      return Array.isArray(items) ? items.map(process) : process(items);
+    }),
+);

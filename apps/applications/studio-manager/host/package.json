@@ -11,12 +11,13 @@
     "ci:build:mfe": "./scripts/ci-build.sh",
     "ci:compile": "tsc",
     "ci:deploy:mfe": "./scripts/ci-deploy.sh",
-    "dev": "./scripts/run-dev-all.sh",
+    "dev": "nx dev-mfe @bsport/sm-host --remotes=@bsport/sm-navigation-sidebar",
     "dev:single": "vite",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "preview": "vite preview --mode preview",
+    "preview:all": "./scripts/preview-all.sh",
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {

@@ -17,7 +17,7 @@
     "taxExcluded": "Subtotal (sem IVA / imposto sobre vendas)",
     "tax": "IVA / Impostos sobre vendas",
     "internalAccount": "O saldo da minha conta interna",
-    "totalHiddingTax": "Total a pagar agora",
+    "totalHiddingTax": "Total",
     "deliveryFee": "Despesas de envio",
     "title": "Pagamento",
     "flatFeeSubscription": "Taxa de Inscrição",
@@ -91,7 +91,8 @@
       "backToMyProfile": "Voltar ao meu perfil",
       "bookAClass": "Marcar uma aula",
       "seeAllPasses": "Ver todos os passes",
-      "payAmountNow": "Pague {{ amount }} agora"
+      "payAmountNow": "Pague {{ amount }} agora",
+      "viewMyProfile": "Ir para o perfil"
     },
     "sections": {
       "errorExplain": {
@@ -125,7 +126,7 @@
           "paymentSuccess": "Pagamento confirmado!",
           "waitingList": "Está inscrito na lista de espera",
           "offerOnlyGuestSuccess": "Desfrute da sessão com o seu convidado!",
-          "expressCheckoutPassPurchaseSuccess": "Parabéns! Acabou de comprar um passe!"
+          "expressCheckoutPassPurchaseSuccess": "Parabéns! Acabou de comprar um passe de aula."
         },
         "warning": {
           "offersPartiallyConfirmed": "A sua reserva está parcialmente confirmada"
@@ -235,6 +236,9 @@
         "title": "O passe já não está disponível",
         "description": "Verifique quais os passes atualmente disponíveis no seu estúdio.",
         "goBackButtonLabel": "Ver passes disponíveis"
+      },
+      "ineligible": {
+        "paymentCombo": "Pacote não elegível para pagamento expresso"
       }
     }
   }

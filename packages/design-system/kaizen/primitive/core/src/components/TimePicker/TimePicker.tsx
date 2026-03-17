@@ -8,6 +8,7 @@ import type { MenuOption } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
 import Select from "#src/components/Select";
 import TextField from "#src/components/TextField";
+import { Label } from "#src/components/label";
 import "#src/globals.css";
 import { useKaizenI18nInstance } from "#src/i18n";
 
@@ -158,19 +159,8 @@ const TimePicker: React.FC<TimePickerProps> = ({
       })}
       {...props}
     >
-      {label && (
-        <label
-          htmlFor={`timepicker-${id}`}
-          className="flex gap-2xs text-onsurface-default text-body-md leading-sm"
-        >
-          <span>{label}</span>
-          {required && (
-            <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-              *
-            </span>
-          )}
-        </label>
-      )}
+      <Label htmlFor={`timepicker-${id}`} label={label} required={required} />
+
       <div className="flex items-end gap-sm">
         <Popover>
           <Popover.Anchor>

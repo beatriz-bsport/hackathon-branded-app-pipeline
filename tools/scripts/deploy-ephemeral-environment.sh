@@ -5,6 +5,7 @@ set -euo pipefail
 DEPLOY_ENVIRONMENT=$1
 API_ENVIRONMENT=${2:-$1}
 FRONTEND_ONLY_FLAG=${3:-""}
+STUDIO_MFE="@bsport/sm-host,@bsport/sm-navigation-sidebar"
 
 echo "=========================================="
 echo "🚀 Starting Ephemeral Environment"
@@ -18,20 +19,16 @@ echo ""
 # Select all projects
 SELECTED_PROJECTS=$(pnpm exec nx show projects --sep="," --exclude="@bsport/widget-legacy")
 
-# Select all MFE
-REVAMP_MFE=$(pnpm exec nx show projects --sep="," \
-  --projects=tag:application:revamp --exclude="@bsport/template-*")
-
 echo "These are the projects:"
 echo "$SELECTED_PROJECTS" | sed "s/,/\n/g"
-echo "These are the related Micro Frontends":
-echo "$REVAMP_MFE" | sed "s/,/\n/g"
+echo "These are the Studio Manager Micro Frontends":
+echo "$STUDIO_MFE" | sed "s/,/\n/g"
 echo ""
 
 echo "⏳ Building projects"
 
 pnpm exec nx run-many --target=ci:build --projects=$SELECTED_PROJECTS "dev" true
-pnpm exec nx ci:build:mfe @bsport/sm-host "$REVAMP_MFE"
+pnpm exec nx ci:build:mfe @bsport/sm-host "$STUDIO_MFE"
 
 echo "✅ All projects have been rebuilt"
 
@@ -41,7 +38,7 @@ cp -r apps/applications/saas-legacy/build/* build/
 cp -r apps/widgets/widget-proxy-bridge/dist build/widget-proxy-bridge
 cp -r apps/applications/studio-manager/host/dist/* build/studio/
 
-echo $REVAMP_MFE | sed "s/,/\n/g" | xargs -I {} bash -c 'MFE_PATH=$(pnpm exec nx show project {} --json | jq -r ".root") && cp -r ${MFE_PATH}/dist build/studio/apps/$(basename ${MFE_PATH})'
+cp -r apps/applications/studio-manager/navigation-sidebar/dist build/studio/apps/navigation-sidebar
 
 rm -rf build/studio/apps/host
 

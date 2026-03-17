@@ -11,11 +11,23 @@
       "types": "./build/index.d.ts",
       "import": "./build/lib.es.js",
       "default": "./build/lib.es.js"
+    },
+    "./*": {
+      "types": "./build/*/index.d.ts",
+      "import": "./build/lib.es.js",
+      "default": "./build/lib.es.js"
     }
   },
   "main": "build/lib.es.js",
   "module": "build/lib.es.js",
   "types": "build/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "build/*/index.d.ts"
+      ]
+    }
+  },
   "files": [
     "build"
   ],
@@ -32,7 +44,11 @@
     "@bsport/store-base": "workspace:*"
   },
   "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*",
+    "@tanstack/react-query": "^5.90.12"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.90.12"
   },
   "nx": {
     "tags": [

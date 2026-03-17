@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 import {
   Breadcrumbs,
@@ -16,10 +16,12 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { URLS } from "#src/urls";
 import { getFallbackCampaignScheduledName } from "#src/utils/campaignUtils";
 import {
   CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
+  CAMPAIGN_TAB_PATH,
   CampaignScheduledInlineActions,
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
@@ -40,7 +42,7 @@ export const CampaignScheduledDetailPage = () => {
 
 function CampaignScheduledDetail() {
   const { t: tList } = useTranslation("list");
-  const navigate = useNavigate();
+  const { navigateToSmartlistCampaigns } = useSmartlistNavigation();
   const { id, uuid } = useParams<{ id: string; uuid: string }>();
   invariant(id, "Expected id param to be defined");
   invariant(uuid, "Expected uuid param to be defined");
@@ -64,7 +66,10 @@ function CampaignScheduledDetail() {
     <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
       <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
     </Link>,
-    <Link key="smartlists-item-campaign-breadcrumb" to={`../${id}/campaign/`}>
+    <Link
+      key="smartlists-item-campaign-breadcrumb"
+      to={`../${id}/${CAMPAIGN_TAB_PATH}`}
+    >
       <Breadcrumbs.Item
         id="breadcrumb-smartlists-campaigns"
         text={smartlist?.name ?? ""}
@@ -112,7 +117,7 @@ function CampaignScheduledDetail() {
             onClose={() => setCurrentInlineAction(null)}
             campaign={campaignScheduledDetail}
             smartlistId={id}
-            onDeleted={() => navigate(`/${id}/campaign/`)}
+            onDeleted={() => navigateToSmartlistCampaigns(id)}
           />
         )}
     </DetailsLayout>

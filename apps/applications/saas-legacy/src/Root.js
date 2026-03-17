@@ -64,6 +64,9 @@ const ConfirmEmailRouter = asyncComponent(() =>
 const ConsumerUnsubscribe = asyncComponent(() =>
   import('./pages/consumer/ConsumerUnsubscriber.page'),
 );
+const ConsumerConfirmMarketingEmail = asyncComponent(() =>
+  import('./pages/consumer/ConsumerConfirmMarketingEmail.page'),
+);
 const CompanyExternalRouter = asyncComponent(() =>
   import('./pages/company-external/CompanyExternal.router'),
 );
@@ -193,6 +196,7 @@ export class Root extends Component<Props> {
       isCoach,
       theme,
       networkState,
+      enableMarketingDoubleOptIn,
     } = this.props;
 
     const isUsingMarketplace = !isManager && !isFranchisor && !isCoach;
@@ -235,6 +239,12 @@ export class Root extends Component<Props> {
               component={ConsumerUnsubscribe}
               path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
             />
+            {enableMarketingDoubleOptIn && (
+              <Route
+                component={ConsumerConfirmMarketingEmail}
+                path="/c/:companyId/confirm-marketing-email/:memberId/:confirmationToken"
+              />
+            )}
             <Route
               component={DeprecatedCheckoutPagesRouter}
               path="/(|customer/)payment"

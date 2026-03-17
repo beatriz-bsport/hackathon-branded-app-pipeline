@@ -213,6 +213,9 @@ export const CancelMultipleSessionsModal: FC<{
             onSelect={handleDateChange}
             disableDate={disablePastDates}
           />
+          <Body size="sm" htmlVariant="p">
+            {t("cancelMultipleSessionsModal.helperText")}
+          </Body>
         </div>
         {numberOfCancelledSessions !== undefined && cancelRange && (
           <Alert status="critical">

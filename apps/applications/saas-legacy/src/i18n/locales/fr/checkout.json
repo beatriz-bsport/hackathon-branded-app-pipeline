@@ -126,7 +126,8 @@
       "backToMyProfile": "Retour à mon profil",
       "seeAllPasses": "Voir toutes les cartes de cours",
       "bookAClass": "Réserver un cours",
-      "payAmountNow": "Payer {{ amount }} maintenant"
+      "payAmountNow": "Payer {{ amount }} maintenant",
+      "viewMyProfile": "Aller au profil"
     },
     "sections": {
       "explain": "Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.",
@@ -213,7 +214,8 @@
     "label": "Montant disponible : ",
     "cancel": "Annuler",
     "confirm": "Confirmer",
-    "useAsManager": "Utiliser le solde"
+    "useAsManager": "Utiliser le solde",
+    "use_minimal": "Utiliser"
   },
   "expiredSpotDialog": {
     "refresh": "Actualiser",
@@ -225,5 +227,19 @@
     "title": "Localisation préférée",
     "placeholder": "Localisation",
     "helperText": "La localisation préférée est l'endroit où vous prévoyez d'utiliser votre achat la plupart du temps. Cette information sera utilisée pour établir votre facture et à des fins d'allocation des ressources uniquement. Elle ne détermine pas l'endroit où votre achat peut être utilisé."
+  },
+  "passExpressCheckout": {
+    "errors": {
+      "ineligible": {
+        "paymentCombo": "Pack non éligible au paiement express"
+      },
+      "unavailable": {
+        "goBackButtonLabel": "Voir les cartes de cours disponibles",
+        "description": "Veuillez vérifier quelles cartes de cours sont actuellement disponibles dans votre studio.",
+        "title": "Cette carte de cours n’est plus disponible"
+      }
+    },
+    "payNow": "Payer maintenant",
+    "yourPass": "Votre carte de cours sélectionnée"
   }
 }

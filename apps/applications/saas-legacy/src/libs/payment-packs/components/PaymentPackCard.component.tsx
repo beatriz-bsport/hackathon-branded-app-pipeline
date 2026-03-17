@@ -38,7 +38,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 // @ts-expect-error
 import PaymentPackScaleCreditDialog from './PaymentPackScaleCreditDialog.component';
 import PaymentPackCompatibilityDialog from './PaymentPackCompatibilityDialog.component';
-import PaymentPackTagsDialog from './PaymentPackTagsDialog.component';
+import EligibilityTagsDialog from '#src/libs/tag/components/EligibilityTagsDialog.component';
 
 import type { PaymentPack, PaymentPackCategory } from '../types';
 import {
@@ -708,7 +708,7 @@ export class PaymentPackCard extends Component<Props, State> {
               onModify={this.onEditPaymentPack}
               open={this.state.compatibilityDialogOpen}
             />
-            <PaymentPackTagsDialog
+            <EligibilityTagsDialog
               // @ts-expect-error
               blacklistTags={blacklist_tags}
               onClose={() => this.setState({ tagsDialogOpen: false })}

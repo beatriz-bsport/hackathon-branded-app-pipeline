@@ -3,6 +3,8 @@ import classNames from "classnames";
 import mapValues from "lodash/mapValues";
 import React, { ChangeEvent, useMemo } from "react";
 
+import { Label } from "#src/components/label";
+
 const defaultClasses = [
   "min-h-xl w-full",
   "rounded-md",
@@ -106,19 +108,7 @@ const TextArea: React.FC<TextAreaProps> = ({
         "opacity-sm pointer-events-none": disabled,
       })}
     >
-      {label && (
-        <label
-          htmlFor={id}
-          className="flex gap-2xs text-onsurface-default text-body-md leading-sm"
-        >
-          <span>{label}</span>
-          {required && (
-            <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-              *
-            </span>
-          )}
-        </label>
-      )}
+      <Label htmlFor={id} required={required} label={label} />
       <textarea
         className={classNames(textArea({ className, status }))}
         id={id}

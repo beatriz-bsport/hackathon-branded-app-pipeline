@@ -37,7 +37,6 @@
       "duplicated": "Smartlist duplicata",
       "open": "Aperta",
       "saved": "Smartlist aggiornata",
-      "created": "Smartlist creata",
       "deleted": "Smartlist eliminata",
       "undo": "Annulla",
       "actionUndone": "Cambiamento annullato"
@@ -48,7 +47,7 @@
       "createFailed": "La Smartlist non è stata creata. Per favore riprova. ",
       "deleteFailed": "Impossibile eliminare la Smartlist. Per favore riprova. ",
       "deleteError": {
-        "101000": "Impossibile duplicare la Smartlist, per favore riprova.",
+        "101000": "Impossibile duplicare la Smartlist. Per favore riprova.",
         "101001": "La Smartlist non può essere eliminata perché è attualmente utilizzata in comunicazioni attive. Rimuovila dalle comunicazioni o contatta il supporto per assistenza. ",
         "101002": "La Smartlist non può essere eliminata perché è utilizzata in flussi di lavoro attivi dell'Audience. Vai alla pagina Audience per eliminarla dal flusso di lavoro associato. "
       }
@@ -66,7 +65,6 @@
   },
   "createForm": {
     "title": "Crea Smartlist",
-    "subtitle": "Aggiungi un nome e una descrizione per questa Smartlist in modo da poterla trovare in seguito.",
     "actions": {
       "create": "Crea",
       "cancel": "Chiudi"
@@ -87,12 +85,10 @@
     },
     "actions": {
       "save": "Salva",
-      "cancel": "Chiudi",
-      "create": "Crea"
+      "cancel": "Chiudi"
     },
     "title": {
-      "edit": "Modifica Smartlist",
-      "add": "Crea Smartlist"
+      "edit": "Modifica Smartlist"
     }
   }
 }

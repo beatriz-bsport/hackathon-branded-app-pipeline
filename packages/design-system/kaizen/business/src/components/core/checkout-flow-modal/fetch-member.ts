@@ -1,6 +1,6 @@
 import { Result } from "typescript-result";
 
-import type { Member } from "@bsport/api-cdp";
+import type { Member } from "@bsport/api-cdp/member";
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 import {
   type GetMemberParams,

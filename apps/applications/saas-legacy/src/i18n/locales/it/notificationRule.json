@@ -70,7 +70,8 @@
         "lastname": "Cognome",
         "unsubscribe_link": "Annulla l'iscrizione alla newsletter",
         "reset_password_url": "Link per reimpostare la password",
-        "email_confirmation_url": "Link di conferma email"
+        "email_confirmation_url": "Link di conferma email",
+        "marketing_email_double_opt_in_url": "Link di doppia conferma per le email di marketing"
       }
     },
     "Booking": {
@@ -184,7 +185,8 @@
       "message_is_from": "Membro che invia la gift card",
       "giftcard_value": "Valore della gift card",
       "manage_changing_email_link": "Link per la gestione delle modifiche all'email",
-      "pdf_link": "Link PDF della gift card"
+      "pdf_link": "Link PDF della gift card",
+      "marketing_email_double_opt_in_url": "Link di doppia conferma per le email di marketing"
     },
     "SpiviPerformance": {
       "tags": {

@@ -55,7 +55,7 @@ import withTitle from '#src/hocs/with-title.hoc';
 
 import { fetchMemberTagList } from '#src/libs/tag/actions';
 import { getMemberTagsIdsList } from '#src/libs/tag/selectors';
-import { getPrivatePassByCategoryWithPasses } from '#src/libs/private-service/selectors/private-pass-category';
+import { getPrivatePassByCategoryWithEligiblePasses } from '#src/libs/private-service/selectors/private-pass-category';
 import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
 import {
   type MarketplaceCategoryPassFilterOption,
@@ -733,9 +733,9 @@ const mapStateToProps = (
     ),
     memberTagList: resolvedMemberTagList,
     authenticated: resolvedAuthenticated,
-    privatePassByCategory: getPrivatePassByCategoryWithPasses(
+    privatePassByCategory: getPrivatePassByCategoryWithEligiblePasses(
       getPrivatePassAsConsumer,
-    )(state),
+    )(state, resolvedAuthenticated, resolvedMemberTagList),
     establishments: getAllEstablishmentsDict(state),
     metaActivities: getMetaActivityAbstractDict(state),
     privateServices: _getPrivateServicesById(state),

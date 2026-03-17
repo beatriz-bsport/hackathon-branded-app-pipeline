@@ -128,6 +128,63 @@
           "deleteFailed": "Tag rule couldn't be deleted. Please try again."
         }
       }
+    },
+    "push": {
+      "pageTitle": "Push Notification Campaign",
+      "actions": {
+        "continue": "Continue"
+      },
+      "alert": {
+        "onlyAppMembers": "Only members who have downloaded your studio app will receive this notification."
+      },
+      "sections": {
+        "delivery": "Delivery",
+        "message": "Message"
+      },
+      "form": {
+        "automationName": {
+          "label": "Automation name",
+          "placeholder": "Spring Reset Yoga Series",
+          "required": "Add an automation name",
+          "maxLength": "Automation name must be under 150 characters"
+        },
+        "condition": {
+          "label": "When should this automated message send",
+          "options": {
+            "entry": "Entry to Smartlist",
+            "exit": "Exit from Smartlist"
+          }
+        },
+        "triggerLimit": {
+          "label": "How many times should this automation be triggered for the same person?",
+          "options": {
+            "noLimit": "No limit (default)",
+            "once": "1 time",
+            "twice": "2 times",
+            "threeTimes": "3 times"
+          }
+        },
+        "title": {
+          "label": "Title",
+          "placeholder": "",
+          "required": "Add a title",
+          "maxLength": "Title must be under 25 characters"
+        },
+        "message": {
+          "label": "Content",
+          "placeholder": "",
+          "required": "Add a message",
+          "maxLength": "Message must be under 200 characters"
+        }
+      },
+      "toasts": {
+        "success": {
+          "created": "Push automation created"
+        },
+        "error": {
+          "createFailed": "Push automation couldn't be created. Please try again."
+        }
+      }
     }
   },
   "error": {

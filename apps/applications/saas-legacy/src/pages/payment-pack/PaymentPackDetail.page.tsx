@@ -89,7 +89,6 @@ import {
   getPaymentPack,
   withLinkedPrivatePass,
   withSCT,
-  withTags,
   getPaymentPackCategoryById,
   getAllPaymentPackCategory,
   getPaymentPackMassExtensionList,
@@ -120,7 +119,10 @@ import {
 } from '#src/libs/smart-list/actions';
 import PaymentPackMassExtensionList from '#src/libs/consumer-payment-pack/components/PaymentPackMassExtensionList.component';
 
-import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
+import {
+  getAllTagsWithTagGroup,
+  withEligibilityTags,
+} from '#src/libs/tag/selectors';
 import PaymentPackFormDrawer from '#src/libs/payment-packs/components/PaymentPackForm';
 import { getAvailableEstablishmentList } from '#src/libs/establishment/selectors';
 import {
@@ -304,7 +306,6 @@ export class PaymentPackDetail extends Component<Props, State> {
     this.props.createPaymentPackMassExtension(
       {
         ...data,
-        // @ts-expect-error
         payment_pack: this.props.pack.id,
       },
       {
@@ -448,10 +449,8 @@ export class PaymentPackDetail extends Component<Props, State> {
     if (loading || !this.props.pack) {
       return <LinearProgress />;
     }
-    // @ts-expect-error
     const paymentPackCategory = pack.category
-      ? // @ts-expect-error
-        this.props.paymentPackCategoryById[pack.category]
+      ? this.props.paymentPackCategoryById[pack.category]
       : {};
 
     const validSCTs = metaActivities.map((metaActivity) => metaActivity.SCT);
@@ -483,14 +482,11 @@ export class PaymentPackDetail extends Component<Props, State> {
                 isManager
                 loadingMassExtension={this.props.loadingMassExtension}
                 onDeleteButtonClick={
-                  // @ts-expect-error
                   pack.template_instance ? null : () => this.requestDelete(pack)
                 }
-                // @ts-expect-error
                 onEditButtonClick={() => this.requestEdit(pack)}
                 onScaleCredit={
                   !!this.props.pack &&
-                  // @ts-expect-error
                   !this.props.pack.template_instance &&
                   this.props.scaleCredit
                 }
@@ -499,7 +495,6 @@ export class PaymentPackDetail extends Component<Props, State> {
                 scaleCreditLoading={this.props.scaleCreditLoading}
                 snackbarSuccess={this.props.snackbarSuccess}
               />
-              {/* @ts-expect-error  */}
               {!(pack?.linked_private_pass || pack?.is_universal_pass) && (
                 <>
                   <div className={classes.spacerVertical} />
@@ -507,11 +502,8 @@ export class PaymentPackDetail extends Component<Props, State> {
                     availableEstablishmentList={availableEstablishmentList}
                     metaActivityList={metaActivities}
                     paymentPackValues={{
-                      // @ts-expect-error
                       metaActivities: pack.metaActivities,
-                      // @ts-expect-error
                       SCTs: pack.categories,
-                      // @ts-expect-error
                       establishments: pack.establishments,
                     }}
                     SCTList={availableSCTs}
@@ -521,7 +513,6 @@ export class PaymentPackDetail extends Component<Props, State> {
                   />
                 </>
               )}
-              {/* @ts-expect-error */}
               {pack?.linked_private_pass && (
                 <div className={classes.compatiblePSCard}>
                   <PrivatePassCompatibleServiceList
@@ -567,7 +558,6 @@ export class PaymentPackDetail extends Component<Props, State> {
                     <Button
                       color="primary"
                       id="button_pass_notification"
-                      // @ts-expect-error
                       onClick={() => this.requestAddNotification(pack)}
                       variant="outlined"
                     >
@@ -604,13 +594,11 @@ export class PaymentPackDetail extends Component<Props, State> {
                     this.props.fetchConsumerPacksList(page, pageSize)
                   }
                   page={this.props.consumerPacks.page}
-                  // @ts-expect-error
                   paymentPack={this.props.pack}
                 />
               </Paper>
 
               {!!this.props.pack &&
-                // @ts-expect-error
                 !this.props.pack.template_instance &&
                 !this.props.loadingMassExtension && (
                   <div className={classes.addExtensionContainer}>
@@ -678,7 +666,6 @@ export class PaymentPackDetail extends Component<Props, State> {
                       this.props.fetchConsumerPacksList(page, pageSize)
                     }
                     page={this.props.consumerPacks.page}
-                    // @ts-expect-error
                     paymentPack={this.props.pack}
                   />
                 ) : null
@@ -692,7 +679,6 @@ export class PaymentPackDetail extends Component<Props, State> {
                 this.deletePaymentPack(this.state.paymentPackToDeleteId)
               }
               open={!!this.state.paymentPackToDeleteId}
-              // @ts-expect-error
               pack={this.props.pack}
             />
             <MassExtensionCreateDialog
@@ -824,8 +810,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
       isDeleteLoading: state.paymentPack.massExtension.delete.loading,
     },
     loading: state.paymentPack.loading || state.establishment.loading,
-    pack: withTags(
-      // @ts-expect-error
+    pack: withEligibilityTags(
       withSCT(
         // @ts-expect-error
         withMetaActivities(
@@ -971,7 +956,6 @@ const mapWithHandlers = {
       setGenericFilterValue(props.filters, filterDict, props.setFilters),
   fetchConsumerPacksList:
     (props: WithStateProps) => (page: number, pageSize: number) => {
-      // @ts-expect-error
       props.fetchConsumerPacks(props.pack.id, page, pageSize, props.filters, {
         onSuccess: (cpps: any) => {
           props.fetchFilteredMembers({
@@ -1021,9 +1005,7 @@ const mapWithHandlers = {
       );
     },
   fetchCompatibleServicePasses: (props: WithStateProps) => () => {
-    // @ts-expect-error
     if (props.pack && props.pack?.linked_private_pass?.id) {
-      // @ts-expect-error
       props.fetchCompatibleServicePassList(props.pack.linked_private_pass.id, {
         onSuccess: (csps) => {
           // @ts-expect-error

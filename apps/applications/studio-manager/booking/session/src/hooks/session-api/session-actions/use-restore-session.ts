@@ -22,6 +22,7 @@ export const useRestoreSession = () => {
       toast({
         status: "default",
         description: t("restoreModal.successMessage"),
+        icon: "flip-forward",
       });
     },
     onError: () => {

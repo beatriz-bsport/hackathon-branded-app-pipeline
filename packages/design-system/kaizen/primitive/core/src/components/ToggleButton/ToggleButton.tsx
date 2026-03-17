@@ -6,7 +6,8 @@ import { type TooltipProps, withTooltip } from "#src/components/Tooltip";
 
 export type ToggleButtonContentConfigProps = {
   label: string;
-  icon?: IconName;
+  iconRight?: IconName;
+  iconLeft?: IconName;
   tooltipConfig?: TooltipProps;
 };
 
@@ -102,7 +103,12 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
     ? checkedConfig.label
     : uncheckedConfig.label;
 
-  const iconName = isChecked ? checkedConfig.icon : uncheckedConfig.icon;
+  const iconNameRight = isChecked
+    ? checkedConfig.iconRight
+    : uncheckedConfig.iconRight;
+  const iconNameLeft = isChecked
+    ? checkedConfig.iconLeft
+    : uncheckedConfig.iconLeft;
 
   const tooltipConfig = isChecked
     ? checkedConfig.tooltipConfig
@@ -118,7 +124,8 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
       className={className}
       intent="default"
       size={size}
-      iconRight={iconName}
+      iconRight={iconNameRight}
+      iconLeft={iconNameLeft}
       label={labelToDisplay}
       onClick={handleClick}
       disabled={disabled}

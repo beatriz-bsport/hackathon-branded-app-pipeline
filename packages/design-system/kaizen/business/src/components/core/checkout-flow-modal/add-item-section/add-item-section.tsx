@@ -6,6 +6,7 @@ import { Body, Button, Card, Divider, cx } from "@bsport/kaizen-primitive-core";
 
 import type { ItemAutocompleteItem } from "#src/components/buyables/item-autocomplete";
 import { useSearchItems } from "#src/components/buyables/item-autocomplete/use-search-items";
+import { useCheckoutFlowTrack } from "#src/components/core/checkout-flow-modal/checkout-flow-tracking-context";
 import type { CheckoutFlowFormState } from "#src/components/core/checkout-flow-modal/schema";
 import { useAddItemSection } from "#src/components/core/checkout-flow-modal/use-add-item-section";
 import {
@@ -36,7 +37,8 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
   onOpenSummarySection,
 }) => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
-  const { watch } = useFormContext<CheckoutFlowFormState>();
+  const track = useCheckoutFlowTrack();
+  const { watch, getValues } = useFormContext<CheckoutFlowFormState>();
 
   const selectedItemType = watch("addItemSelectedItemType");
   const selectedItemId = watch("addItemSelectedItemId");
@@ -61,7 +63,45 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
   const showItemForm = isAddItemFormAllowedType(selectedItemType);
 
   const handleGoToSubscriptions = () => {
+    track("checkout_flow_subscription_button_clicked", {
+      member_id: getValues().member?.id,
+    });
     window.open(LEGACY_URL_SUBSCRIPTION, "_blank", "noopener,noreferrer");
+  };
+
+  const handleClearWithTracking = () => {
+    const values = getValues();
+    if (values.addItemSelectedItemId && values.addItemSelectedItemType) {
+      track("checkout_flow_item_clear_button_clicked", {
+        item_id: Number(values.addItemSelectedItemId),
+        item_name: selectedItem?.title ?? "",
+        item_type: values.addItemSelectedItemType,
+        item_quantity: values.addItemQuantity,
+        item_price: values.addItemPriceCts ?? 0,
+        manual_discount_percentage: values.addItemDiscountPercent || undefined,
+        manual_discount_amount: values.addItemDiscountAmountCts || undefined,
+        member_id: values.member?.id,
+      });
+    }
+    handleClear();
+  };
+
+  const handleAddItemWithTracking = () => {
+    if (!itemToAdd) return;
+
+    const itemPayload = {
+      item_id: itemToAdd.buyableItemId,
+      item_name: itemToAdd.itemName,
+      item_type: itemToAdd.type,
+      item_quantity: itemToAdd.quantity,
+      item_price: itemToAdd.priceCts,
+      manual_discount_percentage: itemToAdd.discountPercent || undefined,
+      manual_discount_amount: itemToAdd.discountAmountCts || undefined,
+      member_id: getValues().member?.id,
+    };
+
+    track("checkout_flow_item_add_item_button_clicked", itemPayload);
+    handleAddItem();
   };
 
   return (
@@ -123,7 +163,7 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
                 color="default"
                 size="md"
                 label={t("checkoutFlowModal.clear")}
-                onClick={handleClear}
+                onClick={handleClearWithTracking}
                 disabled={
                   !selectedItemId &&
                   quantity === 1 &&
@@ -139,7 +179,7 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
                 iconLeft="plus"
                 label={t("checkoutFlowModal.addItemButton")}
                 onClick={() => {
-                  handleAddItem();
+                  handleAddItemWithTracking();
                   onOpenSummarySection?.();
                 }}
                 disabled={itemToAdd == null}

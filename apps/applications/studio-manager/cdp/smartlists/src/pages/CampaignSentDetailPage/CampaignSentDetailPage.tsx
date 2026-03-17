@@ -22,6 +22,7 @@ import {
   getFallbackCampaignName,
   getFallbackCampaignTitle,
 } from "#src/utils/campaignUtils";
+import { CAMPAIGN_TAB_PATH } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -87,7 +88,10 @@ function CampaignSentDetailPageContent() {
     <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
       <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
     </Link>,
-    <Link key="smartlists-item-campaign-breadcrumb" to={`../${id}/campaign/`}>
+    <Link
+      key="smartlists-item-campaign-breadcrumb"
+      to={`../${id}/${CAMPAIGN_TAB_PATH}`}
+    >
       <Breadcrumbs.Item
         id="breadcrumb-smartlists-campaigns"
         text={smartlist?.name ?? ""}

@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useParams } from "react-router";
 
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { LEGACY_URLS } from "#src/urls";
 import { Trans, useTranslation } from "#src/utils/i18n";
+import { invariant } from "#src/utils/invariant";
 
 import { TypeSelectorCard } from "../TypeSelectorCard/TypeSelectorCard";
 
@@ -19,12 +22,20 @@ export const CreateAutomationModal = ({
   onClose,
 }: CreateAutomationModalProps) => {
   const { t } = useTranslation("details");
+  const { id } = useParams<{ id: string }>();
+  invariant(id, "Expected id param to be defined");
+  const { navigateToSmartlistAutomationCreation } = useSmartlistNavigation();
 
   const [step, setStep] = useState<CreateAutomationStep>("automation-type");
 
   const handleClose = () => {
     setStep("automation-type");
     onClose();
+  };
+
+  const handlePushNotificationClick = () => {
+    handleClose();
+    navigateToSmartlistAutomationCreation(id, "push");
   };
 
   return (
@@ -41,8 +52,13 @@ export const CreateAutomationModal = ({
                 <a
                   href={LEGACY_URLS.AUDIENCE}
                   className="text-main-main underline"
+                  aria-label={t(
+                    "actions.createAutomationModal.audienceLinkLabel",
+                  )}
                   target="_self"
-                />
+                >
+                  {t("actions.createAutomationModal.audienceLinkLabel")}
+                </a>
               ),
             }}
           />
@@ -112,6 +128,7 @@ export const CreateAutomationModal = ({
                   "actions.createAutomationModal.messageChannel.push.description",
                 )}
                 icon="notification-message"
+                onClick={handlePushNotificationClick}
               />
             </div>
           </>

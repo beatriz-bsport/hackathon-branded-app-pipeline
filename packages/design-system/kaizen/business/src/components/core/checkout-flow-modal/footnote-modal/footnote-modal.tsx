@@ -3,13 +3,14 @@ import React, { useEffect, useId, useState } from "react";
 import { Modal, TextArea } from "@bsport/kaizen-primitive-core";
 
 import { FOOTNOTE_MAX_LENGTH } from "#src/components/core/checkout-flow-modal/schema";
+import type { FootnoteCloseReason } from "#src/components/core/checkout-flow-modal/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
 import { footnoteModalSchema } from "./footnote-modal.schema";
 
 export type FootnoteModalProps = {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: (reason?: FootnoteCloseReason) => void;
   onSave: (value: string) => void;
   initialValue?: string | null;
 };
@@ -41,8 +42,12 @@ export const FootnoteModal: React.FC<FootnoteModalProps> = ({
     }
     setError(null);
     onSave(result.data);
-    onClose();
+    onClose("save");
   };
+
+  const handleCloseCancel = () => onClose("cancel");
+  const handleCloseCross = () => onClose("cross");
+  const handleCloseEscapeOrOutside = () => onClose("escape");
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
@@ -55,9 +60,9 @@ export const FootnoteModal: React.FC<FootnoteModalProps> = ({
       open={isOpen}
       title={t("checkoutFlowModal.footnoteModal.title")}
       description={t("checkoutFlowModal.footnoteModal.description")}
-      onClose={onClose}
-      onCloseButtonClick={onClose}
-      onClickOutside={onClose}
+      onClose={handleCloseEscapeOrOutside}
+      onCloseButtonClick={handleCloseCross}
+      onClickOutside={handleCloseEscapeOrOutside}
       confirmButton={{
         color: "main",
         label: t("checkoutFlowModal.footnoteModal.save"),
@@ -66,7 +71,7 @@ export const FootnoteModal: React.FC<FootnoteModalProps> = ({
       }}
       cancelButton={{
         label: t("checkoutFlowModal.footnoteModal.cancel"),
-        onClick: onClose,
+        onClick: handleCloseCancel,
       }}
     >
       <TextArea

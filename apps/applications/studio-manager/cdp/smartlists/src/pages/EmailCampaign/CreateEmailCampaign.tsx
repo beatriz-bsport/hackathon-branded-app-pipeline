@@ -1,6 +1,7 @@
 import { useId } from "react";
-import { Link, useParams } from "react-router";
+import { useParams } from "react-router";
 
+import { fromIsoString } from "@bsport/datetime-manipulation";
 import { useFormController } from "@bsport/form";
 import {
   Breadcrumbs,
@@ -8,9 +9,14 @@ import {
   DetailsLayout,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
-import { EMAIL_TYPE_MARKETING } from "#src/components/EmailCampaignForm/constants";
+import {
+  DELIVERY_MODE_SCHEDULE_LATER,
+  DELIVERY_MODE_SEND_NOW,
+  EMAIL_TYPE_MARKETING,
+} from "#src/components/EmailCampaignForm/constants";
 import { EmailCampaignForm } from "#src/components/EmailCampaignForm/email-campaign-form";
 import { getEmailCampaignSchema } from "#src/components/EmailCampaignForm/schema";
 import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
@@ -19,7 +25,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
-import { URLS } from "#src/urls";
+import { SMARTLIST_COMMUNICATION_URLS, URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -42,35 +48,61 @@ function CreateEmailCampaign() {
 
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(smartlistId);
   const { detailsLayoutProps } = useDetailsLayout();
+  const companyTimezone =
+    dataAccessLayer.useCompanyTheme()?.timezone_name ?? "UTC";
 
   const formId = useId();
 
   const methods = useFormController({
     mode: "onBlur",
-    schema: getEmailCampaignSchema(),
+    schema: getEmailCampaignSchema(companyTimezone),
     defaultValues: {
       emailType: EMAIL_TYPE_MARKETING,
+      campaignName: "",
+      deliveryMode: DELIVERY_MODE_SEND_NOW,
+      scheduledDate: undefined,
+      scheduledTime: undefined,
+      isTextOnly: true,
+      emailSubject: "",
+      emailBody: "",
     },
   });
 
   const breadcrumbsItems = [
-    <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
-      <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
-    </Link>,
-    <Link
-      key="smartlists-item-campaign-breadcrumb"
-      to={`../${smartlistId}/campaign/`}
-    >
-      <Breadcrumbs.Item
-        id="breadcrumb-smartlists-campaigns"
-        text={smartlist?.name ?? ""}
-      />
-    </Link>,
+    <Breadcrumbs.Item
+      key="breadcrumb-smartlists"
+      id="breadcrumb-smartlists"
+      text={tList("title")}
+      href={SMARTLIST_COMMUNICATION_URLS.SMARTLIST_ROUTE_FROM_SUBNAV}
+    />,
+    <Breadcrumbs.Item
+      key="breadcrumb-smartlists-campaigns"
+      id="breadcrumb-smartlists-campaigns"
+      text={smartlist?.name ?? ""}
+      href={URLS.campaignPath(smartlistId.toString())}
+    />,
   ];
 
   const handleSubmit = (data: EmailCampaignFormData) => {
+    let datetime_scheduled: string | undefined;
+    if (
+      data.deliveryMode === DELIVERY_MODE_SCHEDULE_LATER &&
+      data.scheduledDate &&
+      data.scheduledTime
+    ) {
+      const [hour, minute] = data.scheduledTime.split(":").map(Number);
+      const submittedDatetime = fromIsoString(data.scheduledDate, {
+        zone: companyTimezone,
+      }).set({
+        hour,
+        minute,
+        second: 0,
+        millisecond: 0,
+      });
+      datetime_scheduled = submittedDatetime.toISO() ?? undefined;
+    }
     // TODO: Navigate to next step or submit to API; action will be added later.
-    console.log(data);
+    console.log({ ...data, datetime_scheduled });
   };
 
   return (

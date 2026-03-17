@@ -67,7 +67,8 @@
       "old_email": "Antigo e-mail de início de sessão",
       "giftcard_value": "Valor do passe de oferta",
       "giftcard_message": "Mensagem do passe de oferta",
-      "pdf_link": "Cartão de oferta Ligação PDF"
+      "pdf_link": "Cartão de oferta Ligação PDF",
+      "marketing_email_double_opt_in_url": "Link de confirmação dupla para emails de marketing"
     },
     "BookingOption": {
       "tags": {
@@ -188,7 +189,8 @@
         "firstname": "Nome do aluno",
         "reset_password_url": "Redefinir a palavra-passe",
         "email_confirmation_url": "Confirmar e-mail",
-        "unsubscribe_link": "Anular a subscrição da newsletter"
+        "unsubscribe_link": "Anular a subscrição da newsletter",
+        "marketing_email_double_opt_in_url": "Link de confirmação dupla para emails de marketing"
       },
       "name": "Aluno"
     },

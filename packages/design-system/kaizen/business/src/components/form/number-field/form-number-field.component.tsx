@@ -1,12 +1,9 @@
 import type { ReactElement } from "react";
 
-import { type FieldPath, type FieldValues, FormField } from "@bsport/form";
+import { type FieldValues, FormField } from "@bsport/form";
 import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
 
-// Enforce the selected name to be within the FieldValues and to resolve to a number field
-type NumberFieldPath<T extends FieldValues> = {
-  [K in FieldPath<T>]: T[K] extends number | null ? K : never;
-}[FieldPath<T>];
+import type { NumberFieldPath } from "#src/utils/form-types";
 
 type FormNumberFieldProps<
   TFormValues extends FieldValues,

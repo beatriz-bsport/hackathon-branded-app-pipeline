@@ -50,6 +50,7 @@ export const useCancelSession = () => {
         description: t("cancelModal.successMessage", {
           count: getCountForTranslation(variables.params),
         }),
+        icon: "x-circle-solid",
       });
     },
     onError: (error: Error) => {

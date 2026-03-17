@@ -37,6 +37,11 @@ export const useExportParticipantsList = () => {
       setTimeout(() => {
         (window.URL || window.webkitURL).revokeObjectURL(url);
       }, 0);
+      toast({
+        status: "default",
+        title: t("exportParticipantsModal.successMessage"),
+        icon: "check",
+      });
     },
     onError: () => {
       toast({

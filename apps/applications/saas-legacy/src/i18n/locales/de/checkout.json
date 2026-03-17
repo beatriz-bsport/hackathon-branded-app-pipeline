@@ -160,7 +160,8 @@
       "backToMyProfile": "Zurück zu meinem Profil",
       "seeAllPasses": "Alle Kurspässe ansehen",
       "bookAClass": "Einen Kurs buchen",
-      "payAmountNow": "Jetzt {{ amount }} bezahlen"
+      "payAmountNow": "Jetzt {{ amount }} bezahlen",
+      "viewMyProfile": "Zum Profil gehen"
     },
     "bookingItem": {
       "bookingItemStatus": {
@@ -200,7 +201,8 @@
     "confirm": "Bestätigen",
     "useMyInternalAccount": "Mein Guthaben verwenden",
     "myInternalAccount": "Mein Kontostand",
-    "useAsManager": "Guthaben verwenden"
+    "useAsManager": "Guthaben verwenden",
+    "use_minimal": "Verwenden"
   },
   "payment": {
     "total": "Gesamtwert (einschließlich aller Steuern)",
@@ -209,7 +211,7 @@
     "flat_fee": "Bearbeitungsgebühr",
     "globalTotal": "Gesamtbetrag",
     "internalAccount": "Interner Kontostand",
-    "totalHiddingTax": "Gesamtbetrag",
+    "totalHiddingTax": "Gesamt",
     "deliveryFee": "Versandkosten",
     "title": "Zahlung",
     "flatFeeSubscription": "Anmeldegebühren",
@@ -225,5 +227,19 @@
     "helperText": "Der bevorzugte Standort ist derjenige, an dem du deinen Einkauf einlösen wirst, und wird für die Ausstellung deiner Rechnung verwendet.",
     "placeholder": "Standort",
     "title": "Bevorzugter Standort"
+  },
+  "passExpressCheckout": {
+    "errors": {
+      "ineligible": {
+        "paymentCombo": "Paket nicht für Express-Checkout verfügbar"
+      },
+      "unavailable": {
+        "goBackButtonLabel": "Verfügbare Kurspässe ansehen",
+        "description": "Bitte prüfe, welche Kurspässe derzeit in deinem Studio verfügbar sind.",
+        "title": "Dieser Kurspass ist nicht mehr verfügbar"
+      }
+    },
+    "payNow": "Jetzt bezahlen",
+    "yourPass": "Dein ausgewählter Kurspass"
   }
 }

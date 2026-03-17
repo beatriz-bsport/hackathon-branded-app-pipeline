@@ -45,7 +45,7 @@
     },
     "performance": {
       "contentPreviewModal": {
-        "title": "Notification Content",
+        "title": "Content",
         "buttons": {
           "confirm": "Close"
         }

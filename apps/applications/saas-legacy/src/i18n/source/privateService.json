@@ -696,7 +696,8 @@
       "vod": "Video On Demand",
       "accessibility": "Accessibility",
       "validity": "Validity",
-      "credit_quantity": "Credits"
+      "credit_quantity": "Credits",
+      "tags": "Tags"
     },
     "ht": "Excl. VAT / Sales Tax",
     "actions": {

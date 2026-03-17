@@ -1,12 +1,16 @@
 import React from "react";
 
+import { getEnv } from "@bsport/envs";
 import { ControlledForm, type ControlledFormProps } from "@bsport/form";
 import { Card } from "@bsport/kaizen-primitive-core";
 
+import { EmailNameField } from "./EmailNameField";
+import { CampaignDeliveryModeSelector } from "./campaign-delivery-mode-selector";
 import { EMAIL_TYPE_MARKETING } from "./constants";
+import { ContentSection } from "./content-section";
 import { EmailTypeField } from "./email-type-field";
 import { RecipientCountPreview } from "./recipient-count-preview";
-import type { EmailCampaignFormData } from "./types";
+import type { EmailCampaignFormData } from "./types.ts";
 
 type EmailCampaignFormProps = Omit<
   ControlledFormProps<EmailCampaignFormData>,
@@ -24,6 +28,7 @@ export const EmailCampaignForm: React.FC<EmailCampaignFormProps> = ({
   const { watch } = methods;
 
   const selectedEmailType = watch("emailType");
+  const isProduction = getEnv() === "production";
 
   return (
     <ControlledForm
@@ -39,6 +44,16 @@ export const EmailCampaignForm: React.FC<EmailCampaignFormProps> = ({
           isMarketing={selectedEmailType === EMAIL_TYPE_MARKETING}
         />
       </Card>
+      {
+        /**
+         * Only show the campaign name field if not in production
+         * This feature is not developed yet in backend
+         * TODO: Remove this once the feature is developed in backend
+         */
+        isProduction ? null : <EmailNameField />
+      }
+      <CampaignDeliveryModeSelector />
+      <ContentSection />
     </ControlledForm>
   );
 };

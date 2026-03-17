@@ -21,7 +21,8 @@
         "lastname": "Last name",
         "unsubscribe_link": "Unsubscribe from the newsletter",
         "reset_password_url": "Password reset link",
-        "email_confirmation_url": "Email confirmation link"
+        "email_confirmation_url": "Email confirmation link",
+        "marketing_email_double_opt_in_url": "Marketing email double opt-in link"
       }
     },
     "Booking": {
@@ -186,6 +187,7 @@
     "requiredTags": {
       "reset_password_url": "Password reset link",
       "email_confirmation_url": "Email confirmation link",
+      "marketing_email_double_opt_in_url": "Marketing email double opt-in link",
       "new_email": "New login email",
       "old_email": "Old login email",
       "activate_giftcard_url": "Gift card activation link",

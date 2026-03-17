@@ -1,0 +1,25 @@
+{
+  "eligibility": {
+    "dialog": {
+      "close": "Fermer",
+      "edit": "Modifier",
+      "noUnauthorizedTag": "Aucun tag non autorisé",
+      "noAuthorizedTag": "Aucun tag autorisé",
+      "blackList": "Tags non autorisés",
+      "whiteList": "Tags autorisés"
+    },
+    "selectors": {
+      "notAllowed": "Non disponible",
+      "allowed": "Disponible",
+      "header": "Tags",
+      "doNotSelectToAllowAllMembers": "Laissez vide pour le rendre disponible à tous les membres.",
+      "helperText": "Utilisez les tags pour rendre cette disponible ou non à l'achat pour certains clients."
+    },
+    "info": {
+      "blackList": "{{ count }} tag non-autorisé",
+      "blackList_plural": "{{ count }} tags non-autorisés",
+      "whiteList": "{{ count }} tag autorisé",
+      "whiteList_plural": "{{ count }} tags autorisés"
+    }
+  }
+}

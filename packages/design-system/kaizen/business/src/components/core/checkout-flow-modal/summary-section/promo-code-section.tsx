@@ -11,6 +11,7 @@ import {
   type TextFieldProps,
 } from "@bsport/kaizen-primitive-core";
 
+import { useCheckoutFlowTrack } from "#src/components/core/checkout-flow-modal/checkout-flow-tracking-context";
 import type { CheckoutFlowFormState } from "#src/components/core/checkout-flow-modal/schema";
 import { useApplyPromoCodeToInvoice } from "#src/components/core/checkout-flow-modal/use-apply-promo-code-to-invoice";
 import { i18nInstance, useTranslation } from "#src/i18n";
@@ -23,6 +24,7 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
   fetch,
 }) => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
+  const track = useCheckoutFlowTrack();
   const { watch } = useFormContext<CheckoutFlowFormState>();
 
   const [showPromoCodeInput, setShowPromoCodeInput] = useState(false);
@@ -103,7 +105,12 @@ export const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
           color="main"
           size="md"
           label={t("checkoutFlowModal.addPromoCode")}
-          onClick={() => setShowPromoCodeInput(true)}
+          onClick={() => {
+            track("checkout_flow_add_promo_code_button_clicked", {
+              member_id: memberId,
+            });
+            setShowPromoCodeInput(true);
+          }}
         />
       ) : (
         <div className="flex gap-xs items-end px-md">

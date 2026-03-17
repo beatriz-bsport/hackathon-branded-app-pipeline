@@ -45,7 +45,7 @@ function AutomationMessageDetail() {
     <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
       <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
     </Link>,
-    <Link key="smartlist-detail-breadcrumb" to={`/${id}/automation`}>
+    <Link key="smartlist-detail-breadcrumb" to={URLS.automationPath(id)}>
       <Breadcrumbs.Item id="breadcrumb-smartlist-name" text={smartlist.name} />
     </Link>,
   ];

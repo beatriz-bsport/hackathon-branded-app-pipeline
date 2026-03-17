@@ -17,4 +17,4 @@ export const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
 };
 
 export const i18nNamespacePrefix = __SM_APPLICATION__.__I18N_NAMESPACE_PREFIX__;
-export const i18nNamespaces: string[] = ["namespaceAlpha", "namespaceBeta"];
+export const i18nNamespaces: string[] = ["model-list"];

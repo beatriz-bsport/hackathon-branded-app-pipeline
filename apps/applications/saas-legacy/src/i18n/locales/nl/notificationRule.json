@@ -151,7 +151,8 @@
         "firstname": "Voornaam",
         "unsubscribe_link": "Uitschrijven voor de nieuwsbrief",
         "reset_password_url": "Wachtwoordherstel link",
-        "email_confirmation_url": "E-mail bevestigingslink"
+        "email_confirmation_url": "E-mail bevestigingslink",
+        "marketing_email_double_opt_in_url": "Link voor dubbele bevestiging van marketingmails"
       },
       "name": "Lid"
     },
@@ -262,7 +263,8 @@
       "giftcard_message": "Bericht van de cadeaubon",
       "giftcard_value": "Waarde van de cadeaubon",
       "manage_changing_email_link": "E-mail link voor wijzigingsbeheer",
-      "pdf_link": "Cadeaubon PDF link"
+      "pdf_link": "Cadeaubon PDF link",
+      "marketing_email_double_opt_in_url": "Link voor dubbele bevestiging van marketingmails"
     },
     "SpiviPerformance": {
       "tags": {

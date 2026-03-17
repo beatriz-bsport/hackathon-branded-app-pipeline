@@ -118,7 +118,7 @@ type Props = {
     options?: OptionCallback,
   ) => void,
   memberBulkLoading?: boolean,
-  onSwapSuccess?: () => void,
+  onSwapSuccess?: (newPassId: number) => void,
 };
 
 export const PrivateBookingCard = (props: Props) => {
@@ -146,6 +146,14 @@ export const PrivateBookingCard = (props: Props) => {
       fetchPrivateConsumerPass(private_booking.private_consumer_pass);
     }
   }, [private_booking?.private_consumer_pass, fetchPrivateConsumerPass]);
+
+  const handleSwapSuccess = useCallback(
+    (newPassId) => {
+      fetchPrivateConsumerPass(newPassId);
+      props.onSwapSuccess?.(newPassId);
+    },
+    [fetchPrivateConsumerPass, props.onSwapSuccess],
+  );
 
   const applyGiftcardOnInvoice = (
     invoiceUuid: string,
@@ -372,7 +380,7 @@ export const PrivateBookingCard = (props: Props) => {
                           props.private_booking.private_consumer_pass,
                         )}
                         memberId={resolveId(props.private_booking.member)}
-                        onSwapSuccess={props.onSwapSuccess}
+                        onSwapSuccess={handleSwapSuccess}
                         privateBookingId={props.private_booking.id}
                         privateSlotId={resolveId(
                           props.private_booking.private_slot,

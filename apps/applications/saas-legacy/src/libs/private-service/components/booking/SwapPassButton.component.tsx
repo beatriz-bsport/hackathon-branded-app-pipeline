@@ -29,7 +29,7 @@ type Props = {
   privateSlotId: number;
   memberId: number;
   currentPrivateConsumerPassId?: number;
-  onSwapSuccess?: () => void;
+  onSwapSuccess?: (newPrivateConsumerPassId: number) => void;
 };
 
 const buildSwapPassItemsFromPrivatePasses = (
@@ -130,7 +130,7 @@ export const SwapPassButton: React.FC<Props> = ({
 
     swapPrivateBookingPass(privateBookingId, selectedItemId)
       .then(() => {
-        onSwapSuccess?.();
+        onSwapSuccess?.(selectedItemId);
         close();
       })
       .catch((error) => {

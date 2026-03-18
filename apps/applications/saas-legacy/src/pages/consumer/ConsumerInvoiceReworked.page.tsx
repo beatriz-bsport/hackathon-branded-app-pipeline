@@ -100,7 +100,7 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
   componentDidMount() {
     this.props.fetchConsumerInvoices(this.state.selectedFilter);
     this.props.fetchPaymentMethodList();
-    analyticsClientB2C.track(
+    analyticsClientB2C.trackEvent(
       trackMemberProfileViewedEvent({ page_type: 'invoice' }),
     );
   }

@@ -29,7 +29,7 @@ export const trackPaymentViewedInBasket = ({
       return;
     }
 
-    analyticsClientB2C.track(
+    analyticsClientB2C.trackEvent(
       trackPaymentViewedEvent({
         activity_id: offer.activity,
         activity_name: offer.meta_activity?.name || '',

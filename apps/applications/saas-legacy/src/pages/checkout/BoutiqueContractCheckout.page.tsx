@@ -305,7 +305,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
       !this.props.metaActivityLoading &&
       !this.state.hasTrackedPaymentViewedEvent
     ) {
-      analyticsClientB2C.track(
+      analyticsClientB2C.trackEvent(
         trackPaymentViewedEvent({
           activity_id: this.props.offer.activity,
           activity_name: this.props.offer.meta_activity?.name || '',

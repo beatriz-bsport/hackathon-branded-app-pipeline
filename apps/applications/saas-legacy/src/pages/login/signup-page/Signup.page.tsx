@@ -107,7 +107,7 @@ export class SignupPage extends Component<Props> {
       );
       analyticsUtils.onShowSignup();
     }
-    analyticsClientB2C.track(trackSignupViewedEvent({}));
+    analyticsClientB2C.trackEvent(trackSignupViewedEvent({}));
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -133,7 +133,7 @@ export class SignupPage extends Component<Props> {
           } else {
             if (this.props.membership && this.props.theme?.id)
               analyticsUtils.onSignupSuccess(this.props.loginInformations);
-            analyticsClientB2C.track(trackSignUpEvent({}));
+            analyticsClientB2C.trackEvent(trackSignUpEvent({}));
             options?.onSuccess?.();
           }
         },

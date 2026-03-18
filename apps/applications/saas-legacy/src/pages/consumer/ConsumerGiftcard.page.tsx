@@ -115,7 +115,7 @@ export const ConsumerGiftcardPage = (props: Props) => {
   );
 
   useEffect(() => {
-    analyticsClientB2C.track(
+    analyticsClientB2C.trackEvent(
       trackMemberProfileViewedEvent({ page_type: 'giftcard' }),
     );
   }, []);

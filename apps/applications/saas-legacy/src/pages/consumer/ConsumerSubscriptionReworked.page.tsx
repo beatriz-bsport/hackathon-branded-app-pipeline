@@ -93,7 +93,7 @@ export class ConsumerSubscription extends React.Component<Props> {
     this.props.fetchExpiredSubscriptionsList();
     this.props.fetchInvoiceConfiguration();
     this.props.fetchPaymentMethodList();
-    analyticsClientB2C.track(
+    analyticsClientB2C.trackEvent(
       trackMemberProfileViewedEvent({ page_type: 'subscription' }),
     );
   }

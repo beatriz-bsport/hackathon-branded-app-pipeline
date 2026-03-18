@@ -1,25 +1,47 @@
 {
-  "pages": {
-    "insights": {
-      "title": "Insights"
+    "pages": {
+        "insights": {
+            "title": "Insights"
+        },
+        "communityHealth": {
+            "title": "Santé de la Communauté"
+        },
+        "scheduleAnalysis": {
+            "title": "Performance de l'emploi du temps"
+        },
+        "bookingInsight": {
+            "title": "Réservations et utilisation de Carte de cours "
+        },
+        "recurringRevenue": {
+            "title": "Analysez la performance de vos abonnements"
+        },
+        "trialAnalysis": {
+            "title": "Performance d'acquisition et de conversion"
+        }
     },
-    "recurringRevenue": {
-      "title": "Analysez la performance de vos abonnements"
+    "sections": {
+        "memberInsights": "Communauté et Marketing",
+        "financialHealth": "Santé Financière",
+        "bookings": "Opérations"
     },
-    "trialAnalysis": {
-      "title": "Analysez la performance de votre acquisition de membres"
+    "trackTrialOffer": {
+        "title": "Performance d'acquisition et de conversion",
+        "description": "Découvrez comment les premiers achats se transforment en clients fidèles, identifiez les abandons et optimisez votre acquisition"
+    },
+    "monitorRevenue": {
+        "title": "Analysez la performance de vos abonnements",
+        "description": "Suivez la santé des abonnements, analysez les revenus récurrents et identifiez les risques ou opportunités."
+    },
+    "monitorCommunityHealth": {
+        "title": "Santé de la communauté",
+        "description": "Suivez les activités, la rétention et le taux de désabonnement de vos Clients pour comprendre la santé de votre communauté"
+    },
+    "monitorSchedule": {
+        "title": "Performance du planning",
+        "description": "Optimisez la performance de votre planning pour maximiser le taux de remplissage et le revenu généré"
+    },
+    "monitorBookings": {
+        "title": "Réservations et utilisation de Carte de cours ",
+        "description": "Effectue le suivi des réservations et de l'utilisation de Carte de cours pour optimiser la fréquentation et la capacité."
     }
-  },
-  "sections": {
-    "memberInsights": "Insights Membres",
-    "financialHealth": "Santé Financière"
-  },
-  "trackTrialOffer": {
-    "title": "Analysez les performances de vos offres d'essai",
-    "description": "Explorez l'acquisition, les taux de conversion et comment optimiser vos offres d’essai"
-  },
-  "monitorRevenue": {
-    "title": "Analysez la performance de vos abonnements",
-    "description": "Suivez la santé de vos abonnements, analysez vos revenus récurrents et identifiez les risques ou opportunités."
-  }
 }

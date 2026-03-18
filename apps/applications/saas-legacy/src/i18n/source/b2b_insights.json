@@ -7,7 +7,7 @@
             "title": "Community Health"
         },
         "scheduleAnalysis": {
-            "title": "Schedule Performance"
+            "title": "Scheduling Performance"
         },
         "bookingInsight": {
             "title": "Bookings & Pass Usage"
@@ -37,8 +37,8 @@
         "description": "Track client activity, retention, and churn to understand the health of your community"
     },
     "monitorSchedule": {
-        "title": "Schedule Performance",
-        "description": "Optimise schedule performance to maximise enrolment and earned revenue"
+        "title": "Scheduling Performance",
+        "description": "Optimise schedule performance to maximise fill rate and earned revenue"
     },
     "monitorBookings": {
         "title": "Bookings & Pass Usage",

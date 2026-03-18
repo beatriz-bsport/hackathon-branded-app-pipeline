@@ -198,7 +198,7 @@
       "null": "waitlist"
     },
     "nb_booking": "Total available slots",
-    "fillRate": "Occupancy rate",
+    "fillRate": "Fill rate",
     "next": "Next:",
     "last": "Last:",
     "noBookingOnThisOffer": "There are no bookings to display for this session as of now.",

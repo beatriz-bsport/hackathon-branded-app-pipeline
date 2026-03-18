@@ -5,6 +5,7 @@ import {
   AvatarProps,
   Body,
   type BodyProps,
+  cx,
 } from "@bsport/kaizen-primitive-core";
 
 const DEFAULT_AVATAR_PATTERN = "default_profile_picture";
@@ -18,6 +19,7 @@ type AvatarWithNameProps = {
   avatarSrc?: string;
   avatarConfig?: Omit<AvatarProps, "src">;
   bodyConfig?: BodyProps;
+  href?: string;
 };
 
 export const AvatarWithName: FC<AvatarWithNameProps> = ({
@@ -25,6 +27,7 @@ export const AvatarWithName: FC<AvatarWithNameProps> = ({
   avatarSrc,
   avatarConfig = {},
   bodyConfig = {},
+  href,
 }) => {
   const initials = name
     .split(" ")
@@ -34,8 +37,8 @@ export const AvatarWithName: FC<AvatarWithNameProps> = ({
 
   const displayAvatar = !isDefaultAvatar(avatarSrc);
 
-  return (
-    <div className="flex flex-row gap-sm items-center">
+  const content = (
+    <>
       <Avatar
         size="md"
         shape="round"
@@ -45,6 +48,25 @@ export const AvatarWithName: FC<AvatarWithNameProps> = ({
         initials={initials}
       />
       <Body {...bodyConfig}>{name}</Body>
-    </div>
+    </>
   );
+
+  if (href) {
+    // Note: use <a> and not NavLink since it's routing from studio to legacy
+    return (
+      <a
+        className={cx(
+          "flex flex-row gap-sm items-center",
+          "hover:cursor-pointer",
+          "hover:bg-surface-action-main-weak-hovered",
+          "rounded-md",
+        )}
+        href={href}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return <div className="flex flex-row gap-sm items-center">{content}</div>;
 };

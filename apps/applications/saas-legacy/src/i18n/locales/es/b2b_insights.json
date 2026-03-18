@@ -1,25 +1,47 @@
 {
-  "pages": {
-    "insights": {
-      "title": "Visión empresarial"
+    "pages": {
+        "insights": {
+            "title": "Visión empresarial"
+        },
+        "communityHealth": {
+            "title": "Retención de Contactos"
+        },
+        "scheduleAnalysis": {
+            "title": "Programación"
+        },
+        "bookingInsight": {
+            "title": "Reservas y Pases"
+        },
+        "recurringRevenue": {
+            "title": "Cuotas"
+        },
+        "trialAnalysis": {
+            "title": "Adquisición y Conversión"
+        }
     },
-    "recurringRevenue": {
-      "title": "Monitorea el rendimiento de las suscripciones"
+    "sections": {
+        "memberInsights": "Comunidad y Marketing",
+        "financialHealth": "Salud Financiera",
+        "bookings": "Operaciones"
     },
-    "trialAnalysis": {
-      "title": "Supervisa el rendimiento de adquisición de miembros"
+    "trackTrialOffer": {
+        "title": "Adquisición y Conversión",
+        "description": "Descubre cómo las primeras compras se convierten en Contactos recurrentes y detecta dónde se producen las bajas"
+    },
+    "monitorRevenue": {
+        "title": "Cuotas",
+        "description": "Controla la salud de las suscripciones, analiza los ingresos recurrentes y detecta sitios u oportunidades"
+    },
+    "monitorCommunityHealth": {
+        "title": "Retención de Contactos",
+        "description": "Entiende las actividades, la rotación y la retención de contactos en tu estudio"
+    },
+    "monitorSchedule": {
+        "title": "Programación",
+        "description": "Haz un seguimiento de las tasas de ocupación, la asistencia y los ingresos generados en tus clases"
+    },
+    "monitorBookings": {
+        "title": "Reservas y Pases",
+        "description": "Haz un seguimiento de las reservas y del uso de Pase para optimizar la asistencia y la capacidad"
     }
-  },
-  "sections": {
-    "memberInsights": "Análisis de miembros",
-    "financialHealth": "Salud Financiera"
-  },
-  "trackTrialOffer": {
-    "title": "Seguir el rendimiento de la oferta de prueba",
-    "description": "Descubre más sobre adquisición, tasas de conversión y cómo aumentar la efectividad de tu oferta de prueba."
-  },
-  "monitorRevenue": {
-    "title": "Monitorea el rendimiento de las suscripciones",
-    "description": "Controla la salud de las suscripciones, analiza los ingresos recurrentes y detecta riesgos u oportunidades"
-  }
 }

@@ -1,7 +1,40 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { z } from "zod";
 
 import { AnalyticsClient } from "#src/AnalyticsClient";
-import type { AnalyticsAdapter, AnalyticsEvent, Properties } from "#src/types";
+import type {
+  AnalyticsAdapter,
+  AnalyticsEvent,
+  EventError,
+  EventResult,
+  Properties,
+} from "#src/types";
+
+// ---------------------------------------------------------------------------
+// Helpers shared by the trackEvent describe block
+// ---------------------------------------------------------------------------
+
+function makeZodError() {
+  const result = z.object({ name: z.string() }).safeParse({});
+  return (result as z.SafeParseError<unknown>).error;
+}
+
+function makeValidBuilder<T extends { eventType: string }>(event: T) {
+  return vi.fn(
+    (_data: unknown): EventResult<T> => ({
+      event,
+      errors: null,
+    }),
+  );
+}
+
+function makeInvalidBuilder<T extends { eventType: string }>(event: T) {
+  const errors: EventError = {
+    eventType: event.eventType,
+    zodError: makeZodError(),
+  };
+  return vi.fn((_data: unknown): EventResult<T> => ({ event, errors }));
+}
 
 describe("AnalyticsClient", () => {
   let mockAdapter: AnalyticsAdapter;
@@ -222,5 +255,116 @@ describe("AnalyticsClient", () => {
     client.optInTracking();
     expect(client.getIsTracking()).toBe(true);
     expect(mockAdapter.optInTracking).toHaveBeenCalledWith(undefined);
+  });
+
+  describe("trackEvent", () => {
+    const validEvent = { eventType: "button_clicked", kind: "primary" };
+    const invalidEvent = { eventType: "button_clicked", kind: "primary" };
+
+    let onValidationError: ReturnType<typeof vi.fn>;
+    let clientWithReporter: AnalyticsClient;
+
+    beforeEach(() => {
+      onValidationError = vi.fn();
+      clientWithReporter = new AnalyticsClient({
+        adapter: mockAdapter,
+        onValidationError,
+      });
+    });
+
+    it("tracks the event when there are no validation errors", () => {
+      const builder = makeValidBuilder(validEvent);
+
+      client.trackEvent(builder({ kind: "primary" }));
+
+      expect(mockAdapter.track).toHaveBeenCalledWith(
+        expect.objectContaining({ eventType: "button_clicked" }),
+      );
+    });
+
+    it("forwards the raw input data to the event builder", () => {
+      const builder = makeValidBuilder(validEvent);
+      const data = { kind: "primary" };
+
+      client.trackEvent(builder(data));
+
+      expect(builder).toHaveBeenCalledWith(data);
+    });
+
+    it("does not call onValidationError when there are no errors", () => {
+      const builder = makeValidBuilder(validEvent);
+
+      clientWithReporter.trackEvent(builder({}));
+
+      expect(onValidationError).not.toHaveBeenCalled();
+    });
+
+    it("ignores dropInvalidEvents flag when validation succeeds", () => {
+      const builder = makeValidBuilder(validEvent);
+
+      client.trackEvent(builder({ kind: "primary" }), true);
+
+      expect(mockAdapter.track).toHaveBeenCalledWith(
+        expect.objectContaining({ eventType: "button_clicked" }),
+      );
+    });
+
+    it("tracks the best-effort event when errors are present and dropInvalidEvents is false (default)", () => {
+      const builder = makeInvalidBuilder(invalidEvent);
+
+      client.trackEvent(builder({}));
+
+      expect(mockAdapter.track).toHaveBeenCalledWith(
+        expect.objectContaining({ eventType: "button_clicked" }),
+      );
+    });
+
+    it("calls onValidationError with the errors when validation fails", () => {
+      const builder = makeInvalidBuilder(invalidEvent);
+      clientWithReporter.trackEvent(builder({}));
+
+      expect(onValidationError).toHaveBeenCalledWith(
+        expect.objectContaining({
+          eventType: "button_clicked",
+          zodError: expect.any(Object),
+        }),
+      );
+    });
+
+    it("does not track when errors are present and dropInvalidEvents is true", () => {
+      const builder = makeInvalidBuilder(invalidEvent);
+
+      client.trackEvent(builder({}), true);
+
+      expect(mockAdapter.track).not.toHaveBeenCalled();
+    });
+
+    it("still calls onValidationError when dropInvalidEvents is true", () => {
+      const builder = makeInvalidBuilder(invalidEvent);
+
+      clientWithReporter.trackEvent(builder({}), true);
+
+      expect(onValidationError).toHaveBeenCalledOnce();
+    });
+
+    it("does not throw when errors are present and no onValidationError is provided", () => {
+      const builder = makeInvalidBuilder(invalidEvent);
+
+      expect(() => client.trackEvent(builder({}))).not.toThrow();
+    });
+
+    it("merges super properties into the tracked safe event", () => {
+      client.addSuperProperties({ app: "testApp" });
+      const builder = makeValidBuilder(validEvent);
+
+      client.trackEvent(builder({}));
+
+      expect(mockAdapter.track).toHaveBeenCalledWith(
+        expect.objectContaining({
+          app: "testApp",
+          eventType: "button_clicked",
+        }),
+      );
+    });
   });
 });

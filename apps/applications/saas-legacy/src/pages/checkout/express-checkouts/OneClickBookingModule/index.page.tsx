@@ -350,7 +350,7 @@ const OneClickBookingModule: React.FC<Props> = ({
 
   useEffect(() => {
     if (!shouldDisplayOnlinePayment || !offer) return;
-    analyticsClientB2C.track(
+    analyticsClientB2C.trackEvent(
       trackPaymentViewedEvent({
         activity_id: offer.activity,
         activity_name: metaActivity?.name || '',

@@ -198,6 +198,7 @@ export type ObjectLevelPermissions = {
         rollcall: boolean;
         addToWaitlist: boolean;
         create: boolean;
+        edit: boolean;
         delete: boolean;
         removeFromWaitlist: boolean;
         attendance: boolean;
@@ -211,6 +212,7 @@ export type ObjectLevelPermissions = {
         rollcall: boolean;
         addToWaitlist: boolean;
         create: boolean;
+        edit: boolean;
         delete: boolean;
         removeFromWaitlist: boolean;
         attendance: boolean;

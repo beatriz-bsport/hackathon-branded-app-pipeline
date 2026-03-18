@@ -48,10 +48,10 @@ export const byOfferByMember = {
   success: createAction('CONSUMER_PACK/BY_OFFER_BY_MEMBER/SUCCESS'),
 };
 
-export function fetchByOfferByMember(
+export function fetchByOfferByMember<PP = number>(
   offer: number,
   member: number,
-  options?: OptionCallback,
+  options?: OptionCallback<ConsumerPaymentPack<PP>[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(byOfferByMember.isLoading(true));
@@ -61,8 +61,7 @@ export function fetchByOfferByMember(
       const response = await fetchByOfferByMemberV2API(offer, { member });
       dispatch(byOfferByMember.success(response.data));
       if (options && options.onSuccess) {
-        // @ts-expect-error
-        options.onSuccess(response.data);
+        options.onSuccess(response.data as ConsumerPaymentPack<PP>[]);
       }
     } catch (error) {
       dispatch(byOfferByMember.error(error));

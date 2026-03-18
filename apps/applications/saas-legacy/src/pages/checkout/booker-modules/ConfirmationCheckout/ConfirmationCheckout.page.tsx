@@ -306,7 +306,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
     // });
     this.props.offerBookedList.forEach((offerBooked) => {
       try {
-        analyticsClientB2C.track(
+        analyticsClientB2C.trackEvent(
           trackBookingConfirmedEvent({
             activity_id: offerBooked.meta_activity.id,
             activity_name: offerBooked.meta_activity.name,

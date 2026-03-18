@@ -146,7 +146,7 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if (!hasTrackedSpotSchedulingViewed.current) {
-      analyticsClientB2C.track(
+      analyticsClientB2C.trackEvent(
         trackSpotSchedulingViewedEvent({
           activity_id: props.offer.activity,
           activity_name: metaActivityToTrack?.name || '',

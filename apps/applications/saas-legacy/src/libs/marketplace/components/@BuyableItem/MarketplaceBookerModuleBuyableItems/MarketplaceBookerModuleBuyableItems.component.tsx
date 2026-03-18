@@ -100,7 +100,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
 
   useEffect(() => {
     if (!isLoading && !!trackingParams && !hasTrackedPassSelectionViewed) {
-      analyticsClientB2C.track(
+      analyticsClientB2C.trackEvent(
         trackPassSelectionForOfferViewedEvent(trackingParams),
       );
       setHasTrackedPassSelectionViewed(true);

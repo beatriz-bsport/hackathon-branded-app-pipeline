@@ -95,7 +95,7 @@ export class ConsumerPassReworked extends React.Component<
       this.props.fetchSCTs({
         member: this.props.membership.id,
       });
-    analyticsClientB2C.track(
+    analyticsClientB2C.trackEvent(
       trackMemberProfileViewedEvent({ page_type: 'pass' }),
     );
   }

@@ -31,4 +31,11 @@ export const LEGACY_URLS = {
   }) =>
     `${window?.location?.origin ?? ""}/checkout/${companyId}/giftcard/activation/${activationCode}`,
   INVOICE_LINK: (uuid: string) => `/invoice/${uuid}`,
+  MEMBER_GIFTCARD_DETAILS: ({
+    memberId,
+    consumerGiftcardId,
+  }: {
+    memberId: number;
+    consumerGiftcardId: number;
+  }) => `/member/${memberId}/giftcard/${consumerGiftcardId}`,
 } as const;

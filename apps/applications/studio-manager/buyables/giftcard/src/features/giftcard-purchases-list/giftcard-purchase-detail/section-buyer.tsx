@@ -131,6 +131,14 @@ export const GiftcardPurchaseSectionBuyer: FC<
               size: "lg",
               className: "text-ellipsis whitespace-nowrap overflow-x-hidden",
             }}
+            href={
+              purchaser?.id != null
+                ? LEGACY_URLS.MEMBER_GIFTCARD_DETAILS({
+                    memberId: purchaser.id,
+                    consumerGiftcardId: selectedItem.id,
+                  })
+                : undefined
+            }
           />
         )}
       </SectionItem>

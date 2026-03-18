@@ -17,7 +17,7 @@ import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import { PopupForm } from "#src/components/PopupForm/PopupForm";
 import { getPopupSchema } from "#src/components/PopupForm/schema";
 import { PopupFormData } from "#src/components/PopupForm/shared-types";
-import { SMARTLIST_COMMUNICATION_URLS, URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -70,13 +70,13 @@ export const PopupCreationPage = () => {
       key="breadcrumb-smartlists"
       id="breadcrumb-smartlists"
       text={tList("title")}
-      href={SMARTLIST_COMMUNICATION_URLS.SMARTLIST_ROUTE_FROM_SUBNAV}
+      href={SMARTLIST_APP_LINKS.index()}
     />,
     <Breadcrumbs.Item
       key="breadcrumb-smartlists-campaigns"
       id="breadcrumb-smartlists-campaigns"
       text={smartlistName}
-      href={URLS.campaignPath(smartlistId.toString())}
+      href={SMARTLIST_APP_LINKS.campaign(smartlistId)}
     />,
   ];
 

@@ -9,7 +9,7 @@ import {
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import { LEGACY_URLS } from "#src/urls";
+import { SMARTLIST_LEGACY_URLS } from "#src/urls";
 import { flags, useFlag } from "#src/utils/feature-flags";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -72,7 +72,9 @@ export const SmartlistList: FC<SmartlistListProps> = ({
 
         navigateToSmartlistCampaigns(smartlist.id.toString());
       } else {
-        window.location.assign(LEGACY_URLS.SMARTLIST_MEMBER(smartlist.id));
+        window.location.assign(
+          SMARTLIST_LEGACY_URLS.smartlistMember(smartlist.id),
+        );
       }
     },
     buttons: [

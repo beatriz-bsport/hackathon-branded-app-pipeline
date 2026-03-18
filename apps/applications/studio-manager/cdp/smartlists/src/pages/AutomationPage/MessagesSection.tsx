@@ -23,6 +23,7 @@ import {
 } from "#src/api/use-automated-campaign-analytics";
 import { useExportCampaign } from "#src/api/use-export-campaign";
 import { DeleteAutomationModal } from "#src/components/DeleteAutomationModal";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 import { downloadFileFromUrl } from "#src/utils/utils";
@@ -295,7 +296,9 @@ export const MessagesSection = (
                 } else if (id === INLINE_ACTIONS.DELETE) {
                   setAutomationToDelete(row);
                 } else if (id === INLINE_ACTIONS.EDIT) {
-                  navigate(`/${smartlistId}/automation/message/${row.id}`);
+                  navigate(
+                    SMARTLIST_APP_LINKS.automationMessage(smartlistId, row.id),
+                  );
                 } else {
                   invariant(false, `Unhandled action id: ${id}`);
                 }

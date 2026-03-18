@@ -1,6 +1,6 @@
 import { NavigateOptions, useNavigate } from "react-router";
 
-import { CampaignChannel, SMARTLIST_COMMUNICATION_URLS, URLS } from "#src/urls";
+import { CampaignChannel, SMARTLIST_APP_LINKS } from "#src/urls";
 
 export const useSmartlistNavigation = () => {
   const navigate = useNavigate();
@@ -9,25 +9,25 @@ export const useSmartlistNavigation = () => {
       smartlistId: string,
       options?: NavigateOptions,
     ) => {
-      navigate(URLS.detailsPath(smartlistId), options);
+      navigate(SMARTLIST_APP_LINKS.details(smartlistId), options);
     },
     navigateToSmartlistCampaigns: (
       smartlistId: string,
       options?: NavigateOptions,
     ) => {
-      navigate(URLS.campaignPath(smartlistId), options);
+      navigate(SMARTLIST_APP_LINKS.campaign(smartlistId), options);
     },
     navigateToSmartlistParameters: (
       smartlistId: string,
       options?: NavigateOptions,
     ) => {
-      navigate(URLS.parameterPath(smartlistId), options);
+      navigate(SMARTLIST_APP_LINKS.parameter(smartlistId), options);
     },
     navigateToSmartlistAutomation: (
       smartlistId: string,
       options?: NavigateOptions,
     ) => {
-      navigate(URLS.automationPath(smartlistId), options);
+      navigate(SMARTLIST_APP_LINKS.automation(smartlistId), options);
     },
     navigateToSmartlistCampaignCreate: (
       smartlistId: string,
@@ -35,7 +35,7 @@ export const useSmartlistNavigation = () => {
       options?: NavigateOptions,
     ) => {
       navigate(
-        SMARTLIST_COMMUNICATION_URLS.campaignCreatePath(smartlistId, channel),
+        SMARTLIST_APP_LINKS.campaignCreate(smartlistId, channel),
         options,
       );
     },
@@ -46,11 +46,7 @@ export const useSmartlistNavigation = () => {
       options?: NavigateOptions,
     ) => {
       navigate(
-        SMARTLIST_COMMUNICATION_URLS.campaignEditPath(
-          smartlistId,
-          channel,
-          entityId,
-        ),
+        SMARTLIST_APP_LINKS.campaignEdit(smartlistId, channel, entityId),
         options,
       );
     },
@@ -60,10 +56,7 @@ export const useSmartlistNavigation = () => {
       options?: NavigateOptions,
     ) => {
       navigate(
-        SMARTLIST_COMMUNICATION_URLS.automationCreationPath(
-          smartlistId,
-          channel,
-        ),
+        SMARTLIST_APP_LINKS.automationCreation(smartlistId, channel),
         options,
       );
     },
@@ -74,11 +67,7 @@ export const useSmartlistNavigation = () => {
       options?: NavigateOptions,
     ) => {
       navigate(
-        SMARTLIST_COMMUNICATION_URLS.automationEditPath(
-          smartlistId,
-          channel,
-          entityId,
-        ),
+        SMARTLIST_APP_LINKS.automationEdit(smartlistId, channel, entityId),
         options,
       );
     },

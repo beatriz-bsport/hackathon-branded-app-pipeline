@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from "react-router";
 
 import { FeatureFlag } from "#src/components/FeatureFlag";
 import { CampaignCreateEditRouter } from "#src/routers/CampaignCreateEditRouter";
-import { URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS, SMARTLIST_ROUTE_PATTERNS } from "#src/urls";
 import { flags } from "#src/utils/feature-flags";
 
 import { AutomationCreateEditRouter } from "./routers/AutomationCreateEditRouter";
@@ -33,7 +33,7 @@ export const AppRoutes = () => {
     <Routes>
       <Route element={<ListPage />} index />
       <Route
-        path={URLS.AUTOMATION_MESSAGE}
+        path={SMARTLIST_ROUTE_PATTERNS.AUTOMATION_MESSAGE}
         element={
           <FeatureFlag flag={flags.smartlist}>
             <AutomationMessagePage />
@@ -41,7 +41,7 @@ export const AppRoutes = () => {
         }
       />
       <Route
-        path={URLS.CAMPAIGN_SENT_DETAILS}
+        path={SMARTLIST_ROUTE_PATTERNS.CAMPAIGN_SENT_DETAILS}
         element={
           <FeatureFlag flag={flags.smartlist}>
             <CampaignSentDetailPage />
@@ -49,7 +49,7 @@ export const AppRoutes = () => {
         }
       />
       <Route
-        path={URLS.CAMPAIGN_SCHEDULED_DETAILS}
+        path={SMARTLIST_ROUTE_PATTERNS.CAMPAIGN_SCHEDULED_DETAILS}
         element={
           <FeatureFlag flag={flags.smartlist}>
             <CampaignScheduledDetailPage />
@@ -58,7 +58,7 @@ export const AppRoutes = () => {
       />
 
       <Route
-        path={URLS.DETAILS}
+        path={SMARTLIST_ROUTE_PATTERNS.DETAILS}
         element={
           <FeatureFlag flag={flags.smartlist}>
             <DetailsPage />
@@ -71,7 +71,7 @@ export const AppRoutes = () => {
       </Route>
       {/* Campaign create/edit: single sub-router for all channels */}
       <Route
-        path={`${URLS.CAMPAIGN}/*`}
+        path={`${SMARTLIST_ROUTE_PATTERNS.CAMPAIGN}/*`}
         element={
           <FeatureFlag flag={flags.smartlist}>
             <CampaignCreateEditRouter />
@@ -79,7 +79,7 @@ export const AppRoutes = () => {
         }
       />
       <Route
-        path={`${URLS.AUTOMATION_MESSAGES}/*`}
+        path={`${SMARTLIST_ROUTE_PATTERNS.AUTOMATION_MESSAGES}/*`}
         element={
           <FeatureFlag flag={flags.smartlist}>
             <AutomationCreateEditRouter />
@@ -87,7 +87,7 @@ export const AppRoutes = () => {
         }
       />
 
-      <Route element={<Navigate to={URLS.INDEX} />} path="*" />
+      <Route element={<Navigate to={SMARTLIST_APP_LINKS.index()} />} path="*" />
     </Routes>
   );
 };

@@ -21,7 +21,7 @@ import { isErrorWithCustomCode } from '#src/libs/utils';
 import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 const SWAP_PASS_ERROR_CODES = [
-  5347100, 5347101, 5347102, 5347103, 5347104, 5347105, 5347106,
+  5347100, 5347101, 5347102, 5347103, 5347104, 5347105, 5347106, 5347107,
 ];
 
 type Props = {

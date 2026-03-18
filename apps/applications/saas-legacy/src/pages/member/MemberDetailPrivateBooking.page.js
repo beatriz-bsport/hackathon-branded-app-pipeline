@@ -661,9 +661,23 @@ export default compose(
         });
       },
     fetchPrivateBookingsList:
-      ({ id, filters, fetchPrivateBookings }) =>
+      ({ id, filters, fetchPrivateBookings, fetchPrivateConsumerPassBulk }) =>
       ({ page, page_size }) => {
-        fetchPrivateBookings({ ...filters, member: id, page, page_size });
+        fetchPrivateBookings(
+          { ...filters, member: id, page, page_size },
+          {
+            onSuccess: (bookings) => {
+              const passIds = bookings
+                .map(
+                  (b) => b.private_consumer_pass?.id ?? b.private_consumer_pass,
+                )
+                .filter(Boolean);
+              if (passIds.length) {
+                fetchPrivateConsumerPassBulk(passIds);
+              }
+            },
+          },
+        );
       },
   }),
 )(MemberDetailPrivateBooking);

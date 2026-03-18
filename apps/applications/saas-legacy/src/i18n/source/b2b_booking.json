@@ -24,7 +24,8 @@
         "5347103": "Pass does not belong to this member.",
         "5347104": "Pass is not compatible with this appointment.",
         "5347105": "Pass is blocked and cannot be used.",
-        "5347106": "Can't swap pass on a partnership booking."
+        "5347106": "Can't swap pass on a partnership booking.",
+        "5347107": "Cannot swap pass on an unpaid booking."
       }
     }
   }

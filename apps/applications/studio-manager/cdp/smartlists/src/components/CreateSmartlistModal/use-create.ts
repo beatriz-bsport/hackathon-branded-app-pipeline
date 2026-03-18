@@ -2,7 +2,7 @@ import { toast } from "@bsport/kaizen-primitive-core";
 import type { CreateSmartlistParams } from "@bsport/store-cdp-smartlist";
 
 import { useCreateSmartlist } from "#src/api/use-create-smartlist";
-import { LEGACY_URLS } from "#src/urls";
+import { SMARTLIST_LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 export const useCreate = ({
@@ -23,7 +23,9 @@ export const useCreate = ({
          * After creating a smartlist we navigate to the legacy app
          * to show the smartlist details
          */
-        window.location.assign(LEGACY_URLS.SMARTLIST_MEMBER(smartlist.id));
+        window.location.assign(
+          SMARTLIST_LEGACY_URLS.smartlistMember(smartlist.id),
+        );
       },
       onFailure: () => {
         onFailure?.();

@@ -17,57 +17,145 @@ export const CAMPAIGN_CHANNELS = [
 ] as const;
 export type CampaignChannel = (typeof CAMPAIGN_CHANNELS)[number];
 
-const SMARTLIST_ROUTE = "/";
+export const SMARTLIST_APP_ROOT_PATH = "/smartlist";
 
-/** Route path patterns for <Route path={...} />. App-relative (basename handled by Router). */
-export const URLS = {
-  INDEX: SMARTLIST_ROUTE,
-  DETAILS: "/:id",
-  PARAMETER: "/:id/parameter",
-  AUTOMATION: "/:id/automation",
-  AUTOMATION_MESSAGES: "/:id/automation/messages",
-  CAMPAIGN: "/:id/campaign",
-  CAMPAIGN_SCHEDULED_DETAILS: "/:id/campaign/scheduled/:uuid",
-  CAMPAIGN_SENT_DETAILS: "/:id/campaign/sent/:uuid",
-  AUTOMATION_MESSAGE: "/:id/automation/message/:messageId",
-  AUTOMATION_TAG_RULE: "/:id/automation/tag-rule/:tagRuleId",
-
-  /** Path builders for navigation and links (same pattern as giftcard URLS.EDITOR, etc.). */
-  detailsPath: (id: string) => `/${id}`,
-  parameterPath: (id: string) => `/${id}/${PARAMETER_TAB_PATH}`,
-  automationPath: (id: string) => `/${id}/${AUTOMATION_TAB_PATH}`,
-  campaignPath: (id: string) => `/${id}/${CAMPAIGN_TAB_PATH}`,
-  campaignSentDetailsPath: (smartlistId: string, campaignUuid: string) =>
-    `/${smartlistId}/campaign/sent/${campaignUuid}`,
-  campaignScheduledDetailsPath: (smartlistId: string, campaignId: number) =>
-    `/${smartlistId}/campaign/scheduled/${campaignId}`,
+const SEGMENTS = {
+  campaign: CAMPAIGN_TAB_PATH,
+  automation: AUTOMATION_TAB_PATH,
+  parameter: PARAMETER_TAB_PATH,
+  messages: "messages",
+  message: "message",
+  tagRule: "tag-rule",
+  sent: "sent",
+  scheduled: "scheduled",
+  create: "new",
+  edit: "edit",
+  legacySmartlist: "smart-list",
+  legacyMember: "member",
+  legacyAudience: "audience",
 } as const;
 
-export const SMARTLIST_COMMUNICATION_URLS = {
-  SMARTLIST_ROUTE_FROM_SUBNAV: SMARTLIST_ROUTE,
-  CAMPAIGN_CREATE: "/:channel/new",
-  CAMPAIGN_EDIT: "/:channel/:entityId/edit",
-  AUTOMATION_CREATION: "/:channel/new",
-  AUTOMATION_EDIT: "/:channel/:entityId/edit",
+const PARAMS = {
+  smartlistId: ":id",
+  uuid: ":uuid",
+  messageId: ":messageId",
+  tagRuleId: ":tagRuleId",
+  channel: ":channel",
+  entityId: ":entityId",
+} as const;
 
-  campaignCreatePath: (smartlistId: string, channel: CampaignChannel) =>
-    `/${smartlistId}/campaign/${channel}/new`,
-  campaignEditPath: (
+const trimSlashes = (value: string) => value.replace(/^\/+|\/+$/g, "");
+
+const joinPath = (...segments: Array<string | number>) => {
+  const normalizedSegments = segments
+    .map((segment) => trimSlashes(String(segment)))
+    .filter((segment) => segment.length > 0);
+
+  return `/${normalizedSegments.join("/")}`;
+};
+
+const buildSmartlistLink = (...segments: Array<string | number>) =>
+  joinPath(SMARTLIST_APP_ROOT_PATH, ...segments);
+
+export type SmartlistDetailsTabPath =
+  | typeof PARAMETER_TAB_PATH
+  | typeof CAMPAIGN_TAB_PATH
+  | typeof AUTOMATION_TAB_PATH;
+
+export const SMARTLIST_ROUTE_PATTERNS = {
+  DETAILS: PARAMS.smartlistId,
+  PARAMETER: `${PARAMS.smartlistId}/${SEGMENTS.parameter}`,
+  AUTOMATION: `${PARAMS.smartlistId}/${SEGMENTS.automation}`,
+  AUTOMATION_MESSAGES: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}`,
+  CAMPAIGN: `${PARAMS.smartlistId}/${SEGMENTS.campaign}`,
+  CAMPAIGN_SCHEDULED_DETAILS: `${PARAMS.smartlistId}/${SEGMENTS.campaign}/${SEGMENTS.scheduled}/${PARAMS.uuid}`,
+  CAMPAIGN_SENT_DETAILS: `${PARAMS.smartlistId}/${SEGMENTS.campaign}/${SEGMENTS.sent}/${PARAMS.uuid}`,
+  AUTOMATION_MESSAGE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.message}/${PARAMS.messageId}`,
+  AUTOMATION_TAG_RULE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.tagRule}/${PARAMS.tagRuleId}`,
+  COMMUNICATION_CREATE: `${PARAMS.channel}/${SEGMENTS.create}`,
+  COMMUNICATION_EDIT: `${PARAMS.channel}/${PARAMS.entityId}/${SEGMENTS.edit}`,
+} as const;
+
+export const SMARTLIST_APP_LINKS = {
+  index: () => SMARTLIST_APP_ROOT_PATH,
+  details: (smartlistId: string) => buildSmartlistLink(smartlistId),
+  detailsTab: (smartlistId: string, tab: SmartlistDetailsTabPath) =>
+    buildSmartlistLink(smartlistId, tab),
+  parameter: (smartlistId: string) =>
+    buildSmartlistLink(smartlistId, SEGMENTS.parameter),
+  automation: (smartlistId: string) =>
+    buildSmartlistLink(smartlistId, SEGMENTS.automation),
+  automationMessage: (smartlistId: string, messageId: string | number) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.automation,
+      SEGMENTS.message,
+      messageId,
+    ),
+  campaign: (smartlistId: string) =>
+    buildSmartlistLink(smartlistId, SEGMENTS.campaign),
+  campaignSentDetails: (smartlistId: string, campaignUuid: string) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.campaign,
+      SEGMENTS.sent,
+      campaignUuid,
+    ),
+  campaignScheduledDetails: (smartlistId: string, campaignId: number) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.campaign,
+      SEGMENTS.scheduled,
+      campaignId,
+    ),
+  campaignCreate: (smartlistId: string, channel: CampaignChannel) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.campaign,
+      channel,
+      SEGMENTS.create,
+    ),
+  campaignEdit: (
     smartlistId: string,
     channel: CampaignChannel,
     entityId: string,
-  ) => `/${smartlistId}/campaign/${channel}/${entityId}/edit`,
-  automationCreationPath: (smartlistId: string, channel: CampaignChannel) =>
-    `/${smartlistId}/automation/messages/${channel}/new`,
-  automationEditPath: (
+  ) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.campaign,
+      channel,
+      entityId,
+      SEGMENTS.edit,
+    ),
+  automationCreation: (smartlistId: string, channel: CampaignChannel) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.automation,
+      SEGMENTS.messages,
+      channel,
+      SEGMENTS.create,
+    ),
+  automationEdit: (
     smartlistId: string,
     channel: CampaignChannel,
     entityId: string,
-  ) => `/${smartlistId}/automation/messages/${channel}/${entityId}/edit`,
+  ) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.automation,
+      SEGMENTS.messages,
+      channel,
+      entityId,
+      SEGMENTS.edit,
+    ),
 } as const;
 
-export const LEGACY_URLS = {
-  AUDIENCE: "/audience",
-  SMARTLIST_MEMBER: (smartlistId: number) =>
-    `/smart-list/${smartlistId}/member`,
+export const SMARTLIST_APP_ABSOLUTE_URLS = {
+  fromOrigin: (origin: string, appLink: string) => `${origin}${appLink}`,
+} as const;
+
+export const SMARTLIST_LEGACY_URLS = {
+  audience: joinPath(SEGMENTS.legacyAudience),
+  smartlistMember: (smartlistId: number) =>
+    joinPath(SEGMENTS.legacySmartlist, smartlistId, SEGMENTS.legacyMember),
 } as const;

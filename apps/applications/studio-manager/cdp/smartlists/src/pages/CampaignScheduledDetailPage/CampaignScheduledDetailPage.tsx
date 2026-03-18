@@ -17,11 +17,10 @@ import {
   QueryBoundary,
 } from "#src/components/QueryBoundary";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import { URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { getFallbackCampaignScheduledName } from "#src/utils/campaignUtils";
 import {
   CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
-  CAMPAIGN_TAB_PATH,
   CampaignScheduledInlineActions,
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
@@ -63,12 +62,12 @@ function CampaignScheduledDetail() {
   const { detailsLayoutProps } = useDetailsLayout();
 
   const breadcrumbsItems = [
-    <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
+    <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
       <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
     </Link>,
     <Link
       key="smartlists-item-campaign-breadcrumb"
-      to={`../${id}/${CAMPAIGN_TAB_PATH}`}
+      to={SMARTLIST_APP_LINKS.campaign(id)}
     >
       <Breadcrumbs.Item
         id="breadcrumb-smartlists-campaigns"

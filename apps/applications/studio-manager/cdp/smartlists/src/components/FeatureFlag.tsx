@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
 import { Navigate } from "react-router";
 
-import { URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { type FlagName, useFlag } from "#src/utils/feature-flags";
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 export const FeatureFlag = ({
   flag,
   children,
-  fallback = <Navigate to={URLS.INDEX} replace />,
+  fallback = <Navigate to={SMARTLIST_APP_LINKS.index()} replace />,
 }: Props) => {
   const isEnabled = useFlag(flag);
 

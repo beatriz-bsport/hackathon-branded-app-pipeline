@@ -15,14 +15,13 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
-import { URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import {
   getCampaignStatus,
   getFallbackCampaignContent,
   getFallbackCampaignName,
   getFallbackCampaignTitle,
 } from "#src/utils/campaignUtils";
-import { CAMPAIGN_TAB_PATH } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -85,12 +84,12 @@ function CampaignSentDetailPageContent() {
   const { detailsLayoutProps } = useDetailsLayout();
 
   const breadcrumbsItems = [
-    <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
+    <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
       <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
     </Link>,
     <Link
       key="smartlists-item-campaign-breadcrumb"
-      to={`../${id}/${CAMPAIGN_TAB_PATH}`}
+      to={SMARTLIST_APP_LINKS.campaign(id)}
     >
       <Breadcrumbs.Item
         id="breadcrumb-smartlists-campaigns"

@@ -5,8 +5,8 @@ import { FeatureFlag } from "#src/components/FeatureFlag";
 import {
   CAMPAIGN_CHANNEL_PUSH,
   type CampaignChannel,
-  SMARTLIST_COMMUNICATION_URLS,
-  URLS,
+  SMARTLIST_APP_LINKS,
+  SMARTLIST_ROUTE_PATTERNS,
 } from "#src/urls";
 import { flags } from "#src/utils/feature-flags";
 
@@ -24,9 +24,7 @@ function isValidAutomationChannel(channel: string): channel is CampaignChannel {
  */
 function useAutomationBasePath(): string {
   const { id } = useParams<{ id: string }>();
-  return id
-    ? URLS.automationPath(id)
-    : SMARTLIST_COMMUNICATION_URLS.SMARTLIST_ROUTE_FROM_SUBNAV;
+  return id ? SMARTLIST_APP_LINKS.automation(id) : SMARTLIST_APP_LINKS.index();
 }
 
 function CreateRouteByChannel() {
@@ -74,11 +72,11 @@ export function AutomationCreateEditRouter() {
   return (
     <Routes>
       <Route
-        path={SMARTLIST_COMMUNICATION_URLS.AUTOMATION_CREATION}
+        path={SMARTLIST_ROUTE_PATTERNS.COMMUNICATION_CREATE}
         element={<CreateRouteByChannel />}
       />
       <Route
-        path={SMARTLIST_COMMUNICATION_URLS.AUTOMATION_EDIT}
+        path={SMARTLIST_ROUTE_PATTERNS.COMMUNICATION_EDIT}
         element={<EditRouteByChannel />}
       />
       <Route path="*" element={<Navigate to={".."} replace />} />

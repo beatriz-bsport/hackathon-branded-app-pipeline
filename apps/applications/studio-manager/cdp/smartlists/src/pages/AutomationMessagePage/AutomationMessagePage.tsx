@@ -13,7 +13,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
-import { URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -42,10 +42,13 @@ function AutomationMessageDetail() {
   const { detailsLayoutProps } = useDetailsLayout();
 
   const breadcrumbsItems = [
-    <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
+    <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
       <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
     </Link>,
-    <Link key="smartlist-detail-breadcrumb" to={URLS.automationPath(id)}>
+    <Link
+      key="smartlist-detail-breadcrumb"
+      to={SMARTLIST_APP_LINKS.automation(id)}
+    >
       <Breadcrumbs.Item id="breadcrumb-smartlist-name" text={smartlist.name} />
     </Link>,
   ];

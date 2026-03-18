@@ -10,7 +10,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
-import { URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -75,12 +75,12 @@ export const AutomationPushCreationPage = () => {
   });
 
   const breadcrumbsItems = [
-    <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
+    <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
       <Breadcrumbs.Item id={ids.breadcrumbs.smartlists} text={tList("title")} />
     </Link>,
     <Link
       key="smartlist-detail-breadcrumb"
-      to={URLS.automationPath(smartlistId)}
+      to={SMARTLIST_APP_LINKS.automation(smartlistId)}
     >
       <Breadcrumbs.Item
         id={ids.breadcrumbs.smartlistName}

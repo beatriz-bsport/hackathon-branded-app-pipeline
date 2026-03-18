@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { HTTPException } from "@bsport/fetch";
 import { ErrorFallback } from "@bsport/kaizen-primitive-core";
 
-import { URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 type DetailPageErrorFallbackProps = {
@@ -31,7 +31,7 @@ export const DetailPageErrorFallback = ({
           description={t("error.notFound.description")}
           actionProps={{
             label: t("error.notFound.backToListLabel"),
-            onClick: () => navigate(URLS.INDEX),
+            onClick: () => navigate(SMARTLIST_APP_LINKS.index()),
           }}
         />
       </div>

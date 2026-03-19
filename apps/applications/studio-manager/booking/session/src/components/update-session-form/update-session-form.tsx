@@ -20,6 +20,7 @@ import useEditSession from "#src/hooks/session-api/session-actions/use-edit-sess
 import { useModal } from "#src/hooks/use-modal";
 import { useSessionPayload } from "#src/hooks/use-session-payload";
 import { useTranslation } from "#src/utils/i18n";
+import { trackSessionEdition } from "#src/utils/track-session-edition.js";
 
 import { VisibilitySelector } from "../SessionForm/Details/VisibilitySelector";
 import { CancelSessionModal } from "../SessionList/detail-actions/cancel-session-modal";
@@ -68,7 +69,9 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
     defaultValues: fromSessionToFormData(session),
   });
 
-  const isDirty = Object.keys(methods.formState.dirtyFields).length > 0;
+  const dirtyFields = methods.formState.dirtyFields;
+
+  const isDirty = Object.keys(dirtyFields).length > 0;
 
   const formId = `session-form-update-${useId()}`;
 
@@ -81,10 +84,25 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
   };
 
   const handleSubmit = async (editActions: SessionEditActions) => {
-    await editSession({
-      sessionId: session.id,
-      payload: buildEditionPayload(methods.getValues(), session, editActions),
-    });
+    const payload = buildEditionPayload(
+      methods.getValues(),
+      session,
+      editActions,
+    );
+    await editSession(
+      {
+        sessionId: session.id,
+        payload,
+      },
+      {
+        onSuccess: () =>
+          trackSessionEdition({
+            dirtyFields,
+            oldValues: session,
+            newValues: payload,
+          }),
+      },
+    );
 
     methods.reset(methods.getValues());
   };

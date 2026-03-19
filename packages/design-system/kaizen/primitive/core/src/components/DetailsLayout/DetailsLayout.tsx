@@ -32,6 +32,7 @@ const SIDE_PANEL_WIDTH = 320;
 export type DetailsLayoutProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
   withPanel?: boolean;
+  onPanelToggle?: (isOpen: boolean) => void;
 };
 
 const detailsLayout = cva([
@@ -63,6 +64,7 @@ const detailsLayout = cva([
  * @param props.className Optional. Custom CSS classes for the container.
  * @param props.children Required. Place subcomponents here
  * @param props.withPanel Optional. Whether <DetaisLayout.Panel /> will be used. If true, the control button will be included. Default to false.
+ * @param props.onPanelToggle Optional. Callback function triggered when the panel is toggled, with the new state as parameter
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-detailslayout--docs
  */
 type DetailsLayoutComponent = ForwardRefExoticComponent<
@@ -77,9 +79,13 @@ type DetailsLayoutComponent = ForwardRefExoticComponent<
 };
 
 const DetailsLayout = forwardRef<LayoutProviderRef, DetailsLayoutProps>(
-  ({ children, withPanel, ...props }, ref) => {
+  ({ children, withPanel, onPanelToggle, ...props }, ref) => {
     return (
-      <LayoutProvider ref={ref} withPanel={withPanel}>
+      <LayoutProvider
+        ref={ref}
+        withPanel={withPanel}
+        onPanelToggle={onPanelToggle}
+      >
         <Main {...props}>{children}</Main>
       </LayoutProvider>
     );

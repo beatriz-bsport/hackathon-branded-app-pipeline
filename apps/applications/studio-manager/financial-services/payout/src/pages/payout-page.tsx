@@ -1,8 +1,17 @@
 import { type FC, useCallback, useState } from "react";
 
 import { type PayoutListItem } from "@bsport/api-financial-services/payout";
+import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
-import { Alert, ListLayout } from "@bsport/kaizen-primitive-core";
+import {
+  Alert,
+  Chip,
+  List,
+  type ListItemProps,
+  ListLayout,
+  Tooltip,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { PayoutBalanceTransactionsModal } from "#src/components/payout-balance-transactions-modal";
@@ -11,6 +20,10 @@ import {
   PayoutTable,
   usePayoutTableColumns,
 } from "#src/components/payout-table";
+import {
+  getStatusColor,
+  getStatusKey,
+} from "#src/components/payout-table/payout-status";
 import type { PayoutTableRow } from "#src/components/payout-table/types";
 import { usePaginatedPayouts } from "#src/hooks/use-paginated-payouts";
 import { useTranslation } from "#src/utils/i18n";
@@ -40,6 +53,8 @@ const PayoutPage: FC = () => {
 
   const columns = usePayoutTableColumns({ onDetailedClick });
 
+  const isMobile = !useMatchMedia("lg");
+
   const modalDate = selectedRow
     ? formatDateTime(
         selectedRow.payment_provider_date_created,
@@ -65,6 +80,55 @@ const PayoutPage: FC = () => {
           },
         }));
 
+  const mobileItems: ListItemProps[] = rows.map((row) => ({
+    id: `payout-${row.id}`,
+    title: formatDateTime(row.date, DATETIME_FORMATS.MEDIUM_DATE, {
+      locale: i18n.language,
+      timeZone: companyTimezone,
+    }),
+    description: getCurrencyDisplayWithPrice(row.amount),
+    customNode: (
+      <div className="flex flex-row gap-sm">
+        {row.reconciliationStatus === "partially_failed" && (
+          <Tooltip
+            label={t("table.couldNotBeReconciled")}
+            placement="bottom"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Chip
+              color="warning"
+              size="lg"
+              type="weak"
+              iconLeft="alert-triangle"
+            />
+          </Tooltip>
+        )}
+        <Chip
+          label={t(`status.${getStatusKey(row.status)}`)}
+          color={getStatusColor(row.status)}
+          size="lg"
+          type="weak"
+        />
+      </div>
+    ),
+    onClick: row.onRowClick,
+    isActive: (isDrawerOpen || isModalOpen) && selectedRow?.id === row.id,
+  }));
+
+  const emptyStateProps = {
+    isEmpty: !error && !isFetching && rows.length === 0,
+    emptyConfig: {
+      title: t("emptyTable.title"),
+      subtitle: t("emptyTable.description"),
+      className: "h-full justify-center",
+    },
+  };
+
+  const loadingProps = {
+    isLoading: isFetching && rows.length === 0,
+    message: t("loading"),
+  };
+
   return (
     <ListLayout className="w-full">
       <ListLayout.Header pageTitle={t("title")} />
@@ -74,23 +138,23 @@ const PayoutPage: FC = () => {
             {t("emptyTable.loadError")}
           </Alert>
         ) : null}
-        <PayoutTable
-          columns={columns}
-          rows={rows}
-          paginationProps={paginationProps}
-          emptyStateProps={{
-            isEmpty: !error && !isFetching && rows.length === 0,
-            emptyConfig: {
-              title: t("emptyTable.title"),
-              subtitle: t("emptyTable.description"),
-              className: "h-full justify-center",
-            },
-          }}
-          loadingProps={{
-            isLoading: isFetching && rows.length === 0,
-            message: t("loading"),
-          }}
-        />
+        {isMobile ? (
+          <List
+            id="payouts-mobile-list"
+            items={mobileItems}
+            paginationProps={paginationProps}
+            emptyStateProps={emptyStateProps}
+            loadingProps={loadingProps}
+          />
+        ) : (
+          <PayoutTable
+            columns={columns}
+            rows={rows}
+            paginationProps={paginationProps}
+            emptyStateProps={emptyStateProps}
+            loadingProps={loadingProps}
+          />
+        )}
       </ListLayout.Content>
 
       {selectedRow && (

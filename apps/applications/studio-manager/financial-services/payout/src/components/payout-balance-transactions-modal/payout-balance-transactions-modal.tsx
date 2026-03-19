@@ -15,6 +15,8 @@ import {
   type PaginationProps,
   Popover,
   Table,
+  cx,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import {
@@ -77,6 +79,8 @@ export const PayoutBalanceTransactionsModal: FC<
 
   const [btPage, setBtPage] = useState(1);
   const [btRowsPerPage, setBtRowsPerPage] = useState(DEFAULT_BT_PAGE_SIZE);
+
+  const isMobile = !useMatchMedia("lg");
 
   useEffect(() => {
     if (!isOpen) {
@@ -295,7 +299,29 @@ export const PayoutBalanceTransactionsModal: FC<
   if (!payout) {
     return null;
   }
+  /**
+   * TODO: Temporary sticky last-column style for mobile only.
+   * Remove when native support is added:
+   * https://linear.app/bsport/issue/KAI-550/table-sticky-column
+   */
+  const stickyLastColumnClasses = [
+    // Body rows: sticky last cell with default surface background
+    "[&_[data-component='Kaizen-Table-Row']_[data-component='Kaizen-Table-Cell']:last-child]:sticky",
+    "[&_[data-component='Kaizen-Table-Row']_[data-component='Kaizen-Table-Cell']:last-child]:-right-md",
+    "[&_[data-component='Kaizen-Table-Row']_[data-component='Kaizen-Table-Cell']:last-child]:bg-surface-default",
+    "[&_[data-component='Kaizen-Table-Row']_[data-component='Kaizen-Table-Cell']:last-child]:z-[2]",
+    // Header row: sticky last cell with weaker header background
+    "[&_[data-component='Kaizen-Table-Header']_[data-component='Kaizen-Table-Cell']:last-child]:sticky",
+    "[&_[data-component='Kaizen-Table-Header']_[data-component='Kaizen-Table-Cell']:last-child]:-right-md",
+    "[&_[data-component='Kaizen-Table-Header']_[data-component='Kaizen-Table-Cell']:last-child]:bg-surface-default-weaker",
+    "[&_[data-component='Kaizen-Table-Header']_[data-component='Kaizen-Table-Cell']:last-child]:z-[3]",
+  ];
 
+  /**
+   * TODO: The modal content has always padding (1rem)
+   * Remove this padding via a prop or make it generic for all modals on mobile:
+   * https://linear.app/bsport/issue/KAI-549/modal-option-to-have-no-padding
+   */
   return (
     <Modal
       open={isOpen}
@@ -312,6 +338,7 @@ export const PayoutBalanceTransactionsModal: FC<
         )}
 
         <Table
+          className={cx(isMobile && stickyLastColumnClasses)}
           columns={balanceTransactionColumns}
           rows={balanceTransactionRows}
           paginationProps={balanceTransactionsPaginationProps}

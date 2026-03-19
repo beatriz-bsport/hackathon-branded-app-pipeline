@@ -65,6 +65,9 @@ function CreateEmailCampaign() {
       isTextOnly: true,
       emailSubject: "",
       emailBody: "",
+      emailTemplateId: undefined,
+      emailTemplateDesign: undefined,
+      emailTemplateHtml: undefined,
     },
   });
 

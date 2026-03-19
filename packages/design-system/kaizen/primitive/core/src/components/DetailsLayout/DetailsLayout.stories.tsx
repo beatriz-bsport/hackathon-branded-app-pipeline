@@ -29,7 +29,7 @@ export const ParentPage = () => (
 const { detailsLayoutProps } = useDetailsLayout();
 
 return (
-  <DetailsLayout {...detailsLayoutProps} withPanel>
+  <DetailsLayout {...detailsLayoutProps} withPanel onPanelToggle={(value) => console.log("Toggle panel with value", value)}>
     <DetailsLayout.Header
       pageTitle="User Profile"
       onEditTitleClick={() => toggleEditTitleInModal()}
@@ -141,7 +141,11 @@ export const Primary: Story = {
     });
 
     return (
-      <DetailsLayout {...detailsLayoutProps} withPanel>
+      <DetailsLayout
+        {...detailsLayoutProps}
+        withPanel
+        onPanelToggle={(value) => console.log("Toggle panel with value", value)}
+      >
         <DetailsLayout.Header
           pageTitle="Title"
           breadcrumbsItems={[

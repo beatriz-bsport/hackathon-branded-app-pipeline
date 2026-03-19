@@ -15,7 +15,6 @@ export type Pass = {
   tax: string;
   credits: number | null;
   unlimited: boolean;
-  nb_consumer_payment_packs: number; // Will be -1 if count_consumer_payment_packs query param is set to False
   max_bookings_per_day: number | null;
   max_bookings_per_week: number | null;
   max_bookings_per_month: number | null;

@@ -692,7 +692,7 @@ export default function useConsumerBookingsDataManager({
             ...optionCallback,
             onSuccess: () => {
               if (selectedBookingForCancelation) {
-                analyticsClientB2C.track(
+                analyticsClientB2C.trackEvent(
                   trackBookingCancelledEvent({
                     activity_id: selectedBookingForCancelation.offer.activity,
                     activity_name: selectedBookingForCancelation.name,
@@ -716,7 +716,7 @@ export default function useConsumerBookingsDataManager({
             ...optionCallback,
             onSuccess: () => {
               if (selectedPrivateBookingForCancelation) {
-                analyticsClientB2C.track(
+                analyticsClientB2C.trackEvent(
                   trackBookingCancelledEvent({
                     activity_id: selectedPrivateBookingForCancelation.id,
                     activity_name: selectedPrivateBookingForCancelation.name,

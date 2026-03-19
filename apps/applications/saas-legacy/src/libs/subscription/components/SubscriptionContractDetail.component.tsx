@@ -77,7 +77,6 @@ const SubscriptionContractDetail = (props: Props) => {
             <Typography variant="h6">{t('contract.paymentPack')}</Typography>
             <PaymentPackListItem
               divider
-              hidePacksNumber
               isExcludingTax={props.isExcludingTax}
               // @ts-expect-error
               pack={payment_pack}

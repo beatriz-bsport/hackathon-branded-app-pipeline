@@ -52,6 +52,16 @@ analytics.configure({
 
 Define your event with Zod and the `generateEvent` helper.
 
+`generateEvent` never throws — it always returns an `EventResult` object.
+
+```ts
+export type EventResult<T> =
+  | { event: T; errors: null }
+  | { event: Partial<T> & Properties; errors: EventError };
+```
+
+On valid input, `errors` is `null` and `event` is the fully validated output. On invalid input, `errors` contains the `ZodError` and `event` is a best-effort fallback (schema defaults + raw input), with `validationFailed: true` added as a marker property.
+
 Rules:
 
 - In order to be detected by the extractor script, your application should contain a `#src/events/register.ts` file.
@@ -85,7 +95,7 @@ export const buttonClickedEvent = generateEvent(buttonClickedEventSchema);
 export { buttonClickedEventSchema } from "./list-events.ts";
 ```
 
-### Step 3 - Inject the event in the track method of your analytics client
+### Step 3 - Inject the event in the trackEvent method of your analytics client
 
 ```tsx
 import { buttonClickedEvent } from "#src/events/list-events.ts";
@@ -95,7 +105,7 @@ const MyButton = () => {
   const onClick = () => {
     // Do something
 
-    analytics.track(buttonClickedEvent({ kind: "Add Teacher" }));
+    analytics.trackEvent(buttonClickedEvent({ kind: "Add Teacher" }));
   };
   return <button onClick={onClick} />;
 };
@@ -113,6 +123,94 @@ analytics.identify({
 // On logout
 analytics.reset(); // or analytics.clearSuperProperties();
 ```
+
+## Safe event tracking
+
+### Step 1 — Define your event
+
+```ts
+// src/events/list-events.ts
+import { z } from "zod";
+
+import { generateEvent } from "@bsport/analytics";
+
+export const sessionListViewedEventSchema = z
+  .object({
+    eventType: z.string().default("session_list_viewed"),
+    calendar_view: z
+      .enum(["daily", "weekly"])
+      .describe("The calendar view mode displayed"),
+    displayed_columns: z
+      .array(z.string())
+      .describe("Columns visible in the session list"),
+  })
+  .describe("When the manager views the session list");
+
+export const sessionListViewedEvent = generateEvent(
+  sessionListViewedEventSchema,
+);
+```
+
+### Step 2 — Wire up error reporting at construction time
+
+`AnalyticsClient` accepts an optional `onValidationError` callback. This keeps the package agnostic — you inject whichever error reporter your app uses:
+
+```ts
+// src/utils/analytics.ts
+import {
+  AnalyticsClient,
+  type AnalyticsClientInterface,
+} from "@bsport/analytics";
+import { captureException } from "@bsport/sm-backbone";
+
+// your app's own dependency
+
+export const analyticsClient: AnalyticsClientInterface = new AnalyticsClient({
+  internalDebug: import.meta.env.DEV,
+  onValidationError: ({ zodError, eventType }) =>
+    captureException(zodError, { tags: { eventType } }),
+});
+```
+
+If your app has no error reporter, simply omit `onValidationError` — validation errors are silently ignored and the best-effort event is still tracked.
+
+### Step 3 — Track with `trackEvent`
+
+```ts
+import { sessionListViewedEvent } from "#src/events/list-events";
+import { analyticsClient } from "#src/utils/analytics";
+
+analyticsClient.trackEvent(
+  sessionListViewedEvent({
+    calendar_view: "daily",
+    displayed_columns: ["time", "teacher"],
+  }),
+);
+```
+
+`trackEvent` handles the full lifecycle:
+
+1. If the event is valid → tracks the event as-is
+2. If invalid → tracks the best-effort fallback (with `validationFailed: true`) **and** calls `onValidationError` if one was provided
+
+Tracked events still go through the regular `track` method, so any super properties added via
+`addSuperProperties` are merged into the final event before it is sent.
+
+### Dropping invalid events entirely
+
+By default, even invalid events are tracked (best-effort). If you want to suppress them and only report the error:
+
+```ts
+analyticsClient.trackEvent(
+  sessionListViewedEvent({
+    calendar_view: "daily",
+    displayed_columns: ["time"],
+  }),
+  true, // dropInvalidEvents — skips tracking, still calls onValidationError
+);
+```
+
+---
 
 ## Custom analytics tool
 
@@ -161,7 +259,7 @@ analytics.addSuperProperties({
 });
 
 // Use normally with the same API
-analytics.track(buttonClickedEvent({ kind: "Add Teacher" }));
+analytics.trackEvent(buttonClickedEvent({ kind: "Add Teacher" }));
 analytics.identify({ userId: "123", traits: { email: "user@example.com" } });
 ```
 

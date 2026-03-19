@@ -354,6 +354,9 @@ export type InvoiceV1Serializer<M = number> = Invoice<M> & {
   buyable_items: BuyableItemSerializer;
   has_pending_payment: boolean | null;
   reverse_invoices_payment_status: PaymentRefundStatus | null;
+  amount_received_cts: number;
+  pending_payments_amount_cts: number | null;
+  planned_payments_amount_cts: number | null;
   source: Source;
   memberArchived: boolean;
   staff_history: [];

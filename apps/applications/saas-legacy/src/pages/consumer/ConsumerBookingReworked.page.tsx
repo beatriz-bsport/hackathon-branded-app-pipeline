@@ -124,7 +124,7 @@ export class ConsumerBooking extends React.Component<Props, State> {
     this.fetchSoonestPrivateBookings();
     this.fetchSoonestWorkshopBookings();
     this.props.fetchCompanyWaitlistConfiguration(this.props.companyId);
-    analyticsClientB2C.track(
+    analyticsClientB2C.trackEvent(
       trackMemberProfileViewedEvent({ page_type: 'booking' }),
     );
   }

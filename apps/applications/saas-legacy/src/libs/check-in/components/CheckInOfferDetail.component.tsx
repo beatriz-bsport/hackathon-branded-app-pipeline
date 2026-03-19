@@ -243,7 +243,7 @@ const mapWithHandlers = {
       const barcode = data.codeResult.code;
       fetchMemberByBarcode(barcode, {
         onSuccess: (member) => {
-          analyticsClientB2B.track(
+          analyticsClientB2B.trackEvent(
             trackBarcodeScanSuccessEvent({
               member_id: member.id,
               barcode,

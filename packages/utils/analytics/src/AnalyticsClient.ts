@@ -4,9 +4,12 @@ import { AnalyticsMessageBus } from "./message-bus";
 import type {
   AnalyticsAdapter,
   AnalyticsClientInterface,
+  AnalyticsClientOptions,
   AnalyticsConfig,
   AnalyticsEvent,
   DualVoid,
+  EventError,
+  EventResult,
   MixpanelConfig,
   MixpanelOptInOptions,
   MixpanelOptOutOptions,
@@ -33,6 +36,8 @@ export class AnalyticsClient<
   private isTracking: boolean;
   /** Name of the Instance name provided to the apdater, to differentiate debugging */
   private instanceName: string | undefined;
+  /** Optional callback invoked when a safe event fails validation, e.g. to forward the ZodError to Sentry */
+  private onValidationError: ((error: EventError) => void) | undefined;
   /** Custom logger for the instance */
   debugLog: ReturnType<typeof agnosticDebugLog>;
 
@@ -40,15 +45,13 @@ export class AnalyticsClient<
     adapter,
     internalDebug = false,
     instanceName,
-  }: {
-    adapter?: AnalyticsAdapter<ExtraConfig, OptInOptions, OptOutOptions>;
-    internalDebug?: boolean;
-    instanceName?: string;
-  } = {}) {
+    onValidationError,
+  }: AnalyticsClientOptions<ExtraConfig, OptInOptions, OptOutOptions> = {}) {
     this.debug = internalDebug;
     this.isTracking = true; // Consider that the client is tracking by default
     this.superProperties = {};
     this.instanceName = instanceName;
+    this.onValidationError = onValidationError;
     this.debugLog = agnosticDebugLog(this.instanceName);
     this.analyticsAdapter =
       adapter ??
@@ -94,6 +97,35 @@ export class AnalyticsClient<
     }
 
     return this.analyticsAdapter.track(eventWithSuperProperties);
+  }
+
+  trackEvent<TOutput extends { eventType: string }>(
+    eventResult: EventResult<TOutput>,
+    dropInvalidEvents: boolean = false,
+  ) {
+    const { event, errors } = eventResult;
+
+    if (!errors) {
+      // No validation errors — track the event as-is
+      this.track(event);
+      return;
+    }
+
+    if (!dropInvalidEvents) {
+      // Validation errors present, but we still track the best-effort fallback.
+      this.track(event);
+    }
+
+    // Forward the ZodError to whichever reporter was injected at construction
+    // time (e.g. Sentry's captureException). No-op when none was provided
+    try {
+      this.onValidationError?.(errors);
+    } catch {
+      // Safe-event reporting must not crash the caller.
+      console.error(
+        "Couldn't perform validation error callback. Check your onValidationError function.",
+      );
+    }
   }
 
   identify(params: { userId?: string; traits?: Properties }) {

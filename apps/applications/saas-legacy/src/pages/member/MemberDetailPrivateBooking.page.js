@@ -242,6 +242,13 @@ export class MemberDetailPrivateBooking extends Component<Props> {
                     onDelete={() => this.props.setBookingToDelete(b)}
                     onRestore={() => this.props.restorePrivateBooking(b.id)}
                     onSetUnpaid={() => this.props.setBookingToSetUnpaid(b)}
+                    onSwapSuccess={(newPassId) => {
+                      this.props.fetchPrivateConsumerPass(newPassId);
+                      this.props.fetchPrivateBookingsList({
+                        page: this.props.privateBookingCurrentPage,
+                        page_size: PAGE_SIZE,
+                      });
+                    }}
                     private_booking={b}
                     selected={this.props.privateBookingId === b.id}
                     setPrivateBookingUnpaidLoading={
@@ -661,9 +668,23 @@ export default compose(
         });
       },
     fetchPrivateBookingsList:
-      ({ id, filters, fetchPrivateBookings }) =>
+      ({ id, filters, fetchPrivateBookings, fetchPrivateConsumerPassBulk }) =>
       ({ page, page_size }) => {
-        fetchPrivateBookings({ ...filters, member: id, page, page_size });
+        fetchPrivateBookings(
+          { ...filters, member: id, page, page_size },
+          {
+            onSuccess: (bookings) => {
+              const passIds = bookings
+                .map(
+                  (b) => b.private_consumer_pass?.id ?? b.private_consumer_pass,
+                )
+                .filter(Boolean);
+              if (passIds.length) {
+                fetchPrivateConsumerPassBulk(passIds);
+              }
+            },
+          },
+        );
       },
   }),
 )(MemberDetailPrivateBooking);

@@ -354,18 +354,6 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
     amountToPayCts = 0;
   }
 
-  const amoutBeingProcessedCts = props.plannedPaymentEventList
-    .filter(
-      (ppe) =>
-        ppe.processing &&
-        ppe.status === PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
-    )
-    .reduce(
-      (partialSum, currentPlannedPaymentEvent) =>
-        partialSum + parseInt(currentPlannedPaymentEvent.amount_cts, 10),
-      0,
-    );
-
   // partial refund invoices have no source_invoice
   const is_reverse =
     props.invoice.source_invoice ||
@@ -515,23 +503,45 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
               </Typography>
             </div>
             <div className={classes.textRow}>
-              <Typography>{t('paymentPanel.sumup.amountPaid')}</Typography>
+              <Typography>{t('paymentPanel.sumup.amountReceived')}</Typography>
               <div className={classes.line} />
               <Typography>
                 {getCurrencyDisplayWithPrice(
-                  Math.max(props.invoice.amount_paid_cts / 100, 0).toFixed(2),
+                  Math.max(props.invoice.amount_received_cts / 100, 0).toFixed(
+                    2,
+                  ),
                 )}
               </Typography>
             </div>
-            {!!amoutBeingProcessedCts && (
+
+            {!!props.invoice.pending_payments_amount_cts && (
               <div className={classes.textRow}>
                 <Typography>
-                  {t('paymentPanel.sumup.amountBeingProcessed')}
+                  {t('paymentPanel.sumup.pendingPaymentsAmount')}
                 </Typography>
                 <div className={classes.line} />
                 <Typography>
                   {getCurrencyDisplayWithPrice(
-                    Math.max(amoutBeingProcessedCts / 100, 0).toFixed(2),
+                    Math.max(
+                      props.invoice.pending_payments_amount_cts / 100,
+                      0,
+                    ).toFixed(2),
+                  )}
+                </Typography>
+              </div>
+            )}
+            {!!props.invoice.planned_payments_amount_cts && (
+              <div className={classes.textRow}>
+                <Typography>
+                  {t('paymentPanel.sumup.plannedPaymentsAmount')}
+                </Typography>
+                <div className={classes.line} />
+                <Typography>
+                  {getCurrencyDisplayWithPrice(
+                    Math.max(
+                      props.invoice.planned_payments_amount_cts / 100,
+                      0,
+                    ).toFixed(2),
                   )}
                 </Typography>
               </div>

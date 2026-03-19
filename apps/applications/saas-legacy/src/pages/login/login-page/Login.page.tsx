@@ -84,7 +84,7 @@ type Props = OwnProps &
 
 export class ConsumerLoginPage extends Component<Props> {
   componentDidMount() {
-    analyticsClientB2C.track(trackLoginViewedEvent({}));
+    analyticsClientB2C.trackEvent(trackLoginViewedEvent({}));
     if (this.props.membership) {
       if (this.props.theme?.id) {
         analyticsUtils.onShowSignin();
@@ -233,7 +233,7 @@ function mapDispatchToProps(dispatch: Dispatch, props: OwnProps) {
       is_manager: boolean;
     }) => {
       if (!is_manager && !is_franchisor) {
-        analyticsClientB2C.track(trackLoginEvent({}));
+        analyticsClientB2C.trackEvent(trackLoginEvent({}));
       }
     },
     goNext: ({ is_franchisor }: { is_franchisor: boolean }) => {

@@ -49,7 +49,6 @@ type OwnProps = {
   // Use this prop to disable all shared pass' specific behaviors.
   asStandardPass?: boolean;
   onDelete?: () => void;
-  hidePacksNumber?: boolean;
   selected?: boolean;
   showDuration?: boolean;
   onBook?: () => void;
@@ -140,17 +139,6 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
             primary={
               <span>
                 <Typography component="span">{this.props.pack.name}</Typography>
-                {this.props.hidePacksNumber ||
-                this.props.pack.nb_consumer_payment_packs === undefined ||
-                this.props.pack.nb_consumer_payment_packs === -1 ? null : (
-                  <Typography
-                    color="primary"
-                    component="span"
-                    variant="caption"
-                  >
-                    {` (${this.props.pack.nb_consumer_payment_packs})`}
-                  </Typography>
-                )}
               </span>
             }
             secondary={`${

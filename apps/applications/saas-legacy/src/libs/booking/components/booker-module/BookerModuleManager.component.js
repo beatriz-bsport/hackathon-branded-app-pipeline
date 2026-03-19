@@ -423,7 +423,6 @@ export class BookerModuleManager extends PureComponent<Props, State> {
               )}
               {!!this.props.registererObject.paymentPack && (
                 <PaymentPackListItem
-                  hidePacksNumber
                   showDuration
                   pack={this.props.registererObject.paymentPack}
                 />

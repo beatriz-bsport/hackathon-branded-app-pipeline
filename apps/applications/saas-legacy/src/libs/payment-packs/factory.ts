@@ -76,7 +76,6 @@ export const paymentPackFactory = (options?: PaymentPackFactoryOptions) => {
     tax: faker.number.int(20),
     credits: getCredits(),
     unlimited: options?.isUnlimited ?? faker.datatype.boolean(),
-    nb_consumer_payment_packs: faker.number.int(5),
     max_bookings_per_day: faker.helpers.arrayElement([
       null,
       faker.number.int({ min: 1, max: 3 }),

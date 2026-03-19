@@ -256,6 +256,7 @@
   "eventTypeHelperText": {
     "200": "You can customize the number of days considered when sending this notification in the Payment methods section",
     "201": "You can customize the number of days considered when sending this notification in the Payment methods section",
+    "309": "This email is sent to members to confirm their consent to receive marketing emails (double opt-in). To use this feature, enable double opt-in for marketing emails in Settings > Personalization > Marketing.",
     "1200": "You can customize the number of days considered when sending this notification in the Payment methods section",
     "1201": "You can customize the number of days considered when sending this notification in the Payment methods section"
   },
@@ -298,6 +299,7 @@
     "304": "Digital gift card activation",
     "305": "Change of member email from the backoffice",
     "308": "Physical gift card activation",
+    "309": "Member double opt-in confirmation",
     "400": "The appointment was cancelled too late (for teachers)",
     "401": "The appointment was cancelled and has been refunded (for teachers)",
     "402": "New appointment (for teachers)",

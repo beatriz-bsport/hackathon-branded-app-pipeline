@@ -101,6 +101,7 @@ export const useNavigationElements = ({
   const isPayoutsEnabled = useNavFlag(NavFlags.PAYOUTS_PAGE);
   const isCalendarRevampEnabled = useNavFlag(NavFlags.CALENDAR_REVAMP);
   const isPacksRevampEnabled = useNavFlag(NavFlags.PACKS_REVAMP);
+  const isGiftcardsRevampEnabled = useNavFlag(NavFlags.GIFTCARDS_REVAMP);
   const isBillingFlowNewModalEnabled = useNavFlag(
     NavFlags.FS_BILLING_FLOW_NEW_MODAL,
   );
@@ -254,7 +255,10 @@ export const useNavigationElements = ({
             {
               id: "gift-cards",
               label: t("menus.products.giftcards"),
-              ...navigationUrls.giftcard,
+              ...flaggedNavigationUrl({
+                enabled: isGiftcardsRevampEnabled,
+                navigationItem: navigationUrls.giftcard,
+              }),
             },
             {
               id: "videos",
@@ -572,6 +576,7 @@ export const useNavigationElements = ({
     isHomepageEnabled,
     isCalendarRevampEnabled,
     isPacksRevampEnabled,
+    isGiftcardsRevampEnabled,
     isBillingFlowNewModalEnabled,
     isPayoutsEnabled,
     isNewWebshopEnabled,

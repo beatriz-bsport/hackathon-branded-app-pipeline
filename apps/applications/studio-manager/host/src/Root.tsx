@@ -211,6 +211,7 @@ const AuthenticatedRoutes = () => {
 
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
   const isPacksPageEnabled = useNavFlag(NavFlags.PACKS);
+  const isGiftcardsPageEnabled = useNavFlag(NavFlags.GIFTCARDS);
 
   /**
    * Add configs to the Host Router.
@@ -223,7 +224,11 @@ const AuthenticatedRoutes = () => {
     { url: urls.calendar, element: <Session /> },
 
     /* ----- Buyables ----- */
-    { url: urls.giftcard, element: <Giftcard /> },
+    {
+      url: urls.giftcard,
+      element: <Giftcard />,
+      hidden: !isGiftcardsPageEnabled,
+    },
     { url: urls.order, element: <Order /> },
     { url: urls.pack, element: <Pack />, hidden: !isPacksPageEnabled },
 

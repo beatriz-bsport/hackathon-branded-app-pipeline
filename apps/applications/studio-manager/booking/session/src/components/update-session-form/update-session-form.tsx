@@ -112,10 +112,6 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
               fieldIdPrefix={formId}
               metaActivity={session.metaActivity}
             />
-            <SettingsSection
-              metaActivity={session.metaActivity}
-              fieldIdPrefix={formId}
-            />
             <TimeAndDateSection fieldIdPrefix={formId} isEditMode />
           </DetailsLayout.Content>
           <DetailsLayout.Panel>

@@ -74,7 +74,7 @@ const PayoutListLegacy: React.FC<Props> = ({
             isOpen={po.stripe_id === openedPayoutId}
             openInvoice={openInvoice}
             stripePayout={po}
-            tooglePayoutOpen={togglePayoutOpen}
+            togglePayoutOpen={togglePayoutOpen}
           />
         ))}
       </Paper>

@@ -44,8 +44,8 @@ type Props = {
   isOpen: boolean;
   payout: Payout;
   timezoneName?: string;
-  tooglePayoutOpen: (id: number) => void;
-  balanceTransactions: BalanceTransaction[];
+  togglePayoutOpen: (id: number) => void;
+  balanceTransactions: BalanceTransaction[] | null;
   balanceTransactionLoading: boolean;
   balanceTransactionLoadingMore: boolean;
   balanceTransactionNextPage: number | null;
@@ -62,7 +62,7 @@ const PayoutListItem: React.FC<Props> = ({
   isMobile,
   isOpen,
   timezoneName,
-  tooglePayoutOpen,
+  togglePayoutOpen,
   balanceTransactions,
   balanceTransactionLoading,
   balanceTransactionLoadingMore,
@@ -73,11 +73,7 @@ const PayoutListItem: React.FC<Props> = ({
   const { t } = useTranslation('payment');
   const classes = useStyles({ payout });
   React.useEffect(() => {
-    if (
-      isOpen &&
-      balanceTransactions.length === 0 &&
-      !balanceTransactionLoading
-    ) {
+    if (isOpen && !balanceTransactions && !balanceTransactionLoading) {
       fetchPayoutBalanceTransactionsAction({
         payoutId: payout.id,
         page: 1,
@@ -87,7 +83,7 @@ const PayoutListItem: React.FC<Props> = ({
   }, [
     isOpen,
     payout.id,
-    balanceTransactions.length,
+    balanceTransactions,
     balanceTransactionLoading,
     fetchPayoutBalanceTransactionsAction,
   ]);
@@ -108,8 +104,8 @@ const PayoutListItem: React.FC<Props> = ({
   ]);
 
   const handleToggle = React.useCallback(
-    () => tooglePayoutOpen(payout.id),
-    [payout.id, tooglePayoutOpen],
+    () => togglePayoutOpen(payout.id),
+    [payout.id, togglePayoutOpen],
   );
 
   const dateFormatted = formatAsDate(
@@ -145,52 +141,54 @@ const PayoutListItem: React.FC<Props> = ({
       {balanceTransactionError && (
         <Alert severity="error">{balanceTransactionError}</Alert>
       )}
-      {!balanceTransactionLoading && balanceTransactions.length > 0 && (
-        <>
-          {isMobile ? (
-            <div className={classes.mobileTransactionList}>
-              {balanceTransactions.map((balanceTransaction) => (
-                <BalanceTransactionRow
-                  key={balanceTransaction.id}
-                  isMobile
-                  balanceTransaction={balanceTransaction}
-                />
-              ))}
-            </div>
-          ) : (
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>
-                    {t('payout.balanceTransactionTable.type')}
-                  </TableCell>
-                  <TableCell>
-                    {t('payout.balanceTransactionTable.paymentMethod')}
-                  </TableCell>
-                  <TableCell>
-                    {t('payout.balanceTransactionTable.status')}
-                  </TableCell>
-                  <TableCell>
-                    {t('payout.balanceTransactionTable.amount')}
-                  </TableCell>
-                  <TableCell>
-                    {t('payout.balanceTransactionTable.invoices')}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+      {!balanceTransactionLoading &&
+        balanceTransactions &&
+        balanceTransactions.length > 0 && (
+          <>
+            {isMobile ? (
+              <div className={classes.mobileTransactionList}>
                 {balanceTransactions.map((balanceTransaction) => (
                   <BalanceTransactionRow
                     key={balanceTransaction.id}
+                    isMobile
                     balanceTransaction={balanceTransaction}
-                    isMobile={false}
                   />
                 ))}
-              </TableBody>
-            </Table>
-          )}
-        </>
-      )}
+              </div>
+            ) : (
+              <Table size="small">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      {t('payout.balanceTransactionTable.type')}
+                    </TableCell>
+                    <TableCell>
+                      {t('payout.balanceTransactionTable.paymentMethod')}
+                    </TableCell>
+                    <TableCell>
+                      {t('payout.balanceTransactionTable.status')}
+                    </TableCell>
+                    <TableCell>
+                      {t('payout.balanceTransactionTable.amount')}
+                    </TableCell>
+                    <TableCell>
+                      {t('payout.balanceTransactionTable.invoices')}
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {balanceTransactions.map((balanceTransaction) => (
+                    <BalanceTransactionRow
+                      key={balanceTransaction.id}
+                      balanceTransaction={balanceTransaction}
+                      isMobile={false}
+                    />
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </>
+        )}
       {!balanceTransactionLoading && balanceTransactionNextPage != null && (
         <div className={classes.loadingRow}>
           {balanceTransactionLoadingMore ? (

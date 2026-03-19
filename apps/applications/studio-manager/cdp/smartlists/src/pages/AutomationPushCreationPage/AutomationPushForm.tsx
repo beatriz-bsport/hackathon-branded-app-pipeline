@@ -7,13 +7,16 @@ import {
 } from "@bsport/form";
 import {
   Alert,
+  Body,
   Select,
   type SelectProps,
   TextArea,
   TextField,
   Title,
 } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { PushNotificationPreview } from "#src/components/BusinessComponents/PushNotificationPreview";
 import { ToggleButtonGroup } from "#src/components/ToggleButtonGroup/ToggleButtonGroup";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -45,6 +48,10 @@ export const AutomationPushForm: React.FC<AutomationPushFormProps> = ({
   ...methods
 }: AutomationPushFormProps) => {
   const { t } = useTranslation("details");
+
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const watchedTitle = methods.watch("title");
+  const watchedMessage = methods.watch("message");
 
   const formIdPrefix = useId();
   const ids = {
@@ -135,7 +142,7 @@ export const AutomationPushForm: React.FC<AutomationPushFormProps> = ({
   ];
 
   return (
-    <div className="flex flex-col gap-md p-0 md:p-md max-w-[720px]">
+    <div className="flex flex-col gap-md p-0 md:p-md">
       <Alert status="default" type="weak">
         {t("automation.push.alert.onlyAppMembers")}
       </Alert>
@@ -213,54 +220,72 @@ export const AutomationPushForm: React.FC<AutomationPushFormProps> = ({
             {t("automation.push.sections.message")}
           </Title>
 
-          <div className="flex flex-col gap-xs">
-            <FormField<PushAutomationFormData, "title">
-              name="title"
-              mapProps={({ defaultProps, form, field }) => ({
-                ...defaultProps,
-                onClear: () => {
-                  form.setValue("title", "", { shouldDirty: true });
-                  field.onBlur();
-                },
-              })}
-            >
-              <TextField
-                id={ids.fields.title}
-                label={t("automation.push.form.title.label")}
-                placeholder={t("automation.push.form.title.placeholder")}
-                required
-                fullWidth
-                maxLength={PUSH_AUTOMATION_MAX_TITLE_LENGTH}
-                onFocus={() => {
-                  currentInputRef.current = "title";
-                }}
-              />
-            </FormField>
-          </div>
-
-          <div className="flex flex-col gap-xs">
-            <FormField<PushAutomationFormData, "message"> name="message">
-              <TextArea
-                id={ids.fields.message}
-                label={t("automation.push.form.message.label")}
-                placeholder={t("automation.push.form.message.placeholder")}
-                required
-                maxLength={PUSH_AUTOMATION_MAX_MESSAGE_LENGTH}
-                onFocus={() => {
-                  currentInputRef.current = "message";
-                }}
-              />
-            </FormField>
-            <div className="w-full">
-              <div className="w-[320px] flex place-self-end">
-                <CommunicationVariableSelector
-                  fullWidth
-                  id={`${formIdPrefix}-communication-variable-selector`}
-                  onSelectCommunicationVariable={
-                    handleCommunicationVariableSelect
-                  }
-                />
+          <div className="flex flex-row gap-lg">
+            <div className="flex flex-1 flex-col gap-sm">
+              <div className="flex flex-col gap-xs">
+                <FormField<PushAutomationFormData, "title">
+                  name="title"
+                  mapProps={({ defaultProps, form, field }) => ({
+                    ...defaultProps,
+                    onClear: () => {
+                      form.setValue("title", "", { shouldDirty: true });
+                      field.onBlur();
+                    },
+                  })}
+                >
+                  <TextField
+                    id={ids.fields.title}
+                    label={t("automation.push.form.title.label")}
+                    placeholder={t("automation.push.form.title.placeholder")}
+                    required
+                    fullWidth
+                    maxLength={PUSH_AUTOMATION_MAX_TITLE_LENGTH}
+                    onFocus={() => {
+                      currentInputRef.current = "title";
+                    }}
+                  />
+                </FormField>
               </div>
+
+              <div className="flex flex-col gap-xs">
+                <FormField<PushAutomationFormData, "message"> name="message">
+                  <TextArea
+                    id={ids.fields.message}
+                    label={t("automation.push.form.message.label")}
+                    placeholder={t("automation.push.form.message.placeholder")}
+                    required
+                    maxLength={PUSH_AUTOMATION_MAX_MESSAGE_LENGTH}
+                    onFocus={() => {
+                      currentInputRef.current = "message";
+                    }}
+                  />
+                </FormField>
+                <div className="w-full">
+                  <div className="w-80 flex place-self-end">
+                    <CommunicationVariableSelector
+                      fullWidth
+                      id={`${formIdPrefix}-communication-variable-selector`}
+                      onSelectCommunicationVariable={
+                        handleCommunicationVariableSelect
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-1 max-w-sm flex-col gap-2xs">
+              <div className="flex items-center justify-center">
+                <Body htmlVariant="p" weight="stronger" size="md">
+                  {t("automation.push.sections.preview")}
+                </Body>
+              </div>
+              <PushNotificationPreview
+                sender={companyTheme?.company_name ?? ""}
+                title={watchedTitle}
+                content={watchedMessage}
+                noContentMessage={t("automation.push.preview.noContentMessage")}
+              />
             </div>
           </div>
         </div>

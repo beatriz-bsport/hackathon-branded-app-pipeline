@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import {
   Autocomplete,
@@ -71,6 +71,18 @@ export type BackendSelectorProps<TParams, TResult> = {
   onClear?: () => void;
 
   /**
+   * Controlled mode: current search input value.
+   * When provided together with onSearchInputChange, the input is controlled (parent owns the value).
+   */
+  searchInput?: string;
+
+  /**
+   * Controlled mode: called when the user changes the search input.
+   * Provide with searchInput to own the value (e.g. for React Query key).
+   */
+  onSearchInputChange?: (value: string) => void;
+
+  /**
    * Boolean to be able to transform the backend selector from a single item selecotr into a multi selector
    */
   multiSelect?: boolean;
@@ -107,10 +119,31 @@ export const BackendSelector = <
   defaultValues,
   className,
   onClear,
+  searchInput: controlledSearchInput,
+  onSearchInputChange,
   multiSelect = false,
 }: BackendSelectorProps<TParams, TResult>) => {
   const { t } = useTranslation("form");
-  const [searchInput, setSearchInput] = useState("");
+
+  const isControlled =
+    controlledSearchInput !== undefined && onSearchInputChange !== undefined;
+  const [internalSearchInput, setInternalSearchInput] = useState("");
+
+  const searchInputValue = isControlled
+    ? (controlledSearchInput ?? "")
+    : internalSearchInput;
+
+  const setSearchInputValue = useCallback(
+    (value: string) => {
+      if (isControlled) {
+        onSearchInputChange?.(value);
+      } else {
+        setInternalSearchInput(value);
+      }
+    },
+    [isControlled, onSearchInputChange],
+  );
+
   const [cachedSelectedItems, setCachedSelectedItems] =
     useState<AutocompleteItems>([]);
 
@@ -123,7 +156,7 @@ export const BackendSelector = <
     TParams,
     TResult
   >({
-    searchInput,
+    searchInput: searchInputValue,
     storeConfig: {
       ...storeConfig,
       initialValue: defaultValues?.join(",") || "",
@@ -315,10 +348,10 @@ export const BackendSelector = <
       message: loadingMessage || t("backendSelector.searching"),
     },
     onValueChange: (event: string) => {
-      setSearchInput(event);
+      setSearchInputValue(event);
     },
     onClear: () => {
-      setSearchInput("");
+      setSearchInputValue("");
       onClear?.();
       setCachedSelectedItems([]);
     },

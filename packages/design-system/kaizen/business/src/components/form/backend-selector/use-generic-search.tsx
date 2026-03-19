@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { Result } from "typescript-result";
+import { Result } from "typescript-result";
 
 import { useAsync } from "@bsport/use-async";
 
@@ -17,11 +17,11 @@ export type FilterFunction<TResult> = (
 export type StoreSearchConfig<TParams, TResult> = {
   initialValue?: string;
   /**
-   * Optional search function to trigger API calls (e.g., for fetching fresh data)
+   * To use if you still rely on zustand + fetch setup. Optional search function to trigger API calls (e.g., for fetching fresh data)
    * @param query - The search query string
    * @param params - Additional parameters for the search
    */
-  searchFn: (
+  searchFn?: (
     query: string,
     params?: Partial<{ id__in?: string }> & TParams,
   ) => Promise<Result<unknown, unknown>>;
@@ -36,6 +36,11 @@ export type StoreSearchConfig<TParams, TResult> = {
    * If not provided, all store data will be returned
    */
   filterFn?: FilterFunction<TResult>;
+
+  /**
+   * Optional. When provided (e.g. in controlled mode with React Query), used instead of internal loading.
+   */
+  isLoading?: boolean;
 };
 
 /**
@@ -76,16 +81,25 @@ export const useGenericSearch = <
 ) => {
   const { searchInput = "", storeConfig } = config;
 
-  const { searchFn, filterFn, data, initialValue } = storeConfig;
+  const {
+    searchFn,
+    filterFn,
+    data,
+    initialValue,
+    isLoading: externalLoading,
+  } = storeConfig;
   const [isAutocompleteReady, setIsAutocompleteReady] =
     useState<boolean>(!!initialValue);
+  const searchFunction = searchFn ?? (async () => Result.ok({ results: [] }));
 
-  const [{ isLoading }, fetchItems] = useAsync<typeof searchFn>({
-    asyncFn: searchFn,
+  const [{ isLoading: asyncLoading }, fetchItems] = useAsync<
+    typeof searchFunction
+  >({
+    asyncFn: searchFunction,
   });
 
-  const [, hydrateItems] = useAsync<typeof searchFn>({
-    asyncFn: searchFn,
+  const [, hydrateItems] = useAsync<typeof searchFunction>({
+    asyncFn: searchFunction,
     onSuccess: () => {
       setIsAutocompleteReady(false);
     },
@@ -116,6 +130,9 @@ export const useGenericSearch = <
 
   const isEmptySearch = filteredData.length === 0;
 
+  const isLoading =
+    externalLoading !== undefined ? externalLoading : asyncLoading;
+
   // Handle search input changes
   useEffect(() => {
     if (searchInput) {
@@ -124,7 +141,7 @@ export const useGenericSearch = <
     }
   }, [searchInput, performSearch]);
 
-  // Handle initial data loading
+  // Handle initial data loading (run once on mount; store mode does not depend on searchInput for initial load)
   useEffect(() => {
     if (initialValue) {
       hydrateItems("", {
@@ -133,6 +150,7 @@ export const useGenericSearch = <
     } else {
       fetchItems("");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentional: run once on mount
   }, []);
 
   return {

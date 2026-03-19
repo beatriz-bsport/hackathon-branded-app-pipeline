@@ -1,6 +1,10 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import {
+  fetchEmailTemplateCategories,
+  searchEmailTemplate,
+} from "@bsport/api-cdp";
+import {
   type PaginatedResponse,
   buildUrlParams,
   createErrorWithContext,
@@ -42,6 +46,9 @@ const POPUPS_API_URL =
   "member-experience/v1/mobile_app/manager/custom_popup_links";
 const EMAIL_TEMPLATE_API_V1 = "customer-data-platform/v1/email_design";
 const PLATFORM_BILLING_API_V1 = "financial-services/v1/platform_billing";
+
+const EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE = 1;
+const EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE = 20;
 
 /**
  * Query Key Factory
@@ -129,6 +136,24 @@ export const smartlistKeys = {
 
   emailTemplateDetail: (emailTemplateId: number) =>
     [...smartlistKeys.all, "email-template", emailTemplateId] as const,
+
+  emailTemplateSearch: (
+    query: string,
+    id__in?: string,
+    page?: number,
+    page_size?: number,
+  ) =>
+    [
+      ...smartlistKeys.all,
+      "email-template-search",
+      query,
+      id__in ?? "",
+      page ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE,
+      page_size ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE,
+    ] as const,
+
+  emailTemplateCategories: () =>
+    [...smartlistKeys.all, "email-template-categories"] as const,
 
   /**
    * Key for communication preview count (recipients estimate).
@@ -679,6 +704,42 @@ export const emailTemplateDetailQueryOptions = (emailTemplateId: number) => {
   return queryOptions({
     queryKey: smartlistKeys.emailTemplateDetail(emailTemplateId),
     queryFn: () => fetchEmailTemplateDetail(emailTemplateId),
+  });
+};
+
+export const emailTemplateCategoriesQueryOptions = () =>
+  queryOptions({
+    queryKey: smartlistKeys.emailTemplateCategories(),
+    queryFn: () =>
+      fetchEmailTemplateCategories({
+        fetch,
+        params: { page: 1, page_size: 100 },
+      }),
+  });
+
+export const emailTemplateSearchQueryOptions = (params: {
+  searchInput: string;
+  id__in?: string;
+  page?: number;
+  page_size?: number;
+}) => {
+  const currentPage = params.page ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE;
+  const currentPageSize =
+    params.page_size ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE;
+  return queryOptions({
+    queryKey: smartlistKeys.emailTemplateSearch(
+      params.searchInput,
+      params.id__in,
+      currentPage,
+      currentPageSize,
+    ),
+    queryFn: () =>
+      searchEmailTemplate(fetch, {
+        q: params.searchInput,
+        id__in: params.id__in,
+        page: currentPage,
+        page_size: currentPageSize,
+      }),
   });
 };
 

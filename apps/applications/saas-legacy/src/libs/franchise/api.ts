@@ -30,6 +30,7 @@ import SharedDataCache from '#src/services/SharedDataCache';
 import { CacheKeys } from '#src/services/constants';
 
 const API_V1_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V1;
+const API_V1_URI_CDP = Config.REACT_APP_BASE_URI_CDP_V1;
 const API_V1_URI_BUYABLE = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 const API_V0_URI_CDP = Config.REACT_APP_BASE_URI_CDP_V0;
 
@@ -62,12 +63,12 @@ export const fetchFranchiseUsers = async (params: {
   email_confirmed?: boolean;
 }) => {
   return getAuth<PaginatedResponse<FranchiseUser>>(
-    `${API_V1_URI_CORE}/user/${buildUrlParams(params)}`,
+    `${API_V1_URI_CDP}/user/${buildUrlParams(params)}`,
   );
 };
 
 export const fetchFranchiseUser = async (userId: number) => {
-  return getAuth<FranchiseUser>(`${API_V1_URI_CORE}/user/${userId}`);
+  return getAuth<FranchiseUser>(`${API_V1_URI_CDP}/user/${userId}`);
 };
 
 export const updateFranchiseTheme = async (
@@ -108,7 +109,7 @@ export const createOrUpdateCompanyGroup = (
 };
 
 export const searchFranchiseUsers = async (payload: SearchUsersPayload) => {
-  return postAuth<FranchiseUser[]>(`${API_V1_URI_CORE}/user/search/`, payload);
+  return postAuth<FranchiseUser[]>(`${API_V1_URI_CDP}/user/search/`, payload);
 };
 
 export const fetchFranchiseUserPasses = (
@@ -124,7 +125,7 @@ export const fetchFranchiseUserPasses = (
 
 export const fetchFranchiseUserInfo = (user_id: number) => {
   return getAuth<FranchiseUser>(
-    `${API_V1_URI_CORE}/franchise_user_profile/${user_id}/`,
+    `${API_V1_URI_CDP}/franchise_user_profile/${user_id}/`,
   );
 };
 
@@ -133,7 +134,7 @@ export const fetchFranchiseUserMembers = (
   paginated_params: PaginationFilterParams,
 ) => {
   return getAuth<PaginatedResponse<FranchiseUserMember>>(
-    `${API_V1_URI_CORE}/franchise_user_profile/${user_id}/get_user_members_in_franchise/${buildUrlParams(
+    `${API_V1_URI_CDP}/franchise_user_profile/${user_id}/get_user_members_in_franchise/${buildUrlParams(
       paginated_params,
     )}`,
   );

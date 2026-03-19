@@ -23,6 +23,7 @@ import {
 
 import { compose } from 'recompose';
 import { REVAMPED_CALENDAR_URL } from '#src/revamp';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 const getDateDictionnary = (offer) => {
   const date = offer
@@ -47,6 +48,8 @@ type Props = {
 };
 
 export const OfferNavigationHeader = (props: Props) => {
+  const isCalendarRevampEnabled = useSafeFlag(FeatureFlags.CALENDAR_REVAMP);
+
   const goToOfferTrackingParams = {
     session_type: props.offerMetaActivity?.is_workshop
       ? 'workshop'
@@ -85,7 +88,7 @@ export const OfferNavigationHeader = (props: Props) => {
   };
 
   const navigateToCalendar = () => {
-    if (props.revampedBackofficeEnabled) {
+    if (props.revampedBackofficeEnabled && isCalendarRevampEnabled) {
       // No better way to navigate to the revamp for now
       window.location.assign(REVAMPED_CALENDAR_URL);
       return;

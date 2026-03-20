@@ -28,7 +28,8 @@
     "state": "État",
     "country": "Pays",
     "contentIban": "En donnant votre IBAN et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Un remboursement doit être demandé dans les 8 semaines après le premier débit.",
-    "contentBacsDebit": "En donnant vos informations bancaires et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Vous pouvez à n'importe quel moment faire la demande auprès de votre banque pour annuler le mandat Direct Debit."
+    "contentBacsDebit": "En donnant vos informations bancaires et en confirmant votre paiement, vous autorisez bsport et Stripe, notre système de paiement, à envoyer les instructions de débit à votre banque en accord avec l'échéancier de paiement. Vous pouvez demander un remboursement à votre banque selon les termes de votre contrat avec cette dernière. Vous pouvez à n'importe quel moment faire la demande auprès de votre banque pour annuler le mandat Direct Debit.",
+    "content": "En effectuant ce paiement et en utilisant votre IBAN, vous autorisez BSPORT Solution et Stripe (notre prestataire de services de paiement) à vous facturer tous les paiements. Vous pouvez demander un remboursement auprès de votre banque ; cette demande doit être effectuée dans un délai de 8 semaines à compter du premier paiement."
   },
   "invoice": {
     "title": "Facture {{ uuid }}",
@@ -100,7 +101,9 @@
       "15": "Carte (manuel)",
       "16": "Bacs Direct Debit",
       "17": "PayPal",
-      "disputeWon": "Résolu"
+      "disputeWon": "Résolu",
+      "20": "Google Pay",
+      "19": "Apple Pay"
     },
     "detach": {
       "pm_deleted": "Moyen de paiement supprimé",
@@ -122,7 +125,8 @@
       "enable": "Reprogrammer",
       "edit": "Modifier",
       "changeMethod": "Modifier la méthode de paiement",
-      "solveInvalidPaymentAttempt": "Régulariser"
+      "solveInvalidPaymentAttempt": "Régulariser",
+      "delete": "Annuler"
     },
     "nextRetryDate": "Le paiement sera retenté le {{ d }}",
     "lockedToday": "Le paiement est prévu aujourd'hui, vous ne pouvez plus le modifier",
@@ -157,7 +161,10 @@
       "amountDue": "Total dû",
       "amountPaid": "Encaissement",
       "amountRemaining": "Reste à payer",
-      "amountBeingProcessed": "Montant en cours de traitement"
+      "amountBeingProcessed": "Montant en cours de traitement",
+      "plannedPaymentsAmount": "Paiements planifiés",
+      "pendingPaymentsAmount": "Paiements en cours",
+      "amountReceived": "Paiements reçus"
     },
     "actions": {
       "bill": "Encaisser",
@@ -607,7 +614,7 @@
         "931100": "Erreur lors de la mise à jour des clefs d'authentifications",
         "931101": "Quickbooks ne parvient pas à nous transmettre vos données",
         "932000": "Votre compte n'est plus authentifié sur Bsport",
-        "932001": "Votre compte n'est plus authentifié sur Bsport",
+        "932001": "Votre compte n'est plus authentifié sur bsport",
         "932100": "Impossible d'accéder aux informations de votre compte Quickbooks",
         "933000": "Le membre associé à la facture ne possède pas les informations nécessaires pour être enregistrer sur QuickBooks",
         "933100": "Impossible de créer le client associé au membre de la facture",

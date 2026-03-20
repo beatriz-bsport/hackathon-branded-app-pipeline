@@ -1,16 +1,44 @@
-import { lazy } from "react";
-import { Route, Routes } from "react-router";
+import { lazy, useEffect } from "react";
+import { Route, Routes, generatePath, useParams } from "react-router";
 
-import { URLS } from "#src/urls";
+import { LEGACY_URLS, URLS, flags, useBookingManagementFlag } from "#src/urls";
+
+import { SessionManagementPage } from "./pages/session-management-page";
 
 const ListPage = lazy(() => import("#src/pages/ListPage"));
 const DetailsPage = lazy(() => import("#src/pages/details-page"));
 
+const LegacyOfferPageRedirect = () => {
+  const { sessionId } = useParams<{ sessionId: string }>();
+  useEffect(() => {
+    if (sessionId) {
+      window.location.assign(
+        generatePath(LEGACY_URLS.BOOKINGS_MANAGEMENT_REVAMP, { sessionId }),
+      );
+    }
+  }, [sessionId]);
+
+  return null;
+};
+
 export const AppRoutes = () => {
+  const isSessionManagementRevampEnabled = useBookingManagementFlag(
+    flags.BOOKINGS_MANAGEMENT_REVAMP,
+  );
+
   return (
     <Routes>
       <Route element={<ListPage />} index />
-      <Route element={<DetailsPage />} path={URLS.BOOKINGS_MANAGEMENT_REVAMP} />
+      <Route
+        element={
+          isSessionManagementRevampEnabled ? (
+            <SessionManagementPage />
+          ) : (
+            <LegacyOfferPageRedirect />
+          )
+        }
+        path={URLS.BOOKINGS_MANAGEMENT_REVAMP}
+      />
       <Route element={<DetailsPage />} path={URLS.EDIT_SLUG} />
     </Routes>
   );

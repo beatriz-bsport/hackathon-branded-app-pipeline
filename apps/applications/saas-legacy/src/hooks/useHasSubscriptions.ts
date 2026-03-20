@@ -1,42 +1,54 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-
-import { fetchSubscriptionList } from '#src/libs/subscription/actions';
-import type { RootState } from '#src/reducers';
+import subscriptionApi from '#src/libs/subscription/api';
 
 /**
- * Returns whether the current company has at least one subscription billing plan.
+ * Returns whether the current company has at least one active subscription contract.
  *
- * Conservative gating: until the list has been fetched (or if the request fails),
- * the count stays unset/0 and we return `false`.
+ * Conservative gating: until the contract list has been fetched (or if the request
+ * fails), we return `false`.
  */
 export const useHasSubscriptions = (enabled: boolean = true) => {
-  const dispatch = useDispatch();
-
-  const subscriptionsCount = useSelector(
-    // @ts-expect-error
-    (state: RootState) => state.subscription.list.count,
-  );
-  const isLoading = useSelector(
-    (state: RootState) => state.subscription.list.loading,
-  );
+  const [hasSubscriptions, setHasSubscriptions] = useState(false);
 
   useEffect(() => {
-    if (!enabled) return;
-
-    // Avoid repeated requests: only fetch if we haven't fetched yet.
-    if (subscriptionsCount == null && !isLoading) {
-      dispatch(
-        fetchSubscriptionList({
-          page: 1,
-          page_size: 1,
-        }),
-      );
+    if (!enabled) {
+      setHasSubscriptions(false);
+      return;
     }
-  }, [dispatch, enabled, isLoading, subscriptionsCount]);
 
-  return { hasSubscriptions: (subscriptionsCount ?? 0) > 0 };
+    let isCancelled = false;
+
+    void subscriptionApi
+      .fetchContractList({
+        disabled: false,
+        page: 1,
+        page_size: 1,
+      })
+      .then(({ data }) => {
+        const paginatedData = data as { results?: unknown };
+        const contracts = Array.isArray(data)
+          ? data
+          : Array.isArray(paginatedData.results)
+          ? paginatedData.results
+          : [];
+
+        if (!isCancelled) {
+          setHasSubscriptions(contracts.length > 0);
+        }
+      })
+      .catch(() => {
+        if (!isCancelled) {
+          setHasSubscriptions(false);
+        }
+      });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [enabled]);
+
+  return { hasSubscriptions };
 };
 
 type HasSubscriptionsProviderProps = {

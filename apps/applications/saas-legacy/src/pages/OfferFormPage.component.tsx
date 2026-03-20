@@ -54,6 +54,10 @@ import {
 } from '../libs/meta-activity/selectors';
 import { getTheme } from '#src/libs/theme/selectors';
 import { REVAMPED_CALENDAR_URL } from '#src/revamp';
+import {
+  FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 type OwnProps = {
   goBack: () => void;
@@ -66,7 +70,8 @@ type Props = ParamsProps &
   OwnProps &
   ConnectedProps<typeof connector> &
   WithTranslation &
-  WithStyles<typeof styles>;
+  WithStyles<typeof styles> &
+  FeatureFlagProps;
 
 export class OfferFormPage extends Component<Props, {}> {
   componentDidMount() {
@@ -88,7 +93,10 @@ export class OfferFormPage extends Component<Props, {}> {
   };
 
   navigateToCalendar = () => {
-    if (this.props.revampedBackofficeEnabled) {
+    if (
+      this.props.revampedBackofficeEnabled &&
+      this.props.isCalendarRevampEnabled
+    ) {
       // No better way to navigate to the revamp for now
       window.location.assign(REVAMPED_CALENDAR_URL);
     } else {
@@ -220,4 +228,5 @@ export default compose(
   withStyles(styles),
   connector,
   withTitle(({ t }: { t: TFunction }) => t('titles:offerFormPage')),
+  withFeatureFlags,
 )(OfferFormPage);

@@ -47,8 +47,7 @@ export const SmartlistHeaderActionDropdown = ({
             color="main"
             intent="default"
             size="md"
-            onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-              event.stopPropagation();
+            onClick={() => {
               setIsPopoverOpened((opened) => !opened);
             }}
           />

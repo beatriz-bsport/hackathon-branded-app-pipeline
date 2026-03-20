@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 
-import { EmailTemplateSearchResult } from "@bsport/api-cdp";
+import { EmailTemplateDetail } from "@bsport/api-cdp";
 import { BackendSelector } from "@bsport/kaizen-business-components/form/backend-selector";
 import { TextFieldProps } from "@bsport/kaizen-primitive-core";
 
@@ -11,7 +11,7 @@ import { useTranslation } from "#src/utils/i18n";
 type EmailTemplateSelectorProps = {
   disabled?: boolean;
   selectedTemplateId?: number | null;
-  onSelectTemplate: (template: EmailTemplateSearchResult | null) => void;
+  onSelectTemplate: (template: EmailTemplateDetail | null) => void;
   textfieldProps?: Partial<TextFieldProps>;
 };
 
@@ -36,7 +36,7 @@ export const EmailTemplateSelector: React.FC<EmailTemplateSelectorProps> = ({
 
   return (
     <QueryBoundary>
-      <BackendSelector<{ id__in?: string }, EmailTemplateSearchResult>
+      <BackendSelector<{ id__in?: string }, EmailTemplateDetail>
         disabled={disabled}
         searchInput={searchInput}
         onSearchInputChange={setSearchInput}

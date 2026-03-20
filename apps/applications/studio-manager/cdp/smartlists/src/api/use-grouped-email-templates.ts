@@ -1,6 +1,6 @@
 import { useQueries } from "@tanstack/react-query";
 
-import { type EmailTemplateSearchResult } from "@bsport/api-cdp";
+import { type EmailTemplateDetail } from "@bsport/api-cdp";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -30,7 +30,7 @@ type EmailTemplateGroup = {
  * Groups email templates by category, falling back to `noCategoryLabel`.
  */
 const buildGroupedEmailTemplates = (
-  templates: EmailTemplateSearchResult[],
+  templates: EmailTemplateDetail[],
   categoriesById: Record<number, EmailTemplateCategory>,
   noCategoryLabel: string,
 ): EmailTemplateGroup[] => {
@@ -94,7 +94,7 @@ export const useGroupedEmailTemplates = ({
       return {
         data: templates,
         isLoading: searchResult.isLoading || categoriesResult.isLoading,
-        optionsFormatter: (results: EmailTemplateSearchResult[]) =>
+        optionsFormatter: (results: EmailTemplateDetail[]) =>
           buildGroupedEmailTemplates(results, categoriesById, noCategoryLabel),
       };
     },

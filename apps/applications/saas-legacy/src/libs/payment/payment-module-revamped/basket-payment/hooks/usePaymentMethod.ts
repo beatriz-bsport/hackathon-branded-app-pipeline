@@ -22,7 +22,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
   PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
 } from '@bsport/common/lib/master-data/payment-group';
-
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import type { OptionCallback } from '#src/state/types';
 
 // Optional parameters for Stripe Express Checkout (Apple Pay / Google Pay) support
@@ -90,6 +90,8 @@ export const usePaymentMethod = (
   const { handleFetchMemberPaymentMethodList } =
     useMemberPaymentMethodListProvider(memberId);
 
+  const isLinkEnabled = useSafeFlag(FeatureFlags.STRIPE_LINK_EXPRESS_CHECKOUT);
+
   // Only check domain registration if express checkout params are provided
   // (this feature is only needed for Stripe Express Checkout with Apple Pay / Google Pay)
   const isExpressCheckoutEnabled = !!(
@@ -143,8 +145,10 @@ export const usePaymentMethod = (
    * 2. The selected payment engine is Stripe.
    * 3. The clientSecret exists.
    * 4. If running inside a widget, the Stripe domain must be registered; otherwise, skip this check.
-   * 5. At least one of Apple Pay or Google Pay is available in the basket's payment methods.
-   * 6. Stripe Express Checkout element did not trigger onLoadError and at least one payment method is available (Apple Pay or Google Pay)
+   * 5. At least one of the following is true:
+   *    - Apple Pay or Google Pay is available in the basket's payment methods.
+   *    - The Stripe Link feature flag is enabled (Link is not basket-gated).
+   * 6. Stripe Express Checkout element did not trigger onLoadError and at least one payment method is available.
    */
   const showStripeExpressCheckout = useMemo(
     () =>
@@ -153,9 +157,10 @@ export const usePaymentMethod = (
           selectedPaymentEngine === PAYMENT_ENGINE_STRIPE &&
           clientSecret &&
           isStripeDomainRegistered === true &&
-          (paymentMethodAvailableBasket?.includes(
-            PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
-          ) ||
+          (isLinkEnabled ||
+            paymentMethodAvailableBasket?.includes(
+              PAYMENT_GROUP_METHOD_IDENTIFIER_APPLE_PAY,
+            ) ||
             paymentMethodAvailableBasket?.includes(
               PAYMENT_GROUP_METHOD_IDENTIFIER_GOOGLE_PAY,
             )) &&
@@ -165,6 +170,7 @@ export const usePaymentMethod = (
       availableExpressCheckoutMethods,
       clientSecret,
       isExpressCheckoutEnabled,
+      isLinkEnabled,
       isStripeDomainRegistered,
       paymentMethodAvailableBasket,
       selectedPaymentEngine,

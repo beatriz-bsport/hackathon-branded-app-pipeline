@@ -79,7 +79,7 @@ export class StripeForm extends Component<Props, State> {
       >
         <Grid item>
           <div className={classes.cardContainer}>
-            <CardElement />
+            <CardElement options={{ disableLink: true }} />
           </div>
           <Typography className={classes.caption} variant="caption">
             {t('payment.stripePaymentWillBeCashedOutOnInvoiceValidation')}

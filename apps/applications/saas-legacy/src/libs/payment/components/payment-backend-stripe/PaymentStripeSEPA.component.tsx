@@ -394,6 +394,7 @@ export const PaymentStripeSEPA = forwardRef(
                               wallets: {
                                 applePay: 'never',
                                 googlePay: 'never',
+                                link: 'never',
                               },
                               defaultValues: {
                                 billingDetails: {

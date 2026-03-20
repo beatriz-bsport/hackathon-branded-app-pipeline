@@ -35,6 +35,7 @@ export const FeatureFlags = {
   WEBVIEW_BASKET_AP_GP: 'webview-basket-ap-gp',
   WEBVIEW_GOOGLE_PAY: 'webview-google-pay',
   CALENDAR_REVAMP: 'booking_calendar_page_revamped',
+  STRIPE_LINK_EXPRESS_CHECKOUT: 'stripe-link-express-checkout',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

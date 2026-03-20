@@ -3,7 +3,9 @@ import { queryOptions } from "@tanstack/react-query";
 import {
   fetchEmailTemplateCategories,
   searchEmailTemplate,
+  updateEmailTemplate as updateEmailTemplateApi,
 } from "@bsport/api-cdp";
+import type { EditEmailTemplatePayload } from "@bsport/api-cdp";
 import {
   type PaginatedResponse,
   buildUrlParams,
@@ -134,18 +136,22 @@ export const smartlistKeys = {
   popupImages: (popupId: number, imageUrl: string) =>
     [...smartlistKeys.all, "popup-image", popupId, imageUrl] as const,
 
-  emailTemplateDetail: (emailTemplateId: number) =>
-    [...smartlistKeys.all, "email-template", emailTemplateId] as const,
+  emailTemplate: () => [...smartlistKeys.all, "email-template"] as const,
 
-  emailTemplateSearch: (
+  emailTemplateDetail: (emailTemplateId: number) =>
+    [...smartlistKeys.emailTemplate(), emailTemplateId] as const,
+
+  emailTemplateSearch: () =>
+    [...smartlistKeys.emailTemplate(), "search"] as const,
+
+  emailTemplateSearchQueries: (
     query: string,
     id__in?: string,
     page?: number,
     page_size?: number,
   ) =>
     [
-      ...smartlistKeys.all,
-      "email-template-search",
+      ...smartlistKeys.emailTemplateSearch(),
       query,
       id__in ?? "",
       page ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE,
@@ -153,7 +159,7 @@ export const smartlistKeys = {
     ] as const,
 
   emailTemplateCategories: () =>
-    [...smartlistKeys.all, "email-template-categories"] as const,
+    [...smartlistKeys.emailTemplate(), "categories"] as const,
 
   /**
    * Key for communication preview count (recipients estimate).
@@ -498,6 +504,16 @@ const fetchEmailTemplateDetail = async (
   return data;
 };
 
+/**
+ * Updates an email template.
+ * Invalidates the email template detail query on success; use with useUpdateEmailTemplate for cache invalidation.
+ */
+export const updateEmailTemplate = async (
+  payload: EditEmailTemplatePayload,
+): Promise<EmailTemplateDetail> => {
+  return updateEmailTemplateApi(fetch, payload);
+};
+
 const fetchCommunicationRecipientsCountPreview = async (
   request: CommunicationPreviewRecipientsRequest,
 ): Promise<CommunicationRecipientCount> => {
@@ -711,10 +727,7 @@ export const emailTemplateCategoriesQueryOptions = () =>
   queryOptions({
     queryKey: smartlistKeys.emailTemplateCategories(),
     queryFn: () =>
-      fetchEmailTemplateCategories({
-        fetch,
-        params: { page: 1, page_size: 100 },
-      }),
+      fetchEmailTemplateCategories(fetch, { page: 1, page_size: 100 }),
   });
 
 export const emailTemplateSearchQueryOptions = (params: {
@@ -727,7 +740,7 @@ export const emailTemplateSearchQueryOptions = (params: {
   const currentPageSize =
     params.page_size ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE;
   return queryOptions({
-    queryKey: smartlistKeys.emailTemplateSearch(
+    queryKey: smartlistKeys.emailTemplateSearchQueries(
       params.searchInput,
       params.id__in,
       currentPage,

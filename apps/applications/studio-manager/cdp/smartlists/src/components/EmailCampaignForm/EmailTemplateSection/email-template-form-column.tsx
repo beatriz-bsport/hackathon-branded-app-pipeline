@@ -1,6 +1,6 @@
 import React, { useId } from "react";
 
-import { EmailTemplateSearchResult } from "@bsport/api-cdp";
+import type { EmailTemplateDetail } from "@bsport/api-cdp";
 import { FormField, useFormContext } from "@bsport/form";
 import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
 
@@ -18,7 +18,7 @@ export const EmailTemplateFormColumn: React.FC = () => {
 
   const emailTemplateId = watch("emailTemplateId");
 
-  const handleSelectTemplate = (template: EmailTemplateSearchResult | null) => {
+  const handleSelectTemplate = (template: EmailTemplateDetail | null) => {
     if (!template) {
       setValue("emailTemplateId", null, {
         shouldValidate: true,

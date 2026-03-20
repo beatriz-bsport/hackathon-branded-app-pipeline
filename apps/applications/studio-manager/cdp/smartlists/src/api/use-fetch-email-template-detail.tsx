@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { emailTemplateDetailQueryOptions } from "./api";
 
@@ -7,5 +7,5 @@ export const useFetchEmailTemplateDetail = ({
 }: {
   emailTemplateId: number;
 }) => {
-  return useSuspenseQuery(emailTemplateDetailQueryOptions(emailTemplateId));
+  return useQuery(emailTemplateDetailQueryOptions(emailTemplateId));
 };

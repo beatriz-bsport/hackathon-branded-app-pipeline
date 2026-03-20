@@ -23,7 +23,7 @@ const meta: Meta<typeof Dialog> = {
     },
     size: {
       control: { type: "select" },
-      options: ["sm", "md", "lg"],
+      options: ["sm", "md", "lg", "xl"],
       description: "Size of the dialog",
     },
     position: {

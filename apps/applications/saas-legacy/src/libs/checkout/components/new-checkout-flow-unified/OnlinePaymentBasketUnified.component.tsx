@@ -275,12 +275,17 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
 
     const handleExpressCheckoutReady = useCallback(
       (event: {
-        availablePaymentMethods?: { applePay: boolean; googlePay: boolean };
+        availablePaymentMethods?: {
+          applePay: boolean;
+          googlePay: boolean;
+          link: boolean;
+        };
       }) => {
         const hasAvailableMethods =
           event.availablePaymentMethods &&
           (event.availablePaymentMethods.applePay ||
-            event.availablePaymentMethods.googlePay);
+            event.availablePaymentMethods.googlePay ||
+            event.availablePaymentMethods.link);
         setAvailableExpressCheckoutMethods(!!hasAvailableMethods);
       },
       [],
@@ -362,11 +367,18 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
       googlePay: isGooglePayAllowed,
     };
 
-    // Override showStripeExpressCheckout to account for filtered wallets
-    // The hook checks raw paymentMethodAvailableBasket, but we need to check filtered allowedWallets
-    const shouldShowStripeExpressCheckout =
-      showStripeExpressCheckout &&
-      (allowedWallets.applePay || allowedWallets.googlePay);
+    // TODO(debt): When Link is enabled, `showStripeExpressCheckout` can be true even when the
+    // browser doesn't support Link and neither Apple Pay nor Google Pay is activated, which means
+    // the ExpressCheckout section would render but remain visually empty.
+    // The original guard below was removed because `allowedWallets` only covers Apple/Google Pay
+    // and doesn't account for Link eligibility at this point in the render cycle — Link
+    // availability is only known after the Stripe Element mounts and fires `onReady`.
+    // Ideal fix: expose Link availability from the Element (e.g. via `onReady`) and fold it into
+    // `allowedWallets` or a dedicated flag, so we can reinstate the guard without special-casing Link.
+    //
+    // const shouldShowStripeExpressCheckout =
+    //   showStripeExpressCheckout &&
+    //   (allowedWallets.applePay || allowedWallets.googlePay);
 
     return (
       <div className={classes.container}>
@@ -398,7 +410,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
             )}
         </div>
 
-        {shouldShowStripeExpressCheckout && (
+        {showStripeExpressCheckout && (
           <div className={classes.expressCheckoutContainer}>
             <StripeExpressCheckoutElement
               allowedWallets={allowedWallets}
@@ -424,7 +436,7 @@ export const OnlinePaymentBasketUnified: React.FC<Props> = forwardRef(
           paymentMethodSelected={paymentMethodSelected}
           paymentProcessing={isPaymentProcessing}
           selectPaymentMethod={handleSelectPaymentMethod}
-          {...(shouldShowStripeExpressCheckout
+          {...(showStripeExpressCheckout
             ? { title: t('paymentMethod.select.orPayUsing') }
             : {})}
         />

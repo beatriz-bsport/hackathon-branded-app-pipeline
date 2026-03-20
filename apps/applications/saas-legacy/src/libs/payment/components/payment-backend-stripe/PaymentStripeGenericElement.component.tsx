@@ -288,6 +288,7 @@ export const PaymentStripeGenericElement = forwardRef(
                   wallets: {
                     applePay: 'never',
                     googlePay: 'never',
+                    link: 'never',
                   },
                   defaultValues: {
                     billingDetails: {

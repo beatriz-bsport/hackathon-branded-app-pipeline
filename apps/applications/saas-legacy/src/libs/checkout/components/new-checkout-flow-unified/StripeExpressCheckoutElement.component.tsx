@@ -23,6 +23,7 @@ import {
 } from '@stripe/stripe-js';
 import { getCurrencyCode, getStripePkKey } from '#src/libs/theme/selectors';
 import { getLocaleFromLanguage } from '#src/utils/language';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import { useBasketPaymentContext } from './BasketPaymentContext';
 import { usePayment } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/usePayment';
 import type { StripePaymentElementConfig } from '#src/libs/company/types';
@@ -41,7 +42,11 @@ type StripeExpressCheckoutElementProps = {
   onError?: () => void;
   onLoadError?: () => void;
   onReady?: (event: {
-    availablePaymentMethods?: { applePay: boolean; googlePay: boolean };
+    availablePaymentMethods?: {
+      applePay: boolean;
+      googlePay: boolean;
+      link: boolean;
+    };
   }) => void;
   onSuccessfulPayment: () => Promise<void>;
   stripePaymentElementConfig: StripePaymentElementConfig;
@@ -54,7 +59,7 @@ type StripeExpressCheckoutElementInnerProps = Omit<
   basketTotalPriceCts: number;
   companyId: number;
   memberId: number;
-  paymentMethods: Record<string, 'always' | 'never'>;
+  paymentMethods: Record<string, 'always' | 'auto' | 'never'>;
   paymentMethodOrder: string[];
 };
 
@@ -82,6 +87,7 @@ const StripeExpressCheckoutElementInner: React.FC<
   const [wallets, setWallets] = useState<{
     applePay?: boolean;
     googlePay?: boolean;
+    link?: boolean;
   }>({});
   const stripe = useStripe();
   const elements = useElements();
@@ -101,7 +107,8 @@ const StripeExpressCheckoutElementInner: React.FC<
   const [isSuccessfulPayment, setIsSuccessfulPayment] = useState(false);
 
   const onlyOneWallet =
-    [wallets.applePay, wallets.googlePay].filter(Boolean).length === 1;
+    [wallets.applePay, wallets.googlePay, wallets.link].filter(Boolean)
+      .length === 1;
 
   const handleClick = useCallback(
     (e: StripeExpressCheckoutElementClickEvent) => {
@@ -224,6 +231,7 @@ const StripeExpressCheckoutElementInner: React.FC<
           })}
           data-apple-pay-available={wallets.applePay ? 'true' : 'false'}
           data-google-pay-available={wallets.googlePay ? 'true' : 'false'}
+          data-link-available={wallets.link ? 'true' : 'false'}
           data-testid="stripe-express-checkout-container"
           tabIndex={disabled ? -1 : undefined}
         >
@@ -272,11 +280,12 @@ const StripeExpressCheckoutElement: React.FC<
 
   const stripePromise = loadStripe(getStripePkKey());
   const currency = getCurrencyCode();
+  const isLinkEnabled = useSafeFlag(FeatureFlags.STRIPE_LINK_EXPRESS_CHECKOUT);
 
   const { language } = i18n;
   const elementLocale = getLocaleFromLanguage(language);
 
-  const paymentMethods: Record<string, 'always' | 'never'> = {};
+  const paymentMethods: Record<string, 'always' | 'auto' | 'never'> = {};
   const paymentMethodOrder: string[] = [];
   if (allowedWallets.applePay) {
     paymentMethods.applePay = 'always';
@@ -289,6 +298,15 @@ const StripeExpressCheckoutElement: React.FC<
     paymentMethodOrder.push('googlePay');
   } else {
     paymentMethods.googlePay = 'never';
+  }
+  // Link only accepts 'auto' or 'never' (not 'always' like Apple/Google Pay).
+  // 'auto' lets Stripe show it whenever the customer is eligible — the intended always-on behaviour.
+  // Link is always placed last in the order.
+  if (isLinkEnabled) {
+    paymentMethods.link = 'auto';
+    paymentMethodOrder.push('link');
+  } else {
+    paymentMethods.link = 'never';
   }
 
   return (

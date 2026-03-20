@@ -8,6 +8,7 @@ import {
   sessionUpdateDuplicateButtonClickedEventSchema,
   sessionUpdateDurationUpdatedEventSchema,
   sessionUpdateRestoreButtonClickedEventSchema,
+  sessionUpdateSidePanelEnabledEventSchema,
   sessionUpdateUpdatedEventSchema,
   sessionUpdateWaitingListMaxSizeUpdatedEventSchema,
 } from "./schemas";
@@ -42,4 +43,8 @@ export const sessionUpdateDateStartUpdatedEvent = generateEvent(
 );
 export const sessionUpdateDurationUpdatedEvent = generateEvent(
   sessionUpdateDurationUpdatedEventSchema,
+);
+
+export const sessionUpdateSidePanelEnabledEvent = generateEvent(
+  sessionUpdateSidePanelEnabledEventSchema,
 );

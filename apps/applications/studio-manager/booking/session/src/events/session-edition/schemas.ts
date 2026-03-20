@@ -212,3 +212,14 @@ export const sessionUpdateDurationUpdatedEventSchema = z
       ),
   })
   .describe("When the user updates the duration of a session");
+
+export const sessionUpdateSidePanelEnabledEventSchema = z
+  .object({
+    eventType: z.string().default("session_update_side_panel_enabled"),
+    is_side_panel_enabled: z
+      .boolean()
+      .describe(
+        "Whether the side panel is enabled or not for the session when the user enables it",
+      ),
+  })
+  .describe("When the user enables the side panel of a session");

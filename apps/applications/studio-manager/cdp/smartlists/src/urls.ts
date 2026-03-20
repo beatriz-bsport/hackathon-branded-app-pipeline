@@ -35,7 +35,7 @@ const SEGMENTS = {
   legacyAudience: "audience",
 } as const;
 
-const PARAMS = {
+export const PARAMS = {
   smartlistId: ":id",
   uuid: ":uuid",
   messageId: ":messageId",
@@ -70,7 +70,7 @@ export const SMARTLIST_ROUTE_PATTERNS = {
   CAMPAIGN: `${PARAMS.smartlistId}/${SEGMENTS.campaign}`,
   CAMPAIGN_SCHEDULED_DETAILS: `${PARAMS.smartlistId}/${SEGMENTS.campaign}/${SEGMENTS.scheduled}/${PARAMS.uuid}`,
   CAMPAIGN_SENT_DETAILS: `${PARAMS.smartlistId}/${SEGMENTS.campaign}/${SEGMENTS.sent}/${PARAMS.uuid}`,
-  AUTOMATION_MESSAGE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.message}/${PARAMS.messageId}`,
+  AUTOMATION_MESSAGE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${PARAMS.channel}/${PARAMS.messageId}`,
   AUTOMATION_TAG_RULE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.tagRule}/${PARAMS.tagRuleId}`,
   COMMUNICATION_CREATE: `${PARAMS.channel}/${SEGMENTS.create}`,
   COMMUNICATION_EDIT: `${PARAMS.channel}/${PARAMS.entityId}/${SEGMENTS.edit}`,
@@ -85,11 +85,16 @@ export const SMARTLIST_APP_LINKS = {
     buildSmartlistLink(smartlistId, SEGMENTS.parameter),
   automation: (smartlistId: string) =>
     buildSmartlistLink(smartlistId, SEGMENTS.automation),
-  automationMessage: (smartlistId: string, messageId: string | number) =>
+  automationMessage: (
+    smartlistId: string,
+    channel: CampaignChannel,
+    messageId: string | number,
+  ) =>
     buildSmartlistLink(
       smartlistId,
       SEGMENTS.automation,
-      SEGMENTS.message,
+      SEGMENTS.messages,
+      channel,
       messageId,
     ),
   campaign: (smartlistId: string) =>

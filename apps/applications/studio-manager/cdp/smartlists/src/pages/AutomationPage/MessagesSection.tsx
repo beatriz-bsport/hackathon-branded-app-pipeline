@@ -23,7 +23,14 @@ import {
 } from "#src/api/use-automated-campaign-analytics";
 import { useExportCampaign } from "#src/api/use-export-campaign";
 import { DeleteAutomationModal } from "#src/components/DeleteAutomationModal";
-import { SMARTLIST_APP_LINKS } from "#src/urls";
+import { StopPropagationWrapper } from "#src/components/StopPropagationWrapper";
+import {
+  CAMPAIGN_CHANNEL_EMAIL,
+  CAMPAIGN_CHANNEL_PUSH,
+  CAMPAIGN_CHANNEL_SMS,
+  type CampaignChannel,
+  SMARTLIST_APP_LINKS,
+} from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 import { downloadFileFromUrl } from "#src/utils/utils";
@@ -51,6 +58,15 @@ const INLINE_ACTIONS = {
   EXPORT: "export",
   EDIT: "edit",
   DELETE: "delete",
+};
+
+const COMMUNICATION_KIND_TO_CHANNEL: Record<
+  CommunicationKind,
+  CampaignChannel
+> = {
+  [CommunicationKind.EMAIL]: CAMPAIGN_CHANNEL_EMAIL,
+  [CommunicationKind.SMS]: CAMPAIGN_CHANNEL_SMS,
+  [CommunicationKind.PUSH]: CAMPAIGN_CHANNEL_PUSH,
 };
 
 const TOAST_TIMEOUT = 3000;
@@ -275,47 +291,54 @@ export const MessagesSection = (
           }
 
           return (
-            <DropdownMenu
-              items={items}
-              onSelectOption={({ setIsPopoverOpened, id }) => {
-                setIsPopoverOpened(false);
-                if (id === INLINE_ACTIONS.EXPORT) {
-                  invariant(
-                    row.campaign_sent_uuid !== null,
-                    "Export only available for rows with campaign_sent_uuid",
-                  );
-                  toast({
-                    status: "default",
-                    icon: "send-01",
-                    description: t(
-                      "automation.messages.toasts.info.exportPending",
-                    ),
-                    duration: TOAST_TIMEOUT,
-                  });
-                  exportCampaign.mutate(row.campaign_sent_uuid);
-                } else if (id === INLINE_ACTIONS.DELETE) {
-                  setAutomationToDelete(row);
-                } else if (id === INLINE_ACTIONS.EDIT) {
-                  navigate(
-                    SMARTLIST_APP_LINKS.automationMessage(smartlistId, row.id),
-                  );
-                } else {
-                  invariant(false, `Unhandled action id: ${id}`);
-                }
-              }}
-              placement="bottom-right"
-              target={({ setIsPopoverOpened }) => (
-                <Button
-                  kind="icon-button"
-                  intent="flat"
-                  icon="dots-vertical"
-                  onClick={() => setIsPopoverOpened(true)}
-                  color="default"
-                  label="open-actions-menu"
-                  size="md"
-                />
-              )}
-            />
+            <StopPropagationWrapper>
+              <DropdownMenu
+                items={items}
+                onSelectOption={({ setIsPopoverOpened, id }) => {
+                  setIsPopoverOpened(false);
+
+                  if (id === INLINE_ACTIONS.EXPORT) {
+                    invariant(
+                      row.campaign_sent_uuid !== null,
+                      "Export only available for rows with campaign_sent_uuid",
+                    );
+                    toast({
+                      status: "default",
+                      icon: "send-01",
+                      description: t(
+                        "automation.messages.toasts.info.exportPending",
+                      ),
+                      duration: TOAST_TIMEOUT,
+                    });
+                    exportCampaign.mutate(row.campaign_sent_uuid);
+                  } else if (id === INLINE_ACTIONS.DELETE) {
+                    setAutomationToDelete(row);
+                  } else if (id === INLINE_ACTIONS.EDIT) {
+                    navigate(
+                      SMARTLIST_APP_LINKS.automationEdit(
+                        smartlistId,
+                        COMMUNICATION_KIND_TO_CHANNEL[row.communication_kind],
+                        String(row.id),
+                      ),
+                    );
+                  } else {
+                    invariant(false, `Unhandled action id: ${id}`);
+                  }
+                }}
+                placement="bottom-right"
+                target={({ setIsPopoverOpened }) => (
+                  <Button
+                    kind="icon-button"
+                    intent="flat"
+                    icon="dots-vertical"
+                    onClick={() => setIsPopoverOpened(true)}
+                    color="default"
+                    label="open-actions-menu"
+                    size="md"
+                  />
+                )}
+              />
+            </StopPropagationWrapper>
           );
         },
       },
@@ -341,8 +364,19 @@ export const MessagesSection = (
       campaigns.map((campaign: AutomatedCampaignWithAnalytics) => ({
         ...campaign,
         id: campaign.id,
+        onRowClick:
+          campaign.communication_kind === CommunicationKind.PUSH
+            ? () =>
+                navigate(
+                  SMARTLIST_APP_LINKS.automationMessage(
+                    smartlistId,
+                    COMMUNICATION_KIND_TO_CHANNEL[campaign.communication_kind],
+                    campaign.id,
+                  ),
+                )
+            : undefined,
       })),
-    [campaigns],
+    [campaigns, smartlistId, navigate],
   );
 
   return (

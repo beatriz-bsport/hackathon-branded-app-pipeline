@@ -68,3 +68,11 @@ export const useActivatePartnershipAccount = () => {
 
   return useAsyncFn(doActivatePartnershipAccount, []);
 };
+
+export const useGetActivePartnershipAccountForOffer = () => {
+  const doGetActivePartnershipAccountForOffer = async (accountId: string) => {
+    await activatePartnershipAccount(accountId);
+  };
+
+  return useAsyncFn(doGetActivePartnershipAccountForOffer, []);
+};

@@ -15,6 +15,7 @@ export const FeatureFlags = {
   BOOKING: 'insights_booking',
   BOOKING_ALLOW_ENDLESS_SUBSTITUTIONS: 'booking_allow_endless_substitutions',
   BOOKING_DISPLAY_SWAP_PASS: 'booking_display_swap_pass',
+  BOOKING_DRAFT_PARTNERSHIP_OFFERS: 'booking_draft_partnership_offers',
   COMMUNITY_HEALTH: 'insights_community_health',
   EXPRESS_PASS_CHECKOUT: 'express-pass-checkout',
   FISKALY_SIGN_ES: 'fiskaly_sign_es',

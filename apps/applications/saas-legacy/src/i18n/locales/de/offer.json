@@ -252,7 +252,7 @@
           "isModifyRecursively": "Möchten Sie ähnliche Kurse gemäß dieser neuen Bedingungen ändern?",
           "isNotifyConsumers": "Möchten Sie Ihre Kunden über diese Änderung informieren?",
           "partnership": {
-            "partnerMaxBookingCount": "Maximale Anzahl an Buchungen von myClubs, Wellhub und Urban Sports Club zusammen (die anderen Aggregatoren sind von dieser Einstellung nicht betroffen)",
+            "partnerMaxBookingCountDEPRECATED": "Maximale Anzahl an Buchungen von myClubs, Wellhub und Urban Sports Club zusammen (die anderen Aggregatoren sind von dieser Einstellung nicht betroffen)",
             "availableOnPartnership": "Über Aggregatoren (ClassPass, OneFit...)",
             "title": "Aggregator-Integrationen",
             "uscIntegrationWarning": "Ihre Integration mit dem Urban Sports Club Marketplace ist aktiv. Alle Kurse, die 2 oder mehr Tage lang sind, werden nicht angezeigt.",

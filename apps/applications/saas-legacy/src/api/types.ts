@@ -1,5 +1,5 @@
 import type { WellhubProductId } from '#src/libs/wellhub/types';
-
+import type { PartnerSpotCappingStrategy } from '#src/libs/offer/types';
 export type OfferPerformance = {
   id: number;
   nb_bookings: number;
@@ -84,6 +84,7 @@ export type Offer = {
   nb_option: number;
   parent_category: number;
   partner_max_booking_count: number;
+  partner_spot_capping_strategy?: PartnerSpotCappingStrategy;
   price_coach: number;
   price: number;
   room_blueprint: number;

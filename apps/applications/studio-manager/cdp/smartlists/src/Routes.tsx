@@ -24,22 +24,11 @@ const CampaignScheduledDetailPage = lazy(
   () => import("#src/pages/CampaignScheduledDetailPage"),
 );
 const AutomationPage = lazy(() => import("#src/pages/AutomationPage"));
-const AutomationMessagePage = lazy(
-  () => import("#src/pages/AutomationMessagePage"),
-);
 
 export const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<ListPage />} index />
-      <Route
-        path={SMARTLIST_ROUTE_PATTERNS.AUTOMATION_MESSAGE}
-        element={
-          <FeatureFlag flag={flags.smartlist}>
-            <AutomationMessagePage />
-          </FeatureFlag>
-        }
-      />
       <Route
         path={SMARTLIST_ROUTE_PATTERNS.CAMPAIGN_SENT_DETAILS}
         element={

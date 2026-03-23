@@ -120,9 +120,8 @@ const WellhubPartnershipConfigurationDialog: React.FC<Props> = ({
       validateExternalIdState.value &&
       !validateExternalIdState.value.is_valid
     ) {
-      return (
-        validateExternalIdState.value.error ??
-        t('wellhub.configuration.dialog.field.externalId.error.unavailable')
+      return t(
+        'wellhub.configuration.dialog.field.externalId.error.unavailable',
       );
     }
     return undefined;

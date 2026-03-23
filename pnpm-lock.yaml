@@ -1115,6 +1115,9 @@ importers:
       '@bsport/api-business-insights':
         specifier: workspace:*
         version: link:../../../../../packages/api/business-insights
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/buyables
       '@bsport/api-core':
         specifier: workspace:*
         version: link:../../../../../packages/api/core
@@ -3293,6 +3296,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
 
   packages/api/business-insights:
     dependencies:
@@ -3309,13 +3315,13 @@ importers:
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../stores/base
-      '@tanstack/react-query':
-        specifier: ^5.90.12
-        version: 5.90.12(react@19.2.0)
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
 
   packages/api/cdp:
     dependencies:

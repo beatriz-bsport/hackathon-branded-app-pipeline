@@ -26,7 +26,10 @@
     "preview": "vite preview --mode preview",
     "translation:update": "pnpm run -w translation:update"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@bsport/api-buyables": "workspace:*",
+    "tiny-invariant": "^1.3.3"
+  },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-library": "workspace:*",
@@ -39,7 +42,9 @@
   },
   "peerDependencies": {
     "@bsport/fetch": "workspace:*",
+    "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
+    "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@tanstack/react-query": "^5.90.12",

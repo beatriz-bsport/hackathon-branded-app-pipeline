@@ -1,0 +1,17 @@
+{
+  "header": {
+    "loading": "Loading Contract...",
+    "breadcrumbs": {
+      "contracts": "Contracts"
+    },
+    "tabs": {
+      "editor": "Editor",
+      "overview": "Overview",
+      "pauses": "Pauses"
+    }
+  },
+  "canNotFindContract": {
+    "title": "Couldn't retrieve Contract",
+    "goToListPage": "See Contracts"
+  }
+}

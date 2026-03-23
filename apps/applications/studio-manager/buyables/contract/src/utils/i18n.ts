@@ -1,15 +1,15 @@
 import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
 
-import {
-  i18nNamespacePrefix,
-  i18nNamespaces,
-  inMemoryTranslationsLoader,
-} from "#src/i18n";
-import type modelListTranslations from "#src/i18n/source/model-list.json";
+import { i18nNamespacePrefix, inMemoryTranslationsLoader } from "#src/i18n";
+import type contractDetailsTranslations from "#src/i18n/source/contract-details.json";
+import type contractListTranslations from "#src/i18n/source/contract-list.json";
 
 type Translations = {
-  "model-list": typeof modelListTranslations;
+  "contract-list": typeof contractListTranslations;
+  "contract-details": typeof contractDetailsTranslations;
 };
+
+const i18nNamespaces: string[] = ["contract-list", "contract-details"];
 
 export const {
   i18nInstance,

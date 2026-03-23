@@ -74,6 +74,7 @@ export const SMARTLIST_ROUTE_PATTERNS = {
   AUTOMATION_TAG_RULE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.tagRule}/${PARAMS.tagRuleId}`,
   COMMUNICATION_CREATE: `${PARAMS.channel}/${SEGMENTS.create}`,
   COMMUNICATION_EDIT: `${PARAMS.channel}/${PARAMS.entityId}/${SEGMENTS.edit}`,
+  COMMUNICATION_DETAIL: `${PARAMS.channel}/${PARAMS.messageId}`,
 } as const;
 
 export const SMARTLIST_APP_LINKS = {

@@ -34,3 +34,10 @@ export type PartnershipAccountPayload = {
   establishment_group: number[];
   partnership: number; // The partnership ID
 };
+
+export type ActivePartnershipAccountForOfferParams = {
+  // offer and (establishment, date_start) are mutually exclusive, but at least one of them must be provided.
+  establishment?: number; // The establishment ID
+  date_start?: Date;
+  offer?: number; // The offer ID
+};

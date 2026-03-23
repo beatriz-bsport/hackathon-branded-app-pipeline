@@ -275,6 +275,15 @@ const useOfferFormStyles = (
         width: 'fit-content',
       },
     },
+    cappingStrategyRadio: {
+      padding: `0 ${theme.spacing(1)}px`,
+      alignSelf: 'flex-start',
+    },
+    combinedMaxCount: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(1),
+      marginLeft: theme.spacing(4),
+    },
   }));
 
   const classes = useStyles();

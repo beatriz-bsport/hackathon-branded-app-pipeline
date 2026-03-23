@@ -39,7 +39,7 @@
           "partnership": {
             "title": "Integrações de agregadores",
             "availableOnPartnership": "Nos agregadores (ClassPass, OneFit...)",
-            "partnerMaxBookingCount": "Número máximo de reservas do myClubs, Wellhub e do Urban Sports Club combinados (os outros agregadores não são afetados por esta configuração)",
+            "partnerMaxBookingCountDEPRECATED": "Número máximo de reservas do myClubs, Wellhub e do Urban Sports Club combinados (os outros agregadores não são afetados por esta configuração)",
             "uscIntegrationWorkshopWarning": "Uma vez que os workshops não são compatíveis com o marketplace do Urban Sports Club, esta sessão não será incluída.",
             "uscIntegrationWarning": "A inclusão no mercado do Urban Sports Club está ativa, mas qualquer sessão com duração igual ou superior a 2 dias não aparecerá.",
             "enablePartneshipBookings": "Ativar as reservas do agregador",

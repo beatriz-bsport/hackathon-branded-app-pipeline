@@ -2,7 +2,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
 
 import Alert from '@material-ui/lab/Alert';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -14,8 +13,8 @@ import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.inpu
 // @ts-expect-error
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
 import FormSection from '#src/components/forms/FormSection';
-import NumericInput from '#src/components/input/NumericInput.component';
 import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
+import OfferPartnershipSettings from '#src/libs/offer/form/sections/OfferPartnershipSettings.component';
 import WellhubProductSelector from '#src/libs/wellhub/components/WellhubProductSelector';
 
 import { useOfferFormStyles } from '#src/libs/offer/hooks';
@@ -62,22 +61,18 @@ const OfferFormSettings: React.FC<Props> = ({
     number | null
   >(null);
 
-  const { values, errors, handleChange, setFieldValue } =
-    useFormikContext<OfferFormValues>();
+  const { values, errors, setFieldValue } = useFormikContext<OfferFormValues>();
 
   const {
     availableOnPartnership,
     dateIntervalStart,
     durationMinute,
     establishment,
-    partnerMaxBookingCount,
     wellhubProductId,
   } = values;
 
   const offerSpreadOnTwoDays = useMemo(() => {
-    const datetimeEnd = dateIntervalStart.plus({
-      minute: durationMinute,
-    });
+    const datetimeEnd = dateIntervalStart.plus({ minute: durationMinute });
     return !dateIntervalStart.hasSame(datetimeEnd, 'day');
   }, [dateIntervalStart, durationMinute]);
 
@@ -222,40 +217,7 @@ const OfferFormSettings: React.FC<Props> = ({
             }}
           </FeatureListProvider>
 
-          <SwitchField
-            id="offer-form-available-partnership-switch"
-            label={t(
-              'form.section.settings.field.partnership.enablePartneshipBookings',
-            )}
-            name="availableOnPartnership"
-            switchColor="secondary"
-          />
-
-          {availableOnPartnership && (
-            <OfferFormField
-              isRequired
-              isError={!!errors.partnerMaxBookingCount}
-              label={t(
-                'form.section.settings.field.partnership.partnerMaxBookingCount',
-              )}
-            >
-              <NumericInput
-                disabled={isOfferInGroup}
-                error={!!errors.partnerMaxBookingCount}
-                id="offer-form-partner-max-booking-input"
-                inputClass={clsx(classes.bigWidth, {
-                  [classes.disabledInput]: isOfferInGroup,
-                })}
-                InputProps={{ inputProps: { min: 0 } }}
-                name="partnerMaxBookingCount"
-                onChange={handleChange}
-                placeholder="5"
-                size="small"
-                value={partnerMaxBookingCount}
-                variant="outlined"
-              />
-            </OfferFormField>
-          )}
+          <OfferPartnershipSettings isOfferInGroup={isOfferInGroup} />
 
           <FeatureListProvider>
             {(featureList: FeatureList) => {

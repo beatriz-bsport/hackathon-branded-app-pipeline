@@ -35,9 +35,6 @@
     "@bsport/broadcast-channel-polyfill": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/envs": "workspace:*",
-    "@bsport/fetch": "workspace:*",
-    "@bsport/i18n": "workspace:*",
-    "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/local-storage-auth-token": "workspace:*",
     "@bsport/sentry": "workspace:*",
     "@bsport/store-auth": "workspace:*",
@@ -50,9 +47,18 @@
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
-    "@bsport/config-vitest": "workspace:*"
+    "@bsport/config-vitest": "workspace:*",
+    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-query-devtools": "^5.90.12"
   },
   "peerDependencies": {
+    "@bsport/fetch": "workspace:*",
+    "@bsport/i18n": "workspace:*",
+    "@bsport/kaizen-primitive-core": "workspace:*",
+    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-query-devtools": "^5.90.12",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-router": "^7.2.0"
   },
   "nx": {

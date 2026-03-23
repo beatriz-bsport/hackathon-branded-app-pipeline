@@ -5,6 +5,7 @@ import type { Establishment } from '#src/libs/establishment/types';
 import type { OfferREST } from '#src/libs/offer/types';
 import type { ReworkedPaginationResponse } from '#src/state/types';
 
+// TODO(BOO-1905): Remove once migrated to Partnership framework
 export type WellhubGym = {
   uuid: string;
   are_webhooks_configured: boolean;

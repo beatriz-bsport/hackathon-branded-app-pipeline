@@ -30,10 +30,13 @@ type LayoutContextType = {
 
 const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
 
-type ProviderProps = PropsWithChildren<{ withPanel?: boolean }>;
+type ProviderProps = PropsWithChildren<{
+  withPanel?: boolean;
+  onPanelToggle?: (isOpen: boolean) => void;
+}>;
 
 export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
-  ({ children, withPanel = false }, ref) => {
+  ({ children, withPanel = false, onPanelToggle }, ref) => {
     const isMobile = !useMatchMedia("sm");
     const confirmationRef = useRef<HTMLDivElement | null>(null);
 
@@ -50,6 +53,13 @@ export const LayoutProvider = forwardRef<LayoutProviderRef, ProviderProps>(
     const toggleIsPanelOpened = useCallback((value?: boolean) => {
       setIsPanelOpened((prev) => (value !== undefined ? value : !prev));
     }, []);
+
+    const onPanelToggleRef = useRef(onPanelToggle);
+    onPanelToggleRef.current = onPanelToggle;
+
+    useEffect(() => {
+      onPanelToggleRef.current?.(isPanelOpened);
+    }, [isPanelOpened]);
 
     useImperativeHandle(
       ref,

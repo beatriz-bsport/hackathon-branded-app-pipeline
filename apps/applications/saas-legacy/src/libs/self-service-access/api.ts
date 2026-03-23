@@ -9,7 +9,8 @@ import {
 import { AxiosRequestConfig } from 'axios';
 import { AxiosLockOptions } from '#src/http/types';
 
-const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
+
 const DEFAULT_TOKEN: string | undefined = undefined;
 const DEFAULT_CANCEL_TOKEN: AxiosRequestConfig['cancelToken'] | undefined =
   undefined;

@@ -29,7 +29,7 @@ export const ParentPage = () => (
 const { detailsLayoutProps } = useDetailsLayout();
 
 return (
-  <DetailsLayout {...detailsLayoutProps} withPanel>
+  <DetailsLayout {...detailsLayoutProps} withPanel onPanelToggle={(value) => console.log("Toggle panel with value", value)}>
     <DetailsLayout.Header
       pageTitle="User Profile"
       onEditTitleClick={() => toggleEditTitleInModal()}
@@ -84,7 +84,7 @@ return (
 
 ## Subcomponent Props
 
-- **Header**: \`pageTitle\` (required), \`className\`, \`children\`, \`breadcrumbsItems\`, \`callToActionButton\`, \`onEditTitleClick\`, \`endGroupActions\`
+- **Header**: \`pageTitle\` (required), \`pageSubtitle\`, \`className\`, \`children\`, \`breadcrumbsItems\`, \`callToActionButton\`, \`onEditTitleClick\`, \`endGroupActions\`
 - **Content**: \`className\`, \`children\`
 - **Panel**: \`className\`, \`children\`
 - **Confirmation**: \`className\`, \`onDiscard\`, \`onSave\`
@@ -141,7 +141,11 @@ export const Primary: Story = {
     });
 
     return (
-      <DetailsLayout {...detailsLayoutProps} withPanel>
+      <DetailsLayout
+        {...detailsLayoutProps}
+        withPanel
+        onPanelToggle={(value) => console.log("Toggle panel with value", value)}
+      >
         <DetailsLayout.Header
           pageTitle="Title"
           breadcrumbsItems={[
@@ -151,6 +155,7 @@ export const Primary: Story = {
               href: "#",
             },
           ]}
+          pageSubtitle="Subtitle"
           callToActionButton={
             <Button
               key="call-to-action"
@@ -200,6 +205,7 @@ export const DetailsWithoutPanel: Story = {
       <DetailsLayout {...detailsLayoutProps}>
         <DetailsLayout.Header
           pageTitle="Title"
+          pageSubtitle="Subtitle"
           breadcrumbsItems={[
             {
               id: "breadcrumb-item-1",

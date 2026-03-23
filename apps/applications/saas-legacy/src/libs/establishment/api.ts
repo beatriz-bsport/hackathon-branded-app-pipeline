@@ -16,8 +16,8 @@ import type {
 } from './types';
 import Config from '../../config';
 
-const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
-const API_URI = Config.REACT_APP_BASE_URI_CORE_V0;
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
+const API_URI = Config.REACT_APP_BASE_URI_BOOK_V0;
 
 import type { PaginatedResponse } from '#src/state/types';
 

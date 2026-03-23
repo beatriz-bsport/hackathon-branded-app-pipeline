@@ -2,7 +2,6 @@ import React, { useId } from "react";
 
 import { FormField, useFormContext } from "@bsport/form";
 import {
-  Body,
   SegmentedControl,
   SegmentedControlProps,
   TextArea,
@@ -14,6 +13,7 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { EmailTemplateSection } from "./EmailTemplateSection/email-template-section";
 import {
   MESSAGE_TYPE_EMAIL_TEMPLATE,
   MESSAGE_TYPE_TEXT_ONLY,
@@ -25,14 +25,14 @@ export const ContentSection: React.FC = () => {
   const { t } = useTranslation("campaign");
   const baseId = useId();
 
-  const { watch } = useFormContext<EmailCampaignFormData>();
+  const { watch, setValue } = useFormContext<EmailCampaignFormData>();
   const isTextOnly = watch("isTextOnly");
 
   return (
     <div className="flex flex-col gap-md">
       <div className="flex flex-col gap-xs">
         <Title htmlVariant="h2" weight="strong">
-          {t("email.creation.form.message.title")}
+          {t("email.creation.form.emailTypeSelector.title")}
         </Title>
       </div>
 
@@ -50,11 +50,24 @@ export const ContentSection: React.FC = () => {
                 return;
               }
               if (value === MESSAGE_TYPE_EMAIL_TEMPLATE) {
-                form.setValue("emailSubject", undefined, {
+                setValue("emailBody", undefined, {
                   shouldValidate: true,
                   shouldDirty: true,
                 });
-                form.setValue("emailBody", undefined, {
+                setValue("emailSubject", "", {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+              } else {
+                setValue("emailTemplateId", null, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+                setValue("emailTemplateDesign", null, {
+                  shouldValidate: true,
+                  shouldDirty: true,
+                });
+                setValue("emailTemplateHtml", null, {
                   shouldValidate: true,
                   shouldDirty: true,
                 });
@@ -72,11 +85,11 @@ export const ContentSection: React.FC = () => {
             options={[
               {
                 value: MESSAGE_TYPE_TEXT_ONLY,
-                label: t("email.creation.form.message.textOnly"),
+                label: t("email.creation.form.emailTypeSelector.textOnly"),
               },
               {
                 value: MESSAGE_TYPE_EMAIL_TEMPLATE,
-                label: t("email.creation.form.message.emailTemplate"),
+                label: t("email.creation.form.emailTypeSelector.emailTemplate"),
               },
             ]}
           />
@@ -104,7 +117,7 @@ export const ContentSection: React.FC = () => {
           >
             <TextField
               id={`${baseId}-email-subject`}
-              label={t("email.creation.form.message.subjectLabel")}
+              label={t("email.creation.form.textOnly.subjectLabel")}
               required
               fullWidth
             />
@@ -119,15 +132,13 @@ export const ContentSection: React.FC = () => {
           >
             <TextArea
               id={`${baseId}-email-body`}
-              label={t("email.creation.form.message.bodyLabel")}
+              label={t("email.creation.form.textOnly.bodyLabel")}
               required
             />
           </FormField>
         </div>
       ) : (
-        <Body htmlVariant="p" size="md" weight="weak" color="weak">
-          {t("email.creation.form.message.emailTemplatePlaceholder")}
-        </Body>
+        <EmailTemplateSection />
       )}
     </div>
   );

@@ -4,37 +4,44 @@
             "title": "Inzichten"
         },
         "communityHealth": {
-            "title": "Communitygezondheid"
+            "title": "Contactenbehoud"
         },
         "scheduleAnalysis": {
-            "title": "Roosterprestaties"
+            "title": "Rooster"
+        },
+        "bookingInsight": {
+            "title": "Boekingen & Leskaarten"
         },
         "recurringRevenue": {
-            "title": "Prestaties van abonnementen monitoren"
+            "title": "Abonnementen"
         },
         "trialAnalysis": {
-            "title": "Acquisitie- en Conversieprestaties"
+            "title": "Acquisitie & Conversie"
         }
     },
     "sections": {
         "memberInsights": "Community & Marketing",
         "financialHealth": "Financiële Gezondheid",
-        "bookings": "Reserveringen"
+        "bookings": "Operationeel"
     },
     "trackTrialOffer": {
-        "title": "Acquisitie- en Conversieprestaties",
-        "description": "Begrijp hoe eerste aankopen omgezet worden in terugkerende klanten, identificeer uitval en optimaliseer je acquisitie."
+        "title": "Acquisitie & Conversie",
+        "description": "Zie hoe eerste aankopen converteren naar terugkerende contacten en ontdek de plek waar afhakers plaatsvinden"
     },
     "monitorRevenue": {
-        "title": "Prestaties van abonnementen monitoren",
+        "title": "Abonnementen",
         "description": "Volg de gezondheid van abonnementen, analyseer terugkerende inkomsten en identificeer risico's of kansen"
     },
     "monitorCommunityHealth": {
-        "title": "Communitygezondheid",
-        "description": "Volg de activiteit, retentie en churn van klanten om de gezondheid van je community te begrijpen"
+        "title": "Klantenbinding",
+        "description": "Begrijp de activiteiten, churn en retentie van contacten in je studio"
     },
     "monitorSchedule": {
-        "title": "Roosterprestaties",
-        "description": "Optimaliseer de roosterprestaties om de inschrijvingen en de verdiende omzet te maximaliseren"
+        "title": "Rooster",
+        "description": "Volg de bezettingsgraad, aanwezigheid en verdiende inkomsten van je lessen"
+    },
+    "monitorBookings": {
+        "title": "Boekingen & Leskaarten",
+        "description": "Bijhouden van boekingen en Leskaart gebruik om aanwezigheid en capaciteit te optimaliseren"
     }
 }

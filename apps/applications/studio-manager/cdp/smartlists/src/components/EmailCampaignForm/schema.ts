@@ -14,15 +14,15 @@ import {
 } from "./utils";
 
 const subjectRequiredMessage = () =>
-  i18nInstance.t("email.creation.form.message.subjectRequired", {
+  i18nInstance.t("email.creation.form.errors.subjectRequired", {
     ns: "sm-smartlists_campaign",
   });
 const bodyRequiredMessage = () =>
-  i18nInstance.t("email.creation.form.message.bodyRequired", {
+  i18nInstance.t("email.creation.form.errors.bodyRequired", {
     ns: "sm-smartlists_campaign",
   });
 
-/** Message content: text-only (subject + body required) vs email template (optional). */
+/** Message content: text-only (subject + body required) vs email template (subject required, template id optional). */
 const messageContentSchema = z.discriminatedUnion("isTextOnly", [
   z.object({
     isTextOnly: z.literal(true),
@@ -37,8 +37,21 @@ const messageContentSchema = z.discriminatedUnion("isTextOnly", [
   }),
   z.object({
     isTextOnly: z.literal(false),
-    emailSubject: z.string().optional(),
+    emailSubject: z.string().refine(
+      (val) => (val ?? "").trim().length > 0,
+      () => ({ message: subjectRequiredMessage() }),
+    ),
     emailBody: z.string().optional(),
+    emailTemplateId: z.number().nullable().optional(),
+    emailTemplateDesign: z.string().nullable().optional(),
+    emailTemplateHtml: z.string({
+      message: i18nInstance.t(
+        "email.creation.form.errors.selectEmailTemplate",
+        {
+          ns: "sm-smartlists_campaign",
+        },
+      ),
+    }),
   }),
 ]);
 
@@ -60,7 +73,7 @@ function addScheduleRefinement<T extends ScheduleRefinementData>(
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: i18nInstance.t(
-        "email.creation.delivery.validation.scheduledDateRequired",
+        "email.creation.form.errors.scheduledDateRequired",
         { ns: "sm-smartlists_campaign" },
       ),
       path: ["scheduledDate"],
@@ -71,7 +84,7 @@ function addScheduleRefinement<T extends ScheduleRefinementData>(
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: i18nInstance.t(
-        "email.creation.delivery.validation.scheduledTimeRequired",
+        "email.creation.form.errors.scheduledTimeRequired",
         { ns: "sm-smartlists_campaign" },
       ),
       path: ["scheduledTime"],
@@ -89,7 +102,7 @@ function addScheduleRefinement<T extends ScheduleRefinementData>(
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         message: i18nInstance.t(
-          "email.creation.delivery.validation.scheduledTimeRequired",
+          "email.creation.form.errors.scheduledTimeRequired",
           { ns: "sm-smartlists_campaign" },
         ),
         path: ["scheduledDate"],
@@ -108,7 +121,7 @@ function addScheduleRefinement<T extends ScheduleRefinementData>(
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: i18nInstance.t(
-        "email.creation.delivery.validation.scheduledDateInvalid",
+        "email.creation.form.errors.scheduledDateInvalid",
         { ns: "sm-smartlists_campaign" },
       ),
       path: ["scheduledDate"],
@@ -120,7 +133,7 @@ function addScheduleRefinement<T extends ScheduleRefinementData>(
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: i18nInstance.t(
-        "email.creation.delivery.validation.scheduledDateNotInPast",
+        "email.creation.form.errors.scheduledDateNotInPast",
         { ns: "sm-smartlists_campaign" },
       ),
       path: ["scheduledDate"],
@@ -138,7 +151,7 @@ function addScheduleRefinement<T extends ScheduleRefinementData>(
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: i18nInstance.t(
-        "email.creation.delivery.validation.scheduledAtLeast5Minutes",
+        "email.creation.form.errors.scheduledAtLeast5Minutes",
         { ns: "sm-smartlists_campaign" },
       ),
       path: ["scheduledTime"],
@@ -149,31 +162,33 @@ function addScheduleRefinement<T extends ScheduleRefinementData>(
 export const getEmailCampaignSchema = (companyTimezone: string) => {
   const baseSchema = z.object({
     emailType: z.enum(EMAIL_TYPE_VALUES, {
-      required_error: i18nInstance.t("email.creation.form.emailType.required", {
-        ns: "sm-smartlists_campaign",
-      }),
+      required_error: i18nInstance.t(
+        "email.creation.form.errors.emailTypeRequired",
+        {
+          ns: "sm-smartlists_campaign",
+        },
+      ),
     }),
     campaignName: z
       .string()
       .min(1, {
-        message: i18nInstance.t("email.creation.form.campaignName.required", {
-          ns: "sm-smartlists_campaign",
-        }),
-      })
-      .max(CAMPAIGN_NAME_MAX_LENGTH, {
         message: i18nInstance.t(
-          "email.creation.form.campaignName.errorMaxLength",
+          "email.creation.form.errors.campaignNameRequired",
           {
             ns: "sm-smartlists_campaign",
-            count: CAMPAIGN_NAME_MAX_LENGTH,
           },
         ),
+      })
+      .max(CAMPAIGN_NAME_MAX_LENGTH, {
+        message: i18nInstance.t("email.creation.form.errors.errorMaxLength", {
+          ns: "sm-smartlists_campaign",
+          count: CAMPAIGN_NAME_MAX_LENGTH,
+        }),
       }),
     deliveryMode: z.enum(DELIVERY_MODE_VALUES),
     scheduledDate: z.string().optional(),
     scheduledTime: z.string().optional(),
   });
-
   return baseSchema.and(messageContentSchema).superRefine((data, ctx) => {
     addScheduleRefinement(ctx, data, companyTimezone);
   }) as z.ZodType<EmailCampaignFormData>;

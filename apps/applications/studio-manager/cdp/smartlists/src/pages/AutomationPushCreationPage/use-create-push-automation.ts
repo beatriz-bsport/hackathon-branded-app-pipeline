@@ -4,6 +4,7 @@ import { toast } from "@bsport/kaizen-primitive-core";
 
 import { CommunicationKind, EventKind } from "#src/api/constants";
 import { useCreateAutomatedCampaign } from "#src/api/use-create-automated-campaign";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import {
@@ -37,7 +38,7 @@ export const useCreatePushAutomation = ({
         icon: "check",
         description: t("automation.push.toasts.success.created"),
       });
-      navigate(`/${smartlistId}/automation`);
+      navigate(SMARTLIST_APP_LINKS.automation(smartlistId));
     },
     onError: () => {
       toast({

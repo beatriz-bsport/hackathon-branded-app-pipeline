@@ -139,8 +139,8 @@ const getPayoutBalanceTransactionsByPayoutId = (state: RootState) =>
 export const getPayoutBalanceTransactions = (
   state: RootState,
   payoutId: number,
-): BalanceTransaction[] =>
-  getPayoutBalanceTransactionsByPayoutId(state)[payoutId]?.results ?? [];
+): BalanceTransaction[] | null =>
+  getPayoutBalanceTransactionsByPayoutId(state)[payoutId]?.results ?? null;
 
 export const getPayoutBalanceTransactionsLoading = (
   state: RootState,

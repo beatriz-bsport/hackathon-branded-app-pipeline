@@ -5,6 +5,7 @@ import {
   Popover,
 } from "@bsport/kaizen-primitive-core";
 
+import { StopPropagationWrapper } from "#src/components/StopPropagationWrapper";
 import { useTranslation } from "#src/utils/i18n";
 
 const EDIT_ACTION_ID = "edit";
@@ -50,37 +51,37 @@ export const CampaignScheduledActionDropdown = ({
   ];
 
   return (
-    <Popover>
-      <Popover.Anchor>
-        {({ setIsPopoverOpened }) => (
-          <Button
-            kind="icon-button"
-            label={t("table.campaignScheduled.moreActions.label")}
-            icon="dots-vertical"
-            color="default"
-            intent="flat"
-            size="md"
-            onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-              event.preventDefault();
-              event.stopPropagation();
-              setIsPopoverOpened((opened) => !opened);
-            }}
-          />
-        )}
-      </Popover.Anchor>
-      <Popover.Content placement="bottom-right">
-        {({ setIsPopoverOpened }) => (
-          <div className="flex flex-col gap-sm">
-            <Menu
-              items={menuItems}
-              onSelectOption={(value) => {
-                setIsPopoverOpened(false);
-                handleMenuItemClick(value);
+    <StopPropagationWrapper preventDefault>
+      <Popover>
+        <Popover.Anchor>
+          {({ setIsPopoverOpened }) => (
+            <Button
+              kind="icon-button"
+              label={t("table.campaignScheduled.moreActions.label")}
+              icon="dots-vertical"
+              color="default"
+              intent="flat"
+              size="md"
+              onClick={() => {
+                setIsPopoverOpened((opened) => !opened);
               }}
             />
-          </div>
-        )}
-      </Popover.Content>
-    </Popover>
+          )}
+        </Popover.Anchor>
+        <Popover.Content placement="bottom-right">
+          {({ setIsPopoverOpened }) => (
+            <div className="flex flex-col gap-sm">
+              <Menu
+                items={menuItems}
+                onSelectOption={(value) => {
+                  setIsPopoverOpened(false);
+                  handleMenuItemClick(value);
+                }}
+              />
+            </div>
+          )}
+        </Popover.Content>
+      </Popover>
+    </StopPropagationWrapper>
   );
 };

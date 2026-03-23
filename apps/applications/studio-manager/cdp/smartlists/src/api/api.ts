@@ -1,6 +1,12 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import {
+  fetchEmailTemplateCategories,
+  searchEmailTemplate,
+  updateEmailTemplate as updateEmailTemplateApi,
+} from "@bsport/api-cdp";
+import type { EditEmailTemplatePayload } from "@bsport/api-cdp";
+import {
   type PaginatedResponse,
   buildUrlParams,
   createErrorWithContext,
@@ -42,6 +48,9 @@ const POPUPS_API_URL =
   "member-experience/v1/mobile_app/manager/custom_popup_links";
 const EMAIL_TEMPLATE_API_V1 = "customer-data-platform/v1/email_design";
 const PLATFORM_BILLING_API_V1 = "financial-services/v1/platform_billing";
+
+const EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE = 1;
+const EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE = 20;
 
 /**
  * Query Key Factory
@@ -127,8 +136,30 @@ export const smartlistKeys = {
   popupImages: (popupId: number, imageUrl: string) =>
     [...smartlistKeys.all, "popup-image", popupId, imageUrl] as const,
 
+  emailTemplate: () => [...smartlistKeys.all, "email-template"] as const,
+
   emailTemplateDetail: (emailTemplateId: number) =>
-    [...smartlistKeys.all, "email-template", emailTemplateId] as const,
+    [...smartlistKeys.emailTemplate(), emailTemplateId] as const,
+
+  emailTemplateSearch: () =>
+    [...smartlistKeys.emailTemplate(), "search"] as const,
+
+  emailTemplateSearchQueries: (
+    query: string,
+    id__in?: string,
+    page?: number,
+    page_size?: number,
+  ) =>
+    [
+      ...smartlistKeys.emailTemplateSearch(),
+      query,
+      id__in ?? "",
+      page ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE,
+      page_size ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE,
+    ] as const,
+
+  emailTemplateCategories: () =>
+    [...smartlistKeys.emailTemplate(), "categories"] as const,
 
   /**
    * Key for communication preview count (recipients estimate).
@@ -473,6 +504,16 @@ const fetchEmailTemplateDetail = async (
   return data;
 };
 
+/**
+ * Updates an email template.
+ * Invalidates the email template detail query on success; use with useUpdateEmailTemplate for cache invalidation.
+ */
+export const updateEmailTemplate = async (
+  payload: EditEmailTemplatePayload,
+): Promise<EmailTemplateDetail> => {
+  return updateEmailTemplateApi(fetch, payload);
+};
+
 const fetchCommunicationRecipientsCountPreview = async (
   request: CommunicationPreviewRecipientsRequest,
 ): Promise<CommunicationRecipientCount> => {
@@ -679,6 +720,39 @@ export const emailTemplateDetailQueryOptions = (emailTemplateId: number) => {
   return queryOptions({
     queryKey: smartlistKeys.emailTemplateDetail(emailTemplateId),
     queryFn: () => fetchEmailTemplateDetail(emailTemplateId),
+  });
+};
+
+export const emailTemplateCategoriesQueryOptions = () =>
+  queryOptions({
+    queryKey: smartlistKeys.emailTemplateCategories(),
+    queryFn: () =>
+      fetchEmailTemplateCategories(fetch, { page: 1, page_size: 100 }),
+  });
+
+export const emailTemplateSearchQueryOptions = (params: {
+  searchInput: string;
+  id__in?: string;
+  page?: number;
+  page_size?: number;
+}) => {
+  const currentPage = params.page ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE;
+  const currentPageSize =
+    params.page_size ?? EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE;
+  return queryOptions({
+    queryKey: smartlistKeys.emailTemplateSearchQueries(
+      params.searchInput,
+      params.id__in,
+      currentPage,
+      currentPageSize,
+    ),
+    queryFn: () =>
+      searchEmailTemplate(fetch, {
+        q: params.searchInput,
+        id__in: params.id__in,
+        page: currentPage,
+        page_size: currentPageSize,
+      }),
   });
 };
 

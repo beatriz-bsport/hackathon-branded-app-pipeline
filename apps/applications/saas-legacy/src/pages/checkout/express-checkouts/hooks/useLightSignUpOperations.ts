@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useFormikContext } from 'formik';
 import isEqual from 'lodash/isEqual';
 import useDebouncedCallback from '#src/hooks/useDebouncedCallBack';
@@ -72,10 +73,13 @@ export const useLightSignUpOperations = <
   TImmediateCreateReturn,
   TImmediateUpdateReturn
 >) => {
+  const { t } = useTranslation('booking');
+
   const {
     values: lightSignupValues,
     submitForm: submitLightSignupForm,
     isValid,
+    setFieldError,
   } = useFormikContext<LightSignupFormValues>();
 
   const { getIsFormInvalid, trimFormValues, getLighSignUpCustomErrors } =
@@ -90,7 +94,10 @@ export const useLightSignUpOperations = <
       },
       lightSignupCreate,
     ],
-    lightSignUpUpdate: [{ value: updatedMember }, lightSignUpUpdate],
+    lightSignUpUpdate: [
+      { value: updatedMember, error: lightSignUpUpdateError },
+      lightSignUpUpdate,
+    ],
   } = useLightSignUp();
 
   const memberId =
@@ -207,6 +214,15 @@ export const useLightSignUpOperations = <
     () => getLighSignUpCustomErrors(lightSignupCreateError),
     [lightSignupCreateError, getLighSignUpCustomErrors],
   );
+
+  useEffect(() => {
+    if (lightSignUpUpdateError) {
+      // The backend doesn't return an error response with a specific code.
+      // We assume that if there's an error, it's because the email is already taken by another user,
+      // since that's the only unique field that can cause an error.
+      setFieldError('email', t('booking:lightSignup.form.errors.emailTaken'));
+    }
+  }, [lightSignUpUpdateError, setFieldError, t]);
 
   return {
     debouncedLightSignUp,

@@ -4,19 +4,19 @@
             "title": "Insights"
         },
         "communityHealth": {
-            "title": "Community Health"
+            "title": "Client Retention"
         },
         "scheduleAnalysis": {
-            "title": "Schedule Performance"
+            "title": "Scheduling"
         },
         "bookingInsight": {
-            "title": "Bookings & Pass Usage"
+            "title": "Bookings & Passes"
         },
         "recurringRevenue": {
-            "title": "Monitor Subscriptions Performance"
+            "title": "Subscriptions"
         },
         "trialAnalysis": {
-            "title": "Acquisition & Conversion Performance"
+            "title": "Acquisition & Conversion"
         }
     },
     "sections": {
@@ -25,23 +25,23 @@
         "bookings": "Operations"
     },
     "trackTrialOffer": {
-        "title": "Acquisition & Conversion Performance",
-        "description": "Understand how first-time purchases convert into returning customers, identify drop-offs, and optimize your acquisition"
+        "title": "Acquisition & Conversion",
+        "description": "See how first-time purchases convert into repeat clients, and spot where drop-offs happen"
     },
     "monitorRevenue": {
-        "title": "Monitor Subscriptions Performance",
-        "description": "Track subscription health, analyse recurring revenue, and spot risks or opportunities"
+        "title": "Subscriptions",
+        "description": "Track subscription health, analyze recurring revenue, and spot risks or opportunities"
     },
     "monitorCommunityHealth": {
-        "title": "Community Health",
-        "description": "Track client activity, retention, and churn to understand the health of your community"
+        "title": "Client Retention",
+        "description": "Understand client activity, churn, and retention across your studio"
     },
     "monitorSchedule": {
-        "title": "Schedule Performance",
-        "description": "Optimise schedule performance to maximise enrolment and earned revenue"
+        "title": "Scheduling",
+        "description": "Track fill rates, attendance, and earned revenue across your classes"
     },
     "monitorBookings": {
-        "title": "Bookings & Pass Usage",
-        "description": "Track bookings and pass usage to optimise attendance and capacity"
+        "title": "Bookings & Passes",
+        "description": "Track bookings and pass usage to optimize attendance and capacity"
     }
 }

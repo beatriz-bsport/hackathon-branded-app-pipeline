@@ -1,7 +1,7 @@
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
 import type { CampaignSent } from "#src/api/types";
-import { URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { getFallbackCampaignName } from "#src/utils/campaignUtils";
 import { i18nInstance } from "#src/utils/i18n";
 
@@ -42,7 +42,10 @@ function formatCampaignSentTableRow({
       openCount: campaignSent.total_read,
       clickCount: campaignSent.total_click,
     },
-    link: URLS.campaignSentDetailsPath(smartlistId, campaignSent.uuid),
+    link: SMARTLIST_APP_LINKS.campaignSentDetails(
+      smartlistId,
+      campaignSent.uuid,
+    ),
   }));
 }
 

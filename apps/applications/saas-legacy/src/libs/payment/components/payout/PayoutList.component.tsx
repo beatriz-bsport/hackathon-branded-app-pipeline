@@ -99,7 +99,7 @@ const PayoutList: React.FC<Props> = ({
               isOpen={payout.id === openedPayoutId}
               payout={payout}
               timezoneName={theme.timezone_name}
-              tooglePayoutOpen={togglePayoutOpen}
+              togglePayoutOpen={togglePayoutOpen}
             />
           ))}
         </div>
@@ -124,7 +124,7 @@ const PayoutList: React.FC<Props> = ({
                   isOpen={payout.id === openedPayoutId}
                   payout={payout}
                   timezoneName={theme.timezone_name}
-                  tooglePayoutOpen={togglePayoutOpen}
+                  togglePayoutOpen={togglePayoutOpen}
                 />
               ))}
             </TableBody>

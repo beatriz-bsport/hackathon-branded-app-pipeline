@@ -7,41 +7,41 @@
   },
   "items": {
     "trial": {
-      "title": "Acquisition & Conversion Performance",
-      "description": "Understand how first-time purchases convert into returning customers, identify drop-offs, and optimize your acquisition"
+      "title": "Acquisition & Conversion",
+      "description": "See how first-time purchases convert into repeat clients, and spot where drop-offs happen"
     },
     "community_health": {
-      "title": "Community Health",
-      "description": "Track client activity, retention, and churn to understand the health of your community"
+      "title": "Client Retention",
+      "description": "Understand client activity, churn, and retention across your studio"
     },
     "recurring": {
-      "title": "Subscriptions Performance",
+      "title": "Subscriptions",
       "description": "Track health of subscriptions, analyse recurring revenue, and spot risks or opportunities"
     },
     "booking": {
-      "title": "Bookings & Pass Usage",
-      "description": "Track booking patterns, pass usage, behaviours, and waitlist trends to optimise attendance and capacity"
+      "title": "Bookings & Passes",
+      "description": "Track bookings and pass usage to optimize attendance and capacity"
     },
     "schedule": {
-      "title": "Schedule Performance",
-      "description": "Optimise schedule performance to maximise enrolment and earned revenue"
+      "title": "Scheduling",
+      "description": "Track fill rates, attendance, and earned revenue across your classes"
     }
   },
   "pages": {
     "trialAnalysis": {
-      "title": "Acquisition & Conversion Performance"
+      "title": "Acquisition & Conversion"
     },
     "communityHealth": {
-      "title": "Community Health"
+      "title": "Client Retention"
     },
     "recurringRevenue": {
-      "title": "Subscriptions Performance"
+      "title": "Subscriptions"
     },
     "bookingInsight": {
-      "title": "Bookings & Pass Usage"
+      "title": "Bookings & Passes"
     },
     "scheduleAnalysis": {
-      "title": "Schedule Performance"
+      "title": "Scheduling"
     }
   },
   "errors": {

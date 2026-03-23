@@ -25,7 +25,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
-import { SMARTLIST_COMMUNICATION_URLS, URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -65,6 +65,9 @@ function CreateEmailCampaign() {
       isTextOnly: true,
       emailSubject: "",
       emailBody: "",
+      emailTemplateId: undefined,
+      emailTemplateDesign: undefined,
+      emailTemplateHtml: undefined,
     },
   });
 
@@ -73,13 +76,13 @@ function CreateEmailCampaign() {
       key="breadcrumb-smartlists"
       id="breadcrumb-smartlists"
       text={tList("title")}
-      href={SMARTLIST_COMMUNICATION_URLS.SMARTLIST_ROUTE_FROM_SUBNAV}
+      href={SMARTLIST_APP_LINKS.index()}
     />,
     <Breadcrumbs.Item
       key="breadcrumb-smartlists-campaigns"
       id="breadcrumb-smartlists-campaigns"
       text={smartlist?.name ?? ""}
-      href={URLS.campaignPath(smartlistId.toString())}
+      href={SMARTLIST_APP_LINKS.campaign(smartlistId)}
     />,
   ];
 

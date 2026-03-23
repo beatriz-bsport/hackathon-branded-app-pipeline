@@ -3,7 +3,7 @@ import { getAuth, postAuth, buildUrlParams } from '../../http';
 import { Membership } from './types';
 import Config from '../../config';
 
-const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
+const API_V1_URI = Config.REACT_APP_BASE_URI_CDP_V1;
 
 export const fetchMembershipList = async (params: any = {}) => {
   return getAuth(`${API_V1_URI}/membership/${buildUrlParams(params)}`);

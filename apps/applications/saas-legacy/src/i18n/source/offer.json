@@ -14,7 +14,7 @@
   "credit_price": " Credit(s)",
   "booking": {
     "confirmed": "Bookings",
-    "fillRate": "Occupancy rate",
+    "fillRate": "Fill rate",
     "waiting": "Waitlist",
     "comesFromMigration": "This session comes from a migration"
   },

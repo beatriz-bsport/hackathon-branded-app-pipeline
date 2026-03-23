@@ -139,7 +139,11 @@
       },
       "sections": {
         "delivery": "Delivery",
-        "message": "Message"
+        "message": "Message",
+        "preview": "Preview"
+      },
+      "preview": {
+        "noContentMessage": "Fill in the title and content to see a preview"
       },
       "form": {
         "automationName": {

@@ -17,7 +17,7 @@ type OwnProps = {
   isMobile: boolean;
   isOpen: boolean;
   timezoneName: string;
-  tooglePayoutOpen: (id: number) => void;
+  togglePayoutOpen: (id: number) => void;
 };
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({

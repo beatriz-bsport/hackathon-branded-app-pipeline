@@ -1,25 +1,47 @@
 {
-  "pages": {
-    "insights": {
-      "title": "Insights"
+    "pages": {
+        "insights": {
+            "title": "Insights"
+        },
+        "communityHealth": {
+            "title": "Retenção de Clientes"
+        },
+        "scheduleAnalysis": {
+            "title": "Agendamento"
+        },
+        "bookingInsight": {
+            "title": "Reservas e Passes de Aula"
+        },
+        "recurringRevenue": {
+            "title": "Subscrições"
+        },
+        "trialAnalysis": {
+            "title": "Aquisição e Conversão"
+        }
     },
-    "recurringRevenue": {
-      "title": "Monitorar o Desempenho das Assinaturas"
+    "sections": {
+        "memberInsights": "Comunidade e Marketing",
+        "financialHealth": "Saúde Financeira",
+        "bookings": "Operações"
     },
-    "trialAnalysis": {
-      "title": "Monitorar o Desempenho de Aquisição de Membros"
+    "trackTrialOffer": {
+        "title": "Aquisição e Conversão",
+        "description": "Veja como as primeiras compras se convertem em contactos recorrentes e identifique onde as desistências acontecem"
+    },
+    "monitorRevenue": {
+        "title": "Subscrições",
+        "description": "Acompanhe a saúde das assinaturas, analise a receita recorrente e identifique riscos ou oportunidades"
+    },
+    "monitorCommunityHealth": {
+        "title": "Retenção de Clientes",
+        "description": "Entenda a atividade, o churn e a retenção de Clientes em seu estúdio"
+    },
+    "monitorSchedule": {
+        "title": "Agendamento",
+        "description": "Acompanhe as taxas de ocupação, a presença e a receita gerada nas suas aulas"
+    },
+    "monitorBookings": {
+        "title": "Reservas e Passes de Aula",
+        "description": "Acompanhar as reservas e a utilização de Passe de aula para otimizar a presença e a capacidade"
     }
-  },
-  "sections": {
-    "memberInsights": "Insights dos Membros",
-    "financialHealth": "Saúde Financeira"
-  },
-  "trackTrialOffer": {
-    "title": "Acompanhe o desempenho da oferta de teste",
-    "description": "Descubra mais sobre aquisição, taxas de conversão e como você pode aumentar a eficácia da sua oferta de teste."
-  },
-  "monitorRevenue": {
-    "title": "Monitorar o Desempenho das Assinaturas",
-    "description": "Acompanhe a saúde das assinaturas, analise a receita recorrente e identifique riscos ou oportunidades"
-  }
 }

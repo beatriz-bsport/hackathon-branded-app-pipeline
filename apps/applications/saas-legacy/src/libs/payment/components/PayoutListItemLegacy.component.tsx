@@ -36,14 +36,14 @@ import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 type Props = {
   stripePayout: StripePayout;
   isOpen: boolean;
-  tooglePayoutOpen: (id: number) => void;
+  togglePayoutOpen: (id: number) => void;
   openInvoice?: (uuid: string) => void;
 };
 
 const PayoutListItemLegacy: React.FC<Props> = ({
   stripePayout,
   isOpen,
-  tooglePayoutOpen,
+  togglePayoutOpen,
   openInvoice,
 }) => {
   const { t } = useTranslation('payment');
@@ -60,9 +60,9 @@ const PayoutListItemLegacy: React.FC<Props> = ({
     [setOpenDialog],
   );
 
-  const handleTooglePayoutOpen = React.useCallback(
-    () => tooglePayoutOpen(stripePayout.stripe_id),
-    [stripePayout.stripe_id, tooglePayoutOpen],
+  const handleTogglePayoutOpen = React.useCallback(
+    () => togglePayoutOpen(stripePayout.stripe_id),
+    [stripePayout.stripe_id, togglePayoutOpen],
   );
 
   const handleOpenInvoice = React.useCallback(
@@ -148,7 +148,7 @@ const PayoutListItemLegacy: React.FC<Props> = ({
             </Typography>
             <IconButton
               disabled={!!bsportPayout.is_included_in_payout}
-              onClick={handleTooglePayoutOpen}
+              onClick={handleTogglePayoutOpen}
             >
               {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </IconButton>

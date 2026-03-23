@@ -25,7 +25,7 @@ import {
   QueryBoundary,
 } from "#src/components/QueryBoundary";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import { URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import {
   AUTOMATION_TAB_PATH,
   CAMPAIGN_TAB_PATH,
@@ -150,7 +150,7 @@ function Details() {
   const { detailsLayoutProps } = useDetailsLayout();
 
   const breadcrumbsItems = [
-    <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
+    <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
       <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
     </Link>,
   ];
@@ -221,7 +221,7 @@ function Details() {
   };
 
   useEffect(() => {
-    const isAtBasePath = location.pathname === `/${id}`;
+    const isAtBasePath = location.pathname === SMARTLIST_APP_LINKS.details(id);
 
     if (isAtBasePath) {
       navigateToSmartlistParameters(id, { replace: true });
@@ -230,7 +230,12 @@ function Details() {
 
   const tabsConfig: TabsProps = {
     TabsItems: tabsConfig_items.map((tab) => (
-      <NavLink to={`../${id}/${tab.path}`} id={tab.id} key={tab.id} end>
+      <NavLink
+        to={SMARTLIST_APP_LINKS.detailsTab(id, tab.path)}
+        id={tab.id}
+        key={tab.id}
+        end
+      >
         {({ isActive }) => (
           <Tabs.Item id={tab.id} label={tab.label} isActive={isActive} />
         )}

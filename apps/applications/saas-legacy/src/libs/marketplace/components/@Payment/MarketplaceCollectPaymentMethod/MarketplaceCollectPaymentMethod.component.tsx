@@ -117,6 +117,7 @@ const PaymentMethodInput: React.FC<PaymentMethodInputProps> = React.memo(
             options={{
               hidePostalCode: true,
               style: { base: { fontSize: '18px' } },
+              disableLink: true,
             }}
           />
         </div>

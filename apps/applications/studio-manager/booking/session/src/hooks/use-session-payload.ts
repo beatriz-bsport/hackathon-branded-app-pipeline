@@ -142,6 +142,10 @@ export const useSessionPayload = () => {
       partner_max_booking_count: formData.partner_max_booking_count,
       level: formData.level,
       broadcast_link: formData.broadcast_link,
+      ...(session.credit_price !== undefined &&
+        formData.credits !== session.credit_price && {
+          credit_price_override: formData.credits,
+        }),
 
       // Teacher and establishment
       coach: formData.coach,

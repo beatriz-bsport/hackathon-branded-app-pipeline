@@ -32,6 +32,8 @@ export default defineConfig({
         "@bsport/fetch",
         "@bsport/i18n",
         "@bsport/kaizen-primitive-core",
+        "@tanstack/react-query",
+        "@tanstack/react-query-devtools",
         "@bsport/use-async",
       ],
     },

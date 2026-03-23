@@ -65,6 +65,7 @@ export {
   default as DetailsLayout,
   useDetailsLayout,
   type DetailsLayoutProps,
+  type UseDetailsLayoutReturnType,
 } from "./components/DetailsLayout";
 export { default as Divider, type DividerProps } from "./components/Divider";
 export {

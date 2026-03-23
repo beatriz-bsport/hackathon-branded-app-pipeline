@@ -126,3 +126,5 @@ export const useDetailsLayout = () => {
     toggleIsPanelOpened,
   };
 };
+
+export type UseDetailsLayoutReturnType = ReturnType<typeof useDetailsLayout>;

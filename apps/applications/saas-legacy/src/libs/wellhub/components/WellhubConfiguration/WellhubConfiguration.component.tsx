@@ -1,267 +1,400 @@
-import React from 'react';
-import uniq from 'lodash/uniq';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
-import WellhubConfigurationDialog, {
-  WellhubConfigurationFormValues,
-} from '#src/libs/wellhub/components/WellhubConfigurationDialog';
-import WellhubWarningUnlinkDialog from '#src/libs/wellhub/components/WellhubWarningUnlinkDialog';
-
-import type {
-  GymAvailabilityResponse,
-  WellhubGym,
-} from '#src/libs/wellhub/types';
-import type { Establishment } from '#src/libs/establishment/types';
-import WellhubIcon from '#src/components/icons/WellhubIcon.component';
 import PartnershipConfigurationPanel from '#src/libs/partnership/components/PartnershipConfigurationPanel';
+import PartnershipWarningDialog from '#src/libs/partnership/components/PartnershipWarningDialog';
+import { PartnershipWarningDialogTextProps } from '#src/libs/partnership/components/PartnershipWarningDialog/PartnershipWarningDialog.component';
 import {
   PartnershipIdentifier,
   PartnershipAccount,
 } from '#src/libs/partnership/types';
-import { mapWellhubGymsToPartnershipAccounts } from '#src/libs/wellhub/mapper';
+import {
+  useCreateWellhubPartnershipAccount,
+  useDeletePartnershipAccount,
+  useUpdatePartnershipAccount,
+  useGetPartnershipAccounts,
+  useActivatePartnershipAccount,
+} from '#src/libs/partnership/hooks';
+
+import WellhubIcon from '#src/components/icons/WellhubIcon.component';
+import { LinearProgress } from '@material-ui/core';
+
 import WellhubProductAlert from '#src/libs/wellhub/components/WellhubProductAlert';
+
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
+import { snackbarError } from '#src/actions/snackbar.actions';
+
+import type { Establishment } from '#src/libs/establishment/types';
+import WellhubPartnershipConfigurationDialogComponent, {
+  type WellhubPartnershipConfigurationFormValues,
+} from '#src/libs/wellhub/components/WellhubPartnershipConfigurationDialog/WellhubPartnershipConfigurationDialog.component';
 
 type Props = {
   establishments: Establishment[];
+  wellhubPartnershipId: number | null;
   offersMissingWellhubProductCount: number;
-  wellhubGymAvailabilityError: Error | null;
-  wellhubGymAvailabilityLoading: boolean;
-  wellhubGyms: WellhubGym[];
-  wellhubLoading: boolean;
-  checkAvailability: (gymId: number) => void;
-  createWellhubGym: (gymId: number, establishmentIds: number[]) => void;
-  deleteWellhubGym: (wellhubGymUuid: string) => void;
-  getWellhubGymAvailability: (gymId: number) => GymAvailabilityResponse;
   openWellhubProductSelectionDrawer: () => void;
-  updateWellhubGym: (
-    wellhubGym: WellhubGym,
-    establishmentIds: number[],
-  ) => void;
+  showSnackbarSuccess: (message: string) => void;
+  showSnackbarError: (message: string) => void;
+};
+
+const computeWarningDialogKeys = (
+  isEdit: boolean = false,
+  isActivate: boolean = false,
+): PartnershipWarningDialogTextProps => {
+  if (isActivate) {
+    return {
+      title: 'wellhub.configuration.dialog.activate.title',
+      subtitle: 'wellhub.configuration.dialog.activate.subtitle',
+      alertContent: 'wellhub.configuration.dialog.activate.content',
+      confirmAction: 'wellhub.configuration.dialog.action.reactivate',
+      cancelAction: 'wellhub.configuration.dialog.action.cancel',
+    };
+  }
+
+  return {
+    title: isEdit
+      ? 'wellhub.configuration.dialog.title.edition'
+      : 'wellhub.configuration.dialog.title.deletion',
+    subtitle: 'wellhub.configuration.dialog.unlink.title',
+    alertContent: 'wellhub.configuration.dialog.unlink.text',
+    confirmAction: 'wellhub.configuration.dialog.action.confirm',
+    cancelAction: 'wellhub.configuration.dialog.action.cancel',
+  };
 };
 
 const WellhubConfiguration: React.FC<Props> = ({
   establishments,
+  wellhubPartnershipId,
   offersMissingWellhubProductCount,
-  wellhubGymAvailabilityError,
-  wellhubGymAvailabilityLoading,
-  wellhubGyms,
-  wellhubLoading,
-  checkAvailability,
-  createWellhubGym,
-  deleteWellhubGym,
-  getWellhubGymAvailability,
   openWellhubProductSelectionDrawer,
-  updateWellhubGym,
+  showSnackbarSuccess,
+  showSnackbarError,
 }) => {
-  // --------- WellhubConfigurationPanel ---------
+  const { t } = useTranslation('partnership');
 
-  const [wellhubGymToEdit, setWellhubGymToEdit] =
-    React.useState<WellhubGym | null>(null);
+  const [
+    { loading: fetchAccountsLoading, value: partnershipAccounts },
+    fetchPartnershipAccounts,
+  ] = useGetPartnershipAccounts(wellhubPartnershipId ?? 0);
+  const [createActionState, createPartnershipAccount] =
+    useCreateWellhubPartnershipAccount(wellhubPartnershipId ?? 0);
+  const [deleteActionState, deletePartnershipAccount] =
+    useDeletePartnershipAccount();
+  const [updateActionState, updatePartnershipAccount] =
+    useUpdatePartnershipAccount(wellhubPartnershipId ?? 0);
+  const [activateActionState, activatePartnershipAccount] =
+    useActivatePartnershipAccount();
 
-  const resetWellhubGymToEdit = React.useCallback(
-    /** When the dialog closes, MUI applies a 300ms fade-out transition.
-     * To prevent resetting the data before the dialog fully disappears,
-     * we add a 300ms timeout for the data reset.
-     * This ensures a smooth visual experience. */
-    () => setTimeout(() => setWellhubGymToEdit(null), 300),
+  const [selectedAccountToEdit, setSelectedAccountToEdit] =
+    useState<PartnershipAccount | null>(null);
+  const [selectedAccountToActivate, setSelectedAccountToActivate] =
+    useState<PartnershipAccount | null>(null);
+
+  const warningDialogKeys = useMemo(
+    () =>
+      computeWarningDialogKeys(
+        selectedAccountToEdit !== null,
+        selectedAccountToActivate !== null,
+      ),
+    [selectedAccountToEdit, selectedAccountToActivate],
+  );
+
+  useEffect(() => {
+    if (!wellhubPartnershipId) return;
+    fetchPartnershipAccounts();
+  }, [wellhubPartnershipId, fetchPartnershipAccounts]);
+
+  // The list of establishment IDs linked to the account being edited
+  const selectedEstablishmentIds = useMemo(
+    () =>
+      selectedAccountToEdit?.establishments.map(
+        (establishment) => establishment.id,
+      ) || [],
+    [selectedAccountToEdit],
+  );
+
+  // The list of establishment IDs already linked to other accounts
+  // These ids will be disabled in the establishment selector
+  const establishmentsLinkedIds = useMemo(
+    () =>
+      partnershipAccounts
+        ? partnershipAccounts.flatMap((account) =>
+            account.establishments.map((establishment) => establishment.id),
+          )
+        : [],
+    [partnershipAccounts],
+  );
+
+  const establishmentsNotLinked = useMemo(
+    () =>
+      establishments.filter(
+        (establishment) => !establishmentsLinkedIds.includes(establishment.id),
+      ),
+    [establishmentsLinkedIds, establishments],
+  );
+
+  /* Configuration Dialog */
+  const [isConfigurationDialogOpen, setIsConfigurationDialogOpen] =
+    useState(false);
+
+  const openConfigurationDialog = useCallback(() => {
+    setIsConfigurationDialogOpen(true);
+  }, []);
+
+  const closeConfigurationDialog = useCallback((reset: boolean = true) => {
+    setIsConfigurationDialogOpen(false);
+    if (reset) {
+      // Material applies a 300ms fade out animation on dialog close
+      // Wait before resetting to prevent its style from changing before closing
+      setTimeout(() => setSelectedAccountToEdit(null), 300);
+    }
+  }, []);
+
+  /* Warning Dialog */
+  const [isWarningDialogOpen, setIsWarningDialogOpen] = useState(false);
+  const [warningOnConfirmCallback, setWarningOnConfirmCallback] = useState<
+    (() => void) | undefined
+  >();
+  const [warningOnCancelCallback, setWarningOnCancelCallback] = useState<
+    (() => void) | undefined
+  >();
+
+  const openWarningDialog = useCallback(
+    (onConfirm?: () => void, onCancel?: () => void) => {
+      setIsWarningDialogOpen(true);
+      setWarningOnConfirmCallback(() => onConfirm);
+      setWarningOnCancelCallback(() => onCancel);
+    },
     [],
   );
 
-  const openConfigurationDialog = React.useCallback(() => {
-    setIsConfigurationDialogOpen(true);
-    setIsConfigurationDialogInDOM(true);
+  const closeWarningDialog = useCallback(() => {
+    setIsWarningDialogOpen(false);
+    setWarningOnConfirmCallback(undefined);
+    setWarningOnCancelCallback(undefined);
   }, []);
 
-  const openWarningUnlinkDialog = React.useCallback(() => {
-    setIsWarningUnlinkDialogOpen(true);
-    setIsWarningUnlinkDialogInDOM(true);
-  }, []);
+  /* Action Handlers */
 
-  const [wellhubGymToDelete, setWellhubGymToDelete] =
-    React.useState<WellhubGym | null>(null);
+  // DELETE: Remove partnership account
+  const deleteAccount = useCallback(
+    async (account: PartnershipAccount) => {
+      await deletePartnershipAccount(account.id);
+      fetchPartnershipAccounts();
+      showSnackbarSuccess(
+        t('wellhub.configuration.dialog.notification.delete.success'),
+      );
+      closeWarningDialog();
+    },
+    [
+      deletePartnershipAccount,
+      fetchPartnershipAccounts,
+      showSnackbarSuccess,
+      closeWarningDialog,
+      t,
+    ],
+  );
 
-  const handleEditWellhubGym = React.useCallback(
-    (partnershipAccount: PartnershipAccount) => {
+  // EDIT: Update partnership account
+  const updateAccount = useCallback(
+    async (values: WellhubPartnershipConfigurationFormValues) => {
+      if (!selectedAccountToEdit) return;
+
+      // Check if any establishments were removed
+      const removedEstablishments = selectedEstablishmentIds.filter(
+        (id) => !values.establishmentIds.includes(id),
+      );
+
+      if (removedEstablishments.length > 0) {
+        // Show warning dialog for confirmation before removing establishments
+        closeConfigurationDialog(false);
+        openWarningDialog(
+          async () => {
+            await updatePartnershipAccount(selectedAccountToEdit.id, values);
+            fetchPartnershipAccounts();
+            showSnackbarSuccess(
+              t('wellhub.configuration.dialog.notification.update.success'),
+            );
+            // Material applies a 300ms fade out animation on dialog close
+            // Wait before resetting to prevent its style from changing before closing
+            setTimeout(() => setSelectedAccountToEdit(null), 300);
+            closeWarningDialog();
+          },
+          () => {
+            // Reopen configuration dialog on cancel
+            closeWarningDialog();
+            setSelectedAccountToEdit(selectedAccountToEdit);
+            openConfigurationDialog();
+          },
+        );
+        return;
+      }
+
+      await updatePartnershipAccount(selectedAccountToEdit.id, values);
+      closeConfigurationDialog();
+      fetchPartnershipAccounts();
+      showSnackbarSuccess(
+        t('wellhub.configuration.dialog.notification.update.success'),
+      );
+    },
+    [
+      selectedAccountToEdit,
+      selectedEstablishmentIds,
+      updatePartnershipAccount,
+      closeConfigurationDialog,
+      fetchPartnershipAccounts,
+      showSnackbarSuccess,
+      t,
+      openWarningDialog,
+      closeWarningDialog,
+      openConfigurationDialog,
+    ],
+  );
+
+  // CREATE: Add new partnership account
+  const createAccount = useCallback(
+    async (values: WellhubPartnershipConfigurationFormValues) => {
+      const createdValue = await createPartnershipAccount({
+        externalId: values.externalId,
+        establishmentIds: values.establishmentIds,
+      });
+      if (createdValue) {
+        fetchPartnershipAccounts();
+        showSnackbarSuccess(
+          t('wellhub.configuration.dialog.notification.create.success'),
+        );
+        closeConfigurationDialog();
+      }
+    },
+    [
+      createPartnershipAccount,
+      fetchPartnershipAccounts,
+      showSnackbarSuccess,
+      closeConfigurationDialog,
+      t,
+    ],
+  );
+
+  // ACTIVATE: Activate a disabled partnership account
+  const activateAccount = useCallback(
+    async (account: PartnershipAccount) => {
+      await activatePartnershipAccount(account.id);
+      fetchPartnershipAccounts();
+      showSnackbarSuccess(
+        t('wellhub.configuration.dialog.notification.activate.success'),
+      );
+      closeWarningDialog();
+      // Material applies a 300ms fade out animation on dialog close
+      // Wait before resetting to prevent its style from changing before closing
+      setTimeout(() => setSelectedAccountToActivate(null), 300);
+    },
+    [
+      activatePartnershipAccount,
+      fetchPartnershipAccounts,
+      showSnackbarSuccess,
+      closeWarningDialog,
+      t,
+    ],
+  );
+
+  const handleActivateAccount = useCallback(
+    (account: PartnershipAccount) => {
+      setSelectedAccountToActivate(account);
+      openWarningDialog(
+        () => {
+          activateAccount(account);
+        },
+        () => {
+          closeWarningDialog();
+          setSelectedAccountToActivate(null);
+        },
+      );
+    },
+    [activateAccount, openWarningDialog, closeWarningDialog],
+  );
+
+  const handleDeleteAccount = useCallback(
+    (account: PartnershipAccount) => {
+      openWarningDialog(() => deleteAccount(account));
+    },
+    [deleteAccount, openWarningDialog],
+  );
+
+  const handleEditAccount = useCallback(
+    (account: PartnershipAccount) => {
+      setSelectedAccountToEdit(account);
       openConfigurationDialog();
-      setWellhubGymToEdit(partnershipAccount.legacyObject as WellhubGym);
     },
     [openConfigurationDialog],
   );
 
-  const handleDeleteWellhubGym = React.useCallback(
-    (partnershipAccount: PartnershipAccount) => {
-      openWarningUnlinkDialog();
-      setWellhubGymToDelete(partnershipAccount.legacyObject as WellhubGym);
-    },
-    [openWarningUnlinkDialog],
-  );
-
-  const wellhubPartnershipAccounts = React.useMemo(
-    () => mapWellhubGymsToPartnershipAccounts(wellhubGyms),
-    [wellhubGyms],
-  );
-
-  // --------- WellhubConfigurationDialog ---------
-
-  const [isConfigurationDialogOpen, setIsConfigurationDialogOpen] =
-    React.useState(false);
-  const [isConfigurationDialogInDOM, setIsConfigurationDialogInDOM] =
-    React.useState(false);
-
-  /** List of establishment IDs linked to the Wellhub gym currently being edited. */
-  const establishmentIds = React.useMemo(
-    () =>
-      wellhubGymToEdit?.establishments?.map(
-        (establishment) => establishment?.id,
-      ) || [],
-    [wellhubGymToEdit?.establishments],
-  );
-
-  /** List of establishment IDs that are already linked to Wellhub gyms.
-   *
-   * This list is computed by iterating through all Wellhub gyms and collecting
-   * the IDs of their associated establishments. */
-  const establishmentIdsLinked = React.useMemo(
-    () =>
-      wellhubGyms.reduce<number[]>(
-        (acc, currentWellhubGym) =>
-          uniq([
-            ...acc,
-            ...currentWellhubGym.establishments.map((est) => est.id),
-          ]),
-        [],
-      ),
-    [wellhubGyms],
-  );
-
-  /** List of establishments that are not linked to any Wellhub gym. */
-  const establishmentsNotLinked = React.useMemo(
-    () =>
-      establishments.filter(
-        (establishment) => !establishmentIdsLinked.includes(establishment.id),
-      ),
-    [establishmentIdsLinked, establishments],
-  );
-
-  const closeConfigurationDialog = React.useCallback(() => {
-    setIsConfigurationDialogOpen(false);
-    setTimeout(() => setIsConfigurationDialogInDOM(false), 300);
-  }, []);
-
-  const handleCloseConfigurationDialog = React.useCallback(() => {
-    closeConfigurationDialog();
-    resetWellhubGymToEdit();
-  }, [closeConfigurationDialog, resetWellhubGymToEdit]);
-
-  const handleSaveConfiguration = React.useCallback(
-    (values: WellhubConfigurationFormValues) => {
-      if (wellhubGymToEdit) {
-        const isEstablishmentMissing = establishmentIds.some(
-          (establishmentId) =>
-            !values.establishmentIds.includes(establishmentId),
-        );
-        if (isEstablishmentMissing) {
-          openWarningUnlinkDialog();
-          setConfigurationFormValues(values);
-        } else {
-          const sortedCurrentEstablishmentIds = [...establishmentIds].sort(
-            (a, b) => a - b,
-          );
-
-          const sortedEditedEstablishmentIds = [
-            ...values.establishmentIds,
-          ].sort((a, b) => a - b);
-
-          const hasChanged =
-            sortedCurrentEstablishmentIds.length !==
-              sortedEditedEstablishmentIds.length ||
-            !sortedCurrentEstablishmentIds.every(
-              (establishmentId, index) =>
-                establishmentId === sortedEditedEstablishmentIds[index],
-            );
-
-          hasChanged &&
-            updateWellhubGym(wellhubGymToEdit, values.establishmentIds);
-
-          handleCloseConfigurationDialog();
-        }
+  const handleFormSubmit = useCallback(
+    async (values: WellhubPartnershipConfigurationFormValues) => {
+      if (selectedAccountToEdit) {
+        await updateAccount(values);
       } else {
-        createWellhubGym(values.unitId, values.establishmentIds);
-        handleCloseConfigurationDialog();
+        await createAccount(values);
       }
     },
-    [
-      createWellhubGym,
-      establishmentIds,
-      handleCloseConfigurationDialog,
-      openWarningUnlinkDialog,
-      updateWellhubGym,
-      wellhubGymToEdit,
-    ],
+    [selectedAccountToEdit, updateAccount, createAccount],
   );
 
-  // --------- WellhubWarningUnlinkDialog ---------
+  /* Error management */
+  useEffect(() => {
+    if (!showSnackbarError) return;
 
-  const [isWarningUnlinkDialogOpen, setIsWarningUnlinkDialogOpen] =
-    React.useState(false);
-  const [isWarningUnlinkDialogInDOM, setIsWarningUnlinkDialogInDOM] =
-    React.useState(false);
-
-  const closeWarningUnlinkDialog = React.useCallback(() => {
-    setIsWarningUnlinkDialogOpen(false);
-    setTimeout(() => setIsWarningUnlinkDialogInDOM(false), 300);
-  }, []);
-
-  const [configurationFormValues, setConfigurationFormValues] =
-    React.useState<WellhubConfigurationFormValues | null>(null);
-
-  const handleConfirmUnlinkEstablishment = React.useCallback(() => {
-    if (wellhubGymToEdit && configurationFormValues?.establishmentIds) {
-      updateWellhubGym(
-        wellhubGymToEdit,
-        configurationFormValues.establishmentIds,
+    if (createActionState.error) {
+      showSnackbarError(
+        t('wellhub.configuration.dialog.notification.create.error'),
       );
     }
-    if (wellhubGymToDelete) {
-      deleteWellhubGym(wellhubGymToDelete.uuid);
+
+    if (deleteActionState.error) {
+      showSnackbarError(
+        t('wellhub.configuration.dialog.notification.delete.error'),
+      );
     }
-    closeWarningUnlinkDialog();
-    handleCloseConfigurationDialog();
-    setWellhubGymToDelete(null);
+
+    if (updateActionState.error) {
+      showSnackbarError(
+        t('wellhub.configuration.dialog.notification.update.error'),
+      );
+    }
+
+    if (activateActionState.error) {
+      showSnackbarError(
+        t('wellhub.configuration.dialog.notification.activate.error'),
+      );
+    }
   }, [
-    closeWarningUnlinkDialog,
-    configurationFormValues?.establishmentIds,
-    deleteWellhubGym,
-    handleCloseConfigurationDialog,
-    updateWellhubGym,
-    wellhubGymToDelete,
-    wellhubGymToEdit,
+    createActionState.error,
+    deleteActionState.error,
+    updateActionState.error,
+    activateActionState.error,
+    showSnackbarError,
+    t,
   ]);
 
-  const handleGoBackToConfigurationDialog = React.useCallback(() => {
-    closeWarningUnlinkDialog();
-    openConfigurationDialog();
-  }, [closeWarningUnlinkDialog, openConfigurationDialog]);
-
-  const handleCloseWarningUnlinkDialog = React.useCallback(() => {
-    closeWarningUnlinkDialog();
-    handleCloseConfigurationDialog();
-    setWellhubGymToDelete(null);
-  }, [closeWarningUnlinkDialog, handleCloseConfigurationDialog]);
+  if (!wellhubPartnershipId) return <LinearProgress />;
 
   return (
     <>
       <PartnershipConfigurationPanel
-        addConnectionDisabled={establishmentsNotLinked?.length === 0}
+        addConnectionDisabled={establishmentsNotLinked.length === 0}
         displayConfig={{
           partnershipIdentifier: PartnershipIdentifier.WELLHUB,
           icon: <WellhubIcon />,
           helperTextKey: 'wellhub.configuration.panel.content.helperText',
         }}
-        loading={wellhubLoading}
+        loading={fetchAccountsLoading}
+        onActivateAccount={handleActivateAccount}
         onAddConnection={openConfigurationDialog}
-        onDeleteAccount={handleDeleteWellhubGym}
-        onEditAccount={handleEditWellhubGym}
-        partnershipAccounts={wellhubPartnershipAccounts}
+        onDeleteAccount={handleDeleteAccount}
+        onEditAccount={handleEditAccount}
+        partnershipAccounts={partnershipAccounts ?? []}
         slots={{
           alert: (
             <WellhubProductAlert
@@ -271,33 +404,31 @@ const WellhubConfiguration: React.FC<Props> = ({
           ),
         }}
       />
-      {isConfigurationDialogInDOM && (
-        <WellhubConfigurationDialog
-          checkAvailability={checkAvailability}
-          establishmentIds={establishmentIds}
-          establishmentIdsLinked={establishmentIdsLinked}
-          establishments={establishments}
-          getWellhubGymAvailability={getWellhubGymAvailability}
-          isCreation={!wellhubGymToEdit}
-          isOpen={isConfigurationDialogOpen}
-          onClose={handleCloseConfigurationDialog}
-          onSubmit={handleSaveConfiguration}
-          unitId={wellhubGymToEdit?.gym_id || null}
-          wellhubGymAvailabilityError={wellhubGymAvailabilityError}
-          wellhubGymAvailabilityLoading={wellhubGymAvailabilityLoading}
-        />
-      )}
-      {isWarningUnlinkDialogInDOM && (
-        <WellhubWarningUnlinkDialog
-          goBack={handleGoBackToConfigurationDialog}
-          isDeletion={!!wellhubGymToDelete && !wellhubGymToEdit}
-          isOpen={isWarningUnlinkDialogOpen}
-          onClose={handleCloseWarningUnlinkDialog}
-          onConfirm={handleConfirmUnlinkEstablishment}
-        />
-      )}
+      <WellhubPartnershipConfigurationDialogComponent
+        establishmentIds={selectedEstablishmentIds}
+        establishmentIdsLinked={establishmentsLinkedIds}
+        establishments={establishments}
+        externalId={selectedAccountToEdit?.external_id || ''}
+        isCreation={selectedAccountToEdit == null}
+        isLoading={createActionState.loading || updateActionState.loading}
+        isOpen={isConfigurationDialogOpen}
+        onClose={closeConfigurationDialog}
+        onSubmit={handleFormSubmit}
+        partnershipId={wellhubPartnershipId}
+      />
+      <PartnershipWarningDialog
+        dialogType={selectedAccountToActivate ? 'info' : 'error'}
+        isOpen={isWarningDialogOpen}
+        onCancel={warningOnCancelCallback ?? closeWarningDialog}
+        onClose={closeWarningDialog}
+        onConfirm={warningOnConfirmCallback}
+        textContentKeys={warningDialogKeys}
+      />
     </>
   );
 };
 
-export default React.memo(WellhubConfiguration);
+export default connect(null, {
+  showSnackbarSuccess: snackbarSuccess,
+  showSnackbarError: snackbarError,
+})(React.memo(WellhubConfiguration));

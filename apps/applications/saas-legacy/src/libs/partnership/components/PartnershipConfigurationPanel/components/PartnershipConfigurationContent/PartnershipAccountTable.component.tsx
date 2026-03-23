@@ -89,7 +89,7 @@ const PartnershipAccountTable: React.FC<Props> = ({
       (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.stopPropagation();
         event.preventDefault();
-        onActivateAccount(partnershipAccount);
+        onActivateAccount?.(partnershipAccount);
       },
     [onActivateAccount],
   );

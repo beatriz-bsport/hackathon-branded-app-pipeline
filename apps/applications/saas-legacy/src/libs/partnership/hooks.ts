@@ -8,6 +8,7 @@ import {
   getActivePartnershipAccountForOffer,
   getPartnershipAccounts,
   updatePartnershipAccount,
+  validateExternalId,
 } from './api';
 
 export const useGetPartnershipAccounts = (partnershipId: number) => {
@@ -90,4 +91,32 @@ export const useGetActivePartnershipAccountForOffer = () => {
   };
 
   return useAsyncFn(doGetActivePartnershipAccountForOffer, []);
+};
+
+export const useValidateExternalId = (partnershipId: number) => {
+  const doValidateExternalId = async (externalId: string) => {
+    const response = await validateExternalId({
+      external_id: externalId,
+      partnership: partnershipId,
+    });
+    return response.data;
+  };
+
+  return useAsyncFn(doValidateExternalId, [partnershipId]);
+};
+
+export const useCreateWellhubPartnershipAccount = (partnershipId: number) => {
+  const doCreate = async (data: {
+    externalId: string;
+    establishmentIds: number[];
+  }) => {
+    const response = await createPartnershipAccount({
+      external_id: data.externalId,
+      establishment_group: data.establishmentIds,
+      partnership: partnershipId,
+    });
+    return response.data;
+  };
+
+  return useAsyncFn(doCreate, [partnershipId]);
 };

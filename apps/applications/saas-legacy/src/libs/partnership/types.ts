@@ -33,6 +33,18 @@ export type PartnershipAccountFilters = {
 export type PartnershipAccountPayload = {
   establishment_group: number[];
   partnership: number; // The partnership ID
+  external_id?: string;
+};
+
+export type ValidateExternalIdParams = {
+  external_id: string;
+  partnership: number;
+};
+
+export type ValidateExternalIdResponse = {
+  is_valid: boolean;
+  error?: string;
+  error_code?: string;
 };
 
 type ActivePartnershipAccountByOfferParams = {

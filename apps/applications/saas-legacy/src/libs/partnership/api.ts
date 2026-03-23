@@ -11,6 +11,8 @@ import {
   PartnershipAccount,
   PartnershipAccountFilters,
   PartnershipAccountPayload,
+  ValidateExternalIdParams,
+  ValidateExternalIdResponse,
   ActivePartnershipAccountForOfferParams,
   ActivePartnershipAccount,
 } from '#src/libs/partnership/types';
@@ -57,6 +59,14 @@ export const getActivePartnershipAccountForOffer = (
 ) => {
   return getAuth<ActivePartnershipAccount[]>(
     `${API_V1_URI}/partnership/partnership_account/active_for_offer/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const validateExternalId = (params: ValidateExternalIdParams) => {
+  return getAuth<ValidateExternalIdResponse>(
+    `${API_V1_URI}/partnership/partnership_account/validate-external-id/${buildUrlParams(
       params,
     )}`,
   );

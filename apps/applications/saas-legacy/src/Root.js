@@ -196,7 +196,6 @@ export class Root extends Component<Props> {
       isCoach,
       theme,
       networkState,
-      enableMarketingDoubleOptIn,
     } = this.props;
 
     const isUsingMarketplace = !isManager && !isFranchisor && !isCoach;
@@ -239,12 +238,10 @@ export class Root extends Component<Props> {
               component={ConsumerUnsubscribe}
               path="/c/:companyId/unsubscribe/:unsubscribe_uuid"
             />
-            {enableMarketingDoubleOptIn && (
-              <Route
-                component={ConsumerConfirmMarketingEmail}
-                path="/c/:companyId/confirm-marketing-email/:memberId/:confirmationToken"
-              />
-            )}
+            <Route
+              component={ConsumerConfirmMarketingEmail}
+              path="/c/:companyId/confirm-marketing-email/:confirmationToken"
+            />
             <Route
               component={DeprecatedCheckoutPagesRouter}
               path="/(|customer/)payment"

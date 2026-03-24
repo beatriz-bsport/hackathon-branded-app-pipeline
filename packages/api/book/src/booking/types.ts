@@ -142,3 +142,11 @@ export type RecurrenceRuleBookingFilterParams = {
   establishment?: number;
   meta_activity?: number;
 } & PaginatedParameters;
+export type CancelBookingParams = {
+  force_notify?: boolean;
+  force_refund?: boolean;
+};
+
+export type SetSpotParams = {
+  spot_id: number;
+};

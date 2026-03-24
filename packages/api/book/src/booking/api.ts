@@ -11,9 +11,11 @@ import type { Session } from "#src/session/types";
 
 import type {
   Booking,
+  CancelBookingParams,
   PaginatedBookingFilterParams,
   RecurrenceRuleBooking,
   RecurrenceRuleBookingFilterParams,
+  SetSpotParams,
 } from "./types";
 
 const API_URL = "book/v1";
@@ -133,3 +135,68 @@ export const sessionWithCancelledBookingsQueryOptions = (
     queryFn: () =>
       retrieveSessionWithCancelledBookingsAPI(fetch, recurrenceRuleId),
   });
+
+export const cancelBookingAPIConfig = (
+  bookingId: number,
+  params: CancelBookingParams = {},
+): ApiConfig => {
+  return [
+    `${API_URL_BOOKING}/${bookingId}/cancel/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const cancelBookingAPI = async (
+  fetch: Fetch<Booking>,
+  bookingId: number,
+  params?: CancelBookingParams,
+): Promise<Booking> => {
+  const [uri, init] = cancelBookingAPIConfig(bookingId, params);
+  const { data } = await fetch(uri, init);
+  return data;
+};
+
+export const setSpotForBookingAPIConfig = (
+  bookingId: number,
+  params: SetSpotParams,
+): ApiConfig => {
+  return [
+    `${API_URL_BOOKING}/${bookingId}/set_spot_for_member/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const setSpotForBookingAPI = async (
+  fetch: Fetch<Booking>,
+  bookingId: number,
+  params: SetSpotParams,
+): Promise<Booking> => {
+  const [uri, init] = setSpotForBookingAPIConfig(bookingId, params);
+  const { data } = await fetch(uri, init);
+  return data;
+};
+
+export const refundBookingAPIConfig = (bookingId: number): ApiConfig => {
+  return [
+    `${API_URL_BOOKING}/${bookingId}/refund/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({}),
+    },
+  ];
+};
+
+export const refundBookingAPI = async (
+  fetch: Fetch<Booking>,
+  bookingId: number,
+): Promise<Booking> => {
+  const [uri, init] = refundBookingAPIConfig(bookingId);
+  const { data } = await fetch(uri, init);
+  return data;
+};

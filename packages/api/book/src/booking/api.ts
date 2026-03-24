@@ -19,6 +19,7 @@ import type {
   RecurrenceRuleBookingFilterParams,
   SetSpotParams,
   UpdateRecurrenceRuleBookingParams,
+  UpdateSessionWithCancelledBookingsToRetryParams,
 } from "./types";
 
 const API_URL = "book/v1";
@@ -225,6 +226,7 @@ export const setAttendanceAPI = async (
   const [uri, init] = setAttendanceAPIConfig(bookingId, attendance);
   await fetch(uri, init);
 };
+
 export const createRecurrenceRuleBookingAPIConfig = (
   params: CreateRecurrenceRuleBookingParams,
 ): ApiConfig => {
@@ -287,6 +289,32 @@ export const deleteRecurrenceRuleBookingAPI = async (
   params?: DeleteRecurrenceRuleBookingParams,
 ): Promise<RecurrenceRuleBooking> => {
   const [uri, init] = deleteRecurrenceRuleBookingAPIConfig(id, params);
+  const { data } = await fetch(uri, init);
+  return data;
+};
+
+export const updateSessionWithCancelledBookingsToRetryAPIConfig = (
+  recurrenceRuleId: number,
+  params: UpdateSessionWithCancelledBookingsToRetryParams,
+): ApiConfig => {
+  return [
+    `${API_URL_RECURRENCE_RULE}/${recurrenceRuleId}/update_recurrence_booking_offers_to_retry/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const updateSessionWithCancelledBookingsToRetryAPI = async (
+  fetch: Fetch<number>,
+  recurrenceRuleId: number,
+  params: UpdateSessionWithCancelledBookingsToRetryParams,
+): Promise<number> => {
+  const [uri, init] = updateSessionWithCancelledBookingsToRetryAPIConfig(
+    recurrenceRuleId,
+    params,
+  );
   const { data } = await fetch(uri, init);
   return data;
 };

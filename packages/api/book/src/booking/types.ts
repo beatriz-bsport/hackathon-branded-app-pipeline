@@ -163,3 +163,7 @@ export type DeleteRecurrenceRuleBookingParams = {
   cancel_related_bookings?: boolean;
   notify_if_canceled?: boolean;
 };
+
+export type UpdateSessionWithCancelledBookingsToRetryParams = {
+  offer_ids: number[];
+};

@@ -1,5 +1,6 @@
 import { type FC, useEffect, useMemo, useRef, useState } from "react";
 
+import { buildLocalizedIframeUrl } from "@bsport/api-business-insights/sigma";
 import { useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -14,40 +15,6 @@ interface DashboardIframeProps {
   /** Horizontal translation applied (visual alignment tweak) */
   leftTranslate?: number;
 }
-
-// https://help.sigmacomputing.com/docs/manage-workbook-localization#supported-languages-and-locales
-const SUPPORTED_LOCALES = new Set([
-  "en",
-  "fr", // fr-fr isn't supported
-  "fr-ca",
-  "es",
-  "de",
-  "it",
-  "pt",
-  "nl-nl",
-  "ru",
-  "th",
-  "ja",
-  "pl",
-]);
-
-const DEFAULT_SIGMA_LOCALE_BY_LANGUAGE = new Map([["nl", "nl-nl"]]);
-
-/**
- * Coerce a language code to a Sigma-supported locale
- * @param languageCode - The language code to coerce
- * @returns A supported Sigma locale code
- */
-const coerceSigmaLocale = (languageCode: string): string => {
-  if (!languageCode) return "en";
-  const lc = languageCode.toLowerCase();
-  if (SUPPORTED_LOCALES.has(lc)) return lc;
-  const [lang] = lc.split("-");
-  if (SUPPORTED_LOCALES.has(lang)) return lang;
-  const mappedLocale = DEFAULT_SIGMA_LOCALE_BY_LANGUAGE.get(lang);
-  if (mappedLocale) return mappedLocale;
-  return "en";
-};
 
 /**
  * Reusable iframe component for displaying dashboard content.
@@ -72,17 +39,14 @@ export const DashboardIframe: FC<DashboardIframeProps> = ({
   const [iframeHeight, setIframeHeight] = useState(initialLoadingHeight);
 
   const localizedSrc = useMemo(() => {
-    const lng = coerceSigmaLocale(i18n.language);
-    try {
-      const urlObj = new URL(src);
-      urlObj.searchParams.set(":lng", lng);
-      urlObj.searchParams.set(":responsive_height", "true");
-      urlObj.searchParams.set(":hide_element_interactions", "true");
-      return urlObj.toString();
-    } catch {
-      const separator = src.includes("?") ? "&" : "?";
-      return `${src}${separator}:lng=${encodeURIComponent(lng)}&:responsive_height=true&:hide_element_interactions=true`;
-    }
+    return buildLocalizedIframeUrl({
+      baseIframeUrl: src,
+      language: i18n.language,
+      additionalParams: {
+        ":responsive_height": "true",
+        ":hide_element_interactions": "true",
+      },
+    });
   }, [src, i18n.language]);
 
   useEffect(() => {

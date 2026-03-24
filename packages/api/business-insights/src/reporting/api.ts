@@ -1,8 +1,10 @@
 import { type ApiConfig, type Fetch, buildUrlParams } from "@bsport/store-base";
 
+import { API_V0_URL } from "#src/constants";
+
 import type { FetchReportParticipantsListParams } from "./types";
 
-const REPORTING_API_URI = "business-insights/v0/reporting/reports/";
+const REPORTING_API_URI = `${API_V0_URL}/reporting/reports/`;
 
 export const fetchReportParticipantsListAPIConfig = (
   params: FetchReportParticipantsListParams,

@@ -4,18 +4,23 @@
   "private": true,
   "description": "API endpoints and types for the business_insights API",
   "license": "UNLICENSED",
-  "author": "Elisabeth <elisabeth@bsport.io>",
+  "author": "David Bretaud <david.bretaud@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./build/lib.d.ts",
-      "import": "./build/lib.es.js",
-      "default": "./build/lib.es.js"
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js",
+      "default": "./build/index.js"
+    },
+    "./*": {
+      "types": "./build/*/index.d.ts",
+      "import": "./build/*.js",
+      "default": "./build/*.js"
     }
   },
-  "main": "build/lib.es.js",
-  "module": "build/lib.es.js",
-  "types": "build/lib.d.ts",
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
   "files": [
     "build"
   ],
@@ -33,6 +38,9 @@
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.90.12"
   },
   "nx": {
     "tags": [

@@ -38,6 +38,14 @@ export type PartnershipAccountPayload = {
 export type ActivePartnershipAccountForOfferParams = {
   // offer and (establishment, date_start) are mutually exclusive, but at least one of them must be provided.
   establishment?: number; // The establishment ID
-  date_start?: Date;
+  date_start?: string; // ISO date string
   offer?: number; // The offer ID
+};
+
+export type ActivePartnershipAccount = Omit<
+  PartnershipAccount,
+  'legacyObject' | 'external_id' | 'external_name'
+> & {
+  partnership: number;
+  partnership_identifier: string;
 };

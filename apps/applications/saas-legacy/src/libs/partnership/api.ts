@@ -11,6 +11,8 @@ import {
   PartnershipAccount,
   PartnershipAccountFilters,
   PartnershipAccountPayload,
+  ActivePartnershipAccountForOfferParams,
+  ActivePartnershipAccount,
 } from '#src/libs/partnership/types';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
@@ -47,5 +49,15 @@ export const updatePartnershipAccount = (
 export const activatePartnershipAccount = (accountId: string) => {
   return postAuth<PartnershipAccount>(
     `${API_V1_URI}/partnership/partnership_account/${accountId}/activate/`,
+  );
+};
+
+export const getActivePartnershipAccountForOffer = (
+  params: ActivePartnershipAccountForOfferParams,
+) => {
+  return getAuth<ActivePartnershipAccount[]>(
+    `${API_V1_URI}/partnership/partnership_account/active_for_offer/${buildUrlParams(
+      params,
+    )}`,
   );
 };

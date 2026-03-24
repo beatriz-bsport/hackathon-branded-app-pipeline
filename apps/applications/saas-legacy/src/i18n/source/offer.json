@@ -271,6 +271,15 @@
             "subtitle": "Includes: ClassPass, myClubs, Urban Sports Club, Wellpass and Wellhub for external bookings.",
             "uscIntegrationWarning": "Your integration to Urban Sports Club is active, any session spanning 2 days or more will not appear.",
             "uscIntegrationWorkshopWarning": "Workshops are not compatible with Urban Sports Club, so this session will not be included.",
+            "name": {
+              "usc": "Urban Sports Club",
+              "classpass": "ClassPass",
+              "myclubs": "myClubs",
+              "wellpass": "Wellpass",
+              "wellhub": "Wellhub"
+            },
+            "aggregatorLabel": "Aggregator",
+            "enabledAggregators": "Enabled Aggregators",
             "partnerSpotCappingStrategy": {
               "label": "Spot capping strategy",
               "UNLIMITED": {
@@ -279,7 +288,7 @@
               },
               "COMBINED": {
                 "label": "Limited spots (combined)",
-                "helperText": "Set a maximum number of spots for from myClubs, Wellhub and Urban Sports Club combined (the other aggregators are not affected by this setting)"
+                "helperText": "Set a maximum number of spots for enabled aggregators combined among myClubs, Wellhub and Urban Sports Club (the other aggregators are not affected by this setting)"
               },
               "PER_PARTNER": {
                 "label": "Limit bookings per aggregator",

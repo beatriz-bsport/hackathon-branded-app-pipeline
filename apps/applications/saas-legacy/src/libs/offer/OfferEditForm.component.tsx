@@ -465,6 +465,7 @@ const formikFormWrapper = withFormik<
     waitingListMaxSize: props.offer?.waiting_list_max_size,
     wellhubProductId: props.offer?.wellhub_product_id,
     isWellhubProductRequired: false,
+    partnershipOffers: props.offer?.partnership_offers ?? [],
   }),
   enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,
@@ -494,6 +495,7 @@ const formikFormWrapper = withFormik<
       nameOverride,
       partnerMaxBookingCount,
       partnerSpotCappingStrategy,
+      partnershipOffers,
       roomBlueprint,
       selectedBlacklistTags,
       selectedMetaActivity,
@@ -560,6 +562,7 @@ const formikFormWrapper = withFormik<
       notifyConsumers: isNotifyConsumers,
       partner_max_booking_count: validatedPartnerMaxBookingCount,
       partner_spot_capping_strategy: partnerSpotCappingStrategy,
+      partnership_offers: partnershipOffers,
       propagate_coach_override_value: isCoachOverridePropagate
         ? coachOverridePropagateMode
         : PropagateCoachOverrideToSimilarOffers.NO_PROPAGATION,

@@ -282,7 +282,18 @@ const useOfferFormStyles = (
     combinedMaxCount: {
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(1),
-      marginLeft: theme.spacing(4),
+    },
+    enabledAggregators: {
+      marginTop: theme.spacing(1),
+    },
+    aggregatorsLabel: {
+      fontSize: '0.9rem',
+    },
+    partnershipChipsContainer: {
+      marginTop: theme.spacing(1),
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: theme.spacing(1),
     },
   }));
 

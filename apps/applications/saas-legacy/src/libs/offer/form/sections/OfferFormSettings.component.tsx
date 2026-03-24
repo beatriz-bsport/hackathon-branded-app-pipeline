@@ -217,7 +217,10 @@ const OfferFormSettings: React.FC<Props> = ({
             }}
           </FeatureListProvider>
 
-          <OfferPartnershipSettings isOfferInGroup={isOfferInGroup} />
+          <OfferPartnershipSettings
+            isEditOffer={isEditOffer}
+            isOfferInGroup={isOfferInGroup}
+          />
 
           <FeatureListProvider>
             {(featureList: FeatureList) => {

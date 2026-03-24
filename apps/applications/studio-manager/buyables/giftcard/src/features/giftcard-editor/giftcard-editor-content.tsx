@@ -3,6 +3,7 @@ import type { FC } from "react";
 import type { UseFormControllerOutput } from "@bsport/form";
 import { Alert, DetailsLayout, Title } from "@bsport/kaizen-primitive-core";
 
+import { GiftcardFormBookkeepingAccount } from "#src/features/giftcard-form/components/giftcard-form-bookkeeping-account";
 import { GiftcardFormCover } from "#src/features/giftcard-form/components/giftcard-form-cover.component";
 import { GiftcardFormDescription } from "#src/features/giftcard-form/components/giftcard-form-description.component";
 import { GiftcardFormExpirationDays } from "#src/features/giftcard-form/components/giftcard-form-expiration-days.component";
@@ -56,6 +57,8 @@ export const GiftcardEditorContent: FC<GiftcardEditorContentProps> = ({
         methods={methods}
         isSharedGiftcard={isSharedGiftcard}
       />
+
+      <GiftcardFormBookkeepingAccount isSharedGiftcard={isSharedGiftcard} />
 
       <Title htmlVariant="h4" weight="strong">
         {t("sections.pricing")}

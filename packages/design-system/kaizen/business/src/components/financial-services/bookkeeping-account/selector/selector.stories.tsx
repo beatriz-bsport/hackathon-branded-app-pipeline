@@ -171,6 +171,7 @@ const meta: Meta<BookkeepingAccountFormSelectorComponent> = {
     popoverClassName: "w-component-popover-min",
     anchorClassName: "min-w-component-popover-min max-w-full",
     required: false,
+    disabled: false,
     fetch: fetch,
     withCreationFlow: true,
     taxFieldClearedValue: 0,

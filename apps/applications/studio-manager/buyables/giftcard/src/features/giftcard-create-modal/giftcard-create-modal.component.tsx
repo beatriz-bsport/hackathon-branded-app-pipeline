@@ -4,6 +4,7 @@ import { ControlledForm, useFormController } from "@bsport/form";
 import { Modal, Title } from "@bsport/kaizen-primitive-core";
 
 import { GiftcardFormAdvancedSection } from "#src/features/giftcard-form/components/giftcard-form-advanced-section.component";
+import { GiftcardFormBookkeepingAccount } from "#src/features/giftcard-form/components/giftcard-form-bookkeeping-account";
 import { GiftcardFormCover } from "#src/features/giftcard-form/components/giftcard-form-cover.component";
 import { GiftcardFormDescription } from "#src/features/giftcard-form/components/giftcard-form-description.component";
 import { GiftcardFormExpirationDays } from "#src/features/giftcard-form/components/giftcard-form-expiration-days.component";
@@ -104,6 +105,8 @@ export const GiftcardCreateModal: FC<GiftcardCreateModalProps> = ({
           <GiftcardFormDescription formId={formId} />
 
           <GiftcardFormExpirationDays formId={formId} methods={methods} />
+
+          <GiftcardFormBookkeepingAccount />
 
           <Title htmlVariant="h4" weight="strong">
             {t("sections.pricing")}

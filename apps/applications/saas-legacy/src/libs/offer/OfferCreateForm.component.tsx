@@ -299,6 +299,7 @@ const formikFormWrapper = withFormik<
       nameOverride: '',
       partnerMaxBookingCount: props.isOfferInGroup ? 0 : 6,
       partnerSpotCappingStrategy: PartnerSpotCappingStrategy.COMBINED,
+      partnershipOffers: [],
       recurrence: OFFER_RECURRENCE.WEEKLY,
       recurrenceWeekDay: {
         '1': recurrenceIsoWeekDay === 1,
@@ -340,6 +341,7 @@ const formikFormWrapper = withFormik<
       nameOverride,
       partnerMaxBookingCount,
       partnerSpotCappingStrategy,
+      partnershipOffers,
       roomBlueprint,
       selectedBlacklistTags,
       selectedWhitelistTags,
@@ -402,6 +404,7 @@ const formikFormWrapper = withFormik<
       name_override: sanitizedNameOverride,
       partner_max_booking_count: validatedPartnerMaxBookingCount,
       partner_spot_capping_strategy: partnerSpotCappingStrategy,
+      partnership_offers: partnershipOffers,
       sync_on_spivi: syncOfferOnSpivi,
       waiting_list_max_size: waitingListMaxSize,
       whitelist_tags: selectedWhitelistTags,

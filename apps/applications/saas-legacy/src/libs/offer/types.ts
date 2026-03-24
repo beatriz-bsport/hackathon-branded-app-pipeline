@@ -164,6 +164,7 @@ export type Offer<
   parent_category: number;
   partner_max_booking_count: number;
   partner_spot_capping_strategy: PartnerSpotCappingStrategy;
+  partnership_offers?: PartnershipOffer[];
   price_coach: number;
   price: number;
   recurrence_id: string;
@@ -434,6 +435,14 @@ export type OfferState = ErrorAndLoading & {
   } & ErrorAndLoading;
 };
 
+export type PartnershipOffer = {
+  partnership: number;
+  partnership_identifier: string;
+  status: string;
+  allowed_on_partner: boolean;
+  spot_limit: number | null;
+};
+
 export type OfferFormValues = {
   allowGuestOffer: boolean;
   availableOnPartnership: boolean;
@@ -472,6 +481,7 @@ export type OfferFormValues = {
   nameOverride?: string;
   partnerMaxBookingCount: number | null;
   partnerSpotCappingStrategy?: PartnerSpotCappingStrategy;
+  partnershipOffers: PartnershipOffer[];
   recurrence?:
     | OFFER_RECURRENCE.WEEKLY
     | OFFER_RECURRENCE.MONTHLY
@@ -526,6 +536,7 @@ export type OfferCreate = {
   name_override?: string;
   partner_max_booking_count: number | null;
   partner_spot_capping_strategy?: PartnerSpotCappingStrategy;
+  partnership_offers?: PartnershipOffer[];
   room_blueprint?: number;
   sync_on_spivi?: boolean;
   waiting_list_max_size: number;

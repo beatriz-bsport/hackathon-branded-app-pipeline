@@ -88,6 +88,7 @@ const initialValues: OfferFormValues = {
   isShowPartnership: false,
   is_hybrid: false,
   partnerMaxBookingCount: offer.partner_max_booking_count ?? null,
+  partnershipOffers: [],
 };
 
 const OfferEditFormMeta: Meta<typeof OfferEditForm> = {

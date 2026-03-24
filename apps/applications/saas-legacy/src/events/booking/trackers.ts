@@ -18,6 +18,8 @@ import {
   tabletCheckInCheckinButtonClickedEventSchema,
   previousSessionClickedEventSchema,
   nextSessionClickedEventSchema,
+  swapPassDialogOpenedEventSchema,
+  swapPassConfirmedEventSchema,
 } from './schemas';
 
 export const trackCalendarViewedEvent = generateEvent(
@@ -84,4 +86,12 @@ export const trackPreviousSessionClickedEvent = generateEvent(
 
 export const trackNextSessionClickedEvent = generateEvent(
   nextSessionClickedEventSchema,
+);
+
+export const trackSwapPassDialogOpenedEvent = generateEvent(
+  swapPassDialogOpenedEventSchema,
+);
+
+export const trackSwapPassConfirmedEvent = generateEvent(
+  swapPassConfirmedEventSchema,
 );

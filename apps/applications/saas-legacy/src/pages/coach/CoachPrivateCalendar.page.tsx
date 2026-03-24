@@ -19,6 +19,7 @@ import {
   getPrivateBookingListFiltered,
   withRelatedFields,
 } from '#src/libs/private-service/selectors/private-booking';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
 import {
   fetchAllOffers as fetchAllOffersAction,
   listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
@@ -204,6 +205,9 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   };
 
   componentDidMount() {
+    analyticsClientB2B.addSuperProperties({
+      page_source: 'teacher_calendar',
+    });
     this.props.resetPrivateBookings();
     this.props.fetchCoach(this.props.id);
     this.props.fetchAssociatedCoachesList();
@@ -238,6 +242,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
+    analyticsClientB2B.removeSuperProperties(['page_source']);
     this.props.resetCustomEvent();
   }
 

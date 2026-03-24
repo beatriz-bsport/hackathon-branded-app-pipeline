@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Typography, makeStyles, Button, Divider } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
@@ -10,6 +10,7 @@ import BookingTable from '#src/libs/booking/components/BookingTable.component';
 import { Member } from '#src/libs/member/types';
 import { Tag, TagGroup } from '#src/libs/tag/types';
 import { Offer } from '#src/libs/offer/types';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
 import ValidationRollCallText from './ValidationRollCallText.component';
 import ConfirmationRollCallDialog from './ConfirmationRollCallDialog.component';
 import { OptionCallback } from '../../../state/types';
@@ -39,6 +40,19 @@ export const RollCallDrawer: React.FC<Props> = (props) => {
     confirmationRollCallDialogIsOpen,
     setConfirmationRollCallDialogIsOpen,
   ] = useState(false);
+
+  useEffect(() => {
+    if (props.open) {
+      analyticsClientB2B.addSuperProperties({
+        page_source: 'roll_call_drawer',
+      });
+      return () => {
+        analyticsClientB2B.removeSuperProperties(['page_source']);
+      };
+    } else {
+      analyticsClientB2B.removeSuperProperties(['page_source']);
+    }
+  }, [props.open]);
   const openConfirmationRollCallDialog = useCallback(() => {
     setConfirmationRollCallDialogIsOpen(true);
   }, []);

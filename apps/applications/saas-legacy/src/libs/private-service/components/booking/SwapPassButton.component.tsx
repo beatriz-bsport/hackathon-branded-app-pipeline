@@ -11,6 +11,12 @@ import SwapPassDialog, {
 } from '#src/libs/booking/components/SwapPassDialog.component';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
+import {
+  trackSwapPassDialogOpenedEvent,
+  trackSwapPassConfirmedEvent,
+} from '#src/events/booking/trackers';
+import { SESSION_TYPES } from '#src/events/constants';
 import {
   fetchCompatiblePrivateConsumerPass,
   swapPrivateBookingPass,
@@ -99,6 +105,14 @@ export const SwapPassButton: React.FC<Props> = ({
       setSelectedItemId(null);
       setIsLoading(true);
 
+      analyticsClientB2B.trackEvent(
+        trackSwapPassDialogOpenedEvent({
+          session_type: SESSION_TYPES.appointment,
+          booking_id: privateBookingId,
+          member_id: memberId,
+        }),
+      );
+
       fetchCompatiblePrivateConsumerPass(privateSlotId, { member: memberId })
         .then((response) => {
           const passes = buildSwapPassItemsFromPrivatePasses(
@@ -120,7 +134,14 @@ export const SwapPassButton: React.FC<Props> = ({
           setIsLoading(false);
         });
     },
-    [close, currentPrivateConsumerPassId, dispatch, memberId, privateSlotId],
+    [
+      close,
+      currentPrivateConsumerPassId,
+      dispatch,
+      memberId,
+      privateBookingId,
+      privateSlotId,
+    ],
   );
 
   const handleSubmit = useCallback(() => {
@@ -130,6 +151,14 @@ export const SwapPassButton: React.FC<Props> = ({
 
     swapPrivateBookingPass(privateBookingId, selectedItemId)
       .then(() => {
+        analyticsClientB2B.trackEvent(
+          trackSwapPassConfirmedEvent({
+            session_type: SESSION_TYPES.appointment,
+            booking_id: privateBookingId,
+            member_id: memberId,
+            new_pass_id: selectedItemId,
+          }),
+        );
         onSwapSuccess?.(selectedItemId);
         close();
       })

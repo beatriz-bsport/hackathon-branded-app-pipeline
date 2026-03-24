@@ -17,6 +17,7 @@ import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 import Skeleton from '@material-ui/lab/Skeleton';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
 
 import uniq from 'lodash/uniq';
 import Dialog from '@material-ui/core/Dialog';
@@ -339,6 +340,9 @@ export class MemberDetailBooking extends Component<Props, State> {
   };
 
   componentDidMount() {
+    analyticsClientB2B.addSuperProperties({
+      page_source: 'member_detail_bookings',
+    });
     if (this.props.bookingId) {
       this.fetchBookingDetails();
     }
@@ -350,6 +354,10 @@ export class MemberDetailBooking extends Component<Props, State> {
       company: this.props.theme.company,
     });
     this.props.fetchCompanyWaitlistConfiguration(this.props.theme.company);
+  }
+
+  componentWillUnmount() {
+    analyticsClientB2B.removeSuperProperties(['page_source']);
   }
 
   hasNext = () => {

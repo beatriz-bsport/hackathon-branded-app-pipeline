@@ -376,6 +376,7 @@ export class BookingItemForManager extends Component<Props, State> {
                 <SwapPassMenuItem
                   booking={booking}
                   classes={classes}
+                  isWorkshop={bookingOfferMetaActivity?.is_workshop}
                   onClose={() => this.setState({ menuAnchor: null })}
                 />
               )
@@ -705,6 +706,7 @@ export class BookingItemForManager extends Component<Props, State> {
                         <SwapPassMenuItem
                           booking={booking}
                           classes={classes}
+                          isWorkshop={bookingOfferMetaActivity?.is_workshop}
                           onClose={() => this.setState({ menuAnchor: null })}
                         />
                       )

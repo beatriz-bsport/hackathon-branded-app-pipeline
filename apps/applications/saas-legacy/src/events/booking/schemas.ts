@@ -245,3 +245,28 @@ export const nextSessionClickedEventSchema = z
   .describe(
     'When the user clicks on a next session from the session management page',
   );
+
+export const swapPassDialogOpenedEventSchema = z
+  .object({
+    eventType: z.string().default('swap_pass_button_clicked'),
+    session_type: z
+      .enum(sessionTypeValues)
+      .describe('The type of session for the booking'),
+    booking_id: z.number().describe('The unique identifier for the booking'),
+    member_id: z.number().describe('The unique identifier for the member'),
+  })
+  .describe('When the user opens the swap pass dialog');
+
+export const swapPassConfirmedEventSchema = z
+  .object({
+    eventType: z.string().default('swap_pass_confirmed_button_clicked'),
+    session_type: z
+      .enum(sessionTypeValues)
+      .describe('The type of session for the booking'),
+    booking_id: z.number().describe('The unique identifier for the booking'),
+    member_id: z.number().describe('The unique identifier for the member'),
+    new_pass_id: z
+      .number()
+      .describe('The unique identifier for the newly selected pass'),
+  })
+  .describe('When the user successfully confirms a pass swap');

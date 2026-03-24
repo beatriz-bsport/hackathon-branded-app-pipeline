@@ -200,3 +200,25 @@ export const refundBookingAPI = async (
   const { data } = await fetch(uri, init);
   return data;
 };
+
+export const setAttendanceAPIConfig = (
+  bookingId: number,
+  attendance: boolean,
+): ApiConfig => {
+  return [
+    `${API_URL_BOOKING}/${bookingId}/attendance/`,
+    {
+      method: "POST",
+      body: JSON.stringify({ attendance }),
+    },
+  ];
+};
+
+export const setAttendanceAPI = async (
+  fetch: Fetch<void>,
+  bookingId: number,
+  attendance: boolean,
+): Promise<void> => {
+  const [uri, init] = setAttendanceAPIConfig(bookingId, attendance);
+  await fetch(uri, init);
+};

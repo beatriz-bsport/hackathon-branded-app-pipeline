@@ -1,34 +1,8 @@
 import { useMemo } from "react";
 
+import { buildLocalizedIframeUrl } from "@bsport/api-business-insights/sigma";
+
 import { useTranslation } from "#src/utils/i18n";
-
-const SUPPORTED_SIGMA_LOCALES = new Set([
-  "en",
-  "fr", // fr-fr isn't supported
-  "fr-ca",
-  "es",
-  "de",
-  "it",
-  "pt",
-  "nl-nl",
-  "ru",
-  "th",
-  "ja",
-  "pl",
-]);
-
-const DEFAULT_SIGMA_LOCALE_BY_LANGUAGE = new Map([["nl", "nl-nl"]]);
-
-const coerceSigmaLocale = (languageCode: string): string => {
-  if (!languageCode) return "en";
-  const lc = languageCode.toLowerCase();
-  if (SUPPORTED_SIGMA_LOCALES.has(lc)) return lc;
-  const [lang] = lc.split("-");
-  if (SUPPORTED_SIGMA_LOCALES.has(lang)) return lang;
-  const mappedLocale = DEFAULT_SIGMA_LOCALE_BY_LANGUAGE.get(lang);
-  if (mappedLocale) return mappedLocale;
-  return "en";
-};
 
 interface DashboardIframeProps {
   src: string;
@@ -44,15 +18,10 @@ export const DashboardIframe = ({ src, title }: DashboardIframeProps) => {
   const { i18n } = useTranslation();
 
   const localizedSrc = useMemo(() => {
-    const lng = coerceSigmaLocale(i18n.language);
-    try {
-      const urlObj = new URL(src);
-      urlObj.searchParams.set(":lng", lng);
-      return urlObj.toString();
-    } catch {
-      const separator = src.includes("?") ? "&" : "?";
-      return `${src}${separator}:lng=${encodeURIComponent(lng)}`;
-    }
+    return buildLocalizedIframeUrl({
+      baseIframeUrl: src,
+      language: i18n.language,
+    });
   }, [src, i18n.language]);
 
   return (

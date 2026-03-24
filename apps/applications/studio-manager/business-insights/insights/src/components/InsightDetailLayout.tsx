@@ -9,14 +9,13 @@ import {
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 
-import type { ErrorKeys } from "#src/hooks/api/usePresignedUrl";
 import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 interface InsightDetailLayoutProps {
   title: string;
   isLoading: boolean;
-  error: ErrorKeys | null;
+  error: string | null;
   children: ReactNode;
 }
 
@@ -51,7 +50,7 @@ export const InsightDetailLayout = ({
     if (error) {
       return (
         <div className="flex justify-center items-center h-full p-md">
-          <Alert status="critical" title={t(error)} />
+          <Alert status="critical" title={error} />
         </div>
       );
     }

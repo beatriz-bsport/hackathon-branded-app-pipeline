@@ -27,6 +27,7 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-business-insights": "workspace:*",
     "@bsport/permissions": "workspace:*",
     "@bsport/store-buyables-subscription": "workspace:*",
     "@bsport/use-async": "workspace:*"

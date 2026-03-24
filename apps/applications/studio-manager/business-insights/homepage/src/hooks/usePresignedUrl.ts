@@ -1,21 +1,35 @@
+import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
-import type { DashboardType } from "#src/types/api";
-import { fetchPresignedUrl } from "#src/utils/api";
+import {
+  type DashboardType,
+  fetchPresignedUrlQueryOptions,
+} from "@bsport/api-business-insights/embedded-analytics";
+import { toast } from "@bsport/kaizen-primitive-core";
 
-export type ErrorKeys = "errors.loadDashboard" | "errors.fetchFailed";
+import { fetch } from "#src/utils/fetch";
+import { useTranslation } from "#src/utils/i18n";
+
+const displayToastError = (message: string) =>
+  toast({
+    status: "critical",
+    icon: "alert-circle",
+    title: message,
+    buttonIcon: "x-close",
+  });
 
 interface UsePresignedUrlState {
   /** The presigned URL for the dashboard iframe, or null if not loaded */
   iframeUrl: string | null;
   /** Whether the URL is currently being fetched */
   isLoading: boolean;
-  /** Translation key for the error message, or null if no error */
-  error: ErrorKeys | null;
+  /** Translation error message, or null if no error */
+  error: string | null;
 }
 
 /**
  * Hook to fetch and manage presigned URL for dashboard iframes.
+ * Automatically displays toast notifications for errors.
  *
  * @param dashboardType - The type of dashboard to fetch URL for
  * @returns State object with iframe URL, loading status, and error state
@@ -23,54 +37,55 @@ interface UsePresignedUrlState {
 export const usePresignedUrl = (
   dashboardType: DashboardType,
 ): UsePresignedUrlState => {
-  const [state, setState] = useState<UsePresignedUrlState>({
-    iframeUrl: null,
-    isLoading: true,
-    error: null,
+  const { t, i18n } = useTranslation("default");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const { data, error, isLoading, isSuccess, isError } = useQuery({
+    ...fetchPresignedUrlQueryOptions(fetch, { dashboardType }),
+    staleTime: 5 * 60 * 1000, // or align this with the presigned URL TTL
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    throwOnError: () => {
+      return false;
+    },
   });
 
   useEffect(() => {
-    let isMounted = true;
+    if (isError && !data?.presigned_url) {
+      const errorMessage =
+        dashboardType === "home_insights_panel"
+          ? t("insightsPanel.unavailable")
+          : t("keyMetrics.unavailable");
+      displayToastError(errorMessage);
+      setErrorMessage(errorMessage);
+      console.error(error);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.presigned_url, error, isError, i18n.language, dashboardType]);
 
-    const fetchUrl = async () => {
-      try {
-        if (!isMounted) return;
+  useEffect(() => {
+    if (isSuccess && !data?.presigned_url) {
+      const errorMessage =
+        dashboardType === "home_insights_panel"
+          ? t("insightsPanel.unavailable")
+          : t("keyMetrics.unavailable");
 
-        setState((prev) => ({ ...prev, isLoading: true, error: null }));
+      displayToastError(errorMessage);
+      setErrorMessage(errorMessage);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess, data?.presigned_url, i18n.language, dashboardType]);
 
-        const data = await fetchPresignedUrl(dashboardType);
+  useEffect(() => {
+    if (data?.presigned_url) {
+      setErrorMessage(null);
+    }
+  }, [data?.presigned_url]);
 
-        if (data.presigned_url) {
-          setState({
-            iframeUrl: data.presigned_url,
-            isLoading: false,
-            error: null,
-          });
-        } else {
-          setState({
-            iframeUrl: null,
-            isLoading: false,
-            error: "errors.loadDashboard",
-          });
-        }
-      } catch (error) {
-        if (!isMounted) return;
-
-        console.error(`Error fetching ${dashboardType} dashboard:`, error);
-        setState({
-          iframeUrl: null,
-          isLoading: false,
-          error: "errors.fetchFailed",
-        });
-      }
-    };
-
-    fetchUrl();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [dashboardType]);
-
-  return state;
+  return {
+    error: errorMessage,
+    iframeUrl: data?.presigned_url ?? null,
+    isLoading,
+  };
 };

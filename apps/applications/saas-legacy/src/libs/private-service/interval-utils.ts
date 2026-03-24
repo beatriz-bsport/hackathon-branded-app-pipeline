@@ -100,29 +100,36 @@ export const convertSlotToInterval = (slot: Slot) => {
 };
 
 /**
- * Retrieves a set of unique availability day time segments (e.g., morning, afternoon, etc.) based on provided time slots.
+ * Returns the set of day time segments (morning / noon / afternoon / evening) that contain
+ * at least one coach availability window long enough to fit a full session.
  *
- * This function determines which predefined day time segments overlap with the given availability slots for a specific date.
- * It returns a set of day time segments names (up to 4) that have overlapping time slots.
+ * When `durationMinutes > 0` the period end is extended by that amount before intersecting
+ * with the availability window. This handles the boundary case where a session can start
+ * inside a period and end past it: e.g. Morning ends at 12:00, but a 60-min session
+ * starting at 11:30 (availability 11:30–13:00) is a valid Morning session. A period button
+ * is shown only if the overlapping availability is >= `durationMinutes`; if the coach is
+ * only available 11:30–12:00 (30 min) the button is hidden.
  *
- * @param {string} date - The date for which to get available day time segments in YYYY-MM-DD format.
- * @param {Slot[]} slots - An array of availability slots where each slot is an object representing a start and end time.
- *
- * @returns {Set<string>} A set of day time segments names that have at least one overlapping slot.
- *                        If four day time segments are found, the function returns early to optimize performance.
+ * @param {string} isoDate - Date in YYYY-MM-DD format.
+ * @param {Slot[]} slots - Coach availability windows as [start, end] ISO 8601 tuples.
+ * @param {number} [durationMinutes=0] - Session duration in minutes.
+ * @returns {Set<DayTimeIntervals>}
  *
  * @example
- * // Example usage:
- * const date = "2024-10-04";
- * const slots = [
- *   ["2024-10-04T06:00:00Z", "2024-10-04T11:00:00Z"],
- *   ["2024-10-04T12:00:00Z", "2024-10-04T13:00:00Z" ]
- * ];
+ * // availability 11:30–12:00 (30 min), session duration 60 min → Morning excluded
+ * getAvailableDayTimeSegments("2024-10-04", [["2024-10-04T11:30:00", "2024-10-04T12:00:00"]], 60);
+ * // → Set {}
  *
- * const availableDayTimeSegments = getAvailableDayTimeSegments(date, slots);
- * console.log(availableDayTimeSegments); // Output could be: Set { "morning", "noon" }
+ * @example
+ * // availability 11:30–13:00 (90 min), session duration 60 min → Morning included
+ * getAvailableDayTimeSegments("2024-10-04", [["2024-10-04T11:30:00", "2024-10-04T13:00:00"]], 60);
+ * // → Set { "morning" }
  */
-export const getAvailableDayTimeSegments = (isoDate: string, slots: Slot[]) => {
+export const getAvailableDayTimeSegments = (
+  isoDate: string,
+  slots: Slot[],
+  durationMinutes: number = 0, // duration of the private slot (session)
+) => {
   const dayTimeIntervals = getDayTimeIntervals(isoDate);
 
   const numberOfDayTimeIntervals = Object.keys(dayTimeIntervals).length;
@@ -139,7 +146,35 @@ export const getAvailableDayTimeSegments = (isoDate: string, slots: Slot[]) => {
           return false;
         }
         if (slotInterval.overlaps(dayTimeInterval)) {
-          availableDayTimeSegments.add(dayTimeSegment as DayTimeIntervals);
+          if (
+            durationMinutes > 0 &&
+            dayTimeInterval.start &&
+            dayTimeInterval.end
+          ) {
+            // Extend the period (i.e "Morning" or "Afternoon") end by durationMinutes, then intersect with the slot.
+            // If the intersection is >= durationMinutes, a full session fits → show the button.
+            // Example: Morning ends at 12:00, slot is 11:30–13:00, duration is 60 min.
+            // Extended Morning: 00:00–13:00 (12:00 + 60 min). Intersection: 11:30–13:00 = 90 min >= 60 min ✓
+            // Without the extension: slot overlaps Morning but only 30 min fit before 12:00 → button should be hidden.
+            const extendedDayTimeInterval = Interval.fromDateTimes(
+              dayTimeInterval.start,
+              dayTimeInterval.end.plus(
+                Duration.fromObject({ minutes: durationMinutes }),
+              ),
+            );
+            const intersection = slotInterval.intersection(
+              extendedDayTimeInterval,
+            );
+            if (
+              intersection &&
+              intersection.length('minutes') >= durationMinutes
+            ) {
+              // if true, the button (e.g. "Morning" or "Afternoon") is shown
+              availableDayTimeSegments.add(dayTimeSegment as DayTimeIntervals);
+            }
+          } else {
+            availableDayTimeSegments.add(dayTimeSegment as DayTimeIntervals);
+          }
         }
         return true;
       },
@@ -174,9 +209,14 @@ export const getAvailableDayTimeSegments = (isoDate: string, slots: Slot[]) => {
 export const getAvailableDayTimeIntervals = (
   isoDate: string,
   slots: Slot[],
+  durationMinutes: number = 0,
 ) => {
   const dayTimeIntervals = getDayTimeIntervals(isoDate);
-  const availableDayTimeSegments = getAvailableDayTimeSegments(isoDate, slots);
+  const availableDayTimeSegments = getAvailableDayTimeSegments(
+    isoDate,
+    slots,
+    durationMinutes,
+  );
 
   const availableDayTimeIntervals = Array.from(availableDayTimeSegments).reduce<
     Record<DayTimeIntervals, Interval<true> | Interval<false>>

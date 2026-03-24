@@ -150,3 +150,16 @@ export type CancelBookingParams = {
 export type SetSpotParams = {
   spot_id: number;
 };
+
+export type CreateRecurrenceRuleBookingParams = Omit<
+  RecurrenceRuleBooking,
+  "id"
+>;
+
+export type UpdateRecurrenceRuleBookingParams =
+  Partial<CreateRecurrenceRuleBookingParams>;
+
+export type DeleteRecurrenceRuleBookingParams = {
+  cancel_related_bookings?: boolean;
+  notify_if_canceled?: boolean;
+};

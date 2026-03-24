@@ -12,10 +12,13 @@ import type { Session } from "#src/session/types";
 import type {
   Booking,
   CancelBookingParams,
+  CreateRecurrenceRuleBookingParams,
+  DeleteRecurrenceRuleBookingParams,
   PaginatedBookingFilterParams,
   RecurrenceRuleBooking,
   RecurrenceRuleBookingFilterParams,
   SetSpotParams,
+  UpdateRecurrenceRuleBookingParams,
 } from "./types";
 
 const API_URL = "book/v1";
@@ -221,4 +224,69 @@ export const setAttendanceAPI = async (
 ): Promise<void> => {
   const [uri, init] = setAttendanceAPIConfig(bookingId, attendance);
   await fetch(uri, init);
+};
+export const createRecurrenceRuleBookingAPIConfig = (
+  params: CreateRecurrenceRuleBookingParams,
+): ApiConfig => {
+  return [
+    `${API_URL_RECURRENCE_RULE}/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const createRecurrenceRuleBookingAPI = async (
+  fetch: Fetch<RecurrenceRuleBooking>,
+  params: CreateRecurrenceRuleBookingParams,
+): Promise<RecurrenceRuleBooking> => {
+  const [uri, init] = createRecurrenceRuleBookingAPIConfig(params);
+  const { data } = await fetch(uri, init);
+  return data;
+};
+
+export const updateRecurrenceRuleBookingAPIConfig = (
+  id: number,
+  params: UpdateRecurrenceRuleBookingParams,
+): ApiConfig => {
+  return [
+    `${API_URL_RECURRENCE_RULE}/${id}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const updateRecurrenceRuleBookingAPI = async (
+  fetch: Fetch<RecurrenceRuleBooking>,
+  id: number,
+  params: UpdateRecurrenceRuleBookingParams,
+): Promise<RecurrenceRuleBooking> => {
+  const [uri, init] = updateRecurrenceRuleBookingAPIConfig(id, params);
+  const { data } = await fetch(uri, init);
+  return data;
+};
+
+export const deleteRecurrenceRuleBookingAPIConfig = (
+  id: number,
+  params: DeleteRecurrenceRuleBookingParams = {},
+): ApiConfig => {
+  return [
+    `${API_URL_RECURRENCE_RULE}/${id}/${buildUrlParams(params)}`,
+    {
+      method: "DELETE",
+    },
+  ];
+};
+
+export const deleteRecurrenceRuleBookingAPI = async (
+  fetch: Fetch<RecurrenceRuleBooking>,
+  id: number,
+  params?: DeleteRecurrenceRuleBookingParams,
+): Promise<RecurrenceRuleBooking> => {
+  const [uri, init] = deleteRecurrenceRuleBookingAPIConfig(id, params);
+  const { data } = await fetch(uri, init);
+  return data;
 };

@@ -35,26 +35,27 @@ import {
 const metaSourceCode = `
 const schema = z.object({
   bookkeeping_account: z.number().nullable(),
-  tax: z.number().nullable(),
+  tax: z.number(),
 });
 
 const methods = useFormController({
   schema,
   defaultValues: {
     bookkeeping_account: null,
-    tax: null,
+    tax: 0,
   },
 });
 
 // Usage within a form:
 <ControlledForm {...methods}>
   <BookkeepingAccountFormSelector<
-    { bookkeeping_account: number | null, tax: number | null },
+    { bookkeeping_account: number | null, tax: number },
     "bookkeeping_account",
     "tax"
     >
     idFieldName="bookkeeping_account"
     taxFieldName="tax"
+    taxFieldClearedValue={0}
     withCreationFlow
     ...
   />
@@ -130,14 +131,14 @@ const meta: Meta<BookkeepingAccountFormSelectorComponent> = {
   render: ({ idFieldName: _id, taxFieldName: _tax, ...args }) => {
     const schema = z.object({
       bookkeeping_account: args.required ? z.number() : z.number().nullable(),
-      tax: args.required ? z.number() : z.number().nullable(),
+      tax: z.number(),
     });
 
     const methods = useFormController({
       schema,
       defaultValues: {
         bookkeeping_account: null,
-        tax: null,
+        tax: 0,
       },
     });
 
@@ -150,12 +151,13 @@ const meta: Meta<BookkeepingAccountFormSelectorComponent> = {
         onSubmit={(data) => console.log(data)}
       >
         <BookkeepingAccountFormSelector<
-          { bookkeeping_account: number | null; tax: number | null },
+          { bookkeeping_account: number | null; tax: number },
           "bookkeeping_account",
           "tax"
         >
           idFieldName="bookkeeping_account"
           taxFieldName="tax"
+          taxFieldClearedValue={0}
           {...args}
         />
         <button form={id} className="mt-md">
@@ -336,6 +338,7 @@ The form schema defines the available fields and their types:
 \`\`\`ts
 const schema = z.object({
   bookkeeping_account: z.number().nullable(),
+  tax: z.number(),
 });
 \`\`\`
 
@@ -343,17 +346,19 @@ const schema = z.object({
 
 #### **Generic typing**
 
-\`BookkeepingAccountFormSelector\` is strongly typed using two generics:
+\`BookkeepingAccountFormSelector\` is strongly typed using three generics:
 
 \`\`\`ts
 <BookkeepingAccountFormSelector<
-  { bookkeeping_account: number | null },
-  "bookkeeping_account"
+  { bookkeeping_account: number | null, tax: number },
+  "bookkeeping_account",
+  "tax"
 >
 \`\`\`
 
 - **First generic**: the full form value shape
-- **Second generic**: the field name (enforced at type level)
+- **Second generic**: the bookkeeping account id field name (enforced at type level)
+- **Third generic**: the tax field name
 
 ---
         `,

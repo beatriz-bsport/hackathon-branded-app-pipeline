@@ -44,6 +44,7 @@ export const DEFAULT_FORM_DATA = {
   highlighted_as_recommended: false,
   new_member_only: false,
   tags_on_consumer_item_creation: [],
+  bookkeeping_account: null,
 } satisfies PackFormData & { hasExpirationDate: boolean };
 
 export type PackFormSchema = z.ZodType<PackFormData>;
@@ -57,6 +58,7 @@ export const usePackSchema = () => {
   const errorMissingDate = t(
     "formFields.visibilitySection.dateLimitSelector.errorMissingDate",
   );
+
   const expirationDateInput = z.discriminatedUnion("hasExpirationDate", [
     // Case 1: hasExpirationDate = false → expiration_date is not expected
     z.object({
@@ -145,6 +147,7 @@ export const usePackSchema = () => {
         .number()
         .min(FIELD_TAX_RATE_MINIMUM)
         .max(FIELD_TAX_RATE_MAXIMUM),
+      bookkeeping_account: z.number().nullable(),
       max_purchase_per_member: z.coerce
         .number()
         .min(FIELD_MAX_NB_PURCHASE_MINIMUM)

@@ -33,7 +33,7 @@ export type Pack = {
   is_usable_by_staff: boolean;
   highlighted_as_recommended: boolean;
   tags_on_consumer_item_creation: Array<number>;
-  bookkeeping_account: number | undefined | null;
+  bookkeeping_account: number | null;
 };
 
 export type PackFormData = Pick<
@@ -49,6 +49,7 @@ export type PackFormData = Pick<
   | "highlighted_as_recommended"
   | "new_member_only"
   | "tags_on_consumer_item_creation"
+  | "bookkeeping_account"
 > & {
   payment_pack_ids: number[];
   shop_item_ids: number[];

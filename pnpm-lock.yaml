@@ -4128,6 +4128,9 @@ importers:
 
   packages/stores/core-data/company-theme:
     dependencies:
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../api/core
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

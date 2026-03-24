@@ -453,6 +453,7 @@ const PaymentStripeCardRevamped = forwardRef(
                           wallets: {
                             applePay: 'never',
                             googlePay: 'never',
+                            link: 'never',
                           },
                           defaultValues: { billingDetails },
                         }}

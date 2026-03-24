@@ -1,67 +1,70 @@
-import { lazy, useMemo } from "react";
+import { type ReactNode, lazy } from "react";
 import { Navigate, Route, Routes, useParams } from "react-router";
 
-import { FeatureFlag } from "#src/components/FeatureFlag";
 import {
   CAMPAIGN_CHANNEL_PUSH,
-  type CampaignChannel,
-  SMARTLIST_COMMUNICATION_URLS,
-  URLS,
+  SMARTLIST_APP_LINKS,
+  SMARTLIST_ROUTE_PATTERNS,
 } from "#src/urls";
-import { flags } from "#src/utils/feature-flags";
 
 const AutomationPushCreationPage = lazy(
   () => import("#src/pages/AutomationPushCreationPage"),
 );
+const AutomationPushEditPage = lazy(
+  () => import("#src/pages/AutomationPushEditPage"),
+);
 
-function isValidAutomationChannel(channel: string): channel is CampaignChannel {
+type AutomationChannel = typeof CAMPAIGN_CHANNEL_PUSH;
+
+function isValidAutomationChannel(
+  channel: string,
+): channel is AutomationChannel {
   return channel === CAMPAIGN_CHANNEL_PUSH;
 }
 
-/**
- * Resolves to the parent automation segment (e.g. /:id/automation) so we can
- * redirect there when channel is invalid or no route matches.
- */
 function useAutomationBasePath(): string {
   const { id } = useParams<{ id: string }>();
-  return id
-    ? URLS.automationPath(id)
-    : SMARTLIST_COMMUNICATION_URLS.SMARTLIST_ROUTE_FROM_SUBNAV;
+  return id ? SMARTLIST_APP_LINKS.automation(id) : SMARTLIST_APP_LINKS.index();
 }
 
-function CreateRouteByChannel() {
-  const { channel } = useParams<{ channel: string }>();
-  const basePath = useAutomationBasePath();
+type GateAutomationChannelProps = {
+  readonly children: ReactNode;
+  readonly action?: "create" | "edit";
+};
 
-  const element = useMemo(() => {
-    switch (channel) {
-      case CAMPAIGN_CHANNEL_PUSH:
-        return <AutomationPushCreationPage />;
-      default:
-        return <Navigate to={basePath} replace />;
-    }
-  }, [channel, basePath]);
-
-  if (!channel || !isValidAutomationChannel(channel)) {
-    return <Navigate to={basePath} replace />;
-  }
-
-  return <FeatureFlag flag={flags.smartlist}>{element}</FeatureFlag>;
-}
-
-function EditRouteByChannel() {
+function GateAutomationChannel({
+  children,
+  action = "create",
+}: GateAutomationChannelProps) {
   const { channel, entityId } = useParams<{
     channel: string;
     entityId: string;
   }>();
   const basePath = useAutomationBasePath();
 
-  if (!channel || !entityId || !isValidAutomationChannel(channel)) {
+  const hasRequiredEntityId = action === "create" || Boolean(entityId);
+
+  if (!channel || !hasRequiredEntityId || !isValidAutomationChannel(channel)) {
     return <Navigate to={basePath} replace />;
   }
 
-  // No automation edit page exists yet – redirect to the automation tab.
-  return <Navigate to={basePath} replace />;
+  return children;
+}
+
+function CreateRouteByChannel() {
+  return (
+    <GateAutomationChannel>
+      <AutomationPushCreationPage />
+    </GateAutomationChannel>
+  );
+}
+
+function EditRouteByChannel() {
+  return (
+    <GateAutomationChannel action="edit">
+      <AutomationPushEditPage />
+    </GateAutomationChannel>
+  );
 }
 
 /**
@@ -74,11 +77,11 @@ export function AutomationCreateEditRouter() {
   return (
     <Routes>
       <Route
-        path={SMARTLIST_COMMUNICATION_URLS.AUTOMATION_CREATION}
+        path={SMARTLIST_ROUTE_PATTERNS.COMMUNICATION_CREATE}
         element={<CreateRouteByChannel />}
       />
       <Route
-        path={SMARTLIST_COMMUNICATION_URLS.AUTOMATION_EDIT}
+        path={SMARTLIST_ROUTE_PATTERNS.COMMUNICATION_EDIT}
         element={<EditRouteByChannel />}
       />
       <Route path="*" element={<Navigate to={".."} replace />} />

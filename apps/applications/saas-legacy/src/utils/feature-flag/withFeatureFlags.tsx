@@ -12,6 +12,7 @@ export type FeatureFlagProps = {
   checkoutFlowModalEnabled: boolean;
   fsNewPayoutFlow: boolean;
   enableMarketingDoubleOptIn: boolean;
+  isCalendarRevampEnabled: boolean;
 };
 
 /**
@@ -42,12 +43,15 @@ export const withFeatureFlags = <TProps extends object>(
       FeatureFlags.MARKETING_DOUBLE_OPT_IN,
     );
 
+    const isCalendarRevampEnabled = useSafeFlag(FeatureFlags.CALENDAR_REVAMP);
+
     return (
       <WrappedComponent
         {...props}
         checkoutFlowModalEnabled={checkoutFlowModalEnabled}
         enableMarketingDoubleOptIn={enableMarketingDoubleOptIn}
         fsNewPayoutFlow={fsNewPayoutFlow}
+        isCalendarRevampEnabled={isCalendarRevampEnabled}
         isInvoiceSequentialNumberingEnabled={
           isInvoiceSequentialNumberingEnabled
         }

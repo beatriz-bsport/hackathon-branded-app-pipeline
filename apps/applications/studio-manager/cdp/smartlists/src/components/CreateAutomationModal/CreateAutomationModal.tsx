@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import { LEGACY_URLS } from "#src/urls";
+import { SMARTLIST_LEGACY_URLS } from "#src/urls";
 import { Trans, useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -50,7 +50,7 @@ export const CreateAutomationModal = ({
             components={{
               audienceLink: (
                 <a
-                  href={LEGACY_URLS.AUDIENCE}
+                  href={SMARTLIST_LEGACY_URLS.audience}
                   className="text-main-main underline"
                   aria-label={t(
                     "actions.createAutomationModal.audienceLinkLabel",

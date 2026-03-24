@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router";
+import { Link, Navigate, useParams } from "react-router";
 
 import {
   Breadcrumbs,
@@ -13,7 +13,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
-import { URLS } from "#src/urls";
+import { CAMPAIGN_CHANNEL_PUSH, SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -31,8 +31,13 @@ export function AutomationMessagePage() {
 function AutomationMessageDetail() {
   const { t: tList } = useTranslation("list");
 
-  const { id, messageId } = useParams<{ id: string; messageId: string }>();
+  const { id, channel, messageId } = useParams<{
+    id: string;
+    channel: string;
+    messageId: string;
+  }>();
   invariant(id, "Expected id param to be defined");
+  invariant(channel, "Expected channel param to be defined");
   invariant(messageId, "Expected messageId param to be defined");
 
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(id);
@@ -41,11 +46,18 @@ function AutomationMessageDetail() {
 
   const { detailsLayoutProps } = useDetailsLayout();
 
+  if (channel !== CAMPAIGN_CHANNEL_PUSH) {
+    return <Navigate to={SMARTLIST_APP_LINKS.automation(id)} replace />;
+  }
+
   const breadcrumbsItems = [
-    <Link key="smartlists-breadcrumb" to={URLS.INDEX}>
+    <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
       <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
     </Link>,
-    <Link key="smartlist-detail-breadcrumb" to={URLS.automationPath(id)}>
+    <Link
+      key="smartlist-detail-breadcrumb"
+      to={SMARTLIST_APP_LINKS.automation(id)}
+    >
       <Breadcrumbs.Item id="breadcrumb-smartlist-name" text={smartlist.name} />
     </Link>,
   ];

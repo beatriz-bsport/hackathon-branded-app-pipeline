@@ -459,7 +459,6 @@ export function fetchMarketplaceContractList(
         company,
         manager_only: false,
         disabled: false,
-        // @ts-expect-error
         page_size: 300,
       });
       // @ts-expect-error

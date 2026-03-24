@@ -19,6 +19,7 @@ const variants = {
     sm: "w-[90%] sm:w-component-modal-min-sm",
     md: "w-[90%] md:w-component-modal-min-md",
     lg: "w-[90%] lg:w-component-modal-min-lg",
+    xl: "w-[90%] lg:w-component-modal-min-xl",
   },
   position: {
     centered:
@@ -60,7 +61,7 @@ const dialog = cva(defaultClasses, {
   },
 });
 
-export type DialogSize = "sm" | "md" | "lg";
+export type DialogSize = "sm" | "md" | "lg" | "xl";
 export type DialogPosition = "centered" | "bottom";
 
 export type DialogProps = React.HTMLAttributes<HTMLDivElement> & {

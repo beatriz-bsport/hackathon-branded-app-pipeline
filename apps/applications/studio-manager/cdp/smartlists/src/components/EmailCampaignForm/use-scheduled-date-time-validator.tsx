@@ -82,7 +82,7 @@ export const useScheduledDateTimeValidator = ({
       alerts.push(
         <Alert key="past" status="critical" customIcon="clock">
           <Body size="sm" color="critical" htmlVariant="span">
-            {t("email.creation.delivery.validation.scheduledDateNotInPast")}
+            {t("email.creation.form.errors.scheduledDateNotInPast")}
           </Body>
         </Alert>,
       );
@@ -107,7 +107,7 @@ export const useScheduledDateTimeValidator = ({
       alerts.push(
         <Alert key="tooSoon" status="warning" customIcon="clock">
           <Body size="sm" color="warning" htmlVariant="span">
-            {t("email.creation.delivery.validation.scheduledAtLeast5Minutes")}
+            {t("email.creation.form.errors.scheduledAtLeast5Minutes")}
           </Body>
         </Alert>,
       );

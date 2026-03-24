@@ -484,6 +484,8 @@ export type ContractQueryParams = {
   offer?: number;
   id__in?: number[];
   company?: number;
+  page?: number;
+  page_size?: number;
   manager_only?: boolean;
   disabled?: boolean;
   is_usable_by_staff?: boolean;

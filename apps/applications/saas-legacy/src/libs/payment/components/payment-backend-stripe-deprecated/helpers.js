@@ -8,7 +8,7 @@ import {
 
 export const AVAILABLE_PAYMENT_METHOD_TYPE = {
   card: {
-    element: <CardElement />,
+    element: <CardElement options={{ disableLink: true }} />,
     type: 'card',
     method: 'confirmCardSetup',
   },

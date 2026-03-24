@@ -1,25 +1,47 @@
 {
-  "pages": {
-    "insights": {
-      "title": "Erkenntnisse"
+    "pages": {
+        "insights": {
+            "title": "Erkenntnisse"
+        },
+        "communityHealth": {
+            "title": "Kundenbindung"
+        },
+        "scheduleAnalysis": {
+            "title": "Terminplanung"
+        },
+        "bookingInsight": {
+            "title": "Buchungen & Kurspässe"
+        },
+        "recurringRevenue": {
+            "title": "Abonnements"
+        },
+        "trialAnalysis": {
+            "title": "Akquise & Conversion"
+        }
     },
-    "recurringRevenue": {
-      "title": "Abo-Statistiken"
+    "sections": {
+        "memberInsights": "Community & Marketing",
+        "financialHealth": "Finanzielle Gesundheit",
+        "bookings": "Betrieb"
     },
-    "trialAnalysis": {
-      "title": "Mitglieder-Statistiken"
+    "trackTrialOffer": {
+        "title": "Akquise & Conversion",
+        "description": "Sieh, wie Erstkäufe zu wiederkehrenden Kontakten werden und wo Abwanderungen passieren"
+    },
+    "monitorRevenue": {
+        "title": "Abonnements",
+        "description": "Verfolge die Gesundheit deiner Abonnements, analysiere wiederkehrende Einnahmen und entdecke Risiken oder Chancen."
+    },
+    "monitorCommunityHealth": {
+        "title": "Kundenbindung",
+        "description": "Verstehe die Aktivität, Abwanderung und Bindung deiner Kontakte in deinem Studio"
+    },
+    "monitorSchedule": {
+        "title": "Terminplanung",
+        "description": "Verfolge die Auslastung, Anwesenheit und den erzielten Umsatz deiner Kurse"
+    },
+    "monitorBookings": {
+        "title": "Buchungen & Kurspässe",
+        "description": "Verfolge die Buchungen und die Kurspass Nutzung, um die Anwesenheit und die Kapazität zu optimieren"
     }
-  },
-  "sections": {
-    "memberInsights": "Mitglieder-Erkenntnisse",
-    "financialHealth": "Finanzielle Gesundheit"
-  },
-  "trackTrialOffer": {
-    "title": "Leistung des Testangebots verfolgen",
-    "description": "Erfahre mehr über Neuanmeldungen, Konversionsraten und wie du dein Testangebot optimieren kannst."
-  },
-  "monitorRevenue": {
-    "title": "Abo-Statistiken",
-    "description": "Schau dir deine Abo-Kennzahlen an, analysiere wiederkehrende Einnahmen und entdecke Risiken und Chancen."
-  }
 }

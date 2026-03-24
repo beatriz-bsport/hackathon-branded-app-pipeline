@@ -6,6 +6,7 @@ import { Button, Title } from "@bsport/kaizen-primitive-core";
 
 import { AvatarWithName } from "#src/components/avatar-with-name";
 import { useDisclosure } from "#src/hooks/useDisclosure";
+import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { GiftcardPurchase } from "../types";
@@ -105,6 +106,14 @@ export const GiftcardPurchaseSectionRecipient: FC<
               size: "lg",
               className: "text-ellipsis whitespace-nowrap overflow-x-hidden",
             }}
+            href={
+              recipient?.id != null
+                ? LEGACY_URLS.MEMBER_GIFTCARD_DETAILS({
+                    memberId: recipient?.id,
+                    consumerGiftcardId: selectedItem.id,
+                  })
+                : undefined
+            }
           />
         ) : (
           t("purchases.status.unclaimed")

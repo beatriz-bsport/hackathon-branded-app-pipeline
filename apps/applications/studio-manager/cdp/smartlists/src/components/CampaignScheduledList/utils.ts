@@ -1,7 +1,7 @@
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
 import { CampaignScheduled } from "#src/api/types";
-import { URLS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { getFallbackCampaignScheduledName } from "#src/utils/campaignUtils";
 import { i18nInstance } from "#src/utils/i18n";
 
@@ -37,7 +37,10 @@ function formatCampaignScheduledTableRow({
         locale: i18nInstance.language,
       },
     ),
-    link: URLS.campaignScheduledDetailsPath(smartlistId, campaignScheduled.id),
+    link: SMARTLIST_APP_LINKS.campaignScheduledDetails(
+      smartlistId,
+      campaignScheduled.id,
+    ),
   }));
 }
 

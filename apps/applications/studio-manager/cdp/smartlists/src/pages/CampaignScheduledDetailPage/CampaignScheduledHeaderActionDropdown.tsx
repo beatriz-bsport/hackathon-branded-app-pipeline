@@ -59,8 +59,7 @@ export const CampaignScheduledHeaderActionDropdown = ({
             color="default"
             intent="flat"
             size="md"
-            onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
-              event.stopPropagation();
+            onClick={() => {
               setIsPopoverOpened((opened) => !opened);
             }}
           />

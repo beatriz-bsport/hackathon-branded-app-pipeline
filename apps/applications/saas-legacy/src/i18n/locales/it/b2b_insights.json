@@ -1,25 +1,47 @@
 {
-  "pages": {
-    "insights": {
-      "title": "Approfondimenti"
+    "pages": {
+        "insights": {
+            "title": "Approfondimenti"
+        },
+        "communityHealth": {
+            "title": "Fidelizzazione dei Clienti Dello Studio"
+        },
+        "scheduleAnalysis": {
+            "title": "Pianificazione"
+        },
+        "bookingInsight": {
+            "title": "Prenotazioni e Pass"
+        },
+        "recurringRevenue": {
+            "title": "Abbonamenti"
+        },
+        "trialAnalysis": {
+            "title": "Acquisizione e Conversione"
+        }
     },
-    "recurringRevenue": {
-      "title": "Monitorare le prestazioni degli abbonamenti"
+    "sections": {
+        "memberInsights": "Community & Marketing",
+        "financialHealth": "Salute Finanziaria",
+        "bookings": "Operazioni"
     },
-    "trialAnalysis": {
-      "title": "Monitorare le Prestazioni di Acquisizione dei Membri"
+    "trackTrialOffer": {
+        "title": "Acquisizione e Conversione",
+        "description": "Scopri come i primi acquisti si trasformano in clienti dello studio abituali e individua dove avvengono gli abbandoni"
+    },
+    "monitorRevenue": {
+        "title": "Abbonamenti",
+        "description": "Monitora lo stato degli abbonamenti, analizza i ricavi ricorrenti e individua rischi o opportunità"
+    },
+    "monitorCommunityHealth": {
+        "title": "Fidelizzazione dei Clienti Dello Studio",
+        "description": "Comprendi le attività, il churn e la retention dei clienti dello studio nel tuo studio"
+    },
+    "monitorSchedule": {
+        "title": "Programmazione",
+        "description": "Tieni traccia dei tassi di riempimento, delle presenze e dei ricavi generati dalle tue classi"
+    },
+    "monitorBookings": {
+        "title": "Prenotazioni e Pass",
+        "description": "Traccia le prenotazioni e l'utilizzo di Pass per ottimizzare le presenze e la capacità."
     }
-  },
-  "sections": {
-    "memberInsights": "Panoramica sui membri",
-    "financialHealth": "Salute Finanziaria"
-  },
-  "trackTrialOffer": {
-    "title": "Monitora le prestazioni delle offerte di prova",
-    "description": "Scopri di più su acquisizione, tassi di conversione e come aumentare l'efficacia della tua offerta di prova."
-  },
-  "monitorRevenue": {
-    "title": "Monitorare le prestazioni degli abbonamenti",
-    "description": "Monitora lo stato degli abbonamenti, analizza i ricavi ricorrenti e individua rischi o opportunità"
-  }
 }

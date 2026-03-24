@@ -18,7 +18,7 @@ import {
 //
 import Config from '../../config';
 
-const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 export async function fetchAssociatedCoaches(params?: FetchCoachParams) {
   return getAuth<Coach[]>(

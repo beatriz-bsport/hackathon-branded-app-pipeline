@@ -7,8 +7,8 @@ import {
   CAMPAIGN_CHANNEL_EMAIL,
   CAMPAIGN_CHANNEL_POPUP,
   type CampaignChannel,
-  SMARTLIST_COMMUNICATION_URLS,
-  URLS,
+  SMARTLIST_APP_LINKS,
+  SMARTLIST_ROUTE_PATTERNS,
 } from "#src/urls";
 import { flags } from "#src/utils/feature-flags";
 
@@ -30,9 +30,7 @@ function isValidChannel(channel: string): channel is CampaignChannel {
  */
 function useCampaignBasePath(): string {
   const { id } = useParams<{ id: string }>();
-  return id
-    ? URLS.campaignPath(id)
-    : SMARTLIST_COMMUNICATION_URLS.SMARTLIST_ROUTE_FROM_SUBNAV;
+  return id ? SMARTLIST_APP_LINKS.campaign(id) : SMARTLIST_APP_LINKS.index();
 }
 
 function CreateRouteByChannel() {
@@ -90,11 +88,11 @@ export function CampaignCreateEditRouter() {
   return (
     <Routes>
       <Route
-        path={SMARTLIST_COMMUNICATION_URLS.CAMPAIGN_CREATE}
+        path={SMARTLIST_ROUTE_PATTERNS.COMMUNICATION_CREATE}
         element={<CreateRouteByChannel />}
       />
       <Route
-        path={SMARTLIST_COMMUNICATION_URLS.CAMPAIGN_EDIT}
+        path={SMARTLIST_ROUTE_PATTERNS.COMMUNICATION_EDIT}
         element={<EditRouteByChannel />}
       />
       <Route path="*" element={<Navigate to={".."} replace />} />

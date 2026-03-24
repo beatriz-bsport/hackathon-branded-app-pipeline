@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import { connect, ConnectedProps } from 'react-redux';
 import useTheme from '@material-ui/core/styles/useTheme';
 import makeStyles from '@material-ui/core/styles/makeStyles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -56,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     right: 0,
     left: 0,
+  },
+  blockerFrameForInboxOnMobile: {
+    zIndex: theme.zIndex.drawer - 1,
   },
   pseudoDialogContainer: {
     width: '100%',
@@ -118,6 +122,7 @@ export const UpsellBlockerDialog = React.memo(
   }: Omit<Props, 'featureList' | 'subscribeUpsellPackage' | 'redirectTo'>) => {
     const classes = useStyles();
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const { t } = useTranslation('platformBilling');
 
     // Here we need to force the rerender of the component because the Dialog is
@@ -148,12 +153,14 @@ export const UpsellBlockerDialog = React.memo(
       /\/audience\/\d+/.test(location.pathname) ||
       location.pathname.includes('/inbox/')
     );
+    const isInboxMobile = location.pathname.includes('/inbox/') && isMobile;
 
     return (
       <div
         ref={() => setForceRerender(true)}
         className={clsx(classes.blockerFrame, {
           [classes.blockerFrameForContentPages]: isPageContent,
+          [classes.blockerFrameForInboxOnMobile]: isInboxMobile,
         })}
         id={BLOCKER_FRAME_ID}
       >
@@ -192,16 +199,11 @@ export const UpsellBlockerDialog = React.memo(
                 </Typography>
               </div>
               <div className={classes.buttonsContainer}>
-                {requestUpsellPackage &&
-                  handleRequestUpsellPackage &&
-                  !handleOpenSubscriptionForm && (
-                    <Button
-                      color="primary"
-                      onClick={handleRequestUpsellPackage}
-                    >
-                      {t('upsellPackage.lockDialog.requestAccess')}
-                    </Button>
-                  )}
+                {!handleOpenSubscriptionForm && (
+                  <Button color="primary" onClick={handleRequestUpsellPackage}>
+                    {t('upsellPackage.lockDialog.requestAccess')}
+                  </Button>
+                )}
                 {handleOpenSubscriptionForm && (
                   <Button
                     color="primary"

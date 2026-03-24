@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { DateTime } from 'luxon';
 import Typography from '@material-ui/core/Typography';
 import { getAvailableDayTimeIntervals } from '#src/libs/private-service/interval-utils';
 import DayTimeIntervalList from '#src/pages/marketplace/PrivateService/SlotSelectorPage/components/DayTimeIntervalList';
 import type { ResourceSlots } from '#src/libs/private-service/types';
+import { SlotSelectorContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelector.context';
 
 type Props = {
   isoDate: string;
@@ -19,6 +20,8 @@ const SlotCalendarDayReworked: React.FC<Props> = ({
 
   const dateTime = DateTime.fromISO(isoDate);
 
+  const { selectedPrivateSlot } = useContext(SlotSelectorContext);
+
   const availableSlots = useMemo(
     () => ressourceSlots?.flatMap((ressourceSlot) => ressourceSlot.slots) ?? [],
     [ressourceSlots],
@@ -27,6 +30,7 @@ const SlotCalendarDayReworked: React.FC<Props> = ({
   const availableDayTimeIntervals = getAvailableDayTimeIntervals(
     isoDate,
     availableSlots,
+    selectedPrivateSlot?.duration_minutes ?? 0,
   );
 
   return (

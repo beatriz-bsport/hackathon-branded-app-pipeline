@@ -1,5 +1,6 @@
 import useAsyncFn from '#src/hooks/useAsyncFn';
 import { LuxonDateTime } from '#src/types';
+import { ActivePartnershipAccountForOfferParams } from './types';
 import {
   activatePartnershipAccount,
   createPartnershipAccount,
@@ -77,11 +78,12 @@ export const useGetActivePartnershipAccountForOffer = () => {
     date_start?: LuxonDateTime,
     offer?: number,
   ) => {
-    const params = {
-      ...(establishment && { establishment }),
-      ...(date_start && { date_start: date_start.toISODate() as string }),
-      ...(offer && { offer }),
-    };
+    const params: ActivePartnershipAccountForOfferParams = offer
+      ? { offer }
+      : {
+          establishment: establishment as number,
+          date_start: date_start?.toISODate() as string,
+        };
 
     const response = await getActivePartnershipAccountForOffer(params);
     return response.data;

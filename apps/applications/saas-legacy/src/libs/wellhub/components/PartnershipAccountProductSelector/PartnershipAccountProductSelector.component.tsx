@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
 
@@ -13,7 +13,7 @@ import type {
 
 type Props = {
   id?: string;
-  isVirtualOffer: boolean;
+  isVirtualOffer: boolean | undefined;
   partnershipAccountExternalId: string | null;
   selectedProductId: number | null;
   styles?: string;
@@ -22,7 +22,7 @@ type Props = {
   setIsWellhubProductRequired?: (isRequired: boolean) => void;
 };
 
-const PartnershipAccountProductSelectorBase: React.FC<Props> = React.memo(
+const PartnershipAccountProductSelector: React.FC<Props> = React.memo(
   ({
     id,
     isVirtualOffer,
@@ -37,13 +37,13 @@ const PartnershipAccountProductSelectorBase: React.FC<Props> = React.memo(
 
     const { productsByExternalId, isLoading } = usePartnershipAccountProduct();
 
-    const wellhubProductOptions: WellhubProductOption[] = React.useMemo(() => {
+    const wellhubProductOptions: WellhubProductOption[] = useMemo(() => {
       return (
         (partnershipAccountExternalId
           ? productsByExternalId?.[partnershipAccountExternalId]
           : undefined
         )
-          ?.filter((product) => isVirtualOffer == product.virtual)
+          ?.filter((product) => isVirtualOffer === product.virtual)
           .map((product) => ({
             label: product.name,
             value: product.product_id,
@@ -51,34 +51,29 @@ const PartnershipAccountProductSelectorBase: React.FC<Props> = React.memo(
       );
     }, [isVirtualOffer, productsByExternalId, partnershipAccountExternalId]);
 
-    const selectedProductOption: WellhubProductOption | null =
-      React.useMemo(() => {
-        if (!selectedProductId || !partnershipAccountExternalId) return null;
+    const selectedProductOption: WellhubProductOption | null = useMemo(() => {
+      if (!selectedProductId || !partnershipAccountExternalId) return null;
 
-        const selected = productsByExternalId?.[
-          partnershipAccountExternalId
-        ]?.find((product) => product.product_id === selectedProductId);
+      const selected = productsByExternalId?.[
+        partnershipAccountExternalId
+      ]?.find((product) => product.product_id === selectedProductId);
 
-        if (selected) {
-          return {
-            label: selected.name,
-            value: selected.product_id,
-          };
-        }
+      if (selected) {
+        return {
+          label: selected.name,
+          value: selected.product_id,
+        };
+      }
 
-        return null;
-      }, [
-        productsByExternalId,
-        selectedProductId,
-        partnershipAccountExternalId,
-      ]);
+      return null;
+    }, [productsByExternalId, selectedProductId, partnershipAccountExternalId]);
 
-    const handleChange = React.useCallback(
+    const handleChange = useCallback(
       (option: WellhubProductOption) => onSelect?.(option?.value || null),
       [onSelect],
     );
 
-    const formatOptionLabel = React.useCallback(
+    const formatOptionLabel = useCallback(
       (option: WellhubProductOption) => (
         <WellhubProductOptionRenderer
           productId={option.value}
@@ -88,12 +83,14 @@ const PartnershipAccountProductSelectorBase: React.FC<Props> = React.memo(
       [],
     );
 
-    if (!isLoading && wellhubProductOptions?.length < 2) {
-      setIsWellhubProductRequired?.(false);
+    useEffect(() => {
+      if (isLoading) return;
+      setIsWellhubProductRequired?.(wellhubProductOptions.length >= 2);
+    }, [isLoading, wellhubProductOptions.length, setIsWellhubProductRequired]);
+
+    if (!isLoading && wellhubProductOptions.length < 2) {
       return null;
     }
-
-    setIsWellhubProductRequired?.(true);
 
     return (
       <Select<WellhubProductOption>
@@ -115,9 +112,5 @@ const PartnershipAccountProductSelectorBase: React.FC<Props> = React.memo(
     );
   },
 );
-
-const PartnershipAccountProductSelector: React.FC<Props> = (props) => {
-  return <PartnershipAccountProductSelectorBase {...props} />;
-};
 
 export default React.memo(PartnershipAccountProductSelector);

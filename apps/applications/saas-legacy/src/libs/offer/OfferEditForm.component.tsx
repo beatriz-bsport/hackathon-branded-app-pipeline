@@ -70,6 +70,7 @@ type ComponentProps = {
   hideBanner?: boolean;
   onCancelText?: string;
   onSubmitText?: string;
+  wellhubPartnershipId?: number | null;
   offer: Omit<Offer, 'whitelist_tags' | 'blacklist_tags'> & {
     group?: OffersGroup;
     coach: Coach;
@@ -128,6 +129,7 @@ export const OfferEditForm = (props: Props) => {
     hideBanner,
     onCancelText,
     onSubmitText,
+    wellhubPartnershipId,
     offer,
     metaActivities,
     similarOffers,
@@ -383,6 +385,7 @@ export const OfferEditForm = (props: Props) => {
             isOfferInGroup={isOfferInGroup}
             roomBlueprints={roomBlueprints}
             showPartnership={showPartnership}
+            wellhubPartnershipId={wellhubPartnershipId}
           />
 
           {!isOfferInGroup && <OfferFormTags tagList={tagList} />}

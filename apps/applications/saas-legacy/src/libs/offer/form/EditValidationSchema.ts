@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 import { isDateTooFar } from '#src/libs/offer/utils';
+import { PartnerSpotCappingStrategy } from '#src/libs/offer/types';
 
 const OfferEditFormValidationSchema = Yup.object().shape({
   effectif: Yup.number()
@@ -143,6 +144,52 @@ const OfferEditFormValidationSchema = Yup.object().shape({
         return true;
       },
     }),
+  partnershipOffers: Yup.array().of(
+    Yup.object().shape({
+      spot_limit: Yup.number()
+        .nullable()
+        .typeError('offer:form.errors.required')
+        .positive('offer:form.errors.positiveNumber')
+        .test({
+          name: 'spotLimitRequiredPerPartner',
+          test: function spotLimitRequiredPerPartner() {
+            const formValues = (this as any).from?.[1]?.value;
+            const isPerPartner =
+              formValues?.partnerSpotCappingStrategy ===
+              PartnerSpotCappingStrategy.PER_PARTNER;
+            const isEnabled = this.parent.allowed_on_partner;
+            if (isPerPartner && isEnabled && this.parent.spot_limit == null) {
+              return this.createError({
+                message: 'offer:form.errors.required',
+                path: this.path,
+              });
+            }
+            return true;
+          },
+        })
+        .test({
+          name: 'spotLimitExceedsEffectif',
+          test: function spotLimitExceedsEffectif() {
+            const formValues = (this as any).from?.[1]?.value;
+            const isPerPartner =
+              formValues?.partnerSpotCappingStrategy ===
+              PartnerSpotCappingStrategy.PER_PARTNER;
+            if (
+              isPerPartner &&
+              this.parent.allowed_on_partner &&
+              this.parent.spot_limit > (formValues?.effectif ?? 0)
+            ) {
+              return this.createError({
+                message:
+                  'offer:form.errors.field.partnerSpotLimitExceedsEffectif',
+                path: this.path,
+              });
+            }
+            return true;
+          },
+        }),
+    }),
+  ),
 });
 
 export default OfferEditFormValidationSchema;

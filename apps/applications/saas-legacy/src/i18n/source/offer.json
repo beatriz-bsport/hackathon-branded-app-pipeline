@@ -217,6 +217,7 @@
         "durationMinute": "The duration of a session must be greater than 0 minutes",
         "broadcastLink": "The link is wrong. It should start with http:// or https:// and not contain any spaces",
         "partnerMaxBookingCount": "The number of places here is greater than the number of places in the session",
+        "partnerSpotLimitExceedsEffectif": "The total spots across all aggregators cannot exceed the total number of spots in the session",
         "effectif": "The value is higher than the maximum number of places",
         "roomBlueprintSpivi": "A room plan must be selected for sessions synchronized with Spivi",
         "durationMinuteSpivi": "A session on Spivi should last between 20 minutes and 4 hours",
@@ -280,6 +281,7 @@
             },
             "aggregatorLabel": "Aggregator",
             "enabledAggregators": "Enabled Aggregators",
+            "spots": "Spots",
             "partnerSpotCappingStrategy": {
               "label": "Spot capping strategy",
               "UNLIMITED": {

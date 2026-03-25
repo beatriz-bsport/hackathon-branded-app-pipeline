@@ -9,7 +9,6 @@ import ConfirmMarketingEmail from '#src/libs/consumer-space/components/reworked/
 import { RootState } from '../../reducers';
 
 type ReturnTypeRouterParamsToProps = {
-  memberId: number;
   confirmationToken: string;
   companyId: number;
 };
@@ -18,7 +17,6 @@ type Props = ReturnTypeRouterParamsToProps & ConnectedProps<typeof connector>;
 
 export const ConsumerConfirmMarketingEmail: React.FC<Props> = ({
   companyId,
-  memberId,
   confirmationToken,
   companyTheme,
   companyThemeLoading,
@@ -33,7 +31,6 @@ export const ConsumerConfirmMarketingEmail: React.FC<Props> = ({
       companyTheme={companyTheme}
       companyThemeLoading={companyThemeLoading}
       confirmationToken={confirmationToken}
-      memberId={memberId}
     />
   );
 };
@@ -53,7 +50,6 @@ export default compose<Props, {}>(
   routerParamsToProps({
     confirmationToken: 'confirmationToken:string',
     companyId: 'companyId:number',
-    memberId: 'memberId:number',
   }),
   connector,
   React.memo,

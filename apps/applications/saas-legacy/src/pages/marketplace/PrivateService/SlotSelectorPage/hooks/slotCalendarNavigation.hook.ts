@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import usePrivateSlotSelection from './privateSlotSelection.hook';
 
 import { SlotSelectorStoreContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelectorStore.context';
+import { convertSlotToInterval } from '#src/libs/private-service/interval-utils';
 
 /**
  * Custom hook to manage slot calendar navigation functionality.
@@ -138,12 +139,27 @@ const useSlotCalendarNavigation = () => {
     ),
   });
 
-  // Checks if the calendar is empty by evaluating if there are any slots available.
+  // Checks if the calendar is empty by evaluating if there are any slots available
+  // that are at least as long as the selected private slot's duration.
+  // Walks every resource → every day → every availability window and returns true
+  // as soon as one window fits. If none does, the calendar shows the empty state.
   const isEmptyCalendar =
     !!selectedPrivateSlot &&
     !availableSlotsLoading &&
     !Object.values(filteredAvailableSlots).some((resourceSlots) =>
-      resourceSlots.some((resourceSlot) => resourceSlot.slots.length > 0),
+      resourceSlots.some((resourceSlot) =>
+        resourceSlot.slots.some((slot) => {
+          try {
+            const interval = convertSlotToInterval(slot);
+            return (
+              interval.length('minutes') >=
+              (selectedPrivateSlot.duration_minutes ?? 0)
+            );
+          } catch {
+            return false;
+          }
+        }),
+      ),
     );
 
   // Indicates if there is no next available slot, if true we display a message in the calendar.

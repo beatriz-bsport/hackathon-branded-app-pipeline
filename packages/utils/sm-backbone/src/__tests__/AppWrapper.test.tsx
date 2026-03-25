@@ -1,11 +1,15 @@
+import { QueryClient, useQuery, useQueryClient } from "@tanstack/react-query";
 import { act, render, screen } from "@testing-library/react";
+import { renderHook, waitFor } from "@testing-library/react";
 import { type FC, type ReactNode, lazy } from "react";
 import { MemoryRouter } from "react-router";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { HTTPException } from "@bsport/fetch";
 import * as authTokenModule from "@bsport/local-storage-auth-token";
 
 import { fetchSharedData } from "#src/api";
+import { getDefaultQueryClient } from "#src/query-client";
 import { AppWrapper } from "#src/wrappers/AppWrapper/AppWrapper";
 
 beforeAll(() => {
@@ -161,5 +165,83 @@ describe("AppWrapper", () => {
       },
       { timeout: 5000 },
     );
+  });
+});
+
+describe("AppWrapper QueryClientProvider", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.resetAllMocks();
+    vi.spyOn(authTokenModule, "getAuthToken").mockReturnValue(
+      "mock-auth-token-for-testing",
+    );
+    getDefaultQueryClient().clear();
+  });
+
+  it("should use the default QueryClient if none is provided", () => {
+    const defaultQueryClient = getDefaultQueryClient();
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <AppWrapper>{children}</AppWrapper>
+    );
+    const { result } = renderHook(() => useQueryClient(), { wrapper });
+    expect(result.current).toBeInstanceOf(QueryClient);
+    expect(result.current).toBe(defaultQueryClient);
+  });
+
+  it("should use the custom QueryClient if provided", () => {
+    const customClient = new QueryClient({
+      defaultOptions: { queries: { staleTime: 5000 } },
+    });
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <AppWrapper queryClient={customClient}>{children}</AppWrapper>
+    );
+    const { result } = renderHook(() => useQueryClient(), { wrapper });
+    expect(result.current).toBe(customClient);
+  });
+
+  it("should handle queries with the default client", async () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <AppWrapper>{children}</AppWrapper>
+    );
+    const { result } = renderHook(
+      () => useQuery({ queryKey: ["test"], queryFn: () => "data" }),
+      { wrapper },
+    );
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+    expect(result.current.data).toBe("data");
+  });
+
+  it("should not retry on 4xx errors", async () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <AppWrapper>{children}</AppWrapper>
+    );
+    const error = new HTTPException({ statusCode: 400, path: "/my-path" });
+    const queryFn = vi.fn(() => {
+      throw error;
+    });
+
+    const { result } = renderHook(
+      () =>
+        useQuery({
+          queryKey: ["test-4xx"],
+          queryFn,
+        }),
+      { wrapper },
+    );
+    await waitFor(() => expect(result.current.isError).toBe(true));
+    expect(result.current.error).toBe(error);
+    expect(queryFn).toHaveBeenCalledTimes(1);
+  });
+
+  it("should handle multiple renders without recreating the default client", () => {
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <AppWrapper>{children}</AppWrapper>
+    );
+    const { result, rerender } = renderHook(() => useQueryClient(), {
+      wrapper,
+    });
+    const firstClient = result.current;
+    rerender();
+    expect(result.current).toBe(firstClient); // Same instance
   });
 });

@@ -292,6 +292,91 @@ describe('getAvailableDayTimeSegments', () => {
   });
 });
 
+describe('getAvailableDayTimeSegments with durationMinutes', () => {
+  const testDate = DateTime.now().toISODate();
+
+  it('should show morning when the availability window is long enough to fit the session', () => {
+    // Availability window: 08:00–10:00 (120 min), session duration: 60 min
+    const slots: Slot[] = [
+      [
+        DateTime.now().set({ hour: 8, minute: 0 }).toISO(),
+        DateTime.now().set({ hour: 10, minute: 0 }).toISO(),
+      ],
+    ];
+    const result = getAvailableDayTimeSegments(testDate, slots, 60);
+    expect(result).toEqual(new Set([DayTimeIntervals.MORNING]));
+  });
+
+  it('should not show morning when the availability window is shorter than the session duration', () => {
+    // Availability window: 08:00–08:30 (30 min), session duration: 60 min
+    const slots: Slot[] = [
+      [
+        DateTime.now().set({ hour: 8, minute: 0 }).toISO(),
+        DateTime.now().set({ hour: 8, minute: 30 }).toISO(),
+      ],
+    ];
+    const result = getAvailableDayTimeSegments(testDate, slots, 60);
+    expect(result).toEqual(new Set());
+  });
+
+  it('should show morning when the availability window starts near the end of morning but is long enough (boundary case)', () => {
+    // Availability window: 11:30–13:00 (90 min), session duration: 60 min.
+    // The window overlaps morning (ends at 12:00). Extended morning: 00:00–13:00.
+    // Intersection: 11:30–13:00 = 90 min >= 60 min
+    const slots: Slot[] = [
+      [
+        DateTime.now().set({ hour: 11, minute: 30 }).toISO(),
+        DateTime.now().set({ hour: 13, minute: 0 }).toISO(),
+      ],
+    ];
+    const result = getAvailableDayTimeSegments(testDate, slots, 60);
+    expect(result).toContain(DayTimeIntervals.MORNING);
+  });
+
+  it('should not show morning when the availability window starts near the end of morning but is too short (boundary case)', () => {
+    // Availability window: 11:30–12:00 (30 min), session duration: 60 min.
+    // Extended morning: 00:00–13:00. Intersection: 11:30–12:00 = 30 min < 60 min
+    const slots: Slot[] = [
+      [
+        DateTime.now().set({ hour: 11, minute: 30 }).toISO(),
+        DateTime.now().set({ hour: 12, minute: 0 }).toISO(),
+      ],
+    ];
+    const result = getAvailableDayTimeSegments(testDate, slots, 60);
+    expect(result).not.toContain(DayTimeIntervals.MORNING);
+  });
+
+  it('should show only the periods where at least one availability window is long enough for the session', () => {
+    // Morning window: 08:00–08:30 (30 min), too short for a 60 min session
+    // Afternoon window: 14:00–16:00 (120 min), long enough
+    const slots: Slot[] = [
+      [
+        DateTime.now().set({ hour: 8, minute: 0 }).toISO(),
+        DateTime.now().set({ hour: 8, minute: 30 }).toISO(),
+      ],
+      [
+        DateTime.now().set({ hour: 14, minute: 0 }).toISO(),
+        DateTime.now().set({ hour: 16, minute: 0 }).toISO(),
+      ],
+    ];
+    const result = getAvailableDayTimeSegments(testDate, slots, 60);
+    expect(result).not.toContain(DayTimeIntervals.MORNING);
+    expect(result).toContain(DayTimeIntervals.AFTERNOON);
+  });
+
+  it('should show all overlapping periods when no session is selected (durationMinutes = 0)', () => {
+    // durationMinutes = 0 means no session selected yet, skip the duration check.
+    const slots: Slot[] = [
+      [
+        DateTime.now().set({ hour: 8, minute: 0 }).toISO(),
+        DateTime.now().set({ hour: 8, minute: 30 }).toISO(),
+      ],
+    ];
+    const result = getAvailableDayTimeSegments(testDate, slots, 0);
+    expect(result).toContain(DayTimeIntervals.MORNING);
+  });
+});
+
 describe('getAvailableDayTimeIntervals', () => {
   const testDate = DateTime.now().toISODate();
   const dayTimeIntervals = getDayTimeIntervals(testDate);
@@ -346,6 +431,69 @@ describe('getAvailableDayTimeIntervals', () => {
     expect(getAvailableDayTimeIntervals(testDate, emptySlots)).toStrictEqual(
       {},
     );
+  });
+
+  // Verifies durationMinutes is forwarded correctly and the returned Interval values are right.
+  describe('with durationMinutes — end-to-end forwarding', () => {
+    it('should return the Morning interval when the availability window fits the session', () => {
+      // Window: 08:00–10:00 (120 min), session: 60 min, Morning qualifies
+      const slots: Slot[] = [
+        [
+          DateTime.now().set({ hour: 8, minute: 0 }).toISO(),
+          DateTime.now().set({ hour: 10, minute: 0 }).toISO(),
+        ],
+      ];
+      const result = getAvailableDayTimeIntervals(testDate, slots, 60);
+      expect(result).toStrictEqual({
+        [DayTimeIntervals.MORNING]: dayTimeIntervals[DayTimeIntervals.MORNING],
+      });
+    });
+
+    it('should return an empty object when the availability window is shorter than the session', () => {
+      // Window: 08:00–08:30 (30 min), session: 60 min, no period qualifies
+      const slots: Slot[] = [
+        [
+          DateTime.now().set({ hour: 8, minute: 0 }).toISO(),
+          DateTime.now().set({ hour: 8, minute: 30 }).toISO(),
+        ],
+      ];
+      const result = getAvailableDayTimeIntervals(testDate, slots, 60);
+      expect(result).toStrictEqual({});
+    });
+
+    it('should return both Morning and Afternoon intervals when each has a qualifying window', () => {
+      // Morning: 08:00–10:00, Afternoon: 14:00–16:00
+      const slots: Slot[] = [
+        [
+          DateTime.now().set({ hour: 8, minute: 0 }).toISO(),
+          DateTime.now().set({ hour: 10, minute: 0 }).toISO(),
+        ],
+        [
+          DateTime.now().set({ hour: 14, minute: 0 }).toISO(),
+          DateTime.now().set({ hour: 16, minute: 0 }).toISO(),
+        ],
+      ];
+      const result = getAvailableDayTimeIntervals(testDate, slots, 60);
+      expect(result).toStrictEqual({
+        [DayTimeIntervals.MORNING]: dayTimeIntervals[DayTimeIntervals.MORNING],
+        [DayTimeIntervals.AFTERNOON]:
+          dayTimeIntervals[DayTimeIntervals.AFTERNOON],
+      });
+    });
+
+    it('should fall back to simple overlap when durationMinutes is 0', () => {
+      // durationMinutes=0, no duration check, any overlap qualifies
+      const slots: Slot[] = [
+        [
+          DateTime.now().set({ hour: 8, minute: 0 }).toISO(),
+          DateTime.now().set({ hour: 8, minute: 30 }).toISO(),
+        ],
+      ];
+      const result = getAvailableDayTimeIntervals(testDate, slots, 0);
+      expect(result).toStrictEqual({
+        [DayTimeIntervals.MORNING]: dayTimeIntervals[DayTimeIntervals.MORNING],
+      });
+    });
   });
 });
 
@@ -843,6 +991,165 @@ describe('chunkIntervalsByDuration', () => {
     result.forEach((interval) => {
       expect(interval.toDuration('minutes').minutes).toBe(duration.minutes);
     });
+  });
+});
+
+describe('getIntersectingSlots – period boundary edge cases', () => {
+  // Helper: build an extended period interval (period end + session duration),
+  // mirroring what useAvailableResources does at runtime.
+  const extendedMorning = (date: string, sessionMinutes: number) => {
+    const base = getDayTimeIntervals(date);
+    return Interval.fromDateTimes(
+      base[DayTimeIntervals.MORNING].start!,
+      base[DayTimeIntervals.MORNING].end!.plus(
+        Duration.fromObject({ minutes: sessionMinutes }),
+      ),
+    );
+  };
+
+  const DATE = '2024-10-11';
+  const SESSION_DURATION = 60;
+
+  it('captures an availability window that starts before the period end and extends past it', () => {
+    // Window 11:30–13:00 crosses the Morning boundary (12:00).
+    // Extended Morning: 00:00–13:00, intersection = 11:30–13:00 (90 min)
+    const slots: Slot[] = [['2024-10-11T11:30:00', '2024-10-11T13:00:00']];
+    const result = getIntersectingSlots(
+      extendedMorning(DATE, SESSION_DURATION),
+      slots,
+    );
+
+    expect(result).toHaveLength(1);
+    expect(result[0].start).toStrictEqual(
+      DateTime.fromISO('2024-10-11T11:30:00'),
+    );
+    expect(result[0].end).toStrictEqual(
+      DateTime.fromISO('2024-10-11T13:00:00'),
+    );
+    expect(result[0].length('minutes')).toBeGreaterThanOrEqual(
+      SESSION_DURATION,
+    );
+  });
+
+  it('returns an empty array when all availability windows are outside the selected period', () => {
+    // Establishment only open in the evening; user clicked Morning, nothing to show
+    const slots: Slot[] = [['2024-10-11T19:00:00', '2024-10-11T22:00:00']];
+    const result = getIntersectingSlots(
+      extendedMorning(DATE, SESSION_DURATION),
+      slots,
+    );
+    expect(result).toHaveLength(0);
+  });
+});
+
+describe('findIntervalsIntersections – coach × establishment availability edge cases', () => {
+  const SESSION_DURATION = 60;
+
+  it('returns an empty result when coach and establishment availability windows do not overlap', () => {
+    // Establishment: Morning (08:00–12:00), Coach: Afternoon (14:00–18:00), no shared time
+    const estIntervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T08:00:00'),
+        DateTime.fromISO('2024-10-11T12:00:00'),
+      ),
+    ];
+    const coachIntervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T14:00:00'),
+        DateTime.fromISO('2024-10-11T18:00:00'),
+      ),
+    ];
+    expect(
+      findIntervalsIntersections(estIntervals, coachIntervals),
+    ).toHaveLength(0);
+  });
+
+  it('produces the correct intersection for each coach when multiple coaches share one establishment', () => {
+    // Establishment: 09:00–18:00
+    // Coach A: 09:00–12:00 (180-min overlap), Coach B: 13:00–15:00 (120-min overlap)
+    // Coach C: 20:00–22:00, outside establishment hours, no intersection
+    const estIntervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T09:00:00'),
+        DateTime.fromISO('2024-10-11T18:00:00'),
+      ),
+    ];
+
+    const resultA = findIntervalsIntersections(estIntervals, [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T09:00:00'),
+        DateTime.fromISO('2024-10-11T12:00:00'),
+      ),
+    ]);
+    const resultB = findIntervalsIntersections(estIntervals, [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T13:00:00'),
+        DateTime.fromISO('2024-10-11T15:00:00'),
+      ),
+    ]);
+    const resultC = findIntervalsIntersections(estIntervals, [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T20:00:00'),
+        DateTime.fromISO('2024-10-11T22:00:00'),
+      ),
+    ]);
+
+    expect(resultA).toHaveLength(1);
+    expect(resultA[0].length('minutes')).toBeGreaterThanOrEqual(
+      SESSION_DURATION,
+    );
+    expect(resultB).toHaveLength(1);
+    expect(resultB[0].length('minutes')).toBeGreaterThanOrEqual(
+      SESSION_DURATION,
+    );
+    expect(resultC).toHaveLength(0);
+  });
+
+  it('returns one intersection per coach availability window when a coach has multiple windows', () => {
+    // Establishment: 08:00–18:00 / Coach windows: 09:00–11:00 and 14:00–16:00
+    const estIntervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T08:00:00'),
+        DateTime.fromISO('2024-10-11T18:00:00'),
+      ),
+    ];
+    const coachIntervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T09:00:00'),
+        DateTime.fromISO('2024-10-11T11:00:00'),
+      ),
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T14:00:00'),
+        DateTime.fromISO('2024-10-11T16:00:00'),
+      ),
+    ];
+
+    const result = findIntervalsIntersections(estIntervals, coachIntervals);
+
+    expect(result).toHaveLength(2);
+    expect(result[0].start).toStrictEqual(
+      DateTime.fromISO('2024-10-11T09:00:00'),
+    );
+    expect(result[0].end).toStrictEqual(
+      DateTime.fromISO('2024-10-11T11:00:00'),
+    );
+    expect(result[1].start).toStrictEqual(
+      DateTime.fromISO('2024-10-11T14:00:00'),
+    );
+    expect(result[1].end).toStrictEqual(
+      DateTime.fromISO('2024-10-11T16:00:00'),
+    );
+  });
+
+  it('returns an empty array when either side has no availability', () => {
+    const someIntervals = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2024-10-11T09:00:00'),
+        DateTime.fromISO('2024-10-11T12:00:00'),
+      ),
+    ];
+    expect(findIntervalsIntersections([], someIntervals)).toHaveLength(0);
+    expect(findIntervalsIntersections(someIntervals, [])).toHaveLength(0);
   });
 });
 

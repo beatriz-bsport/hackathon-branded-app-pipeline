@@ -252,7 +252,7 @@
           "isModifyRecursively": "Vuoi modificare tutte le sessioni simili in base a queste nuove condizioni?",
           "isNotifyConsumers": "Vuoi informare i tuoi clienti di questo cambiamento?",
           "partnership": {
-            "partnerMaxBookingCount": "Numero massimo di prenotazioni da myClubs, Wellhub e Urban Sports Club combinati (gli altri aggregatori non sono interessati da questa impostazione)",
+            "partnerMaxBookingCountDEPRECATED": "Numero massimo di prenotazioni da myClubs, Wellhub e Urban Sports Club combinati (gli altri aggregatori non sono interessati da questa impostazione)",
             "availableOnPartnership": "Sugli aggregatori (ClassPass, OneFit...)",
             "title": "Integrazioni aggregatore",
             "uscIntegrationWorkshopWarning": "I workshop non sono compatibili con il marketplace Urban Sports Club, pertanto questa sessione non sarà inclusa.",

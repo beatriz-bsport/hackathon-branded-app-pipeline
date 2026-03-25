@@ -31,7 +31,11 @@ import type { Establishment } from '#src/libs/establishment/types';
 import type { Level, LevelFilterSet } from '#src/libs/level/types';
 import type { LuxonDateTime } from '#src/types';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
-import type { OfferCreate, OfferFormValues } from '#src/libs/offer/types';
+import {
+  OfferCreate,
+  OfferFormValues,
+  PartnerSpotCappingStrategy,
+} from '#src/libs/offer/types';
 import type { OptionCallback, OptionPaginatedCallback } from '#src/state/types';
 import type { RoomBlueprint } from '#src/libs/spot-scheduling/types';
 import type { Tag, TagGroup } from '#src/libs/tag/types';
@@ -294,6 +298,8 @@ const formikFormWrapper = withFormik<
       level: 1,
       nameOverride: '',
       partnerMaxBookingCount: props.isOfferInGroup ? 0 : 6,
+      partnerSpotCappingStrategy: PartnerSpotCappingStrategy.COMBINED,
+      partnershipOffers: [],
       recurrence: OFFER_RECURRENCE.WEEKLY,
       recurrenceWeekDay: {
         '1': recurrenceIsoWeekDay === 1,
@@ -334,6 +340,8 @@ const formikFormWrapper = withFormik<
       level,
       nameOverride,
       partnerMaxBookingCount,
+      partnerSpotCappingStrategy,
+      partnershipOffers,
       roomBlueprint,
       selectedBlacklistTags,
       selectedWhitelistTags,
@@ -354,6 +362,20 @@ const formikFormWrapper = withFormik<
     const sanitizedDescriptionOverride = didNameOrDescriptionChange
       ? descriptionOverride
       : '';
+
+    let validatedPartnerMaxBookingCount = null;
+    switch (partnerSpotCappingStrategy) {
+      case PartnerSpotCappingStrategy.COMBINED:
+        validatedPartnerMaxBookingCount = partnerMaxBookingCount;
+        break;
+      case PartnerSpotCappingStrategy.UNLIMITED:
+        validatedPartnerMaxBookingCount = null;
+        break;
+      case PartnerSpotCappingStrategy.PER_PARTNER:
+        validatedPartnerMaxBookingCount = null;
+        // TODO: Add per-partner spot limit validation
+        break;
+    }
 
     const offer: OfferCreate = {
       allow_guest_offer: allowGuestOffer,
@@ -380,7 +402,9 @@ const formikFormWrapper = withFormik<
       level,
       manager_only: isManagerOnly,
       name_override: sanitizedNameOverride,
-      partner_max_booking_count: partnerMaxBookingCount,
+      partner_max_booking_count: validatedPartnerMaxBookingCount,
+      partner_spot_capping_strategy: partnerSpotCappingStrategy,
+      partnership_offers: partnershipOffers,
       sync_on_spivi: syncOfferOnSpivi,
       waiting_list_max_size: waitingListMaxSize,
       whitelist_tags: selectedWhitelistTags,

@@ -100,6 +100,7 @@ const initialValues: OfferFormValues = {
   isZoomAppEnabled: true,
   isShowPartnership: true,
   is_hybrid: false,
+  partnershipOffers: [],
 };
 
 const OfferFormMeta: Meta<typeof OfferCreateForm> = {

@@ -19,6 +19,7 @@ import {
   getPrivateBookingListFiltered,
   withRelatedFields,
 } from '../../libs/private-service/selectors/private-booking';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
 import { fetchMemberBulkByIdBatched as fetchMemberBulkByIdBatchedAction } from '../../libs/member/actions';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -140,9 +141,16 @@ export class EstablishmentCalendar extends React.Component<Props, State> {
   };
 
   componentDidMount() {
+    analyticsClientB2B.addSuperProperties({
+      page_source: 'establishment_calendar',
+    });
     this.props.resetPrivateBookings();
     this.props.fetchEstablishmentBulk([this.props.id]);
     this.props.fetchAssociatedEstablishments({ company: this.props.companyId });
+  }
+
+  componentWillUnmount() {
+    analyticsClientB2B.removeSuperProperties(['page_source']);
   }
 
   componentDidUpdate(prevProps: Props) {

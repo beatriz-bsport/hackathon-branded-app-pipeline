@@ -77,12 +77,37 @@
         "action": {
           "back": "Back",
           "cancel": "Cancel",
+          "close": "Close",
           "confirm": "Confirm",
-          "save": "Save"
+          "save": "Save",
+          "reactivate": "Reactivate"
+        },
+        "activate": {
+          "title": "Reactivate this Unit ID",
+          "subtitle": "Reactivate synchronisation for this Unit ID?",
+          "content": "Once reactivated, sessions will start syncing again automatically."
         },
         "unlink": {
           "title": "You are about to unlink one or several establishments from Wellhub",
           "text": "Upcoming sessions linked to those establishments will be deleted on Wellhub, and any Wellhub bookings will be lost"
+        },
+        "notification": {
+          "delete": {
+            "success": "Wellhub Unit Id deleted",
+            "error": "An error occurred while deleting the Wellhub Unit Id"
+          },
+          "create": {
+            "success": "Wellhub Unit Id generated",
+            "error": "An error occurred while generating the Wellhub Unit Id"
+          },
+          "update": {
+            "success": "Wellhub Unit Id updated",
+            "error": "An error occurred while updating the Wellhub Unit Id"
+          },
+          "activate": {
+            "success": "Wellhub Unit Id activated",
+            "error": "An error occurred while activating the Wellhub Unit Id"
+          }
         }
       },
       "panel": {
@@ -95,7 +120,16 @@
           "table": {
             "column": {
               "externalId": "Unit ID",
-              "establishments": "Establishments"
+              "establishments": "Establishments",
+              "status": "Status"
+            },
+            "status": {
+              "active": "Connected",
+              "pending": "Pending",
+              "deactivated": "Deactivated"
+            },
+            "action": {
+              "reactivateTooltip": "Reactivate"
             }
           }
         },
@@ -165,7 +199,7 @@
         "activate": {
           "title": "Reactivate this Partner ID",
           "subtitle": "Reactivate synchronisation for this Partner ID?",
-          "content": "Once reactivated, session will start syncing again automatically."
+          "content": "Once reactivated, sessions will start syncing again automatically."
         },
         "unlink": {
           "title": "You are about to unlink one or several establishments from myClubs.",

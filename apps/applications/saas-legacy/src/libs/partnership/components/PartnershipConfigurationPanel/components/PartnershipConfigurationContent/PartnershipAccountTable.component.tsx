@@ -89,7 +89,7 @@ const PartnershipAccountTable: React.FC<Props> = ({
       (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.stopPropagation();
         event.preventDefault();
-        onActivateAccount(partnershipAccount);
+        onActivateAccount?.(partnershipAccount);
       },
     [onActivateAccount],
   );
@@ -131,8 +131,7 @@ const PartnershipAccountTable: React.FC<Props> = ({
             <TableCell>
               <div className={classes.accountRow}>
                 <Typography noWrap className={classes.idTitle} variant="body1">
-                  {partnershipAccount.external_name ||
-                    partnershipAccount.external_id}
+                  {partnershipAccount.external_id}
                   {displayConfig.showCopyIdToClipboard && (
                     <CopyExternalIdButton
                       externalId={partnershipAccount.external_id}
@@ -148,7 +147,7 @@ const PartnershipAccountTable: React.FC<Props> = ({
                     className={classes.idSubtitle}
                     variant="subtitle2"
                   >
-                    {partnershipAccount.external_id}
+                    {partnershipAccount.external_name}
                   </Typography>
                 )}
               </div>

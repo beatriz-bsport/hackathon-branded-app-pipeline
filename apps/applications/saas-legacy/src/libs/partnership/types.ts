@@ -1,4 +1,5 @@
 import type { Establishment } from '#src/libs/establishment/types';
+import type { WellhubProduct } from '#src/libs/wellhub/types';
 import React from 'react';
 
 export enum PartnershipIdentifier {
@@ -70,4 +71,10 @@ export type ActivePartnershipAccount = Omit<
 > & {
   partnership: number;
   partnership_identifier: string;
+};
+
+export type ProductsByPartnershipAccountResponse = {
+  products_by_partnership_account: {
+    [partnershipAccountExternalId: string]: WellhubProduct[];
+  };
 };

@@ -11,6 +11,7 @@ import {
   PartnershipAccount,
   PartnershipAccountFilters,
   PartnershipAccountPayload,
+  ProductsByPartnershipAccountResponse,
   ValidateExternalIdParams,
   ValidateExternalIdResponse,
   ActivePartnershipAccountForOfferParams,
@@ -69,5 +70,11 @@ export const validateExternalId = (params: ValidateExternalIdParams) => {
     `${API_V1_URI}/partnership/partnership_account/validate-external-id/${buildUrlParams(
       params,
     )}`,
+  );
+};
+
+export const getWellhubProductsByAccount = () => {
+  return getAuth<ProductsByPartnershipAccountResponse>(
+    `${API_V1_URI}/partnership/wellhub/products-by-account/`,
   );
 };

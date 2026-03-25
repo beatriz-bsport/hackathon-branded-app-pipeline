@@ -51,6 +51,9 @@
   "wellhub": {
     "title": "Wellhub",
     "configuration": {
+      "migration": {
+        "banner": "Due to a planned migration, updates to current gyms are not available until {{date}}. Thank you for your patience."
+      },
       "dialog": {
         "title": {
           "creation": "Add and link Unit ID with establishment(s)",

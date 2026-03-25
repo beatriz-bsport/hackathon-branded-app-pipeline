@@ -40,6 +40,7 @@ type Props = {
   displayConfig: PartnershipDisplayConfig;
   partnershipAccounts: PartnershipAccount[];
   loading: boolean;
+  isActionDisabled?: (account: PartnershipAccount) => boolean;
   onActivateAccount?: (partnershipAccount: PartnershipAccount) => void;
   onDeleteAccount: (partnershipAccount: PartnershipAccount) => void;
   onEditAccount: (partnershipAccount: PartnershipAccount) => void;
@@ -52,6 +53,7 @@ const PartnershipAccountTable: React.FC<Props> = ({
   displayConfig,
   partnershipAccounts,
   loading,
+  isActionDisabled,
   onActivateAccount,
   onDeleteAccount,
   onEditAccount,
@@ -186,14 +188,33 @@ const PartnershipAccountTable: React.FC<Props> = ({
                 !onActivateAccount ? (
                   <>
                     <IconButton
+                      disabled={isActionDisabled?.(partnershipAccount)}
                       onClick={onEditAccountCallback(partnershipAccount)}
                     >
-                      <EditIcon color="primary" />
+                      <EditIcon
+                        color={
+                          isActionDisabled?.(partnershipAccount)
+                            ? 'disabled'
+                            : 'primary'
+                        }
+                      />
                     </IconButton>
                     <IconButton
+                      disabled={isActionDisabled?.(partnershipAccount)}
                       onClick={onDeleteAccountCallback(partnershipAccount)}
                     >
-                      <DeleteIcon className={classes.greyIcon} />
+                      <DeleteIcon
+                        className={
+                          isActionDisabled?.(partnershipAccount)
+                            ? undefined
+                            : classes.greyIcon
+                        }
+                        color={
+                          isActionDisabled?.(partnershipAccount)
+                            ? 'disabled'
+                            : 'inherit'
+                        }
+                      />
                     </IconButton>
                   </>
                 ) : (

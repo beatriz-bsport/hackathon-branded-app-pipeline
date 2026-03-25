@@ -2,6 +2,10 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import maxBy from 'lodash/maxBy';
+import { DateTime } from 'luxon';
+
+import { Alert } from '@material-ui/lab';
 
 import PartnershipConfigurationPanel from '#src/libs/partnership/components/PartnershipConfigurationPanel';
 import PartnershipWarningDialog from '#src/libs/partnership/components/PartnershipWarningDialog';
@@ -134,6 +138,32 @@ const WellhubConfiguration: React.FC<Props> = ({
         (establishment) => !establishmentsLinkedIds.includes(establishment.id),
       ),
     [establishmentsLinkedIds, establishments],
+  );
+
+  const migratingAccounts = useMemo(() => {
+    const now = DateTime.now();
+    return (partnershipAccounts ?? []).filter(
+      (account) =>
+        account.active === true &&
+        account.activated_at != null &&
+        DateTime.fromISO(account.activated_at) > now,
+    );
+  }, [partnershipAccounts]);
+
+  const maxMigrationDate = useMemo(() => {
+    if (migratingAccounts.length === 0) return null;
+    const account = maxBy(migratingAccounts, (a) =>
+      a.activated_at ? DateTime.fromISO(a.activated_at).toMillis() : 0,
+    );
+    return account && account.activated_at
+      ? DateTime.fromISO(account.activated_at)
+      : null;
+  }, [migratingAccounts]);
+
+  const isMigrating = useCallback(
+    (account: PartnershipAccount) =>
+      migratingAccounts.some((a) => a.id === account.id),
+    [migratingAccounts],
   );
 
   /* Configuration Dialog */
@@ -389,6 +419,7 @@ const WellhubConfiguration: React.FC<Props> = ({
           icon: <WellhubIcon />,
           helperTextKey: 'wellhub.configuration.panel.content.helperText',
         }}
+        isActionDisabled={isMigrating}
         loading={fetchAccountsLoading}
         onActivateAccount={handleActivateAccount}
         onAddConnection={openConfigurationDialog}
@@ -397,10 +428,19 @@ const WellhubConfiguration: React.FC<Props> = ({
         partnershipAccounts={partnershipAccounts ?? []}
         slots={{
           alert: (
-            <WellhubProductAlert
-              onActionClick={openWellhubProductSelectionDrawer}
-              total={offersMissingWellhubProductCount}
-            />
+            <>
+              {maxMigrationDate && (
+                <Alert severity="info">
+                  {t('wellhub.configuration.migration.banner', {
+                    date: maxMigrationDate.toLocaleString(DateTime.DATE_FULL),
+                  })}
+                </Alert>
+              )}
+              <WellhubProductAlert
+                onActionClick={openWellhubProductSelectionDrawer}
+                total={offersMissingWellhubProductCount}
+              />
+            </>
           ),
         }}
       />

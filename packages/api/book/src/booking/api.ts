@@ -1,7 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import {
-  type ApiConfig,
   type Fetch,
   type PaginatedResponse,
   buildUrlParams,
@@ -40,18 +39,11 @@ export const bookingKeys = {
     [...bookingKeys.all, "cancelled", recurrenceRuleId] as const,
 } as const;
 
-const fetchBookingsAPIConfig = (
-  params: PaginatedBookingFilterParams,
-): ApiConfig => {
-  return [`${API_URL_BOOKING}/${buildUrlParams(params)}`];
-};
-
 export const fetchBookingsAPI = async (
   fetch: Fetch<PaginatedResponse<Booking>>,
   params: PaginatedBookingFilterParams,
 ): Promise<PaginatedResponse<Booking>> => {
-  const [uri, init] = fetchBookingsAPIConfig(params);
-  const { data } = await fetch(uri, init);
+  const { data } = await fetch(`${API_URL_BOOKING}/${buildUrlParams(params)}`);
   return data;
 };
 
@@ -64,18 +56,13 @@ export const bookingsQueryOptions = (
     queryFn: () => fetchBookingsAPI(fetch, params),
   });
 
-const fetchGroupSessionRelatedBookingsAPIConfig = (
-  bookingId: number,
-): ApiConfig => {
-  return [`${API_URL_BOOKING}/${bookingId}/get_offer_group_related_bookings/`];
-};
-
 export const fetchGroupSessionRelatedBookingsAPI = async (
   fetch: Fetch<Booking[]>,
   bookingId: number,
 ): Promise<Booking[]> => {
-  const [uri, init] = fetchGroupSessionRelatedBookingsAPIConfig(bookingId);
-  const { data } = await fetch(uri, init);
+  const { data } = await fetch(
+    `${API_URL_BOOKING}/${bookingId}/get_offer_group_related_bookings/`,
+  );
   return data;
 };
 
@@ -88,18 +75,13 @@ export const groupSessionRelatedBookingsQueryOptions = (
     queryFn: () => fetchGroupSessionRelatedBookingsAPI(fetch, bookingId),
   });
 
-const fetchRecurrenceRuleBookingsAPIConfig = (
-  params: RecurrenceRuleBookingFilterParams = {},
-): ApiConfig => {
-  return [`${API_URL_RECURRENCE_RULE}/${buildUrlParams(params)}`];
-};
-
 export const fetchRecurrenceRuleBookingsAPI = async (
   fetch: Fetch<PaginatedResponse<RecurrenceRuleBooking>>,
-  params?: RecurrenceRuleBookingFilterParams,
+  params: RecurrenceRuleBookingFilterParams = {},
 ): Promise<PaginatedResponse<RecurrenceRuleBooking>> => {
-  const [uri, init] = fetchRecurrenceRuleBookingsAPIConfig(params);
-  const { data } = await fetch(uri, init);
+  const { data } = await fetch(
+    `${API_URL_RECURRENCE_RULE}/${buildUrlParams(params)}`,
+  );
   return data;
 };
 
@@ -112,21 +94,13 @@ export const recurrenceRuleBookingsQueryOptions = (
     queryFn: () => fetchRecurrenceRuleBookingsAPI(fetch, params),
   });
 
-const retrieveSessionWithCancelledBookingsAPIConfig = (
-  recurrenceRuleId: number,
-): ApiConfig => {
-  return [
-    `${API_URL_RECURRENCE_RULE}/${recurrenceRuleId}/get_offers_to_rebook/`,
-  ];
-};
-
 export const retrieveSessionWithCancelledBookingsAPI = async (
   fetch: Fetch<Session[]>,
   recurrenceRuleId: number,
 ): Promise<Session[]> => {
-  const [uri, init] =
-    retrieveSessionWithCancelledBookingsAPIConfig(recurrenceRuleId);
-  const { data } = await fetch(uri, init);
+  const { data } = await fetch(
+    `${API_URL_RECURRENCE_RULE}/${recurrenceRuleId}/get_offers_to_rebook/`,
+  );
   return data;
 };
 
@@ -140,40 +114,16 @@ export const sessionWithCancelledBookingsQueryOptions = (
       retrieveSessionWithCancelledBookingsAPI(fetch, recurrenceRuleId),
   });
 
-export const cancelBookingAPIConfig = (
-  bookingId: number,
-  params: CancelBookingParams = {},
-): ApiConfig => {
-  return [
-    `${API_URL_BOOKING}/${bookingId}/cancel/`,
-    {
-      method: "POST",
-      body: JSON.stringify(params),
-    },
-  ];
-};
-
 export const cancelBookingAPI = async (
   fetch: Fetch<Booking>,
   bookingId: number,
-  params?: CancelBookingParams,
+  params: CancelBookingParams = {},
 ): Promise<Booking> => {
-  const [uri, init] = cancelBookingAPIConfig(bookingId, params);
-  const { data } = await fetch(uri, init);
+  const { data } = await fetch(`${API_URL_BOOKING}/${bookingId}/cancel/`, {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
   return data;
-};
-
-export const setSpotForBookingAPIConfig = (
-  bookingId: number,
-  params: SetSpotParams,
-): ApiConfig => {
-  return [
-    `${API_URL_BOOKING}/${bookingId}/set_spot_for_member/`,
-    {
-      method: "POST",
-      body: JSON.stringify(params),
-    },
-  ];
 };
 
 export const setSpotForBookingAPI = async (
@@ -181,41 +131,25 @@ export const setSpotForBookingAPI = async (
   bookingId: number,
   params: SetSpotParams,
 ): Promise<Booking> => {
-  const [uri, init] = setSpotForBookingAPIConfig(bookingId, params);
-  const { data } = await fetch(uri, init);
-  return data;
-};
-
-export const refundBookingAPIConfig = (bookingId: number): ApiConfig => {
-  return [
-    `${API_URL_BOOKING}/${bookingId}/refund/`,
+  const { data } = await fetch(
+    `${API_URL_BOOKING}/${bookingId}/set_spot_for_member/`,
     {
-      method: "PATCH",
-      body: JSON.stringify({}),
+      method: "POST",
+      body: JSON.stringify(params),
     },
-  ];
+  );
+  return data;
 };
 
 export const refundBookingAPI = async (
   fetch: Fetch<Booking>,
   bookingId: number,
 ): Promise<Booking> => {
-  const [uri, init] = refundBookingAPIConfig(bookingId);
-  const { data } = await fetch(uri, init);
+  const { data } = await fetch(`${API_URL_BOOKING}/${bookingId}/refund/`, {
+    method: "PATCH",
+    body: JSON.stringify({}),
+  });
   return data;
-};
-
-export const setAttendanceAPIConfig = (
-  bookingId: number,
-  attendance: boolean,
-): ApiConfig => {
-  return [
-    `${API_URL_BOOKING}/${bookingId}/attendance/`,
-    {
-      method: "POST",
-      body: JSON.stringify({ attendance }),
-    },
-  ];
 };
 
 export const setAttendanceAPI = async (
@@ -223,42 +157,21 @@ export const setAttendanceAPI = async (
   bookingId: number,
   attendance: boolean,
 ): Promise<void> => {
-  const [uri, init] = setAttendanceAPIConfig(bookingId, attendance);
-  await fetch(uri, init);
-};
-
-export const createRecurrenceRuleBookingAPIConfig = (
-  params: CreateRecurrenceRuleBookingParams,
-): ApiConfig => {
-  return [
-    `${API_URL_RECURRENCE_RULE}/`,
-    {
-      method: "POST",
-      body: JSON.stringify(params),
-    },
-  ];
+  await fetch(`${API_URL_BOOKING}/${bookingId}/attendance/`, {
+    method: "POST",
+    body: JSON.stringify({ attendance }),
+  });
 };
 
 export const createRecurrenceRuleBookingAPI = async (
   fetch: Fetch<RecurrenceRuleBooking>,
   params: CreateRecurrenceRuleBookingParams,
 ): Promise<RecurrenceRuleBooking> => {
-  const [uri, init] = createRecurrenceRuleBookingAPIConfig(params);
-  const { data } = await fetch(uri, init);
+  const { data } = await fetch(`${API_URL_RECURRENCE_RULE}/`, {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
   return data;
-};
-
-export const updateRecurrenceRuleBookingAPIConfig = (
-  id: number,
-  params: UpdateRecurrenceRuleBookingParams,
-): ApiConfig => {
-  return [
-    `${API_URL_RECURRENCE_RULE}/${id}/`,
-    {
-      method: "PATCH",
-      body: JSON.stringify(params),
-    },
-  ];
 };
 
 export const updateRecurrenceRuleBookingAPI = async (
@@ -266,44 +179,23 @@ export const updateRecurrenceRuleBookingAPI = async (
   id: number,
   params: UpdateRecurrenceRuleBookingParams,
 ): Promise<RecurrenceRuleBooking> => {
-  const [uri, init] = updateRecurrenceRuleBookingAPIConfig(id, params);
-  const { data } = await fetch(uri, init);
+  const { data } = await fetch(`${API_URL_RECURRENCE_RULE}/${id}/`, {
+    method: "PATCH",
+    body: JSON.stringify(params),
+  });
   return data;
-};
-
-export const deleteRecurrenceRuleBookingAPIConfig = (
-  id: number,
-  params: DeleteRecurrenceRuleBookingParams = {},
-): ApiConfig => {
-  return [
-    `${API_URL_RECURRENCE_RULE}/${id}/${buildUrlParams(params)}`,
-    {
-      method: "DELETE",
-    },
-  ];
 };
 
 export const deleteRecurrenceRuleBookingAPI = async (
   fetch: Fetch<RecurrenceRuleBooking>,
   id: number,
-  params?: DeleteRecurrenceRuleBookingParams,
+  params: DeleteRecurrenceRuleBookingParams = {},
 ): Promise<RecurrenceRuleBooking> => {
-  const [uri, init] = deleteRecurrenceRuleBookingAPIConfig(id, params);
-  const { data } = await fetch(uri, init);
+  const { data } = await fetch(
+    `${API_URL_RECURRENCE_RULE}/${id}/${buildUrlParams(params)}`,
+    { method: "DELETE" },
+  );
   return data;
-};
-
-export const updateSessionWithCancelledBookingsToRetryAPIConfig = (
-  recurrenceRuleId: number,
-  params: UpdateSessionWithCancelledBookingsToRetryParams,
-): ApiConfig => {
-  return [
-    `${API_URL_RECURRENCE_RULE}/${recurrenceRuleId}/update_recurrence_booking_offers_to_retry/`,
-    {
-      method: "POST",
-      body: JSON.stringify(params),
-    },
-  ];
 };
 
 export const updateSessionWithCancelledBookingsToRetryAPI = async (
@@ -311,10 +203,12 @@ export const updateSessionWithCancelledBookingsToRetryAPI = async (
   recurrenceRuleId: number,
   params: UpdateSessionWithCancelledBookingsToRetryParams,
 ): Promise<number> => {
-  const [uri, init] = updateSessionWithCancelledBookingsToRetryAPIConfig(
-    recurrenceRuleId,
-    params,
+  const { data } = await fetch(
+    `${API_URL_RECURRENCE_RULE}/${recurrenceRuleId}/update_recurrence_booking_offers_to_retry/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
   );
-  const { data } = await fetch(uri, init);
   return data;
 };

@@ -41,16 +41,16 @@ import {
 } from "../hooks/useSessionListData";
 import {
   closeModal,
-  selectFilters,
   selectModalState,
   selectSelectedDate,
+  selectSessionFilters,
   setLocale,
   useSessionListStore,
 } from "../stores/session-list";
 
 export const DEFAULT_DEBOUNCE_DELAY = 200;
 
-const ListPage: React.FC = () => {
+const CalendarPage: React.FC = () => {
   const { t, i18n } = useTranslation("sessionList");
   const intlLocale = i18n?.language;
 
@@ -120,7 +120,7 @@ const ListPage: React.FC = () => {
 
   const { filterConfig, resetFilters, sessionFiltersRef } = useFilterConfig();
 
-  const filters = useSessionListStore(selectFilters);
+  const filters = useSessionListStore(selectSessionFilters);
   const hasEmptyResults =
     !isLoading && !sessionDataError && Object.keys(sessionsByDate).length === 0;
 
@@ -300,4 +300,4 @@ const ListPage: React.FC = () => {
   );
 };
 
-export default ListPage;
+export default CalendarPage;

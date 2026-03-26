@@ -3,7 +3,11 @@ import React from "react";
 
 import { Body, Card } from "@bsport/kaizen-primitive-core";
 
-import { Columns, type EnrichedSession, type TableColumn } from "#src/types";
+import {
+  type EnrichedSession,
+  SessionColumns,
+  type TableColumn,
+} from "#src/types";
 
 type SessionCardsProps = {
   columns: TableColumn[];
@@ -31,7 +35,7 @@ export const SessionCards: React.FC<SessionCardsProps> = ({
 const SessionCard: React.FC<SessionCardProps> = ({ columns, row }) => {
   const [[actionColumn], columnsWithoutAction] = partition(
     columns,
-    (column) => column.id === Columns.MOBILE_ACTIONS,
+    (column) => column.id === SessionColumns.MOBILE_ACTIONS,
   );
 
   if (actionColumn && !("render" in actionColumn)) {

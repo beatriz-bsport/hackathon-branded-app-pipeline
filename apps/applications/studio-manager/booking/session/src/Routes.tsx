@@ -5,7 +5,7 @@ import { LEGACY_URLS, URLS, flags, useBookingManagementFlag } from "#src/urls";
 
 import { SessionManagementPage } from "./pages/session-management-page";
 
-const ListPage = lazy(() => import("#src/pages/ListPage"));
+const CalendarPage = lazy(() => import("#src/pages/CalendarPage"));
 const DetailsPage = lazy(() => import("#src/pages/details-page"));
 
 const LegacyOfferPageRedirect = () => {
@@ -28,7 +28,7 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route element={<ListPage />} index />
+      <Route element={<CalendarPage />} index />
       <Route
         element={
           isSessionManagementRevampEnabled ? (

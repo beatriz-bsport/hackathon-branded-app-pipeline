@@ -14,8 +14,8 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { sessionListExportParticipantConfirmButtonClickedEvent } from "#src/events/session-list/events";
 import { useExportParticipantsList } from "#src/hooks/session-api/bulk-actions/use-export-participants";
 import {
-  selectFilters,
   selectSelectedDate,
+  selectSessionFilters,
   useSessionListStore,
 } from "#src/stores/session-list";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
@@ -55,7 +55,7 @@ export const ExportParticipantsModal: FC<{
   };
 
   const exportParticipantList = useExportParticipantsList();
-  const filters = useSessionListStore(selectFilters);
+  const filters = useSessionListStore(selectSessionFilters);
   const getFormattedFilters = () => {
     if (!applyFilters) {
       return {};

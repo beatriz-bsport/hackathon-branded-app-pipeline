@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--bs-space-size-6);
-  width: 80%;
+  width: 100%;
   align-items: center;
 }
 
@@ -20,11 +20,5 @@
 }
 
 .bs-confirm-marketing-email-skeleton__text {
-  width: 60%;
-}
-
-.bs-confirm-marketing-email-skeleton__button {
-  border-radius: var(--bs-border-radius-pill);
-  height: var(--bs-component-height-button-lg);
-  width: 150px;
+  width: 70%;
 }

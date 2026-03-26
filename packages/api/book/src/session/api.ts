@@ -1,3 +1,5 @@
+import { queryOptions } from "@tanstack/react-query";
+
 import {
   ApiConfig,
   Fetch,
@@ -8,6 +10,7 @@ import {
 import type {
   CancelMultipleSessionsParams,
   CancelSessionParams,
+  CheckTagEligibilityParams,
   DeleteSessionParams,
   FetchSessionsParams,
   ListSessionsWithPendingReplacementRequestIdsParams,
@@ -19,10 +22,23 @@ import type {
   Session,
   SessionCreationPayload,
   SessionEditPayload,
+  SessionStatus,
+  SessionStatusParams,
+  ToggleWaitingListFreezeParams,
+  UpdateInternalNoteParams,
 } from "#src/session/types";
 
 const API_URL = "book/v1";
 const API_URL_SESSION = `${API_URL}/offer`;
+
+export const sessionKeys = {
+  all: ["@api-book", "session"] as const,
+  detail: (sessionId: number) => [...sessionKeys.all, sessionId] as const,
+  status: (sessionId: number, params?: SessionStatusParams) =>
+    [...sessionKeys.detail(sessionId), "status", params] as const,
+  statusList: (ids: number[], params?: PaginatedFetchSessionsParams) =>
+    [...sessionKeys.all, "status-list", ids, params] as const,
+} as const;
 
 export const fetchSessionsAPIConfig = (
   params: FetchSessionsParams | PaginatedFetchSessionsParams,
@@ -300,4 +316,139 @@ export const retrieveSessionAPI = async (
   const [uri, init] = retrieveSessionAPIConfig(sessionId, params);
   const { data: session } = await fetch(uri, init);
   return session;
+};
+
+const fetchSessionStatusAPIConfig = (
+  sessionId: number,
+  params: SessionStatusParams = {},
+): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/${sessionId}/bookable_status/${buildUrlParams(params)}`,
+  ];
+};
+
+export const fetchSessionStatusAPI = async (
+  fetch: Fetch<SessionStatus>,
+  sessionId: number,
+  params?: SessionStatusParams,
+): Promise<SessionStatus> => {
+  const [uri, init] = fetchSessionStatusAPIConfig(sessionId, params);
+  const { data } = await fetch(uri, init);
+  return data;
+};
+
+export const sessionStatusQueryOptions = (
+  fetch: Fetch<SessionStatus>,
+  sessionId: number,
+  params?: SessionStatusParams,
+) =>
+  queryOptions({
+    queryKey: sessionKeys.status(sessionId, params),
+    queryFn: () => fetchSessionStatusAPI(fetch, sessionId, params),
+  });
+
+const fetchSessionStatusListAPIConfig = (
+  params: PaginatedFetchSessionsParams,
+): ApiConfig => {
+  return [`${API_URL_SESSION}/bookable_status_list/${buildUrlParams(params)}`];
+};
+
+export const fetchSessionStatusListAPI = async (
+  fetch: Fetch<PaginatedResponse<SessionStatus>>,
+  params: PaginatedFetchSessionsParams,
+): Promise<PaginatedResponse<SessionStatus>> => {
+  const [uri, init] = fetchSessionStatusListAPIConfig(params);
+  const { data } = await fetch(uri, init);
+  return data;
+};
+
+export const sessionStatusListQueryOptions = (
+  fetch: Fetch<PaginatedResponse<SessionStatus>>,
+  params: PaginatedFetchSessionsParams,
+) => {
+  const { id__in, ...otherParams } = params;
+  return queryOptions({
+    queryKey: sessionKeys.statusList(id__in ?? [], otherParams),
+    queryFn: () => fetchSessionStatusListAPI(fetch, params),
+  });
+};
+
+export const postRollCallAPIConfig = (sessionId: number): ApiConfig => {
+  return [`${API_URL_SESSION}/${sessionId}/rollcall/`, { method: "POST" }];
+};
+
+export const postRollCallAPI = async (
+  fetch: Fetch<void>,
+  sessionId: number,
+): Promise<void> => {
+  const [uri, init] = postRollCallAPIConfig(sessionId);
+  await fetch(uri, init);
+};
+
+export const toggleWaitingListFreezeAPIConfig = (
+  sessionId: number,
+  params: ToggleWaitingListFreezeParams,
+): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/${sessionId}/toogle_waiting_list_freeze/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const toggleWaitingListFreezeAPI = async (
+  fetch: Fetch<Session>,
+  sessionId: number,
+  params: ToggleWaitingListFreezeParams,
+): Promise<Session> => {
+  const [uri, init] = toggleWaitingListFreezeAPIConfig(sessionId, params);
+  const { data: session } = await fetch(uri, init);
+  return session;
+};
+
+export const updateInternalNoteAPIConfig = (
+  sessionId: number,
+  params: UpdateInternalNoteParams,
+): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/${sessionId}/update_internal_note/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const updateInternalNoteAPI = async (
+  fetch: Fetch<Session>,
+  sessionId: number,
+  params: UpdateInternalNoteParams,
+): Promise<Session> => {
+  const [uri, init] = updateInternalNoteAPIConfig(sessionId, params);
+  const { data } = await fetch(uri, init);
+  return data;
+};
+
+export const checkTagEligibilityAPIConfig = (
+  sessionId: number,
+  params: CheckTagEligibilityParams = {},
+): ApiConfig => {
+  return [
+    `${API_URL_SESSION}/${sessionId}/check_tags_eligibility/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  ];
+};
+
+export const checkTagEligibilityAPI = async (
+  fetch: Fetch<void>,
+  sessionId: number,
+  params?: CheckTagEligibilityParams,
+): Promise<void> => {
+  const [uri, init] = checkTagEligibilityAPIConfig(sessionId, params);
+  await fetch(uri, init);
 };

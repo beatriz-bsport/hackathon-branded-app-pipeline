@@ -1,21 +1,20 @@
 import React from "react";
 
-import { FormField, type UseFormControllerOutput } from "@bsport/form";
-import {
-  TextField,
-  type TextFieldProps,
-  Toggle,
-  type ToggleProps,
-} from "@bsport/kaizen-primitive-core";
-import type { PackFormData } from "@bsport/store-buyables-pack";
+import type { UseFormControllerOutput } from "@bsport/form";
+import { BookkeepingAccountFormSelector } from "@bsport/kaizen-business-components/financial-services/bookkeeping-account/selector";
+import { FormNumberField } from "@bsport/kaizen-business-components/form/number-field";
+import { FormToggle } from "@bsport/kaizen-business-components/form/toggle";
 
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
+import { PackFormData } from "../schema";
 import {
   FIELD_TAX_RATE_MAXIMUM,
   FIELD_TAX_RATE_MINIMUM,
   type PackFormSchema,
 } from "../schema";
+import { useBookkeepingAccountSelector } from "../utils";
 
 type PackFormPricingTaxProps = {
   fieldIdPrefix: string;
@@ -28,61 +27,47 @@ export const PackFormPricingTax: React.FC<PackFormPricingTaxProps> = ({
 }) => {
   const { t } = useTranslation("details");
   const applySingleTax = watch("use_payment_combo_tax_on_items");
+  const bookkeepingAccount = watch("bookkeeping_account");
+  const enableBookkeepingAccountSelector = useBookkeepingAccountSelector();
 
   return (
     <>
-      <FormField<PackFormData, "use_payment_combo_tax_on_items", ToggleProps>
-        name="use_payment_combo_tax_on_items"
-        mapProps={({ defaultProps, field }) => {
-          const { statusText: _, ...otherDefaultProps } = defaultProps;
-          return {
-            ...otherDefaultProps,
-            // Required to avoid conflict with typing of Toggle.value
-            value:
-              defaultProps.value === null || defaultProps.value === undefined
-                ? ""
-                : String(defaultProps.value),
-
-            checked: field.value,
-          };
-        }}
-      >
-        {/** @ts-expect-error Pass props implicitely - FormField is forwarding the `checked` props */}
-        <Toggle
-          id={`${fieldIdPrefix}-pack-unique-tax-toggle`}
-          label={t("formFields.pricingSection.taxToggle.description")}
-          helperText={t("formFields.pricingSection.taxToggle.helperText")}
-        />
-      </FormField>
+      <FormToggle<PackFormData, "use_payment_combo_tax_on_items">
+        fieldName="use_payment_combo_tax_on_items"
+        id={`${fieldIdPrefix}-pack-unique-tax-toggle`}
+        label={t("formFields.pricingSection.taxToggle.description")}
+        helperText={t("formFields.pricingSection.taxToggle.helperText")}
+      />
 
       {applySingleTax && (
-        <FormField<PackFormData, "tax", TextFieldProps>
-          name="tax"
-          mapProps={({ defaultProps, field, form }) => {
-            return {
-              ...defaultProps,
-              onClear: () => {
-                form.setValue("tax", 0, { shouldDirty: true });
-                field.onBlur();
-              },
-              // TextField handles strings. We parse the value before sending the data, as well in zod schema with coerse
-              value: String(defaultProps.value),
-              min: FIELD_TAX_RATE_MINIMUM,
-              max: FIELD_TAX_RATE_MAXIMUM,
-            };
-          }}
-        >
-          <TextField
+        <div className="ml-[40px]">
+          <FormNumberField<PackFormData, "tax">
+            fieldName="tax"
             id={`${fieldIdPrefix}-pack-unique-tax-value`}
             label={t("formFields.pricingSection.taxToggle.label")}
-            type="number"
             required={applySingleTax}
+            disabled={
+              enableBookkeepingAccountSelector && bookkeepingAccount != null
+            }
             suffix={{ type: "text", value: "%" }}
-            containerProps={{
-              className: "ml-[40px]",
-            }}
+            min={FIELD_TAX_RATE_MINIMUM}
+            max={FIELD_TAX_RATE_MAXIMUM}
           />
-        </FormField>
+
+          {enableBookkeepingAccountSelector && (
+            <BookkeepingAccountFormSelector<
+              PackFormData,
+              "bookkeeping_account",
+              "tax"
+            >
+              idFieldName="bookkeeping_account"
+              taxFieldName="tax"
+              taxFieldClearedValue={FIELD_TAX_RATE_MINIMUM}
+              fetch={fetch}
+              withCreationFlow
+            />
+          )}
+        </div>
       )}
     </>
   );

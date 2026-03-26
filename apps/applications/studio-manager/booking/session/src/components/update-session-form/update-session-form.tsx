@@ -1,4 +1,4 @@
-import { FC, useEffect, useId } from "react";
+import { FC, useCallback, useEffect, useId, useRef } from "react";
 
 import { SessionEditActions, SessionWithActivity } from "@bsport/api-book";
 import { ControlledForm, useFormController } from "@bsport/form";
@@ -16,10 +16,13 @@ import { EstablishmentSection } from "#src/components/SessionForm/teacher-and-es
 import { TeacherSection } from "#src/components/SessionForm/teacher-and-establishment/teacher-section";
 import { Header } from "#src/components/session-details/header";
 import { fromSessionToFormData } from "#src/components/update-session-form/mapper";
+import { sessionUpdateSidePanelEnabledEvent } from "#src/events/session-edition/events.js";
 import useEditSession from "#src/hooks/session-api/session-actions/use-edit-session";
 import { useModal } from "#src/hooks/use-modal";
 import { useSessionPayload } from "#src/hooks/use-session-payload";
+import { analyticsClient } from "#src/utils/analytics.js";
 import { useTranslation } from "#src/utils/i18n";
+import { trackSessionEdition } from "#src/utils/track-session-edition.js";
 
 import { VisibilitySelector } from "../SessionForm/Details/VisibilitySelector";
 import { CancelSessionModal } from "../SessionList/detail-actions/cancel-session-modal";
@@ -68,7 +71,9 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
     defaultValues: fromSessionToFormData(session),
   });
 
-  const isDirty = Object.keys(methods.formState.dirtyFields).length > 0;
+  const dirtyFields = methods.formState.dirtyFields;
+
+  const isDirty = Object.keys(dirtyFields).length > 0;
 
   const formId = `session-form-update-${useId()}`;
 
@@ -81,20 +86,59 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
   };
 
   const handleSubmit = async (editActions: SessionEditActions) => {
-    await editSession({
-      sessionId: session.id,
-      payload: buildEditionPayload(methods.getValues(), session, editActions),
-    });
+    const payload = buildEditionPayload(
+      methods.getValues(),
+      session,
+      editActions,
+    );
+    await editSession(
+      {
+        sessionId: session.id,
+        payload,
+      },
+      {
+        onSuccess: () =>
+          trackSessionEdition({
+            dirtyFields,
+            oldValues: session,
+            newValues: payload,
+          }),
+      },
+    );
 
     methods.reset(methods.getValues());
   };
 
   const openSaveModal = methods.handleSubmit(open);
 
+  // To avoid tracking the side panel toggle on the first render when the layout is initialized
+  const isMountedRef = useRef(false);
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+
+  const onPanelToggle = useCallback((isOpen: boolean) => {
+    if (!isMountedRef.current) {
+      isMountedRef.current = true;
+      return;
+    }
+    analyticsClient.trackEvent(
+      sessionUpdateSidePanelEnabledEvent({
+        is_side_panel_enabled: isOpen,
+      }),
+    );
+  }, []);
+
   return (
     <>
       <ControlledForm {...methods} onSubmit={console.log} id={formId}>
-        <DetailsLayout {...detailsLayoutProps} withPanel>
+        <DetailsLayout
+          {...detailsLayoutProps}
+          withPanel
+          onPanelToggle={onPanelToggle}
+        >
           <Header
             session={session}
             onOpenCancelSessionModal={onOpenCancelSessionModal}

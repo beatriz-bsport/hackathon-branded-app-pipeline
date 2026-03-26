@@ -17,4 +17,3 @@ export const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
 };
 
 export const i18nNamespacePrefix = __CONTRACT__.__I18N_NAMESPACE_PREFIX__;
-export const i18nNamespaces: string[] = ["model-list"];

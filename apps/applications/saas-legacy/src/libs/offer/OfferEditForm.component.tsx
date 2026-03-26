@@ -36,11 +36,12 @@ import type { Establishment } from '#src/libs/establishment/types';
 import type { Level, LevelFilterSet } from '#src/libs/level/types';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type { Offer } from '#src/api/types';
-import type {
+import {
   Offer as SimilarOffer,
   OfferFormValues,
   OfferFilterData,
   OfferEdit,
+  PartnerSpotCappingStrategy,
 } from '#src/libs/offer/types';
 import type { OffersGroup } from '#src/libs/group-offer/types';
 import type { OptionCallback, OptionPaginatedCallback } from '#src/state/types';
@@ -446,6 +447,9 @@ const formikFormWrapper = withFormik<
     partnerMaxBookingCount: props.isOfferInGroup
       ? 0
       : props.offer?.partner_max_booking_count ?? 0,
+    partnerSpotCappingStrategy:
+      props.offer?.partner_spot_capping_strategy ??
+      PartnerSpotCappingStrategy.COMBINED,
     roomBlueprint: props.offer?.room_blueprint ?? null,
     roomBlueprintSlots: SpotSchedulingHelper.getInitialRoomBlueprintSpots(
       props.offer?.room_blueprint ?? null,
@@ -461,6 +465,7 @@ const formikFormWrapper = withFormik<
     waitingListMaxSize: props.offer?.waiting_list_max_size,
     wellhubProductId: props.offer?.wellhub_product_id,
     isWellhubProductRequired: false,
+    partnershipOffers: props.offer?.partnership_offers ?? [],
   }),
   enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,
@@ -489,6 +494,8 @@ const formikFormWrapper = withFormik<
       level,
       nameOverride,
       partnerMaxBookingCount,
+      partnerSpotCappingStrategy,
+      partnershipOffers,
       roomBlueprint,
       selectedBlacklistTags,
       selectedMetaActivity,
@@ -515,6 +522,22 @@ const formikFormWrapper = withFormik<
       ? descriptionOverride
       : '';
 
+    let validatedPartnerMaxBookingCount;
+    switch (partnerSpotCappingStrategy) {
+      case PartnerSpotCappingStrategy.COMBINED:
+        validatedPartnerMaxBookingCount = isOfferInGroup
+          ? 0
+          : partnerMaxBookingCount;
+        break;
+      case PartnerSpotCappingStrategy.UNLIMITED:
+        validatedPartnerMaxBookingCount = null;
+        break;
+      case PartnerSpotCappingStrategy.PER_PARTNER:
+        validatedPartnerMaxBookingCount = null;
+        // TODO: Add per-partner spot limit validation
+        break;
+    }
+
     const offerData: OfferEdit = {
       allow_guest_offer: allowGuestOffer,
       available_on_partnership: availableOnPartnership,
@@ -537,7 +560,9 @@ const formikFormWrapper = withFormik<
       modifyAllDates: isModifyRecursively && isAllSimilarOfferSelected,
       name_override: sanitizedNameOverride,
       notifyConsumers: isNotifyConsumers,
-      partner_max_booking_count: isOfferInGroup ? 0 : partnerMaxBookingCount,
+      partner_max_booking_count: validatedPartnerMaxBookingCount,
+      partner_spot_capping_strategy: partnerSpotCappingStrategy,
+      partnership_offers: partnershipOffers,
       propagate_coach_override_value: isCoachOverridePropagate
         ? coachOverridePropagateMode
         : PropagateCoachOverrideToSimilarOffers.NO_PROPAGATION,

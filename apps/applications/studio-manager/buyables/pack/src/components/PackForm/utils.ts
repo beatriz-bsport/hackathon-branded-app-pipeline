@@ -1,5 +1,6 @@
 import { getLocalNow } from "@bsport/datetime-manipulation";
 import type { DateTime } from "@bsport/datetime-manipulation";
+import { isBookkeepingAccountActive } from "@bsport/kaizen-business-components/financial-services/bookkeeping-account/is-active";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -36,3 +37,8 @@ export function sanitizeDataBeforeSubmit(data: PackFormData) {
     expiration_date: hasExpirationDate ? expiration_date : null,
   };
 }
+
+export const useBookkeepingAccountSelector = () => {
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  return isBookkeepingAccountActive(companyTheme);
+};

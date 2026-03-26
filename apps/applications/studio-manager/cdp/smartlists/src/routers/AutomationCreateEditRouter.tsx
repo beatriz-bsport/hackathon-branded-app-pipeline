@@ -13,6 +13,9 @@ const AutomationPushCreationPage = lazy(
 const AutomationPushEditPage = lazy(
   () => import("#src/pages/AutomationPushEditPage"),
 );
+const AutomationMessagePage = lazy(
+  () => import("#src/pages/AutomationMessagePage"),
+);
 
 type AutomationChannel = typeof CAMPAIGN_CHANNEL_PUSH;
 
@@ -29,7 +32,7 @@ function useAutomationBasePath(): string {
 
 type GateAutomationChannelProps = {
   readonly children: ReactNode;
-  readonly action?: "create" | "edit";
+  readonly action?: "create" | "edit" | "detail";
 };
 
 function GateAutomationChannel({
@@ -40,11 +43,16 @@ function GateAutomationChannel({
     channel: string;
     entityId: string;
   }>();
+  const { messageId } = useParams<{ messageId: string }>();
   const basePath = useAutomationBasePath();
 
-  const hasRequiredEntityId = action === "create" || Boolean(entityId);
+  const isCreate = action === "create";
+  const isEdit = action === "edit" && !!entityId;
+  const isDetail = action === "detail" && !!messageId;
 
-  if (!channel || !hasRequiredEntityId || !isValidAutomationChannel(channel)) {
+  const hasRequiredParam = isCreate || isEdit || isDetail;
+
+  if (!channel || !hasRequiredParam || !isValidAutomationChannel(channel)) {
     return <Navigate to={basePath} replace />;
   }
 
@@ -67,12 +75,14 @@ function EditRouteByChannel() {
   );
 }
 
-/**
- * Sub-router for automation create/edit. Mount at /:id/automation/messages/*.
- * Handles:
- *   - messages/:channel/new → create flow (push, …)
- *   - messages/:channel/:entityId/edit → edit flow (push, …)
- */
+function DetailRouteByChannel() {
+  return (
+    <GateAutomationChannel action="detail">
+      <AutomationMessagePage />
+    </GateAutomationChannel>
+  );
+}
+
 export function AutomationCreateEditRouter() {
   return (
     <Routes>
@@ -83,6 +93,10 @@ export function AutomationCreateEditRouter() {
       <Route
         path={SMARTLIST_ROUTE_PATTERNS.COMMUNICATION_EDIT}
         element={<EditRouteByChannel />}
+      />
+      <Route
+        path={SMARTLIST_ROUTE_PATTERNS.COMMUNICATION_DETAIL}
+        element={<DetailRouteByChannel />}
       />
       <Route path="*" element={<Navigate to={".."} replace />} />
     </Routes>

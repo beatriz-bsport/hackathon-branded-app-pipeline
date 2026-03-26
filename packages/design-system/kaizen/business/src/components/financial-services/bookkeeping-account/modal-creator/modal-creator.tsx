@@ -179,6 +179,7 @@ export const BookkeepingAccountModalCreator: FC<
             step={0.001}
             min={DATA_CONSTRAINTS.VAT_RATE_MIN}
             max={DATA_CONSTRAINTS.VAT_RATE_MAX}
+            maxDigits={DATA_CONSTRAINTS.VAT_RATE_MAX_DIGITS}
             suffix={{ type: "text", value: "%" }}
             fullWidth
           />

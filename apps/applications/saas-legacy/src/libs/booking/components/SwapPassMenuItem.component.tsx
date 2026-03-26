@@ -23,6 +23,12 @@ import {
 } from '#src/libs/booking/services/swapPass.service';
 import SwapPassDialog, { type SwapPassItem } from './SwapPassDialog.component';
 import type { Booking } from '#src/libs/booking/types';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
+import {
+  trackSwapPassDialogOpenedEvent,
+  trackSwapPassConfirmedEvent,
+} from '#src/events/booking/trackers';
+import { SESSION_TYPES } from '#src/events/constants';
 
 const SWAP_PASS_ERROR_CODES = [
   5347000, 5347001, 5347002, 5347003, 5347004, 5347005, 5347006,
@@ -32,6 +38,7 @@ type Props = {
   booking: Booking;
   classes: { menuItem: string; icon: string };
   onClose: () => void;
+  isWorkshop?: boolean;
 };
 
 const buildSwapPassItems = (
@@ -70,7 +77,15 @@ const buildSwapPassItems = (
   });
 };
 
-const SwapPassMenuItem: React.FC<Props> = ({ booking, classes, onClose }) => {
+const SwapPassMenuItem: React.FC<Props> = ({
+  booking,
+  classes,
+  onClose,
+  isWorkshop = false,
+}) => {
+  const sessionType = isWorkshop
+    ? SESSION_TYPES.workshop
+    : SESSION_TYPES.groupActivity;
   const { t } = useTranslation(['b2b_booking', 'booking', 'paymentPack']);
   const dispatch = useDispatch();
   const paymentPacksById = useSelector(getPaymentPackById);
@@ -103,6 +118,14 @@ const SwapPassMenuItem: React.FC<Props> = ({ booking, classes, onClose }) => {
       setIsLoading(true);
       setIsSubmitting(false);
 
+      analyticsClientB2B.trackEvent(
+        trackSwapPassDialogOpenedEvent({
+          session_type: sessionType,
+          booking_id: booking.id,
+          member_id: booking.member,
+        }),
+      );
+
       dispatch(
         fetchByOfferByMember(booking.offer, booking.member, {
           onSuccess: (compatiblePacks: CompatibleConsumerPaymentPack[]) => {
@@ -127,7 +150,7 @@ const SwapPassMenuItem: React.FC<Props> = ({ booking, classes, onClose }) => {
         }),
       );
     },
-    [booking, close, dispatch, paymentPacksById],
+    [booking, close, dispatch, paymentPacksById, sessionType],
   );
 
   const handleSubmit = useCallback(() => {
@@ -139,6 +162,14 @@ const SwapPassMenuItem: React.FC<Props> = ({ booking, classes, onClose }) => {
       consumer_payment_pack_id: selectedItemId,
     })
       .then((response) => {
+        analyticsClientB2B.trackEvent(
+          trackSwapPassConfirmedEvent({
+            session_type: sessionType,
+            booking_id: booking.id,
+            member_id: booking.member,
+            new_pass_id: selectedItemId,
+          }),
+        );
         dispatch(updateActions.success(response.data));
         close();
       })
@@ -157,7 +188,15 @@ const SwapPassMenuItem: React.FC<Props> = ({ booking, classes, onClose }) => {
       .finally(() => {
         setIsSubmitting(false);
       });
-  }, [booking.id, close, dispatch, isSubmitting, selectedItemId]);
+  }, [
+    booking.id,
+    booking.member,
+    close,
+    dispatch,
+    isSubmitting,
+    selectedItemId,
+    sessionType,
+  ]);
 
   return (
     <>

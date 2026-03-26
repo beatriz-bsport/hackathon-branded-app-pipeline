@@ -1,3 +1,4 @@
+import { BookableStatus, WaitingListStatus } from "#src/constants";
 import type { MetaActivity } from "#src/group-activity";
 
 export type FetchSessionsParams = {
@@ -344,4 +345,30 @@ export type RecurrenceResponse = {
 
 export type SessionWithActivity = ManagerSession & {
   metaActivity: MetaActivity;
+};
+
+export type SessionStatus = {
+  id: number;
+  offer_status: number;
+  bookable_status: BookableStatus;
+  waiting_list_status: WaitingListStatus;
+  taken_spots: number[];
+  blocked_by_tags: boolean;
+  is_registered: boolean;
+};
+
+export type SessionStatusParams = {
+  booking_for_invitee_only?: boolean;
+};
+
+export type ToggleWaitingListFreezeParams = {
+  is_freezed: boolean;
+};
+
+export type UpdateInternalNoteParams = {
+  internal_note: string;
+};
+
+export type CheckTagEligibilityParams = {
+  member_id?: number;
 };

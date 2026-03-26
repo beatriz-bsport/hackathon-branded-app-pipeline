@@ -26,6 +26,7 @@ export type BookkeepingAccountRawSelectorInnerProps = {
   popoverClassName?: string;
   popoverPlacement?: Placement;
   required?: boolean;
+  disabled?: boolean;
   status?: TextFieldProps["status"];
   statusText?: string;
   withCreationFlow?: boolean;
@@ -46,6 +47,7 @@ export const BookkeepingAccountRawSelectorInner: FC<
   popoverClassName = "w-component-popover-min",
   popoverPlacement = "bottom-right",
   required,
+  disabled,
   status = "default",
   statusText,
   withCreationFlow,
@@ -124,6 +126,7 @@ export const BookkeepingAccountRawSelectorInner: FC<
                 className={cx("justify-between w-full", {
                   "italic text-onsurface-weaker": !selectedAccount,
                 })}
+                disabled={disabled}
                 onClick={() => setIsOpen(!isOpen)}
               />
               {isClearable && (
@@ -136,7 +139,7 @@ export const BookkeepingAccountRawSelectorInner: FC<
                   color="default"
                   onClick={onClear}
                   className="text-onsurface-weak"
-                  disabled={!selectedAccount}
+                  disabled={!selectedAccount || disabled}
                 />
               )}
             </div>

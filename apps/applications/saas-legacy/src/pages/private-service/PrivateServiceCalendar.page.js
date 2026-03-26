@@ -9,6 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { DateTime } from 'luxon';
 import { fetchAssociatedCoachesList } from '#src/libs/associated-coach/actions';
 import { getAllEstablishmentsWithAssociatedId } from '#src/libs/establishment/selectors';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
 import {
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
   fetchEstablishments as fetchEstablishmentsAction,
@@ -163,6 +164,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   };
 
   componentDidMount() {
+    analyticsClientB2B.addSuperProperties({ page_source: 'calendar' });
     this.props.fetchAssociatedEstablishments();
     this.props.fetchPrivateServiceResourceData(this.props.id, {
       onSuccess: (resourceData) => {
@@ -188,6 +190,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   }
 
   componentWillUnmount() {
+    analyticsClientB2B.removeSuperProperties(['page_source']);
     this.props.resetCustomEvent();
   }
 

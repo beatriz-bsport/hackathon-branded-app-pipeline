@@ -25,10 +25,6 @@ const ConfirmMarketingEmailSkeleton: React.FC<Props> = ({ className }) => (
         variant="rectangle"
       />
     </div>
-    <Skeleton
-      className="bs-confirm-marketing-email-skeleton__button"
-      variant="rectangle"
-    />
   </div>
 );
 

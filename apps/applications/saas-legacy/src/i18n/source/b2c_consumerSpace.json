@@ -6,7 +6,8 @@
     },
     "error": {
       "title": "Something went wrong",
-      "text": "We couldn't confirm your subscription. Please try again, or reach out to your studio for help."
+      "text": "We couldn't confirm your subscription. Please try again, or reach out to your studio for help.",
+      "detail": "Error: {{error}}"
     },
     "redirectToWebsite": "Redirecting to their website in {{ countdown }} seconds...",
     "footer": "You can manage your communication preferences at any time from your member profile."

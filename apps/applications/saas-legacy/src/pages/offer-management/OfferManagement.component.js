@@ -12,6 +12,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
 import { withTranslation, TFunction } from 'react-i18next';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
 
 import {
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
@@ -384,6 +385,7 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   componentDidMount() {
+    analyticsClientB2B.addSuperProperties({ page_source: 'session_detail' });
     const params = {
       context_identifier: CONTEXT_OFFER,
       context_object_id: this.props.offerId,
@@ -421,6 +423,10 @@ export class OfferManagement extends Component<Props, State> {
         params: { company: this.props.companyId },
       });
     }
+  }
+
+  componentWillUnmount() {
+    analyticsClientB2B.removeSuperProperties(['page_source']);
   }
 
   fetchOfferAndData = () => {

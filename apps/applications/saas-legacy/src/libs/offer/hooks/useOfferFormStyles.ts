@@ -275,6 +275,26 @@ const useOfferFormStyles = (
         width: 'fit-content',
       },
     },
+    cappingStrategyRadio: {
+      padding: `0 ${theme.spacing(1)}px`,
+      alignSelf: 'flex-start',
+    },
+    combinedMaxCount: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(1),
+    },
+    enabledAggregators: {
+      marginTop: theme.spacing(1),
+    },
+    aggregatorsLabel: {
+      fontSize: '0.9rem',
+    },
+    partnershipChipsContainer: {
+      marginTop: theme.spacing(1),
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: theme.spacing(1),
+    },
   }));
 
   const classes = useStyles();

@@ -23,6 +23,7 @@ import Button from '@material-ui/core/Button';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 import PrivateBookingFilters from '#src/libs/booking/components/PrivateBookingFilters.component';
 import { fetchCompanyUserRoles } from '#src/libs/role/actions';
+import { analyticsClientB2B } from '#src/components/analytics/mixpanel';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { getMemberPrivateBookingFilter } from '#src/libs/user-preference/selectors';
 import { setMemberPrivateBookingFilter as setMemberPrivateBookingFilterAction } from '#src/libs/user-preference/actions';
@@ -167,12 +168,19 @@ export class MemberDetailPrivateBooking extends Component<Props> {
   }
 
   componentDidMount() {
+    analyticsClientB2B.addSuperProperties({
+      page_source: 'member_detail_private_bookings',
+    });
     this.props.fetchCompanyUserRoles();
     this.props.fetchMember(this.props.id);
     if (this.props.privateBookingId) {
       this.props.fetchPrivateBookingDetails();
     }
     this.props.fetchRecurrenceRulePrivateBooking();
+  }
+
+  componentWillUnmount() {
+    analyticsClientB2B.removeSuperProperties(['page_source']);
   }
 
   componentDidUpdate(prevProps: Props) {

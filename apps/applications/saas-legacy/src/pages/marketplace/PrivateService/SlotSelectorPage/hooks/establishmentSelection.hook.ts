@@ -24,6 +24,7 @@ const useEstablishmentSelection = () => {
     setSelectedDayTimeInterval,
     setActiveEstablishment,
     selectedEstablishmentsIds,
+    selectedPrivateSlot,
   } = useContext(SlotSelectorContext);
 
   const { privateService } = useContext(SlotSelectorStoreContext);
@@ -90,17 +91,26 @@ const useEstablishmentSelection = () => {
 
   /**Memoized array of establishments that have available slots based
    * on availabilityByEstablishmentAndCoach. This array is filtered to
-   * include only establishments with a non-empty list of availabilities.
+   * include only establishments with at least one availability window
+   * long enough to fit the selected session duration.
    */
   const availableEstablishments = useMemo(
     () =>
-      establishments.filter(
-        (establishment) =>
-          !!availabilityByEstablishmentAndCoach[
-            establishment?.associatedestablishment_set[0]
-          ]?.establishmentAvailabilities?.length,
-      ),
-    [availabilityByEstablishmentAndCoach, establishments],
+      establishments.filter((establishment) => {
+        const associatedEstablishmentId =
+          establishment.associatedestablishment_set?.[0];
+        if (!associatedEstablishmentId) {
+          return false;
+        }
+        const availabilities =
+          availabilityByEstablishmentAndCoach[associatedEstablishmentId]
+            ?.establishmentAvailabilities;
+        const durationMinutes = selectedPrivateSlot?.duration_minutes ?? 0;
+        return availabilities?.some(
+          (interval) => interval.length('minutes') >= durationMinutes,
+        );
+      }),
+    [availabilityByEstablishmentAndCoach, establishments, selectedPrivateSlot],
   );
 
   /**

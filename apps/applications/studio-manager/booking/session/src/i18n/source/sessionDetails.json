@@ -19,5 +19,17 @@
       "shortHourIdentifier": "h",
       "shortMinuteIdentifier": "min"
     }
+  },
+  "error": {
+    "canNotFindSession": {
+      "title": "We can’t find this session",
+      "description": "The session you're looking for doesn't exist or may have been deleted.",
+      "goBackButton": "Go back to calendar"
+    },
+    "serverError": {
+      "title": "Something went wrong",
+      "description": "We couldn't load the data you requested. Please try again.",
+      "retryLabel": "Retry"
+    }
   }
 }

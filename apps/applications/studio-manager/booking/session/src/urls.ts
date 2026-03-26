@@ -50,11 +50,14 @@ export const useUrls = () => {
 
   const getIndexUrl = () => URLS.INDEX;
 
+  const navigateToIndex = () => navigate(URLS.INDEX);
+
   return {
     navigateToBookingsManagement,
     getBookingsManagementUrl,
     getEditUrl,
     getIndexUrl,
     resolveEditPath,
+    navigateToIndex,
   };
 };

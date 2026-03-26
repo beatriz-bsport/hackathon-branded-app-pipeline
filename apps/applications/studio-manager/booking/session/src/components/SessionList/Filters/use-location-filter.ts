@@ -7,7 +7,10 @@ import { useDebounce } from "@bsport/use-debounce";
 
 import { useSearchEstablishmentGroups } from "#src/hooks/use-search-establishment-groups";
 import { useFetchEstablishmentGroups } from "#src/hooks/useFetchEstablishmentGroups";
-import { selectFilters, useSessionListStore } from "#src/stores/session-list";
+import {
+  selectSessionFilters,
+  useSessionListStore,
+} from "#src/stores/session-list";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionFilterTypes, SessionFilters } from "./types";
@@ -19,7 +22,7 @@ type UseFilterConfigResult = {
 
 export const useLocationFilter = (): UseFilterConfigResult => {
   const { t } = useTranslation("sessionList");
-  const filters = useSessionListStore(selectFilters);
+  const filters = useSessionListStore(selectSessionFilters);
 
   // Get persisted location IDs from filters
   const [persistedLocationIds] = useState(() => {

@@ -26,7 +26,7 @@ export type TableColumn = GenericTableColumn<EnrichedSession> & {
   label: string;
 };
 
-export enum Columns {
+export enum SessionColumns {
   TIME = "time",
   SESSION_NAME = "sessionName",
   TEACHER = "teacher",

@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { CalendarView } from "#src/types";
-import { Columns } from "#src/types";
+import { SessionColumns } from "#src/types";
 
 import { SearchClearSource, SessionVisibility } from "../constants";
 
@@ -17,15 +17,15 @@ export const sessionListViewedEventSchema = z
     displayed_columns: z
       .array(
         z.enum([
-          Columns.TIME,
-          Columns.SESSION_NAME,
-          Columns.TEACHER,
-          Columns.PARTICIPANTS,
-          Columns.ESTABLISHMENT,
-          Columns.SESSION_TYPE,
-          Columns.ACTIONS,
-          Columns.ATTENDANCE,
-          Columns.MOBILE_ACTIONS,
+          SessionColumns.TIME,
+          SessionColumns.SESSION_NAME,
+          SessionColumns.TEACHER,
+          SessionColumns.PARTICIPANTS,
+          SessionColumns.ESTABLISHMENT,
+          SessionColumns.SESSION_TYPE,
+          SessionColumns.ACTIONS,
+          SessionColumns.ATTENDANCE,
+          SessionColumns.MOBILE_ACTIONS,
         ]),
       )
       .describe("The columns displayed in the session list"),
@@ -65,15 +65,15 @@ export const sessionListVisibleColumnsClickedEventSchema = z
     eventType: z.string().default("session_list_visible_columns_clicked"),
     calendar_column_name: z
       .enum([
-        Columns.TIME,
-        Columns.SESSION_NAME,
-        Columns.TEACHER,
-        Columns.PARTICIPANTS,
-        Columns.ESTABLISHMENT,
-        Columns.SESSION_TYPE,
-        Columns.ACTIONS,
-        Columns.ATTENDANCE,
-        Columns.MOBILE_ACTIONS,
+        SessionColumns.TIME,
+        SessionColumns.SESSION_NAME,
+        SessionColumns.TEACHER,
+        SessionColumns.PARTICIPANTS,
+        SessionColumns.ESTABLISHMENT,
+        SessionColumns.SESSION_TYPE,
+        SessionColumns.ACTIONS,
+        SessionColumns.ATTENDANCE,
+        SessionColumns.MOBILE_ACTIONS,
       ])
       .describe(
         "The column for which the user clicks on the visible columns settings",

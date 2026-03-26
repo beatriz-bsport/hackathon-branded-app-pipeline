@@ -25,13 +25,21 @@ const API_URL = "book/v1";
 const API_URL_BOOKING = `${API_URL}/booking`;
 const API_URL_RECURRENCE_RULE = `${API_URL_BOOKING}/recurrence_rule_booking`;
 
+const DEFAULT_PAGE = 1;
+const DEFAULT_PAGE_SIZE = 20;
+
+const DEFAULT_PAGINATION_PARAMS = {
+  page: DEFAULT_PAGE,
+  page_size: DEFAULT_PAGE_SIZE,
+} as const;
+
 export const bookingKeys = {
   all: ["@api-book", "booking"] as const,
   list: (params: PaginatedBookingFilterParams) =>
     [...bookingKeys.all, "list", params] as const,
   detail: (bookingId: number) => [...bookingKeys.all, bookingId] as const,
   recurrenceRulesScope: () => [...bookingKeys.all, "recurrence-rules"] as const,
-  recurrenceRules: (params: RecurrenceRuleBookingFilterParams = {}) =>
+  recurrenceRules: (params: RecurrenceRuleBookingFilterParams) =>
     [...bookingKeys.recurrenceRulesScope(), params] as const,
   groupSessionRelated: (bookingId: number) =>
     [...bookingKeys.all, "group-session-related", bookingId] as const,
@@ -41,20 +49,24 @@ export const bookingKeys = {
 
 export const fetchBookingsAPI = async (
   fetch: Fetch<PaginatedResponse<Booking>>,
-  params: PaginatedBookingFilterParams,
+  params: PaginatedBookingFilterParams = {},
 ): Promise<PaginatedResponse<Booking>> => {
-  const { data } = await fetch(`${API_URL_BOOKING}/${buildUrlParams(params)}`);
+  const { data } = await fetch(
+    `${API_URL_BOOKING}/${buildUrlParams({ ...DEFAULT_PAGINATION_PARAMS, ...params })}`,
+  );
   return data;
 };
 
 export const bookingsQueryOptions = (
   fetch: Fetch<PaginatedResponse<Booking>>,
-  params: PaginatedBookingFilterParams,
-) =>
-  queryOptions({
-    queryKey: bookingKeys.list(params),
-    queryFn: () => fetchBookingsAPI(fetch, params),
+  params: PaginatedBookingFilterParams = {},
+) => {
+  const mergedParams = { ...DEFAULT_PAGINATION_PARAMS, ...params };
+  return queryOptions({
+    queryKey: bookingKeys.list(mergedParams),
+    queryFn: () => fetchBookingsAPI(fetch, mergedParams),
   });
+};
 
 export const fetchGroupSessionRelatedBookingsAPI = async (
   fetch: Fetch<Booking[]>,
@@ -80,19 +92,21 @@ export const fetchRecurrenceRuleBookingsAPI = async (
   params: RecurrenceRuleBookingFilterParams = {},
 ): Promise<PaginatedResponse<RecurrenceRuleBooking>> => {
   const { data } = await fetch(
-    `${API_URL_RECURRENCE_RULE}/${buildUrlParams(params)}`,
+    `${API_URL_RECURRENCE_RULE}/${buildUrlParams({ ...DEFAULT_PAGINATION_PARAMS, ...params })}`,
   );
   return data;
 };
 
 export const recurrenceRuleBookingsQueryOptions = (
   fetch: Fetch<PaginatedResponse<RecurrenceRuleBooking>>,
-  params?: RecurrenceRuleBookingFilterParams,
-) =>
-  queryOptions({
-    queryKey: bookingKeys.recurrenceRules(params),
-    queryFn: () => fetchRecurrenceRuleBookingsAPI(fetch, params),
+  params: RecurrenceRuleBookingFilterParams = {},
+) => {
+  const mergedParams = { ...DEFAULT_PAGINATION_PARAMS, ...params };
+  return queryOptions({
+    queryKey: bookingKeys.recurrenceRules(mergedParams),
+    queryFn: () => fetchRecurrenceRuleBookingsAPI(fetch, mergedParams),
   });
+};
 
 export const retrieveSessionWithCancelledBookingsAPI = async (
   fetch: Fetch<Session[]>,

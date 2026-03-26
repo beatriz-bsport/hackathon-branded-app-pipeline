@@ -196,6 +196,37 @@ const InvoicePaymentContent: React.FC<Props> = ({
 
   if (!companyId || !invoiceUuid || !memberId) return null;
 
+  // If the theme is loaded and online payment is disabled, show an explanatory screen
+  if (companyTheme && !companyTheme.online_payment_enabled) {
+    return (
+      <div className="bs-invoice-payment-container">
+        <div className="bs-invoice-payment-success-container">
+          <BigIcon variant="error" />
+          <Typography align="center" variant="title-md">
+            {t(
+              'consumerSpace:reworked.myInvoices.payment.onlinePaymentDisabled.title',
+            )}
+          </Typography>
+          <Typography align="center" variant="body-md">
+            {t(
+              'consumerSpace:reworked.myInvoices.payment.onlinePaymentDisabled.message',
+            )}
+          </Typography>
+          <Button
+            color="grey"
+            onClick={onCancelPaymentBeforeConfirming}
+            size="md"
+            variant="outlined"
+          >
+            {t(
+              'consumerSpace:reworked.myInvoices.payment.onlinePaymentDisabled.goBack',
+            )}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
   // Show success screen if payment succeeded and backend processed it, or if the invoice is already paid
   if (hasPaymentSucceededAndBackendProcessedIt || isInvoicePaid) {
     return (

@@ -518,7 +518,12 @@
         "details": "Détails de paiement",
         "confirm": "Confirmer",
         "addPaymentMethod": "Ajouter un mode de paiement",
-        "backendProcessingInvoice": "Veuillez patienter un instant pendant que nous traitons votre facture..."
+        "backendProcessingInvoice": "Veuillez patienter un instant pendant que nous traitons votre facture...",
+        "onlinePaymentDisabled": {
+          "title": "Paiement en ligne indisponible",
+          "message": "Votre studio a désactivé les paiements en ligne. Veuillez vous rendre sur place pour régulariser vos factures.",
+          "goBack": "Retour"
+        }
       },
       "detailsCard": {
         "total": "Total",

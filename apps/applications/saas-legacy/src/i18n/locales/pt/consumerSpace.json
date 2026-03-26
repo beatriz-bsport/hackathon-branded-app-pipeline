@@ -551,7 +551,12 @@
         "successMessage": "O pagamento foi efectuado com êxito",
         "backendProcessingInvoice": "Aguarde um segundo enquanto processamos a sua fatura...",
         "title": "Pagamento de facturas",
-        "useBalance": "Utilização"
+        "useBalance": "Utilização",
+        "onlinePaymentDisabled": {
+          "title": "Pagamento online indisponível",
+          "message": "O seu estúdio desativou os pagamentos online. Por favor, dirija-se ao local para regularizar as suas faturas.",
+          "goBack": "Voltar"
+        }
       }
     },
     "myProfile": {

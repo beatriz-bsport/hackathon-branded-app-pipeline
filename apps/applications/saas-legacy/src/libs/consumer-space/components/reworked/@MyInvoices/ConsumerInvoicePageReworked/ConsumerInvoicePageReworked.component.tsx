@@ -21,6 +21,7 @@ import './styles.css';
 type Props = {
   consumerInvoices: ConsumerInvoice[];
   isMultilocationEnabled: boolean;
+  isOnlinePaymentEnabled: boolean;
   membership: Membership;
   selectedFilter: InvoicesFiltersEnum;
   totalUnpaid: number;
@@ -39,6 +40,7 @@ type Props = {
 const ConsumerInvoicePageReworked: React.FC<Props> = ({
   consumerInvoices,
   isMultilocationEnabled,
+  isOnlinePaymentEnabled,
   selectedInvoiceUuid,
   membership,
   selectedFilter,
@@ -206,7 +208,9 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
         isConsumerInvoiceDetailsDrawerOpen={isConsumerInvoiceDetailsDrawerOpen}
         isMobile={isMobile}
         isMultilocationEnabled={isMultilocationEnabled}
-        payConsumerInvoice={payConsumerInvoice}
+        payConsumerInvoice={
+          isOnlinePaymentEnabled ? payConsumerInvoice : undefined
+        }
         selectedConsumerInvoice={selectedConsumerInvoice}
         selectedFilter={selectedFilter}
       />
@@ -229,7 +233,9 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
         isLoading={isLoading}
         isMobile={isMobile}
         isMultilocationEnabled={isMultilocationEnabled}
-        payConsumerInvoice={payConsumerInvoice}
+        payConsumerInvoice={
+          isOnlinePaymentEnabled ? payConsumerInvoice : undefined
+        }
         seeInvoiceDetails={seeInvoiceDetails}
         selectedConsumerInvoice={selectedConsumerInvoice}
         selectedFilter={selectedFilter}

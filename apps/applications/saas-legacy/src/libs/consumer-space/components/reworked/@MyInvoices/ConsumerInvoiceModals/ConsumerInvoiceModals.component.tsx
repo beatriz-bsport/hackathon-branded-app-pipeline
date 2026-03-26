@@ -14,7 +14,7 @@ type Props = {
   selectedConsumerInvoice: ConsumerInvoice;
   selectedFilter: InvoicesFiltersEnum;
   getInvoice: (uuid: string) => Invoice;
-  payConsumerInvoice: (consumerInvoice: ConsumerInvoice) => void;
+  payConsumerInvoice?: (consumerInvoice: ConsumerInvoice) => void;
   handleCloseConsumerInvoiceDetailsDrawer: () => void;
 };
 

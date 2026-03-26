@@ -517,7 +517,12 @@
         "details": "Dettagli del pagamento",
         "confirm": "Conferma",
         "addPaymentMethod": "Aggiungi metodo di pagamento",
-        "backendProcessingInvoice": "Si prega di attendere un secondo mentre elaboriamo la ricevuta..."
+        "backendProcessingInvoice": "Si prega di attendere un secondo mentre elaboriamo la ricevuta...",
+        "onlinePaymentDisabled": {
+          "title": "Pagamento online non disponibile",
+          "message": "Il tuo studio ha disabilitato i pagamenti online. Si prega di recarsi in loco per regolarizzare le proprie fatture.",
+          "goBack": "Indietro"
+        }
       },
       "detailsCard": {
         "total": "Totale",

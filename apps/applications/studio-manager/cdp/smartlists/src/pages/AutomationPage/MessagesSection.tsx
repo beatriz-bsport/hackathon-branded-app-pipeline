@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate, useOutletContext } from "react-router";
 
 import {
@@ -9,7 +9,6 @@ import {
   DropdownMenu,
   type DropdownMenuItems,
   type GenericTableColumn,
-  Icon,
   Table,
   Tooltip,
   toast,
@@ -22,7 +21,11 @@ import {
   useAutomatedCampaignAnalytics,
 } from "#src/api/use-automated-campaign-analytics";
 import { useExportCampaign } from "#src/api/use-export-campaign";
-import { DeleteAutomationModal } from "#src/components/DeleteAutomationModal";
+import { AutomationTriggerIcon } from "#src/components/AutomationTriggerIcon/AutomationTriggerIcon";
+import {
+  DeleteAutomationModal,
+  useDeleteAutomationModal,
+} from "#src/components/DeleteAutomationModal";
 import { StopPropagationWrapper } from "#src/components/StopPropagationWrapper";
 import {
   CAMPAIGN_CHANNEL_EMAIL,
@@ -81,9 +84,12 @@ export const MessagesSection = (
 
   const campaigns = useAutomatedCampaignAnalytics(smartlistId);
 
-  const [automationToDelete, setAutomationToDelete] = useState<TableRow | null>(
-    null,
-  );
+  const {
+    isOpen: isDeleteAutomationOpen,
+    automationId: automationToDeleteId,
+    requestDelete,
+    cancelDelete,
+  } = useDeleteAutomationModal();
 
   const exportCampaign = useExportCampaign({
     onSuccess: (cdnUrl) => {
@@ -112,10 +118,6 @@ export const MessagesSection = (
       });
     },
   });
-
-  const handleCloseDeleteModal = () => {
-    setAutomationToDelete(null);
-  };
 
   const columns: GenericTableColumn<TableRow>[] = useMemo(() => {
     const allColumns: GenericTableColumn<TableRow>[] = [
@@ -177,13 +179,9 @@ export const MessagesSection = (
         type: "custom",
         render: (row) => {
           const isJoin = row.event_kind === EventKind.JOIN;
-          const icon = isJoin ? "log-in-03" : "log-out-01";
           const text = isJoin
             ? t("automation.messages.conditions.onJoin")
             : t("automation.messages.conditions.onLeave");
-          const color = isJoin
-            ? "text-onsurface-status-positive-weak"
-            : "text-onsurface-status-critical-weak";
 
           return (
             <div className="flex flex-col gap-xs">
@@ -191,7 +189,7 @@ export const MessagesSection = (
                 {row.title ?? ""}
               </Body>
               <div className="flex items-center gap-xs">
-                <Icon icon={icon} size="sm" className={color} />
+                <AutomationTriggerIcon trigger={row.event_kind} size="sm" />
                 <Body
                   size="md"
                   color="weak"
@@ -312,7 +310,7 @@ export const MessagesSection = (
                     });
                     exportCampaign.mutate(row.campaign_sent_uuid);
                   } else if (id === INLINE_ACTIONS.DELETE) {
-                    setAutomationToDelete(row);
+                    requestDelete(row.id);
                   } else if (id === INLINE_ACTIONS.EDIT) {
                     navigate(
                       SMARTLIST_APP_LINKS.automationEdit(
@@ -394,14 +392,12 @@ export const MessagesSection = (
           }}
         />
       </Card>
-      {automationToDelete && (
-        <DeleteAutomationModal
-          isOpen
-          onClose={handleCloseDeleteModal}
-          smartlistId={smartlistId}
-          automation={automationToDelete}
-        />
-      )}
+      <DeleteAutomationModal
+        isOpen={isDeleteAutomationOpen}
+        onClose={cancelDelete}
+        smartlistId={smartlistId}
+        automationId={automationToDeleteId}
+      />
     </>
   );
 };

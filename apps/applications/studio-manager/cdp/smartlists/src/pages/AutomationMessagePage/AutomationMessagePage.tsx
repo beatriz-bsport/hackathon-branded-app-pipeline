@@ -1,13 +1,18 @@
-import { Link, Navigate, useParams } from "react-router";
+import { Link, Navigate, useNavigate, useParams } from "react-router";
 
 import {
   Breadcrumbs,
+  Button,
   DetailsLayout,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 
 import { useAutomatedCampaignDetailSuspenseQuery } from "#src/api/use-automated-campaign-detail";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
+import {
+  DeleteAutomationModal,
+  useDeleteAutomationModal,
+} from "#src/components/DeleteAutomationModal";
 import {
   DetailPageErrorFallback,
   PageLoader,
@@ -16,6 +21,8 @@ import {
 import { CAMPAIGN_CHANNEL_PUSH, SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
+
+import { AutomationDetailsCard } from "./AutomationDetailsCard";
 
 export function AutomationMessagePage() {
   return (
@@ -29,7 +36,17 @@ export function AutomationMessagePage() {
 }
 
 function AutomationMessageDetail() {
+  const navigate = useNavigate();
+
   const { t: tList } = useTranslation("list");
+  const { t: tDetails } = useTranslation("details");
+
+  const {
+    isOpen: isDeleteAutomationOpen,
+    automationId: automationToDeleteId,
+    requestDelete,
+    cancelDelete,
+  } = useDeleteAutomationModal();
 
   const { id, channel, messageId } = useParams<{
     id: string;
@@ -64,15 +81,58 @@ function AutomationMessageDetail() {
 
   const pageTitle = automation.title ?? "";
 
+  const endGroupActions = [
+    <Button
+      key="automation-message-delete"
+      kind="icon-button"
+      icon="trash-01"
+      color="main"
+      intent="default"
+      size="md"
+      label={tDetails("automation.messagePage.actions.delete")}
+      onClick={() => {
+        requestDelete(automation.id);
+      }}
+    />,
+    <Button
+      key="automation-message-edit"
+      kind="icon-button"
+      icon="edit-02"
+      color="main"
+      intent="default"
+      size="md"
+      label={tDetails("automation.messagePage.actions.edit")}
+      onClick={() => {
+        navigate(
+          SMARTLIST_APP_LINKS.automationEdit(
+            id,
+            CAMPAIGN_CHANNEL_PUSH,
+            messageId,
+          ),
+        );
+      }}
+    />,
+  ];
+
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
         pageTitle={pageTitle}
         BreadcrumbsItems={breadcrumbsItems}
+        endGroupActions={endGroupActions}
       />
       <DetailsLayout.Content>
-        <div>Automation Message Content</div>
+        <div className="flex flex-col gap-md">
+          <AutomationDetailsCard messageId={messageId} />
+        </div>
       </DetailsLayout.Content>
+
+      <DeleteAutomationModal
+        isOpen={isDeleteAutomationOpen}
+        onClose={cancelDelete}
+        smartlistId={id}
+        automationId={automationToDeleteId}
+      />
     </DetailsLayout>
   );
 }

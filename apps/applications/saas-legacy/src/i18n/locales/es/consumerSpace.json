@@ -476,7 +476,12 @@
         "details": "Detalles de pago",
         "confirm": "Confirmar",
         "addPaymentMethod": "Añadir método de pago",
-        "backendProcessingInvoice": "Por favor, espere un segundo mientras procesamos su factura..."
+        "backendProcessingInvoice": "Por favor, espere un segundo mientras procesamos su factura...",
+        "onlinePaymentDisabled": {
+          "title": "Pago en línea no disponible",
+          "message": "Su estudio ha desactivado los pagos en línea. Por favor, visítenos en persona para regularizar sus facturas.",
+          "goBack": "Volver"
+        }
       },
       "detailsCard": {
         "total": "Total",

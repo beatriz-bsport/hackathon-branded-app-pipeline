@@ -61,6 +61,7 @@
     "704": "No show: fine deducted from account balance (for clients)",
     "705": "Missed class reminder",
     "801": "Appointment group canceled",
+    "802": "New grouped booking (for clients)",
     "901": "Substitute found (teacher)",
     "902": "Substitution request canceled (substitute)",
     "903": "An alternative substitute was found (for substitute)",

@@ -1,29 +1,57 @@
+import { useState } from "react";
+
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
-import type { AutomatedCampaignWithAnalytics } from "#src/api/use-automated-campaign-analytics";
 import { useTranslation } from "#src/utils/i18n";
+import { invariant } from "#src/utils/invariant";
 
 import { useDeleteAutomation } from "./use-delete-automation";
+
+export function useDeleteAutomationModal() {
+  const [automationId, setAutomationId] = useState<number | null>(null);
+
+  const isOpen = automationId !== null;
+
+  const requestDelete = (id: number) => {
+    setAutomationId(id);
+  };
+
+  const cancelDelete = () => {
+    setAutomationId(null);
+  };
+
+  return {
+    isOpen,
+    automationId,
+    requestDelete,
+    cancelDelete,
+  };
+}
 
 type DeleteAutomationModalProps = {
   isOpen: boolean;
   onClose: () => void;
   smartlistId: string;
-  automation: AutomatedCampaignWithAnalytics;
+  automationId: number | null;
 };
 
-export const DeleteAutomationModal: React.FC<DeleteAutomationModalProps> = ({
+export function DeleteAutomationModal({
   isOpen,
   onClose,
   smartlistId,
-  automation,
-}: DeleteAutomationModalProps) => {
+  automationId,
+}: DeleteAutomationModalProps) {
   const { t } = useTranslation("details");
 
   const { deleteAutomation, isDeleting } = useDeleteAutomation();
 
   const handleDelete = () => {
-    deleteAutomation({ smartlistId, automationId: automation.id });
+    invariant(
+      automationId !== null,
+      "At this point automationId should have a value",
+    );
+
+    deleteAutomation({ smartlistId, automationId });
     onClose();
   };
 
@@ -50,4 +78,4 @@ export const DeleteAutomationModal: React.FC<DeleteAutomationModalProps> = ({
       </Body>
     </Modal>
   );
-};
+}

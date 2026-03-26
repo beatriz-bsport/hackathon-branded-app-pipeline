@@ -129,6 +129,21 @@
         }
       }
     },
+    "messagePage": {
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "metadata": {
+        "headers": {
+          "trigger": "Trigger"
+        }
+      },
+      "recipients": {
+        "emptyTitle": "Nothing sent yet",
+        "emptyDescription": "Recipients who trigger the automation will appear here"
+      }
+    },
     "push": {
       "pageTitle": "Push Notification Campaign",
       "actions": {

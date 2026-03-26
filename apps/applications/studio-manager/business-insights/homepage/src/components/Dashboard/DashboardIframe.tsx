@@ -1,7 +1,14 @@
 import { type FC, useEffect, useMemo, useRef, useState } from "react";
 
-import { buildLocalizedIframeUrl } from "@bsport/api-business-insights/sigma";
+import {
+  buildLocalizedIframeUrl,
+  buildSigmaError,
+  isSigmaEventWorkbookChartError,
+  isSigmaEventWorkbookError,
+  isSigmaEventWorkbookPageheightOnchange,
+} from "@bsport/api-business-insights/sigma";
 import { useMatchMedia } from "@bsport/kaizen-primitive-core";
+import { captureException } from "@bsport/sm-backbone";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -61,16 +68,18 @@ export const DashboardIframe: FC<DashboardIframeProps> = ({
         return;
       }
 
-      const { type, pageHeight } = event.data as {
-        type?: string;
-        pageHeight?: number;
-      };
+      const eventData = event.data;
 
-      if (
-        type === "workbook:pageheight:onchange" &&
-        typeof pageHeight === "number"
-      ) {
-        setIframeHeight(Math.ceil(pageHeight));
+      if (isSigmaEventWorkbookPageheightOnchange(eventData)) {
+        setIframeHeight(eventData.pageHeight);
+      }
+
+      if (isSigmaEventWorkbookChartError(eventData)) {
+        captureException(buildSigmaError(eventData));
+      }
+
+      if (isSigmaEventWorkbookError(eventData)) {
+        captureException(buildSigmaError(eventData));
       }
     };
 

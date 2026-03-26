@@ -11,6 +11,7 @@ import Config from '../../config';
 import { appendSigmaLocale } from '../../utils/sigma';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
+import { useSetupHandleSigmaEvents } from '#src/libs/insights/sigma/hooks/use-setup-handle-sigma-events';
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -104,6 +105,8 @@ const BookingsInsightContent: React.FC = () => {
 
   const title = 'Bookings & Pass Usage';
 
+  const iframeRef = useSetupHandleSigmaEvents();
+
   return (
     <Box className={classes.root}>
       <Box className={classes.iframeContainer}>
@@ -117,6 +120,7 @@ const BookingsInsightContent: React.FC = () => {
           </Box>
         ) : (
           <iframe
+            ref={iframeRef}
             allowFullScreen
             className={classes.iframe}
             loading="lazy"

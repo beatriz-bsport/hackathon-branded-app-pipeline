@@ -8,6 +8,7 @@ import { getAuth } from '../../http';
 import { appendSigmaLocale } from '../../utils/sigma';
 import Config from '../../config';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { useSetupHandleSigmaEvents } from '#src/libs/insights/sigma/hooks/use-setup-handle-sigma-events';
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -97,6 +98,8 @@ const SubscriptionEventsContent: React.FC = () => {
 
   const title = `Subscription Events`;
 
+  const iframeRef = useSetupHandleSigmaEvents();
+
   return (
     <Box className={classes.root}>
       <Box className={classes.iframeContainer}>
@@ -110,6 +113,7 @@ const SubscriptionEventsContent: React.FC = () => {
           </Box>
         ) : (
           <iframe
+            ref={iframeRef}
             allowFullScreen
             className={classes.iframe}
             loading="lazy"

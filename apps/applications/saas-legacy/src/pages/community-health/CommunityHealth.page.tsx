@@ -14,6 +14,8 @@ import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import { useSelector } from 'react-redux';
 import { hasPremiumInsightsAccess } from '#src/pages/insights/utils/premium-insights';
 import type { RootState } from '#src/reducers';
+import { useSetupHandleSigmaEvents } from '#src/libs/insights/sigma/hooks/use-setup-handle-sigma-events';
+
 const useStyles = makeStyles((_theme) => ({
   root: {
     display: 'flex',
@@ -112,6 +114,8 @@ const CommunityHealthContent: React.FC = () => {
 
   const title = 'Community Health';
 
+  const iframeRef = useSetupHandleSigmaEvents();
+
   return (
     <Box className={classes.root}>
       <Box className={classes.iframeContainer}>
@@ -125,6 +129,7 @@ const CommunityHealthContent: React.FC = () => {
           </Box>
         ) : (
           <iframe
+            ref={iframeRef}
             allowFullScreen
             className={classes.iframe}
             loading="lazy"

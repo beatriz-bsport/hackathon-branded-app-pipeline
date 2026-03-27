@@ -10,7 +10,12 @@
     "cancelledSessionChip": "Cancelled",
     "subtitle": "{{date}}  ·  {{startTime}} – {{endTime}} ({{duration}}min)",
     "subtitleMultiDay": "{{date}}  ·  {{startTime}} – {{duration}}",
-    "breadcrumbs": "Calendar"
+    "breadcrumbs": "Calendar",
+    "timelineIndicator": {
+      "past": "Past",
+      "ongoing": "Ongoing",
+      "upcoming": "Upcoming"
+    }
   },
   "table": {
     "datetime": {

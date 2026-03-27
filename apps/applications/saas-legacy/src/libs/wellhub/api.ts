@@ -82,6 +82,8 @@ export const fetchOffersMissingWellhubProduct = (
   const hasParams = Object.keys(params).length > 0;
 
   return getAuth<ReworkedPaginationResponse<OfferSaas>>(
-    `${API_V1_URI}/wellhub/offer/${buildUrlParams(hasParams ? params : null)}`,
+    `${API_V1_URI}/partnership/wellhub/offers/${buildUrlParams(
+      hasParams ? params : null,
+    )}`,
   );
 };

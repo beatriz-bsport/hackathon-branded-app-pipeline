@@ -397,6 +397,9 @@ export class Partnership extends React.Component<Props> {
             onConfirm={this.onEditOffer}
             similarOffers={this.props.similarOffersWithCoachAndEstablishment}
             similarOffersLoading={this.props.similarOfferLoading}
+            wellhubPartnershipId={
+              this.props.wellhubPartnershipCompany?.partnership ?? null
+            }
           />
         )}
         <div className={this.props.classes.classpassContainer}>

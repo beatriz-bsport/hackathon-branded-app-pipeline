@@ -65,6 +65,7 @@ export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
         label={t("formFields.value.label")}
         helperText={t("formFields.value.helperText")}
         required={!hasCustomPrice}
+        maxDigits={2}
         disabled={hasCustomPrice || isSharedGiftcard}
         {...priceField}
       />
@@ -85,6 +86,7 @@ export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
             helperText={t("formFields.customValue.minimumValue.helperText")}
             required={hasCustomPrice}
             disabled={!hasCustomPrice || isSharedGiftcard}
+            maxDigits={0}
             {...priceField}
             {...(hasMinMaxPriceIssue ? minMaxError : {})}
           />
@@ -100,6 +102,7 @@ export const GiftcardFormValue: FC<GiftcardFormValueProps> = ({
             })}
             required={hasCustomPrice}
             disabled={!hasCustomPrice || isSharedGiftcard}
+            maxDigits={0}
             {...priceField}
             {...(hasMinMaxPriceIssue ? minMaxError : {})}
           />

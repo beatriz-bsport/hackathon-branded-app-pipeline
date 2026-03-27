@@ -16,11 +16,7 @@ export const GiftcardSchema = Yup.object().shape({
   expiration_days: Yup.number().nullable().min(FIELD_EXPIRATION_DAYS_MIN),
   tags_on_consumer_item_creation: Yup.array().of(Yup.number().integer()),
   bookkeeping_account: Yup.number().nullable(),
-  price: Yup.number()
-    .nullable()
-    .integer()
-    .min(FIELD_PRICE_MIN)
-    .max(FIELD_PRICE_MAX),
+  price: Yup.number().nullable().min(FIELD_PRICE_MIN).max(FIELD_PRICE_MAX),
   min_price: Yup.number()
     .integer()
     .nullable()

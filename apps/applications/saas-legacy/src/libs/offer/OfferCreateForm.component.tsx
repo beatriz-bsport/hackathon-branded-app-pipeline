@@ -364,16 +364,28 @@ const formikFormWrapper = withFormik<
       : '';
 
     let validatedPartnerMaxBookingCount = null;
+    let validatedPartnershipOffers = partnershipOffers;
     switch (partnerSpotCappingStrategy) {
       case PartnerSpotCappingStrategy.COMBINED:
         validatedPartnerMaxBookingCount = partnerMaxBookingCount;
+        validatedPartnershipOffers = partnershipOffers.map(
+          (partnershipOffer) => ({
+            ...partnershipOffer,
+            spot_limit: null,
+          }),
+        );
         break;
       case PartnerSpotCappingStrategy.UNLIMITED:
         validatedPartnerMaxBookingCount = null;
+        validatedPartnershipOffers = partnershipOffers.map(
+          (partnershipOffer) => ({
+            ...partnershipOffer,
+            spot_limit: null,
+          }),
+        );
         break;
       case PartnerSpotCappingStrategy.PER_PARTNER:
         validatedPartnerMaxBookingCount = null;
-        // TODO: Add per-partner spot limit validation
         break;
     }
 
@@ -404,7 +416,7 @@ const formikFormWrapper = withFormik<
       name_override: sanitizedNameOverride,
       partner_max_booking_count: validatedPartnerMaxBookingCount,
       partner_spot_capping_strategy: partnerSpotCappingStrategy,
-      partnership_offers: partnershipOffers,
+      partnership_offers: validatedPartnershipOffers,
       sync_on_spivi: syncOfferOnSpivi,
       waiting_list_max_size: waitingListMaxSize,
       whitelist_tags: selectedWhitelistTags,

@@ -13,5 +13,22 @@
   "canNotFindContract": {
     "title": "Couldn't retrieve Contract",
     "goToListPage": "See Contracts"
+  },
+  "formFields": {
+    "errors": {
+      "fieldIsRequired": "This field is required."
+    },
+    "name": {
+      "errorMaxLength": "Name length must be under {{ maxLength }} characters.",
+      "label": "Name"
+    },
+    "description": {
+      "label": "Description"
+    }
+  },
+  "editor": {
+    "submit": {
+      "error": "Failed to update Contract"
+    }
   }
 }

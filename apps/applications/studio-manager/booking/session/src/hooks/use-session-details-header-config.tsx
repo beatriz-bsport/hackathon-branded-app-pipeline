@@ -1,6 +1,5 @@
 import { Link, NavLink } from "react-router";
 
-import type { Session } from "@bsport/api-book";
 import {
   Breadcrumbs,
   ChipProps,
@@ -10,16 +9,16 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { SessionStatus } from "#src/components/session-details/constants";
+import { Subtitle } from "#src/components/session-details/subtitle";
+import type { DetailsHeaderSession } from "#src/types";
 import { useUrls } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
-type PartialSession = Pick<Session, "id" | "available" | "manager_only">;
-
 export const useSessionDetailsHeaderConfig = (
-  session: PartialSession,
+  session: DetailsHeaderSession,
 ): Pick<
   HeaderLayoutProps,
-  "pageTabs" | "BreadcrumbsItems" | "pageStatusChip"
+  "pageTabs" | "BreadcrumbsItems" | "pageStatusChip" | "pageSubtitle"
 > => {
   const { t } = useTranslation("sessionDetails");
 
@@ -90,5 +89,7 @@ export const useSessionDetailsHeaderConfig = (
     </Link>,
   ];
 
-  return { pageTabs, BreadcrumbsItems, pageStatusChip };
+  const pageSubtitle = <Subtitle {...session} />;
+
+  return { pageTabs, BreadcrumbsItems, pageStatusChip, pageSubtitle };
 };

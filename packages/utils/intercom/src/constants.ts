@@ -1,5 +1,4 @@
 // Runtime value takes precedence (injected at deployment time)
-// Falls back to build-time value for local development
 const getReleaseVersion = (): string | undefined => {
   if (typeof window !== "undefined") {
     const runtimeSha = (window as Window & { __BSPORT_RELEASE_SHA__?: string })
@@ -9,7 +8,6 @@ const getReleaseVersion = (): string | undefined => {
       return runtimeSha;
     }
   }
-  return process.env.VITE_RELEASE_SHA;
 };
 
 export const RELEASE_SHA = getReleaseVersion();

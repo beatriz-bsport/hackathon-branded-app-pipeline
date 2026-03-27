@@ -217,7 +217,7 @@
         "durationMinute": "The duration of a session must be greater than 0 minutes",
         "broadcastLink": "The link is wrong. It should start with http:// or https:// and not contain any spaces",
         "partnerMaxBookingCount": "The number of places here is greater than the number of places in the session",
-        "partnerSpotLimitExceedsEffectif": "The total spots across all aggregators cannot exceed the total number of spots in the session",
+        "partnerSpotLimitExceedsEffectif": "The spots limit cannot exceed the total number of spots in the session",
         "effectif": "The value is higher than the maximum number of places",
         "roomBlueprintSpivi": "A room plan must be selected for sessions synchronized with Spivi",
         "durationMinuteSpivi": "A session on Spivi should last between 20 minutes and 4 hours",
@@ -272,12 +272,17 @@
             "subtitle": "Includes: ClassPass, myClubs, Urban Sports Club, Wellpass and Wellhub for external bookings.",
             "uscIntegrationWarning": "Your integration to Urban Sports Club is active, any session spanning 2 days or more will not appear.",
             "uscIntegrationWorkshopWarning": "Workshops are not compatible with Urban Sports Club, so this session will not be included.",
+            "partnerMaxBookingCountHelperText": "This setting will only affect myClubs, Urban Sports Club and Wellhub.",
             "name": {
               "usc": "Urban Sports Club",
               "classpass": "ClassPass",
               "myclubs": "myClubs",
               "wellpass": "Wellpass",
               "wellhub": "Wellhub"
+            },
+            "tooltip": {
+              "classpass": "Session visibility on ClassPass and limits can be adjusted directly in your ClassPass partner portal",
+              "wellpass": "Session visibility on Wellpass and limits cannot be managed from Bsport yet; configuration will be available here in a future update."
             },
             "aggregatorLabel": "Aggregator",
             "enabledAggregators": "Enabled Aggregators",
@@ -294,7 +299,7 @@
               },
               "PER_PARTNER": {
                 "label": "Limit bookings per aggregator",
-                "helperText": "Configure individual limits and booking window for each platform"
+                "helperText": "Configure individual limits for each platform"
               }
             },
             "wellhubProduct": {

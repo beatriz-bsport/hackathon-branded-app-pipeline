@@ -144,52 +144,53 @@ const OfferEditFormValidationSchema = Yup.object().shape({
         return true;
       },
     }),
-  partnershipOffers: Yup.array().of(
-    Yup.object().shape({
-      spot_limit: Yup.number()
-        .nullable()
-        .typeError('offer:form.errors.required')
-        .positive('offer:form.errors.positiveNumber')
-        .test({
-          name: 'spotLimitRequiredPerPartner',
-          test: function spotLimitRequiredPerPartner() {
-            const formValues = (this as any).from?.[1]?.value;
-            const isPerPartner =
-              formValues?.partnerSpotCappingStrategy ===
-              PartnerSpotCappingStrategy.PER_PARTNER;
-            const isEnabled = this.parent.allowed_on_partner;
-            if (isPerPartner && isEnabled && this.parent.spot_limit == null) {
-              return this.createError({
-                message: 'offer:form.errors.required',
-                path: this.path,
-              });
-            }
-            return true;
-          },
-        })
-        .test({
-          name: 'spotLimitExceedsEffectif',
-          test: function spotLimitExceedsEffectif() {
-            const formValues = (this as any).from?.[1]?.value;
-            const isPerPartner =
-              formValues?.partnerSpotCappingStrategy ===
-              PartnerSpotCappingStrategy.PER_PARTNER;
-            if (
-              isPerPartner &&
-              this.parent.allowed_on_partner &&
-              this.parent.spot_limit > (formValues?.effectif ?? 0)
-            ) {
-              return this.createError({
-                message:
-                  'offer:form.errors.field.partnerSpotLimitExceedsEffectif',
-                path: this.path,
-              });
-            }
-            return true;
-          },
-        }),
+  partnershipOffers: Yup.array()
+    .of(
+      Yup.object().shape({
+        spot_limit: Yup.number()
+          .nullable()
+          .typeError('offer:form.errors.required')
+          .positive('offer:form.errors.positiveNumber'),
+      }),
+    )
+    .test({
+      name: 'partnershipOffersSpotLimits',
+      test: function partnershipOffersSpotLimits(value: any) {
+        const { partnerSpotCappingStrategy, effectif } = this.parent;
+        if (
+          partnerSpotCappingStrategy !== PartnerSpotCappingStrategy.PER_PARTNER
+        ) {
+          return true;
+        }
+        const offers: Array<{
+          allowed_on_partner: boolean;
+          spot_limit: number | null;
+        }> = value ?? [];
+        const innerErrors: Yup.ValidationError[] = [];
+        offers.forEach((po, idx) => {
+          if (!po.allowed_on_partner) return;
+          if (po.spot_limit == null) {
+            innerErrors.push(
+              new Yup.ValidationError(
+                'offer:form.errors.required',
+                po.spot_limit,
+                `${this.path}[${idx}].spot_limit`,
+              ),
+            );
+          } else if (po.spot_limit > (effectif ?? 0)) {
+            innerErrors.push(
+              new Yup.ValidationError(
+                'offer:form.errors.field.partnerSpotLimitExceedsEffectif',
+                po.spot_limit,
+                `${this.path}[${idx}].spot_limit`,
+              ),
+            );
+          }
+        });
+        if (innerErrors.length === 0) return true;
+        return new Yup.ValidationError(innerErrors as any, value, this.path);
+      },
     }),
-  ),
 });
 
 export default OfferEditFormValidationSchema;

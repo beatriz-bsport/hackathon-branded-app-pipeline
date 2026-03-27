@@ -64,6 +64,7 @@ type ComponentProps = {
   hideActivitySection?: boolean;
   onCancelText?: string;
   isForbidden?: boolean;
+  wellhubPartnershipId?: number | null;
   createLevel?: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel?: (id: number, options?: OptionCallback) => void;
   fetchLevelList?: (
@@ -130,6 +131,7 @@ export const OfferCreateForm = (props: Props) => {
     hideBanner,
     hideActivitySection,
     onCancelText,
+    wellhubPartnershipId,
     createLevel,
     deleteLevel,
     fetchLevelList,
@@ -237,6 +239,7 @@ export const OfferCreateForm = (props: Props) => {
           isOfferInGroup={isOfferInGroup}
           roomBlueprints={roomBlueprints}
           showPartnership={showPartnership}
+          wellhubPartnershipId={wellhubPartnershipId}
         />
       )}
 

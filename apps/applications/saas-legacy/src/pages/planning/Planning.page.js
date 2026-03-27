@@ -132,6 +132,9 @@ import {
   getOffersMissingWellhubProductLoading,
   getOffersMissingWellhubProductPaginatedData,
 } from '#src/libs/wellhub/selectors';
+import { getPartnershipByIdentifier } from '#src/libs/classpass/selectors';
+import { PartnershipIdentifier } from '#src/libs/partnership/types';
+import { fetchPartnershipList } from '#src/libs/classpass/actions';
 
 import type {
   OfferFilter,
@@ -439,6 +442,8 @@ type Props = {
   fetchOffersMissingWellhubProduct: (params: PaginationFilterParams) => void,
   offersMissingWellhubProductLoading: boolean,
   offersMissingWellhubProductPaginatedData: ReworkedPaginationResponse<OfferREST>,
+  fetchPartnershipList: () => void,
+  wellhubPartnershipId: number | null,
 };
 
 type State = {
@@ -482,6 +487,7 @@ export class Planning extends PureComponent<Props, State> {
 
   componentDidMount() {
     this.fetchData();
+    this.props.fetchPartnershipList();
     this.props.fetchBookingStatsOfTheWeek();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
@@ -850,6 +856,7 @@ export class Planning extends PureComponent<Props, State> {
             similarOffersLoading={similarOfferLoading}
             tagList={allTagsWithTagGroup}
             updateLevel={this.props.updateLevel}
+            wellhubPartnershipId={this.props.wellhubPartnershipId}
             zoomAppDetail={this.props.zoomAppDetail}
           />
         </GenericResponsiveDrawer>
@@ -903,6 +910,7 @@ export class Planning extends PureComponent<Props, State> {
             tagList={allTagsWithTagGroup}
             timezone={this.props.theme.timezone_name}
             updateLevel={this.props.updateLevel}
+            wellhubPartnershipId={this.props.wellhubPartnershipId}
             zoomAppDetail={this.props.zoomAppDetail}
           />
         </div>
@@ -1645,6 +1653,9 @@ export default compose(
       allRoomBlueprints: getRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       showPartnership: state.theme.theme.has_partnership,
+      wellhubPartnershipId:
+        getPartnershipByIdentifier(state, PartnershipIdentifier.WELLHUB)
+          ?.partnership ?? null,
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       activeCustomLevels: getActiveCustomLevels(state),
       allCustomLevels: getAllCustomLevels(state),
@@ -1708,6 +1719,7 @@ export default compose(
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
       fetchOffersWaitingListStatistics: fetchOffersWaitingListStatisticsAction,
       fetchOffersMissingWellhubProduct: fetchOffersMissingWellhubProductAction,
+      fetchPartnershipList,
     },
   ),
   withHandlers({

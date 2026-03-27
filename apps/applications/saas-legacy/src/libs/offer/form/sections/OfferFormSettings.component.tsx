@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +15,11 @@ import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.ho
 import FormSection from '#src/components/forms/FormSection';
 import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
 import OfferPartnershipSettings from '#src/libs/offer/form/sections/OfferPartnershipSettings.component';
+
 import WellhubProductSelector from '#src/libs/wellhub/components/WellhubProductSelector';
+import PartnershipAccountProductSelector, {
+  PartnershipAccountProductProvider,
+} from '#src/libs/wellhub/components/PartnershipAccountProductSelector';
 
 import { useOfferFormStyles } from '#src/libs/offer/hooks';
 
@@ -26,11 +30,14 @@ import {
   UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
 } from '#src/libs/platform-billing/upsell-identifiers';
 
+import { useGetPartnershipAccounts } from '#src/libs/partnership/hooks';
+
 import type { Establishment } from '#src/libs/establishment/types';
 import type { FeatureList } from '#src/libs/company/types';
 import type { OfferFormValues } from '#src/libs/offer/types';
 import type { RoomBlueprint } from '#src/libs/spot-scheduling/types';
 import type { WellhubProductId } from '#src/libs/wellhub/types';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 type Props = {
   allowGuestMaster: boolean;
@@ -40,6 +47,7 @@ type Props = {
   isOfferInGroup?: boolean;
   roomBlueprints: RoomBlueprint[];
   showPartnership: boolean;
+  wellhubPartnershipId?: number | null;
 };
 
 const OfferFormSettings: React.FC<Props> = ({
@@ -50,6 +58,7 @@ const OfferFormSettings: React.FC<Props> = ({
   isOfferInGroup,
   roomBlueprints,
   showPartnership,
+  wellhubPartnershipId,
 }) => {
   const classes = useOfferFormStyles();
   const { t } = useTranslation('offer');
@@ -63,6 +72,10 @@ const OfferFormSettings: React.FC<Props> = ({
 
   const { values, errors, setFieldValue } = useFormikContext<OfferFormValues>();
 
+  const isNewWellhubConfigurationEnabled = useSafeFlag(
+    FeatureFlags.WELLHUB_NEW_CONFIGURATION,
+  );
+
   const {
     availableOnPartnership,
     dateIntervalStart,
@@ -72,7 +85,9 @@ const OfferFormSettings: React.FC<Props> = ({
   } = values;
 
   const offerSpreadOnTwoDays = useMemo(() => {
-    const datetimeEnd = dateIntervalStart.plus({ minute: durationMinute });
+    const datetimeEnd = dateIntervalStart.plus({
+      minute: durationMinute,
+    });
     return !dateIntervalStart.hasSame(datetimeEnd, 'day');
   }, [dateIntervalStart, durationMinute]);
 
@@ -85,6 +100,25 @@ const OfferFormSettings: React.FC<Props> = ({
         )?.wellhub_gym) ||
       null,
     [availableEstablishments, establishment],
+  );
+
+  const [{ value: partnershipAccounts }, fetchPartnershipAccounts] =
+    useGetPartnershipAccounts(wellhubPartnershipId ?? 0);
+
+  useEffect(() => {
+    if (!isNewWellhubConfigurationEnabled || !wellhubPartnershipId) return;
+    fetchPartnershipAccounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNewWellhubConfigurationEnabled, wellhubPartnershipId]);
+
+  const correspondingPartnershipAccount = useMemo(
+    () =>
+      establishment && partnershipAccounts
+        ? partnershipAccounts.find((account) =>
+            account.establishments.some((e) => e.id === establishment),
+          ) ?? null
+        : null,
+    [establishment, partnershipAccounts],
   );
 
   const handleToggleManagerOnly = useCallback(
@@ -222,51 +256,97 @@ const OfferFormSettings: React.FC<Props> = ({
             isOfferInGroup={isOfferInGroup}
           />
 
-          <FeatureListProvider>
-            {(featureList: FeatureList) => {
-              const hasWellhubUpsell = hasUpsell(
-                featureList,
-                UPSELL_IDENTIFIER_WELLHUB,
-              );
+          <PartnershipAccountProductProvider>
+            <FeatureListProvider>
+              {(featureList: FeatureList) => {
+                const hasWellhubUpsell = hasUpsell(
+                  featureList,
+                  UPSELL_IDENTIFIER_WELLHUB,
+                );
 
-              return (
-                isWellhubProductRequired &&
-                hasWellhubUpsell &&
-                availableOnPartnership &&
-                !!correspondingWellhubGymUuid && (
-                  <OfferFormField
-                    isBold
-                    isRequired
-                    isError={!!errors.wellhubProductId}
-                    label={t(
-                      'form.section.settings.field.partnership.wellhubProduct.title',
-                    )}
-                  >
-                    <Typography variant="caption">
-                      {t(
-                        'form.section.settings.field.partnership.wellhubProduct.helperText',
+                return (
+                  <>
+                    {isWellhubProductRequired &&
+                      hasWellhubUpsell &&
+                      availableOnPartnership &&
+                      isNewWellhubConfigurationEnabled &&
+                      !!correspondingPartnershipAccount?.external_id && (
+                        <OfferFormField
+                          isBold
+                          isRequired
+                          isError={!!errors.wellhubProductId}
+                          label={t(
+                            'form.section.settings.field.partnership.wellhubProduct.title',
+                          )}
+                        >
+                          <Typography variant="caption">
+                            {t(
+                              'form.section.settings.field.partnership.wellhubProduct.helperText',
+                            )}
+                          </Typography>
+                          <PartnershipAccountProductSelector
+                            id="offer-form-wellhub-product-selector"
+                            isVirtualOffer={values.isMetaActivityBroadcast}
+                            onSelect={handleSelectWellhubProduct}
+                            partnershipAccountExternalId={
+                              correspondingPartnershipAccount.external_id
+                            }
+                            selectedProductId={wellhubProductId || null}
+                            setIsWellhubProductRequired={
+                              setWellhubProductRequired
+                            }
+                            styles={classes.bigWidth}
+                          />
+                          {!!errors.wellhubProductId &&
+                            Object.keys(errors).length === 1 && (
+                              <Typography color="error" variant="caption">
+                                {t(errors.wellhubProductId)}
+                              </Typography>
+                            )}
+                        </OfferFormField>
                       )}
-                    </Typography>
-                    <WellhubProductSelector
-                      id="offer-form-wellhub-product-selector"
-                      isVirtualOffer={values.isMetaActivityBroadcast}
-                      onSelect={handleSelectWellhubProduct}
-                      selectedProductId={wellhubProductId || null}
-                      setIsWellhubProductRequired={setWellhubProductRequired}
-                      styles={classes.bigWidth}
-                      wellhubGymUuid={correspondingWellhubGymUuid}
-                    />
-                    {!!errors.wellhubProductId &&
-                      Object.keys(errors).length === 1 && (
-                        <Typography color="error" variant="caption">
-                          {t(errors.wellhubProductId)}
-                        </Typography>
+                    {isWellhubProductRequired &&
+                      hasWellhubUpsell &&
+                      availableOnPartnership &&
+                      !isNewWellhubConfigurationEnabled &&
+                      !!correspondingWellhubGymUuid && (
+                        <OfferFormField
+                          isBold
+                          isRequired
+                          isError={!!errors.wellhubProductId}
+                          label={t(
+                            'form.section.settings.field.partnership.wellhubProduct.title',
+                          )}
+                        >
+                          <Typography variant="caption">
+                            {t(
+                              'form.section.settings.field.partnership.wellhubProduct.helperText',
+                            )}
+                          </Typography>
+                          <WellhubProductSelector
+                            id="offer-form-wellhub-product-selector"
+                            isVirtualOffer={values.isMetaActivityBroadcast}
+                            onSelect={handleSelectWellhubProduct}
+                            selectedProductId={wellhubProductId || null}
+                            setIsWellhubProductRequired={
+                              setWellhubProductRequired
+                            }
+                            styles={classes.bigWidth}
+                            wellhubGymUuid={correspondingWellhubGymUuid}
+                          />
+                          {!!errors.wellhubProductId &&
+                            Object.keys(errors).length === 1 && (
+                              <Typography color="error" variant="caption">
+                                {t(errors.wellhubProductId)}
+                              </Typography>
+                            )}
+                        </OfferFormField>
                       )}
-                  </OfferFormField>
-                )
-              );
-            }}
-          </FeatureListProvider>
+                  </>
+                );
+              }}
+            </FeatureListProvider>
+          </PartnershipAccountProductProvider>
 
           {!!errors.partnerMaxBookingCount && (
             <Typography color="error" variant="caption">

@@ -5,6 +5,7 @@ export type DashboardType =
 
 export type FetchPresignedUrlParams = {
   dashboardType: DashboardType;
+  language: string;
 };
 
 export type PresignedUrlResponse = {

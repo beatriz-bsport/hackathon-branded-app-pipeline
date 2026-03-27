@@ -41,11 +41,11 @@ export const usePresignedUrl = (
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const { data, error, isLoading, isSuccess, isError } = useQuery({
-    ...fetchPresignedUrlQueryOptions(fetch, { dashboardType }),
-    staleTime: 5 * 60 * 1000, // or align this with the presigned URL TTL
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
+    ...fetchPresignedUrlQueryOptions(fetch, {
+      dashboardType,
+      language: i18n.language,
+    }),
+    gcTime: 0, // Evict the cache to ensure JWT freshness
     throwOnError: () => {
       return false;
     },

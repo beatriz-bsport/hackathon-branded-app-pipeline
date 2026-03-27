@@ -5,11 +5,7 @@ import { type ApiConfig, type Fetch, buildUrlParams } from "@bsport/store-base";
 import { QUERY_KEY_MAIN } from "#src/constants";
 
 import { API_V1_URL_EMBEDDED_ANALYTICS } from "./constants";
-import type {
-  DashboardType,
-  FetchPresignedUrlParams,
-  PresignedUrlResponse,
-} from "./types";
+import type { FetchPresignedUrlParams, PresignedUrlResponse } from "./types";
 
 // ----------------------------------------------------------------------------
 
@@ -18,8 +14,8 @@ export const queryKeys = {
 
   presignedUrls: () => [...queryKeys.all, "presigned-url"] as const,
 
-  presignedUrl: (identifier: DashboardType) =>
-    [...queryKeys.presignedUrls(), identifier] as const,
+  presignedUrl: ({ dashboardType, language }: FetchPresignedUrlParams) =>
+    [...queryKeys.presignedUrls(), language, dashboardType] as const,
 } as const;
 
 // ----------------------------------------------------------------------------
@@ -48,6 +44,6 @@ export const fetchPresignedUrlQueryOptions = (
   params: FetchPresignedUrlParams,
 ) =>
   queryOptions({
-    queryKey: queryKeys.presignedUrl(params.dashboardType),
+    queryKey: queryKeys.presignedUrl(params),
     queryFn: () => fetchPresignedUrlAPI(fetch, params),
   });

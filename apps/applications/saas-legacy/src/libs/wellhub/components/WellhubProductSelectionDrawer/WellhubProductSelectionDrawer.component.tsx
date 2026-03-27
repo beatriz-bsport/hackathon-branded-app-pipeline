@@ -23,6 +23,7 @@ type Props = {
   offersData: ReworkedPaginationResponse<OfferSaas>;
   similarOffers: Offer<Coach, Establishment>[];
   similarOffersLoading: boolean;
+  wellhubPartnershipId?: number | null;
   fetchMissingProductOffersSpecificPage: (page: number) => void;
   fetchSimilarOffers: (offerId: number) => void;
   onClose: () => void;
@@ -37,6 +38,7 @@ const WellhubProductSelectionDrawer: React.FC<Props> = ({
   offersData,
   similarOffers,
   similarOffersLoading,
+  wellhubPartnershipId,
   fetchMissingProductOffersSpecificPage,
   fetchSimilarOffers,
   onClose,
@@ -127,6 +129,7 @@ const WellhubProductSelectionDrawer: React.FC<Props> = ({
           resetOfferClicked={handleResetOfferClicked}
           similarOffers={similarOffers}
           similarOffersLoading={similarOffersLoading}
+          wellhubPartnershipId={wellhubPartnershipId}
         />
       </Formik>
     </GenericResponsiveDrawer>

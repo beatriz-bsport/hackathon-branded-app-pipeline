@@ -1222,6 +1222,7 @@ export class Planning extends PureComponent<Props, State> {
         onConfirm={this.onConfirmModal}
         similarOffers={this.props.similarOffersWithCoachAndEstablishment}
         similarOffersLoading={this.props.similarOfferLoading}
+        wellhubPartnershipId={this.props.wellhubPartnershipId}
       />
     );
   };

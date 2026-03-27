@@ -25,6 +25,7 @@ type Props = {
   similarOffers: Offer<Coach, Establishment>[];
   similarOffersLoading: boolean;
   descriptionText: string;
+  wellhubPartnershipId?: number | null;
   fetchMissingProductOffersSpecificPage: (page: number) => void;
   onClose: () => void;
   onConfirm: (data: { offerId: number; data: Partial<OfferEdit> }) => void;
@@ -41,6 +42,7 @@ const WellhubProductSelectionContent: React.FC<Props> = ({
   similarOffers,
   similarOffersLoading,
   descriptionText,
+  wellhubPartnershipId,
   fetchMissingProductOffersSpecificPage,
   onClose,
   onConfirm,
@@ -119,6 +121,7 @@ const WellhubProductSelectionContent: React.FC<Props> = ({
             offer={offerSelected}
             similarOffers={similarOffers}
             similarOffersLoading={similarOffersLoading}
+            wellhubPartnershipId={wellhubPartnershipId}
           />
         )}
       </div>

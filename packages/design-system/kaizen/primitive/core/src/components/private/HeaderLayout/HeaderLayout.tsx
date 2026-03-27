@@ -41,6 +41,7 @@ export type HeaderLayoutProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.pageTitle Title of the page and it also adds the html title. Limited to 2 lines with truncation & hyphenation when space constrained.
  * @param props.searchConfig Optional. Configuration for search input.
  * @param props.startGroupActions Optional. Array of ReactNode to align with the CTA Button with a Divider separation.
+ * @param props.pageSubtitle Optional. Subtitle of the page, displayed under the title.
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-private-headerlayout--docs
  */
 const LayoutHeader: React.FC<HeaderLayoutProps> = ({

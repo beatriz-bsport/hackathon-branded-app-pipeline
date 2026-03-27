@@ -36,6 +36,7 @@
     "@bsport/api-book": "workspace:*",
     "@bsport/api-business-insights": "workspace:*",
     "@bsport/api-buyables": "workspace:*",
+    "@bsport/api-cdp": "workspace:*",
     "@bsport/api-core": "workspace:*",
     "@bsport/api-financial-services": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",

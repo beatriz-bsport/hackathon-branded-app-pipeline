@@ -4,19 +4,19 @@
             "title": "Insights"
         },
         "communityHealth": {
-            "title": "Santé de la Communauté"
+            "title": "Rétention Client"
         },
         "scheduleAnalysis": {
-            "title": "Performance de l'emploi du temps"
+            "title": "Planification"
         },
         "bookingInsight": {
-            "title": "Réservations et utilisation de Carte de cours "
+            "title": "Réservations et Demande"
         },
         "recurringRevenue": {
-            "title": "Analysez la performance de vos abonnements"
+            "title": "Abonnements"
         },
         "trialAnalysis": {
-            "title": "Performance d'acquisition et de conversion"
+            "title": "Acquisition et Conversion"
         }
     },
     "sections": {
@@ -25,23 +25,23 @@
         "bookings": "Opérations"
     },
     "trackTrialOffer": {
-        "title": "Performance d'acquisition et de conversion",
-        "description": "Découvrez comment les premiers achats se transforment en clients fidèles, identifiez les abandons et optimisez votre acquisition"
+        "title": "Acquisition et Conversion",
+        "description": "Découvrez comment les premiers achats se transforment en Clients fidèles et identifiez les points d'abandon"
     },
     "monitorRevenue": {
-        "title": "Analysez la performance de vos abonnements",
+        "title": "Abonnements",
         "description": "Suivez la santé des abonnements, analysez les revenus récurrents et identifiez les risques ou opportunités."
     },
     "monitorCommunityHealth": {
-        "title": "Santé de la communauté",
-        "description": "Suivez les activités, la rétention et le taux de désabonnement de vos Clients pour comprendre la santé de votre communauté"
+        "title": "Rétention Client",
+        "description": "Comprenez l'activité, le taux de désabonnement et la rétention de votre Client dans votre studio"
     },
     "monitorSchedule": {
-        "title": "Performance du planning",
-        "description": "Optimisez la performance de votre planning pour maximiser le taux de remplissage et le revenu généré"
+        "title": "Planification",
+        "description": "Suivez les taux de remplissage, la fréquentation et les revenus générés par vos cours"
     },
     "monitorBookings": {
-        "title": "Réservations et utilisation de Carte de cours ",
-        "description": "Effectue le suivi des réservations et de l'utilisation de Carte de cours pour optimiser la fréquentation et la capacité."
+        "title": "Réservations et Demande",
+        "description": "Explorez l'activité de réservation, le comportement des clients et les tendances de la demande pour prendre des décisions plus éclairées en matière de revenus"
     }
 }

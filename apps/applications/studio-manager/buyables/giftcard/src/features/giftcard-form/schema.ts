@@ -13,7 +13,6 @@ export const useGiftcardFormSchema = () => {
     .number({
       required_error: requiredErrorMessage,
     })
-    .int()
     .min(FIELD_CONSTRAINTS.PRICE_MIN)
     .max(FIELD_CONSTRAINTS.PRICE_MAX);
 

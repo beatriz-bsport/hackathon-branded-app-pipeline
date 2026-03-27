@@ -38,8 +38,7 @@ export const useTableRows = ({
       buyer: item.src_member,
       expiryDate,
       issueDate: item.date_created,
-      printableCode:
-        item.printable_code ?? t("purchases.table.rows.typeDigital"),
+      printableCode: item.printable_code,
       recipient: item.dst_member,
       id: item.id,
       status,

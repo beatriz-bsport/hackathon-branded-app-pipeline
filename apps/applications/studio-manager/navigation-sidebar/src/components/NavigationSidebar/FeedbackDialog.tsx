@@ -24,11 +24,8 @@ const toggleRevampedBackoffice = toggleRevampedBackofficeAction.bind(
   fetch,
 );
 
-/** @todo Enable the dynamic versioning (as commented below) when Data team can manage it */
+// we are considering to use a version per batch of GA releases
 const REVAMPED_BACKOFFICE_VERSION = "alpha";
-// ENV variable defined in CI
-// const REVAMPED_BACKOFFICE_VERSION =
-//   import.meta.env.VITE_RELEASE_NAME ?? "alpha";
 
 type FeedbackReason =
   | "slower"

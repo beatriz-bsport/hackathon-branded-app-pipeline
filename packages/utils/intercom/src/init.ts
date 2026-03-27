@@ -16,7 +16,7 @@ export type EmailValidationFailureContext = {
   role?: string;
 };
 
-type IntercomBootParams = {
+export type IntercomBootParams = {
   email?: string;
   companyId?: number;
   companyName?: string;

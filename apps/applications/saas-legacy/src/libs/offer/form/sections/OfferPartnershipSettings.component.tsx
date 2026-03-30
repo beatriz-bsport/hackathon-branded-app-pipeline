@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { useFormikContext } from 'formik';
+import { FormikErrors, useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -15,7 +15,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
-
+// @ts-expect-error
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
 import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
 import NumericInput from '#src/components/input/NumericInput.component';
 import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
@@ -31,6 +32,17 @@ import {
 } from '#src/libs/offer/types';
 import { useGetActivePartnershipAccountForOffer } from '#src/libs/partnership/hooks';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { FeatureList } from '#src/libs/company/types';
+import { hasUpsell } from '#src/libs/platform-billing/utils';
+import {
+  UPSELL_IDENTIFIER_CLASSPASS,
+  UPSELL_IDENTIFIER_WELLPASS,
+} from '#src/libs/platform-billing/upsell-identifiers';
+
+// Assuming a default of 20% of the effectif
+const DEFAULT_SPOT_LIMIT_RATIO = 0.2;
+// We keep a 6 spots default in case the effectif is not filled yet
+const DEFAULT_SPOT_LIMIT = 6;
 
 type Props = {
   isEditOffer?: boolean;
@@ -63,18 +75,36 @@ const OfferPartnershipSettings: React.FC<Props> = ({
     fetchActivePartnershipAccountForOffer,
   ] = useGetActivePartnershipAccountForOffer();
 
+  const [defaultSpotLimit, setDefaultSpotLimit] =
+    useState<number>(DEFAULT_SPOT_LIMIT);
+
   const { values, errors, handleChange, setFieldValue } =
     useFormikContext<OfferFormValues>();
+  const partnershipOffersErrors = errors.partnershipOffers as
+    | FormikErrors<PartnershipOffer>[]
+    | undefined;
 
   const {
     dateIntervalStart,
     establishment,
     isManagerOnly,
+    effectif,
     availableOnPartnership,
     partnerMaxBookingCount,
     partnerSpotCappingStrategy,
     partnershipOffers,
   } = values;
+
+  const partnershipOffersMap = useMemo(
+    () =>
+      new Map(
+        partnershipOffers.map((po, formikIndex) => [
+          po.partnership,
+          { po, formikIndex },
+        ]),
+      ),
+    [partnershipOffers],
+  );
 
   useEffect(() => {
     if (dateIntervalStart && establishment) {
@@ -83,25 +113,41 @@ const OfferPartnershipSettings: React.FC<Props> = ({
   }, [dateIntervalStart, establishment, fetchActivePartnershipAccountForOffer]);
 
   useEffect(() => {
+    if (effectif) {
+      const newLimit = Math.floor(DEFAULT_SPOT_LIMIT_RATIO * effectif);
+      setDefaultSpotLimit(newLimit);
+      if (!isEditOffer) {
+        setFieldValue('partnerMaxBookingCount', newLimit);
+      }
+    }
+  }, [effectif, isEditOffer, setFieldValue]);
+
+  useEffect(() => {
     if (!activePartnershipAccounts) return;
     const syncedPartnershipOffers = activePartnershipAccounts.map((account) => {
+      const perPartnerDefault = Math.max(
+        1,
+        Math.floor(defaultSpotLimit / activePartnershipAccounts.length),
+      );
+
       const existingPartnershipOffer = partnershipOffers.find(
         (po) => po.partnership === account.partnership,
       );
-      return (
-        existingPartnershipOffer ??
-        ({
-          partnership: account.partnership,
-          partnership_identifier: account.partnership_identifier,
-          status: '',
-          allowed_on_partner: !isEditOffer, // Allowed by default on create only
-          spot_limit: null,
-        } satisfies PartnershipOffer)
-      );
+      const base: PartnershipOffer = existingPartnershipOffer ?? {
+        partnership: account.partnership,
+        partnership_identifier: account.partnership_identifier,
+        status: '',
+        allowed_on_partner: !isEditOffer, // Allowed by default on create only
+        spot_limit: null,
+      };
+      return {
+        ...base,
+        spot_limit: base.spot_limit ?? perPartnerDefault,
+      };
     });
     setFieldValue('partnershipOffers', syncedPartnershipOffers);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activePartnershipAccounts]);
+  }, [activePartnershipAccounts, defaultSpotLimit]);
 
   const handleChangeSpotCappingStrategy = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -165,11 +211,12 @@ const OfferPartnershipSettings: React.FC<Props> = ({
       />
 
       {availableOnPartnership && (
-        <>
+        <div className={classes.aggregatorSettingsContainer}>
           <RadioGroup
             aria-label={t(
               'form.section.settings.field.partnership.partnerSpotCappingStrategy.label',
             )}
+            className={classes.cappingStrategyRadioGroup}
             name="partnerSpotCappingStrategy"
             onChange={handleChangeSpotCappingStrategy}
             value={partnerSpotCappingStrategy}
@@ -244,13 +291,6 @@ const OfferPartnershipSettings: React.FC<Props> = ({
               }
               value={PartnerSpotCappingStrategy.PER_PARTNER}
             />
-
-            {partnerSpotCappingStrategy ===
-              PartnerSpotCappingStrategy.PER_PARTNER && (
-              <Typography className={classes.combinedMaxCount}>
-                Coming soon! 🚧
-              </Typography>
-            )}
           </RadioGroup>
           {partnerSpotCappingStrategy ===
             PartnerSpotCappingStrategy.COMBINED && (
@@ -273,14 +313,20 @@ const OfferPartnershipSettings: React.FC<Props> = ({
                   onChange={handleChange}
                   placeholder="5"
                   size="small"
-                  value={partnerMaxBookingCount ?? 0}
+                  value={partnerMaxBookingCount ?? defaultSpotLimit}
                   variant="outlined"
                 />
+                <Typography variant="caption">
+                  {t(
+                    'form.section.settings.field.partnership.partnerMaxBookingCountHelperText',
+                  )}
+                </Typography>
               </OfferFormField>
             </div>
           )}
           {partnerSpotCappingStrategy ===
-          PartnerSpotCappingStrategy.PER_PARTNER ? (
+            PartnerSpotCappingStrategy.PER_PARTNER &&
+          activePartnershipAccounts ? (
             <Table>
               <TableHead>
                 <TableRow>
@@ -289,7 +335,9 @@ const OfferPartnershipSettings: React.FC<Props> = ({
                       'form.section.settings.field.partnership.aggregatorLabel',
                     )}
                   </TableCell>
-                  <TableCell />
+                  <TableCell>
+                    {t('form.section.settings.field.partnership.spots')}
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -300,25 +348,24 @@ const OfferPartnershipSettings: React.FC<Props> = ({
                     </CustomTableCell>
                   </TableRow>
                 )}
-                {activePartnershipAccounts &&
-                  activePartnershipAccounts.map((partnershipAccount, idx) => (
+                {activePartnershipAccounts.map((partnershipAccount) => {
+                  const partnershipOffer = partnershipOffersMap.get(
+                    partnershipAccount.partnership,
+                  );
+                  const formikIndex = partnershipOffer?.formikIndex ?? -1;
+                  const po = partnershipOffer?.po;
+                  return (
                     <TableRow key={partnershipAccount.id}>
                       <TableCell>
                         <FormControlLabel
                           control={
                             <Switch
-                              checked={
-                                partnershipOffers[idx]?.allowed_on_partner ??
-                                false
-                              }
+                              checked={po?.allowed_on_partner ?? false}
                               color="secondary"
                               onChange={() =>
                                 setFieldValue(
-                                  `partnershipOffers.${idx}.allowed_on_partner`,
-                                  !(
-                                    partnershipOffers[idx]
-                                      ?.allowed_on_partner ?? false
-                                  ),
+                                  `partnershipOffers.${formikIndex}.allowed_on_partner`,
+                                  !(po?.allowed_on_partner ?? false),
                                 )
                               }
                             />
@@ -328,9 +375,81 @@ const OfferPartnershipSettings: React.FC<Props> = ({
                           )}
                         />
                       </TableCell>
-                      <TableCell />
+                      <TableCell>
+                        <NumericInput
+                          disabled={!(po?.allowed_on_partner ?? false)}
+                          error={
+                            !!partnershipOffersErrors?.[formikIndex]?.spot_limit
+                          }
+                          helperText={
+                            partnershipOffersErrors?.[formikIndex]?.spot_limit
+                              ? t(
+                                  partnershipOffersErrors[formikIndex]
+                                    ?.spot_limit as string,
+                                )
+                              : undefined
+                          }
+                          id={`offer-form-partner-spot-limit-input-${formikIndex}`}
+                          inputClass={classes.bigWidth}
+                          name={`partnershipOffers.${formikIndex}.spot_limit`}
+                          onChange={handleChange}
+                          placeholder={String(DEFAULT_SPOT_LIMIT)}
+                          size="small"
+                          value={po?.spot_limit ?? 0}
+                          variant="outlined"
+                        />
+                      </TableCell>
                     </TableRow>
-                  ))}
+                  );
+                })}
+                <FeatureListProvider>
+                  {(featureList: FeatureList) => (
+                    <>
+                      {hasUpsell(featureList, UPSELL_IDENTIFIER_CLASSPASS) && (
+                        <TableRow key="classpass">
+                          <TableCell>
+                            <FormControlLabel
+                              control={
+                                <Switch checked disabled color="secondary" />
+                              }
+                              label={t(
+                                `form.section.settings.field.partnership.name.classpass`,
+                              )}
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <Typography className={classes.disabledHelperText}>
+                              {t(
+                                'form.section.settings.field.partnership.tooltip.classpass',
+                              )}
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      )}
+                      {hasUpsell(featureList, UPSELL_IDENTIFIER_WELLPASS) && (
+                        <TableRow key="wellpass">
+                          <TableCell>
+                            <FormControlLabel
+                              control={
+                                <Switch checked disabled color="secondary" />
+                              }
+                              label={t(
+                                `form.section.settings.field.partnership.name.wellpass`,
+                              )}
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <Typography className={classes.disabledHelperText}>
+                              {t(
+                                'form.section.settings.field.partnership.tooltip.wellpass',
+                              )}
+                            </Typography>
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </>
+                  )}
+                </FeatureListProvider>
               </TableBody>
             </Table>
           ) : (
@@ -346,31 +465,82 @@ const OfferPartnershipSettings: React.FC<Props> = ({
                     )}
                   </Typography>
                   <div className={classes.partnershipChipsContainer}>
-                    {activePartnershipAccounts.map(
-                      (partnershipAccount, idx) => (
+                    {activePartnershipAccounts.map((partnershipAccount) => {
+                      const partnershipOffer = partnershipOffersMap.get(
+                        partnershipAccount.partnership,
+                      );
+                      const formikIndex = partnershipOffer?.formikIndex ?? -1;
+                      const po = partnershipOffer?.po;
+                      return (
                         <PartnershipOfferChip
                           key={partnershipAccount.id}
-                          enabled={
-                            partnershipOffers[idx]?.allowed_on_partner ?? true
-                          }
+                          enabled={po?.allowed_on_partner ?? true}
                           label={t(
                             `form.section.settings.field.partnership.name.${partnershipAccount.partnership_identifier}`,
                           )}
                           onChange={(enabled: boolean) =>
                             setFieldValue(
-                              `partnershipOffers.${idx}.allowed_on_partner`,
+                              `partnershipOffers.${formikIndex}.allowed_on_partner`,
                               enabled,
                             )
                           }
                         />
-                      ),
-                    )}
+                      );
+                    })}
+                    <FeatureListProvider>
+                      {(featureList: FeatureList) => (
+                        <>
+                          {hasUpsell(
+                            featureList,
+                            UPSELL_IDENTIFIER_CLASSPASS,
+                          ) && (
+                            <PartnershipOfferChip
+                              key="classpass"
+                              disabled
+                              enabled
+                              label={t(
+                                'form.section.settings.field.partnership.name.classpass',
+                              )}
+                              onChange={() => {}}
+                              tooltipTitle={
+                                <Typography>
+                                  {t(
+                                    'form.section.settings.field.partnership.tooltip.classpass',
+                                  )}
+                                </Typography>
+                              }
+                            />
+                          )}
+                          {hasUpsell(
+                            featureList,
+                            UPSELL_IDENTIFIER_WELLPASS,
+                          ) && (
+                            <PartnershipOfferChip
+                              key="wellpass"
+                              disabled
+                              enabled
+                              label={t(
+                                'form.section.settings.field.partnership.name.wellpass',
+                              )}
+                              onChange={() => {}}
+                              tooltipTitle={
+                                <Typography>
+                                  {t(
+                                    'form.section.settings.field.partnership.tooltip.wellpass',
+                                  )}
+                                </Typography>
+                              }
+                            />
+                          )}
+                        </>
+                      )}
+                    </FeatureListProvider>
                   </div>
                 </div>
               )}
             </>
           )}
-        </>
+        </div>
       )}
     </>
   );

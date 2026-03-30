@@ -25,8 +25,8 @@ import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { getTeacherInitials } from "#src/utils/get-teacher-initials";
 
 import {
-  selectFilters,
-  selectShowCancelledSessions,
+  selectSessionFilters,
+  selectSessionShowCancelled,
   useSessionListStore,
 } from "../stores/session-list";
 import type { EnrichedSession } from "../types";
@@ -212,14 +212,12 @@ export const useSessionListData = (
 ) => {
   const { minDateKey, maxDateKey } = extractDateRangeParams(params);
 
-  const filters = useSessionListStore(selectFilters);
+  const filters = useSessionListStore(selectSessionFilters);
   const filterParams = getParamsFromFilters(filters);
 
   const { navigateToBookingsManagement } = useUrls();
 
-  const showCancelledSessions = useSessionListStore(
-    selectShowCancelledSessions,
-  );
+  const showCancelledSessions = useSessionListStore(selectSessionShowCancelled);
   const hasShowCancelledSessionsPermission = useObjectLevelPermission(
     "planning.calendar.allowed_actions.readCancellations",
   );

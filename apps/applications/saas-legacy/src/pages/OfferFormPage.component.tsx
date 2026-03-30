@@ -58,6 +58,9 @@ import {
   FeatureFlagProps,
   withFeatureFlags,
 } from '#src/utils/feature-flag/withFeatureFlags';
+import { getPartnershipByIdentifier } from '#src/libs/classpass/selectors';
+import { PartnershipIdentifier } from '#src/libs/partnership/types';
+import { fetchPartnershipList } from '#src/libs/classpass/actions';
 
 type OwnProps = {
   goBack: () => void;
@@ -77,6 +80,7 @@ export class OfferFormPage extends Component<Props, {}> {
   componentDidMount() {
     this.props.fetchEstablishments();
     this.props.fetchAssociatedCoachesList();
+    this.props.fetchPartnershipList();
     this.props.fetchRoomBlueprints();
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchActivitiesCompany(this.props.theme.company, {
@@ -159,10 +163,11 @@ export class OfferFormPage extends Component<Props, {}> {
               processing={this.props.processing}
               roomBlueprints={this.props.roomBlueprints}
               showPartnership={this.props.showPartnership}
-              // @ts-expect-error
+              //@ts-expect-error
               tagList={allTagsWithTagGroup}
               timezone={this.props.timezone}
               updateLevel={this.props.updateLevel}
+              wellhubPartnershipId={this.props.wellhubPartnershipId}
               zoomAppDetail={this.props.zoomAppDetail}
             />
           </Paper>
@@ -198,6 +203,9 @@ const connector = connect(
     roomBlueprints: getAvailableRoomBlueprints(state),
     coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
     showPartnership: state.theme.theme.has_partnership,
+    wellhubPartnershipId:
+      getPartnershipByIdentifier(state, PartnershipIdentifier.WELLHUB)
+        ?.partnership ?? null,
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     activeCustomLevels: getActiveCustomLevels(state),
     allCustomLevels: getAllCustomLevels(state),
@@ -219,6 +227,7 @@ const connector = connect(
     deleteLevel: deleteLevelAction,
     push,
     fetchZoomApp,
+    fetchPartnershipList,
   },
 );
 

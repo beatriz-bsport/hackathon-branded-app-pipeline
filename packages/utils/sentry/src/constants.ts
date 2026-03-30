@@ -31,10 +31,10 @@ export const exceptionMessagesToIgnore = [
   /Maximum call stack size exceeded/,
 ];
 
-export const ENV_DSN = import.meta.env.VITE_SENTRY_DSN;
+export const ENV_DSN =
+  "https://46806dfeb3a1142af3766961d0264a2d@o137411.ingest.us.sentry.io/4509480528445441";
 
 // Runtime value takes precedence (injected at deployment time)
-// Falls back to build-time value for local development
 const getReleaseVersion = (): string | undefined => {
   if (typeof window !== "undefined") {
     const runtimeSha = (window as Window & { __BSPORT_RELEASE_SHA__?: string })
@@ -44,7 +44,6 @@ const getReleaseVersion = (): string | undefined => {
       return runtimeSha;
     }
   }
-  return import.meta.env.VITE_RELEASE_SHA;
 };
 
 export const RELEASE_SHA = getReleaseVersion();

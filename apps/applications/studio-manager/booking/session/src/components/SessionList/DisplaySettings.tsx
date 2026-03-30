@@ -15,16 +15,16 @@ import {
 } from "#src/events/session-list/events";
 import {
   setCalendarView,
-  setShowCancelledSessions,
+  setShowCancelled,
   toggleColumn,
 } from "#src/stores/session-list/actions";
 import {
   selectCalendarView,
-  selectDisplayedColumns,
-  selectShowCancelledSessions,
+  selectSessionDisplayedColumns,
+  selectSessionShowCancelled,
 } from "#src/stores/session-list/selectors";
 import { useSessionListStore } from "#src/stores/session-list/store";
-import { CalendarView, Columns } from "#src/types";
+import { CalendarView, SessionColumns } from "#src/types";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
@@ -35,7 +35,7 @@ export const DisplaySettings: React.FC = () => {
   const { t } = useTranslation("sessionList");
   const isMobile = !useMatchMedia("lg");
   const columns = useSessionListColumns(isMobile);
-  const displayedColumns = useSessionListStore(selectDisplayedColumns);
+  const displayedColumns = useSessionListStore(selectSessionDisplayedColumns);
   const hasShowCancelledSessionsPermission = useObjectLevelPermission(
     "planning.calendar.allowed_actions.readCancellations",
   );
@@ -49,7 +49,7 @@ export const DisplaySettings: React.FC = () => {
     }
   };
 
-  const handleToggleColumn = (column: Columns) => {
+  const handleToggleColumn = (column: SessionColumns) => {
     const wasVisible = displayedColumns.includes(column);
     toggleColumn(column);
     analyticsTrackSafeEvent(sessionListVisibleColumnsClickedEvent, {
@@ -59,7 +59,7 @@ export const DisplaySettings: React.FC = () => {
   };
 
   const handleToggleShowCancelledSessions = (value: boolean) => {
-    setShowCancelledSessions(value);
+    setShowCancelled(value);
     analyticsTrackSafeEvent(sessionListDisplayCancelledSessionClickedEvent, {
       cancelled_sessions_displayed: value,
     });
@@ -67,9 +67,7 @@ export const DisplaySettings: React.FC = () => {
 
   const calendarView = useSessionListStore(selectCalendarView);
 
-  const showCancelledSessions = useSessionListStore(
-    selectShowCancelledSessions,
-  );
+  const showCancelledSessions = useSessionListStore(selectSessionShowCancelled);
 
   return (
     <div className="flex flex-col gap-lg max-w-[260px] p-xs">
@@ -112,9 +110,9 @@ export const DisplaySettings: React.FC = () => {
               label={column.label}
               size="sm"
               intent="default"
-              onClick={() => handleToggleColumn(column.id as Columns)}
+              onClick={() => handleToggleColumn(column.id as SessionColumns)}
               color={
-                displayedColumns.includes(column.id as Columns)
+                displayedColumns.includes(column.id as SessionColumns)
                   ? "selected"
                   : "main"
               }

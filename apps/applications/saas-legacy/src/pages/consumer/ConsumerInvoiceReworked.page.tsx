@@ -197,6 +197,7 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
           handleChangePage={this.handleChangePage}
           isLoading={this.getIsLoading()}
           isMultilocationEnabled={this.props.theme.enable_multi_localization}
+          isOnlinePaymentEnabled={this.props.theme.online_payment_enabled}
           membership={this.props.membership}
           refreshConsumerInvoices={this.refreshConsumerInvoices}
           refreshMembership={this.refreshMembership}

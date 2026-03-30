@@ -86,10 +86,7 @@ export function transformGiftcardIntoFormState(
   const { price, min_price, max_price, ...otherFields } = giftcard;
   return {
     ...otherFields,
-    price:
-      price != null && typeof price === "string"
-        ? parseInt(price, 10)
-        : GIFTCARD_FORM_DATA_DEFAULT.price,
+    price: price != null ? parseFloat(price) : GIFTCARD_FORM_DATA_DEFAULT.price,
     min_price:
       min_price != null ? min_price : GIFTCARD_FORM_DATA_DEFAULT.min_price,
     max_price:

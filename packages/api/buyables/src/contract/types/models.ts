@@ -47,9 +47,6 @@ export type Contract = {
   // Metadata
   metadata: Record<string, unknown>;
   source: number | null;
-
-  private_pass_details?: AppointmentPassDetails;
-  payment_pack_details?: PassDetails;
 };
 
 export type CompatiblePrivateService = {

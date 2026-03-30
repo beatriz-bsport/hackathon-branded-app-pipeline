@@ -275,9 +275,18 @@ const useOfferFormStyles = (
         width: 'fit-content',
       },
     },
+    aggregatorSettingsContainer: {
+      marginLeft: theme.spacing(6),
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(2),
+    },
     cappingStrategyRadio: {
       padding: `0 ${theme.spacing(1)}px`,
       alignSelf: 'flex-start',
+    },
+    cappingStrategyRadioGroup: {
+      gap: theme.spacing(2),
     },
     combinedMaxCount: {
       marginTop: theme.spacing(2),
@@ -294,6 +303,9 @@ const useOfferFormStyles = (
       display: 'flex',
       flexWrap: 'wrap',
       gap: theme.spacing(1),
+    },
+    disabledHelperText: {
+      color: theme.palette.text.disabled,
     },
   }));
 

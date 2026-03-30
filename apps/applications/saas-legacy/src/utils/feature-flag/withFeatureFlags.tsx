@@ -12,6 +12,7 @@ export type FeatureFlagProps = {
   checkoutFlowModalEnabled: boolean;
   fsNewPayoutFlow: boolean;
   isCalendarRevampEnabled: boolean;
+  isNewWellhubConfigurationEnabled: boolean;
 };
 
 /**
@@ -40,6 +41,9 @@ export const withFeatureFlags = <TProps extends object>(
     const fsNewPayoutFlow = useSafeFlag(FeatureFlags.FS_NEW_PAYOUT_FLOW);
 
     const isCalendarRevampEnabled = useSafeFlag(FeatureFlags.CALENDAR_REVAMP);
+    const isNewWellhubConfigurationEnabled = useSafeFlag(
+      FeatureFlags.WELLHUB_NEW_CONFIGURATION,
+    );
 
     return (
       <WrappedComponent
@@ -50,6 +54,7 @@ export const withFeatureFlags = <TProps extends object>(
         isInvoiceSequentialNumberingEnabled={
           isInvoiceSequentialNumberingEnabled
         }
+        isNewWellhubConfigurationEnabled={isNewWellhubConfigurationEnabled}
         shouldDisplayNewSubscriptionContracts={
           shouldDisplayNewSubscriptionContracts
         }

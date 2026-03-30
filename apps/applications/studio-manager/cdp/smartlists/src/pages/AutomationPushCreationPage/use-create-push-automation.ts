@@ -2,26 +2,13 @@ import { useNavigate } from "react-router";
 
 import { toast } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind, EventKind } from "#src/api/constants";
+import { CommunicationKind } from "#src/api/constants";
 import { useCreateAutomatedCampaign } from "#src/api/use-create-automated-campaign";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
-import {
-  PUSH_AUTOMATION_EVENT_VALUES,
-  PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES,
-  type PushAutomationFormData,
-} from "./types";
-
-const mapTriggerLimitToMaxCommunicationsSentPerMember = (
-  triggerLimit: PushAutomationFormData["triggerLimit"],
-): number | null => {
-  if (triggerLimit === PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES.NO_LIMIT) {
-    return null;
-  }
-
-  return Number(triggerLimit);
-};
+import { pushAutomationFormDataToPayload } from "./mappers";
+import { type PushAutomationFormData } from "./types";
 
 export const useCreatePushAutomation = ({
   smartlistId,
@@ -37,6 +24,7 @@ export const useCreatePushAutomation = ({
         status: "positive",
         icon: "check",
         description: t("automation.push.toasts.success.created"),
+        buttonIcon: "x-close",
       });
       navigate(SMARTLIST_APP_LINKS.automation(smartlistId));
     },
@@ -45,6 +33,7 @@ export const useCreatePushAutomation = ({
         status: "critical",
         icon: "alert-circle",
         description: t("automation.push.toasts.error.createFailed"),
+        buttonIcon: "x-close",
       });
     },
   });
@@ -53,14 +42,7 @@ export const useCreatePushAutomation = ({
     await createAutomatedCampaign({
       smartlist: Number(smartlistId),
       communication_kind: CommunicationKind.PUSH,
-      event_kind:
-        data.eventKind === PUSH_AUTOMATION_EVENT_VALUES.ENTRY
-          ? EventKind.JOIN
-          : EventKind.LEAVE,
-      title: data.title,
-      text: data.message,
-      max_communications_sent_per_member:
-        mapTriggerLimitToMaxCommunicationsSentPerMember(data.triggerLimit),
+      ...pushAutomationFormDataToPayload(data),
     });
   };
 

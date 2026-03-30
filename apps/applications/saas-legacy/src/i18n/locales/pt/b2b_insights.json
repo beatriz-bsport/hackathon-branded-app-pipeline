@@ -10,7 +10,7 @@
             "title": "Agendamento"
         },
         "bookingInsight": {
-            "title": "Reservas e Passes de Aula"
+            "title": "Reservas e demanda"
         },
         "recurringRevenue": {
             "title": "Subscrições"
@@ -41,7 +41,7 @@
         "description": "Acompanhe as taxas de ocupação, a presença e a receita gerada nas suas aulas"
     },
     "monitorBookings": {
-        "title": "Reservas e Passes de Aula",
-        "description": "Acompanhar as reservas e a utilização de Passe de aula para otimizar a presença e a capacidade"
+        "title": "Reservas e demanda",
+        "description": "Explore a atividade de reservas, o comportamento do cliente e as tendências de demanda para tomar decisões de receita mais inteligentes"
     }
 }

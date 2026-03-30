@@ -82,7 +82,7 @@ export const LEGACY_URLS: LegacyUrls = {
 export const REVAMP_URLS_DEVELOPMENT = {
   activity: "/activity",
   insights: "/insights",
-  calendar: "/session",
+  calendar: "/calendar",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   giftcard: "/giftcard",
@@ -102,7 +102,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
 
 export const REVAMP_URLS_PRODUCTION = {
   insights: "/insights",
-  calendar: "/session",
+  calendar: "/calendar",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   homepage: REVAMP_URLS_DEVELOPMENT.homepage,

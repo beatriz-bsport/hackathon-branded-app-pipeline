@@ -18,7 +18,7 @@ RELEASE_NAME="release-${TODAY}-${CI_COMMIT_SHORT_SHA:-local}"
 echo "*"
 echo "⏳ Building Studio Manager applications ($RELEASE_NAME)"
 
-VITE_RELEASE_NAME=$RELEASE_NAME pnpm exec nx run-many --projects="$APPLICATIONS" --target=build
+pnpm exec nx run-many --projects="$APPLICATIONS" --target=build
 
 echo "✅ Success"
 echo "*"

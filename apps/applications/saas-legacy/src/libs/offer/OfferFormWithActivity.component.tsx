@@ -37,6 +37,7 @@ type Props = {
   showPartnership: boolean;
   tagList: Tag<TagGroup>[];
   timezone: string;
+  wellhubPartnershipId?: number | null;
   zoomAppDetail: ZoomApp;
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
@@ -71,6 +72,7 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   showPartnership,
   tagList,
   timezone,
+  wellhubPartnershipId,
   zoomAppDetail,
   createLevel,
   deleteLevel,
@@ -157,6 +159,7 @@ export const OfferFormWithActivity: React.FC<Props> = ({
       tagList={tagList}
       timezone={timezone}
       updateLevel={updateLevel}
+      wellhubPartnershipId={wellhubPartnershipId}
       zoomAppDetail={zoomAppDetail}
     />
   );

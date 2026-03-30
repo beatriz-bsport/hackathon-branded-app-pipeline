@@ -3,6 +3,7 @@ import { DateTime } from 'luxon';
 
 import { isDateTooFar } from '#src/libs/offer/utils';
 import { OFFER_RECURRENCE } from '#src/libs/offer/constants';
+import { PartnerSpotCappingStrategy } from '#src/libs/offer/types';
 
 const OfferFormCreateValidationSchema = Yup.object().shape({
   effectif: Yup.number()
@@ -188,6 +189,53 @@ const OfferFormCreateValidationSchema = Yup.object().shape({
           });
         }
         return true;
+      },
+    }),
+  partnershipOffers: Yup.array()
+    .of(
+      Yup.object().shape({
+        spot_limit: Yup.number()
+          .nullable()
+          .typeError('offer:form.errors.required')
+          .positive('offer:form.errors.positiveNumber'),
+      }),
+    )
+    .test({
+      name: 'partnershipOffersSpotLimits',
+      test: function partnershipOffersSpotLimits(value: any) {
+        const { partnerSpotCappingStrategy, effectif } = this.parent;
+        if (
+          partnerSpotCappingStrategy !== PartnerSpotCappingStrategy.PER_PARTNER
+        ) {
+          return true;
+        }
+        const offers: Array<{
+          allowed_on_partner: boolean;
+          spot_limit: number | null;
+        }> = value ?? [];
+        const innerErrors: Yup.ValidationError[] = [];
+        offers.forEach((po, idx) => {
+          if (!po.allowed_on_partner) return;
+          if (po.spot_limit == null) {
+            innerErrors.push(
+              new Yup.ValidationError(
+                'offer:form.errors.required',
+                po.spot_limit,
+                `${this.path}[${idx}].spot_limit`,
+              ),
+            );
+          } else if (po.spot_limit > (effectif ?? 0)) {
+            innerErrors.push(
+              new Yup.ValidationError(
+                'offer:form.errors.field.partnerSpotLimitExceedsEffectif',
+                po.spot_limit,
+                `${this.path}[${idx}].spot_limit`,
+              ),
+            );
+          }
+        });
+        if (innerErrors.length === 0) return true;
+        return new Yup.ValidationError(innerErrors as any, value, this.path);
       },
     }),
 });

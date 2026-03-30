@@ -129,10 +129,26 @@
         }
       }
     },
+    "messagePage": {
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "metadata": {
+        "headers": {
+          "trigger": "Trigger"
+        }
+      },
+      "recipients": {
+        "emptyTitle": "Nothing sent yet",
+        "emptyDescription": "Recipients who trigger the automation will appear here"
+      }
+    },
     "push": {
       "pageTitle": "Push Notification Campaign",
       "actions": {
-        "continue": "Continue"
+        "continue": "Continue",
+        "save": "Save"
       },
       "alert": {
         "onlyAppMembers": "Only members who have downloaded your studio app will receive this notification."
@@ -183,10 +199,12 @@
       },
       "toasts": {
         "success": {
-          "created": "Push automation created"
+          "created": "Push automation created",
+          "saved": "Push automation saved"
         },
         "error": {
-          "createFailed": "Push automation couldn't be created. Please try again."
+          "createFailed": "Push automation couldn't be created. Please try again.",
+          "updateFailed": "Push automation couldn't be updated. Please try again."
         }
       }
     }

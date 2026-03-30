@@ -49,7 +49,9 @@ export const GiftcardFormHOC = withFormik<OuterProps, GiftcardFormValues>({
       // Override with values of the initial object
       ...initial,
       // Transform data to fit Form usage and prefill numeric fields
-      price: initial.price ? Number(initial.price) : INITIAL_FORM_DATA.price,
+      price: initial.price
+        ? parseFloat(initial.price)
+        : INITIAL_FORM_DATA.price,
       max_price: initial.max_price ?? INITIAL_FORM_DATA.max_price,
       min_price: initial.min_price ?? INITIAL_FORM_DATA.min_price,
       expiration_days:

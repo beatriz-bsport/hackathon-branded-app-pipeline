@@ -1,6 +1,10 @@
 import { useMemo } from "react";
 
-import { Body, type GenericTableColumn } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  CopyToClipboard,
+  type GenericTableColumn,
+} from "@bsport/kaizen-primitive-core";
 
 import { AvatarWithName } from "#src/components/avatar-with-name";
 import { useTranslation } from "#src/utils/i18n";
@@ -86,8 +90,21 @@ export const useTableColumns = ({
       id: "giftcard-purchases-printable-code",
       header: t("purchases.table.columns.printableCode"),
       keyPath: "printableCode",
-      type: "string",
-      align: "start",
+      type: "custom",
+      render: (row) => {
+        if (row.printableCode == null) {
+          return <Body>{t("purchases.table.rows.typeDigital")}</Body>;
+        }
+        return (
+          <CopyToClipboard
+            label={row.printableCode}
+            color="default"
+            intent="flat"
+            size="md"
+          />
+        );
+      },
+      align: "center",
     };
 
     const columnValue: TableColumn = {

@@ -1,10 +1,10 @@
+import type { CommunicationKind, EventKind } from "@bsport/api-cdp";
+
 import type {
   BackgroundTaskStatus,
   CommunicationChannel,
-  CommunicationKind,
   CommunicationRecipientStatus,
   CommunicationStatus,
-  EventKind,
   TagRuleKind,
 } from "./constants";
 
@@ -22,33 +22,6 @@ export type Smartlist = {
 };
 
 /**
- * Automated Campaign type from the API
- * Endpoint: GET /api/v1/smartlist/automated_campaign/
- */
-export type AutomatedCampaign = {
-  id: number;
-  company: number;
-  smartlist: number;
-  event_kind: EventKind;
-  communication_kind: CommunicationKind;
-  text: string | null;
-  email_design: number | null;
-  title: string | null;
-  disabled: boolean;
-  date_created: string;
-  max_communications_sent_per_member: number | null;
-};
-
-export type CreateAutomatedCampaignParams = {
-  smartlist: number;
-  event_kind: EventKind;
-  communication_kind: CommunicationKind;
-  title: string;
-  text: string;
-  max_communications_sent_per_member: number | null;
-};
-
-/**
  * Get Popups from the API
  * Endpoint for lists: GET member-experience/v1/mobile_app/manager/custom_popup_links/
  * Endpoint for individual popups: GET member-experience/v1/mobile_app/manager/custom_popup_links/{id}
@@ -63,14 +36,6 @@ export type Popup = {
   smartlist_popup_id?: number;
   smartlist_id?: number;
   smartlist_name?: string;
-};
-
-/**
- * Query params for fetching automated campaigns
- */
-export type FetchAutomatedCampaignsParams = {
-  smartlist_id: string;
-  exclude_disabled?: boolean;
 };
 
 /**

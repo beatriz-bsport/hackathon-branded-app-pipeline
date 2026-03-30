@@ -43,9 +43,6 @@
   "peerDependencies": {
     "@tanstack/react-query": "^5.90.12"
   },
-  "peerDependencies": {
-    "@tanstack/react-query": "^5.90.12"
-  },
   "nx": {
     "tags": [
       "postinstall"

@@ -3,6 +3,7 @@ import {
   DEFAULT_SIGMA_LOCALE_BY_LANGUAGE,
   SUPPORTED_SIGMA_LOCALES,
 } from "./constants";
+import { SigmaEventData } from "./types";
 
 /**
  * Try to resolve the input languageCode to a supported Sigma language.
@@ -82,3 +83,16 @@ export function buildLocalizedIframeUrl({
     return `${baseIframeUrl}${separator}${params.toString()}`;
   }
 }
+
+/**
+ * Define a common pattern to create Error that are tracked afterwards on Sentry.
+ */
+export const buildSigmaError = ({ type, ...otherParams }: SigmaEventData) => {
+  let stringifiedParams = "";
+  try {
+    stringifiedParams = JSON.stringify(otherParams);
+  } catch {
+    // Skip - silent failure
+  }
+  return new Error(`[SIGMA][${type}] ${stringifiedParams}`);
+};

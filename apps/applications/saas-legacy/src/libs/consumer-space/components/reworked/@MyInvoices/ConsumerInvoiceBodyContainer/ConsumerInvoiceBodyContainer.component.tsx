@@ -28,7 +28,7 @@ type Props = {
   clearSelectedConsumerInvoice: () => void;
   handleChangePage: (page?: number) => void;
   getInvoice: (uuid: string) => Invoice;
-  payConsumerInvoice: (consumerInvoice: ConsumerInvoice) => void;
+  payConsumerInvoice?: (consumerInvoice: ConsumerInvoice) => void;
   seeInvoiceDetails: (consumerInvoice: ConsumerInvoice) => void;
 };
 

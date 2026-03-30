@@ -475,7 +475,12 @@
         "details": "Angaben zur Zahlung",
         "confirm": "Bestätigen",
         "addPaymentMethod": "Zahlungsmethode hinzufügen",
-        "backendProcessingInvoice": "Wir erstellen gerade deine Rechnung ..."
+        "backendProcessingInvoice": "Wir erstellen gerade deine Rechnung ...",
+        "onlinePaymentDisabled": {
+          "title": "Online-Zahlung nicht verfügbar",
+          "message": "Ihr Studio hat Online-Zahlungen deaktiviert. Bitte besuchen Sie uns vor Ort, um Ihre Rechnungen zu begleichen.",
+          "goBack": "Zurück"
+        }
       },
       "detailsCard": {
         "total": "Insgesamt",

@@ -6,17 +6,14 @@ import { useDebounce } from "@bsport/use-debounce";
 
 import { useFetchActivitiesByIds } from "#src/hooks/use-fetch-activities-by-ids";
 import { useSearchActivities } from "#src/hooks/use-search-activities";
-import {
-  selectSessionFilters,
-  useSessionListStore,
-} from "#src/stores/session-list";
+import { selectSessionFilters, useCalendarStore } from "#src/stores/calendar";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionFilterTypes, SessionFilters } from "./types";
 
 export const useActivityNameFilter = (): FilterField => {
   const { t } = useTranslation("sessionList");
-  const filters = useSessionListStore(selectSessionFilters);
+  const filters = useCalendarStore(selectSessionFilters);
 
   // Get persisted activity IDs from filters
   const [persistedActivityIds] = useState(() => {

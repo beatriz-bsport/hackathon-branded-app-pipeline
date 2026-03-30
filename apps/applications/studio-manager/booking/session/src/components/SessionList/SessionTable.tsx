@@ -2,8 +2,8 @@ import React, { memo, useMemo } from "react";
 
 import { Table, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
-import { selectSessionDisplayedColumns } from "#src/stores/session-list/selectors";
-import { useSessionListStore } from "#src/stores/session-list/store";
+import { selectSessionDisplayedColumns } from "#src/stores/calendar/selectors";
+import { useCalendarStore } from "#src/stores/calendar/store";
 import type { EnrichedSession, SessionColumns } from "#src/types";
 
 import { useSessionListColumns } from "./columns";
@@ -16,7 +16,7 @@ type SessionTableProps = {
 const SessionTable: React.FC<SessionTableProps> = ({
   sessions,
 }: SessionTableProps) => {
-  const displayedColumns = useSessionListStore(selectSessionDisplayedColumns);
+  const displayedColumns = useCalendarStore(selectSessionDisplayedColumns);
   const isMobile = !useMatchMedia("lg");
   const columns = useSessionListColumns(isMobile);
 

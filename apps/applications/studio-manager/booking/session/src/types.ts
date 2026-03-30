@@ -22,7 +22,26 @@ export type EnrichedSession = ManagerSession & {
   navigateToBookingsManagement?: (sessionId: number) => void;
 };
 
+// Only define the enrichment fields + minimal identifier for store/modal use
+// Will extend from /api-book in BOO-2327
+export interface EnrichedAppointment {
+  id: number;
+  teacherName: string;
+  teacherAvatar: string | null;
+  teacherInitials: string;
+  participantName: string;
+  amountOwed: number | null;
+  passUsedName: string;
+  establishmentName: string;
+  isRecurring: boolean;
+  isCancelled: boolean;
+}
+
 export type TableColumn = GenericTableColumn<EnrichedSession> & {
+  label: string;
+};
+
+export type AppointmentTableColumn = GenericTableColumn<EnrichedAppointment> & {
   label: string;
 };
 
@@ -37,6 +56,19 @@ export enum SessionColumns {
   ATTENDANCE = "attendance", // For mobile only, this column is grouped with actions column on desktop
   MOBILE_ACTIONS = "mobile_actions", // For mobile only, this column is grouped with actions column on desktop
 }
+
+export enum AppointmentColumn {
+  TIME = "time",
+  NAME = "name",
+  TEACHER = "teacher",
+  PARTICIPANT = "participant",
+  PASS_USED = "passUsed",
+  ESTABLISHMENT = "establishment",
+  TYPE = "type",
+  ACTIONS = "actions",
+}
+
+export type CalendarTab = "sessions" | "appointments";
 
 export enum CalendarView {
   DAILY = "daily",
@@ -54,7 +86,23 @@ export enum ModalType {
   DUPLICATE = "duplicate",
 }
 
-export type ModalState = { type: ModalType; session: EnrichedSession } | null;
+export enum AppointmentModalType {
+  CANCEL = "cancel_appointment",
+}
+
+export type ActivityModalState = {
+  tab: "sessions";
+  type: ModalType;
+  session: EnrichedSession;
+};
+
+export type AppointmentModalState = {
+  tab: "appointments";
+  type: AppointmentModalType;
+  appointment: EnrichedAppointment;
+};
+
+export type ModalState = ActivityModalState | AppointmentModalState | null;
 
 export type SafeEventError = {
   eventType: string;

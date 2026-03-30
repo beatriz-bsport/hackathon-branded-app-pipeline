@@ -27,8 +27,8 @@ import { getTeacherInitials } from "#src/utils/get-teacher-initials";
 import {
   selectSessionFilters,
   selectSessionShowCancelled,
-  useSessionListStore,
-} from "../stores/session-list";
+  useCalendarStore,
+} from "../stores/calendar";
 import type { EnrichedSession } from "../types";
 import { fetch } from "../utils/fetch";
 import {
@@ -212,12 +212,12 @@ export const useSessionListData = (
 ) => {
   const { minDateKey, maxDateKey } = extractDateRangeParams(params);
 
-  const filters = useSessionListStore(selectSessionFilters);
+  const filters = useCalendarStore(selectSessionFilters);
   const filterParams = getParamsFromFilters(filters);
 
   const { navigateToBookingsManagement } = useUrls();
 
-  const showCancelledSessions = useSessionListStore(selectSessionShowCancelled);
+  const showCancelledSessions = useCalendarStore(selectSessionShowCancelled);
   const hasShowCancelledSessionsPermission = useObjectLevelPermission(
     "planning.calendar.allowed_actions.readCancellations",
   );

@@ -12,8 +12,8 @@ import {
   selectCalendarView,
   selectSelectedDate,
   setSelectedDate,
-  useSessionListStore,
-} from "#src/stores/session-list";
+  useCalendarStore,
+} from "#src/stores/calendar";
 import { CalendarView, DateSelection } from "#src/types";
 import { isInRange } from "#src/utils/dates";
 
@@ -48,8 +48,8 @@ const getInitialDatePickerValue = (
 export const SessionDatePicker: React.FC = () => {
   const today = useToday();
 
-  const calendarView = useSessionListStore(selectCalendarView);
-  const selectedDate = useSessionListStore(selectSelectedDate);
+  const calendarView = useCalendarStore(selectCalendarView);
+  const selectedDate = useCalendarStore(selectSelectedDate);
   const [datePickerValue, setDatePickerValue] =
     useState<DatePickerSelectedDate>(
       getInitialDatePickerValue(selectedDate, today),

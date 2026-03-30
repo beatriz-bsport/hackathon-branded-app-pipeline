@@ -17,13 +17,13 @@ import {
   setCalendarView,
   setShowCancelled,
   toggleColumn,
-} from "#src/stores/session-list/actions";
+} from "#src/stores/calendar/actions";
 import {
   selectCalendarView,
   selectSessionDisplayedColumns,
   selectSessionShowCancelled,
-} from "#src/stores/session-list/selectors";
-import { useSessionListStore } from "#src/stores/session-list/store";
+} from "#src/stores/calendar/selectors";
+import { useCalendarStore } from "#src/stores/calendar/store";
 import { CalendarView, SessionColumns } from "#src/types";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
@@ -35,7 +35,7 @@ export const DisplaySettings: React.FC = () => {
   const { t } = useTranslation("sessionList");
   const isMobile = !useMatchMedia("lg");
   const columns = useSessionListColumns(isMobile);
-  const displayedColumns = useSessionListStore(selectSessionDisplayedColumns);
+  const displayedColumns = useCalendarStore(selectSessionDisplayedColumns);
   const hasShowCancelledSessionsPermission = useObjectLevelPermission(
     "planning.calendar.allowed_actions.readCancellations",
   );
@@ -51,7 +51,7 @@ export const DisplaySettings: React.FC = () => {
 
   const handleToggleColumn = (column: SessionColumns) => {
     const wasVisible = displayedColumns.includes(column);
-    toggleColumn(column);
+    toggleColumn("sessions", column);
     analyticsTrackSafeEvent(sessionListVisibleColumnsClickedEvent, {
       calendar_column_name: column,
       calendar_column_visibility: wasVisible ? "hidden" : "visible",
@@ -59,15 +59,15 @@ export const DisplaySettings: React.FC = () => {
   };
 
   const handleToggleShowCancelledSessions = (value: boolean) => {
-    setShowCancelled(value);
+    setShowCancelled("sessions", value);
     analyticsTrackSafeEvent(sessionListDisplayCancelledSessionClickedEvent, {
       cancelled_sessions_displayed: value,
     });
   };
 
-  const calendarView = useSessionListStore(selectCalendarView);
+  const calendarView = useCalendarStore(selectCalendarView);
 
-  const showCancelledSessions = useSessionListStore(selectSessionShowCancelled);
+  const showCancelledSessions = useCalendarStore(selectSessionShowCancelled);
 
   return (
     <div className="flex flex-col gap-lg max-w-[260px] p-xs">

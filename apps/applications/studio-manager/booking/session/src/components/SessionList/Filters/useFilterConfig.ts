@@ -9,8 +9,8 @@ import { sessionListFiltersChangedEvent } from "#src/events/session-list/events"
 import {
   selectSessionFilters,
   setFilters,
-  useSessionListStore,
-} from "#src/stores/session-list";
+  useCalendarStore,
+} from "#src/stores/calendar";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -30,7 +30,7 @@ import { useTeacherFilter } from "./use-teacher-filter";
 
 export const useFilterConfig = () => {
   const { t } = useTranslation("sessionList");
-  const filters = useSessionListStore(selectSessionFilters);
+  const filters = useCalendarStore(selectSessionFilters);
   const filterRef = useRef<{ resetFilters: () => void }>(null);
 
   const teacherFilter = useTeacherFilter();
@@ -47,7 +47,7 @@ export const useFilterConfig = () => {
     analyticsTrackSafeEvent(sessionListFiltersChangedEvent, {
       filters: newFilters,
     });
-    setFilters(newFilters);
+    setFilters("sessions", newFilters);
   }, []);
 
   const filterConfig: FilterProps = {

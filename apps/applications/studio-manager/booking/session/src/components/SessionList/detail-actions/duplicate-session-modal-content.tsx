@@ -17,7 +17,7 @@ import {
 } from "#src/helpers/recurrence/types";
 import { useCreateSession } from "#src/hooks/session-api/session-actions/use-create-session";
 import { useSessionPayload } from "#src/hooks/use-session-payload";
-import { closeModal } from "#src/stores/session-list";
+import { closeModal } from "#src/stores/calendar";
 import { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 

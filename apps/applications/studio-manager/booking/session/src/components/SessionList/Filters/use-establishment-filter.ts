@@ -6,17 +6,14 @@ import { useDebounce } from "@bsport/use-debounce";
 
 import { useSearchEstablishments } from "#src/hooks/use-search-establishments";
 import { useFetchEstablishments } from "#src/hooks/useFetchEstablishments";
-import {
-  selectSessionFilters,
-  useSessionListStore,
-} from "#src/stores/session-list";
+import { selectSessionFilters, useCalendarStore } from "#src/stores/calendar";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionFilterTypes, SessionFilters } from "./types";
 
 export const useEstablishmentFilter = (): FilterField => {
   const { t } = useTranslation("sessionList");
-  const filters = useSessionListStore(selectSessionFilters);
+  const filters = useCalendarStore(selectSessionFilters);
 
   // Get persisted establishment IDs from filters
   const [persistedEstablishmentIds] = useState(() => {

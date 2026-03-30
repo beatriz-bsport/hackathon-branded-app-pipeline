@@ -6,8 +6,8 @@ import {
   selectSessionDisplayedColumns,
   selectSessionFilters,
   selectSessionShowCancelled,
-  useSessionListStore,
-} from "#src/stores/session-list";
+  useCalendarStore,
+} from "#src/stores/calendar";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 
 /**
@@ -16,12 +16,12 @@ import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
  * This is why the useEffect has an empty dependency array, we only want to track the event once when the user lands on the page, and not every time the display settings change.
  */
 export const useTrackSessionListViewed = () => {
-  const displayed_columns = useSessionListStore(selectSessionDisplayedColumns);
-  const calendar_view = useSessionListStore(selectCalendarView);
-  const cancelled_sessions_displayed = useSessionListStore(
+  const displayed_columns = useCalendarStore(selectSessionDisplayedColumns);
+  const calendar_view = useCalendarStore(selectCalendarView);
+  const cancelled_sessions_displayed = useCalendarStore(
     selectSessionShowCancelled,
   );
-  const filters = useSessionListStore(selectSessionFilters);
+  const filters = useCalendarStore(selectSessionFilters);
 
   useEffect(() => {
     analyticsTrackSafeEvent(sessionListViewedEvent, {

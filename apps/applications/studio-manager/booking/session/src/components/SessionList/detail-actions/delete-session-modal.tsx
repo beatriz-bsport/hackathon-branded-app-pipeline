@@ -11,8 +11,8 @@ import { useDeleteSession } from "#src/hooks/session-api/session-actions/use-del
 import {
   closeModal,
   selectIsDeleteModalOpen,
-  useSessionListStore,
-} from "#src/stores/session-list";
+  useCalendarStore,
+} from "#src/stores/calendar";
 import { EnrichedSession } from "#src/types";
 import { TFunction, Trans, useTranslation } from "#src/utils/i18n";
 
@@ -24,7 +24,7 @@ export const DeleteSessionModal: FC<DeleteSessionModalProps> = ({
 }) => {
   const { t, i18n } = useTranslation("sessionList");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
-  const isOpen = useSessionListStore(selectIsDeleteModalOpen);
+  const isOpen = useCalendarStore(selectIsDeleteModalOpen);
 
   const [shouldDeleteFutureSessions, setShouldDeleteFutureSessions] =
     useState(false);

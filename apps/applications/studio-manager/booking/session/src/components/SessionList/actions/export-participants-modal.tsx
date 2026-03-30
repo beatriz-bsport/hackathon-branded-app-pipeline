@@ -16,8 +16,8 @@ import { useExportParticipantsList } from "#src/hooks/session-api/bulk-actions/u
 import {
   selectSelectedDate,
   selectSessionFilters,
-  useSessionListStore,
-} from "#src/stores/session-list";
+  useCalendarStore,
+} from "#src/stores/calendar";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -30,7 +30,7 @@ export const ExportParticipantsModal: FC<{
   const { t } = useTranslation("sessionList");
   const companyTimeZone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
-  const currentSelectedDate = useSessionListStore(selectSelectedDate);
+  const currentSelectedDate = useCalendarStore(selectSelectedDate);
 
   const defaultDatePickerValue =
     currentSelectedDate.type === "single"
@@ -55,7 +55,7 @@ export const ExportParticipantsModal: FC<{
   };
 
   const exportParticipantList = useExportParticipantsList();
-  const filters = useSessionListStore(selectSessionFilters);
+  const filters = useCalendarStore(selectSessionFilters);
   const getFormattedFilters = () => {
     if (!applyFilters) {
       return {};

@@ -76,7 +76,8 @@
     "1102": "Prämie für anwerbendes Mitglied verfügbar",
     "1200": "Erste Erinnerung zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarten)",
     "1201": "Zweite Erinnerung zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarten)",
-    "undefined": "Buchung für einen Gast (für Gast)"
+    "undefined": "Buchung für einen Gast (für Gast)",
+    "309": "Bestätigung des Double-Opt-in von Mitgliedern"
   },
   "tag": {
     "BookingOption": {
@@ -418,6 +419,7 @@
     "200": "Unter „Zahlungsmethoden“ kannst du bestimmen, wann du Erinnerungen zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarten) schicken möchtest.",
     "201": "Unter „Zahlungsmethoden“ kannst du bestimmen, wann du Erinnerungen zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarten) schicken möchtest.",
     "1200": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
-    "1201": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen"
+    "1201": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
+    "309": "Diese E-Mail wird an Mitglieder gesendet, um ihre Zustimmung zum Erhalt von Marketing-E-Mails zu bestätigen (Double-Opt-in). Um diese Funktion zu verwenden, aktiviere Double-Opt-in für Marketing-E-Mails unter Einstellungen > Personalisierung > Marketing."
   }
 }

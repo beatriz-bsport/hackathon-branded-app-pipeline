@@ -1,3 +1,5 @@
+import { queryOptions } from "@tanstack/react-query";
+
 import {
   type ApiConfig,
   type Fetch,
@@ -16,6 +18,18 @@ import { API_V1_URL } from "../constants";
 
 const API_URL_COACH = `${API_V1_URL}/coach`;
 const API_URL_ASSOCIATED_COACH = `${API_V1_URL}/associated_coach`;
+
+// TODO: Use the teacherKeys and TEACHERS_STALE_TIME in the react-query hooks to ensure consistency in query keys across the app
+const TEACHERS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
+export const teacherKeys = {
+  all: ["@api-core", "teacher"] as const,
+  list: (teacherIds: number[], params: FetchTeachersParams = {}) =>
+    [...teacherKeys.all, "list", teacherIds, params] as const,
+  detail: (teacherId: number) => [...teacherKeys.all, teacherId] as const,
+  search: (searchValue: string, params: FetchTeachersParams = {}) =>
+    [...teacherKeys.all, "search", searchValue, params] as const,
+} as const;
 
 const fetchTeachersAPIConfig = (
   params: PaginatedFetchTeachersParams | FetchTeachersParams,
@@ -135,3 +149,22 @@ export const linkTeacherByEmail = async (
 
   return data;
 };
+
+export const retrieveTeacher = async (
+  fetch: Fetch<Teacher>,
+  teacherId: number,
+): Promise<Teacher> => {
+  const { data } = await fetch(`${API_URL_ASSOCIATED_COACH}/${teacherId}/`);
+
+  return data;
+};
+
+export const retrieveTeacherQueryOptions = (
+  fetch: Fetch<Teacher>,
+  teacherId: number,
+) =>
+  queryOptions({
+    queryKey: teacherKeys.detail(teacherId),
+    queryFn: () => retrieveTeacher(fetch, teacherId),
+    staleTime: TEACHERS_STALE_TIME,
+  });

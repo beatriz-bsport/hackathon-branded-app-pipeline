@@ -1,6 +1,8 @@
-export type ErrorAndLoading = {
+import type { AxiosError } from 'axios';
+
+export type ErrorAndLoading<E = Error> = {
   loading: boolean;
-  error?: Error | null;
+  error?: E | null;
 };
 
 export type WithPagination = {
@@ -166,7 +168,7 @@ export type AuthState = {
   name: string;
   resetPassword: {
     last_password_reset_request: string | null;
-  } & ErrorAndLoading;
+  } & ErrorAndLoading<AxiosError>;
   role: number;
   token: string;
   username: string;

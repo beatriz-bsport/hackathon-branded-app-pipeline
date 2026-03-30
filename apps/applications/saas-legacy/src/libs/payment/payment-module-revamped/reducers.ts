@@ -12,8 +12,8 @@ import {
   setPaymentStatusActions,
   updateIntentToSavePaymentMethodActions,
 } from './actions';
-import { ErrorAndLoading } from '#src/libs/types';
-import { PaymentMethod } from '#src/libs/payment/types';
+import type { ErrorAndLoading } from '#src/libs/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
 
 export type PaymentModuleState = {
   applyBalanceToInvoice: {

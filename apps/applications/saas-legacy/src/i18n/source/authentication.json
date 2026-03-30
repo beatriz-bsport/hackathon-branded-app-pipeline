@@ -12,6 +12,8 @@
       "confirm": "Confirm"
     },
     "contactUs": "Contact us via ",
-    "hasProblem": "Are you experiencing issues resetting your password?"
+    "hasProblem": "Are you experiencing issues resetting your password?",
+    "error": "An error occurred. Please try again later.",
+    "errorCode": " (Error code: {{code}})"
   }
 }

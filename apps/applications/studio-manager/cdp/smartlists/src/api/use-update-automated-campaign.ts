@@ -1,38 +1,34 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
+  type AutomatedCampaign,
+  type UpdateAutomatedCampaignParams,
   automatedCampaignKeys,
-  createAutomatedCampaign,
-} from "@bsport/api-cdp";
-import type {
-  AutomatedCampaign,
-  CreateAutomatedCampaignParams,
+  updateAutomatedCampaign,
 } from "@bsport/api-cdp";
 
 import { fetch } from "#src/utils/fetch";
 
-import { smartlistKeys } from "./api";
-
-type UseCreateAutomatedCampaignParams = {
+type UseUpdateAutomatedCampaignParams = {
   onSuccess?: (data: AutomatedCampaign) => void;
   onError?: (error: Error) => void;
 };
 
-export function useCreateAutomatedCampaign({
+export function useUpdateAutomatedCampaign({
   onSuccess,
   onError,
-}: UseCreateAutomatedCampaignParams = {}) {
+}: UseUpdateAutomatedCampaignParams = {}) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (params: CreateAutomatedCampaignParams) =>
-      createAutomatedCampaign(fetch, params),
+    mutationFn: (params: UpdateAutomatedCampaignParams) =>
+      updateAutomatedCampaign(fetch, params),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: automatedCampaignKeys.list(String(data.smartlist)),
       });
       queryClient.invalidateQueries({
-        queryKey: smartlistKeys.detail(String(data.smartlist)),
+        queryKey: automatedCampaignKeys.detail(String(data.id)),
       });
       onSuccess?.(data);
     },
@@ -40,7 +36,7 @@ export function useCreateAutomatedCampaign({
   });
 
   return {
-    createAutomatedCampaign: mutation.mutateAsync,
-    isCreating: mutation.isPending,
+    updateAutomatedCampaign: mutation.mutateAsync,
+    isUpdating: mutation.isPending,
   } as const;
 }

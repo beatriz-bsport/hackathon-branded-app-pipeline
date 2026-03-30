@@ -1,14 +1,10 @@
-import { useQueryClient } from "@tanstack/react-query";
-
 import { toast } from "@bsport/kaizen-primitive-core";
 
-import { smartlistKeys } from "#src/api/api";
 import { useDeleteAutomatedCampaign } from "#src/api/use-delete-automated-campaign";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useTranslation } from "#src/utils/i18n";
 
 export const useDeleteAutomation = () => {
-  const queryClient = useQueryClient();
   const { navigateToSmartlistAutomation } = useSmartlistNavigation();
 
   const { t } = useTranslation("details");
@@ -16,10 +12,6 @@ export const useDeleteAutomation = () => {
   const { deleteAutomatedCampaign: deleteTrigger, isLoading: isDeleting } =
     useDeleteAutomatedCampaign({
       onSuccess: (_data, variables) => {
-        queryClient.invalidateQueries({
-          queryKey: smartlistKeys.automatedCampaigns(variables.smartlistId),
-        });
-
         toast({
           status: "default",
           icon: "trash-01",

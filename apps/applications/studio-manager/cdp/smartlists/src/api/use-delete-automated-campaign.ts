@@ -1,6 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { deleteAutomatedCampaign } from "./api";
+import {
+  automatedCampaignKeys,
+  deleteAutomatedCampaign,
+} from "@bsport/api-cdp";
+
+import { fetch } from "#src/utils/fetch";
 
 type DeleteAutomatedCampaignVariables = {
   id: number;
@@ -23,10 +28,17 @@ export function useDeleteAutomatedCampaign({
   onSuccess,
   onError,
 }: UseDeleteAutomatedCampaignParams = {}) {
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (params: DeleteAutomatedCampaignVariables) =>
-      deleteAutomatedCampaign(params.id),
-    onSuccess,
+      deleteAutomatedCampaign(fetch, params.id),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: automatedCampaignKeys.list(variables.smartlistId),
+      });
+      onSuccess?.(data, variables);
+    },
     onError,
   });
 

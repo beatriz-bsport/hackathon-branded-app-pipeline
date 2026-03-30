@@ -71,5 +71,16 @@ export const useSmartlistNavigation = () => {
         options,
       );
     },
+    navigateToSmartlistAutomationMessage: (
+      smartlistId: string,
+      channel: CampaignChannel,
+      messageId: string | number,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.automationMessage(smartlistId, channel, messageId),
+        options,
+      );
+    },
   };
 };

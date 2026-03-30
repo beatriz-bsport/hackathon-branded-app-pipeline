@@ -1,16 +1,13 @@
 import { useSuspenseQueries } from "@tanstack/react-query";
 
+import { automatedCampaignsQueryOptions } from "@bsport/api-cdp";
+import type { AutomatedCampaign } from "@bsport/api-cdp";
 import { PaginatedResponse } from "@bsport/store-base";
 
-import {
-  automatedCampaignsQueryOptions,
-  campaignSentListQueryOptions,
-} from "./api";
-import type {
-  AutomatedCampaign,
-  AutomatedCampaignWithAnalytics,
-  CampaignSent,
-} from "./types";
+import { fetch } from "#src/utils/fetch";
+
+import { campaignSentListQueryOptions } from "./api";
+import type { AutomatedCampaignWithAnalytics, CampaignSent } from "./types";
 
 /**
  * Combine function extracted for referential stability.
@@ -78,7 +75,7 @@ const combineAutomatedCampaignAnalytics = (
 export const useAutomatedCampaignAnalytics = (smartlistId: string) => {
   return useSuspenseQueries({
     queries: [
-      automatedCampaignsQueryOptions(smartlistId),
+      automatedCampaignsQueryOptions(fetch, smartlistId),
       campaignSentListQueryOptions({
         smartlist: Number(smartlistId),
         only_automated_campaign: true,

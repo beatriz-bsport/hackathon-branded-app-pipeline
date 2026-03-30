@@ -27,8 +27,7 @@ export const AutomationPushCreationPage = () => {
   const { id: smartlistId } = useParams<{ id: string }>();
   invariant(smartlistId, "Expected smartlist id param to be defined");
 
-  const { t } = useTranslation("details");
-  const { t: tList } = useTranslation("list");
+  const { t } = useTranslation();
 
   const { detailsLayoutProps } = useDetailsLayout();
 
@@ -45,7 +44,6 @@ export const AutomationPushCreationPage = () => {
     mode: "onBlur",
     schema: pushAutomationSchema,
     defaultValues: {
-      automationName: "",
       eventKind: PUSH_AUTOMATION_EVENT_VALUES.ENTRY,
       triggerLimit: PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES.NO_LIMIT,
       title: "",
@@ -65,7 +63,7 @@ export const AutomationPushCreationPage = () => {
         key="automation-push-create-button"
         color="main"
         intent="call-to-action"
-        label={t("automation.push.actions.continue")}
+        label={t("automation.push.actions.continue", { ns: "details" })}
         size="md"
         type="submit"
         form={formId}
@@ -76,7 +74,10 @@ export const AutomationPushCreationPage = () => {
 
   const breadcrumbsItems = [
     <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
-      <Breadcrumbs.Item id={ids.breadcrumbs.smartlists} text={tList("title")} />
+      <Breadcrumbs.Item
+        id={ids.breadcrumbs.smartlists}
+        text={t("title", { ns: "list" })}
+      />
     </Link>,
     <Link
       key="smartlist-detail-breadcrumb"
@@ -96,7 +97,7 @@ export const AutomationPushCreationPage = () => {
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
-        pageTitle={t("automation.push.pageTitle")}
+        pageTitle={t("automation.push.pageTitle", { ns: "details" })}
         endGroupActions={endGroupActions}
         BreadcrumbsItems={breadcrumbsItems}
       />

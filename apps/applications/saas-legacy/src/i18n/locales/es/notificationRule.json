@@ -92,7 +92,8 @@
     "1102": "Bonificación por referencia ( miembro referente)",
     "1200": "Primer recordatorio de vencimiento del método de pago para los pagos a plazos",
     "1201": "Segundo recordatorio de vencimiento del método de pago para los pagos a plazos",
-    "undefined": "Reserva para un invitado (para invitado)"
+    "undefined": "Reserva para un invitado (para invitado)",
+    "309": "Confirmación del doble opt-in de los miembros"
   },
   "tag": {
     "BookingOption": {
@@ -418,6 +419,7 @@
     "200": "Puede personalizar el número de días que se tienen en cuenta a la hora de enviar esta notificación en la sección Métodos de pago",
     "201": "Puede personalizar el número de días que se tienen en cuenta a la hora de enviar esta notificación en la sección Métodos de pago",
     "1200": "Puede personalizar el número de días que se tienen en cuenta a la hora de enviar esta notificación en la sección Formas de pago",
-    "1201": "Puede personalizar el número de días que se tienen en cuenta a la hora de enviar esta notificación en la sección Métodos de pago"
+    "1201": "Puede personalizar el número de días que se tienen en cuenta a la hora de enviar esta notificación en la sección Métodos de pago",
+    "309": "Este correo electrónico se envía a los miembros para confirmar su consentimiento para recibir correos de marketing (doble confirmación). Para usar esta función, activa la doble confirmación para los correos de marketing en Ajustes > Personalización > Marketing."
   }
 }

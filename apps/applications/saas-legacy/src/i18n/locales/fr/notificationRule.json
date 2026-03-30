@@ -337,7 +337,8 @@
     "1101": "Offre de parrainage disponible (membre parrainé)",
     "1102": "Récompense de parrainage disponible (parrain)",
     "1200": "Premier rappel d'expiration du mode de paiement pour les paiements échelonnés",
-    "1201": "Second rappel d'expiration du mode de paiement pour les paiements échelonnés"
+    "1201": "Second rappel d'expiration du mode de paiement pour les paiements échelonnés",
+    "309": "Confirmation du double opt-in des membres"
   },
   "franchise": {
     "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -417,6 +418,7 @@
     "200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement",
     "201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement",
     "1200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Moyens de paiement",
-    "1201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Moyens de paiement"
+    "1201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Moyens de paiement",
+    "309": "Cet e-mail est envoyé aux membres pour confirmer qu’ils acceptent de recevoir des e-mails marketing (double opt-in). Pour utiliser cette fonctionnalité, activez le double opt-in pour les e-mails marketing dans Paramètres > Personnalisation > Marketing."
   }
 }

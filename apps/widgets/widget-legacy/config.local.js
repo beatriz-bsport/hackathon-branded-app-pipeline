@@ -60,8 +60,8 @@ window.runtime.env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V0 =
 window.runtime.env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1 =
   'http://localhost:8000/api/v1';
 window.runtime.env.REACT_APP_UNLEASH_PROXY_URL =
-  'http://localhost:4242/api/frontend';
+  'https://unleash.tooling.bsport.io/api/frontend';
 window.runtime.env.REACT_APP_UNLEASH_CLIENT_KEY =
-  'default:development.unleash-insecure-frontend-api-token';
+  'default:development.33c0b79cf07ad244a1d63da1126b2306bc47f3c56f8f01637119d864';
 window.runtime.env.REACT_APP_RECAPTCHA_V2 =
   '6Lds67IZAAAAAFaPGpfl_ALgtV2t6Re63MBtCshi';

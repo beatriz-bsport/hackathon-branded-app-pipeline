@@ -4,7 +4,6 @@ import { i18nInstance } from "#src/utils/i18n";
 
 import {
   PUSH_AUTOMATION_EVENT_VALUES,
-  PUSH_AUTOMATION_MAX_AUTOMATION_NAME_LENGTH,
   PUSH_AUTOMATION_MAX_MESSAGE_LENGTH,
   PUSH_AUTOMATION_MAX_TITLE_LENGTH,
   PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES,
@@ -24,21 +23,6 @@ const pushAutomationTriggerLimitSchema = z.enum([
 ]);
 
 export const pushAutomationSchema = z.object({
-  automationName: z
-    .string()
-    .trim()
-    .min(
-      1,
-      i18nInstance.t("automation.push.form.automationName.required", {
-        ns: "sm-smartlists_details",
-      }),
-    )
-    .max(
-      PUSH_AUTOMATION_MAX_AUTOMATION_NAME_LENGTH,
-      i18nInstance.t("automation.push.form.automationName.maxLength", {
-        ns: "sm-smartlists_details",
-      }),
-    ),
   eventKind: pushAutomationEventSchema,
   triggerLimit: pushAutomationTriggerLimitSchema,
   title: z

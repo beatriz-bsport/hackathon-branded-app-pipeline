@@ -1,7 +1,11 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { automatedCampaignDetailQueryOptions } from "./api";
+import { automatedCampaignDetailQueryOptions } from "@bsport/api-cdp";
+
+import { fetch } from "#src/utils/fetch";
 
 export const useAutomatedCampaignDetailSuspenseQuery = (messageId: string) => {
-  return useSuspenseQuery(automatedCampaignDetailQueryOptions(messageId));
+  return useSuspenseQuery(
+    automatedCampaignDetailQueryOptions(fetch, messageId),
+  );
 };

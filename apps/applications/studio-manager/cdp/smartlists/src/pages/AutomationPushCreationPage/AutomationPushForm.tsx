@@ -23,7 +23,6 @@ import { useTranslation } from "#src/utils/i18n";
 import { CommunicationVariableSelector } from "./CommunicationVariableSelector";
 import {
   PUSH_AUTOMATION_EVENT_VALUES,
-  PUSH_AUTOMATION_MAX_AUTOMATION_NAME_LENGTH,
   PUSH_AUTOMATION_MAX_MESSAGE_LENGTH,
   PUSH_AUTOMATION_MAX_TITLE_LENGTH,
   PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES,
@@ -56,7 +55,6 @@ export const AutomationPushForm: React.FC<AutomationPushFormProps> = ({
   const formIdPrefix = useId();
   const ids = {
     fields: {
-      automationName: `${formIdPrefix}-field-automation-name`,
       condition: `${formIdPrefix}-field-condition`,
       limit: `${formIdPrefix}-field-limit`,
       title: `${formIdPrefix}-field-title`,
@@ -153,28 +151,6 @@ export const AutomationPushForm: React.FC<AutomationPushFormProps> = ({
         onSubmit={onSubmit}
         {...methods}
       >
-        <div className="flex flex-col gap-xs">
-          <FormField<PushAutomationFormData, "automationName">
-            name="automationName"
-            mapProps={({ defaultProps, form, field }) => ({
-              ...defaultProps,
-              onClear: () => {
-                form.setValue("automationName", "", { shouldDirty: true });
-                field.onBlur();
-              },
-            })}
-          >
-            <TextField
-              id={ids.fields.automationName}
-              label={t("automation.push.form.automationName.label")}
-              placeholder={t("automation.push.form.automationName.placeholder")}
-              required
-              fullWidth
-              maxLength={PUSH_AUTOMATION_MAX_AUTOMATION_NAME_LENGTH}
-            />
-          </FormField>
-        </div>
-
         <div className="flex flex-col gap-sm">
           <Title htmlVariant="h2" weight="strong">
             {t("automation.push.sections.delivery")}

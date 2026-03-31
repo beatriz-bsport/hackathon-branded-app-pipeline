@@ -1,0 +1,217 @@
+{
+  "modelName": {
+    "singular": "Gift Card",
+    "plural": "Cartões de Presente"
+  },
+  "createModal": {
+    "title": "Criar um novo Cartão de presente",
+    "buttons": {
+      "cancel": "Fechar",
+      "create": "Criar"
+    },
+    "submitResponse": {
+      "error": "Couldn't create Gift Card. Please try again.",
+      "success": "Successfully created Gift Card."
+    }
+  },
+  "details": {
+    "canNotFindGiftcard": {
+      "title": "Couldn't retrieve Gift Card.",
+      "goToListPage": "See Gift Cards"
+    },
+    "loading": "Loading Gift Card",
+    "header": {
+      "breadcrumbs": "Cartões de Presente",
+      "tabs": {
+        "editor": "Editor",
+        "purchases": "Compras"
+      }
+    }
+  },
+  "editor": {
+    "header": {
+      "archiveGiftcard": "Arquivar Cartão-presente",
+      "editGiftcardName": "Rename Gift Card"
+    },
+    "editNameModal": {
+      "title": "Rename Gift Card?",
+      "buttons": {
+        "cancel": "Anterior",
+        "rename": "Mudar o nome"
+      }
+    },
+    "submitResponse": {
+      "error": "Couldn't update Gift Card. Please try again.",
+      "success": "Successfully updated Gift Card."
+    },
+    "sharedGiftcardCanNotBeEdited": "This Gift Card was created on the Central Account and some fields cannot be edited."
+  },
+  "purchases": {
+    "status": {
+      "unclaimed": "Unclaimed",
+      "active": "Ativo",
+      "expired": "Expirada",
+      "cancelled": "Cancelar",
+      "redeemed": "Recolhido"
+    },
+    "loading": "Loading purchased Gift Cards...",
+    "emptyList": {
+      "title": "No Gift Cards sold yet",
+      "subtitle": "Once a member buys a Gift Card, they'll be displayed here."
+    },
+    "displaySettings": {
+      "visibleColumns": "Visible columns"
+    },
+    "table": {
+      "columns": {
+        "issueDate": "Data de emissão",
+        "status": "Estado",
+        "buyer": "Comprador",
+        "recipient": "Destinatário",
+        "expiryDate": "Expiry Date",
+        "value": "Valor",
+        "balance": "Saldo",
+        "printableCode": "Código"
+      },
+      "rows": {
+        "emptyRecipient": "Not claimed",
+        "unlimited": "Ilimitado",
+        "typeDigital": "Digital"
+      }
+    },
+    "detailDrawer": {
+      "navigation": {
+        "selectPreviousItem": "Selecionar item anterior",
+        "selectNextItem": "Selecione o próximo item"
+      },
+      "title": "Gift Card Details",
+      "downloadAsPdf": "Download Gift Card as a PDF",
+      "sectionDescription": {
+        "name": "Nome",
+        "id": "ID: {{ identifier }}",
+        "balance": "Saldo",
+        "validityPeriod": {
+          "label": "Validity period",
+          "unlimited": "Ilimitado",
+          "numberOfDays": "",
+          "numberOfDays_one": "{{ count }} Day",
+          "numberOfDays_other": "{{ count }} Days"
+        },
+        "type": {
+          "label": "Tipo",
+          "print": "Print",
+          "digital": "Digital"
+        },
+        "code": {
+          "label": "Código",
+          "tooltip": "Share the Gift Card code with members so they can use it for purchases"
+        }
+      },
+      "sectionBuyer": {
+        "title": "Comprador",
+        "name": "Nome",
+        "purchaseDate": "Data de compra",
+        "invoiceCard": {
+          "viewInvoiceButton": "View invoice",
+          "invoice": "Invoice {{ identifier }}",
+          "totalPrice": "Total: {{ price }}",
+          "invoiceStatus": {
+            "draft": "Projeto",
+            "open": "Abrir",
+            "paid": "Pago",
+            "voided": "Anulado",
+            "refunded": "Reembolsar"
+          }
+        }
+      },
+      "sectionRecipient": {
+        "title": "Destinatário",
+        "shareButton": "Partilhar",
+        "name": "Nome",
+        "sendingDate": "Sending date",
+        "activationDate": "Activation date",
+        "expirationDate": "Expira a"
+      },
+      "shareModal": {
+        "notSentYet": {
+          "title": "Share Gift Card",
+          "description": "Update the recipient list for future invitation email, add more addresses, or copy the activation link. The Gift Card can only be activated once."
+        },
+        "alreadySent": {
+          "title": "Invitation email already sent",
+          "description": "The activation email has already been sent to the addresses below. You can still copy the activation link to share it directly with recipients."
+        },
+        "alreadyActivated": {
+          "title": "Gift Card already shared",
+          "description": "The Gift Card has already been activated."
+        },
+        "copyActivationLinkButton": "Copy activation link",
+        "addRecipientEmail": {
+          "label": "Add recipient email",
+          "placeholder": "Add email...",
+          "incorrectFormat": "Incorrect email format",
+          "emailAlreadyExist": "This email is already in the recipient list"
+        },
+        "buttons": {
+          "close": "Fechar",
+          "save": "Guardar"
+        },
+        "toasts": {
+          "linkCopied": "Link copiado",
+          "invitationSent": "Recipient list updated",
+          "invitationSentFailed": "Failed to update recipient list"
+        }
+      }
+    }
+  },
+  "formFields": {
+    "errors": {
+      "fieldIsRequired": "Este campo é obrigatório.",
+      "errorMissingPaymentMethod": "Selecionar um método de pagamento"
+    },
+    "name": {
+      "label": "Nome",
+      "errorMaxLength": "O nome deve ter menos de {{ maxLength }} caracteres."
+    },
+    "description": {
+      "label": "Descrição"
+    },
+    "value": {
+      "label": "Valor",
+      "helperText": "Este também será o preço do cartão de presente"
+    },
+    "customValue": {
+      "toggle": {
+        "label": "Valor personalizado"
+      },
+      "minimumValue": {
+        "label": "Mínimo",
+        "helperText": "Insira um número inteiro de pelo menos 1"
+      },
+      "maximumValue": {
+        "label": "Máximo",
+        "helperText": "Digite um número inteiro até {{ maxPriceWithCurrency }}",
+        "limitExplanation": "Por que esse número?"
+      },
+      "minMaxError": "O preço máximo deve ser maior que o preço mínimo"
+    },
+    "expirationDays": {
+      "toggle": {
+        "label": "Definir período de validade"
+      },
+      "input": {
+        "label": "Dias válidos após ativação",
+        "suffixDays": "Dias"
+      }
+    },
+    "cover": {
+      "helperText": "Formato sugerido: 1280 x 720 pixels, tamanho do arquivo inferior a 2 MB",
+      "extensions": "JPG, PNG, SVG"
+    }
+  },
+  "sections": {
+    "pricing": "Pricing",
+    "visibility": "Disponibilidade para venda",
+    "advanced": "Avançado"
+  }
+}

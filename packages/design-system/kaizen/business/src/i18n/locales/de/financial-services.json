@@ -1,0 +1,33 @@
+{
+  "bookkeepingAccount": {
+    "selector": {
+      "label": "Buchhaltungskonto",
+      "noAccounts": "No account found",
+      "tax": "Sales Tax / VAT: {{ value }}%",
+      "clearSelection": "Clear selected account",
+      "placeholder": "Select an account",
+      "createAccount": "Create new account"
+    },
+    "createModal": {
+      "title": "Neues Konto erstellen",
+      "fieldRequired": "Field is required",
+      "fields": {
+        "accountNumber": "Kontonummer",
+        "accountName": "Kontoname",
+        "vatRate": "MwSt.-Satz"
+      },
+      "buttons": {
+        "close": "Schließen",
+        "save": "Speichern"
+      },
+      "success": "Account created",
+      "errors": {
+        "accountNameMustBeUnique": "Bookkeeping Account name already used. It must be unique.",
+        "generic": "An error occured."
+      }
+    }
+  },
+  "paymentMethod": {
+    "card": "Karte"
+  }
+}

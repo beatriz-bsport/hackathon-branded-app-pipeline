@@ -1,0 +1,23 @@
+{
+  "loading": "Chargement des détails de la session...",
+  "tabs": {
+    "editor": "Éditeur",
+    "overview": "Aperçu"
+  },
+  "header": {
+    "listedSessionChip": "Répertorié",
+    "unlistedSessionChip": "Non répertorié",
+    "cancelledSessionChip": "Annulé",
+    "subtitle": "{{date}}  ·  {{startTime}} – {{endTime}} ({{duration}}min)",
+    "subtitleMultiDay": "{{date}}  ·  {{startTime}} – {{duration}}",
+    "breadcrumbs": "Calendrier"
+  },
+  "table": {
+    "datetime": {
+      "shortDayIdentifier_one": "jour",
+      "shortDayIdentifier_other": "jours",
+      "shortHourIdentifier": "h",
+      "shortMinuteIdentifier": "min"
+    }
+  }
+}

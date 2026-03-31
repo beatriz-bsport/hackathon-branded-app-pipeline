@@ -1,1 +1,63 @@
-{}
+{
+  "searchMembers": {
+    "title": "Rechercher des profils",
+    "addMember": "Créer un profil",
+    "loading": "Chargement des résultats...",
+    "emptySearch": "Rechercher des contacts ou créer un nouveau profil",
+    "tagsTooltip": "Tags :",
+    "segments": {
+      "active": "actif",
+      "archived": "Archivé"
+    },
+    "copyToClipboard": {
+      "action": "Cliquez pour copier",
+      "copyEmail": "Copier l'email",
+      "copyPhone": "Copier le téléphone",
+      "toasts": {
+        "phoneNumberCopied": "Numéro de téléphone copié dans le presse-papiers",
+        "emailCopied": "L'email du membres a été copié dans votre presse-papiers"
+      }
+    }
+  },
+  "temporaryPassword": {
+    "title": "Mot de passe temporaire",
+    "description": "Vous pouvez générer et demander un mot de passe temporaire qui sera valable jusqu'à 1 semaine pour le partager avec notre équipe d'assistance pour obtenir de l'aide. Votre mot de passe principal et habituel ne sera pas affecté.",
+    "buttons": {
+      "close": "Fermer",
+      "generate": "Générer"
+    },
+    "generatedPassword": {
+      "copyToClipboard": "Copiez le mot de passe dans le presse-papiers",
+      "copiedToClipboard": "Mot de passe copié",
+      "validity": "Ce mot de passe est valable jusqu'à {{- expirationDate }}. Votre mot de passe principal n'a pas changé."
+    }
+  },
+  "attendance": {
+    "title": "Horloge de pointage",
+    "clockInForStaff": "PointerException",
+    "buttons": {
+      "close": "Fermer",
+      "clockIn": "Pointage",
+      "clockOut": "Déconnexion"
+    },
+    "initial": {
+      "welcome": "Bonjour {{ name }} !",
+      "clockInCTA": "Veuillez cliquer sur « Pointage » pour commencer ;"
+    },
+    "clockedIn": {
+      "successfulClockIn": "Vous avez pointé avec succès.",
+      "failedClockIn": "Vous êtes déjà pointé.",
+      "clockOutCTA": "Vous pouvez cliquer sur « Déconnexion » pour terminer."
+    },
+    "clockedOut": {
+      "successfulClockOut": "Vos horaires ont été enregistrés :",
+      "failedClockOut": "Échec de la déconnexion",
+      "nextIterationCTA": "Vous pouvez commencer un nouvel enregistrement de pointage la prochaine fois que vous ouvrez cette fenêtre."
+    },
+    "schedule": {
+      "arrivalTime": "Heure d'arrivée",
+      "departureTime": "Heure de départ",
+      "hoursWorked": "Heures travaillées"
+    }
+  }
+}

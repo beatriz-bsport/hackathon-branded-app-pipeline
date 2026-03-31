@@ -164,7 +164,7 @@
   "filters": {
     "1": {
       "name": "Dette",
-      "first": "Le solde du client, soustrait des factures impayées, est",
+      "first": "Le solde du compte du membre est (y compris les factures impayées)",
       "second": " à   ",
       "third": "{{ currencyDisplay }}",
       "explanation": "Segmenter les membres avec un certain montant sur le solde de leur compte",

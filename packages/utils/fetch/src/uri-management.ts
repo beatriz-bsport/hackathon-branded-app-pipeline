@@ -7,7 +7,7 @@ import {
 
 // ----- Constants -----
 
-const API_SUFFIX_FEATURE_BRANCH = "chaos.bsport.io";
+const FEATURE_BRANCH_API_SUFFIX = "chaos.bsport.io";
 
 const DEPLOYED_ENVIRONMENTS = [
   "dev",
@@ -24,11 +24,6 @@ export const MAP_ENV_TO_API_URL: Record<DeployedEnvironment | "local", string> =
     production: "https://api.production.bsport.io",
     local: "http://localhost:8000",
   } as const;
-
-export const LEGACY_API = {
-  v0: "api-v0",
-  v1: "api/v1",
-} as const;
 
 // ----- Helpers -----
 
@@ -55,37 +50,42 @@ const isEnvDeployedEnvironment = (
  * @param featureBranch Identifier of the feature branch
  */
 export const getApiFeatureBranchUrl = (featureBranch: string): string => {
-  return `https://api-${featureBranch}.chaos.bsport.io`;
+  return `https://api-${featureBranch}.${FEATURE_BRANCH_API_SUFFIX}`;
 };
 
-// ----- Core functions -----
-
-/**
- * For backend feature branch and local backend, by default only one Pod api is running.
- * For these cases, replace the domain prefix with api
- * -> if v0 (e.g. platform/v0) -> replace with api-v0
- * -> if v1 (e.g. platform/v1) -> replace with api/v1
- */
-export const getLegacyUri = (uri: string) => {
-  const cleanedUri = uri.startsWith("/") ? uri.slice(1, uri.length) : uri;
-  if (
-    cleanedUri.startsWith(LEGACY_API.v0) ||
-    cleanedUri.startsWith(LEGACY_API.v1)
-  ) {
-    // Nothing to change
-    return cleanedUri;
+const getRuntimeFetchEnvValue = (key: keyof RuntimeFetchEnv) => {
+  if (typeof window === "undefined") {
+    return undefined;
   }
 
-  // Parse the version: {domain}/{version}/...
-  const [version, ...otherParts] = cleanedUri.split("/").slice(1);
+  return window.runtimeBsport?.env?.[key] ?? window.runtime?.env?.[key];
+};
 
-  // Validate that we have a recognized version segment
-  if (!version || (version !== "v0" && version !== "v1")) {
-    console.warn(`Unexpected URI structure for local/feature API: ${uri}`);
-    return cleanedUri;
+export const getRuntimeAPIBaseUrl = () => {
+  const apiBaseUrl =
+    getRuntimeFetchEnvValue("VITE_API_BASE_URL") ??
+    getRuntimeFetchEnvValue("API_BASE_URL");
+
+  if (typeof apiBaseUrl !== "string") {
+    return undefined;
   }
 
-  return `${version === "v0" ? LEGACY_API.v0 : LEGACY_API.v1}/${otherParts.join("/")}`;
+  const normalizedApiBaseUrl = apiBaseUrl.trim();
+  return normalizedApiBaseUrl || undefined;
+};
+
+const normalizeRelativeUri = (uri: string) => {
+  return uri.startsWith("/") ? uri.slice(1) : uri;
+};
+
+const buildFullUriFromBaseUrl = ({
+  apiBaseUrl,
+  uri,
+}: {
+  apiBaseUrl: string;
+  uri: string;
+}) => {
+  return `${apiBaseUrl}/${normalizeRelativeUri(uri)}`;
 };
 
 /**
@@ -96,16 +96,21 @@ export function getFullUri(uri: string) {
     new URL(uri);
     return uri; // If parsing succeeds, it's a complete URL, return as is
   } catch (_) {
+    const runtimeApiBaseUrl = getRuntimeAPIBaseUrl();
+    if (runtimeApiBaseUrl) {
+      return buildFullUriFromBaseUrl({ apiBaseUrl: runtimeApiBaseUrl, uri });
+    }
+
     const env = getEnv();
 
     if (isEnvDeployedEnvironment(env)) {
       const apiBaseUrl = MAP_ENV_TO_API_URL[env];
-      return `${apiBaseUrl}/${uri}`;
+      return buildFullUriFromBaseUrl({ apiBaseUrl, uri });
     }
 
     if (env === "storybook") {
       const apiBaseUrl = MAP_ENV_TO_API_URL.dev;
-      return `${apiBaseUrl}/${uri}`;
+      return buildFullUriFromBaseUrl({ apiBaseUrl, uri });
     }
 
     if (isEnvFeatureBranch(env)) {
@@ -114,21 +119,11 @@ export function getFullUri(uri: string) {
         ? MAP_ENV_TO_API_URL.dev
         : getApiFeatureBranchUrl(env);
 
-      const versionizedUri = isFrontendOnly
-        ? uri // Aligned with dev
-        : getLegacyUri(uri);
-
-      return `${apiBaseUrl}/${versionizedUri}`;
+      return buildFullUriFromBaseUrl({ apiBaseUrl, uri });
     }
 
     const apiBaseUrl = getLocalAPIBaseUrl();
-    const isLegacyAPI =
-      apiBaseUrl.includes(API_SUFFIX_FEATURE_BRANCH) ||
-      apiBaseUrl.includes(MAP_ENV_TO_API_URL.local);
-
-    const versionizedUri = isLegacyAPI ? getLegacyUri(uri) : uri;
-
-    return `${apiBaseUrl}/${versionizedUri}`;
+    return buildFullUriFromBaseUrl({ apiBaseUrl, uri });
   }
 }
 

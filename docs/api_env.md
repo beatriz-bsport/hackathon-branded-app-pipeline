@@ -4,6 +4,20 @@
 
 The API env to target is decided by the `fetch` instance of an application, based on the `packages/utils/fetch` package.
 
+For `studio-manager`, there is now a first-class runtime override file as well: `env.js`.
+If `env.js` defines an explicit API base URL, it takes precedence over every other rule below.
+
+```js
+window.runtime = window.runtime || { env: {} };
+var env = window.runtime.env;
+
+env.VITE_API_BASE_URL = "http://localhost:8000";
+```
+
+- `VITE_API_BASE_URL`: explicit backend base URL to use.
+- `fetch` always keeps the request path exactly as declared by the frontend package or app.
+- `env.js` changes only the backend domain.
+
 ### Deployed environments
 
 When running on `dev`, `staging` or `production` (inferred from the runtime url), `fetch` enforces which backend to target.
@@ -27,7 +41,7 @@ where identifier is inferred from the url: `https://backoffice.theta.bsport.io` 
 
 ### Local
 
-`fetch` will rely on 2 items.
+If no explicit runtime API base URL is defined in `env.js`, `fetch` will rely on 2 items.
 
 The first one it looks at is the runtime window env variable `__API_ENV__`. If defined,
 
@@ -37,6 +51,35 @@ The first one it looks at is the runtime window env variable `__API_ENV__`. If d
 The second item, in case the first one is undefined, is its built-in env variable `VITE_API_BASE_URL`.
 
 ## How to target a specific backend locally ?
+
+### With `env.js`
+
+Every `studio-manager` app now exposes an external `env.js` file at runtime.
+If no `public/env.js` exists in the app, the federation config emits a deterministic neutral one during build and serves the same neutral content in dev.
+
+Reference files are stored in [`apps/applications/studio-manager/host/envs`](/Users/sofian/Projects/ichizen/apps/applications/studio-manager/host/envs).
+They only define `VITE_API_BASE_URL`.
+
+You can provide your own `public/env.js` to make the API target explicit:
+
+```js
+window.runtime = window.runtime || { env: {} };
+var env = window.runtime.env;
+
+env.VITE_API_BASE_URL = "http://localhost:8000";
+```
+
+This mechanism has higher priority than `__API_ENV__`, `API_ENV`, `env=...`, or the frontend hostname.
+
+### Build idempotency
+
+Production builds are now neutral regarding API configuration:
+
+- generated bundles do not embed the local `env` / `API_ENV` selection
+- generated `env.js` is empty by default unless you provide a real `public/env.js`
+- the intended deployment model is: build once, then replace only `env.js` per environment
+
+That means you can reuse the same build artifact between environments that target different backend domains, provided the environment-specific value is injected through the deployed `env.js`.
 
 ### With an inline variable
 
@@ -111,13 +154,14 @@ pnpm run -w api-environment:set -h
 ### Revamp apps
 
 1. Run `pnpm run dev` on a revamp application
-2. In the `vite.config` of the application, we define `__API_ENV__` variable in the global variables of the Vite application. The value will be
+2. The application loads `env.js` before boot. If that file defines `window.runtime.env.VITE_API_BASE_URL`, `fetch` uses it directly.
+3. If `env.js` does not define an explicit base URL, in the `vite.config` of the application we define `__API_ENV__` in the global variables of the Vite application. The value will be
    2.a the `env` value with the inline variable strategy.
    2.b else the `$API_ENV` value with the static variable strategy. If not defined, then it's empty.
-3. When running in development the Vite application, this global variable is injected in the global `window` of the browser.
-4. `fetch` can access it at runtime to define the right API url.
-5. If it's not defined, `fetch` will fallback to the value of `VITE_API_BASE_URL` that is an env variable directly injected in the bundle of the `fetch` package.
-6. If it's not defined, it fallbacks to `dev`.
+4. When running in development the Vite application, this global variable is injected in the global `window` of the browser.
+5. `fetch` can access it at runtime to define the right API url.
+6. If it's not defined, `fetch` will fallback to the value of `VITE_API_BASE_URL` that is an env variable directly injected in the bundle of the `fetch` package.
+7. If it's not defined, it fallbacks to `dev`.
 
 ### DevTools
 

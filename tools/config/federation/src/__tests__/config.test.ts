@@ -25,6 +25,9 @@ vi.mock("../translationsWatcherPlugin", () => ({
     .fn()
     .mockReturnValue({ name: "translations-watcher" }),
 }));
+vi.mock("../runtimeEnvPlugin", () => ({
+  runtimeEnvPlugin: vi.fn().mockReturnValue({ name: "runtime-env" }),
+}));
 
 type ConfigInput = Parameters<typeof getConfig>[0];
 
@@ -322,6 +325,7 @@ describe("getConfig", () => {
     );
     expect(prodVariables["__SENTRY_SCOPE_TAG__"]).toBe("sm-navigation-sidebar");
     expect(prodVariables["__BASENAME__"]).toBe("/studio/");
+    expect(prodConfig.define["__API_ENV__"]).toBe(JSON.stringify(""));
   });
 
   it("generates correct remotes configuration", () => {
@@ -418,14 +422,16 @@ describe("getConfig", () => {
     const { translationsWatcher } = await import(
       "../translationsWatcherPlugin"
     );
+    const { runtimeEnvPlugin } = await import("../runtimeEnvPlugin");
 
     // Verify all plugins are present
-    expect(config.plugins).toHaveLength(6);
+    expect(config.plugins).toHaveLength(7);
 
     // Verify each plugin is called once
     expect(nxViteTsPaths).toHaveBeenCalledOnce();
     expect(svgr).toHaveBeenCalledOnce();
     expect(react).toHaveBeenCalledOnce();
+    expect(runtimeEnvPlugin).toHaveBeenCalledOnce();
     expect(federation).toHaveBeenCalledOnce();
     expect(restart).toHaveBeenCalledOnce();
     expect(translationsWatcher).toHaveBeenCalledOnce();

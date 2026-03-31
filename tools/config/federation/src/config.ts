@@ -12,6 +12,7 @@ import restart from "vite-plugin-restart";
 import svgr from "vite-plugin-svgr";
 import { z } from "zod";
 
+import { runtimeEnvPlugin } from "./runtimeEnvPlugin.js";
 import { translationsWatcher } from "./translationsWatcherPlugin.js";
 
 export const AppTypesEnum = z.enum(
@@ -204,14 +205,15 @@ export const getConfig = (config: {
 
   /**
    * Define the env variable __API_ENV__
-   * => It will be accessible in dev mode in the runtime window, and used by all fetch instances locally.
+   * => It will be accessible in local modes in the runtime window, and used by all fetch instances locally.
    *
    * Retrieve the env name in the following order
    * 1. with inline env variable `env=...`: `env=dev pnpm run dev`
    * 2. with a predefined static env variable `API_ENV`
    */
   const fileEnv = loadEnv(mode, process.cwd(), "");
-  const apiEnv = fileEnv.env || fileEnv.API_ENV || "";
+  const apiEnv = isLocal ? fileEnv.env || fileEnv.API_ENV || "" : "";
+  const envScriptPath = `${base}env.js`;
 
   const define: NonNullable<UserConfig["define"]> = {
     [`__${namespace}__`]: JSON.stringify({
@@ -334,6 +336,10 @@ export const getConfig = (config: {
     nxViteTsPaths(),
     svgr(),
     react(),
+    runtimeEnvPlugin({
+      rootDir: config.rootDir,
+      envScriptPath,
+    }),
     federation(federationConfig),
     restart({
       restart: pathsToWatch,

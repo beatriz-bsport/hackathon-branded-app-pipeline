@@ -1,1 +1,30 @@
-{}
+{
+  "pageTitle": "Bestellungen",
+  "header": {
+    "searchTooltip": "Suche auf dieser Seite",
+    "filters": {
+      "operators": {
+        "is": "ist"
+      }
+    }
+  },
+  "table": {
+    "headers": {
+      "lastDateUpdated": "Zuletzt aktualisiert",
+      "buyer": "Käufer",
+      "orderStatus": "Status",
+      "quantity": "Menge",
+      "total": "Gesamtbetrag",
+      "dateCreated": "Erstellt"
+    },
+    "loading": "Bestellungen werden geladen ...",
+    "emptyState": {
+      "title": "Noch keine Bestellungen",
+      "emptyDatabase": "Sobald Kontakte Produkte aus deinem Shop kaufen, kannst du Bestellungen auf dieser Seite verfolgen und verwalten. ",
+      "emptySearch": "Derzeit sind keine Bestellungen mit dem Status {{ status }} markiert."
+    },
+    "rows": {
+      "memberArchived": "Archiviert"
+    }
+  }
+}

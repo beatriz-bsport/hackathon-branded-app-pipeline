@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { BILLING_INTERVALS } from "@bsport/api-buyables/contract";
+
 import { useTranslation } from "#src/utils/i18n";
 
 import { FIELD_CONSTRAINTS } from "./constants";
@@ -20,29 +22,62 @@ export function useContractFormSchema({
   const requiredErrorMessage = t("formFields.errors.fieldIsRequired");
 
   // Schema for both type of contracts
-  const baseSchema = z.object({
-    name: z
-      .string()
-      .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage)
-      .max(
-        FIELD_CONSTRAINTS.NAME_LENGTH_MAX,
-        t("formFields.name.errorMaxLength", {
-          maxLength: FIELD_CONSTRAINTS.NAME_LENGTH_MAX,
-        }),
-      ),
+  const billingCycleSchema = z.discriminatedUnion("hasCustomInterval", [
+    // Case 1: hasCustomInterval = false → month_billing_day required
+    z.object({
+      hasCustomInterval: z.literal(false),
+      month_billing_day: z
+        .number()
+        .int()
+        .min(FIELD_CONSTRAINTS.MONTH_DAY_MIN)
+        .max(FIELD_CONSTRAINTS.MONTH_DAY_MAX),
+      recurrence_basis: z.number(),
+    }),
 
-    description: z
-      .string()
-      .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage),
+    // Case 2: hasCustomInterval = true → min_price & max_price are required
+    z.object({
+      hasCustomInterval: z.literal(true),
+      month_billing_day: z.null(),
+      recurrence_basis: z
+        .number()
+        .int()
+        .min(FIELD_CONSTRAINTS.RECURRENCE_BASIS_MIN),
+    }),
+  ]);
+  const baseSchema = z
+    .object({
+      name: z
+        .string()
+        .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage)
+        .max(
+          FIELD_CONSTRAINTS.NAME_LENGTH_MAX,
+          t("formFields.name.errorMaxLength", {
+            maxLength: FIELD_CONSTRAINTS.NAME_LENGTH_MAX,
+          }),
+        ),
 
-    recurrent_price: z
-      .number({ required_error: requiredErrorMessage })
-      .min(FIELD_CONSTRAINTS.PRICE_MIN),
+      description: z
+        .string()
+        .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage),
 
-    flat_fee: z
-      .number({ required_error: requiredErrorMessage })
-      .min(FIELD_CONSTRAINTS.PRICE_MIN),
-  });
+      recurrent_price: z
+        .number({ required_error: requiredErrorMessage })
+        .min(FIELD_CONSTRAINTS.PRICE_MIN),
+
+      flat_fee: z
+        .number({ required_error: requiredErrorMessage })
+        .min(FIELD_CONSTRAINTS.PRICE_MIN),
+
+      interval: z.enum([
+        BILLING_INTERVALS.DAY,
+        BILLING_INTERVALS.WEEK,
+        BILLING_INTERVALS.MONTH,
+        BILLING_INTERVALS.YEAR,
+      ]),
+    })
+    .and(billingCycleSchema);
+
+  // ----- Revamped config -----
 
   const revampSubschema = z.object({
     // Revamp fields -> defined

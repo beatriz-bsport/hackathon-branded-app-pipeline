@@ -1,1 +1,226 @@
-{}
+{
+  "tabs": {
+    "parameters": "Filter",
+    "campaigns": "Kampagnen",
+    "automations": "Automations"
+  },
+  "actions": {
+    "createAutomation": "Create automation",
+    "createAutomationModal": {
+      "title": "Create a new automation",
+      "description": "Automations run once daily. Don’t want to wait? Use <audienceLink>Audience</audienceLink>",
+      "audienceLinkLabel": "Publikum",
+      "automationType": {
+        "selectLabel": "Select the automation you want to create:",
+        "automatedMessage": {
+          "title": "Automated Message",
+          "description": "Send messages once profiles enter or exit the defined filters"
+        },
+        "tagRule": {
+          "title": "Tag Rule",
+          "description": "Automatically tag users based on their actions"
+        }
+      },
+      "messageChannel": {
+        "selectLabel": "Select your desired communication channel to get started:",
+        "email": {
+          "title": "E-Mail",
+          "description": "Send a targeted email message to your smartlist"
+        },
+        "sms": {
+          "title": "SMS",
+          "description": "Send an SMS message to text your members"
+        },
+        "push": {
+          "title": "Push-Benachrichtigung",
+          "description": "Send your members a notification via your studio app"
+        }
+      }
+    }
+  },
+  "automation": {
+    "messages": {
+      "title": "Nachrichten",
+      "description": "These messages send once profiles enter or exit the defined filters.",
+      "emptyState": "No automated messages yet",
+      "columns": {
+        "createdOn": "Created on",
+        "condition": "Bedingung",
+        "analytics": "Analysen",
+        "recipients": "Empfänger",
+        "opens": "Opens",
+        "clicks": "Klicks"
+      },
+      "conditions": {
+        "onJoin": "When member enters Smartlist",
+        "onLeave": "When member leaves Smartlist"
+      },
+      "channels": {
+        "email": "E-Mail",
+        "sms": "SMS",
+        "push": "Push"
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen",
+        "export": "Exportieren"
+      },
+      "deleteModal": {
+        "title": "Delete automation?",
+        "description": "Any members who haven't received this message yet won't receive it.",
+        "buttons": {
+          "delete": "Löschen",
+          "cancel": "Abbrechen"
+        }
+      },
+      "toasts": {
+        "success": {
+          "deleted": "Automation message deleted",
+          "exported": "Campaign export downloaded"
+        },
+        "error": {
+          "deleteFailed": "Automation couldn't be deleted. Please try again.",
+          "exportFailed": "Campaign export failed. Please try again."
+        },
+        "info": {
+          "exportPending": "Generating campaign export…"
+        }
+      }
+    },
+    "tagRules": {
+      "title": "Tag rules",
+      "description": "These tag rules apply or remove tags when profiles enter or exit the defined filters.",
+      "emptyState": "No tag rules yet",
+      "columns": {
+        "createdOn": "Created on",
+        "condition": "Bedingung",
+        "tag": "Tag"
+      },
+      "conditions": {
+        "joins": {
+          "text": "Customer joins Smartlist"
+        },
+        "present": {
+          "text": "Customer is present in Smartlist"
+        },
+        "leaves": {
+          "text": "Customer leaves Smartlist"
+        }
+      },
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen",
+        "menu": "Actions menu"
+      },
+      "deleteModal": {
+        "title": "Delete tag rule?",
+        "description": "This tag rule for {{tagGroupName}} \"{{tagName}}\" will be permanently removed.",
+        "buttons": {
+          "delete": "Löschen",
+          "cancel": "Abbrechen"
+        }
+      },
+      "toasts": {
+        "success": {
+          "deleted": "Tag rule deleted"
+        },
+        "error": {
+          "deleteFailed": "Tag rule couldn't be deleted. Please try again."
+        }
+      }
+    },
+    "messagePage": {
+      "actions": {
+        "edit": "Bearbeiten",
+        "delete": "Löschen"
+      },
+      "metadata": {
+        "headers": {
+          "trigger": "Auslöser"
+        }
+      },
+      "recipients": {
+        "emptyTitle": "Nothing sent yet",
+        "emptyDescription": "Recipients who trigger the automation will appear here"
+      }
+    },
+    "push": {
+      "pageTitle": "Push Notification Campaign",
+      "actions": {
+        "continue": "folgen",
+        "save": "Speichern"
+      },
+      "alert": {
+        "onlyAppMembers": "Only members who have downloaded your studio app will receive this notification."
+      },
+      "sections": {
+        "delivery": "Delivery",
+        "message": "Nachricht",
+        "preview": "Vorschau der E-Mail"
+      },
+      "preview": {
+        "noContentMessage": "Fill in the title and content to see a preview"
+      },
+      "form": {
+        "automationName": {
+          "label": "Automation name",
+          "placeholder": "Spring Reset Yoga Series",
+          "required": "Add an automation name",
+          "maxLength": "Automation name must be under 150 characters"
+        },
+        "condition": {
+          "label": "When should this automated message send",
+          "options": {
+            "entry": "Entry to Smartlist",
+            "exit": "Exit from Smartlist"
+          }
+        },
+        "triggerLimit": {
+          "label": "How many times should this automation be triggered for the same person?",
+          "options": {
+            "noLimit": "No limit (default)",
+            "once": "1 time",
+            "twice": "2 times",
+            "threeTimes": "3 times"
+          }
+        },
+        "title": {
+          "label": "Titel",
+          "placeholder": "",
+          "required": "Add a title",
+          "maxLength": "Title must be under 25 characters"
+        },
+        "message": {
+          "label": "Inhalt",
+          "placeholder": "",
+          "required": "Add a message",
+          "maxLength": "Message must be under 200 characters"
+        }
+      },
+      "toasts": {
+        "success": {
+          "created": "Push automation created",
+          "saved": "Push automation saved"
+        },
+        "error": {
+          "createFailed": "Push automation couldn't be created. Please try again.",
+          "updateFailed": "Push automation couldn't be updated. Please try again."
+        }
+      }
+    }
+  },
+  "error": {
+    "notFound": {
+      "title": "Smartlist not found",
+      "subtitle": "",
+      "description": "The smartlist you're looking for doesn't exist or may have been deleted.",
+      "backToListLabel": "Back to smartlists"
+    },
+    "serverError": {
+      "title": "Something went wrong",
+      "subtitle": "",
+      "description": "We couldn't load this smartlist. Please try again.",
+      "retryLabel": "Noch ein Mal versuchen"
+    }
+  }
+}

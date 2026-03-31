@@ -37,7 +37,6 @@
       "duplicated": "Smartlist dupliquée",
       "open": "Ouvrir",
       "saved": "Smartlist mise à jour",
-      "created": "Smartlist créée",
       "deleted": "Smartlist supprimée",
       "undo": "Annuler",
       "actionUndone": "Modification annulée"
@@ -48,7 +47,7 @@
       "createFailed": "La Smartlist n'a pas pu être créée. Veuillez réessayer. ",
       "deleteFailed": "La Smartlist n'a pas pu être supprimée. Veuillez réessayer. ",
       "deleteError": {
-        "101000": "Impossible de dupliquer la Smartlist, veuillez réessayer.",
+        "101000": "La Smartlist n'a pas pu être dupliquée. Veuillez réessayer.",
         "101001": "La Smartlist n'a pas pu être supprimée car elle est actuellement utilisée dans des communications actives. Veuillez la retirer des communications ou contacter le support pour obtenir de l'aide. ",
         "101002": "La Smartlist n'a pas pu être supprimée car elle est utilisée dans des workflows Audience actifs. Veuillez vous rendre sur la page Audience pour la retirer du workflow associé. "
       }
@@ -66,7 +65,6 @@
   },
   "createForm": {
     "title": "Créer une Smartlist",
-    "subtitle": "Ajouter un nom et une description à cette Smartlist afin de pouvoir la retrouver plus tard.",
     "actions": {
       "create": "Créer",
       "cancel": "Fermer"
@@ -87,12 +85,10 @@
     },
     "actions": {
       "save": "Valider",
-      "cancel": "Fermer",
-      "create": "Créer"
+      "cancel": "Fermer"
     },
     "title": {
-      "edit": "Modifier la Smartlist",
-      "add": "Créer une Smartlist"
+      "edit": "Modifier la Smartlist"
     }
   }
 }

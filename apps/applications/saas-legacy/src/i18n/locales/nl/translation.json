@@ -1075,7 +1075,7 @@
       },
       "autoDiscard": {
         "hours_before_start": "Aantal uur voor het begin van de sessie:",
-        "explain": "Lessen met minder dan 1 boeking worden 1 uur voor aanvang geannuleerd. Leden krijgen bericht dat de les is geannuleerd.",
+        "explain": "Activiteiten met {{bookings_nb}} boeking(en) of minder worden {{hours}} uur voor aanvang geannuleerd. Leden worden geïnformeerd dat de sessie is geannuleerd.",
         "checkbox": "Automatisch ondergeboekte lessen annuleren",
         "emailRecipients": "Als een klas automatisch geannuleerd wordt, wordt er een e-mail gestuurd naar de eigenaar, beheerder en leraar van de klas en naar de leerlingen.",
         "min_bookings_nb": "Aantal reserveringen:"

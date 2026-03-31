@@ -4,7 +4,7 @@
   },
   "breadcrumbs": {
     "rootPage": "Modèles d'email",
-    "customPage": "Modèles personnalisés"
+    "customPage": "Personnalisée"
   },
   "details": {
     "defaultTitle": "Modèles sans titre",
@@ -13,7 +13,8 @@
     },
     "actions": {
       "saveChanges": "Enregistrer les modifications",
-      "discardChanges": "Annuler"
+      "discardChanges": "Annuler",
+      "exportHtml": "Exportez en HTML"
     },
     "hover": {
       "exportHtml": "Exporter le modèle en HTML",
@@ -23,7 +24,7 @@
     "bsportTemplateInfo": {
       "title": "Modèles bsport",
       "description": {
-        "firstStep": "Dupliquez le modèle que vous souhaitez utiliser, puis modifiez et envoyez la version copiée aux membres directement depuis cette page. ",
+        "firstStep": "Dupliquez le modèle que vous souhaitez utiliser, puis modifiez et envoyez la version copiée à vos contacts.",
         "secondStep": "Ensuite, sélectionnez la copie de l'email lors de l'envoi d'une communication."
       },
       "quit": "Quitter"
@@ -31,20 +32,20 @@
     "renameTemplateModal": {
       "title": "Renommer le modèle d'email",
       "textInput": {
-        "label": "Nom du modèle",
-        "placeholder": "Ajouter un nom du modèle"
+        "label": "Nom",
+        "placeholder": "Donnez un nom à votre modèle"
       },
       "confirmButton": "Renommer",
-      "cancelButton": "Annuler",
+      "cancelButton": "Fermer",
       "onSuccess": {
         "title": "Modèle renommé",
         "action": "Annuler"
       },
       "onFailure": {
-        "title": "Une erreur s'est produite lors du renommage de votre modèle."
+        "title": "Impossible de renommer le modèle - veuillez réessayer"
       },
       "errors": {
-        "notProvided": "Veuillez remplir ce champ.",
+        "notProvided": "Ceci est requis pour continuer",
         "tooLong": "Le titre est trop long"
       }
     }
@@ -55,30 +56,30 @@
       "title": "Modèle d'email enregistré"
     },
     "error": {
-      "missingFields": "Certains champs obligatoires sont manquants",
-      "problemWhileSaving": "Il y a eu un problème lors de l'enregistrement de vos modifications."
+      "missingFields": "Impossible d'enregistrer vos modifications : ",
+      "problemWhileSaving": "Impossible d'enregistrer les modifications. Veuillez réessayer"
     }
   },
   "leaveConfirmationModal": {
     "description": "Êtes-vous sûr de vouloir quitter cette page ?",
     "confirmButton": "OK",
-    "cancelButton": "Annuler"
+    "cancelButton": "Fermer"
   },
   "templateSubject": {
     "label": "Objet de l'email",
     "placeholder": "Ajouter un objet d'email",
     "error": {
-      "notProvided": "Veuillez remplir ce champ.",
-      "tooLong": "Le sujet est trop long"
+      "notProvided": "Ajoutez un objet d'email pour enregistrer votre modèle",
+      "tooLong": "Sujet de l'email trop long"
     }
   },
   "templateDesign": {
     "error": {
-      "notProvided": "Aucun modèle de conception fourni"
+      "notProvided": "Ajoutez du contenu à votre modèle d'e-mail pour pouvoir l'enregistrer"
     }
   },
   "templateCategory": {
     "label": "Catégorie",
-    "noCategory": "Sélectionner une catégorie"
+    "noCategory": "Sans catégorie"
   }
 }

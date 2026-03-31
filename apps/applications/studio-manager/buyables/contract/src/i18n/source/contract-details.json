@@ -24,7 +24,21 @@
     },
     "description": {
       "label": "Description"
+    },
+    "tax": {
+      "label": "Sales / VAT"
+    },
+    "joinFee": {
+      "label": "Join fee",
+      "helperText": "Joining fee will be included in the first invoice"
+    },
+    "recurringAmount": {
+      "label": "Recurring amount",
+      "helperText": "Tax included"
     }
+  },
+  "formSections": {
+    "price": "Price"
   },
   "editor": {
     "submit": {

@@ -23,22 +23,38 @@ export function useContractFormSchema({
   const baseSchema = z.object({
     name: z
       .string()
-      .min(FIELD_CONSTRAINTS.TEXTFIELD_MIN_LENGTH, requiredErrorMessage)
+      .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage)
       .max(
-        FIELD_CONSTRAINTS.NAME_MAX_LENGTH,
+        FIELD_CONSTRAINTS.NAME_LENGTH_MAX,
         t("formFields.name.errorMaxLength", {
-          maxLength: FIELD_CONSTRAINTS.NAME_MAX_LENGTH,
+          maxLength: FIELD_CONSTRAINTS.NAME_LENGTH_MAX,
         }),
       ),
 
     description: z
       .string()
-      .min(FIELD_CONSTRAINTS.TEXTFIELD_MIN_LENGTH, requiredErrorMessage),
+      .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage),
+
+    recurrent_price: z
+      .number({ required_error: requiredErrorMessage })
+      .min(FIELD_CONSTRAINTS.PRICE_MIN),
+
+    flat_fee: z
+      .number({ required_error: requiredErrorMessage })
+      .min(FIELD_CONSTRAINTS.PRICE_MIN),
   });
 
   const revampSubschema = z.object({
     // Revamp fields -> defined
-    payment_pack_details: z.number().nullable(),
+    payment_pack_details: z
+      .object({
+        bookkeeping_account_id: z.number().nullable(),
+        tax: z
+          .number()
+          .min(FIELD_CONSTRAINTS.TAX_RATE_MIN)
+          .max(FIELD_CONSTRAINTS.TAX_RATE_MAX),
+      })
+      .nullable(),
 
     // Legacy fields -> nullished
     payment_pack: z.null(),

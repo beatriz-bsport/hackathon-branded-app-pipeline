@@ -41,6 +41,7 @@
     "vite": "^5.4.11"
   },
   "peerDependencies": {
+    "@bsport/currency": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",

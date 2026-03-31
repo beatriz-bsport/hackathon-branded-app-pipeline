@@ -1,0 +1,33 @@
+{
+  "bookkeepingAccount": {
+    "selector": {
+      "label": "Boekhoudrekening",
+      "noAccounts": "No account found",
+      "tax": "Sales Tax / VAT: {{ value }}%",
+      "clearSelection": "Clear selected account",
+      "placeholder": "Select an account",
+      "createAccount": "Create new account"
+    },
+    "createModal": {
+      "title": "Een nieuw account aanmaken",
+      "fieldRequired": "Field is required",
+      "fields": {
+        "accountNumber": "Account nummer",
+        "accountName": "Account naam",
+        "vatRate": "btw-percentage"
+      },
+      "buttons": {
+        "close": "Sluiten",
+        "save": "Opslaan"
+      },
+      "success": "Account created",
+      "errors": {
+        "accountNameMustBeUnique": "Bookkeeping Account name already used. It must be unique.",
+        "generic": "An error occured."
+      }
+    }
+  },
+  "paymentMethod": {
+    "card": "Kaart"
+  }
+}

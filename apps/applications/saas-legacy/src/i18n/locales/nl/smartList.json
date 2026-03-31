@@ -153,7 +153,7 @@
       "second": " -   ",
       "third": "{{ currencyDisplay }}",
       "explanation": "Segmenteer leden met een bepaald bedrag op hun rekening",
-      "first": "Leden met een interne rekening (Wallet) t.w.v.",
+      "first": "Het saldo van het account van het lid is (inclusief onbetaalde facturen)",
       "name": "Interne rekening (Wallet)",
       "between": "en"
     },

@@ -1,0 +1,23 @@
+{
+  "loading": "Sessiedetails laden...",
+  "tabs": {
+    "editor": "Editor",
+    "overview": "Overzicht"
+  },
+  "header": {
+    "listedSessionChip": "Vermeld",
+    "unlistedSessionChip": "Niet vermeld",
+    "cancelledSessionChip": "Geannuleerd",
+    "subtitle": "{{date}}  ·  {{startTime}} – {{endTime}} ({{duration}}min)",
+    "subtitleMultiDay": "{{date}}  ·  {{startTime}} – {{duration}}",
+    "breadcrumbs": "Agenda"
+  },
+  "table": {
+    "datetime": {
+      "shortDayIdentifier_one": "dag",
+      "shortDayIdentifier_other": "dagen",
+      "shortHourIdentifier": "u",
+      "shortMinuteIdentifier": "min"
+    }
+  }
+}

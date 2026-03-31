@@ -1,1 +1,186 @@
-{}
+{
+  "modelName": {
+    "singular": "Pacchetto combinato",
+    "plural": "Pacchetti"
+  },
+  "createModal": {
+    "title": "Crea un nuovo pacchetto",
+    "buttons": {
+      "create": "Crea",
+      "cancel": "Chiudi"
+    },
+    "failToCreate": "Impossibile creare il pacchetto. Riprova. "
+  },
+  "detailsPage": {
+    "packsBreadcrumbs": "Pacchetti",
+    "loading": "Pacchetto in caricamento",
+    "canNotFindPack": "Pacchetto non trovato",
+    "buttons": {
+      "renamePack": "Rename pack",
+      "deletePack": "Elimina pacchetto combinato"
+    },
+    "updatePack": {
+      "failToUpdate": "Impossibile aggiornare il pacchetto. Riprova. ",
+      "success": "Aggiornato con successo"
+    },
+    "tabs": {
+      "overview": "Acquisti",
+      "editor": "Editor"
+    }
+  },
+  "overviewPage": {
+    "loading": "Caricamento pacchetti venduti",
+    "emptyList": {
+      "title": "Nessun pacchetto venduto ancora",
+      "subtitle": "Una volta che un membro acquista un pacchetto, verrà mostrato qui."
+    },
+    "table": {
+      "columns": {
+        "issueDate": "Data di acquisto",
+        "buyer": "Acquirente",
+        "value": "Valore"
+      },
+      "actions": {
+        "openPrefix": "Apri...",
+        "invoice": "Ricevuta",
+        "memberProfile": "Apri il profilo cliente"
+      },
+      "errors": {
+        "failToGetInvoice": "Couldn't access related invoice. Please try again. "
+      }
+    }
+  },
+  "addItemsModal": {
+    "title": "Aggiungi elementi",
+    "buttons": {
+      "cancel": "Chiudi",
+      "save": "Salva"
+    },
+    "breadcrumbs": {
+      "appointmentPassCategories": "Categorie di pass per appuntamenti",
+      "passCategories": "Categorie di pass",
+      "webshopItemCategories": "Categorie di prodotto"
+    },
+    "categories": {
+      "open": "Apri categoria"
+    },
+    "items": {
+      "webshopItem": {
+        "size": "Taglia {{ size }}"
+      },
+      "tooltips": {
+        "credits": "Crediti",
+        "price": "Importo",
+        "unavailableForMember": "Non in elenco",
+        "invisibleToStaff": "Nascosto",
+        "category": "Categoria"
+      }
+    },
+    "selectedItems": {
+      "show": "Mostra gli articoli selezionati",
+      "hide": "Nascondi gli elementi selezionati",
+      "removeItem": "Rimuovi elemento"
+    },
+    "noCategories": "Nessuna categoria"
+  },
+  "formFields": {
+    "name": {
+      "label": "Nome",
+      "helperText": "Limitato a {{ maxLength }} caratteri ({{ length }}/{{ maxLength }})",
+      "errorMaxLength": "Il nome deve essere inferiore a 200 caratteri"
+    },
+    "description": {
+      "label": "Descrizione",
+      "helperText": "Limitato a {{ maxLength }} caratteri ({{ length }}/{{ maxLength }})",
+      "errorMaxLength": "La descrizione deve essere inferiore a 2000 caratteri"
+    },
+    "packContent": {
+      "title": "Contenuti",
+      "description": "Aggiungi un pass, un pass per appuntamenti o un prodotto per creare il tuo pacchetto",
+      "card": {
+        "placeholder": "Aggiungi almeno un elemento al tuo pacchetto"
+      },
+      "itemVariants": {
+        "passes": "Pass",
+        "appointmentPasses": "Pass Per Appuntamenti",
+        "webshopItems": "Prodotti"
+      },
+      "buttons": {
+        "addItem": "Aggiungi elemento",
+        "addPass": "Aggiungi pass",
+        "addAppointmentPass": "Aggiungi un pass per appuntamenti",
+        "addWebshopItem": "Aggiungi un prodotto",
+        "removeItem": "Rimuovi elemento"
+      }
+    },
+    "advancedSection": {
+      "title": "Avanzate"
+    },
+    "pricingSection": {
+      "title": "Prezzi",
+      "price": {
+        "label": "Importo",
+        "helperText": "Valore totale degli articoli in questo pacchetto: {{ amount }}"
+      },
+      "taxToggle": {
+        "label": "Aliquota IVA",
+        "description": "Applica un'unica aliquota fiscale a tutto il pacchetto",
+        "helperText": "Questa tariffa sarà applicata a tutti gli articoli inclusi in questo pacchetto.",
+        "errorMissingRate": "Imposta un'aliquota fiscale sulle vendite o deseleziona questa opzione per continuare"
+      },
+      "maxPurchaseToggle": {
+        "label": "Massimo per clienti",
+        "description": "Imposta un numero massimo di acquisti per cliente",
+        "errorMissingNumber": "Aggiungi un importo massimo o deseleziona questa opzione per continuare"
+      },
+      "paymentMethod": {
+        "errorMissingPaymentMethod": "Seleziona un metodo di pagamento"
+      }
+    },
+    "visibilitySection": {
+      "title": "Visibilità",
+      "visibilitySelector": {
+        "label": "Seleziona la visibilità di questo pacchetto"
+      },
+      "dateLimitSelector": {
+        "toggleLabel": "Data limite per l'acquisto",
+        "fieldLabel": "Disponibile fino al",
+        "errorMissingDate": "Aggiungi una data o disattiva questa opzione per continuare",
+        "errorPastDate": "The expiration date must be today or future"
+      },
+      "additionalRules": {
+        "label": "Regole aggiuntive",
+        "helperText": "Seleziona tutte le opzioni applicabili",
+        "checkboxes": {
+          "recommended": {
+            "label": "Indica come consigliato",
+            "helperText": "Evidenzia il tuo pacchetto ai clienti segnalandolo come consigliato."
+          },
+          "newMembersOnly": {
+            "label": "Solo per i nuovi Membri",
+            "helperText": "I membri sono 'nuovi' finché non hanno acquistato un articolo con un valore superiore a {{ minimalCurrency }}. Anche se un membro acquista un articolo con uno sconto del 100 %, questo conta comunque come un acquisto."
+          },
+          "hideFromStaff": {
+            "label": "Non visibile allo staff",
+            "helperText": "Il personale non potrà visualizzare o acquistare questo pacchetto."
+          }
+        }
+      }
+    },
+    "requiredField": "Questo campo è obbligatorio."
+  },
+  "editNameModal": {
+    "title": "Rinominare il pacchetto?",
+    "buttons": {
+      "cancel": "Annulla",
+      "rename": "Rinomina"
+    }
+  },
+  "itemDetailDrawer": {
+    "pricing": "Prezzi",
+    "credits": "Numero di crediti",
+    "selectPreviousItem": "Seleziona l'elemento precedente",
+    "selectNextItem": "Seleziona l'elemento successivo",
+    "seeDetails": "Vedi più"
+  }
+}

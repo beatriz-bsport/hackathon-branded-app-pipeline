@@ -10,7 +10,7 @@
             "title": "Scheduling"
         },
         "bookingInsight": {
-            "title": "Bookings and Demand"
+            "title": "Bookings & Demand"
         },
         "recurringRevenue": {
             "title": "Subscriptions"
@@ -41,7 +41,7 @@
         "description": "Track fill rates, attendance, and earned revenue across your classes"
     },
     "monitorBookings": {
-        "title": "Bookings and Demand",
+        "title": "Bookings & Demand",
         "description": "Explore booking activity, client behavior, and demand trends to drive smarter revenue decisions"
     }
 }

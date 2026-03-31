@@ -1,1 +1,63 @@
-{}
+{
+  "searchMembers": {
+    "title": "Profile durchsuchen",
+    "addMember": "Profil erstellen ",
+    "loading": "Lade Ergebnisse...",
+    "emptySearch": "Suche nach Kontakten oder erstelle ein neues Profil",
+    "tagsTooltip": "Tags",
+    "segments": {
+      "active": "aktiv",
+      "archived": "Archiviert"
+    },
+    "copyToClipboard": {
+      "action": "Klicken zum Kopieren",
+      "copyEmail": "E-Mail kopieren",
+      "copyPhone": "Telefon kopieren",
+      "toasts": {
+        "phoneNumberCopied": "Telefonnummer in die Zwischenablage kopiert",
+        "emailCopied": "Die E-Mail des Mitglieds wurde in deine Zwischenablage kopiert"
+      }
+    }
+  },
+  "temporaryPassword": {
+    "title": "Temporäres Passwort",
+    "description": "Du kannst ein temporäres Passwort generieren und anfordern, das bis zu 1 Woche gültig ist, um es mit unserem Support-Team für Unterstützung zu teilen. Dein Haupt- und übliches Passwort wird nicht beeinflusst.",
+    "buttons": {
+      "close": "Schließen",
+      "generate": "Erstellen"
+    },
+    "generatedPassword": {
+      "copyToClipboard": "Kopiere das Passwort in die Zwischenablage",
+      "copiedToClipboard": "Passwort kopiert",
+      "validity": "Dieses Passwort ist gültig bis {{- expirationDate }}. Dein Hauptpasswort wurde nicht geändert."
+    }
+  },
+  "attendance": {
+    "title": "Zeiterfassungssystem",
+    "clockInForStaff": "Einchecken für ein anderes Mitglied",
+    "buttons": {
+      "close": "Schließen",
+      "clockIn": "Einstempeln",
+      "clockOut": "Ausloggen"
+    },
+    "initial": {
+      "welcome": "Hallo {{ name }}!",
+      "clockInCTA": "Bitte klicke auf 'Clock-in', um zu starten."
+    },
+    "clockedIn": {
+      "successfulClockIn": "Du hast erfolgreich eingecheckt.",
+      "failedClockIn": "Du bist bereits eingestempelt.",
+      "clockOutCTA": "Du kannst auf 'Clock-out' klicken, um abzuschließen."
+    },
+    "clockedOut": {
+      "successfulClockOut": "Deine Zeitpläne wurden gespeichert:",
+      "failedClockOut": "Fehler beim Ausstempeln",
+      "nextIterationCTA": "Du kannst das nächste Mal, wenn du dieses Fenster öffnest, neu einchecken."
+    },
+    "schedule": {
+      "arrivalTime": "Ankunftszeit",
+      "departureTime": "Abfahrtszeit",
+      "hoursWorked": "Geleistete Stunden"
+    }
+  }
+}

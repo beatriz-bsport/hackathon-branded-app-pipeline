@@ -1,1 +1,30 @@
-{}
+{
+  "pageTitle": "Pedidos",
+  "header": {
+    "searchTooltip": "Buscar en esta página",
+    "filters": {
+      "operators": {
+        "is": "es"
+      }
+    }
+  },
+  "table": {
+    "headers": {
+      "lastDateUpdated": "Última actualización",
+      "buyer": "Comprador",
+      "orderStatus": "Estado",
+      "quantity": "Cantidad",
+      "total": "Total",
+      "dateCreated": "Creado"
+    },
+    "loading": "Cargando pedidos ...",
+    "emptyState": {
+      "title": "Aún no hay pedidos",
+      "emptyDatabase": "Una vez que los clientes compran productos de tu tienda, puedes rastrear y gestionar los pedidos en esta página. ",
+      "emptySearch": "Actualmente no hay pedidos marcados como {{ status }}."
+    },
+    "rows": {
+      "memberArchived": "Archivado"
+    }
+  }
+}

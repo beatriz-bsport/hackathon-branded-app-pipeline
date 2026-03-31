@@ -5,8 +5,7 @@ import { ControlledForm, useFormController } from "@bsport/form";
 import { DetailsLayout, toast } from "@bsport/kaizen-primitive-core";
 
 import { ContractDetailsSuspense } from "#src/components/contract-details-suspense";
-import { ContractFormDescription } from "#src/features/contract-form/components/contract-form-description";
-import { ContractFormName } from "#src/features/contract-form/components/contract-form-name";
+import { ContractEditorContent } from "#src/features/contract-editor/content";
 import { useContractFormSchema } from "#src/features/contract-form/schema";
 import type {
   ContractFormData,
@@ -126,15 +125,11 @@ const ContractEditorPageInner: FC = () => {
           pageTitle={methods.watch("name")}
           {...headerConfig}
         />
-        <DetailsLayout.Content>
-          <ContractFormName formId={formId} />
-          <ContractFormDescription formId={formId} />
-          {/** TEMPORARY SECTION */}
-          <div className="max-w-component-select text-wrap break-words">
-            {JSON.stringify(contract)}
-          </div>
-          {/** END OF TEMPORARY SECTION */}
-        </DetailsLayout.Content>
+        <ContractEditorContent
+          formId={formId}
+          isRevampedContract={isRevampedContract}
+          methods={methods}
+        />
         <DetailsLayout.Confirmation
           onDiscard={discardChanges}
           formSubmit={{

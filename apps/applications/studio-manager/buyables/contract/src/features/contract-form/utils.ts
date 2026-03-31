@@ -4,6 +4,7 @@ import type {
   UpdateLegacyContractParams,
 } from "@bsport/api-buyables/contract";
 
+import { DEFAULT_DATA } from "./constants";
 import type { ContractFormData } from "./types";
 
 export function transformContractIntoFormState({
@@ -17,7 +18,11 @@ export function transformContractIntoFormState({
   if (isRevampedContract) {
     return {
       ...contract,
-      payment_pack_details: 0,
+      payment_pack_details: {
+        bookkeeping_account_id: null,
+        // TODO: add fallback on benefit value
+        tax: contract.tax ?? DEFAULT_DATA.payment_pack_details.tax,
+      },
       // Legacy fields -> nullished
       payment_pack: null,
     };

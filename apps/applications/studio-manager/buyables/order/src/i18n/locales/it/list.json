@@ -1,1 +1,30 @@
-{}
+{
+  "pageTitle": "Ordini",
+  "header": {
+    "searchTooltip": "Cerca in questa pagina",
+    "filters": {
+      "operators": {
+        "is": "è"
+      }
+    }
+  },
+  "table": {
+    "headers": {
+      "lastDateUpdated": "Ultimo aggiornamento",
+      "buyer": "Acquirente",
+      "orderStatus": "Status",
+      "quantity": "Quantità",
+      "total": "Totale",
+      "dateCreated": "Creato"
+    },
+    "loading": "Caricamento ordini ...",
+    "emptyState": {
+      "title": "Nessun ordine ancora",
+      "emptyDatabase": "Una volta che i contatti acquistano prodotti dal tuo shop, puoi tracciare e gestire gli ordini su questa pagina. ",
+      "emptySearch": "Non ci sono ordini attualmente contrassegnati come {{ status }}."
+    },
+    "rows": {
+      "memberArchived": "Archiviato"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "bookkeepingAccount": {
+    "selector": {
+      "label": "Numero di contabilità",
+      "noAccounts": "No account found",
+      "tax": "Sales Tax / VAT: {{ value }}%",
+      "clearSelection": "Clear selected account",
+      "placeholder": "Select an account",
+      "createAccount": "Create new account"
+    },
+    "createModal": {
+      "title": "Non hai ancora un account?",
+      "fieldRequired": "Field is required",
+      "fields": {
+        "accountNumber": "Numero dell'account",
+        "accountName": "Nome del conto",
+        "vatRate": "Aliquota IVA"
+      },
+      "buttons": {
+        "close": "Chiudi",
+        "save": "Salva"
+      },
+      "success": "Account created",
+      "errors": {
+        "accountNameMustBeUnique": "Bookkeeping Account name already used. It must be unique.",
+        "generic": "An error occured."
+      }
+    }
+  },
+  "paymentMethod": {
+    "card": "Carta"
+  }
+}

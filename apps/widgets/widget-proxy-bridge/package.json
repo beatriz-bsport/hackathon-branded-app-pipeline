@@ -20,7 +20,7 @@
   "dependencies": {
     "@bsport/fetch": "workspace:*",
     "@bsport/local-storage-auth-token": "workspace:*",
-    "axios": "^1.13.2"
+    "axios": "1.13.2"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",

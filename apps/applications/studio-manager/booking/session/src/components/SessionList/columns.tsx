@@ -13,7 +13,7 @@ import { Body } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { sessionListAttendanceButtonClickedEvent } from "#src/events/session-list/events";
-import { Columns, EnrichedSession, TableColumn } from "#src/types";
+import { EnrichedSession, SessionColumns, TableColumn } from "#src/types";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { formatMinutes } from "#src/utils/format-minutes";
 import { useTranslation } from "#src/utils/i18n";
@@ -48,7 +48,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
   const timeColumn: TableColumn = {
     header: t("table.headers.time"),
     label: t("table.headers.time"),
-    id: Columns.TIME,
+    id: SessionColumns.TIME,
     type: "custom",
     align: "start",
     render: (row: EnrichedSession) => {
@@ -82,7 +82,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
     },
   };
   const sessionTypeColumn: TableColumn = {
-    id: Columns.SESSION_TYPE,
+    id: SessionColumns.SESSION_TYPE,
     header: t("table.headers.sessionType"),
     label: t("table.headers.sessionType"),
     type: "custom",
@@ -100,7 +100,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
   const sessionNameColumn: TableColumn = {
     header: t("table.headers.sessionName"),
     label: t("table.headers.sessionName"),
-    id: Columns.SESSION_NAME,
+    id: SessionColumns.SESSION_NAME,
     type: "custom",
     align: "start",
     render: (row: EnrichedSession) =>
@@ -116,7 +116,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
   const participantsColumn: TableColumn = {
     header: t("table.headers.participants"),
     label: t("table.headers.participants"),
-    id: Columns.PARTICIPANTS,
+    id: SessionColumns.PARTICIPANTS,
     type: "custom",
     align: "start",
     render: (row: EnrichedSession) => {
@@ -133,7 +133,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
   };
 
   const teacherNameColumn: TableColumn = {
-    id: Columns.TEACHER,
+    id: SessionColumns.TEACHER,
     header: t("table.headers.teacher"),
     label: t("table.headers.teacher"),
     type: "custom",
@@ -151,7 +151,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
   };
 
   const establishmentNameColumn: TableColumn = {
-    id: Columns.ESTABLISHMENT,
+    id: SessionColumns.ESTABLISHMENT,
     header: t("table.headers.establishment"),
     label: t("table.headers.establishment"),
     type: "string",
@@ -161,7 +161,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
   };
 
   const actionsColumn: TableColumn = {
-    id: Columns.ACTIONS,
+    id: SessionColumns.ACTIONS,
     header: "",
     label: t("table.headers.actions"),
     type: "custom",
@@ -182,7 +182,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
   };
 
   const attendanceColumn: TableColumn = {
-    id: Columns.ATTENDANCE,
+    id: SessionColumns.ATTENDANCE,
     header: "",
     type: "custom",
     label: t("table.headers.attendance"),
@@ -199,7 +199,7 @@ export const useSessionListColumns = (isMobile: boolean) => {
     ),
   };
   const mobileActionsColumn: TableColumn = {
-    id: Columns.MOBILE_ACTIONS,
+    id: SessionColumns.MOBILE_ACTIONS,
     header: "",
     type: "custom",
     label: t("table.headers.actions"),

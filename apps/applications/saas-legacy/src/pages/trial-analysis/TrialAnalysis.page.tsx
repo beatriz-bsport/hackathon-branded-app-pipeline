@@ -9,6 +9,7 @@ import { appendSigmaLocale } from '../../utils/sigma';
 import Config from '../../config';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
+import { useSetupHandleSigmaEvents } from '#src/libs/insights/sigma/hooks/use-setup-handle-sigma-events';
 
 const useStyles = makeStyles((_theme) => ({
   root: {
@@ -105,6 +106,8 @@ const TrialAnalysisContent: React.FC = () => {
 
   const title = 'Trial Analysis';
 
+  const iframeRef = useSetupHandleSigmaEvents();
+
   return (
     <Box className={classes.root}>
       <Box className={classes.iframeContainer}>
@@ -118,6 +121,7 @@ const TrialAnalysisContent: React.FC = () => {
           </Box>
         ) : (
           <iframe
+            ref={iframeRef}
             allowFullScreen
             className={classes.iframe}
             loading="lazy"

@@ -1,15 +1,15 @@
-import { Columns } from "./types";
+import { SessionColumns } from "./types";
 
-export const DEFAULT_COLUMNS = [
-  Columns.TIME,
-  Columns.SESSION_NAME,
-  Columns.TEACHER,
-  Columns.PARTICIPANTS,
-  Columns.ESTABLISHMENT,
-  Columns.SESSION_TYPE,
-  Columns.ACTIONS,
-  Columns.ATTENDANCE,
-  Columns.MOBILE_ACTIONS,
+export const DEFAULT_SESSION_COLUMNS = [
+  SessionColumns.TIME,
+  SessionColumns.SESSION_NAME,
+  SessionColumns.TEACHER,
+  SessionColumns.PARTICIPANTS,
+  SessionColumns.ESTABLISHMENT,
+  SessionColumns.SESSION_TYPE,
+  SessionColumns.ACTIONS,
+  SessionColumns.ATTENDANCE,
+  SessionColumns.MOBILE_ACTIONS,
 ];
 
 export enum TeacherSubstitutionPropagationMode {

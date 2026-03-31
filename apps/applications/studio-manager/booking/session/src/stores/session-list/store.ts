@@ -6,8 +6,13 @@ import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { bindStore } from "@bsport/store-base";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
-import { DEFAULT_COLUMNS } from "#src/constants";
-import { CalendarView, Columns, DateSelection, ModalState } from "#src/types";
+import { DEFAULT_SESSION_COLUMNS } from "#src/constants";
+import {
+  CalendarView,
+  DateSelection,
+  ModalState,
+  SessionColumns,
+} from "#src/types";
 
 export interface SessionListState {
   calendarView: CalendarView;
@@ -16,7 +21,7 @@ export interface SessionListState {
   showCancelledSessions: boolean;
   filters: FilterElementState[];
   modalState: ModalState;
-  displayedColumns: Columns[];
+  displayedColumns: SessionColumns[];
 }
 
 export const getInitialState = (): SessionListState => {
@@ -28,7 +33,7 @@ export const getInitialState = (): SessionListState => {
     locale: "en-US",
     filters: [],
     modalState: null,
-    displayedColumns: DEFAULT_COLUMNS,
+    displayedColumns: DEFAULT_SESSION_COLUMNS,
   };
 };
 

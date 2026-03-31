@@ -18,7 +18,7 @@ type UseInvoicePaymentStatusTracker = {
   isPaymentProcessing: boolean;
   hasPaymentSucceeded: boolean;
   isBackendProcessingAfterPayment: boolean;
-  setupPaymentError: Error;
+  setupPaymentError: Error | null | undefined;
   isPaymentInterfaceLoading: boolean;
 };
 
@@ -62,10 +62,12 @@ export const useInvoicePaymentStatusTracker = ({
     memberId,
   });
 
+  const hasSetupPaymentError = !!invoiceClientSecretPayload?.error;
   const isSettingUpPayment =
-    !invoiceClientSecretPayload?.client_secret ||
-    !invoiceClientSecretPayload?.payment_group ||
-    invoiceClientSecretPayload?.loading;
+    !hasSetupPaymentError &&
+    (!invoiceClientSecretPayload?.client_secret ||
+      !invoiceClientSecretPayload?.payment_group ||
+      invoiceClientSecretPayload?.loading);
 
   const isDetachPaymentMethodLoading = detachPaymentMethod?.loading;
   const applyBalanceLoading = applyBalance?.loading;

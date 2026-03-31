@@ -15,6 +15,7 @@ type Props = {
   displayConfig: PartnershipDisplayConfig;
   partnershipAccounts: PartnershipAccount[];
   loading: boolean;
+  isActionDisabled?: (account: PartnershipAccount) => boolean;
   onDeleteAccount: (partnershipAccount: PartnershipAccount) => void;
   onEditAccount: (partnershipAccount: PartnershipAccount) => void;
   onActivateAccount?: (partnershipAccount: PartnershipAccount) => void;
@@ -24,6 +25,7 @@ const PartnershipConfigurationContent: React.FC<Props> = ({
   displayConfig,
   partnershipAccounts,
   loading,
+  isActionDisabled,
   onDeleteAccount,
   onEditAccount,
   onActivateAccount,
@@ -44,6 +46,7 @@ const PartnershipConfigurationContent: React.FC<Props> = ({
       </div>
       <PartnershipAccountTable
         displayConfig={displayConfig}
+        isActionDisabled={isActionDisabled}
         loading={loading}
         onActivateAccount={onActivateAccount}
         onDeleteAccount={onDeleteAccount}

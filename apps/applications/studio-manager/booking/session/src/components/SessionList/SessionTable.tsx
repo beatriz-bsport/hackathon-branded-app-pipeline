@@ -2,9 +2,9 @@ import React, { memo, useMemo } from "react";
 
 import { Table, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
-import { selectDisplayedColumns } from "#src/stores/session-list/selectors";
+import { selectSessionDisplayedColumns } from "#src/stores/session-list/selectors";
 import { useSessionListStore } from "#src/stores/session-list/store";
-import type { Columns, EnrichedSession } from "#src/types";
+import type { EnrichedSession, SessionColumns } from "#src/types";
 
 import { useSessionListColumns } from "./columns";
 import { SessionCards } from "./session-cards";
@@ -16,14 +16,14 @@ type SessionTableProps = {
 const SessionTable: React.FC<SessionTableProps> = ({
   sessions,
 }: SessionTableProps) => {
-  const displayedColumns = useSessionListStore(selectDisplayedColumns);
+  const displayedColumns = useSessionListStore(selectSessionDisplayedColumns);
   const isMobile = !useMatchMedia("lg");
   const columns = useSessionListColumns(isMobile);
 
   const filteredColumns = useMemo(
     () =>
       columns.filter((column) =>
-        displayedColumns.includes(column.id as Columns),
+        displayedColumns.includes(column.id as SessionColumns),
       ),
     [columns, displayedColumns],
   );

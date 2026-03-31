@@ -1,1 +1,4 @@
-export { DeleteAutomationModal } from "./DeleteAutomationModal";
+export {
+  DeleteAutomationModal,
+  useDeleteAutomationModal,
+} from "./DeleteAutomationModal";

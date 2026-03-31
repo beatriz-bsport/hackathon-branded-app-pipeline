@@ -10,7 +10,7 @@
             "title": "Rooster"
         },
         "bookingInsight": {
-            "title": "Boekingen & Leskaarten"
+            "title": "Boekingen en vraag"
         },
         "recurringRevenue": {
             "title": "Abonnementen"
@@ -41,7 +41,7 @@
         "description": "Volg de bezettingsgraad, aanwezigheid en verdiende inkomsten van je lessen"
     },
     "monitorBookings": {
-        "title": "Boekingen & Leskaarten",
-        "description": "Bijhouden van boekingen en Leskaart gebruik om aanwezigheid en capaciteit te optimaliseren"
+        "title": "Boekingen en vraag",
+        "description": "Ontdek boekingsactiviteiten, klantgedrag en vraagtrends om slimmere omzetbeslissingen te nemen"
     }
 }

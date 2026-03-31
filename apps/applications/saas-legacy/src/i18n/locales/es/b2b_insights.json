@@ -10,7 +10,7 @@
             "title": "Programación"
         },
         "bookingInsight": {
-            "title": "Reservas y Pases"
+            "title": "Reservas y demanda"
         },
         "recurringRevenue": {
             "title": "Cuotas"
@@ -41,7 +41,7 @@
         "description": "Haz un seguimiento de las tasas de ocupación, la asistencia y los ingresos generados en tus clases"
     },
     "monitorBookings": {
-        "title": "Reservas y Pases",
-        "description": "Haz un seguimiento de las reservas y del uso de Pase para optimizar la asistencia y la capacidad"
+        "title": "Reservas y demanda",
+        "description": "Explora la actividad de reservas, el comportamiento de los clientes y las tendencias de la demanda para tomar decisiones de ingresos más inteligentes"
     }
 }

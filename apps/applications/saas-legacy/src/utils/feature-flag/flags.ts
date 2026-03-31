@@ -37,6 +37,7 @@ export const FeatureFlags = {
   WEBVIEW_GOOGLE_PAY: 'webview-google-pay',
   CALENDAR_REVAMP: 'booking_calendar_page_revamped',
   STRIPE_LINK_EXPRESS_CHECKOUT: 'stripe-link-express-checkout',
+  WELLHUB_NEW_CONFIGURATION: 'booking_activate_new_wellhub_configuration',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

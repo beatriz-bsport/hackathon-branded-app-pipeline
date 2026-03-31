@@ -1,6 +1,5 @@
 import { type ReactNode, lazy, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router";
-// Import urls from the navigation sidebar
 import {
   REVAMP_URLS_DEVELOPMENT,
   REVAMP_URLS_PRODUCTION,

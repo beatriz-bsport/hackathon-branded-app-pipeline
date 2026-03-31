@@ -1,6 +1,5 @@
 import { EventKind } from "#src/api/constants";
 
-export const PUSH_AUTOMATION_MAX_AUTOMATION_NAME_LENGTH = 150;
 export const PUSH_AUTOMATION_MAX_TITLE_LENGTH = 25;
 export const PUSH_AUTOMATION_MAX_MESSAGE_LENGTH = 200;
 
@@ -32,7 +31,6 @@ export const isPushAutomationEventValue = (
 };
 
 export type PushAutomationFormData = {
-  automationName: string;
   eventKind: PushAutomationEventValue;
   triggerLimit: PushAutomationTriggerLimitValue;
   title: string;

@@ -69,7 +69,9 @@ import type {
 import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/classpass/constants';
 
 // Wellhub
-import WellhubConfiguration from '#src/libs/wellhub/components/WellhubConfiguration';
+import WellhubConfiguration, {
+  WellhubLegacyConfiguration,
+} from '#src/libs/wellhub/components/WellhubConfiguration';
 import WellhubProductSelectionDrawer from '#src/libs/wellhub/components/WellhubProductSelectionDrawer';
 
 import {
@@ -117,6 +119,10 @@ import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericRespon
 import PartnershipConfiguration from '#src/libs/classpass/components/PartnershipConfiguration.component';
 import MyClubsConfiguration from '#src/libs/partnership/myclubs/MyClubsConfiguration';
 import { PartnershipIdentifier } from '#src/libs/partnership/types';
+import {
+  FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 type StateProps = {
   hasRequested: boolean;
@@ -131,6 +137,7 @@ type ConnectorProps = {
   associatedEstablishmentList: AssociatedEstablishment[];
   classpass: PartnershipCompany | null;
   myClubsPartnershipCompany: PartnershipCompany | null;
+  wellhubPartnershipCompany: PartnershipCompany | null;
   company: number;
   establishmentList: Establishment[];
   featureList: FeatureList;
@@ -211,7 +218,12 @@ type HandlerProps = {
   ) => void;
 };
 
-type Props = StateProps & ConnectorProps & HandlerProps & WithT & WithStyles;
+type Props = StateProps &
+  ConnectorProps &
+  HandlerProps &
+  WithT &
+  WithStyles &
+  FeatureFlagProps;
 
 export class Partnership extends React.Component<Props> {
   componentDidMount() {
@@ -332,28 +344,44 @@ export class Partnership extends React.Component<Props> {
             myClubsPartnershipId={myClubsPartnershipCompany.partnership}
           />
         )}
-        {hasWellhubUpsell && (
-          <WellhubConfiguration
-            checkAvailability={this.props.checkAvailability}
-            createWellhubGym={this.props.createWellhubGym}
-            deleteWellhubGym={this.props.deleteWellhubGym}
-            establishments={this.props.establishmentList}
-            getWellhubGymAvailability={this.props.getWellhubGymAvailability}
-            offersMissingWellhubProductCount={
-              this.props.offersMissingWellhubProductPaginatedData.total_count
-            }
-            openWellhubProductSelectionDrawer={
-              this.openWellhubProductSelectionDrawer
-            }
-            updateWellhubGym={this.props.updateWellhubGym}
-            wellhubGymAvailabilityError={this.props.wellhubGymAvailabilityError}
-            wellhubGymAvailabilityLoading={
-              this.props.wellhubGymAvailabilityLoading
-            }
-            wellhubGyms={this.props.wellhubGyms}
-            wellhubLoading={this.props.wellhubLoading}
-          />
-        )}
+        {hasWellhubUpsell &&
+          (this.props.isNewWellhubConfigurationEnabled ? (
+            <WellhubConfiguration
+              establishments={this.props.establishmentList}
+              offersMissingWellhubProductCount={
+                this.props.offersMissingWellhubProductPaginatedData.total_count
+              }
+              openWellhubProductSelectionDrawer={
+                this.openWellhubProductSelectionDrawer
+              }
+              wellhubPartnershipId={
+                this.props.wellhubPartnershipCompany?.partnership ?? null
+              }
+            />
+          ) : !this.props.loading ? (
+            <WellhubLegacyConfiguration
+              checkAvailability={this.props.checkAvailability}
+              createWellhubGym={this.props.createWellhubGym}
+              deleteWellhubGym={this.props.deleteWellhubGym}
+              establishments={this.props.establishmentList}
+              getWellhubGymAvailability={this.props.getWellhubGymAvailability}
+              offersMissingWellhubProductCount={
+                this.props.offersMissingWellhubProductPaginatedData.total_count
+              }
+              openWellhubProductSelectionDrawer={
+                this.openWellhubProductSelectionDrawer
+              }
+              updateWellhubGym={this.props.updateWellhubGym}
+              wellhubGymAvailabilityError={
+                this.props.wellhubGymAvailabilityError
+              }
+              wellhubGymAvailabilityLoading={
+                this.props.wellhubGymAvailabilityLoading
+              }
+              wellhubGyms={this.props.wellhubGyms}
+              wellhubLoading={this.props.wellhubLoading}
+            />
+          ) : null)}
         {hasWellhubUpsell && (
           <WellhubProductSelectionDrawer
             availableEstablishments={this.props.establishmentList}
@@ -369,6 +397,9 @@ export class Partnership extends React.Component<Props> {
             onConfirm={this.onEditOffer}
             similarOffers={this.props.similarOffersWithCoachAndEstablishment}
             similarOffersLoading={this.props.similarOfferLoading}
+            wellhubPartnershipId={
+              this.props.wellhubPartnershipCompany?.partnership ?? null
+            }
           />
         )}
         <div className={this.props.classes.classpassContainer}>
@@ -527,6 +558,10 @@ export default compose(
         state,
         PartnershipIdentifier.MYCLUBS,
       ),
+      wellhubPartnershipCompany: getPartnershipByIdentifier(
+        state,
+        PartnershipIdentifier.WELLHUB,
+      ),
       company: themeSelector.getTheme(state).company,
       establishmentList: getAllPageEstablishments(state),
       featureList: getCompanyFeatureList(state),
@@ -578,4 +613,5 @@ export default compose(
     },
   ),
   withHandlers(mapWithHandlers),
+  withFeatureFlags,
 )(Partnership);

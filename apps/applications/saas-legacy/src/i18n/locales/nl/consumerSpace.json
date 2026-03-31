@@ -476,7 +476,12 @@
         "details": "Betaaldetails",
         "confirm": "Bevestig",
         "addPaymentMethod": "Voeg betaalmethode toe",
-        "backendProcessingInvoice": "Een klein momentje terwijl we je factuur verwerken..."
+        "backendProcessingInvoice": "Een klein momentje terwijl we je factuur verwerken...",
+        "onlinePaymentDisabled": {
+          "title": "Online betaling niet beschikbaar",
+          "message": "Uw studio heeft online betalingen uitgeschakeld. Kom alstublieft langs om uw facturen te regelen.",
+          "goBack": "Terug"
+        }
       },
       "detailsCard": {
         "total": "Totaal",

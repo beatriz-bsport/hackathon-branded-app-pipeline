@@ -7,7 +7,7 @@ import type {
 
 import { sessionListFiltersChangedEvent } from "#src/events/session-list/events";
 import {
-  selectFilters,
+  selectSessionFilters,
   setFilters,
   useSessionListStore,
 } from "#src/stores/session-list";
@@ -30,7 +30,7 @@ import { useTeacherFilter } from "./use-teacher-filter";
 
 export const useFilterConfig = () => {
   const { t } = useTranslation("sessionList");
-  const filters = useSessionListStore(selectFilters);
+  const filters = useSessionListStore(selectSessionFilters);
   const filterRef = useRef<{ resetFilters: () => void }>(null);
 
   const teacherFilter = useTeacherFilter();

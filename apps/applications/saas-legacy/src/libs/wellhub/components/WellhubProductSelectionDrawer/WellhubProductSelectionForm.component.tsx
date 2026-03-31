@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Divider, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -6,7 +6,13 @@ import { useFormikContext } from 'formik';
 
 import { SwitchField } from '#src/libs/custom-form/components/GenericFormik.input';
 import WellhubProductSelector from '#src/libs/wellhub/components/WellhubProductSelector';
+import PartnershipAccountProductSelector, {
+  PartnershipAccountProductProvider,
+} from '#src/libs/wellhub/components/PartnershipAccountProductSelector';
 import WellhubProductSelectionForSimilarOffers from './WellhubProductSelectionForSimilarOffers.component';
+
+import { useGetPartnershipAccounts } from '#src/libs/partnership/hooks';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 import type { Coach } from '#src/libs/associated-coach/types';
 import type { Establishment } from '#src/libs/establishment/types';
@@ -21,6 +27,7 @@ type Props = {
   availableEstablishments: Establishment[];
   similarOffers: Offer<Coach, Establishment>[];
   similarOffersLoading: boolean;
+  wellhubPartnershipId?: number | null;
 };
 
 const WellhubProductSelectionForm: React.FC<Props> = ({
@@ -28,12 +35,34 @@ const WellhubProductSelectionForm: React.FC<Props> = ({
   availableEstablishments,
   similarOffers,
   similarOffersLoading,
+  wellhubPartnershipId,
 }) => {
   const { t } = useTranslation('partnership');
   const classes = useStyles();
 
   const { values, setFieldValue } =
     useFormikContext<WellhubProductSelectionFormValues>();
+
+  const isNewWellhubConfigurationEnabled = useSafeFlag(
+    FeatureFlags.WELLHUB_NEW_CONFIGURATION,
+  );
+
+  const [{ value: partnershipAccounts }, fetchPartnershipAccounts] =
+    useGetPartnershipAccounts(wellhubPartnershipId ?? 0);
+
+  useEffect(() => {
+    if (!isNewWellhubConfigurationEnabled || !wellhubPartnershipId) return;
+    fetchPartnershipAccounts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isNewWellhubConfigurationEnabled, wellhubPartnershipId]);
+
+  const partnershipAccountExternalId = useMemo(
+    () =>
+      partnershipAccounts?.find((account) =>
+        account.establishments.some((e) => e.id === offer.etablissement.id),
+      )?.external_id ?? null,
+    [partnershipAccounts, offer.etablissement.id],
+  );
 
   const correspondingWellhubGymUuid = useMemo(
     () =>
@@ -64,13 +93,29 @@ const WellhubProductSelectionForm: React.FC<Props> = ({
         <Typography variant="body2">
           {t('wellhub.productSelection.drawer.form.label')}
         </Typography>
-        <WellhubProductSelector
-          id="drawer-wellhub-product-selector"
-          isVirtualOffer={offer.is_broadcast}
-          onSelect={handleSelectWellhubProduct}
-          selectedProductId={values.wellhubProductId || null}
-          wellhubGymUuid={correspondingWellhubGymUuid}
-        />
+        {isNewWellhubConfigurationEnabled ? (
+          partnershipAccountExternalId ? (
+            <PartnershipAccountProductProvider>
+              <PartnershipAccountProductSelector
+                id="drawer-wellhub-product-selector"
+                isVirtualOffer={offer.is_broadcast}
+                onSelect={handleSelectWellhubProduct}
+                partnershipAccountExternalId={partnershipAccountExternalId}
+                selectedProductId={values.wellhubProductId || null}
+              />
+            </PartnershipAccountProductProvider>
+          ) : null
+        ) : (
+          !!correspondingWellhubGymUuid && (
+            <WellhubProductSelector
+              id="drawer-wellhub-product-selector"
+              isVirtualOffer={offer.is_broadcast}
+              onSelect={handleSelectWellhubProduct}
+              selectedProductId={values.wellhubProductId || null}
+              wellhubGymUuid={correspondingWellhubGymUuid}
+            />
+          )
+        )}
       </div>
 
       {similarOffers?.length > 1 && (

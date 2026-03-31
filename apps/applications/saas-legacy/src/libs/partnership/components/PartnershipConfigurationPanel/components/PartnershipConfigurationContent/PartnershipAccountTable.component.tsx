@@ -40,6 +40,7 @@ type Props = {
   displayConfig: PartnershipDisplayConfig;
   partnershipAccounts: PartnershipAccount[];
   loading: boolean;
+  isActionDisabled?: (account: PartnershipAccount) => boolean;
   onActivateAccount?: (partnershipAccount: PartnershipAccount) => void;
   onDeleteAccount: (partnershipAccount: PartnershipAccount) => void;
   onEditAccount: (partnershipAccount: PartnershipAccount) => void;
@@ -52,6 +53,7 @@ const PartnershipAccountTable: React.FC<Props> = ({
   displayConfig,
   partnershipAccounts,
   loading,
+  isActionDisabled,
   onActivateAccount,
   onDeleteAccount,
   onEditAccount,
@@ -89,7 +91,7 @@ const PartnershipAccountTable: React.FC<Props> = ({
       (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.stopPropagation();
         event.preventDefault();
-        onActivateAccount(partnershipAccount);
+        onActivateAccount?.(partnershipAccount);
       },
     [onActivateAccount],
   );
@@ -131,8 +133,7 @@ const PartnershipAccountTable: React.FC<Props> = ({
             <TableCell>
               <div className={classes.accountRow}>
                 <Typography noWrap className={classes.idTitle} variant="body1">
-                  {partnershipAccount.external_name ||
-                    partnershipAccount.external_id}
+                  {partnershipAccount.external_id}
                   {displayConfig.showCopyIdToClipboard && (
                     <CopyExternalIdButton
                       externalId={partnershipAccount.external_id}
@@ -148,7 +149,7 @@ const PartnershipAccountTable: React.FC<Props> = ({
                     className={classes.idSubtitle}
                     variant="subtitle2"
                   >
-                    {partnershipAccount.external_id}
+                    {partnershipAccount.external_name}
                   </Typography>
                 )}
               </div>
@@ -187,14 +188,33 @@ const PartnershipAccountTable: React.FC<Props> = ({
                 !onActivateAccount ? (
                   <>
                     <IconButton
+                      disabled={isActionDisabled?.(partnershipAccount)}
                       onClick={onEditAccountCallback(partnershipAccount)}
                     >
-                      <EditIcon color="primary" />
+                      <EditIcon
+                        color={
+                          isActionDisabled?.(partnershipAccount)
+                            ? 'disabled'
+                            : 'primary'
+                        }
+                      />
                     </IconButton>
                     <IconButton
+                      disabled={isActionDisabled?.(partnershipAccount)}
                       onClick={onDeleteAccountCallback(partnershipAccount)}
                     >
-                      <DeleteIcon className={classes.greyIcon} />
+                      <DeleteIcon
+                        className={
+                          isActionDisabled?.(partnershipAccount)
+                            ? undefined
+                            : classes.greyIcon
+                        }
+                        color={
+                          isActionDisabled?.(partnershipAccount)
+                            ? 'disabled'
+                            : 'inherit'
+                        }
+                      />
                     </IconButton>
                   </>
                 ) : (

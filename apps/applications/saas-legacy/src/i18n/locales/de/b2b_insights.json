@@ -10,7 +10,7 @@
             "title": "Terminplanung"
         },
         "bookingInsight": {
-            "title": "Buchungen & Kurspässe"
+            "title": "Buchungen und Nachfrage"
         },
         "recurringRevenue": {
             "title": "Abonnements"
@@ -41,7 +41,7 @@
         "description": "Verfolge die Auslastung, Anwesenheit und den erzielten Umsatz deiner Kurse"
     },
     "monitorBookings": {
-        "title": "Buchungen & Kurspässe",
-        "description": "Verfolge die Buchungen und die Kurspass Nutzung, um die Anwesenheit und die Kapazität zu optimieren"
+        "title": "Buchungen und Nachfrage",
+        "description": "Erkunde Buchungsaktivitäten, Kundenverhalten und Nachfragetrends, um intelligentere Umsatzentscheidungen zu treffen"
     }
 }

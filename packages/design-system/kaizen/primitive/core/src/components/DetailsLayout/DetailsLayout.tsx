@@ -321,19 +321,34 @@ type DetailsLayoutConfirmationProps = PropsWithChildren<
   HTMLAttributes<HTMLDivElement>
 > & {
   onDiscard: () => void | Promise<void>;
-  onSave: () => void | Promise<void>;
-};
+} & (
+    | {
+        onSave?: null;
+        formSubmit: {
+          formId: string;
+          isSubmitting: boolean;
+        };
+      }
+    | {
+        formSubmit?: null;
+        onSave: () => void | Promise<void>;
+      }
+  );
 
 /**
  * Wrapper for the unsaved changes confirmation alert
  * @param props.className Optional. Custom CSS classes for the container.
  * @param props.onDiscard Required. Callback to handle discard changes
- * @param props.onSave Required. Callback to handle save changes
+ * @param props.onSave Optional. Callback to handle save changes.
+ * @param props.formSubmit Optional. In a form controller context, instead of providing onSave,
+ * you can provide a form config containing the submitting state and the formId.
+ * The onSubmit of the FormController is managing the logic afterwards
  */
 const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
   className,
   onDiscard,
   onSave,
+  formSubmit,
   ...htmlProps
 }) => {
   const { hasUnsavedChanges, confirmationRef } = useLayoutContext();
@@ -350,11 +365,14 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
 
   const [{ isLoading: saveLoading }, handleSave] = useAsync({
     asyncFn: async () => {
-      await onSave();
+      await onSave?.();
       return Result.ok(undefined);
     },
     dependencies: [onSave],
   });
+
+  const buttonsDisabled =
+    saveLoading || discardLoading || formSubmit?.isSubmitting;
 
   return (
     <div
@@ -384,16 +402,18 @@ const DetailsLayoutConfirmation: FC<DetailsLayoutConfirmationProps> = ({
               color="default"
               onClick={handleDiscard}
               loading={discardLoading}
-              disabled={saveLoading || discardLoading}
+              disabled={buttonsDisabled}
             />
             <Button
               label={t("detailsLayout.confirmation.save")}
               size="md"
               intent="default"
               color="main"
-              onClick={handleSave}
-              loading={saveLoading}
-              disabled={saveLoading || discardLoading}
+              loading={saveLoading || formSubmit?.isSubmitting}
+              disabled={buttonsDisabled}
+              {...(formSubmit
+                ? { type: "submit", form: formSubmit.formId }
+                : { onClick: handleSave })}
             />
           </div>
         </>

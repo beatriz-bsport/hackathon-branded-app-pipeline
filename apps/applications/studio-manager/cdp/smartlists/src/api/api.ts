@@ -1,11 +1,11 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import {
+  type EditEmailTemplatePayload,
   fetchEmailTemplateCategories,
   searchEmailTemplate,
   updateEmailTemplate as updateEmailTemplateApi,
 } from "@bsport/api-cdp";
-import type { EditEmailTemplatePayload } from "@bsport/api-cdp";
 import {
   type PaginatedResponse,
   buildUrlParams,
@@ -16,7 +16,6 @@ import { fetch } from "#src/utils/fetch";
 
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE_RECIPIENTS } from "./constants";
 import type {
-  AutomatedCampaign,
   BackgroundTaskStatusResponse,
   CampaignRecipientWithMemberData,
   CampaignScheduled,
@@ -25,9 +24,7 @@ import type {
   CommunicationPreviewRecipientsRequest,
   CommunicationRecipientCount,
   CommunicationRecipientMinimal,
-  CreateAutomatedCampaignParams,
   EmailTemplateDetail,
-  FetchAutomatedCampaignsParams,
   FetchCampaignRecipientParams,
   FetchCampaignScheduledParams,
   FetchCampaignSentParams,
@@ -57,7 +54,6 @@ const EMAIL_TEMPLATE_SEARCH_DEFAULT_PAGE_SIZE = 20;
  *
  * Key taxonomy:
  * ['@sm-smartlist', 'detail', id]                        - smartlist detail
- * ['@sm-smartlist', 'detail', id, 'automated-campaigns'] - automated campaigns for a smartlist
  * ['@sm-smartlist', 'detail', id, 'campaign-sent']       - campaign sent data (with analytics)
  */
 export const smartlistKeys = {
@@ -65,12 +61,6 @@ export const smartlistKeys = {
 
   details: () => [...smartlistKeys.all, "detail"] as const,
   detail: (id: string) => [...smartlistKeys.details(), id] as const,
-
-  automatedCampaigns: (id: string) =>
-    [...smartlistKeys.detail(id), "automated-campaigns"] as const,
-
-  automatedCampaignDetail: (messageId: string) =>
-    [...smartlistKeys.all, "automated-campaign", messageId] as const,
 
   campaignSentList: (
     id: string,
@@ -222,34 +212,6 @@ const fetchSmartlistDetail = async (id: string): Promise<Smartlist> => {
   return data;
 };
 
-const fetchAutomatedCampaigns = async (
-  params: FetchAutomatedCampaignsParams,
-): Promise<AutomatedCampaign[]> => {
-  const urlParams = buildUrlParams({
-    smartlist_id: params.smartlist_id,
-    exclude_disabled: params.exclude_disabled ?? true,
-  });
-  const { data } = await fetch<PaginatedResponse<AutomatedCampaign>>(
-    `${SMARTLIST_API_V1}/automated_campaign/${urlParams}`,
-  );
-
-  return data.results;
-};
-
-export const createAutomatedCampaign = async (
-  params: CreateAutomatedCampaignParams,
-): Promise<AutomatedCampaign> => {
-  const { data } = await fetch<AutomatedCampaign>(
-    `${SMARTLIST_API_V1}/automated_campaign/`,
-    {
-      method: "POST",
-      body: JSON.stringify(params),
-    },
-  );
-
-  return data;
-};
-
 const fetchCampaignSentList = async (
   params: FetchCampaignSentParams,
 ): Promise<PaginatedResponse<CampaignSent>> => {
@@ -289,16 +251,6 @@ const fetchCampaignSentPerformanceReport = async (
 ): Promise<CampaignSentPerformanceReport> => {
   const { data } = await fetch<CampaignSentPerformanceReport>(
     `${COMMUNICATION_API_V1}/communication/communication_sent/${campaignUuid}/report/`,
-  );
-
-  return data;
-};
-
-const fetchAutomatedCampaignDetail = async (
-  messageId: string,
-): Promise<AutomatedCampaign> => {
-  const { data } = await fetch<AutomatedCampaign>(
-    `${SMARTLIST_API_V1}/automated_campaign/${messageId}/`,
   );
 
   return data;
@@ -386,16 +338,6 @@ const fetchCampaignRecipientsWithMemberData = async ({
   );
 
   return data;
-};
-
-/**
- * Deletes an automated campaign
- * @param id - ID of the automated campaign to delete
- */
-export const deleteAutomatedCampaign = async (id: number): Promise<void> => {
-  await fetch(`${SMARTLIST_API_V1}/automated_campaign/${id}/`, {
-    method: "DELETE",
-  });
 };
 
 const fetchPopupDetail = async (popupId: number): Promise<Popup> => {
@@ -566,16 +508,6 @@ export const popupImageQueryOptions = (popupId: number, imageUrl: string) =>
     queryFn: () => fetchPopupImage(imageUrl),
   });
 
-export const automatedCampaignsQueryOptions = (smartlistId: string) =>
-  queryOptions({
-    queryKey: smartlistKeys.automatedCampaigns(smartlistId),
-    queryFn: () =>
-      fetchAutomatedCampaigns({
-        smartlist_id: smartlistId,
-        exclude_disabled: true,
-      }),
-  });
-
 export const campaignSentListQueryOptions = ({
   smartlist,
   page,
@@ -649,12 +581,6 @@ export const campaignSentPerformanceReportQueryOptions = ({
     },
   });
 };
-
-export const automatedCampaignDetailQueryOptions = (messageId: string) =>
-  queryOptions({
-    queryKey: smartlistKeys.automatedCampaignDetail(messageId),
-    queryFn: () => fetchAutomatedCampaignDetail(messageId),
-  });
 
 export const tagRulesQueryOptions = (smartlistId: string) =>
   queryOptions({

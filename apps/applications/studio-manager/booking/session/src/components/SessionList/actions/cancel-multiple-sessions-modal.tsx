@@ -28,8 +28,8 @@ import { useCancelMultipleSessions } from "#src/hooks/session-api/bulk-actions/u
 import { useFetchNumberOfSessionsToCancel } from "#src/hooks/session-api/bulk-actions/use-fetch-number-of-cancelled-sessions";
 import { useFetchSessions } from "#src/hooks/session-api/fetch/use-fetch-sessions";
 import {
-  selectFilters,
   selectSelectedDate,
+  selectSessionFilters,
   useSessionListStore,
 } from "#src/stores/session-list";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
@@ -124,7 +124,7 @@ export const CancelMultipleSessionsModal: FC<{
     hasCancelWorkshopSessionsPermission,
   ]);
 
-  const filters = useSessionListStore(selectFilters);
+  const filters = useSessionListStore(selectSessionFilters);
   const filterParams = getParamsFromFilters(filters);
   const cancelSessionsParams = { ...filterParams, ...globalFilter };
 

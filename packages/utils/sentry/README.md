@@ -169,8 +169,6 @@ This approach ensures correct release tracking even when Nx Remote Cache serves 
 
 The following environment variables must be configured for Sentry to work properly:
 
-- `VITE_SENTRY_DSN`: The Sentry project DSN
-- `VITE_RELEASE_SHA`: (Optional) The commit SHA for release tracking in local development
 - `VITE_SENTRY_SEND_ERRORS_IN_LOCAL_DEVELOPMENT`: (Optional) Set to "true" to enable error reporting in local development
 
 **Note**: The environment name is now automatically determined using the `@bsport/envs` package, so `VITE_ENV` is no longer required to be set manually.

@@ -15,6 +15,7 @@ type Props = {
   slots?: { alert?: React.ReactNode };
   partnershipAccounts: PartnershipAccount[];
   loading: boolean;
+  isActionDisabled?: (account: PartnershipAccount) => boolean;
   onActivateAccount?: (account: PartnershipAccount) => void;
   onDeleteAccount: (account: PartnershipAccount) => void;
   onEditAccount: (account: PartnershipAccount) => void;
@@ -26,6 +27,7 @@ const PartnershipConfigurationPanel: React.FC<Props> = ({
   displayConfig,
   partnershipAccounts,
   loading,
+  isActionDisabled,
   onActivateAccount,
   onDeleteAccount,
   onEditAccount,
@@ -40,6 +42,7 @@ const PartnershipConfigurationPanel: React.FC<Props> = ({
       {slots?.alert}
       <PartnershipConfigurationContent
         displayConfig={displayConfig}
+        isActionDisabled={isActionDisabled}
         loading={loading}
         onActivateAccount={onActivateAccount}
         onDeleteAccount={onDeleteAccount}

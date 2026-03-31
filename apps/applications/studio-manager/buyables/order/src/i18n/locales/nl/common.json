@@ -2,9 +2,9 @@
   "status": {
     "label": "Status",
     "values": {
-      "toBeProcessed": "Te verwerken",
+      "toBeProcessed": "Gepauzeerd",
       "cancelled": "Geannuleerd",
-      "clickAndCollect": "Afhalen",
+      "clickAndCollect": "Te worden verzameld",
       "sent": "Verstuurd",
       "initialized": "Begonnen"
     }

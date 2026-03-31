@@ -1,0 +1,109 @@
+{
+  "noData": "N/A",
+  "drawer": {
+    "overview": "Visão geral",
+    "segmentedControl": {
+      "performance": "Performance",
+      "trigger": "Acionador",
+      "content": "Conteúdo"
+    },
+    "missingEmailTemplate": "O modelo de e-mail vinculado a esta automação foi excluído. Adicionar um novo para restaurar a automação.",
+    "content": {
+      "email": {
+        "title": "Correio eletrónico",
+        "noPreview": "Configure seu e-mail para visualizar aqui"
+      },
+      "push": {
+        "title": "Notificação push",
+        "noPreview": "Configure suas notificações push e visualize aqui"
+      }
+    },
+    "trigger": {
+      "title": "Regra de notificação",
+      "content": {
+        "triggeredBy": "Condição",
+        "triggeredWhen": "Tempo de entrega",
+        "smartlist": {
+          "excluding": "Não envie para contactos nestas Smartlists",
+          "including": "Apenas envie para contactos nestas Smartlists",
+          "noSmartlistsFiltering": "Nenhum"
+        },
+        "passes": {
+          "title": "Passes de Aulas Associados",
+          "credits_one": "{{count}} crédito",
+          "credits_other": "{{count}} créditos",
+          "allIncluded": {
+            "title": "Todos os passes de aulas incluídos",
+            "description": "Esta notificação será acionada para cada passe de aula."
+          },
+          "emptyList": {
+            "title": "Nenhum passe incluído",
+            "description": "Atualize esta notificação para adicionar passes de aulas como o gatilho."
+          }
+        }
+      }
+    },
+    "performance": {
+      "contentPreviewModal": {
+        "title": "Conteúdo",
+        "buttons": {
+          "confirm": "Fechar"
+        }
+      },
+      "emails": {
+        "title": "E-mails",
+        "totalEmailsSent": "Total de e-mails enviados",
+        "recipientsTotal_one": "({{count}} membro)",
+        "recipientsTotal_other": "({{count}} membros)",
+        "openRate": "Taxa de abertura"
+      },
+      "allNotifications": {
+        "title": "Todas as notificações",
+        "noCommunications": {
+          "title": "Nenhuma comunicação foi enviada",
+          "description": "Ainda não há destinatários para exibir nesta notificação."
+        },
+        "helper": {
+          "title": "Status de Desempenho",
+          "content": "Este resumo mostra o desempenho de ambos os e-mails e notificações push ao exibir seu status.",
+          "status": {
+            "sent": {
+              "label": "Enviado para",
+              "description": "Entregue com sucesso"
+            },
+            "opened": {
+              "label": "Número de vagas",
+              "description": "O destinatário abriu a notificação"
+            },
+            "failed": {
+              "label": "Falha",
+              "description": "Não pôde ser entregue. Por favor, tente novamente. "
+            },
+            "noData": {
+              "label": "N/A",
+              "description": "Não foi possível recuperar os dados de comunicação. Por favor, tente novamente. "
+            }
+          }
+        },
+        "table": {
+          "header": {
+            "date": "Data",
+            "recipient": "Destinatário",
+            "status": "Estado"
+          },
+          "recipients": {
+            "forwardedToRelationships": "Encaminhado para {{count}} relacionamentos"
+          },
+          "tooltip": {
+            "relatedMember": "Contado no total de e-mails enviados"
+          }
+        },
+        "status": {
+          "sent": "Enviado para",
+          "opened": "Número de vagas",
+          "failed": "Falha"
+        }
+      }
+    }
+  }
+}

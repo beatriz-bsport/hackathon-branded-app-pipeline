@@ -3,10 +3,35 @@
   "loading": "Meldingen laden ...",
   "page": {
     "title": "Marketingmeldingen",
+    "filters": {
+      "label": "Type melding",
+      "notificationTypeLabel": {
+        "location": "Locatie",
+        "appointment": "Afspraken",
+        "groupActivity": "Groepsactiviteit",
+        "workshop": "Workshops",
+        "establishment": "Vestiging",
+        "pass": "Leskaart",
+        "appointmentPass": "Afspraakkaart",
+        "subscription": "Abonnement",
+        "birthday": "Verjaardag"
+      },
+      "operators": {
+        "is": "Heeft een leeftijd",
+        "isNot": "Is niet"
+      }
+    },
     "emptyState": {
-      "title": "Nog geen meldingen",
-      "description": "Stel een automatisering in om meldingen naar je leden te sturen",
-      "primaryAction": "Voeg automatisering toe"
+      "unfiltered": {
+        "title": "Nog geen meldingen",
+        "description": "Stel een automatisering in om meldingen naar je leden te sturen",
+        "primaryAction": "Voeg automatisering toe"
+      },
+      "filtered": {
+        "title": "Geen meldingen die overeenkomen met je zoekopdracht",
+        "description": "Probeer je filters te wissen om je huidige meldingen te zien",
+        "primaryAction": "Wis filters"
+      }
     },
     "actions": {
       "createNotificationButton": "Maak een melding"
@@ -31,9 +56,9 @@
       "groupActivity": "Groepsactiviteit",
       "workshop": "Workshops",
       "establishment": "Vestiging",
-      "privateService": "Afspraken",
-      "privatePass": "Afspraakkaart",
-      "paymentPack": "Leskaart",
+      "appointment": "Afspraken",
+      "appointmentPass": "Afspraakkaart",
+      "pass": "Leskaart",
       "subscription": "Abonnement",
       "birthday": "Verjaardag",
       "metaActivity": "Reservering"
@@ -51,7 +76,27 @@
       "edit": "Bewerken",
       "delete": "Verwijderen"
     },
-    "brokenEmailTooltip": "Deze automatisering kan niet worden uitgevoerd omdat de e-mailsjabloon is verwijderd.",
+    "brokenNotification": {
+      "canDelete": "You can delete this automation",
+      "missingEmail": {
+        "description": "The email template linked to this automation was deleted. Add a new template to restore the automation.",
+        "tooltip": "This automation can’t run because its email template was deleted. Add a new template to fix it."
+      },
+      "pushNotification": {
+        "stillWorking": "Push notifications are still working."
+      },
+      "missingEntity": {
+        "groupActivity": "Missing linked group activity",
+        "workshop": "Missing linked workshop",
+        "location": "Missing linked location",
+        "establishment": "Missing linked establishment",
+        "appointment": "Missing linked appointment",
+        "subscription": "Missing linked subscription",
+        "pass": "Missing linked pass",
+        "appointmentPass": "Missing linked appointment pass",
+        "description": "The object linked to this automation was deleted. This automation cannot be used anymore, you can delete it."
+      }
+    },
     "triggerType": {
       "booking": {
         "attended": {
@@ -73,9 +118,9 @@
             "afterX_other": "Na {{count}} boekingen op tijd geannuleerd in {{entityName}}"
           },
           "tooLate": {
-            "any": "Elke late annulering in {{entityName}}",
-            "afterX_one": "Na {{count}} te late annuleringen in {{entityName}}",
-            "afterX_other": "Na {{count}} te late annuleringen in {{entityName}}"
+            "any": "Any late cancellation in {{entityName}}",
+            "afterX_one": "After {{count}} late cancellation in {{entityName}}",
+            "afterX_other": "After {{count}} late cancellations in {{entityName}}"
           }
         }
       },
@@ -106,6 +151,9 @@
     },
     "triggerTiming": {
       "booking": {
+        "immediate": {
+          "immediate": "Verzonden bij trigger"
+        },
         "before": {
           "day_one": "Verzonden {{count}} dagen voor de sessie",
           "day_other": "Verzonden {{count}} dagen voor de sessie",

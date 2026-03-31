@@ -1,0 +1,241 @@
+{
+  "common": {
+    "back": "Voltar",
+    "new": "Novo",
+    "search": "Buscar contactos"
+  },
+  "menus": {
+    "popover": {
+      "settings": "Configurações",
+      "attendance": "Presença",
+      "ledger": "Livro Razão",
+      "tutorials": "Tutoriais",
+      "help": "Central de ajuda",
+      "feedback": "Quadro de feedback",
+      "logout": "Sair"
+    },
+    "inbox": "Inbox",
+    "notifications": "Notificações",
+    "sellProducts": "Sell products",
+    "home": "Início",
+    "calendar": "Calendário",
+    "schedule": "Horários",
+    "accessControl": "Access Control",
+    "classes": {
+      "title": "Aulas",
+      "activities": "Aulas de grupo",
+      "workshops": "Workshops",
+      "appointments": "Aulas Privadas"
+    },
+    "memberships": {
+      "title": "Passes de aulas e Membros",
+      "passes": "Passes de aulas",
+      "appointmentPasses": "Passe de aulas privadas",
+      "subscriptions": "Subscrições"
+    },
+    "products": {
+      "title": "Loja",
+      "webshop": "Produtos",
+      "packs": "Pacote",
+      "giftcards": "Cartões de Presente",
+      "videosAndEbooks": "On-Demand",
+      "playlists": "Coleções",
+      "orders": "Encomendas"
+    },
+    "marketing": {
+      "title": "Marketing",
+      "marketingNotifications": "Notificações",
+      "emailTemplates": "Os meus modelos de e-mail",
+      "smartlists": "Smartlists",
+      "audience": "Audience",
+      "promotions": "Programas",
+      "customForms": "Formulários personalizados"
+    },
+    "dashboard": "Painel Principal",
+    "reporting": "Relatórios",
+    "analytics": {
+      "title": "Análises",
+      "insights": "Insights",
+      "reports": "Relatórios"
+    },
+    "finance": {
+      "title": "Finanças",
+      "invoices": "Fatura",
+      "payouts": "Pagamentos",
+      "directDebits": "Débito Direto",
+      "expenses": "Despesas",
+      "payroll": "Folha de pagamento"
+    },
+    "membersHub": {
+      "title": "Contactos",
+      "members": "Perfis",
+      "forms": "Formulários",
+      "tags": "Etiquetas",
+      "performanceTracking": "Programas"
+    },
+    "myStudio": {
+      "title": "Estúdio",
+      "teachers": "Professores",
+      "establishments": "Estabelecimentos",
+      "substitutions": "Substituições"
+    },
+    "settings": {
+      "title": "Configurações",
+      "general": "Geral",
+      "marketplace": "Área de membro",
+      "widgets": "Widgets",
+      "permissions": "Permissões",
+      "personalization": "Personalização",
+      "brandedApp": "Aplicativo Personalizado",
+      "teacherView": "Visão do professor",
+      "memberForms": "Formulários de membros",
+      "livestreaming": "Transmissão ao vivo",
+      "transactionalNotifications": "E-mails transaccionais",
+      "payroll": "Folha de pagamento",
+      "paymentMethods": "Método de pagamento",
+      "paymentFacilities": "Opções de Pagamento",
+      "billing": "Cobrança",
+      "company": "Empresa",
+      "waitlist": "Lista de espera",
+      "webhook": "Webhook",
+      "partnership": "Parceria",
+      "activeCampaign": "ActiveCampaign",
+      "referral": "Recomendações",
+      "quicksale": "POV",
+      "oldWebshop": "Configurações da loja online",
+      "quickbooks": "QuickBooks",
+      "bsportSubscription": "assinatura bsport",
+      "temporaryPassword": "Senha temporária",
+      "changeLanguage": "Mudar idioma"
+    }
+  },
+  "checkoutFlowModal": {
+    "toasts": {
+      "invoiceCreated": "Invoice #{{invoiceId}} created",
+      "open": "Abrir"
+    }
+  },
+  "revampCard": {
+    "betaFeedbackLink": "Partilhar comentários",
+    "goBackToOldUi": "Velho Back Office"
+  },
+  "languages": {
+    "french": "Francês",
+    "englishUK": "Inglês (Reino Unido)",
+    "englishUS": "Inglês (EUA)",
+    "spanish": "Espanhol",
+    "dutch": "Holandês",
+    "german": "Alemão",
+    "italian": "Italiano",
+    "portuguese": "Português",
+    "debug": "Debug (cimode)"
+  },
+  "notifications": {
+    "title": "Centro de Notificação",
+    "empty": {
+      "title": "Você está em dia",
+      "description": "Nada para mostrar agora"
+    },
+    "tabs": {
+      "billing": "Faturamento",
+      "orders": "Encomendas",
+      "tasks": "Tarefas",
+      "unpaidAppointments": "Aulas Privadas não pagos",
+      "tutorials": "Tutoriais",
+      "companyOnboarding": "Informações legais",
+      "privateBookingIncomplete": "Aulas Privadas a completar"
+    },
+    "billing": {
+      "loading": "Carregando notificações de cobrança...",
+      "empty": {
+        "title": "Sem notificações de cobrança",
+        "description": "Todas as suas notificações de cobrança aparecerão aqui"
+      },
+      "paid": "Pago:",
+      "due": "Vencimento:",
+      "itemTitle": "Faturas não pagas",
+      "itemDescription": "A fatura ainda não foi finalizada"
+    },
+    "orders": {
+      "loading": "Carregando pedidos...",
+      "empty": {
+        "title": "Sem pedidos",
+        "description": "Todos os seus pedidos aparecerão aqui"
+      },
+      "itemTitle": "Pedido pendente",
+      "paidByFormat": "Pago por <strong>{{name}}</strong> na loja"
+    },
+    "tasks": {
+      "loading": "Carregando tarefas...",
+      "empty": {
+        "title": "Sem tarefas",
+        "description": "Todas as suas tarefas aparecerão aqui"
+      }
+    },
+    "unpaidAppointments": {
+      "title": "Aulas Privadas não pagos",
+      "itemTitle": "Aula Privada não pago",
+      "loading": "Carregando Aulas Privadas não pagos...",
+      "credits": "Créditos não pagos",
+      "empty": {
+        "title": "Sem Aulas Privadas não pagos",
+        "description": "Você não tem nenhum Aulas Privadas pendente de pagamento"
+      }
+    },
+    "tutorials": {
+      "loading": "Carregando tutoriais...",
+      "empty": {
+        "title": "Sem tutoriais",
+        "description": "Todas as suas notificações de tutoriais aparecerão aqui"
+      },
+      "newSection": {
+        "title": "Nova seção",
+        "description": "O tutorial {{sectionName}} foi adicionado, comece o treino agora mesmo."
+      },
+      "newLesson": {
+        "title": "Nova aula",
+        "description": "Aula {{lessonName}} adicionada à seção {{sectionName}}"
+      }
+    },
+    "companyOnboarding": {
+      "loading": "Carregando notificações de integração da empresa...",
+      "empty": {
+        "title": "Sem notificações de integração da empresa",
+        "description": "Todas as suas notificações de integração da empresa aparecerão aqui"
+      },
+      "creation": {
+        "title": "Os pagamentos online estão desativados no momento",
+        "content": "Por favor, verifique suas informações legais e bancárias para poder processar pagamentos online."
+      },
+      "payout": {
+        "title": "Detalhes bancários incompletos",
+        "content": "Os pagamentos não podem ser processados porque a verificação da conta não foi concluída ou foi feita incorretamente."
+      },
+      "verification": {
+        "title": "Gestão de negócios",
+        "content": "Vários documentos estão pendentes de validação para verificar sua conta. O prazo é: {{date}}.",
+        "contentGeneric": "Vários documentos estão pendentes de validação para verificar sua conta."
+      },
+      "paypal": {
+        "title": "Pagamentos via PayPal estão desativados",
+        "primaryEmailConfirmation": "O E-mail da sua conta PayPal precisa de confirmação. Por favor, verifique sua conta PayPal para resolver este problema.",
+        "requiresMoreInformation": "Sua conta do PayPal requer informações adicionais ou validação do PayPal. Por favor, verifique sua conta do PayPal para resolver este problema.",
+        "issueCheckAccount": "Há um problema com a sua conta do PayPal. Por favor, verifique a sua conta do PayPal para resolver este problema.",
+        "issueRepeatOnboarding": "Há um problema com a sua conta do PayPal. Por favor, repita o processo de conexão usando a mesma conta para resolver este problema."
+      },
+      "generic": {
+        "title": "Onboarding da empresa necessário",
+        "content": "Por favor, complete o processo de integração da sua empresa."
+      }
+    },
+    "privateBookingIncomplete": {
+      "loading": "Carregando aulas privadas para completar...",
+      "empty": {
+        "title": "Sem aulas privadas para completar",
+        "description": "Todas as suas aulas privadas têm professores designados"
+      },
+      "member": "Membro: {{userName}}",
+      "date": "Data: {{date}}"
+    }
+  }
+}

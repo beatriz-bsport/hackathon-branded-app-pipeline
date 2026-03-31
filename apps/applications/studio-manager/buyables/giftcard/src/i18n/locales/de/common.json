@@ -1,18 +1,18 @@
 {
   "pages": {
     "list": "Geschenkgutscheine",
-    "archivedList": "Archiv für Geschenkgutscheine"
+    "archivedList": "Archiviert"
   },
   "listPage": {
     "header": {
       "buttons": {
-        "addGiftcard": "Geschenkgutschein hinzufügen",
+        "addGiftcard": "Erstelle Geschenkgutschein",
         "openBankImage": "Bilderbibliothek"
       }
     },
     "empty": {
       "title": "Derzeit keine Geschenkgutscheine",
-      "subtitle": "Erstelle Geschenkgutscheine, die Mitglieder mit Freunden und Familie teilen können."
+      "subtitle": "Erstellen Geschenkgutscheine, die Mitglieder mit Freunden und Familie teilen können."
     },
     "archiveModal": {
       "title": "Geschenkgutschein archivieren?",
@@ -21,7 +21,7 @@
         "lineTwo": "Du kannst diesen Geschenkgutschein jederzeit aus deinem Archiv wiederherstellen."
       },
       "buttons": {
-        "cancel": "Zurück",
+        "cancel": "Behalten",
         "archive": "Archivieren"
       }
     },
@@ -31,7 +31,7 @@
         "action": "Du kannst '{{ name }}' bearbeiten, sobald es dupliziert wurde."
       },
       "buttons": {
-        "cancel": "Zurück",
+        "cancel": "Schließen",
         "duplicate": "Duplizieren"
       }
     }
@@ -47,14 +47,14 @@
       "archiveGiftcard": "Geschenkgutschein archiviert",
       "duplicateGiftcard": "Geschenkgutschein dupliziert",
       "deleteGiftcardImage": "Geschenkgutscheinbild gelöscht",
-      "undoAction": "Geschenkgutschein wiederhergestellt"
+      "undoAction": "Änderung rückgängig gemacht"
     },
     "errorMessages": {
-      "restoreGiftcard": "Geschenkgutschein kann nicht wiederhergestellt werden, bitte versuche es erneut.",
-      "archiveGiftcard": "Der Geschenkgutschein wurde nicht archiviert. Bitte versuche es nochmal.",
-      "duplicateGiftcard": "Der Geschenkgutschein wurde nicht dupliziert. Bitte versuche es nochmal.",
-      "undoAction": "Aktion kann nicht rückgängig gemacht werden, bitte versuche es erneut.",
-      "deleteGiftcardImage": "Das Bild für den Geschenkgutschein wurde nicht gelöscht. Bitte versuche es nochmal."
+      "restoreGiftcard": "Geschenkgutschein konnte nicht wiederhergestellt werden. Bitte versuche es erneut. ",
+      "archiveGiftcard": "Geschenkgutschein konnte nicht archiviert werden. Bitte versuche es erneut. ",
+      "duplicateGiftcard": "Der Geschenkgutschein konnte nicht dupliziert werden. Bitte versuche es nochmal. ",
+      "undoAction": "Änderung konnte nicht rückgängig gemacht werden. Bitte versuche es erneut. ",
+      "deleteGiftcardImage": "Das Bild des Geschenkgutscheins konnte nicht gelöscht werden. Bitte versuche es erneut."
     },
     "actions": {
       "undo": "Wiederherstellen",
@@ -69,24 +69,31 @@
       "price": "Preis"
     },
     "values": {
-      "unavailable": "Ausgeblendet",
-      "shared": "Sichtbar",
-      "unlimited": "Unbegrenzt",
-      "expireInXDays": "{{ expiration }} Tage"
+      "unlisted": "Nicht gelistet",
+      "shared": "Zentrale",
+      "expireInXDays": "{{ expiration }} Tage",
+      "customAmount": "Persönlich"
     },
     "tooltips": {
       "archive": "Geschenkgutschein archivieren",
       "duplicate": "Geschenkgutschein duplizieren",
       "restore": "Geschenkgutschein wiederherstellen",
-      "shared": "Element wurde vom Hauptkonto erstellt",
-      "unavailable": "Ausgeblendet im Mitgliederbereich"
+      "shared": "Geschenkgutscheine aus Hauptkonto erstellt",
+      "unlisted": "Geschenkgutscheine nicht im Mitgliederbereich gelistet"
     },
     "loading": "Geschenkgutscheine werden geladen ..."
+  },
+  "list": {
+    "actions": {
+      "archive": "Archivieren",
+      "duplicate": "Duplizieren",
+      "restore": "Wiederherstellen"
+    }
   },
   "imageUploadModal": {
     "title": "Bilderbibliothek",
     "uploadButton": "Bild hochladen",
-    "description": "Füge benutzerdefinierte Bilder zu deiner Bibliothek hinzu, damit deine Mitglieder ihre Geschenkgutscheine personalisieren können. ",
+    "description": "Füge benutzerdefinierte Bilder zu deiner Bibliothek hinzu, damit deine Mitglieder ihre Geschenkgutscheine personalisieren können.",
     "selectImage": "Wähle ein Bild aus, um es in der Geschenkgutschein-Vorschau anzuzeigen.",
     "emptyList": "Derzeit keine eigenen Bilder"
   }

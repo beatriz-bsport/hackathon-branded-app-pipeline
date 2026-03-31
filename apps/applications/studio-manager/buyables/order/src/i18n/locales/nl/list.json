@@ -1,1 +1,30 @@
-{}
+{
+  "pageTitle": "Bestellingen",
+  "header": {
+    "searchTooltip": "Zoeken op deze pagina",
+    "filters": {
+      "operators": {
+        "is": "is"
+      }
+    }
+  },
+  "table": {
+    "headers": {
+      "lastDateUpdated": "Laatst bijgewerkt",
+      "buyer": "Koper",
+      "orderStatus": "Status",
+      "quantity": "Aantal",
+      "total": "Totaal",
+      "dateCreated": "Aangemaakt"
+    },
+    "loading": "Bestellingen laden ...",
+    "emptyState": {
+      "title": "Nog geen bestellingen",
+      "emptyDatabase": "Zodra contacten producten uit je webshop kopen, kun je op deze pagina de bestellingen volgen en beheren. ",
+      "emptySearch": "Er zijn momenteel geen bestellingen gemarkeerd als {{ status }}."
+    },
+    "rows": {
+      "memberArchived": "Gearchiveerd"
+    }
+  }
+}

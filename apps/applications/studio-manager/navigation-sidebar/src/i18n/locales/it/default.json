@@ -16,6 +16,7 @@
     },
     "inbox": "Posta in arrivo",
     "notifications": "Notifiche",
+    "sellProducts": "Sell products",
     "home": "Home",
     "calendar": "Calendario",
     "schedule": "Programma",
@@ -106,6 +107,12 @@
       "bsportSubscription": "abbonamento bsport",
       "temporaryPassword": "Password temporanea",
       "changeLanguage": "Cambia lingua"
+    }
+  },
+  "checkoutFlowModal": {
+    "toasts": {
+      "invoiceCreated": "Invoice #{{invoiceId}} created",
+      "open": "Apri"
     }
   },
   "revampCard": {

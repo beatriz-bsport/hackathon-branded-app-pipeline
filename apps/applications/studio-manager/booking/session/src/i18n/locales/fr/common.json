@@ -1,0 +1,36 @@
+{
+  "session": {
+    "tooltips": {
+      "recurring": "Recurring session",
+      "groupedSession": "Séances groupées",
+      "online": "Online session",
+      "hybrid": "A hybrid session combines both an in-person session and a linked online session"
+    },
+    "properties": {
+      "hybrid": "Hybrid"
+    },
+    "weekdays": {
+      "1": "Lundi",
+      "2": "Mardi",
+      "3": "Mercredi",
+      "4": "Jeudi",
+      "5": "Vendredi",
+      "6": "Samedi",
+      "7": "Dimanche"
+    }
+  },
+  "levels": {
+    "default": {
+      "1": "Tous les niveaux",
+      "2": "Débutant",
+      "3": "Intermédiaire",
+      "4": "Avancé",
+      "5": "Aucun niveau affiché"
+    }
+  },
+  "backgroundTask": {
+    "processing": "Processing...",
+    "genericError": "An error has occurred. Check your connection and try refreshing the page.",
+    "timeoutError": "Le serveur a mis trop longtemps à répondre. Essayez de rafraîchir la page"
+  }
+}

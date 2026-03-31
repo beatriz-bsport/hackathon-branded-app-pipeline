@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import maxBy from 'lodash/maxBy';
 import { DateTime } from 'luxon';
 
-import { Alert } from '@material-ui/lab';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 import PartnershipConfigurationPanel from '#src/libs/partnership/components/PartnershipConfigurationPanel';
 import PartnershipWarningDialog from '#src/libs/partnership/components/PartnershipWarningDialog';
@@ -23,7 +23,7 @@ import {
 } from '#src/libs/partnership/hooks';
 
 import WellhubIcon from '#src/components/icons/WellhubIcon.component';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, Typography } from '@material-ui/core';
 
 import WellhubProductAlert from '#src/libs/wellhub/components/WellhubProductAlert';
 
@@ -431,9 +431,14 @@ const WellhubConfiguration: React.FC<Props> = ({
             <>
               {maxMigrationDate && (
                 <Alert severity="info">
-                  {t('wellhub.configuration.migration.banner', {
-                    date: maxMigrationDate.toLocaleString(DateTime.DATE_FULL),
-                  })}
+                  <AlertTitle>
+                    {t('wellhub.configuration.migration.banner.title')}
+                  </AlertTitle>
+                  <Typography variant="body2">
+                    {t('wellhub.configuration.migration.banner.content', {
+                      date: maxMigrationDate.toLocaleString(DateTime.DATE_FULL),
+                    })}
+                  </Typography>
                 </Alert>
               )}
               <WellhubProductAlert

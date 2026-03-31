@@ -1,1 +1,63 @@
-{}
+{
+  "searchMembers": {
+    "title": "Cerca profili",
+    "addMember": "Crea profilo",
+    "loading": "Caricamento dei risultati...",
+    "emptySearch": "Cerca contatti o crea un nuovo profilo",
+    "tagsTooltip": "Tag:",
+    "segments": {
+      "active": "Attivo",
+      "archived": "Archiviato"
+    },
+    "copyToClipboard": {
+      "action": "Fai clic per copiare",
+      "copyEmail": "Copia Email",
+      "copyPhone": "Copia telefono",
+      "toasts": {
+        "phoneNumberCopied": "Numero di telefono copiato negli appunti",
+        "emailCopied": "L'email del membri è stata copiata negli appunti"
+      }
+    }
+  },
+  "temporaryPassword": {
+    "title": "Password temporanea",
+    "description": "Puoi generare e richiedere una password temporanea che sarà valida per un massimo di 1 settimana per condividerla con il nostro team di supporto per assistenza. La tua password principale e abituale non sarà influenzata.",
+    "buttons": {
+      "close": "Chiudi",
+      "generate": "Genera"
+    },
+    "generatedPassword": {
+      "copyToClipboard": "Copia la password negli appunti",
+      "copiedToClipboard": "Password copiato",
+      "validity": "Questa password è valida fino al {{- expirationDate }}. La tua password principale non è cambiata."
+    }
+  },
+  "attendance": {
+    "title": "orologio marcatempo",
+    "clockInForStaff": "Timbratura per un altro membri del personale",
+    "buttons": {
+      "close": "Chiudi",
+      "clockIn": "Timbratura",
+      "clockOut": "Uscita"
+    },
+    "initial": {
+      "welcome": "Ciao {{ name }}!",
+      "clockInCTA": "Per favore clicca su 'Clock-in' per iniziare;"
+    },
+    "clockedIn": {
+      "successfulClockIn": "Hai timbrato con successo.",
+      "failedClockIn": "Sei già timbrato.",
+      "clockOutCTA": "Puoi cliccare su 'Clock-out' per concludere."
+    },
+    "clockedOut": {
+      "successfulClockOut": "I tuoi orari sono stati salvati:",
+      "failedClockOut": "Impossibile effettuare il clock-out",
+      "nextIterationCTA": "Puoi iniziare un nuovo Clock-in la prossima volta che apri questa finestra."
+    },
+    "schedule": {
+      "arrivalTime": "Orario di arrivo",
+      "departureTime": "Orario di partenza",
+      "hoursWorked": "Ore lavorate"
+    }
+  }
+}

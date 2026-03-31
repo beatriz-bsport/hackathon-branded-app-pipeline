@@ -13,13 +13,22 @@ import type { UseFormControllerOutput } from "@bsport/form";
  */
 export type ContractFormData = Pick<
   CreateContractParams,
-  "name" | "description" | "recurrent_price" | "flat_fee"
+  | "name"
+  | "description"
+  | "recurrent_price"
+  | "flat_fee"
+  | "interval"
+  | "recurrence_basis"
+  | "month_billing_day"
 > &
   Pick<CreateLegacyContractParams, "payment_pack"> & {
     payment_pack_details: Pick<
       PassDetails,
       "tax" | "bookkeeping_account_id"
     > | null;
+  } & {
+    // Form helpers for discrimanted unions
+    hasCustomInterval: boolean;
   };
 
 export type ContractFormSchema = z.ZodType<ContractFormData>;

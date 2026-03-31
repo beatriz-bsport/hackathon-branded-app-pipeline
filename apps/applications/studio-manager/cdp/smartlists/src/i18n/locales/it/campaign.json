@@ -1,0 +1,460 @@
+{
+  "email": {
+    "creation": {
+      "title": "Email Campaign",
+      "continueButtonLabel": "Continua",
+      "expectedRecipients": {
+        "label": "Expected Recipients",
+        "infoLabel": "Information about expected recipients",
+        "popover": {
+          "title": "How are we calculating this number?",
+          "intro": "This number is an estimate based on the Smartlist and delivery settings at the time of calculation. The final number of recipients may change before the campaign is sent.",
+          "listIntro": "We calculate this number by excluding:",
+          "exclusions": {
+            "noValidContact": {
+              "description": "Members without a valid contact method",
+              "example": "(e.g. no email address for email campaigns, no phone number for SMS)"
+            },
+            "optedOut": {
+              "description": "Members who have opted out of marketing communications (or are not opted in, depending on the campaign type)",
+              "example": "(e.g. no email address for email campaigns, no phone number for SMS)"
+            },
+            "invalidEmail": {
+              "description": "Invalid or unreachable email addresses",
+              "example": "(e.g. addresses that don't exist or can't receive emails)"
+            },
+            "systemEmails": {
+              "description": "System-generated or placeholder emails",
+              "example": "(such as temporary emails created by ClassPass)"
+            },
+            "smartlistChanges": {
+              "description": "Smartlist changes over time. Members may enter or leave the Smartlist between now and when the campaign is sent",
+              "example": "(e.g. members may enter or leave the Smartlist between now and when the campaign is sent)"
+            }
+          }
+        }
+      },
+      "delivery": {
+        "title": "Delivery",
+        "label": "Send now or in the future *",
+        "sendNow": "Send now",
+        "scheduleForLater": "Programma per dopo",
+        "dateLabel": "Data",
+        "timeLabel": "ora",
+        "datePlaceholder": "DD/MM/YYYY",
+        "timePlaceholder": "00:00",
+        "warning": {
+          "nightTimeScheduled": "This message is scheduled to be sent in the nighttime. For better results, we recommend sending messages in the day time."
+        }
+      },
+      "form": {
+        "emailType": {
+          "label": "Select the type you're sending",
+          "options": {
+            "marketing": "Marketing communications (eg. newsletter, promotions, discounts, etc)",
+            "informational": "Important announcements (eg. class-related reminders, policy changes, etc)"
+          }
+        },
+        "emailTemplate": {
+          "selectEmailTemplateLabel": "Seleziona un modello email",
+          "selectEmailTemplatePlaceholder": "Search for a template...",
+          "emailTemplateSearching": "Searching templates...",
+          "emailTemplateNoCategory": "Nessuna categoria",
+          "sendTestEmail": "Send test email",
+          "editEmail": "Edit email",
+          "noTemplatePreview": "Select a template or edit the email to see a preview."
+        },
+        "errors": {
+          "emailTypeRequired": "Please select the type of email you're sending",
+          "campaignNameRequired": "Campaign name is required.",
+          "subjectRequired": "Email subject is required.",
+          "bodyRequired": "Email body is required.",
+          "errorMaxLength": "Campaign name must be at most {{count}} characters",
+          "selectEmailTemplate": "Please select an email template.",
+          "scheduledDateRequired": "Please select a date.",
+          "scheduledTimeRequired": "Please select a time.",
+          "scheduledDateInvalid": "Please enter a valid date.",
+          "scheduledDateNotInPast": "The date cannot be in the past.",
+          "scheduledAtLeast5Minutes": "I messaggi devono essere programmati con almeno 5 minuti di anticipo."
+        },
+        "emailTypeSelector": {
+          "title": "Comunicazione",
+          "textOnly": "Text only",
+          "emailTemplate": "Selezionare un template"
+        },
+        "textOnly": {
+          "subjectLabel": "Oggetto email",
+          "bodyLabel": "Email body"
+        },
+        "emailTemplateEditor": {
+          "title": "Email editor",
+          "confirmButtonLabel": "Salva",
+          "cancelButtonLabel": "Annulla",
+          "saveActionModal": {
+            "title": "Save email",
+            "description": "How would you like to save this email?",
+            "options": {
+              "overwriteExistingTemplate": {
+                "label": "Update existing template",
+                "helperText": "This will update the template for future campaigns.",
+                "toast": {
+                  "success": "Changes saved on email template",
+                  "failure": "Failed to save changes on email template"
+                }
+              },
+              "onTheFlyTemplate": {
+                "label": "Use this email for this campaign only",
+                "helperText": "Changes won't be saved as a template.",
+                "toast": {
+                  "success": "Changes to email template only applied to this campaign",
+                  "failure": "Failed to apply changes on email template to this campaign"
+                }
+              },
+              "createNewTemplate": {
+                "label": "Save as a new template",
+                "helperText": "Create a new template from this email.",
+                "toast": {
+                  "success": "New email template created and saved",
+                  "failure": "Failed to create new email template"
+                }
+              }
+            },
+            "confirmButtonLabel": "Salva",
+            "cancelButtonLabel": "Annulla"
+          }
+        }
+      }
+    }
+  },
+  "generic": {
+    "creation": {
+      "form": {
+        "campaignName": {
+          "label": "Campaign Name"
+        },
+        "errors": {
+          "campaignNameRequired": "Campaign name is required.",
+          "errorMaxLength": "Campaign name must be at most {{count}} characters"
+        }
+      }
+    }
+  },
+  "push": {
+    "creation": {
+      "title": "Push Notification Campaign",
+      "continueButtonLabel": "Continua",
+      "alertMessage": "Only members who have downloaded your studio app and enabled push notifications will receive this notification.",
+      "form": {
+        "errors": {
+          "campaignNameRequired": "Campaign name is required.",
+          "errorMaxLength": "Campaign name must be at most {{count}} characters"
+        }
+      }
+    }
+  },
+  "communicationKind": {
+    "email": "Email",
+    "sms": "SMS",
+    "push": "Push"
+  },
+  "recipientStatus": {
+    "bounced": "Errore",
+    "unknown": "Sconosciuto",
+    "deferred": "In attesa",
+    "dropped": "Dropped",
+    "pending": "In attesa",
+    "delivered": "ricevuto",
+    "processed": "Processed"
+  },
+  "campaignStatus": {
+    "scheduled": "Scheduled",
+    "delivered": "ricevuto",
+    "processing": "Sending",
+    "failed": "Fallito",
+    "opened": "Numero di aperture",
+    "na": "N/A"
+  },
+  "popup": {
+    "creation": {
+      "title": "Pop-up Campaign",
+      "continueButtonLabel": "Continua",
+      "alertMessage": "Only members who have downloaded your studio app will receive this notification.",
+      "messageSectionTitle": "Comunicazione",
+      "form": {
+        "campaignName": {
+          "label": "Campaign Name"
+        },
+        "name": {
+          "label": "Titolo",
+          "required": "Questo è obbligatorio",
+          "maxLength": "Title must be at most 200 characters"
+        },
+        "link": {
+          "label": "Link",
+          "buttonLabel": "Test link",
+          "required": "Questo è obbligatorio",
+          "maxLength": "Link must be at most 200 characters",
+          "invalidUrl": "Inserisci un URL valido"
+        },
+        "image": {
+          "uploadLabel": "Upload an image",
+          "dragAndDropLabel": "o trascinalo qui",
+          "fileTypes": "JPG, PNG, SVG",
+          "uploadInstructions": "Recommended: 1280 x 720 pixels, file size under 2MB",
+          "previewAlt": "Pop-up image preview"
+        }
+      },
+      "toasts": {
+        "error": {
+          "createFailed": "Smartlist pop-up couldn't be created. Please try again."
+        },
+        "processing": {
+          "creatingPopup": "Creating pop-up..."
+        }
+      }
+    },
+    "edit": {
+      "title": "Edit Pop-up Campaign",
+      "continueButtonLabel": "Continua",
+      "alertMessage": "Only members who have downloaded your studio app will receive this notification.",
+      "toasts": {
+        "error": {
+          "editFailed": "Smartlist pop-up changes couldn't be saved. Please try again."
+        },
+        "processing": {
+          "editingPopup": "Saving pop-up changes..."
+        }
+      }
+    }
+  },
+  "page": {
+    "campaignScheduled": {
+      "title": "Scheduled Campaigns"
+    },
+    "sentCampaigns": {
+      "title": "Sent Campaigns"
+    }
+  },
+  "actions": {
+    "createCampaign": "Create campaign",
+    "openPopUps": "Review pop-ups",
+    "generateReport": "Generate Report"
+  },
+  "campaignTypeSelector": {
+    "title": "Create a new campaign",
+    "description": "Select your desired communication channel to get started:",
+    "addOnChip": "Componente aggiuntivo",
+    "email": {
+      "title": "Email",
+      "description": "Send a targeted email message to your smartlist"
+    },
+    "sms": {
+      "title": "SMS",
+      "description": "Send SMS messages to your members"
+    },
+    "push": {
+      "title": "Notifica push",
+      "description": "Send your members a notification via your studio app"
+    },
+    "popup": {
+      "title": "Pop-up",
+      "description": "Message appears when members open your app"
+    }
+  },
+  "upsellInterestConfirmationModal": {
+    "title": "Ti contatteremo presto!",
+    "heading": "Thanks for your interest",
+    "description": "Your account manager will be in touch shortly to walk you through the details and answer any questions.",
+    "okButton": "OK"
+  },
+  "communicationPackageUpsellModal": {
+    "title": "Unlock the communication package",
+    "disclaimer": "Questa funzionalità è un componente aggiuntivo. Contatta il tuo Account Manager per maggiori informazioni.",
+    "buttons": {
+      "cancel": "Annulla",
+      "getInTouch": "Contattaci"
+    },
+    "toast": {
+      "requestFailed": "Something went wrong. Please try again or contact your Account Manager."
+    },
+    "sms": {
+      "heading": "Reach members on every channel",
+      "description": "Reach your members instantly via SMS, push notifications, and email. Automate welcome messages, send timely reminders and loyalty offers, and share studio news that keeps them coming back."
+    },
+    "push": {
+      "heading": "Reach members on every channel",
+      "description": "Reach your members instantly via SMS, push notifications, and email. Automate welcome messages, send timely reminders and loyalty offers, and share studio news that keeps them coming back."
+    },
+    "popup": {
+      "heading": "Turn on in-app notifications",
+      "description": "Connect with your members in real time through your branded app. Send timely reminders, highlight key updates, and keep your studio visible on their home screen."
+    }
+  },
+  "generateReportModal": {
+    "title": "Genera il report",
+    "description": "Define a date range to include in your report",
+    "toast": {
+      "pending": "Processing...",
+      "success": "Report successfully generated. The document was directly downloaded.",
+      "startReportGenerationFailed": "There was an issue starting the generation of your report. Try again.",
+      "generationFailed": "There was an issue generating your report. Try again.",
+      "downloadFailed": "There was an issue downloading your report. Try again."
+    },
+    "buttons": {
+      "confirm": "Genera il report",
+      "cancel": "Annulla"
+    }
+  },
+  "table": {
+    "campaignRecipient": {
+      "recipientsList": {
+        "title": "Destinatario"
+      },
+      "emptyDate": "--",
+      "headers": {
+        "memberIdentity": "Socio",
+        "lastOpened": "Last opened",
+        "openCount": "Opens",
+        "clickCount": "Click",
+        "status": "Status"
+      },
+      "emptyState": {
+        "description": "No recipients"
+      },
+      "loadingState": {
+        "description": "Loading recipients list..."
+      },
+      "moreActions": {
+        "label": "Altre azioni",
+        "navigateToMemberProfile": "Navigate to member profile",
+        "copyEmail": "Copia Email",
+        "copyPhoneNumber": "Copy phone number",
+        "copyName": "Copy name"
+      }
+    },
+    "campaignScheduled": {
+      "deleteModal": {
+        "title": "Delete scheduled campaign?",
+        "description": "This will permanently delete this campaign. The scheduled email will be canceled and will not be sent to the recipients.",
+        "warning": "Heads up: this change is permanent and cannot be undone.",
+        "cannotDeleteWithin5Min": "This campaign is scheduled to be sent in less than 5 minutes. It can no longer be deleted.",
+        "buttons": {
+          "delete": "Delete campaign",
+          "cancel": "Mantieni"
+        }
+      },
+      "toasts": {
+        "success": {
+          "deleted": "Scheduled campaign deleted"
+        },
+        "error": {
+          "deleteFailed": "Scheduled campaign couldn't be deleted. Please try again."
+        }
+      },
+      "recipientsList": {
+        "title": "Destinatario",
+        "description": "This list shows members who currently match your Smartlist. If the Smartlist changes before sending, the final list of recipients will be updated automatically."
+      },
+      "headers": {
+        "scheduledDate": "Scheduled",
+        "campaignName": "Campagna"
+      },
+      "moreActions": {
+        "label": "Altre azioni",
+        "edit": "Modifica",
+        "delete": "Elimina"
+      },
+      "emptyState": {
+        "description": "Nothing scheduled yet"
+      },
+      "loadingState": {
+        "description": "Loading scheduled campaigns..."
+      }
+    },
+    "campaignSent": {
+      "headers": {
+        "sentDate": "Sent date",
+        "campaignName": "Campagna",
+        "campaignAnalytics": "Analisi"
+      },
+      "analytics": {
+        "recipients": "Destinatario",
+        "deliveryRate": "Delivery rate",
+        "openCount": "Opens",
+        "clickCount": "Click"
+      },
+      "moreActions": {
+        "label": "Altre azioni",
+        "preview": "Anteprima"
+      },
+      "emptyState": {
+        "description": "Nothing sent yet"
+      },
+      "loadingState": {
+        "description": "Loading sent campaigns ..."
+      }
+    }
+  },
+  "campaignDetails": {
+    "metadataBanner": {
+      "noRecipients": "--",
+      "headers": {
+        "channel": "Campaign channel",
+        "status": "Status",
+        "scheduledDate": "Scheduled on",
+        "sentDate": "Sent on",
+        "recipients": "Total recipients"
+      },
+      "previewButton": "View message",
+      "deleteButton": "Elimina",
+      "contentPreview": {
+        "subject": "Email Subject",
+        "dynamicContentWarning": "Dynamic content may not appear in the preview"
+      }
+    },
+    "performance": {
+      "title": "Campaign performance",
+      "empty": "No performance data available",
+      "deliveryRate": {
+        "title": "Delivery rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} email delivered",
+        "subtitle_other": "{{count}} emails delivered",
+        "subtitle_zero": "No emails delivered"
+      },
+      "openRate": {
+        "title": "Tasso di apertura",
+        "subtitle": "",
+        "subtitle_one": "{{count}} recipient opened the email",
+        "subtitle_other": "{{count}} recipients opened the email",
+        "subtitle_zero": "No recipients opened the email"
+      },
+      "clickRate": {
+        "title": "Click rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} recipient clicked at least once",
+        "subtitle_other": "{{count}} recipients clicked at least once",
+        "subtitle_zero": "No recipients clicked at least once"
+      },
+      "unsubscribedRate": {
+        "title": "Unsubscribed rate",
+        "subtitle": "",
+        "subtitle_one": "{{count}} unsubscribed from this email",
+        "subtitle_other": "{{count}} unsubscribed from this email",
+        "subtitle_zero": "No unsubscribed from this email"
+      },
+      "clickPerformance": {
+        "empty": "No click performance data available",
+        "title": "Click performance",
+        "click": "",
+        "click_one": "{{count}} click",
+        "click_other": "{{count}} clicks",
+        "click_zero": "Nessun clic",
+        "showMore": "Show {{count}} more",
+        "showMore_one": "Show {{count}} more",
+        "showMore_other": "Show {{count}} more",
+        "showLess": "Vedi meno"
+      }
+    }
+  }
+}

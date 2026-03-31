@@ -10,25 +10,24 @@
     },
     "addFormModal": {
       "title": "Créer un nouveau formulaire",
-      "description": "Nommez votre nouveau formulaire pour commencer !",
       "input": {
-        "label": "Nom du formulaire",
+        "label": "Nom",
         "placeholder": "Ajoutez un nom de formulaire..."
       },
       "actions": {
-        "cancel": "Annuler",
+        "cancel": "Fermer",
         "create": "Créer"
       },
       "errors": {
-        "nameTooLong": "Le nom n'est pas valide, la longueur maximale est de {{ maximalLength }} caractères.",
-        "nameTooShort": "Le nom n'est pas valide, la longueur minimale est de {{ minimalLength }} caractère.",
-        "nameRequired": "Le nom n'est pas valide, vous ne pouvez pas entrer un nom vide."
+        "nameTooLong": "Le nom doit comporter au maximum {{ maximalLength }} caractères",
+        "nameTooShort": "Le nom doit comporter au moins {{ minimalLength }} caractère",
+        "nameRequired": "Donnez un nom à votre formulaire pour continuer"
       }
     },
     "archiveModal": {
       "actions": {
         "archive": "Archiver",
-        "cancel": "Retour"
+        "cancel": "Garder"
       },
       "title": "Archiver le formulaire ?",
       "description": "Les Membres ne verront plus <b>{{ name }}</b>, mais vous pouvez y accéder depuis votre archive."
@@ -36,35 +35,35 @@
     "duplicateModal": {
       "actions": {
         "duplicate": "Dupliquer",
-        "cancel": "Retour"
+        "cancel": "Fermer"
       },
       "title": "Dupliquer le formulaire ?",
       "description": {
         "verification": "Dupliquer <b>{{ name }}</b> ?",
-        "effect": "Vous pouvez modifier <b>{{ name }}</b> après."
+        "effect": "Vous pourrez modifier <b>{{ name }}</b> après"
       }
     }
   },
   "toasts": {
     "messageCreated": {
       "success": "Formulaire créé",
-      "error": "Échec de la création de votre formulaire"
+      "error": " Le formulaire n'a pas pu être restauré. Veuillez réessayer."
     },
     "messageArchived": {
       "success": "Formulaire archivé",
-      "error": "Échec de l'archivage de votre formulaire"
+      "error": " Le formulaire n'a pas pu être archivé. Veuillez réessayer."
     },
     "messageRestored": {
       "success": "Formulaire restauré",
-      "error": "Échec de la restauration de votre formulaire"
+      "error": " Le formulaire n'a pas pu être restauré. Veuillez réessayer."
     },
     "messageDuplicated": {
       "success": "Formulaire dupliqué",
-      "error": "Échec de la duplication de votre formulaire"
+      "error": " Le formulaire n'a pas pu être dupliqué. Veuillez réessayer."
     },
     "messageUndone": {
-      "success": "Action annulée",
-      "error": "Échec de l'annulation de l'action"
+      "success": "Modification annulée",
+      "error": "Le changement n'a pas pu être annulé. Veuillez réessayer."
     },
     "actions": {
       "undo": "Annuler",
@@ -87,7 +86,7 @@
       },
       "archivedList": {
         "title": "Aucun formulaire archivé pour le moment",
-        "subtitle": "Les formulaires déplacés ici peuvent être restaurés"
+        "subtitle": "Tous les formulaires que vous archivez apparaîtront ici. Vous pouvez les restaurer à tout moment. "
       },
       "search": {
         "title": "Aucun formulaire trouvé",
@@ -101,5 +100,9 @@
       "search": "Rechercher un formulaire",
       "switchToArchived": "Formulaires archivés"
     }
+  },
+  "list": {
+    "questions": "{{count}} question",
+    "questions_other": "{{count}} questions"
   }
 }

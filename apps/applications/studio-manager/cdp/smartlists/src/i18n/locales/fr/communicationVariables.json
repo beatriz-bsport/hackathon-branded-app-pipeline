@@ -1,0 +1,230 @@
+{
+  "communicationVariableSelector": {
+    "placeholder": "Ajouter une balise"
+  },
+  "communicationVariable": {
+    "Offer": {
+      "name": "Séances",
+      "tags": {
+        "activity": "Activités",
+        "coach": "Professeur",
+        "date": "Horaires et date",
+        "establishment": "Établissements",
+        "establishment_practical_info": "Détails de l'établissement ",
+        "address": "Adresse"
+      }
+    },
+    "User": {
+      "name": "Membre",
+      "tags": {
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "unsubscribe_link": "Unsubscribe from newsletter",
+        "reset_password_url": "Lien réinitialisation mot de passe",
+        "email_confirmation_url": "Lien confirmation d'email",
+        "marketing_email_double_opt_in_url": "Lien de double opt-in pour les emails Marketing"
+      }
+    },
+    "Booking": {
+      "name": "Activité",
+      "tags": {
+        "activity": "Activité",
+        "coach": "Professeur",
+        "date": "Horaires et date",
+        "establishment": "Établissement",
+        "establishment_practical_info": "Establishment details",
+        "address": "Adresse",
+        "ics_calendar_link": "Lien ics calendrier",
+        "spot": "Place",
+        "canceled_grouped_session": "Série annulée"
+      },
+      "subtitles": {
+        "workshop": "Atelier",
+        "establishment_group": "Localisation",
+        "establishment": "Établissement",
+        "meta_activity": "Activité"
+      }
+    },
+    "ConsumerPaymentPack": {
+      "name": "Cartes de cours",
+      "tags": {
+        "pass_price": "Prix carte",
+        "pass_name": "Nom de la carte de cours",
+        "pass_starting_date": "Date de début carte",
+        "pass_expiration": "Date de fin carte",
+        "pass_credit_left": "Crédits restants"
+      }
+    },
+    "BillingPlan": {
+      "name": "Abonnements",
+      "tags": {
+        "subscription_name": "Nom de l'abonnement",
+        "subscription_recurrent_price": "Montant mensuel prélevé",
+        "subscription_nb_months": "Nombre de factures",
+        "subscription_nb_bills": "Nombre de factures",
+        "subscription_duration": "Durée totale",
+        "subscription_flat_fee": "Frais de dossier",
+        "subscription_payment_method": "Moyen de paiement",
+        "subscription_nb_days_pause": "Mise en Pause : nb de jours",
+        "subscription_next_invoice_date": "Date de la prochaine facturation",
+        "subscription_contract_terms_link": "Lien des mentions légales",
+        "days_until_payment_method_expiration": "Nombre de jours avant l'expiration du mode de paiement"
+      }
+    },
+    "BookingOption": {
+      "name": "Liste d'attente",
+      "tags": {
+        "activity": "Activité",
+        "coach": "Professeur",
+        "date": "Horaires et date",
+        "establishment": "Établissement",
+        "establishment_practical_info": "Accès à la salle",
+        "address": "Adresse",
+        "option_payment_url": "Lien de réservation",
+        "option_expiration_date": "Date d'expiration place sur liste d'attente",
+        "waiting_list_position": "Position sur la liste d'attente",
+        "waiting_list_size": "Nombre de personnes sur la liste d'attente"
+      }
+    },
+    "PrivateBooking": {
+      "tags": {
+        "establishment_practical_info": "Accès à la salle",
+        "address": "Adresse",
+        "date": "Horaires et date",
+        "coach": "Professeur",
+        "activity": "Activité",
+        "establishment": "Établissement",
+        "ics_calendar_link": "Lien ics calendrier"
+      },
+      "name": "Les Rendez-vous"
+    },
+    "PrivateConsumerPass": {
+      "tags": {
+        "pass_credit_left": "Crédits restants",
+        "pass_expiration": "Date de fin carte",
+        "pass_starting_date": "Date de début carte",
+        "pass_name": "Nom de la carte de cours",
+        "pass_price": "Prix carte"
+      },
+      "name": "Cartes de RDV"
+    },
+    "Company": {
+      "tags": {
+        "company_websiteURL": "URL du site web",
+        "company_info": "Informations du studio",
+        "android_app_URL": "URL de l'application android",
+        "android_app_url": "URL de l'application Android",
+        "ios_app_URL": "URL de l'application iOS",
+        "ios_app_url": "URL de l'application iOS",
+        "company_facebookURL": "URL Facebook",
+        "company_instagramURL": "URL Instagram",
+        "company_scheduleURL": "Schedule page URL",
+        "login_url": "URL de connexion",
+        "company": "Company Name",
+        "company_primary_color": "Code couleur",
+        "company_name": "Company Name",
+        "company_logo": "Company Logo URL",
+        "currency": "Currency"
+      },
+      "name": "Studio"
+    },
+    "GuestInvitation": {
+      "tags": {
+        "firstname_guest": "Prénom de l'invité",
+        "lastname_guest": "Nom de l'invité",
+        "firstname_host": "Inviter first name",
+        "lastname_host": "Inviter last name"
+      },
+      "name": "Invitations"
+    },
+    "RecurrentRule": {
+      "tags": {
+        "activity": "Activités",
+        "coach": "Professeur",
+        "date": "Horaires et date",
+        "establishment": "Établissements",
+        "establishment_practical_info": "Establishment details",
+        "address": "Adresse",
+        "recurring_booking_fail_reason": "Failure reason"
+      },
+      "name": "Automatic Booking"
+    },
+    "Birthday": {
+      "tags": {},
+      "name": "Anniversaire"
+    },
+    "ReplacementRequest": {
+      "tags": {
+        "sub_teacher": "Substitute Name",
+        "closing_date": "Request Closing Date"
+      },
+      "name": "Teacher replacement request"
+    },
+    "Invoice": {
+      "name": "Factures",
+      "tags": {
+        "id": "Numero de reçu",
+        "invoice_price": "Montant de la facture",
+        "invoice_sum_up": "Invoice details",
+        "invoice_date": "Date de complétion",
+        "invoice_download_link": "Invoice link",
+        "days_until_payment_method_expiration_planned_payment_event": "Days until payment method expires"
+      }
+    },
+    "GiftCard": {
+      "name": "Cartes cadeaux",
+      "tags": {
+        "giftcard_message": "Communication",
+        "activate_giftcard_url": "Gift Card URL",
+        "message_is_from": "Sender Name",
+        "message_is_for": "Recipient Name",
+        "giftcard_value": "Prix",
+        "giftcard_name": "Nom",
+        "activation_datetime": "Date d'activation",
+        "pdf_link": "PDF Link",
+        "printable_code": "Code"
+      }
+    },
+    "EmailChange": {
+      "name": "Email Change",
+      "tags": {
+        "new_email": "New email",
+        "old_email": "Old email",
+        "manage_changing_email_link": "Manage changing email link",
+        "login_link": "Login link"
+      }
+    },
+    "SpiviPerformance": {
+      "name": "Spivi Class Summary",
+      "tags": {
+        "total_distance": "Distance",
+        "calories_kJ": "Calories KJ",
+        "calories": "Calories",
+        "max_watts": "Maximum watts",
+        "maximum_speed": "Vitesse maximale",
+        "max_RPM": "Maximum RPM",
+        "max_HR": "Fréquence cardiaque maximale",
+        "average_watts": "Average watts",
+        "average_speed": "Vitesse moyenne",
+        "average_RPM": "Average RPM",
+        "average_HR": "Fréquence cardiaque moyenne",
+        "SEP": "SEP"
+      }
+    },
+    "ReferralProgram": {
+      "name": "Parrainages",
+      "tags": {
+        "reduction_purchase_referred": "Discount for referred member",
+        "referring_reward": "Reward for referring member",
+        "minimum_purchase_referral": "Minimum purchase required",
+        "deadline_use_referral": "Referral deadline",
+        "referring_firstname": "Prénom membre parrain",
+        "referring_lastname": "Nom membre parrain",
+        "referred_firstname": "Prénom membre parrainé",
+        "referred_lastname": "Nom membre parrainé",
+        "referral_link": "Lien de parrainage",
+        "registration_date": "Date d'inscription"
+      }
+    }
+  }
+}

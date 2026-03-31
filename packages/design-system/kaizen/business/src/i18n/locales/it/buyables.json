@@ -1,0 +1,53 @@
+{
+  "paymentMethods": {
+    "label": "Metodi di pagamento accettati",
+    "helperText": "Choose at least one payment method",
+    "options": {
+      "onlinePayment": {
+        "label": "Online (default)",
+        "helperText": "Card or other online payments"
+      },
+      "inPerson": {
+        "label": "Di persona",
+        "helperText": "Cash or cheque"
+      }
+    },
+    "alertVisibilityHidden": "Hidden {{ buyable }} can still be shared with members using a link and paid for via online payment."
+  },
+  "visibilitySelector": {
+    "optionVisible": {
+      "label": "Listed",
+      "description": "This {{ buyable }} will be visible on the Member Area"
+    },
+    "optionHidden": {
+      "label": "Non in elenco",
+      "description": "This {{ buyable }} won't be visible on the Member Area but can be shared via a link"
+    }
+  },
+  "tagsAfterPurchaseSelector": {
+    "placeholder": "Add tags",
+    "title": "Tag after purchase",
+    "description": "Add tags to identify which member bought this item."
+  },
+  "copyPaymentLinkButton": {
+    "toastSuccess": "Link copiato",
+    "tooltip": "Copia il link di pagamento"
+  },
+  "itemAutocomplete": {
+    "openItemInNewTab": "Open item in new tab",
+    "credits": "{{count}} crediti",
+    "credits_one": "{{count}} credito",
+    "credits_other": "{{count}} crediti",
+    "items": "{{count}} elementi",
+    "items_one": "{{count}} elemento",
+    "items_other": "{{count}} elementi",
+    "days": "",
+    "days_one": "{{count}} giorno",
+    "days_other": "{{count}} giorni",
+    "unlimited": "Illimitato",
+    "custom": "Personalizzazione",
+    "customAmountRange": "Custom: {{min}} - {{max}}",
+    "hiddenChipLabel": "Nascosto",
+    "hiddenGiftcardTooltip": "This gift card won't be available to buy on the Member Area"
+  }
+}

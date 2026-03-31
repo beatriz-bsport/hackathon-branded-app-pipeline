@@ -1,1 +1,16 @@
-{}
+{
+  "title": "¿Volver al antiguo Back Office?",
+  "description": "Tu opinión es esencial para ayudarnos a mejorar aún más el nuevo Back Office. ",
+  "confirm": "Compartir comentarios",
+  "cancel": "Cerrar",
+  "mainQuestion": "Por favor, cuéntanos qué piensas sobre el nuevo Back Office:",
+  "reasons": {
+    "slower": "El nuevo Back Office es más lento o menos receptivo.",
+    "missingFeatures": "Le faltan funciones en las que confío",
+    "hardToNavigate": "El diseño es difícil de navegar o leer",
+    "dontLike": "Simplemente no me gusta.",
+    "other": "Otro"
+  },
+  "additionalFeedbackQuestion": "¿Tienes comentarios adicionales que te gustaría compartir?",
+  "additionalFeedbackPlaceholder": "Dinos qué piensas"
+}

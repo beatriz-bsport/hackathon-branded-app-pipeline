@@ -24,7 +24,7 @@
     "bsportTemplateInfo": {
       "title": "plantillas de bsport",
       "description": {
-        "firstStep": "Duplica la plantilla que quieres usar, luego edita y envía la versión copiada a los miembros directamente desde esta página. ",
+        "firstStep": "Duplica la plantilla que quieras usar, luego edita y envía la versión copiada a tus clientes.",
         "secondStep": "Luego selecciona la copia del correo al enviar una comunicación."
       },
       "quit": "Salir"
@@ -56,8 +56,8 @@
       "title": "Plantilla de correo guardada"
     },
     "error": {
-      "missingFields": "Selecciona una categoría para guardar tu plantilla",
-      "problemWhileSaving": "No se pueden guardar los cambios, por favor intenta de nuevo"
+      "missingFields": "No se pudieron guardar tus cambios: ",
+      "problemWhileSaving": "No se pudieron guardar los cambios. Por favor, inténtalo de nuevo"
     }
   },
   "leaveConfirmationModal": {
@@ -69,17 +69,17 @@
     "label": "Asunto del correo",
     "placeholder": "Añade un asunto al correo",
     "error": {
-      "notProvided": "Esto es necesario para continuar",
+      "notProvided": "Añade un asunto al correo para guardar tu plantilla",
       "tooLong": "El asunto del correo es demasiado largo"
     }
   },
   "templateDesign": {
     "error": {
-      "notProvided": "No se proporcionó diseño de plantilla"
+      "notProvided": "Añadir contenido a tu plantilla de correo para guardarla"
     }
   },
   "templateCategory": {
     "label": "Categoría",
-    "noCategory": "Selecciona una categoría"
+    "noCategory": "Sin categoría"
   }
 }

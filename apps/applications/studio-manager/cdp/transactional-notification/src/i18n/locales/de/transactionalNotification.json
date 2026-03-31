@@ -1,1 +1,124 @@
-{}
+{
+  "page": {
+    "title": "Transaktionsbenachrichtigungen"
+  },
+  "notificationRuleEvents": {
+    "list": {
+      "notificationNumber_one": "1 Benachrichtigung",
+      "notificationNumber_other": "{{ count }} Benachrichtigungen",
+      "loading": {
+        "message": "Benachrichtigungen werden geladen ..."
+      },
+      "emptyState": {
+        "title": "Keine Benachrichtigungen gefunden",
+        "description": "Derzeit gibt es keine Benachrichtigungen. Bitte schau später noch einmal vorbei oder kontaktiere den Support."
+      }
+    },
+    "categories": {
+      "member": "Kontaktregistrierung",
+      "booking": "Buchungen",
+      "private_booking": "Termine",
+      "recurrent_private_booking": "Wiederkehrende Termine",
+      "payment_pack": "Strafen",
+      "giftcard": "Geschenkgutschein",
+      "offer": "Kurse",
+      "replacement_request": "Vertretungen",
+      "waiting-list": "Wartelisten",
+      "subscription": "Abonnements",
+      "invoice": "Abrechnung",
+      "referral": "Empfehlung"
+    },
+    "noCategory": "Keine Kategorie"
+  },
+  "notificationRuleEventDetails": {
+    "toast": {
+      "create": {
+        "failure": "Benachrichtigungsregel konnte nicht erstellt werden. Bitte versuche es noch einmal. "
+      },
+      "update": {
+        "failure": "Benachrichtigungsregel konnte nicht aktualisiert werden. Bitte versuche es erneut. "
+      },
+      "delete": {
+        "failure": "E-Mail-Benachrichtigungsregel konnte nicht gelöscht werden. Bitte versuch es erneut. "
+      }
+    },
+    "table": {
+      "headers": {
+        "name": "Benachrichtigung",
+        "email": "E-mail",
+        "pushNotification": "Push-Benachrichtigung"
+      },
+      "tooltip": {
+        "pushNotificationHelper": {
+          "title": "Push-Benachrichtigungen aktivieren",
+          "message": "Richte zuerst deine Push-Benachrichtigung ein, um sie zu aktivieren",
+          "label": "Hilfe"
+        },
+        "franchiseOwned": "Diese Benachrichtigung wird vom Hauptkonto verwaltet ",
+        "setPushNotificationBeforeEnabling": "Richte zuerst deine Push-Benachrichtigung ein, um sie zu aktivieren"
+      },
+      "helper": {
+        "title": "Push-Benachrichtigungen",
+        "description": "Richte zuerst deine Push-Benachrichtigung ein, um sie zu aktivieren"
+      },
+      "actions": {
+        "preview": "Vorschau",
+        "edit": "Bearbeiten"
+      },
+      "notificationsToggle": {
+        "deactivated": "Aktivieren",
+        "activated": "Aktiviert"
+      }
+    },
+    "details": {
+      "notificationStatus": "Status",
+      "segmentedControl": {
+        "email": "E-mail",
+        "push": "Drücken"
+      },
+      "emailTemplateSelector": {
+        "searchingMessage": "E-Mail-Vorlagen suchen..."
+      },
+      "emailNotification": {
+        "preview": "Vorschau",
+        "noPreview": "Keine Vorschau verfügbar",
+        "select": {
+          "label": "E-Mail-Vorlage",
+          "placeholder": "Wähle eine E-Mail-Vorlage",
+          "standardBsportTemplatePlaceholder": "bsport Vorlage",
+          "alertCommunicationVariableStatus": "Bei dieser Vorlage ist ein Problem aufgetreten. Bitte versuche es noch einmal oder kontaktiere den Support. "
+        },
+        "carbonCopy": {
+          "label": "Erhalte eine Kopie der E-Mail"
+        },
+        "requiredCommunicationVariablesAlert": {
+          "body": "Diese Vorlage konnte nicht verwendet werden, da erforderliche Informationen fehlen. Fülle die folgenden Felder aus, um diese benutzerdefinierte Vorlage zu verwenden: "
+        }
+      },
+      "pushNotification": {
+        "title": {
+          "label": "Titel",
+          "errors": {
+            "minLength": "Muss ausgefüllt werden",
+            "maxLength": "Darf 25 Zeichen nicht überschreiten"
+          }
+        },
+        "content": {
+          "label": "Inhalt",
+          "errors": {
+            "minLength": "Muss ausgefüllt werden",
+            "maxLength": "Darf 200 Zeichen nicht überschreiten"
+          }
+        },
+        "preview": {
+          "title": "Vorschau",
+          "placeholder": "Richte deine Push-Benachrichtigung ein, um sie hier in der Vorschau anzuzeigen",
+          "noPreview": "Vorschau nicht verfügbar. Prüfe zuerst, ob die Benachrichtigung korrekt eingerichtet ist. "
+        },
+        "actions": {
+          "save": "Speichern"
+        }
+      }
+    }
+  }
+}

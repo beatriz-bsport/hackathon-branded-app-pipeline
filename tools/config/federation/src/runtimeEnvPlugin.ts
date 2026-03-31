@@ -4,26 +4,13 @@ import type { Plugin } from "vite";
 
 const RUNTIME_ENV_FILENAME = "env.js";
 
-const normalizeRuntimeEnvValue = (value?: string) => {
-  const normalizedValue = value?.trim();
-  return normalizedValue ? normalizedValue : "";
-};
-
-export const buildRuntimeEnvSource = ({
-  apiBaseUrl,
-}: {
-  apiBaseUrl?: string;
-}) => {
-  const normalizedApiBaseUrl = JSON.stringify(
-    normalizeRuntimeEnvValue(apiBaseUrl),
-  );
-
+export const buildRuntimeEnvSource = () => {
   return `window.runtime = window.runtime || { env: {} };
 window.runtime.env = window.runtime.env || {};
 var env = window.runtime.env;
 
 if (env.VITE_API_BASE_URL === undefined) {
-  env.VITE_API_BASE_URL = ${normalizedApiBaseUrl};
+  env.VITE_API_BASE_URL = "";
 }
 `;
 };
@@ -31,18 +18,14 @@ if (env.VITE_API_BASE_URL === undefined) {
 export const runtimeEnvPlugin = ({
   rootDir,
   envScriptPath,
-  initialApiBaseUrl,
 }: {
   rootDir: string;
   envScriptPath: string;
-  initialApiBaseUrl?: string;
 }): Plugin => {
   const publicEnvFilePath = resolve(rootDir, "public", RUNTIME_ENV_FILENAME);
   const hasPublicEnvFile = existsSync(publicEnvFilePath);
 
-  const runtimeEnvSource = buildRuntimeEnvSource({
-    apiBaseUrl: initialApiBaseUrl,
-  });
+  const runtimeEnvSource = buildRuntimeEnvSource();
 
   return {
     name: "@bsport/runtime-env-plugin",

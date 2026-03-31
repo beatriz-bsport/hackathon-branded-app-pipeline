@@ -2,12 +2,7 @@ import { federation } from "@module-federation/vite";
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
-import {
-  type PreviewOptions,
-  type ServerOptions,
-  type UserConfig,
-  loadEnv,
-} from "vite";
+import { type PreviewOptions, type ServerOptions, type UserConfig } from "vite";
 import restart from "vite-plugin-restart";
 import svgr from "vite-plugin-svgr";
 import { z } from "zod";
@@ -203,16 +198,6 @@ export const getConfig = (config: {
     removePrefix,
   )(packageJson.name);
 
-  /**
-   * Define the env variable __API_ENV__
-   * => It will be accessible in local modes in the runtime window, and used by all fetch instances locally.
-   *
-   * Retrieve the env name in the following order
-   * 1. with inline env variable `env=...`: `env=dev pnpm run dev`
-   * 2. with a predefined static env variable `API_ENV`
-   */
-  const fileEnv = loadEnv(mode, process.cwd(), "");
-  const apiEnv = isLocal ? fileEnv.env || fileEnv.API_ENV || "" : "";
   const envScriptPath = `${base}env.js`;
 
   const define: NonNullable<UserConfig["define"]> = {
@@ -222,7 +207,6 @@ export const getConfig = (config: {
       __APPLICATION_BASE_URL__: appBaseUrl,
       __BASENAME__: base,
     }),
-    ["__API_ENV__"]: JSON.stringify(apiEnv),
   };
 
   const server: ServerOptions = {

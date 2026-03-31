@@ -8,15 +8,9 @@ import React, {
 import { flushSync } from "react-dom";
 
 import { getEnv } from "@bsport/envs";
-import {
-  Button,
-  Divider,
-  Popover,
-  Tooltip,
-} from "@bsport/kaizen-primitive-core";
+import { Button, Popover, Tooltip } from "@bsport/kaizen-primitive-core";
 
 import { AnalyticsDebugToggle } from "./AnalyticsDebugToggle";
-import { ApiEnvSelector } from "./ApiEnvSelector";
 import LanguageSelector, {
   type LanguageSelectorProps,
 } from "./LanguageSelector";
@@ -159,14 +153,6 @@ const DevTools: React.FC<DevToolsProps> = ({
                 debugMode={analyticsDebug}
                 setDebugMode={setAnalyticsDebug}
               />
-
-              {env === "local" && (
-                <>
-                  <Divider orientation="horizontal" weight="thin" />
-                  <ApiEnvSelector />
-                  <Divider orientation="horizontal" weight="thin" />
-                </>
-              )}
 
               <Logout onLogoutCallback={onLogoutCallback} />
             </div>

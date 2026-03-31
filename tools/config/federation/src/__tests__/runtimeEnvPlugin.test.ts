@@ -51,7 +51,6 @@ describe("runtimeEnvPlugin", () => {
     const plugin = runtimeEnvPlugin({
       rootDir,
       envScriptPath: "/env.js",
-      initialApiBaseUrl: "https://api.example.com",
     });
     const emitFile = vi.fn();
 
@@ -61,9 +60,7 @@ describe("runtimeEnvPlugin", () => {
     expect(emitFile).toHaveBeenCalledWith({
       type: "asset",
       fileName: "env.js",
-      source: buildRuntimeEnvSource({
-        apiBaseUrl: "https://api.example.com",
-      }),
+      source: buildRuntimeEnvSource(),
     });
   });
 
@@ -80,7 +77,7 @@ describe("runtimeEnvPlugin", () => {
     expect(emitFile).toHaveBeenCalledWith({
       type: "asset",
       fileName: "env.js",
-      source: buildRuntimeEnvSource({}),
+      source: buildRuntimeEnvSource(),
     });
   });
 

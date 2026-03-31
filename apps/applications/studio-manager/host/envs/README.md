@@ -19,4 +19,4 @@ Files:
 - `dev.env.js`: dev deployed backend
 - `staging.env.js`: staging deployed backend
 - `production.env.js`: production deployed backend
-- `feature-branch.template.env.js`: template for a backend feature branch
+- `custom.template.env.js`: template for any custom backend domain

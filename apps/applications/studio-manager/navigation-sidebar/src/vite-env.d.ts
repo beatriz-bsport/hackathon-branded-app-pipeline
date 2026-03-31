@@ -3,5 +3,3 @@
 /// <reference types="@bsport/config-federation/vite" />
 
 declare const __NAVIGATION_SIDEBAR__: FederationVariables;
-
-declare const __API_ENV__: string;

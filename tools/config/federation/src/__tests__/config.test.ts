@@ -325,7 +325,7 @@ describe("getConfig", () => {
     );
     expect(prodVariables["__SENTRY_SCOPE_TAG__"]).toBe("sm-navigation-sidebar");
     expect(prodVariables["__BASENAME__"]).toBe("/studio/");
-    expect(prodConfig.define["__API_ENV__"]).toBe(JSON.stringify(""));
+    expect(prodConfig.define["__API_ENV__"]).toBeUndefined();
   });
 
   it("generates correct remotes configuration", () => {

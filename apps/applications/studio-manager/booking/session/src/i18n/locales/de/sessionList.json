@@ -1,0 +1,245 @@
+{
+  "header": "Kalender",
+  "title": {
+    "occupancyRate": "{{rate}}% enrolled"
+  },
+  "tabs": {
+    "activities": "Aktivitäten",
+    "appointments": "Termin"
+  },
+  "addSession": "Sitzung hinzufügen",
+  "dateNavigation": {
+    "todayButton": "Heute",
+    "previousButton": "Previous day",
+    "nextButton": "Next day"
+  },
+  "moreActions": {
+    "label": "Weitere Optionen",
+    "exportParticipants": "Export participant list",
+    "cancelMultipleSessions": "Mehrere Kurse stornieren"
+  },
+  "table": {
+    "headers": {
+      "time": "Uhrzeit",
+      "sessionName": "Name des Kurses",
+      "participants": "Participants",
+      "teacher": "Lehrkraft",
+      "establishment": "Einrichtung",
+      "sessionType": "Session type",
+      "actions": "Aktionen",
+      "attendance": "Anwesenheit"
+    },
+    "datetime": {
+      "shortDayIdentifier_one": "Tag",
+      "shortDayIdentifier_other": "Tage",
+      "shortHourIdentifier": "h",
+      "shortMinuteIdentifier": "Min."
+    },
+    "filters": {
+      "label": "Filter",
+      "is": "ist",
+      "not": "ist nicht",
+      "activityCategory": {
+        "label": "Activity category"
+      },
+      "activityName": {
+        "label": "Activity name"
+      },
+      "activityType": {
+        "label": "Activity type",
+        "workshop": "Workshops",
+        "groupActivity": "Gruppenaktivitäten"
+      },
+      "establishment": {
+        "label": "Einrichtung"
+      },
+      "location": {
+        "label": "Standort"
+      },
+      "level": {
+        "label": "Session level"
+      },
+      "teacher": {
+        "label": "Lehrkraft"
+      },
+      "teacherSubstitution": {
+        "label": "Teacher substitution",
+        "confirmed": "Bestätigt",
+        "pending": "Pending request"
+      },
+      "visibility": {
+        "label": "Sichtbarkeit",
+        "aggregators": "Visible on aggregators",
+        "members": "Visible on Member Area"
+      },
+      "searchPlaceholder": "Suchen"
+    },
+    "isLoading": "Loading sessions...",
+    "attendanceButton": "Anwesenheit",
+    "validatedAttendance": "Validated",
+    "substitution": {
+      "pendingRequest": "Substitution pending"
+    },
+    "shortcutActions": {
+      "edit": "Bearbeiten",
+      "duplicate": "Duplizieren",
+      "copyLink": "Copy link",
+      "cancel": "Abbrechen",
+      "restore": "Wiederherstellen",
+      "delete": "Permanently delete",
+      "label": "Shortcut actions"
+    },
+    "waitlist": "Warteliste"
+  },
+  "displaySettings": {
+    "displayedColumns": {
+      "label": "Visible columns"
+    },
+    "calendarView": {
+      "label": "View",
+      "options": {
+        "daily": "By day",
+        "range": "Range"
+      }
+    },
+    "showCancelledSessions": {
+      "label": "Abgesagte Kurse anzeigen"
+    },
+    "showCancelledAppointments": {
+      "label": "Show cancelled appointments"
+    }
+  },
+  "appointmentTable": {
+    "headers": {
+      "time": "Uhrzeit",
+      "name": "Name",
+      "teacher": "Lehrkraft",
+      "participant": "Participant",
+      "passUsed": "Pass used",
+      "establishment": "Einrichtung",
+      "type": "Art der Sendung",
+      "actions": "Aktionen"
+    },
+    "isLoading": "Loading appointments...",
+    "shortcutActions": {
+      "cancel": "Abbrechen",
+      "reschedule": "Reschedule",
+      "swapPass": "Swap pass",
+      "swapTeacher": "Swap teacher",
+      "label": "Shortcut actions"
+    }
+  },
+  "emptyState": {
+    "title": "No sessions added yet",
+    "subtitle": "Add a new session to get started"
+  },
+  "emptyAppointmentState": {
+    "title": "No appointments yet",
+    "subtitle": "No appointments found for this period"
+  },
+  "emptyAppointmentSearchState": {
+    "title": "No appointments found",
+    "subtitle": "No appointments match your criteria. Clear your filters and try again.",
+    "action": "Clear Filters"
+  },
+  "emptySearchState": {
+    "title": "No sessions found",
+    "subtitle": "No sessions match your criteria. Clear your filters and try again.",
+    "action": "Clear Filters"
+  },
+  "exportParticipantsModal": {
+    "title": "Export list of participants?",
+    "description": "Choose a date to export the participant list for the entire day, broken down by session.",
+    "dayLabel": "Tag",
+    "applyFilterLabel": "Apply calendar view filters (Activity name, Establishment, Teacher, Session level)",
+    "applyFilterDescription": "If unselected, the list will be exported without filters.",
+    "cancelButton": "Schließen",
+    "confirmButton": "Exportieren",
+    "errorMessage": "An error occurred while exporting the participant list. Please try again.",
+    "successMessage": "File exported successfully"
+  },
+  "backgroundTask": {
+    "genericError": "An error has occurred. Check your connection and try refreshing the page.",
+    "timeoutError": "Der Server hat zu lange gebraucht, um zu antworten. Versuche die Seite zu aktualisieren"
+  },
+  "cancelModal": {
+    "title": "Cancel session?",
+    "description": "You can restore this session at any time but you won’t be able to retrieve any bookings related to this session.",
+    "bookingsAlert_one": "<strong>{{number}} member </strong> who booked this session will have their credits refunded.",
+    "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this session will have their credits refunded.",
+    "groupSessionAlert": "This session is part of the group <strong>{{groupName}}</strong>.",
+    "notificationLabel": "Send a notification to all members who booked this session",
+    "cancelLinkedSessions": "Cancel linked sessions (both online and on-site)",
+    "cancelFutureSessions": "Cancel future sessions too",
+    "cancelFutureSessionsForGroup": "Cancel future sessions of {{groupName}}",
+    "futureSessionsHeader": "Sessions ({{number}})",
+    "descriptionFutureSessions": "Select which sessions will be cancelled",
+    "cancelButton": "Zurück",
+    "confirmButton": "Abbrechen",
+    "errorMessage": "An error occurred while cancelling the session. Please try again later.",
+    "successMessage_one": "Kurs storniert",
+    "successMessage_other": "Sessions cancelled"
+  },
+  "cancelMultipleSessionsModal": {
+    "title": "Cancel multiple sessions?",
+    "description": "You can restore these sessions at any time, but you won’t be able to retrieve any bookings related to them. If you applied filters before cancelling, those filters will be kept for the selected period.",
+    "activityOnly": "As you don't have the permission to cancel workshop sessions, only group activity sessions will be cancelled.",
+    "workshopOnly": "As you don't have the permission to cancel group activity sessions, only workshop sessions will be cancelled.",
+    "dateRangeLabel": "Time period",
+    "cancelAlert_one": "<strong>{{sessionsNumber}} sessions scheduled on {{startDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
+    "cancelAlert_other": "<strong>{{sessionsNumber}} sessions scheduled between {{startDate}} and {{endDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
+    "groupSessionAlert": "<strong>Just a heads up:</strong> the following sessions in this period cannot be canceled. To remove them, delete the associated 'Grouped session' first. All other sessions will still be canceled.",
+    "confirmTickLabel": "Bitte bestätigen:",
+    "confirmTickDescription": "I understand that cancelling multiple sessions will remove these bookings from my calendar and automatically refund credits to members.",
+    "confirmButton": "Abbrechen",
+    "cancelButton": "Schließen",
+    "errorMessage": "An error occurred while cancelling the sessions. Please try again later.",
+    "successMessage_one": "Multiple sessions cancelled on {{startDate}}.",
+    "successMessage_other": "Multiple sessions cancelled between {{startDate}} and {{endDate}}.",
+    "helperText": "You can create a single-day entry by selecting the same start and end date"
+  },
+  "deleteModal": {
+    "title": "Permanently delete session?",
+    "description": "Deleting this session will remove any booking records. If there were bookings and members weren’t refunded when it was canceled, their credits will also be lost.",
+    "commonAlert": "Just a heads up: this action is permanent and cannot be undone.",
+    "groupSessionAlert": "This session is part of the group <strong>{{groupName}}</strong>.",
+    "deleteFutureSessions": "Delete future sessions",
+    "deleteFutureSessionsForGroup": "Delete future sessions of {{groupName}}",
+    "futureSessionsHeader": "Sessions ({{number}})",
+    "descriptionFutureSessions": "Select which sessions will be deleted",
+    "cancelButton": "Zurück",
+    "confirmButton": "Permanently delete",
+    "errorMessage": "An error occurred while deleting the session. Please try again later.",
+    "successMessage_one": "Session deleted",
+    "successMessage_other": "Sessions deleted"
+  },
+  "duplicateModal": {
+    "title": "Duplicate session?",
+    "cancelButton": "Abbrechen",
+    "confirmButton": "Duplizieren",
+    "descriptionNoRecurrence": "Der neue Kurs übernimmt die gleichen Einstellungen vom duplizierten Kurs.",
+    "descriptionRecurrentSession": "The last session is on {{formattedDate}}. The new session will start after this date and will use the same settings as the duplicated session.",
+    "hybridSessionNotice": "Duplicating this hybrid session will create both online and on-site sessions. Both will use the same settings as the duplicated session.",
+    "linkToOriginalSession_one": "Link to the original session",
+    "linkToOriginalSession_other": "Link to original sessions",
+    "linkToOriginalSessionDescription_one": "Link this duplicate to the original session to edit them all together and enable clients to book them as a Series. Leave unchecked to keep this session separate.",
+    "linkToOriginalSessionDescription_other": "Link this duplicate to the original sessions to edit them all together and enable clients to book them as a Series. Leave unchecked to keep this session separate.",
+    "errorMessage": "An error occurred while duplicating the session. Please try again later."
+  },
+  "restoreModal": {
+    "title": "Restore session?",
+    "description": "Restoring this session will make it visible again to members. You can cancel it again at any time.",
+    "cancelButton": "Zurück",
+    "confirmButton": "Wiederherstellen",
+    "errorMessage": "An error occurred while restoring the session. Please try again later.",
+    "successMessage": "Wiederherstellung des Kurses"
+  },
+  "cancelAppointmentModal": {
+    "title": "Cancel appointment?",
+    "description": "This will cancel the appointment. The member will be notified.",
+    "cancelButton": "Zurück",
+    "confirmButton": "Buchung stornieren",
+    "errorMessage": "An error occurred while cancelling the appointment. Please try again later.",
+    "successMessage": "Appointment cancelled"
+  }
+}

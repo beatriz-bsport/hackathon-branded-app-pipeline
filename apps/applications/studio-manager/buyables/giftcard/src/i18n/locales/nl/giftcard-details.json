@@ -1,0 +1,217 @@
+{
+  "modelName": {
+    "singular": "Cadeaukaart",
+    "plural": "Cadeaubonnen "
+  },
+  "createModal": {
+    "title": "Maak een nieuwe cadeaubon",
+    "buttons": {
+      "cancel": "Sluiten",
+      "create": "Maken"
+    },
+    "submitResponse": {
+      "error": "Couldn't create Gift Card. Please try again.",
+      "success": "Successfully created Gift Card."
+    }
+  },
+  "details": {
+    "canNotFindGiftcard": {
+      "title": "Couldn't retrieve Gift Card.",
+      "goToListPage": "See Gift Cards"
+    },
+    "loading": "Loading Gift Card",
+    "header": {
+      "breadcrumbs": "Cadeaubonnen ",
+      "tabs": {
+        "editor": "Editor",
+        "purchases": "Verkopen"
+      }
+    }
+  },
+  "editor": {
+    "header": {
+      "archiveGiftcard": "Archive Kadokaarten",
+      "editGiftcardName": "Rename Gift Card"
+    },
+    "editNameModal": {
+      "title": "Rename Gift Card?",
+      "buttons": {
+        "cancel": "Terug",
+        "rename": "Hernoemen"
+      }
+    },
+    "submitResponse": {
+      "error": "Couldn't update Gift Card. Please try again.",
+      "success": "Successfully updated Gift Card."
+    },
+    "sharedGiftcardCanNotBeEdited": "This Gift Card was created on the Central Account and some fields cannot be edited."
+  },
+  "purchases": {
+    "status": {
+      "unclaimed": "Unclaimed",
+      "active": "Actief",
+      "expired": "Verlopen",
+      "cancelled": "Geannuleerd",
+      "redeemed": "Ingewisseld"
+    },
+    "loading": "Loading purchased Gift Cards...",
+    "emptyList": {
+      "title": "No Gift Cards sold yet",
+      "subtitle": "Once a member buys a Gift Card, they'll be displayed here."
+    },
+    "displaySettings": {
+      "visibleColumns": "Visible columns"
+    },
+    "table": {
+      "columns": {
+        "issueDate": "Uitgiftedatum",
+        "status": "Status",
+        "buyer": "Koper",
+        "recipient": "Ontvanger",
+        "expiryDate": "Expiry Date",
+        "value": "Waarde",
+        "balance": "Saldo",
+        "printableCode": "Code"
+      },
+      "rows": {
+        "emptyRecipient": "Not claimed",
+        "unlimited": "Ongelimiteerd",
+        "typeDigital": "Digital"
+      }
+    },
+    "detailDrawer": {
+      "navigation": {
+        "selectPreviousItem": "Selecteer vorig item",
+        "selectNextItem": "Selecteer volgend item"
+      },
+      "title": "Gift Card Details",
+      "downloadAsPdf": "Download Gift Card as a PDF",
+      "sectionDescription": {
+        "name": "Naam",
+        "id": "ID: {{ identifier }}",
+        "balance": "Saldo",
+        "validityPeriod": {
+          "label": "Validity period",
+          "unlimited": "Ongelimiteerd",
+          "numberOfDays": "",
+          "numberOfDays_one": "{{ count }} Day",
+          "numberOfDays_other": "{{ count }} Days"
+        },
+        "type": {
+          "label": "Kanalen",
+          "print": "Print",
+          "digital": "Digital"
+        },
+        "code": {
+          "label": "Code",
+          "tooltip": "Share the Gift Card code with members so they can use it for purchases"
+        }
+      },
+      "sectionBuyer": {
+        "title": "Koper",
+        "name": "Naam",
+        "purchaseDate": "Aankoopdatum",
+        "invoiceCard": {
+          "viewInvoiceButton": "View invoice",
+          "invoice": "Invoice {{ identifier }}",
+          "totalPrice": "Total: {{ price }}",
+          "invoiceStatus": {
+            "draft": "Video uploaden",
+            "open": "Open",
+            "paid": "Betaald",
+            "voided": "Geannuleerd",
+            "refunded": "Terugbetaald"
+          }
+        }
+      },
+      "sectionRecipient": {
+        "title": "Ontvanger",
+        "shareButton": "Delen",
+        "name": "Naam",
+        "sendingDate": "Sending date",
+        "activationDate": "Activeringsdatum",
+        "expirationDate": "Vervalt op"
+      },
+      "shareModal": {
+        "notSentYet": {
+          "title": "Share Gift Card",
+          "description": "Update the recipient list for future invitation email, add more addresses, or copy the activation link. The Gift Card can only be activated once."
+        },
+        "alreadySent": {
+          "title": "Invitation email already sent",
+          "description": "The activation email has already been sent to the addresses below. You can still copy the activation link to share it directly with recipients."
+        },
+        "alreadyActivated": {
+          "title": "Gift Card already shared",
+          "description": "The Gift Card has already been activated."
+        },
+        "copyActivationLinkButton": "Kopieer activeringslink",
+        "addRecipientEmail": {
+          "label": "Add recipient email",
+          "placeholder": "Add email...",
+          "incorrectFormat": "Incorrect email format",
+          "emailAlreadyExist": "This email is already in the recipient list"
+        },
+        "buttons": {
+          "close": "Sluiten",
+          "save": "Opslaan"
+        },
+        "toasts": {
+          "linkCopied": "Link gekopieerd",
+          "invitationSent": "Recipient list updated",
+          "invitationSentFailed": "Failed to update recipient list"
+        }
+      }
+    }
+  },
+  "formFields": {
+    "errors": {
+      "fieldIsRequired": "Dit veld is verplicht.",
+      "errorMissingPaymentMethod": "Selecteer een betaalmethode"
+    },
+    "name": {
+      "label": "Naam",
+      "errorMaxLength": "De naam mag niet langer zijn dan {{ maxLength }} tekens."
+    },
+    "description": {
+      "label": "Beschrijving"
+    },
+    "value": {
+      "label": "Waarde",
+      "helperText": "Dit is dan ook de prijs van de cadeaubon"
+    },
+    "customValue": {
+      "toggle": {
+        "label": "Aangepaste waarde"
+      },
+      "minimumValue": {
+        "label": "Minimum",
+        "helperText": "Voer een geheel getal van minimaal 1 in"
+      },
+      "maximumValue": {
+        "label": "Maximum",
+        "helperText": "Voer een geheel getal in tot {{ maxPriceWithCurrency }}",
+        "limitExplanation": "Waarom dit nummer?"
+      },
+      "minMaxError": "Maximumprijs moet hoger zijn dan minimumprijs"
+    },
+    "expirationDays": {
+      "toggle": {
+        "label": "Geldigheidsperiode instellen"
+      },
+      "input": {
+        "label": "Dagen geldig na activering",
+        "suffixDays": "Dagen"
+      }
+    },
+    "cover": {
+      "helperText": "Aanbevolen formaat: 1280 x 720 pixels, bestandsgrootte onder 2 MB",
+      "extensions": "JPG, PNG, SVG"
+    }
+  },
+  "sections": {
+    "pricing": "Prijzen",
+    "visibility": "Zichtbaarheid",
+    "advanced": "Geavanceerd"
+  }
+}

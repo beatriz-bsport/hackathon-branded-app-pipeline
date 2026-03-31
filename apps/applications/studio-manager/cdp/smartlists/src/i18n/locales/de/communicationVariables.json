@@ -1,0 +1,230 @@
+{
+  "communicationVariableSelector": {
+    "placeholder": "Variable hinzufügen"
+  },
+  "communicationVariable": {
+    "Offer": {
+      "name": "Kurse",
+      "tags": {
+        "activity": "Aktivitäten",
+        "coach": "Lehrkraft",
+        "date": "Uhrzeit und Datum",
+        "establishment": "Veranstaltungsorte",
+        "establishment_practical_info": "Einrichtungsdetails ",
+        "address": "Adresse"
+      }
+    },
+    "User": {
+      "name": "Mitglied",
+      "tags": {
+        "firstname": "Vorname",
+        "lastname": "Nachname",
+        "unsubscribe_link": "Vom Newsletter abmelden",
+        "reset_password_url": "Link zum Zurücksetzen des Passwortes",
+        "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse",
+        "marketing_email_double_opt_in_url": "Marketing-E-Mail Double-Opt-in-Link"
+      }
+    },
+    "Booking": {
+      "name": "Aktivität",
+      "tags": {
+        "activity": "Aktivität",
+        "coach": "Lehrkraft",
+        "date": "Uhrzeit und Datum",
+        "establishment": "Einrichtung",
+        "establishment_practical_info": "Einrichtungsdetails",
+        "address": "Adresse",
+        "ics_calendar_link": "ICS-Kalender-Link",
+        "spot": "Spot",
+        "canceled_grouped_session": "Canceled Series"
+      },
+      "subtitles": {
+        "workshop": "Workshop",
+        "establishment_group": "Standort",
+        "establishment": "Einrichtung",
+        "meta_activity": "Aktivität"
+      }
+    },
+    "ConsumerPaymentPack": {
+      "name": "Kurspässe",
+      "tags": {
+        "pass_price": "Preis des Kurspasses",
+        "pass_name": "Name des Kurspasses",
+        "pass_starting_date": "Beginndatum des Terminpasses",
+        "pass_expiration": "Ablaufdatum des Terminpasses",
+        "pass_credit_left": "Verbleibende Credits"
+      }
+    },
+    "BillingPlan": {
+      "name": "Abonnements",
+      "tags": {
+        "subscription_name": "Abonnementname",
+        "subscription_recurrent_price": "Monatlicher Preis",
+        "subscription_nb_months": "Anzahl der Rechnungen",
+        "subscription_nb_bills": "Anzahl der Rechnungen",
+        "subscription_duration": "Gesamtdauer",
+        "subscription_flat_fee": "Anmeldegebühr",
+        "subscription_payment_method": "Abbuchungsmethode",
+        "subscription_nb_days_pause": "Für eine Anzahl von X Tagen pausiert",
+        "subscription_next_invoice_date": "Nächstes Abrechnungsdatum",
+        "subscription_contract_terms_link": "Link für Nutzungsbedingungen",
+        "days_until_payment_method_expiration": "Anzahl der Tage bis zum Ablauf der Zahlungsmethode"
+      }
+    },
+    "BookingOption": {
+      "name": "Warteliste",
+      "tags": {
+        "activity": "Aktivität",
+        "coach": "Lehrkraft",
+        "date": "Uhrzeit und Datum",
+        "establishment": "Einrichtung",
+        "establishment_practical_info": "Zutrittsinformationen zur Einrichtung",
+        "address": "Adresse",
+        "option_payment_url": "Buchungslink",
+        "option_expiration_date": "Ablaufdatum für einen Wartelistenplatz",
+        "waiting_list_position": "Position auf der Warteliste",
+        "waiting_list_size": "Größe der Warteliste"
+      }
+    },
+    "PrivateBooking": {
+      "tags": {
+        "establishment_practical_info": "Zutrittsinformationen zur Einrichtung",
+        "address": "Adresse",
+        "date": "Uhrzeit und Datum",
+        "coach": "Lehrkraft",
+        "activity": "Aktivität",
+        "establishment": "Einrichtung",
+        "ics_calendar_link": "ICS-Kalender-Link"
+      },
+      "name": "Termin"
+    },
+    "PrivateConsumerPass": {
+      "tags": {
+        "pass_credit_left": "Verbleibende Credits",
+        "pass_expiration": "Ablaufdatum des Terminpasses",
+        "pass_starting_date": "Beginndatum des Terminpasses",
+        "pass_name": "Name des Kurspasses",
+        "pass_price": "Preis des Terminpasses"
+      },
+      "name": "Terminpässe"
+    },
+    "Company": {
+      "tags": {
+        "company_websiteURL": "Webseiten-URL",
+        "company_info": "Informationen zum Studio",
+        "android_app_URL": "Android App URL",
+        "android_app_url": "Android application url",
+        "ios_app_URL": "iOS App URL",
+        "ios_app_url": "iOS-Anwendungs-URL",
+        "company_facebookURL": "Facebook URL",
+        "company_instagramURL": "Instagram URL",
+        "company_scheduleURL": "Schedule page URL",
+        "login_url": "URL-Verbindung",
+        "company": "Company Name",
+        "company_primary_color": "Farbcode",
+        "company_name": "Company Name",
+        "company_logo": "Company Logo URL",
+        "currency": "Currency"
+      },
+      "name": "Studio"
+    },
+    "GuestInvitation": {
+      "tags": {
+        "firstname_guest": "Vorname des Gasts",
+        "lastname_guest": "Nachname des Gasts",
+        "firstname_host": "Inviter first name",
+        "lastname_host": "Inviter last name"
+      },
+      "name": "Invitations"
+    },
+    "RecurrentRule": {
+      "tags": {
+        "activity": "Aktivitäten",
+        "coach": "Lehrkraft",
+        "date": "Uhrzeit und Datum",
+        "establishment": "Veranstaltungsorte",
+        "establishment_practical_info": "Einrichtungsdetails",
+        "address": "Adresse",
+        "recurring_booking_fail_reason": "Failure reason"
+      },
+      "name": "Automatic Booking"
+    },
+    "Birthday": {
+      "tags": {},
+      "name": "Geburtstag"
+    },
+    "ReplacementRequest": {
+      "tags": {
+        "sub_teacher": "Substitute Name",
+        "closing_date": "Request Closing Date"
+      },
+      "name": "Teacher replacement request"
+    },
+    "Invoice": {
+      "name": "Rechnungen",
+      "tags": {
+        "id": "Rücksendungsnummer",
+        "invoice_price": "Rechnungsbetrag",
+        "invoice_sum_up": "Invoice details",
+        "invoice_date": "Datum",
+        "invoice_download_link": "Invoice link",
+        "days_until_payment_method_expiration_planned_payment_event": "Days until payment method expires"
+      }
+    },
+    "GiftCard": {
+      "name": "Geschenkgutscheine",
+      "tags": {
+        "giftcard_message": "Nachricht",
+        "activate_giftcard_url": "Gift Card URL",
+        "message_is_from": "Sender Name",
+        "message_is_for": "Recipient Name",
+        "giftcard_value": "Preis",
+        "giftcard_name": "Name",
+        "activation_datetime": "Aktivierungsdatum",
+        "pdf_link": "PDF Link",
+        "printable_code": "Code"
+      }
+    },
+    "EmailChange": {
+      "name": "Email Change",
+      "tags": {
+        "new_email": "New email",
+        "old_email": "Old email",
+        "manage_changing_email_link": "Manage changing email link",
+        "login_link": "Login link"
+      }
+    },
+    "SpiviPerformance": {
+      "name": "Spivi Class Summary",
+      "tags": {
+        "total_distance": "Distance",
+        "calories_kJ": "Calories KJ",
+        "calories": "Kalorien",
+        "max_watts": "Maximum watts",
+        "maximum_speed": "Maximale Geschwindigkeit",
+        "max_RPM": "Maximum RPM",
+        "max_HR": "Maximale Herzfrequenz",
+        "average_watts": "Average watts",
+        "average_speed": "Durchschnittliche Geschwindigkeit",
+        "average_RPM": "Average RPM",
+        "average_HR": "Durchschnittliche Herzfrequenz",
+        "SEP": "SEP"
+      }
+    },
+    "ReferralProgram": {
+      "name": "Empfehlungen",
+      "tags": {
+        "reduction_purchase_referred": "Discount for referred member",
+        "referring_reward": "Reward for referring member",
+        "minimum_purchase_referral": "Minimum purchase required",
+        "deadline_use_referral": "Referral deadline",
+        "referring_firstname": "Vorname des werbenden Mitglieds",
+        "referring_lastname": "Nachname des werbenden Mitglieds",
+        "referred_firstname": "Vorname des geworbenen Mitglieds",
+        "referred_lastname": "Nachname des geworbenen Mitglieds",
+        "referral_link": "Empfehlungslink",
+        "registration_date": "Registrierungsdatum"
+      }
+    }
+  }
+}

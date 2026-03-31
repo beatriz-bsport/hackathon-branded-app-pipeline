@@ -1,0 +1,75 @@
+{
+  "header": {
+    "loading": "Loading Contract...",
+    "breadcrumbs": {
+      "contracts": "Contracts"
+    },
+    "tabs": {
+      "editor": "Editor",
+      "overview": "Overzicht",
+      "pauses": "Pauzes"
+    }
+  },
+  "canNotFindContract": {
+    "title": "Couldn't retrieve Contract",
+    "goToListPage": "See Contracts"
+  },
+  "formFields": {
+    "errors": {
+      "fieldIsRequired": "Dit veld is verplicht."
+    },
+    "name": {
+      "errorMaxLength": "Name length must be under {{ maxLength }} characters.",
+      "label": "Naam"
+    },
+    "description": {
+      "label": "Beschrijving"
+    },
+    "tax": {
+      "label": "Sales / VAT"
+    },
+    "joinFee": {
+      "label": "Join fee",
+      "helperText": "Joining fee will be included in the first invoice"
+    },
+    "recurringAmount": {
+      "label": "Recurring amount",
+      "helperText": "Tax included"
+    },
+    "billingCycle": {
+      "radioPurchaseDay": {
+        "label": "Invoice on purchase day",
+        "tooltip": "Member's first invoice will be sent on the date of purchase.",
+        "sublabel": "Billing interval"
+      },
+      "radioFixedDay": {
+        "label": "Invoice on fixed day",
+        "tooltip": "Member's first invoice will be sent on the chosen date and pro-rated if necessary.",
+        "sublabel": "Every month on"
+      }
+    }
+  },
+  "intervals": {
+    "day": "",
+    "day_one": "Dag",
+    "day_other": "Dagen",
+    "week": "",
+    "week_one": "Week",
+    "week_other": "Weken",
+    "month": "",
+    "month_one": "Maand",
+    "month_other": "Maanden",
+    "year": "",
+    "year_one": "Jaar",
+    "year_other": "Geldigheidsduur (in jaren)"
+  },
+  "formSections": {
+    "price": "Prijs",
+    "billingCycle": "Billing Cycle"
+  },
+  "editor": {
+    "submit": {
+      "error": "Failed to update Contract"
+    }
+  }
+}

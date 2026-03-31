@@ -1,28 +1,47 @@
 {
   "pageTitle": "Visión empresarial",
   "sections": {
-    "member": "Visión sobre miembros",
+    "communityMarketing": "Comunidad y Marketing",
     "financial": "Salud Financiera",
-    "booking": "Rendimiento de Reservas",
-    "teacher": "Rendimiento de Profesores",
-    "marketing": "Rendimiento de Marketing"
+    "operations": "Operaciones"
   },
   "items": {
     "trial": {
-      "title": "Seguir el rendimiento de la oferta de prueba",
-      "description": "Descubre más sobre adquisición, tasas de conversión y cómo aumentar la efectividad de tu oferta de prueba"
+      "title": "Adquisición y Conversión",
+      "description": "Ve cómo las primeras compras se convierten en contactos recurrentes y detecta dónde se producen las bajas"
+    },
+    "community_health": {
+      "title": "Retención de Contactos",
+      "description": "Entiende la actividad, la deserción y la retención de contactos en tu estudio"
     },
     "recurring": {
-      "title": "Monitorea el rendimiento de las suscripciones",
+      "title": "Cuotas",
       "description": "Controla la salud de las suscripciones, analiza los ingresos recurrentes y detecta riesgos u oportunidades"
+    },
+    "booking": {
+      "title": "Reservas y demanda",
+      "description": "Explora la actividad de reservas, el comportamiento de los clientes y las tendencias de la demanda para tomar decisiones de ingresos más inteligentes"
+    },
+    "schedule": {
+      "title": "Programación",
+      "description": "Haz un seguimiento de las tasas de ocupación, la asistencia y los ingresos generados en tus clases"
     }
   },
   "pages": {
     "trialAnalysis": {
-      "title": "Rendimiento de la oferta de prueba"
+      "title": "Adquisición y Conversión"
+    },
+    "communityHealth": {
+      "title": "Retención de Contactos"
     },
     "recurringRevenue": {
-      "title": "Monitorea el rendimiento de las suscripciones"
+      "title": "Cuotas"
+    },
+    "bookingInsight": {
+      "title": "Reservas y demanda"
+    },
+    "scheduleAnalysis": {
+      "title": "Programación"
     }
   },
   "errors": {

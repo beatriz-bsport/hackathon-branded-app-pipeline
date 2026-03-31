@@ -1,0 +1,415 @@
+{
+  "title": {
+    "create": "Maken een melding aan",
+    "edit": "Bewerk melding"
+  },
+  "buttons": {
+    "create": "Maken",
+    "edit": "Bewerken",
+    "cancel": "Sluiten"
+  },
+  "toast": {
+    "create": {
+      "success": "De meldingregel is opgeslagen",
+      "failure": "Jij notificatieregel kon niet worden opgeslagen"
+    },
+    "update": {
+      "success": "Je wijzigingen zijn opgeslagen",
+      "failure": "Je wijzigingen konden niet worden opgeslagen"
+    },
+    "delete": {
+      "success": "Automation deleted",
+      "failure": "Automation couldn't be deleted. Please try again. "
+    }
+  },
+  "deleteModal": {
+    "title": "Delete automation?",
+    "description": {
+      "paymentPack": "This notification will no longer be active for the associated passes.",
+      "privatePass": "This notification will no longer be active for the associated appointment passes.",
+      "other": "All notifications associated with this automation will no longer be active. ",
+      "warning": "Heads up: this action is permanent and cannot be undone. "
+    },
+    "actions": {
+      "confirm": "Verwijderen",
+      "cancel": "Terug"
+    }
+  },
+  "steps": {
+    "label": {
+      "triggerType": "Selecteer type trigger",
+      "notificationRules": "Automatisering instellen",
+      "content": "Kies kanalen"
+    },
+    "content": {
+      "communicationVariableLengthAlert": "The final message may be longer than expected once variables are replaced. If a variable’s value exceeds its placeholder length, your message could be cropped when sent. Please review variable lengths before sending.",
+      "errors": {
+        "noEmailTemplate": "Selecteer een sjabloon",
+        "tooLong": {
+          "pushNotificationTitle": "Title must not be longer than {{ count }} characters",
+          "pushNotificationContent": "Content must not be longer than {{ count }} characters"
+        },
+        "noContent": {
+          "pushNotificationTitle": "Vul de titel van de pushmelding in",
+          "pushNotificationContent": "Vul de inhoud van de pushmelding in"
+        },
+        "noContentKind": "Selecteer minstens 1 communicatietype"
+      },
+      "selector": {
+        "emailTemplates": {
+          "label": "E-mailsjabloon",
+          "placeholder": "Selecteer een sjabloon",
+          "loading": "Zoeken naar e-mailsjablonen...",
+          "noCategory": "Naamloze categorie"
+        }
+      }
+    },
+    "triggerType": {
+      "title": "Kies welk type trigger de automatisering zal starten",
+      "selectAllPasses": {
+        "checkbox": {
+          "label": {
+            "pass": "Apply this notification to all passes",
+            "appointmentPass": "Apply this notification to all appointment passes"
+          }
+        }
+      },
+      "notificationType": {
+        "label": "Type trigger",
+        "choices": {
+          "groupActivity": "Groepsactiviteit",
+          "location": "Locatie",
+          "establishment": "Vestiging",
+          "workshop": "Workshops",
+          "appointment": "Afspraken",
+          "pass": "Standaardleskaart",
+          "appointmentPass": "Afspraakkaart",
+          "subscription": "Abonnement",
+          "birthday": "Verjaardag"
+        }
+      },
+      "selectors": {
+        "appointment": {
+          "label": "Les",
+          "placeholder": "Selecteer een les",
+          "loading": "Zoeken naar lessen..."
+        },
+        "groupActivity": {
+          "label": "Les",
+          "placeholder": "Selecteer een les",
+          "loading": "Zoeken naar lessen..."
+        },
+        "workshop": {
+          "label": "Les",
+          "placeholder": "Selecteer een les",
+          "loading": "Zoeken naar lessen..."
+        },
+        "allActivities": {
+          "label": "Alle lessen",
+          "placeholder": "Selecteer een les",
+          "loading": "Zoeken naar lessen..."
+        },
+        "location": {
+          "label": "Locatie",
+          "placeholder": "Selecteer een locatie",
+          "loading": "Zoeken naar locaties..."
+        },
+        "establishment": {
+          "label": "Vestiging",
+          "placeholder": "Selecteer een vestiging",
+          "loading": "Vestigingen zoeken..."
+        },
+        "subscription": {
+          "label": "Abonnement",
+          "placeholder": "Selecteer een abonnement",
+          "loading": "Abonnementen zoeken..."
+        },
+        "pass": {
+          "label": "Leskaart",
+          "placeholder": "Selecteer een leskaart",
+          "loading": "Zoeken naar leskaarten..."
+        },
+        "appointmentPass": {
+          "label": "Afspraakkaart",
+          "placeholder": "Selecteer een afspraakkaart",
+          "loading": "Zoeken naar Afspraakkaarten..."
+        },
+        "smartlists": {
+          "label": "Geassocieerde Smartlists",
+          "placeholder": "Selecteer bijbehorende smartlists",
+          "loading": "Zoeken naar smartlists..."
+        },
+        "errors": {
+          "notEmpty": "Select an item to continue",
+          "atLeastOne": "Select an item to continue"
+        }
+      }
+    },
+    "notificationRules": {
+      "title": "Stel een automatisering in",
+      "errors": {
+        "noFloat": "Moet een geheel getal zijn zonder decimalen",
+        "positiveValue": {
+          "hour": "Timing must be 0 hour or longer",
+          "day": "Timing must be 0 day or longer"
+        },
+        "smartlistShouldBeFilledWhenToggled": "Selecteer een Smartlist of deactiveer deze optie om door te gaan",
+        "bookingOccurence": {
+          "atLeastOne": {
+            "makesBooking": "Must be 1 booking or more",
+            "makesCancellation": "Must be 1 cancellation or more"
+          }
+        }
+      },
+      "smartlists": {
+        "included": {
+          "label": "Stuur een melding als leden zijn opgenomen in een Smartlist"
+        },
+        "excluded": {
+          "label": "Stuur geen melding als de leden zijn opgenomen in een Smartlist"
+        }
+      },
+      "timing": {
+        "timeUnit": {
+          "label": "Select interval",
+          "options": {
+            "hour": "Hourly",
+            "day": "Dagelijks"
+          }
+        },
+        "timeValue": {
+          "label": "Timing of notification"
+        },
+        "temporality": {
+          "label": "Verstuur deze melding",
+          "options": {
+            "booking": {
+              "before": "Voor de sessie",
+              "after": "Na de sessie"
+            },
+            "subscriptionCreation": {
+              "before": "Before the subscription is created",
+              "after": "After the subscription is created"
+            },
+            "subscriptionFirstBilling": {
+              "before": "Before the first subscription invoice",
+              "after": "After the first subscription invoice"
+            },
+            "subscriptionEnd": {
+              "before": "Before the end of subscription",
+              "after": "After the end of subscription"
+            }
+          }
+        },
+        "timingValuePrefix": {
+          "content": "Your notification will be sent {{count}} ",
+          "booking": {
+            "before": {
+              "hour_one": "hour before the session",
+              "hour_other": "hours before the session",
+              "day_one": "day before the session",
+              "day_other": "days before the session"
+            },
+            "after": {
+              "hour_one": "hour after the session",
+              "hour_other": "hours after the session",
+              "day_one": "day after the session",
+              "day_other": "days after the session"
+            }
+          },
+          "subscriptionCreation": {
+            "before": {
+              "hour_one": "hour before subscription creation",
+              "hour_other": "hours before subscription creation",
+              "day_one": "day before subscription creation",
+              "day_other": "days before subscription creation"
+            },
+            "after": {
+              "hour_one": "hour after subscription creation",
+              "hour_other": "hours after subscription creation",
+              "day_one": "day after subscription creation",
+              "day_other": "days after subscription creation"
+            }
+          },
+          "subscriptionFirstBilling": {
+            "before": {
+              "hour_one": "hour before the first subscription invoice",
+              "hour_other": "hours before the first subscription invoice",
+              "day_one": "day before the first subscription invoice",
+              "day_other": "days before the first subscription invoice"
+            },
+            "after": {
+              "hour_one": "hour after the first subscription invoice",
+              "hour_other": "hours after the first subscription invoice",
+              "day_one": "day after the first subscription invoice",
+              "day_other": "days after the first subscription invoice"
+            }
+          },
+          "subscriptionEnd": {
+            "before": {
+              "hour_one": "hour before the end of subscription",
+              "hour_other": "hours before the end of subscription",
+              "day_one": "day before the end of subscription",
+              "day_other": "days before the end of subscription"
+            },
+            "after": {
+              "hour_one": "hour after the end of subscription",
+              "hour_other": "hours after the end of subscription",
+              "day_one": "day after the end of subscription",
+              "day_other": "days after the end of subscription"
+            }
+          }
+        }
+      },
+      "booking": {
+        "actionLabel": "Stuur deze melding wanneer de leden",
+        "actions": {
+          "makesBooking": "Maakt een boeking",
+          "makesCancellation": "Makes a cancellation"
+        },
+        "statusLabel": {
+          "attendance": "Stuur deze melding wanneer leden worden gemarkeerd als",
+          "cancellation": "Send this notification when cancellation was"
+        },
+        "statusOptions": {
+          "present": "Aanwezig",
+          "absent": "Afwezig",
+          "refunded": "Terugbetaald",
+          "tooLate": "Te laat om terugbetaald te worden"
+        },
+        "occurrenceLabel": "Stuur deze melding wanneer",
+        "occurrences": {
+          "anyBooking": {
+            "makesBooking": "A member makes any booking",
+            "makesCancellation": "A member makes any cancellation"
+          },
+          "specificAmount": {
+            "makesBooking": "Een lid bereikt een specifiek aantal reserveringen",
+            "makesCancellation": "A member reaches a specific amount of cancellations"
+          }
+        },
+        "amountSuffix": {
+          "makesBooking": "Reserveringen",
+          "makesCancellation": "Geannuleerde reserveringen"
+        },
+        "alerts": {
+          "defaultToAbsent": "Your settings are configured to mark members as absent by default"
+        },
+        "timing": {
+          "temporality": {
+            "label": "Verstuur deze melding",
+            "options": {
+              "before": "Voor de sessie",
+              "after": "Na de sessie"
+            }
+          },
+          "timeUnit": {
+            "label": "Selecteer interval",
+            "options": {
+              "hour": "Elk uur",
+              "day": "Dagelijks"
+            }
+          },
+          "timeValue": {
+            "label": "Tijdstip van melding",
+            "prefix": {
+              "content": "Je melding wordt verzonden ",
+              "before": {
+                "hour_one": "{{count}} uur voor de sessie",
+                "hour_other": "{{count}} uur voor de sessie",
+                "day_one": "{{count}} dag voor de sessie",
+                "day_other": "{{count}} dagen voor de sessie"
+              },
+              "after": {
+                "hour_one": "{{count}} uur na de sessie",
+                "hour_other": "{{count}} uren na de sessie",
+                "day_one": "{{count}} dag na de sessie",
+                "day_other": "{{count}} dagen na de sessie"
+              }
+            }
+          }
+        }
+      },
+      "appointment": {
+        "actionLabel": "Stuur deze melding wanneer een lid",
+        "actions": {
+          "attend": "Gaat hun geboekte afspraak bij",
+          "cancelOnTime": "Cancels their appointment within the cancellation window",
+          "cancelTooLate": "Cancels their appointment outside the cancellation window"
+        },
+        "occurrenceLabel": "Verstuur deze melding wanneer",
+        "occurrences": {
+          "attend": {
+            "anyBooking": "Leden maken een reservering",
+            "specificAmount": "Een lid bereikt een specifiek aantal reserveringen"
+          },
+          "cancel": {
+            "anyBooking": "A member makes any cancellation",
+            "specificAmount": "A member reaches a specific amount of cancellation"
+          }
+        },
+        "amountSuffix": {
+          "attend": "Reserveringen",
+          "cancel": "cancellation"
+        }
+      },
+      "subscription": {
+        "statusLabel": "Verstuur deze melding",
+        "statuses": {
+          "subscriptionCreation": "The first subscription is created",
+          "subscriptionFirstBilling": "The first subscription is billed",
+          "subscriptionEnd": "End of their subscription"
+        }
+      },
+      "pass": {
+        "name": {
+          "label": "Naam melding",
+          "placeholder": "Give this notification a name ",
+          "required": "The name of the notification is required."
+        },
+        "actionLabel": "Verstuur deze melding wanneer",
+        "actions": {
+          "creditsLeft": "Pass reaches a set number of credits left",
+          "daysLeft": "Pass reaches a set number of days left before expiry",
+          "daysExpired": "Pass has expired"
+        },
+        "errors": {
+          "notEnoughDaysLeft": "Value must be greater than 0 ",
+          "notificationNameRequired": "Give your notification a name to continue"
+        },
+        "eventOccurence": {
+          "label": "Send this notification when a pass has",
+          "credits": {
+            "suffix_one": "Remaining credit",
+            "suffix_other": "Resterende credits"
+          },
+          "days": {
+            "suffix_one": "Remaining day",
+            "suffix_other": "Overige dagen"
+          }
+        },
+        "creditsLeft": {
+          "label": "Verstuur deze melding",
+          "bookingCompleted": {
+            "label": "After completing the booking",
+            "suffix_one": "hour after booking",
+            "suffix_other": "hours after booking"
+          },
+          "sessionEnd": {
+            "label": "After the end of the session",
+            "suffix_one": "hour after the end of the session",
+            "suffix_other": "hours after the end of the session"
+          }
+        },
+        "includedInContract": {
+          "label": "Choose when to send this notification",
+          "infos": "By default, this notification is sent to all members with this pass. If you select “Skip if a pass is part of a subscription”, members who hold the pass through a subscription will not receive it.",
+          "options": {
+            "everyPass": "Send to everyone with this pass",
+            "outsideSubscription": "Skip if pass is part of a subscription"
+          }
+        }
+      }
+    }
+  }
+}

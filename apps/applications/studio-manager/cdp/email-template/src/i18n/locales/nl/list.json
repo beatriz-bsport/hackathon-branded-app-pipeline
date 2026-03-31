@@ -4,9 +4,9 @@
     "archived": "Gearchiveerde emailsjablonen"
   },
   "tabs": {
-    "customTemplates": "Aangepaste sjablonen",
-    "masterTemplates": "Sjablonen",
-    "bsportTemplates": "bsport sjablonen"
+    "customTemplates": "Personalisatie",
+    "masterTemplates": "Franchise",
+    "bsportTemplates": "bsport"
   },
   "filters": {
     "filterButton": {
@@ -17,11 +17,28 @@
     },
     "status": "Status"
   },
+  "search": {
+    "tooltip": "Zoek een sjabloon"
+  },
   "templateList": {
     "loading": "Emailsjablonen laden...",
     "emptyPage": {
-      "title": "Je hebt nog geen aangepaste sjablonen gemaakt!",
-      "description": "Maak je eerste aangepaste sjabloon om gepersonaliseerde emails naar je leden te sturen."
+      "custom": {
+        "title": "Je hebt nog geen aangepaste sjablonen gemaakt.",
+        "description": "Maken je eerste aangepaste sjabloon om gepersonaliseerde emails naar je leden te sturen."
+      },
+      "bsport": {
+        "title": "Je hebt geen bsport-sjabloon beschikbaar",
+        "description": "Dit is een lijst van sjablonen die door bsport worden geleverd, neem contact op met je Account Manager voor hulp."
+      },
+      "master": {
+        "title": "Je hebt nog geen centrale sjablonen",
+        "description": "Dit is een lijst van sjablonen beheerd door je franchisegever, neem contact met hen op bij vragen."
+      },
+      "search": {
+        "title": "Geen sjablonen die overeenkomen met je zoekopdracht",
+        "description": "Er is momenteel geen sjabloon dat overeenkomt met je zoekfilters"
+      }
     },
     "emptyCategory": {
       "description": "Maak een aangepaste sjabloon voor deze categorie om gepersonaliseerde emails naar leden te sturen."
@@ -37,8 +54,8 @@
       "preview": "Voorbeeld",
       "rename": "Hernoemen",
       "undo": {
-        "success": "Actie ongedaan gemaakt",
-        "error": "Er is een fout opgetreden bij het ongedaan maken van de actie"
+        "success": "Wijziging ongedaan gemaakt",
+        "error": "De wijziging kan niet ongedaan worden gemaakt. Probeer het opnieuw."
       }
     },
     "hover": {
@@ -47,29 +64,35 @@
       "delete": "Verwijder sjabloon",
       "moreActions": "Meer acties"
     },
+    "dropdownActions": {
+      "preview": "Voorbeeld",
+      "duplicate": "Dupliceren",
+      "delete": "Verwijderen"
+    },
     "bsportTemplateInfo": {
-      "title": "bsport-sjablonen",
-      "description": "Dupliceer de Sjabloon die je wilt gebruiken, bewerk deze en stuur de gekopieerde versie direct vanaf deze pagina naar Leden.",
+      "label": "bsport sjablonen",
+      "title": "bsport sjablonen",
+      "description": "Deze kant-en-klare sjablonen zijn klaar voor gebruik. Dupliceer de sjabloon, bewerk deze en stuur de gekopieerde versie naar je leden. ",
       "quit": "Stoppen"
     },
     "createTemplateModal": {
       "title": "Maak een nieuwe emailsjabloon aan",
-      "description": "Geef je sjabloon een naam om te beginnen!",
+      "description": "Geef je sjabloon een naam om te beginnen",
       "confirmButton": "Maak",
-      "cancelButton": "Terug",
+      "cancelButton": "Sluiten",
       "textInput": {
-        "label": "Sjabloontitel",
-        "placeholder": "Sjabloontitel hier..."
+        "label": "Sjabloonnaam",
+        "placeholder": "Geef je sjabloon een naam"
       },
       "onSuccess": {
         "title": "Sjabloon aangemaakt",
         "action": "Open"
       },
       "onFailure": {
-        "title": "Er is een fout opgetreden bij het maken van je emailsjabloon."
+        "title": " Sjabloon kon niet worden aangemaakt. Probeer het opnieuw."
       },
       "errors": {
-        "name": "Kan sjabloon niet maken: sjabloonnaam niet geldig"
+        "name": "Sjabloonnaam niet geldig. Probeer een andere naam. "
       }
     },
     "previewEmailTemplateModal": {
@@ -81,94 +104,94 @@
       "description": "Je kunt <b>{{emailTemplateTitle}}</b> bewerken nadat",
       "duplicateEmailTitle": "{{emailTemplateTitle}} - Kopie",
       "confirmButton": "Dupliceren",
-      "cancelButton": "Terug",
+      "cancelButton": "Sluiten",
       "onSuccess": {
         "title": "Sjabloon gedupliceerd",
         "action": "Open"
       },
       "onFailure": {
-        "title": "Er is een fout opgetreden bij het dupliceren van je emailsjabloon."
+        "title": "Sjabloon kon niet worden gedupliceerd. Probeer het opnieuw."
       }
     },
     "deleteTemplateModal": {
       "title": "Verwijder emailsjabloon?",
-      "description": "Het verwijderen van <b>{{emailTemplateTitle}}</b> zal het ook uit alle transactionele Emails verwijderen waaraan het is gekoppeld.",
+      "description": "Zodra je <b>{{emailTemplateTitle}}</b> verwijdert, is het niet langer zichtbaar voor leden. Het wordt ook verwijderd uit alle transactionele email waaraan het is gekoppeld.",
       "confirmButton": "Verwijderen",
-      "cancelButton": "Terug",
+      "cancelButton": "Behouden",
       "onSuccess": {
         "title": "Email sjabloon verwijderd",
         "action": "Ongedaan maken"
       },
       "onFailure": {
-        "title": "Er is een fout opgetreden bij het verwijderen van je emailsjabloon."
+        "title": "Sjabloon kon niet worden verwijderd. Probeer het opnieuw."
       }
     },
     "createCategoryModal": {
-      "title": "Maak een nieuwe categorie aan",
+      "title": "Voeg een nieuwe categorie toe",
       "textInput": {
         "label": "Categorienaam",
-        "placeholder": "Categorie naam hier..."
+        "placeholder": "Geef je categorie een naam"
       },
-      "confirmButton": "Maak",
-      "cancelButton": "Terug",
+      "confirmButton": "Toevoegen",
+      "cancelButton": "Sluiten",
       "onSuccess": {
-        "title": "Categorie aangemaakt"
+        "title": "Categorie succesvol geregistreerd"
       },
       "onFailure": {
-        "title": "Er is een fout opgetreden bij het aanmaken van je categorie."
+        "title": " Categorieën kon niet worden toegevoegd. Probeer het opnieuw."
       },
       "errors": {
-        "name": "Kan geen categorie aanmaken: categorienaam niet geldig"
+        "name": "Categorie naam niet geldig. Probeer een andere naam. "
       }
     },
     "renameCategoryModal": {
-      "title": "Hernoem categorie",
+      "title": "Hernoem categorie?",
       "textInput": {
         "label": "Categorienaam",
-        "placeholder": "Categorienaam hier..."
+        "placeholder": "Geef je categorie een naam"
       },
       "confirmButton": "Hernoemen",
-      "cancelButton": "Terug",
+      "cancelButton": "Sluiten",
       "onSuccess": {
         "title": "Categorie hernoemd",
         "action": "Ongedaan maken"
       },
       "onFailure": {
-        "title": "Er is een fout opgetreden bij het hernoemen van je categorie."
+        "title": " Categorieën kon niet worden hernoemd. Probeer het opnieuw."
       }
     },
     "deleteCategoryModal": {
       "title": "Categorie verwijderen?",
-      "description": "Alle items die onder <b>{{categoryName}}</b> staan, worden verplaatst naar de sectie 'Geen categorie'.",
+      "description": "Zodra je <b>{{categoryName}}</b> verwijdert, is deze niet meer zichtbaar. Alle sjablonen die onder deze categorie zijn georganiseerd, worden nu ongecategoriseerd. ",
       "confirmButton": "Verwijderen",
-      "cancelButton": "Terug",
+      "cancelButton": "Behouden",
       "onSuccess": {
         "title": "Categorie verwijderd",
         "action": "Ongedaan maken"
       },
       "onFailure": {
-        "title": "Er is een fout opgetreden bij het verwijderen van je categorie."
+        "title": " Categorieën konden niet worden verwijderd. Probeer het opnieuw."
       }
     },
     "restoreEmailTemplateAction": {
       "onFailure": {
-        "title": "Er is een fout opgetreden bij het herstellen van je emailsjabloon."
+        "title": " Het sjabloon kon niet worden hersteld. Probeer het opnieuw."
       }
     },
     "renameTemplateModal": {
-      "title": "Hernoem emailsjabloon",
+      "title": "Hernoem email sjabloon?",
       "textInput": {
-        "label": "Sjabloontitel",
-        "placeholder": "Sjabloontitel hier..."
+        "label": "Naam",
+        "placeholder": "Geef je sjabloon een naam om door te gaan"
       },
       "confirmButton": "Hernoemen",
-      "cancelButton": "Terug",
+      "cancelButton": "Sluiten",
       "onSuccess": {
         "title": "Sjabloon hernoemd",
         "action": "Ongedaan maken"
       },
       "onFailure": {
-        "title": "Er is een fout opgetreden bij het hernoemen van je sjabloon."
+        "title": " Sjabloon kon niet worden hernoemd. Probeer het opnieuw."
       }
     }
   }

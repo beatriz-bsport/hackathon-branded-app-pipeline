@@ -2,10 +2,12 @@ import { lazy, useMemo } from "react";
 import { Navigate, Route, Routes, useParams } from "react-router";
 
 import { FeatureFlag } from "#src/components/FeatureFlag";
+import { useUpsellChecker } from "#src/hooks/use-upsell-checker";
 import {
   CAMPAIGN_CHANNELS,
   CAMPAIGN_CHANNEL_EMAIL,
   CAMPAIGN_CHANNEL_POPUP,
+  CAMPAIGN_CHANNEL_PUSH,
   type CampaignChannel,
   SMARTLIST_APP_LINKS,
   SMARTLIST_ROUTE_PATTERNS,
@@ -17,6 +19,9 @@ const CreateEmailCampaignPage = lazy(
 );
 const CreatePopupCampaignPage = lazy(
   () => import("#src/pages/PopupCreationPage"),
+);
+const CreatePushCampaignPage = lazy(
+  () => import("#src/pages/push-campaign/create-push-campaign"),
 );
 const EditPopupCampaignPage = lazy(() => import("#src/pages/PopupEditPage"));
 
@@ -36,17 +41,26 @@ function useCampaignBasePath(): string {
 function CreateRouteByChannel() {
   const { channel } = useParams<{ channel: string }>();
   const basePath = useCampaignBasePath();
+  const { hasPushNotificationUpsell, hasPopupUpsell } = useUpsellChecker();
 
   const element = useMemo(() => {
     switch (channel) {
       case CAMPAIGN_CHANNEL_EMAIL:
         return <CreateEmailCampaignPage />;
       case CAMPAIGN_CHANNEL_POPUP:
+        if (!hasPopupUpsell) {
+          return <Navigate to={basePath} replace />;
+        }
         return <CreatePopupCampaignPage />;
+      case CAMPAIGN_CHANNEL_PUSH:
+        if (!hasPushNotificationUpsell) {
+          return <Navigate to={basePath} replace />;
+        }
+        return <CreatePushCampaignPage />;
       default:
         return <Navigate to={basePath} replace />;
     }
-  }, [channel, basePath]);
+  }, [channel, basePath, hasPushNotificationUpsell, hasPopupUpsell]);
 
   if (!channel || !isValidChannel(channel)) {
     return <Navigate to={basePath} replace />;

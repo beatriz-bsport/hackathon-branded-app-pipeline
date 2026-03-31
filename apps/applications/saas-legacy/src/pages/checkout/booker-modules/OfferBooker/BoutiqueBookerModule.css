@@ -338,6 +338,7 @@
 @container bsOfferBookingPage (width < 950px) {
   .bs-new-offer-booking-page__pricing_container {
     height: 100%;
+    width: 100%;
     display: grid;
     grid-template:
       'header'

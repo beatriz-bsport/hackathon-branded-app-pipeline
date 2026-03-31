@@ -2,9 +2,9 @@ import { z } from "zod";
 
 import { fromIsoString, getLocalNow } from "@bsport/datetime-manipulation";
 
+import { CAMPAIGN_NAME_MAX_LENGTH } from "#src/components/campaign-generic-fields/campaign-name-field";
 import { i18nInstance } from "#src/utils/i18n";
 
-import { CAMPAIGN_NAME_MAX_LENGTH } from "./EmailNameField";
 import { DELIVERY_MODE_VALUES, EMAIL_TYPE_VALUES } from "./constants";
 import type { EmailCampaignFormData } from "./types";
 import { MIN_SCHEDULE_MINUTES_FROM_NOW } from "./use-scheduled-date-time-validator";

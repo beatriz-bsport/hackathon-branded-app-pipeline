@@ -1,0 +1,158 @@
+{
+  "autocomplete": {
+    "categories": {
+      "selectedItems": "Geselecteerde items",
+      "allItems": "Alle items"
+    }
+  },
+  "fileUpload": {
+    "uploadFileCTA": "Upload een bestand",
+    "dragAndDropCTA": "of sleep het hier naartoe",
+    "uploadStatus": {
+      "success": "Upload succesvol",
+      "error": "Kan dit bestand niet uploaden"
+    },
+    "actions": {
+      "abort": "Upload annuleren",
+      "remove": "Verwijder bestand",
+      "retry": "Probeer opnieuw te uploaden"
+    }
+  },
+  "emptyState": {
+    "noResultsFound": {
+      "title": "Geen resultaten gevonden",
+      "clearFilters": "Filters wissen"
+    }
+  },
+  "errorFallback": {
+    "title": "Het spijt ons —",
+    "description": "We hebben het probleem geregistreerd en ons team werkt hard om het op te lossen.\nProbeer intussen de pagina te verversen.",
+    "subtitle": "Er is iets misgegaan aan onze kant.",
+    "actionLabel": "Probeer opnieuw",
+    "crashReportModalToggle": "Stuur feedback"
+  },
+  "crashReportModal": {
+    "title": "Meld dit probleem",
+    "feedbackContentPlaceholder": "Beschrijf wat je aan het doen was toen de fout optrad, zodat ons team het probleem kan oplossen.",
+    "confirmButtonLabel": "Rapport verzenden",
+    "toast": {
+      "success": "Rapport succesvol verzonden",
+      "failure": "Er is een fout opgetreden bij het verzenden van feedback."
+    }
+  },
+  "detailsLayout": {
+    "confirmation": {
+      "title": "De pagina heeft niet-opgeslagen wijzigingen.",
+      "discard": "Verwijderen",
+      "save": "Wijzigingen opslaan"
+    },
+    "panelControlButton": {
+      "openPanel": "Open paneel",
+      "closePanel": "Sluiten paneel"
+    }
+  },
+  "datePicker": {
+    "modalTitle": "Selecteer een dag",
+    "shortcutsTitle": "Sneltoetsen",
+    "startDate": "Startdatum",
+    "endDate": "Einddatum",
+    "nextMonth": "Volgende maand",
+    "previousMonth": "Vorige maand",
+    "invalidStartDate": "Ongeldige startdatum",
+    "invalidEndDate": "Ongeldige einddatum",
+    "rangeLabel": "Van {{ start }} tot {{end}}",
+    "datePlaceholder": "DD-MM-YYYY",
+    "shortcuts": {
+      "today": "Vandaag",
+      "last4weeks": "Last 4 weeks",
+      "lastWeek": "Aantal weergaven in de afgelopen 7 dagen",
+      "lastQuarter": "Afgelopen 3 maanden",
+      "monthToDate": "Month to date",
+      "yearToDate": "Year to date",
+      "nextWeek": "Next 7 days",
+      "nextMonth": "Volgende maand",
+      "nextQuarter": "Next 3 months",
+      "nextYear": "Next year"
+    }
+  },
+  "modal": {
+    "back": "Terug",
+    "next": "Volgende",
+    "close": "Sluiten",
+    "cancel": "Sluiten"
+  },
+  "pagination": {
+    "rows": "Rijen",
+    "showingRange": "Toont {{currentItemsRendered}} van {{totalItems}}",
+    "firstPage": "Eerste pagina",
+    "previousPage": "Vorige pagina",
+    "nextPage": "Volgende pagina",
+    "lastPage": "Laatste pagina"
+  },
+  "headerLayout": {
+    "search": {
+      "tooltip": "Zoeken op deze pagina"
+    },
+    "editTitle": "Titel bewerken",
+    "actions": {
+      "more": "Meer acties"
+    },
+    "display": {
+      "buttonLabel": "Weergave"
+    }
+  },
+  "copyToClipboard": {
+    "copied": "Gekopieerd naar klembord",
+    "failed": "Kon niet naar klembord kopiëren. Probeer het opnieuw. ",
+    "tooltip": "Klik om te kopiëren"
+  },
+  "detailDrawer": {
+    "tooltip": {
+      "close": "Sluiten"
+    }
+  },
+  "sidebar": {
+    "ariaLabel": "Primaire navigatie",
+    "openMenu": "Open navigatiemenu",
+    "closeMenu": "Sluiten navigatiemenu"
+  },
+  "dropdownMenu": {
+    "search": {
+      "placeholder": "Zoeken..."
+    }
+  },
+  "filter": {
+    "openAriaLabel": "Open filters",
+    "clearAriaLabel": "Filters wissen",
+    "addAriaLabel": "Voeg filter toe",
+    "deleteAriaLabel": "Verwijder filter",
+    "modalTitle": "Filter",
+    "clearAction": "Verwijderen",
+    "applyAction": "Filter toepassen",
+    "addAction": "Voeg filter toe",
+    "selectFieldPlaceholder": "Selecteer filter",
+    "selectOperatorPlaceholder": "Selecteer",
+    "selectValuePlaceholder": "Selecteer"
+  },
+  "button": {
+    "clear": "Verwijderen",
+    "search": "Zoek"
+  },
+  "alert": {
+    "clear": "Waarschuwing verwijderen"
+  },
+  "list": {
+    "toggleCollapse": "Inklappen wisselen",
+    "collapse": "Inklappen",
+    "expand": "Uitbreiden"
+  },
+  "tabs": {
+    "selectTab": "Selecteer tabblad"
+  },
+  "textField": {
+    "clear": "Verwijderen"
+  },
+  "actions": {
+    "more": "Meer acties"
+  }
+}

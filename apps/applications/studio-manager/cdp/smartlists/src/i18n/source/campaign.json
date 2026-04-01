@@ -1,6 +1,16 @@
 {
   "email": {
     "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campaign sent",
+          "schedule": "Campaign scheduled"
+        },
+        "error": {
+          "sendFailed": "Campaign couldn't be sent. Please try again.",
+          "scheduleFailed": "Campaign couldn't be scheduled. Please try again."
+        }
+      },
       "title": "Email Campaign",
       "continueButtonLabel": "Continue",
       "expectedRecipients": {

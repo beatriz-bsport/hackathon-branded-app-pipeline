@@ -1,6 +1,7 @@
 import type { AxiosResponse } from 'axios';
 import type {
   BalanceTransactionListResponse,
+  PayoutDetail,
   BookkeepingAccount,
   CreatePaymentAttemptResponsePayload,
   DetachPaymentMethodPayload,
@@ -214,6 +215,12 @@ export const fetchPayoutBalanceTransactions = async (params: {
       page: params.page,
       page_size,
     })}`,
+  );
+};
+
+export const fetchPayoutDetail = async (payoutId: number) => {
+  return getAuth<PayoutDetail>(
+    `${API_V1_URI}/payout/reconciliation/${payoutId}/`,
   );
 };
 

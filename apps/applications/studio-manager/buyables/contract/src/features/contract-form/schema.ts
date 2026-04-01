@@ -32,6 +32,11 @@ export function useContractFormSchema({
         .min(FIELD_CONSTRAINTS.MONTH_DAY_MIN)
         .max(FIELD_CONSTRAINTS.MONTH_DAY_MAX),
       recurrence_basis: z.number(),
+      nb_interval: z
+        .number()
+        .int()
+        .min(FIELD_CONSTRAINTS.NB_FIXED_INTERVAL_MIN)
+        .max(FIELD_CONSTRAINTS.NB_FIXED_INTERVAL_MAX),
     }),
 
     // Case 2: hasCustomInterval = true → min_price & max_price are required
@@ -42,8 +47,13 @@ export function useContractFormSchema({
         .number()
         .int()
         .min(FIELD_CONSTRAINTS.RECURRENCE_BASIS_MIN),
+      nb_interval: z
+        .number()
+        .int()
+        .min(FIELD_CONSTRAINTS.NB_CUSTOM_INTERVAL_MIN),
     }),
   ]);
+
   const baseSchema = z
     .object({
       name: z
@@ -74,6 +84,9 @@ export function useContractFormSchema({
         BILLING_INTERVALS.MONTH,
         BILLING_INTERVALS.YEAR,
       ]),
+
+      auto_renewal: z.boolean(),
+      nb_interval_after_auto_renewal: z.number().nullable(),
     })
     .and(billingCycleSchema);
 

@@ -41,9 +41,11 @@ export const FormNumberField = <
               : String(toMaxDigits(defaultProps.value, maxDigits)),
           onChange: (event) => {
             // Convert from string (textfield state) to number (form state)
-            defaultProps.onChange(
-              toMaxDigits(event.target.valueAsNumber, maxDigits),
+            const converted = toMaxDigits(
+              event.target.valueAsNumber,
+              maxDigits,
             );
+            defaultProps.onChange(Number.isNaN(converted) ? null : converted);
           },
           ...(additionalProps ?? {}),
         };

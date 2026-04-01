@@ -20,6 +20,9 @@ export type ContractFormData = Pick<
   | "interval"
   | "recurrence_basis"
   | "month_billing_day"
+  | "nb_interval"
+  | "auto_renewal"
+  | "nb_interval_after_auto_renewal"
 > &
   Pick<CreateLegacyContractParams, "payment_pack"> & {
     payment_pack_details: Pick<

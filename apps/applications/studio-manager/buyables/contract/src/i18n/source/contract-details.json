@@ -47,6 +47,15 @@
         "tooltip": "Member's first invoice will be sent on the chosen date and pro-rated if necessary.",
         "sublabel": "Every month on"
       }
+    },
+    "duration": {
+      "label": "Duration",
+      "helperText": "The number of billings must be between 2 and 12 for fixed-day billing"
+    },
+    "autoRenewal": {
+      "label": "Allow auto-renewal",
+      "sublabel": "Number of bills per cycle",
+      "helperText": "Each cycle after auto-renewal will have this number of bills"
     }
   },
   "intervals": {
@@ -65,7 +74,8 @@
   },
   "formSections": {
     "price": "Price",
-    "billingCycle": "Billing Cycle"
+    "billingCycle": "Billing Cycle",
+    "contractLength": "Contract length"
   },
   "editor": {
     "submit": {

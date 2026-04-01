@@ -22,6 +22,7 @@ import type {
   InitializeLegalIdentifierLegacyRequest,
   InitializeLegalIdentifierLegacyResponse,
   InitializeLegalIdentifierOnboarding,
+  DownloadInvoiceBulkExportResponse,
 } from '#src/libs/invoice/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { Payment } from '#src/libs/payment/types';
@@ -110,6 +111,17 @@ export function generateInvoiceXmlBulk(urlParams: {
   return postAuth<string>(
     `${API_V1_URI}/payment/invoices/generate_xml_bulk_async/${buildUrlParams(
       urlParams,
+    )}`,
+  );
+}
+
+export async function downloadInvoiceBulkExport(params: {
+  year: number;
+  month: number;
+}): Promise<AxiosResponse<DownloadInvoiceBulkExportResponse>> {
+  return getAuth(
+    `${API_V1_URI}/payment/invoice-pdf-bulk-export/download-month/${buildUrlParams(
+      params,
     )}`,
   );
 }
@@ -492,6 +504,7 @@ export default {
   fetchConfiguration,
   patchConfiguration,
   fetchByInvoiceItem,
+  downloadInvoiceBulkExport,
   returnPayment,
   getSequentialNumberingStatus,
   initializeLegalIdentifierLegacy,

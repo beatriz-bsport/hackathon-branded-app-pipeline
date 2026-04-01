@@ -355,3 +355,6 @@ export const getAllQuickCreatedInvoices = createSelector(
 
 export const getInvoiceXmlBulkLoading = (state: RootState) =>
   getState(state).generateXmlBulk.loading;
+
+export const getDownloadInvoiceBulkExportLoading = (state: RootState) =>
+  getState(state).downloadBulkExport.loading;

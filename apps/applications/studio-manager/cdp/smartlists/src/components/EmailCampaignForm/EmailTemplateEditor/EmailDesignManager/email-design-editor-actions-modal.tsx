@@ -4,46 +4,67 @@ import { Body, Modal, RadioGroup } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import type {
-  EmailDesignContent,
-  EmailDesignEditorAction,
-} from "./email-design-editor-types";
+type SaveAction = "onTheFly" | "createNew" | "overwrite";
 
 export const EmailDesignEditorActionsModal = ({
   open,
-  actions,
-  content,
+  canOverwrite,
+  onOnTheFly,
+  onCreateNew,
+  onOverwrite,
   onClose,
 }: {
   open: boolean;
-  actions: EmailDesignEditorAction[];
-  content: EmailDesignContent;
+  /** Whether the "overwrite existing template" option is available. False when no template is selected. */
+  canOverwrite: boolean;
+  onOnTheFly: () => void;
+  onCreateNew: () => void;
+  onOverwrite: () => void;
   onClose: () => void;
 }) => {
   const { t } = useTranslation("campaign");
-  const [selectedActionId, setSelectedActionId] = useState<string>(
-    actions[0]?.id ?? "",
-  );
+  const [selected, setSelected] = useState<SaveAction>("onTheFly");
 
-  const actionById = new Map(actions.map((action) => [action.id, action]));
-
-  const options = actions.map((action) => ({
-    label: action.label,
-    helperText: action.helperText,
-    value: action.id,
-  }));
-
-  const handleSave = async () => {
-    const selected = actionById.get(selectedActionId);
-    if (!selected) return;
-
-    await selected.run({
-      content,
-      context: {
-        close: onClose,
-      },
-    });
+  const handleSave = () => {
+    if (selected === "onTheFly") {
+      onOnTheFly();
+    } else if (selected === "createNew") {
+      onCreateNew();
+    } else if (selected === "overwrite") {
+      onOverwrite();
+    }
   };
+
+  const options = [
+    {
+      value: "onTheFly" as SaveAction,
+      label: t(
+        "email.creation.form.emailTemplateEditor.saveActionModal.options.onTheFlyTemplate.label",
+      ),
+      helperText: t(
+        "email.creation.form.emailTemplateEditor.saveActionModal.options.onTheFlyTemplate.helperText",
+      ),
+    },
+    {
+      value: "createNew" as SaveAction,
+      label: t(
+        "email.creation.form.emailTemplateEditor.saveActionModal.options.createNewTemplate.label",
+      ),
+      helperText: t(
+        "email.creation.form.emailTemplateEditor.saveActionModal.options.createNewTemplate.helperText",
+      ),
+    },
+    {
+      value: "overwrite" as SaveAction,
+      label: t(
+        "email.creation.form.emailTemplateEditor.saveActionModal.options.overwriteExistingTemplate.label",
+      ),
+      helperText: t(
+        "email.creation.form.emailTemplateEditor.saveActionModal.options.overwriteExistingTemplate.helperText",
+      ),
+      disabled: !canOverwrite,
+    },
+  ];
 
   return (
     <Modal
@@ -67,9 +88,9 @@ export const EmailDesignEditorActionsModal = ({
         <RadioGroup
           id="email-design-editor-action"
           options={options}
-          value={selectedActionId}
+          value={selected}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setSelectedActionId(event.target.value);
+            setSelected(event.target.value as SaveAction);
           }}
         />
       </div>

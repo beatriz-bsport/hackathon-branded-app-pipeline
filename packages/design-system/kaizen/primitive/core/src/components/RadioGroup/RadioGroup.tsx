@@ -77,7 +77,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
               {...option}
               checked={value === option.value}
               onChange={handleChange}
-              disabled={disabled!}
+              disabled={disabled || option.disabled || false}
               direction={direction}
               key={option.value}
             />

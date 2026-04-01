@@ -126,6 +126,7 @@ export const PopupEditPage = () => {
       status: "default",
       title: tCampaign("popup.edit.toasts.processing.editingPopup"),
       onDismiss: () => setToastId(null),
+      buttonIcon: "x-close",
     });
     setToastId(processingToastId);
 

@@ -97,6 +97,7 @@ export const PopupCreationPage = () => {
     const processingToastId = toast({
       status: "default",
       title: tCampaign("popup.creation.toasts.processing.creatingPopup"),
+      buttonIcon: "x-close",
       onDismiss: () => setToastId(null),
     });
     setToastId(processingToastId);

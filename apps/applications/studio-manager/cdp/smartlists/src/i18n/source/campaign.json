@@ -62,6 +62,7 @@
           "emailTemplateNoCategory": "No category",
           "sendTestEmail": "Send test email",
           "editEmail": "Edit email",
+          "createTemplate": "Create a template",
           "noTemplatePreview": "Select a template or edit the email to see a preview."
         },
         "errors": {
@@ -90,6 +91,17 @@
           "title": "Email editor",
           "confirmButtonLabel": "Save",
           "cancelButtonLabel": "Cancel",
+          "subjectLabel": "Email subject",
+          "franchiseTemplateLabel": "Franchise template",
+          "createNewTemplateModal": {
+            "title": "Create new email template",
+            "description": "Name your new template and organize it in a category",
+            "templateTitleLabel": "Template title",
+            "categoryLabel": "Category",
+            "noCategoryLabel": "No category",
+            "confirmButtonLabel": "Save",
+            "cancelButtonLabel": "Cancel"
+          },
           "saveActionModal": {
             "title": "Save email",
             "description": "How would you like to save this email?",

@@ -41,6 +41,7 @@ export const useDuplicate = ({
           status: "critical",
           icon: "alert-circle",
           title: t("toasts.error.duplicateFailed"),
+          buttonIcon: "x-close",
         });
       },
     });

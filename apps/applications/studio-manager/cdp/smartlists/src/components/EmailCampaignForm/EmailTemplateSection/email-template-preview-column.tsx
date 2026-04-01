@@ -1,7 +1,7 @@
 import { type FC, useState } from "react";
 
 import { useFormContext } from "@bsport/form";
-import { Button, ButtonProps } from "@bsport/kaizen-primitive-core";
+import { Alert, Button, ButtonProps } from "@bsport/kaizen-primitive-core";
 
 import { useEmailTemplateSearch } from "#src/api/use-email-template-search";
 import { HTMLPreview } from "#src/components/BusinessComponents/HTMLPreview";
@@ -17,7 +17,9 @@ const INLINE_ACTIONS = {
 
 type InlineAction = (typeof INLINE_ACTIONS)[keyof typeof INLINE_ACTIONS];
 
-export const EmailTemplatePreviewColumn: FC = () => {
+export const EmailTemplatePreviewColumn: FC<{
+  isOnTheFlyHtmlTemplate?: boolean;
+}> = ({ isOnTheFlyHtmlTemplate = false }) => {
   const { t } = useTranslation("campaign");
   const { watch, setValue } = useFormContext<EmailCampaignFormData>();
   const [inlineActions, setInlineActions] = useState<InlineAction | null>(null);
@@ -58,8 +60,35 @@ export const EmailTemplatePreviewColumn: FC = () => {
         label: t("email.creation.form.emailTemplate.createTemplate"),
         iconLeft: "plus",
       };
+
+  const shouldPreventCurrentTemplateEdition =
+    isOnTheFlyHtmlTemplate && !watchedEmailTemplateId;
+
+  const editorContent = shouldPreventCurrentTemplateEdition
+    ? {
+        content: {
+          design: "",
+          html: "",
+        },
+        subject: watchedEmailSubject ?? "",
+      }
+    : {
+        content: {
+          design: currentEmailDesign,
+          html: currentEmailHtml,
+        },
+        subject: currentEmailSubject,
+      };
+
   return (
     <div className="flex flex-col gap-md">
+      {shouldPreventCurrentTemplateEdition ? (
+        <Alert status="warning" customIcon="alert-circle">
+          {t(
+            "email.creation.form.emailTemplate.onTheFlyTemplateEditionBlockedWarning",
+          )}
+        </Alert>
+      ) : null}
       <div className="flex flex-wrap gap-sm">
         <Button
           size="sm"
@@ -90,13 +119,7 @@ export const EmailTemplatePreviewColumn: FC = () => {
         <EmailTemplateEditor
           open={true}
           emailTemplateId={watchedEmailTemplateId ?? undefined}
-          emailTemplateContent={{
-            content: {
-              design: currentEmailDesign,
-              html: currentEmailHtml,
-            },
-            subject: currentEmailSubject,
-          }}
+          emailTemplateContent={editorContent}
           onEmailTemplateChange={({
             design,
             html,

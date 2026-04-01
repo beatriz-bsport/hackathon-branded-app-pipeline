@@ -18,12 +18,14 @@ type EmailCampaignFormProps = Omit<
   "children"
 > & {
   smartlistId: number;
+  isOnTheFlyHtmlTemplate?: boolean;
 };
 
 export const EmailCampaignForm: React.FC<EmailCampaignFormProps> = ({
   id,
   onSubmit,
   smartlistId,
+  isOnTheFlyHtmlTemplate = false,
   ...methods
 }) => {
   const { watch } = methods;
@@ -54,7 +56,7 @@ export const EmailCampaignForm: React.FC<EmailCampaignFormProps> = ({
         isProduction ? null : <CampaignNameField<EmailCampaignFormData> />
       }
       <CampaignDeliveryModeSelector />
-      <ContentSection />
+      <ContentSection isOnTheFlyHtmlTemplate={isOnTheFlyHtmlTemplate} />
     </ControlledForm>
   );
 };

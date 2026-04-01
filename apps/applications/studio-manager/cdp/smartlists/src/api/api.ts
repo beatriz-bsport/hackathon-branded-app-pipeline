@@ -38,6 +38,7 @@ import type {
   Tag,
   TagGroup,
   TagRule,
+  UpdateScheduledEmailCampaignPayload,
 } from "./types";
 
 const SMARTLIST_API_V1 = "customer-data-platform/v1/smartlist";
@@ -316,6 +317,21 @@ export const scheduleEmailCampaign = async (
     `${COMMUNICATION_API_V1}/communication/communication_scheduled/`,
     {
       method: "POST",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const updateScheduledEmailCampaign = async (
+  campaignScheduledId: string,
+  payload: UpdateScheduledEmailCampaignPayload,
+): Promise<CampaignScheduled> => {
+  const { data } = await fetch<CampaignScheduled>(
+    `${COMMUNICATION_API_V1}/communication/communication_scheduled/${campaignScheduledId}/`,
+    {
+      method: "PUT",
       body: JSON.stringify(payload),
     },
   );

@@ -11,14 +11,9 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { useScheduleEmailCampaign } from "#src/api/use-schedule-email-campaign";
-import { useSendEmailCampaign } from "#src/api/use-send-email-campaign";
+import { useFetchCampaignScheduledDetail } from "#src/api/use-fetch-campaign-scheduled-detail";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
-import {
-  DELIVERY_MODE_SCHEDULE_LATER,
-  DELIVERY_MODE_SEND_NOW,
-  EMAIL_TYPE_MARKETING,
-} from "#src/components/EmailCampaignForm/constants";
+import { useUpdateScheduledEmailCampaign } from "#src/api/use-update-scheduled-email-campaign";
 import { EmailCampaignForm } from "#src/components/EmailCampaignForm/email-campaign-form";
 import { getEmailCampaignSchema } from "#src/components/EmailCampaignForm/schema";
 import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
@@ -28,94 +23,79 @@ import {
   QueryBoundary,
 } from "#src/components/QueryBoundary";
 import {
-  formatScheduleEmailCampaignPayload,
   formatScheduledDateTime,
-  formatSendEmailCampaignPayload,
+  formatUpdateScheduledEmailCampaignPayload,
 } from "#src/pages/EmailCampaign/utils/format-email-campaign-payload";
+import { initEmailCampaignFormDefaultValues } from "#src/pages/EmailCampaign/utils/init-email-campaign-form-default-values";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
-const CreateEmailCampaignPage = () => {
+const EditEmailCampaignPage = () => {
   return (
     <QueryBoundary
       loadingFallback={<PageLoader />}
       errorFallback={(props) => <DetailPageErrorFallback {...props} />}
     >
-      <CreateEmailCampaign />
+      <EditEmailCampaign />
     </QueryBoundary>
   );
 };
 
-function CreateEmailCampaign() {
-  const { id: smartlistId } = useParams<{ id: string }>();
-  invariant(smartlistId, "Expected id param to be defined");
+function EditEmailCampaign() {
   const { t: tList } = useTranslation("list");
   const { t: tCampaign } = useTranslation("campaign");
   const navigate = useNavigate();
+  const { id: smartlistId, entityId } = useParams<{
+    id: string;
+    entityId: string;
+  }>();
+  invariant(smartlistId, "Expected id param to be defined");
+  invariant(entityId, "Expected entityId param to be defined");
 
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(smartlistId);
   const { detailsLayoutProps } = useDetailsLayout();
   const companyTimezone =
     dataAccessLayer.useCompanyTheme()?.timezone_name ?? "UTC";
 
-  const { sendCampaign, isSending } = useSendEmailCampaign({
-    onSuccess: () => {
-      navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
-      toast({
-        status: "default",
-        icon: "check",
-        title: tCampaign("email.creation.toasts.success.send"),
-        buttonIcon: "x-close",
-      });
-    },
-    onError: () => {
-      toast({
-        status: "critical",
-        icon: "alert-circle",
-        title: tCampaign("email.creation.toasts.error.sendFailed"),
-        buttonIcon: "x-close",
-      });
-    },
-  });
-  const { scheduleCampaign, isScheduling } = useScheduleEmailCampaign({
-    onSuccess: () => {
-      toast({
-        status: "default",
-        icon: "check",
-        title: tCampaign("email.creation.toasts.success.schedule"),
-        buttonIcon: "x-close",
-      });
-      navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
-    },
-    onError: () => {
-      toast({
-        status: "critical",
-        icon: "alert-circle",
-        title: tCampaign("email.creation.toasts.error.sendFailed"),
-        buttonIcon: "x-close",
-      });
-    },
-  });
+  const { data: scheduledCampaign } = useFetchCampaignScheduledDetail(entityId);
+  const { formDefaults, isOnTheFlyHtmlTemplate } =
+    initEmailCampaignFormDefaultValues({
+      campaign: scheduledCampaign,
+      companyTimezone,
+    });
+
+  const { updateScheduledCampaign, isUpdating } =
+    useUpdateScheduledEmailCampaign({
+      onSuccess: (updatedCampaign) => {
+        navigate(
+          SMARTLIST_APP_LINKS.campaignScheduledDetails(
+            smartlistId,
+            updatedCampaign.id,
+          ),
+        );
+        toast({
+          status: "default",
+          icon: "check",
+          title: tCampaign("email.creation.toasts.success.schedule"),
+          buttonIcon: "x-close",
+        });
+      },
+      onError: () => {
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          title: tCampaign("email.creation.toasts.error.scheduleFailed"),
+          buttonIcon: "x-close",
+        });
+      },
+    });
 
   const formId = useId();
-
   const methods = useFormController({
     mode: "onBlur",
     schema: getEmailCampaignSchema(companyTimezone),
-    defaultValues: {
-      emailType: EMAIL_TYPE_MARKETING,
-      campaignName: "",
-      deliveryMode: DELIVERY_MODE_SEND_NOW,
-      scheduledDate: undefined,
-      scheduledTime: undefined,
-      isTextOnly: true,
-      emailSubject: "",
-      emailBody: "",
-      emailTemplateId: undefined,
-      emailTemplateDesign: undefined,
-      emailTemplateHtml: undefined,
-    },
+    defaultValues: formDefaults,
   });
 
   const breadcrumbsItems = [
@@ -134,34 +114,22 @@ function CreateEmailCampaign() {
   ];
 
   const handleSubmit = async (data: EmailCampaignFormData) => {
-    if (
-      data.deliveryMode === DELIVERY_MODE_SCHEDULE_LATER &&
-      data.scheduledDate &&
-      data.scheduledTime
-    ) {
-      const datetimeScheduled = formatScheduledDateTime({
-        scheduledDate: data.scheduledDate,
-        scheduledTime: data.scheduledTime,
-        companyTimezone,
-      });
+    if (!data.scheduledDate || !data.scheduledTime) return;
 
-      const payload = formatScheduleEmailCampaignPayload({
-        smartlistId: smartlist.id,
-        data,
-        datetimeScheduled,
-      });
+    const datetimeScheduled = formatScheduledDateTime({
+      scheduledDate: data.scheduledDate,
+      scheduledTime: data.scheduledTime,
+      companyTimezone,
+    });
 
-      await scheduleCampaign({
-        payload,
-      });
-      return;
-    }
-
-    const payload = formatSendEmailCampaignPayload({
+    const payload = formatUpdateScheduledEmailCampaignPayload({
       smartlistId: smartlist.id,
       data,
+      datetimeScheduled,
     });
-    await sendCampaign({
+
+    await updateScheduledCampaign({
+      campaignScheduledId: entityId,
       payload,
     });
   };
@@ -179,9 +147,7 @@ function CreateEmailCampaign() {
             size="md"
             type="submit"
             form={formId}
-            disabled={
-              methods.formState.isSubmitting || isSending || isScheduling
-            }
+            disabled={methods.formState.isSubmitting || isUpdating}
           />
         }
       />
@@ -190,7 +156,7 @@ function CreateEmailCampaign() {
           smartlistId={smartlist.id}
           id={formId}
           onSubmit={handleSubmit}
-          isOnTheFlyHtmlTemplate={false}
+          isOnTheFlyHtmlTemplate={isOnTheFlyHtmlTemplate}
           {...methods}
         />
       </DetailsLayout.Content>
@@ -198,4 +164,4 @@ function CreateEmailCampaign() {
   );
 }
 
-export default CreateEmailCampaignPage;
+export default EditEmailCampaignPage;

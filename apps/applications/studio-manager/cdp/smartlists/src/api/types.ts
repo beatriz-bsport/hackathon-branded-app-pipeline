@@ -215,6 +215,15 @@ export type ScheduleEmailCampaignPayload = {
   text?: string;
 };
 
+export type UpdateScheduledEmailCampaignPayload = {
+  smartlist: number;
+  communication_kind: CommunicationKind;
+  title: string;
+  datetime_scheduled: string;
+  email_design?: number;
+  text?: string;
+};
+
 export type GenerateReportParams = {
   smartlistId: string;
   startDate: string; // format yyyy-MM-dd

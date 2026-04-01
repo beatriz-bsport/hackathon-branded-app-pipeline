@@ -4,6 +4,7 @@ import { CommunicationKind } from "#src/api/constants";
 import type {
   ScheduleEmailCampaignPayload,
   SendEmailCampaignPayload,
+  UpdateScheduledEmailCampaignPayload,
 } from "#src/api/types";
 import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
 
@@ -73,6 +74,38 @@ export const formatScheduleEmailCampaignPayload = ({
   data: EmailCampaignFormData;
   datetimeScheduled: string;
 }): ScheduleEmailCampaignPayload => {
+  const basePayload = {
+    smartlist: smartlistId,
+    communication_kind: CommunicationKind.EMAIL,
+    title: (data.emailSubject ?? "").trim(),
+    datetime_scheduled: datetimeScheduled,
+  } as const;
+
+  if (data.emailTemplateId != null) {
+    return {
+      ...basePayload,
+      email_design: data.emailTemplateId,
+      text: "",
+    };
+  }
+
+  return {
+    ...basePayload,
+    text: data.isTextOnly
+      ? (data.emailBody ?? "")
+      : (data.emailTemplateHtml ?? ""),
+  };
+};
+
+export const formatUpdateScheduledEmailCampaignPayload = ({
+  smartlistId,
+  data,
+  datetimeScheduled,
+}: {
+  smartlistId: number;
+  data: EmailCampaignFormData;
+  datetimeScheduled: string;
+}): UpdateScheduledEmailCampaignPayload => {
   const basePayload = {
     smartlist: smartlistId,
     communication_kind: CommunicationKind.EMAIL,

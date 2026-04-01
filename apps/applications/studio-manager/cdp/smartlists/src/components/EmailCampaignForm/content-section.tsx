@@ -21,7 +21,9 @@ import {
 import type { EmailCampaignFormData } from "./types";
 import { isMessageTypeValid } from "./utils";
 
-export const ContentSection: React.FC = () => {
+export const ContentSection: React.FC<{
+  isOnTheFlyHtmlTemplate?: boolean;
+}> = ({ isOnTheFlyHtmlTemplate = false }) => {
   const { t } = useTranslation("campaign");
   const baseId = useId();
 
@@ -138,7 +140,7 @@ export const ContentSection: React.FC = () => {
           </FormField>
         </div>
       ) : (
-        <EmailTemplateSection />
+        <EmailTemplateSection isOnTheFlyHtmlTemplate={isOnTheFlyHtmlTemplate} />
       )}
     </div>
   );

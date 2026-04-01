@@ -32,6 +32,8 @@ import type {
   GenerateReportParams,
   GenerateReportResult,
   Popup,
+  ScheduleEmailCampaignPayload,
+  SendEmailCampaignPayload,
   Smartlist,
   Tag,
   TagGroup,
@@ -212,6 +214,20 @@ const fetchSmartlistDetail = async (id: string): Promise<Smartlist> => {
   return data;
 };
 
+export const sendEmailCampaign = async (
+  payload: SendEmailCampaignPayload,
+): Promise<CampaignSent> => {
+  const { data } = await fetch<CampaignSent>(
+    `${COMMUNICATION_API_V1}/communication/communication_sent/send_communication/`,
+    {
+      method: "POST",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
 const fetchCampaignSentList = async (
   params: FetchCampaignSentParams,
 ): Promise<PaginatedResponse<CampaignSent>> => {
@@ -291,6 +307,20 @@ const fetchCampaignScheduledList = async (
   );
 
   return data.results;
+};
+
+export const scheduleEmailCampaign = async (
+  payload: ScheduleEmailCampaignPayload,
+): Promise<CampaignScheduled> => {
+  const { data } = await fetch<CampaignScheduled>(
+    `${COMMUNICATION_API_V1}/communication/communication_scheduled/`,
+    {
+      method: "POST",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
 };
 
 const fetchCampaignScheduled = async (

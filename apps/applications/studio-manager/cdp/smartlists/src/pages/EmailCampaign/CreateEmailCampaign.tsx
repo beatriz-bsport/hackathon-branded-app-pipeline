@@ -1,16 +1,18 @@
 import { useId } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-import { fromIsoString } from "@bsport/datetime-manipulation";
 import { useFormController } from "@bsport/form";
 import {
   Breadcrumbs,
   Button,
   DetailsLayout,
+  toast,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { useScheduleEmailCampaign } from "#src/api/use-schedule-email-campaign";
+import { useSendEmailCampaign } from "#src/api/use-send-email-campaign";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import {
   DELIVERY_MODE_SCHEDULE_LATER,
@@ -25,6 +27,11 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import {
+  formatScheduleEmailCampaignPayload,
+  formatScheduledDateTime,
+  formatSendEmailCampaignPayload,
+} from "#src/pages/EmailCampaign/utils/format-email-campaign-payload";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
@@ -43,6 +50,7 @@ const CreateEmailCampaignPage = () => {
 function CreateEmailCampaign() {
   const { t: tList } = useTranslation("list");
   const { t: tCampaign } = useTranslation("campaign");
+  const navigate = useNavigate();
   const { id: smartlistId } = useParams<{ id: string }>();
   invariant(smartlistId, "Expected id param to be defined");
 
@@ -50,6 +58,45 @@ function CreateEmailCampaign() {
   const { detailsLayoutProps } = useDetailsLayout();
   const companyTimezone =
     dataAccessLayer.useCompanyTheme()?.timezone_name ?? "UTC";
+
+  const { sendCampaign, isSending } = useSendEmailCampaign({
+    onSuccess: () => {
+      navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
+      toast({
+        status: "default",
+        icon: "check",
+        title: tCampaign("email.creation.toasts.success.send"),
+        buttonIcon: "x-close",
+      });
+    },
+    onError: () => {
+      toast({
+        status: "critical",
+        icon: "alert-circle",
+        title: tCampaign("email.creation.toasts.error.sendFailed"),
+        buttonIcon: "x-close",
+      });
+    },
+  });
+  const { scheduleCampaign, isScheduling } = useScheduleEmailCampaign({
+    onSuccess: () => {
+      toast({
+        status: "default",
+        icon: "check",
+        title: tCampaign("email.creation.toasts.success.schedule"),
+        buttonIcon: "x-close",
+      });
+      navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
+    },
+    onError: () => {
+      toast({
+        status: "critical",
+        icon: "alert-circle",
+        title: tCampaign("email.creation.toasts.error.sendFailed"),
+        buttonIcon: "x-close",
+      });
+    },
+  });
 
   const formId = useId();
 
@@ -86,26 +133,37 @@ function CreateEmailCampaign() {
     />,
   ];
 
-  const handleSubmit = (data: EmailCampaignFormData) => {
-    let datetime_scheduled: string | undefined;
+  const handleSubmit = async (data: EmailCampaignFormData) => {
     if (
       data.deliveryMode === DELIVERY_MODE_SCHEDULE_LATER &&
       data.scheduledDate &&
       data.scheduledTime
     ) {
-      const [hour, minute] = data.scheduledTime.split(":").map(Number);
-      const submittedDatetime = fromIsoString(data.scheduledDate, {
-        zone: companyTimezone,
-      }).set({
-        hour,
-        minute,
-        second: 0,
-        millisecond: 0,
+      const datetimeScheduled = formatScheduledDateTime({
+        scheduledDate: data.scheduledDate,
+        scheduledTime: data.scheduledTime,
+        companyTimezone,
       });
-      datetime_scheduled = submittedDatetime.toISO() ?? undefined;
+
+      const payload = formatScheduleEmailCampaignPayload({
+        smartlistId: smartlist.id,
+        data,
+        datetimeScheduled,
+      });
+
+      await scheduleCampaign({
+        payload,
+      });
+      return;
     }
-    // TODO: Navigate to next step or submit to API; action will be added later.
-    console.log({ ...data, datetime_scheduled });
+
+    const payload = formatSendEmailCampaignPayload({
+      smartlistId: smartlist.id,
+      data,
+    });
+    await sendCampaign({
+      payload,
+    });
   };
 
   return (
@@ -121,7 +179,9 @@ function CreateEmailCampaign() {
             size="md"
             type="submit"
             form={formId}
-            disabled={methods.formState.isSubmitting}
+            disabled={
+              methods.formState.isSubmitting || isSending || isScheduling
+            }
           />
         }
       />

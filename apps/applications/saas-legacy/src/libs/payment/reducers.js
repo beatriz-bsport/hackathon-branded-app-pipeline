@@ -18,6 +18,7 @@ import {
   listSavedPaymentMethodListActions,
   listStripeDomainActions,
   listPayoutActions,
+  payoutDetailActions,
   listPayoutBalanceTransactionsActions,
   listPayoutLegacyActions,
   listStripePayoutActions,
@@ -79,6 +80,9 @@ const initialState = Immutable({
     nextPage: null,
   },
   payoutBalanceTransactions: {
+    byPayoutId: {},
+  },
+  payoutDetails: {
     byPayoutId: {},
   },
   incrementalPayout: {
@@ -398,6 +402,30 @@ export default handleActions(
           nextPage,
         },
       );
+    },
+    [payoutDetailActions.isLoading]: (state, { payload }) => {
+      const { payoutId, loading } = payload;
+      const current = state.payoutDetails?.byPayoutId?.[payoutId] || {};
+      return state.setIn(['payoutDetails', 'byPayoutId', payoutId], {
+        ...current,
+        loading,
+      });
+    },
+    [payoutDetailActions.error]: (state, { payload }) => {
+      const { payoutId, error } = payload;
+      const current = state.payoutDetails?.byPayoutId?.[payoutId] || {};
+      return state.setIn(['payoutDetails', 'byPayoutId', payoutId], {
+        ...current,
+        error,
+      });
+    },
+    [payoutDetailActions.success.toString()]: (state, { payload }) => {
+      const { payoutId, balanceTransactionStats } = payload;
+      const current = state.payoutDetails?.byPayoutId?.[payoutId] || {};
+      return state.setIn(['payoutDetails', 'byPayoutId', payoutId], {
+        ...current,
+        balanceTransactionStats,
+      });
     },
     [listBookkeepingAccountActions.success.toString()]: (
       state,

@@ -27,6 +27,7 @@ import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   fetchPayoutListLegacy as fetchPayoutListLegacyAPI,
   fetchPayoutList as fetchPayoutListAPI,
+  fetchPayoutDetail as fetchPayoutDetailAPI,
   fetchPayoutBalanceTransactions as fetchPayoutBalanceTransactionsAPI,
   fetchStripeBalance as fetchStripeBalanceAPI,
   fetchStripePaymentMethodDomains as fetchStripePaymentMethodDomainsAPI,
@@ -45,6 +46,7 @@ import {
 import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 import type {
   BalanceTransaction,
+  BalanceTransactionStats,
   BookkeepingAccount,
   BookkeepingAccountSubmitParams,
   DetachPaymentMethodPayload,
@@ -672,6 +674,19 @@ export const listPayoutBalanceTransactionsActions = {
   }>('PAYOUT_BALANCE_TRANSACTIONS/LIST/SUCCESS'),
 };
 
+export const payoutDetailActions = {
+  isLoading: createAction<{ payoutId: number; loading: boolean }>(
+    'PAYOUT_DETAIL/FETCH/LOADING',
+  ),
+  error: createAction<{ payoutId: number; error: string | null }>(
+    'PAYOUT_DETAIL/FETCH/ERROR',
+  ),
+  success: createAction<{
+    payoutId: number;
+    balanceTransactionStats: BalanceTransactionStats | null;
+  }>('PAYOUT_DETAIL/FETCH/SUCCESS'),
+};
+
 export function fetchPayoutBalanceTransactions(
   params: { payoutId: number; page: number; append?: boolean },
   options?: OptionCallback<{
@@ -740,6 +755,40 @@ export function fetchPayoutBalanceTransactions(
           }),
         );
       }
+    }
+  };
+}
+
+export function fetchPayoutDetail(
+  params: { payoutId: number },
+  options?: OptionCallback<{
+    balance_transaction_stats: BalanceTransactionStats;
+  }>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    const { payoutId } = params;
+    dispatch(payoutDetailActions.isLoading({ payoutId, loading: true }));
+    dispatch(payoutDetailActions.error({ payoutId, error: null }));
+    try {
+      const response = await fetchPayoutDetailAPI(payoutId);
+      dispatch(
+        payoutDetailActions.success({
+          payoutId,
+          balanceTransactionStats:
+            response.data.balance_transaction_stats ?? null,
+        }),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (err: any) {
+      dispatch(
+        payoutDetailActions.error({
+          payoutId,
+          error: err?.message ?? 'Failed to load payout detail',
+        }),
+      );
+      options?.onError?.(err);
+    } finally {
+      dispatch(payoutDetailActions.isLoading({ payoutId, loading: false }));
     }
   };
 }

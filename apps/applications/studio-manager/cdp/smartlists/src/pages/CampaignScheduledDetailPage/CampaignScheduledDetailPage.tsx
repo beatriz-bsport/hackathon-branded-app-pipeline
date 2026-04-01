@@ -17,7 +17,7 @@ import {
   QueryBoundary,
 } from "#src/components/QueryBoundary";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import { SMARTLIST_APP_LINKS } from "#src/urls";
+import { CAMPAIGN_CHANNEL_EMAIL, SMARTLIST_APP_LINKS } from "#src/urls";
 import { getFallbackCampaignScheduledName } from "#src/utils/campaignUtils";
 import {
   CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
@@ -41,7 +41,8 @@ export const CampaignScheduledDetailPage = () => {
 
 function CampaignScheduledDetail() {
   const { t: tList } = useTranslation("list");
-  const { navigateToSmartlistCampaigns } = useSmartlistNavigation();
+  const { navigateToSmartlistCampaigns, navigateToSmartlistCampaignEdit } =
+    useSmartlistNavigation();
   const { id, uuid } = useParams<{ id: string; uuid: string }>();
   invariant(id, "Expected id param to be defined");
   invariant(uuid, "Expected uuid param to be defined");
@@ -81,9 +82,9 @@ function CampaignScheduledDetail() {
   const endGroupActions = [
     <CampaignScheduledHeaderActionDropdown
       key="campaign-scheduled-detail-header-actions"
-      onEdit={() => {
-        // No-op: edit not implemented yet
-      }}
+      onEdit={() =>
+        navigateToSmartlistCampaignEdit(id, CAMPAIGN_CHANNEL_EMAIL, uuid)
+      }
       onDelete={() =>
         setCurrentInlineAction(CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION)
       }

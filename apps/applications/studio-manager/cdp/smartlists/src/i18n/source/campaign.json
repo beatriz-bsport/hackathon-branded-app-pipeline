@@ -73,7 +73,8 @@
           "sendTestEmail": "Send test email",
           "editEmail": "Edit email",
           "createTemplate": "Create a template",
-          "noTemplatePreview": "Select a template or edit the email to see a preview."
+          "noTemplatePreview": "Select a template or edit the email to see a preview.",
+          "onTheFlyTemplateEditionBlockedWarning": "You can't edit this current on-the-fly template in the editor. You can overwrite it by creating/selecting a template and saving it."
         },
         "errors": {
           "emailTypeRequired": "Please select the type of email you're sending",

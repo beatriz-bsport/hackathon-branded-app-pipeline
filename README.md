@@ -16,6 +16,8 @@ The official documentation of the Frontend can be found on [Notion](https://www.
 
 ---
 
+[bsport-revamp](https://gitlab.com/bsport/bsport-saas) is the modern and revamp implementation of the front end. it is in `./apps/applications/studio-manager/`.
+
 [bsport-saas](https://gitlab.com/bsport/bsport-saas) is the old implementation of the front end. it was migrated to this repo in `./apps/applications/saas-legacy/`.
 
 [bsport-widget](https://gitlab.com/bsport/bsport-widget) is the old widget implementation. It was migrated to this repo in `./apps/widgets/widget-legacy/`
@@ -45,10 +47,12 @@ echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-3. Allow 1password cli integration :
+3. [OPTIONAL] Allow 1password cli integration :
 
 - On 1Password desktop tool go to : `bsport` > `Settings...` > `Developer`
 - Toggle On the `Integrate with 1Password CLI` option under the `Command-Line Interface (CLI)` option group
+
+This will allow you to use notably distributed nx cache server to fasten the builds
 
 4. Trust and install project tools:
 
@@ -101,7 +105,7 @@ pnpm exec nx run @bsport/saas-legacy:start-dev
 
 #### Run a revamped application
 
-All our revamped applications work in a consistent way. Apps dedicated to the future Studio Manager backoffice are located under [apps/applications/studio-manager](./apps/applications/studio-manager/README.md).
+All our revamped applications work in a consistent way and are located under [apps/applications/studio-manager](./apps/applications/studio-manager/README.md).
 
 To build translation files locally. Note, when new keys are added, you will need to re-run when translations are available:
 
@@ -115,6 +119,11 @@ To run an app, you can either
 cd apps/applications/studio-manager/[application] && pnpm run dev
 ```
 
+Note :
+
+- this will also run the app apps/application/studio-manager/navigation-sidebar that will host your app
+- this will not detect any changes that you may do in other app while developping (either relaunch or see next section)
+
 or
 
 ```sh
@@ -125,7 +134,7 @@ pnpm exec nx dev @bsport/[name-of-the-application]
 
 #### Module Federation Development (Recommended)
 
-For Studio Manager apps that use Module Federation, use the `dev-mfe` command for automatic remote management and dependency watching:
+Use the `dev-mfe` command for automatic remote management and dependency watching:
 
 ```sh
 pnpm exec nx dev-mfe @bsport/sm-giftcard
@@ -135,14 +144,10 @@ This command will:
 
 - Auto-detect and start required remote apps (e.g., navigation sidebar)
 - Watch workspace dependencies (`@bsport/*` packages) and auto-rebuild on changes
-- Start the main Vite dev server
 
 **Common options:**
 
 ```sh
-# Run standalone (without remotes)
-pnpm exec nx dev-mfe @bsport/sm-giftcard --remotes=
-
 # Run with debug output (show all remote logs)
 pnpm exec nx dev-mfe @bsport/sm-giftcard --debug
 
@@ -154,7 +159,7 @@ For more details, see [tools/nx-federation/README.md](./tools/nx-federation/READ
 
 #### Run all revamped application
 
-To have a full vision of the future Studio Manager backoffice, we have a special app : the [host app](./apps/applications/studio-manager/host/README.md).
+One day you may want to have a full vision of the future Studio Manager backoffice, we have a special app : the [host app](./apps/applications/studio-manager/host/README.md).
 
 To run this host app, you can either
 
@@ -196,27 +201,7 @@ pnpm exec nx dev @bsport/kaizen-primitive-core
 
 We are deploying to S3/CDNs applications (legacy and revamps) and UI components libraries storybooks (kaizen).
 
-These projects have their own ci-build/ci-deploy configs, but they can be deployed on a feature branch with the same command.
-
-```bash
-# Connect with dev backend (example: bowling)
-git push -f origin deploy-frontend-only-bowling
-# Connect with a FB backend (example: theta api)
-git push -f origin deploy-theta
-```
-
-With the above commands, only the **affected projects** compared to **origin/dev** (e.g. with changes) will be deployed.
-
-If you want to force the deployment of all the assets (Micro frontends, Kaizen storybooks, saas-legacy, ...), you can add the `-force` prefix to the commands.
-
-```bash
-# Connect with dev backend (example: bowling)
-git push -f origin deploy-frontend-only-bowling-force
-# Connect with a FB backend (example: theta api)
-git push -f origin deploy-theta-force
-```
-
-See the full documentation on [Notion "feature-branch deployment" page](https://www.notion.so/bright-shovel-41b/feature-branch-deployment-35064a84165548c8a8eda27d958a2393).
+To deploy, just run the manual CI job "Ephemeral Environment".
 
 ### CLI commands
 
@@ -233,23 +218,6 @@ The most important ones you are likely to use :
 - `pnpm run -w project:create` : to create a new application, typescript package or store package, based on our [templates](./tools/templates/README.md) ;
 - `pnpm run -w translation:update` : to build and update translations files of our revamped projects ;
 - `pnpm run -w sync:mismatch:list` : to list version mismatches between dependencies of our revamped projects.
-
-### Generators
-
-All generators are using [hygen.io](https://www.hygen.io/) to generate new components, projects (TO DO).
-
-When you identify a pattern in your code or your project, you should consider creating a a generator:
-
-1. (Optionnal) Run `pnpm exec hygen init self` if hygen isn't set up in your project.
-2. Create your new generator: `pnpm exec hygen generator new`
-3. Remember to add your generate command to the project `package.json` in the script
-
-```json
-  "scripts": {
-    // ...
-    "cool-component:add": "pnpm exec hygen cool-component new "
-  }
-```
 
 ### Create project (package or application)
 
@@ -279,7 +247,7 @@ Find out more about our monorepo tools (Nx, pnpm, ...) on [Exploit tools for mon
 
 #### Nx Remote Cache
 
-See [docs/nx_remote_cache_server.md](./docs/nx_remote_cache_server.md) for instructions on setting up Nx remote cache authentication for faster builds.
+See [docs/nx_remote_cache_server.md](./docs/nx_remote_cache_server.md) for instructions on setting up Nx remote cache authentication for faster builds, this needs the 1password configuration (see above)
 
 ---
 

@@ -103,6 +103,12 @@ pnpm exec nx run @bsport/saas-legacy:start-dev
 
 All our revamped applications work in a consistent way. Apps dedicated to the future Studio Manager backoffice are located under [apps/applications/studio-manager](./apps/applications/studio-manager/README.md).
 
+To build translation files locally. Note, when new keys are added, you will need to re-run when translations are available:
+
+```sh
+pnpm translation:update
+```
+
 To run an app, you can either
 
 ```sh

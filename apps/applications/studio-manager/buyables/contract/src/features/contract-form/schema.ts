@@ -7,6 +7,13 @@ import { useTranslation } from "#src/utils/i18n";
 import { FIELD_CONSTRAINTS } from "./constants";
 import type { ContractFormSchema } from "./types";
 
+const INTERVALS = [
+  BILLING_INTERVALS.DAY,
+  BILLING_INTERVALS.WEEK,
+  BILLING_INTERVALS.MONTH,
+  BILLING_INTERVALS.YEAR,
+] as const;
+
 /**
  * Returns the adequate Zod schema based on the type of the Contract.
  * Instead of handling multiple signatures of forms and functions for the 2 versions,
@@ -20,6 +27,10 @@ export function useContractFormSchema({
   const { t } = useTranslation("contract-details");
 
   const requiredErrorMessage = t("formFields.errors.fieldIsRequired");
+  const nullableNumber = z
+    .number()
+    .nullable()
+    .transform(() => null);
 
   // Schema for both type of contracts
   const billingCycleSchema = z.discriminatedUnion("hasCustomInterval", [
@@ -42,7 +53,7 @@ export function useContractFormSchema({
     // Case 2: hasCustomInterval = true → min_price & max_price are required
     z.object({
       hasCustomInterval: z.literal(true),
-      month_billing_day: z.null(),
+      month_billing_day: nullableNumber,
       recurrence_basis: z
         .number()
         .int()
@@ -53,6 +64,29 @@ export function useContractFormSchema({
         .min(FIELD_CONSTRAINTS.NB_CUSTOM_INTERVAL_MIN),
     }),
   ]);
+
+  const commitmentPeriodSchema = z.discriminatedUnion(
+    "has_mandatory_commitment_period",
+    [
+      // Case 1: has_mandatory_commitment_period = false → unit and value not required
+      z.object({
+        has_mandatory_commitment_period: z.literal(false),
+        commitment_period_unit: z.enum(INTERVALS).nullable(),
+        commitment_period_value: nullableNumber,
+      }),
+
+      // Case 2: has_mandatory_commitment_period = true → unit and value required
+      z.object({
+        has_mandatory_commitment_period: z.literal(true),
+        commitment_period_unit: z.enum(INTERVALS),
+        commitment_period_value: z
+          .number()
+          .int()
+          .min(FIELD_CONSTRAINTS.COMMITMENT_VALUE_MIN, requiredErrorMessage)
+          .max(FIELD_CONSTRAINTS.COMMITMENT_VALUE_MAX),
+      }),
+    ],
+  );
 
   const baseSchema = z
     .object({
@@ -78,20 +112,20 @@ export function useContractFormSchema({
         .number({ required_error: requiredErrorMessage })
         .min(FIELD_CONSTRAINTS.PRICE_MIN),
 
-      interval: z.enum([
-        BILLING_INTERVALS.DAY,
-        BILLING_INTERVALS.WEEK,
-        BILLING_INTERVALS.MONTH,
-        BILLING_INTERVALS.YEAR,
-      ]),
+      interval: z.enum(INTERVALS),
 
       auto_renewal: z.boolean(),
       nb_interval_after_auto_renewal: z.number().nullable(),
+
+      contract: z
+        .string()
+        .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage)
+        .max(FIELD_CONSTRAINTS.TERMS_LENGTH_MAX), // e.g. terms
     })
-    .and(billingCycleSchema);
+    .and(billingCycleSchema)
+    .and(commitmentPeriodSchema);
 
   // ----- Revamped config -----
-
   const revampSubschema = z.object({
     // Revamp fields -> defined
     payment_pack_details: z
@@ -105,7 +139,7 @@ export function useContractFormSchema({
       .nullable(),
 
     // Legacy fields -> nullished
-    payment_pack: z.null(),
+    payment_pack: nullableNumber,
   });
 
   const revampSchema = baseSchema.and(revampSubschema);

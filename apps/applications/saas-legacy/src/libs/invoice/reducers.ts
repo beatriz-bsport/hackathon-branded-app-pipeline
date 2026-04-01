@@ -29,6 +29,7 @@ import {
   applyGiftcardOnInvoiceActions,
   generateInvoiceXmlActions,
   generateInvoiceXmlBulkActions,
+  downloadInvoiceBulkExportActions,
   getSequentialNumberingStatusActions,
   initializeLegalIdentifierLegacyActions,
   initializeLegalIdentifierOnboardingActions,
@@ -114,6 +115,10 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
       error: null,
     },
     generateXmlBulk: {
+      loading: false,
+      error: null,
+    },
+    downloadBulkExport: {
       loading: false,
       error: null,
     },
@@ -318,6 +323,18 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['generateXmlBulk', 'error'], payload);
+    },
+    [downloadInvoiceBulkExportActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['downloadBulkExport', 'loading'], payload);
+    },
+    [downloadInvoiceBulkExportActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['downloadBulkExport', 'error'], payload);
     },
     [returnPaymentActions.isLoading.toString()]: (
       state,

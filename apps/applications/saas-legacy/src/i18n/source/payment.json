@@ -265,22 +265,62 @@
       "appFeeRefunds": "App fee refunds",
       "payoutFailures": "Payout failures",
       "payoutCancels": "Payout cancels",
+      "other": "Other",
       "title": "Payout summary"
     },
     "displayType": {
-      "payment":                     { "label": "Payment",              "description": "A customer payment" },
-      "refund":                      { "label": "Refund",               "description": "A refund issued to a customer" },
-      "dispute":                     { "label": "Dispute",              "description": "A customer-initiated dispute (chargeback)" },
-      "failed_direct_debit_original":{ "label": "Failed direct debit",  "description": "A direct debit that failed to collect" },
-      "failed_direct_debit_reversal":{ "label": "Direct debit reversal","description": "A reversal following a failed direct debit" },
-      "balance_transfer":            { "label": "Transfer",             "description": "A balance transfer" },
-      "balance_transfer_refund":     { "label": "Transfer refund",      "description": "A refund of a balance transfer" },
-      "adjustment":                  { "label": "Adjustment",           "description": "A manual balance adjustment" },
-      "application_fee":             { "label": "App fee",              "description": "A platform fee" },
-      "application_fee_refund":      { "label": "App fee refund",       "description": "A refund of a platform fee" },
-      "payout_failure":              { "label": "Payout failure",       "description": "Funds returned after a failed payout" },
-      "payout_cancel":               { "label": "Payout cancel",        "description": "Funds returned after a cancelled payout" },
-      "other":                       { "label": "Other",                "description": "Another type of balance transaction" }
+      "payment": {
+        "label": "Payment",
+        "description": "A customer payment"
+      },
+      "refund": {
+        "label": "Refund",
+        "description": "A refund issued to a customer"
+      },
+      "dispute": {
+        "label": "Dispute",
+        "description": "A customer-initiated dispute (chargeback)"
+      },
+      "failed_direct_debit_original": {
+        "label": "Failed direct debit",
+        "description": "A direct debit that failed to collect"
+      },
+      "failed_direct_debit_reversal": {
+        "label": "Direct debit reversal",
+        "description": "A reversal following a failed direct debit"
+      },
+      "balance_transfer": {
+        "label": "Transfer",
+        "description": "A balance transfer"
+      },
+      "balance_transfer_refund": {
+        "label": "Transfer refund",
+        "description": "A refund of a balance transfer"
+      },
+      "adjustment": {
+        "label": "Adjustment",
+        "description": "A manual balance adjustment"
+      },
+      "application_fee": {
+        "label": "App fee",
+        "description": "A platform fee"
+      },
+      "application_fee_refund": {
+        "label": "App fee refund",
+        "description": "A refund of a platform fee"
+      },
+      "payout_failure": {
+        "label": "Payout failure",
+        "description": "Funds returned after a failed payout"
+      },
+      "payout_cancel": {
+        "label": "Payout cancel",
+        "description": "Funds returned after a cancelled payout"
+      },
+      "other": {
+        "label": "Other",
+        "description": "Another type of balance transaction"
+      }
     }
   },
   "instalment": {

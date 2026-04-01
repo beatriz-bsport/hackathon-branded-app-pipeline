@@ -55,9 +55,6 @@
             "informational": "Important announcements (eg. class-related reminders, policy changes, etc)"
           }
         },
-        "campaignName": {
-          "label": "Campaign Name"
-        },
         "emailTemplate": {
           "selectEmailTemplateLabel": "Select email template",
           "selectEmailTemplatePlaceholder": "Search for a template...",
@@ -125,6 +122,32 @@
             "confirmButtonLabel": "Save",
             "cancelButtonLabel": "Cancel"
           }
+        }
+      }
+    }
+  },
+  "generic": {
+    "creation": {
+      "form": {
+        "campaignName": {
+          "label": "Campaign Name"
+        },
+        "errors": {
+          "campaignNameRequired": "Campaign name is required.",
+          "errorMaxLength": "Campaign name must be at most {{count}} characters"
+        }
+      }
+    }
+  },
+  "push": {
+    "creation": {
+      "title": "Push Notification Campaign",
+      "continueButtonLabel": "Continue",
+      "alertMessage": "Only members who have downloaded your studio app and enabled push notifications will receive this notification.",
+      "form": {
+        "errors": {
+          "campaignNameRequired": "Campaign name is required.",
+          "errorMaxLength": "Campaign name must be at most {{count}} characters"
         }
       }
     }

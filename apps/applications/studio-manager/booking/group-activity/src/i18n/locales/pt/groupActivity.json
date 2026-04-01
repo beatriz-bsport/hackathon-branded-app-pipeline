@@ -1,0 +1,83 @@
+{
+  "list": {
+    "columns": {
+      "name": "Nome",
+      "category": "Categoria",
+      "upcomingSession": "Próxima sessão",
+      "features": "Recursos",
+      "actions": "Ações"
+    },
+    "enabled": {
+      "item": {
+        "notifications": {
+          "title": "Notificações",
+          "popoverLabel": "Tem notificações configuradas"
+        },
+        "livestream": {
+          "title": "Transmissão ao vivo",
+          "popoverLabel": "Transmissão ao vivo disponível"
+        }
+      },
+      "filter": {
+        "title": "Filtro",
+        "category": "Categoria",
+        "is": "É",
+        "isNot": "não é"
+      },
+      "duplicate": {
+        "title": "Duplicar Atividade em Grupo",
+        "modalContent": "Duplicar <strong>{{groupActivityName}}</strong>?<br/> Você pode editar os detalhes do cartão-presente depois.",
+        "cancel": "Fechar",
+        "confirm": "Duplicar"
+      },
+      "archive": {
+        "title": "Arquivar Atividade em Grupo?",
+        "modalContent": "Você quer arquivar a atividade <strong>{{groupActivityName}}</strong>? As sessões e reservas passadas não serão modificadas.<br/> Você pode desarquivar a atividade a qualquer momento.",
+        "cantArchive": "Os Membros não verão mais {{groupActivityname}}, mas você pode restaurá-la do seu arquivo a qualquer momento. ",
+        "cancel": "Manter",
+        "confirm": "Arquivar"
+      },
+      "emptyState": {
+        "title": "Nenhuma Atividade em Grupo ainda",
+        "body": "Criar sua primeira Atividade em Grupo para seus Membros reservarem. "
+      },
+      "emptySearchState": {
+        "title": "Nenhuma atividade em grupo encontrada",
+        "subtitle": "Tente buscar com palavras-chave diferentes",
+        "action": "Limpar filtros"
+      }
+    },
+    "archived": {
+      "unarchive": "Desarquivar atividade",
+      "emptyState": {
+        "title": "Ainda não há atividades de grupo arquivadas"
+      }
+    },
+    "actions": {
+      "archive": "Arquivar",
+      "unarchive": "Recuperar",
+      "duplicate": "Duplicar"
+    },
+    "header": {
+      "groupActivities": "Atividades de gupo",
+      "archivedGroupActivities": "Arquivo",
+      "add": "Adicionar atividade em grupo",
+      "filter": "Filtro",
+      "display": {
+        "title": "Exibir",
+        "ordering": "Ordenação",
+        "alphabetical": "Alfabética",
+        "reset": "Redefinir",
+        "save": "Salvar"
+      },
+      "archivedActivities": "Atividades arquivadas"
+    },
+    "toasts": {
+      "duplication": "{{groupActivityName}} foi duplicado",
+      "archive": "{{groupActivityName}} foi arquivado",
+      "unarchive": "{{groupActivityName}} foi desarquivado",
+      "open": "Aberto",
+      "undo": "Desfazer"
+    }
+  }
+}

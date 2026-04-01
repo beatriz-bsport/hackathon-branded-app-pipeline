@@ -1,1 +1,124 @@
-{}
+{
+  "page": {
+    "title": "Transactionele meldingen"
+  },
+  "notificationRuleEvents": {
+    "list": {
+      "notificationNumber_one": "1 melding",
+      "notificationNumber_other": "{{ count }} meldingen",
+      "loading": {
+        "message": "Meldingen laden ..."
+      },
+      "emptyState": {
+        "title": "Geen meldingen gevonden",
+        "description": "Er zijn momenteel geen meldingen. Kom later terug of neem contact op met de supportafdeling."
+      }
+    },
+    "categories": {
+      "member": "Contacten aanmelden",
+      "booking": "Reserveringen",
+      "private_booking": "Afspraken",
+      "recurrent_private_booking": "Terugkerende afspraken",
+      "payment_pack": "Boetes",
+      "giftcard": "Kadokaarten",
+      "offer": "Sessie",
+      "replacement_request": "Vervangingen",
+      "waiting-list": "Wachtlijsten",
+      "subscription": "Abonnementen",
+      "invoice": "Facturering",
+      "referral": "Verwijzing"
+    },
+    "noCategory": "Geen categorie"
+  },
+  "notificationRuleEventDetails": {
+    "toast": {
+      "create": {
+        "failure": "Kon de meldingsregel niet maken. Probeer het opnieuw. "
+      },
+      "update": {
+        "failure": "Kon de meldingsregel niet bijwerken. Probeer het opnieuw. "
+      },
+      "delete": {
+        "failure": "Je kunt de emailmeldingregel niet verwijderen. Probeer het opnieuw. "
+      }
+    },
+    "table": {
+      "headers": {
+        "name": "Melding",
+        "email": "E-mail",
+        "pushNotification": "Push melding"
+      },
+      "tooltip": {
+        "pushNotificationHelper": {
+          "title": "Pushmeldingen inschakelen",
+          "message": "Stel eerst je push melding in om deze te activeren",
+          "label": "Help"
+        },
+        "franchiseOwned": "Deze melding wordt beheerd door het Hoofdaccount ",
+        "setPushNotificationBeforeEnabling": "Stel eerst je push melding in om deze te activeren"
+      },
+      "helper": {
+        "title": "Push notificaties",
+        "description": "Stel eerst je pushnotificatie in om deze te activeren"
+      },
+      "actions": {
+        "preview": "Voorbeeld",
+        "edit": "Bewerken"
+      },
+      "notificationsToggle": {
+        "deactivated": "Activeren",
+        "activated": "Geactiveerd"
+      }
+    },
+    "details": {
+      "notificationStatus": "Status",
+      "segmentedControl": {
+        "email": "E-mail",
+        "push": "Push"
+      },
+      "emailTemplateSelector": {
+        "searchingMessage": "Zoeken naar e-mailsjablonen..."
+      },
+      "emailNotification": {
+        "preview": "Voorbeeld",
+        "noPreview": "Geen voorbeeld beschikbaar",
+        "select": {
+          "label": "E-mailsjabloon",
+          "placeholder": "Kies een emailsjabloon",
+          "standardBsportTemplatePlaceholder": "bsport sjabloon",
+          "alertCommunicationVariableStatus": "Er is een probleem opgetreden met deze template. Probeer het opnieuw of neem contact op met de supportafdeling. "
+        },
+        "carbonCopy": {
+          "label": "Ontvang een kopie van de email"
+        },
+        "requiredCommunicationVariablesAlert": {
+          "body": "Deze template kan niet worden gebruikt omdat er verplichte informatie ontbreekt. Vul het volgende in om deze aangepaste template te gebruiken: "
+        }
+      },
+      "pushNotification": {
+        "title": {
+          "label": "Titel",
+          "errors": {
+            "minLength": "Verplicht veld",
+            "maxLength": "Mag niet langer zijn dan 25 tekens"
+          }
+        },
+        "content": {
+          "label": "Inhoud",
+          "errors": {
+            "minLength": "Moet worden ingevuld",
+            "maxLength": "Mag niet meer dan 200 tekens bevatten"
+          }
+        },
+        "preview": {
+          "title": "Voorbeeld",
+          "placeholder": "Stel je push-notificatie hier in om een voorbeeld te bekijken",
+          "noPreview": "Voorbeeld niet beschikbaar. Controleer eerst of de melding correct is ingesteld. "
+        },
+        "actions": {
+          "save": "Opslaan"
+        }
+      }
+    }
+  }
+}

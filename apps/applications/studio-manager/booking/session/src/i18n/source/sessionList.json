@@ -3,6 +3,10 @@
   "title": {
     "occupancyRate": "{{rate}}% enrolled"
   },
+  "tabs": {
+    "activities": "Activities",
+    "appointments": "Appointments"
+  },
   "addSession": "Add session",
   "dateNavigation": {
     "todayButton": "Today",
@@ -100,11 +104,43 @@
     },
     "showCancelledSessions": {
       "label": "Show cancelled sessions"
+    },
+    "showCancelledAppointments": {
+      "label": "Show cancelled appointments"
+    }
+  },
+  "appointmentTable": {
+    "headers": {
+      "time": "Time",
+      "name": "Name",
+      "teacher": "Teacher",
+      "participant": "Participant",
+      "passUsed": "Pass used",
+      "establishment": "Establishment",
+      "type": "Type",
+      "actions": "Actions"
+    },
+    "isLoading": "Loading appointments...",
+    "shortcutActions": {
+      "cancel": "Cancel",
+      "reschedule": "Reschedule",
+      "swapPass": "Swap pass",
+      "swapTeacher": "Swap teacher",
+      "label": "Shortcut actions"
     }
   },
   "emptyState": {
     "title": "No sessions added yet",
     "subtitle": "Add a new session to get started"
+  },
+  "emptyAppointmentState": {
+    "title": "No appointments yet",
+    "subtitle": "No appointments found for this period"
+  },
+  "emptyAppointmentSearchState": {
+    "title": "No appointments found",
+    "subtitle": "No appointments match your criteria. Clear your filters and try again.",
+    "action": "Clear Filters"
   },
   "emptySearchState": {
     "title": "No sessions found",
@@ -197,5 +233,13 @@
     "confirmButton": "Restore",
     "errorMessage": "An error occurred while restoring the session. Please try again later.",
     "successMessage": "Session restored"
+  },
+  "cancelAppointmentModal": {
+    "title": "Cancel appointment?",
+    "description": "This will cancel the appointment. The member will be notified.",
+    "cancelButton": "Back",
+    "confirmButton": "Cancel appointment",
+    "errorMessage": "An error occurred while cancelling the appointment. Please try again later.",
+    "successMessage": "Appointment cancelled"
   }
 }

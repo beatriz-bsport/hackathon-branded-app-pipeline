@@ -306,7 +306,8 @@
     "1101": "Contributo per il referral disponibile (membro riferito)",
     "1102": "Contributo per il referral disponibile (membro referente)",
     "1200": "Modalità di pagamento, primo sollecito per la scadenza dei pagamenti rateali",
-    "1201": "Modalità di pagamento, secondo sollecito per la scadenza dei pagamenti rateali"
+    "1201": "Modalità di pagamento, secondo sollecito per la scadenza dei pagamenti rateali",
+    "309": "Conferma del double opt-in dei membri"
   },
   "ruleGroup": {
     "private_booking": "Appuntamento",
@@ -417,6 +418,7 @@
     "200": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento",
     "201": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento",
     "1200": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento",
-    "1201": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento"
+    "1201": "È possibile personalizzare il numero di giorni considerati per l'invio della notifica nella sezione Metodi di pagamento",
+    "309": "Questa email viene inviata ai membri per confermare il loro consenso a ricevere email di marketing (doppio opt-in). Per usare questa funzione, attiva il doppio opt-in per le email di marketing in Impostazioni > Personalizzazione > Marketing."
   }
 }

@@ -9,8 +9,8 @@ import {
   selectSelectedDate,
   setSelectedDate,
   setUniqueDate,
-  useSessionListStore,
-} from "#src/stores/session-list";
+  useCalendarStore,
+} from "#src/stores/calendar";
 import { CalendarView } from "#src/types";
 import { isInRange, scrollToDate } from "#src/utils/dates";
 import { useTranslation } from "#src/utils/i18n";
@@ -18,8 +18,8 @@ import { useTranslation } from "#src/utils/i18n";
 export const TodayButton: React.FC = () => {
   const { t } = useTranslation("sessionList");
   const today = useToday();
-  const calendarView = useSessionListStore(selectCalendarView);
-  const selectedDate = useSessionListStore(selectSelectedDate);
+  const calendarView = useCalendarStore(selectCalendarView);
+  const selectedDate = useCalendarStore(selectSelectedDate);
 
   const handleTodayClick = () => {
     if (calendarView === CalendarView.DAILY && selectedDate.type === "single") {

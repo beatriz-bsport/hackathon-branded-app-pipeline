@@ -19,6 +19,7 @@ export type Props = {
   last_password_reset_request: string;
   isLoading?: boolean;
   redirectUrlWithParams: string;
+  errorCode?: string;
   redirectLogin: () => void;
   updateEmail: (event: ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
@@ -35,6 +36,7 @@ const ResetPasswordForm: React.FC<Props> = ({
   redirectUrlWithParams,
   updateEmail,
   onSubmit,
+  errorCode,
 }) => {
   const { t } = useTranslation('authentication');
 
@@ -91,7 +93,8 @@ const ResetPasswordForm: React.FC<Props> = ({
               'bs-reset-password-container__caption-text',
             )}
           >
-            {t('resetPassword.noEmail')}
+            {t('resetPassword.error')}
+            {errorCode && t('resetPassword.errorCode', { code: errorCode })}
           </div>
         )}
         <div

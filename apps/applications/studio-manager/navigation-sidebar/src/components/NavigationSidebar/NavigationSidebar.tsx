@@ -251,7 +251,7 @@ const NavigationSidebarContent = ({
               }
             };
             logoutAction(navigateToLoginPage);
-            localStorage.removeItem("session-list-storage");
+            localStorage.removeItem("calendar-storage");
           }
           if (id === "attendance") {
             openAttendanceModal();

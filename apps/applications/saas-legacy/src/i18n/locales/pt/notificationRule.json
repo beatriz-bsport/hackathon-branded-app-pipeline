@@ -312,7 +312,8 @@
     "1101": "Subsídio de referência disponível (membro referido)",
     "1102": "Subsídio de referência disponível (membro que refere)",
     "1200": "Expiração do prazo de validade do método de pagamento primeiro lembrete para pagamentos em prestações",
-    "1201": "Expiração do método de pagamento segundo lembrete para pagamentos em prestações"
+    "1201": "Expiração do método de pagamento segundo lembrete para pagamentos em prestações",
+    "309": "Confirmação do double opt-in dos membros"
   },
   "emailDesign": {
     "placeholder": "Criado por bsport",
@@ -418,7 +419,8 @@
     "200": "Pode personalizar o número de dias considerado para o envio desta notificação na secção Formas de pagamento",
     "201": "Pode personalizar o número de dias considerado para o envio desta notificação na secção Formas de pagamento",
     "1200": "Pode personalizar o número de dias considerado para o envio desta notificação na secção Formas de pagamento",
-    "1201": "Pode personalizar o número de dias considerado para o envio desta notificação na secção Formas de pagamento"
+    "1201": "Pode personalizar o número de dias considerado para o envio desta notificação na secção Formas de pagamento",
+    "309": "Este e-mail é enviado aos membros para confirmar o seu consentimento para receber e-mails de marketing (duplo opt-in). Para utilizar esta funcionalidade, ative o duplo opt-in para e-mails de marketing em Definições > Personalização > Marketing."
   },
   "messages": {
     "createOrUpdate": {

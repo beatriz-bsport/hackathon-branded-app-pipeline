@@ -1,3 +1,238 @@
 {
-  "helloName": "Bonjour {{ name }} !"
+  "searching": "Recherche en cours...",
+  "loading": "Chargement des notifications ...",
+  "page": {
+    "title": "Notifications Marketing",
+    "filters": {
+      "label": "Type de notification",
+      "notificationTypeLabel": {
+        "location": "Localisation",
+        "appointment": "Rendez-vous",
+        "groupActivity": "Group Activity",
+        "workshop": "Atelier",
+        "establishment": "Établissement",
+        "pass": "Carte de cours",
+        "appointmentPass": "Carte de RDV",
+        "subscription": "Abonnement",
+        "birthday": "Anniversaire"
+      },
+      "operators": {
+        "is": "Possède un âge",
+        "isNot": "N'est pas"
+      }
+    },
+    "emptyState": {
+      "unfiltered": {
+        "title": "Aucune notification pour le moment",
+        "description": "Set up an automation to send notifications to your members",
+        "primaryAction": "Ajouter une automatisation"
+      },
+      "filtered": {
+        "title": "Votre recherche ne trouve aucune notification",
+        "description": "Essayez de supprimer vos filtres pour voir vos notifications actuelles",
+        "primaryAction": "Effacer tous les filtres"
+      }
+    },
+    "actions": {
+      "createNotificationButton": "Créer une notification"
+    }
+  },
+  "filters": {
+    "label": "Type de notification"
+  },
+  "table": {
+    "headers": {
+      "notificationType": "Type de déclencheur",
+      "triggerCondition": "Automatisation",
+      "communicationChannel": "Méthode d’envoi"
+    },
+    "toggleNotification": {
+      "enabled": "Activé",
+      "disabled": "Activer",
+      "broken": "Résoudre le problème"
+    },
+    "notificationType": {
+      "location": "Localisation",
+      "groupActivity": "Activité de groupe",
+      "workshop": "Atelier",
+      "establishment": "Établissement",
+      "appointment": "Rendez-vous",
+      "appointmentPass": "Carte de RDV",
+      "pass": "Carte de cours",
+      "subscription": "Abonnement",
+      "birthday": "Anniversaire",
+      "metaActivity": "Réservation"
+    },
+    "notificationState": {
+      "enabled": "Activé",
+      "disabled": "Activer",
+      "broken": "Résoudre le problème"
+    },
+    "actions": {
+      "menu": "Actions",
+      "previous": "Précédent",
+      "next": "Suivant",
+      "preview": "Ouvrir la notification",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "brokenNotification": {
+      "canDelete": "You can delete this automation",
+      "missingEmail": {
+        "description": "The email template linked to this automation was deleted. Add a new template to restore the automation.",
+        "tooltip": "This automation can’t run because its email template was deleted. Add a new template to fix it."
+      },
+      "pushNotification": {
+        "stillWorking": "Push notifications are still working."
+      },
+      "missingEntity": {
+        "groupActivity": "Missing linked group activity",
+        "workshop": "Missing linked workshop",
+        "location": "Missing linked location",
+        "establishment": "Missing linked establishment",
+        "appointment": "Missing linked appointment",
+        "subscription": "Missing linked subscription",
+        "pass": "Missing linked pass",
+        "appointmentPass": "Missing linked appointment pass",
+        "description": "The object linked to this automation was deleted. This automation cannot be used anymore, you can delete it."
+      }
+    },
+    "triggerType": {
+      "booking": {
+        "attended": {
+          "present": {
+            "any": "Toute réservation effectuée dans {{entityName}}",
+            "afterX_one": "Après {{count}} réservation et participation dans {{entityName}}",
+            "afterX_other": "Après {{count}} réservations effectuées dans {{entityName}}"
+          },
+          "absent": {
+            "any": "Toute réservation annulée dans {{entityName}}",
+            "afterX_one": "Après {{count}} annulation de réservation dans {{entityName}}",
+            "afterX_other": "Après {{count}} annulations de réservations dans {{entityName}}"
+          }
+        },
+        "cancelled": {
+          "onTime": {
+            "any": "Toute réservation annulée à temps dans {{entityName}}",
+            "afterX_one": "Après {{count}} annulation de réservation à temps dans {{entityName}}",
+            "afterX_other": "Après {{count}} réservations annulées à temps dans {{entityName}}"
+          },
+          "tooLate": {
+            "any": "Any late cancellation in {{entityName}}",
+            "afterX_one": "After {{count}} late cancellation in {{entityName}}",
+            "afterX_other": "After {{count}} late cancellations in {{entityName}}"
+          }
+        }
+      },
+      "subscription": {
+        "started": "Début de {{entityName}}",
+        "ended": "Fin de {{entityName}}"
+      },
+      "passes": {
+        "finerGraining": {
+          "credit_one": "{{count}} credit remaining in {{entityName}}",
+          "credit_other": "{{count}} credits remaining in {{entityName}}",
+          "validity_one": "{{count}} jour valide restant dans {{entityName}}",
+          "validity_other": "{{count}} valid days remaining in {{entityName}}",
+          "expired_one": "{{count}} day expired in {{entityName}}",
+          "expired_other": "{{count}} jours expirés dans {{entityName}}",
+          "severalPass": "and other passes ..."
+        },
+        "all": {
+          "credit_one": "{{count}} crédit restant sur toutes les cartes de cours",
+          "credit_other": "{{count}} crédits restant pour toutes les cartes de cours",
+          "validity_one": "{{count}} jour valide restant pour toutes les cartes de cours",
+          "validity_other": "{{count}} jours valides restants pour toutes les cartes de cours",
+          "expired_one": "{{count}} jours après expiration pour toutes les cartes de cours",
+          "expired_other": "{{count}} jours après expiration dans toutes les cartes de cours"
+        }
+      },
+      "birthday": "Anniversaire de membre"
+    },
+    "triggerTiming": {
+      "booking": {
+        "immediate": {
+          "immediate": "Envoyé lors du déclenchement"
+        },
+        "before": {
+          "day_one": "Envoyé {{count}} jours avant la séance",
+          "day_other": "Envoyé {{count}} jours avant la session",
+          "hour_one": "Envoyé {{count}} heure avant la séance",
+          "hour_other": "Envoyé {{count}} heures avant la session"
+        },
+        "after": {
+          "day_one": "Envoyé {{count}} jours après la séance",
+          "day_other": "Envoyé {{count}} jours après la séance",
+          "hour_one": "Envoyé {{count}} heure après la séance",
+          "hour_other": "Envoyé {{count}} heures après la séance"
+        }
+      },
+      "subscription": {
+        "creation": {
+          "before": {
+            "day_one": "Envoyé {{count}} jours avant la création de l'abonnement",
+            "day_other": "Envoyé {{count}} jours avant la création de l'abonnement",
+            "hour_one": "Envoyé {{count}} heure avant la création de l'abonnement",
+            "hour_other": "Envoyé {{count}} heures avant la création de l'abonnement"
+          },
+          "after": {
+            "day_one": "Envoyé {{count}} jour après la création de l'abonnement",
+            "day_other": "Envoyé {{count}} jours après la création de l'abonnement",
+            "hour_one": "Envoyé {{count}} heure après la création de l'abonnement",
+            "hour_other": "Envoyé {{count}} heures après la création de l'abonnement"
+          }
+        },
+        "firstBilling": {
+          "before": {
+            "day_one": "Envoyé {{count}} jour avant la première facture de l'abonnement",
+            "day_other": "Envoyé {{count}} jours avant la première facture de l'abonnement",
+            "hour_one": "Envoyé {{count}} heure avant la première facture de l'abonnement",
+            "hour_other": "Envoyé {{count}} avant la première facture de l'abonnement"
+          },
+          "after": {
+            "day_one": "Envoyé {{count}} jour après la première facture de l'abonnement ",
+            "day_other": "Envoyé {{count}} jours après la première facture de l'abonnement ",
+            "hour_one": "Envoyé {{count}} heure après la première facture de l'abonnement",
+            "hour_other": "Envoyé {{count}} heures après la première facture de l'abonnement"
+          }
+        },
+        "end": {
+          "before": {
+            "day_one": "Envoyé {{count}} jours avant la fin de l'abonnement",
+            "day_other": "Envoyé {{count}} jours avant la fin de l'abonnement",
+            "hour_one": "Envoyé {{count}} heure avant la fin de l'abonnement",
+            "hour_other": "Envoyé {{count}} heures avant la fin de l'abonnement"
+          },
+          "after": {
+            "day_one": "Envoyé {{count}} jours après la fin de l'abonnement",
+            "day_other": "Envoyé {{count}} jours après la fin de l'abonnement",
+            "hour_one": "Envoyé {{count}} heure après la fin de l'abonnement",
+            "hour_other": "Envoyé {{count}} heures après la fin de l'abonnement"
+          }
+        }
+      },
+      "passes": {
+        "expired": {
+          "day_one": "Envoyé {{count}} jours après l'expiration de la carte de cours",
+          "day_other": "Envoyé {{count}} jours après l'expiration de la carte de cours"
+        },
+        "validity": {
+          "day_one": "Envoyé lorsqu'il reste {{count}} jours de validité",
+          "day_other": "Envoyé lorsque {{count}} jours de validité restants"
+        },
+        "credits": {
+          "booking": {
+            "hour_one": "Envoyé {{count}} heure après la réservation de la séance",
+            "hour_other": "Envoyé {{count}} heures après la réservation de la séance"
+          },
+          "end": {
+            "hour_one": "Envoyé {{count}} heure après la fin de la séance",
+            "hour_other": "Envoyé {{count}} heures après la fin de la séance"
+          },
+          "appointmentPass": "Envoyé lors du déclenchement de l'automatisation"
+        }
+      },
+      "birthday": "Envoyé le jour de leur anniversaire"
+    }
+  }
 }

@@ -1,10 +1,158 @@
 {
+  "autocomplete": {
+    "categories": {
+      "selectedItems": "Ausgewählte Artikel",
+      "allItems": "Alle Artikel"
+    }
+  },
   "fileUpload": {
-    "uploadStatus": {
-      "error": "Die Datei konnte nicht hochgeladen werden",
-      "success": "Die Datei wurde erfolgreich hochgeladen"
-    },
+    "uploadFileCTA": "Datei hochladen",
     "dragAndDropCTA": "Oder einfach per Drag & Drop hierher ziehen",
-    "uploadFileCTA": "Datei hochladen"
+    "uploadStatus": {
+      "success": "Die Datei wurde erfolgreich hochgeladen",
+      "error": "Die Datei konnte nicht hochgeladen werden"
+    },
+    "actions": {
+      "abort": "Upload abbrechen",
+      "remove": "Datei entfernen",
+      "retry": "Erneut hochladen"
+    }
+  },
+  "emptyState": {
+    "noResultsFound": {
+      "title": "Keine Ergebnisse gefunden",
+      "clearFilters": "Filter löschen"
+    }
+  },
+  "errorFallback": {
+    "title": "Es tut uns leid —",
+    "description": "Wir haben das Problem protokolliert und unser Team arbeitet hart daran, es zu lösen.\nIn der Zwischenzeit versuche, die Seite neu zu laden.",
+    "subtitle": "Etwas ist auf unserer Seite schiefgelaufen.",
+    "actionLabel": "Versuch es noch einmal",
+    "crashReportModalToggle": "Sende Feedback"
+  },
+  "crashReportModal": {
+    "title": "Melde dieses Problem",
+    "feedbackContentPlaceholder": "Beschreibe, was du gemacht hast, als der Fehler auftrat, damit unser Team das Problem lösen kann.",
+    "confirmButtonLabel": "Bericht senden",
+    "toast": {
+      "success": "Bericht erfolgreich gesendet",
+      "failure": "Beim Senden des Feedbacks ist ein Fehler aufgetreten"
+    }
+  },
+  "detailsLayout": {
+    "confirmation": {
+      "title": "Die Seite enthält ungespeicherte Änderungen.",
+      "discard": "Verwerfen",
+      "save": "Änderungen speichern"
+    },
+    "panelControlButton": {
+      "openPanel": "Öffne Panel",
+      "closePanel": "Panel schließen"
+    }
+  },
+  "datePicker": {
+    "modalTitle": "Wähle einen Tag aus",
+    "shortcutsTitle": "Tastenkombinationen",
+    "startDate": "Beginndatum",
+    "endDate": "Enddatum",
+    "nextMonth": "Nächster Monat",
+    "previousMonth": "Vorheriger Monat",
+    "invalidStartDate": "Ungültiges Startdatum",
+    "invalidEndDate": "Ungültiges Enddatum",
+    "rangeLabel": "Von {{ start }} bis {{end}}",
+    "datePlaceholder": "DD.MM.YYYY",
+    "shortcuts": {
+      "today": "Heute",
+      "last4weeks": "Last 4 weeks",
+      "lastWeek": "Letzten 7 Tage",
+      "lastQuarter": "Drei letzten Monate",
+      "monthToDate": "Month to date",
+      "yearToDate": "Year to date",
+      "nextWeek": "Next 7 days",
+      "nextMonth": "Nächster Monat",
+      "nextQuarter": "Next 3 months",
+      "nextYear": "Next year"
+    }
+  },
+  "modal": {
+    "back": "Zurück",
+    "next": "Weiter",
+    "close": "Schließen",
+    "cancel": "Abbrechen"
+  },
+  "pagination": {
+    "rows": "Zeilen",
+    "showingRange": "Anzeigen {{currentItemsRendered}} von {{totalItems}}",
+    "firstPage": "Erste Seite",
+    "previousPage": "Vorherige Seite",
+    "nextPage": "Nächste Seite",
+    "lastPage": "Letzte Seite"
+  },
+  "headerLayout": {
+    "search": {
+      "tooltip": "Suche auf dieser Seite"
+    },
+    "editTitle": "Titel bearbeiten",
+    "actions": {
+      "more": "Weitere Optionen"
+    },
+    "display": {
+      "buttonLabel": "Anzeige"
+    }
+  },
+  "copyToClipboard": {
+    "copied": "In die Zwischenablage kopiert",
+    "failed": "Konnte nicht in die Zwischenablage kopiert werden. Bitte versuche es erneut. ",
+    "tooltip": "Klicken zum Kopieren"
+  },
+  "detailDrawer": {
+    "tooltip": {
+      "close": "Schließen"
+    }
+  },
+  "sidebar": {
+    "ariaLabel": "Primäre Navigation",
+    "openMenu": "Navigationsmenü öffnen",
+    "closeMenu": "Navigation-Menü schließen"
+  },
+  "dropdownMenu": {
+    "search": {
+      "placeholder": "Suchen..."
+    }
+  },
+  "filter": {
+    "openAriaLabel": "Filter öffnen",
+    "clearAriaLabel": "Alle Filter löschen",
+    "addAriaLabel": "Hinzufügen Filter",
+    "deleteAriaLabel": "Löschen Filter",
+    "modalTitle": "Filter",
+    "clearAction": "Löschen",
+    "applyAction": "Anwenden Sie den Filter",
+    "addAction": "Füge Filter hinzu",
+    "selectFieldPlaceholder": "Filter auswählen",
+    "selectOperatorPlaceholder": "Auswählen",
+    "selectValuePlaceholder": "Auswählen"
+  },
+  "button": {
+    "clear": "Löschen",
+    "search": "Suchen"
+  },
+  "alert": {
+    "clear": "Alarm löschen"
+  },
+  "list": {
+    "toggleCollapse": "Umschalten zum Einklappen",
+    "collapse": "Zusammenklappen",
+    "expand": "Erweitern"
+  },
+  "tabs": {
+    "selectTab": "Tab auswählen"
+  },
+  "textField": {
+    "clear": "Löschen"
+  },
+  "actions": {
+    "more": "Weitere Optionen"
   }
 }

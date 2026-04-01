@@ -4,7 +4,8 @@ import { getEnv } from "@bsport/envs";
 import { ControlledForm, type ControlledFormProps } from "@bsport/form";
 import { Card } from "@bsport/kaizen-primitive-core";
 
-import { EmailNameField } from "./EmailNameField";
+import { CampaignNameField } from "#src/components/campaign-generic-fields/campaign-name-field";
+
 import { CampaignDeliveryModeSelector } from "./campaign-delivery-mode-selector";
 import { EMAIL_TYPE_MARKETING } from "./constants";
 import { ContentSection } from "./content-section";
@@ -50,7 +51,7 @@ export const EmailCampaignForm: React.FC<EmailCampaignFormProps> = ({
          * This feature is not developed yet in backend
          * TODO: Remove this once the feature is developed in backend
          */
-        isProduction ? null : <EmailNameField />
+        isProduction ? null : <CampaignNameField<EmailCampaignFormData> />
       }
       <CampaignDeliveryModeSelector />
       <ContentSection />

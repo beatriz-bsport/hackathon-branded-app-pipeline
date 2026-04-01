@@ -1,28 +1,47 @@
 {
   "pageTitle": "Insights",
   "sections": {
-    "member": "Insights Membres",
+    "communityMarketing": "Communauté et Marketing",
     "financial": "Santé Financière",
-    "booking": "Performance des Réservations",
-    "teacher": "Performance des Professeurs",
-    "marketing": "Performance Marketing"
+    "operations": "Opérations"
   },
   "items": {
     "trial": {
-      "title": "Analysez les performances de vos offres d'essai",
-      "description": "Explorez l'acquisition, les taux de conversion et comment optimiser vos offres d’essai"
+      "title": "Acquisition et Conversion",
+      "description": "Découvrez comment les premiers achats se transforment en clients récurrents et identifiez les points d'abandon"
+    },
+    "community_health": {
+      "title": "Rétention Client",
+      "description": "Comprenez l'activité, le taux de désabonnement et la rétention de vos clients dans votre studio"
     },
     "recurring": {
-      "title": "Analysez la performance de vos abonnements",
+      "title": "Abonnements",
       "description": "Suivez la santé de vos abonnements, analysez vos revenus récurrents et identifiez les risques ou opportunités."
+    },
+    "booking": {
+      "title": "Réservations et Demande",
+      "description": "Explorez l'activité de réservation, le comportement des clients et les tendances de la demande pour prendre des décisions plus éclairées en matière de revenus"
+    },
+    "schedule": {
+      "title": "Planification",
+      "description": "Suivez les taux de remplissage, la fréquentation et les revenus générés par vos cours"
     }
   },
   "pages": {
     "trialAnalysis": {
-      "title": "Analysez les performances de vos offres d'essai"
+      "title": "Acquisition et Conversion"
+    },
+    "communityHealth": {
+      "title": "Rétention Client"
     },
     "recurringRevenue": {
-      "title": "Analysez la performance de vos abonnements"
+      "title": "Abonnements"
+    },
+    "bookingInsight": {
+      "title": "Réservations et Demande"
+    },
+    "scheduleAnalysis": {
+      "title": "Planification"
     }
   },
   "errors": {

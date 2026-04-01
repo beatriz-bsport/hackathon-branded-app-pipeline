@@ -6,34 +6,56 @@ import { FilterElementState } from "@bsport/kaizen-primitive-core";
 import { bindStore } from "@bsport/store-base";
 import { getCompanyTimezone } from "@bsport/timezone-utils";
 
-import { DEFAULT_SESSION_COLUMNS } from "#src/constants";
 import {
+  DEFAULT_APPOINTMENT_COLUMNS,
+  DEFAULT_SESSION_COLUMNS,
+} from "#src/constants";
+import {
+  AppointmentColumn,
   CalendarView,
   DateSelection,
   ModalState,
   SessionColumns,
 } from "#src/types";
 
-export interface SessionListState {
-  calendarView: CalendarView;
-  selectedDate: DateSelection;
-  locale: string;
-  showCancelledSessions: boolean;
+export interface SessionTabState {
+  showCancelled: boolean;
   filters: FilterElementState[];
-  modalState: ModalState;
   displayedColumns: SessionColumns[];
 }
 
-export const getInitialState = (): SessionListState => {
+export interface AppointmentTabState {
+  showCancelled: boolean;
+  filters: FilterElementState[];
+  displayedColumns: AppointmentColumn[];
+}
+
+export interface CalendarState {
+  calendarView: CalendarView;
+  selectedDate: DateSelection;
+  locale: string;
+  modalState: ModalState;
+  sessions: SessionTabState;
+  appointments: AppointmentTabState;
+}
+
+export const getInitialState = (): CalendarState => {
   const timezone = getCompanyTimezone();
   return {
     calendarView: CalendarView.DAILY,
     selectedDate: { type: "single", date: getLocalNow({ zone: timezone }) },
-    showCancelledSessions: true,
     locale: "en-US",
-    filters: [],
     modalState: null,
-    displayedColumns: DEFAULT_SESSION_COLUMNS,
+    sessions: {
+      showCancelled: true,
+      filters: [],
+      displayedColumns: DEFAULT_SESSION_COLUMNS,
+    },
+    appointments: {
+      showCancelled: true,
+      filters: [],
+      displayedColumns: DEFAULT_APPOINTMENT_COLUMNS,
+    },
   };
 };
 
@@ -47,10 +69,12 @@ const customStorage = createJSONStorage(() => localStorage, {
   },
 });
 
-export const sessionListStore = createStore<SessionListState>()(
+// Changed persist key from "session-list-storage" to "calendar-storage"
+// to clear localStorage for trial users (no migration needed, ~10 companies)
+export const calendarStore = createStore<CalendarState>()(
   devtools(
     persist(getInitialState, {
-      name: "session-list-storage",
+      name: "calendar-storage",
       storage: customStorage,
     }),
   ),
@@ -58,20 +82,20 @@ export const sessionListStore = createStore<SessionListState>()(
 
 /**
  * @description
- * Hook to access the session creation form state.
+ * Hook to access the calendar store state.
  * You can:
  * - Retrieve the entire state:
  *   ```tsx
- *   const state = useSessionListStore();
+ *   const state = useCalendarStore();
  *   ```
  * - Retrieve a specific item from the store by providing a selector:
  *   ```tsx
- *   const currentStep = useSessionListStore((state) => state.currentStep);
+ *   const view = useCalendarStore((state) => state.calendarView);
  *   ```
  *   By default it uses shallow comparison to memoize the returned value.
  * - Provide a specific comparison function for memoization:
  *   ```tsx
- *   const step = useSessionListStore(selector, (a, b) => a === b);
+ *   const step = useCalendarStore(selector, (a, b) => a === b);
  *   ```
  */
-export const useSessionListStore = bindStore(sessionListStore);
+export const useCalendarStore = bindStore(calendarStore);

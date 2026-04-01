@@ -1,28 +1,47 @@
 {
   "pageTitle": "Inzichten",
   "sections": {
-    "member": "Leden Inzichten",
+    "communityMarketing": "Community & Marketing",
     "financial": "Financiële Gezondheid",
-    "booking": "Boeking Prestaties",
-    "teacher": "Leraar Prestaties",
-    "marketing": "Marketing Prestaties"
+    "operations": "Operaties"
   },
   "items": {
     "trial": {
-      "title": "Volg de prestaties van het proefaanbod",
-      "description": "Ontdek meer over acquisitie, conversieratio's en hoe je de effectiviteit van je proefaanbod kunt verhogen."
+      "title": "Acquisitie & Conversie",
+      "description": "Zie hoe eerste aankopen leiden tot terugkerende contacten en ontdek waar afhakers ontstaan"
+    },
+    "community_health": {
+      "title": "Klantbehoud",
+      "description": "Inzicht in klantactiviteit, churn en retentie in je studio"
     },
     "recurring": {
-      "title": "Prestaties van abonnementen monitoren",
+      "title": "Abonnementen",
       "description": "Volg de gezondheid van abonnementen, analyseer terugkerende inkomsten en identificeer risico's of kansen"
+    },
+    "booking": {
+      "title": "Boekingen en vraag",
+      "description": "Ontdek boekingsactiviteiten, klantgedrag en vraagtrends om slimmere omzetbeslissingen te nemen"
+    },
+    "schedule": {
+      "title": "Planning",
+      "description": "Volg de bezettingsgraad, aanwezigheid en verdiende inkomsten van je lessen"
     }
   },
   "pages": {
     "trialAnalysis": {
-      "title": "Prestaties van proefaanbiedingen"
+      "title": "Acquisitie & Conversie"
+    },
+    "communityHealth": {
+      "title": "Klantenbinding"
     },
     "recurringRevenue": {
-      "title": "Prestaties van abonnementen monitoren"
+      "title": "Abonnementen"
+    },
+    "bookingInsight": {
+      "title": "Boekingen en vraag"
+    },
+    "scheduleAnalysis": {
+      "title": "Planning"
     }
   },
   "errors": {

@@ -1,0 +1,36 @@
+{
+  "session": {
+    "tooltips": {
+      "recurring": "Recurring session",
+      "groupedSession": "Groepsessies",
+      "online": "Online session",
+      "hybrid": "A hybrid session combines both an in-person session and a linked online session"
+    },
+    "properties": {
+      "hybrid": "Hybrid"
+    },
+    "weekdays": {
+      "1": "Maandag",
+      "2": "Dinsdag",
+      "3": "Woensdag",
+      "4": "Donderdag",
+      "5": "Vrijdag",
+      "6": "Zaterdag",
+      "7": "Zondag"
+    }
+  },
+  "levels": {
+    "default": {
+      "1": "Alle niveaus",
+      "2": "Beginner",
+      "3": "Intermediair",
+      "4": "Geavanceerd",
+      "5": "Zonder niveau"
+    }
+  },
+  "backgroundTask": {
+    "processing": "Processing...",
+    "genericError": "An error has occurred. Check your connection and try refreshing the page.",
+    "timeoutError": "Server reageert niet. Ververs de pagina alsjeblieft"
+  }
+}

@@ -10,25 +10,24 @@
     },
     "addFormModal": {
       "title": "Crea nuovo modulo",
-      "description": "Dai un nome al tuo nuovo modulo per iniziare!",
       "input": {
-        "label": "Nome del modulo",
+        "label": "Nome",
         "placeholder": "Aggiungi un nome al modulo..."
       },
       "actions": {
-        "cancel": "Cancella",
+        "cancel": "Chiudi",
         "create": "Crea"
       },
       "errors": {
-        "nameTooLong": "Il nome non è valido, la lunghezza massima è di {{ maximalLength }} caratteri.",
-        "nameTooShort": "Il nome non è valido, la lunghezza minima è di {{ minimalLength }} caratteri.",
-        "nameRequired": "Il nome non è valido, non puoi inserire un nome vuoto."
+        "nameTooLong": "Il nome deve avere un massimo di {{ maximalLength }} caratteri",
+        "nameTooShort": "Il nome deve contenere almeno {{ minimalLength }} caratteri",
+        "nameRequired": "Dai un nome al tuo modulo per continuare"
       }
     },
     "archiveModal": {
       "actions": {
         "archive": "Archivia",
-        "cancel": "Indietro"
+        "cancel": "Mantieni"
       },
       "title": "Archiviare il Modulo?",
       "description": "I Membri non vedranno più <b>{{ name }}</b>, ma puoi accedervi dal tuo archivio."
@@ -36,35 +35,35 @@
     "duplicateModal": {
       "actions": {
         "duplicate": "Duplica",
-        "cancel": "Indietro"
+        "cancel": "Chiudi"
       },
       "title": "Duplica Modulo?",
       "description": {
         "verification": "Duplicare <b>{{ name }}</b>?",
-        "effect": "Puoi modificare <b>{{ name }}</b> dopo."
+        "effect": "Potrai modificare <b>{{ name }}</b> dopo"
       }
     }
   },
   "toasts": {
     "messageCreated": {
       "success": "Modulo creato",
-      "error": "Impossibile creare il modulo"
+      "error": " Il Modulo non può essere ripristinato. Per favore riprova."
     },
     "messageArchived": {
       "success": "Modulo archiviato",
-      "error": "Impossibile archiviare il tuo modulo"
+      "error": " Il Modulo non può essere archiviato. Per favore riprova."
     },
     "messageRestored": {
       "success": "Modulo ripristinato",
-      "error": "Impossibile ripristinare il modulo"
+      "error": " Il Modulo non può essere ripristinato. Per favore riprova."
     },
     "messageDuplicated": {
       "success": "Modulo duplicato",
-      "error": "Impossibile duplicare il modulo"
+      "error": " Il Modulo non può essere duplicato. Riprova."
     },
     "messageUndone": {
-      "success": "Azione annullata",
-      "error": "Impossibile annullare l'azione"
+      "success": "Modifica annullata",
+      "error": "La modifica non può essere annullata. Riprova."
     },
     "actions": {
       "undo": "Annulla",
@@ -87,7 +86,7 @@
       },
       "archivedList": {
         "title": "Nessun modulo archiviato ancora",
-        "subtitle": "Qualsiasi modulo spostato qui può essere ripristinato"
+        "subtitle": "Qualsiasi Modulo che archivi verrà mostrato qui. Puoi ripristinarli in qualsiasi momento. "
       },
       "search": {
         "title": "Nessun modulo trovato",
@@ -101,5 +100,9 @@
       "search": "Cerca un modulo",
       "switchToArchived": "Moduli archiviati"
     }
+  },
+  "list": {
+    "questions": "{{count}} domanda",
+    "questions_other": "{{count}} domande"
   }
 }

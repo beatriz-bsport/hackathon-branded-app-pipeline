@@ -24,7 +24,7 @@ import {
   openDeleteModal,
   openDuplicateModal,
   openRestoreModal,
-} from "#src/stores/session-list";
+} from "#src/stores/calendar";
 import type { EnrichedSession } from "#src/types";
 import { useUrls } from "#src/urls";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";

@@ -1,1 +1,142 @@
-{}
+{
+  "title": "Verwijzingen",
+  "referralProgramHelper": {
+    "title": "Activeer verwijzingen",
+    "description": "Stel een verwijzingslink in voor je leden om anderen naar je studio uit te nodigen. Bied een stimulans, stel een tijdslimiet voor de verwijzing in en geef een beloning aan het verwijzende lid.",
+    "button": {
+      "activated": {
+        "label": "Deactiveren",
+        "errors": {
+          "couldNotToggle": "Het is niet gelukt om het verwijzingsprogramma te deactiveren"
+        }
+      },
+      "deactivated": {
+        "label": "Activeren",
+        "errors": {
+          "couldNotToggle": "Het is niet gelukt om het doorverwijzingsprogramma te activeren"
+        }
+      }
+    }
+  },
+  "inactive": {
+    "header": {
+      "chip": "Inactief"
+    }
+  },
+  "active": {
+    "header": {
+      "chip": "actief"
+    },
+    "form": {
+      "basketMinimalAmount": {
+        "label": "Minimale waarde van winkelwagen",
+        "helper": "Bedrag om in aanmerking te komen voor de doorverwijzingskorting",
+        "errors": {
+          "tooManyDecimalPoints": "Het bedrag mag niet meer dan 2 decimalen hebben",
+          "invalidFormat": "Het bedragformaat is niet geldig"
+        }
+      },
+      "referringReward": {
+        "title": "Beloning voor het doorverwijzen van een leden",
+        "amountOff": {
+          "label": "Hoeveel je de leden wilt belonen"
+        },
+        "maxReferringNumber": {
+          "label": "Max. gebruik per lid",
+          "errors": {
+            "tooSmall": "Het aantal keren dat je het kunt gebruiken moet tussen 1 en 5 liggen.",
+            "tooBig": "Je kunt niet meer dan 5 verwijzingen geven",
+            "noFloat": "Je kunt alleen hele getallen gebruiken"
+          }
+        },
+        "alerts": {
+          "equalToZero": "Door deze waarde te kiezen, wordt er geen korting toegepast op de aankoop van het doorverwezen leden."
+        },
+        "errors": {
+          "tooManyDecimalPoints": "Het bedrag mag niet meer dan 2 decimalen hebben",
+          "invalidFormat": "De opmaak van het bedrag is niet geldig"
+        }
+      },
+      "referralReward": {
+        "title": "Korting voor nieuwe klant",
+        "label": "Kortingsbedrag totaal",
+        "percentage": "Percentage",
+        "amount": "Bedrag",
+        "errors": {
+          "onlyWholePercentage": "Het percentage moet een geheel getal zijn, het dichtstbijzijnde gehele getal is {{ wholeNumberUnder }} of {{ wholeNumberAbove }}",
+          "percentageTooHigh": "Het percentage kan niet groter zijn dan 100",
+          "invalidFormat": "Het bedragformaat is niet geldig",
+          "tooManyDecimalPoints": "Het bedrag mag niet meer dan 2 decimalen hebben"
+        },
+        "alerts": {
+          "equalToZero": "Kies '0' om de korting voor de persoon die wordt doorverwezen te verwijderen"
+        }
+      },
+      "timeLimitForUsage": {
+        "unit": {
+          "label": "Selecteer tijdslimietinterval",
+          "choices": {
+            "days_one": "Dag",
+            "weeks_one": "Week",
+            "months_one": "Maand",
+            "days_other": "Dagen",
+            "weeks_other": "Weken",
+            "months_other": "Maanden"
+          },
+          "errors": {}
+        },
+        "interval": {
+          "label": "Tijdslimiet voor het toepassen van de korting na registratie",
+          "errors": {
+            "lowerThanOne": "De tijdslimiet moet 1 {{ timeUnit }} of langer zijn"
+          }
+        }
+      },
+      "tagSelector": {
+        "label": "Pas een tag toe wanneer nieuwe klanten de verwijzingslink gebruiken",
+        "placeholder": "Selecteer een tag",
+        "helper": "Tip: Tags nieuwe klanten om ze later te targeten.",
+        "errors": {
+          "notProvided": "Kies een tag of deactiveer deze optie om door te gaan"
+        }
+      },
+      "redirectLink": {
+        "switch": {
+          "label": "Voeg een omleidingslink toe",
+          "helper": "Voeg een link toe om nieuwe klanten na registratie door te sturen naar een aangepaste URL. Als je dit veld leeg laat, worden ze naar de Agendapagina geleid."
+        },
+        "textfield": {
+          "label": "Redirectlink",
+          "placeholder": "Voer URL in"
+        },
+        "errors": {
+          "notProvided": "Voeg een URL toe of deactiveer deze optie om door te gaan",
+          "invalidFormat": "Het URL-formaat is niet geldig"
+        }
+      },
+      "saveSettings": {
+        "buttonLabel": "Opslaan",
+        "onSuccess": {
+          "title": "Wijzigingen opgeslagen"
+        },
+        "onFailure": {
+          "title": "Kon wijzigingen niet opslaan"
+        },
+        "errors": {
+          "invalidVoucherType": "Het type voucher is niet geldig",
+          "invalidTimeUnit": "De tijdseenheid is niet geldig"
+        }
+      }
+    },
+    "deactivateReferralModal": {
+      "title": "Deactiveren van verwijzingen?",
+      "description": "We slaan je instellingen op zodat je in de toekomst eenvoudig verwijzingen kunt heractiveren.",
+      "cancelButton": {
+        "label": "Sluiten"
+      },
+      "confirmButton": {
+        "label": "Deactiveren"
+      }
+    }
+  }
+}

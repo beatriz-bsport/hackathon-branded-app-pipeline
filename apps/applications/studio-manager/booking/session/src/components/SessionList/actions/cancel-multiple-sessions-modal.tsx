@@ -30,8 +30,8 @@ import { useFetchSessions } from "#src/hooks/session-api/fetch/use-fetch-session
 import {
   selectSelectedDate,
   selectSessionFilters,
-  useSessionListStore,
-} from "#src/stores/session-list";
+  useCalendarStore,
+} from "#src/stores/calendar";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { Trans, useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
@@ -45,7 +45,7 @@ export const CancelMultipleSessionsModal: FC<{
   const { t, i18n } = useTranslation("sessionList");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
 
-  const currentSelectedDate = useSessionListStore(selectSelectedDate);
+  const currentSelectedDate = useCalendarStore(selectSelectedDate);
 
   const [cancelRange, setCancelRange] = useState<
     [DateTime | null, DateTime | null] | null
@@ -124,7 +124,7 @@ export const CancelMultipleSessionsModal: FC<{
     hasCancelWorkshopSessionsPermission,
   ]);
 
-  const filters = useSessionListStore(selectSessionFilters);
+  const filters = useCalendarStore(selectSessionFilters);
   const filterParams = getParamsFromFilters(filters);
   const cancelSessionsParams = { ...filterParams, ...globalFilter };
 

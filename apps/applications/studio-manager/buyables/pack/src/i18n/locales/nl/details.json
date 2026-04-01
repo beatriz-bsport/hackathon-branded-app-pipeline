@@ -1,4 +1,8 @@
 {
+  "modelName": {
+    "singular": "Pakketten",
+    "plural": "Pakketten"
+  },
   "createModal": {
     "title": "Maak een nieuw pakket aan",
     "buttons": {
@@ -20,7 +24,7 @@
       "success": "Succesvol bijgewerkt"
     },
     "tabs": {
-      "overview": "Overzicht",
+      "overview": "Verkopen",
       "editor": "Editor"
     }
   },
@@ -32,17 +36,17 @@
     },
     "table": {
       "columns": {
-        "issueDate": "Uitgiftedatum",
+        "issueDate": "Aankoopdatum",
         "buyer": "Koper",
         "value": "Waarde"
       },
       "actions": {
         "openPrefix": "Open...",
         "invoice": "Factuur",
-        "memberProfile": "Ledenprofiel koper"
+        "memberProfile": "Klantprofiel openen"
       },
       "errors": {
-        "failToGetInvoice": "Kon de gerelateerde factuur niet openen"
+        "failToGetInvoice": "Kon de bijbehorende factuur niet openen. Probeer het opnieuw. "
       }
     }
   },
@@ -66,7 +70,7 @@
       },
       "tooltips": {
         "credits": "Credits",
-        "price": "Prijs",
+        "price": "Bedrag",
         "unavailableForMember": "Niet vermeld",
         "invisibleToStaff": "Verborgen",
         "category": "Selecteer een categorie"
@@ -113,9 +117,9 @@
       "title": "Geavanceerd"
     },
     "pricingSection": {
-      "title": "Kosten & Betaling",
+      "title": "Prijzen",
       "price": {
-        "label": "Prijs",
+        "label": "Bedrag",
         "helperText": "Totale waarde van items in dit pakket: {{ amount }}"
       },
       "taxToggle": {
@@ -130,33 +134,19 @@
         "errorMissingNumber": "Voeg een maximumbedrag toe of deselecteer deze optie om door te gaan"
       },
       "paymentMethod": {
-        "label": "Betaalmethoden",
-        "helperText": "Kies er minstens één ",
-        "alertVisibilityHidden": "Verborgen Pakketten kunnen nog steeds met leden worden gedeeld via een link en betaald worden via online betaling.",
         "errorMissingPaymentMethod": "Selecteer een betaalmethode"
       }
     },
     "visibilitySection": {
       "title": "Zichtbaarheid",
       "visibilitySelector": {
-        "label": "Selecteer de zichtbaarheid van dit pakket",
-        "options": {
-          "visible": {
-            "shortTitle": "Zichtbaar",
-            "fullTitle": "Vermeld in Ledenruimte",
-            "description": "Je pack wordt vermeld in de Ledenruimte zodat je leden het kunnen kopen."
-          },
-          "hidden": {
-            "shortTitle": "Niet vermeld",
-            "fullTitle": "Niet vermeld in de Ledenruimte",
-            "description": "Jouw pakket wordt niet vermeld in de Ledenruimte, maar kan worden gedeeld met een link of gekocht via de Back Office."
-          }
-        }
+        "label": "Selecteer de zichtbaarheid van dit pakket"
       },
       "dateLimitSelector": {
         "toggleLabel": "Datum aankooplimiet",
         "fieldLabel": "Beschikbaar tot",
-        "errorMissingDate": "Voeg een datum toe of deactiveer deze optie om door te gaan"
+        "errorMissingDate": "Voeg een datum toe of deactiveer deze optie om door te gaan",
+        "errorPastDate": "The expiration date must be today or future"
       },
       "additionalRules": {
         "label": "Aanvullende regels",
@@ -190,6 +180,7 @@
     "pricing": "Prijzen",
     "credits": "Credits",
     "selectPreviousItem": "Selecteer vorig item",
-    "selectNextItem": "Selecteer volgend item"
+    "selectNextItem": "Selecteer volgend item",
+    "seeDetails": "Toon meer"
   }
 }

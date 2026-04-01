@@ -1,7 +1,7 @@
 {
   "title": "Pacote",
   "actions": {
-    "addAPack": "Adicione um pacote"
+    "addAPack": "Criar pacote"
   },
   "table": {
     "loading": "Carregando pacotes...",
@@ -15,32 +15,37 @@
       "numberOfProducts": "artigos",
       "price": "Preço"
     },
+    "values": {
+      "unlisted": "Não listado",
+      "hiddenToStaff": "Oculto",
+      "limitedTime": "Limite"
+    },
     "tooltips": {
-      "unavailableForUsers": "Este pacote não será exibido na Área do Membro",
-      "invisibleForStaff": "Este pacote não será mostrado aos membros da equipe",
-      "availableForALimitedTime": "Este pacote será exibido apenas por um tempo limitado",
+      "unlisted": "Não listado na Área De Membro",
+      "hiddenToStaff": "Oculto do Membro da equipe",
+      "limitedTime": "Apenas listado por um tempo limitado",
       "archive": "Excluir Pacotes"
     }
   },
   "deleteModal": {
     "title": "Excluir Pacotes?",
     "description": {
-      "effect": "Se você excluir {{ name }}, compras atuais ou anteriores não serão afetadas.",
-      "canNotBeUndone": "Esta ação não pode ser desfeita."
+      "effect": "Assim que você deletar {{ name }}, ele não estará mais visível para os membros. ",
+      "canNotBeUndone": "Todos os Membros que compraram este pacote não serão afetados. "
     },
     "actions": {
-      "cancel": "Anterior",
+      "cancel": "Manter",
       "delete": "Excluir"
     }
   },
   "toasts": {
     "messageDelete": {
       "success": "Pacotes excluído",
-      "error": "Falha ao excluir o pacote"
+      "error": "Não foi possível excluir o pacote. Por favor, tente novamente. "
     },
     "messageUndo": {
-      "success": "Ação desfeita",
-      "error": "Falha ao desfazer ação"
+      "success": "Alteração desfeita",
+      "error": "A alteração não pôde ser desfeita. Por favor, tente novamente. "
     },
     "actions": {
       "undo": "Desfazer"

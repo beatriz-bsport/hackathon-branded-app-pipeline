@@ -1,0 +1,65 @@
+{
+  "invoiceListTitle": "Rechnungen",
+  "invoiceType": {
+    "reversed": "Rechnung (storniert)",
+    "return": "Erstattete Rechnung",
+    "credit_payment": "Saldoanpassung",
+    "migration": "Migration",
+    "regular": "Rechnung"
+  },
+  "invoiceStatus": {
+    "draft": "Entwurf",
+    "open": "Offen",
+    "paid": "Bezahlt",
+    "voided": "Ungültig",
+    "refunded": "Erstattet"
+  },
+  "tableColumnLabel": {
+    "number": "Rechnungsnr.",
+    "date": "Datum",
+    "member": "Kunde",
+    "amount": "Betrag",
+    "type": "Typ",
+    "status": "Status"
+  },
+  "filters": {
+    "is": "ist",
+    "is-not": "ist nicht"
+  },
+  "emptyTable": {
+    "title": "Noch keine Rechnungen",
+    "description": "Sobald du Kunden abrechnest, werden ihre Rechnungen hier angezeigt."
+  },
+  "download": {
+    "title": "Herunterladen...",
+    "pdf": "Rechnung (PDF)",
+    "receipt": "Zahlungsbeleg (PDF)",
+    "explainPdfDraft": "Die Rechnung ist noch ein Entwurf, PDF ist nicht verfügbar.",
+    "label": "Rechnung herunterladen"
+  },
+  "loading": "Loading invoices...",
+  "bulkExport": {
+    "modalTitle": "Rechnungen exportieren",
+    "modalDescription": "Choose a time period to export invoices.",
+    "alertTitle": "You won't be able to export invoices migrated from previous providers.",
+    "alertDescription": "You won't be able to export invoices migrated from previous providers.",
+    "month": "Monat",
+    "monthErrorCurrentOrFuture": "Invoices can't be exported for current or future months",
+    "monthErrorBeforeCutoff": "Invoices can't be exported before March 2025",
+    "year": "Jahr",
+    "cancel": "Abbrechen",
+    "download": "Herunterladen",
+    "downloading": "Preparing download...",
+    "toastDownloaded": "Invoices downloaded",
+    "successNoInvoices": "No invoices were generated for this period.",
+    "error": {
+      "14602": "Exports only available from March 2025 onwards.",
+      "14603": "Cannot download export for current or future month. Please wait until next month.",
+      "14604": "Export is being processed. Please check back later today or tomorrow (max 24h).",
+      "14605": "Export failed. Please contact support.",
+      "14606": "Export not available yet. Please check back later.",
+      "14607": "No invoices available for this period. Your company started invoicing later.",
+      "default": "Something went wrong. Please try again."
+    }
+  }
+}

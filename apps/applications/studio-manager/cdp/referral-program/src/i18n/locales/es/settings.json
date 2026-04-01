@@ -1,1 +1,142 @@
-{}
+{
+  "title": "Referidos",
+  "referralProgramHelper": {
+    "title": "Activar Referidos",
+    "description": "Configura un enlace de recomendación para que los Miembros inviten a otros a tu estudio. Ofrece un incentivo, establece un límite de tiempo para la recomendación y proporciona una recompensa al Miembro que refiere.",
+    "button": {
+      "activated": {
+        "label": "Desactivar",
+        "errors": {
+          "couldNotToggle": "No se pudo desactivar el programa de referidos"
+        }
+      },
+      "deactivated": {
+        "label": "Activar",
+        "errors": {
+          "couldNotToggle": "No se pudo activar el programa de referidos"
+        }
+      }
+    }
+  },
+  "inactive": {
+    "header": {
+      "chip": "Inactivo"
+    }
+  },
+  "active": {
+    "header": {
+      "chip": "Activo"
+    },
+    "form": {
+      "basketMinimalAmount": {
+        "label": "Valor mínimo del carrito de compras",
+        "helper": "Cantidad para ser elegible para el descuento por recomendación",
+        "errors": {
+          "tooManyDecimalPoints": "La cantidad no puede tener más de 2 decimales",
+          "invalidFormat": "El formato de la cantidad no es válido"
+        }
+      },
+      "referringReward": {
+        "title": "Recompensa por referir a un Miembro",
+        "amountOff": {
+          "label": "¿Cuánto quieres recompensar a los miembros?"
+        },
+        "maxReferringNumber": {
+          "label": "Uso máx. por miembros",
+          "errors": {
+            "tooSmall": "El número de usos debe estar entre 1 y 5",
+            "tooBig": "No puedes dar más de 5 referencias",
+            "noFloat": "Solo puedes usar números enteros"
+          }
+        },
+        "alerts": {
+          "equalToZero": "Al elegir este valor, no se aplicará ningún descuento a la compra de los miembros referidos."
+        },
+        "errors": {
+          "tooManyDecimalPoints": "La cantidad no puede tener más de 2 decimales",
+          "invalidFormat": "El formato del monto no es válido"
+        }
+      },
+      "referralReward": {
+        "title": "Descuento para nuevo cliente",
+        "label": "Total de descuento",
+        "percentage": "Porcentaje",
+        "amount": "Cantidad",
+        "errors": {
+          "onlyWholePercentage": "El porcentaje debe ser un número entero, los enteros más cercanos son {{ wholeNumberUnder }} o {{ wholeNumberAbove }}",
+          "percentageTooHigh": "El porcentaje no puede ser mayor que 100",
+          "invalidFormat": "El formato del monto no es válido",
+          "tooManyDecimalPoints": "La cantidad no puede tener más de 2 decimales"
+        },
+        "alerts": {
+          "equalToZero": "Elegir '0' eliminará el descuento para la persona referida"
+        }
+      },
+      "timeLimitForUsage": {
+        "unit": {
+          "label": "Selecciona el intervalo de tiempo límite",
+          "choices": {
+            "days_one": "Día",
+            "weeks_one": "Semana",
+            "months_one": "Mes",
+            "days_other": "Días",
+            "weeks_other": "Semanas",
+            "months_other": "Meses"
+          },
+          "errors": {}
+        },
+        "interval": {
+          "label": "Plazo para aplicar el descuento después de la inscripción",
+          "errors": {
+            "lowerThanOne": "El límite de tiempo debe ser de 1 {{ timeUnit }} o más"
+          }
+        }
+      },
+      "tagSelector": {
+        "label": "Aplica una etiqueta cuando los nuevos clientes usen el enlace de referencia",
+        "placeholder": "Selecciona una etiqueta",
+        "helper": "Consejo: Etiquetas a los nuevos clientes para dirigirte a ellos más tarde.",
+        "errors": {
+          "notProvided": "Selecciona una etiqueta o desactiva esta opción para continuar"
+        }
+      },
+      "redirectLink": {
+        "switch": {
+          "label": "Añade un enlace de redirección",
+          "helper": "Agrega un enlace para redirigir a los nuevos clientes a una URL personalizada después de registrarse. Si se deja en blanco, serán llevados a la página del Calendario."
+        },
+        "textfield": {
+          "label": "Enlace de redirección",
+          "placeholder": "Introduce URL"
+        },
+        "errors": {
+          "notProvided": "Agrega una URL o desactiva esta opción para continuar",
+          "invalidFormat": "El formato de la URL no es válido"
+        }
+      },
+      "saveSettings": {
+        "buttonLabel": "Guardar",
+        "onSuccess": {
+          "title": "Cambios guardados"
+        },
+        "onFailure": {
+          "title": "No se pudieron guardar los cambios"
+        },
+        "errors": {
+          "invalidVoucherType": "El tipo de cupón no es válido",
+          "invalidTimeUnit": "La unidad de tiempo no es válida"
+        }
+      }
+    },
+    "deactivateReferralModal": {
+      "title": "¿Desactivar las referencias?",
+      "description": "Guardaremos tu configuración para que puedas reactivar las referencias fácilmente en el futuro.",
+      "cancelButton": {
+        "label": "Cerrar"
+      },
+      "confirmButton": {
+        "label": "Desactivar"
+      }
+    }
+  }
+}

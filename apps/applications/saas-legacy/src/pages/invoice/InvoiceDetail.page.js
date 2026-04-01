@@ -905,6 +905,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
               this.props.isInvoiceConfigurationLoading
             }
             isRevertReasonRequired={
+              this.props.invoice?.status !== InvoiceStatusEnum.DRAFT &&
               this.props.invoiceConfiguration?.is_invoice_revert_reason_required
             }
             onClose={this.props.closeRevertDialog}

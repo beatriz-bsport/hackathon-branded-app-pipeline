@@ -41,7 +41,6 @@
   "bulkExport": {
     "modalTitle": "Export invoices",
     "modalDescription": "Choose a time period to export invoices.",
-    "alertTitle": "You won't be able to export invoices migrated from previous providers.",
     "alertDescription": "You won't be able to export invoices migrated from previous providers.",
     "month": "Month",
     "monthErrorCurrentOrFuture": "Invoices can't be exported for current or future months",

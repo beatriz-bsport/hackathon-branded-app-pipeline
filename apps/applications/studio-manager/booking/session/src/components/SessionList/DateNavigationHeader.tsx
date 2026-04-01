@@ -7,8 +7,8 @@ import {
   selectCalendarView,
   selectSelectedDate,
   setUniqueDate,
-  useSessionListStore,
-} from "#src/stores/session-list";
+  useCalendarStore,
+} from "#src/stores/calendar";
 import { CalendarView } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -17,8 +17,8 @@ import { TodayButton } from "./TodayButton";
 
 export const DateNavigationHeader: React.FC = () => {
   const { t } = useTranslation("sessionList");
-  const calendarView = useSessionListStore(selectCalendarView);
-  const selectedDate = useSessionListStore(selectSelectedDate);
+  const calendarView = useCalendarStore(selectCalendarView);
+  const selectedDate = useCalendarStore(selectSelectedDate);
   const shouldDisplayNavigationButtons =
     calendarView === CalendarView.DAILY && selectedDate.type === "single";
 
@@ -79,7 +79,7 @@ export const DateNavigationHeader: React.FC = () => {
           <Button
             icon="chevron-right"
             onClick={handleNextClick}
-            label="next"
+            label={t("dateNavigation.nextButton")}
             kind="icon-button"
             size="md"
             intent="default"

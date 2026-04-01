@@ -1,0 +1,158 @@
+{
+  "autocomplete": {
+    "categories": {
+      "selectedItems": "Itens Selecionados",
+      "allItems": "Todos os Itens"
+    }
+  },
+  "fileUpload": {
+    "uploadFileCTA": "Carregar um arquivo",
+    "dragAndDropCTA": "ou arraste e solte aqui",
+    "uploadStatus": {
+      "success": "Upload realizado com sucesso",
+      "error": "Não foi possível carregar este arquivo"
+    },
+    "actions": {
+      "abort": "Cancelar upload",
+      "remove": "Remover arquivo",
+      "retry": "Tentar novamente o upload"
+    }
+  },
+  "emptyState": {
+    "noResultsFound": {
+      "title": "Nenhum resultado encontrado",
+      "clearFilters": "Limpar filtros"
+    }
+  },
+  "errorFallback": {
+    "title": "Lamentamos —",
+    "description": "Registramos o problema e nossa equipe está trabalhando arduamente para resolvê-lo.\nEnquanto isso, tente atualizar a página.",
+    "subtitle": "Algo deu errado do nosso lado.",
+    "actionLabel": "Tente novamente",
+    "crashReportModalToggle": "Enviar feedback"
+  },
+  "crashReportModal": {
+    "title": "Relatar este problema",
+    "feedbackContentPlaceholder": "Descreva o que você estava fazendo quando o erro ocorreu para que nossa equipe possa resolver o problema.",
+    "confirmButtonLabel": "Enviar relatório",
+    "toast": {
+      "success": "Relatório enviado com sucesso",
+      "failure": "Ocorreu um erro ao enviar feedback"
+    }
+  },
+  "detailsLayout": {
+    "confirmation": {
+      "title": "A página tem alterações não salvas.",
+      "discard": "Descartar",
+      "save": "Salvar alterações"
+    },
+    "panelControlButton": {
+      "openPanel": "Abrir painel",
+      "closePanel": "Fechar painel"
+    }
+  },
+  "datePicker": {
+    "modalTitle": "Selecione um dia",
+    "shortcutsTitle": "Atalhos",
+    "startDate": "Data de início",
+    "endDate": "Data final",
+    "nextMonth": "Próximo mês",
+    "previousMonth": "Mês anterior",
+    "invalidStartDate": "Data de início inválida",
+    "invalidEndDate": "Data de término inválida",
+    "rangeLabel": "De {{ start }} a {{end }}",
+    "datePlaceholder": "DD/MM/YYYY",
+    "shortcuts": {
+      "today": "Hoje",
+      "last4weeks": "Last 4 weeks",
+      "lastWeek": "Últimos 7 dias",
+      "lastQuarter": "Últimos três meses",
+      "monthToDate": "Month to date",
+      "yearToDate": "Year to date",
+      "nextWeek": "Next 7 days",
+      "nextMonth": "Próximo mês",
+      "nextQuarter": "Next 3 months",
+      "nextYear": "Next year"
+    }
+  },
+  "modal": {
+    "back": "Voltar",
+    "next": "Próximo",
+    "close": "Fechar",
+    "cancel": "Cancelar"
+  },
+  "pagination": {
+    "rows": "Linhas",
+    "showingRange": "Mostrando {{currentItemsRendered}} de {{totalItems}}",
+    "firstPage": "Primeira página",
+    "previousPage": "Previous page",
+    "nextPage": "Next page",
+    "lastPage": "Última página"
+  },
+  "headerLayout": {
+    "search": {
+      "tooltip": "Pesquisar nesta página"
+    },
+    "editTitle": "Editar título",
+    "actions": {
+      "more": "Mais ações"
+    },
+    "display": {
+      "buttonLabel": "Escolha como pretende apresentar o seu widget"
+    }
+  },
+  "copyToClipboard": {
+    "copied": "Copiado para a área de transferência",
+    "failed": "Não foi possível copiar para a área de transferência. Por favor, tente novamente. ",
+    "tooltip": "Clique para copiar"
+  },
+  "detailDrawer": {
+    "tooltip": {
+      "close": "Fechar"
+    }
+  },
+  "sidebar": {
+    "ariaLabel": "Navegação principal",
+    "openMenu": "Abrir menu de navegação",
+    "closeMenu": "Fechar menu de navegação"
+  },
+  "dropdownMenu": {
+    "search": {
+      "placeholder": "Pesquisar..."
+    }
+  },
+  "filter": {
+    "openAriaLabel": "Abrir filtros",
+    "clearAriaLabel": "Limpar filtros",
+    "addAriaLabel": "Adicionar filtro",
+    "deleteAriaLabel": "Eliminar filtro",
+    "modalTitle": "Filtrar",
+    "clearAction": "Eliminar",
+    "applyAction": "Aplicar filtro",
+    "addAction": "Adicionar filtro",
+    "selectFieldPlaceholder": "Selecionar filtro",
+    "selectOperatorPlaceholder": "Selecionar",
+    "selectValuePlaceholder": "Selecionar"
+  },
+  "button": {
+    "clear": "Eliminar",
+    "search": "Pesquisar"
+  },
+  "alert": {
+    "clear": "Eliminar alerta"
+  },
+  "list": {
+    "toggleCollapse": "Alternar recolhimento",
+    "collapse": "Submeter",
+    "expand": "Acrescentar"
+  },
+  "tabs": {
+    "selectTab": "Seleciona aba"
+  },
+  "textField": {
+    "clear": "Eliminar"
+  },
+  "actions": {
+    "more": "Mais ações"
+  }
+}

@@ -1,1 +1,124 @@
-{}
+{
+  "page": {
+    "title": "Notifiche Transazionali"
+  },
+  "notificationRuleEvents": {
+    "list": {
+      "notificationNumber_one": "1 notifica",
+      "notificationNumber_other": "{{ count }} notifiche",
+      "loading": {
+        "message": "Caricamento delle notifiche..."
+      },
+      "emptyState": {
+        "title": "Nessuna notifica trovata",
+        "description": "Al momento non ci sono notifiche da visualizzare. Riprova più tardi o contatta il supporto."
+      }
+    },
+    "categories": {
+      "member": "Iscrizione cliente",
+      "booking": "Prenotazioni",
+      "private_booking": "Appuntamenti",
+      "recurrent_private_booking": "Appuntamenti ricorrenti",
+      "payment_pack": "Penalità",
+      "giftcard": "Buono Regalo",
+      "offer": "Sessione",
+      "replacement_request": "Sostituzioni",
+      "waiting-list": "Liste d'attesa",
+      "subscription": "Abbonamenti ricorrenti",
+      "invoice": "Fatturazione",
+      "referral": "Referenza"
+    },
+    "noCategory": "Nessuna categoria"
+  },
+  "notificationRuleEventDetails": {
+    "toast": {
+      "create": {
+        "failure": "Non riusciamo a creare la regola di notifica. Riprova. "
+      },
+      "update": {
+        "failure": "Impossibile aggiornare la regola di notifica. Riprova. "
+      },
+      "delete": {
+        "failure": "Non è stato possibile eliminare la regola di notifica email. Riprova. "
+      }
+    },
+    "table": {
+      "headers": {
+        "name": "Notificazione",
+        "email": "Email",
+        "pushNotification": "Notifica push"
+      },
+      "tooltip": {
+        "pushNotificationHelper": {
+          "title": "Abilitazione delle notifiche push",
+          "message": "Configura prima la tua notifica push per attivarla",
+          "label": "Aiuto"
+        },
+        "franchiseOwned": "Questa notifica è gestita dall'Account Principale ",
+        "setPushNotificationBeforeEnabling": "Configura prima la tua notifica push per attivarla"
+      },
+      "helper": {
+        "title": "Notifiche push",
+        "description": "Configura prima la tua notifica push per attivarla"
+      },
+      "actions": {
+        "preview": "Anteprima",
+        "edit": "Modifica"
+      },
+      "notificationsToggle": {
+        "deactivated": "Attivare",
+        "activated": "Attivato"
+      }
+    },
+    "details": {
+      "notificationStatus": "Status",
+      "segmentedControl": {
+        "email": "Email",
+        "push": "Notifica push"
+      },
+      "emailTemplateSelector": {
+        "searchingMessage": "Ricerca di modelli email..."
+      },
+      "emailNotification": {
+        "preview": "Anteprima",
+        "noPreview": "Anteprima non disponibile",
+        "select": {
+          "label": "Selezionare un template",
+          "placeholder": "Seleziona un modello email",
+          "standardBsportTemplatePlaceholder": "modelli email bsport",
+          "alertCommunicationVariableStatus": "Abbiamo riscontrato un problema con questo modello. Riprova o contatta il supporto. "
+        },
+        "carbonCopy": {
+          "label": "Ricevi una copia dell'email"
+        },
+        "requiredCommunicationVariablesAlert": {
+          "body": "Questo modello email non può essere utilizzato perché mancano le informazioni richieste. Compila i seguenti campi per usare questo modello email personalizzato: "
+        }
+      },
+      "pushNotification": {
+        "title": {
+          "label": "Titolo",
+          "errors": {
+            "minLength": "Deve essere compilato",
+            "maxLength": "Non deve superare i 25 caratteri"
+          }
+        },
+        "content": {
+          "label": "Contenuto",
+          "errors": {
+            "minLength": "Deve essere compilato",
+            "maxLength": "Non deve superare 200 caratteri"
+          }
+        },
+        "preview": {
+          "title": "Anteprima",
+          "placeholder": "Imposta la tua notifica push per visualizzarla qui",
+          "noPreview": "Anteprima non disponibile. Controlla prima che la notifica sia configurata correttamente. "
+        },
+        "actions": {
+          "save": "Salva"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "addSessionModal": {
+    "title": "Set up a session",
+    "steps": {
+      "chooseActivity": {
+        "label": "Choose activity",
+        "description": "Search or select an activity for the session, such as Group Activity or a Workshop.",
+        "loadingActivities": "Loading activities...",
+        "search": {
+          "placeholder": "Zoek"
+        },
+        "table": {
+          "columns": {
+            "activity": "Activiteit",
+            "type": "Kanalen",
+            "features": "Features"
+          },
+          "type": {
+            "groupActivity": "Groepsactiviteit",
+            "workshop": "Workshops"
+          },
+          "emptyState": {
+            "title": "Nog geen groepsactiviteiten",
+            "body": "Add a Group Activity or Workshop to your studio before creating a session."
+          },
+          "features": {
+            "livestream": {
+              "popoverLabel": "Livestream is enabled for this activity"
+            },
+            "notifications": {
+              "popoverLabel": "Notifications are configured for this activity"
+            }
+          }
+        }
+      },
+      "configureSession": {
+        "label": "Configure session",
+        "nameAndDescription": "Name and description",
+        "nameAndDescriptionHelperText": "These fields are inherited from the parent activity. Toggle customization to override with session-specific values.",
+        "details": {
+          "title": "Details",
+          "sessionName": "Sessie",
+          "description": "Beschrijving",
+          "overrideToggle": {
+            "label": "Customize name and description for this session",
+            "helperText": "By default, values are inherited from the activity."
+          },
+          "visibilitySelector": {
+            "title": "Choose whether this session will be visible on the Member Area",
+            "options": {
+              "visible": {
+                "label": "Listed",
+                "description": "Offering will be visible on the Member Area"
+              },
+              "hidden": {
+                "label": "Niet vermeld",
+                "description": "Offering won't be visible on the Member Area but can be shared directly via a link"
+              }
+            }
+          }
+        },
+        "settings": {
+          "title": "Instellingen",
+          "effectif": "Total spots in class",
+          "exceedsRoomCapacity": "The number of spots exceeds the room capacity.",
+          "waitlist": "Spots on Waitlist",
+          "credits": {
+            "label": "Credits",
+            "helperText": "Number of credits required to book the session",
+            "decimalHelperText": "This session will cost {{credits}} credits",
+            "warning": "Double-check: you’re entering credits, not a price."
+          },
+          "partnership": {
+            "toggle": "Make session available to book for customers from aggregators (ClassPass, Urban Sports Club, Gymlib, Wellhub and myClubs).",
+            "capacity": {
+              "label": "Allocated spots",
+              "helperText": "This limit only applies when using Wellhub, Urban Sports Club or myClubs — other aggregators aren’t affected.",
+              "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session."
+            },
+            "wellhub": {
+              "label": "Your available products on Wellhub",
+              "placeholder": "Select a Wellhub product...",
+              "helperText": "Deze producten worden door jouw studio aangeboden op het Wellhub platform. Ga naar het onderdeel 'Partnerschap' in de Partner Portal van je Wellhub account voor meer informatie.",
+              "error": "Wellhub product is required"
+            }
+          },
+          "level": {
+            "label": "Niveau",
+            "byDefault": "By default",
+            "custom": "Personalisatie",
+            "create": "Create a new level",
+            "add": "Add level",
+            "nameLabel": "Naam",
+            "colorLabel": "Kleur",
+            "confirmCreate": "Maak",
+            "cancel": "Sluiten",
+            "edit": "Edit level",
+            "save": "Opslaan",
+            "deleteTitle": "Delete level?",
+            "deleteMessage": "Existing sessions which have this level applied will remain unchanged, but future sessions will no longer be able to use it.",
+            "delete": "Verwijderen"
+          },
+          "hybrid": {
+            "label": "This session is hybrid (both on-site and online)",
+            "info": "Choosing this option will create an online session with a member limit of 100. Once it's created, you'll be able to edit the Broadcast link, membership, price, etc."
+          },
+          "teacherAndEstablishment": {
+            "title": "Teacher and establishment",
+            "teacher": {
+              "label": "Instructeur",
+              "placeholder": "Add a teacher..."
+            },
+            "payroll": {
+              "label": "Payroll-regel",
+              "placeholder": "Choose a rule..."
+            },
+            "establishment": {
+              "label": "Vestiging",
+              "placeholder": "Choose an establishment..."
+            },
+            "spotScheduling": {
+              "label": "Spot Scheduling",
+              "placeholder": "Choose an option...",
+              "helper": "Allow your students to book a spot in the room in advance",
+              "error": "Er moet een Spot Scheduling-layout voor de synchronisatie met Spivi geselecteerd worden"
+            },
+            "syncOnSpivi": "Automatically send the session details to Spivi"
+          },
+          "broadcast": {
+            "label": "Link naar de livestream",
+            "helperText": "The link will be generated automatically for Zoom by bsport",
+            "error": "The link is invalid. It should start with http:// or https:// and not contain any whitespace."
+          }
+        },
+        "timeAndDate": {
+          "title": "Tijd en datum",
+          "date": "Datum",
+          "time": "Uur",
+          "duration": {
+            "label": "Duur",
+            "minute": "min",
+            "hour": "Uur",
+            "day": "dag"
+          },
+          "recurrence": {
+            "toggle": "This session is recurrent",
+            "typeSelector": {
+              "label": "Interval",
+              "weekly": "Incassering: wekelijks",
+              "custom": "Custom..."
+            },
+            "weekdaysSelector": {
+              "label": "Repeat on",
+              "placeholder": "Choose recurring days..."
+            },
+            "endDate": "Einddatum",
+            "unit": {
+              "days": "Dagen",
+              "weeks": "Weken",
+              "months": "Maanden"
+            },
+            "interval": "Dit abonnement wordt ieder(e)",
+            "pattern": {
+              "label": "Rule",
+              "position": {
+                "1": "first",
+                "2": "second",
+                "3": "third",
+                "4": "fourth",
+                "-1": "Terug",
+                "nthWeekdayLabel": "Monthly on the {{position}} {{weekday}}",
+                "dayOfMonthLabel": "Monthly on day {{day}}"
+              },
+              "nthWeekday": "Nth weekday"
+            },
+            "info": "Er wordt {{count}} sessie aangemaakt",
+            "info_other": "Er worden {{count}} sessies aangemaakt",
+            "warning": "The recurrence settings are invalid. Only the initial session will be created. Adjust your settings to create recurring sessions."
+          },
+          "errors": {
+            "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",
+            "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future.",
+            "durationNull": "Duration must be greater than 0 minutes.",
+            "recurrenceType": "Please select a recurrence type",
+            "recurrenceEndDate": "Please select an end date",
+            "recurrenceEndDateBeforeStartDate": "End date must be after the start date",
+            "recurrenceWeekdays": "Please select at least one day of the week",
+            "recurrenceUnit": "Please select a recurrence unit (days, weeks, or months)",
+            "recurrenceInterval": "Please specify how often to repeat the session",
+            "recurrencePattern": "Please select a monthly recurrence pattern"
+          },
+          "wellhubWarning": "Sessions shared via Wellhub will be automatically shortened to a maximum of 200 minutes.",
+          "uscWarning": "Your integration with the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear there."
+        }
+      },
+      "advancedOptions": {
+        "label": "Advanced options",
+        "bookForAGuest": {
+          "title": "Booking for a guest",
+          "fieldLabel": "De reservering voor een gast autoriseren"
+        },
+        "tags": {
+          "title": "Tags",
+          "subTitle": "Use tags to make this session available only to certain segments of your member base.",
+          "addTags": "Add tags",
+          "whiteListTagsLabel": "Authorised members",
+          "blackListTagsLabel": "Unauthorised members"
+        }
+      }
+    },
+    "buttons": {
+      "cancel": "Sluiten",
+      "back": "Terug",
+      "createSession": "Sessies toevoegen",
+      "open": "Open"
+    },
+    "toasts": {
+      "sessionCreated_one": "Session created",
+      "sessionCreated_other": "Sessions created"
+    },
+    "errors": {
+      "requiredField": "Dit veld is verplicht",
+      "levelNameTooLong": "Level name cannot exceed 50 characters",
+      "generic": "An error occurred. Please try again.",
+      "create": "An error occurred while creating the session. Please try again later."
+    }
+  }
+}

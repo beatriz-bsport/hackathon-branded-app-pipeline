@@ -174,7 +174,10 @@ export {
 } from "./components/ProgressBar";
 export {
   default as RadioGroup,
+  RadioButton,
+  type RadioButtonProps,
   type RadioGroupProps,
+  type RadioOptionsProps,
 } from "./components/RadioGroup";
 export { default as Select, type SelectProps } from "./components/Select";
 export {

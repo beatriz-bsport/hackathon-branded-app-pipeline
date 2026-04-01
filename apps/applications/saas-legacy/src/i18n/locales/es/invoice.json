@@ -462,7 +462,10 @@
       "amountPaid": "Pagado",
       "amountDue": "Total debido",
       "title": "Resumen",
-      "amountBeingProcessed": "Importe en curso"
+      "amountBeingProcessed": "Importe en curso",
+      "plannedPaymentsAmount": "Pago programado",
+      "pendingPaymentsAmount": "Pago pendiente",
+      "amountReceived": "Pago recibido"
     },
     "date": {
       "label": "Fecha de recogida"
@@ -503,7 +506,9 @@
       "14": "Saldo del cliente (débito)",
       "15": "Tarjeta (manual)",
       "16": "Bacs Direct Debit",
-      "17": "PayPal"
+      "17": "PayPal",
+      "20": "Google Pay",
+      "19": "Apple Pay"
     },
     "select": {
       "label": "Método de pago",
@@ -598,7 +603,7 @@
         "931100": "Error al actualizar las claves de autenticación",
         "931101": "Quickbooks no puede enviarnos sus datos",
         "932000": "Tu cuenta ya no está autentificada en Bsport",
-        "932001": "Tu cuenta ya no está autentificada en Bsport",
+        "932001": "Tu cuenta ya no está autentificada en bsport",
         "932100": "No se puede acceder a la información de su cuenta de Quickbooks",
         "933000": "El miembro asociado a la factura no tiene la información necesaria para ser registrado en QuickBooks",
         "933100": "No se ha podido crear el cliente asociado al miembro de la factura",

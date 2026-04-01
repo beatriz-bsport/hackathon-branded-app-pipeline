@@ -1,0 +1,63 @@
+{
+  "searchMembers": {
+    "title": "Zoek profielen",
+    "addMember": "Profiel aanmaken",
+    "loading": "Resultaten laden...",
+    "emptySearch": "Zoek contacten of maak een nieuw profiel aan",
+    "tagsTooltip": "Tags:",
+    "segments": {
+      "active": "actief",
+      "archived": "Gearchiveerd"
+    },
+    "copyToClipboard": {
+      "action": "Klik om te kopiëren",
+      "copyEmail": "E-mail kopiëren",
+      "copyPhone": "Kopieer telefoonnummer",
+      "toasts": {
+        "phoneNumberCopied": "Telefoonnummer naar klembord gekopieerd",
+        "emailCopied": "Het emailadres van het leden is naar je klembord gekopieerd."
+      }
+    }
+  },
+  "temporaryPassword": {
+    "title": "Tijdelijk wachtwoord",
+    "description": "Je kunt een tijdelijk wachtwoord genereren en aanvragen dat tot 1 week geldig is om het te delen met ons Support Team voor assistentie. Je hoofd- en gebruikelijke wachtwoord wordt niet beïnvloed.",
+    "buttons": {
+      "close": "Sluiten",
+      "generate": "Genereer"
+    },
+    "generatedPassword": {
+      "copyToClipboard": "Kopieer het wachtwoord naar het klembord",
+      "copiedToClipboard": "Wachtwoord gekopieerd",
+      "validity": "Dit wachtwoord is geldig tot {{- expirationDate }}. Je hoofdwachtwoord is niet veranderd."
+    }
+  },
+  "attendance": {
+    "title": "Tijdklok",
+    "clockInForStaff": "Klok in voor een ander leden",
+    "buttons": {
+      "close": "Sluiten",
+      "clockIn": "Inklokken",
+      "clockOut": "Uitklokken"
+    },
+    "initial": {
+      "welcome": "Hallo {{ name }}!",
+      "clockInCTA": "Klik op 'Clock-in' om te beginnen."
+    },
+    "clockedIn": {
+      "successfulClockIn": "Je bent succesvol ingecheckt.",
+      "failedClockIn": "Je bent al ingecheckt.",
+      "clockOutCTA": "Je kunt op 'Clock-out' klikken om af te ronden."
+    },
+    "clockedOut": {
+      "successfulClockOut": "Je roosters zijn opgeslagen:",
+      "failedClockOut": "Mislukt om uit te klokken",
+      "nextIterationCTA": "Je kunt de volgende keer dat je dit venster opent een nieuwe Clock-in starten."
+    },
+    "schedule": {
+      "arrivalTime": "Aankomsttijd",
+      "departureTime": "Vertrektijd",
+      "hoursWorked": "Gewerkte uren"
+    }
+  }
+}

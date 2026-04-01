@@ -52,7 +52,10 @@
       "amountRemaining": "Pagamento pendente",
       "title": "Resumo",
       "amountDue": "Total devido",
-      "amountPaid": "Recibo"
+      "amountPaid": "Recibo",
+      "plannedPaymentsAmount": "Pagamento programado",
+      "pendingPaymentsAmount": "Pagamento pendente",
+      "amountReceived": "Pagamento recebido"
     },
     "date": {
       "label": "Data do recibo"
@@ -132,7 +135,9 @@
       "14": "Depósito dos membros (dívida)",
       "15": "Cartão (manual)",
       "16": "Caixas de débito direto",
-      "17": "PayPal"
+      "17": "PayPal",
+      "20": "Google Pay",
+      "19": "Apple Pay"
     },
     "isInternalExplainFuturePayments": "A data de vencimento será deduzida automaticamente do depósito do cliente. Se este valor for insuficiente, será criado um depósito negativo.",
     "detach": {

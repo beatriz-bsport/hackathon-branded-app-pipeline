@@ -5,7 +5,7 @@
       "explanation": "Agrupar a los miembros con un determinado importe en el saldo de sus cuentas",
       "third": "{{currencyDisplay }}",
       "second": " a   ",
-      "first": "El saldo del miembro es (factura no pagada no incluida)",
+      "first": "El saldo de la cuenta del miembro es (incluidas las facturas pendientes)",
       "name": "Deuda"
     },
     "5": {

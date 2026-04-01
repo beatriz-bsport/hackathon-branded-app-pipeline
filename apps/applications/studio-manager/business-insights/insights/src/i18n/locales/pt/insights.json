@@ -1,28 +1,47 @@
 {
   "pageTitle": "Insights",
   "sections": {
-    "member": "Insights dos Membros",
+    "communityMarketing": "Comunidade e Marketing",
     "financial": "Saúde Financeira",
-    "booking": "Desempenho de Reservas",
-    "teacher": "Desempenho do Professor",
-    "marketing": "Desempenho de Marketing"
+    "operations": "Operações"
   },
   "items": {
     "trial": {
-      "title": "Acompanhe o desempenho da oferta de teste",
-      "description": "Descubra mais sobre aquisição, taxas de conversão e como você pode aumentar a eficácia da sua oferta de teste."
+      "title": "Aquisição e Conversão",
+      "description": "Veja como as primeiras compras se convertem em clientes recorrentes e identifique onde as desistências acontecem"
+    },
+    "community_health": {
+      "title": "Retenção de Clientes",
+      "description": "Entenda a atividade, o churn e a retenção de clientes em seu estúdio"
     },
     "recurring": {
-      "title": "Monitorar o Desempenho das Assinaturas",
+      "title": "Subscrições",
       "description": "Acompanhe a saúde das assinaturas, analise a receita recorrente e identifique riscos ou oportunidades"
+    },
+    "booking": {
+      "title": "Reservas e demanda",
+      "description": "Explore a atividade de reservas, o comportamento do cliente e as tendências de demanda para tomar decisões de receita mais inteligentes"
+    },
+    "schedule": {
+      "title": "Agendamento",
+      "description": "Acompanhe as taxas de ocupação, a presença e a receita gerada nas suas aulas"
     }
   },
   "pages": {
     "trialAnalysis": {
-      "title": "Desempenho da oferta de teste"
+      "title": "Aquisição e Conversão"
+    },
+    "communityHealth": {
+      "title": "Retenção de Clientes"
     },
     "recurringRevenue": {
-      "title": "Monitorar o Desempenho das Assinaturas"
+      "title": "Subscrições"
+    },
+    "bookingInsight": {
+      "title": "Reservas e Demanda"
+    },
+    "scheduleAnalysis": {
+      "title": "Agendamento"
     }
   },
   "errors": {

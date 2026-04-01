@@ -1,1 +1,63 @@
-{}
+{
+  "searchMembers": {
+    "title": "Buscar perfiles",
+    "addMember": "Crear perfil",
+    "loading": "Cargando resultados...",
+    "emptySearch": "Busca contactos o crea un nuevo perfil",
+    "tagsTooltip": "Etiquetas",
+    "segments": {
+      "active": "Activo",
+      "archived": "Archivado"
+    },
+    "copyToClipboard": {
+      "action": "Haz clic para copiar",
+      "copyEmail": "Copia correo",
+      "copyPhone": "Copiar teléfono",
+      "toasts": {
+        "phoneNumberCopied": "Número de teléfono copiado al portapapeles",
+        "emailCopied": "El correo del miembro se copió a tu portapapeles"
+      }
+    }
+  },
+  "temporaryPassword": {
+    "title": "Contraseña temporal",
+    "description": "Puedes generar y solicitar una contraseña temporal que será válida por hasta 1 semana para compartirla con nuestro equipo de soporte para obtener ayuda. Tu contraseña principal y habitual no se verá afectada.",
+    "buttons": {
+      "close": "Cerrar",
+      "generate": "Generar"
+    },
+    "generatedPassword": {
+      "copyToClipboard": "Copia la contraseña al portapapeles",
+      "copiedToClipboard": "Contraseña copiada",
+      "validity": "Esta contraseña es válida hasta {{- expirationDate }}. Tu contraseña principal no ha cambiado."
+    }
+  },
+  "attendance": {
+    "title": "Reloj de tiempo",
+    "clockInForStaff": "Fichar por otro miembros del personal",
+    "buttons": {
+      "close": "Cerrar",
+      "clockIn": "Fichar",
+      "clockOut": "Registrar salida"
+    },
+    "initial": {
+      "welcome": "¡Hola {{ name }}!",
+      "clockInCTA": "Por favor, haz clic en 'Clock-in' para comenzar;"
+    },
+    "clockedIn": {
+      "successfulClockIn": "Has registrado tu entrada con éxito.",
+      "failedClockIn": "Ya estás registrado.",
+      "clockOutCTA": "Puedes hacer clic en 'Clock-out' para finalizar."
+    },
+    "clockedOut": {
+      "successfulClockOut": "Tus horarios han sido guardados:",
+      "failedClockOut": "Error al registrar la salida",
+      "nextIterationCTA": "Puedes comenzar un nuevo registro la próxima vez que abras esta ventana."
+    },
+    "schedule": {
+      "arrivalTime": "Hora de llegada",
+      "departureTime": "Hora de salida",
+      "hoursWorked": "Horas trabajadas"
+    }
+  }
+}

@@ -76,7 +76,8 @@
     "1102": "Verwijzingsbeloning beschikbaar (verwijzend lid)",
     "1200": "Betalingsmethode vervaldatum eerste herinnering voor betalingen op afbetaling",
     "1201": "Betalingsmethode vervaldatum tweede herinnering voor betalingen op afbetaling",
-    "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen."
+    "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
+    "309": "Bevestiging van dubbele opt-in van leden"
   },
   "tag": {
     "BookingOption": {
@@ -418,6 +419,7 @@
     "200": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
     "201": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
     "1200": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
-    "1201": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden"
+    "1201": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
+    "309": "Deze e-mail wordt naar leden gestuurd om hun toestemming voor het ontvangen van marketingmails te bevestigen (dubbele bevestiging). Om deze functie te gebruiken, schakel je dubbele bevestiging voor marketingmails in via Instellingen > Personalisatie > Marketing."
   }
 }

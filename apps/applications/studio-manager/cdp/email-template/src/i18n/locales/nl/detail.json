@@ -24,7 +24,7 @@
     "bsportTemplateInfo": {
       "title": "bsport sjablonen",
       "description": {
-        "firstStep": "Dupliceer de sjabloon die je wilt gebruiken, bewerk het en stuur de gekopieerde versie direct vanaf deze pagina naar leden. ",
+        "firstStep": "Dupliceer het sjabloon dat je wilt gebruiken, bewerk het vervolgens en stuur de gekopieerde versie naar je contacten.",
         "secondStep": "Selecteer vervolgens de kopie van de email bij het verzenden van een communicatie."
       },
       "quit": "Stoppen"
@@ -56,8 +56,8 @@
       "title": "Email sjabloon opgeslagen"
     },
     "error": {
-      "missingFields": "Selecteer een categorie om je sjabloon op te slaan",
-      "problemWhileSaving": "Kan wijzigingen niet opslaan - probeer het opnieuw."
+      "missingFields": "Je kon wijzigingen niet opslaan: ",
+      "problemWhileSaving": "Je kunt wijzigingen niet opslaan. Probeer het opnieuw."
     }
   },
   "leaveConfirmationModal": {
@@ -69,17 +69,17 @@
     "label": "Emailonderwerp",
     "placeholder": "Voeg een emailonderwerp toe",
     "error": {
-      "notProvided": "Dit is vereist om door te gaan",
+      "notProvided": "Toevoegen een emailonderwerp toe om je Sjabloon op te slaan",
       "tooLong": "E-mailonderwerp te lang"
     }
   },
   "templateDesign": {
     "error": {
-      "notProvided": "Geen sjabloonontwerp beschikbaar"
+      "notProvided": "Voeg inhoud toe aan je emailsjabloon om het op te slaan"
     }
   },
   "templateCategory": {
     "label": "Categorie",
-    "noCategory": "Selecteer een categorie"
+    "noCategory": "Naamloze categorie"
   }
 }

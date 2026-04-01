@@ -462,7 +462,10 @@
       "amountPaid": "Incasso",
       "amountDue": "Totale dovuto",
       "title": "Riepilogo",
-      "amountBeingProcessed": "Importo in lavorazione"
+      "amountBeingProcessed": "Importo in lavorazione",
+      "plannedPaymentsAmount": "Pagamento previsto",
+      "pendingPaymentsAmount": "Pagamento in sospeso",
+      "amountReceived": "Pagamento ricevuto"
     },
     "date": {
       "label": "Data di incasso"
@@ -503,7 +506,9 @@
       "14": "Acconto del cliente (debito)",
       "15": "Carta (manuale)",
       "16": "Bacs Direct Debit",
-      "17": "PayPal"
+      "17": "PayPal",
+      "20": "Google Pay",
+      "19": "Apple Pay"
     },
     "select": {
       "label": "Metodo di pagamento",

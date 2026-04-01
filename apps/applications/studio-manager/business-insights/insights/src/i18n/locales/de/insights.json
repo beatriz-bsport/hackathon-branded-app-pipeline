@@ -1,28 +1,47 @@
 {
   "pageTitle": "Erkenntnisse",
   "sections": {
-    "member": "Mitglieder-Erkenntnisse",
+    "communityMarketing": "Community & Marketing",
     "financial": "Finanzielle Gesundheit",
-    "booking": "Buchungsleistung",
-    "teacher": "Lehrerleistung",
-    "marketing": "Marketing-Performance"
+    "operations": "Betrieb"
   },
   "items": {
     "trial": {
-      "title": "Leistung des Testangebots verfolgen",
-      "description": "Erfahre mehr über Neuanmeldungen, Konversionsraten und wie du dein Testangebot optimieren kannst"
+      "title": "Akquise & Conversion",
+      "description": "Sieh, wie Erstkäufe zu Stamm-Kontakten werden und wo Abbrüche passieren"
+    },
+    "community_health": {
+      "title": "Kundenbindung",
+      "description": "Verstehe die Aktivität, Abwanderung und Kundenbindung deiner Mitglieder in deinem Studio"
     },
     "recurring": {
-      "title": "Abo-Statistiken",
+      "title": "Abonnements",
       "description": "Schau dir deine Abo-Kennzahlen an, analysiere wiederkehrende Einnahmen und entdecke Risiken und Chancen"
+    },
+    "booking": {
+      "title": "Buchungen und Nachfrage",
+      "description": "Erkunde Buchungsaktivitäten, Kundenverhalten und Nachfragetrends, um intelligentere Umsatzentscheidungen zu treffen"
+    },
+    "schedule": {
+      "title": "Terminplanung",
+      "description": "Verfolge die Auslastung, Anwesenheit und den erzielten Umsatz deiner Kurse"
     }
   },
   "pages": {
     "trialAnalysis": {
-      "title": "Übersicht des Probeangebots"
+      "title": "Akquise & Conversion"
+    },
+    "communityHealth": {
+      "title": "Kundenbindung"
     },
     "recurringRevenue": {
-      "title": "Abo-Statistiken"
+      "title": "Abonnements"
+    },
+    "bookingInsight": {
+      "title": "Buchungen und Nachfrage"
+    },
+    "scheduleAnalysis": {
+      "title": "Terminplanung"
     }
   },
   "errors": {

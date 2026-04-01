@@ -1,0 +1,109 @@
+{
+  "noData": "N/A",
+  "drawer": {
+    "overview": "Buchen",
+    "segmentedControl": {
+      "performance": "Performance",
+      "trigger": "Auslöser",
+      "content": "Inhalt"
+    },
+    "missingEmailTemplate": "Die mit dieser Automatisierung verknüpfte E-Mail-Vorlage wurde gelöscht. Füge eine neue hinzu, um die Automatisierung wiederherzustellen.",
+    "content": {
+      "email": {
+        "title": "E-Mail",
+        "noPreview": "Richte deine E-Mail ein und sieh dir hier die Vorschau an"
+      },
+      "push": {
+        "title": "Push-Benachrichtigung",
+        "noPreview": "Richte deine Push-Benachrichtigung ein und sieh dir hier die Vorschau an"
+      }
+    },
+    "trigger": {
+      "title": "Benachrichtigungsregel",
+      "content": {
+        "triggeredBy": "Bedingung",
+        "triggeredWhen": "Lieferzeitpunkt",
+        "smartlist": {
+          "excluding": "Send nicht an Kontakte in diesen Smartlists",
+          "including": "Nur an Kontakte in diesen Smartlists senden",
+          "noSmartlistsFiltering": "Nein"
+        },
+        "passes": {
+          "title": "Zugeordnete Kurspässe",
+          "credits_one": "{{count}} Credit",
+          "credits_other": "{{count}} Credits",
+          "allIncluded": {
+            "title": "Alle Kurspässe sind inbegriffen",
+            "description": "Diese Benachrichtigung wird bei jedem Kurspass ausgelöst."
+          },
+          "emptyList": {
+            "title": "Keine Kurspässe enthalten",
+            "description": "Aktualisiere diese Benachrichtigung, um Kurspässe als Auslöser hinzuzufügen."
+          }
+        }
+      }
+    },
+    "performance": {
+      "contentPreviewModal": {
+        "title": "Inhalt",
+        "buttons": {
+          "confirm": "Schließen"
+        }
+      },
+      "emails": {
+        "title": "E-Mails",
+        "totalEmailsSent": "Gesamtzahl der gesendeten E-Mail",
+        "recipientsTotal_one": "({{count}} Mitglied)",
+        "recipientsTotal_other": "({{count}} Mitglieder)",
+        "openRate": "Öffnungsrate"
+      },
+      "allNotifications": {
+        "title": "Alle Benachrichtigungen",
+        "noCommunications": {
+          "title": "Es wurden keine Mitteilungen gesendet",
+          "description": "Es gibt noch keine Empfänger für diese Benachrichtigung."
+        },
+        "helper": {
+          "title": "Leistungsstatus",
+          "content": "Diese Zusammenfassung zeigt die Leistung sowohl von E-Mail als auch von Push-Benachrichtigungen, indem sie deren Status anzeigt.",
+          "status": {
+            "sent": {
+              "label": "Gesendet",
+              "description": "Erfolgreich zugestellt"
+            },
+            "opened": {
+              "label": "Geöffnet",
+              "description": "Empfänger hat die Benachrichtigung geöffnet"
+            },
+            "failed": {
+              "label": "Fehlgeschlagen",
+              "description": "Konnte nicht zugestellt werden. Bitte versuche es erneut. "
+            },
+            "noData": {
+              "label": "N/A",
+              "description": "Konnte Kommunikationsdaten nicht abrufen. Bitte versuche es erneut. "
+            }
+          }
+        },
+        "table": {
+          "header": {
+            "date": "Datum",
+            "recipient": "Empfänger",
+            "status": "Status"
+          },
+          "recipients": {
+            "forwardedToRelationships": "Weitergeleitet an {{count}} Beziehungen"
+          },
+          "tooltip": {
+            "relatedMember": "Insgesamt gezählte gesendete E-Mails"
+          }
+        },
+        "status": {
+          "sent": "Gesendet",
+          "opened": "Geöffnet",
+          "failed": "Fehlgeschlagen"
+        }
+      }
+    }
+  }
+}

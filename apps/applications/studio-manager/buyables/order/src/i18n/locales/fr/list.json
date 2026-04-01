@@ -1,1 +1,30 @@
-{}
+{
+  "pageTitle": "Commandes",
+  "header": {
+    "searchTooltip": "Rechercher sur cette page",
+    "filters": {
+      "operators": {
+        "is": "est"
+      }
+    }
+  },
+  "table": {
+    "headers": {
+      "lastDateUpdated": "Dernière mise à jour",
+      "buyer": "Acheteur",
+      "orderStatus": "Statut",
+      "quantity": "Quantité",
+      "total": "Total",
+      "dateCreated": "Créé"
+    },
+    "loading": "Chargement des commandes ...",
+    "emptyState": {
+      "title": "Pas encore de commandes",
+      "emptyDatabase": "Une fois que les contacts achètent des produits dans votre magasin, vous pouvez suivre et gérer les commandes sur cette page. ",
+      "emptySearch": "Il n'y a actuellement aucune commande marquée comme {{ status }}."
+    },
+    "rows": {
+      "memberArchived": "Archivé"
+    }
+  }
+}

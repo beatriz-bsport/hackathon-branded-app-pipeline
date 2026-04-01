@@ -24,7 +24,7 @@
     "bsportTemplateInfo": {
       "title": "modelos bsport",
       "description": {
-        "firstStep": "Duplique o modelo que você deseja usar, depois edite e envie a versão copiada para os Membros diretamente desta página. ",
+        "firstStep": "Duplique o modelo que você deseja usar, depois edite e envie a versão copiada para seus clientes.",
         "secondStep": "Em seguida, selecione a cópia do e-mail ao enviar uma comunicação."
       },
       "quit": "Sair"
@@ -56,8 +56,8 @@
       "title": "E-mail modelos salvo"
     },
     "error": {
-      "missingFields": "Seleciona uma categoria para salvar seu modelo",
-      "problemWhileSaving": "Não foi possível salvar as alterações - por favor, tente novamente"
+      "missingFields": "Não foi possível salvar suas alterações: ",
+      "problemWhileSaving": "Não foi possível salvar as alterações. Por favor, tente novamente"
     }
   },
   "leaveConfirmationModal": {
@@ -69,17 +69,17 @@
     "label": "Assunto do e-mail",
     "placeholder": "Adicione um assunto ao e-mail",
     "error": {
-      "notProvided": "Isso é necessário para continuar",
+      "notProvided": "Adicione um assunto ao e-mail para salvar seu modelo",
       "tooLong": "Assunto do e-mail muito longo"
     }
   },
   "templateDesign": {
     "error": {
-      "notProvided": "Nenhum design de template fornecido"
+      "notProvided": "Adicionar conteúdo ao seu modelo de e-mail para salvá-lo"
     }
   },
   "templateCategory": {
     "label": "Categoria",
-    "noCategory": "Selecione uma categoria"
+    "noCategory": "Nenhuma categoria"
   }
 }

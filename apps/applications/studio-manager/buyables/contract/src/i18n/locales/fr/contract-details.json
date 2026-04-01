@@ -1,0 +1,75 @@
+{
+  "header": {
+    "loading": "Loading Contract...",
+    "breadcrumbs": {
+      "contracts": "Contrats"
+    },
+    "tabs": {
+      "editor": "Éditeur",
+      "overview": "Aperçu",
+      "pauses": "Pauses"
+    }
+  },
+  "canNotFindContract": {
+    "title": "Couldn't retrieve Contract",
+    "goToListPage": "See Contracts"
+  },
+  "formFields": {
+    "errors": {
+      "fieldIsRequired": "Ce champ est obligatoire"
+    },
+    "name": {
+      "errorMaxLength": "Name length must be under {{ maxLength }} characters.",
+      "label": "Nom"
+    },
+    "description": {
+      "label": "Description"
+    },
+    "tax": {
+      "label": "Sales / VAT"
+    },
+    "joinFee": {
+      "label": "Join fee",
+      "helperText": "Joining fee will be included in the first invoice"
+    },
+    "recurringAmount": {
+      "label": "Recurring amount",
+      "helperText": "Tax included"
+    },
+    "billingCycle": {
+      "radioPurchaseDay": {
+        "label": "Invoice on purchase day",
+        "tooltip": "Member's first invoice will be sent on the date of purchase.",
+        "sublabel": "Billing interval"
+      },
+      "radioFixedDay": {
+        "label": "Invoice on fixed day",
+        "tooltip": "Member's first invoice will be sent on the chosen date and pro-rated if necessary.",
+        "sublabel": "Every month on"
+      }
+    }
+  },
+  "intervals": {
+    "day": "",
+    "day_one": "Jour",
+    "day_other": "Jours",
+    "week": "",
+    "week_one": "Semaine",
+    "week_other": "Semaines",
+    "month": "",
+    "month_one": "Mois",
+    "month_other": "Mois",
+    "year": "",
+    "year_one": "Année",
+    "year_other": "Années"
+  },
+  "formSections": {
+    "price": "Prix",
+    "billingCycle": "Billing Cycle"
+  },
+  "editor": {
+    "submit": {
+      "error": "Failed to update Contract"
+    }
+  }
+}

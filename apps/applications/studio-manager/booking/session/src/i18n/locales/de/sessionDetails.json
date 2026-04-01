@@ -1,0 +1,23 @@
+{
+  "loading": "Sitzungsdetails werden geladen...",
+  "tabs": {
+    "editor": "Editor",
+    "overview": "Übersicht"
+  },
+  "header": {
+    "listedSessionChip": "Gelistet",
+    "unlistedSessionChip": "Ausgeblendet",
+    "cancelledSessionChip": "Storniert",
+    "subtitle": "{{date}}  ·  {{startTime}} – {{endTime}} ({{duration}}min)",
+    "subtitleMultiDay": "{{date}}  ·  {{startTime}} – {{duration}}",
+    "breadcrumbs": "Kalender"
+  },
+  "table": {
+    "datetime": {
+      "shortDayIdentifier_one": "Tag",
+      "shortDayIdentifier_other": "Tage",
+      "shortHourIdentifier": "h",
+      "shortMinuteIdentifier": "Min."
+    }
+  }
+}

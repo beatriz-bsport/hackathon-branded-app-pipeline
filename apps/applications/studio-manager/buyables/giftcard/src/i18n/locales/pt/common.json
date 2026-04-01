@@ -1,44 +1,44 @@
 {
   "pages": {
     "list": "Cartões de Presente",
-    "archivedList": "Arquivo de Cartões-presente"
+    "archivedList": "Archived gift cards"
   },
   "listPage": {
     "header": {
       "buttons": {
-        "addGiftcard": "Adicionar Cartão-presente",
+        "addGiftcard": "Criar cartão-presente",
         "openBankImage": "Biblioteca de imagens"
       }
     },
     "empty": {
-      "title": "Ainda não há Cartões-presente",
-      "subtitle": "Crie Cartões-presente para os Membros compartilharem com amigos e familiares"
+      "title": "Ainda não há cartões de presente",
+      "subtitle": "Criar cartões de presente para os Membros compartilharem com amigos e familiares"
     },
     "archiveModal": {
-      "title": "Arquivar Cartão-presente?",
+      "title": "Arquivar cartões de presente?",
       "description": {
         "lineOne": "'{{ name }}' não estará mais visível para os membros, mas as compras atuais ou anteriores não serão afetadas.",
-        "lineTwo": "Você pode restaurar este cartão-presente a qualquer momento do seu arquivo."
+        "lineTwo": "Você pode restaurar este cartão de presente a qualquer momento do seu arquivo."
       },
       "buttons": {
-        "cancel": "Anterior",
+        "cancel": "Manter",
         "archive": "Arquivar"
       }
     },
     "duplicateModal": {
-      "title": "Duplicar Cartão-presente?",
+      "title": "Duplicar cartão-presente?",
       "description": {
         "action": "Você pode editar '{{ nome }}' uma vez duplicado."
       },
       "buttons": {
-        "cancel": "Anterior",
+        "cancel": "Fechar",
         "duplicate": "Duplicar"
       }
     }
   },
   "archivedListPage": {
     "empty": {
-      "title": "Sem Cartões-presente arquivados"
+      "title": "Não há Cartões de presente arquivados"
     }
   },
   "toasts": {
@@ -46,15 +46,15 @@
       "restoreGiftcard": "Cartão-presente restaurado",
       "archiveGiftcard": "Cartão-presente arquivado",
       "duplicateGiftcard": "Cartão-presente duplicado",
-      "deleteGiftcardImage": "Imagem do Cartão-presente excluída",
-      "undoAction": "Ação desfeita"
+      "deleteGiftcardImage": "Imagem do cartão-presente eliminada",
+      "undoAction": "Mudança desfeita"
     },
     "errorMessages": {
-      "restoreGiftcard": "Não foi possível restaurar o Cartão-presente, por favor, tente novamente",
-      "archiveGiftcard": "Não foi possível arquivar o Cartão-presente, por favor, tente novamente",
-      "duplicateGiftcard": "Não foi possível duplicar o Cartão-presente, por favor, tente novamente",
-      "undoAction": "Não foi possível desfazer a ação, por favor tente novamente",
-      "deleteGiftcardImage": "Não foi possível excluir a imagem do Cartão-presente, por favor, tente novamente"
+      "restoreGiftcard": "O cartão-presente não pôde ser restaurado. Por favor, tente novamente. ",
+      "archiveGiftcard": "O cartão-presente não pôde ser arquivado. Por favor, tente novamente. ",
+      "duplicateGiftcard": "Não foi possível duplicar o cartão-presente. Por favor, tente novamente. ",
+      "undoAction": "A alteração não pode ser anulada. Por favor, tente novamente. ",
+      "deleteGiftcardImage": "A imagem do cartão-presente não pôde ser eliminada. Por favor, tente novamente."
     },
     "actions": {
       "undo": "Desfazer",
@@ -69,25 +69,32 @@
       "price": "Preço"
     },
     "values": {
-      "unavailable": "Oculto",
-      "shared": "Visível",
-      "unlimited": "Ilimitado",
-      "expireInXDays": "{{ expiration }} dias"
+      "unlisted": "Não listado",
+      "shared": "Central",
+      "expireInXDays": "{{ expiration }} dias",
+      "customAmount": "Personalização"
     },
     "tooltips": {
-      "archive": "Arquivar Cartão-presente",
+      "archive": "Arquivar cartão-presente",
       "duplicate": "Duplicar Cartão-presente",
       "restore": "Restaurar Cartão-presente",
-      "shared": "Item criado a partir da Conta de Administrador",
-      "unavailable": "Não visível na Área de Membro"
+      "shared": "Cartão-presente criado a partir da Conta Principal",
+      "unlisted": "Cartões de presente não listados na Área de Membro"
     },
     "loading": "Carregando Cartões De Presente"
+  },
+  "list": {
+    "actions": {
+      "archive": "Arquivo",
+      "duplicate": "Duplicar",
+      "restore": "Recuperar"
+    }
   },
   "imageUploadModal": {
     "title": "Biblioteca de imagens",
     "uploadButton": "Carregar imagem",
-    "description": "Adicione imagens personalizadas à sua biblioteca para que seus membros possam personalizar seus Cartões De Presente. ",
-    "selectImage": "Selecione uma imagem para visualizá-la no design do Cartão-presente",
+    "description": "Adicionar imagens personalizadas à sua biblioteca para que seus membros possam personalizar seus cartões de presente",
+    "selectImage": "Selecione uma imagem para visualizá-la no design do cartão-presente",
     "emptyList": "Ainda não há imagens personalizadas"
   }
 }

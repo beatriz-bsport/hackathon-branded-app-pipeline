@@ -19,7 +19,7 @@
       "description": "Track health of subscriptions, analyse recurring revenue, and spot risks or opportunities"
     },
     "booking": {
-      "title": "Bookings and Demand",
+      "title": "Bookings & Demand",
       "description": "Explore booking activity, client behavior, and demand trends to drive smarter revenue decisions"
     },
     "schedule": {
@@ -38,7 +38,7 @@
       "title": "Subscriptions"
     },
     "bookingInsight": {
-      "title": "Bookings and Demand"
+      "title": "Bookings & Demand"
     },
     "scheduleAnalysis": {
       "title": "Scheduling"

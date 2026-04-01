@@ -57,5 +57,5 @@ env.REACT_APP_DIDOMI_NOTICE_ID = 'FT99WiD7';
 
 env.REACT_APP_UNLAYER_PROJECT_ID = '4736';
 
-env.REACT_APP_UNLEASH_PROXY_URL = 'http://localhost:4242/api/frontend'
-env.REACT_APP_UNLEASH_CLIENT_KEY = 'default:development.unleash-insecure-frontend-api-token'
+env.REACT_APP_UNLEASH_PROXY_URL = 'https://unleash.tooling.bsport.io/api/frontend'
+env.REACT_APP_UNLEASH_CLIENT_KEY = 'default:development.33c0b79cf07ad244a1d63da1126b2306bc47f3c56f8f01637119d864'

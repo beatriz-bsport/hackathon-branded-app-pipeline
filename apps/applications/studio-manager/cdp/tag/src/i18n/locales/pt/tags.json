@@ -1,0 +1,278 @@
+{
+  "page": {
+    "title": "Etiquetas",
+    "filters": {
+      "label": "Categoria",
+      "operators": {
+        "is": "é",
+        "isNot": "não é"
+      }
+    },
+    "actions": {
+      "createTagGroup": {
+        "label": "Adicionar categoria"
+      },
+      "createTag": {
+        "label": "Criar tag"
+      }
+    },
+    "loadingState": {
+      "message": "Carregando tags..."
+    },
+    "emptyFilteredPageState": {
+      "title": "Nenhuma tag encontrada",
+      "description": "Tente limpar os filtros para ver mais resultados",
+      "secondaryButtonLabel": "Limpar filtros"
+    },
+    "emptyPageState": {
+      "title": "Ainda não há tags",
+      "description": "Criar tags para rastrear e direcionar seus clientes"
+    },
+    "emptyMainTagState": {
+      "description": "Você ainda não criou nenhuma tag nesta categoria"
+    }
+  },
+  "tagGroupList": {
+    "actions": {
+      "addSubTag": "Criar Etiqueta",
+      "rename": "Renomear",
+      "delete": "Excluir"
+    },
+    "items": {
+      "tooltip": {
+        "delete": "Excluir"
+      }
+    }
+  },
+  "tagGroupModal": {
+    "title": {
+      "add": "Adicionar categoria",
+      "update": "Editar categoria"
+    },
+    "formField": {
+      "tagGroupName": {
+        "label": "Nome",
+        "placeholder": "Dê um nome à sua categoria",
+        "errors": {
+          "required": "Digite um nome para esta categoria para continuar",
+          "alreadyInUse": "Nome já em uso",
+          "tooLong": "O nome deve ter menos de {{ max }} caracteres",
+          "tooShort": "O nome deve ter pelo menos {{ min }} caracteres"
+        }
+      }
+    },
+    "actions": {
+      "add": "Adicionar",
+      "update": "Salvar",
+      "cancel": "Fechar",
+      "goTo": "Ver categoria"
+    },
+    "result": {
+      "createSuccess": {
+        "title": "Categoria criada"
+      },
+      "updateSuccess": {
+        "title": "Categoria atualizada"
+      },
+      "updateFailure": {
+        "title": "Não foi possível atualizar a categoria devido a um problema técnico. Por favor, tente novamente ou entre em contato com o suporte. "
+      },
+      "createFailure": {
+        "title": "Não foi possível criar a categoria. Por favor, tente novamente. "
+      }
+    }
+  },
+  "tagModal": {
+    "title": {
+      "create": "Criar etiqueta",
+      "update": "Editar etiqueta"
+    },
+    "formField": {
+      "mainTagAssociated": {
+        "label": "Categoria",
+        "placeholder": "Selecione uma categoria",
+        "errors": {
+          "required": "A etiqueta deve ter uma categoria"
+        }
+      },
+      "tagName": {
+        "label": "Etiqueta",
+        "placeholder": "Dê um nome à sua etiqueta",
+        "errors": {
+          "required": "Digite um nome para esta etiqueta ",
+          "alreadyInUse": "Nome já em uso",
+          "tooLong": "O nome deve ter menos de {{ max }} caracteres",
+          "tooShort": "O nome deve ter pelo menos {{ min }} caracteres"
+        }
+      },
+      "tagColor": {
+        "label": "Cor",
+        "placeholder": "#FFFFFF"
+      }
+    },
+    "actions": {
+      "create": "Criar",
+      "update": "Atualizar",
+      "cancel": "Fechar",
+      "goTo": "Ver etiqueta"
+    },
+    "result": {
+      "createSuccess": {
+        "title": "Etiqueta criado"
+      },
+      "createFailure": {
+        "title": "Não foi possível salvar a tag. Por favor, tente novamente. "
+      },
+      "updateSuccess": {
+        "title": "Tag atualizada"
+      },
+      "updateFailure": {
+        "title": "Não foi possível atualizar a tag. Por favor, tente novamente. "
+      }
+    }
+  },
+  "deleteMainTagModal": {
+    "title": "Eliminar categoria permanentemente?",
+    "description": "Excluir esta categoria removerá permanentemente quaisquer tags associadas de {{ number }} Clientes",
+    "alerts": {
+      "tagInUse": {
+        "description": "Atenção: excluir esta categoria também removerá as regras de tags relacionadas que ainda estão ativas em fluxos de trabalho condicionais, como Audience ou Smartlists",
+        "confirmCheckbox": {
+          "label": "Marque para confirmar: ",
+          "description": "Entendo que eliminar esta categoria removerá permanentemente as tags associadas e que isso pode afetar qualquer fluxo de trabalho condicional em que elas sejam usadas.",
+          "confirmButtonTooltip": "Verifique o impacto desta mudança antes de continuar"
+        }
+      }
+    },
+    "actions": {
+      "confirm": "Excluir",
+      "cancel": "Manter"
+    },
+    "result": {
+      "success": {
+        "title": "Categoria excluída"
+      },
+      "failure": {
+        "title": "Não foi possível eliminar a categoria. Por favor, tente novamente ou verifique se ela está sendo usada em fluxos de trabalho condicionais."
+      }
+    }
+  },
+  "deleteSubTagModal": {
+    "title": "Eliminar permanentemente a tag?",
+    "description": "Excluir esta tag a removerá permanentemente de {{number}} Clientes a que está atribuída.",
+    "alerts": {
+      "tagInUse": {
+        "description": "Atenção: eliminar esta tag também afetará quaisquer fluxos de trabalho condicionais em que ela é usada (como Smartlists ou Audience)",
+        "confirmCheckbox": {
+          "label": "Marque para confirmar:",
+          "description": "Entendo que excluir esta tag é uma mudança permanente que pode afetar quaisquer fluxos de trabalho associados.",
+          "confirmButtonTooltip": "Verifique o impacto desta mudança antes de continuar"
+        }
+      }
+    },
+    "actions": {
+      "confirm": "Excluir",
+      "cancel": "Manter"
+    },
+    "result": {
+      "success": {
+        "title": "Tag excluído"
+      },
+      "failure": {
+        "title": "Não foi possível eliminar a tag. Por favor, tente novamente ou verifique se ela está sendo usada em fluxos de trabalho condicionais."
+      }
+    }
+  },
+  "tagsDetails": {
+    "members": "Clientes",
+    "actions": {
+      "tagAll": "Etiquetar todos",
+      "untagAll": "Desmarcar todos",
+      "edit": "Editar"
+    },
+    "tooltip": {
+      "close": "Fechar",
+      "tagMember": "Etiquetar cliente",
+      "untagMember": "Desmarcar cliente",
+      "editTag": "Alterar nome ou cor",
+      "previousSubTag": "Ver tag anterior",
+      "nextSubTag": "Ver próxima tag"
+    },
+    "segmentedControl": {
+      "tagged": "Marcado",
+      "untagged": "Desmarcado"
+    },
+    "memberList": {
+      "actions": {
+        "tag": {
+          "success": {
+            "title": "Cliente marcado"
+          },
+          "failure": {
+            "title": "Não foi possível marcar o cliente. Por favor, tente novamente. "
+          }
+        },
+        "untag": {
+          "success": {
+            "title": "Cliente desmarcado"
+          },
+          "failure": {
+            "title": "Não foi possível marcar o cliente. Por favor, tente novamente."
+          }
+        }
+      },
+      "loadingState": {
+        "tagged": "Carregando clientes marcados...",
+        "untagged": "Carregando clientes não etiquetados..."
+      },
+      "emptyState": {
+        "title": {
+          "tagged": "Nenhum clientes etiquetado ainda",
+          "untagged": "Nenhum cliente desmarcado ainda"
+        },
+        "description": {
+          "untagged": "Marque os clientes clicando no ícone '+' ao lado do nome deles na lista sem marcação",
+          "tagged": "Desmarque clientes clicando no ícone '-' ao lado do nome deles na lista marcada"
+        }
+      }
+    }
+  },
+  "updateMemberTagBatchModal": {
+    "title": {
+      "tag": "Etiquetar todos?",
+      "untag": "Desmarcar todos?"
+    },
+    "description": {
+      "tag": "Adicionar a tag {{tagName}} a {{number}} Clientes?",
+      "untag": "Remover a tag {{tagName}} de {{number}} Clientes?"
+    },
+    "actions": {
+      "tag": "Etiquetar todos",
+      "untag": "Desmarcar todos",
+      "cancel": "Fechar",
+      "undo": "Desfazer"
+    },
+    "loading": {
+      "tag": "Marcando {{number}} clientes...",
+      "untag": "Desmarcando {{number}} clientes..."
+    },
+    "results": {
+      "tag": {
+        "success": {
+          "title": "Todos os clientes marcados"
+        },
+        "failure": {
+          "title": "Não foi possível marcar os clientes. Por favor, tente novamente. "
+        }
+      },
+      "untag": {
+        "success": {
+          "title": "Todos os clientes desmarcados"
+        },
+        "failure": {
+          "title": "Não foi possível desmarcar os clientes. Por favor, tente novamente. "
+        }
+      }
+    }
+  }
+}

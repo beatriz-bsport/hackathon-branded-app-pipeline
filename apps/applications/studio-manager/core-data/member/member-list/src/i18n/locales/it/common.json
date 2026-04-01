@@ -1,0 +1,138 @@
+{
+  "pages": {
+    "memberList": "Profili",
+    "archivedMemberList": "Profili archiviati"
+  },
+  "actions": {
+    "addMember": "Crea profilo",
+    "importLeads": "Importa contatti potenziali",
+    "download": "Scaricare"
+  },
+  "memberTable": {
+    "loading": "Caricamento profili...",
+    "emptySearch": {
+      "subtitle": "Nessun profilo trovato - prova a cancellare i filtri per vedere più risultati"
+    },
+    "emptyList": {
+      "activeMode": {
+        "title": "Nessun profilo ancora",
+        "subtitle": "Aggiungi i profili dei clienti o importa i prospetti per iniziare"
+      },
+      "archivedMode": {
+        "title": "Nessun profilo archiviato"
+      }
+    },
+    "headers": {
+      "name": "Nome",
+      "email": "Email",
+      "balance": "Saldo",
+      "joinDate": "Data di iscrizione"
+    },
+    "tooltips": {
+      "archive": "Archivia profilo",
+      "restore": "Ripristina profilo"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "Copia l'email"
+    },
+    "loading": {
+      "activeList": "Caricamento profili . . .",
+      "archivedList": "Caricamento dei profili archiviati . . . "
+    }
+  },
+  "listPage": {
+    "archiveModal": {
+      "title": "Archivia profilo?",
+      "description": {
+        "action": "Una volta che archivi {{ name }}, il loro profilo non sarà più attivo. ",
+        "effect": "Puoi ripristinare questo profilo in qualsiasi momento dal tuo archivio."
+      },
+      "alertIrregularity": {
+        "adviseRegularization": "Prima di archiviare questo profilo, ti consigliamo di saldare prima il saldo del conto del profilo. Questo è dovuto a uno dei seguenti motivi: ",
+        "items": {
+          "negativeBalance": "Saldo del conto negativo",
+          "unpaidInvoices": "Una o più fatture non pagate",
+          "currentSubscription": "Il profilo ha un abbonamento attivo",
+          "autorenewalSubscriptions": "Il profilo ha un abbonamento impostato per il rinnovo automatico",
+          "futureBookings": "Il profilo ha prenotazioni future",
+          "recurringBookings": "Il profilo ha prenotazioni ricorrenti",
+          "scheduledAppointments": "Il profilo ha appuntamenti programmati"
+        }
+      },
+      "buttons": {
+        "cancel": "Chiudi",
+        "archive": "Archivia"
+      }
+    }
+  },
+  "toasts": {
+    "actions": {
+      "undo": "Annulla"
+    },
+    "emailCopied": "Email copia negli appunti",
+    "messageUndone": {
+      "success": "Cambiamento annullato",
+      "error": "La modifica non può essere annullata. Riprova. "
+    },
+    "messageArchived": {
+      "success": "Profilo archiviato",
+      "error": "Il profilo non può essere archiviato. Per favore riprova."
+    },
+    "messageRestored": {
+      "success": "Profilo ripristinato",
+      "error": "Il profilo non può essere ripristinato. Per favore riprova."
+    }
+  },
+  "filters": {
+    "label": "Filtro",
+    "operators": {
+      "is": "è",
+      "isNot": "non è"
+    }
+  },
+  "importLeadsModal": {
+    "title": "Importa prospetti",
+    "description": "Carica un file CSV per importare i tuoi contatti nel Back Office di bsport",
+    "moreHelpSection": "Hai bisogno di aiuto con questo? <key>Visita il nostro Centro Assistenza</key>",
+    "uploadFile": {
+      "extensionCSVOnly": "Solamente file CSV",
+      "workInProgress": "Importazione prospetti in corso ...",
+      "wipDoNotRefresh": "Per favore, non aggiornare o lasciare questa pagina",
+      "errors": {
+        "wrongNumberOfColumns": {
+          "title": "Il file non ha il numero richiesto di colonne",
+          "formatIndication": "Per favore segui <key>il nostro formato</key> per importare con successo i tuoi lead"
+        },
+        "invalidFileType": "Tipo di file non valido. Carica un file CSV.",
+        "datasetTooLarge": "Il dataset è troppo grande - riduci a un massimo di 100.000 righe",
+        "wrongEncoding": "Codifica del file incompatibile - per favore usa UTF-8"
+      }
+    },
+    "importSuccess": {
+      "title": "Lead importati con successo",
+      "outputText": "Il tuo file CSV dei contatti importati con successo:",
+      "outputFilename": "rows_success",
+      "importedLeadsNumber_one": "{{ count }} Lead importati",
+      "importedLeadsNumber_other": "{{ count }} Lead importati"
+    },
+    "importPartialSuccess": {
+      "title": "Alcune righe nel file contenevano errori e non è stato possibile elaborarle.",
+      "outputText": "Ecco un file CSV dei Lead che non è stato possibile importare a causa di righe errate.",
+      "outputFilename": "rows_failure"
+    },
+    "otherImportInProgress": {
+      "title": "Un'importazione è già in corso",
+      "subtitle": "Attendi che l'importazione sia completata prima di avviarne una nuova."
+    },
+    "importError": {
+      "title": "Importazione fallita",
+      "unknownError": "Si è verificato un errore sconosciuto durante l'importazione, per favore riprova."
+    },
+    "importTimeout": {
+      "title": "L'aggiornamento ha impiegato troppo tempo. Per favore riprova.",
+      "comeBackLater": "L'importazione sta richiedendo più tempo del previsto - per favore torna più tardi"
+    }
+  }
+}

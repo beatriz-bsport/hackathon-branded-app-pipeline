@@ -1,1 +1,142 @@
-{}
+{
+  "title": "Empfehlungen",
+  "referralProgramHelper": {
+    "title": "Aktiviere Empfehlungen",
+    "description": "Richte einen Empfehlungslink ein, damit deine Mitglieder andere in dein Studio einladen können. Biete einen Anreiz, setze eine Frist für die Empfehlung und belohne das Mitglied, das die Empfehlung ausspricht.",
+    "button": {
+      "activated": {
+        "label": "Deaktivieren",
+        "errors": {
+          "couldNotToggle": "Fehler beim Deaktivieren des Empfehlungsprogramms"
+        }
+      },
+      "deactivated": {
+        "label": "Aktivieren",
+        "errors": {
+          "couldNotToggle": "Fehler beim Aktivieren des Empfehlungsprogramms"
+        }
+      }
+    }
+  },
+  "inactive": {
+    "header": {
+      "chip": "Inaktiv"
+    }
+  },
+  "active": {
+    "header": {
+      "chip": "aktiv"
+    },
+    "form": {
+      "basketMinimalAmount": {
+        "label": "Mindestbestellwert",
+        "helper": "Betrag, um für den Empfehlungsrabatt berechtigt zu sein",
+        "errors": {
+          "tooManyDecimalPoints": "Der Betrag darf nicht mehr als 2 Dezimalstellen haben",
+          "invalidFormat": "Das Betragsformat ist ungültig"
+        }
+      },
+      "referringReward": {
+        "title": "Belohnung für die Empfehlung eines Mitglieds",
+        "amountOff": {
+          "label": "Wie viel du das Mitglied belohnen möchtest"
+        },
+        "maxReferringNumber": {
+          "label": "Max. Nutzung pro Mitglied",
+          "errors": {
+            "tooSmall": "Die Anzahl der Verwendungen muss zwischen 1 und 5 liegen.",
+            "tooBig": "Du kannst nicht mehr als 5 Empfehlungen geben",
+            "noFloat": "Du kannst nur ganze Zahlen verwenden"
+          }
+        },
+        "alerts": {
+          "equalToZero": "Wenn du diesen Wert wählst, wird kein Rabatt auf den Kauf des geworbenen Mitglieds angewendet."
+        },
+        "errors": {
+          "tooManyDecimalPoints": "Der Betrag darf nicht mehr als 2 Dezimalstellen haben",
+          "invalidFormat": "Das Betragsformat ist ungültig"
+        }
+      },
+      "referralReward": {
+        "title": "Rabatt für Neukunden",
+        "label": "Rabatt gesamt",
+        "percentage": "Prozentsatz",
+        "amount": "Betrag",
+        "errors": {
+          "onlyWholePercentage": "Der Prozentsatz sollte eine ganze Zahl sein, die nächstgelegenen Ganzzahlen sind {{ wholeNumberUnder }} oder {{ wholeNumberAbove }}",
+          "percentageTooHigh": "Der Prozentsatz darf nicht größer als 100 sein",
+          "invalidFormat": "Das Betragsformat ist ungültig",
+          "tooManyDecimalPoints": "Der Betrag darf nicht mehr als 2 Dezimalstellen haben."
+        },
+        "alerts": {
+          "equalToZero": "Wähle '0', um den Rabatt für die geworbene Person zu entfernen."
+        }
+      },
+      "timeLimitForUsage": {
+        "unit": {
+          "label": "Wähle das Zeitlimit-Intervall",
+          "choices": {
+            "days_one": "Tag",
+            "weeks_one": "Woche",
+            "months_one": "Monat",
+            "days_other": "Tage",
+            "weeks_other": "Wochen",
+            "months_other": "Monate"
+          },
+          "errors": {}
+        },
+        "interval": {
+          "label": "Zeitlimit für die Anwendung des Rabatts nach der Registrierung",
+          "errors": {
+            "lowerThanOne": "Das Zeitlimit muss 1 {{ timeUnit }} oder länger sein"
+          }
+        }
+      },
+      "tagSelector": {
+        "label": "Wende ein Tag an, wenn neue Kunden den Empfehlungslink nutzen",
+        "placeholder": "Wähle ein Tag",
+        "helper": "Tipp: Tag neue Kunden, um sie später gezielt anzusprechen.",
+        "errors": {
+          "notProvided": "Wähle ein Tag oder deaktiviere diese Option, um fortzufahren"
+        }
+      },
+      "redirectLink": {
+        "switch": {
+          "label": "Füge einen Weiterleitungslink hinzu",
+          "helper": "Füge einen Link hinzu, um neue Kunden nach der Registrierung zu einer benutzerdefinierten URL weiterzuleiten. Wenn das Feld leer bleibt, werden sie zur Kalenderseite weitergeleitet."
+        },
+        "textfield": {
+          "label": "Weiterleitungslink",
+          "placeholder": "Gib URL ein"
+        },
+        "errors": {
+          "notProvided": "Füge eine URL hinzu oder deaktiviere diese Option, um fortzufahren",
+          "invalidFormat": "Das URL-Format ist nicht gültig"
+        }
+      },
+      "saveSettings": {
+        "buttonLabel": "Speichern",
+        "onSuccess": {
+          "title": "Änderungen gespeichert"
+        },
+        "onFailure": {
+          "title": "Konnte Änderungen nicht speichern"
+        },
+        "errors": {
+          "invalidVoucherType": "Der Gutschein-Typ ist nicht gültig",
+          "invalidTimeUnit": "Die Zeiteinheit ist nicht gültig"
+        }
+      }
+    },
+    "deactivateReferralModal": {
+      "title": "Deaktivieren von Empfehlungen?",
+      "description": "Wir speichern deine Einstellungen, damit du Empfehlungen in Zukunft leicht wieder aktivieren kannst.",
+      "cancelButton": {
+        "label": "Schließen"
+      },
+      "confirmButton": {
+        "label": "Deaktivieren"
+      }
+    }
+  }
+}

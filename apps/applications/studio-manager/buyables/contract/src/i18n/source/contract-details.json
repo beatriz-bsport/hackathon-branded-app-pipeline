@@ -24,7 +24,48 @@
     },
     "description": {
       "label": "Description"
+    },
+    "tax": {
+      "label": "Sales / VAT"
+    },
+    "joinFee": {
+      "label": "Join fee",
+      "helperText": "Joining fee will be included in the first invoice"
+    },
+    "recurringAmount": {
+      "label": "Recurring amount",
+      "helperText": "Tax included"
+    },
+    "billingCycle": {
+      "radioPurchaseDay": {
+        "label": "Invoice on purchase day",
+        "tooltip": "Member's first invoice will be sent on the date of purchase.",
+        "sublabel": "Billing interval"
+      },
+      "radioFixedDay": {
+        "label": "Invoice on fixed day",
+        "tooltip": "Member's first invoice will be sent on the chosen date and pro-rated if necessary.",
+        "sublabel": "Every month on"
+      }
     }
+  },
+  "intervals": {
+    "day": "",
+    "day_one": "Day",
+    "day_other": "Days",
+    "week": "",
+    "week_one": "Week",
+    "week_other": "Weeks",
+    "month": "",
+    "month_one": "Month",
+    "month_other": "Months",
+    "year": "",
+    "year_one": "Year",
+    "year_other": "Years"
+  },
+  "formSections": {
+    "price": "Price",
+    "billingCycle": "Billing Cycle"
   },
   "editor": {
     "submit": {

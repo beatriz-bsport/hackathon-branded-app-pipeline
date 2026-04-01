@@ -1,4 +1,4 @@
-import React from "react";
+import type { FC } from "react";
 
 import { isBookkeepingAccountActive } from "@bsport/kaizen-business-components/financial-services/bookkeeping-account/is-active";
 import { BookkeepingAccountFormSelector } from "@bsport/kaizen-business-components/financial-services/bookkeeping-account/selector";
@@ -18,7 +18,7 @@ type ContractFormTaxProps = {
   readonly?: boolean;
 };
 
-export const ContractFormTax: React.FC<ContractFormTaxProps> = ({
+export const ContractFormTax: FC<ContractFormTaxProps> = ({
   formId,
   watch,
   isRevampedContract,

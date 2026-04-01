@@ -2,8 +2,10 @@ import type { FC } from "react";
 
 import { DetailsLayout, Title } from "@bsport/kaizen-primitive-core";
 
+import { ContractFormAutoRenewal } from "#src/features/contract-form/components/contract-form-auto-renewal";
 import { ContractFormBillingCycle } from "#src/features/contract-form/components/contract-form-billing-cycle";
 import { ContractFormDescription } from "#src/features/contract-form/components/contract-form-description";
+import { ContractFormDuration } from "#src/features/contract-form/components/contract-form-duration";
 import { ContractFormJoinFee } from "#src/features/contract-form/components/contract-form-join-fee";
 import { ContractFormName } from "#src/features/contract-form/components/contract-form-name";
 import { ContractFormRecurringAmount } from "#src/features/contract-form/components/contract-form-recurring-amount";
@@ -43,12 +45,27 @@ export const ContractEditorContent: FC<ContractEditorContentProps> = ({
           readonly={readonly}
         />
       </section>
+
       <section className="flex flex-col gap-sm">
         <Title htmlVariant="h4">{t("formSections.billingCycle")}</Title>
         <ContractFormBillingCycle
           formId={formId}
           methods={methods}
           readonly // Why force to true ? Because once set on a Contract, it's not editable
+        />
+      </section>
+
+      <section className="flex flex-col gap-sm">
+        <Title htmlVariant="h4">{t("formSections.contractLength")}</Title>
+        <ContractFormDuration
+          formId={formId}
+          methods={methods}
+          readonly={readonly}
+        />
+        <ContractFormAutoRenewal
+          formId={formId}
+          methods={methods}
+          readonly={readonly}
         />
       </section>
     </DetailsLayout.Content>

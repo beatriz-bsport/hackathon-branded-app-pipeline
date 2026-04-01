@@ -69,6 +69,7 @@ const meta: Meta<FormNumberFieldComponent> = {
       defaultValues: {
         myNumberField: 0,
       },
+      mode: "onChange",
     });
 
     return (

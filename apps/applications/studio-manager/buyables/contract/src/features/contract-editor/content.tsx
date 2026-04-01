@@ -4,12 +4,14 @@ import { DetailsLayout, Title } from "@bsport/kaizen-primitive-core";
 
 import { ContractFormAutoRenewal } from "#src/features/contract-form/components/contract-form-auto-renewal";
 import { ContractFormBillingCycle } from "#src/features/contract-form/components/contract-form-billing-cycle";
+import { ContractFormCommitmentPeriod } from "#src/features/contract-form/components/contract-form-commitment-period";
 import { ContractFormDescription } from "#src/features/contract-form/components/contract-form-description";
 import { ContractFormDuration } from "#src/features/contract-form/components/contract-form-duration";
 import { ContractFormJoinFee } from "#src/features/contract-form/components/contract-form-join-fee";
 import { ContractFormName } from "#src/features/contract-form/components/contract-form-name";
 import { ContractFormRecurringAmount } from "#src/features/contract-form/components/contract-form-recurring-amount";
 import { ContractFormTax } from "#src/features/contract-form/components/contract-form-tax";
+import { ContractFormTerms } from "#src/features/contract-form/components/contract-form-terms";
 import type { ContractFormMethods } from "#src/features/contract-form/types";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -47,7 +49,9 @@ export const ContractEditorContent: FC<ContractEditorContentProps> = ({
       </section>
 
       <section className="flex flex-col gap-sm">
-        <Title htmlVariant="h4">{t("formSections.billingCycle")}</Title>
+        <Title htmlVariant="h4" weight="strong">
+          {t("formSections.billingCycle")}
+        </Title>
         <ContractFormBillingCycle
           formId={formId}
           methods={methods}
@@ -67,6 +71,18 @@ export const ContractEditorContent: FC<ContractEditorContentProps> = ({
           methods={methods}
           readonly={readonly}
         />
+      </section>
+
+      <section className="flex flex-col gap-sm">
+        <Title htmlVariant="h4" weight="strong">
+          {t("formSections.termsAndConditions")}
+        </Title>
+        <ContractFormCommitmentPeriod
+          formId={formId}
+          methods={methods}
+          readonly={readonly}
+        />
+        <ContractFormTerms formId={formId} readonly={readonly} />
       </section>
     </DetailsLayout.Content>
   );

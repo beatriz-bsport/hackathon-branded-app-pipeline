@@ -56,6 +56,15 @@
       "label": "Allow auto-renewal",
       "sublabel": "Number of bills per cycle",
       "helperText": "Each cycle after auto-renewal will have this number of bills"
+    },
+    "terms": {
+      "label": "Terms",
+      "helperText": "Terms & conditions must comply with the law in your country. ({{ currentLength }}/{{ maxLength }})"
+    },
+    "commitmentPeriod": {
+      "label": "Commitment period",
+      "sublabel": "Duration",
+      "alertInfo": "Set minimum subscription duration. Future changes apply to new purchases only."
     }
   },
   "intervals": {
@@ -75,7 +84,8 @@
   "formSections": {
     "price": "Price",
     "billingCycle": "Billing Cycle",
-    "contractLength": "Contract length"
+    "contractLength": "Contract length",
+    "termsAndConditions": "Terms & Conditions"
   },
   "editor": {
     "submit": {

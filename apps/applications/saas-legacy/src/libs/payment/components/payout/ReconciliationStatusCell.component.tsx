@@ -20,14 +20,14 @@ const ReconciliationStatusCell: React.FC<Props> = ({
   isMobile,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation(['payment']);
+  const { t } = useTranslation(['b2b_payout']);
 
   if (status === 'success') {
     return (
       <div className={classes.row}>
         <CheckCircleOutlineIcon className={classes.success} fontSize="small" />
         <Typography variant="caption">
-          {t('payout.reconciliationStatus.success')}
+          {t('reconciliationStatus.success')}
         </Typography>
       </div>
     );
@@ -38,7 +38,7 @@ const ReconciliationStatusCell: React.FC<Props> = ({
       <div className={classes.row}>
         <HourglassEmptyIcon className={classes.pending} fontSize="small" />
         <Typography variant="caption">
-          {t('payout.reconciliationStatus.pending')}
+          {t('reconciliationStatus.pending')}
         </Typography>
       </div>
     );
@@ -49,12 +49,12 @@ const ReconciliationStatusCell: React.FC<Props> = ({
       <TapTooltip
         isMobile={isMobile}
         placement="top"
-        title={errorType || (t('payout.reconciliationStatus.error') ?? '')}
+        title={errorType || (t('reconciliationStatus.error') ?? '')}
       >
         <ErrorOutlineIcon className={classes.error} fontSize="small" />
       </TapTooltip>
       <Typography variant="caption">
-        {t('payout.reconciliationStatus.error')}
+        {t('reconciliationStatus.error')}
       </Typography>
     </div>
   );

@@ -115,5 +115,28 @@
       "previewSecondLine": "luego {{restNumbers}}, ...",
       "useExternalAccountingProvider": "Uso un proveedor externo de contabilidad"
     }
+  },
+  "bulkExport": {
+    "modalTitle": "Exportar facturas",
+    "modalDescription": "Elige un periodo de tiempo para exportar las facturas.",
+    "alertDescription": "No podrás exportar las facturas migradas de proveedores anteriores.",
+    "month": "Mes",
+    "monthErrorCurrentOrFuture": "No se pueden exportar facturas de meses actuales o futuros",
+    "monthErrorBeforeCutoff": "Las facturas no se pueden exportar antes de marzo de 2025",
+    "year": "Año",
+    "cancel": "Cancelar",
+    "download": "Descargar",
+    "downloading": "Preparando descarga...",
+    "toastDownloaded": "Facturas descargadas",
+    "successNoInvoices": "No se generaron facturas para este período.",
+    "error": {
+      "14602": "Exportaciones solo disponibles a partir de marzo de 2025.",
+      "14603": "No se puede descargar la exportación del mes actual o futuro. Espera hasta el próximo mes.",
+      "14604": "La exportación se está procesando. Vuelve a comprobarlo más tarde hoy o mañana (máx. 24h).",
+      "14605": "Error al exportar. Contacta con soporte.",
+      "14606": "La exportación aún no está disponible. Vuelve a intentarlo más tarde.",
+      "14607": "No hay facturas disponibles para este período. Tu empresa empezó a facturar más tarde.",
+      "default": "Algo salió mal. Por favor, inténtalo de nuevo."
+    }
   }
 }

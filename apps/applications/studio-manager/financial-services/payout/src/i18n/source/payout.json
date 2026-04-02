@@ -15,7 +15,6 @@
     "copyForReportSuccess": "Payout ID copied, you can use Payment Report to export all the payment reports.",
     "copyForReportFailure": "Failed to copy payout ID to clipboard.",
     "status": "Status",
-    "detailed": "Detailed",
     "couldNotBeReconciled": "Some transactions could not be reconciled"
   },
   "drawer": {
@@ -29,7 +28,6 @@
     "id": "ID",
     "status": "Status",
     "previouslyIncludedPayouts": "Includes {{amount}} carried over from previous failed/canceled payouts",
-    "detailedPayout": "Detailed payout",
     "summaryLoadError": "Error loading payout summary",
     "summary": {
       "payment": "Payments",
@@ -66,8 +64,8 @@
     "unknown": "Unknown"
   },
   "modal": {
-    "title": "Detailed payout",
-    "description": "See all payments included in this payout. ({{date}})",
+    "title": "All transactions",
+    "description": "All transactions included in this payout. ({{date}})",
     "error": "Error loading balance transactions",
     "table": {
       "type": "Type",

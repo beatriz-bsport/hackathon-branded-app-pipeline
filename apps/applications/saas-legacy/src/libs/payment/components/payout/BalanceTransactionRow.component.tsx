@@ -28,58 +28,56 @@ const DISPLAY_TYPE_CONFIG: Record<
   DisplayTypeConfig
 > = {
   payment: {
-    labelKey: 'payout.displayType.payment.label',
-    descriptionKey: 'payout.displayType.payment.description',
+    labelKey: 'displayType.payment.label',
+    descriptionKey: 'displayType.payment.description',
   },
   refund: {
-    labelKey: 'payout.displayType.refund.label',
-    descriptionKey: 'payout.displayType.refund.description',
+    labelKey: 'displayType.refund.label',
+    descriptionKey: 'displayType.refund.description',
   },
   dispute: {
-    labelKey: 'payout.displayType.dispute.label',
-    descriptionKey: 'payout.displayType.dispute.description',
+    labelKey: 'displayType.dispute.label',
+    descriptionKey: 'displayType.dispute.description',
   },
   failed_direct_debit_original: {
-    labelKey: 'payout.displayType.failed_direct_debit_original.label',
-    descriptionKey:
-      'payout.displayType.failed_direct_debit_original.description',
+    labelKey: 'displayType.failed_direct_debit_original.label',
+    descriptionKey: 'displayType.failed_direct_debit_original.description',
   },
   failed_direct_debit_reversal: {
-    labelKey: 'payout.displayType.failed_direct_debit_reversal.label',
-    descriptionKey:
-      'payout.displayType.failed_direct_debit_reversal.description',
+    labelKey: 'displayType.failed_direct_debit_reversal.label',
+    descriptionKey: 'displayType.failed_direct_debit_reversal.description',
   },
   balance_transfer: {
-    labelKey: 'payout.displayType.balance_transfer.label',
-    descriptionKey: 'payout.displayType.balance_transfer.description',
+    labelKey: 'displayType.balance_transfer.label',
+    descriptionKey: 'displayType.balance_transfer.description',
   },
   balance_transfer_refund: {
-    labelKey: 'payout.displayType.balance_transfer_refund.label',
-    descriptionKey: 'payout.displayType.balance_transfer_refund.description',
+    labelKey: 'displayType.balance_transfer_refund.label',
+    descriptionKey: 'displayType.balance_transfer_refund.description',
   },
   adjustment: {
-    labelKey: 'payout.displayType.adjustment.label',
-    descriptionKey: 'payout.displayType.adjustment.description',
+    labelKey: 'displayType.adjustment.label',
+    descriptionKey: 'displayType.adjustment.description',
   },
   application_fee: {
-    labelKey: 'payout.displayType.application_fee.label',
-    descriptionKey: 'payout.displayType.application_fee.description',
+    labelKey: 'displayType.application_fee.label',
+    descriptionKey: 'displayType.application_fee.description',
   },
   application_fee_refund: {
-    labelKey: 'payout.displayType.application_fee_refund.label',
-    descriptionKey: 'payout.displayType.application_fee_refund.description',
+    labelKey: 'displayType.application_fee_refund.label',
+    descriptionKey: 'displayType.application_fee_refund.description',
   },
   payout_failure: {
-    labelKey: 'payout.displayType.payout_failure.label',
-    descriptionKey: 'payout.displayType.payout_failure.description',
+    labelKey: 'displayType.payout_failure.label',
+    descriptionKey: 'displayType.payout_failure.description',
   },
   payout_cancel: {
-    labelKey: 'payout.displayType.payout_cancel.label',
-    descriptionKey: 'payout.displayType.payout_cancel.description',
+    labelKey: 'displayType.payout_cancel.label',
+    descriptionKey: 'displayType.payout_cancel.description',
   },
   other: {
-    labelKey: 'payout.displayType.other.label',
-    descriptionKey: 'payout.displayType.other.description',
+    labelKey: 'displayType.other.label',
+    descriptionKey: 'displayType.other.description',
   },
 };
 
@@ -89,7 +87,7 @@ const DISPLAY_TYPE_CONFIG: Record<
 
 const InvoiceCell: React.FC<{ bt: BalanceTransaction }> = ({ bt }) => {
   const classes = useInvoiceCellStyles();
-  const { t } = useTranslation(['payment']);
+  const { t } = useTranslation(['b2b_payout']);
   const { reconciled_bsport_payments: payments } = bt;
 
   if (payments.length === 0) {
@@ -97,7 +95,7 @@ const InvoiceCell: React.FC<{ bt: BalanceTransaction }> = ({ bt }) => {
       <div className={classes.stack}>
         {bt.reversal_balance_transaction_payout && (
           <Typography color="textSecondary" variant="caption">
-            {t('payout.balanceTransaction.reversalInPayout', {
+            {t('balanceTransaction.reversalInPayout', {
               readable_identifier:
                 bt.reversal_balance_transaction_payout.readable_identifier,
             })}
@@ -105,10 +103,10 @@ const InvoiceCell: React.FC<{ bt: BalanceTransaction }> = ({ bt }) => {
         )}
         {bt.reversal_of_balance_transaction_id != null && (
           <Typography color="textSecondary" variant="caption">
-            {t('payout.balanceTransaction.reversalOf', {
+            {t('balanceTransaction.reversalOf', {
               id: bt.reversal_of_balance_transaction_id,
               payoutInfo: bt.reversal_of_balance_transaction_payout
-                ? t('payout.balanceTransaction.reversalOfPayoutInfo', {
+                ? t('balanceTransaction.reversalOfPayoutInfo', {
                     readable_identifier:
                       bt.reversal_of_balance_transaction_payout
                         .readable_identifier,
@@ -119,7 +117,7 @@ const InvoiceCell: React.FC<{ bt: BalanceTransaction }> = ({ bt }) => {
         )}
         {bt.reconciled_bsport_payout && (
           <Typography color="textSecondary" variant="caption">
-            {t('payout.balanceTransaction.fromPayout', {
+            {t('balanceTransaction.fromPayout', {
               readable_identifier:
                 bt.reconciled_bsport_payout.readable_identifier,
             })}
@@ -201,7 +199,7 @@ const BalanceTransactionRow: React.FC<Props> = ({
   isMobile,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation(['payment']);
+  const { t } = useTranslation(['b2b_payout']);
 
   const amountDisplay = getCurrencyDisplayWithPrice(
     (bt.amount_cts / 100).toFixed(2),
@@ -232,7 +230,7 @@ const BalanceTransactionRow: React.FC<Props> = ({
       <Typography variant="body2">{amountDisplay}</Typography>
       {bt.fee_cts !== 0 && (
         <Typography color="textSecondary" variant="caption">
-          {t('payout.balanceTransaction.net', { amount: netDisplay })}
+          {t('balanceTransaction.net', { amount: netDisplay })}
         </Typography>
       )}
     </div>

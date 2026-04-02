@@ -20,62 +20,62 @@ const SUMMARY_TYPES: Array<{
   displayTypeKey: string;
 }> = [
   {
-    labelKey: 'payout.summary.payments',
+    labelKey: 'summary.payments',
     countKey: 'payment_count',
     displayTypeKey: 'payment',
   },
   {
-    labelKey: 'payout.summary.refunds',
+    labelKey: 'summary.refunds',
     countKey: 'refund_count',
     displayTypeKey: 'refund',
   },
   {
-    labelKey: 'payout.summary.disputes',
+    labelKey: 'summary.disputes',
     countKey: 'dispute_count',
     displayTypeKey: 'dispute',
   },
   {
-    labelKey: 'payout.summary.directDebitOriginal',
+    labelKey: 'summary.directDebitOriginal',
     countKey: 'failed_direct_debit_original_count',
     displayTypeKey: 'failed_direct_debit_original',
   },
   {
-    labelKey: 'payout.summary.directDebitReversal',
+    labelKey: 'summary.directDebitReversal',
     countKey: 'failed_direct_debit_reversal_count',
     displayTypeKey: 'failed_direct_debit_reversal',
   },
   {
-    labelKey: 'payout.summary.transfers',
+    labelKey: 'summary.transfers',
     countKey: 'balance_transfer_count',
     displayTypeKey: 'balance_transfer',
   },
   {
-    labelKey: 'payout.summary.transferRefunds',
+    labelKey: 'summary.transferRefunds',
     countKey: 'balance_transfer_refund_count',
     displayTypeKey: 'balance_transfer_refund',
   },
   {
-    labelKey: 'payout.summary.adjustments',
+    labelKey: 'summary.adjustments',
     countKey: 'adjustment_count',
     displayTypeKey: 'adjustment',
   },
   {
-    labelKey: 'payout.summary.appFees',
+    labelKey: 'summary.appFees',
     countKey: 'application_fee_count',
     displayTypeKey: 'application_fee',
   },
   {
-    labelKey: 'payout.summary.appFeeRefunds',
+    labelKey: 'summary.appFeeRefunds',
     countKey: 'application_fee_refund_count',
     displayTypeKey: 'application_fee_refund',
   },
   {
-    labelKey: 'payout.summary.payoutFailures',
+    labelKey: 'summary.payoutFailures',
     countKey: 'payout_failure_count',
     displayTypeKey: 'payout_failure',
   },
   {
-    labelKey: 'payout.summary.payoutCancels',
+    labelKey: 'summary.payoutCancels',
     countKey: 'payout_cancel_count',
     displayTypeKey: 'payout_cancel',
   },
@@ -90,7 +90,7 @@ const formatSummaryValue = (count: number, amountCts: number) => {
 
 const PayoutSummary: React.FC<Props> = ({ payout, summaryStats = null }) => {
   const classes = useStyles();
-  const { t } = useTranslation(['payment']);
+  const { t } = useTranslation(['b2b_payout']);
 
   const rows = SUMMARY_TYPES.map((config) => {
     if (!summaryStats) {
@@ -119,7 +119,7 @@ const PayoutSummary: React.FC<Props> = ({ payout, summaryStats = null }) => {
 
     if (uncategorized.count > 0) {
       rows.push({
-        label: t('payout.summary.other'),
+        label: t('displayType.other.label'),
         value: formatSummaryValue(
           uncategorized.count,
           uncategorized.amount_cts,
@@ -130,21 +130,21 @@ const PayoutSummary: React.FC<Props> = ({ payout, summaryStats = null }) => {
 
   const reconciliationStatus = payout.reconciliation_status ?? 'pending';
   const reconciliationStatusLabel = t(
-    `payout.reconciliationStatusPayoutStatus.${reconciliationStatus}`,
+    `reconciliationStatusPayoutStatus.${reconciliationStatus}`,
     { defaultValue: reconciliationStatus },
   );
 
   return (
     <div className={classes.root}>
       <Typography className={classes.title} variant="subtitle2">
-        {t('payout.summary.title')}
+        {t('summary.title')}
       </Typography>
       <Table className={classes.table} size="small">
         <TableBody>
           <TableRow>
             <TableCell className={classes.labelCell}>
               <Typography variant="caption">
-                {t('payout.summary.reconciliation')}
+                {t('summary.reconciliation')}
               </Typography>
             </TableCell>
             <TableCell className={classes.countCell}>

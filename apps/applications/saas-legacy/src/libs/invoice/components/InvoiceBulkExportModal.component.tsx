@@ -36,7 +36,7 @@ const InvoiceBulkExportModal: React.FC<Props> = ({
   open,
   timezone,
 }) => {
-  const { t } = useTranslation(['invoice']);
+  const { t } = useTranslation(['b2b_invoice']);
   const classes = useStyles();
   const timezoneName = timezone || 'UTC';
 
@@ -82,10 +82,10 @@ const InvoiceBulkExportModal: React.FC<Props> = ({
 
   const errorText = (() => {
     if (isBeforeCutoff) {
-      return t('actions.bulkExport.monthErrorBeforeCutoff');
+      return t('bulkExport.monthErrorBeforeCutoff');
     }
     if (isCurrentOrFutureMonth) {
-      return t('actions.bulkExport.monthErrorCurrentOrFuture');
+      return t('bulkExport.monthErrorCurrentOrFuture');
     }
     return '';
   })();
@@ -97,23 +97,23 @@ const InvoiceBulkExportModal: React.FC<Props> = ({
 
   return (
     <Dialog fullWidth maxWidth="sm" onClose={onClose} open={open}>
-      <DialogTitle>{t('actions.bulkExport.modalTitle')}</DialogTitle>
+      <DialogTitle>{t('bulkExport.modalTitle')}</DialogTitle>
       <DialogContent>
         <Typography className={classes.description} variant="body2">
-          {t('actions.bulkExport.modalDescription')}
+          {t('bulkExport.modalDescription')}
         </Typography>
         <Alert className={classes.infoAlert} severity="info">
           <Typography variant="body2">
-            {t('actions.bulkExport.alertDescription')}
+            {t('bulkExport.alertDescription')}
           </Typography>
         </Alert>
         <div className={classes.fieldsRow}>
           <FormControl className={classes.field} variant="outlined">
             <InputLabel id="invoice-bulk-export-month-label">
-              {t('actions.bulkExport.month')}
+              {t('bulkExport.month')}
             </InputLabel>
             <Select
-              label={t('actions.bulkExport.month')}
+              label={t('bulkExport.month')}
               labelId="invoice-bulk-export-month-label"
               onChange={(event) => setMonth(Number(event.target.value))}
               value={month}
@@ -127,10 +127,10 @@ const InvoiceBulkExportModal: React.FC<Props> = ({
           </FormControl>
           <FormControl className={classes.field} variant="outlined">
             <InputLabel id="invoice-bulk-export-year-label">
-              {t('actions.bulkExport.year')}
+              {t('bulkExport.year')}
             </InputLabel>
             <Select
-              label={t('actions.bulkExport.year')}
+              label={t('bulkExport.year')}
               labelId="invoice-bulk-export-year-label"
               onChange={(event) => setYear(Number(event.target.value))}
               value={year}
@@ -146,16 +146,14 @@ const InvoiceBulkExportModal: React.FC<Props> = ({
         {errorText && <FormHelperText error>{errorText}</FormHelperText>}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>{t('actions.bulkExport.cancel')}</Button>
+        <Button onClick={onClose}>{t('bulkExport.cancel')}</Button>
         <Button
           color="primary"
           disabled={!canRequestExport || loading}
           onClick={handleDownload}
           variant="contained"
         >
-          {loading
-            ? t('actions.bulkExport.downloading')
-            : t('actions.bulkExport.download')}
+          {loading ? t('bulkExport.downloading') : t('bulkExport.download')}
         </Button>
       </DialogActions>
     </Dialog>

@@ -237,7 +237,7 @@ export class InvoiceList extends Component<Props, State> {
             onClick={this.handleOpenBulkExportModal}
             variant="outlined"
           >
-            {t('invoice:actions.bulkExport.modalTitle')}
+            {t('b2b_invoice:bulkExport.modalTitle')}
           </Button>
         </div>
         <InvoiceBulkExportModal

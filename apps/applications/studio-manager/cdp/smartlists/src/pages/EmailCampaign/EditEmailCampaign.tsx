@@ -59,11 +59,10 @@ function EditEmailCampaign() {
     dataAccessLayer.useCompanyTheme()?.timezone_name ?? "UTC";
 
   const { data: scheduledCampaign } = useFetchCampaignScheduledDetail(entityId);
-  const { formDefaults, isOnTheFlyHtmlTemplate } =
-    initEmailCampaignFormDefaultValues({
-      campaign: scheduledCampaign,
-      companyTimezone,
-    });
+  const { formDefaults } = initEmailCampaignFormDefaultValues({
+    campaign: scheduledCampaign,
+    companyTimezone,
+  });
 
   const { updateScheduledCampaign, isUpdating } =
     useUpdateScheduledEmailCampaign({
@@ -156,7 +155,6 @@ function EditEmailCampaign() {
           smartlistId={smartlist.id}
           id={formId}
           onSubmit={handleSubmit}
-          isOnTheFlyHtmlTemplate={isOnTheFlyHtmlTemplate}
           {...methods}
         />
       </DetailsLayout.Content>

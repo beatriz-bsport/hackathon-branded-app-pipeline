@@ -1,25 +1,13 @@
 import { z } from "zod";
 
-import { CAMPAIGN_NAME_MAX_LENGTH } from "#src/components/campaign-generic-fields/campaign-name-field";
-import { i18nInstance } from "#src/utils/i18n";
+import {
+  addCampaignScheduleRefinement,
+  getCampaignBaseObjectSchema,
+} from "#src/components/campaign-generic-fields/campaign-base-schema";
 
 import type { PushCampaignFormData } from "./types";
 
-export const pushCampaignSchema = z.object({
-  campaignName: z
-    .string()
-    .refine((value) => value.trim().length > 0, {
-      message: i18nInstance.t(
-        "push.creation.form.errors.campaignNameRequired",
-        {
-          ns: "sm-smartlists_campaign",
-        },
-      ),
-    })
-    .refine((value) => value.trim().length <= CAMPAIGN_NAME_MAX_LENGTH, {
-      message: i18nInstance.t("push.creation.form.errors.errorMaxLength", {
-        ns: "sm-smartlists_campaign",
-        count: CAMPAIGN_NAME_MAX_LENGTH,
-      }),
-    }),
-}) as z.ZodType<PushCampaignFormData>;
+export const getPushCampaignSchema = (companyTimezone: string) =>
+  getCampaignBaseObjectSchema().superRefine((data, ctx) => {
+    addCampaignScheduleRefinement(ctx, data, companyTimezone);
+  }) as z.ZodType<PushCampaignFormData>;

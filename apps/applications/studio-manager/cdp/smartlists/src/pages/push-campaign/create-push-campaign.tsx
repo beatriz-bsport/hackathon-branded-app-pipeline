@@ -9,6 +9,7 @@ import {
   DetailsLayout,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import {
@@ -16,8 +17,9 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import { DELIVERY_MODE_SEND_NOW } from "#src/components/campaign-generic-fields/campaign-delivery-mode.constants";
 import { PushCampaignForm } from "#src/components/push-campaign-form/push-campaign-form";
-import { pushCampaignSchema } from "#src/components/push-campaign-form/schema";
+import { getPushCampaignSchema } from "#src/components/push-campaign-form/schema";
 import type { PushCampaignFormData } from "#src/components/push-campaign-form/types";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
@@ -42,13 +44,18 @@ function CreatePushCampaign() {
 
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(smartlistId);
   const { detailsLayoutProps } = useDetailsLayout();
+  const companyTimezone =
+    dataAccessLayer.useCompanyTheme()?.timezone_name ?? "UTC";
   const formId = useId();
 
   const methods = useFormController({
     mode: "onBlur",
-    schema: pushCampaignSchema,
+    schema: getPushCampaignSchema(companyTimezone),
     defaultValues: {
       campaignName: "",
+      deliveryMode: DELIVERY_MODE_SEND_NOW,
+      scheduledDate: undefined,
+      scheduledTime: undefined,
     },
   });
 

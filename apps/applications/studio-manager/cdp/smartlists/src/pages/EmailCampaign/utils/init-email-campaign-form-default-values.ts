@@ -1,16 +1,8 @@
 import { fromIsoString } from "@bsport/datetime-manipulation";
 
 import type { CampaignScheduled } from "#src/api/types";
-import {
-  DELIVERY_MODE_SCHEDULE_LATER,
-  EMAIL_TYPE_MARKETING,
-} from "#src/components/EmailCampaignForm/constants";
-import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
-
-type InitEmailCampaignFormDefaultsResult = {
-  formDefaults: EmailCampaignFormData;
-  isOnTheFlyHtmlTemplate: boolean;
-};
+import { EMAIL_TYPE_MARKETING } from "#src/components/EmailCampaignForm/constants";
+import { DELIVERY_MODE_SCHEDULE_LATER } from "#src/components/campaign-generic-fields/campaign-delivery-mode.constants";
 
 export const initEmailCampaignFormDefaultValues = ({
   campaign,
@@ -18,7 +10,7 @@ export const initEmailCampaignFormDefaultValues = ({
 }: {
   campaign: CampaignScheduled;
   companyTimezone: string;
-}): InitEmailCampaignFormDefaultsResult => {
+}) => {
   const scheduledDateTime = fromIsoString(campaign.datetime_scheduled, {
     zone: companyTimezone,
   });
@@ -28,7 +20,6 @@ export const initEmailCampaignFormDefaultValues = ({
   const isOnTheFlyHtmlTemplate = !hasTemplateId && body.trim().length > 0;
 
   return {
-    isOnTheFlyHtmlTemplate,
     formDefaults: {
       emailType: EMAIL_TYPE_MARKETING,
       // TODO: Replace once campaign name backend support is available.
@@ -42,6 +33,7 @@ export const initEmailCampaignFormDefaultValues = ({
       emailTemplateId: campaign.email_design,
       emailTemplateDesign: undefined,
       emailTemplateHtml: body,
+      isOnTheFlyHtmlTemplate,
     },
   };
 };

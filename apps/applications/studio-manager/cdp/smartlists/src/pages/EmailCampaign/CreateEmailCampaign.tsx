@@ -14,11 +14,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { useScheduleEmailCampaign } from "#src/api/use-schedule-email-campaign";
 import { useSendEmailCampaign } from "#src/api/use-send-email-campaign";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
-import {
-  DELIVERY_MODE_SCHEDULE_LATER,
-  DELIVERY_MODE_SEND_NOW,
-  EMAIL_TYPE_MARKETING,
-} from "#src/components/EmailCampaignForm/constants";
+import { EMAIL_TYPE_MARKETING } from "#src/components/EmailCampaignForm/constants";
 import { EmailCampaignForm } from "#src/components/EmailCampaignForm/email-campaign-form";
 import { getEmailCampaignSchema } from "#src/components/EmailCampaignForm/schema";
 import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
@@ -27,6 +23,10 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import {
+  DELIVERY_MODE_SCHEDULE_LATER,
+  DELIVERY_MODE_SEND_NOW,
+} from "#src/components/campaign-generic-fields/campaign-delivery-mode.constants";
 import {
   formatScheduleEmailCampaignPayload,
   formatScheduledDateTime,
@@ -190,7 +190,6 @@ function CreateEmailCampaign() {
           smartlistId={smartlist.id}
           id={formId}
           onSubmit={handleSubmit}
-          isOnTheFlyHtmlTemplate={false}
           {...methods}
         />
       </DetailsLayout.Content>

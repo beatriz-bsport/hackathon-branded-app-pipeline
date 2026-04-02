@@ -17,9 +17,7 @@ const INLINE_ACTIONS = {
 
 type InlineAction = (typeof INLINE_ACTIONS)[keyof typeof INLINE_ACTIONS];
 
-export const EmailTemplatePreviewColumn: FC<{
-  isOnTheFlyHtmlTemplate?: boolean;
-}> = ({ isOnTheFlyHtmlTemplate = false }) => {
+export const EmailTemplatePreviewColumn: FC = () => {
   const { t } = useTranslation("campaign");
   const { watch, setValue } = useFormContext<EmailCampaignFormData>();
   const [inlineActions, setInlineActions] = useState<InlineAction | null>(null);
@@ -27,6 +25,7 @@ export const EmailTemplatePreviewColumn: FC<{
   const watchedEmailTemplateDesign = watch("emailTemplateDesign");
   const watchedEmailTemplateHtml = watch("emailTemplateHtml");
   const watchedEmailSubject = watch("emailSubject");
+  const isOnTheFlyHtmlTemplate = watch("isOnTheFlyHtmlTemplate");
   const { data: emailTemplateMatchingList } = useEmailTemplateSearch({
     searchInput: "",
     id__in: watchedEmailTemplateId?.toString(),

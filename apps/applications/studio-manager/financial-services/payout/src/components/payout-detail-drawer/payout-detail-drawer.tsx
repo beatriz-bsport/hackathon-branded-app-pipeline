@@ -299,7 +299,7 @@ export const PayoutDetailDrawer: FC<PayoutDetailDrawerProps> = ({
         intent="default"
         color="main"
         size="md"
-        label={t("drawer.detailedPayout")}
+        label={t("table.transactions")}
         onClick={onDetailedPayoutClick}
       />
     </DetailDrawer>

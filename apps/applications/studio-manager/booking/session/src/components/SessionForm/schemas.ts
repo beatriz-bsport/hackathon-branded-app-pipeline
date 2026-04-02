@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { PartnerSpotCappingStrategy } from "@bsport/api-book";
 import {
   DateTime,
   getLocalNow,
@@ -249,6 +250,7 @@ export const useSessionSchema = () => {
       effectif: z.number().min(0),
       available_on_partnership: z.boolean(),
       partner_max_booking_count: z.number().min(0),
+      partner_spot_capping_strategy: z.nativeEnum(PartnerSpotCappingStrategy),
       level: z.number().int(),
       is_hybrid: z.boolean(),
       coach: z.number().nullable(),
@@ -307,6 +309,8 @@ export const useSessionSchema = () => {
     .refine(
       (data) =>
         !data.available_on_partnership ||
+        data.partner_spot_capping_strategy !==
+          PartnerSpotCappingStrategy.COMBINED ||
         data.partner_max_booking_count <= data.effectif,
       {
         message: t(
@@ -402,6 +406,7 @@ export const useSessionEditSchema = () => {
       effectif: z.number().min(0),
       available_on_partnership: z.boolean(),
       partner_max_booking_count: z.number().min(0),
+      partner_spot_capping_strategy: z.nativeEnum(PartnerSpotCappingStrategy),
       level: z.number().int(),
       coach: z.number(),
       coach_payment_rule: z.number().nullable(),
@@ -459,6 +464,8 @@ export const useSessionEditSchema = () => {
     .refine(
       (data) =>
         !data.available_on_partnership ||
+        data.partner_spot_capping_strategy !==
+          PartnerSpotCappingStrategy.COMBINED ||
         data.partner_max_booking_count <= data.effectif,
       {
         message: t(

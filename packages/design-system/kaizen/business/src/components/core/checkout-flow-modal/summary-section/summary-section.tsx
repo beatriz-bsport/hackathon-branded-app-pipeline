@@ -173,10 +173,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
   };
 
   return (
-    <div
-      className="flex flex-col flex-1 gap-md sm:max-h-[calc(90vh-var(--header-footer-size))]"
-      style={{ "--header-footer-size": "308px" }}
-    >
+    <div className="flex flex-col flex-1 gap-md sm:max-h-[calc(90vh-var(--header-footer-size))]">
       <div className="flex flex-col flex-1 min-h-0 gap-xs">
         <Card className="flex flex-col flex-1 min-h-0 bg-surface-default-weaker">
           {shouldRenderEmptyState ? (

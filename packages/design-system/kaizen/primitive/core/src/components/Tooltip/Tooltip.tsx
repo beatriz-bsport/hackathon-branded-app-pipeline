@@ -1,11 +1,12 @@
 import { cva } from "class-variance-authority";
 import classNames from "classnames";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 
 import Chip, { ChipProps } from "#src/components/Chip";
 import {
   Placements,
-  useRelativePlacementClasses,
+  useAbsolutePlacementStyles,
 } from "#src/hooks/placement-classes.hook";
 
 const defaultClasses = [
@@ -16,11 +17,12 @@ const defaultClasses = [
   "px-xs",
   "items-center",
   "gap-xs",
+  "fixed",
   "rounded-sm",
   "bg-surface-default-elevated",
   "shadow-[0px_4px_12px_-4px_rgba(32,35,34,0.36)]",
   "z-[999]",
-  "transform",
+  "will-change-[top,left]",
   "transition ease-in duration-default",
   "border-stroke-thin border-stroke-weak",
 ] as const;
@@ -52,6 +54,8 @@ const Tooltip: React.FC<TooltipProps> = ({
   ...props
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
   const renderedChip = useMemo(() => chip && <Chip {...chip} />, [chip]);
 
@@ -63,7 +67,12 @@ const Tooltip: React.FC<TooltipProps> = ({
     }
   }, []);
 
-  const placementClasses = useRelativePlacementClasses(placement);
+  const placementStyles = useAbsolutePlacementStyles(
+    placement,
+    anchorRef,
+    tooltipRef,
+    isVisible,
+  );
 
   return (
     <div
@@ -73,6 +82,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     >
       <div
         className="inline-flex"
+        ref={anchorRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onKeyDown={handleKeyDown}
@@ -80,19 +90,26 @@ const Tooltip: React.FC<TooltipProps> = ({
       >
         {children}
       </div>
-      <div
-        className={classNames(tooltip({ className }), placementClasses, {
-          "opacity-transparent pointer-events-none invisible": !isVisible,
-        })}
-        role="tooltip"
-        aria-hidden={!isVisible}
-        title={label}
-      >
-        <span className="text-wrap text-onsurface-default text-body-sm leading-xs">
-          {label}
-        </span>
-        {renderedChip}
-      </div>
+      {typeof document !== "undefined" &&
+        ReactDOM.createPortal(
+          <div
+            className={classNames(tooltip({ className }), {
+              "top-0 left-0 opacity-transparent pointer-events-none invisible":
+                !isVisible,
+            })}
+            role="tooltip"
+            aria-hidden={!isVisible}
+            title={label}
+            style={placementStyles}
+            ref={tooltipRef}
+          >
+            <span className="text-wrap text-onsurface-default text-body-sm leading-xs">
+              {label}
+            </span>
+            {renderedChip}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 };

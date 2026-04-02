@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 /**
  * Available placement positions for the positioned element
@@ -238,6 +244,13 @@ const useRelativePlacementClasses = (placement: Placement) => {
     [placement],
   );
 };
+
+/**
+ * Custom hook that uses either useLayoutEffect or useEffect based on the environment (client-side or server-side).
+ * See: https://usehooks-ts.com/react-hook/use-isomorphic-layout-effect
+ */
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 /**
  * Checks if content fits naturally at a placement without constraints
@@ -546,7 +559,7 @@ const useAbsolutePlacementStyles = (
    * Effect for setting up event listeners and observers
    * Handles component lifecycle and cleanup
    */
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     // Skip setup if element should not be visible
     if (!isVisible) return;
 

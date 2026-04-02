@@ -105,52 +105,51 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
   };
 
   return (
-    <div className="flex flex-col flex-1 gap-md">
+    <div className="flex flex-col flex-1 min-h-0 gap-md sm:max-h-[calc(90vh-var(--header-footer-size))]">
       <Card
         elevated={false}
-        className={cx(
-          "flex flex-col gap-md justify-between",
-          selectedItemType && "h-full",
-        )}
+        className={cx("flex flex-col flex-1 min-h-0 gap-md justify-between")}
       >
-        <div className="flex flex-col gap-md">
-          <ItemTypeSelectorField />
-          {selectedItemType === null ? null : showItemForm ? (
-            <ItemAutocompleteField fetch={fetch} />
-          ) : (
-            <div className="flex flex-col justify-center items-center text-center self-stretch py-xl gap-xs">
-              <Body color="weak" className="max-w-[323px]">
-                {t("checkoutFlowModal.subscriptionMessage")}
-              </Body>
-              <Button
-                iconRight="share-03"
-                label={t("checkoutFlowModal.goToSubscriptions")}
-                size="md"
-                color="main"
-                intent="call-to-action"
-                onClick={handleGoToSubscriptions}
-                data-testid="checkout-flow-go-to-subscriptions-button"
-              />
-            </div>
-          )}
+        <div className="flex flex-1 min-h-0 flex-col overflow-y-auto p-2xs -m-2xs">
+          <div className="flex flex-col gap-md">
+            <ItemTypeSelectorField />
+            {selectedItemType === null ? null : showItemForm ? (
+              <ItemAutocompleteField fetch={fetch} />
+            ) : (
+              <div className="flex flex-col justify-center items-center text-center self-stretch py-xl gap-xs">
+                <Body color="weak" className="max-w-[323px]">
+                  {t("checkoutFlowModal.subscriptionMessage")}
+                </Body>
+                <Button
+                  iconRight="share-03"
+                  label={t("checkoutFlowModal.goToSubscriptions")}
+                  size="md"
+                  color="main"
+                  intent="call-to-action"
+                  onClick={handleGoToSubscriptions}
+                  data-testid="checkout-flow-go-to-subscriptions-button"
+                />
+              </div>
+            )}
 
-          {showItemForm && (
-            <>
-              {selectedItemType !== "giftcard" && <QuantityField />}
-              <PriceField
-                customAmountMinCts={selectedItem?.minAmountCts ?? undefined}
-                customAmountMaxCts={selectedItem?.maxAmountCts ?? undefined}
-              />
-              <AddProductDiscount />
+            {showItemForm && (
+              <>
+                {selectedItemType !== "giftcard" && <QuantityField />}
+                <PriceField
+                  customAmountMinCts={selectedItem?.minAmountCts ?? undefined}
+                  customAmountMaxCts={selectedItem?.maxAmountCts ?? undefined}
+                />
+                <AddProductDiscount />
 
-              {selectedItemType === "giftcard" && selectedItemId && (
-                <>
-                  <Divider orientation="horizontal" weight="thin" />
-                  <GiftcardDetails companyId={companyId} fetch={fetch} />
-                </>
-              )}
-            </>
-          )}
+                {selectedItemType === "giftcard" && selectedItemId && (
+                  <>
+                    <Divider orientation="horizontal" weight="thin" />
+                    <GiftcardDetails companyId={companyId} fetch={fetch} />
+                  </>
+                )}
+              </>
+            )}
+          </div>
         </div>
         {showItemForm && (
           <div className="flex flex-col gap-md">

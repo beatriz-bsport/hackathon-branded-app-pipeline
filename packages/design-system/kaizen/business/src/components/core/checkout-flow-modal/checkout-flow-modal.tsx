@@ -34,6 +34,8 @@ import { useCheckoutFlowTracking } from "./use-checkout-flow-tracking";
 import { useCreateInvoice } from "./use-create-invoice";
 import { useInvoiceConfiguration } from "./use-invoice-configuration";
 
+const CHECKOUT_FLOW_HEADER_FOOTER_SIZE = "308px";
+
 /**
  * Modal to build an invoice (add items, member, promo codes) and create it via API.
  *
@@ -384,32 +386,66 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
             />
           )}
 
-          {isMobile ? (
-            <Accordion className="flex flex-1 flex-col gap-lg">
-              <Accordion.Item
-                initiallyOpen
-                className="gap-md"
-                ariaLabel={t("checkoutFlowModal.addItem")}
-                header={
+          <div
+            style={{ "--header-footer-size": CHECKOUT_FLOW_HEADER_FOOTER_SIZE }}
+            className="flex flex-1 min-h-0"
+          >
+            {isMobile ? (
+              <Accordion className="flex flex-1 flex-col gap-lg">
+                <Accordion.Item
+                  initiallyOpen
+                  className="gap-md"
+                  ariaLabel={t("checkoutFlowModal.addItem")}
+                  header={
+                    <Title htmlVariant="h4" color="default" weight="strong">
+                      {t("checkoutFlowModal.addItem")}
+                    </Title>
+                  }
+                  setOpenRef={addItemCollapseSetOpenRef}
+                >
+                  <AddItemSection
+                    companyId={companyId}
+                    fetch={fetch}
+                    onOpenSummarySection={openSummarySection}
+                  />
+                </Accordion.Item>
+
+                <Accordion.Item
+                  className="gap-md pb-md"
+                  ariaLabel={t("checkoutFlowModal.summary")}
+                  header={<SummaryTitle />}
+                  headerActions={
+                    <SummaryFootnoteButton
+                      onAddFootnoteClick={() => {
+                        track("checkout_flow_add_footnote_button_clicked", {
+                          has_footnote: false,
+                          footnote_length: undefined,
+                          member_id: methods.getValues().member?.id,
+                        });
+                        setIsFootnoteModalOpen(true);
+                      }}
+                    />
+                  }
+                  setOpenRef={summaryCollapseSetOpenRef}
+                >
+                  <SummarySection
+                    fetch={fetch}
+                    openAddItemSection={openAddItemSection}
+                    isFootnoteModalOpen={isFootnoteModalOpen}
+                    setIsFootnoteModalOpen={setIsFootnoteModalOpen}
+                  />
+                </Accordion.Item>
+              </Accordion>
+            ) : (
+              <div className="flex flex-1 gap-lg">
+                <div className="flex flex-col flex-1 gap-md">
                   <Title htmlVariant="h4" color="default" weight="strong">
                     {t("checkoutFlowModal.addItem")}
                   </Title>
-                }
-                setOpenRef={addItemCollapseSetOpenRef}
-              >
-                <AddItemSection
-                  companyId={companyId}
-                  fetch={fetch}
-                  onOpenSummarySection={openSummarySection}
-                />
-              </Accordion.Item>
-
-              <Accordion.Item
-                className="gap-md pb-md"
-                ariaLabel={t("checkoutFlowModal.summary")}
-                header={<SummaryTitle />}
-                headerActions={
-                  <SummaryFootnoteButton
+                  <AddItemSection companyId={companyId} fetch={fetch} />
+                </div>
+                <div className="flex flex-col flex-1 gap-md">
+                  <SummaryTitle
                     onAddFootnoteClick={() => {
                       track("checkout_flow_add_footnote_button_clicked", {
                         has_footnote: false,
@@ -419,44 +455,15 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
                       setIsFootnoteModalOpen(true);
                     }}
                   />
-                }
-                setOpenRef={summaryCollapseSetOpenRef}
-              >
-                <SummarySection
-                  fetch={fetch}
-                  openAddItemSection={openAddItemSection}
-                  isFootnoteModalOpen={isFootnoteModalOpen}
-                  setIsFootnoteModalOpen={setIsFootnoteModalOpen}
-                />
-              </Accordion.Item>
-            </Accordion>
-          ) : (
-            <div className="flex flex-1 gap-lg">
-              <div className="flex flex-col flex-1 gap-md">
-                <Title htmlVariant="h4" color="default" weight="strong">
-                  {t("checkoutFlowModal.addItem")}
-                </Title>
-                <AddItemSection companyId={companyId} fetch={fetch} />
+                  <SummarySection
+                    fetch={fetch}
+                    isFootnoteModalOpen={isFootnoteModalOpen}
+                    setIsFootnoteModalOpen={setIsFootnoteModalOpen}
+                  />
+                </div>
               </div>
-              <div className="flex flex-col flex-1 gap-md">
-                <SummaryTitle
-                  onAddFootnoteClick={() => {
-                    track("checkout_flow_add_footnote_button_clicked", {
-                      has_footnote: false,
-                      footnote_length: undefined,
-                      member_id: methods.getValues().member?.id,
-                    });
-                    setIsFootnoteModalOpen(true);
-                  }}
-                />
-                <SummarySection
-                  fetch={fetch}
-                  isFootnoteModalOpen={isFootnoteModalOpen}
-                  setIsFootnoteModalOpen={setIsFootnoteModalOpen}
-                />
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </ControlledForm>
       </Modal>
 

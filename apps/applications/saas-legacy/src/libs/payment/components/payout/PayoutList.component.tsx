@@ -53,7 +53,7 @@ const PayoutList: React.FC<Props> = ({
   payouts,
   theme,
 }) => {
-  const { t } = useTranslation(['payment']);
+  const { t } = useTranslation(['b2b_payout', 'payment']);
   const classes = useStyles();
   const muiTheme = useTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('xs'));
@@ -74,7 +74,7 @@ const PayoutList: React.FC<Props> = ({
   return (
     <>
       <Typography className={classes.title} variant="h5">
-        {t('payout.title')}
+        {t('payment:payout.title')}
       </Typography>
       <Divider className={classes.divider} />
 
@@ -82,10 +82,10 @@ const PayoutList: React.FC<Props> = ({
       {!loading && !payouts.length && !error && (
         <div>
           <Typography color="textSecondary" variant="body2">
-            {t('payout.isEmpty')}
+            {t('payment:payout.isEmpty')}
           </Typography>
           <Typography color="textSecondary" variant="caption">
-            {t('payout.isEmptyWarning')}
+            {t('payment:payout.isEmptyWarning')}
           </Typography>
         </div>
       )}
@@ -108,11 +108,11 @@ const PayoutList: React.FC<Props> = ({
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>{t('payout.table.date')}</TableCell>
-                <TableCell>{t('payout.table.amount')}</TableCell>
-                <TableCell>{t('payout.table.transactions')}</TableCell>
-                <TableCell>{t('payout.table.id')}</TableCell>
-                <TableCell>{t('payout.table.status')}</TableCell>
+                <TableCell>{t('b2b_payout:table.date')}</TableCell>
+                <TableCell>{t('b2b_payout:table.amount')}</TableCell>
+                <TableCell>{t('b2b_payout:table.transactions')}</TableCell>
+                <TableCell>{t('b2b_payout:table.id')}</TableCell>
+                <TableCell>{t('b2b_payout:table.status')}</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -147,7 +147,7 @@ const PayoutList: React.FC<Props> = ({
               onClick={handleFetchMore}
               variant="outlined"
             >
-              {t('payout.seeMore')}
+              {t('payment:payout.seeMore')}
             </Button>
           )}
         </div>

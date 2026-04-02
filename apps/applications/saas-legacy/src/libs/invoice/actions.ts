@@ -373,9 +373,7 @@ export function downloadInvoiceBulkExport(
         payload.export_status ===
         INVOICE_BULK_EXPORT_STATUS_COMPLETED_NO_INVOICE
       ) {
-        dispatch(
-          snackbarSuccess('invoice:actions.bulkExport.successNoInvoices'),
-        );
+        dispatch(snackbarSuccess('b2b_invoice:bulkExport.successNoInvoices'));
         options?.onSuccess?.(payload);
         return;
       }
@@ -385,7 +383,7 @@ export function downloadInvoiceBulkExport(
         payload.zip_file_url
       ) {
         window.open(payload.zip_file_url, '_blank');
-        dispatch(snackbarSuccess('invoice:actions.bulkExport.toastDownloaded'));
+        dispatch(snackbarSuccess('b2b_invoice:bulkExport.toastDownloaded'));
         options?.onSuccess?.(payload);
         return;
       }
@@ -393,18 +391,16 @@ export function downloadInvoiceBulkExport(
       const unexpectedStatusError = new Error(
         `Unexpected export status: ${payload.export_status}`,
       );
-      dispatch(snackbarError('invoice:actions.bulkExport.error.default'));
+      dispatch(snackbarError('b2b_invoice:bulkExport.error.default'));
       dispatch(downloadInvoiceBulkExportActions.error(unexpectedStatusError));
       options?.onError?.(unexpectedStatusError);
     } catch (err) {
       const errorCode = err?.response?.data?.error_code;
 
       if (errorCode) {
-        dispatch(
-          snackbarError(`invoice:actions.bulkExport.error.${errorCode}`),
-        );
+        dispatch(snackbarError(`b2b_invoice:bulkExport.error.${errorCode}`));
       } else {
-        dispatch(snackbarError('invoice:actions.bulkExport.error.default'));
+        dispatch(snackbarError('b2b_invoice:bulkExport.error.default'));
       }
       dispatch(downloadInvoiceBulkExportActions.error(err));
       options?.onError?.(err);

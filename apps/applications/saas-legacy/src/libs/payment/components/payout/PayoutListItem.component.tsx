@@ -80,7 +80,7 @@ const PayoutListItem: React.FC<Props> = ({
   fetchPayoutBalanceTransactions: fetchPayoutBalanceTransactionsAction,
   fetchPayoutDetail: fetchPayoutDetailAction,
 }) => {
-  const { t } = useTranslation('payment');
+  const { t } = useTranslation(['b2b_payout', 'payment']);
   const classes = useStyles({ payout });
 
   React.useEffect(() => {
@@ -148,7 +148,7 @@ const PayoutListItem: React.FC<Props> = ({
   const reconciliationStatus = payout.reconciliation_status ?? 'completed';
   const showReconciliationIndicator = reconciliationStatus !== 'completed';
   const reconciliationHelper = t(
-    `payout.reconciliationStatusPayout.${reconciliationStatus}`,
+    `b2b_payout:reconciliationStatusPayout.${reconciliationStatus}`,
     { defaultValue: reconciliationStatus },
   );
 
@@ -183,19 +183,19 @@ const PayoutListItem: React.FC<Props> = ({
                 <TableHead>
                   <TableRow>
                     <TableCell>
-                      {t('payout.balanceTransactionTable.type')}
+                      {t('b2b_payout:balanceTransactionTable.type')}
                     </TableCell>
                     <TableCell>
-                      {t('payout.balanceTransactionTable.paymentMethod')}
+                      {t('b2b_payout:balanceTransactionTable.paymentMethod')}
                     </TableCell>
                     <TableCell>
-                      {t('payout.balanceTransactionTable.status')}
+                      {t('b2b_payout:balanceTransactionTable.status')}
                     </TableCell>
                     <TableCell>
-                      {t('payout.balanceTransactionTable.amount')}
+                      {t('b2b_payout:balanceTransactionTable.amount')}
                     </TableCell>
                     <TableCell>
-                      {t('payout.balanceTransactionTable.invoices')}
+                      {t('b2b_payout:balanceTransactionTable.invoices')}
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -223,7 +223,7 @@ const PayoutListItem: React.FC<Props> = ({
               size="small"
               variant="outlined"
             >
-              {t('payout.loadMore')}
+              {t('b2b_payout:loadMore')}
             </Button>
           )}
         </div>
@@ -251,7 +251,7 @@ const PayoutListItem: React.FC<Props> = ({
           </div>
           <div className={classes.mobileCardHeaderRight}>
             <Typography className={classes.status} variant="caption">
-              {t(`payout.status.${payout.status}`)}
+              {t(`payment:payout.status.${payout.status}`)}
             </Typography>
             <IconButton onClick={handleToggle} size="small">
               {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -269,7 +269,7 @@ const PayoutListItem: React.FC<Props> = ({
               isMobile
               placement="top"
               title={
-                t('payout.amountCarryOverFromPreviousPayouts', {
+                t('b2b_payout:amountCarryOverFromPreviousPayouts', {
                   amount: amountFromIncluded,
                 }) ?? ''
               }
@@ -285,7 +285,7 @@ const PayoutListItem: React.FC<Props> = ({
               isMobile
               placement="top"
               title={
-                t('payout.payoutIsIncludedInOther', {
+                t('payment:payout.payoutIsIncludedInOther', {
                   date: formatAsDatetimeAdapted(
                     payout.is_included_in_payout.payment_provider_date_created,
                     'DDD',
@@ -311,7 +311,7 @@ const PayoutListItem: React.FC<Props> = ({
           </Typography>
           <Typography color="textSecondary" variant="caption">
             {payout.balance_transaction_count}{' '}
-            {t('payout.table.transactions').toLowerCase()}
+            {t('b2b_payout:table.transactions').toLowerCase()}
           </Typography>
         </div>
 
@@ -358,7 +358,7 @@ const PayoutListItem: React.FC<Props> = ({
                 isMobile={false}
                 placement="top"
                 title={
-                  t('payout.amountCarryOverFromPreviousPayouts', {
+                  t('b2b_payout:amountCarryOverFromPreviousPayouts', {
                     amount: amountFromIncluded,
                   }) ?? ''
                 }
@@ -374,7 +374,7 @@ const PayoutListItem: React.FC<Props> = ({
                 isMobile={false}
                 placement="top"
                 title={
-                  t('payout.payoutIsIncludedInOther', {
+                  t('payment:payout.payoutIsIncludedInOther', {
                     date: formatAsDatetimeAdapted(
                       payout.is_included_in_payout
                         .payment_provider_date_created,
@@ -412,7 +412,7 @@ const PayoutListItem: React.FC<Props> = ({
         {/* Status */}
         <TableCell>
           <Typography className={classes.status} variant="caption">
-            {t(`payout.status.${payout.status}`)}
+            {t(`payment:payout.status.${payout.status}`)}
           </Typography>
         </TableCell>
 

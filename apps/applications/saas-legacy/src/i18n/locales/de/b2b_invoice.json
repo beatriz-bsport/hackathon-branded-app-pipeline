@@ -115,5 +115,28 @@
       "previewSecondLine": "dann {{restNumbers}}, ...",
       "useExternalAccountingProvider": "Ich nutze einen externen Buchhaltungsdienstleister"
     }
+  },
+  "bulkExport": {
+    "modalTitle": "Rechnungen exportieren",
+    "modalDescription": "Wähle einen Zeitraum, um Rechnungen zu exportieren.",
+    "alertDescription": "Du kannst Rechnungen, die von früheren Anbietern migriert wurden, nicht exportieren.",
+    "month": "Monat",
+    "monthErrorCurrentOrFuture": "Rechnungen können nicht für den aktuellen oder zukünftigen Monate exportiert werden",
+    "monthErrorBeforeCutoff": "Rechnungen können nicht vor März 2025 exportiert werden",
+    "year": "Jahr",
+    "cancel": "Abbrechen",
+    "download": "Herunterladen",
+    "downloading": "Download wird vorbereitet...",
+    "toastDownloaded": "Rechnungen heruntergeladen",
+    "successNoInvoices": "Für diesen Zeitraum wurden keine Rechnungen erstellt.",
+    "error": {
+      "14602": "Exporte sind erst ab März 2025 verfügbar.",
+      "14603": "Der Export für den aktuellen oder zukünftigen Monat kann nicht heruntergeladen werden. Bitte warte bis zum nächsten Monat.",
+      "14604": "Der Export wird bearbeitet. Bitte schau später heute oder morgen (max. 24h) noch einmal vorbei.",
+      "14605": "Export fehlgeschlagen. Bitte kontaktiere den Support.",
+      "14606": "Export noch nicht verfügbar. Bitte versuche es später noch einmal.",
+      "14607": "Für diesen Zeitraum sind keine Rechnungen verfügbar. Dein Unternehmen hat später mit der Rechnungsstellung begonnen.",
+      "default": "Es ist ein Fehler aufgetreten. Bitte versuch es noch einmal."
+    }
   }
 }

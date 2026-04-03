@@ -117,7 +117,7 @@
     }
   },
   "bulkExport": {
-    "modalTitle": "Exporter des factures",
+    "modalTitle": "Télécharger des factures",
     "modalDescription": "Choisissez une période pour exporter les factures.",
     "alertDescription": "Vous ne pourrez pas exporter les factures migrées depuis des prestataires précédents.",
     "month": "Mois",
@@ -134,7 +134,7 @@
       "14603": "Impossible de télécharger l'exportation pour le mois en cours ou les mois futurs. Veuillez attendre le mois prochain.",
       "14604": "L'exportation est en cours de traitement. Veuillez vérifier plus tard aujourd'hui ou demain (max 24h).",
       "14605": "L'exportation a échoué. Veuillez contacter le support.",
-      "14606": "Exportation non disponible pour le moment. Veuillez réessayer plus tard.",
+      "14606": "Le téléchargement n'est pas possible actuellement. Veuillez réessayer plus tard.",
       "14607": "Aucune facture n'est disponible pour cette période. Votre entreprise a commencé à facturer plus tard.",
       "default": "Une erreur est survenue. Veuillez réessayer."
     }

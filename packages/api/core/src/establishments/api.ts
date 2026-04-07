@@ -1,3 +1,5 @@
+import { queryOptions } from "@tanstack/react-query";
+
 import {
   type ApiConfig,
   type Fetch,
@@ -15,6 +17,15 @@ import type {
 import { API_V1_URL } from "../constants";
 
 const ESTABLISHMENT_API_URL = `${API_V1_URL}/establishment`;
+
+// TODO: use the same stale time for all establishments queries
+const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 5 minutes
+
+// TODO: add the other keys (list, search, etc.)
+export const establishmentKeys = {
+  all: ["@api-core", "establishments"] as const,
+  details: (id: number) => [...establishmentKeys.all, id] as const,
+};
 
 const fetchEstablishmentsAPI = (
   params: FetchEstablishmentParams = {},
@@ -46,4 +57,23 @@ export const searchEstablishments = async (
   const { data } = await fetch(uri, init);
 
   return data;
+};
+
+export const retriveEstablishment = async (
+  fetch: Fetch<Establishment>,
+  establishmentId: number,
+): Promise<Establishment> => {
+  const { data } = await fetch(`${ESTABLISHMENT_API_URL}/${establishmentId}/`);
+  return data;
+};
+
+export const retrieveEstablishmentQueryOptions = (
+  fetch: Fetch<Establishment>,
+  establishmentId: number,
+) => {
+  return queryOptions({
+    queryKey: establishmentKeys.details(establishmentId),
+    queryFn: () => retriveEstablishment(fetch, establishmentId),
+    staleTime: ESTABLISHMENTS_STALE_TIME,
+  });
 };

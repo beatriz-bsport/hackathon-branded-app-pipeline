@@ -739,6 +739,7 @@
   "offer": {
     "restore": {
       "error": "Not possible to restore session",
+      "errorBelongingToGroup": "Can't restore this session as it's part of a group. Create a new one.",
       "success": "Session restored"
     }
   },

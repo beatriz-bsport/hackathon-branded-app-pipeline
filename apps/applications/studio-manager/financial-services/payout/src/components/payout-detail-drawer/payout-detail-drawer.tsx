@@ -6,9 +6,9 @@ import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import {
   Alert,
   Body,
+  type BodyProps,
   Button,
   Chip,
-  type ChipProps,
   DetailDrawer,
   Divider,
   Title,
@@ -62,7 +62,7 @@ const RECONCILIATION_STATUS_I18N_KEYS: Record<
 
 const RECONCILIATION_STATUS_COLORS: Record<
   ReconciliationStatusKey,
-  ChipProps["color"]
+  BodyProps["color"]
 > = {
   pending: "warning",
   processing: "info",
@@ -81,7 +81,7 @@ function getReconciliationStatusKey(
 
 function getReconciliationStatusColor(
   status: string | undefined,
-): ChipProps["color"] {
+): BodyProps["color"] {
   return RECONCILIATION_STATUS_COLORS[getReconciliationStatusKey(status)];
 }
 
@@ -221,17 +221,15 @@ export const PayoutDetailDrawer: FC<PayoutDetailDrawerProps> = ({
             <Body size="lg" weight="weak">
               {t("drawer.reconciliation")}
             </Body>
-            <Chip
-              label={getReconciliationStatusLabel(
-                detail?.reconciliation_status,
-                t,
-              )}
+            <Body
+              size="lg"
+              weight="weak"
               color={getReconciliationStatusColor(
                 detail?.reconciliation_status,
               )}
-              size="lg"
-              type="weak"
-            />
+            >
+              {getReconciliationStatusLabel(detail?.reconciliation_status, t)}
+            </Body>
           </div>
 
           {Object.entries(stats.by_display_type).map(([key, stat]) => {

@@ -127,10 +127,9 @@
       "giftcardRecipientEmailEmpty": "Recipient email must be a non-empty string.",
       "giftcardBackgroundImageRequired": "Background image is required for email gift cards."
     },
-    "passes": "Pass",
-    "passesActivationDateTooltip": "",
-    "passesActivationDateTooltip_one": "The date that the pass would start from",
-    "passesActivationDateTooltip_other": "The date that the passes would start from",
+    "passesActivationDateLabel": "",
+    "passesActivationDateLabel_one": "The date that the pass would start from",
+    "passesActivationDateLabel_other": "The date that the passes would start from",
     "loadingBillingGroups": "Loading billing groups...",
     "billingGroup": "Gruppo di contabilizzazione",
     "billingGroupTooltip": "Choose a billing group to assign this invoice to a specific location or entity for accurate tracking and reporting"

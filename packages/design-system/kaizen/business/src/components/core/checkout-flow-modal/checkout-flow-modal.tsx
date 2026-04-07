@@ -39,6 +39,11 @@ const CHECKOUT_FLOW_HEADER_FOOTER_SIZE = "308px";
 /**
  * Modal to build an invoice (add items, member, promo codes) and create it via API.
  *
+ * `openCheckoutFlow` and `CheckoutFlowModal` are complementary:
+ * - call `openCheckoutFlow` from any consuming page to set checkout query params
+ * - render `CheckoutFlowModal` from an integration container (e.g. navigation sidebar)
+ *   that listens to URL state and mounts the modal in a portal
+ *
  * @param companyId - Company for config and invoice creation
  * @param fetch - Instance of the @bsport/fetch library
  * @param isOpen - When false, modal is not rendered
@@ -248,6 +253,9 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
 
   const trackDrop = useCallback(
     (cancelTrigger: "cancel_button" | "cross_button" | "escape_key") => {
+      // Guard against close callbacks that can fire after the modal is already closed.
+      // In that state, tracking session is reset and tracking must be skipped.
+      if (!isOpen) return;
       if (hasTrackedDropRef.current) return;
       hasTrackedDropRef.current = true;
 
@@ -279,7 +287,7 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
         basket_cancel_trigger: cancelTrigger,
       });
     },
-    [methods, track],
+    [isOpen, methods, track],
   );
 
   const handleClose = useCallback(() => {

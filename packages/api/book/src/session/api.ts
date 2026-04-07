@@ -299,24 +299,30 @@ export const fetchRecurrenceFromSessionAPI = async (
   return recurrenceId;
 };
 
-export const retrieveSessionAPIConfig = (
+export const retrieveSessionAPI = async (
+  fetch: Fetch<Session>,
   sessionId: number,
   params: RetrieveSessionParams = {
     with_booking_window: false,
   },
-): ApiConfig => {
-  return [`${API_URL_SESSION}/${sessionId}/${buildUrlParams(params)}`];
-};
-
-export const retrieveSessionAPI = async (
-  fetch: Fetch<Session>,
-  sessionId: number,
-  params?: RetrieveSessionParams,
 ): Promise<Session> => {
-  const [uri, init] = retrieveSessionAPIConfig(sessionId, params);
-  const { data: session } = await fetch(uri, init);
+  const { data: session } = await fetch(
+    `${API_URL_SESSION}/${sessionId}/${buildUrlParams(params)}`,
+  );
   return session;
 };
+
+export const retrieveSessionQueryOptions = (
+  fetch: Fetch<Session>,
+  sessionId: number,
+  params: RetrieveSessionParams = {
+    with_booking_window: false,
+  },
+) =>
+  queryOptions({
+    queryKey: sessionKeys.detail(sessionId),
+    queryFn: () => retrieveSessionAPI(fetch, sessionId, params),
+  });
 
 const fetchSessionStatusAPIConfig = (
   sessionId: number,

@@ -7,7 +7,9 @@ import { useRetrieveTeacher } from "#src/hooks/teacher/use-retrieve-teacher";
 import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-header-config";
 import { useTranslation } from "#src/utils/i18n";
 
+import { BookButton } from "./action-buttons/book-button";
 import { MoreActionsButton } from "./action-buttons/more-actions-button";
+import { RestoreSessionButton } from "./action-buttons/restore-session-button";
 import { SendCommunicationButton } from "./action-buttons/send-communication-button";
 import { SessionNavigationButtons } from "./action-buttons/session-navigation-buttons";
 
@@ -46,6 +48,13 @@ export const Header: FC<{ sessionId: number }> = ({ sessionId }) => {
       })}
       startGroupActions={startGroupActions}
       endGroupActions={endGroupActions}
+      callToActionButton={
+        session.available ? (
+          <BookButton />
+        ) : !session.group ? (
+          <RestoreSessionButton />
+        ) : undefined
+      }
       {...headerConfig}
     />
   );

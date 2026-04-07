@@ -63,13 +63,20 @@ export const useSessionPayload = () => {
         recurrenceWeekdays,
       });
 
-      const { partner_max_booking_count, partner_spot_capping_strategy } =
-        sessionData;
-      const { partnerMaxBookingCount, partnerSpotCappingStrategy } =
-        getSpotCappingInfo({
-          partner_max_booking_count,
-          partner_spot_capping_strategy,
-        });
+      const {
+        partner_max_booking_count,
+        partner_spot_capping_strategy,
+        partnership_offers,
+      } = sessionData;
+      const {
+        partnerMaxBookingCount,
+        partnerSpotCappingStrategy,
+        partnershipOffers,
+      } = getSpotCappingInfo({
+        partner_max_booking_count,
+        partner_spot_capping_strategy,
+        partnership_offers,
+      });
 
       const generatedDates = recurrenceConfig
         ? generateRecurrenceDates(recurrenceConfig)
@@ -94,6 +101,9 @@ export const useSessionPayload = () => {
         available_on_partnership: sessionData.available_on_partnership,
         partner_max_booking_count: partnerMaxBookingCount,
         partner_spot_capping_strategy: partnerSpotCappingStrategy,
+        ...(partnershipOffers !== undefined && {
+          partnership_offers: partnershipOffers,
+        }),
         duration_minute: sessionData.duration_minute,
         level: sessionData.level,
         is_hybrid: sessionData.is_hybrid,
@@ -126,13 +136,20 @@ export const useSessionPayload = () => {
     session: SessionWithActivity,
     editActions: SessionEditActions,
   ): SessionEditPayload => {
-    const { partner_max_booking_count, partner_spot_capping_strategy } =
-      formData;
-    const { partnerMaxBookingCount, partnerSpotCappingStrategy } =
-      getSpotCappingInfo({
-        partner_max_booking_count,
-        partner_spot_capping_strategy,
-      });
+    const {
+      partner_max_booking_count,
+      partner_spot_capping_strategy,
+      partnership_offers,
+    } = formData;
+    const {
+      partnerMaxBookingCount,
+      partnerSpotCappingStrategy,
+      partnershipOffers,
+    } = getSpotCappingInfo({
+      partner_max_booking_count,
+      partner_spot_capping_strategy,
+      partnership_offers,
+    });
 
     return {
       // Identity
@@ -160,6 +177,9 @@ export const useSessionPayload = () => {
       available_on_partnership: formData.available_on_partnership,
       partner_max_booking_count: partnerMaxBookingCount,
       partner_spot_capping_strategy: partnerSpotCappingStrategy,
+      ...(partnershipOffers !== undefined && {
+        partnership_offers: partnershipOffers,
+      }),
       level: formData.level,
       broadcast_link: formData.broadcast_link,
       ...(session.credit_price !== undefined &&

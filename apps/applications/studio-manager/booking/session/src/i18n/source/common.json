@@ -28,6 +28,15 @@
       "5": "No level"
     }
   },
+  "aggregators": {
+    "name": {
+      "wellhub": "Wellhub",
+      "myclubs": "myClubs",
+      "classpass": "ClassPass",
+      "usc": "Urban Sports Club",
+      "wellpass": "Wellpass"
+    }
+  },
   "backgroundTask": {
     "processing": "Processing...",
     "genericError": "An error has occurred. Check your connection and try refreshing the page.",

@@ -33,6 +33,7 @@ export const fromSessionToFormData = (
     partner_spot_capping_strategy:
       session.partner_spot_capping_strategy ??
       PartnerSpotCappingStrategy.COMBINED,
+    partnership_offers: session.partnership_offers ?? [],
     level: session.level,
     broadcast_link: session.broadcast_link ?? "",
     // Teacher and establishment

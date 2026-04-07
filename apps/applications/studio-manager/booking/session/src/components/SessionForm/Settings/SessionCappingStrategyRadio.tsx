@@ -6,6 +6,8 @@ import { RadioGroup } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { SessionCapacityField } from "./SessionCapacityField";
+
 export const SessionCappingStrategyRadio: FC<{
   fieldIdPrefix: string;
 }> = ({ fieldIdPrefix }) => {
@@ -64,6 +66,20 @@ export const SessionCappingStrategyRadio: FC<{
         options={options}
         value={cappingStrategy ?? PartnerSpotCappingStrategy.COMBINED}
       />
+      {cappingStrategy === PartnerSpotCappingStrategy.COMBINED && (
+        <div className="mt-md ml-lg">
+          <SessionCapacityField
+            fieldIdPrefix={fieldIdPrefix}
+            label={t(
+              "addSessionModal.steps.configureSession.settings.partnership.capacity.label",
+            )}
+            fieldName="partner_max_booking_count"
+            helperText={t(
+              "addSessionModal.steps.configureSession.settings.partnership.capacity.helperText",
+            )}
+          />
+        </div>
+      )}
     </div>
   );
 };

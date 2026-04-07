@@ -14,7 +14,7 @@ import { analyticsClient } from "./analytics";
 // This type replicates the structure of dirtyFields from react-hook-form.
 type DirtyFields<T> = Partial<{
   [K in keyof T]: T[K] extends unknown[]
-    ? boolean[]
+    ? boolean[] | Partial<DirtyFields<T[K][number]>>[]
     : T[K] extends object
       ? DirtyFields<T[K]>
       : boolean;

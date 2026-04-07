@@ -121,7 +121,7 @@
     "modalDescription": "Scegli un periodo di tempo per esportare le ricevute.",
     "alertDescription": "Non potrai esportare le ricevute migrate da fornitori precedenti.",
     "month": "Mese",
-    "monthErrorCurrentOrFuture": "Non puoi esportare le Ricevute per il mese corrente o per i mesi futuri",
+    "monthErrorCurrentOrFuture": "Non puoi esportare le ricevute per il mese corrente o per i mesi futuri",
     "monthErrorBeforeCutoff": "Le Ricevute non possono essere esportate prima di marzo 2025",
     "year": "Anno",
     "cancel": "Annulla",

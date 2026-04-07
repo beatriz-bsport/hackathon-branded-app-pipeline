@@ -73,6 +73,7 @@
           "partnership": {
             "toggle": "Make session available to book for customers from aggregators (ClassPass, Urban Sports Club, Gymlib, Wellhub and myClubs).",
             "cappingStrategy": {
+              "label": "Spot limitation",
               "UNLIMITED": {
                 "label": "Unlimited spots",
                 "helperText": "All spots can be booked through aggregators (combined across all platforms)"
@@ -106,7 +107,8 @@
               }
             },
             "enabledAggregators": {
-              "label": "Enabled Aggregators"
+              "label": "Enabled Aggregators",
+              "error": "If session is available to aggregators, you must select at least one."
             }
           },
           "level": {

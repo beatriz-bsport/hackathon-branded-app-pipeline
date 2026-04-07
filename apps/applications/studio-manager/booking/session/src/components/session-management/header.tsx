@@ -8,6 +8,7 @@ import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-he
 import { useTranslation } from "#src/utils/i18n";
 
 import { MoreActionsButton } from "./action-buttons/more-actions-button";
+import { SessionNavigationButtons } from "./action-buttons/session-navigation-buttons";
 
 export const Header: FC<{ sessionId: number }> = ({ sessionId }) => {
   const { t } = useTranslation("sessionManagement");
@@ -23,7 +24,13 @@ export const Header: FC<{ sessionId: number }> = ({ sessionId }) => {
   const sessionName = session.name_override || session.activity_name;
 
   const startGroupActions = useMemo(() => {
-    return [<MoreActionsButton key="more-actions" sessionId={session.id} />];
+    return [
+      <SessionNavigationButtons
+        key="session-navigation"
+        sessionId={session.id}
+      />,
+      <MoreActionsButton key="more-actions" sessionId={session.id} />,
+    ];
   }, [session.id]);
 
   return (

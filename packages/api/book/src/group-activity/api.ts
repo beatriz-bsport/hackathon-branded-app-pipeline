@@ -1,3 +1,5 @@
+import { queryOptions } from "@tanstack/react-query";
+
 import {
   type ApiConfig,
   Fetch,
@@ -15,6 +17,15 @@ import type {
 } from "#src/group-activity/types";
 
 const META_ACTIVITY_URL = API_URL + "v1/meta-activity";
+
+// TODO: use the same stale time for all group activity queries
+const ACTIVITIES_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
+// TODO: add the other keys (list, search, etc.)
+export const groupActivityKeys = {
+  all: ["@api-book", "group-activities"] as const,
+  detail: (id: number) => [...groupActivityKeys.all, id] as const,
+};
 
 const mapGroupActivitiesUrlParams = ({
   customerEnabled,
@@ -246,3 +257,21 @@ export const duplicateGroupActivity = async (
   const { data } = await fetch(uri, init);
   return data;
 };
+
+export const retrieveGroupActivity = async (
+  fetch: Fetch<MetaActivity>,
+  metaActivityId: number,
+): Promise<MetaActivity> => {
+  const { data } = await fetch(`${META_ACTIVITY_URL}/${metaActivityId}/`);
+  return data;
+};
+
+export const retrieveGroupActivityQueryOptions = (
+  fetch: Fetch<MetaActivity>,
+  metaActivityId: number,
+) =>
+  queryOptions({
+    queryKey: groupActivityKeys.detail(metaActivityId),
+    queryFn: () => retrieveGroupActivity(fetch, metaActivityId),
+    staleTime: ACTIVITIES_STALE_TIME,
+  });

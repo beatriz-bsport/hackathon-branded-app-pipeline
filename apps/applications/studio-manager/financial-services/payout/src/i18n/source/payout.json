@@ -1,6 +1,10 @@
 {
   "title": "Payouts",
   "loading": "Loading payouts",
+  "payoutInformation": {
+    "label": "Payout information",
+    "description": "You can copy the payout ID and use Payment Report to export all the payments."
+  },
   "emptyTable": {
     "title": "No payouts to display",
     "description": "There are no payouts available for the selected criteria.",
@@ -12,7 +16,7 @@
     "transactions": "Transactions",
     "id": "ID",
     "copyForReport": "Copy for report",
-    "copyForReportSuccess": "Payout ID copied, you can use Payment Report to export all the payment reports.",
+    "copyForReportSuccess": "Payout ID copied.",
     "copyForReportFailure": "Failed to copy payout ID to clipboard.",
     "status": "Status",
     "detailed": "Detailed",
@@ -47,7 +51,7 @@
       "other": "Others",
       "no_display_type": "Transactions that could not be reconciled"
     },
-    "reconciliation": "Reconciliation status",
+    "reconciliation": "Reconciliation",
     "reconciliationStatusPayoutStatus": {
       "pending": "Pending",
       "processing": "Processing",

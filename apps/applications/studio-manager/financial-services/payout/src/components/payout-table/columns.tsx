@@ -45,12 +45,6 @@ export const usePayoutTableColumns = ({
       align: "end",
     },
     {
-      id: "transactions",
-      keyPath: "transactions",
-      header: t("table.transactions"),
-      type: "number",
-    },
-    {
       id: "readableId",
       header: t("table.id"),
       type: "custom",

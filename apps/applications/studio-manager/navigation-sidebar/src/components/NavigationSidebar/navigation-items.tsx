@@ -98,6 +98,7 @@ export const useNavigationElements = ({
   // Feature flags
   const isAnalyticsEnabled = useNavFlag(NavFlags.INSIGHTS_PAGE);
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
+  const isInvoiceListEnabled = useNavFlag(NavFlags.INVOICE_LIST_PAGE);
   const isPayoutsEnabled = useNavFlag(NavFlags.PAYOUTS_PAGE);
   const isCalendarRevampEnabled = useNavFlag(NavFlags.CALENDAR_REVAMP);
   const isPacksRevampEnabled = useNavFlag(NavFlags.PACKS_REVAMP);
@@ -113,6 +114,9 @@ export const useNavigationElements = ({
   // Object level permissions flags
   const hasSubstitutionToolAccess = useObjectLevelPermission(
     "management.coach.allowed_actions.substitution",
+  );
+  const hasCreateInvoiceAccess = useObjectLevelPermission(
+    "billing.allowed_actions.createInvoice",
   );
 
   const navigationItems: Record<MenuSet, NavigationElement[]> = useMemo(() => {
@@ -146,7 +150,10 @@ export const useNavigationElements = ({
           icon: "shopping-cart-01",
           id: "checkout",
           label: t("menus.sellProducts"),
-          hidden: !isBillingFlowNewModalEnabled || !handleOpenCheckoutModal,
+          hidden:
+            !isBillingFlowNewModalEnabled ||
+            !handleOpenCheckoutModal ||
+            !hasCreateInvoiceAccess,
           ...(isBillingFlowNewModalEnabled &&
             handleOpenCheckoutModal && { onClick: handleOpenCheckoutModal }),
         },
@@ -353,13 +360,18 @@ export const useNavigationElements = ({
             {
               id: "invoices",
               label: t("menus.finance.invoices"),
-              ...navigationUrls.invoice,
+              ...flaggedNavigationUrl({
+                enabled: isInvoiceListEnabled,
+                navigationItem: navigationUrls.invoice,
+              }),
             },
             {
               id: "payouts",
               label: t("menus.finance.payouts"),
-              ...navigationUrls.payout,
-              hidden: !isPayoutsEnabled,
+              ...flaggedNavigationUrl({
+                enabled: isPayoutsEnabled,
+                navigationItem: navigationUrls.payout,
+              }),
             },
             {
               id: "direct-debits",
@@ -574,12 +586,14 @@ export const useNavigationElements = ({
     totalAlertsCount,
     isAnalyticsEnabled,
     isHomepageEnabled,
+    isInvoiceListEnabled,
     isCalendarRevampEnabled,
     isPacksRevampEnabled,
     isGiftcardsRevampEnabled,
     isBillingFlowNewModalEnabled,
     isPayoutsEnabled,
     isNewWebshopEnabled,
+    hasCreateInvoiceAccess,
     hasSubstitutionToolAccess,
   ]);
 

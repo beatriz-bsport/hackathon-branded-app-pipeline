@@ -1,0 +1,115 @@
+{
+  "loadMore": "Leggi di più",
+  "amountCarryOverFromPreviousPayouts": "Inclusi {{amount}} riportati da pagamenti precedenti falliti/annullati",
+  "reconciliationStatusLabel": "Riconciliazione: {{status}}",
+  "reconciliationStatus": {
+    "success": "Successo",
+    "pending": "In attesa",
+    "error": "Errore"
+  },
+  "reconciliationStatusPayout": {
+    "pending": "La riconciliazione delle transazioni di saldo non è ancora iniziata",
+    "processing": "La riconciliazione delle transazioni di saldo è attualmente in corso",
+    "completed": "La riconciliazione delle transazioni di saldo è stata completata",
+    "partially_failed": "Alcune transazioni di saldo non sono state riconciliate",
+    "skipped_manual": "La riconciliazione delle transazioni di saldo è stata saltata"
+  },
+  "reconciliationStatusPayoutStatus": {
+    "pending": "In attesa",
+    "processing": "In corso",
+    "completed": "Completato",
+    "partially_failed": "Parzialmente fallito",
+    "skipped_manual": "Saltato"
+  },
+  "table": {
+    "date": "Data",
+    "amount": "Importo",
+    "transactions": "Transazioni",
+    "id": "ID",
+    "status": "Stato"
+  },
+  "balanceTransactionTable": {
+    "type": "Tipo",
+    "paymentMethod": "Metodo di pagamento",
+    "status": "Stato",
+    "amount": "Importo",
+    "invoices": "Ricevute"
+  },
+  "balanceTransaction": {
+    "reversalInPayout": "storno del pagamento {{readable_identifier}}",
+    "reversalOf": "Storno della transazione #{{id}}{{payoutInfo}}",
+    "reversalOfPayoutInfo": " — pagamento {{readable_identifier}}",
+    "fromPayout": "Dal pagamento {{readable_identifier}}",
+    "net": "net {{amount}}"
+  },
+  "summary": {
+    "reconciliation": "Stato di riconciliazione",
+    "payments": "Pagamenti",
+    "refunds": "Rimborsi",
+    "disputes": "Controversie",
+    "directDebitOriginal": "Addebito diretto originale",
+    "directDebitReversal": "Storno addebito diretto",
+    "transfers": "Trasferimenti",
+    "transferRefunds": "Rimborsi di trasferimento",
+    "adjustments": "Rettifiche",
+    "appFees": "Commissioni app",
+    "appFeeRefunds": "Rimborsi delle commissioni app",
+    "payoutFailures": "Pagamenti non riusciti",
+    "payoutCancels": "Cancellazioni di pagamento",
+    "title": "Riepilogo pagamenti"
+  },
+  "displayType": {
+    "payment": {
+      "label": "Pagamento",
+      "description": "Un pagamento del cliente"
+    },
+    "refund": {
+      "label": "Rimborso",
+      "description": "Un rimborso emesso a un cliente"
+    },
+    "dispute": {
+      "label": "Controversie",
+      "description": "Un contenzioso avviato dal cliente (richiesta di rimborso)"
+    },
+    "failed_direct_debit_original": {
+      "label": "Addebito diretto fallito",
+      "description": "Un addebito diretto non andato a buon fine"
+    },
+    "failed_direct_debit_reversal": {
+      "label": "Storno addebito diretto",
+      "description": "Un riaccredito a seguito di un addebito diretto non andato a buon fine"
+    },
+    "balance_transfer": {
+      "label": "Transazione",
+      "description": "un trasferimento di saldo"
+    },
+    "balance_transfer_refund": {
+      "label": "Rimborso trasferimento",
+      "description": "Un rimborso di un trasferimento di saldo"
+    },
+    "adjustment": {
+      "label": "Adeguamento",
+      "description": "Una rettifica manuale del saldo"
+    },
+    "application_fee": {
+      "label": "Costo app",
+      "description": "Una commissione di piattaforma"
+    },
+    "application_fee_refund": {
+      "label": "rimborso commissione app",
+      "description": "Un rimborso della commissione della piattaforma"
+    },
+    "payout_failure": {
+      "label": "Pagamento non riuscito",
+      "description": "Fondi restituiti dopo un pagamento non riuscito"
+    },
+    "payout_cancel": {
+      "label": "Annulla pagamento",
+      "description": "Fondi restituiti dopo un pagamento annullato"
+    },
+    "other": {
+      "label": "Altro",
+      "description": "Un altro tipo di transazione di saldo"
+    }
+  }
+}

@@ -1,9 +1,10 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import type { Fetch } from "@bsport/fetch";
 import {
   CheckoutFlowModal,
   type CheckoutFlowStartContext,
+  openCheckoutFlow,
 } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
 import { toast } from "@bsport/kaizen-primitive-core";
 
@@ -69,24 +70,27 @@ export function useCheckoutModalContainer({
       ? parsedMemberId
       : undefined;
 
-  const isCheckoutModalOpen = isEnabled && hasCfOpen;
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(
+    isEnabled && hasCfOpen,
+  );
 
   const basketStartTrigger = parseCfTrigger(cfTriggerParam);
+
+  useEffect(() => {
+    setIsCheckoutModalOpen(isEnabled && hasCfOpen);
+  }, [isEnabled, hasCfOpen]);
 
   // Open from a nav action (e.g. "Sell products"); no member pre-selected.
   const openCheckoutModalFromNav = useCallback(() => {
     if (!isEnabled || typeof window === "undefined") return;
-    const navParams = new URLSearchParams(window.location.search);
-    navParams.set("cfOpen", "");
-    navParams.set("cfTrigger", "navbar");
-    navParams.delete("memberId");
-    const search = navParams.toString();
-    const path = window.location.pathname + (search ? `?${search}` : "");
-    navigateInContext(path, false);
-  }, [isEnabled, navigateInContext]);
+    setIsCheckoutModalOpen(true);
+    openCheckoutFlow({ basketStartTrigger: "navbar" });
+  }, [isEnabled]);
 
   // Close modal and remove cfOpen, cfTrigger & memberId from the URL.
   const handleCheckoutClose = useCallback(() => {
+    setIsCheckoutModalOpen(false);
+
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       params.delete("cfOpen");
@@ -95,6 +99,7 @@ export function useCheckoutModalContainer({
       const search = params.toString();
       const path = window.location.pathname + (search ? `?${search}` : "");
       window.history.replaceState(null, "", path);
+      window.dispatchEvent(new CustomEvent("navigation", { detail: { path } }));
     }
   }, []);
 
@@ -124,9 +129,9 @@ export function useCheckoutModalContainer({
     }),
   };
 
-  /** Modal tree to render when enabled, company is set, and modal is open; null otherwise. */
+  /** Modal tree to render when enabled and company is set; visibility is driven by `isOpen`. */
   const checkoutModalElement =
-    isEnabled && companyId != null && isCheckoutModalOpen ? (
+    isEnabled && companyId != null ? (
       <CheckoutModalQueryClientProvider>
         <CheckoutFlowModal
           companyId={companyId}

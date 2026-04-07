@@ -5,3 +5,4 @@ export type {
   CheckoutFlowTrackFn,
 } from "./types";
 export { CheckoutFlowModal } from "./checkout-flow-modal";
+export { openCheckoutFlow } from "./open-checkout-flow";

@@ -1,0 +1,30 @@
+{
+  "pageTitle": "Encomendas",
+  "header": {
+    "searchTooltip": "Pesquisar nesta página",
+    "filters": {
+      "operators": {
+        "is": "é"
+      }
+    }
+  },
+  "table": {
+    "headers": {
+      "lastDateUpdated": "Última atualização",
+      "buyer": "Comprador",
+      "orderStatus": "Estado",
+      "quantity": "Quantidade",
+      "total": "Total",
+      "dateCreated": "Criado"
+    },
+    "loading": "Carregando pedidos ...",
+    "emptyState": {
+      "title": "Ainda não há pedidos",
+      "emptyDatabase": "Assim que os contactos comprarem produtos da sua loja, você poderá acompanhar e gerenciar os pedidos nesta página. ",
+      "emptySearch": "Não há pedidos atualmente marcados como {{ status }}."
+    },
+    "rows": {
+      "memberArchived": "Arquivado"
+    }
+  }
+}

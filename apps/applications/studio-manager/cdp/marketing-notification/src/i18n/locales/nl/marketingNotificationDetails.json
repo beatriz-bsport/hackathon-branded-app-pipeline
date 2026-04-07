@@ -1,0 +1,109 @@
+{
+  "noData": "N/A",
+  "drawer": {
+    "overview": "Overzicht",
+    "segmentedControl": {
+      "performance": "Prestaties",
+      "trigger": "Activiteit",
+      "content": "Inhoud"
+    },
+    "missingEmailTemplate": "Het e-mailsjabloon dat aan deze automatisering was gekoppeld, is verwijderd. Voeg een nieuwe toe om de automatisering te herstellen.",
+    "content": {
+      "email": {
+        "title": "Email",
+        "noPreview": "Stel je e-mail hier in om een voorbeeld te bekijken"
+      },
+      "push": {
+        "title": "Push-notificatie",
+        "noPreview": "Stel je push-notificatie hier in om een voorbeeld te bekijken"
+      }
+    },
+    "trigger": {
+      "title": "Meldingsregel",
+      "content": {
+        "triggeredBy": "Voorwaarde",
+        "triggeredWhen": "Bezorgtijdstip",
+        "smartlist": {
+          "excluding": "Stuur niet naar contacten in deze Smartlists",
+          "including": "Alleen naar contacten in deze Smartlists sturen",
+          "noSmartlistsFiltering": "Geen"
+        },
+        "passes": {
+          "title": "Bijbehorende leskaarten",
+          "credits_one": "{{count}} credit",
+          "credits_other": "{{count}} credits",
+          "allIncluded": {
+            "title": "Alle leskaarten inbegrepen",
+            "description": "Deze melding wordt geactiveerd voor elke leskaart."
+          },
+          "emptyList": {
+            "title": "Geen leskaart inbegrepen",
+            "description": "Werk deze melding bij om leskaarten als trigger toe te voegen."
+          }
+        }
+      }
+    },
+    "performance": {
+      "contentPreviewModal": {
+        "title": "Inhoud",
+        "buttons": {
+          "confirm": "Sluiten"
+        }
+      },
+      "emails": {
+        "title": "Emails",
+        "totalEmailsSent": "Totaal aantal verzonden email",
+        "recipientsTotal_one": "({{count}} lid)",
+        "recipientsTotal_other": "({{count}} Leden)",
+        "openRate": "Openingspercentage"
+      },
+      "allNotifications": {
+        "title": "Alle meldingen",
+        "noCommunications": {
+          "title": "Er zijn geen berichten verzonden",
+          "description": "Er zijn nog geen ontvangers om weer te geven voor deze melding."
+        },
+        "helper": {
+          "title": "Prestatiestatus",
+          "content": "Deze samenvatting toont de prestaties van zowel emails als pushmeldingen door hun status weer te geven.",
+          "status": {
+            "sent": {
+              "label": "Verzonden",
+              "description": "succesvol afgeleverd"
+            },
+            "opened": {
+              "label": "Aantal openingen",
+              "description": "De ontvanger heeft de melding geopend"
+            },
+            "failed": {
+              "label": "Storing",
+              "description": "Kon niet worden bezorgd. Probeer het opnieuw. "
+            },
+            "noData": {
+              "label": "N/A",
+              "description": "Kon de communicatiegegevens niet ophalen. Probeer het opnieuw. "
+            }
+          }
+        },
+        "table": {
+          "header": {
+            "date": "Datum",
+            "recipient": "Ontvanger",
+            "status": "Status"
+          },
+          "recipients": {
+            "forwardedToRelationships": "Doorgestuurd naar {{count}} relaties"
+          },
+          "tooltip": {
+            "relatedMember": "Geteld in totaal verzonden Email"
+          }
+        },
+        "status": {
+          "sent": "Verzonden",
+          "opened": "Aantal openingen",
+          "failed": "Storing"
+        }
+      }
+    }
+  }
+}

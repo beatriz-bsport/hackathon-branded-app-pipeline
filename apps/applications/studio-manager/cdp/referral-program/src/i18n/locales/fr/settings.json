@@ -1,1 +1,142 @@
-{}
+{
+  "title": "Parrainages",
+  "referralProgramHelper": {
+    "title": "Activer les parrainages",
+    "description": "Configurez un lien de parrainage pour que vos membres invitent d'autres personnes à votre studio. Offrez une incitation, fixez une limite de temps pour le parrainage et fournissez une récompense au membre parrain.",
+    "button": {
+      "activated": {
+        "label": "Désactiver",
+        "errors": {
+          "couldNotToggle": "Échec de la désactivation du programme de parrainage"
+        }
+      },
+      "deactivated": {
+        "label": "Activer",
+        "errors": {
+          "couldNotToggle": "Échec de l'activation du programme de parrainage"
+        }
+      }
+    }
+  },
+  "inactive": {
+    "header": {
+      "chip": "Inactif"
+    }
+  },
+  "active": {
+    "header": {
+      "chip": "actif"
+    },
+    "form": {
+      "basketMinimalAmount": {
+        "label": "Valeur minimale du panier d'achat",
+        "helper": "Montant pour être éligible à la remise de parrainage",
+        "errors": {
+          "tooManyDecimalPoints": "Le montant ne peut pas avoir plus de 2 décimales",
+          "invalidFormat": "Le format du montant n'est pas valide"
+        }
+      },
+      "referringReward": {
+        "title": "Récompense pour parrainer un membres",
+        "amountOff": {
+          "label": "Combien souhaitez-vous récompenser les membres"
+        },
+        "maxReferringNumber": {
+          "label": "Utilisation max. par membres",
+          "errors": {
+            "tooSmall": "Le nombre d'utilisations doit être compris entre 1 et 5",
+            "tooBig": "Vous ne pouvez pas donner plus de 5 parrainages",
+            "noFloat": "Vous ne pouvez utiliser que des nombres entiers"
+          }
+        },
+        "alerts": {
+          "equalToZero": "En choisissant cette valeur, aucune remise ne sera appliquée à l'achat des membres parrainés."
+        },
+        "errors": {
+          "tooManyDecimalPoints": "Le montant ne peut pas avoir plus de 2 décimales",
+          "invalidFormat": "Le format du montant n'est pas valide"
+        }
+      },
+      "referralReward": {
+        "title": "Remise pour nouveau client",
+        "label": "Total des remises",
+        "percentage": "Pourcentage",
+        "amount": "Montant",
+        "errors": {
+          "onlyWholePercentage": "Le pourcentage doit être un nombre entier, les entiers les plus proches sont {{ wholeNumberUnder }} ou {{ wholeNumberAbove }}",
+          "percentageTooHigh": "Le pourcentage ne peut pas être supérieur à 100",
+          "invalidFormat": "Le format du montant n'est pas valide",
+          "tooManyDecimalPoints": "Le montant ne peut pas avoir plus de 2 décimales"
+        },
+        "alerts": {
+          "equalToZero": "Choisir '0' supprimera la remise pour la personne référée"
+        }
+      },
+      "timeLimitForUsage": {
+        "unit": {
+          "label": "Sélectionnez l'intervalle de limite de temps",
+          "choices": {
+            "days_one": "Jour",
+            "weeks_one": "Semaine",
+            "months_one": "Mois",
+            "days_other": "Jours",
+            "weeks_other": "Semaines",
+            "months_other": "Mois"
+          },
+          "errors": {}
+        },
+        "interval": {
+          "label": "Délai pour appliquer la remise après l'inscription",
+          "errors": {
+            "lowerThanOne": "La limite de temps doit être de 1 {{ timeUnit }} ou plus"
+          }
+        }
+      },
+      "tagSelector": {
+        "label": "Appliquez une étiquette lorsque de nouveaux clients utilisent le lien de parrainage",
+        "placeholder": "Sélectionnez une étiquette",
+        "helper": "Conseil : Ajoutez un tag aux nouveaux clients pour les cibler ultérieurement.",
+        "errors": {
+          "notProvided": "Sélectionnez une étiquette ou désactivez cette option pour continuer"
+        }
+      },
+      "redirectLink": {
+        "switch": {
+          "label": "Ajouter un lien de redirection",
+          "helper": "Ajoutez un lien pour rediriger les nouveaux clients vers une URL personnalisée après leur inscription. Si laissé vide, ils seront dirigés vers la page du Calendrier."
+        },
+        "textfield": {
+          "label": "Lien de redirection",
+          "placeholder": "Entrez l'URL"
+        },
+        "errors": {
+          "notProvided": "Ajoutez une URL ou désactivez cette option pour continuer",
+          "invalidFormat": "Le format de l'URL n'est pas valide"
+        }
+      },
+      "saveSettings": {
+        "buttonLabel": "Enregistrer",
+        "onSuccess": {
+          "title": "Modifications enregistrées"
+        },
+        "onFailure": {
+          "title": "Impossible d'enregistrer les modifications"
+        },
+        "errors": {
+          "invalidVoucherType": "Le type de bon n'est pas valide",
+          "invalidTimeUnit": "L'unité de temps n'est pas valide"
+        }
+      }
+    },
+    "deactivateReferralModal": {
+      "title": "Désactiver les parrainages ?",
+      "description": "Nous enregistrerons votre configuration afin que vous puissiez facilement réactiver les parrainages à l'avenir.",
+      "cancelButton": {
+        "label": "Fermer"
+      },
+      "confirmButton": {
+        "label": "Désactiver"
+      }
+    }
+  }
+}

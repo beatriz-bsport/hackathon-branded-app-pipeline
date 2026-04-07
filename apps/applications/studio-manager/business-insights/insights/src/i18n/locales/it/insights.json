@@ -1,28 +1,47 @@
 {
   "pageTitle": "Approfondimenti",
   "sections": {
-    "member": "Panoramica sui membri",
+    "communityMarketing": "Community & Marketing",
     "financial": "Salute Finanziaria",
-    "booking": "Performance Prenotazioni",
-    "teacher": "Performance Insegnanti",
-    "marketing": "Performance Marketing"
+    "operations": "Operazioni"
   },
   "items": {
     "trial": {
-      "title": "Monitora le prestazioni delle offerte di prova",
-      "description": "Scopri di più su acquisizione, tassi di conversione e come aumentare l'efficacia della tua offerta di prova"
+      "title": "Acquisizione e Conversione",
+      "description": "Scopri come i primi acquisti si trasformano in clienti dello studio abituali e individua il posto dove avvengono gli abbandoni"
+    },
+    "community_health": {
+      "title": "Fidelizzazione dei Clienti Dello Studio",
+      "description": "Comprendi l'attività dei clienti, il churn e la fidelizzazione nel tuo studio"
     },
     "recurring": {
-      "title": "Monitorare le prestazioni degli abbonamenti",
+      "title": "Abbonamenti",
       "description": "Monitora lo stato degli abbonamenti, analizza i ricavi ricorrenti e individua rischi o opportunità"
+    },
+    "booking": {
+      "title": "Prenotazioni e Domanda",
+      "description": "Esplora l'attività di prenotazione, il comportamento dei clienti e le tendenze della domanda per prendere decisioni più intelligenti sui ricavi"
+    },
+    "schedule": {
+      "title": "Pianificazione",
+      "description": "Tieni traccia dei tassi di riempimento, delle presenze e dei ricavi generati dalle tue classi"
     }
   },
   "pages": {
     "trialAnalysis": {
-      "title": "Prestazioni delle offerte di prova"
+      "title": "Acquisizione e Conversione"
+    },
+    "communityHealth": {
+      "title": "Fidelizzazione dei Clienti Dello Studio"
     },
     "recurringRevenue": {
-      "title": "Monitorare le prestazioni degli abbonamenti"
+      "title": "Abbonamenti"
+    },
+    "bookingInsight": {
+      "title": "Prenotazioni e Domanda"
+    },
+    "scheduleAnalysis": {
+      "title": "Pianificazione"
     }
   },
   "errors": {

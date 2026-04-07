@@ -7,17 +7,14 @@ import { useDebounce } from "@bsport/use-debounce";
 
 import { useSearchTeachers } from "#src/hooks/use-search-teachers";
 import { useFetchTeachers } from "#src/hooks/useFetchTeachers";
-import {
-  selectSessionFilters,
-  useSessionListStore,
-} from "#src/stores/session-list";
+import { selectSessionFilters, useCalendarStore } from "#src/stores/calendar";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionFilterTypes, SessionFilters } from "./types";
 
 export const useTeacherFilter = (): FilterField => {
   const { t } = useTranslation("sessionList");
-  const filters = useSessionListStore(selectSessionFilters);
+  const filters = useCalendarStore(selectSessionFilters);
   const restrictedTeachers = dataAccessLayer.useUserRestrictedTeachers();
 
   // Get persisted teacher IDs from filters

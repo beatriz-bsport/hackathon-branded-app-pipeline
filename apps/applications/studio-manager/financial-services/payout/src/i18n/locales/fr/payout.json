@@ -1,1 +1,118 @@
-{}
+{
+  "title": "Paiements",
+  "loading": "Loading payouts",
+  "emptyTable": {
+    "title": "No payouts to display",
+    "description": "There are no payouts available for the selected criteria.",
+    "loadError": "Failed to load payouts. Please try again later."
+  },
+  "table": {
+    "date": "Date de complétion",
+    "amount": "En valeur",
+    "transactions": "Facturation",
+    "id": "ID",
+    "copyForReport": "Copy for report",
+    "copyForReportSuccess": "Payout ID copied, you can use Payment Report to export all the payment reports.",
+    "copyForReportFailure": "Failed to copy payout ID to clipboard.",
+    "status": "Statut",
+    "detailed": "Detailed",
+    "couldNotBeReconciled": "Some transactions could not be reconciled"
+  },
+  "drawer": {
+    "detailsTitle": "Payout details",
+    "summaryTitle": "Payout summary",
+    "loadError": "Error loading payout details",
+    "loading": "Loading payout details",
+    "date": "Date de complétion",
+    "amount": "En valeur",
+    "transactions": "Facturation",
+    "id": "ID",
+    "status": "Statut",
+    "previouslyIncludedPayouts": "Includes {{amount}} carried over from previous failed/canceled payouts",
+    "detailedPayout": "Detailed payout",
+    "summaryLoadError": "Error loading payout summary",
+    "summary": {
+      "payment": "Paiements",
+      "refund": "Refunds",
+      "dispute": "Litiges",
+      "failed_direct_debit_original": "Direct debit orig.",
+      "failed_direct_debit_reversal": "Direct debit rev.",
+      "balance_transfer": "Transfers",
+      "balance_transfer_refund": "Transfer refunds",
+      "adjustment": "Adjustments",
+      "application_fee": "Application fees",
+      "application_fee_refund": "Application fee refunds",
+      "payout_failure": "Payout failures",
+      "payout_cancel": "Payout cancels",
+      "other": "Autres",
+      "no_display_type": "Transactions that could not be reconciled"
+    },
+    "reconciliation": "Reconciliation status",
+    "reconciliationStatusPayoutStatus": {
+      "pending": "En attente",
+      "processing": "En cours de facturation",
+      "completed": "Terminé",
+      "partially_failed": "Partially failed",
+      "skipped_manual": "Skipped",
+      "unknown": "Inconnu"
+    }
+  },
+  "status": {
+    "pending": "En attente",
+    "processing": "En cours de traitement",
+    "successful": "Réussi",
+    "failed": "Echec",
+    "canceled": "Annulée",
+    "unknown": "Inconnu"
+  },
+  "modal": {
+    "title": "Detailed payout",
+    "description": "See all payments included in this payout. ({{date}})",
+    "error": "Error loading balance transactions",
+    "table": {
+      "type": "Type",
+      "paymentMethod": "Moyen de paiement",
+      "status": "Statut",
+      "gross": "Gross",
+      "fees": "Frais",
+      "net": "Net",
+      "total": "Somme"
+    },
+    "displayType": {
+      "payment": "Paiement",
+      "refund": "Avoir",
+      "dispute": "Litige",
+      "failed_direct_debit_original": "Direct debit (original)",
+      "failed_direct_debit_reversal": "Direct debit (reversal)",
+      "balance_transfer": "Virement",
+      "balance_transfer_refund": "Transfer refund",
+      "adjustment": "Adjustment",
+      "application_fee": "Frais de dossier",
+      "application_fee_refund": "Application fee refund",
+      "payout": "Payout",
+      "payout_failure": "Payout failure",
+      "payout_cancel": "Payout canceled",
+      "other": "Marketplaces"
+    },
+    "paymentMethod": {
+      "card": "Carte",
+      "sepa_debit": "SEPA",
+      "bacs_debit": "BACS",
+      "twint": "TWINT",
+      "apple_pay": "Apple Pay",
+      "google_pay": "Google Pay",
+      "bancontact": "Bancontact",
+      "ideal": "iDEAL"
+    },
+    "reconciliationStatus": {
+      "success": "Succès",
+      "skipped": "Skipped",
+      "error": "Erreur",
+      "pending": "En attente"
+    },
+    "empty": {
+      "title": "No payments to display",
+      "description": "There are no payments included in this payout."
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "noData": "N/A",
+  "drawer": {
+    "overview": "Reservar ahora",
+    "segmentedControl": {
+      "performance": "Rendimiento",
+      "trigger": "Evento que desencadena la notificación",
+      "content": "Contenido del formulario"
+    },
+    "missingEmailTemplate": "La plantilla de correo electrónico vinculada a esta automatización fue eliminada. Añade una nueva para restaurar la automatización.",
+    "content": {
+      "email": {
+        "title": "Correo electrónico",
+        "noPreview": "Tienes que configurar tu correo para previsualizar aquí."
+      },
+      "push": {
+        "title": "Notificación push",
+        "noPreview": "Configura tu notificación push y prévisualízala aquí"
+      }
+    },
+    "trigger": {
+      "title": "Norma de notificación",
+      "content": {
+        "triggeredBy": "Condición",
+        "triggeredWhen": "Tiempo de entrega",
+        "smartlist": {
+          "excluding": "No envíes a contactos en estas Smartlists",
+          "including": "Solo enviar a contactos en estas Smartlists",
+          "noSmartlistsFiltering": "Sin método de pago"
+        },
+        "passes": {
+          "title": "Pases asociados",
+          "credits_one": "{{count}} crédito",
+          "credits_other": "{{count}} créditos",
+          "allIncluded": {
+            "title": "Todos los pases incluidos",
+            "description": "Esta notificación se activará para cada pase."
+          },
+          "emptyList": {
+            "title": "No se incluyen pases",
+            "description": "Actualiza esta notificación para añadir pases como el desencadenante."
+          }
+        }
+      }
+    },
+    "performance": {
+      "contentPreviewModal": {
+        "title": "Contenido del formulario",
+        "buttons": {
+          "confirm": "Cerrar"
+        }
+      },
+      "emails": {
+        "title": "Correos electrónicos",
+        "totalEmailsSent": "Total de correos enviados",
+        "recipientsTotal_one": "({{count}} miembro)",
+        "recipientsTotal_other": "({{count}} Miembros)",
+        "openRate": "Tasa de apertura"
+      },
+      "allNotifications": {
+        "title": "Todas las notificaciones",
+        "noCommunications": {
+          "title": "No se enviaron comunicaciones",
+          "description": "No hay destinatarios para mostrar en esta notificación todavía."
+        },
+        "helper": {
+          "title": "Estado de Rendimiento",
+          "content": "Este resumen muestra el rendimiento de tanto los correos como las notificaciones push al mostrar su estado.",
+          "status": {
+            "sent": {
+              "label": "Enviados",
+              "description": "Entregado con éxito"
+            },
+            "opened": {
+              "label": "Número de aperturas",
+              "description": "El destinatario abrió la notificación"
+            },
+            "failed": {
+              "label": "Fallido",
+              "description": "No se pudo entregar. Por favor, inténtalo de nuevo. "
+            },
+            "noData": {
+              "label": "N/A",
+              "description": "No se pudo recuperar la información de comunicación. Por favor, inténtalo de nuevo. "
+            }
+          }
+        },
+        "table": {
+          "header": {
+            "date": "Fecha",
+            "recipient": "Beneficiario",
+            "status": "Estado"
+          },
+          "recipients": {
+            "forwardedToRelationships": "Reenviado a {{count}} relaciones"
+          },
+          "tooltip": {
+            "relatedMember": "Contando en el total de correos enviados"
+          }
+        },
+        "status": {
+          "sent": "Enviados",
+          "opened": "Número de aperturas",
+          "failed": "Fallido"
+        }
+      }
+    }
+  }
+}

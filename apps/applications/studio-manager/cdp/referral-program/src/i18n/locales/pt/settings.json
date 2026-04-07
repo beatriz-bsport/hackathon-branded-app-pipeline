@@ -1,0 +1,142 @@
+{
+  "title": "Indicações",
+  "referralProgramHelper": {
+    "title": "Ativar Indicações",
+    "description": "Configure um link de indicação para que seus Membros convidem outras pessoas para o seu estúdio. Ofereça um incentivo, defina um prazo para a indicação e forneça uma recompensa para o Membro que indicou.",
+    "button": {
+      "activated": {
+        "label": "Desativar",
+        "errors": {
+          "couldNotToggle": "Falha ao desativar o programa de indicações"
+        }
+      },
+      "deactivated": {
+        "label": "Ativar",
+        "errors": {
+          "couldNotToggle": "Falha ao ativar o programa de indicação"
+        }
+      }
+    }
+  },
+  "inactive": {
+    "header": {
+      "chip": "Inativo"
+    }
+  },
+  "active": {
+    "header": {
+      "chip": "ativo"
+    },
+    "form": {
+      "basketMinimalAmount": {
+        "label": "Valor mínimo do carrinho de compras",
+        "helper": "Valor para ser elegível ao desconto por indicação",
+        "errors": {
+          "tooManyDecimalPoints": "A quantia não pode ter mais de 2 casas decimais",
+          "invalidFormat": "O formato do valor não é válido"
+        }
+      },
+      "referringReward": {
+        "title": "Recompensa por indicar um membros",
+        "amountOff": {
+          "label": "Quanto você quer recompensar os membros"
+        },
+        "maxReferringNumber": {
+          "label": "Uso máx. por membros",
+          "errors": {
+            "tooSmall": "O número de usos deve estar entre 1 e 5",
+            "tooBig": "Você não pode dar mais de 5 indicações",
+            "noFloat": "Você só pode usar números inteiros"
+          }
+        },
+        "alerts": {
+          "equalToZero": "Ao escolher este valor, nenhum desconto será aplicado à compra dos membros indicados"
+        },
+        "errors": {
+          "tooManyDecimalPoints": "O valor não pode ter mais de 2 casas decimais",
+          "invalidFormat": "O formato do valor não é válido"
+        }
+      },
+      "referralReward": {
+        "title": "Desconto para novo cliente",
+        "label": "Total de desconto",
+        "percentage": "Porcentagem",
+        "amount": "Montante",
+        "errors": {
+          "onlyWholePercentage": "A porcentagem deve ser um número inteiro, o número inteiro mais próximo é {{ wholeNumberUnder }} ou {{ wholeNumberAbove }}",
+          "percentageTooHigh": "A porcentagem não pode ser maior que 100",
+          "invalidFormat": "O formato do valor não é válido",
+          "tooManyDecimalPoints": "A quantia não pode ter mais de 2 casas decimais"
+        },
+        "alerts": {
+          "equalToZero": "Escolher '0' removerá o desconto para a pessoa que foi indicada"
+        }
+      },
+      "timeLimitForUsage": {
+        "unit": {
+          "label": "Selecione o intervalo de tempo limite",
+          "choices": {
+            "days_one": "Dia",
+            "weeks_one": "Semana",
+            "months_one": "Mês",
+            "days_other": "Dias",
+            "weeks_other": "Semanas",
+            "months_other": "Meses"
+          },
+          "errors": {}
+        },
+        "interval": {
+          "label": "Limite de tempo para aplicar o desconto após o registro",
+          "errors": {
+            "lowerThanOne": "O limite de tempo deve ser de 1 {{ timeUnit }} ou mais"
+          }
+        }
+      },
+      "tagSelector": {
+        "label": "Aplique uma tag quando novos clientes usarem o link de referência",
+        "placeholder": "Selecione uma tag",
+        "helper": "Dica: Etiquete novos clientes para direcioná-los mais tarde.",
+        "errors": {
+          "notProvided": "Selecione uma tag ou desative esta opção para continuar"
+        }
+      },
+      "redirectLink": {
+        "switch": {
+          "label": "Adicione um link de redirecionamento",
+          "helper": "Adicione um link para redirecionar novos clientes para uma URL personalizada após o registro. Se deixado em branco, eles serão levados para a página do Calendário."
+        },
+        "textfield": {
+          "label": "Link de redirecionamento",
+          "placeholder": "Insira o URL"
+        },
+        "errors": {
+          "notProvided": "Adicione um URL ou desative esta opção para continuar",
+          "invalidFormat": "O formato da URL não é válido"
+        }
+      },
+      "saveSettings": {
+        "buttonLabel": "Salvar",
+        "onSuccess": {
+          "title": "Alterações salvas"
+        },
+        "onFailure": {
+          "title": "Não foi possível salvar as alterações"
+        },
+        "errors": {
+          "invalidVoucherType": "O tipo de voucher não é válido",
+          "invalidTimeUnit": "A unidade de tempo não é válida"
+        }
+      }
+    },
+    "deactivateReferralModal": {
+      "title": "Desativar indicações?",
+      "description": "Vamos salvar sua configuração para que você possa reativar facilmente as indicações no futuro.",
+      "cancelButton": {
+        "label": "Fechar"
+      },
+      "confirmButton": {
+        "label": "Desativar"
+      }
+    }
+  }
+}

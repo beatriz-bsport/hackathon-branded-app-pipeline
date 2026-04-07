@@ -1,10 +1,158 @@
 {
+  "autocomplete": {
+    "categories": {
+      "selectedItems": "Articles sélectionnés",
+      "allItems": "Tous les articles"
+    }
+  },
   "fileUpload": {
     "uploadFileCTA": "Importer un fichier",
     "dragAndDropCTA": "ou le déposer ici",
     "uploadStatus": {
       "success": "Import réussi",
       "error": "Erreur d'import du fichier"
+    },
+    "actions": {
+      "abort": "Annuler le téléchargement",
+      "remove": "Supprimer le fichier",
+      "retry": "Réessayer le téléchargement"
     }
+  },
+  "emptyState": {
+    "noResultsFound": {
+      "title": "Aucun résultat trouvé",
+      "clearFilters": "Effacer les filtres"
+    }
+  },
+  "errorFallback": {
+    "title": "Nous sommes désolés —",
+    "description": "Nous avons enregistré le problème et notre équipe travaille dur pour le résoudre.\nEn attendant, essayez de rafraîchir la page.",
+    "subtitle": "Quelque chose s'est mal passé de notre côté.",
+    "actionLabel": "Réessayez",
+    "crashReportModalToggle": "Envoyer des commentaires"
+  },
+  "crashReportModal": {
+    "title": "Signaler ce problème",
+    "feedbackContentPlaceholder": "Décrivez ce que vous faisiez lorsque l'erreur s'est produite afin que notre équipe puisse résoudre le problème.",
+    "confirmButtonLabel": "Veuillez envoyer le rapport",
+    "toast": {
+      "success": "Rapport envoyé avec succès",
+      "failure": "Une erreur s'est produite lors de l'envoi des commentaires"
+    }
+  },
+  "detailsLayout": {
+    "confirmation": {
+      "title": "La page contient des modifications non enregistrées.",
+      "discard": "Jeter",
+      "save": "Enregistrer les modifications"
+    },
+    "panelControlButton": {
+      "openPanel": "Panneau ouvert",
+      "closePanel": "Fermer panneau"
+    }
+  },
+  "datePicker": {
+    "modalTitle": "Sélectionnez un jour",
+    "shortcutsTitle": "Raccourcis",
+    "startDate": "Début de validité",
+    "endDate": "Fin de validité",
+    "nextMonth": "Le mois prochain",
+    "previousMonth": "Mois précédent",
+    "invalidStartDate": "Date de début invalide",
+    "invalidEndDate": "Date de fin invalide",
+    "rangeLabel": "De {{ start }} à {{end}}",
+    "datePlaceholder": "JJ/MM/AAAA",
+    "shortcuts": {
+      "today": "Aujourd'hui",
+      "last4weeks": "Last 4 weeks",
+      "lastWeek": "7 derniers jours",
+      "lastQuarter": "Trois derniers mois",
+      "monthToDate": "Month to date",
+      "yearToDate": "Year to date",
+      "nextWeek": "Next 7 days",
+      "nextMonth": "Le mois prochain",
+      "nextQuarter": "Next 3 months",
+      "nextYear": "Next year"
+    }
+  },
+  "modal": {
+    "back": "Retour",
+    "next": "Suivant",
+    "close": "Fermer",
+    "cancel": "Annuler"
+  },
+  "pagination": {
+    "rows": "Lignes",
+    "showingRange": "Affichage de {{currentItemsRendered}} sur {{totalItems}}",
+    "firstPage": "Première page",
+    "previousPage": "Page précedente",
+    "nextPage": "Page suivante",
+    "lastPage": "Dernière page"
+  },
+  "headerLayout": {
+    "search": {
+      "tooltip": "Rechercher sur cette page"
+    },
+    "editTitle": "Modifier le titre",
+    "actions": {
+      "more": "Plus d'options"
+    },
+    "display": {
+      "buttonLabel": "Choisissez comment vous voulez afficher votre widget"
+    }
+  },
+  "copyToClipboard": {
+    "copied": "Copié dans le presse-papiers",
+    "failed": "Impossible de copier dans le presse-papiers. Veuillez réessayer. ",
+    "tooltip": "Cliquez pour copier"
+  },
+  "detailDrawer": {
+    "tooltip": {
+      "close": "Fermer"
+    }
+  },
+  "sidebar": {
+    "ariaLabel": "Navigation principal",
+    "openMenu": "Ouvrir le menu de navigation",
+    "closeMenu": "Fermer le menu de navigation"
+  },
+  "dropdownMenu": {
+    "search": {
+      "placeholder": "Rechercher..."
+    }
+  },
+  "filter": {
+    "openAriaLabel": "Ouvrir les filtres",
+    "clearAriaLabel": "Effacer tous les filtres",
+    "addAriaLabel": "Ajouter un filtre",
+    "deleteAriaLabel": "Supprimez le filtre",
+    "modalTitle": "Filtrer",
+    "clearAction": "Effacer",
+    "applyAction": "Appliquer le filtre",
+    "addAction": "Ajouter un filtre",
+    "selectFieldPlaceholder": "Sélectionner un filtre",
+    "selectOperatorPlaceholder": "Sélectionner",
+    "selectValuePlaceholder": "Sélectionner"
+  },
+  "button": {
+    "clear": "Effacer",
+    "search": "Chercher (recherche en anglais)"
+  },
+  "alert": {
+    "clear": "Effacer l'alerte"
+  },
+  "list": {
+    "toggleCollapse": "Replier",
+    "collapse": "Replier",
+    "expand": "Étendre"
+  },
+  "tabs": {
+    "selectTab": "Sélectionner l'onglet"
+  },
+  "textField": {
+    "clear": "Effacer"
+  },
+  "actions": {
+    "more": "Plus d'options"
   }
 }

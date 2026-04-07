@@ -1,0 +1,242 @@
+{
+  "communicationVariableSelector": {
+    "placeholder": "Aggiungere un'etichetta"
+  },
+  "communicationVariable": {
+    "Offer": {
+      "name": "Sessioni",
+      "tags": {
+        "activity": "Attività",
+        "coach": "Insegnante",
+        "date": "Ora e data",
+        "establishment": "Strutture",
+        "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+        "address": "Indirizzo"
+      }
+    },
+    "User": {
+      "name": "Socio",
+      "tags": {
+        "firstname": "Nome",
+        "lastname": "Cognome",
+        "unsubscribe_link": "Annulla l'iscrizione alla newsletter",
+        "reset_password_url": "Link reset password",
+        "email_confirmation_url": "Link per la verifica della email",
+        "marketing_email_double_opt_in_url": "Marketing email double opt-in link"
+      }
+    },
+    "Booking": {
+      "name": "Attività",
+      "tags": {
+        "activity": "Attività",
+        "coach": "Insegnante",
+        "date": "Ora e data",
+        "establishment": "Stabilimento",
+        "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+        "address": "Indirizzo",
+        "ics_calendar_link": "Collegamento ics al calendario",
+        "spot": "Posto",
+        "canceled_grouped_session": "Gruppo di prenotazione annullato"
+      },
+      "subtitles": {
+        "workshop": "Workshop",
+        "establishment_group": "Sede",
+        "establishment": "Stabilimento",
+        "meta_activity": "Attività"
+      }
+    },
+    "ConsumerPaymentPack": {
+      "name": "Pacchetti",
+      "tags": {
+        "pass_price": "Prezzo del pacchetto",
+        "pass_name": "Nome del pacchetto",
+        "pass_starting_date": "Data di inizio del pacchetto per appuntamenti",
+        "pass_expiration": "Data di fine del pacchetto",
+        "pass_credit_left": "Crediti rimanenti"
+      }
+    },
+    "BillingPlan": {
+      "name": "Abbonamenti ricorrenti",
+      "tags": {
+        "subscription_name": "Nome dell'abbonamento ricorrente",
+        "subscription_recurrent_price": "Importo mensile addebitato",
+        "subscription_nb_months": "Numero di mesi",
+        "subscription_nb_bills": "Numero di ricevute",
+        "subscription_duration": "Durata totale",
+        "subscription_flat_fee": "Tasse di iscrizione",
+        "subscription_payment_method": "Mezzi di pagamento",
+        "subscription_nb_days_pause": "Pausa: numero di giorni",
+        "subscription_next_invoice_date": "Data della prossima contabilizzazione",
+        "subscription_contract_terms_link": "link \"Condizioni Legali\"",
+        "days_until_payment_method_expiration": "Numero di giorni prima della scadenza del metodo di pagamento"
+      }
+    },
+    "BookingOption": {
+      "name": "Lista d'attesa",
+      "tags": {
+        "activity": "Attività",
+        "coach": "Insegnante",
+        "date": "Ora e data",
+        "establishment": "Stabilimento",
+        "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+        "address": "Indirizzo",
+        "option_payment_url": "Link per la prenotazione",
+        "option_expiration_date": "Data di scadenza inserita nella lista d'attesa",
+        "waiting_list_position": "Posizione in lista d'attesa",
+        "waiting_list_size": "Dimensione della lista d'attesa"
+      }
+    },
+    "PrivateBooking": {
+      "tags": {
+        "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+        "address": "Indirizzo",
+        "date": "Ora e data",
+        "coach": "Insegnante",
+        "activity": "Attività",
+        "establishment": "Stabilimento",
+        "ics_calendar_link": "Collegamento ics al calendario"
+      },
+      "name": "Appuntamenti"
+    },
+    "PrivateConsumerPass": {
+      "tags": {
+        "pass_credit_left": "Crediti rimanenti",
+        "pass_expiration": "Data di fine del pacchetto",
+        "pass_starting_date": "Data di inizio del pacchetto per appuntamenti",
+        "pass_name": "Nome del pacchetto",
+        "pass_price": "Prezzo della carta per appuntamenti"
+      },
+      "name": "Pacchetti Per Appuntamenti"
+    },
+    "Company": {
+      "tags": {
+        "company_websiteURL": "URL del sito web",
+        "company_info": "Informazioni sullo studio",
+        "android_app_URL": "URL dell'applicazione android",
+        "android_app_url": "URL dell'applicazione Android",
+        "ios_app_URL": "URL dell'applicazione iOS",
+        "ios_app_url": "URL dell'applicazione iOS",
+        "company_facebookURL": "URL Facebook",
+        "company_instagramURL": "URL Instagram",
+        "company_scheduleURL": "Pianifica l'URL",
+        "login_url": "URL di accesso",
+        "company": "Società",
+        "company_primary_color": "Colore primario dell'azienda",
+        "company_name": "Nome dell'azienda",
+        "company_logo": "Logo dell'azienda",
+        "currency": "Valuta aziendale"
+      },
+      "name": "Società"
+    },
+    "GuestInvitation": {
+      "name": "Prenotazione per l'ospite",
+      "tags": {
+        "firstname_guest": "Nome ospite",
+        "lastname_guest": "Cognome dell'ospite",
+        "firstname_host": "Nome del membro che invita",
+        "lastname_host": "Cognome del membro che invita"
+      }
+    },
+    "RecurrentRule": {
+      "tags": {
+        "recurring_booking_fail_reason": "Motivo dell'errore di prenotazione ricorrente",
+        "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+        "establishment": "Stabilimento",
+        "date": "Ora e data",
+        "coach": "Insegnante",
+        "address": "Indirizzo",
+        "activity": "Attività"
+      },
+      "name": "Regola ricorrente"
+    },
+    "Birthday": {
+      "name": "Compleanno"
+    },
+    "ReplacementRequest": {
+      "tags": {
+        "sub_teacher": "Supplente",
+        "closing_date": "Data di chiusura"
+      },
+      "name": "Sostituzione"
+    },
+    "Invoice": {
+      "name": "Contabilizzazione",
+      "tags": {
+        "id": "Codice di identificazione della ricevuta",
+        "invoice_price": "Importo della ricevuta",
+        "invoice_sum_up": "Riepilogo della ricevuta",
+        "invoice_date": "Valido dalla data di contabilizzazione",
+        "invoice_download_link": "Link per scaricare",
+        "days_until_payment_method_expiration_planned_payment_event": "Giorni prima della scadenza del metodo di pagamento"
+      }
+    },
+    "GiftCard": {
+      "tags": {
+        "giftcard_message": "Messaggio nella gift card",
+        "activate_giftcard_url": "Link di attivazione della gift card",
+        "message_is_from": "Membro che invia la gift card",
+        "message_is_for": "Destinatario della gift card",
+        "giftcard_value": "Valore della gift card",
+        "giftcard_name": "Nome della gift card",
+        "activation_datetime": "Data di attivazione della gift card",
+        "pdf_link": "Link PDF della gift card",
+        "printable_code": "Codice stampabile della gift card"
+      },
+      "name": "Gift card"
+    },
+    "requiredTags": {
+      "reset_password_url": "Link reset password",
+      "email_confirmation_url": "Link per la verifica della email",
+      "marketing_email_double_opt_in_url": "Marketing email double opt-in link",
+      "new_email": "Nuova email di accesso",
+      "old_email": "Email di accesso precedente",
+      "activate_giftcard_url": "Link di attivazione della gift card",
+      "message_is_from": "Membro che invia la gift card",
+      "giftcard_message": "Messaggio nella gift card",
+      "giftcard_value": "Valore della gift card",
+      "manage_changing_email_link": "Link per la gestione delle modifiche all'email",
+      "pdf_link": "Link PDF della gift card"
+    },
+    "EmailChange": {
+      "name": "Modifica dell'account",
+      "tags": {
+        "new_email": "Nuova email di accesso",
+        "old_email": "Email di accesso precedente",
+        "manage_changing_email_link": "Link per la gestione delle modifiche all'email",
+        "login_link": "Link di accesso all'area personale"
+      }
+    },
+    "SpiviPerformance": {
+      "tags": {
+        "total_distance": "Distanza percorsa",
+        "calories_kJ": "Calorie in kJ",
+        "calories": "Calorie",
+        "max_watts": "Potenza massima",
+        "maximum_speed": "Velocità massima",
+        "max_RPM": "RPM massime",
+        "max_HR": "Frequenza cardiaca massima",
+        "average_watts": "Potenza media",
+        "average_speed": "Velocità media",
+        "average_RPM": "RPM medie",
+        "average_HR": "Frequenza cardiaca media",
+        "SEP": "Spivi Ecosystem Point"
+      },
+      "name": "Performance"
+    },
+    "ReferralProgram": {
+      "name": "Riferimento",
+      "tags": {
+        "reduction_purchase_referred": "Sconto per il membro sponsorizzato",
+        "referring_reward": "Ricompensa per il referente",
+        "minimum_purchase_referral": "Importo minimo di acquisto",
+        "deadline_use_referral": "Validità del premio referral",
+        "referring_firstname": "Nome del referente",
+        "referring_lastname": "Cognome del referente",
+        "referred_firstname": "Nome del riferito",
+        "referred_lastname": "Cognome del riferito",
+        "referral_link": "Link di riferimento",
+        "registration_date": "Data di iscrizione del membro riferito"
+      }
+    }
+  }
+}

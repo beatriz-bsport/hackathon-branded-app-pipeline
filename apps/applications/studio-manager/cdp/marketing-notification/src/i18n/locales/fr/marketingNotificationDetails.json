@@ -1,0 +1,109 @@
+{
+  "noData": "N/A",
+  "drawer": {
+    "overview": "Je réserve",
+    "segmentedControl": {
+      "performance": "Performance",
+      "trigger": "Évènement déclenchant la notification",
+      "content": "Contenu"
+    },
+    "missingEmailTemplate": "Le modèle d'e-mail lié à cette automatisation a été supprimé. Ajoutez-en un nouveau pour restaurer l'automatisation.",
+    "content": {
+      "email": {
+        "title": "Email",
+        "noPreview": "Configurez votre email et prévisualisez ici"
+      },
+      "push": {
+        "title": "Notification push",
+        "noPreview": "Configurez votre notification push et prévisualisez ici"
+      }
+    },
+    "trigger": {
+      "title": "Règle de notification",
+      "content": {
+        "triggeredBy": "Condition",
+        "triggeredWhen": "Calendrier de livraison",
+        "smartlist": {
+          "excluding": "Ne pas envoyer aux contacts dans ces Smartlists",
+          "including": "Envoyer uniquement aux contacts dans ces Smartlists",
+          "noSmartlistsFiltering": "Aucun"
+        },
+        "passes": {
+          "title": "Cartes de cours associées",
+          "credits_one": "{{count}} crédit",
+          "credits_other": "{{count}} crédits",
+          "allIncluded": {
+            "title": "Toutes les cartes de cours sont incluses",
+            "description": "Cette notification sera déclenchée pour chaque carte de cours."
+          },
+          "emptyList": {
+            "title": "Aucune carte de cours incluse",
+            "description": "Mettez à jour cette notification pour ajouter des cartes de cours comme déclencheur."
+          }
+        }
+      }
+    },
+    "performance": {
+      "contentPreviewModal": {
+        "title": "Contenu",
+        "buttons": {
+          "confirm": "Fermer"
+        }
+      },
+      "emails": {
+        "title": "Emails",
+        "totalEmailsSent": "Total d'emails envoyés",
+        "recipientsTotal_one": "({{count}} membre)",
+        "recipientsTotal_other": "({{count}} membres)",
+        "openRate": "Taux d'ouverture"
+      },
+      "allNotifications": {
+        "title": "Toutes les notifications",
+        "noCommunications": {
+          "title": "Aucune communication n'a été envoyée",
+          "description": "Il n'y a pas encore de destinataires à afficher pour cette notification."
+        },
+        "helper": {
+          "title": "Statut de performance",
+          "content": "Ce résumé montre la performance des emails et des notifications push en affichant leur statut.",
+          "status": {
+            "sent": {
+              "label": "Envoyés",
+              "description": "Livré avec succès"
+            },
+            "opened": {
+              "label": "Nombres d'ouvertures",
+              "description": "Le destinataire a ouvert la notification"
+            },
+            "failed": {
+              "label": "Echec",
+              "description": "N'a pas pu être livrée. Veuillez réessayer. "
+            },
+            "noData": {
+              "label": "N/A",
+              "description": "Impossible de récupérer les données de communication. Veuillez réessayer. "
+            }
+          }
+        },
+        "table": {
+          "header": {
+            "date": "Date de complétion",
+            "recipient": "Destinataire",
+            "status": "Statut"
+          },
+          "recipients": {
+            "forwardedToRelationships": "Transféré à {{count}} relations"
+          },
+          "tooltip": {
+            "relatedMember": "Compte dans le total des emails envoyés"
+          }
+        },
+        "status": {
+          "sent": "Envoyés",
+          "opened": "Nombres d'ouvertures",
+          "failed": "Echec"
+        }
+      }
+    }
+  }
+}

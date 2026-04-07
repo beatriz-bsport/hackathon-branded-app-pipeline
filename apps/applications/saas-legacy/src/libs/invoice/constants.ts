@@ -23,3 +23,7 @@ export enum InvoiceSignEsSignatureStatus {
   NOT_SENDABLE = 'NOT_SENDABLE',
   TO_BE_SENT_MANUALLY = 'TO_BE_SENT_MANUALLY',
 }
+
+export const INVOICE_BULK_EXPORT_STATUS_COMPLETED = 'completed';
+export const INVOICE_BULK_EXPORT_STATUS_COMPLETED_NO_INVOICE =
+  'completed_no_invoice';

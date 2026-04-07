@@ -24,7 +24,7 @@ export const ContractFormName: FC<ContractFormNameProps> = ({
       name="name"
       mapProps={({ defaultProps, field, form }) => ({
         ...defaultProps,
-        helperText: `${field.value.length}/${FIELD_CONSTRAINTS.NAME_MAX_LENGTH}`,
+        helperText: `${field.value.length}/${FIELD_CONSTRAINTS.NAME_LENGTH_MAX}`,
         onClear: () => {
           form.setValue("name", DEFAULT_DATA.name, {
             shouldDirty: true,

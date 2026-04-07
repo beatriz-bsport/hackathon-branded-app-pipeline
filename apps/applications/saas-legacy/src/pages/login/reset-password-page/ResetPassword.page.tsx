@@ -121,6 +121,7 @@ export class ResetPassword extends Component<Props, State> {
       <>
         <ResetPasswordForm
           email={this.state.email}
+          errorCode={this.props.resetError?.response?.data?.error?.error_code}
           hasResetError={!!this.props.resetError}
           hasSent={this.state.hasSent}
           isLoading={this.props.loading}

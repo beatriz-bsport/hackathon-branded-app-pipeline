@@ -389,7 +389,9 @@
       "14": "Guthaben (debit)",
       "15": "Karte (manuell - Kartenmaschine)",
       "16": "Bacs-Lastschriftverfahren",
-      "17": "PayPal"
+      "17": "PayPal",
+      "20": "Google Pay",
+      "19": "Apple Pay"
     },
     "select": {
       "label": "Zahlungsmethode",
@@ -506,7 +508,10 @@
       "amountPaid": "Bezahlt",
       "amountDue": "Gesamt",
       "title": "Zusammenfassung",
-      "amountBeingProcessed": "Betrag in Bearbeitung"
+      "amountBeingProcessed": "Betrag in Bearbeitung",
+      "plannedPaymentsAmount": "Zahlung geplant",
+      "pendingPaymentsAmount": "Zahlung ausstehend",
+      "amountReceived": "Zahlung eingegangen"
     },
     "date": {
       "label": "Einzugsdatum"

@@ -16,54 +16,54 @@ const COUNT_KEYS: Array<{
   labelKey: string;
   key: keyof Payout;
 }> = [
-  { labelKey: 'payout.summary.payments', key: 'payment_count' },
-  { labelKey: 'payout.summary.refunds', key: 'refund_count' },
-  { labelKey: 'payout.summary.disputes', key: 'dispute_count' },
+  { labelKey: 'summary.payments', key: 'payment_count' },
+  { labelKey: 'summary.refunds', key: 'refund_count' },
+  { labelKey: 'summary.disputes', key: 'dispute_count' },
   {
-    labelKey: 'payout.summary.directDebitOriginal',
+    labelKey: 'summary.directDebitOriginal',
     key: 'failed_direct_debit_original_count',
   },
   {
-    labelKey: 'payout.summary.directDebitReversal',
+    labelKey: 'summary.directDebitReversal',
     key: 'failed_direct_debit_reversal_count',
   },
-  { labelKey: 'payout.summary.transfers', key: 'balance_transfer_count' },
+  { labelKey: 'summary.transfers', key: 'balance_transfer_count' },
   {
-    labelKey: 'payout.summary.transferRefunds',
+    labelKey: 'summary.transferRefunds',
     key: 'balance_transfer_refund_count',
   },
-  { labelKey: 'payout.summary.adjustments', key: 'adjustment_count' },
-  { labelKey: 'payout.summary.appFees', key: 'application_fee_count' },
+  { labelKey: 'summary.adjustments', key: 'adjustment_count' },
+  { labelKey: 'summary.appFees', key: 'application_fee_count' },
   {
-    labelKey: 'payout.summary.appFeeRefunds',
+    labelKey: 'summary.appFeeRefunds',
     key: 'application_fee_refund_count',
   },
-  { labelKey: 'payout.summary.payoutFailures', key: 'payout_failure_count' },
-  { labelKey: 'payout.summary.payoutCancels', key: 'payout_cancel_count' },
+  { labelKey: 'summary.payoutFailures', key: 'payout_failure_count' },
+  { labelKey: 'summary.payoutCancels', key: 'payout_cancel_count' },
 ];
 
 const PayoutSummary: React.FC<Props> = ({ payout }) => {
   const classes = useStyles();
-  const { t } = useTranslation(['payment']);
+  const { t } = useTranslation(['b2b_payout']);
 
   const counts = COUNT_KEYS.filter((c) => (payout[c.key] as number) > 0);
   const reconciliationStatus = payout.reconciliation_status ?? 'pending';
   const reconciliationStatusLabel = t(
-    `payout.reconciliationStatusPayoutStatus.${reconciliationStatus}`,
+    `reconciliationStatusPayoutStatus.${reconciliationStatus}`,
     { defaultValue: reconciliationStatus },
   );
 
   return (
     <div className={classes.root}>
       <Typography className={classes.title} variant="subtitle2">
-        {t('payout.summary.title')}
+        {t('summary.title')}
       </Typography>
       <Table className={classes.table} size="small">
         <TableBody>
           <TableRow>
             <TableCell className={classes.labelCell}>
               <Typography variant="caption">
-                {t('payout.summary.reconciliation')}
+                {t('summary.reconciliation')}
               </Typography>
             </TableCell>
             <TableCell className={classes.countCell}>

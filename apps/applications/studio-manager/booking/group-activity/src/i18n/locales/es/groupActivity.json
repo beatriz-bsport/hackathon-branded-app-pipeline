@@ -1,60 +1,83 @@
 {
   "list": {
-    "toasts": {
-      "undo": "Deshacer",
-      "open": "Abrir",
-      "unarchive": "{{groupActivityName}} ha sido archivado",
-      "archive": "{{groupActivityName}} ha sido archivado",
-      "duplication": "{{groupActivityName}} se ha duplicado"
-    },
-    "header": {
-      "archivedActivities": "Actividades archivadas",
-      "display": {
-        "save": "Guardar",
-        "reset": "Restablecer",
-        "alphabetical": "Alfabéticamente",
-        "ordering": "Ordenar",
-        "title": "Mostrar"
-      },
-      "filter": "Filtro",
-      "add": "Añadir actividad de grupo",
-      "archivedGroupActivities": "Actividades de grupo archivadas",
-      "groupActivities": "Actividades de grupo"
-    },
-    "archived": {
-      "emptyState": {
-        "title": "Aún no hay actividades de grupo archivadas"
-      },
-      "unarchive": "Desarchivar actividad"
+    "columns": {
+      "name": "Apellido",
+      "category": "Categoría",
+      "upcomingSession": "Próxima sesión",
+      "features": "Características",
+      "actions": "Acciones"
     },
     "enabled": {
-      "emptyState": {
-        "body": "Cree actividades de grupo y permita que sus miembros asistan a las sesiones",
-        "title": "Aún no hay actividades de grupo"
+      "item": {
+        "notifications": {
+          "title": "Notificaciones",
+          "popoverLabel": "Tiene notificaciones configuradas"
+        },
+        "livestream": {
+          "title": "En línea",
+          "popoverLabel": "Retransmisión en línea disponible"
+        }
       },
-      "archive": {
-        "confirm": "Archivar",
-        "cancel": "Cancelar",
-        "cantArchive": "Hay próximas sesiones previstas para esta actividad. Compruebe si se han cancelado.",
-        "modalContent": "¿Quieres archivar la actividad <strong>{{groupActivityName}}</strong>? Las sesiones y reservas anteriores no se modificarán.<br/> Puedes desarchivar la actividad en cualquier momento.",
-        "title": "Archivar actividad"
+      "filter": {
+        "title": "Filtro",
+        "category": "Categoría",
+        "is": "Es",
+        "isNot": "no es"
       },
       "duplicate": {
-        "confirm": "Duplicar",
-        "cancel": "Cancelar",
+        "title": "Duplicar actividad de grupo",
         "modalContent": "Duplicar <strong>{{groupActivityName}}</strong>?<br/> Después podrás modificar los datos de la tarjeta regalo.",
-        "title": "Duplicar actividad"
+        "cancel": "Cerrar",
+        "confirm": "Duplicar"
       },
-      "item": {
-        "livestream": {
-          "popoverLabel": "Retransmisión en línea disponible",
-          "title": "En línea"
-        },
-        "notifications": {
-          "popoverLabel": "Tiene notificaciones configuradas",
-          "title": "Notificaciones"
-        }
+      "archive": {
+        "title": "¿Archivar la actividad del grupo?",
+        "modalContent": "¿Quieres archivar la actividad <strong>{{groupActivityName}}</strong>? Las sesiones y reservas anteriores no se modificarán.<br/> Puedes desarchivar la actividad en cualquier momento.",
+        "cantArchive": "Los Miembros ya no verán {{groupActivityname}}, pero puedes restaurarla desde tu archivo en cualquier momento. ",
+        "cancel": "Mantener",
+        "confirm": "Archivar"
+      },
+      "emptyState": {
+        "title": "Aún no hay actividades de grupo",
+        "body": "Crea tu primera Actividad de Grupo para que tus miembros puedan reservar. "
+      },
+      "emptySearchState": {
+        "title": "No se encontraron actividades de grupo",
+        "subtitle": "Intenta buscar con diferentes palabras clave",
+        "action": "Borrar filtros"
       }
+    },
+    "archived": {
+      "unarchive": "Desarchivar actividad",
+      "emptyState": {
+        "title": "Aún no hay actividades de grupo archivadas"
+      }
+    },
+    "actions": {
+      "archive": "Archivar",
+      "unarchive": "Restaurar",
+      "duplicate": "Duplicar"
+    },
+    "header": {
+      "groupActivities": "Actividades",
+      "archivedGroupActivities": "Archivar",
+      "add": "Añadir actividad de grupo",
+      "filter": "Filtro",
+      "display": {
+        "title": "Mostrar",
+        "ordering": "Ordenar",
+        "alphabetical": "Alfabéticamente",
+        "reset": "Restablecer",
+        "save": "Guardar"
+      },
+      "archivedActivities": "Actividades archivadas"
+    },
+    "toasts": {
+      "duplication": "{{groupActivityName}} se ha duplicado",
+      "archive": "{{groupActivityName}} ha sido archivado",
+      "unarchive": "{{groupActivityName}} ha sido archivado",
+      "open": "Abrir",
+      "undo": "Deshacer"
     }
   }
 }

@@ -1,1 +1,198 @@
-{}
+{
+  "pages": {
+    "active": "Plantillas de email",
+    "archived": "Plantillas de correo archivadas"
+  },
+  "tabs": {
+    "customTemplates": "Personalizado",
+    "masterTemplates": "Franquicia",
+    "bsportTemplates": "bsport"
+  },
+  "filters": {
+    "filterButton": {
+      "label": "Filtro"
+    },
+    "displayButton": {
+      "label": "Mostrar"
+    },
+    "status": "Estado"
+  },
+  "search": {
+    "tooltip": "Buscar un template"
+  },
+  "templateList": {
+    "loading": "Cargando plantillas de correo...",
+    "emptyPage": {
+      "custom": {
+        "title": "Aún no has creado ninguna plantilla personalizada",
+        "description": "Crea tu primera plantilla personalizada para enviar correos electrónicos personalizados a tus miembros"
+      },
+      "bsport": {
+        "title": "No tienes ninguna plantilla de bsport disponible",
+        "description": "Esta es una lista de plantillas proporcionadas por bsport, contacta a tu Account Manager para cualquier ayuda"
+      },
+      "master": {
+        "title": "Aún no tienes plantillas centrales.",
+        "description": "Esta es una lista de plantillas gestionadas por tu franquiciador, contáctalos en caso de preguntas"
+      },
+      "search": {
+        "title": "No hay plantillas que coincidan con tu búsqueda",
+        "description": "No hay ninguna plantilla que coincida actualmente con tus filtros de búsqueda."
+      }
+    },
+    "emptyCategory": {
+      "description": "Crea una plantilla personalizada para esta categoría y envía correos personalizados a los Miembro."
+    },
+    "noCategory": "Sin categoría ({{emailTemplateCount}})"
+  },
+  "activeList": {
+    "actions": {
+      "addCategory": "Añadir categoría",
+      "addTemplate": "Crear plantilla",
+      "delete": "Eliminar",
+      "duplicate": "Duplicar",
+      "preview": "Vista previa",
+      "rename": "Renombrar",
+      "undo": {
+        "success": "Cambio deshecho",
+        "error": "El cambio no pudo deshacerse. Por favor, inténtalo de nuevo."
+      }
+    },
+    "hover": {
+      "preview": "Vista previa de la plantillas",
+      "duplicate": "Duplicar plantillas",
+      "delete": "Eliminar plantillas",
+      "moreActions": "Más acciones"
+    },
+    "dropdownActions": {
+      "preview": "Vista previa",
+      "duplicate": "Duplicar",
+      "delete": "Eliminar"
+    },
+    "bsportTemplateInfo": {
+      "label": "plantillas de bsport",
+      "title": "plantillas de bsport",
+      "description": "Estas plantillas predefinidas están listas para usar. Duplica la plantilla, luego edita y envía la versión copiada a tus miembros. ",
+      "quit": "Salir"
+    },
+    "createTemplateModal": {
+      "title": "Crear nueva plantilla de correo",
+      "description": "Ponle un nombre a tu plantilla para empezar",
+      "confirmButton": "Crear",
+      "cancelButton": "Cerrar",
+      "textInput": {
+        "label": "Nombre de la plantilla",
+        "placeholder": "Ponle un nombre a tu plantilla"
+      },
+      "onSuccess": {
+        "title": "Plantillas creada",
+        "action": "Abrir"
+      },
+      "onFailure": {
+        "title": " No se pudo crear la plantilla. Por favor, inténtalo de nuevo."
+      },
+      "errors": {
+        "name": "El nombre de la plantilla no es válido. Por favor, intenta con un nombre diferente. "
+      }
+    },
+    "previewEmailTemplateModal": {
+      "confirmButton": "Editar",
+      "cancelButton": "Cerrar"
+    },
+    "duplicateTemplateModal": {
+      "title": "¿Duplicar plantillas?",
+      "description": "Puedes editar <b>{{emailTemplateTitle}}</b> después",
+      "duplicateEmailTitle": "{{emailTemplateTitle}} - Copia",
+      "confirmButton": "Duplicar",
+      "cancelButton": "Cerrar",
+      "onSuccess": {
+        "title": "Plantillas duplicada",
+        "action": "Abrir"
+      },
+      "onFailure": {
+        "title": "La plantilla no pudo duplicarse. Por favor, inténtalo de nuevo."
+      }
+    },
+    "deleteTemplateModal": {
+      "title": "¿Eliminar plantilla de correo?",
+      "description": "Una vez que elimines <b>{{emailTemplateTitle}}</b>, ya no será visible para los miembros. También se eliminará de cualquier correo transaccional al que esté vinculado.",
+      "confirmButton": "Eliminar",
+      "cancelButton": "Mantener",
+      "onSuccess": {
+        "title": "Plantillas de correo electrónico eliminada",
+        "action": "Deshacer"
+      },
+      "onFailure": {
+        "title": "No se pudo eliminar la plantilla. Por favor, inténtalo de nuevo."
+      }
+    },
+    "createCategoryModal": {
+      "title": "Añade una nueva categoría",
+      "textInput": {
+        "label": "Nombre de la categoría",
+        "placeholder": "Dale un nombre a tu categoría"
+      },
+      "confirmButton": "Añadir",
+      "cancelButton": "Cerrar",
+      "onSuccess": {
+        "title": "Categoría registrada exitosamente"
+      },
+      "onFailure": {
+        "title": " No se pudo añadir la categoría. Por favor, inténtalo de nuevo."
+      },
+      "errors": {
+        "name": "El nombre de la categoría no es válido. Por favor, intenta con otro nombre. "
+      }
+    },
+    "renameCategoryModal": {
+      "title": "¿Renombrar categoría?",
+      "textInput": {
+        "label": "Nombre de la categoría",
+        "placeholder": "Dale un nombre a tu categoría"
+      },
+      "confirmButton": "Renombrar",
+      "cancelButton": "Cerrar",
+      "onSuccess": {
+        "title": "Categoría renombrada",
+        "action": "Deshacer"
+      },
+      "onFailure": {
+        "title": " No se pudo renombrar la categoría. Por favor, inténtalo de nuevo."
+      }
+    },
+    "deleteCategoryModal": {
+      "title": "¿Eliminar categoría?",
+      "description": "Una vez que elimines <b>{{categoryName}}</b>, ya no será visible. Todas las Plantillas organizadas bajo esta categoría ahora estarán sin categorizar. ",
+      "confirmButton": "Eliminar",
+      "cancelButton": "Mantener",
+      "onSuccess": {
+        "title": "Categoría eliminada",
+        "action": "Deshacer"
+      },
+      "onFailure": {
+        "title": " No se pudo eliminar la categoría. Por favor, inténtalo de nuevo."
+      }
+    },
+    "restoreEmailTemplateAction": {
+      "onFailure": {
+        "title": " La plantilla no pudo ser restaurada. Por favor, inténtalo de nuevo."
+      }
+    },
+    "renameTemplateModal": {
+      "title": "¿Renombrar plantilla de correo?",
+      "textInput": {
+        "label": "Nombre",
+        "placeholder": "Dale un nombre a tu plantilla para continuar"
+      },
+      "confirmButton": "Renombrar",
+      "cancelButton": "Cerrar",
+      "onSuccess": {
+        "title": "Plantillas renombrada",
+        "action": "Deshacer"
+      },
+      "onFailure": {
+        "title": " No se pudo renombrar la plantilla. Por favor, inténtalo de nuevo."
+      }
+    }
+  }
+}

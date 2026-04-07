@@ -1,16 +1,158 @@
 {
+  "autocomplete": {
+    "categories": {
+      "selectedItems": "Artículos seleccionados",
+      "allItems": "Todos los artículos"
+    }
+  },
   "fileUpload": {
-    "uploadStatus": {
-      "error": "No se ha podido cargar este archivo",
-      "success": "Cargado con éxito"
-    },
+    "uploadFileCTA": "Cargar un archivo",
     "dragAndDropCTA": "o arrástrelo y suéltelo aquí",
-    "uploadFileCTA": "Cargar un archivo"
+    "uploadStatus": {
+      "success": "Cargado con éxito",
+      "error": "No se ha podido cargar este archivo"
+    },
+    "actions": {
+      "abort": "Cancelar carga",
+      "remove": "Eliminar archivo",
+      "retry": "Reintentar carga"
+    }
   },
   "emptyState": {
     "noResultsFound": {
-      "clearFilters": "Borrar filtros",
-      "title": "No se han encontrado resultados"
+      "title": "No se han encontrado resultados",
+      "clearFilters": "Borrar filtros"
     }
+  },
+  "errorFallback": {
+    "title": "Lo sentimos —",
+    "description": "Hemos registrado el problema y nuestro equipo está trabajando arduamente para resolverlo.\nMientras tanto, intenta actualizar la página.",
+    "subtitle": "Algo salió mal de nuestro lado.",
+    "actionLabel": "Inténtalo de nuevo",
+    "crashReportModalToggle": "Enviar comentarios"
+  },
+  "crashReportModal": {
+    "title": "Informa sobre este problema",
+    "feedbackContentPlaceholder": "Describe qué estabas haciendo cuando ocurrió el error para que nuestro equipo pueda resolver el problema.",
+    "confirmButtonLabel": "Enviar informe",
+    "toast": {
+      "success": "Informe enviado con éxito",
+      "failure": "Ocurre un error al enviar comentarios"
+    }
+  },
+  "detailsLayout": {
+    "confirmation": {
+      "title": "La página tiene cambios sin guardar.",
+      "discard": "Descartar",
+      "save": "Guarda cambios"
+    },
+    "panelControlButton": {
+      "openPanel": "Abrir panel",
+      "closePanel": "Cerrar panel"
+    }
+  },
+  "datePicker": {
+    "modalTitle": "Selecciona un día",
+    "shortcutsTitle": "Atajos",
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de finalización",
+    "nextMonth": "El próximo mes",
+    "previousMonth": "Mes anterior",
+    "invalidStartDate": "Fecha de inicio no válida",
+    "invalidEndDate": "Fecha de finalización no válida",
+    "rangeLabel": "De {{ start }} a {{end}}",
+    "datePlaceholder": "DD/MM/YYYY",
+    "shortcuts": {
+      "today": "Hoy",
+      "last4weeks": "Last 4 weeks",
+      "lastWeek": "Los últimos 7 días",
+      "lastQuarter": "Tres ultimos meses",
+      "monthToDate": "Month to date",
+      "yearToDate": "Year to date",
+      "nextWeek": "Next 7 days",
+      "nextMonth": "Next month",
+      "nextQuarter": "Next 3 months",
+      "nextYear": "Next year"
+    }
+  },
+  "modal": {
+    "back": "Atrás",
+    "next": "Siguiente",
+    "close": "Cerrar",
+    "cancel": "Cancelar"
+  },
+  "pagination": {
+    "rows": "Filas",
+    "showingRange": "Mostrando {{currentItemsRendered}} de {{totalItems}}",
+    "firstPage": "Primera página",
+    "previousPage": "Página anterior",
+    "nextPage": "Página siguiente",
+    "lastPage": "Última página"
+  },
+  "headerLayout": {
+    "search": {
+      "tooltip": "Buscar en esta página"
+    },
+    "editTitle": "Editar título",
+    "actions": {
+      "more": "Más acciones"
+    },
+    "display": {
+      "buttonLabel": "Elige cómo deseas mostrar tu widget"
+    }
+  },
+  "copyToClipboard": {
+    "copied": "Copiado al portapapeles",
+    "failed": "No se pudo copiar al portapapeles. Por favor, inténtalo de nuevo. ",
+    "tooltip": "Haz clic para copiar"
+  },
+  "detailDrawer": {
+    "tooltip": {
+      "close": "Cerrar"
+    }
+  },
+  "sidebar": {
+    "ariaLabel": "Navegación principal",
+    "openMenu": "Abrir menú de navegación",
+    "closeMenu": "Cierra menú de navegación"
+  },
+  "dropdownMenu": {
+    "search": {
+      "placeholder": "Buscar..."
+    }
+  },
+  "filter": {
+    "openAriaLabel": "Abrir filtros",
+    "clearAriaLabel": "Borrar filtros",
+    "addAriaLabel": "Añadir filtro",
+    "deleteAriaLabel": "Eliminar filtro",
+    "modalTitle": "Filtrar",
+    "clearAction": "Borrar",
+    "applyAction": "Aplicar filtro",
+    "addAction": "Añadir filtro",
+    "selectFieldPlaceholder": "Seleccionar filtro",
+    "selectOperatorPlaceholder": "Seleccionar",
+    "selectValuePlaceholder": "Seleccionar"
+  },
+  "button": {
+    "clear": "Borrar",
+    "search": "Búsqueda"
+  },
+  "alert": {
+    "clear": "Borrar alerta"
+  },
+  "list": {
+    "toggleCollapse": "Alternar colapso",
+    "collapse": "Doblar",
+    "expand": "Extender"
+  },
+  "tabs": {
+    "selectTab": "Selecciona pestaña"
+  },
+  "textField": {
+    "clear": "Borrar"
+  },
+  "actions": {
+    "more": "Más acciones"
   }
 }

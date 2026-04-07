@@ -1,1 +1,186 @@
-{}
+{
+  "modelName": {
+    "singular": "Paket",
+    "plural": "Pakete"
+  },
+  "createModal": {
+    "title": "Neues Paket erstellen",
+    "buttons": {
+      "create": "Erstellen",
+      "cancel": "Schließen"
+    },
+    "failToCreate": "Konnte das Paket nicht erstellen. Bitte versuche es erneut. "
+  },
+  "detailsPage": {
+    "packsBreadcrumbs": "Pakete",
+    "loading": "Paket wird geladen ...",
+    "canNotFindPack": "Paket nicht gefunden",
+    "buttons": {
+      "renamePack": "Rename pack",
+      "deletePack": "Paket löschen"
+    },
+    "updatePack": {
+      "failToUpdate": "Das Paket konnte nicht aktualisiert werden. Bitte versuche es noch einmal. ",
+      "success": "Erfolgreich aktualisiert"
+    },
+    "tabs": {
+      "overview": "Käufe",
+      "editor": "Editor"
+    }
+  },
+  "overviewPage": {
+    "loading": "Verkaufte Pakete werden geladen ...",
+    "emptyList": {
+      "title": "Noch keine Pakete verkauft",
+      "subtitle": "Sobald ein Mitglied ein Paket kauft, wird es hier angezeigt."
+    },
+    "table": {
+      "columns": {
+        "issueDate": "Kaufdatum",
+        "buyer": "Käufer",
+        "value": "Wert"
+      },
+      "actions": {
+        "openPrefix": "Öffnen...",
+        "invoice": "Rechnung",
+        "memberProfile": "Kundenprofil öffnen"
+      },
+      "errors": {
+        "failToGetInvoice": "Couldn't access related invoice. Please try again. "
+      }
+    }
+  },
+  "addItemsModal": {
+    "title": "Artikel hinzufügen",
+    "buttons": {
+      "cancel": "Schließen",
+      "save": "Speichern"
+    },
+    "breadcrumbs": {
+      "appointmentPassCategories": "Terminpässe-Kategorien",
+      "passCategories": "Kurspass-Kategorien",
+      "webshopItemCategories": "Produktkategorien"
+    },
+    "categories": {
+      "open": "Offene Kategorie"
+    },
+    "items": {
+      "webshopItem": {
+        "size": "Größe {{ size }}"
+      },
+      "tooltips": {
+        "credits": "Credits",
+        "price": "Wertmäßig",
+        "unavailableForMember": "Nicht gelistet",
+        "invisibleToStaff": "Ausgeblendet",
+        "category": "Kategorie"
+      }
+    },
+    "selectedItems": {
+      "show": "Ausgewählte Artikel anzeigen",
+      "hide": "Ausgewählte Elemente ausblenden",
+      "removeItem": "Artikel entfernen"
+    },
+    "noCategories": "Kategorie auswählen"
+  },
+  "formFields": {
+    "name": {
+      "label": "Name",
+      "helperText": "Der Name darf max. {{ maxLength }} Zeichen lang sein ({{ length }}/{{ maxLength }})",
+      "errorMaxLength": "Der Name darf 200 Zeichen nicht überschreiten"
+    },
+    "description": {
+      "label": "Beschreibung",
+      "helperText": "Begrenzt auf {{ maxLength }} Zeichen ({{ length }}/{{ maxLength }})",
+      "errorMaxLength": "Die Beschreibung muss unter 2000 Zeichen sein"
+    },
+    "packContent": {
+      "title": "Artikel",
+      "description": "Füge einen Kurspass, einen Terminpass oder ein Produkt hinzu, um dein Paket zu erstellen.",
+      "card": {
+        "placeholder": "Füge mindestens einen Artikel zu deinem Paket hinzu"
+      },
+      "itemVariants": {
+        "passes": "Kurspässe",
+        "appointmentPasses": "Terminpässe",
+        "webshopItems": "Produkte"
+      },
+      "buttons": {
+        "addItem": "Artikel hinzufügen",
+        "addPass": "Pass hinzufügen",
+        "addAppointmentPass": "Terminpass hinzufügen",
+        "addWebshopItem": "Produkt hinzufügen",
+        "removeItem": "Artikel entfernen"
+      }
+    },
+    "advancedSection": {
+      "title": "Erweiterte Optionen"
+    },
+    "pricingSection": {
+      "title": "Preise",
+      "price": {
+        "label": "Wertmäßig",
+        "helperText": "Gesamtwert der Artikel in diesem Paket: {{ amount }}"
+      },
+      "taxToggle": {
+        "label": "Umsatzsteuer-/Mehrwertsteuersatz",
+        "description": "Wende einen einheitlichen Mehrwertsteuersatz auf das gesamte Paket an",
+        "helperText": "Dieser Satz gilt für alle Artikel in diesem Paket.",
+        "errorMissingRate": "Lege einen Mehrwertsteuersatz fest oder deaktiviere diese Option, um fortzufahren."
+      },
+      "maxPurchaseToggle": {
+        "label": "Maximal pro Kunden",
+        "description": "Maximaler Kaufbetrag pro Kontakt festlegen",
+        "errorMissingNumber": "Bitte füge einen maximalen Kaufbetrag hinzu oder deaktiviere diese Option."
+      },
+      "paymentMethod": {
+        "errorMissingPaymentMethod": "Zahlungsmethode wählen"
+      }
+    },
+    "visibilitySection": {
+      "title": "Sichtbarkeit",
+      "visibilitySelector": {
+        "label": "Wähle die Sichtbarkeit dieses Pakets aus"
+      },
+      "dateLimitSelector": {
+        "toggleLabel": "Kaufdatum begrenzen",
+        "fieldLabel": "Verfügbar bis",
+        "errorMissingDate": "Füge ein Datum hinzu oder deaktiviere diese Option, um fortzufahren",
+        "errorPastDate": "The expiration date must be today or future"
+      },
+      "additionalRules": {
+        "label": "Zusätzliche Regeln",
+        "helperText": "Wähle alle gewünschten Optionen aus",
+        "checkboxes": {
+          "recommended": {
+            "label": "Als Empfehlung markieren",
+            "helperText": "Hebe dein Paket für Kunden hervor, indem du es als empfohlen markierst."
+          },
+          "newMembersOnly": {
+            "label": "Nur für neue Mitglieder verfügbar",
+            "helperText": "Mitglieder gelten als \"neu\", solange sie keinen Artikel gekauft haben, der mehr als {{ minimalCurrency }} kostet. Selbst wenn ein Mitglied einen Artikel mit 100 % Rabatt kauft, zählt das als Kauf."
+          },
+          "hideFromStaff": {
+            "label": "Für Mitarbeitende ausgeblendet",
+            "helperText": "Mitarbeitende können dieses Paket nicht ansehen oder kaufen."
+          }
+        }
+      }
+    },
+    "requiredField": "Pflichtfeld"
+  },
+  "editNameModal": {
+    "title": "Paket umbenennen?",
+    "buttons": {
+      "cancel": "Abbrechen",
+      "rename": "Umbenennen"
+    }
+  },
+  "itemDetailDrawer": {
+    "pricing": "Preise",
+    "credits": "Credits",
+    "selectPreviousItem": "Letzten Artikel wählen",
+    "selectNextItem": "Nächsten Artikel wählen",
+    "seeDetails": "Mehr sehen"
+  }
+}

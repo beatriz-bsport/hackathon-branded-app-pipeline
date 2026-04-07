@@ -1,0 +1,124 @@
+{
+  "page": {
+    "title": "Notificações Transacionais"
+  },
+  "notificationRuleEvents": {
+    "list": {
+      "notificationNumber_one": "1 notificação",
+      "notificationNumber_other": "{{ count }} notificações",
+      "loading": {
+        "message": "Carregando notificações..."
+      },
+      "emptyState": {
+        "title": "Nenhuma notificação encontrada",
+        "description": "Não há notificações para exibir no momento. Por favor, volte mais tarde ou entre em contato com o suporte."
+      }
+    },
+    "categories": {
+      "member": "Registo de cliente",
+      "booking": "Reservas",
+      "private_booking": "Aula Privada",
+      "recurrent_private_booking": "Compromissos recorrentes",
+      "payment_pack": "Penalidades",
+      "giftcard": "Cartões de Presente",
+      "offer": "Sessão",
+      "replacement_request": "Substituições",
+      "waiting-list": "Listas de Espera",
+      "subscription": "Subscrições",
+      "invoice": "Faturamento",
+      "referral": "Indicação"
+    },
+    "noCategory": "Sem categoria"
+  },
+  "notificationRuleEventDetails": {
+    "toast": {
+      "create": {
+        "failure": "Não foi possível criar a regra de notificação. Por favor, tente novamente. "
+      },
+      "update": {
+        "failure": "Não foi possível atualizar a regra de notificação. Por favor, tente novamente. "
+      },
+      "delete": {
+        "failure": "Não foi possível eliminar a regra de notificação por e-mail. Por favor, tente novamente. "
+      }
+    },
+    "table": {
+      "headers": {
+        "name": "Notificação",
+        "email": "E-mail",
+        "pushNotification": "Notificação push"
+      },
+      "tooltip": {
+        "pushNotificationHelper": {
+          "title": "Ativar notificações push",
+          "message": "Configure a sua notificação push primeiro para ativá-la",
+          "label": "Ajuda"
+        },
+        "franchiseOwned": "Esta notificação é gerenciada pela Conta Principal ",
+        "setPushNotificationBeforeEnabling": "Configure a sua notificação push primeiro para ativá-la"
+      },
+      "helper": {
+        "title": "Notificações push",
+        "description": "Configure a sua notificação push primeiro para ativá-la"
+      },
+      "actions": {
+        "preview": "Visualizar",
+        "edit": "Editar"
+      },
+      "notificationsToggle": {
+        "deactivated": "Ativar",
+        "activated": "Ativar"
+      }
+    },
+    "details": {
+      "notificationStatus": "Estado",
+      "segmentedControl": {
+        "email": "E-mail",
+        "push": "Notificação push"
+      },
+      "emailTemplateSelector": {
+        "searchingMessage": "Procurando modelos de e-mail..."
+      },
+      "emailNotification": {
+        "preview": "Visualizar",
+        "noPreview": "Nenhuma pré-visualização disponível",
+        "select": {
+          "label": "Seleccionar um modelo de template",
+          "placeholder": "Selecione um modelo de e-mail",
+          "standardBsportTemplatePlaceholder": "modelo bsport",
+          "alertCommunicationVariableStatus": "Encontrámos um problema com este modelo. Por favor, tente novamente ou entre em contacto com o suporte. "
+        },
+        "carbonCopy": {
+          "label": "Receba uma cópia do e-mail"
+        },
+        "requiredCommunicationVariablesAlert": {
+          "body": "Este modelo não pôde ser usado porque faltam informações necessárias. Preencha o seguinte para usar este modelo personalizado: "
+        }
+      },
+      "pushNotification": {
+        "title": {
+          "label": "Título",
+          "errors": {
+            "minLength": "Deve ser preenchido",
+            "maxLength": "Não pode exceder 25 caracteres"
+          }
+        },
+        "content": {
+          "label": "Conteúdo",
+          "errors": {
+            "minLength": "Deve ser preenchido",
+            "maxLength": "Não pode exceder 200 caracteres"
+          }
+        },
+        "preview": {
+          "title": "Visualização",
+          "placeholder": "Configure sua notificação push para visualizá-la aqui",
+          "noPreview": "Pré-visualização indisponível. Verifique primeiro se a notificação está configurada corretamente. "
+        },
+        "actions": {
+          "save": "Salvar"
+        }
+      }
+    }
+  }
+}

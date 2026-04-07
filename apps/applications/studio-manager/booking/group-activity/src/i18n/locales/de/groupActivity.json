@@ -1,0 +1,83 @@
+{
+  "list": {
+    "columns": {
+      "name": "Name",
+      "category": "Kategorie",
+      "upcomingSession": "Bevorstehende Sitzung",
+      "features": "Funktionen",
+      "actions": "Aktionen"
+    },
+    "enabled": {
+      "item": {
+        "notifications": {
+          "title": "Benachrichtigungen",
+          "popoverLabel": "Hat Benachrichtigungen eingerichtet"
+        },
+        "livestream": {
+          "title": "Livestream",
+          "popoverLabel": "Live-Streaming verfügbar"
+        }
+      },
+      "filter": {
+        "title": "Filter",
+        "category": "Kategorie",
+        "is": "Ist",
+        "isNot": "ist nicht"
+      },
+      "duplicate": {
+        "title": "Gruppenaktivität duplizieren",
+        "modalContent": "Duplizieren <strong>{{groupActivityName}}</strong>?<br/> Du kannst die Details der Geschenkkarte später bearbeiten.",
+        "cancel": "Schließen",
+        "confirm": "Duplizieren"
+      },
+      "archive": {
+        "title": "Gruppenaktivität archivieren?",
+        "modalContent": "Möchtest du die Aktivität <strong>{{groupActivityName}}</strong> archivieren? Die Sitzungen und vergangenen Buchungen werden nicht verändert.<br/> Du kannst die Aktivität jederzeit wiederherstellen.",
+        "cantArchive": "Mitglieder sehen {{groupActivityname}} nicht mehr, aber du kannst sie jederzeit aus deinem Archiv wiederherstellen. ",
+        "cancel": "Behalten",
+        "confirm": "Archivieren"
+      },
+      "emptyState": {
+        "title": "Noch keine Gruppenaktivität",
+        "body": "Erstelle deine erste Gruppenaktivität, die deine Mitglieder buchen können. "
+      },
+      "emptySearchState": {
+        "title": "Keine Gruppenaktivitäten gefunden",
+        "subtitle": "Versuche es mit anderen Suchbegriffen",
+        "action": "Filter löschen"
+      }
+    },
+    "archived": {
+      "unarchive": "Aktivität aus dem Archiv holen",
+      "emptyState": {
+        "title": "Noch keine archivierten Gruppenaktivitäten"
+      }
+    },
+    "actions": {
+      "archive": "Archivieren",
+      "unarchive": "Wiederherstellen",
+      "duplicate": "Duplizieren"
+    },
+    "header": {
+      "groupActivities": "Aktivitäten",
+      "archivedGroupActivities": "Archiv",
+      "add": "Gruppenaktivität hinzufügen",
+      "filter": "Filter",
+      "display": {
+        "title": "Anzeigen",
+        "ordering": "Sortierung",
+        "alphabetical": "Alphabetisch",
+        "reset": "Zurücksetzen",
+        "save": "Speichern"
+      },
+      "archivedActivities": "Archivierte Aktivitäten"
+    },
+    "toasts": {
+      "duplication": "{{groupActivityName}} wurde dupliziert",
+      "archive": "{{groupActivityName}} wurde archiviert",
+      "unarchive": "{{groupActivityName}} wurde wiederhergestellt",
+      "open": "Offen",
+      "undo": "Rückgängig machen"
+    }
+  }
+}

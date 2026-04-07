@@ -1,3 +1,238 @@
 {
-  "helloName": "Olá {{ name }}!"
+  "searching": "Procurando...",
+  "loading": "Carregando notificações ...",
+  "page": {
+    "title": "Notificações De Marketing",
+    "filters": {
+      "label": "Tipo de notificação",
+      "notificationTypeLabel": {
+        "location": "Localização",
+        "appointment": "Aulas Privadas",
+        "groupActivity": "Group Activity",
+        "workshop": "Workshop",
+        "establishment": "Estabelecimento",
+        "pass": "Passe",
+        "appointmentPass": "Passe de aulas",
+        "subscription": "Subscrição",
+        "birthday": "Aniversário"
+      },
+      "operators": {
+        "is": "Tem idade",
+        "isNot": "No intervalo de"
+      }
+    },
+    "emptyState": {
+      "unfiltered": {
+        "title": "No notifications yet",
+        "description": "Set up an automation to send notifications to your members",
+        "primaryAction": "Adicionar automação"
+      },
+      "filtered": {
+        "title": "Nenhuma notificação corresponde à sua pesquisa",
+        "description": "Tente limpar seus filtros para ver suas notificações atuais",
+        "primaryAction": "Limpar filtros"
+      }
+    },
+    "actions": {
+      "createNotificationButton": "Cria notificação"
+    }
+  },
+  "filters": {
+    "label": "Tipo de notificação"
+  },
+  "table": {
+    "headers": {
+      "notificationType": "Tipo de gatilho",
+      "triggerCondition": "Automação",
+      "communicationChannel": "Canal"
+    },
+    "toggleNotification": {
+      "enabled": "Ativar",
+      "disabled": "Ativar",
+      "broken": "Resolva problema"
+    },
+    "notificationType": {
+      "location": "Localização",
+      "groupActivity": "Atividade de Grupo",
+      "workshop": "Workshop",
+      "establishment": "Estabelecimento",
+      "appointment": "Aulas Privadas",
+      "appointmentPass": "Passe de aulas",
+      "pass": "Passe",
+      "subscription": "Subscrição",
+      "birthday": "Aniversário",
+      "metaActivity": "Reserva"
+    },
+    "notificationState": {
+      "enabled": "Ativar",
+      "disabled": "Ativar",
+      "broken": "Resolver problema"
+    },
+    "actions": {
+      "menu": "Ações",
+      "previous": "Anterior",
+      "next": "Seguinte",
+      "preview": "Abrir notificação",
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "brokenNotification": {
+      "canDelete": "You can delete this automation",
+      "missingEmail": {
+        "description": "The email template linked to this automation was deleted. Add a new template to restore the automation.",
+        "tooltip": "This automation can’t run because its email template was deleted. Add a new template to fix it."
+      },
+      "pushNotification": {
+        "stillWorking": "Push notifications are still working."
+      },
+      "missingEntity": {
+        "groupActivity": "Missing linked group activity",
+        "workshop": "Missing linked workshop",
+        "location": "Missing linked location",
+        "establishment": "Missing linked establishment",
+        "appointment": "Missing linked appointment",
+        "subscription": "Missing linked subscription",
+        "pass": "Missing linked pass",
+        "appointmentPass": "Missing linked appointment pass",
+        "description": "The object linked to this automation was deleted. This automation cannot be used anymore, you can delete it."
+      }
+    },
+    "triggerType": {
+      "booking": {
+        "attended": {
+          "present": {
+            "any": "Qualquer reserva atendida em {{entityName}}",
+            "afterX_one": "Após {{count}} reserva atendida em {{entityName}}",
+            "afterX_other": "Após {{count}} reservas atendidas em {{entityName}}"
+          },
+          "absent": {
+            "any": "Qualquer reserva cancelada em {{entityName}}",
+            "afterX_one": "Após {{count}} cancelamento de reserva em {{entityName}}",
+            "afterX_other": "Após {{count}} reservas canceladas em {{entityName}}"
+          }
+        },
+        "cancelled": {
+          "onTime": {
+            "any": "Qualquer reserva cancelada a tempo em {{entityName}}",
+            "afterX_one": "Após {{count}} cancelamento de reserva no prazo em {{entityName}}",
+            "afterX_other": "Após {{count}} reservas canceladas a tempo em {{entityName}}"
+          },
+          "tooLate": {
+            "any": "Any late cancellation in {{entityName}}",
+            "afterX_one": "After {{count}} late cancellation in {{entityName}}",
+            "afterX_other": "After {{count}} late cancellations in {{entityName}}"
+          }
+        }
+      },
+      "subscription": {
+        "started": "Início de {{entityName}}",
+        "ended": "Fim de {{entityName}}"
+      },
+      "passes": {
+        "finerGraining": {
+          "credit_one": "{{count}} crédito restante em {{entityName}}",
+          "credit_other": "{{count}} créditos restantes em {{entityName}}",
+          "validity_one": "{{count}} valid day remaining in {{entityName}}",
+          "validity_other": "{{count}} dias válidos restantes em {{entityName}}",
+          "expired_one": "{{count}} dias expirados em {{entityName}}",
+          "expired_other": "{{count}} dias expirados em {{entityName}}",
+          "severalPass": "e outros passes ..."
+        },
+        "all": {
+          "credit_one": "{{count}} crédito restante em todos os passes de aulas",
+          "credit_other": "{{count}} créditos restantes em todos os passes de aulas",
+          "validity_one": "{{count}} dia válido restante em todos os passes",
+          "validity_other": "{{count}} dias válidos restantes em todos os passes de aulas",
+          "expired_one": "{{count}} dia após o vencimento em todos os passes de aulas",
+          "expired_other": "{{count}} dia após o vencimento em todos os passes de aulas"
+        }
+      },
+      "birthday": "Aniversário do membro"
+    },
+    "triggerTiming": {
+      "booking": {
+        "immediate": {
+          "immediate": "Enviado no gatilho"
+        },
+        "before": {
+          "day_one": "Enviado {{count}} dia antes da sessão",
+          "day_other": "Enviado {{count}} dias antes da sessão",
+          "hour_one": "Enviado {{count}} horas antes da sessão",
+          "hour_other": "Enviado {{count}} horas antes da sessão"
+        },
+        "after": {
+          "day_one": "Enviado {{count}} dia após a sessão",
+          "day_other": "Enviado {{count}} dias após a sessão",
+          "hour_one": "Enviado {{count}} hora após a sessão",
+          "hour_other": "Enviado {{count}} horas após a sessão"
+        }
+      },
+      "subscription": {
+        "creation": {
+          "before": {
+            "day_one": "Enviado {{count}} dias antes da criação da assinatura",
+            "day_other": "Enviado {{count}} dias antes da criação da assinatura",
+            "hour_one": "Enviado {{count}} horas antes da criação da assinatura",
+            "hour_other": "Enviado {{count}} horas antes da criação da assinatura"
+          },
+          "after": {
+            "day_one": "Enviado {{count}} dia após a criação da assinatura",
+            "day_other": "Enviado {{count}} dias após a criação da assinatura",
+            "hour_one": "Enviado {{count}} hora após a criação da assinatura",
+            "hour_other": "Enviado {{count}} horas após a criação da assinatura"
+          }
+        },
+        "firstBilling": {
+          "before": {
+            "day_one": "Enviado {{count}} dias antes da primeira fatura da assinatura",
+            "day_other": "Enviado {{count}} dias antes da primeira fatura da assinatura",
+            "hour_one": "Enviado {{count}} horas antes da primeira fatura da assinatura",
+            "hour_other": "Enviado {{count}} antes da primeira fatura da assinatura"
+          },
+          "after": {
+            "day_one": "Enviado {{count}} 1 dia após a primeira fatura da assinatura ",
+            "day_other": "Enviado {{count}} dias após a primeira fatura da assinatura ",
+            "hour_one": "Enviado {{count}} hora após a primeira fatura da assinatura",
+            "hour_other": "Enviado {{count}} horas após a primeira fatura da assinatura"
+          }
+        },
+        "end": {
+          "before": {
+            "day_one": "Enviado {{count}} dias antes do término da assinatura",
+            "day_other": "Enviado {{count}} dias antes do término da assinatura",
+            "hour_one": "Enviado {{count}} horas antes do término da assinatura",
+            "hour_other": "Enviado {{count}} horas antes do término da assinatura"
+          },
+          "after": {
+            "day_one": "Enviado {{count}} dia após o término da assinatura",
+            "day_other": "Enviado {{count}} dias após o término da assinatura",
+            "hour_one": "Enviado {{count}} hora após o término da assinatura",
+            "hour_other": "Enviado {{count}} horas após o término da assinatura"
+          }
+        }
+      },
+      "passes": {
+        "expired": {
+          "day_one": "Enviado {{count}} dias após o passe de aula expirar",
+          "day_other": "Enviado {{count}} dias após a expiração do passe de aula"
+        },
+        "validity": {
+          "day_one": "Enviado quando falta {{count}} dia de validade",
+          "day_other": "Enviado quando restam {{count}} dias de validade"
+        },
+        "credits": {
+          "booking": {
+            "hour_one": "Enviado {{count}} hora após a sessão ser agendada",
+            "hour_other": "Enviado {{count}} horas após a sessão ser agendada"
+          },
+          "end": {
+            "hour_one": "Enviado {{count}} hora após o término da sessão",
+            "hour_other": "Enviado {{count}} horas após o término da sessão"
+          },
+          "appointmentPass": "Enviado ao acionar a automação"
+        }
+      },
+      "birthday": "Enviado na data de nascimento deles"
+    }
+  }
 }

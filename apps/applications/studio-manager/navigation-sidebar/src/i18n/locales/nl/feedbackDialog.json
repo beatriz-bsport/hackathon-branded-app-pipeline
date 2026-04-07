@@ -1,0 +1,16 @@
+{
+  "title": "Terug naar de oude Back Office?",
+  "description": "Jouw feedback is essentieel om ons te helpen het nieuwe Back Office nog beter te maken. ",
+  "confirm": "Deel feedback",
+  "cancel": "Sluiten",
+  "mainQuestion": "Vertel ons wat je van het nieuwe Back Office vindt:",
+  "reasons": {
+    "slower": "Het nieuwe Back Office is trager of minder responsief",
+    "missingFeatures": "Er ontbreken functies waar ik op vertrouw",
+    "hardToNavigate": "Het ontwerp is moeilijk te navigeren of te lezen",
+    "dontLike": "Ik vind het gewoon niet leuk",
+    "other": "Diverse"
+  },
+  "additionalFeedbackQuestion": "Heb je nog meer feedback die je wilt delen?",
+  "additionalFeedbackPlaceholder": "Vertel ons wat jij ervan vindt"
+}

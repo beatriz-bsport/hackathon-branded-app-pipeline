@@ -1,10 +1,158 @@
 {
+  "autocomplete": {
+    "categories": {
+      "selectedItems": "Elementi selezionati",
+      "allItems": "Tutti gli articoli"
+    }
+  },
   "fileUpload": {
-    "uploadStatus": {
-      "error": "Impossibile caricare il file",
-      "success": "Caricamento riuscito"
-    },
+    "uploadFileCTA": "Carica un file",
     "dragAndDropCTA": "o trascinalo qui",
-    "uploadFileCTA": "Carica un file"
+    "uploadStatus": {
+      "success": "Caricamento riuscito",
+      "error": "Impossibile caricare il file"
+    },
+    "actions": {
+      "abort": "Interrompi il caricamento",
+      "remove": "Rimuovi file",
+      "retry": "Riprova a caricare"
+    }
+  },
+  "emptyState": {
+    "noResultsFound": {
+      "title": "Nessun risultato trovato",
+      "clearFilters": "Cancella filtri"
+    }
+  },
+  "errorFallback": {
+    "title": "Ci dispiace —",
+    "description": "Abbiamo registrato il problema e il nostro team sta lavorando duramente per risolverlo.\nNel frattempo, prova a ricaricare la pagina.",
+    "subtitle": "qualcosa è andato storto da parte nostra.",
+    "actionLabel": "Riprova",
+    "crashReportModalToggle": "Invia feedback"
+  },
+  "crashReportModal": {
+    "title": "Segnala questo problema",
+    "feedbackContentPlaceholder": "Descrivi cosa stavi facendo quando si è verificato l'errore, così il nostro team può risolvere il problema.",
+    "confirmButtonLabel": "Invia rapporto",
+    "toast": {
+      "success": "Report inviato con successo",
+      "failure": "Si è verificato un errore durante l'invio di un feedback"
+    }
+  },
+  "detailsLayout": {
+    "confirmation": {
+      "title": "La pagina ha modifiche non salvate.",
+      "discard": "Scarta",
+      "save": "Salva modifiche"
+    },
+    "panelControlButton": {
+      "openPanel": "Apri pannello",
+      "closePanel": "Chiudi pannello"
+    }
+  },
+  "datePicker": {
+    "modalTitle": "Seleziona un giorno",
+    "shortcutsTitle": "Scorciatoie",
+    "startDate": "Data d'inizio",
+    "endDate": "Data di fine",
+    "nextMonth": "Il prossimo mese",
+    "previousMonth": "Mese precedente",
+    "invalidStartDate": "Data di inizio non valida",
+    "invalidEndDate": "Data di fine non valida",
+    "rangeLabel": "Da {{ start }} a {{end}}",
+    "datePlaceholder": "DD/MM/YYYY",
+    "shortcuts": {
+      "today": "Oggi",
+      "last4weeks": "Last 4 weeks",
+      "lastWeek": "Ultimi 7 giorni",
+      "lastQuarter": "Ultimi tre mesi",
+      "monthToDate": "Month to date",
+      "yearToDate": "Year to date",
+      "nextWeek": "Next 7 days",
+      "nextMonth": "Next month",
+      "nextQuarter": "Next 3 months",
+      "nextYear": "Next year"
+    }
+  },
+  "modal": {
+    "back": "Indietro",
+    "next": "Avanti",
+    "close": "Chiudi",
+    "cancel": "Annulla"
+  },
+  "pagination": {
+    "rows": "Righe",
+    "showingRange": "Visualizzazione di {{currentItemsRendered}} su {{totalItems}}",
+    "firstPage": "Prima pagina",
+    "previousPage": "Pagina precedente",
+    "nextPage": "Pagina successiva",
+    "lastPage": "Ultima pagina"
+  },
+  "headerLayout": {
+    "search": {
+      "tooltip": "Cerca in questa pagina"
+    },
+    "editTitle": "Modifica titolo",
+    "actions": {
+      "more": "Altre azioni"
+    },
+    "display": {
+      "buttonLabel": "Scegli come desideri visualizzare il tuo widget"
+    }
+  },
+  "copyToClipboard": {
+    "copied": "Copiato negli appunti",
+    "failed": "Non è stato possibile copiare negli appunti. Riprova. ",
+    "tooltip": "Fai clic per copiare"
+  },
+  "detailDrawer": {
+    "tooltip": {
+      "close": "Chiudi"
+    }
+  },
+  "sidebar": {
+    "ariaLabel": "Navigazione principale",
+    "openMenu": "Apri il menu di navigazione",
+    "closeMenu": "Chiudi menu di navigazione"
+  },
+  "dropdownMenu": {
+    "search": {
+      "placeholder": "Cerca..."
+    }
+  },
+  "filter": {
+    "openAriaLabel": "Apri filtri",
+    "clearAriaLabel": "Ripristina filtri",
+    "addAriaLabel": "Aggiungi filtro",
+    "deleteAriaLabel": "Elimina filtro",
+    "modalTitle": "Filtrare",
+    "clearAction": "Cancella",
+    "applyAction": "Applica filtro",
+    "addAction": "Aggiungi filtro",
+    "selectFieldPlaceholder": "Seleziona filtro",
+    "selectOperatorPlaceholder": "Selezionare",
+    "selectValuePlaceholder": "Selezionare"
+  },
+  "button": {
+    "clear": "Cancella",
+    "search": "Ricerca"
+  },
+  "alert": {
+    "clear": "Cancella avviso"
+  },
+  "list": {
+    "toggleCollapse": "Piega/Estendi",
+    "collapse": "Piega",
+    "expand": "Estendi"
+  },
+  "tabs": {
+    "selectTab": "Seleziona scheda"
+  },
+  "textField": {
+    "clear": "Cancella"
+  },
+  "actions": {
+    "more": "Altre azioni"
   }
 }

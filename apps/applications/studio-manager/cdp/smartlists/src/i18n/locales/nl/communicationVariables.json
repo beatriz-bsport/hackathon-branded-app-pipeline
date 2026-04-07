@@ -1,0 +1,230 @@
+{
+  "communicationVariableSelector": {
+    "placeholder": "Een variabel toevoegen"
+  },
+  "communicationVariable": {
+    "Offer": {
+      "name": "Sessies",
+      "tags": {
+        "activity": "Groepsactiviteiten",
+        "coach": "Docent",
+        "date": "Tijd en datum",
+        "establishment": "Vestigingen",
+        "establishment_practical_info": "Establishment details ",
+        "address": "Adres"
+      }
+    },
+    "User": {
+      "name": "Lid",
+      "tags": {
+        "firstname": "Voornaam",
+        "lastname": "Achternaam",
+        "unsubscribe_link": "Uitschrijven voor de nieuwsbrief",
+        "reset_password_url": "Wachtwoordherstel link",
+        "email_confirmation_url": "E-mail bevestigingslink",
+        "marketing_email_double_opt_in_url": "Marketing email double opt-in link"
+      }
+    },
+    "Booking": {
+      "name": "Activiteit",
+      "tags": {
+        "activity": "Activiteit",
+        "coach": "Docent",
+        "date": "Tijd en datum",
+        "establishment": "Vestiging",
+        "establishment_practical_info": "Establishment details",
+        "address": "Adres",
+        "ics_calendar_link": "Kalender ICS-link",
+        "spot": "Plaats",
+        "canceled_grouped_session": "Geannuleerde Series"
+      },
+      "subtitles": {
+        "workshop": "Workshops",
+        "establishment_group": "Locatie",
+        "establishment": "Vestiging",
+        "meta_activity": "Activiteit"
+      }
+    },
+    "ConsumerPaymentPack": {
+      "name": "Leskaarten",
+      "tags": {
+        "pass_price": "Prijs van de leskaart",
+        "pass_name": "Naam van de leskaart.",
+        "pass_starting_date": "Startdatum van de leskaart",
+        "pass_expiration": "Vervaldatum van de leskaart",
+        "pass_credit_left": "Resterende credits"
+      }
+    },
+    "BillingPlan": {
+      "name": "Abonnementen",
+      "tags": {
+        "subscription_name": "Abonnementsnaam",
+        "subscription_recurrent_price": "Maandbedrag",
+        "subscription_nb_months": "Aantal facturen",
+        "subscription_nb_bills": "Aantal facturen",
+        "subscription_duration": "Totale duur",
+        "subscription_flat_fee": "Inschrijfkosten",
+        "subscription_payment_method": "Betaalmethode",
+        "subscription_nb_days_pause": "Pauze: aantal dagen",
+        "subscription_next_invoice_date": "Eerstvolgende factuurdatum",
+        "subscription_contract_terms_link": "Link voor voorwaarden",
+        "days_until_payment_method_expiration": "Het aantal dagen voordat de betaalmethode verloopt"
+      }
+    },
+    "BookingOption": {
+      "name": "Wachtlijst",
+      "tags": {
+        "activity": "Activiteit",
+        "coach": "Docent",
+        "date": "Tijd en datum",
+        "establishment": "Vestiging",
+        "establishment_practical_info": "Toegangsinformatie",
+        "address": "Adres",
+        "option_payment_url": "Reserveerlink",
+        "option_expiration_date": "Vervaldatum van de plaats op de wachtlijst",
+        "waiting_list_position": "wachtlijst positie",
+        "waiting_list_size": "wachtlijst grootte"
+      }
+    },
+    "PrivateBooking": {
+      "tags": {
+        "establishment_practical_info": "Toegangsinformatie",
+        "address": "Adres",
+        "date": "Tijd en datum",
+        "coach": "Docent",
+        "activity": "Activiteit",
+        "establishment": "Vestiging",
+        "ics_calendar_link": "Kalender ICS-link"
+      },
+      "name": "Afspraken"
+    },
+    "PrivateConsumerPass": {
+      "tags": {
+        "pass_credit_left": "Resterende credits",
+        "pass_expiration": "Vervaldatum van de leskaart",
+        "pass_starting_date": "Startdatum van de leskaart",
+        "pass_name": "Naam van de leskaart.",
+        "pass_price": "Dit is de verkoopprijs."
+      },
+      "name": "Afspraakkaarten"
+    },
+    "Company": {
+      "tags": {
+        "company_websiteURL": "(URL) Website",
+        "company_info": "Bedrijfsgegevens",
+        "android_app_URL": "(URL) Mobiele applicatie Android",
+        "android_app_url": "Android-applicatie-URL",
+        "ios_app_URL": "(URL) Mobiele applicatie iOS",
+        "ios_app_url": "iOS application url",
+        "company_facebookURL": "(URL) Facebook",
+        "company_instagramURL": "(URL) Instagram",
+        "company_scheduleURL": "Schedule page URL",
+        "login_url": "URL-verbinding",
+        "company": "Company Name",
+        "company_primary_color": "Kleurcode",
+        "company_name": "Company Name",
+        "company_logo": "Company Logo URL",
+        "currency": "Currency"
+      },
+      "name": "Studio"
+    },
+    "GuestInvitation": {
+      "tags": {
+        "firstname_guest": "Voornaam gast",
+        "lastname_guest": "Achternaam gast",
+        "firstname_host": "Inviter first name",
+        "lastname_host": "Inviter last name"
+      },
+      "name": "Invitations"
+    },
+    "RecurrentRule": {
+      "tags": {
+        "activity": "Groepsactiviteiten",
+        "coach": "Docent",
+        "date": "Tijd en datum",
+        "establishment": "Vestigingen",
+        "establishment_practical_info": "Establishment details",
+        "address": "Adres",
+        "recurring_booking_fail_reason": "Failure reason"
+      },
+      "name": "Automatic Booking"
+    },
+    "Birthday": {
+      "tags": {},
+      "name": "Verjaardag"
+    },
+    "ReplacementRequest": {
+      "tags": {
+        "sub_teacher": "Substitute Name",
+        "closing_date": "Request Closing Date"
+      },
+      "name": "Teacher replacement request"
+    },
+    "Invoice": {
+      "name": "Facturen",
+      "tags": {
+        "id": "Factuurnummer",
+        "invoice_price": "Factuurbedrag",
+        "invoice_sum_up": "Invoice details",
+        "invoice_date": "Datum",
+        "invoice_download_link": "Invoice link",
+        "days_until_payment_method_expiration_planned_payment_event": "Days until payment method expires"
+      }
+    },
+    "GiftCard": {
+      "name": "Cadeaubonnen ",
+      "tags": {
+        "giftcard_message": "Bericht",
+        "activate_giftcard_url": "Gift Card URL",
+        "message_is_from": "Sender Name",
+        "message_is_for": "Recipient Name",
+        "giftcard_value": "Prijs",
+        "giftcard_name": "Naam",
+        "activation_datetime": "Activeringsdatum",
+        "pdf_link": "PDF Link",
+        "printable_code": "Code"
+      }
+    },
+    "EmailChange": {
+      "name": "Email Change",
+      "tags": {
+        "new_email": "New email",
+        "old_email": "Old email",
+        "manage_changing_email_link": "Manage changing email link",
+        "login_link": "Login link"
+      }
+    },
+    "SpiviPerformance": {
+      "name": "Spivi Class Summary",
+      "tags": {
+        "total_distance": "Distance",
+        "calories_kJ": "Calories KJ",
+        "calories": "Calorieën",
+        "max_watts": "Maximum watts",
+        "maximum_speed": "Maximale snelheid",
+        "max_RPM": "Maximum RPM",
+        "max_HR": "Maximale hartslag",
+        "average_watts": "Average watts",
+        "average_speed": "Gemiddelde snelheid",
+        "average_RPM": "Average RPM",
+        "average_HR": "Gemiddelde hartslag",
+        "SEP": "SEP"
+      }
+    },
+    "ReferralProgram": {
+      "name": "Verwijzingen",
+      "tags": {
+        "reduction_purchase_referred": "Discount for referred member",
+        "referring_reward": "Reward for referring member",
+        "minimum_purchase_referral": "Minimum purchase required",
+        "deadline_use_referral": "Referral deadline",
+        "referring_firstname": "Voornaam ontvanger",
+        "referring_lastname": "Achternaam ontvanger",
+        "referred_firstname": "Voornaam doorverwijzer",
+        "referred_lastname": "Achternaam doorverwijzer",
+        "referral_link": "Doorverwijslink",
+        "registration_date": "Inschrijfdatum"
+      }
+    }
+  }
+}

@@ -9,6 +9,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { compose, withHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Alert from '@material-ui/lab/Alert';
 import IconButton from '@material-ui/core/IconButton';
@@ -32,6 +33,7 @@ import {
   fetchSpecificInvoice,
   generateInvoiceXml as generateInvoiceXmlAction,
   exportXmlBulk as exportXmlBulkAction,
+  downloadInvoiceBulkExport as downloadInvoiceBulkExportAction,
 } from '#src/libs/invoice/actions';
 
 import type { Invoice } from '../../libs/invoice/types';
@@ -39,7 +41,10 @@ import withTitle from '../../hocs/with-title.hoc';
 
 import InvoiceTable from '../../libs/invoice/components/InvoiceTable.component';
 import themeSelectors from '../../libs/theme/selectors';
-import { getInvoiceXmlBulkLoading } from '#src/libs/invoice/selectors';
+import {
+  getInvoiceXmlBulkLoading,
+  getDownloadInvoiceBulkExportLoading,
+} from '#src/libs/invoice/selectors';
 import type { Theme as CompanyTheme } from '#src/libs/theme/types';
 import type {
   OptionCallback,
@@ -47,6 +52,11 @@ import type {
 } from '#src/state/types';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
 import InvoiceBulkExportSection from '#src/libs/invoice/components/InvoiceBulkExportSection.component';
+import InvoiceBulkExportModal from '#src/libs/invoice/components/InvoiceBulkExportModal.component';
+import {
+  INVOICE_BULK_EXPORT_STATUS_COMPLETED,
+  INVOICE_BULK_EXPORT_STATUS_COMPLETED_NO_INVOICE,
+} from '#src/libs/invoice/constants';
 
 type Props = {
   classes: Object,
@@ -73,18 +83,25 @@ type Props = {
   quickbooksApp: QuickbooksApp,
   quickbooksAppLoading: boolean,
   isGenerateXmlBulkLoading: boolean,
+  isDownloadInvoiceBulkExportLoading: boolean,
   quickbooksLoading: boolean,
   retrieveQuickbooksApp: (companyId: number, options?: OptionCallback) => void,
   sendInvoiceToQuickbooks: (uuid: string) => void,
+  downloadInvoiceBulkExport: (
+    params: { month: number, year: number },
+    options?: OptionCallback,
+  ) => void,
   t: TFunction,
 };
 type State = {
+  isBulkExportModalOpen: boolean,
   proposeRefreshQBA: boolean,
 };
 export class InvoiceList extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      isBulkExportModalOpen: false,
       proposeRefreshQBA: false,
     };
   }
@@ -127,6 +144,26 @@ export class InvoiceList extends Component<Props, State> {
     };
 
     this.props.exportXmlBulk({ backgroundDialog });
+  };
+
+  handleOpenBulkExportModal = () =>
+    this.setState({ isBulkExportModalOpen: true });
+
+  handleCloseBulkExportModal = () =>
+    this.setState({ isBulkExportModalOpen: false });
+
+  handleConfirmBulkExport = (params) => {
+    this.props.downloadInvoiceBulkExport(params, {
+      onSuccess: (payload) => {
+        if (
+          payload?.export_status === INVOICE_BULK_EXPORT_STATUS_COMPLETED ||
+          payload?.export_status ===
+            INVOICE_BULK_EXPORT_STATUS_COMPLETED_NO_INVOICE
+        ) {
+          this.handleCloseBulkExportModal();
+        }
+      },
+    });
   };
 
   render() {
@@ -187,13 +224,29 @@ export class InvoiceList extends Component<Props, State> {
             </Alert>
           </div>
         )}
-        {this.props.companyTheme.invoice_exporter_id && (
-          <InvoiceBulkExportSection
-            handleDownloadXmlBulk={this.handleDownloadXmlBulk}
-            isGenerateXmlBulkLoading={this.props.isGenerateXmlBulkLoading}
-            t={t}
-          />
-        )}
+        <div className={this.props.classes.exportActions}>
+          {this.props.companyTheme.invoice_exporter_id && (
+            <InvoiceBulkExportSection
+              handleDownloadXmlBulk={this.handleDownloadXmlBulk}
+              isGenerateXmlBulkLoading={this.props.isGenerateXmlBulkLoading}
+              t={t}
+            />
+          )}
+          <Button
+            color="primary"
+            onClick={this.handleOpenBulkExportModal}
+            variant="outlined"
+          >
+            {t('b2b_invoice:bulkExport.modalTitle')}
+          </Button>
+        </div>
+        <InvoiceBulkExportModal
+          loading={this.props.isDownloadInvoiceBulkExportLoading}
+          onClose={this.handleCloseBulkExportModal}
+          onConfirm={this.handleConfirmBulkExport}
+          open={this.state.isBulkExportModalOpen}
+          timezone={this.props.companyTheme?.timezone_name}
+        />
         <InvoiceTable
           showType
           containerComponent={Paper}
@@ -235,6 +288,11 @@ const styles = (theme) => ({
   paddingBottom: {
     paddingBottom: theme.spacing(2),
   },
+  exportActions: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+  },
   '@keyframes RotationEffect': {
     '0%': {
       transform: 'rotate(0deg)',
@@ -267,6 +325,8 @@ export default compose(
       quickbooksApp: getQuickbooksApp(state),
       quickbooksAppLoading: state.quickbooks.loading,
       isGenerateXmlBulkLoading: getInvoiceXmlBulkLoading(state),
+      isDownloadInvoiceBulkExportLoading:
+        getDownloadInvoiceBulkExportLoading(state),
     }),
     {
       push: routerPush,
@@ -279,6 +339,7 @@ export default compose(
       retrieveQuickbooksApp: retrieveQuickbooksAppAction,
       generateInvoiceXml: generateInvoiceXmlAction,
       exportXmlBulk: exportXmlBulkAction,
+      downloadInvoiceBulkExport: downloadInvoiceBulkExportAction,
     },
   ),
   withHandlers({

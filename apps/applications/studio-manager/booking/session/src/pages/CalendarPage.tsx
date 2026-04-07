@@ -45,8 +45,8 @@ import {
   selectSelectedDate,
   selectSessionFilters,
   setLocale,
-  useSessionListStore,
-} from "../stores/session-list";
+  useCalendarStore,
+} from "../stores/calendar";
 
 export const DEFAULT_DEBOUNCE_DELAY = 200;
 
@@ -54,8 +54,8 @@ const CalendarPage: React.FC = () => {
   const { t, i18n } = useTranslation("sessionList");
   const intlLocale = i18n?.language;
 
-  const selectedDate = useSessionListStore(selectSelectedDate);
-  const detailsModalState = useSessionListStore(selectModalState);
+  const selectedDate = useCalendarStore(selectSelectedDate);
+  const detailsModalState = useCalendarStore(selectModalState);
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -120,7 +120,7 @@ const CalendarPage: React.FC = () => {
 
   const { filterConfig, resetFilters, sessionFiltersRef } = useFilterConfig();
 
-  const filters = useSessionListStore(selectSessionFilters);
+  const filters = useCalendarStore(selectSessionFilters);
   const hasEmptyResults =
     !isLoading && !sessionDataError && Object.keys(sessionsByDate).length === 0;
 

@@ -21,7 +21,7 @@
     "1": {
       "name": "Débito",
       "third": "{{ currencyDisplay }}",
-      "first": "O saldo do membro, menos as faturas não pagas, é de",
+      "first": "O saldo da conta do membro é (incluindo faturas em aberto)",
       "second": " à   ",
       "explanation": "A x {{ currencyDisplay }} na sua conta",
       "between": "e"

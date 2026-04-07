@@ -1,0 +1,415 @@
+{
+  "title": {
+    "create": "Criar uma notificação",
+    "edit": "Editar notificação"
+  },
+  "buttons": {
+    "create": "Criar",
+    "edit": "Editar",
+    "cancel": "Cancelar"
+  },
+  "toast": {
+    "create": {
+      "success": "Regra de notificação salva",
+      "failure": "Sua regra de notificação não pôde ser salva"
+    },
+    "update": {
+      "success": "Suas alterações foram salvas",
+      "failure": "Suas alterações não puderam ser salvas"
+    },
+    "delete": {
+      "success": "Automation deleted",
+      "failure": "Automation couldn't be deleted. Please try again. "
+    }
+  },
+  "deleteModal": {
+    "title": "Delete automation?",
+    "description": {
+      "paymentPack": "This notification will no longer be active for the associated passes.",
+      "privatePass": "This notification will no longer be active for the associated appointment passes.",
+      "other": "All notifications associated with this automation will no longer be active. ",
+      "warning": "Heads up: this action is permanent and cannot be undone. "
+    },
+    "actions": {
+      "confirm": "Excluir",
+      "cancel": "Anterior"
+    }
+  },
+  "steps": {
+    "label": {
+      "triggerType": "Seleciona o tipo de gatilho",
+      "notificationRules": "Configurar automação",
+      "content": "Escolha os canais"
+    },
+    "content": {
+      "communicationVariableLengthAlert": "The final message may be longer than expected once variables are replaced. If a variable’s value exceeds its placeholder length, your message could be cropped when sent. Please review variable lengths before sending.",
+      "errors": {
+        "noEmailTemplate": "Escolher um modelo",
+        "tooLong": {
+          "pushNotificationTitle": "Title must not be longer than {{ count }} characters",
+          "pushNotificationContent": "Content must not be longer than {{ count }} characters"
+        },
+        "noContent": {
+          "pushNotificationTitle": "Preencha o título da notificação push",
+          "pushNotificationContent": "Preencha o conteúdo da notificação push"
+        },
+        "noContentKind": "Selecione pelo menos 1 tipo de comunicação"
+      },
+      "selector": {
+        "emailTemplates": {
+          "label": "Modelo de Email",
+          "placeholder": "Selecione um modelo de e-mail",
+          "loading": "Procurando modelos de e-mail...",
+          "noCategory": "Nenhuma categoria"
+        }
+      }
+    },
+    "triggerType": {
+      "title": "Seleciona qual tipo de gatilho iniciará a automação",
+      "selectAllPasses": {
+        "checkbox": {
+          "label": {
+            "pass": "Apply this notification to all passes",
+            "appointmentPass": "Apply this notification to all appointment passes"
+          }
+        }
+      },
+      "notificationType": {
+        "label": "Tipo de gatilho",
+        "choices": {
+          "groupActivity": "Atividade de Grupo",
+          "location": "Localização",
+          "establishment": "Estabelecimento",
+          "workshop": "Workshop",
+          "appointment": "Aulas Privadas",
+          "pass": "Standard Pass",
+          "appointmentPass": "Passe de aulas",
+          "subscription": "Subscrição",
+          "birthday": "Aniversário"
+        }
+      },
+      "selectors": {
+        "appointment": {
+          "label": "Aula",
+          "placeholder": "Selecione as aulas",
+          "loading": "Procurando aulas..."
+        },
+        "groupActivity": {
+          "label": "Aula",
+          "placeholder": "Selecione umas aulas",
+          "loading": "Procurando aulas..."
+        },
+        "workshop": {
+          "label": "Aula",
+          "placeholder": "Selecione as aulas",
+          "loading": "Procurando aulas..."
+        },
+        "allActivities": {
+          "label": "Todas as Aulas",
+          "placeholder": "Selecione qualquer aula",
+          "loading": "Procurando aulas..."
+        },
+        "location": {
+          "label": "Localização",
+          "placeholder": "Selecionar um local",
+          "loading": "Procurando locais..."
+        },
+        "establishment": {
+          "label": "Estabelecimento",
+          "placeholder": "Selecionar uma sala",
+          "loading": "Procurando estabelecimentos..."
+        },
+        "subscription": {
+          "label": "Subscrição",
+          "placeholder": "Selecionar uma subscrição",
+          "loading": "Procurando subscrições..."
+        },
+        "pass": {
+          "label": "Passe",
+          "placeholder": "Selecionar um passe",
+          "loading": "Procurando Passes de aulas..."
+        },
+        "appointmentPass": {
+          "label": "Passe de aulas",
+          "placeholder": "Selecionar um passe de marcação",
+          "loading": "Procurando Passe De Marcação..."
+        },
+        "smartlists": {
+          "label": "Smartlists Associadas",
+          "placeholder": "Selecione as smartlists associadas",
+          "loading": "Pesquisando listas inteligentes..."
+        },
+        "errors": {
+          "notEmpty": "Select an item to continue",
+          "atLeastOne": "Select an item to continue"
+        }
+      }
+    },
+    "notificationRules": {
+      "title": "Configurar uma automação",
+      "errors": {
+        "noFloat": "Deve ser um número inteiro sem pontos decimais",
+        "positiveValue": {
+          "hour": "Timing must be 0 hour or longer",
+          "day": "Timing must be 0 day or longer"
+        },
+        "smartlistShouldBeFilledWhenToggled": "Selecione uma Smartlist ou desative esta opção para continuar",
+        "bookingOccurence": {
+          "atLeastOne": {
+            "makesBooking": "Must be 1 booking or more",
+            "makesCancellation": "Must be 1 cancellation or more"
+          }
+        }
+      },
+      "smartlists": {
+        "included": {
+          "label": "Enviar notificação se o membro for incluído em uma Smartlist"
+        },
+        "excluded": {
+          "label": "Não envie notificação se o membro estiver incluído em uma Smartlist"
+        }
+      },
+      "timing": {
+        "timeUnit": {
+          "label": "Selecione intervalo",
+          "options": {
+            "hour": "Por hora",
+            "day": "Diariamente"
+          }
+        },
+        "timeValue": {
+          "label": "Timing of notification"
+        },
+        "temporality": {
+          "label": "Enviar esta notificação",
+          "options": {
+            "booking": {
+              "before": "Antes da sessão",
+              "after": "Após a sessão"
+            },
+            "subscriptionCreation": {
+              "before": "Before the subscription is created",
+              "after": "After the subscription is created"
+            },
+            "subscriptionFirstBilling": {
+              "before": "Before the first subscription invoice",
+              "after": "After the first subscription invoice"
+            },
+            "subscriptionEnd": {
+              "before": "Before the end of subscription",
+              "after": "After the end of subscription"
+            }
+          }
+        },
+        "timingValuePrefix": {
+          "content": "Your notification will be sent {{count}} ",
+          "booking": {
+            "before": {
+              "hour_one": "hour before the session",
+              "hour_other": "hours before the session",
+              "day_one": "day before the session",
+              "day_other": "days before the session"
+            },
+            "after": {
+              "hour_one": "hour after the session",
+              "hour_other": "hours after the session",
+              "day_one": "day after the session",
+              "day_other": "days after the session"
+            }
+          },
+          "subscriptionCreation": {
+            "before": {
+              "hour_one": "hour before subscription creation",
+              "hour_other": "hours before subscription creation",
+              "day_one": "day before subscription creation",
+              "day_other": "days before subscription creation"
+            },
+            "after": {
+              "hour_one": "hour after subscription creation",
+              "hour_other": "hours after subscription creation",
+              "day_one": "day after subscription creation",
+              "day_other": "days after subscription creation"
+            }
+          },
+          "subscriptionFirstBilling": {
+            "before": {
+              "hour_one": "hour before the first subscription invoice",
+              "hour_other": "hours before the first subscription invoice",
+              "day_one": "day before the first subscription invoice",
+              "day_other": "days before the first subscription invoice"
+            },
+            "after": {
+              "hour_one": "hour after the first subscription invoice",
+              "hour_other": "hours after the first subscription invoice",
+              "day_one": "day after the first subscription invoice",
+              "day_other": "days after the first subscription invoice"
+            }
+          },
+          "subscriptionEnd": {
+            "before": {
+              "hour_one": "hour before the end of subscription",
+              "hour_other": "hours before the end of subscription",
+              "day_one": "day before the end of subscription",
+              "day_other": "days before the end of subscription"
+            },
+            "after": {
+              "hour_one": "hour after the end of subscription",
+              "hour_other": "hours after the end of subscription",
+              "day_one": "day after the end of subscription",
+              "day_other": "days after the end of subscription"
+            }
+          }
+        }
+      },
+      "booking": {
+        "actionLabel": "Envie esta notificação quando um membro",
+        "actions": {
+          "makesBooking": "Faz uma reserva",
+          "makesCancellation": "Makes a cancellation"
+        },
+        "statusLabel": {
+          "attendance": "Envie esta notificação quando os Membros forem marcados como",
+          "cancellation": "Send this notification when cancellation was"
+        },
+        "statusOptions": {
+          "present": "Presente",
+          "absent": "Ausente",
+          "refunded": "Reembolsar",
+          "tooLate": "Tarde demais para ser reembolsado"
+        },
+        "occurrenceLabel": "Envie esta notificação quando",
+        "occurrences": {
+          "anyBooking": {
+            "makesBooking": "Um membro faz uma reserva",
+            "makesCancellation": "A member makes any cancellation"
+          },
+          "specificAmount": {
+            "makesBooking": "Um membro atinge uma quantidade específica de reservas",
+            "makesCancellation": "A member reaches a specific amount of cancellations"
+          }
+        },
+        "amountSuffix": {
+          "makesBooking": "Reservas",
+          "makesCancellation": "Reservas canceladas"
+        },
+        "alerts": {
+          "defaultToAbsent": "Suas configurações estão definidas para marcar Membros como ausentes por padrão"
+        },
+        "timing": {
+          "temporality": {
+            "label": "Enviar esta notificação",
+            "options": {
+              "before": "Antes da sessão",
+              "after": "Após a sessão"
+            }
+          },
+          "timeUnit": {
+            "label": "Selecione intervalo",
+            "options": {
+              "hour": "Por hora",
+              "day": "Diariamente"
+            }
+          },
+          "timeValue": {
+            "label": "Tempo de notificação",
+            "prefix": {
+              "content": "Sua notificação será enviada ",
+              "before": {
+                "hour_one": "{{count}} hora antes da sessão",
+                "hour_other": "{{count}} horas antes da sessão",
+                "day_one": "{{count}} dia antes da sessão",
+                "day_other": "{{count}} dias antes da sessão"
+              },
+              "after": {
+                "hour_one": "{{count}} hora após a sessão",
+                "hour_other": "{{count}} horas após a sessão",
+                "day_one": "{{count}} dia após a sessão",
+                "day_other": "{{count}} dias após a sessão"
+              }
+            }
+          }
+        }
+      },
+      "appointment": {
+        "actionLabel": "Envie esta notificação quando um membro",
+        "actions": {
+          "attend": "Comparece à consulta agendada",
+          "cancelOnTime": "Cancels their appointment within the cancellation window",
+          "cancelTooLate": "Cancels their appointment outside the cancellation window"
+        },
+        "occurrenceLabel": "Envie esta notificação quando",
+        "occurrences": {
+          "attend": {
+            "anyBooking": "Um membro faz uma reserva",
+            "specificAmount": "Um membro atinge uma quantidade específica de reservas"
+          },
+          "cancel": {
+            "anyBooking": "A member makes any cancellation",
+            "specificAmount": "A member reaches a specific amount of cancellation"
+          }
+        },
+        "amountSuffix": {
+          "attend": "Reservas",
+          "cancel": "cancellation"
+        }
+      },
+      "subscription": {
+        "statusLabel": "Enviar esta notificação",
+        "statuses": {
+          "subscriptionCreation": "The first subscription is created",
+          "subscriptionFirstBilling": "The first subscription is billed",
+          "subscriptionEnd": "End of their subscription"
+        }
+      },
+      "pass": {
+        "name": {
+          "label": "Nome da notificação",
+          "placeholder": "Give this notification a name ",
+          "required": "The name of the notification is required."
+        },
+        "actionLabel": "Envie esta notificação quando",
+        "actions": {
+          "creditsLeft": "Pass reaches a set number of credits left",
+          "daysLeft": "Pass reaches a set number of days left before expiry",
+          "daysExpired": "Pass has expired"
+        },
+        "errors": {
+          "notEnoughDaysLeft": "Value must be greater than 0 ",
+          "notificationNameRequired": "Give your notification a name to continue"
+        },
+        "eventOccurence": {
+          "label": "Send this notification when a pass has",
+          "credits": {
+            "suffix_one": "Remaining credit",
+            "suffix_other": "Créditos restantes"
+          },
+          "days": {
+            "suffix_one": "Remaining day",
+            "suffix_other": "Dias restantes"
+          }
+        },
+        "creditsLeft": {
+          "label": "Enviar esta notificação",
+          "bookingCompleted": {
+            "label": "After completing the booking",
+            "suffix_one": "hour after booking",
+            "suffix_other": "hours after booking"
+          },
+          "sessionEnd": {
+            "label": "After the end of the session",
+            "suffix_one": "hour after the end of the session",
+            "suffix_other": "hours after the end of the session"
+          }
+        },
+        "includedInContract": {
+          "label": "Choose when to send this notification",
+          "infos": "By default, this notification is sent to all members with this pass. If you select “Skip if a pass is part of a subscription”, members who hold the pass through a subscription will not receive it.",
+          "options": {
+            "everyPass": "Send to everyone with this pass",
+            "outsideSubscription": "Skip if pass is part of a subscription"
+          }
+        }
+      }
+    }
+  }
+}

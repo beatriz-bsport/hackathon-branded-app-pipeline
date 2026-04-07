@@ -1,0 +1,75 @@
+{
+  "header": {
+    "loading": "Loading Contract...",
+    "breadcrumbs": {
+      "contracts": "Contracts"
+    },
+    "tabs": {
+      "editor": "Editor",
+      "overview": "Visão geral",
+      "pauses": "Pausas"
+    }
+  },
+  "canNotFindContract": {
+    "title": "Couldn't retrieve Contract",
+    "goToListPage": "See Contracts"
+  },
+  "formFields": {
+    "errors": {
+      "fieldIsRequired": "Este campo é obrigatório."
+    },
+    "name": {
+      "errorMaxLength": "Name length must be under {{ maxLength }} characters.",
+      "label": "Nome"
+    },
+    "description": {
+      "label": "Descrição"
+    },
+    "tax": {
+      "label": "Sales / VAT"
+    },
+    "joinFee": {
+      "label": "Join fee",
+      "helperText": "Joining fee will be included in the first invoice"
+    },
+    "recurringAmount": {
+      "label": "Recurring amount",
+      "helperText": "Tax included"
+    },
+    "billingCycle": {
+      "radioPurchaseDay": {
+        "label": "Invoice on purchase day",
+        "tooltip": "Member's first invoice will be sent on the date of purchase.",
+        "sublabel": "Billing interval"
+      },
+      "radioFixedDay": {
+        "label": "Invoice on fixed day",
+        "tooltip": "Member's first invoice will be sent on the chosen date and pro-rated if necessary.",
+        "sublabel": "Every month on"
+      }
+    }
+  },
+  "intervals": {
+    "day": "",
+    "day_one": "Dia",
+    "day_other": "Dias",
+    "week": "",
+    "week_one": "Semana",
+    "week_other": "Semanas",
+    "month": "",
+    "month_one": "Mês",
+    "month_other": "Meses",
+    "year": "",
+    "year_one": "Ano",
+    "year_other": "Período de validade em anos"
+  },
+  "formSections": {
+    "price": "Preço",
+    "billingCycle": "Billing Cycle"
+  },
+  "editor": {
+    "submit": {
+      "error": "Failed to update Contract"
+    }
+  }
+}

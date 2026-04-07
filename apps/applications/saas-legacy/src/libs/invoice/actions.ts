@@ -34,6 +34,7 @@ import type {
   PlannedPaymentEventFilter,
   PlannedPaymentEventSerializer,
   BulkExportRequestErrorResults,
+  DownloadInvoiceBulkExportResponse,
   OnboardingRequirementsResponse,
   FiskalySignEsInvoiceDetails,
   SequentialNumberingStatusResponse,
@@ -66,6 +67,7 @@ import {
   finalize as finalizeAPI,
   generateInvoiceXml as generateInvoiceXmlAPI,
   generateInvoiceXmlBulk as generateInvoiceXmlBulkAPI,
+  downloadInvoiceBulkExport as downloadInvoiceBulkExportAPI,
   fetchInvoiceItemList as fetchInvoiceItemListAPI,
   fetchPaymentList as fetchPaymentListAPI,
   checkInvoiceInfo as checkInvoiceInfoAPI,
@@ -97,7 +99,11 @@ import {
   fetchFiskalySignEsInvoice as fetchFiskalySignEsInvoiceAPI,
   manuallySendInvoiceToSignEs as manuallySendInvoiceToSignEsAPI,
 } from './api';
-import { ExportInvoiceStatus } from './constants';
+import {
+  ExportInvoiceStatus,
+  INVOICE_BULK_EXPORT_STATUS_COMPLETED,
+  INVOICE_BULK_EXPORT_STATUS_COMPLETED_NO_INVOICE,
+} from './constants';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
 import { displayBackgroundDialog } from '#src/libs/background-dialog/actions';
 import {
@@ -340,6 +346,66 @@ export function exportXmlBulk(
       dispatch(generateInvoiceXmlBulkActions.error(error));
       dispatch(generateInvoiceXmlBulkActions.isLoading(false));
       options?.onError?.();
+    }
+  };
+}
+
+export const downloadInvoiceBulkExportActions = {
+  isLoading: createAction<boolean>('INVOICE/DOWNLOAD_BULK_EXPORT/IS_LOADING'),
+  error: createAction<Error | null>('INVOICE/DOWNLOAD_BULK_EXPORT/ERROR'),
+};
+
+export function downloadInvoiceBulkExport(
+  params: {
+    year: number;
+    month: number;
+  },
+  options?: OptionCallback<DownloadInvoiceBulkExportResponse>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(downloadInvoiceBulkExportActions.isLoading(true));
+    dispatch(downloadInvoiceBulkExportActions.error(null));
+    try {
+      const response = await downloadInvoiceBulkExportAPI(params);
+      const payload = response.data;
+
+      if (
+        payload.export_status ===
+        INVOICE_BULK_EXPORT_STATUS_COMPLETED_NO_INVOICE
+      ) {
+        dispatch(snackbarSuccess('b2b_invoice:bulkExport.successNoInvoices'));
+        options?.onSuccess?.(payload);
+        return;
+      }
+
+      if (
+        payload.export_status === INVOICE_BULK_EXPORT_STATUS_COMPLETED &&
+        payload.zip_file_url
+      ) {
+        window.open(payload.zip_file_url, '_blank');
+        dispatch(snackbarSuccess('b2b_invoice:bulkExport.toastDownloaded'));
+        options?.onSuccess?.(payload);
+        return;
+      }
+
+      const unexpectedStatusError = new Error(
+        `Unexpected export status: ${payload.export_status}`,
+      );
+      dispatch(snackbarError('b2b_invoice:bulkExport.error.default'));
+      dispatch(downloadInvoiceBulkExportActions.error(unexpectedStatusError));
+      options?.onError?.(unexpectedStatusError);
+    } catch (err) {
+      const errorCode = err?.response?.data?.error_code;
+
+      if (errorCode) {
+        dispatch(snackbarError(`b2b_invoice:bulkExport.error.${errorCode}`));
+      } else {
+        dispatch(snackbarError('b2b_invoice:bulkExport.error.default'));
+      }
+      dispatch(downloadInvoiceBulkExportActions.error(err));
+      options?.onError?.(err);
+    } finally {
+      dispatch(downloadInvoiceBulkExportActions.isLoading(false));
     }
   };
 }

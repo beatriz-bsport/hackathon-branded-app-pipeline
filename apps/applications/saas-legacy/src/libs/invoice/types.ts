@@ -55,6 +55,7 @@ export type InvoiceState = ErrorAndLoading & {
   finalize: ErrorAndLoading;
   generateXml: ErrorAndLoading;
   generateXmlBulk: ErrorAndLoading;
+  downloadBulkExport: ErrorAndLoading;
   invoiceInfo: ErrorAndLoading & {
     data: InvoiceInfoSerializer | null;
   };
@@ -392,6 +393,12 @@ export type RequestClientSecretPayload = {
 
 export type BulkExportRequestErrorResults = {
   error_code: ExportInvoiceErrorCode;
+};
+
+export type DownloadInvoiceBulkExportResponse = {
+  zip_file_url: string | null;
+  zip_file_size_mb: string | null;
+  export_status: string;
 };
 
 export enum FiskalyOnboardingRequirement {

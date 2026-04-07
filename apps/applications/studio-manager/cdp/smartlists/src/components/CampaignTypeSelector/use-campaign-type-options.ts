@@ -50,6 +50,9 @@ export const useCampaignTypeOptions = ({
       titleKey: t("campaignTypeSelector.push.title"),
       descriptionKey: t("campaignTypeSelector.push.description"),
       showAddOnChip: showAddOnChipPush,
+      onClick: () => {
+        navigateToSmartlistCampaignCreate(smartlistId, "push");
+      },
     },
     {
       id: "popup",

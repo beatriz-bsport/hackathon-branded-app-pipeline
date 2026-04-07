@@ -1,76 +1,138 @@
 {
-  "filters": {
-    "operators": {
-      "isNot": "no es",
-      "is": "es"
-    },
-    "label": "Filtro"
+  "pages": {
+    "memberList": "Perfiles",
+    "archivedMemberList": "Perfiles archivados"
   },
-  "archivedListPage": {
-    "toasts": {
-      "actionUndo": "Deshacer",
-      "messageUnarchived": "{{ name }} ha sido desarchivado"
+  "actions": {
+    "addMember": "Crear perfil",
+    "importLeads": "Importar prospectos",
+    "download": "Descargar"
+  },
+  "memberTable": {
+    "loading": "Cargando perfiles...",
+    "emptySearch": {
+      "subtitle": "No se encontraron perfiles - intenta borrar los filtros para ver más resultados"
+    },
+    "emptyList": {
+      "activeMode": {
+        "title": "No hay perfiles aún",
+        "subtitle": "Añadir perfiles de contacto o importa Leads para comenzar"
+      },
+      "archivedMode": {
+        "title": "No hay perfiles archivados"
+      }
+    },
+    "headers": {
+      "name": "Nombre",
+      "email": "Email",
+      "balance": "Saldo",
+      "joinDate": "Fecha de incorporación"
+    },
+    "tooltips": {
+      "archive": "Archivar perfil",
+      "restore": "Restaurar perfil"
+    }
+  },
+  "list": {
+    "actions": {
+      "copyEmail": "Copiar correo electrónico"
+    },
+    "loading": {
+      "activeList": "Cargando perfiles . . .",
+      "archivedList": "Cargando perfiles archivados . . . "
     }
   },
   "listPage": {
     "archiveModal": {
-      "toasts": {
-        "actionUndo": "Deshacer",
-        "messageArchived": "{{ name }} ha sido archivado"
-      },
-      "buttons": {
-        "archive": "Archivar",
-        "cancel": "Cancelar"
+      "title": "¿Archivar perfil?",
+      "description": {
+        "action": "Una vez que archivas a {{ name }}, su perfil ya no estará activo. ",
+        "effect": "Puedes restaurar este perfil en cualquier momento desde tu archivo."
       },
       "alertIrregularity": {
+        "adviseRegularization": "Antes de archivar este perfil, te recomendamos que primero liquides el saldo de la cuenta del perfil. Esto se debe a una de las siguientes razones: ",
         "items": {
-          "scheduledAppointments": "Citas programadas",
-          "recurringBookings": "Reservas recurrentes",
-          "futureBookings": "Reservas futuras",
-          "autorenewalSubscriptions": "Suscripciones con renovación automática",
-          "currentSubscription": "Suscripción actual",
-          "unpaidInvoices": "Factura(s) impagada(s)",
-          "negativeBalance": "Saldo interno negativo"
-        },
-        "adviseRegularization": "Basándonos en los siguientes criterios, le aconsejamos que regularice el saldo de la cuenta interna de su miembro antes de que éste sea archivado:"
+          "negativeBalance": "Saldo de cuenta negativo",
+          "unpaidInvoices": "Una o más facturas impagas",
+          "currentSubscription": "El perfil tiene una suscripción activa",
+          "autorenewalSubscriptions": "El perfil tiene una suscripción configurada para renovarse automáticamente",
+          "futureBookings": "El perfil tiene reservas futuras",
+          "recurringBookings": "El perfil tiene reservas recurrentes",
+          "scheduledAppointments": "El perfil tiene citas programadas"
+        }
       },
-      "description": {
-        "effect": "Dejarán de estar activas, pero podrán restaurarse en cualquier momento desde su archivo.",
-        "action": "¿Está seguro de que desea archivar <strong>{{ name }}</strong>?"
-      },
-      "title": "Archivar miembro"
+      "buttons": {
+        "cancel": "Cerrar",
+        "archive": "Archivar"
+      }
     }
   },
-  "memberTable": {
-    "tooltips": {
-      "restore": "Desarchivar miembro",
-      "archive": "Archivar miembro"
+  "toasts": {
+    "actions": {
+      "undo": "Deshacer"
     },
-    "headers": {
-      "joinDate": "Fecha de incorporación",
-      "balance": "Saldo",
-      "email": "Email",
-      "name": "Nombre"
+    "emailCopied": "Correo electrónico copiado al portapapeles",
+    "messageUndone": {
+      "success": "Cambio deshecho",
+      "error": "El cambio no pudo deshacerse. Por favor, inténtalo de nuevo. "
     },
-    "emptyList": {
-      "archivedMode": {
-        "title": "No hay miembros archivados"
-      },
-      "activeMode": {
-        "subtitle": "Empieza a añadir miembros en tu estudio",
-        "title": "Aún no hay miembros"
+    "messageArchived": {
+      "success": "Perfil archivado",
+      "error": "El perfil no pudo ser archivado. Por favor, inténtalo de nuevo."
+    },
+    "messageRestored": {
+      "success": "Perfil restaurado",
+      "error": "El perfil no pudo ser restaurado. Por favor, inténtalo de nuevo."
+    }
+  },
+  "filters": {
+    "label": "Filtro",
+    "operators": {
+      "is": "es",
+      "isNot": "no es"
+    }
+  },
+  "importLeadsModal": {
+    "title": "Importar clientes potenciales",
+    "description": "Sube un archivo CSV para importar tus clientes potenciales en bsport Back Office",
+    "moreHelpSection": "¿Necesitas ayuda con esto? <key>Visit our Help Center</key>",
+    "uploadFile": {
+      "extensionCSVOnly": "Archivo CSV solamente",
+      "workInProgress": "Importando clientes potenciales ...",
+      "wipDoNotRefresh": "Por favor, no actualices ni abandones esta página",
+      "errors": {
+        "wrongNumberOfColumns": {
+          "title": "El archivo no tiene el número requerido de columnas",
+          "formatIndication": "Por favor, sigue <key>nuestro formato</key> para importar tus leads con éxito"
+        },
+        "invalidFileType": "Tipo de archivo no válido. Por favor, sube un archivo CSV.",
+        "datasetTooLarge": "El conjunto de datos es demasiado grande: reduce a un máximo de 100,000 filas",
+        "wrongEncoding": "La codificación del archivo es incompatible - por favor, usa UTF-8"
       }
     },
-    "emptySearch": {
-      "subtitle": "Ningún miembro coincide con tus filtros. Intenta borrarlos para ver más resultados."
+    "importSuccess": {
+      "title": "Leads importados con éxito",
+      "outputText": "Tu archivo CSV de leads importados con éxito:",
+      "outputFilename": "filas_éxito",
+      "importedLeadsNumber_one": "{{ count }} Leads importados",
+      "importedLeadsNumber_other": "{{ count }} Leads importados"
     },
-    "loading": "Cargando miembros ..."
-  },
-  "actions": {
-    "addMember": "Añadir miembro"
-  },
-  "pages": {
-    "archivedMemberList": "Miembros archivados",
-    "memberList": "Miembros"
+    "importPartialSuccess": {
+      "title": "Algunas filas en el archivo contenían errores y no se pudieron procesar.",
+      "outputText": "Aquí tienes un archivo CSV de los Leads que no se pudieron importar debido a filas incorrectas.",
+      "outputFilename": "fallo_de_filas"
+    },
+    "otherImportInProgress": {
+      "title": "Una importación ya está en progreso",
+      "subtitle": "Espera a que termine la importación antes de hacer una nueva."
+    },
+    "importError": {
+      "title": "La importación falló",
+      "unknownError": "Ocurrió un error desconocido durante la importación, por favor intenta de nuevo."
+    },
+    "importTimeout": {
+      "title": "El tiempo de actualización se agotó. Por favor, inténtalo de nuevo.",
+      "comeBackLater": "La importación está tardando más de lo esperado. Por favor, vuelve más tarde."
+    }
   }
 }

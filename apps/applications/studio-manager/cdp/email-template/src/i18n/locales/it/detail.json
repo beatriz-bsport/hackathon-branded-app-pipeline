@@ -24,7 +24,7 @@
     "bsportTemplateInfo": {
       "title": "bsport modelli email",
       "description": {
-        "firstStep": "Duplica il modello email che vuoi utilizzare, quindi modifica e invia la versione copiata ai Membri direttamente da questa pagina. ",
+        "firstStep": "Duplica il modello che vuoi utilizzare, poi modifica e invia la versione copiata ai tuoi clienti.",
         "secondStep": "Seleziona quindi la copia dell'email quando invii una comunicazione."
       },
       "quit": "Esci"
@@ -56,8 +56,8 @@
       "title": "Modello email salvato"
     },
     "error": {
-      "missingFields": "Seleziona una categoria per salvare il tuo modello",
-      "problemWhileSaving": "Impossibile salvare le modifiche - per favore riprova"
+      "missingFields": "Non è stato possibile salvare le modifiche: ",
+      "problemWhileSaving": "Non è stato possibile salvare le modifiche. Riprova"
     }
   },
   "leaveConfirmationModal": {
@@ -69,17 +69,17 @@
     "label": "Oggetto email",
     "placeholder": "Aggiungi un oggetto email",
     "error": {
-      "notProvided": "Questo è necessario per continuare",
+      "notProvided": "Aggiungi un oggetto email per salvare il tuo Modello email",
       "tooLong": "Oggetto email troppo lungo"
     }
   },
   "templateDesign": {
     "error": {
-      "notProvided": "Nessun modello di design fornito"
+      "notProvided": "Aggiungi contenuto al tuo modello email per salvarlo"
     }
   },
   "templateCategory": {
     "label": "Categoria",
-    "noCategory": "Seleziona una categoria"
+    "noCategory": "Nessuna categoria"
   }
 }

@@ -1,4 +1,4 @@
-import { SessionColumns } from "./types";
+import { AppointmentColumn, SessionColumns } from "./types";
 
 export const DEFAULT_SESSION_COLUMNS = [
   SessionColumns.TIME,
@@ -10,6 +10,17 @@ export const DEFAULT_SESSION_COLUMNS = [
   SessionColumns.ACTIONS,
   SessionColumns.ATTENDANCE,
   SessionColumns.MOBILE_ACTIONS,
+];
+
+export const DEFAULT_APPOINTMENT_COLUMNS = [
+  AppointmentColumn.TIME,
+  AppointmentColumn.NAME,
+  AppointmentColumn.TEACHER,
+  AppointmentColumn.PARTICIPANT,
+  AppointmentColumn.PASS_USED,
+  AppointmentColumn.ESTABLISHMENT,
+  AppointmentColumn.TYPE,
+  AppointmentColumn.ACTIONS,
 ];
 
 export enum TeacherSubstitutionPropagationMode {

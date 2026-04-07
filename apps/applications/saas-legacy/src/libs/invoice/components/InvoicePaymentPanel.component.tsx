@@ -133,15 +133,17 @@ const PaymentActions: FC<{
     );
   }
 
-  const shouldPaymentPanelActionsBeDisplayed =
+  const canInvoiceBePaid =
     !props.is_reverse &&
     ![InvoiceStatusEnum.VOIDED, InvoiceStatusEnum.REFUNDED].includes(
       props.invoice.status,
-    );
+    ) &&
+    !props.invoice.reverted;
 
   return (
     <React.Fragment>
-      {props.invoice.invoice_type === INVOICE_TYPE_REGULAR &&
+      {canInvoiceBePaid &&
+        props.invoice.invoice_type === INVOICE_TYPE_REGULAR &&
         !!props.accountBalance &&
         props.amountToPayCts > 0 && (
           <div className={classes.balanceContainer}>
@@ -185,7 +187,7 @@ const PaymentActions: FC<{
             </div>
           </div>
         )}
-      {shouldPaymentPanelActionsBeDisplayed && (
+      {canInvoiceBePaid && (
         <div className={classes.row}>
           <div className={classes.buttonRow}>
             <ObjectLevelPermissionProvider

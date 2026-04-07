@@ -35,7 +35,7 @@ const Footer: React.FC<FooterProps> = ({
     "shadow-[0px_2px_8px_0px_var(--kz-color-shadow-weak)_inset]",
     {
       "flex-col-reverse": footerDirection === "column",
-      "flex-row": footerDirection !== "column",
+      "flex-col-reverse sm:flex-row": footerDirection !== "column",
     },
   );
 

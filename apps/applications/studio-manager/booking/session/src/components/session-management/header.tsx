@@ -8,6 +8,7 @@ import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-he
 import { useTranslation } from "#src/utils/i18n";
 
 import { MoreActionsButton } from "./action-buttons/more-actions-button";
+import { SendCommunicationButton } from "./action-buttons/send-communication-button";
 import { SessionNavigationButtons } from "./action-buttons/session-navigation-buttons";
 
 export const Header: FC<{ sessionId: number }> = ({ sessionId }) => {
@@ -33,6 +34,10 @@ export const Header: FC<{ sessionId: number }> = ({ sessionId }) => {
     ];
   }, [session.id]);
 
+  const endGroupActions = useMemo(() => {
+    return [<SendCommunicationButton key="send-communication" />];
+  }, []);
+
   return (
     <DetailsLayout.Header
       pageTitle={t("pageTitle", {
@@ -40,6 +45,7 @@ export const Header: FC<{ sessionId: number }> = ({ sessionId }) => {
         coachName: teacher.name,
       })}
       startGroupActions={startGroupActions}
+      endGroupActions={endGroupActions}
       {...headerConfig}
     />
   );

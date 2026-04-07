@@ -1,4 +1,7 @@
-import { PartnerSpotCappingStrategy } from "#src/booking/partnership";
+import {
+  PartnerSpotCappingStrategy,
+  type PartnershipOffer,
+} from "#src/booking/partnership";
 import { BookableStatus, WaitingListStatus } from "#src/constants";
 import type { MetaActivity } from "#src/group-activity";
 
@@ -196,6 +199,7 @@ export type ManagerSession = {
   parent_category: number;
   partner_max_booking_count: number;
   partner_spot_capping_strategy?: PartnerSpotCappingStrategy;
+  partnership_offers?: PartnershipOffer[];
   recurrence_id: string;
   roll_call_needs_validation: boolean;
   room_blueprint: number | null;
@@ -305,6 +309,7 @@ export type SessionCreationPayload = {
   name_override: string;
   partner_max_booking_count: number | null;
   partner_spot_capping_strategy?: PartnerSpotCappingStrategy;
+  partnership_offers?: PartnershipOffer[];
   recurrence_id?: string;
   room_blueprint?: number | null;
   sync_on_spivi?: boolean;

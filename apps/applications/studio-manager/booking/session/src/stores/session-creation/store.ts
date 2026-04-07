@@ -62,6 +62,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   available_on_partnership: false,
   partner_max_booking_count: 0,
   partner_spot_capping_strategy: PartnerSpotCappingStrategy.COMBINED,
+  partnership_offers: [],
   startDateTime: today8AM,
   duration_minute: 60,
   isRecurring: false,

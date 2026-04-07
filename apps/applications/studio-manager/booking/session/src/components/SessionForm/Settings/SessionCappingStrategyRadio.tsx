@@ -5,10 +5,15 @@ import {
   PartnerSpotCappingStrategy,
 } from "@bsport/api-book";
 import { useFormContext } from "@bsport/form";
-import { Label, RadioGroup } from "@bsport/kaizen-primitive-core";
+import { Alert, Label, RadioGroup } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
+import {
+  UPSELL_CLASSPASS_IDENTIFIER,
+  useCheckCompanyAddOn,
+} from "#src/utils/permission";
 
+import { SessionFormData } from "../schemas";
 import { SessionCapacityField } from "./SessionCapacityField";
 import { SessionPartnershipOffersTable } from "./SessionPartnershipOffersTable";
 
@@ -17,11 +22,11 @@ export const SessionCappingStrategyRadio: FC<{
   activeAccounts?: ActivePartnershipAccount[];
 }> = ({ fieldIdPrefix, activeAccounts }) => {
   const { t } = useTranslation("sessionCreation");
-  const { watch, setValue } = useFormContext();
+  const { watch, setValue } = useFormContext<SessionFormData>();
 
-  const cappingStrategy = watch("partner_spot_capping_strategy") as
-    | PartnerSpotCappingStrategy
-    | undefined;
+  const hasClasspass = useCheckCompanyAddOn(UPSELL_CLASSPASS_IDENTIFIER);
+
+  const cappingStrategy = watch("partner_spot_capping_strategy");
 
   const options = useMemo(
     () => [
@@ -81,17 +86,28 @@ export const SessionCappingStrategyRadio: FC<{
           {(cappingStrategy === PartnerSpotCappingStrategy.COMBINED ||
             cappingStrategy === PartnerSpotCappingStrategy.PER_PARTNER) && (
             <div className="mt-md ml-lg mb-sm">
+              {hasClasspass && (
+                <Alert
+                  layout="banner"
+                  status="warning"
+                  type="weak"
+                  className="p-xs mb-sm"
+                >
+                  {t(
+                    "addSessionModal.steps.configureSession.settings.partnership.capacity.classpassInfo",
+                  )}
+                </Alert>
+              )}
               {cappingStrategy === PartnerSpotCappingStrategy.COMBINED && (
-                <SessionCapacityField
-                  fieldIdPrefix={fieldIdPrefix}
-                  label={t(
-                    "addSessionModal.steps.configureSession.settings.partnership.capacity.label",
-                  )}
-                  fieldName="partner_max_booking_count"
-                  helperText={t(
-                    "addSessionModal.steps.configureSession.settings.partnership.capacity.helperText",
-                  )}
-                />
+                <div className="flex items-end gap-sm">
+                  <SessionCapacityField
+                    fieldIdPrefix={fieldIdPrefix}
+                    label={t(
+                      "addSessionModal.steps.configureSession.settings.partnership.capacity.label",
+                    )}
+                    fieldName="partner_max_booking_count"
+                  />
+                </div>
               )}
               {cappingStrategy === PartnerSpotCappingStrategy.PER_PARTNER && (
                 <SessionPartnershipOffersTable

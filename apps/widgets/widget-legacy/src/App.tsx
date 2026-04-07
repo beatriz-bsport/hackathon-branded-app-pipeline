@@ -23,7 +23,6 @@ import {
   EXPORTABLE_COMPONENT_TYPE_SHOP,
   EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
   EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
-  EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
   EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
   EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
   EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2,
@@ -104,9 +103,6 @@ const PrivateServiceWidget = asyncComponent(
 const WorkshopWidget = asyncComponent(
   () => import('./widgets/Workshop.widget'),
 );
-const NewsletterWidget = asyncComponent(
-  () => import('./widgets/Newsletter.widget'),
-);
 const NewsletterV2Widget = asyncComponent(
   () => import('./widgets/NewsletterV2.widget'),
 );
@@ -131,7 +127,6 @@ const WidgetByType = {
   [EXPORTABLE_COMPONENT_TYPE_PASS]: PassWidget,
   [EXPORTABLE_COMPONENT_TYPE_SHOP]: ShopWidget,
   [EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION]: SubscriptionWidget,
-  [EXPORTABLE_COMPONENT_TYPE_NEWSLETTER]: NewsletterWidget,
   [EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2]: NewsletterV2Widget,
   [EXPORTABLE_COMPONENT_TYPE_GIFTCARD]: GiftcardWidget,
   [EXPORTABLE_COMPONENT_TYPE_CALENDAR]: CalendarWidget,

@@ -157,9 +157,19 @@ Each hook provides access to specific data:
 
 ### DevTools
 
-The DevTools component is a small box on the top left of your screen that provides quick actions to support development : changing locale, changing theme, logout.
+The DevTools component is a small box on the top left of your screen that provides quick actions to support development: changing locale, changing theme, switching studio runtime preset, overriding studio runtime variables, logout.
 
 This toolbox is hidden on staging and production, and visible on local and feature branch. Concerning the dev environment, it can be shown by clicking 5 times on the top left corner of the screen. There is a small hidden button.
+
+When available, runtime configuration uses browser localStorage:
+
+- `@bsport/studio-runtime-env`: selected preset (`local|dev|staging|production`)
+- `@bsport/studio-runtime-field-env-map`: per-variable preset selectors
+
+Runtime behavior:
+
+- changing selectors updates `window.__SM_RUNTIME__` immediately (no forced page reload)
+- integrations initialized once at app startup can still require a manual reload to fully reflect runtime changes (for example Sentry, Mixpanel, Unleash client startup behavior)
 
 ## Tailwind CSS Integration
 

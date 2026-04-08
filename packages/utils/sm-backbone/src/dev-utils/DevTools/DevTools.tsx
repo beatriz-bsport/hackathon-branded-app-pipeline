@@ -15,6 +15,8 @@ import LanguageSelector, {
   type LanguageSelectorProps,
 } from "./LanguageSelector";
 import Logout, { type LogoutProps } from "./Logout";
+import RuntimeEnvSelector from "./RuntimeEnvSelector";
+import RuntimeOverridesEditor from "./RuntimeOverridesEditor";
 import ThemeSelector from "./ThemeSelector";
 
 export type DevToolsProps = LanguageSelectorProps & LogoutProps;
@@ -146,6 +148,10 @@ const DevTools: React.FC<DevToolsProps> = ({
           {() => (
             <div className="gap-xs flex flex-col">
               <ThemeSelector />
+
+              <RuntimeEnvSelector />
+
+              <RuntimeOverridesEditor />
 
               <LanguageSelector i18nInstance={i18nInstance} />
 

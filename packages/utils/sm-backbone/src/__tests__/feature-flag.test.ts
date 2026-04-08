@@ -1,164 +1,126 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { FEATURE_FLAG_CONFIGS } from "#src/feature-flags/constants";
 import {
   buildUnleashConfig,
   getFeatureFlagConfig,
 } from "#src/feature-flags/get-configs";
 
-// Mock env imports
-vi.mock("@bsport/envs", () => ({
-  getEnv: vi.fn(),
-  isEnvFeatureBranch: vi.fn(),
-}));
+const setRuntimeConfig = (
+  config:
+    | {
+        UNLEASH_PROXY_URL?: string;
+        UNLEASH_CLIENT_KEY?: string;
+        UNLEASH_ENVIRONMENT?: string;
+      }
+    | undefined,
+) => {
+  if (!config) {
+    delete (
+      window as Window & {
+        __SM_RUNTIME__?: {
+          UNLEASH_PROXY_URL?: string;
+          UNLEASH_CLIENT_KEY?: string;
+          UNLEASH_ENVIRONMENT?: string;
+        };
+      }
+    ).__SM_RUNTIME__;
+    return;
+  }
 
-const { getEnv: mockedGetEnv, isEnvFeatureBranch: mockedIsEnvFeatureBranch } =
-  vi.mocked(await import("@bsport/envs"));
+  (
+    window as Window & {
+      __SM_RUNTIME__?: {
+        UNLEASH_PROXY_URL?: string;
+        UNLEASH_CLIENT_KEY?: string;
+        UNLEASH_ENVIRONMENT?: string;
+      };
+    }
+  ).__SM_RUNTIME__ = config;
+};
 
 describe("feature-flags", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.unstubAllEnvs();
+    setRuntimeConfig(undefined);
   });
 
-  // ------------------------------------------------------------
-  // getFeatureFlagConfig
-  // ------------------------------------------------------------
   describe("getFeatureFlagConfig", () => {
-    it("returns feature-branch config when isEnvFeatureBranch() is true", () => {
-      mockedIsEnvFeatureBranch.mockReturnValue(true);
-
-      const result = getFeatureFlagConfig("alpha");
-
-      expect(result).toEqual(FEATURE_FLAG_CONFIGS["feature-branch"]);
+    it("returns undefined when runtime config is missing", () => {
+      const result = getFeatureFlagConfig();
+      expect(result).toBeUndefined();
     });
 
-    it("returns dev config for local env if no override env vars are provided", () => {
-      mockedIsEnvFeatureBranch.mockReturnValue(false);
-      vi.stubEnv("VITE_UNLEASH_PROXY_URL", "");
-      vi.stubEnv("VITE_UNLEASH_CLIENT_KEY", "");
+    it("returns undefined and warns when runtime config is partial", () => {
+      const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+      setRuntimeConfig({
+        UNLEASH_PROXY_URL: "https://unleash.tooling.bsport.io/api/frontend",
+      });
 
-      const result = getFeatureFlagConfig("local");
+      const result = getFeatureFlagConfig();
 
-      expect(result).toEqual(FEATURE_FLAG_CONFIGS.dev);
+      expect(result).toBeUndefined();
+      expect(warnSpy).toHaveBeenCalled();
     });
 
-    it("returns overridden values for local env when both VITE vars are set", () => {
-      mockedIsEnvFeatureBranch.mockReturnValue(false);
+    it("returns runtime values with default environment", () => {
+      setRuntimeConfig({
+        UNLEASH_PROXY_URL: "https://unleash.tooling.bsport.io/api/frontend",
+        UNLEASH_CLIENT_KEY: "default:development.abc",
+      });
 
-      const proxyOverride = "http://custom-proxy";
-      const keyOverride = "custom-key";
-
-      vi.stubEnv("VITE_UNLEASH_PROXY_URL", proxyOverride);
-      vi.stubEnv("VITE_UNLEASH_CLIENT_KEY", keyOverride);
-
-      const result = getFeatureFlagConfig("local");
+      const result = getFeatureFlagConfig();
 
       expect(result).toEqual({
-        proxyUrl: proxyOverride,
-        clientKey: keyOverride,
+        proxyUrl: "https://unleash.tooling.bsport.io/api/frontend",
+        clientKey: "default:development.abc",
+        environment: "default",
       });
     });
 
-    it("returns dev config for unknown environments", () => {
-      mockedIsEnvFeatureBranch.mockReturnValue(false);
+    it("returns runtime values with explicit environment", () => {
+      setRuntimeConfig({
+        UNLEASH_PROXY_URL: "https://unleash.tooling.bsport.io/api/frontend",
+        UNLEASH_CLIENT_KEY: "default:production.xyz",
+        UNLEASH_ENVIRONMENT: "production",
+      });
 
-      const result = getFeatureFlagConfig("weird-env");
+      const result = getFeatureFlagConfig();
 
-      expect(result).toEqual(FEATURE_FLAG_CONFIGS.dev);
-    });
-
-    it("returns correct config for dev, staging, and production", () => {
-      mockedIsEnvFeatureBranch.mockReturnValue(false);
-
-      expect(getFeatureFlagConfig("dev")).toEqual(FEATURE_FLAG_CONFIGS.dev);
-      expect(getFeatureFlagConfig("staging")).toEqual(
-        FEATURE_FLAG_CONFIGS.staging,
-      );
-      expect(getFeatureFlagConfig("production")).toEqual(
-        FEATURE_FLAG_CONFIGS.production,
-      );
+      expect(result).toEqual({
+        proxyUrl: "https://unleash.tooling.bsport.io/api/frontend",
+        clientKey: "default:production.xyz",
+        environment: "production",
+      });
     });
   });
 
-  // ------------------------------------------------------------
-  // buildUnleashConfig
-  // ------------------------------------------------------------
   describe("buildUnleashConfig", () => {
-    it("returns correct values for dev environment", () => {
-      mockedGetEnv.mockReturnValue("dev");
-      mockedIsEnvFeatureBranch.mockReturnValue(false);
+    it("returns undefined when runtime config is missing", () => {
+      const result = buildUnleashConfig();
+      expect(result).toBeUndefined();
+    });
+
+    it("builds unleash config from runtime values", () => {
+      setRuntimeConfig({
+        UNLEASH_PROXY_URL: "https://unleash.tooling.bsport.io/api/frontend",
+        UNLEASH_CLIENT_KEY: "default:development.abc",
+        UNLEASH_ENVIRONMENT: "staging",
+      });
 
       const result = buildUnleashConfig();
 
-      const expected = {
-        url: FEATURE_FLAG_CONFIGS.dev.proxyUrl,
-        clientKey: FEATURE_FLAG_CONFIGS.dev.clientKey,
+      expect(result).toEqual({
+        url: "https://unleash.tooling.bsport.io/api/frontend",
+        clientKey: "default:development.abc",
         appName: "studio-manager",
-        environment: "dev",
+        environment: "staging",
         refreshInterval: 0,
         metricsInterval: 240,
         customHeaders: {
           "Cache-Control": "no-cache, no-store, must-revalidate",
           Pragma: "no-cache",
         },
-      };
-
-      expect(result).toEqual(expected);
-    });
-
-    it("returns feature-branch configs when environment is a feature branch", () => {
-      mockedGetEnv.mockReturnValue("alpha");
-      mockedIsEnvFeatureBranch.mockReturnValue(true);
-
-      const result = buildUnleashConfig();
-
-      expect(result.url).toBe(FEATURE_FLAG_CONFIGS["feature-branch"].proxyUrl);
-      expect(result.clientKey).toBe(
-        FEATURE_FLAG_CONFIGS["feature-branch"].clientKey,
-      );
-      expect(result.environment).toBe("feature-branch"); // important
-    });
-
-    it("returns overridden local keys when provided", () => {
-      mockedGetEnv.mockReturnValue("local");
-      mockedIsEnvFeatureBranch.mockReturnValue(false);
-
-      const proxyOverride = "http://custom-proxy";
-      const keyOverride = "custom-key";
-      vi.stubEnv("VITE_UNLEASH_PROXY_URL", proxyOverride);
-      vi.stubEnv("VITE_UNLEASH_CLIENT_KEY", keyOverride);
-
-      const result = buildUnleashConfig();
-
-      expect(result.url).toBe(proxyOverride);
-      expect(result.clientKey).toBe(keyOverride);
-      expect(result.environment).toBe("local");
-    });
-
-    it("falls back to dev config in local env without overrides", () => {
-      mockedGetEnv.mockReturnValue("local");
-      mockedIsEnvFeatureBranch.mockReturnValue(false);
-
-      vi.stubEnv("VITE_UNLEASH_PROXY_URL", "");
-      vi.stubEnv("VITE_UNLEASH_CLIENT_KEY", "");
-
-      const result = buildUnleashConfig();
-
-      expect(result.url).toBe(FEATURE_FLAG_CONFIGS.dev.proxyUrl);
-      expect(result.clientKey).toBe(FEATURE_FLAG_CONFIGS.dev.clientKey);
-      expect(result.environment).toBe("local");
-    });
-
-    it("uses dev config for invalid environments", () => {
-      mockedGetEnv.mockReturnValue("something-weird");
-      mockedIsEnvFeatureBranch.mockReturnValue(false);
-
-      const result = buildUnleashConfig();
-
-      expect(result.url).toBe(FEATURE_FLAG_CONFIGS.dev.proxyUrl);
-      expect(result.clientKey).toBe(FEATURE_FLAG_CONFIGS.dev.clientKey);
-      expect(result.environment).toBe("something-weird");
+      });
     });
   });
 });

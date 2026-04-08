@@ -34,12 +34,9 @@ describe("getXhr", () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    window.runtime = {
-      env: {
-        VITE_API_BASE_URL: baseUrl,
-      },
+    window.__SM_RUNTIME__ = {
+      API_BASE_URL: baseUrl,
     };
-    delete window.runtimeBsport;
   });
 
   describe("successful requests", () => {

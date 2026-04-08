@@ -204,26 +204,18 @@ Components from SM Backbone (like `AppWrapper`, `ErrorBoundaryWrapper`, etc.) wi
 
 SM Backbone exposes Feature Flags via `@unleash/proxy-client-react`.
 
-Required Vite envs: `VITE_UNLEASH_PROXY_URL`, `VITE_UNLEASH_CLIENT_KEY`.
+Runtime keys in `studio-env.js`:
 
-Setup (run anywhere in the monorepo):
-
-```sh
-pnpm run -w feature-flags-environment:set local
-pnpm run -w feature-flags-environment:set dev
-pnpm run -w feature-flags-environment:set staging
-pnpm run -w feature-flags-environment:set feature-branch
-pnpm run -w feature-flags-environment:set production
-```
+- `UNLEASH_PROXY_URL`
+- `UNLEASH_CLIENT_KEY`
+- `UNLEASH_ENVIRONMENT` (optional, defaults to `"default"`)
 
 Notes:
 
-- Writes `.env.local` (local) or `.env.production` (others) in this package, then rebuilds it.
-- You can override defaults with `--proxy-url <url>` and/or `--client-key <token>`.
-- `.env.production` is gitignored.
+- if both keys are provided in `window.__SM_RUNTIME__`, they are used directly
+- if one key is missing, SM Backbone logs a warning and feature flags are disabled
+- no environment inference is done in SM Backbone; `UNLEASH_ENVIRONMENT` comes from runtime config (or defaults to `"default"`)
 
 Debugging:
 
-- Check `.env.local` / `.env.production` in this package, re-run the CLI and restart the consuming app if needed.
-
-See `.env.example` in this package for expected keys.
+- check `/studio/studio-env.js` payload in browser devtools and restart the consuming app if needed.

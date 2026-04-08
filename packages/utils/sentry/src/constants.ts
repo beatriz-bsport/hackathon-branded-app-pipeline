@@ -31,8 +31,24 @@ export const exceptionMessagesToIgnore = [
   /Maximum call stack size exceeded/,
 ];
 
-export const ENV_DSN =
-  "https://46806dfeb3a1142af3766961d0264a2d@o137411.ingest.us.sentry.io/4509480528445441";
+const getRuntimeSentryDsn = () => {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  const runtimeDsn = (
+    window as Window & { __SM_RUNTIME__?: { SENTRY_DSN?: string } }
+  ).__SM_RUNTIME__?.SENTRY_DSN;
+
+  if (typeof runtimeDsn !== "string") {
+    return;
+  }
+
+  const normalizedRuntimeDsn = runtimeDsn.trim();
+  return normalizedRuntimeDsn || undefined;
+};
+
+export const ENV_DSN = getRuntimeSentryDsn() || "";
 
 // Runtime value takes precedence (injected at deployment time)
 const getReleaseVersion = (): string | undefined => {

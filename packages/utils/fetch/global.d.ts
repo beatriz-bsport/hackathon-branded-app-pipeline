@@ -1,16 +1,15 @@
 declare global {
-  type RuntimeFetchEnv = {
+  type StudioManagerRuntime = {
     API_BASE_URL?: string;
-    VITE_API_BASE_URL?: string;
+    SENTRY_DSN?: string;
+    UNLEASH_PROXY_URL?: string;
+    UNLEASH_CLIENT_KEY?: string;
+    UNLEASH_ENVIRONMENT?: string;
+    MIXPANEL_TOKEN?: string;
   };
 
   interface Window {
-    runtime?: {
-      env?: RuntimeFetchEnv;
-    };
-    runtimeBsport?: {
-      env?: RuntimeFetchEnv;
-    };
+    __SM_RUNTIME__?: StudioManagerRuntime;
   }
 }
 

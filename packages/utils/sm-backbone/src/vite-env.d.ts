@@ -1,10 +1,9 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
-  readonly VITE_UNLEASH_PROXY_URL?: string;
-  readonly VITE_UNLEASH_CLIENT_KEY?: string;
-}
-
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
+interface Window {
+  __SM_RUNTIME__?: {
+    UNLEASH_PROXY_URL?: string;
+    UNLEASH_CLIENT_KEY?: string;
+    UNLEASH_ENVIRONMENT?: string;
+  };
 }

@@ -77,16 +77,19 @@ This is equivalent to `axios.post(url, { headers, onUploadProgress, signal, body
 
 ## Update the API base url
 
-It is possible to easily change the API base URL used by fetch, if you want to make your request from various backends.
+`@bsport/fetch` reads the runtime API domain from:
 
-Run the following command to update the base url used by fetch (example with `dev`, but you can provide `local`, `staging` and `production` as well) :
+- `window.__SM_RUNTIME__.API_BASE_URL` when present
+- fallback to `https://api.production.bsport.io` when missing/empty
+
+For Studio Manager and widget proxy bridge apps, this value is loaded through `/studio/studio-env.js`.
+
+Local switch examples:
 
 ```sh
-pnpm run -w api-environment:set dev
-```
+pnpm --filter @bsport/sm-host run api:dev
+pnpm --filter @bsport/sm-host run api:local
 
-To target a feature branch API, provide the adequate feature branch identifier :
-
-```sh
-pnpm run -w api-environment:set feature-branch -fb omega
+pnpm --filter @bsport/widget-proxy-bridge run api:dev
+pnpm --filter @bsport/widget-proxy-bridge run api:local
 ```

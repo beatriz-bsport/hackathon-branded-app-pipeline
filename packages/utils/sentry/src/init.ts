@@ -16,7 +16,10 @@ type Params = {
 
 export const initSentry = (params: Params = { integrations: [] }) => {
   if (!ENV_DSN) {
-    throw new Error("ENV_DSN is not defined");
+    console.warn(
+      "[Sentry] ENV_DSN is not defined. Sentry initialization skipped.",
+    );
+    return;
   }
 
   const env = getEnv();

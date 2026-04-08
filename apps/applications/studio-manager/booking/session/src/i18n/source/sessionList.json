@@ -30,6 +30,7 @@
       "attendance": "Attendance"
     },
     "datetime": {
+      "now": "Now",
       "shortDayIdentifier_one": "day",
       "shortDayIdentifier_other": "days",
       "shortHourIdentifier": "h",

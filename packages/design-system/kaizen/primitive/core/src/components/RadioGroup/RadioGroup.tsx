@@ -37,6 +37,7 @@ export type RadioGroupProps = Omit<
  * @param props.disabled Whether the radio buttons should be disabled.
  * @param props.required Whether the radio buttons are required.
  * @param props.direction The direction in which the radio buttons are laid out. Default is "start".
+ *
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-radiogroup--docs
  */
 const RadioGroup: React.FC<RadioGroupProps> = ({
@@ -73,14 +74,18 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
           }
         >
           {options?.map((option) => (
-            <RadioButton
-              {...option}
-              checked={value === option.value}
-              onChange={handleChange}
-              disabled={disabled || option.disabled || false}
-              direction={direction}
-              key={option.value}
-            />
+            <React.Fragment key={option.value}>
+              <RadioButton
+                {...option}
+                checked={value === option.value}
+                onChange={handleChange}
+                disabled={disabled || option.disabled || false}
+                direction={direction}
+              />
+              {value === option.value || option.forceDisplayChildren ? (
+                <div className="ml-lg">{option.children}</div>
+              ) : null}
+            </React.Fragment>
           ))}
         </div>
       </fieldset>

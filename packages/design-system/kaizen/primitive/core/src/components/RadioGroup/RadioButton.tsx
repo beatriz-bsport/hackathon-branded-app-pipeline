@@ -7,6 +7,8 @@ export type RadioOptionsProps = {
   helperText?: string;
   errorText?: string;
   disabled?: boolean;
+  children?: React.ReactNode;
+  forceDisplayChildren?: boolean;
 };
 
 export type RadioButtonProps = RadioOptionsProps & {
@@ -31,6 +33,8 @@ export type RadioButtonProps = RadioOptionsProps & {
  * @param onChange Callback when the value changes.
  * @param disabled Whether the radio button is disabled.
  * @param direction Direction of the label relative to the input.
+ * @param children Optional React nodes to render below the selected radio button.
+ * @param forceDisplayChildren Always display the children, even when the option is not selected. By default, children are only displayed when the option is selected.
  */
 const RadioButton: React.FC<RadioButtonProps> = ({
   label,

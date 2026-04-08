@@ -50,6 +50,10 @@
     "toastSuccess": "Link copied",
     "tooltip": "Copy payment link"
   },
+  "creditFactor": {
+    "fieldLabel": "Credits",
+    "notPriceWarning": "Double-check: you're entering credits, not a price."
+  },
   "itemAutocomplete": {
     "openItemInNewTab": "Open item in new tab",
     "credits": "{{count}} credits",

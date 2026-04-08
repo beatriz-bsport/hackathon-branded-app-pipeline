@@ -1,10 +1,8 @@
 /// <reference types="vite/client" />
 
-interface ImportMetaEnv {
-  readonly VITE_UNLEASH_PROXY_URL?: string;
-  readonly VITE_UNLEASH_CLIENT_KEY?: string;
-}
+type StudioRuntimeEnv = "local" | "dev" | "staging" | "production";
 
-interface ImportMeta {
-  readonly env: ImportMetaEnv;
+interface Window {
+  __SM_RUNTIME__?: Record<string, string>;
+  __SM_RUNTIME_PRESETS__?: Record<StudioRuntimeEnv, Record<string, string>>;
 }

@@ -11,8 +11,26 @@ import type {
   Properties,
 } from "./types";
 
-const MIXPANEL_TOKEN_DEV = process.env.VITE_MIXPANEL_TOKEN_DEV;
-const MIXPANEL_TOKEN_PRODUCTION = process.env.VITE_MIXPANEL_TOKEN_PRODUCTION;
+type RuntimeMixpanelConfig = {
+  MIXPANEL_TOKEN?: string;
+};
+
+const getRuntimeMixpanelToken = () => {
+  if (typeof window === "undefined") {
+    return undefined;
+  }
+
+  const runtimeConfig = (
+    window as Window & { __SM_RUNTIME__?: RuntimeMixpanelConfig }
+  ).__SM_RUNTIME__;
+
+  if (!runtimeConfig) {
+    return undefined;
+  }
+
+  const mixpanelToken = runtimeConfig.MIXPANEL_TOKEN?.trim();
+  return mixpanelToken || undefined;
+};
 
 export class MixpanelAdapter implements AnalyticsAdapter {
   private instanceName?: string;
@@ -50,9 +68,8 @@ export class MixpanelAdapter implements AnalyticsAdapter {
 
     const { token, env, ...otherConfig } = config ?? {};
 
-    const defaultToken =
-      env === "production" ? MIXPANEL_TOKEN_PRODUCTION : MIXPANEL_TOKEN_DEV;
-    const mixpanelToken = token ?? defaultToken ?? "";
+    const runtimeMixpanelToken = getRuntimeMixpanelToken();
+    const mixpanelToken = token ?? runtimeMixpanelToken ?? "";
 
     if (!mixpanelToken) throw new Error("[Mixpanel] No token provided !");
 

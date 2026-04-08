@@ -12,4 +12,7 @@ interface ImportMeta {
 
 interface Window {
   __BSPORT_RELEASE_SHA__?: string;
+  __SM_RUNTIME__?: {
+    SENTRY_DSN?: string;
+  };
 }

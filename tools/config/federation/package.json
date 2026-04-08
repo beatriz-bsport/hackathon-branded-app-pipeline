@@ -23,7 +23,7 @@
     "build"
   ],
   "scripts": {
-    "build": "rimraf build > /dev/null && tsc > /dev/null && cp src/vite.d.ts build/vite.d.ts",
+    "build": "node ../../scripts/check-runtime-env-keys.mjs && rimraf build > /dev/null && tsc > /dev/null && cp src/vite.d.ts build/vite.d.ts",
     "dev": "tsc --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
@@ -43,6 +43,16 @@
     "ts-node": "^10.9.2"
   },
   "nx": {
+    "targets": {
+      "build": {
+        "inputs": [
+          "default",
+          "{workspaceRoot}/apps/applications/studio-manager/host/envs/**/*.env.js",
+          "{workspaceRoot}/apps/applications/studio-manager/host/envs/**/*.studio-env.js",
+          "{workspaceRoot}/tools/scripts/check-runtime-env-keys.mjs"
+        ]
+      }
+    },
     "tags": [
       "tools:config-federation",
       "execute:unit-tests",

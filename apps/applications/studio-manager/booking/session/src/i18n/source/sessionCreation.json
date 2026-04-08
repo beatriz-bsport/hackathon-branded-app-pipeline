@@ -72,6 +72,7 @@
           },
           "partnership": {
             "toggle": "Make session available to book for customers from aggregators (ClassPass, Urban Sports Club, Wellpass, Wellhub and myClubs).",
+            "noEstablishment": "To customize aggregator availability, you must first select an establishment.",
             "cappingStrategy": {
               "label": "Spot limitation",
               "UNLIMITED": {

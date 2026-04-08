@@ -147,24 +147,6 @@
         "fieldLabel": "Available until",
         "errorMissingDate": "Add a date or deactivate this option to continue",
         "errorPastDate": "The expiration date must be today or future"
-      },
-      "additionalRules": {
-        "label": "Additional rules",
-        "helperText": "Check all that apply",
-        "checkboxes": {
-          "recommended": {
-            "label": "Mark as recommended",
-            "helperText": "Highlight your pack to customers by marking it as recommended."
-          },
-          "newMembersOnly": {
-            "label": "Only available to new members",
-            "helperText": "Members are 'new' as long as they haven't bought an item with a value more than {{ minimalCurrency }}. Even if a member buys an item with a 100% discount, this still counts as a purchase."
-          },
-          "hideFromStaff": {
-            "label": "Hide from staff",
-            "helperText": "Staff will be unable to view or buy this pack."
-          }
-        }
       }
     },
     "requiredField": "This field is required."

@@ -54,10 +54,7 @@ export const PackFormVisibility: React.FC<PackFormVisibilityProps> = ({
         isDetailsView={discardId !== undefined}
       />
 
-      <PackFormVisibilityRules
-        fieldIdPrefix={fieldIdPrefix}
-        methods={methods}
-      />
+      <PackFormVisibilityRules fieldIdPrefix={fieldIdPrefix} />
     </section>
   );
 };

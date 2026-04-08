@@ -8,7 +8,6 @@ import { ContractFormCommitmentPeriod } from "#src/features/contract-form/compon
 import { ContractFormDescription } from "#src/features/contract-form/components/contract-form-description";
 import { ContractFormDuration } from "#src/features/contract-form/components/contract-form-duration";
 import { ContractFormJoinFee } from "#src/features/contract-form/components/contract-form-join-fee";
-import { ContractFormName } from "#src/features/contract-form/components/contract-form-name";
 import { ContractFormRecurringAmount } from "#src/features/contract-form/components/contract-form-recurring-amount";
 import { ContractFormTax } from "#src/features/contract-form/components/contract-form-tax";
 import { ContractFormTerms } from "#src/features/contract-form/components/contract-form-terms";
@@ -31,7 +30,6 @@ export const ContractEditorContent: FC<ContractEditorContentProps> = ({
   const { t } = useTranslation("contract-details");
   return (
     <DetailsLayout.Content className="flex flex-col gap-md">
-      <ContractFormName formId={formId} readonly={readonly} />
       <ContractFormDescription formId={formId} readonly={readonly} />
 
       <section className="flex flex-col gap-sm">

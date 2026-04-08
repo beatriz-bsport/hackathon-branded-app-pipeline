@@ -13,7 +13,10 @@ import { useContractDetailsHeader } from "./use-contract-details-header";
 
 export const useDetailsConfig = (): {
   detailsLayoutConfig: UseDetailsLayoutReturnType;
-  headerConfig: ReturnType<typeof useContractDetailsHeader>;
+  headerConfig: Omit<
+    ReturnType<typeof useContractDetailsHeader>,
+    "startGroupActionsRaw"
+  >;
   contract: Contract;
 } => {
   const { id: rawId } = useParams();
@@ -26,10 +29,12 @@ export const useDetailsConfig = (): {
 
   const detailsLayoutConfig = useDetailsLayout();
 
-  const headerConfig = useContractDetailsHeader({
-    id,
-    isVisible: !contract.manager_only,
-  });
+  const { startGroupActionsRaw: _, ...headerConfig } = useContractDetailsHeader(
+    {
+      contract: contract,
+      isVisible: !contract.manager_only,
+    },
+  );
 
   return {
     detailsLayoutConfig,

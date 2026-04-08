@@ -4,7 +4,7 @@
     "occupancyRate": "{{rate}}% enrolled"
   },
   "tabs": {
-    "activities": "Activities",
+    "classes": "Classes",
     "appointments": "Appointments"
   },
   "addSession": "Add session",

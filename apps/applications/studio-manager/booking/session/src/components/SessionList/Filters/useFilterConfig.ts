@@ -47,7 +47,7 @@ export const useFilterConfig = () => {
     analyticsTrackSafeEvent(sessionListFiltersChangedEvent, {
       filters: newFilters,
     });
-    setFilters("sessions", newFilters);
+    setFilters("classes", newFilters);
   }, []);
 
   const filterConfig: FilterProps = {

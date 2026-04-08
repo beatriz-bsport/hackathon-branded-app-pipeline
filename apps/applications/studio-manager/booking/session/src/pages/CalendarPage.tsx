@@ -1,6 +1,7 @@
 import { isEmpty } from "lodash";
 import groupBy from "lodash/groupBy";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router";
 
 import {
   ErrorFallback,
@@ -25,15 +26,17 @@ import {
   sessionListSearchClearedEvent,
 } from "#src/events/session-list/events";
 import { useModal } from "#src/hooks/use-modal";
+import type { CalendarTab } from "#src/types";
 import { ModalType } from "#src/types";
+import { flags, useBookingManagementFlag } from "#src/urls";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 import { useAnyObjectLevelPermissions } from "#src/utils/permission";
 
 import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
-import { DisplaySettings } from "../components/SessionList/DisplaySettings";
 import { useFilterConfig } from "../components/SessionList/Filters/useFilterConfig";
 import SessionDay from "../components/SessionList/SessionDay";
+import { DisplaySettings } from "../components/shared/DisplaySettings";
 import { useSearchSessions } from "../hooks/useSearchSessions";
 import {
   getSessionDateStart,
@@ -48,11 +51,41 @@ import {
   useCalendarStore,
 } from "../stores/calendar";
 
+const VALID_TABS: CalendarTab[] = ["classes", "appointments"];
+
+const getActiveTab = (tabParam: string | null): CalendarTab =>
+  VALID_TABS.includes(tabParam as CalendarTab)
+    ? (tabParam as CalendarTab)
+    : "classes";
+
 export const DEFAULT_DEBOUNCE_DELAY = 200;
 
 const CalendarPage: React.FC = () => {
   const { t, i18n } = useTranslation("sessionList");
   const intlLocale = i18n?.language;
+  const showAppointmentsTab = useBookingManagementFlag(
+    flags.CALENDAR_APPOINTMENTS_TAB,
+  );
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = showAppointmentsTab
+    ? getActiveTab(searchParams.get("tab"))
+    : "classes";
+
+  const handleTabChange = useCallback(
+    (tabId: string) => {
+      setSearchParams(
+        (prev) => {
+          prev.set("tab", tabId);
+          return prev;
+        },
+        { replace: true },
+      );
+    },
+    [setSearchParams],
+  );
+
+  const isClassesTab = activeTab === "classes";
 
   const selectedDate = useCalendarStore(selectSelectedDate);
   const detailsModalState = useCalendarStore(selectModalState);
@@ -107,8 +140,12 @@ const CalendarPage: React.FC = () => {
     [filteredSessions],
   );
 
-  const displaySettings = useCallback(() => <DisplaySettings />, []);
+  const displaySettings = useCallback(
+    () => <DisplaySettings activeTab={activeTab} />,
+    [activeTab],
+  );
   const endGroupActions = useMemo(() => {
+    if (!isClassesTab) return undefined;
     return [
       <MoreActionsButton
         key="more-actions"
@@ -116,7 +153,11 @@ const CalendarPage: React.FC = () => {
         onCancelMultipleSessions={openCancelMultipleSessionsModal}
       />,
     ];
-  }, [openExportParticipantsModal, openCancelMultipleSessionsModal]);
+  }, [
+    isClassesTab,
+    openExportParticipantsModal,
+    openCancelMultipleSessionsModal,
+  ]);
 
   const { filterConfig, resetFilters, sessionFiltersRef } = useFilterConfig();
 
@@ -184,13 +225,21 @@ const CalendarPage: React.FC = () => {
     },
   });
 
+  const { EmptyState: AppointmentEmptyState } = useEmptyState({
+    isEmpty: true,
+    emptyConfig: {
+      title: t("emptyAppointmentState.title"),
+      subtitle: t("emptyAppointmentState.subtitle"),
+    },
+  });
+
   const { shouldRenderLoadingState, LoadingState } = useLoadingState({
     isLoading,
     message: t("table.isLoading"),
   });
 
   const callToActionButton = useMemo(() => {
-    if (!hasCreateSessionPermission) return null;
+    if (!isClassesTab || !hasCreateSessionPermission) return null;
     return (
       <ListLayout.Button
         iconLeft="plus"
@@ -200,7 +249,7 @@ const CalendarPage: React.FC = () => {
         onClick={onClickAddSession}
       />
     );
-  }, [t, onClickAddSession, hasCreateSessionPermission]);
+  }, [t, onClickAddSession, hasCreateSessionPermission, isClassesTab]);
 
   const sessionDays = useMemo(
     () =>
@@ -221,79 +270,108 @@ const CalendarPage: React.FC = () => {
         pageTitle={t("header")}
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
-        filterConfig={filterConfig}
-        filterRef={sessionFiltersRef}
+        filterConfig={isClassesTab ? filterConfig : undefined}
+        filterRef={isClassesTab ? sessionFiltersRef : undefined}
         endGroupActions={endGroupActions}
-        searchConfig={{
-          id: "session-search",
-          inputValue: searchQuery,
-          onInputValueChange: (value: string) => {
-            analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
-              search_value: value,
-            });
-            setSearchQuery(value);
-          },
-          debounceValue: DEFAULT_DEBOUNCE_DELAY,
-          onClear: () => {
-            analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
-              search_value: searchQuery,
-              source: SearchClearSource.CLEAR_BUTTON,
-            });
-            setSearchQuery("");
-          },
-        }}
+        pageTabs={
+          showAppointmentsTab
+            ? {
+                orientation: "horizontal",
+                value: activeTab,
+                onValueChange: handleTabChange,
+                tabs: [
+                  { id: "classes", label: t("tabs.classes") },
+                  { id: "appointments", label: t("tabs.appointments") },
+                ],
+              }
+            : undefined
+        }
+        searchConfig={
+          isClassesTab
+            ? {
+                id: "session-search",
+                inputValue: searchQuery,
+                onInputValueChange: (value: string) => {
+                  analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
+                    search_value: value,
+                  });
+                  setSearchQuery(value);
+                },
+                debounceValue: DEFAULT_DEBOUNCE_DELAY,
+                onClear: () => {
+                  analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
+                    search_value: searchQuery,
+                    source: SearchClearSource.CLEAR_BUTTON,
+                  });
+                  setSearchQuery("");
+                },
+              }
+            : undefined
+        }
       />
       <ListLayout.Content>
         <DateNavigationHeader />
         <div className="flex flex-col gap-xl h-full mt-md">
-          {shouldRenderEmptyState ? (
-            <EmptyState />
-          ) : shouldRenderLoadingState ? (
-            <LoadingState />
-          ) : sessionDataError ? (
-            <div className="flex flex-col items-center justify-center">
-              <ErrorFallback actionProps={ErrorFallback.DEFAULT_ACTION_PROPS} />
-            </div>
+          {isClassesTab ? (
+            <>
+              {shouldRenderEmptyState ? (
+                <EmptyState />
+              ) : shouldRenderLoadingState ? (
+                <LoadingState />
+              ) : sessionDataError ? (
+                <div className="flex flex-col items-center justify-center">
+                  <ErrorFallback
+                    actionProps={ErrorFallback.DEFAULT_ACTION_PROPS}
+                  />
+                </div>
+              ) : (
+                sessionDays
+              )}
+            </>
           ) : (
-            sessionDays
+            <AppointmentEmptyState />
           )}
         </div>
 
-        <AddSessionModal
-          isOpen={addSessionModalOpen}
-          onClose={closeAddSessionModal}
-        />
-        <ExportParticipantsModal
-          isOpen={exportParticipantsModalOpen}
-          onClose={closeExportParticipantsModal}
-        />
-        <CancelMultipleSessionsModal
-          isOpen={cancelMultipleSessionsModal}
-          onClose={closeCancelMultipleSessionsModal}
-        />
-        {detailsModalState?.type === ModalType.CANCEL && (
-          <CancelSessionModal
-            session={detailsModalState.session}
-            isOpen={detailsModalState.type === ModalType.CANCEL}
-            onClose={closeModal}
-          />
-        )}
-        {detailsModalState?.type === ModalType.RESTORE && (
-          <RestoreSessionModal
-            session={detailsModalState.session}
-            isOpen={detailsModalState.type === ModalType.RESTORE}
-            onClose={closeModal}
-          />
-        )}
-        {detailsModalState?.type === ModalType.DELETE && (
-          <DeleteSessionModal session={detailsModalState.session} />
-        )}
-        {detailsModalState?.type === ModalType.DUPLICATE && (
-          <DuplicateSessionModal
-            session={detailsModalState.session}
-            isOpen={detailsModalState.type === ModalType.DUPLICATE}
-            onClose={closeModal}
-          />
+        {isClassesTab && (
+          <>
+            <AddSessionModal
+              isOpen={addSessionModalOpen}
+              onClose={closeAddSessionModal}
+            />
+            <ExportParticipantsModal
+              isOpen={exportParticipantsModalOpen}
+              onClose={closeExportParticipantsModal}
+            />
+            <CancelMultipleSessionsModal
+              isOpen={cancelMultipleSessionsModal}
+              onClose={closeCancelMultipleSessionsModal}
+            />
+            {detailsModalState?.type === ModalType.CANCEL && (
+              <CancelSessionModal
+                session={detailsModalState.session}
+                isOpen={detailsModalState.type === ModalType.CANCEL}
+                onClose={closeModal}
+              />
+            )}
+            {detailsModalState?.type === ModalType.RESTORE && (
+              <RestoreSessionModal
+                session={detailsModalState.session}
+                isOpen={detailsModalState.type === ModalType.RESTORE}
+                onClose={closeModal}
+              />
+            )}
+            {detailsModalState?.type === ModalType.DELETE && (
+              <DeleteSessionModal session={detailsModalState.session} />
+            )}
+            {detailsModalState?.type === ModalType.DUPLICATE && (
+              <DuplicateSessionModal
+                session={detailsModalState.session}
+                isOpen={detailsModalState.type === ModalType.DUPLICATE}
+                onClose={closeModal}
+              />
+            )}
+          </>
         )}
       </ListLayout.Content>
     </ListLayout>

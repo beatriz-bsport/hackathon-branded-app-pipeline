@@ -9,7 +9,10 @@ import { EnrichedSession } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 type RestoreSessionModalProps = {
-  session: EnrichedSession;
+  session: Pick<
+    EnrichedSession,
+    "id" | "name" | "name_override" | "date_start"
+  >;
   isOpen: boolean;
   onClose: () => void;
 };

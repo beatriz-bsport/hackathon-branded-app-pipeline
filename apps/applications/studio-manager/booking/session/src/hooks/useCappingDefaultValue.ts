@@ -49,7 +49,6 @@ export const useCappingDefaultValue = ({
   const { data: activeAccounts } = useFetchActivePartnershipAccounts({
     establishment,
     dateStart,
-    enabled: true,
   });
 
   // ── COMBINED: auto-fill partner_max_booking_count ──────────────────────────

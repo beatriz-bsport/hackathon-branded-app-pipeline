@@ -23,19 +23,19 @@ const fetchActivePartnershipAccounts = fetchActivePartnershipAccountsAPI.bind(
 const activePartnershipAccountsQueryOptions = ({
   establishment,
   dateStart,
-  enabled = true,
 }: UseFetchActivePartnershipAccountsProps) => {
   return queryOptions({
     queryKey: [
       "active-partnership-accounts",
       { establishment, dateStart },
     ] as const,
-    queryFn: (): Promise<ActivePartnershipAccount[]> =>
-      fetchActivePartnershipAccounts({
-        establishment: establishment!,
-        date_start: dateStart!,
-      }),
-    enabled: enabled && !!establishment && !!dateStart,
+    queryFn: (): Promise<ActivePartnershipAccount[]> => {
+      if (!establishment || !dateStart) return Promise.resolve([]);
+      return fetchActivePartnershipAccounts({
+        establishment,
+        date_start: dateStart,
+      });
+    },
     staleTime: ACTIVE_PARTNERSHIP_ACCOUNTS_STALE_TIME,
   });
 };
@@ -47,13 +47,11 @@ const activePartnershipAccountsQueryOptions = ({
 export const useFetchActivePartnershipAccounts = ({
   establishment,
   dateStart,
-  enabled = true,
 }: UseFetchActivePartnershipAccountsProps) => {
   return useSuspenseQuery(
     activePartnershipAccountsQueryOptions({
       establishment,
       dateStart,
-      enabled,
     }),
   );
 };

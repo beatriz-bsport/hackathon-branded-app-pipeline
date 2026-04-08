@@ -1,26 +1,35 @@
 import { Link, NavLink } from "react-router";
 
+import type { Contract } from "@bsport/api-buyables/contract";
+import { useCopyPaymentLinkButton } from "@bsport/kaizen-business-components/buyables/use-copy-payment-link-button";
 import { useVisibilityBadgeConfig } from "@bsport/kaizen-business-components/buyables/visibility-selector";
 import {
   Breadcrumbs,
+  Button,
+  DetailsLayout,
   Tabs,
   type TabsProps,
 } from "@bsport/kaizen-primitive-core";
 
-import { URLS, getHrefFromRoot } from "#src/urls";
+import { LEGACY_URLS, URLS, getHrefFromRoot } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 /**
  * Provide the root elements of the header for the different details page (editor, overview, pauses)
  */
 export const useContractDetailsHeader = ({
-  id,
+  contract,
   isVisible,
 }: {
-  id: number;
+  contract: Contract;
   isVisible?: boolean;
 }) => {
   const { t } = useTranslation("contract-details");
+
+  const { id, company, contract_template, month_billing_day } = contract;
+
+  const canBeArchived = !contract_template;
+  const canBePaused = month_billing_day == null; // Pause is disabled for fixed-day contracts
 
   // ----- Tabs navigator -----
 
@@ -69,9 +78,61 @@ export const useContractDetailsHeader = ({
     </Link>,
   ];
 
+  // ----- Common actions -----
+
+  const startGroupActionsRaw = [];
+
+  const paymentLink = LEGACY_URLS.PAYMENT_LINK({
+    buyableId: id,
+    companyId: company,
+  });
+  const copyPaymentLinkButton = useCopyPaymentLinkButton(paymentLink);
+
+  const pauseButton = (
+    <Button
+      key="contract-details-button-pause"
+      color="default"
+      intent="flat"
+      size="md"
+      icon="pause-square"
+      kind="icon-button"
+      label={t("header.actions.pauseContract")}
+      onClick={() => alert("not implemented yet")}
+    />
+  );
+
+  const archiveButton = (
+    <Button
+      key="contract-details-button-archive"
+      color="default"
+      intent="flat"
+      size="md"
+      icon="trash-01"
+      kind="icon-button"
+      label={t("header.actions.archiveContract")}
+      onClick={() => alert("not implemented yet")}
+    />
+  );
+
+  if (canBePaused) {
+    startGroupActionsRaw.push(pauseButton);
+  }
+  if (canBeArchived) {
+    startGroupActionsRaw.push(archiveButton);
+  }
+  startGroupActionsRaw.push(copyPaymentLinkButton);
+
+  const { startGroupActions, endGroupActions } =
+    DetailsLayout.useAdaptiveActions({
+      startGroupActions: startGroupActionsRaw,
+    });
+
   return {
     BreadcrumbsItems: breadcrumbs,
     pageStatusBadge: statusBadge,
     pageTabs: tabsConfig,
+    startGroupActionsRaw,
+    startGroupActions,
+    endGroupActions,
   };
 };

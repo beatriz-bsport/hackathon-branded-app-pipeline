@@ -218,6 +218,9 @@ const icons = {
     async () => await import("./assets/package-x.svg?react"),
   ),
   package: React.lazy(async () => await import("./assets/package.svg?react")),
+  "pause-square": React.lazy(
+    async () => await import("./assets/pause-square.svg?react"),
+  ),
   "pencil-02": React.lazy(
     async () => await import("./assets/pencil-02.svg?react"),
   ),

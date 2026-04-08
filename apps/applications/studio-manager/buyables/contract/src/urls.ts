@@ -15,6 +15,17 @@ export const URLS = {
   PAUSES: (id: number) => `${id}/${PAUSES_SEGMENT}`,
 } as const;
 
+export const LEGACY_URLS = {
+  PAYMENT_LINK: ({
+    companyId,
+    buyableId,
+  }: {
+    companyId: number;
+    buyableId: number | string;
+  }) =>
+    `${window?.location?.origin ?? ""}/checkout/${companyId}/subscription/${buyableId}/?force=true`,
+} as const;
+
 /**
  * When to use ? When inside a subsegment of the page, React router needs to
  * navigate relatively to the index

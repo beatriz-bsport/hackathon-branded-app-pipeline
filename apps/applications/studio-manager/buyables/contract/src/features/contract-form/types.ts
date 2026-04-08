@@ -13,6 +13,7 @@ import type { UseFormControllerOutput } from "@bsport/form";
  */
 export type ContractFormData = Pick<
   CreateContractParams,
+  | "manager_only"
   | "name"
   | "description"
   | "recurrent_price"

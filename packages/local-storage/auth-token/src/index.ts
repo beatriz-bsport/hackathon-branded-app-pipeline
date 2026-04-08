@@ -1,5 +1,8 @@
+import { BSPORT_IMPERSONATION_AUTH_TOKEN_KEY } from "./impersonation";
+
+export * from "./impersonation";
+
 export const BSPORT_AUTH_TOKEN_KEY = "bsport:http:token";
-export const BSPORT_IMPERSONATION_AUTH_TOKEN_KEY = "http:token";
 
 /**
  * Set the authentication token in localStorage.

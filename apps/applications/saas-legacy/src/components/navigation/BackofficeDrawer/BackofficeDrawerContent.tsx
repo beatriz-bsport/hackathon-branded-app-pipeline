@@ -74,6 +74,10 @@ export interface BackofficeDrawerContentProps {
   showRevampedSidebar: boolean; // Used in withNavigationSwitcher
   // eslint-disable-next-line react/no-unused-prop-types
   updateRevampedBackofficeEnabled: (nextValue: boolean) => void; // Used in withNavigationSwitcher
+  // eslint-disable-next-line react/no-unused-prop-types
+  isFranchisorNavigation?: boolean; // Used in withNavigationSwitcher
+  // eslint-disable-next-line react/no-unused-prop-types
+  onNavigateBackToFranchisor?: () => void; // Used in withNavigationSwitcher
   enableRevampedBackoffice: () => void;
 }
 

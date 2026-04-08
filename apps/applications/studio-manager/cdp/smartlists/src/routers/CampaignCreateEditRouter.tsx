@@ -17,6 +17,9 @@ import { flags } from "#src/utils/feature-flags";
 const CreateEmailCampaignPage = lazy(
   () => import("#src/pages/EmailCampaign/CreateEmailCampaign"),
 );
+const EditEmailCampaignPage = lazy(
+  () => import("#src/pages/EmailCampaign/EditEmailCampaign"),
+);
 const CreatePopupCampaignPage = lazy(
   () => import("#src/pages/PopupCreationPage"),
 );
@@ -78,6 +81,8 @@ function EditRouteByChannel() {
 
   const element = useMemo(() => {
     switch (channel) {
+      case CAMPAIGN_CHANNEL_EMAIL:
+        return <EditEmailCampaignPage />;
       case CAMPAIGN_CHANNEL_POPUP:
         return <EditPopupCampaignPage />;
       default:

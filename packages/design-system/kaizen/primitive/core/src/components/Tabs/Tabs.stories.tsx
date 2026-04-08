@@ -202,3 +202,44 @@ export const TabsResponsiveManagedState: Story = {
     );
   },
 };
+
+export const TabsResponsiveWithDuplicateIds: Story = {
+  name: "Tabs responsive with duplicate IDs in DOM (regression)",
+  args: {
+    tabs: [
+      { id: "classes", label: "Classes" },
+      { id: "appointments", label: "Appointments" },
+    ],
+    orientation: "horizontal",
+  },
+  parameters: {
+    viewport: {
+      defaultViewport: "mobile1",
+    },
+    docs: {
+      description: {
+        story: `Regression test for a bug where the mobile dropdown tab selection failed when
+another element in the DOM shared the same \`id\` as a tab (e.g. a sidebar navigation item).
+The Radio component's \`<label htmlFor={id}>\` resolved to the earlier DOM element instead of
+its nested \`<input>\`, so clicking the tab activated the wrong target. The fix removes the
+redundant \`htmlFor\` — implicit label association (nested input) is immune to duplicate IDs.
+
+**To verify:** switch between "Classes" and "Appointments" in both directions. Both must work
+even though the div above has \`id="classes"\`.`,
+      },
+    },
+  },
+  render: (args) => {
+    const [selectedTab, setSelectedTab] = useState("classes");
+    return (
+      <div>
+        {/* Simulates the sidebar NavigationMenu.Item which renders a <div id="classes"> */}
+        <div id="classes" style={{ display: "none" }} aria-hidden="true" />
+        <div id="appointments" style={{ display: "none" }} aria-hidden="true" />
+
+        <p className="mb-4 text-sm">Current tab: {selectedTab}</p>
+        <Tabs {...args} value={selectedTab} onValueChange={setSelectedTab} />
+      </div>
+    );
+  },
+};

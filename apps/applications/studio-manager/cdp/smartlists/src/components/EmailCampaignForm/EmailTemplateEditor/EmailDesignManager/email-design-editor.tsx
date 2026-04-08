@@ -13,11 +13,6 @@ export const UNLAYER_EDITOR_MIN_HEIGHT = "80vh";
 export const UNLAYER_PROJECT_ID = 4736;
 
 export type EmailDesignEditorProps = {
-  /**
-   * A key that forces the Unlayer design to reload.
-   * Use this when switching between different templates while the component stays mounted.
-   */
-  resetKey?: string | number;
   value: EmailDesignContent;
   onChange?: (next: EmailDesignContent) => void;
   minHeight?: EmailEditorProps["minHeight"];
@@ -25,7 +20,6 @@ export type EmailDesignEditorProps = {
 };
 
 export const EmailDesignEditor = ({
-  resetKey,
   value,
   onChange,
   minHeight = UNLAYER_EDITOR_MIN_HEIGHT,
@@ -63,7 +57,7 @@ export const EmailDesignEditor = ({
       emailBuilderRef: unlayerRef,
       initialDesign: value.design || null,
     });
-  }, [resetKey, value.design]);
+  }, []);
 
   useEffect(() => {
     return () => {

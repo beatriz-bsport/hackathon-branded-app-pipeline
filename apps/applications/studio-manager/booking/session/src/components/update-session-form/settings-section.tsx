@@ -61,7 +61,7 @@ export const SettingsSection: FC<{
           ns: "sessionCreation",
         })}
       />
-      <SessionPartnershipSettings fieldIdPrefix={fieldIdPrefix} />
+      <SessionPartnershipSettings fieldIdPrefix={fieldIdPrefix} isEditMode />
       <SessionCapacityField
         fieldIdPrefix={fieldIdPrefix}
         fieldName="waiting_list_max_size"

@@ -45,12 +45,6 @@ export const usePayoutTableColumns = ({
       align: "end",
     },
     {
-      id: "transactions",
-      keyPath: "transactions",
-      header: t("table.transactions"),
-      type: "number",
-    },
-    {
       id: "readableId",
       header: t("table.id"),
       type: "custom",
@@ -109,7 +103,7 @@ export const usePayoutTableColumns = ({
           intent="default"
           color="main"
           size="md"
-          label={t("table.detailed")}
+          label={t("table.transactions")}
           onClick={(e) => {
             e.stopPropagation();
             onDetailedClick(row.id);

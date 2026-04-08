@@ -1,6 +1,9 @@
 import { createStore } from "zustand/vanilla";
 
-import type { MetaActivity } from "@bsport/api-book";
+import {
+  type MetaActivity,
+  PartnerSpotCappingStrategy,
+} from "@bsport/api-book";
 import {
   getLocalNow,
   getStartOf,
@@ -58,6 +61,8 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   effectif: 0,
   available_on_partnership: false,
   partner_max_booking_count: 0,
+  partner_spot_capping_strategy: PartnerSpotCappingStrategy.COMBINED,
+  partnership_offers: [],
   startDateTime: today8AM,
   duration_minute: 60,
   isRecurring: false,

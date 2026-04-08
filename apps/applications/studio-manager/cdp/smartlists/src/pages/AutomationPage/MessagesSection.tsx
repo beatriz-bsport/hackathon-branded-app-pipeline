@@ -99,6 +99,7 @@ export const MessagesSection = (
             status: "positive",
             icon: "download-01",
             description: t("automation.messages.toasts.success.exported"),
+            buttonIcon: "x-close",
           });
         },
         onError: () => {
@@ -106,6 +107,7 @@ export const MessagesSection = (
             status: "critical",
             icon: "alert-circle",
             description: t("automation.messages.toasts.error.exportFailed"),
+            buttonIcon: "x-close",
           });
         },
       });
@@ -115,6 +117,7 @@ export const MessagesSection = (
         status: "critical",
         icon: "alert-circle",
         description: t("automation.messages.toasts.error.exportFailed"),
+        buttonIcon: "x-close",
       });
     },
   });
@@ -307,6 +310,7 @@ export const MessagesSection = (
                         "automation.messages.toasts.info.exportPending",
                       ),
                       duration: TOAST_TIMEOUT,
+                      buttonIcon: "x-close",
                     });
                     exportCampaign.mutate(row.campaign_sent_uuid);
                   } else if (id === INLINE_ACTIONS.DELETE) {

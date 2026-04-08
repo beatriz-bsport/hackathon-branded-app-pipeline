@@ -1,4 +1,7 @@
-import type { SessionWithActivity } from "@bsport/api-book";
+import {
+  PartnerSpotCappingStrategy,
+  type SessionWithActivity,
+} from "@bsport/api-book";
 import { fromIsoString } from "@bsport/datetime-manipulation";
 
 import type { SessionEditFormData } from "#src/components/SessionForm/types";
@@ -27,6 +30,10 @@ export const fromSessionToFormData = (
     effectif: session.effectif,
     available_on_partnership: session.available_on_partnership,
     partner_max_booking_count: session.partner_max_booking_count,
+    partner_spot_capping_strategy:
+      session.partner_spot_capping_strategy ??
+      PartnerSpotCappingStrategy.COMBINED,
+    partnership_offers: session.partnership_offers ?? [],
     level: session.level,
     broadcast_link: session.broadcast_link ?? "",
     // Teacher and establishment

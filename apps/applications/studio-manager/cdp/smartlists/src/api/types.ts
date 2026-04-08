@@ -80,6 +80,25 @@ export type FetchCampaignSentParams = {
   page?: number;
 };
 
+type SendEmailCampaignBasePayload = {
+  subject: string;
+  context_identifier: number;
+  context_object_id: number;
+  member_filters: {
+    smartlist: number;
+  };
+};
+
+export type SendEmailCampaignPayload =
+  | (SendEmailCampaignBasePayload & {
+      email_template: number;
+      body?: never;
+    })
+  | (SendEmailCampaignBasePayload & {
+      body: string;
+      email_template?: never;
+    });
+
 /**
  * Combined type that includes automated campaign config + analytics
  */
@@ -185,6 +204,24 @@ export type CampaignScheduled = {
   // Deprecated but present in API
   email_resend_delay: number;
   email_resend_count: number;
+};
+
+export type ScheduleEmailCampaignPayload = {
+  smartlist: number;
+  communication_kind: CommunicationKind;
+  title: string;
+  datetime_scheduled: string;
+  email_design?: number;
+  text?: string;
+};
+
+export type UpdateScheduledEmailCampaignPayload = {
+  smartlist: number;
+  communication_kind: CommunicationKind;
+  title: string;
+  datetime_scheduled: string;
+  email_design?: number;
+  text?: string;
 };
 
 export type GenerateReportParams = {

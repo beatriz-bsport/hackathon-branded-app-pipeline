@@ -1,4 +1,4 @@
-import { cva } from "class-variance-authority";
+import { cva, cx } from "class-variance-authority";
 import classNames from "classnames";
 import mapValues from "lodash/mapValues";
 import React, {
@@ -58,10 +58,12 @@ export type TextFieldPrefixSuffix =
   | {
       type: "text" | "color" | "country";
       value: string;
+      className?: string;
     }
   | {
       type: "icon";
       value: IconName;
+      className?: string;
     };
 
 const textField = cva(defaultClasses, {
@@ -350,7 +352,11 @@ const TextField: React.FC<TextFieldProps> = ({
           {suffix && Object.keys(suffix).length > 0 && (
             <div
               data-component="Kaizen-TextField-Suffix"
-              className="flex px-xs justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak"
+              className={cx(
+                "flex px-xs justify-center items-center gap-xs",
+                "border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak",
+                suffix.className ?? "",
+              )}
             >
               {suffix?.type === "text" ? (
                 <span>{suffix.value}</span>

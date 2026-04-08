@@ -114,7 +114,6 @@ const Radio: React.FC<RadioProps> = ({
 
   return (
     <label
-      htmlFor={id}
       data-component="Kaizen-Menu-Item-Radio"
       className={radio({ disabled, checked: checked ?? false })}
       tabIndex={0}
@@ -131,7 +130,7 @@ const Radio: React.FC<RadioProps> = ({
         checked={checked ?? false}
         disabled={disabled}
         aria-checked={checked}
-        aria-labelledby={id}
+        aria-labelledby={`${id}-menu-radio-item-label`}
         onChange={onChange}
         tabIndex={-1}
         {...props}

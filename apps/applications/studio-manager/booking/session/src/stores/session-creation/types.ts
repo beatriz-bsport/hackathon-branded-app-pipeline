@@ -1,3 +1,8 @@
+import {
+  type ActivePartnershipAccount,
+  PartnerSpotCappingStrategy,
+  type PartnershipOffer,
+} from "@bsport/api-book";
 import type { DateTime } from "@bsport/datetime-manipulation";
 
 import {
@@ -6,6 +11,8 @@ import {
   RecurrenceType,
   WeekdaySelection,
 } from "#src/helpers/recurrence/types";
+
+export type { ActivePartnershipAccount };
 
 /**
  * Base type representing common fields between Session (Offer) creation and editing
@@ -27,6 +34,8 @@ export type SessionBase = {
   meta_activity?: number;
   name_override: string;
   partner_max_booking_count: number;
+  partner_spot_capping_strategy: PartnerSpotCappingStrategy;
+  partnership_offers: PartnershipOffer[];
   room_blueprint: number | null;
   sync_on_spivi?: boolean;
   waiting_list_max_size: number;
@@ -83,6 +92,8 @@ export type SessionCreationFormData = SessionCreationDateTimeFormData &
     | "effectif"
     | "available_on_partnership"
     | "partner_max_booking_count"
+    | "partner_spot_capping_strategy"
+    | "partnership_offers"
     | "level"
     | "is_hybrid"
     | "coach"

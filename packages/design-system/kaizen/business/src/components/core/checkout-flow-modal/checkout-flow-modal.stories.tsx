@@ -19,42 +19,31 @@ const metaComponentDescription = `
 This component is intended for use in workflows where **invoice creation** is needed from a single modal
 (such as through the navigation bar, member profile, etc.)
 
-### How to import?
+### Recommended public API
+
+Open the flow through the URL helper API (recommended for app integration):
 
 \`\`\`tsx
-import { CheckoutFlowModal } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
+import { openCheckoutFlow } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
 \`\`\`
+
+\`\`\`tsx
+openCheckoutFlow({
+  basketStartTrigger: "navbar",
+  memberId: MEMBER_ID, // optional
+});
+\`\`\`
+
+The modal component shown in this story is a low-level internal building block used by container components.
 `;
 
 const metaSourceCode = `
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { getFetch } from "@bsport/fetch";
-import { CheckoutFlowModal } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
+import { openCheckoutFlow } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
 
-const fetch = getFetch();
-const queryClient = new QueryClient();
-
-<QueryClientProvider client={queryClient}>
-  <CheckoutFlowModal
-    companyId={2}
-    fetch={fetch}
-    isOpen={isOpen}
-    onClose={() => setIsOpen(false)}
-    onSubmit={(data, invoiceUuid) => {
-      // handle created invoice
-      setIsOpen(false);
-    }}
-    memberId={MEMBER_ID}
-    startContext={{
-      basket_start_trigger: "navbar",
-      origin_url: window.location.href,
-    }}
-    onTrack={(eventName, properties) => {
-      // send to Mixpanel or your analytics
-      analytics.track(eventName, properties);
-    }}
-  />
-</QueryClientProvider>
+openCheckoutFlow({
+  basketStartTrigger: "member_profile_page",
+  memberId: 123, // optional
+});
 `;
 
 const meta: Meta<typeof CheckoutFlowModal> = {
@@ -169,31 +158,28 @@ export const Documentation: Story = {
         story: `
 ### Requirements
 
-- @bsport/fetch
-- @bsport/kaizen-primitive-core
-- @tanstack/react-query (wrap your app or the modal in \`QueryClientProvider\`)
+- Import from \`@bsport/kaizen-business-components/core/checkout-flow-modal\`
+- Use \`openCheckoutFlow\` to open the flow
 
 ---
 
-### Required props
+### Public API
 
-| Prop | Description |
-|------|-------------|
-| \`companyId\` | Company ID used for invoice and buyable context |
-| \`fetch\` | Fetch instance (e.g. from \`getFetch()\`) for API calls |
-| \`isOpen\` | Controls modal visibility |
+| API | Description |
+|-----|-------------|
+| \`openCheckoutFlow(args)\` | Opens checkout flow by syncing query params and navigation event |
 
-### Optional props
+### Open arguments
 
-| Prop | Description |
-|------|-------------|
-| \`memberId\` | Pre-selected member ID when opening the modal |
-| \`onClose\` | Called when the modal is closed (cancel or outside click) |
-| \`onError\` | Called when an error occurs during submit or configuration |
-| \`onSubmit\` | Called with \`(data: CheckoutFlowFormData, invoiceUuid: string)\` when the invoice is created successfully |
-| \`startContext\` | \`{ basket_start_trigger: 'navbar' \\| 'member_profile_page' \\| 'offer_page'; origin_url?: string }\` — how the flow was opened (for analytics) |
-| \`onTrack\` | \`(eventName: string, properties: Record<string, unknown>) => void\` — callback for checkout flow analytics events |
-| \`basketSessionId\` | Optional session ID; if omitted, one is generated when the modal opens |
+| Arg | Description |
+|-----|-------------|
+| \`basketStartTrigger\` | \`"navbar" \\| "member_profile_page" \\| "offer_page"\` |
+| \`memberId\` | Optional pre-selected member ID |
+| \`pathname\` | Optional pathname override (defaults to current location) |
+| \`search\` | Optional search override (defaults to current location) |
+| \`navigate\` | Optional navigation callback (e.g. router push) |
+
+The modal component in this story remains for internal development/testing and is not the recommended integration surface.
         `,
       },
     },

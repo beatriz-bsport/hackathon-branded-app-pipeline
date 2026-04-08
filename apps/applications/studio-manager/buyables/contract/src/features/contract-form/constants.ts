@@ -11,6 +11,12 @@ export const FIELD_CONSTRAINTS = {
   MONTH_DAY_MIN: 1,
   MONTH_DAY_MAX: 31,
   RECURRENCE_BASIS_MIN: 1,
+  NB_CUSTOM_INTERVAL_MIN: 1,
+  NB_FIXED_INTERVAL_MIN: 2,
+  NB_FIXED_INTERVAL_MAX: 12,
+  TERMS_LENGTH_MAX: 500,
+  COMMITMENT_VALUE_MIN: 1,
+  COMMITMENT_VALUE_MAX: 90,
 };
 
 export const DEFAULT_DATA = {
@@ -29,4 +35,14 @@ export const DEFAULT_DATA = {
   recurrence_basis: 1,
   month_billing_day: null,
   hasCustomInterval: true,
+  nb_interval: 1,
+  // auto renewal
+  auto_renewal: false,
+  nb_interval_after_auto_renewal: null,
+  // terms
+  contract: "",
+  // commitment period
+  has_mandatory_commitment_period: false,
+  commitment_period_unit: null,
+  commitment_period_value: null,
 } satisfies ContractFormData;

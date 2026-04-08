@@ -1,12 +1,17 @@
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
-import { fetchPayoutBalanceTransactions } from '../../actions';
+import {
+  fetchPayoutBalanceTransactions,
+  fetchPayoutDetail,
+} from '../../actions';
 import {
   getPayoutBalanceTransactions,
   getPayoutBalanceTransactionsLoading,
   getPayoutBalanceTransactionsLoadingMore,
   getPayoutBalanceTransactionsNextPage,
   getPayoutBalanceTransactionsError,
+  getPayoutDetailBalanceTransactionStats,
+  getPayoutDetailLoading,
 } from '../../selectors';
 import type { RootState } from '#src/reducers';
 import type { Payout } from '../../types';
@@ -38,8 +43,14 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
     state,
     ownProps.payout.id,
   ),
+  summaryStats: getPayoutDetailBalanceTransactionStats(
+    state,
+    ownProps.payout.id,
+  ),
+  summaryLoading: getPayoutDetailLoading(state, ownProps.payout.id),
 });
 
 export default connect(mapStateToProps, {
   fetchPayoutBalanceTransactions,
+  fetchPayoutDetail,
 })(PayoutListItem);

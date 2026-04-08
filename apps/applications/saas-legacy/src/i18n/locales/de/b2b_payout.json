@@ -1,0 +1,115 @@
+{
+  "loadMore": "Mehr anzeigen",
+  "amountCarryOverFromPreviousPayouts": "Enthält {{amount}}, übertragen von vorherigen fehlgeschlagenen/stornierten Auszahlungen",
+  "reconciliationStatusLabel": "Abstimmung: {{status}}",
+  "reconciliationStatus": {
+    "success": "Erfolgreich",
+    "pending": "Offen",
+    "error": "Fehler"
+  },
+  "reconciliationStatusPayout": {
+    "pending": "Der Abgleich der Saldenbuchungen hat noch nicht begonnen",
+    "processing": "Der Abgleich der Saldenbuchungen läuft gerade",
+    "completed": "Der Abgleich der Saldenbuchungen ist abgeschlossen",
+    "partially_failed": "Einige Saldo-Transaktionen wurden nicht abgeglichen",
+    "skipped_manual": "Der Abgleich der Saldenbuchungen wurde übersprungen"
+  },
+  "reconciliationStatusPayoutStatus": {
+    "pending": "Offen",
+    "processing": "In Bearbeitung",
+    "completed": "Abgeschlossen",
+    "partially_failed": "Teilweise fehlgeschlagen",
+    "skipped_manual": "Übersprungen"
+  },
+  "table": {
+    "date": "Datum",
+    "amount": "Betrag",
+    "transactions": "Transaktionen",
+    "id": "ID",
+    "status": "Status"
+  },
+  "balanceTransactionTable": {
+    "type": "Zahlungsart",
+    "paymentMethod": "Zahlungsmethode",
+    "status": "Status",
+    "amount": "Betrag",
+    "invoices": "Rechnung(en)"
+  },
+  "balanceTransaction": {
+    "reversalInPayout": "Auszahlungsstornierung {{readable_identifier}}",
+    "reversalOf": "Stornierung der Transaktion #{{id}}{{payoutInfo}}",
+    "reversalOfPayoutInfo": " — Auszahlung {{readable_identifier}}",
+    "fromPayout": "Aus der Auszahlung {{readable_identifier}}",
+    "net": "netto {{amount}}"
+  },
+  "summary": {
+    "reconciliation": "Abgleichstatus",
+    "payments": "Zahlungen",
+    "refunds": "Rückerstattungen",
+    "disputes": "Streitfälle",
+    "directDebitOriginal": "Lastschrift Original",
+    "directDebitReversal": "Lastschriftrückgabe",
+    "transfers": "Überweisungen",
+    "transferRefunds": "Überweisungsrückerstattungen",
+    "adjustments": "Anpassungen",
+    "appFees": "App-Gebühren",
+    "appFeeRefunds": "App-Gebührenerstattungen",
+    "payoutFailures": "Auszahlungsfehler",
+    "payoutCancels": "Auszahlung storniert",
+    "title": "Auszahlungsübersicht"
+  },
+  "displayType": {
+    "payment": {
+      "label": "Zahlung",
+      "description": "Eine Kundenzahlung"
+    },
+    "refund": {
+      "label": "Erstattung",
+      "description": "Eine Rückerstattung an einen Kunden"
+    },
+    "dispute": {
+      "label": "Streitfall",
+      "description": "Ein vom Kunden initiierter Streitfall (Rückbuchung)"
+    },
+    "failed_direct_debit_original": {
+      "label": "Fehlgeschlagene Lastschrift",
+      "description": "Ein fehlgeschlagener Lastschrifteinzug"
+    },
+    "failed_direct_debit_reversal": {
+      "label": "Lastschriftrückgabe",
+      "description": "Eine Rückbuchung nach einer fehlgeschlagenen Lastschrift"
+    },
+    "balance_transfer": {
+      "label": "Überweisung",
+      "description": "Eine Guthabenübertragung"
+    },
+    "balance_transfer_refund": {
+      "label": "Überweisung Rückerstattung",
+      "description": "Eine Rückerstattung einer Saldoüberweisung"
+    },
+    "adjustment": {
+      "label": "Anpassung",
+      "description": "Eine manuelle Guthabenanpassung"
+    },
+    "application_fee": {
+      "label": "App-Gebühr",
+      "description": "Eine Plattformgebühr"
+    },
+    "application_fee_refund": {
+      "label": "App-Gebührenerstattung",
+      "description": "Eine Rückerstattung der Plattformgebühr"
+    },
+    "payout_failure": {
+      "label": "Auszahlung fehlgeschlagen",
+      "description": "Guthaben nach fehlgeschlagener Auszahlung zurückerstattet"
+    },
+    "payout_cancel": {
+      "label": "Auszahlung stornieren",
+      "description": "Guthaben nach einer stornierten Auszahlung zurückerstattet"
+    },
+    "other": {
+      "label": "Sonstige",
+      "description": "Eine weitere Art von Saldo-Transaktion"
+    }
+  }
+}

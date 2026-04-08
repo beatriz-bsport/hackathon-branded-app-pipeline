@@ -3,10 +3,11 @@ import { Route, Routes, generatePath, useParams } from "react-router";
 
 import { LEGACY_URLS, URLS, flags, useBookingManagementFlag } from "#src/urls";
 
-import { SessionManagementPage } from "./pages/session-management-page";
-
 const CalendarPage = lazy(() => import("#src/pages/CalendarPage"));
 const DetailsPage = lazy(() => import("#src/pages/details-page"));
+const SessionManagementPage = lazy(
+  () => import("#src/pages/session-management-page"),
+);
 
 const LegacyOfferPageRedirect = () => {
   const { sessionId } = useParams<{ sessionId: string }>();

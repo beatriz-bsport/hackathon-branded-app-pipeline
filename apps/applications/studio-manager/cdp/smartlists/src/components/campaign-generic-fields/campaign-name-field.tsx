@@ -24,6 +24,17 @@ type CampaignNameFieldPath<T extends FieldValues> = {
     : never;
 }[FieldPath<T>];
 
+/**
+ * Generic campaign-name input for any React Hook Form form that exposes a `campaignName: string` field.
+ *
+ * Usage:
+ * - Wrap inside a `ControlledForm`/form context.
+ * - Provide your form type as generic: `<CampaignNameField<MyFormData> />`.
+ * - Validation messages/constraints come from the schema validation;
+ *   this component only renders the field UI and binds updates to `campaignName`.
+ *
+ * You can override this field path ('campaignName') when your form schema use a different name.
+ */
 export const CampaignNameField = <
   TFormValues extends CampaignNameFormValues,
   TFieldName extends

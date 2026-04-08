@@ -16,6 +16,7 @@ import type {
 } from "#src/stores/session-creation/types";
 
 import { useRecurrenceConfig } from "./useRecurrenceConfig";
+import { useSpotCappingInfo } from "./useSpotCappingInfo";
 
 type BuildPayloadParams = {
   sessionData: SessionCreationFormData & SessionCreationFormAdvancedOptionsData;
@@ -28,6 +29,7 @@ type BuildPayloadParams = {
  */
 export const useSessionPayload = () => {
   const { getRecurrenceConfig } = useRecurrenceConfig();
+  const { getSpotCappingInfo } = useSpotCappingInfo();
 
   const buildCreationPayload = useCallback(
     ({
@@ -61,6 +63,21 @@ export const useSessionPayload = () => {
         recurrenceWeekdays,
       });
 
+      const {
+        partner_max_booking_count,
+        partner_spot_capping_strategy,
+        partnership_offers,
+      } = sessionData;
+      const {
+        partnerMaxBookingCount,
+        partnerSpotCappingStrategy,
+        partnershipOffers,
+      } = getSpotCappingInfo({
+        partner_max_booking_count,
+        partner_spot_capping_strategy,
+        partnership_offers,
+      });
+
       const generatedDates = recurrenceConfig
         ? generateRecurrenceDates(recurrenceConfig)
         : [startDateTime];
@@ -82,7 +99,11 @@ export const useSessionPayload = () => {
         waiting_list_max_size: sessionData.waiting_list_max_size,
         effectif: sessionData.effectif,
         available_on_partnership: sessionData.available_on_partnership,
-        partner_max_booking_count: sessionData.partner_max_booking_count,
+        partner_max_booking_count: partnerMaxBookingCount,
+        partner_spot_capping_strategy: partnerSpotCappingStrategy,
+        ...(partnershipOffers !== undefined && {
+          partnership_offers: partnershipOffers,
+        }),
         duration_minute: sessionData.duration_minute,
         level: sessionData.level,
         is_hybrid: sessionData.is_hybrid,
@@ -107,7 +128,7 @@ export const useSessionPayload = () => {
         recurrence_id: sessionData.recurrence_id || undefined,
       };
     },
-    [getRecurrenceConfig],
+    [getRecurrenceConfig, getSpotCappingInfo],
   );
 
   const buildEditionPayload = (
@@ -115,6 +136,21 @@ export const useSessionPayload = () => {
     session: SessionWithActivity,
     editActions: SessionEditActions,
   ): SessionEditPayload => {
+    const {
+      partner_max_booking_count,
+      partner_spot_capping_strategy,
+      partnership_offers,
+    } = formData;
+    const {
+      partnerMaxBookingCount,
+      partnerSpotCappingStrategy,
+      partnershipOffers,
+    } = getSpotCappingInfo({
+      partner_max_booking_count,
+      partner_spot_capping_strategy,
+      partnership_offers,
+    });
+
     return {
       // Identity
       id: session.id,
@@ -139,7 +175,11 @@ export const useSessionPayload = () => {
       waiting_list_max_size: formData.waiting_list_max_size,
       effectif: formData.effectif,
       available_on_partnership: formData.available_on_partnership,
-      partner_max_booking_count: formData.partner_max_booking_count,
+      partner_max_booking_count: partnerMaxBookingCount,
+      partner_spot_capping_strategy: partnerSpotCappingStrategy,
+      ...(partnershipOffers !== undefined && {
+        partnership_offers: partnershipOffers,
+      }),
       level: formData.level,
       broadcast_link: formData.broadcast_link,
       ...(session.credit_price !== undefined &&

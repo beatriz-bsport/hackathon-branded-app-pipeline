@@ -9,9 +9,7 @@ import {
   Card,
   DatePicker,
   Divider,
-  Icon,
   type SelectedDate,
-  Tooltip,
   useEmptyState,
 } from "@bsport/kaizen-primitive-core";
 
@@ -75,7 +73,8 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
     );
     return {
       showPassesRow: passTypes.length > 0,
-      passesWithBillingDateCount: passTypes.length,
+      passesWithBillingDateCount:
+        passTypes.length === 1 ? passTypes[0].quantity : passTypes.length,
     };
   }, [items]);
 
@@ -173,10 +172,7 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
   };
 
   return (
-    <div
-      className="flex flex-col flex-1 gap-md sm:max-h-[calc(90vh-var(--header-footer-size))]"
-      style={{ "--header-footer-size": "308px" }}
-    >
+    <div className="flex flex-col flex-1 gap-md sm:max-h-[calc(90vh-var(--header-footer-size))]">
       <div className="flex flex-col flex-1 min-h-0 gap-xs">
         <Card className="flex flex-col flex-1 min-h-0 bg-surface-default-weaker">
           {shouldRenderEmptyState ? (
@@ -265,7 +261,9 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
             <div className="flex gap-xs items-end">
               <DatePicker
                 id={`passes-activation-date-${passesDatePickerId}`}
-                label={t("checkoutFlowModal.passes")}
+                label={t("checkoutFlowModal.passesActivationDateLabel", {
+                  count: passesWithBillingDateCount,
+                })}
                 mode="single"
                 displayAs="popover"
                 isInputField
@@ -282,14 +280,6 @@ export const SummarySection: React.FC<SummarySectionProps> = ({
                   });
                 }}
               />
-              <Tooltip
-                placement="top"
-                label={t("checkoutFlowModal.passesActivationDateTooltip", {
-                  count: passesWithBillingDateCount,
-                })}
-              >
-                <Icon icon="info-circle" size="sm" className="my-xs" />
-              </Tooltip>
             </div>
           </Card>
         )}

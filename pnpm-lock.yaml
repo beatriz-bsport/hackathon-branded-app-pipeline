@@ -3363,6 +3363,9 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
 
   packages/api/financial-services:
     dependencies:

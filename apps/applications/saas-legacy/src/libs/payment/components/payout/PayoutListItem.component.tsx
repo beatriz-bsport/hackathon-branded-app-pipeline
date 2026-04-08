@@ -31,7 +31,11 @@ import {
   formatAsDatetimeAdapted,
   formatAsDate,
 } from '../../../../utils/datetime';
-import type { BalanceTransaction, Payout } from '../../types';
+import type {
+  BalanceTransaction,
+  BalanceTransactionStats,
+  Payout,
+} from '../../types';
 import BalanceTransactionRow from './BalanceTransactionRow.component';
 import PayoutSummary from './PayoutSummary.component';
 import TapTooltip from './TapTooltip.component';
@@ -50,11 +54,14 @@ type Props = {
   balanceTransactionLoadingMore: boolean;
   balanceTransactionNextPage: number | null;
   balanceTransactionError: string | null;
+  summaryStats: BalanceTransactionStats | null;
+  summaryLoading: boolean;
   fetchPayoutBalanceTransactions: (params: {
     payoutId: number;
     page: number;
     append?: boolean;
   }) => void;
+  fetchPayoutDetail: (params: { payoutId: number }) => void;
 };
 
 const PayoutListItem: React.FC<Props> = ({
@@ -68,10 +75,14 @@ const PayoutListItem: React.FC<Props> = ({
   balanceTransactionLoadingMore,
   balanceTransactionNextPage,
   balanceTransactionError,
+  summaryStats,
+  summaryLoading,
   fetchPayoutBalanceTransactions: fetchPayoutBalanceTransactionsAction,
+  fetchPayoutDetail: fetchPayoutDetailAction,
 }) => {
   const { t } = useTranslation(['b2b_payout', 'payment']);
   const classes = useStyles({ payout });
+
   React.useEffect(() => {
     if (isOpen && !balanceTransactions && !balanceTransactionLoading) {
       fetchPayoutBalanceTransactionsAction({
@@ -86,6 +97,18 @@ const PayoutListItem: React.FC<Props> = ({
     balanceTransactions,
     balanceTransactionLoading,
     fetchPayoutBalanceTransactionsAction,
+  ]);
+
+  React.useEffect(() => {
+    if (isOpen && !summaryStats && !summaryLoading) {
+      fetchPayoutDetailAction({ payoutId: payout.id });
+    }
+  }, [
+    isOpen,
+    payout.id,
+    summaryStats,
+    summaryLoading,
+    fetchPayoutDetailAction,
   ]);
 
   const handleLoadMore = React.useCallback(() => {
@@ -131,7 +154,7 @@ const PayoutListItem: React.FC<Props> = ({
 
   const expandedSection = (
     <div className={classes.expandedContent}>
-      <PayoutSummary payout={payout} />
+      <PayoutSummary payout={payout} summaryStats={summaryStats} />
       <Divider />
       {balanceTransactionLoading && (
         <div className={classes.loadingRow}>

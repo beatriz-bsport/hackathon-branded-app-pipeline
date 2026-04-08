@@ -6,12 +6,12 @@ export type RadioOptionsProps = {
   value: string;
   helperText?: string;
   errorText?: string;
+  disabled?: boolean;
 };
 
 export type RadioButtonProps = RadioOptionsProps & {
   checked: boolean;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  disabled: boolean;
   direction?: "start" | "end";
 };
 

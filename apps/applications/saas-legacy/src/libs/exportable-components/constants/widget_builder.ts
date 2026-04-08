@@ -134,10 +134,6 @@ export const EXPORTABLE_COMPONENTS = [
     label: 'marketplace.playlist',
   },
   {
-    identifier: EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
-    label: 'newsletter',
-  },
-  {
     identifier: EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2,
     label: 'newsletter',
     defaultConfig: {

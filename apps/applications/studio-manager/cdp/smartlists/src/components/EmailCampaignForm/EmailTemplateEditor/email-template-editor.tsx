@@ -1,48 +1,126 @@
 import { useState } from "react";
 
-import type { EmailTemplateDetail } from "@bsport/api-cdp";
+import { toast } from "@bsport/kaizen-primitive-core";
 
+import { useEmailTemplateSearch } from "#src/api/use-email-template-search";
+import { useUpdateEmailTemplate } from "#src/api/use-update-email-template";
+import { useTranslation } from "#src/utils/i18n";
+
+import { CreateEmailTemplateModal } from "./CreateEmailTemplateModal/create-email-template-modal";
 import { EmailDesignEditorModal } from "./EmailDesignManager/email-design-editor-modal";
-import type { EmailDesignContent } from "./EmailDesignManager/email-design-editor-types";
-import { useEmailTemplateActions } from "./use-email-template-actions";
+import type {
+  EmailDesignContent,
+  EmailTemplateChangeResult,
+} from "./EmailDesignManager/email-design-editor-types";
+
+type ContentForCreation = {
+  content: EmailDesignContent;
+  subject: string;
+};
 
 export const EmailTemplateEditor = ({
-  defaultEmailTemplate,
+  emailTemplateId,
+  emailTemplateContent,
   open,
   onEmailTemplateChange,
   onClose,
 }: {
   open: boolean;
   onClose: () => void;
-  defaultEmailTemplate?: EmailTemplateDetail;
-  onEmailTemplateChange?: ({ design, html }: EmailDesignContent) => void;
+  emailTemplateId?: number;
+  emailTemplateContent?: ContentForCreation;
+  onEmailTemplateChange?: (result: EmailTemplateChangeResult) => void;
 }) => {
-  const [content, setContent] = useState<EmailDesignContent>({
-    design: defaultEmailTemplate?.design ?? "",
-    html: defaultEmailTemplate?.html ?? "",
+  const { t } = useTranslation("campaign");
+  const [contentForCreation, setContentForCreation] =
+    useState<ContentForCreation | null>(null);
+  const { data: emailTemplateList } = useEmailTemplateSearch({
+    searchInput: "",
+    id__in: emailTemplateId?.toString() ?? "",
   });
+  const emailTemplateData = emailTemplateList?.find(
+    (template) => template.id === emailTemplateId,
+  );
 
-  const { actions } = useEmailTemplateActions({
-    onSuccess: ({ design, html }) => {
+  const { updateEmailTemplate } = useUpdateEmailTemplate({
+    onSuccess: (updatedTemplate) => {
       onEmailTemplateChange?.({
-        design,
-        html,
+        design: updatedTemplate.design,
+        html: updatedTemplate.html,
+        subject: updatedTemplate.subject,
+        emailTemplateId: updatedTemplate.id,
+      });
+      onClose();
+      toast({
+        title: t(
+          "email.creation.form.emailTemplateEditor.saveActionModal.options.overwriteExistingTemplate.toast.success",
+        ),
+        status: "default",
+        icon: "save",
+        buttonIcon: "x-close",
       });
     },
-    onClose,
-    emailTemplate: defaultEmailTemplate,
+    onError: () => {
+      toast({
+        title: t(
+          "email.creation.form.emailTemplateEditor.saveActionModal.options.overwriteExistingTemplate.toast.failure",
+        ),
+        status: "critical",
+        icon: "alert-circle",
+        buttonIcon: "x-close",
+      });
+    },
   });
 
   return (
-    <EmailDesignEditorModal
-      open={open}
-      onClose={onClose}
-      actions={actions}
-      resetKey={defaultEmailTemplate?.id}
-      value={content}
-      onChange={(next) => {
-        setContent(next);
-      }}
-    />
+    <>
+      {open && (
+        <EmailDesignEditorModal
+          open={true}
+          onClose={onClose}
+          value={{
+            design: emailTemplateContent?.content?.design ?? "",
+            html: emailTemplateContent?.content?.html ?? "",
+          }}
+          initialSubject={emailTemplateContent?.subject ?? ""}
+          isFranchiseTemplate={emailTemplateData?.franchisor_id != null}
+          onOnTheFly={(content, subject) => {
+            onEmailTemplateChange?.({
+              ...content,
+              subject,
+              emailTemplateId: null,
+            });
+            onClose();
+          }}
+          onCreateNew={(content, subject) => {
+            setContentForCreation({ content, subject });
+          }}
+          onOverwrite={
+            emailTemplateData
+              ? (content, subject) =>
+                  updateEmailTemplate({
+                    ...emailTemplateData,
+                    design: content.design,
+                    html: content.html,
+                    subject,
+                  })
+              : undefined
+          }
+        />
+      )}
+      {contentForCreation && (
+        <CreateEmailTemplateModal
+          open={true}
+          onClose={() => setContentForCreation(null)}
+          onSuccess={(result) => {
+            setContentForCreation(null);
+            onEmailTemplateChange?.(result);
+            onClose();
+          }}
+          content={contentForCreation.content}
+          subject={contentForCreation.subject}
+        />
+      )}
+    </>
   );
 };

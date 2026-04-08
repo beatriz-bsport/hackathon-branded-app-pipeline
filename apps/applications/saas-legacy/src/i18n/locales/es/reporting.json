@@ -695,6 +695,8 @@
       "40": "iDEAL",
       "50": "EPS",
       "60": "Giropay",
+      "70": "Bacs Direct Debit",
+      "80": "PayPal",
       "90": "TWINT",
       "100": "Apple Pay",
       "110": "Google Pay"

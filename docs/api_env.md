@@ -1,56 +1,74 @@
-# API Env (revamp)
+# Studio manager runtime configuration
 
-## General rule
+`studio-manager` reads runtime backend/integration config from a dedicated runtime file named `studio-env.js`.
 
-For `studio-manager`, the backend API domain is configured only at runtime through `env.js`.
+- no environment-specific backend/integration runtime config is baked into the build
+- request paths are kept exactly as declared by the frontend
+- `saas-legacy` keeps its own `env.js`; `studio-manager` uses a different file and global namespace
+- only API has a built-in default when runtime keys are missing or empty
 
-`fetch` keeps the request path exactly as declared by the frontend and only prepends the runtime base URL.
-There is no environment-name inference, no feature-branch URL convention, and no path rewriting.
+## Runtime file format
 
 ```js
-window.runtime = window.runtime || { env: {} };
-var env = window.runtime.env;
-
-env.VITE_API_BASE_URL = "https://api.dev.bsport.io";
+window.__SM_RUNTIME__ = {
+  API_BASE_URL: "https://api.dev.bsport.io",
+  SENTRY_DSN: "https://<project>@o<org>.ingest.us.sentry.io/<id>",
+  UNLEASH_PROXY_URL: "https://unleash.tooling.bsport.io/api/frontend",
+  UNLEASH_CLIENT_KEY: "default:development.<key>",
+  UNLEASH_ENVIRONMENT: "dev",
+  MIXPANEL_TOKEN: "<environment-token>",
+};
 ```
 
-- `VITE_API_BASE_URL` is required.
-- If it is missing or empty, `fetch` throws at runtime with an explicit error.
+- `API_BASE_URL` controls API requests
+- `SENTRY_DSN` controls Sentry initialization
+- `UNLEASH_PROXY_URL` and `UNLEASH_CLIENT_KEY` control feature flags bootstrap
+- `UNLEASH_ENVIRONMENT` controls the feature-flags environment value sent to Unleash
+- `MIXPANEL_TOKEN` controls the analytics token for the currently loaded environment file
+- example: `platform/v0/users` becomes `https://api.dev.bsport.io/platform/v0/users`
+- if `API_BASE_URL` is missing or empty, `studio-manager` falls back to `https://api.production.bsport.io`
+- if `SENTRY_DSN` is missing or empty, Sentry initialization is skipped
+- if `UNLEASH_PROXY_URL` or `UNLEASH_CLIENT_KEY` are missing, feature flags are disabled
+- if `MIXPANEL_TOKEN` is missing or empty, analytics initialization fails unless a token is passed explicitly to `configure()`
 
-## Runtime location
+## Runtime file location
 
-Every federated `studio-manager` app loads `env.js` before boot.
+Each `studio-manager` HTML entrypoint loads the same shared runtime file before boot.
 
-- Host deployment: `/studio/env.js`
-- Remote standalone deployment: `/studio/apps/<app-name>/env.js`
+- shared runtime path: `/studio/studio-env.js`
+- file-based local fallback path (preview/compat flows): `public/studio/studio-env.js`
 
-If an app does not ship a real `public/env.js`, the build emits a neutral placeholder `env.js`.
-That placeholder exists only so the artifact is complete; it must be replaced at runtime with a real API domain.
+The build does not generate or inject this file.
 
-Reference payloads are stored in [`apps/applications/studio-manager/host/envs`](/Users/sofian/Projects/ichizen/apps/applications/studio-manager/host/envs).
+## Build idempotence
 
-## Build idempotency
+The build stays environment-neutral as long as `studio-env.js` is managed outside the build artifact.
 
-Production builds are environment-neutral regarding backend API targeting:
+- build once
+- reuse the same JS/CSS/HTML artifacts everywhere
+- upload or update only `studio-env.js` per environment
+- if the file is absent, only the API production fallback is guaranteed; integration keys may be missing
 
-- generated JS/CSS bundles do not embed any API domain
-- generated `env.js` is neutral by default
-- the intended deployment model is: build once, then replace only `env.js` per environment
-
-This allows the same artifact to be reused across environments that target different backend domains.
+If you deploy artifacts to a bucket that already contains `studio-env.js`, make sure the deploy step does not remove that separately managed file.
 
 ## Local development
 
-To run a `studio-manager` app locally, provide a real runtime file:
+During local `vite` development, `/studio/studio-env.js` is served by a Vite plugin.
+No `public/studio/studio-env.js` file is copied anymore for `dev` / `dev:single`.
+This applies to both:
 
-1. create `public/env.js` for the app you run locally, or
-2. otherwise serve a real `env.js` from the expected runtime path
+- `pnpm exec nx dev-mfe @bsport/<studio-app>`
+- `pnpm exec nx dev @bsport/<studio-app>`
 
-Example:
+Default local dev behavior:
 
-```js
-window.runtime = window.runtime || { env: {} };
-var env = window.runtime.env;
+- the dev server returns a fixed runtime payload
+- resulting API base URL: `https://api.dev.bsport.io`
 
-env.VITE_API_BASE_URL = "http://localhost:8000";
+If you need a file-based runtime payload for a specific flow, run:
+
+```bash
+STUDIO_RUNTIME_APP_DIR="$PWD" pnpm -w run studio-runtime:dev
 ```
+
+Reference files live in `apps/applications/studio-manager/host/envs`.

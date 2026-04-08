@@ -11,7 +11,7 @@ set -euo pipefail
 # Arguments:
 #   base_branch: The branch to compare against for affected projects (e.g., origin/dev, $CI_COMMIT_BEFORE_SHA)
 #   deploy_environment: Where to deploy - passed to ci:build/ci:deploy (e.g., dev, staging, production, feature-branch)
-#   api_environment: Optional. API config - passed to api-environment:set (defaults to deploy_environment)
+#   api_environment: Optional. API config hint for deployment logs (defaults to deploy_environment)
 #   frontend_only_flag: Optional. Pass "frontend-only" for frontend-only deployments
 #   force_redeploy: Optional. Whether to bypass the "affected" Nx strategy and redeploy every project
 

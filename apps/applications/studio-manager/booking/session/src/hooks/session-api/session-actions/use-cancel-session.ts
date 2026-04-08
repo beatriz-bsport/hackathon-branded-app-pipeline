@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { CancelSessionParams, cancelSessionAPI } from "@bsport/api-book";
+import {
+  CancelSessionParams,
+  cancelSessionAPI,
+  sessionKeys,
+} from "@bsport/api-book";
 import { toast } from "@bsport/kaizen-primitive-core";
 
 import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
@@ -43,7 +47,9 @@ export const useCancelSession = () => {
       return null;
     },
     onSuccess: (_, variables) => {
+      // TODO: merge session query keys
       queryClient.invalidateQueries({ queryKey: [SESSIONS_QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: sessionKeys.all });
       toast({
         status: "default",
         //@ts-expect-error Translations with variables are not yet typed

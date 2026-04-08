@@ -4,6 +4,7 @@ import {
   type Session,
   type SessionCreationPayload,
   createSessionAPI,
+  sessionKeys,
 } from "@bsport/api-book";
 import { toast } from "@bsport/kaizen-primitive-core";
 import { BackgroundTask } from "@bsport/store-shared-background-task";
@@ -51,7 +52,10 @@ export const useCreateSession = () => {
       return null;
     },
     onSuccess: (result, variables) => {
+      // TODO: merge session query keys
       queryClient.invalidateQueries({ queryKey: [SESSIONS_QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: sessionKeys.all });
+
       const buttonConfiguration = isSessionCreationResult(result)
         ? {
             buttonLabel: t("addSessionModal.buttons.open", {

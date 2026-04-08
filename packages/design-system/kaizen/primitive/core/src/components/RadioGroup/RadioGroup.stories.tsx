@@ -10,6 +10,7 @@ import {
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { useEffect, useId, useState } from "react";
 
+import Alert from "../Alert";
 import RadioGroup from "./RadioGroup";
 
 /**
@@ -111,6 +112,64 @@ export const ControlledComponent: Story = {
         label: "Maybe Banana",
         helperText: "another looong helper text",
         errorText: "Too much banana",
+      },
+    ],
+    value: "mango",
+    disabled: false,
+    direction: "start",
+  },
+};
+
+export const ControlledWithChildrenComponent: Story = {
+  name: "Controlled Radio Group With Children",
+  render: (args) => {
+    const id = useId();
+    const [checked, setChecked] = useState(args.value);
+    useEffect(() => {
+      setChecked(args.value);
+    }, [args.value]);
+
+    return (
+      <RadioGroup
+        {...args}
+        id={id}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setChecked(event.target.value);
+        }}
+        value={checked}
+      />
+    );
+  },
+  args: {
+    id: "radio-group-2",
+    options: [
+      {
+        value: "mango",
+        label: "You want Mango",
+        helperText: "Mango has no children",
+        disabled: true,
+      },
+      {
+        value: "orange",
+        label: "Or you prefer Orange",
+        children: <Alert status="warning">Oranges are sour!</Alert>,
+      },
+      {
+        value: "apricot",
+        label: "Apricot",
+        helperText: "a shorter text",
+        forceDisplayChildren: true,
+        children: (
+          <div className="p-sm bg-surface-default-weakest">
+            When forceDisplayChildren is true, children are displayed even if
+            the option is not selected.
+          </div>
+        ),
+      },
+      {
+        value: "banana",
+        label: "Maybe Banana",
+        helperText: "Banana has no children",
       },
     ],
     value: "mango",

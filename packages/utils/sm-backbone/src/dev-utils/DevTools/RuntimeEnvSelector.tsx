@@ -42,7 +42,7 @@ const RuntimeEnvSelector: React.FC = () => {
       onChange={(runtimeEnvValue) => {
         handleRuntimeEnvChange(runtimeEnvValue);
       }}
-      helperText="Applies the selected preset to all runtime keys (some startup-initialized integrations may still require a full page reload)."
+      helperText="Applies the selected preset."
     />
   );
 };

@@ -1,7 +1,12 @@
 export const STUDIO_RUNTIME_ENV_STORAGE_KEY = "@bsport/studio-runtime-env";
 export const STUDIO_RUNTIME_FIELD_ENV_MAP_STORAGE_KEY =
   "@bsport/studio-runtime-field-env-map";
+export const STUDIO_RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY =
+  "@bsport/studio-runtime-api-environment-name";
+export const STUDIO_RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY =
+  "@bsport/studio-runtime-api-environment-override";
 export const STUDIO_RUNTIME_UPDATED_EVENT = "@bsport/studio-runtime-updated";
+export const STUDIO_RUNTIME_API_BASE_URL_KEY = "API_BASE_URL";
 
 export const STUDIO_RUNTIME_ENVS = [
   "local",
@@ -19,6 +24,23 @@ export type StudioRuntimePresets = Record<
   StudioRuntimePayload
 >;
 export type StudioRuntimeFieldEnvMap = Record<string, StudioRuntimeEnv>;
+
+const normalizeStudioRuntimeApiEnvironmentName = (
+  value: string | undefined | null,
+): string | null => {
+  if (typeof value !== "string") {
+    return null;
+  }
+
+  const normalizedValue = value.trim().toLowerCase();
+  return normalizedValue || null;
+};
+
+export const buildStudioRuntimeApiBaseUrlFromEnvironmentName = (
+  environmentName: string,
+) => {
+  return `https://${environmentName}.api.chaos.bsport.io`;
+};
 
 const sanitizeStudioRuntimePayload = (
   candidate: unknown,
@@ -75,6 +97,87 @@ export const readStudioRuntimeEnv = (): StudioRuntimeEnv => {
 export const writeStudioRuntimeEnv = (runtimeEnv: StudioRuntimeEnv) => {
   try {
     window.localStorage.setItem(STUDIO_RUNTIME_ENV_STORAGE_KEY, runtimeEnv);
+  } catch (_) {
+    // noop
+  }
+};
+
+export const readStudioRuntimeApiEnvironmentName = (): string => {
+  try {
+    const rawValue = window.localStorage.getItem(
+      STUDIO_RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY,
+    );
+    return (
+      normalizeStudioRuntimeApiEnvironmentName(rawValue) ??
+      DEFAULT_STUDIO_RUNTIME_ENV
+    );
+  } catch (_) {
+    return DEFAULT_STUDIO_RUNTIME_ENV;
+  }
+};
+
+export const writeStudioRuntimeApiEnvironmentName = (
+  environmentName: string,
+) => {
+  try {
+    const normalizedEnvironmentName =
+      normalizeStudioRuntimeApiEnvironmentName(environmentName);
+    if (!normalizedEnvironmentName) {
+      window.localStorage.removeItem(
+        STUDIO_RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY,
+      );
+      return;
+    }
+
+    window.localStorage.setItem(
+      STUDIO_RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY,
+      normalizedEnvironmentName,
+    );
+  } catch (_) {
+    // noop
+  }
+};
+
+export const readStudioRuntimeApiEnvironmentOverride = (): boolean => {
+  try {
+    return (
+      window.localStorage.getItem(
+        STUDIO_RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY,
+      ) === "true"
+    );
+  } catch (_) {
+    return false;
+  }
+};
+
+export const writeStudioRuntimeApiEnvironmentOverride = (
+  isEnabled: boolean,
+) => {
+  try {
+    if (!isEnabled) {
+      window.localStorage.removeItem(
+        STUDIO_RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY,
+      );
+      return;
+    }
+
+    window.localStorage.setItem(
+      STUDIO_RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY,
+      "true",
+    );
+  } catch (_) {
+    // noop
+  }
+};
+
+export const clearStudioRuntimeApiEnvironmentOverride = () => {
+  try {
+    window.localStorage.removeItem(
+      STUDIO_RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY,
+    );
+    window.localStorage.removeItem(
+      STUDIO_RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY,
+    );
   } catch (_) {
     // noop
   }
@@ -223,6 +326,9 @@ export const applyStudioRuntimeFromStorage = (): StudioRuntimePayload => {
   const selectedRuntimeEnv = readStudioRuntimeEnv();
   const runtimePresets = readStudioRuntimePresets();
   const runtimeFieldEnvMap = readStudioRuntimeFieldEnvMap();
+  const isApiEnvironmentOverrideEnabled =
+    readStudioRuntimeApiEnvironmentOverride();
+  const apiEnvironmentName = readStudioRuntimeApiEnvironmentName();
 
   const baseRuntimePayload =
     runtimePresets[selectedRuntimeEnv] ??
@@ -240,6 +346,11 @@ export const applyStudioRuntimeFromStorage = (): StudioRuntimePayload => {
     }
   });
 
+  if (isApiEnvironmentOverrideEnabled) {
+    mergedRuntimePayload[STUDIO_RUNTIME_API_BASE_URL_KEY] =
+      buildStudioRuntimeApiBaseUrlFromEnvironmentName(apiEnvironmentName);
+  }
+
   window.__SM_RUNTIME__ = mergedRuntimePayload;
 
   try {
@@ -249,6 +360,8 @@ export const applyStudioRuntimeFromStorage = (): StudioRuntimePayload => {
           runtime: mergedRuntimePayload,
           selectedRuntimeEnv,
           runtimeFieldEnvMap,
+          isApiEnvironmentOverrideEnabled,
+          apiEnvironmentName,
         },
       }),
     );

@@ -17,6 +17,10 @@ type Middleware = (
 const RUNTIME_ENV_STORAGE_KEY = "@bsport/studio-runtime-env";
 const RUNTIME_FIELD_ENV_MAP_STORAGE_KEY =
   "@bsport/studio-runtime-field-env-map";
+const RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY =
+  "@bsport/studio-runtime-api-environment-name";
+const RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY =
+  "@bsport/studio-runtime-api-environment-override";
 
 const tempDirs: string[] = [];
 
@@ -302,6 +306,64 @@ describe("studioRuntimeDevServerPlugin", () => {
       API_BASE_URL: "http://localhost:8000",
     });
     expect(runtimePayload?.UNKNOWN_KEY).toBeUndefined();
+  });
+
+  it("applies custom API environment override when enabled", () => {
+    const rootDir = createTempRootDir();
+    createRuntimeFile({
+      rootDir,
+      envName: "dev",
+      runtimePayload: {
+        API_BASE_URL: "https://api.dev.bsport.io",
+        SENTRY_DSN: "dev-sentry",
+      },
+    });
+
+    const result = executeMiddleware({
+      requestUrl: "/studio/studio-env.js",
+      rootDir,
+    });
+
+    const runtimePayload = evaluateRuntimeScript({
+      script: result.body,
+      storage: {
+        [RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY]: "true",
+        [RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY]: "qa-preview-12",
+      },
+    });
+
+    expect(runtimePayload).toEqual({
+      API_BASE_URL: "https://qa-preview-12.api.chaos.bsport.io",
+      SENTRY_DSN: "dev-sentry",
+    });
+  });
+
+  it("falls back to dev API custom environment when override name is empty", () => {
+    const rootDir = createTempRootDir();
+    createRuntimeFile({
+      rootDir,
+      envName: "dev",
+      runtimePayload: {
+        API_BASE_URL: "https://api.dev.bsport.io",
+      },
+    });
+
+    const result = executeMiddleware({
+      requestUrl: "/studio/studio-env.js",
+      rootDir,
+    });
+
+    const runtimePayload = evaluateRuntimeScript({
+      script: result.body,
+      storage: {
+        [RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY]: "true",
+        [RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY]: "   ",
+      },
+    });
+
+    expect(runtimePayload).toEqual({
+      API_BASE_URL: "https://dev.api.chaos.bsport.io",
+    });
   });
 
   it("falls back to dev runtime when selected preset is invalid", () => {

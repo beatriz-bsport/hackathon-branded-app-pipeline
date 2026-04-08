@@ -9,6 +9,11 @@ const RUNTIME_CONTENT_TYPE = "application/javascript; charset=utf-8";
 const RUNTIME_ENV_LOCAL_STORAGE_KEY = "@bsport/studio-runtime-env";
 const RUNTIME_FIELD_ENV_MAP_LOCAL_STORAGE_KEY =
   "@bsport/studio-runtime-field-env-map";
+const RUNTIME_API_ENVIRONMENT_NAME_LOCAL_STORAGE_KEY =
+  "@bsport/studio-runtime-api-environment-name";
+const RUNTIME_API_ENVIRONMENT_OVERRIDE_LOCAL_STORAGE_KEY =
+  "@bsport/studio-runtime-api-environment-override";
+const RUNTIME_API_BASE_URL_KEY = "API_BASE_URL";
 const DEFAULT_RUNTIME_ENV = "dev";
 const SUPPORTED_RUNTIME_ENVS = [
   "local",
@@ -169,6 +174,13 @@ const buildRuntimePayloadScript = (
   return `(() => {
   const RUNTIME_ENV_STORAGE_KEY = ${JSON.stringify(RUNTIME_ENV_LOCAL_STORAGE_KEY)};
   const RUNTIME_FIELD_ENV_MAP_STORAGE_KEY = ${JSON.stringify(RUNTIME_FIELD_ENV_MAP_LOCAL_STORAGE_KEY)};
+  const RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY = ${JSON.stringify(
+    RUNTIME_API_ENVIRONMENT_NAME_LOCAL_STORAGE_KEY,
+  )};
+  const RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY = ${JSON.stringify(
+    RUNTIME_API_ENVIRONMENT_OVERRIDE_LOCAL_STORAGE_KEY,
+  )};
+  const RUNTIME_API_BASE_URL_KEY = ${JSON.stringify(RUNTIME_API_BASE_URL_KEY)};
   const DEFAULT_RUNTIME_ENV = ${JSON.stringify(DEFAULT_RUNTIME_ENV)};
   const SUPPORTED_RUNTIME_ENVS = ${serializedSupportedEnvs};
   const RUNTIME_PRESETS = ${serializedPresets};
@@ -227,6 +239,34 @@ const buildRuntimePayloadScript = (
     }
   };
 
+  const readApiEnvironmentOverride = () => {
+    try {
+      return (
+        window.localStorage?.getItem(
+          RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY,
+        ) === "true"
+      );
+    } catch (_) {
+      return false;
+    }
+  };
+
+  const readApiEnvironmentName = () => {
+    try {
+      const rawValue = window.localStorage?.getItem(
+        RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY,
+      );
+      if (typeof rawValue !== "string") {
+        return DEFAULT_RUNTIME_ENV;
+      }
+
+      const normalizedValue = rawValue.trim().toLowerCase();
+      return normalizedValue || DEFAULT_RUNTIME_ENV;
+    } catch (_) {
+      return DEFAULT_RUNTIME_ENV;
+    }
+  };
+
   const selectedRuntimeEnv = readSelectedRuntimeEnv();
   const runtimePayload =
     RUNTIME_PRESETS[selectedRuntimeEnv] || RUNTIME_PRESETS[DEFAULT_RUNTIME_ENV] || {};
@@ -239,6 +279,12 @@ const buildRuntimePayloadScript = (
       mergedRuntimePayload[key] = runtimeValueFromPreset;
     }
   });
+
+  if (readApiEnvironmentOverride()) {
+    const apiEnvironmentName = readApiEnvironmentName();
+    mergedRuntimePayload[RUNTIME_API_BASE_URL_KEY] =
+      \`https://\${apiEnvironmentName}.api.chaos.bsport.io\`;
+  }
 
   window.__SM_RUNTIME_PRESETS__ = RUNTIME_PRESETS;
   window.__SM_RUNTIME__ = mergedRuntimePayload;

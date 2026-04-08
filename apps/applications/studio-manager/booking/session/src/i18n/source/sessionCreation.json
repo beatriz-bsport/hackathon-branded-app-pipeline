@@ -108,8 +108,8 @@
               }
             },
             "enabledAggregators": {
-              "label": "Enabled Aggregators",
-              "error": "If session is available to aggregators, you must select at least one."
+              "label": "Enabled aggregators",
+              "error": "If the session is available to aggregators, you must select at least one."
             }
           },
           "level": {

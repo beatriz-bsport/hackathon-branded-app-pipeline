@@ -89,7 +89,7 @@ export const SessionCappingStrategyRadio: FC<{
               {hasClasspass && (
                 <Alert
                   layout="banner"
-                  status="warning"
+                  status="info"
                   type="weak"
                   className="p-xs mb-sm"
                 >
@@ -99,15 +99,13 @@ export const SessionCappingStrategyRadio: FC<{
                 </Alert>
               )}
               {cappingStrategy === PartnerSpotCappingStrategy.COMBINED && (
-                <div className="flex items-end gap-sm">
-                  <SessionCapacityField
-                    fieldIdPrefix={fieldIdPrefix}
-                    label={t(
-                      "addSessionModal.steps.configureSession.settings.partnership.capacity.label",
-                    )}
-                    fieldName="partner_max_booking_count"
-                  />
-                </div>
+                <SessionCapacityField
+                  fieldIdPrefix={fieldIdPrefix}
+                  label={t(
+                    "addSessionModal.steps.configureSession.settings.partnership.capacity.label",
+                  )}
+                  fieldName="partner_max_booking_count"
+                />
               )}
               {cappingStrategy === PartnerSpotCappingStrategy.PER_PARTNER && (
                 <SessionPartnershipOffersTable

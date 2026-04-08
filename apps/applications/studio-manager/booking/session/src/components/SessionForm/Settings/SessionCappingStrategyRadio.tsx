@@ -47,6 +47,29 @@ export const SessionCappingStrategyRadio: FC<{
           "addSessionModal.steps.configureSession.settings.partnership.cappingStrategy.COMBINED.helperText",
         ),
         value: PartnerSpotCappingStrategy.COMBINED,
+        children: (
+          <>
+            {hasClasspass && (
+              <Alert
+                layout="banner"
+                status="info"
+                type="weak"
+                className="p-xs mb-sm"
+              >
+                {t(
+                  "addSessionModal.steps.configureSession.settings.partnership.capacity.classpassInfo",
+                )}
+              </Alert>
+            )}
+            <SessionCapacityField
+              fieldIdPrefix={fieldIdPrefix}
+              label={t(
+                "addSessionModal.steps.configureSession.settings.partnership.capacity.label",
+              )}
+              fieldName="partner_max_booking_count"
+            />
+          </>
+        ),
       },
       {
         label: t(
@@ -56,9 +79,15 @@ export const SessionCappingStrategyRadio: FC<{
           "addSessionModal.steps.configureSession.settings.partnership.cappingStrategy.PER_PARTNER.helperText",
         ),
         value: PartnerSpotCappingStrategy.PER_PARTNER,
+        children: (
+          <SessionPartnershipOffersTable
+            activeAccounts={activeAccounts}
+            fieldIdPrefix={fieldIdPrefix}
+          />
+        ),
       },
     ],
-    [t],
+    [t, hasClasspass, fieldIdPrefix, activeAccounts],
   );
 
   return (
@@ -82,40 +111,7 @@ export const SessionCappingStrategyRadio: FC<{
           }}
           options={options}
           value={cappingStrategy ?? PartnerSpotCappingStrategy.COMBINED}
-        >
-          {(cappingStrategy === PartnerSpotCappingStrategy.COMBINED ||
-            cappingStrategy === PartnerSpotCappingStrategy.PER_PARTNER) && (
-            <div className="mt-md ml-lg mb-sm">
-              {hasClasspass && (
-                <Alert
-                  layout="banner"
-                  status="info"
-                  type="weak"
-                  className="p-xs mb-sm"
-                >
-                  {t(
-                    "addSessionModal.steps.configureSession.settings.partnership.capacity.classpassInfo",
-                  )}
-                </Alert>
-              )}
-              {cappingStrategy === PartnerSpotCappingStrategy.COMBINED && (
-                <SessionCapacityField
-                  fieldIdPrefix={fieldIdPrefix}
-                  label={t(
-                    "addSessionModal.steps.configureSession.settings.partnership.capacity.label",
-                  )}
-                  fieldName="partner_max_booking_count"
-                />
-              )}
-              {cappingStrategy === PartnerSpotCappingStrategy.PER_PARTNER && (
-                <SessionPartnershipOffersTable
-                  activeAccounts={activeAccounts}
-                  fieldIdPrefix={fieldIdPrefix}
-                />
-              )}
-            </div>
-          )}
-        </RadioGroup>
+        />
       </div>
     </div>
   );

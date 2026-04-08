@@ -32,7 +32,11 @@
     "@bsport/store-base": "workspace:*"
   },
   "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*",
+    "@tanstack/react-query": "^5.90.12"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.90.12"
   },
   "nx": {
     "tags": [

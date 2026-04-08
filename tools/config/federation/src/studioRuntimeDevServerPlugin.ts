@@ -1,8 +1,8 @@
-import type { IncomingMessage, ServerResponse } from "http";
 import { existsSync, readFileSync } from "fs";
+import type { IncomingMessage, ServerResponse } from "http";
 import { resolve } from "path";
-import { runInNewContext } from "vm";
 import type { Connect, Plugin } from "vite";
+import { runInNewContext } from "vm";
 
 const RUNTIME_FILE_PATH = "/studio/studio-env.js";
 const RUNTIME_CONTENT_TYPE = "application/javascript; charset=utf-8";
@@ -144,15 +144,18 @@ const loadRuntimePayloadPresets = (
 
   const presets = SUPPORTED_RUNTIME_ENVS.reduce<
     Record<SupportedRuntimeEnv, StudioRuntimePayload>
-  >((accumulator, env) => {
-    const runtimePayload = loadRuntimePayloadForEnv({
-      env,
-      envDirectories,
-    });
+  >(
+    (accumulator, env) => {
+      const runtimePayload = loadRuntimePayloadForEnv({
+        env,
+        envDirectories,
+      });
 
-    accumulator[env] = runtimePayload ?? devRuntimePayload;
-    return accumulator;
-  }, {} as Record<SupportedRuntimeEnv, StudioRuntimePayload>);
+      accumulator[env] = runtimePayload ?? devRuntimePayload;
+      return accumulator;
+    },
+    {} as Record<SupportedRuntimeEnv, StudioRuntimePayload>,
+  );
 
   return presets;
 };
@@ -264,7 +267,9 @@ export const studioRuntimeDevServerPlugin = ({
 
           res.statusCode = 200;
           res.setHeader("Content-Type", RUNTIME_CONTENT_TYPE);
-          res.end(buildRuntimePayloadScript(loadRuntimePayloadPresets(rootDir)));
+          res.end(
+            buildRuntimePayloadScript(loadRuntimePayloadPresets(rootDir)),
+          );
         },
       );
     },

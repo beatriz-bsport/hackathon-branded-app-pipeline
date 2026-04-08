@@ -1,10 +1,10 @@
-import type { IncomingMessage, ServerResponse } from "http";
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "fs";
+import type { IncomingMessage, ServerResponse } from "http";
 import { tmpdir } from "os";
 import { join } from "path";
-import { runInNewContext } from "vm";
 import type { Connect, ViteDevServer } from "vite";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { runInNewContext } from "vm";
 
 import { studioRuntimeDevServerPlugin } from "../studioRuntimeDevServerPlugin.js";
 
@@ -93,7 +93,11 @@ const executeMiddleware = ({
     }),
   } as unknown as ServerResponse;
 
-  middleware({ method: "GET", url: requestUrl } as IncomingMessage, response, next);
+  middleware(
+    { method: "GET", url: requestUrl } as IncomingMessage,
+    response,
+    next,
+  );
 
   return {
     next,

@@ -14,17 +14,22 @@ export const DEFAULT_STUDIO_RUNTIME_ENV = "dev";
 
 export type StudioRuntimeEnv = (typeof STUDIO_RUNTIME_ENVS)[number];
 export type StudioRuntimePayload = Record<string, string>;
-export type StudioRuntimePresets = Record<StudioRuntimeEnv, StudioRuntimePayload>;
+export type StudioRuntimePresets = Record<
+  StudioRuntimeEnv,
+  StudioRuntimePayload
+>;
 export type StudioRuntimeFieldEnvMap = Record<string, StudioRuntimeEnv>;
 
-const sanitizeStudioRuntimePayload = (candidate: unknown): StudioRuntimePayload => {
+const sanitizeStudioRuntimePayload = (
+  candidate: unknown,
+): StudioRuntimePayload => {
   if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) {
     return {};
   }
 
-  return Object.entries(candidate as Record<string, unknown>).reduce<
-    StudioRuntimePayload
-  >((accumulator, [key, value]) => {
+  return Object.entries(
+    candidate as Record<string, unknown>,
+  ).reduce<StudioRuntimePayload>((accumulator, [key, value]) => {
     if (typeof value === "string") {
       accumulator[key] = value;
     }
@@ -34,10 +39,13 @@ const sanitizeStudioRuntimePayload = (candidate: unknown): StudioRuntimePayload 
 };
 
 const buildEmptyStudioRuntimePresets = (): StudioRuntimePresets => {
-  return STUDIO_RUNTIME_ENVS.reduce<StudioRuntimePresets>((accumulator, env) => {
-    accumulator[env] = {};
-    return accumulator;
-  }, {} as StudioRuntimePresets);
+  return STUDIO_RUNTIME_ENVS.reduce<StudioRuntimePresets>(
+    (accumulator, env) => {
+      accumulator[env] = {};
+      return accumulator;
+    },
+    {} as StudioRuntimePresets,
+  );
 };
 
 export const parseStudioRuntimeEnv = (
@@ -55,7 +63,9 @@ export const parseStudioRuntimeEnv = (
 
 export const readStudioRuntimeEnv = (): StudioRuntimeEnv => {
   try {
-    const rawValue = window.localStorage.getItem(STUDIO_RUNTIME_ENV_STORAGE_KEY);
+    const rawValue = window.localStorage.getItem(
+      STUDIO_RUNTIME_ENV_STORAGE_KEY,
+    );
     return parseStudioRuntimeEnv(rawValue) ?? DEFAULT_STUDIO_RUNTIME_ENV;
   } catch (_) {
     return DEFAULT_STUDIO_RUNTIME_ENV;
@@ -93,7 +103,8 @@ export const readStudioRuntimePresets = (): StudioRuntimePresets => {
   if (
     Object.keys(studioRuntimePresets[DEFAULT_STUDIO_RUNTIME_ENV]).length === 0
   ) {
-    studioRuntimePresets[DEFAULT_STUDIO_RUNTIME_ENV] = getCurrentStudioRuntime();
+    studioRuntimePresets[DEFAULT_STUDIO_RUNTIME_ENV] =
+      getCurrentStudioRuntime();
   }
 
   return studioRuntimePresets;

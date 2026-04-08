@@ -3,10 +3,10 @@ import React, { useMemo, useState } from "react";
 import { Select } from "@bsport/kaizen-primitive-core";
 
 import {
+  STUDIO_RUNTIME_ENVS,
   applyStudioRuntimeFromStorage,
   parseStudioRuntimeEnv,
   readStudioRuntimeEnv,
-  STUDIO_RUNTIME_ENVS,
   writeStudioRuntimeEnv,
 } from "./runtimeConfig";
 

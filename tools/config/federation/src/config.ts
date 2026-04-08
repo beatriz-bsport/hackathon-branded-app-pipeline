@@ -8,6 +8,7 @@ import svgr from "vite-plugin-svgr";
 import { z } from "zod";
 
 import { runtimeEnvPlugin } from "./runtimeEnvPlugin.js";
+import { studioRuntimeDevServerPlugin } from "./studioRuntimeDevServerPlugin.js";
 import { translationsWatcher } from "./translationsWatcherPlugin.js";
 
 export const AppTypesEnum = z.enum(
@@ -172,6 +173,7 @@ export const getConfig = (config: {
   const isHost = config.appType === "hosts";
   const isLocal =
     mode === "preview" || mode === "development" || mode === "compat";
+  const useLocalRemoteEntries = mode === "development" || mode === "compat";
   const { devPort, name: federationName, exposes } = packageJson.federation;
 
   const base = getBase({
@@ -197,7 +199,6 @@ export const getConfig = (config: {
     removeScope,
     removePrefix,
   )(packageJson.name);
-
   const envScriptPath = `${base}env.js`;
 
   const define: NonNullable<UserConfig["define"]> = {
@@ -235,7 +236,7 @@ export const getConfig = (config: {
           [key]: {
             name: key,
             type: "module",
-            entry: isLocal
+            entry: useLocalRemoteEntries
               ? `http://localhost:${remote.devPort}/remoteEntry.js`
               : `${deploymentRelativeUrl}apps/${removePrefix(key)}/remoteEntry.js`,
           },
@@ -327,6 +328,9 @@ export const getConfig = (config: {
     federation(federationConfig),
     restart({
       restart: pathsToWatch,
+    }),
+    studioRuntimeDevServerPlugin({
+      rootDir: config.rootDir,
     }),
     translationsWatcher(config.rootDir),
   ];

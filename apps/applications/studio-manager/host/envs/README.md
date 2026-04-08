@@ -1,7 +1,7 @@
 Reference runtime `studio-env.js` payloads for `studio-manager`.
 
 These files are not generated into production artifacts.
-During local `vite` development, `/studio/studio-env.js` is served by a Vite plugin with a fixed dev payload.
+During local `vite` development, `/studio/studio-env.js` is served by a Vite plugin.
 No `public/studio/studio-env.js` copy is needed for `dev` / `dev:single`.
 This also covers `nx dev-mfe` and `nx dev` workflows for studio apps.
 The intended flow is:
@@ -41,6 +41,13 @@ Runtime path:
 
 Local development:
 
-- default local dev API base URL is `https://api.dev.bsport.io`
+- runtime preset key in `localStorage`: `@bsport/studio-runtime-env`
+- runtime per-field preset key in `localStorage`: `@bsport/studio-runtime-field-env-map`
+- default runtime preset when missing/invalid: `dev`
+- Studio Manager DevTools exposes:
+- `Runtime preset` selector (updates all keys at once)
+- per-variable preset selectors (`Preset`/`local`/`dev`/`staging`/`production`)
+- changes update `window.__SM_RUNTIME__` immediately, without forced refresh
+- some startup-initialized integrations can still require a full page refresh to fully apply runtime changes (for example Sentry/Mixpanel/Unleash client initialization)
 - `api:ensure` was removed
 - if you need a file-based runtime payload, run `STUDIO_RUNTIME_APP_DIR="$PWD" pnpm -w run studio-runtime:dev`

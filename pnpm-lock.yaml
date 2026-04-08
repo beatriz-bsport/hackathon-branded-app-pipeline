@@ -2714,6 +2714,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/local-storage-auth-token':
+        specifier: workspace:*
+        version: link:../../../../packages/local-storage/auth-token
       '@bsport/request-from-header':
         specifier: workspace:*
         version: link:../../../../packages/local-storage/request-from-header

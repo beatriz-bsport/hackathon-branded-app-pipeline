@@ -30,6 +30,8 @@ type NavigationSidebarProps = {
   navigate: (path: string) => void;
   disableRevampOnLegacyStore?: () => void;
   onLogoutCallback?: () => void;
+  isFranchisorNavigation?: boolean; // Used in withNavigationSwitcher
+  onNavigateBackToFranchisor?: () => void; // Used in withNavigationSwitcher
 };
 
 const NavigationSidebarFallback = () => (
@@ -64,7 +66,14 @@ const NavigationSidebar = createRemoteComponent<
 export const Navigation: React.FC<{
   updateRevampedBackofficeEnabled: (nextValue: boolean) => void;
   onDrawerClose?: () => void;
-}> = ({ updateRevampedBackofficeEnabled, onDrawerClose }) => {
+  isFranchisorNavigation?: boolean; // Used in withNavigationSwitcher
+  onNavigateBackToFranchisor?: () => void; // Used in withNavigationSwitcher
+}> = ({
+  updateRevampedBackofficeEnabled,
+  onDrawerClose,
+  isFranchisorNavigation,
+  onNavigateBackToFranchisor,
+}) => {
   const { push } = useHistory();
   const navigate: ReturnType<typeof useHistory>['push'] = (...props) => {
     push(...props);
@@ -90,8 +99,10 @@ export const Navigation: React.FC<{
         )}
         compatClassName="compat-revamp-css"
         disableRevampOnLegacyStore={disableRevampOnLegacyStore}
+        isFranchisorNavigation={isFranchisorNavigation}
         navigate={navigate}
         onLogoutCallback={resetAnalyticsB2B}
+        onNavigateBackToFranchisor={onNavigateBackToFranchisor}
       />
     </Suspense>
   );

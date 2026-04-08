@@ -1,5 +1,3 @@
-import clsx from "clsx";
-
 import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
@@ -18,11 +16,11 @@ import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { formatMinutes } from "#src/utils/format-minutes";
 import { useTranslation } from "#src/utils/i18n";
 
-import { CancelledSessionName } from "./CancelledSessionName";
 import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";
 import { AttendanceButton } from "./attendance-button";
 import { ShortcutActionsButton } from "./detail-actions/shortcut-actions-button";
+import { NameCell } from "./name-cell";
 import { TeacherCell } from "./teacher-cell";
 
 export { formatMinutes } from "#src/utils/format-minutes";
@@ -92,25 +90,21 @@ export const useSessionListColumns = (isMobile: boolean) => {
     },
   };
 
-  const sessionClassName = clsx(
-    "truncate max-w-[202px] text-title-sm font-strong leading-md",
-    "lg:text-body-md lg:font-weak line-height-body-md lg:leading-sm",
-  );
-
   const sessionNameColumn: TableColumn = {
     header: t("table.headers.sessionName"),
     label: t("table.headers.sessionName"),
     id: SessionColumns.SESSION_NAME,
     type: "custom",
     align: "start",
-    render: (row: EnrichedSession) =>
-      row.available ? (
-        <Body htmlVariant="p" size="md" className={sessionClassName}>
-          {row.name}
-        </Body>
-      ) : (
-        <CancelledSessionName name={row.name} className={sessionClassName} />
-      ),
+    render: (row: EnrichedSession) => (
+      <NameCell
+        name={row.name}
+        available={row.available}
+        zone={row.timezone_name}
+        date_start={row.date_start}
+        duration_minute={row.duration_minute}
+      />
+    ),
   };
 
   const participantsColumn: TableColumn = {

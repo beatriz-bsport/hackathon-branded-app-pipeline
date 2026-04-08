@@ -4,6 +4,7 @@ import { makeFeatureFlags } from "@bsport/sm-backbone";
 
 export const { flags, useFlag: useBookingManagementFlag } = makeFeatureFlags({
   BOOKINGS_MANAGEMENT_REVAMP: "booking_bookings_management_revamped",
+  CALENDAR_APPOINTMENTS_TAB: "booking_calendar_appointments_tab",
 } as const);
 
 const EDIT_SLUG = ":sessionId/edit";

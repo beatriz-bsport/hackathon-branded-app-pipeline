@@ -68,7 +68,9 @@ export enum AppointmentColumn {
   ACTIONS = "actions",
 }
 
-export type CalendarTab = "sessions" | "appointments";
+// Tab identifiers match the user-facing labels
+// Internally, class data is modeled as sessions.
+export type CalendarTab = "classes" | "appointments";
 
 export enum CalendarView {
   DAILY = "daily",
@@ -90,8 +92,8 @@ export enum AppointmentModalType {
   CANCEL = "cancel_appointment",
 }
 
-export type ActivityModalState = {
-  tab: "sessions";
+export type SessionModalState = {
+  tab: "classes";
   type: ModalType;
   session: EnrichedSession;
 };
@@ -102,7 +104,7 @@ export type AppointmentModalState = {
   appointment: EnrichedAppointment;
 };
 
-export type ModalState = ActivityModalState | AppointmentModalState | null;
+export type ModalState = SessionModalState | AppointmentModalState | null;
 
 export type SafeEventError = {
   eventType: string;

@@ -10,31 +10,31 @@ export const selectSelectedDate = (state: CalendarState) => state.selectedDate;
 
 export const selectModalState = (state: CalendarState) => state.modalState;
 
-// Session tab selectors
+// Sessions tab selectors
 
 export const selectSessionFilters = (state: CalendarState) =>
-  state.sessions.filters;
+  state.classes.filters;
 
 export const selectSessionShowCancelled = (state: CalendarState) =>
-  state.sessions.showCancelled;
+  state.classes.showCancelled;
 
 export const selectSessionDisplayedColumns = (state: CalendarState) =>
-  state.sessions.displayedColumns;
+  state.classes.displayedColumns;
 
 export const selectIsCancelModalOpen = (state: CalendarState) =>
-  state.modalState?.tab === "sessions" &&
+  state.modalState?.tab === "classes" &&
   state.modalState?.type === ModalType.CANCEL;
 
 export const selectIsRestoreModalOpen = (state: CalendarState) =>
-  state.modalState?.tab === "sessions" &&
+  state.modalState?.tab === "classes" &&
   state.modalState?.type === ModalType.RESTORE;
 
 export const selectIsDeleteModalOpen = (state: CalendarState) =>
-  state.modalState?.tab === "sessions" &&
+  state.modalState?.tab === "classes" &&
   state.modalState?.type === ModalType.DELETE;
 
 export const selectIsDuplicateModalOpen = (state: CalendarState) =>
-  state.modalState?.tab === "sessions" &&
+  state.modalState?.tab === "classes" &&
   state.modalState?.type === ModalType.DUPLICATE;
 
 // Appointment tab selectors

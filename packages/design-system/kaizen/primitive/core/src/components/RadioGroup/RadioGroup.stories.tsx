@@ -99,6 +99,7 @@ export const ControlledComponent: Story = {
         value: "mango",
         label: "You want Mango",
         helperText: "bsport’s favourite",
+        disabled: true,
       },
       {
         value: "orange",

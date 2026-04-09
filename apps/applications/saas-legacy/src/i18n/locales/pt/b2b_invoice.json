@@ -70,7 +70,7 @@
           "go_to_settings": "Vá para Configurações",
           "complete_stripe_onboarding": "Concluir o onboarding do Stripe",
           "legal_identifier_required": "Identificadores de fatura necessários",
-          "legal_identifier_description": "Configure os identificadores de fatura para Sign-ES seguindo esta <0>folha de ajuda</0>."
+          "legal_identifier_description": "Configure os identificadores de fatura para o Sign-ES seguindo esta <0>folha de ajuda</0>."
         }
       },
       "active": {
@@ -114,6 +114,29 @@
       "previewFirstLine": "Suas Faturas serão numeradas da seguinte forma: <0>{{firstNumber}}</0>",
       "previewSecondLine": "em seguida {{restNumbers}}, ...",
       "useExternalAccountingProvider": "Eu uso um fornecedor externo de contabilidade"
+    }
+  },
+  "bulkExport": {
+    "modalTitle": "Exportar faturas",
+    "modalDescription": "Escolha um período para exportar faturas.",
+    "alertDescription": "Você não conseguirá exportar faturas migradas de provedores anteriores.",
+    "month": "Mês",
+    "monthErrorCurrentOrFuture": "Não é possível exportar faturas para o mês atual ou meses futuros",
+    "monthErrorBeforeCutoff": "As faturas não podem ser exportadas antes de março de 2025",
+    "year": "Ano",
+    "cancel": "Cancelar",
+    "download": "Descarregar",
+    "downloading": "A preparar o descarregamento...",
+    "toastDownloaded": "Faturas descarregadas",
+    "successNoInvoices": "Nenhuma fatura foi gerada para este período.",
+    "error": {
+      "14602": "Exportações disponíveis apenas a partir de março de 2025.",
+      "14603": "Não é possível descarregar a exportação para o mês atual ou futuro. Por favor, aguarde até o próximo mês.",
+      "14604": "A exportação está a ser processada. Por favor, verifique novamente mais tarde hoje ou amanhã (máx. 24h).",
+      "14605": "A exportação falhou. Por favor, entre em contato com o suporte.",
+      "14606": "A exportação ainda não está disponível. Por favor, volte a verificar mais tarde.",
+      "14607": "Não há Faturas disponíveis para este período. Sua empresa começou a faturar mais tarde.",
+      "default": "Algo deu errado. Por favor, tente novamente."
     }
   }
 }

@@ -70,7 +70,7 @@
           "go_to_settings": "Ga naar Instellingen",
           "complete_stripe_onboarding": "Voltooi Stripe-onboarding",
           "legal_identifier_required": "Factuurnummers vereist",
-          "legal_identifier_description": "Stel factuuridentificaties in voor Sign-ES door dit <0>hulpblad</0> te volgen."
+          "legal_identifier_description": "Stel factuurnummers in voor Sign-ES aan de hand van deze <0>helpsheet</0>."
         }
       },
       "active": {
@@ -114,6 +114,29 @@
       "previewFirstLine": "Je factuur wordt als volgt genummerd: <0>{{firstNumber}}</0>",
       "previewSecondLine": "dan {{restNumbers}}, ...",
       "useExternalAccountingProvider": "Ik gebruik een externe boekhoudservice."
+    }
+  },
+  "bulkExport": {
+    "modalTitle": "Factueren exporteren",
+    "modalDescription": "Kies een periode om facturen te exporteren.",
+    "alertDescription": "Je kunt geen facturen exporteren die zijn gemigreerd van vorige providers.",
+    "month": "Maand",
+    "monthErrorCurrentOrFuture": "Facturen kunnen niet worden geëxporteerd voor de huidige of toekomstige maanden",
+    "monthErrorBeforeCutoff": "Facturen kunnen niet vóór maart 2025 worden geëxporteerd",
+    "year": "Jaar",
+    "cancel": "Sluiten",
+    "download": "Download",
+    "downloading": "Download voorbereiden...",
+    "toastDownloaded": "Facturen gedownload",
+    "successNoInvoices": "Er zijn geen facturen gegenereerd voor deze periode.",
+    "error": {
+      "14602": "Exports zijn pas beschikbaar vanaf maart 2025.",
+      "14603": "Je kunt geen export downloaden voor de huidige of toekomstige maand. Wacht tot volgende maand.",
+      "14604": "Export wordt verwerkt. Kom later vandaag of morgen (max 24 uur) terug.",
+      "14605": "Exporteren mislukt. Neem contact op met de supportafdeling.",
+      "14606": "Export is nog niet beschikbaar. Kom later terug.",
+      "14607": "Geen Facturen beschikbaar voor deze periode. Je bedrijf is later begonnen met factureren.",
+      "default": "Er is iets misgegaan. Probeer het opnieuw."
     }
   }
 }

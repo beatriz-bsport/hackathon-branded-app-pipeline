@@ -70,7 +70,7 @@
           "go_to_settings": "Vai su Impostazioni",
           "complete_stripe_onboarding": "Completa l'onboarding di Stripe",
           "legal_identifier_required": "Identificatori di ricevuta richiesti",
-          "legal_identifier_description": "Configura gli identificatori di fattura per Sign-ES seguendo questa <0>guida</0>."
+          "legal_identifier_description": "Configura gli identificatori delle fatture per Sign-ES seguendo questo <0>helpsheet</0>."
         }
       },
       "active": {
@@ -114,6 +114,29 @@
       "previewFirstLine": "Le tue ricevute saranno numerate come segue: <0>{{firstNumber}}</0>",
       "previewSecondLine": "poi {{restNumbers}}, ...",
       "useExternalAccountingProvider": "Utilizzo un fornitore esterno per la contabilità"
+    }
+  },
+  "bulkExport": {
+    "modalTitle": "Esporta le ricevute",
+    "modalDescription": "Scegli un periodo di tempo per esportare le ricevute.",
+    "alertDescription": "Non potrai esportare le ricevute migrate da fornitori precedenti.",
+    "month": "Mese",
+    "monthErrorCurrentOrFuture": "Non puoi esportare le ricevute per il mese corrente o per i mesi futuri",
+    "monthErrorBeforeCutoff": "Le Ricevute non possono essere esportate prima di marzo 2025",
+    "year": "Anno",
+    "cancel": "Annulla",
+    "download": "Scaricare",
+    "downloading": "Preparazione del download...",
+    "toastDownloaded": "Ricevute scaricate",
+    "successNoInvoices": "Nessuna ricevuta è stata generata per questo periodo.",
+    "error": {
+      "14602": "Esportazioni disponibili solo da marzo 2025 in poi.",
+      "14603": "Non puoi scaricare l'export per il mese corrente o futuro. Attendi il mese prossimo.",
+      "14604": "L'esportazione è in fase di elaborazione. Ricontrolla più tardi oggi o domani (max 24h).",
+      "14605": "L'esportazione non è riuscita. Contatta il supporto.",
+      "14606": "Exportazione non ancora disponibile. Riprova più tardi.",
+      "14607": "Nessuna Ricevuta disponibile per questo periodo. La tua azienda ha iniziato a fatturare più tardi.",
+      "default": "Qualcosa è andata storta. Riprova."
     }
   }
 }

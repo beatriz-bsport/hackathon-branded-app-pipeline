@@ -6,47 +6,128 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
-import type { Payout } from '../../types';
+import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
+import type { BalanceTransactionStats, Payout } from '../../types';
 
 type Props = {
   payout: Payout;
+  summaryStats?: BalanceTransactionStats | null;
 };
 
-const COUNT_KEYS: Array<{
+const SUMMARY_TYPES: Array<{
   labelKey: string;
-  key: keyof Payout;
+  countKey: keyof Payout;
+  displayTypeKey: string;
 }> = [
-  { labelKey: 'summary.payments', key: 'payment_count' },
-  { labelKey: 'summary.refunds', key: 'refund_count' },
-  { labelKey: 'summary.disputes', key: 'dispute_count' },
+  {
+    labelKey: 'summary.payments',
+    countKey: 'payment_count',
+    displayTypeKey: 'payment',
+  },
+  {
+    labelKey: 'summary.refunds',
+    countKey: 'refund_count',
+    displayTypeKey: 'refund',
+  },
+  {
+    labelKey: 'summary.disputes',
+    countKey: 'dispute_count',
+    displayTypeKey: 'dispute',
+  },
   {
     labelKey: 'summary.directDebitOriginal',
-    key: 'failed_direct_debit_original_count',
+    countKey: 'failed_direct_debit_original_count',
+    displayTypeKey: 'failed_direct_debit_original',
   },
   {
     labelKey: 'summary.directDebitReversal',
-    key: 'failed_direct_debit_reversal_count',
+    countKey: 'failed_direct_debit_reversal_count',
+    displayTypeKey: 'failed_direct_debit_reversal',
   },
-  { labelKey: 'summary.transfers', key: 'balance_transfer_count' },
+  {
+    labelKey: 'summary.transfers',
+    countKey: 'balance_transfer_count',
+    displayTypeKey: 'balance_transfer',
+  },
   {
     labelKey: 'summary.transferRefunds',
-    key: 'balance_transfer_refund_count',
+    countKey: 'balance_transfer_refund_count',
+    displayTypeKey: 'balance_transfer_refund',
   },
-  { labelKey: 'summary.adjustments', key: 'adjustment_count' },
-  { labelKey: 'summary.appFees', key: 'application_fee_count' },
+  {
+    labelKey: 'summary.adjustments',
+    countKey: 'adjustment_count',
+    displayTypeKey: 'adjustment',
+  },
+  {
+    labelKey: 'summary.appFees',
+    countKey: 'application_fee_count',
+    displayTypeKey: 'application_fee',
+  },
   {
     labelKey: 'summary.appFeeRefunds',
-    key: 'application_fee_refund_count',
+    countKey: 'application_fee_refund_count',
+    displayTypeKey: 'application_fee_refund',
   },
-  { labelKey: 'summary.payoutFailures', key: 'payout_failure_count' },
-  { labelKey: 'summary.payoutCancels', key: 'payout_cancel_count' },
+  {
+    labelKey: 'summary.payoutFailures',
+    countKey: 'payout_failure_count',
+    displayTypeKey: 'payout_failure',
+  },
+  {
+    labelKey: 'summary.payoutCancels',
+    countKey: 'payout_cancel_count',
+    displayTypeKey: 'payout_cancel',
+  },
 ];
 
-const PayoutSummary: React.FC<Props> = ({ payout }) => {
+const formatSummaryValue = (count: number, amountCts: number) => {
+  const amountDisplay = getCurrencyDisplayWithPrice(
+    (amountCts / 100).toFixed(2),
+  );
+  return count > 0 ? `${count} (${amountDisplay})` : amountDisplay;
+};
+
+const PayoutSummary: React.FC<Props> = ({ payout, summaryStats = null }) => {
   const classes = useStyles();
   const { t } = useTranslation(['b2b_payout']);
 
-  const counts = COUNT_KEYS.filter((c) => (payout[c.key] as number) > 0);
+  const rows = SUMMARY_TYPES.map((config) => {
+    if (!summaryStats) {
+      const count = payout[config.countKey] as number;
+      if (count <= 0) return null;
+      return {
+        label: t(config.labelKey),
+        value: String(count),
+      };
+    }
+
+    const stat = summaryStats.by_display_type[config.displayTypeKey];
+    if (!stat) return null;
+
+    const hasValue = stat.count > 0;
+    if (!hasValue) return null;
+
+    return {
+      label: t(config.labelKey),
+      value: formatSummaryValue(stat.count, stat.amount_cts),
+    };
+  }).filter((row): row is { label: string; value: string } => row !== null);
+
+  if (summaryStats && summaryStats.no_display_type) {
+    const uncategorized = summaryStats.no_display_type;
+
+    if (uncategorized.count > 0) {
+      rows.push({
+        label: t('displayType.other.label'),
+        value: formatSummaryValue(
+          uncategorized.count,
+          uncategorized.amount_cts,
+        ),
+      });
+    }
+  }
+
   const reconciliationStatus = payout.reconciliation_status ?? 'pending';
   const reconciliationStatusLabel = t(
     `reconciliationStatusPayoutStatus.${reconciliationStatus}`,
@@ -72,13 +153,13 @@ const PayoutSummary: React.FC<Props> = ({ payout }) => {
               </Typography>
             </TableCell>
           </TableRow>
-          {counts.map((c) => (
-            <TableRow key={c.labelKey}>
+          {rows.map((row) => (
+            <TableRow key={row.label}>
               <TableCell className={classes.labelCell}>
-                <Typography variant="caption">{t(c.labelKey)}</Typography>
+                <Typography variant="caption">{row.label}</Typography>
               </TableCell>
               <TableCell className={classes.countCell}>
-                <Typography variant="caption">{payout[c.key]}</Typography>
+                <Typography variant="caption">{row.value}</Typography>
               </TableCell>
             </TableRow>
           ))}
@@ -136,6 +217,7 @@ const useStyles = makeStyles((theme) => ({
   countCell: {
     fontVariantNumeric: 'tabular-nums',
     color: theme.palette.text.secondary,
+    whiteSpace: 'nowrap',
   },
 }));
 

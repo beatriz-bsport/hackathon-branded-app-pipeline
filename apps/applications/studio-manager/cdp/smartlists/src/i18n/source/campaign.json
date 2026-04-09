@@ -1,6 +1,16 @@
 {
   "email": {
     "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campaign sent",
+          "schedule": "Campaign scheduled"
+        },
+        "error": {
+          "sendFailed": "Campaign couldn't be sent. Please try again.",
+          "scheduleFailed": "Campaign couldn't be scheduled. Please try again."
+        }
+      },
       "title": "Email Campaign",
       "continueButtonLabel": "Continue",
       "expectedRecipients": {
@@ -34,19 +44,6 @@
           }
         }
       },
-      "delivery": {
-        "title": "Delivery",
-        "label": "Send now or in the future *",
-        "sendNow": "Send now",
-        "scheduleForLater": "Schedule for later",
-        "dateLabel": "Date",
-        "timeLabel": "Time",
-        "datePlaceholder": "DD/MM/YYYY",
-        "timePlaceholder": "00:00",
-        "warning": {
-          "nightTimeScheduled": "This message is scheduled to be sent in the nighttime. For better results, we recommend sending messages in the day time."
-        }
-      },
       "form": {
         "emailType": {
           "label": "Select the type you're sending",
@@ -62,20 +59,15 @@
           "emailTemplateNoCategory": "No category",
           "sendTestEmail": "Send test email",
           "editEmail": "Edit email",
-          "noTemplatePreview": "Select a template or edit the email to see a preview."
+          "createTemplate": "Create a template",
+          "noTemplatePreview": "Select a template or edit the email to see a preview.",
+          "onTheFlyTemplateEditionBlockedWarning": "You can't edit this current on-the-fly template in the editor. You can overwrite it by creating/selecting a template and saving it."
         },
         "errors": {
           "emailTypeRequired": "Please select the type of email you're sending",
-          "campaignNameRequired": "Campaign name is required.",
           "subjectRequired": "Email subject is required.",
           "bodyRequired": "Email body is required.",
-          "errorMaxLength": "Campaign name must be at most {{count}} characters",
-          "selectEmailTemplate": "Please select an email template.",
-          "scheduledDateRequired": "Please select a date.",
-          "scheduledTimeRequired": "Please select a time.",
-          "scheduledDateInvalid": "Please enter a valid date.",
-          "scheduledDateNotInPast": "The date cannot be in the past.",
-          "scheduledAtLeast5Minutes": "Messages must be scheduled at least 5 minutes in advance."
+          "selectEmailTemplate": "Please select an email template."
         },
         "emailTypeSelector": {
           "title": "Message",
@@ -90,6 +82,17 @@
           "title": "Email editor",
           "confirmButtonLabel": "Save",
           "cancelButtonLabel": "Cancel",
+          "subjectLabel": "Email subject",
+          "franchiseTemplateLabel": "Franchise template",
+          "createNewTemplateModal": {
+            "title": "Create new email template",
+            "description": "Name your new template and organize it in a category",
+            "templateTitleLabel": "Template title",
+            "categoryLabel": "Category",
+            "noCategoryLabel": "No category",
+            "confirmButtonLabel": "Save",
+            "cancelButtonLabel": "Cancel"
+          },
           "saveActionModal": {
             "title": "Save email",
             "description": "How would you like to save this email?",
@@ -128,13 +131,29 @@
   },
   "generic": {
     "creation": {
+      "delivery": {
+        "title": "Delivery",
+        "label": "Send now or in the future *",
+        "sendNow": "Send now",
+        "scheduleForLater": "Schedule for later",
+        "dateLabel": "Date",
+        "timeLabel": "Time",
+        "warning": {
+          "nightTimeScheduled": "This message is scheduled to be sent in the nighttime. For better results, we recommend sending messages in the day time."
+        }
+      },
       "form": {
         "campaignName": {
           "label": "Campaign Name"
         },
         "errors": {
           "campaignNameRequired": "Campaign name is required.",
-          "errorMaxLength": "Campaign name must be at most {{count}} characters"
+          "errorMaxLength": "Campaign name must be at most {{count}} characters",
+          "scheduledDateRequired": "Please select a date.",
+          "scheduledTimeRequired": "Please select a time.",
+          "scheduledDateInvalid": "Please enter a valid date.",
+          "scheduledDateNotInPast": "The date cannot be in the past.",
+          "scheduledAtLeast5Minutes": "Messages must be scheduled at least 5 minutes in advance."
         }
       }
     }

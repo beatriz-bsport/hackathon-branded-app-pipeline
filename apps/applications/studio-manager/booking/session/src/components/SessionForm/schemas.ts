@@ -1,6 +1,10 @@
 import { z } from "zod";
 
 import {
+  PartnerSpotCappingStrategy,
+  PartnershipIdentifier,
+} from "@bsport/api-book";
+import {
   DateTime,
   getLocalNow,
   modifyTime,
@@ -249,6 +253,15 @@ export const useSessionSchema = () => {
       effectif: z.number().min(0),
       available_on_partnership: z.boolean(),
       partner_max_booking_count: z.number().min(0),
+      partner_spot_capping_strategy: z.nativeEnum(PartnerSpotCappingStrategy),
+      partnership_offers: z.array(
+        z.object({
+          partnership: z.number(),
+          partnership_identifier: z.nativeEnum(PartnershipIdentifier),
+          allowed_on_partner: z.boolean(),
+          spot_limit: z.number().min(0).nullable(),
+        }),
+      ),
       level: z.number().int(),
       is_hybrid: z.boolean(),
       coach: z.number().nullable(),
@@ -307,6 +320,8 @@ export const useSessionSchema = () => {
     .refine(
       (data) =>
         !data.available_on_partnership ||
+        data.partner_spot_capping_strategy !==
+          PartnerSpotCappingStrategy.COMBINED ||
         data.partner_max_booking_count <= data.effectif,
       {
         message: t(
@@ -315,6 +330,26 @@ export const useSessionSchema = () => {
         path: ["partner_max_booking_count"],
       },
     )
+    .superRefine((data, ctx) => {
+      if (
+        !data.available_on_partnership ||
+        data.partner_spot_capping_strategy !==
+          PartnerSpotCappingStrategy.PER_PARTNER
+      )
+        return;
+
+      data.partnership_offers.forEach((offer, index) => {
+        if (offer.spot_limit == null || offer.spot_limit > data.effectif) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: t(
+              "addSessionModal.steps.configureSession.settings.partnership.capacity.error",
+            ),
+            path: ["partnership_offers", index, "spot_limit"],
+          });
+        }
+      });
+    })
     .refine(
       (data) =>
         data.roomBlueprintCapacity != null
@@ -402,6 +437,15 @@ export const useSessionEditSchema = () => {
       effectif: z.number().min(0),
       available_on_partnership: z.boolean(),
       partner_max_booking_count: z.number().min(0),
+      partner_spot_capping_strategy: z.nativeEnum(PartnerSpotCappingStrategy),
+      partnership_offers: z.array(
+        z.object({
+          partnership: z.number(),
+          partnership_identifier: z.nativeEnum(PartnershipIdentifier),
+          allowed_on_partner: z.boolean(),
+          spot_limit: z.number().min(0).nullable(),
+        }),
+      ),
       level: z.number().int(),
       coach: z.number(),
       coach_payment_rule: z.number().nullable(),
@@ -459,6 +503,8 @@ export const useSessionEditSchema = () => {
     .refine(
       (data) =>
         !data.available_on_partnership ||
+        data.partner_spot_capping_strategy !==
+          PartnerSpotCappingStrategy.COMBINED ||
         data.partner_max_booking_count <= data.effectif,
       {
         message: t(
@@ -467,6 +513,26 @@ export const useSessionEditSchema = () => {
         path: ["partner_max_booking_count"],
       },
     )
+    .superRefine((data, ctx) => {
+      if (
+        !data.available_on_partnership ||
+        data.partner_spot_capping_strategy !==
+          PartnerSpotCappingStrategy.PER_PARTNER
+      )
+        return;
+
+      data.partnership_offers.forEach((offer, index) => {
+        if (offer.spot_limit == null || offer.spot_limit > data.effectif) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: t(
+              "addSessionModal.steps.configureSession.settings.partnership.capacity.error",
+            ),
+            path: ["partnership_offers", index, "spot_limit"],
+          });
+        }
+      });
+    })
     .refine(
       (data) =>
         data.roomBlueprintCapacity != null

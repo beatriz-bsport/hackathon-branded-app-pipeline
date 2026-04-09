@@ -866,7 +866,14 @@ export function restoreOffer(id: number, options: OptionCallback) {
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       console.error(error);
-      dispatch(snackbarError('offer.restore.error'));
+      if (
+        isErrorWithCustomCode(error) &&
+        error.response.data?.error_code === 38005
+      ) {
+        dispatch(snackbarError('offer.restore.errorBelongingToGroup'));
+      } else {
+        dispatch(snackbarError('offer.restore.error'));
+      }
     }
   };
 }

@@ -1,12 +1,11 @@
 import {
   EXPORTABLE_COMPONENT_TYPE_CALENDAR,
   EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE,
+  EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
+  EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2,
   EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
 } from '@bsport/saas-legacy/src/libs/exportable-components/constants';
-import {
-  WIDGET_DEPRECATED_EXPORTABLE_COMPONENTS,
-  WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS,
-} from '@bsport/saas-legacy/src/libs/widget/constants';
+import { WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS } from '@bsport/saas-legacy/src/libs/widget/constants';
 import { DIALOG_MODE_TAB } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 
 export type WidgetConfig = {
@@ -61,13 +60,16 @@ export const migrateOldProps = (props: WidgetConfig) => {
     _props.config.privateService.type = privateServiceType;
   }
 
+  /*
+   * Newsletter is deprecated, force load V2
+   */
+  if (_props.widgetType == EXPORTABLE_COMPONENT_TYPE_NEWSLETTER) {
+    _props.widgetType = EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2;
+  } else if (
   /**
    * Use a default config when the current config is wrong
    */
-  if (
-    !WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS.concat(
-      WIDGET_DEPRECATED_EXPORTABLE_COMPONENTS,
-    ).includes(_props.widgetType)
+    !WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS.includes(_props.widgetType)
   ) {
     _props.widgetType = EXPORTABLE_COMPONENT_TYPE_CALENDAR;
   }

@@ -42,6 +42,7 @@ export const CampaignTypeSelectorModal = ({
         toast({
           status: "critical",
           icon: "alert-circle",
+          buttonIcon: "x-close",
           description: String(
             t("communicationPackageUpsellModal.toast.requestFailed"),
           ),

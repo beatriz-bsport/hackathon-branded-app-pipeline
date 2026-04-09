@@ -16,6 +16,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { PayoutBalanceTransactionsModal } from "#src/components/payout-balance-transactions-modal";
 import { PayoutDetailDrawer } from "#src/components/payout-detail-drawer/payout-detail-drawer";
+import { PayoutInformation } from "#src/components/payout-information";
 import {
   PayoutTable,
   usePayoutTableColumns,
@@ -67,12 +68,10 @@ const PayoutPage: FC = () => {
     error || !Array.isArray(payouts)
       ? []
       : payouts.map((payout) => ({
-          id: payout.id,
+          ...payout,
           date: payout.payment_provider_date_created,
           amount: payout.amount_cts / 100,
-          transactions: payout.balance_transaction_count,
           readableId: payout.readable_identifier,
-          status: payout.status,
           reconciliationStatus: payout.reconciliation_status,
           onRowClick: () => {
             setSelectedRow(payout);
@@ -129,9 +128,16 @@ const PayoutPage: FC = () => {
     message: t("loading"),
   };
 
+  const layoutEndGroupActions = [
+    <PayoutInformation key="payout-information-popover" />,
+  ];
+
   return (
     <ListLayout className="w-full">
-      <ListLayout.Header pageTitle={t("title")} />
+      <ListLayout.Header
+        pageTitle={t("title")}
+        endGroupActions={layoutEndGroupActions}
+      />
       <ListLayout.Content className="flex flex-col gap-sm">
         {error != null ? (
           <Alert status="critical" type="weak">

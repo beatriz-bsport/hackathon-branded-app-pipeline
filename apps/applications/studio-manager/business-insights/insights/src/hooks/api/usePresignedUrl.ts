@@ -46,6 +46,7 @@ export const usePresignedUrl = (
       language: i18n.language,
     }),
     gcTime: 0, // Evict the cache to ensure JWT freshness
+    refetchOnWindowFocus: false, // Avoid reloading sigma iframe when switching window tabs
     throwOnError: () => {
       return false;
     },

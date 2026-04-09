@@ -12,6 +12,8 @@ import {
 import type { CampaignScheduled } from "#src/api/types";
 import { useFetchCampaignScheduledList } from "#src/api/use-fetch-campaign-scheduled-list";
 import { DeleteScheduledCommunicationModal } from "#src/components/DeleteScheduledCommunicationModal/DeleteScheduledCommunicationModal";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
+import { CAMPAIGN_CHANNEL_EMAIL } from "#src/urls";
 import {
   CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
   type CampaignScheduledInlineActions,
@@ -31,6 +33,7 @@ export const CampaignScheduledList = () => {
     useState<CampaignScheduledInlineActions | null>(null);
   const [scheduledCampaignForAction, setScheduledCampaignForAction] =
     useState<CampaignScheduled | null>(null);
+  const { navigateToSmartlistCampaignEdit } = useSmartlistNavigation();
 
   const { data: campaignScheduled, isLoading: campaignScheduledLoading } =
     useFetchCampaignScheduledList(smartlistId);
@@ -54,7 +57,11 @@ export const CampaignScheduledList = () => {
 
   const tableColumns = useCampaignScheduledTableColumns({
     onEdit: (campaignId) =>
-      console.log("Placeholder : Edit scheduled campaign : ", campaignId),
+      navigateToSmartlistCampaignEdit(
+        smartlistId,
+        CAMPAIGN_CHANNEL_EMAIL,
+        String(campaignId),
+      ),
     onDelete: (campaignId) => {
       const campaign = campaignScheduledById?.[campaignId] ?? null;
       setScheduledCampaignForAction(campaign);

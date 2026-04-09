@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 
 import { EmailTemplateDetail } from "@bsport/api-cdp";
 import { BackendSelector } from "@bsport/kaizen-business-components/form/backend-selector";
@@ -29,13 +29,12 @@ export const EmailTemplateSelector: React.FC<EmailTemplateSelectorProps> = ({
     id__in,
   });
 
-  const defaultValues = useMemo(
-    () => (selectedTemplateId ? [String(selectedTemplateId)] : undefined),
-    [selectedTemplateId],
-  );
+  const defaultValues = selectedTemplateId
+    ? [String(selectedTemplateId)]
+    : undefined;
 
   return (
-    <QueryBoundary>
+    <QueryBoundary key={id__in}>
       <BackendSelector<{ id__in?: string }, EmailTemplateDetail>
         disabled={disabled}
         searchInput={searchInput}

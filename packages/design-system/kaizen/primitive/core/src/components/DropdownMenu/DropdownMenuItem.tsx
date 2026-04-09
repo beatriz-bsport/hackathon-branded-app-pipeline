@@ -111,6 +111,15 @@ export function DropdownMenuItem(props: DropdownMenuItemProps) {
       rightSlot={rightSlot}
       description={description}
       leftSlot={leftSlot}
+      liHTMLAttributesProps={{
+        onClick: () => {
+          // Native radio onChange doesn't fire when clicking an already-checked radio.
+          // Handle this case so the dropdown closes and the selection callback fires.
+          if (isSelected && !disabled) {
+            handleRadioChange();
+          }
+        },
+      }}
     />
   );
 }

@@ -109,6 +109,21 @@ export type Payout = {
   payment_provider_date_created: string;
 };
 
+export type BalanceTransactionDisplayStats = {
+  amount_cts: number;
+  count: number;
+};
+
+export type BalanceTransactionStats = {
+  by_display_type: Record<string, BalanceTransactionDisplayStats>;
+  no_display_type: BalanceTransactionDisplayStats;
+};
+
+export type PayoutDetail = {
+  id: number;
+  balance_transaction_stats: BalanceTransactionStats;
+};
+
 export type PayoutListResponse = {
   links: { next: string | null; previous: string | null };
   next_page: number | null;

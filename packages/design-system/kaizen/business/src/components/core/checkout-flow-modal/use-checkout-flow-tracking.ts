@@ -41,10 +41,25 @@ export const useCheckoutFlowTracking = ({
   const track: CheckoutFlowTrackFn = useCallback(
     (eventName, properties) => {
       if (!onTrack || !basketSessionId) {
-        throw new Error(
-          "[useCheckoutFlowTracking] Tracking is not properly configured",
+        if (process.env.NODE_ENV === "development") {
+          throw new Error(
+            "[useCheckoutFlowTracking] Tracking is not properly configured",
+          );
+        }
+        console.error(
+          "[useCheckoutFlowTracking] Skipping track call due to missing dependencies",
+          {
+            onTrackMissing: !onTrack,
+            basketSessionIdMissing: !basketSessionId,
+            eventName,
+            properties,
+            onTrack,
+            basketSessionId,
+          },
         );
+        return;
       }
+
       const payload = {
         ...properties,
         basket_session_id: basketSessionId,
@@ -55,12 +70,8 @@ export const useCheckoutFlowTracking = ({
   );
 
   useEffect(() => {
-    if (!isOpen || hasTrackedSessionStartEvents || !basketSessionId) return;
-    if (!onTrack) {
-      throw new Error(
-        "[useCheckoutFlowTracking] Tracking is not properly configured",
-      );
-    }
+    if (!isOpen || hasTrackedSessionStartEvents || !basketSessionId || !onTrack)
+      return;
 
     const startPayload = {
       basket_start_trigger: startContext?.basket_start_trigger,

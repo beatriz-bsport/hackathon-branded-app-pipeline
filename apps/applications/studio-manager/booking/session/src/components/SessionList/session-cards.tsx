@@ -74,7 +74,9 @@ const renderColumnContent = (column: TableColumn, row: EnrichedSession) => {
           row[
             column.keyPath as keyof Omit<
               EnrichedSession,
-              "onRowClick" | "navigateToBookingsManagement"
+              | "onRowClick"
+              | "navigateToBookingsManagement"
+              | "partnership_offers"
             >
           ]
         }

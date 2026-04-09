@@ -136,6 +136,9 @@ export const getPayoutError = (state: RootState): string | null =>
 const getPayoutBalanceTransactionsByPayoutId = (state: RootState) =>
   state.paymentBackend.payoutBalanceTransactions?.byPayoutId ?? {};
 
+const getPayoutDetailsByPayoutId = (state: RootState) =>
+  state.paymentBackend.payoutDetails?.byPayoutId ?? {};
+
 export const getPayoutBalanceTransactions = (
   state: RootState,
   payoutId: number,
@@ -165,6 +168,17 @@ export const getPayoutBalanceTransactionsError = (
   payoutId: number,
 ): string | null =>
   getPayoutBalanceTransactionsByPayoutId(state)[payoutId]?.error ?? null;
+
+export const getPayoutDetailBalanceTransactionStats = (
+  state: RootState,
+  payoutId: number,
+) =>
+  getPayoutDetailsByPayoutId(state)[payoutId]?.balanceTransactionStats ?? null;
+
+export const getPayoutDetailLoading = (
+  state: RootState,
+  payoutId: number,
+): boolean => getPayoutDetailsByPayoutId(state)[payoutId]?.loading ?? false;
 
 export const getStripeDomainListState = (state: RootState) =>
   state.paymentBackend.stripeDomainList;

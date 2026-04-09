@@ -94,6 +94,7 @@ function Details() {
             status: "positive",
             icon: "download-01",
             description: tCampaign("generateReportModal.toast.success"),
+            buttonIcon: "x-close",
           });
         },
         onError: () => {
@@ -101,6 +102,7 @@ function Details() {
             status: "critical",
             icon: "alert-circle",
             description: tCampaign("generateReportModal.toast.downloadFailed"),
+            buttonIcon: "x-close",
           });
         },
       });
@@ -140,6 +142,7 @@ function Details() {
         status: "critical",
         icon: "alert-circle",
         description: tCampaign("generateReportModal.toast.downloadFailed"),
+        buttonIcon: "x-close",
       });
     }
   };
@@ -267,6 +270,7 @@ function Details() {
               icon: "send-01",
               description: tCampaign("generateReportModal.toast.pending"),
               duration: 3000,
+              buttonIcon: "x-close",
             });
             handleStart(selectedDate);
             setInlineActions(null);

@@ -1,54 +1,49 @@
 import { useState } from "react";
 
-import { Modal } from "@bsport/kaizen-primitive-core";
+import { Chip, Modal, TextField } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
 import { EmailDesignEditor } from "./email-design-editor";
 import { EmailDesignEditorActionsModal } from "./email-design-editor-actions-modal";
-import type {
-  EmailDesignContent,
-  EmailDesignEditorAction,
-} from "./email-design-editor-types";
+import type { EmailDesignContent } from "./email-design-editor-types";
 
 export type EmailDesignEditorModalProps = {
-  /**
-   * Whether the modal is open.
-   */
+  /** Whether the modal is open. */
   open: boolean;
-  /**
-   * The function to call when the modal is closed.
-   */
+  /** The function to call when the modal is closed. */
   onClose: () => void;
-  /**
-   * The actions to display in the modal to let the user choose what to do with the design.
-   */
-  actions: EmailDesignEditorAction[];
-  /**
-   * A key that forces the Unlayer design to reload.
-   * Use this when switching between different templates while the component stays mounted.
-   */
-  resetKey?: string | number;
-  /**
-   * The current design content to display in the editor along with the current HTML preview.
-   */
+  /** Initial design content shown in the editor. The modal owns this state internally. */
   value: EmailDesignContent;
+  /** Initial email subject shown in the subject field. The modal owns this state internally. */
+  initialSubject?: string;
+  /** Called with the current content and subject when the user picks "use for this campaign only". */
+  onOnTheFly: (content: EmailDesignContent, subject: string) => void;
+  /** Called with the current content and subject when the user picks "save as new template". */
+  onCreateNew: (content: EmailDesignContent, subject: string) => void;
   /**
-   * The function to call when the design content changes to update the current HTML preview.
+   * Called with the current content and subject when the user picks "overwrite existing template".
+   * When undefined the overwrite option is shown as disabled.
    */
-  onChange?: (next: EmailDesignContent) => void;
+  onOverwrite?: (content: EmailDesignContent, subject: string) => void;
+  /** Whether the template is a franchise template. */
+  isFranchiseTemplate?: boolean;
 };
 
 export const EmailDesignEditorModal = ({
   open,
   onClose,
-  actions,
-  resetKey,
   value,
-  onChange,
+  initialSubject = "",
+  isFranchiseTemplate = false,
+  onOnTheFly,
+  onCreateNew,
+  onOverwrite,
 }: EmailDesignEditorModalProps) => {
   const { t } = useTranslation("campaign");
   const [showActions, setShowActions] = useState(false);
+  const [content, setContent] = useState<EmailDesignContent>(value);
+  const [subject, setSubject] = useState(initialSubject);
 
   return (
     <Modal
@@ -58,19 +53,38 @@ export const EmailDesignEditorModal = ({
         label: t("email.creation.form.emailTemplateEditor.confirmButtonLabel"),
         onClick: () => setShowActions(true),
       }}
+      description={
+        isFranchiseTemplate ? (
+          <Chip
+            label={t(
+              "email.creation.form.emailTemplateEditor.franchiseTemplateLabel",
+            )}
+            color="info"
+            type="weak"
+            size="lg"
+          />
+        ) : null
+      }
       title={t("email.creation.form.emailTemplateEditor.title")}
       size="xl"
     >
-      <EmailDesignEditor
-        resetKey={resetKey}
-        value={value}
-        onChange={onChange}
-      />
+      <div className="flex flex-col gap-md">
+        <TextField
+          id="email-design-editor-subject"
+          label={t("email.creation.form.emailTemplateEditor.subjectLabel")}
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          fullWidth
+        />
+        <EmailDesignEditor value={content} onChange={setContent} />
+      </div>
       {showActions ? (
         <EmailDesignEditorActionsModal
           open={true}
-          actions={actions}
-          content={value}
+          canOverwrite={onOverwrite !== undefined && !isFranchiseTemplate}
+          onOnTheFly={() => onOnTheFly(content, subject)}
+          onCreateNew={() => onCreateNew(content, subject)}
+          onOverwrite={() => onOverwrite?.(content, subject)}
           onClose={() => setShowActions(false)}
         />
       ) : null}

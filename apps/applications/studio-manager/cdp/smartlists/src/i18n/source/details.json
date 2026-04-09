@@ -209,6 +209,31 @@
       }
     }
   },
+  "generic": {
+    "pushNotification": {
+      "sections": {
+        "message": "Message",
+        "preview": "Preview"
+      },
+      "preview": {
+        "noContentMessage": "Fill in the title and content to see a preview"
+      },
+      "form": {
+        "title": {
+          "label": "Title",
+          "placeholder": "",
+          "required": "Add a title",
+          "maxLength": "Title must be under 25 characters"
+        },
+        "message": {
+          "label": "Content",
+          "placeholder": "",
+          "required": "Add a message",
+          "maxLength": "Message must be under 200 characters"
+        }
+      }
+    }
+  },
   "error": {
     "notFound": {
       "title": "Smartlist not found",

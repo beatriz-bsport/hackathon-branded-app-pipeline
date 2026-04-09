@@ -1,21 +1,21 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { scheduleEmailCampaign, smartlistKeys } from "./api";
-import type { CampaignScheduled, ScheduleEmailCampaignPayload } from "./types";
+import type { CampaignScheduled, ScheduleCampaignPayload } from "./types";
 
-type UseScheduleEmailCampaignParams = {
+type UseScheduleCampaignParams = {
   onSuccess?: (data: CampaignScheduled) => void;
   onError?: (error: Error) => void;
 };
 
-export const useScheduleEmailCampaign = ({
+export const useScheduleCampaign = ({
   onSuccess,
   onError,
-}: UseScheduleEmailCampaignParams = {}) => {
+}: UseScheduleCampaignParams = {}) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: ({ payload }: { payload: ScheduleEmailCampaignPayload }) =>
+    mutationFn: ({ payload }: { payload: ScheduleCampaignPayload }) =>
       scheduleEmailCampaign(payload),
     onSuccess: (data) => {
       queryClient.invalidateQueries({

@@ -26,6 +26,9 @@ const CreatePopupCampaignPage = lazy(
 const CreatePushCampaignPage = lazy(
   () => import("#src/pages/push-campaign/create-push-campaign"),
 );
+const EditPushCampaignPage = lazy(
+  () => import("#src/pages/push-campaign/edit-push-campaign"),
+);
 const EditPopupCampaignPage = lazy(() => import("#src/pages/PopupEditPage"));
 
 function isValidChannel(channel: string): channel is CampaignChannel {
@@ -85,6 +88,8 @@ function EditRouteByChannel() {
         return <EditEmailCampaignPage />;
       case CAMPAIGN_CHANNEL_POPUP:
         return <EditPopupCampaignPage />;
+      case CAMPAIGN_CHANNEL_PUSH:
+        return <EditPushCampaignPage />;
       default:
         return <Navigate to={basePath} replace />;
     }

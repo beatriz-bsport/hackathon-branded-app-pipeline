@@ -1,4 +1,4 @@
-import { useId, useRef } from "react";
+import { useId } from "react";
 
 import {
   ControlledForm,
@@ -7,34 +7,23 @@ import {
 } from "@bsport/form";
 import {
   Alert,
-  Body,
   Select,
   type SelectProps,
-  TextArea,
-  TextField,
   Title,
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { PushNotificationPreview } from "#src/components/BusinessComponents/PushNotificationPreview";
 import { ToggleButtonGroup } from "#src/components/ToggleButtonGroup/ToggleButtonGroup";
+import { PushNotificationContent } from "#src/components/push-notification-generic-field/push-notification-content";
 import { useTranslation } from "#src/utils/i18n";
 
-import { CommunicationVariableSelector } from "./CommunicationVariableSelector";
 import {
   PUSH_AUTOMATION_EVENT_VALUES,
-  PUSH_AUTOMATION_MAX_MESSAGE_LENGTH,
-  PUSH_AUTOMATION_MAX_TITLE_LENGTH,
   PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES,
   type PushAutomationEventValue,
   type PushAutomationFormData,
   isPushAutomationEventValue,
 } from "./types";
-import {
-  focusEditableTextElementAtCursor,
-  getEditableTextElement,
-  insertValueAtCursor,
-} from "./variable-interpolation";
 
 type AutomationPushFormProps = Omit<
   ControlledFormProps<PushAutomationFormData>,
@@ -49,58 +38,13 @@ export const AutomationPushForm: React.FC<AutomationPushFormProps> = ({
   const { t } = useTranslation("details");
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
-  const watchedTitle = methods.watch("title");
-  const watchedMessage = methods.watch("message");
 
   const formIdPrefix = useId();
   const ids = {
     fields: {
       condition: `${formIdPrefix}-field-condition`,
       limit: `${formIdPrefix}-field-limit`,
-      title: `${formIdPrefix}-field-title`,
-      message: `${formIdPrefix}-field-message`,
     },
-  };
-
-  type PushAutomationInputType = "title" | "message";
-
-  const currentInputRef = useRef<PushAutomationInputType | null>(null);
-
-  const handleCommunicationVariableSelect = (selectedVariable: string) => {
-    const currentInputName = currentInputRef.current;
-    if (!currentInputName) {
-      return;
-    }
-
-    const currentInput = methods.getValues(currentInputName) ?? "";
-    const elementId =
-      currentInputName === "title" ? ids.fields.title : ids.fields.message;
-    const element = getEditableTextElement(elementId);
-
-    if (!element) {
-      return;
-    }
-
-    const currentCursorPos = element.selectionStart ?? currentInput.length;
-    const interpolationResult = insertValueAtCursor({
-      currentValue: currentInput,
-      cursorPosition: currentCursorPos,
-      valueToInsert: selectedVariable,
-    });
-
-    if (!interpolationResult) {
-      return;
-    }
-
-    methods.setValue(currentInputName, interpolationResult.value, {
-      shouldDirty: true,
-      shouldValidate: true,
-    });
-
-    focusEditableTextElementAtCursor(
-      element,
-      interpolationResult.cursorPosition,
-    );
   };
 
   const conditionOptions: Array<{
@@ -191,80 +135,7 @@ export const AutomationPushForm: React.FC<AutomationPushFormProps> = ({
           </FormField>
         </div>
 
-        <div className="flex flex-col gap-sm">
-          <Title htmlVariant="h2" weight="strong">
-            {t("automation.push.sections.message")}
-          </Title>
-
-          <div className="flex flex-row gap-lg">
-            <div className="flex flex-1 flex-col gap-sm">
-              <div className="flex flex-col gap-xs">
-                <FormField<PushAutomationFormData, "title">
-                  name="title"
-                  mapProps={({ defaultProps, form, field }) => ({
-                    ...defaultProps,
-                    onClear: () => {
-                      form.setValue("title", "", { shouldDirty: true });
-                      field.onBlur();
-                    },
-                  })}
-                >
-                  <TextField
-                    id={ids.fields.title}
-                    label={t("automation.push.form.title.label")}
-                    placeholder={t("automation.push.form.title.placeholder")}
-                    required
-                    fullWidth
-                    maxLength={PUSH_AUTOMATION_MAX_TITLE_LENGTH}
-                    onFocus={() => {
-                      currentInputRef.current = "title";
-                    }}
-                  />
-                </FormField>
-              </div>
-
-              <div className="flex flex-col gap-xs">
-                <FormField<PushAutomationFormData, "message"> name="message">
-                  <TextArea
-                    id={ids.fields.message}
-                    label={t("automation.push.form.message.label")}
-                    placeholder={t("automation.push.form.message.placeholder")}
-                    required
-                    maxLength={PUSH_AUTOMATION_MAX_MESSAGE_LENGTH}
-                    onFocus={() => {
-                      currentInputRef.current = "message";
-                    }}
-                  />
-                </FormField>
-                <div className="w-full">
-                  <div className="w-80 flex place-self-end">
-                    <CommunicationVariableSelector
-                      fullWidth
-                      id={`${formIdPrefix}-communication-variable-selector`}
-                      onSelectCommunicationVariable={
-                        handleCommunicationVariableSelect
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-1 max-w-sm flex-col gap-2xs">
-              <div className="flex items-center justify-center">
-                <Body htmlVariant="p" weight="stronger" size="md">
-                  {t("automation.push.sections.preview")}
-                </Body>
-              </div>
-              <PushNotificationPreview
-                sender={companyTheme?.company_name ?? ""}
-                title={watchedTitle}
-                content={watchedMessage}
-                noContentMessage={t("automation.push.preview.noContentMessage")}
-              />
-            </div>
-          </div>
-        </div>
+        <PushNotificationContent sender={companyTheme?.company_name ?? ""} />
       </ControlledForm>
     </div>
   );

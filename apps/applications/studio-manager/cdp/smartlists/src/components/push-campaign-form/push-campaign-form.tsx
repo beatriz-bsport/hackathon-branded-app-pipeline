@@ -5,6 +5,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { CampaignDeliveryModeSelector } from "#src/components/campaign-generic-fields/campaign-delivery-mode-selector";
 import { CampaignNameField } from "#src/components/campaign-generic-fields/campaign-name-field";
+import { PushNotificationContent } from "#src/components/push-notification-generic-field/push-notification-content";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { PushCampaignFormData } from "./types";
@@ -29,13 +30,14 @@ export const PushCampaignForm: React.FC<PushCampaignFormProps> = ({
       className="flex flex-col gap-md"
       {...methods}
     >
-      <CampaignNameField<PushCampaignFormData> />
-      <CampaignDeliveryModeSelector<PushCampaignFormData>
+      <CampaignNameField />
+      <CampaignDeliveryModeSelector
         companyTimezone={companyTheme?.timezone_name ?? "UTC"}
         locale={i18n.language}
         earliestHourToSend={companyTheme?.earliest_hour_to_send_communications}
         latestHourToSend={companyTheme?.latest_hour_to_send_communications}
       />
+      <PushNotificationContent sender={companyTheme?.company_name ?? ""} />
     </ControlledForm>
   );
 };

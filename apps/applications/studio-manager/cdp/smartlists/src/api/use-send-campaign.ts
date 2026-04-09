@@ -1,21 +1,21 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { sendEmailCampaign, smartlistKeys } from "./api";
-import type { CampaignSent, SendEmailCampaignPayload } from "./types";
+import type { CampaignSent, SendCampaignPayload } from "./types";
 
-type UseSendEmailCampaignParams = {
+type UseSendCampaignParams = {
   onSuccess?: (data: CampaignSent) => void;
   onError?: (error: Error) => void;
 };
 
-export const useSendEmailCampaign = ({
+export const useSendCampaign = ({
   onSuccess,
   onError,
-}: UseSendEmailCampaignParams = {}) => {
+}: UseSendCampaignParams = {}) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: ({ payload }: { payload: SendEmailCampaignPayload }) =>
+    mutationFn: ({ payload }: { payload: SendCampaignPayload }) =>
       sendEmailCampaign(payload),
     onSuccess: (data) => {
       queryClient.invalidateQueries({

@@ -109,9 +109,19 @@ export type SendPushCampaignPayload = {
   };
 };
 
+export type SendSmsCampaignPayload = {
+  sms: string;
+  context_identifier: number;
+  context_object_id: number;
+  member_filters: {
+    smartlist: number;
+  };
+};
+
 export type SendCampaignPayload =
   | SendEmailCampaignPayload
-  | SendPushCampaignPayload;
+  | SendPushCampaignPayload
+  | SendSmsCampaignPayload;
 
 /**
  * Combined type that includes automated campaign config + analytics

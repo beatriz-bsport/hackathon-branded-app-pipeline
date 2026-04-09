@@ -5,8 +5,7 @@ import type {
   UpdateScheduledEmailCampaignPayload,
 } from "#src/api/types";
 import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
-
-const CONTEXT_SMARTLIST = 202;
+import { CONTEXT_SMARTLIST } from "#src/utils/constants";
 
 const getEmailContent = (data: EmailCampaignFormData) => {
   const subject = (data.emailSubject ?? "").trim();

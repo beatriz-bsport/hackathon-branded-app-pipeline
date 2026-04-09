@@ -232,6 +232,26 @@
           "maxLength": "Message must be under 200 characters"
         }
       }
+    },
+    "smsContent": {
+      "sections": {
+        "message": "Message",
+        "preview": "Preview"
+      },
+      "preview": {
+        "noContentMessage": "Fill in the content to see a preview"
+      },
+      "form": {
+        "message": {
+          "label": "SMS body",
+          "placeholder": "",
+          "required": "Add SMS content",
+          "segmentCount": "",
+          "segmentCount_one": "{{count}} SMS segment",
+          "segmentCount_other": "{{count}} SMS segments",
+          "moreThanOneSegment": "This message will be sent in {{count}} SMS segments as there is a limit of 160 characters per segment. Be mindful of the character count when adding variables."
+        }
+      }
     }
   },
   "error": {

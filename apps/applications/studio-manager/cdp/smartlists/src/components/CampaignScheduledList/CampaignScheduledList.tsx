@@ -10,14 +10,13 @@ import {
   toast,
 } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind } from "#src/api/constants";
 import type { CampaignScheduled } from "#src/api/types";
 import { useFetchCampaignScheduledList } from "#src/api/use-fetch-campaign-scheduled-list";
 import { DeleteScheduledCommunicationModal } from "#src/components/DeleteScheduledCommunicationModal/DeleteScheduledCommunicationModal";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import { CAMPAIGN_CHANNEL_EMAIL, CAMPAIGN_CHANNEL_PUSH } from "#src/urls";
 import {
   CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
+  COMMUNICATION_CHANNEL_BY_KIND_MAP,
   type CampaignScheduledInlineActions,
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
@@ -70,9 +69,7 @@ export const CampaignScheduledList = () => {
         return;
       }
       const channel =
-        campaign?.communication_kind === CommunicationKind.PUSH
-          ? CAMPAIGN_CHANNEL_PUSH
-          : CAMPAIGN_CHANNEL_EMAIL;
+        COMMUNICATION_CHANNEL_BY_KIND_MAP[campaign.communication_kind];
 
       navigateToSmartlistCampaignEdit(smartlistId, channel, String(campaignId));
     },

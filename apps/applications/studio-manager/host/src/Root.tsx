@@ -168,7 +168,10 @@ const AuthenticatedRoutes = () => {
         companyName: companyName,
         companyLocale,
         actionColor: colorOverride,
-        onEmailValidationFailure: (error, context) => {
+        onEmailValidationFailure: (
+          error: Error,
+          context: Record<string, unknown>,
+        ) => {
           captureException(error, { extra: context });
         },
       });

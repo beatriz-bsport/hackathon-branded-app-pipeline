@@ -22,9 +22,14 @@ export const CreateAutomationModal = ({
   onClose,
 }: CreateAutomationModalProps) => {
   const { t } = useTranslation("details");
+
   const { id } = useParams<{ id: string }>();
   invariant(id, "Expected id param to be defined");
-  const { navigateToSmartlistAutomationCreation } = useSmartlistNavigation();
+
+  const {
+    navigateToSmartlistPushAutomationCreation,
+    navigateToSmartlistSmsAutomationCreation,
+  } = useSmartlistNavigation();
 
   const [step, setStep] = useState<CreateAutomationStep>("automation-type");
 
@@ -35,7 +40,12 @@ export const CreateAutomationModal = ({
 
   const handlePushNotificationClick = () => {
     handleClose();
-    navigateToSmartlistAutomationCreation(id, "push");
+    navigateToSmartlistPushAutomationCreation(id);
+  };
+
+  const handleSmsClick = () => {
+    handleClose();
+    navigateToSmartlistSmsAutomationCreation(id);
   };
 
   return (
@@ -119,6 +129,7 @@ export const CreateAutomationModal = ({
                   "actions.createAutomationModal.messageChannel.sms.description",
                 )}
                 icon="message-dots-circle"
+                onClick={handleSmsClick}
               />
               <TypeSelectorCard
                 title={t(

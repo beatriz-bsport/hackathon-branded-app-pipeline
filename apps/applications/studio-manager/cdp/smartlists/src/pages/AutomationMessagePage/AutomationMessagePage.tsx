@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 
 import {
   Breadcrumbs,
@@ -18,7 +18,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
-import { CAMPAIGN_CHANNEL_PUSH, SMARTLIST_APP_LINKS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -48,13 +48,11 @@ function AutomationMessageDetail() {
     cancelDelete,
   } = useDeleteAutomationModal();
 
-  const { id, channel, messageId } = useParams<{
+  const { id, messageId } = useParams<{
     id: string;
-    channel: string;
     messageId: string;
   }>();
   invariant(id, "Expected id param to be defined");
-  invariant(channel, "Expected channel param to be defined");
   invariant(messageId, "Expected messageId param to be defined");
 
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(id);
@@ -62,10 +60,6 @@ function AutomationMessageDetail() {
     useAutomatedCampaignDetailSuspenseQuery(messageId);
 
   const { detailsLayoutProps } = useDetailsLayout();
-
-  if (channel !== CAMPAIGN_CHANNEL_PUSH) {
-    return <Navigate to={SMARTLIST_APP_LINKS.automation(id)} replace />;
-  }
 
   const breadcrumbsItems = [
     <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
@@ -103,13 +97,7 @@ function AutomationMessageDetail() {
       size="md"
       label={tDetails("automation.messagePage.actions.edit")}
       onClick={() => {
-        navigate(
-          SMARTLIST_APP_LINKS.automationEdit(
-            id,
-            CAMPAIGN_CHANNEL_PUSH,
-            messageId,
-          ),
-        );
+        navigate(SMARTLIST_APP_LINKS.automationPushEdit(id, messageId));
       }}
     />,
   ];

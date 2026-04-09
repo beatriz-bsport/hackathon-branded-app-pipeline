@@ -38,6 +38,7 @@ const getRuntimeEnvDirectoryCandidates = (rootDir: string) => {
   return [
     resolve(rootDir, "envs"),
     resolve(rootDir, "../host/envs"),
+    resolve(rootDir, "../../host/envs"),
     resolve(process.cwd(), "apps/applications/studio-manager/host/envs"),
   ];
 };

@@ -6,7 +6,9 @@ import { DetailsLayout } from "@bsport/kaizen-primitive-core";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { DetailsFetchError } from "#src/components/session-details/details-fetch-error";
 import { DetailsLoadingPage } from "#src/components/session-details/details-loading-page";
+import { Header } from "#src/components/session-management/header";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
+import { useRetrieveTeacher } from "#src/hooks/teacher/use-retrieve-teacher.js";
 
 const SessionManagementPageInner: FC = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
@@ -19,13 +21,12 @@ const SessionManagementPageInner: FC = () => {
 
   const { data: session } = useRetrieveSession(id);
 
+  useRetrieveTeacher(session.coach_override ?? session.coach);
+
   return (
     <DetailsLayout withPanel>
-      <DetailsLayout.Header
-        pageTitle={
-          session.name_override ? session.name_override : session.activity_name
-        }
-      />
+      <Header sessionId={session.id} />
+
       <DetailsLayout.Content>
         {/** PLACEHOLDER SECTION */}
         <pre>{JSON.stringify(session, null, 2)}</pre>

@@ -1,6 +1,6 @@
 import { ZodError } from "zod";
 
-import type { ManagerSession } from "@bsport/api-book";
+import type { ManagerSession, Session } from "@bsport/api-book";
 import { type DateTime } from "@bsport/datetime-manipulation";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
@@ -115,3 +115,13 @@ export type SafeEventResult<T> = {
   event: T;
   errors: SafeEventError | null;
 };
+
+export type DetailsHeaderSession = Pick<
+  Session,
+  | "id"
+  | "available"
+  | "manager_only"
+  | "date_start"
+  | "duration_minute"
+  | "timezone_name"
+>;

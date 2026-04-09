@@ -10,6 +10,7 @@ import type sessionCreation from "#src/i18n/source/sessionCreation.json";
 import type sessionDetails from "#src/i18n/source/sessionDetails.json";
 import type sessionEdit from "#src/i18n/source/sessionEdit.json";
 import type sessionList from "#src/i18n/source/sessionList.json";
+import type sessionManagement from "#src/i18n/source/sessionManagement.json";
 
 type Translations = {
   sessionEdit: typeof sessionEdit;
@@ -17,6 +18,7 @@ type Translations = {
   common: typeof common;
   sessionCreation: typeof sessionCreation;
   sessionDetails: typeof sessionDetails;
+  sessionManagement: typeof sessionManagement;
 };
 
 export const {

@@ -1,21 +1,20 @@
 import { CommunicationKind } from "#src/api/constants";
 import type {
   ScheduleCampaignPayload,
-  SendPushCampaignPayload,
+  SendSmsCampaignPayload,
 } from "#src/api/types";
-import type { PushCampaignFormData } from "#src/components/push-campaign-form/types";
+import type { SmsCampaignFormData } from "#src/components/sms-campaign-form/types";
 import { CONTEXT_SMARTLIST } from "#src/utils/constants";
 
-export const formatSendPushCampaignPayload = ({
+export const formatSendSmsCampaignPayload = ({
   smartlistId,
   data,
 }: {
   smartlistId: number;
-  data: PushCampaignFormData;
-}): SendPushCampaignPayload => {
+  data: SmsCampaignFormData;
+}): SendSmsCampaignPayload => {
   return {
-    notification_title: data.title.trim(),
-    notification_content: data.message,
+    sms: data.message,
     context_identifier: CONTEXT_SMARTLIST,
     context_object_id: smartlistId,
     member_filters: {
@@ -24,19 +23,19 @@ export const formatSendPushCampaignPayload = ({
   };
 };
 
-export const formatSchedulePushCampaignPayload = ({
+export const formatScheduleSmsCampaignPayload = ({
   smartlistId,
   data,
   datetimeScheduled,
 }: {
   smartlistId: number;
-  data: PushCampaignFormData;
+  data: SmsCampaignFormData;
   datetimeScheduled: string;
 }): ScheduleCampaignPayload => {
   return {
     smartlist: smartlistId,
-    communication_kind: CommunicationKind.PUSH,
-    title: data.title.trim(),
+    communication_kind: CommunicationKind.SMS,
+    title: "",
     text: data.message,
     datetime_scheduled: datetimeScheduled,
   };

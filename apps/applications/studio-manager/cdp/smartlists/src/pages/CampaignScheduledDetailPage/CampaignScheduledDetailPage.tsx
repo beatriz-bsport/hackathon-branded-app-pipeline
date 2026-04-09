@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router";
 
-import { CommunicationKind } from "@bsport/api-cdp";
 import {
   Breadcrumbs,
   DetailsLayout,
@@ -18,14 +17,11 @@ import {
   QueryBoundary,
 } from "#src/components/QueryBoundary";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import {
-  CAMPAIGN_CHANNEL_EMAIL,
-  CAMPAIGN_CHANNEL_PUSH,
-  SMARTLIST_APP_LINKS,
-} from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { getFallbackCampaignScheduledName } from "#src/utils/campaignUtils";
 import {
   CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
+  COMMUNICATION_CHANNEL_BY_KIND_MAP,
   CampaignScheduledInlineActions,
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
@@ -89,10 +85,9 @@ function CampaignScheduledDetail() {
       key="campaign-scheduled-detail-header-actions"
       onEdit={() => {
         const channel =
-          campaignScheduledDetail?.communication_kind === CommunicationKind.PUSH
-            ? CAMPAIGN_CHANNEL_PUSH
-            : CAMPAIGN_CHANNEL_EMAIL;
-
+          COMMUNICATION_CHANNEL_BY_KIND_MAP[
+            campaignScheduledDetail?.communication_kind
+          ];
         navigateToSmartlistCampaignEdit(
           id,
           channel,

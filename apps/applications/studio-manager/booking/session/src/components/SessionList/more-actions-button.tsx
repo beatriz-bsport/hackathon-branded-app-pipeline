@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
 
-import { Button, Item, Menu, Popover } from "@bsport/kaizen-primitive-core";
+import { Item } from "@bsport/kaizen-primitive-core";
 
+import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
@@ -73,28 +74,11 @@ export const MoreActionsButton: React.FC<MoreActionsButtonProps> = ({
 
   return (
     (hasExportParticipantsPermission || canCancelMultipleSessions) && (
-      <Popover>
-        <Popover.Anchor>
-          {({ setIsPopoverOpened }) => (
-            <Button
-              kind="icon-button"
-              icon="dots-vertical"
-              onClick={() => setIsPopoverOpened(true)}
-              size="md"
-              intent="default"
-              color="main"
-              label={t("moreActions.label")}
-            />
-          )}
-        </Popover.Anchor>
-        <Popover.Content placement="bottom-right">
-          {({ setIsPopoverOpened }) => (
-            <div className="flex flex-col gap-sm">
-              <Menu items={getMenuItems(setIsPopoverOpened)} />
-            </div>
-          )}
-        </Popover.Content>
-      </Popover>
+      <ActionsMenuButton
+        label={t("moreActions.label")}
+        items={getMenuItems}
+        prominent
+      />
     )
   );
 };

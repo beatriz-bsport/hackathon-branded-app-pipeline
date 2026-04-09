@@ -50,35 +50,38 @@ export const useSmartlistNavigation = () => {
         options,
       );
     },
-    navigateToSmartlistAutomationCreation: (
+    navigateToSmartlistPushAutomationCreation: (
       smartlistId: string,
-      channel: CampaignChannel,
       options?: NavigateOptions,
     ) => {
       navigate(
-        SMARTLIST_APP_LINKS.automationCreation(smartlistId, channel),
+        SMARTLIST_APP_LINKS.automationPushCreation(smartlistId),
         options,
       );
     },
-    navigateToSmartlistAutomationEdit: (
+    navigateToSmartlistSmsAutomationCreation: (
       smartlistId: string,
-      channel: CampaignChannel,
+      options?: NavigateOptions,
+    ) => {
+      navigate(SMARTLIST_APP_LINKS.automationSmsCreation(smartlistId), options);
+    },
+    navigateToSmartlistPushAutomationEdit: (
+      smartlistId: string,
       entityId: string,
       options?: NavigateOptions,
     ) => {
       navigate(
-        SMARTLIST_APP_LINKS.automationEdit(smartlistId, channel, entityId),
+        SMARTLIST_APP_LINKS.automationPushEdit(smartlistId, entityId),
         options,
       );
     },
-    navigateToSmartlistAutomationMessage: (
+    navigateToSmartlistPushAutomationMessage: (
       smartlistId: string,
-      channel: CampaignChannel,
       messageId: string | number,
       options?: NavigateOptions,
     ) => {
       navigate(
-        SMARTLIST_APP_LINKS.automationMessage(smartlistId, channel, messageId),
+        SMARTLIST_APP_LINKS.automationPushMessage(smartlistId, messageId),
         options,
       );
     },

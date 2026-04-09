@@ -169,6 +169,9 @@
       },
       "subscription": {
         "creation": {
+          "immediate": {
+            "immediate": "Sent on trigger"
+          },
           "before": {
             "day_one": "Sent {{count}} day before subscription created",
             "day_other": "Sent {{count}} days before subscription created",
@@ -183,6 +186,9 @@
           }
         },
         "firstBilling": {
+          "immediate": {
+            "immediate": "Sent on trigger"
+          },
           "before": {
             "day_one": "Sent {{count}} day before first invoice of subscription",
             "day_other": "Sent {{count}} days before first invoice of subscription",
@@ -197,6 +203,9 @@
           }
         },
         "end": {
+          "immediate": {
+            "immediate": "Sent on trigger"
+          },
           "before": {
             "day_one": "Sent {{count}} day before subscription ends",
             "day_other": "Sent {{count}} days before subscription ends",

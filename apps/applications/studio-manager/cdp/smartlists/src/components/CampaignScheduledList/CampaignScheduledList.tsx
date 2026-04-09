@@ -7,13 +7,15 @@ import {
   Collapse,
   Table,
   Title,
+  toast,
 } from "@bsport/kaizen-primitive-core";
 
+import { CommunicationKind } from "#src/api/constants";
 import type { CampaignScheduled } from "#src/api/types";
 import { useFetchCampaignScheduledList } from "#src/api/use-fetch-campaign-scheduled-list";
 import { DeleteScheduledCommunicationModal } from "#src/components/DeleteScheduledCommunicationModal/DeleteScheduledCommunicationModal";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import { CAMPAIGN_CHANNEL_EMAIL } from "#src/urls";
+import { CAMPAIGN_CHANNEL_EMAIL, CAMPAIGN_CHANNEL_PUSH } from "#src/urls";
 import {
   CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
   type CampaignScheduledInlineActions,
@@ -56,14 +58,35 @@ export const CampaignScheduledList = () => {
   }, [campaignScheduled]);
 
   const tableColumns = useCampaignScheduledTableColumns({
-    onEdit: (campaignId) =>
-      navigateToSmartlistCampaignEdit(
-        smartlistId,
-        CAMPAIGN_CHANNEL_EMAIL,
-        String(campaignId),
-      ),
+    onEdit: (campaignId) => {
+      const campaign = campaignScheduledById?.[campaignId];
+      if (!campaign) {
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          title: t("table.campaignScheduled.toasts.error.campaignNotFound"),
+          buttonIcon: "x-close",
+        });
+        return;
+      }
+      const channel =
+        campaign?.communication_kind === CommunicationKind.PUSH
+          ? CAMPAIGN_CHANNEL_PUSH
+          : CAMPAIGN_CHANNEL_EMAIL;
+
+      navigateToSmartlistCampaignEdit(smartlistId, channel, String(campaignId));
+    },
     onDelete: (campaignId) => {
       const campaign = campaignScheduledById?.[campaignId] ?? null;
+      if (!campaign) {
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          title: t("table.campaignScheduled.toasts.error.campaignNotFound"),
+          buttonIcon: "x-close",
+        });
+        return;
+      }
       setScheduledCampaignForAction(campaign);
       setCurrentInlineAction(CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION);
     },

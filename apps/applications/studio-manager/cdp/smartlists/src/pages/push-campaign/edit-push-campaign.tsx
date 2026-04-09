@@ -14,33 +14,33 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { useFetchCampaignScheduledDetail } from "#src/api/use-fetch-campaign-scheduled-detail";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import { useUpdateScheduledEmailCampaign } from "#src/api/use-update-scheduled-email-campaign";
-import { EmailCampaignForm } from "#src/components/EmailCampaignForm/email-campaign-form";
-import { getEmailCampaignSchema } from "#src/components/EmailCampaignForm/schema";
-import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
 import {
   DetailPageErrorFallback,
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
-import { formatUpdateScheduledEmailCampaignPayload } from "#src/pages/EmailCampaign/utils/format-email-campaign-payload";
-import { initEmailCampaignFormDefaultValues } from "#src/pages/EmailCampaign/utils/init-email-campaign-form-default-values";
+import { PushCampaignForm } from "#src/components/push-campaign-form/push-campaign-form";
+import { getPushCampaignSchema } from "#src/components/push-campaign-form/schema";
+import type { PushCampaignFormData } from "#src/components/push-campaign-form/types";
+import { formatSchedulePushCampaignPayload } from "#src/pages/push-campaign/utils/format-push-campaign-payload";
+import { initPushCampaignFormDefaultValues } from "#src/pages/push-campaign/utils/init-push-campaign-form-default-values";
 import { formatScheduledDateTime } from "#src/pages/utils/format-scheduled-date-time";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
-const EditEmailCampaignPage = () => {
+const EditPushCampaignPage = () => {
   return (
     <QueryBoundary
       loadingFallback={<PageLoader />}
       errorFallback={(props) => <DetailPageErrorFallback {...props} />}
     >
-      <EditEmailCampaign />
+      <EditPushCampaign />
     </QueryBoundary>
   );
 };
 
-function EditEmailCampaign() {
+function EditPushCampaign() {
   const { t: tList } = useTranslation("list");
   const { t: tCampaign } = useTranslation("campaign");
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ function EditEmailCampaign() {
     dataAccessLayer.useCompanyTheme()?.timezone_name ?? "UTC";
 
   const { data: scheduledCampaign } = useFetchCampaignScheduledDetail(entityId);
-  const { formDefaults } = initEmailCampaignFormDefaultValues({
+  const { formDefaults } = initPushCampaignFormDefaultValues({
     campaign: scheduledCampaign,
     companyTimezone,
   });
@@ -74,7 +74,7 @@ function EditEmailCampaign() {
         toast({
           status: "default",
           icon: "check",
-          title: tCampaign("email.creation.toasts.success.schedule"),
+          title: tCampaign("push.creation.toasts.success.schedule"),
           buttonIcon: "x-close",
         });
       },
@@ -82,7 +82,7 @@ function EditEmailCampaign() {
         toast({
           status: "critical",
           icon: "alert-circle",
-          title: tCampaign("email.creation.toasts.error.scheduleFailed"),
+          title: tCampaign("push.creation.toasts.error.sendFailed"),
           buttonIcon: "x-close",
         });
       },
@@ -91,7 +91,7 @@ function EditEmailCampaign() {
   const formId = useId();
   const methods = useFormController({
     mode: "onBlur",
-    schema: getEmailCampaignSchema(companyTimezone),
+    schema: getPushCampaignSchema(companyTimezone),
     defaultValues: formDefaults,
   });
 
@@ -110,7 +110,7 @@ function EditEmailCampaign() {
     />,
   ];
 
-  const handleSubmit = async (data: EmailCampaignFormData) => {
+  const handleSubmit = async (data: PushCampaignFormData) => {
     if (!data.scheduledDate || !data.scheduledTime) return;
 
     const datetimeScheduled = formatScheduledDateTime({
@@ -119,7 +119,7 @@ function EditEmailCampaign() {
       companyTimezone,
     });
 
-    const payload = formatUpdateScheduledEmailCampaignPayload({
+    const payload = formatSchedulePushCampaignPayload({
       smartlistId: smartlist.id,
       data,
       datetimeScheduled,
@@ -134,13 +134,13 @@ function EditEmailCampaign() {
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
-        pageTitle={tCampaign("email.creation.title")}
+        pageTitle={tCampaign("push.creation.title")}
         BreadcrumbsItems={breadcrumbsItems}
         callToActionButton={
           <Button
             color="main"
             intent="call-to-action"
-            label={tCampaign("email.creation.continueButtonLabel")}
+            label={tCampaign("push.creation.continueButtonLabel")}
             size="md"
             type="submit"
             form={formId}
@@ -149,15 +149,10 @@ function EditEmailCampaign() {
         }
       />
       <DetailsLayout.Content>
-        <EmailCampaignForm
-          smartlistId={smartlist.id}
-          id={formId}
-          onSubmit={handleSubmit}
-          {...methods}
-        />
+        <PushCampaignForm id={formId} onSubmit={handleSubmit} {...methods} />
       </DetailsLayout.Content>
     </DetailsLayout>
   );
 }
 
-export default EditEmailCampaignPage;
+export default EditPushCampaignPage;

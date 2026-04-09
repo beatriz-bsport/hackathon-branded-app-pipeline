@@ -1,16 +1,11 @@
-import { useCallback, useId } from "react";
+import { useId } from "react";
 
 import {
   type DateTime,
   fromIsoString,
   getLocalNow,
 } from "@bsport/datetime-manipulation";
-import {
-  type FieldPath,
-  type FieldValues,
-  FormField,
-  useFormContext,
-} from "@bsport/form";
+import { FormField, useFormContext } from "@bsport/form";
 import {
   Body,
   DatePicker,
@@ -27,18 +22,19 @@ import { useTranslation } from "#src/utils/i18n";
 import {
   DELIVERY_MODE_SCHEDULE_LATER,
   DELIVERY_MODE_SEND_NOW,
+  type DeliveryMode,
 } from "./campaign-delivery-mode.constants";
 import { useScheduledDateTimeValidator } from "./use-scheduled-date-time-validator";
 
-type CampaignDeliveryModeSelectorProps<TFormValues extends FieldValues> = {
+type CampaignDeliveryModeFormValues = {
+  deliveryMode: DeliveryMode;
+  scheduledDate?: string;
+  scheduledTime?: string;
+};
+
+type CampaignDeliveryModeSelectorProps = {
   companyTimezone: string;
   locale: string;
-  /** Defaults to `deliveryMode` when omitted. */
-  deliveryModeFieldName?: FieldPath<TFormValues>;
-  /** Defaults to `scheduledDate` when omitted. */
-  scheduledDateFieldName?: FieldPath<TFormValues>;
-  /** Defaults to `scheduledTime` when omitted. */
-  scheduledTimeFieldName?: FieldPath<TFormValues>;
   /** This value should always come from the company theme `earliest_hour_to_send_communications` field and be between 0 and 23. */
   earliestHourToSend?: number;
   /** This value should always come from the company theme `latest_hour_to_send_communications` field and be between 0 and 23. */
@@ -46,97 +42,61 @@ type CampaignDeliveryModeSelectorProps<TFormValues extends FieldValues> = {
 };
 
 /**
- * Generic delivery mode selector (send now / schedule later) for campaign-like forms.
+ * Delivery mode selector (send now / schedule later) for campaign-like forms.
  *
- * Expected field shape (by default):
+ * Expected field shape:
  * - `deliveryMode`: "send_now" | "schedule_later"
  * - `scheduledDate`?: ISO date string
  * - `scheduledTime`?: "HH:mm"
- *
- * You can override those field paths when your form schema uses different names.
  */
-export const CampaignDeliveryModeSelector = <TFormValues extends FieldValues>({
+export const CampaignDeliveryModeSelector = ({
   companyTimezone,
   locale,
-  deliveryModeFieldName,
-  scheduledDateFieldName,
-  scheduledTimeFieldName,
   earliestHourToSend,
   latestHourToSend,
-}: CampaignDeliveryModeSelectorProps<TFormValues>) => {
+}: CampaignDeliveryModeSelectorProps) => {
   const { t } = useTranslation("campaign");
   const baseId = useId();
-  const deliveryModePath = (deliveryModeFieldName ??
-    "deliveryMode") as FieldPath<TFormValues>;
-  const scheduledDatePath = (scheduledDateFieldName ??
-    "scheduledDate") as FieldPath<TFormValues>;
-  const scheduledTimePath = (scheduledTimeFieldName ??
-    "scheduledTime") as FieldPath<TFormValues>;
-
   const { watch, setValue, clearErrors, formState } =
-    useFormContext<TFormValues>();
-  const scheduledDateError = formState.errors[scheduledDatePath]?.message;
-  const scheduledTimeError = formState.errors[scheduledTimePath]?.message;
-  const deliveryMode = watch(deliveryModePath);
+    useFormContext<CampaignDeliveryModeFormValues>();
+  const scheduledDateError = formState.errors.scheduledDate?.message;
+  const scheduledTimeError = formState.errors.scheduledTime?.message;
+  const deliveryMode = watch("deliveryMode");
   const scheduledDateValidation = useScheduledDateTimeValidator({
     companyTimezone,
     locale,
-    date: watch(scheduledDatePath),
-    time: watch(scheduledTimePath),
+    date: watch("scheduledDate"),
+    time: watch("scheduledTime"),
     earliestHourToSend,
     latestHourToSend,
   });
 
-  const handleSendNowClick = useCallback(() => {
-    setValue(
-      deliveryModePath,
-      DELIVERY_MODE_SEND_NOW as TFormValues[typeof deliveryModePath],
-      {
-        shouldDirty: true,
-        shouldValidate: true,
-      },
-    );
-    setValue(
-      scheduledDatePath,
-      undefined as TFormValues[typeof scheduledDatePath],
-      {
-        shouldDirty: true,
-        shouldValidate: true,
-      },
-    );
-    setValue(
-      scheduledTimePath,
-      undefined as TFormValues[typeof scheduledTimePath],
-      {
-        shouldDirty: true,
-        shouldValidate: true,
-      },
-    );
-    clearErrors([scheduledDatePath, scheduledTimePath]);
-  }, [
-    setValue,
-    clearErrors,
-    deliveryModePath,
-    scheduledDatePath,
-    scheduledTimePath,
-  ]);
+  const handleSendNowClick = () => {
+    setValue("deliveryMode", DELIVERY_MODE_SEND_NOW, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+    setValue("scheduledDate", undefined, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+    setValue("scheduledTime", undefined, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+    clearErrors(["scheduledDate", "scheduledTime"]);
+  };
 
-  const handleScheduleLaterClick = useCallback(() => {
-    setValue(
-      deliveryModePath,
-      DELIVERY_MODE_SCHEDULE_LATER as TFormValues[typeof deliveryModePath],
-      {
-        shouldDirty: true,
-        shouldValidate: true,
-      },
-    );
-  }, [setValue, deliveryModePath]);
+  const handleScheduleLaterClick = () => {
+    setValue("deliveryMode", DELIVERY_MODE_SCHEDULE_LATER, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+  };
 
   const today = getLocalNow({ zone: companyTimezone });
-  const disablePastDates = useCallback(
-    (date: DateTime) => date.startOf("day") < today.startOf("day"),
-    [today],
-  );
+  const disablePastDates = (date: DateTime) =>
+    date.startOf("day") < today.startOf("day");
   const isScheduled = deliveryMode === DELIVERY_MODE_SCHEDULE_LATER;
 
   return (
@@ -187,8 +147,12 @@ export const CampaignDeliveryModeSelector = <TFormValues extends FieldValues>({
 
       {isScheduled && (
         <div className="flex flex-col gap-xs sm:flex-row sm:items-end">
-          <FormField<TFormValues, FieldPath<TFormValues>, DatePickerProps>
-            name={scheduledDatePath}
+          <FormField<
+            CampaignDeliveryModeFormValues,
+            "scheduledDate",
+            DatePickerProps
+          >
+            name="scheduledDate"
             mapProps={({ field, form: { setValue: setFormValue } }) => {
               const dateValue = field.value
                 ? fromIsoString(field.value, { zone: companyTimezone })
@@ -200,15 +164,10 @@ export const CampaignDeliveryModeSelector = <TFormValues extends FieldValues>({
                     date && !Array.isArray(date)
                       ? (date.toISODate() ?? "")
                       : "";
-                  setFormValue(
-                    scheduledDatePath,
-                    (value ||
-                      undefined) as TFormValues[typeof scheduledDatePath],
-                    {
-                      shouldDirty: true,
-                      shouldValidate: true,
-                    },
-                  );
+                  setFormValue("scheduledDate", value || undefined, {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
                 },
                 status:
                   scheduledDateError || scheduledTimeError
@@ -229,20 +188,19 @@ export const CampaignDeliveryModeSelector = <TFormValues extends FieldValues>({
           </FormField>
 
           <div className="flex flex-col gap-2xs">
-            <FormField<TFormValues, FieldPath<TFormValues>, TimePickerProps>
-              name={scheduledTimePath}
+            <FormField<
+              CampaignDeliveryModeFormValues,
+              "scheduledTime",
+              TimePickerProps
+            >
+              name="scheduledTime"
               mapProps={({ field, form: { setValue: setFormValue } }) => ({
                 value: field.value ?? "",
                 onChange: (time: string) => {
-                  setFormValue(
-                    scheduledTimePath,
-                    (time ||
-                      undefined) as TFormValues[typeof scheduledTimePath],
-                    {
-                      shouldDirty: true,
-                      shouldValidate: true,
-                    },
-                  );
+                  setFormValue("scheduledTime", time || undefined, {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
                 },
               })}
             >

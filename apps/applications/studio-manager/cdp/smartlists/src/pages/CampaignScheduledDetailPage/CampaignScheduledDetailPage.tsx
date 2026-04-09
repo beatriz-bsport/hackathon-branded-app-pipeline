@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router";
 
+import { CommunicationKind } from "@bsport/api-cdp";
 import {
   Breadcrumbs,
   DetailsLayout,
@@ -17,7 +18,11 @@ import {
   QueryBoundary,
 } from "#src/components/QueryBoundary";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import { CAMPAIGN_CHANNEL_EMAIL, SMARTLIST_APP_LINKS } from "#src/urls";
+import {
+  CAMPAIGN_CHANNEL_EMAIL,
+  CAMPAIGN_CHANNEL_PUSH,
+  SMARTLIST_APP_LINKS,
+} from "#src/urls";
 import { getFallbackCampaignScheduledName } from "#src/utils/campaignUtils";
 import {
   CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
@@ -82,9 +87,18 @@ function CampaignScheduledDetail() {
   const endGroupActions = [
     <CampaignScheduledHeaderActionDropdown
       key="campaign-scheduled-detail-header-actions"
-      onEdit={() =>
-        navigateToSmartlistCampaignEdit(id, CAMPAIGN_CHANNEL_EMAIL, uuid)
-      }
+      onEdit={() => {
+        const channel =
+          campaignScheduledDetail?.communication_kind === CommunicationKind.PUSH
+            ? CAMPAIGN_CHANNEL_PUSH
+            : CAMPAIGN_CHANNEL_EMAIL;
+
+        navigateToSmartlistCampaignEdit(
+          id,
+          channel,
+          String(campaignScheduledId),
+        );
+      }}
       onDelete={() =>
         setCurrentInlineAction(CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION)
       }

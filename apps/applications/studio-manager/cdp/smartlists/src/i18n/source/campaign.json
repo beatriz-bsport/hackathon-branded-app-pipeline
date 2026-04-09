@@ -160,6 +160,15 @@
   },
   "push": {
     "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campaign sent",
+          "schedule": "Campaign scheduled"
+        },
+        "error": {
+          "sendFailed": "Campaign couldn't be sent. Please try again."
+        }
+      },
       "title": "Push Notification Campaign",
       "continueButtonLabel": "Continue",
       "alertMessage": "Only members who have downloaded your studio app and enabled push notifications will receive this notification.",
@@ -367,7 +376,8 @@
           "deleted": "Scheduled campaign deleted"
         },
         "error": {
-          "deleteFailed": "Scheduled campaign couldn't be deleted. Please try again."
+          "deleteFailed": "Scheduled campaign couldn't be deleted. Please try again.",
+          "campaignNotFound": "Scheduled campaign not found."
         }
       },
       "recipientsList": {

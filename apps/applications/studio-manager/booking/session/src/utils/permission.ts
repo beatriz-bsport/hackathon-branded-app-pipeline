@@ -16,6 +16,8 @@ export const ADD_ON_WELLHUB_INTEGRATION = 36;
 
 export const UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER = 32;
 
+export const UPSELL_CLASSPASS_IDENTIFIER = 8;
+
 export const useCheckCompanyAddOn = (identifier: number) => {
   const companyAddOns = dataAccessLayer.useCompanyFeatures();
   return checkFeaturePermission({

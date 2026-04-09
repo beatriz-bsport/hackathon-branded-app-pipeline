@@ -7,9 +7,9 @@ import {
 import { useFormContext } from "@bsport/form";
 import {
   type GenericTableColumn,
+  Label,
   Table,
   TextField,
-  Toggle,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -32,20 +32,22 @@ export const SessionPartnershipOffersTable: FC<{
 
   const rows: PartnershipOfferRow[] = useMemo(
     () =>
-      (activeAccounts ?? []).map((account) => {
-        const formIndex = partnershipOffers.findIndex(
-          (po) => po.partnership === account.partnership,
-        );
-        const offer = partnershipOffers[formIndex];
-        return {
-          id: account.id,
-          partnership: account.partnership,
-          partnership_identifier: account.partnership_identifier,
-          allowed_on_partner: offer?.allowed_on_partner ?? true,
-          spot_limit: offer?.spot_limit ?? 0,
-          formIndex,
-        };
-      }),
+      (activeAccounts ?? [])
+        .map((account) => {
+          const formIndex = partnershipOffers.findIndex(
+            (po) => po.partnership === account.partnership,
+          );
+          const offer = partnershipOffers[formIndex];
+          return {
+            id: account.id,
+            partnership: account.partnership,
+            partnership_identifier: account.partnership_identifier,
+            allowed_on_partner: offer?.allowed_on_partner ?? true,
+            spot_limit: offer?.spot_limit ?? 0,
+            formIndex,
+          };
+        })
+        .filter((row) => row.allowed_on_partner),
     [activeAccounts, partnershipOffers],
   );
 
@@ -53,33 +55,17 @@ export const SessionPartnershipOffersTable: FC<{
     () => [
       {
         id: "allowed_on_partner",
-        header: (
-          <span className="inline-block ml-[2.5rem]">
-            {t(
-              "addSessionModal.steps.configureSession.settings.partnership.perPartner.table.columns.partner",
-              { ns: "sessionCreation" },
-            )}
-          </span>
+        header: t(
+          "addSessionModal.steps.configureSession.settings.partnership.perPartner.table.columns.partner",
+          { ns: "sessionCreation" },
         ),
         type: "custom",
         render: (row: PartnershipOfferRow) => (
-          <Toggle
-            checked={row.allowed_on_partner}
-            direction="start"
-            id={`${fieldIdPrefix}-partnership-toggle-${row.partnership}`}
+          <Label
+            htmlFor={`${fieldIdPrefix}-partnership-toggle-${row.partnership}`}
             label={t(`aggregators.name.${row.partnership_identifier}`, {
               ns: "common",
             })}
-            onToggleChange={(value) => {
-              const updated = [...partnershipOffers];
-              if (updated[row.formIndex]) {
-                updated[row.formIndex] = {
-                  ...updated[row.formIndex],
-                  allowed_on_partner: value,
-                };
-              }
-              setValue("partnership_offers", updated, { shouldDirty: true });
-            }}
           />
         ),
       },
@@ -115,16 +101,15 @@ export const SessionPartnershipOffersTable: FC<{
     [partnershipOffers, t, fieldIdPrefix, setValue],
   );
 
+  if (!rows.length) return null;
+
   return (
-    <div className="mt-md">
-      <Table
-        className="border border-solid border-stroke-thin border-stroke-default rounded-md overflow-hidden text-body-md"
-        columns={columns}
-        rows={rows}
-        rowHeight="sm"
-        withHorizontalDivider
-        emptyStateProps={{ isEmpty: rows.length === 0 }}
-      />
-    </div>
+    <Table
+      className="border border-solid border-stroke-thin border-stroke-default rounded-md overflow-hidden text-body-md"
+      columns={columns}
+      rows={rows}
+      rowHeight="sm"
+      withHorizontalDivider
+    />
   );
 };

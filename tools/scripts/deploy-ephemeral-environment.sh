@@ -54,6 +54,6 @@ echo "⏳ Deploying to ephemeral environment"
 
 aws s3 sync s3://bsport-frontends-artifacts-euw3/backoffice/mr-${CI_MERGE_REQUEST_IID} s3://bsport-backoffice-assets-ephemeral-environment/preview-${CI_MERGE_REQUEST_IID} --only-show-errors
 
-aws cp apps/applications/studio-manager/host/envs/dev.studio-env.js s3://bsport-backoffice-assets-ephemeral-environment/preview-${CI_MERGE_REQUEST_IID}/studio/studio-env.js --only-show-errors
+aws s3 cp apps/applications/studio-manager/host/envs/dev.studio-env.js s3://bsport-backoffice-assets-ephemeral-environment/preview-${CI_MERGE_REQUEST_IID}/studio/studio-env.js --only-show-errors
 
 echo "✅ Ephemeral environment deployed successfully"

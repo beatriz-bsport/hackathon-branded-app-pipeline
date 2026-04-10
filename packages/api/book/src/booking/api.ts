@@ -36,8 +36,9 @@ const DEFAULT_PAGINATION_PARAMS = {
 
 export const bookingKeys = {
   all: ["@api-book", "booking"] as const,
+  listScope: () => [...bookingKeys.all, "list"] as const,
   list: (params: PaginatedBookingFilterParams) =>
-    [...bookingKeys.all, "list", params] as const,
+    [...bookingKeys.listScope(), params] as const,
   detail: (bookingId: number) => [...bookingKeys.all, bookingId] as const,
   recurrenceRulesScope: () => [...bookingKeys.all, "recurrence-rules"] as const,
   recurrenceRules: (params: RecurrenceRuleBookingFilterParams) =>

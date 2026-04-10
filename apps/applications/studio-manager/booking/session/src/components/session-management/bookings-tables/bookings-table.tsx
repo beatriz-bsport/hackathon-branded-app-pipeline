@@ -11,6 +11,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance.js";
 import {
   RefinedBooking,
   useFetchRefinedBookings,
@@ -34,6 +35,9 @@ export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
+  const { mutate: setAttendance, isPending: isSettingAttendance } =
+    useSetAttendance();
+
   const {
     isLoading,
     results: refinedBookings,
@@ -51,7 +55,18 @@ export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
       type: "custom",
       align: "start",
       render: (row) => (
-        <Toggle checked={row.attendance} id="attendance-toggle" label="" />
+        <Toggle
+          checked={row.attendance}
+          id={`attendance-toggle-${row.id}`}
+          label=""
+          disabled={isSettingAttendance}
+          onChange={() =>
+            setAttendance({
+              bookingId: row.id,
+              attendance: !row.attendance,
+            })
+          }
+        />
       ),
     },
     {

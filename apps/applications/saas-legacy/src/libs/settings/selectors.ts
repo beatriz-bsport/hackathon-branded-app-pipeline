@@ -45,3 +45,12 @@ export const getCustomAppNavigationLoading = (state: RootState) =>
 
 export const getCustomAppNavigationTabsNames = (state: RootState) =>
   state.settings.customAppNavigation.tabNames;
+
+export const getAdpModalVisibility = (state: RootState) =>
+  state.settings.adpModalVisibility.data;
+
+export const getIsAdpModalOpen = (state: RootState) =>
+  state.settings.adpModalVisibility.isModalOpen;
+
+export const getIsAdpModalBlocking = (state: RootState) =>
+  state.settings.adpModalVisibility.data === 'block-user';

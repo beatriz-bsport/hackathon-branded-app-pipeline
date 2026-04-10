@@ -1,6 +1,10 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import type { SettingsState, CustomAppNavigationTabsNames } from './types';
+import type {
+  AdpModalVisibility,
+  CustomAppNavigationTabsNames,
+  SettingsState,
+} from './types';
 import {
   fetchCustomShopRedirectionsActions,
   createCustomShopRedirectionActions,
@@ -11,6 +15,8 @@ import {
   editCustomMobilePopupActions,
   deleteCustomMobilePopupActions,
   fetchCustomNavigationTabsNamesActions,
+  fetchAdpModalVisibilityActions,
+  dismissAdpModalVisibilityAction,
 } from './actions';
 
 const initialState: Immutable.Immutable<SettingsState> =
@@ -38,9 +44,15 @@ const initialState: Immutable.Immutable<SettingsState> =
       loading: false,
       error: null,
     },
+    adpModalVisibility: {
+      data: null,
+      isModalOpen: false,
+      loading: false,
+      error: null,
+    },
   });
 
-export default handleActions<Immutable.Immutable<SettingsState>>(
+export default handleActions<Immutable.Immutable<SettingsState>, any>(
   {
     [fetchCustomShopRedirectionsActions.isLoading.toString()]: (
       state,
@@ -224,6 +236,25 @@ export default handleActions<Immutable.Immutable<SettingsState>>(
       state,
       { payload }: { payload: CustomAppNavigationTabsNames },
     ) => state.setIn(['customAppNavigation', 'tabNames'], payload),
+    [fetchAdpModalVisibilityActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => state.setIn(['adpModalVisibility', 'loading'], payload),
+    [fetchAdpModalVisibilityActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => state.setIn(['adpModalVisibility', 'error'], payload),
+    [fetchAdpModalVisibilityActions.success.toString()]: (
+      state,
+      { payload }: { payload: AdpModalVisibility },
+    ) =>
+      state
+        .setIn(['adpModalVisibility', 'data'], payload)
+        .setIn(['adpModalVisibility', 'isModalOpen'], payload !== 'hide'),
+    [dismissAdpModalVisibilityAction.toString()]: (state) =>
+      state
+        .setIn(['adpModalVisibility', 'data'], 'hide')
+        .setIn(['adpModalVisibility', 'isModalOpen'], false),
   },
   initialState,
 );

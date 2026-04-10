@@ -6,6 +6,7 @@ import { DetailsLayout } from "@bsport/kaizen-primitive-core";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { DetailsFetchError } from "#src/components/session-details/details-fetch-error";
 import { DetailsLoadingPage } from "#src/components/session-details/details-loading-page";
+import { BookingsTable } from "#src/components/session-management/bookings-tables/bookings-table.js";
 import { Header } from "#src/components/session-management/header";
 import { SessionManagementModals } from "#src/components/session-management/session-management-modals.js";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
@@ -33,9 +34,7 @@ const SessionManagementPageInner: FC = () => {
         <Header sessionId={session.id} openModal={openModal} />
 
         <DetailsLayout.Content>
-          {/** PLACEHOLDER SECTION */}
-          <pre>{JSON.stringify(session, null, 2)}</pre>
-          {/** END OF PLACEHOLDER SECTION */}
+          <BookingsTable sessionId={session.id} />
         </DetailsLayout.Content>
       </DetailsLayout>
       <SessionManagementModals

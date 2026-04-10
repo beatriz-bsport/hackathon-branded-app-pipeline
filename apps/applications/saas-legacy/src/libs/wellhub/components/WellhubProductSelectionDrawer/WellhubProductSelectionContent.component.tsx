@@ -12,7 +12,11 @@ import WellhubProductSelectionOfferList from './WellhubProductSelectionOfferList
 
 import type { Coach } from '#src/libs/associated-coach/types';
 import type { Establishment } from '#src/libs/establishment/types';
-import type { Offer, OfferEdit, OfferSaas } from '#src/libs/offer/types';
+import type {
+  Offer,
+  OfferSaas,
+  UpdateWellhubProductIdPayload,
+} from '#src/libs/offer/types';
 import type { ReworkedPaginationResponse } from '#src/state/types';
 import type { WellhubProductSelectionFormValues } from '#src/libs/wellhub/types';
 
@@ -28,7 +32,10 @@ type Props = {
   wellhubPartnershipId?: number | null;
   fetchMissingProductOffersSpecificPage: (page: number) => void;
   onClose: () => void;
-  onConfirm: (data: { offerId: number; data: Partial<OfferEdit> }) => void;
+  onConfirm: (data: {
+    offerId: number;
+    data: UpdateWellhubProductIdPayload;
+  }) => void;
   onOfferClick: (offerId: number) => void;
   resetOfferClicked: () => void;
 };
@@ -77,10 +84,8 @@ const WellhubProductSelectionContent: React.FC<Props> = ({
       return;
     }
 
-    const offerData: Partial<OfferEdit> = {
+    const offerData: UpdateWellhubProductIdPayload = {
       custom_selection_ids: values.selectedSimilarOffers,
-      custom_selection: values.modifyRecursively,
-      id: offerSelected.id,
       wellhub_product_id: values.wellhubProductId,
     };
 
@@ -95,7 +100,6 @@ const WellhubProductSelectionContent: React.FC<Props> = ({
     handleGoBackToOfferList,
     offerSelected,
     onConfirm,
-    values.modifyRecursively,
     values.selectedSimilarOffers,
     values.wellhubProductId,
   ]);

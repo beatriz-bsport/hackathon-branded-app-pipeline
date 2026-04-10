@@ -64,6 +64,8 @@ export const MessagesSection = (
 ) => {
   const { smartlistId } = useOutletContext<AutomationPageContext>();
   const {
+    navigateToSmartlistSmsAutomationEdit,
+    navigateToSmartlistSmsAutomationMessage,
     navigateToSmartlistPushAutomationEdit,
     navigateToSmartlistPushAutomationMessage,
   } = useSmartlistNavigation();
@@ -313,6 +315,13 @@ export const MessagesSection = (
                           smartlistId,
                           String(row.id),
                         );
+                      } else if (
+                        row.communication_kind === CommunicationKind.SMS
+                      ) {
+                        navigateToSmartlistSmsAutomationEdit(
+                          smartlistId,
+                          String(row.id),
+                        );
                       }
                     } else {
                       invariant(false, `Unhandled action id: ${id}`);
@@ -348,16 +357,8 @@ export const MessagesSection = (
         ? allColumns.filter((col) => !compactHiddenColumns.includes(col.id))
         : allColumns;
     },
-    // we should't add t as dependency, instead we add the language
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [
-      i18n.language,
-      compact,
-      exportCampaign,
-      navigateToSmartlistPushAutomationEdit,
-      requestDelete,
-      smartlistId,
-    ],
+    [i18n.language, compact, smartlistId],
   );
 
   const rows: TableRow[] = useMemo(
@@ -372,9 +373,17 @@ export const MessagesSection = (
                   smartlistId,
                   campaign.id,
                 )
-            : undefined,
+            : campaign.communication_kind === CommunicationKind.SMS
+              ? () =>
+                  navigateToSmartlistSmsAutomationMessage(
+                    smartlistId,
+                    campaign.id,
+                  )
+              : undefined,
       })),
-    [campaigns, navigateToSmartlistPushAutomationMessage, smartlistId],
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [campaigns, smartlistId],
   );
 
   return (

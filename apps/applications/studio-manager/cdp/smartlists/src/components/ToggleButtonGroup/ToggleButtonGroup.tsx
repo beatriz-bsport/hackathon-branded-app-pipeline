@@ -8,6 +8,7 @@ type ToggleButtonGroupOption<TValue extends string> = {
   value: TValue;
   label: string;
   icon?: IconName;
+  disabled?: boolean;
 };
 
 export type ToggleButtonGroupProps<TValue extends string> = {
@@ -45,7 +46,7 @@ export const ToggleButtonGroup = <TValue extends string>({
             id={`${id}-${option.value}`}
             size={size}
             checked={selectedValue === option.value}
-            disabled={disabled}
+            disabled={disabled || option.disabled}
             checkedConfig={{ label: option.label, iconLeft: option.icon }}
             uncheckedConfig={{ label: option.label, iconLeft: option.icon }}
             onChange={({ checked }) => {

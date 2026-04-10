@@ -8,9 +8,8 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { EventKind } from "#src/api/constants";
+import { CommunicationKind, EventKind } from "#src/api/constants";
 import { useAutomatedCampaignDetailSuspenseQuery } from "#src/api/use-automated-campaign-detail";
-import { useAutomatedCampaignSummarySuspenseQuery } from "#src/api/use-automated-campaign-summary";
 import { AutomationTriggerIcon } from "#src/components/AutomationTriggerIcon/AutomationTriggerIcon";
 import { COMMUNICATION_KIND_ICON_MAP } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
@@ -24,24 +23,38 @@ type AutomationDetailsCardProps = {
 export function AutomationDetailsCard({
   messageId,
 }: AutomationDetailsCardProps) {
-  const { t: tDetails, i18n } = useTranslation("details");
-  const { t: tCampaign } = useTranslation("campaign");
+  const { t, i18n } = useTranslation();
 
   const isMobile = !useMatchMedia("md");
   const { isPreviewOpen, onPreviewOpen, onPreviewClose } = usePreviewDrawer();
 
   const { data: automation } =
     useAutomatedCampaignDetailSuspenseQuery(messageId);
-  const { data: campaignSummary } =
-    useAutomatedCampaignSummarySuspenseQuery(+messageId);
   const companyTheme = dataAccessLayer.useCompanyTheme();
 
   const triggerLabel =
     automation.event_kind === EventKind.JOIN
-      ? tDetails("automation.push.form.condition.options.entry")
-      : tDetails("automation.push.form.condition.options.exit");
+      ? t(
+          automation.communication_kind === CommunicationKind.SMS
+            ? "automation.sms.form.condition.options.entry"
+            : "automation.push.form.condition.options.entry",
+          { ns: "details" },
+        )
+      : t(
+          automation.communication_kind === CommunicationKind.SMS
+            ? "automation.sms.form.condition.options.exit"
+            : "automation.push.form.condition.options.exit",
+          { ns: "details" },
+        );
 
-  const totalRecipients = campaignSummary.total_recipients;
+  const channelLabel =
+    automation.communication_kind === CommunicationKind.SMS
+      ? t("actions.createAutomationModal.messageChannel.sms.title", {
+          ns: "details",
+        })
+      : t("actions.createAutomationModal.messageChannel.push.title", {
+          ns: "details",
+        });
 
   const createdOn = formatDateTime(
     automation.date_created,
@@ -54,10 +67,12 @@ export function AutomationDetailsCard({
   return (
     <>
       <Card>
-        <div className="grid gap-sm [grid-template-columns:1fr_1fr] [grid-template-areas:'channel_trigger'_'created_recipients'_'button_button'] md:grid-cols-5 md:gap-md md:[grid-template-areas:'channel_trigger_created_recipients_button']">
+        <div className="grid gap-sm [grid-template-columns:1fr_1fr] [grid-template-areas:'channel_trigger'_'created_created'_'button_button'] md:grid-cols-5 md:gap-md md:[grid-template-areas:'channel_trigger_created_created_button']">
           <div className="flex flex-col gap-xs [grid-area:channel]">
             <Body size="sm" color="weak">
-              {tCampaign("campaignDetails.metadataBanner.headers.channel")}
+              {t("campaignDetails.metadataBanner.headers.channel", {
+                ns: "campaign",
+              })}
             </Body>
             <Chip
               className="w-fit"
@@ -67,14 +82,14 @@ export function AutomationDetailsCard({
               iconLeft={
                 COMMUNICATION_KIND_ICON_MAP[automation.communication_kind]
               }
-              label={tDetails(
-                "actions.createAutomationModal.messageChannel.push.title",
-              )}
+              label={channelLabel}
             />
           </div>
           <div className="flex flex-col gap-xs [grid-area:trigger]">
             <Body size="sm" color="weak">
-              {tDetails("automation.messagePage.metadata.headers.trigger")}
+              {t("automation.messagePage.metadata.headers.trigger", {
+                ns: "details",
+              })}
             </Body>
             <div className="flex items-center gap-xs">
               <AutomationTriggerIcon
@@ -88,18 +103,10 @@ export function AutomationDetailsCard({
           </div>
           <div className="flex flex-col gap-xs [grid-area:created]">
             <Body size="sm" color="weak">
-              {tDetails("automation.messages.columns.createdOn")}
+              {t("automation.messages.columns.createdOn", { ns: "details" })}
             </Body>
             <Body weight="stronger" size="lg">
               {createdOn}
-            </Body>
-          </div>
-          <div className="flex flex-col gap-xs [grid-area:recipients]">
-            <Body size="sm" color="weak">
-              {tCampaign("campaignDetails.metadataBanner.headers.recipients")}
-            </Body>
-            <Body weight="stronger" size="lg">
-              {String(totalRecipients)}
             </Body>
           </div>
           <div className="[grid-area:button] self-center">
@@ -109,7 +116,9 @@ export function AutomationDetailsCard({
               color="main"
               size="md"
               fullWidth={isMobile}
-              label={tCampaign("campaignDetails.metadataBanner.previewButton")}
+              label={t("campaignDetails.metadataBanner.previewButton", {
+                ns: "campaign",
+              })}
               onClick={onPreviewOpen}
             />
           </div>

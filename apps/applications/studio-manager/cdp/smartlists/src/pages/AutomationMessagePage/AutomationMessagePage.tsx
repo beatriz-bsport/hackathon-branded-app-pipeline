@@ -7,6 +7,7 @@ import {
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 
+import { CommunicationKind } from "#src/api/constants";
 import { useAutomatedCampaignDetailSuspenseQuery } from "#src/api/use-automated-campaign-detail";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import {
@@ -97,7 +98,11 @@ function AutomationMessageDetail() {
       size="md"
       label={tDetails("automation.messagePage.actions.edit")}
       onClick={() => {
-        navigate(SMARTLIST_APP_LINKS.automationPushEdit(id, messageId));
+        navigate(
+          automation.communication_kind === CommunicationKind.SMS
+            ? SMARTLIST_APP_LINKS.automationSmsEdit(id, messageId)
+            : SMARTLIST_APP_LINKS.automationPushEdit(id, messageId),
+        );
       }}
     />,
   ];

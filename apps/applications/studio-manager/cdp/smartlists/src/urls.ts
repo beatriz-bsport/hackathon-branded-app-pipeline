@@ -73,7 +73,9 @@ export const SMARTLIST_ROUTE_PATTERNS = {
   AUTOMATION_PUSH_CREATE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_PUSH}/${SEGMENTS.create}`,
   AUTOMATION_SMS_CREATE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_SMS}/${SEGMENTS.create}`,
   AUTOMATION_PUSH_EDIT: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_PUSH}/${PARAMS.entityId}/${SEGMENTS.edit}`,
+  AUTOMATION_SMS_EDIT: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_SMS}/${PARAMS.entityId}/${SEGMENTS.edit}`,
   AUTOMATION_PUSH_MESSAGE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_PUSH}/${PARAMS.messageId}`,
+  AUTOMATION_SMS_MESSAGE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_SMS}/${PARAMS.messageId}`,
   AUTOMATION_TAG_RULE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.tagRule}/${PARAMS.tagRuleId}`,
   COMMUNICATION_CREATE: `${PARAMS.channel}/${SEGMENTS.create}`,
   COMMUNICATION_EDIT: `${PARAMS.channel}/${PARAMS.entityId}/${SEGMENTS.edit}`,
@@ -114,12 +116,29 @@ export const SMARTLIST_APP_LINKS = {
       entityId,
       SEGMENTS.edit,
     ),
+  automationSmsEdit: (smartlistId: string, entityId: string) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.automation,
+      SEGMENTS.messages,
+      CAMPAIGN_CHANNEL_SMS,
+      entityId,
+      SEGMENTS.edit,
+    ),
   automationPushMessage: (smartlistId: string, messageId: string | number) =>
     buildSmartlistLink(
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.messages,
       CAMPAIGN_CHANNEL_PUSH,
+      messageId,
+    ),
+  automationSmsMessage: (smartlistId: string, messageId: string | number) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.automation,
+      SEGMENTS.messages,
+      CAMPAIGN_CHANNEL_SMS,
       messageId,
     ),
   campaign: (smartlistId: string) =>

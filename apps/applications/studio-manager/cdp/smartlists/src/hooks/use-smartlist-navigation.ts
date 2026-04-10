@@ -75,6 +75,16 @@ export const useSmartlistNavigation = () => {
         options,
       );
     },
+    navigateToSmartlistSmsAutomationEdit: (
+      smartlistId: string,
+      entityId: string,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.automationSmsEdit(smartlistId, entityId),
+        options,
+      );
+    },
     navigateToSmartlistPushAutomationMessage: (
       smartlistId: string,
       messageId: string | number,
@@ -82,6 +92,16 @@ export const useSmartlistNavigation = () => {
     ) => {
       navigate(
         SMARTLIST_APP_LINKS.automationPushMessage(smartlistId, messageId),
+        options,
+      );
+    },
+    navigateToSmartlistSmsAutomationMessage: (
+      smartlistId: string,
+      messageId: string | number,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.automationSmsMessage(smartlistId, messageId),
         options,
       );
     },

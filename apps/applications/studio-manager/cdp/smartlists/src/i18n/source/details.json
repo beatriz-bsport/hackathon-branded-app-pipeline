@@ -207,6 +207,59 @@
           "updateFailed": "Push automation couldn't be updated. Please try again."
         }
       }
+    },
+    "sms": {
+      "pageTitle": "SMS Campaign",
+      "actions": {
+        "continue": "Continue",
+        "save": "Save"
+      },
+      "conflictAlert": "An enabled SMS automation already exists for this trigger. Go back to Automations to manage the existing one.",
+      "sections": {
+        "delivery": "Delivery",
+        "message": "Message"
+      },
+      "form": {
+        "automationName": {
+          "label": "Automation name",
+          "placeholder": "Spring Reset Yoga Series",
+          "required": "Add an automation name",
+          "maxLength": "Automation name must be under 150 characters"
+        },
+        "condition": {
+          "label": "When should this automated message send",
+          "options": {
+            "entry": "Entry to Smartlist",
+            "exit": "Exit from Smartlist"
+          }
+        },
+        "triggerLimit": {
+          "label": "How many times should this automation be triggered for the same person?",
+          "options": {
+            "noLimit": "No limit (default)",
+            "once": "1 time",
+            "twice": "2 times",
+            "threeTimes": "3 times"
+          }
+        },
+        "message": {
+          "label": "SMS body",
+          "placeholder": "",
+          "required": "Add an SMS body",
+          "maxLength": "SMS body must be under 160 characters"
+        }
+      },
+      "toasts": {
+        "success": {
+          "created": "SMS automation created",
+          "saved": "SMS automation saved"
+        },
+        "error": {
+          "duplicate": "An enabled SMS automation already exists for this trigger.",
+          "createFailed": "SMS automation couldn't be created. Please try again.",
+          "updateFailed": "SMS automation couldn't be updated. Please try again."
+        }
+      }
     }
   },
   "generic": {

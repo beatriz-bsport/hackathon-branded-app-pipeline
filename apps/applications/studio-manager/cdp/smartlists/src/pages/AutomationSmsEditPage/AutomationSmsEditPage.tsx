@@ -9,29 +9,63 @@ import {
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 
-import { useDisabledSmsAutomationEventKindsSuspenseQuery } from "#src/api/use-automated-campaigns";
+import { useAutomatedCampaignDetailSuspenseQuery } from "#src/api/use-automated-campaign-detail";
+import {
+  selectDisabledSmsAutomationEventKinds,
+  useAutomatedCampaignsSuspenseQuery,
+} from "#src/api/use-automated-campaigns";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
+import {
+  DetailPageErrorFallback,
+  PageLoader,
+  QueryBoundary,
+} from "#src/components/QueryBoundary";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
-import { AutomationSmsForm } from "./AutomationSmsForm";
-import { smsAutomationSchema } from "./schema";
-import {
-  SMS_AUTOMATION_EVENT_VALUES,
-  SMS_AUTOMATION_TRIGGER_LIMIT_VALUES,
-  type SmsAutomationFormData,
-} from "./types";
-import { useCreateSmsAutomation } from "./use-create-sms-automation";
+import { AutomationSmsForm } from "../AutomationSmsCreationPage/AutomationSmsForm";
+import { automatedCampaignToFormData } from "../AutomationSmsCreationPage/mappers";
+import { smsAutomationSchema } from "../AutomationSmsCreationPage/schema";
+import { useUpdateSmsAutomation } from "./use-update-sms-automation";
 
-export const AutomationSmsCreationPage = () => {
-  const { id: smartlistId } = useParams<{ id: string }>();
+export function AutomationSmsEditPage() {
+  return (
+    <QueryBoundary
+      loadingFallback={<PageLoader />}
+      errorFallback={DetailPageErrorFallback}
+    >
+      <AutomationSmsEditDetail />
+    </QueryBoundary>
+  );
+}
+
+function AutomationSmsEditDetail() {
+  const { entityId, id: smartlistId } = useParams<{
+    entityId: string;
+    id: string;
+  }>();
+  invariant(entityId, "Expected entityId param to be defined");
   invariant(smartlistId, "Expected smartlist id param to be defined");
 
   const { t } = useTranslation();
   const { detailsLayoutProps } = useDetailsLayout();
+
+  const { data: campaign } = useAutomatedCampaignDetailSuspenseQuery(entityId);
+  const { data: smartlist } = useSmartlistDetailSuspenseQuery(smartlistId);
+  const { data: disabledEventKinds } = useAutomatedCampaignsSuspenseQuery(
+    smartlistId,
+    (automatedCampaigns) => {
+      return selectDisabledSmsAutomationEventKinds(
+        automatedCampaigns.filter(
+          (automatedCampaign) => automatedCampaign.id !== Number(entityId),
+        ),
+      );
+    },
+  );
+
   const baseId = useId();
-  const formId = `${baseId}-automation-sms-create-form`;
+  const formId = `${baseId}-automation-sms-edit-form`;
   const ids = {
     breadcrumbs: {
       smartlists: `${baseId}-automation-sms-breadcrumb-smartlists`,
@@ -42,32 +76,24 @@ export const AutomationSmsCreationPage = () => {
   const methods = useFormController({
     mode: "onBlur",
     schema: smsAutomationSchema,
-    defaultValues: {
-      eventKind: SMS_AUTOMATION_EVENT_VALUES.ENTRY,
-      triggerLimit: SMS_AUTOMATION_TRIGGER_LIMIT_VALUES.NO_LIMIT,
-      automationName: "",
-      message: "",
-    } satisfies SmsAutomationFormData,
+    defaultValues: automatedCampaignToFormData(campaign),
   });
 
-  const { data: smartlist } = useSmartlistDetailSuspenseQuery(smartlistId);
-  const { data: disabledEventKinds } =
-    useDisabledSmsAutomationEventKindsSuspenseQuery(smartlistId);
-  const { createSmsAutomation } = useCreateSmsAutomation({
+  const { updateSmsAutomation } = useUpdateSmsAutomation({
     smartlistId,
+    entityId,
   });
 
   const selectedEventKind = methods.watch("eventKind");
-
   const isSelectedTriggerDisabled = disabledEventKinds.has(selectedEventKind);
 
   const { endGroupActions } = DetailsLayout.useAdaptiveActions({
     endGroupActions: [
       <Button
-        key="automation-sms-create-button"
+        key="automation-sms-edit-button"
         color="main"
         intent="call-to-action"
-        label={t("automation.sms.actions.continue", { ns: "details" })}
+        label={t("automation.sms.actions.save", { ns: "details" })}
         size="md"
         type="submit"
         form={formId}
@@ -94,25 +120,23 @@ export const AutomationSmsCreationPage = () => {
     </Link>,
   ];
 
-  const handleSubmit = async (data: SmsAutomationFormData) => {
-    await createSmsAutomation(data);
-  };
-
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
-        pageTitle={t("automation.sms.pageTitle", { ns: "details" })}
+        pageTitle={
+          campaign.title ?? t("automation.sms.pageTitle", { ns: "details" })
+        }
         endGroupActions={endGroupActions}
         BreadcrumbsItems={breadcrumbsItems}
       />
       <DetailsLayout.Content>
         <AutomationSmsForm
           id={formId}
-          onSubmit={handleSubmit}
+          onSubmit={updateSmsAutomation}
           disabledEventKinds={disabledEventKinds}
           {...methods}
         />
       </DetailsLayout.Content>
     </DetailsLayout>
   );
-};
+}

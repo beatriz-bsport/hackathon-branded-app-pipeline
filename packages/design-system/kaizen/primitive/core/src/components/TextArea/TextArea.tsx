@@ -1,5 +1,4 @@
-import { cva } from "class-variance-authority";
-import classNames from "classnames";
+import { cva, cx } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import React, { ChangeEvent, useMemo } from "react";
 
@@ -93,7 +92,7 @@ const TextArea: React.FC<TextAreaProps> = ({
 }) => {
   const textClasses = useMemo(
     () =>
-      classNames("text-body-sm leading-xs text-ellipsis", {
+      cx("text-body-sm leading-xs text-ellipsis tabular-nums", {
         "text-onsurface-weak": status === "default",
         "text-onsurface-status-positive-strong": status === "positive",
         "text-onsurface-status-critical-strong": status === "error",
@@ -104,13 +103,13 @@ const TextArea: React.FC<TextAreaProps> = ({
   return (
     <div
       data-component="Kaizen-TextArea"
-      className={classNames("flex flex-col gap-2xs", {
+      className={cx("flex flex-col gap-2xs", {
         "opacity-sm pointer-events-none": disabled,
       })}
     >
       <Label htmlFor={id} required={required} label={label} />
       <textarea
-        className={classNames(textArea({ className, status }))}
+        className={cx(textArea({ className, status }))}
         id={id}
         name={id}
         value={value}

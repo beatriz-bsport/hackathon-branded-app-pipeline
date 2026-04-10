@@ -2672,6 +2672,9 @@ importers:
       '@bsport/api-financial-services':
         specifier: workspace:*
         version: link:../../../../../packages/api/financial-services
+      '@bsport/common':
+        specifier: workspace:*
+        version: link:../../../../../packages/common-legacy
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../../../packages/utils/currency

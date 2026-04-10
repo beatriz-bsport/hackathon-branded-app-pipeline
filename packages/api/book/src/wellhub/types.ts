@@ -12,3 +12,7 @@ export type ProductsByWellhubGymUuid = {
 export type FetchWellhubProductsResponse = {
   products_by_wellhub_gym: ProductsByWellhubGymUuid;
 };
+
+export type ProductsByPartnershipAccountResponse = {
+  products_by_partnership_account: Record<string, WellhubProduct[]>;
+};

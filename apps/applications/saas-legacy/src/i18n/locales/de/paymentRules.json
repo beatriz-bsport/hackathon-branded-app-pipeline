@@ -106,7 +106,7 @@
       "title": "Buchungen für bestimmte Pässe ausschließen",
       "warning": "Wenn Sie mit dem Parameter 'Bei der Lohnabrechnung der Lehrkraft berücksichtigte Kurse' bereits Durchgänge von der Lohnabrechnung ausgeschlossen haben, müssen Sie diese hier nicht erneut angeben."
     },
-    "bonusForEachReservationInInterval": "Einen Bonus für jede Reservierung im Intervall hinzufügen",
+    "bonusForEachReservationInInterval": "Einen Bonus für jede Buchung im Intervall hinzufügen",
     "fixedBonusbyInterval": "Fügen Sie einen festen Bonus pro Intervall hinzu",
     "cancellationBaseHelper": "Hilfe: Durch Ankreuzen dieses Feldes erhält der Coach keine zusätzliche Vergütung auf den Grenzwert der stornierten Buchungen",
     "taxeLongHelper": "Hilfe: Alle Prozentsätze sind auf den Grenzwert jeder Buchung ohne Steuer berechnet. Die Steuer wird sowohl auf den Grenzwert als auch auf alle Fest- und Bonussätze aufgeschlagen.",

@@ -2,19 +2,7 @@
 
 set -euo pipefail
 
-DEPLOY_ENVIRONMENT=$1
-API_ENVIRONMENT=${2:-$1}
-FRONTEND_ONLY_FLAG=${3:-""}
 STUDIO_MFE="@bsport/sm-host,@bsport/sm-navigation-sidebar"
-
-echo "=========================================="
-echo "🚀 Starting Ephemeral Environment"
-echo "=========================================="
-echo "Deploy environment: $DEPLOY_ENVIRONMENT"
-echo "API environment: $API_ENVIRONMENT"
-echo "Frontend only: ${FRONTEND_ONLY_FLAG:-false}"
-echo "=========================================="
-echo ""
 
 # Select all projects
 SELECTED_PROJECTS=$(pnpm exec nx show projects --sep="," --exclude="@bsport/widget-legacy")
@@ -46,14 +34,6 @@ echo "✅ Build output aggregated successfully"
 
 echo "⏳ Pushing build output to S3 for deployment"
 
-aws s3 sync build/ s3://bsport-frontends-artifacts-euw3/backoffice/mr-${CI_MERGE_REQUEST_IID} --only-show-errors --delete
+aws s3 sync build/ s3://bsport-frontends-artifacts-euw3/backoffice/${CI_COMMIT_SHORT_SHA} --only-show-errors --delete
 
 echo "✅ Artifacts pushed to S3 successfully"
-
-echo "⏳ Deploying to ephemeral environment"
-
-aws s3 sync s3://bsport-frontends-artifacts-euw3/backoffice/mr-${CI_MERGE_REQUEST_IID} s3://bsport-backoffice-assets-ephemeral-environment/preview-${CI_MERGE_REQUEST_IID} --only-show-errors
-
-aws cp apps/applications/studio-manager/host/envs/dev.studio-env.js s3://bsport-backoffice-assets-ephemeral-environment/preview-${CI_MERGE_REQUEST_IID}/studio/studio-env.js --only-show-errors
-
-echo "✅ Ephemeral environment deployed successfully"

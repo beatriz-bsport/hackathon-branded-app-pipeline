@@ -20,6 +20,7 @@ cache:
 stages:
   - init
   - analyze
+  - build
   - deploy-feature-branch
   - deploy
   - post-deploy

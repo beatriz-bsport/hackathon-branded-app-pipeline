@@ -11,6 +11,11 @@
     "emptyState": {
       "title": "No participant yet."
     },
-    "loadingMessage": "Loading participants list..."
+    "loadingMessage": "Loading participants list...",
+    "chips": {
+      "new": "New",
+      "recurring": "Recurring booking",
+      "tags": "Tags"
+    }
   }
 }

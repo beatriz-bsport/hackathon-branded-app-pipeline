@@ -18,6 +18,8 @@ import {
 import { getMemberInitials } from "#src/utils/get-member-initials.js";
 import { useTranslation } from "#src/utils/i18n.js";
 
+import { ChipsCell } from "./chips-cell";
+
 enum BookingColumns {
   PRESENT = "present",
   CLIENT = "client",
@@ -85,7 +87,13 @@ export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
       id: BookingColumns.CHIPS,
       type: "custom",
       align: "end",
-      render: () => <div>Chips...</div>,
+      render: (row) => (
+        <ChipsCell
+          first_in_company={row.first_in_company}
+          memberData={row.memberData}
+          recurrence_rule_booking={row.recurrence_rule_booking}
+        />
+      ),
     },
     {
       header: "",

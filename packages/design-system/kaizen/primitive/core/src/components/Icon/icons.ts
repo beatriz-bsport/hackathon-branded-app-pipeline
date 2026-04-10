@@ -238,6 +238,9 @@ const icons = {
   "refresh-ccw-01": React.lazy(
     async () => await import("./assets/refresh-ccw-01.svg?react"),
   ),
+  "refresh-ccw-02": React.lazy(
+    async () => await import("./assets/refresh-ccw-02.svg?react"),
+  ),
   "refresh-cw-01": React.lazy(
     async () => await import("./assets/refresh-cw-01.svg?react"),
   ),
@@ -280,6 +283,7 @@ const icons = {
   "stop-circle-solid": React.lazy(
     async () => await import("./assets/stop-circle-solid.svg?react"),
   ),
+  "tag-01": React.lazy(async () => await import("./assets/tag-01.svg?react")),
   "ticket-01": React.lazy(
     async () => await import("./assets/ticket-01.svg?react"),
   ),

@@ -123,6 +123,7 @@ export const useWellhubProductField = (isLivestream: boolean) => {
     selectedWellhubProduct,
     isSessionAvailableOnPartnership,
     isLoadingWellhubProducts,
+    partnershipAccountExternalId,
     setValue,
   };
 };

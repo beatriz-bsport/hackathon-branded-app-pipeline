@@ -18,9 +18,15 @@ export const WellhubProductSelectorField: FC<{
     selectedWellhubProduct,
     isSessionAvailableOnPartnership,
     isLoadingWellhubProducts,
+    partnershipAccountExternalId,
   } = useWellhubProductField(isLivestream);
 
-  if (!wellhubProducts || !isSessionAvailableOnPartnership) return null;
+  if (
+    !wellhubProducts ||
+    !isSessionAvailableOnPartnership ||
+    !partnershipAccountExternalId
+  )
+    return null;
 
   return (
     <FormField<SessionCreationFormData, "wellhub_product_id", SelectProps>

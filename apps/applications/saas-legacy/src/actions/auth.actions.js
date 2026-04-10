@@ -20,11 +20,8 @@ import {
   toggleRevampedBackofficeAPI,
 } from '../libs/login/api';
 import { Dispatch, ThunkAction, OptionCallback } from '../state/types';
-import WidgetUtils from '../libs/widget/WidgetUtils';
 import { snackbarError } from './snackbar.actions';
 import { getAuthToken } from '../http';
-import Config from '../config';
-import { getUserSpaceUrl } from '../libs/marketplace/routing-utils';
 
 import { urlToMarketplace } from '../libs/marketplace/utils';
 
@@ -41,7 +38,6 @@ import {
   STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL,
   STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
   STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
-  STORAGE_KEY_BSPORT_IMPERSONATED_GOTO_URL,
   authActionTypes as types,
 } from './constants';
 import {
@@ -59,8 +55,6 @@ import {
   setItemInStorage,
   storageToString,
 } from '../utils/storage';
-
-import { getBaseURL } from '../utils/urlUtils';
 import analyticsUtils from '../components/analytics/analytics';
 
 export const initiateInterface = createAction('initiate');
@@ -542,6 +536,21 @@ export function disconnect(callback) {
       console.error(err);
     }
     removeItemInStorage('local', STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN);
+    removeItemInStorage('local', STORAGE_KEY_BSPORT_STRIPE_PK_KEY);
+    removeItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE);
+    removeItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY);
+    removeItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION);
+    removeItemInStorage('local', STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY);
+    removeItemInStorage('local', STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR);
+    removeItemInStorage('session', STORAGE_KEY_BSPORT_STRIPE_PK_KEY);
+    removeItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE);
+    removeItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY);
+    removeItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION);
+    removeItemInStorage('session', STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY);
+    removeItemInStorage(
+      'session',
+      STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR,
+    );
     removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL);
     removeItemInStorage('session', STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL);
     dispatch((() => ({ type: types.DISCONNECT }))());

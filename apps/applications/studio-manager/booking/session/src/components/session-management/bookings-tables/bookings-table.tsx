@@ -2,6 +2,8 @@ import clsx from "clsx";
 import { FC, useMemo } from "react";
 
 import {
+  Avatar,
+  Body,
   GenericTableColumn,
   PaginationProps,
   Table,
@@ -13,11 +15,13 @@ import {
   RefinedBooking,
   useFetchRefinedBookings,
 } from "#src/hooks/booking/fetch/use-fetch-refined-bookings.js";
+import { getMemberInitials } from "#src/utils/get-member-initials.js";
 import { useTranslation } from "#src/utils/i18n.js";
 
 enum BookingColumns {
   PRESENT = "present",
   CLIENT = "client",
+  MEMBER_DETAILS = "member-details",
   CHIPS = "chips",
   SHORTCUT_ACTIONS = "shortcut-actions",
 }
@@ -53,7 +57,28 @@ export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
       id: BookingColumns.CLIENT,
       type: "custom",
       align: "start",
-      render: (row) => row.memberData?.name ?? "",
+      render: (row) => {
+        const secondaryText = [row.spot_information?.name, row.passData?.name]
+          .filter(Boolean)
+          .join(" • ");
+
+        return (
+          <div className="flex gap-md items-center">
+            <Avatar
+              shape="round"
+              src={row.memberData?.photo}
+              initials={getMemberInitials({
+                firstname: row.memberData?.first_name,
+                lastname: row.memberData?.last_name,
+              })}
+            />
+            <div className="flex flex-col gap-2xs">
+              <Body size="lg">{row.memberData?.name}</Body>
+              {secondaryText && <Body color="weak">{secondaryText}</Body>}
+            </div>
+          </div>
+        );
+      },
     },
     {
       header: "",

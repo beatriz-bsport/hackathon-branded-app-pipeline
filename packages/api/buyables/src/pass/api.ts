@@ -22,7 +22,7 @@ export const passKeys = {
 } as const;
 
 const fetchPassesAPIConfig = (params: FetchPassesParams): ApiConfig => {
-  return [`${PASS_API_URL}/${buildUrlParams(params)}`];
+  return [`${PASS_API_URL}/payment-pack/${buildUrlParams(params)}`];
 };
 
 export const fetchPassesAPI = async (

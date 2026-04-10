@@ -4,6 +4,8 @@ import { resolve } from "path";
 import type { Connect, Plugin } from "vite";
 import { runInNewContext } from "vm";
 
+import { getMonorepoBasePathSync } from "@bsport/typescript-monorepo-utils";
+
 const RUNTIME_FILE_PATH = "/studio/studio-env.js";
 const RUNTIME_CONTENT_TYPE = "application/javascript; charset=utf-8";
 const RUNTIME_ENV_LOCAL_STORAGE_KEY = "@bsport/studio-runtime-env";
@@ -37,9 +39,10 @@ const shouldHandleRuntimeRequest = (url?: string) => {
 const getRuntimeEnvDirectoryCandidates = (rootDir: string) => {
   return [
     resolve(rootDir, "envs"),
-    resolve(rootDir, "../host/envs"),
-    resolve(rootDir, "../../host/envs"),
-    resolve(process.cwd(), "apps/applications/studio-manager/host/envs"),
+    resolve(
+      getMonorepoBasePathSync(),
+      "apps/applications/studio-manager/host/envs",
+    ),
   ];
 };
 

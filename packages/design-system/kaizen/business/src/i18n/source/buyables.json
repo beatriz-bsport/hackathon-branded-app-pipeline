@@ -54,6 +54,28 @@
     "fieldLabel": "Credits",
     "notPriceWarning": "Double-check: you're entering credits, not a price."
   },
+  "passForm": {
+    "unlimitedCreditSelector": {
+      "optionLimited": "Limited",
+      "optionUnlimited": "Unlimited"
+    },
+    "onDemandToggle": {
+      "label": "Enable On-Demand access",
+      "restrictToOnDemand": "Restrict to On-Demand usage"
+    },
+    "guestBookingToggle": {
+      "label": "Allow guest booking"
+    },
+    "teacherPayrollToggle": {
+      "label": "Included in teacher payroll",
+      "helperText": "Classes are billed to the studio and included in teacher payroll"
+    },
+    "teacherPayRate": {
+      "label": "Teacher pay rate incl. VAT",
+      "helperText": "Amount teacher earns for each booking",
+      "tooltip": "This rate determines teacher payroll and applies to all bookings made with this pass. If left as '0', the rate will be calculated as subscription price divided by number of bookings."
+    }
+  },
   "itemAutocomplete": {
     "openItemInNewTab": "Open item in new tab",
     "credits": "{{count}} credits",

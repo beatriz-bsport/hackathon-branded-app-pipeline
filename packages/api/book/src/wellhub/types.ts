@@ -5,14 +5,6 @@ export type WellhubProduct = {
   updated_at: string;
 };
 
-export type ProductsByWellhubGymUuid = {
-  [uuid: string]: WellhubProduct[];
-};
-
-export type FetchWellhubProductsResponse = {
-  products_by_wellhub_gym: ProductsByWellhubGymUuid;
-};
-
 export type ProductsByPartnershipAccountResponse = {
   products_by_partnership_account: Record<string, WellhubProduct[]>;
 };

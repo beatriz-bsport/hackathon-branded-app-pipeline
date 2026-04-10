@@ -1,6 +1,6 @@
 import { ZodError } from "zod";
 
-import type { ManagerSession, Session } from "@bsport/api-book";
+import type { ManagerSession, PrivateBooking, Session } from "@bsport/api-book";
 import { type DateTime } from "@bsport/datetime-manipulation";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
@@ -22,15 +22,12 @@ export type EnrichedSession = ManagerSession & {
   navigateToBookingsManagement?: (sessionId: number) => void;
 };
 
-// Only define the enrichment fields + minimal identifier for store/modal use
-// Will extend from /api-book in BOO-2327
-export interface EnrichedAppointment {
-  id: number;
+export interface EnrichedAppointment extends PrivateBooking {
   teacherName: string;
   teacherAvatar: string | null;
   teacherInitials: string;
   participantName: string;
-  amountOwed: number | null;
+  isUnpaid: boolean;
   passUsedName: string;
   establishmentName: string;
   isRecurring: boolean;

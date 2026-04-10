@@ -11,6 +11,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
+import AppointmentDay from "#src/components/AppointmentList/AppointmentDay";
 import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions/cancel-multiple-sessions-modal";
 import { ExportParticipantsModal } from "#src/components/SessionList/actions/export-participants-modal";
 import { CancelSessionModal } from "#src/components/SessionList/detail-actions/cancel-session-modal";
@@ -25,6 +26,8 @@ import {
   sessionListSearchChangedEvent,
   sessionListSearchClearedEvent,
 } from "#src/events/session-list/events";
+import { useAppointmentListData } from "#src/hooks/appointment/fetch/useAppointmentListData";
+import { useSearchAppointments } from "#src/hooks/appointment/fetch/useSearchAppointments";
 import { useModal } from "#src/hooks/use-modal";
 import type { CalendarTab } from "#src/types";
 import { ModalType } from "#src/types";
@@ -38,10 +41,7 @@ import { useFilterConfig } from "../components/SessionList/Filters/useFilterConf
 import SessionDay from "../components/SessionList/SessionDay";
 import { DisplaySettings } from "../components/shared/DisplaySettings";
 import { useSearchSessions } from "../hooks/useSearchSessions";
-import {
-  getSessionDateStart,
-  useSessionListData,
-} from "../hooks/useSessionListData";
+import { useSessionListData } from "../hooks/useSessionListData";
 import {
   closeModal,
   selectModalState,
@@ -50,6 +50,7 @@ import {
   setLocale,
   useCalendarStore,
 } from "../stores/calendar";
+import { getDateStartKey } from "../utils/get-date-start-key";
 
 const VALID_TABS: CalendarTab[] = ["classes", "appointments"];
 
@@ -74,6 +75,7 @@ const CalendarPage: React.FC = () => {
 
   const handleTabChange = useCallback(
     (tabId: string) => {
+      setSearchQuery("");
       setSearchParams(
         (prev) => {
           prev.set("tab", tabId);
@@ -127,17 +129,34 @@ const CalendarPage: React.FC = () => {
         ? { minDate: selectedDate.minDate, maxDate: selectedDate.maxDate }
         : null;
 
+  const isAppointmentsTab = !isClassesTab;
+
   const {
     sessions,
     isLoading,
     error: sessionDataError,
-  } = useSessionListData(fetchParams);
+  } = useSessionListData(fetchParams, isClassesTab);
+
+  const {
+    appointments,
+    isLoading: isLoadingAppointments,
+    error: appointmentDataError,
+  } = useAppointmentListData(fetchParams, isAppointmentsTab);
 
   const filteredSessions = useSearchSessions(sessions, searchQuery);
+  const filteredAppointments = useSearchAppointments(
+    appointments,
+    isAppointmentsTab ? searchQuery : "",
+  );
 
   const sessionsByDate = useMemo(
-    () => groupBy(filteredSessions, getSessionDateStart),
+    () => groupBy(filteredSessions, getDateStartKey),
     [filteredSessions],
+  );
+
+  const appointmentsByDate = useMemo(
+    () => groupBy(filteredAppointments, getDateStartKey),
+    [filteredAppointments],
   );
 
   const displaySettings = useCallback(
@@ -225,12 +244,40 @@ const CalendarPage: React.FC = () => {
     },
   });
 
-  const { EmptyState: AppointmentEmptyState } = useEmptyState({
-    isEmpty: true,
+  const hasEmptyAppointmentResults =
+    !isLoadingAppointments &&
+    !appointmentDataError &&
+    Object.keys(appointmentsByDate).length === 0;
+
+  const {
+    shouldRenderEmptyState: shouldRenderAppointmentEmptyState,
+    EmptyState: AppointmentEmptyState,
+  } = useEmptyState({
+    isEmpty: hasEmptyAppointmentResults,
     emptyConfig: {
       title: t("emptyAppointmentState.title"),
       subtitle: t("emptyAppointmentState.subtitle"),
     },
+    isEmptySearch: hasEmptyAppointmentResults && searchQuery.length > 0,
+    emptySearchConfig: {
+      title: t("emptyAppointmentSearchState.title"),
+      subtitle: t("emptyAppointmentSearchState.subtitle"),
+      secondaryButtonConfig: {
+        label: t("emptyAppointmentSearchState.action"),
+        onClick: () => setSearchQuery(""),
+        iconLeft: "x-close",
+        intent: "default",
+        color: "main",
+      },
+    },
+  });
+
+  const {
+    shouldRenderLoadingState: shouldRenderAppointmentLoadingState,
+    LoadingState: AppointmentLoadingState,
+  } = useLoadingState({
+    isLoading: isLoadingAppointments,
+    message: t("appointmentTable.isLoading"),
   });
 
   const { shouldRenderLoadingState, LoadingState } = useLoadingState({
@@ -264,6 +311,19 @@ const CalendarPage: React.FC = () => {
     [sessionsByDate, intlLocale],
   );
 
+  const appointmentDays = useMemo(
+    () =>
+      Object.entries(appointmentsByDate).map(([date, appointments]) => (
+        <AppointmentDay
+          key={date}
+          date={date}
+          appointments={appointments}
+          locale={intlLocale || "en-US"}
+        />
+      )),
+    [appointmentsByDate, intlLocale],
+  );
+
   return (
     <ListLayout>
       <ListLayout.Header
@@ -286,28 +346,28 @@ const CalendarPage: React.FC = () => {
               }
             : undefined
         }
-        searchConfig={
-          isClassesTab
-            ? {
-                id: "session-search",
-                inputValue: searchQuery,
-                onInputValueChange: (value: string) => {
-                  analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
-                    search_value: value,
-                  });
-                  setSearchQuery(value);
-                },
-                debounceValue: DEFAULT_DEBOUNCE_DELAY,
-                onClear: () => {
-                  analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
-                    search_value: searchQuery,
-                    source: SearchClearSource.CLEAR_BUTTON,
-                  });
-                  setSearchQuery("");
-                },
-              }
-            : undefined
-        }
+        searchConfig={{
+          id: isClassesTab ? "session-search" : "appointment-search",
+          inputValue: searchQuery,
+          onInputValueChange: (value: string) => {
+            if (isClassesTab) {
+              analyticsTrackSafeEvent(sessionListSearchChangedEvent, {
+                search_value: value,
+              });
+            }
+            setSearchQuery(value);
+          },
+          debounceValue: DEFAULT_DEBOUNCE_DELAY,
+          onClear: () => {
+            if (isClassesTab) {
+              analyticsTrackSafeEvent(sessionListSearchClearedEvent, {
+                search_value: searchQuery,
+                source: SearchClearSource.CLEAR_BUTTON,
+              });
+            }
+            setSearchQuery("");
+          },
+        }}
       />
       <ListLayout.Content>
         <DateNavigationHeader />
@@ -329,7 +389,21 @@ const CalendarPage: React.FC = () => {
               )}
             </>
           ) : (
-            <AppointmentEmptyState />
+            <>
+              {shouldRenderAppointmentEmptyState ? (
+                <AppointmentEmptyState />
+              ) : shouldRenderAppointmentLoadingState ? (
+                <AppointmentLoadingState />
+              ) : appointmentDataError ? (
+                <div className="flex flex-col items-center justify-center">
+                  <ErrorFallback
+                    actionProps={ErrorFallback.DEFAULT_ACTION_PROPS}
+                  />
+                </div>
+              ) : (
+                appointmentDays
+              )}
+            </>
           )}
         </div>
 

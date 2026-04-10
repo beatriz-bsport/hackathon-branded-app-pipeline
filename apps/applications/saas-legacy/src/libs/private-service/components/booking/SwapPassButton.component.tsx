@@ -164,11 +164,16 @@ export const SwapPassButton: React.FC<Props> = ({
       })
       .catch((error) => {
         const errorCode = error?.response?.data?.error_code;
+        const reasons = error?.response?.data?.error_data?.reasons;
         const hasKnownErrorCode =
           isErrorWithCustomCode(error) &&
           SWAP_PASS_ERROR_CODES.includes(errorCode);
+        // Only show the first reason to the user, multiple reasons are visible in the network tab
+        const reasonKey = reasons?.[0] ?? null;
         const errorTranslationKey = hasKnownErrorCode
-          ? `swapPass.dialog.errors.${errorCode}`
+          ? `swapPass.dialog.errors.${errorCode}${
+              reasonKey ? `_${reasonKey}` : ''
+            }`
           : 'swapPass.dialog.errors.swapFailed';
 
         dispatch(snackbarErrorAction(`b2b_booking:${errorTranslationKey}`));

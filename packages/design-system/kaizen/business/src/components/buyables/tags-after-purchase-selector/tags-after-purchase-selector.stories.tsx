@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { z } from "zod";
 
-import type { Tag, TagGroup } from "@bsport/api-core";
 import { ControlledForm, useFormController } from "@bsport/form";
 
-import tagGroups from "#src/fixtures/tag-groups.json";
-import tags from "#src/fixtures/tags.json";
+import { fetch } from "#src/utils/fetch";
+import { tanstackQueryDevToolsDecorator } from "#src/utils/stories";
 
 import { TagsAfterPurchaseSelector } from "./tags-after-purchase-selector.component";
 
@@ -28,6 +27,7 @@ import { TagsAfterPurchaseSelector } from "@bsport/kaizen-business-components/bu
 
 const metaSourceCode = `
 import { TagsAfterPurchaseSelector } from "@bsport/kaizen-business-components/buyables/tags-after-purchase-selector";
+import { fetch } from "#src/utils/fetch";
 
 // ...
 
@@ -49,6 +49,7 @@ const methods = useFormController({
   >
     id="tags-after-purchase-selector-example"
     fieldName="tags"
+    fetch={fetch}
   />
 </ControlledForm>
 `;
@@ -67,6 +68,7 @@ const meta: Meta<TagsAfterPurchaseSelectorComponent> = {
       },
     },
   },
+  decorators: tanstackQueryDevToolsDecorator,
   render: (args) => {
     const schema = z.object({
       tags: z.array(z.coerce.number()),
@@ -85,15 +87,12 @@ const meta: Meta<TagsAfterPurchaseSelectorComponent> = {
           {...args}
           id="tags-after-purchase-selector-example"
           fieldName="tags"
+          fetch={fetch}
         />
       </ControlledForm>
     );
   },
   tags: ["autodocs"],
-  args: {
-    tags: tags as Tag[],
-    tagGroups: tagGroups as TagGroup[],
-  },
 };
 
 export default meta;
@@ -143,6 +142,7 @@ const schema = z.object({
 |------|------------|
 | \`id\` | HTML id forwarded to the Autocomplete |
 | \`fieldName\` | Name of the number-list field in the form |
+| \`fetch\` | Fetch instance used internally to load tags and tag groups |
 
 ### Additional props
 

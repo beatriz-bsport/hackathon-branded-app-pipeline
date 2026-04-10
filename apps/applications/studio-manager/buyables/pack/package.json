@@ -33,7 +33,6 @@
     "@bsport/store-buyables-pack": "workspace:*",
     "@bsport/store-buyables-pass": "workspace:*",
     "@bsport/store-buyables-webshop": "workspace:*",
-    "@bsport/store-cdp-tag": "workspace:*",
     "@bsport/store-financial-services-invoice": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",

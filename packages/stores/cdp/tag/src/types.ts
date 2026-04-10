@@ -1,4 +1,4 @@
-import type { Tag, TagGroup } from "@bsport/api-core";
+import type { Tag, TagGroup } from "@bsport/api-cdp/tags";
 
 export type { Tag, TagGroup };
 

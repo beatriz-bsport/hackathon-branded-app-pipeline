@@ -30,7 +30,6 @@
     "@bsport/api-buyables": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/store-buyables-giftcard": "workspace:*",
-    "@bsport/store-cdp-tag": "workspace:*",
     "@bsport/store-core-data-member": "workspace:*",
     "@bsport/store-financial-services-invoice": "workspace:*",
     "@bsport/use-async": "workspace:*",

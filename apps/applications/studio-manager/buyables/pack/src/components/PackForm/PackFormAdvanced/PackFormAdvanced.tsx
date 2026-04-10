@@ -3,7 +3,6 @@ import React from "react";
 
 import { Collapse, Icon, Title } from "@bsport/kaizen-primitive-core";
 
-import { useFetchTags } from "#src/hooks/useFetchTags";
 import { useTranslation } from "#src/utils/i18n";
 
 import { PackFormTags } from "./PackFormTags";
@@ -18,8 +17,6 @@ export const PackFormAdvanced: React.FC<PackFormAdvancedProps> = ({
   fieldIdPrefix,
 }) => {
   const { t } = useTranslation("details");
-
-  useFetchTags();
 
   const keyBase = `${fieldIdPrefix}-advanced`;
 

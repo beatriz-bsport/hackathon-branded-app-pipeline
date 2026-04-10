@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { z } from "zod";
 
-import type { Tag, TagGroup } from "@bsport/api-core";
 import { ControlledForm, useFormController } from "@bsport/form";
 
-import tagGroups from "#src/fixtures/tag-groups.json";
-import tags from "#src/fixtures/tags.json";
+import { fetch } from "#src/utils/fetch";
+import { tanstackQueryDevToolsDecorator } from "#src/utils/stories";
 
 import { DEFAULT_PROPS, TagSelector } from "./tag-selector.component";
 
@@ -16,10 +15,11 @@ const metaComponentDescription = `
 
 ### Business Context
 
-It applies the following custom logic: only a single tag per group can be selected.
 This component is intended for use in workflows where **tags** must be selected:
 - Configuring tag after purchase (=> cf buyables/tags-after-purchase-selector)
-- Configuring blacklist or whitelist
+- Configuring Allow list or Block list
+
+It handles internally the fetch to tags and tags groups.
 
 ### How to import?
 
@@ -30,6 +30,7 @@ import { TagSelector } from "@bsport/kaizen-business-components/cdp/tag-selector
 
 const metaSourceCode = `
 import { TagSelector } from "@bsport/kaizen-business-components/cdp/tag-selector";
+import { fetch } from "#src/utils/fetch";
 
 // ...
 
@@ -52,6 +53,7 @@ const methods = useFormController({
     id="tag-selector-example"
     fieldName="tags"
     placeholder={t("...")}
+    fetch={fetch}
     ...
   />
 </ControlledForm>
@@ -71,6 +73,7 @@ const meta: Meta<TagSelectorComponent> = {
       },
     },
   },
+  decorators: tanstackQueryDevToolsDecorator,
   render: (args) => {
     const schema = z.object({
       tags: z.array(z.coerce.number()),
@@ -89,6 +92,7 @@ const meta: Meta<TagSelectorComponent> = {
           {...args}
           id="tag-selector-example"
           fieldName="tags"
+          fetch={fetch}
         />
       </ControlledForm>
     );
@@ -96,8 +100,6 @@ const meta: Meta<TagSelectorComponent> = {
   tags: ["autodocs"],
   args: {
     ...DEFAULT_PROPS,
-    tags: tags as Tag[],
-    tagGroups: tagGroups as TagGroup[],
     placeholder: "Add tags...",
     multiSelect: true,
   },
@@ -150,6 +152,7 @@ const schema = z.object({
 |------|------------|
 | \`id\` | HTML id forwarded to the Autocomplete |
 | \`fieldName\` | Name of the number-list field in the form |
+| \`fetch\` | Fetch instance used internally to load tags and tag groups |
 
 ### Additional props
 

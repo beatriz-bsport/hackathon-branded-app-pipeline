@@ -1,23 +1,14 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
-import { fetchTagGroupsAPI } from "@bsport/api-core";
+import { fetchTagGroupsQueryOptions } from "@bsport/api-cdp/tags";
 
 import { fetch } from "#src/utils/fetch";
 
-import { TAGS_STALE_TIME, TAG_GROUPS_QUERY_KEY } from "./constants";
-
-const fetchTagGroups = fetchTagGroupsAPI.bind(null, fetch);
-
-const tagGroupsQueryOptions = () => {
-  return queryOptions({
-    queryKey: [TAG_GROUPS_QUERY_KEY],
-    queryFn: () => fetchTagGroups(),
-    staleTime: TAGS_STALE_TIME,
-  });
-};
+import { TAGS_STALE_TIME } from "./constants";
 
 export const useFetchTagGroups = () => {
   return useQuery({
-    ...tagGroupsQueryOptions(),
+    ...fetchTagGroupsQueryOptions(fetch),
+    staleTime: TAGS_STALE_TIME,
   });
 };

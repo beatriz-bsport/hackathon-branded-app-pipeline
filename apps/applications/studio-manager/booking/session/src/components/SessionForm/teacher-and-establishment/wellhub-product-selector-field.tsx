@@ -52,6 +52,7 @@ export const WellhubProductSelectorField: FC<{
         )}
         required
         loadingProps={{ isLoading: isLoadingWellhubProducts }}
+        className="min-w-component-select"
       />
     </FormField>
   );

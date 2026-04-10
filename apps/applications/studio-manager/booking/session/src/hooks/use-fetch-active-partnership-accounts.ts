@@ -12,7 +12,6 @@ const ACTIVE_PARTNERSHIP_ACCOUNTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 type UseFetchActivePartnershipAccountsProps = {
   establishment?: number | null;
   dateStart?: string | null;
-  enabled?: boolean;
 };
 
 const fetchActivePartnershipAccounts = fetchActivePartnershipAccountsAPI.bind(

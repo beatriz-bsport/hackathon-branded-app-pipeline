@@ -1,0 +1,11 @@
+{
+  "appleDeveloperProgram": {
+    "alert": {
+      "title": "Handlungsbedarf",
+      "paragraph1": "Apple verlangt jetzt, dass deine iOS-App mit deinem eigenen Apple Developer Account (nicht dem von bsport) verknüpft ist. Um deine App live zu halten und zukünftige Updates zu ermöglichen, musst du dieses Setup <0>bis zum 31. Mai 2026</0> abschließen.",
+      "paragraph2": "Befolge die Schritt-für-Schritt-Anleitung in unserem <0>Playbook</0>.",
+      "paragraph3": "Wenn du Hilfe benötigst, kontaktiere unser Support-Team unter <0>support@bsport.io</0>.",
+      "contactUs": "Kontaktiere uns für Hilfe"
+    }
+  }
+}

@@ -3,7 +3,6 @@ import type { Preview } from "@storybook/react-vite";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { Suspense, useEffect } from "react";
 
-import { setLocalAPIEnv } from "@bsport/fetch";
 import { FLAG_EMOJIS, LOCALES, switchLanguage } from "@bsport/i18n";
 import { instanciateAppI18n } from "@bsport/i18n";
 import {
@@ -37,7 +36,9 @@ const queryClient = new QueryClient({
 
 // Set API environment to dev for local storybook
 if (typeof window !== "undefined") {
-  setLocalAPIEnv("dev");
+  window.__SM_RUNTIME__ = {
+    API_BASE_URL: "https://api.dev.bsport.io",
+  };
 }
 
 // Authenticate with dev credentials on Storybook load

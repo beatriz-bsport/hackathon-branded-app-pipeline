@@ -1,25 +1,16 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
-import { keyBy } from "lodash";
+import { useQuery } from "@tanstack/react-query";
+import keyBy from "lodash/keyBy";
 
-import { fetchTagsAPI } from "@bsport/api-core";
+import { fetchTagsQueryOptions } from "@bsport/api-cdp/tags";
 
 import { fetch } from "#src/utils/fetch";
 
-import { TAGS_QUERY_KEY, TAGS_STALE_TIME } from "./constants";
-
-const fetchTags = fetchTagsAPI.bind(null, fetch);
-
-const tagsQueryOptions = () => {
-  return queryOptions({
-    queryKey: [TAGS_QUERY_KEY],
-    queryFn: () => fetchTags(),
-    staleTime: TAGS_STALE_TIME,
-  });
-};
+import { TAGS_STALE_TIME } from "./constants";
 
 export const useFetchTags = () => {
   return useQuery({
-    ...tagsQueryOptions(),
+    ...fetchTagsQueryOptions(fetch),
+    staleTime: TAGS_STALE_TIME,
     select: (tags) => keyBy(tags, "id"),
   });
 };

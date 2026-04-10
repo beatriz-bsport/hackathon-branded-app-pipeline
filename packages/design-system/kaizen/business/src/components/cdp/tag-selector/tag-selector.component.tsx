@@ -1,6 +1,6 @@
 import { type ReactElement, useCallback } from "react";
 
-import type { Tag, TagGroup } from "@bsport/api-core";
+import type { Fetch } from "@bsport/fetch";
 import { type FieldValues, FormField } from "@bsport/form";
 import {
   Autocomplete,
@@ -9,7 +9,8 @@ import {
 
 import type { NumberListFieldPath } from "#src/utils/form-types";
 
-import { useTagAggregations, useTagOptions } from "./use-format-tag-options";
+import { useGroupedTagsQuery } from "../hooks/use-grouped-tags";
+import { useTagOptions } from "../hooks/use-tags-options";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const DEFAULT_PROPS: Partial<AutocompleteProps> = {
@@ -31,12 +32,8 @@ export type TagSelectorProps<
   placeholder: string;
   /** Control the default ids to inject in the Autocomplete. Else, it is delegated to form inference. */
   initialIds?: number[];
-  /** @todo
-   * These props will be removed when React Query will be used
-   * internally to fetch the tags
-   */
-  tags: Tag[];
-  tagGroups: TagGroup[];
+  fetch: Fetch;
+  loadingMessage?: string;
 } & Partial<
   Omit<
     AutocompleteProps,
@@ -45,6 +42,7 @@ export type TagSelectorProps<
     | "textfieldProps"
     | "onSelect"
     | "defaultSelectedIds"
+    | "loadingProps"
   >
 >;
 
@@ -56,17 +54,19 @@ export const TagSelector = <
   id,
   fieldName,
   placeholder,
-  tags,
-  tagGroups,
+  fetch,
   multiSelect,
   initialIds,
+  loadingMessage,
   ...autocompleteProps
 }: TagSelectorProps<TFormValues, TFieldName>): ReactElement => {
-  const { tagIdToTagGroupRecord, tagIdToTagRecord } = useTagAggregations({
-    tags,
-    tagGroups,
+  const { tagGroups, tagIdToTagGroupRecord, tagIdToTagRecord, isLoading } =
+    useGroupedTagsQuery(fetch);
+
+  const tagOptions = useTagOptions({
+    tagGroups: tagGroups ?? [],
+    tagIdToTagRecord,
   });
-  const tagOptions = useTagOptions({ tagGroups, tagIdToTagRecord });
 
   /**
    * Custom toggle logic to apply in the Autocomplete
@@ -165,6 +165,10 @@ export const TagSelector = <
         }}
         {...DEFAULT_PROPS}
         {...autocompleteProps}
+        loadingProps={{
+          isLoading,
+          message: loadingMessage,
+        }}
       />
     </FormField>
   );

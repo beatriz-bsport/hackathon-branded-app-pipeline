@@ -122,6 +122,7 @@
       "actions": "Actions"
     },
     "isLoading": "Loading appointments...",
+    "unpaidTooltip": "Appointment is unpaid",
     "shortcutActions": {
       "cancel": "Cancel",
       "reschedule": "Reschedule",

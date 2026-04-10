@@ -1,6 +1,7 @@
 import { type FC, useCallback, useState } from "react";
 
 import { type PayoutListItem } from "@bsport/api-financial-services/payout";
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET } from "@bsport/common/lib/master-data/payment-group";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import {
@@ -31,7 +32,14 @@ import { useTranslation } from "#src/utils/i18n";
 
 const PayoutPage: FC = () => {
   const { t, i18n } = useTranslation("payout");
-  const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const companyTimezone = companyTheme?.timezone_name;
+  const hasPaypalActivated = [
+    ...(companyTheme?.payment_method_available ?? []),
+    ...(companyTheme?.payment_method_available_basket ?? []),
+    ...(companyTheme?.payment_method_available_subscription ?? []),
+    ...(companyTheme?.payment_method_available_manager ?? []),
+  ].includes(PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET);
 
   const { payouts, paginationProps, isFetching, error } = usePaginatedPayouts();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -138,7 +146,17 @@ const PayoutPage: FC = () => {
         pageTitle={t("title")}
         endGroupActions={layoutEndGroupActions}
       />
-      <ListLayout.Content className="flex flex-col gap-sm">
+      <ListLayout.Content className="flex flex-col">
+        {hasPaypalActivated ? (
+          <Alert
+            className="shadow-none rounded-none"
+            status="warning"
+            type="weak"
+            title={t("paypalWarning.title")}
+          >
+            {t("paypalWarning.description")}
+          </Alert>
+        ) : null}
         {error != null ? (
           <Alert status="critical" type="weak">
             {t("emptyTable.loadError")}

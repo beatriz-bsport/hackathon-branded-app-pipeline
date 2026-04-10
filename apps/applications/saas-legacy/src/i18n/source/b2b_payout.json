@@ -1,5 +1,9 @@
 {
   "loadMore": "Load more",
+  "paypalWarning": {
+    "title": "Payouts include Stripe payments only.",
+    "description": "Since PayPal is not connected to Stripe, PayPal transactions are paid directly to your PayPal account and won’t appear here."
+  },
   "amountCarryOverFromPreviousPayouts": "Includes {{amount}} carried over from previous failed/cancelled payouts",
   "reconciliationStatusLabel": "Reconciliation: {{status}}",
   "reconciliationStatus": {

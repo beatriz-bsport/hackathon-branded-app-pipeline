@@ -5,6 +5,10 @@
     "label": "Payout information",
     "description": "You can copy the payout ID and use Payment Report to export all the payments."
   },
+  "paypalWarning": {
+    "title": "Payouts include Stripe payments only.",
+    "description": "Since PayPal is not connected to Stripe, PayPal transactions are paid directly to your PayPal account and won’t appear here."
+  },
   "emptyTable": {
     "title": "No payouts to display",
     "description": "There are no payouts available for the selected criteria.",

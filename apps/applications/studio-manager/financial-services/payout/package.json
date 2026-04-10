@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@bsport/api-financial-services": "workspace:*",
+    "@bsport/common": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*"

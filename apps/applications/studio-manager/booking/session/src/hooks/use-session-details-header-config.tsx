@@ -22,14 +22,14 @@ export const useSessionDetailsHeaderConfig = (
 > => {
   const { t } = useTranslation("sessionDetails");
 
-  const { getBookingsManagementUrl, resolveEditPath, getIndexUrl } = useUrls();
+  const { getBookingsManagementPath, resolveEditPath, getIndexUrl } = useUrls();
 
   const { id } = session;
 
   const TABS_CONFIG = [
     {
       id: "session-management-view-tab",
-      href: getBookingsManagementUrl(id),
+      href: getBookingsManagementPath(id),
       label: t("tabs.overview"),
       end: true, // :id => active is true | :id/anything-else => active is false
     },

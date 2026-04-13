@@ -30,7 +30,7 @@ const isSessionCreationResult = (
 export const useCreateSession = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("sessionCreation");
-  const { navigateToBookingsManagement } = useUrls();
+  const { navigateToBookingsManagement, getBookingsManagementUrl } = useUrls();
   const { waitForBackgroundTask, handleBackgroundTaskError } =
     useWaitForBackgroundTask(fetch);
 
@@ -58,7 +58,9 @@ export const useCreateSession = () => {
               ns: "sessionCreation",
             }),
             onButtonClick: () => {
-              navigateToBookingsManagement(result.return_value.id);
+              navigateToBookingsManagement(
+                getBookingsManagementUrl(result.return_value.id),
+              );
             },
           }
         : {};

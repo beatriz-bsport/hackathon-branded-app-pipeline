@@ -142,6 +142,9 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
     useState<boolean>(false);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [clientSecretError, setClientSecretError] = useState<boolean>(false);
+  const [clientSecretErrorCode, setClientSecretErrorCode] = useState<
+    number | null
+  >(null);
 
   const [paymentGroupPriceCts, setPaymentGroupPriceCts] = useState<number>(0);
   const [paymentGroupId, setPaymentGroupId] = useState<number | null>(null);
@@ -163,6 +166,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
       setClientSecret(null);
       setClientSecretLoading(true);
       setClientSecretError(false);
+      setClientSecretErrorCode(null);
       requestClientSecretAPI(
         paymentEngine,
         invoiceToBill ? PAYMENT_INTENT_TYPE_INVOICE : PAYMENT_INTENT_TYPE_DEBT,
@@ -182,11 +186,14 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
           setAmountToBill((r.data.price_cts / 100).toFixed(2));
           setPaymentGroupId(r.data.payment_group);
           setClientSecretError(false);
+          setClientSecretErrorCode(null);
         })
         .catch((err) => {
           console.error(err);
           setClientSecretLoading(false);
           setClientSecretError(true);
+          setClientSecretErrorCode(err.response?.data?.error_code || null);
+
           Sentry.captureException(err);
         });
     },
@@ -517,6 +524,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                 cardBillingDetailsMandatory={cardBillingDetailsMandatory}
                 clientSecret={clientSecretLoading ? null : clientSecret}
                 clientSecretError={clientSecretError}
+                clientSecretErrorCode={clientSecretErrorCode}
                 clientSecretLoading={clientSecretLoading}
                 companyId={companyId}
                 creditAccountBalance={creditAccountBalance}

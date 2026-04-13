@@ -487,6 +487,7 @@
     "billingMoreThanNeeded": "If you charge more than the amount of the invoice, the difference in cost will be added to the client account balance",
     "errorSecretExplain2": "If this issue is not resolved please contact us at dev+payment-intent@bsport.io",
     "errorSecretExplain1": "This payment method is not available at the moment",
+    "pendingMemberDebtPaymentIntentError": "A payment is currently already pending to adjust this member debt. Please wait for it to be processed before attempting to take another payment.",
     "plannedPaymentEvent": {
       "title": "Planned payment",
       "title_plural": "Planned payments"

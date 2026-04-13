@@ -8,6 +8,10 @@ import Config from '#src/config';
 
 const ACTIVATE_DEBUG = process.env.NODE_ENV !== 'production';
 const IS_PRODUCTION = Config.REACT_APP_SENTRY_ENVIRONMENT === 'production';
+const mixpanelTokenB2B =
+  Config.REACT_APP_MIXPANEL_TOKEN_B2B?.trim() || undefined;
+const mixpanelTokenB2C =
+  Config.REACT_APP_MIXPANEL_TOKEN_B2C?.trim() || undefined;
 
 // ==================== B2B ====================
 
@@ -29,11 +33,10 @@ export const analyticsClientB2B: AnalyticsClientInterface = new AnalyticsClient(
  */
 const configureAnalyticsB2B = () => {
   try {
-    // The package uses Mixpanel B2B projects tokens by default, based on the env input
-    // We don't need to provide them
     analyticsClientB2B.configure({
       debug: ACTIVATE_DEBUG,
       env: IS_PRODUCTION ? 'production' : 'dev',
+      token: mixpanelTokenB2B,
       autocapture: false,
       track_pageview: 'url-with-path-and-query-string',
       opt_out_tracking_by_default: true,
@@ -138,7 +141,7 @@ const configureAnalyticsB2C = () => {
     analyticsClientB2C.configure({
       debug: ACTIVATE_DEBUG,
       env: IS_PRODUCTION ? 'production' : 'dev',
-      token: Config.REACT_APP_MIXPANEL_TOKEN,
+      token: mixpanelTokenB2C,
       autocapture: false,
       track_pageview: 'url-with-path-and-query-string',
       opt_out_tracking_by_default: true,

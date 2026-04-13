@@ -8,7 +8,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { API_URL } from "#src/constants";
+import { API_URL, DEFAULT_STALE_TIME } from "#src/constants";
 import type {
   CanArchiveGroupActivityResponse,
   FetchGroupActivitiesParams,
@@ -17,9 +17,6 @@ import type {
 } from "#src/group-activity/types";
 
 const META_ACTIVITY_URL = API_URL + "v1/meta-activity";
-
-// TODO: use the same stale time for all group activity queries
-const ACTIVITIES_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 // TODO: add the other keys (list, search, etc.)
 export const groupActivityKeys = {
@@ -273,5 +270,5 @@ export const retrieveGroupActivityQueryOptions = (
   queryOptions({
     queryKey: groupActivityKeys.detail(metaActivityId),
     queryFn: () => retrieveGroupActivity(fetch, metaActivityId),
-    staleTime: ACTIVITIES_STALE_TIME,
+    staleTime: DEFAULT_STALE_TIME,
   });

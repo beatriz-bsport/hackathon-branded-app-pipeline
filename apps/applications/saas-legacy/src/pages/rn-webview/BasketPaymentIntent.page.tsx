@@ -104,6 +104,7 @@ import {
 } from '#src/libs/checkout/constants';
 import Alert from '@material-ui/lab/Alert';
 import { trackPaymentViewedInBasket } from '#src/events/booking/utils';
+import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items.js';
 
 const OnlinePayment = asyncComponent(
   () => import('../../libs/payment/components/OnlinePayment.component'),
@@ -516,6 +517,11 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       parseFloat(basketPriceExcludingTax)
     ).toFixed(2);
 
+    const isBasketEmpty =
+      (this.props.basket?.checkout_items ?? []).filter(
+        (item) => item.buyable_item_identifier !== BUYABLE_ITEM_COUPON,
+      )?.length === 0;
+
     return (
       <div className={classes.container}>
         {this.props.paymentPackOrComboCanNotBookAllOffers && (
@@ -582,10 +588,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             <div className={classes.innerContainer}>
               <Button
                 color="primary"
-                disabled={
-                  this.state.selfProcessing ||
-                  this.props.basket?.checkout_items?.length === 0
-                }
+                disabled={this.state.selfProcessing || isBasketEmpty}
                 onClick={() => this.validateUnpaid()}
                 variant="contained"
               >

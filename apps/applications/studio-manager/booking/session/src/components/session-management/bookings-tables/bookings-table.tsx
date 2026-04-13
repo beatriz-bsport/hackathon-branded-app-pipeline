@@ -11,6 +11,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import { ActionsMenuButton } from "#src/components/common/action-menu-button.js";
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance.js";
 import {
   RefinedBooking,
@@ -115,7 +116,13 @@ export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
       id: BookingColumns.SHORTCUT_ACTIONS,
       type: "custom",
       align: "center",
-      render: () => <div>Actions</div>,
+      render: () => (
+        <ActionsMenuButton
+          label={t("bookingsTable.actionsMenu.label")}
+          // TODO: implement actions
+          items={() => []}
+        />
+      ),
     },
   ];
 

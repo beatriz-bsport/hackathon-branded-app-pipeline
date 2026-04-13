@@ -16,6 +16,9 @@
       "new": "New",
       "recurring": "Recurring booking",
       "tags": "Tags"
+    },
+    "actionsMenu": {
+      "label": "Actions"
     }
   }
 }

@@ -14,6 +14,7 @@ import type { Theme } from '@material-ui/core/styles';
 import CheckIcon from '@material-ui/icons/Check';
 import Alert from '@material-ui/lab/Alert';
 
+import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items.js';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import {
   PAYMENT_ENGINE_STRIPE,
@@ -464,6 +465,11 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       parseFloat(basketPriceExcludingTax)
     ).toFixed(2);
 
+    const isBasketEmpty =
+      (this.props.basket?.checkout_items ?? []).filter(
+        (item) => item.buyable_item_identifier !== BUYABLE_ITEM_COUPON,
+      )?.length === 0;
+
     const showBillingGroupSelector =
       isNil(this.props.basket.total_price_cts) ||
       !(
@@ -532,10 +538,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             <div className={classes.innerContainer}>
               <Button
                 color="primary"
-                disabled={
-                  this.state.selfProcessing ||
-                  this.props.basket?.checkout_items?.length === 0
-                }
+                disabled={this.state.selfProcessing || isBasketEmpty}
                 onClick={() => this.validateUnpaid()}
                 variant="contained"
               >

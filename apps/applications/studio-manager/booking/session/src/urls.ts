@@ -32,13 +32,20 @@ export const useUrls = () => {
   const getBookingsManagementUrl = (id: number) =>
     generatePath(
       shouldUseBookingManagementRevamp
+        ? URLS.BOOKINGS_MANAGEMENT_REVAMP
+        : LEGACY_URLS.BOOKINGS_MANAGEMENT_REVAMP,
+      { sessionId: String(id) },
+    );
+
+  const getBookingsManagementPath = (id: number) =>
+    generatePath(
+      shouldUseBookingManagementRevamp
         ? URLS.BOOKINGS_MANAGEMENT_REVAMP_PATH
         : LEGACY_URLS.BOOKINGS_MANAGEMENT_REVAMP,
       { sessionId: String(id) },
     );
 
-  const navigateToBookingsManagement = (id: number) => {
-    const url = getBookingsManagementUrl(id);
+  const navigateToBookingsManagement = (url: string) => {
     const navigateTo = shouldUseBookingManagementRevamp
       ? navigate
       : (target: string) => window.location.assign(target);
@@ -58,6 +65,7 @@ export const useUrls = () => {
   return {
     navigateToBookingsManagement,
     getBookingsManagementUrl,
+    getBookingsManagementPath,
     getEditUrl,
     getIndexUrl,
     resolveEditPath,

@@ -188,7 +188,10 @@ export const useSessionListData = (
   const filters = useCalendarStore(selectSessionFilters);
   const filterParams = getParamsFromFilters(filters);
 
-  const { navigateToBookingsManagement } = useUrls();
+  const {
+    navigateToBookingsManagement: navigateToUrl,
+    getBookingsManagementUrl,
+  } = useUrls();
 
   const showCancelledSessions = useCalendarStore(selectSessionShowCancelled);
   const hasShowCancelledSessionsPermission = useObjectLevelPermission(
@@ -240,6 +243,9 @@ export const useSessionListData = (
   );
 
   const sessions = useMemo(() => {
+    const navigateToBookingsManagement = (sessionId: number) =>
+      navigateToUrl(getBookingsManagementUrl(sessionId));
+
     return rawSessions.map(
       processSession(
         teachersById,
@@ -257,7 +263,8 @@ export const useSessionListData = (
     sessionsWithPendingRequests,
     groupSessionsById,
     activitiesById,
-    navigateToBookingsManagement,
+    navigateToUrl,
+    getBookingsManagementUrl,
   ]);
 
   return {

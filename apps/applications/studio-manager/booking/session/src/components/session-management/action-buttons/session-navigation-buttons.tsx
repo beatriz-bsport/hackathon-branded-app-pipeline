@@ -13,7 +13,7 @@ export const SessionNavigationButtons: FC<{ sessionId: number }> = ({
   const { nextSessionId, previousSessionId, isLoading } =
     useSessionNavigation(sessionId);
 
-  const { navigateToBookingsManagement } = useUrls();
+  const { navigateToBookingsManagement, getBookingsManagementPath } = useUrls();
 
   const isHidden = isLoading || (!nextSessionId && !previousSessionId);
 
@@ -27,7 +27,11 @@ export const SessionNavigationButtons: FC<{ sessionId: number }> = ({
         size="md"
         color="main"
         disabled={!previousSessionId}
-        onClick={() => navigateToBookingsManagement(previousSessionId!)}
+        onClick={() =>
+          navigateToBookingsManagement(
+            getBookingsManagementPath(previousSessionId!),
+          )
+        }
       />
       <Button
         kind="icon-button"
@@ -37,7 +41,11 @@ export const SessionNavigationButtons: FC<{ sessionId: number }> = ({
         size="md"
         color="main"
         disabled={!nextSessionId}
-        onClick={() => navigateToBookingsManagement(nextSessionId!)}
+        onClick={() =>
+          navigateToBookingsManagement(
+            getBookingsManagementPath(nextSessionId!),
+          )
+        }
       />
     </div>
   );

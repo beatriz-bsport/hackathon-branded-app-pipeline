@@ -333,9 +333,9 @@
         "requiredField": "Obligatoire",
         "requiredSignature": "Veuillez signer le formulaire.",
         "requiredFile": "Veuillez joindre un fichier",
-        "passwordConfirmationError": "Les mots de passe ne sont pas identique",
+        "passwordConfirmationError": "Les mots de passe ne sont pas identiques",
         "invalidEmail": "Email invalide",
-        "passwordMinimumRequirementsError": "Le mot de passe doit contenir au moins 6 caratères",
+        "passwordMinimumRequirementsError": "Le mot de passe doit contenir au moins 6 caractères",
         "invalidOfficialDocumentId": "Ce champ ne peut contenir que des chiffres et des lettres",
         "barcodeMaximumLength": "Un code-barres ne peut pas dépasser 16 caractères",
         "membershipIdMaximumLength": "L'identifiant d'un membre ne peut pas dépasser 24 caractères"

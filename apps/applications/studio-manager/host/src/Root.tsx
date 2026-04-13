@@ -8,6 +8,7 @@ import {
 import { getEnv } from "@bsport/envs";
 import { initIntercomWidget, shutdownIntercom } from "@bsport/intercom";
 import { Loader } from "@bsport/kaizen-primitive-core";
+import { hasFranchisorNavigationContext } from "@bsport/local-storage-auth-token";
 import {
   BSPORT_REQUEST_FROM_HEADER_VALUES,
   setBsportRequestFrom,
@@ -20,6 +21,7 @@ import { analyticsClient, debugActive } from "#src/utils/analytics";
 import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
 
 import { removeAppcuesScripts } from "./components/onboarding/appcues-scripts";
+import { navigateBackToFranchisorHost } from "./navigateBackToFranchisor";
 
 // ----- Booking -----
 const GroupActivities = lazy(() => import("@bsport/sm-group-activity"));
@@ -97,6 +99,14 @@ export function Root() {
           analyticsClient.overloadResetSuperProperties(); // Analytics tool level super properties
           removeAppcuesScripts();
         },
+        isFranchisorNavigation: hasFranchisorNavigationContext(),
+        onNavigateBackToFranchisor: () => {
+          void navigateBackToFranchisorHost().catch((error) => {
+            captureException(error, {
+              extra: { phase: "navigateBackToFranchisorHost" },
+            });
+          });
+        },
       }}
       loginUrl={loginUrl}
     >
@@ -168,7 +178,10 @@ const AuthenticatedRoutes = () => {
         companyName: companyName,
         companyLocale,
         actionColor: colorOverride,
-        onEmailValidationFailure: (error, context) => {
+        onEmailValidationFailure: (
+          error: Error,
+          context: Record<string, unknown>,
+        ) => {
           captureException(error, { extra: context });
         },
       });

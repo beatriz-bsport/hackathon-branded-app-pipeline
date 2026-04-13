@@ -1,8 +1,5 @@
 import { EventKind } from "#src/api/constants";
 
-export const PUSH_AUTOMATION_MAX_TITLE_LENGTH = 25;
-export const PUSH_AUTOMATION_MAX_MESSAGE_LENGTH = 200;
-
 export const PUSH_AUTOMATION_EVENT_VALUES = {
   ENTRY: String(EventKind.JOIN),
   EXIT: String(EventKind.LEAVE),

@@ -16,6 +16,8 @@ import type {
 
 const API_URL = "customer-data-platform/v1/member";
 
+export const MEMBER_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
 export const memberKeys = {
   all: ["@api-cdp", "member"] as const,
 
@@ -86,6 +88,7 @@ export const memberListQueryOptions = (
   return queryOptions({
     queryKey: memberKeys.list(params),
     queryFn: () => fetchMemberListAPI(fetch, params),
+    staleTime: MEMBER_STALE_TIME,
   });
 };
 

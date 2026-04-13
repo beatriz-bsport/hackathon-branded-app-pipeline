@@ -1,7 +1,7 @@
 {
   "modelName": {
-    "singular": "Gift Card",
-    "plural": "Gift Cards"
+    "singular": "Gift card",
+    "plural": "Gift cards"
   },
   "createModal": {
     "title": "Create a new gift card",
@@ -10,18 +10,18 @@
       "create": "Create"
     },
     "submitResponse": {
-      "error": "Couldn't create Gift Card. Please try again.",
-      "success": "Successfully created Gift Card."
+      "error": "Couldn't create gift card. Try again.",
+      "success": "Successfully created gift card"
     }
   },
   "details": {
     "canNotFindGiftcard": {
-      "title": "Couldn't retrieve Gift Card.",
-      "goToListPage": "See Gift Cards"
+      "title": "Couldn't retrieve gift card. Try again. ",
+      "goToListPage": "See gift cards"
     },
-    "loading": "Loading Gift Card",
+    "loading": "Loading gift card",
     "header": {
-      "breadcrumbs": "Gift Cards",
+      "breadcrumbs": "Gift cards",
       "tabs": {
         "editor": "Editor",
         "purchases": "Purchases"
@@ -30,21 +30,21 @@
   },
   "editor": {
     "header": {
-      "archiveGiftcard": "Archive Gift Card",
-      "editGiftcardName": "Rename Gift Card"
+      "archiveGiftcard": "Archive gift card",
+      "editGiftcardName": "Rename gift card"
     },
     "editNameModal": {
-      "title": "Rename Gift Card?",
+      "title": "Rename gift card?",
       "buttons": {
         "cancel": "Back",
         "rename": "Rename"
       }
     },
     "submitResponse": {
-      "error": "Couldn't update Gift Card. Please try again.",
-      "success": "Successfully updated Gift Card."
+      "error": "Couldn't update gift card. Please try again.",
+      "success": "Successfully updated gift card"
     },
-    "sharedGiftcardCanNotBeEdited": "This Gift Card was created on the Central Account and some fields cannot be edited."
+    "sharedGiftcardCanNotBeEdited": "This gift card was created on the Central Account and some fields cannot be edited."
   },
   "purchases": {
     "status": {
@@ -54,10 +54,10 @@
       "cancelled": "Cancelled",
       "redeemed": "Redeemed"
     },
-    "loading": "Loading purchased Gift Cards...",
+    "loading": "Loading sold gift cards...",
     "emptyList": {
-      "title": "No Gift Cards sold yet",
-      "subtitle": "Once a member buys a Gift Card, they'll be displayed here."
+      "title": "No gift cards sold yet",
+      "subtitle": "Once a client buys a gift card, they'll be displayed here."
     },
     "displaySettings": {
       "visibleColumns": "Visible columns"
@@ -94,8 +94,8 @@
           "label": "Validity period",
           "unlimited": "Unlimited",
           "numberOfDays": "",
-          "numberOfDays_one": "{{ count }} Day",
-          "numberOfDays_other": "{{ count }} Days"
+          "numberOfDays_one": "{{ count }} day",
+          "numberOfDays_other": "{{ count }} days"
         },
         "type": {
           "label": "Type",
@@ -104,7 +104,7 @@
         },
         "code": {
           "label": "Code",
-          "tooltip": "Share the Gift Card code with members so they can use it for purchases"
+          "tooltip": "Share the gift card code with members so they can use it for purchases"
         }
       },
       "sectionBuyer": {
@@ -159,14 +159,14 @@
         "toasts": {
           "linkCopied": "Link copied",
           "invitationSent": "Recipient list updated",
-          "invitationSentFailed": "Failed to update recipient list"
+          "invitationSentFailed": "Couldn't update recipient list. Please try again. "
         }
       }
     }
   },
   "formFields": {
     "errors": {
-      "fieldIsRequired": "This field is required.",
+      "fieldIsRequired": "This field is required",
       "errorMissingPaymentMethod": "Select a payment method"
     },
     "name": {

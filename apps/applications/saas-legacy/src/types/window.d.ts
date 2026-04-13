@@ -14,6 +14,9 @@ export declare global {
   interface Window extends Window {
     runtime: Runtime;
     runtimeBsport: Runtime;
+    __SM_RUNTIME__?: {
+      API_BASE_URL?: string;
+    };
     bsportSegment: Analytics;
     ReactNativeWebView?: ReactNativeWebView;
     intercomSettings?: IntercomSettings;

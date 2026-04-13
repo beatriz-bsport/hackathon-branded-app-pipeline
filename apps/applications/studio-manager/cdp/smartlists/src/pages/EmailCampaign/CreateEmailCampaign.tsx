@@ -11,8 +11,8 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { useScheduleEmailCampaign } from "#src/api/use-schedule-email-campaign";
-import { useSendEmailCampaign } from "#src/api/use-send-email-campaign";
+import { useScheduleCampaign } from "#src/api/use-schedule-campaign";
+import { useSendCampaign } from "#src/api/use-send-campaign";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import { EMAIL_TYPE_MARKETING } from "#src/components/EmailCampaignForm/constants";
 import { EmailCampaignForm } from "#src/components/EmailCampaignForm/email-campaign-form";
@@ -29,9 +29,9 @@ import {
 } from "#src/components/campaign-generic-fields/campaign-delivery-mode.constants";
 import {
   formatScheduleEmailCampaignPayload,
-  formatScheduledDateTime,
   formatSendEmailCampaignPayload,
 } from "#src/pages/EmailCampaign/utils/format-email-campaign-payload";
+import { formatScheduledDateTime } from "#src/pages/utils/format-scheduled-date-time";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
@@ -59,7 +59,7 @@ function CreateEmailCampaign() {
   const companyTimezone =
     dataAccessLayer.useCompanyTheme()?.timezone_name ?? "UTC";
 
-  const { sendCampaign, isSending } = useSendEmailCampaign({
+  const { sendCampaign, isSending } = useSendCampaign({
     onSuccess: () => {
       navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
       toast({
@@ -78,7 +78,7 @@ function CreateEmailCampaign() {
       });
     },
   });
-  const { scheduleCampaign, isScheduling } = useScheduleEmailCampaign({
+  const { scheduleCampaign, isScheduling } = useScheduleCampaign({
     onSuccess: () => {
       toast({
         status: "default",

@@ -1,68 +1,76 @@
-import { type Environment, getEnv, isEnvFeatureBranch } from "@bsport/envs";
+type RuntimeFeatureFlagsConfig = {
+  UNLEASH_PROXY_URL?: string;
+  UNLEASH_CLIENT_KEY?: string;
+  UNLEASH_ENVIRONMENT?: string;
+};
 
-import {
-  ENVS,
-  FEATURE_FLAG_CONFIGS,
-  type FeatureFlagConfig,
-} from "./constants";
+export type FeatureFlagConfig = {
+  proxyUrl: string;
+  clientKey: string;
+  environment: string;
+};
 
-export const getFeatureFlagConfig = (
-  environment: Environment,
-): FeatureFlagConfig => {
-  if (isEnvFeatureBranch(environment)) {
-    return FEATURE_FLAG_CONFIGS["feature-branch"];
+const DEFAULT_UNLEASH_ENVIRONMENT = "default";
+
+const getRuntimeFeatureFlagConfig = () => {
+  if (typeof window === "undefined") {
+    return {};
   }
 
-  if (environment === ENVS.local) {
-    const unleashProxyUrl = import.meta.env.VITE_UNLEASH_PROXY_URL;
-    const unleashClientKeyOverride = import.meta.env.VITE_UNLEASH_CLIENT_KEY;
+  const runtimeConfig = (
+    window as Window & { __SM_RUNTIME__?: RuntimeFeatureFlagsConfig }
+  ).__SM_RUNTIME__;
 
-    if (
-      (unleashProxyUrl && !unleashClientKeyOverride) ||
-      (!unleashProxyUrl && unleashClientKeyOverride)
-    ) {
-      console.warn(
-        "[UNLEASH] Partial override detected.",
-        "Both VITE_UNLEASH_PROXY_URL and VITE_UNLEASH_CLIENT_KEY must be set.",
-        "Falling back to dev config.",
-      );
-    }
-
-    /**
-     * @todo Use runtime window variable to provide the override
-     * instead of env variables
-     */
-    if (unleashProxyUrl && unleashClientKeyOverride) {
-      return {
-        proxyUrl: unleashProxyUrl,
-        clientKey: unleashClientKeyOverride,
-      };
-    }
-    return FEATURE_FLAG_CONFIGS.dev;
+  if (!runtimeConfig) {
+    return {};
   }
 
-  if (["dev", "staging", "production"].includes(environment)) {
-    return FEATURE_FLAG_CONFIGS[
-      environment as "dev" | "staging" | "production"
-    ];
+  const proxyUrl = runtimeConfig.UNLEASH_PROXY_URL?.trim();
+  const clientKey = runtimeConfig.UNLEASH_CLIENT_KEY?.trim();
+  const environment = runtimeConfig.UNLEASH_ENVIRONMENT?.trim();
+
+  return {
+    proxyUrl: proxyUrl || undefined,
+    clientKey: clientKey || undefined,
+    environment: environment || undefined,
+  };
+};
+
+export const getFeatureFlagConfig = (): FeatureFlagConfig | undefined => {
+  const { proxyUrl, clientKey, environment } = getRuntimeFeatureFlagConfig();
+
+  if ((proxyUrl && !clientKey) || (!proxyUrl && clientKey)) {
+    console.warn(
+      "[UNLEASH] Partial runtime config detected.",
+      "Both window.__SM_RUNTIME__.UNLEASH_PROXY_URL and window.__SM_RUNTIME__.UNLEASH_CLIENT_KEY must be set.",
+      "Feature flags will be disabled.",
+    );
+    return undefined;
   }
 
-  return FEATURE_FLAG_CONFIGS.dev;
+  if (!proxyUrl || !clientKey) {
+    return undefined;
+  }
+
+  return {
+    proxyUrl,
+    clientKey,
+    environment: environment || DEFAULT_UNLEASH_ENVIRONMENT,
+  };
 };
 
 export function buildUnleashConfig() {
-  const env = getEnv();
-  const { clientKey, proxyUrl } = getFeatureFlagConfig(env);
+  const featureFlagConfig = getFeatureFlagConfig();
 
-  const finalEnvironment = isEnvFeatureBranch(env)
-    ? ENVS["feature-branch"]
-    : env;
+  if (!featureFlagConfig) {
+    return undefined;
+  }
 
   return {
-    url: proxyUrl,
-    clientKey,
+    url: featureFlagConfig.proxyUrl,
+    clientKey: featureFlagConfig.clientKey,
     appName: "studio-manager",
-    environment: finalEnvironment,
+    environment: featureFlagConfig.environment,
     refreshInterval: 0,
     metricsInterval: 240,
     customHeaders: {

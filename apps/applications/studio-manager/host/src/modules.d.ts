@@ -23,8 +23,10 @@ declare module "sm-navigation-sidebar/urls" {
     order: string;
     pack: string;
     payout: string;
+    playlist: string;
     smartlist: string;
     teacher: string;
+    video: string;
     settings_referral: string;
     settings_transactionalNotification: string;
     tag: string;

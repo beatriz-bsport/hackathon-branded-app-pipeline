@@ -80,7 +80,7 @@ export type FetchCampaignSentParams = {
   page?: number;
 };
 
-type SendEmailCampaignBasePayload = {
+type SendCampaignBasePayload = {
   subject: string;
   context_identifier: number;
   context_object_id: number;
@@ -90,14 +90,38 @@ type SendEmailCampaignBasePayload = {
 };
 
 export type SendEmailCampaignPayload =
-  | (SendEmailCampaignBasePayload & {
+  | (SendCampaignBasePayload & {
       email_template: number;
       body?: never;
     })
-  | (SendEmailCampaignBasePayload & {
+  | (SendCampaignBasePayload & {
       body: string;
       email_template?: never;
     });
+
+export type SendPushCampaignPayload = {
+  notification_title: string;
+  notification_content: string;
+  context_identifier: number;
+  context_object_id: number;
+  member_filters: {
+    smartlist: number;
+  };
+};
+
+export type SendSmsCampaignPayload = {
+  sms: string;
+  context_identifier: number;
+  context_object_id: number;
+  member_filters: {
+    smartlist: number;
+  };
+};
+
+export type SendCampaignPayload =
+  | SendEmailCampaignPayload
+  | SendPushCampaignPayload
+  | SendSmsCampaignPayload;
 
 /**
  * Combined type that includes automated campaign config + analytics
@@ -206,7 +230,7 @@ export type CampaignScheduled = {
   email_resend_count: number;
 };
 
-export type ScheduleEmailCampaignPayload = {
+export type ScheduleCampaignPayload = {
   smartlist: number;
   communication_kind: CommunicationKind;
   title: string;
@@ -214,6 +238,8 @@ export type ScheduleEmailCampaignPayload = {
   email_design?: number;
   text?: string;
 };
+
+export type ScheduleEmailCampaignPayload = ScheduleCampaignPayload;
 
 export type UpdateScheduledEmailCampaignPayload = {
   smartlist: number;

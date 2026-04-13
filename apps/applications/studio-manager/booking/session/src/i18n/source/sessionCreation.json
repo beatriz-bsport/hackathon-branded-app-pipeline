@@ -71,15 +71,17 @@
             "warning": "Double-check: you’re entering credits, not a price."
           },
           "partnership": {
-            "toggle": "Make session available to book for customers from aggregators (ClassPass, Urban Sports Club, Gymlib, Wellhub and myClubs).",
+            "toggle": "Make session available to book for customers from aggregators (ClassPass, Urban Sports Club, Wellpass, Wellhub and myClubs).",
+            "noEstablishment": "To customize aggregator availability, you must first select an establishment.",
             "cappingStrategy": {
+              "label": "Spot limitation",
               "UNLIMITED": {
                 "label": "Unlimited spots",
                 "helperText": "All spots can be booked through aggregators (combined across all platforms)"
               },
               "COMBINED": {
                 "label": "Limited spots (combined)",
-                "helperText": "Set a maximum number of spots for all aggregators combined (ClassPass excluded)"
+                "helperText": "Set a maximum number of spots for all aggregators combined"
               },
               "PER_PARTNER": {
                 "label": "Limit bookings per aggregator",
@@ -88,8 +90,8 @@
             },
             "capacity": {
               "label": "Spots available for aggregators",
-              "helperText": "This limit only applies when using Wellhub, Urban Sports Club or myClubs — other aggregators aren’t affected.",
-              "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session."
+              "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session.",
+              "classpassInfo": "ClassPass has its own separate limit — not included in this cap."
             },
             "wellhub": {
               "label": "Your available products on Wellhub",
@@ -106,7 +108,8 @@
               }
             },
             "enabledAggregators": {
-              "label": "Enabled Aggregators"
+              "label": "Enabled aggregators",
+              "error": "If the session is available to aggregators, you must select at least one."
             }
           },
           "level": {

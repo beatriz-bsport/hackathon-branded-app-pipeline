@@ -1,11 +1,9 @@
 import { z } from "zod";
 
-import { i18nInstance } from "#src/utils/i18n";
+import { getPushNotificationContentObjectSchema } from "#src/components/push-notification-generic-field/schema";
 
 import {
   PUSH_AUTOMATION_EVENT_VALUES,
-  PUSH_AUTOMATION_MAX_MESSAGE_LENGTH,
-  PUSH_AUTOMATION_MAX_TITLE_LENGTH,
   PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES,
   type PushAutomationFormData,
 } from "./types";
@@ -22,39 +20,13 @@ const pushAutomationTriggerLimitSchema = z.enum([
   PUSH_AUTOMATION_TRIGGER_LIMIT_VALUES.THREE_TIMES,
 ]);
 
-export const pushAutomationSchema = z.object({
-  eventKind: pushAutomationEventSchema,
-  triggerLimit: pushAutomationTriggerLimitSchema,
-  title: z
-    .string()
-    .trim()
-    .min(
-      1,
-      i18nInstance.t("automation.push.form.title.required", {
-        ns: "sm-smartlists_details",
-      }),
-    )
-    .max(
-      PUSH_AUTOMATION_MAX_TITLE_LENGTH,
-      i18nInstance.t("automation.push.form.title.maxLength", {
-        ns: "sm-smartlists_details",
-      }),
-    ),
-  message: z
-    .string()
-    .trim()
-    .min(
-      1,
-      i18nInstance.t("automation.push.form.message.required", {
-        ns: "sm-smartlists_details",
-      }),
-    )
-    .max(
-      PUSH_AUTOMATION_MAX_MESSAGE_LENGTH,
-      i18nInstance.t("automation.push.form.message.maxLength", {
-        ns: "sm-smartlists_details",
-      }),
-    ),
-}) satisfies z.ZodType<PushAutomationFormData>;
+export const pushAutomationSchema = z
+  .object({
+    eventKind: pushAutomationEventSchema,
+    triggerLimit: pushAutomationTriggerLimitSchema,
+  })
+  .and(
+    getPushNotificationContentObjectSchema(),
+  ) satisfies z.ZodType<PushAutomationFormData>;
 
 export type PushAutomationSchema = z.infer<typeof pushAutomationSchema>;

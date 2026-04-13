@@ -8,6 +8,18 @@
       "editor": "Editor",
       "overview": "Overview",
       "pauses": "Pauses"
+    },
+    "actions": {
+      "renameContract": "Rename Contract",
+      "pauseContract": "Pause Contract",
+      "archiveContract": "Archive Contract"
+    }
+  },
+  "editNameModal": {
+    "title": "Rename Contract?",
+    "buttons": {
+      "back": "Back",
+      "rename": "Rename"
     }
   },
   "canNotFindContract": {

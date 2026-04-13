@@ -17,10 +17,11 @@ import {
   QueryBoundary,
 } from "#src/components/QueryBoundary";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import { CAMPAIGN_CHANNEL_EMAIL, SMARTLIST_APP_LINKS } from "#src/urls";
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { getFallbackCampaignScheduledName } from "#src/utils/campaignUtils";
 import {
   CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
+  COMMUNICATION_CHANNEL_BY_KIND_MAP,
   CampaignScheduledInlineActions,
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
@@ -82,9 +83,17 @@ function CampaignScheduledDetail() {
   const endGroupActions = [
     <CampaignScheduledHeaderActionDropdown
       key="campaign-scheduled-detail-header-actions"
-      onEdit={() =>
-        navigateToSmartlistCampaignEdit(id, CAMPAIGN_CHANNEL_EMAIL, uuid)
-      }
+      onEdit={() => {
+        const channel =
+          COMMUNICATION_CHANNEL_BY_KIND_MAP[
+            campaignScheduledDetail?.communication_kind
+          ];
+        navigateToSmartlistCampaignEdit(
+          id,
+          channel,
+          String(campaignScheduledId),
+        );
+      }}
       onDelete={() =>
         setCurrentInlineAction(CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION)
       }

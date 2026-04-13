@@ -1,0 +1,1 @@
+export const SMS_CONTENT_SEGMENT_LENGTH = 160;

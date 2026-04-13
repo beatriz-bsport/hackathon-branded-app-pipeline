@@ -43,6 +43,9 @@ export const useCampaignTypeOptions = ({
       titleKey: t("campaignTypeSelector.sms.title"),
       descriptionKey: t("campaignTypeSelector.sms.description"),
       showAddOnChip: showAddOnChipSms,
+      onClick: () => {
+        navigateToSmartlistCampaignCreate(smartlistId, "sms");
+      },
     },
     {
       id: "push",

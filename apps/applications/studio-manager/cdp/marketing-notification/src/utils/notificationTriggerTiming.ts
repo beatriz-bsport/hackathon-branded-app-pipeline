@@ -48,16 +48,10 @@ const extractTimingConfig = (
     { key: "credits_left", unit: "credit" },
   ] as const;
 
-  const isHourTimingZero =
-    "hours" in event_rules &&
-    typeof event_rules.hours === "number" &&
-    event_rules.hours === 0;
-  const isDayTimingZero =
-    "days" in event_rules &&
-    typeof event_rules.days === "number" &&
-    event_rules.days === 0;
+  const isHourTimingZero = "hours" in event_rules && !event_rules.hours;
+  const isDayTimingZero = "days" in event_rules && !event_rules.days;
 
-  if (isDayTimingZero && isHourTimingZero) {
+  if (isHourTimingZero && isDayTimingZero) {
     return {
       unit: "immediate",
       duration: 0,

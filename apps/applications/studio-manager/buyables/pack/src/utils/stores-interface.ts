@@ -41,11 +41,6 @@ import {
   selectWebshopItemsById,
   useWebshopStore,
 } from "@bsport/store-buyables-webshop";
-import {
-  selectTagGroups,
-  selectTags,
-  useTagStore,
-} from "@bsport/store-cdp-tag";
 
 import { ITEM_VARIANTS } from "./constants";
 
@@ -117,12 +112,6 @@ export const useCategoriesCount = () => {
     ),
     [ITEM_VARIANTS.webshopItem]: useWebshopStore(selectWebshopCategoriesCount),
   } as const;
-};
-
-export const useTags = () => {
-  const tags = useTagStore(selectTags);
-  const tagGroups = useTagStore(selectTagGroups);
-  return { tags, tagGroups };
 };
 
 export { AppointmentPass, Pass, WebshopItem };

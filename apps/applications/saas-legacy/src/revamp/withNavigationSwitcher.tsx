@@ -28,6 +28,8 @@ export function withNavigationSwitcher(
         <>
           <Hidden smDown>
             <Navigation
+              isFranchisorNavigation={props.isFranchisorNavigation}
+              onNavigateBackToFranchisor={props.onNavigateBackToFranchisor}
               updateRevampedBackofficeEnabled={
                 props.updateRevampedBackofficeEnabled
               }
@@ -48,7 +50,9 @@ export function withNavigationSwitcher(
               open={props.mobileOpen}
             >
               <Navigation
+                isFranchisorNavigation={props.isFranchisorNavigation}
                 onDrawerClose={props.handleDrawerToggle}
+                onNavigateBackToFranchisor={props.onNavigateBackToFranchisor}
                 updateRevampedBackofficeEnabled={
                   props.updateRevampedBackofficeEnabled
                 }

@@ -1,5 +1,3 @@
-import { fromIsoString } from "@bsport/datetime-manipulation";
-
 import { CommunicationKind } from "#src/api/constants";
 import type {
   ScheduleEmailCampaignPayload,
@@ -7,8 +5,7 @@ import type {
   UpdateScheduledEmailCampaignPayload,
 } from "#src/api/types";
 import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
-
-const CONTEXT_SMARTLIST = 202;
+import { CONTEXT_SMARTLIST } from "#src/utils/constants";
 
 const getEmailContent = (data: EmailCampaignFormData) => {
   const subject = (data.emailSubject ?? "").trim();
@@ -22,28 +19,6 @@ const getEmailContent = (data: EmailCampaignFormData) => {
     : (data.emailTemplateHtml ?? "");
 
   return { subject, body: htmlOrTextBody } as const;
-};
-
-export const formatScheduledDateTime = ({
-  scheduledDate,
-  scheduledTime,
-  companyTimezone,
-}: {
-  scheduledDate: string;
-  scheduledTime: string;
-  companyTimezone: string;
-}) => {
-  const [hour, minute] = scheduledTime.split(":").map(Number);
-  const submittedDatetime = fromIsoString(scheduledDate, {
-    zone: companyTimezone,
-  }).set({
-    hour,
-    minute,
-    second: 0,
-    millisecond: 0,
-  });
-
-  return `${submittedDatetime.toISODate()}T${submittedDatetime.toFormat("HH:mm")}`;
 };
 
 export const formatSendEmailCampaignPayload = ({

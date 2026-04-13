@@ -1,15 +1,10 @@
 import React, { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router";
 
-import {
-  Button,
-  Item,
-  Menu,
-  Popover,
-  useCopyToClipboard,
-} from "@bsport/kaizen-primitive-core";
+import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { SessionVisibilityType } from "#src/events/constants";
 import {
   sessionListCancelButtonClickedEvent,
@@ -229,30 +224,10 @@ export const ShortcutActionsButton: React.FC<ShortcutActionsButtonProps> = ({
   }
 
   return (
-    <Popover>
-      <Popover.Anchor>
-        {({ setIsPopoverOpened }) => (
-          <Button
-            kind="icon-button"
-            icon="dots-vertical"
-            onClick={(event) => {
-              event.stopPropagation(); // Prevent triggering row click
-              setIsPopoverOpened(true);
-            }}
-            size="md"
-            intent="flat"
-            color="default"
-            label={t("table.shortcutActions.label")}
-          />
-        )}
-      </Popover.Anchor>
-      <Popover.Content placement="bottom-right">
-        {({ setIsPopoverOpened }) => (
-          <div className="flex flex-col gap-sm">
-            <Menu items={getMenuItems(setIsPopoverOpened)} />
-          </div>
-        )}
-      </Popover.Content>
-    </Popover>
+    <ActionsMenuButton
+      label={t("table.shortcutActions.label")}
+      items={getMenuItems}
+      onButtonClick={(e) => e.stopPropagation()}
+    />
   );
 };

@@ -3,7 +3,6 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { HTTPException } from "@bsport/http-exception";
 
-import { MAP_ENV_TO_API_URL } from "#src/uri-management";
 import { BACKGROUND_TASK_UUID_HEADER } from "#src/utils";
 
 import { getFetch } from "../fetch";
@@ -35,10 +34,13 @@ Object.defineProperty(window, "location", {
 
 describe("getFetch", () => {
   const fetchFn = getFetch();
-  const baseUrl = MAP_ENV_TO_API_URL.dev;
+  const baseUrl = "https://api.dev.bsport.io";
 
   beforeEach(() => {
     vi.clearAllMocks();
+    window.__SM_RUNTIME__ = {
+      API_BASE_URL: baseUrl,
+    };
   });
 
   describe("successful responses", () => {

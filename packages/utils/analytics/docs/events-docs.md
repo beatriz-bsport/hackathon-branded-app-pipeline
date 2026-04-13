@@ -205,6 +205,25 @@
 `activity_id`: The unique identifier for the group activity
 `activity_name`: The name of the group activity
 
+### `swap_pass_button_clicked`
+
+**Description:** When the user opens the swap pass dialog
+
+**Parameters:**
+`session_type`: The type of session for the booking
+`booking_id`: The unique identifier for the booking
+`member_id`: The unique identifier for the member
+
+### `swap_pass_confirmed_button_clicked`
+
+**Description:** When the user successfully confirms a pass swap
+
+**Parameters:**
+`session_type`: The type of session for the booking
+`booking_id`: The unique identifier for the booking
+`member_id`: The unique identifier for the member
+`new_pass_id`: The unique identifier for the newly selected pass
+
 ### `tablet_check_in_checkin_button_clicked`
 
 **Description:** When the user clicks on the check-in button from the session management page
@@ -239,7 +258,8 @@
 **Parameters:**
 `basket_session_id`: Session UUID
 `member_id`: Current member ID
-`footnote_text`: Footnote text
+`has_footnote`: Whether a footnote is present
+`footnote_length`: Footnote length in characters
 
 ### `checkout_flow_add_promo_code_button_clicked`
 
@@ -311,7 +331,8 @@
 `invoice_creation_error`: Error message on failure
 `invoice_id`: Invoice UUID on success
 `total_basket_price`: Total basket price in cents after tax and reductions
-`footnote_text`: Value of the footnote
+`has_footnote`: Whether a footnote is present
+`footnote_length`: Footnote length in characters
 
 ### `checkout_flow_cross_button_clicked`
 
@@ -363,7 +384,8 @@
 **Parameters:**
 `basket_session_id`: Session UUID
 `member_id`: Current member ID
-`footnote_text`: Footnote text
+`has_footnote`: Whether a footnote is present
+`footnote_length`: Footnote length in characters
 
 ### `checkout_flow_footnote_cross_button_clicked`
 
@@ -372,7 +394,8 @@
 **Parameters:**
 `basket_session_id`: Session UUID
 `member_id`: Current member ID
-`footnote_text`: Footnote text
+`has_footnote`: Whether a footnote is present
+`footnote_length`: Footnote length in characters
 
 ### `checkout_flow_footnote_delete_button_clicked`
 
@@ -381,7 +404,8 @@
 **Parameters:**
 `basket_session_id`: Session UUID
 `member_id`: Current member ID
-`footnote_text`: Footnote text
+`has_footnote`: Whether a footnote is present
+`footnote_length`: Footnote length in characters
 
 ### `checkout_flow_footnote_edit_button_clicked`
 
@@ -390,7 +414,8 @@
 **Parameters:**
 `basket_session_id`: Session UUID
 `member_id`: Current member ID
-`footnote_text`: Footnote text
+`has_footnote`: Whether a footnote is present
+`footnote_length`: Footnote length in characters
 
 ### `checkout_flow_footnote_escape_key_button_clicked`
 
@@ -399,7 +424,8 @@
 **Parameters:**
 `basket_session_id`: Session UUID
 `member_id`: Current member ID
-`footnote_text`: Footnote text
+`has_footnote`: Whether a footnote is present
+`footnote_length`: Footnote length in characters
 
 ### `checkout_flow_footnote_save_button_clicked`
 
@@ -408,7 +434,8 @@
 **Parameters:**
 `basket_session_id`: Session UUID
 `member_id`: Current member ID
-`footnote_text`: Footnote text
+`has_footnote`: Whether a footnote is present
+`footnote_length`: Footnote length in characters
 
 ### `checkout_flow_item_add_item_button_clicked`
 
@@ -511,15 +538,23 @@
 
 ### `checkout_flow_member_edit_button_clicked`
 
-**Description:** When the user clicks Edit member to open the member search
+**Description:** When the user clicks Edit/Change member to open the member search
 
 **Parameters:**
 `basket_session_id`: Session UUID
-`member_id`: Current member ID
+`member_id`: Current member ID if any
 
 ### `checkout_flow_member_search_cancel_button_clicked`
 
 **Description:** When the user closes the member search modal with Cancel
+
+**Parameters:**
+`basket_session_id`: Session UUID
+`member_id`: Member ID when available
+
+### `checkout_flow_member_search_click_outside`
+
+**Description:** When the user closes the member search modal by clicking outside
 
 **Parameters:**
 `basket_session_id`: Session UUID
@@ -927,3 +962,129 @@
 **Parameters:**
 `calendar_column_name`: The column for which the user clicks on the visible columns settings
 `calendar_column_visibility`: Whether the column is currently visible or hidden when the user clicks on the visible columns settings
+
+### `session_update_cancel_button_clicked`
+
+**Description:** When the user clicks on the cancel button
+
+**Parameters:**
+`session_id`: The id of the session for which the user clicks on the cancel button
+`session_name`: The name of the session for which the user clicks on the cancel button
+`session_start_date_time`: The date and time of the session for which the user clicks on the cancel button
+`participant_number`: The number of participants registered for the session for which the user clicks on the cancel button
+`teacher_name`: The name of the teacher of the session for which the user clicks on the cancel button
+`teacher_id`: The id of the teacher of the session for which the user clicks on the cancel button
+`session_type`: The type of the session for which the user clicks on the cancel button (e.g. group activity, workshop)
+`session_is_online`: Whether the session for which the user clicks on the cancel button is an online session
+`session_available`: Whether the session for which the user clicks on the cancel button is still available when cancelling (i.e. not cancelled or already took place)
+`session_duration`: The duration in minutes of the session for which the user clicks on the cancel button
+`session_visibility`: The visibility of the session for which the user clicks on the cancel button
+
+### `session_update_copy_link_button_clicked`
+
+**Description:** When the user clicks on the copy link button
+
+**Parameters:**
+`session_id`: The id of the session for which the user clicks on the copy link button
+`session_name`: The name of the session for which the user clicks on the copy link button
+`session_start_date_time`: The date and time of the session for which the user clicks on the copy link button
+`participant_number`: The number of participants registered for the session for which the user clicks on the copy link button
+`teacher_name`: The name of the teacher of the session for which the user clicks on the copy link button
+`teacher_id`: The id of the teacher of the session for which the user clicks on the copy link button
+`session_type`: The type of the session for which the user clicks on the copy link button (e.g. group activity, workshop)
+`session_is_online`: Whether the session for which the user clicks on the copy link button is an online session
+`session_available`: Whether the session for which the user clicks on the copy link button is still available when copying the link (i.e. not cancelled or already took place)
+`session_duration`: The duration in minutes of the session for which the user clicks on the copy link button
+`session_visibility`: The visibility of the session for which the user clicks on the copy link button
+
+### `session_update_credits_updated`
+
+**Description:** When the user updates the credits of a session
+
+**Parameters:**
+`session_id`: The id of the session for which the credits have been updated
+`old_credits`: The old credits of the session before the update
+`new_credits`: The new credits of the session after the update
+`delta`: The difference between the new and old credits of the session after the update
+
+### `session_update_date_start_updated`
+
+**Description:** When the user updates the start date of a session
+
+**Parameters:**
+`session_id`: The id of the session for which the start date has been updated
+`old_date_start`: The old start date of the session before the update
+`new_date_start`: The new start date of the session after the update
+
+### `session_update_duplicate_session_button_clicked`
+
+**Description:** When the user clicks on the duplicate button
+
+**Parameters:**
+`session_id`: The id of the session for which the user clicks on the duplicate button
+`session_name`: The name of the session for which the user clicks on the duplicate button
+`session_start_date_time`: The date and time of the session for which the user clicks on the duplicate button
+`participant_number`: The number of participants registered for the session for which the user clicks on the duplicate button
+`teacher_name`: The name of the teacher of the session for which the user clicks on the duplicate button
+`teacher_id`: The id of the teacher of the session for which the user clicks on the duplicate button
+`session_type`: The type of the session for which the user clicks on the duplicate button (e.g. group activity, workshop)
+`session_is_online`: Whether the session for which the user clicks on the duplicate button is an online session
+`session_available`: Whether the session for which the user clicks on the duplicate button is still available when duplicating (i.e. not cancelled or already took place)
+`session_duration`: The duration in minutes of the session for which the user clicks on the duplicate button
+`session_visibility`: The visibility of the session for which the user clicks on the duplicate button
+
+### `session_update_duration_updated`
+
+**Description:** When the user updates the duration of a session
+
+**Parameters:**
+`session_id`: The id of the session for which the duration has been updated
+`old_duration`: The old duration in minutes of the session before the update
+`new_duration`: The new duration in minutes of the session after the update
+`delta`: The difference between the new and old duration in minutes of the session after the update
+
+### `session_update_restore_button_clicked`
+
+**Description:** When the user clicks on the restore button
+
+**Parameters:**
+`session_id`: The id of the session for which the user clicks on the restore button
+`session_name`: The name of the session for which the user clicks on the restore button
+`session_start_date_time`: The date and time of the session for which the user clicks on the restore button
+`participant_number`: The number of participants registered for the session for which the user clicks on the restore button
+`teacher_name`: The name of the teacher of the session for which the user clicks on the restore button
+`teacher_id`: The id of the teacher of the session for which the user clicks on the restore button
+`session_type`: The type of the session for which the user clicks on the restore button (e.g. group activity, workshop)
+`session_is_online`: Whether the session for which the user clicks on the restore button is an online session
+`session_available`: Whether the session for which the user clicks on the restore button is still available when restoring (i.e. not cancelled or already took place)
+`session_duration`: The duration in minutes of the session for which the user clicks on the restore button
+`session_visibility`: The visibility of the session for which the user clicks on the restore button
+
+### `session_update_side_panel_enabled`
+
+**Description:** When the user enables the side panel of a session
+
+**Parameters:**
+`is_side_panel_enabled`: Whether the side panel is enabled or not for the session when the user enables it
+
+### `session_update_updated`
+
+**Description:** When the user saves the session update
+
+**Parameters:**
+`session_id`: The id of the session that has been updated
+`session_name`: The name of the session that has been updated
+`session_visibility`: The visibility of the session that has been updated
+`session_available`: Whether the session that has been updated is still available when the update is saved (i.e. not cancelled or already took place)
+`session_date`: The date of the session that has been updated
+`updated_fields`: The list of fields that have been updated for the session
+
+### `session_update_waiting_list_max_size_updated`
+
+**Description:** When the user updates the waiting list max size of a session
+
+**Parameters:**
+`session_id`: The id of the session for which the waiting list max size has been updated
+`old_waiting_list_max_size`: The old waiting list max size of the session before the update
+`new_waiting_list_max_size`: The new waiting list max size of the session after the update
+`delta`: The difference between the new and old waiting list max size of the session after the update

@@ -19,6 +19,8 @@ node_modules
 # env files
 **/.env.*.local
 **/.env.local
+apps/applications/studio-manager/**/public/studio/studio-env.js
+apps/widgets/widget-proxy-bridge/public/studio/studio-env.js
 
 # Code editors
 *.vscode
@@ -63,6 +65,9 @@ pnpm-store
 # Vite
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
+
+# TypeScript
+*.tsbuildinfo
 
 # Translation files
 **/public/locales

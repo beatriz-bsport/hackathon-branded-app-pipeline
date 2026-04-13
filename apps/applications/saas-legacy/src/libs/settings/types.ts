@@ -39,6 +39,12 @@ export type CustomAppNavigationTabsNames = {
   profile: string | null;
 };
 
+export type AdpModalVisibility = 'show-recommend' | 'block-user' | 'hide';
+
+export type AdpModalVisibilityConfiguration = {
+  adp_modal_visibility: AdpModalVisibility;
+};
+
 export type SettingsState = {
   customShopRedirection: {
     byId: Record<string, CustomShopRedirection>;
@@ -50,5 +56,9 @@ export type SettingsState = {
   } & ErrorAndLoading;
   customAppNavigation: {
     tabNames: CustomAppNavigationTabsNames;
+  } & ErrorAndLoading;
+  adpModalVisibility: {
+    data: AdpModalVisibility | null;
+    isModalOpen: boolean;
   } & ErrorAndLoading;
 };

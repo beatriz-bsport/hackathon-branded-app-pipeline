@@ -37,11 +37,22 @@ export const PushNotificationPreview: React.FC<
                 {dateTime}
               </Body>
             </div>
-            <div className="flex flex-col gap-sm">
-              <Body htmlVariant="p" weight="stronger" color="weak" size="md">
+            <div className="flex flex-col gap-sm ">
+              <Body
+                className="max-w-full overflow-hidden break-words"
+                htmlVariant="p"
+                weight="stronger"
+                color="weak"
+                size="md"
+              >
                 {title}
               </Body>
-              <Body htmlVariant="p" color="weak" size="md">
+              <Body
+                className="max-w-full overflow-hidden break-words"
+                htmlVariant="p"
+                color="weak"
+                size="md"
+              >
                 {content}
               </Body>
             </div>

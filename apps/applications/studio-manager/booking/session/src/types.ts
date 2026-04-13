@@ -1,6 +1,6 @@
 import { ZodError } from "zod";
 
-import type { ManagerSession } from "@bsport/api-book";
+import type { ManagerSession, PrivateBooking, Session } from "@bsport/api-book";
 import { type DateTime } from "@bsport/datetime-manipulation";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
@@ -22,15 +22,12 @@ export type EnrichedSession = ManagerSession & {
   navigateToBookingsManagement?: (sessionId: number) => void;
 };
 
-// Only define the enrichment fields + minimal identifier for store/modal use
-// Will extend from /api-book in BOO-2327
-export interface EnrichedAppointment {
-  id: number;
+export interface EnrichedAppointment extends PrivateBooking {
   teacherName: string;
   teacherAvatar: string | null;
   teacherInitials: string;
   participantName: string;
-  amountOwed: number | null;
+  isUnpaid: boolean;
   passUsedName: string;
   establishmentName: string;
   isRecurring: boolean;
@@ -68,7 +65,9 @@ export enum AppointmentColumn {
   ACTIONS = "actions",
 }
 
-export type CalendarTab = "sessions" | "appointments";
+// Tab identifiers match the user-facing labels
+// Internally, class data is modeled as sessions.
+export type CalendarTab = "classes" | "appointments";
 
 export enum CalendarView {
   DAILY = "daily",
@@ -90,8 +89,8 @@ export enum AppointmentModalType {
   CANCEL = "cancel_appointment",
 }
 
-export type ActivityModalState = {
-  tab: "sessions";
+export type SessionModalState = {
+  tab: "classes";
   type: ModalType;
   session: EnrichedSession;
 };
@@ -102,7 +101,7 @@ export type AppointmentModalState = {
   appointment: EnrichedAppointment;
 };
 
-export type ModalState = ActivityModalState | AppointmentModalState | null;
+export type ModalState = SessionModalState | AppointmentModalState | null;
 
 export type SafeEventError = {
   eventType: string;
@@ -113,3 +112,13 @@ export type SafeEventResult<T> = {
   event: T;
   errors: SafeEventError | null;
 };
+
+export type DetailsHeaderSession = Pick<
+  Session,
+  | "id"
+  | "available"
+  | "manager_only"
+  | "date_start"
+  | "duration_minute"
+  | "timezone_name"
+>;

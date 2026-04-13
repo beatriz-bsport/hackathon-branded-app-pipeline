@@ -11,7 +11,7 @@ type NestedValue<T, P extends string> = P extends `${infer K}.${infer Rest}`
 
 // Enforce the selected name to be within the FieldValues and to resolve to a boolean field
 export type BooleanFieldPath<T extends FieldValues> = {
-  [K in FieldPath<T>]: T[K] extends boolean ? K : never;
+  [K in FieldPath<T>]: NestedValue<T, K> extends boolean ? K : never;
 }[FieldPath<T>];
 
 // Enforce the selected name to be within the FieldValues and to resolve to a field of number array

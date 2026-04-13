@@ -6,6 +6,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET } from '@bsport/common/lib/master-data/payment-group';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
@@ -58,6 +60,12 @@ const PayoutList: React.FC<Props> = ({
   const muiTheme = useTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('xs'));
   const [openedPayoutId, togglePayoutOpen] = useToggle();
+  const hasPaypalActivated = [
+    ...(theme.payment_method_available ?? []),
+    ...(theme.payment_method_available_basket ?? []),
+    ...(theme.payment_method_available_subscription ?? []),
+    ...(theme.payment_method_available_manager ?? []),
+  ].includes(PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET);
 
   React.useEffect(() => {
     fetchPayoutList({ page: 1, append: false });
@@ -78,6 +86,12 @@ const PayoutList: React.FC<Props> = ({
       </Typography>
       <Divider className={classes.divider} />
 
+      {hasPaypalActivated && (
+        <Alert severity="warning">
+          <AlertTitle>{t('b2b_payout:paypalWarning.title')}</AlertTitle>
+          {t('b2b_payout:paypalWarning.description')}
+        </Alert>
+      )}
       {error && <Alert severity="error">{error}</Alert>}
       {!loading && !payouts.length && !error && (
         <div>

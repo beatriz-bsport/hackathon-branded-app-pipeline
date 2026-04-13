@@ -18,10 +18,6 @@ describe("@bsport/local-storage-auth-token", () => {
     it("should export correct localStorage key", () => {
       expect(BSPORT_AUTH_TOKEN_KEY).toBe("bsport:http:token");
     });
-
-    it("should export correct sessionStorage key for impersonation", () => {
-      expect(BSPORT_IMPERSONATION_AUTH_TOKEN_KEY).toBe("http:token");
-    });
   });
 
   describe("setAuthToken", () => {

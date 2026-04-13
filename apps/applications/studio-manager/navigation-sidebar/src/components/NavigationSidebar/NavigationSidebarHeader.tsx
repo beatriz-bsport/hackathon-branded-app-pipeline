@@ -18,6 +18,7 @@ import type { MenuSet } from "./navigation-items";
 const MENU_OPTIONS = {
   settings: "settings",
   logout: "logout",
+  backToFranchiseAccount: "backToFranchiseAccount",
   attendance: "attendance",
   ledger: "ledger",
   tutorials: "tutorials",
@@ -57,6 +58,11 @@ const getMenuOptions = (t: TFunction) => [
     id: MENU_OPTIONS.feedback,
     label: t("menus.popover.feedback"),
     iconLeft: "pin-02",
+  },
+  {
+    id: MENU_OPTIONS.backToFranchiseAccount,
+    label: t("menus.popover.centralAccount"),
+    iconLeft: "building-02",
   },
   {
     id: MENU_OPTIONS.logout,

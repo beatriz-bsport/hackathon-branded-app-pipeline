@@ -2,6 +2,8 @@ import React, { memo } from "react";
 
 import { fromIsoString } from "@bsport/datetime-manipulation";
 
+import CalendarDay from "#src/components/shared/CalendarDay";
+
 import type { EnrichedSession } from "../../types";
 import SessionDayTitle from "./SessionDayTitle";
 import SessionTable from "./SessionTable";
@@ -21,11 +23,10 @@ const SessionDay: React.FC<SessionDayProps> = ({
     locale: locale,
   });
   return (
-    // Scroll margin top is needed when scrolling using the Today button.
-    <div data-date={date} className="scroll-mt-2xl">
+    <CalendarDay date={date}>
       <SessionDayTitle date={localizedDate} sessions={sessions} />
       <SessionTable sessions={sessions} />
-    </div>
+    </CalendarDay>
   );
 };
 

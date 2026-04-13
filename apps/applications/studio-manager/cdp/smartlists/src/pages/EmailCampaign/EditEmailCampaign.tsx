@@ -22,11 +22,9 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
-import {
-  formatScheduledDateTime,
-  formatUpdateScheduledEmailCampaignPayload,
-} from "#src/pages/EmailCampaign/utils/format-email-campaign-payload";
+import { formatUpdateScheduledEmailCampaignPayload } from "#src/pages/EmailCampaign/utils/format-email-campaign-payload";
 import { initEmailCampaignFormDefaultValues } from "#src/pages/EmailCampaign/utils/init-email-campaign-form-default-values";
+import { formatScheduledDateTime } from "#src/pages/utils/format-scheduled-date-time";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";

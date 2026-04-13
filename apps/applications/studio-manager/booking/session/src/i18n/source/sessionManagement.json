@@ -3,6 +3,8 @@
   "goToPreviousSession": "Go to previous session",
   "goToNextSession": "Go to next session",
   "bookButton": "Book a client",
+  "bookingsSectionTitle": "Participants",
+  "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",
   "bookingsTable": {
     "headers": {
       "present": "Present",

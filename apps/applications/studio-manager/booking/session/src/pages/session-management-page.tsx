@@ -8,7 +8,7 @@ import { DetailsFetchError } from "#src/components/session-details/details-fetch
 import { DetailsLoadingPage } from "#src/components/session-details/details-loading-page";
 import { Header } from "#src/components/session-management/header";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
-import { useRetrieveTeacher } from "#src/hooks/teacher/use-retrieve-teacher.js";
+import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 
 const SessionManagementPageInner: FC = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
@@ -21,7 +21,7 @@ const SessionManagementPageInner: FC = () => {
 
   const { data: session } = useRetrieveSession(id);
 
-  useRetrieveTeacher(session.coach_override ?? session.coach);
+  useRetrieveSessionDetails(session);
 
   return (
     <DetailsLayout withPanel>

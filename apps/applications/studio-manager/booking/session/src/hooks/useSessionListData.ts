@@ -137,7 +137,7 @@ const extractRelatedIds = (sessions: ManagerSession[]) => {
   };
 };
 
-const sessionsQueryOptions = (
+export const sessionsQueryOptions = (
   minDateKey: string | null,
   maxDateKey: string | null,
   filterParams: FetchSessionsParams,

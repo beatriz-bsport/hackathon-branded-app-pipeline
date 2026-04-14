@@ -274,10 +274,10 @@ export type Session = {
   manager_only: boolean;
   meta_activity_color: string | null;
   meta_activity: number;
-  name_override: string | null;
+  name_override: string;
   partner_max_booking_count: number;
   partner_spot_capping_strategy?: PartnerSpotCappingStrategy;
-  recurrence_id: string | null;
+  recurrence_id: string;
   roll_call_needs_validation: boolean;
   room_blueprint: number | null;
   timezone_name: string;

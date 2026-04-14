@@ -8,23 +8,24 @@ import { SessionSummaryList } from "#src/components/common/session-summary-list"
 import { useFetchSessionsInGroup } from "#src/hooks/session-api/fetch/use-fetch-sessions-in-group";
 import { useFetchSimilarSessions } from "#src/hooks/session-api/fetch/use-fetch-similar-sessions";
 import { useDeleteSession } from "#src/hooks/session-api/session-actions/use-delete-session";
-import {
-  closeModal,
-  selectIsDeleteModalOpen,
-  useCalendarStore,
-} from "#src/stores/calendar";
 import { EnrichedSession } from "#src/types";
 import { TFunction, Trans, useTranslation } from "#src/utils/i18n";
 
 type DeleteSessionModalProps = {
-  session: EnrichedSession;
+  session: Pick<
+    EnrichedSession,
+    "id" | "name" | "date_start" | "group" | "groupName"
+  >;
+  isOpen: boolean;
+  onClose: () => void;
 };
 export const DeleteSessionModal: FC<DeleteSessionModalProps> = ({
   session,
+  isOpen,
+  onClose,
 }) => {
   const { t, i18n } = useTranslation("sessionList");
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
-  const isOpen = useCalendarStore(selectIsDeleteModalOpen);
 
   const [shouldDeleteFutureSessions, setShouldDeleteFutureSessions] =
     useState(false);
@@ -65,7 +66,7 @@ export const DeleteSessionModal: FC<DeleteSessionModalProps> = ({
     (session.group || selectedIds.length < similarSessions.length);
 
   const handleConfirm = () => {
-    closeModal();
+    onClose();
     deleteSession.mutate({
       id: session.id,
       params: {
@@ -98,7 +99,7 @@ export const DeleteSessionModal: FC<DeleteSessionModalProps> = ({
       size="md"
       title={t("deleteModal.title")}
       description={getDescription()}
-      onClose={closeModal}
+      onClose={onClose}
       confirmButton={{
         label: t("deleteModal.confirmButton"),
         color: "critical",
@@ -106,7 +107,7 @@ export const DeleteSessionModal: FC<DeleteSessionModalProps> = ({
       }}
       cancelButton={{
         label: t("deleteModal.cancelButton"),
-        onClick: closeModal,
+        onClick: onClose,
       }}
     >
       <div className="flex flex-col gap-md">

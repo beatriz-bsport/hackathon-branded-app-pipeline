@@ -6,12 +6,14 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
 export const MoreActionsButton: React.FC<{
   sessionId: number;
-}> = ({ sessionId }) => {
+  openModal: (type: SessionManagementModalType) => void;
+}> = ({ openModal, sessionId }) => {
   const { t } = useTranslation("sessionList");
 
   const { data: session } = useRetrieveSession(sessionId);
@@ -51,6 +53,7 @@ export const MoreActionsButton: React.FC<{
         iconLeft: "copy-03",
         type: "button",
         onClick: () => {
+          openModal(SessionManagementModalType.DUPLICATE);
           setIsPopoverOpened(false);
         },
       };
@@ -76,6 +79,7 @@ export const MoreActionsButton: React.FC<{
         iconLeft: "calendar-minus-02",
         type: "button",
         onClick: () => {
+          openModal(SessionManagementModalType.CANCEL);
           setIsPopoverOpened(false);
         },
       };
@@ -86,6 +90,7 @@ export const MoreActionsButton: React.FC<{
         iconLeft: "trash-01",
         type: "button",
         onClick: () => {
+          openModal(SessionManagementModalType.DELETE);
           setIsPopoverOpened(false);
         },
       };
@@ -111,6 +116,7 @@ export const MoreActionsButton: React.FC<{
       t,
       session,
       copyToClipboard,
+      openModal,
       companyId,
       hasCancelPermission,
       hasCreatePermission,

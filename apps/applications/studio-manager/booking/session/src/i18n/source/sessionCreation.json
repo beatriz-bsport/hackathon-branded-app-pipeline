@@ -25,10 +25,10 @@
           },
           "features": {
             "livestream": {
-              "popoverLabel": "Livestream is enabled for this activity"
+              "popoverLabel": "This class has livestream enabled"
             },
             "notifications": {
-              "popoverLabel": "Notifications are configured for this activity"
+              "popoverLabel": "This class has notifications turned on"
             }
           }
         }

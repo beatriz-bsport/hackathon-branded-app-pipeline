@@ -4,6 +4,7 @@ import {
   Body,
   Chip,
   type GenericTableColumn,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { CommunicationKind } from "#src/api/constants";
@@ -37,6 +38,7 @@ export const useCampaignScheduledTableColumns = ({
   onDelete,
 }: CampaignScheduledTableRowParams): Array<TableColumn> => {
   const { t } = useTranslation("campaign");
+  const isMobile = !useMatchMedia("md");
 
   const columns = useMemo<Array<TableColumn>>(() => {
     const columnScheduledDate: TableColumn = {
@@ -80,13 +82,34 @@ export const useCampaignScheduledTableColumns = ({
       type: "custom",
       align: "start",
       render: (row) => (
-        <Body
-          className="w-[800px] overflow-hidden text-ellipsis"
-          htmlVariant="span"
-          size="md"
-        >
-          {row.campaignName}
-        </Body>
+        <div className="flex flex-col gap-2xs">
+          <div className="flex flex-row gap-sm items-center">
+            {isMobile ? (
+              <Chip
+                size="lg"
+                type="weak"
+                color="default"
+                iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
+              />
+            ) : null}
+            <Body
+              className={
+                isMobile
+                  ? "max-w-52 overflow-hidden text-ellipsis"
+                  : "w-[800px] overflow-hidden text-ellipsis"
+              }
+              htmlVariant="span"
+              size="md"
+            >
+              {row.campaignName}
+            </Body>
+          </div>
+          {isMobile ? (
+            <Body size="md" htmlVariant="p" weight="weak" color="weak">
+              {row.scheduledDate}, {row.scheduledHour}
+            </Body>
+          ) : null}
+        </div>
       ),
     };
 
@@ -105,13 +128,17 @@ export const useCampaignScheduledTableColumns = ({
       ),
     };
 
+    if (isMobile) {
+      return [columnCampaignName, columnMoreActions];
+    }
+
     return [
       columnScheduledDate,
       columnCampaignKind,
       columnCampaignName,
       columnMoreActions,
     ].filter(Boolean);
-  }, [onEdit, onDelete]);
+  }, [onEdit, onDelete, isMobile, t]);
 
   return columns;
 };

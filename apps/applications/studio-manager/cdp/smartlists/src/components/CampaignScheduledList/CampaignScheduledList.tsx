@@ -8,11 +8,13 @@ import {
   Table,
   Title,
   toast,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import type { CampaignScheduled } from "#src/api/types";
 import { useFetchCampaignScheduledList } from "#src/api/use-fetch-campaign-scheduled-list";
 import { DeleteScheduledCommunicationModal } from "#src/components/DeleteScheduledCommunicationModal/DeleteScheduledCommunicationModal";
+import { ScheduledCommunicationLockedModal } from "#src/components/ScheduledCommunicationLockedModal/ScheduledCommunicationLockedModal";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import {
   CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION,
@@ -21,6 +23,7 @@ import {
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
+import { isScheduledCommunicationLocked } from "#src/utils/scheduled-communication-rules";
 
 import { useCampaignScheduledTableColumns } from "./use-campaign-scheduled-table-columns";
 import { formatCampaignScheduledTableRow } from "./utils";
@@ -32,12 +35,14 @@ export const CampaignScheduledList = () => {
 
   const [currentInlineAction, setCurrentInlineAction] =
     useState<CampaignScheduledInlineActions | null>(null);
+  const [isLockedModalOpen, setIsLockedModalOpen] = useState(false);
   const [scheduledCampaignForAction, setScheduledCampaignForAction] =
     useState<CampaignScheduled | null>(null);
   const { navigateToSmartlistCampaignEdit } = useSmartlistNavigation();
 
   const { data: campaignScheduled, isLoading: campaignScheduledLoading } =
     useFetchCampaignScheduledList(smartlistId);
+  const isMobile = !useMatchMedia("md");
 
   const tableRows = formatCampaignScheduledTableRow({
     campaignScheduledList: campaignScheduled,
@@ -70,6 +75,10 @@ export const CampaignScheduledList = () => {
       }
       const channel =
         COMMUNICATION_CHANNEL_BY_KIND_MAP[campaign.communication_kind];
+      if (isScheduledCommunicationLocked(campaign.datetime_scheduled)) {
+        setIsLockedModalOpen(true);
+        return;
+      }
 
       navigateToSmartlistCampaignEdit(smartlistId, channel, String(campaignId));
     },
@@ -82,6 +91,10 @@ export const CampaignScheduledList = () => {
           title: t("table.campaignScheduled.toasts.error.campaignNotFound"),
           buttonIcon: "x-close",
         });
+        return;
+      }
+      if (isScheduledCommunicationLocked(campaign.datetime_scheduled)) {
+        setIsLockedModalOpen(true);
         return;
       }
       setScheduledCampaignForAction(campaign);
@@ -116,10 +129,10 @@ export const CampaignScheduledList = () => {
 
             return (
               <div
-                className="flex flex-row gap-sm"
+                className="flex flex-row gap-sm items-center"
                 onClick={() => toggleOpen()}
               >
-                <Title htmlVariant="h1" weight="strong">
+                <Title htmlVariant={isMobile ? "h2" : "h1"} weight="strong">
                   {t("page.campaignScheduled.title")}
                 </Title>
                 <Button
@@ -157,6 +170,10 @@ export const CampaignScheduledList = () => {
             smartlistId={smartlistId}
           />
         )}
+      <ScheduledCommunicationLockedModal
+        isOpen={isLockedModalOpen}
+        onClose={() => setIsLockedModalOpen(false)}
+      />
     </div>
   );
 };

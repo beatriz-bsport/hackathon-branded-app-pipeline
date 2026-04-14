@@ -12,7 +12,7 @@ import {
   INVOICE_NO_MANUAL_REFUND_ON_PENDING_PAYMENT,
   INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
   INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT,
-  INVOICE_NO_REFUND_ON_SEPA_PAYMENT_OLDER_THAN_SIX_MONTHS,
+  INVOICE_NO_REFUND_ON_PAYMENT_OLDER_THAN_SIX_MONTHS,
   INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
 } from '@bsport/common/lib/master-data/error-codes/payment.js';
 import { InvoiceAllowedReverseMethods } from '#src/libs/invoice/types';
@@ -42,7 +42,7 @@ const InvoiceReverterMeansAlerting: React.FC<InvoiceReverterDialogProps> = ({
         [
           INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
           INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT,
-          INVOICE_NO_REFUND_ON_SEPA_PAYMENT_OLDER_THAN_SIX_MONTHS,
+          INVOICE_NO_REFUND_ON_PAYMENT_OLDER_THAN_SIX_MONTHS,
         ].includes(
           allowedReverseMethods[REVERSE_ON_PAYMENT_METHOD]?.error_code,
         ):

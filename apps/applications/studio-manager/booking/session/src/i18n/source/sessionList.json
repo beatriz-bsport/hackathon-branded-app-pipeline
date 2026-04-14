@@ -243,5 +243,31 @@
     "confirmButton": "Cancel appointment",
     "errorMessage": "An error occurred while cancelling the appointment. Please try again later.",
     "successMessage": "Appointment cancelled"
+  },
+  "wellhub": {
+    "alert": {
+      "title": "Some sessions are missing a Wellhub product",
+      "message": "{{count}} session(s) do not have a Wellhub product assigned.",
+      "action": "Assign products"
+    },
+    "modal": {
+      "title": "Assign Wellhub products",
+      "stepSelectSession": "Select session",
+      "stepSetProduct": "Set product",
+      "loadingOffers": "Loading sessions…",
+      "noOffersEmpty": "No sessions missing a Wellhub product.",
+      "successMessage": "Wellhub product assigned successfully",
+      "errorMessage": "An error occurred while assigning the Wellhub product. Please try again.",
+      "confirmButton": "Confirm",
+      "cancelButton": "Cancel",
+      "form": {
+        "productLabel": "Wellhub product",
+        "applySimilarLabel": "Apply to similar sessions",
+        "similarSessionsTitle": "Similar sessions",
+        "loadingProducts": "Loading products…",
+        "noAccountError": "No active Wellhub partnership account found for this session.",
+        "noProductsError": "No Wellhub products available for this session type."
+      }
+    }
   }
 }

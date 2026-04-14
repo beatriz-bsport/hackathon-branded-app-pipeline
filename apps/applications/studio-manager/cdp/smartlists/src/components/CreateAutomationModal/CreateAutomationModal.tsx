@@ -27,6 +27,7 @@ export const CreateAutomationModal = ({
   invariant(id, "Expected id param to be defined");
 
   const {
+    navigateToSmartlistEmailAutomationCreation,
     navigateToSmartlistPushAutomationCreation,
     navigateToSmartlistSmsAutomationCreation,
   } = useSmartlistNavigation();
@@ -41,6 +42,11 @@ export const CreateAutomationModal = ({
   const handlePushNotificationClick = () => {
     handleClose();
     navigateToSmartlistPushAutomationCreation(id);
+  };
+
+  const handleEmailClick = () => {
+    handleClose();
+    navigateToSmartlistEmailAutomationCreation(id);
   };
 
   const handleSmsClick = () => {
@@ -120,6 +126,7 @@ export const CreateAutomationModal = ({
                   "actions.createAutomationModal.messageChannel.email.description",
                 )}
                 icon="mail-01"
+                onClick={handleEmailClick}
               />
               <TypeSelectorCard
                 title={t(

@@ -4,6 +4,9 @@ import { Navigate, Route, Routes } from "react-router";
 const AutomationPushCreationPage = lazy(
   () => import("#src/pages/AutomationPushCreationPage"),
 );
+const AutomationEmailCreationPage = lazy(
+  () => import("#src/pages/AutomationEmailCreationPage"),
+);
 const AutomationSmsCreationPage = lazy(
   () => import("#src/pages/AutomationSmsCreationPage"),
 );
@@ -20,6 +23,7 @@ const AutomationMessagePage = lazy(
 export function AutomationCreateEditRouter() {
   return (
     <Routes>
+      <Route path="email/new" element={<AutomationEmailCreationPage />} />
       <Route path="push/new" element={<AutomationPushCreationPage />} />
       <Route path="sms/new" element={<AutomationSmsCreationPage />} />
       <Route path="push/:entityId/edit" element={<AutomationPushEditPage />} />

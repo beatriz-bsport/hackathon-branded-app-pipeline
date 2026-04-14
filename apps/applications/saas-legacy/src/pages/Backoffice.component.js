@@ -149,6 +149,15 @@ import {
 import { fetchPlatformCustomerEntity as fetchPlatformCustomerEntityAction } from '#src/libs/platform-billing/actions';
 
 import { RegularizingVatInformationDialog } from '#src/libs/platform-billing/components/RegularizingVatInformationDialog.component';
+import { AppleDeveloperProgramDialog } from '#src/libs/settings/components/AppleDeveloperProgramDialog.component';
+import {
+  fetchAdpModalVisibility as fetchAdpModalVisibilityAction,
+  dismissAdpModalVisibilityAction,
+} from '#src/libs/settings/actions';
+import {
+  getIsAdpModalBlocking,
+  getIsAdpModalOpen,
+} from '#src/libs/settings/selectors';
 
 import { retrieveCommunicationSMSProviderVerification } from '../libs/communication-v2/actions';
 import { AuthState } from '#src/libs/types';
@@ -394,6 +403,10 @@ type Props = {
   userAuthState: AuthState,
   retrieveCommunicationSMSProviderVerification: () => void,
   hasEnabledRevampedBO: boolean,
+  isAdpModalOpen: boolean,
+  isAdpModalBlocking: boolean,
+  fetchAdpModalVisibility: (companyId: number, franchiseId?: number) => void,
+  dismissAdpModal: () => void,
 } & FeatureFlagProps;
 
 const DELAY_BETWEEN_ALERTS = 10 * 60000;
@@ -553,6 +566,10 @@ export class Backoffice extends Component<Props, State> {
         company: this.props.theme.company,
       });
       this.props.fetchCompanyCustomMemberForm(this.props.theme.company);
+      this.props.fetchAdpModalVisibility(
+        this.props.theme.company,
+        this.props.theme.franchisor,
+      );
     }
     this.props.retrieveStripeCompany();
     this.props.retrievePlatformSubscriptionPaymentStatus({
@@ -1008,6 +1025,15 @@ export class Backoffice extends Component<Props, State> {
             goNext={this.redirectToCompanySettings}
           />
         </GenericResponsiveDialog>
+        <GenericResponsiveDialog open={this.props.isAdpModalOpen}>
+          <AppleDeveloperProgramDialog
+            cancel={
+              this.props.isAdpModalBlocking
+                ? undefined
+                : this.props.dismissAdpModal
+            }
+          />
+        </GenericResponsiveDialog>
         {this.props.stripeAccountStatus && (
           <GenericResponsiveDialog
             open={!!this.state.need_configuring_stripe_account_dialog}
@@ -1131,6 +1157,8 @@ export default compose(
       stripeAccountStatus: state.company.stripeAccountStatus.data,
       establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
       hasEnabledRevampedBO: state.auth.has_enabled_revamped_backoffice,
+      isAdpModalOpen: getIsAdpModalOpen(state),
+      isAdpModalBlocking: getIsAdpModalBlocking(state),
     }),
     {
       fetchBatchUnreadAnswersCounts: fetchBatchUnreadAnswersCountsAction,
@@ -1195,6 +1223,8 @@ export default compose(
       checkMemberInEstablishment: checkMemberInEstablishmentAction,
 
       fetchPlatformCustomerEntity: fetchPlatformCustomerEntityAction,
+      fetchAdpModalVisibility: fetchAdpModalVisibilityAction,
+      dismissAdpModal: dismissAdpModalVisibilityAction,
       getStripeOnboardingPending,
       retrieveCommunicationSMSProviderVerification,
     },

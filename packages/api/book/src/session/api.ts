@@ -31,6 +31,8 @@ import type {
 const API_URL = "book/v1";
 const API_URL_SESSION = `${API_URL}/offer`;
 
+export const SESSION_STALE_TIME = 2 * 1000 * 60; // 2 minutes
+
 export const sessionKeys = {
   all: ["@api-book", "session"] as const,
   detail: (sessionId: number) => [...sessionKeys.all, sessionId] as const,
@@ -322,6 +324,7 @@ export const retrieveSessionQueryOptions = (
   queryOptions({
     queryKey: sessionKeys.detail(sessionId),
     queryFn: () => retrieveSessionAPI(fetch, sessionId, params),
+    staleTime: SESSION_STALE_TIME,
   });
 
 const fetchSessionStatusAPIConfig = (
@@ -351,6 +354,7 @@ export const sessionStatusQueryOptions = (
   queryOptions({
     queryKey: sessionKeys.status(sessionId, params),
     queryFn: () => fetchSessionStatusAPI(fetch, sessionId, params),
+    staleTime: SESSION_STALE_TIME,
   });
 
 const fetchSessionStatusListAPIConfig = (
@@ -376,6 +380,7 @@ export const sessionStatusListQueryOptions = (
   return queryOptions({
     queryKey: sessionKeys.statusList(id__in ?? [], otherParams),
     queryFn: () => fetchSessionStatusListAPI(fetch, params),
+    staleTime: SESSION_STALE_TIME,
   });
 };
 

@@ -28,3 +28,9 @@ export enum TeacherSubstitutionPropagationMode {
   PROPAGATE_TO_OFFERS_WITH_SAME_COACH_OVERRIDE_ONLY = 1,
   PROPAGATE_TO_ALL = 2,
 }
+
+export enum TimelineIndicator {
+  PAST = "past",
+  ONGOING = "ongoing",
+  UPCOMING = "upcoming",
+}

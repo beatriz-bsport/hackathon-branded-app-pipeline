@@ -1,0 +1,115 @@
+{
+  "loadMore": "Lees meer",
+  "amountCarryOverFromPreviousPayouts": "Inclusief {{amount}} overgedragen van eerdere mislukte/geannuleerde uitbetalingen",
+  "reconciliationStatusLabel": "Afstemming: {{status}}",
+  "reconciliationStatus": {
+    "success": "Succes",
+    "pending": "Gepauzeerd",
+    "error": "Error"
+  },
+  "reconciliationStatusPayout": {
+    "pending": "Afstemming van balans transacties is nog niet gestart",
+    "processing": "De afstemming van de balansboekingen loopt momenteel",
+    "completed": "De afstemming van de balansboekingen is voltooid",
+    "partially_failed": "Sommige balansmutaties zijn niet afgestemd",
+    "skipped_manual": "Afstemming van balansboekingen is overgeslagen"
+  },
+  "reconciliationStatusPayoutStatus": {
+    "pending": "Gepauzeerd",
+    "processing": "Wordt behandeld",
+    "completed": "Voltooid",
+    "partially_failed": "Gedeeltelijk mislukt",
+    "skipped_manual": "Overgeslagen"
+  },
+  "table": {
+    "date": "Datum",
+    "amount": "Bedrag",
+    "transactions": "Transacties",
+    "id": "ID",
+    "status": "Status"
+  },
+  "balanceTransactionTable": {
+    "type": "Kanalen",
+    "paymentMethod": "Betaalmethode",
+    "status": "Status",
+    "amount": "Bedrag",
+    "invoices": "Facturen"
+  },
+  "balanceTransaction": {
+    "reversalInPayout": "Terugboeking uitbetaling {{readable_identifier}}",
+    "reversalOf": "Terugboeking van transactie #{{id}}{{payoutInfo}}",
+    "reversalOfPayoutInfo": " — uitbetaling {{readable_identifier}}",
+    "fromPayout": "Van uitbetaling {{readable_identifier}}",
+    "net": "net {{amount}}"
+  },
+  "summary": {
+    "reconciliation": "Afstemmingsstatus",
+    "payments": "Betalingen",
+    "refunds": "Terugbetalingen",
+    "disputes": "Geschillen",
+    "directDebitOriginal": "Oorspronkelijke incasso",
+    "directDebitReversal": "Stornering automatische incasso",
+    "transfers": "Overschrijvingen",
+    "transferRefunds": "Overschrijvingsvergoedingen",
+    "adjustments": "Aanpassingen",
+    "appFees": "Appkosten",
+    "appFeeRefunds": "Terugbetalingen app-kosten",
+    "payoutFailures": "Mislukte uitbetalingen",
+    "payoutCancels": "Uitbetalingen geannuleerd",
+    "title": "Uitbetalingsoverzicht"
+  },
+  "displayType": {
+    "payment": {
+      "label": "Betalingen",
+      "description": "Een klantbetaling"
+    },
+    "refund": {
+      "label": "Terugbetaling",
+      "description": "Een terugbetaling aan een klant"
+    },
+    "dispute": {
+      "label": "Geschillen",
+      "description": "Een door de klant geïnitieerd geschil (chargeback)"
+    },
+    "failed_direct_debit_original": {
+      "label": "Mislukte automatische incasso",
+      "description": "Een mislukte automatische incasso"
+    },
+    "failed_direct_debit_reversal": {
+      "label": "Stornering automatische incasso",
+      "description": "Een terugboeking na een mislukte automatische incasso"
+    },
+    "balance_transfer": {
+      "label": "Bankoverschrijving",
+      "description": "Een saldo-overdracht"
+    },
+    "balance_transfer_refund": {
+      "label": "Terugbetaling overschrijving",
+      "description": "Een terugbetaling van een overboeking"
+    },
+    "adjustment": {
+      "label": "Aanpassing",
+      "description": "Een handmatige saldobijstelling"
+    },
+    "application_fee": {
+      "label": "App-kosten",
+      "description": "Een platformvergoeding"
+    },
+    "application_fee_refund": {
+      "label": "Terugbetaling app-kosten",
+      "description": "Een terugbetaling van een platformvergoeding"
+    },
+    "payout_failure": {
+      "label": "Uitbetaling mislukt",
+      "description": "Geld terug na een mislukte uitbetaling"
+    },
+    "payout_cancel": {
+      "label": "Uitbetaling annuleren",
+      "description": "Geld terug na een geannuleerde uitbetaling"
+    },
+    "other": {
+      "label": "Andere",
+      "description": "Een ander type balans transactie"
+    }
+  }
+}

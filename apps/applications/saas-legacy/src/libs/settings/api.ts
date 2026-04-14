@@ -7,6 +7,7 @@ import {
   get,
 } from '../../http';
 import type {
+  AdpModalVisibilityConfiguration,
   CustomAppNavigationTabsNames,
   CustomMobilePopupCreateOrEditData,
   CustomShopRedirection,
@@ -53,5 +54,17 @@ export const deleteCustomMobilePopup = async (id: number) =>
 export const fetchCustomNavigationTabsNames = (companyId: number) => {
   return getAuth<CustomAppNavigationTabsNames>(
     `${API_V1_URI}/mobile_app/custom_app_configuration/${companyId}/fetch_custom_navigation_tabs_names/`,
+  );
+};
+
+export const fetchAdpModalVisibility = (
+  companyId: number,
+  franchiseId?: number,
+) => {
+  const app_identifier = franchiseId
+    ? `${franchiseId}_${companyId}`
+    : String(companyId);
+  return getAuth<AdpModalVisibilityConfiguration>(
+    `${API_V1_URI}/mobile_app/custom_app_configuration/${app_identifier}/adp_modal_visibility/`,
   );
 };

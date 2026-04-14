@@ -70,6 +70,8 @@ export type NavigationSidebarProps = {
   isLoadingData?: boolean;
   onLogoutCallback?: () => void;
   compatClassName?: string;
+  isFranchisorNavigation?: boolean; // Used in withNavigationSwitcher
+  onNavigateBackToFranchisor?: () => void; // Used in withNavigationSwitcher
 };
 
 const NavigationSidebarContent = ({
@@ -77,6 +79,8 @@ const NavigationSidebarContent = ({
   disableRevampOnLegacyStore,
   onLogoutCallback,
   compatClassName,
+  isFranchisorNavigation,
+  onNavigateBackToFranchisor,
 }: NavigationSidebarProps) => {
   const { t } = useTranslation("default");
 
@@ -228,6 +232,7 @@ const NavigationSidebarContent = ({
         hiddenItems={{
           attendance: !attendancePermissions.displayFeature,
           ledger: true,
+          backToFranchiseAccount: !isFranchisorNavigation,
         }}
         onSelectItem={(id: MenuOption) => {
           if (id === "settings") {
@@ -238,6 +243,11 @@ const NavigationSidebarContent = ({
           }
           if (id === "tutorials") {
             navigateInContext(LEGACY_URLS.tutorial);
+          }
+          if (id === "backToFranchiseAccount") {
+            if (isFranchisorNavigation) {
+              onNavigateBackToFranchisor?.();
+            }
           }
           if (id === "logout") {
             onLogoutCallback?.();

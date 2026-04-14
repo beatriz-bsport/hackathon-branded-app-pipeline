@@ -1,6 +1,6 @@
 import { Result } from "typescript-result";
 
-import { fetchTagGroupsAPI, fetchTagsAPI } from "@bsport/api-core";
+import { fetchTagGroupsAPI, fetchTagsAPI } from "@bsport/api-cdp/tags";
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 
 import {

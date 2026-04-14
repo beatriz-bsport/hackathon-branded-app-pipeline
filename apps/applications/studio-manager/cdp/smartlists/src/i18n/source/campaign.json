@@ -160,6 +160,15 @@
   },
   "push": {
     "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campaign sent",
+          "schedule": "Campaign scheduled"
+        },
+        "error": {
+          "sendFailed": "Campaign couldn't be sent. Please try again."
+        }
+      },
       "title": "Push Notification Campaign",
       "continueButtonLabel": "Continue",
       "alertMessage": "Only members who have downloaded your studio app and enabled push notifications will receive this notification.",
@@ -167,6 +176,48 @@
         "errors": {
           "campaignNameRequired": "Campaign name is required.",
           "errorMaxLength": "Campaign name must be at most {{count}} characters"
+        }
+      }
+    }
+  },
+  "sms": {
+    "creation": {
+      "toasts": {
+        "success": {
+          "send": "Campaign sent",
+          "schedule": "Campaign scheduled"
+        },
+        "error": {
+          "sendFailed": "Campaign couldn't be sent. Please try again."
+        }
+      },
+      "title": "SMS Campaign",
+      "continueButtonLabel": "Continue",
+      "expectedRecipients": {
+        "label": "Expected recipients",
+        "infoLabel": "Information about expected recipients",
+        "popover": {
+          "title": "How are we calculating this number?",
+          "intro": "This number is an estimate based on the Smartlist and delivery settings at the time of calculation. The final number of recipients may change before the campaign is sent.",
+          "listIntro": "We calculate this number by excluding:",
+          "exclusions": {
+            "noValidPhone": {
+              "description": "Members without a valid phone number",
+              "example": "(e.g. no phone number in profile)"
+            },
+            "optedOut": {
+              "description": "Members who have opted out of marketing SMS",
+              "example": "(or who are not opted in for SMS marketing when required)"
+            },
+            "invalidPhone": {
+              "description": "Invalid or unreachable phone numbers",
+              "example": "(e.g. malformed numbers or blocked destinations)"
+            },
+            "smartlistChanges": {
+              "description": "Smartlist changes over time. Members may enter or leave the Smartlist between now and when the campaign is sent",
+              "example": "(e.g. members may enter or leave the Smartlist between now and when the campaign is sent)"
+            }
+          }
         }
       }
     }
@@ -367,7 +418,8 @@
           "deleted": "Scheduled campaign deleted"
         },
         "error": {
-          "deleteFailed": "Scheduled campaign couldn't be deleted. Please try again."
+          "deleteFailed": "Scheduled campaign couldn't be deleted. Please try again.",
+          "campaignNotFound": "Scheduled campaign not found."
         }
       },
       "recipientsList": {

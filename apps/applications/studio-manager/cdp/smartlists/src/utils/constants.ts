@@ -30,3 +30,5 @@ export const CAMPAIGN_SCHEDULED_EDIT_INLINE_ACTION =
 export type CampaignScheduledInlineActions =
   | typeof CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION
   | typeof CAMPAIGN_SCHEDULED_EDIT_INLINE_ACTION;
+
+export const CONTEXT_SMARTLIST = 202;

@@ -2,7 +2,6 @@ import { toast } from "@bsport/kaizen-primitive-core";
 
 import { useUpdateAutomatedCampaign } from "#src/api/use-update-automated-campaign";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
-import { CAMPAIGN_CHANNEL_PUSH } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { pushAutomationFormDataToPayload } from "../AutomationPushCreationPage/mappers";
@@ -16,7 +15,7 @@ export const useUpdatePushAutomation = ({
   entityId: string;
 }) => {
   const { t } = useTranslation("details");
-  const { navigateToSmartlistAutomationMessage } = useSmartlistNavigation();
+  const { navigateToSmartlistPushAutomationMessage } = useSmartlistNavigation();
 
   const { updateAutomatedCampaign } = useUpdateAutomatedCampaign({
     onSuccess: () => {
@@ -27,11 +26,7 @@ export const useUpdatePushAutomation = ({
         buttonIcon: "x-close",
       });
 
-      navigateToSmartlistAutomationMessage(
-        smartlistId,
-        CAMPAIGN_CHANNEL_PUSH,
-        entityId,
-      );
+      navigateToSmartlistPushAutomationMessage(smartlistId, entityId);
     },
     onError: () => {
       toast({

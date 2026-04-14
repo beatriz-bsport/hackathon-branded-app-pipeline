@@ -106,9 +106,12 @@ export const UserspaceSwitcher = (props: Props) => {
     if (isManager && shouldNavigateToHomepage && localOrSessionStorage) {
       // Refresh Redux store with Access Level information
       fetchAccessLevelWithoutConnect(localOrSessionStorage, 'previous', {
-        onSuccess: (data: { has_enabled_revamped_backoffice: boolean }) => {
+        onSuccess: (data: {
+          has_enabled_revamped_backoffice: boolean;
+          is_manager: boolean;
+        }) => {
           // Trigger redirection only if the user setting is still active
-          if (data.has_enabled_revamped_backoffice) {
+          if (data.has_enabled_revamped_backoffice && data.is_manager) {
             navigateToHomepage();
           }
         },

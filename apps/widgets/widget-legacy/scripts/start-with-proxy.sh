@@ -71,12 +71,13 @@ cleanup() {
 
 trap cleanup EXIT INT TERM
 
-# Set API environment for production
+echo -e "${BLUE}🔧 Preparing widget proxy bridge runtime API config...${NC}"
+cd "$PROXY_BRIDGE_DIR"
 if [[ "$ENV" == "prod" ]]; then
     echo -e "${YELLOW}⚠️  WARNING: This will connect to PRODUCTION API${NC}"
-    echo -e "${BLUE}🔧 Setting API environment to production...${NC}"
-    cd "$ICHIZEN_ROOT"
-    pnpm run -w api-environment:set production --quiet
+    pnpm run api:production > /tmp/proxy-bridge-runtime.log 2>&1
+else
+    pnpm run api:dev > /tmp/proxy-bridge-runtime.log 2>&1
 fi
 
 # Start Node.js proxy
@@ -128,8 +129,6 @@ echo ""
 
 if [[ "$ENV" == "prod" ]]; then
     echo -e "${RED}⚠️  CONNECTED TO PRODUCTION API - BE CAREFUL WITH YOUR ACTIONS${NC}"
-else
-    echo "⚠️ Be sure to run pnpm run -w api-environment:set ... so that fetch package is configured"
 fi
 
 echo ""
@@ -157,6 +156,7 @@ echo "   - Proxy:   tail -f /tmp/dev-proxy.log"
 echo "   - Widget:  tail -f /tmp/widget-dev.log"
 echo "   - Website: tail -f /tmp/saas-legacy-dev.log"
 echo "   - Bridge:  tail -f /tmp/proxy-bridge-dev.log"
+echo "   - Bridge runtime: cat /tmp/proxy-bridge-runtime.log"
 echo "   - Widget Debugger: tail -f /tmp/widget-debugger-dev.log"
 echo ""
 echo "Press Ctrl+C to stop all services"

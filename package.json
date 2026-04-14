@@ -13,7 +13,6 @@
   "license": "UNLICENSED",
   "author": "bsport<tech@bsport.io>",
   "scripts": {
-    "api-environment:set": "ts-node tools/toolkit-cli/src/index.ts api-environment:set",
     "build": "nx build",
     "build:all": "nx run-many --all --target=build",
     "ci:compile:all": "pnpm exec nx run-many --all --target=ci:compile",
@@ -37,6 +36,8 @@
     "project:import": "ts-node tools/toolkit-cli/src/index.ts project:import",
     "project:list": "ts-node tools/toolkit-cli/src/index.ts project:list",
     "pwd": "pwd",
+    "studio-runtime:dev": "tools/scripts/prepare-studio-runtime.sh set dev",
+    "studio-runtime:local": "tools/scripts/prepare-studio-runtime.sh set local",
     "sync:list": "pnpm exec syncpack list",
     "sync:mismatch:fix": "pnpm exec syncpack fix-mismatches",
     "sync:mismatch:list": "pnpm exec syncpack list-mismatches",

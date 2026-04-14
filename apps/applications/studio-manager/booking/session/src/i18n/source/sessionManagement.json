@@ -1,0 +1,6 @@
+{
+  "pageTitle": "{{sessionName}} with {{coachName}}",
+  "goToPreviousSession": "Go to previous session",
+  "goToNextSession": "Go to next session",
+  "bookButton": "Book a client"
+}

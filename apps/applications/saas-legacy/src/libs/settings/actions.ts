@@ -10,9 +10,11 @@ import {
   editCustomMobilePopup as editCustomMobilePopupAPI,
   deleteCustomMobilePopup as deleteCustomMobilePopupAPI,
   fetchCustomNavigationTabsNames as fetchCustomNavigationTabsNamesAPI,
+  fetchAdpModalVisibility as fetchAdpModalVisibilityAPI,
 } from './api';
 
 import type {
+  AdpModalVisibility,
   CustomMobilePopup,
   CustomShopRedirection,
   CustomAppNavigationTabsNames,
@@ -257,5 +259,47 @@ export function fetchCustomNavigationTabsNames(
       options?.onError && options.onError(err);
     }
     dispatch(fetchCustomNavigationTabsNamesActions.isLoading(false));
+  };
+}
+
+export const dismissAdpModalVisibilityAction = createAction(
+  'SETTINGS/CUSTOM_APP_CONFIGURATION/ADP_MODAL_VISIBILITY/DISMISS',
+);
+
+export const fetchAdpModalVisibilityActions = {
+  isLoading: createAction<boolean>(
+    'SETTINGS/CUSTOM_APP_CONFIGURATION/ADP_MODAL_VISIBILITY/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'SETTINGS/CUSTOM_APP_CONFIGURATION/ADP_MODAL_VISIBILITY/ERROR',
+  ),
+  success: createAction<AdpModalVisibility>(
+    'SETTINGS/CUSTOM_APP_CONFIGURATION/ADP_MODAL_VISIBILITY/SUCCESS',
+  ),
+};
+
+export function fetchAdpModalVisibility(
+  companyId: number,
+  franchiseId?: number,
+  options?: OptionCallback<AdpModalVisibility>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchAdpModalVisibilityActions.isLoading(true));
+    dispatch(fetchAdpModalVisibilityActions.error(null));
+    try {
+      const response = await fetchAdpModalVisibilityAPI(companyId, franchiseId);
+      dispatch(
+        fetchAdpModalVisibilityActions.success(
+          response.data.adp_modal_visibility,
+        ),
+      );
+      options?.onSuccess &&
+        options.onSuccess(response.data.adp_modal_visibility);
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchAdpModalVisibilityActions.error(err as Error));
+      options?.onError && options.onError(err as Error);
+    }
+    dispatch(fetchAdpModalVisibilityActions.isLoading(false));
   };
 }

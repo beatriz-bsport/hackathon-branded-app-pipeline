@@ -4,7 +4,7 @@
     "occupancyRate": "{{rate}}% enrolled"
   },
   "tabs": {
-    "activities": "Activities",
+    "classes": "Classes",
     "appointments": "Appointments"
   },
   "addSession": "Add session",
@@ -30,6 +30,7 @@
       "attendance": "Attendance"
     },
     "datetime": {
+      "now": "Now",
       "shortDayIdentifier_one": "day",
       "shortDayIdentifier_other": "days",
       "shortHourIdentifier": "h",
@@ -121,6 +122,7 @@
       "actions": "Actions"
     },
     "isLoading": "Loading appointments...",
+    "unpaidTooltip": "Appointment is unpaid",
     "shortcutActions": {
       "cancel": "Cancel",
       "reschedule": "Reschedule",

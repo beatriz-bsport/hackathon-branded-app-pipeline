@@ -8,19 +8,15 @@ import React, {
 import { flushSync } from "react-dom";
 
 import { getEnv } from "@bsport/envs";
-import {
-  Button,
-  Divider,
-  Popover,
-  Tooltip,
-} from "@bsport/kaizen-primitive-core";
+import { Button, Popover, Tooltip } from "@bsport/kaizen-primitive-core";
 
 import { AnalyticsDebugToggle } from "./AnalyticsDebugToggle";
-import { ApiEnvSelector } from "./ApiEnvSelector";
 import LanguageSelector, {
   type LanguageSelectorProps,
 } from "./LanguageSelector";
 import Logout, { type LogoutProps } from "./Logout";
+import RuntimeEnvSelector from "./RuntimeEnvSelector";
+import RuntimeOverridesEditor from "./RuntimeOverridesEditor";
 import ThemeSelector from "./ThemeSelector";
 
 export type DevToolsProps = LanguageSelectorProps & LogoutProps;
@@ -153,20 +149,16 @@ const DevTools: React.FC<DevToolsProps> = ({
             <div className="gap-xs flex flex-col">
               <ThemeSelector />
 
+              <RuntimeEnvSelector />
+
+              <RuntimeOverridesEditor />
+
               <LanguageSelector i18nInstance={i18nInstance} />
 
               <AnalyticsDebugToggle
                 debugMode={analyticsDebug}
                 setDebugMode={setAnalyticsDebug}
               />
-
-              {env === "local" && (
-                <>
-                  <Divider orientation="horizontal" weight="thin" />
-                  <ApiEnvSelector />
-                  <Divider orientation="horizontal" weight="thin" />
-                </>
-              )}
 
               <Logout onLogoutCallback={onLogoutCallback} />
             </div>

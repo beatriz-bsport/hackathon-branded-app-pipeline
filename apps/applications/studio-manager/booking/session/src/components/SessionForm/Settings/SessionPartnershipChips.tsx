@@ -25,10 +25,20 @@ export const SessionPartnershipChips: FC<{
     [partnershipOffers],
   );
 
+  const noneSelected = useMemo(
+    () =>
+      !!activeAccounts?.length &&
+      activeAccounts.every((account) => {
+        const entry = offersMap.get(account.partnership);
+        return (entry?.po.allowed_on_partner ?? true) === false;
+      }),
+    [activeAccounts, offersMap],
+  );
+
   if (!activeAccounts?.length) return null;
 
   return (
-    <div className="mt-md">
+    <div>
       <Label
         htmlFor={`${fieldIdPrefix}-partnership-chips`}
         label={t(
@@ -73,6 +83,14 @@ export const SessionPartnershipChips: FC<{
           );
         })}
       </div>
+      {noneSelected && (
+        <p className="text-body-sm leading-xs text-onsurface-status-critical-strong mt-xs">
+          {t(
+            "addSessionModal.steps.configureSession.settings.partnership.enabledAggregators.error",
+            { ns: "sessionCreation" },
+          )}
+        </p>
+      )}
     </div>
   );
 };

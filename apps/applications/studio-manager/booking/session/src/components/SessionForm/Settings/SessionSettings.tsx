@@ -1,12 +1,13 @@
 import { FC } from "react";
 
 import { useFormContext } from "@bsport/form";
+import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
 import { Alert, Title } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { LevelSelectorField } from "#src/components/SessionForm/level/level-selector-field";
 import { SessionVisibilityType } from "#src/events/constants";
 import { sessionCreationVisibilitySelectEvent } from "#src/events/session-creation/events";
-import { useCreditFactor } from "#src/hooks/useCreditFactor";
 import { selectSelectedGroupActivity } from "#src/stores/session-creation/selectors";
 import { useSessionCreationStore } from "#src/stores/session-creation/store";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
@@ -28,7 +29,9 @@ export const SessionSettings: FC<{
 
   const { watch, setValue } = useFormContext();
 
-  const { getCreditsDividedValue } = useCreditFactor();
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const { getCreditsDividedValue, getCreditsNotPriceWarningText } =
+    useCreditFactor(companyTheme?.pass_credit_factor);
 
   const isSelectedGroupActivityBroadcast = useSessionCreationStore(
     selectSelectedGroupActivity,
@@ -72,7 +75,7 @@ export const SessionSettings: FC<{
       <SessionCreditsField fieldIdPrefix={fieldIdPrefix} />
       {creditValue > CREDITS_LIMIT_BEFORE_WARNING && (
         <Alert status="warning" type="weak">
-          {t("addSessionModal.steps.configureSession.settings.credits.warning")}
+          {getCreditsNotPriceWarningText()}
         </Alert>
       )}
       <LevelSelectorField fieldIdPrefix={fieldIdPrefix} />

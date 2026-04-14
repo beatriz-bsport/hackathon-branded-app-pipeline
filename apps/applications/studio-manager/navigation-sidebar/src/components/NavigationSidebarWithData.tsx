@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { setLocalAPIEnv } from "@bsport/fetch";
 import {
   ErrorBoundaryWrapper,
   FeatureFlagsProvider,
@@ -27,8 +26,6 @@ export const NavigationSidebarWithData: React.FC<NavigationSidebarProps> = (
   useEffect(() => {
     const performFetch = async () => {
       try {
-        // In compat mode, set the api env in the window
-        setLocalAPIEnv(__API_ENV__);
         await fetchSharedData();
       } catch (error) {
         console.error("Failed to fetch shared data:", error);

@@ -20,6 +20,7 @@ export const FIELD_CONSTRAINTS = {
 };
 
 export const DEFAULT_DATA = {
+  manager_only: false,
   name: "",
   description: "",
   payment_pack: null,

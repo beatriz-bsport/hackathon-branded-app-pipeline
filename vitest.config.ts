@@ -11,6 +11,8 @@ export default defineConfig({
       "packages/**/vitest.config.ts",
       // Use glob patterns to discover all vitest configs in tools
       "tools/**/vitest.config.ts",
+      // Use glob patterns to discover all vitest configs in apps
+      "apps/**/vitest.config.ts",
     ],
 
     // Configuration for coverage

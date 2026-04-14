@@ -14,7 +14,7 @@ import { i18nInstance, useTranslation } from "#src/i18n";
 // eslint-disable-next-line react-refresh/only-export-components
 const CopyPaymentLinkButton = (props: ButtonProps) => {
   return (
-    <Tooltip key={props.id} label={props.label}>
+    <Tooltip key={props.id} label={props.label} placement="bottom-right">
       <Button {...props} />
     </Tooltip>
   );

@@ -1,0 +1,11 @@
+{
+  "appleDeveloperProgram": {
+    "alert": {
+      "title": "Actie is vereist",
+      "paragraph1": "Apple vereist nu dat je iOS-app gekoppeld is aan je eigen Apple Developer-account (niet dat van bsport). Om je app actief te houden en toekomstige updates mogelijk te maken, moet je deze instelling <0>vóór 31 mei 2026</0> voltooien.",
+      "paragraph2": "Volg de stap-voor-stap instructies in ons <0>playbook</0>.",
+      "paragraph3": "Als je hulp nodig hebt, neem dan contact op met ons supportteam via <0>support@bsport.io</0>.",
+      "contactUs": "Neem contact met ons op voor hulp"
+    }
+  }
+}

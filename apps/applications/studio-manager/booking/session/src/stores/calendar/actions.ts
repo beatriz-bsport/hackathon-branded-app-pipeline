@@ -97,7 +97,7 @@ export const setShowCancelled = (tab: CalendarTab, show: boolean) => {
 };
 
 // Overloads to ensure each tab can only be used with its matching column type.
-export function toggleColumn(tab: "sessions", column: SessionColumns): void;
+export function toggleColumn(tab: "classes", column: SessionColumns): void;
 export function toggleColumn(
   tab: "appointments",
   column: AppointmentColumn,
@@ -127,25 +127,25 @@ export function toggleColumn(
 
 export const openCancelModal = (session: EnrichedSession) => {
   calendarStore.setState({
-    modalState: { tab: "sessions", type: ModalType.CANCEL, session },
+    modalState: { tab: "classes", type: ModalType.CANCEL, session },
   });
 };
 
 export const openRestoreModal = (session: EnrichedSession) => {
   calendarStore.setState({
-    modalState: { tab: "sessions", type: ModalType.RESTORE, session },
+    modalState: { tab: "classes", type: ModalType.RESTORE, session },
   });
 };
 
 export const openDeleteModal = (session: EnrichedSession) => {
   calendarStore.setState({
-    modalState: { tab: "sessions", type: ModalType.DELETE, session },
+    modalState: { tab: "classes", type: ModalType.DELETE, session },
   });
 };
 
 export const openDuplicateModal = (session: EnrichedSession) => {
   calendarStore.setState({
-    modalState: { tab: "sessions", type: ModalType.DUPLICATE, session },
+    modalState: { tab: "classes", type: ModalType.DUPLICATE, session },
   });
 };
 

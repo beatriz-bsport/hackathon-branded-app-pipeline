@@ -42,7 +42,8 @@ type ConfigType = {
   REACT_APP_ZOOM_CLIENT_ID: string;
   REACT_APP_PAYPAL_CLIENT_ID: string;
   REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID: string;
-  REACT_APP_MIXPANEL_TOKEN: string;
+  REACT_APP_MIXPANEL_TOKEN_B2B: string;
+  REACT_APP_MIXPANEL_TOKEN_B2C: string;
   REACT_APP_DIDOMI_API_KEY: string;
   REACT_APP_DIDOMI_NOTICE_ID: string;
   REACT_APP_UNLAYER_PROJECT_ID: string;
@@ -53,7 +54,7 @@ type ConfigType = {
 const Config = {} as ConfigType;
 
 function setConfigFrom(envConfig: any) {
-  Object.keys(envConfig).forEach((k: keyof ConfigType) => {
+  (Object.keys(envConfig) as Array<keyof ConfigType>).forEach((k) => {
     Config[k] = envConfig[k];
   });
 }

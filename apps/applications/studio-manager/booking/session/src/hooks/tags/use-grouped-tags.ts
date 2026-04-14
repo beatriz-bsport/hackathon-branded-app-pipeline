@@ -1,4 +1,4 @@
-import { Tag } from "@bsport/api-core";
+import type { Tag } from "@bsport/api-cdp/tags";
 
 import { useFetchTagGroups } from "./use-fetch-tag-groups";
 import { useFetchTags } from "./use-fetch-tags";

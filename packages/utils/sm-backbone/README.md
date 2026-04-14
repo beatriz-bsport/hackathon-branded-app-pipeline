@@ -157,9 +157,19 @@ Each hook provides access to specific data:
 
 ### DevTools
 
-The DevTools component is a small box on the top left of your screen that provides quick actions to support development : changing locale, changing theme, logout.
+The DevTools component is a small box on the top left of your screen that provides quick actions to support development: changing locale, changing theme, switching studio runtime preset, overriding studio runtime variables, logout.
 
 This toolbox is hidden on staging and production, and visible on local and feature branch. Concerning the dev environment, it can be shown by clicking 5 times on the top left corner of the screen. There is a small hidden button.
+
+When available, runtime configuration uses browser localStorage:
+
+- `@bsport/studio-runtime-env`: selected preset (`local|dev|staging|production`)
+- `@bsport/studio-runtime-field-env-map`: per-variable preset selectors
+
+Runtime behavior:
+
+- changing selectors updates `window.__SM_RUNTIME__` immediately (no forced page reload)
+- integrations initialized once at app startup can still require a manual reload to fully reflect runtime changes (for example Sentry, Mixpanel, Unleash client startup behavior)
 
 ## Tailwind CSS Integration
 
@@ -204,26 +214,18 @@ Components from SM Backbone (like `AppWrapper`, `ErrorBoundaryWrapper`, etc.) wi
 
 SM Backbone exposes Feature Flags via `@unleash/proxy-client-react`.
 
-Required Vite envs: `VITE_UNLEASH_PROXY_URL`, `VITE_UNLEASH_CLIENT_KEY`.
+Runtime keys in `studio-env.js`:
 
-Setup (run anywhere in the monorepo):
-
-```sh
-pnpm run -w feature-flags-environment:set local
-pnpm run -w feature-flags-environment:set dev
-pnpm run -w feature-flags-environment:set staging
-pnpm run -w feature-flags-environment:set feature-branch
-pnpm run -w feature-flags-environment:set production
-```
+- `UNLEASH_PROXY_URL`
+- `UNLEASH_CLIENT_KEY`
+- `UNLEASH_ENVIRONMENT` (optional, defaults to `"default"`)
 
 Notes:
 
-- Writes `.env.local` (local) or `.env.production` (others) in this package, then rebuilds it.
-- You can override defaults with `--proxy-url <url>` and/or `--client-key <token>`.
-- `.env.production` is gitignored.
+- if both keys are provided in `window.__SM_RUNTIME__`, they are used directly
+- if one key is missing, SM Backbone logs a warning and feature flags are disabled
+- no environment inference is done in SM Backbone; `UNLEASH_ENVIRONMENT` comes from runtime config (or defaults to `"default"`)
 
 Debugging:
 
-- Check `.env.local` / `.env.production` in this package, re-run the CLI and restart the consuming app if needed.
-
-See `.env.example` in this package for expected keys.
+- check `/studio/studio-env.js` payload in browser devtools and restart the consuming app if needed.

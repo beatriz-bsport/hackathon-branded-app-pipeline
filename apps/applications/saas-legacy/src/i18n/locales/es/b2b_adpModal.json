@@ -1,0 +1,11 @@
+{
+  "appleDeveloperProgram": {
+    "alert": {
+      "title": "Acción requerida",
+      "paragraph1": "Apple ahora requiere que tu aplicación iOS esté vinculada a tu propia cuenta de desarrollador de Apple (no a la de bsport). Para mantener tu aplicación activa y permitir futuras actualizaciones, debes completar esta configuración <0>antes del 31 de mayo de 2026.</0>",
+      "paragraph2": "Sigue las instrucciones paso a paso de nuestro <0>manual</0>.",
+      "paragraph3": "Si necesitas ayuda, contacta con nuestro equipo de soporte en <0>support@bsport.io</0>.",
+      "contactUs": "Contáctanos para ayudarte"
+    }
+  }
+}

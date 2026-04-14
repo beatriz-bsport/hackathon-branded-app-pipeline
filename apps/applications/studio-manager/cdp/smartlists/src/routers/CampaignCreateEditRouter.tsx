@@ -8,6 +8,7 @@ import {
   CAMPAIGN_CHANNEL_EMAIL,
   CAMPAIGN_CHANNEL_POPUP,
   CAMPAIGN_CHANNEL_PUSH,
+  CAMPAIGN_CHANNEL_SMS,
   type CampaignChannel,
   SMARTLIST_APP_LINKS,
   SMARTLIST_ROUTE_PATTERNS,
@@ -25,6 +26,15 @@ const CreatePopupCampaignPage = lazy(
 );
 const CreatePushCampaignPage = lazy(
   () => import("#src/pages/push-campaign/create-push-campaign"),
+);
+const CreateSmsCampaignPage = lazy(
+  () => import("#src/pages/sms-campaign/create-sms-campaign"),
+);
+const EditPushCampaignPage = lazy(
+  () => import("#src/pages/push-campaign/edit-push-campaign"),
+);
+const EditSmsCampaignPage = lazy(
+  () => import("#src/pages/sms-campaign/edit-sms-campaign"),
 );
 const EditPopupCampaignPage = lazy(() => import("#src/pages/PopupEditPage"));
 
@@ -44,7 +54,8 @@ function useCampaignBasePath(): string {
 function CreateRouteByChannel() {
   const { channel } = useParams<{ channel: string }>();
   const basePath = useCampaignBasePath();
-  const { hasPushNotificationUpsell, hasPopupUpsell } = useUpsellChecker();
+  const { hasSmsUpsell, hasPushNotificationUpsell, hasPopupUpsell } =
+    useUpsellChecker();
 
   const element = useMemo(() => {
     switch (channel) {
@@ -55,6 +66,11 @@ function CreateRouteByChannel() {
           return <Navigate to={basePath} replace />;
         }
         return <CreatePopupCampaignPage />;
+      case CAMPAIGN_CHANNEL_SMS:
+        if (!hasSmsUpsell) {
+          return <Navigate to={basePath} replace />;
+        }
+        return <CreateSmsCampaignPage />;
       case CAMPAIGN_CHANNEL_PUSH:
         if (!hasPushNotificationUpsell) {
           return <Navigate to={basePath} replace />;
@@ -63,7 +79,13 @@ function CreateRouteByChannel() {
       default:
         return <Navigate to={basePath} replace />;
     }
-  }, [channel, basePath, hasPushNotificationUpsell, hasPopupUpsell]);
+  }, [
+    channel,
+    basePath,
+    hasSmsUpsell,
+    hasPushNotificationUpsell,
+    hasPopupUpsell,
+  ]);
 
   if (!channel || !isValidChannel(channel)) {
     return <Navigate to={basePath} replace />;
@@ -78,17 +100,38 @@ function EditRouteByChannel() {
     entityId: string;
   }>();
   const basePath = useCampaignBasePath();
+  const { hasSmsUpsell, hasPushNotificationUpsell, hasPopupUpsell } =
+    useUpsellChecker();
 
   const element = useMemo(() => {
     switch (channel) {
       case CAMPAIGN_CHANNEL_EMAIL:
         return <EditEmailCampaignPage />;
       case CAMPAIGN_CHANNEL_POPUP:
+        if (!hasPopupUpsell) {
+          return <Navigate to={basePath} replace />;
+        }
         return <EditPopupCampaignPage />;
+      case CAMPAIGN_CHANNEL_SMS:
+        if (!hasSmsUpsell) {
+          return <Navigate to={basePath} replace />;
+        }
+        return <EditSmsCampaignPage />;
+      case CAMPAIGN_CHANNEL_PUSH:
+        if (!hasPushNotificationUpsell) {
+          return <Navigate to={basePath} replace />;
+        }
+        return <EditPushCampaignPage />;
       default:
         return <Navigate to={basePath} replace />;
     }
-  }, [channel, basePath]);
+  }, [
+    channel,
+    basePath,
+    hasSmsUpsell,
+    hasPushNotificationUpsell,
+    hasPopupUpsell,
+  ]);
 
   if (!channel || !entityId || !isValidChannel(channel)) {
     return <Navigate to={basePath} replace />;

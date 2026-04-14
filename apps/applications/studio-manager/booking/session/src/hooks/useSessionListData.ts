@@ -10,18 +10,14 @@ import {
 } from "@bsport/api-book";
 import { Teacher } from "@bsport/api-core";
 import type { Establishment } from "@bsport/api-core";
-import {
-  type DateTime,
-  fromIsoString,
-  getIsoDate,
-} from "@bsport/datetime-manipulation";
+import type { DateTime } from "@bsport/datetime-manipulation";
 import { dataAccessLayer } from "@bsport/sm-backbone";
-import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { getParamsFromFilters } from "#src/components/SessionList/Filters/getParamsFromFilters";
 import { sessionListSessionClickedEvent } from "#src/events/session-list/events";
 import { useUrls } from "#src/urls";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
+import { extractDateRangeParams } from "#src/utils/extract-date-range-params";
 import { getTeacherInitials } from "#src/utils/get-teacher-initials";
 
 import {
@@ -112,12 +108,6 @@ const processSession =
     };
   };
 
-export const getSessionDateStart = (session: EnrichedSession): string => {
-  return fromIsoString(session.date_start, {
-    zone: getCompanyTimezone(),
-  }).toISODate()!;
-};
-
 const extractRelatedIds = (sessions: ManagerSession[]) => {
   const teacherIds = new Set<number>();
   const establishmentIds = new Set<number>();
@@ -147,25 +137,7 @@ const extractRelatedIds = (sessions: ManagerSession[]) => {
   };
 };
 
-const extractDateRangeParams = (
-  params: { date: DateTime } | { minDate: DateTime; maxDate: DateTime } | null,
-): { minDateKey: string | null; maxDateKey: string | null } => {
-  if (!params) return { minDateKey: null, maxDateKey: null };
-
-  if ("date" in params) {
-    return {
-      minDateKey: getIsoDate(params.date),
-      maxDateKey: getIsoDate(params.date),
-    };
-  }
-
-  return {
-    minDateKey: getIsoDate(params.minDate),
-    maxDateKey: getIsoDate(params.maxDate),
-  };
-};
-
-const sessionsQueryOptions = (
+export const sessionsQueryOptions = (
   minDateKey: string | null,
   maxDateKey: string | null,
   filterParams: FetchSessionsParams,
@@ -209,13 +181,17 @@ const sessionsQueryOptions = (
 
 export const useSessionListData = (
   params: { date: DateTime } | { minDate: DateTime; maxDate: DateTime } | null,
+  enabled = true,
 ) => {
   const { minDateKey, maxDateKey } = extractDateRangeParams(params);
 
   const filters = useCalendarStore(selectSessionFilters);
   const filterParams = getParamsFromFilters(filters);
 
-  const { navigateToBookingsManagement } = useUrls();
+  const {
+    navigateToBookingsManagement: navigateToUrl,
+    getBookingsManagementUrl,
+  } = useUrls();
 
   const showCancelledSessions = useCalendarStore(selectSessionShowCancelled);
   const hasShowCancelledSessionsPermission = useObjectLevelPermission(
@@ -230,15 +206,16 @@ export const useSessionListData = (
     data: rawSessions = [],
     isLoading: isLoadingSessions,
     error,
-  } = useQuery(
-    sessionsQueryOptions(
+  } = useQuery({
+    ...sessionsQueryOptions(
       minDateKey,
       maxDateKey,
       filterParams,
       effectiveShowCancelledSessions,
       restrictedTeachers,
     ),
-  );
+    enabled: enabled && !!minDateKey && !!maxDateKey,
+  });
 
   const { teacherIds, establishmentIds, sessionIds, groupIds, activityIds } =
     useMemo(() => extractRelatedIds(rawSessions), [rawSessions]);
@@ -266,6 +243,9 @@ export const useSessionListData = (
   );
 
   const sessions = useMemo(() => {
+    const navigateToBookingsManagement = (sessionId: number) =>
+      navigateToUrl(getBookingsManagementUrl(sessionId));
+
     return rawSessions.map(
       processSession(
         teachersById,
@@ -283,7 +263,8 @@ export const useSessionListData = (
     sessionsWithPendingRequests,
     groupSessionsById,
     activitiesById,
-    navigateToBookingsManagement,
+    navigateToUrl,
+    getBookingsManagementUrl,
   ]);
 
   return {

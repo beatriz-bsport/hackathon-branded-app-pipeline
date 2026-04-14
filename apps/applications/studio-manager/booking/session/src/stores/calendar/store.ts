@@ -35,7 +35,7 @@ export interface CalendarState {
   selectedDate: DateSelection;
   locale: string;
   modalState: ModalState;
-  sessions: SessionTabState;
+  classes: SessionTabState;
   appointments: AppointmentTabState;
 }
 
@@ -46,7 +46,7 @@ export const getInitialState = (): CalendarState => {
     selectedDate: { type: "single", date: getLocalNow({ zone: timezone }) },
     locale: "en-US",
     modalState: null,
-    sessions: {
+    classes: {
       showCancelled: true,
       filters: [],
       displayedColumns: DEFAULT_SESSION_COLUMNS,

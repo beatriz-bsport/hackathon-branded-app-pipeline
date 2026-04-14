@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import React, { ReactNode } from "react";
 
 import Badge, { type BadgeProps } from "#src/components/Badge";
 import Body from "#src/components/Body";
@@ -24,7 +24,7 @@ export type PageActionsSectionProps = {
   pageStatusChip?: ChipProps;
   pageTabs?: TabsProps;
   pageTitle: string;
-  pageSubtitle?: string;
+  pageSubtitle?: ReactNode | string;
 } & CustomActionsSectionProps;
 
 const PageActionsSection: React.FC<PageActionsSectionProps> = ({
@@ -92,7 +92,11 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
           )}
         </div>
       </div>
-      {pageSubtitle && <Body>{pageSubtitle}</Body>}
+      {pageSubtitle && typeof pageSubtitle === "string" ? (
+        <Body>{pageSubtitle}</Body>
+      ) : (
+        pageSubtitle
+      )}
       {pageTabs && (
         <div className="flex flex-row justify-between items-center pb-[var(--kz-spacing-xs)] sm:pb-[0px]">
           <Tabs {...pageTabs} orientation="horizontal" className="sm:pt-xs" />

@@ -1,0 +1,39 @@
+{
+  "signEsStatus": {
+    "registered": "Geregistreerd",
+    "registeredTooltip": "Factuur is geregistreerd bij de Spaanse belastingdienst (AEAT)",
+    "rejected": "Afgewezen",
+    "rejectedTooltip": "Factuur afgewezen door de Spaanse belastingdienst (AEAT) vanwege: {{reason}}. Factuur kan niet worden bewerkt of opnieuw ingediend nadat deze is afgewezen.",
+    "pending": "In afwachting",
+    "pendingTooltip": "Factuur wacht op validatie door de Spaanse belastingdienst (AEAT)",
+    "notSendableAlertTitle": "Belangrijke informatie ontbreekt",
+    "notSendableAlertContent": "Factuur kan niet worden geregistreerd bij de Spaanse belastingdienst (AEAT) omdat er informatie over het lid ontbreekt ({{reasons}}). {{invalidSpanishNIFContent}} Werk het {{memberProfileText}} bij en probeer het opnieuw.",
+    "notSendableAlertContentOnlyNIF": "{{invalidSpanishNIFContent}} Werk het {{memberProfileText}} bij en probeer het opnieuw.",
+    "unexpectedFiskalyErrorContent": "Een onverwachte fout van Fiskaly heeft voorkomen dat de factuur werd ondertekend.",
+    "reverseInvoiceAlertTitle": "De omgekeerde factuur kan niet worden verzonden.",
+    "reverseInvoiceAlertContent": "De originele factuur is niet naar Verifactu gestuurd. Stuur eerst de {{originalInvoiceLink}} en probeer het opnieuw.",
+    "invalidSpanishNIFAlertTitle": "NIF-nummer opgeven",
+    "invalidSpanishNIFAlertContent": "Voeg een geldig NIF-nummer toe aan het ledenprofiel om je te registreren bij de Spaanse belastingdienst (AEAT). Andere identiteitsdocumenten worden niet geaccepteerd.",
+    "toBeSentManuallyAlertContent": "Factuur niet verzonden naar de Spaanse belastingdienst (AEAT) omdat deze werd afgerond voordat de VERI*FACTU onboarding was voltooid. probeer de factuur opnieuw naar de instantie te verzenden.",
+    "originalInvoice": "Originele factuur",
+    "memberProfile": "ledenprofiel",
+    "tryAgain": "Probeer het opnieuw",
+    "notSendableReasons": {
+      "75604": "land",
+      "75605": "postcode",
+      "75606": "stad",
+      "75608": "identificatienummer",
+      "75609": "adres",
+      "75626": "nationaliteit",
+      "75627": "officiële documenttype"
+    },
+    "validationErrors": {
+      "75802": "Opgegeven NIF ontvanger niet geregistreerd",
+      "75803": "btw-tarief niet toegestaan in regulier btw-systeem",
+      "75804": "Ongeldig Spaans NIF voor bedrijf"
+    },
+    "unknownError": "onbekende fout",
+    "andConjunction": "en",
+    "retryFailure": "Factuur kon niet worden verzonden. Probeer het opnieuw."
+  }
+}

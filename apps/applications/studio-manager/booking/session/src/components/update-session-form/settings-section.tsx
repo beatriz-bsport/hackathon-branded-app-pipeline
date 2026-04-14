@@ -2,14 +2,15 @@ import { FC } from "react";
 
 import type { MetaActivity } from "@bsport/api-book";
 import { useFormContext } from "@bsport/form";
+import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
 import { Alert, Body, Divider, Title } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SessionCapacityField } from "#src/components/SessionForm/Settings/SessionCapacityField";
 import { SessionCreditsField } from "#src/components/SessionForm/Settings/SessionCreditField";
 import { SessionPartnershipSettings } from "#src/components/SessionForm/Settings/SessionPartnershipSettings";
 import { BroadcastLinkField } from "#src/components/SessionForm/Settings/broadcast-link-field";
 import { LevelSelectorField } from "#src/components/SessionForm/level/level-selector-field";
-import { useCreditFactor } from "#src/hooks/useCreditFactor";
 import { selectSelectedGroupActivity } from "#src/stores/session-creation/selectors";
 import { useSessionCreationStore } from "#src/stores/session-creation/store";
 import { useTranslation } from "#src/utils/i18n";
@@ -29,7 +30,9 @@ export const SettingsSection: FC<{
     formState: { dirtyFields },
   } = useFormContext<SessionEditFormData>();
 
-  const { getCreditsDividedValue } = useCreditFactor();
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const { getCreditsDividedValue, getCreditsNotPriceWarningText } =
+    useCreditFactor(companyTheme?.pass_credit_factor);
 
   const isSelectedGroupActivityBroadcast = useSessionCreationStore(
     selectSelectedGroupActivity,
@@ -73,12 +76,7 @@ export const SettingsSection: FC<{
       {(shouldDisplayCreditLimitWarning || isCreditsDirty) && (
         <Alert status="warning" type="weak">
           {shouldDisplayCreditLimitWarning && (
-            <Body color="warning">
-              {t(
-                "addSessionModal.steps.configureSession.settings.credits.warning",
-                { ns: "sessionCreation" },
-              )}
-            </Body>
+            <Body color="warning">{getCreditsNotPriceWarningText()}</Body>
           )}
           {isCreditsDirty && (
             <Body color="warning">

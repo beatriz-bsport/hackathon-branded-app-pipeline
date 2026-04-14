@@ -25,6 +25,14 @@ vi.mock("../translationsWatcherPlugin", () => ({
     .fn()
     .mockReturnValue({ name: "translations-watcher" }),
 }));
+vi.mock("../runtimeEnvPlugin", () => ({
+  runtimeEnvPlugin: vi.fn().mockReturnValue({ name: "runtime-env" }),
+}));
+vi.mock("../studioRuntimeDevServerPlugin", () => ({
+  studioRuntimeDevServerPlugin: vi
+    .fn()
+    .mockReturnValue({ name: "studio-runtime-dev-server" }),
+}));
 
 type ConfigInput = Parameters<typeof getConfig>[0];
 
@@ -322,6 +330,7 @@ describe("getConfig", () => {
     );
     expect(prodVariables["__SENTRY_SCOPE_TAG__"]).toBe("sm-navigation-sidebar");
     expect(prodVariables["__BASENAME__"]).toBe("/studio/");
+    expect(prodConfig.define["__API_ENV__"]).toBeUndefined();
   });
 
   it("generates correct remotes configuration", () => {
@@ -344,6 +353,21 @@ describe("getConfig", () => {
         name: "sm-remote-app",
         type: "module",
         entry: "http://localhost:4001/remoteEntry.js",
+      },
+    });
+
+    // Preview mode
+    const previewConfig = getConfig(
+      createConfig({
+        mode: "preview",
+        packageJson: mockPackageJsonWithRemotes,
+      }),
+    );
+    expect(previewConfig.federation?.remotes).toEqual({
+      "sm-remote-app": {
+        name: "sm-remote-app",
+        type: "module",
+        entry: "/studio/apps/remote-app/remoteEntry.js",
       },
     });
 
@@ -415,19 +439,27 @@ describe("getConfig", () => {
     const { default: react } = await import("@vitejs/plugin-react-swc");
     const { federation } = await import("@module-federation/vite");
     const { default: restart } = await import("vite-plugin-restart");
+    const { runtimeEnvPlugin } = await import("../runtimeEnvPlugin");
+    const { studioRuntimeDevServerPlugin } = await import(
+      "../studioRuntimeDevServerPlugin"
+    );
     const { translationsWatcher } = await import(
       "../translationsWatcherPlugin"
     );
-
     // Verify all plugins are present
-    expect(config.plugins).toHaveLength(6);
+    expect(config.plugins).toHaveLength(8);
 
     // Verify each plugin is called once
     expect(nxViteTsPaths).toHaveBeenCalledOnce();
     expect(svgr).toHaveBeenCalledOnce();
     expect(react).toHaveBeenCalledOnce();
+    expect(runtimeEnvPlugin).toHaveBeenCalledOnce();
     expect(federation).toHaveBeenCalledOnce();
     expect(restart).toHaveBeenCalledOnce();
+    expect(studioRuntimeDevServerPlugin).toHaveBeenCalledOnce();
+    expect(studioRuntimeDevServerPlugin).toHaveBeenCalledWith({
+      rootDir: "/test/root",
+    });
     expect(translationsWatcher).toHaveBeenCalledOnce();
   });
 });

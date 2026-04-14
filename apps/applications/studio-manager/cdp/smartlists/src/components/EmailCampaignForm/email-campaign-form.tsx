@@ -55,9 +55,9 @@ export const EmailCampaignForm: React.FC<EmailCampaignFormProps> = ({
          * This feature is not developed yet in backend
          * TODO: Remove this once the feature is developed in backend
          */
-        isProduction ? null : <CampaignNameField<EmailCampaignFormData> />
+        isProduction ? null : <CampaignNameField />
       }
-      <CampaignDeliveryModeSelector<EmailCampaignFormData>
+      <CampaignDeliveryModeSelector
         companyTimezone={companyTheme?.timezone_name ?? "UTC"}
         locale={i18n.language}
         earliestHourToSend={companyTheme?.earliest_hour_to_send_communications}

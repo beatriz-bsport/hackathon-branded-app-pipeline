@@ -1,9 +1,10 @@
 import { FC } from "react";
 
 import { FormField, useFormContext } from "@bsport/form";
+import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
 import { TextField } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { useCreditFactor } from "#src/hooks/useCreditFactor";
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -11,20 +12,20 @@ export const SessionCreditsField: FC<{
   fieldIdPrefix: string;
 }> = ({ fieldIdPrefix }) => {
   const { t } = useTranslation("sessionCreation");
-  const { creditFactor, getCreditsDividedDisplay } = useCreditFactor();
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const { creditFactor, getCreditsFieldLabel, getCreditsDividedDisplay } =
+    useCreditFactor(companyTheme?.pass_credit_factor);
 
   const { watch } = useFormContext<SessionCreationFormData>();
 
   const credits = watch("credits");
 
-  const creditHelperText =
+  const helperText =
     creditFactor === 1
       ? t("addSessionModal.steps.configureSession.settings.credits.helperText")
       : t(
           "addSessionModal.steps.configureSession.settings.credits.decimalHelperText",
-          {
-            credits: getCreditsDividedDisplay(credits),
-          },
+          { credits: getCreditsDividedDisplay(credits) },
         );
 
   return (
@@ -41,11 +42,9 @@ export const SessionCreditsField: FC<{
     >
       <TextField
         id={`${fieldIdPrefix}-session-credits`}
-        label={t(
-          "addSessionModal.steps.configureSession.settings.credits.label",
-        )}
+        label={getCreditsFieldLabel()}
         required
-        helperText={creditHelperText}
+        helperText={helperText}
         type="number"
       />
     </FormField>

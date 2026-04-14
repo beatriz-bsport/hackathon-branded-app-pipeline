@@ -78,6 +78,7 @@ import { getItemInStorage } from '#src/utils/storage';
 
 import './express-pass-checkout.css';
 import { getAuthTokenValue } from '#src/http/utils';
+import { finalizeLightSignup } from '#src/libs/member/api';
 import analyticsUtils from '#src/components/analytics/analytics';
 
 enum RedirectStatus {
@@ -225,23 +226,34 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
 
   const { cleanLocalStorageAndRedirect } = useRedirectOnSuccess();
 
+  // Post-checkout: finalize light signup and redirect to confirmation page
+  const handlePostCheckoutSuccess = useCallback(
+    ({ basketId, canRedirect }: { basketId: string; canRedirect: boolean }) => {
+      if (memberId) {
+        finalizeLightSignup(Number(memberId));
+      }
+
+      const confirmationPageUrl = getCheckoutValidationUrl(companyId, {
+        basket: basketId,
+        express_checkout: 'true',
+      });
+
+      cleanLocalStorageAndRedirect({
+        canPerformRedirection: canRedirect && !!confirmationPageUrl,
+        url: confirmationPageUrl || '/',
+      });
+    },
+    [cleanLocalStorageAndRedirect, companyId, memberId],
+  );
+
   // Create a wrapper for CheckPaymentStatus onSuccess callback
   const onCheckPaymentStatusSuccess = useCallback(() => {
     const basketId = queryParams?.basket_redirection ?? currentBasket?.id;
     if (!basketId) return;
 
-    const confirmationPageUrl = getCheckoutValidationUrl(companyId, {
-      basket: basketId,
-      express_checkout: 'true',
-    });
-
-    cleanLocalStorageAndRedirect({
-      canPerformRedirection: !!confirmationPageUrl,
-      url: confirmationPageUrl || '/',
-    });
+    handlePostCheckoutSuccess({ basketId, canRedirect: true });
   }, [
-    cleanLocalStorageAndRedirect,
-    companyId,
+    handlePostCheckoutSuccess,
     queryParams?.basket_redirection,
     currentBasket?.id,
   ]);
@@ -258,29 +270,21 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
     isBookButtonLoading;
 
   const redirectOnSuccess = useCallback(
-    (basket?: Basket) => async () => {
+    (basket?: Basket) => () => {
       const basketToCheckout = basket ?? currentBasket;
-
       if (!basketToCheckout) return;
 
-      const confirmationPageUrl = getCheckoutValidationUrl(companyId, {
-        basket: queryParams?.basket_redirection
-          ? queryParams.basket_redirection
-          : basketToCheckout.id,
-        express_checkout: 'true',
-      });
+      const basketId = queryParams?.basket_redirection
+        ? queryParams.basket_redirection
+        : basketToCheckout.id;
 
-      const canRedirect =
-        !!confirmationPageUrl && basketHasNoErrors && basketIsNotLoading;
-
-      cleanLocalStorageAndRedirect({
-        canPerformRedirection: canRedirect,
-        url: confirmationPageUrl,
+      handlePostCheckoutSuccess({
+        basketId,
+        canRedirect: basketHasNoErrors && basketIsNotLoading,
       });
     },
     [
-      cleanLocalStorageAndRedirect,
-      companyId,
+      handlePostCheckoutSuccess,
       currentBasket,
       basketHasNoErrors,
       basketIsNotLoading,
@@ -298,11 +302,11 @@ const ExpressPassCheckoutContent: React.FC<ContentProps> = ({
       const basket = await addItemToBasketAndFetch();
       if (!basket) return;
       await validateBasket(basket);
-      await redirectOnSuccess(basket)();
+      redirectOnSuccess(basket)();
       return;
     }
     await validateBasket(currentBasket);
-    await redirectOnSuccess(currentBasket)();
+    redirectOnSuccess(currentBasket)();
   }, [
     addItemToBasketAndFetch,
     currentBasket,

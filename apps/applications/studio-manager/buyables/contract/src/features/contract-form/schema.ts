@@ -14,6 +14,26 @@ const INTERVALS = [
   BILLING_INTERVALS.YEAR,
 ] as const;
 
+export const useContractNameSchema = () => {
+  const { t } = useTranslation("contract-details");
+
+  return z.object({
+    // Identity section
+    name: z
+      .string()
+      .min(
+        FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN,
+        t("formFields.errors.fieldIsRequired"),
+      )
+      .max(
+        FIELD_CONSTRAINTS.NAME_LENGTH_MAX,
+        t("formFields.name.errorMaxLength", {
+          maxLength: FIELD_CONSTRAINTS.NAME_LENGTH_MAX,
+        }),
+      ),
+  });
+};
+
 /**
  * Returns the adequate Zod schema based on the type of the Contract.
  * Instead of handling multiple signatures of forms and functions for the 2 versions,
@@ -31,6 +51,8 @@ export function useContractFormSchema({
     .number()
     .nullable()
     .transform(() => null);
+
+  const nameSchema = useContractNameSchema();
 
   // Schema for both type of contracts
   const billingCycleSchema = z.discriminatedUnion("hasCustomInterval", [
@@ -90,15 +112,7 @@ export function useContractFormSchema({
 
   const baseSchema = z
     .object({
-      name: z
-        .string()
-        .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage)
-        .max(
-          FIELD_CONSTRAINTS.NAME_LENGTH_MAX,
-          t("formFields.name.errorMaxLength", {
-            maxLength: FIELD_CONSTRAINTS.NAME_LENGTH_MAX,
-          }),
-        ),
+      manager_only: z.boolean(),
 
       description: z
         .string()
@@ -122,8 +136,9 @@ export function useContractFormSchema({
         .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage)
         .max(FIELD_CONSTRAINTS.TERMS_LENGTH_MAX), // e.g. terms
     })
-    .and(billingCycleSchema)
-    .and(commitmentPeriodSchema);
+    .and(nameSchema)
+    .and(commitmentPeriodSchema)
+    .and(billingCycleSchema);
 
   // ----- Revamped config -----
   const revampSubschema = z.object({

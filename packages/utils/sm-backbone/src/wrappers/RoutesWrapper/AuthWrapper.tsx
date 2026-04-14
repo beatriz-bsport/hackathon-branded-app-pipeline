@@ -12,6 +12,8 @@ type NavigationSidebarProps = {
   disableRevampOnLegacyStore?: () => void;
   isLoadingData?: boolean;
   onLogoutCallback?: () => void;
+  isFranchisorNavigation?: boolean;
+  onNavigateBackToFranchisor?: () => void;
 };
 
 export type AuthWrapperProps = {

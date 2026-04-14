@@ -88,6 +88,7 @@ import {
   fetchBookedGender as fetchBookedGenderAction,
   createOffers as createOffersActions,
   editOffers as editOffersActions,
+  updateWellhubProductId as updateWellhubProductIdAction,
   disableOffer as disableOfferAction,
   hardDeleteOffers as hardDeleteOffersAction,
   postRollCall as postRollCallAction,
@@ -444,6 +445,10 @@ type Props = {
   offersMissingWellhubProductPaginatedData: ReworkedPaginationResponse<OfferREST>,
   fetchPartnershipList: () => void,
   wellhubPartnershipId: number | null,
+  updateWellhubProductId: ({
+    offerId: number,
+    data: UpdateWellhubProductIdPayload,
+  }) => void,
 };
 
 type State = {
@@ -672,6 +677,14 @@ export class Planning extends PureComponent<Props, State> {
         hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_WELLHUB) &&
           this.props.fetchOffersMissingWellhubProduct({});
         this.loadDayData();
+      },
+    });
+  };
+
+  onUpdateWellhubProductId = ({ offerId, data }) => {
+    this.props.updateWellhubProductId(offerId, data, {
+      onSuccess: () => {
+        this.props.fetchOffersMissingWellhubProduct({});
       },
     });
   };
@@ -1219,7 +1232,7 @@ export class Planning extends PureComponent<Props, State> {
         isOpen={this.state.isWellhubProductSelectionDrawerOpen}
         offersData={this.props.offersMissingWellhubProductPaginatedData}
         onClose={this.closeWellhubProductSelectionDrawer}
-        onConfirm={this.onConfirmModal}
+        onConfirm={this.onUpdateWellhubProductId}
         similarOffers={this.props.similarOffersWithCoachAndEstablishment}
         similarOffersLoading={this.props.similarOfferLoading}
         wellhubPartnershipId={this.props.wellhubPartnershipId}
@@ -1700,6 +1713,7 @@ export default compose(
       fetchAllEstablishmentGroup,
       createOffers: createOffersActions,
       editOffers: editOffersActions,
+      updateWellhubProductId: updateWellhubProductIdAction,
       disableOffer: disableOfferAction,
       hardDeleteOffers: hardDeleteOffersAction,
       fetchLevelList: fetchLevelListAction,

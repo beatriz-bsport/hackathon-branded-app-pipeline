@@ -86,6 +86,7 @@ import {
 import { fetchAssociatedCoachesList as fetchAssociatedCoachListAction } from '#src/libs/associated-coach/actions';
 import {
   editOffers as editOffersAction,
+  updateWellhubProductId as updateWellhubProductIdAction,
   fetchSimilarOffers as fetchSimilarOffersAction,
 } from '#src/libs/offer/actions';
 
@@ -108,7 +109,12 @@ import {
 } from '#src/libs/wellhub/selectors';
 
 import type { Coach } from '#src/libs/associated-coach/types';
-import type { Offer, OfferEdit, OfferSaas } from '#src/libs/offer/types';
+import type {
+  Offer,
+  OfferEdit,
+  OfferSaas,
+  UpdateWellhubProductIdPayload,
+} from '#src/libs/offer/types';
 import type { PaginationFilterParams } from '#src/libs/types';
 import type {
   GymAvailabilityResponse,
@@ -198,6 +204,11 @@ type ConnectorProps = {
     offer: Partial<OfferEdit>,
     options?: OptionBackgroundCallback,
   ) => void;
+  updateWellhubProductId: (
+    offerId: number,
+    payload: UpdateWellhubProductIdPayload,
+    options?: OptionCallback,
+  ) => void;
   fetchAssociatedCoachList: () => void;
   fetchOffersMissingWellhubProduct: (params: PaginationFilterParams) => void;
   fetchSimilarOffers: (offerId: number) => void;
@@ -261,9 +272,12 @@ export class Partnership extends React.Component<Props> {
   fetchMissingProductOffersSpecificPage = (page: number) =>
     this.props.fetchOffersMissingWellhubProduct({ page });
 
-  onEditOffer = (data: { offerId: number; data: Partial<OfferEdit> }) => {
-    this.props.editOffers(data.offerId, data.data, {
-      onBackgroundSuccess: () => {
+  updateWellhubProductId = (data: {
+    offerId: number;
+    data: UpdateWellhubProductIdPayload;
+  }) => {
+    this.props.updateWellhubProductId(data.offerId, data.data, {
+      onSuccess: () => {
         this.props.fetchOffersMissingWellhubProduct({});
       },
     });
@@ -394,7 +408,7 @@ export class Partnership extends React.Component<Props> {
             isOpen={this.props.isWellhubProductSelectionDrawerOpen}
             offersData={this.props.offersMissingWellhubProductPaginatedData}
             onClose={this.closeWellhubProductSelectionDrawer}
-            onConfirm={this.onEditOffer}
+            onConfirm={this.updateWellhubProductId}
             similarOffers={this.props.similarOffersWithCoachAndEstablishment}
             similarOffersLoading={this.props.similarOfferLoading}
             wellhubPartnershipId={
@@ -605,6 +619,7 @@ export default compose(
       createWellhubGymAction,
       deleteWellhubGym: deleteWellhubGymAction,
       editOffers: editOffersAction,
+      updateWellhubProductId: updateWellhubProductIdAction,
       fetchAssociatedCoachList: fetchAssociatedCoachListAction,
       fetchOffersMissingWellhubProduct: fetchOffersMissingWellhubProductAction,
       fetchSimilarOffers: fetchSimilarOffersAction,

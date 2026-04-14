@@ -37,6 +37,7 @@ import {
   unTagOffer as unTagOfferAPI,
   createOffers as createOffersAPI,
   editOffers as editOffersAPI,
+  updateWellhubProductId as updateWellhubProductIdAPI,
   disableOffer as disableOfferAPI,
   deleteOffer as deleteOfferAPI,
   fetchBookingGuestNumber as fetchBookingGuestNumberAPI,
@@ -58,6 +59,7 @@ import type {
   Offer,
   OfferCreate,
   OfferEdit,
+  UpdateWellhubProductIdPayload,
   UserRegistrationParams,
   OfferStatusWaitingListPosition,
   OfferStatusParams,
@@ -1165,6 +1167,38 @@ export function editOffers(
       options?.onError?.();
     }
     dispatch(editOffersActions.loading(false));
+  };
+}
+
+export const updateWellhubProductIdActions = {
+  error: createAction('OFFER/UPDATE_WELLHUB_PRODUCT_ID/ERROR'),
+  loading: createAction('OFFER/UPDATE_WELLHUB_PRODUCT_ID/IS_LOADING'),
+  success: createAction('OFFER/UPDATE_WELLHUB_PRODUCT_ID/SUCCESS'),
+};
+
+export function updateWellhubProductId(
+  offerId: number,
+  payload: UpdateWellhubProductIdPayload,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateWellhubProductIdActions.loading(true));
+    try {
+      await updateWellhubProductIdAPI({ offerId, data: payload });
+      dispatch(updateWellhubProductIdActions.success(null));
+      options?.onSuccess?.();
+    } catch (error) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `snackbar:spivi.error.${error.response.data.error_code}`,
+          ),
+        );
+      }
+      dispatch(updateWellhubProductIdActions.error(error));
+      options?.onError?.();
+    }
+    dispatch(updateWellhubProductIdActions.loading(false));
   };
 }
 

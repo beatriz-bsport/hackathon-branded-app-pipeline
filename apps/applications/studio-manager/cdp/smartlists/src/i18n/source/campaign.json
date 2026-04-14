@@ -84,6 +84,10 @@
           "cancelButtonLabel": "Cancel",
           "subjectLabel": "Email subject",
           "franchiseTemplateLabel": "Franchise template",
+          "cannotUseEmailEditorOnMobile": {
+            "description": "Open the email editor on your desktop for a better editing experience",
+            "confirmButtonLabel": "OK"
+          },
           "createNewTemplateModal": {
             "title": "Create new email template",
             "description": "Name your new template and organize it in a category",
@@ -176,6 +180,16 @@
         "errors": {
           "campaignNameRequired": "Campaign name is required.",
           "errorMaxLength": "Campaign name must be at most {{count}} characters"
+        }
+      }
+    },
+    "edit": {
+      "toasts": {
+        "success": {
+          "sendNow": "Scheduled campaign sent"
+        },
+        "error": {
+          "sendNowFailed": "Scheduled campaign couldn't be sent. Please try again."
         }
       }
     }
@@ -411,6 +425,14 @@
         "buttons": {
           "delete": "Delete campaign",
           "cancel": "Keep"
+        }
+      },
+      "lockedModal": {
+        "title": "Scheduled campaign cannot be edited or deleted",
+        "description": "This campaign is scheduled to be sent in less than 5 minutes. It can no longer be edited or deleted.",
+        "buttons": {
+          "close": "Close",
+          "goBack": "Go back"
         }
       },
       "toasts": {

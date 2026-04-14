@@ -12,7 +12,6 @@ import type { EmailCampaignFormData } from "../types";
 
 const INLINE_ACTIONS = {
   OPEN_EDITOR: "openEditor",
-  SEND_TEST: "sendTest",
 } as const;
 
 type InlineAction = (typeof INLINE_ACTIONS)[keyof typeof INLINE_ACTIONS];
@@ -89,15 +88,6 @@ export const EmailTemplatePreviewColumn: FC = () => {
         </Alert>
       ) : null}
       <div className="flex flex-wrap gap-sm">
-        <Button
-          size="sm"
-          intent="flat"
-          color="main"
-          id="email-campaign-send-test-email"
-          label={t("email.creation.form.emailTemplate.sendTestEmail")}
-          iconLeft="send-01"
-          onClick={() => setInlineActions(INLINE_ACTIONS.SEND_TEST)}
-        />
         <Button
           size="sm"
           intent="flat"

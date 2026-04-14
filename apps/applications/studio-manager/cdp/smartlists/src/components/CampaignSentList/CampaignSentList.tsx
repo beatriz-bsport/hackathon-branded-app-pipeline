@@ -1,7 +1,13 @@
 import { useParams } from "react-router";
 import invariant from "tiny-invariant";
 
-import { Button, Card, Table, Title } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  Card,
+  Table,
+  Title,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { useFetchCampaignSentList } from "#src/api/use-fetch-campaign-sent-list";
@@ -14,6 +20,7 @@ const LEGACY_POPUP_SETTINGS = "/settings/mobile-personalisation/popups";
 
 export const CampaignSentList = () => {
   const { t } = useTranslation("campaign");
+  const isMobile = !useMatchMedia("md");
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
   const { id: smartlistId } = useParams<{ id: string }>();
@@ -54,17 +61,18 @@ export const CampaignSentList = () => {
 
   return (
     <div className="flex flex-col gap-md">
-      <div className="flex flex-row justify-between">
-        <Title htmlVariant="h1" weight="strong">
+      <div className="flex flex-row items-center justify-between gap-sm">
+        <Title htmlVariant={isMobile ? "h2" : "h1"} weight="strong">
           {t("page.sentCampaigns.title")}
         </Title>
         <Button
           id="open-pop-ups"
-          intent="default"
-          color="main"
+          intent="flat"
+          color={isMobile ? "default" : "main"}
+          kind="icon-button"
           label={t("actions.openPopUps")}
-          size="sm"
-          iconRight="share-03"
+          size={isMobile ? "md" : "sm"}
+          icon="share-03"
           onClick={() => {
             window.location.href = LEGACY_POPUP_SETTINGS;
           }}

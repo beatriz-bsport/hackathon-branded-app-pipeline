@@ -57,16 +57,16 @@ export const useCampaignSentTableColumns = ({
       type: "custom",
       align: "start",
       render: (row) => (
-        <div className="flex flex-row gap-sm items-center">
+        <div className="flex min-w-0 max-w-[220px] flex-row items-center gap-sm lg:max-w-[300px]">
           <Avatar
             shape="round"
             size="md"
             src={row.recipientAvatar}
             initials={row.recipientInitials}
           />
-          <div className="flex flex-col gap-2xs">
+          <div className="flex min-w-0 flex-1 flex-col gap-2xs">
             <Body
-              className="max-w-38 overflow-hidden text-ellipsis"
+              className="block truncate"
               size="lg"
               htmlVariant="span"
               weight="weak"
@@ -74,7 +74,7 @@ export const useCampaignSentTableColumns = ({
               {row.recipientName}
             </Body>
             <Body
-              className="max-w-38 overflow-hidden text-ellipsis"
+              className="block truncate"
               size="md"
               htmlVariant="p"
               weight="weak"

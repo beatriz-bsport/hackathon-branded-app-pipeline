@@ -1,4 +1,4 @@
-import React, { useId } from "react";
+import React, { useId, useRef } from "react";
 
 import { FormField, useFormContext } from "@bsport/form";
 import {
@@ -11,6 +11,12 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
+import { CommunicationVariableSelector } from "#src/components/communication-variable-selector/communication-variable-selector";
+import {
+  focusEditableTextElementAtCursor,
+  getEditableTextElement,
+  insertValueAtCursor,
+} from "#src/components/push-notification-generic-field/variable-interpolation";
 import { useTranslation } from "#src/utils/i18n";
 
 import { EmailTemplateSection } from "./EmailTemplateSection/email-template-section";
@@ -24,9 +30,51 @@ import { isMessageTypeValid } from "./utils";
 export const ContentSection: React.FC = () => {
   const { t } = useTranslation("campaign");
   const baseId = useId();
+  const ids = {
+    fields: {
+      subject: `${baseId}-email-subject`,
+      body: `${baseId}-email-body`,
+    },
+  };
+  type EmailTextOnlyInputType = "subject" | "body";
+  const currentInputRef = useRef<EmailTextOnlyInputType | null>(null);
 
-  const { watch, setValue } = useFormContext<EmailCampaignFormData>();
+  const { watch, getValues, setValue } =
+    useFormContext<EmailCampaignFormData>();
   const isTextOnly = watch("isTextOnly");
+
+  const handleCommunicationVariableSelect = (selectedVariable: string) => {
+    const currentInputName = currentInputRef.current;
+    if (!currentInputName) return;
+
+    const inputFieldName =
+      currentInputName === "subject" ? "emailSubject" : "emailBody";
+    const currentInput = getValues(inputFieldName) ?? "";
+    const elementId =
+      currentInputName === "subject" ? ids.fields.subject : ids.fields.body;
+    const element = getEditableTextElement(elementId);
+
+    if (!element) return;
+
+    const currentCursorPos = element.selectionStart ?? currentInput.length;
+    const interpolationResult = insertValueAtCursor({
+      currentValue: currentInput,
+      cursorPosition: currentCursorPos,
+      valueToInsert: selectedVariable,
+    });
+
+    if (!interpolationResult) return;
+
+    setValue(inputFieldName, interpolationResult.value, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+
+    focusEditableTextElementAtCursor(
+      element,
+      interpolationResult.cursorPosition,
+    );
+  };
 
   return (
     <div className="flex flex-col gap-md">
@@ -116,10 +164,13 @@ export const ContentSection: React.FC = () => {
             })}
           >
             <TextField
-              id={`${baseId}-email-subject`}
+              id={ids.fields.subject}
               label={t("email.creation.form.textOnly.subjectLabel")}
               required
               fullWidth
+              onFocus={() => {
+                currentInputRef.current = "subject";
+              }}
             />
           </FormField>
 
@@ -131,11 +182,25 @@ export const ContentSection: React.FC = () => {
             })}
           >
             <TextArea
-              id={`${baseId}-email-body`}
+              id={ids.fields.body}
               label={t("email.creation.form.textOnly.bodyLabel")}
               required
+              onFocus={() => {
+                currentInputRef.current = "body";
+              }}
             />
           </FormField>
+          <div className="w-full">
+            <div className="w-80 flex place-self-end">
+              <CommunicationVariableSelector
+                fullWidth
+                id={`${baseId}-communication-variable-selector`}
+                onSelectCommunicationVariable={
+                  handleCommunicationVariableSelect
+                }
+              />
+            </div>
+          </div>
         </div>
       ) : (
         <EmailTemplateSection />

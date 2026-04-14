@@ -51,8 +51,10 @@ export function addCampaignScheduleRefinement<T extends CampaignBaseSchemaData>(
   companyTimezone: string,
 ): void {
   if (data.deliveryMode !== DELIVERY_MODE_SCHEDULE_LATER) return;
+  const scheduledDate = data.scheduledDate?.trim();
+  const scheduledTime = data.scheduledTime?.trim();
 
-  if (!data.scheduledDate?.trim()) {
+  if (!scheduledDate) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: i18nInstance.t(
@@ -63,9 +65,8 @@ export function addCampaignScheduleRefinement<T extends CampaignBaseSchemaData>(
       ),
       path: ["scheduledDate"],
     });
-    return;
   }
-  if (!data.scheduledTime?.trim()) {
+  if (!scheduledTime) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,
       message: i18nInstance.t(
@@ -76,15 +77,15 @@ export function addCampaignScheduleRefinement<T extends CampaignBaseSchemaData>(
       ),
       path: ["scheduledTime"],
     });
-    return;
   }
+  if (!scheduledDate || !scheduledTime) return;
 
   const zone = companyTimezone || "UTC";
   const now = getLocalNow({ zone });
 
   let scheduledDatetime: ReturnType<typeof fromIsoString> | null = null;
   try {
-    const [hour, minute] = data.scheduledTime.trim().split(":").map(Number);
+    const [hour, minute] = scheduledTime.split(":").map(Number);
     if (Number.isNaN(hour) || Number.isNaN(minute)) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
@@ -98,7 +99,7 @@ export function addCampaignScheduleRefinement<T extends CampaignBaseSchemaData>(
       });
       return;
     }
-    scheduledDatetime = fromIsoString(data.scheduledDate.trim(), { zone }).set({
+    scheduledDatetime = fromIsoString(scheduledDate, { zone }).set({
       hour,
       minute,
       second: 0,

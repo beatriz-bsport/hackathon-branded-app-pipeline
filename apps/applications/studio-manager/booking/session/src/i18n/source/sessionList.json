@@ -247,7 +247,8 @@
   "wellhub": {
     "alert": {
       "title": "Some sessions are missing a Wellhub product",
-      "message": "{{count}} session(s) do not have a Wellhub product assigned.",
+      "message_one": "{{count}} session does not have a Wellhub product assigned.",
+      "message_other": "{{count}} sessions do not have a Wellhub product assigned.",
       "action": "Assign products"
     },
     "modal": {

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import {
+  Alert,
   ErrorFallback,
   ListLayout,
   useEmptyState,
@@ -19,6 +20,7 @@ import { DeleteSessionModal } from "#src/components/SessionList/detail-actions/d
 import { DuplicateSessionModal } from "#src/components/SessionList/detail-actions/duplicate-session-modal";
 import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/restore-session-modal";
 import { MoreActionsButton } from "#src/components/SessionList/more-actions-button";
+import { WellhubProductModal } from "#src/components/WellhubProductModal/WellhubProductModal";
 import { SearchClearSource } from "#src/events/constants";
 import { useTrackSessionListViewed } from "#src/events/hooks/use-track-session-list-viewed";
 import { sessionCreationOpensEvent } from "#src/events/session-creation/events";
@@ -29,6 +31,7 @@ import {
 import { useAppointmentListData } from "#src/hooks/appointment/fetch/useAppointmentListData";
 import { useSearchAppointments } from "#src/hooks/appointment/fetch/useSearchAppointments";
 import { useModal } from "#src/hooks/use-modal";
+import { useFetchOffersMissingWellhubProduct } from "#src/hooks/wellhub/use-fetch-offers-missing-wellhub-product";
 import type { CalendarTab } from "#src/types";
 import { ModalType } from "#src/types";
 import { flags, useBookingManagementFlag } from "#src/urls";
@@ -114,6 +117,18 @@ const CalendarPage: React.FC = () => {
     open: openCancelMultipleSessionsModal,
     close: closeCancelMultipleSessionsModal,
   } = useModal();
+
+  const [wellhubPage, setWellhubPage] = useState(1);
+  const {
+    isOpen: wellhubModalOpen,
+    open: openWellhubModal,
+    close: closeWellhubModal,
+  } = useModal();
+  const { data: wellhubOffersData, isLoading: wellhubOffersLoading } =
+    useFetchOffersMissingWellhubProduct({
+      page: wellhubPage,
+      enabled: isClassesTab,
+    });
 
   useEffect(() => {
     if (intlLocale) {
@@ -371,6 +386,25 @@ const CalendarPage: React.FC = () => {
       />
       <ListLayout.Content>
         <DateNavigationHeader />
+        {isClassesTab &&
+          wellhubOffersData &&
+          wellhubOffersData.total_count > 0 && (
+            <div className="mt-md mx-md">
+              <Alert
+                status="default"
+                title={t("wellhub.alert.title")}
+                buttonLabel={t("wellhub.alert.action")}
+                onButtonClick={openWellhubModal}
+              >
+                {
+                  // @ts-expect-error - The typing does not understand the count system
+                  t("wellhub.alert.message", {
+                    count: wellhubOffersData.total_count,
+                  }) as string
+                }
+              </Alert>
+            </div>
+          )}
         <div className="flex flex-col gap-xl h-full mt-md">
           {isClassesTab ? (
             <>
@@ -445,6 +479,15 @@ const CalendarPage: React.FC = () => {
                 onClose={closeModal}
               />
             )}
+            <WellhubProductModal
+              isOpen={wellhubModalOpen}
+              onClose={closeWellhubModal}
+              offers={wellhubOffersData?.results ?? []}
+              isLoading={wellhubOffersLoading}
+              currentPage={wellhubPage}
+              totalPages={wellhubOffersData?.total_pages ?? 1}
+              onChangePage={setWellhubPage}
+            />
           </>
         )}
       </ListLayout.Content>

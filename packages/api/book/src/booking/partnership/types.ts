@@ -41,6 +41,8 @@ export type ActivePartnershipAccount = {
   id: string;
   partnership: number;
   partnership_identifier: PartnershipIdentifier;
+  external_id: string;
+  external_name: string;
   // Establishment is unused for now but the API exposes it so we keep it commented
   // establishments: Establishment[];
   active?: boolean;

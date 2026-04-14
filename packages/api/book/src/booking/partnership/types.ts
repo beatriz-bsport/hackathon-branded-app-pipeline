@@ -34,6 +34,12 @@ export type PartnershipOffer = {
   spot_limit: number | null;
 };
 
+export type FetchActivePartnershipAccountsParams = {
+  offer?: number;
+  establishment?: number; // Required if offer is not provided
+  date_start?: string; // ISO date string, required if offer is not provided
+};
+
 /**
  * Represents an active partnership account returned by the `active_for_offer` endpoint.
  */

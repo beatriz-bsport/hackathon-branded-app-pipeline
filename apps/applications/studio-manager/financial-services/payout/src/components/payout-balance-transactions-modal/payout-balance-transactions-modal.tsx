@@ -228,23 +228,44 @@ export const PayoutBalanceTransactionsModal: FC<
           const invoice = invoices[0];
 
           return (
-            <Button
-              icon="link-external-02"
-              intent="flat"
-              kind="icon-button"
-              label={invoice.public_identifier}
-              color="default"
-              size="md"
-              onClick={(event) => {
-                event.stopPropagation();
-                event.preventDefault();
-                window.open(
-                  `/invoice/${invoice.uuid}`,
-                  "_blank",
-                  "noopener,noreferrer",
-                );
-              }}
-            />
+            <div className="flex items-center gap-xs">
+              <Button
+                icon="link-external-02"
+                intent="flat"
+                kind="icon-button"
+                label={invoice.public_identifier}
+                color="default"
+                size="md"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  event.preventDefault();
+                  window.open(
+                    `/invoice/${invoice.uuid}`,
+                    "_blank",
+                    "noopener,noreferrer",
+                  );
+                }}
+              />
+              <Button
+                icon="download-01"
+                intent="flat"
+                kind="icon-button"
+                label={t("modal.invoice.download", {
+                  identifier: invoice.public_identifier,
+                })}
+                color="default"
+                size="md"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  event.preventDefault();
+                  window.open(
+                    invoice.stripe_invoice_pdf,
+                    "_blank",
+                    "noopener,noreferrer",
+                  );
+                }}
+              />
+            </div>
           );
         }
 
@@ -256,7 +277,7 @@ export const PayoutBalanceTransactionsModal: FC<
                   icon="dots-vertical"
                   intent="flat"
                   kind="icon-button"
-                  label="Open invoices"
+                  label={t("modal.invoice.openInvoices")}
                   color="default"
                   size="md"
                   onClick={(event) => {
@@ -270,21 +291,41 @@ export const PayoutBalanceTransactionsModal: FC<
             <Popover.Content placement="bottom-right">
               {({ setIsPopoverOpened }) => (
                 <Menu
-                  items={invoices.map((invoice) => ({
-                    id: invoice.uuid,
-                    label: invoice.public_identifier,
-                  }))}
+                  items={invoices.flatMap((invoice) => [
+                    {
+                      id: `details-${invoice.uuid}`,
+                      label: t("modal.invoice.openLabel", {
+                        identifier: invoice.public_identifier,
+                      }),
+                    },
+                    {
+                      id: `download-${invoice.uuid}`,
+                      label: t("modal.invoice.downloadLabel", {
+                        identifier: invoice.public_identifier,
+                      }),
+                    },
+                  ])}
                   onSelectOption={(id) => {
+                    const [action, ...uuidParts] = id.split("-");
+                    const invoiceUuid = uuidParts.join("-");
                     const invoice = invoices.find(
-                      (currentInvoice) => currentInvoice.uuid === id,
+                      (currentInvoice) => currentInvoice.uuid === invoiceUuid,
                     );
                     if (!invoice) return;
 
-                    window.open(
-                      `/invoice/${invoice.uuid}`,
-                      "_blank",
-                      "noopener,noreferrer",
-                    );
+                    if (action === "download") {
+                      window.open(
+                        invoice.stripe_invoice_pdf,
+                        "_blank",
+                        "noopener,noreferrer",
+                      );
+                    } else {
+                      window.open(
+                        `/invoice/${invoice.uuid}`,
+                        "_blank",
+                        "noopener,noreferrer",
+                      );
+                    }
                     setIsPopoverOpened(false);
                   }}
                 />

@@ -119,6 +119,12 @@
     "empty": {
       "title": "No payments to display",
       "description": "There are no payments included in this payout."
+    },
+    "invoice": {
+      "download": "Download {{identifier}}",
+      "openInvoices": "Open invoices",
+      "openLabel": "{{identifier}} - Open",
+      "downloadLabel": "{{identifier}} - Download PDF"
     }
   }
 }

@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { Body, Title } from "@bsport/kaizen-primitive-core";
 
+import { BookingStatusSegmentedControl } from "#src/components/session-management/filters/booking-status-segmented-control";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -29,7 +30,10 @@ export const ParticipantsSection: FC<{ sessionId: number }> = ({
           })}
         </Body>
       </div>
-      <BookingsTable sessionId={session.id} />
+      <div className="flex flex-col gap-md">
+        <BookingStatusSegmentedControl />
+        <BookingsTable sessionId={session.id} />
+      </div>
     </div>
   );
 };

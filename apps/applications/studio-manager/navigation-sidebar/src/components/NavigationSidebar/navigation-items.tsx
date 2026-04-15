@@ -275,7 +275,7 @@ export const useNavigationElements = ({
             {
               id: "playlists",
               label: t("menus.products.playlists"),
-              ...navigationUrls.playlist,
+              ...navigationUrls.onDemand,
             },
             {
               id: "orders",

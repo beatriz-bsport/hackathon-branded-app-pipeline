@@ -1,12 +1,24 @@
 import { lazy } from "react";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 
-const ListPage = lazy(() => import("#src/pages/list-page"));
+import { URLS } from "#src/urls";
+
+const CollectionsListPage = lazy(
+  () => import("#src/pages/collections-list-page"),
+);
+const MediasListPage = lazy(() => import("#src/pages/medias-list-page"));
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route element={<ListPage />} path="/" />
+      <Route element={<CollectionsListPage />} path={URLS.COLLECTIONS} />
+      <Route element={<MediasListPage />} path={URLS.MEDIAS} />
+
+      {/** Default to collections */}
+      <Route element={<Navigate to={URLS.COLLECTIONS} />} index />
+
+      {/** Global fallback */}
+      <Route element={<Navigate to={URLS.INDEX} />} path="*" />
     </Routes>
   );
 };

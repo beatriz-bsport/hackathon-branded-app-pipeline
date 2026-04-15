@@ -26,7 +26,10 @@
     "preview": "vite preview --mode preview",
     "translation:update": "pnpm run -w translation:update"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@bsport/api-buyables": "workspace:*",
+    "@bsport/use-pagination-query-params": "workspace:*"
+  },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-library": "workspace:*",

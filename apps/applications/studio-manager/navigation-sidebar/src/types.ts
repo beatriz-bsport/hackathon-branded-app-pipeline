@@ -26,6 +26,7 @@ export type Urls = {
   webshopOld: string;
   pack: string;
   giftcard: string;
+  onDemand: string; // Root path for the VOD Application
   video: string;
   playlist: string; // Tab on video app
   order: string;
@@ -90,4 +91,4 @@ export type Urls = {
   settings_mobilePersonalization: string;
 };
 
-export type LegacyUrls = Omit<Urls, "homepage">;
+export type LegacyUrls = Omit<Urls, "homepage" | "onDemand">;

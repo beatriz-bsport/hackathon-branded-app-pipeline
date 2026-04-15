@@ -59,7 +59,7 @@ export const DEFAULT_CONFIGURE_SESSION_FORM_DATA = {
   credits: 1,
   waiting_list_max_size: 5,
   effectif: 0,
-  available_on_partnership: false,
+  available_on_partnership: true,
   partner_max_booking_count: 0,
   partner_spot_capping_strategy: PartnerSpotCappingStrategy.COMBINED,
   partnership_offers: [],

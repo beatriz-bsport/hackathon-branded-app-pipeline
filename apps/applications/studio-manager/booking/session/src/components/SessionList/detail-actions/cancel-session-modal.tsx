@@ -12,7 +12,16 @@ import { EnrichedSession } from "#src/types";
 import { TFunction, Trans, useTranslation } from "#src/utils/i18n";
 
 type CancelSessionModalProps = {
-  session: EnrichedSession;
+  session: Pick<
+    EnrichedSession,
+    | "id"
+    | "name"
+    | "date_start"
+    | "nb_bookings"
+    | "group"
+    | "groupName"
+    | "linked_hybrid_offer_id"
+  >;
   isOpen: boolean;
   onClose: () => void;
 };

@@ -150,6 +150,7 @@ export type ReconciledBsportPayment = {
     public_identifier: string;
     amount_due_cts: number;
     issue_date: string;
+    stripe_invoice_pdf: string;
   };
 };
 

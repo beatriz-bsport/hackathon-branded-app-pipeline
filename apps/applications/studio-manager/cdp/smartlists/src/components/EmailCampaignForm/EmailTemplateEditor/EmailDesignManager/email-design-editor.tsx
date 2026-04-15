@@ -5,9 +5,12 @@ import EmailEditor, {
   type EmailEditorProps,
 } from "react-email-editor";
 
+import { useCommunicationVariables } from "#src/api/use-communication-variables";
+
 import { useUnlayerInitialization } from "../use-unlayer-initialization";
 import { initializeUnlayerBuilder } from "../utils";
 import type { EmailDesignContent } from "./email-design-editor-types";
+import { getMergeTags } from "./email-design-editor-utils";
 
 export const UNLAYER_EDITOR_MIN_HEIGHT = "80vh";
 export const UNLAYER_PROJECT_ID = 4736;
@@ -25,10 +28,12 @@ export const EmailDesignEditor = ({
   minHeight = UNLAYER_EDITOR_MIN_HEIGHT,
   onReady,
 }: EmailDesignEditorProps) => {
+  const { communicationVariables } = useCommunicationVariables();
   const { unlayerUser, currentLocale, companyName } =
     useUnlayerInitialization();
   const emailEditorRef = useRef<EditorRef>(null);
   const [unlayerRef, setUnlayerRef] = useState<Editor | null>(null);
+  const mergeTags = getMergeTags({ communicationVariables }) ?? undefined;
 
   const exportContent = () => {
     const editor = emailEditorRef.current?.editor;
@@ -57,7 +62,7 @@ export const EmailDesignEditor = ({
       emailBuilderRef: unlayerRef,
       initialDesign: value.design || null,
     });
-  }, []);
+  }, [unlayerRef, value.design]);
 
   useEffect(() => {
     return () => {
@@ -75,6 +80,7 @@ export const EmailDesignEditor = ({
       minHeight={minHeight}
       onReady={handleReady}
       options={{
+        mergeTags,
         features: {
           preview: true,
         },

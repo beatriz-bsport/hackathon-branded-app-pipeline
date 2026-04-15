@@ -2,9 +2,12 @@ import { FC } from "react";
 
 import { Button } from "@bsport/kaizen-primitive-core";
 
-import { useTranslation } from "#src/utils/i18n.js";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import { useTranslation } from "#src/utils/i18n";
 
-export const RestoreSessionButton: FC = () => {
+export const RestoreSessionButton: FC<{
+  openModal: (type: SessionManagementModalType) => void;
+}> = ({ openModal }) => {
   const { t } = useTranslation("sessionList");
   return (
     <Button
@@ -14,6 +17,7 @@ export const RestoreSessionButton: FC = () => {
       intent="call-to-action"
       size="md"
       color="main"
+      onClick={() => openModal(SessionManagementModalType.RESTORE)}
     />
   );
 };

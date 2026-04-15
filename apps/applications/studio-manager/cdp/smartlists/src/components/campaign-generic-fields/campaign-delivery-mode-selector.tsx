@@ -158,7 +158,14 @@ export const CampaignDeliveryModeSelector = ({
                 ? fromIsoString(field.value, { zone: companyTimezone })
                 : undefined;
               return {
+                key: field.value,
                 dateValue,
+                onClear: () => {
+                  setFormValue("scheduledDate", undefined, {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
+                },
                 onSelect: (date: SelectedDate) => {
                   const value =
                     date && !Array.isArray(date)
@@ -169,10 +176,10 @@ export const CampaignDeliveryModeSelector = ({
                     shouldValidate: true,
                   });
                 },
-                status:
-                  scheduledDateError || scheduledTimeError
-                    ? "error"
-                    : "default",
+                status: scheduledDateError ? "error" : "default",
+                statusText: scheduledDateError
+                  ? String(scheduledDateError)
+                  : undefined,
               };
             }}
           >
@@ -208,6 +215,10 @@ export const CampaignDeliveryModeSelector = ({
                 id={`campaign-scheduled-time-${baseId}`}
                 label={t("generic.creation.delivery.timeLabel")}
                 required
+                status={scheduledTimeError ? "error" : "default"}
+                statusText={
+                  scheduledTimeError ? String(scheduledTimeError) : undefined
+                }
               />
             </FormField>
           </div>

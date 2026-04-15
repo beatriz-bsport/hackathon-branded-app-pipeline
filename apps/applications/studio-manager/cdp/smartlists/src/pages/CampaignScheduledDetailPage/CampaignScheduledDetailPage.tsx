@@ -16,6 +16,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import { ScheduledCommunicationLockedModal } from "#src/components/ScheduledCommunicationLockedModal/ScheduledCommunicationLockedModal";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { getFallbackCampaignScheduledName } from "#src/utils/campaignUtils";
@@ -26,6 +27,7 @@ import {
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
+import { isScheduledCommunicationLocked } from "#src/utils/scheduled-communication-rules";
 
 import { CampaignScheduledHeaderActionDropdown } from "./CampaignScheduledHeaderActionDropdown";
 
@@ -50,6 +52,7 @@ function CampaignScheduledDetail() {
 
   const [currentInlineAction, setCurrentInlineAction] =
     useState<CampaignScheduledInlineActions | null>(null);
+  const [isLockedModalOpen, setIsLockedModalOpen] = useState(false);
 
   const campaignScheduledId = Number.parseInt(uuid, 10);
   invariant(
@@ -80,23 +83,40 @@ function CampaignScheduledDetail() {
 
   const pageTitle = getFallbackCampaignScheduledName(campaignScheduledDetail);
 
+  const handleEdit = () => {
+    if (
+      campaignScheduledDetail &&
+      isScheduledCommunicationLocked(campaignScheduledDetail.datetime_scheduled)
+    ) {
+      setIsLockedModalOpen(true);
+      return;
+    }
+
+    const channel =
+      COMMUNICATION_CHANNEL_BY_KIND_MAP[
+        campaignScheduledDetail?.communication_kind
+      ];
+
+    navigateToSmartlistCampaignEdit(id, channel, String(campaignScheduledId));
+  };
+
+  const handleDelete = () => {
+    if (
+      campaignScheduledDetail &&
+      isScheduledCommunicationLocked(campaignScheduledDetail.datetime_scheduled)
+    ) {
+      setIsLockedModalOpen(true);
+      return;
+    }
+
+    setCurrentInlineAction(CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION);
+  };
+
   const endGroupActions = [
     <CampaignScheduledHeaderActionDropdown
       key="campaign-scheduled-detail-header-actions"
-      onEdit={() => {
-        const channel =
-          COMMUNICATION_CHANNEL_BY_KIND_MAP[
-            campaignScheduledDetail?.communication_kind
-          ];
-        navigateToSmartlistCampaignEdit(
-          id,
-          channel,
-          String(campaignScheduledId),
-        );
-      }}
-      onDelete={() =>
-        setCurrentInlineAction(CAMPAIGN_SCHEDULED_DELETE_INLINE_ACTION)
-      }
+      onEdit={handleEdit}
+      onDelete={handleDelete}
     />,
   ];
 
@@ -129,6 +149,10 @@ function CampaignScheduledDetail() {
             onDeleted={() => navigateToSmartlistCampaigns(id)}
           />
         )}
+      <ScheduledCommunicationLockedModal
+        isOpen={isLockedModalOpen}
+        onClose={() => setIsLockedModalOpen(false)}
+      />
     </DetailsLayout>
   );
 }

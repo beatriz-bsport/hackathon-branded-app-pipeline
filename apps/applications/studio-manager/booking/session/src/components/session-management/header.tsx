@@ -5,6 +5,7 @@ import { DetailsLayout } from "@bsport/kaizen-primitive-core";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveTeacher } from "#src/hooks/teacher/use-retrieve-teacher";
 import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-header-config";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
 import { useTranslation } from "#src/utils/i18n";
 
 import { BookButton } from "./action-buttons/book-button";
@@ -13,7 +14,10 @@ import { RestoreSessionButton } from "./action-buttons/restore-session-button";
 import { SendCommunicationButton } from "./action-buttons/send-communication-button";
 import { SessionNavigationButtons } from "./action-buttons/session-navigation-buttons";
 
-export const Header: FC<{ sessionId: number }> = ({ sessionId }) => {
+export const Header: FC<{
+  sessionId: number;
+  openModal: (type: SessionManagementModalType) => void;
+}> = ({ sessionId, openModal }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
@@ -32,9 +36,13 @@ export const Header: FC<{ sessionId: number }> = ({ sessionId }) => {
         key="session-navigation"
         sessionId={session.id}
       />,
-      <MoreActionsButton key="more-actions" sessionId={session.id} />,
+      <MoreActionsButton
+        key="more-actions"
+        sessionId={session.id}
+        openModal={openModal}
+      />,
     ];
-  }, [session.id]);
+  }, [session.id, openModal]);
 
   const endGroupActions = useMemo(() => {
     return [<SendCommunicationButton key="send-communication" />];
@@ -52,7 +60,7 @@ export const Header: FC<{ sessionId: number }> = ({ sessionId }) => {
         session.available ? (
           <BookButton />
         ) : !session.group ? (
-          <RestoreSessionButton />
+          <RestoreSessionButton openModal={openModal} />
         ) : undefined
       }
       {...headerConfig}

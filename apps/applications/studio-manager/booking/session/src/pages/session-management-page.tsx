@@ -7,8 +7,10 @@ import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { DetailsFetchError } from "#src/components/session-details/details-fetch-error";
 import { DetailsLoadingPage } from "#src/components/session-details/details-loading-page";
 import { Header } from "#src/components/session-management/header";
+import { SessionManagementModals } from "#src/components/session-management/session-management-modals.js";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
+import { useSessionManagementModals } from "#src/hooks/use-session-management-modals.js";
 
 const SessionManagementPageInner: FC = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
@@ -23,16 +25,25 @@ const SessionManagementPageInner: FC = () => {
 
   useRetrieveSessionDetails(session);
 
-  return (
-    <DetailsLayout withPanel>
-      <Header sessionId={session.id} />
+  const { closeModal, modalState, openModal } = useSessionManagementModals();
 
-      <DetailsLayout.Content>
-        {/** PLACEHOLDER SECTION */}
-        <pre>{JSON.stringify(session, null, 2)}</pre>
-        {/** END OF PLACEHOLDER SECTION */}
-      </DetailsLayout.Content>
-    </DetailsLayout>
+  return (
+    <>
+      <DetailsLayout withPanel>
+        <Header sessionId={session.id} openModal={openModal} />
+
+        <DetailsLayout.Content>
+          {/** PLACEHOLDER SECTION */}
+          <pre>{JSON.stringify(session, null, 2)}</pre>
+          {/** END OF PLACEHOLDER SECTION */}
+        </DetailsLayout.Content>
+      </DetailsLayout>
+      <SessionManagementModals
+        closeModal={closeModal}
+        modalState={modalState}
+        sessionId={session.id}
+      />
+    </>
   );
 };
 

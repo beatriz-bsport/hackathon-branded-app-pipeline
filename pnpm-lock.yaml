@@ -1740,6 +1740,9 @@ importers:
 
   apps/applications/studio-manager/buyables/vod:
     dependencies:
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/buyables
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -1752,6 +1755,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/use-pagination-query-params':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/query-params/use-pagination
       '@tanstack/react-query':
         specifier: ^5.90.12
         version: 5.90.12(react@19.2.0)

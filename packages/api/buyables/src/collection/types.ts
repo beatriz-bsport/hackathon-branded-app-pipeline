@@ -20,6 +20,8 @@ export type Collection = {
 export type FetchCollectionsParams = {
   page?: number;
   page_size?: number;
+  mine?: boolean;
+  company?: number;
 } & URLParams;
 
 export type CreateCollectionParams = {

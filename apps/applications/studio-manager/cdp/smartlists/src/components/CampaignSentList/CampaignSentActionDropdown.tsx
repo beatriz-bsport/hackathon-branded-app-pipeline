@@ -40,7 +40,7 @@ export const CampaignSentActionDropdown = ({
   ];
 
   return (
-    <StopPropagationWrapper>
+    <StopPropagationWrapper preventDefault>
       <Popover>
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => (

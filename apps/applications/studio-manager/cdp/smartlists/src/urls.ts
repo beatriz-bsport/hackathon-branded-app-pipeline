@@ -70,6 +70,7 @@ export const SMARTLIST_ROUTE_PATTERNS = {
   CAMPAIGN: `${PARAMS.smartlistId}/${SEGMENTS.campaign}`,
   CAMPAIGN_SCHEDULED_DETAILS: `${PARAMS.smartlistId}/${SEGMENTS.campaign}/${SEGMENTS.scheduled}/${PARAMS.uuid}`,
   CAMPAIGN_SENT_DETAILS: `${PARAMS.smartlistId}/${SEGMENTS.campaign}/${SEGMENTS.sent}/${PARAMS.uuid}`,
+  AUTOMATION_EMAIL_CREATE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_EMAIL}/${SEGMENTS.create}`,
   AUTOMATION_PUSH_CREATE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_PUSH}/${SEGMENTS.create}`,
   AUTOMATION_SMS_CREATE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_SMS}/${SEGMENTS.create}`,
   AUTOMATION_PUSH_EDIT: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_PUSH}/${PARAMS.entityId}/${SEGMENTS.edit}`,
@@ -91,6 +92,14 @@ export const SMARTLIST_APP_LINKS = {
     buildSmartlistLink(smartlistId, SEGMENTS.parameter),
   automation: (smartlistId: string) =>
     buildSmartlistLink(smartlistId, SEGMENTS.automation),
+  automationEmailCreation: (smartlistId: string) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.automation,
+      SEGMENTS.messages,
+      CAMPAIGN_CHANNEL_EMAIL,
+      SEGMENTS.create,
+    ),
   automationPushCreation: (smartlistId: string) =>
     buildSmartlistLink(
       smartlistId,

@@ -14,7 +14,20 @@ import { DuplicateModalContent } from "./duplicate-session-modal-content";
 import { useDuplicateSessionSchema } from "./duplicate-session-schema";
 
 type DuplicateSessionModalProps = {
-  session: EnrichedSession;
+  session: Pick<
+    EnrichedSession,
+    | "id"
+    | "name"
+    | "date_start"
+    | "duration_minute"
+    | "credit_price"
+    | "linked_hybrid_offer_id"
+    | "coach_payment_rule_id"
+    | "name_override"
+    | "description_override"
+    | "recurrence_id"
+    | "meta_activity"
+  >;
   isOpen: boolean;
   onClose: () => void;
 };

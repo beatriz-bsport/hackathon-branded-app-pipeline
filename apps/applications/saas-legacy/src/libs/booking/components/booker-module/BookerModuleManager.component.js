@@ -149,15 +149,7 @@ type Props = {
 const REGISTER_METHOD_CHOICE = 0;
 const OFFER_CHOICE = 1;
 
-type State = {
-  isNotifyClientPreselected: boolean,
-};
-
-export class BookerModuleManager extends PureComponent<Props, State> {
-  state = {
-    isNotifyClientPreselected: false,
-  };
-
+export class BookerModuleManager extends PureComponent<Props> {
   componentDidMount() {
     this.props.checkOfferTagEligibility();
     this.props.fetchByOfferByMemberAction(
@@ -201,7 +193,6 @@ export class BookerModuleManager extends PureComponent<Props, State> {
     }
     // @debt(3, 2, 2): Replace with /role/me to avoid fetching all roles.
     this.props.fetchCompanyUserRoles();
-    this.setState({ isNotifyClientPreselected: this.props.isAutoBooking });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -370,12 +361,8 @@ export class BookerModuleManager extends PureComponent<Props, State> {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={
-                        this.props.notify_member ||
-                        this.state.isNotifyClientPreselected
-                      }
+                      checked={this.props.notify_member}
                       onChange={(ev) => {
-                        this.setState({ isNotifyClientPreselected: false });
                         this.props.setNotifyMember(ev.target.checked);
                       }}
                       value="checkedG"
@@ -584,7 +571,7 @@ export default compose(
   withStyles(styles),
   withState('step', 'setStep', REGISTER_METHOD_CHOICE),
   withState('registererObject', 'setRegistererObject', {}),
-  withState('notify_member', 'setNotifyMember', false),
+  withState('notify_member', 'setNotifyMember', true),
   withState('keep_credits', 'setKeepCredits', false),
   withState('memberDetail', 'setMemberDetail', {}),
   withState('tagWarningDialogOpen', 'setTagWarningDialogOpen', false),

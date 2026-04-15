@@ -1,83 +1,83 @@
 {
   "addSessionModal": {
-    "title": "Set up a session",
+    "title": "Add session",
     "steps": {
       "chooseActivity": {
-        "label": "Choose activity",
-        "description": "Search or select an activity for the session, such as Group Activity or a Workshop.",
-        "loadingActivities": "Loading activities...",
+        "label": "Choose class",
+        "description": "Search all classes, or select a group class or a workshop",
+        "loadingActivities": "Loading classes...",
         "search": {
           "placeholder": "Search"
         },
         "table": {
           "columns": {
-            "activity": "Activity",
+            "activity": "Class",
             "type": "Type",
             "features": "Features"
           },
           "type": {
-            "groupActivity": "Group Activity",
+            "groupActivity": "Group class",
             "workshop": "Workshop"
           },
           "emptyState": {
-            "title": "No Group Activities yet",
-            "body": "Add a Group Activity or Workshop to your studio before creating a session."
+            "title": "No group classes yet",
+            "body": "Create a group class or workshop first to add a session to it"
           },
           "features": {
             "livestream": {
-              "popoverLabel": "Livestream is enabled for this activity"
+              "popoverLabel": "This class has livestream enabled"
             },
             "notifications": {
-              "popoverLabel": "Notifications are configured for this activity"
+              "popoverLabel": "This class has notifications turned on"
             }
           }
         }
       },
       "configureSession": {
-        "label": "Configure session",
-        "nameAndDescription": "Name and description",
-        "nameAndDescriptionHelperText": "These fields are inherited from the parent activity. Toggle customization to override with session-specific values.",
+        "label": "Set up session",
+        "nameAndDescription": "Details",
+        "nameAndDescriptionHelperText": "Customize this session’s name and description",
         "details": {
           "title": "Details",
-          "sessionName": "Session name",
+          "sessionName": "Title",
           "description": "Description",
           "overrideToggle": {
-            "label": "Customize name and description for this session",
-            "helperText": "By default, values are inherited from the activity."
+            "label": "Customize this session's title and description",
+            "helperText": "By default, the session uses the title and description of the class"
           },
           "visibilitySelector": {
-            "title": "Choose whether this session will be visible on the Member Area",
+            "title": "Choose if this session will be listed on your website",
             "options": {
               "visible": {
                 "label": "Listed",
-                "description": "Offering will be visible on the Member Area"
+                "description": "This session will be listed on your website"
               },
               "hidden": {
                 "label": "Unlisted",
-                "description": "Offering won't be visible on the Member Area but can be shared directly via a link"
+                "description": "This session won't be listed on your website but can be shared directly via a link"
               }
             }
           }
         },
         "settings": {
-          "title": "Settings",
-          "effectif": "Total spots in class",
-          "exceedsRoomCapacity": "The number of spots exceeds the room capacity.",
+          "title": "Booking",
+          "effectif": "Total spots in session",
+          "exceedsRoomCapacity": "The number of spots exceeds the room capacity",
           "waitlist": "Spots on Waitlist",
           "credits": {
             "label": "Credits",
             "helperText": "Number of credits required to book the session",
             "decimalHelperText": "This session will cost {{credits}} credits",
-            "warning": "Double-check: you’re entering credits, not a price."
+            "warning": "Heads up: this is the amount of credits, not the price"
           },
           "partnership": {
-            "toggle": "Make session available to book for customers from aggregators (ClassPass, Urban Sports Club, Wellpass, Wellhub and myClubs).",
-            "noEstablishment": "To customize aggregator availability, you must first select an establishment.",
+            "toggle": "Available to book for clients from aggregators (ClassPass, Urban Sports Club, Wellpass, Wellhub and myClubs).",
+            "noEstablishment": "Select a venue first to customize aggregator availability",
             "cappingStrategy": {
-              "label": "Spot limitation",
+              "label": "Spot capping",
               "UNLIMITED": {
                 "label": "Unlimited spots",
-                "helperText": "All spots can be booked through aggregators (combined across all platforms)"
+                "helperText": "All spots can be booked through aggregators (combined across all)"
               },
               "COMBINED": {
                 "label": "Limited spots (combined)",
@@ -85,19 +85,19 @@
               },
               "PER_PARTNER": {
                 "label": "Limit bookings per aggregator",
-                "helperText": "Configure individual limits and booking window for each platform"
+                "helperText": "Set individual limits and booking windows for each aggregator"
               }
             },
             "capacity": {
               "label": "Spots available for aggregators",
-              "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session.",
-              "classpassInfo": "ClassPass has its own separate limit — not included in this cap."
+              "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session",
+              "classpassInfo": "ClassPass has its own separate limit that's not included in this cap"
             },
             "wellhub": {
               "label": "Your available products on Wellhub",
               "placeholder": "Select a Wellhub product...",
               "helperText": "These products are offered by your studio on the Wellhub platform. Go to 'Partnership' section in the Partner Portal of your Wellhub account for more information.",
-              "error": "Wellhub product is required"
+              "error": "Wellhub products are required"
             },
             "perPartner": {
               "table": {
@@ -109,7 +109,7 @@
             },
             "enabledAggregators": {
               "label": "Enabled aggregators",
-              "error": "If the session is available to aggregators, you must select at least one."
+              "error": "Select at least one aggregator"
             }
           },
           "level": {
@@ -133,7 +133,7 @@
             "info": "Choosing this option will create an online session with a member limit of 100. Once it's created, you'll be able to edit the Broadcast link, membership, price, etc."
           },
           "teacherAndEstablishment": {
-            "title": "Teacher and establishment",
+            "title": "Teacher and venue",
             "teacher": {
               "label": "Teacher",
               "placeholder": "Add a teacher..."
@@ -143,13 +143,13 @@
               "placeholder": "Choose a rule..."
             },
             "establishment": {
-              "label": "Establishment",
-              "placeholder": "Choose an establishment..."
+              "label": "Venue",
+              "placeholder": "Choose a venue..."
             },
             "spotScheduling": {
               "label": "Spot scheduling",
               "placeholder": "Choose an option...",
-              "helper": "Allow your students to book a spot in the room in advance",
+              "helper": "Allow clients to book a spot in the room in advance",
               "error": "A room plan must be selected for sessions synchronized with Spivi"
             },
             "syncOnSpivi": "Automatically send the session details to Spivi"
@@ -161,7 +161,7 @@
           }
         },
         "timeAndDate": {
-          "title": "Date and time",
+          "title": "Scheduling",
           "date": "Date",
           "time": "Time",
           "duration": {
@@ -171,14 +171,14 @@
             "day": "day"
           },
           "recurrence": {
-            "toggle": "This session is recurrent",
+            "toggle": "This session is recurring",
             "typeSelector": {
               "label": "Interval",
               "weekly": "Weekly",
               "custom": "Custom..."
             },
             "weekdaysSelector": {
-              "label": "Repeat on",
+              "label": "Repeats on",
               "placeholder": "Choose recurring days..."
             },
             "endDate": "End date",
@@ -187,7 +187,7 @@
               "weeks": "Weeks",
               "months": "Months"
             },
-            "interval": "Repeat every",
+            "interval": "Repeats every",
             "pattern": {
               "label": "Rule",
               "position": {
@@ -203,33 +203,33 @@
             },
             "info": "{{count}} session will be created",
             "info_other": "{{count}} sessions will be created",
-            "warning": "The recurrence settings are invalid. Only the initial session will be created. Adjust your settings to create recurring sessions."
+            "warning": "Adjust your settings to create recurring sessions. Only the initial session will be created. "
           },
           "errors": {
-            "invalidDate": "Invalid date. Please enter a valid date in the format DD/MM/YYYY.",
-            "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future.",
+            "invalidDate": "Enter a valid date in the format DD/MM/YYYY",
+            "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future",
             "durationNull": "Duration must be greater than 0 minutes.",
-            "recurrenceType": "Please select a recurrence type",
-            "recurrenceEndDate": "Please select an end date",
+            "recurrenceType": "Select a type of recurring session",
+            "recurrenceEndDate": "Select an end date",
             "recurrenceEndDateBeforeStartDate": "End date must be after the start date",
-            "recurrenceWeekdays": "Please select at least one day of the week",
-            "recurrenceUnit": "Please select a recurrence unit (days, weeks, or months)",
-            "recurrenceInterval": "Please specify how often to repeat the session",
-            "recurrencePattern": "Please select a monthly recurrence pattern"
+            "recurrenceWeekdays": "Select at least one day of the week",
+            "recurrenceUnit": "Select an interval unit (days, weeks, or months)",
+            "recurrenceInterval": "Choose how often to repeat the session",
+            "recurrencePattern": "Select a monthly interval"
           },
           "wellhubWarning": "Sessions shared via Wellhub will be automatically shortened to a maximum of 200 minutes.",
-          "uscWarning": "Your integration with the Urban Sports Club marketplace is active, any session spanning 2 days or more will not appear there."
+          "uscWarning": "Your integration with the Urban Sports Club is active, any session spanning 2 days or more will not appear there."
         }
       },
       "advancedOptions": {
         "label": "Advanced options",
         "bookForAGuest": {
-          "title": "Booking for a guest",
-          "fieldLabel": "Allow booking for a guest"
+          "title": "Guest booking",
+          "fieldLabel": "Enable clients to add guests to their bookings"
         },
         "tags": {
           "title": "Tags",
-          "subTitle": "Use tags to make this session available only to certain segments of your member base.",
+          "subTitle": "Use tags to make this session available only to certain segments of your client base",
           "addTags": "Add tags",
           "whiteListTagsLabel": "Authorised members",
           "blackListTagsLabel": "Unauthorised members"
@@ -237,7 +237,7 @@
       }
     },
     "buttons": {
-      "cancel": "Cancel",
+      "cancel": "Close",
       "back": "Back",
       "createSession": "Create session",
       "open": "Open"

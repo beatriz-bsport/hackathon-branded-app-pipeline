@@ -11,6 +11,7 @@ import {
 import type {
   OfferCreate,
   OfferEdit,
+  UpdateWellhubProductIdPayload,
   UserRegistrationParams,
   OfferStatusWaitingListPosition,
   OfferStatusParams,
@@ -48,6 +49,19 @@ export async function editOffers({
   data: OfferEdit;
 }) {
   return putAuth(`${API_V1_URI}/offer/${offerId}/`, data);
+}
+
+export async function updateWellhubProductId({
+  offerId,
+  data,
+}: {
+  offerId: number;
+  data: UpdateWellhubProductIdPayload;
+}) {
+  return postAuth(
+    `${API_V1_URI}/offer/${offerId}/update_wellhub_product_id/`,
+    data,
+  );
 }
 
 export async function postRollCallOffer(offerId: number) {

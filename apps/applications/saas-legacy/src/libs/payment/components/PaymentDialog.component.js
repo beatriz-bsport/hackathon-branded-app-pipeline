@@ -18,6 +18,7 @@ import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group.js';
 import PaymentStripeTerminal from '#src/libs/terminal/components/PaymentStripeTerminal.component';
@@ -54,6 +55,7 @@ type Props = {
   paymentGroupPriceCts: number,
   termsAndConditionsAccepted: boolean,
   clientSecretError?: boolean,
+  clientSecretErrorCode?: number | null,
   clientSecretLoading: boolean,
   availablePaymentMethodList?: Array<number>,
   updatePriceCts?: (priceCts: number, options: OptionCallback) => void,
@@ -269,18 +271,34 @@ export class PaymentDialog extends React.Component<Props, State> {
                     <div className={classes.errorContainer}>
                       <WarningIcon className={classes.leftIcon} />
                       <div className={classes.multilineTextContainer}>
-                        <Typography
-                          style={{ color: 'white' }}
-                          variant="caption"
-                        >
-                          {t('paymentPanel.errorSecretExplain1')}
-                        </Typography>
-                        <Typography
-                          style={{ color: 'white' }}
-                          variant="caption"
-                        >
-                          {t('paymentPanel.errorSecretExplain2')}
-                        </Typography>
+                        {this.props.clientSecretErrorCode ===
+                        PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION ? (
+                          <>
+                            <Typography
+                              style={{ color: 'white' }}
+                              variant="caption"
+                            >
+                              {t(
+                                'paymentPanel.pendingMemberDebtPaymentIntentError',
+                              )}
+                            </Typography>
+                          </>
+                        ) : (
+                          <>
+                            <Typography
+                              style={{ color: 'white' }}
+                              variant="caption"
+                            >
+                              {t('paymentPanel.errorSecretExplain1')}
+                            </Typography>
+                            <Typography
+                              style={{ color: 'white' }}
+                              variant="caption"
+                            >
+                              {t('paymentPanel.errorSecretExplain2')}
+                            </Typography>
+                          </>
+                        )}
                       </div>
                     </div>
                   )}

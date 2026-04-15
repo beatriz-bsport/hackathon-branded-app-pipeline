@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-import { Chip, Modal, TextField } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Chip,
+  Icon,
+  Modal,
+  TextField,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -44,15 +51,27 @@ export const EmailDesignEditorModal = ({
   const [showActions, setShowActions] = useState(false);
   const [content, setContent] = useState<EmailDesignContent>(value);
   const [subject, setSubject] = useState(initialSubject);
+  const isMobile = !useMatchMedia("md");
 
   return (
     <Modal
       open={open}
       onClose={onClose}
-      confirmButton={{
-        label: t("email.creation.form.emailTemplateEditor.confirmButtonLabel"),
-        onClick: () => setShowActions(true),
-      }}
+      confirmButton={
+        isMobile
+          ? {
+              label: t(
+                "email.creation.form.emailTemplateEditor.cannotUseEmailEditorOnMobile.confirmButtonLabel",
+              ),
+              onClick: () => onClose(),
+            }
+          : {
+              label: t(
+                "email.creation.form.emailTemplateEditor.confirmButtonLabel",
+              ),
+              onClick: () => setShowActions(true),
+            }
+      }
       description={
         isFranchiseTemplate ? (
           <Chip
@@ -68,16 +87,27 @@ export const EmailDesignEditorModal = ({
       title={t("email.creation.form.emailTemplateEditor.title")}
       size="xl"
     >
-      <div className="flex flex-col gap-md">
-        <TextField
-          id="email-design-editor-subject"
-          label={t("email.creation.form.emailTemplateEditor.subjectLabel")}
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-          fullWidth
-        />
-        <EmailDesignEditor value={content} onChange={setContent} />
-      </div>
+      {isMobile ? (
+        <div className="flex flex-col items-center justify-center text-center gap-sm py-xl">
+          <Icon icon="monitor-04" size="lg" />
+          <Body htmlVariant="p" size="md" weight="weak">
+            {t(
+              "email.creation.form.emailTemplateEditor.cannotUseEmailEditorOnMobile.description",
+            )}
+          </Body>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-md">
+          <TextField
+            id="email-design-editor-subject"
+            label={t("email.creation.form.emailTemplateEditor.subjectLabel")}
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            fullWidth
+          />
+          <EmailDesignEditor value={content} onChange={setContent} />
+        </div>
+      )}
       {showActions ? (
         <EmailDesignEditorActionsModal
           open={true}

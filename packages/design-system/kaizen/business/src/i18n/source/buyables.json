@@ -74,6 +74,32 @@
       "label": "Teacher pay rate incl. VAT",
       "helperText": "Amount teacher earns for each booking",
       "tooltip": "This rate determines teacher payroll and applies to all bookings made with this pass. If left as '0', the rate will be calculated as subscription price divided by number of bookings."
+    },
+    "maximumUsage": {
+      "label": "Set maximum usage",
+      "helperText": "Control the maximum allowed usage per day, week, month, or purchase per member",
+      "gridColumns": {
+        "maximumUsage": "Maximum usage",
+        "scope": "Scope"
+      },
+      "scopes": {
+        "day": "Day",
+        "week": "Week",
+        "month": "Month",
+        "member": "Member"
+      }
+    },
+    "timeRestrictions": {
+      "label": "Restrict booking to certain time",
+      "helperText": "Members can only book during the selected times",
+      "timePeriod": "Time period",
+      "allDay": "All day",
+      "addMoreSchedule": "Add more schedule",
+      "buttonLabels": {
+        "removeTimeSchedule": "Remove time period schedule",
+        "removeTimeSlot": "Remove time slot",
+        "addTimeSlot": "Add time slot"
+      }
     }
   },
   "itemAutocomplete": {

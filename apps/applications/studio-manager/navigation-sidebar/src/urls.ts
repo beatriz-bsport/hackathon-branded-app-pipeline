@@ -91,6 +91,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   payout: "/payout",
   marketingNotification: "/marketing/notifications",
   member: "/member",
+  onDemand: "/on-demand",
   order: "/order",
   pack: "/pack",
   smartlist: "/smartlist",
@@ -120,9 +121,10 @@ export const REVAMP_URLS_PRODUCTION = {
   teacher: "/teacher",
 } satisfies Partial<typeof REVAMP_URLS_DEVELOPMENT>; // Ensure that it's a subset of REVAMP_URLS_DEVELOPMENT
 
-const REVAMP_ONLY_KEYS: Array<string> = ["homepage"] satisfies Array<
-  keyof Urls
->;
+const REVAMP_ONLY_KEYS: Array<string> = [
+  "homepage",
+  "onDemand",
+] satisfies Array<keyof Urls>;
 
 export const LEGACY_DEFAULT_PAGE = LEGACY_URLS.calendar;
 

@@ -176,6 +176,9 @@ const icons = {
   "link-external-02": React.lazy(
     async () => await import("./assets/link-external-02.svg?react"),
   ),
+  "list-play": React.lazy(
+    async () => await import("./assets/list-play.svg?react"),
+  ),
   loading: React.lazy(async () => await import("./assets/loading.svg?react")),
   "lock-01": React.lazy(async () => await import("./assets/lock-01.svg?react")),
   "lock-04": React.lazy(async () => await import("./assets/lock-04.svg?react")),

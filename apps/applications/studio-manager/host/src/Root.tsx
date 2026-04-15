@@ -31,6 +31,7 @@ const Session = lazy(() => import("@bsport/sm-session"));
 const Giftcard = lazy(() => import("@bsport/sm-giftcard"));
 const Order = lazy(() => import("@bsport/sm-order"));
 const Pack = lazy(() => import("@bsport/sm-pack"));
+const Vod = lazy(() => import("@bsport/sm-vod"));
 
 // ----- Core-data -----
 const MemberList = lazy(() => import("@bsport/sm-member-list"));
@@ -243,6 +244,7 @@ const AuthenticatedRoutes = () => {
     },
     { url: urls.order, element: <Order /> },
     { url: urls.pack, element: <Pack />, hidden: !isPacksPageEnabled },
+    { url: urls.onDemand, element: <Vod /> },
 
     /* ----- Core-data ----- */
     { url: urls.member, element: <MemberList /> },

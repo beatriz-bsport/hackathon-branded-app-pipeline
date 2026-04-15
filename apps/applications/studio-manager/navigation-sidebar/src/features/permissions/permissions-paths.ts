@@ -33,6 +33,7 @@ export const PERMISSIONS_PATHS: Record<
   member: ["navigationMenu.member"],
   marketingNotification: ["navigationMenu.marketing.notifications"],
   order: ["navigationMenu.payments.orders"],
+  onDemand: ["navigationMenu.digitalOffer.playlists"],
   pack: ["navigationMenu.products.packs"],
   pass: ["navigationMenu.products.paymentPack"],
   payout: ["navigationMenu.settings.subscription"],

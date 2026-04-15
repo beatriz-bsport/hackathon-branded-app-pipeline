@@ -1,0 +1,19 @@
+{
+  "table": {
+    "headers": {
+      "name": "Collections"
+    },
+    "videosCountLabel": "",
+    "videosCountLabel_one": "{{count}} item",
+    "videosCountLabel_other": "{{count}} items",
+    "loading": "Loading collections...",
+    "emptyList": {
+      "title": "No collections yet",
+      "subtitle": "Collections will appear here once they are created."
+    },
+    "emptySearch": {
+      "title": "No collections found",
+      "subtitle": "Try adjusting your search."
+    }
+  }
+}

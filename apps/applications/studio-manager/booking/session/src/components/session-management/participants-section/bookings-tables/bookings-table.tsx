@@ -11,14 +11,14 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { ActionsMenuButton } from "#src/components/common/action-menu-button.js";
-import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance.js";
+import { ActionsMenuButton } from "#src/components/common/action-menu-button";
+import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
 import {
   RefinedBooking,
   useFetchRefinedBookings,
-} from "#src/hooks/booking/fetch/use-fetch-refined-bookings.js";
-import { getMemberInitials } from "#src/utils/get-member-initials.js";
-import { useTranslation } from "#src/utils/i18n.js";
+} from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
+import { getMemberInitials } from "#src/utils/get-member-initials";
+import { useTranslation } from "#src/utils/i18n";
 
 import { ChipsCell } from "./chips-cell";
 

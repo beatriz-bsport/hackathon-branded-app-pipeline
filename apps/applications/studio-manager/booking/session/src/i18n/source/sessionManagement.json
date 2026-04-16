@@ -22,5 +22,9 @@
     "actionsMenu": {
       "label": "Actions"
     }
+  },
+  "bookingStatusFilter": {
+    "booked": "Booked",
+    "cancelled": "Cancelled"
   }
 }

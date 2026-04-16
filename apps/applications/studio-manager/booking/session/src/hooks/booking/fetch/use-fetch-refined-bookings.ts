@@ -14,6 +14,8 @@ import {
 } from "@bsport/api-buyables";
 import { type Member, memberListQueryOptions } from "@bsport/api-cdp";
 
+import { getBookingParamsFromFilters } from "#src/components/session-management/filters/get-booking-params-from-filters";
+import { useSessionManagementStore } from "#src/stores/session-management/store";
 import { fetch } from "#src/utils/fetch";
 
 export type RefinedBooking = Booking & {
@@ -25,7 +27,15 @@ export type RefinedBooking = Booking & {
 export const useFetchRefinedBookings = (
   params: PaginatedBookingFilterParams,
 ) => {
-  const bookingsQuery = useQuery(bookingsQueryOptions(fetch, params));
+  const bookingsFilters = useSessionManagementStore(
+    (state) => state.bookingFilters,
+  );
+
+  const bookingsFilterParams = getBookingParamsFromFilters(bookingsFilters);
+
+  const bookingsQuery = useQuery(
+    bookingsQueryOptions(fetch, { ...params, ...bookingsFilterParams }),
+  );
 
   const bookings = useMemo(
     () => bookingsQuery.data?.results ?? [],

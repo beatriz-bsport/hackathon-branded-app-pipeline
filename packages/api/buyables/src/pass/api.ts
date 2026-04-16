@@ -13,6 +13,8 @@ import type { FetchPassesParams, Pass } from "./types";
 
 const PASS_API_URL = `${API_V1_URL}/payment-pack`;
 
+const PASS_STALE_TIME = 2 * 60 * 1000; // 5 minutes
+
 export const passKeys = {
   all: ["@api-buyables", "pass"] as const,
   list: (params: FetchPassesParams) =>
@@ -20,7 +22,7 @@ export const passKeys = {
 } as const;
 
 const fetchPassesAPIConfig = (params: FetchPassesParams): ApiConfig => {
-  return [`${PASS_API_URL}/${buildUrlParams(params)}`];
+  return [`${PASS_API_URL}/payment-pack/${buildUrlParams(params)}`];
 };
 
 export const fetchPassesAPI = async (
@@ -39,4 +41,5 @@ export const passesQueryOptions = (
   queryOptions({
     queryKey: passKeys.list(params),
     queryFn: () => fetchPassesAPI(fetch, params),
+    staleTime: PASS_STALE_TIME,
   });

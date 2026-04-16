@@ -67,6 +67,7 @@
   },
   "peerDependencies": {
     "@bsport/analytics": "workspace:*",
+    "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",

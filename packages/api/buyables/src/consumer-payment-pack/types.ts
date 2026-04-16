@@ -57,7 +57,7 @@ export type ConsumerPaymentPackFilterParams = {
   member?: number; // filter by member PK (0 = current user's consumer)
   memberId?: number; // alias for member
   member_relation?: number; // filter by member relation PK
-  id__in?: string; // comma-separated list of CPP IDs
+  id__in?: number[];
   consumer?: number; // FK to Consumer
   payment_pack?: number; // FK to PaymentPack
   company?: number; // filter by company PK

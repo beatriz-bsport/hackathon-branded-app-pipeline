@@ -1030,6 +1030,9 @@ importers:
       '@bsport/api-book':
         specifier: workspace:*
         version: link:../../../../../packages/api/book
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/core
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting

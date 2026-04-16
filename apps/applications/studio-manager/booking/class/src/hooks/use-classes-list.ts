@@ -1,13 +1,9 @@
-import {
-  keepPreviousData,
-  queryOptions,
-  useQuery,
-} from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
 import {
   type SearchGroupActivitiesParams,
-  searchGroupActivitiesAPI,
+  searchGroupActivitiesQueryOptions,
 } from "@bsport/api-book";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
@@ -18,19 +14,6 @@ type ConfigurableSearchParams = Pick<
   SearchGroupActivitiesParams,
   "inCategoryIds" | "notInCategoryIds" | "searchQuery"
 >;
-
-const CLASSES_STALE_TIME = 2 * 60 * 1000; // 2 minutes
-
-const searchClassesQueryOptions = (params: SearchGroupActivitiesParams) =>
-  queryOptions({
-    queryKey: ["searchGroupActivities", params],
-    queryFn: async () => {
-      const data = await searchGroupActivitiesAPI(fetch, params);
-      return data;
-    },
-    placeholderData: keepPreviousData,
-    staleTime: CLASSES_STALE_TIME,
-  });
 
 export const useClassesList = ({
   customerEnabled,
@@ -49,23 +32,22 @@ export const useClassesList = ({
     ...searchParams,
   };
 
-  const {
-    data: searchData,
-    isLoading,
-    refetch,
-  } = useQuery(searchClassesQueryOptions(searchQueryParams));
+  const { data: searchData } = useSuspenseQuery(
+    searchGroupActivitiesQueryOptions(fetch, searchQueryParams),
+  );
 
   const rawClasses = useMemo(() => searchData?.results ?? [], [searchData]);
   const totalItems = useMemo(() => searchData?.count ?? 0, [searchData]);
 
-  // later on we will have class details
+  //TODO: upcoming: later on we will have class details
   // const getClassDetailLink = (classId: string) =>
-  //   `/activity/${classId}/general`;
+  //   `/CLASSES_URL/${classId}`;
 
   const classes = useMemo(
     () =>
       rawClasses.map((item) => ({
         ...item,
+        // TODO: when we will have the actual click on row opening details
         // link: getClassDetailLink(item.id.toString()),
       })),
     [rawClasses],
@@ -76,18 +58,16 @@ export const useClassesList = ({
       currentPage,
       rowsPerPage: currentPageSize,
       showRowsPerPageSelector: true,
-      disabled: isLoading,
+      disabled: false,
       totalItems,
       onPageSettingsChange: setPageSettings,
       className: "p-md",
     }),
-    [currentPage, currentPageSize, isLoading, totalItems, setPageSettings],
+    [currentPage, currentPageSize, totalItems, setPageSettings],
   );
 
   return {
     classes,
     paginationProps,
-    isLoading,
-    refetch,
   };
 };

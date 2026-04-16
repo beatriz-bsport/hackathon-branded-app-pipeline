@@ -18,10 +18,12 @@ import type {
 
 const META_ACTIVITY_URL = API_URL + "v1/meta-activity";
 
-// TODO: add the other keys (list, search, etc.)
 export const groupActivityKeys = {
   all: ["@api-book", "group-activities"] as const,
   detail: (id: number) => [...groupActivityKeys.all, id] as const,
+  searches: () => [...groupActivityKeys.all, "search"] as const,
+  search: (params: SearchGroupActivitiesParams) =>
+    [...groupActivityKeys.searches(), params] as const,
 };
 
 const mapGroupActivitiesUrlParams = ({
@@ -270,5 +272,15 @@ export const retrieveGroupActivityQueryOptions = (
   queryOptions({
     queryKey: groupActivityKeys.detail(metaActivityId),
     queryFn: () => retrieveGroupActivity(fetch, metaActivityId),
+    staleTime: DEFAULT_STALE_TIME,
+  });
+
+export const searchGroupActivitiesQueryOptions = (
+  fetch: Fetch<SearchResponse<MetaActivity>>,
+  params: SearchGroupActivitiesParams,
+) =>
+  queryOptions({
+    queryKey: groupActivityKeys.search(params),
+    queryFn: () => searchGroupActivitiesAPI(fetch, params),
     staleTime: DEFAULT_STALE_TIME,
   });

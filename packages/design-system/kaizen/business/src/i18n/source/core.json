@@ -152,5 +152,15 @@
     "14502": "No consistent invoice number could be extracted.",
     "15000": "Cannot create an invoice with buyable items that are unusable by staff.",
     "99000": "Cannot use an item that is unusable by staff."
+  },
+  "categorySelector": {
+    "label": "Category",
+    "selected": "",
+    "selected_one": "{{ count }} selected category",
+    "selected_other": "{{ count }} selected categories",
+    "helperText": "Only selected categories will be included",
+    "placeholder": "Leave blank to not limit the offering",
+    "selectAll": "Select all",
+    "deselectAll": "Select none"
   }
 }

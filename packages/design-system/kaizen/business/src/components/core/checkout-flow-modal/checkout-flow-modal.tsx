@@ -14,6 +14,10 @@ import { useAsync } from "@bsport/use-async";
 import { MemberSelectorModal } from "#src/components/cdp/member/member-selector-modal";
 import { MemberAndBillingGroupCard } from "#src/components/core/checkout-flow-modal/member-and-billing-group-card";
 import { i18nInstance, i18nNamespacePrefix, useTranslation } from "#src/i18n";
+import {
+  CloseTrigger,
+  useGuardedModalClose,
+} from "#src/utils/use-guarded-modal-close";
 
 import { AddItemSection } from "./add-item-section";
 import { CheckoutFlowTrackingProvider } from "./checkout-flow-tracking-context";
@@ -252,7 +256,7 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
   }, [isDiscountReasonRequired, setValue]);
 
   const trackDrop = useCallback(
-    (cancelTrigger: "cancel_button" | "cross_button" | "escape_key") => {
+    (cancelTrigger: CloseTrigger) => {
       // Guard against close callbacks that can fire after the modal is already closed.
       // In that state, tracking session is reset and tracking must be skipped.
       if (!isOpen) return;
@@ -279,6 +283,8 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
         track("checkout_flow_cancel_button_clicked", cancelPayload);
       } else if (cancelTrigger === "cross_button") {
         track("checkout_flow_cross_button_clicked", cancelPayload);
+      } else if (cancelTrigger === "backdrop_click") {
+        track("checkout_flow_click_outside", cancelPayload);
       } else {
         track("checkout_flow_escape_key_button_clicked", cancelPayload);
       }
@@ -303,20 +309,22 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
     onClose?.();
   }, [methods, isDiscountReasonRequired, fetchedMember, onClose]);
 
-  const handleCancelClose = useCallback(() => {
-    trackDrop("cancel_button");
-    handleClose();
-  }, [trackDrop, handleClose]);
+  const closeConfirmationMessage = t(
+    "checkoutFlowModal.closeWithItemsConfirmation",
+  );
+  const allowGuardedClose =
+    isOpen && !isMemberSelectorOpen && !isFootnoteModalOpen;
 
-  const handleCrossClose = useCallback(() => {
-    trackDrop("cross_button");
-    handleClose();
-  }, [trackDrop, handleClose]);
-
-  const handleEscapeOrGenericClose = useCallback(() => {
-    trackDrop("escape_key");
-    handleClose();
-  }, [trackDrop, handleClose]);
+  const { handleCancelClose, handleClickOutside, handleCrossClick } =
+    useGuardedModalClose({
+      skipEscapeListener: !allowGuardedClose,
+      shouldGuard: items.length > 0,
+      closeConfirmationMessage,
+      close: (trigger) => {
+        trackDrop(trigger);
+        handleClose();
+      },
+    });
 
   const handleMemberSelect = (selectedMember: Member) => {
     hasAutoOpenedMemberSelectorRef.current = false;
@@ -358,9 +366,8 @@ export const CheckoutFlowModal: React.FC<CheckoutFlowModalProps> = ({
         size="lg"
         className="h-[90%]"
         title={t("checkoutFlowModal.title")}
-        onClose={handleEscapeOrGenericClose}
-        onCloseButtonClick={handleCrossClose}
-        onClickOutside={() => {}}
+        onCloseButtonClick={handleCrossClick}
+        onClickOutside={handleClickOutside}
         confirmButton={{
           color: "main",
           label: t("checkoutFlowModal.title"),

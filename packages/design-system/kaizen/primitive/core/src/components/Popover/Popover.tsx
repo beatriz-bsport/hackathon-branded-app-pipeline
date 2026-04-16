@@ -142,6 +142,7 @@ const Anchor: React.FC<{
  * @param placement The position of the Popover relative to the Anchor.
  * @param maxHeightPx The maximum height of the Popover content in pixels.
  * @param maxWidthPx The maximum width of the Popover content in pixels.
+ * @param minWidthPx The minimum width of the Popover content in pixels.
  * @param focusedMenuItemIndex The index of the currently focused Menu Item when the Popover opens.
  */
 const Content: React.FC<{
@@ -154,6 +155,7 @@ const Content: React.FC<{
   placement?: (typeof Placements)[number];
   maxHeightPx?: number;
   maxWidthPx?: number;
+  minWidthPx?: number;
   focusedMenuItemIndex?: number;
 }> = ({
   className,
@@ -161,6 +163,7 @@ const Content: React.FC<{
   placement = "bottom-left",
   maxHeightPx,
   maxWidthPx,
+  minWidthPx,
   focusedMenuItemIndex,
 }) => {
   const { isPopoverOpened, setIsPopoverOpened, anchorRef } =
@@ -280,6 +283,7 @@ const Content: React.FC<{
       ref={contentRef}
       style={{
         ...placementStyles,
+        ...(minWidthPx ? { minWidth: `${minWidthPx}px` } : {}),
         ...(maxHeightPx ? { maxHeight: `${maxHeightPx}px` } : {}),
         ...(maxWidthPx ? { maxWidth: `${maxWidthPx}px` } : {}),
       }}

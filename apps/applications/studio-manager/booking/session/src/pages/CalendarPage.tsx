@@ -13,6 +13,7 @@ import {
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
 import AppointmentDay from "#src/components/AppointmentList/AppointmentDay";
+import { AppointmentFilterTypes } from "#src/components/AppointmentList/Filters/types";
 import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions/cancel-multiple-sessions-modal";
 import { ExportParticipantsModal } from "#src/components/SessionList/actions/export-participants-modal";
 import { CancelSessionModal } from "#src/components/SessionList/detail-actions/cancel-session-modal";
@@ -39,6 +40,7 @@ import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 import { useAnyObjectLevelPermissions } from "#src/utils/permission";
 
+import { useAppointmentFilterConfig } from "../components/AppointmentList/Filters/use-appointment-filter-config";
 import { DateNavigationHeader } from "../components/SessionList/DateNavigationHeader";
 import { useFilterConfig } from "../components/SessionList/Filters/useFilterConfig";
 import SessionDay from "../components/SessionList/SessionDay";
@@ -47,6 +49,7 @@ import { useSearchSessions } from "../hooks/useSearchSessions";
 import { useSessionListData } from "../hooks/useSessionListData";
 import {
   closeModal,
+  selectAppointmentFilters,
   selectModalState,
   selectSelectedDate,
   selectSessionFilters,
@@ -159,10 +162,43 @@ const CalendarPage: React.FC = () => {
   } = useAppointmentListData(fetchParams, isAppointmentsTab);
 
   const filteredSessions = useSearchSessions(sessions, searchQuery);
-  const filteredAppointments = useSearchAppointments(
+  const searchedAppointments = useSearchAppointments(
     appointments,
     isAppointmentsTab ? searchQuery : "",
   );
+
+  const appointmentFilters = useCalendarStore(selectAppointmentFilters);
+  // Unlike other appointment filters (teacher, establishment, participant) which are handled
+  // server-side via query params, name and pass_used filters must be applied client-side
+  // as the backend does not support filtering by these fields.
+  const filteredAppointments = useMemo(() => {
+    const nameFilter = appointmentFilters.find(
+      (filter) => filter.field === AppointmentFilterTypes.NAME,
+    );
+    const passFilter = appointmentFilters.find(
+      (filter) => filter.field === AppointmentFilterTypes.PASS_USED,
+    );
+
+    if (!nameFilter?.valueIds.length && !passFilter?.valueIds.length) {
+      return searchedAppointments;
+    }
+
+    return searchedAppointments.filter((appt) => {
+      if (
+        nameFilter?.valueIds.length &&
+        !nameFilter.valueIds.includes(appt.name)
+      ) {
+        return false;
+      }
+      if (
+        passFilter?.valueIds.length &&
+        !passFilter.valueIds.includes(appt.passUsedName)
+      ) {
+        return false;
+      }
+      return true;
+    });
+  }, [searchedAppointments, appointmentFilters]);
 
   const sessionsByDate = useMemo(
     () => groupBy(filteredSessions, getDateStartKey),
@@ -193,7 +229,9 @@ const CalendarPage: React.FC = () => {
     openCancelMultipleSessionsModal,
   ]);
 
-  const { filterConfig, resetFilters, sessionFiltersRef } = useFilterConfig();
+  const { filterConfig, sessionFiltersRef } = useFilterConfig();
+  const { filterConfig: appointmentFilterConfig, appointmentFiltersRef } =
+    useAppointmentFilterConfig(appointments);
 
   const filters = useCalendarStore(selectSessionFilters);
   const hasEmptyResults =
@@ -205,8 +243,8 @@ const CalendarPage: React.FC = () => {
       source: SearchClearSource.CLEAR_FILTERS,
     });
     setSearchQuery("");
-    resetFilters?.();
-  }, [resetFilters, searchQuery]);
+    sessionFiltersRef.current?.resetFilters();
+  }, [searchQuery, sessionFiltersRef]);
 
   const onClickAddSession = useCallback(() => {
     openAddSessionModal();
@@ -279,7 +317,10 @@ const CalendarPage: React.FC = () => {
       subtitle: t("emptyAppointmentSearchState.subtitle"),
       secondaryButtonConfig: {
         label: t("emptyAppointmentSearchState.action"),
-        onClick: () => setSearchQuery(""),
+        onClick: () => {
+          setSearchQuery("");
+          appointmentFiltersRef.current?.resetFilters();
+        },
         iconLeft: "x-close",
         intent: "default",
         color: "main",
@@ -342,11 +383,12 @@ const CalendarPage: React.FC = () => {
   return (
     <ListLayout>
       <ListLayout.Header
+        key={activeTab}
         pageTitle={t("header")}
         onDisplayPopover={displaySettings}
         callToActionButton={callToActionButton}
-        filterConfig={isClassesTab ? filterConfig : undefined}
-        filterRef={isClassesTab ? sessionFiltersRef : undefined}
+        filterConfig={isClassesTab ? filterConfig : appointmentFilterConfig}
+        filterRef={isClassesTab ? sessionFiltersRef : appointmentFiltersRef}
         endGroupActions={endGroupActions}
         pageTabs={
           showAppointmentsTab

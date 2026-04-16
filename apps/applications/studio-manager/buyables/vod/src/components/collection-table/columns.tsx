@@ -81,18 +81,40 @@ export const useCollectionTableColumns = () => {
         {t("table.headers.actions")}
       </span>
     ),
-    render: (row) =>
-      row.onEdit ? (
-        <Button
-          color="default"
-          intent="flat"
-          size="md"
-          kind="icon-button"
-          icon="edit-02"
-          label={t("table.actions.edit")}
-          onClick={row.onEdit}
-        />
-      ) : null,
+    render: (row) => (
+      <div className="flex min-w-[88px] items-center justify-end gap-2xs">
+        {row.onEdit ? (
+          <Button
+            color="default"
+            intent="flat"
+            size="md"
+            kind="icon-button"
+            icon="edit-02"
+            label={t("table.actions.edit")}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              row.onEdit?.();
+            }}
+          />
+        ) : null}
+        {row.onDelete ? (
+          <Button
+            color="default"
+            intent="flat"
+            size="md"
+            kind="icon-button"
+            icon="trash-01"
+            label={t("table.actions.delete")}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              row.onDelete?.();
+            }}
+          />
+        ) : null}
+      </div>
+    ),
   };
 
   return [columnNameAndDescription, columnVideosCount, columnActions];

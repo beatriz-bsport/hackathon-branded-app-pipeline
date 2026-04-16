@@ -22,7 +22,13 @@
     "actionsMenu": {
       "label": "Actions"
     },
-    "refundedPass": "Refunded: {{passName}}"
+    "refundedPass": "Refunded: {{passName}}",
+    "cancellationReason": {
+      "consumer": "Cancelled by consumer",
+      "manager": "Cancelled by manager",
+      "studio": "Cancelled by the studio"
+    },
+    "cancellationDate": "On {{cancellationDate}}"
   },
   "bookingStatusFilter": {
     "booked": "Booked",

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { FC, useMemo } from "react";
 
+import { BookingStatusCode } from "@bsport/api-book";
 import {
   Avatar,
   Body,
@@ -10,12 +11,15 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import { ActionsMenuButton } from "#src/components/common/action-menu-button.js";
 import {
   RefinedBooking,
   useFetchRefinedBookings,
 } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
+
+import { CancellationStatus } from "./cancellation-status";
 
 enum BookingColumns {
   CLIENT = "client",
@@ -85,6 +89,38 @@ export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
           </div>
         );
       },
+    },
+    {
+      header: "",
+      id: BookingColumns.CANCELLATION_DETAILS,
+      type: "custom",
+      align: "end",
+      render: (row) => {
+        if (
+          row.booking_status_code === BookingStatusCode.OK ||
+          !row.date_canceled
+        )
+          return null;
+        return (
+          <CancellationStatus
+            bookingStatusCode={row.booking_status_code}
+            dateCancelled={row.date_canceled}
+          />
+        );
+      },
+    },
+    {
+      header: "",
+      id: BookingColumns.ACTIONS,
+      type: "custom",
+      align: "center",
+      render: () => (
+        <ActionsMenuButton
+          label={t("bookingsTable.actionsMenu.label")}
+          // TODO: implement actions
+          items={() => []}
+        />
+      ),
     },
   ];
 

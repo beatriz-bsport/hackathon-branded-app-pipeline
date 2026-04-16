@@ -13,6 +13,7 @@ export type Urls = {
   // --- Classes ---
   activity: string;
   workshop: string;
+  classes: string;
   appointment: string;
   // Group 4
   // --- Memberships ---

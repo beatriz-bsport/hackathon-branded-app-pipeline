@@ -25,6 +25,7 @@ import { navigateBackToFranchisorHost } from "./navigateBackToFranchisor";
 
 // ----- Booking -----
 const GroupActivities = lazy(() => import("@bsport/sm-group-activity"));
+const Classes = lazy(() => import("@bsport/sm-class"));
 const Session = lazy(() => import("@bsport/sm-session"));
 
 // ----- Buyables -----
@@ -226,6 +227,8 @@ const AuthenticatedRoutes = () => {
   const isPacksPageEnabled = useNavFlag(NavFlags.PACKS);
   const isGiftcardsPageEnabled = useNavFlag(NavFlags.GIFTCARDS);
 
+  const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
+
   /**
    * Add configs to the Host Router.
    * If hidden is set to true, it will render the Route but with a null component,
@@ -233,6 +236,11 @@ const AuthenticatedRoutes = () => {
    */
   const routesConfigs: RouteConfig[] = [
     /* ----- Booking ----- */
+    {
+      url: urls.classes,
+      element: <Classes />,
+      hidden: !isClassesMergedViewEnabled,
+    },
     { url: urls.activity, element: <GroupActivities /> },
     { url: urls.calendar, element: <Session /> },
 

@@ -1,0 +1,119 @@
+import clsx from "clsx";
+import { FC, useMemo } from "react";
+
+import {
+  Avatar,
+  Body,
+  GenericTableColumn,
+  PaginationProps,
+  Table,
+} from "@bsport/kaizen-primitive-core";
+import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+
+import {
+  RefinedBooking,
+  useFetchRefinedBookings,
+} from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
+import { getMemberInitials } from "#src/utils/get-member-initials";
+import { useTranslation } from "#src/utils/i18n";
+
+enum BookingColumns {
+  CLIENT = "client",
+  CANCELLATION_DETAILS = "cancellation-details",
+  ACTIONS = "actions",
+}
+
+export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
+  sessionId,
+}) => {
+  const { t } = useTranslation("sessionManagement");
+
+  const { currentPage, currentPageSize, setPageSettings } =
+    usePaginationQueryParams({ namespace: "cancelled-bookings" });
+
+  const {
+    isLoading,
+    results: refinedBookings,
+    count,
+  } = useFetchRefinedBookings({
+    in_offer: sessionId,
+    page: currentPage,
+    page_size: currentPageSize,
+  });
+
+  const paginationProps: PaginationProps = useMemo(
+    () => ({
+      currentPage,
+      rowsPerPage: currentPageSize,
+      showRowsPerPageSelector: true,
+      disabled: isLoading,
+      totalItems: count ?? 0,
+      onPageSettingsChange: setPageSettings,
+    }),
+    [currentPage, currentPageSize, isLoading, count, setPageSettings],
+  );
+
+  const columns: GenericTableColumn<RefinedBooking>[] = [
+    {
+      header: t("bookingsTable.headers.client"),
+      id: BookingColumns.CLIENT,
+      type: "custom",
+      align: "start",
+      render: (row) => {
+        const secondaryText = row.was_refunded
+          ? t("bookingsTable.refundedPass", {
+              passName: row.passData?.name ?? "",
+            })
+          : (row.passData?.name ?? "");
+
+        return (
+          <div className="flex gap-md items-center">
+            <Avatar
+              shape="round"
+              src={row.memberData?.photo}
+              initials={getMemberInitials({
+                firstname: row.memberData?.first_name,
+                lastname: row.memberData?.last_name,
+              })}
+            />
+            <div className="flex flex-col gap-2xs">
+              <Body size="lg" className="line-through">
+                {row.memberData?.name}
+              </Body>
+              {secondaryText && <Body color="weak">{secondaryText}</Body>}
+            </div>
+          </div>
+        );
+      },
+    },
+  ];
+
+  return (
+    <div
+      className={clsx({
+        "border-stroke-regular border-stroke-weak rounded-md overflow-hidden":
+          !isLoading,
+      })}
+    >
+      <Table
+        columns={columns}
+        rowHeight="lg"
+        rows={refinedBookings}
+        paginationProps={paginationProps}
+        emptyStateProps={{
+          isEmpty: !isLoading && (count ?? 0) === 0,
+          emptyConfig: {
+            title: t("bookingsTable.emptyState.title"),
+            ctaButtonConfig: {
+              label: t("bookButton"),
+            },
+          },
+        }}
+        loadingProps={{
+          isLoading,
+          message: t("bookingsTable.loadingMessage"),
+        }}
+      />
+    </div>
+  );
+};

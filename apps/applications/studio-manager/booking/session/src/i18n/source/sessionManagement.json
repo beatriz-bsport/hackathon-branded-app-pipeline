@@ -21,7 +21,8 @@
     },
     "actionsMenu": {
       "label": "Actions"
-    }
+    },
+    "refundedPass": "Refunded: {{passName}}"
   },
   "bookingStatusFilter": {
     "booked": "Booked",

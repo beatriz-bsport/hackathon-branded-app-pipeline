@@ -34,7 +34,7 @@ export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams();
+    usePaginationQueryParams({ namespace: "bookings" });
 
   const { mutate: setAttendance, isPending: isSettingAttendance } =
     useSetAttendance();

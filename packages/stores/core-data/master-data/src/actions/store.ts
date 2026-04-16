@@ -1,4 +1,4 @@
-import type { SportCategory } from "@bsport/api-core";
+import type { SportCategory } from "@bsport/api-core/categories";
 import { buildById } from "@bsport/store-base";
 
 import { sportCategoryStore } from "#src/store";

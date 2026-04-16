@@ -12,5 +12,5 @@ export type SportCategory = {
 };
 
 export type FetchSportCategoryParams = {
-  companyId: number;
+  company_id?: number;
 };

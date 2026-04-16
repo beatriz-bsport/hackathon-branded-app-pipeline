@@ -3,8 +3,8 @@ import { Result } from "typescript-result";
 import {
   FetchSportCategoryParams,
   type SportCategory,
-  fetchSportCategories,
-} from "@bsport/api-core";
+  fetchSportCategoriesAPI,
+} from "@bsport/api-core/categories";
 import type { Action } from "@bsport/store-base";
 
 import { setSportCategories } from "./store";
@@ -15,7 +15,7 @@ export const fetchSportCategoriesAction: Action<
 > = async (fetch, params) => {
   return Result.try(
     async () => {
-      const sportCategories = await fetchSportCategories(fetch, params);
+      const sportCategories = await fetchSportCategoriesAPI(fetch, params);
 
       setSportCategories({
         sportCategories,

@@ -339,6 +339,17 @@ export const updateScheduledEmailCampaign = async (
   return data;
 };
 
+export const sendNowScheduledCampaign = async (
+  campaignScheduledId: string,
+): Promise<void> => {
+  await fetch(
+    `${COMMUNICATION_API_V1}/communication/communication_scheduled/${campaignScheduledId}/send_now/`,
+    {
+      method: "POST",
+    },
+  );
+};
+
 const fetchCampaignScheduled = async (
   campaignScheduledId: string,
 ): Promise<CampaignScheduled> => {

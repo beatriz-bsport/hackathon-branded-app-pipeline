@@ -610,6 +610,11 @@ export type DeleteOfferPayload = {
   custom_selection_ids: number[];
 };
 
+export type UpdateWellhubProductIdPayload = {
+  wellhub_product_id: number;
+  custom_selection_ids: number[];
+};
+
 export type RecurrenceResponse = {
   last_offer: {
     id: number;

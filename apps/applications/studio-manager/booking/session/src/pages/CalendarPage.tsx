@@ -436,7 +436,11 @@ const CalendarPage: React.FC = () => {
               />
             )}
             {detailsModalState?.type === ModalType.DELETE && (
-              <DeleteSessionModal session={detailsModalState.session} />
+              <DeleteSessionModal
+                session={detailsModalState.session}
+                isOpen={detailsModalState.type === ModalType.DELETE}
+                onClose={closeModal}
+              />
             )}
             {detailsModalState?.type === ModalType.DUPLICATE && (
               <DuplicateSessionModal

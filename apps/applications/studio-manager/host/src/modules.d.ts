@@ -20,6 +20,7 @@ declare module "sm-navigation-sidebar/urls" {
     homepage: string;
     invoice: string;
     member: string;
+    onDemand: string;
     order: string;
     pack: string;
     payout: string;

@@ -1,9 +1,8 @@
 import { useEffect, useRef } from "react";
 
+import { PartnershipIdentifier } from "@bsport/api-book";
 import { useFormContext } from "@bsport/form";
-import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { useFetchWellhubProducts } from "#src/hooks/use-fetch-wellhub-products";
 import { SessionCreationFormData } from "#src/stores/session-creation/types";
 import { useTranslation } from "#src/utils/i18n";
 import {
@@ -11,7 +10,8 @@ import {
   useCheckCompanyAddOn,
 } from "#src/utils/permission";
 
-import { useFetchAllEstablishments } from "./use-fetch-establishments";
+import { useFetchActivePartnershipAccounts } from "./use-fetch-active-partnership-accounts";
+import { useFetchWellhubProductsByAccount } from "./use-fetch-wellhub-products-by-account";
 
 export const useWellhubProductField = (isLivestream: boolean) => {
   const { t } = useTranslation("sessionCreation");
@@ -20,28 +20,29 @@ export const useWellhubProductField = (isLivestream: boolean) => {
     ADD_ON_WELLHUB_INTEGRATION,
   );
 
-  const company = dataAccessLayer.useCompanyTheme()?.company;
-
   const { watch, setValue, setError, clearErrors } =
     useFormContext<SessionCreationFormData>();
   const selectedEstablishmentId = watch("establishment");
   const isSessionAvailableOnPartnership = watch("available_on_partnership");
   const selectedWellhubProductId = watch("wellhub_product_id");
+  const startDateTime = watch("startDateTime");
+  const dateStart = startDateTime?.toISODate() ?? null;
 
-  const { data: establishments } = useFetchAllEstablishments({
-    company,
-    disabled_establishments: false,
-    enabled: hasWellhubIntegration && isSessionAvailableOnPartnership,
-  });
+  const { data: activePartnershipAccounts } = useFetchActivePartnershipAccounts(
+    {
+      establishment: selectedEstablishmentId,
+      dateStart,
+    },
+  );
 
-  const wellhubGymId = selectedEstablishmentId
-    ? establishments?.find(({ id }) => id === selectedEstablishmentId)
-        ?.wellhub_gym
-    : undefined;
+  const partnershipAccountExternalId = activePartnershipAccounts?.find(
+    (account) =>
+      account.partnership_identifier === PartnershipIdentifier.WELLHUB,
+  )?.external_id;
 
   const { data: wellhubProducts, isLoading: isLoadingWellhubProducts } =
-    useFetchWellhubProducts({
-      wellhubGymId,
+    useFetchWellhubProductsByAccount({
+      partnershipAccountExternalId,
       isLivestream,
       enabled: hasWellhubIntegration && isSessionAvailableOnPartnership,
     });
@@ -122,6 +123,7 @@ export const useWellhubProductField = (isLivestream: boolean) => {
     selectedWellhubProduct,
     isSessionAvailableOnPartnership,
     isLoadingWellhubProducts,
+    partnershipAccountExternalId,
     setValue,
   };
 };

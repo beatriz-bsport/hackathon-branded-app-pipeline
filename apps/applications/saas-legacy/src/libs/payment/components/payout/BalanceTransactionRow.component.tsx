@@ -130,17 +130,33 @@ const InvoiceCell: React.FC<{ bt: BalanceTransaction }> = ({ bt }) => {
   if (payments.length === 1) {
     const p = payments[0];
     return (
-      <Button
-        color="primary"
-        component="a"
-        href={`/invoice/${p.invoice.uuid}`}
-        rel="noopener noreferrer"
-        size="small"
-        target="_blank"
-        variant="text"
-      >
-        {p.invoice.public_identifier}
-      </Button>
+      <div className={classes.paymentLine}>
+        <Button
+          color="primary"
+          component="a"
+          href={`/invoice/${p.invoice.uuid}`}
+          rel="noopener noreferrer"
+          size="small"
+          target="_blank"
+          variant="text"
+        >
+          {p.invoice.public_identifier}
+        </Button>
+        <Button
+          color="primary"
+          onClick={() => {
+            window.open(
+              p.invoice.stripe_invoice_pdf,
+              '_blank',
+              'noopener,noreferrer',
+            );
+          }}
+          size="small"
+          variant="text"
+        >
+          {t('balanceTransaction.pdf')}
+        </Button>
+      </div>
     );
   }
 
@@ -166,6 +182,20 @@ const InvoiceCell: React.FC<{ bt: BalanceTransaction }> = ({ bt }) => {
               variant="text"
             >
               {p.invoice.public_identifier}
+            </Button>
+            <Button
+              color="primary"
+              onClick={() => {
+                window.open(
+                  p.invoice.stripe_invoice_pdf,
+                  '_blank',
+                  'noopener,noreferrer',
+                );
+              }}
+              size="small"
+              variant="text"
+            >
+              {t('balanceTransaction.pdf')}
             </Button>
           </div>
         </React.Fragment>

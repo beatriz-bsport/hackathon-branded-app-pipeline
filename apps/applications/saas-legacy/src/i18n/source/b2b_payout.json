@@ -44,7 +44,8 @@
     "reversalOf": "Reversal of transaction #{{id}}{{payoutInfo}}",
     "reversalOfPayoutInfo": " — payout {{readable_identifier}}",
     "fromPayout": "From payout {{readable_identifier}}",
-    "net": "net {{amount}}"
+    "net": "net {{amount}}",
+    "pdf": "PDF"
   },
   "summary": {
     "reconciliation": "Reconciliation status",

@@ -4,6 +4,7 @@ import {
   Body,
   Chip,
   type GenericTableColumn,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { CommunicationKind } from "#src/api/constants";
@@ -42,6 +43,7 @@ export const useCampaignSentTableColumns = ({
   onPreview,
 }: CampaignSentTableRowParams): Array<TableColumn> => {
   const { t } = useTranslation("campaign");
+  const isMobile = !useMatchMedia("md");
   const columns = useMemo<Array<TableColumn>>(() => {
     const columnScheduledDate: TableColumn = {
       header: t("table.campaignSent.headers.sentDate"),
@@ -84,13 +86,34 @@ export const useCampaignSentTableColumns = ({
       type: "custom",
       align: "start",
       render: (row) => (
-        <Body
-          className="w-[400px] overflow-hidden text-ellipsis"
-          htmlVariant="span"
-          size="md"
-        >
-          {row.campaignName}
-        </Body>
+        <div className="flex flex-col gap-2xs">
+          <div className="flex flex-row gap-sm items-center">
+            {isMobile ? (
+              <Chip
+                size="lg"
+                type="weak"
+                color="default"
+                iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
+              />
+            ) : null}
+            <Body
+              className={
+                isMobile
+                  ? "max-w-44 overflow-hidden text-ellipsis"
+                  : "w-[400px] overflow-hidden text-ellipsis"
+              }
+              htmlVariant="span"
+              size="md"
+            >
+              {row.campaignName}
+            </Body>
+          </div>
+          {isMobile ? (
+            <Body size="md" htmlVariant="p" weight="weak" color="weak">
+              {row.sentDate}, {row.sentHour}
+            </Body>
+          ) : null}
+        </div>
       ),
     };
 
@@ -140,6 +163,24 @@ export const useCampaignSentTableColumns = ({
       ),
     };
 
+    const columnCampaignRecipients: TableColumn = {
+      header: t("table.campaignSent.analytics.recipients"),
+      id: "column-campaign-recipients",
+      keyPath: "campaign-analytics-recipients",
+      type: "custom",
+      align: isMobile ? "center" : "start",
+      render: (row) => (
+        <Body
+          className={isMobile ? "text-center" : ""}
+          htmlVariant="span"
+          size="md"
+          weight="weak"
+        >
+          {row.campaignAnalytics?.recipients ?? 0}
+        </Body>
+      ),
+    };
+
     const columnMoreActions: TableColumn = {
       header: "",
       id: "column-more-action",
@@ -154,6 +195,10 @@ export const useCampaignSentTableColumns = ({
       ),
     };
 
+    if (isMobile) {
+      return [columnCampaignName, columnCampaignRecipients, columnMoreActions];
+    }
+
     return [
       columnScheduledDate,
       columnCampaignKind,
@@ -161,7 +206,7 @@ export const useCampaignSentTableColumns = ({
       columnCampaignAnalytics,
       columnMoreActions,
     ].filter(Boolean);
-  }, [onPreview]);
+  }, [onPreview, isMobile, t]);
 
   return columns;
 };

@@ -11,7 +11,11 @@ import WellhubProductSelectionValidationSchema from './validationSchema';
 
 import type { Coach } from '#src/libs/associated-coach/types';
 import type { Establishment } from '#src/libs/establishment/types';
-import type { Offer, OfferEdit, OfferSaas } from '#src/libs/offer/types';
+import type {
+  Offer,
+  OfferSaas,
+  UpdateWellhubProductIdPayload,
+} from '#src/libs/offer/types';
 import type { ReworkedPaginationResponse } from '#src/state/types';
 import type { WellhubProductSelectionFormValues } from '#src/libs/wellhub/types';
 
@@ -27,7 +31,10 @@ type Props = {
   fetchMissingProductOffersSpecificPage: (page: number) => void;
   fetchSimilarOffers: (offerId: number) => void;
   onClose: () => void;
-  onConfirm: (data: { offerId: number; data: Partial<OfferEdit> }) => void;
+  onConfirm: (data: {
+    offerId: number;
+    data: UpdateWellhubProductIdPayload;
+  }) => void;
 };
 
 const WellhubProductSelectionDrawer: React.FC<Props> = ({

@@ -1,14 +1,12 @@
 import { useMemo } from "react";
 
-import { fromIsoString, getLocalNow } from "@bsport/datetime-manipulation";
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
 import type { CampaignScheduled } from "#src/api/types";
 import { useTranslation } from "#src/utils/i18n";
+import { isScheduledCommunicationLocked } from "#src/utils/scheduled-communication-rules";
 
 import { useDeleteScheduledCommunication } from "./use-delete-scheduled-communication";
-
-const MINUTES_THRESHOLD_BEFORE_SEND = 5;
 
 type DeleteScheduledCommunicationModalProps = {
   isOpen: boolean;
@@ -18,16 +16,6 @@ type DeleteScheduledCommunicationModalProps = {
   /** Called after successful delete (e.g. navigate back to list) */
   onDeleted?: () => void;
 };
-
-function isScheduledToSendInLessThanMinutes(
-  datetimeScheduledIso: string,
-  minutes: number,
-): boolean {
-  const scheduledDt = fromIsoString(datetimeScheduledIso);
-  const now = getLocalNow({});
-  const diffMinutes = scheduledDt.diff(now, "minutes").as("minutes");
-  return diffMinutes > 0 && diffMinutes < minutes;
-}
 
 export const DeleteScheduledCommunicationModal: React.FC<
   DeleteScheduledCommunicationModalProps
@@ -41,11 +29,7 @@ export const DeleteScheduledCommunicationModal: React.FC<
   const { t } = useTranslation("campaign");
 
   const isSentInLessThan5Min = useMemo(
-    () =>
-      isScheduledToSendInLessThanMinutes(
-        campaign.datetime_scheduled,
-        MINUTES_THRESHOLD_BEFORE_SEND,
-      ),
+    () => isScheduledCommunicationLocked(campaign.datetime_scheduled),
     [campaign.datetime_scheduled],
   );
 

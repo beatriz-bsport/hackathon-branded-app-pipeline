@@ -12,6 +12,7 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useFetchCampaignScheduledDetail } from "#src/api/use-fetch-campaign-scheduled-detail";
+import { useSendNowScheduledCampaign } from "#src/api/use-send-now-scheduled-campaign";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import { useUpdateScheduledEmailCampaign } from "#src/api/use-update-scheduled-email-campaign";
 import {
@@ -19,6 +20,11 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import { ScheduledCommunicationLockedModal } from "#src/components/ScheduledCommunicationLockedModal/ScheduledCommunicationLockedModal";
+import {
+  DELIVERY_MODE_SCHEDULE_LATER,
+  DELIVERY_MODE_SEND_NOW,
+} from "#src/components/campaign-generic-fields/campaign-delivery-mode.constants";
 import { PushCampaignForm } from "#src/components/push-campaign-form/push-campaign-form";
 import { getPushCampaignSchema } from "#src/components/push-campaign-form/schema";
 import type { PushCampaignFormData } from "#src/components/push-campaign-form/types";
@@ -28,6 +34,7 @@ import { formatScheduledDateTime } from "#src/pages/utils/format-scheduled-date-
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
+import { isScheduledCommunicationLocked } from "#src/utils/scheduled-communication-rules";
 
 const EditPushCampaignPage = () => {
   return (
@@ -57,6 +64,9 @@ function EditPushCampaign() {
     dataAccessLayer.useCompanyTheme()?.timezone_name ?? "UTC";
 
   const { data: scheduledCampaign } = useFetchCampaignScheduledDetail(entityId);
+  const isLockedForEdition = isScheduledCommunicationLocked(
+    scheduledCampaign.datetime_scheduled,
+  );
   const { formDefaults } = initPushCampaignFormDefaultValues({
     campaign: scheduledCampaign,
     companyTimezone,
@@ -87,6 +97,27 @@ function EditPushCampaign() {
         });
       },
     });
+  const { sendNowScheduledCampaign, isSendingNow } =
+    useSendNowScheduledCampaign({
+      smartlistId,
+      onSuccess: () => {
+        navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
+        toast({
+          status: "default",
+          icon: "check",
+          title: tCampaign("push.edit.toasts.success.sendNow"),
+          buttonIcon: "x-close",
+        });
+      },
+      onError: () => {
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          title: tCampaign("push.edit.toasts.error.sendNowFailed"),
+          buttonIcon: "x-close",
+        });
+      },
+    });
 
   const formId = useId();
   const methods = useFormController({
@@ -111,13 +142,20 @@ function EditPushCampaign() {
   ];
 
   const handleSubmit = async (data: PushCampaignFormData) => {
-    if (!data.scheduledDate || !data.scheduledTime) return;
+    const isScheduleLater = data.deliveryMode === DELIVERY_MODE_SCHEDULE_LATER;
+    const isSendNow = data.deliveryMode === DELIVERY_MODE_SEND_NOW;
+    if (isLockedForEdition) return;
 
-    const datetimeScheduled = formatScheduledDateTime({
-      scheduledDate: data.scheduledDate,
-      scheduledTime: data.scheduledTime,
-      companyTimezone,
-    });
+    if (isScheduleLater && (!data.scheduledDate || !data.scheduledTime)) return;
+
+    const datetimeScheduled =
+      data.scheduledDate && data.scheduledTime
+        ? formatScheduledDateTime({
+            scheduledDate: data.scheduledDate,
+            scheduledTime: data.scheduledTime,
+            companyTimezone,
+          })
+        : scheduledCampaign.datetime_scheduled;
 
     const payload = formatSchedulePushCampaignPayload({
       smartlistId: smartlist.id,
@@ -125,10 +163,20 @@ function EditPushCampaign() {
       datetimeScheduled,
     });
 
+    /**
+     * Persist first, then send now.
+     *
+     * `send_now` sends the currently persisted scheduled communication on backend.
+     * If we don't update first, recent form edits (title/message) are not included.
+     */
     await updateScheduledCampaign({
       campaignScheduledId: entityId,
       payload,
     });
+
+    if (!isSendNow) return;
+
+    await sendNowScheduledCampaign({ campaignScheduledId: entityId });
   };
 
   return (
@@ -144,13 +192,20 @@ function EditPushCampaign() {
             size="md"
             type="submit"
             form={formId}
-            disabled={methods.formState.isSubmitting || isUpdating}
+            disabled={
+              methods.formState.isSubmitting || isUpdating || isSendingNow
+            }
           />
         }
       />
       <DetailsLayout.Content>
         <PushCampaignForm id={formId} onSubmit={handleSubmit} {...methods} />
       </DetailsLayout.Content>
+      <ScheduledCommunicationLockedModal
+        isOpen={isLockedForEdition}
+        onClose={() => navigate(-1)}
+        onGoBack={() => navigate(-1)}
+      />
     </DetailsLayout>
   );
 }

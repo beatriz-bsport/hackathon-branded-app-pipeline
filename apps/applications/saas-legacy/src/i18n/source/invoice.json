@@ -337,7 +337,7 @@
       "14100": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards.",
       "14101": "Note: an adjustment to the account balance cannot be refunded with the account balance",
       "14103": "Direct refunds are only available if at least one of the payments uses an online method.",
-      "14106": "Direct refunds are not possible for SEPA payments older than 180 days.",
+      "14106": "Direct refunds are not possible for payments older than 180 days for this payment method.",
       "debtAndNewPaymentMethodNotAllowed": "At least one payment is pending. Only a direct refund is available.",
       "interac": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards."
     },
@@ -487,6 +487,7 @@
     "billingMoreThanNeeded": "If you charge more than the amount of the invoice, the difference in cost will be added to the client account balance",
     "errorSecretExplain2": "If this issue is not resolved please contact us at dev+payment-intent@bsport.io",
     "errorSecretExplain1": "This payment method is not available at the moment",
+    "pendingMemberDebtPaymentIntentError": "A payment is currently already pending to adjust this member debt. Please wait for it to be processed before attempting to take another payment.",
     "plannedPaymentEvent": {
       "title": "Planned payment",
       "title_plural": "Planned payments"

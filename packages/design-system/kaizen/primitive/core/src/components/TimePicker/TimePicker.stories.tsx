@@ -36,6 +36,12 @@ const meta: Meta<typeof TimePicker> = {
       },
     },
     onChange: { table: { type: { summary: "function" } } },
+    status: {
+      control: { type: "select" },
+      options: ["default", "error", "positive"],
+      table: { defaultValue: { summary: "default" } },
+    },
+    statusText: { control: "text" },
   },
 };
 
@@ -70,5 +76,7 @@ export const Primary: Story = {
     disabled: false,
     required: false,
     value: "13:00",
+    status: "default",
+    statusText: "",
   },
 };

@@ -7,7 +7,7 @@ import Menu from "#src/components/Menu";
 import type { MenuOption } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
 import Select from "#src/components/Select";
-import TextField from "#src/components/TextField";
+import TextField, { type TextFieldProps } from "#src/components/TextField";
 import { Label } from "#src/components/label";
 import "#src/globals.css";
 import { useKaizenI18nInstance } from "#src/i18n";
@@ -44,7 +44,7 @@ export type TimePickerProps = Omit<
   onChange?: (value: string) => void;
   required?: boolean;
   value?: string;
-};
+} & Pick<TextFieldProps, "status" | "statusText">;
 
 /**
  * A time picker component that allows users to select a time from a list of options.
@@ -67,6 +67,8 @@ const TimePicker: React.FC<TimePickerProps> = ({
   onChange,
   required,
   value,
+  status,
+  statusText,
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
@@ -161,7 +163,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
     >
       <Label htmlFor={`timepicker-${id}`} label={label} required={required} />
 
-      <div className="flex items-end gap-sm">
+      <div className="flex flex-row items-start gap-sm">
         <Popover>
           <Popover.Anchor>
             {({ setIsPopoverOpened }) => (
@@ -174,6 +176,8 @@ const TimePicker: React.FC<TimePickerProps> = ({
                   e.stopPropagation();
                   handleUpdate(e.target.value);
                 }}
+                status={status}
+                statusText={statusText}
               />
             )}
           </Popover.Anchor>
@@ -216,6 +220,7 @@ const TimePicker: React.FC<TimePickerProps> = ({
               setSelectedMeridiem(val as Meridiem);
               handleUpdate(undefined, val as Meridiem);
             }}
+            status={status === "error" ? "critical" : status}
             disabled={disabled}
           />
         )}

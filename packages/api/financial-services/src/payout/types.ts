@@ -77,6 +77,7 @@ export type ReconciledInvoice = {
   public_identifier: string;
   amount_due_cts: number;
   issue_date: string;
+  stripe_invoice_pdf: string;
 };
 
 export type ReconciledBsportPayment = {

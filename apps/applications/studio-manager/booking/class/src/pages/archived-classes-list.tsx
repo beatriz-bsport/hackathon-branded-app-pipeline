@@ -1,7 +1,8 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { type FC } from "react";
 import { Link } from "react-router";
 
-import type { MetaActivity } from "@bsport/api-book";
+import { type MetaActivity, groupActivityKeys } from "@bsport/api-book";
 import {
   Breadcrumbs,
   Button,
@@ -15,27 +16,32 @@ import {
   unarchiveGroupActivityAction,
 } from "@bsport/store-booking-group-activity";
 
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useClassesList } from "#src/hooks/use-classes-list";
 import useTableColumns from "#src/hooks/use-table-columns";
 import { ROUTES } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-export const ArchivedClassesList: FC = () => {
+// Inner component — renders only when data is ready (useSuspenseQuery guaranteed).
+// Also owns the mutation handlers since they depend on the data context.
+const ArchivedClassesTable: FC = () => {
   const { t } = useTranslation("list");
   const columns = useTableColumns<MetaActivity>();
+  const queryClient = useQueryClient();
 
-  const {
-    refetch: fetchGroupActivities,
-    classes: groupActivities,
-    paginationProps,
-    isLoading,
-  } = useClassesList({ customerEnabled: false });
+  const { classes: groupActivities, paginationProps } = useClassesList({
+    customerEnabled: false,
+  });
+
+  const handleInvalidate = () => {
+    queryClient.invalidateQueries({ queryKey: groupActivityKeys.searches() });
+  };
 
   const revertUnarchiveClass = (classId: number) => () => {
     archiveGroupActivityAction(fetch, classId.toString()).then((response) => {
       response.fold(
-        () => fetchGroupActivities(),
+        () => handleInvalidate(),
         (error) => console.error(error),
       );
     });
@@ -56,12 +62,55 @@ export const ArchivedClassesList: FC = () => {
             buttonLabel: t("list.toasts.undo"),
             onButtonClick: revertUnarchiveClass(classId),
           });
-          fetchGroupActivities();
+          handleInvalidate();
         },
         (error) => console.error(error),
       );
     });
   };
+
+  return (
+    <Table<MetaActivity>
+      id="archived-classes-list"
+      columns={[
+        ...columns,
+        {
+          header: "",
+          id: "actions",
+          keyPath: "actions",
+          type: "custom",
+          render: (item) => {
+            return (
+              <div className="flex flex-row gap-sm">
+                <Button
+                  iconLeft="unarchive"
+                  intent="default"
+                  color="main"
+                  size="md"
+                  label={t("list.actions.unarchive")}
+                  onClick={handleUnarchiveClass(item.id)}
+                />
+              </div>
+            );
+          },
+        },
+      ]}
+      emptyStateProps={{
+        isEmpty: !paginationProps.totalItems,
+        emptyConfig: {
+          title: t("list.state.empty.title"),
+        },
+      }}
+      paginationProps={paginationProps}
+      rows={groupActivities}
+    />
+  );
+};
+
+// Outer component — owns the layout and the QueryBoundary.
+// The header/breadcrumbs render immediately; only the table area suspends.
+export const ArchivedClassesList: FC = () => {
+  const { t } = useTranslation("list");
 
   return (
     <ListLayout>
@@ -76,46 +125,13 @@ export const ArchivedClassesList: FC = () => {
         ]}
         pageTitle={t("list.header.archivedClasses")}
       />
-      {isLoading ? (
-        <Loader className="w-full h-full" size="xl" />
-      ) : (
-        <ListLayout.Content>
-          <Table<MetaActivity>
-            id="archived-classes-list"
-            columns={[
-              ...columns,
-              {
-                header: "",
-                id: "actions",
-                keyPath: "actions",
-                type: "custom",
-                render: (item) => {
-                  return (
-                    <div className="flex flex-row gap-sm">
-                      <Button
-                        iconLeft="unarchive"
-                        intent="default"
-                        color="main"
-                        size="md"
-                        label={t("list.actions.unarchive")}
-                        onClick={handleUnarchiveClass(item.id)}
-                      />
-                    </div>
-                  );
-                },
-              },
-            ]}
-            emptyStateProps={{
-              isEmpty: !paginationProps.totalItems,
-              emptyConfig: {
-                title: t("list.state.empty.title"),
-              },
-            }}
-            paginationProps={paginationProps}
-            rows={groupActivities}
-          />
-        </ListLayout.Content>
-      )}
+      <ListLayout.Content>
+        <QueryBoundary
+          loadingFallback={<Loader className="w-full h-full" size="xl" />}
+        >
+          <ArchivedClassesTable />
+        </QueryBoundary>
+      </ListLayout.Content>
     </ListLayout>
   );
 };

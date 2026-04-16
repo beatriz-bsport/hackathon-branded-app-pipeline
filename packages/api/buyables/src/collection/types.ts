@@ -28,3 +28,8 @@ export type CreateCollectionParams = {
   name: string;
   description?: string;
 };
+
+export type UpdateCollectionParams = {
+  id: number;
+  data: FormData;
+};

@@ -98,7 +98,7 @@ const TableCell: React.FC<TableCellProps> = ({
     >
       <div
         className={classNames(
-          "flex",
+          "flex min-w-0",
           {
             "justify-start": align === "start",
             "justify-center": align === "center",

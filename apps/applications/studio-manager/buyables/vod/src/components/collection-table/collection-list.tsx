@@ -43,6 +43,20 @@ export const CollectionList: FC<CollectionListProps> = ({
         iconName: hasCover ? undefined : "image-03",
         className: "cursor-default border-stroke-thin",
       },
+      buttons: row.onEdit
+        ? [
+            {
+              id: `collection-${row.id}-edit`,
+              kind: "icon-button" as const,
+              icon: "edit-02" as const,
+              color: "default" as const,
+              intent: "flat" as const,
+              size: "md" as const,
+              label: t("table.actions.edit"),
+              onClick: row.onEdit,
+            },
+          ]
+        : undefined,
     };
   });
 

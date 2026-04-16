@@ -1,7 +1,10 @@
 {
   "table": {
     "headers": {
-      "name": "Collections"
+      "name": "Collections",
+      "createCollection": "Create collection",
+      "videosCount": "Videos count",
+      "actions": "Actions"
     },
     "videosCountLabel": "",
     "videosCountLabel_one": "{{count}} item",
@@ -14,6 +17,14 @@
     "emptySearch": {
       "title": "No collections found",
       "subtitle": "Try adjusting your search."
+    },
+    "actions": {
+      "edit": "Edit"
     }
+  },
+  "error": {
+    "title": "Unable to load collections",
+    "description": "Please try again. If the issue persists, refresh the page.",
+    "retry": "Retry"
   }
 }

@@ -5,4 +5,5 @@ export type CollectionRowData = {
   thumbnailUrl: string;
   videosCount: number;
   onRowClick: (() => void) | undefined;
+  onEdit: (() => void) | undefined;
 };

@@ -107,6 +107,8 @@ export const useNavigationElements = ({
     NavFlags.FS_BILLING_FLOW_NEW_MODAL,
   );
 
+  const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
+
   // Company Theme flags
   const companyTheme = dataAccessLayer.useCompanyTheme();
   const isNewWebshopEnabled = !!companyTheme?.display_new_webshop;
@@ -197,6 +199,12 @@ export const useNavigationElements = ({
           id: "classes",
           label: t("menus.classes.title"),
           subItems: [
+            {
+              id: "classes",
+              label: t("menus.classes.classes"),
+              hidden: !isClassesMergedViewEnabled,
+              ...navigationUrls.classes,
+            },
             {
               id: "activities",
               label: t("menus.classes.activities"),
@@ -595,6 +603,7 @@ export const useNavigationElements = ({
     isNewWebshopEnabled,
     hasCreateInvoiceAccess,
     hasSubstitutionToolAccess,
+    isClassesMergedViewEnabled,
   ]);
 
   return navigationItems[menuSet];

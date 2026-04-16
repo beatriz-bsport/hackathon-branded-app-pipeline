@@ -1,0 +1,56 @@
+{
+  "list": {
+    "state": {
+      "loading": {
+        "message": "Loading classes..."
+      },
+      "empty": {
+        "title": "No classes yet",
+        "subtitle": "Create classes and they will display here",
+        "cta": "Create class"
+      }
+    },
+    "header": {
+      "classes": "Classes",
+      "archivedClasses": "Archived classes",
+      "add": "Create class"
+    },
+    "actions": {
+      "duplicate": "Duplicate",
+      "archive": "Archive",
+      "unarchive": "Unarchive"
+    },
+    "toasts": {
+      "unarchive": "{{className}} has been unarchived",
+      "undo": "Undo"
+    },
+    "table": {
+      "header": {
+        "columns": {
+          "name": "Name",
+          "category": "Category",
+          "type": "Type",
+          "nextSession": "Next session",
+          "features": "Features",
+          "actions": "Actions"
+        }
+      },
+      "item": {
+        "type": {
+          "workshop": "Workshop",
+          "groupActivity": "Group Activity"
+        },
+        "features": {
+          "notifications": {
+            "title": "Notifications",
+            "popoverLabel": "Has notifications set up"
+          },
+          "livestream": {
+            "title": "Livestream",
+            "popoverLabel": "Live streaming available"
+          }
+        }
+      }
+    }
+  }
+}

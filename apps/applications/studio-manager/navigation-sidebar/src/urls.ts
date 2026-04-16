@@ -16,6 +16,7 @@ export const LEGACY_URLS: LegacyUrls = {
   attendance: "/clock-in",
   audience: "/audience",
   calendar: "/calendar",
+  classes: "/activity",
   customForm: "/custom-form",
   dashboard: "/dashboard",
   directDebit: "/subscription",
@@ -83,6 +84,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   activity: "/activity",
   insights: "/insights",
   calendar: "/calendar",
+  classes: "/services/classes",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   giftcard: "/giftcard",
@@ -104,6 +106,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
 export const REVAMP_URLS_PRODUCTION = {
   insights: "/insights",
   calendar: "/calendar",
+  classes: REVAMP_URLS_DEVELOPMENT.classes,
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   homepage: REVAMP_URLS_DEVELOPMENT.homepage,

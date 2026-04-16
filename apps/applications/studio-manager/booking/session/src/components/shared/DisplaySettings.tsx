@@ -8,6 +8,7 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
+import { useAppointmentColumns } from "#src/components/AppointmentList/appointmentColumns";
 import { useSessionListColumns } from "#src/components/SessionList/columns";
 import {
   sessionListCalendarViewChangedEvent,
@@ -54,17 +55,13 @@ const NON_TOGGLEABLE_APPOINTMENT_COLUMNS: AppointmentColumn[] = [
   AppointmentColumn.ACTIONS,
 ];
 
-const TOGGLEABLE_APPOINTMENT_COLUMNS = Object.values(AppointmentColumn).filter(
-  (col) => !NON_TOGGLEABLE_APPOINTMENT_COLUMNS.includes(col),
-);
-
 const DisplaySettingsComponent: React.FC<DisplaySettingsProps> = ({
   activeTab,
 }) => {
   const { t } = useTranslation("sessionList");
   const isMobile = !useMatchMedia("lg");
   const sessionColumns = useSessionListColumns(isMobile);
-  // TODO: add appointmentsColumns with useAppointmentColumns(isMobile) hook to match the session pattern (added in MR 5)
+  const appointmentColumns = useAppointmentColumns();
   const sessionDisplayedColumns = useCalendarStore(
     selectSessionDisplayedColumns,
   );
@@ -82,6 +79,17 @@ const DisplaySettingsComponent: React.FC<DisplaySettingsProps> = ({
           !NON_TOGGLEABLE_SESSION_COLUMNS.includes(col.id as SessionColumns),
       ),
     [sessionColumns],
+  );
+
+  const toggleableAppointmentColumns = useMemo(
+    () =>
+      appointmentColumns.filter(
+        (col) =>
+          !NON_TOGGLEABLE_APPOINTMENT_COLUMNS.includes(
+            col.id as AppointmentColumn,
+          ),
+      ),
+    [appointmentColumns],
   );
 
   const onChangeCalendarView = useCallback((value: string) => {
@@ -191,15 +199,21 @@ const DisplaySettingsComponent: React.FC<DisplaySettingsProps> = ({
                   }
                 />
               ))
-            : TOGGLEABLE_APPOINTMENT_COLUMNS.map((column) => (
+            : toggleableAppointmentColumns.map((column) => (
                 <Button
-                  key={column}
-                  label={t(`appointmentTable.headers.${column}`)}
+                  key={column.id}
+                  label={column.label}
                   size="sm"
                   intent="default"
-                  onClick={() => handleToggleAppointmentColumn(column)}
+                  onClick={() =>
+                    handleToggleAppointmentColumn(
+                      column.id as AppointmentColumn,
+                    )
+                  }
                   color={
-                    appointmentDisplayedColumns.includes(column)
+                    appointmentDisplayedColumns.includes(
+                      column.id as AppointmentColumn,
+                    )
                       ? "selected"
                       : "main"
                   }

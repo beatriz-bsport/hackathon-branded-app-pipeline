@@ -6,6 +6,7 @@ const SEARCH_KEYS: (keyof EnrichedAppointment)[] = [
   "teacherName",
   "participantName",
   "establishmentName",
+  "passUsedName",
 ];
 
 export const useSearchAppointments = (

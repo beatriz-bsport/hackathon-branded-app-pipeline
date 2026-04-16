@@ -123,6 +123,26 @@
     },
     "isLoading": "Loading appointments...",
     "unpaidTooltip": "Appointment is unpaid",
+    "filters": {
+      "label": "Filters",
+      "is": "is",
+      "name": {
+        "label": "Name"
+      },
+      "teacher": {
+        "label": "Teacher"
+      },
+      "establishment": {
+        "label": "Establishment"
+      },
+      "participant": {
+        "label": "Participant"
+      },
+      "passUsed": {
+        "label": "Pass used"
+      },
+      "searchPlaceholder": "Search"
+    },
     "shortcutActions": {
       "cancel": "Cancel",
       "reschedule": "Reschedule",

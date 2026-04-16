@@ -1,11 +1,12 @@
 import React, { memo, useMemo } from "react";
 
-import { Table } from "@bsport/kaizen-primitive-core";
+import { Table, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { selectAppointmentDisplayedColumns } from "#src/stores/calendar/selectors";
 import { useCalendarStore } from "#src/stores/calendar/store";
 import type { AppointmentColumn, EnrichedAppointment } from "#src/types";
 
+import { AppointmentCards } from "./AppointmentCards";
 import { useAppointmentColumns } from "./appointmentColumns";
 
 type AppointmentTableProps = {
@@ -16,6 +17,7 @@ const AppointmentTable: React.FC<AppointmentTableProps> = ({
   appointments,
 }) => {
   const displayedColumns = useCalendarStore(selectAppointmentDisplayedColumns);
+  const isMobile = !useMatchMedia("lg");
   const columns = useAppointmentColumns();
 
   const filteredColumns = useMemo(
@@ -25,6 +27,10 @@ const AppointmentTable: React.FC<AppointmentTableProps> = ({
       ),
     [columns, displayedColumns],
   );
+
+  if (isMobile) {
+    return <AppointmentCards columns={filteredColumns} rows={appointments} />;
+  }
 
   return <Table columns={filteredColumns} rowHeight="sm" rows={appointments} />;
 };

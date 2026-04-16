@@ -41,7 +41,7 @@ export enum PrivateBookingStatusCode {
 export type PrivateBookingFilterParams = {
   before_date_end?: boolean;
   booking_status_code__in?: number[];
-  coach?: number[];
+  coach?: number;
   company?: number;
   date_start__gte?: string;
   date_start__lte?: string;

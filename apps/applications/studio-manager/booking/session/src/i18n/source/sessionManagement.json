@@ -24,8 +24,8 @@
     },
     "refundedPass": "Refunded: {{passName}}",
     "cancellationReason": {
-      "consumer": "Cancelled by consumer",
-      "manager": "Cancelled by manager",
+      "consumer": "Cancelled by the consumer",
+      "manager": "Cancelled by {{managerName}}",
       "studio": "Cancelled by the studio"
     },
     "cancellationDate": "On {{cancellationDate}}"

@@ -105,6 +105,7 @@ export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
           <CancellationStatus
             bookingStatusCode={row.booking_status_code}
             dateCancelled={row.date_canceled}
+            staffHistory={row.staff_history}
           />
         );
       },

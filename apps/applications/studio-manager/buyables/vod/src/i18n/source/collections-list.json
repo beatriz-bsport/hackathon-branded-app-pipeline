@@ -19,7 +19,26 @@
       "subtitle": "Try adjusting your search."
     },
     "actions": {
-      "edit": "Edit"
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+  "deleteModal": {
+    "title": "Delete Collection?",
+    "description": "Your members will no longer have access to this collection.",
+    "buttons": {
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "submitResponse": {
+      "success": "Collection deleted",
+      "error": "Failed to delete the collection"
+    },
+    "undoAction": {
+      "label": "Undo"
+    },
+    "undoResponse": {
+      "success": "Action undone"
     }
   },
   "error": {

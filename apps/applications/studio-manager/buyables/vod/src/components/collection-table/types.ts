@@ -6,4 +6,5 @@ export type CollectionRowData = {
   videosCount: number;
   onRowClick: (() => void) | undefined;
   onEdit: (() => void) | undefined;
+  onDelete: (() => void) | undefined;
 };

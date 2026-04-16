@@ -5,6 +5,7 @@ import { ErrorFallback, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { CollectionTable } from "#src/components/collection-table/collection-table";
 import { CollectionCreateModal } from "#src/features/collection-create-modal/collection-create-modal";
+import { CollectionDeleteModal } from "#src/features/collection-delete-modal/collection-delete-modal";
 import { CollectionEditModal } from "#src/features/collection-edit-modal/collection-edit-modal";
 import { useCollectionsQuery } from "#src/hooks/api/use-collections-query";
 import { useBuildPageTabs } from "#src/hooks/layout/use-build-page-tabs";
@@ -41,6 +42,10 @@ const CollectionsListPage: FC = () => {
     null,
   );
 
+  const [deletedCollectionId, setDeletedCollectionId] = useState<number | null>(
+    null,
+  );
+
   const handleEdit = (collection: Collection) => {
     setEditedCollection(collection);
     openEditModal();
@@ -57,6 +62,10 @@ const CollectionsListPage: FC = () => {
       : t("error.description", {
           ns: "collections-list",
         });
+
+  const handleDelete = (collection: Collection) => {
+    setDeletedCollectionId(collection.id);
+  };
 
   return (
     <ListLayout>
@@ -101,6 +110,7 @@ const CollectionsListPage: FC = () => {
             isLoading={isLoading}
             onCreate={openCreateModal}
             onEdit={handleEdit}
+            onDelete={handleDelete}
           />
         )}
       </ListLayout.Content>
@@ -115,6 +125,16 @@ const CollectionsListPage: FC = () => {
           collection={editedCollection}
           isOpen={isEditModalOpen}
           onClose={handleCloseEditModal}
+        />
+      )}
+
+      {deletedCollectionId !== null && (
+        <CollectionDeleteModal
+          collectionId={deletedCollectionId}
+          isOpen={!!deletedCollectionId}
+          closeModal={() => {
+            setDeletedCollectionId(null);
+          }}
         />
       )}
     </ListLayout>

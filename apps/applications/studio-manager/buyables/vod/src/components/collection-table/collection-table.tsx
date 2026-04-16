@@ -22,6 +22,7 @@ type CollectionTableProps = {
   onCreate?: () => void;
   onRowClick?: (id: number) => void;
   onEdit?: (collection: Collection) => void;
+  onDelete?: (collection: Collection) => void;
 };
 
 export const CollectionTable: FC<CollectionTableProps> = ({
@@ -32,6 +33,7 @@ export const CollectionTable: FC<CollectionTableProps> = ({
   onCreate,
   onRowClick,
   onEdit,
+  onDelete,
 }) => {
   const { t } = useTranslation("collections-list");
 
@@ -63,6 +65,7 @@ export const CollectionTable: FC<CollectionTableProps> = ({
     videosCount: collection.videos.length,
     onRowClick: onRowClick ? () => onRowClick(collection.id) : undefined,
     onEdit: onEdit ? () => onEdit(collection) : undefined,
+    onDelete: onDelete ? () => onDelete(collection) : undefined,
   }));
 
   if (isMobile) {

@@ -684,7 +684,7 @@
       "typePhone": "Mobile *",
       "error": {
         "passwordConfirm": "These passwords don't match.",
-        "password": "Your password must contain at least 6 characters."
+        "password": "Your password must contain at least 12 characters."
       },
       "fields": {
         "accept_sms": "I agree to be notified by SMS for commercial purposes (promotions, special offers ...)",

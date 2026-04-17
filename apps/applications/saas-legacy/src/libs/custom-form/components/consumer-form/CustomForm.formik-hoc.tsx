@@ -169,7 +169,7 @@ const ValidationSchema = Yup.object().shape({
         .when('signup_question_kind', {
           is: CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
           then: Yup.string().matches(
-            /^[^\s]{6,}$/,
+            /^[^\s]{12,}$/,
             'marketing:customForm.submit.errors.passwordMinimumRequirementsError',
           ),
         })

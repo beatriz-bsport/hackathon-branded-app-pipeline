@@ -27,3 +27,5 @@ export enum InvoiceSignEsSignatureStatus {
 export const INVOICE_BULK_EXPORT_STATUS_COMPLETED = 'completed';
 export const INVOICE_BULK_EXPORT_STATUS_COMPLETED_NO_INVOICE =
   'completed_no_invoice';
+
+export const MAX_UNPAID_INVOICES_DISPLAYED = 50;

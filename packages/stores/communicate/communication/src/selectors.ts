@@ -125,3 +125,36 @@ export const selectRecipientsCount = (
 
   return recipients?.[communicationSentId]?.count || 0;
 };
+
+/**
+ * Selector to get recipients with member data for a specific communication sent by its ID
+ */
+export const selectRecipientsWithMemberDataByCommunicationSentId = ({
+  state,
+  communicationSentId,
+}: {
+  state: CommunicationState;
+  communicationSentId: number;
+}) => {
+  const { recipientsWithMemberData } = state;
+  return recipientsWithMemberData?.[communicationSentId];
+};
+
+/**
+ * Selector to get recipients with member data for a specific communication sent by its ID
+ */
+export const selectRecipientsWithMemberData = (state: CommunicationState) => {
+  const { recipientsWithMemberData } = state;
+  return recipientsWithMemberData;
+};
+
+/**
+ * Selector to get recipients with member data for a specific communication sent by its ID
+ */
+export const selectRecipientsWithMemberDataCount = (
+  state: CommunicationState,
+  communicationSentId: number,
+) => {
+  const { recipientsWithMemberData } = state;
+  return recipientsWithMemberData?.[communicationSentId]?.count || 0;
+};

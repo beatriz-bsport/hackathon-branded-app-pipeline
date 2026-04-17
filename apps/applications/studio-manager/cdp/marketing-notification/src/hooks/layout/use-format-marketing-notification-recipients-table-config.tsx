@@ -66,7 +66,7 @@ export const useFormatMarketingNotificationRecipientsTableColumns =
       type: "custom",
       align: "start",
       render: (row) => {
-        const recipientIdentity = row.recipientIdentity || t("noData");
+        const recipientIdentity = row.recipientFullName || t("noData");
         return (
           <div className="flex flex-col gap-2xs">
             <Body htmlVariant="p">{recipientIdentity}</Body>

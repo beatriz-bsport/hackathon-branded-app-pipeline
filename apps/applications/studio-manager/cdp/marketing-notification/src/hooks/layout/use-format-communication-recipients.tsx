@@ -2,10 +2,8 @@ import { useMemo } from "react";
 
 import { formatDateTime } from "@bsport/datetime-formatting";
 import {
-  CommunicationKind,
-  type CommunicationRecipient,
   type CommunicationSent,
-  selectRecipients,
+  selectRecipientsWithMemberData,
   useCommunicationStore,
 } from "@bsport/store-communicate-communication";
 
@@ -40,11 +38,13 @@ function getCommunicationBody(communication: CommunicationSent) {
  * @param communicationSentList - Array containing communication sent data
  * @returns Formatted array of recipient table row data
  */
-export function useFormatCommunicationRecipients(
+export function useFormatCommunicationRecipientsWithMemberData(
   communicationSentList: CommunicationSent[],
 ) {
   const { userLocale, companyTimezone } = useCompanyData();
-  const recipients = useCommunicationStore(selectRecipients);
+  const recipientsWithMemberData = useCommunicationStore(
+    selectRecipientsWithMemberData,
+  );
 
   const formattedRecipients =
     useMemo((): MarketingNotificationRecipientsTableRowData[] => {
@@ -65,7 +65,8 @@ export function useFormatCommunicationRecipients(
             timeZone: companyTimezone,
           },
         );
-        const communicationRecipients = recipients?.[communication.id];
+        const communicationRecipients =
+          recipientsWithMemberData?.[communication.uuid];
         const mainRecipientId =
           communication?.recipient_member_id_list?.[0] || 0;
         const mainRecipient =
@@ -76,17 +77,14 @@ export function useFormatCommunicationRecipients(
         const recipientsRelationshipsCount =
           (communication?.recipient_member_id_list?.length || 1) - 1;
 
-        const recipientIdentity = getRecipientIdentity({
-          communication,
-          recipient: mainRecipient!,
-        });
-
         return {
           id: communication.id,
           communicationKind: communication.kind,
           dateSent: formattedDate,
           hourSent: formattedTime,
-          recipientIdentity,
+          recipientFullName: mainRecipient?.full_name || "",
+          recipientEmail: mainRecipient?.email || "",
+          recipientMemberId: mainRecipient?.member || 0,
           status: communication.status,
           isNotificationRead: mainRecipient?.read_count > 0 || false,
           recipientsRelationshipsCount,
@@ -96,35 +94,12 @@ export function useFormatCommunicationRecipients(
           },
         };
       });
-    }, [communicationSentList, recipients, userLocale, companyTimezone]);
+    }, [
+      communicationSentList,
+      recipientsWithMemberData,
+      userLocale,
+      companyTimezone,
+    ]);
 
   return formattedRecipients;
-}
-
-/**
- * Helper function to extract recipient identity based on communication kind
- *
- * @param communication - The communication object
- * @returns The recipient identity string (email for kind 0, name for others)
- */
-function getRecipientIdentity({
-  communication,
-  recipient,
-}: {
-  communication: CommunicationSent;
-  recipient: CommunicationRecipient;
-}): string {
-  const firstRecipient = communication?.data.recipient_list?.[0];
-
-  if (!firstRecipient) {
-    return recipient?.email || "";
-  }
-
-  // For email communications (kind === 0), prefer email address
-  if (communication.kind === CommunicationKind.EMAIL) {
-    return firstRecipient.email || firstRecipient.name || "";
-  }
-
-  // For other communication types, use name
-  return firstRecipient.name || "";
 }

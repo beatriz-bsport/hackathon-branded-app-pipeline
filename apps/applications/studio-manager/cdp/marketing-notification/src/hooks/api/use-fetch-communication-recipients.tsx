@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import {
   COMMUNICATION_CONTEXT_IDENTIFIER_MARKETING_NOTIFICATION,
-  fetchCommunicationRecipientsAction,
+  fetchCommunicationRecipientsWithMemberDataAction,
   fetchCommunicationSentPaginatedListAction,
   selectCommunicationSentList,
   selectCommunicationSentListCount,
@@ -15,7 +15,7 @@ import {
   DEFAULT_PAGE_SIZE,
 } from "@bsport/use-pagination-query-params";
 
-import { useFormatCommunicationRecipients } from "#src/hooks/layout/use-format-communication-recipients";
+import { useFormatCommunicationRecipientsWithMemberData } from "#src/hooks/layout/use-format-communication-recipients";
 import { fetch } from "#src/utils/fetch";
 
 const FETCH_ONLY_ORIGINAL_RECIPIENTS = 1;
@@ -25,8 +25,8 @@ const FALLBACK_UNASSIGNED_ID = 0;
 const fetchCommunicationSentPaginatedBound =
   fetchCommunicationSentPaginatedListAction.bind(null, fetch);
 
-const fetchCommunicationRecipientsBound =
-  fetchCommunicationRecipientsAction.bind(null, fetch);
+const fetchCommunicationRecipientsWithMemberDataBound =
+  fetchCommunicationRecipientsWithMemberDataAction.bind(null, fetch);
 
 /**
  * Hook for fetching and formatting communication recipients data.
@@ -50,10 +50,10 @@ export function useFetchCommunicationRecipients({
   currentPageSize: number;
   setPageSettings: (page: number, pageSize: number) => void;
 }) {
-  const [, fetchCommunicationRecipients] = useAsync<
-    typeof fetchCommunicationRecipientsBound
+  const [, fetchCommunicationRecipientsWithMemberData] = useAsync<
+    typeof fetchCommunicationRecipientsWithMemberDataBound
   >({
-    asyncFn: fetchCommunicationRecipientsBound,
+    asyncFn: fetchCommunicationRecipientsWithMemberDataBound,
   });
 
   const [, fetchCommunicationSentPaginated] = useAsync<
@@ -62,7 +62,7 @@ export function useFetchCommunicationRecipients({
     asyncFn: fetchCommunicationSentPaginatedBound,
     onSuccess: ({ value }) => {
       value.results.forEach((communication) => {
-        fetchCommunicationRecipients({
+        fetchCommunicationRecipientsWithMemberData({
           communication_sent: communication.id,
           page: DEFAULT_PAGE,
           page_size: FETCH_ONLY_ORIGINAL_RECIPIENTS,
@@ -87,9 +87,8 @@ export function useFetchCommunicationRecipients({
     }),
   );
 
-  const communicationRecipients = useFormatCommunicationRecipients(
-    communicationSentList,
-  );
+  const communicationRecipientsWithMemberData =
+    useFormatCommunicationRecipientsWithMemberData(communicationSentList);
 
   useEffect(() => {
     if (communicationObjectId) {
@@ -119,5 +118,8 @@ export function useFetchCommunicationRecipients({
         }
       : undefined;
 
-  return { communicationRecipients, paginationParams };
+  return {
+    communicationRecipientsWithMemberData,
+    paginationParams,
+  };
 }

@@ -3,7 +3,7 @@ import { Body, Card } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 type PushNotificationPreviewProps = {
-  sender: string;
+  sender?: string;
   title: string;
   content: string;
   noContentMessage?: string;
@@ -27,18 +27,22 @@ export const PushNotificationPreview: React.FC<
         <Card className="w-[60%] self-center">
           <div className="flex flex-col gap-xs">
             <div className="flex flex-row justify-between">
-              <Body
-                className="max-w-[75%]"
-                htmlVariant="p"
-                weight="weak"
-                color="weaker"
-                size="md"
-              >
-                {sender}
-              </Body>
-              <Body htmlVariant="p" weight="weak" color="weaker" size="md">
-                {dateTime}
-              </Body>
+              {sender ? (
+                <Body
+                  className="max-w-[75%]"
+                  htmlVariant="p"
+                  weight="weak"
+                  color="weaker"
+                  size="md"
+                >
+                  {sender}
+                </Body>
+              ) : null}
+              {dateTime ? (
+                <Body htmlVariant="p" weight="weak" color="weaker" size="md">
+                  {dateTime}
+                </Body>
+              ) : null}
             </div>
             <div className="flex flex-col gap-sm">
               <Body htmlVariant="p" weight="stronger" color="weak" size="md">

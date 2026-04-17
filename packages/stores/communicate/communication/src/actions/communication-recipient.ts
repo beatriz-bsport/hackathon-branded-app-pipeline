@@ -7,13 +7,17 @@ import {
   createErrorWithContext,
 } from "@bsport/store-base";
 
-import { fetchCommunicationRecipientsAPI } from "#src/api/communication-recipient";
+import {
+  fetchCommunicationRecipientsAPI,
+  fetchCommunicationRecipientsWithMemberDataAPI,
+} from "#src/api/communication-recipient";
 import type {
   CommunicationRecipient,
+  CommunicationRecipientWithMemberData,
   FetchCommunicationRecipientParams,
 } from "#src/types";
 
-import { setRecipientsList } from "./store";
+import { setRecipientsList, setRecipientsWithMemberDataList } from "./store";
 
 /**
  * Fetches a paginated list of communication recipients based on provided filters.
@@ -42,6 +46,43 @@ export const fetchCommunicationRecipientsAction: Action<
     (error) =>
       createErrorWithContext(error, {
         message: "Failed to fetch communication recipients",
+        params,
+      }),
+  );
+};
+
+/**
+ * Fetches a paginated list of communication recipients with member data based on provided filters.
+ * @param fetch - The fetch function to perform the API call.
+ * @param params - Filters for fetching communication recipients.
+ * @returns A Result containing a paginated response of CommunicationRecipient objects.
+ */
+export const fetchCommunicationRecipientsWithMemberDataAction: Action<
+  FetchCommunicationRecipientParams,
+  PaginatedResponse<CommunicationRecipientWithMemberData>
+> = async (fetch, params) => {
+  const [uri, init] = fetchCommunicationRecipientsWithMemberDataAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      setRecipientsWithMemberDataList({
+        recipientsWithMemberData: data.results,
+        page: params.page ?? DEFAULT_PAGE,
+        count: data.count,
+      });
+
+      console.log(
+        "fetchCommunicationRecipientsWithMemberDataAction",
+        data.results,
+      );
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fetch communication recipients with member data",
         params,
       }),
   );

@@ -63,6 +63,9 @@
           "title": "No communications were sent",
           "description": "There are no recipients to display for this notification yet."
         },
+        "communicationContent": {
+          "sentTo": "Sent to : "
+        },
         "helper": {
           "title": "Performance Status",
           "content": "This summary shows the performance of both emails and push notifications.",

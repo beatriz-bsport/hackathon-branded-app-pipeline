@@ -26,6 +26,7 @@ declare module "sm-navigation-sidebar/urls" {
     pack: string;
     payout: string;
     playlist: string;
+    smartfill: string;
     smartlist: string;
     teacher: string;
     video: string;

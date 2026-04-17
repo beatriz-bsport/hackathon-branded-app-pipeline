@@ -34,6 +34,7 @@ export type Urls = {
   // Group 5
   // --- Marketing ---
   marketingNotification: string;
+  smartfill: string;
   emailTemplate: string;
   smartlist: string;
   audience: string;

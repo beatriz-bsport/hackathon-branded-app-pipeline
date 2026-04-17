@@ -106,6 +106,7 @@ export const useNavigationElements = ({
   const isBillingFlowNewModalEnabled = useNavFlag(
     NavFlags.FS_BILLING_FLOW_NEW_MODAL,
   );
+  const isSmartfillEnabled = useNavFlag(NavFlags.SMARTFILL);
 
   const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
 
@@ -314,6 +315,12 @@ export const useNavigationElements = ({
               id: "smartlists",
               label: t("menus.marketing.smartlists"),
               ...navigationUrls.smartlist,
+            },
+            {
+              id: "smartfill",
+              label: t("menus.marketing.smartfill"),
+              ...navigationUrls.smartfill,
+              hidden: !isSmartfillEnabled,
             },
             {
               id: "audience",
@@ -600,6 +607,7 @@ export const useNavigationElements = ({
     isGiftcardsRevampEnabled,
     isBillingFlowNewModalEnabled,
     isPayoutsEnabled,
+    isSmartfillEnabled,
     isNewWebshopEnabled,
     hasCreateInvoiceAccess,
     hasSubstitutionToolAccess,

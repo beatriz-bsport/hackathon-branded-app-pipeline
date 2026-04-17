@@ -258,11 +258,13 @@
   },
   "cancelAppointmentModal": {
     "title": "Cancel appointment?",
-    "description": "This will cancel the appointment. The member will be notified.",
-    "cancelButton": "Back",
+    "description": "Are you sure you want to cancel this appointment?",
+    "cancelButton": "Close",
     "confirmButton": "Cancel appointment",
-    "errorMessage": "An error occurred while cancelling the appointment. Please try again later.",
-    "successMessage": "Appointment cancelled"
+    "errorMessage": "An error occurred while cancelling the appointment. Please try again",
+    "successMessage": "Appointment cancelled",
+    "refundCredits": "Refund the credits",
+    "sendNotification": "Send a notification"
   },
   "wellhub": {
     "alert": {

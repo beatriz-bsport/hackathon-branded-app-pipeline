@@ -61,6 +61,11 @@ export type PrivateBookingFilterParams = {
   past_booking?: boolean;
 };
 
+export type DisableAppointmentParams = {
+  force_refund?: boolean;
+  send_mail?: boolean;
+};
+
 /**
  * Minimal PrivateConsumerPass type for enrichment.
  * The full legacy type has many more fields; we only need pass name.

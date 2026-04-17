@@ -46,4 +46,9 @@ export const DEFAULT_DATA = {
   has_mandatory_commitment_period: false,
   commitment_period_unit: null,
   commitment_period_value: null,
+  // visibility-rules
+  highlighted_as_recommended: false,
+  is_usable_by_staff: true,
+  // tags
+  tags_on_first_billing: [],
 } satisfies ContractFormData;

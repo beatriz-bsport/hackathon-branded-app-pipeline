@@ -7,6 +7,7 @@ import { DetailsLayout, toast } from "@bsport/kaizen-primitive-core";
 import { ContractDetailsSuspense } from "#src/components/contract-details-suspense";
 import { ContractEditorHeader } from "#src/features/contract-editor-header/header";
 import { ContractEditorContent } from "#src/features/contract-editor/content";
+import { ContractEditorPanel } from "#src/features/contract-editor/panel";
 import { useContractFormSchema } from "#src/features/contract-form/schema";
 import type {
   ContractFormData,
@@ -121,13 +122,14 @@ const ContractEditorPageInner: FC = () => {
 
   return (
     <ControlledForm {...methods} onSubmit={onSubmit} id={formId}>
-      <DetailsLayout {...detailsLayoutProps} withPanel={false}>
+      <DetailsLayout {...detailsLayoutProps} withPanel={true}>
         <ContractEditorHeader methods={methods} contract={contract} />
         <ContractEditorContent
           formId={formId}
           isRevampedContract={isRevampedContract}
           methods={methods}
         />
+        <ContractEditorPanel formId={formId} />
         <DetailsLayout.Confirmation
           onDiscard={discardChanges}
           formSubmit={{

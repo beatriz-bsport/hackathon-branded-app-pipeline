@@ -62,7 +62,11 @@ export const useRefineNotificationFormData = () => {
     timingTemporality: BookingTemporality;
     timingValue: number;
   }) => {
-    return timingTemporality === "before" ? -1 * timingValue : timingValue;
+    const absoluteTimingValue = Math.abs(timingValue);
+
+    return timingTemporality === "before"
+      ? -1 * absoluteTimingValue
+      : absoluteTimingValue;
   };
 
   const getEventRuleDaysAndHours = ({

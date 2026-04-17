@@ -44,6 +44,7 @@ const Payout = lazy(() => import("@bsport/sm-payout"));
 
 // ----- Customer Data Platform -----
 const EmailTemplate = lazy(() => import("@bsport/sm-email-template"));
+const Smartfill = lazy(() => import("@bsport/sm-smartfill"));
 const Smartlists = lazy(() => import("@bsport/sm-smartlists"));
 const CustomForm = lazy(() => import("@bsport/sm-custom-form"));
 const ReferralProgram = lazy(() => import("@bsport/sm-referral-program"));
@@ -269,6 +270,7 @@ const AuthenticatedRoutes = () => {
       url: urls.settings_referral,
       element: <ReferralProgram />,
     },
+    { url: urls.smartfill, element: <Smartfill /> },
     { url: urls.smartlist, element: <Smartlists /> },
     { url: urls.tag, element: <Tag /> },
     {

@@ -12,4 +12,5 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   FS_BILLING_FLOW_NEW_MODAL: "fs_billing_flow_new_modal",
   // Classes revamp
   CLASSES_MERGED_VIEW: "booking_classes_merged_view",
+  SMARTFILL: "smartfill_page",
 } as const);

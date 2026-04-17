@@ -50,6 +50,7 @@
     "@bsport/sm-payout": "workspace:*",
     "@bsport/sm-referral-program": "workspace:*",
     "@bsport/sm-session": "workspace:*",
+    "@bsport/sm-smartfill": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
     "@bsport/sm-tag": "workspace:*",
     "@bsport/sm-teacher": "workspace:*",

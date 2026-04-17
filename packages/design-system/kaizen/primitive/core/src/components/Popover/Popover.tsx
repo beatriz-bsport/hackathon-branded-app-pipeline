@@ -164,7 +164,6 @@ const Content: React.FC<{
   maxHeightPx,
   maxWidthPx,
   minWidthPx,
-  focusedMenuItemIndex,
 }) => {
   const { isPopoverOpened, setIsPopoverOpened, anchorRef } =
     useContext(PopoverContext);
@@ -198,7 +197,7 @@ const Content: React.FC<{
     } else {
       handleClose();
     }
-  }, [isPopoverOpened, handleClose, focusedMenuItemIndex]);
+  }, [isPopoverOpened, handleClose]);
 
   // Handle Tab key press and close popover when tabbing out of the last option
   const handleKeyDown = useCallback(

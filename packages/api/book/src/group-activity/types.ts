@@ -58,3 +58,38 @@ export type CanArchiveGroupActivityResponse = {
   can_destroy: boolean;
   offers: number[];
 };
+
+/** Payload for creating a new group activity (POST /book/v1/meta-activity/) */
+export type CreateGroupActivityPayload = Pick<
+  MetaActivity,
+  "name" | "SCT" | "is_workshop"
+> &
+  Partial<
+    Omit<
+      MetaActivity,
+      | "id"
+      | "company"
+      | "activities"
+      | "establishments"
+      | "next_slot"
+      | "parent_category"
+      | "category"
+      | "rating"
+      | "metadata"
+      | "name"
+      | "SCT"
+      | "is_workshop"
+      | "ordering_in_category"
+      | "cover_main"
+      | "custom_restriction_rule"
+    >
+  > & {
+    cover_main?: Blob | string | null;
+    ordering_in_category?: number | null;
+    custom_restriction_rule?: GroupActivityCustomRestriction[] | null;
+  };
+
+/** Payload for editing an existing group activity (PATCH /book/v1/meta-activity/{id}/) */
+export type EditGroupActivityPayload = Partial<
+  Omit<CreateGroupActivityPayload, "is_workshop">
+>;

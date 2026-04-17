@@ -2,6 +2,7 @@
 export const FeatureFlags = {
   APPOINTMENT_PASS_TAGS_ELIGIBILITY: 'appointment_pass_tags_eligibility',
   AUDIENCE_ALLOW_CLICK_ON_MEMBER_TABLE: 'audience_allow_click_on_member_table',
+  B2C_ANALYTICS_TRACKING: 'b2c_analytics_tracking',
   AUDIENCE_DISPLAY_TIME_IN_MEMBER_TABLE:
     'audience_display_time_in_member_table',
   AUDIENCE_HOURLY_TIMEOUT: 'audience_hourly_timeout',

@@ -22,6 +22,9 @@
       "rename": "Rename"
     }
   },
+  "modelName": {
+    "singular": "Contract"
+  },
   "canNotFindContract": {
     "title": "Couldn't retrieve Contract",
     "goToListPage": "See Contracts"
@@ -97,7 +100,8 @@
     "price": "Price",
     "billingCycle": "Billing Cycle",
     "contractLength": "Contract length",
-    "termsAndConditions": "Terms & Conditions"
+    "termsAndConditions": "Terms & Conditions",
+    "visibility": "Visibility"
   },
   "editor": {
     "submit": {

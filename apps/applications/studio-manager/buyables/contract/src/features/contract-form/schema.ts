@@ -112,8 +112,6 @@ export function useContractFormSchema({
 
   const baseSchema = z
     .object({
-      manager_only: z.boolean(),
-
       description: z
         .string()
         .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage),
@@ -135,6 +133,12 @@ export function useContractFormSchema({
         .string()
         .min(FIELD_CONSTRAINTS.TEXTFIELD_LENGTH_MIN, requiredErrorMessage)
         .max(FIELD_CONSTRAINTS.TERMS_LENGTH_MAX), // e.g. terms
+
+      manager_only: z.boolean(),
+      highlighted_as_recommended: z.boolean(),
+      is_usable_by_staff: z.boolean(),
+
+      tags_on_first_billing: z.array(z.number()),
     })
     .and(nameSchema)
     .and(commitmentPeriodSchema)

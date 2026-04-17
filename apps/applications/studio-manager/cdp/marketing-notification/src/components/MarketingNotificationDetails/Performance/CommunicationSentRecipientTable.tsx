@@ -1,7 +1,15 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
-import { Card, Modal, Table, Title } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Button,
+  Card,
+  Divider,
+  Modal,
+  Table,
+  Title,
+} from "@bsport/kaizen-primitive-core";
 import type { MarketingNotification } from "@bsport/store-cdp-marketing-notification";
 import { CommunicationKind } from "@bsport/store-communicate-communication";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
@@ -30,11 +38,14 @@ export const CommunicationSentRecipientTable = ({
         title: string;
         body: string;
         communicationKind: number;
+        recipientEmail?: string;
+        recipientFullName?: string;
+        recipientMemberId?: number;
       }
     | undefined
   >();
   const { t } = useTranslation("marketingNotificationDetails");
-  const { communicationRecipients, paginationParams } =
+  const { communicationRecipientsWithMemberData, paginationParams } =
     useFetchCommunicationRecipients({
       communicationObjectId: notification.id,
       currentPage,
@@ -44,12 +55,15 @@ export const CommunicationSentRecipientTable = ({
 
   const tableColumns = useFormatMarketingNotificationRecipientsTableColumns();
 
-  const tableRows = communicationRecipients.map((recipient) => ({
+  const tableRows = communicationRecipientsWithMemberData.map((recipient) => ({
     ...recipient,
     onRowClick: () => {
       setNotificationContent({
         ...recipient.notificationContent,
         communicationKind: recipient.communicationKind,
+        recipientEmail: recipient.recipientEmail,
+        recipientFullName: recipient.recipientFullName,
+        recipientMemberId: recipient.recipientMemberId,
       });
     },
   }));
@@ -106,16 +120,31 @@ export const CommunicationSentRecipientTable = ({
           <div className="flex flex-col gap-md">
             {notificationContent.communicationKind ===
             CommunicationKind.EMAIL ? (
-              <div>
+              <div className="flex flex-col gap-sm">
+                {notificationContent.recipientFullName &&
+                  notificationContent.recipientMemberId &&
+                  notificationContent.recipientEmail && (
+                    <CommunicationContentSentToPreview
+                      recipientName={notificationContent.recipientFullName}
+                      recipientEmail={notificationContent.recipientEmail}
+                      memberId={notificationContent.recipientMemberId}
+                    />
+                  )}
                 <Title htmlVariant="h2">{notificationContent.title}</Title>
                 <HTMLPreview htmlContent={notificationContent.body} />
               </div>
             ) : null}
             {notificationContent.communicationKind ===
             CommunicationKind.PUSH_NOTIFICATION ? (
-              <div>
+              <div className="flex flex-col gap-sm">
+                {notificationContent.recipientFullName &&
+                  notificationContent.recipientMemberId && (
+                    <CommunicationContentSentToPreview
+                      recipientName={notificationContent.recipientFullName}
+                      memberId={notificationContent.recipientMemberId}
+                    />
+                  )}
                 <PushNotificationPreview
-                  sender=""
                   title={notificationContent.title}
                   content={notificationContent.body}
                 />
@@ -124,6 +153,48 @@ export const CommunicationSentRecipientTable = ({
           </div>
         </Modal>
       ) : null}
+    </div>
+  );
+};
+
+const MEMBER_PROFILE_URL = (memberId: number) => `/member/${memberId}/info`;
+
+const CommunicationContentSentToPreview = ({
+  recipientName,
+  recipientEmail,
+  memberId,
+}: {
+  recipientName: string;
+  recipientEmail?: string;
+  memberId: number;
+}) => {
+  const { t } = useTranslation("marketingNotificationDetails");
+  const handleNavigateToMemberProfile = () => {
+    window.location.href = MEMBER_PROFILE_URL(memberId);
+  };
+  return (
+    <div className="flex flex-col gap-sm">
+      <div className="flex flex-row items-center">
+        <Body htmlVariant="p" size="md" weight="strong">
+          {t("drawer.performance.allNotifications.communicationContent.sentTo")}
+        </Body>
+        <div className="flex flex-row items-center gap-xs">
+          <Button
+            label={recipientName}
+            intent="flat"
+            color="default"
+            iconRight="link-external-02"
+            size="sm"
+            onClick={handleNavigateToMemberProfile}
+          />
+          {recipientEmail && (
+            <Body htmlVariant="p" size="md" color="weak">
+              {`(${recipientEmail})`}
+            </Body>
+          )}
+        </div>
+      </div>
+      <Divider orientation="horizontal" weight="thin" />
     </div>
   );
 };

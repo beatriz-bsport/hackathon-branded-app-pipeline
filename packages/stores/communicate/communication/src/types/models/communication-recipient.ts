@@ -33,3 +33,18 @@ export type CommunicationRecipient = {
   sms_error_code?: string;
   provider_id?: string; // Twilio message SID
 };
+
+export type CommunicationRecipientWithMemberData = {
+  avatar: string;
+  campaign: string; // campaign_uuid
+  full_name: string;
+  id: number;
+  communication_sent: number;
+  member: number; // member_id
+  email: string;
+  phonenumber: string;
+  last_read: number;
+  links_opened_count: number;
+  read_count: number;
+  status: number;
+};

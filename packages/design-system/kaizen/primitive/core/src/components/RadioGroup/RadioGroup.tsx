@@ -82,7 +82,8 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                 disabled={disabled || option.disabled || false}
                 direction={direction}
               />
-              {value === option.value || option.forceDisplayChildren ? (
+              {React.Children.count(option.children) > 0 &&
+              (value === option.value || option.forceDisplayChildren) ? (
                 <div className="ml-lg">{option.children}</div>
               ) : null}
             </React.Fragment>

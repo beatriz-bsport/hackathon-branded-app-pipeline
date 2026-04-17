@@ -24,7 +24,7 @@ import {
   MESSAGE_TYPE_EMAIL_TEMPLATE,
   MESSAGE_TYPE_TEXT_ONLY,
 } from "./constants";
-import type { EmailCampaignFormData } from "./types";
+import type { EmailMessageContentFormData } from "./types";
 import { isMessageTypeValid } from "./utils";
 
 export const ContentSection: React.FC = () => {
@@ -40,7 +40,7 @@ export const ContentSection: React.FC = () => {
   const currentInputRef = useRef<EmailTextOnlyInputType | null>(null);
 
   const { watch, getValues, setValue } =
-    useFormContext<EmailCampaignFormData>();
+    useFormContext<EmailMessageContentFormData>();
   const isTextOnly = watch("isTextOnly");
 
   const handleCommunicationVariableSelect = (selectedVariable: string) => {
@@ -85,7 +85,11 @@ export const ContentSection: React.FC = () => {
       </div>
 
       <div className="w-[240px]">
-        <FormField<EmailCampaignFormData, "isTextOnly", SegmentedControlProps>
+        <FormField<
+          EmailMessageContentFormData,
+          "isTextOnly",
+          SegmentedControlProps
+        >
           name="isTextOnly"
           mapProps={({ field, defaultProps, form }) => ({
             ...defaultProps,
@@ -115,7 +119,7 @@ export const ContentSection: React.FC = () => {
                   shouldValidate: true,
                   shouldDirty: true,
                 });
-                setValue("emailTemplateHtml", null, {
+                setValue("emailTemplateHtml", undefined, {
                   shouldValidate: true,
                   shouldDirty: true,
                 });
@@ -146,7 +150,11 @@ export const ContentSection: React.FC = () => {
 
       {isTextOnly ? (
         <div className="flex flex-col gap-md">
-          <FormField<EmailCampaignFormData, "emailSubject", TextFieldProps>
+          <FormField<
+            EmailMessageContentFormData,
+            "emailSubject",
+            TextFieldProps
+          >
             name="emailSubject"
             mapProps={({
               field,
@@ -174,7 +182,7 @@ export const ContentSection: React.FC = () => {
             />
           </FormField>
 
-          <FormField<EmailCampaignFormData, "emailBody", TextAreaProps>
+          <FormField<EmailMessageContentFormData, "emailBody", TextAreaProps>
             name="emailBody"
             mapProps={({ field, defaultProps }) => ({
               ...defaultProps,

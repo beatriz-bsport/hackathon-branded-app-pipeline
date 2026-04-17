@@ -7,7 +7,11 @@ import {
 import { i18nInstance } from "#src/utils/i18n";
 
 import { EMAIL_TYPE_VALUES } from "./constants";
-import type { EmailCampaignFormData } from "./types";
+import type {
+  EmailCampaignFormData,
+  EmailChannelFormData,
+  EmailMessageContentFormData,
+} from "./types";
 
 const subjectRequiredMessage = () =>
   i18nInstance.t("email.creation.form.errors.subjectRequired", {
@@ -19,7 +23,7 @@ const bodyRequiredMessage = () =>
   });
 
 /** Message content: text-only (subject + body required) vs email template (subject required, template id optional). */
-const messageContentSchema = z.discriminatedUnion("isTextOnly", [
+export const emailMessageContentSchema = z.discriminatedUnion("isTextOnly", [
   z.object({
     isTextOnly: z.literal(true),
     emailSubject: z.string().refine(
@@ -30,6 +34,10 @@ const messageContentSchema = z.discriminatedUnion("isTextOnly", [
       (val) => val.trim().length > 0,
       () => ({ message: bodyRequiredMessage() }),
     ),
+    emailTemplateId: z.number().nullable().optional(),
+    emailTemplateDesign: z.string().nullable().optional(),
+    emailTemplateHtml: z.string().optional(),
+    isOnTheFlyHtmlTemplate: z.boolean().optional(),
   }),
   z.object({
     isTextOnly: z.literal(false),
@@ -48,26 +56,30 @@ const messageContentSchema = z.discriminatedUnion("isTextOnly", [
         },
       ),
     }),
+    isOnTheFlyHtmlTemplate: z.boolean().optional(),
   }),
-]);
+]) satisfies z.ZodType<EmailMessageContentFormData>;
+
+export const emailChannelSchema = z.object({
+  emailType: z.enum(EMAIL_TYPE_VALUES, {
+    required_error: i18nInstance.t(
+      "email.creation.form.errors.emailTypeRequired",
+      {
+        ns: "sm-smartlists_campaign",
+      },
+    ),
+  }),
+}) satisfies z.ZodType<EmailChannelFormData>;
 
 export const getEmailCampaignSchema = (companyTimezone: string) => {
-  const emailChannelSchema = z.object({
-    emailType: z.enum(EMAIL_TYPE_VALUES, {
-      required_error: i18nInstance.t(
-        "email.creation.form.errors.emailTypeRequired",
-        {
-          ns: "sm-smartlists_campaign",
-        },
-      ),
-    }),
-  });
-  return getCampaignBaseObjectSchema()
+  const emailCampaignSchema = getCampaignBaseObjectSchema()
     .and(emailChannelSchema)
-    .and(messageContentSchema)
+    .and(emailMessageContentSchema)
     .superRefine((data, ctx) => {
       addCampaignScheduleRefinement(ctx, data, companyTimezone);
-    }) as z.ZodType<EmailCampaignFormData>;
+    }) satisfies z.ZodType<EmailCampaignFormData>;
+
+  return emailCampaignSchema;
 };
 
 export type EmailCampaignFormSchema = z.infer<

@@ -38,6 +38,7 @@ export type CreateAutomatedCampaignParams = {
   communication_kind: CommunicationKind;
   title: string;
   text: string;
+  email_design?: number | null;
   max_communications_sent_per_member: number | null;
 };
 

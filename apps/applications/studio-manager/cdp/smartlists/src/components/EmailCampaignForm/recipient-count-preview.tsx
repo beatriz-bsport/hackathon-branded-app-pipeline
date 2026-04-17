@@ -1,6 +1,8 @@
+import React, { useCallback, useEffect, useRef } from "react";
+
 import {
   Body,
-  Icon,
+  Button,
   Loader,
   Popover,
   Title,
@@ -31,11 +33,44 @@ const RECIPIENT_COUNT_POPOVER_CONTENT_LIST_KEYS: Array<
   "smartlistChanges",
 ];
 
+const RECIPIENT_COUNT_POPOVER_CLOSE_DELAY_MS = 150;
+
 export const RecipientCountPreview: React.FC<RecipientCountPreviewProps> = ({
   smartlistId,
   isMarketing,
 }: RecipientCountPreviewProps) => {
   const { t } = useTranslation("campaign");
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearCloseTimeout = useCallback(() => {
+    if (closeTimeoutRef.current === null) {
+      return;
+    }
+
+    clearTimeout(closeTimeoutRef.current);
+    closeTimeoutRef.current = null;
+  }, []);
+
+  const handlePopoverOpen = useCallback(() => {
+    clearCloseTimeout();
+  }, [clearCloseTimeout]);
+
+  const handlePopoverClose = useCallback(
+    (setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>) => {
+      clearCloseTimeout();
+      closeTimeoutRef.current = setTimeout(() => {
+        setIsPopoverOpened(false);
+        closeTimeoutRef.current = null;
+      }, RECIPIENT_COUNT_POPOVER_CLOSE_DELAY_MS);
+    },
+    [clearCloseTimeout],
+  );
+
+  useEffect(() => {
+    return () => {
+      clearCloseTimeout();
+    };
+  }, [clearCloseTimeout]);
 
   return (
     <div className="flex flex-col gap-xs">
@@ -47,24 +82,38 @@ export const RecipientCountPreview: React.FC<RecipientCountPreviewProps> = ({
           <RecipientCount smartlistId={smartlistId} isMarketing={isMarketing} />
         </QueryBoundary>
         <Popover>
-          <Popover.Anchor>
+          <Popover.Anchor className="flex items-center">
             {({ setIsPopoverOpened }) => (
-              <Icon
+              <Button
+                kind="icon-button"
+                intent="flat"
+                color="default"
+                size="md"
                 icon="info-circle"
-                size="sm"
-                aria-label={t("email.creation.expectedRecipients.infoLabel")}
-                onMouseEnter={() => setIsPopoverOpened(true)}
-                onMouseLeave={() => setIsPopoverOpened(false)}
-                className="cursor-pointer"
+                label={t("email.creation.expectedRecipients.infoLabel")}
+                onMouseEnter={() => {
+                  handlePopoverOpen();
+                  setIsPopoverOpened(true);
+                }}
+                onMouseLeave={() => handlePopoverClose(setIsPopoverOpened)}
+                onFocus={() => {
+                  handlePopoverOpen();
+                  setIsPopoverOpened(true);
+                }}
+                onBlur={() => handlePopoverClose(setIsPopoverOpened)}
               />
             )}
           </Popover.Anchor>
           <Popover.Content>
-            {() => (
-              <div
+            {({ setIsPopoverOpened }) => (
+              <section
                 className="flex flex-col max-w-sm p-md gap-md"
-                role="region"
                 aria-labelledby="recipient-count-popover-title"
+                onMouseEnter={() => {
+                  handlePopoverOpen();
+                  setIsPopoverOpened(true);
+                }}
+                onMouseLeave={() => handlePopoverClose(setIsPopoverOpened)}
               >
                 <div className="flex flex-col gap-xs">
                   <Title
@@ -114,7 +163,7 @@ export const RecipientCountPreview: React.FC<RecipientCountPreviewProps> = ({
                     ))}
                   </ul>
                 </div>
-              </div>
+              </section>
             )}
           </Popover.Content>
         </Popover>

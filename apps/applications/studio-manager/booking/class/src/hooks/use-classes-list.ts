@@ -3,7 +3,7 @@ import { useMemo } from "react";
 
 import {
   type SearchGroupActivitiesParams,
-  searchGroupActivitiesQueryOptions,
+  searchGroupActivitiesAndWorkshopsQueryOptions,
 } from "@bsport/api-book";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
@@ -33,7 +33,7 @@ export const useClassesList = ({
   };
 
   const { data: searchData } = useSuspenseQuery(
-    searchGroupActivitiesQueryOptions(fetch, searchQueryParams),
+    searchGroupActivitiesAndWorkshopsQueryOptions(fetch, searchQueryParams),
   );
 
   const rawClasses = useMemo(() => searchData?.results ?? [], [searchData]);

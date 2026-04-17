@@ -14,6 +14,7 @@ import {
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
 import AppointmentDay from "#src/components/AppointmentList/AppointmentDay";
 import { AppointmentFilterTypes } from "#src/components/AppointmentList/Filters/types";
+import { CancelAppointmentModal } from "#src/components/AppointmentList/modals/CancelAppointmentModal";
 import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions/cancel-multiple-sessions-modal";
 import { ExportParticipantsModal } from "#src/components/SessionList/actions/export-participants-modal";
 import { CancelSessionModal } from "#src/components/SessionList/detail-actions/cancel-session-modal";
@@ -34,7 +35,7 @@ import { useSearchAppointments } from "#src/hooks/appointment/fetch/useSearchApp
 import { useModal } from "#src/hooks/use-modal";
 import { useFetchOffersMissingWellhubProduct } from "#src/hooks/wellhub/use-fetch-offers-missing-wellhub-product";
 import type { CalendarTab } from "#src/types";
-import { ModalType } from "#src/types";
+import { AppointmentModalType, ModalType } from "#src/types";
 import { flags, useBookingManagementFlag } from "#src/urls";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
@@ -536,6 +537,15 @@ const CalendarPage: React.FC = () => {
             />
           </>
         )}
+
+        {detailsModalState?.tab === "appointments" &&
+          detailsModalState?.type === AppointmentModalType.CANCEL && (
+            <CancelAppointmentModal
+              appointment={detailsModalState.appointment}
+              isOpen
+              onClose={closeModal}
+            />
+          )}
       </ListLayout.Content>
     </ListLayout>
   );

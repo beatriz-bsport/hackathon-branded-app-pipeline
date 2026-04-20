@@ -28,3 +28,16 @@ export type CreateCollectionParams = {
   name: string;
   description?: string;
 };
+
+export type UpdateCollectionParams = {
+  id: number;
+  data: FormData;
+};
+
+/**
+ * Payload for collection item endpoints (`/vod/playlist/:id/item/`).
+ */
+export type UpdateCollectionVideoItemParams = {
+  id: number;
+  video: number;
+};

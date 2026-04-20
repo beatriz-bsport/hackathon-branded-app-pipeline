@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
@@ -124,7 +124,9 @@ const recursivePoll = async (
   onInactivityThresholdReachedCallback: () => void,
   onActionSucceededCallback: () => void,
   onActionFailedCallback: (readerActionSumup: ReaderActionSumup) => void,
-  setPollingTimeoutId: (id: ReturnType<typeof setTimeout>) => void,
+  pollingTimeoutIdRef: React.MutableRefObject<ReturnType<
+    typeof setTimeout
+  > | null>,
   inactivityThresholdExceeded: boolean = false,
 ) => {
   let nextInactivityThresholdExceeded = inactivityThresholdExceeded;
@@ -147,37 +149,33 @@ const recursivePoll = async (
         onActionFailedCallback(sumup);
         return;
       default:
-        setPollingTimeoutId(
-          setTimeout(
-            () =>
-              recursivePoll(
-                selectedReader,
-                nbPreviousRetries + 1,
-                onInactivityThresholdReachedCallback,
-                onActionSucceededCallback,
-                onActionFailedCallback,
-                setPollingTimeoutId,
-                nextInactivityThresholdExceeded,
-              ),
-            POLL_RETRY_DELAY_MS,
-          ),
+        pollingTimeoutIdRef.current = setTimeout(
+          () =>
+            recursivePoll(
+              selectedReader,
+              nbPreviousRetries + 1,
+              onInactivityThresholdReachedCallback,
+              onActionSucceededCallback,
+              onActionFailedCallback,
+              pollingTimeoutIdRef,
+              nextInactivityThresholdExceeded,
+            ),
+          POLL_RETRY_DELAY_MS,
         );
     }
   } catch (_err) {
-    setPollingTimeoutId(
-      setTimeout(
-        () =>
-          recursivePoll(
-            selectedReader,
-            nbPreviousRetries + 1,
-            onInactivityThresholdReachedCallback,
-            onActionSucceededCallback,
-            onActionFailedCallback,
-            setPollingTimeoutId,
-            nextInactivityThresholdExceeded,
-          ),
-        POLL_RETRY_DELAY_MS,
-      ),
+    pollingTimeoutIdRef.current = setTimeout(
+      () =>
+        recursivePoll(
+          selectedReader,
+          nbPreviousRetries + 1,
+          onInactivityThresholdReachedCallback,
+          onActionSucceededCallback,
+          onActionFailedCallback,
+          pollingTimeoutIdRef,
+          nextInactivityThresholdExceeded,
+        ),
+      POLL_RETRY_DELAY_MS,
     );
   }
 };
@@ -230,9 +228,9 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
     string | null
   >(null);
 
-  const [pollingTimeoutId, setPollingTimeoutId] = useState<ReturnType<
-    typeof setTimeout
-  > | null>(null);
+  const pollingTimeoutIdRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
 
   const [cancelReaderActionProcessing, setCancelReaderActionProcessing] =
     useState(false);
@@ -256,8 +254,8 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
     useState(false);
 
   useEffect(() => {
-    return () => clearTimeout(pollingTimeoutId);
-  }, [pollingTimeoutId]);
+    return () => clearTimeout(pollingTimeoutIdRef.current);
+  }, []);
 
   // Always auto-select the first reader when returning to SETTINGS step
   useEffect(() => {
@@ -277,9 +275,9 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
   }, [updatePriceCts, togglePriceUpdaterOpenHandler, priceUpdateAmount]);
 
   const resetPoll = useCallback(() => {
-    clearTimeout(pollingTimeoutId);
-    setPollingTimeoutId(null);
-  }, [pollingTimeoutId]);
+    clearTimeout(pollingTimeoutIdRef.current);
+    pollingTimeoutIdRef.current = null;
+  }, []);
 
   const redirectToStep = useCallback(
     (targetStep: TerminalPaymentSteps) => {
@@ -328,7 +326,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
       onInactivityThresholdReached,
       onActionSucceeded,
       onActionFailed,
-      setPollingTimeoutId,
+      pollingTimeoutIdRef,
     );
   }, [
     selectedReader,
@@ -375,7 +373,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
         onInactivityThresholdReached,
         onActionSucceeded,
         onActionFailed,
-        setPollingTimeoutId,
+        pollingTimeoutIdRef,
       );
     } catch (err) {
       if (err.response?.status === STRIPE_ERROR_CODE) {
@@ -402,7 +400,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
     setCancelReaderActionProcessing(true);
     try {
       await cancelReaderActionAPI(selectedReader);
-      clearTimeout(pollingTimeoutId);
+      clearTimeout(pollingTimeoutIdRef.current);
       handleGoBackToSettings();
       options?.onSuccess?.();
     } catch (err) {

@@ -5,9 +5,10 @@ import { type Member, memberListQueryOptions } from "@bsport/api-cdp";
 
 import { fetch } from "#src/utils/fetch";
 
-export const useFetchMembersByIds = (
+export const useFetchMembersByIds = <T = Record<string, Member>>(
   memberIds: number[] = [],
   enabled = true,
+  select?: (members: Member[]) => T,
 ) => {
   const memberIdsSorted = [...memberIds].sort();
   return useQuery({
@@ -16,7 +17,9 @@ export const useFetchMembersByIds = (
       page_size: memberIdsSorted.length,
     }),
     enabled: enabled && memberIdsSorted.length > 0,
-    select: (response) =>
-      keyBy(response.results, "id") as Record<number, Member>,
+    select: (response) => {
+      const members = response.results;
+      return select ? select(members) : (keyBy(members, "id") as T);
+    },
   });
 };

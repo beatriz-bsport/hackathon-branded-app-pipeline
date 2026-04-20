@@ -1,9 +1,11 @@
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 import {
   type ApiConfig,
   type Fetch,
   type PaginatedResponse,
+  type Xhr,
+  type XhrApiConfig,
   buildUrlParams,
 } from "@bsport/store-base";
 
@@ -11,8 +13,9 @@ import { API_V1_URL, QUERY_KEY_MAIN } from "#src/constants";
 
 import type {
   Collection,
-  CreateCollectionParams,
   FetchCollectionsParams,
+  UpdateCollectionParams,
+  UpdateCollectionVideoItemParams,
 } from "./types";
 
 const API_URL = `${API_V1_URL}/vod/playlist`;
@@ -92,25 +95,39 @@ export const fetchCollectionQueryOptions = (
 
 // #region Create
 
-const createCollectionAPIConfig = (
-  params: CreateCollectionParams,
-): ApiConfig => {
-  return [
-    `${API_URL}/`,
-    {
-      method: "POST",
-      body: JSON.stringify(params),
-    },
-  ];
+const createCollectionAPIConfig = (data: FormData): XhrApiConfig => {
+  return [`${API_URL}/`, { method: "POST", formData: data }];
 };
 
 export const createCollectionAPI = async (
-  fetch: Fetch<Collection>,
-  params: CreateCollectionParams,
+  xhr: Xhr<Collection>,
+  params: FormData,
 ): Promise<Collection> => {
   const [uri, init] = createCollectionAPIConfig(params);
 
-  const { data } = await fetch(uri, init);
+  const { data } = await xhr(uri, init);
+
+  return data;
+};
+
+// #endregion
+
+// #region Update
+
+const updateCollectionAPIConfig = ({
+  id,
+  data,
+}: UpdateCollectionParams): XhrApiConfig => {
+  return [`${API_URL}/${id}/`, { method: "PATCH", formData: data }];
+};
+
+export const updateCollectionAPI = async (
+  xhr: Xhr<Collection>,
+  params: UpdateCollectionParams,
+): Promise<Collection> => {
+  const [uri, init] = updateCollectionAPIConfig(params);
+
+  const { data } = await xhr(uri, init);
 
   return data;
 };
@@ -133,5 +150,67 @@ export const deleteCollectionAPI = async (
 
   return data;
 };
+
+// #endregion
+
+// #region Collection Items
+
+const addVideoToCollectionAPIConfig = ({
+  id,
+  video,
+}: UpdateCollectionVideoItemParams): ApiConfig => {
+  return [
+    `${API_URL}/${id}/item/`,
+    {
+      method: "POST",
+      body: JSON.stringify({ video }),
+    },
+  ];
+};
+
+export const addVideoToCollectionAPI = async (
+  fetch: Fetch<Collection>,
+  params: UpdateCollectionVideoItemParams,
+): Promise<Collection> => {
+  const [uri, init] = addVideoToCollectionAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+export const addVideoToCollectionMutationOptions = (fetch: Fetch<Collection>) =>
+  mutationOptions({
+    mutationFn: (params: UpdateCollectionVideoItemParams) =>
+      addVideoToCollectionAPI(fetch, params),
+  });
+
+const removeVideoFromCollectionAPIConfig = ({
+  id,
+  video,
+}: UpdateCollectionVideoItemParams): ApiConfig => {
+  return [
+    `${API_URL}/${id}/item/`,
+    {
+      method: "DELETE",
+      body: JSON.stringify({ video }),
+    },
+  ];
+};
+
+export const removeVideoFromCollectionAPI = async (
+  fetch: Fetch<void>,
+  params: UpdateCollectionVideoItemParams,
+): Promise<void> => {
+  const [uri, init] = removeVideoFromCollectionAPIConfig(params);
+
+  await fetch(uri, init);
+};
+
+export const removeVideoFromCollectionMutationOptions = (fetch: Fetch<void>) =>
+  mutationOptions({
+    mutationFn: (params: UpdateCollectionVideoItemParams) =>
+      removeVideoFromCollectionAPI(fetch, params),
+  });
 
 // #endregion

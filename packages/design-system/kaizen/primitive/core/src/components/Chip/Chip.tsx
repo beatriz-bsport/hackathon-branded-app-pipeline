@@ -95,7 +95,7 @@ const Chip: React.FC<ChipProps> = ({
           onClick={handleDismissClick}
         />
       ) : null,
-    [dismissible, size],
+    [dismissible, size, handleDismissClick],
   );
 
   const customColors = useMemo(() => {

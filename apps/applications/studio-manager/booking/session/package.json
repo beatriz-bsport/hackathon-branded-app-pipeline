@@ -39,6 +39,7 @@
     "@bsport/api-cdp": "workspace:*",
     "@bsport/api-core": "workspace:*",
     "@bsport/api-financial-services": "workspace:*",
+    "@bsport/api-staff-management": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/permissions": "workspace:*",
     "@bsport/store-base": "workspace:*",
@@ -67,6 +68,7 @@
   },
   "peerDependencies": {
     "@bsport/analytics": "workspace:*",
+    "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",

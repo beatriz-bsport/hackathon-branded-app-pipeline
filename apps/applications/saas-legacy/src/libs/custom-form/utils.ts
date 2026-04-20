@@ -441,6 +441,7 @@ export const parseCustomFormAnswersToFormData = (formikValues: {
       'layout_configuration',
       'layout',
       'name',
+      'passwordConfirm',
     ],
   );
 

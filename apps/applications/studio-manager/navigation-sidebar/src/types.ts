@@ -13,6 +13,7 @@ export type Urls = {
   // --- Classes ---
   activity: string;
   workshop: string;
+  classes: string;
   appointment: string;
   // Group 4
   // --- Memberships ---
@@ -33,6 +34,7 @@ export type Urls = {
   // Group 5
   // --- Marketing ---
   marketingNotification: string;
+  smartfill: string;
   emailTemplate: string;
   smartlist: string;
   audience: string;

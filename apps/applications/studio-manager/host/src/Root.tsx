@@ -25,6 +25,7 @@ import { navigateBackToFranchisorHost } from "./navigateBackToFranchisor";
 
 // ----- Booking -----
 const GroupActivities = lazy(() => import("@bsport/sm-group-activity"));
+const Classes = lazy(() => import("@bsport/sm-class"));
 const Session = lazy(() => import("@bsport/sm-session"));
 
 // ----- Buyables -----
@@ -43,6 +44,7 @@ const Payout = lazy(() => import("@bsport/sm-payout"));
 
 // ----- Customer Data Platform -----
 const EmailTemplate = lazy(() => import("@bsport/sm-email-template"));
+const Smartfill = lazy(() => import("@bsport/sm-smartfill"));
 const Smartlists = lazy(() => import("@bsport/sm-smartlists"));
 const CustomForm = lazy(() => import("@bsport/sm-custom-form"));
 const ReferralProgram = lazy(() => import("@bsport/sm-referral-program"));
@@ -226,6 +228,8 @@ const AuthenticatedRoutes = () => {
   const isPacksPageEnabled = useNavFlag(NavFlags.PACKS);
   const isGiftcardsPageEnabled = useNavFlag(NavFlags.GIFTCARDS);
 
+  const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
+
   /**
    * Add configs to the Host Router.
    * If hidden is set to true, it will render the Route but with a null component,
@@ -233,6 +237,11 @@ const AuthenticatedRoutes = () => {
    */
   const routesConfigs: RouteConfig[] = [
     /* ----- Booking ----- */
+    {
+      url: urls.classes,
+      element: <Classes />,
+      hidden: !isClassesMergedViewEnabled,
+    },
     { url: urls.activity, element: <GroupActivities /> },
     { url: urls.calendar, element: <Session /> },
 
@@ -261,6 +270,7 @@ const AuthenticatedRoutes = () => {
       url: urls.settings_referral,
       element: <ReferralProgram />,
     },
+    { url: urls.smartfill, element: <Smartfill /> },
     { url: urls.smartlist, element: <Smartlists /> },
     { url: urls.tag, element: <Tag /> },
     {

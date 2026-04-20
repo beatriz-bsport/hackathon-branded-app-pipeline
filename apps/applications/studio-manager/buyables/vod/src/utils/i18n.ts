@@ -5,12 +5,14 @@ import {
   i18nNamespaces,
   inMemoryTranslationsLoader,
 } from "#src/i18n";
+import type collectionFormTranslations from "#src/i18n/source/collection-form.json";
 import type collectionsListTranslations from "#src/i18n/source/collections-list.json";
 import type sharedListTranslations from "#src/i18n/source/shared-list.json";
 
 type Translations = {
   "shared-list": typeof sharedListTranslations;
   "collections-list": typeof collectionsListTranslations;
+  "collection-form": typeof collectionFormTranslations;
 };
 
 export const {

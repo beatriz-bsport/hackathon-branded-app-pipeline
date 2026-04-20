@@ -153,6 +153,8 @@
     "clear": "Clear"
   },
   "actions": {
-    "more": "More actions"
+    "more": "More actions",
+    "selectAll": "Select All",
+    "selectNone": "Select None"
   }
 }

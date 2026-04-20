@@ -9,6 +9,7 @@ import {
 import { API_V1_URL } from "#src/constants";
 
 import type {
+  DisableAppointmentParams,
   PrivateBooking,
   PrivateBookingFilterParams,
   PrivateConsumerPass,
@@ -55,6 +56,18 @@ export const privateBookingsQueryOptions = (
     queryFn: () => fetchPrivateBookingsAPI(fetch, params),
     staleTime: PRIVATE_BOOKING_STALE_TIME,
   });
+
+export const disableAppointmentAPI = async (
+  fetch: Fetch<PrivateBooking>,
+  id: number,
+  params: DisableAppointmentParams = {},
+): Promise<PrivateBooking> => {
+  const { data } = await fetch(`${PRIVATE_BOOKING_API_URL}/${id}/disable/`, {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+  return data;
+};
 
 export const fetchPrivateConsumerPassesAPI = async (
   fetch: Fetch<PaginatedResponse<PrivateConsumerPass>>,

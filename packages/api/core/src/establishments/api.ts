@@ -19,7 +19,7 @@ import { API_V1_URL } from "../constants";
 const ESTABLISHMENT_API_URL = `${API_V1_URL}/establishment`;
 
 // TODO: use the same stale time for all establishments queries
-const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 5 minutes
+const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 // TODO: add the other keys (list, search, etc.)
 export const establishmentKeys = {

@@ -6,7 +6,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { API_V1_URL } from "#src/constants";
+import { API_V1_URL, DEFAULT_STALE_TIME } from "#src/constants";
 
 import type {
   CompatibleWithSessionParams,
@@ -86,6 +86,7 @@ export const consumerPaymentPackListQueryOptions = (
   return queryOptions({
     queryKey: consumerPaymentPackKeys.list(params),
     queryFn: () => fetchConsumerPaymentPackListAPI(fetch, params),
+    staleTime: DEFAULT_STALE_TIME,
   });
 };
 
@@ -112,6 +113,7 @@ export const compatibleBySessionQueryOptions = (
   queryOptions({
     queryKey: consumerPaymentPackKeys.compatibleBySession(sessionId, params),
     queryFn: () => fetchCompatibleBySessionAPI(fetch, sessionId, params),
+    staleTime: DEFAULT_STALE_TIME,
   });
 
 export const fetchNonCompatibleBySessionAPI = async (
@@ -137,6 +139,7 @@ export const nonCompatibleBySessionQueryOptions = (
   queryOptions({
     queryKey: consumerPaymentPackKeys.nonCompatibleBySession(sessionId, params),
     queryFn: () => fetchNonCompatibleBySessionAPI(fetch, sessionId, params),
+    staleTime: DEFAULT_STALE_TIME,
   });
 
 export const fetchIncompatibilityReasonsAPI = async (
@@ -158,6 +161,7 @@ export const incompatibilityReasonsQueryOptions = (
   queryOptions({
     queryKey: consumerPaymentPackKeys.incompatibilityReasons(id, sessionId),
     queryFn: () => fetchIncompatibilityReasonsAPI(fetch, id, sessionId),
+    staleTime: DEFAULT_STALE_TIME,
   });
 
 export const fetchMaxoutBookingAPI = async (

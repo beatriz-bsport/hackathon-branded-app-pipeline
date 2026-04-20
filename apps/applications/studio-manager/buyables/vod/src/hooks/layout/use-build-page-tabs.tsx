@@ -13,12 +13,7 @@ export const useBuildPageTabs = (): TabsProps => {
     TabsItems: [
       <NavLink to={`../${URLS.MEDIAS}`} key="medias">
         {({ isActive }) => (
-          <Tabs.Item
-            id="media"
-            label={t("tabs.media")}
-            icon="video-recorder"
-            isActive={isActive}
-          />
+          <Tabs.Item id="media" label={t("tabs.media")} isActive={isActive} />
         )}
       </NavLink>,
       <NavLink to={`../${URLS.COLLECTIONS}`} key="collections">
@@ -26,7 +21,6 @@ export const useBuildPageTabs = (): TabsProps => {
           <Tabs.Item
             id="collections"
             label={t("tabs.collections")}
-            icon="list-play"
             isActive={isActive}
           />
         )}

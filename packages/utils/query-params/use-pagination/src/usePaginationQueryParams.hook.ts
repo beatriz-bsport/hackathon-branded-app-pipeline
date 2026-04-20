@@ -24,39 +24,52 @@ type PaginationQueryParams = {
 type UsePaginationQueryParamsProps = {
   defaultValues?: PaginationQueryParams;
   shouldReplace?: boolean;
+  /**
+   * Optional namespace to prefix the URL params, allowing multiple paginated
+   * components on the same page to maintain independent pagination state.
+   * E.g. namespace="bookings" → "bookings_page" & "bookings_page_size".
+   */
+  namespace?: string;
 };
 
 /**
  * Initialize and return variables and handlers required for paginated components
  * @param defaultValues [Optional] To provide default values to currentPage and rowsPerPage
  * @param shouldReplace [Optional] Whether to replace query params, or push a new entry in the URL history
+ * @param namespace [Optional] Prefix for URL params to avoid collisions between multiple paginated components
  */
 export const usePaginationQueryParams = ({
   defaultValues = { page: DEFAULT_PAGE, page_size: DEFAULT_PAGE_SIZE },
   shouldReplace = true,
+  namespace,
 }: UsePaginationQueryParamsProps = {}) => {
+  const pageKey = namespace ? `${namespace}_${PARAMS_PAGE}` : PARAMS_PAGE;
+  const pageSizeKey = namespace
+    ? `${namespace}_${PARAMS_PAGE_SIZE}`
+    : PARAMS_PAGE_SIZE;
+
   // Stringify values to create search params
   const stringifiedValues = stringifyParams({
-    page: defaultValues.page || DEFAULT_PAGE,
-    page_size: defaultValues.page_size || DEFAULT_PAGE_SIZE,
+    [pageKey]: defaultValues.page || DEFAULT_PAGE,
+    [pageSizeKey]: defaultValues.page_size || DEFAULT_PAGE_SIZE,
   });
   const [searchParams, setSearchParams] = useSearchParams(
     new URLSearchParams(stringifiedValues),
   );
 
-  const rawPage = searchParams.get(PARAMS_PAGE);
-  const rawPageSizeStr = searchParams.get(PARAMS_PAGE_SIZE);
+  const rawPage = searchParams.get(pageKey);
+  const rawPageSizeStr = searchParams.get(pageSizeKey);
 
   const currentPage = getValidPage(
     getNumberSearchParam({
       searchParams,
-      key: PARAMS_PAGE,
+      key: pageKey,
       defaultValue: DEFAULT_PAGE,
     }),
   );
   const rawPageSize = getNumberSearchParam({
     searchParams,
-    key: PARAMS_PAGE_SIZE,
+    key: pageSizeKey,
     defaultValue: DEFAULT_PAGE_SIZE,
   });
   const currentPageSize = getValidPageSize(rawPageSize);
@@ -68,12 +81,12 @@ export const usePaginationQueryParams = ({
       updateSearchParams({
         setter: setSearchParams,
         updater: (prev) => {
-          prev.set(PARAMS_PAGE, DEFAULT_PAGE.toString());
+          prev.set(pageKey, DEFAULT_PAGE.toString());
         },
         shouldReplace,
       });
     }
-  }, [rawPage, currentPage, setSearchParams, shouldReplace]);
+  }, [rawPage, currentPage, setSearchParams, shouldReplace, pageKey]);
 
   // If page_size is not allowed, update the URL to fallback value
   useEffect(() => {
@@ -82,12 +95,18 @@ export const usePaginationQueryParams = ({
       updateSearchParams({
         setter: setSearchParams,
         updater: (prev) => {
-          prev.set(PARAMS_PAGE_SIZE, currentPageSize.toString());
+          prev.set(pageSizeKey, currentPageSize.toString());
         },
         shouldReplace,
       });
     }
-  }, [rawPageSizeStr, currentPageSize, setSearchParams, shouldReplace]);
+  }, [
+    rawPageSizeStr,
+    currentPageSize,
+    setSearchParams,
+    shouldReplace,
+    pageSizeKey,
+  ]);
 
   // Define a generic setter to be used in handler
   const updatePaginationSearchParams = (
@@ -97,14 +116,14 @@ export const usePaginationQueryParams = ({
   const setPage = (nextPage: number) => {
     const validPage = getValidPage(nextPage);
     updatePaginationSearchParams((prev) =>
-      prev.set(PARAMS_PAGE, validPage.toString()),
+      prev.set(pageKey, validPage.toString()),
     );
   };
 
   const setPageSize = (nextRowsPerPage: number) => {
     const validSize = getValidPageSize(nextRowsPerPage);
     updatePaginationSearchParams((prev) =>
-      prev.set(PARAMS_PAGE_SIZE, validSize.toString()),
+      prev.set(pageSizeKey, validSize.toString()),
     );
   };
 
@@ -112,8 +131,8 @@ export const usePaginationQueryParams = ({
     const validPage = getValidPage(nextPage);
     const validSize = getValidPageSize(nextRowsPerPage);
     updatePaginationSearchParams((prev) => {
-      prev.set(PARAMS_PAGE, validPage.toString());
-      prev.set(PARAMS_PAGE_SIZE, validSize.toString());
+      prev.set(pageKey, validPage.toString());
+      prev.set(pageSizeKey, validSize.toString());
     });
   };
 

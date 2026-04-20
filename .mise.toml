@@ -14,3 +14,9 @@ node.gpg_verify = false
 # - Credentials are cached for 1 day; run `mise cache clear` to refresh
 NX_SELF_HOSTED_REMOTE_CACHE_SERVER = { value = "{{ exec(command='[ \"${DISABLE_NX_REMOTE_CACHE:-0}\" = \"1\" ] || op read \"op://Engineering/NX remote cache server/hostname\" --no-newline 2>/dev/null || echo \"\"', cache_key='nx-cache-server', cache_duration='1d') }}", tools = true }
 NX_SELF_HOSTED_REMOTE_CACHE_ACCESS_TOKEN = { value = "{{ exec(command='[ \"${DISABLE_NX_REMOTE_CACHE:-0}\" = \"1\" ] || op read \"op://Engineering/NX remote cache server/credential\" --no-newline 2>/dev/null || echo \"\"', cache_key='nx-cache-token', cache_duration='1d') }}", tools = true }
+
+# System packages for Debian/Ubuntu
+DEBIAN_PKGS = "bash jq curl git awscli python3 python3-pip libpango1.0-dev libcairo2-dev build-essential libjpeg-dev libgif-dev librsvg2-dev make openssh-client g++"
+
+# System packages for RHEL/Fedora/CentOS
+RHEL_PKGS = "bash jq curl git awscli python3 python3-pip pango-devel cairo-devel libjpeg-turbo-devel giflib-devel librsvg2-devel make openssh-clients gcc-c++"

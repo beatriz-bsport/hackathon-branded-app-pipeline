@@ -8,6 +8,7 @@ import { type DateTime, fromIsoString } from "@bsport/datetime-manipulation";
 import { Avatar, Body, Icon } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { AppointmentShortcutActionsButton } from "#src/components/AppointmentList/AppointmentShortcutActionsButton";
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import {
   AppointmentColumn,
@@ -164,6 +165,18 @@ const getColumns = (
       row.isRecurring ? <Icon icon="refresh-ccw-01" size="sm" /> : null,
   };
 
+  const actionsColumn: AppointmentTableColumn = {
+    id: AppointmentColumn.ACTIONS,
+    header: "",
+    label: t("appointmentTable.headers.actions"),
+    type: "custom",
+    align: "end",
+    cellsClassName: "w-xl",
+    render: (row: EnrichedAppointment) => (
+      <AppointmentShortcutActionsButton appointment={row} />
+    ),
+  };
+
   return [
     timeColumn,
     nameColumn,
@@ -172,5 +185,6 @@ const getColumns = (
     passUsedColumn,
     establishmentColumn,
     typeColumn,
+    actionsColumn,
   ];
 };

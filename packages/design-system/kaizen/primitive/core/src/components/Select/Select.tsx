@@ -1,7 +1,7 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import classNames from "classnames";
 import mapValues from "lodash/mapValues";
-import React, { KeyboardEvent, useCallback, useState } from "react";
+import React, { KeyboardEvent, useCallback, useEffect, useState } from "react";
 
 import Body from "#src/components/Body";
 import Icon, { type IconName } from "#src/components/Icon";
@@ -130,6 +130,31 @@ const Select: React.FC<SelectProps> = ({
     defaultValue ?? "",
   );
 
+  const [anchorElement, setAnchorElement] = useState<HTMLDivElement | null>(
+    null,
+  );
+  const [anchorWidth, setAnchorWidth] = useState<number>();
+
+  useEffect(() => {
+    if (!anchorElement || !fullWidth) return;
+
+    const updateAnchorWidth = () => {
+      setAnchorWidth(anchorElement.offsetWidth);
+    };
+
+    updateAnchorWidth();
+
+    if (typeof ResizeObserver === "undefined") return;
+
+    const resizeObserver = new ResizeObserver(updateAnchorWidth);
+
+    resizeObserver.observe(anchorElement);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [anchorElement, fullWidth]);
+
   // The displayed value depends on whether it's controlled or uncontrolled
   const selectedValueId = isControlled ? value : internalValue;
 
@@ -171,7 +196,7 @@ const Select: React.FC<SelectProps> = ({
             };
 
             return (
-              <div data-component="Kaizen-Select-Anchor">
+              <div data-component="Kaizen-Select-Anchor" ref={setAnchorElement}>
                 {/* Invisible input to support form submission */}
                 <input
                   type="hidden"
@@ -213,7 +238,10 @@ const Select: React.FC<SelectProps> = ({
             );
           }}
         </Popover.Anchor>
-        <Popover.Content placement={popoverPlacement}>
+        <Popover.Content
+          placement={popoverPlacement}
+          minWidthPx={fullWidth ? anchorWidth : undefined}
+        >
           {({ setIsPopoverOpened }) => {
             if (loadingProps?.isLoading) {
               const loadingMessage = loadingProps?.message;

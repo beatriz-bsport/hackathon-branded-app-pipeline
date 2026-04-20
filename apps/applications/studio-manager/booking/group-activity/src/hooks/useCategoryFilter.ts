@@ -69,7 +69,7 @@ export const useCategoryFilter = (): {
   const categories = useSportCategoryStore(selectSportCategories);
 
   useEffect(() => {
-    if (companyId) fetchSportCategoriesAction(fetch, { companyId });
+    if (companyId) fetchSportCategoriesAction(fetch, { company_id: companyId });
   }, [companyId]);
 
   const onFilterChange = useCallback((filters: FilterElementState[]) => {

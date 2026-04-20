@@ -5,6 +5,7 @@ import { communicationStore } from "#src/store";
 import type {
   CampaignSummary,
   CommunicationRecipient,
+  CommunicationRecipientWithMemberData,
   CommunicationSent,
 } from "#src/types";
 
@@ -154,6 +155,69 @@ export const setRecipientsList = ({
       recipients: {
         ...state.recipients,
         ...recipientsByCommunicationSent,
+      },
+    };
+  });
+};
+
+/**
+ * Fills the Zustand store with recipients data,
+ * grouping recipients by their member id and assigning this record to each communication_sent id.
+ * This endpoint is pretty special because we can provide a list of recipients for multiple communication_sent ids at once.
+ * We don't group by objectType and objectId here because recipients are always fetched by communication_sent ids.
+ *
+ * @param recipients - The array of recipients
+ */
+export const setRecipientsWithMemberDataList = ({
+  recipientsWithMemberData,
+  page,
+  count,
+}: {
+  recipientsWithMemberData: CommunicationRecipientWithMemberData[];
+  page: number;
+  count: number;
+}) => {
+  communicationStore.setState((state) => {
+    // Group recipients by communication_sent id
+    const recipientsWithMemberDataByCommunicationSent =
+      recipientsWithMemberData.reduce<
+        Record<string, PaginatedState<CommunicationRecipientWithMemberData>>
+      >((acc, recipient) => {
+        const campaignUuid = recipient.campaign;
+        const recipientId = recipient.member;
+
+        // Get existing paginated state for this communication_sent id, or initialize
+        const existingState = state.recipientsWithMemberData?.[
+          campaignUuid
+        ] || {
+          byId: {},
+          page,
+          count,
+          ids: [],
+        };
+
+        // Merge new recipient into byId
+        const newById = {
+          ...existingState.byId,
+          [recipientId]: recipient,
+        };
+
+        // Merge ids, avoiding duplicates
+        const newIds = Array.from(new Set([...existingState.ids, recipientId]));
+
+        acc[campaignUuid] = {
+          byId: newById,
+          page,
+          count,
+          ids: newIds,
+        };
+        return acc;
+      }, {});
+
+    return {
+      recipientsWithMemberData: {
+        ...state.recipientsWithMemberData,
+        ...recipientsWithMemberDataByCommunicationSent,
       },
     };
   });

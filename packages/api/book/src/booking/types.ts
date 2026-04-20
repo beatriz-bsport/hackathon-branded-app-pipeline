@@ -29,6 +29,18 @@ export interface SpotInformation {
   indexType?: string | number;
 }
 
+export enum BookingStaffActionIdentifier {
+  BOOKING_CREATED_BY_STAFF = 10,
+  BOOKING_CANCELLED_BY_STAFF = 11,
+}
+export type BookingStaffHistoryEntry = {
+  staff_id: number;
+  action_identifier: BookingStaffActionIdentifier;
+  timestamp: number; // Unix timestamp (float)
+};
+
+export type BookingStaffHistory = BookingStaffHistoryEntry[];
+
 export type Booking = {
   id: number;
   name: string;
@@ -67,7 +79,7 @@ export type Booking = {
   date_no_show_registered: string | null;
   spot_id: number | null;
   spot_information: SpotInformation | null;
-  staff_history: Record<string, unknown>[];
+  staff_history: BookingStaffHistory;
   has_spivi_error: boolean | null;
 };
 

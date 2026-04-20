@@ -123,6 +123,26 @@
     },
     "isLoading": "Loading appointments...",
     "unpaidTooltip": "Appointment is unpaid",
+    "filters": {
+      "label": "Filters",
+      "is": "is",
+      "name": {
+        "label": "Name"
+      },
+      "teacher": {
+        "label": "Teacher"
+      },
+      "establishment": {
+        "label": "Establishment"
+      },
+      "participant": {
+        "label": "Participant"
+      },
+      "passUsed": {
+        "label": "Pass used"
+      },
+      "searchPlaceholder": "Search"
+    },
     "shortcutActions": {
       "cancel": "Cancel",
       "reschedule": "Reschedule",
@@ -238,10 +258,39 @@
   },
   "cancelAppointmentModal": {
     "title": "Cancel appointment?",
-    "description": "This will cancel the appointment. The member will be notified.",
-    "cancelButton": "Back",
+    "description": "Are you sure you want to cancel this appointment?",
+    "cancelButton": "Close",
     "confirmButton": "Cancel appointment",
-    "errorMessage": "An error occurred while cancelling the appointment. Please try again later.",
-    "successMessage": "Appointment cancelled"
+    "errorMessage": "An error occurred while cancelling the appointment. Please try again",
+    "successMessage": "Appointment cancelled",
+    "refundCredits": "Refund the credits",
+    "sendNotification": "Send a notification"
+  },
+  "wellhub": {
+    "alert": {
+      "title": "Some sessions are missing a Wellhub product",
+      "message_one": "{{count}} session does not have a Wellhub product assigned.",
+      "message_other": "{{count}} sessions do not have a Wellhub product assigned.",
+      "action": "Assign products"
+    },
+    "modal": {
+      "title": "Assign Wellhub products",
+      "stepSelectSession": "Select session",
+      "stepSetProduct": "Set product",
+      "loadingOffers": "Loading sessions…",
+      "noOffersEmpty": "No sessions missing a Wellhub product.",
+      "successMessage": "Wellhub product assigned successfully",
+      "errorMessage": "An error occurred while assigning the Wellhub product. Please try again.",
+      "confirmButton": "Confirm",
+      "cancelButton": "Cancel",
+      "form": {
+        "productLabel": "Wellhub product",
+        "applySimilarLabel": "Apply to similar sessions",
+        "similarSessionsTitle": "Similar sessions",
+        "loadingProducts": "Loading products…",
+        "noAccountError": "No active Wellhub partnership account found for this session.",
+        "noProductsError": "No Wellhub products available for this session type."
+      }
+    }
   }
 }

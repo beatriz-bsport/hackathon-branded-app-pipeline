@@ -5,3 +5,5 @@ export const API_V0_URL_SUBSCRIPTION = `${API_V0_URL}/subscription`;
 export const API_V1_URL_SUBSCRIPTION = `${API_V1_URL}/subscription`; // Revamped Contract model
 
 export const QUERY_KEY_MAIN = "@api-buyables";
+
+export const DEFAULT_STALE_TIME = 2 * 60 * 1000; // 2 minutes

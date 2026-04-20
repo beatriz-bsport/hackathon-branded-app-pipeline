@@ -7,13 +7,13 @@ import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 import { EmailTemplateSelector } from "../EmailTemplateSelector/email-template-selector";
-import type { EmailCampaignFormData } from "../types";
+import type { EmailMessageContentFormData } from "../types";
 
 export const EmailTemplateFormColumn: React.FC = () => {
   const { t } = useTranslation("campaign");
   const baseId = useId();
   const { watch, setValue, formState } =
-    useFormContext<EmailCampaignFormData>();
+    useFormContext<EmailMessageContentFormData>();
   const errors = formState.errors;
 
   const emailTemplateId = watch("emailTemplateId");
@@ -28,7 +28,7 @@ export const EmailTemplateFormColumn: React.FC = () => {
         shouldValidate: true,
         shouldDirty: true,
       });
-      setValue("emailTemplateHtml", null, {
+      setValue("emailTemplateHtml", undefined, {
         shouldValidate: true,
         shouldDirty: true,
       });
@@ -63,7 +63,7 @@ export const EmailTemplateFormColumn: React.FC = () => {
           statusText: errors.emailTemplateHtml?.message ?? "",
         }}
       />
-      <FormField<EmailCampaignFormData, "emailSubject", TextFieldProps>
+      <FormField<EmailMessageContentFormData, "emailSubject", TextFieldProps>
         name="emailSubject"
         mapProps={({
           field,

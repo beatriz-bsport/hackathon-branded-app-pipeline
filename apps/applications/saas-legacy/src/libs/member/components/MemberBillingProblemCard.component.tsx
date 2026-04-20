@@ -19,7 +19,10 @@ import type { Invoice } from '#src/libs/invoice/types';
 import type { ConsumerGiftcard, Giftcard } from '#src/libs/giftcard/types';
 import type { StripeReader } from '#src/libs/terminal/types';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '#src/libs/invoice/constants';
+import {
+  MAX_UNPAID_INVOICES_DISPLAYED,
+  TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS,
+} from '#src/libs/invoice/constants';
 // @ts-expect-error
 import PaymentDialog from '../../payment/components/PaymentDialog.component';
 import MemberBalanceUpdaterDialog from './MemberBalanceUpdaterDialog.component';
@@ -454,7 +457,10 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                     asConsumer={asConsumer}
                     companyId={companyId}
                     consumerGiftcardList={consumerGiftcardList}
-                    invoiceList={unpaidInvoiceList}
+                    invoiceList={unpaidInvoiceList.slice(
+                      0,
+                      MAX_UNPAID_INVOICES_DISPLAYED,
+                    )}
                     loading={invoiceLoading}
                     // @ts-expect-error
                     onBill={

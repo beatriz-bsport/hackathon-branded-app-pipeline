@@ -260,6 +260,47 @@
           "updateFailed": "SMS automation couldn't be updated. Please try again."
         }
       }
+    },
+    "email": {
+      "pageTitle": "Email Campaign",
+      "actions": {
+        "continue": "Continue"
+      },
+      "sections": {
+        "delivery": "Delivery"
+      },
+      "form": {
+        "automationName": {
+          "label": "Automation name",
+          "placeholder": "Spring Reset Yoga Series",
+          "required": "Add an automation name",
+          "maxLength": "Automation name must be under 150 characters"
+        },
+        "condition": {
+          "label": "When should this automated message send",
+          "options": {
+            "entry": "Entry to Smartlist",
+            "exit": "Exit from Smartlist"
+          }
+        },
+        "triggerLimit": {
+          "label": "How many times should this automation be triggered for the same person?",
+          "options": {
+            "noLimit": "No limit (default)",
+            "once": "1 time",
+            "twice": "2 times",
+            "threeTimes": "3 times"
+          }
+        }
+      },
+      "toasts": {
+        "success": {
+          "created": "Email automation created"
+        },
+        "error": {
+          "createFailed": "Email automation couldn't be created. Please try again."
+        }
+      }
     }
   },
   "generic": {

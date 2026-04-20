@@ -13,8 +13,11 @@ import {
 import type { Member } from "@bsport/api-cdp";
 import type { Establishment, Teacher } from "@bsport/api-core";
 import type { DateTime } from "@bsport/datetime-manipulation";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { getAppointmentParamsFromFilters } from "#src/components/AppointmentList/Filters/get-appointment-params-from-filters";
 import {
+  selectAppointmentFilters,
   selectAppointmentShowCancelled,
   useCalendarStore,
 } from "#src/stores/calendar";
@@ -124,8 +127,16 @@ export const useAppointmentListData = (
 ) => {
   const { minDateKey, maxDateKey } = extractDateRangeParams(params);
 
-  // TODO: Wire appointment filter params when filters are added (next MR)
-  const filterParams: PrivateBookingFilterParams = {};
+  const filters = useCalendarStore(selectAppointmentFilters);
+  const restrictedTeachers = dataAccessLayer.useUserRestrictedTeachers();
+  const filterParams = useMemo(
+    () => ({
+      ...getAppointmentParamsFromFilters(filters),
+      // TODO: Replace with coach__in once the API supports filtering by multiple coaches
+      ...(restrictedTeachers.length > 0 && { coach: restrictedTeachers[0] }),
+    }),
+    [filters, restrictedTeachers],
+  );
 
   const showCancelled = useCalendarStore(selectAppointmentShowCancelled);
 
@@ -148,14 +159,16 @@ export const useAppointmentListData = (
     [rawBookings],
   );
 
+  const shouldFetchAppointmentData = enabled && !isLoadingBookings;
+
   const { data: teachersById = {}, isLoading: isLoadingTeachers } =
-    useFetchTeachers(teacherIds, !isLoadingBookings);
+    useFetchTeachers(teacherIds, shouldFetchAppointmentData);
   const { data: establishmentsById = {}, isLoading: isLoadingEstablishments } =
-    useFetchEstablishments(establishmentIds, !isLoadingBookings);
+    useFetchEstablishments(establishmentIds, shouldFetchAppointmentData);
   const { data: membersById = {}, isLoading: isLoadingMembers } =
-    useFetchMembersByIds(memberIds, !isLoadingBookings);
+    useFetchMembersByIds(memberIds, shouldFetchAppointmentData);
   const { data: consumerPassesById = {}, isLoading: isLoadingPasses } =
-    useFetchPrivateConsumerPasses(consumerPassIds, !isLoadingBookings);
+    useFetchPrivateConsumerPasses(consumerPassIds, shouldFetchAppointmentData);
 
   const appointments = useMemo(() => {
     return rawBookings.map(

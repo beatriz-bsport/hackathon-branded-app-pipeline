@@ -111,7 +111,8 @@ const createSubscriptionTriggerCondition = (
 
   const eventRules = marketingNotification.event_rules;
   const hasDays = eventRules.days != null;
-  const timingValue = (hasDays ? eventRules.days : eventRules.hours) ?? 0;
+  const rawTimingValue = (hasDays ? eventRules.days : eventRules.hours) ?? 0;
+  const timingValue = Math.abs(rawTimingValue);
   const smartlistConfig = extractSmartlistConfig(eventRules);
 
   return {
@@ -120,7 +121,7 @@ const createSubscriptionTriggerCondition = (
     subscriptionEventKind: marketingNotification.kind,
     timingValue,
     timingUnit: hasDays ? "day" : "hour",
-    timingTemporality: timingValue > 0 ? "after" : "before",
+    timingTemporality: rawTimingValue > 0 ? "after" : "before",
     ...smartlistConfig,
   };
 };

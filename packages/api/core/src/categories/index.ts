@@ -1,4 +1,7 @@
-export { fetchSportCategories } from "./api";
+export {
+  fetchSportCategoriesQueryOptions,
+  fetchSportCategoriesAPI,
+} from "./api";
 export type {
   SportCategory,
   SportParentCategory,

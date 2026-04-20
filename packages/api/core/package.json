@@ -9,12 +9,17 @@
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
-      "import": "./build/lib.es.js",
-      "default": "./build/lib.es.js"
+      "import": "./build/index.js",
+      "default": "./build/index.js"
+    },
+    "./*": {
+      "types": "./build/*/index.d.ts",
+      "import": "./build/*.js",
+      "default": "./build/*.js"
     }
   },
-  "main": "build/lib.es.js",
-  "module": "build/lib.es.js",
+  "main": "build/index.js",
+  "module": "build/index.js",
   "types": "build/index.d.ts",
   "files": [
     "build"

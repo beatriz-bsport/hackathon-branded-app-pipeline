@@ -128,7 +128,6 @@ export const useFilterConfig = () => {
 
   return {
     filterConfig,
-    resetFilters: filterRef?.current?.resetFilters,
     sessionFiltersRef: filterRef,
   };
 };

@@ -66,8 +66,21 @@ This installs the correct versions of Node.js, pnpm, and 1Password CLI automatic
 5. Install dependencies:
 
 ```sh
+# First install dependencies only, without postinstall
+pnpm install --ignore-scripts
+# Then run it again with postinstall to avoid race conditions
 pnpm install
 ```
+
+6. Install additional legacy dependencies:
+
+Some legacy dependencies need system packages to work, that you need to install manually. In `.mise.toml` there is an env variable you can use to install them automatically by running this:
+
+```bash
+sudo apt update && sudo apt install -y $DEBIAN_PKGS
+```
+
+7. Setup Nx remote cache
 
 > **Note:** For Nx remote cache setup (faster builds), see [docs/nx_remote_cache_server.md](./docs/nx_remote_cache_server.md).
 

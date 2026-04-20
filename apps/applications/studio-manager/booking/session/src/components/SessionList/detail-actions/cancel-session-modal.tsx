@@ -101,12 +101,6 @@ export const CancelSessionModal: FC<CancelSessionModalProps> = ({
   const shouldDisplayAlert = session.nb_bookings > 0 || session.groupName;
 
   useEffect(() => {
-    if (isOpen) {
-      setShouldSendNotification(false);
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
     if (similarSessions) {
       setSelectedIds(similarSessions.map((s) => `${s.id}`));
     }

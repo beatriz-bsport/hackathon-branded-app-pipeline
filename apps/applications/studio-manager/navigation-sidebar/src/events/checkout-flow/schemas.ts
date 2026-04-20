@@ -19,6 +19,7 @@ const basketCancelTriggerValues = [
   "cancel_button",
   "cross_button",
   "escape_key",
+  "backdrop_click",
 ] as const;
 
 const basketCompletionTriggerValues = ["confirm"] as const;
@@ -440,6 +441,13 @@ export const checkoutFlowCancelButtonClickedEventSchema = z
     ...cancelPayloadFields,
   })
   .describe("When the user closes the checkout flow with Cancel");
+
+export const checkoutFlowClickOutsideEventSchema = z
+  .object({
+    eventType: z.string().default("checkout_flow_click_outside"),
+    ...cancelPayloadFields,
+  })
+  .describe("When the user closes the checkout flow by clicking outside");
 
 export const checkoutFlowPayCancelEventSchema = z
   .object({

@@ -5,6 +5,7 @@ import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
@@ -12,10 +13,19 @@ import { type ActionItemId, BookingActionItemId } from "./types";
 
 export const ShortcutActionsButton: FC<{
   sessionId: number;
+  bookingId: number;
+  openModal: (type: SessionManagementModalType, bookingId: number) => void;
   allowedItemIds?: ActionItemId[];
   participantEmail?: string;
   participantPhone?: string;
-}> = ({ sessionId, allowedItemIds, participantEmail, participantPhone }) => {
+}> = ({
+  sessionId,
+  bookingId,
+  openModal,
+  allowedItemIds,
+  participantEmail,
+  participantPhone,
+}) => {
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
@@ -92,7 +102,7 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "user-x-01",
         type: "button",
         onClick: () => {
-          // TODO: implement cancel booking action
+          openModal(SessionManagementModalType.CANCEL_BOOKING, bookingId);
           setIsPopoverOpened(false);
         },
       };
@@ -189,6 +199,8 @@ export const ShortcutActionsButton: FC<{
       participantEmail,
       participantPhone,
       copyToClipboard,
+      bookingId,
+      openModal,
     ],
   );
 

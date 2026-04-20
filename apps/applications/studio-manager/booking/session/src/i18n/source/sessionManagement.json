@@ -45,5 +45,16 @@
   },
   "booking": "Booking",
   "billing": "Billing",
-  "contact": "Contact"
+  "contact": "Contact",
+  "modals": {
+    "cancelBooking": {
+      "title": "Cancel booking",
+      "confirmButton": "Cancel",
+      "closeButton": "Close",
+      "body": "Are you sure you want to cancel this booking?",
+      "refundCredits": "Refund the credits",
+      "sendNotification": "Send notification",
+      "confirmation": "Booking cancelled"
+    }
+  }
 }

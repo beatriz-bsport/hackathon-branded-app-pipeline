@@ -1,18 +1,17 @@
 import clsx from "clsx";
 import { FC, useMemo } from "react";
 
+import { BookingStatusCode } from "@bsport/api-book";
 import {
   Avatar,
   Body,
   GenericTableColumn,
   PaginationProps,
   Table,
-  Toggle,
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { ActionsMenuButton } from "#src/components/common/action-menu-button";
-import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
+import { ActionsMenuButton } from "#src/components/common/action-menu-button.js";
 import {
   RefinedBooking,
   useFetchRefinedBookings,
@@ -20,24 +19,21 @@ import {
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 
-import { ChipsCell } from "./chips-cell";
+import { CancellationStatus } from "./cancellation-status";
 
 enum BookingColumns {
-  PRESENT = "present",
   CLIENT = "client",
-  MEMBER_DETAILS = "member-details",
-  CHIPS = "chips",
-  SHORTCUT_ACTIONS = "shortcut-actions",
+  CANCELLATION_DETAILS = "cancellation-details",
+  ACTIONS = "actions",
 }
 
-export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
+export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
+  sessionId,
+}) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({ namespace: "bookings" });
-
-  const { mutate: setAttendance, isPending: isSettingAttendance } =
-    useSetAttendance();
+    usePaginationQueryParams({ namespace: "cancelled-bookings" });
 
   const {
     isLoading,
@@ -48,83 +44,6 @@ export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
     page: currentPage,
     page_size: currentPageSize,
   });
-
-  const columns: GenericTableColumn<RefinedBooking>[] = [
-    {
-      header: t("bookingsTable.headers.present"),
-      id: BookingColumns.PRESENT,
-      type: "custom",
-      align: "start",
-      render: (row) => (
-        <Toggle
-          checked={row.attendance}
-          id={`attendance-toggle-${row.id}`}
-          label=""
-          disabled={isSettingAttendance}
-          onChange={() =>
-            setAttendance({
-              bookingId: row.id,
-              attendance: !row.attendance,
-            })
-          }
-        />
-      ),
-    },
-    {
-      header: t("bookingsTable.headers.client"),
-      id: BookingColumns.CLIENT,
-      type: "custom",
-      align: "start",
-      render: (row) => {
-        const secondaryText = [row.spot_information?.name, row.passData?.name]
-          .filter(Boolean)
-          .join(" • ");
-
-        return (
-          <div className="flex gap-md items-center">
-            <Avatar
-              shape="round"
-              src={row.memberData?.photo}
-              initials={getMemberInitials({
-                firstname: row.memberData?.first_name,
-                lastname: row.memberData?.last_name,
-              })}
-            />
-            <div className="flex flex-col gap-2xs">
-              <Body size="lg">{row.memberData?.name}</Body>
-              {secondaryText && <Body color="weak">{secondaryText}</Body>}
-            </div>
-          </div>
-        );
-      },
-    },
-    {
-      header: "",
-      id: BookingColumns.CHIPS,
-      type: "custom",
-      align: "end",
-      render: (row) => (
-        <ChipsCell
-          first_in_company={row.first_in_company}
-          memberData={row.memberData}
-          recurrence_rule_booking={row.recurrence_rule_booking}
-        />
-      ),
-    },
-    {
-      header: "",
-      id: BookingColumns.SHORTCUT_ACTIONS,
-      type: "custom",
-      align: "center",
-      render: () => (
-        <ActionsMenuButton
-          label={t("bookingsTable.actionsMenu.label")}
-          // TODO: implement actions
-          items={() => []}
-        />
-      ),
-    },
-  ];
 
   const paginationProps: PaginationProps = useMemo(
     () => ({
@@ -137,6 +56,74 @@ export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
     }),
     [currentPage, currentPageSize, isLoading, count, setPageSettings],
   );
+
+  const columns: GenericTableColumn<RefinedBooking>[] = [
+    {
+      header: t("bookingsTable.headers.client"),
+      id: BookingColumns.CLIENT,
+      type: "custom",
+      align: "start",
+      render: (row) => {
+        const secondaryText = row.was_refunded
+          ? t("bookingsTable.refundedPass", {
+              passName: row.passData?.name ?? "",
+            })
+          : (row.passData?.name ?? "");
+
+        return (
+          <div className="flex gap-md items-center">
+            <Avatar
+              shape="round"
+              src={row.memberData?.photo}
+              initials={getMemberInitials({
+                firstname: row.memberData?.first_name,
+                lastname: row.memberData?.last_name,
+              })}
+            />
+            <div className="flex flex-col gap-2xs">
+              <Body size="lg" className="line-through">
+                {row.memberData?.name}
+              </Body>
+              {secondaryText && <Body color="weak">{secondaryText}</Body>}
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      header: "",
+      id: BookingColumns.CANCELLATION_DETAILS,
+      type: "custom",
+      align: "end",
+      render: (row) => {
+        if (
+          row.booking_status_code === BookingStatusCode.OK ||
+          !row.date_canceled
+        )
+          return null;
+        return (
+          <CancellationStatus
+            bookingStatusCode={row.booking_status_code}
+            dateCancelled={row.date_canceled}
+            staffHistory={row.staff_history}
+          />
+        );
+      },
+    },
+    {
+      header: "",
+      id: BookingColumns.ACTIONS,
+      type: "custom",
+      align: "center",
+      render: () => (
+        <ActionsMenuButton
+          label={t("bookingsTable.actionsMenu.label")}
+          // TODO: implement actions
+          items={() => []}
+        />
+      ),
+    },
+  ];
 
   return (
     <div
@@ -151,7 +138,7 @@ export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
         rows={refinedBookings}
         paginationProps={paginationProps}
         emptyStateProps={{
-          isEmpty: !count,
+          isEmpty: !isLoading && (count ?? 0) === 0,
           emptyConfig: {
             title: t("bookingsTable.emptyState.title"),
             ctaButtonConfig: {

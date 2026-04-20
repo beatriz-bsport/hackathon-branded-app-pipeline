@@ -21,7 +21,14 @@
     },
     "actionsMenu": {
       "label": "Actions"
-    }
+    },
+    "refundedPass": "Refunded: {{passName}}",
+    "cancellationReason": {
+      "consumer": "Cancelled by the consumer",
+      "manager": "Cancelled by {{managerName}}",
+      "studio": "Cancelled by the studio"
+    },
+    "cancellationDate": "On {{cancellationDate}}"
   },
   "bookingStatusFilter": {
     "booked": "Booked",

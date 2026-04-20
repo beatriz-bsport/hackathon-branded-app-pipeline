@@ -1,7 +1,7 @@
 import { useQueryErrorResetBoundary } from "@tanstack/react-query";
 import {
+  type ComponentType,
   type PropsWithChildren,
-  ReactElement,
   ReactNode,
   Suspense,
 } from "react";
@@ -12,10 +12,10 @@ import { CardLoader, SectionErrorFallback } from "./fallbacks";
 
 export type QueryBoundaryProps = PropsWithChildren<{
   loadingFallback?: ReactNode;
-  errorFallback?: (props: {
+  errorFallback?: ComponentType<{
     error: Error;
     onRetry: () => void;
-  }) => ReactElement;
+  }>;
 }>;
 
 export const QueryBoundary = ({
@@ -38,7 +38,9 @@ export const QueryBoundary = ({
     };
 
     if (errorFallback) {
-      return errorFallback({ error, onRetry: handleRetry });
+      const ErrorFallbackComponent = errorFallback;
+
+      return <ErrorFallbackComponent error={error} onRetry={handleRetry} />;
     }
 
     return <SectionErrorFallback onRetry={handleRetry} />;

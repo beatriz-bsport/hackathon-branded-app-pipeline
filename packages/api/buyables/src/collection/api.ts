@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 import {
   type ApiConfig,
@@ -15,6 +15,7 @@ import type {
   Collection,
   FetchCollectionsParams,
   UpdateCollectionParams,
+  UpdateCollectionVideoItemParams,
 } from "./types";
 
 const API_URL = `${API_V1_URL}/vod/playlist`;
@@ -149,5 +150,67 @@ export const deleteCollectionAPI = async (
 
   return data;
 };
+
+// #endregion
+
+// #region Collection Items
+
+const addVideoToCollectionAPIConfig = ({
+  id,
+  video,
+}: UpdateCollectionVideoItemParams): ApiConfig => {
+  return [
+    `${API_URL}/${id}/item/`,
+    {
+      method: "POST",
+      body: JSON.stringify({ video }),
+    },
+  ];
+};
+
+export const addVideoToCollectionAPI = async (
+  fetch: Fetch<Collection>,
+  params: UpdateCollectionVideoItemParams,
+): Promise<Collection> => {
+  const [uri, init] = addVideoToCollectionAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+export const addVideoToCollectionMutationOptions = (fetch: Fetch<Collection>) =>
+  mutationOptions({
+    mutationFn: (params: UpdateCollectionVideoItemParams) =>
+      addVideoToCollectionAPI(fetch, params),
+  });
+
+const removeVideoFromCollectionAPIConfig = ({
+  id,
+  video,
+}: UpdateCollectionVideoItemParams): ApiConfig => {
+  return [
+    `${API_URL}/${id}/item/`,
+    {
+      method: "DELETE",
+      body: JSON.stringify({ video }),
+    },
+  ];
+};
+
+export const removeVideoFromCollectionAPI = async (
+  fetch: Fetch<void>,
+  params: UpdateCollectionVideoItemParams,
+): Promise<void> => {
+  const [uri, init] = removeVideoFromCollectionAPIConfig(params);
+
+  await fetch(uri, init);
+};
+
+export const removeVideoFromCollectionMutationOptions = (fetch: Fetch<void>) =>
+  mutationOptions({
+    mutationFn: (params: UpdateCollectionVideoItemParams) =>
+      removeVideoFromCollectionAPI(fetch, params),
+  });
 
 // #endregion

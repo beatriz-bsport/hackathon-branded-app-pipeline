@@ -120,6 +120,17 @@ export const resetAnalyticsB2B = () => {
 
 // ==================== B2C ====================
 
+/**
+ * Module-level guard for B2C tracking, controlled by the `b2c_analytics_tracking` feature flag.
+ * Defaults to false so tracking is off until the Unleash flag explicitly enables it.
+ * When false, `optInTrackingAnalyticsB2C` becomes a no-op so no B2C events are ever sent.
+ */
+let isB2CTrackingAllowed = false;
+
+export const setB2CTrackingAllowed = (allowed: boolean) => {
+  isB2CTrackingAllowed = allowed;
+};
+
 export const analyticsClientB2C: AnalyticsClientInterface = new AnalyticsClient(
   {
     internalDebug: ACTIVATE_DEBUG,
@@ -155,9 +166,12 @@ const configureAnalyticsB2C = () => {
 configureAnalyticsB2C();
 
 /**
- * Activate B2C Tracking
+ * Activate B2C Tracking.
+ * Guarded by `isB2CTrackingAllowed` (feature flag `b2c_analytics_tracking`).
+ * When the flag is off this is a no-op, so the SDK stays opted-out and sends nothing.
  */
 export const optInTrackingAnalyticsB2C = () => {
+  if (!isB2CTrackingAllowed) return;
   analyticsClientB2C.optInTracking();
 };
 

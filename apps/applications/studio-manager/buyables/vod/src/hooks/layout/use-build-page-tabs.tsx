@@ -11,12 +11,12 @@ export const useBuildPageTabs = (): TabsProps => {
   return {
     orientation: "horizontal",
     TabsItems: [
-      <NavLink to={`../${URLS.MEDIAS}`} key="medias">
+      <NavLink to={`../${URLS.MEDIA}`} key="media">
         {({ isActive }) => (
           <Tabs.Item id="media" label={t("tabs.media")} isActive={isActive} />
         )}
       </NavLink>,
-      <NavLink to={`../${URLS.COLLECTIONS}`} key="collections">
+      <NavLink to={`../${URLS.COLLECTION}`} key="collections">
         {({ isActive }) => (
           <Tabs.Item
             id="collections"

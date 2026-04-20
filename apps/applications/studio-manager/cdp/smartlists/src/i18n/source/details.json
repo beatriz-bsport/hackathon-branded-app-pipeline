@@ -139,7 +139,8 @@
           "trigger": "Trigger"
         }
       },
-      "recipients": {
+      "sentMessages": {
+        "title": "Sent messages",
         "emptyTitle": "Nothing sent yet",
         "emptyDescription": "Recipients who trigger the automation will appear here"
       }

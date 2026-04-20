@@ -59,6 +59,16 @@ export const useSmartlistNavigation = () => {
         options,
       );
     },
+    navigateToSmartlistCampaignSentDetails: (
+      smartlistId: string,
+      campaignUuid: string,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.campaignSentDetails(smartlistId, campaignUuid),
+        options,
+      );
+    },
     navigateToSmartlistPushAutomationCreation: (
       smartlistId: string,
       options?: NavigateOptions,

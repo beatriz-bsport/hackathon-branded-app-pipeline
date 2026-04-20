@@ -73,6 +73,7 @@ export type CampaignSent = {
  */
 export type FetchCampaignSentParams = {
   smartlist: number;
+  automated_campaign_id?: number;
   only_automated_campaign?: boolean;
   no_automated_campaign?: boolean;
   without_member_info?: boolean;

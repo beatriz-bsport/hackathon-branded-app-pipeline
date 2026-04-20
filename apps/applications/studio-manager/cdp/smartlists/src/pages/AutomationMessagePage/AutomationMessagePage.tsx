@@ -24,6 +24,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
 import { AutomationDetailsCard } from "./AutomationDetailsCard";
+import { AutomationSentMessagesTable } from "./AutomationSentMessagesTable";
 
 export function AutomationMessagePage() {
   return (
@@ -39,8 +40,7 @@ export function AutomationMessagePage() {
 function AutomationMessageDetail() {
   const navigate = useNavigate();
 
-  const { t: tList } = useTranslation("list");
-  const { t: tDetails } = useTranslation("details");
+  const { t } = useTranslation();
 
   const {
     isOpen: isDeleteAutomationOpen,
@@ -64,7 +64,10 @@ function AutomationMessageDetail() {
 
   const breadcrumbsItems = [
     <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
-      <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists"
+        text={t("title", { ns: "list" })}
+      />
     </Link>,
     <Link
       key="smartlist-detail-breadcrumb"
@@ -84,7 +87,7 @@ function AutomationMessageDetail() {
       color="main"
       intent="default"
       size="md"
-      label={tDetails("automation.messagePage.actions.delete")}
+      label={t("automation.messagePage.actions.delete", { ns: "details" })}
       onClick={() => {
         requestDelete(automation.id);
       }}
@@ -96,7 +99,7 @@ function AutomationMessageDetail() {
       color="main"
       intent="default"
       size="md"
-      label={tDetails("automation.messagePage.actions.edit")}
+      label={t("automation.messagePage.actions.edit", { ns: "details" })}
       onClick={() => {
         navigate(
           automation.communication_kind === CommunicationKind.SMS
@@ -117,6 +120,11 @@ function AutomationMessageDetail() {
       <DetailsLayout.Content>
         <div className="flex flex-col gap-md">
           <AutomationDetailsCard messageId={messageId} />
+          <AutomationSentMessagesTable
+            key={messageId}
+            smartlistId={id}
+            messageId={messageId}
+          />
         </div>
       </DetailsLayout.Content>
 

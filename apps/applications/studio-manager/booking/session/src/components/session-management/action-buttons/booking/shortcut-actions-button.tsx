@@ -1,5 +1,7 @@
 import { FC, useCallback } from "react";
+import { useNavigate } from "react-router";
 
+import { openCheckoutFlow } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
 import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
@@ -14,6 +16,7 @@ import { type ActionItemId, BookingActionItemId } from "./types";
 export const ShortcutActionsButton: FC<{
   sessionId: number;
   bookingId: number;
+  memberId?: number;
   openModal: (type: SessionManagementModalType, bookingId: number) => void;
   allowedItemIds?: ActionItemId[];
   participantEmail?: string;
@@ -21,6 +24,7 @@ export const ShortcutActionsButton: FC<{
 }> = ({
   sessionId,
   bookingId,
+  memberId,
   openModal,
   allowedItemIds,
   participantEmail,
@@ -29,6 +33,8 @@ export const ShortcutActionsButton: FC<{
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
+
+  const navigate = useNavigate();
 
   const { activity } = useRetrieveSessionDetails(session);
 
@@ -113,7 +119,11 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "shopping-cart-01",
         type: "button",
         onClick: () => {
-          // TODO: implement sell items action
+          openCheckoutFlow({
+            basketStartTrigger: "member_profile_page",
+            memberId,
+            navigate: (url) => navigate(url),
+          });
           setIsPopoverOpened(false);
         },
       };
@@ -201,6 +211,8 @@ export const ShortcutActionsButton: FC<{
       copyToClipboard,
       bookingId,
       openModal,
+      navigate,
+      memberId,
     ],
   );
 

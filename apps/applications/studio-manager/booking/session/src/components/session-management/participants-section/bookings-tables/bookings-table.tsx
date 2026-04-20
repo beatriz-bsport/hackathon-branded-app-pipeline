@@ -124,6 +124,7 @@ export const BookingsTable: FC<{
         <ShortcutActionsButton
           sessionId={sessionId}
           bookingId={row.id}
+          memberId={row.memberData?.id}
           openModal={openModal}
           participantEmail={row.memberData?.email}
           participantPhone={row.memberData?.phone}

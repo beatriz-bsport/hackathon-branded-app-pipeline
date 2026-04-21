@@ -4,6 +4,11 @@
       "implementation": "./src/generators/migrate-to-library/generator",
       "schema": "./src/generators/migrate-to-library/schema.json",
       "description": "Migrate a Studio Manager app from Module Federation to workspace library"
+    },
+    "migrate-filenames-to-kebab-case": {
+      "implementation": "./src/generators/migrate-filenames-to-kebab-case/generator",
+      "schema": "./src/generators/migrate-filenames-to-kebab-case/schema.json",
+      "description": "Rename package source files to kebab-case and update local references"
     }
   }
 }

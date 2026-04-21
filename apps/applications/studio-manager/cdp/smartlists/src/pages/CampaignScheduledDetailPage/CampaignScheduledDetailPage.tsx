@@ -43,7 +43,7 @@ export const CampaignScheduledDetailPage = () => {
 };
 
 function CampaignScheduledDetail() {
-  const { t: tList } = useTranslation("list");
+  const { t } = useTranslation("list");
   const { navigateToSmartlistCampaigns, navigateToSmartlistCampaignEdit } =
     useSmartlistNavigation();
   const { id, uuid } = useParams<{ id: string; uuid: string }>();
@@ -68,7 +68,7 @@ function CampaignScheduledDetail() {
 
   const breadcrumbsItems = [
     <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
-      <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
+      <Breadcrumbs.Item id="breadcrumb-smartlists" text={t("title")} />
     </Link>,
     <Link
       key="smartlists-item-campaign-breadcrumb"

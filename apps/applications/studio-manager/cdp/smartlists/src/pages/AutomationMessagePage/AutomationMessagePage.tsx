@@ -45,7 +45,7 @@ function AutomationMessageDetail() {
     navigateToSmartlistPushAutomationEdit,
   } = useSmartlistNavigation();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation(["list", "details"]);
 
   const {
     isOpen: isDeleteAutomationOpen,

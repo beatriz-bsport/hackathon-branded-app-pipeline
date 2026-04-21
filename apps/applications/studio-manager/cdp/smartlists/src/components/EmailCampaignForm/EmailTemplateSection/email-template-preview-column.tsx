@@ -87,11 +87,11 @@ export const EmailTemplatePreviewColumn: FC = () => {
           )}
         </Alert>
       ) : null}
-      <div className="flex flex-wrap gap-sm">
+      <div className="flex flex-wrap gap-sm justify-end">
         <Button
           size="sm"
           intent="flat"
-          color="main"
+          color="default"
           id={openEditorButtonConfig.id}
           label={openEditorButtonConfig.label ?? ""}
           iconLeft={openEditorButtonConfig.iconLeft}

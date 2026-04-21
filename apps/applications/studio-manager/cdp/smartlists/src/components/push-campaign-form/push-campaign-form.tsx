@@ -1,6 +1,7 @@
 import React from "react";
 
 import { ControlledForm, type ControlledFormProps } from "@bsport/form";
+import { Alert } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { CampaignDeliveryModeSelector } from "#src/components/campaign-generic-fields/campaign-delivery-mode-selector";
@@ -20,7 +21,7 @@ export const PushCampaignForm: React.FC<PushCampaignFormProps> = ({
   onSubmit,
   ...methods
 }) => {
-  const { i18n } = useTranslation("campaign");
+  const { i18n, t } = useTranslation("campaign");
   const companyTheme = dataAccessLayer.useCompanyTheme();
 
   return (
@@ -30,6 +31,7 @@ export const PushCampaignForm: React.FC<PushCampaignFormProps> = ({
       className="flex flex-col gap-md"
       {...methods}
     >
+      <Alert status="default">{t("push.creation.alertMessage")}</Alert>
       <CampaignNameField />
       <CampaignDeliveryModeSelector
         companyTimezone={companyTheme?.timezone_name ?? "UTC"}

@@ -1,10 +1,9 @@
 import { useId } from "react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 import { useFormController } from "@bsport/form";
 import {
   Breadcrumbs,
-  Button,
   DetailsLayout,
   toast,
   useDetailsLayout,
@@ -23,10 +22,12 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import { CampaignDeliveryCtaButton } from "#src/components/campaign-generic-fields/campaign-delivery-cta-button";
 import {
   DELIVERY_MODE_SCHEDULE_LATER,
   DELIVERY_MODE_SEND_NOW,
 } from "#src/components/campaign-generic-fields/campaign-delivery-mode.constants";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import {
   formatScheduleEmailCampaignPayload,
   formatSendEmailCampaignPayload,
@@ -50,9 +51,8 @@ const CreateEmailCampaignPage = () => {
 function CreateEmailCampaign() {
   const { id: smartlistId } = useParams<{ id: string }>();
   invariant(smartlistId, "Expected id param to be defined");
-  const { t: tList } = useTranslation("list");
-  const { t: tCampaign } = useTranslation("campaign");
-  const navigate = useNavigate();
+  const { t } = useTranslation(["list", "campaign"]);
+  const { navigateToSmartlistCampaigns } = useSmartlistNavigation();
 
   const { data: smartlist } = useSmartlistDetailSuspenseQuery(smartlistId);
   const { detailsLayoutProps } = useDetailsLayout();
@@ -61,11 +61,11 @@ function CreateEmailCampaign() {
 
   const { sendCampaign, isSending } = useSendCampaign({
     onSuccess: () => {
-      navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
+      navigateToSmartlistCampaigns(smartlistId);
       toast({
         status: "default",
         icon: "check",
-        title: tCampaign("email.creation.toasts.success.send"),
+        title: t("email.creation.toasts.success.send", { ns: "campaign" }),
         buttonIcon: "x-close",
       });
     },
@@ -73,7 +73,7 @@ function CreateEmailCampaign() {
       toast({
         status: "critical",
         icon: "alert-circle",
-        title: tCampaign("email.creation.toasts.error.sendFailed"),
+        title: t("email.creation.toasts.error.sendFailed", { ns: "campaign" }),
         buttonIcon: "x-close",
       });
     },
@@ -83,16 +83,16 @@ function CreateEmailCampaign() {
       toast({
         status: "default",
         icon: "check",
-        title: tCampaign("email.creation.toasts.success.schedule"),
+        title: t("email.creation.toasts.success.schedule", { ns: "campaign" }),
         buttonIcon: "x-close",
       });
-      navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
+      navigateToSmartlistCampaigns(smartlistId);
     },
     onError: () => {
       toast({
         status: "critical",
         icon: "alert-circle",
-        title: tCampaign("email.creation.toasts.error.sendFailed"),
+        title: t("email.creation.toasts.error.sendFailed", { ns: "campaign" }),
         buttonIcon: "x-close",
       });
     },
@@ -117,20 +117,24 @@ function CreateEmailCampaign() {
       emailTemplateHtml: undefined,
     },
   });
+  const deliveryMode = methods.watch("deliveryMode");
 
   const breadcrumbsItems = [
-    <Breadcrumbs.Item
-      key="breadcrumb-smartlists"
-      id="breadcrumb-smartlists"
-      text={tList("title")}
-      href={SMARTLIST_APP_LINKS.index()}
-    />,
-    <Breadcrumbs.Item
+    <Link key="breadcrumb-smartlists" to={SMARTLIST_APP_LINKS.index()}>
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists"
+        text={t("title", { ns: "list" })}
+      />
+    </Link>,
+    <Link
       key="breadcrumb-smartlists-campaigns"
-      id="breadcrumb-smartlists-campaigns"
-      text={smartlist?.name ?? ""}
-      href={SMARTLIST_APP_LINKS.campaign(smartlistId)}
-    />,
+      to={SMARTLIST_APP_LINKS.campaign(smartlistId)}
+    >
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists-campaigns"
+        text={smartlist?.name ?? ""}
+      />
+    </Link>,
   ];
 
   const handleSubmit = async (data: EmailCampaignFormData) => {
@@ -169,21 +173,18 @@ function CreateEmailCampaign() {
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
-        pageTitle={tCampaign("email.creation.title")}
+        pageTitle={t("email.creation.title", { ns: "campaign" })}
         BreadcrumbsItems={breadcrumbsItems}
-        callToActionButton={
-          <Button
-            color="main"
-            intent="call-to-action"
-            label={tCampaign("email.creation.continueButtonLabel")}
-            size="md"
-            type="submit"
-            form={formId}
-            disabled={
+        callToActionButton={[
+          <CampaignDeliveryCtaButton
+            key="campaign-delivery-cta-button"
+            deliveryMode={deliveryMode}
+            formId={formId}
+            isDisabled={
               methods.formState.isSubmitting || isSending || isScheduling
             }
-          />
-        }
+          />,
+        ]}
       />
       <DetailsLayout.Content>
         <EmailCampaignForm

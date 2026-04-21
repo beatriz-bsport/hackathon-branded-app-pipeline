@@ -83,7 +83,6 @@
           "confirmButtonLabel": "Save",
           "cancelButtonLabel": "Cancel",
           "subjectLabel": "Email subject",
-          "franchiseTemplateLabel": "Franchise template",
           "cannotUseEmailEditorOnMobile": {
             "description": "Open the email editor on your desktop for a better editing experience",
             "confirmButtonLabel": "OK"
@@ -100,6 +99,9 @@
           "saveActionModal": {
             "title": "Save email",
             "description": "How would you like to save this email?",
+            "franchiseTemplateAlert": {
+              "description": "Franchise templates cannot be updated."
+            },
             "options": {
               "overwriteExistingTemplate": {
                 "label": "Update existing template",
@@ -485,6 +487,13 @@
       },
       "loadingState": {
         "description": "Loading sent campaigns ..."
+      }
+    },
+    "campaignSentRecipient": {
+      "emptyState": {
+        "title": "No recipients match your filters",
+        "description": "This campaign won’t be sent to anyone. Review your filters if needed.",
+        "reviewFilters": "Review filters"
       }
     }
   },

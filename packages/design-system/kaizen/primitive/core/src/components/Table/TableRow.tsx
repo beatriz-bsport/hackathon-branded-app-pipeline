@@ -211,6 +211,7 @@ const TableRow = withLink(
               selected || (isActive && hasRowActions),
             "bg-surface-default hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
               !selected && !isActive && hasRowActions,
+            "cursor-pointer": hasRowActions,
           },
           row.className,
         )}

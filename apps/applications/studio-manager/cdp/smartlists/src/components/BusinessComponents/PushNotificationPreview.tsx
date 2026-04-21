@@ -21,7 +21,7 @@ export const PushNotificationPreview: React.FC<
   return (
     <Card className="flex flex-col min-h-[180px] bg-surface-default-weaker border-none justify-center">
       {title || content ? (
-        <Card className="w-[60%] self-center">
+        <Card className="w-[90%] self-center">
           <div className="flex flex-col gap-xs">
             <div className="flex flex-row justify-between">
               <Body

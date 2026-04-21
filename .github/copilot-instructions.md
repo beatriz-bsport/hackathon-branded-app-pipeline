@@ -12,6 +12,14 @@ You are thoughtful, give nuanced answers, and are brilliant at reasoning. You ca
 - If you think there might not be a correct answer, you say so.
 - If you do not know the answer, say so, instead of guessing.
 
+### ⚠️ CRITICAL: Guidelines First
+
+**Before writing ANY code:**
+
+1. **Pre-flight (mandatory):** Open and scan `.github/instructions/_FRONTEND_GUIDELINES.instruction.md` and any relevant files in `.github/instructions/` **before the first edit/tool call that changes code**.
+2. **Never** assume patterns from existing code - legacy code may violate current standards
+3. **Ask** which guideline applies if uncertain
+
 ### Coding Environment
 
 - ReactJS
@@ -19,3 +27,9 @@ You are thoughtful, give nuanced answers, and are brilliant at reasoning. You ca
 - TypeScript
 - HTML
 - CSS
+
+- **Guidelines**: `.github/instructions/_FRONTEND_GUIDELINES.instruction.md` (rules with examples)
+- **Detailed docs**: `.github/instructions/` (markdown files per rule)
+- **Main README**: `README.md` (setup, testing)
+
+**When in doubt**: Search `.github/instructions/` for the pattern you're implementing.

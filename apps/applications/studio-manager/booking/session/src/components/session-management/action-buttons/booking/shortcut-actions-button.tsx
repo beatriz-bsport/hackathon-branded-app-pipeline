@@ -120,7 +120,7 @@ export const ShortcutActionsButton: FC<{
         type: "button",
         onClick: () => {
           openCheckoutFlow({
-            basketStartTrigger: "member_profile_page",
+            basketStartTrigger: "session_management_page",
             memberId,
             navigate: (url) => navigate(url),
           });

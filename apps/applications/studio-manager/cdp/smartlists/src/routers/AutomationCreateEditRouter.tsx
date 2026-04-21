@@ -7,6 +7,9 @@ const AutomationPushCreationPage = lazy(
 const AutomationEmailCreationPage = lazy(
   () => import("#src/pages/AutomationEmailCreationPage"),
 );
+const AutomationEmailEditPage = lazy(
+  () => import("#src/pages/AutomationEmailEditPage"),
+);
 const AutomationSmsCreationPage = lazy(
   () => import("#src/pages/AutomationSmsCreationPage"),
 );
@@ -26,8 +29,13 @@ export function AutomationCreateEditRouter() {
       <Route path="email/new" element={<AutomationEmailCreationPage />} />
       <Route path="push/new" element={<AutomationPushCreationPage />} />
       <Route path="sms/new" element={<AutomationSmsCreationPage />} />
+      <Route
+        path="email/:entityId/edit"
+        element={<AutomationEmailEditPage />}
+      />
       <Route path="push/:entityId/edit" element={<AutomationPushEditPage />} />
       <Route path="sms/:entityId/edit" element={<AutomationSmsEditPage />} />
+      <Route path="email/:messageId" element={<AutomationMessagePage />} />
       <Route path="push/:messageId" element={<AutomationMessagePage />} />
       <Route path="sms/:messageId" element={<AutomationMessagePage />} />
       <Route path="*" element={<Navigate to={".."} replace />} />

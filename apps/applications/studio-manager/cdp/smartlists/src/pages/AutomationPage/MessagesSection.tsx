@@ -64,6 +64,8 @@ export const MessagesSection = (
 ) => {
   const { smartlistId } = useOutletContext<AutomationPageContext>();
   const {
+    navigateToSmartlistEmailAutomationEdit,
+    navigateToSmartlistEmailAutomationMessage,
     navigateToSmartlistSmsAutomationEdit,
     navigateToSmartlistSmsAutomationMessage,
     navigateToSmartlistPushAutomationEdit,
@@ -310,7 +312,14 @@ export const MessagesSection = (
                     } else if (id === INLINE_ACTIONS.DELETE) {
                       requestDelete(row.id);
                     } else if (id === INLINE_ACTIONS.EDIT) {
-                      if (row.communication_kind === CommunicationKind.PUSH) {
+                      if (row.communication_kind === CommunicationKind.EMAIL) {
+                        navigateToSmartlistEmailAutomationEdit(
+                          smartlistId,
+                          String(row.id),
+                        );
+                      } else if (
+                        row.communication_kind === CommunicationKind.PUSH
+                      ) {
                         navigateToSmartlistPushAutomationEdit(
                           smartlistId,
                           String(row.id),
@@ -367,19 +376,25 @@ export const MessagesSection = (
         ...campaign,
         id: campaign.id,
         onRowClick:
-          campaign.communication_kind === CommunicationKind.PUSH
+          campaign.communication_kind === CommunicationKind.EMAIL
             ? () =>
-                navigateToSmartlistPushAutomationMessage(
+                navigateToSmartlistEmailAutomationMessage(
                   smartlistId,
                   campaign.id,
                 )
-            : campaign.communication_kind === CommunicationKind.SMS
+            : campaign.communication_kind === CommunicationKind.PUSH
               ? () =>
-                  navigateToSmartlistSmsAutomationMessage(
+                  navigateToSmartlistPushAutomationMessage(
                     smartlistId,
                     campaign.id,
                   )
-              : undefined,
+              : campaign.communication_kind === CommunicationKind.SMS
+                ? () =>
+                    navigateToSmartlistSmsAutomationMessage(
+                      smartlistId,
+                      campaign.id,
+                    )
+                : undefined,
       })),
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

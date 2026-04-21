@@ -265,7 +265,8 @@
     "email": {
       "pageTitle": "Email Campaign",
       "actions": {
-        "continue": "Continue"
+        "continue": "Continue",
+        "save": "Save"
       },
       "sections": {
         "delivery": "Delivery"
@@ -296,10 +297,12 @@
       },
       "toasts": {
         "success": {
-          "created": "Email automation created"
+          "created": "Email automation created",
+          "saved": "Email automation saved"
         },
         "error": {
-          "createFailed": "Email automation couldn't be created. Please try again."
+          "createFailed": "Email automation couldn't be created. Please try again.",
+          "updateFailed": "Email automation couldn't be updated. Please try again."
         }
       }
     }

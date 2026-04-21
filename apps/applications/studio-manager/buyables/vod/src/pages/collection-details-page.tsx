@@ -1,11 +1,14 @@
 import type { FC } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import { DetailsLayout, useDetailsLayout } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary";
+import { CollectionDeleteModal } from "#src/features/collection-delete-modal/collection-delete-modal";
 import { useCollectionQuery } from "#src/hooks/api/use-collection-query";
 import { useCollectionDetailsHeader } from "#src/hooks/layout/use-collection-details-header";
+import { useDisclosure } from "#src/hooks/use-disclosure";
+import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 const CollectionDetailsPageInner: FC = () => {
@@ -16,20 +19,39 @@ const CollectionDetailsPageInner: FC = () => {
     throw new Error("Expected collection id param to be a valid number");
   }
 
+  const navigate = useNavigate();
   const { detailsLayoutProps } = useDetailsLayout();
-  const headerConfig = useCollectionDetailsHeader();
+  const {
+    isOpen: isDeleteModalOpen,
+    onClose: onCloseDeleteModal,
+    onOpen: onOpenDeleteModal,
+  } = useDisclosure();
+  const headerConfig = useCollectionDetailsHeader({
+    onDeleteClick: onOpenDeleteModal,
+  });
   const { t } = useTranslation("collections-list");
   const { data } = useCollectionQuery(id);
 
   return (
-    <DetailsLayout {...detailsLayoutProps} withPanel={false}>
-      <DetailsLayout.Header pageTitle={data.name} {...headerConfig} />
-      <DetailsLayout.Content>
-        <div className="flex h-full items-center justify-center px-lg py-xl">
-          {t("details.placeholder")}
-        </div>
-      </DetailsLayout.Content>
-    </DetailsLayout>
+    <>
+      <DetailsLayout {...detailsLayoutProps} withPanel={false}>
+        <DetailsLayout.Header pageTitle={data.name} {...headerConfig} />
+        <DetailsLayout.Content>
+          <div className="flex h-full items-center justify-center px-lg py-xl">
+            {t("details.placeholder")}
+          </div>
+        </DetailsLayout.Content>
+      </DetailsLayout>
+
+      <CollectionDeleteModal
+        collectionId={id}
+        isOpen={isDeleteModalOpen}
+        closeModal={onCloseDeleteModal}
+        onDeleteScheduled={() => {
+          navigate(URLS.INDEX);
+        }}
+      />
+    </>
   );
 };
 

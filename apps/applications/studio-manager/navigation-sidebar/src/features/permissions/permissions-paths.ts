@@ -18,6 +18,7 @@ export const PERMISSIONS_PATHS: Record<
   attendance: ["navigationMenu.payments.clockIn"],
   audience: ["navigationMenu.marketing.cadence"],
   calendar: ["navigationMenu.calendar"],
+  classes: [],
   customForm: ["navigationMenu.marketing.customForms"],
   dashboard: ["navigationMenu.dashboard"],
   directDebit: ["navigationMenu.payments.directDebits"],
@@ -74,6 +75,7 @@ export const PERMISSIONS_PATHS: Record<
   settings_webshop: ["navigationMenu.settings.webShop"],
   settings_widgets: ["navigationMenu.settings.widgets"],
   smartlist: ["navigationMenu.marketing.smartlists"],
+  smartfill: [], // TODO: Add smartfill to permissions: https://linear.app/bsport/issue/BOO-2503/add-smartfill-permission
   subscription: ["navigationMenu.products.contracts"],
   substitution: ["navigationMenu.myClub.replacement"],
   tag: ["navigationMenu.marketing.tags"],

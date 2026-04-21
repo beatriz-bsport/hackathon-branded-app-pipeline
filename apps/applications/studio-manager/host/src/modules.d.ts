@@ -13,6 +13,7 @@ declare module "sm-navigation-sidebar/urls" {
   export const REVAMP_URLS_DEVELOPMENT: {
     activity: string;
     calendar: string;
+    classes: string;
     insights: string;
     customForm: string;
     emailTemplate: string;
@@ -25,6 +26,7 @@ declare module "sm-navigation-sidebar/urls" {
     pack: string;
     payout: string;
     playlist: string;
+    smartfill: string;
     smartlist: string;
     teacher: string;
     video: string;

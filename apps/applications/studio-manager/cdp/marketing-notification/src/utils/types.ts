@@ -64,7 +64,9 @@ export type MarketingNotificationRecipientsTableRowData = {
   communicationKind: number;
   dateSent: string;
   hourSent: string;
-  recipientIdentity: string;
+  recipientEmail?: string;
+  recipientFullName?: string;
+  recipientMemberId?: number;
   status: number;
   isNotificationRead: boolean;
   recipientsRelationshipsCount?: number;

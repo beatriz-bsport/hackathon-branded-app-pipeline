@@ -2,5 +2,36 @@
   "pageTitle": "{{sessionName}} with {{coachName}}",
   "goToPreviousSession": "Go to previous session",
   "goToNextSession": "Go to next session",
-  "bookButton": "Book a client"
+  "bookButton": "Book a client",
+  "bookingsSectionTitle": "Participants",
+  "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",
+  "bookingsTable": {
+    "headers": {
+      "present": "Present",
+      "client": "Client"
+    },
+    "emptyState": {
+      "title": "No participant yet."
+    },
+    "loadingMessage": "Loading participants list...",
+    "chips": {
+      "new": "New",
+      "recurring": "Recurring booking",
+      "tags": "Tags"
+    },
+    "actionsMenu": {
+      "label": "Actions"
+    },
+    "refundedPass": "Refunded: {{passName}}",
+    "cancellationReason": {
+      "consumer": "Cancelled by the consumer",
+      "manager": "Cancelled by {{managerName}}",
+      "studio": "Cancelled by the studio"
+    },
+    "cancellationDate": "On {{cancellationDate}}"
+  },
+  "bookingStatusFilter": {
+    "booked": "Booked",
+    "cancelled": "Cancelled"
+  }
 }

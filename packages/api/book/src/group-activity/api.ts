@@ -2,29 +2,33 @@ import { queryOptions } from "@tanstack/react-query";
 
 import {
   type ApiConfig,
-  Fetch,
+  type Fetch,
   type PaginatedResponse,
   type SearchResponse,
+  type Xhr,
+  type XhrApiConfig,
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { API_URL } from "#src/constants";
+import { API_URL, DEFAULT_STALE_TIME } from "#src/constants";
 import type {
   CanArchiveGroupActivityResponse,
+  CreateGroupActivityPayload,
+  EditGroupActivityPayload,
   FetchGroupActivitiesParams,
+  GroupActivityCustomRestriction,
   MetaActivity,
   SearchGroupActivitiesParams,
 } from "#src/group-activity/types";
 
 const META_ACTIVITY_URL = API_URL + "v1/meta-activity";
 
-// TODO: use the same stale time for all group activity queries
-const ACTIVITIES_STALE_TIME = 2 * 60 * 1000; // 2 minutes
-
-// TODO: add the other keys (list, search, etc.)
 export const groupActivityKeys = {
   all: ["@api-book", "group-activities"] as const,
   detail: (id: number) => [...groupActivityKeys.all, id] as const,
+  searches: () => [...groupActivityKeys.all, "search"] as const,
+  search: (params: SearchGroupActivitiesParams) =>
+    [...groupActivityKeys.searches(), params] as const,
 };
 
 const mapGroupActivitiesUrlParams = ({
@@ -273,5 +277,144 @@ export const retrieveGroupActivityQueryOptions = (
   queryOptions({
     queryKey: groupActivityKeys.detail(metaActivityId),
     queryFn: () => retrieveGroupActivity(fetch, metaActivityId),
-    staleTime: ACTIVITIES_STALE_TIME,
+    staleTime: DEFAULT_STALE_TIME,
   });
+
+export const searchGroupActivitiesQueryOptions = (
+  fetch: Fetch<SearchResponse<MetaActivity>>,
+  params: SearchGroupActivitiesParams,
+) =>
+  queryOptions({
+    queryKey: groupActivityKeys.search(params),
+    queryFn: () => searchGroupActivitiesAPI(fetch, params),
+    staleTime: DEFAULT_STALE_TIME,
+  });
+
+export const searchGroupActivitiesAndWorkshopsQueryOptions = (
+  fetch: Fetch<SearchResponse<MetaActivity>>,
+  params: SearchGroupActivitiesParams,
+) =>
+  queryOptions({
+    queryKey: groupActivityKeys.search(params), // using same query key as searchGroupActivitiesQueryOptions
+    queryFn: () => searchGroupActivitiesAndWorkshopsAPI(fetch, params),
+    staleTime: DEFAULT_STALE_TIME,
+  });
+
+const appendFormDataValue = (
+  formData: FormData,
+  key: string,
+  value: string | number | boolean | Blob,
+) => {
+  if (value instanceof Blob) {
+    formData.append(key, value);
+    return;
+  }
+
+  formData.append(key, String(value));
+};
+
+const serializeCustomRestrictionRule = (
+  customRestrictionRule: GroupActivityCustomRestriction[],
+): string => JSON.stringify(customRestrictionRule);
+
+const toGroupActivityFormData = (
+  data: CreateGroupActivityPayload | EditGroupActivityPayload,
+): FormData => {
+  const formData = new FormData();
+
+  Object.entries(data).forEach(([key, value]) => {
+    if (value === undefined) {
+      return;
+    }
+
+    if (value === null) {
+      formData.append(key, "");
+      return;
+    }
+
+    if (key === "custom_restriction_rule") {
+      formData.append(
+        key,
+        serializeCustomRestrictionRule(
+          value as GroupActivityCustomRestriction[],
+        ),
+      );
+      return;
+    }
+
+    if (key === "images") {
+      formData.append(key, JSON.stringify(value));
+      return;
+    }
+
+    if (Array.isArray(value)) {
+      value.forEach((item) => {
+        appendFormDataValue(
+          formData,
+          key,
+          typeof item === "object" ? JSON.stringify(item) : item,
+        );
+      });
+      return;
+    }
+
+    appendFormDataValue(formData, key, value);
+  });
+
+  return formData;
+};
+
+// Create use multipart because cover_main is a file upload.
+// We intentionally use Xhr + FormData here instead of Fetch + JSON so the class form
+// has a single transport path. Non-scalar fields such as custom_restriction_rule must
+// be serialized in one place to keep the public API typed.
+const createGroupActivityAPIConfig = (data: FormData): XhrApiConfig => {
+  return [
+    `${META_ACTIVITY_URL}/`,
+    {
+      method: "POST",
+      formData: data,
+    },
+  ];
+};
+
+export const createGroupActivity = async (
+  xhr: Xhr<MetaActivity>,
+  data: CreateGroupActivityPayload,
+): Promise<MetaActivity> => {
+  const [uri, init] = createGroupActivityAPIConfig(
+    toGroupActivityFormData(data),
+  );
+  const { data: result } = await xhr(uri, init);
+  return result;
+};
+
+// Edit use multipart because cover_main is a file upload.
+// We intentionally use Xhr + FormData here instead of Fetch + JSON so the class form
+// has a single transport path. Non-scalar fields such as custom_restriction_rule must
+// be serialized in one place to keep the public API typed.
+const editGroupActivityAPIConfig = (
+  groupActivityId: number,
+  data: FormData,
+): XhrApiConfig => {
+  return [
+    `${META_ACTIVITY_URL}/${groupActivityId}/`,
+    {
+      method: "PATCH",
+      formData: data,
+    },
+  ];
+};
+
+export const editGroupActivity = async (
+  xhr: Xhr<MetaActivity>,
+  groupActivityId: number,
+  data: EditGroupActivityPayload,
+): Promise<MetaActivity> => {
+  const [uri, init] = editGroupActivityAPIConfig(
+    groupActivityId,
+    toGroupActivityFormData(data),
+  );
+  const { data: result } = await xhr(uri, init);
+  return result;
+};

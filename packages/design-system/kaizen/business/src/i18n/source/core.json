@@ -132,7 +132,8 @@
     "passesActivationDateLabel_other": "The date that the passes would start from",
     "loadingBillingGroups": "Loading billing groups...",
     "billingGroup": "Billing group",
-    "billingGroupTooltip": "Choose a billing group to assign this invoice to a specific location or entity for accurate tracking and reporting"
+    "billingGroupTooltip": "Choose a billing group to assign this invoice to a specific location or entity for accurate tracking and reporting",
+    "closeWithItemsConfirmation": "There are items in your checkout. Do you really want to close?"
   },
   "itemTypeSelector": {
     "label": "Type",
@@ -152,5 +153,15 @@
     "14502": "No consistent invoice number could be extracted.",
     "15000": "Cannot create an invoice with buyable items that are unusable by staff.",
     "99000": "Cannot use an item that is unusable by staff."
+  },
+  "categorySelector": {
+    "label": "Category",
+    "selected": "",
+    "selected_one": "{{ count }} selected category",
+    "selected_other": "{{ count }} selected categories",
+    "helperText": "Only selected categories will be included",
+    "placeholder": "Leave blank to not limit the offering",
+    "selectAll": "Select all",
+    "deselectAll": "Select none"
   }
 }

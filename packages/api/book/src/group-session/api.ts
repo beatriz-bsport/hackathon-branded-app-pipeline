@@ -2,13 +2,12 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { Fetch, PaginatedResponse, buildUrlParams } from "@bsport/store-base";
 
+import { DEFAULT_STALE_TIME } from "#src/constants";
+
 import type { GroupSession, PaginatedGroupSessionParams } from "./types";
 
 const API_URL = "book/v1";
 const API_URL_GROUP_SESSION = `${API_URL}/offer_group`;
-
-// TODO: use the same stale time for all group activity queries
-const GROUP_SESSION_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 export const groupSessionKeys = {
   all: ["@api-book", "groupSessions"] as const,
@@ -49,5 +48,5 @@ export const retrieveGroupSessionQueryOption = (
   queryOptions({
     queryKey: groupSessionKeys.detail(groupSessionId),
     queryFn: () => retrieveGroupSession(fetch, groupSessionId),
-    staleTime: GROUP_SESSION_STALE_TIME,
+    staleTime: DEFAULT_STALE_TIME,
   });

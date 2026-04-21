@@ -137,7 +137,7 @@ const lightSignupFormValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required('booking:lightSignup.form.errors.requiredField')
     .matches(
-      /^[^\s]{6,}$/,
+      /^[^\s]{12,}$/,
       'booking:lightSignup.form.errors.passwordMinimumRequirements',
     ),
   passwordConfirm: Yup.string()

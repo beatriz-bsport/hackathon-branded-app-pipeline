@@ -253,6 +253,7 @@ export type CheckoutFlowEventName =
   | "checkout_flow_escape_key_button_clicked"
   | "checkout_flow_cross_button_clicked"
   | "checkout_flow_cancel_button_clicked"
+  | "checkout_flow_click_outside"
   | "checkout_flow_pay_cancel";
 
 type StartPayload = {
@@ -330,7 +331,11 @@ export type FootnoteCloseReason = "save" | "cancel" | "cross" | "escape";
 
 type CancelPayload = {
   basket_session_id?: string;
-  basket_cancel_trigger?: "cancel_button" | "cross_button" | "escape_key";
+  basket_cancel_trigger?:
+    | "cancel_button"
+    | "cross_button"
+    | "escape_key"
+    | "backdrop_click";
   member_id: number | null;
   nb_of_promo_code_applied: number;
   billing_group_id_selected: number | null;
@@ -388,8 +393,13 @@ export type CheckoutFlowEventPayloadMap = {
   checkout_flow_escape_key_button_clicked: CancelPayload;
   checkout_flow_cross_button_clicked: CancelPayload;
   checkout_flow_cancel_button_clicked: CancelPayload;
+  checkout_flow_click_outside: CancelPayload;
   checkout_flow_pay_cancel: CancelPayload & {
-    basket_cancel_trigger: "cancel_button" | "cross_button" | "escape_key";
+    basket_cancel_trigger:
+      | "cancel_button"
+      | "cross_button"
+      | "escape_key"
+      | "backdrop_click";
   };
 };
 

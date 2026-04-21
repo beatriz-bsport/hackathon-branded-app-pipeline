@@ -78,6 +78,10 @@ export {
   type DropdownMenuItems,
 } from "./components/DropdownMenu";
 export {
+  DropdownMultiSelect,
+  type DropdownMultiSelectProps,
+} from "./components/organisms/dropdown-multi-select";
+export {
   default as ErrorFallback,
   type ErrorFallbackProps,
   type ErrorFallbackActionProps,

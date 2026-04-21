@@ -28,6 +28,9 @@ export type ContractFormData = Pick<
   | "commitment_period_unit"
   | "commitment_period_value"
   | "has_mandatory_commitment_period"
+  | "highlighted_as_recommended"
+  | "is_usable_by_staff"
+  | "tags_on_first_billing"
 > &
   Pick<CreateLegacyContractParams, "payment_pack"> & {
     payment_pack_details: Pick<

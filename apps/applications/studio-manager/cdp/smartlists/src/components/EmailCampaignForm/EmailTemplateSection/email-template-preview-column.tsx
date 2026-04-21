@@ -8,7 +8,7 @@ import { HTMLPreview } from "#src/components/BusinessComponents/HTMLPreview";
 import { useTranslation } from "#src/utils/i18n";
 
 import { EmailTemplateEditor } from "../EmailTemplateEditor/email-template-editor";
-import type { EmailCampaignFormData } from "../types";
+import type { EmailMessageContentFormData } from "../types";
 
 const INLINE_ACTIONS = {
   OPEN_EDITOR: "openEditor",
@@ -18,7 +18,7 @@ type InlineAction = (typeof INLINE_ACTIONS)[keyof typeof INLINE_ACTIONS];
 
 export const EmailTemplatePreviewColumn: FC = () => {
   const { t } = useTranslation("campaign");
-  const { watch, setValue } = useFormContext<EmailCampaignFormData>();
+  const { watch, setValue } = useFormContext<EmailMessageContentFormData>();
   const [inlineActions, setInlineActions] = useState<InlineAction | null>(null);
   const watchedEmailTemplateId = watch("emailTemplateId");
   const watchedEmailTemplateDesign = watch("emailTemplateDesign");

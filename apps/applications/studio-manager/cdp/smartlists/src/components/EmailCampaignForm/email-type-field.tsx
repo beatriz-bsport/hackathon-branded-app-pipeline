@@ -9,7 +9,7 @@ import {
 import { useTranslation } from "#src/utils/i18n";
 
 import { EMAIL_TYPE_INFORMATIONAL, EMAIL_TYPE_MARKETING } from "./constants";
-import type { EmailCampaignFormData } from "./types";
+import type { EmailChannelFormData } from "./types";
 import { isEmailTypeValid } from "./utils";
 
 export const EmailTypeField: React.FC = () => {
@@ -28,7 +28,7 @@ export const EmailTypeField: React.FC = () => {
   ];
 
   return (
-    <FormField<EmailCampaignFormData, "emailType", RadioGroupProps>
+    <FormField<EmailChannelFormData, "emailType", RadioGroupProps>
       name="emailType"
       mapProps={({ field, form: { setValue } }) => ({
         value: field.value,

@@ -123,7 +123,11 @@ const OfferFormSettings: React.FC<Props> = ({
 
   const handleToggleManagerOnly = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setFieldValue('isManagerOnly', !event.target.checked);
+      const isAvailableForBooking = event.target.checked;
+      setFieldValue('isManagerOnly', !isAvailableForBooking);
+      if (!isAvailableForBooking) {
+        setFieldValue('availableOnPartnership', false);
+      }
     },
     [setFieldValue],
   );

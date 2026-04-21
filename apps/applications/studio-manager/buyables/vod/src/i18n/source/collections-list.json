@@ -1,7 +1,10 @@
 {
   "table": {
     "headers": {
-      "name": "Collections"
+      "name": "Collections",
+      "createCollection": "Create collection",
+      "videosCount": "Videos count",
+      "actions": "Actions"
     },
     "videosCountLabel": "",
     "videosCountLabel_one": "{{count}} item",
@@ -14,6 +17,33 @@
     "emptySearch": {
       "title": "No collections found",
       "subtitle": "Try adjusting your search."
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
     }
+  },
+  "deleteModal": {
+    "title": "Delete Collection?",
+    "description": "Your members will no longer have access to this collection.",
+    "buttons": {
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "submitResponse": {
+      "success": "Collection deleted",
+      "error": "Failed to delete the collection"
+    },
+    "undoAction": {
+      "label": "Undo"
+    },
+    "undoResponse": {
+      "success": "Action undone"
+    }
+  },
+  "error": {
+    "title": "Unable to load collections",
+    "description": "Please try again. If the issue persists, refresh the page.",
+    "retry": "Retry"
   }
 }

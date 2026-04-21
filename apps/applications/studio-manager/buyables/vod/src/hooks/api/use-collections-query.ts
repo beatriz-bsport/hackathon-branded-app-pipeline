@@ -22,7 +22,7 @@ export const useCollectionsQuery = () => {
     page_size: currentPageSize,
   };
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading, isError, error, refetch } = useQuery(
     fetchCollectionsQueryOptions(fetch, params),
   );
 
@@ -44,5 +44,13 @@ export const useCollectionsQuery = () => {
     showRowsPerPageSelector: true,
   };
 
-  return { collections, isLoading, isEmpty, paginationProps };
+  return {
+    collections,
+    isLoading,
+    isError,
+    error,
+    refetch,
+    isEmpty,
+    paginationProps,
+  };
 };

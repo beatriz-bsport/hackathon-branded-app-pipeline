@@ -23,7 +23,8 @@
     "schedule": "Schedule",
     "accessControl": "Access Control",
     "classes": {
-      "title": "Classes",
+      "title": "Services",
+      "classes": "Classes",
       "activities": "Group Activities",
       "workshops": "Workshops",
       "appointments": "Appointments"
@@ -48,6 +49,7 @@
       "marketingNotifications": "Notifications",
       "emailTemplates": "Templates",
       "smartlists": "Smartlists",
+      "smartfill": "Smartfill",
       "audience": "Audience",
       "promotions": "Promotions",
       "customForms": "Custom forms"

@@ -22,6 +22,16 @@ import initStore from './store';
 import { rudderInitialize } from './components/analytics/rudderstack/utils';
 import theme from './theme';
 import FeatureFlagsProvider from './utils/feature-flag/FeatureFlagsProvider';
+import { useB2CTrackingFeatureFlag } from './components/analytics/useB2CTrackingFeatureFlag';
+
+/**
+ * Functional wrapper that runs feature-flag-gated hooks.
+ * Must be rendered inside <FeatureFlagsProvider>.
+ */
+const FeatureFlagGates = ({ children }) => {
+  useB2CTrackingFeatureFlag();
+  return children;
+};
 
 export class App extends Component {
   state = {
@@ -52,23 +62,25 @@ export class App extends Component {
     return (
       <Provider store={this.store}>
         <FeatureFlagsProvider>
-          <MuiThemeProvider theme={theme}>
-            <CssBaseline>
-              <ConnectedRouter history={this.history}>
-                <Suspense fallback={<LoadingBackoffice />}>
-                  <MuiPickersUtilsProvider
-                    locale={Settings.defaultLocale}
-                    utils={LocalizedLuxonUtils}
-                  >
-                    <SnackbarPile />
-                    <BackgroundSnackbar />
-                    <BackgroundDialog />
-                    <Root />
-                  </MuiPickersUtilsProvider>
-                </Suspense>
-              </ConnectedRouter>
-            </CssBaseline>
-          </MuiThemeProvider>
+          <FeatureFlagGates>
+            <MuiThemeProvider theme={theme}>
+              <CssBaseline>
+                <ConnectedRouter history={this.history}>
+                  <Suspense fallback={<LoadingBackoffice />}>
+                    <MuiPickersUtilsProvider
+                      locale={Settings.defaultLocale}
+                      utils={LocalizedLuxonUtils}
+                    >
+                      <SnackbarPile />
+                      <BackgroundSnackbar />
+                      <BackgroundDialog />
+                      <Root />
+                    </MuiPickersUtilsProvider>
+                  </Suspense>
+                </ConnectedRouter>
+              </CssBaseline>
+            </MuiThemeProvider>
+          </FeatureFlagGates>
         </FeatureFlagsProvider>
       </Provider>
     );

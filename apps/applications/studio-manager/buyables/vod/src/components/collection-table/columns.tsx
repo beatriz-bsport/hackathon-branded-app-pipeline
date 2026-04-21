@@ -1,6 +1,7 @@
 import {
   Avatar,
   Body,
+  Button,
   type GenericTableColumn,
 } from "@bsport/kaizen-primitive-core";
 
@@ -21,20 +22,21 @@ export const useCollectionTableColumns = () => {
     render: (row) => {
       const hasCover = Boolean(row.thumbnailUrl?.trim());
       return (
-        <div className="flex min-w-0 items-center gap-xs py-2xs">
+        <div className="flex w-full min-w-0 items-center gap-xs overflow-hidden py-2xs">
           <Avatar
             shape="squared"
             size="md"
             src={hasCover ? row.thumbnailUrl : undefined}
             alt={hasCover ? row.name : ""}
             iconName={hasCover ? undefined : "image-03"}
+            className="shrink-0"
           />
-          <div className="flex min-w-0 flex-1 flex-col gap-2xs">
+          <div className="flex min-w-0 flex-1 flex-col gap-2xs overflow-hidden">
             <Body
               htmlVariant="span"
               size="lg"
               color="default"
-              className="min-w-0 truncate"
+              className="block max-w-[320px] min-w-0 truncate"
             >
               {row.name}
             </Body>
@@ -43,7 +45,7 @@ export const useCollectionTableColumns = () => {
                 htmlVariant="span"
                 size="md"
                 color="weak"
-                className="line-clamp-2 min-w-0 break-words"
+                className="max-w-[320px] min-w-0 break-words whitespace-pre-wrap"
               >
                 {row.description}
               </Body>
@@ -58,7 +60,11 @@ export const useCollectionTableColumns = () => {
     id: "collection-column-videos-count",
     type: "custom",
     align: "center",
-    header: "",
+    header: (
+      <span className="sr-only" aria-label={t("table.headers.videosCount")}>
+        {t("table.headers.videosCount")}
+      </span>
+    ),
     render: (row) => (
       <Body htmlVariant="span" size="md" color="default">
         {t("table.videosCountLabel", { count: row.videosCount })}
@@ -66,5 +72,50 @@ export const useCollectionTableColumns = () => {
     ),
   };
 
-  return [columnNameAndDescription, columnVideosCount];
+  const columnActions: TableColumn = {
+    id: "collection-column-actions",
+    type: "custom",
+    align: "center",
+    header: (
+      <span className="sr-only" aria-label={t("table.headers.actions")}>
+        {t("table.headers.actions")}
+      </span>
+    ),
+    render: (row) => (
+      <div className="flex min-w-[88px] items-center justify-end gap-2xs">
+        {row.onEdit ? (
+          <Button
+            color="default"
+            intent="flat"
+            size="md"
+            kind="icon-button"
+            icon="edit-02"
+            label={t("table.actions.edit")}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              row.onEdit?.();
+            }}
+          />
+        ) : null}
+        {row.onDelete ? (
+          <Button
+            color="default"
+            intent="flat"
+            size="md"
+            kind="icon-button"
+            icon="trash-01"
+            label={t("table.actions.delete")}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              row.onDelete?.();
+            }}
+          />
+        ) : null}
+      </div>
+    ),
+  };
+
+  return [columnNameAndDescription, columnVideosCount, columnActions];
 };

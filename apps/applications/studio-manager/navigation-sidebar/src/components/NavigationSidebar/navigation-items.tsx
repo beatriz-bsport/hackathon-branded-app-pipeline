@@ -106,6 +106,9 @@ export const useNavigationElements = ({
   const isBillingFlowNewModalEnabled = useNavFlag(
     NavFlags.FS_BILLING_FLOW_NEW_MODAL,
   );
+  const isSmartfillEnabled = useNavFlag(NavFlags.SMARTFILL);
+
+  const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
 
   // Company Theme flags
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -197,6 +200,12 @@ export const useNavigationElements = ({
           id: "classes",
           label: t("menus.classes.title"),
           subItems: [
+            {
+              id: "classes",
+              label: t("menus.classes.classes"),
+              hidden: !isClassesMergedViewEnabled,
+              ...navigationUrls.classes,
+            },
             {
               id: "activities",
               label: t("menus.classes.activities"),
@@ -306,6 +315,12 @@ export const useNavigationElements = ({
               id: "smartlists",
               label: t("menus.marketing.smartlists"),
               ...navigationUrls.smartlist,
+            },
+            {
+              id: "smartfill",
+              label: t("menus.marketing.smartfill"),
+              ...navigationUrls.smartfill,
+              hidden: !isSmartfillEnabled,
             },
             {
               id: "audience",
@@ -592,9 +607,11 @@ export const useNavigationElements = ({
     isGiftcardsRevampEnabled,
     isBillingFlowNewModalEnabled,
     isPayoutsEnabled,
+    isSmartfillEnabled,
     isNewWebshopEnabled,
     hasCreateInvoiceAccess,
     hasSubstitutionToolAccess,
+    isClassesMergedViewEnabled,
   ]);
 
   return navigationItems[menuSet];

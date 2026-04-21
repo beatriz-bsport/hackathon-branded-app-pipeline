@@ -1,0 +1,26 @@
+import { devtools, persist } from "zustand/middleware";
+import { createStore } from "zustand/vanilla";
+
+import { bindStore } from "@bsport/store-base";
+
+import {
+  BookingStatusFilter,
+  type SessionManagementState,
+  WaitlistFilter,
+} from "./types";
+
+export const getInitialState = (): SessionManagementState => ({
+  bookingFilters: {
+    status: BookingStatusFilter.BOOKED,
+    attendance: null,
+    source: null,
+    aggregatorIds: [],
+  },
+  waitlistFilters: WaitlistFilter.ON_WAITLIST,
+});
+
+export const sessionManagementStore = createStore<SessionManagementState>()(
+  devtools(persist(getInitialState, { name: "session-management-storage" })),
+);
+
+export const useSessionManagementStore = bindStore(sessionManagementStore);

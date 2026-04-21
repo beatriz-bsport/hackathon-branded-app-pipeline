@@ -1,6 +1,6 @@
 import { createStore } from "zustand/vanilla";
 
-import type { SportCategory } from "@bsport/api-core";
+import type { SportCategory } from "@bsport/api-core/categories";
 import { bindStore } from "@bsport/store-base";
 
 export interface sportCategoryState {

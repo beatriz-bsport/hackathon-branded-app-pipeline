@@ -6,6 +6,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import { DEFAULT_STALE_TIME } from "#src/constants";
 import type { Session } from "#src/session/types";
 
 import type {
@@ -35,8 +36,9 @@ const DEFAULT_PAGINATION_PARAMS = {
 
 export const bookingKeys = {
   all: ["@api-book", "booking"] as const,
+  listScope: () => [...bookingKeys.all, "list"] as const,
   list: (params: PaginatedBookingFilterParams) =>
-    [...bookingKeys.all, "list", params] as const,
+    [...bookingKeys.listScope(), params] as const,
   detail: (bookingId: number) => [...bookingKeys.all, bookingId] as const,
   recurrenceRulesScope: () => [...bookingKeys.all, "recurrence-rules"] as const,
   recurrenceRules: (params: RecurrenceRuleBookingFilterParams) =>
@@ -65,6 +67,7 @@ export const bookingsQueryOptions = (
   return queryOptions({
     queryKey: bookingKeys.list(mergedParams),
     queryFn: () => fetchBookingsAPI(fetch, mergedParams),
+    staleTime: DEFAULT_STALE_TIME,
   });
 };
 
@@ -85,6 +88,7 @@ export const groupSessionRelatedBookingsQueryOptions = (
   queryOptions({
     queryKey: bookingKeys.groupSessionRelated(bookingId),
     queryFn: () => fetchGroupSessionRelatedBookingsAPI(fetch, bookingId),
+    staleTime: DEFAULT_STALE_TIME,
   });
 
 export const fetchRecurrenceRuleBookingsAPI = async (
@@ -105,6 +109,7 @@ export const recurrenceRuleBookingsQueryOptions = (
   return queryOptions({
     queryKey: bookingKeys.recurrenceRules(mergedParams),
     queryFn: () => fetchRecurrenceRuleBookingsAPI(fetch, mergedParams),
+    staleTime: DEFAULT_STALE_TIME,
   });
 };
 
@@ -126,6 +131,7 @@ export const sessionWithCancelledBookingsQueryOptions = (
     queryKey: bookingKeys.sessionWithCancelledBookings(recurrenceRuleId),
     queryFn: () =>
       retrieveSessionWithCancelledBookingsAPI(fetch, recurrenceRuleId),
+    staleTime: DEFAULT_STALE_TIME,
   });
 
 export const cancelBookingAPI = async (

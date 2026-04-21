@@ -16,10 +16,15 @@ export type BooleanFieldPath<T extends FieldValues> = {
 
 // Enforce the selected name to be within the FieldValues and to resolve to a field of number array
 export type NumberListFieldPath<T extends FieldValues> = {
-  [K in FieldPath<T>]: T[K] extends number[] ? K : never;
+  [K in FieldPath<T>]: NestedValue<T, K> extends number[] | null ? K : never;
 }[FieldPath<T>];
 
 // Enforce the selected name to be within the FieldValues and to resolve to a number field
 export type NumberFieldPath<T extends FieldValues> = {
   [K in FieldPath<T>]: NestedValue<T, K> extends number | null ? K : never;
+}[FieldPath<T>];
+
+// Enforce the selected name to be within the FieldValues and to resolve to the provided type
+export type CustomFieldPath<T extends FieldValues, Custom> = {
+  [K in FieldPath<T>]: NestedValue<T, K> extends Custom ? K : never;
 }[FieldPath<T>];

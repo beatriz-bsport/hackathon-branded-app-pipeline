@@ -1,11 +1,19 @@
 import { Link } from "react-router";
 
-import { Breadcrumbs } from "@bsport/kaizen-primitive-core";
+import {
+  Breadcrumbs,
+  Button,
+  DetailsLayout,
+} from "@bsport/kaizen-primitive-core";
 
 import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
-export const useCollectionDetailsHeader = () => {
+export const useCollectionDetailsHeader = ({
+  onDeleteClick,
+}: {
+  onDeleteClick: () => void;
+}) => {
   const { t } = useTranslation("collections-list");
 
   const breadcrumbs = [
@@ -14,7 +22,25 @@ export const useCollectionDetailsHeader = () => {
     </Link>,
   ];
 
+  const { endGroupActions, startGroupActions } =
+    DetailsLayout.useAdaptiveActions({
+      startGroupActions: [
+        <Button
+          key="collection-details-button-delete"
+          color="default"
+          intent="flat"
+          size="md"
+          icon="trash-01"
+          kind="icon-button"
+          label={t("table.actions.delete")}
+          onClick={onDeleteClick}
+        />,
+      ],
+    });
+
   return {
     BreadcrumbsItems: breadcrumbs,
+    endGroupActions,
+    startGroupActions,
   };
 };

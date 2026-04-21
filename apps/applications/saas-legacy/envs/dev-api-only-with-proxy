@@ -1,0 +1,7 @@
+// PROXY OVERRIDE for envs/dev-api-only
+// Loads AFTER envs/dev-api-only to override I18N_TRANSLATION_DOMAIN only
+// Used by: apps/widgets/widget-legacy/scripts/start-with-proxy.sh
+
+window.runtime = window.runtime || { env: {} };
+window.runtime.env.I18N_TRANSLATION_DOMAIN = 'http://localhost:8088';
+

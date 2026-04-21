@@ -16,7 +16,7 @@
     "lint-broken": "eslint ./src",
     "start": "NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider webpack serve --config webpack.config.js",
     "start:dev": "DEST_CONFIG=dev pnpm run start",
-    "start:local": "DEST_CONFIG=local pnpm run start",
+    "start:local": "pnpm run start:with-proxy local",
     "start:mix": "DEST_CONFIG=local-fe-dev-be pnpm run start:with-proxy",
     "start:mix:prod": "DEST_CONFIG=local-fe-prod-be pnpm run start:with-proxy prod",
     "start:production": "DEST_CONFIG=production pnpm run start",

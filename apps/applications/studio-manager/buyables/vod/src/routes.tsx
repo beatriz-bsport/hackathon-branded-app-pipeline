@@ -7,7 +7,7 @@ const CollectionsListPage = lazy(
   () => import("#src/pages/collections-list-page"),
 );
 const CollectionDetailsPage = lazy(
-  () => import("#src/pages/collection-details-page"),
+  () => import("#src/pages/collection-details"),
 );
 const MediasListPage = lazy(() => import("#src/pages/medias-list-page"));
 

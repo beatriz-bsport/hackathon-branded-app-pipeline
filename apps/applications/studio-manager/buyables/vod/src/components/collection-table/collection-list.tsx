@@ -75,6 +75,7 @@ export const CollectionList: FC<CollectionListProps> = ({
             ]
           : []),
       ],
+      dropdownConfig: { visibleActionsDisplayLimit: 0 },
     };
   });
 

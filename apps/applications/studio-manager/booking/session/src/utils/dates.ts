@@ -1,12 +1,4 @@
-import { type DateTime, getIsoDate } from "@bsport/datetime-manipulation";
-
-export const scrollToDate = (date: DateTime) => {
-  const dateString = getIsoDate(date);
-  const dateElement = document.querySelector(`[data-date="${dateString}"]`);
-  if (dateElement) {
-    dateElement.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-};
+import { type DateTime } from "@bsport/datetime-manipulation";
 
 export const isInRange = (
   date: DateTime,

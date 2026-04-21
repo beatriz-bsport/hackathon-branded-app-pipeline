@@ -4,11 +4,15 @@ import {
   Body,
   Chip,
   type GenericTableColumn,
+  Tooltip,
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { CommunicationKind } from "#src/api/constants";
-import { COMMUNICATION_KIND_ICON_MAP } from "#src/utils/constants";
+import {
+  COMMUNICATION_CHANNEL_BY_KIND_MAP,
+  COMMUNICATION_KIND_ICON_MAP,
+} from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 import { CampaignSentActionDropdown } from "./CampaignSentActionDropdown";
@@ -27,7 +31,6 @@ export type CampaignSentTableRowData = {
   sentDate: string;
   sentHour: string;
   campaignAnalytics?: CampaignAnalytics;
-  link: string;
 };
 
 export type CampaignSentTableRowParams = {
@@ -42,7 +45,7 @@ type TableColumn = GenericTableColumn<CampaignSentTableRowData>;
 export const useCampaignSentTableColumns = ({
   onPreview,
 }: CampaignSentTableRowParams): Array<TableColumn> => {
-  const { t } = useTranslation("campaign");
+  const { t } = useTranslation(["campaign", "details"]);
   const isMobile = !useMatchMedia("md");
   const columns = useMemo<Array<TableColumn>>(() => {
     const columnScheduledDate: TableColumn = {
@@ -70,12 +73,19 @@ export const useCampaignSentTableColumns = ({
       type: "custom",
       align: "start",
       render: (row) => (
-        <Chip
-          size="lg"
-          type="weak"
-          color="default"
-          iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
-        />
+        <Tooltip
+          label={t(
+            `automation.messages.channels.${COMMUNICATION_CHANNEL_BY_KIND_MAP[row.campaignKind]}`,
+            { ns: "details" },
+          )}
+        >
+          <Chip
+            size="lg"
+            type="weak"
+            color="default"
+            iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
+          />
+        </Tooltip>
       ),
     };
 
@@ -86,33 +96,28 @@ export const useCampaignSentTableColumns = ({
       type: "custom",
       align: "start",
       render: (row) => (
-        <div className="flex flex-col gap-2xs">
-          <div className="flex flex-row gap-sm items-center">
-            {isMobile ? (
-              <Chip
-                size="lg"
-                type="weak"
-                color="default"
-                iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
-              />
-            ) : null}
-            <Body
-              className={
-                isMobile
-                  ? "max-w-44 overflow-hidden text-ellipsis"
-                  : "w-[400px] overflow-hidden text-ellipsis"
-              }
-              htmlVariant="span"
-              size="md"
-            >
-              {row.campaignName}
-            </Body>
-          </div>
-          {isMobile ? (
-            <Body size="md" htmlVariant="p" weight="weak" color="weak">
-              {row.sentDate}, {row.sentHour}
-            </Body>
-          ) : null}
+        <div className="flex flex-row gap-xs">
+          {isMobile && (
+            <Chip
+              className="self-center"
+              size="lg"
+              type="weak"
+              color="default"
+              iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
+            />
+          )}
+          <Body
+            className={
+              isMobile
+                ? `max-w-[150px] md:max-w-full overflow-hidden text-ellipsis`
+                : "w-[400px] overflow-hidden text-ellipsis"
+            }
+            htmlVariant="span"
+            size="lg"
+            weight="weak"
+          >
+            {row.campaignName}
+          </Body>
         </div>
       ),
     };
@@ -206,7 +211,7 @@ export const useCampaignSentTableColumns = ({
       columnCampaignAnalytics,
       columnMoreActions,
     ].filter(Boolean);
-  }, [onPreview, isMobile, t]);
+  }, [onPreview, isMobile]);
 
   return columns;
 };

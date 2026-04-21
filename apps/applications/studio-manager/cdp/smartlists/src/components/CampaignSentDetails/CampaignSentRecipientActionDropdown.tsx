@@ -105,8 +105,7 @@ export const CampaignSentRecipientActionDropdown = ({
               color="default"
               intent="flat"
               size="md"
-              onClick={(event) => {
-                event.stopPropagation();
+              onClick={() => {
                 setIsPopoverOpened((opened) => !opened);
               }}
             />

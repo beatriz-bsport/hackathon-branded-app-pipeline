@@ -42,6 +42,7 @@ export const ContentSection: React.FC = () => {
   const { watch, getValues, setValue } =
     useFormContext<EmailMessageContentFormData>();
   const isTextOnly = watch("isTextOnly");
+  const emailBody = watch("emailBody");
 
   const handleCommunicationVariableSelect = (selectedVariable: string) => {
     const currentInputName = currentInputRef.current;
@@ -101,32 +102,20 @@ export const ContentSection: React.FC = () => {
                 console.warn(`[MessageSection] Invalid message type: ${value}`);
                 return;
               }
-              if (value === MESSAGE_TYPE_EMAIL_TEMPLATE) {
-                setValue("emailBody", undefined, {
-                  shouldValidate: true,
-                  shouldDirty: true,
-                });
-                setValue("emailSubject", "", {
-                  shouldValidate: true,
-                  shouldDirty: true,
-                });
-              } else {
-                setValue("emailTemplateId", null, {
-                  shouldValidate: true,
-                  shouldDirty: true,
-                });
-                setValue("emailTemplateDesign", null, {
-                  shouldValidate: true,
-                  shouldDirty: true,
-                });
-                setValue("emailTemplateHtml", undefined, {
-                  shouldValidate: true,
-                  shouldDirty: true,
-                });
-              }
               form.setValue("isTextOnly", value === MESSAGE_TYPE_TEXT_ONLY, {
                 shouldValidate: true,
-                shouldDirty: true,
+              });
+              setValue("emailBody", undefined, {
+                shouldValidate: true,
+              });
+              setValue("emailTemplateId", null, {
+                shouldValidate: true,
+              });
+              setValue("emailTemplateDesign", null, {
+                shouldValidate: true,
+              });
+              setValue("emailTemplateHtml", undefined, {
+                shouldValidate: true,
               });
             },
           })}
@@ -184,9 +173,13 @@ export const ContentSection: React.FC = () => {
 
           <FormField<EmailMessageContentFormData, "emailBody", TextAreaProps>
             name="emailBody"
-            mapProps={({ field, defaultProps }) => ({
+            mapProps={({ defaultProps, form }) => ({
               ...defaultProps,
-              value: field.value ?? "",
+              value: emailBody ?? "",
+              status: form.formState.errors.emailBody?.message
+                ? "error"
+                : "default",
+              statusText: form.formState.errors.emailBody?.message ?? "",
             })}
           >
             <TextArea

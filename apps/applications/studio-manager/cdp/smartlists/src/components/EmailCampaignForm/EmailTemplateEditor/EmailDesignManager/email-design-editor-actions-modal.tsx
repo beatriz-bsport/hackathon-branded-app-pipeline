@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Body, Modal, RadioGroup } from "@bsport/kaizen-primitive-core";
+import { Alert, Body, Modal, RadioGroup } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -9,12 +9,15 @@ type SaveAction = "onTheFly" | "createNew" | "overwrite";
 export const EmailDesignEditorActionsModal = ({
   open,
   canOverwrite,
+  isFranchiseTemplate,
   onOnTheFly,
   onCreateNew,
   onOverwrite,
   onClose,
 }: {
   open: boolean;
+  /** Whether the template is a franchise template. */
+  isFranchiseTemplate: boolean;
   /** Whether the "overwrite existing template" option is available. False when no template is selected. */
   canOverwrite: boolean;
   onOnTheFly: () => void;
@@ -93,6 +96,13 @@ export const EmailDesignEditorActionsModal = ({
             setSelected(event.target.value as SaveAction);
           }}
         />
+        {isFranchiseTemplate && (
+          <Alert status="default" customIcon="info-circle">
+            {t(
+              "email.creation.form.emailTemplateEditor.saveActionModal.franchiseTemplateAlert.description",
+            )}
+          </Alert>
+        )}
       </div>
     </Modal>
   );

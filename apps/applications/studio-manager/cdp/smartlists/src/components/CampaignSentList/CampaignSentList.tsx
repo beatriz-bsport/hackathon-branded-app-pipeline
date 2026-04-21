@@ -11,6 +11,7 @@ import {
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { useFetchCampaignSentList } from "#src/api/use-fetch-campaign-sent-list";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useCampaignSentTableColumns } from "./use-campaign-sent-table-columns";
@@ -25,6 +26,7 @@ export const CampaignSentList = () => {
     usePaginationQueryParams();
   const { id: smartlistId } = useParams<{ id: string }>();
   invariant(smartlistId, "Expected id param to be defined");
+  const { navigateToSmartlistCampaignSentDetails } = useSmartlistNavigation();
 
   const {
     data: { results: campaignSent, count },
@@ -37,8 +39,12 @@ export const CampaignSentList = () => {
 
   const tableRows = formatCampaignSentTableRow({
     campaignSentList: campaignSent,
-    smartlistId,
-  });
+  }).map((row) => ({
+    ...row,
+    onRowClick: () => {
+      navigateToSmartlistCampaignSentDetails(smartlistId, row.campaignUuid);
+    },
+  }));
 
   const tableColumns = useCampaignSentTableColumns({
     onPreview: (campaignId) =>

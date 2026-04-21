@@ -1,8 +1,11 @@
+import { useParams } from "react-router";
+
 import { Table } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { CommunicationKind } from "#src/api/constants";
 import { useFetchCommunicationRecipientsPreview } from "#src/api/use-fetch-communication-recipients-preview";
+import { SMARTLIST_LEGACY_URLS } from "#src/urls";
 import { COMMUNICATION_CHANNEL_BY_KIND_MAP } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -22,6 +25,7 @@ export const CampaignScheduledRecipientTable = ({
   campaignKind,
 }: CampaignScheduledRecipientTableProps) => {
   const { t } = useTranslation("campaign");
+  const { id: smartlistId } = useParams<{ id: string }>();
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
   const {
@@ -54,7 +58,17 @@ export const CampaignScheduledRecipientTable = ({
   const tableEmptyState = {
     isEmpty: !doesSmartlistHaveCampaignSent,
     emptyConfig: {
-      subtitle: t("table.campaignSent.emptyState.description"),
+      title: t("table.campaignSentRecipient.emptyState.title"),
+      subtitle: t("table.campaignSentRecipient.emptyState.description"),
+      secondaryButtonConfig: {
+        label: t("table.campaignSentRecipient.emptyState.reviewFilters"),
+        onClick: () => {
+          // TODO: Implement navigation to smartlist custom segments filters page if needed
+          window.location.assign(
+            SMARTLIST_LEGACY_URLS.smartlistMember(Number(smartlistId)),
+          );
+        },
+      },
     },
   };
 

@@ -15,6 +15,8 @@ export const defaultClasses = [
   "gap-2xs",
   "px-xs",
   "leading-xs",
+  "h-fit",
+  "align-center",
 ] as const;
 
 export const variants = {

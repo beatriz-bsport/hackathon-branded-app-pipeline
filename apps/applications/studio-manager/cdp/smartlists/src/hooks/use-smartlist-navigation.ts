@@ -5,6 +5,9 @@ import { CampaignChannel, SMARTLIST_APP_LINKS } from "#src/urls";
 export const useSmartlistNavigation = () => {
   const navigate = useNavigate();
   return {
+    navigateToSmartlistList: (options?: NavigateOptions) => {
+      navigate(SMARTLIST_APP_LINKS.index(), options);
+    },
     navigateToSmartlistDetails: (
       smartlistId: string,
       options?: NavigateOptions,
@@ -141,6 +144,16 @@ export const useSmartlistNavigation = () => {
     ) => {
       navigate(
         SMARTLIST_APP_LINKS.automationEmailMessage(smartlistId, messageId),
+        options,
+      );
+    },
+    navigateToSmartlistCampaignScheduledDetails: (
+      smartlistId: string,
+      campaignId: number,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.campaignScheduledDetails(smartlistId, campaignId),
         options,
       );
     },

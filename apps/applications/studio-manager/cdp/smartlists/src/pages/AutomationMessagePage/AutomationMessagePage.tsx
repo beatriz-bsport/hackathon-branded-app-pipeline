@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 import {
   Breadcrumbs,
@@ -19,6 +19,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
@@ -38,7 +39,11 @@ export function AutomationMessagePage() {
 }
 
 function AutomationMessageDetail() {
-  const navigate = useNavigate();
+  const {
+    navigateToSmartlistEmailAutomationEdit,
+    navigateToSmartlistSmsAutomationEdit,
+    navigateToSmartlistPushAutomationEdit,
+  } = useSmartlistNavigation();
 
   const { t } = useTranslation();
 
@@ -101,11 +106,18 @@ function AutomationMessageDetail() {
       size="md"
       label={t("automation.messagePage.actions.edit", { ns: "details" })}
       onClick={() => {
-        navigate(
-          automation.communication_kind === CommunicationKind.SMS
-            ? SMARTLIST_APP_LINKS.automationSmsEdit(id, messageId)
-            : SMARTLIST_APP_LINKS.automationPushEdit(id, messageId),
-        );
+        if (automation.communication_kind === CommunicationKind.EMAIL) {
+          navigateToSmartlistEmailAutomationEdit(id, messageId);
+        } else if (automation.communication_kind === CommunicationKind.SMS) {
+          navigateToSmartlistSmsAutomationEdit(id, messageId);
+        } else if (automation.communication_kind === CommunicationKind.PUSH) {
+          navigateToSmartlistPushAutomationEdit(id, messageId);
+        } else {
+          invariant(
+            false,
+            `Unsupported communication kind: ${automation.communication_kind}`,
+          );
+        }
       }}
     />,
   ];

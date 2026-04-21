@@ -10,11 +10,37 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { CommunicationKind, EventKind } from "#src/api/constants";
 import { useAutomatedCampaignDetailSuspenseQuery } from "#src/api/use-automated-campaign-detail";
+import { useEmailTemplateSearch } from "#src/api/use-email-template-search";
 import { AutomationTriggerIcon } from "#src/components/AutomationTriggerIcon/AutomationTriggerIcon";
 import { COMMUNICATION_KIND_ICON_MAP } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
-import { PreviewDrawer, usePreviewDrawer } from "./PreviewDrawer";
+import { PreviewDrawer } from "./PreviewDrawer";
+import { usePreviewDrawer } from "./use-preview-drawer";
+
+const TRIGGER_LABEL_KEYS = {
+  [CommunicationKind.EMAIL]: {
+    [EventKind.JOIN]: "automation.email.form.condition.options.entry",
+    [EventKind.LEAVE]: "automation.email.form.condition.options.exit",
+  },
+  [CommunicationKind.SMS]: {
+    [EventKind.JOIN]: "automation.sms.form.condition.options.entry",
+    [EventKind.LEAVE]: "automation.sms.form.condition.options.exit",
+  },
+  [CommunicationKind.PUSH]: {
+    [EventKind.JOIN]: "automation.push.form.condition.options.entry",
+    [EventKind.LEAVE]: "automation.push.form.condition.options.exit",
+  },
+} as const satisfies Record<CommunicationKind, Record<EventKind, string>>;
+
+const CHANNEL_LABEL_KEYS = {
+  [CommunicationKind.EMAIL]:
+    "actions.createAutomationModal.messageChannel.email.title",
+  [CommunicationKind.SMS]:
+    "actions.createAutomationModal.messageChannel.sms.title",
+  [CommunicationKind.PUSH]:
+    "actions.createAutomationModal.messageChannel.push.title",
+} as const satisfies Record<CommunicationKind, string>;
 
 type AutomationDetailsCardProps = {
   messageId: string;
@@ -28,33 +54,28 @@ export function AutomationDetailsCard({
   const isMobile = !useMatchMedia("md");
   const { isPreviewOpen, onPreviewOpen, onPreviewClose } = usePreviewDrawer();
 
-  const { data: automation } =
-    useAutomatedCampaignDetailSuspenseQuery(messageId);
   const companyTheme = dataAccessLayer.useCompanyTheme();
 
-  const triggerLabel =
-    automation.event_kind === EventKind.JOIN
-      ? t(
-          automation.communication_kind === CommunicationKind.SMS
-            ? "automation.sms.form.condition.options.entry"
-            : "automation.push.form.condition.options.entry",
-          { ns: "details" },
-        )
-      : t(
-          automation.communication_kind === CommunicationKind.SMS
-            ? "automation.sms.form.condition.options.exit"
-            : "automation.push.form.condition.options.exit",
-          { ns: "details" },
-        );
+  const { data: automation } =
+    useAutomatedCampaignDetailSuspenseQuery(messageId);
 
-  const channelLabel =
-    automation.communication_kind === CommunicationKind.SMS
-      ? t("actions.createAutomationModal.messageChannel.sms.title", {
-          ns: "details",
-        })
-      : t("actions.createAutomationModal.messageChannel.push.title", {
-          ns: "details",
-        });
+  const emailTemplateId = automation.email_design;
+  const { data: emailTemplateList } = useEmailTemplateSearch({
+    searchInput: "",
+    id__in: emailTemplateId?.toString() ?? "",
+  });
+  const emailTemplate = emailTemplateList.find(
+    (template) => template.id === emailTemplateId,
+  );
+
+  const triggerLabel = t(
+    TRIGGER_LABEL_KEYS[automation.communication_kind][automation.event_kind],
+    { ns: "details" },
+  );
+
+  const channelLabel = t(CHANNEL_LABEL_KEYS[automation.communication_kind], {
+    ns: "details",
+  });
 
   const createdOn = formatDateTime(
     automation.date_created,
@@ -128,8 +149,11 @@ export function AutomationDetailsCard({
       <PreviewDrawer
         isOpen={isPreviewOpen}
         onClose={onPreviewClose}
+        communicationKind={automation.communication_kind}
+        emailTemplateHtml={emailTemplate?.html ?? null}
+        emailTemplateId={emailTemplateId}
         sender={companyTheme?.company_name}
-        title={automation.title}
+        title={emailTemplate?.subject ?? automation.title}
         content={automation.text}
       />
     </>

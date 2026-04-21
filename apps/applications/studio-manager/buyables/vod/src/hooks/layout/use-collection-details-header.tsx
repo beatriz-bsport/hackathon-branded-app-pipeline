@@ -14,11 +14,11 @@ export const useCollectionDetailsHeader = ({
 }: {
   onDeleteClick: () => void;
 }) => {
-  const { t } = useTranslation("collections-list");
+  const { t } = useTranslation("collection-details");
 
   const breadcrumbs = [
     <Link key="link-to-collection-list" to={URLS.INDEX}>
-      <Breadcrumbs.Item text={t("details.breadcrumbLabel")} />
+      <Breadcrumbs.Item text={t("breadcrumbLabel")} />
     </Link>,
   ];
 
@@ -32,7 +32,7 @@ export const useCollectionDetailsHeader = ({
           size="md"
           icon="trash-01"
           kind="icon-button"
-          label={t("table.actions.delete")}
+          label={t("deleteActionLabel")}
           onClick={onDeleteClick}
         />,
       ],

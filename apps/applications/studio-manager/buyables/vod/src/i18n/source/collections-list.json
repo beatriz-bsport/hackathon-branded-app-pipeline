@@ -45,15 +45,5 @@
     "title": "Unable to load collections",
     "description": "Please try again. If the issue persists, refresh the page.",
     "retry": "Retry"
-  },
-  "details": {
-    "breadcrumbLabel": "Collections",
-    "loading": "Loading collection",
-    "loadError": {
-      "title": "Unable to load collection",
-      "description": "Please try again. If the issue persists, go back to the list.",
-      "retry": "Retry"
-    },
-    "placeholder": "Collection details content will be added in the next step."
   }
 }

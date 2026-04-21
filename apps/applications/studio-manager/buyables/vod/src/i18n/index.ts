@@ -20,5 +20,6 @@ export const i18nNamespacePrefix = __VOD__.__I18N_NAMESPACE_PREFIX__;
 export const i18nNamespaces: string[] = [
   "shared-list",
   "collections-list",
+  "collection-details",
   "collection-form",
 ];

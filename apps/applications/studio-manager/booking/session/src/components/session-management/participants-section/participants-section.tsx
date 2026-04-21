@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { Body, Title } from "@bsport/kaizen-primitive-core";
 
+import { AttendanceFilter } from "#src/components/session-management/filters/attendance-filter";
 import { BookingStatusSegmentedControl } from "#src/components/session-management/filters/booking-status-segmented-control";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import type { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
@@ -41,6 +42,7 @@ export const ParticipantsSection: FC<{
       </div>
       <div className="flex flex-col gap-md">
         <BookingStatusSegmentedControl />
+        <AttendanceFilter />
         {bookingsStatusFilters === BookingStatusFilter.BOOKED ? (
           <BookingsTable sessionId={session.id} openModal={openModal} />
         ) : (

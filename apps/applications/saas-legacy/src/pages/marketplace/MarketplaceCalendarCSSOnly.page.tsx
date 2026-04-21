@@ -332,9 +332,51 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     });
   };
 
+  /**
+   * Computes and sets filteredEstablishments based on current filters and available store data.
+   * Must be called whenever filters.establishment_group__in, establishments, or
+   * establishmentGroupList may have changed.
+   */
+  updateFilteredEstablishments = () => {
+    let filteredEstablishments: Establishment[] = [
+      ...this.props.establishments,
+    ];
+
+    if (this.state.filters.establishment_group__in?.length) {
+      const filteredEstablishmentIds: number[] =
+        this.props.establishmentGroupList
+          .filter((eg: EstablishmentGroup) =>
+            this.state.filters.establishment_group__in.includes(eg.id),
+          )
+          .flatMap((eg: EstablishmentGroup) => eg.establishment)
+          .map((e: Establishment) => e.id);
+
+      const uniqueEstIds = this.state.filters.establishments?.length
+        ? [
+            ...new Set(
+              filteredEstablishmentIds.concat(
+                this.state.filters.establishments,
+              ),
+            ),
+          ]
+        : filteredEstablishmentIds;
+
+      // @ts-expect-error
+      filteredEstablishments = this.props.establishments.filter((e) =>
+        uniqueEstIds.includes(e.id),
+      );
+    }
+    this.setState({ filteredEstablishments });
+  };
+
   componentDidMount() {
     this.props.resetLevels();
     this.fetchData();
+    // Initialize filteredEstablishments immediately in case the data is already
+    // available in the store (e.g. when switching back to the same tab).
+    // Without this, filteredEstablishments remains null and the establishment
+    // filter dropdown stays empty until a prop change triggers componentDidUpdate.
+    this.updateFilteredEstablishments();
     analyticsClientB2C.trackEvent(trackCalendarViewedEvent({}));
   }
 
@@ -392,6 +434,10 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       prevProps.establishments,
       this.props.establishments,
     );
+    const establishmentGroupListChanged = !isEqual(
+      prevProps.establishmentGroupList,
+      this.props.establishmentGroupList,
+    );
     const offersChanged = !isEqual(
       prevProps.offers.map((o) => o.id),
       this.props.offers.map((o) => o.id),
@@ -406,36 +452,12 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       this.handleSearchFilter(this.state.offerSearchResult.query);
     }
 
-    if (filtersEstablishmentsChanged || establishmentsChanged) {
-      let filteredEstablishments: Array<Establishment> = [
-        ...this.props.establishments,
-      ];
-
-      if (this.state.filters.establishment_group__in?.length) {
-        const filteredEstablishmentIds: Array<number> =
-          this.props.establishmentGroupList
-            .filter((eg: EstablishmentGroup) =>
-              this.state.filters.establishment_group__in.includes(eg.id),
-            )
-            .flatMap((eg: EstablishmentGroup) => eg.establishment)
-            .map((e: Establishment) => e.id);
-
-        const uniqueEstIds = this.state.filters.establishments?.length
-          ? [
-              ...new Set(
-                filteredEstablishmentIds.concat(
-                  this.state.filters.establishments,
-                ),
-              ),
-            ]
-          : filteredEstablishmentIds;
-
-        // @ts-expect-error
-        filteredEstablishments = this.props.establishments.filter((e) =>
-          uniqueEstIds.includes(e.id),
-        );
-      }
-      this.setState({ filteredEstablishments });
+    if (
+      filtersEstablishmentsChanged ||
+      establishmentsChanged ||
+      establishmentGroupListChanged
+    ) {
+      this.updateFilteredEstablishments();
     }
   }
 

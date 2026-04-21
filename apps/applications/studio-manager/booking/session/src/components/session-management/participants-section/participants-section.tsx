@@ -4,6 +4,7 @@ import { Body, Title } from "@bsport/kaizen-primitive-core";
 
 import { BookingStatusSegmentedControl } from "#src/components/session-management/filters/booking-status-segmented-control";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
+import type { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
 import { BookingStatusFilter } from "#src/stores/session-management/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -11,9 +12,10 @@ import { useTranslation } from "#src/utils/i18n";
 import { BookingsTable } from "./bookings-tables/bookings-table";
 import { CancelledBookingsTable } from "./bookings-tables/cancelled-bookings-table";
 
-export const ParticipantsSection: FC<{ sessionId: number }> = ({
-  sessionId,
-}) => {
+export const ParticipantsSection: FC<{
+  sessionId: number;
+  openModal: (type: SessionManagementModalType, bookingId?: number) => void;
+}> = ({ sessionId, openModal }) => {
   const { t } = useTranslation("sessionManagement");
   const { data: session } = useRetrieveSession(sessionId);
 
@@ -40,7 +42,7 @@ export const ParticipantsSection: FC<{ sessionId: number }> = ({
       <div className="flex flex-col gap-md">
         <BookingStatusSegmentedControl />
         {bookingsStatusFilters === BookingStatusFilter.BOOKED ? (
-          <BookingsTable sessionId={session.id} />
+          <BookingsTable sessionId={session.id} openModal={openModal} />
         ) : (
           <CancelledBookingsTable sessionId={session.id} />
         )}

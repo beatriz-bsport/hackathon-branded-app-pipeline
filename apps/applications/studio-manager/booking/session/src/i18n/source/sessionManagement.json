@@ -33,5 +33,28 @@
   "bookingStatusFilter": {
     "booked": "Booked",
     "cancelled": "Cancelled"
+  },
+  "actions": {
+    "label": "Actions",
+    "swapSpot": "Swap spot number",
+    "swapPass": "Swap pass",
+    "cancelBooking": "Cancel booking",
+    "sellItems": "Sell items",
+    "resolveUnpaidInvoices": "Resolve unpaid invoices",
+    "sendMessage": "Send message"
+  },
+  "booking": "Booking",
+  "billing": "Billing",
+  "contact": "Contact",
+  "modals": {
+    "cancelBooking": {
+      "title": "Cancel booking",
+      "confirmButton": "Cancel",
+      "closeButton": "Close",
+      "body": "Are you sure you want to cancel this booking?",
+      "refundCredits": "Refund the credits",
+      "sendNotification": "Send notification",
+      "confirmation": "Booking cancelled"
+    }
   }
 }

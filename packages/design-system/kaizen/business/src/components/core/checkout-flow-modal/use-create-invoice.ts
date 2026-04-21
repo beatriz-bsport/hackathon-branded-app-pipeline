@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { memberKeys } from "@bsport/api-cdp/member";
 import {
   type CreateInvoiceBuyableItem,
   type CreateInvoiceGiftcardConfig,
@@ -133,6 +134,7 @@ export const useCreateInvoice = (options: UseCreateInvoiceOptions) => {
     },
     onSuccess: (invoice, data) => {
       queryClient.invalidateQueries({ queryKey: [INVOICES_QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: memberKeys.all });
       onSubmit?.(data, invoice.uuid);
     },
     onError,

@@ -34,7 +34,7 @@ const SessionManagementPageInner: FC = () => {
         <Header sessionId={session.id} openModal={openModal} />
 
         <DetailsLayout.Content className="max-w-none">
-          <ParticipantsSection sessionId={session.id} />
+          <ParticipantsSection sessionId={session.id} openModal={openModal} />
         </DetailsLayout.Content>
       </DetailsLayout>
       <SessionManagementModals

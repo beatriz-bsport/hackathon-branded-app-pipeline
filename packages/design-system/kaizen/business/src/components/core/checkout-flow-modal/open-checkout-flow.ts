@@ -45,7 +45,12 @@ export const openCheckoutFlow = ({
   const nextPath = currentPathname + (nextSearch ? `?${nextSearch}` : "");
 
   if (navigate) {
-    navigate(nextPath);
+    // When pathname is not provided, update only the search part so router basenames
+    // (e.g. "/studio" in deployed environments) are not duplicated.
+    const navigationTarget =
+      pathname == null ? (nextSearch ? `?${nextSearch}` : "") : nextPath;
+
+    navigate(navigationTarget);
     return nextPath;
   }
 

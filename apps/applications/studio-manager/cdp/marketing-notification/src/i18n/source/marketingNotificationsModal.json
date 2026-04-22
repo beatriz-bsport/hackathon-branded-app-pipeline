@@ -184,8 +184,8 @@
           "label": "Send this notification",
           "options": {
             "booking": {
-              "before": "Before the session",
-              "after": "After the session"
+              "before": "Before the class",
+              "after": "After the class"
             },
             "subscriptionCreation": {
               "before": "Before the subscription is created",
@@ -205,16 +205,16 @@
           "content": "Your notification will be sent {{count}} ",
           "booking": {
             "before": {
-              "hour_one": "hour before the session",
-              "hour_other": "hours before the session",
-              "day_one": "day before the session",
-              "day_other": "days before the session"
+              "hour_one": "hour before the class",
+              "hour_other": "hours before the class",
+              "day_one": "day before the class",
+              "day_other": "days before the class"
             },
             "after": {
-              "hour_one": "hour after the session",
-              "hour_other": "hours after the session",
-              "day_one": "day after the session",
-              "day_other": "days after the session"
+              "hour_one": "hour after the class",
+              "hour_other": "hours after the class",
+              "day_one": "day after the class",
+              "day_other": "days after the class"
             }
           },
           "subscriptionCreation": {
@@ -299,8 +299,8 @@
           "temporality": {
             "label": "Send this notification",
             "options": {
-              "before": "Before the session",
-              "after": "After the session"
+              "before": "Before the class",
+              "after": "After the class"
             }
           },
           "timeUnit": {
@@ -315,16 +315,16 @@
             "prefix": {
               "content": "Your notification will be sent ",
               "before": {
-                "hour_one": "{{count}} hour before the session",
-                "hour_other": "{{count}} hours before the session",
-                "day_one": "{{count}} day before the session",
-                "day_other": "{{count}} days before the session"
+                "hour_one": "{{count}} hour before the class",
+                "hour_other": "{{count}} hours before the class",
+                "day_one": "{{count}} day before the class",
+                "day_other": "{{count}} days before the class"
               },
               "after": {
-                "hour_one": "{{count}} hour after the session",
-                "hour_other": "{{count}} hours after the session",
-                "day_one": "{{count}} day after the session",
-                "day_other": "{{count}} days after the session"
+                "hour_one": "{{count}} hour after the class",
+                "hour_other": "{{count}} hours after the class",
+                "day_one": "{{count}} day after the class",
+                "day_other": "{{count}} days after the class"
               }
             }
           }
@@ -396,9 +396,9 @@
             "suffix_other": "hours after booking"
           },
           "sessionEnd": {
-            "label": "After the end of the session",
-            "suffix_one": "hour after the end of the session",
-            "suffix_other": "hours after the end of the session"
+            "label": "After the end of the class",
+            "suffix_one": "hour after the end of the class",
+            "suffix_other": "hours after the end of the class"
           }
         },
         "includedInContract": {

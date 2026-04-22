@@ -36,6 +36,9 @@ export const videoKeys = {
   byIdsLists: () => [...videoKeys.all, "by-ids"] as const,
   byIds: (params: FetchVideosByIdsParams) =>
     [...videoKeys.byIdsLists(), params] as const,
+
+  playbackUrls: () => [...videoKeys.all, "playback-url"] as const,
+  playbackUrl: (id: number) => [...videoKeys.playbackUrls(), id] as const,
 } as const;
 
 // #endregion
@@ -225,6 +228,39 @@ export const fetchVideosByIdsQueryOptions = (
   queryOptions({
     queryKey: videoKeys.byIds(params),
     queryFn: () => fetchVideosByIdsAPI(fetch, params),
+  });
+
+// #endregion
+
+// #region Playback Url
+
+type FetchPlaybackUrlParams = {
+  id: number;
+};
+
+const fetchPlaybackUrlAPIConfig = ({
+  id,
+}: FetchPlaybackUrlParams): ApiConfig => {
+  return [`${API_URL}/${id}/playback_url/`];
+};
+
+export const fetchPlaybackUrlAPI = async (
+  fetch: Fetch<{ playback_url: string }>,
+  params: FetchPlaybackUrlParams,
+): Promise<string> => {
+  const [uri, init] = fetchPlaybackUrlAPIConfig(params);
+  const { data } = await fetch(uri, init);
+
+  return data.playback_url;
+};
+
+export const fetchPlaybackUrlQueryOptions = (
+  fetch: Fetch<{ playback_url: string }>,
+  params: FetchPlaybackUrlParams,
+) =>
+  queryOptions({
+    queryKey: videoKeys.playbackUrl(params.id),
+    queryFn: () => fetchPlaybackUrlAPI(fetch, params),
   });
 
 // #endregion

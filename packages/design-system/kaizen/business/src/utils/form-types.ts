@@ -28,3 +28,9 @@ export type NumberFieldPath<T extends FieldValues> = {
 export type CustomFieldPath<T extends FieldValues, Custom> = {
   [K in FieldPath<T>]: NestedValue<T, K> extends Custom ? K : never;
 }[FieldPath<T>];
+
+// Enforce the selected name to be within the FieldValues and to resolve to a media (File | string | null | undefined) field
+export type MediaFieldPath<T extends FieldValues> = CustomFieldPath<
+  T,
+  File | string | null | undefined
+>;

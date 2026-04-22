@@ -34,11 +34,7 @@ export const GiftcardEditorContent: FC<GiftcardEditorContentProps> = ({
         </Alert>
       )}
 
-      <GiftcardFormCover
-        formId={formId}
-        methods={methods}
-        isSharedGiftcard={isSharedGiftcard}
-      />
+      <GiftcardFormCover formId={formId} isSharedGiftcard={isSharedGiftcard} />
 
       <GiftcardFormValue
         formId={formId}

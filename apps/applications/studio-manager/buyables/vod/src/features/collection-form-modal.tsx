@@ -89,7 +89,7 @@ export const CollectionFormModal: FC<CollectionFormModalProps> = ({
         {...methods}
       >
         <div className="flex flex-col gap-md w-full">
-          <CollectionFormPicture formId={formId} methods={methods} />
+          <CollectionFormPicture formId={formId} />
           <CollectionFormTitle formId={formId} />
           <CollectionFormDescription formId={formId} />
         </div>

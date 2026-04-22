@@ -1,10 +1,10 @@
 {
   "session": {
     "tooltips": {
-      "recurring": "Recurring session",
-      "groupedSession": "Grouped sessions",
-      "online": "Online session",
-      "hybrid": "A hybrid session combines both an in-person session and a linked online session"
+      "recurring": "Class is recurring",
+      "groupedSession": "Class is part of a Series",
+      "online": "Class is online",
+      "hybrid": "Class is hybrid: both in-person and online"
     },
     "properties": {
       "hybrid": "Hybrid"

@@ -1,13 +1,13 @@
 {
   "editSessionForm": {
     "toasts": {
-      "sessionEdited": "Session edited"
+      "sessionEdited": "Class edited"
     },
     "buttons": {
       "open": "Open"
     },
     "errors": {
-      "edit": "Failed to edit session"
+      "edit": "Couldn't edit class. Please try again. "
     },
     "content": {
       "creditWarning": "Older bookings do not take into account changes in credits.",
@@ -28,32 +28,32 @@
       "substituteTeacherLabel": "Substitute teacher",
       "substituteTeacherPlaceholder": "Choose a teacher...",
       "hybridSessionAlert": {
-        "onSiteDescription": "This on-site session is paired with an online session.",
-        "broadcastDescription": "This online session is paired to an on-site session. Certain details can only be updated from the on-site session.",
-        "goToOnsiteSession": "On-site session",
-        "goToOnlineSession": "Online session"
+        "onSiteDescription": "This in-person class is linked to an online one.",
+        "broadcastDescription": "This online class is linked to an in-person one. Certain details can only be updated from the in-person class. ",
+        "goToOnsiteSession": "In-person class",
+        "goToOnlineSession": "Online class"
       }
     }
   },
   "saveSessionModal": {
-    "title": "Save session",
-    "description": "Save the session with the changes you made.",
+    "title": "Save class",
+    "description": "Save the changes you made to the class",
     "confirmButton": "Save",
     "cancelButton": "Cancel",
-    "futureSessionsHeader": "Future sessions",
-    "descriptionFutureSessions": "Select the future sessions you want to update.",
+    "futureSessionsHeader": "Future classes",
+    "descriptionFutureSessions": "Select the future classes you want to update.",
     "notificationLabel": "Update members about changes",
-    "notificationDescription": "Members who have booked this session will receive an email or push notification to inform them of the changes that have been made.",
-    "updateFutureSessions": "Apply these changes to similar sessions",
-    "updateFutureSessionsForGroup": "Apply these changes to the other sessions in that group",
-    "passesAlert": "Session changes <strong>may affect pass compatibility</strong>. After editing, check they still match the establishment/teacher."
+    "notificationDescription": "Clients who have booked this class will receive an email or push notification to let them know about the changes ",
+    "updateFutureSessions": "Apply these changes to similar classes",
+    "updateFutureSessionsForGroup": "Apply these changes to the other classes in that Series",
+    "passesAlert": "Class changes <strong>may affect pass compatibility</strong>. After editing, check they still match the venue/teacher."
   },
   "USCWarningModal": {
-    "title": "Edit session",
-    "description": "If you update the date, time, or establishment, all current bookings on USC will be cancelled. A new session will be created on USC, and users will need to book again",
-    "alert_one": "<strong>{{count}} member</strong> who booked this session will have their credits refunded",
-    "alert_other": "<strong>{{count}} members</strong> who booked this session will have their credits refunded",
-    "alert_zero": "No members have booked this session, so no credits will be refunded",
+    "title": "Edit class",
+    "description": "If you update the date, time, or venue, all current bookings on USC will be cancelled. A new class will be created on USC, which clients will need to book again",
+    "alert_one": "<strong>{{count}} client </strong> who booked this class will have their credits refunded",
+    "alert_other": "<strong>{{count}} clients </strong> who booked this class will have their credits refunded",
+    "alert_zero": "No clients have booked this class, so no credits will be refunded",
     "confirmButton": "Continue",
     "cancelButton": "Back"
   }

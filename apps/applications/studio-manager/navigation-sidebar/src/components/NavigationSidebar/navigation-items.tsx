@@ -283,7 +283,7 @@ export const useNavigationElements = ({
             },
             {
               id: "playlists",
-              label: t("menus.products.playlists"),
+              label: t("menus.products.onDemand"),
               ...navigationUrls.onDemand,
             },
             {

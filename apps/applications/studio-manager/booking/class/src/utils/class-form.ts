@@ -21,6 +21,7 @@ export type CustomRestrictionRule = {
 
 export type ClassFormValues = {
   name: string;
+  cover_main: File | string | null;
   alt_cover_main: string;
   SCT: string;
   description: string;
@@ -45,6 +46,7 @@ export const defaultCustomRestrictionRule: CustomRestrictionRule = {
 
 export const defaultClassFormValues: ClassFormValues = {
   name: "",
+  cover_main: null,
   alt_cover_main: "",
   SCT: "",
   description: "",
@@ -80,6 +82,7 @@ export const useClassFormSchema = () => {
   return z
     .object({
       name: z.string().trim().min(1, requiredMessage),
+      cover_main: z.union([z.instanceof(File), z.string(), z.null()]),
       alt_cover_main: z.string(),
       SCT: z.string().min(1, requiredMessage),
       description: z.string().trim().min(1, requiredMessage),
@@ -109,6 +112,7 @@ export const toCreateGroupActivityPayload = (
   name: values.name.trim(),
   SCT: Number(values.SCT),
   is_workshop: values.is_workshop ?? false,
+  cover_main: values.cover_main,
   alt_cover_main: values.alt_cover_main.trim(),
   description: values.description.trim(),
   color: values.color,

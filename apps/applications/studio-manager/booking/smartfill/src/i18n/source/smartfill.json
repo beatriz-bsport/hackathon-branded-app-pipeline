@@ -4,8 +4,8 @@
     "disabled": "Smartfill is not currently enabled."
   },
   "activatedEmptyState": {
-    "title": "No sessions have been promoted using Smartfill yet",
-    "subtitle": "The system takes up to 24 hours to identify which sessions can be promoted through Smartfill. Once ready, the targeted sessions and their outreach analytics will appear here."
+    "title": "No classes have been promoted using Smartfill yet",
+    "subtitle": "It takes up to 24 hours to identify which classes can be promoted through Smartfill. Once ready, the targeted classes and their outreach analytics will appear here."
   },
   "error": {
     "title": "Something went wrong",
@@ -14,7 +14,7 @@
   },
   "section": {
     "cta": "Activate Smartfill feature",
-    "subtitle": "Smartfill spots your low-attendance sessions, finds the members most likely to book, and lets you reach them in one click — then tracks who booked as a result.",
+    "subtitle": "Smartfill spots your low-attendance classes, finds clients most likely to book, then automatically reaches out to them and tracks who booked as a result.",
     "activate": "Activate",
     "disable": "Disable"
   }

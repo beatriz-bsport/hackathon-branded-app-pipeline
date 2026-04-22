@@ -119,6 +119,9 @@ export type FetchSessionsParams = {
 
   /** Filter sessions that have an active sub-teacher request. */
   has_active_sub_teacher_request?: boolean;
+
+  /** Ordering of the results (e.g. "date_start", "-date_start"). */
+  ordering?: string;
 };
 
 export type PaginatedFetchSessionsParams = FetchSessionsParams & {

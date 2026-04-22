@@ -92,7 +92,7 @@ export const useCheckoutFlowTracking = ({
         "checkout_flow_bill_member_profile_button_clicked",
         specificPayload,
       );
-    } else if (trigger === "offer_page") {
+    } else if (trigger === "session_management_page") {
       track("checkout_flow_bill_offer_button_clicked", specificPayload);
     }
 

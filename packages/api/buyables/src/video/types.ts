@@ -40,3 +40,48 @@ export type FetchVideosByIdsParams = {
   id__in: number[];
   page_size: number;
 } & URLParams;
+
+/**
+ * Query parameters for listing and filtering VOD videos.
+ */
+export type FetchVideosParams = {
+  page?: number;
+  page_size?: number;
+  search?: string;
+  company?: number;
+  status?: VideoStatusEnum;
+  SCT?: number;
+  level?: number;
+  ordering?: string;
+} & URLParams;
+
+/**
+ * Payload used to create a VOD video.
+ */
+export type CreateVideoParams = FormData;
+
+/**
+ * Payload used to update an existing VOD video.
+ */
+export type UpdateVideoParams = {
+  id: number;
+  data: FormData;
+};
+
+/**
+ * Parameters for requesting an upload instruction.
+ */
+export type UploadInstructionParams = {
+  id: number;
+  file_extension?: string;
+};
+
+/**
+ * Upload instruction returned by `/vod/video/:id/upload_instruction/`.
+ */
+export type UploadInstruction = {
+  method: string;
+  url: string;
+  bodyType: string;
+  fields: Record<string, string>;
+};

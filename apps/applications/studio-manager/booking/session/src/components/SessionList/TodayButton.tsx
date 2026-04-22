@@ -12,10 +12,15 @@ import {
   useCalendarStore,
 } from "#src/stores/calendar";
 import { CalendarView } from "#src/types";
-import { isInRange, scrollToDate } from "#src/utils/dates";
+import { isInRange } from "#src/utils/dates";
 import { useTranslation } from "#src/utils/i18n";
+import { scrollToDate } from "#src/utils/scroll";
 
-export const TodayButton: React.FC = () => {
+type TodayButtonProps = {
+  onScrollToNow?: () => void;
+};
+
+export const TodayButton: React.FC<TodayButtonProps> = ({ onScrollToNow }) => {
   const { t } = useTranslation("sessionList");
   const today = useToday();
   const calendarView = useCalendarStore(selectCalendarView);
@@ -26,12 +31,18 @@ export const TodayButton: React.FC = () => {
       const selectedDateTime = selectedDate.date;
       if (!isSameDay(selectedDateTime, today)) {
         setSelectedDate(today);
+      } else {
+        onScrollToNow?.();
       }
       return;
     }
     if (calendarView === CalendarView.RANGE && selectedDate.type === "range") {
       if (isInRange(today, selectedDate.minDate, selectedDate.maxDate)) {
-        scrollToDate(today);
+        if (onScrollToNow) {
+          onScrollToNow();
+        } else {
+          scrollToDate(today);
+        }
         return;
       }
       // Switch to daily view with today selected

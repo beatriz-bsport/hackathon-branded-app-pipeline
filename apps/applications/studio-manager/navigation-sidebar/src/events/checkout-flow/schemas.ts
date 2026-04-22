@@ -12,7 +12,7 @@ const itemTypeValues = [
 export const BASKET_START_TRIGGERS = [
   "navbar",
   "member_profile_page",
-  "offer_page",
+  "session_management_page",
 ] as const;
 
 const basketCancelTriggerValues = [

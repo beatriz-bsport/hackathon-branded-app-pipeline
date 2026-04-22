@@ -8,6 +8,7 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
+import { usePendingDeletionIds } from "#src/hooks/use-pending-collection-deletions";
 import { useTranslation } from "#src/utils/i18n";
 
 import { CollectionList } from "./collection-list";
@@ -56,17 +57,28 @@ export const CollectionTable: FC<CollectionTableProps> = ({
 
   const columns = useCollectionTableColumns();
   const isMobile = !useMatchMedia("sm");
+  const pendingDeletionIds = usePendingDeletionIds();
 
-  const rows: CollectionRowData[] = collections.map((collection) => ({
-    id: collection.id,
-    name: collection.name,
-    description: collection.description,
-    thumbnailUrl: collection.cover_main,
-    videosCount: collection.videos.length,
-    onRowClick: onRowClick ? () => onRowClick(collection.id) : undefined,
-    onEdit: onEdit ? () => onEdit(collection) : undefined,
-    onDelete: onDelete ? () => onDelete(collection) : undefined,
-  }));
+  const rows: CollectionRowData[] = collections.map((collection) => {
+    const isPendingDeletion = pendingDeletionIds.has(collection.id);
+    return {
+      id: collection.id,
+      className: isPendingDeletion ? "bg-surface-default-weak" : undefined,
+      name: collection.name,
+      description: collection.description,
+      thumbnailUrl: collection.cover_main,
+      videosCount: collection.videos.length,
+      isPendingDeletion,
+      onRowClick:
+        onRowClick && !isPendingDeletion
+          ? () => onRowClick(collection.id)
+          : undefined,
+      onEdit:
+        onEdit && !isPendingDeletion ? () => onEdit(collection) : undefined,
+      onDelete:
+        onDelete && !isPendingDeletion ? () => onDelete(collection) : undefined,
+    };
+  });
 
   if (isMobile) {
     return (

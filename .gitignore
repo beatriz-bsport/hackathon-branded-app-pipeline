@@ -26,6 +26,7 @@ apps/widgets/widget-proxy-bridge/public/studio/studio-env.js
 *.vscode
 */.vscode
 .idea
+.zed
 
 deployment-manifest
 

@@ -5,6 +5,9 @@ import { CampaignChannel, SMARTLIST_APP_LINKS } from "#src/urls";
 export const useSmartlistNavigation = () => {
   const navigate = useNavigate();
   return {
+    navigateToSmartlistList: (options?: NavigateOptions) => {
+      navigate(SMARTLIST_APP_LINKS.index(), options);
+    },
     navigateToSmartlistDetails: (
       smartlistId: string,
       options?: NavigateOptions,
@@ -59,6 +62,16 @@ export const useSmartlistNavigation = () => {
         options,
       );
     },
+    navigateToSmartlistCampaignSentDetails: (
+      smartlistId: string,
+      campaignUuid: string,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.campaignSentDetails(smartlistId, campaignUuid),
+        options,
+      );
+    },
     navigateToSmartlistPushAutomationCreation: (
       smartlistId: string,
       options?: NavigateOptions,
@@ -73,6 +86,16 @@ export const useSmartlistNavigation = () => {
       options?: NavigateOptions,
     ) => {
       navigate(SMARTLIST_APP_LINKS.automationSmsCreation(smartlistId), options);
+    },
+    navigateToSmartlistEmailAutomationEdit: (
+      smartlistId: string,
+      entityId: string,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.automationEmailEdit(smartlistId, entityId),
+        options,
+      );
     },
     navigateToSmartlistPushAutomationEdit: (
       smartlistId: string,
@@ -111,6 +134,26 @@ export const useSmartlistNavigation = () => {
     ) => {
       navigate(
         SMARTLIST_APP_LINKS.automationSmsMessage(smartlistId, messageId),
+        options,
+      );
+    },
+    navigateToSmartlistEmailAutomationMessage: (
+      smartlistId: string,
+      messageId: string | number,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.automationEmailMessage(smartlistId, messageId),
+        options,
+      );
+    },
+    navigateToSmartlistCampaignScheduledDetails: (
+      smartlistId: string,
+      campaignId: number,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.campaignScheduledDetails(smartlistId, campaignId),
         options,
       );
     },

@@ -1,6 +1,6 @@
 import { useId } from "react";
 import { useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 import { useFormController } from "@bsport/form";
 import {
@@ -27,8 +27,7 @@ export const PopupCreationPage = () => {
   const { id: smartlistId } = useParams<{ id: string }>();
   invariant(smartlistId, "Expected smartlist id param to be defined");
 
-  const { t: tCampaign } = useTranslation("campaign");
-  const { t: tList } = useTranslation("list");
+  const { t } = useTranslation(["list", "campaign"]);
   const { detailsLayoutProps } = useDetailsLayout();
 
   const [toastId, setToastId] = useState<string | null>(null);
@@ -53,7 +52,7 @@ export const PopupCreationPage = () => {
         key="continue-popup-creation-button"
         color="main"
         intent="call-to-action"
-        label={tCampaign("popup.creation.continueButtonLabel")}
+        label={t("popup.creation.continueButtonLabel", { ns: "campaign" })}
         size="md"
         type="submit"
         disabled={methods.formState.isSubmitting}
@@ -66,18 +65,21 @@ export const PopupCreationPage = () => {
   const smartlistName = smartlist?.name ?? "";
 
   const breadcrumbsItems = [
-    <Breadcrumbs.Item
-      key="breadcrumb-smartlists"
-      id="breadcrumb-smartlists"
-      text={tList("title")}
-      href={SMARTLIST_APP_LINKS.index()}
-    />,
-    <Breadcrumbs.Item
+    <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists"
+        text={t("title", { ns: "list" })}
+      />
+    </Link>,
+    <Link
       key="breadcrumb-smartlists-campaigns"
-      id="breadcrumb-smartlists-campaigns"
-      text={smartlistName}
-      href={SMARTLIST_APP_LINKS.campaign(smartlistId)}
-    />,
+      to={SMARTLIST_APP_LINKS.campaign(smartlistId)}
+    >
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists-campaigns"
+        text={smartlistName}
+      />
+    </Link>,
   ];
 
   const { createSmartlistPopup } = useCreate({
@@ -96,7 +98,9 @@ export const PopupCreationPage = () => {
   const handleSubmit = async (data: PopupFormData) => {
     const processingToastId = toast({
       status: "default",
-      title: tCampaign("popup.creation.toasts.processing.creatingPopup"),
+      title: t("popup.creation.toasts.processing.creatingPopup", {
+        ns: "campaign",
+      }),
       buttonIcon: "x-close",
       onDismiss: () => setToastId(null),
     });
@@ -113,13 +117,13 @@ export const PopupCreationPage = () => {
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
-        pageTitle={tCampaign("popup.creation.title")}
+        pageTitle={t("popup.creation.title", { ns: "campaign" })}
         endGroupActions={endGroupActions}
         BreadcrumbsItems={breadcrumbsItems}
       />
       <DetailsLayout.Content>
         <Alert status="default">
-          {tCampaign("popup.creation.alertMessage")}
+          {t("popup.creation.alertMessage", { ns: "campaign" })}
         </Alert>
         <PopupForm id={formId} onSubmit={handleSubmit} {...methods} />
       </DetailsLayout.Content>

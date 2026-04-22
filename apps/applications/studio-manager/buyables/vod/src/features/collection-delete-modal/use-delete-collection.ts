@@ -8,6 +8,10 @@ import {
 } from "@bsport/api-buyables/collection";
 import { toast } from "@bsport/kaizen-primitive-core";
 
+import {
+  addPendingDeletion,
+  removePendingDeletion,
+} from "#src/hooks/use-pending-collection-deletions";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -20,10 +24,10 @@ const DELETION_DELAY_MS = 5000;
 
 /**
  * Handles collection deletion with an optimistic "undo" functionality.
- * Flow: remove the item from React Query cache immediately, show a toast with Undo,
+ * Flow: mark the collection as pending deletion (UI grays it out), show a toast with Undo,
  * and schedule the real API deletion after `DELETION_DELAY_MS`.
- * If Undo is clicked, the timeout is canceled and list queries are invalidated to restore data.
- * If Undo is not clicked, the item is deleted from the cache and the API call is made.
+ * If Undo is clicked, the timeout is canceled, pending state is cleared, and list queries are invalidated.
+ * If Undo is not clicked, the API runs; on success the item is removed from the cache.
  */
 export const useDeleteCollection = ({
   onSuccess,
@@ -61,24 +65,16 @@ export const useDeleteCollection = ({
 
   const restoreCache = useCallback(() => {
     queryClient.invalidateQueries({ queryKey: collectionKeys.lists() });
-
-    // After cache refresh, remove any collections that are still pending deletion
-    setTimeout(() => {
-      const pendingIds = Array.from(pendingDeletions.current.keys());
-      if (pendingIds.length > 0) {
-        pendingIds.forEach((id) => removeFromCache(id));
-      }
-    }, 0);
-  }, [queryClient, removeFromCache]);
+  }, [queryClient]);
 
   const { mutate: performDelete, isPending: isDeleting } = useMutation({
     mutationFn: (id: number) => deleteCollectionAPI(fetch, { id }),
     onSuccess: (_, deletedId) => {
-      // Ensure the deleted collection is removed from cache
-      // This handles cases where the cache was restored but the deletion succeeded
       removeFromCache(deletedId);
+      removePendingDeletion(deletedId);
     },
-    onError: () => {
+    onError: (_, deletedId) => {
+      removePendingDeletion(deletedId);
       restoreCache();
       toast({
         status: "critical",
@@ -96,6 +92,7 @@ export const useDeleteCollection = ({
         clearTimeout(timeout);
         pendingDeletions.current.delete(collectionId);
       }
+      removePendingDeletion(collectionId);
       restoreCache();
       toast({
         status: "default",
@@ -109,7 +106,7 @@ export const useDeleteCollection = ({
 
   const deleteCollection = useCallback(
     ({ id }: { id: number }) => {
-      removeFromCache(id);
+      addPendingDeletion(id);
 
       // Clear existing timeout if the same id is scheduled again
       const existingTimeout = pendingDeletions.current.get(id);
@@ -134,7 +131,7 @@ export const useDeleteCollection = ({
       pendingDeletions.current.set(id, timeout);
       onSuccess();
     },
-    [onSuccess, removeFromCache, cancelDeletion, performDelete, i18n.language],
+    [onSuccess, cancelDeletion, performDelete, i18n.language],
   );
 
   return { deleteCollection, isLoading: isDeleting };

@@ -10,17 +10,22 @@ type CollectionDeleteModalProps = {
   collectionId: number;
   isOpen: boolean;
   closeModal: () => void;
+  onDeleteScheduled?: () => void;
 };
 
 export const CollectionDeleteModal: FC<CollectionDeleteModalProps> = ({
   collectionId,
   isOpen,
   closeModal,
+  onDeleteScheduled,
 }) => {
   const { t } = useTranslation("collections-list");
 
   const { deleteCollection, isLoading } = useDeleteCollection({
-    onSuccess: closeModal,
+    onSuccess: () => {
+      closeModal();
+      onDeleteScheduled?.();
+    },
   });
 
   const handleDelete = () => {

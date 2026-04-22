@@ -174,6 +174,8 @@ const detailsLayoutContent = cva(
     "m-[0_auto]",
     "w-full",
     "max-w-component-content-centered",
+    "overflow-y-scroll",
+    "min-h-0",
   ],
   {
     variants: {

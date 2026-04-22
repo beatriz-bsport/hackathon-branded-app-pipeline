@@ -173,7 +173,7 @@ export const Documentation: Story = {
 
 | Arg | Description |
 |-----|-------------|
-| \`basketStartTrigger\` | \`"navbar" \\| "member_profile_page" \\| "offer_page"\` |
+| \`basketStartTrigger\` | \`"navbar" \\| "member_profile_page" \\| "session_management_page"\` |
 | \`memberId\` | Optional pre-selected member ID |
 | \`pathname\` | Optional pathname override (defaults to current location) |
 | \`search\` | Optional search override (defaults to current location) |

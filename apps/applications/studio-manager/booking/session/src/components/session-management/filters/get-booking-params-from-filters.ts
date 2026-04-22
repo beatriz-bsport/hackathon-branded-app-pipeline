@@ -22,6 +22,8 @@ export const getBookingParamsFromFilters = (
     params.booking_status_code = BookingStatusCode.OK;
   } else if (filters.status === BookingStatusFilter.CANCELLED) {
     params.booking_status_code__in = CANCELLED_STATUS_CODES;
+    // If the status is cancelled, the attendance filter is not relevant, we can ignore it
+    return params;
   }
 
   if (filters.attendance === BookingAttendanceFilter.PRESENT) {

@@ -26,7 +26,9 @@ export const SessionCards: React.FC<SessionCardsProps> = ({
   return (
     <div className="flex flex-col gap-sm px-sm">
       {rows.map((row) => (
-        <SessionCard key={row.id} columns={columns} row={row} />
+        <div key={row.id} id={row.id.toString()}>
+          <SessionCard columns={columns} row={row} />
+        </div>
       ))}
     </div>
   );

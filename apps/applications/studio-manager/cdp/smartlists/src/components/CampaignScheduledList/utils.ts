@@ -1,7 +1,6 @@
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
 import { CampaignScheduled } from "#src/api/types";
-import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { getFallbackCampaignScheduledName } from "#src/utils/campaignUtils";
 import { i18nInstance } from "#src/utils/i18n";
 
@@ -13,10 +12,8 @@ const CAMPAIGN_SCHEDULED_ROW_ID = (campaignId: number) =>
 
 function formatCampaignScheduledTableRow({
   campaignScheduledList,
-  smartlistId,
 }: {
   campaignScheduledList: CampaignScheduled[];
-  smartlistId: string;
 }): CampaignScheduledTableRowData[] {
   return campaignScheduledList.map((campaignScheduled) => ({
     id: CAMPAIGN_SCHEDULED_ROW_ID(campaignScheduled.id),
@@ -36,10 +33,6 @@ function formatCampaignScheduledTableRow({
       {
         locale: i18nInstance.language,
       },
-    ),
-    link: SMARTLIST_APP_LINKS.campaignScheduledDetails(
-      smartlistId,
-      campaignScheduled.id,
     ),
   }));
 }

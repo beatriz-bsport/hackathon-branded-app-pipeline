@@ -1,7 +1,7 @@
 {
   "pageTitle": "{{sessionName}} with {{coachName}}",
-  "goToPreviousSession": "Go to previous session",
-  "goToNextSession": "Go to next session",
+  "goToPreviousSession": "Go to previous class",
+  "goToNextSession": "Go to next class",
   "bookButton": "Book a client",
   "bookingsSectionTitle": "Participants",
   "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",
@@ -33,5 +33,32 @@
   "bookingStatusFilter": {
     "booked": "Booked",
     "cancelled": "Cancelled"
+  },
+  "actions": {
+    "label": "Actions",
+    "swapSpot": "Swap spot number",
+    "swapPass": "Swap pass",
+    "cancelBooking": "Cancel booking",
+    "sellItems": "Sell items",
+    "resolveUnpaidInvoices": "Resolve unpaid invoices",
+    "sendMessage": "Send message"
+  },
+  "booking": "Booking",
+  "billing": "Billing",
+  "contact": "Contact",
+  "modals": {
+    "cancelBooking": {
+      "title": "Cancel booking",
+      "confirmButton": "Cancel",
+      "closeButton": "Close",
+      "body": "Are you sure you want to cancel this booking?",
+      "refundCredits": "Refund the credits",
+      "sendNotification": "Send notification",
+      "confirmation": "Booking cancelled"
+    }
+  },
+  "bookingAttendanceFilter": {
+    "present": "Present",
+    "absent": "Absent"
   }
 }

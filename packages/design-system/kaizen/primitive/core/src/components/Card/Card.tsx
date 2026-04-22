@@ -3,6 +3,7 @@ import React, { useCallback, useMemo } from "react";
 
 const defaultClasses = [
   "rounded-md",
+  "transition-[background-color,box-shadow]",
   "hover:ease-in-out",
   "duration-default",
 ] as const;

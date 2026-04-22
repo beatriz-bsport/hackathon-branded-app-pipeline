@@ -11,15 +11,16 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
 import {
   RefinedBooking,
   useFetchRefinedBookings,
 } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 
+import { ShortcutActionsButton } from "../../action-buttons/booking/shortcut-actions-button";
 import { ChipsCell } from "./chips-cell";
 
 enum BookingColumns {
@@ -30,7 +31,10 @@ enum BookingColumns {
   SHORTCUT_ACTIONS = "shortcut-actions",
 }
 
-export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
+export const BookingsTable: FC<{
+  sessionId: number;
+  openModal: (type: SessionManagementModalType, bookingId?: number) => void;
+}> = ({ sessionId, openModal }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
@@ -116,11 +120,14 @@ export const BookingsTable: FC<{ sessionId: number }> = ({ sessionId }) => {
       id: BookingColumns.SHORTCUT_ACTIONS,
       type: "custom",
       align: "center",
-      render: () => (
-        <ActionsMenuButton
-          label={t("bookingsTable.actionsMenu.label")}
-          // TODO: implement actions
-          items={() => []}
+      render: (row) => (
+        <ShortcutActionsButton
+          sessionId={sessionId}
+          bookingId={row.id}
+          memberId={row.memberData?.id}
+          openModal={openModal}
+          participantEmail={row.memberData?.email}
+          participantPhone={row.memberData?.phone}
         />
       ),
     },

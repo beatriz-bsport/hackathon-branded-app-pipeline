@@ -16,9 +16,9 @@ const defaultClasses = [
 
 const variants = {
   size: {
-    sm: "w-[90%] sm:w-component-modal-min-sm",
-    md: "w-[90%] md:w-component-modal-min-md",
-    lg: "w-[90%] lg:w-component-modal-min-lg",
+    sm: "sm:w-component-modal-min-sm",
+    md: "md:w-component-modal-min-md",
+    lg: "lg:w-component-modal-min-lg",
     xl: "w-[90%] lg:w-component-modal-min-xl",
   },
   position: {

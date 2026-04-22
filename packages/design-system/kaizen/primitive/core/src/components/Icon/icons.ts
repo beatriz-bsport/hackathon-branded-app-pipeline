@@ -120,6 +120,9 @@ const icons = {
   "eye-off": React.lazy(async () => await import("./assets/eye-off.svg?react")),
   eye: React.lazy(async () => await import("./assets/eye.svg?react")),
   "file-06": React.lazy(async () => await import("./assets/file-06.svg?react")),
+  "file-attachment-02": React.lazy(
+    async () => await import("./assets/file-attachment-02.svg?react"),
+  ),
   "file-check-02": React.lazy(
     async () => await import("./assets/file-check-02.svg?react"),
   ),
@@ -286,6 +289,9 @@ const icons = {
   "stop-circle-solid": React.lazy(
     async () => await import("./assets/stop-circle-solid.svg?react"),
   ),
+  "switch-horizontal-01": React.lazy(
+    async () => await import("./assets/switch-horizontal-01.svg?react"),
+  ),
   "tag-01": React.lazy(async () => await import("./assets/tag-01.svg?react")),
   "ticket-01": React.lazy(
     async () => await import("./assets/ticket-01.svg?react"),
@@ -318,6 +324,9 @@ const icons = {
   ),
   "user-search": React.lazy(
     async () => await import("./assets/user-search.svg?react"),
+  ),
+  "user-x-01": React.lazy(
+    async () => await import("./assets/user-x-01.svg?react"),
   ),
   "users-01": React.lazy(
     async () => await import("./assets/users-01.svg?react"),

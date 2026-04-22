@@ -17,23 +17,56 @@ export const initEmailCampaignFormDefaultValues = ({
 
   const hasTemplateId = campaign.email_design != null;
   const body = campaign.text ?? "";
-  const isOnTheFlyHtmlTemplate = !hasTemplateId && body.trim().length > 0;
+  const hasHtmlTags =
+    /<!DOCTYPE/i.test(body) || /<\/?[a-z][\w:-]*(?:\s[^<>]*)?>/i.test(body);
+  const isTextOnly = body.trim().length > 0 && !hasHtmlTags && !hasTemplateId;
+  const isOnTheFlyHtmlTemplate = !hasTemplateId && hasHtmlTags;
 
+  const baseFormDefaults = {
+    emailType: EMAIL_TYPE_MARKETING,
+    campaignName: campaign.title ?? "",
+    deliveryMode: DELIVERY_MODE_SCHEDULE_LATER,
+    scheduledDate: scheduledDateTime.toISODate() ?? undefined,
+    scheduledTime: scheduledDateTime.toFormat("HH:mm"),
+    emailSubject: campaign.title ?? "",
+  };
+
+  if (isTextOnly) {
+    return {
+      formDefaults: {
+        ...baseFormDefaults,
+        isTextOnly: true,
+        emailBody: body,
+        emailTemplateId: undefined,
+        emailTemplateDesign: undefined,
+        emailTemplateHtml: undefined,
+        isOnTheFlyHtmlTemplate,
+      },
+    };
+  }
+
+  if (isOnTheFlyHtmlTemplate) {
+    return {
+      formDefaults: {
+        ...baseFormDefaults,
+        isTextOnly: false,
+        emailBody: undefined,
+        emailTemplateId: undefined,
+        emailTemplateDesign: undefined,
+        emailTemplateHtml: body,
+        isOnTheFlyHtmlTemplate: true,
+      },
+    };
+  }
   return {
     formDefaults: {
-      emailType: EMAIL_TYPE_MARKETING,
-      // TODO: Replace once campaign name backend support is available.
-      campaignName: campaign.title ?? "",
-      deliveryMode: DELIVERY_MODE_SCHEDULE_LATER,
-      scheduledDate: scheduledDateTime.toISODate() ?? undefined,
-      scheduledTime: scheduledDateTime.toFormat("HH:mm"),
+      ...baseFormDefaults,
       isTextOnly: false,
-      emailSubject: campaign.title ?? "",
-      emailBody: "",
+      emailBody: undefined,
       emailTemplateId: campaign.email_design,
       emailTemplateDesign: undefined,
-      emailTemplateHtml: body,
-      isOnTheFlyHtmlTemplate,
+      emailTemplateHtml: undefined,
+      isOnTheFlyHtmlTemplate: false,
     },
   };
 };

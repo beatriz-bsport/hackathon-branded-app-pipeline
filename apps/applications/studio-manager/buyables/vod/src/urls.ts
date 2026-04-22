@@ -1,10 +1,14 @@
+const INDEX = "..";
+
 const SEGMENTS = {
-  COLLECTIONS: "collections",
-  MEDIAS: "medias",
+  COLLECTION: "collection",
+  MEDIA: "media",
 } as const;
 
 export const URLS = {
-  INDEX: "..",
-  COLLECTIONS: SEGMENTS.COLLECTIONS,
-  MEDIAS: SEGMENTS.MEDIAS,
+  INDEX,
+  COLLECTION_DETAILS_SLUG: `${SEGMENTS.COLLECTION}/:collectionId`,
+  COLLECTION_DETAILS: (id: number) => `${INDEX}/${SEGMENTS.COLLECTION}/${id}`,
+  COLLECTION: SEGMENTS.COLLECTION,
+  MEDIA: SEGMENTS.MEDIA,
 } as const;

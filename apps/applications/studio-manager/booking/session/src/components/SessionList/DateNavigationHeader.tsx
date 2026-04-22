@@ -15,7 +15,13 @@ import { useTranslation } from "#src/utils/i18n";
 import { SessionDatePicker } from "./SessionDatePicker";
 import { TodayButton } from "./TodayButton";
 
-export const DateNavigationHeader: React.FC = () => {
+type DateNavigationHeaderProps = {
+  onScrollToNow?: () => void;
+};
+
+export const DateNavigationHeader: React.FC<DateNavigationHeaderProps> = ({
+  onScrollToNow,
+}) => {
   const { t } = useTranslation("sessionList");
   const calendarView = useCalendarStore(selectCalendarView);
   const selectedDate = useCalendarStore(selectSelectedDate);
@@ -48,6 +54,7 @@ export const DateNavigationHeader: React.FC = () => {
 
   return (
     <div
+      data-id="date-nav-header"
       className={[
         // Layout
         "flex justify-center",
@@ -60,7 +67,7 @@ export const DateNavigationHeader: React.FC = () => {
       ].join(" ")}
     >
       <div className="absolute left-sm top-1/2 -translate-y-1/2">
-        <TodayButton />
+        <TodayButton onScrollToNow={onScrollToNow} />
       </div>
       <div className="flex justify-center gap-xs">
         {shouldDisplayNavigationButtons && (

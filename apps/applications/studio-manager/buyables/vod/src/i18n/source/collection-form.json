@@ -26,6 +26,7 @@
     },
     "submitResponse": {
       "success": "Collection created",
+      "open": "Open",
       "error": "Failed to create the collection"
     }
   },

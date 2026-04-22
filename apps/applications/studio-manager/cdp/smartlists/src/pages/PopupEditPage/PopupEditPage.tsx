@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 import { useFormController } from "@bsport/form";
 import {
@@ -41,8 +41,7 @@ export const PopupEditPage = () => {
   const popupId = Number(entityId);
   invariant(!isNaN(popupId), "Expected popup id to be a valid number");
 
-  const { t: tCampaign } = useTranslation("campaign");
-  const { t: tList } = useTranslation("list");
+  const { t } = useTranslation(["list", "campaign"]);
   const { detailsLayoutProps } = useDetailsLayout();
 
   const [toastId, setToastId] = useState<string | null>(null);
@@ -81,7 +80,7 @@ export const PopupEditPage = () => {
         key="continue-popup-edit-button"
         color="main"
         intent="call-to-action"
-        label={tCampaign("popup.edit.continueButtonLabel")}
+        label={t("popup.edit.continueButtonLabel", { ns: "campaign" })}
         size="md"
         type="submit"
         disabled={methods.formState.isSubmitting || isLoadingImage}
@@ -93,18 +92,21 @@ export const PopupEditPage = () => {
   const smartlistName = smartlist?.name ?? "";
 
   const breadcrumbsItems = [
-    <Breadcrumbs.Item
-      key="breadcrumb-smartlists"
-      id="breadcrumb-smartlists"
-      text={tList("title")}
-      href={SMARTLIST_APP_LINKS.index()}
-    />,
-    <Breadcrumbs.Item
+    <Link key="breadcrumb-smartlists" to={SMARTLIST_APP_LINKS.index()}>
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists"
+        text={t("title", { ns: "list" })}
+      />
+    </Link>,
+    <Link
       key="breadcrumb-smartlists-campaigns"
-      id="breadcrumb-smartlists-campaigns"
-      text={smartlistName}
-      href={SMARTLIST_APP_LINKS.campaign(String(smartlistId))}
-    />,
+      to={SMARTLIST_APP_LINKS.campaign(String(smartlistId))}
+    >
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists-campaigns"
+        text={smartlistName}
+      />
+    </Link>,
   ];
 
   const { editPopup } = useEdit({
@@ -124,7 +126,7 @@ export const PopupEditPage = () => {
   const handleSubmit = async (data: PopupFormData) => {
     const processingToastId = toast({
       status: "default",
-      title: tCampaign("popup.edit.toasts.processing.editingPopup"),
+      title: t("popup.edit.toasts.processing.editingPopup", { ns: "campaign" }),
       onDismiss: () => setToastId(null),
       buttonIcon: "x-close",
     });
@@ -141,12 +143,14 @@ export const PopupEditPage = () => {
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
-        pageTitle={tCampaign("popup.edit.title")}
+        pageTitle={t("popup.edit.title", { ns: "campaign" })}
         endGroupActions={endGroupActions}
         BreadcrumbsItems={breadcrumbsItems}
       />
       <DetailsLayout.Content>
-        <Alert status="default">{tCampaign("popup.edit.alertMessage")}</Alert>
+        <Alert status="default">
+          {t("popup.edit.alertMessage", { ns: "campaign" })}
+        </Alert>
         <PopupForm id={formId} onSubmit={handleSubmit} {...methods} />
       </DetailsLayout.Content>
     </DetailsLayout>

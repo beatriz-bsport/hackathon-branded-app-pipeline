@@ -11,6 +11,11 @@ import type { CollectionRowData } from "./types";
 
 type TableColumn = GenericTableColumn<CollectionRowData>;
 
+const pendingDeletionCellLayout = (
+  row: CollectionRowData,
+): string | undefined =>
+  row.isPendingDeletion ? "flex h-full w-full items-center" : undefined;
+
 export const useCollectionTableColumns = () => {
   const { t } = useTranslation("collections-list");
 
@@ -22,34 +27,38 @@ export const useCollectionTableColumns = () => {
     render: (row) => {
       const hasCover = Boolean(row.thumbnailUrl?.trim());
       return (
-        <div className="flex w-full min-w-0 items-center gap-xs overflow-hidden py-2xs">
-          <Avatar
-            shape="squared"
-            size="md"
-            src={hasCover ? row.thumbnailUrl : undefined}
-            alt={hasCover ? row.name : ""}
-            iconName={hasCover ? undefined : "image-03"}
-            className="shrink-0"
-          />
-          <div className="flex min-w-0 flex-1 flex-col gap-2xs overflow-hidden">
-            <Body
-              htmlVariant="span"
-              size="lg"
-              color="default"
-              className="block max-w-[320px] min-w-0 truncate"
-            >
-              {row.name}
-            </Body>
-            {row.description ? (
+        <div className={pendingDeletionCellLayout(row)}>
+          <div className="flex w-full min-w-0 items-center gap-xs overflow-hidden py-2xs">
+            <Avatar
+              shape="squared"
+              size="md"
+              src={hasCover ? row.thumbnailUrl : undefined}
+              alt={hasCover ? row.name : ""}
+              iconName={hasCover ? undefined : "image-03"}
+              className={
+                row.isPendingDeletion ? "shrink-0 opacity-80" : "shrink-0"
+              }
+            />
+            <div className="flex min-w-0 flex-1 flex-col gap-2xs overflow-hidden">
               <Body
                 htmlVariant="span"
-                size="md"
-                color="weak"
-                className="max-w-[320px] min-w-0 break-words whitespace-pre-wrap"
+                size="lg"
+                color={row.isPendingDeletion ? "weaker" : "default"}
+                className="block max-w-[320px] min-w-0 truncate"
               >
-                {row.description}
+                {row.name}
               </Body>
-            ) : null}
+              {row.description ? (
+                <Body
+                  htmlVariant="span"
+                  size="md"
+                  color={row.isPendingDeletion ? "weaker" : "weak"}
+                  className="max-w-[320px] min-w-0 break-words whitespace-pre-wrap"
+                >
+                  {row.description}
+                </Body>
+              ) : null}
+            </div>
           </div>
         </div>
       );
@@ -66,9 +75,15 @@ export const useCollectionTableColumns = () => {
       </span>
     ),
     render: (row) => (
-      <Body htmlVariant="span" size="md" color="default">
-        {t("table.videosCountLabel", { count: row.videosCount })}
-      </Body>
+      <div className={pendingDeletionCellLayout(row)}>
+        <Body
+          htmlVariant="span"
+          size="md"
+          color={row.isPendingDeletion ? "weaker" : "default"}
+        >
+          {t("table.videosCountLabel", { count: row.videosCount })}
+        </Body>
+      </div>
     ),
   };
 
@@ -82,37 +97,39 @@ export const useCollectionTableColumns = () => {
       </span>
     ),
     render: (row) => (
-      <div className="flex min-w-[88px] items-center justify-end gap-2xs">
-        {row.onEdit ? (
-          <Button
-            color="default"
-            intent="flat"
-            size="md"
-            kind="icon-button"
-            icon="edit-02"
-            label={t("table.actions.edit")}
-            onClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-              row.onEdit?.();
-            }}
-          />
-        ) : null}
-        {row.onDelete ? (
-          <Button
-            color="default"
-            intent="flat"
-            size="md"
-            kind="icon-button"
-            icon="trash-01"
-            label={t("table.actions.delete")}
-            onClick={(event) => {
-              event.preventDefault();
-              event.stopPropagation();
-              row.onDelete?.();
-            }}
-          />
-        ) : null}
+      <div className={pendingDeletionCellLayout(row)}>
+        <div className="flex min-w-[88px] items-center justify-end gap-2xs">
+          {row.onEdit ? (
+            <Button
+              color="default"
+              intent="flat"
+              size="md"
+              kind="icon-button"
+              icon="edit-02"
+              label={t("table.actions.edit")}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                row.onEdit?.();
+              }}
+            />
+          ) : null}
+          {row.onDelete ? (
+            <Button
+              color="default"
+              intent="flat"
+              size="md"
+              kind="icon-button"
+              icon="trash-01"
+              label={t("table.actions.delete")}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                row.onDelete?.();
+              }}
+            />
+          ) : null}
+        </div>
       </div>
     ),
   };

@@ -79,9 +79,7 @@ function Details() {
     | typeof CREATE_AUTOMATION_ACTION_ID
     | null
   >(null);
-  const { t } = useTranslation("details");
-  const { t: tList } = useTranslation("list");
-  const { t: tCampaign } = useTranslation("campaign");
+  const { t } = useTranslation(["details", "list", "campaign"]);
   const { id } = useParams<{ id: string }>();
   invariant(id, "Expected id param to be defined");
   const campaignTypeOptions = useCampaignTypeOptions({ smartlistId: id });
@@ -93,7 +91,9 @@ function Details() {
           toast({
             status: "positive",
             icon: "download-01",
-            description: tCampaign("generateReportModal.toast.success"),
+            description: t("generateReportModal.toast.success", {
+              ns: "campaign",
+            }),
             buttonIcon: "x-close",
           });
         },
@@ -101,7 +101,9 @@ function Details() {
           toast({
             status: "critical",
             icon: "alert-circle",
-            description: tCampaign("generateReportModal.toast.downloadFailed"),
+            description: t("generateReportModal.toast.downloadFailed", {
+              ns: "campaign",
+            }),
             buttonIcon: "x-close",
           });
         },
@@ -141,7 +143,9 @@ function Details() {
       toast({
         status: "critical",
         icon: "alert-circle",
-        description: tCampaign("generateReportModal.toast.downloadFailed"),
+        description: t("generateReportModal.toast.downloadFailed", {
+          ns: "campaign",
+        }),
         buttonIcon: "x-close",
       });
     }
@@ -154,7 +158,10 @@ function Details() {
 
   const breadcrumbsItems = [
     <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
-      <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists"
+        text={t("title", { ns: "list" })}
+      />
     </Link>,
   ];
 
@@ -166,17 +173,17 @@ function Details() {
     {
       id: "smartlist-parameters-tab",
       path: PARAMETER_TAB_PATH,
-      label: t("tabs.parameters"),
+      label: t("tabs.parameters", { ns: "details" }),
     },
     {
       id: "smartlist-campaigns-tab",
       path: CAMPAIGN_TAB_PATH,
-      label: t("tabs.campaigns"),
+      label: t("tabs.campaigns", { ns: "details" }),
     },
     {
       id: "smartlist-automations-tab",
       path: AUTOMATION_TAB_PATH,
-      label: t("tabs.automations"),
+      label: t("tabs.automations", { ns: "details" }),
     },
   ];
 
@@ -201,7 +208,7 @@ function Details() {
           <Button
             color="main"
             intent="call-to-action"
-            label={tCampaign("actions.createCampaign")}
+            label={t("actions.createCampaign", { ns: "campaign" })}
             iconLeft="plus"
             size="md"
             onClick={() => setInlineActions(CAMPAIGN_TYPE_SELECTOR_ACTION_ID)}
@@ -212,7 +219,7 @@ function Details() {
           <Button
             color="main"
             intent="call-to-action"
-            label={t("actions.createAutomation")}
+            label={t("actions.createAutomation", { ns: "details" })}
             iconLeft="plus"
             size="md"
             onClick={() => setInlineActions(CREATE_AUTOMATION_ACTION_ID)}
@@ -268,7 +275,9 @@ function Details() {
             toast({
               status: "default",
               icon: "send-01",
-              description: tCampaign("generateReportModal.toast.pending"),
+              description: t("generateReportModal.toast.pending", {
+                ns: "campaign",
+              }),
               duration: 3000,
               buttonIcon: "x-close",
             });

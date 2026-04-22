@@ -1,4 +1,5 @@
 import { type FC, useState } from "react";
+import { useNavigate } from "react-router";
 
 import type { Collection } from "@bsport/api-buyables/collection";
 import { ErrorFallback, ListLayout } from "@bsport/kaizen-primitive-core";
@@ -10,10 +11,12 @@ import { CollectionEditModal } from "#src/features/collection-edit-modal/collect
 import { useCollectionsQuery } from "#src/hooks/api/use-collections-query";
 import { useBuildPageTabs } from "#src/hooks/layout/use-build-page-tabs";
 import { useDisclosure } from "#src/hooks/use-disclosure";
+import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 const CollectionsListPage: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(["collections-list", "shared-list"]);
+  const navigate = useNavigate();
   const {
     collections,
     isLoading,
@@ -109,6 +112,9 @@ const CollectionsListPage: FC = () => {
             isEmpty={isEmpty}
             isLoading={isLoading}
             onCreate={openCreateModal}
+            onRowClick={(id) => {
+              navigate(URLS.COLLECTION_DETAILS(id));
+            }}
             onEdit={handleEdit}
             onDelete={handleDelete}
           />

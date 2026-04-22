@@ -1,9 +1,8 @@
 import { type FC, useMemo } from "react";
 
 import { FormField, useFormContext } from "@bsport/form";
+import { FormMediaField } from "@bsport/kaizen-business-components/form/media-field";
 import {
-  FileUpload,
-  FileUploadStatus,
   Select,
   type SelectProps,
   TextArea,
@@ -64,19 +63,13 @@ export const ClassDetailsSection: FC = () => {
           fullWidth
         />
       </FormField>
-      <FileUpload
+      <FormMediaField<ClassFormValues, "cover_main">
         id={`${fieldIdPrefix}-image-upload`}
+        fieldName="cover_main"
         inputName="add-class-image-uploader"
-        fileExtensionList={["jpg", "jpeg"]}
+        fileExtensionList={["image/*"]}
         customTexts={{
           fileExtensionList: t("addEditForm.details.image.recommendation"),
-        }}
-        handleUploadFile={function (
-          _file: File,
-          _signal: AbortSignal,
-          _onUploadProgress: (progressEvent: ProgressEvent) => void,
-        ): Promise<{ status: FileUploadStatus; customMessage?: string }> {
-          throw new Error("Function not implemented.");
         }}
       />
       <FormField<ClassFormValues, "alt_cover_main", TextFieldProps>

@@ -1,9 +1,9 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 import {
-  type FetchCollectionsParams,
-  fetchCollectionsQueryOptions,
-} from "@bsport/api-buyables/collection";
+  type FetchVideosParams,
+  fetchVideosQueryOptions,
+} from "@bsport/api-buyables/video";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import {
   DEFAULT_PAGE,
@@ -12,21 +12,19 @@ import {
 
 import { fetch } from "#src/utils/fetch";
 
-export const useCollectionsQuery = () => {
+export const useVideosQuery = () => {
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
-  const params: FetchCollectionsParams = {
+  const params: FetchVideosParams & { mine: boolean } = {
     mine: true,
     page: currentPage,
     page_size: currentPageSize,
   };
 
-  const { data } = useSuspenseQuery(
-    fetchCollectionsQueryOptions(fetch, params),
-  );
+  const { data } = useSuspenseQuery(fetchVideosQueryOptions(fetch, params));
 
-  const collections = data.results;
+  const videos = data.results;
   const totalItems = data.count;
   const isEmpty = totalItems === 0;
 
@@ -45,7 +43,7 @@ export const useCollectionsQuery = () => {
   };
 
   return {
-    collections,
+    videos,
     isEmpty,
     paginationProps,
   };

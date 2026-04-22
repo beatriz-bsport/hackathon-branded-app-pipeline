@@ -22,4 +22,5 @@ export const i18nNamespaces: string[] = [
   "collections-list",
   "collection-details",
   "collection-form",
+  "media-list",
 ];

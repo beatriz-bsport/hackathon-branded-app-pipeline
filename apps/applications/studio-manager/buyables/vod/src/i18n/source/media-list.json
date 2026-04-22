@@ -1,0 +1,37 @@
+{
+  "table": {
+    "headers": {
+      "name": "Name",
+      "category": "Category",
+      "format": "Format",
+      "availability": "Availability"
+    },
+    "values": {
+      "noCategory": "No category",
+      "noFile": "No file"
+    },
+    "loading": "Loading media...",
+    "emptyList": {
+      "title": "No media yet",
+      "subtitle": "Media will appear here once it is created."
+    },
+    "tooltips": {
+      "format": {
+        "videoUploaded": "Video uploaded",
+        "ebookUploaded": "Ebook uploaded",
+        "noFileUploaded": "No file uploaded"
+      },
+      "availability": {
+        "availableToMembers": "Available to members",
+        "unavailableToMembers": "Unavailable to members",
+        "limitedTimeOnly": "Limited-time only",
+        "unlimitedAccess": "Unlimited access"
+      }
+    }
+  },
+  "error": {
+    "title": "Unable to load media",
+    "description": "Please try again. If the issue persists, refresh the page.",
+    "retry": "Retry"
+  }
+}

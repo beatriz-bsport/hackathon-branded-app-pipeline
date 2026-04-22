@@ -37,5 +37,3 @@ export const CollectionDetailsEntry: FC = () => {
     </QueryBoundary>
   );
 };
-
-export default CollectionDetailsEntry;

@@ -7,7 +7,7 @@
     "classes": "Classes",
     "appointments": "Appointments"
   },
-  "addSession": "Add session",
+  "addSession": "Add class",
   "dateNavigation": {
     "todayButton": "Today",
     "previousButton": "Previous day",
@@ -16,16 +16,16 @@
   "moreActions": {
     "label": "More actions",
     "exportParticipants": "Export participant list",
-    "cancelMultipleSessions": "Cancel multiple sessions"
+    "cancelMultipleSessions": "Cancel multiple classes"
   },
   "table": {
     "headers": {
       "time": "Time",
-      "sessionName": "Session name",
+      "sessionName": "Class",
       "participants": "Participants",
       "teacher": "Teacher",
       "establishment": "Establishment",
-      "sessionType": "Session type",
+      "sessionType": "Details",
       "actions": "Actions",
       "attendance": "Attendance"
     },
@@ -58,7 +58,7 @@
         "label": "Location"
       },
       "level": {
-        "label": "Session level"
+        "label": "Level"
       },
       "teacher": {
         "label": "Teacher"
@@ -75,7 +75,7 @@
       },
       "searchPlaceholder": "Search"
     },
-    "isLoading": "Loading sessions...",
+    "isLoading": "Loading classes...",
     "attendanceButton": "Attendance",
     "validatedAttendance": "Validated",
     "substitution": {
@@ -104,7 +104,7 @@
       }
     },
     "showCancelledSessions": {
-      "label": "Show cancelled sessions"
+      "label": "Show cancelled classes"
     },
     "showCancelledAppointments": {
       "label": "Show cancelled appointments"
@@ -152,8 +152,8 @@
     }
   },
   "emptyState": {
-    "title": "No sessions added yet",
-    "subtitle": "Add a new session to get started"
+    "title": "No classes added yet",
+    "subtitle": "Add a new class to get started"
   },
   "emptyAppointmentState": {
     "title": "No appointments yet",
@@ -165,15 +165,15 @@
     "action": "Clear Filters"
   },
   "emptySearchState": {
-    "title": "No sessions found",
-    "subtitle": "No sessions match your criteria. Clear your filters and try again.",
+    "title": "No classes found",
+    "subtitle": "No classes match your criteria. Clear your filters and try again.",
     "action": "Clear Filters"
   },
   "exportParticipantsModal": {
     "title": "Export list of participants?",
-    "description": "Choose a date to export the participant list for the entire day, broken down by session.",
+    "description": "Choose a date to export the participant list for the entire day, broken down by class.",
     "dayLabel": "Day",
-    "applyFilterLabel": "Apply calendar view filters (Activity name, Establishment, Teacher, Session level)",
+    "applyFilterLabel": "Apply filters (Class, Venue, Teacher, Level)",
     "applyFilterDescription": "If unselected, the list will be exported without filters.",
     "cancelButton": "Close",
     "confirmButton": "Export",
@@ -185,76 +185,76 @@
     "timeoutError": "The server took too long to respond. Try refreshing the page"
   },
   "cancelModal": {
-    "title": "Cancel session?",
-    "description": "You can restore this session at any time but you won’t be able to retrieve any bookings related to this session.",
-    "bookingsAlert_one": "<strong>{{number}} member </strong> who booked this session will have their credits refunded.",
-    "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this session will have their credits refunded.",
-    "groupSessionAlert": "This session is part of the group <strong>{{groupName}}</strong>.",
-    "notificationLabel": "Send a notification to all members who booked this session",
-    "cancelLinkedSessions": "Cancel linked sessions (both online and on-site)",
-    "cancelFutureSessions": "Cancel future sessions too",
-    "cancelFutureSessionsForGroup": "Cancel future sessions of {{groupName}}",
-    "futureSessionsHeader": "Sessions ({{number}})",
-    "descriptionFutureSessions": "Select which sessions will be cancelled",
+    "title": "Cancel class?",
+    "description": "You can restore this class at any time but you won’t be able to retrieve any associated bookings.",
+    "bookingsAlert_one": "<strong>{{number}} member </strong> who booked this class will have their credits refunded.",
+    "bookingsAlert_other": "<strong>{{number}} members</strong> who booked this class will have their credits refunded.",
+    "groupSessionAlert": "This class is part of the Series <strong>{{groupName}}</strong>.",
+    "notificationLabel": "Send a notification to all members who booked this class",
+    "cancelLinkedSessions": "Cancel linked classes (both online and on-site)",
+    "cancelFutureSessions": "Cancel future classes too",
+    "cancelFutureSessionsForGroup": "Cancel future classes of {{groupName}}",
+    "futureSessionsHeader": "Classes ({{number}})",
+    "descriptionFutureSessions": "Select which classes will be canceled",
     "cancelButton": "Back",
     "confirmButton": "Cancel",
-    "errorMessage": "An error occurred while cancelling the session. Please try again later.",
-    "successMessage_one": "Session cancelled",
-    "successMessage_other": "Sessions cancelled"
+    "errorMessage": "An error occurred while canceling the session. Please try again later.",
+    "successMessage_one": "Class canceled",
+    "successMessage_other": "Classes cancelled"
   },
   "cancelMultipleSessionsModal": {
-    "title": "Cancel multiple sessions?",
-    "description": "You can restore these sessions at any time, but you won’t be able to retrieve any bookings related to them. If you applied filters before cancelling, those filters will be kept for the selected period.",
-    "activityOnly": "As you don't have the permission to cancel workshop sessions, only group activity sessions will be cancelled.",
-    "workshopOnly": "As you don't have the permission to cancel group activity sessions, only workshop sessions will be cancelled.",
+    "title": "Cancel multiple classes?",
+    "description": "You can restore these classes at any time, but you won’t be able to retrieve any bookings related to them. If you applied filters before canceling, these will be kept for the selected period.",
+    "activityOnly": "You don't have the permission to cancel workshop classes, only group classes will be canceled.",
+    "workshopOnly": "You don't have the permission to cancel group classes, only workshop classes will be canceled.",
     "dateRangeLabel": "Time period",
-    "cancelAlert_one": "<strong>{{sessionsNumber}} sessions scheduled on {{startDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
-    "cancelAlert_other": "<strong>{{sessionsNumber}} sessions scheduled between {{startDate}} and {{endDate}} will be cancelled</strong>. Members who booked them will receive a credit refund.",
-    "groupSessionAlert": "<strong>Just a heads up:</strong> the following sessions in this period cannot be canceled. To remove them, delete the associated 'Grouped session' first. All other sessions will still be canceled.",
+    "cancelAlert_one": "<strong>{{sessionsNumber}} classes scheduled on {{startDate}} will be canceled</strong>. Clients who booked will receive a credit refund.",
+    "cancelAlert_other": "<strong>{{sessionsNumber}} classes scheduled between {{startDate}} and {{endDate}} will be canceled</strong>. Clients who booked will receive a credit refund.",
+    "groupSessionAlert": "<strong>Heads up:</strong> the following classes in this period cannot be canceled. To remove them, delete the associated 'Series' first. All other classes will still be canceled.",
     "confirmTickLabel": "Tick to confirm:",
-    "confirmTickDescription": "I understand that cancelling multiple sessions will remove these bookings from my calendar and automatically refund credits to members.",
+    "confirmTickDescription": "I understand that canceling multiple classes will remove these bookings from my calendar and automatically refund credits to clients.",
     "confirmButton": "Cancel",
     "cancelButton": "Close",
-    "errorMessage": "An error occurred while cancelling the sessions. Please try again later.",
-    "successMessage_one": "Multiple sessions cancelled on {{startDate}}.",
-    "successMessage_other": "Multiple sessions cancelled between {{startDate}} and {{endDate}}.",
+    "errorMessage": "An error occurred while canceling the classes. Please try again later.",
+    "successMessage_one": "Multiple classes canceled on {{startDate}}",
+    "successMessage_other": "Multiple classes canceled between {{startDate}} and {{endDate}}",
     "helperText": "You can create a single-day entry by selecting the same start and end date"
   },
   "deleteModal": {
-    "title": "Permanently delete session?",
-    "description": "Deleting this session will remove any booking records. If there were bookings and members weren’t refunded when it was canceled, their credits will also be lost.",
+    "title": "Permanently delete class?",
+    "description": "Deleting this class will remove any booking records. If there were bookings and clients weren’t refunded when it was canceled, their credits will also be lost.",
     "commonAlert": "Just a heads up: this action is permanent and cannot be undone.",
-    "groupSessionAlert": "This session is part of the group <strong>{{groupName}}</strong>.",
-    "deleteFutureSessions": "Delete future sessions",
-    "deleteFutureSessionsForGroup": "Delete future sessions of {{groupName}}",
-    "futureSessionsHeader": "Sessions ({{number}})",
-    "descriptionFutureSessions": "Select which sessions will be deleted",
+    "groupSessionAlert": "This class is part of the Series <strong>{{groupName}}</strong>",
+    "deleteFutureSessions": "Delete future classes",
+    "deleteFutureSessionsForGroup": "Delete future classes of {{groupName}}",
+    "futureSessionsHeader": "Classes ({{number}})",
+    "descriptionFutureSessions": "Select which classes will be deleted",
     "cancelButton": "Back",
     "confirmButton": "Permanently delete",
-    "errorMessage": "An error occurred while deleting the session. Please try again later.",
-    "successMessage_one": "Session deleted",
-    "successMessage_other": "Sessions deleted"
+    "errorMessage": "An error occurred while deleting the class. Please try again later.",
+    "successMessage_one": "Class deleted",
+    "successMessage_other": "Classes deleted"
   },
   "duplicateModal": {
-    "title": "Duplicate session?",
+    "title": "Duplicate class?",
     "cancelButton": "Cancel",
     "confirmButton": "Duplicate",
-    "descriptionNoRecurrence": "The new session will use the same settings as the duplicated one.",
-    "descriptionRecurrentSession": "The last session is on {{formattedDate}}. The new session will start after this date and will use the same settings as the duplicated session.",
-    "hybridSessionNotice": "Duplicating this hybrid session will create both online and on-site sessions. Both will use the same settings as the duplicated session.",
-    "linkToOriginalSession_one": "Link to the original session",
-    "linkToOriginalSession_other": "Link to original sessions",
-    "linkToOriginalSessionDescription_one": "Link this duplicate to the original session to edit them all together and enable clients to book them as a Series. Leave unchecked to keep this session separate.",
-    "linkToOriginalSessionDescription_other": "Link this duplicate to the original sessions to edit them all together and enable clients to book them as a Series. Leave unchecked to keep this session separate.",
-    "errorMessage": "An error occurred while duplicating the session. Please try again later."
+    "descriptionNoRecurrence": "The new class will use the same settings as the duplicated one.",
+    "descriptionRecurrentSession": "The last class is on {{formattedDate}}. The new class will start after this date and will use the same settings as the duplicated one.",
+    "hybridSessionNotice": "Duplicating this hybrid class will create both online and on-site classes. Both will use the same settings as the duplicated one.",
+    "linkToOriginalSession_one": "Link to the original class",
+    "linkToOriginalSession_other": "Link to the original classes",
+    "linkToOriginalSessionDescription_one": "Link this duplicate to the original class to edit them all together and enable clients to book them as a Series. Leave unchecked to keep this class separate.",
+    "linkToOriginalSessionDescription_other": "Link this duplicate to the original classes to edit them all together and enable clients to book them as a Series. Leave unchecked to keep this class separate.",
+    "errorMessage": "An error occurred while duplicating the class. Please try again later."
   },
   "restoreModal": {
-    "title": "Restore session?",
-    "description": "Restoring this session will make it visible again to members. You can cancel it again at any time.",
+    "title": "Restore class?",
+    "description": "Restoring this class will make it available for clients to book. You can archive it again at any time.",
     "cancelButton": "Back",
     "confirmButton": "Restore",
-    "errorMessage": "An error occurred while restoring the session. Please try again later.",
-    "successMessage": "Session restored"
+    "errorMessage": "An error occurred while restoring the class. Please try again later.",
+    "successMessage": "Class restored"
   },
   "cancelAppointmentModal": {
     "title": "Cancel appointment?",
@@ -268,28 +268,28 @@
   },
   "wellhub": {
     "alert": {
-      "title": "Some sessions are missing a Wellhub product",
-      "message_one": "{{count}} session does not have a Wellhub product assigned.",
-      "message_other": "{{count}} sessions do not have a Wellhub product assigned.",
+      "title": "Some classes are missing a Wellhub product",
+      "message_one": "{{count}} class does not have a Wellhub product assigned.",
+      "message_other": "{{count}} classes do not have a Wellhub product assigned.",
       "action": "Assign products"
     },
     "modal": {
       "title": "Assign Wellhub products",
-      "stepSelectSession": "Select session",
+      "stepSelectSession": "Select class",
       "stepSetProduct": "Set product",
-      "loadingOffers": "Loading sessions…",
-      "noOffersEmpty": "No sessions missing a Wellhub product.",
+      "loadingOffers": "Loading classes…",
+      "noOffersEmpty": "No classes missing a Wellhub product.",
       "successMessage": "Wellhub product assigned successfully",
       "errorMessage": "An error occurred while assigning the Wellhub product. Please try again.",
       "confirmButton": "Confirm",
       "cancelButton": "Cancel",
       "form": {
         "productLabel": "Wellhub product",
-        "applySimilarLabel": "Apply to similar sessions",
-        "similarSessionsTitle": "Similar sessions",
+        "applySimilarLabel": "Apply to similar classes",
+        "similarSessionsTitle": "Similar classes",
         "loadingProducts": "Loading products…",
-        "noAccountError": "No active Wellhub partnership account found for this session.",
-        "noProductsError": "No Wellhub products available for this session type."
+        "noAccountError": "No active Wellhub partnership account found for this class.",
+        "noProductsError": "No Wellhub products available for this class type."
       }
     }
   }

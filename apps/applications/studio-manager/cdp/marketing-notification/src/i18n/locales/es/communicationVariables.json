@@ -4,7 +4,7 @@
   },
   "communicationVariable": {
     "Offer": {
-      "name": "Sesiones",
+      "name": "Clases",
       "tags": {
         "activity": "Clases en grupo",
         "coach": "Profesor",

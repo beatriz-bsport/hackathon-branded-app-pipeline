@@ -17,6 +17,19 @@
     "subtitle": "Add media to create your first Collection."
   },
   "emptyThumbnailLabel": "No media in the collection",
+  "ebook": {
+    "download": "Download"
+  },
+  "videoPlayer": {
+    "actions": {
+      "openVideo": "Open video",
+      "openYoutubeVideo": "Open YouTube video"
+    },
+    "fallbacks": {
+      "loadError": "The embedded player could not be loaded. Open the media in a new tab instead.",
+      "youtubeEmbedError": "The YouTube URL could not be parsed for embedding. Open it in a new tab instead."
+    }
+  },
   "videoList": {
     "ebook": "Ebook",
     "managerOnly": "Manager only",

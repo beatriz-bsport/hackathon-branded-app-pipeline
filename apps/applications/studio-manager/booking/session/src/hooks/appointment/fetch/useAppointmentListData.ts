@@ -102,6 +102,7 @@ const appointmentsQueryOptions = (
     date_start__gte: minDateKey ?? undefined,
     date_start__lte: maxDateKey ?? undefined,
     page_size: APPOINTMENTS_PAGE_SIZE,
+    ordering: "date_start",
     ...(!showCancelled && {
       booking_status_code__in: [PrivateBookingStatusCode.OK],
     }),

@@ -162,6 +162,7 @@ export const sessionsQueryOptions = (
         ...filterParams,
         min_date: minDateKey,
         max_date: maxDateKey,
+        ordering: "date_start",
       };
       if (!showCancelledSessions) {
         params["available"] = true;

@@ -48,8 +48,8 @@
           "name": "Name",
           "category": "Category",
           "type": "Type",
-          "nextSession": "Next session",
-          "features": "Features",
+          "nextSession": "Next class",
+          "features": "Details",
           "actions": "Actions"
         }
       },

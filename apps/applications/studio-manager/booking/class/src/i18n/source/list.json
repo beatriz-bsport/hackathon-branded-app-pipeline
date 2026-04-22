@@ -33,12 +33,23 @@
         "workshop": "Workshop"
       }
     },
+    "addModal": {
+      "title": "Create a class",
+      "confirm": "Create",
+      "cancel": "Cancel",
+      "errors": {
+        "generic": "Something went wrong while creating the class.",
+        "requiredField": "This field is required."
+      }
+    },
     "actions": {
       "duplicate": "Duplicate",
       "archive": "Archive",
       "unarchive": "Unarchive"
     },
     "toasts": {
+      "create": "{{className}} has been created",
+      "createError": "Failed to create class. Please try again.",
       "unarchive": "{{className}} has been unarchived",
       "undo": "Undo"
     },

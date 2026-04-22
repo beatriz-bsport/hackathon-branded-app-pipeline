@@ -1,9 +1,9 @@
 {
   "addSessionModal": {
-    "title": "Add session",
+    "title": "Add class",
     "steps": {
       "chooseActivity": {
-        "label": "Choose class",
+        "label": "Choose template",
         "description": "Search all classes, or select a group class or a workshop",
         "loadingActivities": "Loading classes...",
         "search": {
@@ -13,7 +13,7 @@
           "columns": {
             "activity": "Class",
             "type": "Type",
-            "features": "Features"
+            "features": "Details"
           },
           "type": {
             "groupActivity": "Group class",
@@ -21,7 +21,7 @@
           },
           "emptyState": {
             "title": "No group classes yet",
-            "body": "Create a group class or workshop first to add a session to it"
+            "body": "Choose a class template to add it to the calendar"
           },
           "features": {
             "livestream": {
@@ -34,40 +34,40 @@
         }
       },
       "configureSession": {
-        "label": "Set up session",
+        "label": "Set up class",
         "nameAndDescription": "Details",
-        "nameAndDescriptionHelperText": "Customize this session’s name and description",
+        "nameAndDescriptionHelperText": "Title and description is taken from the template",
         "details": {
           "title": "Details",
           "sessionName": "Title",
           "description": "Description",
           "overrideToggle": {
-            "label": "Customize this session's title and description",
-            "helperText": "By default, the session uses the title and description of the class"
+            "label": "Customize the name and description for this class",
+            "helperText": "By default, the class uses the title and description of the template"
           },
           "visibilitySelector": {
-            "title": "Choose if this session will be listed on your website",
+            "title": "Choose if this class will be listed on your branded website",
             "options": {
               "visible": {
                 "label": "Listed",
-                "description": "This session will be listed on your website"
+                "description": "This class will be listed on your branded website"
               },
               "hidden": {
                 "label": "Unlisted",
-                "description": "This session won't be listed on your website but can be shared directly via a link"
+                "description": "This class won't be listed on your branded website but can be shared directly via a link"
               }
             }
           }
         },
         "settings": {
           "title": "Booking",
-          "effectif": "Total spots in session",
+          "effectif": "Total spots in class",
           "exceedsRoomCapacity": "The number of spots exceeds the room capacity",
           "waitlist": "Spots on Waitlist",
           "credits": {
             "label": "Credits",
-            "helperText": "Number of credits required to book the session",
-            "decimalHelperText": "This session will cost {{credits}} credits",
+            "helperText": "Number of credits required to book",
+            "decimalHelperText": "This class will cost {{credits}} credits",
             "warning": "Heads up: this is the amount of credits, not the price"
           },
           "partnership": {
@@ -90,7 +90,7 @@
             },
             "capacity": {
               "label": "Spots available for aggregators",
-              "error": "The number of allocated spots for aggregators can't exceed the total available spots in the session",
+              "error": "Number of allocated spots for aggregators can't exceed the total available spots in the class",
               "classpassInfo": "ClassPass has its own separate limit that's not included in this cap"
             },
             "wellhub": {
@@ -125,12 +125,12 @@
             "edit": "Edit level",
             "save": "Save",
             "deleteTitle": "Delete level?",
-            "deleteMessage": "Existing sessions which have this level applied will remain unchanged, but future sessions will no longer be able to use it.",
+            "deleteMessage": "Classes which have this level applied will stay the same, but future classes won't be able to use it.",
             "delete": "Delete"
           },
           "hybrid": {
-            "label": "This session is hybrid (both on-site and online)",
-            "info": "Choosing this option will create an online session with a member limit of 100. Once it's created, you'll be able to edit the Broadcast link, membership, price, etc."
+            "label": "Class is hybrid (both in-person and online)",
+            "info": "Choosing this option will create an online class with a limit of 100 participants. Once it's created, you'll be able to edit the Broadcast link, membership, price, etc."
           },
           "teacherAndEstablishment": {
             "title": "Teacher and venue",
@@ -150,9 +150,9 @@
               "label": "Spot scheduling",
               "placeholder": "Choose an option...",
               "helper": "Allow clients to book a spot in the room in advance",
-              "error": "A room plan must be selected for sessions synchronized with Spivi"
+              "error": "A room plan must be selected for classes synchronized with Spivi"
             },
-            "syncOnSpivi": "Automatically send the session details to Spivi"
+            "syncOnSpivi": "Automatically send the class details to Spivi"
           },
           "broadcast": {
             "label": "Link to the livestream",
@@ -171,7 +171,7 @@
             "day": "day"
           },
           "recurrence": {
-            "toggle": "This session is recurring",
+            "toggle": "This class is recurring",
             "typeSelector": {
               "label": "Interval",
               "weekly": "Weekly",
@@ -201,35 +201,35 @@
               },
               "nthWeekday": "Nth weekday"
             },
-            "info": "{{count}} session will be created",
-            "info_other": "{{count}} sessions will be created",
-            "warning": "Adjust your settings to create recurring sessions. Only the initial session will be created. "
+            "info": "{{count}} class will be created",
+            "info_other": "{{count}} classes will be created",
+            "warning": "Adjust your settings to create recurring classes. Only the initial class will be created. "
           },
           "errors": {
             "invalidDate": "Enter a valid date in the format DD/MM/YYYY",
-            "dateTooFar": "You can’t create sessions scheduled more than 3 years in the future",
+            "dateTooFar": "You can’t create classes scheduled more than 3 years in the future",
             "durationNull": "Duration must be greater than 0 minutes.",
-            "recurrenceType": "Select a type of recurring session",
+            "recurrenceType": "Select a type of recurring class",
             "recurrenceEndDate": "Select an end date",
             "recurrenceEndDateBeforeStartDate": "End date must be after the start date",
             "recurrenceWeekdays": "Select at least one day of the week",
             "recurrenceUnit": "Select an interval unit (days, weeks, or months)",
-            "recurrenceInterval": "Choose how often to repeat the session",
+            "recurrenceInterval": "Choose how often to repeat the class",
             "recurrencePattern": "Select a monthly interval"
           },
-          "wellhubWarning": "Sessions shared via Wellhub will be automatically shortened to a maximum of 200 minutes.",
-          "uscWarning": "Your integration with the Urban Sports Club is active, any session spanning 2 days or more will not appear there."
+          "wellhubWarning": "Classes shared via Wellhub will be automatically shortened to a maximum of 200 minutes.",
+          "uscWarning": "Your integration with the Urban Sports Club is active, any class spanning 2 days or more will not appear there."
         }
       },
       "advancedOptions": {
         "label": "Advanced options",
         "bookForAGuest": {
           "title": "Guest booking",
-          "fieldLabel": "Enable clients to add guests to their bookings"
+          "fieldLabel": "Enable clients to use their credits to add guests to their bookings "
         },
         "tags": {
           "title": "Tags",
-          "subTitle": "Use tags to make this session available only to certain segments of your client base",
+          "subTitle": "Use tags to make this class available only to certain segments of your client base",
           "addTags": "Add tags",
           "whiteListTagsLabel": "Authorised members",
           "blackListTagsLabel": "Unauthorised members"
@@ -239,18 +239,18 @@
     "buttons": {
       "cancel": "Close",
       "back": "Back",
-      "createSession": "Create session",
+      "createSession": "Add class",
       "open": "Open"
     },
     "toasts": {
-      "sessionCreated_one": "Session created",
-      "sessionCreated_other": "Sessions created"
+      "sessionCreated_one": "Class added",
+      "sessionCreated_other": "Classes added"
     },
     "errors": {
       "requiredField": "This field is required",
       "levelNameTooLong": "Level name cannot exceed 50 characters",
       "generic": "An error occurred. Please try again.",
-      "create": "An error occurred while creating the session. Please try again later."
+      "create": "An error occurred while adding the class. Please try again later."
     }
   }
 }

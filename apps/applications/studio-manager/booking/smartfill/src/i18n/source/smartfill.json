@@ -1,11 +1,11 @@
 {
   "page": {
     "title": "Smartfill",
-    "disabled": "Smartfill is not currently enabled."
+    "disabled": "Smartfill not activated "
   },
   "activatedEmptyState": {
-    "title": "No classes have been promoted using Smartfill yet",
-    "subtitle": "It takes up to 24 hours to identify which classes can be promoted through Smartfill. Once ready, the targeted classes and their outreach analytics will appear here."
+    "title": "No classes promoted with Smartfill yet",
+    "subtitle": "View all classes promoted with Smartfill here, including outreach analytics, status and the number of messages sent to clients. "
   },
   "error": {
     "title": "Something went wrong",
@@ -13,9 +13,9 @@
     "retry": "Retry"
   },
   "section": {
-    "cta": "Activate Smartfill feature",
-    "subtitle": "Smartfill spots your low-attendance classes, finds clients most likely to book, then automatically reaches out to them and tracks who booked as a result.",
+    "cta": "Activate Smartfill",
+    "subtitle": "Smartfill proactively identifies low-attendance classes, finds clients most likely to book, then automatically reaches out to them to fill classes. ",
     "activate": "Activate",
-    "disable": "Disable"
+    "disable": "Deactivate"
   }
 }

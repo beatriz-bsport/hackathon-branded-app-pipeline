@@ -145,6 +145,77 @@ After dry-run output looks correct:
 2. review renamed paths in the diff
 3. run package checks
 
+## `@bsport/nx-migration:upgrade-pnpm`
+
+Update the repo's pinned pnpm version with guardrails for stable, non-breaking upgrades.
+
+### Input
+
+- `version`
+- `allowMajor` (optional, default `false`)
+
+### Usage
+
+Start with a dry-run:
+
+```bash
+pnpm exec nx g @bsport/nx-migration:upgrade-pnpm 10.33.0 --dry-run
+```
+
+Interactive prompt mode:
+
+```bash
+pnpm exec nx g @bsport/nx-migration:upgrade-pnpm
+```
+
+### What It Changes
+
+1. `/.npmrc`
+   - updates `pnpm_version=...`
+2. `/.mise.toml`
+   - updates the pinned `pnpm = "..."` entry under `[tools]`
+3. `/package.json`
+   - updates `engines.pnpm`
+   - updates `packageManager` if that field already exists
+
+### Safety
+
+- accepts only stable `x.y.z` versions
+- rejects major version changes by default
+- requires `--allowMajor` for major upgrades so they stay explicit and reviewed
+
+### What It Does Not Change
+
+- does not rewrite `pnpm-lock.yaml`
+- does not run `pnpm install` or `pnpm dedupe` for you
+
+### Post-Migration Checklist
+
+After dry-run output looks correct:
+
+1. run without `--dry-run`
+2. refresh your local toolchain:
+
+```bash
+mise install
+pnpm --version
+```
+
+3. run:
+
+```bash
+pnpm install --frozen-lockfile --prefer-offline
+pnpm dedupe --check
+```
+
+4. if dedupe check fails, run:
+
+```bash
+pnpm dedupe
+```
+
+5. review any resulting `pnpm-lock.yaml` changes
+
 ## Development
 
 Run tests for this plugin:

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "id": "UpgradePnpm",
+  "title": "Upgrade pinned pnpm version",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Stable pnpm version to pin across the repo (for example 10.33.0)",
+      "$default": { "$source": "argv", "index": 0 },
+      "x-prompt": "What stable pnpm version do you want to pin?"
+    },
+    "allowMajor": {
+      "type": "boolean",
+      "description": "Allow upgrading across pnpm major versions. Disabled by default because major upgrades may require additional repo changes.",
+      "default": false
+    }
+  },
+  "required": ["version"]
+}

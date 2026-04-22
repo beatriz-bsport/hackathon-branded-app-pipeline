@@ -409,14 +409,23 @@ You can find more regarding upgrading NX here: <https://nx.dev/features/automate
 
 ### Upgrade pnpm
 
-pnpm version is controlled directly in the monorepository. To upgrade pnpm version you need to:
+pnpm version is controlled directly in the monorepository. To upgrade pnpm, update all repo-managed pins:
 
-1. Edit the version in [`./.npmrc`](./.npmrc)
-2. Edit the version in the `engines` section in [`./package.json`](./package.json)
-3. Run the following command
+1. Edit the version in [`./.mise.toml`](./.mise.toml) (source of truth for local `mise install`)
+2. Edit the version in [`./.npmrc`](./.npmrc) (`pnpm_version`, kept in sync for CI)
+3. Edit the version in the `engines` section in [`./package.json`](./package.json)
+
+Then refresh your local toolchain:
 
 ```sh
-pnpm i -g pnpm
+mise install
+pnpm --version
 ```
 
-**NB:** Do not run the command `pnpm self-update` as prompted by pnpm as it might install pnpm at a different path.
+If the newer pnpm rewrites the lockfile metadata, refresh it with:
+
+```sh
+pnpm install -w --lockfile-only --ignore-scripts
+```
+
+**NB:** Do not run `pnpm self-update` or `pnpm i -g pnpm`, as they might install pnpm at a different path from the version pinned by the repository.

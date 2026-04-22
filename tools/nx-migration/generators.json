@@ -9,6 +9,11 @@
       "implementation": "./src/generators/migrate-filenames-to-kebab-case/generator",
       "schema": "./src/generators/migrate-filenames-to-kebab-case/schema.json",
       "description": "Rename package source files to kebab-case and update local references"
+    },
+    "upgrade-pnpm": {
+      "implementation": "./src/generators/upgrade-pnpm/generator",
+      "schema": "./src/generators/upgrade-pnpm/schema.json",
+      "description": "Update the repo's pinned pnpm version with guardrails for stable, non-breaking upgrades"
     }
   }
 }

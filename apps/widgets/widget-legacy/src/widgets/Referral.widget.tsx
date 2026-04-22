@@ -13,6 +13,7 @@ import {
   genericShowLogin as genericShowLoginAction,
 } from '../libs/modal/actions';
 import type { DialogMode } from '../libs/modal/types';
+import { useWidgetDataVersion } from '../libs/widget/hooks';
 
 const ReferralWidgetStyled = themify(ConsumerReferralDetailsPage);
 
@@ -29,6 +30,7 @@ type Props = OwnProps & typeof mapDispatchToWidgetProps;
 
 const ReferralWidget = (props: Props) => {
   const { showLogin, dialogMode, parentElement, companyId } = props;
+  const dataVersion = useWidgetDataVersion();
   const onLoginClick = () => {
     showLogin({
       dialogMode: dialogMode,
@@ -39,6 +41,7 @@ const ReferralWidget = (props: Props) => {
 
   return (
     <ReferralWidgetStyled
+      key={`referral-${dataVersion}`}
       {...props}
       companyId={companyId}
       onLoginClick={onLoginClick}

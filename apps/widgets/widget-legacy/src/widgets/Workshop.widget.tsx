@@ -24,6 +24,7 @@ import {
 import '../../vendor/map.css';
 
 import { getEnv } from '../utils/env';
+import { useWidgetDataVersion } from '../libs/widget/hooks';
 
 type MarketplaceWorkshopStyledProps = MarketplaceWorkshopOwnProps & {
   theme: CompanyTheme;
@@ -79,6 +80,7 @@ const WorkshopWidget = (props: Props) => {
     levels: config.levels || [],
     establishment_group__in: config.establishmentGroups || [],
   });
+  const dataVersion = useWidgetDataVersion();
 
   const updateFilters = (filtersUpdate: Partial<MarketplaceFilters>) =>
     setFilters({ ...filters, ...filtersUpdate });
@@ -100,6 +102,7 @@ const WorkshopWidget = (props: Props) => {
         store={store}
         theme={theme}
         mapContainerClassName="cleanslate"
+        refreshTrigger={dataVersion}
       />
     </div>
   );

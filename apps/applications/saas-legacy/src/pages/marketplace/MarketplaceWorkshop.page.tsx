@@ -112,6 +112,10 @@ export type OwnProps = {
   onlineFilter?: {
     is_online: boolean | undefined;
   };
+  // When this value changes, the workshop page refetches its data. Set by the
+  // widget from `state.widget.dataVersion` so that invalidateWidgetData
+  // triggers a refresh without remounting the widget subtree.
+  refreshTrigger?: number;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -164,6 +168,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   fetchAssociatedCoachesList,
   resetEstablishments,
   resetLevels,
+  refreshTrigger,
 }) => {
   const [displayedWorkshops, setDisplayedWorkshops] = useState(
     BATCH_SIZE_FOR_META_ACTIVITY,
@@ -303,6 +308,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     filters,
     theme,
     username,
+    refreshTrigger,
   ]);
 
   const goToBook = React.useCallback(

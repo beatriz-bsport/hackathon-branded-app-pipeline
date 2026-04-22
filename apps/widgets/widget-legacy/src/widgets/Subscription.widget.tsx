@@ -3,15 +3,16 @@ import { Theme } from '@material-ui/core';
 import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 import { MarketplaceContractBase } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceContract';
 import { getEnv } from '../utils/env';
+import { useWidgetDataVersion } from '../libs/widget/hooks';
 
 const MarketplaceContractStyled = themify(MarketplaceContractBase);
 
 type Props = {
-  companyId: number,
-  store: any,
-  theme: Theme,
-  onWindowOpen: (url: string) => void,
-  uniqueWidgetId: string,
+  companyId: number;
+  store: any;
+  theme: Theme;
+  onWindowOpen: (url: string) => void;
+  uniqueWidgetId: string;
 };
 
 const SubscriptionWidget: React.FC<Props> = ({
@@ -21,6 +22,8 @@ const SubscriptionWidget: React.FC<Props> = ({
   uniqueWidgetId,
   onWindowOpen,
 }) => {
+  const dataVersion = useWidgetDataVersion();
+
   useEffect(() => {
     window?.addEventListener('message', handleAddToCartPostMessages);
 
@@ -53,6 +56,7 @@ const SubscriptionWidget: React.FC<Props> = ({
 
   return (
     <MarketplaceContractStyled
+      key={`subscription-${dataVersion}`}
       companyId={companyId}
       theme={theme}
       store={store}

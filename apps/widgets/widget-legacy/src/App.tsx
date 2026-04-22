@@ -296,7 +296,6 @@ class BsportWidget extends Component<Props> {
                 })}
               >
                 <Widget
-                  key={`widget-${this.props.widgetRefreshKey}`}
                   companyId={companyId}
                   franchiseId={franchiseId}
                   config={config[widgetType] || {}}
@@ -377,7 +376,6 @@ const mapStateToProps = (state: RootState) => ({
   dialog: state.modal,
   franchisor: getFranchisor(state),
   customConfiguration: state.exportableComponent.customCss,
-  widgetRefreshKey: state.widget.refreshKey,
 });
 
 const mapDispatchToProps = {

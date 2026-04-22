@@ -26,6 +26,7 @@ import {
 } from '@bsport/saas-legacy/src/libs/marketplace/types';
 import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 import { getEnv } from '../utils/env';
+import { useWidgetDataVersion } from '../libs/widget/hooks';
 
 import '../../vendor/video.css';
 
@@ -60,6 +61,7 @@ const VODWidget = (props: Props) => {
     search: '',
     levels: '',
   });
+  const dataVersion = useWidgetDataVersion();
 
   const openVideo = (videoId: number) => {
     setVideoId(videoId);
@@ -93,6 +95,7 @@ const VODWidget = (props: Props) => {
     <div className={classes.container}>
       {showVODList && (
         <MarketPlaceVideoStyled
+          key={`vod-list-${dataVersion}`}
           companyId={companyId}
           searchParams={searchParams}
           setSearchParams={updateSearchParams}
@@ -110,6 +113,7 @@ const VODWidget = (props: Props) => {
 
           <div className={classes.videoDetail}>
             <MarketplaceVideoDetailStyled
+              key={`vod-detail-${dataVersion}`}
               companyId={companyId}
               videoId={videoId}
               companyName=""
@@ -133,6 +137,7 @@ const VODWidget = (props: Props) => {
 
           <div className={classes.videoDetail}>
             <MarketplacePlaylistStyled
+              key={`vod-playlist-${dataVersion}`}
               companyId={companyId}
               companyName=""
               id={playlistId}

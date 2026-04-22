@@ -1,3 +1,3 @@
 import { createAction } from 'redux-actions';
 
-export const forceWidgetRefresh = createAction('WIDGET_FORCE_REFRESH');
+export const invalidateWidgetData = createAction('WIDGET_INVALIDATE_DATA');

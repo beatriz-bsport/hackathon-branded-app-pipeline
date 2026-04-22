@@ -1,39 +1,43 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Theme } from '@material-ui/core';
 import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 import { MarketplaceShopBase } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceShop.page';
 import { getEnv } from '../utils/env';
+import { useWidgetDataVersion } from '../libs/widget/hooks';
 
 const MarketplaceShopStyled = themify(MarketplaceShopBase);
 
-type OwnProps = {
-  companyId: number,
-  config: any,
-  store: any,
-  theme: Theme,
-  onWindowOpen: (url: string) => void,
+type Props = {
+  companyId: number;
+  config: any;
+  store: any;
+  theme: Theme;
+  onWindowOpen: (url: string) => void;
 };
 
-type Props = OwnProps;
+const ShopWidget: React.FC<Props> = ({
+  companyId,
+  store,
+  theme,
+  onWindowOpen,
+}) => {
+  const dataVersion = useWidgetDataVersion();
 
-class PassWidget extends Component<Props> {
-  addToCart = (shopItemId: number) => {
+  const addToCart = (shopItemId: number) => {
     const { PUBLIC_URL } = getEnv();
-    const url = `${PUBLIC_URL}/customer/payment/shop-item/${shopItemId}?membership=${this.props.companyId}`;
-    this.props.onWindowOpen(url);
+    const url = `${PUBLIC_URL}/customer/payment/shop-item/${shopItemId}?membership=${companyId}`;
+    onWindowOpen(url);
   };
 
-  render() {
-    const { companyId, store, theme } = this.props;
-    return (
-      <MarketplaceShopStyled
-        companyId={companyId}
-        theme={theme}
-        store={store}
-        onAddToCart={this.addToCart}
-      />
-    );
-  }
-}
+  return (
+    <MarketplaceShopStyled
+      key={`shop-${dataVersion}`}
+      companyId={companyId}
+      theme={theme}
+      store={store}
+      onAddToCart={addToCart}
+    />
+  );
+};
 
-export default PassWidget;
+export default ShopWidget;

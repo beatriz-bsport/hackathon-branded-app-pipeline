@@ -35,6 +35,7 @@ import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
 import { RootState } from '@bsport/saas-legacy/src/reducers';
 import { getMembership } from '@bsport/saas-legacy/src/libs/membership/selectors';
 import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '@bsport/saas-legacy/src/libs/membership/actions';
+import { useWidgetDataVersion } from '../libs/widget/hooks';
 
 type OwnProps = {
   companyId: number;
@@ -73,6 +74,7 @@ const ConsumerSpaceWidget = (props: Props) => {
   const [selectedPage, setSelectedPage] = useState<ConsumerSpaceWidgetPage>(
     page || config?.defaultPage || 'consumerBooking',
   );
+  const dataVersion = useWidgetDataVersion();
 
   const changePage = (page: ConsumerSpaceWidgetPage) => setSelectedPage(page);
 
@@ -86,22 +88,23 @@ const ConsumerSpaceWidget = (props: Props) => {
 
   useEffect(() => {
     fetchMembershipByCompany(companyId);
-  }, [companyId]);
+  }, [companyId, dataVersion]);
 
   const getCurrentConsumerWidget = () => {
+    const key = `consumer-${selectedPage}-${dataVersion}`;
     switch (selectedPage) {
       case 'consumerBooking':
-        return <ConsumerBookingWidget {...props} />;
+        return <ConsumerBookingWidget key={key} {...props} />;
       case 'consumerInvoice':
-        return <ConsumerInvoiceWidget {...props} />;
+        return <ConsumerInvoiceWidget key={key} {...props} />;
       case 'consumerPass':
-        return <ConsumerPassWidget {...props} />;
+        return <ConsumerPassWidget key={key} {...props} />;
       case 'consumerProfile':
-        return <ConsumerProfileWidget {...props} />;
+        return <ConsumerProfileWidget key={key} {...props} />;
       case 'consumerSubscription':
-        return <ConsumerSubscriptionWidget {...props} />;
+        return <ConsumerSubscriptionWidget key={key} {...props} />;
       default:
-        return <ConsumerBookingWidget {...props} />;
+        return <ConsumerBookingWidget key={key} {...props} />;
     }
   };
 

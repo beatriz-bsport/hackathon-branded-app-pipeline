@@ -10,18 +10,19 @@ import {
   MarketplacePaymentPackTemplateParams,
 } from '@bsport/saas-legacy/src/libs/marketplace/types';
 import { buildFranchiseSelectionThenCheckoutUrl } from './utils';
+import { useWidgetDataVersion } from '../libs/widget/hooks';
 
 const WidgetPaymentPackTemplateListPageStyled = themify(
   WidgetPaymentPackTemplateListPage,
 );
 
 type Props = {
-  config?: MarketplacePaymentPackTemplateData,
-  title: string,
-  store: any,
-  theme: Theme,
-  franchiseId: number,
-  onWindowOpen: (url: string) => void,
+  config?: MarketplacePaymentPackTemplateData;
+  title: string;
+  store: any;
+  theme: Theme;
+  franchiseId: number;
+  onWindowOpen: (url: string) => void;
 };
 
 export const PaymentPackTemplate: React.FC<Props> = ({
@@ -35,6 +36,7 @@ export const PaymentPackTemplate: React.FC<Props> = ({
   const [params, setParams] = useState<MarketplacePaymentPackTemplateParams>({
     paymentPackTemplateList: config?.paymentPackTemplateList || [],
   });
+  const dataVersion = useWidgetDataVersion();
 
   useEffect(() => {
     if (config?.paymentPackTemplateList?.length > 0) {
@@ -58,6 +60,7 @@ export const PaymentPackTemplate: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <WidgetPaymentPackTemplateListPageStyled
+        key={`payment-pack-template-${dataVersion}`}
         theme={theme}
         store={store}
         franchiseId={franchiseId}

@@ -31,6 +31,7 @@ import '../../vendor/map.css';
 
 import { getEnv } from '../utils/env';
 import { bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction } from '../libs/bridge/actions';
+import { useWidgetDataVersion } from '../libs/widget/hooks';
 
 const getNowISODate = () => {
   const today = new Date();
@@ -103,6 +104,7 @@ export const CalendarWidget = (props: Props) => {
   const onlineFilter = config.onlineFilter ?? {};
 
   const [selectedDate, setSelectedDate] = useState(getNowISODate());
+  const dataVersion = useWidgetDataVersion();
 
   useEffect(() => {
     bridgeRequestAuthenticationStatus();
@@ -138,6 +140,7 @@ export const CalendarWidget = (props: Props) => {
         onlyDay: config.todayOnly ? 'true' : '',
         filtersOpen: '',
       }}
+      refreshTrigger={dataVersion}
       setOtherParams={setOtherParams}
       theme={theme}
       variant={config?.variant}

@@ -13,7 +13,7 @@ import {
   responseAuthenticatedStatus,
   // @ts-expect-error: import of js file
 } from '@bsport/saas-legacy/src/actions/auth.actions';
-import { forceWidgetRefresh } from '../widget/actions';
+import { invalidateWidgetData } from '../widget/actions';
 import { disconnectWidget } from '../../reducers/actions';
 
 // First part: how to send message
@@ -68,7 +68,7 @@ export const handleBridgeMessage =
     switch (eventData.type) {
       case WidgetMessageType.IFRAME_LOGIN_SUCCESS:
         dispatch(responseAuthenticatedStatus(true));
-        dispatch(forceWidgetRefresh());
+        dispatch(invalidateWidgetData());
         break;
 
       case WidgetMessageType.RESPONSE_AUTHENTICATED_STATUS:
@@ -81,16 +81,20 @@ export const handleBridgeMessage =
 
       case WidgetMessageType.DISCONNECT:
         dispatch(disconnectWidget());
-        dispatch(forceWidgetRefresh());
+        // `disconnectWidget` resets the whole store (theme aside), which
+        // includes the `widget` slice — so `dataVersion` goes back to 0.
+        // Bump it to 1 so widgets keyed/triggered on `dataVersion` detect
+        // the change and refetch their (now logged-out) data.
+        dispatch(invalidateWidgetData());
         break;
 
       case WidgetMessageType.VIDEO_REGISTERED:
         dispatch(closeUserInteractionPortal());
-        dispatch(forceWidgetRefresh());
+        dispatch(invalidateWidgetData());
         break;
 
       case WidgetMessageType.PAYMENT_SUCCESS:
-        dispatch(forceWidgetRefresh());
+        dispatch(invalidateWidgetData());
         break;
 
       case WidgetMessageType.CLOSE_MODAL:

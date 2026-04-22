@@ -136,6 +136,10 @@ export type OwnProps = {
   // specific information without relying on auth tokens
   username?: string;
   config?: MarketplaceComponentConfig['calendar']; // From widget configuration
+  // When this value changes, the calendar refetches its data. Set by the
+  // widget from `state.widget.dataVersion` so that invalidateWidgetData
+  // triggers a refresh without remounting the widget subtree.
+  refreshTrigger?: number;
 };
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &
@@ -419,10 +423,14 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       );
     })();
 
+    const refreshTriggerChanged =
+      prevProps.refreshTrigger !== this.props.refreshTrigger;
+
     if (
       filtersStateChanged ||
       selectedWeekChanged ||
-      onlineFilterPropsHasChanged
+      onlineFilterPropsHasChanged ||
+      refreshTriggerChanged
     ) {
       this.fetchData();
     }

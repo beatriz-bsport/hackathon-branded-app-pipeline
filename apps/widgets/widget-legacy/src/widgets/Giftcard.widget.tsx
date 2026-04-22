@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 import { MarketplaceGiftcardBase } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceGiftcard.page';
@@ -7,41 +7,49 @@ import { MarketplaceGiftcardData } from '@bsport/saas-legacy/src/libs/marketplac
 import type { WithStyles } from '@material-ui/styles';
 import type { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import { getEnv } from '../utils/env';
+import { useWidgetDataVersion } from '../libs/widget/hooks';
 
 const MarketplaceGiftcardThemed = themify(MarketplaceGiftcardBase);
 
 type OwnProps = {
-  companyId: number,
-  store: any,
-  theme: CompanyTheme,
-  config?: MarketplaceGiftcardData,
-  onWindowOpen: (url: string) => void,
+  companyId: number;
+  store: any;
+  theme: CompanyTheme;
+  config?: MarketplaceGiftcardData;
+  onWindowOpen: (url: string) => void;
 };
 
 type Props = OwnProps & WithStyles<typeof styles>;
 
-class GiftcardWidget extends Component<Props> {
-  openGiftcardConfig = (giftcardId: number, companyId: number) => {
+const GiftcardWidget: React.FC<Props> = ({
+  companyId,
+  store,
+  theme,
+  config,
+  onWindowOpen,
+  classes,
+}) => {
+  const dataVersion = useWidgetDataVersion();
+
+  const openGiftcardConfig = (giftcardId: number, targetCompanyId: number) => {
     const { PUBLIC_URL } = getEnv();
-    const url = `${PUBLIC_URL}/checkout/${companyId}/giftcard/${giftcardId}/`;
-    this.props.onWindowOpen(url);
+    const url = `${PUBLIC_URL}/checkout/${targetCompanyId}/giftcard/${giftcardId}/`;
+    onWindowOpen(url);
   };
 
-  render() {
-    const { companyId, store, theme, config } = this.props;
-    return (
-      <div className={this.props.classes.container}>
-        <MarketplaceGiftcardThemed
-          companyId={companyId}
-          store={store}
-          theme={theme}
-          goToGiftcardCheckout={this.openGiftcardConfig}
-          params={config}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classes.container}>
+      <MarketplaceGiftcardThemed
+        key={`giftcard-${dataVersion}`}
+        companyId={companyId}
+        store={store}
+        theme={theme}
+        goToGiftcardCheckout={openGiftcardConfig}
+        params={config}
+      />
+    </div>
+  );
+};
 
 const styles = () => ({
   container: {

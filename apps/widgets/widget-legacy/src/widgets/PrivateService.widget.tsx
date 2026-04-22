@@ -27,6 +27,7 @@ import {
   MarketplacePrivateServiceSessionData,
   MarketplacePrivateServiceTypeEnum,
 } from '@bsport/saas-legacy/src/libs/marketplace/types';
+import { useWidgetDataVersion } from '../libs/widget/hooks';
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage),
@@ -36,12 +37,12 @@ const SlotSelector = themify(
 );
 
 type Props = {
-  companyId: number,
-  config: MarketplacePrivateServiceData,
-  store: any,
-  theme: CompanyTheme,
-  onWindowOpen: (url: string) => void,
-  dialogMode: number,
+  companyId: number;
+  config: MarketplacePrivateServiceData;
+  store: any;
+  theme: CompanyTheme;
+  onWindowOpen: (url: string) => void;
+  dialogMode: number;
 };
 
 const PrivateServiceWidget: React.FC<Props> = ({
@@ -56,6 +57,7 @@ const PrivateServiceWidget: React.FC<Props> = ({
   );
   const [serviceId, setServiceId] = useState<number | null>(config.serviceId);
   const classes = useStyles();
+  const dataVersion = useWidgetDataVersion();
 
   const onClickPrivateService = (ps: PrivateService) => {
     setType(MarketplacePrivateServiceTypeEnum.detail);
@@ -85,6 +87,7 @@ const PrivateServiceWidget: React.FC<Props> = ({
     <div className={classes.container}>
       {type === MarketplacePrivateServiceTypeEnum.list && (
         <PrivateServiceSelector
+          key={`private-service-list-${dataVersion}`}
           companyId={companyId.toString()}
           companyName=""
           onClickPrivateService={onClickPrivateService}
@@ -102,6 +105,7 @@ const PrivateServiceWidget: React.FC<Props> = ({
             </ButtonBase>
           )}
           <SlotSelector
+            key={`private-service-slots-${dataVersion}`}
             companyId={companyId.toString()}
             serviceId={serviceId.toString()}
             onSessionSelect={onSessionSelect}

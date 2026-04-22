@@ -13,6 +13,7 @@ import type { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import type { WithStyles } from '@material-ui/styles';
 import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';
+import { selectWidgetDataVersion } from '../libs/widget/hooks';
 
 const MarketplacePassStyled = themify(MarketplacePassBase);
 
@@ -132,6 +133,7 @@ class PassWidget extends Component<Props> {
     return (
       <div className={this.props.classes.container}>
         <MarketplacePassStyled
+          key={`pass-${this.props.dataVersion}`}
           companyId={companyId}
           store={store}
           theme={theme}
@@ -156,6 +158,7 @@ const styles = () => ({
 const connector = connect((state: RootState) => ({
   authenticated: state.auth.authenticated,
   username: state.auth.username,
+  dataVersion: selectWidgetDataVersion(state),
 }));
 
 export default compose<Props, OwnProps>(

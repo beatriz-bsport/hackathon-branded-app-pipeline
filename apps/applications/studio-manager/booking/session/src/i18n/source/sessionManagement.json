@@ -56,5 +56,9 @@
       "sendNotification": "Send notification",
       "confirmation": "Booking cancelled"
     }
+  },
+  "bookingAttendanceFilter": {
+    "present": "Present",
+    "absent": "Absent"
   }
 }

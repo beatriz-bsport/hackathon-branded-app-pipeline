@@ -332,6 +332,7 @@ export class PaymentDialog extends React.Component<Props, State> {
                       detachPaymentMethodLoading={
                         this.props.detachPaymentMethodLoading
                       }
+                      disableLink={!this.props.asConsumer}
                       establishments={this.props.establishments}
                       memberId={this.props.memberId}
                       onCancel={this.props.onCancel}

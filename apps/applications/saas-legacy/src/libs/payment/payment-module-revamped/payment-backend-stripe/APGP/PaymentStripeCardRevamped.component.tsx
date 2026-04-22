@@ -42,6 +42,7 @@ import PopOver from '#src/components/Popover';
 import { useWidth } from '#src/hooks/useWidth';
 
 import { STRIPE_CARD_ERROR_CODES } from '#src/libs/payment/constants';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
 import CardBillingDetailsForm from '#src/libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
 import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
@@ -78,6 +79,7 @@ type Props = {
     options?: OptionCallback<unknown, number>,
   ) => void;
   detachPaymentMethodLoading: boolean;
+  disableLink?: boolean;
   forceDisabled?: boolean;
   forceHideConfirmPaymentButton?: boolean;
   forceSave?: boolean;
@@ -126,6 +128,7 @@ const PaymentStripeCardRevamped = forwardRef(
       customClasses,
       detachPaymentMethod,
       detachPaymentMethodLoading,
+      disableLink = false,
       forceDisabled,
       forceHideConfirmPaymentButton,
       forceSave,
@@ -155,6 +158,10 @@ const PaymentStripeCardRevamped = forwardRef(
     const isCheckoutContext = useContext(CheckoutContext);
     const classes = useStyles();
     const { t } = useTranslation(['invoice', 'payment']);
+
+    const isLinkEnabled = useSafeFlag(
+      FeatureFlags.STRIPE_LINK_EXPRESS_CHECKOUT,
+    );
 
     const stripe = useStripe();
     const elements = useElements();
@@ -453,7 +460,8 @@ const PaymentStripeCardRevamped = forwardRef(
                           wallets: {
                             applePay: 'never',
                             googlePay: 'never',
-                            link: 'never',
+                            link:
+                              disableLink || !isLinkEnabled ? 'never' : 'auto',
                           },
                           defaultValues: { billingDetails },
                         }}

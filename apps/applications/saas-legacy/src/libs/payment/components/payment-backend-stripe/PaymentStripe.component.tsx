@@ -59,6 +59,7 @@ type PaymentStripeProps = {
   creditAccountBalance?: number | null;
   detachPaymentMethod: (pm_id: string) => void;
   detachPaymentMethodLoading: boolean;
+  disableLink?: boolean;
   forceHideConfirmPaymentButton?: boolean;
   fromApp?: boolean;
   instalmentPaymentSelectedId?: number;
@@ -135,6 +136,7 @@ const PaymentStripe: React.FC<
       creditAccountBalance,
       detachPaymentMethod,
       detachPaymentMethodLoading,
+      disableLink,
       forceHideConfirmPaymentButton,
       fromApp,
       instalmentPaymentSelectedId,
@@ -264,6 +266,7 @@ const PaymentStripe: React.FC<
               creditAccountBalance={creditAccountBalance}
               detachPaymentMethod={detachPaymentMethod}
               detachPaymentMethodLoading={detachPaymentMethodLoading}
+              disableLink={disableLink}
               forceHideConfirmPaymentButton={forceHideConfirmPaymentButton}
               forceSave={forceSaveForInstalments}
               fromApp={fromApp}

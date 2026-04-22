@@ -44,6 +44,7 @@ export type FileUploadProps = {
     fileList: FileList | null;
     newItems: FileUploadTracker[];
   }) => void;
+  onRemoveFile?: (fileUploadTracker: FileUploadTracker) => void;
   setFileUploadTrackerList?: Dispatch<SetStateAction<FileUploadTracker[]>>;
   uploadCallback?: () => void;
 };
@@ -70,6 +71,7 @@ export type FileUploadProps = {
  * @param props.multiple Whether to allow selecting multiple files.
  * @param props.onFileDrop Callback function invoked after a FileList is detected in the dropzone.
  * @param props.onInputChange Callback function invoked after a FileList is added to the file input.
+ * @param props.onRemoveFile Callback function invoked after a file is removed from the tracker list.
  * @param props.setFileUploadTrackerList State setter function to manage `fileUploadTrackerList`.
  * @param props.uploadCallback Callback function invoked after the upload process starts.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-fileupload--docs
@@ -88,6 +90,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
   multiple,
   onFileDrop,
   onInputChange,
+  onRemoveFile,
   setFileUploadTrackerList,
   uploadCallback,
 }) => {
@@ -155,6 +158,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
     setCurrentFileUploadTrackerList((prev) => [
       ...prev.filter((item) => item.file.name != fileUploadTracker.file.name),
     ]);
+    onRemoveFile?.(fileUploadTracker);
   };
 
   const handleUpdateFileTracker = ({

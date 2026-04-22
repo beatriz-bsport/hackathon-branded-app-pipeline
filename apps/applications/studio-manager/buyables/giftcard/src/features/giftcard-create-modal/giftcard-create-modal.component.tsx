@@ -97,7 +97,7 @@ export const GiftcardCreateModal: FC<GiftcardCreateModalProps> = ({
         {...methods}
       >
         <div className="flex flex-col gap-md w-full">
-          <GiftcardFormCover formId={formId} methods={methods} />
+          <GiftcardFormCover formId={formId} />
 
           <GiftcardFormValue formId={formId} methods={methods} />
 

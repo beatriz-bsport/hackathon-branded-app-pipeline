@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { type FC, useState } from "react";
 import { useNavigate } from "react-router";
 
 import type { MetaActivity } from "@bsport/api-book";
@@ -11,6 +11,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 
+import { AddClassModal } from "#src/components/class-form/add-class-modal";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useClassesFilters } from "#src/hooks/use-classes-filters";
 import { useClassesList } from "#src/hooks/use-classes-list";
@@ -27,6 +28,7 @@ type ClassesTableProps = {
   isWorkshop: boolean | undefined;
   inCategoryIds: string[] | undefined;
   onClearFilters: () => void;
+  onAddClick: () => void;
 };
 
 const ClassesTable: FC<ClassesTableProps> = ({
@@ -34,6 +36,7 @@ const ClassesTable: FC<ClassesTableProps> = ({
   isWorkshop,
   inCategoryIds,
   onClearFilters,
+  onAddClick,
 }) => {
   const { t } = useTranslation("list");
   const columns = useTableColumns<Row>();
@@ -95,8 +98,7 @@ const ClassesTable: FC<ClassesTableProps> = ({
           subtitle: t("list.state.empty.subtitle"),
           ctaButtonConfig: {
             label: t("list.state.empty.cta"),
-            // TODO: wire the add button
-            onClick: () => null,
+            onClick: onAddClick,
             iconLeft: "plus",
           },
         },
@@ -128,6 +130,7 @@ const ClassesListingPage: FC = () => {
     activeCategoryIds,
     resetFilters,
   } = useClassesFilters();
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const { endGroupActions } = ListLayout.useAdaptiveActions({
     endGroupActions: [
@@ -148,12 +151,12 @@ const ClassesListingPage: FC = () => {
       <ListLayout.Header
         endGroupActions={endGroupActions}
         callToActionButton={
-          // TODO: wire the add button
           <ListLayout.Button
             iconLeft="plus"
             intent="call-to-action"
             color="main"
             label={t("list.header.add")}
+            onClick={() => setIsCreateModalOpen(true)}
           />
         }
         pageTitle={t("list.header.classes")}
@@ -168,6 +171,10 @@ const ClassesListingPage: FC = () => {
         filterRef={filterRef}
       />
       <ListLayout.Content className="flex flex-col gap-sm">
+        <AddClassModal
+          open={isCreateModalOpen}
+          onClose={() => setIsCreateModalOpen(false)}
+        />
         <QueryBoundary
           loadingFallback={<Loader className="w-full h-full" size="xl" />}
         >
@@ -176,6 +183,7 @@ const ClassesListingPage: FC = () => {
             isWorkshop={activeIsWorkshop}
             inCategoryIds={activeCategoryIds}
             onClearFilters={resetFilters}
+            onAddClick={() => setIsCreateModalOpen(true)}
           />
         </QueryBoundary>
       </ListLayout.Content>

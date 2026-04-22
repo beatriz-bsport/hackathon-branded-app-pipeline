@@ -1039,15 +1039,24 @@ importers:
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
+      '@bsport/form':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/form
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-business-components':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/business
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../../packages/design-system/kaizen/primitive/core
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/base
       '@bsport/store-booking-group-activity':
         specifier: workspace:*
         version: link:../../../../../packages/stores/booking/group-activity
@@ -1078,9 +1087,18 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+      react-hook-form:
+        specifier: ^7.58.0
+        version: 7.58.1(react@19.2.0)
       react-router:
         specifier: ^7.2.0
         version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      zod:
+        specifier: ^3.25.64
+        version: 3.25.67
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@19.2.2)(immer@9.0.21)(react@19.2.0)(use-sync-external-store@1.6.0(react@19.2.0))
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*

@@ -3,7 +3,9 @@ export { FormField } from "./FormField";
 export { ControlledForm, type ControlledFormProps } from "./ControlledForm";
 export {
   useFormContext,
+  useFieldArray,
   type FieldPath,
+  type FieldPathByValue,
   type FieldValues,
 } from "react-hook-form";
 export {

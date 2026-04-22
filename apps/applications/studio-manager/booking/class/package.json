@@ -30,12 +30,15 @@
     "@bsport/api-book": "workspace:*",
     "@bsport/api-core": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
+    "@bsport/store-base": "workspace:*",
     "@bsport/store-booking-group-activity": "workspace:*",
     "@bsport/store-core-data-masterdata": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "react-hook-form": "^7.58.0",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
@@ -49,14 +52,17 @@
   },
   "peerDependencies": {
     "@bsport/fetch": "workspace:*",
+    "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
+    "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@tanstack/react-query": "^5.90.12",
     "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router": "^7.2.0"
+    "react-router": "^7.2.0",
+    "zod": "^3.25.64"
   },
   "federation": {
     "devPort": 4203,

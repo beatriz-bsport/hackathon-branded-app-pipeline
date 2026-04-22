@@ -47,6 +47,7 @@ type Props = {
   creditAccountBalance?: number | null;
   detachPaymentMethod: (pm_id: string) => void;
   detachPaymentMethodLoading: boolean;
+  disableLink?: boolean;
   enableMultiLocalization: boolean;
   establishmentBillingGroups?: EstablishmentBillingGroup[];
   forceHideConfirmPaymentButton?: boolean;
@@ -113,6 +114,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
       creditAccountBalance,
       detachPaymentMethod,
       detachPaymentMethodLoading,
+      disableLink = true,
       enableMultiLocalization,
       establishmentBillingGroups,
       forceHideConfirmPaymentButton,
@@ -302,6 +304,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                 creditAccountBalance={creditAccountBalance}
                 detachPaymentMethod={detachPaymentMethod}
                 detachPaymentMethodLoading={detachPaymentMethodLoading}
+                disableLink={disableLink}
                 forceHideConfirmPaymentButton={forceHideConfirmPaymentButton}
                 instalmentPaymentSelectedId={instalmentPaymentSelectedId}
                 invalidatePendingBookingsAndUnblockBasket={

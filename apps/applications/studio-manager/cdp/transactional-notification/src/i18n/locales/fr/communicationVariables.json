@@ -4,7 +4,7 @@
   },
   "communicationVariable": {
     "Offer": {
-      "name": "Séance",
+      "name": "Cours",
       "tags": {
         "activity": "Cours collectifs",
         "coach": "Professeur",

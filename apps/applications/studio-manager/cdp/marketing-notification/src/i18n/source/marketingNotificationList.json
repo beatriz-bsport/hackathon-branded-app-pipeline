@@ -155,16 +155,16 @@
           "immediate": "Sent on trigger"
         },
         "before": {
-          "day_one": "Sent {{count}} day before the session",
-          "day_other": "Sent {{count}} days before the session",
-          "hour_one": "Sent {{count}} hour before the session",
-          "hour_other": "Sent {{count}} hours before the session"
+          "day_one": "Sent {{count}} day before the class",
+          "day_other": "Sent {{count}} days before the class",
+          "hour_one": "Sent {{count}} hour before the class",
+          "hour_other": "Sent {{count}} hours before the class"
         },
         "after": {
-          "day_one": "Sent {{count}} day after the session",
-          "day_other": "Sent {{count}} days after the session",
-          "hour_one": "Sent {{count}} hour after the session",
-          "hour_other": "Sent {{count}} hours after the session"
+          "day_one": "Sent {{count}} day after the class",
+          "day_other": "Sent {{count}} days after the class",
+          "hour_one": "Sent {{count}} hour after the class",
+          "hour_other": "Sent {{count}} hours after the class"
         }
       },
       "subscription": {
@@ -231,12 +231,12 @@
         },
         "credits": {
           "booking": {
-            "hour_one": "Sent {{count}} hour after session booked",
-            "hour_other": "Sent {{count}} hours after session booked"
+            "hour_one": "Sent {{count}} hour after class booked",
+            "hour_other": "Sent {{count}} hours after class booked"
           },
           "end": {
-            "hour_one": "Sent {{count}} hour after session ends",
-            "hour_other": "Sent {{count}} hours after session ends"
+            "hour_one": "Sent {{count}} hour after class ends",
+            "hour_other": "Sent {{count}} hours after class ends"
           },
           "appointmentPass": "Sent on automation trigger"
         }

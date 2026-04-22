@@ -2,9 +2,10 @@ import { type FC, useState } from "react";
 import { useNavigate } from "react-router";
 
 import type { Collection } from "@bsport/api-buyables/collection";
-import { ErrorFallback, ListLayout } from "@bsport/kaizen-primitive-core";
+import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { CollectionTable } from "#src/components/collection-table/collection-table";
+import { QueryBoundary } from "#src/components/query-boundary";
 import { CollectionCreateModal } from "#src/features/collection-create-modal/collection-create-modal";
 import { CollectionDeleteModal } from "#src/features/collection-delete-modal/collection-delete-modal";
 import { CollectionEditModal } from "#src/features/collection-edit-modal/collection-edit-modal";
@@ -14,18 +15,37 @@ import { useDisclosure } from "#src/hooks/use-disclosure";
 import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
+type CollectionsListPageContentProps = {
+  onEdit: (collection: Collection) => void;
+  onDelete: (collection: Collection) => void;
+  onCreate: () => void;
+};
+
+const CollectionsListPageContent: FC<CollectionsListPageContentProps> = ({
+  onEdit,
+  onDelete,
+  onCreate,
+}) => {
+  const navigate = useNavigate();
+  const { collections, isEmpty, paginationProps } = useCollectionsQuery();
+
+  return (
+    <CollectionTable
+      collections={collections}
+      paginationProps={paginationProps}
+      isEmpty={isEmpty}
+      onCreate={onCreate}
+      onRowClick={(id) => {
+        navigate(URLS.COLLECTION_DETAILS(id));
+      }}
+      onEdit={onEdit}
+      onDelete={onDelete}
+    />
+  );
+};
+
 const CollectionsListPage: FC = () => {
   const { t } = useTranslation(["collections-list", "shared-list"]);
-  const navigate = useNavigate();
-  const {
-    collections,
-    isLoading,
-    isError,
-    error,
-    refetch,
-    isEmpty,
-    paginationProps,
-  } = useCollectionsQuery();
 
   const pageTabs = useBuildPageTabs();
 
@@ -59,13 +79,6 @@ const CollectionsListPage: FC = () => {
     setEditedCollection(null);
   };
 
-  const errorMessage =
-    error instanceof Error && error.message
-      ? error.message
-      : t("error.description", {
-          ns: "collections-list",
-        });
-
   const handleDelete = (collection: Collection) => {
     setDeletedCollectionId(collection.id);
   };
@@ -88,37 +101,13 @@ const CollectionsListPage: FC = () => {
         }
       />
       <ListLayout.Content>
-        {isError ? (
-          <ErrorFallback
-            className="mx-auto"
-            title={t("error.title", {
-              ns: "collections-list",
-            })}
-            subtitle=""
-            description={errorMessage}
-            actionProps={{
-              label: t("error.retry", {
-                ns: "collections-list",
-              }),
-              onClick: () => {
-                void refetch();
-              },
-            }}
-          />
-        ) : (
-          <CollectionTable
-            collections={collections}
-            paginationProps={paginationProps}
-            isEmpty={isEmpty}
-            isLoading={isLoading}
+        <QueryBoundary>
+          <CollectionsListPageContent
             onCreate={openCreateModal}
-            onRowClick={(id) => {
-              navigate(URLS.COLLECTION_DETAILS(id));
-            }}
             onEdit={handleEdit}
             onDelete={handleDelete}
           />
-        )}
+        </QueryBoundary>
       </ListLayout.Content>
 
       <CollectionCreateModal

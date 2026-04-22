@@ -19,7 +19,7 @@ type CollectionTableProps = {
   collections: Collection[];
   paginationProps: PaginationProps;
   isEmpty: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
   onCreate?: () => void;
   onRowClick?: (id: number) => void;
   onEdit?: (collection: Collection) => void;
@@ -30,7 +30,7 @@ export const CollectionTable: FC<CollectionTableProps> = ({
   collections,
   paginationProps,
   isEmpty,
-  isLoading,
+  isLoading = false,
   onCreate,
   onRowClick,
   onEdit,

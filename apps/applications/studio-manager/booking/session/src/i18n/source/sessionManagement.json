@@ -1,7 +1,7 @@
 {
   "pageTitle": "{{sessionName}} with {{coachName}}",
-  "goToPreviousSession": "Go to previous session",
-  "goToNextSession": "Go to next session",
+  "goToPreviousSession": "Go to previous class",
+  "goToNextSession": "Go to next class",
   "bookButton": "Book a client",
   "bookingsSectionTitle": "Participants",
   "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",

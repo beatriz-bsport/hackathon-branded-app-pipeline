@@ -13,6 +13,8 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
+import { setSelectedBooking } from "#src/stores/session-management/actions";
+import { useSessionManagementStore } from "#src/stores/session-management/store";
 import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
@@ -53,6 +55,10 @@ export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
       onPageSettingsChange: setPageSettings,
     }),
     [currentPage, currentPageSize, isLoading, count, setPageSettings],
+  );
+
+  const selectedBookingId = useSessionManagementStore(
+    (state) => state.selectedBookingId,
   );
 
   const columns: GenericTableColumn<RefinedBooking>[] = [
@@ -133,7 +139,11 @@ export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
       <Table
         columns={columns}
         rowHeight="lg"
-        rows={refinedBookings}
+        rows={refinedBookings.map((booking) => ({
+          ...booking,
+          isActive: booking.id === selectedBookingId,
+          onRowClick: () => setSelectedBooking(booking.id),
+        }))}
         paginationProps={paginationProps}
         emptyStateProps={{
           isEmpty: !isLoading && (count ?? 0) === 0,

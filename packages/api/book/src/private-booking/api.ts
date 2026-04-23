@@ -17,6 +17,7 @@ import type {
   RescheduleAppointmentParams,
   ResourceAllocationParams,
   SwapPassParams,
+  SwapTeacherParams,
 } from "./types";
 
 const PRIVATE_SERVICE_API_URL = `${API_V1_URL}private_service`;
@@ -115,6 +116,21 @@ export const fetchCompatiblePassesAPI = async (
 ): Promise<PrivateConsumerPass[]> => {
   const { data } = await fetch(
     `${PRIVATE_CONSUMER_PASS_API_URL}/compatible_with_slot/?private_slot=${privateSlotId}&member=${memberId}`,
+  );
+  return data;
+};
+
+export const swapTeacherAPI = async (
+  fetch: Fetch<PrivateBooking>,
+  id: number,
+  params: SwapTeacherParams,
+): Promise<PrivateBooking> => {
+  const { data } = await fetch(
+    `${PRIVATE_BOOKING_API_URL}/${id}/update_coach/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
   );
   return data;
 };

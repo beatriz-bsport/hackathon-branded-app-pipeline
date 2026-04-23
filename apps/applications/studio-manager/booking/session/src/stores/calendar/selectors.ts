@@ -59,3 +59,7 @@ export const selectIsRescheduleAppointmentModalOpen = (state: CalendarState) =>
 export const selectIsSwapPassModalOpen = (state: CalendarState) =>
   state.modalState?.tab === "appointments" &&
   state.modalState?.type === AppointmentModalType.SWAP_PASS;
+
+export const selectIsSwapTeacherModalOpen = (state: CalendarState) =>
+  state.modalState?.tab === "appointments" &&
+  state.modalState?.type === AppointmentModalType.SWAP_TEACHER;

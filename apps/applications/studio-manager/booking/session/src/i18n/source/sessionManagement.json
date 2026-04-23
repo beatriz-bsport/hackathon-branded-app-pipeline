@@ -60,5 +60,17 @@
   "bookingAttendanceFilter": {
     "present": "Present",
     "absent": "Absent"
+  },
+  "participantDetails": {
+    "bookedOn": "Booked on {{bookingDate}}",
+    "spot": "Spot",
+    "pass": "Pass",
+    "passValidity": "{{startDate}} → {{endDate}}",
+    "unlimited": "Unlimited",
+    "credits": "{{creditsLeft}} / {{totalCredits}} credit remaining",
+    "credits_other": "{{creditsLeft}} / {{totalCredits}} credits remaining",
+    "creditsUsed_zero": "",
+    "creditsUsed": "{{creditsUsed}} credit used · ",
+    "creditsUsed_other": "{{creditsUsed}} credits used · "
   }
 }

@@ -6,6 +6,7 @@ import { SessionManagementModalType } from "#src/hooks/use-session-management-mo
 import { RefinedBooking } from "#src/types.js";
 
 import { BookingDetails } from "./booking-details";
+import { ClientDetails } from "./client-details";
 
 export const BookingDetailDrawer: FC<{
   isOpen: boolean;
@@ -31,6 +32,10 @@ export const BookingDetailDrawer: FC<{
           selectedBooking={selectedBooking}
         />
         <Divider orientation="horizontal" weight="extra-thin" />
+        <ClientDetails
+          openModal={openModal}
+          selectedBooking={selectedBooking}
+        />
       </div>
     </DetailDrawer>
   );

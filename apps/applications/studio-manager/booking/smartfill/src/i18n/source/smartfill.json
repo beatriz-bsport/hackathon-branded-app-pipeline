@@ -12,6 +12,11 @@
     "description": "Please try again.",
     "retry": "Retry"
   },
+  "runsList": {
+    "columns": {
+      "date": "Date"
+    }
+  },
   "section": {
     "cta": "Activate Smartfill",
     "subtitle": "Smartfill proactively identifies low-attendance classes, finds clients most likely to book, then automatically reaches out to them to fill classes. ",

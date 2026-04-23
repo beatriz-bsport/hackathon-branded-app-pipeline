@@ -14,6 +14,7 @@ import {
   useCopyToClipboard,
 } from "@bsport/kaizen-primitive-core";
 
+import { useFetchTags } from "#src/hooks/tags/use-fetch-tags.js";
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
 import { RefinedBooking } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -31,6 +32,12 @@ export const ClientDetails: FC<{
   const locale = i18n.language;
 
   const { copyToClipboard } = useCopyToClipboard();
+
+  const { data: memberTags } = useFetchTags((tags) =>
+    tags.filter((tag) =>
+      (selectedBooking.memberData?.tags ?? []).includes(tag.id),
+    ),
+  );
 
   if (!selectedBooking) return null;
 
@@ -133,6 +140,22 @@ export const ClientDetails: FC<{
           </Body>
         </div>
       </Section>
+      {memberTags && memberTags?.length > 0 && (
+        <Section title={t("participantDetails.tags")}>
+          <div className="flex flex-wrap gap-xs">
+            {memberTags?.map((tag) => (
+              <Chip
+                key={tag.id}
+                size="lg"
+                color="main"
+                type="weak"
+                rounded="lg"
+                label={tag.name}
+              />
+            ))}
+          </div>
+        </Section>
+      )}
     </div>
   );
 };

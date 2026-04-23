@@ -22,7 +22,7 @@ export const BookingDetailDrawer: FC<{
     <DetailDrawer
       id="booking-detail-drawer"
       // Default z-index of the drawer is 1000, we need to set it to 999 to be below the modals that have a z-index of 1000
-      className="z-[999]"
+      className="z-[999] max-w-component-modal-max-sm"
       isOpen={isOpen}
       onClose={onClose}
     >

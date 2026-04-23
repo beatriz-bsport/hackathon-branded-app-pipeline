@@ -288,11 +288,23 @@
     "successMessage": "Pass updated",
     "emptyState": "No compatible passes available"
   },
+  "swapTeacherModal": {
+    "title": "Swap teacher?",
+    "searchPlaceholder": "Search teachers",
+    "loading": "Loading teachers...",
+    "emptyState": "No teachers found",
+    "errorMessage": "An error occurred while swapping the teacher. Please try again.",
+    "cancelButton": "Close",
+    "confirmButton": "Swap",
+    "successMessage": "Teacher updated",
+    "overlapWarning": "Please confirm the selected teacher has no scheduling overlap at this time."
+  },
   "resourceAllocation": {
     "unavailableMessage": "The following elements are not available at this time:",
     "teacher": "Teacher",
     "establishment": "Establishment",
-    "rescheduleConfirmation": "Are you sure you want to reschedule this appointment?"
+    "rescheduleConfirmation": "Are you sure you want to reschedule this appointment?",
+    "swapTeacherConfirmation": "Are you sure you want to swap to this teacher anyway?"
   },
   "wellhub": {
     "alert": {

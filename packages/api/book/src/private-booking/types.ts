@@ -74,6 +74,10 @@ export type SwapPassParams = {
   private_consumer_pass_id: number;
 };
 
+export type SwapTeacherParams = {
+  associated_coach: number;
+};
+
 /**
  * Minimal PrivateConsumerPass type for enrichment.
  * The full legacy type has many more fields; we only need pass name.

@@ -18,6 +18,7 @@ import { AppointmentFilterTypes } from "#src/components/AppointmentList/Filters/
 import { CancelAppointmentModal } from "#src/components/AppointmentList/modals/CancelAppointmentModal";
 import { RescheduleAppointmentModal } from "#src/components/AppointmentList/modals/RescheduleAppointmentModal";
 import { SwapPassModal } from "#src/components/AppointmentList/modals/SwapPassModal";
+import { SwapTeacherModal } from "#src/components/AppointmentList/modals/SwapTeacherModal";
 import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions/cancel-multiple-sessions-modal";
 import { ExportParticipantsModal } from "#src/components/SessionList/actions/export-participants-modal";
 import { CancelSessionModal } from "#src/components/SessionList/detail-actions/cancel-session-modal";
@@ -569,6 +570,14 @@ const CalendarPage: React.FC = () => {
         {detailsModalState?.tab === "appointments" &&
           detailsModalState?.type === AppointmentModalType.SWAP_PASS && (
             <SwapPassModal
+              appointment={detailsModalState.appointment}
+              isOpen
+              onClose={closeModal}
+            />
+          )}
+        {detailsModalState?.tab === "appointments" &&
+          detailsModalState?.type === AppointmentModalType.SWAP_TEACHER && (
+            <SwapTeacherModal
               appointment={detailsModalState.appointment}
               isOpen
               onClose={closeModal}

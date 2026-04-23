@@ -185,6 +185,16 @@ export const openSwapPassModal = (appointment: EnrichedAppointment) => {
   });
 };
 
+export const openSwapTeacherModal = (appointment: EnrichedAppointment) => {
+  calendarStore.setState({
+    modalState: {
+      tab: "appointments",
+      type: AppointmentModalType.SWAP_TEACHER,
+      appointment,
+    },
+  });
+};
+
 export const closeModal = () => {
   calendarStore.setState({ modalState: null });
 };

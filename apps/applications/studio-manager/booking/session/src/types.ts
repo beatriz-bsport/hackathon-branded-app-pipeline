@@ -89,6 +89,7 @@ export enum AppointmentModalType {
   CANCEL = "cancel_appointment",
   RESCHEDULE = "reschedule_appointment",
   SWAP_PASS = "swap_pass_appointment",
+  SWAP_TEACHER = "swap_teacher_appointment",
 }
 
 export type SessionModalState = {

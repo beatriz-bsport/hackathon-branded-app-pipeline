@@ -277,6 +277,17 @@
     "successMessage": "Appointment rescheduled",
     "overlapWarning": "Please confirm there is no scheduling overlap with the teacher and establishment before rescheduling."
   },
+  "swapPassModal": {
+    "title": "Swap pass?",
+    "passesLabel": "Client's available passes:",
+    "credits": "{{used}}/{{total}} credits",
+    "loading": "Loading passes...",
+    "errorMessage": "An error occurred while swapping the pass. Please try again.",
+    "cancelButton": "Close",
+    "confirmButton": "Swap",
+    "successMessage": "Pass updated",
+    "emptyState": "No compatible passes available"
+  },
   "resourceAllocation": {
     "unavailableMessage": "The following elements are not available at this time:",
     "teacher": "Teacher",

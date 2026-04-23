@@ -10,6 +10,7 @@ import {
 import {
   openCancelAppointmentModal,
   openRescheduleAppointmentModal,
+  openSwapPassModal,
 } from "#src/stores/calendar";
 import type { EnrichedAppointment } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -42,8 +43,11 @@ export const AppointmentShortcutActionsButton: React.FC<
       label: t("appointmentTable.shortcutActions.swapPass"),
       iconLeft: "refresh-cw-04",
       type: "button",
-      disabled: true,
-      onClick: () => {},
+      disabled: appointment.isCancelled,
+      onClick: () => {
+        setIsPopoverOpened(false);
+        openSwapPassModal(appointment);
+      },
     },
     {
       id: "swap-teacher-shortcut",

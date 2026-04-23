@@ -16,6 +16,7 @@ import type {
   PrivateConsumerPassFilterParams,
   RescheduleAppointmentParams,
   ResourceAllocationParams,
+  SwapPassParams,
 } from "./types";
 
 const PRIVATE_SERVICE_API_URL = `${API_V1_URL}private_service`;
@@ -38,6 +39,14 @@ export const privateConsumerPassKeys = {
   listScope: () => [...privateConsumerPassKeys.all, "list"] as const,
   list: (params: PrivateConsumerPassFilterParams = {}) =>
     [...privateConsumerPassKeys.listScope(), params] as const,
+  compatibleScope: () =>
+    [...privateConsumerPassKeys.all, "compatible"] as const,
+  compatible: (privateSlotId: number, memberId: number) =>
+    [
+      ...privateConsumerPassKeys.compatibleScope(),
+      privateSlotId,
+      memberId,
+    ] as const,
 } as const;
 
 export const fetchPrivateBookingsAPI = async (
@@ -83,6 +92,29 @@ export const rescheduleAppointmentAPI = async (
       method: "POST",
       body: JSON.stringify(params),
     },
+  );
+  return data;
+};
+
+export const swapPassAPI = async (
+  fetch: Fetch<PrivateBooking>,
+  id: number,
+  params: SwapPassParams,
+): Promise<PrivateBooking> => {
+  const { data } = await fetch(`${PRIVATE_BOOKING_API_URL}/${id}/swap_pass/`, {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+  return data;
+};
+
+export const fetchCompatiblePassesAPI = async (
+  fetch: Fetch<PrivateConsumerPass[]>,
+  privateSlotId: number,
+  memberId: number,
+): Promise<PrivateConsumerPass[]> => {
+  const { data } = await fetch(
+    `${PRIVATE_CONSUMER_PASS_API_URL}/compatible_with_slot/?private_slot=${privateSlotId}&member=${memberId}`,
   );
   return data;
 };

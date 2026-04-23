@@ -71,6 +71,24 @@ export const bookingsQueryOptions = (
   });
 };
 
+export const retrieveBookingAPI = async (
+  fetch: Fetch<Booking>,
+  bookingId: number,
+): Promise<Booking> => {
+  const { data } = await fetch(`${API_URL_BOOKING}/${bookingId}/`);
+  return data;
+};
+
+export const retrieveBookingQueryOptions = (
+  fetch: Fetch<Booking>,
+  bookingId: number,
+) =>
+  queryOptions({
+    queryKey: bookingKeys.detail(bookingId),
+    queryFn: () => retrieveBookingAPI(fetch, bookingId),
+    staleTime: DEFAULT_STALE_TIME,
+  });
+
 export const fetchGroupSessionRelatedBookingsAPI = async (
   fetch: Fetch<Booking[]>,
   bookingId: number,

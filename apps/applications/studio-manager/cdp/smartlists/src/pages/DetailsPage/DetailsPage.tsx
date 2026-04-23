@@ -24,6 +24,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import { AutomationInfoPopover } from "#src/components/SmartlistDetailHeaderActions/AutomationInfoPopover";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import {
@@ -192,12 +193,20 @@ function Details() {
 
   const getEndGroupActionItems = () => {
     if (headerTabConfig.showDropdown) {
-      return [
+      const actions = [
         <SmartlistHeaderActionDropdown
           key="campaign-page-header-actions"
           onGenerateReport={() => setInlineActions(GENERATE_REPORT_ACTION_ID)}
         />,
       ];
+
+      if (headerTabConfig.callToAction === "automation") {
+        actions.unshift(
+          <AutomationInfoPopover key="automation-info-popover" />,
+        );
+      }
+
+      return actions;
     }
   };
 

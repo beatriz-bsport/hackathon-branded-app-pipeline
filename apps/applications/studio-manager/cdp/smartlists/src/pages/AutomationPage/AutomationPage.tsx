@@ -1,4 +1,4 @@
-import { Body, Title, useMatchMedia } from "@bsport/kaizen-primitive-core";
+import { Title, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { CardLoader, QueryBoundary } from "#src/components/QueryBoundary";
 import { useTranslation } from "#src/utils/i18n";
@@ -17,9 +17,6 @@ export const AutomationPage = () => {
         <Title htmlVariant="h2" weight="stronger">
           {t("automation.messages.title")}
         </Title>
-        <Body size="md" color="weak">
-          {t("automation.messages.description")}
-        </Body>
       </section>
 
       <QueryBoundary>
@@ -30,9 +27,6 @@ export const AutomationPage = () => {
         <Title htmlVariant="h2" weight="stronger">
           {t("automation.tagRules.title")}
         </Title>
-        <Body size="md" color="weak">
-          {t("automation.tagRules.description")}
-        </Body>
       </section>
 
       <QueryBoundary loadingFallback={<CardLoader size="lg" />}>

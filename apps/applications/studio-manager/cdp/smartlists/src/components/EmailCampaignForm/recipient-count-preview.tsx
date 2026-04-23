@@ -1,18 +1,12 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React from "react";
 
-import {
-  Body,
-  Button,
-  Loader,
-  Popover,
-  Title,
-} from "@bsport/kaizen-primitive-core";
+import { Body, Loader, Title } from "@bsport/kaizen-primitive-core";
 
 import { CommunicationChannel } from "#src/api/constants";
 import { useFetchCommunicationRecipientsPreviewCount } from "#src/api/use-fetch-communication-recipients-preview-count";
+import { QueryBoundary } from "#src/components/QueryBoundary";
+import { TimedInfoPopover } from "#src/components/timed-info-popover";
 import { useTranslation } from "#src/utils/i18n";
-
-import { QueryBoundary } from "../QueryBoundary";
 
 type RecipientCountPreviewProps = {
   smartlistId: number;
@@ -33,44 +27,11 @@ const RECIPIENT_COUNT_POPOVER_CONTENT_LIST_KEYS: Array<
   "smartlistChanges",
 ];
 
-const RECIPIENT_COUNT_POPOVER_CLOSE_DELAY_MS = 150;
-
 export const RecipientCountPreview: React.FC<RecipientCountPreviewProps> = ({
   smartlistId,
   isMarketing,
 }: RecipientCountPreviewProps) => {
   const { t } = useTranslation("campaign");
-  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const clearCloseTimeout = useCallback(() => {
-    if (closeTimeoutRef.current === null) {
-      return;
-    }
-
-    clearTimeout(closeTimeoutRef.current);
-    closeTimeoutRef.current = null;
-  }, []);
-
-  const handlePopoverOpen = useCallback(() => {
-    clearCloseTimeout();
-  }, [clearCloseTimeout]);
-
-  const handlePopoverClose = useCallback(
-    (setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>) => {
-      clearCloseTimeout();
-      closeTimeoutRef.current = setTimeout(() => {
-        setIsPopoverOpened(false);
-        closeTimeoutRef.current = null;
-      }, RECIPIENT_COUNT_POPOVER_CLOSE_DELAY_MS);
-    },
-    [clearCloseTimeout],
-  );
-
-  useEffect(() => {
-    return () => {
-      clearCloseTimeout();
-    };
-  }, [clearCloseTimeout]);
 
   return (
     <div className="flex flex-col gap-xs">
@@ -81,92 +42,64 @@ export const RecipientCountPreview: React.FC<RecipientCountPreviewProps> = ({
         <QueryBoundary loadingFallback={<Loader size="sm" />}>
           <RecipientCount smartlistId={smartlistId} isMarketing={isMarketing} />
         </QueryBoundary>
-        <Popover>
-          <Popover.Anchor className="flex items-center">
-            {({ setIsPopoverOpened }) => (
-              <Button
-                kind="icon-button"
-                intent="flat"
-                color="default"
-                size="md"
-                icon="info-circle"
-                label={t("email.creation.expectedRecipients.infoLabel")}
-                onMouseEnter={() => {
-                  handlePopoverOpen();
-                  setIsPopoverOpened(true);
-                }}
-                onMouseLeave={() => handlePopoverClose(setIsPopoverOpened)}
-                onFocus={() => {
-                  handlePopoverOpen();
-                  setIsPopoverOpened(true);
-                }}
-                onBlur={() => handlePopoverClose(setIsPopoverOpened)}
-              />
-            )}
-          </Popover.Anchor>
-          <Popover.Content>
-            {({ setIsPopoverOpened }) => (
-              <section
-                className="flex flex-col max-w-sm p-md gap-md"
-                aria-labelledby="recipient-count-popover-title"
-                onMouseEnter={() => {
-                  handlePopoverOpen();
-                  setIsPopoverOpened(true);
-                }}
-                onMouseLeave={() => handlePopoverClose(setIsPopoverOpened)}
+        <TimedInfoPopover
+          label={t("email.creation.expectedRecipients.infoLabel")}
+          anchorClassName="flex items-center"
+        >
+          <section
+            className="flex flex-col max-w-sm p-md gap-md"
+            aria-labelledby="recipient-count-popover-title"
+          >
+            <div className="flex flex-col gap-xs">
+              <Title
+                id="recipient-count-popover-title"
+                htmlVariant="h4"
+                weight="strong"
               >
-                <div className="flex flex-col gap-xs">
-                  <Title
-                    id="recipient-count-popover-title"
-                    htmlVariant="h4"
-                    weight="strong"
-                  >
-                    {t("email.creation.expectedRecipients.popover.title")}
-                  </Title>
-                  <Body htmlVariant="p" size="md" weight="weak" color="weak">
-                    {t("email.creation.expectedRecipients.popover.intro")}
-                  </Body>
-                </div>
-                <div className="flex flex-col gap-xs">
-                  <Body
-                    id="recipient-count-popover-list-intro"
-                    htmlVariant="p"
-                    size="md"
-                    weight="weak"
-                    color="weak"
-                  >
-                    {t("email.creation.expectedRecipients.popover.listIntro")}
-                  </Body>
-                  <ul
-                    className="list-disc pl-lg flex flex-col gap-xs"
-                    aria-labelledby="recipient-count-popover-list-intro"
-                  >
-                    {RECIPIENT_COUNT_POPOVER_CONTENT_LIST_KEYS.map((key) => (
-                      <li key={key}>
-                        <Body htmlVariant="span" size="md" weight="weak">
-                          {t(
-                            `email.creation.expectedRecipients.popover.exclusions.${key}.description`,
-                          )}
-                          <br></br>
-                          <Body
-                            htmlVariant="span"
-                            size="md"
-                            weight="weak"
-                            color="weak"
-                          >
-                            {t(
-                              `email.creation.expectedRecipients.popover.exclusions.${key}.example`,
-                            )}
-                          </Body>
-                        </Body>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-            )}
-          </Popover.Content>
-        </Popover>
+                {t("email.creation.expectedRecipients.popover.title")}
+              </Title>
+              <Body htmlVariant="p" size="md" weight="weak" color="weak">
+                {t("email.creation.expectedRecipients.popover.intro")}
+              </Body>
+            </div>
+            <div className="flex flex-col gap-xs">
+              <Body
+                id="recipient-count-popover-list-intro"
+                htmlVariant="p"
+                size="md"
+                weight="weak"
+                color="weak"
+              >
+                {t("email.creation.expectedRecipients.popover.listIntro")}
+              </Body>
+              <ul
+                className="list-disc pl-lg flex flex-col gap-xs"
+                aria-labelledby="recipient-count-popover-list-intro"
+              >
+                {RECIPIENT_COUNT_POPOVER_CONTENT_LIST_KEYS.map((key) => (
+                  <li key={key}>
+                    <Body htmlVariant="span" size="md" weight="weak">
+                      {t(
+                        `email.creation.expectedRecipients.popover.exclusions.${key}.description`,
+                      )}
+                      <br></br>
+                      <Body
+                        htmlVariant="span"
+                        size="md"
+                        weight="weak"
+                        color="weak"
+                      >
+                        {t(
+                          `email.creation.expectedRecipients.popover.exclusions.${key}.example`,
+                        )}
+                      </Body>
+                    </Body>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </TimedInfoPopover>
       </div>
     </div>
   );

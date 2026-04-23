@@ -1,5 +1,6 @@
 import { FC } from "react";
 
+import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
@@ -32,6 +33,14 @@ export const ClientDetails: FC<{
   const { copyToClipboard } = useCopyToClipboard();
 
   if (!selectedBooking) return null;
+
+  const unpaidAmount = Number(
+    selectedBooking.memberData?.total_unpaid_amount ?? 0,
+  );
+
+  const balance = Number(
+    selectedBooking.memberData?.credit_account_balance ?? 0,
+  );
 
   return (
     <div className="flex flex-col gap-sm">
@@ -105,6 +114,24 @@ export const ClientDetails: FC<{
             />
           </div>
         )}
+      </Section>
+      <Section title={t("participantDetails.billing")}>
+        {unpaidAmount > 0 && (
+          <div className="flex gap-xs items-center">
+            <Body color="default">
+              {t("participantDetails.unpaidInvoices")}
+            </Body>
+            <Body weight="strong" color="critical">
+              {getCurrencyDisplayWithPrice(unpaidAmount, true)}
+            </Body>
+          </div>
+        )}
+        <div className="flex gap-xs items-center">
+          <Body color="default">{t("participantDetails.balance")}</Body>
+          <Body weight="strong" color={balance < 0 ? "critical" : "positive"}>
+            {getCurrencyDisplayWithPrice(balance, balance < 0)}
+          </Body>
+        </div>
       </Section>
     </div>
   );

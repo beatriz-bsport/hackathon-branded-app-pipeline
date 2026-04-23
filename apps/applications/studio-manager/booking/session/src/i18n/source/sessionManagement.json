@@ -79,8 +79,8 @@
     "contactInfo": "Contact information",
     "notes": "Notes",
     "billing": "Billing",
-    "unpaidInvoices": "Unpaid invoices",
-    "balance": "Balance",
+    "unpaidInvoices": "Unpaid invoices:",
+    "balance": "Balance:",
     "tags": "Tags"
   }
 }

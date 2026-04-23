@@ -163,6 +163,18 @@ export const openCancelAppointmentModal = (
   });
 };
 
+export const openRescheduleAppointmentModal = (
+  appointment: EnrichedAppointment,
+) => {
+  calendarStore.setState({
+    modalState: {
+      tab: "appointments",
+      type: AppointmentModalType.RESCHEDULE,
+      appointment,
+    },
+  });
+};
+
 export const closeModal = () => {
   calendarStore.setState({ modalState: null });
 };

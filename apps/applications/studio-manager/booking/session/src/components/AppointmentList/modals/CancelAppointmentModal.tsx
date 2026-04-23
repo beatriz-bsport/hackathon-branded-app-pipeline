@@ -1,12 +1,13 @@
 import { FC, useState } from "react";
 
-import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { Body, Modal, Toggle } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useCancelAppointment } from "#src/hooks/appointment/actions/use-cancel-appointment";
 import type { EnrichedAppointment } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
+
+import { getAppointmentModalDescription } from "./get-appointment-modal-description";
 
 type CancelAppointmentModalProps = {
   appointment: EnrichedAppointment;
@@ -28,21 +29,26 @@ export const CancelAppointmentModal: FC<CancelAppointmentModalProps> = ({
   const cancelAppointment = useCancelAppointment();
 
   const handleConfirm = () => {
-    onClose();
-    cancelAppointment.mutate({
-      id: appointment.id,
-      params: {
-        force_refund: shouldRefund,
-        send_mail: shouldNotify,
+    cancelAppointment.mutate(
+      {
+        id: appointment.id,
+        params: {
+          force_refund: shouldRefund,
+          send_mail: shouldNotify,
+        },
       },
-    });
+      {
+        onSuccess: () => {
+          onClose();
+        },
+      },
+    );
   };
 
-  const description = `${appointment.name} - ${formatDateTime(
-    appointment.date_start,
-    DATETIME_FORMATS.MEDIUM_DATETIME,
-    { locale: i18n.language, timeZone: companyTimezone },
-  )}`;
+  const description = getAppointmentModalDescription(appointment, {
+    locale: i18n.language,
+    timeZone: companyTimezone,
+  });
 
   return (
     <Modal
@@ -55,6 +61,7 @@ export const CancelAppointmentModal: FC<CancelAppointmentModalProps> = ({
         label: t("cancelAppointmentModal.confirmButton"),
         color: "critical",
         onClick: handleConfirm,
+        disabled: cancelAppointment.isPending,
       }}
       cancelButton={{
         label: t("cancelAppointmentModal.cancelButton"),

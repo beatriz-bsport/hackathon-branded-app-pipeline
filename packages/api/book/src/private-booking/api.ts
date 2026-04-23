@@ -14,11 +14,14 @@ import type {
   PrivateBookingFilterParams,
   PrivateConsumerPass,
   PrivateConsumerPassFilterParams,
+  RescheduleAppointmentParams,
+  ResourceAllocationParams,
 } from "./types";
 
 const PRIVATE_SERVICE_API_URL = `${API_V1_URL}private_service`;
 const PRIVATE_BOOKING_API_URL = `${PRIVATE_SERVICE_API_URL}/private_booking`;
 const PRIVATE_CONSUMER_PASS_API_URL = `${PRIVATE_SERVICE_API_URL}/private_consumer_pass`;
+const PRIVATE_SLOT_API_URL = `${PRIVATE_SERVICE_API_URL}/private_slot`;
 
 export const PRIVATE_BOOKING_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 export const PRIVATE_CONSUMER_PASS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
@@ -66,6 +69,36 @@ export const disableAppointmentAPI = async (
     method: "POST",
     body: JSON.stringify(params),
   });
+  return data;
+};
+
+export const rescheduleAppointmentAPI = async (
+  fetch: Fetch<PrivateBooking>,
+  id: number,
+  params: RescheduleAppointmentParams,
+): Promise<PrivateBooking> => {
+  const { data } = await fetch(
+    `${PRIVATE_BOOKING_API_URL}/${id}/update_datetime/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  );
+  return data;
+};
+
+export const checkResourceAllocationAPI = async (
+  fetch: Fetch<string[][] | null>,
+  privateSlotId: number,
+  params: ResourceAllocationParams,
+): Promise<string[][] | null> => {
+  const { data } = await fetch(
+    `${PRIVATE_SLOT_API_URL}/${privateSlotId}/get_resource_allocation/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  );
   return data;
 };
 

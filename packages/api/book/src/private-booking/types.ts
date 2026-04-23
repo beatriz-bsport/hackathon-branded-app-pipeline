@@ -66,6 +66,10 @@ export type DisableAppointmentParams = {
   send_mail?: boolean;
 };
 
+export type RescheduleAppointmentParams = {
+  date_start: string;
+};
+
 /**
  * Minimal PrivateConsumerPass type for enrichment.
  * The full legacy type has many more fields; we only need pass name.
@@ -81,6 +85,18 @@ export type PrivateConsumerPass = {
   member: number;
   used_credits: number;
   reverted: boolean;
+};
+
+export type ResourceAllocationType =
+  | "coach"
+  | "establishment"
+  | "private_service";
+
+export type ResourceAllocationParams = {
+  resource_id: number;
+  resource_type: ResourceAllocationType;
+  date: string;
+  restrict_on_establishment?: number;
 };
 
 export type PrivateConsumerPassFilterParams = {

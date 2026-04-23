@@ -1,128 +1,57 @@
 <!DOCTYPE html>
 <html lang="en" translate="no">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="google" content="notranslate" />
-    <meta name="robots" content="noindex" />
-    <script type="text/javascript">
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod
-            ? n.callMethod.apply(n, arguments)
-            : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = '2.0';
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(
-        window,
-        document,
-        'script',
-        'https://connect.facebook.net/en_US/fbevents.js',
-      );
-    </script>
-    <meta name="theme-color" content="#000000" />
-    <!--
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="google" content="notranslate">
+  <meta name="robots" content="noindex">
+  <script type="text/javascript">
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      }; if (!f._fbq) f._fbq = n;
+      n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
+    }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+  </script>
+  <meta name="theme-color" content="#000000"><!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
     -->
 
-    <script src="https://js.stripe.com/v3/"></script>
-    <link rel="manifest" href="<%= PUBLIC_URL %>/manifest.json" />
-    <link rel="shortcut icon" href="<%= PUBLIC_URL %>/favicon.ico" />
-    <script>
-      (function () {
-        var w = window;
-        var ic = w.Intercom;
-        if (typeof ic === 'function') {
-          ic('reattach_activator');
-          ic('update', w.intercomSettings);
-        } else {
-          var d = document;
-          var i = function () {
-            i.c(arguments);
-          };
-          i.q = [];
-          i.c = function (args) {
-            i.q.push(args);
-          };
-          w.Intercom = i;
-          var l = function () {
-            var s = d.createElement('script');
-            s.type = 'text/javascript';
-            s.async = true;
-            s.src = 'https://widget.intercom.io/widget/q6foivp2';
-            var x = d.getElementsByTagName('script')[0];
-            x.parentNode.insertBefore(s, x);
-          };
-          if (w.attachEvent) {
-            w.attachEvent('onload', l);
-          } else {
-            w.addEventListener('load', l, false);
-          }
-        }
-      })();
-    </script>
-    <script>
-      !(function (e, t) {
-        // Check if we're in widget context by looking at URL parameters
-        const urlParams = new URLSearchParams(e.location.search);
-        const isWidget = urlParams.get('context') === 'widget';
+  <script src="https://js.stripe.com/v3/"></script>
+  <link rel="manifest" href="<%= PUBLIC_URL %>/manifest.json">
+  <link rel="shortcut icon" href="<%= PUBLIC_URL %>/favicon.ico">
+  <script>(function () { var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator'); ic('update', w.intercomSettings); } else { var d = document; var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i; var l = function () { var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/q6foivp2'; var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); }; if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); } } })();</script>
+  <script>!(function (e, t) {
+      // Check if we're in widget context by looking at URL parameters
+      const urlParams = new URLSearchParams(e.location.search);
+      const isWidget = urlParams.get('context') === 'widget';
 
-        // Only load Featurebase SDK if not in widget context
-        if (isWidget) {
-          console.debug('Featurebase SDK not loaded in widget context.');
-          return;
+      // Only load Featurebase SDK if not in widget context
+      if (isWidget) {
+        console.debug("Featurebase SDK not loaded in widget context.");
+        return;
+      }
+      // Load Featurebase SDK    
+      const a = "featurebase-sdk";
+      function n() {
+        if (!t.getElementById(a)) {
+          var e = t.createElement("script");
+          (e.id = a), (e.src = "https://do.featurebase.app/js/sdk.js"),
+            t.getElementsByTagName("script")[0].parentNode.insertBefore(e, t.getElementsByTagName("script")[0])
         }
-        // Load Featurebase SDK
-        const a = 'featurebase-sdk';
-        function n() {
-          if (!t.getElementById(a)) {
-            var e = t.createElement('script');
-            (e.id = a),
-              (e.src = 'https://do.featurebase.app/js/sdk.js'),
-              t
-                .getElementsByTagName('script')[0]
-                .parentNode.insertBefore(
-                  e,
-                  t.getElementsByTagName('script')[0],
-                );
-          }
-        }
-        'function' != typeof e.Featurebase &&
-          (e.Featurebase = function () {
-            (e.Featurebase.q = e.Featurebase.q || []).push(arguments);
-          }),
-          'complete' === t.readyState || 'interactive' === t.readyState
-            ? n()
-            : t.addEventListener('DOMContentLoaded', n);
-      })(window, document);
-    </script>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css"
-    />
-    <!--
+      }
+      "function" != typeof e.Featurebase && (e.Featurebase = function () {
+        (e.Featurebase.q = e.Featurebase.q || []).push(arguments)
+      }),
+        "complete" === t.readyState || "interactive" === t.readyState ? n() : t.addEventListener("DOMContentLoaded", n)
+    })(window, document);</script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css"><!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -131,161 +60,49 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>bsport</title>
+  <title>bsport</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
 
-    <!-- Maintenance mode poller: polls /maintenance.json every 30s.
-       When found, unregisters service workers and reloads so the browser
-       fetches the maintenance index.html that was swapped on S3. -->
-    <script>
-      (function () {
-        var POLL_MS = 30000;
-        var LOCK_URL = '/maintenance.json';
-
-        function reload() {
-          window.__MAINTENANCE_MODE__ = true;
-          if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(function (regs) {
-              Promise.all(
-                regs.map(function (r) {
-                  return r.unregister();
-                }),
-              ).then(function () {
-                window.location.href = '/maintenance.html';
-              });
-            });
-          } else {
-            window.location.href = '/maintenance.html';
-          }
-        }
-
-        function poll() {
-          fetch(LOCK_URL, { method: 'HEAD', cache: 'no-store' })
-            .then(function (res) {
-              if (res.ok) {
-                try {
-                  new BroadcastChannel('bsport-maintenance').postMessage(
-                    'activate',
-                  );
-                } catch (e) {
-                  /* ignore */
-                }
-                reload();
-              }
-            })
-            .catch(function () {
-              /* ignore — backend may already be down */
-            });
-        }
-
-        setInterval(poll, POLL_MS);
-
-        // Redirect immediately if another tab already detected maintenance.
-        try {
-          var channel = new BroadcastChannel('bsport-maintenance');
-          channel.addEventListener('message', function (event) {
-            if (event.data === 'activate') reload();
-          });
-        } catch (e) {
-          /* BroadcastChannel not supported — polling is the fallback */
-        }
-      })();
-    </script>
-  </head>
-
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root">
-      <div
-        id="div-error"
-        style="
-          display: none;
-          font-family: Arial, Helvetica, sans-serif, 'Lucida Sans Regular',
-            'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-          font-size: 25px;
-          border: solid 2px #cecece;
-          border-radius: 5px;
-          color: black;
-          width: 90%;
-          max-width: 600px;
-          margin: auto;
-          text-align: left;
-          padding-top: 20px;
-          padding-bottom: 20px;
-          padding-right: 40px;
-          padding-left: 40px;
-          margin-top: 100px;
-          -webkit-box-shadow: 10px 10px 51px -3px rgba(0, 0, 0, 0.46);
-          -moz-box-shadow: 10px 10px 51px -3px rgba(0, 0, 0, 0.46);
-          box-shadow: 10px 10px 51px -3px rgba(0, 0, 0, 0.46);
-        "
-      >
-        <p>
-          Your browser is outdated and cannot display the page you asked. We
-          recommend that you download a newer version among the ones below:
-        </p>
-        <div style="text-align: center; font-size: 20px">
-          <a
-            href="https://www.mozilla.org/fr/firefox/new/"
-            target="blank"
-            style="color: inherit; vertical-align: middle"
-          >
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/6/66/Firefox_logo.png"
-              alt="Firefox logo"
-              style="
-                width: 50px;
-                height: 50px;
-                margin: 20px;
-                vertical-align: middle;
-              "
-            />
-            Download Mozilla Firefox for free </a
-          >&nbsp;
-        </div>
-        <div style="text-align: center; font-size: 20px">
-          <a
-            href="https://www.google.com/chrome/"
-            target="blank"
-            style="color: inherit; vertical-align: middle"
-          >
-            <img
-              src="https://i.pinimg.com/originals/d9/60/4c/d9604cb7482f822bd76b396bd563ad26.png"
-              alt="Chrome logo"
-              style="
-                width: 50px;
-                height: 50px;
-                margin: 20px;
-                vertical-align: middle;
-              "
-            />
-            Download Google Chrome for free
-          </a>
-        </div>
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root">
+    <div id="div-error" style="display: none; font-family: Arial, Helvetica, sans-serif, 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: 25px; border: solid 2px #cecece; border-radius: 5px; color: black; width: 90%; max-width: 600px; margin: auto; text-align: left; padding-top: 20px; padding-bottom: 20px; padding-right: 40px; padding-left: 40px; margin-top: 100px; -webkit-box-shadow: 10px 10px 51px -3px rgba(0,0,0,0.46);
+-moz-box-shadow: 10px 10px 51px -3px rgba(0,0,0,0.46);
+box-shadow: 10px 10px 51px -3px rgba(0,0,0,0.46);">
+      <p>Your browser is outdated and cannot display the page you asked. We recommend that you download a newer version among the ones below:</p>
+      <div style="text-align: center; font-size: 20px">
+        <a href="https://www.mozilla.org/fr/firefox/new/" target="blank" style="color: inherit; vertical-align: middle;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Firefox_logo.png" alt="Firefox logo" style="width: 50px; height: 50px; margin: 20px; vertical-align: middle;" />
+          Download Mozilla Firefox for free
+        </a>&nbsp;
+      </div>
+      <div style="text-align: center; font-size: 20px;">
+        <a href="https://www.google.com/chrome/" target="blank" style="color: inherit; vertical-align: middle;">
+          <img src="https://i.pinimg.com/originals/d9/60/4c/d9604cb7482f822bd76b396bd563ad26.png" alt="Chrome logo" style="width: 50px; height: 50px; margin: 20px; vertical-align: middle;" />
+          Download Google Chrome for free
+        </a>
       </div>
     </div>
+  </div>
 
-    <!--[if lte IE 9]>
-      <script>
-        document.getElementById('div-error').style.display = 'block';
-        document.execCommand('Stop');
-      </script>
-    <![endif]-->
-
+  <!--[if lte IE 9]>
     <script>
-      if (navigator.userAgent.match('MSIE 10.0;')) {
-        document.getElementById('div-error').style.display = 'block';
-        document.execCommand('Stop');
-      }
+      document.getElementById('div-error').style.display = 'block'
+      document.execCommand('Stop')
     </script>
-    <script src="<%= PUBLIC_URL %>/env.js"></script>
-    <!--
+  <![endif]-->
+
+  <script>
+    if (navigator.userAgent.match('MSIE 10.0;')) {
+      document.getElementById('div-error').style.display = "block";
+      document.execCommand('Stop');
+    }
+  </script>
+  <script src="<%= PUBLIC_URL %>/env.js"></script> <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -295,5 +112,9 @@
       To begin the development, run `npm start` or `pnpm run start`.
       To create a production bundle, use `npm run build` or `pnpm run build`.
     -->
-  </body>
+</body>
+
+</html>
+</body>
+
 </html>

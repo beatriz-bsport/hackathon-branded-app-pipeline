@@ -28,4 +28,5 @@ export interface BookingFilters {
 export interface SessionManagementState {
   bookingFilters: BookingFilters;
   waitlistFilters: WaitlistFilter;
+  selectedBookingId: number | null;
 }

@@ -12,11 +12,9 @@ import {
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
-import {
-  RefinedBooking,
-  useFetchRefinedBookings,
-} from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
+import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
+import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 

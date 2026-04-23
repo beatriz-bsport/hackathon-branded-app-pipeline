@@ -1,6 +1,13 @@
 import { ZodError } from "zod";
 
-import type { ManagerSession, PrivateBooking, Session } from "@bsport/api-book";
+import type {
+  Booking,
+  ManagerSession,
+  PrivateBooking,
+  Session,
+} from "@bsport/api-book";
+import type { ConsumerPaymentPack, Pass } from "@bsport/api-buyables";
+import type { Member } from "@bsport/api-cdp";
 import { type DateTime } from "@bsport/datetime-manipulation";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
@@ -125,3 +132,9 @@ export type DetailsHeaderSession = Pick<
   | "duration_minute"
   | "timezone_name"
 >;
+
+export type RefinedBooking = Booking & {
+  memberData: Member | undefined;
+  consumerPaymentPackData: ConsumerPaymentPack | undefined;
+  passData: Pass | undefined;
+};

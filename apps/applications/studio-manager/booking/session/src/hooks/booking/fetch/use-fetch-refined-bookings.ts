@@ -2,27 +2,19 @@ import { useQueries, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
 import {
-  type Booking,
   type PaginatedBookingFilterParams,
   bookingsQueryOptions,
 } from "@bsport/api-book";
 import {
-  type ConsumerPaymentPack,
-  type Pass,
   consumerPaymentPackListQueryOptions,
   passesQueryOptions,
 } from "@bsport/api-buyables";
-import { type Member, memberListQueryOptions } from "@bsport/api-cdp";
+import { memberListQueryOptions } from "@bsport/api-cdp";
 
 import { getBookingParamsFromFilters } from "#src/components/session-management/filters/get-booking-params-from-filters";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
+import type { RefinedBooking } from "#src/types";
 import { fetch } from "#src/utils/fetch";
-
-export type RefinedBooking = Booking & {
-  memberData: Member | undefined;
-  consumerPaymentPackData: ConsumerPaymentPack | undefined;
-  passData: Pass | undefined;
-};
 
 export const useFetchRefinedBookings = (
   params: PaginatedBookingFilterParams,

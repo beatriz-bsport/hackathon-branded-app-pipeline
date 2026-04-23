@@ -11,11 +11,9 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { ActionsMenuButton } from "#src/components/common/action-menu-button.js";
-import {
-  RefinedBooking,
-  useFetchRefinedBookings,
-} from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
+import { ActionsMenuButton } from "#src/components/common/action-menu-button";
+import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
+import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 

@@ -5,7 +5,7 @@ import { Chip } from "@bsport/kaizen-primitive-core";
 
 import { IconChip } from "#src/components/common/IconChip";
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
-import { RefinedBooking } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
+import type { RefinedBooking } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 type ChipsCellProps = Pick<

@@ -6,8 +6,8 @@ import {
   useEmptyState,
 } from "@bsport/kaizen-primitive-core";
 
-import { SmartfillActivatedEmptyState } from "#src/components/SmartfillActivatedEmptyState";
 import { SmartfillHeader } from "#src/components/SmartfillHeader";
+import { SmartfillRunsList } from "#src/components/SmartfillRunsList";
 import { useSmartfillConfigStatus } from "#src/hooks/use-smartfill-config-status";
 import { useSmartfillConfigToggle } from "#src/hooks/use-smartfill-config-toggle";
 import { flags, useFlag } from "#src/utils/feature-flags";
@@ -74,7 +74,7 @@ const Content: FC = () => {
         }}
       />
 
-      {isEnabled ? <SmartfillActivatedEmptyState /> : null}
+      {isEnabled ? <SmartfillRunsList /> : null}
     </div>
   );
 };

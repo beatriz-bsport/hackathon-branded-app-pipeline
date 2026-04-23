@@ -23,6 +23,7 @@ type Props = {
   refreshSavedPaymentMethodList?: () => void;
   requestSetupIntentSecret: () => Promise<AxiosResponse<any>>;
   stripePromise?: StripeInit;
+  disableLink?: boolean;
 };
 
 export const AddPaymentMethod: React.FC<Props> = ({
@@ -42,6 +43,7 @@ export const AddPaymentMethod: React.FC<Props> = ({
   refreshSavedPaymentMethodList,
   requestSetupIntentSecret,
   stripePromise,
+  disableLink,
 }) => {
   const { t } = useTranslation('payment');
 
@@ -67,6 +69,7 @@ export const AddPaymentMethod: React.FC<Props> = ({
         content={t('forms.paymentMethod.collect.contentAdd')}
         defaultEmail={sepaDefaultEmail}
         defaultName={sepaDefaultName}
+        disableLink={disableLink}
         labelClose={labelClose}
         onClose={onCancel}
         onSuccess={onSuccess}

@@ -44,6 +44,7 @@ type Props = {
     React.SetStateAction<MarketplacePaymentMethodBillingDetails>
   >;
   stripePromise?: StripeInit;
+  disableLink?: boolean;
 };
 
 export const PaymentMethodList = ({
@@ -68,6 +69,7 @@ export const PaymentMethodList = ({
   billingDetails,
   setBillingDetails,
   stripePromise,
+  disableLink,
 }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
@@ -145,6 +147,7 @@ export const PaymentMethodList = ({
           companyId={companyId}
           defaultEmail={sepaDefaultEmail}
           defaultName={sepaDefaultName}
+          disableLink={disableLink}
           fullScreen={isMobile}
           onClose={() => setCollectPaymentMethodIsOpen(false)}
           paymentMethodType={paymentMethodType}

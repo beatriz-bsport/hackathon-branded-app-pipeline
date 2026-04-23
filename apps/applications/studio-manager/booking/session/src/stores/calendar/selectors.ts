@@ -51,3 +51,7 @@ export const selectAppointmentDisplayedColumns = (state: CalendarState) =>
 export const selectIsCancelAppointmentModalOpen = (state: CalendarState) =>
   state.modalState?.tab === "appointments" &&
   state.modalState?.type === AppointmentModalType.CANCEL;
+
+export const selectIsRescheduleAppointmentModalOpen = (state: CalendarState) =>
+  state.modalState?.tab === "appointments" &&
+  state.modalState?.type === AppointmentModalType.RESCHEDULE;

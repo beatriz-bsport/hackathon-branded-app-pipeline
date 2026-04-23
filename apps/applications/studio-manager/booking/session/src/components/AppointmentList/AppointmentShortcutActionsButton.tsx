@@ -7,7 +7,10 @@ import {
   Popover,
 } from "@bsport/kaizen-primitive-core";
 
-import { openCancelAppointmentModal } from "#src/stores/calendar";
+import {
+  openCancelAppointmentModal,
+  openRescheduleAppointmentModal,
+} from "#src/stores/calendar";
 import type { EnrichedAppointment } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -28,8 +31,11 @@ export const AppointmentShortcutActionsButton: React.FC<
       label: t("appointmentTable.shortcutActions.reschedule"),
       iconLeft: "calendar",
       type: "button",
-      disabled: true,
-      onClick: () => {},
+      disabled: appointment.isCancelled,
+      onClick: () => {
+        setIsPopoverOpened(false);
+        openRescheduleAppointmentModal(appointment);
+      },
     },
     {
       id: "swap-pass-shortcut",

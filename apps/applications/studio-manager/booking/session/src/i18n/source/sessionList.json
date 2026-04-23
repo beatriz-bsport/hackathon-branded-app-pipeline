@@ -266,6 +266,23 @@
     "refundCredits": "Refund the credits",
     "sendNotification": "Send a notification"
   },
+  "rescheduleAppointmentModal": {
+    "title": "Reschedule appointment?",
+    "dateLabel": "Date",
+    "timeLabel": "Time",
+    "infoMessage": "Members will automatically receive a notification of these changes.",
+    "errorMessage": "An error occurred while rescheduling the appointment. Please try again.",
+    "cancelButton": "Close",
+    "confirmButton": "Reschedule",
+    "successMessage": "Appointment rescheduled",
+    "overlapWarning": "Please confirm there is no scheduling overlap with the teacher and establishment before rescheduling."
+  },
+  "resourceAllocation": {
+    "unavailableMessage": "The following elements are not available at this time:",
+    "teacher": "Teacher",
+    "establishment": "Establishment",
+    "rescheduleConfirmation": "Are you sure you want to reschedule this appointment?"
+  },
   "wellhub": {
     "alert": {
       "title": "Some classes are missing a Wellhub product",

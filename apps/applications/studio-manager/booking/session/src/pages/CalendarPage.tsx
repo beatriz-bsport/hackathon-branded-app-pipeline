@@ -16,6 +16,7 @@ import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal
 import AppointmentDay from "#src/components/AppointmentList/AppointmentDay";
 import { AppointmentFilterTypes } from "#src/components/AppointmentList/Filters/types";
 import { CancelAppointmentModal } from "#src/components/AppointmentList/modals/CancelAppointmentModal";
+import { RescheduleAppointmentModal } from "#src/components/AppointmentList/modals/RescheduleAppointmentModal";
 import { CancelMultipleSessionsModal } from "#src/components/SessionList/actions/cancel-multiple-sessions-modal";
 import { ExportParticipantsModal } from "#src/components/SessionList/actions/export-participants-modal";
 import { CancelSessionModal } from "#src/components/SessionList/detail-actions/cancel-session-modal";
@@ -549,6 +550,15 @@ const CalendarPage: React.FC = () => {
         {detailsModalState?.tab === "appointments" &&
           detailsModalState?.type === AppointmentModalType.CANCEL && (
             <CancelAppointmentModal
+              appointment={detailsModalState.appointment}
+              isOpen
+              onClose={closeModal}
+            />
+          )}
+
+        {detailsModalState?.tab === "appointments" &&
+          detailsModalState?.type === AppointmentModalType.RESCHEDULE && (
+            <RescheduleAppointmentModal
               appointment={detailsModalState.appointment}
               isOpen
               onClose={closeModal}

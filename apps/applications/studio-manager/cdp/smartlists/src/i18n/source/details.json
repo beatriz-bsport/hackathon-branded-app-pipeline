@@ -39,6 +39,11 @@
     }
   },
   "automation": {
+    "infoTooltip": {
+      "label": "How automations work",
+      "title": "How automations work",
+      "body": "Automations run once every 24 hours. If a profile enters or leaves the Smartlist after the automation runs, the tag will be applied or the message will be sent the next day."
+    },
     "messages": {
       "title": "Messages",
       "description": "These messages send once profiles enter or exit the defined filters.",

@@ -1,6 +1,10 @@
 import { z } from "zod";
 
-import type { CreateGroupActivityPayload } from "@bsport/api-book";
+import type {
+  CreateGroupActivityPayload,
+  EditGroupActivityPayload,
+  MetaActivity,
+} from "@bsport/api-book";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -106,12 +110,9 @@ export const useClassFormSchema = () => {
 const toMinutes = ({ days, hours, minutes }: TimeFieldValue) =>
   days * 24 * 60 + hours * 60 + minutes;
 
-export const toCreateGroupActivityPayload = (
-  values: ClassFormValues,
-): CreateGroupActivityPayload => ({
+const buildGroupActivityPayloadBase = (values: ClassFormValues) => ({
   name: values.name.trim(),
   SCT: Number(values.SCT),
-  is_workshop: values.is_workshop ?? false,
   cover_main: values.cover_main,
   alt_cover_main: values.alt_cover_main.trim(),
   description: values.description.trim(),
@@ -134,3 +135,54 @@ export const toCreateGroupActivityPayload = (
       }
     : {}),
 });
+
+const fromMinutes = (total: number): TimeFieldValue => {
+  const days = Math.floor(total / 1440);
+  const remaining = total - days * 1440;
+  const hours = Math.floor(remaining / 60);
+  const minutes = remaining % 60;
+  return { days, hours, minutes };
+};
+
+export const fromMetaActivityToFormData = (
+  metaActivity: MetaActivity,
+): ClassFormValues => ({
+  name: metaActivity.name,
+  cover_main: metaActivity.cover_main ?? null,
+  alt_cover_main: metaActivity.alt_cover_main ?? "",
+  SCT: String(metaActivity.SCT),
+  description: metaActivity.description ?? "",
+  color: metaActivity.color ?? "",
+  is_workshop: metaActivity.is_workshop,
+  is_broadcast: metaActivity.is_broadcast ?? false,
+  first_booking_minutes_until: fromMinutes(
+    metaActivity.first_booking_minutes_until ?? 0,
+  ),
+  last_booking_minutes: fromMinutes(metaActivity.last_booking_minutes ?? 0),
+  last_discard_minutes: fromMinutes(metaActivity.last_discard_minutes ?? 0),
+  custom_restriction_rule: (metaActivity.custom_restriction_rule ?? []).map(
+    (rule) => ({
+      tags: rule.tags,
+      first_booking_minutes_until: fromMinutes(
+        rule.first_booking_minutes_until,
+      ),
+      last_booking_minutes: fromMinutes(rule.last_booking_minutes),
+      last_discard_minutes: fromMinutes(rule.last_discard_minutes),
+    }),
+  ),
+  auto_discard_active: metaActivity.auto_discard_active ?? false,
+  auto_discard_hours_before_start:
+    metaActivity.auto_discard_hours_before_start ?? 0,
+  auto_discard_min_bookings_nb: metaActivity.auto_discard_min_bookings_nb ?? 0,
+});
+
+export const toCreateGroupActivityPayload = (
+  values: ClassFormValues,
+): CreateGroupActivityPayload => ({
+  ...buildGroupActivityPayloadBase(values),
+  is_workshop: values.is_workshop ?? false,
+});
+
+export const toEditGroupActivityPayload = (
+  values: ClassFormValues,
+): EditGroupActivityPayload => buildGroupActivityPayloadBase(values);

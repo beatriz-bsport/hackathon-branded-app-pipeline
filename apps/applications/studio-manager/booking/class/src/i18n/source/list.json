@@ -50,6 +50,8 @@
     "toasts": {
       "create": "{{className}} has been created",
       "createError": "Failed to create class. Please try again.",
+      "edit": "{{className}} has been updated",
+      "editError": "Failed to update class. Please try again.",
       "unarchive": "{{className}} has been unarchived",
       "undo": "Undo"
     },

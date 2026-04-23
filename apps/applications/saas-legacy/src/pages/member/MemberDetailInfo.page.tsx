@@ -593,6 +593,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
               }
               companyId={this.props.companyTheme.company}
               disabled={false}
+              disableLink={true}
               enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
                 {
                   currency: this.props.companyTheme.currency,

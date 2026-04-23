@@ -585,6 +585,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
                 cardBillingDetailsMandatory={cardBillingDetailsMandatory}
                 companyCountry={companyCountry}
                 companyId={companyId}
+                disableLink={false}
                 isContractLegalTermsAccepted={isContractLegalTermsAccepted}
                 isOpen={collectPaymentMethodIsOpen}
                 onCancel={handleCloseCollectPaymentMethodDialog}

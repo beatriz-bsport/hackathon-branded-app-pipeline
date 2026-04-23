@@ -40,6 +40,7 @@ import { SelectOptionWithMetaData } from '#src/components/css-only/Select/Select
 import { usePaymentMethodBillingDetails } from '#src/libs/marketplace/hooks';
 import { PaymentMethod } from '#src/libs/payment/types';
 import Button, { ButtonType } from '#src/components/css-only/Fabrique/Button';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 import MarketplaceCardBillingDetailsFormFields from './MarketplaceCardBillingDetailsFormFields.component';
 // @ts-expect-error
 import { AVAILABLE_PAYMENT_METHOD_TYPE } from '../../../../payment/components/payment-backend-stripe-deprecated/helpers';
@@ -82,10 +83,12 @@ export type Props = {
   isContractLegalTermsAccepted: boolean;
   companyCountry?: string;
   paymentMethodLoading?: boolean;
+  disableLink?: boolean;
 };
 
 type PaymentMethodInputProps = {
   type: MarketplacePaymentMethods;
+  disableLink?: boolean;
 };
 
 export type CountryMetaData = {
@@ -109,7 +112,11 @@ export const CountryOption: React.FC<{
 ));
 
 const PaymentMethodInput: React.FC<PaymentMethodInputProps> = React.memo(
-  ({ type }) => {
+  ({ type, disableLink }) => {
+    const isLinkEnabled = useSafeFlag(
+      FeatureFlags.STRIPE_LINK_EXPRESS_CHECKOUT,
+    );
+    const shouldDisableLink = (disableLink ?? true) || !isLinkEnabled;
     if (type === MarketplacePaymentMethods.card) {
       return (
         <div className="bs-collect-payment-method__dialog__sensitive__data__container">
@@ -117,7 +124,7 @@ const PaymentMethodInput: React.FC<PaymentMethodInputProps> = React.memo(
             options={{
               hidePostalCode: true,
               style: { base: { fontSize: '18px' } },
-              disableLink: true,
+              disableLink: shouldDisableLink,
             }}
           />
         </div>
@@ -164,6 +171,7 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
     isContractLegalTermsAccepted,
     companyCountry,
     paymentMethodLoading,
+    disableLink,
   }) => {
     const isWidget =
       WidgetUtils.getConsumerSpaceContext() === ConsumerSpaceContextEnum.WIDGET;
@@ -647,7 +655,9 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                   </span>
                 </div>
               )}
-              {!success && <PaymentMethodInput type={type} />}
+              {!success && (
+                <PaymentMethodInput disableLink={disableLink} type={type} />
+              )}
               {isSepaDebitBillingAddressRequired && !success && (
                 <input
                   className="bs-collect-payment-method__mandate__field"

@@ -460,6 +460,7 @@ const ConnectedBillingProblemCard: React.FC<Props> = React.memo(
               }
               companyId={companyTheme.company}
               disabled={false}
+              disableLink={true}
               enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
                 {
                   currency: companyTheme.currency,

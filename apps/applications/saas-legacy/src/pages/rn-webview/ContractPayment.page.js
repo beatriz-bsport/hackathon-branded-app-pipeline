@@ -174,6 +174,7 @@ export class ContractPayment extends React.Component<Props, State> {
           }
           contract={this.props.contract}
           defaultBillingGroup={this.props.defaultEstablishmentBillingGroup}
+          disableLink={false}
           enabledPaymentGroupMethodIdentifier={
             this.props.companyTheme.payment_method_available_subscription
           }

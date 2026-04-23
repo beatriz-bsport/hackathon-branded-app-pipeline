@@ -161,6 +161,7 @@ export class AddPaymentMethodWebview extends React.Component<Props, State> {
           cardBillingDetailsMandatory={
             this.props.theme.force_billing_details_on_cards
           }
+          disableLink={false}
           enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods({
             currency: this.props.theme.currency,
             companyCountry,

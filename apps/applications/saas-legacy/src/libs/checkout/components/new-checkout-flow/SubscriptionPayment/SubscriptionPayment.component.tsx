@@ -322,6 +322,7 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
         // THIS NEEDS A PROPER REFACTOR
         billingDetails={billingDetails}
         cardBillingDetailsMandatory={false}
+        disableLink={false}
         hideCancelButton={filteredSavedPaymentMethodList?.length === 0}
         isOpen={
           (collectPaymentMethodIsOpen ||

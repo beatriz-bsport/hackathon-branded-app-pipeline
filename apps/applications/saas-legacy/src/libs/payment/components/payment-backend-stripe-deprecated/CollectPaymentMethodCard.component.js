@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import {
@@ -26,6 +27,7 @@ import { hasUpsell } from '#src/libs/platform-billing/utils';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
 import PaymentStripeTerminal from '#src/libs/terminal/components/PaymentStripeTerminal.component';
+import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 import type { FeatureList } from '#src/libs/company/types';
 import type { StripeReader } from '#src/libs/terminal/types';
@@ -45,6 +47,7 @@ type Props = {
   content?: string,
   defaultEmail?: string,
   defaultName?: string,
+  disableLink?: boolean,
   elements: StripeElement,
   fullScreen: boolean,
   labelClose?: string,
@@ -290,7 +293,7 @@ export class CollectPaymentMethod extends React.Component<Props> {
                             className={classes.sensitiveData}
                             id="collectPaymentMethodCardSensitiveData"
                           >
-                            <Card />
+                            <Card disableLink={this.props.disableLink} />
                           </div>
                         </div>
                       </div>
@@ -351,15 +354,23 @@ export class CollectPaymentMethod extends React.Component<Props> {
   }
 }
 
-const Card = () => (
-  <CardElement
-    options={{
-      hidePostalCode: true,
-      style: { base: { fontSize: '18px' } },
-      disableLink: true,
-    }}
-  />
-);
+const Card = ({ disableLink }) => {
+  const isLinkEnabled = useSafeFlag(FeatureFlags.STRIPE_LINK_EXPRESS_CHECKOUT);
+  const shouldDisableLink = (disableLink ?? true) || !isLinkEnabled;
+  return (
+    <CardElement
+      options={{
+        hidePostalCode: true,
+        style: { base: { fontSize: '18px' } },
+        disableLink: shouldDisableLink,
+      }}
+    />
+  );
+};
+
+Card.propTypes = {
+  disableLink: PropTypes.bool,
+};
 
 const styles = (theme: Theme) => ({
   addViaTerminal: {

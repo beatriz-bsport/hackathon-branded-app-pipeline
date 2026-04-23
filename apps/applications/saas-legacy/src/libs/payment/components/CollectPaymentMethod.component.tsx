@@ -27,6 +27,7 @@ type Props = {
   companyId?: number;
   cardBillingDetailsMandatory: boolean;
   stripePromise?: StripeInit;
+  disableLink?: boolean;
 };
 
 export const CollectPaymentMethod = (props: Props) => {
@@ -59,6 +60,7 @@ export const CollectPaymentMethod = (props: Props) => {
         content={props.content}
         defaultEmail={props.defaultEmail}
         defaultName={props.defaultName}
+        disableLink={props.disableLink}
         fullScreen={props.fullScreen}
         labelClose={props.labelClose}
         onClose={props.onClose}

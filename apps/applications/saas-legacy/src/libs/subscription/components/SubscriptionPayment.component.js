@@ -118,6 +118,7 @@ type Props = {
   defaultBillingGroup?: EstablishmentBillingGroup,
   updateMemberBillingGroup?: (establishmentBillingGroupId: number) => void,
   stripePromise?: StripeInit,
+  disableLink?: boolean,
 };
 
 type State = {
@@ -711,6 +712,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                       this.props.disabled ||
                       this.props.onlinePaymentEnabled === false
                     }
+                    disableLink={this.props.disableLink}
                     onSelect={this.handleOnSelect}
                     paymentMethodType={paymentMethod}
                     refreshSavedPaymentMethodList={

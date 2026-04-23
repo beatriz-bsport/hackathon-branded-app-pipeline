@@ -129,6 +129,7 @@ class SubscriptionPaymentMethod extends React.PureComponent<Props, State> {
           cardBillingDetailsMandatory={
             this.props.theme.force_billing_details_on_cards
           }
+          disableLink={false}
           enabledPaymentGroupMethodIdentifier={
             this.props.theme?.payment_method_available_subscription || []
           }

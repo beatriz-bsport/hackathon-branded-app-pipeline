@@ -477,6 +477,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
               companyTheme?.force_billing_details_on_cards
             }
             companyId={membershipCompany}
+            disableLink={false}
             enabledPaymentMethods={getBackofficeBillingPlanEnabledPaymentMethods(
               {
                 currency: companyTheme?.currency,

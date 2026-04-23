@@ -80,6 +80,7 @@ export const AccountConfigurationPaymentMethodStep: React.FC<Props> = ({
           <div className={classes.addPaymentMethod}>
             <AddPaymentMethod
               cardBillingDetailsMandatory={cardBillingDetailsMandatory}
+              disableLink={true}
               enabledPaymentMethods={[BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB]}
               labelClose={t('common:previous')}
               onCancel={goPrevious}

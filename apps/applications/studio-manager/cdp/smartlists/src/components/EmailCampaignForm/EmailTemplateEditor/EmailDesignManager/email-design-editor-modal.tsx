@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import {
   Body,
-  Chip,
   Icon,
   Modal,
   TextField,
@@ -57,6 +56,7 @@ export const EmailDesignEditorModal = ({
     <Modal
       open={open}
       onClose={onClose}
+      onClickOutside={() => {}}
       confirmButton={
         isMobile
           ? {
@@ -71,18 +71,6 @@ export const EmailDesignEditorModal = ({
               ),
               onClick: () => setShowActions(true),
             }
-      }
-      description={
-        isFranchiseTemplate ? (
-          <Chip
-            label={t(
-              "email.creation.form.emailTemplateEditor.franchiseTemplateLabel",
-            )}
-            color="info"
-            type="weak"
-            size="lg"
-          />
-        ) : null
       }
       title={t("email.creation.form.emailTemplateEditor.title")}
       size="xl"
@@ -111,6 +99,7 @@ export const EmailDesignEditorModal = ({
       {showActions ? (
         <EmailDesignEditorActionsModal
           open={true}
+          isFranchiseTemplate={isFranchiseTemplate}
           canOverwrite={onOverwrite !== undefined && !isFranchiseTemplate}
           onOnTheFly={() => onOnTheFly(content, subject)}
           onCreateNew={() => onCreateNew(content, subject)}

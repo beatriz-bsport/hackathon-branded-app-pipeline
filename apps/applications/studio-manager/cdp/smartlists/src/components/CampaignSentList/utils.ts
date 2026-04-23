@@ -1,7 +1,6 @@
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
 import type { CampaignSent } from "#src/api/types";
-import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { getFallbackCampaignName } from "#src/utils/campaignUtils";
 import { i18nInstance } from "#src/utils/i18n";
 
@@ -13,10 +12,8 @@ const CAMPAIGN_SENT_ROW_ID = (campaignUuid: string) =>
 
 function formatCampaignSentTableRow({
   campaignSentList,
-  smartlistId,
 }: {
   campaignSentList: CampaignSent[];
-  smartlistId: string;
 }): CampaignSentTableRowData[] {
   return campaignSentList.map((campaignSent) => ({
     id: CAMPAIGN_SENT_ROW_ID(campaignSent.uuid),
@@ -42,10 +39,6 @@ function formatCampaignSentTableRow({
       openCount: campaignSent.total_read,
       clickCount: campaignSent.total_click,
     },
-    link: SMARTLIST_APP_LINKS.campaignSentDetails(
-      smartlistId,
-      campaignSent.uuid,
-    ),
   }));
 }
 

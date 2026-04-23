@@ -71,7 +71,7 @@ function getCampaignClickRate(campaignSentDetail: CampaignSent) {
 }
 
 function CampaignSentDetailPageContent() {
-  const { t: tList } = useTranslation("list");
+  const { t } = useTranslation("list");
   const { id, uuid } = useParams<{ id: string; uuid: string }>();
   invariant(id, "Expected id param to be defined");
   invariant(uuid, "Expected uuid param to be defined");
@@ -85,7 +85,7 @@ function CampaignSentDetailPageContent() {
 
   const breadcrumbsItems = [
     <Link key="smartlists-breadcrumb" to={SMARTLIST_APP_LINKS.index()}>
-      <Breadcrumbs.Item id="breadcrumb-smartlists" text={tList("title")} />
+      <Breadcrumbs.Item id="breadcrumb-smartlists" text={t("title")} />
     </Link>,
     <Link
       key="smartlists-item-campaign-breadcrumb"

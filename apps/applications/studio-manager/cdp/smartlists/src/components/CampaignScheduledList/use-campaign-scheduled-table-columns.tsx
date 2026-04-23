@@ -4,11 +4,15 @@ import {
   Body,
   Chip,
   type GenericTableColumn,
+  Tooltip,
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { CommunicationKind } from "#src/api/constants";
-import { COMMUNICATION_KIND_ICON_MAP } from "#src/utils/constants";
+import {
+  COMMUNICATION_CHANNEL_BY_KIND_MAP,
+  COMMUNICATION_KIND_ICON_MAP,
+} from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 import { CampaignScheduledActionDropdown } from "./CampaignScheduledActionDropdown";
@@ -20,7 +24,6 @@ export type CampaignScheduledTableRowData = {
   campaignName: string;
   scheduledDate: string;
   scheduledHour: string;
-  link: string;
 };
 
 export type CampaignScheduledTableRowParams = {
@@ -37,7 +40,7 @@ export const useCampaignScheduledTableColumns = ({
   onEdit,
   onDelete,
 }: CampaignScheduledTableRowParams): Array<TableColumn> => {
-  const { t } = useTranslation("campaign");
+  const { t } = useTranslation(["campaign", "details"]);
   const isMobile = !useMatchMedia("md");
 
   const columns = useMemo<Array<TableColumn>>(() => {
@@ -66,12 +69,19 @@ export const useCampaignScheduledTableColumns = ({
       type: "custom",
       align: "start",
       render: (row) => (
-        <Chip
-          size="lg"
-          type="weak"
-          color="default"
-          iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
-        />
+        <Tooltip
+          label={t(
+            `automation.messages.channels.${COMMUNICATION_CHANNEL_BY_KIND_MAP[row.campaignKind]}`,
+            { ns: "details" },
+          )}
+        >
+          <Chip
+            size="lg"
+            type="weak"
+            color="default"
+            iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
+          />
+        </Tooltip>
       ),
     };
 
@@ -82,16 +92,17 @@ export const useCampaignScheduledTableColumns = ({
       type: "custom",
       align: "start",
       render: (row) => (
-        <div className="flex flex-col gap-2xs">
-          <div className="flex flex-row gap-sm items-center">
-            {isMobile ? (
-              <Chip
-                size="lg"
-                type="weak"
-                color="default"
-                iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
-              />
-            ) : null}
+        <div className="flex flex-row gap-sm">
+          {isMobile ? (
+            <Chip
+              className="self-center"
+              size="lg"
+              type="weak"
+              color="default"
+              iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
+            />
+          ) : null}
+          <div className="flex flex-col gap-2xs">
             <Body
               className={
                 isMobile
@@ -99,16 +110,17 @@ export const useCampaignScheduledTableColumns = ({
                   : "w-[800px] overflow-hidden text-ellipsis"
               }
               htmlVariant="span"
-              size="md"
+              size="lg"
+              weight="weak"
             >
               {row.campaignName}
             </Body>
+            {isMobile ? (
+              <Body size="md" htmlVariant="p" weight="weak" color="weak">
+                {row.scheduledDate}, {row.scheduledHour}
+              </Body>
+            ) : null}
           </div>
-          {isMobile ? (
-            <Body size="md" htmlVariant="p" weight="weak" color="weak">
-              {row.scheduledDate}, {row.scheduledHour}
-            </Body>
-          ) : null}
         </div>
       ),
     };

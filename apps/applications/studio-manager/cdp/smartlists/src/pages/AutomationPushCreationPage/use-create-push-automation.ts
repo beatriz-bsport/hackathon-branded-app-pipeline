@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router";
-
 import { toast } from "@bsport/kaizen-primitive-core";
 
 import { CommunicationKind } from "#src/api/constants";
 import { useCreateAutomatedCampaign } from "#src/api/use-create-automated-campaign";
-import { SMARTLIST_APP_LINKS } from "#src/urls";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useTranslation } from "#src/utils/i18n";
 
 import { pushAutomationFormDataToPayload } from "./mappers";
@@ -16,7 +14,7 @@ export const useCreatePushAutomation = ({
   smartlistId: string;
 }) => {
   const { t } = useTranslation("details");
-  const navigate = useNavigate();
+  const { navigateToSmartlistAutomation } = useSmartlistNavigation();
 
   const { createAutomatedCampaign } = useCreateAutomatedCampaign({
     onSuccess: () => {
@@ -26,7 +24,7 @@ export const useCreatePushAutomation = ({
         description: t("automation.push.toasts.success.created"),
         buttonIcon: "x-close",
       });
-      navigate(SMARTLIST_APP_LINKS.automation(smartlistId));
+      navigateToSmartlistAutomation(smartlistId);
     },
     onError: () => {
       toast({

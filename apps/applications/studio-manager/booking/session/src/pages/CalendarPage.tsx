@@ -10,6 +10,7 @@ import {
   useEmptyState,
   useLoadingState,
 } from "@bsport/kaizen-primitive-core";
+import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { AddSessionModal } from "#src/components/AddSessionModal/AddSessionModal";
 import AppointmentDay from "#src/components/AppointmentList/AppointmentDay";
@@ -58,6 +59,7 @@ import {
   useCalendarStore,
 } from "../stores/calendar";
 import { getDateStartKey } from "../utils/get-date-start-key";
+import { scrollToCurrentSession } from "../utils/scroll";
 
 const VALID_TABS: CalendarTab[] = ["classes", "appointments"];
 
@@ -205,6 +207,10 @@ const CalendarPage: React.FC = () => {
     () => groupBy(filteredSessions, getDateStartKey),
     [filteredSessions],
   );
+
+  const scrollToNow = useCallback(() => {
+    scrollToCurrentSession(filteredSessions, getCompanyTimezone());
+  }, [filteredSessions]);
 
   const appointmentsByDate = useMemo(
     () => groupBy(filteredAppointments, getDateStartKey),
@@ -428,7 +434,9 @@ const CalendarPage: React.FC = () => {
         }}
       />
       <ListLayout.Content>
-        <DateNavigationHeader />
+        <DateNavigationHeader
+          onScrollToNow={isClassesTab ? scrollToNow : undefined}
+        />
         {isClassesTab &&
           wellhubOffersData &&
           wellhubOffersData.total_count > 0 && (

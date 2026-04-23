@@ -1,10 +1,9 @@
 import { useId } from "react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 import { useFormController } from "@bsport/form";
 import {
   Breadcrumbs,
-  Button,
   DetailsLayout,
   toast,
   useDetailsLayout,
@@ -19,6 +18,7 @@ import {
   PageLoader,
   QueryBoundary,
 } from "#src/components/QueryBoundary";
+import { CampaignDeliveryCtaButton } from "#src/components/campaign-generic-fields/campaign-delivery-cta-button";
 import {
   DELIVERY_MODE_SCHEDULE_LATER,
   DELIVERY_MODE_SEND_NOW,
@@ -26,6 +26,7 @@ import {
 import { getSmsCampaignSchema } from "#src/components/sms-campaign-form/schema";
 import { SmsCampaignForm } from "#src/components/sms-campaign-form/sms-campaign-form";
 import type { SmsCampaignFormData } from "#src/components/sms-campaign-form/types";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import {
   formatScheduleSmsCampaignPayload,
   formatSendSmsCampaignPayload,
@@ -47,9 +48,8 @@ const CreateSmsCampaignPage = () => {
 };
 
 function CreateSmsCampaign() {
-  const { t: tList } = useTranslation("list");
-  const { t: tCampaign } = useTranslation("campaign");
-  const navigate = useNavigate();
+  const { t } = useTranslation(["list", "campaign"]);
+  const { navigateToSmartlistCampaigns } = useSmartlistNavigation();
   const { id: smartlistId } = useParams<{ id: string }>();
   invariant(smartlistId, "Expected id param to be defined");
 
@@ -60,11 +60,11 @@ function CreateSmsCampaign() {
 
   const { sendCampaign, isSending } = useSendCampaign({
     onSuccess: () => {
-      navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
+      navigateToSmartlistCampaigns(smartlistId);
       toast({
         status: "default",
         icon: "check",
-        title: tCampaign("sms.creation.toasts.success.send"),
+        title: t("sms.creation.toasts.success.send", { ns: "campaign" }),
         buttonIcon: "x-close",
       });
     },
@@ -72,18 +72,18 @@ function CreateSmsCampaign() {
       toast({
         status: "critical",
         icon: "alert-circle",
-        title: tCampaign("sms.creation.toasts.error.sendFailed"),
+        title: t("sms.creation.toasts.error.sendFailed", { ns: "campaign" }),
         buttonIcon: "x-close",
       });
     },
   });
   const { scheduleCampaign, isScheduling } = useScheduleCampaign({
     onSuccess: () => {
-      navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
+      navigateToSmartlistCampaigns(smartlistId);
       toast({
         status: "default",
         icon: "check",
-        title: tCampaign("sms.creation.toasts.success.schedule"),
+        title: t("sms.creation.toasts.success.schedule", { ns: "campaign" }),
         buttonIcon: "x-close",
       });
     },
@@ -91,7 +91,7 @@ function CreateSmsCampaign() {
       toast({
         status: "critical",
         icon: "alert-circle",
-        title: tCampaign("sms.creation.toasts.error.sendFailed"),
+        title: t("sms.creation.toasts.error.sendFailed", { ns: "campaign" }),
         buttonIcon: "x-close",
       });
     },
@@ -109,20 +109,23 @@ function CreateSmsCampaign() {
       message: "",
     },
   });
-
+  const deliveryMode = methods.watch("deliveryMode");
   const breadcrumbsItems = [
-    <Breadcrumbs.Item
-      key="breadcrumb-smartlists"
-      id="breadcrumb-smartlists"
-      text={tList("title")}
-      href={SMARTLIST_APP_LINKS.index()}
-    />,
-    <Breadcrumbs.Item
+    <Link key="breadcrumb-smartlists" to={SMARTLIST_APP_LINKS.index()}>
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists"
+        text={t("title", { ns: "list" })}
+      />
+    </Link>,
+    <Link
       key="breadcrumb-smartlists-campaigns"
-      id="breadcrumb-smartlists-campaigns"
-      text={smartlist?.name ?? ""}
-      href={SMARTLIST_APP_LINKS.campaign(smartlistId)}
-    />,
+      to={SMARTLIST_APP_LINKS.campaign(smartlistId)}
+    >
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists-campaigns"
+        text={smartlist?.name ?? ""}
+      />
+    </Link>,
   ];
 
   const handleSubmit = async (data: SmsCampaignFormData) => {
@@ -161,21 +164,18 @@ function CreateSmsCampaign() {
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
-        pageTitle={tCampaign("sms.creation.title")}
+        pageTitle={t("sms.creation.title", { ns: "campaign" })}
         BreadcrumbsItems={breadcrumbsItems}
-        callToActionButton={
-          <Button
-            color="main"
-            intent="call-to-action"
-            label={tCampaign("sms.creation.continueButtonLabel")}
-            size="md"
-            type="submit"
-            form={formId}
-            disabled={
+        callToActionButton={[
+          <CampaignDeliveryCtaButton
+            key="campaign-delivery-cta-button"
+            deliveryMode={deliveryMode}
+            formId={formId}
+            isDisabled={
               methods.formState.isSubmitting || isSending || isScheduling
             }
-          />
-        }
+          />,
+        ]}
       />
       <DetailsLayout.Content>
         <SmsCampaignForm

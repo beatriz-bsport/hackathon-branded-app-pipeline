@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
 import { fetchSportCategoriesQueryOptions } from "@bsport/api-core/categories";
@@ -9,7 +9,7 @@ import { fetch } from "#src/utils/fetch";
 const useSCT = () => {
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
-  const { data: categories } = useSuspenseQuery(
+  const { data: categories = [] } = useQuery(
     fetchSportCategoriesQueryOptions(fetch, { company_id: companyId }),
   );
 
@@ -18,7 +18,7 @@ const useSCT = () => {
     [categories],
   );
 
-  return { sctMap };
+  return { sctMap, categories };
 };
 
 export default useSCT;

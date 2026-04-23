@@ -8,12 +8,30 @@
         "title": "No classes yet",
         "subtitle": "Create classes and they will display here",
         "cta": "Create class"
+      },
+      "emptySearch": {
+        "title": "No results found",
+        "subtitle": "No classes match your filters.\nTry clearing them to see more results.",
+        "cta": "Clear filters"
       }
     },
     "header": {
       "classes": "Classes",
       "archivedClasses": "Archived classes",
       "add": "Create class"
+    },
+    "filters": {
+      "label": "Filters",
+      "is": "is",
+      "category": {
+        "label": "Category",
+        "searchPlaceholder": "Search"
+      },
+      "type": {
+        "label": "Type",
+        "groupActivity": "Group activity",
+        "workshop": "Workshop"
+      }
     },
     "actions": {
       "duplicate": "Duplicate",

@@ -1,10 +1,9 @@
 import { useId } from "react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 
 import { useFormController } from "@bsport/form";
 import {
   Breadcrumbs,
-  Button,
   DetailsLayout,
   toast,
   useDetailsLayout,
@@ -21,10 +20,12 @@ import {
   QueryBoundary,
 } from "#src/components/QueryBoundary";
 import { ScheduledCommunicationLockedModal } from "#src/components/ScheduledCommunicationLockedModal/ScheduledCommunicationLockedModal";
+import { CampaignDeliveryCtaButton } from "#src/components/campaign-generic-fields/campaign-delivery-cta-button";
 import { DELIVERY_MODE_SEND_NOW } from "#src/components/campaign-generic-fields/campaign-delivery-mode.constants";
 import { getSmsCampaignSchema } from "#src/components/sms-campaign-form/schema";
 import { SmsCampaignForm } from "#src/components/sms-campaign-form/sms-campaign-form";
 import type { SmsCampaignFormData } from "#src/components/sms-campaign-form/types";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { formatScheduleSmsCampaignPayload } from "#src/pages/sms-campaign/utils/format-sms-campaign-payload";
 import { initSmsCampaignFormDefaultValues } from "#src/pages/sms-campaign/utils/init-sms-campaign-form-default-values";
 import { formatScheduledDateTime } from "#src/pages/utils/format-scheduled-date-time";
@@ -45,9 +46,12 @@ const EditSmsCampaignPage = () => {
 };
 
 function EditSmsCampaign() {
-  const { t: tList } = useTranslation("list");
-  const { t: tCampaign } = useTranslation("campaign");
+  const { t } = useTranslation(["list", "campaign"]);
   const navigate = useNavigate();
+  const {
+    navigateToSmartlistCampaignScheduledDetails,
+    navigateToSmartlistCampaigns,
+  } = useSmartlistNavigation();
   const { id: smartlistId, entityId } = useParams<{
     id: string;
     entityId: string;
@@ -72,16 +76,14 @@ function EditSmsCampaign() {
   const { updateScheduledCampaign, isUpdating } =
     useUpdateScheduledEmailCampaign({
       onSuccess: (updatedCampaign) => {
-        navigate(
-          SMARTLIST_APP_LINKS.campaignScheduledDetails(
-            smartlistId,
-            updatedCampaign.id,
-          ),
+        navigateToSmartlistCampaignScheduledDetails(
+          smartlistId,
+          updatedCampaign.id,
         );
         toast({
           status: "default",
           icon: "check",
-          title: tCampaign("sms.creation.toasts.success.schedule"),
+          title: t("sms.creation.toasts.success.schedule", { ns: "campaign" }),
           buttonIcon: "x-close",
         });
       },
@@ -89,7 +91,7 @@ function EditSmsCampaign() {
         toast({
           status: "critical",
           icon: "alert-circle",
-          title: tCampaign("sms.creation.toasts.error.sendFailed"),
+          title: t("sms.creation.toasts.error.sendFailed", { ns: "campaign" }),
           buttonIcon: "x-close",
         });
       },
@@ -98,11 +100,11 @@ function EditSmsCampaign() {
     useSendNowScheduledCampaign({
       smartlistId,
       onSuccess: () => {
-        navigate(SMARTLIST_APP_LINKS.campaign(smartlistId));
+        navigateToSmartlistCampaigns(smartlistId);
         toast({
           status: "default",
           icon: "check",
-          title: tCampaign("sms.creation.toasts.success.send"),
+          title: t("sms.creation.toasts.success.send", { ns: "campaign" }),
           buttonIcon: "x-close",
         });
       },
@@ -110,7 +112,7 @@ function EditSmsCampaign() {
         toast({
           status: "critical",
           icon: "alert-circle",
-          title: tCampaign("sms.creation.toasts.error.sendFailed"),
+          title: t("sms.creation.toasts.error.sendFailed", { ns: "campaign" }),
           buttonIcon: "x-close",
         });
       },
@@ -122,20 +124,23 @@ function EditSmsCampaign() {
     schema: getSmsCampaignSchema(companyTimezone),
     defaultValues: formDefaults,
   });
-
+  const deliveryMode = methods.watch("deliveryMode");
   const breadcrumbsItems = [
-    <Breadcrumbs.Item
-      key="breadcrumb-smartlists"
-      id="breadcrumb-smartlists"
-      text={tList("title")}
-      href={SMARTLIST_APP_LINKS.index()}
-    />,
-    <Breadcrumbs.Item
+    <Link key="breadcrumb-smartlists" to={SMARTLIST_APP_LINKS.index()}>
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists"
+        text={t("title", { ns: "list" })}
+      />
+    </Link>,
+    <Link
       key="breadcrumb-smartlists-campaigns"
-      id="breadcrumb-smartlists-campaigns"
-      text={smartlist?.name ?? ""}
-      href={SMARTLIST_APP_LINKS.campaign(smartlistId)}
-    />,
+      to={SMARTLIST_APP_LINKS.campaign(smartlistId)}
+    >
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists-campaigns"
+        text={smartlist?.name ?? ""}
+      />
+    </Link>,
   ];
 
   const handleSubmit = async (data: SmsCampaignFormData) => {
@@ -179,21 +184,18 @@ function EditSmsCampaign() {
   return (
     <DetailsLayout {...detailsLayoutProps}>
       <DetailsLayout.Header
-        pageTitle={tCampaign("sms.creation.title")}
+        pageTitle={t("sms.creation.title", { ns: "campaign" })}
         BreadcrumbsItems={breadcrumbsItems}
-        callToActionButton={
-          <Button
-            color="main"
-            intent="call-to-action"
-            label={tCampaign("sms.creation.continueButtonLabel")}
-            size="md"
-            type="submit"
-            form={formId}
-            disabled={
+        callToActionButton={[
+          <CampaignDeliveryCtaButton
+            key="campaign-delivery-cta-button"
+            deliveryMode={deliveryMode}
+            formId={formId}
+            isDisabled={
               methods.formState.isSubmitting || isUpdating || isSendingNow
             }
-          />
-        }
+          />,
+        ]}
       />
       <DetailsLayout.Content>
         <SmsCampaignForm

@@ -38,7 +38,10 @@ export const CampaignScheduledList = () => {
   const [isLockedModalOpen, setIsLockedModalOpen] = useState(false);
   const [scheduledCampaignForAction, setScheduledCampaignForAction] =
     useState<CampaignScheduled | null>(null);
-  const { navigateToSmartlistCampaignEdit } = useSmartlistNavigation();
+  const {
+    navigateToSmartlistCampaignEdit,
+    navigateToSmartlistCampaignScheduledDetails,
+  } = useSmartlistNavigation();
 
   const { data: campaignScheduled, isLoading: campaignScheduledLoading } =
     useFetchCampaignScheduledList(smartlistId);
@@ -46,8 +49,12 @@ export const CampaignScheduledList = () => {
 
   const tableRows = formatCampaignScheduledTableRow({
     campaignScheduledList: campaignScheduled,
-    smartlistId,
-  });
+  }).map((row) => ({
+    ...row,
+    onRowClick: () => {
+      navigateToSmartlistCampaignScheduledDetails(smartlistId, row.campaignId);
+    },
+  }));
 
   const campaignScheduledById = useMemo(() => {
     return (
@@ -129,7 +136,7 @@ export const CampaignScheduledList = () => {
 
             return (
               <div
-                className="flex flex-row gap-sm items-center"
+                className="flex flex-row gap-sm items-center hover:cursor-pointer"
                 onClick={() => toggleOpen()}
               >
                 <Title htmlVariant={isMobile ? "h2" : "h1"} weight="strong">

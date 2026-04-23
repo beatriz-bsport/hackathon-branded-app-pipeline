@@ -212,7 +212,10 @@ export type CheckoutFlowFormData = {
  * Start context passed by the host to indicate how the checkout flow was opened.
  */
 export type CheckoutFlowStartContext = {
-  basket_start_trigger: "navbar" | "member_profile_page" | "offer_page";
+  basket_start_trigger:
+    | "navbar"
+    | "member_profile_page"
+    | "session_management_page";
   origin_url?: string;
 };
 

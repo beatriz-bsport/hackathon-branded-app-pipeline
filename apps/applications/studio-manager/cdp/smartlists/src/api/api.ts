@@ -70,6 +70,7 @@ export const smartlistKeys = {
     page: number,
     page_size: number,
     filters?: {
+      automated_campaign_id?: number;
       only_automated_campaign?: boolean;
       no_automated_campaign?: boolean;
       without_member_info?: boolean;
@@ -80,6 +81,7 @@ export const smartlistKeys = {
       "campaign-sent",
       page,
       page_size,
+      filters?.automated_campaign_id ?? null,
       filters?.only_automated_campaign ?? null,
       filters?.no_automated_campaign ?? null,
       filters?.without_member_info ?? null,
@@ -236,6 +238,9 @@ const fetchCampaignSentList = async (
     smartlist: params.smartlist,
     page_size: params.page_size ?? 100,
     page: params.page ?? 1,
+    ...(typeof params.automated_campaign_id === "number"
+      ? { automated_campaign_id: params.automated_campaign_id }
+      : {}),
     ...(typeof params.only_automated_campaign === "boolean"
       ? { only_automated_campaign: params.only_automated_campaign }
       : {}),
@@ -569,6 +574,7 @@ export const campaignSentListQueryOptions = ({
   smartlist,
   page,
   page_size,
+  automated_campaign_id,
   only_automated_campaign,
   no_automated_campaign,
   without_member_info,
@@ -580,13 +586,19 @@ export const campaignSentListQueryOptions = ({
       String(smartlist),
       currentPage,
       currentPageSize,
-      { only_automated_campaign, no_automated_campaign, without_member_info },
+      {
+        automated_campaign_id,
+        only_automated_campaign,
+        no_automated_campaign,
+        without_member_info,
+      },
     ),
     queryFn: () =>
       fetchCampaignSentList({
         smartlist,
         page: currentPage,
         page_size: currentPageSize,
+        automated_campaign_id,
         only_automated_campaign,
         no_automated_campaign,
         without_member_info,

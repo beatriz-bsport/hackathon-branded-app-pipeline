@@ -12,6 +12,8 @@ import {
 } from "#src/hooks/use-session-management-modals";
 import { useUrls } from "#src/urls";
 
+import { CancelBookingModal } from "./cancel-booking-modal";
+
 type Props = {
   sessionId: number;
   modalState: SessionManagementModalState;
@@ -56,6 +58,14 @@ export const SessionManagementModals: FC<Props> = ({
           }}
         />
       )}
+      {modalState?.bookingId != null &&
+        modalState?.type === SessionManagementModalType.CANCEL_BOOKING && (
+          <CancelBookingModal
+            bookingId={modalState.bookingId}
+            isOpen
+            onClose={closeModal}
+          />
+        )}
     </>
   );
 };

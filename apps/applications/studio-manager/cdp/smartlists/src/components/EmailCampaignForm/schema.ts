@@ -26,14 +26,12 @@ const bodyRequiredMessage = () =>
 export const emailMessageContentSchema = z.discriminatedUnion("isTextOnly", [
   z.object({
     isTextOnly: z.literal(true),
-    emailSubject: z.string().refine(
-      (val) => val.trim().length > 0,
-      () => ({ message: subjectRequiredMessage() }),
-    ),
-    emailBody: z.string().refine(
-      (val) => val.trim().length > 0,
-      () => ({ message: bodyRequiredMessage() }),
-    ),
+    emailSubject: z.string({
+      message: subjectRequiredMessage(),
+    }),
+    emailBody: z.string({
+      message: bodyRequiredMessage(),
+    }),
     emailTemplateId: z.number().nullable().optional(),
     emailTemplateDesign: z.string().nullable().optional(),
     emailTemplateHtml: z.string().optional(),
@@ -41,10 +39,9 @@ export const emailMessageContentSchema = z.discriminatedUnion("isTextOnly", [
   }),
   z.object({
     isTextOnly: z.literal(false),
-    emailSubject: z.string().refine(
-      (val) => (val ?? "").trim().length > 0,
-      () => ({ message: subjectRequiredMessage() }),
-    ),
+    emailSubject: z.string({
+      message: subjectRequiredMessage(),
+    }),
     emailBody: z.string().optional(),
     emailTemplateId: z.number().nullable().optional(),
     emailTemplateDesign: z.string().nullable().optional(),

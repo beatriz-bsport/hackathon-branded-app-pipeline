@@ -204,12 +204,17 @@ const TableRow = withLink(
         data-component="Kaizen-Table-Row"
         id={rowId}
         onClick={() => onRowClick?.()}
-        className={classNames("relative table-row", {
-          "bg-surface-action-main-selected-rest hover:bg-surface-action-main-selected-hovered active:bg-surface-action-main-selected-pressed":
-            selected || (isActive && hasRowActions),
-          "bg-surface-default hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
-            !selected && !isActive && hasRowActions,
-        })}
+        className={classNames(
+          "relative table-row",
+          {
+            "bg-surface-action-main-selected-rest hover:bg-surface-action-main-selected-hovered active:bg-surface-action-main-selected-pressed":
+              selected || (isActive && hasRowActions),
+            "bg-surface-default hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
+              !selected && !isActive && hasRowActions,
+            "cursor-pointer": hasRowActions,
+          },
+          row.className,
+        )}
       >
         {selectable && (
           <TableCell

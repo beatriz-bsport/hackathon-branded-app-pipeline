@@ -28,10 +28,10 @@ The SPA will be available at `http://localhost:3210`
 ### Run HTML Environment
 
 ```bash
-pnpm dev:html
+pnpm serve:html
 ```
 
-The static HTML pages will be available at `http://localhost:5500`
+The static HTML pages will be available at `http://localhost:3211`
 
 ### Deploy HTML Environment
 
@@ -107,7 +107,7 @@ useEffect(() => {
 
 ### HTML Environment
 
-1. Run `pnpm dev:html`
+1. Run `pnpm serve:html`
 2. Navigate between pages using the responsive navbar (burger menu on mobile)
 3. All pages use a shared `burger-menu.js` script for consistent navigation behavior
 4. To test a widget:
@@ -148,7 +148,7 @@ You can also use `pnpm start:local` but this will require to also have `saas-leg
 ## Development Tips
 
 - Use browser DevTools console for debugging
-- Each environment runs on a different port (3210 for SPA, 5500 for HTML)
+- Each environment runs on a different port (3210 for SPA, 3211 for HTML)
 - You can run both environments simultaneously
 - In HTML mode, widgets reset on navigation (full page reload)
 - In SPA mode, use `useBsportWidget` hook for page widgets (automatically cleans up and remounts)

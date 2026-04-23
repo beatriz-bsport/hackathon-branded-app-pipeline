@@ -6,16 +6,13 @@ import { useBuildPageTabs } from "#src/hooks/layout/use-build-page-tabs";
 import { useTranslation } from "#src/utils/i18n";
 
 const MediasListPage: FC = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("shared-list");
 
   const pageTabs = useBuildPageTabs();
 
   return (
     <ListLayout>
-      <ListLayout.Header
-        pageTitle={t("pageTitle", { ns: "shared-list" })}
-        pageTabs={pageTabs}
-      />
+      <ListLayout.Header pageTitle={t("pageTitle")} pageTabs={pageTabs} />
       <ListLayout.Content>
         <p>Medias list page</p>
       </ListLayout.Content>

@@ -5,14 +5,20 @@ export enum SessionManagementModalType {
   RESTORE = "restore",
   DUPLICATE = "duplicate",
   DELETE = "delete",
+  CANCEL_BOOKING = "cancel_booking",
 }
 
 export type SessionManagementModalState = {
   type: SessionManagementModalType;
+  bookingId?: number | null; // Used for booking related modals, e.g. CancelBookingModal
 } | null;
 
 type Action =
-  | { action: "open"; type: SessionManagementModalType }
+  | {
+      action: "open";
+      type: SessionManagementModalType;
+      bookingId?: number | null;
+    }
   | { action: "close" };
 
 const reducer = (
@@ -21,7 +27,7 @@ const reducer = (
 ): SessionManagementModalState => {
   switch (action.action) {
     case "open":
-      return { type: action.type };
+      return { type: action.type, bookingId: action.bookingId };
     case "close":
       return null;
   }
@@ -34,9 +40,12 @@ const reducer = (
 export const useSessionManagementModals = () => {
   const [modalState, dispatch] = useReducer(reducer, null);
 
-  const openModal = useCallback((type: SessionManagementModalType) => {
-    dispatch({ action: "open", type });
-  }, []);
+  const openModal = useCallback(
+    (type: SessionManagementModalType, bookingId?: number) => {
+      dispatch({ action: "open", type, bookingId });
+    },
+    [],
+  );
 
   const closeModal = useCallback(() => {
     dispatch({ action: "close" });

@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router";
-
 import { HTTPException } from "@bsport/fetch";
 import { ErrorFallback } from "@bsport/kaizen-primitive-core";
 
-import { SMARTLIST_APP_LINKS } from "#src/urls";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useTranslation } from "#src/utils/i18n";
 
 type DetailPageErrorFallbackProps = {
@@ -16,7 +14,7 @@ export const DetailPageErrorFallback = ({
   onRetry,
 }: DetailPageErrorFallbackProps) => {
   const { t } = useTranslation("details");
-  const navigate = useNavigate();
+  const { navigateToSmartlistList } = useSmartlistNavigation();
 
   const isHttpError = error instanceof HTTPException;
   const is404 = isHttpError && error.statusCode === 404;
@@ -31,7 +29,7 @@ export const DetailPageErrorFallback = ({
           description={t("error.notFound.description")}
           actionProps={{
             label: t("error.notFound.backToListLabel"),
-            onClick: () => navigate(SMARTLIST_APP_LINKS.index()),
+            onClick: () => navigateToSmartlistList(),
           }}
         />
       </div>

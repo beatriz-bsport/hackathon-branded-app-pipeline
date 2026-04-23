@@ -55,3 +55,7 @@ export const selectIsCancelAppointmentModalOpen = (state: CalendarState) =>
 export const selectIsRescheduleAppointmentModalOpen = (state: CalendarState) =>
   state.modalState?.tab === "appointments" &&
   state.modalState?.type === AppointmentModalType.RESCHEDULE;
+
+export const selectIsSwapPassModalOpen = (state: CalendarState) =>
+  state.modalState?.tab === "appointments" &&
+  state.modalState?.type === AppointmentModalType.SWAP_PASS;

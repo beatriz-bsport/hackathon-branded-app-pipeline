@@ -70,6 +70,10 @@ export type RescheduleAppointmentParams = {
   date_start: string;
 };
 
+export type SwapPassParams = {
+  private_consumer_pass_id: number;
+};
+
 /**
  * Minimal PrivateConsumerPass type for enrichment.
  * The full legacy type has many more fields; we only need pass name.
@@ -80,6 +84,7 @@ export type PrivateConsumerPass = {
   private_pass: {
     id: number;
     name: string;
+    credits: number;
   };
   consumer: number;
   member: number;

@@ -83,5 +83,12 @@
     "unpaidInvoices": "Unpaid invoices:",
     "balance": "Balance:",
     "tags": "Tags"
+  },
+  "bookingOrdering": {
+    "label": "Ordering",
+    "mostRecent": "Most recent",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "switchOrder": "Switch order"
   }
 }

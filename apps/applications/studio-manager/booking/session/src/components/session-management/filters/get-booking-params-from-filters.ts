@@ -18,6 +18,10 @@ export const getBookingParamsFromFilters = (
 ): Partial<BookingFilterParams> => {
   const params: Partial<BookingFilterParams> = {};
 
+  if (filters.ordering) {
+    params.ordering = filters.ordering;
+  }
+
   if (filters.status === BookingStatusFilter.BOOKED) {
     params.booking_status_code = BookingStatusCode.OK;
   } else if (filters.status === BookingStatusFilter.CANCELLED) {

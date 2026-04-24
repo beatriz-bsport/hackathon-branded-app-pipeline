@@ -13,6 +13,7 @@ import { MoreActionsButton } from "./action-buttons/more-actions-button";
 import { RestoreSessionButton } from "./action-buttons/restore-session-button";
 import { SendCommunicationButton } from "./action-buttons/send-communication-button";
 import { SessionNavigationButtons } from "./action-buttons/session-navigation-buttons";
+import { OrderingBookings } from "./filters/ordering-bookings";
 
 export const Header: FC<{
   sessionId: number;
@@ -56,6 +57,7 @@ export const Header: FC<{
       })}
       startGroupActions={startGroupActions}
       endGroupActions={endGroupActions}
+      onDisplayPopover={() => <OrderingBookings />}
       callToActionButton={
         session.available ? (
           <BookButton />

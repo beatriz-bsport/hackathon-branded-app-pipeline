@@ -15,7 +15,10 @@ type DateInputFieldProps = {
   onDateChange: (date: DateTime | null) => void;
   onClick?: () => void;
   required?: boolean;
-} & Pick<TextFieldProps, "required" | "statusText" | "label" | "status">;
+} & Pick<
+  TextFieldProps,
+  "required" | "statusText" | "label" | "status" | "fullWidth"
+>;
 
 const DateInputField: React.FC<DateInputFieldProps> = ({
   id,
@@ -26,6 +29,7 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
   required,
   statusText,
   status,
+  fullWidth,
 }: DateInputFieldProps) => {
   const [inputValue, setInputValue] = useState(
     selectedDate ? getIsoDate(selectedDate) : "",
@@ -101,6 +105,7 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
       }}
       required={required}
       statusText={statusText}
+      fullWidth={fullWidth}
     />
   );
 };

@@ -49,7 +49,10 @@ export type DatePickerProps = Omit<
   /** For controlled mode: current value */
   dateValue?: SelectedDate;
   popoverPlacement?: Placement;
-} & Pick<TextFieldProps, "label" | "required" | "status" | "statusText">;
+} & Pick<
+    TextFieldProps,
+    "label" | "required" | "status" | "statusText" | "fullWidth"
+  >;
 
 /**
  * A configurable date picker component supporting single date or date range selection.
@@ -107,6 +110,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   required,
   statusText,
   status,
+  fullWidth,
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
@@ -227,7 +231,8 @@ const DatePicker: React.FC<DatePickerProps> = ({
     return (
       <Popover
         data-component="Kaizen-DatePicker-Popover"
-        className={popoverClassNames.container ?? ""}
+        className={popoverClassNames.container}
+        fullWidth={Boolean(fullWidth)}
       >
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => {
@@ -248,6 +253,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                   color="main"
                   iconLeft="calendar"
                   onClick={() => setIsPopoverOpened(true)}
+                  fullWidth={fullWidth}
                 />
               );
             }
@@ -263,6 +269,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 required={required}
                 status={status}
                 statusText={statusText}
+                fullWidth={fullWidth}
               />
             ) : (
               // Button used as Popover trigger for single mode without input field
@@ -273,6 +280,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 color="main"
                 iconLeft="calendar"
                 onClick={() => setIsPopoverOpened(true)}
+                fullWidth={fullWidth}
               />
             );
           }}

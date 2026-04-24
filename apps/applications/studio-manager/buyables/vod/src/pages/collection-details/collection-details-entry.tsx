@@ -1,7 +1,8 @@
 import type { FC } from "react";
 import { useParams } from "react-router";
 
-import { DetailsNotFound } from "#src/components/collection-details-suspense/details-not-found";
+import { CollectionDetailsFetchError } from "#src/components/collection-details/collection-details-fetch-error";
+import { DetailsNotFound } from "#src/components/collection-details/collection-details-not-found";
 import { QueryBoundary } from "#src/components/query-boundary";
 import { useCollectionQuery } from "#src/hooks/api/use-collection-query";
 import { useCollectionVideosQuery } from "#src/hooks/api/use-collection-videos-query";
@@ -32,7 +33,9 @@ export const CollectionDetailsEntry: FC = () => {
   }
 
   return (
-    <QueryBoundary>
+    <QueryBoundary
+      errorFallback={(props) => <CollectionDetailsFetchError {...props} />}
+    >
       <CollectionDetailsEntryInner collectionId={parsedId} />
     </QueryBoundary>
   );

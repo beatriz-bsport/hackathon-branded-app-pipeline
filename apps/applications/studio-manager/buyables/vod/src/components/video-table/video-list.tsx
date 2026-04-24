@@ -55,6 +55,7 @@ export const VideoList: FC<VideoListProps> = ({
       id: `video-${row.id}`,
       title: row.name,
       description: row.categoryLabel || t("table.values.noCategory"),
+      onItemClick: row.onRowClick,
       avatar: {
         shape: "squared" as const,
         size: "md" as const,

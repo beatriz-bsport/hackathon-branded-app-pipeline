@@ -12,4 +12,5 @@ export type VideoRowData = {
   format: VideoFormat;
   memberAvailability: VideoMemberAvailability;
   accessType: VideoAccessType;
+  onRowClick?: () => void;
 };

@@ -17,7 +17,7 @@ export const useCollectionDetailsHeader = ({
   const { t } = useTranslation("collection-details");
 
   const breadcrumbs = [
-    <Link key="link-to-collection-list" to={URLS.INDEX}>
+    <Link key="link-to-collection-list" to={`${URLS.INDEX}/${URLS.COLLECTION}`}>
       <Breadcrumbs.Item text={t("breadcrumbLabel")} />
     </Link>,
   ];

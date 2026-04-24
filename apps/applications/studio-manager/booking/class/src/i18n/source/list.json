@@ -1,5 +1,8 @@
 {
   "list": {
+    "tabs": {
+      "classes": "Classes"
+    },
     "state": {
       "loading": {
         "message": "Loading classes..."
@@ -7,7 +10,7 @@
       "empty": {
         "title": "No classes yet",
         "subtitle": "Create classes and they will display here",
-        "cta": "Create class"
+        "cta": "Create template"
       },
       "emptySearch": {
         "title": "No results found",
@@ -16,9 +19,10 @@
       }
     },
     "header": {
+      "services": "Services",
       "classes": "Classes",
       "archivedClasses": "Archived classes",
-      "add": "Create class"
+      "add": "Create template"
     },
     "filters": {
       "label": "Filters",
@@ -78,10 +82,15 @@
     "table": {
       "header": {
         "columns": {
-          "name": "Name",
+          "name": "Template",
           "category": "Category",
           "type": "Type",
-          "nextSession": "Next class",
+          "nextClass": {
+            "name": "Next class",
+            "noUpcomingSession": {
+              "tooltip": "No upcoming class"
+            }
+          },
           "features": "Details",
           "actions": "Actions"
         }

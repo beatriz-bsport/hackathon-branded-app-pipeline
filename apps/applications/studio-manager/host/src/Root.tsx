@@ -16,7 +16,6 @@ import {
 import { AppWrapper, captureException } from "@bsport/sm-backbone";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { MaintenancePoller } from "#src/components/maintenance/MaintenancePoller";
 import { AppcuesTag } from "#src/components/onboarding/AppcuesTag";
 import { analyticsClient, debugActive } from "#src/utils/analytics";
 import { NavFlags, useNavFlag } from "#src/utils/featureFlags";
@@ -94,31 +93,28 @@ export function Root() {
   }, []);
 
   return (
-    <>
-      <MaintenancePoller />
-      <AppWrapper
-        basename={basename}
-        NavigationApp={NavigationSidebar}
-        navigationProps={{
-          onLogoutCallback: () => {
-            analyticsClient.resetIdentity();
-            analyticsClient.overloadResetSuperProperties(); // Analytics tool level super properties
-            removeAppcuesScripts();
-          },
-          isFranchisorNavigation: hasFranchisorNavigationContext(),
-          onNavigateBackToFranchisor: () => {
-            void navigateBackToFranchisorHost().catch((error) => {
-              captureException(error, {
-                extra: { phase: "navigateBackToFranchisorHost" },
-              });
+    <AppWrapper
+      basename={basename}
+      NavigationApp={NavigationSidebar}
+      navigationProps={{
+        onLogoutCallback: () => {
+          analyticsClient.resetIdentity();
+          analyticsClient.overloadResetSuperProperties(); // Analytics tool level super properties
+          removeAppcuesScripts();
+        },
+        isFranchisorNavigation: hasFranchisorNavigationContext(),
+        onNavigateBackToFranchisor: () => {
+          void navigateBackToFranchisorHost().catch((error) => {
+            captureException(error, {
+              extra: { phase: "navigateBackToFranchisorHost" },
             });
-          },
-        }}
-        loginUrl={loginUrl}
-      >
-        <AuthenticatedLayout />
-      </AppWrapper>
-    </>
+          });
+        },
+      }}
+      loginUrl={loginUrl}
+    >
+      <AuthenticatedLayout />
+    </AppWrapper>
   );
 }
 

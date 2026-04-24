@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@bsport/analytics": "workspace:*",
-    "@bsport/broadcast-channel-polyfill": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/envs": "workspace:*",

@@ -14,17 +14,6 @@ if [ "$ENVIRONMENT" = "feature-branch" ]; then
   CLOUDFRONT_INVALIDATION_LAMBDA_URL="https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/"
   SENTRY_ENVIRONMENT=$FEATURE_BRANCH_IDENTIFIER
 
-elif [ "$ENVIRONMENT" = "ephemeral" ]; then
-  if [ -z "${CI_MERGE_REQUEST_IID:-}" ]; then
-    echo "ERROR: CI_MERGE_REQUEST_IID is required for ephemeral environment"
-    exit 1
-  fi
-  S3_BUCKET="s3://bsport-backoffice-assets-ephemeral-environment/preview-${CI_MERGE_REQUEST_IID}"
-  FRONTEND_URL="preview-${CI_MERGE_REQUEST_IID}.backoffice.chaos.bsport.io"
-  CLOUDFRONT_ID=""                  # TTL=0 on ephemeral CDN — no invalidation needed
-  CLOUDFRONT_INVALIDATION_LAMBDA_URL=""
-  SENTRY_ENVIRONMENT="ephemeral-${CI_MERGE_REQUEST_IID}"
-
 elif [ "$ENVIRONMENT" = "dev" ]; then
   SLACK_WEBHOOK_URL=$SLACK_DEV_WEBHOOK_URL
   SLACK_TEMPLATE_FILE="./ci/slack_template/slack_template.json"
@@ -55,7 +44,7 @@ elif [ "$ENVIRONMENT" = "production" ]; then
   ACL_PARAM="--acl public-read"
 
 else
-  echo "⚠️  Environment $ENVIRONMENT is not recognized! Stop script ..."
+  echo "⚠️  Environment $ENVIRONMENT is not recognized ! Stop script ..."
   exit 0
 fi
 

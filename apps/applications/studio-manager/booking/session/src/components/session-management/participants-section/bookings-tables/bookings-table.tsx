@@ -69,6 +69,9 @@ export const BookingsTable: FC<{
           id={`attendance-toggle-${row.id}`}
           label=""
           disabled={isSettingAttendance}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
           onChange={() =>
             setAttendance({
               bookingId: row.id,

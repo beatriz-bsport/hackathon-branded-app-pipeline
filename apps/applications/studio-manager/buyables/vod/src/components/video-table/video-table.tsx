@@ -25,6 +25,7 @@ type VideoTableProps = {
   isEmpty: boolean;
   isLoading?: boolean;
   onRowClick?: (id: number) => void;
+  onDuplicate: (video: Video) => void;
 };
 
 export const VideoTable: FC<VideoTableProps> = ({
@@ -34,6 +35,7 @@ export const VideoTable: FC<VideoTableProps> = ({
   isEmpty,
   isLoading = false,
   onRowClick,
+  onDuplicate,
 }) => {
   const { t } = useTranslation("media-list");
 
@@ -71,6 +73,7 @@ export const VideoTable: FC<VideoTableProps> = ({
       memberAvailability: video.manager_only ? "unavailable" : "available",
       accessType: video.rental_days > 0 ? "limited" : "unlimited",
       onRowClick: onRowClick ? () => onRowClick(video.id) : undefined,
+      onDuplicate: () => onDuplicate(video),
     };
   });
 

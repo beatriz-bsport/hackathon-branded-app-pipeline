@@ -13,4 +13,5 @@ export type VideoRowData = {
   memberAvailability: VideoMemberAvailability;
   accessType: VideoAccessType;
   onRowClick?: () => void;
+  onDuplicate: () => void;
 };

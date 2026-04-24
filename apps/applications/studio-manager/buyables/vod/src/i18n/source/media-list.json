@@ -4,7 +4,12 @@
       "name": "Name",
       "category": "Category",
       "format": "Format",
-      "availability": "Availability"
+      "availability": "Availability",
+      "actions": "Actions"
+    },
+    "actions": {
+      "moreActions": "More actions",
+      "duplicate": "Duplicate"
     },
     "values": {
       "noCategory": "No category",
@@ -28,6 +33,10 @@
         "unlimitedAccess": "Unlimited access"
       }
     }
+  },
+  "duplicateResponse": {
+    "success": "Media duplicated",
+    "error": "Failed to duplicate the media"
   },
   "error": {
     "title": "Unable to load media",

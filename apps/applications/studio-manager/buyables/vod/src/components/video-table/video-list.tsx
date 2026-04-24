@@ -1,17 +1,16 @@
 import type { FC } from "react";
 
 import {
-  Chip,
-  Icon,
   List,
   type ListProps,
   type PaginationProps,
-  Tooltip,
   type UseEmptyStateProps,
 } from "@bsport/kaizen-primitive-core";
+import { Icon, Tooltip } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { MediaFormatRenderer } from "./media-format-renderer";
 import type { VideoRowData } from "./types";
 
 type VideoListProps = {
@@ -24,12 +23,10 @@ type VideoListProps = {
 
 const TooltipIcon: FC<{
   icon:
-    | "book-closed"
     | "clock-rewind"
     | "infinity"
     | "shopping-cart-01"
-    | "shopping-cart-cross"
-    | "video-recorder";
+    | "shopping-cart-cross";
   label: string;
 }> = ({ icon, label }) => (
   <Tooltip label={label} placement="bottom">
@@ -66,24 +63,7 @@ export const VideoList: FC<VideoListProps> = ({
       },
       customNode: (
         <div className="flex items-center gap-xs">
-          {row.format === "ebook" ? (
-            <TooltipIcon
-              icon="book-closed"
-              label={t("table.tooltips.format.ebookUploaded")}
-            />
-          ) : row.format === "video" ? (
-            <TooltipIcon
-              icon="video-recorder"
-              label={t("table.tooltips.format.videoUploaded")}
-            />
-          ) : (
-            <Chip
-              color="default"
-              size="lg"
-              type="weak"
-              label={t("table.tooltips.format.noFileUploaded")}
-            />
-          )}
+          <MediaFormatRenderer format={row.format} />
           <TooltipIcon
             icon={
               row.memberAvailability === "available"
@@ -109,6 +89,29 @@ export const VideoList: FC<VideoListProps> = ({
           )}
         </div>
       ),
+      buttons: [
+        {
+          id: "duplicate",
+          kind: "icon-button" as const,
+          icon: "copy-03" as const,
+          color: "default" as const,
+          intent: "flat" as const,
+          label: t("table.actions.duplicate"),
+          size: "md",
+          onClick: row.onDuplicate,
+        },
+      ],
+      dropdownConfig: {
+        visibleActionsDisplayLimit: 0,
+        dropdownTargetProps: {
+          kind: "icon-button",
+          label: t("table.actions.moreActions"),
+          icon: "dots-vertical",
+          size: "md",
+          intent: "flat",
+          color: "default",
+        },
+      },
     };
   });
 

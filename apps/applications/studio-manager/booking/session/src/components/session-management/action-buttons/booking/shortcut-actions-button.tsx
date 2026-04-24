@@ -176,7 +176,9 @@ export const ShortcutActionsButton: FC<{
 
       const allItems: Item[] = [
         sectionTitle(t("booking")),
-        ...(hasCreateBookingPermission ? [swapSpotAction] : []),
+        ...(hasCreateBookingPermission && session.room_blueprint
+          ? [swapSpotAction]
+          : []),
         ...(hasChangeSpotPermission ? [swapPassAction] : []),
         ...(hasCancelBookingPermission ? [cancelBookingAction] : []),
         divider,
@@ -213,6 +215,7 @@ export const ShortcutActionsButton: FC<{
       openModal,
       navigate,
       memberId,
+      session,
     ],
   );
 

@@ -54,3 +54,9 @@ export const setWaitlistFilter = (filter: WaitlistFilter) => {
     waitlistFilters: filter,
   }));
 };
+
+export const setSelectedBooking = (bookingId: number | null) => {
+  sessionManagementStore.setState(() => ({
+    selectedBookingId: bookingId,
+  }));
+};

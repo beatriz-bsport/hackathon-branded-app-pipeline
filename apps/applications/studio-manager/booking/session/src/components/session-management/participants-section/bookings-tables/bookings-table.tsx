@@ -12,11 +12,11 @@ import {
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
-import {
-  RefinedBooking,
-  useFetchRefinedBookings,
-} from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
+import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
+import { setSelectedBooking } from "#src/stores/session-management/actions.js";
+import { useSessionManagementStore } from "#src/stores/session-management/store.js";
+import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -52,6 +52,10 @@ export const BookingsTable: FC<{
     page: currentPage,
     page_size: currentPageSize,
   });
+
+  const selectedBookingId = useSessionManagementStore(
+    (state) => state.selectedBookingId,
+  );
 
   const columns: GenericTableColumn<RefinedBooking>[] = [
     {
@@ -155,7 +159,11 @@ export const BookingsTable: FC<{
       <Table
         columns={columns}
         rowHeight="lg"
-        rows={refinedBookings}
+        rows={refinedBookings.map((booking) => ({
+          ...booking,
+          isActive: booking.id === selectedBookingId,
+          onRowClick: () => setSelectedBooking(booking.id),
+        }))}
         paginationProps={paginationProps}
         emptyStateProps={{
           isEmpty: !count,

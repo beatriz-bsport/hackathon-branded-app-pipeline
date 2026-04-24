@@ -9,6 +9,7 @@ import {
   usePaginationQueryParams,
 } from "@bsport/use-pagination-query-params";
 
+import { useClassesNavPermissions } from "#src/hooks/use-permissions";
 import useSCT from "#src/hooks/use-sct";
 import { setClassFilters } from "#src/stores/classes-list/actions";
 import { useClassesListStore } from "#src/stores/classes-list/store";
@@ -44,6 +45,8 @@ export const useClassesFilters = (): {
 } => {
   const { t } = useTranslation("list");
   const { currentPageSize, setPageSettings } = usePaginationQueryParams();
+
+  const { canSeeWorkshops, canSeeActivities } = useClassesNavPermissions();
 
   const filterRef = useRef<{ resetFilters: () => void } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
@@ -100,14 +103,12 @@ export const useClassesFilters = (): {
           availableFilters: [FILTER_IS],
           multiSelect: false,
           values: [
-            {
-              id: VAL_GROUP,
-              label: t("list.filters.type.groupActivity"),
-            },
-            {
-              id: VAL_WORKSHOP,
-              label: t("list.filters.type.workshop"),
-            },
+            ...(canSeeActivities
+              ? [{ id: VAL_GROUP, label: t("list.filters.type.groupActivity") }]
+              : []),
+            ...(canSeeWorkshops
+              ? [{ id: VAL_WORKSHOP, label: t("list.filters.type.workshop") }]
+              : []),
           ],
         },
       },
@@ -116,7 +117,15 @@ export const useClassesFilters = (): {
       selectFieldLabel: t("list.filters.label"),
       defaultFilters: filters,
     }),
-    [t, onFilterChange, filteredCategories, categoriesSearch, filters],
+    [
+      t,
+      filteredCategories,
+      categoriesSearch,
+      canSeeActivities,
+      canSeeWorkshops,
+      onFilterChange,
+      filters,
+    ],
   );
 
   const resetFilters = () => {

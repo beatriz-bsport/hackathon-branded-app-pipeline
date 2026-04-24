@@ -11,6 +11,7 @@ import {
   usePaginationQueryParams,
 } from "@bsport/use-pagination-query-params";
 
+import { useClassesNavPermissions } from "#src/hooks/use-permissions";
 import { fetch } from "#src/utils/fetch";
 
 type ConfigurableSearchParams = Pick<
@@ -28,11 +29,24 @@ export const useClassesList = ({
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
+  const { canSeeWorkshops, canSeeActivities } = useClassesNavPermissions();
+
+  const workshopsOnly = canSeeWorkshops && !canSeeActivities;
+  const activitiesOnly = canSeeActivities && !canSeeWorkshops;
+
+  // computed from permissions + user filter
+  const resolvedIsWorkshop = workshopsOnly
+    ? true
+    : activitiesOnly
+      ? false
+      : searchParams?.isWorkshop;
+
   const searchQueryParams: SearchGroupActivitiesParams = {
     customerEnabled,
     page: currentPage,
     pageSize: currentPageSize,
     ...searchParams,
+    isWorkshop: resolvedIsWorkshop,
   };
 
   const { data: searchData } = useSuspenseQuery(

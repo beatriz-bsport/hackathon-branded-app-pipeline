@@ -1,6 +1,7 @@
 // Central registry of Unleash feature flag names used in saas-legacy.
 export const FeatureFlags = {
   APPOINTMENT_PASS_TAGS_ELIGIBILITY: 'appointment_pass_tags_eligibility',
+  AGENT_CHAT: 'agent_chat',
   AUDIENCE_ALLOW_CLICK_ON_MEMBER_TABLE: 'audience_allow_click_on_member_table',
   B2C_ANALYTICS_TRACKING: 'b2c_analytics_tracking',
   AUDIENCE_DISPLAY_TIME_IN_MEMBER_TABLE:

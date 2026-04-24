@@ -24,6 +24,7 @@ stages:
   - deploy-feature-branch
   - deploy
   - post-deploy
+  - maintenance
 
 default:
   tags:
@@ -43,6 +44,7 @@ include:
   - local: "/tools/ci/e2e.yml"
   - local: "/tools/ci/security-scan.yml"
   - local: "/tools/ci/ephemeral-environment.yml"
+  - local: "/tools/ci/maintenance.yml"
 
 workflow:
   rules:

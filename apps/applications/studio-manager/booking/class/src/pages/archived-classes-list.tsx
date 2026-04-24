@@ -1,28 +1,22 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { type FC } from "react";
 import { Link } from "react-router";
 
-import { type MetaActivity, groupActivityKeys } from "@bsport/api-book";
+import { type MetaActivity } from "@bsport/api-book";
 import {
   Breadcrumbs,
   Button,
   ListLayout,
   Loader,
   Table,
-  toast,
 } from "@bsport/kaizen-primitive-core";
-import {
-  archiveGroupActivityAction,
-  unarchiveGroupActivityAction,
-} from "@bsport/store-booking-group-activity";
 import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useClassesFilters } from "#src/hooks/use-classes-filters";
 import { useClassesList } from "#src/hooks/use-classes-list";
 import useTableColumns from "#src/hooks/use-table-columns";
+import { useUnarchiveClass } from "#src/hooks/use-unarchive-class";
 import { ROUTES } from "#src/urls";
-import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
 type ArchivedClassesTableProps = {
@@ -42,47 +36,12 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
 }) => {
   const { t } = useTranslation("list");
   const columns = useTableColumns<MetaActivity>();
-  const queryClient = useQueryClient();
+  const { mutate: unarchiveClass } = useUnarchiveClass();
 
   const { classes: groupActivities, paginationProps } = useClassesList({
     customerEnabled: false,
     searchParams: { searchQuery, isWorkshop, inCategoryIds },
   });
-
-  const handleInvalidate = () => {
-    queryClient.invalidateQueries({ queryKey: groupActivityKeys.searches() });
-  };
-
-  const revertUnarchiveClass = (classId: number) => () => {
-    archiveGroupActivityAction(fetch, classId.toString()).then((response) => {
-      response.fold(
-        () => handleInvalidate(),
-        (error) => console.error(error),
-      );
-    });
-  };
-
-  const handleUnarchiveClass = (classId: number) => () => {
-    if (!classId) return;
-    unarchiveGroupActivityAction(fetch, classId.toString()).then((response) => {
-      response.fold(
-        ({ name }) => {
-          toast({
-            status: "default",
-            icon: "unarchive",
-            description: t("list.toasts.unarchive", {
-              className: name,
-            }),
-            duration: 5000,
-            buttonLabel: t("list.toasts.undo"),
-            onButtonClick: revertUnarchiveClass(classId),
-          });
-          handleInvalidate();
-        },
-        (error) => console.error(error),
-      );
-    });
-  };
 
   const isEmptySearch =
     !!(searchQuery || isWorkshop !== undefined || inCategoryIds?.length) &&
@@ -102,12 +61,13 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
             return (
               <div className="flex flex-row gap-sm">
                 <Button
-                  iconLeft="unarchive"
-                  intent="default"
-                  color="main"
+                  kind="icon-button"
+                  color="default"
+                  icon="unarchive"
                   size="md"
+                  intent="flat"
                   label={t("list.actions.unarchive")}
-                  onClick={handleUnarchiveClass(item.id)}
+                  onClick={() => unarchiveClass(item.id)}
                 />
               </div>
             );

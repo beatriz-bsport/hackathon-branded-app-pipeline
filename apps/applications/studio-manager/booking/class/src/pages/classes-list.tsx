@@ -11,7 +11,9 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 
+import { ArchiveClassModal } from "#src/components/archive-class-modal/archive-class-modal";
 import { AddClassModal } from "#src/components/class-form/add-class-modal";
+import { DuplicateClassModal } from "#src/components/duplicate-class-modal/duplicate-class-modal";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useClassesFilters } from "#src/hooks/use-classes-filters";
 import { useClassesList } from "#src/hooks/use-classes-list";
@@ -29,6 +31,8 @@ type ClassesTableProps = {
   inCategoryIds: string[] | undefined;
   onClearFilters: () => void;
   onAddClick: () => void;
+  onClickArchive: (row: Row) => void;
+  onClickDuplicate: (row: Row) => void;
 };
 
 const ClassesTable: FC<ClassesTableProps> = ({
@@ -37,6 +41,8 @@ const ClassesTable: FC<ClassesTableProps> = ({
   inCategoryIds,
   onClearFilters,
   onAddClick,
+  onClickArchive,
+  onClickDuplicate,
 }) => {
   const { t } = useTranslation("list");
   const columns = useTableColumns<Row>();
@@ -58,7 +64,7 @@ const ClassesTable: FC<ClassesTableProps> = ({
           header: "",
           id: "actions",
           type: "custom",
-          render: () => {
+          render: (row) => {
             return (
               <div className="flex flex-row gap-sm">
                 <Button
@@ -70,7 +76,7 @@ const ClassesTable: FC<ClassesTableProps> = ({
                   size="md"
                   onClick={(e) => {
                     e.preventDefault();
-                    // TODO: implement duplicate modal
+                    onClickDuplicate(row);
                   }}
                 />
                 <Button
@@ -82,7 +88,7 @@ const ClassesTable: FC<ClassesTableProps> = ({
                   size="md"
                   onClick={(e) => {
                     e.preventDefault();
-                    // TODO: implement archive modal
+                    onClickArchive(row);
                   }}
                 />
               </div>
@@ -131,6 +137,12 @@ const ClassesListingPage: FC = () => {
     resetFilters,
   } = useClassesFilters();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isArchiveModalOpen, setIsArchiveModalOpen] = useState(false);
+  const [isDuplicateModalOpen, setIsDuplicateModalOpen] = useState(false);
+  const [selectedClass, setSelectedClass] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
 
   const { endGroupActions } = ListLayout.useAdaptiveActions({
     endGroupActions: [
@@ -175,6 +187,16 @@ const ClassesListingPage: FC = () => {
           open={isCreateModalOpen}
           onClose={() => setIsCreateModalOpen(false)}
         />
+        <ArchiveClassModal
+          open={isArchiveModalOpen}
+          onClose={() => setIsArchiveModalOpen(false)}
+          classToArchive={selectedClass}
+        />
+        <DuplicateClassModal
+          open={isDuplicateModalOpen}
+          onClose={() => setIsDuplicateModalOpen(false)}
+          classToDuplicate={selectedClass}
+        />
         <QueryBoundary
           loadingFallback={<Loader className="w-full h-full" size="xl" />}
         >
@@ -184,6 +206,14 @@ const ClassesListingPage: FC = () => {
             inCategoryIds={activeCategoryIds}
             onClearFilters={resetFilters}
             onAddClick={() => setIsCreateModalOpen(true)}
+            onClickArchive={(row) => {
+              setSelectedClass({ id: row.id, name: row.name });
+              setIsArchiveModalOpen(true);
+            }}
+            onClickDuplicate={(row) => {
+              setSelectedClass({ id: row.id, name: row.name });
+              setIsDuplicateModalOpen(true);
+            }}
           />
         </QueryBoundary>
       </ListLayout.Content>

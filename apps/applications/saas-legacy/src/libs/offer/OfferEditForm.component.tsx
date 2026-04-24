@@ -197,25 +197,36 @@ export const OfferEditForm = (props: Props) => {
     ) {
       return true;
     }
-    // Display if both establishments have different usc_location_id
-    if (values.establishment && initialValues.establishment) {
-      const previousUSCLocationId = availableEstablishments.find(
-        (establishment) => establishment.id === initialValues.establishment,
-      ).usc_location_id;
-      const newUSCLocationId = availableEstablishments.find(
-        (establishment) => establishment.id === values.establishment,
-      ).usc_location_id;
-      if (previousUSCLocationId !== newUSCLocationId) return true;
+
+    // Display if establishment changes
+    if (values.establishment !== initialValues?.establishment) {
+      return true;
+    }
+
+    // Display if the selected activity has different booking/cancellation restrictions
+    if (values.selectedMetaActivity !== undefined) {
+      const newMetaActivity = metaActivities?.find(
+        (ma) => ma.id === values.selectedMetaActivity,
+      );
+      if (
+        newMetaActivity?.first_booking_minutes_until !==
+          offer.meta_activity?.first_booking_minutes_until ||
+        newMetaActivity?.last_discard_minutes !==
+          offer.meta_activity?.last_discard_minutes
+      ) {
+        return true;
+      }
     }
 
     return false;
   }, [
-    availableEstablishments,
     initialValues.dateIntervalStart,
     initialValues.establishment,
+    metaActivities,
     offer,
     values.dateIntervalStart,
     values.establishment,
+    values.selectedMetaActivity,
   ]);
 
   const handleNext = useCallback(

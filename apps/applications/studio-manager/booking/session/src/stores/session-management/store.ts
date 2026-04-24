@@ -15,6 +15,7 @@ export const getInitialState = (): SessionManagementState => ({
     attendance: null,
     source: null,
     aggregatorIds: [],
+    ordering: undefined,
   },
   waitlistFilters: WaitlistFilter.ON_WAITLIST,
   selectedBookingId: null,

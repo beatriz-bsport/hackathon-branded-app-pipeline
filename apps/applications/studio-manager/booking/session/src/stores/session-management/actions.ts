@@ -1,6 +1,7 @@
 import { sessionManagementStore } from "./store";
 import type {
   BookingAttendanceFilter,
+  BookingOrdering,
   BookingSourceFilter,
   BookingStatusFilter,
   WaitlistFilter,
@@ -58,5 +59,14 @@ export const setWaitlistFilter = (filter: WaitlistFilter) => {
 export const setSelectedBooking = (bookingId: number | null) => {
   sessionManagementStore.setState(() => ({
     selectedBookingId: bookingId,
+  }));
+};
+
+export const setBookingOrdering = (ordering: BookingOrdering) => {
+  sessionManagementStore.setState((state) => ({
+    bookingFilters: {
+      ...state.bookingFilters,
+      ordering: ordering ?? undefined,
+    },
   }));
 };

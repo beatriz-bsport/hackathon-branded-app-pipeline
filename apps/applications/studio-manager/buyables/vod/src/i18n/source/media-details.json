@@ -1,5 +1,12 @@
 {
   "breadcrumbLabel": "Media",
+  "ebook": {
+    "download": "Download"
+  },
+  "managerOnly": "Manager only",
+  "rentalDays": "",
+  "rentalDays_one": "{{count}} rental day",
+  "rentalDays_other": "{{count}} rental days",
   "notFound": {
     "title": "Media not found",
     "description": "The requested media could not be found.",

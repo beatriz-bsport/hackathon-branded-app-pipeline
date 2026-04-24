@@ -10,6 +10,8 @@ import {
 } from "@bsport/use-pagination-query-params";
 
 import useSCT from "#src/hooks/use-sct";
+import { setClassFilters } from "#src/stores/classes-list/actions";
+import { useClassesListStore } from "#src/stores/classes-list/store";
 import { useTranslation } from "#src/utils/i18n";
 
 const FIELD_TYPE = "activity-type";
@@ -45,15 +47,12 @@ export const useClassesFilters = (): {
 
   const filterRef = useRef<{ resetFilters: () => void } | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeIsWorkshop, setActiveIsWorkshop] = useState<boolean | undefined>(
-    undefined,
-  );
-  const [activeCategoryIds, setActiveCategoryIds] = useState<
-    string[] | undefined
-  >(undefined);
+  const filters = useClassesListStore((state) => state.filters);
 
   const { categories } = useSCT();
   const [categoriesSearch, setCategoriesSearch] = useState("");
+  const activeIsWorkshop = useMemo(() => toIsWorkshop(filters), [filters]);
+  const activeCategoryIds = useMemo(() => toCategoryIds(filters), [filters]);
 
   const filteredCategories = useMemo(
     () =>
@@ -74,8 +73,7 @@ export const useClassesFilters = (): {
 
   const onFilterChange = useCallback(
     (filters: FilterElementState[]) => {
-      setActiveIsWorkshop(toIsWorkshop(filters));
-      setActiveCategoryIds(toCategoryIds(filters));
+      setClassFilters(filters);
       setPageSettings(DEFAULT_PAGE, currentPageSize);
     },
     [currentPageSize, setPageSettings],
@@ -116,16 +114,16 @@ export const useClassesFilters = (): {
       filters: [{ id: FILTER_IS, label: t("list.filters.is") }],
       onFilterChange,
       selectFieldLabel: t("list.filters.label"),
+      defaultFilters: filters,
     }),
-    [t, onFilterChange, filteredCategories, categoriesSearch],
+    [t, onFilterChange, filteredCategories, categoriesSearch, filters],
   );
 
   const resetFilters = () => {
     filterRef.current?.resetFilters();
     setSearchQuery("");
     setCategoriesSearch("");
-    setActiveIsWorkshop(undefined);
-    setActiveCategoryIds(undefined);
+    setClassFilters([]);
     setPageSettings(DEFAULT_PAGE, currentPageSize);
   };
 

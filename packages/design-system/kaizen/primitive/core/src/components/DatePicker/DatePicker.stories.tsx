@@ -57,6 +57,7 @@ const meta: Meta<typeof DatePicker> = {
       control: { type: "inline-radio" },
       table: { type: { summary: "string" } },
     },
+    fullWidth: { control: { type: "boolean" } },
   },
 };
 

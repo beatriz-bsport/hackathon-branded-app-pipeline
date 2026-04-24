@@ -1,24 +1,16 @@
 import type { FC } from "react";
 
 import { type Video, VideoProvider } from "@bsport/api-buyables/video";
-import {
-  Avatar,
-  Badge,
-  Body,
-  Button,
-  Icon,
-  Loader,
-  Media,
-  Title,
-} from "@bsport/kaizen-primitive-core";
+import { Body, Button, Icon, Title } from "@bsport/kaizen-primitive-core";
 
-import { EbookPreview } from "#src/components/video-player/ebook-preview";
-import { VideoPlayer } from "#src/components/video-player/video-player";
+import { MediaMetadataBadges } from "#src/components/media-common/media-metadata-badges";
+import { MediaPlayerArea } from "#src/components/media-common/media-player-area";
+import { MediaTeacherList } from "#src/components/media-common/media-teacher-list";
 import { usePlaybackUrlQuery } from "#src/hooks/api/use-playback-url-query";
 import type { TeacherPreview } from "#src/hooks/api/use-teachers-by-associated-coach-id-query";
 import { formatVideoDuration } from "#src/utils/format-video-duration";
-import { getTeacherInitials } from "#src/utils/get-teacher-initials";
 import { useTranslation } from "#src/utils/i18n";
+import { resolveTeacherEntries } from "#src/utils/resolve-teacher-entries";
 
 type CollectionVideoPreviewProps = {
   categoriesById: Map<number, string>;
@@ -64,44 +56,23 @@ export const CollectionVideoPreview: FC<CollectionVideoPreviewProps> = ({
       ? t("videoList.rentalDays", { count: video.rental_days })
       : undefined;
   const teacherEntries = video
-    ? Array.from(
-        video.coaches.reduce((teachersByCoachId, coachId) => {
-          const teacher = teachersByAssociatedCoachId.get(coachId);
-
-          if (teacher && !teachersByCoachId.has(coachId)) {
-            teachersByCoachId.set(coachId, teacher);
-          }
-
-          return teachersByCoachId;
-        }, new Map<number, TeacherPreview>()),
-      )
+    ? resolveTeacherEntries(video.coaches, teachersByAssociatedCoachId)
     : [];
 
   return (
     <section className="flex h-full flex-col items-center">
       <div className="flex w-full max-w-[720px] flex-col items-center">
         <div className="w-full px-lg">
-          {video && isEbook ? (
-            <EbookPreview coverUrl={thumbnailUrl} alt={title} />
-          ) : video && playbackUrl ? (
-            <div className="overflow-hidden rounded-sm">
-              <VideoPlayer
-                playbackUrl={playbackUrl as string}
-                providerIdentifier={video.provider_identifier}
-              />
-            </div>
-          ) : isPlaybackUrlLoading ? (
-            <div className="flex aspect-video w-full items-center justify-center rounded-sm bg-surface-default-weaker">
-              <Loader size="xl" />
-            </div>
-          ) : (
-            <Media
-              src={thumbnailUrl}
-              alt={title}
-              ratio="16:9"
-              className="w-full rounded-sm"
-            />
-          )}
+          <MediaPlayerArea
+            isEbook={isEbook}
+            playbackUrl={playbackUrl}
+            isPlaybackUrlLoading={isPlaybackUrlLoading}
+            thumbnailUrl={thumbnailUrl}
+            title={title}
+            providerIdentifier={
+              video?.provider_identifier ?? VideoProvider.AWS_PROVIDER
+            }
+          />
         </div>
         <div className="w-full px-lg py-md">
           <div className="flex items-start justify-between gap-md">
@@ -126,40 +97,12 @@ export const CollectionVideoPreview: FC<CollectionVideoPreviewProps> = ({
               />
             ) : null}
           </div>
-          <div className="mt-xs flex flex-wrap items-center gap-xs">
-            {durationLabel ? (
-              <Badge
-                size="lg"
-                color="default"
-                text={durationLabel}
-                icon="clock"
-              />
-            ) : null}
-            {levelLabel ? (
-              <Badge
-                size="lg"
-                color="default"
-                text={levelLabel}
-                icon="graduation-hat-02"
-              />
-            ) : null}
-            {categoryLabel ? (
-              <Badge
-                size="lg"
-                color="default"
-                text={categoryLabel}
-                icon="tag-01"
-              />
-            ) : null}
-            {rentalDaysLabel ? (
-              <Badge
-                size="lg"
-                color="default"
-                text={rentalDaysLabel}
-                icon="play-circle-solid"
-              />
-            ) : null}
-          </div>
+          <MediaMetadataBadges
+            durationLabel={durationLabel}
+            levelLabel={levelLabel}
+            categoryLabel={categoryLabel}
+            rentalDaysLabel={rentalDaysLabel}
+          />
           {video?.manager_only ? (
             <div className="mt-md flex items-center gap-xs text-onsurface-weak">
               <Icon icon="eye-off" size="sm" />
@@ -168,27 +111,7 @@ export const CollectionVideoPreview: FC<CollectionVideoPreviewProps> = ({
               </Body>
             </div>
           ) : null}
-          {teacherEntries.length > 0 ? (
-            <div className="mt-md flex flex-wrap items-center gap-xs">
-              {teacherEntries.map(([coachId, teacher]) => (
-                <div
-                  key={coachId}
-                  className="flex items-center gap-xs rounded-full bg-surface-default-weak px-sm py-xs"
-                >
-                  <Avatar
-                    shape="round"
-                    size="sm"
-                    src={teacher.photo ?? undefined}
-                    alt={teacher.name}
-                    initials={getTeacherInitials(teacher.name)}
-                  />
-                  <Body htmlVariant="span" size="md" color="default">
-                    {teacher.name}
-                  </Body>
-                </div>
-              ))}
-            </div>
-          ) : null}
+          <MediaTeacherList teacherEntries={teacherEntries} />
           {videoDescription ? (
             <Body
               htmlVariant="p"

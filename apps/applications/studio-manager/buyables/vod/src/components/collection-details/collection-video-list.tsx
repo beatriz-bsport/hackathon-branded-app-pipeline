@@ -1,8 +1,9 @@
-import type { FC } from "react";
+import { type FC, useMemo } from "react";
 
 import { type Video, VideoProvider } from "@bsport/api-buyables/video";
 import {
   Body,
+  Button,
   Card,
   Divider,
   List,
@@ -21,6 +22,8 @@ import {
 type CollectionVideoListProps = {
   collectionDescription?: string;
   videos: Video[];
+  onAddVideo: () => void;
+  onRemoveVideo: (videoId: number) => void;
   onSelectVideo: (videoId: number) => void;
   selectedVideoId: number | null;
 };
@@ -28,41 +31,64 @@ type CollectionVideoListProps = {
 export const CollectionVideoList: FC<CollectionVideoListProps> = ({
   collectionDescription,
   videos,
+  onAddVideo,
+  onRemoveVideo,
   onSelectVideo,
   selectedVideoId,
 }) => {
   const { t } = useTranslation(["collections-list", "collection-details"]);
-  const items: CollectionDetailsSidebarListItem[] = videos.map((video) => {
-    const hasCover = Boolean(video.cover_main?.trim());
-    const isEbook = video.provider_identifier === VideoProvider.EBOOK_PROVIDER;
+  const items: CollectionDetailsSidebarListItem[] = useMemo(
+    () =>
+      videos.map((video) => {
+        const hasCover = Boolean(video.cover_main?.trim());
+        const isEbook =
+          video.provider_identifier === VideoProvider.EBOOK_PROVIDER;
 
-    return {
-      id: `collection-video-${video.id}`,
-      title: video.name,
-      durationLabel: isEbook
-        ? undefined
-        : formatVideoDuration(video.duration_second),
-      thumbnailUrl: hasCover ? video.cover_main : undefined,
-      isEbook,
-      isActive: selectedVideoId === video.id,
-      onItemClick: () => onSelectVideo(video.id),
-    };
-  });
+        return {
+          id: `collection-video-${video.id}`,
+          title: video.name,
+          durationLabel: isEbook
+            ? undefined
+            : formatVideoDuration(video.duration_second),
+          thumbnailUrl: hasCover ? video.cover_main : undefined,
+          isEbook,
+          isActive: selectedVideoId === video.id,
+          removeLabel: t("removeMediaModal.buttons.removeItem", {
+            ns: "collection-details",
+            videoName: video.name,
+          }),
+          onItemClick: () => onSelectVideo(video.id),
+          onRemoveClick: () => onRemoveVideo(video.id),
+        };
+      }),
+    [onRemoveVideo, onSelectVideo, selectedVideoId, t, videos],
+  );
 
   return (
     <section className="flex h-full min-h-0 flex-col gap-sm">
       <div className="flex flex-col items-center gap-sm bg-surface-default-weaker px-md py-sm">
-        <Title
-          htmlVariant="h5"
-          weight="strong"
-          color="default"
-          className="w-full text-justify"
-        >
-          {t("table.videosCountLabel", {
-            count: videos.length,
-            ns: "collections-list",
-          })}
-        </Title>
+        <div className="flex w-full items-start justify-between gap-sm">
+          <Title
+            htmlVariant="h5"
+            weight="strong"
+            color="default"
+            className="min-w-0 flex-1 text-justify"
+          >
+            {t("table.videosCountLabel", {
+              count: videos.length,
+              ns: "collections-list",
+            })}
+          </Title>
+          <Button
+            label={t("videoList.addMedia", { ns: "collection-details" })}
+            iconLeft="plus"
+            intent="call-to-action"
+            color="main"
+            size="sm"
+            className="shrink-0"
+            onClick={onAddVideo}
+          />
+        </div>
         {collectionDescription ? (
           // NOTE: This is a workaround to force the tooltip to be displayed as a block element.
           // TODO: Remove this once we can style the tooltip's anchor directly.

@@ -7,7 +7,9 @@ import { DetailsLayout, useDetailsLayout } from "@bsport/kaizen-primitive-core";
 
 import { CollectionVideoList } from "#src/components/collection-details/collection-video-list";
 import { CollectionVideoPreview } from "#src/components/collection-details/collection-video-preview";
+import { CollectionAddMediaModal } from "#src/features/collection-add-media-modal/collection-add-media-modal";
 import { CollectionDeleteModal } from "#src/features/collection-delete-modal/collection-delete-modal";
+import { CollectionRemoveMediaModal } from "#src/features/collection-remove-media-modal/collection-remove-media-modal";
 import { useCategoriesByIdQuery } from "#src/hooks/api/use-categories-by-id-query";
 import { useLevelsByIdQuery } from "#src/hooks/api/use-levels-by-id-query";
 import {
@@ -39,9 +41,30 @@ const CollectionDetailsPage: FC<CollectionDetailsPageProps> = ({
     onDeleteClick: onOpenDeleteModal,
   });
   const { t } = useTranslation("collection-details");
+  const {
+    isOpen: isAddMediaModalOpen,
+    onOpen: openAddMediaModal,
+    onClose: closeAddMediaModal,
+  } = useDisclosure();
+  const {
+    isOpen: isRemoveMediaModalOpen,
+    onOpen: openRemoveMediaModal,
+    onClose: closeRemoveMediaModal,
+  } = useDisclosure();
   const [selectedVideoId, setSelectedVideoId] = useState<number | null>(null);
+  const [pendingSelectedVideoId, setPendingSelectedVideoId] = useState<
+    number | null
+  >(null);
+  const [videoToRemove, setVideoToRemove] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
   const associatedCoachIds = useMemo(
     () => Array.from(new Set(videos.flatMap((video) => video.coaches))),
+    [videos],
+  );
+  const existingVideoIds = useMemo(
+    () => videos.map((video) => video.id),
     [videos],
   );
   const categoriesQuery = useCategoriesByIdQuery();
@@ -70,9 +93,37 @@ const CollectionDetailsPage: FC<CollectionDetailsPageProps> = ({
     });
   }, [videos]);
 
+  useEffect(() => {
+    if (
+      pendingSelectedVideoId === null ||
+      !videos.some((video) => video.id === pendingSelectedVideoId)
+    ) {
+      return;
+    }
+
+    setSelectedVideoId(pendingSelectedVideoId);
+    setPendingSelectedVideoId(null);
+  }, [pendingSelectedVideoId, videos]);
+
   const selectedVideo = useMemo(() => {
     return videos.find((video) => video.id === selectedVideoId) ?? null;
   }, [videos, selectedVideoId]);
+
+  const handleRemoveVideo = (videoId: number) => {
+    const video = videos.find((currentVideo) => currentVideo.id === videoId);
+
+    if (!video) {
+      return;
+    }
+
+    setVideoToRemove({ id: video.id, name: video.name });
+    openRemoveMediaModal();
+  };
+
+  const handleCloseRemoveMediaModal = () => {
+    closeRemoveMediaModal();
+    setVideoToRemove(null);
+  };
 
   return (
     <>
@@ -91,6 +142,8 @@ const CollectionDetailsPage: FC<CollectionDetailsPageProps> = ({
           <CollectionVideoList
             collectionDescription={collection.description}
             videos={videos}
+            onAddVideo={openAddMediaModal}
+            onRemoveVideo={handleRemoveVideo}
             onSelectVideo={setSelectedVideoId}
             selectedVideoId={selectedVideoId}
           />
@@ -105,6 +158,24 @@ const CollectionDetailsPage: FC<CollectionDetailsPageProps> = ({
           navigate(URLS.INDEX);
         }}
       />
+
+      <CollectionAddMediaModal
+        collectionId={collection.id}
+        existingVideoIds={existingVideoIds}
+        isOpen={isAddMediaModalOpen}
+        closeModal={closeAddMediaModal}
+        onVideoAdded={setPendingSelectedVideoId}
+      />
+
+      {videoToRemove ? (
+        <CollectionRemoveMediaModal
+          collectionId={collection.id}
+          videoId={videoToRemove.id}
+          videoName={videoToRemove.name}
+          isOpen={isRemoveMediaModalOpen}
+          closeModal={handleCloseRemoveMediaModal}
+        />
+      ) : null}
     </>
   );
 };

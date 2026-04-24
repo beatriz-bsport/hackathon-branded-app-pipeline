@@ -1931,6 +1931,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/use-debounce':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-debounce
       '@bsport/use-pagination-query-params':
         specifier: workspace:*
         version: link:../../../../../packages/utils/query-params/use-pagination

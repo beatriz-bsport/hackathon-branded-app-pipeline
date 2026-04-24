@@ -31,6 +31,7 @@
     }
   },
   "videoList": {
+    "addMedia": "Add media",
     "ebook": "Ebook",
     "managerOnly": "Manager only",
     "rentalDays": "",
@@ -42,6 +43,36 @@
       "3": "Intermediate",
       "4": "Advanced",
       "5": "No level"
+    }
+  },
+  "addMediaModal": {
+    "title": "Add media",
+    "searchPlaceholder": "Search media",
+    "emptySearch": "No media found",
+    "cancel": "Cancel",
+    "add": "Add",
+    "submitResponse": {
+      "success": "Media added to the collection",
+      "error": "Failed to add media to the collection"
+    }
+  },
+  "removeMediaModal": {
+    "title": "Remove media?",
+    "description": "Your members will no longer be able to see \"{{videoName}}\" in your Collection, but you’ll still be able to access it from On-Demand.",
+    "undoAction": {
+      "label": "Undo"
+    },
+    "undoResponse": {
+      "success": "Action undone"
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "remove": "Remove",
+      "removeItem": "Remove {{videoName}}"
+    },
+    "submitResponse": {
+      "success": "Media removed from the collection",
+      "error": "Failed to remove media from the collection"
     }
   }
 }

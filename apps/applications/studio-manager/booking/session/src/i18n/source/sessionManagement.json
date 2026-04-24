@@ -43,7 +43,8 @@
     "resolveUnpaidInvoices": "Resolve unpaid invoices",
     "sendMessage": "Send message",
     "copyClientEmail": "Copy client email",
-    "copyClientPhone": "Copy client phone number"
+    "copyClientPhone": "Copy client phone number",
+    "editClientNotes": "Edit client notes"
   },
   "booking": "Booking",
   "billing": "Billing",

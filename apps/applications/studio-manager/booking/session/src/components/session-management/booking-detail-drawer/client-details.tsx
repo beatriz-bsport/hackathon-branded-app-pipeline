@@ -70,6 +70,7 @@ export const ClientDetails: FC<{
             BookingActionItemId.SELL_ITEMS,
             BookingActionItemId.SEND_MESSAGE,
             BookingActionItemId.RESOLVE_UNPAID_INVOICES,
+            BookingActionItemId.UPDATE_MEMBER_NOTES,
           ]}
         />
       </div>

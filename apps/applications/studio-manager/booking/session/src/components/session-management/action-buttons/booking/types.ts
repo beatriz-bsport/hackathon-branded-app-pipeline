@@ -7,6 +7,7 @@ export enum BookingActionItemId {
   SEND_MESSAGE = "send-message-action",
   COPY_EMAIL = "copy-email-shortcut",
   COPY_PHONE = "copy-phone-shortcut",
+  UPDATE_MEMBER_NOTES = "update-member-notes-action",
 }
 
 export const ACTION_ITEM_IDS = [
@@ -18,6 +19,7 @@ export const ACTION_ITEM_IDS = [
   BookingActionItemId.SEND_MESSAGE,
   BookingActionItemId.COPY_EMAIL,
   BookingActionItemId.COPY_PHONE,
+  BookingActionItemId.UPDATE_MEMBER_NOTES,
 ] as const;
 
 export type ActionItemId = (typeof ACTION_ITEM_IDS)[number];

@@ -21,11 +21,11 @@ const buildWidgetUrl = (path: string, theme: CompanyTheme, params?: any) => {
 };
 
 export const openUserInteractionPortal: (args: {
-  url: string,
-  dialogMode: DialogMode,
-  isFabContext?: boolean,
-  fullScreenPopup?: boolean,
-  consumerspacecontext?: ConsumerSpaceContextEnum,
+  url: string;
+  dialogMode: DialogMode;
+  isFabContext?: boolean;
+  fullScreenPopup?: boolean;
+  consumerspacecontext?: ConsumerSpaceContextEnum;
 }) => any = createAction('WIDGET_SET_IFRAME_URL');
 
 export const closeUserInteractionPortal = () => (dispatch: Dispatch) => {
@@ -59,10 +59,10 @@ export const genericShowLogin =
     parentElementId,
     widgetType,
   }: {
-    dialogMode: DialogMode,
-    widgetType: string,
-    parentElementId: string,
-    fullScreenPopup?: boolean,
+    dialogMode: DialogMode;
+    widgetType: string;
+    parentElementId: string;
+    fullScreenPopup?: boolean;
   }) =>
   (dispatch: Dispatch, getState: () => RootState) => {
     const { company } = getState()?.theme?.theme;
@@ -91,10 +91,10 @@ export const genericShowSignup =
     parentElementId,
     widgetType,
   }: {
-    dialogMode: DialogMode,
-    widgetType: string,
-    parentElementId: string,
-    fullScreenPopup?: boolean,
+    dialogMode: DialogMode;
+    widgetType: string;
+    parentElementId: string;
+    fullScreenPopup?: boolean;
   }) =>
   (dispatch: Dispatch, getState: () => RootState) => {
     const { company } = getState()?.theme?.theme;
@@ -155,6 +155,20 @@ export const fabShowProfile =
       }),
     );
   };
+
+export const fabShowAgentChat =
+  () => (dispatch: Dispatch, getState: () => RootState) => {
+    const { theme } = getState().theme;
+    dispatch(
+      openUserInteractionPortal({
+        url: buildWidgetUrl('agent-chat', theme, {
+          consumerspacecontext: ConsumerSpaceContextEnum.FAB,
+        }),
+        dialogMode: DIALOG_MODE_IFRAME,
+      }),
+    );
+  };
+
 export const fabShowSubscription =
   () => (dispatch: Dispatch, getState: () => RootState) => {
     const { theme } = getState().theme;

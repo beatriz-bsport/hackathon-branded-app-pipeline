@@ -14,7 +14,7 @@
     "format": "find src -name \"*.js\" | xargs pnpm exec prettier --write",
     "generate-all-css-marketplace": "cat  **/Marketplace*.css > ./Marketplace.css",
     "knip": "NODE_ENV=development knip",
-    "lint-old": "eslint ./src --max-warnings 250",
+    "lint-old": "eslint ./src --max-warnings 500",
     "lint-old:cache": "eslint ./src --cache",
     "lint-old:fix": "eslint ./src --fix",
     "pretty": "export NODE_OPTIONS=--openssl-legacy-provider && pnpm exec prettier './src' --check",

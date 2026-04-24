@@ -20,6 +20,7 @@ import type {
 } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import CreditCard from '@material-ui/icons/CreditCard';
 import HomeIcon from '@material-ui/icons/Home';
+import ChatIcon from '@material-ui/icons/Chat';
 import PersonIcon from '@material-ui/icons/Person';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
@@ -35,9 +36,14 @@ import { getMembership } from '@bsport/saas-legacy/src/libs/membership/selectors
 import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { ConnectedProps, connect } from 'react-redux';
+import {
+  FeatureFlags,
+  useSafeFlag,
+} from '@bsport/saas-legacy/src/utils/feature-flag';
 import { bridgeRequestLogout as bridgeRequestLogoutAction } from '../libs/bridge/actions';
 import {
   closeUserInteractionPortal as closeUserInteractionPortalAction,
+  fabShowAgentChat as fabShowAgentChatAction,
   fabShowBasket as fabShowBasketAction,
   fabShowBookings as fabShowBookingsAction,
   fabShowLogin as fabShowLoginAction,
@@ -61,6 +67,7 @@ type Props = OwnProps &
 
 const FabWidget = (props: Props) => {
   const [showActions, setShowActions] = useState(false);
+  const isAgentChatEnabled = useSafeFlag(FeatureFlags.AGENT_CHAT);
   const {
     authenticated,
     bridgeRequestLogout,
@@ -73,6 +80,7 @@ const FabWidget = (props: Props) => {
     fabShowBasket,
     fabShowBookings,
     fabShowProfile,
+    fabShowAgentChat,
     fabShowSubscription,
     fetchCurrentBasket,
     fetchBookingsAndPrivateBookings,
@@ -154,6 +162,11 @@ const FabWidget = (props: Props) => {
     fabShowProfile();
   };
 
+  const onClickAgentChat = () => {
+    closeMenu();
+    fabShowAgentChat();
+  };
+
   const onClickSubscription = () => {
     closeMenu();
     fabShowSubscription();
@@ -220,6 +233,27 @@ const FabWidget = (props: Props) => {
             </ButtonBase>
           </Tooltip>
         </Grow>
+
+        {isAgentChatEnabled && (
+          <Grow
+            in={showActions && authenticated}
+            timeout={showActions ? 0 : 600}
+          >
+            <Tooltip
+              placement="right"
+              title={t('navigation:backofficeMenu.consumer.agentChat')}
+            >
+              <ButtonBase
+                classes={{ root: classes.radius50 }}
+                onClick={onClickAgentChat}
+              >
+                <div className={classes.actionButton}>
+                  <ChatIcon color="inherit" fontSize="small" />
+                </div>
+              </ButtonBase>
+            </Tooltip>
+          </Grow>
+        )}
 
         <Grow in={showActions && authenticated} timeout={showActions ? 0 : 600}>
           <Tooltip
@@ -393,6 +427,7 @@ const mapDispatchToProps = {
   fabShowBasket: fabShowBasketAction,
   fabShowBookings: fabShowBookingsAction,
   fabShowProfile: fabShowProfileAction,
+  fabShowAgentChat: fabShowAgentChatAction,
   fabShowSubscription: fabShowSubscriptionAction,
   bridgeRequestLogout: bridgeRequestLogoutAction,
   fetchCurrentBasket: fetchCurrentBasketAction,

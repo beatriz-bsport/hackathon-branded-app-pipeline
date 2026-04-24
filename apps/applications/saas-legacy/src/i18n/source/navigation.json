@@ -48,6 +48,7 @@
     "search": "Search",
     "reporting": "Reporting",
     "consumer": {
+      "agentChat": "Agent chat",
       "order": "My orders",
       "profile": "My account",
       "bookings": "My bookings ",

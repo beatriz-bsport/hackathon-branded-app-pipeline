@@ -7,6 +7,7 @@ const HomePage: React.FC = () => {
     {
       widgetType: "calendar",
       companyId: 2,
+      showFab: true,
       config: {
         calendar: {},
       },

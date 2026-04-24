@@ -23,6 +23,7 @@ import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 //@ts-expect-error
 import BasketPage from '#src/pages/checkout/basket/Basket.page';
 import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
+import { AgentChat } from '../agent-chat/agent-chat.page';
 
 type RouterProps = {
   companyId: number;
@@ -77,6 +78,10 @@ class WidgetRouter extends React.Component<Props> {
           <Route
             component={this.attachConsumerProps(ConsumerSubscriptionReworked)}
             path="/widget/:companyName/:companyId/subscription/"
+          />
+          <Route
+            component={this.attachConsumerProps(AgentChat)}
+            path="/widget/:companyName/:companyId/agent-chat/"
           />
         </Switch>
       </MuiThemeProvider>

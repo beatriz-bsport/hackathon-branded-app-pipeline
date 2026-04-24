@@ -1,11 +1,14 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-import { type Member, fetchMember } from "@bsport/api-cdp/member";
+import { type MemberDetail, fetchMember } from "@bsport/api-cdp/member";
 import type { Fetch } from "@bsport/store-base";
 
 const MEMBER_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
-const getMemberQueryOptions = (fetch: Fetch<Member>, memberId?: number) => {
+const getMemberQueryOptions = (
+  fetch: Fetch<MemberDetail>,
+  memberId?: number,
+) => {
   const getMember = fetchMember.bind(null, fetch);
   return queryOptions({
     queryKey: ["members", "detail", memberId ?? null],
@@ -15,7 +18,10 @@ const getMemberQueryOptions = (fetch: Fetch<Member>, memberId?: number) => {
   });
 };
 
-export const useFetchMember = (fetch: Fetch<Member>, memberId?: number) => {
+export const useFetchMember = (
+  fetch: Fetch<MemberDetail>,
+  memberId?: number,
+) => {
   return useQuery({
     ...getMemberQueryOptions(fetch, memberId),
   });

@@ -1,3 +1,13 @@
+export type MemberNote = {
+  id: number;
+  member: number;
+  date: string;
+  text: string;
+  highlighted: boolean; // acts as "is_private"
+  is_medical: boolean;
+  editable: boolean;
+};
+
 export type Member = {
   accept_email: boolean;
   archived: boolean;
@@ -18,6 +28,10 @@ export type Member = {
   total_unpaid_amount: string;
   user_id: number;
   default_establishment_billing_group?: number | null;
+};
+
+export type MemberDetail = Member & {
+  notes: MemberNote[];
 };
 
 export type GetMemberParams = {

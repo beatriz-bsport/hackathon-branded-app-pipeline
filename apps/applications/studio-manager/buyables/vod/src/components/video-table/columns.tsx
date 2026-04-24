@@ -8,31 +8,14 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { MediaFormatRenderer } from "./media-format-renderer";
 import type { VideoRowData } from "./types";
+import { VideoActionsDropdown } from "./video-actions-dropdown";
 
 type TableColumn = GenericTableColumn<VideoRowData>;
 
-const renderTooltipIcon = (
-  icon:
-    | "book-closed"
-    | "clock-rewind"
-    | "infinity"
-    | "shopping-cart-01"
-    | "shopping-cart-cross"
-    | "video-recorder",
-  label: string,
-) => (
-  <Tooltip label={label} placement="bottom">
-    <Chip color="default" size="lg" type="weak" iconLeft={icon} />
-  </Tooltip>
-);
-
 export const useVideoTableColumns = () => {
   const { t } = useTranslation("media-list");
-  const tableValues = t("table.values") as {
-    noCategory: string;
-    noFile: string;
-  };
 
   const columnName: TableColumn = {
     id: "video-column-name",
@@ -81,36 +64,7 @@ export const useVideoTableColumns = () => {
     type: "custom",
     align: "center",
     header: t("table.headers.format"),
-    render: (row) => {
-      if (row.format === "ebook") {
-        return renderTooltipIcon(
-          "book-closed",
-          t("table.tooltips.format.ebookUploaded"),
-        );
-      }
-
-      if (row.format === "video") {
-        return renderTooltipIcon(
-          "video-recorder",
-          t("table.tooltips.format.videoUploaded"),
-        );
-      }
-
-      return (
-        <Tooltip
-          label={t("table.tooltips.format.noFileUploaded")}
-          placement="bottom"
-        >
-          <Chip
-            color="default"
-            size="lg"
-            type="weak"
-            iconLeft="video-recorder"
-            label={tableValues.noFile}
-          />
-        </Tooltip>
-      );
-    },
+    render: (row) => <MediaFormatRenderer format={row.format} />,
   };
 
   const columnAvailability: TableColumn = {
@@ -120,26 +74,67 @@ export const useVideoTableColumns = () => {
     header: t("table.headers.availability"),
     render: (row) => (
       <div className="flex items-center justify-center gap-xs">
-        {renderTooltipIcon(
-          row.memberAvailability === "available"
-            ? "shopping-cart-01"
-            : "shopping-cart-cross",
-          row.memberAvailability === "available"
-            ? t("table.tooltips.availability.availableToMembers")
-            : t("table.tooltips.availability.unavailableToMembers"),
-        )}
-        {row.accessType === "limited"
-          ? renderTooltipIcon(
-              "clock-rewind",
-              t("table.tooltips.availability.limitedTimeOnly"),
-            )
-          : renderTooltipIcon(
-              "infinity",
-              t("table.tooltips.availability.unlimitedAccess"),
-            )}
+        <Tooltip
+          label={
+            row.memberAvailability === "available"
+              ? t("table.tooltips.availability.availableToMembers")
+              : t("table.tooltips.availability.unavailableToMembers")
+          }
+          placement="bottom"
+        >
+          <Chip
+            color="default"
+            size="lg"
+            type="weak"
+            iconLeft={
+              row.memberAvailability === "available"
+                ? "shopping-cart-01"
+                : "shopping-cart-cross"
+            }
+          />
+        </Tooltip>
+        <Tooltip
+          label={
+            row.accessType === "limited"
+              ? t("table.tooltips.availability.limitedTimeOnly")
+              : t("table.tooltips.availability.unlimitedAccess")
+          }
+          placement="bottom"
+        >
+          <Chip
+            color="default"
+            size="lg"
+            type="weak"
+            iconLeft={
+              row.accessType === "limited" ? "clock-rewind" : "infinity"
+            }
+          />
+        </Tooltip>
       </div>
     ),
   };
 
-  return [columnName, columnCategory, columnFormat, columnAvailability];
+  const columnActions: TableColumn = {
+    id: "video-column-actions",
+    type: "custom",
+    align: "end",
+    header: (
+      <span className="sr-only" aria-label={t("table.headers.actions")}>
+        {t("table.headers.actions")}
+      </span>
+    ),
+    render: (row) => (
+      <div className="flex items-center justify-end">
+        <VideoActionsDropdown onDuplicate={row.onDuplicate} />
+      </div>
+    ),
+  };
+
+  return [
+    columnName,
+    columnCategory,
+    columnFormat,
+    columnAvailability,
+    columnActions,
+  ];
 };

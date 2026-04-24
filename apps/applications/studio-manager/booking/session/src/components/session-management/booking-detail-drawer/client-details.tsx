@@ -49,6 +49,12 @@ export const ClientDetails: FC<{
     selectedBooking.memberData?.credit_account_balance ?? 0,
   );
 
+  // Despite its name, highlighted actually means "is private"
+  // There's even a comment in the Backemd code acknowledging the misleading name
+  const memberNotes = (selectedBooking.memberData?.notes ?? []).filter(
+    (note) => !note.is_medical && !note.highlighted,
+  );
+
   return (
     <div className="flex flex-col gap-sm">
       <div className="flex items-center gap-lg justify-between">
@@ -122,6 +128,13 @@ export const ClientDetails: FC<{
           </div>
         )}
       </Section>
+      {memberNotes.length > 0 && (
+        <Section title={t("participantDetails.notes")}>
+          {memberNotes.map((note) => (
+            <Body key={note.id}>{note.text}</Body>
+          ))}
+        </Section>
+      )}
       <Section title={t("participantDetails.billing")}>
         {unpaidAmount > 0 && (
           <div className="flex gap-xs items-center">

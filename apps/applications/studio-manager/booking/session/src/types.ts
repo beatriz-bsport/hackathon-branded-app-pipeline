@@ -7,7 +7,7 @@ import type {
   Session,
 } from "@bsport/api-book";
 import type { ConsumerPaymentPack, Pass } from "@bsport/api-buyables";
-import type { Member } from "@bsport/api-cdp";
+import type { Member, MemberNote } from "@bsport/api-cdp";
 import { type DateTime } from "@bsport/datetime-manipulation";
 import { GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
@@ -134,7 +134,7 @@ export type DetailsHeaderSession = Pick<
 >;
 
 export type RefinedBooking = Booking & {
-  memberData: Member | undefined;
+  memberData: (Member & { notes?: MemberNote[] }) | undefined;
   consumerPaymentPackData: ConsumerPaymentPack | undefined;
   passData: Pass | undefined;
 };

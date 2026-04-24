@@ -79,7 +79,7 @@ const MemberNotePanel: React.FC<Props> = ({
   );
 
   return (
-    <div style={{ width: '100%' }}>
+    <div id="member-notes" style={{ width: '100%' }}>
       <Typography className={classes.title} component="h2" variant="h6">
         {healthNotes ? t('note.healthNotes') : t('note.myNotes')}
       </Typography>

@@ -10,6 +10,12 @@ import {
 } from "./constants";
 import { getSessionId } from "./session";
 
+declare global {
+  interface Window {
+    __MAINTENANCE_MODE__?: boolean;
+  }
+}
+
 type Params = {
   integrations?: Parameters<typeof init>["0"]["integrations"];
 };
@@ -42,7 +48,11 @@ export const initSentry = (params: Params = { integrations: [] }) => {
       const shouldIgnoreLocalhostErrors =
         !SEND_ERRORS_IN_LOCAL_DEVELOPMENT && env === "local";
 
-      if (shouldBeIgnored || shouldIgnoreLocalhostErrors) {
+      if (
+        shouldBeIgnored ||
+        shouldIgnoreLocalhostErrors ||
+        window.__MAINTENANCE_MODE__ === true
+      ) {
         console.warn("Error ignored by Sentry", error);
         return null;
       }

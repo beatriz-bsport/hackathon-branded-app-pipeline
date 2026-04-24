@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@bsport/api-buyables": "workspace:*",
+    "@bsport/api-cdp": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*"
   },
   "devDependencies": {

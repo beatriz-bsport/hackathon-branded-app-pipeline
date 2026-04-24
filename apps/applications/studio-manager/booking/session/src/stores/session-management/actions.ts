@@ -1,6 +1,7 @@
 import { sessionManagementStore } from "./store";
 import type {
   BookingAttendanceFilter,
+  BookingListedInformation,
   BookingOrdering,
   BookingSourceFilter,
   BookingStatusFilter,
@@ -69,4 +70,19 @@ export const setBookingOrdering = (ordering: BookingOrdering) => {
       ordering: ordering ?? undefined,
     },
   }));
+};
+
+export const setListedInformation = (
+  listedInformation: BookingListedInformation,
+) => {
+  sessionManagementStore.setState((state) => {
+    const isCurrentlyListed =
+      state.listedInformation.includes(listedInformation);
+    const newListedInformation = isCurrentlyListed
+      ? state.listedInformation.filter((info) => info !== listedInformation)
+      : [...state.listedInformation, listedInformation];
+    return {
+      listedInformation: newListedInformation,
+    };
+  });
 };

@@ -27,6 +27,15 @@ export enum BookingOrdering {
   MEMBER_LAST_NAME_DESC = "-member_last_name",
 }
 
+export enum BookingListedInformation {
+  SPOT = "spot",
+  PASS = "pass",
+  NEW_MEMBER = "newMember",
+  RECURRING_BOOKING = "recurringBooking",
+  UNPAID_INVOICES = "unpaidInvoices",
+  TAGS = "tags",
+}
+
 export interface BookingFilters {
   status: BookingStatusFilter;
   attendance: BookingAttendanceFilter | null;
@@ -39,4 +48,5 @@ export interface SessionManagementState {
   bookingFilters: BookingFilters;
   waitlistFilters: WaitlistFilter;
   selectedBookingId: number | null;
+  listedInformation: BookingListedInformation[];
 }

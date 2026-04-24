@@ -1,5 +1,5 @@
-import { type FC, useState } from "react";
-import { useNavigate } from "react-router";
+import { type FC, useCallback, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router";
 
 import type { MetaActivity } from "@bsport/api-book";
 import {
@@ -24,6 +24,13 @@ import {
 import useTableColumns from "#src/hooks/use-table-columns";
 import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+
+const VALID_TABS = ["classes"] as const;
+type ClassesTab = (typeof VALID_TABS)[number];
+const getActiveTab = (raw: string | null): ClassesTab =>
+  (VALID_TABS as readonly string[]).includes(raw ?? "")
+    ? (raw as ClassesTab)
+    : "classes";
 
 type Row = MetaActivity & {
   color: string;
@@ -180,6 +187,22 @@ const ClassesListingPage: FC = () => {
     name: string;
   } | null>(null);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = getActiveTab(searchParams.get("tab"));
+  const handleTabChange = useCallback(
+    (tabId: string) => {
+      onSearchClear();
+      setSearchParams(
+        (prev) => {
+          prev.set("tab", tabId);
+          return prev;
+        },
+        { replace: true },
+      );
+    },
+    [onSearchClear, setSearchParams],
+  );
+
   const { canCreateAny } = useClassesCreatePermissions();
 
   const { endGroupActions } = ListLayout.useAdaptiveActions({
@@ -199,7 +222,8 @@ const ClassesListingPage: FC = () => {
   return (
     <ListLayout>
       <ListLayout.Header
-        endGroupActions={endGroupActions}
+        key={activeTab}
+        pageTitle={t("list.header.services")}
         callToActionButton={
           canCreateAny ? (
             <ListLayout.Button
@@ -211,7 +235,15 @@ const ClassesListingPage: FC = () => {
             />
           ) : undefined
         }
-        pageTitle={t("list.header.classes")}
+        endGroupActions={endGroupActions}
+        filterConfig={filterConfig}
+        filterRef={filterRef}
+        pageTabs={{
+          orientation: "horizontal",
+          value: activeTab,
+          onValueChange: handleTabChange,
+          tabs: [{ id: "classes", label: t("list.tabs.classes") }],
+        }}
         searchConfig={{
           id: "classes-search",
           inputValue: searchQuery,
@@ -219,8 +251,6 @@ const ClassesListingPage: FC = () => {
           onInputValueChange: onSearchChange,
           onClear: onSearchClear,
         }}
-        filterConfig={filterConfig}
-        filterRef={filterRef}
       />
       <ListLayout.Content className="flex flex-col gap-sm">
         <AddClassModal

@@ -85,7 +85,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   activity: "/activity",
   insights: "/insights",
   calendar: "/calendar",
-  classes: "/services/classes",
+  classes: "/services",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
   giftcard: "/giftcard",

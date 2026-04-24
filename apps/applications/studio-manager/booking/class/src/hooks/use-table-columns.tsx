@@ -5,7 +5,6 @@ import {
 } from "@bsport/datetime-formatting";
 import {
   Body,
-  Chip,
   GenericTableColumn,
   Media,
   Tooltip,
@@ -14,14 +13,12 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import useGetClassChips from "./use-get-class-chips";
 import useSCT from "./use-sct";
 
-const useTableColumns = <
-  RowType extends MetaActivity,
->(): GenericTableColumn<RowType>[] => {
+const useTableColumns = <RowType extends MetaActivity>({
+  includeNextClass = true,
+}: { includeNextClass?: boolean } = {}): GenericTableColumn<RowType>[] => {
   const { t, i18n } = useTranslation("list");
-  const { getChips } = useGetClassChips();
   const { sctMap } = useSCT();
   const companyTimezone = dataAccessLayer.useCompanyTheme()?.timezone_name;
   const { formatDateTime } = useFormatDatetime();
@@ -78,70 +75,60 @@ const useTableColumns = <
         );
       },
     },
-    {
-      header: t("list.table.header.columns.nextSession"),
-      id: "upcomingSession",
-      keyPath: "next_slot",
-      type: "custom",
-      render: (item: RowType) => {
-        if (!item.next_slot) return null;
-
-        const date = formatDateTime(
-          item.next_slot,
-          DATETIME_FORMATS.MEDIUM_DATE,
+    ...(includeNextClass
+      ? [
           {
-            locale: i18n.language,
-            timeZone: companyTimezone,
-          },
-        );
+            header: t("list.table.header.columns.nextClass.name"),
+            id: "nextClass",
+            keyPath: "next_slot",
+            align: "center" as const,
+            type: "custom" as const,
+            render: (item: RowType) => {
+              if (!item.next_slot) {
+                return (
+                  <Tooltip
+                    label={t(
+                      "list.table.header.columns.nextClass.noUpcomingSession.tooltip",
+                    )}
+                  >
+                    <Body
+                      htmlVariant="p"
+                      size="lg"
+                      className="text-center inline-block w-full"
+                    >
+                      -
+                    </Body>
+                  </Tooltip>
+                );
+              }
 
-        const time = formatDateTime(
-          item.next_slot,
-          DATETIME_FORMATS.TIME_SIMPLE,
-          {
-            locale: i18n.language,
-            timeZone: companyTimezone,
-          },
-        );
+              const date = formatDateTime(
+                item.next_slot,
+                DATETIME_FORMATS.MEDIUM_DATE,
+                {
+                  locale: i18n.language,
+                  timeZone: companyTimezone,
+                },
+              );
 
-        return (
-          <div className="flex flex-col gap-2xs">
-            <Body htmlVariant="span" size="lg">
-              {date}
-            </Body>
-            <Body htmlVariant="span" size="md" color="weak">
-              {time}
-            </Body>
-          </div>
-        );
-      },
-    },
-    {
-      header: t("list.table.header.columns.features"),
-      id: "features",
-      keyPath: "features",
-      type: "custom",
-      render: (item: RowType) => {
-        const chips = getChips(
-          item.on_booking_notification?.length > 0,
-          item.is_broadcast,
-        );
-        return (
-          <div className="flex flex-row gap-sm">
-            {chips.map((chip) => (
-              <div key={chip.id} className="flex">
-                <Tooltip
-                  label={chip.tooltipProps.label}
-                  placement={chip.tooltipProps.placement}
-                >
-                  <Chip {...chip} />
-                </Tooltip>
-              </div>
-            ))}
-          </div>
-        );
-      },
-    },
+              const time = formatDateTime(
+                item.next_slot,
+                DATETIME_FORMATS.TIME_SIMPLE,
+                {
+                  locale: i18n.language,
+                  timeZone: companyTimezone,
+                },
+              );
+
+              return (
+                <Body htmlVariant="span" size="lg">
+                  {date} · {time}
+                </Body>
+              );
+            },
+          },
+        ]
+      : []),
   ];
 };
 

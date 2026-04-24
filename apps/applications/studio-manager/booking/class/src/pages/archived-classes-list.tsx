@@ -17,7 +17,7 @@ import { useClassesList } from "#src/hooks/use-classes-list";
 import { useObjectLevelPermission } from "#src/hooks/use-permissions";
 import useTableColumns from "#src/hooks/use-table-columns";
 import { useUnarchiveClass } from "#src/hooks/use-unarchive-class";
-import { ROUTES } from "#src/urls";
+import { ABSOLUTE_ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 type ArchivedClassesTableProps = {
@@ -36,7 +36,7 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
   onClearFilters,
 }) => {
   const { t } = useTranslation("list");
-  const columns = useTableColumns<MetaActivity>();
+  const columns = useTableColumns<MetaActivity>({ includeNextClass: false });
   const { mutate: unarchiveClass } = useUnarchiveClass();
 
   const canDeleteWorkshop = useObjectLevelPermission(
@@ -127,12 +127,21 @@ export const ArchivedClassesList: FC = () => {
     <ListLayout>
       <ListLayout.Header
         BreadcrumbsItems={[
-          <Link key="to-active-classes" to={ROUTES.ACTIVE}>
+          <Link
+            key="to-active-classes"
+            to={{ pathname: ABSOLUTE_ROUTES.ACTIVE }}
+          >
             <Breadcrumbs.Item
               text={t("list.header.classes")}
               id="breadcrumb-item-classes"
             />
           </Link>,
+          <Breadcrumbs.Item
+            isActive
+            key="breadcrumb-item-archived-classes"
+            text={t("list.header.archivedClasses")}
+            id="breadcrumb-item-archived-classes"
+          />,
         ]}
         pageTitle={t("list.header.archivedClasses")}
         searchConfig={{

@@ -17,6 +17,10 @@ import { DuplicateClassModal } from "#src/components/duplicate-class-modal/dupli
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useClassesFilters } from "#src/hooks/use-classes-filters";
 import { useClassesList } from "#src/hooks/use-classes-list";
+import {
+  useClassesCreatePermissions,
+  useObjectLevelPermission,
+} from "#src/hooks/use-permissions";
 import useTableColumns from "#src/hooks/use-table-columns";
 import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
@@ -33,6 +37,7 @@ type ClassesTableProps = {
   onAddClick: () => void;
   onClickArchive: (row: Row) => void;
   onClickDuplicate: (row: Row) => void;
+  canCreateAny: boolean;
 };
 
 const ClassesTable: FC<ClassesTableProps> = ({
@@ -43,6 +48,7 @@ const ClassesTable: FC<ClassesTableProps> = ({
   onAddClick,
   onClickArchive,
   onClickDuplicate,
+  canCreateAny,
 }) => {
   const { t } = useTranslation("list");
   const columns = useTableColumns<Row>();
@@ -50,6 +56,20 @@ const ClassesTable: FC<ClassesTableProps> = ({
     customerEnabled: true,
     searchParams: { searchQuery, isWorkshop, inCategoryIds },
   });
+
+  const canDeleteWorkshop = useObjectLevelPermission(
+    "management.workshop.allowed_actions.delete",
+  );
+  const canDeleteActivity = useObjectLevelPermission(
+    "management.activity.allowed_actions.delete",
+  );
+
+  const canCreateWorkshop = useObjectLevelPermission(
+    "management.workshop.allowed_actions.create",
+  );
+  const canCreateActivity = useObjectLevelPermission(
+    "management.activity.allowed_actions.create",
+  );
 
   const isEmptySearch =
     !!(searchQuery || isWorkshop !== undefined || inCategoryIds?.length) &&
@@ -64,33 +84,47 @@ const ClassesTable: FC<ClassesTableProps> = ({
           header: "",
           id: "actions",
           type: "custom",
-          render: (row) => {
+          render: (item) => {
+            const canDelete = item.is_workshop
+              ? canDeleteWorkshop
+              : canDeleteActivity;
+
+            const canCreate = item.is_workshop
+              ? canCreateWorkshop
+              : canCreateActivity;
+
             return (
               <div className="flex flex-row gap-sm">
-                <Button
-                  kind="icon-button"
-                  icon="copy-03"
-                  intent="flat"
-                  color="default"
-                  label={t("list.actions.duplicate")}
-                  size="md"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onClickDuplicate(row);
-                  }}
-                />
-                <Button
-                  kind="icon-button"
-                  icon="archive"
-                  intent="flat"
-                  color="default"
-                  label={t("list.actions.archive")}
-                  size="md"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onClickArchive(row);
-                  }}
-                />
+                {canCreate && (
+                  <Button
+                    kind="icon-button"
+                    icon="copy-03"
+                    intent="flat"
+                    color="default"
+                    label={t("list.actions.duplicate")}
+                    size="md"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onClickDuplicate(item);
+                    }}
+                  />
+                )}
+                {canDelete && (
+                  <Button
+                    kind="icon-button"
+                    icon="archive"
+                    intent="flat"
+                    color="default"
+                    label={t("list.actions.archive")}
+                    size="md"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onClickArchive(item);
+                    }}
+                  />
+                )}
               </div>
             );
           },
@@ -102,11 +136,13 @@ const ClassesTable: FC<ClassesTableProps> = ({
         emptyConfig: {
           title: t("list.state.empty.title"),
           subtitle: t("list.state.empty.subtitle"),
-          ctaButtonConfig: {
-            label: t("list.state.empty.cta"),
-            onClick: onAddClick,
-            iconLeft: "plus",
-          },
+          ctaButtonConfig: canCreateAny
+            ? {
+                label: t("list.state.empty.cta"),
+                onClick: onAddClick,
+                iconLeft: "plus",
+              }
+            : undefined,
         },
         emptySearchConfig: {
           title: t("list.state.emptySearch.title"),
@@ -144,6 +180,8 @@ const ClassesListingPage: FC = () => {
     name: string;
   } | null>(null);
 
+  const { canCreateAny } = useClassesCreatePermissions();
+
   const { endGroupActions } = ListLayout.useAdaptiveActions({
     endGroupActions: [
       <GoToArchivedLink
@@ -163,13 +201,15 @@ const ClassesListingPage: FC = () => {
       <ListLayout.Header
         endGroupActions={endGroupActions}
         callToActionButton={
-          <ListLayout.Button
-            iconLeft="plus"
-            intent="call-to-action"
-            color="main"
-            label={t("list.header.add")}
-            onClick={() => setIsCreateModalOpen(true)}
-          />
+          canCreateAny ? (
+            <ListLayout.Button
+              iconLeft="plus"
+              intent="call-to-action"
+              color="main"
+              label={t("list.header.add")}
+              onClick={() => setIsCreateModalOpen(true)}
+            />
+          ) : undefined
         }
         pageTitle={t("list.header.classes")}
         searchConfig={{
@@ -214,6 +254,7 @@ const ClassesListingPage: FC = () => {
               setSelectedClass({ id: row.id, name: row.name });
               setIsDuplicateModalOpen(true);
             }}
+            canCreateAny={canCreateAny}
           />
         </QueryBoundary>
       </ListLayout.Content>

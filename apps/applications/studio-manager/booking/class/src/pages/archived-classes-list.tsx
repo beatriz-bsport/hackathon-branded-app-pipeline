@@ -14,6 +14,7 @@ import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useClassesFilters } from "#src/hooks/use-classes-filters";
 import { useClassesList } from "#src/hooks/use-classes-list";
+import { useObjectLevelPermission } from "#src/hooks/use-permissions";
 import useTableColumns from "#src/hooks/use-table-columns";
 import { useUnarchiveClass } from "#src/hooks/use-unarchive-class";
 import { ROUTES } from "#src/urls";
@@ -38,6 +39,13 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
   const columns = useTableColumns<MetaActivity>();
   const { mutate: unarchiveClass } = useUnarchiveClass();
 
+  const canDeleteWorkshop = useObjectLevelPermission(
+    "management.workshop.allowed_actions.delete",
+  );
+  const canDeleteActivity = useObjectLevelPermission(
+    "management.activity.allowed_actions.delete",
+  );
+
   const { classes: groupActivities, paginationProps } = useClassesList({
     customerEnabled: false,
     searchParams: { searchQuery, isWorkshop, inCategoryIds },
@@ -58,6 +66,10 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
           keyPath: "actions",
           type: "custom",
           render: (item) => {
+            const canDelete = item.is_workshop
+              ? canDeleteWorkshop
+              : canDeleteActivity;
+            if (!canDelete) return null;
             return (
               <div className="flex flex-row gap-sm">
                 <Button

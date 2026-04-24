@@ -56,6 +56,7 @@
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-business-components": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/permissions": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@tanstack/react-query": "^5.90.12",
     "luxon": "^3.4.4",

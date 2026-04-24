@@ -5,8 +5,8 @@ import type { Collection } from "@bsport/api-buyables/collection";
 import type { Video } from "@bsport/api-buyables/video";
 import { DetailsLayout, useDetailsLayout } from "@bsport/kaizen-primitive-core";
 
-import { CollectionVideoList } from "#src/components/collection-video-list/collection-video-list";
-import { CollectionVideoPreview } from "#src/components/collection-video-list/collection-video-preview";
+import { CollectionVideoList } from "#src/components/collection-details/collection-video-list";
+import { CollectionVideoPreview } from "#src/components/collection-details/collection-video-preview";
 import { CollectionDeleteModal } from "#src/features/collection-delete-modal/collection-delete-modal";
 import { useCategoriesByIdQuery } from "#src/hooks/api/use-categories-by-id-query";
 import { useLevelsByIdQuery } from "#src/hooks/api/use-levels-by-id-query";

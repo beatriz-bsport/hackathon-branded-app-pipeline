@@ -24,6 +24,7 @@ type VideoTableProps = {
   paginationProps: PaginationProps;
   isEmpty: boolean;
   isLoading?: boolean;
+  onRowClick?: (id: number) => void;
 };
 
 export const VideoTable: FC<VideoTableProps> = ({
@@ -32,6 +33,7 @@ export const VideoTable: FC<VideoTableProps> = ({
   paginationProps,
   isEmpty,
   isLoading = false,
+  onRowClick,
 }) => {
   const { t } = useTranslation("media-list");
 
@@ -68,6 +70,7 @@ export const VideoTable: FC<VideoTableProps> = ({
       format,
       memberAvailability: video.manager_only ? "unavailable" : "available",
       accessType: video.rental_days > 0 ? "limited" : "unlimited",
+      onRowClick: onRowClick ? () => onRowClick(video.id) : undefined,
     };
   });
 

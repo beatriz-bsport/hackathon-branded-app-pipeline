@@ -11,4 +11,6 @@ export const URLS = {
   COLLECTION_DETAILS: (id: number) => `${INDEX}/${SEGMENTS.COLLECTION}/${id}`,
   COLLECTION: SEGMENTS.COLLECTION,
   MEDIA: SEGMENTS.MEDIA,
+  MEDIA_DETAILS_SLUG: `${SEGMENTS.MEDIA}/:mediaId`,
+  MEDIA_DETAILS: (id: number) => `${INDEX}/${SEGMENTS.MEDIA}/${id}`,
 } as const;

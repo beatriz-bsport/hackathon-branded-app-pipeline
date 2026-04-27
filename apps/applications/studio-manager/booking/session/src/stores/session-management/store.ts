@@ -3,6 +3,8 @@ import { createStore } from "zustand/vanilla";
 
 import { bindStore } from "@bsport/store-base";
 
+import { DEFAULT_SESSION_LISTED_INFORMATION } from "#src/constants.js";
+
 import {
   BookingStatusFilter,
   type SessionManagementState,
@@ -15,9 +17,11 @@ export const getInitialState = (): SessionManagementState => ({
     attendance: null,
     source: null,
     aggregatorIds: [],
+    ordering: undefined,
   },
   waitlistFilters: WaitlistFilter.ON_WAITLIST,
   selectedBookingId: null,
+  listedInformation: DEFAULT_SESSION_LISTED_INFORMATION,
 });
 
 export const sessionManagementStore = createStore<SessionManagementState>()(
@@ -27,6 +31,7 @@ export const sessionManagementStore = createStore<SessionManagementState>()(
       partialize: (state) => ({
         bookingFilters: state.bookingFilters,
         waitlistFilters: state.waitlistFilters,
+        listedInformation: state.listedInformation,
       }),
     }),
   ),

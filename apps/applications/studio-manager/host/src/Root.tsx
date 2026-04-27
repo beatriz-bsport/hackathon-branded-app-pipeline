@@ -24,8 +24,7 @@ import { removeAppcuesScripts } from "./components/onboarding/appcues-scripts";
 import { navigateBackToFranchisorHost } from "./navigateBackToFranchisor";
 
 // ----- Booking -----
-const GroupActivities = lazy(() => import("@bsport/sm-group-activity"));
-const Classes = lazy(() => import("@bsport/sm-class"));
+const Services = lazy(() => import("@bsport/sm-class"));
 const Session = lazy(() => import("@bsport/sm-session"));
 
 // ----- Buyables -----
@@ -238,11 +237,10 @@ const AuthenticatedRoutes = () => {
   const routesConfigs: RouteConfig[] = [
     /* ----- Booking ----- */
     {
-      url: urls.classes,
-      element: <Classes />,
+      url: urls.services,
+      element: <Services />,
       hidden: !isClassesMergedViewEnabled,
     },
-    { url: urls.activity, element: <GroupActivities /> },
     { url: urls.calendar, element: <Session /> },
 
     /* ----- Buyables ----- */

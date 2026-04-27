@@ -197,31 +197,10 @@ export const useNavigationElements = ({
         },
         {
           icon: "award-03",
-          id: "classes",
-          label: t("menus.classes.title"),
-          subItems: [
-            {
-              id: "classes",
-              label: t("menus.classes.classes"),
-              hidden: !isClassesMergedViewEnabled,
-              ...navigationUrls.classes,
-            },
-            {
-              id: "activities",
-              label: t("menus.classes.activities"),
-              ...navigationUrls.activity,
-            },
-            {
-              id: "workshops",
-              label: t("menus.classes.workshops"),
-              ...navigationUrls.workshop,
-            },
-            {
-              id: "appointments",
-              label: t("menus.classes.appointments"),
-              ...navigationUrls.appointment,
-            },
-          ],
+          id: "services",
+          label: t("menus.services"),
+          hidden: !isClassesMergedViewEnabled,
+          ...navigationUrls.services,
         },
         {
           type: "divider",

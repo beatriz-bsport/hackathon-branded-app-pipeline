@@ -11,9 +11,8 @@ declare module "sm-navigation-sidebar/NavigationSidebar" {
 
 declare module "sm-navigation-sidebar/urls" {
   export const REVAMP_URLS_DEVELOPMENT: {
-    activity: string;
     calendar: string;
-    classes: string;
+    services: string;
     insights: string;
     customForm: string;
     emailTemplate: string;

@@ -10,11 +10,8 @@ export type Urls = {
   accessMonitoring_perform: string;
   accessMonitoring_settings: string;
   // Group 3
-  // --- Classes ---
-  activity: string;
-  workshop: string;
-  classes: string;
-  appointment: string;
+  // --- Services ---
+  services: string;
   // Group 4
   // --- Memberships ---
   pass: string;

@@ -12,13 +12,11 @@ export const PERMISSIONS_PATHS: Record<
   accessMonitoring_monitor: ["navigationMenu.accessMonitoring.monitor"],
   accessMonitoring_perform: ["navigationMenu.accessMonitoring.perform"],
   accessMonitoring_settings: ["navigationMenu.accessMonitoring.settings"],
-  activity: ["navigationMenu.myClub.activities"],
-  appointment: ["navigationMenu.myClub.appointments"],
   appointmentPass: ["navigationMenu.products.privatePass"],
   attendance: ["navigationMenu.payments.clockIn"],
   audience: ["navigationMenu.marketing.cadence"],
   calendar: ["navigationMenu.calendar"],
-  classes: [
+  services: [
     "navigationMenu.myClub.workshops",
     "navigationMenu.myClub.activities",
   ],
@@ -89,5 +87,4 @@ export const PERMISSIONS_PATHS: Record<
   webshop_products: ["navigationMenu.products.shopReworked.products"],
   webshop_settings: ["navigationMenu.products.shopReworked.settings"],
   webshopOld: ["navigationMenu.products.shop"],
-  workshop: ["navigationMenu.myClub.workshops"],
 };

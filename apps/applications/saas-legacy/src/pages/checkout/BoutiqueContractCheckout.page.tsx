@@ -73,6 +73,7 @@ import MarketplaceSubscriptionPayment from '#src/libs/checkout/components/new-ch
 import SubscriptionTerms from '#src/libs/subscription/components/new-checkout-flow/SubscriptionTerms';
 import SubscriptionBasketSummary from '#src/libs/subscription/components/new-checkout-flow/SubscriptionBasketSummary';
 import SubscriptionBillingInfo from '#src/libs/subscription/components/new-checkout-flow/SubscriptionBillingInfo';
+import SubscriptionActivitiesSummary from '#src/libs/subscription/components/new-checkout-flow/SubscriptionActivitiesSummary';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
@@ -720,7 +721,13 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
                     companyTheme={this.props.theme}
                     contract={this.props.contract}
                     isExcludingTax={this.getIsTaxExcluded()}
-                    offer={this.props.offer}
+                  />
+                </div>
+
+                <div className="bs-contract-new-checkout__purchase-summary">
+                  <SubscriptionActivitiesSummary
+                    companyTheme={this.props.theme}
+                    offers={this.props.offer ? [this.props.offer] : []}
                   />
                 </div>
 

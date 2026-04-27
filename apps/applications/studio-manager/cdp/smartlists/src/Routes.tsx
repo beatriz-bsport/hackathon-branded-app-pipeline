@@ -24,6 +24,12 @@ const CampaignScheduledDetailPage = lazy(
   () => import("#src/pages/CampaignScheduledDetailPage"),
 );
 const AutomationPage = lazy(() => import("#src/pages/AutomationPage"));
+const AutomationTagRuleCreationPage = lazy(
+  () => import("#src/pages/AutomationTagRuleCreationPage"),
+);
+const AutomationTagRuleEditPage = lazy(
+  () => import("#src/pages/AutomationTagRuleEditPage"),
+);
 
 export const AppRoutes = () => {
   return (
@@ -56,7 +62,16 @@ export const AppRoutes = () => {
       >
         <Route path={PARAMETER_TAB_PATH} element={<ParameterPage />} />
         <Route path={CAMPAIGN_TAB_PATH} element={<CampaignPage />} />
-        <Route path={AUTOMATION_TAB_PATH} element={<AutomationPage />} />
+        <Route path={AUTOMATION_TAB_PATH} element={<AutomationPage />}>
+          <Route
+            path="tag-rule/new"
+            element={<AutomationTagRuleCreationPage />}
+          />
+          <Route
+            path="tag-rule/:tagRuleId/edit"
+            element={<AutomationTagRuleEditPage />}
+          />
+        </Route>
       </Route>
       {/* Campaign create/edit: single sub-router for all channels */}
       <Route
@@ -75,7 +90,6 @@ export const AppRoutes = () => {
           </FeatureFlag>
         }
       />
-
       <Route element={<Navigate to={SMARTLIST_APP_LINKS.index()} />} path="*" />
     </Routes>
   );

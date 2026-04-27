@@ -87,6 +87,25 @@ export const useSmartlistNavigation = () => {
     ) => {
       navigate(SMARTLIST_APP_LINKS.automationSmsCreation(smartlistId), options);
     },
+    navigateToSmartlistTagRuleAutomationCreation: (
+      smartlistId: string,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.automationTagRuleCreation(smartlistId),
+        options,
+      );
+    },
+    navigateToSmartlistTagRuleAutomationEdit: (
+      smartlistId: string,
+      tagRuleId: string,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.automationTagRuleEdit(smartlistId, tagRuleId),
+        options,
+      );
+    },
     navigateToSmartlistEmailAutomationEdit: (
       smartlistId: string,
       entityId: string,

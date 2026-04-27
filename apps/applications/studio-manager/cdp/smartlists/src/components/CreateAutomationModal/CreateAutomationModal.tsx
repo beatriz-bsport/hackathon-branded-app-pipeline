@@ -30,6 +30,7 @@ export const CreateAutomationModal = ({
     navigateToSmartlistEmailAutomationCreation,
     navigateToSmartlistPushAutomationCreation,
     navigateToSmartlistSmsAutomationCreation,
+    navigateToSmartlistTagRuleAutomationCreation,
   } = useSmartlistNavigation();
 
   const [step, setStep] = useState<CreateAutomationStep>("automation-type");
@@ -52,6 +53,11 @@ export const CreateAutomationModal = ({
   const handleSmsClick = () => {
     handleClose();
     navigateToSmartlistSmsAutomationCreation(id);
+  };
+
+  const handleTagRuleClick = () => {
+    navigateToSmartlistTagRuleAutomationCreation(id);
+    handleClose();
   };
 
   return (
@@ -109,6 +115,7 @@ export const CreateAutomationModal = ({
                 )}
                 icon="announcement-01"
                 layout="oneRow"
+                onClick={handleTagRuleClick}
               />
             </div>
           </>

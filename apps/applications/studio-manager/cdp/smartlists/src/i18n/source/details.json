@@ -35,6 +35,31 @@
           "title": "Push Notification",
           "description": "Send your members a notification via your studio app"
         }
+      },
+      "tagRuleForm": {
+        "trigger": {
+          "label": "Trigger",
+          "options": {
+            "join": "Apply a tag when a profile enters the segment",
+            "leave": "Apply a tag once when a profile leaves the Segment",
+            "present": "Applies the tag while a profile matches the Segment"
+          },
+          "descriptions": {
+            "enter": "The tag is applied when the profile enters the Segment and removed automatically when they leave.",
+            "leave": "The tag is only applied when the profile leaves the Segment.",
+            "present": "The tag is applied when the profile enters the segment and removed automatically when they leave."
+          }
+        },
+        "tag": {
+          "label": "Select tag",
+          "placeholder": "Add tag",
+          "loading": "Loading tags...",
+          "required": "Add a tag"
+        },
+        "actions": {
+          "cancel": "Cancel",
+          "save": "Save"
+        }
       }
     }
   },
@@ -127,9 +152,13 @@
       },
       "toasts": {
         "success": {
+          "created": "Tag rule created",
+          "saved": "Tag rule saved",
           "deleted": "Tag rule deleted"
         },
         "error": {
+          "createFailed": "Tag rule couldn't be created. Please try again.",
+          "updateFailed": "Tag rule couldn't be updated. Please try again.",
           "deleteFailed": "Tag rule couldn't be deleted. Please try again."
         }
       }

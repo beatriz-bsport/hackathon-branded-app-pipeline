@@ -1,3 +1,5 @@
+import { Outlet } from "react-router";
+
 import { Title, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { CardLoader, QueryBoundary } from "#src/components/QueryBoundary";
@@ -32,6 +34,8 @@ export const AutomationPage = () => {
       <QueryBoundary loadingFallback={<CardLoader size="lg" />}>
         <TagRulesSection compact={isMobile} />
       </QueryBoundary>
+
+      <Outlet />
     </div>
   );
 };

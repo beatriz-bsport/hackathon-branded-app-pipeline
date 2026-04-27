@@ -21,7 +21,6 @@ import {
   payoutDetailActions,
   listPayoutBalanceTransactionsActions,
   listPayoutLegacyActions,
-  listStripePayoutActions,
   onSpotPaymentReportActions,
   registerStripeDomainActions,
   stripeBalanceActions,
@@ -63,14 +62,6 @@ const initialState = Immutable({
     allIds: [],
     byId: {},
     nextPage: 1,
-  },
-  stripePayout: {
-    error: null,
-    loading: false,
-    allIds: [],
-    byId: {},
-    startingAfter: null,
-    hasMore: true,
   },
   payout: {
     error: null,
@@ -305,36 +296,6 @@ export default handleActions(
         ],
         payload.error,
       );
-    },
-    [listStripePayoutActions.success.toString()]: (state, { payload }) => {
-      const newIds = payload.results.map((po) => po.stripe_id);
-      return state
-        .setIn(
-          ['stripePayout', 'allIds'],
-          uniq([...state.stripePayout.allIds, ...newIds]),
-        )
-        .setIn(
-          ['stripePayout', 'startingAfter'],
-          payload.next_page.starting_after,
-        )
-        .setIn(['stripePayout', 'hasMore'], payload.has_more)
-        .merge(
-          {
-            stripePayout: {
-              byId: payload.results.reduce((acc, v) => {
-                acc[v.stripe_id] = v;
-                return acc;
-              }, {}),
-            },
-          },
-          { deep: true },
-        );
-    },
-    [listStripePayoutActions.isLoading]: (state, { payload }) => {
-      return state.setIn(['stripePayout', 'loading'], payload);
-    },
-    [listStripePayoutActions.error]: (state, { payload }) => {
-      return state.setIn(['stripePayout', 'error'], payload);
     },
     [listPayoutActions.isLoading]: (state, { payload }) => {
       return state.setIn(['payout', 'loading'], payload);

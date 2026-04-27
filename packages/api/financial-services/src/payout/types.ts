@@ -108,6 +108,7 @@ export type PayoutBalanceTransaction = {
   error_type: string;
   display_type: string;
   description: string;
+  payment_provider_created_at: string;
   source_payment_method: PaymentMethodType;
   reconciled_bsport_payments: ReconciledBsportPayment[];
   reversal_of_balance_transaction_id: number | null;

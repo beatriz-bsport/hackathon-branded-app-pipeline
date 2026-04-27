@@ -175,6 +175,7 @@ const PayoutListItem: React.FC<Props> = ({
                     key={balanceTransaction.id}
                     isMobile
                     balanceTransaction={balanceTransaction}
+                    timezoneName={timezoneName}
                   />
                 ))}
               </div>
@@ -182,6 +183,9 @@ const PayoutListItem: React.FC<Props> = ({
               <Table size="small">
                 <TableHead>
                   <TableRow>
+                    <TableCell>
+                      {t('b2b_payout:balanceTransactionTable.creationDate')}
+                    </TableCell>
                     <TableCell>
                       {t('b2b_payout:balanceTransactionTable.type')}
                     </TableCell>
@@ -205,6 +209,7 @@ const PayoutListItem: React.FC<Props> = ({
                       key={balanceTransaction.id}
                       balanceTransaction={balanceTransaction}
                       isMobile={false}
+                      timezoneName={timezoneName}
                     />
                   ))}
                 </TableBody>

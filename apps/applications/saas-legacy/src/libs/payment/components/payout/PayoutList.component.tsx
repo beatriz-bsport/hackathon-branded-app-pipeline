@@ -1,5 +1,5 @@
 /**
- * Payout list for the new flow (fs_new_payout_flow).
+ * Payout list for platform billing.
  * Fetches from GET /api/v1/payout/reconciliation/.
  */
 import React from 'react';

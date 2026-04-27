@@ -82,7 +82,10 @@ export function formatAsDatetimeAdapted(
 }
 
 export function formatAsDatetime(date: string, tzname?: string) {
-  return `${formatAsDate(date)} - ${formatISOStringAsTime(date, tzname)}`;
+  return `${formatAsDate(date, tzname)} - ${formatISOStringAsTime(
+    date,
+    tzname,
+  )}`;
 }
 
 export const getUserZone = () => {

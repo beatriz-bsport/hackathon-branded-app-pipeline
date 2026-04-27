@@ -33,6 +33,7 @@
     "status": "Status"
   },
   "balanceTransactionTable": {
+    "creationDate": "Transaction date",
     "type": "Type",
     "paymentMethod": "Payment method",
     "status": "Status",
@@ -44,6 +45,8 @@
     "reversalOf": "Reversal of transaction #{{id}}{{payoutInfo}}",
     "reversalOfPayoutInfo": " — payout {{readable_identifier}}",
     "fromPayout": "From payout {{readable_identifier}}",
+    "details": "Details",
+    "downloadPdfHelp": "Download PDF",
     "net": "net {{amount}}",
     "pdf": "PDF"
   },

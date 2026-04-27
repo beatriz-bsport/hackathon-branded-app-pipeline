@@ -76,6 +76,7 @@
     "description": "All transactions included in this payout. ({{date}})",
     "error": "Error loading balance transactions",
     "table": {
+      "creationDate": "Transaction date",
       "type": "Type",
       "paymentMethod": "Payment method",
       "status": "Status",

@@ -59,19 +59,6 @@ export type PayoutLegacy = {
   automatic: boolean;
 };
 
-export type StripePayout = {
-  id: string;
-  loading: boolean;
-  error: Error | null;
-  stripe_id: number;
-  amount_cts: number;
-  status: number;
-  date_created: number;
-  bsport_payout_object: PayoutLegacy;
-  startingAfter: string | null;
-  hasMore: boolean;
-};
-
 // New payout type
 export type Payout = {
   id: number;
@@ -172,6 +159,7 @@ export type BalanceTransactionDisplayType =
 export type BalanceTransaction = {
   id: number;
   payment_provider_id: string;
+  payment_provider_created_at: string;
   amount_cts: number;
   fee_cts: number;
   net_cts: number;

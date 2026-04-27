@@ -4,6 +4,7 @@ import type {
   PayoutBalanceTransaction,
   PayoutListItem,
 } from "@bsport/api-financial-services/payout";
+import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import PaymentMethodChip from "@bsport/kaizen-business-components/financial-services/payment-method-chip";
 import {
   Alert,
@@ -18,6 +19,7 @@ import {
   cx,
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import {
   DEFAULT_BT_PAGE_SIZE,
@@ -75,7 +77,9 @@ export type PayoutBalanceTransactionsModalProps = {
 export const PayoutBalanceTransactionsModal: FC<
   PayoutBalanceTransactionsModalProps
 > = ({ isOpen, onClose, payout, dateLabel }) => {
-  const { t } = useTranslation("payout");
+  const { t, i18n } = useTranslation("payout");
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const companyTimezone = companyTheme?.timezone_name;
 
   const [btPage, setBtPage] = useState(1);
   const [btRowsPerPage, setBtRowsPerPage] = useState(DEFAULT_BT_PAGE_SIZE);
@@ -151,6 +155,22 @@ export const PayoutBalanceTransactionsModal: FC<
   );
 
   const balanceTransactionColumns: BalanceTransactionTableColumn[] = [
+    {
+      id: "creation_date",
+      header: t("modal.table.creationDate"),
+      type: "custom",
+      render: (row) =>
+        row.payment_provider_created_at
+          ? formatDateTime(
+              row.payment_provider_created_at,
+              DATETIME_FORMATS.MEDIUM_DATETIME,
+              {
+                locale: i18n.language,
+                ...(companyTimezone ? { timeZone: companyTimezone } : {}),
+              },
+            )
+          : "-",
+    },
     {
       id: "type",
       header: t("modal.table.type"),

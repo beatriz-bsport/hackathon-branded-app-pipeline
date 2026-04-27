@@ -31,7 +31,6 @@ import {
   fetchPayoutBalanceTransactions as fetchPayoutBalanceTransactionsAPI,
   fetchStripeBalance as fetchStripeBalanceAPI,
   fetchStripePaymentMethodDomains as fetchStripePaymentMethodDomainsAPI,
-  fetchStripePayoutList as fetchStripePayoutListAPI,
   getLinkedProductNames as getLinkedProductNamesAPI,
   getPaymentGroup as getPaymentGroupAPI,
   getPaymentGroupStatus as getPaymentGroupStatusAPI,
@@ -60,7 +59,6 @@ import type {
   PayoutLegacy,
   StripeBalance,
   StripePaymentMethodDomain,
-  StripePayout,
 } from './types';
 import { RequestClientSecretPayload } from '../invoice/types';
 
@@ -565,44 +563,6 @@ export function fetchStripeBalance(
   };
 }
 
-export const listStripePayoutActions = {
-  isLoading: createAction<boolean>('STRIPE_PAYOUT/LIST/LOADING'),
-  error: createAction<Error | null>('STRIPE_PAYOUT/LIST/ERROR'),
-  success: createAction<StripePayout>('STRIPE_PAYOUT/LIST/SUCCESS'),
-};
-
-export function fetchStripePayoutList(
-  params: {
-    page_size: number;
-    starting_after?: string;
-  },
-  options?: OptionCallback<PayoutLegacy[]>,
-): ThunkAction {
-  return async (dispatch, getState: () => RootState) => {
-    dispatch(listStripePayoutActions.isLoading(true));
-    dispatch(listStripePayoutActions.error(null));
-    const { startingAfter } = getState().paymentBackend.stripePayout;
-
-    try {
-      // @ts-expect-error
-      const response = await fetchStripePayoutListAPI({
-        ...(params || {}),
-        ...(startingAfter ? { starting_after: startingAfter } : {}),
-      });
-
-      // @ts-expect-error
-      dispatch(listStripePayoutActions.success(response.data));
-      // @ts-expect-error
-      options?.onSuccess?.(response.data);
-    } catch (err) {
-      console.error(err);
-      dispatch(listStripePayoutActions.error(err));
-      options?.onError?.(err);
-    }
-    dispatch(listStripePayoutActions.isLoading(false));
-  };
-}
-
 export const listPayoutActions = {
   isLoading: createAction<boolean>('PAYOUT_RECONCILIATION/LIST/LOADING'),
   isLoadingMore: createAction<boolean>(
@@ -907,7 +867,9 @@ export const deleteBookkeepingAccountActions = {
 export const listBookkeepingAccountActions = {
   isLoading: createAction<boolean>('BOOKKEEPING_ACCOUNT/LIST/LOADING'),
   error: createAction<Error | null>('BOOKKEEPING_ACCOUNT/LIST/ERROR'),
-  success: createAction<StripePayout>('BOOKKEEPING_ACCOUNT/LIST/SUCCESS'),
+  success: createAction<BookkeepingAccount[]>(
+    'BOOKKEEPING_ACCOUNT/LIST/SUCCESS',
+  ),
 };
 
 export const getLinkedProductNamesActions = {
@@ -931,7 +893,6 @@ export function fetchBookkeepingAccountList(
     dispatch(listBookkeepingAccountActions.error(null));
     try {
       const response = await fetchBookkeepingAccountListAPI(params);
-      // @ts-expect-error
       dispatch(listBookkeepingAccountActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {

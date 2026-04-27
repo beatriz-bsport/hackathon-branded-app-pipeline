@@ -1,6 +1,9 @@
 import { FC, useMemo } from "react";
 
-import { DetailsLayout } from "@bsport/kaizen-primitive-core";
+import {
+  DetailsLayout,
+  ExpandableSearchInputWithTooltipProps,
+} from "@bsport/kaizen-primitive-core";
 
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveTeacher } from "#src/hooks/teacher/use-retrieve-teacher";
@@ -19,7 +22,8 @@ import { OrderingBookings } from "./filters/ordering-bookings";
 export const Header: FC<{
   sessionId: number;
   openModal: (type: SessionManagementModalType) => void;
-}> = ({ sessionId, openModal }) => {
+  searchConfig: ExpandableSearchInputWithTooltipProps;
+}> = ({ sessionId, openModal, searchConfig }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
@@ -71,6 +75,7 @@ export const Header: FC<{
           <RestoreSessionButton openModal={openModal} />
         ) : undefined
       }
+      searchConfig={searchConfig}
       {...headerConfig}
     />
   );

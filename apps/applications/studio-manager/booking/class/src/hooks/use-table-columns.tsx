@@ -121,9 +121,14 @@ const useTableColumns = <RowType extends MetaActivity>({
               );
 
               return (
-                <Body htmlVariant="span" size="lg">
-                  {date} · {time}
-                </Body>
+                <div className="flex flex-col gap-2xs">
+                  <Body htmlVariant="span" size="lg">
+                    {date}
+                  </Body>
+                  <Body htmlVariant="span" size="md" color="weak">
+                    {time}
+                  </Body>
+                </div>
               );
             },
           },

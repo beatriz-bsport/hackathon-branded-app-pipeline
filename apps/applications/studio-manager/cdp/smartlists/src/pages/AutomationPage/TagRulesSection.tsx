@@ -17,6 +17,7 @@ import {
 import { TagRuleKind } from "#src/api/constants";
 import { type TagRuleWithTag, useTagRules } from "#src/api/use-tag-rules";
 import { DeleteTagRuleModal } from "#src/components/DeleteTagRuleModal";
+import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useTranslation } from "#src/utils/i18n";
 
 import { invariant } from "../../utils/invariant";
@@ -37,6 +38,7 @@ const TagRulesContent = (
 ) => {
   const { smartlistId } = useOutletContext<{ smartlistId: string }>();
   const tagRules = useTagRules(smartlistId);
+  const { navigateToSmartlistTagRuleAutomationEdit } = useSmartlistNavigation();
 
   const { t, i18n } = useTranslation("details");
 
@@ -61,14 +63,14 @@ const TagRulesContent = (
         render: (row) => {
           const ruleKindConfig = {
             [TagRuleKind.TAG_ON_JOIN_AND_UNTAG_ON_LEFT]: {
-              icon: "log-in-03",
-              text: t("automation.tagRules.conditions.joins.text"),
-              color: "text-onsurface-status-positive-weak",
-            },
-            [TagRuleKind.TAG_ON_JOIN_AND_KEEP_TAG]: {
               icon: "users-check",
               text: t("automation.tagRules.conditions.present.text"),
               color: "text-onsurface-status-info-weak",
+            },
+            [TagRuleKind.TAG_ON_JOIN_AND_KEEP_TAG]: {
+              icon: "log-in-03",
+              text: t("automation.tagRules.conditions.joins.text"),
+              color: "text-onsurface-status-positive-weak",
             },
             [TagRuleKind.TAG_ON_LEFT]: {
               icon: "log-out-01",
@@ -144,6 +146,12 @@ const TagRulesContent = (
               items={items}
               onSelectOption={({ setIsPopoverOpened, id }) => {
                 setIsPopoverOpened(false);
+                if (id === "edit") {
+                  navigateToSmartlistTagRuleAutomationEdit(
+                    smartlistId,
+                    String(row.id),
+                  );
+                }
                 if (id === "delete") {
                   setTagRuleToDelete(row);
                 }

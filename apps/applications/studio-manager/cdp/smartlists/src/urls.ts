@@ -73,9 +73,11 @@ export const SMARTLIST_ROUTE_PATTERNS = {
   AUTOMATION_EMAIL_CREATE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_EMAIL}/${SEGMENTS.create}`,
   AUTOMATION_PUSH_CREATE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_PUSH}/${SEGMENTS.create}`,
   AUTOMATION_SMS_CREATE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_SMS}/${SEGMENTS.create}`,
+  AUTOMATION_TAG_RULE_CREATE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.tagRule}/${SEGMENTS.create}`,
   AUTOMATION_EMAIL_EDIT: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_EMAIL}/${PARAMS.entityId}/${SEGMENTS.edit}`,
   AUTOMATION_PUSH_EDIT: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_PUSH}/${PARAMS.entityId}/${SEGMENTS.edit}`,
   AUTOMATION_SMS_EDIT: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_SMS}/${PARAMS.entityId}/${SEGMENTS.edit}`,
+  AUTOMATION_TAG_RULE_EDIT: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.tagRule}/${PARAMS.tagRuleId}/${SEGMENTS.edit}`,
   AUTOMATION_EMAIL_MESSAGE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_EMAIL}/${PARAMS.messageId}`,
   AUTOMATION_PUSH_MESSAGE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_PUSH}/${PARAMS.messageId}`,
   AUTOMATION_SMS_MESSAGE: `${PARAMS.smartlistId}/${SEGMENTS.automation}/${SEGMENTS.messages}/${CAMPAIGN_CHANNEL_SMS}/${PARAMS.messageId}`,
@@ -117,6 +119,21 @@ export const SMARTLIST_APP_LINKS = {
       SEGMENTS.messages,
       CAMPAIGN_CHANNEL_SMS,
       SEGMENTS.create,
+    ),
+  automationTagRuleCreation: (smartlistId: string) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.automation,
+      SEGMENTS.tagRule,
+      SEGMENTS.create,
+    ),
+  automationTagRuleEdit: (smartlistId: string, tagRuleId: string) =>
+    buildSmartlistLink(
+      smartlistId,
+      SEGMENTS.automation,
+      SEGMENTS.tagRule,
+      tagRuleId,
+      SEGMENTS.edit,
     ),
   automationEmailEdit: (smartlistId: string, entityId: string) =>
     buildSmartlistLink(

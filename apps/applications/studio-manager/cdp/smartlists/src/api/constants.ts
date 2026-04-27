@@ -1,10 +1,12 @@
-export { CommunicationKind, EventKind } from "@bsport/api-cdp";
+import {
+  CommunicationKind,
+  EventKind,
+  TagRuleKind as TagRuleKindApi,
+} from "@bsport/api-cdp";
 
-export const TagRuleKind = {
-  TAG_ON_JOIN_AND_UNTAG_ON_LEFT: 1,
-  TAG_ON_JOIN_AND_KEEP_TAG: 2,
-  TAG_ON_LEFT: 3,
-} as const;
+export { CommunicationKind, EventKind };
+
+export const TagRuleKind = TagRuleKindApi;
 
 export type TagRuleKind = (typeof TagRuleKind)[keyof typeof TagRuleKind];
 

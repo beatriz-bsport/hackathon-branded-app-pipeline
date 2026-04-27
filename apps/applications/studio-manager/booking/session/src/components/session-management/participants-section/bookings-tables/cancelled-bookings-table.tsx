@@ -49,16 +49,26 @@ export const CancelledBookingsTable: FC<{
 
   const searchedBookings = useSearchBookings(refinedBookings, searchQuery);
 
+  const hasSearchQuery = searchQuery.trim().length > 0;
+
   const paginationProps: PaginationProps = useMemo(
     () => ({
       currentPage,
       rowsPerPage: currentPageSize,
-      showRowsPerPageSelector: true,
+      showRowsPerPageSelector: !hasSearchQuery,
       disabled: isLoading,
-      totalItems: count ?? 0,
+      totalItems: hasSearchQuery ? searchedBookings.length : (count ?? 0),
       onPageSettingsChange: setPageSettings,
     }),
-    [currentPage, currentPageSize, isLoading, count, setPageSettings],
+    [
+      currentPage,
+      currentPageSize,
+      isLoading,
+      count,
+      setPageSettings,
+      hasSearchQuery,
+      searchedBookings.length,
+    ],
   );
 
   const selectedBookingId = useSessionManagementStore(
@@ -150,7 +160,7 @@ export const CancelledBookingsTable: FC<{
         }))}
         paginationProps={paginationProps}
         emptyStateProps={{
-          isEmpty: !isLoading && (count ?? 0) === 0,
+          isEmpty: !searchedBookings.length,
           emptyConfig: {
             title: t("bookingsTable.emptyState.title"),
             ctaButtonConfig: {

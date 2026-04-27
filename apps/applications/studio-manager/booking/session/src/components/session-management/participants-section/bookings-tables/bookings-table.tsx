@@ -159,16 +159,26 @@ export const BookingsTable: FC<{
     },
   ];
 
+  const hasSearchQuery = searchQuery.trim().length > 0;
+
   const paginationProps: PaginationProps = useMemo(
     () => ({
       currentPage,
       rowsPerPage: currentPageSize,
-      showRowsPerPageSelector: true,
+      showRowsPerPageSelector: !hasSearchQuery,
       disabled: isLoading,
-      totalItems: count ?? 0,
+      totalItems: hasSearchQuery ? searchedBookings.length : (count ?? 0),
       onPageSettingsChange: setPageSettings,
     }),
-    [currentPage, currentPageSize, isLoading, count, setPageSettings],
+    [
+      currentPage,
+      currentPageSize,
+      isLoading,
+      count,
+      setPageSettings,
+      hasSearchQuery,
+      searchedBookings.length,
+    ],
   );
 
   return (
@@ -188,7 +198,7 @@ export const BookingsTable: FC<{
         }))}
         paginationProps={paginationProps}
         emptyStateProps={{
-          isEmpty: !count,
+          isEmpty: !searchedBookings.length,
           emptyConfig: {
             title: t("bookingsTable.emptyState.title"),
             ctaButtonConfig: {

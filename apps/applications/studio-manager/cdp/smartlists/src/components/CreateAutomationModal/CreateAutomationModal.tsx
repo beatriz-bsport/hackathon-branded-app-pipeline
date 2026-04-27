@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router";
 
-import { Body, Modal } from "@bsport/kaizen-primitive-core";
+import { Body, Modal, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { SMARTLIST_LEGACY_URLS } from "#src/urls";
@@ -21,6 +21,7 @@ export const CreateAutomationModal = ({
   isOpen,
   onClose,
 }: CreateAutomationModalProps) => {
+  const isMobile = !useMatchMedia("md");
   const { t } = useTranslation("details");
 
   const { id } = useParams<{ id: string }>();
@@ -63,7 +64,7 @@ export const CreateAutomationModal = ({
   return (
     <Modal
       open={isOpen}
-      size="md"
+      size={isMobile ? "xl" : "md"}
       title={t("actions.createAutomationModal.title")}
       description={
         <Body htmlVariant="p" size="md" weight="weak">

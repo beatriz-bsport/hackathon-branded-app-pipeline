@@ -62,7 +62,7 @@ export const EmailDesignEditor = ({
       emailBuilderRef: unlayerRef,
       initialDesign: value.design || null,
     });
-  }, [unlayerRef, value.design]);
+  }, [unlayerRef]);
 
   useEffect(() => {
     return () => {

@@ -330,6 +330,10 @@
         "copyEmail": "Copia Email",
         "copyPhoneNumber": "Copy phone number",
         "copyName": "Copy name"
+      },
+      "copyContactInfo": {
+        "success": "Copiato negli appunti.",
+        "error": "Impossibile copiare negli appunti. Riprova."
       }
     },
     "campaignScheduled": {

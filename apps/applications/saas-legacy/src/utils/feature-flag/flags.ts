@@ -22,7 +22,6 @@ export const FeatureFlags = {
   EXPRESS_PASS_CHECKOUT: 'express-pass-checkout',
   FISKALY_SIGN_ES: 'fiskaly_sign_es',
   FS_BILLING_FLOW_NEW_MODAL: 'fs_billing_flow_new_modal',
-  FS_NEW_PAYOUT_FLOW: 'fs_new_payout_flow',
   HOMEPAGE: 'homepage',
   INSIGHTS_PAGE: 'insights_page',
   INVOICE_SEQUENTIAL_NUMBERING: 'invoice_sequential_numbering',

@@ -40,31 +40,22 @@ import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
   // fetchStripeBalance as fetchStripeBalanceAction,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAction,
-  fetchStripePayoutList as fetchStripePayoutListAction,
 } from '#src/libs/payment/actions';
-import {
-  getSavedPaymentMethodList,
-  getStripePayoutList,
-} from '#src/libs/payment/selectors';
+import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 // @ts-expect-error
 import CompanyPlatformBillingPaymentDetail from '#src/libs/platform-billing/components/CompanyPlatformBillingPaymentDetail.component';
 import CompanyPlatformBillinGroupDetail from '#src/libs/platform-billing/components/CompanyPlatformBillingGroupDetail.component';
 import FeatureRequestDialog from '#src/libs/platform-billing/components/FeatureRequestDialog.component';
 import PayoutListContainer from '#src/libs/payment/components/payout/PayoutListContainer.component';
-import PayoutListLegacy from '#src/libs/payment/components/PayoutListLegacy.component';
 import { getFeatureList } from '#src/libs/company/actions';
-import {
-  withFeatureFlags,
-  type FeatureFlagProps,
-} from '#src/utils/feature-flag/withFeatureFlags';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
 
 import type {
   PlatformInvoice,
   PlatformSubscription,
 } from '#src/libs/platform-billing/type';
-import type { PaymentMethod, StripePayout } from '#src/libs/payment/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
 import type { FeatureList, UpsellPackage } from '#src/libs/company/types';
 import { getTheme } from '#src/libs/theme/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
@@ -77,7 +68,7 @@ const { trackFormSubmitIntent: trackFormSubmitIntentUpsellRequest } =
     SegmentAnalyticsFormObjectIdentifier.UpsellRequest,
   );
 
-type Props = FeatureFlagProps & {
+type Props = {
   loading: boolean;
   savedPaymentMethodList: Array<PaymentMethod>;
   platformInvoiceList: Array<PlatformInvoice>;
@@ -101,10 +92,6 @@ type Props = FeatureFlagProps & {
   openFeatureRequest: boolean;
   setOpenFeatureRequest: (b: boolean) => void;
 
-  fetchStripePayoutList: () => void;
-  hasMorePayout: boolean;
-  stripePayoutList: Array<StripePayout>;
-  payoutLoading: boolean;
   onOpenInvoice: (uuid: string) => void;
 
   checkSubscriptionSetup: () => void;
@@ -148,7 +135,6 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
     this.props.fetchPlatformBillingStageList();
     this.props.fetchUpsellPackages();
     this.props.fetchUpsellPackageSubscribedIds();
-    this.props.fetchStripePayoutList();
   }
 
   handleRequestUpsell = (upsellIdentifier: number, sourceComponent: string) => {
@@ -194,24 +180,12 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
       return <BackofficeLinearProgress />;
     }
 
-    const shouldShowNewPayoutFlow = this.props.fsNewPayoutFlow;
-
     return (
       <div className={classes.container}>
         {isOnlinePaymentEnabled && (
           <Grid container direction="row">
             <Grid item className={classes.leftColumn} md={12} xs={12}>
-              {shouldShowNewPayoutFlow ? (
-                <PayoutListContainer theme={this.props.theme} />
-              ) : (
-                <PayoutListLegacy
-                  fetchMorePayoutList={this.props.fetchStripePayoutList}
-                  hasMorePayout={this.props.hasMorePayout}
-                  loading={this.props.payoutLoading}
-                  openInvoice={this.props.onOpenInvoice}
-                  stripePayoutList={this.props.stripePayoutList}
-                />
-              )}
+              <PayoutListContainer theme={this.props.theme} />
             </Grid>
           </Grid>
         )}
@@ -267,16 +241,12 @@ const styles = (theme: Theme) =>
 export default compose(
   withTranslation(['platformBilling']),
   withStyles(styles),
-  withFeatureFlags,
   connect(
     (state: RootState) => ({
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       platformInvoiceList: getPlatformInvoiceList(state),
       loading: state.paymentBackend.paymentMethod.loading,
       platformSubscription: getPlatformSubscription(state),
-      stripePayoutList: getStripePayoutList(state),
-      hasMorePayout: !!state.paymentBackend.stripePayout.hasMore,
-      payoutLoading: state.paymentBackend.stripePayout.loading,
       subscribedUpsellPackages: getSubscribedUpsellPackages(state),
       nonSubscribedUpsellPackages: getNonSubscribedUpsellPackages(state),
       theme: getTheme(state),
@@ -294,7 +264,6 @@ export default compose(
       setPaymentMethodAsDefault: setPaymentMethodAsDefaultAction,
       requestUpsellPackage: requestUpsellPackageAction,
       fetchCompanyTheme: fetchCompanyThemeAction,
-      fetchStripePayoutList: fetchStripePayoutListAction,
       payNowInvoice: payNowInvoiceAction,
       push: pushAction,
       subscribeUpsellPackage: subscribeUpsellPackageAction,
@@ -302,7 +271,7 @@ export default compose(
     },
   ),
   withState('openFeatureRequest', 'setOpenFeatureRequest', false),
-  withHandlers({
+  withHandlers<any, any>({
     onOpenInvoice:
       ({ push }) =>
       (uuid: UniqueIdentifier) =>
@@ -326,12 +295,8 @@ export default compose(
             }
           },
         }),
-    fetchStripePayoutList:
-      ({ fetchStripePayoutList }) =>
-      (params: any, options: OptionCallback) =>
-        fetchStripePayoutList({ ...(params || {}), page_size: 3 }, options),
     requestSetupIntentSecret: () => () =>
-      requestSetupIntentSecretAPI(null, null, true),
+      requestSetupIntentSecretAPI(undefined, undefined, true),
     fetchPaymentMethodList:
       ({ fetchPaymentMethodList }) =>
       () =>
@@ -348,4 +313,4 @@ export default compose(
         setOpenFeatureRequest(false);
       },
   }),
-)(PlatformBillingSetting);
+)(PlatformBillingSetting as any);

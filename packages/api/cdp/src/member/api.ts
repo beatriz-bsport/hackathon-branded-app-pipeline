@@ -9,6 +9,7 @@ import {
 import type {
   GetMemberParams,
   Member,
+  MemberDetail,
   MemberPayload,
   PaginatedMemberListParams,
   SearchMembersParams,
@@ -35,15 +36,15 @@ export const memberKeys = {
 } as const;
 
 export const fetchMember = async (
-  fetch: Fetch<Member>,
+  fetch: Fetch<MemberDetail>,
   params: GetMemberParams,
-): Promise<Member> => {
+): Promise<MemberDetail> => {
   const { data } = await fetch(`${API_URL}/${params.memberId}/`);
   return data;
 };
 
 export const memberQueryOptions = (
-  fetch: Fetch<Member>,
+  fetch: Fetch<MemberDetail>,
   params: GetMemberParams,
 ) =>
   queryOptions({

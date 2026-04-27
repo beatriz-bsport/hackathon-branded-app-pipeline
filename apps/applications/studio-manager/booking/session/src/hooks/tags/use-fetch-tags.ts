@@ -1,16 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
+import { Dictionary } from "lodash";
 import keyBy from "lodash/keyBy";
 
-import { fetchTagsQueryOptions } from "@bsport/api-cdp/tags";
+import { Tag, fetchTagsQueryOptions } from "@bsport/api-cdp/tags";
 
 import { fetch } from "#src/utils/fetch";
 
 import { TAGS_STALE_TIME } from "./constants";
 
-export const useFetchTags = () => {
+export function useFetchTags<TSelected = Dictionary<Tag>>(
+  select?: (data: Tag[]) => TSelected,
+) {
   return useQuery({
     ...fetchTagsQueryOptions(fetch),
     staleTime: TAGS_STALE_TIME,
-    select: (tags) => keyBy(tags, "id"),
+    select: select ?? ((tags) => keyBy(tags, "id") as TSelected),
   });
-};
+}

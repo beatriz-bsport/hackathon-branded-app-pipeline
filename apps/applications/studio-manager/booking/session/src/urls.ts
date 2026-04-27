@@ -21,8 +21,9 @@ export const URLS = {
 
 export const LEGACY_URLS = {
   BOOKINGS_MANAGEMENT_REVAMP: `/offer/${SESSION_ID_PARAM}`,
-  MEMBER_DETAILS: (memberId: number) => `/member/${memberId}`,
+  MEMBER_DETAILS: (memberId: number) => `/member/${memberId}/info`,
   PASS_DETAILS: (passId: number) => `/payment-pack/${passId}`,
+  MEMBER_NOTES: (memberId: number) => `/member/${memberId}/info#member-notes`,
 } as const;
 
 export const useUrls = () => {

@@ -8,6 +8,7 @@ import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
+import { LEGACY_URLS } from "#src/urls.js";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
@@ -66,6 +67,10 @@ export const ShortcutActionsButton: FC<{
     isWorkshop
       ? "reservation.workshop.allowed_actions.delete"
       : "reservation.activity.allowed_actions.delete",
+  );
+
+  const hasSeeProfileDetailsPermission = useObjectLevelPermission(
+    "member.allowed_actions.accessProfile",
   );
 
   const getMenuItems = useCallback(
@@ -174,6 +179,17 @@ export const ShortcutActionsButton: FC<{
         },
       };
 
+      const updateMemberNotesAction: Item = {
+        id: BookingActionItemId.UPDATE_MEMBER_NOTES,
+        label: t("actions.editClientNotes"),
+        iconLeft: "edit-05",
+        type: "button",
+        onClick: () => {
+          if (!memberId) return;
+          window.location.assign(LEGACY_URLS.MEMBER_NOTES(memberId));
+        },
+      };
+
       const allItems: Item[] = [
         sectionTitle(t("booking")),
         ...(hasCreateBookingPermission && session.room_blueprint
@@ -188,6 +204,9 @@ export const ShortcutActionsButton: FC<{
         divider,
         sectionTitle(t("contact")),
         sendMessageAction,
+        ...(hasSeeProfileDetailsPermission && memberId
+          ? [updateMemberNotesAction]
+          : []),
         ...(participantEmail?.length ? [copyEmailAction] : []),
         ...(participantPhone?.length ? [copyPhoneAction] : []),
       ];
@@ -216,6 +235,7 @@ export const ShortcutActionsButton: FC<{
       navigate,
       memberId,
       session,
+      hasSeeProfileDetailsPermission,
     ],
   );
 

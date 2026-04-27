@@ -26,6 +26,7 @@ export const ActionsMenuButton: React.FC<ActionsMenuButtonProps> = ({
           kind="icon-button"
           icon="dots-vertical"
           onClick={(e) => {
+            e.stopPropagation();
             onButtonClick?.(e);
             setIsPopoverOpened(true);
           }}

@@ -11,7 +11,8 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { ActionsMenuButton } from "#src/components/common/action-menu-button";
+import { ShortcutActionsButton } from "#src/components/session-management/action-buttons/booking/shortcut-actions-button";
+import { BookingActionItemId } from "#src/components/session-management/action-buttons/booking/types";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
 import { setSelectedBooking } from "#src/stores/session-management/actions";
@@ -133,11 +134,19 @@ export const CancelledBookingsTable: FC<{
       id: BookingColumns.ACTIONS,
       type: "custom",
       align: "center",
-      render: () => (
-        <ActionsMenuButton
-          label={t("bookingsTable.actionsMenu.label")}
-          // TODO: implement actions
-          items={() => []}
+      render: (row) => (
+        <ShortcutActionsButton
+          sessionId={row.offer}
+          bookingId={row.id}
+          memberId={row.memberData?.id}
+          participantEmail={row.memberData?.email}
+          participantPhone={row.memberData?.phone}
+          allowedItemIds={[
+            BookingActionItemId.SEND_MESSAGE,
+            BookingActionItemId.COPY_EMAIL,
+            BookingActionItemId.COPY_PHONE,
+            BookingActionItemId.UPDATE_MEMBER_NOTES,
+          ]}
         />
       ),
     },

@@ -16,6 +16,7 @@ import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refi
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
 import { setSelectedBooking } from "#src/stores/session-management/actions.js";
 import { useSessionManagementStore } from "#src/stores/session-management/store.js";
+import { BookingListedInformation } from "#src/stores/session-management/types.js";
 import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
@@ -57,6 +58,10 @@ export const BookingsTable: FC<{
     (state) => state.selectedBookingId,
   );
 
+  const listedInformation = useSessionManagementStore(
+    (state) => state.listedInformation,
+  );
+
   const columns: GenericTableColumn<RefinedBooking>[] = [
     {
       header: t("bookingsTable.headers.present"),
@@ -87,9 +92,19 @@ export const BookingsTable: FC<{
       type: "custom",
       align: "start",
       render: (row) => {
-        const secondaryText = [row.spot_information?.name, row.passData?.name]
-          .filter(Boolean)
-          .join(" • ");
+        const spotName = listedInformation.includes(
+          BookingListedInformation.SPOT,
+        )
+          ? row.spot_information?.name
+          : null;
+
+        const passName = listedInformation.includes(
+          BookingListedInformation.PASS,
+        )
+          ? row.passData?.name
+          : null;
+
+        const secondaryText = [spotName, passName].filter(Boolean).join(" • ");
 
         return (
           <div className="flex gap-md items-center">

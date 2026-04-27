@@ -18,7 +18,7 @@ export const SessionNavigationButtons: FC<{ sessionId: number }> = ({
   const isHidden = isLoading || (!nextSessionId && !previousSessionId);
 
   return (
-    <div className={`flex gap-xs ${isHidden ? "invisible" : ""}`}>
+    <div className={`flex gap-2xs ${isHidden ? "invisible" : ""}`}>
       <Button
         kind="icon-button"
         icon="chevron-left"

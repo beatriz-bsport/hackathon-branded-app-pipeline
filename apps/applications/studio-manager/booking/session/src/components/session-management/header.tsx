@@ -1,6 +1,8 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { FC, useMemo } from "react";
 
 import {
+  Button,
   DetailsLayout,
   ExpandableSearchInputWithTooltipProps,
 } from "@bsport/kaizen-primitive-core";
@@ -11,6 +13,7 @@ import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-he
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
 import { useTranslation } from "#src/utils/i18n";
 
+import { ResponsiveTooltip } from "../common/responsive-tooltip";
 import { BookButton } from "./action-buttons/book-button";
 import { MoreActionsButton } from "./action-buttons/more-actions-button";
 import { RestoreSessionButton } from "./action-buttons/restore-session-button";
@@ -25,6 +28,8 @@ export const Header: FC<{
   searchConfig: ExpandableSearchInputWithTooltipProps;
 }> = ({ sessionId, openModal, searchConfig }) => {
   const { t } = useTranslation("sessionManagement");
+
+  const queryClient = useQueryClient();
 
   const { data: session } = useRetrieveSession(sessionId);
 
@@ -42,13 +47,24 @@ export const Header: FC<{
         key="session-navigation"
         sessionId={session.id}
       />,
+      <ResponsiveTooltip key="refresh" label={t("refresh")} placement="bottom">
+        <Button
+          kind="icon-button"
+          size="md"
+          icon="refresh-cw-01"
+          intent="default"
+          color="main"
+          label={t("refresh")}
+          onClick={() => queryClient.invalidateQueries()}
+        />
+      </ResponsiveTooltip>,
       <MoreActionsButton
         key="more-actions"
         sessionId={session.id}
         openModal={openModal}
       />,
     ];
-  }, [session.id, openModal]);
+  }, [session.id, openModal, queryClient, t]);
 
   const endGroupActions = useMemo(() => {
     return [<SendCommunicationButton key="send-communication" />];

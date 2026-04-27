@@ -536,7 +536,14 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
         first_billing_timestamp,
         coupon,
         with_prorata: !!this.props?.contract?.month_billing_day,
-        offer_id: this.props.offerId,
+        offers: [
+          {
+            offer_id: this.props.offerId,
+            extra_data: {
+              spot_id: this.props.selectedSpotId ?? null,
+            },
+          },
+        ],
         establishment_billing_group_id: establishmentBillingGroupId,
       },
       {

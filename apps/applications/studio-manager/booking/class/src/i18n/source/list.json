@@ -22,7 +22,11 @@
       "services": "Services",
       "classes": "Classes",
       "archivedClasses": "Archived classes",
-      "add": "Create template"
+      "add": "Create template",
+      "information": {
+        "label": "Classes information",
+        "description": "Create a template for your classes and appointments to schedule them from the Calendar page"
+      }
     },
     "filters": {
       "label": "Filters",

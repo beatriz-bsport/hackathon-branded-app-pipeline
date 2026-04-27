@@ -1,10 +1,6 @@
-import { type FC, type ReactNode } from "react";
+import { type FC } from "react";
 
 import { Body, Title } from "@bsport/kaizen-primitive-core";
-
-export const FormSection: FC<{ children: ReactNode }> = ({ children }) => (
-  <div className="flex flex-col gap-lg w-full">{children}</div>
-);
 
 interface FormSectionHeaderProps {
   title: string;

@@ -2,52 +2,51 @@
   "addEditForm": {
     "modal": {
       "title": "Create a class",
-      "confirm": "Create",
+      "description": "You're creating a class template. Once saved, you'll be able to schedule it on your calendar.",
+      "confirm": "Create class",
       "cancel": "Cancel",
+      "steps": {
+        "classSetup": "Class setup",
+        "bookingRules": "Booking rules"
+      },
       "errors": {
-        "generic": "Something went wrong while creating the class.",
         "requiredField": "This field is required."
       }
     },
-    "type": {
-      "title": "Type",
-      "description": "What type of class do you want to create?",
+    "basicInfo": {
+      "title": "Basic info",
+      "description": "Provide information about the class for your clients",
+      "typeQuestion": "What type of class template do you want to create?",
       "groupActivity": {
-        "label": "Group Activity",
+        "label": "Group class",
         "helper": "A class with multiple participants"
       },
       "workshop": {
         "label": "Workshop",
-        "helper": "A specialized class that can be recurring or sold as a Series"
-      }
-    },
-    "details": {
-      "title": "Details",
-      "description": "Provide information about the class for your clients",
+        "helper": "A specialized class that happens in specific period of time"
+      },
       "name": {
         "label": "Name",
         "placeholder": "Give your class a name e.g. Vinyasa Yoga"
       },
-      "image": {
-        "recommendation": "Recommended: 1920 x 1080 JPGs (Full HD)",
-        "altLabel": "Add a description of the image for the visually impaired",
-        "altPlaceholder": "Describe the image, e.g. two people exercising with yoga balls"
-      },
       "category": {
         "label": "Category",
         "placeholder": "Select a category",
-        "helper": "These categories will appear on your website and app for the different types of class"
+        "helper": "These categories will display on your branded website and app for the different types of class"
       },
       "descriptionField": {
         "label": "Description",
         "placeholder": "Add a description of the class for your clients"
       },
-      "color": {
-        "label": "Color",
-        "placeholder": "No color"
+      "image": {
+        "label": "Cover image",
+        "description": "This image will be shown to clients on your website and app when browsing classes.",
+        "recommendation": "Recommended: 1920 x 1080 JPGs (Full HD)"
       },
-      "livestream": {
-        "label": "Available to livestream"
+      "color": {
+        "label": "Color tag",
+        "placeholder": "No color",
+        "description": "A colour makes this class easier to spot across your calendar and schedule"
       }
     },
     "bookingWindow": {
@@ -85,8 +84,12 @@
     "automaticCancellation": {
       "title": "Automatic Cancellation",
       "toggleLabel": "Auto-cancel underbooked sessions",
-      "hoursBeforeStart": "Hours before start",
-      "minimumBookings": "Minimum bookings"
+      "minBookingsAriaLabel": "Minimum bookings before class cancellation",
+      "hoursBeforeStartAriaLabel": "Hours before class start for automatic cancellation",
+      "sentencePre": "Cancel class if there are fewer than",
+      "sentenceMid": "booking(s) within",
+      "sentenceEnd": "hour(s).",
+      "alert": "Owners, admins, teachers, and booked members are notified automatically."
     },
     "timeInput": {
       "days": "d",

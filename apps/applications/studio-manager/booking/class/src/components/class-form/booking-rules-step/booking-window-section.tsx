@@ -3,14 +3,22 @@ import { type FC } from "react";
 import { useFormContext } from "@bsport/form";
 import { Alert } from "@bsport/kaizen-primitive-core";
 
+import { FormTimeInputRow } from "#src/components/class-form/shared/form-time-input-row";
 import { type ClassFormValues, fieldIdPrefix } from "#src/utils/class-form";
 import { useTranslation } from "#src/utils/i18n";
 
-import { FormSection, FormSectionHeader } from "./class-form.shared";
-import { FormTimeInputRow } from "./form-time-input-row";
+import { FormSection } from "../shared/form-section";
+import { FormSectionHeader } from "../shared/form-section-header";
+
+const MINUTES_PER_HOUR = 60;
+const HOURS_PER_DAY = 24;
+const MINUTES_PER_DAY = HOURS_PER_DAY * MINUTES_PER_HOUR;
+const HIGH_LAST_BOOKING_THRESHOLD_MINUTES = 120;
 
 const toTotalMinutes = (value: ClassFormValues["last_booking_minutes"]) =>
-  (value.days ?? 0) * 24 * 60 + (value.hours ?? 0) * 60 + (value.minutes ?? 0);
+  (value.days ?? 0) * MINUTES_PER_DAY +
+  (value.hours ?? 0) * MINUTES_PER_HOUR +
+  (value.minutes ?? 0);
 
 export const BookingWindowSection: FC = () => {
   const { t } = useTranslation("add-edit-form");
@@ -45,7 +53,7 @@ export const BookingWindowSection: FC = () => {
             </Alert>
           )}
           {firstBookingUntilTotalMinutes > 0 &&
-            firstBookingUntilTotalMinutes < 1440 && (
+            firstBookingUntilTotalMinutes < MINUTES_PER_DAY && (
               <Alert status="warning" type="weak">
                 {t("addEditForm.bookingWindow.warnings.lowFirstBookingUntil")}
               </Alert>
@@ -61,7 +69,7 @@ export const BookingWindowSection: FC = () => {
             idPrefix={`${fieldIdPrefix}-booking-window-closing`}
             fieldName="last_booking_minutes"
           />
-          {lastBookingTotalMinutes > 120 && (
+          {lastBookingTotalMinutes > HIGH_LAST_BOOKING_THRESHOLD_MINUTES && (
             <Alert status="warning" type="weak">
               {t("addEditForm.bookingWindow.warnings.highLastBooking")}
             </Alert>

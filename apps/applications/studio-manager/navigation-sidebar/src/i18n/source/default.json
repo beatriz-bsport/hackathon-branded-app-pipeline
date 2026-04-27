@@ -22,13 +22,7 @@
     "calendar": "Calendar",
     "schedule": "Schedule",
     "accessControl": "Access Control",
-    "classes": {
-      "title": "Services",
-      "classes": "Classes",
-      "activities": "Group Activities",
-      "workshops": "Workshops",
-      "appointments": "Appointments"
-    },
+    "services": "Services",
     "memberships": {
       "title": "Passes & Memberships",
       "passes": "Passes",

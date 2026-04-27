@@ -39,7 +39,6 @@
     "@bsport/sm-custom-form": "workspace:*",
     "@bsport/sm-email-template": "workspace:*",
     "@bsport/sm-giftcard": "workspace:*",
-    "@bsport/sm-group-activity": "workspace:*",
     "@bsport/sm-homepage": "workspace:*",
     "@bsport/sm-insights": "workspace:*",
     "@bsport/sm-invoice": "workspace:*",

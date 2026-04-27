@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { Body, Title } from "@bsport/kaizen-primitive-core";
 
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary.js";
 import { AttendanceFilter } from "#src/components/session-management/filters/attendance-filter";
 import { BookingStatusSegmentedControl } from "#src/components/session-management/filters/booking-status-segmented-control";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
@@ -44,18 +45,20 @@ export const ParticipantsSection: FC<{
       <div className="flex flex-col gap-md">
         <BookingStatusSegmentedControl />
         <AttendanceFilter />
-        {bookingsStatusFilters === BookingStatusFilter.BOOKED ? (
-          <BookingsTable
-            sessionId={session.id}
-            openModal={openModal}
-            searchQuery={searchQuery}
-          />
-        ) : (
-          <CancelledBookingsTable
-            sessionId={session.id}
-            searchQuery={searchQuery}
-          />
-        )}
+        <QueryBoundary>
+          {bookingsStatusFilters === BookingStatusFilter.BOOKED ? (
+            <BookingsTable
+              sessionId={session.id}
+              openModal={openModal}
+              searchQuery={searchQuery}
+            />
+          ) : (
+            <CancelledBookingsTable
+              sessionId={session.id}
+              searchQuery={searchQuery}
+            />
+          )}
+        </QueryBoundary>
       </div>
     </div>
   );

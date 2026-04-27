@@ -28,6 +28,7 @@ export const ChipsCell: FC<ChipsCellProps> = ({
 }) => {
   const { t } = useTranslation("sessionManagement");
   const { tags, total_unpaid_amount } = memberData ?? {};
+
   const unpaidAmount = Number(total_unpaid_amount ?? 0);
 
   const listedInformation = useSessionManagementStore(
@@ -38,7 +39,13 @@ export const ChipsCell: FC<ChipsCellProps> = ({
     <div className="flex items-center gap-xs">
       {first_in_company &&
         listedInformation.includes(BookingListedInformation.NEW_MEMBER) && (
-          <Chip {...baseChipsProps} label={t("bookingsTable.chips.new")} />
+          <ResponsiveTooltip
+            label={t("bookingsTable.chips.firstBooking")}
+            placement="bottom"
+            className="whitespace-normal"
+          >
+            <Chip {...baseChipsProps} label={t("bookingsTable.chips.new")} />
+          </ResponsiveTooltip>
         )}
       {recurrence_rule_booking &&
         listedInformation.includes(
@@ -53,12 +60,18 @@ export const ChipsCell: FC<ChipsCellProps> = ({
         listedInformation.includes(
           BookingListedInformation.UNPAID_INVOICES,
         ) && (
-          <Chip
-            color="critical"
-            type="weak"
-            size="lg"
-            label={getCurrencyDisplayWithPrice(unpaidAmount, true)}
-          />
+          <ResponsiveTooltip
+            label={t("bookingsTable.chips.unpaidInvoices")}
+            placement="bottom"
+            className="text-center"
+          >
+            <Chip
+              color="critical"
+              type="weak"
+              size="lg"
+              label={getCurrencyDisplayWithPrice(unpaidAmount, true)}
+            />
+          </ResponsiveTooltip>
         )}
       {!!tags?.length &&
         listedInformation.includes(BookingListedInformation.TAGS) && (

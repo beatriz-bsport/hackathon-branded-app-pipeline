@@ -153,7 +153,10 @@ export const CampaignDeliveryModeSelector = ({
             DatePickerProps
           >
             name="scheduledDate"
-            mapProps={({ field, form: { setValue: setFormValue } }) => {
+            mapProps={({
+              field,
+              form: { setValue: setFormValue, getValues },
+            }) => {
               const dateValue = field.value
                 ? fromIsoString(field.value, { zone: companyTimezone })
                 : undefined;
@@ -175,6 +178,16 @@ export const CampaignDeliveryModeSelector = ({
                     shouldDirty: true,
                     shouldValidate: true,
                   });
+                  const scheduledTime = getValues("scheduledTime");
+                  if (!scheduledTime) {
+                    const currentTime = getLocalNow({
+                      zone: companyTimezone,
+                    }).toFormat("HH:mm");
+                    setFormValue("scheduledTime", currentTime, {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    });
+                  }
                 },
                 status: scheduledDateError ? "error" : "default",
                 statusText: scheduledDateError

@@ -416,6 +416,10 @@
         "copyEmail": "Copy email",
         "copyPhoneNumber": "Copy phone number",
         "copyName": "Copy name"
+      },
+      "copyContactInfo": {
+        "success": "Copied to clipboard.",
+        "error": "Could not copy to clipboard. Please try again."
       }
     },
     "campaignScheduled": {

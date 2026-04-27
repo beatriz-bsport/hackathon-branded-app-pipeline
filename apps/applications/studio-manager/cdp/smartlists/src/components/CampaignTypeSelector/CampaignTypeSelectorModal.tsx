@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-import { Body, Modal, toast } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Modal,
+  toast,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 
 import { useCommunicationPackageUpsellRequest } from "#src/hooks/use-communication-package-upsell-request";
 import { useTranslation } from "#src/utils/i18n";
@@ -25,6 +30,7 @@ export const CampaignTypeSelectorModal = ({
   isOpen,
   onClose,
 }: CampaignTypeSelectorModalProps) => {
+  const isMobile = !useMatchMedia("md");
   const { t } = useTranslation("campaign");
   const [isUpsellModalOpen, setIsUpsellModalOpen] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -58,7 +64,7 @@ export const CampaignTypeSelectorModal = ({
   return (
     <Modal
       open={isOpen}
-      size="md"
+      size={isMobile ? "xl" : "md"}
       title={t("campaignTypeSelector.title")}
       onClose={onClose}
     >

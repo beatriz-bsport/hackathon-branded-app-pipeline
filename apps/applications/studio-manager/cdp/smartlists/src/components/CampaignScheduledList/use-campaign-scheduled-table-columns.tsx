@@ -103,18 +103,20 @@ export const useCampaignScheduledTableColumns = ({
             />
           ) : null}
           <div className="flex flex-col gap-2xs">
-            <Body
-              className={
-                isMobile
-                  ? "max-w-52 overflow-hidden text-ellipsis"
-                  : "w-[800px] overflow-hidden text-ellipsis"
-              }
-              htmlVariant="span"
-              size="lg"
-              weight="weak"
-            >
-              {row.campaignName}
-            </Body>
+            <Tooltip label={row.campaignName} placement="bottom-left">
+              <Body
+                className={
+                  isMobile
+                    ? "max-w-[150px] md:max-w-full overflow-hidden text-ellipsis"
+                    : "w-[800px] overflow-hidden text-ellipsis"
+                }
+                htmlVariant="span"
+                size="lg"
+                weight="weak"
+              >
+                {row.campaignName}
+              </Body>
+            </Tooltip>
             {isMobile ? (
               <Body size="md" htmlVariant="p" weight="weak" color="weak">
                 {row.scheduledDate}, {row.scheduledHour}

@@ -14,7 +14,7 @@ const defaultClasses = [
   "fixed",
   "bg-surface-default-elevated",
   "border-stroke-default",
-  "z-[1000]",
+  "z-[998]",
   "flex",
   "flex-col",
 ] as const;

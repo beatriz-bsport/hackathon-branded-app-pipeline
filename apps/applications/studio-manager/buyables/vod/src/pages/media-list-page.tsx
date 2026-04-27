@@ -9,15 +9,32 @@ import { useCategoriesByIdQuery } from "#src/hooks/api/use-categories-by-id-quer
 import { useDuplicateVideo } from "#src/hooks/api/use-duplicate-video";
 import { useVideosQuery } from "#src/hooks/api/use-videos-query";
 import { useBuildPageTabs } from "#src/hooks/layout/use-build-page-tabs";
+import {
+  type MediaActiveFilters,
+  useMediaFilters,
+} from "#src/hooks/use-media-filters";
 import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
-const MediaListPageContent: FC = () => {
+type MediaListPageContentProps = {
+  activeFilters: MediaActiveFilters;
+  isFiltered: boolean;
+  onClearFilters: () => void;
+};
+
+const MediaListPageContent: FC<MediaListPageContentProps> = ({
+  activeFilters,
+  isFiltered,
+  onClearFilters,
+}) => {
+  const { t } = useTranslation("media-list");
   const navigate = useNavigate();
-  const { videos, isEmpty, paginationProps } = useVideosQuery();
+  const { videos, isEmpty, paginationProps } = useVideosQuery(activeFilters);
   const { duplicateVideo } = useDuplicateVideo();
   const categoriesQuery = useCategoriesByIdQuery();
   const categoriesById = categoriesQuery.data ?? new Map<number, string>();
+
+  const isEmptySearch = isEmpty && isFiltered;
 
   return (
     <VideoTable
@@ -25,6 +42,16 @@ const MediaListPageContent: FC = () => {
       categoriesById={categoriesById}
       paginationProps={paginationProps}
       isEmpty={isEmpty}
+      isEmptySearch={isEmptySearch}
+      emptySearchConfig={{
+        title: t("filters.emptySearch.title"),
+        subtitle: t("filters.emptySearch.subtitle"),
+        ctaButtonConfig: {
+          label: t("filters.emptySearch.cta"),
+          onClick: onClearFilters,
+          iconLeft: "x",
+        },
+      }}
       onRowClick={(id) => navigate(URLS.MEDIA_DETAILS(id))}
       onDuplicate={(video) => duplicateVideo(video.id)}
     />
@@ -32,15 +59,45 @@ const MediaListPageContent: FC = () => {
 };
 
 const MediaListPage: FC = () => {
-  const { t } = useTranslation("shared-list");
+  const { t } = useTranslation(["shared-list", "media-list"]);
   const pageTabs = useBuildPageTabs();
+
+  const {
+    activeFilters,
+    filterConfig,
+    filterRef,
+    searchQuery,
+    onSearchChange,
+    onSearchClear,
+    isFiltered,
+    resetFilters,
+  } = useMediaFilters();
 
   return (
     <ListLayout>
-      <ListLayout.Header pageTitle={t("pageTitle")} pageTabs={pageTabs} />
+      <ListLayout.Header
+        pageTitle={t("pageTitle", { ns: "shared-list" })}
+        pageTabs={pageTabs}
+        searchConfig={{
+          id: "media-list-search",
+          inputValue: searchQuery,
+          debounceValue: 500,
+          onInputValueChange: onSearchChange,
+          onClear: onSearchClear,
+          tooltipConfig: {
+            label: t("search.tooltip", { ns: "media-list" }),
+          },
+        }}
+        filterConfig={filterConfig}
+        filterRef={filterRef}
+      />
       <ListLayout.Content>
         <QueryBoundary>
-          <MediaListPageContent />
+          <MediaListPageContent
+            activeFilters={activeFilters}
+            isFiltered={isFiltered}
+            onClearFilters={resetFilters}
+          />
         </QueryBoundary>
       </ListLayout.Content>
     </ListLayout>

@@ -17,8 +17,10 @@ type VideoListProps = {
   rows: VideoRowData[];
   paginationProps: PaginationProps;
   isEmpty: boolean;
-  isLoading: boolean;
+  isEmptySearch?: boolean;
   emptyConfig: UseEmptyStateProps["emptyConfig"];
+  emptySearchConfig?: UseEmptyStateProps["emptySearchConfig"];
+  isLoading: boolean;
 };
 
 const TooltipIcon: FC<{
@@ -40,8 +42,10 @@ export const VideoList: FC<VideoListProps> = ({
   rows,
   paginationProps,
   isEmpty,
-  isLoading,
+  isEmptySearch = false,
   emptyConfig,
+  emptySearchConfig,
+  isLoading,
 }) => {
   const { t } = useTranslation("media-list");
 
@@ -123,8 +127,8 @@ export const VideoList: FC<VideoListProps> = ({
       emptyStateProps={{
         isEmpty,
         emptyConfig,
-        isEmptySearch: false,
-        emptySearchConfig: emptyConfig,
+        isEmptySearch,
+        emptySearchConfig,
       }}
       loadingProps={{
         isLoading,

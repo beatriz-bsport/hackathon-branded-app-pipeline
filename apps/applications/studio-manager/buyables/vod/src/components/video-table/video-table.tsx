@@ -23,6 +23,8 @@ type VideoTableProps = {
   categoriesById: Map<number, string>;
   paginationProps: PaginationProps;
   isEmpty: boolean;
+  isEmptySearch?: boolean;
+  emptySearchConfig?: UseEmptyStateProps["emptySearchConfig"];
   isLoading?: boolean;
   onRowClick?: (id: number) => void;
   onDuplicate: (video: Video) => void;
@@ -33,6 +35,8 @@ export const VideoTable: FC<VideoTableProps> = ({
   categoriesById,
   paginationProps,
   isEmpty,
+  isEmptySearch = false,
+  emptySearchConfig,
   isLoading = false,
   onRowClick,
   onDuplicate,
@@ -47,6 +51,8 @@ export const VideoTable: FC<VideoTableProps> = ({
   const emptyStateProps: UseEmptyStateProps = {
     isEmpty,
     emptyConfig,
+    isEmptySearch,
+    emptySearchConfig,
   };
 
   const columns = useVideoTableColumns();
@@ -83,8 +89,10 @@ export const VideoTable: FC<VideoTableProps> = ({
         rows={rows}
         paginationProps={paginationProps}
         isEmpty={isEmpty}
-        isLoading={isLoading}
+        isEmptySearch={isEmptySearch}
         emptyConfig={emptyConfig}
+        emptySearchConfig={emptySearchConfig}
+        isLoading={isLoading}
       />
     );
   }

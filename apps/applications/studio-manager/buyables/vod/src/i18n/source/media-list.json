@@ -42,5 +42,40 @@
     "title": "Unable to load media",
     "description": "Please try again. If the issue persists, refresh the page.",
     "retry": "Retry"
+  },
+  "search": {
+    "tooltip": "Search media"
+  },
+  "filters": {
+    "label": "Filter",
+    "is": "is",
+    "category": {
+      "label": "Category",
+      "searchPlaceholder": "Search categories"
+    },
+    "level": {
+      "label": "Level"
+    },
+    "teacher": {
+      "label": "Teacher",
+      "searchPlaceholder": "Search teachers"
+    },
+    "format": {
+      "label": "Format",
+      "video": "Video",
+      "ebook": "Ebook"
+    },
+    "duration": {
+      "label": "Duration",
+      "lt15": "Under 15 min",
+      "15to30": "15 to 30 min",
+      "30to60": "30 to 60 min",
+      "gt60": "Over 60 min"
+    },
+    "emptySearch": {
+      "title": "No results found",
+      "subtitle": "Try adjusting your search or filters.",
+      "cta": "Clear filters"
+    }
   }
 }

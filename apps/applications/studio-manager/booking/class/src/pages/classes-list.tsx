@@ -13,6 +13,7 @@ import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 
 import { ArchiveClassModal } from "#src/components/archive-class-modal/archive-class-modal";
 import { AddClassModal } from "#src/components/class-form/add-class-modal";
+import { ClassesInformation } from "#src/components/classes-information";
 import { DuplicateClassModal } from "#src/components/duplicate-class-modal/duplicate-class-modal";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useClassesFilters } from "#src/hooks/use-classes-filters";
@@ -238,6 +239,7 @@ const ClassesListingPage: FC = () => {
         endGroupActions={endGroupActions}
         filterConfig={filterConfig}
         filterRef={filterRef}
+        onDisplayPopover={ClassesInformation}
         pageTabs={{
           orientation: "horizontal",
           value: activeTab,

@@ -1,3 +1,4 @@
+// TODO: keeping at as reference here for further edit implementation, this component was opted-out as a last minute request.
 import { type FC } from "react";
 
 import { useFieldArray, useFormContext } from "@bsport/form";
@@ -12,7 +13,8 @@ import {
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-import { FormSection, FormSectionHeader } from "./class-form.shared";
+import { FormSection } from "./form-section";
+import { FormSectionHeader } from "./form-section-header";
 import { FormTimeInputRow } from "./form-time-input-row";
 
 const MAX_RULES = 3;

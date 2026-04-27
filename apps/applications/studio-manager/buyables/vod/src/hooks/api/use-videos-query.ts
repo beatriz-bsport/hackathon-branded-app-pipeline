@@ -10,9 +10,10 @@ import {
   usePaginationQueryParams,
 } from "@bsport/use-pagination-query-params";
 
+import type { MediaActiveFilters } from "#src/hooks/use-media-filters";
 import { fetch } from "#src/utils/fetch";
 
-export const useVideosQuery = () => {
+export const useVideosQuery = (activeFilters: MediaActiveFilters = {}) => {
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
 
@@ -20,6 +21,7 @@ export const useVideosQuery = () => {
     mine: true,
     page: currentPage,
     page_size: currentPageSize,
+    ...activeFilters,
   };
 
   const { data } = useSuspenseQuery(fetchVideosQueryOptions(fetch, params));

@@ -208,6 +208,8 @@ export const BookingsTable: FC<{
         }}
         loadingProps={{
           isLoading,
+          className:
+            "min-h-[360px] border-stroke-regular border-stroke-weak rounded-md overflow-hidden",
           message: t("bookingsTable.loadingMessage"),
         }}
       />

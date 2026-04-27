@@ -13,6 +13,7 @@ import { MoreActionsButton } from "./action-buttons/more-actions-button";
 import { RestoreSessionButton } from "./action-buttons/restore-session-button";
 import { SendCommunicationButton } from "./action-buttons/send-communication-button";
 import { SessionNavigationButtons } from "./action-buttons/session-navigation-buttons";
+import { ListedInformationSettings } from "./filters/listed-information-settings";
 import { OrderingBookings } from "./filters/ordering-bookings";
 
 export const Header: FC<{
@@ -57,7 +58,12 @@ export const Header: FC<{
       })}
       startGroupActions={startGroupActions}
       endGroupActions={endGroupActions}
-      onDisplayPopover={() => <OrderingBookings />}
+      onDisplayPopover={() => (
+        <div className="flex flex-col gap-sm max-w-[260px]">
+          <OrderingBookings />
+          <ListedInformationSettings />
+        </div>
+      )}
       callToActionButton={
         session.available ? (
           <BookButton />

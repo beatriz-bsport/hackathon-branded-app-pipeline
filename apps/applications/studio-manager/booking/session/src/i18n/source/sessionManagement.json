@@ -90,5 +90,14 @@
     "firstName": "First name",
     "lastName": "Last name",
     "switchOrder": "Switch order"
+  },
+  "listedInformation": {
+    "label": "Listed information",
+    "spot": "Spot",
+    "pass": "Pass",
+    "newMember": "New member",
+    "recurringBooking": "Recurring booking",
+    "tags": "Tags",
+    "unpaidInvoices": "Unpaid invoices"
   }
 }

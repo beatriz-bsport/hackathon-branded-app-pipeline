@@ -69,7 +69,11 @@ const SessionManagementPageInner: FC = () => {
         />
 
         <DetailsLayout.Content className="max-w-none">
-          <ParticipantsSection sessionId={session.id} openModal={openModal} />
+          <ParticipantsSection
+            sessionId={session.id}
+            openModal={openModal}
+            searchQuery={searchQuery}
+          />
         </DetailsLayout.Content>
       </DetailsLayout>
       <SessionManagementModals

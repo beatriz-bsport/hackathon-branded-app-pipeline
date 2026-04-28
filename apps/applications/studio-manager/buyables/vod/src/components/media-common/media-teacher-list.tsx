@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { Avatar, Body } from "@bsport/kaizen-primitive-core";
 
 import type { TeacherPreview } from "#src/hooks/api/use-teachers-by-associated-coach-id-query";
-import { getTeacherInitials } from "#src/utils/get-teacher-initials";
+import { getNameInitials } from "#src/utils/get-name-initials";
 
 type MediaTeacherListProps = {
   teacherEntries: [number, TeacherPreview][];
@@ -28,7 +28,7 @@ export const MediaTeacherList: FC<MediaTeacherListProps> = ({
             size="sm"
             src={teacher.photo ?? undefined}
             alt={teacher.name}
-            initials={getTeacherInitials(teacher.name)}
+            initials={getNameInitials(teacher.name)}
           />
           <Body htmlVariant="span" size="md" color="default">
             {teacher.name}

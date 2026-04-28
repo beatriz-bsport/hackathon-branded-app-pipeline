@@ -2,4 +2,4 @@
 /// <reference types="vite/types/importMeta.d.ts" />
 /// <reference types="@bsport/config-federation/vite" />
 
-declare const __CLASS__: FederationVariables;
+declare const __SERVICE__: FederationVariables;

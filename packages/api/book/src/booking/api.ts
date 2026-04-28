@@ -6,7 +6,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { DEFAULT_STALE_TIME } from "#src/constants";
+import { BOOKING_QUERY_KEY, DEFAULT_STALE_TIME } from "#src/constants";
 import type { Session } from "#src/session/types";
 
 import type {
@@ -35,7 +35,7 @@ const DEFAULT_PAGINATION_PARAMS = {
 } as const;
 
 export const bookingKeys = {
-  all: ["@api-book", "booking"] as const,
+  all: [BOOKING_QUERY_KEY, "booking"] as const,
   listScope: () => [...bookingKeys.all, "list"] as const,
   list: (params: PaginatedBookingFilterParams) =>
     [...bookingKeys.listScope(), params] as const,

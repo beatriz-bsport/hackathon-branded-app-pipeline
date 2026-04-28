@@ -7,6 +7,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import { BOOKING_QUERY_KEY } from "#src/constants";
 import type {
   CancelMultipleSessionsParams,
   CancelSessionParams,
@@ -34,7 +35,7 @@ const API_URL_SESSION = `${API_URL}/offer`;
 export const SESSION_STALE_TIME = 2 * 1000 * 60; // 2 minutes
 
 export const sessionKeys = {
-  all: ["@api-book", "session"] as const,
+  all: [BOOKING_QUERY_KEY, "session"] as const,
   detail: (sessionId: number) => [...sessionKeys.all, sessionId] as const,
   status: (sessionId: number, params?: SessionStatusParams) =>
     [...sessionKeys.detail(sessionId), "status", params] as const,

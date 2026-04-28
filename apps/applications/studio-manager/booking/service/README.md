@@ -1,4 +1,4 @@
-# Booking | Class | Studio Manager Application
+# Booking | Service | Studio Manager Application
 
 ## Quickstart
 
@@ -13,7 +13,7 @@ pnpm run dev
 This will run two applications aside :
 
 - The Navigation Sidebar on port 4050, with module federation.
-- The `class` application, on the port defined in `package.json` in `federation.devPort` : 4203.
+- The `service` application, on the port defined in `package.json` in `federation.devPort` : 4203.
 
 Go to <http://localhost:4203>
 

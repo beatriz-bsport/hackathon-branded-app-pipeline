@@ -24,7 +24,7 @@ import { removeAppcuesScripts } from "./components/onboarding/appcues-scripts";
 import { navigateBackToFranchisorHost } from "./navigateBackToFranchisor";
 
 // ----- Booking -----
-const Services = lazy(() => import("@bsport/sm-class"));
+const Services = lazy(() => import("@bsport/sm-service"));
 const Session = lazy(() => import("@bsport/sm-session"));
 
 // ----- Buyables -----

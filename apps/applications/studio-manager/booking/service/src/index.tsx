@@ -6,7 +6,7 @@ import { AppWrapper } from "@bsport/sm-backbone";
 
 import App from "./App";
 
-const basename = __CLASS__.__BASENAME__;
+const basename = __SERVICE__.__BASENAME__;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

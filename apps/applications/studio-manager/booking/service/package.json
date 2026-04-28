@@ -1,8 +1,8 @@
 {
-  "name": "@bsport/sm-class",
+  "name": "@bsport/sm-service",
   "version": "0.0.0",
   "private": true,
-  "description": "Application for Studio Managers to manage their classes",
+  "description": "Application for Studio Managers to manage their services",
   "author": "Pierre Mouchan <pierre.mouchan@gmail.com>",
   "type": "module",
   "exports": {

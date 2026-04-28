@@ -57,7 +57,9 @@ function replaceRequired(
   const content = readRequiredTextFile(tree, path);
 
   if (!matcher.test(content)) {
-    throw new Error(`Could not find the expected pnpm version marker in ${path}.`);
+    throw new Error(
+      `Could not find the expected pnpm version marker in ${path}.`,
+    );
   }
 
   tree.write(path, content.replace(matcher, replacement));
@@ -69,7 +71,7 @@ function readCurrentPinnedVersion(tree: Tree): ParsedVersion {
 
   if (typeof currentVersion !== "string") {
     throw new Error(
-      'Expected package.json to define engines.pnpm before running upgrade-pnpm.',
+      "Expected package.json to define engines.pnpm before running upgrade-pnpm.",
     );
   }
 
@@ -126,7 +128,9 @@ export async function upgradePnpmGenerator(
   await formatFiles(tree);
 
   if (currentVersion.raw === nextVersion.raw) {
-    logger.info(`pnpm is already pinned to ${nextVersion.raw}. Verified version markers.`);
+    logger.info(
+      `pnpm is already pinned to ${nextVersion.raw}. Verified version markers.`,
+    );
   } else {
     logger.info(
       `Pinned pnpm from ${currentVersion.raw} to ${nextVersion.raw} in .npmrc, .mise.toml, and package.json.`,

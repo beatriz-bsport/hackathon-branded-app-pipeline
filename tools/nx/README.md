@@ -1,8 +1,14 @@
-# @bsport/nx-migration
+# @bsport/nx
 
-Nx generator plugin for Studio Manager migrations.
+Unified Nx plugin for Studio Manager workflows.
 
-## `@bsport/nx-migration:migrate-to-library`
+It groups the repo's custom Nx surface in one package:
+
+- generators for repo and Studio Manager migrations
+- executors for Module Federation development workflow
+- inferred targets for Studio Manager federated apps
+
+## `@bsport/nx:migrate-to-library`
 
 Migrate a Studio Manager app from Module Federation mode to workspace library mode.
 
@@ -23,13 +29,13 @@ All formats normalize to `sm-<name>`.
 Start with a dry-run:
 
 ```bash
-pnpm exec nx g @bsport/nx-migration:migrate-to-library sm-giftcard --dry-run
+pnpm exec nx g @bsport/nx:migrate-to-library sm-giftcard --dry-run
 ```
 
 Interactive prompt mode:
 
 ```bash
-pnpm exec nx g @bsport/nx-migration:migrate-to-library
+pnpm exec nx g @bsport/nx:migrate-to-library
 ```
 
 ### What It Changes
@@ -84,7 +90,7 @@ After dry-run output looks correct:
 3. run target app and host checks
 4. verify peer dependency decisions manually
 
-## `@bsport/nx-migration:migrate-filenames-to-kebab-case`
+## `@bsport/nx:migrate-filenames-to-kebab-case`
 
 Rename target package `src/` files and folders to kebab-case and update local references.
 
@@ -105,13 +111,13 @@ All formats normalize to `sm-<name>`.
 Start with a dry-run:
 
 ```bash
-pnpm exec nx g @bsport/nx-migration:migrate-filenames-to-kebab-case sm-smartlists --dry-run
+pnpm exec nx g @bsport/nx:migrate-filenames-to-kebab-case sm-smartlists --dry-run
 ```
 
 Interactive prompt mode:
 
 ```bash
-pnpm exec nx g @bsport/nx-migration:migrate-filenames-to-kebab-case
+pnpm exec nx g @bsport/nx:migrate-filenames-to-kebab-case
 ```
 
 ### What It Changes
@@ -145,7 +151,7 @@ After dry-run output looks correct:
 2. review renamed paths in the diff
 3. run package checks
 
-## `@bsport/nx-migration:upgrade-pnpm`
+## `@bsport/nx:upgrade-pnpm`
 
 Update the repo's pinned pnpm version with guardrails for stable, non-breaking upgrades.
 
@@ -159,13 +165,13 @@ Update the repo's pinned pnpm version with guardrails for stable, non-breaking u
 Start with a dry-run:
 
 ```bash
-pnpm exec nx g @bsport/nx-migration:upgrade-pnpm 10.33.0 --dry-run
+pnpm exec nx g @bsport/nx:upgrade-pnpm 10.33.0 --dry-run
 ```
 
 Interactive prompt mode:
 
 ```bash
-pnpm exec nx g @bsport/nx-migration:upgrade-pnpm
+pnpm exec nx g @bsport/nx:upgrade-pnpm
 ```
 
 ### What It Changes
@@ -218,16 +224,47 @@ pnpm dedupe
 
 ## Development
 
+## `@bsport/nx:dev`
+
+Run a Studio Manager app with auto-detected remotes:
+
+```bash
+pnpm exec nx run @bsport/sm-giftcard:dev:watch
+```
+
+This will:
+
+1. read `federation.remotes` from the app's `package.json`
+2. start each remote in the background
+3. watch workspace dependencies and rebuild them on change
+4. start the main app's Vite dev server
+
+Standalone mode:
+
+```bash
+pnpm exec nx run @bsport/sm-giftcard:dev:watch --remotes=
+```
+
+Debug mode:
+
+```bash
+pnpm exec nx run @bsport/sm-giftcard:dev:watch --debug
+```
+
+The plugin is registered in `nx.json` and infers a `dev:watch` target for Studio Manager apps with `federation.devPort` in `package.json`. The single-app Vite target remains the existing `dev:single` script target.
+
+## Development
+
 Run tests for this plugin:
 
 ```bash
-cd tools/nx-migration
+cd tools/nx
 pnpm exec vitest run
 ```
 
 Run typecheck:
 
 ```bash
-cd tools/nx-migration
+cd tools/nx
 pnpm exec tsc --noEmit
 ```

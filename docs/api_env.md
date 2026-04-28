@@ -57,7 +57,7 @@ During local `vite` development, `/studio/studio-env.js` is served by a Vite plu
 No `public/studio/studio-env.js` file is copied anymore for `dev` / `dev:single`.
 This applies to both:
 
-- `pnpm exec nx dev-mfe @bsport/<studio-app>`
+- `pnpm exec nx run @bsport/<studio-app>:dev:watch`
 - `pnpm exec nx dev @bsport/<studio-app>`
 
 Default local dev behavior:

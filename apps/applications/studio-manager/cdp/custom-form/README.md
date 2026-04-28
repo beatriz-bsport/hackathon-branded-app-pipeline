@@ -7,7 +7,7 @@
 To run in localhost :
 
 ```sh
-pnpm run dev
+pnpm exec nx run @bsport/sm-custom-form:dev:watch
 ```
 
 This will run two applications aside :
@@ -16,6 +16,8 @@ This will run two applications aside :
 - The Custom Form application, on the port defined in `package.json` in `federation.devPort` : 4302.
 
 Go to <http://localhost:4302>
+
+If you only want the app's own Vite server, run `pnpm exec nx run @bsport/sm-custom-form:dev:single`.
 
 ### Build your translations
 

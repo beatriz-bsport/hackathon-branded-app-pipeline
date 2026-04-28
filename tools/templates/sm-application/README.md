@@ -45,7 +45,7 @@ It should belong to the port range defined in `/tools/config/federation/src/conf
 To run in localhost :
 
 ```sh
-pnpm run dev
+pnpm exec nx run @bsport/your-app-name:dev:watch
 ```
 
 This will run two applications aside :
@@ -54,6 +54,8 @@ This will run two applications aside :
 - The $MODEL application, on the port defined in `package.json` in `federation.devPort` : $PORT.
 
 Go to <http://localhost:$PORT>
+
+If you only want the app's own Vite server, run `pnpm exec nx run @bsport/your-app-name:dev:single`.
 
 ### Build your translations
 

@@ -7,7 +7,7 @@
 To run in localhost :
 
 ```sh
-pnpm --filter=@bsport/sm-smartlists dev
+pnpm exec nx run @bsport/sm-smartlists:dev:watch
 ```
 
 This will run two applications aside :

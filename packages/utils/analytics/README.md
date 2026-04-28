@@ -410,14 +410,14 @@ Options:
 - For multi-scope apps (B2B/B2C), consider multiple named Mixpanel instances for clarity and safety (incoming).
 - Always reset the Mixpanel client on logout if switching to a radically different user or scope.
 
-## Local Development with Module Federation
+## Local Development with Studio Manager host orchestration
 
-When working on a tracking plan in a Module Federation architecture, you have two development options:
+When working on a tracking plan in the Studio Manager host architecture, you have two development options:
 
 ### Option 1: Run with the host (Recommended)
 
 ```bash
-pnpm exec nx dev-mfe @bsport/sm-host --watchDeps=false --remotes=@bsport/sm-navigation-sidebar,@bsport/sm-homepage,{YOUR-APP}
+pnpm exec nx run @bsport/sm-host:dev:watch --watchDeps=false --remotes=@bsport/sm-navigation-sidebar,@bsport/sm-homepage,{YOUR-APP}
 ```
 
 **How it works:**
@@ -454,7 +454,7 @@ analyticsClient.addSuperProperties({
 ### Option 2: Run MFE standalone
 
 ```bash
-pnpm exec nx dev @bsport/your-app-name  # Runs only your MFE in isolation
+pnpm exec nx run @bsport/your-app-name:dev:single
 ```
 
 **How it works:**

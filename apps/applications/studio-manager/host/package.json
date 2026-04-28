@@ -11,7 +11,7 @@
     "ci:build:mfe": "./scripts/ci-build.sh",
     "ci:compile": "tsc",
     "ci:deploy:mfe": "./scripts/ci-deploy.sh",
-    "dev": "nx dev-mfe @bsport/sm-host --remotes=@bsport/sm-navigation-sidebar",
+    "dev": "nx run @bsport/sm-host:dev:watch --remotes=@bsport/sm-navigation-sidebar",
     "dev:single": "vite",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",

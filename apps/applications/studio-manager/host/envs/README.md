@@ -3,7 +3,7 @@ Reference runtime `studio-env.js` payloads for `studio-manager`.
 These files are not generated into production artifacts.
 During local `vite` development, `/studio/studio-env.js` is served by a Vite plugin.
 No `public/studio/studio-env.js` copy is needed for `dev` / `dev:single`.
-This also covers `nx dev-mfe` and `nx dev` workflows for studio apps.
+This also covers `nx run @bsport/<studio-app>:dev:watch` and `nx dev` workflows for studio apps.
 The intended flow is:
 
 1. Build the frontend once.

@@ -10,7 +10,8 @@ import { WaitList } from "./waitlist";
 
 export const WaitlistSection: FC<{
   sessionId: number;
-}> = ({ sessionId }) => {
+  searchQuery: string;
+}> = ({ sessionId, searchQuery }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
@@ -32,7 +33,7 @@ export const WaitlistSection: FC<{
         </Body>
       </div>
       <QueryBoundary>
-        <WaitList sessionId={sessionId} />
+        <WaitList sessionId={sessionId} searchQuery={searchQuery} />
       </QueryBoundary>
     </div>
   );

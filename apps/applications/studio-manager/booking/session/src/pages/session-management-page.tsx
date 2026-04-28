@@ -72,7 +72,7 @@ const SessionManagementPageInner: FC = () => {
             searchQuery={searchQuery}
           />
           {shouldDisplayWaitlistSection && (
-            <WaitlistSection sessionId={session.id} />
+            <WaitlistSection sessionId={session.id} searchQuery={searchQuery} />
           )}
         </DetailsLayout.Content>
       </DetailsLayout>

@@ -14,11 +14,15 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useFetchRefinedBookingOptions } from "#src/hooks/waitlist/use-fetch-refined-booking-options";
+import { useSearchBookingOptions } from "#src/hooks/waitlist/use-search-booking-options.js";
 import type { RefinedBookingOption } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 
-export const WaitList: FC<{ sessionId: number }> = ({ sessionId }) => {
+export const WaitList: FC<{ sessionId: number; searchQuery: string }> = ({
+  sessionId,
+  searchQuery,
+}) => {
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
@@ -36,14 +40,21 @@ export const WaitList: FC<{ sessionId: number }> = ({ sessionId }) => {
     page_size: currentPageSize,
   });
 
+  const searchedBookingOptions = useSearchBookingOptions(
+    refinedBookingOptions,
+    searchQuery,
+  );
+
+  const hasSearchQuery = searchQuery.trim().length > 0;
+
   const paginationProps: PaginationProps = useMemo(
     () => ({
       currentPage,
       rowsPerPage: currentPageSize,
       disabled: isLoading,
-      totalItems: count ?? 0,
+      totalItems: hasSearchQuery ? searchedBookingOptions.length : (count ?? 0),
       onPageSettingsChange: setPageSettings,
-      showRowsPerPageSelector: true,
+      showRowsPerPageSelector: !hasSearchQuery,
     }),
     [currentPage, currentPageSize, isLoading, count, setPageSettings],
   );
@@ -117,11 +128,11 @@ export const WaitList: FC<{ sessionId: number }> = ({ sessionId }) => {
       <Table
         columns={columns}
         rowHeight="lg"
-        rows={refinedBookingOptions}
+        rows={searchedBookingOptions}
         paginationProps={paginationProps}
         hideHeader
         emptyStateProps={{
-          isEmpty: count === 0,
+          isEmpty: !searchedBookingOptions.length,
           emptyConfig: {
             title: t("waitList.emptyState.title"),
             ctaButtonConfig: {

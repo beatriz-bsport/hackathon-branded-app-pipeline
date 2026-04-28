@@ -43,10 +43,9 @@
   },
   "plugins": [
     {
-      "plugin": "@bsport/nx-federation",
+      "plugin": "@bsport/nx",
       "options": {
-        "devTargetName": "dev-mfe",
-        "devSingleTargetName": "dev-mfe:single",
+        "devTargetName": "dev:watch",
         "watchDeps": true
       }
     },

@@ -7,15 +7,14 @@ import {
 import { readFileSync, readdirSync } from "fs";
 import { dirname, join } from "path";
 
-export interface NxFederationPluginOptions {
+export interface NxPluginOptions {
   devTargetName?: string;
-  devSingleTargetName?: string;
   watchDeps?: boolean;
 }
 
 const packageJsonGlob = "**/package.json";
 
-export const createNodesV2: CreateNodesV2<NxFederationPluginOptions> = [
+export const createNodesV2: CreateNodesV2<NxPluginOptions> = [
   packageJsonGlob,
   async (configFiles, options, context) => {
     return await createNodesFromFiles(
@@ -28,9 +27,9 @@ export const createNodesV2: CreateNodesV2<NxFederationPluginOptions> = [
   },
 ];
 
-function createNodesInternal(
+export function createNodesInternal(
   configFilePath: string,
-  options: NxFederationPluginOptions,
+  options: NxPluginOptions,
   context: CreateNodesContextV2,
 ) {
   const projectRoot = dirname(configFilePath);
@@ -70,20 +69,12 @@ function createNodesInternal(
     return {};
   }
 
-  const devTargetName = options.devTargetName ?? "dev-mfe";
-  const devSingleTargetName = options.devSingleTargetName ?? "dev-mfe:single";
+  const devTargetName = options.devTargetName ?? "dev:watch";
 
   const devTarget: TargetConfiguration = {
-    executor: "@bsport/nx-federation:dev",
+    executor: "@bsport/nx:dev",
     options: {
       watchDeps: options.watchDeps ?? true,
-    },
-  };
-
-  const devSingleTarget: TargetConfiguration = {
-    command: "vite",
-    options: {
-      cwd: projectRoot,
     },
   };
 
@@ -92,7 +83,6 @@ function createNodesInternal(
       [projectRoot]: {
         targets: {
           [devTargetName]: devTarget,
-          [devSingleTargetName]: devSingleTarget,
         },
       },
     },

@@ -92,7 +92,7 @@ export default async function runExecutor(
 
   // Start dependency watcher
   if (options.watchDeps !== false) {
-    const watcherProcess = await startDepWatcher(projectName, pmc, context);
+    const watcherProcess = await startDepWatcher(projectName, pmc);
     if (watcherProcess) {
       processes.push(watcherProcess);
     }
@@ -123,7 +123,7 @@ export default async function runExecutor(
   });
 }
 
-function getRemotesToStart(
+export function getRemotesToStart(
   options: DevExecutorSchema,
   federation: FederationConfig,
 ): string[] {
@@ -173,10 +173,7 @@ function startRemote(
   return proc;
 }
 
-async function getAllDependencies(
-  projectName: string,
-  context: ExecutorContext,
-): Promise<string[]> {
+async function getAllDependencies(projectName: string): Promise<string[]> {
   const graph = await createProjectGraphAsync();
   const visited = new Set<string>();
   const queue = [projectName];
@@ -202,7 +199,6 @@ async function getAllDependencies(
 async function startDepWatcher(
   projectName: string,
   pmc: ReturnType<typeof getPackageManagerCommand>,
-  context: ExecutorContext,
 ): Promise<ChildProcess | null> {
   output.note({
     title: "Dependency watcher started",
@@ -210,7 +206,7 @@ async function startDepWatcher(
   });
 
   // Get all transitive dependencies
-  const allDeps = await getAllDependencies(projectName, context);
+  const allDeps = await getAllDependencies(projectName);
   const projectsToWatch = [projectName, ...allDeps].join(",");
 
   logger.info(`[watch] Watching ${allDeps.length + 1} projects`);
@@ -218,19 +214,7 @@ async function startDepWatcher(
   // Create a temporary script file to handle the build command
   // This avoids shell quoting issues and allows us to derive project from file changes
   const scriptPath = join(tmpdir(), `nx-watch-${Date.now()}.sh`);
-  const scriptContent = [
-    "#!/bin/bash",
-    `cd "${workspaceRoot}"`,
-    "",
-    "# Derive the project name from the changed files",
-    `PROJECT=$(${pmc.exec} nx show projects --affected --files=$NX_FILE_CHANGES 2>/dev/null | head -n 1)`,
-    "",
-    'if [ -n "$PROJECT" ]; then',
-    '  echo "Building: $PROJECT"',
-    `  ${pmc.exec} nx run "$PROJECT:build"`,
-    "fi",
-    "",
-  ].join("\n");
+  const scriptContent = buildWatchScriptContent(pmc.exec);
   writeFileSync(scriptPath, scriptContent, { mode: 0o755 });
 
   const watchCmd = `${pmc.exec} nx watch --projects=${projectsToWatch} -- ${scriptPath}`;
@@ -262,6 +246,22 @@ async function startDepWatcher(
   });
 
   return proc;
+}
+
+export function buildWatchScriptContent(packageManagerExec: string): string {
+  return [
+    "#!/bin/bash",
+    `cd "${workspaceRoot}"`,
+    "",
+    "# Derive the project name from the changed files",
+    `PROJECT=$(${packageManagerExec} nx show projects --affected --files=$NX_FILE_CHANGES 2>/dev/null | head -n 1)`,
+    "",
+    'if [ -n "$PROJECT" ]; then',
+    '  echo "Building: $PROJECT"',
+    `  ${packageManagerExec} nx run "$PROJECT:build"`,
+    "fi",
+    "",
+  ].join("\n");
 }
 
 function startVite(

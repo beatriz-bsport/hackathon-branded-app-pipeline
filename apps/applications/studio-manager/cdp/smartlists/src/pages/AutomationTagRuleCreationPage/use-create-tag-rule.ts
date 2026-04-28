@@ -1,3 +1,4 @@
+import { HTTPException } from "@bsport/fetch";
 import { toast } from "@bsport/kaizen-primitive-core";
 
 import { useCreateTagRule } from "#src/api/use-create-tag-rule";
@@ -5,12 +6,22 @@ import { type AutomationTagRuleFormData } from "#src/components/AutomationTagRul
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
+const TAG_RULE_LIMIT_REACHED_ERROR_NAME = "limit_of_ten_rules_reached";
+const TAG_RULE_LIMIT_REACHED_STATUS_CODE = 423;
+
+const isTagRuleLimitReachedError = (error: Error) =>
+  error instanceof HTTPException &&
+  error.statusCode === TAG_RULE_LIMIT_REACHED_STATUS_CODE &&
+  error.name === TAG_RULE_LIMIT_REACHED_ERROR_NAME;
+
 export const useCreateAutomationTagRule = ({
   smartlistId,
   onSuccess,
+  onTagRuleLimitReached,
 }: {
   smartlistId: string;
   onSuccess: () => void;
+  onTagRuleLimitReached: () => void;
 }) => {
   const { t } = useTranslation("details");
 
@@ -30,7 +41,13 @@ export const useCreateAutomationTagRule = ({
       });
       onSuccess();
     },
-    onError: () => {
+    onError: (error) => {
+      if (isTagRuleLimitReachedError(error)) {
+        onTagRuleLimitReached();
+
+        return;
+      }
+
       toast({
         status: "critical",
         icon: "alert-circle",

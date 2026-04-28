@@ -150,6 +150,11 @@
           "cancel": "Cancel"
         }
       },
+      "limitReachedModal": {
+        "title": "Unlock more tag rules",
+        "description": "You’ve reached the limit of 10 tag rules across your segments. Add more rules to automate your workflows and better target your members.",
+        "disclaimer": "This feature is an add-on. Contact your Account Manager for more information."
+      },
       "toasts": {
         "success": {
           "created": "Tag rule created",

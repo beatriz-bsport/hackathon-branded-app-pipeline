@@ -303,6 +303,32 @@ describe("getFetch", () => {
         expect(httpError.statusCode).toBe(404);
       }
     });
+
+    it("should expose backend msg as error name for locked responses", async () => {
+      const errorResponse = {
+        msg: "limit_of_ten_rules_reached",
+      };
+
+      server.use(
+        http.post(`${baseUrl}/platform/v1/tagrules`, () => {
+          return HttpResponse.json(errorResponse, { status: 423 });
+        }),
+      );
+
+      try {
+        await fetchFn("platform/v1/tagrules", {
+          method: "POST",
+          body: JSON.stringify({}),
+        });
+      } catch (error) {
+        const httpError = error as HTTPException;
+        expect(httpError.name).toBe("limit_of_ten_rules_reached");
+        expect(httpError.statusCode).toBe(423);
+        expect(httpError.message).toBe(
+          "Error calling backend (path: platform/v1/tagrules) because: [limit_of_ten_rules_reached] limit_of_ten_rules_reached",
+        );
+      }
+    });
   });
 
   describe("request configuration", () => {

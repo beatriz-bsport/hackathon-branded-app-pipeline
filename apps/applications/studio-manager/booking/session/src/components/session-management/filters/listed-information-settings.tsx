@@ -5,7 +5,7 @@ import { Body, Button } from "@bsport/kaizen-primitive-core";
 import { setListedInformation } from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
 import { BookingListedInformation } from "#src/stores/session-management/types";
-import { useTranslation } from "#src/utils/i18n.js";
+import { useTranslation } from "#src/utils/i18n";
 
 const LISTED_INFORMATION_OPTIONS = Object.values(BookingListedInformation);
 

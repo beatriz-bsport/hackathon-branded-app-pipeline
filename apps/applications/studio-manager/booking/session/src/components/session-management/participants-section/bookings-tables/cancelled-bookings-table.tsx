@@ -13,7 +13,7 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
-import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings.js";
+import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
 import { setSelectedBooking } from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
 import type { RefinedBooking } from "#src/types";

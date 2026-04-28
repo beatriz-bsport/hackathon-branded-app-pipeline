@@ -24,7 +24,7 @@ import { SessionManagementModalType } from "#src/hooks/use-session-management-mo
 import { useFetchUserRole } from "#src/hooks/user-role/use-fetch-user-roles";
 import { RefinedBooking } from "#src/types";
 import { LEGACY_URLS } from "#src/urls";
-import { getMemberInitials } from "#src/utils/get-member-initials.js";
+import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 

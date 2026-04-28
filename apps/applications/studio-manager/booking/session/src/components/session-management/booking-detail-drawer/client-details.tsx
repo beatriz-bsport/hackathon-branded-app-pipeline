@@ -14,7 +14,7 @@ import {
   useCopyToClipboard,
 } from "@bsport/kaizen-primitive-core";
 
-import { useFetchTags } from "#src/hooks/tags/use-fetch-tags.js";
+import { useFetchTags } from "#src/hooks/tags/use-fetch-tags";
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
 import { RefinedBooking } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";

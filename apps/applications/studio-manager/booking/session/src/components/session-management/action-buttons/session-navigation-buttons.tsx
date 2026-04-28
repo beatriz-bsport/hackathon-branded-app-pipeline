@@ -2,9 +2,9 @@ import { FC } from "react";
 
 import { Button } from "@bsport/kaizen-primitive-core";
 
-import { useSessionNavigation } from "#src/hooks/use-session-navigation.js";
-import { useUrls } from "#src/urls.js";
-import { useTranslation } from "#src/utils/i18n.js";
+import { useSessionNavigation } from "#src/hooks/use-session-navigation";
+import { useUrls } from "#src/urls";
+import { useTranslation } from "#src/utils/i18n";
 
 export const SessionNavigationButtons: FC<{ sessionId: number }> = ({
   sessionId,

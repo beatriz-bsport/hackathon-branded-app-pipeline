@@ -2,15 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { getParamsFromFilters } from "#src/components/SessionList/Filters/getParamsFromFilters.js";
+import { getParamsFromFilters } from "#src/components/SessionList/Filters/getParamsFromFilters";
 import {
   selectSelectedDate,
   selectSessionFilters,
   selectSessionShowCancelled,
   useCalendarStore,
 } from "#src/stores/calendar";
-import { extractDateRangeParams } from "#src/utils/extract-date-range-params.js";
-import { useObjectLevelPermission } from "#src/utils/permission.js";
+import { extractDateRangeParams } from "#src/utils/extract-date-range-params";
+import { useObjectLevelPermission } from "#src/utils/permission";
 
 import { sessionsQueryOptions } from "./useSessionListData";
 

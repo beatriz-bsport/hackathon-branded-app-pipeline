@@ -5,8 +5,8 @@ import { Chip } from "@bsport/kaizen-primitive-core";
 
 import { IconChip } from "#src/components/common/IconChip";
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
-import { useSessionManagementStore } from "#src/stores/session-management/store.js";
-import { BookingListedInformation } from "#src/stores/session-management/types.js";
+import { useSessionManagementStore } from "#src/stores/session-management/store";
+import { BookingListedInformation } from "#src/stores/session-management/types";
 import type { RefinedBooking } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 

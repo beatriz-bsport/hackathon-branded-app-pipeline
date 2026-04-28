@@ -141,9 +141,10 @@ export type RefinedBooking = Booking & {
   passData: Pass | undefined;
 };
 
-export type RefinedBookingOption = BookingOption & {
-  memberData: Member | undefined;
-  waitingListPosition:
-    | BookingOptionPosition["waiting_list_position"]
-    | undefined;
-};
+export type RefinedBookingOption<TBookingOption = BookingOption> =
+  TBookingOption & {
+    memberData: Member | undefined;
+    waitingListPosition:
+      | BookingOptionPosition["waiting_list_position"]
+      | undefined;
+  };

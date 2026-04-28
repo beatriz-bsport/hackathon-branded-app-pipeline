@@ -6,6 +6,7 @@ import { BOOKING_QUERY_KEY } from "#src/constants";
 
 import {
   BookingOption,
+  BookingOptionDetail,
   BookingOptionListParams,
   BookingOptionPosition,
 } from "./types";
@@ -63,6 +64,28 @@ export const fetchBookingOptionsQueryOption = (
 
   return queryOptions({
     queryKey: waitingListKeys.list(params),
+    queryFn,
+  });
+};
+
+export const retrieveBookingOptionAPI = async (
+  fetch: Fetch<BookingOptionDetail>,
+  bookingOptionId: number,
+) => {
+  const { data } = await fetch(
+    `${API_URL_WAITING_LIST}/booking-option/${bookingOptionId}/`,
+  );
+  return data;
+};
+
+export const retrieveBookingOptionQueryOptions = (
+  fetch: Fetch<BookingOptionDetail>,
+  bookingOptionId: number,
+) => {
+  const queryFn = retrieveBookingOptionAPI.bind(null, fetch, bookingOptionId);
+
+  return queryOptions({
+    queryKey: waitingListKeys.detail(bookingOptionId),
     queryFn,
   });
 };

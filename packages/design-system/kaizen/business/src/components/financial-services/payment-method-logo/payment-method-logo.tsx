@@ -86,7 +86,7 @@ const container = cva(
     "overflow-hidden",
     "border-stroke-thin",
     "border-stroke-default",
-    "bg-white",
+    "bg-luna-grey-0",
   ],
   {
     variants: {

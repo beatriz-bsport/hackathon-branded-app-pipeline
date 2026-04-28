@@ -28,6 +28,24 @@
     }
   },
   "paymentMethod": {
-    "card": "Card"
+    "card": "Card",
+    "sepaDebit": "SEPA",
+    "bacsDebit": "BACS",
+    "selector": {
+      "label": "Payment method",
+      "savedMethodsLabel": "Saved methods",
+      "savedMethodsPlaceholder": "Select a saved method",
+      "loadingSavedMethods": "Loading saved methods...",
+      "noSavedMethods": "No saved payment methods",
+      "allMethodsLabel": "All methods",
+      "allMethodsPlaceholder": "Select a method",
+      "allMethodsOptions": {
+        "card": "New credit card",
+        "sepaDebit": "SEPA",
+        "giftCardCode": "Gift Card",
+        "terminal": "Terminal",
+        "manual": "Manual"
+      }
+    }
   }
 }

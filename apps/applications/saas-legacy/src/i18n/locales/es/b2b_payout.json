@@ -1,0 +1,123 @@
+{
+  "loadMore": "Cargar más",
+  "paypalWarning": {
+    "title": "Los pagos incluyen solo los de Stripe.",
+    "description": "Como PayPal no está conectado a Stripe, las transacciones de PayPal se pagan directamente a tu cuenta de PayPal y no aparecerán aquí."
+  },
+  "amountCarryOverFromPreviousPayouts": "Incluye {{amount}} arrastrado de pagos anteriores fallidos/cancelados",
+  "reconciliationStatusLabel": "Reconciliación: {{status}}",
+  "reconciliationStatus": {
+    "success": "Éxito",
+    "pending": "En proceso",
+    "error": "Error"
+  },
+  "reconciliationStatusPayout": {
+    "pending": "La conciliación de las transacciones de saldo aún no ha comenzado",
+    "processing": "La conciliación de las transacciones de saldo está en curso",
+    "completed": "La conciliación de las transacciones de saldo se ha completado",
+    "partially_failed": "Algunas transacciones de saldo no se han conciliado",
+    "skipped_manual": "Se ha omitido la conciliación de transacciones de saldo"
+  },
+  "reconciliationStatusPayoutStatus": {
+    "pending": "En proceso",
+    "processing": "En curso",
+    "completed": "Completado",
+    "partially_failed": "Parcialmente fallido",
+    "skipped_manual": "Omitido"
+  },
+  "table": {
+    "date": "Fecha",
+    "amount": "Importe",
+    "transactions": "Pagos",
+    "id": "ID",
+    "status": "Estado"
+  },
+  "balanceTransactionTable": {
+    "creationDate": "Fecha de pago",
+    "type": "Tipo",
+    "paymentMethod": "Método de débito",
+    "status": "Estado",
+    "amount": "Importe",
+    "invoices": "Facturas"
+  },
+  "balanceTransaction": {
+    "reversalInPayout": "Reversión en el pago {{readable_identifier}}",
+    "reversalOf": "Reversión de la transacción #{{id}}{{payoutInfo}}",
+    "reversalOfPayoutInfo": " — pago {{readable_identifier}}",
+    "fromPayout": "Del pago {{readable_identifier}}",
+    "details": "Detalle de la reserva",
+    "downloadPdfHelp": "Descargar PDF",
+    "net": "neto {{amount}}",
+    "pdf": "PDF"
+  },
+  "summary": {
+    "reconciliation": "Estado de conciliación",
+    "payments": "Pagos",
+    "refunds": "Reembolsos",
+    "disputes": "Litigios",
+    "directDebitOriginal": "Adeudo directo original",
+    "directDebitReversal": "Reversión de domiciliación bancaria",
+    "transfers": "Transferencias",
+    "transferRefunds": "Reembolsos de transferencias",
+    "adjustments": "Ajustes",
+    "appFees": "Tarifas de la app",
+    "appFeeRefunds": "Reembolsos de tarifas de la app",
+    "payoutFailures": "Fallos en los pagos",
+    "payoutCancels": "Pagos cancelados",
+    "title": "Resumen de pagos"
+  },
+  "displayType": {
+    "payment": {
+      "label": "Pago",
+      "description": "Un pago de cliente"
+    },
+    "refund": {
+      "label": "Reembolsar",
+      "description": "Un reembolso emitido a un cliente"
+    },
+    "dispute": {
+      "label": "Disputa",
+      "description": "Una disputa iniciada por un cliente (contracargo)"
+    },
+    "failed_direct_debit_original": {
+      "label": "Domiciliación fallida",
+      "description": "Un débito directo que no se pudo cobrar"
+    },
+    "failed_direct_debit_reversal": {
+      "label": "Reversión de domiciliación bancaria",
+      "description": "Una reversión tras un cobro fallido"
+    },
+    "balance_transfer": {
+      "label": "Transferencia",
+      "description": "Una transferencia de saldo"
+    },
+    "balance_transfer_refund": {
+      "label": "Reembolso de transferencia",
+      "description": "Un reembolso de una transferencia de saldo"
+    },
+    "adjustment": {
+      "label": "Ajuste",
+      "description": "Un ajuste manual de saldo"
+    },
+    "application_fee": {
+      "label": "Tarifa de la app",
+      "description": "Una tarifa de plataforma"
+    },
+    "application_fee_refund": {
+      "label": "Reembolso de la tarifa de la app",
+      "description": "Un reembolso de una tarifa de plataforma"
+    },
+    "payout_failure": {
+      "label": "Fallo en el pago",
+      "description": "Fondos devueltos tras un pago fallido"
+    },
+    "payout_cancel": {
+      "label": "Cancelar pago",
+      "description": "Fondos devueltos tras un pago cancelado"
+    },
+    "other": {
+      "label": "Otros",
+      "description": "Otro tipo de transacción de saldo"
+    }
+  }
+}

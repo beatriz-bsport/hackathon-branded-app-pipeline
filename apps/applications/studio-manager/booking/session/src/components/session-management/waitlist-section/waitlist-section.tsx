@@ -2,8 +2,11 @@ import { FC } from "react";
 
 import { Body, Title } from "@bsport/kaizen-primitive-core";
 
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary.js";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useTranslation } from "#src/utils/i18n";
+
+import { WaitList } from "./waitlist";
 
 export const WaitlistSection: FC<{
   sessionId: number;
@@ -28,6 +31,9 @@ export const WaitlistSection: FC<{
           })}
         </Body>
       </div>
+      <QueryBoundary>
+        <WaitList sessionId={sessionId} />
+      </QueryBoundary>
     </div>
   );
 };

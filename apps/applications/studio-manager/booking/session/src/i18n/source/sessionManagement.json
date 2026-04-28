@@ -35,6 +35,12 @@
     },
     "cancellationDate": "On {{cancellationDate}}"
   },
+  "waitList": {
+    "emptyState": {
+      "title": "There are no participants on waitlist"
+    },
+    "loadingMessage": "Loading waitlist..."
+  },
   "bookingStatusFilter": {
     "booked": "Booked",
     "cancelled": "Cancelled"
@@ -49,7 +55,9 @@
     "sendMessage": "Send message",
     "copyClientEmail": "Copy client email",
     "copyClientPhone": "Copy client phone number",
-    "editClientNotes": "Edit client notes"
+    "editClientNotes": "Edit client notes",
+    "bookToClass": "Book to the class",
+    "removeFromWaitlist": "Remove from waitlist"
   },
   "booking": "Booking",
   "billing": "Billing",

@@ -43,6 +43,9 @@ const SessionManagementPageInner: FC = () => {
     return () => setSelectedBooking(null);
   }, [id]);
 
+  const shouldDisplayWaitlistSection =
+    session.full || session.booking_options.length > 0;
+
   return (
     <>
       <DetailsLayout withPanel>
@@ -68,7 +71,9 @@ const SessionManagementPageInner: FC = () => {
             openModal={openModal}
             searchQuery={searchQuery}
           />
-          <WaitlistSection sessionId={session.id} />
+          {shouldDisplayWaitlistSection && (
+            <WaitlistSection sessionId={session.id} />
+          )}
         </DetailsLayout.Content>
       </DetailsLayout>
       <SessionManagementModals

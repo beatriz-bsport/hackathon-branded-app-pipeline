@@ -11,6 +11,7 @@ import { BookingDetailDrawer } from "#src/components/session-management/booking-
 import { Header } from "#src/components/session-management/header";
 import { ParticipantsSection } from "#src/components/session-management/participants-section/participants-section";
 import { SessionManagementModals } from "#src/components/session-management/session-management-modals";
+import { WaitlistSection } from "#src/components/session-management/waitlist-section/waitlist-section";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import { useSessionManagementModals } from "#src/hooks/use-session-management-modals";
@@ -61,12 +62,13 @@ const SessionManagementPageInner: FC = () => {
           }}
         />
 
-        <DetailsLayout.Content className="max-w-none">
+        <DetailsLayout.Content className="flex flex-col gap-xl max-w-none">
           <ParticipantsSection
             sessionId={session.id}
             openModal={openModal}
             searchQuery={searchQuery}
           />
+          <WaitlistSection sessionId={session.id} />
         </DetailsLayout.Content>
       </DetailsLayout>
       <SessionManagementModals

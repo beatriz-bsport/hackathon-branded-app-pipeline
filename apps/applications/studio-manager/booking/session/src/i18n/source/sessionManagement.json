@@ -6,6 +6,8 @@
   "bookButton": "Book a client",
   "bookingsSectionTitle": "Participants",
   "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",
+  "waitlistSectionTitle": "Waitlist",
+  "waitlistSectionSubtitle": "{{bookingOptionsCount}}/{{waitlistCapacity}} spots filled",
   "bookingsTable": {
     "headers": {
       "present": "Present",

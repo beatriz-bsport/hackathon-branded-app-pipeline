@@ -291,11 +291,14 @@
               "label": "Spot capping strategy",
               "UNLIMITED": {
                 "label": "Unlimited spots",
-                "helperText": "All spots can be booked through aggregators (combined across all platforms)"
+                "helperText": "All spots can be booked through aggregators (combined across all platforms)",
+                "singleAggregatorHelperText": "All spots can be booked through the aggregator"
               },
               "COMBINED": {
                 "label": "Limited spots (combined)",
-                "helperText": "Set a maximum number of spots for enabled aggregators combined among myClubs, Wellhub and Urban Sports Club (the other aggregators are not affected by this setting)"
+                "singleAggregatorLabel": "Limited spots",
+                "helperText": "Set a maximum number of spots for enabled aggregators combined among myClubs, Wellhub and Urban Sports Club (the other aggregators are not affected by this setting)",
+                "singleAggregatorHelperText": "Set a maximum number of spots for the enabled aggregator"
               },
               "PER_PARTNER": {
                 "label": "Limit bookings per aggregator",

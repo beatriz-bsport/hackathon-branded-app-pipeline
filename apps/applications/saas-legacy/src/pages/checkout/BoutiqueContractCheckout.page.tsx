@@ -135,6 +135,7 @@ type RouterProps = {
     force: string;
     offerId: string;
     offerIds?: string;
+    selectedSpotIds?: string;
     selectedSpotId: string | null;
     guest_booking: string;
     guest_first_name: string;
@@ -146,6 +147,7 @@ type RouterProps = {
 type WithProps = {
   offerId: number;
   offerIds: number[];
+  selectedSpotIdsByOfferId: { [key: number]: number };
   // eslint-disable-next-line react/no-unused-prop-types
   selectedSpotId: number | null;
 };
@@ -540,6 +542,12 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     const first_billing_timestamp = DateTime.fromISO(
       this.state.billingStartDate,
     ).toUnixInteger();
+    const offerIdsForRegistration =
+      this.props.offerIds?.length > 0
+        ? this.props.offerIds
+        : [this.props.offerId];
+    const isMultiOfferRegistration = offerIdsForRegistration.length > 1;
+
     this.props.registerContractBackground(
       this.props.contractId,
       {
@@ -547,13 +555,13 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
         first_billing_timestamp,
         coupon,
         with_prorata: !!this.props?.contract?.month_billing_day,
-        offers: (this.props.offerIds?.length > 0
-          ? this.props.offerIds
-          : [this.props.offerId]
-        ).map((id) => ({
+        offers: offerIdsForRegistration.map((id) => ({
           offer_id: id,
           extra_data: {
-            spot_id: this.props.selectedSpotId ?? null,
+            spot_id:
+              this.props.selectedSpotIdsByOfferId[id] ??
+              (!isMultiOfferRegistration ? this.props.selectedSpotId : null) ??
+              null,
           },
         })),
         establishment_billing_group_id: establishmentBillingGroupId,
@@ -784,7 +792,11 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
                 <div className="bs-contract-new-checkout__purchase-summary">
                   <SubscriptionActivitiesSummary
                     companyTheme={this.props.theme}
-                    offers={this.props.offers ?? []}
+                    offers={
+                      this.props.offers?.length > 0
+                        ? this.props.offers
+                        : [this.props.offer]
+                    }
                   />
                 </div>
 
@@ -1105,6 +1117,7 @@ export default compose<any, OwnProps>(
     [
       'offerId',
       'offerIds',
+      'selectedSpotIds',
       'selectedSpotId',
       'guest_booking',
       'guest_first_name',
@@ -1126,10 +1139,24 @@ export default compose<any, OwnProps>(
         : Number.isFinite(singleOfferId)
         ? [singleOfferId]
         : [];
+    const selectedSpotIdsByOfferId = (queryParams.selectedSpotIds || '')
+      .split(',')
+      .reduce((acc, entry) => {
+        const [offerIdRaw, spotIdRaw] = entry.split(':');
+        const offerId = Number.parseInt((offerIdRaw || '').trim());
+        const spotId = Number.parseInt((spotIdRaw || '').trim());
+
+        if (Number.isFinite(offerId) && Number.isFinite(spotId)) {
+          acc[offerId] = spotId;
+        }
+
+        return acc;
+      }, {} as { [key: number]: number });
 
     return {
       offerId: offerIds[0] ?? singleOfferId,
       offerIds,
+      selectedSpotIdsByOfferId,
       selectedSpotId: queryParams.selectedSpotId
         ? Number.parseInt(queryParams.selectedSpotId)
         : null,

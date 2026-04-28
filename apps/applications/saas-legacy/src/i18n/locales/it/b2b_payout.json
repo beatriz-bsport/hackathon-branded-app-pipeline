@@ -1,5 +1,9 @@
 {
   "loadMore": "Leggi di più",
+  "paypalWarning": {
+    "title": "I pagamenti includono solo quelli tramite Stripe.",
+    "description": "Dato che PayPal non è collegato a Stripe, le transazioni PayPal vengono pagate direttamente sul tuo conto PayPal e non appariranno qui."
+  },
   "amountCarryOverFromPreviousPayouts": "Inclusi {{amount}} riportati da pagamenti precedenti falliti/annullati",
   "reconciliationStatusLabel": "Riconciliazione: {{status}}",
   "reconciliationStatus": {
@@ -29,6 +33,7 @@
     "status": "Stato"
   },
   "balanceTransactionTable": {
+    "creationDate": "Data di pagamento",
     "type": "Tipo",
     "paymentMethod": "Metodo di pagamento",
     "status": "Stato",
@@ -40,7 +45,10 @@
     "reversalOf": "Storno della transazione #{{id}}{{payoutInfo}}",
     "reversalOfPayoutInfo": " — pagamento {{readable_identifier}}",
     "fromPayout": "Dal pagamento {{readable_identifier}}",
-    "net": "net {{amount}}"
+    "details": "Dettagli della prenotazione",
+    "downloadPdfHelp": "Scarica PDF",
+    "net": "net {{amount}}",
+    "pdf": "PDF"
   },
   "summary": {
     "reconciliation": "Stato di riconciliazione",

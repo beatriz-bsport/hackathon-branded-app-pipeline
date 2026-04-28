@@ -18,7 +18,7 @@ export const ShortcutActionsButton: FC<{
   sessionId: number;
   bookingId: number;
   memberId?: number;
-  openModal: (type: SessionManagementModalType, bookingId: number) => void;
+  openModal?: (type: SessionManagementModalType, bookingId: number) => void;
   allowedItemIds?: ActionItemId[];
   participantEmail?: string;
   participantPhone?: string;
@@ -113,6 +113,7 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "user-x-01",
         type: "button",
         onClick: () => {
+          if (!openModal) return;
           openModal(SessionManagementModalType.CANCEL_BOOKING, bookingId);
           setIsPopoverOpened(false);
         },
@@ -196,7 +197,9 @@ export const ShortcutActionsButton: FC<{
           ? [swapSpotAction]
           : []),
         ...(hasChangeSpotPermission ? [swapPassAction] : []),
-        ...(hasCancelBookingPermission ? [cancelBookingAction] : []),
+        ...(hasCancelBookingPermission && openModal
+          ? [cancelBookingAction]
+          : []),
         divider,
         sectionTitle(t("billing")),
         ...(hasCreateInvoicePermission ? [sellItemsAction] : []),

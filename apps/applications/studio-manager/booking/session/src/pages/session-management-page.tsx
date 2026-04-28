@@ -11,7 +11,6 @@ import { BookingDetailDrawer } from "#src/components/session-management/booking-
 import { Header } from "#src/components/session-management/header";
 import { ParticipantsSection } from "#src/components/session-management/participants-section/participants-section";
 import { SessionManagementModals } from "#src/components/session-management/session-management-modals";
-import { useRetrieveRefinedBooking } from "#src/hooks/booking/fetch/use-retrieve-refined-booking";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import { useSessionManagementModals } from "#src/hooks/use-session-management-modals";
@@ -42,12 +41,6 @@ const SessionManagementPageInner: FC = () => {
   useEffect(() => {
     return () => setSelectedBooking(null);
   }, [id]);
-
-  const {
-    refinedBooking: selectedBooking,
-    isLoading,
-    error,
-  } = useRetrieveRefinedBooking(selectedBookingId);
 
   return (
     <>
@@ -84,10 +77,7 @@ const SessionManagementPageInner: FC = () => {
 
       <BookingDetailDrawer
         onClose={() => setSelectedBooking(null)}
-        isOpen={
-          !!selectedBookingId && !isLoading && !error && !!selectedBooking
-        }
-        selectedBooking={selectedBooking}
+        selectedBookingId={selectedBookingId}
         openModal={openModal}
       />
     </>

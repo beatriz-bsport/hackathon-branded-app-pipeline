@@ -11,6 +11,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import { ShortcutActionsButton } from "#src/components/session-management/action-buttons/booking/shortcut-actions-button";
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
@@ -22,7 +23,6 @@ import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 
-import { ShortcutActionsButton } from "../../action-buttons/booking/shortcut-actions-button";
 import { ChipsCell } from "./chips-cell";
 
 enum BookingColumns {
@@ -208,6 +208,8 @@ export const BookingsTable: FC<{
         }}
         loadingProps={{
           isLoading,
+          className:
+            "min-h-[360px] border-stroke-regular border-stroke-weak rounded-md overflow-hidden",
           message: t("bookingsTable.loadingMessage"),
         }}
       />

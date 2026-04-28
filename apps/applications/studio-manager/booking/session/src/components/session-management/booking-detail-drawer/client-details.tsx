@@ -94,22 +94,22 @@ export const ClientDetails: FC<{
         )}
       </div>
       <Section>
-        <div className="flex gap-xs items-center">
-          <Body color="default">{selectedBooking.memberData?.email}</Body>
-          <Button
-            kind="icon-button"
-            icon="copy-07"
-            label={t("actions.copyClientEmail")}
-            intent="flat"
-            size="md"
-            color="default"
-            onClick={() => {
-              if (selectedBooking.memberData?.email) {
-                copyToClipboard(selectedBooking.memberData?.email);
-              }
-            }}
-          />
-        </div>
+        {selectedBooking.memberData?.email && (
+          <div className="flex gap-xs items-center">
+            <Body color="default">{selectedBooking.memberData.email}</Body>
+            <Button
+              kind="icon-button"
+              icon="copy-07"
+              label={t("actions.copyClientEmail")}
+              intent="flat"
+              size="md"
+              color="default"
+              onClick={() => {
+                copyToClipboard(selectedBooking.memberData!.email);
+              }}
+            />
+          </div>
+        )}
         {selectedBooking.memberData?.phone && (
           <div className="flex gap-xs items-center">
             <Body color="default">{selectedBooking.memberData?.phone}</Body>

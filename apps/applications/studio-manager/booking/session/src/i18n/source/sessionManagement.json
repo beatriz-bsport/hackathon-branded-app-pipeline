@@ -17,8 +17,10 @@
     "loadingMessage": "Loading participants list...",
     "chips": {
       "new": "New",
-      "recurring": "Recurring booking",
-      "tags": "Tags"
+      "firstBooking": "First booking of the member",
+      "recurring": "Recurring booking. To manage it, open the panel and click on “Recurring bookings”",
+      "tags": "Tags",
+      "unpaidInvoices": "Outstanding balance. Check billing details or resolve unpaid invoices."
     },
     "actionsMenu": {
       "label": "Actions"

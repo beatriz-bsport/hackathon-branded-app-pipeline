@@ -77,11 +77,14 @@
               "label": "Spot capping",
               "UNLIMITED": {
                 "label": "Unlimited spots",
-                "helperText": "All spots can be booked through aggregators (combined across all)"
+                "helperText": "All spots can be booked through aggregators (combined across all)",
+                "singleAggregatorHelperText": "All spots can be booked through the aggregator"
               },
               "COMBINED": {
                 "label": "Limited spots (combined)",
-                "helperText": "Set a maximum number of spots for all aggregators combined"
+                "helperText": "Set a maximum number of spots for all aggregators combined",
+                "singleAggregatorLabel": "Limited spots",
+                "singleAggregatorHelperText": "Set a maximum number of spots for the enabled aggregator"
               },
               "PER_PARTNER": {
                 "label": "Limit bookings per aggregator",

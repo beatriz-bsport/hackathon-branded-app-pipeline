@@ -5,7 +5,7 @@ import {
   fromIsoString,
   getLocalNow,
 } from "@bsport/datetime-manipulation";
-import { FormField } from "@bsport/form";
+import { FormField, useFormContext } from "@bsport/form";
 import {
   DatePicker,
   type DatePickerProps,
@@ -19,6 +19,7 @@ import { i18nInstance, useTranslation } from "#src/i18n";
 export const ValidFromField: React.FC = () => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
   const validFromId = useId();
+  const { clearErrors } = useFormContext<CheckoutFlowFormState>();
 
   const today = getLocalNow({ zone: getCompanyTimezone() });
   const disablePastDates = (date: DateTime) => {
@@ -32,7 +33,7 @@ export const ValidFromField: React.FC = () => {
       DatePickerProps
     >
       name="addItemGiftcardValidFrom"
-      mapProps={({ field, form: { setValue } }) => ({
+      mapProps={({ field, fieldState, form: { setValue } }) => ({
         value: field.value,
         dateValue: field.value ? fromIsoString(field.value) : undefined,
         onSelect: (date: SelectedDate) => {
@@ -41,7 +42,10 @@ export const ValidFromField: React.FC = () => {
             date ? date.toString() : today.toString(),
             { shouldDirty: true },
           );
+          clearErrors("addItemGiftcardValidFrom");
         },
+        status: fieldState.error ? "error" : "default",
+        statusText: fieldState.error?.message,
       })}
     >
       <DatePicker

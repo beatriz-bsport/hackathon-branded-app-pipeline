@@ -28,7 +28,8 @@ export const PriceField: React.FC<PriceFieldProps> = ({
   customAmountMaxCts,
 }) => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
-  const { watch, setValue } = useFormContext<CheckoutFlowFormState>();
+  const { watch, setValue, clearErrors } =
+    useFormContext<CheckoutFlowFormState>();
   const priceFieldId = `price-${useId()}`;
 
   const selectedItemType = watch("addItemSelectedItemType");
@@ -70,6 +71,7 @@ export const PriceField: React.FC<PriceFieldProps> = ({
 
   const handlePriceCtsChange = useCallback(
     (cts: number) => {
+      clearErrors("addItemPriceCts");
       const originalPriceCts = selectedItemPriceCts ?? 0;
 
       if (originalPriceCts > 0 && cts < originalPriceCts) {
@@ -85,7 +87,7 @@ export const PriceField: React.FC<PriceFieldProps> = ({
         resetDiscount(true);
       }
     },
-    [setValue, resetDiscount, selectedItemPriceCts],
+    [clearErrors, setValue, resetDiscount, selectedItemPriceCts],
   );
 
   // Reset price and discount when selection or mode changes.

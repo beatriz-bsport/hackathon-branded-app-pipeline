@@ -71,7 +71,7 @@ export const BackgroundImageField: React.FC<BackgroundImageFieldProps> = ({
       AutocompleteProps
     >
       name="addItemGiftcardBackgroundImage"
-      mapProps={({ field, form: { setValue } }) => {
+      mapProps={({ field, fieldState, form: { setValue, clearErrors } }) => {
         const selectedBackground = giftcardBackgrounds.find(
           (bg) => bg.image === field.value,
         );
@@ -81,15 +81,26 @@ export const BackgroundImageField: React.FC<BackgroundImageFieldProps> = ({
 
         return {
           value: displayValue,
+          textfieldProps: {
+            id: "giftcard-background-image",
+            label: t("checkoutFlowModal.giftCardDetails.backgroundImage"),
+            placeholder: t(
+              "checkoutFlowModal.giftCardDetails.backgroundImagePlaceholder",
+            ),
+            status: fieldState.error ? "error" : "default",
+            statusText: fieldState.error?.message,
+          },
           onSelect: (selectedValue: string) => {
             setValue("addItemGiftcardBackgroundImage", selectedValue || null, {
               shouldDirty: true,
             });
+            clearErrors("addItemGiftcardBackgroundImage");
           },
           onClear: () => {
             setValue("addItemGiftcardBackgroundImage", null, {
               shouldDirty: true,
             });
+            clearErrors("addItemGiftcardBackgroundImage");
           },
           defaultSelectedIds: field.value ? [field.value] : [],
         } as Partial<AutocompleteProps>;

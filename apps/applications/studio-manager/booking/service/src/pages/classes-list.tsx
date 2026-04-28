@@ -208,6 +208,7 @@ const ClassesListingPage: FC = () => {
 
   const { endGroupActions } = ListLayout.useAdaptiveActions({
     endGroupActions: [
+      <ClassesInformation key="classes-information" />,
       <GoToArchivedLink
         key="link-to-archive"
         kind="icon-button"
@@ -239,7 +240,6 @@ const ClassesListingPage: FC = () => {
         endGroupActions={endGroupActions}
         filterConfig={filterConfig}
         filterRef={filterRef}
-        onDisplayPopover={ClassesInformation}
         pageTabs={{
           orientation: "horizontal",
           value: activeTab,

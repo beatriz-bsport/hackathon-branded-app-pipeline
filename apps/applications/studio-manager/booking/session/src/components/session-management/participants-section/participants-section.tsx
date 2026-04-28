@@ -15,8 +15,9 @@ import { CancelledBookingsTable } from "./bookings-tables/cancelled-bookings-tab
 
 export const ParticipantsSection: FC<{
   sessionId: number;
+  searchQuery: string;
   openModal: (type: SessionManagementModalType, bookingId?: number) => void;
-}> = ({ sessionId, openModal }) => {
+}> = ({ sessionId, searchQuery, openModal }) => {
   const { t } = useTranslation("sessionManagement");
   const { data: session } = useRetrieveSession(sessionId);
 
@@ -44,9 +45,16 @@ export const ParticipantsSection: FC<{
         <BookingStatusSegmentedControl />
         <AttendanceFilter />
         {bookingsStatusFilters === BookingStatusFilter.BOOKED ? (
-          <BookingsTable sessionId={session.id} openModal={openModal} />
+          <BookingsTable
+            sessionId={session.id}
+            openModal={openModal}
+            searchQuery={searchQuery}
+          />
         ) : (
-          <CancelledBookingsTable sessionId={session.id} />
+          <CancelledBookingsTable
+            sessionId={session.id}
+            searchQuery={searchQuery}
+          />
         )}
       </div>
     </div>

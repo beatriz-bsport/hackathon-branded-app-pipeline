@@ -16,13 +16,13 @@ import { EstablishmentSection } from "#src/components/SessionForm/teacher-and-es
 import { TeacherSection } from "#src/components/SessionForm/teacher-and-establishment/teacher-section";
 import { Header } from "#src/components/session-details/header";
 import { fromSessionToFormData } from "#src/components/update-session-form/mapper";
-import { sessionUpdateSidePanelEnabledEvent } from "#src/events/session-edition/events.js";
+import { sessionUpdateSidePanelEnabledEvent } from "#src/events/session-edition/events";
 import useEditSession from "#src/hooks/session-api/session-actions/use-edit-session";
 import { useModal } from "#src/hooks/use-modal";
 import { useSessionPayload } from "#src/hooks/use-session-payload";
-import { analyticsClient } from "#src/utils/analytics.js";
+import { analyticsClient } from "#src/utils/analytics";
 import { useTranslation } from "#src/utils/i18n";
-import { trackSessionEdition } from "#src/utils/track-session-edition.js";
+import { trackSessionEdition } from "#src/utils/track-session-edition";
 
 import { VisibilitySelector } from "../SessionForm/Details/VisibilitySelector";
 import { CancelSessionModal } from "../SessionList/detail-actions/cancel-session-modal";

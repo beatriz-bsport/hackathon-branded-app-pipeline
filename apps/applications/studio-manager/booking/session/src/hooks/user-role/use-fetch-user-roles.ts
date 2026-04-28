@@ -5,7 +5,7 @@ import {
   flatUserRolesQueryOption,
 } from "@bsport/api-staff-management/role";
 
-import { fetch } from "#src/utils/fetch.js";
+import { fetch } from "#src/utils/fetch";
 
 const USER_ROLES_STALE_TIME = 5 * 60 * 1000; // 5 minutes
 

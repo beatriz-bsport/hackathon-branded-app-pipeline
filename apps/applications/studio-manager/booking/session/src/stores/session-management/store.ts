@@ -3,7 +3,7 @@ import { createStore } from "zustand/vanilla";
 
 import { bindStore } from "@bsport/store-base";
 
-import { DEFAULT_SESSION_LISTED_INFORMATION } from "#src/constants.js";
+import { DEFAULT_SESSION_LISTED_INFORMATION } from "#src/constants";
 
 import {
   BookingStatusFilter,

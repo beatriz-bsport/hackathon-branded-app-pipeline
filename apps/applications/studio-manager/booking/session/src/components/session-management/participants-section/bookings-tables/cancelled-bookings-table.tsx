@@ -13,6 +13,7 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
+import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
 import { setSelectedBooking } from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
 import type { RefinedBooking } from "#src/types";
@@ -27,9 +28,10 @@ enum BookingColumns {
   ACTIONS = "actions",
 }
 
-export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
-  sessionId,
-}) => {
+export const CancelledBookingsTable: FC<{
+  sessionId: number;
+  searchQuery: string;
+}> = ({ sessionId, searchQuery }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
@@ -45,16 +47,28 @@ export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
     page_size: currentPageSize,
   });
 
+  const searchedBookings = useSearchBookings(refinedBookings, searchQuery);
+
+  const hasSearchQuery = searchQuery.trim().length > 0;
+
   const paginationProps: PaginationProps = useMemo(
     () => ({
       currentPage,
       rowsPerPage: currentPageSize,
-      showRowsPerPageSelector: true,
+      showRowsPerPageSelector: !hasSearchQuery,
       disabled: isLoading,
-      totalItems: count ?? 0,
+      totalItems: hasSearchQuery ? searchedBookings.length : (count ?? 0),
       onPageSettingsChange: setPageSettings,
     }),
-    [currentPage, currentPageSize, isLoading, count, setPageSettings],
+    [
+      currentPage,
+      currentPageSize,
+      isLoading,
+      count,
+      setPageSettings,
+      hasSearchQuery,
+      searchedBookings.length,
+    ],
   );
 
   const selectedBookingId = useSessionManagementStore(
@@ -139,14 +153,14 @@ export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
       <Table
         columns={columns}
         rowHeight="lg"
-        rows={refinedBookings.map((booking) => ({
+        rows={searchedBookings.map((booking) => ({
           ...booking,
           isActive: booking.id === selectedBookingId,
           onRowClick: () => setSelectedBooking(booking.id),
         }))}
         paginationProps={paginationProps}
         emptyStateProps={{
-          isEmpty: !isLoading && (count ?? 0) === 0,
+          isEmpty: !searchedBookings.length,
           emptyConfig: {
             title: t("bookingsTable.emptyState.title"),
             ctaButtonConfig: {

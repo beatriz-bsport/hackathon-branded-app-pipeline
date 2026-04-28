@@ -13,10 +13,11 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
-import { setSelectedBooking } from "#src/stores/session-management/actions.js";
-import { useSessionManagementStore } from "#src/stores/session-management/store.js";
-import { BookingListedInformation } from "#src/stores/session-management/types.js";
+import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import { setSelectedBooking } from "#src/stores/session-management/actions";
+import { useSessionManagementStore } from "#src/stores/session-management/store";
+import { BookingListedInformation } from "#src/stores/session-management/types";
 import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
@@ -34,8 +35,9 @@ enum BookingColumns {
 
 export const BookingsTable: FC<{
   sessionId: number;
+  searchQuery: string;
   openModal: (type: SessionManagementModalType, bookingId?: number) => void;
-}> = ({ sessionId, openModal }) => {
+}> = ({ sessionId, searchQuery, openModal }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
@@ -53,6 +55,8 @@ export const BookingsTable: FC<{
     page: currentPage,
     page_size: currentPageSize,
   });
+
+  const searchedBookings = useSearchBookings(refinedBookings, searchQuery);
 
   const selectedBookingId = useSessionManagementStore(
     (state) => state.selectedBookingId,
@@ -155,16 +159,26 @@ export const BookingsTable: FC<{
     },
   ];
 
+  const hasSearchQuery = searchQuery.trim().length > 0;
+
   const paginationProps: PaginationProps = useMemo(
     () => ({
       currentPage,
       rowsPerPage: currentPageSize,
-      showRowsPerPageSelector: true,
+      showRowsPerPageSelector: !hasSearchQuery,
       disabled: isLoading,
-      totalItems: count ?? 0,
+      totalItems: hasSearchQuery ? searchedBookings.length : (count ?? 0),
       onPageSettingsChange: setPageSettings,
     }),
-    [currentPage, currentPageSize, isLoading, count, setPageSettings],
+    [
+      currentPage,
+      currentPageSize,
+      isLoading,
+      count,
+      setPageSettings,
+      hasSearchQuery,
+      searchedBookings.length,
+    ],
   );
 
   return (
@@ -177,14 +191,14 @@ export const BookingsTable: FC<{
       <Table
         columns={columns}
         rowHeight="lg"
-        rows={refinedBookings.map((booking) => ({
+        rows={searchedBookings.map((booking) => ({
           ...booking,
           isActive: booking.id === selectedBookingId,
           onRowClick: () => setSelectedBooking(booking.id),
         }))}
         paginationProps={paginationProps}
         emptyStateProps={{
-          isEmpty: !count,
+          isEmpty: !searchedBookings.length,
           emptyConfig: {
             title: t("bookingsTable.emptyState.title"),
             ctaButtonConfig: {

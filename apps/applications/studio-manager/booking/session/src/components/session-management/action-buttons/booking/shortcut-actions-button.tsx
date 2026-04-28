@@ -7,8 +7,8 @@ import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
-import { LEGACY_URLS } from "#src/urls.js";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 

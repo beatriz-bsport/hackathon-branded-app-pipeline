@@ -2,6 +2,7 @@
   "pageTitle": "{{sessionName}} with {{coachName}}",
   "goToPreviousSession": "Go to previous class",
   "goToNextSession": "Go to next class",
+  "refresh": "Refresh lists",
   "bookButton": "Book a client",
   "bookingsSectionTitle": "Participants",
   "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",

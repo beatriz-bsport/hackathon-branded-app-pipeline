@@ -1,7 +1,8 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 import { DetailsLayout } from "@bsport/kaizen-primitive-core";
+import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { DetailsFetchError } from "#src/components/session-details/details-fetch-error";
@@ -36,6 +37,8 @@ const SessionManagementPageInner: FC = () => {
     (state) => state.selectedBookingId,
   );
 
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     return () => setSelectedBooking(null);
   }, [id]);
@@ -49,10 +52,28 @@ const SessionManagementPageInner: FC = () => {
   return (
     <>
       <DetailsLayout withPanel>
-        <Header sessionId={session.id} openModal={openModal} />
+        <Header
+          sessionId={session.id}
+          openModal={openModal}
+          searchConfig={{
+            id: "session-management-search",
+            inputValue: searchQuery,
+            onInputValueChange: (value: string) => {
+              setSearchQuery(value);
+            },
+            debounceValue: DEFAULT_DEBOUNCE_DELAY,
+            onClear: () => {
+              setSearchQuery("");
+            },
+          }}
+        />
 
         <DetailsLayout.Content className="max-w-none">
-          <ParticipantsSection sessionId={session.id} openModal={openModal} />
+          <ParticipantsSection
+            sessionId={session.id}
+            openModal={openModal}
+            searchQuery={searchQuery}
+          />
         </DetailsLayout.Content>
       </DetailsLayout>
       <SessionManagementModals

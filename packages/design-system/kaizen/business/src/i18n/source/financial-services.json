@@ -47,5 +47,22 @@
         "manual": "Manual"
       }
     }
+  },
+  "paymentFlowModal": {
+    "title": "Payment",
+    "buttons": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "tabs": {
+      "oneTime": "One time",
+      "installments": "Installments"
+    },
+    "totalAmountLabel": "Total amount",
+    "partialToggleLabel": "Pay part of the total now, the rest later",
+    "paymentMethodTitle": "Payment method",
+    "links": {
+      "invoice": "Invoice"
+    }
   }
 }

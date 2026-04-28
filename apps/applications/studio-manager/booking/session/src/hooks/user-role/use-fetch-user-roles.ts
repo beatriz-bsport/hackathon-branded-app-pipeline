@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import {
   UserRole,
-  flatUserRolesQueryOption,
+  flatUserRolesQueryOptions,
 } from "@bsport/api-staff-management/role";
 
 import { fetch } from "#src/utils/fetch";
@@ -13,7 +13,7 @@ export const useFetchUserRole = <T = UserRole[]>(options?: {
   select?: (data: UserRole[]) => T;
 }) =>
   useQuery({
-    ...flatUserRolesQueryOption(fetch),
+    ...flatUserRolesQueryOptions(fetch),
     staleTime: USER_ROLES_STALE_TIME,
     select: options?.select,
   });

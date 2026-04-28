@@ -53,7 +53,13 @@ const BookingDetailDrawerContent: FC<{
     <div className="flex flex-col gap-lg">
       <BookingDetails openModal={openModal} selectedBooking={refinedBooking} />
       <Divider orientation="horizontal" weight="extra-thin" />
-      <ClientDetails openModal={openModal} selectedBooking={refinedBooking} />
+      <ClientDetails
+        sessionId={refinedBooking.offer}
+        memberData={refinedBooking.memberData}
+        isNewClient={refinedBooking.first_in_company}
+        bookingId={refinedBooking.id}
+        openModal={openModal}
+      />
     </div>
   );
 };

@@ -16,7 +16,7 @@ import { type ActionItemId, BookingActionItemId } from "./types";
 
 export const ShortcutActionsButton: FC<{
   sessionId: number;
-  bookingId: number;
+  bookingId?: number;
   memberId?: number;
   openModal?: (type: SessionManagementModalType, bookingId: number) => void;
   allowedItemIds?: ActionItemId[];
@@ -113,7 +113,7 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "user-x-01",
         type: "button",
         onClick: () => {
-          if (!openModal) return;
+          if (!openModal || !bookingId) return;
           openModal(SessionManagementModalType.CANCEL_BOOKING, bookingId);
           setIsPopoverOpened(false);
         },
@@ -193,11 +193,11 @@ export const ShortcutActionsButton: FC<{
 
       const allItems: Item[] = [
         sectionTitle(t("booking")),
-        ...(hasCreateBookingPermission && session.room_blueprint
+        ...(hasCreateBookingPermission && session.room_blueprint && bookingId
           ? [swapSpotAction]
           : []),
-        ...(hasChangeSpotPermission ? [swapPassAction] : []),
-        ...(hasCancelBookingPermission && openModal
+        ...(hasChangeSpotPermission && bookingId ? [swapPassAction] : []),
+        ...(hasCancelBookingPermission && openModal && bookingId
           ? [cancelBookingAction]
           : []),
         divider,

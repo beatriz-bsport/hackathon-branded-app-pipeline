@@ -1,5 +1,9 @@
 {
   "loadMore": "Mehr anzeigen",
+  "paypalWarning": {
+    "title": "Auszahlungen umfassen nur Stripe-Zahlungen.",
+    "description": "Da PayPal nicht mit Stripe verbunden ist, werden PayPal-Transaktionen direkt auf dein PayPal-Konto ausgezahlt und erscheinen hier nicht."
+  },
   "amountCarryOverFromPreviousPayouts": "Enthält {{amount}}, übertragen von vorherigen fehlgeschlagenen/stornierten Auszahlungen",
   "reconciliationStatusLabel": "Abstimmung: {{status}}",
   "reconciliationStatus": {
@@ -29,6 +33,7 @@
     "status": "Status"
   },
   "balanceTransactionTable": {
+    "creationDate": "Zahlungsdatum",
     "type": "Zahlungsart",
     "paymentMethod": "Zahlungsmethode",
     "status": "Status",
@@ -40,7 +45,10 @@
     "reversalOf": "Stornierung der Transaktion #{{id}}{{payoutInfo}}",
     "reversalOfPayoutInfo": " — Auszahlung {{readable_identifier}}",
     "fromPayout": "Aus der Auszahlung {{readable_identifier}}",
-    "net": "netto {{amount}}"
+    "details": "Details der Buchung",
+    "downloadPdfHelp": "PDF herunterladen",
+    "net": "netto {{amount}}",
+    "pdf": "PDF"
   },
   "summary": {
     "reconciliation": "Abgleichstatus",

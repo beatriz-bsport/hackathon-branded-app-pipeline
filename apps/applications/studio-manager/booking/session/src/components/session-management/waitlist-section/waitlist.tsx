@@ -14,7 +14,12 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useFetchRefinedBookingOptions } from "#src/hooks/waitlist/use-fetch-refined-booking-options";
-import { useSearchBookingOptions } from "#src/hooks/waitlist/use-search-booking-options.js";
+import { useSearchBookingOptions } from "#src/hooks/waitlist/use-search-booking-options";
+import {
+  setSelectedBooking,
+  setSelectedBookingOption,
+} from "#src/stores/session-management/actions.js";
+import { useSessionManagementStore } from "#src/stores/session-management/store.js";
 import type { RefinedBookingOption } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
@@ -45,6 +50,10 @@ export const WaitList: FC<{ sessionId: number; searchQuery: string }> = ({
     searchQuery,
   );
 
+  const selectedBookingOptionId = useSessionManagementStore(
+    (state) => state.selectedBookingOptionId,
+  );
+
   const hasSearchQuery = searchQuery.trim().length > 0;
 
   const paginationProps: PaginationProps = useMemo(
@@ -56,7 +65,15 @@ export const WaitList: FC<{ sessionId: number; searchQuery: string }> = ({
       onPageSettingsChange: setPageSettings,
       showRowsPerPageSelector: !hasSearchQuery,
     }),
-    [currentPage, currentPageSize, isLoading, count, setPageSettings],
+    [
+      currentPage,
+      currentPageSize,
+      isLoading,
+      count,
+      setPageSettings,
+      hasSearchQuery,
+      searchedBookingOptions.length,
+    ],
   );
 
   const columns: GenericTableColumn<RefinedBookingOption>[] = [
@@ -128,7 +145,14 @@ export const WaitList: FC<{ sessionId: number; searchQuery: string }> = ({
       <Table
         columns={columns}
         rowHeight="lg"
-        rows={searchedBookingOptions}
+        rows={searchedBookingOptions.map((bookingOption) => ({
+          ...bookingOption,
+          isActive: bookingOption.id === selectedBookingOptionId,
+          onRowClick: () => {
+            setSelectedBooking(null);
+            setSelectedBookingOption(bookingOption.id);
+          },
+        }))}
         paginationProps={paginationProps}
         hideHeader
         emptyStateProps={{

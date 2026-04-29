@@ -12,11 +12,11 @@
     "error": "Fehler"
   },
   "reconciliationStatusPayout": {
-    "pending": "Der Abgleich der Saldenbuchungen hat noch nicht begonnen",
-    "processing": "Der Abgleich der Saldenbuchungen läuft gerade",
-    "completed": "Der Abgleich der Saldenbuchungen ist abgeschlossen",
-    "partially_failed": "Einige Saldo-Transaktionen wurden nicht abgeglichen",
-    "skipped_manual": "Der Abgleich der Saldenbuchungen wurde übersprungen"
+    "pending": "Abgleich der Transaktionen steht noch aus",
+    "processing": "Abgleich der Transaktionen läuft",
+    "completed": "Abgleich der Transaktionen abgeschlossen",
+    "partially_failed": "Einige Transaktionen wurden nicht abgeglichen",
+    "skipped_manual": "Abgleich der Transaktionen übersprungen"
   },
   "reconciliationStatusPayoutStatus": {
     "pending": "Offen",
@@ -33,7 +33,7 @@
     "status": "Status"
   },
   "balanceTransactionTable": {
-    "creationDate": "Zahlungsdatum",
+    "creationDate": "Transaktionsdatum",
     "type": "Zahlungsart",
     "paymentMethod": "Zahlungsmethode",
     "status": "Status",
@@ -45,7 +45,7 @@
     "reversalOf": "Stornierung der Transaktion #{{id}}{{payoutInfo}}",
     "reversalOfPayoutInfo": " — Auszahlung {{readable_identifier}}",
     "fromPayout": "Aus der Auszahlung {{readable_identifier}}",
-    "details": "Details der Buchung",
+    "details": "Infos",
     "downloadPdfHelp": "PDF herunterladen",
     "net": "netto {{amount}}",
     "pdf": "PDF"
@@ -56,12 +56,12 @@
     "refunds": "Rückerstattungen",
     "disputes": "Streitfälle",
     "directDebitOriginal": "Lastschrift Original",
-    "directDebitReversal": "Lastschriftrückgabe",
+    "directDebitReversal": "Lastschrift-Rückbuchung",
     "transfers": "Überweisungen",
-    "transferRefunds": "Überweisungsrückerstattungen",
+    "transferRefunds": "Rückerstattungen von Überweisungen",
     "adjustments": "Anpassungen",
     "appFees": "App-Gebühren",
-    "appFeeRefunds": "App-Gebührenerstattungen",
+    "appFeeRefunds": "Rückerstattungen von App-Gebühren",
     "payoutFailures": "Auszahlungsfehler",
     "payoutCancels": "Auszahlung storniert",
     "title": "Auszahlungsübersicht"
@@ -84,7 +84,7 @@
       "description": "Ein fehlgeschlagener Lastschrifteinzug"
     },
     "failed_direct_debit_reversal": {
-      "label": "Lastschriftrückgabe",
+      "label": "Lastschrift-Rückbuchung",
       "description": "Eine Rückbuchung nach einer fehlgeschlagenen Lastschrift"
     },
     "balance_transfer": {
@@ -92,8 +92,8 @@
       "description": "Eine Guthabenübertragung"
     },
     "balance_transfer_refund": {
-      "label": "Überweisung Rückerstattung",
-      "description": "Eine Rückerstattung einer Saldoüberweisung"
+      "label": "Rückerstattung einer Überweisung",
+      "description": "Eine Rückerstattung einer Guthabenübertragung"
     },
     "adjustment": {
       "label": "Anpassung",
@@ -104,7 +104,7 @@
       "description": "Eine Plattformgebühr"
     },
     "application_fee_refund": {
-      "label": "App-Gebührenerstattung",
+      "label": "Eine Rückerstattung von App-Gebühren",
       "description": "Eine Rückerstattung der Plattformgebühr"
     },
     "payout_failure": {
@@ -117,7 +117,7 @@
     },
     "other": {
       "label": "Sonstige",
-      "description": "Eine weitere Art von Saldo-Transaktion"
+      "description": "Eine andere Transaktionsart"
     }
   }
 }

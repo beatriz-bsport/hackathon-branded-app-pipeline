@@ -106,12 +106,12 @@ export const BookingDetails: FC<{
             <a
               href={LEGACY_URLS.MEMBER_DETAILS(selectedBooking.memberData?.id)}
             >
-              <Title htmlVariant="h3" weight="strong">
+              <Title htmlVariant="h2" weight="strong">
                 {selectedBooking.memberData?.name ?? ""}
               </Title>
             </a>
           ) : (
-            <Title htmlVariant="h3" weight="strong">
+            <Title htmlVariant="h2" weight="strong">
               {selectedBooking.memberData?.name ?? ""}
             </Title>
           )}

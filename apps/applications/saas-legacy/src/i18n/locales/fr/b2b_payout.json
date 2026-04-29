@@ -22,7 +22,7 @@
     "pending": "En attente",
     "processing": "En cours",
     "completed": "Terminé",
-    "partially_failed": "Partiellement échoué",
+    "partially_failed": "Paiement partiellement échoué",
     "skipped_manual": "Ignorer"
   },
   "table": {
@@ -33,7 +33,7 @@
     "status": "Statut"
   },
   "balanceTransactionTable": {
-    "creationDate": "Date de paiement",
+    "creationDate": "Date de transaction",
     "type": "Type de paiement",
     "paymentMethod": "Moyen de paiement",
     "status": "Statut",
@@ -45,7 +45,7 @@
     "reversalOf": "Annulation de la transaction #{{id}}{{payoutInfo}}",
     "reversalOfPayoutInfo": " — versement {{readable_identifier}}",
     "fromPayout": "Depuis le versement {{readable_identifier}}",
-    "details": "Détails réservation",
+    "details": "Détails",
     "downloadPdfHelp": "Télécharger le PDF",
     "net": "net {{amount}}",
     "pdf": "PDF"
@@ -63,8 +63,8 @@
     "appFees": "Frais d'application",
     "appFeeRefunds": "Remboursements des frais d'application",
     "payoutFailures": "Échecs de versement",
-    "payoutCancels": "Annulations de paiements",
-    "title": "Récapitulatif des versements"
+    "payoutCancels": "Annulations de versements",
+    "title": "Récapitulatif de versements"
   },
   "displayType": {
     "payment": {
@@ -73,14 +73,14 @@
     },
     "refund": {
       "label": "Remboursement",
-      "description": "Un avoir émis à un client"
+      "description": "Un remboursement émis à un client"
     },
     "dispute": {
       "label": "Litige",
       "description": "Un litige initié par un client (chargeback)"
     },
     "failed_direct_debit_original": {
-      "label": "Prélèvement automatique échoué",
+      "label": "Prélèvement échoué",
       "description": "Un prélèvement qui n'a pas pu être encaissé"
     },
     "failed_direct_debit_reversal": {
@@ -92,7 +92,7 @@
       "description": "Un virement de solde"
     },
     "balance_transfer_refund": {
-      "label": "Virement remboursé",
+      "label": "Remboursement de virement",
       "description": "Remboursement d'un virement de solde"
     },
     "adjustment": {
@@ -101,7 +101,7 @@
     },
     "application_fee": {
       "label": "Frais d'application",
-      "description": "Des frais de plateforme"
+      "description": "Un frais de plateforme"
     },
     "application_fee_refund": {
       "label": "Remboursement des frais d'application",
@@ -112,7 +112,7 @@
       "description": "Fonds restitués suite à un versement échoué"
     },
     "payout_cancel": {
-      "label": "Annuler le versement",
+      "label": "Annulation de versement",
       "description": "Fonds retournés après un versement annulé"
     },
     "other": {

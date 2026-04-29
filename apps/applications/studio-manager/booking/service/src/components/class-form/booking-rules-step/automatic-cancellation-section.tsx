@@ -30,11 +30,8 @@ export const AutomaticCancellationSection: FC = () => {
         }}
       />
       {isEnabled ? (
-        <div className="flex flex-col gap-md">
-          <div className="flex flex-wrap items-center gap-2xs">
-            <Body size="md" htmlVariant="span">
-              {t("addEditForm.automaticCancellation.sentencePre")}
-            </Body>
+        <div className="flex flex-col gap-lg">
+          <div className="flex flex-col items-start gap-md">
             <FormNumberFieldFallbackZero<
               ClassFormValues,
               "auto_discard_min_bookings_nb"
@@ -42,14 +39,15 @@ export const AutomaticCancellationSection: FC = () => {
               fieldName="auto_discard_min_bookings_nb"
               id={`${fieldIdPrefix}-auto-discard-min-bookings`}
               aria-label={t(
-                "addEditForm.automaticCancellation.minBookingsAriaLabel",
+                "addEditForm.automaticCancellation.minBookingsLabel",
               )}
+              label={t("addEditForm.automaticCancellation.minBookingsLabel")}
+              suffix={{
+                type: "text",
+                value: t("addEditForm.automaticCancellation.minBookingsSuffix"),
+              }}
               min={0}
-              className="w-[48px]"
             />
-            <Body size="md" htmlVariant="span">
-              {t("addEditForm.automaticCancellation.sentenceMid")}
-            </Body>
             <FormNumberFieldFallbackZero<
               ClassFormValues,
               "auto_discard_hours_before_start"
@@ -57,14 +55,19 @@ export const AutomaticCancellationSection: FC = () => {
               fieldName="auto_discard_hours_before_start"
               id={`${fieldIdPrefix}-auto-discard-hours-before-start`}
               aria-label={t(
-                "addEditForm.automaticCancellation.hoursBeforeStartAriaLabel",
+                "addEditForm.automaticCancellation.hoursBeforeStartLabel",
               )}
+              label={t(
+                "addEditForm.automaticCancellation.hoursBeforeStartLabel",
+              )}
+              suffix={{
+                type: "text",
+                value: t(
+                  "addEditForm.automaticCancellation.hoursBeforeStartSuffix",
+                ),
+              }}
               min={0}
-              className="w-[48px]"
             />
-            <Body size="md" htmlVariant="span">
-              {t("addEditForm.automaticCancellation.sentenceEnd")}
-            </Body>
           </div>
           <Alert status="info" type="weak" layout="inline">
             <Body size="md" color="info">

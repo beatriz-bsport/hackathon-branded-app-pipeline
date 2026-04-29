@@ -47,6 +47,8 @@ export const bookingKeys = {
     [...bookingKeys.all, "group-session-related", bookingId] as const,
   sessionWithCancelledBookings: (recurrenceRuleId: number) =>
     [...bookingKeys.all, "cancelled", recurrenceRuleId] as const,
+  setSpotMutation: (bookingId: number) =>
+    [...bookingKeys.detail(bookingId), "set-spot"] as const,
 } as const;
 
 export const fetchBookingsAPI = async (

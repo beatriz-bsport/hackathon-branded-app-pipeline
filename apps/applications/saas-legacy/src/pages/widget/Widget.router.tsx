@@ -23,11 +23,11 @@ import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 //@ts-expect-error
 import BasketPage from '#src/pages/checkout/basket/Basket.page';
 import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
-import { AgentChatWithCss } from '../agent-chat/agent-chat.page';
 import {
   FeatureFlagProps,
   withFeatureFlags,
 } from '#src/utils/feature-flag/withFeatureFlags';
+import { AgentChatWidget } from '../agent-chat/agent-chat.page';
 
 type RouterProps = {
   companyId: number;
@@ -86,7 +86,7 @@ class WidgetRouter extends React.Component<Props> {
           />
           {this.props.isAgentChatEnabled && (
             <Route
-              component={this.attachConsumerProps(AgentChatWithCss)}
+              component={this.attachConsumerProps(AgentChatWidget)}
               path="/widget/:companyName/:companyId/agent-chat/"
             />
           )}

@@ -58,7 +58,6 @@
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-library": "workspace:*",
     "@bsport/config-vitest": "workspace:*",
-    "@tanstack/eslint-plugin-query": "^5.91.2",
     "@tanstack/react-query-devtools": "^5.90.12",
     "@types/luxon": "^3.4.2",
     "autoprefixer": "^10.4.20",

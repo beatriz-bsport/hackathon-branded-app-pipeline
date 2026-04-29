@@ -1,0 +1,9 @@
+{
+  "roles": {
+    "agent": "Agent",
+    "studio_manager": "Studio Manager",
+    "member": "Me"
+  },
+  "sendButton": "Send",
+  "messageInputAriaLabel": "Write your message here"
+}

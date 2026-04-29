@@ -13,6 +13,7 @@ import Icon, { IconName } from "#src/components/Icon";
 import { Label } from "#src/components/label";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
+import Body from "../Body";
 import ColorInput from "./ColorInput";
 
 const defaultClasses = [
@@ -267,7 +268,9 @@ const TextField: React.FC<TextFieldProps> = ({
               className="flex px-xs items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weak"
             >
               {prefix.type === "text" ? (
-                <span>{prefix.value}</span>
+                <Body size="sm" color="weak" weight="weak">
+                  {prefix.value}
+                </Body>
               ) : prefix.type === "icon" ? (
                 <Icon icon={prefix.value} size="sm" />
               ) : prefix.type === "color" ? (
@@ -359,7 +362,9 @@ const TextField: React.FC<TextFieldProps> = ({
               )}
             >
               {suffix?.type === "text" ? (
-                <span>{suffix.value}</span>
+                <Body size="sm" color="weak" weight="weak">
+                  {suffix.value}
+                </Body>
               ) : suffix?.type === "icon" ? (
                 <Icon icon={suffix.value} size="sm" />
               ) : suffix?.type === "color" ? (

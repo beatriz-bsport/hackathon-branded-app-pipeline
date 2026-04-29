@@ -15,6 +15,7 @@ type CalendarSingleProps = {
   selectedDate: DateTime | null;
   onSelect: (date: DateTime | null) => void;
   hideSelector?: boolean;
+  disabled?: boolean;
 };
 
 const CalendarSingle: React.FC<CalendarSingleProps> = ({
@@ -24,6 +25,7 @@ const CalendarSingle: React.FC<CalendarSingleProps> = ({
   selectedDate,
   onSelect,
   hideSelector = false,
+  disabled = false,
 }) => {
   const timezone = getCompanyTimezone();
   const [displayMonth, setDisplayMonth] = useState<DateTime>(
@@ -56,6 +58,7 @@ const CalendarSingle: React.FC<CalendarSingleProps> = ({
           id={id}
           selectedDate={selectedDate}
           onDateChange={onSelect}
+          disabled={disabled}
         />
       )}
 
@@ -64,6 +67,7 @@ const CalendarSingle: React.FC<CalendarSingleProps> = ({
         mode="single"
         years={years}
         onSelect={setDisplayMonth}
+        disabled={disabled}
       />
 
       <Month
@@ -71,6 +75,7 @@ const CalendarSingle: React.FC<CalendarSingleProps> = ({
         selectedDate={selectedDate}
         onSelect={handleDateSelect}
         disableDate={disableDate}
+        disabled={disabled}
       />
     </div>
   );

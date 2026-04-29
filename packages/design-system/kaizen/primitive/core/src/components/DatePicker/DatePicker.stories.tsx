@@ -57,6 +57,7 @@ const meta: Meta<typeof DatePicker> = {
       control: { type: "inline-radio" },
       table: { type: { summary: "string" } },
     },
+    disabled: { control: { type: "boolean" } },
     fullWidth: { control: { type: "boolean" } },
   },
 };
@@ -127,6 +128,7 @@ export const DatePickerModal: Story = {
     mode: "single",
     displayAs: "modal",
     shortcuts,
+    disabled: false,
   },
 };
 

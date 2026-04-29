@@ -24,6 +24,7 @@ type CalendarRangeProps = {
   selectedDate: [DateTime | null, DateTime | null] | null;
   onSelect: (dates: [DateTime | null, DateTime | null]) => void;
   hideSelector?: boolean;
+  disabled?: boolean;
 };
 
 const CalendarRange: React.FC<CalendarRangeProps> = ({
@@ -33,6 +34,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
   selectedDate,
   onSelect,
   hideSelector = false,
+  disabled = false,
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
@@ -112,6 +114,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
             statusText={errors[0] || ""}
             onChange={handleInputChange(0)}
             onClear={() => handleClear(0)}
+            disabled={disabled}
           />
           <TextField
             className="min-w-[171px]"
@@ -124,6 +127,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
             statusText={errors[1] || ""}
             onChange={handleInputChange(1)}
             onClear={() => handleClear(1)}
+            disabled={disabled}
           />
         </div>
       )}
@@ -134,6 +138,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
         years={years}
         onSelect={setDisplayMonth}
         isMobile={isMobile}
+        disabled={disabled}
       />
 
       <div className="flex gap-md">
@@ -142,6 +147,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
           selectedDate={selectedDate}
           onSelect={handleDateSelect}
           disableDate={disableDate}
+          disabled={disabled}
         />
         {!isMobile && (
           <>
@@ -151,6 +157,7 @@ const CalendarRange: React.FC<CalendarRangeProps> = ({
               selectedDate={selectedDate}
               onSelect={handleDateSelect}
               disableDate={disableDate}
+              disabled={disabled}
             />
           </>
         )}

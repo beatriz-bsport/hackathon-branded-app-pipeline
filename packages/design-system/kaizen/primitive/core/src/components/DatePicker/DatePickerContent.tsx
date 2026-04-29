@@ -23,6 +23,7 @@ export type DatePickerContentProps = React.HTMLAttributes<HTMLDivElement> & {
   manuallySelected: boolean;
   onCalendarSelect: (date: SelectedDate) => void;
   onShortcutSelect: (shortcutLabel: string) => void;
+  disabled?: boolean;
 };
 
 const DatePickerContent: React.FC<DatePickerContentProps> = ({
@@ -38,6 +39,7 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
   manuallySelected,
   onCalendarSelect,
   onShortcutSelect,
+  disabled = false,
 }) => {
   return (
     <div
@@ -57,6 +59,7 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
             selectedDate={sanitizedSelected as DateTime}
             onSelect={onCalendarSelect}
             hideSelector={hideSelector}
+            disabled={disabled}
           />
         ) : (
           <CalendarRange
@@ -66,6 +69,7 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
             selectedDate={sanitizedSelected as [DateTime, DateTime]}
             onSelect={onCalendarSelect}
             hideSelector={hideSelector}
+            disabled={disabled}
           />
         )}
       </div>
@@ -78,6 +82,7 @@ const DatePickerContent: React.FC<DatePickerContentProps> = ({
               items={shortcuts}
               onSelect={onShortcutSelect}
               resetSelection={manuallySelected}
+              disabled={disabled}
             />
           </>
         )}

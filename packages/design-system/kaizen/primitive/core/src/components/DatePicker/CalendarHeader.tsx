@@ -21,6 +21,7 @@ type CalendarHeaderProps = {
   years?: number[];
   onSelect: (date: DateTime) => void;
   isMobile?: boolean;
+  disabled?: boolean;
 };
 
 const CalendarHeader: React.FC<CalendarHeaderProps> = ({
@@ -29,6 +30,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
   years,
   onSelect,
   isMobile = false,
+  disabled = false,
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
@@ -90,6 +92,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
               label: month,
             }))}
             onChange={handleMonthChange}
+            disabled={disabled}
           />
           <Select
             className={`min-w-[82px]`}
@@ -99,6 +102,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
               label: String(year),
             }))}
             onChange={handleYearChange}
+            disabled={disabled}
           />
         </div>
       ) : (
@@ -121,6 +125,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
           icon="chevron-left"
           label={t("datePicker.previousMonth")}
           onClick={handlePrevMonth}
+          disabled={disabled}
         />
         <Button
           kind="icon-button"
@@ -130,6 +135,7 @@ const CalendarHeader: React.FC<CalendarHeaderProps> = ({
           icon="chevron-right"
           label={t("datePicker.nextMonth")}
           onClick={handleNextMonth}
+          disabled={disabled}
         />
       </div>
     </div>

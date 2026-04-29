@@ -136,6 +136,11 @@ export type CompanyTheme = {
   revamped_backoffice_enabled: boolean;
 };
 
+export type UpdateCompanyThemeParams = {
+  companyId: number;
+  data: unknown;
+};
+
 export type WidgetTheme = {
   grey: string;
   border: number;

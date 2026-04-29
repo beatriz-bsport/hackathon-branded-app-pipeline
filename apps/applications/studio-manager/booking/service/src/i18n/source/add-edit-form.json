@@ -84,11 +84,10 @@
     "automaticCancellation": {
       "title": "Automatic Cancellation",
       "toggleLabel": "Auto-cancel underbooked sessions",
-      "minBookingsAriaLabel": "Minimum bookings before class cancellation",
-      "hoursBeforeStartAriaLabel": "Hours before class start for automatic cancellation",
-      "sentencePre": "Cancel class if there are fewer than",
-      "sentenceMid": "booking(s) within",
-      "sentenceEnd": "hour(s).",
+      "minBookingsLabel": "Minimum capacity",
+      "hoursBeforeStartLabel": "Time before the class starts",
+      "minBookingsSuffix": "people",
+      "hoursBeforeStartSuffix": "hours",
       "alert": "Owners, admins, teachers, and booked members are notified automatically."
     },
     "timeInput": {

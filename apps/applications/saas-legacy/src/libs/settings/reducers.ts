@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
-import type {
+import {
+  AdpModalKind,
   AdpModalVisibility,
   CustomAppNavigationTabsNames,
   SettingsState,
@@ -44,8 +45,9 @@ const initialState: Immutable.Immutable<SettingsState> =
       loading: false,
       error: null,
     },
-    adpModalVisibility: {
-      data: null,
+    adpModal: {
+      visibility: null,
+      kind: AdpModalKind.MIGRATION,
       isModalOpen: false,
       loading: false,
       error: null,
@@ -239,22 +241,30 @@ export default handleActions<Immutable.Immutable<SettingsState>, any>(
     [fetchAdpModalVisibilityActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
-    ) => state.setIn(['adpModalVisibility', 'loading'], payload),
+    ) => state.setIn(['adpModal', 'loading'], payload),
     [fetchAdpModalVisibilityActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
-    ) => state.setIn(['adpModalVisibility', 'error'], payload),
+    ) => state.setIn(['adpModal', 'error'], payload),
     [fetchAdpModalVisibilityActions.success.toString()]: (
       state,
-      { payload }: { payload: AdpModalVisibility },
+      {
+        payload,
+      }: {
+        payload: {
+          visibility: AdpModalVisibility;
+          kind: AdpModalKind;
+        };
+      },
     ) =>
       state
-        .setIn(['adpModalVisibility', 'data'], payload)
-        .setIn(['adpModalVisibility', 'isModalOpen'], payload !== 'hide'),
+        .setIn(['adpModal', 'visibility'], payload.visibility)
+        .setIn(['adpModal', 'kind'], payload.kind)
+        .setIn(['adpModal', 'isModalOpen'], payload.visibility !== 'hide'),
     [dismissAdpModalVisibilityAction.toString()]: (state) =>
       state
-        .setIn(['adpModalVisibility', 'data'], 'hide')
-        .setIn(['adpModalVisibility', 'isModalOpen'], false),
+        .setIn(['adpModal', 'visibility'], 'hide')
+        .setIn(['adpModal', 'isModalOpen'], false),
   },
   initialState,
 );

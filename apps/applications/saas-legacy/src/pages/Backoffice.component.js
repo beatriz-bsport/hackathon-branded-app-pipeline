@@ -155,6 +155,7 @@ import {
   dismissAdpModalVisibilityAction,
 } from '#src/libs/settings/actions';
 import {
+  getAdpModalKind,
   getIsAdpModalBlocking,
   getIsAdpModalOpen,
 } from '#src/libs/settings/selectors';
@@ -405,6 +406,7 @@ type Props = {
   hasEnabledRevampedBO: boolean,
   isAdpModalOpen: boolean,
   isAdpModalBlocking: boolean,
+  adpModalKind: string,
   fetchAdpModalVisibility: (companyId: number, franchiseId?: number) => void,
   dismissAdpModal: () => void,
 } & FeatureFlagProps;
@@ -1032,6 +1034,7 @@ export class Backoffice extends Component<Props, State> {
                 ? undefined
                 : this.props.dismissAdpModal
             }
+            kind={this.props.adpModalKind}
           />
         </GenericResponsiveDialog>
         {this.props.stripeAccountStatus && (
@@ -1159,6 +1162,7 @@ export default compose(
       hasEnabledRevampedBO: state.auth.has_enabled_revamped_backoffice,
       isAdpModalOpen: getIsAdpModalOpen(state),
       isAdpModalBlocking: getIsAdpModalBlocking(state),
+      adpModalKind: getAdpModalKind(state),
     }),
     {
       fetchBatchUnreadAnswersCounts: fetchBatchUnreadAnswersCountsAction,

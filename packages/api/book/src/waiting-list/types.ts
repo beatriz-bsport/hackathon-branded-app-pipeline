@@ -138,3 +138,31 @@ interface EstablishmentLocation {
   geometry: string; // GeoJSON / WKT point
   geocoded_data: object | null;
 }
+export enum AutoCancellationType {
+  DUMB = 0,
+  SMART = 1,
+  NONE = 2,
+}
+
+export enum WaitingListDynamic {
+  ONE_BY_ONE = 0,
+  FIRST_COME_FIRST_SERVED = 1,
+}
+
+export type WaitingListConfiguration = {
+  id: number;
+  company: number;
+  auto_cancellation_type: AutoCancellationType; // default: 0
+  dynamic: WaitingListDynamic; // default: 0
+  dumb_delay_minutes: number; // min: 15, default: 120
+  smart_delay_percentage: number; // 10–100, default: 20
+  auto_consume_pack: boolean; // default: false
+  last_delay_before_auto_consume: number; // minutes, default: 0
+  autokick_delay: number; // default: 5
+  kick_if_no_pack_when_auto_consume: boolean; // default: false
+  is_option_blocking: boolean; // default: true
+  check_credit: boolean; // default: false
+  no_notification_utc_interval_hour_start: number; // default: 21
+  no_notification_utc_interval_hour_end: number; // default: 7
+  display_member_position: boolean; // default: true
+};

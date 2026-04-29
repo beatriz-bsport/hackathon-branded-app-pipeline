@@ -9,6 +9,7 @@ import {
   BookingOptionDetail,
   BookingOptionListParams,
   BookingOptionPosition,
+  WaitingListConfiguration,
 } from "./types";
 
 const API_URL = "book/v1";
@@ -22,6 +23,8 @@ export const waitingListKeys = {
   detail: (id: number) => [...waitingListKeys.all, "detail", id] as const,
   positions: (sessionId: number) =>
     [...waitingListKeys.all, "positions", sessionId] as const,
+  configuration: (companyId: number) =>
+    [...waitingListKeys.all, "configuration", companyId] as const,
 } as const;
 
 export const fetchPaginatedBookingOptionsAPI = async (
@@ -108,6 +111,28 @@ export const fetchWaitingListPositionsQueryOption = (
 
   return queryOptions({
     queryKey: waitingListKeys.positions(sessionId),
+    queryFn,
+  });
+};
+
+export const fetchWaitingListConfigurationAPI = async (
+  fetch: Fetch<WaitingListConfiguration>,
+  companyId: number,
+) => {
+  const { data } = await fetch(
+    `${API_URL_WAITING_LIST}/configuration/${companyId}/`,
+  );
+  return data;
+};
+
+export const fetchWaitingListConfigurationQueryOption = (
+  fetch: Fetch<WaitingListConfiguration>,
+  companyId: number,
+) => {
+  const queryFn = fetchWaitingListConfigurationAPI.bind(null, fetch, companyId);
+
+  return queryOptions({
+    queryKey: waitingListKeys.configuration(companyId),
     queryFn,
   });
 };

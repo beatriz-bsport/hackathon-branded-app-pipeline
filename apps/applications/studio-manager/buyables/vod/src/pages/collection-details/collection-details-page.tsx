@@ -9,6 +9,7 @@ import { CollectionVideoList } from "#src/components/collection-details/collecti
 import { CollectionVideoPreview } from "#src/components/collection-details/collection-video-preview";
 import { CollectionAddMediaModal } from "#src/features/collection-add-media-modal/collection-add-media-modal";
 import { CollectionDeleteModal } from "#src/features/collection-delete-modal/collection-delete-modal";
+import { useDeleteCollection } from "#src/features/collection-delete-modal/use-delete-collection";
 import { CollectionRemoveMediaModal } from "#src/features/collection-remove-media-modal/collection-remove-media-modal";
 import { useCategoriesByIdQuery } from "#src/hooks/api/use-categories-by-id-query";
 import { useLevelsByIdQuery } from "#src/hooks/api/use-levels-by-id-query";
@@ -120,6 +121,13 @@ const CollectionDetailsPage: FC<CollectionDetailsPageProps> = ({
     openRemoveMediaModal();
   };
 
+  const { deleteCollection } = useDeleteCollection({
+    onSuccess: () => {
+      onCloseDeleteModal();
+      navigate(URLS.INDEX);
+    },
+  });
+
   const handleCloseRemoveMediaModal = () => {
     closeRemoveMediaModal();
     setVideoToRemove(null);
@@ -151,12 +159,9 @@ const CollectionDetailsPage: FC<CollectionDetailsPageProps> = ({
       </DetailsLayout>
 
       <CollectionDeleteModal
-        collectionId={collection.id}
         isOpen={isDeleteModalOpen}
         closeModal={onCloseDeleteModal}
-        onDeleteScheduled={() => {
-          navigate(URLS.INDEX);
-        }}
+        onConfirm={() => deleteCollection({ id: collection.id })}
       />
 
       <CollectionAddMediaModal

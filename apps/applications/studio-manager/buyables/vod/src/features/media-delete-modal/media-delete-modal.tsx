@@ -4,18 +4,18 @@ import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-type CollectionDeleteModalProps = {
-  isOpen: boolean;
+type MediaDeleteModalProps = {
+  videoName: string;
   closeModal: () => void;
   onConfirm: () => void | Promise<void>;
 };
 
-export const CollectionDeleteModal: FC<CollectionDeleteModalProps> = ({
-  isOpen,
+export const MediaDeleteModal: FC<MediaDeleteModalProps> = ({
+  videoName,
   closeModal,
   onConfirm,
 }) => {
-  const { t } = useTranslation("collections-list");
+  const { t } = useTranslation("media-list");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleDelete = async () => {
@@ -31,8 +31,7 @@ export const CollectionDeleteModal: FC<CollectionDeleteModalProps> = ({
 
   return (
     <Modal
-      open={isOpen}
-      onClose={handleClose}
+      open={true}
       confirmButton={{
         label: t("deleteModal.buttons.delete"),
         color: "critical",
@@ -49,7 +48,12 @@ export const CollectionDeleteModal: FC<CollectionDeleteModalProps> = ({
       size="md"
       onClickOutside={handleClose}
     >
-      <Body htmlVariant="p">{t("deleteModal.description")}</Body>
+      <Body htmlVariant="p">
+        {t("deleteModal.description", { mediaName: videoName })}
+      </Body>
+      <Body htmlVariant="p" className="font-bold">
+        {t("deleteModal.descriptionWarning")}
+      </Body>
     </Modal>
   );
 };

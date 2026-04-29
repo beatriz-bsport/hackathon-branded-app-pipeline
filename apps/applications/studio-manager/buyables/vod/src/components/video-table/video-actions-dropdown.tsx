@@ -10,13 +10,18 @@ import {
 import { useTranslation } from "#src/utils/i18n";
 
 const DUPLICATE_ACTION_ID = "duplicate";
+const DELETE_ACTION_ID = "delete";
 
 type VideoActionsDropdownProps = {
   onDuplicate: () => void;
+  onDelete: () => void;
+  disabled?: boolean;
 };
 
 export const VideoActionsDropdown: FC<VideoActionsDropdownProps> = ({
   onDuplicate,
+  onDelete,
+  disabled = false,
 }) => {
   const { t } = useTranslation("media-list");
 
@@ -25,6 +30,11 @@ export const VideoActionsDropdown: FC<VideoActionsDropdownProps> = ({
       id: DUPLICATE_ACTION_ID,
       label: t("table.actions.duplicate"),
       iconLeft: "copy-03",
+    },
+    {
+      id: DELETE_ACTION_ID,
+      label: t("table.actions.delete"),
+      iconLeft: "trash-01",
     },
   ];
 
@@ -39,6 +49,7 @@ export const VideoActionsDropdown: FC<VideoActionsDropdownProps> = ({
             color="default"
             intent="flat"
             size="md"
+            disabled={disabled}
             onClick={(event) => {
               event.preventDefault();
               event.stopPropagation();
@@ -57,6 +68,10 @@ export const VideoActionsDropdown: FC<VideoActionsDropdownProps> = ({
 
                 if (value === DUPLICATE_ACTION_ID) {
                   onDuplicate();
+                }
+
+                if (value === DELETE_ACTION_ID) {
+                  onDelete();
                 }
               }}
             />

@@ -2,6 +2,8 @@ import { ZodError } from "zod";
 
 import type {
   Booking,
+  BookingOption,
+  BookingOptionPosition,
   ManagerSession,
   PrivateBooking,
   Session,
@@ -137,4 +139,11 @@ export type RefinedBooking = Booking & {
   memberData: (Member & { notes?: MemberNote[] }) | undefined;
   consumerPaymentPackData: ConsumerPaymentPack | undefined;
   passData: Pass | undefined;
+};
+
+export type RefinedBookingOption = BookingOption & {
+  memberData: Member | undefined;
+  waitingListPosition:
+    | BookingOptionPosition["waiting_list_position"]
+    | undefined;
 };

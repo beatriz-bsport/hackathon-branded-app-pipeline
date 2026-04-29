@@ -11,6 +11,7 @@ import { BookingDetailDrawer } from "#src/components/session-management/booking-
 import { Header } from "#src/components/session-management/header";
 import { ParticipantsSection } from "#src/components/session-management/participants-section/participants-section";
 import { SessionManagementModals } from "#src/components/session-management/session-management-modals";
+import { WaitlistSection } from "#src/components/session-management/waitlist-section/waitlist-section";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import { useSessionManagementModals } from "#src/hooks/use-session-management-modals";
@@ -42,6 +43,9 @@ const SessionManagementPageInner: FC = () => {
     return () => setSelectedBooking(null);
   }, [id]);
 
+  const shouldDisplayWaitlistSection =
+    session.full || session.booking_options.length > 0;
+
   return (
     <>
       <DetailsLayout withPanel>
@@ -61,12 +65,15 @@ const SessionManagementPageInner: FC = () => {
           }}
         />
 
-        <DetailsLayout.Content className="max-w-none">
+        <DetailsLayout.Content className="flex flex-col gap-xl max-w-none">
           <ParticipantsSection
             sessionId={session.id}
             openModal={openModal}
             searchQuery={searchQuery}
           />
+          {shouldDisplayWaitlistSection && (
+            <WaitlistSection sessionId={session.id} searchQuery={searchQuery} />
+          )}
         </DetailsLayout.Content>
       </DetailsLayout>
       <SessionManagementModals

@@ -6,7 +6,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { API_V1_URL } from "#src/constants";
+import { API_V1_URL, BOOKING_QUERY_KEY } from "#src/constants";
 
 import type {
   DisableAppointmentParams,
@@ -29,14 +29,14 @@ export const PRIVATE_BOOKING_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 export const PRIVATE_CONSUMER_PASS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 export const privateBookingKeys = {
-  all: ["@api-book", "private-booking"] as const,
+  all: [BOOKING_QUERY_KEY, "private-booking"] as const,
   listScope: () => [...privateBookingKeys.all, "list"] as const,
   list: (params: PrivateBookingFilterParams = {}) =>
     [...privateBookingKeys.listScope(), params] as const,
 } as const;
 
 export const privateConsumerPassKeys = {
-  all: ["@api-book", "private-consumer-pass"] as const,
+  all: [BOOKING_QUERY_KEY, "private-consumer-pass"] as const,
   listScope: () => [...privateConsumerPassKeys.all, "list"] as const,
   list: (params: PrivateConsumerPassFilterParams = {}) =>
     [...privateConsumerPassKeys.listScope(), params] as const,

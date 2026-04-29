@@ -51,7 +51,7 @@ export type DatePickerProps = Omit<
   popoverPlacement?: Placement;
 } & Pick<
     TextFieldProps,
-    "label" | "required" | "status" | "statusText" | "fullWidth"
+    "label" | "required" | "status" | "statusText" | "fullWidth" | "disabled"
   >;
 
 /**
@@ -85,6 +85,7 @@ export type DatePickerProps = Omit<
  * @param props.required Optional: Whether an input value is required
  * @param props.label Optional: Label to display above the DatePicker input (TextField)
  * @param props.statusText Optional: Status text to display below the DatePicker input (TextField)
+ * @param props.disabled Optional: Whether interactions are disabled
  * @param props.popoverPlacement Optional: The placement of the Popover in Popover mode
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-datepicker--docs
  */
@@ -111,6 +112,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   statusText,
   status,
   fullWidth,
+  disabled = false,
   ...props
 }) => {
   const i18nInstance = useKaizenI18nInstance();
@@ -222,6 +224,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         manuallySelected={isManuallySelected}
         onCalendarSelect={handleCalendarSelect}
         onShortcutSelect={handleShortcutSelect}
+        disabled={disabled}
         {...props}
       />
     );
@@ -252,8 +255,13 @@ const DatePicker: React.FC<DatePickerProps> = ({
                   intent="default"
                   color="main"
                   iconLeft="calendar"
-                  onClick={() => setIsPopoverOpened(true)}
+                  onClick={() => {
+                    if (!disabled) {
+                      setIsPopoverOpened(true);
+                    }
+                  }}
                   fullWidth={fullWidth}
+                  disabled={disabled}
                 />
               );
             }
@@ -270,6 +278,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 status={status}
                 statusText={statusText}
                 fullWidth={fullWidth}
+                disabled={disabled}
               />
             ) : (
               // Button used as Popover trigger for single mode without input field
@@ -279,8 +288,13 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 intent="default"
                 color="main"
                 iconLeft="calendar"
-                onClick={() => setIsPopoverOpened(true)}
+                onClick={() => {
+                  if (!disabled) {
+                    setIsPopoverOpened(true);
+                  }
+                }}
                 fullWidth={fullWidth}
+                disabled={disabled}
               />
             );
           }}
@@ -305,6 +319,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
                 onPopoverCalendarSelect(date, setIsPopoverOpened)
               }
               onShortcutSelect={handleShortcutSelect}
+              disabled={disabled}
               {...props}
             />
           )}
@@ -342,6 +357,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         manuallySelected={isManuallySelected}
         onCalendarSelect={handleCalendarSelect}
         onShortcutSelect={handleShortcutSelect}
+        disabled={disabled}
       />
     </Modal>
   );

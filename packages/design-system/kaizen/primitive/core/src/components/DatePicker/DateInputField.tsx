@@ -14,6 +14,7 @@ type DateInputFieldProps = {
   selectedDate: DateTime | null;
   onDateChange: (date: DateTime | null) => void;
   onClick?: () => void;
+  disabled?: boolean;
   required?: boolean;
 } & Pick<
   TextFieldProps,
@@ -25,6 +26,7 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
   selectedDate,
   onDateChange,
   onClick,
+  disabled = false,
   label,
   required,
   statusText,
@@ -101,8 +103,11 @@ const DateInputField: React.FC<DateInputFieldProps> = ({
       onClear={handleClear}
       onClick={(e) => {
         e.stopPropagation();
-        onClick?.();
+        if (!disabled) {
+          onClick?.();
+        }
       }}
+      disabled={disabled}
       required={required}
       statusText={statusText}
       fullWidth={fullWidth}

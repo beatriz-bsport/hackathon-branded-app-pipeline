@@ -391,6 +391,45 @@
       }
     }
   },
+  "filters": {
+    "date": {
+      "label": "Date",
+      "fixedHint": "Filters for fixed dates won't update automatically",
+      "types": {
+        "fixed": "Fixed",
+        "relative": "Relative"
+      },
+      "operators": {
+        "absolute": {
+          "onOrBefore": "On or before",
+          "onOrAfter": "On or after",
+          "exactlyOn": "Exactly on",
+          "between": "Between"
+        },
+        "relative": {
+          "pastLabel": "Past",
+          "futureLabel": "Future",
+          "pastMoreThan": "More than ... days ago",
+          "pastExactly": "Exactly ... days ago",
+          "pastBetween": "Between ... and ... days ago",
+          "futureMoreThan": "More than ... days from now",
+          "futureExactly": "Exactly ... days from now",
+          "futureBetween": "Between ... and ... days from now"
+        }
+      },
+      "fields": {
+        "and": "And",
+        "daysAgo": "Days ago",
+        "daysFromNow": "Days from now"
+      },
+      "alerts": {
+        "onAndBefore": "On {{date}} and all dates before this",
+        "on": "On {{date}}",
+        "onAndAfter": "On {{date}} and all dates after this",
+        "fromTo": "From {{earliestDate}} to {{latestDate}}"
+      }
+    }
+  },
   "error": {
     "notFound": {
       "title": "Smartlist not found",

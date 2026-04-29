@@ -2,39 +2,26 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useEffect, useRef } from "react";
 
 import {
-  type Collection,
-  collectionKeys,
-  deleteCollectionAPI,
-} from "@bsport/api-buyables/collection";
+  type Video,
+  deleteVideoAPI,
+  fetchVideosAPI,
+  videoKeys,
+} from "@bsport/api-buyables/video";
 import { toast } from "@bsport/kaizen-primitive-core";
 
 import {
   addPendingDeletion,
   removePendingDeletion,
-} from "#src/hooks/use-pending-collection-deletions";
+} from "#src/hooks/use-pending-video-deletions";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-interface CollectionListData {
-  results: Collection[];
-  count: number;
-}
+type VideoListData = Awaited<ReturnType<typeof fetchVideosAPI>>;
 
 const DELETION_DELAY_MS = 5000;
 
-/**
- * Handles collection deletion with an optimistic "undo" functionality.
- * Flow: mark the collection as pending deletion (UI grays it out), show a toast with Undo,
- * and schedule the real API deletion after `DELETION_DELAY_MS`.
- * If Undo is clicked, the timeout is canceled, pending state is cleared, and list queries are invalidated.
- * If Undo is not clicked, the API runs; on success the item is removed from the cache.
- */
-export const useDeleteCollection = ({
-  onSuccess,
-}: {
-  onSuccess: () => void;
-}) => {
-  const { t, i18n } = useTranslation("collections-list");
+export const useDeleteVideo = ({ onSuccess }: { onSuccess: () => void }) => {
+  const { t, i18n } = useTranslation("media-list");
   const queryClient = useQueryClient();
   const pendingDeletions = useRef<Map<number, NodeJS.Timeout>>(new Map());
 
@@ -50,15 +37,13 @@ export const useDeleteCollection = ({
   const removeFromCache = useCallback(
     (id: number) => {
       queryClient.setQueriesData(
-        { queryKey: collectionKeys.lists() },
-        (old: CollectionListData | undefined) => {
+        { queryKey: videoKeys.lists() },
+        (old: VideoListData | undefined) => {
           if (!old?.results) return old;
 
           const filteredResults = old.results.filter(
-            (collection: Collection) => collection.id !== id,
+            (video: Video) => video.id !== id,
           );
-
-          // Only decrement count if a collection was actually removed
           const wasRemoved = filteredResults.length < old.results.length;
 
           return {
@@ -73,11 +58,11 @@ export const useDeleteCollection = ({
   );
 
   const restoreCache = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: collectionKeys.lists() });
+    queryClient.invalidateQueries({ queryKey: videoKeys.lists() });
   }, [queryClient]);
 
   const { mutate: performDelete, isPending: isDeleting } = useMutation({
-    mutationFn: (id: number) => deleteCollectionAPI(fetch, { id }),
+    mutationFn: (id: number) => deleteVideoAPI(fetch, { id }),
     onSuccess: (_, deletedId) => {
       removeFromCache(deletedId);
       removePendingDeletion(deletedId);
@@ -95,13 +80,14 @@ export const useDeleteCollection = ({
   });
 
   const cancelDeletion = useCallback(
-    (collectionId: number) => {
-      const timeout = pendingDeletions.current.get(collectionId);
+    (videoId: number) => {
+      const timeout = pendingDeletions.current.get(videoId);
       if (timeout) {
         clearTimeout(timeout);
-        pendingDeletions.current.delete(collectionId);
+        pendingDeletions.current.delete(videoId);
       }
-      removePendingDeletion(collectionId);
+
+      removePendingDeletion(videoId);
       restoreCache();
       toast({
         status: "default",
@@ -113,11 +99,10 @@ export const useDeleteCollection = ({
     [restoreCache, i18n.language],
   );
 
-  const deleteCollection = useCallback(
+  const deleteVideo = useCallback(
     ({ id }: { id: number }) => {
       addPendingDeletion(id);
 
-      // Clear existing timeout if the same id is scheduled again
       const existingTimeout = pendingDeletions.current.get(id);
       if (existingTimeout) {
         clearTimeout(existingTimeout);
@@ -143,5 +128,5 @@ export const useDeleteCollection = ({
     [onSuccess, cancelDeletion, performDelete, i18n.language],
   );
 
-  return { deleteCollection, isLoading: isDeleting };
+  return { deleteVideo, isLoading: isDeleting };
 };

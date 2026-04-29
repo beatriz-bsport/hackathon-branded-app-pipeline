@@ -1,10 +1,12 @@
-import type { FC } from "react";
+import { type FC, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary";
 import { VideoTable } from "#src/components/video-table/video-table";
+import { MediaDeleteModal } from "#src/features/media-delete-modal/media-delete-modal";
+import { useDeleteVideo } from "#src/features/media-delete-modal/use-delete-video";
 import { useCategoriesByIdQuery } from "#src/hooks/api/use-categories-by-id-query";
 import { useDuplicateVideo } from "#src/hooks/api/use-duplicate-video";
 import { useVideosQuery } from "#src/hooks/api/use-videos-query";
@@ -33,28 +35,47 @@ const MediaListPageContent: FC<MediaListPageContentProps> = ({
   const { duplicateVideo } = useDuplicateVideo();
   const categoriesQuery = useCategoriesByIdQuery();
   const categoriesById = categoriesQuery.data ?? new Map<number, string>();
+  const [deletedVideo, setDeletedVideo] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
 
   const isEmptySearch = isEmpty && isFiltered;
+  const { deleteVideo } = useDeleteVideo({
+    onSuccess: () => setDeletedVideo(null),
+  });
 
   return (
-    <VideoTable
-      videos={videos}
-      categoriesById={categoriesById}
-      paginationProps={paginationProps}
-      isEmpty={isEmpty}
-      isEmptySearch={isEmptySearch}
-      emptySearchConfig={{
-        title: t("filters.emptySearch.title"),
-        subtitle: t("filters.emptySearch.subtitle"),
-        ctaButtonConfig: {
-          label: t("filters.emptySearch.cta"),
-          onClick: onClearFilters,
-          iconLeft: "x",
-        },
-      }}
-      onRowClick={(id) => navigate(URLS.MEDIA_DETAILS(id))}
-      onDuplicate={(video) => duplicateVideo(video.id)}
-    />
+    <>
+      <VideoTable
+        videos={videos}
+        categoriesById={categoriesById}
+        paginationProps={paginationProps}
+        isEmpty={isEmpty}
+        isEmptySearch={isEmptySearch}
+        emptySearchConfig={{
+          title: t("filters.emptySearch.title"),
+          subtitle: t("filters.emptySearch.subtitle"),
+          ctaButtonConfig: {
+            label: t("filters.emptySearch.cta"),
+            onClick: onClearFilters,
+            iconLeft: "x",
+          },
+        }}
+        onRowClick={(id) => navigate(URLS.MEDIA_DETAILS(id))}
+        onDuplicate={(video) => duplicateVideo(video.id)}
+        onDelete={(video) =>
+          setDeletedVideo({ id: video.id, name: video.name })
+        }
+      />
+      {deletedVideo !== null ? (
+        <MediaDeleteModal
+          videoName={deletedVideo.name}
+          closeModal={() => setDeletedVideo(null)}
+          onConfirm={() => deleteVideo({ id: deletedVideo.id })}
+        />
+      ) : null}
+    </>
   );
 };
 

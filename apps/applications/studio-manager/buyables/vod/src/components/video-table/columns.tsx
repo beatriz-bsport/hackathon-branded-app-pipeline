@@ -14,6 +14,9 @@ import { VideoActionsDropdown } from "./video-actions-dropdown";
 
 type TableColumn = GenericTableColumn<VideoRowData>;
 
+const pendingDeletionCellClassName = (row: VideoRowData): string | undefined =>
+  row.isPendingDeletion ? "opacity-80" : undefined;
+
 export const useVideoTableColumns = () => {
   const { t } = useTranslation("media-list");
 
@@ -25,23 +28,25 @@ export const useVideoTableColumns = () => {
     render: (row) => {
       const hasCover = Boolean(row.thumbnailUrl?.trim());
       return (
-        <div className="flex min-w-0 items-center gap-sm">
-          <Avatar
-            shape="squared"
-            size="lg"
-            src={hasCover ? row.thumbnailUrl : undefined}
-            alt={hasCover ? row.name : ""}
-            iconName={hasCover ? undefined : "image-03"}
-            className="border-none"
-          />
-          <Body
-            htmlVariant="span"
-            size="md"
-            color="default"
-            className="block min-w-0 max-w-[320px] truncate"
-          >
-            {row.name}
-          </Body>
+        <div className={pendingDeletionCellClassName(row)}>
+          <div className="flex min-w-0 items-center gap-sm">
+            <Avatar
+              shape="squared"
+              size="lg"
+              src={hasCover ? row.thumbnailUrl : undefined}
+              alt={hasCover ? row.name : ""}
+              iconName={hasCover ? undefined : "image-03"}
+              className="border-none"
+            />
+            <Body
+              htmlVariant="span"
+              size="md"
+              color="default"
+              className="block min-w-0 max-w-[320px] truncate"
+            >
+              {row.name}
+            </Body>
+          </div>
         </div>
       );
     },
@@ -53,7 +58,11 @@ export const useVideoTableColumns = () => {
     align: "start",
     header: t("table.headers.category"),
     render: (row) => (
-      <Body htmlVariant="span" size="md" color="default">
+      <Body
+        htmlVariant="span"
+        size="md"
+        color={row.isPendingDeletion ? "weaker" : "default"}
+      >
         {row.categoryLabel || t("table.values.noCategory")}
       </Body>
     ),
@@ -64,7 +73,11 @@ export const useVideoTableColumns = () => {
     type: "custom",
     align: "center",
     header: t("table.headers.format"),
-    render: (row) => <MediaFormatRenderer format={row.format} />,
+    render: (row) => (
+      <div className={pendingDeletionCellClassName(row)}>
+        <MediaFormatRenderer format={row.format} />
+      </div>
+    ),
   };
 
   const columnAvailability: TableColumn = {
@@ -73,43 +86,45 @@ export const useVideoTableColumns = () => {
     align: "center",
     header: t("table.headers.availability"),
     render: (row) => (
-      <div className="flex items-center justify-center gap-xs">
-        <Tooltip
-          label={
-            row.memberAvailability === "available"
-              ? t("table.tooltips.availability.availableToMembers")
-              : t("table.tooltips.availability.unavailableToMembers")
-          }
-          placement="bottom"
-        >
-          <Chip
-            color="default"
-            size="lg"
-            type="weak"
-            iconLeft={
+      <div className={pendingDeletionCellClassName(row)}>
+        <div className="flex items-center justify-center gap-xs">
+          <Tooltip
+            label={
               row.memberAvailability === "available"
-                ? "shopping-cart-01"
-                : "shopping-cart-cross"
+                ? t("table.tooltips.availability.availableToMembers")
+                : t("table.tooltips.availability.unavailableToMembers")
             }
-          />
-        </Tooltip>
-        <Tooltip
-          label={
-            row.accessType === "limited"
-              ? t("table.tooltips.availability.limitedTimeOnly")
-              : t("table.tooltips.availability.unlimitedAccess")
-          }
-          placement="bottom"
-        >
-          <Chip
-            color="default"
-            size="lg"
-            type="weak"
-            iconLeft={
-              row.accessType === "limited" ? "clock-rewind" : "infinity"
+            placement="bottom"
+          >
+            <Chip
+              color="default"
+              size="lg"
+              type="weak"
+              iconLeft={
+                row.memberAvailability === "available"
+                  ? "shopping-cart-01"
+                  : "shopping-cart-cross"
+              }
+            />
+          </Tooltip>
+          <Tooltip
+            label={
+              row.accessType === "limited"
+                ? t("table.tooltips.availability.limitedTimeOnly")
+                : t("table.tooltips.availability.unlimitedAccess")
             }
-          />
-        </Tooltip>
+            placement="bottom"
+          >
+            <Chip
+              color="default"
+              size="lg"
+              type="weak"
+              iconLeft={
+                row.accessType === "limited" ? "clock-rewind" : "infinity"
+              }
+            />
+          </Tooltip>
+        </div>
       </div>
     ),
   };
@@ -125,7 +140,11 @@ export const useVideoTableColumns = () => {
     ),
     render: (row) => (
       <div className="flex items-center justify-end">
-        <VideoActionsDropdown onDuplicate={row.onDuplicate} />
+        <VideoActionsDropdown
+          onDuplicate={row.onDuplicate}
+          onDelete={row.onDelete}
+          disabled={row.isPendingDeletion}
+        />
       </div>
     ),
   };

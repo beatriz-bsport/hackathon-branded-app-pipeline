@@ -7,6 +7,8 @@ import type { CompanyTheme } from "#src/types";
 
 import { setCompanyTheme } from "./store";
 
+export { setCompanyTheme } from "./store";
+
 /**
  * Fetch the theme of a Company.
  * @param params.companyId [Optional] Id of the company to retrieve the theme.

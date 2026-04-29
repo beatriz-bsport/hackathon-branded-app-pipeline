@@ -21,6 +21,7 @@ export const getInitialState = (): SessionManagementState => ({
   },
   waitlistFilters: WaitlistFilter.ON_WAITLIST,
   selectedBookingId: null,
+  selectedBookingOptionId: null,
   listedInformation: DEFAULT_SESSION_LISTED_INFORMATION,
 });
 

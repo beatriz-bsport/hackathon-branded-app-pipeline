@@ -15,7 +15,10 @@ import { WaitlistSection } from "#src/components/session-management/waitlist-sec
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import { useSessionManagementModals } from "#src/hooks/use-session-management-modals";
-import { setSelectedBooking } from "#src/stores/session-management/actions";
+import {
+  setSelectedBooking,
+  setSelectedBookingOption,
+} from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
 
 const SessionManagementPageInner: FC = () => {
@@ -40,7 +43,10 @@ const SessionManagementPageInner: FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    return () => setSelectedBooking(null);
+    return () => {
+      setSelectedBooking(null);
+      setSelectedBookingOption(null);
+    };
   }, [id]);
 
   const shouldDisplayWaitlistSection =

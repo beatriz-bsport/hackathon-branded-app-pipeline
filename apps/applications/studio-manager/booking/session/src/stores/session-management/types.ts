@@ -48,5 +48,6 @@ export interface SessionManagementState {
   bookingFilters: BookingFilters;
   waitlistFilters: WaitlistFilter;
   selectedBookingId: number | null;
+  selectedBookingOptionId: number | null;
   listedInformation: BookingListedInformation[];
 }

@@ -15,7 +15,10 @@ import { ShortcutActionsButton } from "#src/components/session-management/action
 import { BookingActionItemId } from "#src/components/session-management/action-buttons/booking/types";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
-import { setSelectedBooking } from "#src/stores/session-management/actions";
+import {
+  setSelectedBooking,
+  setSelectedBookingOption,
+} from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
 import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
@@ -165,7 +168,10 @@ export const CancelledBookingsTable: FC<{
         rows={searchedBookings.map((booking) => ({
           ...booking,
           isActive: booking.id === selectedBookingId,
-          onRowClick: () => setSelectedBooking(booking.id),
+          onRowClick: () => {
+            setSelectedBookingOption(null);
+            setSelectedBooking(booking.id);
+          },
         }))}
         paginationProps={paginationProps}
         emptyStateProps={{

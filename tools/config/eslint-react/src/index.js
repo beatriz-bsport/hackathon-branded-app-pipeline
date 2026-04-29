@@ -1,5 +1,6 @@
 const globals = require("globals");
 const pluginJs = require("@eslint/js");
+const pluginQuery = require("@tanstack/eslint-plugin-query");
 const tseslint = require("typescript-eslint");
 const js = require("@eslint/js");
 const react = require("eslint-plugin-react");
@@ -7,6 +8,7 @@ const reactRefresh = require("eslint-plugin-react-refresh");
 const reactHooks = require("eslint-plugin-react-hooks");
 
 module.exports = [
+  ...pluginQuery.configs["flat/recommended"],
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     plugins: {
@@ -51,6 +53,7 @@ module.exports = [
   ...tseslint.configs.recommended,
   {
     rules: {
+      "@tanstack/query/exhaustive-deps": "warn",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {

@@ -1,5 +1,6 @@
 [
   "accessControl",
+  "agentChat",
   "alerting",
   "authentication",
   "b2b_adpModal",

@@ -8,6 +8,7 @@ import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { DetailsFetchError } from "#src/components/session-details/details-fetch-error";
 import { DetailsLoadingPage } from "#src/components/session-details/details-loading-page";
 import { BookingDetailDrawer } from "#src/components/session-management/booking-detail-drawer/booking-detail-drawer";
+import { BookingOptionDetailDrawer } from "#src/components/session-management/booking-detail-drawer/booking-option-detail-drawer.js";
 import { Header } from "#src/components/session-management/header";
 import { ParticipantsSection } from "#src/components/session-management/participants-section/participants-section";
 import { SessionManagementModals } from "#src/components/session-management/session-management-modals";
@@ -15,7 +16,10 @@ import { WaitlistSection } from "#src/components/session-management/waitlist-sec
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import { useSessionManagementModals } from "#src/hooks/use-session-management-modals";
-import { setSelectedBooking } from "#src/stores/session-management/actions";
+import {
+  setSelectedBooking,
+  setSelectedBookingOption,
+} from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
 
 const SessionManagementPageInner: FC = () => {
@@ -37,10 +41,17 @@ const SessionManagementPageInner: FC = () => {
     (state) => state.selectedBookingId,
   );
 
+  const selectedBookingOptionId = useSessionManagementStore(
+    (state) => state.selectedBookingOptionId,
+  );
+
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    return () => setSelectedBooking(null);
+    return () => {
+      setSelectedBooking(null);
+      setSelectedBookingOption(null);
+    };
   }, [id]);
 
   const shouldDisplayWaitlistSection =
@@ -86,6 +97,10 @@ const SessionManagementPageInner: FC = () => {
         onClose={() => setSelectedBooking(null)}
         selectedBookingId={selectedBookingId}
         openModal={openModal}
+      />
+      <BookingOptionDetailDrawer
+        onClose={() => setSelectedBookingOption(null)}
+        selectedBookingOptionId={selectedBookingOptionId}
       />
     </>
   );

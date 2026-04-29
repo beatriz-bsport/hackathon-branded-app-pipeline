@@ -63,6 +63,12 @@ export const setSelectedBooking = (bookingId: number | null) => {
   }));
 };
 
+export const setSelectedBookingOption = (bookingOptionId: number | null) => {
+  sessionManagementStore.setState(() => ({
+    selectedBookingOptionId: bookingOptionId,
+  }));
+};
+
 export const setBookingOrdering = (ordering: BookingOrdering) => {
   sessionManagementStore.setState((state) => ({
     bookingFilters: {

@@ -16,7 +16,8 @@ import { type ActionItemId, BookingActionItemId } from "./types";
 
 export const ShortcutActionsButton: FC<{
   sessionId: number;
-  bookingId: number;
+  bookingId?: number;
+  bookingOptionId?: number;
   memberId?: number;
   openModal?: (type: SessionManagementModalType, bookingId: number) => void;
   allowedItemIds?: ActionItemId[];
@@ -25,6 +26,7 @@ export const ShortcutActionsButton: FC<{
 }> = ({
   sessionId,
   bookingId,
+  bookingOptionId,
   memberId,
   openModal,
   allowedItemIds,
@@ -113,7 +115,7 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "user-x-01",
         type: "button",
         onClick: () => {
-          if (!openModal) return;
+          if (!openModal || !bookingId) return;
           openModal(SessionManagementModalType.CANCEL_BOOKING, bookingId);
           setIsPopoverOpened(false);
         },
@@ -191,13 +193,35 @@ export const ShortcutActionsButton: FC<{
         },
       };
 
+      const bookOptionAction: Item = {
+        id: BookingActionItemId.BOOK_OPTION,
+        label: t("actions.bookToClass"),
+        iconLeft: "plus",
+        type: "button",
+        onClick: () => {
+          // TODO: implement book option action
+          setIsPopoverOpened(false);
+        },
+      };
+
+      const removeFromWaitlistAction: Item = {
+        id: BookingActionItemId.REMOVE_FROM_WAITLIST,
+        label: t("actions.removeFromWaitlist"),
+        iconLeft: "trash-01",
+        type: "button",
+        onClick: () => {
+          // TODO: implement remove from waitlist action
+          setIsPopoverOpened(false);
+        },
+      };
+
       const allItems: Item[] = [
         sectionTitle(t("booking")),
-        ...(hasCreateBookingPermission && session.room_blueprint
+        ...(hasCreateBookingPermission && session.room_blueprint && bookingId
           ? [swapSpotAction]
           : []),
-        ...(hasChangeSpotPermission ? [swapPassAction] : []),
-        ...(hasCancelBookingPermission && openModal
+        ...(hasChangeSpotPermission && bookingId ? [swapPassAction] : []),
+        ...(hasCancelBookingPermission && openModal && bookingId
           ? [cancelBookingAction]
           : []),
         divider,
@@ -212,6 +236,10 @@ export const ShortcutActionsButton: FC<{
           : []),
         ...(participantEmail?.length ? [copyEmailAction] : []),
         ...(participantPhone?.length ? [copyPhoneAction] : []),
+        ...(hasCreateBookingPermission && bookingOptionId
+          ? [bookOptionAction]
+          : []),
+        ...(bookingOptionId ? [removeFromWaitlistAction] : []),
       ];
 
       if (!allowedItemIds) return allItems;
@@ -239,6 +267,7 @@ export const ShortcutActionsButton: FC<{
       memberId,
       session,
       hasSeeProfileDetailsPermission,
+      bookingOptionId,
     ],
   );
 

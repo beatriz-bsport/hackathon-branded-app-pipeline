@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import {
   CancelSessionParams,
+  bookingKeys,
   cancelSessionAPI,
   sessionKeys,
 } from "@bsport/api-book";
@@ -50,6 +51,7 @@ export const useCancelSession = () => {
       // TODO: merge session query keys
       queryClient.invalidateQueries({ queryKey: [SESSIONS_QUERY_KEY] });
       queryClient.invalidateQueries({ queryKey: sessionKeys.all });
+      queryClient.invalidateQueries({ queryKey: bookingKeys.all });
       toast({
         status: "default",
         //@ts-expect-error Translations with variables are not yet typed

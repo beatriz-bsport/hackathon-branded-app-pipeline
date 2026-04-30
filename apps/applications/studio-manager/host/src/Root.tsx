@@ -55,6 +55,9 @@ const MarketingNotification = lazy(
   () => import("@bsport/sm-marketing-notification"),
 );
 
+// ----- Settings -----
+const Aggregators = lazy(() => import("@bsport/sm-aggregators"));
+
 // ----- Business Insights -----
 const Insights = lazy(() => import("@bsport/sm-insights"));
 const Homepage = lazy(() => import("@bsport/sm-homepage"));
@@ -228,6 +231,7 @@ const AuthenticatedRoutes = () => {
   const isGiftcardsPageEnabled = useNavFlag(NavFlags.GIFTCARDS);
 
   const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
+  const isAggregatorsEnabled = useNavFlag(NavFlags.SETTINGS_AGGREGATORS);
 
   /**
    * Add configs to the Host Router.
@@ -278,6 +282,13 @@ const AuthenticatedRoutes = () => {
     {
       url: urls.marketingNotification,
       element: <MarketingNotification />,
+    },
+
+    /* ----- Settings ----- */
+    {
+      url: urls.settings_aggregators,
+      element: <Aggregators />,
+      hidden: !isAggregatorsEnabled,
     },
 
     /* ----- Business Insights ----- */

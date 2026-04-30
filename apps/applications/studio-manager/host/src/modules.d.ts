@@ -30,6 +30,7 @@ declare module "sm-navigation-sidebar/urls" {
     teacher: string;
     video: string;
     settings_referral: string;
+    settings_aggregators: string;
     settings_transactionalNotification: string;
     tag: string;
     marketingNotification: string;

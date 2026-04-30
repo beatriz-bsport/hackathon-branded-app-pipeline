@@ -24,6 +24,14 @@ const API_URL_ROOM_BLUEPRINT = `${API_URL_SPOT_SCHEDULING}/room-blueprint`;
 const API_URL_ASSET_FOR_BLUEPRINT = `${API_URL_SPOT_SCHEDULING}/asset-for-blueprint`;
 const API_URL_SPOT_FOR_BLUEPRINT = `${API_URL_SPOT_SCHEDULING}/spot-for-blueprint`;
 
+// Backend defaults silently truncate. asset-for-blueprint uses DRF's default
+// pagination (page_size=15, max_page_size=100) — so this 1000 is clamped to
+// 100, and blueprints with >100 assets still drop the rest. spot-for-blueprint
+// uses UserControlledPagination(default_size=300) with no max, so 1000 is
+// honored there. Bumping the asset endpoint's max_page_size on the backend is
+// the proper fix.
+const BLUEPRINT_LIST_PAGE_SIZE = 1000;
+
 export const spotSchedulingKeys = {
   all: ["@api-book", "spot-scheduling"] as const,
   roomBlueprint: (id: number) =>
@@ -93,7 +101,10 @@ export const assetsForBlueprintQueryOptions = (
   queryOptions({
     queryKey: spotSchedulingKeys.assetsForBlueprint(blueprintId),
     queryFn: () =>
-      fetchAssetsForBlueprintAPI(fetch, { blueprint: blueprintId }),
+      fetchAssetsForBlueprintAPI(fetch, {
+        blueprint: blueprintId,
+        page_size: BLUEPRINT_LIST_PAGE_SIZE,
+      }),
     staleTime: DEFAULT_STALE_TIME,
   });
 
@@ -119,7 +130,9 @@ export const spotTypesQueryOptions = (
     queryFn: () =>
       fetchSpotTypesAPI(
         fetch,
-        blueprintId === undefined ? {} : { blueprint: blueprintId },
+        blueprintId === undefined
+          ? { page_size: BLUEPRINT_LIST_PAGE_SIZE }
+          : { blueprint: blueprintId, page_size: BLUEPRINT_LIST_PAGE_SIZE },
       ),
     staleTime: DEFAULT_STALE_TIME,
   });

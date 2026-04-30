@@ -70,10 +70,12 @@ export type AssetForBlueprint = {
 
 export type SpotTypesFilters = {
   blueprint?: number;
+  page_size?: number;
 };
 
 export type AssetsForBlueprintFilters = {
   blueprint: number;
+  page_size?: number;
 };
 
 export type CanvasSpotData = {

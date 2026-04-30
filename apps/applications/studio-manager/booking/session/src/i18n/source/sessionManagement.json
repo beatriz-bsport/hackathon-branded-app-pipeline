@@ -59,6 +59,30 @@
     "bookToClass": "Book to the class",
     "removeFromWaitlist": "Remove from waitlist"
   },
+  "spotSelector": {
+    "title": "Choose your spot",
+    "book": "Book spot {{label}}",
+    "bookPlaceholder": "Book spot",
+    "cancel": "Cancel",
+    "takenSpotError": "This spot is taken. Please select another one.",
+    "legend": {
+      "title": "Spot status legend",
+      "free": "Free",
+      "taken": "Taken",
+      "selected": "Selected",
+      "current": "Current spot"
+    },
+    "loadError": "We couldn't load the floor plan.",
+    "noBlueprint": "No floor plan configured for this session.",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "resetView": "Reset view",
+    "spotAriaLabel": "Spot {{label}}, {{state}}",
+    "coachAriaLabel": "Coach {{name}}",
+    "coachPositionAriaLabel": "Coach position",
+    "availabilityCount": "{{free}} of {{total}} spots available",
+    "allTaken": "All spots are taken"
+  },
   "booking": "Booking",
   "billing": "Billing",
   "contact": "Contact",

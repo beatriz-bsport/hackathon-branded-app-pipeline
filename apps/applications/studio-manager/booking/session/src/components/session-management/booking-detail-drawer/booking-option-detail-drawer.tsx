@@ -3,6 +3,7 @@ import { FC } from "react";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import {
   Avatar,
+  Badge,
   Body,
   DetailDrawer,
   Divider,
@@ -13,6 +14,7 @@ import { Loader } from "#src/components/query-boundary/fallbacks";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { ShortcutActionsButton } from "#src/components/session-management/action-buttons/booking/shortcut-actions-button";
 import { BookingActionItemId } from "#src/components/session-management/action-buttons/booking/types";
+import { useFetchWaitingListConfiguration } from "#src/hooks/waitlist/use-fetch-waitlist-configuration";
 import { useRetrieveRefinedBookingOption } from "#src/hooks/waitlist/use-retrieve-refined-booking-option";
 import { LEGACY_URLS } from "#src/urls";
 import { getMemberInitials } from "#src/utils/get-member-initials";
@@ -52,6 +54,10 @@ const BookingOptionDetailDrawerContent: FC<{
 
   const { refinedBookingOption, isLoading } =
     useRetrieveRefinedBookingOption(bookingOptionId);
+
+  const {
+    data: { display_member_position },
+  } = useFetchWaitingListConfiguration();
 
   const hasSeeProfileDetailsPermission = useObjectLevelPermission(
     "member.allowed_actions.accessProfile",
@@ -113,6 +119,18 @@ const BookingOptionDetailDrawerContent: FC<{
           ),
         })}
       </Body>
+      {display_member_position && refinedBookingOption.waitingListPosition && (
+        <div className="flex gap-sm items-center">
+          <Body size="md" weight="weak" color="weak">
+            {t("participantDetails.positionInWaitlist")}
+          </Body>
+          <Badge
+            size="lg"
+            color="default"
+            text={`${refinedBookingOption.waitingListPosition?.member_position}/${refinedBookingOption.waitingListPosition?.waiting_list_size}`}
+          />
+        </div>
+      )}
       <Divider orientation="horizontal" weight="extra-thin" />
       <ClientDetails
         sessionId={refinedBookingOption.offer.id}

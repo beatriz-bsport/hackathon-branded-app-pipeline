@@ -7,6 +7,7 @@ import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-se
 import { useTranslation } from "#src/utils/i18n";
 
 import { WaitList } from "./waitlist";
+import { WaitlistSettingsPopover } from "./waitlist-settings-popover";
 
 export const WaitlistSection: FC<{
   sessionId: number;
@@ -22,6 +23,7 @@ export const WaitlistSection: FC<{
         <Title weight="strong" htmlVariant="h3">
           {t("waitlistSectionTitle")}
         </Title>
+        <WaitlistSettingsPopover />
         <Body size="lg" weight="weak" color="weaker">
           •
         </Body>

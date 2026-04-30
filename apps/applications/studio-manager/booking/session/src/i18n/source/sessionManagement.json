@@ -96,7 +96,8 @@
     "unpaidInvoices": "Unpaid invoices:",
     "balance": "Balance:",
     "tags": "Tags",
-    "addedToWaitlistOn": "Added to waitlist on {{bookingOptionDate}}"
+    "addedToWaitlistOn": "Added to waitlist on {{bookingOptionDate}}",
+    "positionInWaitlist": "Position in waitlist"
   },
   "bookingOrdering": {
     "label": "Ordering",

@@ -3,6 +3,7 @@ import { FC, useMemo } from "react";
 
 import {
   Avatar,
+  Badge,
   Body,
   Button,
   type GenericTableColumn,
@@ -14,6 +15,7 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useFetchRefinedBookingOptions } from "#src/hooks/waitlist/use-fetch-refined-booking-options";
+import { useFetchWaitingListConfiguration } from "#src/hooks/waitlist/use-fetch-waitlist-configuration";
 import { useSearchBookingOptions } from "#src/hooks/waitlist/use-search-booking-options";
 import {
   setSelectedBooking,
@@ -44,6 +46,10 @@ export const WaitList: FC<{ sessionId: number; searchQuery: string }> = ({
     page: currentPage,
     page_size: currentPageSize,
   });
+
+  const {
+    data: { display_member_position },
+  } = useFetchWaitingListConfiguration();
 
   const searchedBookingOptions = useSearchBookingOptions(
     refinedBookingOptions,
@@ -77,6 +83,28 @@ export const WaitList: FC<{ sessionId: number; searchQuery: string }> = ({
   );
 
   const columns: GenericTableColumn<RefinedBookingOption>[] = [
+    ...(display_member_position
+      ? [
+          {
+            header: "",
+            id: "position",
+            type: "custom",
+            align: "start",
+            render: (row) => {
+              if (!row.waitingListPosition) {
+                return null;
+              }
+              return (
+                <Badge
+                  size="lg"
+                  color="default"
+                  text={`${row.waitingListPosition.member_position}/${row.waitingListPosition.waiting_list_size}`}
+                />
+              );
+            },
+          } as GenericTableColumn<RefinedBookingOption>,
+        ]
+      : []),
     {
       header: "",
       id: "client",

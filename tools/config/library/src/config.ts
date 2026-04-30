@@ -15,6 +15,8 @@ const AppTypesEnum = z.enum([
   "customer-data-platform",
   "business-insights",
   "communication",
+  "settings",
+  "staff-management",
 ]);
 
 type AppTypes = z.infer<typeof AppTypesEnum>;

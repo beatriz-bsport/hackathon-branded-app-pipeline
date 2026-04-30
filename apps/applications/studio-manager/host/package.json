@@ -52,6 +52,7 @@
     "@bsport/sm-session": "workspace:*",
     "@bsport/sm-smartfill": "workspace:*",
     "@bsport/sm-smartlists": "workspace:*",
+    "@bsport/sm-staff": "workspace:*",
     "@bsport/sm-tag": "workspace:*",
     "@bsport/sm-teacher": "workspace:*",
     "@bsport/sm-transactional-notification": "workspace:*",

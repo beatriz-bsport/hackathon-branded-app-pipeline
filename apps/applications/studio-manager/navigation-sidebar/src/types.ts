@@ -68,6 +68,7 @@ export type Urls = {
   settings_widgets: string;
   settings_permission: string;
   settings_personalization: string;
+  settings_staff: string;
   settings_teacherView: string;
   settings_memberForm: string; // Dupplicate ?
   settings_livestreaming: string;

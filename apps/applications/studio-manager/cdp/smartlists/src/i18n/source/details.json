@@ -428,6 +428,18 @@
         "onAndAfter": "On {{date}} and all dates after this",
         "fromTo": "From {{earliestDate}} to {{latestDate}}"
       }
+    },
+    "numericComparator": {
+      "defaultSuffix": "Total sessions",
+      "operators": {
+        "equal": "Exactly equal to",
+        "between": "Between",
+        "lowerOrEqual": "Lower or equal than",
+        "greaterOrEqual": "Greater or equal to"
+      },
+      "fields": {
+        "and": "And"
+      }
     }
   },
   "error": {

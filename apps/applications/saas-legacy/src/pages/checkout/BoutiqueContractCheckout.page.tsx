@@ -15,14 +15,11 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items.js';
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription.js';
-import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment.js';
+
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { consumerAppBarHOC } from '#src/hocs/consumer-app-bar.hoc';
-import {
-  CONSUMER_PAYMENT_PACK_IDENTIFIER,
-  CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
-} from '#src/libs/marketplace/constants';
-import { buildDataForUserRegistration } from '#src/libs/marketplace/utils';
+import { CONTRACT_BOOKING_FUNNEL_IDENTIFIER } from '#src/libs/marketplace/constants';
+
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 import {
   getCheckoutValidationUrl,
@@ -89,7 +86,7 @@ import { computeProrataPriceForSubscription } from '#src/libs/subscription/utils
 import { ProcessingPaymentDialogPortal } from '#src/libs/subscription/components/new-checkout-flow/ProcessingPaymentDialog';
 import SubscriptionErrorDialog from '#src/libs/subscription/components/new-checkout-flow/SubscriptionErrorDialog';
 import MarketplaceContractCooldownModal from '#src/libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal';
-import { BookerItem } from '#src/libs/booker-module/types';
+
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 
@@ -133,7 +130,7 @@ type RouterProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   queryParams: {
     force: string;
-    offerId: string;
+    offerId: string; // deprecated, use offerIds
     offerIds?: string;
     selectedSpotIds?: string;
     selectedSpotId: string | null;
@@ -145,7 +142,8 @@ type RouterProps = {
 };
 
 type WithProps = {
-  offerId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
+  offerId: number; // deprecated, use offerIds
   offerIds: number[];
   selectedSpotIdsByOfferId: { [key: number]: number };
   // eslint-disable-next-line react/no-unused-prop-types
@@ -303,10 +301,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
         defaultEstablishmentBillingGroup:
           this.props.defaultEstablishmentBillingGroup,
         establishmentBillingGroups: this.props.establishmentBillingGroups,
-        basketOffers:
-          this.props.offers?.length > 0
-            ? this.props.offers
-            : [this.props.offer],
+        basketOffers: this.props.offers,
         establishmentBillingGroupLoading:
           this.props.establishmentBillingGroupLoading,
       },
@@ -542,11 +537,6 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     const first_billing_timestamp = DateTime.fromISO(
       this.state.billingStartDate,
     ).toUnixInteger();
-    const offerIdsForRegistration =
-      this.props.offerIds?.length > 0
-        ? this.props.offerIds
-        : [this.props.offerId];
-    const isMultiOfferRegistration = offerIdsForRegistration.length > 1;
 
     this.props.registerContractBackground(
       this.props.contractId,
@@ -555,13 +545,10 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
         first_billing_timestamp,
         coupon,
         with_prorata: !!this.props?.contract?.month_billing_day,
-        offers: offerIdsForRegistration.map((id) => ({
+        offers: this.props.offerIds?.map((id) => ({
           offer_id: id,
           extra_data: {
-            spot_id:
-              this.props.selectedSpotIdsByOfferId[id] ??
-              (!isMultiOfferRegistration ? this.props.selectedSpotId : null) ??
-              null,
+            spot_id: this.props.selectedSpotIdsByOfferId[id],
           },
         })),
         establishment_billing_group_id: establishmentBillingGroupId,
@@ -792,11 +779,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
                 <div className="bs-contract-new-checkout__purchase-summary">
                   <SubscriptionActivitiesSummary
                     companyTheme={this.props.theme}
-                    offers={
-                      this.props.offers?.length > 0
-                        ? this.props.offers
-                        : [this.props.offer]
-                    }
+                    offers={this.props.offers}
                   />
                 </div>
 
@@ -1005,85 +988,6 @@ const handlers = {
           },
         });
       });
-    },
-  formatPayloadAndPerformUserRegistrationAndRedirection:
-    ({
-      offer,
-      offerStatusById,
-      theme,
-      offerUserRegistration,
-      selectedSpotId,
-      goToConfirmationPage,
-      queryParams,
-    }: RouterProps & RedirectionHandlersProps & ConnectedProps & WithProps) =>
-    (
-      consumerPaymentPackId: number,
-      billingPlanid: number,
-      options?: OptionCallback,
-    ) => {
-      const fakeSelectedItem = {
-        data: {
-          id: consumerPaymentPackId,
-        },
-        itemIdentifier: CONSUMER_PAYMENT_PACK_IDENTIFIER,
-      } as unknown as BookerItem;
-
-      const offerFeature = getOfferFeature(
-        offer,
-        offerStatusById,
-        theme.accept_double_booking,
-        theme.accept_double_booking_workshop,
-      );
-
-      if (
-        queryParams.guest_booking === 'true' &&
-        !theme.accept_double_booking
-      ) {
-        offerFeature.isBookable = true;
-      }
-
-      const data = buildDataForUserRegistration(
-        offerFeature,
-        fakeSelectedItem,
-        offer.id,
-        selectedSpotId,
-        queryParams.guest_booking === 'true' && {
-          firstName: queryParams.guest_first_name ?? '',
-          lastName: queryParams.guest_last_name ?? '',
-          email: queryParams.guest_email ?? '',
-        },
-      );
-
-      offerUserRegistration(
-        data,
-        {
-          onSuccess: (responseData: any) => {
-            options?.onSuccess?.();
-            const offerBookedData: OfferBookingValidation = {
-              id: offer.id,
-              isNewPass: true,
-              metaActivityId: getSessionMetaActivityId(offer),
-              coachId: getSessionCoachId(offer),
-              establishmentId: getSessionEstablishmentId(offer),
-              date: offer.date_start,
-            };
-            if (responseData.extra_data?.spot_id)
-              offerBookedData.spotId = offer.extra_data.spot_id;
-
-            if (responseData.extra_data?.spot_name)
-              offerBookedData.spotName = offer.extra_data.spot_name;
-            analyticsUtils.onSessionBookingSuccess({
-              offersBooked: [offerBookedData],
-            });
-            goToConfirmationPage(billingPlanid, responseData);
-          },
-          onError: () => {
-            options?.onError?.();
-            goToConfirmationPage(billingPlanid);
-          },
-        },
-        { check_offer_unicity: true },
-      );
     },
   goBackToPricingPage:
     ({

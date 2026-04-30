@@ -1040,9 +1040,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     this.props.push(
       getBoutiqueContractCheckoutUrl(this.props.offer.company, contractId, {
-        ...(selectedOfferIds.length === 0 && {
-          offerId: this.props.offerId,
-        }),
         ...(selectedOfferIds.length > 0 && {
           offerIds: selectedOfferIds.join(','),
         }),

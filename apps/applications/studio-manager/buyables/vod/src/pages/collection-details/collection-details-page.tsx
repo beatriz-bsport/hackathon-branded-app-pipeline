@@ -38,15 +38,16 @@ const CollectionDetailsPage: FC<CollectionDetailsPageProps> = ({
     onClose: onCloseDeleteModal,
     onOpen: onOpenDeleteModal,
   } = useDisclosure();
-  const headerConfig = useCollectionDetailsHeader({
-    onDeleteClick: onOpenDeleteModal,
-  });
-  const { t } = useTranslation("collection-details");
   const {
     isOpen: isAddMediaModalOpen,
     onOpen: openAddMediaModal,
     onClose: closeAddMediaModal,
   } = useDisclosure();
+  const { t } = useTranslation("collection-details");
+  const headerConfig = useCollectionDetailsHeader({
+    onAddMediaClick: openAddMediaModal,
+    onDeleteClick: onOpenDeleteModal,
+  });
   const {
     isOpen: isRemoveMediaModalOpen,
     onOpen: openRemoveMediaModal,
@@ -150,7 +151,6 @@ const CollectionDetailsPage: FC<CollectionDetailsPageProps> = ({
           <CollectionVideoList
             collectionDescription={collection.description}
             videos={videos}
-            onAddVideo={openAddMediaModal}
             onRemoveVideo={handleRemoveVideo}
             onSelectVideo={setSelectedVideoId}
             selectedVideoId={selectedVideoId}

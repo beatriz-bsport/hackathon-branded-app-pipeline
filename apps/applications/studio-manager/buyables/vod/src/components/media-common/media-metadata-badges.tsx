@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { Badge } from "@bsport/kaizen-primitive-core";
+import { Chip } from "@bsport/kaizen-primitive-core";
 
 type MediaMetadataBadgesProps = {
   durationLabel?: string;
@@ -22,25 +22,39 @@ export const MediaMetadataBadges: FC<MediaMetadataBadgesProps> = ({
   return (
     <div className="mt-md flex flex-wrap items-center gap-xs">
       {durationLabel ? (
-        <Badge size="lg" color="default" text={durationLabel} icon="clock" />
-      ) : null}
-      {levelLabel ? (
-        <Badge
+        <Chip
           size="lg"
           color="default"
-          text={levelLabel}
-          icon="graduation-hat-02"
+          type="weak"
+          label={durationLabel}
+          iconLeft="clock"
+        />
+      ) : null}
+      {levelLabel ? (
+        <Chip
+          size="lg"
+          color="default"
+          type="weak"
+          label={levelLabel}
+          iconLeft="graduation-hat-02"
         />
       ) : null}
       {categoryLabel ? (
-        <Badge size="lg" color="default" text={categoryLabel} icon="tag-01" />
-      ) : null}
-      {rentalDaysLabel ? (
-        <Badge
+        <Chip
           size="lg"
           color="default"
-          text={rentalDaysLabel}
-          icon="play-circle-solid"
+          type="weak"
+          label={categoryLabel}
+          iconLeft="tag-01"
+        />
+      ) : null}
+      {rentalDaysLabel ? (
+        <Chip
+          size="lg"
+          color="default"
+          type="weak"
+          label={rentalDaysLabel}
+          iconLeft="play-circle-solid"
         />
       ) : null}
     </div>

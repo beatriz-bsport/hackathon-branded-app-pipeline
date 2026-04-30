@@ -21,7 +21,7 @@ const defaultClasses = [
   "leading-md",
   "outline-none",
   "border-none",
-  "text-onsurface-weak placeholder:text-onsurface-weak",
+  "text-onsurface-weak placeholder:text-onsurface-weaker",
   "text-ellipsis",
   "bg-[transparent]",
 ] as const;

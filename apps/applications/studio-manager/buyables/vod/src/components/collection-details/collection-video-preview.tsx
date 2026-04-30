@@ -60,9 +60,9 @@ export const CollectionVideoPreview: FC<CollectionVideoPreviewProps> = ({
     : [];
 
   return (
-    <section className="flex h-full flex-col items-center">
-      <div className="flex w-full max-w-[720px] flex-col items-center">
-        <div className="w-full px-lg">
+    <section className="flex h-full flex-col">
+      <div className="flex w-full flex-col">
+        <div className="w-full mx-auto px-lg">
           <MediaPlayerArea
             isEbook={isEbook}
             playbackUrl={playbackUrl}

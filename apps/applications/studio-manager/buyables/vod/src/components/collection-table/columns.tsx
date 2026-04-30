@@ -44,7 +44,7 @@ export const useCollectionTableColumns = () => {
                 htmlVariant="span"
                 size="lg"
                 color={row.isPendingDeletion ? "weaker" : "default"}
-                className="block max-w-[320px] min-w-0 truncate"
+                className="block min-w-0 max-w-[320px] truncate"
               >
                 {row.name}
               </Body>
@@ -53,7 +53,7 @@ export const useCollectionTableColumns = () => {
                   htmlVariant="span"
                   size="md"
                   color={row.isPendingDeletion ? "weaker" : "weak"}
-                  className="max-w-[320px] min-w-0 break-words whitespace-pre-wrap"
+                  className="block min-w-0 max-w-[600px] truncate"
                 >
                   {row.description}
                 </Body>

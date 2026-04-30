@@ -33,6 +33,9 @@ const Order = lazy(() => import("@bsport/sm-order"));
 const Pack = lazy(() => import("@bsport/sm-pack"));
 const Vod = lazy(() => import("@bsport/sm-vod"));
 
+// ----- Staff Management -----
+const Staff = lazy(() => import("@bsport/sm-staff"));
+
 // ----- Core-data -----
 const MemberList = lazy(() => import("@bsport/sm-member-list"));
 const Teacher = lazy(() => import("@bsport/sm-teacher"));
@@ -256,6 +259,9 @@ const AuthenticatedRoutes = () => {
     { url: urls.order, element: <Order /> },
     { url: urls.pack, element: <Pack />, hidden: !isPacksPageEnabled },
     { url: urls.onDemand, element: <Vod /> },
+
+    /* ----- Staff Management ----- */
+    { url: urls.settings_staff, element: <Staff /> },
 
     /* ----- Core-data ----- */
     { url: urls.member, element: <MemberList /> },

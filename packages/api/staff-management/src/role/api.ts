@@ -1,11 +1,17 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import { type ApiConfig, type Fetch, buildUrlParams } from "@bsport/store-base";
+import {
+  type ApiConfig,
+  type Fetch,
+  type PaginatedResponse,
+  buildUrlParams,
+} from "@bsport/store-base";
 
 import { API_URL, QUERY_KEY_MAIN } from "#src/constants";
 
 import type {
   CreateUserRoleParams,
+  PaginatedUserRoleListParams,
   Role,
   UpdateUserRoleParams,
   UserRole,
@@ -23,6 +29,8 @@ export const staffRoleKeys = {
   lists: () => [...staffRoleKeys.all, "list"] as const,
   list: (params: UserRoleListParams = {}) =>
     [...staffRoleKeys.lists(), params] as const,
+  paginatedList: (params: PaginatedUserRoleListParams) =>
+    [...staffRoleKeys.lists(), "paginated", params] as const,
   details: () => [...staffRoleKeys.all, "detail"] as const,
   detail: (id: number) => [...staffRoleKeys.details(), id] as const,
 } as const;
@@ -59,6 +67,34 @@ export const flatUserRolesQueryOptions = (
   queryOptions({
     queryKey: staffRoleKeys.list(params),
     queryFn: () => fetchFlatUserRolesAPI(fetch, params),
+  });
+
+const fetchPaginatedUserRolesAPIConfig = (
+  params: PaginatedUserRoleListParams,
+): ApiConfig => {
+  return [
+    `${API_URL_USER_ROLE}/${buildUrlParams({ ...params, paginated: true })}`,
+  ];
+};
+
+export const fetchPaginatedUserRolesAPI = async (
+  fetch: Fetch<PaginatedResponse<UserRole>>,
+  params: PaginatedUserRoleListParams,
+): Promise<PaginatedResponse<UserRole>> => {
+  const [uri, init] = fetchPaginatedUserRolesAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+export const paginatedUserRolesQueryOptions = (
+  fetch: Fetch<PaginatedResponse<UserRole>>,
+  params: PaginatedUserRoleListParams,
+) =>
+  queryOptions({
+    queryKey: staffRoleKeys.paginatedList(params),
+    queryFn: () => fetchPaginatedUserRolesAPI(fetch, params),
   });
 
 // #endregion

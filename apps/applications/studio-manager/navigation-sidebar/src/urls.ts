@@ -59,6 +59,7 @@ export const LEGACY_URLS: LegacyUrls = {
   settings_quicksale: `${SETTINGS_URL}/quicksale`,
   settings_referral: `${SETTINGS_URL}/referral`,
   settings_permission: `${SETTINGS_URL}/role`,
+  settings_staff: `${SETTINGS_URL}/staff`,
   settings_teacherView: `${SETTINGS_URL}/coach-userspace`,
   settings_personalization: `${SETTINGS_URL}/personalization`,
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
@@ -100,6 +101,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   settings_referral: `${SETTINGS_URL}/referral-program`,
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
   settings_aggregators: `${SETTINGS_URL}/aggregators`,
+  settings_staff: `${SETTINGS_URL}/staff`,
   tag: "/tag",
 } as const satisfies Partial<Urls>;
 
@@ -120,6 +122,7 @@ export const REVAMP_URLS_PRODUCTION = {
   smartfill: REVAMP_URLS_DEVELOPMENT.smartfill,
   smartlist: "/smartlist",
   settings_referral: `${SETTINGS_URL}/referral-program`,
+  settings_staff: REVAMP_URLS_DEVELOPMENT.settings_staff,
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
   tag: "/tag",
   teacher: "/teacher",

@@ -31,6 +31,7 @@ declare module "sm-navigation-sidebar/urls" {
     video: string;
     settings_referral: string;
     settings_aggregators: string;
+    settings_staff: string;
     settings_transactionalNotification: string;
     tag: string;
     marketingNotification: string;

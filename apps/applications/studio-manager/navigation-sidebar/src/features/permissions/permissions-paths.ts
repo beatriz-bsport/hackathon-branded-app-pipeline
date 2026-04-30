@@ -67,6 +67,7 @@ export const PERMISSIONS_PATHS: Record<
   settings_quicksale: ["navigationMenu.settings.quicksale"],
   settings_referral: ["navigationMenu.settings.referral"],
   settings_permission: ["navigationMenu.settings.staffs"],
+  settings_staff: ["navigationMenu.settings.staffs"],
   settings_teacherView: ["navigationMenu.settings.coachUserspace"],
   settings_personalization: ["navigationMenu.settings.personalization"],
   settings_transactionalNotification: [

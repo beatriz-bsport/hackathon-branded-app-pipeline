@@ -465,6 +465,11 @@ export const useNavigationElements = ({
           ...navigationUrls.settings_permission,
         },
         {
+          id: "staff",
+          label: t("menus.settings.staff"),
+          ...navigationUrls.settings_staff,
+        },
+        {
           id: "personalization",
           label: t("menus.settings.personalization"),
           ...navigationUrls.settings_personalization,

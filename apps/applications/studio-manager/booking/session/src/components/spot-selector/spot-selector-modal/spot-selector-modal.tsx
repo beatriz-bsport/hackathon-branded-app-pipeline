@@ -23,6 +23,9 @@ export type SpotSelectorModalProps = {
    *  with a primary-tinted "Current spot" fill so the manager can spot it
    *  immediately on the floor plan. */
   currentSpot?: number | null;
+  /** True while the parent's set-spot mutation is in flight. Disables the
+   *  confirm button so rapid clicks can't queue duplicate POSTs. */
+  isConfirming?: boolean;
 };
 
 export const SpotSelectorModal: React.FC<SpotSelectorModalProps> = ({
@@ -32,6 +35,7 @@ export const SpotSelectorModal: React.FC<SpotSelectorModalProps> = ({
   sessionId,
   fetch,
   currentSpot,
+  isConfirming = false,
 }) => {
   const { t } = useTranslation("sessionManagement");
 
@@ -159,7 +163,7 @@ export const SpotSelectorModal: React.FC<SpotSelectorModalProps> = ({
       confirmButton={{
         color: "main",
         label: submitLabel,
-        disabled: selection === null,
+        disabled: selection === null || isConfirming,
         onClick: handleSubmit,
       }}
       cancelButton={{

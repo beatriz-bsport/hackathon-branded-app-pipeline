@@ -157,6 +157,7 @@ export const BookingsTable: FC<{
           openModal={openModal}
           participantEmail={row.memberData?.email}
           participantPhone={row.memberData?.phone}
+          currentSpot={row.spot_id}
         />
       ),
     },

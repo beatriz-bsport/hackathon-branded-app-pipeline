@@ -57,7 +57,15 @@
     "copyClientPhone": "Copy client phone number",
     "editClientNotes": "Edit client notes",
     "bookToClass": "Book to the class",
-    "removeFromWaitlist": "Remove from waitlist"
+    "removeFromWaitlist": "Remove from waitlist",
+    "assignSpot": {
+      "success": "Spot assigned",
+      "error": "Couldn't assign the spot"
+    }
+  },
+  "floorPlan": {
+    "header": "Spot selection",
+    "loadError": "We couldn't load the floor plan."
   },
   "spotSelector": {
     "title": "Choose your spot",

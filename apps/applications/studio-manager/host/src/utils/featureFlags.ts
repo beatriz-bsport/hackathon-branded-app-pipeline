@@ -6,4 +6,5 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   GIFTCARDS: "revamp_giftcards_page",
   TOGGLE_APPCUES: "toggle_appcues",
   CLASSES_MERGED_VIEW: "booking_classes_merged_view",
+  SETTINGS_AGGREGATORS: "settings_aggregators_view",
 } as const);

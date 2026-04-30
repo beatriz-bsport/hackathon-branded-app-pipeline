@@ -109,6 +109,7 @@ export const useNavigationElements = ({
   const isSmartfillEnabled = useNavFlag(NavFlags.SMARTFILL);
 
   const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
+  const isAggregatorsEnabled = useNavFlag(NavFlags.SETTINGS_AGGREGATORS);
 
   // Company Theme flags
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -531,7 +532,14 @@ export const useNavigationElements = ({
         {
           id: "partnership",
           label: t("menus.settings.partnership"),
+          hidden: isAggregatorsEnabled,
           ...navigationUrls.settings_partnership,
+        },
+        {
+          id: "aggregators",
+          label: t("menus.settings.aggregators"),
+          hidden: !isAggregatorsEnabled,
+          ...navigationUrls.settings_aggregators,
         },
         {
           id: "activeCampaign",

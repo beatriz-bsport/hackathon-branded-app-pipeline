@@ -59,6 +59,7 @@ export const PERMISSIONS_PATHS: Record<
     "navigationMenu.settings.mobilePersonalization",
   ],
   settings_partnership: ["navigationMenu.settings.partnership"],
+  settings_aggregators: ["navigationMenu.settings.partnership"],
   settings_paymentFacility: ["navigationMenu.payments.installments"],
   settings_paymentMethod: ["navigationMenu.settings.paymentMethods"],
   settings_payroll: ["navigationMenu.settings.teacherPayrollRules"],

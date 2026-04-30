@@ -88,6 +88,7 @@ export type Urls = {
   settings_quicksale: string;
   settings_webshop: string;
   settings_mobilePersonalization: string;
+  settings_aggregators: string;
 };
 
 export type LegacyUrls = Omit<Urls, "homepage" | "onDemand">;

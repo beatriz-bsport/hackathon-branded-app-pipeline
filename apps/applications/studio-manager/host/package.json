@@ -34,6 +34,7 @@
     "@bsport/local-storage-auth-token": "workspace:*",
     "@bsport/request-from-header": "workspace:*",
     "@bsport/sentry": "workspace:*",
+    "@bsport/sm-aggregators": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/sm-custom-form": "workspace:*",
     "@bsport/sm-email-template": "workspace:*",

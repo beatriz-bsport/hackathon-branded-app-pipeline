@@ -51,6 +51,7 @@ export const LEGACY_URLS: LegacyUrls = {
   settings_memberForm: `${SETTINGS_URL}/forms`,
   settings_mobilePersonalization: `${SETTINGS_URL}/mobile-personalisation/links`,
   settings_partnership: `${SETTINGS_URL}/partnership`,
+  settings_aggregators: `${SETTINGS_URL}/partnership`,
   settings_paymentFacility: "/instalment-payment",
   settings_paymentMethod: `${SETTINGS_URL}/payment-methods`,
   settings_payroll: `${SETTINGS_URL}/payment-rules`,
@@ -98,6 +99,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   teacher: "/teacher",
   settings_referral: `${SETTINGS_URL}/referral-program`,
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
+  settings_aggregators: `${SETTINGS_URL}/aggregators`,
   tag: "/tag",
 } as const satisfies Partial<Urls>;
 

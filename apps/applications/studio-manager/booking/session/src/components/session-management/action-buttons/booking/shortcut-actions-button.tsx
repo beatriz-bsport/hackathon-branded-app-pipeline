@@ -5,6 +5,7 @@ import { openCheckoutFlow } from "@bsport/kaizen-business-components/core/checko
 import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
+import { useAssignSpotAction } from "#src/hooks/booking/actions/use-assign-spot-action";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
@@ -23,6 +24,7 @@ export const ShortcutActionsButton: FC<{
   allowedItemIds?: ActionItemId[];
   participantEmail?: string;
   participantPhone?: string;
+  currentSpot?: number | null;
 }> = ({
   sessionId,
   bookingId,
@@ -32,6 +34,7 @@ export const ShortcutActionsButton: FC<{
   allowedItemIds,
   participantEmail,
   participantPhone,
+  currentSpot,
 }) => {
   const { t } = useTranslation("sessionManagement");
 
@@ -75,6 +78,9 @@ export const ShortcutActionsButton: FC<{
     "member.allowed_actions.accessProfile",
   );
 
+  const { openModal: openAssignSpotModal, modalElement: assignSpotModal } =
+    useAssignSpotAction({ bookingId: bookingId ?? 0, sessionId, currentSpot });
+
   const getMenuItems = useCallback(
     (
       setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>,
@@ -93,7 +99,7 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "switch-horizontal-01",
         type: "button",
         onClick: () => {
-          // TODO: implement swap spot action
+          openAssignSpotModal();
           setIsPopoverOpened(false);
         },
       };
@@ -217,7 +223,7 @@ export const ShortcutActionsButton: FC<{
 
       const allItems: Item[] = [
         sectionTitle(t("booking")),
-        ...(hasCreateBookingPermission && session.room_blueprint && bookingId
+        ...(hasChangeSpotPermission && session.room_blueprint && bookingId
           ? [swapSpotAction]
           : []),
         ...(hasChangeSpotPermission && bookingId ? [swapPassAction] : []),
@@ -263,6 +269,7 @@ export const ShortcutActionsButton: FC<{
       copyToClipboard,
       bookingId,
       openModal,
+      openAssignSpotModal,
       navigate,
       memberId,
       session,
@@ -271,5 +278,10 @@ export const ShortcutActionsButton: FC<{
     ],
   );
 
-  return <ActionsMenuButton label={t("actions.label")} items={getMenuItems} />;
+  return (
+    <>
+      <ActionsMenuButton label={t("actions.label")} items={getMenuItems} />
+      {assignSpotModal}
+    </>
+  );
 };

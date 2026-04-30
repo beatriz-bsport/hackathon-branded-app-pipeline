@@ -12,6 +12,7 @@ import { BookingOptionDetailDrawer } from "#src/components/session-management/bo
 import { Header } from "#src/components/session-management/header";
 import { ParticipantsSection } from "#src/components/session-management/participants-section/participants-section";
 import { SessionManagementModals } from "#src/components/session-management/session-management-modals";
+import { FloorPlanBlock } from "#src/components/session-management/session-panel";
 import { WaitlistSection } from "#src/components/session-management/waitlist-section/waitlist-section";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
@@ -77,6 +78,12 @@ const SessionManagementPageInner: FC = () => {
         />
 
         <DetailsLayout.Content className="flex flex-col gap-xl max-w-none">
+          <FloorPlanBlock
+            session={{
+              id: session.id,
+              room_blueprint: session.room_blueprint,
+            }}
+          />
           <ParticipantsSection
             sessionId={session.id}
             openModal={openModal}

@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 
 import { CollectionDetailsFetchError } from "#src/components/collection-details/collection-details-fetch-error";
 import { DetailsNotFound } from "#src/components/collection-details/collection-details-not-found";
-import { QueryBoundary } from "#src/components/query-boundary";
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useCollectionQuery } from "#src/hooks/api/use-collection-query";
 import { useCollectionVideosQuery } from "#src/hooks/api/use-collection-videos-query";
 

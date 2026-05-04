@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 
 import { MediaDetailsFetchError } from "#src/components/media-details/media-details-fetch-error";
 import { DetailsNotFound } from "#src/components/media-details/media-details-not-found";
-import { QueryBoundary } from "#src/components/query-boundary";
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useVideoQuery } from "#src/hooks/api/use-video-query";
 
 import MediaDetailsPage from "./media-details-page";

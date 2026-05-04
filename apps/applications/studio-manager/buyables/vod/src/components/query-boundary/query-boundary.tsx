@@ -8,7 +8,7 @@ import {
 
 import { ErrorBoundaryWrapper } from "@bsport/sm-backbone";
 
-import { CardLoader, SectionErrorFallback } from "./query-boundary/fallbacks";
+import { CardLoader, SectionErrorFallback } from "./fallbacks";
 
 export type QueryBoundaryProps = PropsWithChildren<{
   loadingFallback?: ReactNode;

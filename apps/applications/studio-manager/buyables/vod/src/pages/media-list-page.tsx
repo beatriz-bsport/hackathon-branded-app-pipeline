@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
-import { QueryBoundary } from "#src/components/query-boundary";
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { VideoTable } from "#src/components/video-table/video-table";
 import { MediaDeleteModal } from "#src/features/media-delete-modal/media-delete-modal";
 import { useDeleteVideo } from "#src/features/media-delete-modal/use-delete-video";

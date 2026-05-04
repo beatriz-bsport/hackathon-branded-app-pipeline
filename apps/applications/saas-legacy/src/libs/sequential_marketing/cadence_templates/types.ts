@@ -17,10 +17,7 @@ import type {
   MarketingActions as MarketingActionCommunicationKind,
   TriggerIdentifier,
 } from '#src/libs/sequential_marketing/constants';
-import {
-  CoreBackendEnvironment,
-  FeatureBranchIdentifier,
-} from '#src/utils/environment';
+import { CoreBackendEnvironment } from '#src/utils/environment';
 
 export type PositionData = {
   x: string;
@@ -108,11 +105,10 @@ export type CadenceTemplate = {
   getConfig: (t: TFunction) => CadenceConfigData;
 };
 
-// Mapping of environments/feature branches to email design IDs for each supported language
+// Mapping of environments to email design IDs for each supported language
 export type CadenceTemplateEmailDesignMap = {
   [CoreBackendEnvironment.LOCAL]: CadenceTemplateEmailDesign;
   [CoreBackendEnvironment.DEV]: CadenceTemplateEmailDesign;
   [CoreBackendEnvironment.STAGING]: CadenceTemplateEmailDesign;
   [CoreBackendEnvironment.PRODUCTION]: CadenceTemplateEmailDesign;
-  [FeatureBranchIdentifier.PIKACHU]: CadenceTemplateEmailDesign;
 };

@@ -9,24 +9,12 @@ BUILD_ENV_FILE="build/env.js"
 VERSION=$(cat ./VERSION)
 VERSION_SHA="$VERSION-$CI_COMMIT_SHORT_SHA"
 
-# Define the env file to use to replace the build env file
-if [ "$ENVIRONMENT" = "feature-branch" ]; then
-    # Extract FEATURE_BRANCH_IDENTIFIER, FORCE and FRONTEND_ONLY from CI_COMMIT_TAG
-    REPO_ROOT="$(git rev-parse --show-toplevel)"
-    . $REPO_ROOT/tools/scripts/parse-feature-branch-id.sh "$CI_COMMIT_TAG"
-    if [ "$FRONTEND_ONLY" = "true" ]; then
-        ENV_TEMPLATE_FILE="envs/template-frontend-only-feature-branch"
-    else
-        ENV_TEMPLATE_FILE="envs/template-feature-branch"
-    fi
-else 
-    ENV_TEMPLATE_FILE=envs/$ENVIRONMENT
-fi
+ENV_TEMPLATE_FILE=envs/$ENVIRONMENT
 
 # ===== Script =====
 
 echo "*"
-echo "⏳ Start building @bsport/saas-legacy for environment: $ENVIRONMENT $FEATURE_BRANCH_IDENTIFIER"
+echo "⏳ Start building @bsport/saas-legacy for environment: $ENVIRONMENT"
 
 # Update release files
 echo "*"
@@ -51,11 +39,6 @@ echo "*"
 # Replace the env file
 echo "Populate $BUILD_ENV_FILE with $ENV_TEMPLATE_FILE"
 cp $ENV_TEMPLATE_FILE $BUILD_ENV_FILE
-# If a feature branch identifier is detected, then populate the template file
-if [ "$FEATURE_BRANCH_IDENTIFIER" ]; then
-    echo "Replace FEATURE_BRANCH_IDENTIFIER by $FEATURE_BRANCH_IDENTIFIER in $BUILD_ENV_FILE"
-    sed -i "s/FEATURE_BRANCH_IDENTIFIER/$FEATURE_BRANCH_IDENTIFIER/g" $BUILD_ENV_FILE
-fi
 
 echo "✅ Successfully built @bsport/saas-legacy !"
 echo "*"

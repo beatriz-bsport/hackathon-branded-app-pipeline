@@ -1,6 +1,6 @@
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
+import { CommunicationChannel } from "@bsport/api-cdp/smartlist";
 import { IconName } from "@bsport/kaizen-primitive-core";
-
-import { CommunicationChannel, CommunicationKind } from "#src/api/constants";
 
 export const PARAMETER_TAB_PATH = "parameter";
 export const CAMPAIGN_TAB_PATH = "campaign";

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router";
 import invariant from "tiny-invariant";
 
+import { type CampaignSent } from "@bsport/api-cdp/communicate";
 import {
   Button,
   Card,
@@ -11,7 +12,6 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import type { CampaignSent } from "#src/api/types";
 import { useFetchCampaignSentList } from "#src/api/use-fetch-campaign-sent-list";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useTranslation } from "#src/utils/i18n";

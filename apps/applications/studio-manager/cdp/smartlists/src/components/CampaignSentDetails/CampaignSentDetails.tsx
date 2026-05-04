@@ -1,8 +1,8 @@
 import { useState } from "react";
 
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { CommunicationKind } from "#src/api/constants";
 import { StreamlinedCommunicationStatus } from "#src/utils/types";
 
 import { QueryBoundary } from "../QueryBoundary";

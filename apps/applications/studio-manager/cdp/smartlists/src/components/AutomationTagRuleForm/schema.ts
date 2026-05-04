@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-import { TagRuleKind } from "#src/api/constants";
+import { TagRuleKind } from "@bsport/api-cdp/smartlist";
+
 import { i18nInstance } from "#src/utils/i18n";
 
 import { type AutomationTagRuleFormData } from "./types";

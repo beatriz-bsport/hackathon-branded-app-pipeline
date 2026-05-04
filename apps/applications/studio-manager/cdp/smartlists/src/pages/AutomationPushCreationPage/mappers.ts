@@ -2,7 +2,7 @@ import {
   type AutomatedCampaign,
   type CreateAutomatedCampaignParams,
   EventKind,
-} from "@bsport/api-cdp";
+} from "@bsport/api-cdp/automated-campaign";
 
 import {
   PUSH_AUTOMATION_EVENT_VALUES,

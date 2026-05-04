@@ -1,6 +1,6 @@
 import React, { useId } from "react";
 
-import type { EmailTemplateDetail } from "@bsport/api-cdp";
+import { type EmailTemplateDetail } from "@bsport/api-cdp/email-template";
 import { FormField, useFormContext } from "@bsport/form";
 import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
 

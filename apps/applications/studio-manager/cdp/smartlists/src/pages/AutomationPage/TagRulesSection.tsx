@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useOutletContext } from "react-router";
 
+import { TagRuleKind } from "@bsport/api-cdp/smartlist";
 import {
   Body,
   Button,
@@ -14,7 +15,6 @@ import {
   Table,
 } from "@bsport/kaizen-primitive-core";
 
-import { TagRuleKind } from "#src/api/constants";
 import { type TagRuleWithTag, useTagRules } from "#src/api/use-tag-rules";
 import { DeleteTagRuleModal } from "#src/components/DeleteTagRuleModal";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";

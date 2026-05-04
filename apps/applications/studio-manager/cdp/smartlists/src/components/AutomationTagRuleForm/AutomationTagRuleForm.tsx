@@ -1,7 +1,13 @@
 import { useSuspenseQueries } from "@tanstack/react-query";
 import { useId, useMemo } from "react";
 
-import type { Tag, TagGroup } from "@bsport/api-cdp";
+import { TagRuleKind } from "@bsport/api-cdp/smartlist";
+import {
+  type Tag,
+  type TagGroup,
+  fetchTagGroupsQueryOptions,
+  fetchTagsQueryOptions,
+} from "@bsport/api-cdp/tags";
 import {
   ControlledForm,
   type ControlledFormProps,
@@ -15,8 +21,6 @@ import {
   type SelectProps,
 } from "@bsport/kaizen-primitive-core";
 
-import { tagGroupsQueryOptions, tagsQueryOptions } from "#src/api/api";
-import { TagRuleKind } from "#src/api/constants";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -57,7 +61,7 @@ export const AutomationTagRuleForm = ({
 }: AutomationTagRuleFormProps) => {
   const { t } = useTranslation("details");
   const { tagsById, groupsById } = useSuspenseQueries({
-    queries: [tagsQueryOptions(), tagGroupsQueryOptions()],
+    queries: [fetchTagsQueryOptions(fetch), fetchTagGroupsQueryOptions(fetch)],
     combine,
   });
 

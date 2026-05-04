@@ -1,9 +1,10 @@
-import { useCompanyUpsell } from "#src/utils/permissions";
+import {
+  UPSELL_IDENTIFIER_CUSTOM_APP,
+  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  UPSELL_IDENTIFIER_SMS,
+} from "@bsport/api-financial-services";
 
-/** Upsell identifiers for campaign channels (update when product provides values). */
-export const UPSELL_IDENTIFIER_SMS = 4;
-export const UPSELL_IDENTIFIER_PUSH_NOTIFICATION = 15;
-export const UPSELL_IDENTIFIER_CUSTOM_APP = 1;
+import { useCompanyUpsell } from "#src/utils/permissions";
 
 /** Map campaign type (sms/push/popup) to upsell identifier for request_upsell_by_identifier API. */
 export const UPSELL_IDENTIFIER_BY_CAMPAIGN_TYPE: Record<

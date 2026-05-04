@@ -1,8 +1,9 @@
-import { CommunicationKind } from "#src/api/constants";
-import type {
-  ScheduleCampaignPayload,
-  SendSmsCampaignPayload,
-} from "#src/api/types";
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
+import {
+  type ScheduleCampaignPayload,
+  type SendSmsCampaignPayload,
+} from "@bsport/api-cdp/communicate";
+
 import type { SmsCampaignFormData } from "#src/components/sms-campaign-form/types";
 import { CONTEXT_SMARTLIST } from "#src/utils/constants";
 

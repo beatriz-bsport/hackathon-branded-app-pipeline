@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 
+import { type CampaignScheduled } from "@bsport/api-cdp/communicate";
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
-import type { CampaignScheduled } from "#src/api/types";
 import { useTranslation } from "#src/utils/i18n";
 import { isScheduledCommunicationLocked } from "#src/utils/scheduled-communication-rules";
 

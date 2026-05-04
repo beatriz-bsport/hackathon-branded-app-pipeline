@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import {
   Body,
   Chip,
@@ -8,7 +9,6 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind } from "#src/api/constants";
 import {
   COMMUNICATION_CHANNEL_BY_KIND_MAP,
   COMMUNICATION_KIND_ICON_MAP,

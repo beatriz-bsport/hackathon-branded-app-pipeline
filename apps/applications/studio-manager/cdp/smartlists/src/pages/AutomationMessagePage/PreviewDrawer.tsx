@@ -1,8 +1,8 @@
 import { useId } from "react";
 
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import { Body, DetailDrawer, Divider } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind } from "#src/api/constants";
 import { HTMLPreview } from "#src/components/BusinessComponents/HTMLPreview";
 import { PushNotificationPreview } from "#src/components/BusinessComponents/PushNotificationPreview";
 import { useTranslation } from "#src/utils/i18n";

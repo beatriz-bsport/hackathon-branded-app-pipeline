@@ -1,6 +1,10 @@
-import { getBackgroundTaskStatus } from "./api";
-import { BackgroundTaskStatus } from "./constants";
-import { BackgroundTaskStatusResponse } from "./types";
+import {
+  BackgroundTaskStatus,
+  BackgroundTaskStatusResponse,
+} from "@bsport/api-cdp/communicate";
+import { getBackgroundTaskStatusAPI } from "@bsport/api-cdp/smartlist";
+
+import { fetch } from "#src/utils/fetch";
 
 const BASE_DELAY_MS = 1_000;
 const MAX_DELAY_MS = 15_000;
@@ -24,26 +28,22 @@ export async function pollBackgroundTaskStatusUntilDone(
 
   // Fetch current status
   let status: BackgroundTaskStatusResponse | null =
-    await getBackgroundTaskStatus(taskId);
+    await getBackgroundTaskStatusAPI(fetch, taskId);
   // Use infinite loop with explicit breaks for clearer control flow
-  while (
-    status &&
-    status.status !== BackgroundTaskStatus.SUCCESS &&
-    status.status !== BackgroundTaskStatus.FAILED
-  ) {
+  while (status && status.status === BackgroundTaskStatus.PENDING) {
     // Check timeout before making any API call
     checkTimeout(startedAt);
-    status = await getBackgroundTaskStatus(taskId);
+    status = await getBackgroundTaskStatusAPI(fetch, taskId);
 
     // Check timeout after API call (in case the call took a long time)
     checkTimeout(startedAt);
 
     // Handle terminal states immediately
-    if (status.status === BackgroundTaskStatus.SUCCESS) {
+    if (status && status.status === BackgroundTaskStatus.SUCCESS) {
       return status.return_value as string;
     }
 
-    if (status.status === BackgroundTaskStatus.FAILED) {
+    if (status && status.status === BackgroundTaskStatus.FAILED) {
       throw new Error("Report generation failed");
     }
 
@@ -70,7 +70,10 @@ export async function pollBackgroundTaskStatusUntilDone(
     await sleep(actualDelay);
     attempt++;
   }
-  return status.return_value as string;
+  if (status && status.status === BackgroundTaskStatus.FAILED) {
+    throw new Error("Report generation failed");
+  }
+  return (status && (status.return_value as string)) ?? "";
 }
 
 function sleep(ms: number): Promise<void> {

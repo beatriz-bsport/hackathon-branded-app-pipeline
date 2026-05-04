@@ -1,7 +1,7 @@
 import type {
   AutomatedCampaign,
   CreateAutomatedCampaignParams,
-} from "@bsport/api-cdp";
+} from "@bsport/api-cdp/automated-campaign";
 
 import {
   mapApiEventKindToFormEventKind,

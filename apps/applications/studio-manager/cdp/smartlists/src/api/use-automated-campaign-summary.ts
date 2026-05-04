@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { campaignSummaryByAutomatedCampaignIdQueryOptions } from "@bsport/api-cdp/communication-sent";
+import { campaignSummaryByAutomatedCampaignIdQueryOptions } from "@bsport/api-cdp/communicate";
 
 import { fetch } from "#src/utils/fetch";
 

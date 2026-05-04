@@ -1,9 +1,9 @@
 import { useParams } from "react-router";
 
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import { Card, Table, Title, toast } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { CommunicationKind } from "#src/api/constants";
 import { useFetchCampaignSentRecipientsWithMemberData } from "#src/api/use-fetch-campaign-sent-recipients-with-member-data";
 import { SMARTLIST_LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";

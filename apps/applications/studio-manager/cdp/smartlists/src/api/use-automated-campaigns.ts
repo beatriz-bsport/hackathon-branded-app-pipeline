@@ -5,7 +5,7 @@ import {
   CommunicationKind,
   EventKind,
   automatedCampaignsQueryOptions,
-} from "@bsport/api-cdp";
+} from "@bsport/api-cdp/automated-campaign";
 
 import type { SmsAutomationEventValue } from "#src/pages/AutomationSmsCreationPage/types";
 import { fetch } from "#src/utils/fetch";

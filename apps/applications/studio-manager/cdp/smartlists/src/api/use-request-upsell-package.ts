@@ -1,25 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { requestUpsellPackage } from "./api";
+import { requestUpsellPackageAPI } from "@bsport/api-financial-services";
 
-export type RequestUpsellPackageFn = (
-  upsellIdentifier: number,
-) => Promise<void>;
+import { fetch } from "#src/utils/fetch";
 
 type UseRequestUpsellPackageOptions = {
   onSuccess?: () => void;
   onError?: (error: Error) => void;
-  /**
-   * Optional override for the API call. Use in tests or Storybook to mock success/error/delay.
-   * @example
-   * // Always succeed
-   * requestUpsellPackageFn={async () => {}}
-   * // Simulate error
-   * requestUpsellPackageFn={async () => { throw new Error('Request failed'); }}
-   * // Simulate delay (loading state)
-   * requestUpsellPackageFn={async () => { await new Promise(r => setTimeout(r, 2000)); }}
-   */
-  requestUpsellPackageFn?: RequestUpsellPackageFn;
 };
 
 /**
@@ -29,12 +16,10 @@ type UseRequestUpsellPackageOptions = {
 export function useRequestUpsellPackage({
   onSuccess,
   onError,
-  requestUpsellPackageFn,
 }: UseRequestUpsellPackageOptions = {}) {
-  const mutationFn = requestUpsellPackageFn ?? requestUpsellPackage;
-
   return useMutation({
-    mutationFn: (upsellIdentifier: number) => mutationFn(upsellIdentifier),
+    mutationFn: (upsellIdentifier: number) =>
+      requestUpsellPackageAPI(fetch, upsellIdentifier),
     onSuccess: () => {
       onSuccess?.();
     },

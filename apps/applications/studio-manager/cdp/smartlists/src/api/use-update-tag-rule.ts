@@ -3,13 +3,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   type TagRule,
   type UpdateTagRuleParams,
-  tagRuleKeys,
-  updateTagRule,
-} from "@bsport/api-cdp";
+  updateTagRuleAPI,
+} from "@bsport/api-cdp/smartlist";
 
 import { fetch } from "#src/utils/fetch";
 
-import { smartlistKeys } from "./api";
+import { smartlistQueryKeys } from "./api";
 
 type UseUpdateTagRuleParams = {
   onSuccess?: (data: TagRule) => void;
@@ -23,13 +22,14 @@ export const useUpdateTagRule = ({
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (params: UpdateTagRuleParams) => updateTagRule(fetch, params),
+    mutationFn: (params: UpdateTagRuleParams) =>
+      updateTagRuleAPI(fetch, params),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: smartlistKeys.tagRules(String(data.smartlist)),
+        queryKey: smartlistQueryKeys.tagRules(String(data.smartlist)),
       });
       queryClient.invalidateQueries({
-        queryKey: tagRuleKeys.detail(String(data.id)),
+        queryKey: smartlistQueryKeys.detail(String(data.id)),
       });
       onSuccess?.(data);
     },

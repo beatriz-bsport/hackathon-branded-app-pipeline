@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router";
 
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import {
   Breadcrumbs,
   Button,
@@ -7,7 +8,6 @@ import {
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind } from "#src/api/constants";
 import { useAutomatedCampaignDetailSuspenseQuery } from "#src/api/use-automated-campaign-detail";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import {

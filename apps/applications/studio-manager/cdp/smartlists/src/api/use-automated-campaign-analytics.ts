@@ -1,13 +1,18 @@
 import { useSuspenseQueries } from "@tanstack/react-query";
 
-import { automatedCampaignsQueryOptions } from "@bsport/api-cdp";
-import type { AutomatedCampaign } from "@bsport/api-cdp";
+import {
+  type AutomatedCampaign,
+  automatedCampaignsQueryOptions,
+} from "@bsport/api-cdp/automated-campaign";
+import {
+  type CampaignSent,
+  campaignSentListQueryOptions,
+} from "@bsport/api-cdp/communicate";
 import { PaginatedResponse } from "@bsport/store-base";
 
 import { fetch } from "#src/utils/fetch";
 
-import { campaignSentListQueryOptions } from "./api";
-import type { AutomatedCampaignWithAnalytics, CampaignSent } from "./types";
+import type { AutomatedCampaignWithAnalytics } from "./types";
 
 /**
  * Combine function extracted for referential stability.
@@ -76,7 +81,7 @@ export const useAutomatedCampaignAnalytics = (smartlistId: string) => {
   return useSuspenseQueries({
     queries: [
       automatedCampaignsQueryOptions(fetch, smartlistId),
-      campaignSentListQueryOptions({
+      campaignSentListQueryOptions(fetch, {
         smartlist: Number(smartlistId),
         only_automated_campaign: true,
         page: 1,

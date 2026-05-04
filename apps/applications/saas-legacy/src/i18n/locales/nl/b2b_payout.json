@@ -37,6 +37,9 @@
     "type": "Kanalen",
     "paymentMethod": "Betaalmethode",
     "status": "Status",
+    "gross": "Bruto",
+    "fee": "Kosten",
+    "total": "Totaal",
     "amount": "Bedrag",
     "invoices": "Facturen"
   },
@@ -52,11 +55,13 @@
   },
   "summary": {
     "reconciliation": "Afstemmingsstatus",
+    "count": "Aantal",
     "payments": "Betalingen",
     "refunds": "Terugbetalingen",
     "disputes": "Geschillen",
     "directDebitOriginal": "Oorspronkelijke incasso",
     "directDebitReversal": "Stornering automatische incasso",
+    "directDebitFeeAdjustment": "Kostenaanpassing mislukte incasso",
     "transfers": "Overschrijvingen",
     "transferRefunds": "Overschrijvingsvergoedingen",
     "adjustments": "Aanpassingen",

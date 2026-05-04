@@ -98,6 +98,8 @@ export type Payout = {
 
 export type BalanceTransactionDisplayStats = {
   amount_cts: number;
+  fee_cts: number;
+  net_cts: number;
   count: number;
 };
 

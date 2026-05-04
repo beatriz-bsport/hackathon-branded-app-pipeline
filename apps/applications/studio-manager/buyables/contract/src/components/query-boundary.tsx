@@ -1,12 +1,6 @@
-import { useQueryErrorResetBoundary } from "@tanstack/react-query";
-import {
-  type PropsWithChildren,
-  ReactElement,
-  ReactNode,
-  Suspense,
-} from "react";
+import type { PropsWithChildren, ReactElement, ReactNode } from "react";
 
-import { ErrorBoundaryWrapper } from "@bsport/sm-backbone";
+import { QueryBoundary as BackboneQueryBoundary } from "@bsport/sm-backbone";
 
 export type QueryBoundaryProps = PropsWithChildren<{
   loadingFallback: ReactNode;
@@ -18,29 +12,13 @@ export const QueryBoundary = ({
   loadingFallback,
   errorFallback,
 }: QueryBoundaryProps) => {
-  const { reset } = useQueryErrorResetBoundary();
-
-  const handleErrorBoundary = ({
-    error,
-    resetError,
-  }: {
-    error: Error;
-    resetError: () => void;
-  }) => {
-    const handleRetry = () => {
-      reset();
-      resetError();
-    };
-
-    return errorFallback?.({ error, onRetry: handleRetry });
-  };
-
   return (
-    <ErrorBoundaryWrapper
+    <BackboneQueryBoundary
       appName={__CONTRACT__.__SENTRY_SCOPE_TAG__}
-      fallback={handleErrorBoundary}
+      loadingFallback={loadingFallback}
+      errorFallback={errorFallback}
     >
-      <Suspense fallback={loadingFallback}>{children}</Suspense>
-    </ErrorBoundaryWrapper>
+      {children}
+    </BackboneQueryBoundary>
   );
 };

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getEnv, isFeatureBranch } from "#src/index";
+import { getEnv } from "#src/index";
 
 describe("getEnv", () => {
   describe("localhost URLs", () => {
@@ -44,18 +44,11 @@ describe("getEnv", () => {
     });
   });
 
-  describe("feature branch URLs", () => {
-    it("should return the branch name for backoffice-{name}.chaos.bsport.io pattern", () => {
-      expect(getEnv("https://backoffice-karate.chaos.bsport.io")).toBe(
-        "karate",
+  describe(".chaos URLs", () => {
+    it("should return dev for preview-{name}.backoffice.chaos.bsport.io pattern", () => {
+      expect(getEnv("https://preview-1234.backoffice.chaos.bsport.io")).toBe(
+        "dev",
       );
-      expect(getEnv("https://backoffice-feature-branch.chaos.bsport.io")).toBe(
-        "feature-branch",
-      );
-      expect(getEnv("https://backoffice-test123.chaos.bsport.io/path")).toBe(
-        "test123",
-      );
-      expect(getEnv("http://backoffice-xyz.chaos.bsport.io")).toBe("xyz");
     });
 
     it('should return "production" for non-backoffice chaos URLs', () => {
@@ -113,56 +106,10 @@ describe("getEnv", () => {
         getEnv("https://backoffice.staging.bsport.io/admin/settings?tab=users"),
       ).toBe("staging");
       expect(
-        getEnv("https://backoffice-test.chaos.bsport.io/api/v1/users?page=1"),
-      ).toBe("test");
-    });
-  });
-});
-
-describe("isFeatureBranch", () => {
-  describe("known environments", () => {
-    it("should return false for known environments", () => {
-      expect(isFeatureBranch("http://localhost:3000")).toBe(false);
-      expect(isFeatureBranch("https://backoffice.dev.bsport.io")).toBe(false);
-      expect(isFeatureBranch("https://backoffice.staging.bsport.io")).toBe(
-        false,
-      );
-      expect(isFeatureBranch("https://backoffice.bsport.io")).toBe(false);
-    });
-  });
-
-  describe("feature branch environments", () => {
-    it("should return true for feature branch URLs", () => {
-      expect(
-        isFeatureBranch("https://backoffice-feature-123.chaos.bsport.io"),
-      ).toBe(true);
-      expect(isFeatureBranch("https://backoffice-karate.chaos.bsport.io")).toBe(
-        true,
-      );
-      expect(
-        isFeatureBranch("https://backoffice-my-branch.chaos.bsport.io"),
-      ).toBe(true);
-      expect(
-        isFeatureBranch(
-          "https://backoffice-test123.chaos.bsport.io/path?query=1",
+        getEnv(
+          "https://preview-1234.backoffice.chaos.bsport.io/api/v1/users?page=1",
         ),
-      ).toBe(true);
-    });
-  });
-
-  describe("edge cases", () => {
-    it("should return false for non-bsport domains", () => {
-      expect(isFeatureBranch("https://example.com")).toBe(false);
-      expect(isFeatureBranch("https://google.com")).toBe(false);
-    });
-
-    it("should return false for empty string or invalid URLs", () => {
-      expect(isFeatureBranch("")).toBe(false);
-      expect(isFeatureBranch("invalid-url")).toBe(false);
-    });
-
-    it("should return false when no URL is provided", () => {
-      expect(isFeatureBranch()).toBe(false);
+      ).toBe("dev");
     });
   });
 });

@@ -30,7 +30,6 @@ vi.mock("#src/wrappers/RoutesWrapper/DataLayerWrapper", () => ({
 // Mock env imports
 vi.mock("@bsport/envs", () => ({
   getEnv: () => "dev",
-  isEnvFeatureBranch: () => false,
 }));
 
 const MockNavigation: FC = () => (

@@ -1,5 +1,5 @@
 Ephemeral Environment:
-  stage: deploy-feature-branch
+  stage: deploy-ephemeral-environment
   extends:
     - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   before_script: !reference [.pnpm-setup, before_script]
@@ -18,7 +18,7 @@ Ephemeral Environment:
     - bash tools/scripts/deploy-ephemeral-environment.sh
 
 Stop Ephemeral Environment:
-  stage: deploy-feature-branch
+  stage: deploy-ephemeral-environment
   extends:
     - .ci-runner-small
   environment:

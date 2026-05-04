@@ -41,20 +41,11 @@ export function getEnv(url?: string): Environment {
       return "storybook" as Environment;
     }
 
-    // backoffice-{name}.chaos.bsport.io -> {name} (feature branch deployments)
-    // preview-{name}.chaos.bsport.io -> dev (frontend-only ephemeral environments)
+    // preview-{name}.backoffice.chaos.bsport.io -> dev (frontend-only ephemeral environments)
     // Patterns:
-    // - backoffice-{name}.chaos.bsport.io
-    // - preview-{name}.chaos.bsport.io
+    // - preview-{name}.backoffice.chaos.bsport.io
     if (hostname.endsWith(".chaos.bsport.io")) {
       if (hostname.startsWith("preview-")) return "dev";
-      if (hostname.startsWith("backoffice-")) {
-        const name = hostname.slice(
-          "backoffice-".length,
-          -".chaos.bsport.io".length,
-        );
-        return name as Environment;
-      }
     }
 
     // Default to production for any other bsport.io domain
@@ -68,32 +59,4 @@ export function getEnv(url?: string): Environment {
     // If URL parsing fails, return local
     return "local";
   }
-}
-
-/**
- * Check if the current environment is a feature branch deployment.
- * Feature branches are any environment that's not one of the standard environments.
- *
- * @param url Optional URL to check. If not provided, uses current window.location.href
- * @returns true if current environment is a feature branch, false otherwise
- */
-export function isFeatureBranch(url?: string): boolean {
-  const env = getEnv(url);
-  return isEnvFeatureBranch(env);
-}
-
-/**
- * Check if the provided environment is a feature branch deployment.
- *
- * @param env Env to check
- * @returns true if provided environment is a feature branch, false otherwise
- */
-export function isEnvFeatureBranch(env: Environment): boolean {
-  const knownEnvironments: KnownEnvironment[] = [
-    "local",
-    "dev",
-    "staging",
-    "production",
-  ];
-  return !knownEnvironments.includes(env as KnownEnvironment);
 }

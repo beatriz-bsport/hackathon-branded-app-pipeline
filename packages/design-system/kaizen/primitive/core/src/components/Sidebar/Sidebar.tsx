@@ -21,7 +21,7 @@ const variants = {
   platform: {
     desktop: "hidden md:flex md:flex-col md:h-screen",
     mobile:
-      "flex flex-col fixed left-0 top-layout-mobile-sidebar-offset h-layout-content-mobile shadow-lg z-10",
+      "flex flex-col fixed left-0 top-layout-mobile-sidebar-offset h-layout-content-mobile shadow-lg z-[999]",
   },
   state: {
     open: "animate-slide-in-left",

@@ -6,7 +6,7 @@ import {
 } from "@bsport/api-book";
 import { useFormContext } from "@bsport/form";
 
-import { SessionFormData } from "#src/components/SessionForm/schemas.js";
+import { SessionFormData } from "#src/components/SessionForm/schemas";
 
 import { useFetchActivePartnershipAccounts } from "./use-fetch-active-partnership-accounts";
 

@@ -13,7 +13,8 @@ import {
   fetchAdpModalVisibility as fetchAdpModalVisibilityAPI,
 } from './api';
 
-import type {
+import {
+  AdpModalKind,
   AdpModalVisibility,
   CustomMobilePopup,
   CustomShopRedirection,
@@ -273,9 +274,20 @@ export const fetchAdpModalVisibilityActions = {
   error: createAction<Error | null>(
     'SETTINGS/CUSTOM_APP_CONFIGURATION/ADP_MODAL_VISIBILITY/ERROR',
   ),
-  success: createAction<AdpModalVisibility>(
-    'SETTINGS/CUSTOM_APP_CONFIGURATION/ADP_MODAL_VISIBILITY/SUCCESS',
-  ),
+  success: createAction<{
+    visibility: AdpModalVisibility;
+    kind: AdpModalKind;
+  }>('SETTINGS/CUSTOM_APP_CONFIGURATION/ADP_MODAL_VISIBILITY/SUCCESS'),
+};
+
+const getValidatedAdpModalKind = (
+  adpModalKind: unknown,
+): AdpModalKind | undefined => {
+  if (adpModalKind === undefined) return undefined;
+  if (Object.values(AdpModalKind).includes(adpModalKind as AdpModalKind)) {
+    return adpModalKind as AdpModalKind;
+  }
+  throw new Error(`Invalid adp_modal_kind returned by API: ${adpModalKind}`);
 };
 
 export function fetchAdpModalVisibility(
@@ -288,11 +300,17 @@ export function fetchAdpModalVisibility(
     dispatch(fetchAdpModalVisibilityActions.error(null));
     try {
       const response = await fetchAdpModalVisibilityAPI(companyId, franchiseId);
-      dispatch(
-        fetchAdpModalVisibilityActions.success(
-          response.data.adp_modal_visibility,
-        ),
+      const validatedAdpModalKind = getValidatedAdpModalKind(
+        response.data.adp_modal_kind,
       );
+
+      dispatch(
+        fetchAdpModalVisibilityActions.success({
+          visibility: response.data.adp_modal_visibility,
+          kind: validatedAdpModalKind ?? AdpModalKind.MIGRATION,
+        }),
+      );
+
       options?.onSuccess &&
         options.onSuccess(response.data.adp_modal_visibility);
     } catch (err) {

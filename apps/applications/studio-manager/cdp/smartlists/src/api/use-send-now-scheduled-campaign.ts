@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { sendNowScheduledCampaign, smartlistKeys } from "./api";
+import { sendNowScheduledCampaignAPI } from "@bsport/api-cdp/communicate";
+
+import { fetch } from "#src/utils/fetch";
+
+import { smartlistQueryKeys } from "./api";
 
 type UseSendNowScheduledCampaignParams = {
   smartlistId: string;
@@ -17,15 +21,17 @@ export const useSendNowScheduledCampaign = ({
 
   const mutation = useMutation({
     mutationFn: ({ campaignScheduledId }: { campaignScheduledId: string }) =>
-      sendNowScheduledCampaign(campaignScheduledId),
+      sendNowScheduledCampaignAPI(fetch, campaignScheduledId),
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: smartlistKeys.campaignScheduledDetail(
+        queryKey: smartlistQueryKeys.communicateKeys.campaignScheduledDetail(
           variables.campaignScheduledId,
         ),
       });
       queryClient.invalidateQueries({
-        queryKey: smartlistKeys.campaignScheduledList(smartlistId),
+        queryKey: smartlistQueryKeys.communicateKeys.campaignScheduledList({
+          smartlist_id__in: [Number(smartlistId)],
+        }),
       });
       onSuccess?.();
     },

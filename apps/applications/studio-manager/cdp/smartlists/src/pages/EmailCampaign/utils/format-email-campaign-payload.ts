@@ -1,24 +1,61 @@
-import { CommunicationKind } from "#src/api/constants";
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import type {
   ScheduleEmailCampaignPayload,
   SendEmailCampaignPayload,
   UpdateScheduledEmailCampaignPayload,
-} from "#src/api/types";
+} from "@bsport/api-cdp/communicate";
+
 import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
 import { CONTEXT_SMARTLIST } from "#src/utils/constants";
 
-const getEmailContent = (data: EmailCampaignFormData) => {
+type EmailPayloadContent =
+  | {
+      subject: string;
+      emailTemplateId: number | null;
+      body: string;
+    }
+  | {
+      subject: string;
+      emailTemplateId: null;
+      body: string;
+    };
+
+const resolveEmailPayloadContent = (
+  data: EmailCampaignFormData,
+): EmailPayloadContent => {
   const subject = (data.emailSubject ?? "").trim();
 
-  if (data.emailTemplateId != null) {
-    return { subject, email_template: data.emailTemplateId } as const;
+  if (data.isTextOnly) {
+    return {
+      subject,
+      emailTemplateId: null,
+      body: data.emailBody ?? "",
+    };
   }
 
-  const htmlOrTextBody = data.isTextOnly
-    ? (data.emailBody ?? "")
-    : (data.emailTemplateHtml ?? "");
+  if (data.emailTemplateId != null) {
+    return {
+      subject,
+      emailTemplateId: data.emailTemplateId,
+      body: "",
+    };
+  }
 
-  return { subject, body: htmlOrTextBody } as const;
+  return {
+    subject,
+    emailTemplateId: null,
+    body: data.emailTemplateHtml ?? "",
+  };
+};
+
+const getEmailContent = (data: EmailCampaignFormData) => {
+  const { subject, emailTemplateId, body } = resolveEmailPayloadContent(data);
+
+  if (emailTemplateId != null) {
+    return { subject, email_template: emailTemplateId } as const;
+  }
+
+  return { subject, body } as const;
 };
 
 export const formatSendEmailCampaignPayload = ({
@@ -49,26 +86,25 @@ export const formatScheduleEmailCampaignPayload = ({
   data: EmailCampaignFormData;
   datetimeScheduled: string;
 }): ScheduleEmailCampaignPayload => {
+  const { subject, emailTemplateId, body } = resolveEmailPayloadContent(data);
   const basePayload = {
     smartlist: smartlistId,
     communication_kind: CommunicationKind.EMAIL,
-    title: (data.emailSubject ?? "").trim(),
+    title: subject,
     datetime_scheduled: datetimeScheduled,
   } as const;
 
-  if (data.emailTemplateId != null) {
+  if (emailTemplateId != null) {
     return {
       ...basePayload,
-      email_design: data.emailTemplateId,
+      email_design: emailTemplateId,
       text: "",
     };
   }
 
   return {
     ...basePayload,
-    text: data.isTextOnly
-      ? (data.emailBody ?? "")
-      : (data.emailTemplateHtml ?? ""),
+    text: body,
   };
 };
 
@@ -81,25 +117,24 @@ export const formatUpdateScheduledEmailCampaignPayload = ({
   data: EmailCampaignFormData;
   datetimeScheduled: string;
 }): UpdateScheduledEmailCampaignPayload => {
+  const { subject, emailTemplateId, body } = resolveEmailPayloadContent(data);
   const basePayload = {
     smartlist: smartlistId,
     communication_kind: CommunicationKind.EMAIL,
-    title: (data.emailSubject ?? "").trim(),
+    title: subject,
     datetime_scheduled: datetimeScheduled,
   } as const;
 
-  if (data.emailTemplateId != null) {
+  if (emailTemplateId != null) {
     return {
       ...basePayload,
-      email_design: data.emailTemplateId,
+      email_design: emailTemplateId,
       text: "",
     };
   }
 
   return {
     ...basePayload,
-    text: data.isTextOnly
-      ? (data.emailBody ?? "")
-      : (data.emailTemplateHtml ?? ""),
+    text: body,
   };
 };

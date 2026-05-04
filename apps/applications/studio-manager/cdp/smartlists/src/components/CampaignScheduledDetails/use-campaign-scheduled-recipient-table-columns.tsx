@@ -1,12 +1,12 @@
 import { useMemo } from "react";
 
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import {
   Avatar,
   Body,
   type GenericTableColumn,
 } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind } from "#src/api/constants";
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
 import { CampaignScheduledRecipientActionDropdown } from "./CampaignScheduledRecipientActionDropdown";

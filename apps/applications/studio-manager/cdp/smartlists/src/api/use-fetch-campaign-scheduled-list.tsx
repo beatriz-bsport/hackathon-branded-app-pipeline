@@ -1,6 +1,8 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { campaignScheduledListQueryOptions } from "./api";
+import { campaignScheduledListQueryOptions } from "@bsport/api-cdp/communicate";
+
+import { fetch } from "#src/utils/fetch";
 
 /**
  * Hook that combines automated campaigns with their analytics data
@@ -10,5 +12,7 @@ import { campaignScheduledListQueryOptions } from "./api";
  * with the automated campaign id.
  */
 export const useFetchCampaignScheduledList = (smartlistId: string) => {
-  return useSuspenseQuery(campaignScheduledListQueryOptions(smartlistId));
+  return useSuspenseQuery(
+    campaignScheduledListQueryOptions(fetch, { smartlistId }),
+  );
 };

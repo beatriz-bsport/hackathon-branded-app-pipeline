@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import {
   Body,
   Chip,
@@ -8,7 +9,6 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind } from "#src/api/constants";
 import {
   COMMUNICATION_CHANNEL_BY_KIND_MAP,
   COMMUNICATION_KIND_ICON_MAP,
@@ -106,18 +106,20 @@ export const useCampaignSentTableColumns = ({
               iconLeft={COMMUNICATION_KIND_ICON_MAP[row.campaignKind]}
             />
           )}
-          <Body
-            className={
-              isMobile
-                ? `max-w-[150px] md:max-w-full overflow-hidden text-ellipsis`
-                : "w-[400px] overflow-hidden text-ellipsis"
-            }
-            htmlVariant="span"
-            size="lg"
-            weight="weak"
-          >
-            {row.campaignName}
-          </Body>
+          <Tooltip label={row.campaignName} placement="bottom-left">
+            <Body
+              className={
+                isMobile
+                  ? `max-w-[150px] md:max-w-full overflow-hidden text-ellipsis`
+                  : "w-[400px] overflow-hidden text-ellipsis"
+              }
+              htmlVariant="span"
+              size="lg"
+              weight="weak"
+            >
+              {row.campaignName}
+            </Body>
+          </Tooltip>
         </div>
       ),
     };

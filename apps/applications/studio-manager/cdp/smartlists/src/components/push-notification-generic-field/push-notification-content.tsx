@@ -6,6 +6,7 @@ import {
   TextArea,
   TextField,
   Title,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { PushNotificationPreview } from "#src/components/BusinessComponents/PushNotificationPreview";
@@ -28,6 +29,7 @@ import {
  * title + message fields, variable selector and live preview.
  */
 export const PushNotificationContent = ({ sender }: { sender: string }) => {
+  const isMobile = !useMatchMedia("md");
   const { t } = useTranslation("details");
   const formIdPrefix = useId();
   const ids = {
@@ -82,7 +84,9 @@ export const PushNotificationContent = ({ sender }: { sender: string }) => {
         {t("generic.pushNotification.sections.message")}
       </Title>
 
-      <div className="flex flex-row gap-lg">
+      <div
+        className={isMobile ? "flex flex-col gap-lg" : "flex flex-row gap-lg"}
+      >
         <div className="flex flex-1 flex-col gap-sm">
           <div className="flex flex-col gap-xs">
             <FormField<PushNotificationContentFormData, "title">

@@ -1,5 +1,9 @@
 {
   "loadMore": "Lees meer",
+  "paypalWarning": {
+    "title": "Uitbetalingen omvatten alleen Stripe-betalingen.",
+    "description": "Aangezien PayPal niet is gekoppeld aan Stripe, worden PayPal-transacties rechtstreeks naar je PayPal-rekening betaald en verschijnen ze hier niet."
+  },
   "amountCarryOverFromPreviousPayouts": "Inclusief {{amount}} overgedragen van eerdere mislukte/geannuleerde uitbetalingen",
   "reconciliationStatusLabel": "Afstemming: {{status}}",
   "reconciliationStatus": {
@@ -29,9 +33,13 @@
     "status": "Status"
   },
   "balanceTransactionTable": {
+    "creationDate": "Betaaldatum",
     "type": "Kanalen",
     "paymentMethod": "Betaalmethode",
     "status": "Status",
+    "gross": "Bruto",
+    "fee": "Kosten",
+    "total": "Totaal",
     "amount": "Bedrag",
     "invoices": "Facturen"
   },
@@ -40,15 +48,20 @@
     "reversalOf": "Terugboeking van transactie #{{id}}{{payoutInfo}}",
     "reversalOfPayoutInfo": " — uitbetaling {{readable_identifier}}",
     "fromPayout": "Van uitbetaling {{readable_identifier}}",
-    "net": "net {{amount}}"
+    "details": "Details",
+    "downloadPdfHelp": "Download PDF",
+    "net": "net {{amount}}",
+    "pdf": "PDF"
   },
   "summary": {
     "reconciliation": "Afstemmingsstatus",
+    "count": "Aantal",
     "payments": "Betalingen",
     "refunds": "Terugbetalingen",
     "disputes": "Geschillen",
     "directDebitOriginal": "Oorspronkelijke incasso",
     "directDebitReversal": "Stornering automatische incasso",
+    "directDebitFeeAdjustment": "Kostenaanpassing mislukte incasso",
     "transfers": "Overschrijvingen",
     "transferRefunds": "Overschrijvingsvergoedingen",
     "adjustments": "Aanpassingen",

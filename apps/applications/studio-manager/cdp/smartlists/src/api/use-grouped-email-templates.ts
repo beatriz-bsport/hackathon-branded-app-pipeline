@@ -1,13 +1,13 @@
 import { useQueries } from "@tanstack/react-query";
 
-import { type EmailTemplateDetail } from "@bsport/api-cdp";
-
-import { useTranslation } from "#src/utils/i18n";
-
 import {
+  type EmailTemplateDetail,
   emailTemplateCategoriesQueryOptions,
   emailTemplateSearchQueryOptions,
-} from "./api";
+} from "@bsport/api-cdp/email-template";
+
+import { fetch } from "#src/utils/fetch";
+import { useTranslation } from "#src/utils/i18n";
 
 type EmailTemplateCategory = {
   id: number;
@@ -76,8 +76,8 @@ export const useGroupedEmailTemplates = ({
 
   return useQueries({
     queries: [
-      emailTemplateSearchQueryOptions({ searchInput, id__in }),
-      emailTemplateCategoriesQueryOptions(),
+      emailTemplateSearchQueryOptions(fetch, { searchInput, id__in }),
+      emailTemplateCategoriesQueryOptions(fetch),
     ],
     combine: ([searchResult, categoriesResult]) => {
       const templates = searchResult.data?.results ?? [];

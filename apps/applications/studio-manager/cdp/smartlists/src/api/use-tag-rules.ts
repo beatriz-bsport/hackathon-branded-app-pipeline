@@ -1,13 +1,17 @@
 import { useSuspenseQueries } from "@tanstack/react-query";
 
+import { type TagRule, tagRulesQueryOptions } from "@bsport/api-cdp/smartlist";
+import {
+  type Tag,
+  type TagGroup,
+  fetchTagGroupsQueryOptions,
+  fetchTagsQueryOptions,
+} from "@bsport/api-cdp/tags";
+
+import { fetch } from "#src/utils/fetch";
 import { invariant } from "#src/utils/invariant";
 
-import {
-  tagGroupsQueryOptions,
-  tagRulesQueryOptions,
-  tagsQueryOptions,
-} from "./api";
-import type { Tag, TagGroup, TagRule, TagRuleWithTag } from "./types";
+import type { TagRuleWithTag } from "./types";
 
 /**
  * Combine function extracted for referential stability.
@@ -46,11 +50,11 @@ const combineTagRulesWithTags = (
 export const useTagRules = (smartlistId: string) => {
   return useSuspenseQueries({
     queries: [
-      tagRulesQueryOptions(smartlistId),
-      tagsQueryOptions(),
-      tagGroupsQueryOptions(),
+      tagRulesQueryOptions(fetch, smartlistId),
+      fetchTagsQueryOptions(fetch),
+      fetchTagGroupsQueryOptions(fetch),
     ],
-    combine: (results) => combineTagRulesWithTags(results),
+    combine: combineTagRulesWithTags,
   });
 };
 

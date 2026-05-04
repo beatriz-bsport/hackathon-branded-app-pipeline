@@ -5,9 +5,10 @@ import type { Collection } from "@bsport/api-buyables/collection";
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { CollectionTable } from "#src/components/collection-table/collection-table";
-import { QueryBoundary } from "#src/components/query-boundary";
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { CollectionCreateModal } from "#src/features/collection-create-modal/collection-create-modal";
 import { CollectionDeleteModal } from "#src/features/collection-delete-modal/collection-delete-modal";
+import { useDeleteCollection } from "#src/features/collection-delete-modal/use-delete-collection";
 import { CollectionEditModal } from "#src/features/collection-edit-modal/collection-edit-modal";
 import { useCollectionsQuery } from "#src/hooks/api/use-collections-query";
 import { useBuildPageTabs } from "#src/hooks/layout/use-build-page-tabs";
@@ -69,6 +70,10 @@ const CollectionsListPage: FC = () => {
     null,
   );
 
+  const { deleteCollection } = useDeleteCollection({
+    onSuccess: () => setDeletedCollectionId(null),
+  });
+
   const handleEdit = (collection: Collection) => {
     setEditedCollection(collection);
     openEditModal();
@@ -125,11 +130,9 @@ const CollectionsListPage: FC = () => {
 
       {deletedCollectionId !== null && (
         <CollectionDeleteModal
-          collectionId={deletedCollectionId}
-          isOpen={!!deletedCollectionId}
-          closeModal={() => {
-            setDeletedCollectionId(null);
-          }}
+          isOpen={true}
+          closeModal={() => setDeletedCollectionId(null)}
+          onConfirm={() => deleteCollection({ id: deletedCollectionId })}
         />
       )}
     </ListLayout>

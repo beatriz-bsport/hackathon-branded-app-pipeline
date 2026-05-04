@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
+import { emailTemplateCategoriesQueryOptions } from "@bsport/api-cdp/email-template";
 import {
   Body,
   Modal,
@@ -10,8 +11,8 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { emailTemplateCategoriesQueryOptions } from "#src/api/api";
 import { useCreateEmailTemplate } from "#src/api/use-create-email-template";
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
 import type {
@@ -43,7 +44,7 @@ export const CreateEmailTemplateModal = ({
   const [categoryId, setCategoryId] = useState<string>(NO_CATEGORY_VALUE);
 
   const { data: categoriesData } = useQuery(
-    emailTemplateCategoriesQueryOptions(),
+    emailTemplateCategoriesQueryOptions(fetch),
   );
 
   const categories = categoriesData?.results ?? [];

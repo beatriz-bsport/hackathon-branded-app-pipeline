@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { Card, useEmptyState } from "@bsport/kaizen-primitive-core";
+import { useEmptyState } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -17,10 +17,8 @@ export const SmartfillActivatedEmptyState: FC = () => {
   });
 
   return (
-    <Card padding="none" className="overflow-hidden">
-      <div className="grid min-h-[560px] w-full place-content-center p-xl">
-        <EmptyState />
-      </div>
-    </Card>
+    <div className="grid min-h-[560px] w-full place-content-center p-xl">
+      <EmptyState />
+    </div>
   );
 };

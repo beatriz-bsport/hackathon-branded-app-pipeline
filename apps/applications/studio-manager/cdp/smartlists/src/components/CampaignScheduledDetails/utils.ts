@@ -1,5 +1,6 @@
-import { CommunicationKind } from "#src/api/constants";
-import type { CommunicationRecipientMinimal } from "#src/api/types";
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
+import { type CommunicationRecipientMinimal } from "@bsport/api-cdp/communicate";
+
 import { getMemberInitialsFromFullName } from "#src/utils/memberUtils";
 
 import { CampaignScheduledRecipientTableRowData } from "./use-campaign-scheduled-recipient-table-columns";

@@ -7,6 +7,21 @@
   "rentalDays": "",
   "rentalDays_one": "{{count}} rental day",
   "rentalDays_other": "{{count}} rental days",
+  "panel": {
+    "viewingTitle": "Viewing",
+    "uploadedAt": "Media uploaded on {{date}}",
+    "totalViews": "Total",
+    "viewsLastWeek": "Last 7 days",
+    "distinctViewers": "Unique views",
+    "viewersTitle": "List of views",
+    "viewersEmpty": "No viewers yet",
+    "viewedAt": "Viewed on {{date}}",
+    "viewersCount": "{{count}} elements",
+    "buyersTitle": "List of purchases",
+    "buyersEmpty": "No purchases yet",
+    "purchasedAt": "Purchased on {{date}}",
+    "buyersCount": "{{count}} elements"
+  },
   "notFound": {
     "title": "Media not found",
     "description": "The requested media could not be found.",

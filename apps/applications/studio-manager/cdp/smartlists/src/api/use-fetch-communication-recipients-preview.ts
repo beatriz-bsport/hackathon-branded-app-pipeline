@@ -1,7 +1,12 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-import { communicationRecipientsPreviewQueryOptions } from "./api";
-import { FetchCommunicationRecipientsPreviewParams } from "./types";
+import {
+  FetchCommunicationRecipientsPreviewParams,
+  communicateKeys,
+  fetchCommunicationRecipientsPreviewAPI,
+} from "@bsport/api-cdp/communicate";
+
+import { fetch } from "#src/utils/fetch";
 
 /**
  * Fetches the list of recipients for a communication (preview recipients).
@@ -20,5 +25,10 @@ import { FetchCommunicationRecipientsPreviewParams } from "./types";
 export function useFetchCommunicationRecipientsPreview(
   request: FetchCommunicationRecipientsPreviewParams,
 ) {
-  return useSuspenseQuery(communicationRecipientsPreviewQueryOptions(request));
+  return useSuspenseQuery(
+    queryOptions({
+      queryKey: communicateKeys.communicationRecipientsPreview(request),
+      queryFn: () => fetchCommunicationRecipientsPreviewAPI(fetch, request),
+    }),
+  );
 }

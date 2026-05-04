@@ -1,5 +1,9 @@
 {
   "loadMore": "Voir plus",
+  "paypalWarning": {
+    "title": "Les versements incluent uniquement les paiements Stripe.",
+    "description": "Étant donné que PayPal n'est pas connecté à Stripe, les transactions PayPal sont versées directement sur votre compte PayPal et n'apparaîtront pas ici."
+  },
   "amountCarryOverFromPreviousPayouts": "Inclut {{amount}} reporté(s) des paiements précédents échoués/annulés",
   "reconciliationStatusLabel": "Rapprochement : {{status}}",
   "reconciliationStatus": {
@@ -18,7 +22,7 @@
     "pending": "En attente",
     "processing": "En cours",
     "completed": "Terminé",
-    "partially_failed": "Partiellement échoué",
+    "partially_failed": "Paiement partiellement échoué",
     "skipped_manual": "Ignorer"
   },
   "table": {
@@ -29,9 +33,13 @@
     "status": "Statut"
   },
   "balanceTransactionTable": {
+    "creationDate": "Date de transaction",
     "type": "Type de paiement",
     "paymentMethod": "Moyen de paiement",
     "status": "Statut",
+    "gross": "Brut",
+    "fee": "Frais",
+    "total": "Total",
     "amount": "Montant",
     "invoices": "Factures"
   },
@@ -40,23 +48,28 @@
     "reversalOf": "Annulation de la transaction #{{id}}{{payoutInfo}}",
     "reversalOfPayoutInfo": " — versement {{readable_identifier}}",
     "fromPayout": "Depuis le versement {{readable_identifier}}",
-    "net": "net {{amount}}"
+    "details": "Détails",
+    "downloadPdfHelp": "Télécharger le PDF",
+    "net": "net {{amount}}",
+    "pdf": "PDF"
   },
   "summary": {
     "reconciliation": "Statut de rapprochement",
+    "count": "Nombre",
     "payments": "Paiements",
     "refunds": "Remboursements",
     "disputes": "Litiges",
     "directDebitOriginal": "Prélèvement automatique original",
     "directDebitReversal": "Annulation de prélèvement",
+    "directDebitFeeAdjustment": "Ajustement des frais de prélèvement échoué",
     "transfers": "Virements",
     "transferRefunds": "Remboursements de virements",
     "adjustments": "Ajustements",
     "appFees": "Frais d'application",
     "appFeeRefunds": "Remboursements des frais d'application",
     "payoutFailures": "Échecs de versement",
-    "payoutCancels": "Annulations de paiements",
-    "title": "Récapitulatif des versements"
+    "payoutCancels": "Annulations de versements",
+    "title": "Récapitulatif de versements"
   },
   "displayType": {
     "payment": {
@@ -65,14 +78,14 @@
     },
     "refund": {
       "label": "Remboursement",
-      "description": "Un avoir émis à un client"
+      "description": "Un remboursement émis à un client"
     },
     "dispute": {
       "label": "Litige",
       "description": "Un litige initié par un client (chargeback)"
     },
     "failed_direct_debit_original": {
-      "label": "Prélèvement automatique échoué",
+      "label": "Prélèvement échoué",
       "description": "Un prélèvement qui n'a pas pu être encaissé"
     },
     "failed_direct_debit_reversal": {
@@ -84,7 +97,7 @@
       "description": "Un virement de solde"
     },
     "balance_transfer_refund": {
-      "label": "Virement remboursé",
+      "label": "Remboursement de virement",
       "description": "Remboursement d'un virement de solde"
     },
     "adjustment": {
@@ -93,7 +106,7 @@
     },
     "application_fee": {
       "label": "Frais d'application",
-      "description": "Des frais de plateforme"
+      "description": "Un frais de plateforme"
     },
     "application_fee_refund": {
       "label": "Remboursement des frais d'application",
@@ -104,7 +117,7 @@
       "description": "Fonds restitués suite à un versement échoué"
     },
     "payout_cancel": {
-      "label": "Annuler le versement",
+      "label": "Annulation de versement",
       "description": "Fonds retournés après un versement annulé"
     },
     "other": {

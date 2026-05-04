@@ -1,10 +1,10 @@
 import { useState } from "react";
 
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import { Alert, Card, Title } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import type { CommunicationKind } from "#src/api/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 import { QueryBoundary } from "../QueryBoundary";

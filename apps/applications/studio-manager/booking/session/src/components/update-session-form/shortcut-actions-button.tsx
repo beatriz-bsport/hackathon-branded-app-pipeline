@@ -5,14 +5,14 @@ import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
-import { SessionVisibilityType } from "#src/events/constants.js";
+import { SessionVisibilityType } from "#src/events/constants";
 import {
   sessionUpdateCancelButtonClickedEvent,
   sessionUpdateCopyLinkButtonClickedEvent,
   sessionUpdateDuplicateButtonClickedEvent,
   sessionUpdateRestoreButtonClickedEvent,
-} from "#src/events/session-edition/events.js";
-import { useFetchTeacher } from "#src/hooks/use-fetch-teachers.js";
+} from "#src/events/session-edition/events";
+import { useFetchTeacher } from "#src/hooks/use-fetch-teachers";
 import { analyticsClient } from "#src/utils/analytics";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";

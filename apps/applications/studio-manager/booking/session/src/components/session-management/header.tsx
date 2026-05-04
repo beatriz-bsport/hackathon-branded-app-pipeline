@@ -1,6 +1,11 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { FC, useMemo } from "react";
 
-import { DetailsLayout } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  DetailsLayout,
+  ExpandableSearchInputWithTooltipProps,
+} from "@bsport/kaizen-primitive-core";
 
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveTeacher } from "#src/hooks/teacher/use-retrieve-teacher";
@@ -8,17 +13,23 @@ import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-he
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
 import { useTranslation } from "#src/utils/i18n";
 
+import { ResponsiveTooltip } from "../common/responsive-tooltip";
 import { BookButton } from "./action-buttons/book-button";
 import { MoreActionsButton } from "./action-buttons/more-actions-button";
 import { RestoreSessionButton } from "./action-buttons/restore-session-button";
 import { SendCommunicationButton } from "./action-buttons/send-communication-button";
 import { SessionNavigationButtons } from "./action-buttons/session-navigation-buttons";
+import { ListedInformationSettings } from "./filters/listed-information-settings";
+import { OrderingBookings } from "./filters/ordering-bookings";
 
 export const Header: FC<{
   sessionId: number;
   openModal: (type: SessionManagementModalType) => void;
-}> = ({ sessionId, openModal }) => {
+  searchConfig: ExpandableSearchInputWithTooltipProps;
+}> = ({ sessionId, openModal, searchConfig }) => {
   const { t } = useTranslation("sessionManagement");
+
+  const queryClient = useQueryClient();
 
   const { data: session } = useRetrieveSession(sessionId);
 
@@ -36,13 +47,24 @@ export const Header: FC<{
         key="session-navigation"
         sessionId={session.id}
       />,
+      <ResponsiveTooltip key="refresh" label={t("refresh")} placement="bottom">
+        <Button
+          kind="icon-button"
+          size="md"
+          icon="refresh-cw-01"
+          intent="default"
+          color="main"
+          label={t("refresh")}
+          onClick={() => queryClient.invalidateQueries()}
+        />
+      </ResponsiveTooltip>,
       <MoreActionsButton
         key="more-actions"
         sessionId={session.id}
         openModal={openModal}
       />,
     ];
-  }, [session.id, openModal]);
+  }, [session.id, openModal, queryClient, t]);
 
   const endGroupActions = useMemo(() => {
     return [<SendCommunicationButton key="send-communication" />];
@@ -56,6 +78,12 @@ export const Header: FC<{
       })}
       startGroupActions={startGroupActions}
       endGroupActions={endGroupActions}
+      onDisplayPopover={() => (
+        <div className="flex flex-col gap-sm max-w-[260px]">
+          <OrderingBookings />
+          <ListedInformationSettings />
+        </div>
+      )}
       callToActionButton={
         session.available ? (
           <BookButton />
@@ -63,6 +91,7 @@ export const Header: FC<{
           <RestoreSessionButton openModal={openModal} />
         ) : undefined
       }
+      searchConfig={searchConfig}
       {...headerConfig}
     />
   );

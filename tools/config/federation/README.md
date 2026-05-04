@@ -67,6 +67,8 @@ Each app type has a designated port range to avoid conflicts:
 - `customer-data-platform`: 4300-4349
 - `business-insights`: 4350-4399
 - `communication`: 4400-4449
+- `settings`: 4450-4499
+- `staff-management`: 4500-4549
 
 #### Example Usage
 

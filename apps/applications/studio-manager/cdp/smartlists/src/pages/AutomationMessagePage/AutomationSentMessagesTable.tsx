@@ -1,6 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useCallback, useId, useMemo } from "react";
 
+import {
+  type CampaignSent,
+  campaignSentListQueryOptions,
+} from "@bsport/api-cdp/communicate";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import {
   Body,
@@ -17,9 +21,8 @@ import {
   usePaginationQueryParams,
 } from "@bsport/use-pagination-query-params";
 
-import { campaignSentListQueryOptions } from "#src/api/api";
-import type { CampaignSent } from "#src/api/types";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
@@ -178,7 +181,7 @@ function useAutomationSentMessagesTableData({
   const {
     data: { count, rows },
   } = useSuspenseQuery({
-    ...campaignSentListQueryOptions({
+    ...campaignSentListQueryOptions(fetch, {
       smartlist: Number(smartlistId),
       page: currentPage,
       page_size: currentPageSize,

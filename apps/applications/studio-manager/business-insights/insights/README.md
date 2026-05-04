@@ -9,7 +9,7 @@ This application provides studio managers with key business insights to help the
 To run in localhost :
 
 ```sh
-pnpm run dev
+pnpm exec nx run @bsport/sm-insights:dev:watch
 ```
 
 This will run two applications aside :
@@ -18,6 +18,8 @@ This will run two applications aside :
 - The Insights application, on the port defined in `package.json` in `federation.devPort` : 4350.
 
 Go to <http://localhost:4350>
+
+If you only want the app's own Vite server, run `pnpm exec nx run @bsport/sm-insights:dev:single`.
 
 ### Build your translations
 

@@ -84,11 +84,12 @@ export function getXhr() {
             reject(
               new HTTPException({
                 path: uri,
-                name: errorCodes.join(";"),
+                name: parsed?.msg ?? parsed?.code ?? errorCodes.join(";"),
                 statusCode: parsed?.statusCode ?? status,
                 message: getMessage(
                   parsed?.message ??
                     parsed?.error_message ??
+                    parsed?.msg ??
                     parsed?.errors_arrays,
                 ),
                 customErrorCodes: errorCodes,

@@ -4,8 +4,8 @@ import {
   type AutomatedCampaign,
   type UpdateAutomatedCampaignParams,
   automatedCampaignKeys,
-  updateAutomatedCampaign,
-} from "@bsport/api-cdp";
+  updateAutomatedCampaignAPI,
+} from "@bsport/api-cdp/automated-campaign";
 
 import { fetch } from "#src/utils/fetch";
 
@@ -22,7 +22,7 @@ export function useUpdateAutomatedCampaign({
 
   const mutation = useMutation({
     mutationFn: (params: UpdateAutomatedCampaignParams) =>
-      updateAutomatedCampaign(fetch, params),
+      updateAutomatedCampaignAPI(fetch, params),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
         queryKey: automatedCampaignKeys.list(String(data.smartlist)),

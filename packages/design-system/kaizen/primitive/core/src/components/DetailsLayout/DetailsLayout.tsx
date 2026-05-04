@@ -35,18 +35,27 @@ export type DetailsLayoutProps = HTMLAttributes<HTMLDivElement> & {
   onPanelToggle?: (isOpen: boolean) => void;
 };
 
-const detailsLayout = cva([
-  "h-screen",
-  "w-full",
-  "grid",
-  "border-stroke-page-layout",
-  "border-l-stroke-thin",
-  "shadow-sm",
-  "[grid-template-areas:'header_header''confirm_aside''content_aside']",
-  "transition-all",
-  "duration-long",
-  "relative",
-]);
+const detailsLayout = cva(
+  [
+    "w-full",
+    "grid",
+    "border-stroke-page-layout",
+    "border-l-stroke-thin",
+    "shadow-sm",
+    "[grid-template-areas:'header_header''confirm_aside''content_aside']",
+    "transition-all",
+    "duration-long",
+    "relative",
+  ],
+  {
+    variants: {
+      isMobile: {
+        false: "h-screen",
+        true: "h-dvh",
+      },
+    },
+  },
+);
 
 /**
  * Define Layout for Details pages, with five subcomponents:
@@ -102,9 +111,9 @@ function Main({ className, ...props }: Omit<DetailsLayoutProps, "withPanel">) {
     <main
       data-component="Kaizen-DetailsLayout"
       {...props}
-      className={detailsLayout({ className })}
+      className={detailsLayout({ className, isMobile })}
       style={{
-        overflow: panelWidth ? "hidden" : "auto",
+        overflow: "hidden",
         "--aside-width": `${panelWidth}px`,
         "--confirm-grid-height": confirmGridHeight,
         gridTemplateColumns: isMobile ? "1fr" : "1fr var(--aside-width)",
@@ -174,13 +183,16 @@ const detailsLayoutContent = cva(
     "m-[0_auto]",
     "w-full",
     "max-w-component-content-centered",
-    "overflow-y-scroll",
     "min-h-0",
   ],
   {
     variants: {
+      isMobile: {
+        true: ["overflow-y-auto", "[-webkit-overflow-scrolling:touch]"],
+        false: "overflow-y-scroll",
+      },
       isPanelOpened: {
-        true: "overflow-y-scroll",
+        true: "overflow-y-auto",
         false: "",
       },
     },
@@ -201,12 +213,12 @@ const DetailsLayoutContent: FC<DetailsLayoutContentProps> = ({
   className,
   ...htmlProps
 }) => {
-  const { isPanelOpened } = useLayoutContext();
+  const { isPanelOpened, isMobile } = useLayoutContext();
 
   return (
     <div
       data-component="Kaizen-DetailsLayout-Content"
-      className={detailsLayoutContent({ className, isPanelOpened })}
+      className={detailsLayoutContent({ className, isPanelOpened, isMobile })}
       {...htmlProps}
     >
       {children}

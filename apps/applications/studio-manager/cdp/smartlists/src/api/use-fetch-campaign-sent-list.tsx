@@ -1,6 +1,8 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { campaignSentListQueryOptions } from "./api";
+import { campaignSentListQueryOptions } from "@bsport/api-cdp/communicate";
+
+import { fetch } from "#src/utils/fetch";
 
 export const useFetchCampaignSentList = ({
   smartlistId,
@@ -16,7 +18,7 @@ export const useFetchCampaignSentList = ({
   onlyAutomatedCampaign?: boolean;
 }) => {
   return useSuspenseQuery(
-    campaignSentListQueryOptions({
+    campaignSentListQueryOptions(fetch, {
       smartlist: Number(smartlistId),
       page,
       page_size: pageSize,

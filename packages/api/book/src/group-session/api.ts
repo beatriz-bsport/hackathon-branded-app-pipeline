@@ -2,7 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 
 import { Fetch, PaginatedResponse, buildUrlParams } from "@bsport/store-base";
 
-import { DEFAULT_STALE_TIME } from "#src/constants";
+import { BOOKING_QUERY_KEY, DEFAULT_STALE_TIME } from "#src/constants";
 
 import type { GroupSession, PaginatedGroupSessionParams } from "./types";
 
@@ -10,7 +10,7 @@ const API_URL = "book/v1";
 const API_URL_GROUP_SESSION = `${API_URL}/offer_group`;
 
 export const groupSessionKeys = {
-  all: ["@api-book", "groupSessions"] as const,
+  all: [BOOKING_QUERY_KEY, "groupSessions"] as const,
   list: () => [...groupSessionKeys.all, "list"] as const,
   detail: (id: number) => [...groupSessionKeys.all, id] as const,
 };

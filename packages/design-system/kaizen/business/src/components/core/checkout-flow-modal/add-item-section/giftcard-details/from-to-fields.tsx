@@ -14,29 +14,42 @@ export const FromToFields: React.FC = () => {
   const fromId = useId();
   const toId = useId();
 
-  const { watch, setValue } = useFormContext<CheckoutFlowFormState>();
+  const { watch, setValue, clearErrors, getValues } =
+    useFormContext<CheckoutFlowFormState>();
   const member = watch("member");
-  const currentFrom = watch("addItemGiftcardFrom");
+  watch("addItemGiftcardFrom");
 
   useEffect(() => {
+    const currentFrom = getValues("addItemGiftcardFrom");
     if (!currentFrom && member?.firstname) {
       setValue("addItemGiftcardFrom", member.firstname, { shouldDirty: true });
+      clearErrors("addItemGiftcardFrom");
     }
-  }, [member]);
+  }, [member?.id, member?.firstname, getValues, setValue, clearErrors]);
 
   return (
     <div className="grid gap-md max-sm:grid-cols-1 sm:grid-cols-2">
       <FormField<CheckoutFlowFormState, "addItemGiftcardFrom", TextFieldProps>
         name="addItemGiftcardFrom"
-        mapProps={({ field, form: { setValue } }) => ({
+        mapProps={({ field, fieldState, form: { setValue } }) => ({
           value: field.value,
-          onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
             setValue("addItemGiftcardFrom", e.target.value, {
               shouldDirty: true,
-            }),
-          onClear: () =>
-            setValue("addItemGiftcardFrom", "", { shouldDirty: true }),
+              shouldTouch: true,
+            });
+            clearErrors("addItemGiftcardFrom");
+          },
+          onClear: () => {
+            setValue("addItemGiftcardFrom", "", {
+              shouldDirty: true,
+              shouldTouch: true,
+            });
+            clearErrors("addItemGiftcardFrom");
+          },
           helperText: `${field.value.length}/${FROM_TO_MAX_LENGTH}`,
+          status: fieldState.error ? "error" : "default",
+          statusText: fieldState.error?.message,
         })}
       >
         <TextField
@@ -50,15 +63,25 @@ export const FromToFields: React.FC = () => {
 
       <FormField<CheckoutFlowFormState, "addItemGiftcardTo", TextFieldProps>
         name="addItemGiftcardTo"
-        mapProps={({ field, form: { setValue } }) => ({
+        mapProps={({ field, fieldState, form: { setValue } }) => ({
           value: field.value,
-          onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
             setValue("addItemGiftcardTo", e.target.value, {
               shouldDirty: true,
-            }),
-          onClear: () =>
-            setValue("addItemGiftcardTo", "", { shouldDirty: true }),
+              shouldTouch: true,
+            });
+            clearErrors("addItemGiftcardTo");
+          },
+          onClear: () => {
+            setValue("addItemGiftcardTo", "", {
+              shouldDirty: true,
+              shouldTouch: true,
+            });
+            clearErrors("addItemGiftcardTo");
+          },
           helperText: `${field.value.length}/${FROM_TO_MAX_LENGTH}`,
+          status: fieldState.error ? "error" : "default",
+          statusText: fieldState.error?.message,
         })}
       >
         <TextField

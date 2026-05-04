@@ -1,55 +1,53 @@
-import type { FC } from "react";
+import { type FC, useState } from "react";
 
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { useDeleteCollection } from "./use-delete-collection";
-
 type CollectionDeleteModalProps = {
-  collectionId: number;
   isOpen: boolean;
   closeModal: () => void;
-  onDeleteScheduled?: () => void;
+  onConfirm: () => void | Promise<void>;
 };
 
 export const CollectionDeleteModal: FC<CollectionDeleteModalProps> = ({
-  collectionId,
   isOpen,
   closeModal,
-  onDeleteScheduled,
+  onConfirm,
 }) => {
   const { t } = useTranslation("collections-list");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { deleteCollection, isLoading } = useDeleteCollection({
-    onSuccess: () => {
-      closeModal();
-      onDeleteScheduled?.();
-    },
-  });
-
-  const handleDelete = () => {
-    deleteCollection({ id: collectionId });
+  const handleDelete = async () => {
+    setIsSubmitting(true);
+    try {
+      await onConfirm();
+    } catch {
+      setIsSubmitting(false);
+    }
   };
+
+  const handleClose = isSubmitting ? () => {} : closeModal;
 
   return (
     <Modal
       open={isOpen}
+      onClose={handleClose}
       confirmButton={{
         label: t("deleteModal.buttons.delete"),
         color: "critical",
         onClick: handleDelete,
-        disabled: isLoading,
+        disabled: isSubmitting,
       }}
       cancelButton={{
         label: t("deleteModal.buttons.cancel"),
         onClick: closeModal,
-        disabled: isLoading,
+        disabled: isSubmitting,
       }}
-      onCloseButtonClick={isLoading ? undefined : closeModal}
+      onCloseButtonClick={handleClose}
       title={t("deleteModal.title")}
       size="md"
-      onClickOutside={isLoading ? undefined : closeModal}
+      onClickOutside={handleClose}
     >
       <Body htmlVariant="p">{t("deleteModal.description")}</Body>
     </Modal>

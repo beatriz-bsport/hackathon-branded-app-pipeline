@@ -21,6 +21,7 @@ import { ItemAutocompleteField } from "./item-autocomplete-field";
 import { ItemTypeSelectorField } from "./item-type-selector-field";
 import { PriceField } from "./price-field";
 import { QuantityField } from "./quantity-field";
+import { useAddItemValidation } from "./use-add-item-validation";
 
 // Note: Currently routes to legacy backoffice (causes page reload).
 const LEGACY_URL_SUBSCRIPTION = "/subscriptions";
@@ -39,6 +40,7 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
   const { t } = useTranslation("core", { i18n: i18nInstance });
   const track = useCheckoutFlowTrack();
   const { watch, getValues } = useFormContext<CheckoutFlowFormState>();
+  const validateAddItemFields = useAddItemValidation();
 
   const selectedItemType = watch("addItemSelectedItemType");
   const selectedItemId = watch("addItemSelectedItemId");
@@ -86,8 +88,8 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
     handleClear();
   };
 
-  const handleAddItemWithTracking = () => {
-    if (!itemToAdd) return;
+  const handleAddItemWithTracking = (): boolean => {
+    if (!itemToAdd) return false;
 
     const itemPayload = {
       item_id: itemToAdd.buyableItemId,
@@ -102,6 +104,7 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
 
     track("checkout_flow_item_add_item_button_clicked", itemPayload);
     handleAddItem();
+    return true;
   };
 
   return (
@@ -178,10 +181,13 @@ export const AddItemSection: React.FC<AddItemSectionProps> = ({
                 iconLeft="plus"
                 label={t("checkoutFlowModal.addItemButton")}
                 onClick={() => {
-                  handleAddItemWithTracking();
-                  onOpenSummarySection?.();
+                  if (!validateAddItemFields()) return;
+                  const hasAddedItem = handleAddItemWithTracking();
+                  if (hasAddedItem) {
+                    onOpenSummarySection?.();
+                  }
                 }}
-                disabled={itemToAdd == null}
+                disabled={!selectedItemId}
                 data-testid="checkout-flow-add-item-button"
               />
             </div>

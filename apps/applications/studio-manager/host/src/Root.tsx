@@ -24,8 +24,7 @@ import { removeAppcuesScripts } from "./components/onboarding/appcues-scripts";
 import { navigateBackToFranchisorHost } from "./navigateBackToFranchisor";
 
 // ----- Booking -----
-const GroupActivities = lazy(() => import("@bsport/sm-group-activity"));
-const Classes = lazy(() => import("@bsport/sm-class"));
+const Services = lazy(() => import("@bsport/sm-service"));
 const Session = lazy(() => import("@bsport/sm-session"));
 
 // ----- Buyables -----
@@ -33,6 +32,9 @@ const Giftcard = lazy(() => import("@bsport/sm-giftcard"));
 const Order = lazy(() => import("@bsport/sm-order"));
 const Pack = lazy(() => import("@bsport/sm-pack"));
 const Vod = lazy(() => import("@bsport/sm-vod"));
+
+// ----- Staff Management -----
+const Staff = lazy(() => import("@bsport/sm-staff"));
 
 // ----- Core-data -----
 const MemberList = lazy(() => import("@bsport/sm-member-list"));
@@ -55,6 +57,9 @@ const TransactionalNotification = lazy(
 const MarketingNotification = lazy(
   () => import("@bsport/sm-marketing-notification"),
 );
+
+// ----- Settings -----
+const Aggregators = lazy(() => import("@bsport/sm-aggregators"));
 
 // ----- Business Insights -----
 const Insights = lazy(() => import("@bsport/sm-insights"));
@@ -229,6 +234,7 @@ const AuthenticatedRoutes = () => {
   const isGiftcardsPageEnabled = useNavFlag(NavFlags.GIFTCARDS);
 
   const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
+  const isAggregatorsEnabled = useNavFlag(NavFlags.SETTINGS_AGGREGATORS);
 
   /**
    * Add configs to the Host Router.
@@ -238,11 +244,10 @@ const AuthenticatedRoutes = () => {
   const routesConfigs: RouteConfig[] = [
     /* ----- Booking ----- */
     {
-      url: urls.classes,
-      element: <Classes />,
+      url: urls.services,
+      element: <Services />,
       hidden: !isClassesMergedViewEnabled,
     },
-    { url: urls.activity, element: <GroupActivities /> },
     { url: urls.calendar, element: <Session /> },
 
     /* ----- Buyables ----- */
@@ -254,6 +259,9 @@ const AuthenticatedRoutes = () => {
     { url: urls.order, element: <Order /> },
     { url: urls.pack, element: <Pack />, hidden: !isPacksPageEnabled },
     { url: urls.onDemand, element: <Vod /> },
+
+    /* ----- Staff Management ----- */
+    { url: urls.settings_staff, element: <Staff /> },
 
     /* ----- Core-data ----- */
     { url: urls.member, element: <MemberList /> },
@@ -280,6 +288,13 @@ const AuthenticatedRoutes = () => {
     {
       url: urls.marketingNotification,
       element: <MarketingNotification />,
+    },
+
+    /* ----- Settings ----- */
+    {
+      url: urls.settings_aggregators,
+      element: <Aggregators />,
+      hidden: !isAggregatorsEnabled,
     },
 
     /* ----- Business Insights ----- */

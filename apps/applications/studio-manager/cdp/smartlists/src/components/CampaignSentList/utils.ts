@@ -1,6 +1,6 @@
+import { type CampaignSent } from "@bsport/api-cdp/communicate";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
-import type { CampaignSent } from "#src/api/types";
 import { getFallbackCampaignName } from "#src/utils/campaignUtils";
 import { i18nInstance } from "#src/utils/i18n";
 

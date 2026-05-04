@@ -1,9 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import type { EditEmailTemplatePayload } from "@bsport/api-cdp";
+import {
+  type EditEmailTemplatePayload,
+  type EmailTemplateDetail,
+  updateEmailTemplateAPI,
+} from "@bsport/api-cdp/email-template";
 
-import { smartlistKeys, updateEmailTemplate } from "./api";
-import type { EmailTemplateDetail } from "./types";
+import { fetch } from "#src/utils/fetch";
+
+import { smartlistQueryKeys } from "./api";
 
 type UseUpdateEmailTemplateParams = {
   onSuccess?: (data: EmailTemplateDetail) => void;
@@ -18,10 +23,10 @@ export function useUpdateEmailTemplate({
 
   const mutation = useMutation({
     mutationFn: (payload: EditEmailTemplatePayload) =>
-      updateEmailTemplate(payload),
+      updateEmailTemplateAPI(fetch, payload),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: smartlistKeys.emailTemplate(),
+        queryKey: smartlistQueryKeys.emailTemplateKeys.emailTemplate(),
       });
       onSuccess?.(data);
     },

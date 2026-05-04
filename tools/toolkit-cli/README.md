@@ -46,15 +46,14 @@ This script allows to set the API environment variables in fetch package.
 
 **Usage:** `@bsport/toolkit-cli api-environment:set [options] <env>`
 
-|  Arg  |                                                 Description                                                 |
-| :---: | :---------------------------------------------------------------------------------------------------------: |
-| `env` | Environment to set for API variables. Accepted values are : dev, local, staging, production, feature-branch |
+|  Arg  |                                         Description                                         |
+| :---: | :-----------------------------------------------------------------------------------------: |
+| `env` | Environment to set for API variables. Accepted values are : dev, local, staging, production |
 
-|              Option              |                                                                                                                                                               Description                                                                                                                                                                |
-| :------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| `-fb, --feature-branch <string>` | Identifier of a feature branch. Accepted values are : alpha, beta, delta, epsilon, eta, gamma, iota, kappa, lambda, mu, omega, phi, sigma, theta, zeta, arceus, caterie, charizard, charmander, ditto, evoli, goupelin, jigglypuff, magikarp, mewtwo, onix, pikachu, slowpoke, togepi, torchic, totodile, turtwig, sylveon (default: "") |
-|          `-q, --quiet`           |                                                                                                                                      Suppress all output, unless an error occurs. (default: false)                                                                                                                                       |
-|           `-h, --help`           |                                                                                                                                                         display help for command                                                                                                                                                         |
+|    Option     |                          Description                          |
+| :-----------: | :-----------------------------------------------------------: |
+| `-q, --quiet` | Suppress all output, unless an error occurs. (default: false) |
+| `-h, --help`  |                   display help for command                    |
 
 ### `command:create`
 
@@ -105,9 +104,9 @@ Set Unleash Feature Flags environment variables in @bsport/sm-backbone (.env.loc
 
 **Usage:** `@bsport/toolkit-cli feature-flags-environment:set [options] <env>`
 
-|  Arg  |                                                      Description                                                      |
-| :---: | :-------------------------------------------------------------------------------------------------------------------: |
-| `env` | Environment to set for Feature Flags variables. Accepted values are : dev, local, staging, production, feature-branch |
+|  Arg  |                                              Description                                              |
+| :---: | :---------------------------------------------------------------------------------------------------: |
+| `env` | Environment to set for Feature Flags variables. Accepted values are : dev, local, staging, production |
 
 |         Option          |                          Description                          |
 | :---------------------: | :-----------------------------------------------------------: |

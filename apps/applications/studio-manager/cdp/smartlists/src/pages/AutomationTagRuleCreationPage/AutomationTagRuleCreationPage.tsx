@@ -1,10 +1,10 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
+import { TagRuleKind } from "@bsport/api-cdp/smartlist";
 import { useFormController } from "@bsport/form";
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
-import { TagRuleKind } from "#src/api/constants";
 import {
   AutomationTagRuleForm,
   type AutomationTagRuleFormData,
@@ -19,6 +19,7 @@ import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { invariant } from "#src/utils/invariant";
 
+import { TagRuleLimitReachedModal } from "./tag-rule-limit-reached-modal";
 import { useCreateAutomationTagRule } from "./use-create-tag-rule";
 
 export const AutomationTagRuleCreationPage = () => {
@@ -38,6 +39,7 @@ function AutomationTagRuleCreationDetail() {
 
   const { t } = useTranslation("details");
   const navigate = useNavigate();
+  const [isTagRuleLimitModalOpen, setIsTagRuleLimitModalOpen] = useState(false);
 
   const baseId = useId();
   const formId = `${baseId}-automation-tag-rule-create-form`;
@@ -55,6 +57,9 @@ function AutomationTagRuleCreationDetail() {
     smartlistId,
     onSuccess: () => {
       closeToAutomation();
+    },
+    onTagRuleLimitReached: () => {
+      setIsTagRuleLimitModalOpen(true);
     },
   });
 
@@ -77,39 +82,50 @@ function AutomationTagRuleCreationDetail() {
     closeToAutomation();
   };
 
+  const handleCloseTagRuleLimitModal = () => {
+    setIsTagRuleLimitModalOpen(false);
+    closeToAutomation();
+  };
+
   return (
-    <Modal
-      open
-      size="md"
-      title={t("actions.createAutomationModal.automationType.tagRule.title")}
-      onClose={closeToAutomation}
-      onClickOutside={handleClickOutside}
-      confirmButton={{
-        label: t("actions.createAutomationModal.tagRuleForm.actions.save"),
-        type: "submit",
-        form: formId,
-        disabled:
-          !methods.formState.isDirty ||
-          methods.formState.isSubmitting ||
-          isCreating,
-      }}
-      cancelButton={{
-        label: t("actions.createAutomationModal.tagRuleForm.actions.cancel"),
-        onClick: closeToAutomation,
-      }}
-    >
-      <div className="flex flex-col gap-sm">
-        <Body htmlVariant="p" size="md" weight="weak">
-          {t(
-            "actions.createAutomationModal.automationType.tagRule.description",
-          )}
-        </Body>
-        <AutomationTagRuleForm
-          id={formId}
-          onSubmit={handleSubmit}
-          {...methods}
-        />
-      </div>
-    </Modal>
+    <>
+      <Modal
+        open
+        size="md"
+        title={t("actions.createAutomationModal.automationType.tagRule.title")}
+        onClose={closeToAutomation}
+        onClickOutside={handleClickOutside}
+        confirmButton={{
+          label: t("actions.createAutomationModal.tagRuleForm.actions.save"),
+          type: "submit",
+          form: formId,
+          disabled:
+            !methods.formState.isDirty ||
+            methods.formState.isSubmitting ||
+            isCreating,
+        }}
+        cancelButton={{
+          label: t("actions.createAutomationModal.tagRuleForm.actions.cancel"),
+          onClick: closeToAutomation,
+        }}
+      >
+        <div className="flex flex-col gap-sm">
+          <Body htmlVariant="p" size="md" weight="weak">
+            {t(
+              "actions.createAutomationModal.automationType.tagRule.description",
+            )}
+          </Body>
+          <AutomationTagRuleForm
+            id={formId}
+            onSubmit={handleSubmit}
+            {...methods}
+          />
+        </div>
+      </Modal>
+      <TagRuleLimitReachedModal
+        isOpen={isTagRuleLimitModalOpen}
+        onClose={handleCloseTagRuleLimitModal}
+      />
+    </>
   );
 }

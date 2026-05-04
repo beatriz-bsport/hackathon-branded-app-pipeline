@@ -8,6 +8,8 @@ export enum BookingActionItemId {
   COPY_EMAIL = "copy-email-shortcut",
   COPY_PHONE = "copy-phone-shortcut",
   UPDATE_MEMBER_NOTES = "update-member-notes-action",
+  BOOK_OPTION = "book-option-action",
+  REMOVE_FROM_WAITLIST = "remove-from-waitlist-action",
 }
 
 export const ACTION_ITEM_IDS = [
@@ -20,6 +22,8 @@ export const ACTION_ITEM_IDS = [
   BookingActionItemId.COPY_EMAIL,
   BookingActionItemId.COPY_PHONE,
   BookingActionItemId.UPDATE_MEMBER_NOTES,
+  BookingActionItemId.BOOK_OPTION,
+  BookingActionItemId.REMOVE_FROM_WAITLIST,
 ] as const;
 
 export type ActionItemId = (typeof ACTION_ITEM_IDS)[number];

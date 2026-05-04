@@ -1,12 +1,12 @@
 import { DateTime } from "luxon";
 
+import type { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
+import { type CampaignRecipientWithMemberData } from "@bsport/api-cdp/communicate";
 import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
 
-import { CommunicationKind } from "#src/api/constants";
-import type { CampaignRecipientWithMemberData } from "#src/api/types";
 import { getMemberInitialsFromFullName } from "#src/utils/memberUtils";
 
 import { CampaignSentRecipientTableRowData } from "./use-campaign-sent-recipient-table-columns";

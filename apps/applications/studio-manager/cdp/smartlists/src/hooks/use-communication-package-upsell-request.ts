@@ -1,17 +1,10 @@
-import {
-  type RequestUpsellPackageFn,
-  useRequestUpsellPackage,
-} from "#src/api/use-request-upsell-package";
+import { useRequestUpsellPackage } from "#src/api/use-request-upsell-package";
 import type { UpsellCampaignTypeId } from "#src/components/CampaignTypeSelector/CommunicationPackageUpsellModal";
 import { UPSELL_IDENTIFIER_BY_CAMPAIGN_TYPE } from "#src/hooks/use-upsell-checker";
 
 type UseCommunicationPackageUpsellRequestOptions = {
   onSuccess?: () => void;
   onError?: (error: Error) => void;
-  /**
-   * Optional override for the API call. Use in tests or Storybook to mock success/error/delay.
-   */
-  requestUpsellPackageFn?: RequestUpsellPackageFn;
 };
 
 /**
@@ -21,13 +14,11 @@ type UseCommunicationPackageUpsellRequestOptions = {
 export function useCommunicationPackageUpsellRequest({
   onSuccess,
   onError,
-  requestUpsellPackageFn,
 }: UseCommunicationPackageUpsellRequestOptions = {}) {
   const { mutate: requestUpsellByIdentifier, isPending } =
     useRequestUpsellPackage({
       onSuccess,
       onError,
-      requestUpsellPackageFn,
     });
 
   const requestUpsell = (campaignTypeId: UpsellCampaignTypeId) => {

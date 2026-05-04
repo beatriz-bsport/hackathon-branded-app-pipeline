@@ -105,18 +105,6 @@ export const ContentSection: React.FC = () => {
               form.setValue("isTextOnly", value === MESSAGE_TYPE_TEXT_ONLY, {
                 shouldValidate: true,
               });
-              setValue("emailBody", undefined, {
-                shouldValidate: true,
-              });
-              setValue("emailTemplateId", null, {
-                shouldValidate: true,
-              });
-              setValue("emailTemplateDesign", null, {
-                shouldValidate: true,
-              });
-              setValue("emailTemplateHtml", undefined, {
-                shouldValidate: true,
-              });
             },
           })}
         >

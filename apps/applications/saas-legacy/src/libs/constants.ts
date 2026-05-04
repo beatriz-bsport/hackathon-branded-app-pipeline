@@ -14,6 +14,7 @@ export const STRIPE_ERROR_CODE = 498;
  */
 export const VALIDATION_DELAY = 3;
 
+export const APPLE_BUSINESS_URL = 'https://appstoreconnect.apple.com/business';
 const ADP_GUIDE_BASE_URL = 'https://cdn.bsport.io/assets/docs/adp-config-guide';
 const ADP_GUIDE_SUPPORTED_LANGUAGES = new Set([
   'fr',

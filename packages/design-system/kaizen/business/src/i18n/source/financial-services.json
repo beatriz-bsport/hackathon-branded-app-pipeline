@@ -28,6 +28,41 @@
     }
   },
   "paymentMethod": {
-    "card": "Card"
+    "card": "Card",
+    "sepaDebit": "SEPA",
+    "bacsDebit": "BACS",
+    "selector": {
+      "label": "Payment method",
+      "savedMethodsLabel": "Saved methods",
+      "savedMethodsPlaceholder": "Select a saved method",
+      "loadingSavedMethods": "Loading saved methods...",
+      "noSavedMethods": "No saved payment methods",
+      "allMethodsLabel": "All methods",
+      "allMethodsPlaceholder": "Select a method",
+      "allMethodsOptions": {
+        "card": "New credit card",
+        "sepaDebit": "SEPA",
+        "giftCardCode": "Gift Card",
+        "terminal": "Terminal",
+        "manual": "Manual"
+      }
+    }
+  },
+  "paymentFlowModal": {
+    "title": "Payment",
+    "buttons": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "tabs": {
+      "oneTime": "One time",
+      "installments": "Installments"
+    },
+    "totalAmountLabel": "Total amount",
+    "partialToggleLabel": "Pay part of the total now, the rest later",
+    "paymentMethodTitle": "Payment method",
+    "links": {
+      "invoice": "Invoice"
+    }
   }
 }

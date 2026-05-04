@@ -11,16 +11,21 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import { ShortcutActionsButton } from "#src/components/session-management/action-buttons/booking/shortcut-actions-button";
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
-import { setSelectedBooking } from "#src/stores/session-management/actions.js";
-import { useSessionManagementStore } from "#src/stores/session-management/store.js";
+import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import {
+  setSelectedBooking,
+  setSelectedBookingOption,
+} from "#src/stores/session-management/actions";
+import { useSessionManagementStore } from "#src/stores/session-management/store";
+import { BookingListedInformation } from "#src/stores/session-management/types";
 import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 
-import { ShortcutActionsButton } from "../../action-buttons/booking/shortcut-actions-button";
 import { ChipsCell } from "./chips-cell";
 
 enum BookingColumns {
@@ -33,8 +38,9 @@ enum BookingColumns {
 
 export const BookingsTable: FC<{
   sessionId: number;
+  searchQuery: string;
   openModal: (type: SessionManagementModalType, bookingId?: number) => void;
-}> = ({ sessionId, openModal }) => {
+}> = ({ sessionId, searchQuery, openModal }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
@@ -53,8 +59,14 @@ export const BookingsTable: FC<{
     page_size: currentPageSize,
   });
 
+  const searchedBookings = useSearchBookings(refinedBookings, searchQuery);
+
   const selectedBookingId = useSessionManagementStore(
     (state) => state.selectedBookingId,
+  );
+
+  const listedInformation = useSessionManagementStore(
+    (state) => state.listedInformation,
   );
 
   const columns: GenericTableColumn<RefinedBooking>[] = [
@@ -87,9 +99,19 @@ export const BookingsTable: FC<{
       type: "custom",
       align: "start",
       render: (row) => {
-        const secondaryText = [row.spot_information?.name, row.passData?.name]
-          .filter(Boolean)
-          .join(" • ");
+        const spotName = listedInformation.includes(
+          BookingListedInformation.SPOT,
+        )
+          ? row.spot_information?.name
+          : null;
+
+        const passName = listedInformation.includes(
+          BookingListedInformation.PASS,
+        )
+          ? row.passData?.name
+          : null;
+
+        const secondaryText = [spotName, passName].filter(Boolean).join(" • ");
 
         return (
           <div className="flex gap-md items-center">
@@ -135,21 +157,32 @@ export const BookingsTable: FC<{
           openModal={openModal}
           participantEmail={row.memberData?.email}
           participantPhone={row.memberData?.phone}
+          currentSpot={row.spot_id}
         />
       ),
     },
   ];
 
+  const hasSearchQuery = searchQuery.trim().length > 0;
+
   const paginationProps: PaginationProps = useMemo(
     () => ({
       currentPage,
       rowsPerPage: currentPageSize,
-      showRowsPerPageSelector: true,
+      showRowsPerPageSelector: !hasSearchQuery,
       disabled: isLoading,
-      totalItems: count ?? 0,
+      totalItems: hasSearchQuery ? searchedBookings.length : (count ?? 0),
       onPageSettingsChange: setPageSettings,
     }),
-    [currentPage, currentPageSize, isLoading, count, setPageSettings],
+    [
+      currentPage,
+      currentPageSize,
+      isLoading,
+      count,
+      setPageSettings,
+      hasSearchQuery,
+      searchedBookings.length,
+    ],
   );
 
   return (
@@ -162,14 +195,17 @@ export const BookingsTable: FC<{
       <Table
         columns={columns}
         rowHeight="lg"
-        rows={refinedBookings.map((booking) => ({
+        rows={searchedBookings.map((booking) => ({
           ...booking,
           isActive: booking.id === selectedBookingId,
-          onRowClick: () => setSelectedBooking(booking.id),
+          onRowClick: () => {
+            setSelectedBookingOption(null);
+            setSelectedBooking(booking.id);
+          },
         }))}
         paginationProps={paginationProps}
         emptyStateProps={{
-          isEmpty: !count,
+          isEmpty: !searchedBookings.length,
           emptyConfig: {
             title: t("bookingsTable.emptyState.title"),
             ctaButtonConfig: {
@@ -179,6 +215,8 @@ export const BookingsTable: FC<{
         }}
         loadingProps={{
           isLoading,
+          className:
+            "min-h-[360px] border-stroke-regular border-stroke-weak rounded-md overflow-hidden",
           message: t("bookingsTable.loadingMessage"),
         }}
       />

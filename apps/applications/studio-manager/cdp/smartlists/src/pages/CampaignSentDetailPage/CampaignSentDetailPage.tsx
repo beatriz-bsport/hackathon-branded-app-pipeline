@@ -1,12 +1,12 @@
 import { Link, useParams } from "react-router";
 
+import { type CampaignSent } from "@bsport/api-cdp/communicate";
 import {
   Breadcrumbs,
   DetailsLayout,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 
-import { CampaignSent } from "#src/api/types";
 import { useFetchCampaignSentDetail } from "#src/api/use-fetch-campaign-sent-detail";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
 import { CampaignSentDetails } from "#src/components/CampaignSentDetails/CampaignSentDetails";

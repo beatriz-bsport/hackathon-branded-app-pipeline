@@ -1,6 +1,8 @@
 import { sessionManagementStore } from "./store";
 import type {
   BookingAttendanceFilter,
+  BookingListedInformation,
+  BookingOrdering,
   BookingSourceFilter,
   BookingStatusFilter,
   WaitlistFilter,
@@ -59,4 +61,34 @@ export const setSelectedBooking = (bookingId: number | null) => {
   sessionManagementStore.setState(() => ({
     selectedBookingId: bookingId,
   }));
+};
+
+export const setSelectedBookingOption = (bookingOptionId: number | null) => {
+  sessionManagementStore.setState(() => ({
+    selectedBookingOptionId: bookingOptionId,
+  }));
+};
+
+export const setBookingOrdering = (ordering: BookingOrdering) => {
+  sessionManagementStore.setState((state) => ({
+    bookingFilters: {
+      ...state.bookingFilters,
+      ordering: ordering ?? undefined,
+    },
+  }));
+};
+
+export const setListedInformation = (
+  listedInformation: BookingListedInformation,
+) => {
+  sessionManagementStore.setState((state) => {
+    const isCurrentlyListed =
+      state.listedInformation.includes(listedInformation);
+    const newListedInformation = isCurrentlyListed
+      ? state.listedInformation.filter((info) => info !== listedInformation)
+      : [...state.listedInformation, listedInformation];
+    return {
+      listedInformation: newListedInformation,
+    };
+  });
 };

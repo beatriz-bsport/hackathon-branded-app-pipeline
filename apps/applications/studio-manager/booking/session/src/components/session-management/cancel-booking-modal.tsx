@@ -2,8 +2,8 @@ import { FC, useState } from "react";
 
 import { Body, Modal, Toggle } from "@bsport/kaizen-primitive-core";
 
-import { useCancelBooking } from "#src/hooks/booking/actions/use-cancel-booking.js";
-import { useTranslation } from "#src/utils/i18n.js";
+import { useCancelBooking } from "#src/hooks/booking/actions/use-cancel-booking";
+import { useTranslation } from "#src/utils/i18n";
 
 export const CancelBookingModal: FC<{
   bookingId: number;

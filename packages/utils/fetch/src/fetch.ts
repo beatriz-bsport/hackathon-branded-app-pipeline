@@ -48,11 +48,14 @@ export function getFetch() {
       );
       throw new HTTPException({
         path: uri,
-        name: payload?.code ?? errorCodes.join(";"),
+        name: payload?.msg ?? payload?.code ?? errorCodes.join(";"),
         statusCode: payload?.statusCode ?? response?.status,
         customErrorCodes: errorCodes,
         message: getMessage(
-          payload?.message ?? payload?.error_message ?? payload?.errors_arrays,
+          payload?.message ??
+            payload?.error_message ??
+            payload?.msg ??
+            payload?.errors_arrays,
         ),
       });
     }

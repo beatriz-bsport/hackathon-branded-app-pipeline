@@ -22,7 +22,8 @@ const DISCOUNT_REASON_MAX_LENGTH = 100;
 
 export const AddProductDiscount: React.FC = () => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
-  const { watch, setValue } = useFormContext<CheckoutFlowFormState>();
+  const { watch, setValue, clearErrors } =
+    useFormContext<CheckoutFlowFormState>();
 
   const [discountMode, setDiscountMode] = useState<
     typeof DISCOUNT_MODE_PERCENTAGE | typeof DISCOUNT_MODE_AMOUNT
@@ -221,13 +222,20 @@ export const AddProductDiscount: React.FC = () => {
             TextAreaProps
           >
             name="addItemDiscountReason"
-            mapProps={({ form: { setValue: setFormValue }, field }) => ({
+            mapProps={({
+              form: { setValue: setFormValue },
+              field,
+              fieldState,
+            }) => ({
               value: field.value,
               onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
                 setFormValue("addItemDiscountReason", e.target.value, {
                   shouldDirty: true,
                 });
+                clearErrors("addItemDiscountReason");
               },
+              status: fieldState.error ? "error" : "default",
+              statusText: fieldState.error?.message,
             })}
           >
             <TextArea

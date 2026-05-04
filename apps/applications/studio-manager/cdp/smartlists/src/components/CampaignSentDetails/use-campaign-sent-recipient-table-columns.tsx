@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
+import { CommunicationRecipientStatus } from "@bsport/api-cdp/smartlist";
 import {
   Avatar,
   Body,
@@ -9,10 +11,6 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
-import {
-  CommunicationKind,
-  CommunicationRecipientStatus,
-} from "#src/api/constants";
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
 import { CampaignSentRecipientActionDropdown } from "./CampaignSentRecipientActionDropdown";

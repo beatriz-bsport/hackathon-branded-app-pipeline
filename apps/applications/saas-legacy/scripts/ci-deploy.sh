@@ -6,13 +6,7 @@ set -eE
 
 ENVIRONMENT=$1
 
-if [ "$ENVIRONMENT" = "feature-branch" && "$FRONTEND_ONLY" = "true" ]; then
-    echo "Define variables for frontend-only feature-branch"
-    SLACK_TEMPLATE_FILE="./ci/slack_template/slack_template_feature-branch-ready-to-test.json"
-else
-    echo "Define variables for frontend & backend feature-branch"
-    SLACK_TEMPLATE_FILE="./ci/slack_template/slack_template_feature-branch.json"
-fi
+SLACK_TEMPLATE_FILE="./ci/slack_template/slack_template.json"
 
 echo "Setting deploy config for $ENVIRONMENT"
 REPO_ROOT="$(git rev-parse --show-toplevel)"
@@ -31,7 +25,6 @@ send_slack_notification() {
     else
         export STATUS="Failure"
     fi
-    export FEATURE_BRANCH_IDENTIFIER=$FEATURE_BRANCH_IDENTIFIER
     envsubst < $SLACK_TEMPLATE_FILE > slack_template_interpolated.json
     cat slack_template_interpolated.json
     curl -s -d @slack_template_interpolated.json --header "Content-Type: application/json" $SLACK_WEBHOOK_URL || exit $EXIT_STATUS
@@ -55,7 +48,7 @@ trap handle_error EXIT
 # ===== Script =====
 
 echo "*"
-echo "⏳ Start deploying @bsport/saas-legacy for environment: $ENVIRONMENT $FEATURE_BRANCH_IDENTIFIER"
+echo "⏳ Start deploying @bsport/saas-legacy for environment: $ENVIRONMENT"
 
 # Prepare sentry release
 echo "*"

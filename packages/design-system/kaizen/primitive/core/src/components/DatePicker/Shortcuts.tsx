@@ -18,12 +18,14 @@ type ShortcutsProps = {
   items: ShortcutItem[];
   onSelect: (shortcutLabel: string) => void;
   resetSelection: boolean;
+  disabled?: boolean;
 };
 
 const Shortcuts: React.FC<ShortcutsProps> = ({
   items,
   onSelect,
   resetSelection,
+  disabled = false,
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
@@ -57,6 +59,7 @@ const Shortcuts: React.FC<ShortcutsProps> = ({
       selectedValues={selectedShortcut ? [selectedShortcut] : []}
       onSelectOption={handleSelect}
       className={`min-w-[${SHORTCUT_MENU_MIN_WIDTH}px] py-lg`}
+      disabled={disabled}
     />
   );
 };

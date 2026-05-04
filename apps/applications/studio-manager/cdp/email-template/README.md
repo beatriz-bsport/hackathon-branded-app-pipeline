@@ -7,7 +7,7 @@
 To run in localhost :
 
 ```sh
-pnpm run dev
+pnpm exec nx run @bsport/sm-email-template:dev:watch
 ```
 
 This will run two applications aside :
@@ -16,6 +16,8 @@ This will run two applications aside :
 - The Email Template application, on the port defined in `package.json` in `federation.devPort` : 4300.
 
 Go to <http://localhost:4300>
+
+If you only want the app's own Vite server, run `pnpm exec nx run @bsport/sm-email-template:dev:single`.
 
 ### Build your translations
 

@@ -1,7 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { smartlistKeys } from "./api";
-import { deleteScheduledCommunication } from "./api";
+import { deleteScheduledCommunicationAPI } from "@bsport/api-cdp/communicate";
+
+import { fetch } from "#src/utils/fetch";
+
+import { smartlistQueryKeys } from "./api";
 
 type DeleteScheduledCommunicationVariables = {
   scheduledCampaignId: string;
@@ -39,18 +42,23 @@ export function useDeleteScheduledCommunication({
     mutationFn: ({
       scheduledCampaignId,
     }: DeleteScheduledCommunicationVariables) =>
-      deleteScheduledCommunication(scheduledCampaignId),
+      deleteScheduledCommunicationAPI(fetch, scheduledCampaignId),
     onSuccess(data, variables) {
       const { scheduledCampaignId, smartlistId } = variables;
 
       // Remove detail from cache so we don't refetch a deleted resource
       queryClient.removeQueries({
-        queryKey: smartlistKeys.campaignScheduledDetail(scheduledCampaignId),
+        queryKey:
+          smartlistQueryKeys.communicateKeys.campaignScheduledDetail(
+            scheduledCampaignId,
+          ),
       });
 
       if (smartlistId) {
         queryClient.invalidateQueries({
-          queryKey: smartlistKeys.campaignScheduledList(smartlistId),
+          queryKey: smartlistQueryKeys.communicateKeys.campaignScheduledList({
+            smartlist_id__in: [Number(smartlistId)],
+          }),
         });
       }
 

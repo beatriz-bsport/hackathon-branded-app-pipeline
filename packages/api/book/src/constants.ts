@@ -1,6 +1,7 @@
 export const API_URL = "book/";
 export const API_V1_URL = `${API_URL}v1/`;
 export const DEFAULT_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+export const BOOKING_QUERY_KEY = "@api-book";
 
 export enum BookableStatus {
   BOOKABLE = 0,

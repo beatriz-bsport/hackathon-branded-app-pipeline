@@ -25,9 +25,10 @@ export const useFetchRefinedBookings = (
 
   const bookingsFilterParams = getBookingParamsFromFilters(bookingsFilters);
 
-  const bookingsQuery = useQuery(
-    bookingsQueryOptions(fetch, { ...params, ...bookingsFilterParams }),
-  );
+  const bookingsQuery = useQuery({
+    ...bookingsQueryOptions(fetch, { ...params, ...bookingsFilterParams }),
+    throwOnError: true,
+  });
 
   const bookings = useMemo(
     () => bookingsQuery.data?.results ?? [],
@@ -58,6 +59,7 @@ export const useFetchRefinedBookings = (
           page_size: memberIds.length,
         }),
         enabled: memberIds.length > 0,
+        throwOnError: true,
       },
       {
         ...consumerPaymentPackListQueryOptions(fetch, {
@@ -65,6 +67,7 @@ export const useFetchRefinedBookings = (
           page_size: consumerPaymentPackIds.length,
         }),
         enabled: consumerPaymentPackIds.length > 0,
+        throwOnError: true,
       },
     ],
   });
@@ -83,6 +86,7 @@ export const useFetchRefinedBookings = (
       page_size: passIds.length,
     }),
     enabled: passIds.length > 0,
+    throwOnError: true,
   });
 
   const isLoading =

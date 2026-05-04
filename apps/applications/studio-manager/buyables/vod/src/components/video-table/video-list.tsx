@@ -57,6 +57,8 @@ export const VideoList: FC<VideoListProps> = ({
       title: row.name,
       description: row.categoryLabel || t("table.values.noCategory"),
       onItemClick: row.onRowClick,
+      disabled: row.isPendingDeletion,
+      className: row.className,
       avatar: {
         shape: "squared" as const,
         size: "md" as const,
@@ -66,56 +68,72 @@ export const VideoList: FC<VideoListProps> = ({
         className: "cursor-default border-stroke-thin",
       },
       customNode: (
-        <div className="flex items-center gap-xs">
-          <MediaFormatRenderer format={row.format} />
-          <TooltipIcon
-            icon={
-              row.memberAvailability === "available"
-                ? "shopping-cart-01"
-                : "shopping-cart-cross"
-            }
-            label={t(
-              row.memberAvailability === "available"
-                ? "table.tooltips.availability.availableToMembers"
-                : "table.tooltips.availability.unavailableToMembers",
+        <div className={row.isPendingDeletion ? "opacity-80" : undefined}>
+          <div className="flex items-center gap-xs">
+            <MediaFormatRenderer format={row.format} />
+            <TooltipIcon
+              icon={
+                row.memberAvailability === "available"
+                  ? "shopping-cart-01"
+                  : "shopping-cart-cross"
+              }
+              label={t(
+                row.memberAvailability === "available"
+                  ? "table.tooltips.availability.availableToMembers"
+                  : "table.tooltips.availability.unavailableToMembers",
+              )}
+            />
+            {row.accessType === "limited" ? (
+              <TooltipIcon
+                icon="clock-rewind"
+                label={t("table.tooltips.availability.limitedTimeOnly")}
+              />
+            ) : (
+              <TooltipIcon
+                icon="infinity"
+                label={t("table.tooltips.availability.unlimitedAccess")}
+              />
             )}
-          />
-          {row.accessType === "limited" ? (
-            <TooltipIcon
-              icon="clock-rewind"
-              label={t("table.tooltips.availability.limitedTimeOnly")}
-            />
-          ) : (
-            <TooltipIcon
-              icon="infinity"
-              label={t("table.tooltips.availability.unlimitedAccess")}
-            />
-          )}
+          </div>
         </div>
       ),
-      buttons: [
-        {
-          id: "duplicate",
-          kind: "icon-button" as const,
-          icon: "copy-03" as const,
-          color: "default" as const,
-          intent: "flat" as const,
-          label: t("table.actions.duplicate"),
-          size: "md",
-          onClick: row.onDuplicate,
-        },
-      ],
-      dropdownConfig: {
-        visibleActionsDisplayLimit: 0,
-        dropdownTargetProps: {
-          kind: "icon-button",
-          label: t("table.actions.moreActions"),
-          icon: "dots-vertical",
-          size: "md",
-          intent: "flat",
-          color: "default",
-        },
-      },
+      buttons: row.isPendingDeletion
+        ? []
+        : [
+            {
+              id: `video-${row.id}-duplicate`,
+              kind: "icon-button" as const,
+              icon: "copy-03" as const,
+              color: "default" as const,
+              intent: "flat" as const,
+              label: t("table.actions.duplicate"),
+              size: "md",
+              onClick: row.onDuplicate,
+            },
+            {
+              id: `video-${row.id}-delete`,
+              kind: "icon-button" as const,
+              icon: "trash-01" as const,
+              color: "default" as const,
+              intent: "flat" as const,
+              label: t("table.actions.delete"),
+              size: "md",
+              onClick: row.onDelete,
+            },
+          ],
+      dropdownConfig: row.isPendingDeletion
+        ? undefined
+        : {
+            visibleActionsDisplayLimit: 0,
+            dropdownTargetProps: {
+              kind: "icon-button",
+              label: t("table.actions.moreActions"),
+              icon: "dots-vertical",
+              size: "md",
+              intent: "flat",
+              color: "default",
+            },
+          },
     };
   });
 

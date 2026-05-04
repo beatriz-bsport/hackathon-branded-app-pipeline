@@ -20,6 +20,7 @@ type MonthProps = {
   displayMonth: DateTime;
   onSelect?: (date: DateTime) => void;
   selectedDate: SelectedDate;
+  disabled?: boolean;
 };
 
 const Month: React.FC<MonthProps> = ({
@@ -27,6 +28,7 @@ const Month: React.FC<MonthProps> = ({
   displayMonth,
   onSelect,
   selectedDate,
+  disabled = false,
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const weekdays = useMemo(
@@ -111,7 +113,8 @@ const Month: React.FC<MonthProps> = ({
                 date,
                 getLocalNow({ zone: timezone }),
               );
-              const isDisabled = disableDate?.(date, selectedDate) ?? false;
+              const isDisabled =
+                disabled || (disableDate?.(date, selectedDate) ?? false);
               const status = getDayStatus(date);
 
               return (

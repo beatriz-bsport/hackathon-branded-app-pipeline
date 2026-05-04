@@ -23,10 +23,18 @@ export const useSmartfillConfigToggle = () => {
       await fetch(endpoints[action], {
         method: "POST",
       });
+      return action;
     },
-    onSuccess: async () => {
+    onSuccess: async (action) => {
       await queryClient.invalidateQueries({
         queryKey: SMARTFILL_CONFIG_STATUS_QUERY_KEY,
+      });
+      toast({
+        status: action === "activate" ? "positive" : "default",
+        icon: "check-circle",
+        title:
+          action === "activate" ? t("toast.activated") : t("toast.deactivated"),
+        buttonIcon: "x-close",
       });
     },
     onError: () => {

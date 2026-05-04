@@ -5,6 +5,8 @@ import { Chip } from "@bsport/kaizen-primitive-core";
 
 import { IconChip } from "#src/components/common/IconChip";
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
+import { useSessionManagementStore } from "#src/stores/session-management/store";
+import { BookingListedInformation } from "#src/stores/session-management/types";
 import type { RefinedBooking } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -26,40 +28,65 @@ export const ChipsCell: FC<ChipsCellProps> = ({
 }) => {
   const { t } = useTranslation("sessionManagement");
   const { tags, total_unpaid_amount } = memberData ?? {};
+
   const unpaidAmount = Number(total_unpaid_amount ?? 0);
+
+  const listedInformation = useSessionManagementStore(
+    (state) => state.listedInformation,
+  );
 
   return (
     <div className="flex items-center gap-xs">
-      {first_in_company && (
-        <Chip {...baseChipsProps} label={t("bookingsTable.chips.new")} />
-      )}
-      {recurrence_rule_booking && (
-        <IconChip
-          icon="refresh-ccw-02"
-          tooltip={t("bookingsTable.chips.recurring")}
-        />
-      )}
-      {unpaidAmount > 0 && (
-        <Chip
-          color="critical"
-          type="weak"
-          size="lg"
-          label={getCurrencyDisplayWithPrice(unpaidAmount, true)}
-        />
-      )}
-      {!!tags?.length && (
-        <ResponsiveTooltip
-          label={t("bookingsTable.chips.tags")}
-          placement="bottom"
-          className="whitespace-normal"
-        >
-          <Chip
-            {...baseChipsProps}
-            label={tags.length.toString()}
-            iconLeft="tag-01"
+      {first_in_company &&
+        listedInformation.includes(BookingListedInformation.NEW_MEMBER) && (
+          <ResponsiveTooltip
+            label={t("bookingsTable.chips.firstBooking")}
+            placement="bottom"
+            className="whitespace-normal"
+          >
+            <Chip {...baseChipsProps} label={t("bookingsTable.chips.new")} />
+          </ResponsiveTooltip>
+        )}
+      {recurrence_rule_booking &&
+        listedInformation.includes(
+          BookingListedInformation.RECURRING_BOOKING,
+        ) && (
+          <IconChip
+            icon="refresh-ccw-02"
+            tooltip={t("bookingsTable.chips.recurring")}
           />
-        </ResponsiveTooltip>
-      )}
+        )}
+      {unpaidAmount > 0 &&
+        listedInformation.includes(
+          BookingListedInformation.UNPAID_INVOICES,
+        ) && (
+          <ResponsiveTooltip
+            label={t("bookingsTable.chips.unpaidInvoices")}
+            placement="bottom"
+            className="text-center"
+          >
+            <Chip
+              color="critical"
+              type="weak"
+              size="lg"
+              label={getCurrencyDisplayWithPrice(unpaidAmount, true)}
+            />
+          </ResponsiveTooltip>
+        )}
+      {!!tags?.length &&
+        listedInformation.includes(BookingListedInformation.TAGS) && (
+          <ResponsiveTooltip
+            label={t("bookingsTable.chips.tags")}
+            placement="bottom"
+            className="whitespace-normal"
+          >
+            <Chip
+              {...baseChipsProps}
+              label={tags.length.toString()}
+              iconLeft="tag-01"
+            />
+          </ResponsiveTooltip>
+        )}
     </div>
   );
 };

@@ -67,7 +67,7 @@ cd storybook
 pnpm ci:deploy <environment>
 ```
 
-Environments: `dev`, `staging`, `production`, `feature-branch`
+Environments: `dev`, `staging`, `production`
 
 ## Links
 

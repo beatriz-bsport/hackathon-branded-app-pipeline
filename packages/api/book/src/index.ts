@@ -6,3 +6,4 @@ export * from "./group-session";
 export * from "./zoom-app";
 export * from "./spot-scheduling";
 export * from "./wellhub";
+export * from "./waiting-list";

@@ -8,10 +8,10 @@ The host application imports all studio manager applications via Module Federati
 
 ## Run in dev mode
 
-To run all applications in dev mode
+To run the host with its required remotes in dev mode
 
 ```sh
-pnpm run dev
+pnpm exec nx run @bsport/sm-host:dev:watch
 ```
 
 You'll see running only the port 4000 of the host app : <http://localhost:4000>.
@@ -19,39 +19,44 @@ You'll see running only the port 4000 of the host app : <http://localhost:4000>.
 But all the other applications (remotes) are running. If you want to see them, you can add the `--debug` flag.
 
 ```sh
-pnpm run dev --debug
+pnpm exec nx run @bsport/sm-host:dev:watch --debug
+```
+
+If you want to keep using the package script, `pnpm run dev` delegates to the same Nx command.
+
+## Run specific applications
+
+If you don't need remote orchestration, you can run just one app's Vite server:
+
+```sh
+pnpm exec nx run @bsport/sm-host:dev:single
+```
+
+Run a specific remote the same way:
+
+```sh
+pnpm exec nx run @bsport/sm-navigation-sidebar:dev:single
+pnpm exec nx run @bsport/sm-giftcard:dev:single
+```
+
+You can still use `pnpm --filter` if you explicitly want package scripts instead of Nx targets:
+
+```sh
+pnpm --filter @bsport/sm-host dev:single
+pnpm --filter @bsport/sm-navigation-sidebar dev:single
+pnpm --filter @bsport/sm-giftcard dev:single
 ```
 
 ## Run in build preview mode
 
-To run all applications in build preview mode (apps are built specifically for preview) :
+To run preview builds, build and preview the target packages directly:
 
 ```sh
-pnpm run dev --build:preview
+pnpm --filter @bsport/sm-host build:preview
+pnpm --filter @bsport/sm-host preview
 ```
 
-You can logs the remote applications as well with
-
-```sh
-pnpm run dev --build:preview --debug
-```
-
-## Run specific applications
-
-If you don't need all applications, you can be more granular. For this, you can use `pnpm --filter` with `dev:single` script :
-
-```sh
-# Run host app in dev:single mode
-pnpm run dev:single
-# Run navigation sidebar
-pnpm --filter @bsport/sm-navigation-sidebar dev:single
-# Run specific apps with name
-pnpm --filter @bsport/sm-giftcard dev:single
-# Run specific apps with filter
-pnpm --filter"@bsport/sm-*" dev:single
-```
-
-You can do the same by combining the scripts `build:preview` and `preview` of each application.
+For multiple apps:
 
 ```sh
 pnpm --filter="@bsport/sm-*" run build:preview

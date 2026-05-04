@@ -36,10 +36,6 @@ The `getEnv` function maps URLs to environments based on the following patterns:
 | Other `*.bsport.io` domains    | `production` | `https://api.bsport.io`                                            |
 | Non-bsport domains             | `local`      | `https://example.com`                                              |
 
-### Feature Branch Deployments
-
-Feature branch deployments follow the pattern `backoffice-{name}.chaos.bsport.io` where `{name}` can be any string (like a branch name, feature name, etc.). The function returns the actual `{name}` part as the environment string. This allows for testing feature branches in a deployed environment while being able to identify the specific branch or feature.
-
 ## API
 
 ### `getEnv(url?: string): Environment`
@@ -52,31 +48,7 @@ Detects the environment based on a URL.
 
 **Returns:**
 
-- `Environment`: One of `'local'`, `'dev'`, `'staging'`, `'production'`, or the extracted name from feature branch URLs
-
-### `isFeatureBranch(url?: string): boolean`
-
-Checks if the current environment is a feature branch deployment.
-
-**Parameters:**
-
-- `url` (optional): The URL to analyze. If not provided, uses `window.location.href` in browser environments.
-
-**Returns:**
-
-- `boolean`: `true` if the current environment is a feature branch, `false` if it's a known environment
-
-### `isEnvFeatureBranch(env: Environment): boolean`
-
-Checks if the provided environment is a feature branch deployment.
-
-**Parameters:**
-
-- `env`: The env to analyze.
-
-**Returns:**
-
-- `boolean`: `true` if the current environment is a feature branch, `false` if it's a known environment
+- `Environment`: One of `'local'`, `'dev'`, `'staging'`, `'production'`, or the extracted name from chaos.bsport.io URLs
 
 **Type Definitions:**
 
@@ -88,46 +60,35 @@ export type Environment = KnownEnvironment | (string & {});
 ## Examples
 
 ```typescript
-import { getEnv, isFeatureBranch, type Environment } from '@bsport/envs';
+import { type Environment, getEnv } from "@bsport/envs";
 
 // Browser usage - detects from current URL
 const env = getEnv();
 
 // Server usage - provide URL explicitly
-const envFromUrl = getEnv('https://backoffice.staging.bsport.io/dashboard');
-
-// Check if current environment is a feature branch
-const isBranch = isFeatureBranch();
-if (isBranch) {
-  console.log('Running on feature branch');
-}
-
-// Check specific URL
-const isBranchUrl = isFeatureBranch('https://backoffice-my-feature.chaos.bsport.io');
-console.log(isBranchUrl); // true
+const envFromUrl = getEnv("https://backoffice.staging.bsport.io/dashboard");
 
 // Environment-specific logic
-const env = getEnv();
 switch (env) {
-  case 'local':
-  case 'dev':
-    console.log('Development mode');
+  case "local":
+  case "dev":
+    console.log("Development mode");
     break;
-  case 'staging':
-    console.log('Staging environment');
+  case "staging":
+    console.log("Staging environment");
     break;
-  case 'production':
-    console.log('Production environment');
+  case "production":
+    console.log("Production environment");
     break;
   default:
-    // Feature branch environments (anything else)
-    console.log(`Feature branch environment: ${env}`);
+    // Unknown environment
+    console.log(`Unknown environment: ${env}`);
     break;
 }
 
 // Type-safe environment checking
 const currentEnv: Environment = getEnv();
-if (currentEnv === 'production') {
+if (currentEnv === "production") {
   // Production-only code
 }
 ```

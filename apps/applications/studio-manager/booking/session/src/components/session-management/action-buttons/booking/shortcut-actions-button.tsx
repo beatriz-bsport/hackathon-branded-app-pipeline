@@ -5,10 +5,11 @@ import { openCheckoutFlow } from "@bsport/kaizen-business-components/core/checko
 import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 
 import { ActionsMenuButton } from "#src/components/common/action-menu-button";
+import { useAssignSpotAction } from "#src/hooks/booking/actions/use-assign-spot-action";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
-import { LEGACY_URLS } from "#src/urls.js";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
@@ -16,20 +17,24 @@ import { type ActionItemId, BookingActionItemId } from "./types";
 
 export const ShortcutActionsButton: FC<{
   sessionId: number;
-  bookingId: number;
+  bookingId?: number;
+  bookingOptionId?: number;
   memberId?: number;
-  openModal: (type: SessionManagementModalType, bookingId: number) => void;
+  openModal?: (type: SessionManagementModalType, bookingId: number) => void;
   allowedItemIds?: ActionItemId[];
   participantEmail?: string;
   participantPhone?: string;
+  currentSpot?: number | null;
 }> = ({
   sessionId,
   bookingId,
+  bookingOptionId,
   memberId,
   openModal,
   allowedItemIds,
   participantEmail,
   participantPhone,
+  currentSpot,
 }) => {
   const { t } = useTranslation("sessionManagement");
 
@@ -73,6 +78,9 @@ export const ShortcutActionsButton: FC<{
     "member.allowed_actions.accessProfile",
   );
 
+  const { openModal: openAssignSpotModal, modalElement: assignSpotModal } =
+    useAssignSpotAction({ bookingId: bookingId ?? 0, sessionId, currentSpot });
+
   const getMenuItems = useCallback(
     (
       setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>,
@@ -91,7 +99,7 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "switch-horizontal-01",
         type: "button",
         onClick: () => {
-          // TODO: implement swap spot action
+          openAssignSpotModal();
           setIsPopoverOpened(false);
         },
       };
@@ -113,6 +121,7 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "user-x-01",
         type: "button",
         onClick: () => {
+          if (!openModal || !bookingId) return;
           openModal(SessionManagementModalType.CANCEL_BOOKING, bookingId);
           setIsPopoverOpened(false);
         },
@@ -190,13 +199,37 @@ export const ShortcutActionsButton: FC<{
         },
       };
 
+      const bookOptionAction: Item = {
+        id: BookingActionItemId.BOOK_OPTION,
+        label: t("actions.bookToClass"),
+        iconLeft: "plus",
+        type: "button",
+        onClick: () => {
+          // TODO: implement book option action
+          setIsPopoverOpened(false);
+        },
+      };
+
+      const removeFromWaitlistAction: Item = {
+        id: BookingActionItemId.REMOVE_FROM_WAITLIST,
+        label: t("actions.removeFromWaitlist"),
+        iconLeft: "trash-01",
+        type: "button",
+        onClick: () => {
+          // TODO: implement remove from waitlist action
+          setIsPopoverOpened(false);
+        },
+      };
+
       const allItems: Item[] = [
         sectionTitle(t("booking")),
-        ...(hasCreateBookingPermission && session.room_blueprint
+        ...(hasChangeSpotPermission && session.room_blueprint && bookingId
           ? [swapSpotAction]
           : []),
-        ...(hasChangeSpotPermission ? [swapPassAction] : []),
-        ...(hasCancelBookingPermission ? [cancelBookingAction] : []),
+        ...(hasChangeSpotPermission && bookingId ? [swapPassAction] : []),
+        ...(hasCancelBookingPermission && openModal && bookingId
+          ? [cancelBookingAction]
+          : []),
         divider,
         sectionTitle(t("billing")),
         ...(hasCreateInvoicePermission ? [sellItemsAction] : []),
@@ -209,6 +242,10 @@ export const ShortcutActionsButton: FC<{
           : []),
         ...(participantEmail?.length ? [copyEmailAction] : []),
         ...(participantPhone?.length ? [copyPhoneAction] : []),
+        ...(hasCreateBookingPermission && bookingOptionId
+          ? [bookOptionAction]
+          : []),
+        ...(bookingOptionId ? [removeFromWaitlistAction] : []),
       ];
 
       if (!allowedItemIds) return allItems;
@@ -232,12 +269,19 @@ export const ShortcutActionsButton: FC<{
       copyToClipboard,
       bookingId,
       openModal,
+      openAssignSpotModal,
       navigate,
       memberId,
       session,
       hasSeeProfileDetailsPermission,
+      bookingOptionId,
     ],
   );
 
-  return <ActionsMenuButton label={t("actions.label")} items={getMenuItems} />;
+  return (
+    <>
+      <ActionsMenuButton label={t("actions.label")} items={getMenuItems} />
+      {assignSpotModal}
+    </>
+  );
 };

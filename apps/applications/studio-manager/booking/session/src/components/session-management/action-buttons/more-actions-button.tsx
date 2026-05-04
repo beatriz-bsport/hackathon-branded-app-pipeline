@@ -138,6 +138,7 @@ export const MoreActionsButton: React.FC<{
     <ActionsMenuButton
       label={t("table.shortcutActions.label")}
       items={getMenuItems}
+      prominent
     />
   );
 };

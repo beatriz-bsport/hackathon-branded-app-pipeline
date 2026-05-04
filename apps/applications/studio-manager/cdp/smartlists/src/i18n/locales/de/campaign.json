@@ -330,6 +330,10 @@
         "copyEmail": "E-Mail kopieren",
         "copyPhoneNumber": "Copy phone number",
         "copyName": "Copy name"
+      },
+      "copyContactInfo": {
+        "success": "In die Zwischenablage kopiert.",
+        "error": "Kopieren in die Zwischenablage fehlgeschlagen. Bitte versuchen Sie es erneut."
       }
     },
     "campaignScheduled": {

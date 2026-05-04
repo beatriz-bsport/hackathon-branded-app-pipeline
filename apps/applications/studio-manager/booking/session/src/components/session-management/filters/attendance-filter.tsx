@@ -8,7 +8,7 @@ import {
   BookingAttendanceFilter,
   BookingStatusFilter,
 } from "#src/stores/session-management/types";
-import { useTranslation } from "#src/utils/i18n.js";
+import { useTranslation } from "#src/utils/i18n";
 
 export const AttendanceFilter: FC = () => {
   const { t } = useTranslation("sessionManagement");

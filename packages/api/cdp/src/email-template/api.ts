@@ -7,6 +7,12 @@ import {
 } from "@bsport/store-base";
 
 import {
+  EMAIL_DESIGN_API_URL,
+  EMAIL_DESIGN_CATEGORY_API_URL,
+  EMAIL_TEMPLATE_CATEGORIES_DEFAULT_PAGE_SIZE,
+  EMAIL_TEMPLATE_SEARCH_PAGE_SIZE,
+} from "./constants";
+import {
   type CategoryOrderingData,
   type CreateEmailTemplateCategoryPayload,
   type CreateEmailTemplatePayload,
@@ -24,12 +30,6 @@ import {
   type UpdateTemplateOrderingPayload,
 } from "./types";
 
-const EMAIL_DESIGN_API_URL = "customer-data-platform/v1/email_design";
-const EMAIL_DESIGN_CATEGORY_API_URL = `${EMAIL_DESIGN_API_URL}/email_design_category`;
-
-const EMAIL_TEMPLATE_SEARCH_PAGE_SIZE = 20;
-const EMAIL_TEMPLATE_CATEGORIES_DEFAULT_PAGE_SIZE = 100;
-
 // ----- Search -----
 
 const getSearchEmailTemplateConfig = (
@@ -45,7 +45,7 @@ const getSearchEmailTemplateConfig = (
   return [`${EMAIL_DESIGN_API_URL}/search/${urlParams}`];
 };
 
-export const searchEmailTemplate = async (
+export const searchEmailTemplateAPI = async (
   fetch: Fetch<SearchResponse<EmailTemplateDetail>>,
   params: SearchEmailTemplateParams,
 ): Promise<SearchResponse<EmailTemplateDetail>> => {
@@ -63,7 +63,7 @@ const getFetchEmailTemplateSummariesConfig = (
   return [`${EMAIL_DESIGN_API_URL}/summary_paginated/${urlParams}`];
 };
 
-export const fetchEmailTemplateSummaries = async (
+export const fetchEmailTemplateSummariesAPI = async (
   fetch: Fetch<PaginatedResponse<EmailTemplateSummary>>,
   params: FetchEmailTemplateSummaryParams,
 ): Promise<PaginatedResponse<EmailTemplateSummary>> => {
@@ -79,7 +79,7 @@ const getFetchAllEmailTemplateSummariesConfig = (
   return [`${EMAIL_DESIGN_API_URL}/summary/${urlParams}`];
 };
 
-export const fetchAllEmailTemplateSummaries = async (
+export const fetchAllEmailTemplateSummariesAPI = async (
   fetch: Fetch<EmailTemplateSummary[]>,
   params: FetchEmailTemplateSummaryParams,
 ): Promise<EmailTemplateSummary[]> => {
@@ -103,7 +103,7 @@ const getFetchEmailTemplateCategoriesConfig = (
   return [`${EMAIL_DESIGN_CATEGORY_API_URL}/${urlParams}`];
 };
 
-export const fetchEmailTemplateCategories = async (
+export const fetchEmailTemplateCategoriesAPI = async (
   fetch: Fetch<PaginatedResponse<EmailTemplateCategory>>,
   params: FetchEmailTemplateCategoriesParams,
 ): Promise<PaginatedResponse<EmailTemplateCategory>> => {
@@ -112,7 +112,7 @@ export const fetchEmailTemplateCategories = async (
   return data;
 };
 
-export const createEmailTemplateCategory = async (
+export const createEmailTemplateCategoryAPI = async (
   fetch: Fetch<EmailTemplateCategory>,
   payload: CreateEmailTemplateCategoryPayload,
 ): Promise<EmailTemplateCategory> => {
@@ -124,7 +124,7 @@ export const createEmailTemplateCategory = async (
   return data;
 };
 
-export const updateEmailTemplateCategory = async (
+export const updateEmailTemplateCategoryAPI = async (
   fetch: Fetch<EmailTemplateCategory>,
   payload: UpdateEmailTemplateCategoryPayload,
 ): Promise<EmailTemplateCategory> => {
@@ -136,7 +136,7 @@ export const updateEmailTemplateCategory = async (
   return data;
 };
 
-export const deleteEmailTemplateCategory = async (
+export const deleteEmailTemplateCategoryAPI = async (
   fetch: Fetch<void>,
   params: DeleteEmailTemplateCategoryPayload,
 ): Promise<void> => {
@@ -147,7 +147,7 @@ export const deleteEmailTemplateCategory = async (
   await fetch(uri, init);
 };
 
-export const updateCategoryOrdering = async (
+export const updateCategoryOrderingAPI = async (
   fetch: Fetch<CategoryOrderingData[]>,
   payload: UpdateCategoryOrderingPayload,
 ): Promise<CategoryOrderingData[]> => {
@@ -161,7 +161,7 @@ export const updateCategoryOrdering = async (
 
 // ----- Template detail -----
 
-export const fetchEmailTemplateDetail = async (
+export const fetchEmailTemplateDetailAPI = async (
   fetch: Fetch<EmailTemplateDetail>,
   id: number,
 ): Promise<EmailTemplateDetail> => {
@@ -170,7 +170,7 @@ export const fetchEmailTemplateDetail = async (
   return data;
 };
 
-export const createEmailTemplate = async (
+export const createEmailTemplateAPI = async (
   fetch: Fetch<EmailTemplateDetail>,
   payload: CreateEmailTemplatePayload,
 ): Promise<EmailTemplateDetail> => {
@@ -182,7 +182,7 @@ export const createEmailTemplate = async (
   return data;
 };
 
-export const updateEmailTemplate = async (
+export const updateEmailTemplateAPI = async (
   fetch: Fetch<EmailTemplateDetail>,
   payload: EditEmailTemplatePayload,
 ): Promise<EmailTemplateDetail> => {
@@ -195,7 +195,7 @@ export const updateEmailTemplate = async (
   return data;
 };
 
-export const deleteEmailTemplate = async (
+export const deleteEmailTemplateAPI = async (
   fetch: Fetch<void>,
   params: DeleteEmailTemplatePayload,
 ): Promise<void> => {
@@ -206,7 +206,7 @@ export const deleteEmailTemplate = async (
   await fetch(uri, init);
 };
 
-export const updateEmailTemplateOrdering = async (
+export const updateEmailTemplateOrderingAPI = async (
   fetch: Fetch<UpdateTemplateOrderingPayload>,
   payload: UpdateTemplateOrderingPayload,
 ): Promise<UpdateTemplateOrderingPayload> => {

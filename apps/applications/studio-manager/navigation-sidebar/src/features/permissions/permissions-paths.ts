@@ -12,13 +12,11 @@ export const PERMISSIONS_PATHS: Record<
   accessMonitoring_monitor: ["navigationMenu.accessMonitoring.monitor"],
   accessMonitoring_perform: ["navigationMenu.accessMonitoring.perform"],
   accessMonitoring_settings: ["navigationMenu.accessMonitoring.settings"],
-  activity: ["navigationMenu.myClub.activities"],
-  appointment: ["navigationMenu.myClub.appointments"],
   appointmentPass: ["navigationMenu.products.privatePass"],
   attendance: ["navigationMenu.payments.clockIn"],
   audience: ["navigationMenu.marketing.cadence"],
   calendar: ["navigationMenu.calendar"],
-  classes: [
+  services: [
     "navigationMenu.myClub.workshops",
     "navigationMenu.myClub.activities",
   ],
@@ -61,6 +59,7 @@ export const PERMISSIONS_PATHS: Record<
     "navigationMenu.settings.mobilePersonalization",
   ],
   settings_partnership: ["navigationMenu.settings.partnership"],
+  settings_aggregators: ["navigationMenu.settings.partnership"],
   settings_paymentFacility: ["navigationMenu.payments.installments"],
   settings_paymentMethod: ["navigationMenu.settings.paymentMethods"],
   settings_payroll: ["navigationMenu.settings.teacherPayrollRules"],
@@ -68,6 +67,7 @@ export const PERMISSIONS_PATHS: Record<
   settings_quicksale: ["navigationMenu.settings.quicksale"],
   settings_referral: ["navigationMenu.settings.referral"],
   settings_permission: ["navigationMenu.settings.staffs"],
+  settings_staff: ["navigationMenu.settings.staffs"],
   settings_teacherView: ["navigationMenu.settings.coachUserspace"],
   settings_personalization: ["navigationMenu.settings.personalization"],
   settings_transactionalNotification: [
@@ -89,5 +89,4 @@ export const PERMISSIONS_PATHS: Record<
   webshop_products: ["navigationMenu.products.shopReworked.products"],
   webshop_settings: ["navigationMenu.products.shopReworked.settings"],
   webshopOld: ["navigationMenu.products.shop"],
-  workshop: ["navigationMenu.myClub.workshops"],
 };

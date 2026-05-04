@@ -2271,6 +2271,12 @@ importers:
       '@bsport/api-cdp':
         specifier: workspace:*
         version: link:../../../../../packages/api/cdp
+      '@bsport/api-financial-services':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/financial-services
+      '@bsport/api-member-experience':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/member-experience
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting
@@ -3664,6 +3670,22 @@ importers:
 
   packages/api/financial-services:
     dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../stores/base
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
+  packages/api/member-experience:
+    dependencies:
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../utils/fetch
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../stores/base

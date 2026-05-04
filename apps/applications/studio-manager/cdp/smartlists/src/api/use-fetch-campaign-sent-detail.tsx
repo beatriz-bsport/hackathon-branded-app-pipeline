@@ -1,7 +1,11 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { campaignSentDetailQueryOptions } from "./api";
-import { CampaignSent } from "./types";
+import {
+  type CampaignSent,
+  campaignSentDetailQueryOptions,
+} from "@bsport/api-cdp/communicate";
+
+import { fetch } from "#src/utils/fetch";
 
 export const useFetchCampaignSentDetail = ({
   campaignUuid,
@@ -11,6 +15,6 @@ export const useFetchCampaignSentDetail = ({
   onSuccess?: (data: CampaignSent) => void;
 }) => {
   return useSuspenseQuery(
-    campaignSentDetailQueryOptions({ campaignUuid, onSuccess }),
+    campaignSentDetailQueryOptions(fetch, { campaignUuid, onSuccess }),
   );
 };

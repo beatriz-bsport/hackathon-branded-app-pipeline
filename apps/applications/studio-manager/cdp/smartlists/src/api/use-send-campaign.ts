@@ -1,7 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { sendEmailCampaign, smartlistKeys } from "./api";
-import type { CampaignSent, SendCampaignPayload } from "./types";
+import {
+  type CampaignSent,
+  type SendCampaignPayload,
+  sendEmailCampaignAPI,
+} from "@bsport/api-cdp/communicate";
+
+import { fetch } from "#src/utils/fetch";
+
+import { smartlistQueryKeys } from "./api";
 
 type UseSendCampaignParams = {
   onSuccess?: (data: CampaignSent) => void;
@@ -16,10 +23,10 @@ export const useSendCampaign = ({
 
   const mutation = useMutation({
     mutationFn: ({ payload }: { payload: SendCampaignPayload }) =>
-      sendEmailCampaign(payload),
+      sendEmailCampaignAPI(fetch, payload),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: smartlistKeys.detail(String(data.metadata.smartlist_id)),
+        queryKey: smartlistQueryKeys.detail(String(data.metadata.smartlist_id)),
       });
       onSuccess?.(data);
     },

@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { useParams } from "react-router";
 
+import { type CampaignScheduled } from "@bsport/api-cdp/communicate";
 import {
   Button,
   Card,
@@ -11,7 +12,6 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
-import type { CampaignScheduled } from "#src/api/types";
 import { useFetchCampaignScheduledList } from "#src/api/use-fetch-campaign-scheduled-list";
 import { DeleteScheduledCommunicationModal } from "#src/components/DeleteScheduledCommunicationModal/DeleteScheduledCommunicationModal";
 import { ScheduledCommunicationLockedModal } from "#src/components/ScheduledCommunicationLockedModal/ScheduledCommunicationLockedModal";
@@ -48,7 +48,7 @@ export const CampaignScheduledList = () => {
   const isMobile = !useMatchMedia("md");
 
   const tableRows = formatCampaignScheduledTableRow({
-    campaignScheduledList: campaignScheduled,
+    campaignScheduledList: campaignScheduled?.results ?? [],
   }).map((row) => ({
     ...row,
     onRowClick: () => {
@@ -58,7 +58,7 @@ export const CampaignScheduledList = () => {
 
   const campaignScheduledById = useMemo(() => {
     return (
-      campaignScheduled?.reduce(
+      campaignScheduled?.results?.reduce(
         (acc, campaign) => {
           acc[campaign.id] = campaign;
           return acc;
@@ -109,7 +109,7 @@ export const CampaignScheduledList = () => {
     },
   });
 
-  const doesSmartlistHaveCampaignScheduled = campaignScheduled?.length > 0;
+  const doesSmartlistHaveCampaignScheduled = campaignScheduled?.count > 0;
 
   const tableEmptyState = {
     isEmpty: !doesSmartlistHaveCampaignScheduled,

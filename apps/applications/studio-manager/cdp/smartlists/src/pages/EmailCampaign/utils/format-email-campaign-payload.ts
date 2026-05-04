@@ -1,9 +1,10 @@
-import { CommunicationKind } from "#src/api/constants";
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import type {
   ScheduleEmailCampaignPayload,
   SendEmailCampaignPayload,
   UpdateScheduledEmailCampaignPayload,
-} from "#src/api/types";
+} from "@bsport/api-cdp/communicate";
+
 import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
 import { CONTEXT_SMARTLIST } from "#src/utils/constants";
 

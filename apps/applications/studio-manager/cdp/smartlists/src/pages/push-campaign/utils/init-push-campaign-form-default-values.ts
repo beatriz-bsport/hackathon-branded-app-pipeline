@@ -1,6 +1,6 @@
+import type { CampaignScheduled } from "@bsport/api-cdp/communicate";
 import { fromIsoString } from "@bsport/datetime-manipulation";
 
-import type { CampaignScheduled } from "#src/api/types";
 import { DELIVERY_MODE_SCHEDULE_LATER } from "#src/components/campaign-generic-fields/campaign-delivery-mode.constants";
 
 export const initPushCampaignFormDefaultValues = ({

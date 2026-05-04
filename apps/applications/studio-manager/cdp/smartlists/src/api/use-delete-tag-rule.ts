@@ -1,6 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { deleteTagRule } from "./api";
+import { deleteTagRuleAPI } from "@bsport/api-cdp/smartlist";
+
+import { fetch } from "#src/utils/fetch";
 
 type DeleteTagRuleVariables = {
   id: number;
@@ -24,7 +26,8 @@ export function useDeleteTagRule({
   onError,
 }: UseDeleteTagRuleParams = {}) {
   const mutation = useMutation({
-    mutationFn: (params: DeleteTagRuleVariables) => deleteTagRule(params.id),
+    mutationFn: (params: DeleteTagRuleVariables) =>
+      deleteTagRuleAPI(fetch, params.id),
     onSuccess,
     onError,
   });

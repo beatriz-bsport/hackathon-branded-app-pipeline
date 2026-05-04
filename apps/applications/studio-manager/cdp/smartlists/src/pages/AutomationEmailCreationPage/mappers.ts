@@ -1,4 +1,4 @@
-import type { AutomatedCampaign } from "@bsport/api-cdp";
+import { type AutomatedCampaign } from "@bsport/api-cdp/automated-campaign";
 
 import { hasHtmlTags } from "#src/utils/has-html-tags";
 

@@ -2,7 +2,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { toast } from "@bsport/kaizen-primitive-core";
 
-import { smartlistKeys } from "#src/api/api";
+import { smartlistQueryKeys } from "#src/api/api";
 import { useDeleteTagRule as useDeleteTagRuleMutation } from "#src/api/use-delete-tag-rule";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -15,7 +15,7 @@ export const useDeleteTagRule = () => {
     useDeleteTagRuleMutation({
       onSuccess: (_data, variables) => {
         queryClient.invalidateQueries({
-          queryKey: smartlistKeys.tagRules(variables.smartlistId),
+          queryKey: smartlistQueryKeys.tagRules(variables.smartlistId),
         });
 
         toast({

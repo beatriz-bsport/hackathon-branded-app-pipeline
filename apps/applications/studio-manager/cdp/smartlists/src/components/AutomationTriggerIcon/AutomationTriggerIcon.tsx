@@ -1,8 +1,7 @@
 import type { ComponentProps } from "react";
 
+import { EventKind } from "@bsport/api-cdp/automated-campaign";
 import { Icon, type IconName, cx } from "@bsport/kaizen-primitive-core";
-
-import { EventKind } from "#src/api/constants";
 
 type AutomationTriggerIconProps = Omit<ComponentProps<typeof Icon>, "icon"> & {
   trigger: EventKind;

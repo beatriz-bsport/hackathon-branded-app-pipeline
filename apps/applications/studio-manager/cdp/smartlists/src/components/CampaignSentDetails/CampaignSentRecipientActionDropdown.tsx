@@ -1,3 +1,4 @@
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import {
   Button,
   type Item,
@@ -5,7 +6,6 @@ import {
   Popover,
 } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind } from "#src/api/constants";
 import { StopPropagationWrapper } from "#src/components/StopPropagationWrapper";
 import { useTranslation } from "#src/utils/i18n";
 

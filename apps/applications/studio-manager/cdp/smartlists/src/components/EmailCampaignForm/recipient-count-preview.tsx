@@ -1,8 +1,8 @@
 import React from "react";
 
+import { CommunicationChannel } from "@bsport/api-cdp/smartlist";
 import { Body, Loader, Title } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationChannel } from "#src/api/constants";
 import { useFetchCommunicationRecipientsPreviewCount } from "#src/api/use-fetch-communication-recipients-preview-count";
 import { QueryBoundary } from "#src/components/QueryBoundary";
 import { TimedInfoPopover } from "#src/components/timed-info-popover";

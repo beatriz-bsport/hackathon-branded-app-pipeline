@@ -1,8 +1,8 @@
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
+import { type CampaignSent } from "@bsport/api-cdp/communicate";
 import { Alert, Body, Divider, Modal } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { CommunicationKind } from "#src/api/constants";
-import type { CampaignSent } from "#src/api/types";
 import { HTMLPreview } from "#src/components/BusinessComponents/HTMLPreview";
 import { PushNotificationPreview } from "#src/components/BusinessComponents/PushNotificationPreview";
 import {

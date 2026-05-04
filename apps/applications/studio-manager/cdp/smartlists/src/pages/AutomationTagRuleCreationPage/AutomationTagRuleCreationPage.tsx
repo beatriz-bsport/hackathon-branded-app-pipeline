@@ -1,10 +1,10 @@
 import { useId, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
+import { TagRuleKind } from "@bsport/api-cdp/smartlist";
 import { useFormController } from "@bsport/form";
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
-import { TagRuleKind } from "#src/api/constants";
 import {
   AutomationTagRuleForm,
   type AutomationTagRuleFormData,

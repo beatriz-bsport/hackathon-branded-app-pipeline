@@ -6,8 +6,10 @@ import { fetch } from "#src/utils/fetch";
 
 const queryOptions = communicationVariablesQueryOptions(fetch);
 
+const STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
 export function useCommunicationVariables() {
-  const { data } = useQuery(queryOptions);
+  const { data } = useQuery({ ...queryOptions, staleTime: STALE_TIME });
 
   return {
     communicationVariables: data ?? {},

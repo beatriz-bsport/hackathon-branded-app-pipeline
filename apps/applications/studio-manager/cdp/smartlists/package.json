@@ -28,6 +28,8 @@
   },
   "dependencies": {
     "@bsport/api-cdp": "workspace:*",
+    "@bsport/api-financial-services": "workspace:*",
+    "@bsport/api-member-experience": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/envs": "workspace:*",
     "@bsport/permissions": "workspace:*",

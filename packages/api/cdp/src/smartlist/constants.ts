@@ -1,23 +1,13 @@
-import {
-  CommunicationKind,
-  EventKind,
-  TagRuleKind as TagRuleKindApi,
-} from "@bsport/api-cdp";
+export const SMARTLIST_API_V1 = "customer-data-platform/v1/smartlist";
+export const CDP_API_V0 = "customer-data-platform/v0";
 
-export { CommunicationKind, EventKind };
-
-export const TagRuleKind = TagRuleKindApi;
-
-export type TagRuleKind = (typeof TagRuleKind)[keyof typeof TagRuleKind];
-
-export const BackgroundTaskStatus = {
-  PENDING: 0,
-  SUCCESS: 1,
-  FAILED: 2,
+export const TagRuleKind = {
+  TAG_ON_JOIN_AND_UNTAG_ON_LEFT: 1,
+  TAG_ON_JOIN_AND_KEEP_TAG: 2,
+  TAG_ON_LEFT: 3,
 } as const;
 
-export type BackgroundTaskStatus =
-  (typeof BackgroundTaskStatus)[keyof typeof BackgroundTaskStatus];
+export type TagRuleKind = (typeof TagRuleKind)[keyof typeof TagRuleKind];
 
 export const CommunicationStatus = {
   PROCESSING: 1,
@@ -33,7 +23,7 @@ export const CommunicationRecipientStatus = {
   PENDING: 0,
   PROCESSED: 1,
   DROPPED: 2,
-  DEFERRED: 3, // Failed
+  DEFERRED: 3,
   DELIVERED: 4,
   BOUNCED: 5,
 } as const;
@@ -49,6 +39,3 @@ export const CommunicationChannel = {
 
 export type CommunicationChannel =
   (typeof CommunicationChannel)[keyof typeof CommunicationChannel];
-
-export const DEFAULT_PAGE = 1;
-export const DEFAULT_PAGE_SIZE_RECIPIENTS = 10;

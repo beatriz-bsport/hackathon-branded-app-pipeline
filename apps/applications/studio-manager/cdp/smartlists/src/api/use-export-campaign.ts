@@ -1,6 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { exportCampaignAsync } from "./api";
+import { exportCampaignAsyncAPI } from "@bsport/api-cdp/communicate";
+
+import { fetch } from "#src/utils/fetch";
+
 import { pollBackgroundTaskStatusUntilDone } from "./poll-background-task-status";
 
 export function useExportCampaign({
@@ -12,7 +15,10 @@ export function useExportCampaign({
 }) {
   return useMutation({
     mutationFn: async (campaignUuid: string): Promise<string> => {
-      const { backgroundTaskUuid } = await exportCampaignAsync(campaignUuid);
+      const { backgroundTaskUuid } = await exportCampaignAsyncAPI(
+        fetch,
+        campaignUuid,
+      );
 
       return pollBackgroundTaskStatusUntilDone(backgroundTaskUuid);
     },

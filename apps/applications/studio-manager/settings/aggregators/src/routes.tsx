@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-const ListPage = lazy(() => import("#src/pages/list-page"));
+const ListPage = lazy(() => import("#src/pages/aggregators-view-settings"));
 
 export const AppRoutes = () => {
   return (

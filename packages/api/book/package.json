@@ -29,6 +29,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@bsport/api-core": "workspace:*",
     "@bsport/store-base": "workspace:*"
   },
   "devDependencies": {

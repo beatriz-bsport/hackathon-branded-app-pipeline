@@ -3120,6 +3120,12 @@ importers:
 
   apps/applications/studio-manager/settings/aggregators:
     dependencies:
+      '@bsport/api-book':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/book
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/core
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -3681,6 +3687,9 @@ importers:
 
   packages/api/book:
     dependencies:
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../core
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../stores/base

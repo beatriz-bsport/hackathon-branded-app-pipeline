@@ -1,26 +1,62 @@
 {
   "page": {
-    "title": "Smartfill",
-    "disabled": "Smartfill not activated "
+    "title": "SmartFill",
+    "disabled": "SmartFill not activated"
   },
   "activatedEmptyState": {
-    "title": "No classes promoted with Smartfill yet",
-    "subtitle": "View all classes promoted with Smartfill here, including outreach analytics, status and the number of messages sent to clients. "
+    "title": "No classes promoted with SmartFill yet",
+    "subtitle": "View all classes promoted with SmartFill here, including outreach analytics, status and the number of messages sent to clients."
+  },
+  "inactiveEmptyState": {
+    "title": "SmartFill is not active",
+    "subtitle": "SmartFill spots your low-attendance sessions, finds the members most likely to book, and lets you reach them in one click — then tracks who booked as a result."
   },
   "error": {
     "title": "Something went wrong",
     "description": "Please try again.",
     "retry": "Retry"
   },
-  "runsList": {
+  "targetedOffersList": {
     "columns": {
-      "date": "Date"
+      "date": "Date",
+      "session": "Session",
+      "analytics": "Analytics"
+    },
+    "unknownSession": "Offer #{{offerId}}",
+    "analytics": {
+      "message": "Message",
+      "messages": "Messages",
+      "booking": "Booking",
+      "bookings": "Bookings"
+    }
+  },
+  "targetedOfferDetail": {
+    "openOffer": "Open session"
+  },
+  "notifications": {
+    "title": "Clients contacted ({{count}})",
+    "unknownMember": "Member #{{memberId}}",
+    "subtitle": {
+      "scheduled": "Email scheduled: {{date}}",
+      "sent": "Message: {{date}}"
+    },
+    "bookedBadge": {
+      "label": "Booked",
+      "tooltip": "Member booked after receiving the communication"
     }
   },
   "section": {
-    "cta": "Activate Smartfill",
-    "subtitle": "Smartfill proactively identifies low-attendance classes, finds clients most likely to book, then automatically reaches out to them to fill classes. ",
     "activate": "Activate",
     "disable": "Deactivate"
+  },
+  "header": {
+    "statusChip": {
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
+  "toast": {
+    "activated": "SmartFill activated",
+    "deactivated": "SmartFill deactivated"
   }
 }

@@ -6,10 +6,11 @@ import {
   useEmptyState,
 } from "@bsport/kaizen-primitive-core";
 
-import { SmartfillHeader } from "#src/components/SmartfillHeader";
-import { SmartfillRunsList } from "#src/components/SmartfillRunsList";
+import { SmartfillActivatedEmptyState } from "#src/components/SmartfillActivatedEmptyState";
+import { SmartfillInactiveEmptyState } from "#src/components/SmartfillInactiveEmptyState";
+import { SmartfillTargetedOffersList } from "#src/components/SmartfillTargetedOffersList";
 import { useSmartfillConfigStatus } from "#src/hooks/use-smartfill-config-status";
-import { useSmartfillConfigToggle } from "#src/hooks/use-smartfill-config-toggle";
+import { useSmartfillTargetedOffers } from "#src/hooks/use-smartfill-targeted-offers";
 import { flags, useFlag } from "#src/utils/feature-flags";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -17,11 +18,19 @@ const Content: FC = () => {
   const { t } = useTranslation("smartfill");
   const isSmartfillEnabled = useFlag(flags.smartfill);
 
-  const { data, isLoading, isError, refetch } = useSmartfillConfigStatus();
-  const { mutate: toggleSmartfillConfig, isPending } =
-    useSmartfillConfigToggle();
+  const {
+    data: configStatus,
+    isLoading: isConfigStatusLoading,
+    isError: isConfigStatusError,
+    refetch: refetchConfigStatus,
+  } = useSmartfillConfigStatus();
 
-  const isEnabled = data?.enabled;
+  const {
+    data: targetedOffersData,
+    isLoading: isTargetedOffersLoading,
+    isError: isTargetedOffersError,
+    refetch: refetchTargetedOffers,
+  } = useSmartfillTargetedOffers(isSmartfillEnabled);
 
   const { EmptyState: DisabledFeatureEmptyState } = useEmptyState({
     isEmpty: true,
@@ -35,7 +44,7 @@ const Content: FC = () => {
     return <DisabledFeatureEmptyState />;
   }
 
-  if (isLoading) {
+  if (isConfigStatusLoading || isTargetedOffersLoading) {
     return (
       <div className="flex h-full w-full items-center justify-center">
         <Loader size="md" />
@@ -43,7 +52,7 @@ const Content: FC = () => {
     );
   }
 
-  if (isError) {
+  if (isConfigStatusError || isTargetedOffersError) {
     return (
       <div className="grid h-full w-full place-content-center p-md">
         <ErrorFallback
@@ -53,7 +62,8 @@ const Content: FC = () => {
           actionProps={{
             label: t("error.retry"),
             onClick: () => {
-              void refetch();
+              void refetchConfigStatus();
+              void refetchTargetedOffers();
             },
           }}
         />
@@ -61,22 +71,18 @@ const Content: FC = () => {
     );
   }
 
-  return (
-    <div className="flex flex-col gap-lg p-lg">
-      <SmartfillHeader
-        isEnabled={Boolean(isEnabled)}
-        isPending={isPending}
-        onActivate={() => {
-          toggleSmartfillConfig("activate");
-        }}
-        onDeactivate={() => {
-          toggleSmartfillConfig("deactivate");
-        }}
-      />
+  const isEnabled = Boolean(configStatus?.enabled);
+  const targetedOffersCount = targetedOffersData?.count ?? 0;
 
-      {isEnabled ? <SmartfillRunsList /> : null}
-    </div>
-  );
+  if (targetedOffersCount > 0) {
+    return <SmartfillTargetedOffersList />;
+  }
+
+  if (!isEnabled) {
+    return <SmartfillInactiveEmptyState />;
+  }
+
+  return <SmartfillActivatedEmptyState />;
 };
 
 export default Content;

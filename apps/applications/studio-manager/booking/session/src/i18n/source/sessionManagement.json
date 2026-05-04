@@ -61,7 +61,9 @@
     "assignSpot": {
       "success": "Spot assigned",
       "error": "Couldn't assign the spot"
-    }
+    },
+    "bookAll": "Book all to the class",
+    "pauseWaitlist": "Pause waitlist"
   },
   "floorPlan": {
     "header": "Spot selection",
@@ -103,6 +105,24 @@
       "refundCredits": "Refund the credits",
       "sendNotification": "Send notification",
       "confirmation": "Booking cancelled"
+    },
+    "pauseWaitlist": {
+      "title": "Pause waitlist?",
+      "body": "While paused, members won’t be able to reserve a spot. When you reactivate it, the waitlist order will remain unchanged.",
+      "confirmButton": "Pause waitlist",
+      "closeButton": "Close",
+      "confirmation": "Waitlist was paused"
+    },
+    "reactivateWaitlist": {
+      "title": "Reactivate waitlist?",
+      "body": "Members already on the waitlist stay in the same order, and new added members will join at the bottom.",
+      "confirmButton": "Reactivate waitlist",
+      "closeButton": "Close",
+      "confirmation": "Waitlist was reactivated"
+    },
+    "viewWaitlistMembers": {
+      "title": "Waitlist members",
+      "subtitle": "Members are still on the waitlist, but it is currently paused for this session.  You can reactivate it at any time and the existing order will be preserved."
     }
   },
   "bookingAttendanceFilter": {
@@ -183,5 +203,10 @@
       "title": "First come, first served",
       "description": "All members that joined this waitlist will be informed simultaneously once a spot becomes available."
     }
+  },
+  "pausedWaitlistState": {
+    "description": "The waitlist is paused for this session",
+    "viewWaitlistMembers": "View waitlist members",
+    "reactivateWaitlist": "Reactivate waitlist"
   }
 }

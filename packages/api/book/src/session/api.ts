@@ -397,26 +397,19 @@ export const postRollCallAPI = async (
   await fetch(uri, init);
 };
 
-export const toggleWaitingListFreezeAPIConfig = (
+export const toggleWaitingListFreezeAPI = async (
+  fetch: Fetch<Session>,
   sessionId: number,
-  params: ToggleWaitingListFreezeParams,
-): ApiConfig => {
-  return [
+  freeze: boolean,
+): Promise<Session> => {
+  const params: ToggleWaitingListFreezeParams = { is_freezed: freeze };
+  const { data: session } = await fetch(
     `${API_URL_SESSION}/${sessionId}/toogle_waiting_list_freeze/`,
     {
       method: "POST",
       body: JSON.stringify(params),
     },
-  ];
-};
-
-export const toggleWaitingListFreezeAPI = async (
-  fetch: Fetch<Session>,
-  sessionId: number,
-  params: ToggleWaitingListFreezeParams,
-): Promise<Session> => {
-  const [uri, init] = toggleWaitingListFreezeAPIConfig(sessionId, params);
-  const { data: session } = await fetch(uri, init);
+  );
   return session;
 };
 

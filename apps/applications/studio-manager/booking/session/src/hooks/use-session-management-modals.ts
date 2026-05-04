@@ -6,6 +6,9 @@ export enum SessionManagementModalType {
   DUPLICATE = "duplicate",
   DELETE = "delete",
   CANCEL_BOOKING = "cancel_booking",
+  PAUSE_WAITLIST = "pause_waitlist",
+  REACTIVATE_WAITLIST = "reactivate_waitlist",
+  VIEW_WAITLIST = "view_waitlist",
 }
 
 export type SessionManagementModalState = {

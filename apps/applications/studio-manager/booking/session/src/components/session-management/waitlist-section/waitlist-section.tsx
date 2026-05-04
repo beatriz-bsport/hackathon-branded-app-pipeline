@@ -4,39 +4,54 @@ import { Body, Title } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary.js";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
 import { useTranslation } from "#src/utils/i18n";
 
+import { PausedWaitlistState } from "./paused-waitlist-state";
 import { WaitList } from "./waitlist";
+import { WaitlistActionsButton } from "./waitlist-actions-button";
 import { WaitlistSettingsPopover } from "./waitlist-settings-popover";
 
 export const WaitlistSection: FC<{
   sessionId: number;
   searchQuery: string;
-}> = ({ sessionId, searchQuery }) => {
+  openModal: (type: SessionManagementModalType) => void;
+}> = ({ sessionId, searchQuery, openModal }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
 
+  const isWaitlistPaused = session.waiting_list_disabled;
+
   return (
     <div className="flex flex-col gap-lg">
-      <div className="flex gap-sm">
-        <Title weight="strong" htmlVariant="h3">
-          {t("waitlistSectionTitle")}
-        </Title>
-        <WaitlistSettingsPopover />
-        <Body size="lg" weight="weak" color="weaker">
-          •
-        </Body>
-        <Body size="lg" weight="weak" color="weaker">
-          {t("waitlistSectionSubtitle", {
-            bookingOptionsCount: session.booking_options.length,
-            waitlistCapacity: session.waiting_list_max_size,
-          })}
-        </Body>
+      <div className="flex items-center justify-between">
+        <div className="flex gap-sm">
+          <Title weight="strong" htmlVariant="h3">
+            {t("waitlistSectionTitle")}
+          </Title>
+          <WaitlistSettingsPopover />
+          <Body size="lg" weight="weak" color="weaker">
+            •
+          </Body>
+          <Body size="lg" weight="weak" color="weaker">
+            {t("waitlistSectionSubtitle", {
+              bookingOptionsCount: session.booking_options.length,
+              waitlistCapacity: session.waiting_list_max_size,
+            })}
+          </Body>
+        </div>
+        {!isWaitlistPaused && (
+          <WaitlistActionsButton sessionId={sessionId} openModal={openModal} />
+        )}
       </div>
-      <QueryBoundary>
-        <WaitList sessionId={sessionId} searchQuery={searchQuery} />
-      </QueryBoundary>
+      {isWaitlistPaused ? (
+        <PausedWaitlistState openModal={openModal} />
+      ) : (
+        <QueryBoundary>
+          <WaitList sessionId={sessionId} searchQuery={searchQuery} />
+        </QueryBoundary>
+      )}
     </div>
   );
 };

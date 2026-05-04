@@ -1,0 +1,34 @@
+{
+  "name": "Aggregators",
+  "myclubs": {
+    "actions": {
+      "generatePartnerId": "Generate Partner ID"
+    },
+    "section": {
+      "subtitle": "Generate and link Partner IDs to synchronise the sessions in your establishments with myClubs. You'll be able to adjust the number of available spots for this aggregator in the session settings."
+    },
+    "table": {
+      "actions": {
+        "copyId": "Copy ID",
+        "delete": "Delete",
+        "edit": "Edit",
+        "label": "More actions",
+        "reactivate": "Reactivate"
+      },
+      "columns": {
+        "establishments": "Establishments",
+        "partnerId": "Partner ID",
+        "status": "Status"
+      },
+      "empty": {
+        "subtitle": "No MyClubs accounts are configured yet.",
+        "title": "No accounts yet"
+      },
+      "status": {
+        "active": "Active",
+        "deactivated": "Deactivated",
+        "pending": "Pending"
+      }
+    }
+  }
+}

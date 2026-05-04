@@ -1,3 +1,42 @@
+import type { Establishment } from "@bsport/api-core";
+
+/**
+ * Shared booking-side fields exposed for partnership accounts across endpoints.
+ * Concrete account types extend this base with endpoint-specific data.
+ */
+type BasePartnershipAccount = {
+  id: string;
+  external_id: string;
+  external_name?: string;
+  active?: boolean;
+  activated_at?: string;
+};
+
+/**
+ * Partnership account returned by the generic partnership-account listing endpoint.
+ * This shape includes the establishments linked to the account, but not the
+ * booking-context fields used by `active_for_offer`.
+ */
+export type PartnershipAccount = BasePartnershipAccount & {
+  establishments: Establishment[];
+};
+
+export type PartnershipAccountStatus = "active" | "pending" | "deactivated";
+
+export type PartnershipCompany = {
+  id: number;
+  identifier: string;
+  associated_establishment_ids: number[];
+  company: number;
+  date_created: number;
+  partnership: number;
+  override_establishment_pk: number | null;
+};
+
+export type FetchPartnershipAccountsParams = {
+  partnership: number;
+};
+
 /**
  * Defines how partner spots (aggregators) are allocated within a session.
  *

@@ -10,6 +10,7 @@ export type FeatureFlagProps = {
   toggleAppcues: boolean;
   showBookingDisplaySwapPass: boolean;
   checkoutFlowModalEnabled: boolean;
+  isBookingMultipleOffersInSubscriptionCheckoutEnabled: boolean;
   isCalendarRevampEnabled: boolean;
   isNewWellhubConfigurationEnabled: boolean;
   isAgentChatEnabled: boolean;
@@ -35,6 +36,9 @@ export const withFeatureFlags = <TProps extends object>(
     const showBookingDisplaySwapPass = useSafeFlag(
       FeatureFlags.BOOKING_DISPLAY_SWAP_PASS,
     );
+    const isBookingMultipleOffersInSubscriptionCheckoutEnabled = useSafeFlag(
+      FeatureFlags.BOOKING_MULTIPLE_OFFERS_IN_SUBSCRIPTION_CHECKOUT,
+    );
     const checkoutFlowModalEnabled = useSafeFlag(
       FeatureFlags.FS_BILLING_FLOW_NEW_MODAL,
     );
@@ -50,6 +54,9 @@ export const withFeatureFlags = <TProps extends object>(
         {...props}
         checkoutFlowModalEnabled={checkoutFlowModalEnabled}
         isAgentChatEnabled={isAgentChatEnabled}
+        isBookingMultipleOffersInSubscriptionCheckoutEnabled={
+          isBookingMultipleOffersInSubscriptionCheckoutEnabled
+        }
         isCalendarRevampEnabled={isCalendarRevampEnabled}
         isInvoiceSequentialNumberingEnabled={
           isInvoiceSequentialNumberingEnabled

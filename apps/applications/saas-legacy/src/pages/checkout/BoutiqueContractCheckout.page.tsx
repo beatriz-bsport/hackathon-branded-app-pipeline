@@ -537,6 +537,11 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     const first_billing_timestamp = DateTime.fromISO(
       this.state.billingStartDate,
     ).toUnixInteger();
+    const offerIdsForRegistration =
+      this.props.offerIds?.length > 0
+        ? this.props.offerIds
+        : [this.props.offerId];
+    const isMultiOfferRegistration = offerIdsForRegistration.length > 1;
 
     this.props.registerContractBackground(
       this.props.contractId,
@@ -545,10 +550,13 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
         first_billing_timestamp,
         coupon,
         with_prorata: !!this.props?.contract?.month_billing_day,
-        offers: this.props.offerIds?.map((id) => ({
+        offers: offerIdsForRegistration.map((id) => ({
           offer_id: id,
           extra_data: {
-            spot_id: this.props.selectedSpotIdsByOfferId[id],
+            spot_id:
+              this.props.selectedSpotIdsByOfferId[id] ??
+              (!isMultiOfferRegistration ? this.props.selectedSpotId : null) ??
+              null,
           },
         })),
         establishment_billing_group_id: establishmentBillingGroupId,

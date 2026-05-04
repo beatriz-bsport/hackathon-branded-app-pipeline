@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Card, ListLayout } from "@bsport/kaizen-primitive-core";
+import { ListLayout } from "@bsport/kaizen-primitive-core";
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
 import { useSmartlists } from "#src/api/use-smartlists";
@@ -9,7 +9,6 @@ import { DeleteSmartlistModal } from "#src/components/DeleteSmartlistModal";
 import { DuplicateSmartlistModal } from "#src/components/DuplicateSmartlistModal";
 import { EditSmartlistModal } from "#src/components/EditSmartlistModal";
 import { SmartlistList } from "#src/components/SmartlistList";
-import { NumericComparatorFilter } from "#src/components/primitive-filters/numeric-comparator-filter/numeric-comparator-filter";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useFilters } from "./use-filters";
@@ -89,14 +88,6 @@ const ListPage: React.FC = () => {
         }}
       />
       <ListLayout.Content>
-        <div className="flex flex-col p-md">
-          <Card className="w-[400px]">
-            <NumericComparatorFilter
-              id="numeric-comparator-filter"
-              onChange={(value) => console.log(value)}
-            />
-          </Card>
-        </div>
         <SmartlistList
           smartlists={smartlists}
           paginationProps={{

@@ -106,6 +106,9 @@ export const useNavigationElements = ({
   const isBillingFlowNewModalEnabled = useNavFlag(
     NavFlags.FS_BILLING_FLOW_NEW_MODAL,
   );
+  const isTeacherViewSettingsEnabled = useNavFlag(
+    NavFlags.SETTINGS_TEACHER_VIEW,
+  );
   const isSmartfillEnabled = useNavFlag(NavFlags.SMARTFILL);
 
   const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
@@ -482,7 +485,10 @@ export const useNavigationElements = ({
         {
           id: "teacherView",
           label: t("menus.settings.teacherView"),
-          ...navigationUrls.settings_teacherView,
+          ...flaggedNavigationUrl({
+            enabled: isTeacherViewSettingsEnabled,
+            navigationItem: navigationUrls.settings_teacherView,
+          }),
         },
         {
           id: "memberForms",
@@ -601,6 +607,8 @@ export const useNavigationElements = ({
     isPayoutsEnabled,
     isSmartfillEnabled,
     isNewWebshopEnabled,
+    isTeacherViewSettingsEnabled,
+    isAggregatorsEnabled,
     hasCreateInvoiceAccess,
     hasSubstitutionToolAccess,
     isClassesMergedViewEnabled,

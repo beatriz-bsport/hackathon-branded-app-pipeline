@@ -39,6 +39,7 @@ const Staff = lazy(() => import("@bsport/sm-staff"));
 // ----- Core-data -----
 const MemberList = lazy(() => import("@bsport/sm-member-list"));
 const Teacher = lazy(() => import("@bsport/sm-teacher"));
+const TeacherView = lazy(() => import("@bsport/sm-teacher-view"));
 
 // ----- Financial Services -----
 const Invoice = lazy(() => import("@bsport/sm-invoice"));
@@ -232,6 +233,9 @@ const AuthenticatedRoutes = () => {
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
   const isPacksPageEnabled = useNavFlag(NavFlags.PACKS);
   const isGiftcardsPageEnabled = useNavFlag(NavFlags.GIFTCARDS);
+  const isTeacherViewSettingsEnabled = useNavFlag(
+    NavFlags.SETTINGS_TEACHER_VIEW,
+  );
 
   const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
   const isAggregatorsEnabled = useNavFlag(NavFlags.SETTINGS_AGGREGATORS);
@@ -266,6 +270,9 @@ const AuthenticatedRoutes = () => {
     /* ----- Core-data ----- */
     { url: urls.member, element: <MemberList /> },
     { url: urls.teacher, element: <Teacher /> },
+    ...(isTeacherViewSettingsEnabled
+      ? [{ url: urls.settings_teacherView, element: <TeacherView /> }]
+      : []),
 
     /* ----- Financial Services ----- */
     { url: urls.invoice, element: <Invoice /> },

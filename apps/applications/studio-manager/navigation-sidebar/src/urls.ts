@@ -116,6 +116,7 @@ export const REVAMP_URLS_PRODUCTION = {
   invoice: REVAMP_URLS_DEVELOPMENT.invoice,
   marketingNotification: "/marketing/notifications",
   member: "/member",
+  onDemand: REVAMP_URLS_DEVELOPMENT.onDemand,
   order: "/order",
   giftcard: REVAMP_URLS_DEVELOPMENT.giftcard,
   pack: REVAMP_URLS_DEVELOPMENT.pack,

@@ -37,6 +37,9 @@
     "type": "Type",
     "paymentMethod": "Payment method",
     "status": "Status",
+    "gross": "Gross",
+    "fee": "Fee",
+    "total": "Total",
     "amount": "Amount",
     "invoices": "Invoice(s)"
   },
@@ -52,11 +55,13 @@
   },
   "summary": {
     "reconciliation": "Reconciliation status",
+    "count": "Count",
     "payments": "Payments",
     "refunds": "Refunds",
     "disputes": "Disputes",
     "directDebitOriginal": "Direct debit original",
     "directDebitReversal": "Direct debit reversal",
+    "directDebitFeeAdjustment": "Direct debit fee adjustment",
     "transfers": "Transfers",
     "transferRefunds": "Transfer refunds",
     "adjustments": "Adjustments",

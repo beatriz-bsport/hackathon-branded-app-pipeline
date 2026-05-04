@@ -37,6 +37,9 @@
     "type": "Tipo",
     "paymentMethod": "Metodo di pagamento",
     "status": "Stato",
+    "gross": "Lordo",
+    "fee": "Commissione",
+    "total": "Totale",
     "amount": "Importo",
     "invoices": "Ricevute"
   },
@@ -52,11 +55,13 @@
   },
   "summary": {
     "reconciliation": "Stato di riconciliazione",
+    "count": "Conteggio",
     "payments": "Pagamenti",
     "refunds": "Rimborsi",
     "disputes": "Controversie",
     "directDebitOriginal": "Addebito diretto originale",
     "directDebitReversal": "Storno addebito diretto",
+    "directDebitFeeAdjustment": "Rettifica commissione addebito diretto fallito",
     "transfers": "Trasferimenti",
     "transferRefunds": "Rimborsi di trasferimento",
     "adjustments": "Rettifiche",

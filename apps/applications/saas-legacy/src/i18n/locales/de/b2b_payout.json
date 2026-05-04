@@ -37,6 +37,9 @@
     "type": "Zahlungsart",
     "paymentMethod": "Zahlungsmethode",
     "status": "Status",
+    "gross": "Brutto",
+    "fee": "Gebühr",
+    "total": "Gesamt",
     "amount": "Betrag",
     "invoices": "Rechnung(en)"
   },
@@ -52,6 +55,7 @@
   },
   "summary": {
     "reconciliation": "Abgleichstatus",
+    "count": "Anzahl",
     "payments": "Zahlungen",
     "refunds": "Rückerstattungen",
     "disputes": "Streitfälle",

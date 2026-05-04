@@ -37,6 +37,9 @@
     "type": "Type de paiement",
     "paymentMethod": "Moyen de paiement",
     "status": "Statut",
+    "gross": "Brut",
+    "fee": "Frais",
+    "total": "Total",
     "amount": "Montant",
     "invoices": "Factures"
   },
@@ -52,11 +55,13 @@
   },
   "summary": {
     "reconciliation": "Statut de rapprochement",
+    "count": "Nombre",
     "payments": "Paiements",
     "refunds": "Remboursements",
     "disputes": "Litiges",
     "directDebitOriginal": "Prélèvement automatique original",
     "directDebitReversal": "Annulation de prélèvement",
+    "directDebitFeeAdjustment": "Ajustement des frais de prélèvement échoué",
     "transfers": "Virements",
     "transferRefunds": "Remboursements de virements",
     "adjustments": "Ajustements",

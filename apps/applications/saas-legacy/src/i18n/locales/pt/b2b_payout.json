@@ -28,6 +28,9 @@
   "table": {
     "date": "Data",
     "amount": "Montante",
+    "gross": "Bruto",
+    "fee": "Comissão",
+    "total": "Total",
     "transactions": "Faturação",
     "id": "ID",
     "status": "Estado"
@@ -38,6 +41,9 @@
     "paymentMethod": "Método de pagamento",
     "status": "Estado",
     "amount": "Montante",
+    "gross": "Bruto",
+    "fee": "Comissão",
+    "total": "Total",
     "invoices": "Fatura(s)"
   },
   "balanceTransaction": {
@@ -52,6 +58,7 @@
   },
   "summary": {
     "reconciliation": "Status de reconciliação",
+    "count": "Número",
     "payments": "Pagamentos",
     "refunds": "Reembolsos",
     "disputes": "Contencioso",

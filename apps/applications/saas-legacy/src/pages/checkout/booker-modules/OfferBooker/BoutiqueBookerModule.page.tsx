@@ -1024,10 +1024,29 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   goToSubscriptionPage = (contractId: number) => {
+    const selectedOfferIds = uniq(
+      this.state.selectedOffers
+        .map((selectedOffer) => selectedOffer?.offer?.id)
+        .filter((offerId): offerId is number => typeof offerId === 'number'),
+    );
+    const selectedSpotIds = selectedOfferIds
+      .map((offerId) => {
+        const spotId = this.state.selectedSpotsIds[offerId];
+        if (typeof spotId !== 'number') return null;
+        return `${offerId}:${spotId}`;
+      })
+      .filter((entry): entry is string => Boolean(entry))
+      .join(',');
+
     this.props.push(
       getBoutiqueContractCheckoutUrl(this.props.offer.company, contractId, {
-        offerId: this.props.offerId,
+        ...(selectedOfferIds.length > 0 && {
+          offerIds: selectedOfferIds.join(','),
+        }),
         selectedSpotId: this.state.selectedSpotsIds[this.props.offerId],
+        ...(selectedSpotIds && {
+          selectedSpotIds,
+        }),
         ...(this.props.queryParams.guest_first_name && {
           guest_first_name: this.props.queryParams.guest_first_name,
         }),

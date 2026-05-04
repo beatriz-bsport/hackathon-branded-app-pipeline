@@ -33,12 +33,8 @@ export const teacherKeys = {
   company: (companyId: number | undefined, params: FetchTeachersParams = {}) =>
     [...teacherKeys.all, "company", companyId, params] as const,
   detail: (teacherId: number) => [...teacherKeys.all, teacherId] as const,
-  replacementRequestConfiguration: (companyId: number) =>
-    [
-      ...teacherKeys.all,
-      "replacement-request-configuration",
-      companyId,
-    ] as const,
+  replacementRequestConfiguration: () =>
+    [...teacherKeys.all, "replacement-request-configuration"] as const,
   search: (searchValue: string, params: FetchTeachersParams = {}) =>
     [...teacherKeys.all, "search", searchValue, params] as const,
 } as const;
@@ -186,7 +182,6 @@ export const retrieveTeacherQueryOptions = (
 
 export const retrieveReplacementRequestConfiguration = async (
   fetch: Fetch<ReplacementRequestConfiguration>,
-  _companyId: number,
 ): Promise<ReplacementRequestConfiguration> => {
   const { data } = await fetch(
     `${API_URL_REPLACEMENT_REQUEST_CONFIGURATION}/me/`,
@@ -197,16 +192,11 @@ export const retrieveReplacementRequestConfiguration = async (
 
 export const retrieveReplacementRequestConfigurationQueryOptions = (
   fetch: Fetch<ReplacementRequestConfiguration>,
-  companyId: number,
 ) => {
-  const queryFn = retrieveReplacementRequestConfiguration.bind(
-    null,
-    fetch,
-    companyId,
-  );
+  const queryFn = retrieveReplacementRequestConfiguration.bind(null, fetch);
 
   return queryOptions({
-    queryKey: teacherKeys.replacementRequestConfiguration(companyId),
+    queryKey: teacherKeys.replacementRequestConfiguration(),
     queryFn,
     staleTime: TEACHERS_STALE_TIME,
   });

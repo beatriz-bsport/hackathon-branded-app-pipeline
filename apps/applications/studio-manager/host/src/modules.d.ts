@@ -28,6 +28,7 @@ declare module "sm-navigation-sidebar/urls" {
     smartfill: string;
     smartlist: string;
     teacher: string;
+    settings_teacherView: string;
     video: string;
     settings_referral: string;
     settings_aggregators: string;

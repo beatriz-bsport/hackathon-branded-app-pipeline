@@ -55,6 +55,7 @@
     "@bsport/sm-staff": "workspace:*",
     "@bsport/sm-tag": "workspace:*",
     "@bsport/sm-teacher": "workspace:*",
+    "@bsport/sm-teacher-view": "workspace:*",
     "@bsport/sm-transactional-notification": "workspace:*",
     "@bsport/sm-vod": "workspace:*",
     "@tanstack/react-query": "^5.90.12",

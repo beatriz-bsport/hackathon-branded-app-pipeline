@@ -4,6 +4,7 @@ export const ILLUSTRATION_NAMES = [
   "no-search",
   "success",
   "warning",
+  "paused",
 ] as const;
 
 export type IllustrationName = (typeof ILLUSTRATION_NAMES)[number];

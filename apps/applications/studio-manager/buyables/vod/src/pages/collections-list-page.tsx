@@ -5,7 +5,7 @@ import type { Collection } from "@bsport/api-buyables/collection";
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { CollectionTable } from "#src/components/collection-table/collection-table";
-import { QueryBoundary } from "#src/components/query-boundary";
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { CollectionCreateModal } from "#src/features/collection-create-modal/collection-create-modal";
 import { CollectionDeleteModal } from "#src/features/collection-delete-modal/collection-delete-modal";
 import { useDeleteCollection } from "#src/features/collection-delete-modal/use-delete-collection";

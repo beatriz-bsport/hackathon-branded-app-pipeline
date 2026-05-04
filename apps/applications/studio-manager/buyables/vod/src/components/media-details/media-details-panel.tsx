@@ -2,7 +2,7 @@ import type { FC } from "react";
 
 import type { Video } from "@bsport/api-buyables/video";
 
-import { QueryBoundary } from "#src/components/query-boundary";
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 
 import { MediaDetailsBuyersList } from "./media-details-buyers-list";
 import { MediaDetailsViewersList } from "./media-details-viewers-list";

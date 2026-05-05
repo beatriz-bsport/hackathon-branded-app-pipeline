@@ -22,6 +22,8 @@ export const AppTypesEnum = z.enum(
     "customer-data-platform",
     "business-insights",
     "communication",
+    "settings",
+    "staff-management",
   ],
   {
     description:
@@ -41,6 +43,8 @@ const PORT_RANGES: Record<AppTypes, [number, number]> = {
   "customer-data-platform": [4300, 4349],
   "business-insights": [4350, 4399],
   communication: [4400, 4449],
+  settings: [4450, 4499],
+  "staff-management": [4500, 4549],
 } as const;
 
 const ConfigSchema = z

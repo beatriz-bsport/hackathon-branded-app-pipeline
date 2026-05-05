@@ -1,13 +1,13 @@
 import type { SessionEditPayload, SessionWithActivity } from "@bsport/api-book";
 
-import type { SessionEditFormData } from "#src/components/SessionForm/types.js";
+import type { SessionEditFormData } from "#src/components/SessionForm/types";
 import {
   sessionUpdateCreditsUpdatedEvent,
   sessionUpdateDateStartUpdatedEvent,
   sessionUpdateDurationUpdatedEvent,
   sessionUpdateUpdatedEvent,
   sessionUpdateWaitingListMaxSizeUpdatedEvent,
-} from "#src/events/session-edition/events.js";
+} from "#src/events/session-edition/events";
 
 import { analyticsClient } from "./analytics";
 

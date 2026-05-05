@@ -10,11 +10,8 @@ export type Urls = {
   accessMonitoring_perform: string;
   accessMonitoring_settings: string;
   // Group 3
-  // --- Classes ---
-  activity: string;
-  workshop: string;
-  classes: string;
-  appointment: string;
+  // --- Services ---
+  services: string;
   // Group 4
   // --- Memberships ---
   pass: string;
@@ -71,6 +68,7 @@ export type Urls = {
   settings_widgets: string;
   settings_permission: string;
   settings_personalization: string;
+  settings_staff: string;
   settings_teacherView: string;
   settings_memberForm: string; // Dupplicate ?
   settings_livestreaming: string;
@@ -91,6 +89,7 @@ export type Urls = {
   settings_quicksale: string;
   settings_webshop: string;
   settings_mobilePersonalization: string;
+  settings_aggregators: string;
 };
 
 export type LegacyUrls = Omit<Urls, "homepage" | "onDemand">;

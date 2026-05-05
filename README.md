@@ -143,14 +143,14 @@ or
 pnpm exec nx dev @bsport/[name-of-the-application]
 ```
 
-**Note:** For Studio Manager apps with Module Federation, consider using `pnpm exec nx dev-mfe` instead (see below) for automatic remote management and dependency watching.
+**Note:** For Studio Manager apps, prefer `pnpm exec nx run @bsport/<app>:dev:watch` for automatic remote management and dependency watching.
 
-#### Module Federation Development (Recommended)
+#### Studio Manager watch development (Recommended)
 
-Use the `dev-mfe` command for automatic remote management and dependency watching:
+Use the `dev:watch` target for automatic remote management and dependency watching:
 
 ```sh
-pnpm exec nx dev-mfe @bsport/sm-giftcard
+pnpm exec nx run @bsport/sm-giftcard:dev:watch
 ```
 
 This command will:
@@ -162,13 +162,13 @@ This command will:
 
 ```sh
 # Run with debug output (show all remote logs)
-pnpm exec nx dev-mfe @bsport/sm-giftcard --debug
+pnpm exec nx run @bsport/sm-giftcard:dev:watch --debug
 
 # Disable dependency watching
-pnpm exec nx dev-mfe @bsport/sm-giftcard --watchDeps=false
+pnpm exec nx run @bsport/sm-giftcard:dev:watch --watchDeps=false
 ```
 
-For more details, see [tools/nx-federation/README.md](./tools/nx-federation/README.md).
+For more details, see [tools/nx/README.md](./tools/nx/README.md).
 
 #### Run all revamped application
 
@@ -186,8 +186,8 @@ or
 # Using dev command
 pnpm exec nx dev @bsport/sm-host
 
-# Or using dev-mfe (recommended - auto-starts all remotes)
-pnpm exec nx dev-mfe @bsport/sm-host
+# Or using dev:watch (recommended - auto-starts all remotes)
+pnpm exec nx run @bsport/sm-host:dev:watch
 ```
 
 #### Set the Backend API for revamped application in local

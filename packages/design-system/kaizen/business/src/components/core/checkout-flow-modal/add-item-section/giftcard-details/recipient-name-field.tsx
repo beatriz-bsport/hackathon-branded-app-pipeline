@@ -1,6 +1,6 @@
 import React, { useId } from "react";
 
-import { FormField } from "@bsport/form";
+import { FormField, useFormContext } from "@bsport/form";
 import {
   Button,
   TextField,
@@ -16,6 +16,7 @@ const NAME_MAX_LENGTH = 150;
 export const RecipientNameField: React.FC = () => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
   const nameId = useId();
+  const { clearErrors } = useFormContext<CheckoutFlowFormState>();
 
   return (
     <div className="flex gap-2xs items-center">
@@ -25,15 +26,21 @@ export const RecipientNameField: React.FC = () => {
         TextFieldProps
       >
         name="addItemGiftcardRecipientName"
-        mapProps={({ field, form: { setValue } }) => ({
+        mapProps={({ field, fieldState, form: { setValue } }) => ({
           value: field.value,
-          onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
             setValue("addItemGiftcardRecipientName", e.target.value, {
               shouldDirty: true,
-            }),
-          onClear: () =>
-            setValue("addItemGiftcardRecipientName", "", { shouldDirty: true }),
+            });
+            clearErrors("addItemGiftcardRecipientName");
+          },
+          onClear: () => {
+            setValue("addItemGiftcardRecipientName", "", { shouldDirty: true });
+            clearErrors("addItemGiftcardRecipientName");
+          },
           helperText: `${field.value.length}/${NAME_MAX_LENGTH}`,
+          status: fieldState.error ? "error" : "default",
+          statusText: fieldState.error?.message,
         })}
       >
         <TextField

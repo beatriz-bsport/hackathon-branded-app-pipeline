@@ -17,6 +17,7 @@ export const useRetrieveRefinedBooking = (bookingId: number | null) => {
   const bookingQuery = useQuery({
     ...retrieveBookingQueryOptions(fetch, bookingId!),
     enabled: bookingId != null,
+    throwOnError: true,
   });
 
   const booking = bookingQuery.data;
@@ -32,6 +33,7 @@ export const useRetrieveRefinedBooking = (bookingId: number | null) => {
         }),
         enabled: booking?.member != null,
         staleTime: MEMBER_STALE_TIME,
+        throwOnError: true,
       },
       {
         ...consumerPaymentPackListQueryOptions(fetch, {
@@ -39,6 +41,7 @@ export const useRetrieveRefinedBooking = (bookingId: number | null) => {
           page_size: 1,
         }),
         enabled: cppId != null,
+        throwOnError: true,
       },
     ],
   });
@@ -51,6 +54,7 @@ export const useRetrieveRefinedBooking = (bookingId: number | null) => {
       page_size: 1,
     }),
     enabled: passId != null,
+    throwOnError: true,
   });
 
   const isLoading =

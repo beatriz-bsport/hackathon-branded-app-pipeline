@@ -2,7 +2,7 @@ import React from "react";
 
 import { Badge, Body } from "@bsport/kaizen-primitive-core";
 
-import { useTranslation } from "#src/utils/i18n.js";
+import { useTranslation } from "#src/utils/i18n";
 
 import { useIsSessionHappeningNow } from "./use-is-session-happening-now";
 

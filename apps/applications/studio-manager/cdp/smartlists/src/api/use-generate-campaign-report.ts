@@ -1,8 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { generateCampaignReport } from "./api";
+import type { GenerateReportParams } from "@bsport/api-cdp/communicate";
+import { generateCampaignReportAPI } from "@bsport/api-cdp/smartlist";
+
+import { fetch } from "#src/utils/fetch";
+
 import { pollBackgroundTaskStatusUntilDone } from "./poll-background-task-status";
-import { GenerateReportParams } from "./types";
 
 export function useGenerateCampaignReport({
   onSuccess,
@@ -13,7 +16,10 @@ export function useGenerateCampaignReport({
 }) {
   return useMutation({
     mutationFn: async (params: GenerateReportParams): Promise<string> => {
-      const { backgroundTaskUuid } = await generateCampaignReport(params);
+      const { backgroundTaskUuid } = await generateCampaignReportAPI(
+        fetch,
+        params,
+      );
       return pollBackgroundTaskStatusUntilDone(backgroundTaskUuid);
     },
     onSuccess: (data) => {

@@ -10,7 +10,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { API_URL, DEFAULT_STALE_TIME } from "#src/constants";
+import { API_URL, BOOKING_QUERY_KEY, DEFAULT_STALE_TIME } from "#src/constants";
 import type {
   CanArchiveGroupActivityResponse,
   CreateGroupActivityPayload,
@@ -24,7 +24,7 @@ import type {
 const META_ACTIVITY_URL = API_URL + "v1/meta-activity";
 
 export const groupActivityKeys = {
-  all: ["@api-book", "group-activities"] as const,
+  all: [BOOKING_QUERY_KEY, "group-activities"] as const,
   detail: (id: number) => [...groupActivityKeys.all, id] as const,
   searches: () => [...groupActivityKeys.all, "search"] as const,
   search: (params: SearchGroupActivitiesParams) =>

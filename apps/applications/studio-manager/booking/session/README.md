@@ -7,7 +7,7 @@
 To run in localhost :
 
 ```sh
-pnpm run dev
+pnpm exec nx run @bsport/sm-session:dev:watch
 ```
 
 This will run two applications aside :
@@ -16,6 +16,8 @@ This will run two applications aside :
 - The `session` application, on the port defined in `package.json` in `federation.devPort` : 4201.
 
 Go to <http://localhost:4201>
+
+If you only want the app's own Vite server, run `pnpm exec nx run @bsport/sm-session:dev:single`.
 
 ### Build your translations
 

@@ -12,7 +12,7 @@
 To run in localhost :
 
 ```sh
-pnpm run dev
+pnpm exec nx run @bsport/sm-member-list:dev:watch
 ```
 
 This will run two applications aside :
@@ -21,6 +21,8 @@ This will run two applications aside :
 - The Member list application on port 4100, that import the Navigation Sidebar.
 
 Go to <http://localhost:4100>.
+
+If you only want the app's own Vite server, run `pnpm exec nx run @bsport/sm-member-list:dev:single`.
 
 ### Build your translations
 

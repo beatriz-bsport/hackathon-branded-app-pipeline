@@ -15,7 +15,7 @@ const variants = {
   },
 } as const;
 
-const layoutHeader = cva("sticky top-0 z-[999] bg-surface-page", { variants });
+const layoutHeader = cva("sticky top-0 z-[997] bg-surface-page", { variants });
 
 export type HeaderLayoutProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof layoutHeader> &

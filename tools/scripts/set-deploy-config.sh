@@ -4,17 +4,7 @@ set -eE
 
 ENVIRONMENT=$1
 
-if [ "$ENVIRONMENT" = "feature-branch" ]; then
-  REPO_ROOT="$(git rev-parse --show-toplevel)"
-  . $REPO_ROOT/tools/scripts/parse-feature-branch-id.sh "$CI_COMMIT_TAG"
-  SLACK_WEBHOOK_URL=$SLACK_READY_FOR_TEST_WEBHOOK_URL
-  S3_BUCKET="s3://bsport-backoffice-assets-feature-branch-$FEATURE_BRANCH_IDENTIFIER"
-  FRONTEND_URL="backoffice-$FEATURE_BRANCH_IDENTIFIER.chaos.bsport.io"
-  CLOUDFRONT_ID=$(grep "^$FEATURE_BRANCH_IDENTIFIER " ci/feature-branch-listing.txt | cut -d' ' -f2)
-  CLOUDFRONT_INVALIDATION_LAMBDA_URL="https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/"
-  SENTRY_ENVIRONMENT=$FEATURE_BRANCH_IDENTIFIER
-
-elif [ "$ENVIRONMENT" = "dev" ]; then
+if [ "$ENVIRONMENT" = "dev" ]; then
   SLACK_WEBHOOK_URL=$SLACK_DEV_WEBHOOK_URL
   SLACK_TEMPLATE_FILE="./ci/slack_template/slack_template.json"
   S3_BUCKET="s3://bsport-backoffice-assets-dev"

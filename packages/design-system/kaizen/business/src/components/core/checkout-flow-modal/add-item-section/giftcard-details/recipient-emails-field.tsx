@@ -19,7 +19,8 @@ export const RecipientEmailsField: React.FC = () => {
   const recipientEmailsId = useId();
   const [emailInput, setEmailInput] = useState("");
   const [emailError, setEmailError] = useState("");
-  const { watch, setValue } = useFormContext<CheckoutFlowFormState>();
+  const { watch, setValue, clearErrors } =
+    useFormContext<CheckoutFlowFormState>();
 
   const emails = watch("addItemGiftcardRecipientEmails");
 
@@ -43,6 +44,7 @@ export const RecipientEmailsField: React.FC = () => {
       setValue("addItemGiftcardRecipientEmails", [...emails, trimmedEmail], {
         shouldDirty: true,
       });
+      clearErrors("addItemGiftcardRecipientEmails");
       setEmailInput("");
       setEmailError("");
     }
@@ -54,6 +56,7 @@ export const RecipientEmailsField: React.FC = () => {
       emails.filter((email) => email !== emailToRemove),
       { shouldDirty: true },
     );
+    clearErrors("addItemGiftcardRecipientEmails");
   };
 
   return (
@@ -64,21 +67,24 @@ export const RecipientEmailsField: React.FC = () => {
         TextFieldProps
       >
         name="addItemGiftcardRecipientEmails"
-        mapProps={() => ({
+        mapProps={({ fieldState }) => ({
           value: emailInput,
           onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
             setEmailInput(e.target.value);
             setEmailError("");
+            clearErrors("addItemGiftcardRecipientEmails");
           },
           onClear: () => {
             setEmailInput("");
             setEmailError("");
+            clearErrors("addItemGiftcardRecipientEmails");
           },
           onKeyDown: handleKeyDown,
-          helperText:
-            emailError ||
-            t("checkoutFlowModal.giftCardDetails.recipientEmailsHelper"),
-          status: emailError ? "error" : undefined,
+          helperText: t(
+            "checkoutFlowModal.giftCardDetails.recipientEmailsHelper",
+          ),
+          status: emailError || fieldState.error != null ? "error" : "default",
+          statusText: emailError || fieldState.error?.message,
           required: true,
         })}
       >

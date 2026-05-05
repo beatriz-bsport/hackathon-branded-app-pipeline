@@ -1,6 +1,5 @@
 import {
   CoreBackendEnvironment,
-  FeatureBranchIdentifier,
   getBackendEnvironment,
 } from '#src/utils/environment';
 import {
@@ -40,10 +39,6 @@ const ENTRY_EMAIL_DESIGN_BY_ENV_AND_LANGUAGE: CadenceTemplateEmailDesignMap = {
   [CoreBackendEnvironment.PRODUCTION]: {
     en: 153667,
     fr: 153669,
-  },
-  [FeatureBranchIdentifier.PIKACHU]: {
-    en: null,
-    fr: null,
   },
 };
 

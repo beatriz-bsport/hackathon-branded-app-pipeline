@@ -1,3 +1,7 @@
+import {
+  CommunicationKind,
+  EventKind,
+} from "@bsport/api-cdp/automated-campaign";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import {
   Body,
@@ -8,7 +12,6 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { CommunicationKind, EventKind } from "#src/api/constants";
 import { useAutomatedCampaignDetailSuspenseQuery } from "#src/api/use-automated-campaign-detail";
 import { useEmailTemplateSearch } from "#src/api/use-email-template-search";
 import { AutomationTriggerIcon } from "#src/components/AutomationTriggerIcon/AutomationTriggerIcon";

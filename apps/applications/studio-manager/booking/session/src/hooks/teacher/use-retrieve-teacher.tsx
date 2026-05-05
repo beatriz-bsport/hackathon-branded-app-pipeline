@@ -2,7 +2,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { retrieveTeacherQueryOptions } from "@bsport/api-core";
 
-import { fetch } from "#src/utils/fetch.js";
+import { fetch } from "#src/utils/fetch";
 
 export const useRetrieveTeacher = (teacherId: number) => {
   if (!teacherId) {

@@ -1,5 +1,6 @@
 import { FC } from "react";
 
+import type { Member, MemberNote } from "@bsport/api-cdp";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import {
   DATETIME_FORMATS,
@@ -14,9 +15,8 @@ import {
   useCopyToClipboard,
 } from "@bsport/kaizen-primitive-core";
 
-import { useFetchTags } from "#src/hooks/tags/use-fetch-tags.js";
+import { useFetchTags } from "#src/hooks/tags/use-fetch-tags";
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
-import { RefinedBooking } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { ShortcutActionsButton } from "../action-buttons/booking/shortcut-actions-button";
@@ -24,9 +24,16 @@ import { BookingActionItemId } from "../action-buttons/booking/types";
 import { Section } from "./section";
 
 export const ClientDetails: FC<{
-  selectedBooking: RefinedBooking;
-  openModal: (type: SessionManagementModalType, bookingId: number) => void;
-}> = ({ selectedBooking, openModal }) => {
+  sessionId: number;
+  memberData:
+    | (Member & {
+        notes?: MemberNote[];
+      })
+    | undefined;
+  isNewClient?: boolean;
+  bookingId?: number;
+  openModal?: (type: SessionManagementModalType, bookingId: number) => void;
+}> = ({ sessionId, memberData, isNewClient, bookingId, openModal }) => {
   const { t, i18n } = useTranslation("sessionManagement");
 
   const locale = i18n.language;
@@ -34,24 +41,18 @@ export const ClientDetails: FC<{
   const { copyToClipboard } = useCopyToClipboard();
 
   const { data: memberTags } = useFetchTags((tags) =>
-    tags.filter((tag) =>
-      (selectedBooking.memberData?.tags ?? []).includes(tag.id),
-    ),
+    tags.filter((tag) => (memberData?.tags ?? []).includes(tag.id)),
   );
 
-  if (!selectedBooking) return null;
+  if (!memberData) return null;
 
-  const unpaidAmount = Number(
-    selectedBooking.memberData?.total_unpaid_amount ?? 0,
-  );
+  const unpaidAmount = Number(memberData.total_unpaid_amount ?? 0);
 
-  const balance = Number(
-    selectedBooking.memberData?.credit_account_balance ?? 0,
-  );
+  const balance = Number(memberData.credit_account_balance ?? 0);
 
   // Despite its name, highlighted actually means "is private"
   // There's even a comment in the Backemd code acknowledging the misleading name
-  const memberNotes = (selectedBooking.memberData?.notes ?? []).filter(
+  const memberNotes = (memberData.notes ?? []).filter(
     (note) => !note.is_medical && !note.highlighted,
   );
 
@@ -62,10 +63,10 @@ export const ClientDetails: FC<{
           {t("participantDetails.clientDetails")}
         </Title>
         <ShortcutActionsButton
-          bookingId={selectedBooking?.id}
+          bookingId={bookingId}
           openModal={openModal}
-          sessionId={selectedBooking.offer}
-          memberId={selectedBooking.memberData?.id}
+          sessionId={sessionId}
+          memberId={memberData.id}
           allowedItemIds={[
             BookingActionItemId.SELL_ITEMS,
             BookingActionItemId.SEND_MESSAGE,
@@ -78,13 +79,13 @@ export const ClientDetails: FC<{
         <Body size="md" weight="weak" color="weak">
           {t("participantDetails.memberSince", {
             memberSince: formatDateTimeFromDate(
-              fromIsoString(selectedBooking.memberData?.date_joined ?? ""),
+              fromIsoString(memberData.date_joined ?? ""),
               DATETIME_FORMATS.DAY_MONTH_YEAR,
               { locale },
             ),
           })}
         </Body>
-        {selectedBooking?.first_in_company && (
+        {isNewClient && (
           <Chip
             size="lg"
             color="default"
@@ -94,25 +95,25 @@ export const ClientDetails: FC<{
         )}
       </div>
       <Section>
-        <div className="flex gap-xs items-center">
-          <Body color="default">{selectedBooking.memberData?.email}</Body>
-          <Button
-            kind="icon-button"
-            icon="copy-07"
-            label={t("actions.copyClientEmail")}
-            intent="flat"
-            size="md"
-            color="default"
-            onClick={() => {
-              if (selectedBooking.memberData?.email) {
-                copyToClipboard(selectedBooking.memberData?.email);
-              }
-            }}
-          />
-        </div>
-        {selectedBooking.memberData?.phone && (
+        {memberData.email && (
           <div className="flex gap-xs items-center">
-            <Body color="default">{selectedBooking.memberData?.phone}</Body>
+            <Body color="default">{memberData.email}</Body>
+            <Button
+              kind="icon-button"
+              icon="copy-07"
+              label={t("actions.copyClientEmail")}
+              intent="flat"
+              size="md"
+              color="default"
+              onClick={() => {
+                copyToClipboard(memberData.email);
+              }}
+            />
+          </div>
+        )}
+        {memberData.phone && (
+          <div className="flex gap-xs items-center">
+            <Body color="default">{memberData.phone}</Body>
             <Button
               kind="icon-button"
               icon="copy-07"
@@ -121,8 +122,8 @@ export const ClientDetails: FC<{
               size="md"
               color="default"
               onClick={() => {
-                if (selectedBooking.memberData?.phone) {
-                  copyToClipboard(selectedBooking.memberData?.phone);
+                if (memberData.phone) {
+                  copyToClipboard(memberData.phone);
                 }
               }}
             />

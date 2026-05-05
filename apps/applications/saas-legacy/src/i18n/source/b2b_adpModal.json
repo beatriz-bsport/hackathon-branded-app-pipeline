@@ -7,5 +7,16 @@
       "paragraph3": "If you need help, contact our support team at <0>support@bsport.io</0>.",
       "contactUs": "Contact us for help"
     }
+  },
+  "pendingAgreements": {
+    "alert": {
+      "title": "Apple Agreement Update",
+      "paragraph1": "There is an updated Developer Program License Agreement available on your Apple Developer account. We will not be able to update your <0>iOS app</0> until the agreement is accepted.",
+      "paragraph2": "It takes 1 minute! Here's how to resolve",
+      "paragraph3": "1. The <0>account owner</0> must sign in to the Apple Developer account at <1>https://appstoreconnect.apple.com/business</1>.",
+      "paragraph4": "2. You'll see a banner prompting you to review the updated <0>Apple Developer Program License agreement.</0>",
+      "paragraph5": "3. Click <0>\"Review Agreement\"</0>, then <0>\"Accept\"</0>.",
+      "goToApple": "Go to Apple Developer account"
+    }
   }
 }

@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { emailTemplateSearchQueryOptions } from "./api";
+import { emailTemplateSearchQueryOptions } from "@bsport/api-cdp/email-template";
+
+import { fetch } from "#src/utils/fetch";
 
 /**
  * Hook to power BackendSelector with email template search.
@@ -17,7 +19,7 @@ export function useEmailTemplateSearch({
   id__in?: string;
 }) {
   const { data: queryData, isLoading } = useQuery(
-    emailTemplateSearchQueryOptions({ searchInput, id__in }),
+    emailTemplateSearchQueryOptions(fetch, { searchInput, id__in }),
   );
   const data = queryData?.results ?? [];
   return { data, isLoading };

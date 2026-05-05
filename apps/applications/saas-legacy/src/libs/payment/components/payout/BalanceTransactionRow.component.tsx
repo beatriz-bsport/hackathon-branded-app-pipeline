@@ -16,6 +16,8 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
 import { formatAsDatetime } from '../../../../utils/datetime';
+import { useSafeFlag } from '../../../../utils/feature-flag/flagWrapper';
+import { FeatureFlags } from '../../../../utils/feature-flag/flags';
 import type {
   BalanceTransaction,
   BalanceTransactionDisplayType,
@@ -283,11 +285,16 @@ const BalanceTransactionRow: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['b2b_payout']);
+  const hasFeeBreakdown = useSafeFlag(FeatureFlags.PAYOUT_FEE_BREAKDOWN);
 
-  const amountDisplay = getCurrencyDisplayWithPrice(
+  const grossDisplay = getCurrencyDisplayWithPrice(
     (bt.amount_cts / 100).toFixed(2),
   );
-  const netDisplay = getCurrencyDisplayWithPrice((bt.net_cts / 100).toFixed(2));
+  const feeDisplay = getCurrencyDisplayWithPrice((bt.fee_cts / 100).toFixed(2));
+  const totalDisplay = getCurrencyDisplayWithPrice(
+    (bt.net_cts / 100).toFixed(2),
+  );
+
   const transactionCreatedAt = bt.payment_provider_created_at
     ? formatAsDatetime(bt.payment_provider_created_at, timezoneName)
     : '-';
@@ -308,17 +315,6 @@ const BalanceTransactionRow: React.FC<Props> = ({
       >
         <InfoOutlinedIcon className={classes.infoIcon} fontSize="small" />
       </TapTooltip>
-    </div>
-  );
-
-  const amountCell = (
-    <div className={classes.amountCell}>
-      <Typography variant="body2">{amountDisplay}</Typography>
-      {bt.fee_cts !== 0 && (
-        <Typography color="textSecondary" variant="caption">
-          {t('balanceTransaction.net', { amount: netDisplay })}
-        </Typography>
-      )}
     </div>
   );
 
@@ -343,8 +339,38 @@ const BalanceTransactionRow: React.FC<Props> = ({
         <Typography color="textSecondary" variant="caption">
           {transactionCreatedAt}
         </Typography>
-        {/* Amount */}
-        {amountCell}
+        {/* Gross / Fee / Total */}
+        <div className={classes.mobileAmounts}>
+          {hasFeeBreakdown ? (
+            <>
+              <div className={classes.mobileAmountItem}>
+                <Typography color="textSecondary" variant="caption">
+                  {t('balanceTransactionTable.gross')}
+                </Typography>
+                <Typography variant="body2">{grossDisplay}</Typography>
+              </div>
+              <div className={classes.mobileAmountItem}>
+                <Typography color="textSecondary" variant="caption">
+                  {t('balanceTransactionTable.fee')}
+                </Typography>
+                <Typography variant="body2">{feeDisplay}</Typography>
+              </div>
+              <div className={classes.mobileAmountItem}>
+                <Typography color="textSecondary" variant="caption">
+                  {t('balanceTransactionTable.total')}
+                </Typography>
+                <Typography variant="body2">{totalDisplay}</Typography>
+              </div>
+            </>
+          ) : (
+            <div className={classes.mobileAmountItem}>
+              <Typography color="textSecondary" variant="caption">
+                {t('balanceTransactionTable.amount')}
+              </Typography>
+              <Typography variant="body2">{totalDisplay}</Typography>
+            </div>
+          )}
+        </div>
         {/* Invoice(s) */}
         <InvoiceCell isMobile balanceTransaction={bt} />
       </Paper>
@@ -369,7 +395,23 @@ const BalanceTransactionRow: React.FC<Props> = ({
           status={bt.reconciliation_status}
         />
       </TableCell>
-      <TableCell>{amountCell}</TableCell>
+      {hasFeeBreakdown ? (
+        <>
+          <TableCell>
+            <Typography variant="body2">{grossDisplay}</Typography>
+          </TableCell>
+          <TableCell>
+            <Typography variant="body2">{feeDisplay}</Typography>
+          </TableCell>
+          <TableCell>
+            <Typography variant="body2">{totalDisplay}</Typography>
+          </TableCell>
+        </>
+      ) : (
+        <TableCell>
+          <Typography variant="body2">{totalDisplay}</Typography>
+        </TableCell>
+      )}
       <TableCell>
         <InvoiceCell balanceTransaction={bt} isMobile={false} />
       </TableCell>
@@ -391,7 +433,14 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.hint,
     cursor: 'default',
   },
-  amountCell: { display: 'flex', flexDirection: 'column' },
+  mobileAmounts: {
+    display: 'flex',
+    gap: theme.spacing(2),
+  },
+  mobileAmountItem: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
   mobileCard: {
     padding: theme.spacing(1.5),
     display: 'flex',

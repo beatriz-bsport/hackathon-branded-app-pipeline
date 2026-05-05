@@ -1,5 +1,3 @@
-import { queryOptions } from "@tanstack/react-query";
-
 import {
   type ApiConfig,
   type Fetch,
@@ -48,7 +46,7 @@ const getFetchAutomatedCampaignDetailConfig = (
 
 // ── API Functions ──
 
-export const fetchAutomatedCampaigns = async (
+export const fetchAutomatedCampaignsAPI = async (
   fetch: Fetch<PaginatedResponse<AutomatedCampaign>>,
   params: FetchAutomatedCampaignsParams,
 ): Promise<AutomatedCampaign[]> => {
@@ -57,7 +55,7 @@ export const fetchAutomatedCampaigns = async (
   return data.results;
 };
 
-export const fetchAutomatedCampaignDetail = async (
+export const fetchAutomatedCampaignDetailAPI = async (
   fetch: Fetch<AutomatedCampaign>,
   messageId: string,
 ): Promise<AutomatedCampaign> => {
@@ -66,7 +64,7 @@ export const fetchAutomatedCampaignDetail = async (
   return data;
 };
 
-export const createAutomatedCampaign = async (
+export const createAutomatedCampaignAPI = async (
   fetch: Fetch<AutomatedCampaign>,
   params: CreateAutomatedCampaignParams,
 ): Promise<AutomatedCampaign> => {
@@ -78,7 +76,7 @@ export const createAutomatedCampaign = async (
   return data;
 };
 
-export const updateAutomatedCampaign = async (
+export const updateAutomatedCampaignAPI = async (
   fetch: Fetch<AutomatedCampaign>,
   params: UpdateAutomatedCampaignParams,
 ): Promise<AutomatedCampaign> => {
@@ -91,7 +89,7 @@ export const updateAutomatedCampaign = async (
   return data;
 };
 
-export const deleteAutomatedCampaign = async (
+export const deleteAutomatedCampaignAPI = async (
   fetch: Fetch<void>,
   id: number,
 ): Promise<void> => {
@@ -101,27 +99,3 @@ export const deleteAutomatedCampaign = async (
   ];
   await fetch(uri, init);
 };
-
-// ── Query Options Factories ──
-
-export const automatedCampaignsQueryOptions = (
-  fetch: Fetch<PaginatedResponse<AutomatedCampaign>>,
-  smartlistId: string,
-) =>
-  queryOptions({
-    queryKey: automatedCampaignKeys.list(smartlistId),
-    queryFn: () =>
-      fetchAutomatedCampaigns(fetch, {
-        smartlist_id: smartlistId,
-        exclude_disabled: true,
-      }),
-  });
-
-export const automatedCampaignDetailQueryOptions = (
-  fetch: Fetch<AutomatedCampaign>,
-  messageId: string,
-) =>
-  queryOptions({
-    queryKey: automatedCampaignKeys.detail(messageId),
-    queryFn: () => fetchAutomatedCampaignDetail(fetch, messageId),
-  });

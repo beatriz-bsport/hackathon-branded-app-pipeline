@@ -21,7 +21,7 @@ All applications follow the same pattern, and have been built with the `project:
 
 These applications are maintained by Ichizen maintainers, as they don't belong to a specific Vertical, and they hold a special business logic.
 
-- [Host](./host/README.md) : A shell application where all applications are loaded via Module Federation. You can visualize a local version of the full backoffice by running `pnpm exec nx dev @bsport/sm-host`.
+- [Host](./host/README.md) : A shell application where all applications are loaded via Module Federation. You can visualize a local version of the full backoffice by running `pnpm exec nx run @bsport/sm-host:dev:watch`.
 - [Navigation Sidebar](./navigation-sidebar/README.md) : An application dedicated to the Navigation in the Studio Manager backoffice. It is launched on every application in local development.
 
 Other applications are maintained by Vertical developers. When they run locally, each application is in standalone mode and don't interact with other applications, except the Navigation Sidebar.
@@ -65,6 +65,8 @@ cd ./VERTICAL/APPLICATION
 pnpm run COMMAND
 ```
 
+For local development, prefer Nx from the workspace root so remotes are started automatically.
+
 or use a single line command
 
 ```sh
@@ -79,7 +81,15 @@ pnpm exec nx run @bsport/sm-APP-NAME:COMMAND
 ### Run your application locally
 
 ```sh
-pnpm exec nx dev @bsport/sm-APP
+pnpm exec nx run @bsport/sm-APP:dev:watch
+```
+
+This starts the target app and any required Studio Manager remotes declared in `federation.remotes`.
+
+If you need only the app's own Vite server, use:
+
+```sh
+pnpm exec nx run @bsport/sm-APP:dev:single
 ```
 
 ### Build and update translations

@@ -10,7 +10,7 @@ import {
 import { toast } from "@bsport/kaizen-primitive-core";
 
 import { fetch } from "#src/utils/fetch";
-import { useTranslation } from "#src/utils/i18n.js";
+import { useTranslation } from "#src/utils/i18n";
 
 const cancelBooking = cancelBookingAPI.bind(null, fetch);
 

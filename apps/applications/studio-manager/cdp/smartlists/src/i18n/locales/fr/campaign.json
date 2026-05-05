@@ -330,6 +330,10 @@
         "copyEmail": "Copier l'email",
         "copyPhoneNumber": "Copy phone number",
         "copyName": "Copy name"
+      },
+      "copyContactInfo": {
+        "success": "Copié dans le presse-papiers.",
+        "error": "Impossible de copier dans le presse-papiers. Veuillez réessayer."
       }
     },
     "campaignScheduled": {

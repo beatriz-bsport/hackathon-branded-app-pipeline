@@ -2,6 +2,10 @@ import { useMemo } from "react";
 import { useOutletContext } from "react-router";
 
 import {
+  CommunicationKind,
+  EventKind,
+} from "@bsport/api-cdp/automated-campaign";
+import {
   Body,
   Button,
   Card,
@@ -14,7 +18,6 @@ import {
   toast,
 } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind, EventKind } from "#src/api/constants";
 import type { Smartlist } from "#src/api/types";
 import {
   type AutomatedCampaignWithAnalytics,

@@ -1,6 +1,6 @@
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import { toast } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind } from "#src/api/constants";
 import { useCreateAutomatedCampaign } from "#src/api/use-create-automated-campaign";
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useTranslation } from "#src/utils/i18n";

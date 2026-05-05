@@ -1,9 +1,9 @@
 import { useParams } from "react-router";
 
-import { Card, Table, Title } from "@bsport/kaizen-primitive-core";
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
+import { Card, Table, Title, toast } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { CommunicationKind } from "#src/api/constants";
 import { useFetchCampaignSentRecipientsWithMemberData } from "#src/api/use-fetch-campaign-sent-recipients-with-member-data";
 import { SMARTLIST_LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
@@ -37,10 +37,36 @@ export const CampaignSentRecipientTable = ({
   });
   const tableColumns = useCampaignSentTableColumns({
     navigateToMemberProfile: (memberId: number) => {
-      window.location.href = MEMBER_PROFILE_URL(memberId);
+      window.open(MEMBER_PROFILE_URL(memberId), "_blank");
     },
-    copyContactInfo: (contactInfo: string) => {
-      navigator.clipboard.writeText(contactInfo);
+    copyContactInfo: async (contactInfo: string) => {
+      if (!navigator?.clipboard?.writeText) {
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          description: t("table.campaignRecipient.copyContactInfo.error"),
+          buttonIcon: "x-close",
+        });
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(contactInfo);
+        toast({
+          status: "positive",
+          icon: "check",
+          description: t("table.campaignRecipient.copyContactInfo.success"),
+          buttonIcon: "x-close",
+        });
+      } catch (error) {
+        console.error(error);
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          description: t("table.campaignRecipient.copyContactInfo.error"),
+          buttonIcon: "x-close",
+        });
+      }
     },
   });
   const tableRows = formatCampaignSentRecipientsTableRow({

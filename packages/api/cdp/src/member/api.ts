@@ -1,5 +1,3 @@
-import { queryOptions } from "@tanstack/react-query";
-
 import {
   type Fetch,
   type PaginatedResponse,
@@ -35,22 +33,13 @@ export const memberKeys = {
     [...memberKeys.all, "search", params] as const,
 } as const;
 
-export const fetchMember = async (
+export const fetchMemberAPI = async (
   fetch: Fetch<MemberDetail>,
   params: GetMemberParams,
 ): Promise<MemberDetail> => {
   const { data } = await fetch(`${API_URL}/${params.memberId}/`);
   return data;
 };
-
-export const memberQueryOptions = (
-  fetch: Fetch<MemberDetail>,
-  params: GetMemberParams,
-) =>
-  queryOptions({
-    queryKey: memberKeys.detail(params.memberId),
-    queryFn: () => fetchMember(fetch, params),
-  });
 
 export const searchMembersAPI = async (
   fetch: Fetch<Member[]>,
@@ -63,15 +52,6 @@ export const searchMembersAPI = async (
   return data;
 };
 
-export const searchMembersQueryOptions = (
-  fetch: Fetch<Member[]>,
-  params: SearchMembersParams,
-) =>
-  queryOptions({
-    queryKey: memberKeys.search(params),
-    queryFn: () => searchMembersAPI(fetch, params),
-  });
-
 export const fetchMemberListAPI = async (
   fetch: Fetch<PaginatedResponse<Member>>,
   params: PaginatedMemberListParams = {},
@@ -82,29 +62,12 @@ export const fetchMemberListAPI = async (
   return data;
 };
 
-export const memberListQueryOptions = (
-  fetch: Fetch<PaginatedResponse<Member>>,
-  params: PaginatedMemberListParams = {},
-) => {
-  return queryOptions({
-    queryKey: memberKeys.list(params),
-    queryFn: () => fetchMemberListAPI(fetch, params),
-    staleTime: MEMBER_STALE_TIME,
-  });
-};
-
 export const getLatestMemberAPI = async (
   fetch: Fetch<number>,
 ): Promise<number> => {
   const { data } = await fetch(`${API_URL}/latest/`);
   return data;
 };
-
-export const getLatestMemberQueryOptions = (fetch: Fetch<number>) =>
-  queryOptions({
-    queryKey: memberKeys.latest(),
-    queryFn: () => getLatestMemberAPI(fetch),
-  });
 
 export const addMemberAPI = async (
   fetch: Fetch<Member>,

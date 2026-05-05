@@ -13,4 +13,5 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   // Classes revamp
   CLASSES_MERGED_VIEW: "booking_classes_merged_view",
   SMARTFILL: "smartfill_page",
+  SETTINGS_AGGREGATORS: "settings_aggregators_view",
 } as const);

@@ -31,6 +31,8 @@ import {
   formatAsDatetimeAdapted,
   formatAsDate,
 } from '../../../../utils/datetime';
+import { useSafeFlag } from '../../../../utils/feature-flag/flagWrapper';
+import { FeatureFlags } from '../../../../utils/feature-flag/flags';
 import type {
   BalanceTransaction,
   BalanceTransactionStats,
@@ -40,8 +42,8 @@ import BalanceTransactionRow from './BalanceTransactionRow.component';
 import PayoutSummary from './PayoutSummary.component';
 import TapTooltip from './TapTooltip.component';
 
-// The table in PayoutList has 5 columns — the detail row spans all of them.
-const COLUMN_COUNT = 6;
+// The table in PayoutList has 8 columns — the detail row spans all of them.
+const COLUMN_COUNT = 8;
 
 type Props = {
   isMobile: boolean;
@@ -82,6 +84,7 @@ const PayoutListItem: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['b2b_payout', 'payment']);
   const classes = useStyles({ payout });
+  const hasFeeBreakdown = useSafeFlag(FeatureFlags.PAYOUT_FEE_BREAKDOWN);
 
   React.useEffect(() => {
     if (isOpen && !balanceTransactions && !balanceTransactionLoading) {
@@ -195,9 +198,23 @@ const PayoutListItem: React.FC<Props> = ({
                     <TableCell>
                       {t('b2b_payout:balanceTransactionTable.status')}
                     </TableCell>
-                    <TableCell>
-                      {t('b2b_payout:balanceTransactionTable.amount')}
-                    </TableCell>
+                    {hasFeeBreakdown ? (
+                      <>
+                        <TableCell>
+                          {t('b2b_payout:balanceTransactionTable.gross')}
+                        </TableCell>
+                        <TableCell>
+                          {t('b2b_payout:balanceTransactionTable.fee')}
+                        </TableCell>
+                        <TableCell>
+                          {t('b2b_payout:balanceTransactionTable.total')}
+                        </TableCell>
+                      </>
+                    ) : (
+                      <TableCell>
+                        {t('b2b_payout:balanceTransactionTable.amount')}
+                      </TableCell>
+                    )}
                     <TableCell>
                       {t('b2b_payout:balanceTransactionTable.invoices')}
                     </TableCell>

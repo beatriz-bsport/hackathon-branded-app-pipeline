@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 import {
   type Collection,
@@ -37,6 +37,15 @@ export const useDeleteCollection = ({
   const { t, i18n } = useTranslation("collections-list");
   const queryClient = useQueryClient();
   const pendingDeletions = useRef<Map<number, NodeJS.Timeout>>(new Map());
+
+  useEffect(() => {
+    return () => {
+      pendingDeletions.current.forEach((timeout, id) => {
+        removePendingDeletion(id);
+        clearTimeout(timeout);
+      });
+    };
+  }, []);
 
   const removeFromCache = useCallback(
     (id: number) => {

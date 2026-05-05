@@ -2,9 +2,12 @@
   "pageTitle": "{{sessionName}} with {{coachName}}",
   "goToPreviousSession": "Go to previous class",
   "goToNextSession": "Go to next class",
+  "refresh": "Refresh lists",
   "bookButton": "Book a client",
   "bookingsSectionTitle": "Participants",
   "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",
+  "waitlistSectionTitle": "Waitlist",
+  "waitlistSectionSubtitle": "{{bookingOptionsCount}}/{{waitlistCapacity}} spots filled",
   "bookingsTable": {
     "headers": {
       "present": "Present",
@@ -16,8 +19,10 @@
     "loadingMessage": "Loading participants list...",
     "chips": {
       "new": "New",
+      "firstBooking": "First booking of the member",
       "recurring": "Recurring booking",
-      "tags": "Tags"
+      "tags": "Tags",
+      "unpaidInvoices": "Outstanding balance. Check billing details or resolve unpaid invoices."
     },
     "actionsMenu": {
       "label": "Actions"
@@ -29,6 +34,12 @@
       "studio": "Cancelled by the studio"
     },
     "cancellationDate": "On {{cancellationDate}}"
+  },
+  "waitList": {
+    "emptyState": {
+      "title": "There are no participants on waitlist"
+    },
+    "loadingMessage": "Loading waitlist..."
   },
   "bookingStatusFilter": {
     "booked": "Booked",
@@ -44,7 +55,41 @@
     "sendMessage": "Send message",
     "copyClientEmail": "Copy client email",
     "copyClientPhone": "Copy client phone number",
-    "editClientNotes": "Edit client notes"
+    "editClientNotes": "Edit client notes",
+    "bookToClass": "Book to the class",
+    "removeFromWaitlist": "Remove from waitlist",
+    "assignSpot": {
+      "success": "Spot assigned",
+      "error": "Couldn't assign the spot"
+    }
+  },
+  "floorPlan": {
+    "header": "Spot selection",
+    "loadError": "We couldn't load the floor plan."
+  },
+  "spotSelector": {
+    "title": "Choose your spot",
+    "book": "Book spot {{label}}",
+    "bookPlaceholder": "Book spot",
+    "cancel": "Cancel",
+    "takenSpotError": "This spot is taken. Please select another one.",
+    "legend": {
+      "title": "Spot status legend",
+      "free": "Free",
+      "taken": "Taken",
+      "selected": "Selected",
+      "current": "Current spot"
+    },
+    "loadError": "We couldn't load the floor plan.",
+    "noBlueprint": "No floor plan configured for this session.",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "resetView": "Reset view",
+    "spotAriaLabel": "Spot {{label}}, {{state}}",
+    "coachAriaLabel": "Coach {{name}}",
+    "coachPositionAriaLabel": "Coach position",
+    "availabilityCount": "{{free}} of {{total}} spots available",
+    "allTaken": "All spots are taken"
   },
   "booking": "Booking",
   "billing": "Billing",
@@ -82,6 +127,61 @@
     "billing": "Billing",
     "unpaidInvoices": "Unpaid invoices:",
     "balance": "Balance:",
-    "tags": "Tags"
+    "tags": "Tags",
+    "addedToWaitlistOn": "Added to waitlist on {{bookingOptionDate}}",
+    "positionInWaitlist": "Position in waitlist"
+  },
+  "bookingOrdering": {
+    "label": "Ordering",
+    "mostRecent": "Most recent",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "switchOrder": "Switch order"
+  },
+  "listedInformation": {
+    "label": "Listed information",
+    "spot": "Spot",
+    "pass": "Pass",
+    "newMember": "New member",
+    "recurringBooking": "Recurring booking",
+    "tags": "Tags",
+    "unpaidInvoices": "Unpaid invoices"
+  },
+  "waitlistSettings": {
+    "title": "Waitlist settings",
+    "general": "General",
+    "priorityManagement": "Priority management",
+    "isOptionBlocking": {
+      "title": "Save openings for waitlist members only",
+      "description": "A spot will be reserved for members on the waitlist until they book."
+    },
+    "checkCredit": {
+      "title": "Require valid pass with sufficient credit",
+      "description": "Members can only join waitlist if they have a pass compatible with this session and enough credits."
+    },
+    "oneByOne": {
+      "title": "One-by-one",
+      "description": "Members are ranked in order. The first person is notified automatically when a spot opens."
+    },
+    "autokickDelay": {
+      "title": "{{autokick_delay}} notifications before removal from waitlist",
+      "description": {
+        "simple": "When a spot opens, members receive {{autokick_delay}} reminders spaced {{dumb_delay_minutes}} minutes apart to book before their spot goes to the next person.",
+        "smart": "When a spot opens, members receive {{autokick_delay}} reminders spaced at {{smart_delay_percentage}}% intervals of the remaining time before the session starts. "
+      }
+    },
+    "autoConsumePack": {
+      "title": "Auto-book from waitlist",
+      "description": "Members are automatically enrolled when a spot opens and credits are deducted from their valid pass (up to {{last_delay_before_auto_consume}} minute before the session starts)",
+      "description_other": "Members are automatically enrolled when a spot opens and credits are deducted from their valid pass (up to {{last_delay_before_auto_consume}} minutes before the session starts)"
+    },
+    "kickIfNoPack": {
+      "title": "Auto-remove without valid pass",
+      "description": "Members are removed from the waitlist if they no longer have a valid pass when their turn arrives."
+    },
+    "firstComeFirstServed": {
+      "title": "First come, first served",
+      "description": "All members that joined this waitlist will be informed simultaneously once a spot becomes available."
+    }
   }
 }

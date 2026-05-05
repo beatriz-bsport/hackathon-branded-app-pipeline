@@ -1,10 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { smartlistKeys, updateScheduledEmailCampaign } from "./api";
-import type {
-  CampaignScheduled,
-  UpdateScheduledEmailCampaignPayload,
-} from "./types";
+import {
+  type CampaignScheduled,
+  type UpdateScheduledEmailCampaignPayload,
+  updateScheduledEmailCampaignAPI,
+} from "@bsport/api-cdp/communicate";
+
+import { fetch } from "#src/utils/fetch";
+
+import { smartlistQueryKeys } from "./api";
 
 type UseUpdateScheduledEmailCampaignParams = {
   onSuccess?: (data: CampaignScheduled) => void;
@@ -24,15 +28,17 @@ export const useUpdateScheduledEmailCampaign = ({
     }: {
       campaignScheduledId: string;
       payload: UpdateScheduledEmailCampaignPayload;
-    }) => updateScheduledEmailCampaign(campaignScheduledId, payload),
+    }) => updateScheduledEmailCampaignAPI(fetch, campaignScheduledId, payload),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: smartlistKeys.campaignScheduledDetail(
+        queryKey: smartlistQueryKeys.communicateKeys.campaignScheduledDetail(
           variables.campaignScheduledId,
         ),
       });
       queryClient.invalidateQueries({
-        queryKey: smartlistKeys.campaignScheduledList(String(data.smartlist)),
+        queryKey: smartlistQueryKeys.communicateKeys.campaignScheduledList({
+          smartlist_id__in: [Number(variables.payload.smartlist)],
+        }),
       });
       onSuccess?.(data);
     },

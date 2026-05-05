@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useParams } from "react-router";
 import invariant from "tiny-invariant";
 
+import { type CampaignSent } from "@bsport/api-cdp/communicate";
 import {
   Button,
   Card,
@@ -14,12 +16,15 @@ import { useFetchCampaignSentList } from "#src/api/use-fetch-campaign-sent-list"
 import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useTranslation } from "#src/utils/i18n";
 
+import { CampaignSentPreviewModal } from "./campaign-sent-preview-modal";
 import { useCampaignSentTableColumns } from "./use-campaign-sent-table-columns";
 import { formatCampaignSentTableRow } from "./utils";
 
 const LEGACY_POPUP_SETTINGS = "/settings/mobile-personalisation/popups";
 
 export const CampaignSentList = () => {
+  const [previewCampaignSent, setPreviewCampaignSent] =
+    useState<CampaignSent | null>(null);
   const { t } = useTranslation("campaign");
   const isMobile = !useMatchMedia("md");
   const { currentPage, currentPageSize, setPageSettings } =
@@ -47,8 +52,11 @@ export const CampaignSentList = () => {
   }));
 
   const tableColumns = useCampaignSentTableColumns({
-    onPreview: (campaignId) =>
-      console.log("Placeholder : preview sent campaign : ", campaignId),
+    onPreview: (campaignUuid) => {
+      const selectedCampaignSent =
+        campaignSent.find((campaign) => campaign.uuid === campaignUuid) ?? null;
+      setPreviewCampaignSent(selectedCampaignSent);
+    },
   });
 
   const doesSmartlistHaveCampaignSent = campaignSent?.length > 0;
@@ -98,6 +106,12 @@ export const CampaignSentList = () => {
           }}
         />
       </Card>
+      {previewCampaignSent ? (
+        <CampaignSentPreviewModal
+          campaignSent={previewCampaignSent}
+          onClose={() => setPreviewCampaignSent(null)}
+        />
+      ) : null}
     </div>
   );
 };

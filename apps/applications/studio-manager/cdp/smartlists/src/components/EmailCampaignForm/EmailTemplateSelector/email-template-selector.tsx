@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { EmailTemplateDetail } from "@bsport/api-cdp";
+import { type EmailTemplateDetail } from "@bsport/api-cdp/email-template";
 import { BackendSelector } from "@bsport/kaizen-business-components/form/backend-selector";
 import { TextFieldProps } from "@bsport/kaizen-primitive-core";
 

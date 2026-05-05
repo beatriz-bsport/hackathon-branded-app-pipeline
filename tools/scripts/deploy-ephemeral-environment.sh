@@ -21,9 +21,10 @@ apiVersion: apps.sre.bsport.io/v1alpha1
 kind: Environment
 metadata:
   name: preview-$CI_MERGE_REQUEST_IID
-  labels:
-    bsport.io/owner: ${GITLAB_USER_LOGIN}
+  annotations:
+    bsport.io/owner: ${GITLAB_USER_EMAIL}
 spec:
+  paused: false
   frontends:
     backoffice:
       version: $CI_COMMIT_SHORT_SHA

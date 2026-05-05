@@ -5,7 +5,7 @@ import {
   getLocalNow,
 } from "@bsport/datetime-manipulation";
 
-import { EnrichedSession } from "#src/types.js";
+import { EnrichedSession } from "#src/types";
 
 export const scrollToDate = (date: DateTime) => {
   const dateString = getIsoDate(date);

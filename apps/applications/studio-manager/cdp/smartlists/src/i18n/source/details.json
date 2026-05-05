@@ -150,6 +150,11 @@
           "cancel": "Cancel"
         }
       },
+      "limitReachedModal": {
+        "title": "Unlock more tag rules",
+        "description": "You’ve reached the limit of 10 tag rules across your segments. Add more rules to automate your workflows and better target your members.",
+        "disclaimer": "This feature is an add-on. Contact your Account Manager for more information."
+      },
       "toasts": {
         "success": {
           "created": "Tag rule created",
@@ -383,6 +388,57 @@
           "segmentCount_other": "{{count}} SMS segments",
           "moreThanOneSegment": "This message will be sent in {{count}} SMS segments as there is a limit of 160 characters per segment. Be mindful of the character count when adding variables."
         }
+      }
+    }
+  },
+  "filters": {
+    "date": {
+      "label": "Date",
+      "fixedHint": "Filters for fixed dates won't update automatically",
+      "types": {
+        "fixed": "Fixed",
+        "relative": "Relative"
+      },
+      "operators": {
+        "absolute": {
+          "onOrBefore": "On or before",
+          "onOrAfter": "On or after",
+          "exactlyOn": "Exactly on",
+          "between": "Between"
+        },
+        "relative": {
+          "pastLabel": "Past",
+          "futureLabel": "Future",
+          "pastMoreThan": "More than ... days ago",
+          "pastExactly": "Exactly ... days ago",
+          "pastBetween": "Between ... and ... days ago",
+          "futureMoreThan": "More than ... days from now",
+          "futureExactly": "Exactly ... days from now",
+          "futureBetween": "Between ... and ... days from now"
+        }
+      },
+      "fields": {
+        "and": "And",
+        "daysAgo": "Days ago",
+        "daysFromNow": "Days from now"
+      },
+      "alerts": {
+        "onAndBefore": "On {{date}} and all dates before this",
+        "on": "On {{date}}",
+        "onAndAfter": "On {{date}} and all dates after this",
+        "fromTo": "From {{earliestDate}} to {{latestDate}}"
+      }
+    },
+    "numericComparator": {
+      "defaultSuffix": "Total sessions",
+      "operators": {
+        "equal": "Exactly equal to",
+        "between": "Between",
+        "lowerOrEqual": "Lower or equal than",
+        "greaterOrEqual": "Greater or equal to"
+      },
+      "fields": {
+        "and": "And"
       }
     }
   },

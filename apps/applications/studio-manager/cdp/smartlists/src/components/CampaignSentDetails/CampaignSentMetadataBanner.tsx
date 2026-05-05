@@ -1,3 +1,4 @@
+import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import {
   Body,
@@ -8,7 +9,6 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
-import { CommunicationKind } from "#src/api/constants";
 import { COMMUNICATION_KIND_ICON_MAP } from "#src/utils/constants";
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 import {

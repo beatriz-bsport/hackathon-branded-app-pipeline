@@ -12,7 +12,7 @@ import { compose } from 'recompose';
 import themeSelectors from '../../libs/theme/selectors';
 // @ts-expect-error
 import { getTheme } from '../../theme';
-import { fetchCompanyTheme } from '../../libs/theme/actions';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import ConsumerProfileReworked from '#src/pages/consumer/ConsumerProfileReworked.page';
 import ConsumerBookingReworked from '#src/pages/consumer/ConsumerBookingReworked.page';
@@ -23,7 +23,11 @@ import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 //@ts-expect-error
 import BasketPage from '#src/pages/checkout/basket/Basket.page';
 import { requestOptInTrackingB2C as requestOptInTrackingB2CAction } from '#src/components/analytics/actions';
-import { AgentChat } from '../agent-chat/agent-chat.page';
+import {
+  FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
+import { AgentChatWidget } from '../agent-chat/agent-chat.page';
 
 type RouterProps = {
   companyId: number;
@@ -31,7 +35,8 @@ type RouterProps = {
 
 type Props = RouterProps &
   ConnectedProps<typeof connector> &
-  WithStyles<typeof styles>;
+  WithStyles<typeof styles> &
+  FeatureFlagProps;
 
 class WidgetRouter extends React.Component<Props> {
   componentDidMount() {
@@ -79,10 +84,12 @@ class WidgetRouter extends React.Component<Props> {
             component={this.attachConsumerProps(ConsumerSubscriptionReworked)}
             path="/widget/:companyName/:companyId/subscription/"
           />
-          <Route
-            component={this.attachConsumerProps(AgentChat)}
-            path="/widget/:companyName/:companyId/agent-chat/"
-          />
+          {this.props.isAgentChatEnabled && (
+            <Route
+              component={this.attachConsumerProps(AgentChatWidget)}
+              path="/widget/:companyName/:companyId/agent-chat/"
+            />
+          )}
         </Switch>
       </MuiThemeProvider>
     );
@@ -95,7 +102,7 @@ const connector = connect(
     membership: getMembership(state, props.companyId),
   }),
   {
-    fetchCompanyTheme,
+    fetchCompanyTheme: fetchCompanyThemeAction,
     requestOptInTrackingB2C: requestOptInTrackingB2CAction,
   },
 );
@@ -115,4 +122,5 @@ export default compose(
   }),
   withStyles(styles),
   connector,
+  withFeatureFlags,
 )(WidgetRouter);

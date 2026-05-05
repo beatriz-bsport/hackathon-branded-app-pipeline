@@ -1,0 +1,99 @@
+{
+  "addEditForm": {
+    "modal": {
+      "title": "Create a class",
+      "description": "You're creating a class template. Once saved, you'll be able to schedule it on your calendar.",
+      "confirm": "Create class",
+      "cancel": "Cancel",
+      "steps": {
+        "classSetup": "Class setup",
+        "bookingRules": "Booking rules"
+      },
+      "errors": {
+        "requiredField": "This field is required."
+      }
+    },
+    "basicInfo": {
+      "title": "Basic info",
+      "description": "Provide information about the class for your clients",
+      "typeQuestion": "What type of class template do you want to create?",
+      "groupActivity": {
+        "label": "Group class",
+        "helper": "A class with multiple participants"
+      },
+      "workshop": {
+        "label": "Workshop",
+        "helper": "A specialized class that happens in specific period of time"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Give your class a name e.g. Vinyasa Yoga"
+      },
+      "category": {
+        "label": "Category",
+        "placeholder": "Select a category",
+        "helper": "These categories will display on your branded website and app for the different types of class"
+      },
+      "descriptionField": {
+        "label": "Description",
+        "placeholder": "Add a description of the class for your clients"
+      },
+      "image": {
+        "label": "Cover image",
+        "description": "This image will be shown to clients on your website and app when browsing classes.",
+        "recommendation": "Recommended: 1920 x 1080 JPGs (Full HD)"
+      },
+      "color": {
+        "label": "Color tag",
+        "placeholder": "No color",
+        "description": "A colour makes this class easier to spot across your calendar and schedule"
+      }
+    },
+    "bookingWindow": {
+      "title": "Booking window",
+      "description": "Set when clients can book this class",
+      "opening": {
+        "title": "Opening of booking window",
+        "description": "Future sessions can be booked if they start in less than"
+      },
+      "closing": {
+        "title": "Closing of booking window",
+        "description": "Select until when members can book before the start of the session."
+      },
+      "cancellation": {
+        "title": "Cancellation policy",
+        "description": "Select until when members can cancel for free before the start of the session (late-cancellations)"
+      },
+      "warnings": {
+        "nullFirstBookingUntil": "Warning: the opening of the booking window is set to 0. Members will not be able to book this class.",
+        "lowFirstBookingUntil": "Warning: the opening of the booking window is less than 24 hours before the session. Members may not have enough time to book.",
+        "highLastBooking": "Warning: the closing of the booking window is more than 2 hours before the session starts. Members may book very far in advance."
+      }
+    },
+    "customRestrictions": {
+      "title": "Custom restrictions",
+      "toggleLabel": "Apply tags to differentiate restrictions between segments to determine which rules will be applied to whom.",
+      "ruleTitle": "Custom restriction {{index}}",
+      "remove": "Remove",
+      "applyTo": "Apply restrictions to:",
+      "tagsPlaceholder": "Add tags",
+      "addRule": "Add a rule",
+      "maxHint": "You can add up to {{max}} custom rules.",
+      "maxReached": "You already have added {{max}} custom rules."
+    },
+    "automaticCancellation": {
+      "title": "Automatic Cancellation",
+      "toggleLabel": "Auto-cancel underbooked sessions",
+      "minBookingsLabel": "Minimum capacity",
+      "hoursBeforeStartLabel": "Time before the class starts",
+      "minBookingsSuffix": "people",
+      "hoursBeforeStartSuffix": "hours",
+      "alert": "Owners, admins, teachers, and booked members are notified automatically."
+    },
+    "timeInput": {
+      "days": "d",
+      "hours": "h",
+      "minutes": "min"
+    }
+  }
+}

@@ -10,8 +10,10 @@ import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 export const useCollectionDetailsHeader = ({
+  onAddMediaClick,
   onDeleteClick,
 }: {
+  onAddMediaClick?: () => void;
   onDeleteClick: () => void;
 }) => {
   const { t } = useTranslation("collection-details");
@@ -24,7 +26,7 @@ export const useCollectionDetailsHeader = ({
 
   const { endGroupActions, startGroupActions } =
     DetailsLayout.useAdaptiveActions({
-      startGroupActions: [
+      endGroupActions: [
         <Button
           key="collection-details-button-delete"
           color="default"
@@ -38,8 +40,21 @@ export const useCollectionDetailsHeader = ({
       ],
     });
 
+  const callToActionButton = onAddMediaClick ? (
+    <Button
+      key="collection-details-button-add-media"
+      label={t("videoList.addMedia")}
+      iconLeft="plus"
+      intent="call-to-action"
+      color="main"
+      size="md"
+      onClick={onAddMediaClick}
+    />
+  ) : undefined;
+
   return {
     BreadcrumbsItems: breadcrumbs,
+    callToActionButton,
     endGroupActions,
     startGroupActions,
   };

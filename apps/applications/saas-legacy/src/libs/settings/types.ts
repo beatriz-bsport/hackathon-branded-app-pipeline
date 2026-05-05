@@ -41,8 +41,14 @@ export type CustomAppNavigationTabsNames = {
 
 export type AdpModalVisibility = 'show-recommend' | 'block-user' | 'hide';
 
+export enum AdpModalKind {
+  MIGRATION = 'migration',
+  PENDING_AGREEMENTS = 'pending-agreements',
+}
+
 export type AdpModalVisibilityConfiguration = {
   adp_modal_visibility: AdpModalVisibility;
+  adp_modal_kind?: AdpModalKind;
 };
 
 export type SettingsState = {
@@ -57,8 +63,9 @@ export type SettingsState = {
   customAppNavigation: {
     tabNames: CustomAppNavigationTabsNames;
   } & ErrorAndLoading;
-  adpModalVisibility: {
-    data: AdpModalVisibility | null;
+  adpModal: {
+    visibility: AdpModalVisibility | null;
+    kind: AdpModalKind;
     isModalOpen: boolean;
   } & ErrorAndLoading;
 };

@@ -109,6 +109,7 @@ export const useNavigationElements = ({
   const isSmartfillEnabled = useNavFlag(NavFlags.SMARTFILL);
 
   const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
+  const isAggregatorsEnabled = useNavFlag(NavFlags.SETTINGS_AGGREGATORS);
 
   // Company Theme flags
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -197,31 +198,10 @@ export const useNavigationElements = ({
         },
         {
           icon: "award-03",
-          id: "classes",
-          label: t("menus.classes.title"),
-          subItems: [
-            {
-              id: "classes",
-              label: t("menus.classes.classes"),
-              hidden: !isClassesMergedViewEnabled,
-              ...navigationUrls.classes,
-            },
-            {
-              id: "activities",
-              label: t("menus.classes.activities"),
-              ...navigationUrls.activity,
-            },
-            {
-              id: "workshops",
-              label: t("menus.classes.workshops"),
-              ...navigationUrls.workshop,
-            },
-            {
-              id: "appointments",
-              label: t("menus.classes.appointments"),
-              ...navigationUrls.appointment,
-            },
-          ],
+          id: "services",
+          label: t("menus.services"),
+          hidden: !isClassesMergedViewEnabled,
+          ...navigationUrls.services,
         },
         {
           type: "divider",
@@ -485,6 +465,11 @@ export const useNavigationElements = ({
           ...navigationUrls.settings_permission,
         },
         {
+          id: "staff",
+          label: t("menus.settings.staff"),
+          ...navigationUrls.settings_staff,
+        },
+        {
           id: "personalization",
           label: t("menus.settings.personalization"),
           ...navigationUrls.settings_personalization,
@@ -552,7 +537,14 @@ export const useNavigationElements = ({
         {
           id: "partnership",
           label: t("menus.settings.partnership"),
+          hidden: isAggregatorsEnabled,
           ...navigationUrls.settings_partnership,
+        },
+        {
+          id: "aggregators",
+          label: t("menus.settings.aggregators"),
+          hidden: !isAggregatorsEnabled,
+          ...navigationUrls.settings_aggregators,
         },
         {
           id: "activeCampaign",

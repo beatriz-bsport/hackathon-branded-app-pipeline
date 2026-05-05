@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { Body, Title } from "@bsport/kaizen-primitive-core";
 
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary.js";
 import { AttendanceFilter } from "#src/components/session-management/filters/attendance-filter";
 import { BookingStatusSegmentedControl } from "#src/components/session-management/filters/booking-status-segmented-control";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
@@ -15,8 +16,9 @@ import { CancelledBookingsTable } from "./bookings-tables/cancelled-bookings-tab
 
 export const ParticipantsSection: FC<{
   sessionId: number;
+  searchQuery: string;
   openModal: (type: SessionManagementModalType, bookingId?: number) => void;
-}> = ({ sessionId, openModal }) => {
+}> = ({ sessionId, searchQuery, openModal }) => {
   const { t } = useTranslation("sessionManagement");
   const { data: session } = useRetrieveSession(sessionId);
 
@@ -43,11 +45,20 @@ export const ParticipantsSection: FC<{
       <div className="flex flex-col gap-md">
         <BookingStatusSegmentedControl />
         <AttendanceFilter />
-        {bookingsStatusFilters === BookingStatusFilter.BOOKED ? (
-          <BookingsTable sessionId={session.id} openModal={openModal} />
-        ) : (
-          <CancelledBookingsTable sessionId={session.id} />
-        )}
+        <QueryBoundary>
+          {bookingsStatusFilters === BookingStatusFilter.BOOKED ? (
+            <BookingsTable
+              sessionId={session.id}
+              openModal={openModal}
+              searchQuery={searchQuery}
+            />
+          ) : (
+            <CancelledBookingsTable
+              sessionId={session.id}
+              searchQuery={searchQuery}
+            />
+          )}
+        </QueryBoundary>
       </div>
     </div>
   );

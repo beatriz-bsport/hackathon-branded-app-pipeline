@@ -1,4 +1,4 @@
-import { EventKind } from "#src/api/constants";
+import { EventKind } from "@bsport/api-cdp/automated-campaign";
 
 export const PUSH_AUTOMATION_EVENT_VALUES = {
   ENTRY: String(EventKind.JOIN),

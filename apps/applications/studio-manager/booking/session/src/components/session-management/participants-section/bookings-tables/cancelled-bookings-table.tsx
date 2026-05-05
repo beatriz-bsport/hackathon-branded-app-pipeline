@@ -11,9 +11,14 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { ActionsMenuButton } from "#src/components/common/action-menu-button";
+import { ShortcutActionsButton } from "#src/components/session-management/action-buttons/booking/shortcut-actions-button";
+import { BookingActionItemId } from "#src/components/session-management/action-buttons/booking/types";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
-import { setSelectedBooking } from "#src/stores/session-management/actions";
+import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
+import {
+  setSelectedBooking,
+  setSelectedBookingOption,
+} from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
 import type { RefinedBooking } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
@@ -27,9 +32,10 @@ enum BookingColumns {
   ACTIONS = "actions",
 }
 
-export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
-  sessionId,
-}) => {
+export const CancelledBookingsTable: FC<{
+  sessionId: number;
+  searchQuery: string;
+}> = ({ sessionId, searchQuery }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
@@ -45,16 +51,28 @@ export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
     page_size: currentPageSize,
   });
 
+  const searchedBookings = useSearchBookings(refinedBookings, searchQuery);
+
+  const hasSearchQuery = searchQuery.trim().length > 0;
+
   const paginationProps: PaginationProps = useMemo(
     () => ({
       currentPage,
       rowsPerPage: currentPageSize,
-      showRowsPerPageSelector: true,
+      showRowsPerPageSelector: !hasSearchQuery,
       disabled: isLoading,
-      totalItems: count ?? 0,
+      totalItems: hasSearchQuery ? searchedBookings.length : (count ?? 0),
       onPageSettingsChange: setPageSettings,
     }),
-    [currentPage, currentPageSize, isLoading, count, setPageSettings],
+    [
+      currentPage,
+      currentPageSize,
+      isLoading,
+      count,
+      setPageSettings,
+      hasSearchQuery,
+      searchedBookings.length,
+    ],
   );
 
   const selectedBookingId = useSessionManagementStore(
@@ -119,11 +137,19 @@ export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
       id: BookingColumns.ACTIONS,
       type: "custom",
       align: "center",
-      render: () => (
-        <ActionsMenuButton
-          label={t("bookingsTable.actionsMenu.label")}
-          // TODO: implement actions
-          items={() => []}
+      render: (row) => (
+        <ShortcutActionsButton
+          sessionId={row.offer}
+          bookingId={row.id}
+          memberId={row.memberData?.id}
+          participantEmail={row.memberData?.email}
+          participantPhone={row.memberData?.phone}
+          allowedItemIds={[
+            BookingActionItemId.SEND_MESSAGE,
+            BookingActionItemId.COPY_EMAIL,
+            BookingActionItemId.COPY_PHONE,
+            BookingActionItemId.UPDATE_MEMBER_NOTES,
+          ]}
         />
       ),
     },
@@ -139,14 +165,17 @@ export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
       <Table
         columns={columns}
         rowHeight="lg"
-        rows={refinedBookings.map((booking) => ({
+        rows={searchedBookings.map((booking) => ({
           ...booking,
           isActive: booking.id === selectedBookingId,
-          onRowClick: () => setSelectedBooking(booking.id),
+          onRowClick: () => {
+            setSelectedBookingOption(null);
+            setSelectedBooking(booking.id);
+          },
         }))}
         paginationProps={paginationProps}
         emptyStateProps={{
-          isEmpty: !isLoading && (count ?? 0) === 0,
+          isEmpty: !searchedBookings.length,
           emptyConfig: {
             title: t("bookingsTable.emptyState.title"),
             ctaButtonConfig: {
@@ -156,6 +185,8 @@ export const CancelledBookingsTable: FC<{ sessionId: number }> = ({
         }}
         loadingProps={{
           isLoading,
+          className:
+            "min-h-[360px] border-stroke-regular border-stroke-weak rounded-md overflow-hidden",
           message: t("bookingsTable.loadingMessage"),
         }}
       />

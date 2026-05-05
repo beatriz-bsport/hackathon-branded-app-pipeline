@@ -1,7 +1,12 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-import { communicationRecipientsCountPreviewQueryOptions } from "./api";
-import { CommunicationPreviewRecipientsRequest } from "./types";
+import {
+  CommunicationPreviewRecipientsRequest,
+  communicateKeys,
+  fetchCommunicationRecipientsCountPreviewAPI,
+} from "@bsport/api-cdp/communicate";
+
+import { fetch } from "#src/utils/fetch";
 
 /**
  * Fetches the count of recipients for a communication preview.
@@ -19,6 +24,10 @@ export function useFetchCommunicationRecipientsPreviewCount(
   request: CommunicationPreviewRecipientsRequest,
 ) {
   return useSuspenseQuery(
-    communicationRecipientsCountPreviewQueryOptions(request),
+    queryOptions({
+      queryKey: communicateKeys.communicationRecipientsCountPreview(request),
+      queryFn: () =>
+        fetchCommunicationRecipientsCountPreviewAPI(fetch, request),
+    }),
   );
 }

@@ -5,6 +5,7 @@ import {
   Modal,
   type SelectedDate,
   useDatePickerShortcuts,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -29,6 +30,7 @@ export const CampaignReportModal = ({
   onConfirm,
   onClose,
 }: CampaignReportModalProps) => {
+  const isMobile = !useMatchMedia("md");
   const { t } = useTranslation("campaign");
   const { lastWeek, last4weeks, lastQuarter, monthToDate, yearToDate } =
     useDatePickerShortcuts();
@@ -45,7 +47,7 @@ export const CampaignReportModal = ({
 
   return (
     <Modal
-      size="lg"
+      size={isMobile ? "xl" : "lg"}
       title={t("generateReportModal.title")}
       description={t("generateReportModal.description")}
       open={isOpen}

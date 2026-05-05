@@ -1,5 +1,8 @@
-import { CommunicationStatus } from "#src/api/constants";
-import { CampaignScheduled, CampaignSent } from "#src/api/types";
+import {
+  type CampaignScheduled,
+  type CampaignSent,
+} from "@bsport/api-cdp/communicate";
+import { CommunicationStatus } from "@bsport/api-cdp/smartlist";
 
 import {
   STREAMLINED_COMMUNICATION_STATUS_DELIVERED,

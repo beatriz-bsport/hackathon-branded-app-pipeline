@@ -1,14 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { createEmailTemplate } from "@bsport/api-cdp";
-import type {
-  CreateEmailTemplatePayload,
-  EmailTemplateDetail,
-} from "@bsport/api-cdp";
+import {
+  type CreateEmailTemplatePayload,
+  type EmailTemplateDetail,
+  createEmailTemplateAPI,
+} from "@bsport/api-cdp/email-template";
 
 import { fetch } from "#src/utils/fetch";
 
-import { smartlistKeys } from "./api";
+import { smartlistQueryKeys } from "./api";
 
 type UseCreateEmailTemplateParams = {
   onSuccess?: (data: EmailTemplateDetail) => void;
@@ -23,13 +23,14 @@ export function useCreateEmailTemplate({
 
   const mutation = useMutation({
     mutationFn: (payload: CreateEmailTemplatePayload) =>
-      createEmailTemplate(fetch, payload),
+      createEmailTemplateAPI(fetch, payload),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: smartlistKeys.emailTemplate(),
+        queryKey: smartlistQueryKeys.emailTemplateKeys.emailTemplate(),
       });
       queryClient.invalidateQueries({
-        queryKey: smartlistKeys.emailTemplateCategories(),
+        queryKey:
+          smartlistQueryKeys.emailTemplateKeys.emailTemplateCategories(),
       });
       onSuccess?.(data);
     },

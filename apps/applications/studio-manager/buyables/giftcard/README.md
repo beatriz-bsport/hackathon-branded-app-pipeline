@@ -13,13 +13,15 @@
 To run in localhost :
 
 ```sh
-pnpm run dev
+pnpm exec nx run @bsport/sm-giftcard:dev:watch
 ```
 
 This will run two applications aside :
 
 - The Navigation Sidebar on port 4050, with module federation.
-- The Giftcard application on port 4150, that import the Navigation Sidebar.
+- The Giftcard application on port 4150, which imports the Navigation Sidebar.
+
+If you only want the app's own Vite server, run `pnpm exec nx run @bsport/sm-giftcard:dev:single`.
 
 Go to <http://localhost:4150>.
 

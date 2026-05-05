@@ -1,3 +1,4 @@
+import { BookingListedInformation } from "./stores/session-management/types";
 import { AppointmentColumn, SessionColumns } from "./types";
 
 export const DEFAULT_SESSION_COLUMNS = [
@@ -21,6 +22,15 @@ export const DEFAULT_APPOINTMENT_COLUMNS = [
   AppointmentColumn.ESTABLISHMENT,
   AppointmentColumn.TYPE,
   AppointmentColumn.ACTIONS,
+];
+
+export const DEFAULT_SESSION_LISTED_INFORMATION = [
+  BookingListedInformation.SPOT,
+  BookingListedInformation.PASS,
+  BookingListedInformation.NEW_MEMBER,
+  BookingListedInformation.RECURRING_BOOKING,
+  BookingListedInformation.UNPAID_INVOICES,
+  BookingListedInformation.TAGS,
 ];
 
 export enum TeacherSubstitutionPropagationMode {

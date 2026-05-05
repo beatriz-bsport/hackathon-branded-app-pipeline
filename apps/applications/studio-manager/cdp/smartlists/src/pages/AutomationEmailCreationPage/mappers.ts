@@ -1,4 +1,4 @@
-import type { AutomatedCampaign } from "@bsport/api-cdp";
+import { type AutomatedCampaign } from "@bsport/api-cdp/automated-campaign";
 
 import { hasHtmlTags } from "#src/utils/has-html-tags";
 
@@ -21,13 +21,20 @@ type EmailAutomationPayload = {
 export const automationEmailFormDataToPayload = (
   formData: AutomationEmailFormData,
 ): EmailAutomationPayload => {
+  const text = formData.isTextOnly
+    ? (formData.emailBody ?? "")
+    : formData.emailTemplateId != null
+      ? ""
+      : (formData.emailTemplateHtml ?? "");
+  const emailDesign = formData.isTextOnly
+    ? null
+    : (formData.emailTemplateId ?? null);
+
   return {
     event_kind: mapFormEventKindToApiEventKind(formData.eventKind),
     title: formData.emailSubject?.trim() ?? "",
-    text: formData.isTextOnly
-      ? (formData.emailBody ?? "")
-      : (formData.emailTemplateHtml ?? ""),
-    email_design: formData.emailTemplateId ?? null,
+    text,
+    email_design: emailDesign,
     max_communications_sent_per_member:
       mapTriggerLimitToMaxCommunicationsSentPerMember(formData.triggerLimit),
   };

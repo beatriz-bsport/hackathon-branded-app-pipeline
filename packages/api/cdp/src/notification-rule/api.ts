@@ -1,5 +1,3 @@
-import { queryOptions } from "@tanstack/react-query";
-
 import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
 import type { CommunicationVariable } from "#src/notification-rule/types";
@@ -14,25 +12,16 @@ export const notificationRuleKeys = {
     [...notificationRuleKeys.all, "communication-variables"] as const,
 } as const;
 
-const fetchCommunicationVariablesAPIConfig = (): ApiConfig => {
+const fetchCommunicationVariablesConfig = (): ApiConfig => {
   return [`${RULE_API_URL}/tags/`];
 };
 
-export const fetchCommunicationVariables = async (
+export const fetchCommunicationVariablesAPI = async (
   fetch: Fetch<CommunicationVariable>,
 ): Promise<CommunicationVariable> => {
-  const [uri, init] = fetchCommunicationVariablesAPIConfig();
+  const [uri, init] = fetchCommunicationVariablesConfig();
 
   const { data } = await fetch(uri, init);
 
   return data;
 };
-
-export const communicationVariablesQueryOptions = (
-  fetch: Fetch<CommunicationVariable>,
-) =>
-  queryOptions({
-    queryKey: notificationRuleKeys.communicationVariables(),
-    queryFn: () => fetchCommunicationVariables(fetch),
-    staleTime: 2 * 60 * 1000,
-  });

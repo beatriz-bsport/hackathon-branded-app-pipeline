@@ -16,11 +16,6 @@ elif [ "$ENVIRONMENT" = "staging" ]; then
     S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/staging"
 elif [ "$ENVIRONMENT" = "production" ]; then
     S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/production"
-elif [ "$ENVIRONMENT" = "feature-branch" ]; then
-    # Extract FEATURE_BRANCH_IDENTIFIER, FORCE and FRONTEND_ONLY from CI_COMMIT_TAG
-    REPO_ROOT="$(git rev-parse --show-toplevel)"
-    . $REPO_ROOT/tools/scripts/parse-feature-branch-id.sh "$CI_COMMIT_TAG"
-    S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/$FEATURE_BRANCH_IDENTIFIER"
 else
     echo "⚠️  Environment $ENVIRONMENT is not recognized ! Stop script ..."
     exit 0

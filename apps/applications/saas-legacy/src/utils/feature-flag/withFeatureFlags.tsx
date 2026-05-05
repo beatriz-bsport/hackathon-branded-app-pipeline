@@ -12,6 +12,7 @@ export type FeatureFlagProps = {
   checkoutFlowModalEnabled: boolean;
   isCalendarRevampEnabled: boolean;
   isNewWellhubConfigurationEnabled: boolean;
+  isAgentChatEnabled: boolean;
 };
 
 /**
@@ -42,11 +43,13 @@ export const withFeatureFlags = <TProps extends object>(
     const isNewWellhubConfigurationEnabled = useSafeFlag(
       FeatureFlags.WELLHUB_NEW_CONFIGURATION,
     );
+    const isAgentChatEnabled = useSafeFlag(FeatureFlags.AGENT_CHAT);
 
     return (
       <WrappedComponent
         {...props}
         checkoutFlowModalEnabled={checkoutFlowModalEnabled}
+        isAgentChatEnabled={isAgentChatEnabled}
         isCalendarRevampEnabled={isCalendarRevampEnabled}
         isInvoiceSequentialNumberingEnabled={
           isInvoiceSequentialNumberingEnabled

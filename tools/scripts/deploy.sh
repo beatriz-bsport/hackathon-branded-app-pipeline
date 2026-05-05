@@ -3,27 +3,25 @@
 set -euo pipefail
 
 # Deploy script for CI/CD pipelines
-# This script handles both environment deployments (dev/staging/production) and feature branch deployments
+# This script handles environment deployments (dev/staging/production)
 #
 # Usage:
-#   deploy.sh <base_branch> <deploy_environment> [api_environment] [frontend_only_flag] [force_redeploy]
+#   deploy.sh <base_branch> <deploy_environment> [api_environment] [force_redeploy]
 #
 # Arguments:
 #   base_branch: The branch to compare against for affected projects (e.g., origin/dev, $CI_COMMIT_BEFORE_SHA)
-#   deploy_environment: Where to deploy - passed to ci:build/ci:deploy (e.g., dev, staging, production, feature-branch)
+#   deploy_environment: Where to deploy - passed to ci:build/ci:deploy (e.g., dev, staging, production)
 #   api_environment: Optional. API config hint for deployment logs (defaults to deploy_environment)
-#   frontend_only_flag: Optional. Pass "frontend-only" for frontend-only deployments
 #   force_redeploy: Optional. Whether to bypass the "affected" Nx strategy and redeploy every project
 
 BASE_BRANCH=$1
 DEPLOY_ENVIRONMENT=$2
 API_ENVIRONMENT=${3:-$2}
-FRONTEND_ONLY_FLAG=${4:-""}
-FORCE_REDEPLOY=${5:-""}
+FORCE_REDEPLOY=${4:-""}
 
 if [ -z "$BASE_BRANCH" ] || [ -z "$DEPLOY_ENVIRONMENT" ]; then
   echo "❌ Error: Missing required arguments"
-  echo "Usage: deploy.sh <base_branch> <deploy_environment> [api_environment] [frontend_only_flag] [force_redeploy]"
+  echo "Usage: deploy.sh <base_branch> <deploy_environment> [api_environment] [force_redeploy]"
   exit 1
 fi
 
@@ -33,7 +31,6 @@ echo "=========================================="
 echo "Base branch: $BASE_BRANCH"
 echo "Deploy environment: $DEPLOY_ENVIRONMENT"
 echo "API environment: $API_ENVIRONMENT"
-echo "Frontend only: ${FRONTEND_ONLY_FLAG:-false}"
 echo "Force redeployment: ${FORCE_REDEPLOY}"
 echo "=========================================="
 echo ""
@@ -88,11 +85,7 @@ echo ""
 
 # Build affected projects
 echo "⏳ Building affected projects and their dependencies"
-if [ "$FRONTEND_ONLY_FLAG" = "frontend-only" ]; then
-  pnpm exec nx run-many --target=ci:build --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT" true
-else
-  pnpm exec nx run-many --target=ci:build --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT"
-fi
+pnpm exec nx run-many --target=ci:build --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT"
 echo "✅ All affected projects have been rebuilt"
 echo ""
 
@@ -102,11 +95,7 @@ echo "⏳ Deploying affected projects"
 # Ensure AWS CLI cache directory exists to prevent race conditions in parallel deploys
 mkdir -p "${HOME}/.aws/cli/cache" 2>/dev/null || true
 
-if [ "$FRONTEND_ONLY_FLAG" = "frontend-only" ]; then
-  pnpm exec nx run-many --target=ci:deploy --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT" true
-else
-  pnpm exec nx run-many --target=ci:deploy --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT"
-fi
+pnpm exec nx run-many --target=ci:deploy --projects=$SELECTED_PROJECTS "$DEPLOY_ENVIRONMENT"
 echo "✅ All affected projects have been deployed"
 echo ""
 

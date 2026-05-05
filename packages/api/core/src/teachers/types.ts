@@ -17,6 +17,28 @@ export type FuzzySearchTeacherParams = PaginatedFetchTeachersParams & {
   queryString: string;
 };
 
+export type ReplacementRequestLimitationPeriodType = 1 | 2 | 3;
+
+export type ReplacementRequestConfiguration = {
+  company: number;
+  days_before_offer_replacement_request_is_late: number;
+  days_before_offer_replacement_request_closing_date: number;
+  is_late_replacement_request_limited: boolean;
+  late_request_limitation_period_type: ReplacementRequestLimitationPeriodType;
+  late_request_limitation_period_nb: number;
+  max_late_requests_per_limitation_period: number;
+};
+
+export type UpdateReplacementRequestConfigurationPayload = Omit<
+  ReplacementRequestConfiguration,
+  "company"
+>;
+
+export type UpdateReplacementRequestConfigurationParams = {
+  companyId: number;
+  data: UpdateReplacementRequestConfigurationPayload;
+};
+
 // Correspond to AssociatedCoachSerializer
 export type Teacher = {
   associated_coach_id: number; // AssociatedCoach.id

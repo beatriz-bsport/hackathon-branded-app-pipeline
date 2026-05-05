@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 import {
   type ApiConfig,
@@ -11,13 +11,17 @@ import type {
   FetchTeachersParams,
   FuzzySearchTeacherParams,
   PaginatedFetchTeachersParams,
+  ReplacementRequestConfiguration,
   Teacher,
+  UpdateReplacementRequestConfigurationParams,
 } from "#src/teachers/types";
 
 import { API_V1_URL } from "../constants";
 
 const API_URL_COACH = `${API_V1_URL}/coach`;
 const API_URL_ASSOCIATED_COACH = `${API_V1_URL}/associated_coach`;
+const API_URL_REPLACEMENT_REQUEST_CONFIGURATION =
+  "book/v1/replacement_request/configuration";
 
 // TODO: Use the teacherKeys and TEACHERS_STALE_TIME in the react-query hooks to ensure consistency in query keys across the app
 const TEACHERS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
@@ -29,6 +33,12 @@ export const teacherKeys = {
   company: (companyId: number | undefined, params: FetchTeachersParams = {}) =>
     [...teacherKeys.all, "company", companyId, params] as const,
   detail: (teacherId: number) => [...teacherKeys.all, teacherId] as const,
+  replacementRequestConfiguration: (companyId: number) =>
+    [
+      ...teacherKeys.all,
+      "replacement-request-configuration",
+      companyId,
+    ] as const,
   search: (searchValue: string, params: FetchTeachersParams = {}) =>
     [...teacherKeys.all, "search", searchValue, params] as const,
 } as const;
@@ -164,9 +174,71 @@ export const retrieveTeacher = async (
 export const retrieveTeacherQueryOptions = (
   fetch: Fetch<Teacher>,
   teacherId: number,
-) =>
-  queryOptions({
+) => {
+  const queryFn = retrieveTeacher.bind(null, fetch, teacherId);
+
+  return queryOptions({
     queryKey: teacherKeys.detail(teacherId),
-    queryFn: () => retrieveTeacher(fetch, teacherId),
+    queryFn,
     staleTime: TEACHERS_STALE_TIME,
+  });
+};
+
+export const retrieveReplacementRequestConfiguration = async (
+  fetch: Fetch<ReplacementRequestConfiguration>,
+  _companyId: number,
+): Promise<ReplacementRequestConfiguration> => {
+  const { data } = await fetch(
+    `${API_URL_REPLACEMENT_REQUEST_CONFIGURATION}/me/`,
+  );
+
+  return data;
+};
+
+export const retrieveReplacementRequestConfigurationQueryOptions = (
+  fetch: Fetch<ReplacementRequestConfiguration>,
+  companyId: number,
+) => {
+  const queryFn = retrieveReplacementRequestConfiguration.bind(
+    null,
+    fetch,
+    companyId,
+  );
+
+  return queryOptions({
+    queryKey: teacherKeys.replacementRequestConfiguration(companyId),
+    queryFn,
+    staleTime: TEACHERS_STALE_TIME,
+  });
+};
+
+export const updateReplacementRequestConfigurationAPI = ({
+  companyId,
+  data,
+}: UpdateReplacementRequestConfigurationParams): ApiConfig => {
+  return [
+    `${API_URL_REPLACEMENT_REQUEST_CONFIGURATION}/${companyId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    },
+  ];
+};
+
+export const updateReplacementRequestConfigurationAPIRequest = async (
+  fetch: Fetch<ReplacementRequestConfiguration>,
+  params: UpdateReplacementRequestConfigurationParams,
+): Promise<ReplacementRequestConfiguration> => {
+  const [uri, init] = updateReplacementRequestConfigurationAPI(params);
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+export const updateReplacementRequestConfigurationMutationOptions = (
+  fetch: Fetch<ReplacementRequestConfiguration>,
+) =>
+  mutationOptions({
+    mutationFn: (params: UpdateReplacementRequestConfigurationParams) =>
+      updateReplacementRequestConfigurationAPIRequest(fetch, params),
   });

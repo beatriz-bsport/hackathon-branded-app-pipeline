@@ -95,6 +95,15 @@ const OfferPartnershipSettings: React.FC<Props> = ({
     partnershipOffers,
   } = values;
 
+  const hasLoadedActivePartnershipAccounts =
+    activePartnershipAccounts !== undefined;
+  const activePartnershipAccountsCount = activePartnershipAccounts?.length ?? 0;
+  const hasActivePartnershipAccounts = activePartnershipAccountsCount > 0;
+  const hasSingleActivePartnershipAccount =
+    activePartnershipAccountsCount === 1;
+  const shouldShowPerPartnerStrategy =
+    hasLoadedActivePartnershipAccounts && activePartnershipAccountsCount > 1;
+
   const partnershipOffersMap = useMemo(
     () =>
       new Map(
@@ -123,6 +132,31 @@ const OfferPartnershipSettings: React.FC<Props> = ({
   }, [effectif, isEditOffer, setFieldValue]);
 
   useEffect(() => {
+    if (
+      !hasLoadedActivePartnershipAccounts ||
+      partnerSpotCappingStrategy !== PartnerSpotCappingStrategy.COMBINED ||
+      (partnerMaxBookingCount ?? 0) > 0
+    ) {
+      return;
+    }
+
+    const nextPartnerMaxBookingCount = isOfferInGroup ? 0 : defaultSpotLimit;
+
+    if (partnerMaxBookingCount === nextPartnerMaxBookingCount) {
+      return;
+    }
+
+    setFieldValue('partnerMaxBookingCount', nextPartnerMaxBookingCount);
+  }, [
+    defaultSpotLimit,
+    hasLoadedActivePartnershipAccounts,
+    isOfferInGroup,
+    partnerMaxBookingCount,
+    partnerSpotCappingStrategy,
+    setFieldValue,
+  ]);
+
+  useEffect(() => {
     if (!activePartnershipAccounts) return;
     const syncedPartnershipOffers = activePartnershipAccounts.map((account) => {
       const perPartnerDefault = Math.max(
@@ -148,6 +182,26 @@ const OfferPartnershipSettings: React.FC<Props> = ({
     setFieldValue('partnershipOffers', syncedPartnershipOffers);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activePartnershipAccounts, defaultSpotLimit]);
+
+  useEffect(() => {
+    if (
+      !hasLoadedActivePartnershipAccounts ||
+      shouldShowPerPartnerStrategy ||
+      partnerSpotCappingStrategy !== PartnerSpotCappingStrategy.PER_PARTNER
+    ) {
+      return;
+    }
+
+    setFieldValue(
+      'partnerSpotCappingStrategy',
+      PartnerSpotCappingStrategy.COMBINED,
+    );
+  }, [
+    hasLoadedActivePartnershipAccounts,
+    partnerSpotCappingStrategy,
+    setFieldValue,
+    shouldShowPerPartnerStrategy,
+  ]);
 
   const handleChangeSpotCappingStrategy = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -212,120 +266,134 @@ const OfferPartnershipSettings: React.FC<Props> = ({
 
       {availableOnPartnership && (
         <div className={classes.aggregatorSettingsContainer}>
-          <RadioGroup
-            aria-label={t(
-              'form.section.settings.field.partnership.partnerSpotCappingStrategy.label',
-            )}
-            className={classes.cappingStrategyRadioGroup}
-            name="partnerSpotCappingStrategy"
-            onChange={handleChangeSpotCappingStrategy}
-            value={partnerSpotCappingStrategy}
-          >
-            <FormControlLabel
-              control={
-                <Radio
-                  className={classes.cappingStrategyRadio}
-                  id="offer-form-spot-capping-unlimited-radio"
-                />
-              }
-              label={
-                <>
-                  <Typography>
-                    {t(
-                      'form.section.settings.field.partnership.partnerSpotCappingStrategy.UNLIMITED.label',
-                    )}
-                  </Typography>
-                  <Typography variant="caption">
-                    {t(
-                      'form.section.settings.field.partnership.partnerSpotCappingStrategy.UNLIMITED.helperText',
-                    )}
-                  </Typography>
-                </>
-              }
-              value={PartnerSpotCappingStrategy.UNLIMITED}
-            />
-
-            <FormControlLabel
-              control={
-                <Radio
-                  className={classes.cappingStrategyRadio}
-                  id="offer-form-spot-capping-combined-radio"
-                />
-              }
-              label={
-                <>
-                  <Typography>
-                    {t(
-                      'form.section.settings.field.partnership.partnerSpotCappingStrategy.COMBINED.label',
-                    )}
-                  </Typography>
-                  <Typography variant="caption">
-                    {t(
-                      'form.section.settings.field.partnership.partnerSpotCappingStrategy.COMBINED.helperText',
-                    )}
-                  </Typography>
-                </>
-              }
-              value={PartnerSpotCappingStrategy.COMBINED}
-            />
-            <FormControlLabel
-              control={
-                <Radio
-                  className={classes.cappingStrategyRadio}
-                  id="offer-form-spot-capping-per-partner-radio"
-                />
-              }
-              label={
-                <>
-                  <Typography>
-                    {t(
-                      'form.section.settings.field.partnership.partnerSpotCappingStrategy.PER_PARTNER.label',
-                    )}
-                  </Typography>
-                  <Typography variant="caption">
-                    {t(
-                      'form.section.settings.field.partnership.partnerSpotCappingStrategy.PER_PARTNER.helperText',
-                    )}
-                  </Typography>
-                </>
-              }
-              value={PartnerSpotCappingStrategy.PER_PARTNER}
-            />
-          </RadioGroup>
-          {partnerSpotCappingStrategy ===
-            PartnerSpotCappingStrategy.COMBINED && (
-            <div className={classes.combinedMaxCount}>
-              <OfferFormField
-                isRequired
-                isError={!!errors.partnerMaxBookingCount}
-                label={t(
-                  'form.section.settings.field.partnership.partnerMaxBookingCount',
+          {hasActivePartnershipAccounts && (
+            <>
+              <RadioGroup
+                aria-label={t(
+                  'form.section.settings.field.partnership.partnerSpotCappingStrategy.label',
                 )}
+                className={classes.cappingStrategyRadioGroup}
+                name="partnerSpotCappingStrategy"
+                onChange={handleChangeSpotCappingStrategy}
+                value={partnerSpotCappingStrategy}
               >
-                <NumericInput
-                  disabled={isOfferInGroup || isManagerOnly}
-                  error={!!errors.partnerMaxBookingCount}
-                  id="offer-form-partner-max-booking-input"
-                  inputClass={clsx(classes.bigWidth, {
-                    [classes.disabledInput]: isOfferInGroup || isManagerOnly,
-                  })}
-                  name="partnerMaxBookingCount"
-                  onChange={handleChange}
-                  placeholder="5"
-                  size="small"
-                  value={partnerMaxBookingCount ?? defaultSpotLimit}
-                  variant="outlined"
+                <FormControlLabel
+                  control={
+                    <Radio
+                      className={classes.cappingStrategyRadio}
+                      id="offer-form-spot-capping-unlimited-radio"
+                    />
+                  }
+                  label={
+                    <>
+                      <Typography>
+                        {t(
+                          'form.section.settings.field.partnership.partnerSpotCappingStrategy.UNLIMITED.label',
+                        )}
+                      </Typography>
+                      <Typography variant="caption">
+                        {t(
+                          hasSingleActivePartnershipAccount
+                            ? 'form.section.settings.field.partnership.partnerSpotCappingStrategy.UNLIMITED.singleAggregatorHelperText'
+                            : 'form.section.settings.field.partnership.partnerSpotCappingStrategy.UNLIMITED.helperText',
+                        )}
+                      </Typography>
+                    </>
+                  }
+                  value={PartnerSpotCappingStrategy.UNLIMITED}
                 />
-                <Typography variant="caption">
-                  {t(
-                    'form.section.settings.field.partnership.partnerMaxBookingCountHelperText',
-                  )}
-                </Typography>
-              </OfferFormField>
-            </div>
+
+                <FormControlLabel
+                  control={
+                    <Radio
+                      className={classes.cappingStrategyRadio}
+                      id="offer-form-spot-capping-combined-radio"
+                    />
+                  }
+                  label={
+                    <>
+                      <Typography>
+                        {t(
+                          hasSingleActivePartnershipAccount
+                            ? 'form.section.settings.field.partnership.partnerSpotCappingStrategy.COMBINED.singleAggregatorLabel'
+                            : 'form.section.settings.field.partnership.partnerSpotCappingStrategy.COMBINED.label',
+                        )}
+                      </Typography>
+                      <Typography variant="caption">
+                        {t(
+                          hasSingleActivePartnershipAccount
+                            ? 'form.section.settings.field.partnership.partnerSpotCappingStrategy.COMBINED.singleAggregatorHelperText'
+                            : 'form.section.settings.field.partnership.partnerSpotCappingStrategy.COMBINED.helperText',
+                        )}
+                      </Typography>
+                    </>
+                  }
+                  value={PartnerSpotCappingStrategy.COMBINED}
+                />
+                {shouldShowPerPartnerStrategy && (
+                  <FormControlLabel
+                    control={
+                      <Radio
+                        className={classes.cappingStrategyRadio}
+                        id="offer-form-spot-capping-per-partner-radio"
+                      />
+                    }
+                    label={
+                      <>
+                        <Typography>
+                          {t(
+                            'form.section.settings.field.partnership.partnerSpotCappingStrategy.PER_PARTNER.label',
+                          )}
+                        </Typography>
+                        <Typography variant="caption">
+                          {t(
+                            'form.section.settings.field.partnership.partnerSpotCappingStrategy.PER_PARTNER.helperText',
+                          )}
+                        </Typography>
+                      </>
+                    }
+                    value={PartnerSpotCappingStrategy.PER_PARTNER}
+                  />
+                )}
+              </RadioGroup>
+              {partnerSpotCappingStrategy ===
+                PartnerSpotCappingStrategy.COMBINED && (
+                <div className={classes.combinedMaxCount}>
+                  <OfferFormField
+                    isRequired
+                    isError={!!errors.partnerMaxBookingCount}
+                    label={t(
+                      'form.section.settings.field.partnership.partnerMaxBookingCount',
+                    )}
+                  >
+                    <NumericInput
+                      disabled={isOfferInGroup || isManagerOnly}
+                      error={!!errors.partnerMaxBookingCount}
+                      id="offer-form-partner-max-booking-input"
+                      inputClass={clsx(classes.bigWidth, {
+                        [classes.disabledInput]:
+                          isOfferInGroup || isManagerOnly,
+                      })}
+                      name="partnerMaxBookingCount"
+                      onChange={handleChange}
+                      placeholder="5"
+                      size="small"
+                      value={partnerMaxBookingCount ?? defaultSpotLimit}
+                      variant="outlined"
+                    />
+                    <Typography variant="caption">
+                      {t(
+                        'form.section.settings.field.partnership.partnerMaxBookingCountHelperText',
+                      )}
+                    </Typography>
+                  </OfferFormField>
+                </div>
+              )}
+            </>
           )}
           {partnerSpotCappingStrategy ===
             PartnerSpotCappingStrategy.PER_PARTNER &&
+          shouldShowPerPartnerStrategy &&
           activePartnershipAccounts ? (
             <Table>
               <TableHead>

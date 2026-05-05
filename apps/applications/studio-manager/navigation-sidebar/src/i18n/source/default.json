@@ -22,13 +22,7 @@
     "calendar": "Calendar",
     "schedule": "Schedule",
     "accessControl": "Access Control",
-    "classes": {
-      "title": "Services",
-      "classes": "Classes",
-      "activities": "Group Activities",
-      "workshops": "Workshops",
-      "appointments": "Appointments"
-    },
+    "services": "Services",
     "memberships": {
       "title": "Passes & Memberships",
       "passes": "Passes",
@@ -50,7 +44,7 @@
       "marketingNotifications": "Notifications",
       "emailTemplates": "Templates",
       "smartlists": "Smartlists",
-      "smartfill": "Smartfill",
+      "smartfill": "SmartFill",
       "audience": "Audience",
       "promotions": "Promotions",
       "customForms": "Custom forms"
@@ -103,12 +97,14 @@
       "waitlist": "Waitlist",
       "webhook": "Webhook",
       "partnership": "Partnership",
+      "aggregators": "Aggregators",
       "activeCampaign": "ActiveCampaign",
       "referral": "Referrals",
       "quicksale": "POS",
       "oldWebshop": "Webshop settings",
       "quickbooks": "QuickBooks",
       "bsportSubscription": "bsport subscription",
+      "staff": "Staff",
       "temporaryPassword": "Temporary password",
       "changeLanguage": "Change language"
     }

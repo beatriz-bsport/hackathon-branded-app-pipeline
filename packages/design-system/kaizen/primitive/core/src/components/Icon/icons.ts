@@ -27,6 +27,12 @@ const icons = {
   "arrow-square-right": React.lazy(
     async () => await import("./assets/arrow-square-right.svg?react"),
   ),
+  "arrows-down": React.lazy(
+    async () => await import("./assets/arrows-down.svg?react"),
+  ),
+  "arrows-up": React.lazy(
+    async () => await import("./assets/arrows-up.svg?react"),
+  ),
   "atom-02": React.lazy(async () => await import("./assets/atom-02.svg?react")),
   "award-03": React.lazy(
     async () => await import("./assets/award-03.svg?react"),
@@ -227,6 +233,9 @@ const icons = {
   "notification-message": React.lazy(
     async () => await import("./assets/notification-message.svg?react"),
   ),
+  "one-by-one": React.lazy(
+    async () => await import("./assets/one-by-one.svg?react"),
+  ),
   "package-x": React.lazy(
     async () => await import("./assets/package-x.svg?react"),
   ),
@@ -344,8 +353,14 @@ const icons = {
   "x-circle-solid": React.lazy(
     async () => await import("./assets/x-circle-solid.svg?react"),
   ),
+  "x-circle": React.lazy(
+    async () => await import("./assets/x-circle.svg?react"),
+  ),
   "x-close": React.lazy(async () => await import("./assets/x-close.svg?react")),
   x: React.lazy(async () => await import("./assets/x.svg?react")),
+  "zap-fast": React.lazy(
+    async () => await import("./assets/zap-fast.svg?react"),
+  ),
 } as const;
 
 export default icons;

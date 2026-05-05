@@ -11,6 +11,7 @@ import {
   type TabsProps,
   toast,
   useDetailsLayout,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { useGenerateCampaignReport } from "#src/api/use-generate-campaign-report";
@@ -80,6 +81,7 @@ function Details() {
     | typeof CREATE_AUTOMATION_ACTION_ID
     | null
   >(null);
+  const isMobile = !useMatchMedia("md");
   const { t } = useTranslation(["details", "list", "campaign"]);
   const { id } = useParams<{ id: string }>();
   invariant(id, "Expected id param to be defined");
@@ -217,7 +219,10 @@ function Details() {
           <Button
             color="main"
             intent="call-to-action"
-            label={t("actions.createCampaign", { ns: "campaign" })}
+            label={
+              isMobile ? "" : t("actions.createCampaign", { ns: "campaign" })
+            }
+            aria-label={t("actions.createCampaign", { ns: "campaign" })}
             iconLeft="plus"
             size="md"
             onClick={() => setInlineActions(CAMPAIGN_TYPE_SELECTOR_ACTION_ID)}
@@ -228,7 +233,10 @@ function Details() {
           <Button
             color="main"
             intent="call-to-action"
-            label={t("actions.createAutomation", { ns: "details" })}
+            label={
+              isMobile ? "" : t("actions.createAutomation", { ns: "details" })
+            }
+            aria-label={t("actions.createAutomation", { ns: "details" })}
             iconLeft="plus"
             size="md"
             onClick={() => setInlineActions(CREATE_AUTOMATION_ACTION_ID)}

@@ -3,8 +3,6 @@ import { type FC, useMemo } from "react";
 import { type Video, VideoProvider } from "@bsport/api-buyables/video";
 import {
   Body,
-  Button,
-  Card,
   Divider,
   List,
   Title,
@@ -22,7 +20,6 @@ import {
 type CollectionVideoListProps = {
   collectionDescription?: string;
   videos: Video[];
-  onAddVideo: () => void;
   onRemoveVideo: (videoId: number) => void;
   onSelectVideo: (videoId: number) => void;
   selectedVideoId: number | null;
@@ -31,7 +28,6 @@ type CollectionVideoListProps = {
 export const CollectionVideoList: FC<CollectionVideoListProps> = ({
   collectionDescription,
   videos,
-  onAddVideo,
   onRemoveVideo,
   onSelectVideo,
   selectedVideoId,
@@ -65,7 +61,7 @@ export const CollectionVideoList: FC<CollectionVideoListProps> = ({
   );
 
   return (
-    <section className="flex h-full min-h-0 flex-col gap-sm">
+    <section className="flex h-full min-h-0 flex-col">
       <div className="flex flex-col items-center gap-sm bg-surface-default-weaker px-md py-sm">
         <div className="flex w-full items-start justify-between gap-sm">
           <Title
@@ -79,15 +75,6 @@ export const CollectionVideoList: FC<CollectionVideoListProps> = ({
               ns: "collections-list",
             })}
           </Title>
-          <Button
-            label={t("videoList.addMedia", { ns: "collection-details" })}
-            iconLeft="plus"
-            intent="call-to-action"
-            color="main"
-            size="sm"
-            className="shrink-0"
-            onClick={onAddVideo}
-          />
         </div>
         {collectionDescription ? (
           // NOTE: This is a workaround to force the tooltip to be displayed as a block element.
@@ -112,7 +99,7 @@ export const CollectionVideoList: FC<CollectionVideoListProps> = ({
         ) : null}
       </div>
       <Divider orientation="horizontal" weight="extra-thin" />
-      <Card padding="none" className="min-h-0 flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto">
         <List
           id="collection-video-list"
           items={items}
@@ -126,7 +113,7 @@ export const CollectionVideoList: FC<CollectionVideoListProps> = ({
             },
           }}
         />
-      </Card>
+      </div>
     </section>
   );
 };

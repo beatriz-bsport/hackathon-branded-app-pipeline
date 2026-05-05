@@ -18,7 +18,6 @@ const ENVS = {
   LOCAL: "local",
   STAGING: "staging",
   PRODUCTION: "production",
-  FEATURE_BRANCH: "feature-branch",
 } as const;
 
 type Env = ValueOf<typeof ENVS>;
@@ -41,11 +40,6 @@ const DEFAULTS = {
       "default:development.33c0b79cf07ad244a1d63da1126b2306bc47f3c56f8f01637119d864",
   },
   [ENVS.STAGING]: {
-    proxyUrl: "https://unleash.tooling.bsport.io/api/frontend",
-    clientKey:
-      "default:development.33c0b79cf07ad244a1d63da1126b2306bc47f3c56f8f01637119d864",
-  },
-  [ENVS.FEATURE_BRANCH]: {
     proxyUrl: "https://unleash.tooling.bsport.io/api/frontend",
     clientKey:
       "default:development.33c0b79cf07ad244a1d63da1126b2306bc47f3c56f8f01637119d864",

@@ -61,6 +61,16 @@
     "totalAmountLabel": "Total amount",
     "partialToggleLabel": "Pay part of the total now, the rest later",
     "paymentMethodTitle": "Payment method",
+    "newCard": {
+      "title": "Pay with new credit card",
+      "saveLabel": "Save this card for future payments",
+      "paymentError": "Could not process card details. Please try again."
+    },
+    "newSepa": {
+      "title": "Pay with new SEPA direct debit",
+      "saveLabel": "Save this SEPA mandate for future payments",
+      "paymentError": "Could not process SEPA details. Please try again."
+    },
     "links": {
       "invoice": "Invoice"
     }

@@ -311,7 +311,7 @@
         "requiredField": "Obligatorio",
         "invalidEmail": "Correo electrónico no válido",
         "passwordConfirmationError": "Las contraseñas no son indefinidas",
-        "passwordMinimumRequirementsError": "La contraseña debe contener al menos 6 caracteres",
+        "passwordMinimumRequirementsError": "La contraseña debe contener al menos 12 caracteres",
         "invalidOfficialDocumentId": "Este campo sólo puede contener números y letras",
         "membershipIdMaximumLength": "Un ID de miembro no puede tener más de 24 caracteres",
         "barcodeMaximumLength": "Un código de barras no puede tener más de 16 caracteres"

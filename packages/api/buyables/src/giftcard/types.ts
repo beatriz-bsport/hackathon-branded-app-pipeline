@@ -156,15 +156,23 @@ export type SendInvitationEmailParams = {
 export type FetchConsumerGiftcardsParams = {
   page: number;
   page_size: number;
-  giftcard: number;
+  giftcard?: number;
   giftcard_template?: number;
   as_received?: boolean;
   as_sent?: boolean;
+  src_member?: number;
+  dst_member?: number;
   company?: number;
+  disabled?: boolean;
   has_amount_left?: boolean;
   id__in?: number[];
   in_timeframe?: boolean;
   active?: boolean;
+};
+
+export type ApplyGiftCardCodeParams = {
+  code: string;
+  dst_member: number;
 };
 
 export type CreateGiftcardKeys = Pick<

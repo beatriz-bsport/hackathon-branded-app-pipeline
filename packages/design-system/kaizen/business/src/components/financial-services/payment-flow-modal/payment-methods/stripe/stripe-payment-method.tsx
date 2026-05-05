@@ -1,6 +1,6 @@
 import { Elements, PaymentElement } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { getCurrencyCode } from "@bsport/currency";
 import type { Fetch } from "@bsport/fetch";
@@ -13,7 +13,7 @@ import {
   useDarkMode,
   useRequestPaymentClientSecret,
   useStripeAppearance,
-} from "../hooks";
+} from "../../hooks";
 import {
   STRIPE_METHOD_CONFIG,
   STRIPE_PAYMENT_METHOD_MIN_HEIGHT_CLASSNAME,
@@ -51,9 +51,13 @@ export const StripePaymentMethod: React.FC<StripePaymentMethodProps> = ({
     enabled: true,
   });
 
-  const stripePromise = companyTheme?.stripe_pk_key
-    ? loadStripe(companyTheme.stripe_pk_key)
-    : null;
+  const stripePromise = useMemo(
+    () =>
+      companyTheme?.stripe_pk_key
+        ? loadStripe(companyTheme.stripe_pk_key)
+        : null,
+    [companyTheme?.stripe_pk_key],
+  );
 
   const stripeLocale = i18nInstance.language?.replace("_", "-");
   const amountCts = clientSecretQuery.data?.price_cts ?? 0;
@@ -109,7 +113,7 @@ export const StripePaymentMethod: React.FC<StripePaymentMethodProps> = ({
           {t(`${methodConfig.i18nRootKey}.title`)}
         </Title>
 
-        {hasStripeConfiguration ? (
+        {hasStripeConfiguration && clientSecret ? (
           <Elements
             key={`${stripeAppearance.theme}-${method}`}
             stripe={stripePromise}

@@ -1,0 +1,20 @@
+{
+  "archiveModal": {
+    "title": "Archive Subscription",
+    "body": {
+      "consequence": "Once you archive {{ name }}, it will no longer be visible to clients but current or previous purchases won't be affected.",
+      "restore": "You can restore this subscription at any time from your archive."
+    },
+    "actions": {
+      "keep": "Keep",
+      "archive": "Archive"
+    },
+    "toasts": {
+      "success": "Subscription archived",
+      "error": "Failed to archive subscription",
+      "undoAction": "Restore",
+      "undoSuccess": "Subscription restored",
+      "undoError": "Failed to restore subscription"
+    }
+  }
+}

@@ -335,7 +335,7 @@
         "requiredFile": "Eine Datei hinzufügen",
         "passwordConfirmationError": "Diese Passwörter sind nicht identisch",
         "invalidEmail": "Ungültige E-Mail",
-        "passwordMinimumRequirementsError": "Ihr Passwort muss mindestens 6 Zeichen enthalten.",
+        "passwordMinimumRequirementsError": "Ihr Passwort muss mindestens 12 Zeichen enthalten.",
         "invalidOfficialDocumentId": "Dieses Feld darf nur Zahlen und Buchstaben enthalten",
         "barcodeMaximumLength": "Ein Barcode darf nicht länger als 16 Zeichen sein",
         "membershipIdMaximumLength": "Eine Mitgliedschafts-ID darf nicht länger als 24 Zeichen sein"

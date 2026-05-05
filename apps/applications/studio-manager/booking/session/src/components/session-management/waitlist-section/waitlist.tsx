@@ -14,6 +14,10 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
+import {
+  SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals.js";
 import { useFetchRefinedBookingOptions } from "#src/hooks/waitlist/use-fetch-refined-booking-options";
 import { useFetchWaitingListConfiguration } from "#src/hooks/waitlist/use-fetch-waitlist-configuration";
 import { useSearchBookingOptions } from "#src/hooks/waitlist/use-search-booking-options";
@@ -32,11 +36,16 @@ export const WaitList: FC<{
   searchQuery: string;
   readOnly?: boolean;
   paginationNamespace?: string;
+  openModal?: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
 }> = ({
   sessionId,
   searchQuery,
   readOnly = false,
   paginationNamespace = "waiting-list",
+  openModal,
 }) => {
   const { t } = useTranslation("sessionManagement");
 
@@ -130,7 +139,7 @@ export const WaitList: FC<{
             id: "actions",
             type: "custom",
             align: "end",
-            render: () => (
+            render: (row) => (
               <div className="flex gap-sm items-center">
                 <ResponsiveTooltip
                   placement="bottom"
@@ -143,6 +152,7 @@ export const WaitList: FC<{
                     intent="default"
                     size="md"
                     color="main"
+                    disabled
                   />
                 </ResponsiveTooltip>
                 <ResponsiveTooltip
@@ -156,6 +166,16 @@ export const WaitList: FC<{
                     intent="default"
                     size="md"
                     color="main"
+                    disabled={!openModal}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal?.(
+                        SessionManagementModalType.DISCARD_BOOKING_OPTION,
+                        {
+                          bookingOptionId: row.id,
+                        },
+                      );
+                    }}
                   />
                 </ResponsiveTooltip>
               </div>

@@ -20,6 +20,7 @@ const SUMMARY_TYPES: Array<{
   labelKey: string;
   countKey: keyof Payout;
   displayTypeKey: string;
+  negateFee?: boolean;
 }> = [
   {
     labelKey: 'summary.payments',
@@ -45,6 +46,7 @@ const SUMMARY_TYPES: Array<{
     labelKey: 'summary.directDebitReversal',
     countKey: 'failed_direct_debit_reversal_count',
     displayTypeKey: 'failed_direct_debit_reversal',
+    negateFee: true,
   },
   {
     labelKey: 'summary.transfers',
@@ -131,7 +133,7 @@ const PayoutSummary: React.FC<Props> = ({ payout, summaryStats = null }) => {
       label: t(config.labelKey),
       value: formatSummaryValue(stat.count),
       gross: formatAmount(stat.amount_cts),
-      fee: formatAmount(stat.fee_cts),
+      fee: formatAmount(config.negateFee ? -stat.fee_cts : stat.fee_cts),
       fee_cts: stat.fee_cts,
       total: formatAmount(stat.net_cts),
     };

@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { PartnerSpotCappingStrategy } from "@bsport/api-book";
+
 import {
   RecurrenceInterval,
   RecurrenceRule,
@@ -118,6 +120,36 @@ export const sessionCreationVisibilitySelectEventSchema = z
   .describe(
     "When the user selects a visibility option for the session in the session creation flow",
   );
+
+export const spotCappingRadioButtonEventSchema = z
+  .object({
+    eventType: z.string().default("spot_capping_radio_button"),
+    spot_capping_mode: z
+      .nativeEnum(PartnerSpotCappingStrategy)
+      .describe("The capping strategy mode selected by the user"),
+  })
+  .describe("When the user clicks on the capping strategy radio button");
+
+export const aggregatorChipsStatusEventSchema = z
+  .object({
+    eventType: z.string().default("aggregator_chips_status"),
+    allowed_on_aggregator_chip_enabled: z
+      .boolean()
+      .describe("Whether the aggregator chip was toggled on or off"),
+    aggregator_name: z
+      .string()
+      .describe("The identifier of the aggregator chip that was clicked"),
+  })
+  .describe("When the user clicks on an aggregator chip");
+
+export const aggregatorToggleStatusEventSchema = z
+  .object({
+    eventType: z.string().default("aggregator_toggle_status"),
+    available_on_aggregators_toggle_enabled: z
+      .boolean()
+      .describe("Whether the aggregator toggle was enabled or disabled"),
+  })
+  .describe("When the user clicks on the aggregator availability toggle");
 
 export const sessionCreationRecurrenceToggleEnabledEventSchema = z
   .object({

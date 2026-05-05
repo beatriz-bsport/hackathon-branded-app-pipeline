@@ -17,9 +17,17 @@ const REACTIVATE_ACTION_ID = "reactivate";
 
 type MyclubsRowActionsProps = {
   status: AccountRow["status"];
+  onEdit: () => void;
+  onDelete: () => void;
+  onReactivate: () => void;
 };
 
-export const MyclubsRowActions: FC<MyclubsRowActionsProps> = ({ status }) => {
+export const MyclubsRowActions: FC<MyclubsRowActionsProps> = ({
+  status,
+  onEdit,
+  onDelete,
+  onReactivate,
+}) => {
   const { t } = useTranslation("common");
 
   const menuItems: Item[] =
@@ -44,6 +52,12 @@ export const MyclubsRowActions: FC<MyclubsRowActionsProps> = ({ status }) => {
           },
         ];
 
+  const handleSelectOption = (id: string) => {
+    if (id === EDIT_ACTION_ID) onEdit();
+    else if (id === DELETE_ACTION_ID) onDelete();
+    else if (id === REACTIVATE_ACTION_ID) onReactivate();
+  };
+
   return (
     <Popover>
       <Popover.Anchor>
@@ -65,8 +79,9 @@ export const MyclubsRowActions: FC<MyclubsRowActionsProps> = ({ status }) => {
         {({ setIsPopoverOpened }) => (
           <Menu
             items={menuItems}
-            onSelectOption={() => {
+            onSelectOption={(id) => {
               setIsPopoverOpened(false);
+              handleSelectOption(id);
             }}
           />
         )}

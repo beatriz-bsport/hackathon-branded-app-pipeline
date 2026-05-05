@@ -45,6 +45,10 @@ export const EstablishmentChips: FC<EstablishmentChipsProps> = ({
           <div
             key={establishmentId}
             className="inline-flex max-w-full items-center gap-sm rounded-lg px-sm py-xs"
+            style={{
+              opacity: establishment.disabled ? 0.5 : 1,
+              pointerEvents: establishment.disabled ? "none" : "auto",
+            }}
           >
             <Avatar
               alt={establishment.title}
@@ -80,6 +84,7 @@ export const EstablishmentChips: FC<EstablishmentChipsProps> = ({
               size="md"
               color="default"
               onClick={() => {
+                if (establishment.disabled) return;
                 copyToClipboard(establishmentId);
               }}
             />

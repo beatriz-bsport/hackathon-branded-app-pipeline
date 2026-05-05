@@ -1,0 +1,15 @@
+{
+  "itemsSearch": {
+    "fields": {
+      "searchPlaceholder": "Search"
+    },
+    "empty": {
+      "search": "No results found",
+      "selection": "Select items to start filtering"
+    },
+    "actions": {
+      "remove": "Remove",
+      "selectAllFiltered": "Select all filtered results ({{count}})"
+    }
+  }
+}

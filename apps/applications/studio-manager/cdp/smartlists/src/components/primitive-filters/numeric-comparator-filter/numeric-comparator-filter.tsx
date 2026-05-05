@@ -1,6 +1,6 @@
 import { type ChangeEvent, useState } from "react";
 
-import { Body, Select, TextField } from "@bsport/kaizen-primitive-core";
+import { Body, Card, Select, TextField } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -20,6 +20,11 @@ type NumericComparatorFilterProps = {
   disabled?: boolean;
   className?: string;
   suffix?: string;
+  errors?: {
+    operator?: string;
+    firstValue?: string;
+    secondValue?: string;
+  };
 };
 
 /**
@@ -33,6 +38,7 @@ export const NumericComparatorFilter = ({
   disabled = false,
   className,
   suffix,
+  errors,
 }: NumericComparatorFilterProps) => {
   const { t } = useTranslation("details");
   const isControlled = value !== undefined;
@@ -95,14 +101,22 @@ export const NumericComparatorFilter = ({
   const isBetween =
     currentValue.operator === NUMERIC_COMPARATOR_OPERATORS.between;
   const suffixText = suffix ?? undefined;
+  const hasErrors = Boolean(
+    errors?.operator || errors?.firstValue || errors?.secondValue,
+  );
 
   return (
-    <div className={className}>
+    <Card
+      className={
+        hasErrors ? `${className ?? ""} shadow-border-thin-critical` : className
+      }
+      padding="none"
+    >
       <div
         className={
           currentValue.operator === NUMERIC_COMPARATOR_OPERATORS.between
-            ? "flex flex-col gap-xs items-start"
-            : "flex flex-row gap-xs items-start"
+            ? "flex flex-col gap-xs items-start p-xs"
+            : "flex flex-row gap-xs items-start p-xs"
         }
       >
         <Select
@@ -112,6 +126,8 @@ export const NumericComparatorFilter = ({
           onChange={handleOperatorChange}
           disabled={disabled}
           fullWidth
+          status={errors?.operator ? "critical" : "default"}
+          errorText={errors?.operator}
         />
         <div className="flex flex-row gap-xs items-center">
           <TextField
@@ -125,6 +141,8 @@ export const NumericComparatorFilter = ({
             }
             onChange={handleNumberChange("firstValue")}
             disabled={disabled}
+            status={errors?.firstValue ? "error" : "default"}
+            statusText={errors?.firstValue}
             suffix={
               suffixText ? { type: "text", value: suffixText } : undefined
             }
@@ -147,6 +165,8 @@ export const NumericComparatorFilter = ({
                 }
                 onChange={handleNumberChange("secondValue")}
                 disabled={disabled}
+                status={errors?.secondValue ? "error" : "default"}
+                statusText={errors?.secondValue}
                 suffix={
                   suffixText ? { type: "text", value: suffixText } : undefined
                 }
@@ -156,6 +176,6 @@ export const NumericComparatorFilter = ({
           )}
         </div>
       </div>
-    </div>
+    </Card>
   );
 };

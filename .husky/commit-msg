@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+set -e
+
+echo "⏳ Starting commit-msg hook"
+
+if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ]; then
+    pnpm exec commitlint --edit "$1"
+fi
+
+echo "✅ Finished commit-msg hook"

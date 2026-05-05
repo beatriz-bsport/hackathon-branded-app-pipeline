@@ -230,7 +230,6 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
       disabled={disabled}
       fullWidth={fullWidth}
       items={selectItems}
-      label={t("paymentMethod.selector.label")}
       loadingProps={{
         isLoading,
         message: t("paymentMethod.selector.loadingSavedMethods"),

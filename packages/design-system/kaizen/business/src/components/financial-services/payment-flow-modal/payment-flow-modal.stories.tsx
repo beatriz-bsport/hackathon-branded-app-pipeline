@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import type { CompanyTheme } from "@bsport/api-core";
 import { Button } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { fetch } from "#src/utils/fetch";
 
@@ -34,7 +36,23 @@ import { fetch } from "#src/utils/fetch";
     peerDependencies: ["@tanstack/react-query"],
   },
   render: (args) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(args.isOpen);
+
+    useEffect(() => setIsOpen(args.isOpen), [args.isOpen]);
+
+    useEffect(() => {
+      const originalUseCompanyTheme = dataAccessLayer.useCompanyTheme;
+      dataAccessLayer.useCompanyTheme = () => {
+        return {
+          stripe_pk_key: "pk_test_lFB5CxcyTCaQcS00MiE1ebEO",
+          stripe_id: "acct_1HXD8XGqCXxmgm1P",
+        } as CompanyTheme;
+      };
+
+      return () => {
+        dataAccessLayer.useCompanyTheme = originalUseCompanyTheme;
+      };
+    }, []);
 
     return (
       <>

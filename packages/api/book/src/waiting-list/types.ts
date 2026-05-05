@@ -14,6 +14,7 @@ export type BookingOptionListParams = {
   ordering?: "offer__date_start" | "-offer__date_start";
   page?: number;
   page_size?: number;
+  cancelled?: boolean;
 };
 
 // === API Response Types === GET waiting-list/booking-option/

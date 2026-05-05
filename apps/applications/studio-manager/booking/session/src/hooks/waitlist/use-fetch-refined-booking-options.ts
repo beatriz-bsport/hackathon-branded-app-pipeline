@@ -8,6 +8,8 @@ import {
 } from "@bsport/api-book";
 import { memberListQueryOptions } from "@bsport/api-cdp";
 
+import { useSessionManagementStore } from "#src/stores/session-management/store.js";
+import { WaitlistFilter } from "#src/stores/session-management/types.js";
 import type { RefinedBookingOption } from "#src/types";
 import { fetch } from "#src/utils/fetch";
 
@@ -16,8 +18,23 @@ const STALE_TIME = 2 * 60 * 1000; // 2 minutes
 export const useFetchRefinedBookingOptions = (
   params: BookingOptionListParams,
 ) => {
+  const waitlistFilters = useSessionManagementStore(
+    (state) => state.waitlistFilters,
+  );
+
+  const bookingOptionsQueryParams: BookingOptionListParams = {
+    ...params,
+    ...{ cancelled: waitlistFilters === WaitlistFilter.CANCELLED },
+    ...(waitlistFilters === WaitlistFilter.IS_CONVERTIBLE && {
+      is_convertible: true,
+    }),
+  };
+
   const bookingOptionsQuery = useQuery({
-    ...fetchPaginatedBookingOptionsQueryOption(fetch, params),
+    ...fetchPaginatedBookingOptionsQueryOption(
+      fetch,
+      bookingOptionsQueryParams,
+    ),
     throwOnError: true,
     staleTime: STALE_TIME,
   });

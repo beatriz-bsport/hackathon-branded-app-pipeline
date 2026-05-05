@@ -335,7 +335,7 @@
         "requiredFile": "Een bestand toevoegen",
         "passwordConfirmationError": "Deze wachtwoorden komen niet overeen",
         "invalidEmail": "Ongeldig e-mailadres",
-        "passwordMinimumRequirementsError": "Je wachtwoord moet minimaal 6 tekens bevatten.",
+        "passwordMinimumRequirementsError": "Je wachtwoord moet minimaal 12 tekens bevatten.",
         "invalidOfficialDocumentId": "Dit veld mag alleen letters en cijfers bevatten.",
         "barcodeMaximumLength": "Een streepjescode mag niet langer zijn dan 16 tekens",
         "membershipIdMaximumLength": "Een lidmaatschaps-ID mag niet langer zijn dan 24 tekens"

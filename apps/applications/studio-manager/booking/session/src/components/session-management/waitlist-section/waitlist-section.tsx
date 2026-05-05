@@ -7,6 +7,7 @@ import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-se
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
 import { useTranslation } from "#src/utils/i18n";
 
+import { BookingOptionStatusSegmentedControl } from "../filters/booking-option-status-segmented-control";
 import { PausedWaitlistState } from "./paused-waitlist-state";
 import { WaitList } from "./waitlist";
 import { WaitlistActionsButton } from "./waitlist-actions-button";
@@ -48,9 +49,12 @@ export const WaitlistSection: FC<{
       {isWaitlistPaused ? (
         <PausedWaitlistState openModal={openModal} />
       ) : (
-        <QueryBoundary>
-          <WaitList sessionId={sessionId} searchQuery={searchQuery} />
-        </QueryBoundary>
+        <>
+          <BookingOptionStatusSegmentedControl />
+          <QueryBoundary>
+            <WaitList sessionId={sessionId} searchQuery={searchQuery} />
+          </QueryBoundary>
+        </>
       )}
     </div>
   );

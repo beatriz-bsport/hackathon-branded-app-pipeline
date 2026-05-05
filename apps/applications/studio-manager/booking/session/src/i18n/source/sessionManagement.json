@@ -45,6 +45,11 @@
     "booked": "Booked",
     "cancelled": "Cancelled"
   },
+  "bookingOptionStatusFilter": {
+    "onWaitlist": "On Waitlist",
+    "convertible": "Convertible",
+    "removed": "Removed"
+  },
   "actions": {
     "label": "Actions",
     "swapSpot": "Swap spot number",

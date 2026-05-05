@@ -1,10 +1,10 @@
 import type { ErrorAndLoading } from '#src/libs/types';
-import type { OfferREST } from '#src/libs/offer/types';
 import type { ReworkedPaginationResponse } from '#src/state/types';
+import { OfferSaas } from '../offer/types';
 
 export type WellhubState = {
   offersMissingProduct: ErrorAndLoading & {
-    data: ReworkedPaginationResponse<OfferREST>;
+    data: ReworkedPaginationResponse<OfferSaas>;
   };
 };
 

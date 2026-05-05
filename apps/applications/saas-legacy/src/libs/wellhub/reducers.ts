@@ -4,7 +4,7 @@ import Immutable from 'seamless-immutable';
 import { fetchOffersMissingWellhubProductActions } from '#src/libs/wellhub/actions';
 
 import type { OfferSaas } from '#src/libs/offer/types';
-import type { PaginatedResponse } from '#src/state/types';
+import type { ReworkedPaginationResponse } from '#src/state/types';
 import type { WellhubState } from '#src/libs/wellhub/types';
 import { WELLHUB_OFFER_DEFAULT_PAGE_SIZE } from './constants';
 
@@ -43,7 +43,7 @@ export default handleActions<ImmutableWellhubState, any>(
     },
     [fetchOffersMissingWellhubProductActions.success.toString()]: (
       state,
-      { payload }: { payload: PaginatedResponse<OfferSaas> },
+      { payload }: { payload: ReworkedPaginationResponse<OfferSaas> },
     ) => {
       return state.setIn(['offersMissingProduct', 'data'], payload);
     },

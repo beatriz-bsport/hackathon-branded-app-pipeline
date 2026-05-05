@@ -16,7 +16,10 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { useFetchTags } from "#src/hooks/tags/use-fetch-tags";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import {
+  type SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals";
 import { useTranslation } from "#src/utils/i18n";
 
 import { ShortcutActionsButton } from "../action-buttons/booking/shortcut-actions-button";
@@ -32,7 +35,10 @@ export const ClientDetails: FC<{
     | undefined;
   isNewClient?: boolean;
   bookingId?: number;
-  openModal?: (type: SessionManagementModalType, bookingId: number) => void;
+  openModal?: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
 }> = ({ sessionId, memberData, isNewClient, bookingId, openModal }) => {
   const { t, i18n } = useTranslation("sessionManagement");
 

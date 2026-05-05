@@ -8,7 +8,10 @@ import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useAssignSpotAction } from "#src/hooks/booking/actions/use-assign-spot-action";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import {
+  type SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
@@ -20,7 +23,10 @@ export const ShortcutActionsButton: FC<{
   bookingId?: number;
   bookingOptionId?: number;
   memberId?: number;
-  openModal?: (type: SessionManagementModalType, bookingId: number) => void;
+  openModal?: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
   allowedItemIds?: ActionItemId[];
   participantEmail?: string;
   participantPhone?: string;
@@ -122,7 +128,7 @@ export const ShortcutActionsButton: FC<{
         type: "button",
         onClick: () => {
           if (!openModal || !bookingId) return;
-          openModal(SessionManagementModalType.CANCEL_BOOKING, bookingId);
+          openModal(SessionManagementModalType.CANCEL_BOOKING, { bookingId });
           setIsPopoverOpened(false);
         },
       };
@@ -216,7 +222,10 @@ export const ShortcutActionsButton: FC<{
         iconLeft: "trash-01",
         type: "button",
         onClick: () => {
-          // TODO: implement remove from waitlist action
+          if (!openModal || !bookingOptionId) return;
+          openModal(SessionManagementModalType.DISCARD_BOOKING_OPTION, {
+            bookingOptionId,
+          });
           setIsPopoverOpened(false);
         },
       };

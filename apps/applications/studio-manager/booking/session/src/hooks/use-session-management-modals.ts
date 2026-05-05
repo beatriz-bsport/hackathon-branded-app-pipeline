@@ -9,11 +9,18 @@ export enum SessionManagementModalType {
   PAUSE_WAITLIST = "pause_waitlist",
   REACTIVATE_WAITLIST = "reactivate_waitlist",
   VIEW_WAITLIST = "view_waitlist",
+  DISCARD_BOOKING_OPTION = "discard_booking_option",
 }
+
+export type SessionManagementModalParams = {
+  bookingId?: number;
+  bookingOptionId?: number;
+};
 
 export type SessionManagementModalState = {
   type: SessionManagementModalType;
   bookingId?: number | null; // Used for booking related modals, e.g. CancelBookingModal
+  bookingOptionId?: number | null; // Used for booking option related modals, e.g. DiscardBookingOptionModal
 } | null;
 
 type Action =
@@ -21,6 +28,7 @@ type Action =
       action: "open";
       type: SessionManagementModalType;
       bookingId?: number | null;
+      bookingOptionId?: number | null;
     }
   | { action: "close" };
 
@@ -30,7 +38,11 @@ const reducer = (
 ): SessionManagementModalState => {
   switch (action.action) {
     case "open":
-      return { type: action.type, bookingId: action.bookingId };
+      return {
+        type: action.type,
+        bookingId: action.bookingId,
+        bookingOptionId: action.bookingOptionId,
+      };
     case "close":
       return null;
   }
@@ -44,8 +56,11 @@ export const useSessionManagementModals = () => {
   const [modalState, dispatch] = useReducer(reducer, null);
 
   const openModal = useCallback(
-    (type: SessionManagementModalType, bookingId?: number) => {
-      dispatch({ action: "open", type, bookingId });
+    (
+      type: SessionManagementModalType,
+      { bookingId, bookingOptionId }: SessionManagementModalParams = {},
+    ) => {
+      dispatch({ action: "open", type, bookingId, bookingOptionId });
     },
     [],
   );

@@ -358,7 +358,7 @@
         "requiredFile": "Si prega di allegare un file",
         "invalidEmail": "Email non valida",
         "passwordConfirmationError": "Le password non sono indefinite",
-        "passwordMinimumRequirementsError": "La password deve contenere almeno 6 caratteri",
+        "passwordMinimumRequirementsError": "La password deve contenere almeno 12 caratteri",
         "invalidOfficialDocumentId": "Questo campo può contenere solo numeri e lettere",
         "membershipIdMaximumLength": "L'ID di un membro non può superare i 24 caratteri",
         "barcodeMaximumLength": "Un codice a barre non può superare i 16 caratteri"

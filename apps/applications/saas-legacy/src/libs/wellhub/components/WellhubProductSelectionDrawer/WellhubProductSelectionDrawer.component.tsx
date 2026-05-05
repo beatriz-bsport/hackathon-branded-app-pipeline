@@ -20,7 +20,6 @@ import type { ReworkedPaginationResponse } from '#src/state/types';
 import type { WellhubProductSelectionFormValues } from '#src/libs/wellhub/types';
 
 type Props = {
-  availableEstablishments: Establishment[];
   coaches: Coach[];
   isLoading: boolean;
   isOpen: boolean;
@@ -38,7 +37,6 @@ type Props = {
 };
 
 const WellhubProductSelectionDrawer: React.FC<Props> = ({
-  availableEstablishments,
   coaches,
   isLoading,
   isOpen,
@@ -121,7 +119,6 @@ const WellhubProductSelectionDrawer: React.FC<Props> = ({
         validationSchema={WellhubProductSelectionValidationSchema}
       >
         <WellhubProductSelectionContent
-          availableEstablishments={availableEstablishments}
           coaches={coaches}
           descriptionText={drawerDescription}
           fetchMissingProductOffersSpecificPage={

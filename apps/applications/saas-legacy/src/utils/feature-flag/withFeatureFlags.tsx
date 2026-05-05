@@ -12,7 +12,6 @@ export type FeatureFlagProps = {
   checkoutFlowModalEnabled: boolean;
   isBookingMultipleOffersInSubscriptionCheckoutEnabled: boolean;
   isCalendarRevampEnabled: boolean;
-  isNewWellhubConfigurationEnabled: boolean;
   isAgentChatEnabled: boolean;
 };
 
@@ -44,9 +43,6 @@ export const withFeatureFlags = <TProps extends object>(
     );
 
     const isCalendarRevampEnabled = useSafeFlag(FeatureFlags.CALENDAR_REVAMP);
-    const isNewWellhubConfigurationEnabled = useSafeFlag(
-      FeatureFlags.WELLHUB_NEW_CONFIGURATION,
-    );
     const isAgentChatEnabled = useSafeFlag(FeatureFlags.AGENT_CHAT);
 
     return (
@@ -61,7 +57,6 @@ export const withFeatureFlags = <TProps extends object>(
         isInvoiceSequentialNumberingEnabled={
           isInvoiceSequentialNumberingEnabled
         }
-        isNewWellhubConfigurationEnabled={isNewWellhubConfigurationEnabled}
         shouldDisplayNewSubscriptionContracts={
           shouldDisplayNewSubscriptionContracts
         }

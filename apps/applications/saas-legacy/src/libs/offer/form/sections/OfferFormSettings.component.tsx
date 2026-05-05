@@ -16,7 +16,6 @@ import FormSection from '#src/components/forms/FormSection';
 import OfferFormField from '#src/libs/offer/form/OfferFormField.component';
 import OfferPartnershipSettings from '#src/libs/offer/form/sections/OfferPartnershipSettings.component';
 
-import WellhubProductSelector from '#src/libs/wellhub/components/WellhubProductSelector';
 import PartnershipAccountProductSelector, {
   PartnershipAccountProductProvider,
 } from '#src/libs/wellhub/components/PartnershipAccountProductSelector';
@@ -32,16 +31,13 @@ import {
 
 import { useGetPartnershipAccounts } from '#src/libs/partnership/hooks';
 
-import type { Establishment } from '#src/libs/establishment/types';
 import type { FeatureList } from '#src/libs/company/types';
 import type { OfferFormValues } from '#src/libs/offer/types';
 import type { RoomBlueprint } from '#src/libs/spot-scheduling/types';
 import type { WellhubProductId } from '#src/libs/wellhub/types';
-import { FeatureFlags, useSafeFlag } from '#src/utils/feature-flag';
 
 type Props = {
   allowGuestMaster: boolean;
-  availableEstablishments: Establishment[];
   hasActivityGroup?: boolean;
   isEditOffer?: boolean;
   isOfferInGroup?: boolean;
@@ -52,7 +48,6 @@ type Props = {
 
 const OfferFormSettings: React.FC<Props> = ({
   allowGuestMaster,
-  availableEstablishments,
   hasActivityGroup,
   isEditOffer,
   isOfferInGroup,
@@ -72,10 +67,6 @@ const OfferFormSettings: React.FC<Props> = ({
 
   const { values, errors, setFieldValue } = useFormikContext<OfferFormValues>();
 
-  const isNewWellhubConfigurationEnabled = useSafeFlag(
-    FeatureFlags.WELLHUB_NEW_CONFIGURATION,
-  );
-
   const {
     availableOnPartnership,
     dateIntervalStart,
@@ -91,25 +82,14 @@ const OfferFormSettings: React.FC<Props> = ({
     return !dateIntervalStart.hasSame(datetimeEnd, 'day');
   }, [dateIntervalStart, durationMinute]);
 
-  const correspondingWellhubGymUuid = useMemo(
-    () =>
-      (!!establishment &&
-        availableEstablishments?.find(
-          (availableEstablishment) =>
-            availableEstablishment.id === establishment,
-        )?.wellhub_gym) ||
-      null,
-    [availableEstablishments, establishment],
-  );
-
   const [{ value: partnershipAccounts }, fetchPartnershipAccounts] =
     useGetPartnershipAccounts(wellhubPartnershipId ?? 0);
 
   useEffect(() => {
-    if (!isNewWellhubConfigurationEnabled || !wellhubPartnershipId) return;
+    if (!wellhubPartnershipId) return;
     fetchPartnershipAccounts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isNewWellhubConfigurationEnabled, wellhubPartnershipId]);
+  }, [wellhubPartnershipId]);
 
   const correspondingPartnershipAccount = useMemo(
     () =>
@@ -273,7 +253,6 @@ const OfferFormSettings: React.FC<Props> = ({
                     {isWellhubProductRequired &&
                       hasWellhubUpsell &&
                       availableOnPartnership &&
-                      isNewWellhubConfigurationEnabled &&
                       !!correspondingPartnershipAccount?.external_id && (
                         <OfferFormField
                           isBold
@@ -300,43 +279,6 @@ const OfferFormSettings: React.FC<Props> = ({
                               setWellhubProductRequired
                             }
                             styles={classes.bigWidth}
-                          />
-                          {!!errors.wellhubProductId &&
-                            Object.keys(errors).length === 1 && (
-                              <Typography color="error" variant="caption">
-                                {t(errors.wellhubProductId)}
-                              </Typography>
-                            )}
-                        </OfferFormField>
-                      )}
-                    {isWellhubProductRequired &&
-                      hasWellhubUpsell &&
-                      availableOnPartnership &&
-                      !isNewWellhubConfigurationEnabled &&
-                      !!correspondingWellhubGymUuid && (
-                        <OfferFormField
-                          isBold
-                          isRequired
-                          isError={!!errors.wellhubProductId}
-                          label={t(
-                            'form.section.settings.field.partnership.wellhubProduct.title',
-                          )}
-                        >
-                          <Typography variant="caption">
-                            {t(
-                              'form.section.settings.field.partnership.wellhubProduct.helperText',
-                            )}
-                          </Typography>
-                          <WellhubProductSelector
-                            id="offer-form-wellhub-product-selector"
-                            isVirtualOffer={values.isMetaActivityBroadcast}
-                            onSelect={handleSelectWellhubProduct}
-                            selectedProductId={wellhubProductId || null}
-                            setIsWellhubProductRequired={
-                              setWellhubProductRequired
-                            }
-                            styles={classes.bigWidth}
-                            wellhubGymUuid={correspondingWellhubGymUuid}
                           />
                           {!!errors.wellhubProductId &&
                             Object.keys(errors).length === 1 && (

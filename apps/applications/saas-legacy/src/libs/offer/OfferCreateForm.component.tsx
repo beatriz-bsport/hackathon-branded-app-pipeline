@@ -234,8 +234,7 @@ export const OfferCreateForm = (props: Props) => {
 
       {!isOfferInGroup && (
         <OfferFormSettings
-          allowGuestMaster={allowGuestMaster}
-          availableEstablishments={availableEstablishments}
+          allowGuestMaster={!!allowGuestMaster}
           isOfferInGroup={isOfferInGroup}
           roomBlueprints={roomBlueprints}
           showPartnership={showPartnership}

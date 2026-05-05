@@ -19,7 +19,8 @@ import {
   useFetchMember,
   useRequestPaymentClientSecret,
 } from "./hooks";
-import { StripePaymentMethod } from "./new-payment-methods/stripe-payment-method";
+import { GiftCard } from "./payment-methods/gift-card";
+import { StripePaymentMethod } from "./payment-methods/stripe";
 import type { PaymentFlowModalProps } from "./types";
 
 type PaymentTab = "one-time" | "installments";
@@ -137,9 +138,13 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
               method={stripeMethod}
             />
           ) : null}
+          {selectedPaymentMethod?.kind === "all" &&
+          selectedPaymentMethod.id === "gift_card_code" ? (
+            <GiftCard fetch={fetch} memberId={memberId} />
+          ) : null}
         </Card>
 
-        <div className="flex items-start gap-xs">
+        <div className="flex items-start gap-xs flex-wrap">
           <Button
             intent="flat"
             color="default"

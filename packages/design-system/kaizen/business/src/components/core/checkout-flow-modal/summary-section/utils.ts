@@ -16,18 +16,6 @@ export const itemTypeIcon: Record<InvoiceItemKind, IconName> = {
   [INVOICE_ITEMS_KINDS.subscription]: "refresh-cw-04",
 };
 
-export const formatDate = (dateStr: string, language?: string): string => {
-  try {
-    return new Date(dateStr).toLocaleDateString(language || "en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-  } catch {
-    return dateStr;
-  }
-};
-
 export const calculateTotals = (
   items: InvoiceItemFormData[],
   promoCodeDiscountCts = 0,

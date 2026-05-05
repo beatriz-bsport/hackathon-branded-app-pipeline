@@ -112,6 +112,7 @@ const SessionManagementPageInner: FC = () => {
       <BookingOptionDetailDrawer
         onClose={() => setSelectedBookingOption(null)}
         selectedBookingOptionId={selectedBookingOptionId}
+        openModal={openModal}
       />
     </>
   );

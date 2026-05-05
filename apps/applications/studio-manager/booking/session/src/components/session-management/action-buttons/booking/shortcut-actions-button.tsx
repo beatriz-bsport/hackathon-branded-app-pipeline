@@ -254,7 +254,7 @@ export const ShortcutActionsButton: FC<{
         ...(hasCreateBookingPermission && bookingOptionId
           ? [bookOptionAction]
           : []),
-        ...(bookingOptionId ? [removeFromWaitlistAction] : []),
+        ...(bookingOptionId && openModal ? [removeFromWaitlistAction] : []),
       ];
 
       if (!allowedItemIds) return allItems;

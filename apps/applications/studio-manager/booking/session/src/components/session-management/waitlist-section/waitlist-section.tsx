@@ -2,6 +2,7 @@ import { FC } from "react";
 
 import { Title } from "@bsport/kaizen-primitive-core";
 
+import { SectionErrorFallback } from "#src/components/query-boundary/fallbacks.js";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary.js";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
@@ -27,33 +28,45 @@ export const WaitlistSection: FC<{
 
   return (
     <div className="flex flex-col gap-lg">
-      <div className="flex items-center justify-between">
-        <div className="flex gap-sm">
-          <Title weight="strong" htmlVariant="h3">
-            {t("waitlistSectionTitle")}
-          </Title>
-          <WaitlistSettingsPopover />
+      <QueryBoundary
+        errorFallback={(props) => (
+          <div className="flex flex-col gap-lg">
+            <Title weight="strong" htmlVariant="h3">
+              {t("waitlistSectionTitle")}
+            </Title>
+            <SectionErrorFallback {...props} />
+          </div>
+        )}
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex gap-sm">
+            <Title weight="strong" htmlVariant="h3">
+              {t("waitlistSectionTitle")}
+            </Title>
+            <WaitlistSettingsPopover />
+            {!isWaitlistPaused && (
+              <WaitlistCounter
+                sessionId={sessionId}
+                waitlistCapacity={session.waiting_list_max_size}
+              />
+            )}
+          </div>
           {!isWaitlistPaused && (
-            <WaitlistCounter
+            <WaitlistActionsButton
               sessionId={sessionId}
-              waitlistCapacity={session.waiting_list_max_size}
+              openModal={openModal}
             />
           )}
         </div>
-        {!isWaitlistPaused && (
-          <WaitlistActionsButton sessionId={sessionId} openModal={openModal} />
-        )}
-      </div>
-      {isWaitlistPaused ? (
-        <PausedWaitlistState openModal={openModal} />
-      ) : (
-        <>
-          <BookingOptionStatusSegmentedControl />
-          <QueryBoundary>
+        {isWaitlistPaused ? (
+          <PausedWaitlistState openModal={openModal} />
+        ) : (
+          <>
+            <BookingOptionStatusSegmentedControl />
             <WaitList sessionId={sessionId} searchQuery={searchQuery} />
-          </QueryBoundary>
-        </>
-      )}
+          </>
+        )}
+      </QueryBoundary>
     </div>
   );
 };

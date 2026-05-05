@@ -51,12 +51,6 @@
   "wellhub": {
     "title": "Wellhub",
     "configuration": {
-      "migration": {
-        "banner": {
-          "title": "Wellhub-Update läuft",
-          "content": "Das Bearbeiten oder Löschen von Konfigurationen ist bis zum {{date}} nicht verfügbar. Du kannst weiterhin neue Verbindungen hinzufügen. Für dringende Änderungen kontaktiere deinen Account Manager."
-        }
-      },
       "dialog": {
         "title": {
           "creation": "Hinzufügen und Verknüpfen der ID Einheiten mit den Einrichtung(en)",

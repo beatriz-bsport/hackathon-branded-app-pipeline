@@ -51,12 +51,6 @@
   "wellhub": {
     "title": "Wellhub",
     "configuration": {
-      "migration": {
-        "banner": {
-          "title": "Wellhub update in progress",
-          "content": "Editing or deleting configurations is unavailable until {{date}}. You can still add new connections. For urgent changes, contact your Account Manager."
-        }
-      },
       "dialog": {
         "title": {
           "creation": "Add and link Unit ID with establishment(s)",

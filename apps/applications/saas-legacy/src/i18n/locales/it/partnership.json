@@ -50,12 +50,6 @@
   },
   "wellhub": {
     "configuration": {
-      "migration": {
-        "banner": {
-          "title": "Aggiornamento Wellhub in corso",
-          "content": "La modifica o eliminazione delle configurazioni non è disponibile fino al {{date}}. Puoi comunque aggiungere nuove connessioni. Per modifiche urgenti, contatta il tuo Account Manager."
-        }
-      },
       "panel": {
         "footer": {
           "addConnectionButton": "Aggiungi Unità"

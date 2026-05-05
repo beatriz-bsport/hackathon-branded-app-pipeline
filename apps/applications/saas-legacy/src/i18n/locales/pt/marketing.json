@@ -9,7 +9,7 @@
     "submit": {
       "errors": {
         "requiredField": "Obrigatório",
-        "passwordMinimumRequirementsError": "A palavra-passe deve conter pelo menos 6 caracteres",
+        "passwordMinimumRequirementsError": "A palavra-passe deve conter pelo menos 12 caracteres",
         "invalidEmail": "E-mail inválido",
         "passwordConfirmationError": "As palavras-passe não são encriptadas",
         "requiredSignature": "Por favor, assine o formulário.",

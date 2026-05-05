@@ -290,7 +290,10 @@ const BalanceTransactionRow: React.FC<Props> = ({
   const grossDisplay = getCurrencyDisplayWithPrice(
     (bt.amount_cts / 100).toFixed(2),
   );
-  const feeDisplay = getCurrencyDisplayWithPrice((bt.fee_cts / 100).toFixed(2));
+  const isDirectDebitReversal =
+    bt.display_type === 'failed_direct_debit_reversal';
+  const feeCts = isDirectDebitReversal ? -bt.fee_cts : bt.fee_cts;
+  const feeDisplay = getCurrencyDisplayWithPrice((feeCts / 100).toFixed(2));
   const totalDisplay = getCurrencyDisplayWithPrice(
     (bt.net_cts / 100).toFixed(2),
   );

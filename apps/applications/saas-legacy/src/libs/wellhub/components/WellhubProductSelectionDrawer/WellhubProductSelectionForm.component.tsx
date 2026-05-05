@@ -39,8 +39,10 @@ const WellhubProductSelectionForm: React.FC<Props> = ({
   const { values, setFieldValue } =
     useFormikContext<WellhubProductSelectionFormValues>();
 
-  const [{ value: partnershipAccounts }, fetchPartnershipAccounts] =
-    useGetPartnershipAccounts(wellhubPartnershipId ?? 0);
+  const [
+    { value: partnershipAccounts, loading: isPartnershipAccountsLoading },
+    fetchPartnershipAccounts,
+  ] = useGetPartnershipAccounts(wellhubPartnershipId ?? 0);
 
   useEffect(() => {
     if (!wellhubPartnershipId) return;
@@ -55,6 +57,18 @@ const WellhubProductSelectionForm: React.FC<Props> = ({
       )?.external_id ?? null,
     [partnershipAccounts, offer.etablissement.id],
   );
+
+  useEffect(() => {
+    if (isPartnershipAccountsLoading) return;
+    if (!partnershipAccountExternalId && values.wellhubProductId !== null) {
+      setFieldValue('wellhubProductId', null);
+    }
+  }, [
+    partnershipAccountExternalId,
+    setFieldValue,
+    values.wellhubProductId,
+    isPartnershipAccountsLoading,
+  ]);
 
   const handleSelectWellhubProduct = useCallback(
     (productId: WellhubProductId | null) => {

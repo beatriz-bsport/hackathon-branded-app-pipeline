@@ -82,8 +82,10 @@ const OfferFormSettings: React.FC<Props> = ({
     return !dateIntervalStart.hasSame(datetimeEnd, 'day');
   }, [dateIntervalStart, durationMinute]);
 
-  const [{ value: partnershipAccounts }, fetchPartnershipAccounts] =
-    useGetPartnershipAccounts(wellhubPartnershipId ?? 0);
+  const [
+    { value: partnershipAccounts, loading: isPartnershipAccountsLoading },
+    fetchPartnershipAccounts,
+  ] = useGetPartnershipAccounts(wellhubPartnershipId ?? 0);
 
   useEffect(() => {
     if (!wellhubPartnershipId) return;
@@ -100,6 +102,22 @@ const OfferFormSettings: React.FC<Props> = ({
         : null,
     [establishment, partnershipAccounts],
   );
+
+  useEffect(() => {
+    if (isPartnershipAccountsLoading) return;
+    if (
+      wellhubProductId !== null &&
+      (!availableOnPartnership || !correspondingPartnershipAccount?.external_id)
+    ) {
+      setFieldValue('wellhubProductId', null);
+    }
+  }, [
+    availableOnPartnership,
+    correspondingPartnershipAccount?.external_id,
+    setFieldValue,
+    wellhubProductId,
+    isPartnershipAccountsLoading,
+  ]);
 
   const handleToggleManagerOnly = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

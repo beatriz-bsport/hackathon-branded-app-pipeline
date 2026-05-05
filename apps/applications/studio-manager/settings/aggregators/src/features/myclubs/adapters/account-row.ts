@@ -11,6 +11,7 @@ export type AccountRow = {
     id: number;
     title: string;
     cover: string | null;
+    disabled: boolean;
   }>;
 };
 
@@ -37,5 +38,6 @@ export const toAccountRow = (account: PartnershipAccount): AccountRow => ({
     id: establishment.id,
     title: establishment.title,
     cover: establishment.cover,
+    disabled: establishment.disabled,
   })),
 });

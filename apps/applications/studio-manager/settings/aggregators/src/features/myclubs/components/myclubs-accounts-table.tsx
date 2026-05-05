@@ -18,10 +18,16 @@ type TableColumn = GenericTableColumn<AccountRow>;
 
 type MyclubsAccountsTableProps = {
   rows: AccountRow[];
+  onEdit: (id: string) => void;
+  onDelete: (id: string) => void;
+  onReactivate: (id: string) => void;
 };
 
 export const MyclubsAccountsTable: FC<MyclubsAccountsTableProps> = ({
   rows,
+  onEdit,
+  onDelete,
+  onReactivate,
 }) => {
   const { t } = useTranslation("common");
   const { copyToClipboard } = useCopyToClipboard();
@@ -72,10 +78,17 @@ export const MyclubsAccountsTable: FC<MyclubsAccountsTableProps> = ({
         header: "",
         type: "custom",
         align: "end",
-        render: (row) => <MyclubsRowActions status={row.status} />,
+        render: (row) => (
+          <MyclubsRowActions
+            status={row.status}
+            onEdit={() => onEdit(row.id)}
+            onDelete={() => onDelete(row.id)}
+            onReactivate={() => onReactivate(row.id)}
+          />
+        ),
       },
     ],
-    [copyToClipboard, t],
+    [copyToClipboard, t, onEdit, onDelete, onReactivate],
   );
 
   return (

@@ -37,6 +37,15 @@ export type FetchPartnershipAccountsParams = {
   partnership: number;
 };
 
+export type CreatePartnershipAccountParams = {
+  partnership: number;
+  establishment_group: number[];
+};
+
+export type UpdatePartnershipAccountParams = CreatePartnershipAccountParams & {
+  id: string;
+};
+
 /**
  * Defines how partner spots (aggregators) are allocated within a session.
  *

@@ -13,6 +13,19 @@
       "title": "No staff members yet",
       "subtitle": "Staff members will appear here once they are added."
     },
+    "emptySearch": {
+      "title": "No staff members match your filters",
+      "subtitle": "Try adjusting or clearing your filters.",
+      "cta": "Clear filters"
+    },
     "loading": "Loading staff..."
+  },
+  "filters": {
+    "label": "Filter by",
+    "is": "is",
+    "role": {
+      "label": "Role",
+      "all": "All"
+    }
   }
 }

@@ -15,16 +15,20 @@ type StaffListProps = {
   rows: StaffRowData[];
   paginationProps: PaginationProps;
   isEmpty: boolean;
+  isEmptySearch?: boolean;
   isLoading: boolean;
   emptyConfig: UseEmptyStateProps["emptyConfig"];
+  emptySearchConfig?: UseEmptyStateProps["emptySearchConfig"];
 };
 
 export const StaffList: FC<StaffListProps> = ({
   rows,
   paginationProps,
   isEmpty,
+  isEmptySearch = false,
   isLoading,
   emptyConfig,
+  emptySearchConfig,
 }) => {
   const { t } = useTranslation("staff-list");
 
@@ -42,6 +46,8 @@ export const StaffList: FC<StaffListProps> = ({
       emptyStateProps={{
         isEmpty,
         emptyConfig,
+        isEmptySearch,
+        emptySearchConfig,
       }}
       loadingProps={{
         isLoading,

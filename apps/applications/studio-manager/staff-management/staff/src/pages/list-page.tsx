@@ -4,32 +4,59 @@ import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { StaffTable } from "#src/components/staff-table/staff-table";
-import { useStaffListQuery } from "#src/hooks/api/use-staff-list-query";
+import {
+  type StaffActiveFilters,
+  useStaffListQuery,
+} from "#src/hooks/api/use-staff-list-query";
+import { useStaffFilters } from "#src/hooks/use-staff-filters";
 import { useTranslation } from "#src/utils/i18n";
 
-const StaffListPageContent: FC = () => {
+type StaffListPageContentProps = {
+  activeFilters: StaffActiveFilters;
+  isFiltered: boolean;
+  onClearFilters: () => void;
+};
+
+const StaffListPageContent: FC<StaffListPageContentProps> = ({
+  activeFilters,
+  isFiltered,
+  onClearFilters,
+}) => {
   const { staffRows, isEmpty, isFetching, paginationProps } =
-    useStaffListQuery();
+    useStaffListQuery(activeFilters);
 
   return (
     <StaffTable
       rows={staffRows}
       paginationProps={paginationProps}
       isEmpty={isEmpty}
+      isEmptySearch={isEmpty && isFiltered}
       isLoading={isFetching}
+      onClearFilters={onClearFilters}
     />
   );
 };
 
 const ListPage: FC = () => {
   const { t } = useTranslation("staff-list");
+  const { activeFilters, filterConfig, filterRef, resetFilters } =
+    useStaffFilters();
+  const isFiltered = Object.keys(activeFilters).length > 0;
 
   return (
     <ListLayout>
-      <ListLayout.Header pageTitle={t("name")} />
+      <ListLayout.Header
+        pageTitle={t("name")}
+        filterConfig={filterConfig}
+        filterRef={filterRef}
+      />
       <ListLayout.Content>
         <QueryBoundary>
-          <StaffListPageContent />
+          <StaffListPageContent
+            activeFilters={activeFilters}
+            isFiltered={isFiltered}
+            onClearFilters={resetFilters}
+          />
         </QueryBoundary>
       </ListLayout.Content>
     </ListLayout>

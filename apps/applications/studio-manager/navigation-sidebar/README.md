@@ -2,7 +2,7 @@
 
 This application contains the business logic for the navigation sidebar.
 
-It is meant to be imported using module federation into other applications.
+It is meant to be injected into other Studio Manager apps and shells during composed runtime usage.
 
 ## Standalone mode
 

@@ -2,9 +2,11 @@
 
 This package instantiates a store package with adequate dependencies.
 
+> Use this template only when an existing consumer still needs a store, the state is truly client-side/shared UI state, or you are taking a migration step. For new API client modules and server-data queries, prefer `packages/api` and the existing TanStack Query conventions.
+
 ## How to use
 
-Create your store package by running the following command:
+Create your store package by running the following command when a store is still the right fit:
 
 ```sh
 pnpm run -w project:create --template=store-package
@@ -28,7 +30,7 @@ Select `packages/stores` location for your store.
 
 # GROUP | [MODEL_NAME] store package
 
-This package provides a Zustand store implementation for managing the state related to the [MODEL_NAME] entity in an application. It includes types, actions, API interactions, and selectors to facilitate state management.
+This package provides a Zustand state layer for the [MODEL_NAME] entity when applications still rely on store hooks, actions, and selectors.
 
 ## Installation
 

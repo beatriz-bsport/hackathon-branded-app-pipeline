@@ -42,9 +42,9 @@ The `namespaces.json` shall list all namespaces :
 
 ```json
 [
-	"namespace1",
-	"namespace2",
-	...
+ "namespace1",
+ "namespace2",
+ ...
 ]
 ```
 
@@ -52,10 +52,10 @@ The `source` folder contains the JSON files that developers are editing to add s
 
 ```json
 {
-	"key1": {
-		...
-	},
-	...
+ "key1": {
+  ...
+ },
+ ...
 }
 ```
 
@@ -88,7 +88,7 @@ In order to have this working properly, there are some rules to follow:
 
 ### Use `public/locales/` as source dir to serve translations files
 
-Except for `saas-legacy`, namespaces are prefixed with the application name, to prevent any conflict when loading the files. Indeed, if multiple micro-frontends are running simultanously with their own namespaces, and some have the same naming, we don't want one to override the others.
+Except for `saas-legacy`, namespaces are prefixed with the application name, to prevent any conflict when loading the files. Indeed, if multiple applications are running simultaneously with their own namespaces, and some have the same naming, we don't want one to override the others.
 
 Thus, for each locale, translations files are chunked like this :
 

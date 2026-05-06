@@ -5,12 +5,12 @@ Unified Nx plugin for Studio Manager workflows.
 It groups the repo's custom Nx surface in one package:
 
 - generators for repo and Studio Manager migrations
-- executors for Module Federation development workflow
-- inferred targets for Studio Manager federated apps
+- executors for Studio Manager local development workflow
+- inferred targets for Studio Manager local runtime entrypoints
 
 ## `@bsport/nx:migrate-to-library`
 
-Migrate a Studio Manager app from Module Federation mode to workspace library mode.
+Migrate a Studio Manager app from the legacy composed runtime shape to workspace library mode.
 
 ### Input
 
@@ -226,7 +226,7 @@ pnpm dedupe
 
 ## `@bsport/nx:dev`
 
-Run a Studio Manager app with auto-detected remotes:
+Run a Studio Manager app in local composed mode:
 
 ```bash
 pnpm exec nx run @bsport/sm-giftcard:dev:watch
@@ -234,8 +234,8 @@ pnpm exec nx run @bsport/sm-giftcard:dev:watch
 
 This will:
 
-1. read `federation.remotes` from the app's `package.json`
-2. start each remote in the background
+1. read local runtime config from the app's `package.json`
+2. start each declared companion app in the background
 3. watch workspace dependencies and rebuild them on change
 4. start the main app's Vite dev server
 

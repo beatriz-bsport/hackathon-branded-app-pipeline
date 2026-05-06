@@ -12,7 +12,7 @@ pnpm exec nx run @bsport/sm-referral-program:dev:watch
 
 This will run two applications aside :
 
-- The Navigation Sidebar on port 4050, with module federation.
+- The Navigation Sidebar on port 4050, used as the local navigation bridge.
 - The Referral Program application, on the port defined in `package.json` in `federation.devPort` : $PORT.
 
 Go to <http://localhost:$PORT>
@@ -39,7 +39,7 @@ To build your application for local preview :
 pnpm run build:preview
 ```
 
-:warning: The application is not built with react, as it is aimed to be shared in the Module Federation architecture. You need to run the host app in preview mode as well.
+:warning: The application preview is meant to be consumed in the Studio Manager shell context. Run the host app in preview mode as well.
 
 ### Build your application for deployment
 

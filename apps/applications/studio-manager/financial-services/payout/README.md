@@ -12,7 +12,7 @@ pnpm exec nx run @bsport/sm-payout:dev:watch
 
 This will run two applications aside :
 
-- The Navigation Sidebar on port 4050, with module federation.
+- The Navigation Sidebar on port 4050, used as the local navigation bridge.
 - The Payout application, on the port defined in `package.json` in `federation.devPort` : 4251.
 
 Go to <http://localhost:4251>

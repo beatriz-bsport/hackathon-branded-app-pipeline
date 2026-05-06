@@ -8,6 +8,15 @@ The `studio-manager` folder should reflect the same structure as in the backend.
 
 You can find the list on [Notion](https://www.notion.so/bright-shovel-41b/Business-domains-Product-Units-1d5137e4c64080b28bbed3b2bf469e0b).
 
+## Agent Playbook
+
+- Prefer generators: `pnpm project:create --template=sm-application` for new modules.
+- Prefer `pnpm exec nx run @bsport/sm-APP:dev:watch` for local work.
+- Use `#src/*` for intra-package imports.
+- Route new user-facing strings through i18n and run `pnpm translation:update`.
+- Flag new feature work. See `../../../docs/feature_flags.md`.
+- Canonical overlay for this area: [`AGENTS.md`](./AGENTS.md).
+
 ---
 
 ## Applications
@@ -21,28 +30,10 @@ All applications follow the same pattern, and have been built with the `project:
 
 These applications are maintained by Ichizen maintainers, as they don't belong to a specific Vertical, and they hold a special business logic.
 
-- [Host](./host/README.md) : A shell application where all applications are loaded via Module Federation. You can visualize a local version of the full backoffice by running `pnpm exec nx run @bsport/sm-host:dev:watch`.
-- [Navigation Sidebar](./navigation-sidebar/README.md) : An application dedicated to the Navigation in the Studio Manager backoffice. It is launched on every application in local development.
+- [Host](./host/README.md) : A shell application to visualize the full backoffice composition locally.
+- [Navigation Sidebar](./navigation-sidebar/README.md) : A bridge application used to connect old and new navigation. It is injected during local development so app teams can focus on one app without running host.
 
 Other applications are maintained by Vertical developers. When they run locally, each application is in standalone mode and don't interact with other applications, except the Navigation Sidebar.
-
-### List
-
-Here is an exhaustive list of the currently implemented applications, with the assigned port for Module Federation in local development.
-
-| Vertical                     | Application                                             | Port |
-| ---------------------------- | ------------------------------------------------------- | ---- |
-| Shared                       | [Host](./host/README.md)                                | 4000 |
-| Shared                       | [Navigation Sidebar](./navigation-sidebar/README.md)    | 4050 |
-| Booking                      | [Group activity](./booking/group-activity/README.md)    | 4200 |
-| Buyables                     | [Giftcard](./buyables/giftcard/README.md)               | 4150 |
-| Buyables                     | [Order](./buyables/order/README.md)                     | 4151 |
-| Buyables                     | [Pack](./buyables/pack/README.md)                       | 4152 |
-| CDP (Customer Data Platform) | [Email Templates](./cdp/email-templates/README.md)      | 4300 |
-| CDP (Customer Data Platform) | [Smartlists](./cdp/smartlists/README.md)                | 4301 |
-| Core Data                    | [Member list](./core-data/member/member-list/README.md) | 4100 |
-| Core Data                    | [Teacher](./core-data/teacher/README.md)                | 4110 |
-| Financial Services           | [Invoice](./financial-services/invoice/README.md)       | 4250 |
 
 ### Create a new application
 
@@ -65,7 +56,7 @@ cd ./VERTICAL/APPLICATION
 pnpm run COMMAND
 ```
 
-For local development, prefer Nx from the workspace root so remotes are started automatically.
+For local development, prefer Nx from the workspace root so sidebar injection and dependency watching are handled automatically.
 
 or use a single line command
 
@@ -84,7 +75,7 @@ pnpm exec nx run @bsport/sm-APP-NAME:COMMAND
 pnpm exec nx run @bsport/sm-APP:dev:watch
 ```
 
-This starts the target app and any required Studio Manager remotes declared in `federation.remotes`.
+This starts the target app in its isolated local runtime and injects the Navigation Sidebar bridge so you do not need to run the host to work on one app.
 
 If you need only the app's own Vite server, use:
 

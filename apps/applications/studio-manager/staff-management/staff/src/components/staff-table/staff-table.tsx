@@ -20,6 +20,7 @@ type StaffTableProps = {
   isEmptySearch?: boolean;
   isLoading: boolean;
   onClearFilters?: () => void;
+  onCreate?: () => void;
 };
 
 export const StaffTable: FC<StaffTableProps> = ({
@@ -29,6 +30,7 @@ export const StaffTable: FC<StaffTableProps> = ({
   isEmptySearch = false,
   isLoading,
   onClearFilters,
+  onCreate,
 }) => {
   const { t } = useTranslation("staff-list");
   const columns = useStaffTableColumns();
@@ -37,6 +39,13 @@ export const StaffTable: FC<StaffTableProps> = ({
   const emptyConfig: UseEmptyStateProps["emptyConfig"] = {
     title: t("table.emptyList.title"),
     subtitle: t("table.emptyList.subtitle"),
+    ctaButtonConfig: onCreate
+      ? {
+          label: t("table.emptyList.cta"),
+          iconLeft: "plus" as const,
+          onClick: onCreate,
+        }
+      : undefined,
   };
 
   const emptySearchConfig: UseEmptyStateProps["emptySearchConfig"] = {

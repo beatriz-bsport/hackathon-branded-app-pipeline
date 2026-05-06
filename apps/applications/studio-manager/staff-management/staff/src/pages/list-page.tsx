@@ -4,10 +4,12 @@ import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { StaffTable } from "#src/components/staff-table/staff-table";
+import { StaffCreateModal } from "#src/features/staff-create-modal/staff-create-modal";
 import {
   type StaffActiveFilters,
   useStaffListQuery,
 } from "#src/hooks/api/use-staff-list-query";
+import { useDisclosure } from "#src/hooks/use-disclosure";
 import { useStaffFilters } from "#src/hooks/use-staff-filters";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -15,12 +17,14 @@ type StaffListPageContentProps = {
   activeFilters: StaffActiveFilters;
   isFiltered: boolean;
   onClearFilters: () => void;
+  onCreate: () => void;
 };
 
 const StaffListPageContent: FC<StaffListPageContentProps> = ({
   activeFilters,
   isFiltered,
   onClearFilters,
+  onCreate,
 }) => {
   const { staffRows, isEmpty, isFetching, paginationProps } =
     useStaffListQuery(activeFilters);
@@ -33,6 +37,7 @@ const StaffListPageContent: FC<StaffListPageContentProps> = ({
       isEmptySearch={isEmpty && isFiltered}
       isLoading={isFetching}
       onClearFilters={onClearFilters}
+      onCreate={onCreate}
     />
   );
 };
@@ -42,6 +47,11 @@ const ListPage: FC = () => {
   const { activeFilters, filterConfig, filterRef, resetFilters } =
     useStaffFilters();
   const isFiltered = Object.keys(activeFilters).length > 0;
+  const {
+    isOpen: isCreateModalOpen,
+    onClose: closeCreateModal,
+    onOpen: openCreateModal,
+  } = useDisclosure();
 
   return (
     <ListLayout>
@@ -49,6 +59,15 @@ const ListPage: FC = () => {
         pageTitle={t("name")}
         filterConfig={filterConfig}
         filterRef={filterRef}
+        callToActionButton={
+          <ListLayout.Button
+            iconLeft="plus"
+            intent="call-to-action"
+            color="main"
+            label={t("header.addStaff")}
+            onClick={openCreateModal}
+          />
+        }
       />
       <ListLayout.Content>
         <QueryBoundary>
@@ -56,9 +75,12 @@ const ListPage: FC = () => {
             activeFilters={activeFilters}
             isFiltered={isFiltered}
             onClearFilters={resetFilters}
+            onCreate={openCreateModal}
           />
         </QueryBoundary>
       </ListLayout.Content>
+
+      <StaffCreateModal isOpen={isCreateModalOpen} onClose={closeCreateModal} />
     </ListLayout>
   );
 };

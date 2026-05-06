@@ -3269,9 +3269,15 @@ importers:
       '@bsport/api-staff-management':
         specifier: workspace:*
         version: link:../../../../../packages/api/staff-management
+      '@bsport/common':
+        specifier: workspace:*
+        version: link:../../../../../packages/common-legacy
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
+      '@bsport/form':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/form
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../../packages/utils/i18n
@@ -3299,6 +3305,9 @@ importers:
       react-router:
         specifier: ^7.2.0
         version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      zod:
+        specifier: ^3.25.64
+        version: 3.25.67
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -25124,9 +25133,7 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:
@@ -37079,7 +37086,9 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

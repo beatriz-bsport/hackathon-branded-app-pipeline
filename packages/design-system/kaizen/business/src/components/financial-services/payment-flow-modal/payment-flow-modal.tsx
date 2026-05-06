@@ -14,13 +14,17 @@ import { PaymentMethodSelector } from "#src/components/financial-services/paymen
 import type { PaymentMethodSelectorSelection } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
+import type { AllPaymentMethodKey } from "../payment-method-selector/constants";
 import {
   useFetchInvoice,
   useFetchMember,
   useRequestPaymentClientSecret,
 } from "./hooks";
-import { GiftCard } from "./payment-methods/gift-card";
-import { StripePaymentMethod } from "./payment-methods/stripe";
+import {
+  GiftCardPaymentMethod,
+  ManualPaymentMethod,
+  StripePaymentMethod,
+} from "./payment-methods";
 import type { PaymentFlowModalProps } from "./types";
 
 type PaymentTab = "one-time" | "installments";
@@ -66,12 +70,39 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
     { id: "one-time", label: t("paymentFlowModal.tabs.oneTime") },
     { id: "installments", label: t("paymentFlowModal.tabs.installments") },
   ];
-  const stripeMethod =
-    selectedPaymentMethod?.kind === "all" &&
-    (selectedPaymentMethod.id === "card" ||
-      selectedPaymentMethod.id === "sepa_debit")
-      ? selectedPaymentMethod.id
-      : null;
+
+  const allMethodRenderers: Record<AllPaymentMethodKey, () => React.ReactNode> =
+    {
+      card: () =>
+        member ? (
+          <StripePaymentMethod
+            fetch={fetch}
+            invoiceId={invoiceId}
+            member={member}
+            method="card"
+          />
+        ) : null,
+      sepa_debit: () =>
+        member ? (
+          <StripePaymentMethod
+            fetch={fetch}
+            invoiceId={invoiceId}
+            member={member}
+            method="sepa_debit"
+          />
+        ) : null,
+      gift_card_code: () => (
+        <GiftCardPaymentMethod fetch={fetch} memberId={memberId} />
+      ),
+      // TODO: Implement terminal payment method
+      terminal: () => null,
+      manual: () => <ManualPaymentMethod />,
+    };
+
+  const renderSelectedPaymentMethod = (): React.ReactNode => {
+    if (selectedPaymentMethod?.kind !== "all") return null;
+    return allMethodRenderers[selectedPaymentMethod.id]?.() ?? null;
+  };
 
   return (
     <Modal
@@ -130,18 +161,7 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
             />
           </div>
 
-          {member && stripeMethod ? (
-            <StripePaymentMethod
-              fetch={fetch}
-              invoiceId={invoiceId}
-              member={member}
-              method={stripeMethod}
-            />
-          ) : null}
-          {selectedPaymentMethod?.kind === "all" &&
-          selectedPaymentMethod.id === "gift_card_code" ? (
-            <GiftCard fetch={fetch} memberId={memberId} />
-          ) : null}
+          {renderSelectedPaymentMethod()}
         </Card>
 
         <div className="flex items-start gap-xs flex-wrap">

@@ -88,6 +88,30 @@
       "saveLabel": "Save this SEPA mandate for future payments",
       "paymentError": "Could not process SEPA details. Please try again."
     },
+    "manual": {
+      "fields": {
+        "type": {
+          "label": "Payment method",
+          "options": {
+            "cardManualMachine": "Card (manual - card machine)",
+            "cash": "Cash",
+            "check": "Check",
+            "vacationCheck": "Vacation check",
+            "americanExpress": "AMEX",
+            "transfer": "Transfer",
+            "other": "Other",
+            "clientCreditBalance": "Client credit balance (debit)"
+          }
+        },
+        "date": {
+          "label": "Payment date"
+        },
+        "note": {
+          "label": "Note",
+          "placeholder": "(Optional) Payment reference"
+        }
+      }
+    },
     "links": {
       "invoice": "Invoice"
     }

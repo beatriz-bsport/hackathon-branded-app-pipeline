@@ -37,7 +37,11 @@ export const SessionSettings: FC<{
     selectSelectedGroupActivity,
   )?.is_broadcast;
 
-  const credits = watch("credits");
+  const [credits, effectif, roomBlueprintCapacity] = watch([
+    "credits",
+    "effectif",
+    "roomBlueprintCapacity",
+  ]);
 
   const creditValue = getCreditsDividedValue(credits) || 0;
 
@@ -66,6 +70,14 @@ export const SessionSettings: FC<{
         fieldName="effectif"
         label={t("addSessionModal.steps.configureSession.settings.effectif")}
       />
+      {roomBlueprintCapacity != null && effectif !== roomBlueprintCapacity && (
+        <Alert status="warning">
+          {t(
+            "addSessionModal.steps.configureSession.settings.differsFromRoomCapacity",
+            { capacity: roomBlueprintCapacity },
+          )}
+        </Alert>
+      )}
       <SessionPartnershipSettings fieldIdPrefix={fieldIdPrefix} />
       <SessionCapacityField
         fieldIdPrefix={fieldIdPrefix}

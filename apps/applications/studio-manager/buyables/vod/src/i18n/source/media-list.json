@@ -1,6 +1,7 @@
 {
   "table": {
     "headers": {
+      "createMedia": "Create media",
       "name": "Name",
       "category": "Category",
       "format": "Format",

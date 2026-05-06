@@ -5,26 +5,24 @@ import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { COLLECTION_FORM_DATA_DEFAULT, FIELD_CONSTRAINTS } from "../constants";
-import type { CollectionFormData } from "../types";
+import { FIELD_CONSTRAINTS, MEDIA_FORM_DATA_DEFAULT } from "../constants";
+import type { MediaFormData } from "../types";
 
-type CollectionFormTitleProps = {
+type MediaFormTitleProps = {
   formId: string;
 };
 
-export const CollectionFormTitle: FC<CollectionFormTitleProps> = ({
-  formId,
-}) => {
-  const { t } = useTranslation("collection-form");
+export const MediaFormTitle: FC<MediaFormTitleProps> = ({ formId }) => {
+  const { t } = useTranslation("media-form");
 
   return (
-    <FormField<CollectionFormData, "name", TextFieldProps>
+    <FormField<MediaFormData, "name", TextFieldProps>
       name="name"
       mapProps={({ defaultProps, field, form }) => ({
         ...defaultProps,
         helperText: `${field.value?.length ?? 0}/${FIELD_CONSTRAINTS.NAME_MAX_LENGTH}`,
         onClear: () => {
-          form.setValue("name", COLLECTION_FORM_DATA_DEFAULT.name, {
+          form.setValue("name", MEDIA_FORM_DATA_DEFAULT.name, {
             shouldDirty: true,
             shouldValidate: true,
           });

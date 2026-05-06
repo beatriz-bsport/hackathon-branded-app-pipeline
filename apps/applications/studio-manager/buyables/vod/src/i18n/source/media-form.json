@@ -1,0 +1,63 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Title",
+      "placeholder": "Add media title",
+      "errorMaxLength": "Title must be at most {{maxLength}} characters"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe your media",
+      "errorMaxLength": "Description must be at most {{maxLength}} characters"
+    },
+    "credit_price": {
+      "label": "Price (in credits)",
+      "placeholder": "0",
+      "errorInvalid": "Price must be a valid non-negative number",
+      "equivalentCredits": "Equivalent to {{credits}} in your pricing system"
+    },
+    "manager_only": {
+      "label": "Unavailable for purchase",
+      "helperText": "The video will not be available for purchase, it will be visible only to managers"
+    },
+    "rental": {
+      "label": "Video rental",
+      "helperText": "Videos are unlocked in perpetuity by default. Renting a video will unlock it for a certain number of days."
+    },
+    "rental_days": {
+      "label": "Rental duration (days)",
+      "helperText": "Specify how many days the video will remain unlocked",
+      "errorInvalid": "Rental duration must be at least {{min}} day"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Upload a thumbnail for this media."
+    },
+    "category": {
+      "label": "Category",
+      "placeholder": "Select a category"
+    },
+    "level": {
+      "label": "Level",
+      "placeholder": "Select a level"
+    },
+    "teachers": {
+      "label": "Teacher",
+      "placeholder": "Select teacher"
+    },
+    "errors": {
+      "fieldIsRequired": "This field is required"
+    }
+  },
+  "editModal": {
+    "title": "Edit media",
+    "buttons": {
+      "save": "Save",
+      "cancel": "Close"
+    },
+    "submitResponse": {
+      "success": "Changes saved",
+      "error": "Failed to update the media"
+    }
+  }
+}

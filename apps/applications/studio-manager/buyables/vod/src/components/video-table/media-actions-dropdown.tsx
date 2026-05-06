@@ -9,23 +9,35 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
+const EDIT_ACTION_ID = "edit";
 const DUPLICATE_ACTION_ID = "duplicate";
 const DELETE_ACTION_ID = "delete";
 
-type VideoActionsDropdownProps = {
+type MediaActionsDropdownProps = {
   onDuplicate: () => void;
   onDelete: () => void;
+  onEdit?: () => void;
   disabled?: boolean;
 };
 
-export const VideoActionsDropdown: FC<VideoActionsDropdownProps> = ({
+export const MediaActionsDropdown: FC<MediaActionsDropdownProps> = ({
   onDuplicate,
   onDelete,
+  onEdit,
   disabled = false,
 }) => {
   const { t } = useTranslation("media-list");
 
   const menuItems: Item[] = [
+    ...(onEdit
+      ? [
+          {
+            id: EDIT_ACTION_ID,
+            label: t("table.actions.edit"),
+            iconLeft: "edit-02" as const,
+          },
+        ]
+      : []),
     {
       id: DUPLICATE_ACTION_ID,
       label: t("table.actions.duplicate"),
@@ -65,6 +77,10 @@ export const VideoActionsDropdown: FC<VideoActionsDropdownProps> = ({
               items={menuItems}
               onSelectOption={(value) => {
                 setIsPopoverOpened(false);
+
+                if (value === EDIT_ACTION_ID) {
+                  onEdit?.();
+                }
 
                 if (value === DUPLICATE_ACTION_ID) {
                   onDuplicate();

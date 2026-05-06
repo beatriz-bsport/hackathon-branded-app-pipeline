@@ -30,6 +30,7 @@ type VideoTableProps = {
   onRowClick?: (id: number) => void;
   onDuplicate: (video: Video) => void;
   onDelete: (video: Video) => void;
+  onEdit?: (video: Video) => void;
 };
 
 export const VideoTable: FC<VideoTableProps> = ({
@@ -43,6 +44,7 @@ export const VideoTable: FC<VideoTableProps> = ({
   onRowClick,
   onDuplicate,
   onDelete,
+  onEdit,
 }) => {
   const { t } = useTranslation("media-list");
 
@@ -85,12 +87,10 @@ export const VideoTable: FC<VideoTableProps> = ({
       memberAvailability: video.manager_only ? "unavailable" : "available",
       accessType: video.rental_days > 0 ? "limited" : "unlimited",
       isPendingDeletion,
-      onRowClick:
-        onRowClick && !isPendingDeletion
-          ? () => onRowClick(video.id)
-          : undefined,
+      onRowClick: isPendingDeletion ? undefined : () => onRowClick?.(video.id),
       onDuplicate: () => onDuplicate(video),
       onDelete: () => onDelete(video),
+      onEdit: () => onEdit?.(video),
     };
   });
 

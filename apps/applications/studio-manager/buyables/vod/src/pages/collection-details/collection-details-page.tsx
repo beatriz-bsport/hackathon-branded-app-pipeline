@@ -73,7 +73,8 @@ const CollectionDetailsPage: FC<CollectionDetailsPageProps> = ({
   const levelsQuery = useLevelsByIdQuery();
   const teachersQuery = useTeachersByAssociatedCoachIdQuery(associatedCoachIds);
   const categoriesById = categoriesQuery.data ?? new Map<number, string>();
-  const levelsById = levelsQuery.data ?? new Map<number, string>();
+  const levelsById =
+    levelsQuery.data ?? new Map<number, { label: string; color: string }>();
   const teachersByAssociatedCoachId =
     teachersQuery.data ?? new Map<number, TeacherPreview>();
 

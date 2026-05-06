@@ -17,4 +17,5 @@ export type VideoRowData = {
   onRowClick?: () => void;
   onDuplicate: () => void;
   onDelete: () => void;
+  onEdit?: () => void;
 };

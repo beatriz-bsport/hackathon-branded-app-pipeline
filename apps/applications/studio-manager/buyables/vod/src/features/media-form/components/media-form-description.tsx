@@ -6,19 +6,19 @@ import { TextArea, type TextAreaProps } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 import { FIELD_CONSTRAINTS } from "../constants";
-import type { CollectionFormData } from "../types";
+import type { MediaFormData } from "../types";
 
-type CollectionFormDescriptionProps = {
+type MediaFormDescriptionProps = {
   formId: string;
 };
 
-export const CollectionFormDescription: FC<CollectionFormDescriptionProps> = ({
+export const MediaFormDescription: FC<MediaFormDescriptionProps> = ({
   formId,
 }) => {
-  const { t } = useTranslation("collection-form");
+  const { t } = useTranslation("media-form");
 
   return (
-    <FormField<CollectionFormData, "description", TextAreaProps>
+    <FormField<MediaFormData, "description", TextAreaProps>
       name="description"
       mapProps={({ defaultProps, field }) => ({
         ...defaultProps,
@@ -29,7 +29,6 @@ export const CollectionFormDescription: FC<CollectionFormDescriptionProps> = ({
         id={`${formId}-description`}
         label={t("formFields.description.label")}
         placeholder={t("formFields.description.placeholder")}
-        required
       />
     </FormField>
   );

@@ -8,9 +8,9 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { MediaActionsDropdown } from "./media-actions-dropdown";
 import { MediaFormatRenderer } from "./media-format-renderer";
 import type { VideoRowData } from "./types";
-import { VideoActionsDropdown } from "./video-actions-dropdown";
 
 type TableColumn = GenericTableColumn<VideoRowData>;
 
@@ -140,9 +140,10 @@ export const useVideoTableColumns = () => {
     ),
     render: (row) => (
       <div className="flex items-center justify-end">
-        <VideoActionsDropdown
+        <MediaActionsDropdown
           onDuplicate={row.onDuplicate}
           onDelete={row.onDelete}
+          onEdit={row.onEdit}
           disabled={row.isPendingDeletion}
         />
       </div>

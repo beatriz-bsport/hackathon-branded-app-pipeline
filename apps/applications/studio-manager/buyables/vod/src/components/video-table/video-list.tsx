@@ -100,8 +100,22 @@ export const VideoList: FC<VideoListProps> = ({
       buttons: row.isPendingDeletion
         ? []
         : [
+            ...(row.onEdit
+              ? [
+                  {
+                    id: "edit",
+                    kind: "icon-button" as const,
+                    icon: "edit-02" as const,
+                    color: "default" as const,
+                    intent: "flat" as const,
+                    label: t("table.actions.edit"),
+                    size: "md" as const,
+                    onClick: row.onEdit,
+                  },
+                ]
+              : []),
             {
-              id: `video-${row.id}-duplicate`,
+              id: "duplicate",
               kind: "icon-button" as const,
               icon: "copy-03" as const,
               color: "default" as const,
@@ -109,16 +123,6 @@ export const VideoList: FC<VideoListProps> = ({
               label: t("table.actions.duplicate"),
               size: "md",
               onClick: row.onDuplicate,
-            },
-            {
-              id: `video-${row.id}-delete`,
-              kind: "icon-button" as const,
-              icon: "trash-01" as const,
-              color: "default" as const,
-              intent: "flat" as const,
-              label: t("table.actions.delete"),
-              size: "md",
-              onClick: row.onDelete,
             },
           ],
       dropdownConfig: row.isPendingDeletion

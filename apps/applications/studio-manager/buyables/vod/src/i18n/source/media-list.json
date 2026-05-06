@@ -10,7 +10,8 @@
     "actions": {
       "moreActions": "More actions",
       "duplicate": "Duplicate",
-      "delete": "Delete"
+      "delete": "Delete",
+      "edit": "Edit"
     },
     "values": {
       "noCategory": "No category",

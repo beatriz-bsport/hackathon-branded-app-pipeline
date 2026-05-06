@@ -2,6 +2,7 @@ import { cva, cx } from "class-variance-authority";
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
+import { useMatchMedia } from "#src/hooks";
 import useEscapeKeydownListener from "#src/hooks/escape-keydown-listener.hook";
 import { useFocusManagement } from "#src/hooks/use-focus-management";
 
@@ -15,11 +16,15 @@ const defaultClasses = [
 ] as const;
 
 const variants = {
-  size: {
-    sm: "sm:w-component-modal-min-sm",
-    md: "md:w-component-modal-min-md",
-    lg: "lg:w-component-modal-min-lg",
-    xl: "w-[90%] lg:w-component-modal-min-xl",
+  sizeByBreakpoint: {
+    "mobile-sm": "w-[90%]",
+    "mobile-md": "w-[90%]",
+    "mobile-lg": "w-[90%]",
+    "mobile-xl": "w-[90%]",
+    "laptop-sm": "w-component-modal-min-sm",
+    "laptop-md": "w-component-modal-min-md",
+    "laptop-lg": "w-component-modal-min-lg",
+    "laptop-xl": "w-[90%]",
   },
   position: {
     centered:
@@ -91,6 +96,7 @@ const Dialog: React.FC<DialogProps> = ({
   children,
   ...props
 }) => {
+  const isTablet = !useMatchMedia("md");
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -151,7 +157,14 @@ const Dialog: React.FC<DialogProps> = ({
       <div
         role="dialog"
         aria-modal="true"
-        className={cx(dialog({ className, size, position, isVisible }))}
+        className={cx(
+          dialog({
+            className,
+            sizeByBreakpoint: `${isTablet ? "mobile" : "laptop"}-${size}`,
+            position,
+            isVisible,
+          }),
+        )}
         onClick={handleDialogClick}
         onTransitionEnd={handleTransitionEnd}
         ref={dialogRef}

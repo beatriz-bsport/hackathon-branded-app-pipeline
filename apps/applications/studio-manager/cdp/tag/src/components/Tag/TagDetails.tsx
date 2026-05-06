@@ -60,74 +60,72 @@ export const TagDetails = ({ tag }: TagDetailsProps) => {
   };
 
   return (
-    <div className="w-[450px]">
-      <div className="flex flex-col gap-md">
-        <div className="flex flex-row items-center justify-between">
-          <div className="flex flex-row items-center gap-sm">
-            <ColorIndicator type="block" size="sm" color={tag.color} />
-            <Title htmlVariant="h2" className="truncate max-w-sm">
-              {tag.name}
-            </Title>
-          </div>
-          <Tooltip
-            label={t("tagsDetails.tooltip.editTag")}
-            placement="bottom-right"
-          >
-            <Button
-              id="edit-tag-button"
-              kind="icon-button"
-              icon="edit-02"
-              label={t("tagsDetails.tooltip.editTag")}
-              size="md"
-              intent="default"
-              color="main"
-              onClick={() => handleEditTag?.(tag)}
-            />
-          </Tooltip>
+    <div className="flex flex-col gap-md">
+      <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center gap-sm">
+          <ColorIndicator type="block" size="sm" color={tag.color} />
+          <Title htmlVariant="h2" className="truncate max-w-sm">
+            {tag.name}
+          </Title>
         </div>
-        <SegmentedControl
-          fullWidth
-          className="h-[32px]"
-          id="tag-member-filter"
-          urlQueryParamName="taggedStatus"
-          disabled={isLoading}
-          value={selectedOption}
-          options={[
-            {
-              value: "tagged",
-              label: t("tagsDetails.segmentedControl.tagged"),
-            },
-            {
-              value: "untagged",
-              label: t("tagsDetails.segmentedControl.untagged"),
-            },
-          ]}
-          onChangeValue={handleChangeSegmentedControl}
-        />
-        <div className="flex flex-row items-center justify-between">
-          <Title htmlVariant="h3">{t("tagsDetails.members")}</Title>
+        <Tooltip
+          label={t("tagsDetails.tooltip.editTag")}
+          placement="bottom-right"
+        >
           <Button
+            id="edit-tag-button"
+            kind="icon-button"
+            icon="edit-02"
+            label={t("tagsDetails.tooltip.editTag")}
             size="md"
             intent="default"
             color="main"
-            label={
-              selectedOption === "tagged"
-                ? t("tagsDetails.actions.untagAll")
-                : t("tagsDetails.actions.tagAll")
-            }
-            disabled={isLoading || memberList.length === 0}
-            onClick={handleBatchAction}
+            onClick={() => handleEditTag?.(tag)}
           />
-        </div>
-        <TagMemberList
-          isLoading={isLoading}
-          memberList={memberList}
-          paginationParams={paginationParams}
-          selectedOption={selectedOption}
-          tag={tag}
-          refreshMemberPage={fetchMemberPage}
+        </Tooltip>
+      </div>
+      <SegmentedControl
+        fullWidth
+        className="h-[32px]"
+        id="tag-member-filter"
+        urlQueryParamName="taggedStatus"
+        disabled={isLoading}
+        value={selectedOption}
+        options={[
+          {
+            value: "tagged",
+            label: t("tagsDetails.segmentedControl.tagged"),
+          },
+          {
+            value: "untagged",
+            label: t("tagsDetails.segmentedControl.untagged"),
+          },
+        ]}
+        onChangeValue={handleChangeSegmentedControl}
+      />
+      <div className="flex flex-row items-center justify-between">
+        <Title htmlVariant="h3">{t("tagsDetails.members")}</Title>
+        <Button
+          size="md"
+          intent="default"
+          color="main"
+          label={
+            selectedOption === "tagged"
+              ? t("tagsDetails.actions.untagAll")
+              : t("tagsDetails.actions.tagAll")
+          }
+          disabled={isLoading || memberList.length === 0}
+          onClick={handleBatchAction}
         />
       </div>
+      <TagMemberList
+        isLoading={isLoading}
+        memberList={memberList}
+        paginationParams={paginationParams}
+        selectedOption={selectedOption}
+        tag={tag}
+        refreshMemberPage={fetchMemberPage}
+      />
     </div>
   );
 };

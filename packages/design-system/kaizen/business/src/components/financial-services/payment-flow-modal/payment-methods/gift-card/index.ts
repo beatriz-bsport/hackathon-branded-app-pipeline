@@ -1,1 +1,1 @@
-export { GiftCard } from "./gift-card";
+export { GiftCardPaymentMethod } from "./gift-card-payment-method";

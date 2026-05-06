@@ -10,7 +10,7 @@ import { formatDate } from "#src/utils/date";
 import { useFetchAvailableGiftcards } from "../../hooks";
 import { AddGiftCardCode } from "./add-gift-card-code";
 
-type GiftCardProps = {
+type GiftCardPaymentMethodProps = {
   fetch: Fetch;
   memberId: number;
 };
@@ -26,10 +26,10 @@ const formatGiftCardAmounts = (
 ): string =>
   `${getCurrencyDisplayWithPrice(availableAmount)}/${getCurrencyDisplayWithPrice(totalAmount)}`;
 
-export const GiftCard: React.FC<GiftCardProps> = ({
+export const GiftCardPaymentMethod: React.FC<GiftCardPaymentMethodProps> = ({
   fetch,
   memberId,
-}: GiftCardProps) => {
+}: GiftCardPaymentMethodProps) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
   const {
     giftcards,

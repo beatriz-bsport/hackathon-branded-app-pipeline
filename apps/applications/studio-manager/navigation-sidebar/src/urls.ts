@@ -10,7 +10,9 @@ export const LEGACY_URLS: LegacyUrls = {
   accessMonitoring_monitor: "/access-monitoring/monitor",
   accessMonitoring_perform: "/access-monitoring/perform",
   accessMonitoring_settings: "/access-monitoring/settings",
+  activity: "/activity",
   appointmentPass: "/private-service/pass",
+  appointment: "/private-service/service",
   attendance: "/clock-in",
   audience: "/audience",
   calendar: "/calendar",
@@ -78,6 +80,7 @@ export const LEGACY_URLS: LegacyUrls = {
   webshop_products: "/shop/products",
   webshop_settings: "/shop/settings",
   webshopOld: "/shop",
+  workshop: "/workshop-activity/tabs/list",
 } as const;
 
 export const REVAMP_URLS_DEVELOPMENT = {

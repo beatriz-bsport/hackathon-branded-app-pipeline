@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 
 import type { Contract } from "@bsport/api-buyables/contract";
 import { useCopyPaymentLinkButton } from "@bsport/kaizen-business-components/buyables/use-copy-payment-link-button";
@@ -11,6 +11,8 @@ import {
   type TabsProps,
 } from "@bsport/kaizen-primitive-core";
 
+import { ContractArchiveModal } from "#src/features/contract-archive-modal";
+import { useDisclosure } from "#src/hooks/utils/use-disclosure";
 import { LEGACY_URLS, URLS, getHrefFromRoot } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -30,6 +32,8 @@ export const useContractDetailsHeader = ({
 
   const canBeArchived = !contract_template;
   const canBePaused = month_billing_day == null; // Pause is disabled for fixed-day contracts
+
+  const navigate = useNavigate();
 
   // ----- Tabs navigator -----
 
@@ -88,6 +92,8 @@ export const useContractDetailsHeader = ({
   });
   const copyPaymentLinkButton = useCopyPaymentLinkButton(paymentLink);
 
+  // Pause
+
   const pauseButton = (
     <Button
       key="contract-details-button-pause"
@@ -101,6 +107,14 @@ export const useContractDetailsHeader = ({
     />
   );
 
+  // Archive
+
+  const {
+    isOpen: isArchiveModalOpen,
+    onClose: closeArchiveModal,
+    onOpen: openArchiveModal,
+  } = useDisclosure();
+
   const archiveButton = (
     <Button
       key="contract-details-button-archive"
@@ -110,7 +124,21 @@ export const useContractDetailsHeader = ({
       icon="trash-01"
       kind="icon-button"
       label={t("header.actions.archiveContract")}
-      onClick={() => alert("not implemented yet")}
+      onClick={openArchiveModal}
+    />
+  );
+
+  const archiveModal = (
+    <ContractArchiveModal
+      closeModal={closeArchiveModal}
+      isOpen={isArchiveModalOpen}
+      contractId={contract.id}
+      contractName={contract.name}
+      onSuccess={() => {
+        navigate(URLS.INDEX);
+        closeArchiveModal();
+      }}
+      onError={closeArchiveModal}
     />
   );
 
@@ -134,5 +162,6 @@ export const useContractDetailsHeader = ({
     startGroupActionsRaw,
     startGroupActions,
     endGroupActions,
+    archiveModal,
   };
 };

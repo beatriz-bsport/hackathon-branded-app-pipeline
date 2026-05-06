@@ -3,12 +3,14 @@ import { ChangeEvent, useState } from "react";
 import {
   Alert,
   Body,
+  Card,
   DatePicker,
   Item,
   SegmentedControl,
   Select,
   type SelectedDate,
   TextField,
+  cx,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -36,6 +38,14 @@ type DateFilterProps = {
   onChange?: (value: DateFilterValue) => void;
   disabled?: boolean;
   className?: string;
+  errors?: {
+    absoluteOperator?: string;
+    absoluteFromDate?: string;
+    absoluteToDate?: string;
+    relativeOperator?: string;
+    relativeFirstDays?: string;
+    relativeSecondDays?: string;
+  };
 };
 
 /**
@@ -48,6 +58,7 @@ export const DateFilter = ({
   onChange,
   disabled = false,
   className,
+  errors,
 }: DateFilterProps) => {
   const { t } = useTranslation("details");
   const isControlled = value !== undefined;
@@ -236,10 +247,21 @@ export const DateFilter = ({
       label: t("filters.date.types.relative"),
     },
   ];
+  const hasErrors = Boolean(
+    errors?.absoluteOperator ||
+      errors?.absoluteFromDate ||
+      errors?.absoluteToDate ||
+      errors?.relativeOperator ||
+      errors?.relativeFirstDays ||
+      errors?.relativeSecondDays,
+  );
 
   return (
-    <div className={className}>
-      <div className="flex flex-col gap-xs">
+    <Card
+      className={cx(className, { "shadow-border-thin-critical": hasErrors })}
+      padding="none"
+    >
+      <div className="flex flex-col gap-xs p-xs">
         <SegmentedControl
           id={`${id}-type`}
           className="h-[26px]"
@@ -262,6 +284,8 @@ export const DateFilter = ({
               onChange={onAbsoluteOperatorChange}
               disabled={disabled}
               fullWidth
+              status={errors?.absoluteOperator ? "critical" : "default"}
+              errorText={errors?.absoluteOperator}
             />
 
             <div className="flex flex-row gap-xs">
@@ -273,6 +297,8 @@ export const DateFilter = ({
                 dateValue={getDatePickerValue(currentValue.absolute.fromDate)}
                 onSelect={(next) => onAbsoluteDateChange("fromDate", next)}
                 disabled={disabled}
+                status={errors?.absoluteFromDate ? "error" : "default"}
+                statusText={errors?.absoluteFromDate}
               />
 
               {isAbsoluteBetween && (
@@ -284,6 +310,8 @@ export const DateFilter = ({
                   dateValue={getDatePickerValue(currentValue.absolute.toDate)}
                   onSelect={(next) => onAbsoluteDateChange("toDate", next)}
                   disabled={disabled}
+                  status={errors?.absoluteToDate ? "error" : "default"}
+                  statusText={errors?.absoluteToDate}
                 />
               )}
             </div>
@@ -297,6 +325,8 @@ export const DateFilter = ({
               onChange={onRelativeOperatorChange}
               disabled={disabled}
               fullWidth
+              status={errors?.relativeOperator ? "critical" : "default"}
+              errorText={errors?.relativeOperator}
             />
 
             <div
@@ -323,6 +353,8 @@ export const DateFilter = ({
                     : t("filters.date.fields.daysFromNow"),
                 }}
                 fullWidth
+                status={errors?.relativeFirstDays ? "error" : "default"}
+                statusText={errors?.relativeFirstDays}
               />
 
               {isRelativeBetween ? (
@@ -351,6 +383,8 @@ export const DateFilter = ({
                           : t("filters.date.fields.daysFromNow"),
                     }}
                     fullWidth
+                    status={errors?.relativeSecondDays ? "error" : "default"}
+                    statusText={errors?.relativeSecondDays}
                   />
                 </div>
               ) : null}
@@ -364,6 +398,6 @@ export const DateFilter = ({
           </div>
         )}
       </div>
-    </div>
+    </Card>
   );
 };

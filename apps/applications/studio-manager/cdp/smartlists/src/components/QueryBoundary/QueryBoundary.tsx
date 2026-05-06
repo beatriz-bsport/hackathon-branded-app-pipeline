@@ -1,57 +1,15 @@
-import { useQueryErrorResetBoundary } from "@tanstack/react-query";
 import {
-  type ComponentType,
-  type PropsWithChildren,
-  ReactNode,
-  Suspense,
-} from "react";
+  QueryBoundary as BackboneQueryBoundary,
+  type QueryBoundaryProps as BackboneQueryBoundaryProps,
+} from "@bsport/sm-backbone";
 
-import { ErrorBoundaryWrapper } from "@bsport/sm-backbone";
+export type QueryBoundaryProps = Omit<BackboneQueryBoundaryProps, "appName">;
 
-import { CardLoader, SectionErrorFallback } from "./fallbacks";
-
-export type QueryBoundaryProps = PropsWithChildren<{
-  loadingFallback?: ReactNode;
-  errorFallback?: ComponentType<{
-    error: Error;
-    onRetry: () => void;
-  }>;
-}>;
-
-export const QueryBoundary = ({
-  children,
-  loadingFallback = <CardLoader />,
-  errorFallback,
-}: QueryBoundaryProps) => {
-  const { reset } = useQueryErrorResetBoundary();
-
-  const handleErrorBoundary = ({
-    error,
-    resetError,
-  }: {
-    error: Error;
-    resetError: () => void;
-  }) => {
-    const handleRetry = () => {
-      reset();
-      resetError();
-    };
-
-    if (errorFallback) {
-      const ErrorFallbackComponent = errorFallback;
-
-      return <ErrorFallbackComponent error={error} onRetry={handleRetry} />;
-    }
-
-    return <SectionErrorFallback onRetry={handleRetry} />;
-  };
-
+export const QueryBoundary = (props: QueryBoundaryProps) => {
   return (
-    <ErrorBoundaryWrapper
+    <BackboneQueryBoundary
       appName={__SMARTLISTS__.__SENTRY_SCOPE_TAG__}
-      fallback={handleErrorBoundary}
-    >
-      <Suspense fallback={loadingFallback}>{children}</Suspense>
-    </ErrorBoundaryWrapper>
+      {...props}
+    />
   );
 };

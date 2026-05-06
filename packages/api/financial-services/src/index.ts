@@ -4,6 +4,7 @@ export * from "./invoice-configuration";
 export * from "./invoice-create";
 export * from "./invoice-footer";
 export * from "./invoice";
+export * from "./payment-group";
 export * from "./payout";
 export * from "./payment-method";
 export * from "./teacher-payment-rules";

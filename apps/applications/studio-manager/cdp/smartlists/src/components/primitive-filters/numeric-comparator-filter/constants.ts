@@ -1,11 +1,11 @@
-export const NUMERIC_COMPARATOR_OPERATORS: {
-  equal: "equal";
-  between: "between";
-  lowerOrEqual: "lower_or_equal";
-  greaterOrEqual: "greater_or_equal";
-} = {
-  equal: "equal",
-  between: "between",
-  lowerOrEqual: "lower_or_equal",
-  greaterOrEqual: "greater_or_equal",
-};
+export const NUMERIC_COMPARATOR_OPERATOR_EQUAL = "equal";
+export const NUMERIC_COMPARATOR_OPERATOR_BETWEEN = "between";
+export const NUMERIC_COMPARATOR_OPERATOR_LOWER_OR_EQUAL = "lower_or_equal";
+export const NUMERIC_COMPARATOR_OPERATOR_GREATER_OR_EQUAL = "greater_or_equal";
+
+export const NUMERIC_COMPARATOR_OPERATORS = {
+  equal: NUMERIC_COMPARATOR_OPERATOR_EQUAL,
+  between: NUMERIC_COMPARATOR_OPERATOR_BETWEEN,
+  lowerOrEqual: NUMERIC_COMPARATOR_OPERATOR_LOWER_OR_EQUAL,
+  greaterOrEqual: NUMERIC_COMPARATOR_OPERATOR_GREATER_OR_EQUAL,
+} as const;

@@ -106,10 +106,14 @@ export const useNavigationElements = ({
   const isBillingFlowNewModalEnabled = useNavFlag(
     NavFlags.FS_BILLING_FLOW_NEW_MODAL,
   );
+  const isTeacherViewSettingsEnabled = useNavFlag(
+    NavFlags.SETTINGS_TEACHER_VIEW,
+  );
   const isSmartfillEnabled = useNavFlag(NavFlags.SMARTFILL);
 
   const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
   const isAggregatorsEnabled = useNavFlag(NavFlags.SETTINGS_AGGREGATORS);
+  const isOnDemandRevampEnabled = useNavFlag(NavFlags.ONDEMAND_REVAMP);
 
   // Company Theme flags
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -256,16 +260,26 @@ export const useNavigationElements = ({
                 navigationItem: navigationUrls.giftcard,
               }),
             },
-            {
-              id: "videos",
-              label: t("menus.products.videosAndEbooks"),
-              ...navigationUrls.video,
-            },
-            {
-              id: "playlists",
-              label: t("menus.products.onDemand"),
-              ...navigationUrls.onDemand,
-            },
+            ...(isOnDemandRevampEnabled
+              ? [
+                  {
+                    id: "onDemand",
+                    label: t("menus.products.onDemand"),
+                    ...navigationUrls.onDemand,
+                  },
+                ]
+              : [
+                  {
+                    id: "videos",
+                    label: t("menus.products.videosAndEbooks"),
+                    ...navigationUrls.video,
+                  },
+                  {
+                    id: "playlists",
+                    label: t("menus.products.playlists"),
+                    ...navigationUrls.playlist,
+                  },
+                ]),
             {
               id: "orders",
               label: t("menus.products.orders"),
@@ -482,7 +496,10 @@ export const useNavigationElements = ({
         {
           id: "teacherView",
           label: t("menus.settings.teacherView"),
-          ...navigationUrls.settings_teacherView,
+          ...flaggedNavigationUrl({
+            enabled: isTeacherViewSettingsEnabled,
+            navigationItem: navigationUrls.settings_teacherView,
+          }),
         },
         {
           id: "memberForms",
@@ -601,6 +618,8 @@ export const useNavigationElements = ({
     isPayoutsEnabled,
     isSmartfillEnabled,
     isNewWebshopEnabled,
+    isTeacherViewSettingsEnabled,
+    isAggregatorsEnabled,
     hasCreateInvoiceAccess,
     hasSubstitutionToolAccess,
     isClassesMergedViewEnabled,

@@ -1,9 +1,11 @@
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 
 import { type ActivePartnershipAccount } from "@bsport/api-book";
 import { useFormContext } from "@bsport/form";
 import { Chip, Label } from "@bsport/kaizen-primitive-core";
 
+import { aggregatorChipsStatusEvent } from "#src/events/session-creation/events";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SessionFormData } from "../schemas";
@@ -35,6 +37,26 @@ export const SessionPartnershipChips: FC<{
     [activeAccounts, offersMap],
   );
 
+  const handleChipClick = useCallback(
+    (account: ActivePartnershipAccount) => {
+      const entry = offersMap.get(account.partnership);
+      const isAllowed = entry?.po.allowed_on_partner ?? true;
+      const updated = [...partnershipOffers];
+      if (entry !== undefined) {
+        updated[entry.index] = {
+          ...updated[entry.index],
+          allowed_on_partner: !isAllowed,
+        };
+      }
+      setValue("partnership_offers", updated, { shouldDirty: true });
+      analyticsTrackSafeEvent(aggregatorChipsStatusEvent, {
+        allowed_on_aggregator_chip_enabled: !isAllowed,
+        aggregator_name: account.partnership_identifier,
+      });
+    },
+    [offersMap, partnershipOffers, setValue],
+  );
+
   if (!activeAccounts?.length) return null;
 
   return (
@@ -56,16 +78,7 @@ export const SessionPartnershipChips: FC<{
               key={account.id}
               type="button"
               className="cursor-pointer"
-              onClick={() => {
-                const updated = [...partnershipOffers];
-                if (entry !== undefined) {
-                  updated[entry.index] = {
-                    ...updated[entry.index],
-                    allowed_on_partner: !isAllowed,
-                  };
-                }
-                setValue("partnership_offers", updated, { shouldDirty: true });
-              }}
+              onClick={() => handleChipClick(account)}
             >
               <Chip
                 id={`${fieldIdPrefix}-partnership-chip-${account.partnership}`}

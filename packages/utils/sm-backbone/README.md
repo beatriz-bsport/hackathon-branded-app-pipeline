@@ -80,6 +80,64 @@ const MyFeature = () => {
 
 The `appName` prop is required and helps identify which part of your application generated an error in Sentry dashboards.
 
+### `QueryBoundary`
+
+The `QueryBoundary` combines the Studio Manager `ErrorBoundaryWrapper`, React `Suspense`, and TanStack Query error reset logic for query-driven UI sections.
+
+Use it around components that read data with suspense queries. It automatically:
+
+- scopes captured errors with the provided `appName` ;
+- renders a default card loader while suspended ;
+- renders a default retryable error fallback when a query error reaches the boundary ;
+- resets both TanStack Query and the React error boundary when users retry.
+
+```tsx
+import { QueryBoundary } from "@bsport/sm-backbone";
+
+const MyQuerySection = () => {
+  return (
+    <QueryBoundary appName="my-studio-app">
+      <MySuspenseQueryContent />
+    </QueryBoundary>
+  );
+};
+```
+
+You can replace the loading or error fallback when a page needs a different layout:
+
+```tsx
+import {
+  QueryBoundary,
+  QueryBoundaryCardLoader,
+  type QueryBoundaryErrorFallbackProps,
+} from "@bsport/sm-backbone";
+
+const DetailsErrorFallback = ({ onRetry }: QueryBoundaryErrorFallbackProps) => {
+  return <button onClick={onRetry}>Try again</button>;
+};
+
+const DetailsPage = () => {
+  return (
+    <QueryBoundary
+      appName="my-studio-app"
+      loadingFallback={<QueryBoundaryCardLoader size="lg" />}
+      errorFallback={(props) => <DetailsErrorFallback {...props} />}
+    >
+      <DetailsContent />
+    </QueryBoundary>
+  );
+};
+```
+
+Available fallback helpers:
+
+- `QueryBoundaryLoader`: centered loader without a card container ;
+- `QueryBoundaryCardLoader`: centered loader inside a `Card` ;
+- `QueryBoundaryPageLoader`: full-screen centered loader ;
+- `QueryBoundarySectionErrorFallback`: default card error fallback with retry.
+
+When consuming `QueryBoundary` in an application that builds its own Tailwind CSS, include `SM_BACKBONE_CONTENT_PATHS` in the app's Tailwind config so the fallback classes are generated. See [Tailwind CSS Integration](#tailwind-css-integration).
+
 ### `ErrorBoundary`
 
 For more specific use cases, the `ErrorBoundary` component from Sentry is also re-exported:

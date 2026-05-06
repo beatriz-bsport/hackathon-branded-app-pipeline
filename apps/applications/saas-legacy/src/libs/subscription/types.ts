@@ -30,6 +30,8 @@ import {
   PaymentPackDetails,
   PrivatePassDetails,
 } from './components/contract/contract-revamp/types';
+import { ExtraDataFromQueryParams } from '../booker-module/types';
+import { Offer_FULL } from '../offer/types';
 
 export type PlannedInvoice = {
   date: string;
@@ -387,6 +389,9 @@ export type ContractFactoryOptions = {
 export type RegisterBackgroundReturnValue = {
   billing_plan: Subscription;
   compatible_consumer_payment_pack_id: number | null;
+  error_codes: number[];
+  extra_data: ExtraDataFromQueryParams[];
+  offers_booked: Offer_FULL[];
 };
 
 export type SubscriptionStatus =

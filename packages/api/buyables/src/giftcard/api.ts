@@ -9,6 +9,7 @@ import {
 
 import { API_V1_URL } from "../constants";
 import type {
+  ApplyGiftCardCodeParams,
   ConsumerGiftcard,
   FetchConsumerGiftcardsParams,
   FetchGiftcardImagesParams,
@@ -21,6 +22,12 @@ import type {
 } from "./types";
 
 const API_URL = `${API_V1_URL}/giftcard`;
+
+export const giftcardKeys = {
+  all: ["@api-buyables", "giftcard"] as const,
+  consumerGiftcardsList: (params: Omit<FetchConsumerGiftcardsParams, "page">) =>
+    [...giftcardKeys.all, "consumer-giftcards", "list", params] as const,
+} as const;
 
 // #region Giftcard
 
@@ -209,6 +216,28 @@ export const sendEmailInvitationAPI = async (
   params: SendInvitationEmailParams,
 ): Promise<void> => {
   const [uri, init] = sendEmailInvitationAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+// ----------------------------------------------------------------------------
+
+const applyGiftCardCodeAPIConfig = (
+  params: ApplyGiftCardCodeParams,
+): ApiConfig => {
+  return [
+    `${API_URL}/consumer_giftcard/attribute_by_printable_code/`,
+    { method: "POST", body: JSON.stringify(params) },
+  ];
+};
+
+export const applyGiftCardCodeAPI = async (
+  fetch: Fetch<ConsumerGiftcard>,
+  payload: ApplyGiftCardCodeParams,
+): Promise<ConsumerGiftcard> => {
+  const [uri, init] = applyGiftCardCodeAPIConfig(payload);
 
   const { data } = await fetch(uri, init);
 

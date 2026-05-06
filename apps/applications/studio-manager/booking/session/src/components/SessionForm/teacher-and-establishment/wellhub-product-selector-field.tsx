@@ -23,6 +23,7 @@ export const WellhubProductSelectorField: FC<{
 
   if (
     !wellhubProducts ||
+    wellhubProducts.length === 0 ||
     !isSessionAvailableOnPartnership ||
     !partnershipAccountExternalId
   )

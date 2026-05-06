@@ -7,4 +7,5 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   TOGGLE_APPCUES: "toggle_appcues",
   CLASSES_MERGED_VIEW: "booking_classes_merged_view",
   SETTINGS_AGGREGATORS: "settings_aggregators_view",
+  SETTINGS_TEACHER_VIEW: "settings_teacher_view",
 } as const);

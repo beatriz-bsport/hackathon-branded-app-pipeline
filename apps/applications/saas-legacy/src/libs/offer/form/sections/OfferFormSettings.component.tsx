@@ -66,9 +66,7 @@ const OfferFormSettings: React.FC<Props> = ({
   const [isWellhubProductRequired, setIsWellhubProductRequired] =
     useState(true);
 
-  const [previousEstablishment, setPreviousEstablishment] = useState<
-    number | null
-  >(null);
+  const prevEstablishmentRef = React.useRef<number | null>(null);
 
   const { values, errors, setFieldValue } = useFormikContext<OfferFormValues>();
 
@@ -150,11 +148,14 @@ const OfferFormSettings: React.FC<Props> = ({
   );
 
   React.useEffect(() => {
-    if (establishment != previousEstablishment) {
+    if (
+      establishment != null &&
+      prevEstablishmentRef.current != null &&
+      establishment !== prevEstablishmentRef.current
+    ) {
       setIsWellhubProductRequired(true);
-      setPreviousEstablishment(establishment);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    prevEstablishmentRef.current = establishment;
   }, [establishment]);
 
   return (

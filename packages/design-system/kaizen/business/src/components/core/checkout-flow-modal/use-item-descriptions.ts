@@ -1,6 +1,6 @@
-import { formatDate } from "#src/components/core/checkout-flow-modal/summary-section/utils";
 import type { InvoiceItemFormData } from "#src/components/core/checkout-flow-modal/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
+import { formatDate } from "#src/utils/date";
 
 export const useItemDescriptions = (item: InvoiceItemFormData) => {
   const { t } = useTranslation(["buyables", "core"], { i18n: i18nInstance });

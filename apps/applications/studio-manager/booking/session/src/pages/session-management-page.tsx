@@ -90,7 +90,11 @@ const SessionManagementPageInner: FC = () => {
             searchQuery={searchQuery}
           />
           {shouldDisplayWaitlistSection && (
-            <WaitlistSection sessionId={session.id} searchQuery={searchQuery} />
+            <WaitlistSection
+              sessionId={session.id}
+              searchQuery={searchQuery}
+              openModal={openModal}
+            />
           )}
         </DetailsLayout.Content>
       </DetailsLayout>

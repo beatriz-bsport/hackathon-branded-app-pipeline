@@ -49,6 +49,18 @@
       "fieldIsRequired": "This field is required"
     }
   },
+  "createModal": {
+    "title": "Create media",
+    "buttons": {
+      "create": "Create",
+      "cancel": "Cancel"
+    },
+    "submitResponse": {
+      "success": "Media created",
+      "open": "Open",
+      "error": "Failed to create the media"
+    }
+  },
   "editModal": {
     "title": "Edit media",
     "buttons": {

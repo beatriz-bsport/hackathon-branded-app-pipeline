@@ -16,9 +16,9 @@ export const MEDIA_FORM_DATA_DEFAULT: MediaFormData = {
   credit_price: 0,
   manager_only: false,
   is_rental: false,
-  rental_days: 0,
+  rental_days: DEFAULT_RENTAL_DAYS,
   cover: null,
   category: null,
-  level: null,
+  level: 1,
   coaches: [],
 };

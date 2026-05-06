@@ -6,6 +6,7 @@ import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { VideoTable } from "#src/components/video-table/video-table";
+import { MediaCreateModal } from "#src/features/media-create-modal/media-create-modal";
 import { MediaDeleteModal } from "#src/features/media-delete-modal/media-delete-modal";
 import { useDeleteVideo } from "#src/features/media-delete-modal/use-delete-video";
 import { MediaEditModal } from "#src/features/media-edit-modal/media-edit-modal";
@@ -25,6 +26,7 @@ type MediaListPageContentProps = {
   activeFilters: MediaActiveFilters;
   isFiltered: boolean;
   onClearFilters: () => void;
+  onCreate: () => void;
   onEdit: (video: Video) => void;
 };
 
@@ -32,6 +34,7 @@ const MediaListPageContent: FC<MediaListPageContentProps> = ({
   activeFilters,
   isFiltered,
   onClearFilters,
+  onCreate,
   onEdit,
 }) => {
   const { t } = useTranslation("media-list");
@@ -68,6 +71,7 @@ const MediaListPageContent: FC<MediaListPageContentProps> = ({
           },
         }}
         onRowClick={(id) => navigate(URLS.MEDIA_DETAILS(id))}
+        onCreate={onCreate}
         onDuplicate={(video) => duplicateVideo(video.id)}
         onDelete={(video) =>
           setDeletedVideo({ id: video.id, name: video.name })
@@ -99,6 +103,13 @@ const MediaListPage: FC = () => {
     isFiltered,
     resetFilters,
   } = useMediaFilters();
+
+  const {
+    isOpen: isCreateModalOpen,
+    onClose: closeCreateModal,
+    onOpen: openCreateModal,
+  } = useDisclosure();
+
   const {
     isOpen: isEditModalOpen,
     onClose: closeEditModal,
@@ -134,6 +145,15 @@ const MediaListPage: FC = () => {
         }}
         filterConfig={filterConfig}
         filterRef={filterRef}
+        callToActionButton={
+          <ListLayout.Button
+            iconLeft="plus"
+            intent="call-to-action"
+            color="main"
+            label={t("table.headers.createMedia", { ns: "media-list" })}
+            onClick={openCreateModal}
+          />
+        }
       />
       <ListLayout.Content>
         <QueryBoundary>
@@ -141,10 +161,13 @@ const MediaListPage: FC = () => {
             activeFilters={activeFilters}
             isFiltered={isFiltered}
             onClearFilters={resetFilters}
+            onCreate={openCreateModal}
             onEdit={handleEdit}
           />
         </QueryBoundary>
       </ListLayout.Content>
+
+      <MediaCreateModal isOpen={isCreateModalOpen} onClose={closeCreateModal} />
 
       {editedMedia && (
         <MediaEditModal

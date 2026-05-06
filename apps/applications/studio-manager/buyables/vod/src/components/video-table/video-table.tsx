@@ -28,6 +28,7 @@ type VideoTableProps = {
   emptySearchConfig?: UseEmptyStateProps["emptySearchConfig"];
   isLoading?: boolean;
   onRowClick?: (id: number) => void;
+  onCreate?: () => void;
   onDuplicate: (video: Video) => void;
   onDelete: (video: Video) => void;
   onEdit?: (video: Video) => void;
@@ -42,6 +43,7 @@ export const VideoTable: FC<VideoTableProps> = ({
   emptySearchConfig,
   isLoading = false,
   onRowClick,
+  onCreate,
   onDuplicate,
   onDelete,
   onEdit,
@@ -51,6 +53,13 @@ export const VideoTable: FC<VideoTableProps> = ({
   const emptyConfig: UseEmptyStateProps["emptyConfig"] = {
     title: t("table.emptyList.title"),
     subtitle: t("table.emptyList.subtitle"),
+    ctaButtonConfig: onCreate
+      ? {
+          label: t("table.headers.createMedia"),
+          iconLeft: "plus" as const,
+          onClick: onCreate,
+        }
+      : undefined,
   };
 
   const emptyStateProps: UseEmptyStateProps = {

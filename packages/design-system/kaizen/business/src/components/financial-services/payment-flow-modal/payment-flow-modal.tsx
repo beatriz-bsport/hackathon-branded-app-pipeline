@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import {
+  Alert,
+  Body,
   Button,
   Card,
   Modal,
@@ -18,12 +20,14 @@ import type { AllPaymentMethodKey } from "../payment-method-selector/constants";
 import {
   useFetchInvoice,
   useFetchMember,
+  useFetchStripeReaders,
   useRequestPaymentClientSecret,
 } from "./hooks";
 import {
   GiftCardPaymentMethod,
   ManualPaymentMethod,
   StripePaymentMethod,
+  TerminalPaymentMethod,
 } from "./payment-methods";
 import type { PaymentFlowModalProps } from "./types";
 
@@ -46,6 +50,11 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
 
   const { data: member } = useFetchMember(fetch, memberId);
   const { data: invoice } = useFetchInvoice(fetch, invoiceId);
+  const { data: stripeReaders = [], isLoading: isLoadingStripeReaders } =
+    useFetchStripeReaders({
+      fetch,
+      enabled: isOpen,
+    });
   useRequestPaymentClientSecret({
     fetch,
     invoiceId,
@@ -57,6 +66,19 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
   const amountToPay = Number.isNaN(invoicePriceDue)
     ? "--"
     : getCurrencyDisplayWithPrice(invoicePriceDue);
+
+  const accountBalance = Number(member?.credit_account_balance);
+  const hasPositiveAccountBalance = accountBalance > 0;
+  const isAccountBalanceEnough =
+    hasPositiveAccountBalance && accountBalance >= invoicePriceDue;
+  const hasStripeReaders = stripeReaders.length > 0;
+
+  const shouldShowMemberBalanceWarning =
+    selectedPaymentMethod?.kind === "all" &&
+    selectedPaymentMethod.id === "account_balance" &&
+    hasPositiveAccountBalance &&
+    !isAccountBalanceEnough;
+
   const memberName = member?.name ?? `#${memberId}`;
 
   const openExternalLink = (url: string): void => {
@@ -94,10 +116,25 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
       gift_card_code: () => (
         <GiftCardPaymentMethod fetch={fetch} memberId={memberId} />
       ),
-      // TODO: Implement terminal payment method
-      terminal: () => null,
+      account_balance: () => null,
+      terminal: () => (
+        <TerminalPaymentMethod
+          stripeReaders={stripeReaders}
+          isLoading={isLoadingStripeReaders}
+        />
+      ),
       manual: () => <ManualPaymentMethod />,
     };
+
+  const hiddenAllMethodIds: AllPaymentMethodKey[] = [];
+
+  if (!hasPositiveAccountBalance) {
+    hiddenAllMethodIds.push("account_balance");
+  }
+
+  if (isLoadingStripeReaders || !hasStripeReaders) {
+    hiddenAllMethodIds.push("terminal");
+  }
 
   const renderSelectedPaymentMethod = (): React.ReactNode => {
     if (selectedPaymentMethod?.kind !== "all") return null;
@@ -147,6 +184,12 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
           onToggleChange={setIsPartialEnabled}
         />
 
+        {shouldShowMemberBalanceWarning && (
+          <Alert status="warning" type="weak" layout="banner">
+            {t("paymentFlowModal.memberBalanceInsufficientAlert")}
+          </Alert>
+        )}
+
         <Card className="flex flex-col gap-md bg-surface-default-weaker">
           <div className="flex flex-col gap-xs">
             <Title htmlVariant="h3" color="default" weight="strong">
@@ -157,6 +200,28 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
               fetch={fetch}
               label={undefined}
               size="md"
+              allMethodsConfig={{
+                hiddenIds:
+                  hiddenAllMethodIds.length > 0
+                    ? hiddenAllMethodIds
+                    : undefined,
+                adornmentById: {
+                  account_balance: hasPositiveAccountBalance ? (
+                    <Body
+                      htmlVariant="span"
+                      size="lg"
+                      color={isAccountBalanceEnough ? undefined : "warning"}
+                      className={
+                        isAccountBalanceEnough
+                          ? "text-onsurface-status-positive-strong"
+                          : undefined
+                      }
+                    >
+                      {getCurrencyDisplayWithPrice(accountBalance)}
+                    </Body>
+                  ) : undefined,
+                },
+              }}
               onSelectionChange={setSelectedPaymentMethod}
             />
           </div>

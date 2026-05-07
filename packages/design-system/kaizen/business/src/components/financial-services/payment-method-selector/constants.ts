@@ -2,6 +2,7 @@ export type AllPaymentMethodKey =
   | "card"
   | "sepa_debit"
   | "gift_card_code"
+  | "account_balance"
   | "terminal"
   | "manual";
 
@@ -11,6 +12,7 @@ type AllPaymentMethodOption = {
     | "paymentMethod.selector.allMethodsOptions.card"
     | "paymentMethod.selector.allMethodsOptions.sepaDebit"
     | "paymentMethod.selector.allMethodsOptions.giftCardCode"
+    | "paymentMethod.selector.allMethodsOptions.accountBalance"
     | "paymentMethod.selector.allMethodsOptions.terminal"
     | "paymentMethod.selector.allMethodsOptions.manual";
 };
@@ -27,6 +29,10 @@ export const ALL_PAYMENT_METHOD_OPTIONS: AllPaymentMethodOption[] = [
   {
     id: "gift_card_code",
     labelKey: "paymentMethod.selector.allMethodsOptions.giftCardCode",
+  },
+  {
+    id: "account_balance",
+    labelKey: "paymentMethod.selector.allMethodsOptions.accountBalance",
   },
   {
     id: "terminal",

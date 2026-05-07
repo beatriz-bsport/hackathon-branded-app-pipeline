@@ -114,6 +114,7 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
   memberId,
   fetch,
   onSelectionChange,
+  allMethodsConfig,
   disabled,
   size,
   fullWidth = true,
@@ -133,7 +134,11 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
     savedPaymentMethods,
     (key) => t(key),
   );
-  const allMethodsItems = ALL_PAYMENT_METHOD_OPTIONS.map((option) => ({
+  const hiddenAllMethodIds = allMethodsConfig?.hiddenIds;
+  const adornmentByAllMethodId = allMethodsConfig?.adornmentById;
+  const allMethodsItems = ALL_PAYMENT_METHOD_OPTIONS.filter(
+    (option) => !hiddenAllMethodIds?.includes(option.id),
+  ).map((option) => ({
     id: option.id,
     label: t(option.labelKey),
   }));
@@ -155,6 +160,7 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
   const allItems: Item[] = allMethodsItems.map((item) => ({
     id: toSelectValue({ kind: "all", id: item.id }),
     label: item.label,
+    rightSlot: adornmentByAllMethodId?.[item.id],
   }));
 
   const menuItems: Item[] =

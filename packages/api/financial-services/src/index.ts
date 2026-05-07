@@ -7,6 +7,7 @@ export * from "./invoice";
 export * from "./payment-group";
 export * from "./payout";
 export * from "./payment-method";
+export * from "./terminal";
 export * from "./teacher-payment-rules";
 export * from "./platform-billing";
 export * from "./types";

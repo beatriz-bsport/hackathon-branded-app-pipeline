@@ -43,6 +43,7 @@
         "card": "New credit card",
         "sepaDebit": "SEPA",
         "giftCardCode": "Gift Card",
+        "accountBalance": "Account balance",
         "terminal": "Terminal",
         "manual": "Manual"
       }
@@ -61,6 +62,7 @@
     "totalAmountLabel": "Total amount",
     "partialToggleLabel": "Pay part of the total now, the rest later",
     "paymentMethodTitle": "Payment method",
+    "memberBalanceInsufficientAlert": "Client's account balance doesn't cover the full amount. Charge the remaining amount separately.",
     "giftCards": {
       "title": "Available gift cards",
       "loading": "Loading gift cards...",
@@ -87,6 +89,13 @@
       "title": "Pay with new SEPA direct debit",
       "saveLabel": "Save this SEPA mandate for future payments",
       "paymentError": "Could not process SEPA details. Please try again."
+    },
+    "terminal": {
+      "title": "Select a terminal",
+      "loading": "Loading terminals...",
+      "empty": "No terminal available.",
+      "unknownSerial": "Unknown serial number",
+      "saveLabel": "Save this card for future payments"
     },
     "manual": {
       "fields": {

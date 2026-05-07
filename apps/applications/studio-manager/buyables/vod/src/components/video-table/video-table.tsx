@@ -32,6 +32,7 @@ type VideoTableProps = {
   onDuplicate: (video: Video) => void;
   onDelete: (video: Video) => void;
   onEdit?: (video: Video) => void;
+  onRequestUpload: (id: number) => void;
 };
 
 export const VideoTable: FC<VideoTableProps> = ({
@@ -47,6 +48,7 @@ export const VideoTable: FC<VideoTableProps> = ({
   onDuplicate,
   onDelete,
   onEdit,
+  onRequestUpload,
 }) => {
   const { t } = useTranslation("media-list");
 
@@ -69,7 +71,7 @@ export const VideoTable: FC<VideoTableProps> = ({
     emptySearchConfig,
   };
 
-  const columns = useVideoTableColumns();
+  const columns = useVideoTableColumns({ onRequestUpload });
   const isMobile = !useMatchMedia("sm");
   const pendingDeletionIds = usePendingVideoDeletionIds();
 
@@ -113,6 +115,7 @@ export const VideoTable: FC<VideoTableProps> = ({
         emptyConfig={emptyConfig}
         emptySearchConfig={emptySearchConfig}
         isLoading={isLoading}
+        onRequestUpload={onRequestUpload}
       />
     );
   }

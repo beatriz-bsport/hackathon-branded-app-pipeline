@@ -15,6 +15,8 @@ import type {
   CreateVideoParams,
   FetchVideosByIdsParams,
   FetchVideosParams,
+  SetExternalUrlParams,
+  SetProviderIdentifierParams,
   UpdateVideoParams,
   UploadInstruction,
   UploadInstructionParams,
@@ -192,6 +194,60 @@ export const requestUploadInstructionAPI = async (
   params: UploadInstructionParams,
 ): Promise<UploadInstruction> => {
   const [uri, init] = UploadInstructionAPIConfig(params);
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+// #endregion
+
+// #region Set Provider Identifier
+
+const setProviderIdentifierAPIConfig = ({
+  id,
+  provider_identifier,
+}: SetProviderIdentifierParams): ApiConfig => {
+  return [
+    `${API_URL}/${id}/set_provider_identifier/`,
+    {
+      method: "POST",
+      body: JSON.stringify({ provider_identifier }),
+    },
+  ];
+};
+
+export const setProviderIdentifierAPI = async (
+  fetch: Fetch<Video>,
+  params: SetProviderIdentifierParams,
+): Promise<Video> => {
+  const [uri, init] = setProviderIdentifierAPIConfig(params);
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+// #endregion
+
+// #region Set External Url
+
+const setExternalUrlAPIConfig = ({
+  id,
+  data,
+}: SetExternalUrlParams): ApiConfig => {
+  return [
+    `${API_URL}/${id}/set_external_url/`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    },
+  ];
+};
+
+export const setExternalUrlAPI = async (
+  fetch: Fetch<Video>,
+  params: SetExternalUrlParams,
+): Promise<Video> => {
+  const [uri, init] = setExternalUrlAPIConfig(params);
   const { data } = await fetch(uri, init);
 
   return data;

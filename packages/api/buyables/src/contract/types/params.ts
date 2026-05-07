@@ -73,3 +73,7 @@ export type CreateLegacyContractParams = Omit<
 export type UpdateLegacyContractParams = CreateLegacyContractParams & {
   id: number;
 };
+
+export type RestoreContractParams = { id: number };
+
+export type ArchiveContractParams = { id: number };

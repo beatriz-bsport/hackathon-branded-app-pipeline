@@ -1,6 +1,8 @@
 import { generateSafeEvent } from "#src/utils/generate-safe-events";
 
 import {
+  aggregatorChipsStatusEventSchema,
+  aggregatorToggleStatusEventSchema,
   sessionCreationActivitySelectedEventSchema,
   sessionCreationBackClickedEventSchema,
   sessionCreationCloseButtonClickedEventSchema,
@@ -12,6 +14,7 @@ import {
   sessionCreationRecurrenceRuleSelectedEventSchemas,
   sessionCreationRecurrenceToggleEnabledEventSchema,
   sessionCreationVisibilitySelectEventSchema,
+  spotCappingRadioButtonEventSchema,
 } from "./schemas";
 
 export const sessionCreationOpensEvent = generateSafeEvent(
@@ -56,4 +59,16 @@ export const sessionCreationRecurrenceIntervalEvent = generateSafeEvent(
 
 export const sessionCreationRecurrenceRuleSelectedEvent = generateSafeEvent(
   sessionCreationRecurrenceRuleSelectedEventSchemas,
+);
+
+export const spotCappingRadioButtonEvent = generateSafeEvent(
+  spotCappingRadioButtonEventSchema,
+);
+
+export const aggregatorChipsStatusEvent = generateSafeEvent(
+  aggregatorChipsStatusEventSchema,
+);
+
+export const aggregatorToggleStatusEvent = generateSafeEvent(
+  aggregatorToggleStatusEventSchema,
 );

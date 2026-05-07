@@ -61,6 +61,33 @@
     "totalAmountLabel": "Total amount",
     "partialToggleLabel": "Pay part of the total now, the rest later",
     "paymentMethodTitle": "Payment method",
+    "giftCards": {
+      "title": "Available gift cards",
+      "loading": "Loading gift cards...",
+      "empty": "No gift cards available for this member.",
+      "remaining": "{{available}} of {{total}} remaining",
+      "expiresOn": "Expires on {{date}}",
+      "loadMore": "Load more",
+      "loadingMore": "Loading more...",
+      "addGiftCard": "Add gift card",
+      "giftCardCodePlaceholder": "Gift card code",
+      "applyGiftCardCode": "Apply gift card code",
+      "errors": {
+        "emptyCode": "You need to add a gift card code",
+        "invalidCode": "This gift card code is not valid",
+        "generic": "Could not apply this gift card code"
+      }
+    },
+    "newCard": {
+      "title": "Pay with new credit card",
+      "saveLabel": "Save this card for future payments",
+      "paymentError": "Could not process card details. Please try again."
+    },
+    "newSepa": {
+      "title": "Pay with new SEPA direct debit",
+      "saveLabel": "Save this SEPA mandate for future payments",
+      "paymentError": "Could not process SEPA details. Please try again."
+    },
     "links": {
       "invoice": "Invoice"
     }

@@ -199,6 +199,10 @@ export const BookingsTable: FC<{
           ...booking,
           isActive: booking.id === selectedBookingId,
           onRowClick: () => {
+            if (booking.id === selectedBookingId) {
+              setSelectedBooking(null);
+              return;
+            }
             setSelectedBookingOption(null);
             setSelectedBooking(booking.id);
           },

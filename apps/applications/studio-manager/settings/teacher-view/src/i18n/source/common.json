@@ -1,0 +1,73 @@
+{
+  "teacherViewSettings": {
+    "title": "Teacher view",
+    "description": "Customize the teacher view on the web. Please note that the settings here do not affect the teacher's view of the application.",
+    "access": {
+      "title": "Access",
+      "enable": "Enable the teacher view by default",
+      "helper": "By enabling this feature, all your new teachers will have the access enabled by default"
+    },
+    "restrictions": {
+      "title": "Restrictions",
+      "helper": "Indicate which tabs your teachers will have access to",
+      "schedule": "Schedule",
+      "payroll": "Payroll",
+      "payrollDownload": "Allow teachers to download their payroll",
+      "substitution": "Substitution",
+      "substitutionDisabledHelper": "Substitution access requires the Subteacher Tool add-on."
+    },
+    "save": "Save",
+    "toasts": {
+      "success": "Teacher view settings saved",
+      "error": "Settings couldn't be saved. Please try again."
+    },
+    "replacementRequest": {
+      "title": "Substitution settings",
+      "description": "Control how teachers can request substitutions from the teacher view.",
+      "enable": "Allow teachers to request substitutions",
+      "loading": "Loading substitution settings ...",
+      "loadError": "Substitution settings couldn't be loaded. Please try again later.",
+      "lateRequestSection": "Late request",
+      "closingSection": "Closing of registrations at substitution",
+      "daysLate": {
+        "label": "Number of days",
+        "helper": "Substitution requests made less than {{count}} days before the beginning of the session will be indicated as late.",
+        "helper_one": "Substitution requests made less than {{count}} day before the beginning of the session will be indicated as late.",
+        "helper_other": "Substitution requests made less than {{count}} days before the beginning of the session will be indicated as late."
+      },
+      "limits": {
+        "toggle": "Limit of late requests",
+        "maxRequestsLabel": "Maximum late requests per period",
+        "periodCountLabel": "Number of periods",
+        "periodTypeLabel": "Period type",
+        "every": "Every",
+        "recap": "Every {{periodNb}} {{period}} your teachers will be able to make at most {{maxRequests}} late requests. Once this number is exceeded, they will not be able to make any more late requests until the end of the period."
+      },
+      "periodTypes": {
+        "placeholder": "Select a period type",
+        "1": "Week",
+        "2": "Month",
+        "3": "Year"
+      },
+      "periodWordWeek": "weeks",
+      "periodWordWeek_one": "week",
+      "periodWordWeek_other": "weeks",
+      "periodWordMonth": "months",
+      "periodWordMonth_one": "month",
+      "periodWordMonth_other": "months",
+      "periodWordYear": "years",
+      "periodWordYear_one": "year",
+      "periodWordYear_other": "years",
+      "closingDays": {
+        "label": "Number of days",
+        "helper": "Your teachers will no longer be able to accept substitutions on a session {{count}} days before the course begins.",
+        "helper_one": "Your teachers will no longer be able to accept substitutions on a session {{count}} day before the course begins.",
+        "helper_other": "Your teachers will no longer be able to accept substitutions on a session {{count}} days before the course begins."
+      },
+      "toasts": {
+        "success": "Substitution settings saved",
+        "error": "Substitution settings couldn't be saved. Please try again."
+      }
+    }
+  }
+}

@@ -84,6 +84,14 @@ sudo apt update && sudo apt install -y $DEBIAN_PKGS
 
 > **Note:** For Nx remote cache setup (faster builds), see [docs/nx_remote_cache_server.md](./docs/nx_remote_cache_server.md).
 
+### Commit messages
+
+Commit messages are validated with commitlint, so regular `git commit` works from any Git client. If you prefer the guided Commitizen CLI, use:
+
+```sh
+pnpm commit
+```
+
 ### Run an application
 
 Currently we have two different macro-projects in the monorepository :

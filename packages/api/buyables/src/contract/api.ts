@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 import { type ApiConfig, type Fetch, buildUrlParams } from "@bsport/store-base";
 
@@ -9,8 +9,10 @@ import {
 } from "./constants";
 import type { Contract } from "./types/models";
 import type {
+  ArchiveContractParams,
   FetchContractParams,
   FetchContractsParams,
+  RestoreContractParams,
   UpdateContractParams,
   UpdateLegacyContractParams,
 } from "./types/params";
@@ -114,3 +116,59 @@ export const updateLegacyContractAPI = async (
 
   return data;
 };
+
+// ----------------------------------------------------------------------------
+
+const restoreContractAPIConfig = (params: RestoreContractParams): ApiConfig => {
+  return [
+    `${API_V0_URL_CONTRACT}/${params.id}/restore/`,
+    {
+      method: "PUT",
+    },
+  ];
+};
+
+const restoreContractAPI = async (
+  fetch: Fetch<Contract>,
+  params: RestoreContractParams,
+): Promise<Contract> => {
+  const [uri, init] = restoreContractAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+export const restoreContractMutationOptions = (fetch: Fetch<Contract>) =>
+  mutationOptions({
+    mutationFn: (params: RestoreContractParams) =>
+      restoreContractAPI(fetch, params),
+  });
+
+// ----------------------------------------------------------------------------
+
+const archiveContractAPIConfig = (params: ArchiveContractParams): ApiConfig => {
+  return [
+    `${API_V0_URL_CONTRACT}/${params.id}/`,
+    {
+      method: "DELETE",
+    },
+  ];
+};
+
+const archiveContractAPI = async (
+  fetch: Fetch<Contract>,
+  params: ArchiveContractParams,
+): Promise<Contract> => {
+  const [uri, init] = archiveContractAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+export const archiveContractMutationOptions = (fetch: Fetch<Contract>) =>
+  mutationOptions({
+    mutationFn: (params: ArchiveContractParams) =>
+      archiveContractAPI(fetch, params),
+  });

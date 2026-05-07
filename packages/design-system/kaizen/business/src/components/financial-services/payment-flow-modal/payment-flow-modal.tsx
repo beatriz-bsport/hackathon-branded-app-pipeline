@@ -11,10 +11,16 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { PaymentMethodSelector } from "#src/components/financial-services/payment-method-selector";
+import type { PaymentMethodSelectorSelection } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
-import { useFetchInvoice } from "./hooks/use-fetch-invoice";
-import { useFetchMember } from "./hooks/use-fetch-member";
+import {
+  useFetchInvoice,
+  useFetchMember,
+  useRequestPaymentClientSecret,
+} from "./hooks";
+import { GiftCard } from "./payment-methods/gift-card";
+import { StripePaymentMethod } from "./payment-methods/stripe";
 import type { PaymentFlowModalProps } from "./types";
 
 type PaymentTab = "one-time" | "installments";
@@ -31,9 +37,17 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
 
   const [activeTab, setActiveTab] = useState<PaymentTab>("one-time");
   const [isPartialEnabled, setIsPartialEnabled] = useState(false);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] =
+    useState<PaymentMethodSelectorSelection>(null);
 
   const { data: member } = useFetchMember(fetch, memberId);
   const { data: invoice } = useFetchInvoice(fetch, invoiceId);
+  useRequestPaymentClientSecret({
+    fetch,
+    invoiceId,
+    memberId,
+    enabled: isOpen,
+  });
 
   const invoicePriceDue = Number(invoice?.price_due);
   const amountToPay = Number.isNaN(invoicePriceDue)
@@ -52,12 +66,19 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
     { id: "one-time", label: t("paymentFlowModal.tabs.oneTime") },
     { id: "installments", label: t("paymentFlowModal.tabs.installments") },
   ];
+  const stripeMethod =
+    selectedPaymentMethod?.kind === "all" &&
+    (selectedPaymentMethod.id === "card" ||
+      selectedPaymentMethod.id === "sepa_debit")
+      ? selectedPaymentMethod.id
+      : null;
 
   return (
     <Modal
       open={isOpen}
       title={t("paymentFlowModal.title")}
       size="lg"
+      onClose={onClose}
       cancelButton={{
         label: t("paymentFlowModal.buttons.cancel"),
         onClick: onClose,
@@ -95,19 +116,35 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
           onToggleChange={setIsPartialEnabled}
         />
 
-        <Card className="flex flex-col gap-xs bg-surface-default-weaker">
-          <Title htmlVariant="h5" color="default" weight="strong">
-            {t("paymentFlowModal.paymentMethodTitle")}
-          </Title>
-          <PaymentMethodSelector
-            memberId={memberId}
-            fetch={fetch}
-            label={undefined}
-            size="md"
-          />
+        <Card className="flex flex-col gap-md bg-surface-default-weaker">
+          <div className="flex flex-col gap-xs">
+            <Title htmlVariant="h3" color="default" weight="strong">
+              {t("paymentFlowModal.paymentMethodTitle")}
+            </Title>
+            <PaymentMethodSelector
+              memberId={memberId}
+              fetch={fetch}
+              label={undefined}
+              size="md"
+              onSelectionChange={setSelectedPaymentMethod}
+            />
+          </div>
+
+          {member && stripeMethod ? (
+            <StripePaymentMethod
+              fetch={fetch}
+              invoiceId={invoiceId}
+              member={member}
+              method={stripeMethod}
+            />
+          ) : null}
+          {selectedPaymentMethod?.kind === "all" &&
+          selectedPaymentMethod.id === "gift_card_code" ? (
+            <GiftCard fetch={fetch} memberId={memberId} />
+          ) : null}
         </Card>
 
-        <div className="flex items-start gap-xs">
+        <div className="flex items-start gap-xs flex-wrap">
           <Button
             intent="flat"
             color="default"

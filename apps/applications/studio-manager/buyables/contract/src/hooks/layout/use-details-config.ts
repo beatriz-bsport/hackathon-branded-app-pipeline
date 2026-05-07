@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useParams } from "react-router";
 
 import type { Contract } from "@bsport/api-buyables/contract";
@@ -15,9 +16,10 @@ export const useDetailsConfig = (): {
   detailsLayoutConfig: UseDetailsLayoutReturnType;
   headerConfig: Omit<
     ReturnType<typeof useContractDetailsHeader>,
-    "startGroupActionsRaw"
+    "startGroupActionsRaw" | "archiveModal"
   >;
   contract: Contract;
+  archiveModal: ReactNode;
 } => {
   const { id: rawId } = useParams();
 
@@ -29,16 +31,19 @@ export const useDetailsConfig = (): {
 
   const detailsLayoutConfig = useDetailsLayout();
 
-  const { startGroupActionsRaw: _, ...headerConfig } = useContractDetailsHeader(
-    {
-      contract: contract,
-      isVisible: !contract.manager_only,
-    },
-  );
+  const {
+    startGroupActionsRaw: _,
+    archiveModal,
+    ...headerConfig
+  } = useContractDetailsHeader({
+    contract: contract,
+    isVisible: !contract.manager_only,
+  });
 
   return {
     detailsLayoutConfig,
     headerConfig,
     contract,
+    archiveModal,
   };
 };

@@ -17,6 +17,7 @@
     "build:all": "nx run-many --all --target=build",
     "ci:compile:all": "pnpm exec nx run-many --all --target=ci:compile",
     "cleanup": "bash tools/scripts/cleanup-and-rebuild.sh",
+    "commit": "cz",
     "docs:events": "pnpm exec nx docs:generate @bsport/analytics",
     "feature-flags-environment:set": "ts-node tools/toolkit-cli/src/index.ts feature-flags-environment:set",
     "federate:navigation": "pnpm --filter '@bsport/sm-navigation-sidebar' dev",
@@ -67,6 +68,8 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.0.0",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@module-federation/vite": "^1.9.1",
     "@nx/devkit": "21.6.10",
     "@nx/eslint": "21.6.10",

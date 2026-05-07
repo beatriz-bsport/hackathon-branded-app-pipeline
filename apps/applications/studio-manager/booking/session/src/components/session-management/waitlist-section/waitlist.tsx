@@ -20,16 +20,17 @@ import { useSearchBookingOptions } from "#src/hooks/waitlist/use-search-booking-
 import {
   setSelectedBooking,
   setSelectedBookingOption,
-} from "#src/stores/session-management/actions.js";
-import { useSessionManagementStore } from "#src/stores/session-management/store.js";
+} from "#src/stores/session-management/actions";
+import { useSessionManagementStore } from "#src/stores/session-management/store";
 import type { RefinedBookingOption } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
 
-export const WaitList: FC<{ sessionId: number; searchQuery: string }> = ({
-  sessionId,
-  searchQuery,
-}) => {
+export const WaitList: FC<{
+  sessionId: number;
+  searchQuery: string;
+  readOnly?: boolean;
+}> = ({ sessionId, searchQuery, readOnly = false }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
@@ -125,42 +126,46 @@ export const WaitList: FC<{ sessionId: number; searchQuery: string }> = ({
         </div>
       ),
     },
-    {
-      header: "",
-      id: "actions",
-      type: "custom",
-      align: "end",
-      render: () => (
-        <div className="flex gap-sm items-center">
-          <ResponsiveTooltip
-            placement="bottom"
-            label={t("actions.bookToClass")}
-          >
-            <Button
-              kind="icon-button"
-              icon="plus"
-              label={t("actions.bookToClass")}
-              intent="default"
-              size="md"
-              color="main"
-            />
-          </ResponsiveTooltip>
-          <ResponsiveTooltip
-            placement="bottom"
-            label={t("actions.removeFromWaitlist")}
-          >
-            <Button
-              kind="icon-button"
-              icon="trash-01"
-              label={t("actions.removeFromWaitlist")}
-              intent="default"
-              size="md"
-              color="main"
-            />
-          </ResponsiveTooltip>
-        </div>
-      ),
-    },
+    ...(readOnly
+      ? []
+      : [
+          {
+            header: "",
+            id: "actions",
+            type: "custom",
+            align: "end",
+            render: () => (
+              <div className="flex gap-sm items-center">
+                <ResponsiveTooltip
+                  placement="bottom"
+                  label={t("actions.bookToClass")}
+                >
+                  <Button
+                    kind="icon-button"
+                    icon="plus"
+                    label={t("actions.bookToClass")}
+                    intent="default"
+                    size="md"
+                    color="main"
+                  />
+                </ResponsiveTooltip>
+                <ResponsiveTooltip
+                  placement="bottom"
+                  label={t("actions.removeFromWaitlist")}
+                >
+                  <Button
+                    kind="icon-button"
+                    icon="trash-01"
+                    label={t("actions.removeFromWaitlist")}
+                    intent="default"
+                    size="md"
+                    color="main"
+                  />
+                </ResponsiveTooltip>
+              </div>
+            ),
+          } as GenericTableColumn<RefinedBookingOption>,
+        ]),
   ];
 
   return (
@@ -175,11 +180,19 @@ export const WaitList: FC<{ sessionId: number; searchQuery: string }> = ({
         rowHeight="lg"
         rows={searchedBookingOptions.map((bookingOption) => ({
           ...bookingOption,
-          isActive: bookingOption.id === selectedBookingOptionId,
-          onRowClick: () => {
-            setSelectedBooking(null);
-            setSelectedBookingOption(bookingOption.id);
-          },
+          ...(readOnly
+            ? {}
+            : {
+                isActive: bookingOption.id === selectedBookingOptionId,
+                onRowClick: () => {
+                  if (bookingOption.id === selectedBookingOptionId) {
+                    setSelectedBookingOption(null);
+                    return;
+                  }
+                  setSelectedBooking(null);
+                  setSelectedBookingOption(bookingOption.id);
+                },
+              }),
         }))}
         paginationProps={paginationProps}
         hideHeader

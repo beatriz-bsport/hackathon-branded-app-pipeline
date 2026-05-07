@@ -80,7 +80,7 @@ export const getOfferContraints = (
   offerStatusById: { [id: number]: OfferStatus },
   additionalGuestCount: number = 0,
   isBookingForInviteeOnly: boolean = false,
-) => {
+): OfferConstraint => {
   let credit = 0;
   const offerStatus = offerStatusById[baseOffer.id];
   if (
@@ -114,8 +114,8 @@ export const getOfferContraints = (
 
   return {
     credit,
-    minDate: minDate.toISODate(),
-    maxDate: maxDate.toISODate(),
+    minDate: minDate.toISODate() as string,
+    maxDate: maxDate.toISODate() as string,
     mustAllowBookingForGuest,
   };
 };
@@ -494,6 +494,25 @@ export const getAvailableConsumerPack = memoize(
   },
 );
 
+const isPaymentPackCompatible =
+  (offersConstraint: OfferConstraint, tzName: string) =>
+  (paymentPack: PaymentPack): boolean => {
+    const { start, end } = getPaymentPackTimeLimitation(
+      paymentPack,
+      offersConstraint.minDate,
+    );
+    return (
+      (paymentPack.unlimited ||
+        paymentPack.credits >= offersConstraint.credit) &&
+      start.setZone(tzName) <=
+        DateTime.fromISO(offersConstraint.minDate).setZone(tzName) &&
+      end.setZone(tzName) >=
+        DateTime.fromISO(offersConstraint.maxDate).setZone(tzName) &&
+      (paymentPack.allow_guest_pass ||
+        !offersConstraint.mustAllowBookingForGuest)
+    );
+  };
+
 /*
  * Filter out PP that don't have enough credits / validity period long enough
  * annotates MaxoutData to the result
@@ -504,26 +523,15 @@ export const getAvailablePaymentPacks = memoize(
     paymentPackList: PaymentPack[],
     selectedOffer: Offer_FULL[] | OfferREST[],
     offer: Offer_FULL | OfferREST,
-    tz_name: string,
+    tz_name?: string,
   ) => {
-    const { credit, minDate, maxDate, mustAllowBookingForGuest } =
-      offersConstraint;
     const tzName = tz_name || 'Europe/Paris';
-
     return paymentPackList
-      .filter((pp) => {
-        const { start, end } = getPaymentPackTimeLimitation(pp, minDate);
-        return (
-          (pp.unlimited || pp.credits >= credit) &&
-          start.setZone(tzName) <= DateTime.fromISO(minDate).setZone(tzName) &&
-          end.setZone(tzName) >= DateTime.fromISO(maxDate).setZone(tzName) &&
-          (pp.allow_guest_pass || !mustAllowBookingForGuest)
-        );
-      })
+      .filter(isPaymentPackCompatible(offersConstraint, tzName))
       .map((pp) => {
         const maxoutData = getMaxoutInfoForPaymentPack(
           pp,
-          [offer, ...selectedOffer].map((offer: Offer_FULL) =>
+          [offer, ...selectedOffer].map((offer: Offer_FULL | OfferREST) =>
             DateTime.fromISO(offer.date_start).setZone(tzName),
           ),
         );
@@ -591,32 +599,107 @@ export const getAvailableComboPacks = memoize(
   },
 );
 
+const groupOffersByInterval = (
+  offers: Array<Offer_FULL | OfferREST>,
+  interval: 'month' | 'week',
+  tzName: string,
+  recurrence_basis: number,
+  nb_interval: number,
+): Array<Array<Offer_FULL | OfferREST>> => {
+  if (offers.length === 0) return [];
+
+  const contractStart = DateTime.now().setZone(tzName);
+
+  const intervals = Array.from({ length: nb_interval }, (_, i) => ({
+    start: contractStart.plus({ [interval]: i * recurrence_basis }),
+    end: contractStart.plus({ [interval]: (i + 1) * recurrence_basis }),
+  }));
+
+  return intervals
+    .map(({ start, end }) =>
+      offers.filter((o) => {
+        const offerDate = DateTime.fromISO(o.date_start).setZone(tzName);
+        return offerDate >= start && offerDate < end;
+      }),
+    )
+    .filter((group) => group.length > 0);
+};
+
 /*
- * Filter out Contracts that don't have a PP with
- * enough credits / validity period long enough.
- * annotates MaxoutData to the result
+ * Filter out Contracts whose payment pack can't cover the
+ * selected offers within any single interval period.
+ * A subscription creates one payment pack per interval (month/week),
+ * so we group offers by interval and check each group independently.
  */
 export const getAvailableContracts = memoize(
   (
-    offersConstraint: OfferConstraint,
     contractList: Array<ContractWithPaymentPack>,
-    selectedOffers: Offer_FULL[] | OfferREST[],
+    selectedOffers: (Offer_FULL | OfferREST)[],
     offer: Offer_FULL | OfferREST,
     tz_name: string,
+    offerStatusById: { [id: number]: OfferStatus },
   ) => {
     const tzName = tz_name || 'Europe/Paris';
-    return contractList
-      .map((contract) => {
-        const availablePaymentPacks: Array<PaymentPackWithMaxoutData> =
-          getAvailablePaymentPacks(
-            offersConstraint,
-            contract.allPaymentPacks || [],
-            selectedOffers,
-            offer,
-            tzName,
-          );
+    const allOffers: Array<Offer_FULL | OfferREST> = [offer, ...selectedOffers];
 
-        if (availablePaymentPacks.length === 0) return null;
+    return (contractList ?? [])
+      .map((contract) => {
+        const paymentPacks = contract.allPaymentPacks || [];
+        if (paymentPacks.length === 0) return null;
+
+        const offersByInterval = groupOffersByInterval(
+          allOffers,
+          contract.interval,
+          tzName,
+          contract.recurrence_basis,
+          contract.nb_interval,
+        );
+
+        const offersInsideIntervalsCount = offersByInterval.reduce(
+          (sum, group) => sum + group.length,
+          0,
+        );
+        if (offersInsideIntervalsCount < allOffers.length) {
+          // Some offers fall outside all contract intervals,
+          // so the contract can't cover all offers.
+          return null;
+        }
+
+        // For each interval, find the first compatible PP.
+        // This both validates compatibility and collects the relevant packs for maxout,
+        // avoiding a second loop over paymentPacks.
+        const compatiblePackPerInterval = offersByInterval.map(
+          (offerInInterval) => {
+            const [baseOfferInInterval, ...restInInterval] =
+              offerInInterval as Offer_FULL[];
+            const offersConstraintInInterval = getOfferContraints(
+              baseOfferInInterval,
+              restInInterval.map((o) => ({ offer: o, extra_data: null })),
+              offerStatusById,
+            );
+            return (
+              paymentPacks.find(
+                isPaymentPackCompatible(offersConstraintInInterval, tzName),
+              ) ?? null
+            );
+          },
+        );
+
+        if (compatiblePackPerInterval.some((pp) => pp === null)) return null;
+
+        // Determine which maxout info to display on the whole contract,
+        // using only the matched pack per interval.
+        const availablePaymentPacks: Array<PaymentPackWithMaxoutData> = (
+          compatiblePackPerInterval as PaymentPack[]
+        ).map((pp) => {
+          const maxoutData = getMaxoutInfoForPaymentPack(
+            pp,
+            allOffers.map((o) =>
+              DateTime.fromISO(o.date_start).setZone(tzName),
+            ),
+          );
+          return { ...pp, ...maxoutData };
+        });
 
         const { exceedsBookingMaxout, maxoutInfo } =
           getMaxoutFromAvailablePaymentPacks(availablePaymentPacks);

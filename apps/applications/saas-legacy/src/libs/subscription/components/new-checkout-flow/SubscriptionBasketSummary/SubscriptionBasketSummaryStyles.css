@@ -15,3 +15,10 @@
   border-color: var(--border-color);
   gap: var(--spacing-2);
 }
+
+.bs-subscription__basket-summary
+  .bs-subscription__basket-summary__offer-divider {
+  border-color: var(--color-grey-100);
+  border-width: 1px;
+  margin: var(--spacing-2);
+}

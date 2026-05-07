@@ -15,7 +15,8 @@ export enum BookingSourceFilter {
 
 export enum WaitlistFilter {
   ON_WAITLIST = "on_waitlist",
-  REMOVED = "removed",
+  IS_CONVERTIBLE = "is_convertible",
+  CANCELLED = "cancelled",
 }
 
 export enum BookingOrdering {

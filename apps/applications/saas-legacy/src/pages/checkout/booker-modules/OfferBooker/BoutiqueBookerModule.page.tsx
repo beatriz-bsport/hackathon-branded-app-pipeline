@@ -224,6 +224,10 @@ import { SlashCircle01 } from '#src/components/untitledui';
 
 import { buildDataForUserRegistrationWithMultiSessionsAllowed } from '#src/libs/marketplace/utils/booker-module';
 import {
+  type FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
+import {
   getSessionCoachId,
   getSessionEstablishmentId,
   getSessionMetaActivityId,
@@ -299,7 +303,8 @@ type OwnProps = {
 type Props = OwnProps &
   WithHandlerType<typeof mapHandlers> &
   ConnectedProps<typeof connector> &
-  WithTranslation;
+  WithTranslation &
+  FeatureFlagProps;
 
 class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   constructor(props: Props) {
@@ -668,11 +673,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
   getAvailableContracts = (selectedOffers: OfferREST[]) => {
     return getAvailableContracts(
-      this.state.offersConstraint,
       this.props.contractList,
       selectedOffers,
       this.props.offer,
       this.props.offer?.timezone_name,
+      this.props.offerStatusById,
     );
   };
 
@@ -740,12 +745,16 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         // @ts-expect-error inconsistent type with PaymentPack
         availablePaymentPacks,
       );
+
     const availableComboPacks = this.getAvailableComboPacks(
       selectedOffers,
     ).filter((comboPack) => !comboPack.exceedsBookingMaxout);
 
     let availableContracts: Contract[] = [];
-    if (this.state.selectedOffers.length <= 1) {
+    if (
+      this.state.selectedOffers.length <= 1 ||
+      this.props.isBookingMultipleOffersInSubscriptionCheckoutEnabled
+    ) {
       // @ts-expect-error Inconsistent type with Contract
       availableContracts = this.getAvailableContracts(selectedOffers).filter(
         (contract) => !contract.exceedsBookingMaxout,
@@ -1024,10 +1033,29 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   goToSubscriptionPage = (contractId: number) => {
+    const selectedOfferIds = uniq(
+      this.state.selectedOffers
+        .map((selectedOffer) => selectedOffer?.offer?.id)
+        .filter((offerId): offerId is number => typeof offerId === 'number'),
+    );
+    const selectedSpotIds = selectedOfferIds
+      .map((offerId) => {
+        const spotId = this.state.selectedSpotsIds[offerId];
+        if (typeof spotId !== 'number') return null;
+        return `${offerId}:${spotId}`;
+      })
+      .filter((entry): entry is string => Boolean(entry))
+      .join(',');
+
     this.props.push(
       getBoutiqueContractCheckoutUrl(this.props.offer.company, contractId, {
-        offerId: this.props.offerId,
+        ...(selectedOfferIds.length > 0 && {
+          offerIds: selectedOfferIds.join(','),
+        }),
         selectedSpotId: this.state.selectedSpotsIds[this.props.offerId],
+        ...(selectedSpotIds && {
+          selectedSpotIds,
+        }),
         ...(this.props.queryParams.guest_first_name && {
           guest_first_name: this.props.queryParams.guest_first_name,
         }),
@@ -2430,6 +2458,7 @@ export default compose(
   ]),
   connector,
   withHandlers(mapHandlers),
+  withFeatureFlags,
   marketplaceCssHoc(),
   WithCustomCssProvider,
   consumerAppBarHOC(),

@@ -15,14 +15,11 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
 } from '@bsport/common/lib/master-data/buyable-items.js';
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription.js';
-import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment.js';
+
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { consumerAppBarHOC } from '#src/hocs/consumer-app-bar.hoc';
-import {
-  CONSUMER_PAYMENT_PACK_IDENTIFIER,
-  CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
-} from '#src/libs/marketplace/constants';
-import { buildDataForUserRegistration } from '#src/libs/marketplace/utils';
+import { CONTRACT_BOOKING_FUNNEL_IDENTIFIER } from '#src/libs/marketplace/constants';
+
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 import {
   getCheckoutValidationUrl,
@@ -38,7 +35,10 @@ import Button, {
   ButtonVariant,
 } from '#src/components/css-only/Fabrique/Button';
 
-import type { Contract } from '#src/libs/subscription/types';
+import type {
+  Contract,
+  RegisterBackgroundReturnValue,
+} from '#src/libs/subscription/types';
 import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
 
 import {
@@ -48,9 +48,9 @@ import {
   fetchOfferById as fetchOfferByIdAction,
 } from '#src/libs/offer/actions';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
-import { invalidatePendingBooking as invalidatePendingBookingAPI } from '#src/libs/offer/api';
 import {
   getOfferById,
+  getOfferFromList,
   withMetaActivity,
   withEstablishment,
 } from '#src/libs/offer/selectors';
@@ -73,6 +73,7 @@ import MarketplaceSubscriptionPayment from '#src/libs/checkout/components/new-ch
 import SubscriptionTerms from '#src/libs/subscription/components/new-checkout-flow/SubscriptionTerms';
 import SubscriptionBasketSummary from '#src/libs/subscription/components/new-checkout-flow/SubscriptionBasketSummary';
 import SubscriptionBillingInfo from '#src/libs/subscription/components/new-checkout-flow/SubscriptionBillingInfo';
+import SubscriptionActivitiesSummary from '#src/libs/subscription/components/new-checkout-flow/SubscriptionActivitiesSummary';
 import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
@@ -85,7 +86,7 @@ import { computeProrataPriceForSubscription } from '#src/libs/subscription/utils
 import { ProcessingPaymentDialogPortal } from '#src/libs/subscription/components/new-checkout-flow/ProcessingPaymentDialog';
 import SubscriptionErrorDialog from '#src/libs/subscription/components/new-checkout-flow/SubscriptionErrorDialog';
 import MarketplaceContractCooldownModal from '#src/libs/marketplace/components/@Subscription/MarketplaceContractCooldownModal';
-import { BookerItem } from '#src/libs/booker-module/types';
+
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 
@@ -129,7 +130,9 @@ type RouterProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   queryParams: {
     force: string;
-    offerId: string;
+    offerId: string; // deprecated, use offerIds
+    offerIds?: string;
+    selectedSpotIds?: string;
     selectedSpotId: string | null;
     guest_booking: string;
     guest_first_name: string;
@@ -139,7 +142,10 @@ type RouterProps = {
 };
 
 type WithProps = {
-  offerId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
+  offerId: number; // deprecated, use offerIds
+  offerIds: number[];
+  selectedSpotIdsByOfferId: { [key: number]: number };
   // eslint-disable-next-line react/no-unused-prop-types
   selectedSpotId: number | null;
 };
@@ -286,7 +292,8 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
         defaultEstablishmentBillingGroup:
           prevProps.defaultEstablishmentBillingGroup,
         establishmentBillingGroups: prevProps.establishmentBillingGroups,
-        basketOffers: [prevProps.offer],
+        basketOffers:
+          prevProps.offers?.length > 0 ? prevProps.offers : [prevProps.offer],
         establishmentBillingGroupLoading:
           prevProps.establishmentBillingGroupLoading,
       },
@@ -294,23 +301,25 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
         defaultEstablishmentBillingGroup:
           this.props.defaultEstablishmentBillingGroup,
         establishmentBillingGroups: this.props.establishmentBillingGroups,
-        basketOffers: [this.props.offer],
+        basketOffers: this.props.offers,
         establishmentBillingGroupLoading:
           this.props.establishmentBillingGroupLoading,
       },
     );
+
+    const primaryOffer = this.props.offers?.[0] ?? this.props.offer;
     if (
-      !!this.props.offer &&
+      !!primaryOffer &&
       !this.props.offerLoading &&
       !this.props.metaActivityLoading &&
       !this.state.hasTrackedPaymentViewedEvent
     ) {
       analyticsClientB2C.trackEvent(
         trackPaymentViewedEvent({
-          activity_id: this.props.offer.activity,
-          activity_name: this.props.offer.meta_activity?.name || '',
-          offer_id: this.props.offer.id,
-          session_type: this.props.offer.meta_activity?.is_workshop
+          activity_id: primaryOffer.activity,
+          activity_name: primaryOffer.meta_activity?.name || '',
+          offer_id: primaryOffer.id,
+          session_type: primaryOffer.meta_activity?.is_workshop
             ? 'workshop'
             : 'group-activity',
           product_type: 'subscription',
@@ -528,6 +537,12 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     const first_billing_timestamp = DateTime.fromISO(
       this.state.billingStartDate,
     ).toUnixInteger();
+    const offerIdsForRegistration =
+      this.props.offerIds?.length > 0
+        ? this.props.offerIds
+        : [this.props.offerId];
+    const isMultiOfferRegistration = offerIdsForRegistration.length > 1;
+
     this.props.registerContractBackground(
       this.props.contractId,
       {
@@ -535,7 +550,15 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
         first_billing_timestamp,
         coupon,
         with_prorata: !!this.props?.contract?.month_billing_day,
-        offer_id: this.props.offerId,
+        offers: offerIdsForRegistration.map((id) => ({
+          offer_id: id,
+          extra_data: {
+            spot_id:
+              this.props.selectedSpotIdsByOfferId[id] ??
+              (!isMultiOfferRegistration ? this.props.selectedSpotId : null) ??
+              null,
+          },
+        })),
         establishment_billing_group_id: establishmentBillingGroupId,
       },
       {
@@ -558,7 +581,9 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
             processing: false,
             registerBackgroundServerErrorOccured: true,
           }),
-        onBackgroundSuccess: (taskReturnValue) => {
+        onBackgroundSuccess: (
+          taskReturnValue: RegisterBackgroundReturnValue | undefined,
+        ) => {
           try {
             if (this.props.contract) {
               analyticsUtils.onContractPaymentSuccess(this.props.contract);
@@ -567,38 +592,74 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
             console.error(err);
           }
 
-          // First we invalidate the pending booking
-          invalidatePendingBookingAPI(this.props.offer.id)
-            .then(() => {
-              const { compatible_consumer_payment_pack_id, billing_plan } =
-                taskReturnValue;
+          const billingPlanId = taskReturnValue?.billing_plan?.id;
+          const { offers_booked, extra_data, error_codes } =
+            taskReturnValue ?? {};
+          const user_registration_response = {
+            offers_booked,
+            extra_data,
+            error_codes,
+            offer_on_waiting_list: [] as number[],
+            buyable_item_error_code: null as number | null,
+          };
 
-              // If no compatible_consumer_payment_pack_id, then we cannot proceed with user_registration
-              // In this case, we directly redirect to the confirmation page
-              if (!compatible_consumer_payment_pack_id) {
-                this.setState({ processing: false });
-                this.props.goToConfirmationPage(billing_plan.id);
-                return;
+          if (!billingPlanId) {
+            this.setState({
+              processing: false,
+              registerBackgroundServerErrorOccured: true,
+            });
+            return;
+          }
+
+          const fallbackOffers = this.props.offers ?? [];
+          const offersBookedForAnalytics: OfferBookingValidation[] = (
+            offers_booked ?? []
+          )
+            .map((bookedOffer: any) => {
+              const offerId = bookedOffer?.id;
+              const matchingOffer =
+                fallbackOffers.find((offer: any) => offer.id === offerId) ||
+                bookedOffer;
+
+              if (!matchingOffer?.id) return null;
+
+              const mappedOffer: OfferBookingValidation = {
+                id: matchingOffer.id,
+                isNewPass: true,
+                metaActivityId: getSessionMetaActivityId(matchingOffer),
+                coachId: getSessionCoachId(matchingOffer),
+                establishmentId: getSessionEstablishmentId(matchingOffer),
+                date: matchingOffer.date_start,
+              };
+
+              const matchingExtraData = extra_data?.find(
+                (extraDataEntry) =>
+                  (extraDataEntry as any).offer_id === matchingOffer.id,
+              );
+
+              if ((matchingExtraData as any)?.spot_id) {
+                mappedOffer.spotId = (matchingExtraData as any).spot_id;
               }
 
-              this.props.formatPayloadAndPerformUserRegistrationAndRedirection(
-                compatible_consumer_payment_pack_id,
-                billing_plan.id,
-                {
-                  onError: () => this.setState({ processing: false }),
-                  onSuccess: () => this.setState({ processing: false }),
-                },
-              );
-            })
-            .catch((err) => {
-              console.error(err);
-              this.setState({
-                processing: false,
-              });
+              if ((matchingExtraData as any)?.spot_name) {
+                mappedOffer.spotName = (matchingExtraData as any).spot_name;
+              }
 
-              const { billing_plan } = taskReturnValue;
-              this.props.goToConfirmationPage(billing_plan.id);
+              return mappedOffer;
+            })
+            .filter(Boolean) as OfferBookingValidation[];
+
+          if (offersBookedForAnalytics.length > 0) {
+            analyticsUtils.onSessionBookingSuccess({
+              offersBooked: offersBookedForAnalytics,
             });
+          }
+
+          this.setState({ processing: false });
+          this.props.goToConfirmationPage(
+            billingPlanId,
+            user_registration_response,
+          );
         },
       },
       false, // noAuth
@@ -720,7 +781,13 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
                     companyTheme={this.props.theme}
                     contract={this.props.contract}
                     isExcludingTax={this.getIsTaxExcluded()}
-                    offer={this.props.offer}
+                  />
+                </div>
+
+                <div className="bs-contract-new-checkout__purchase-summary">
+                  <SubscriptionActivitiesSummary
+                    companyTheme={this.props.theme}
+                    offers={this.props.offers}
                   />
                 </div>
 
@@ -781,35 +848,51 @@ const mapStateToProps = (
   {
     contractId,
     offerId,
+    offerIds,
     companyId,
-  }: { contractId: string; offerId: number; companyId: number },
-) => ({
-  offer: withMetaActivity(withEstablishment(getOfferById))(state, offerId),
-  // @ts-expect-error
-  contract: withPaymentPack(getContract)(state, contractId),
-  contractLoading: state.subscription.contract.byMarketplace.loading,
-  theme: themeSelectors.getTheme(state),
-  savedPaymentMethodList: getSavedPaymentMethodList(state),
-  contractTermsDownloadLoading:
-    state.subscription.contractTermsDownload.loading,
-  auth: state.auth,
-  // eslint-disable-next-line react/no-unused-prop-types
-  offerStatusById: state.offer.offerStatus.byId,
-  paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
-  // used by HOC
-  // eslint-disable-next-line react/no-unused-prop-types
-  customConfiguration: state.exportableComponents.customCss,
-  establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
-  memberId: getMembership(state, companyId)?.id,
-  defaultEstablishmentBillingGroup: getDefaultEstablishmentBillingGroup(
-    state,
-    getMembership(state, companyId)?.id,
-  ),
-  establishmentBillingGroupLoading:
-    state.establishment.establishmentBillingGroup.loading,
-  offerLoading: state.offer.retrieve.loading,
-  metaActivityLoading: state.metaActivity.loading,
-});
+  }: {
+    contractId: string;
+    offerId: number;
+    offerIds: number[];
+    companyId: number;
+  },
+) => {
+  const offers = withMetaActivity(
+    withEstablishment((state_) => getOfferFromList(state_, offerIds)),
+  )(state);
+  const primaryOffer = withMetaActivity(
+    withEstablishment((state_) => getOfferById(state_, offerId)),
+  )(state);
+
+  return {
+    offer: offers?.[0] || primaryOffer,
+    offers,
+    // @ts-expect-error
+    contract: withPaymentPack(getContract)(state, contractId),
+    contractLoading: state.subscription.contract.byMarketplace.loading,
+    theme: themeSelectors.getTheme(state),
+    savedPaymentMethodList: getSavedPaymentMethodList(state),
+    contractTermsDownloadLoading:
+      state.subscription.contractTermsDownload.loading,
+    auth: state.auth,
+    // eslint-disable-next-line react/no-unused-prop-types
+    offerStatusById: state.offer.offerStatus.byId,
+    paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
+    // used by HOC
+    // eslint-disable-next-line react/no-unused-prop-types
+    customConfiguration: state.exportableComponents.customCss,
+    establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+    memberId: getMembership(state, companyId)?.id,
+    defaultEstablishmentBillingGroup: getDefaultEstablishmentBillingGroup(
+      state,
+      getMembership(state, companyId)?.id,
+    ),
+    establishmentBillingGroupLoading:
+      state.establishment.establishmentBillingGroup.loading,
+    offerLoading: state.offer.retrieve.loading,
+    metaActivityLoading: state.metaActivity.loading,
+  };
+};
 
 const mapDispatchToProps = {
   replace: replaceAction,
@@ -898,97 +981,21 @@ const handlers = {
     ({
       retrieveOffer,
       fetchOfferStatus,
-      offerId,
+      offerIds,
       fetchEstablishmentBulk,
       fetchMetaActivityDetails,
     }: ConnectedProps & WithProps) =>
     () => {
-      retrieveOffer(offerId, {
-        onSuccess: (offer) => {
-          fetchOfferStatus(offer.id);
-          fetchEstablishmentBulk([offer.establishment]);
-          fetchMetaActivityDetails(offer.meta_activity);
-        },
+      offerIds.forEach((id) => {
+        retrieveOffer(id, {
+          onSuccess: (offer) => {
+            if (!offer) return;
+            fetchOfferStatus(offer.id);
+            fetchEstablishmentBulk([offer.establishment]);
+            fetchMetaActivityDetails(offer.meta_activity);
+          },
+        });
       });
-    },
-  formatPayloadAndPerformUserRegistrationAndRedirection:
-    ({
-      offer,
-      offerStatusById,
-      theme,
-      offerUserRegistration,
-      selectedSpotId,
-      goToConfirmationPage,
-      queryParams,
-    }: RouterProps & RedirectionHandlersProps & ConnectedProps & WithProps) =>
-    (
-      consumerPaymentPackId: number,
-      billingPlanid: number,
-      options?: OptionCallback,
-    ) => {
-      const fakeSelectedItem = {
-        data: {
-          id: consumerPaymentPackId,
-        },
-        itemIdentifier: CONSUMER_PAYMENT_PACK_IDENTIFIER,
-      } as unknown as BookerItem;
-
-      const offerFeature = getOfferFeature(
-        offer,
-        offerStatusById,
-        theme.accept_double_booking,
-        theme.accept_double_booking_workshop,
-      );
-
-      if (
-        queryParams.guest_booking === 'true' &&
-        !theme.accept_double_booking
-      ) {
-        offerFeature.isBookable = true;
-      }
-
-      const data = buildDataForUserRegistration(
-        offerFeature,
-        fakeSelectedItem,
-        offer.id,
-        selectedSpotId,
-        queryParams.guest_booking === 'true' && {
-          firstName: queryParams.guest_first_name ?? '',
-          lastName: queryParams.guest_last_name ?? '',
-          email: queryParams.guest_email ?? '',
-        },
-      );
-
-      offerUserRegistration(
-        data,
-        {
-          onSuccess: (responseData: any) => {
-            options?.onSuccess?.();
-            const offerBookedData: OfferBookingValidation = {
-              id: offer.id,
-              isNewPass: true,
-              metaActivityId: getSessionMetaActivityId(offer),
-              coachId: getSessionCoachId(offer),
-              establishmentId: getSessionEstablishmentId(offer),
-              date: offer.date_start,
-            };
-            if (responseData.extra_data?.spot_id)
-              offerBookedData.spotId = offer.extra_data.spot_id;
-
-            if (responseData.extra_data?.spot_name)
-              offerBookedData.spotName = offer.extra_data.spot_name;
-            analyticsUtils.onSessionBookingSuccess({
-              offersBooked: [offerBookedData],
-            });
-            goToConfirmationPage(billingPlanid, responseData);
-          },
-          onError: () => {
-            options?.onError?.();
-            goToConfirmationPage(billingPlanid);
-          },
-        },
-        { check_offer_unicity: true },
-      );
     },
   goBackToPricingPage:
     ({
@@ -1021,6 +1028,8 @@ export default compose<any, OwnProps>(
   withQueryParams([
     [
       'offerId',
+      'offerIds',
+      'selectedSpotIds',
       'selectedSpotId',
       'guest_booking',
       'guest_first_name',
@@ -1030,12 +1039,41 @@ export default compose<any, OwnProps>(
     ],
     'queryParams',
   ]),
-  withProps(({ queryParams }: RouterProps) => ({
-    offerId: Number.parseInt(queryParams.offerId),
-    selectedSpotId: queryParams.selectedSpotId
-      ? Number.parseInt(queryParams.selectedSpotId)
-      : null,
-  })),
+  withProps(({ queryParams }: RouterProps) => {
+    const parsedOfferIds = (queryParams.offerIds || '')
+      .split(',')
+      .map((id) => Number.parseInt(id.trim()))
+      .filter((id) => Number.isFinite(id));
+    const singleOfferId = Number.parseInt(queryParams.offerId);
+    const offerIds =
+      parsedOfferIds.length > 0
+        ? parsedOfferIds
+        : Number.isFinite(singleOfferId)
+        ? [singleOfferId]
+        : [];
+    const selectedSpotIdsByOfferId = (queryParams.selectedSpotIds || '')
+      .split(',')
+      .reduce((acc, entry) => {
+        const [offerIdRaw, spotIdRaw] = entry.split(':');
+        const offerId = Number.parseInt((offerIdRaw || '').trim());
+        const spotId = Number.parseInt((spotIdRaw || '').trim());
+
+        if (Number.isFinite(offerId) && Number.isFinite(spotId)) {
+          acc[offerId] = spotId;
+        }
+
+        return acc;
+      }, {} as { [key: number]: number });
+
+    return {
+      offerId: offerIds[0] ?? singleOfferId,
+      offerIds,
+      selectedSpotIdsByOfferId,
+      selectedSpotId: queryParams.selectedSpotId
+        ? Number.parseInt(queryParams.selectedSpotId)
+        : null,
+    };
+  }),
   connect(mapStateToProps, mapDispatchToProps),
   withTranslation(['subscription']),
   withHandlers(stripeHandlers),

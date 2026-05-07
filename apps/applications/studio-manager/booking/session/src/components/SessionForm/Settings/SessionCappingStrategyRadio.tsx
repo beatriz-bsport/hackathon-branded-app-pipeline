@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from "react";
+import { FC, useCallback, useEffect, useMemo } from "react";
 
 import {
   ActivePartnershipAccount,
@@ -7,6 +7,8 @@ import {
 import { useFormContext } from "@bsport/form";
 import { Alert, Label, RadioGroup } from "@bsport/kaizen-primitive-core";
 
+import { spotCappingRadioButtonEvent } from "#src/events/session-creation/events";
+import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { useTranslation } from "#src/utils/i18n";
 import {
   UPSELL_CLASSPASS_IDENTIFIER,
@@ -127,6 +129,17 @@ export const SessionCappingStrategyRadio: FC<{
     ],
   );
 
+  const handleCappingStrategyChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const mode = event.target.value as PartnerSpotCappingStrategy;
+      setValue("partner_spot_capping_strategy", mode, { shouldDirty: true });
+      analyticsTrackSafeEvent(spotCappingRadioButtonEvent, {
+        spot_capping_mode: mode,
+      });
+    },
+    [setValue],
+  );
+
   if (!hasActiveAccounts) return null;
 
   return (
@@ -141,13 +154,7 @@ export const SessionCappingStrategyRadio: FC<{
         <RadioGroup
           direction="start"
           id={`${fieldIdPrefix}-session-capping-strategy`}
-          onChange={(event) => {
-            setValue(
-              "partner_spot_capping_strategy",
-              event.target.value as PartnerSpotCappingStrategy,
-              { shouldDirty: true },
-            );
-          }}
+          onChange={handleCappingStrategyChange}
           options={options}
           value={cappingStrategy ?? PartnerSpotCappingStrategy.COMBINED}
         />

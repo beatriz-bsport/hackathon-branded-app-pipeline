@@ -5,11 +5,11 @@ import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Formik, FormikHelpers } from 'formik';
 import Alert from '@material-ui/lab/Alert';
-import type { FormValues } from '#src/libs/invoice/verifactu/types';
-import { validationSchema } from '#src/libs/invoice/verifactu/validation';
-import VerifactuChips from '#src/libs/invoice/verifactu/components/VerifactuChips.component';
-import VerifactuFormFields from '#src/libs/invoice/verifactu/components/VerifactuFormFields.component';
-import VerifactuRequirementsAlerts from '#src/libs/invoice/verifactu/components/VerifactuRequirementsAlerts.component';
+import type { FormValues } from '#src/libs/invoice/sign-es/types';
+import { validationSchema } from '#src/libs/invoice/sign-es/validation';
+import FiskalyOnboardingChips from '#src/libs/invoice/sign-es/fiskaly/components/FiskalyOnboardingChips.component';
+import FiskalyOnboardingRequirementsAlerts from '#src/libs/invoice/sign-es/fiskaly/components/FiskalyOnboardingRequirementsAlerts.component';
+import VerifactuFormFields from '#src/libs/invoice/sign-es/verifactu/components/VerifactuFormFields.component';
 import { FiskalyOnboardingRequirement } from '#src/libs/invoice/types';
 
 type VerifactuRepresentativeFormProps = {
@@ -51,8 +51,14 @@ const VerifactuRepresentativeForm: React.FC<
     >
       {(formikProps) => (
         <form onSubmit={formikProps.handleSubmit}>
-          <VerifactuChips requirements={requirements} />
-          <VerifactuRequirementsAlerts requirements={requirements} />
+          <FiskalyOnboardingChips
+            requirements={requirements}
+            translationPrefix="configuration.verifactu.form"
+          />
+          <FiskalyOnboardingRequirementsAlerts
+            requirements={requirements}
+            translationPrefix="configuration.verifactu.form"
+          />
 
           <Typography className={classes.formTitle}>
             {t('configuration.verifactu.form.sectionTitle')}

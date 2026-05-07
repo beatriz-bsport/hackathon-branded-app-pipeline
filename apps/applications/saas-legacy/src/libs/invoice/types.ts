@@ -70,13 +70,20 @@ export type InvoiceState = ErrorAndLoading & {
   editEstablishmentBillingGroup: ErrorAndLoading;
   fiskalyOnboarding: ErrorAndLoading & {
     isOnboarded: boolean | null;
+    isCompanyAllSetup: boolean | null;
+    isCompanyAllSetupLoading: boolean;
     requirements: FiskalyOnboardingRequirement[];
     agreementUrl: string | null;
+    deviceCertificateSerialNumber: string | null;
     lastGeneratedAgreementUrl: string | null;
     isLoadingLastGeneratedAgreementUrl: boolean;
     signedAgreementFile: string | null;
     isLoadingSignedAgreement: boolean;
     isUploadingSignedAgreement: boolean;
+    /** TicketBAI: true after POST finalize_ticketbai_setup succeeds; null until known or attempted. */
+    isTicketbaiSetupFinalized: boolean | null;
+    finalizeTicketbaiSetupLoading: boolean;
+    finalizeTicketbaiSetupError: Error | null;
   };
   sequentialNumberingStatus: ErrorAndLoading & {
     result: SequentialNumberingStatusResponse | null;
@@ -408,6 +415,43 @@ export enum FiskalyOnboardingRequirement {
   REPRESENTATIVE_NOT_FULLY_SETUP = 'representative_not_fully_setup',
   LEGAL_IDENTIFIER_NOT_ACTIVATED = 'legal_identifier_not_activated',
 }
+
+/** Sign-ES territory values returned by platform billing / taxpayer setup (Spain). */
+export const SIGN_ES_TERRITORY = {
+  ARABA: 'ARABA',
+  BIZKAIA: 'BIZKAIA',
+  GIPUZKOA: 'GIPUZKOA',
+  SPAIN_OTHER: 'SPAIN_OTHER',
+} as const;
+
+export type SignEsTerritory =
+  (typeof SIGN_ES_TERRITORY)[keyof typeof SIGN_ES_TERRITORY];
+
+export function isBasqueTerritory(
+  territory: string | null | undefined,
+): territory is Exclude<SignEsTerritory, typeof SIGN_ES_TERRITORY.SPAIN_OTHER> {
+  return (
+    territory === SIGN_ES_TERRITORY.ARABA ||
+    territory === SIGN_ES_TERRITORY.BIZKAIA ||
+    territory === SIGN_ES_TERRITORY.GIPUZKOA
+  );
+}
+
+/**
+ * POST onboard_company — Verifactu fills agreement_url; TicketBAI fills device_certificate_serial_number.
+ */
+export type OnboardFiskalyCompanyResponse = {
+  agreement_url: string | null;
+  device_certificate_serial_number: string | null;
+};
+
+export type DeviceCertificateSerialNumberResponse = {
+  device_certificate_serial_number: string | null;
+};
+
+export type IsCompanyAllSetupResponse = {
+  is_all_setup: boolean;
+};
 
 export type OnboardingRequirementsResponse = {
   requirements: FiskalyOnboardingRequirement[];

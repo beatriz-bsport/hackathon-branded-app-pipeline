@@ -1,5 +1,4 @@
 import type { GridSize } from '@material-ui/core/Grid';
-import type { FiskalyOnboardingRequirement } from '#src/libs/invoice/types';
 
 export type FormValues = {
   first_name: string;
@@ -11,12 +10,6 @@ export type FormValues = {
   city: string;
   municipality: string;
   country: string;
-};
-
-export type ChipConfig = {
-  requirement: FiskalyOnboardingRequirement;
-  validatedKey: string;
-  missingKey: string;
 };
 
 export type FormFieldConfig = {

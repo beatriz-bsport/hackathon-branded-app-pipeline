@@ -9,7 +9,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import type { PlatformCustomerEntityRepresentative } from '#src/libs/platform-billing/type';
-import VerifactuRepresentativeDetails from '#src/libs/invoice/verifactu/components/VerifactuRepresentativeDetails.component';
+import VerifactuRepresentativeDetails from '#src/libs/invoice/sign-es/verifactu/components/VerifactuRepresentativeDetails.component';
 
 type VerifactuSignedAgreementFormProps = {
   representative: PlatformCustomerEntityRepresentative | null;

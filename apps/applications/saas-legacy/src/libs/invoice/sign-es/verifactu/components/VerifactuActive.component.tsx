@@ -6,7 +6,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import LinkIcon from '@material-ui/icons/Link';
 import Alert from '@material-ui/lab/Alert';
 import type { PlatformCustomerEntityRepresentative } from '#src/libs/platform-billing/type';
-import VerifactuRepresentativeDetails from '#src/libs/invoice/verifactu/components/VerifactuRepresentativeDetails.component';
+import VerifactuRepresentativeDetails from '#src/libs/invoice/sign-es/verifactu/components/VerifactuRepresentativeDetails.component';
 
 type VerifactuActiveProps = {
   representative: PlatformCustomerEntityRepresentative | null;

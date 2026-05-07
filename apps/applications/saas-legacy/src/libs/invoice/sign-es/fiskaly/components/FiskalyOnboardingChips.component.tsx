@@ -1,4 +1,5 @@
 import React from 'react';
+import type { TFunctionKeys } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { Chip } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
@@ -6,40 +7,46 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { FiskalyOnboardingRequirement } from '#src/libs/invoice/types';
-import type { ChipConfig } from '#src/libs/invoice/verifactu/types';
 
-type VerifactuChipsProps = {
+type Props = {
   requirements: FiskalyOnboardingRequirement[];
+  translationPrefix: TFunctionKeys;
 };
 
-const chipConfigs: ChipConfig[] = [
-  {
-    requirement: FiskalyOnboardingRequirement.BUSINESS_VAT_ID_NOT_VERIFIED,
-    validatedKey: 'configuration.verifactu.form.chips.vat_id_validated',
-    missingKey: 'configuration.verifactu.form.chips.vat_id_missing',
-  },
-  {
-    requirement: FiskalyOnboardingRequirement.BUSINESS_ADDRESS_NOT_PROVIDED,
-    validatedKey:
-      'configuration.verifactu.form.chips.business_address_provided',
-    missingKey: 'configuration.verifactu.form.chips.business_address_missing',
-  },
-  {
-    requirement: FiskalyOnboardingRequirement.LEGAL_IDENTIFIER_NOT_ACTIVATED,
-    validatedKey:
-      'configuration.verifactu.form.chips.invoice_identifiers_set_up',
-    missingKey:
-      'configuration.verifactu.form.chips.invoice_identifiers_not_set_up',
-  },
-];
+type ChipConfig = {
+  requirement: FiskalyOnboardingRequirement;
+  validatedKey: string;
+  missingKey: string;
+};
 
-const VerifactuChips: React.FC<VerifactuChipsProps> = ({ requirements }) => {
+const FiskalyOnboardingChips: React.FC<Props> = ({
+  requirements,
+  translationPrefix,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation('b2b_invoice');
 
-  // Filter chips: show legal identifier chip only when the requirement is present
-  // (it's not always relevant), but always show VAT ID and address chips
+  const chipConfigs: ChipConfig[] = [
+    {
+      requirement: FiskalyOnboardingRequirement.BUSINESS_VAT_ID_NOT_VERIFIED,
+      validatedKey: `${translationPrefix}.chips.vat_id_validated`,
+      missingKey: `${translationPrefix}.chips.vat_id_missing`,
+    },
+    {
+      requirement: FiskalyOnboardingRequirement.BUSINESS_ADDRESS_NOT_PROVIDED,
+      validatedKey: `${translationPrefix}.chips.business_address_provided`,
+      missingKey: `${translationPrefix}.chips.business_address_missing`,
+    },
+    {
+      requirement: FiskalyOnboardingRequirement.LEGAL_IDENTIFIER_NOT_ACTIVATED,
+      validatedKey: `${translationPrefix}.chips.invoice_identifiers_set_up`,
+      missingKey: `${translationPrefix}.chips.invoice_identifiers_not_set_up`,
+    },
+  ];
+
   const chipsToShow = chipConfigs.filter((config) => {
+    // Filter chips: show legal identifier chip only when the requirement is present
+    // (it's not always relevant), but always show VAT ID and address chips
     if (
       config.requirement ===
       FiskalyOnboardingRequirement.LEGAL_IDENTIFIER_NOT_ACTIVATED
@@ -79,6 +86,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
     display: 'flex',
     gap: theme.spacing(1),
     marginBottom: theme.spacing(2),
+    flexWrap: 'wrap',
   },
   successChip: {
     backgroundColor: '#f1f9f1',
@@ -100,4 +108,4 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-export default VerifactuChips;
+export default FiskalyOnboardingChips;

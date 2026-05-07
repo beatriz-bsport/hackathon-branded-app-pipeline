@@ -20,12 +20,12 @@ import {
 import { UPSELL_IDENTIFIER_FISKALY_SIGN_ES } from '#src/libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import type { RootState } from '#src/reducers';
-import type { FormValues } from '#src/libs/invoice/verifactu/types';
-import VerifactuRepresentativeForm from '#src/libs/invoice/verifactu/components/VerifactuRepresentativeForm.component';
-import VerifactuSignedAgreementForm from '#src/libs/invoice/verifactu/components/VerifactuSignedAgreementForm.component';
-import VerifactuActive from '#src/libs/invoice/verifactu/components/VerifactuActive.component';
-import { useVerifactuHandlers } from '#src/libs/invoice/verifactu/hooks/useVerifactuHandlers';
-import { useVerifactuOnboardingStatus } from '#src/libs/invoice/verifactu/hooks/useVerifactuOnboardingStatus';
+import type { FormValues } from '#src/libs/invoice/sign-es/types';
+import VerifactuRepresentativeForm from '#src/libs/invoice/sign-es/verifactu/components/VerifactuRepresentativeForm.component';
+import VerifactuSignedAgreementForm from '#src/libs/invoice/sign-es/verifactu/components/VerifactuSignedAgreementForm.component';
+import VerifactuActive from '#src/libs/invoice/sign-es/verifactu/components/VerifactuActive.component';
+import { useVerifactuHandlers } from '#src/libs/invoice/sign-es/hooks/useVerifactuHandlers';
+import { useVerifactuOnboardingStatus } from '#src/libs/invoice/sign-es/hooks/useVerifactuOnboardingStatus';
 
 const VerifactuSettings: React.FC = () => {
   const classes = useStyles();

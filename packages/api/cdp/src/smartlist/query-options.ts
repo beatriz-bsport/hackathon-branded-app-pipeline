@@ -4,11 +4,12 @@ import { Fetch } from "@bsport/store-base";
 
 import {
   fetchSmartlistDetailAPI,
+  fetchSmartlistFiltersAPI,
   fetchTagRuleDetailAPI,
   fetchTagRulesAPI,
   smartlistKeys,
 } from "./api";
-import { Smartlist, TagRule } from "./types";
+import { Smartlist, SmartlistGetFiltersResponse, TagRule } from "./types";
 
 export const smartlistDetailQueryOptions = (
   fetch: Fetch<Smartlist>,
@@ -32,4 +33,13 @@ export const tagRuleDetailQueryOptions = (fetch: Fetch<TagRule>, id: string) =>
   queryOptions({
     queryKey: smartlistKeys.tagRuleDetail(id),
     queryFn: () => fetchTagRuleDetailAPI(fetch, id),
+  });
+
+export const smartlistFiltersQueryOptions = (
+  fetch: Fetch<SmartlistGetFiltersResponse>,
+  id: string,
+) =>
+  queryOptions({
+    queryKey: smartlistKeys.filters(id),
+    queryFn: () => fetchSmartlistFiltersAPI(fetch, id),
   });

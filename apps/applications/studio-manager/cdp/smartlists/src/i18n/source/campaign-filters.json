@@ -1,4 +1,49 @@
 {
+  "filterManager": {
+    "loading": "Loading smartlist filters...",
+    "loadError": "Failed to load filters. Please refresh the page."
+  },
+  "filters": {
+    "19": {
+      "title": "Pass Ownership",
+      "ownership": {
+        "label": "Filter for profiles that:",
+        "own": "Own",
+        "doesNotOwn": "Doesn't own"
+      },
+      "actions": {
+        "deleteFilter": "Delete pass filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
+        "save": "Save filter",
+        "addFilter": "Add pass filter"
+      },
+      "fields": {
+        "searchPlaceholder": "Search for a Pass",
+        "emptySelection": "Select Passes to start filtering",
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "unlimitedCredits": "Unlimited credits",
+        "creditsSuffix": "Credits"
+      },
+      "subFilters": {
+        "expirationDate": "Expiration date",
+        "purchaseDate": "Pass purchase date",
+        "creditLeft": "Pass credits",
+        "creditLeftInfoLabel": "Pass credits filter information",
+        "creditLeftInfoContent": "Filter on credits doesnt apply to unlimited passes"
+      },
+      "toasts": {
+        "saveError": "Unable to save pass filter.",
+        "deleteError": "Unable to delete pass filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "selectedPassesRequired": "Select at least one pass or use all passes.",
+        "creditValueRequired": "Credit value is required.",
+        "creditSecondValueRequired": "Second credit value is required for range comparator."
+      }
+    }
+  },
   "itemsSearch": {
     "fields": {
       "searchPlaceholder": "Search"

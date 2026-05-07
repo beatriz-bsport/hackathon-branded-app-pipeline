@@ -15,7 +15,9 @@ export const useDeleteTagRule = () => {
     useDeleteTagRuleMutation({
       onSuccess: (_data, variables) => {
         queryClient.invalidateQueries({
-          queryKey: smartlistQueryKeys.tagRules(variables.smartlistId),
+          queryKey: smartlistQueryKeys.smartlistKeys.tagRules(
+            variables.smartlistId,
+          ),
         });
 
         toast({

@@ -8,9 +8,13 @@ import {
 
 import { SMARTLIST_API_V1 } from "./constants";
 import type {
+  CreatePaymentPackFilterPayload,
   CreateTagRuleParams,
+  PaymentPackFilter,
   Smartlist,
+  SmartlistGetFiltersResponse,
   TagRule,
+  UpdatePaymentPackFilterPayload,
   UpdateTagRuleParams,
 } from "./types";
 
@@ -21,6 +25,11 @@ export const smartlistKeys = {
   tagRules: (id: string) => [...smartlistKeys.all, "tag-rules", id] as const,
   tagRuleDetail: (id: string) =>
     [...smartlistKeys.all, "tag-rule-detail", id] as const,
+  filters: (smartlistId: string) => [
+    ...smartlistKeys.all,
+    "filters",
+    smartlistId,
+  ],
 } as const;
 
 export const fetchSmartlistDetailAPI = async (
@@ -123,4 +132,53 @@ export const updateTagRuleAPI = async (
   });
 
   return data;
+};
+
+export const fetchSmartlistFiltersAPI = async (
+  fetch: Fetch<SmartlistGetFiltersResponse>,
+  smartlistId: string,
+): Promise<SmartlistGetFiltersResponse> => {
+  const { data } = await fetch(
+    `${SMARTLIST_API_V1}/group/${smartlistId}/get_filters/`,
+  );
+
+  return data;
+};
+
+// Payment Pack Filters
+
+const PAYMENT_PACK_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/payment_pack`;
+
+export const createPaymentPackFilter = async (
+  fetch: Fetch<PaymentPackFilter>,
+  payload: CreatePaymentPackFilterPayload,
+): Promise<PaymentPackFilter> => {
+  const { data } = await fetch(`${PAYMENT_PACK_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchPaymentPackFilter = async (
+  fetch: Fetch<PaymentPackFilter>,
+  filterId: number,
+  payload: UpdatePaymentPackFilterPayload,
+): Promise<PaymentPackFilter> => {
+  const { data } = await fetch(`${PAYMENT_PACK_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const deletePaymentPackFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${PAYMENT_PACK_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
 };

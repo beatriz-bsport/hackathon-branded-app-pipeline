@@ -103,7 +103,6 @@ const MediaListPage: FC = () => {
     isFiltered,
     resetFilters,
   } = useMediaFilters();
-
   const {
     isOpen: isCreateModalOpen,
     onClose: closeCreateModal,

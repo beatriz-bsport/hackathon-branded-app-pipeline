@@ -30,13 +30,19 @@ export const WaitList: FC<{
   sessionId: number;
   searchQuery: string;
   readOnly?: boolean;
-}> = ({ sessionId, searchQuery, readOnly = false }) => {
+  paginationNamespace?: string;
+}> = ({
+  sessionId,
+  searchQuery,
+  readOnly = false,
+  paginationNamespace = "waiting-list",
+}) => {
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
 
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({ namespace: "waiting-list" });
+    usePaginationQueryParams({ namespace: paginationNamespace });
 
   const {
     isLoading,

@@ -10,6 +10,7 @@ import { MediaCreateModal } from "#src/features/media-create-modal/media-create-
 import { MediaDeleteModal } from "#src/features/media-delete-modal/media-delete-modal";
 import { useDeleteVideo } from "#src/features/media-delete-modal/use-delete-video";
 import { MediaEditModal } from "#src/features/media-edit-modal/media-edit-modal";
+import { MediaUploadModal } from "#src/features/media-upload-modal/media-upload-modal";
 import { useCategoriesByIdQuery } from "#src/hooks/api/use-categories-by-id-query";
 import { useDuplicateVideo } from "#src/hooks/api/use-duplicate-video";
 import { useVideosQuery } from "#src/hooks/api/use-videos-query";
@@ -52,6 +53,18 @@ const MediaListPageContent: FC<MediaListPageContentProps> = ({
   const { deleteVideo } = useDeleteVideo({
     onSuccess: () => setDeletedVideo(null),
   });
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [uploadVideoId, setUploadVideoId] = useState<number | null>(null);
+
+  const handleRequestUpload = (id: number) => {
+    setUploadVideoId(id);
+    onOpen();
+  };
+
+  const handleCloseUploadModal = () => {
+    onClose();
+    setUploadVideoId(null);
+  };
 
   return (
     <>
@@ -77,6 +90,7 @@ const MediaListPageContent: FC<MediaListPageContentProps> = ({
           setDeletedVideo({ id: video.id, name: video.name })
         }
         onEdit={onEdit}
+        onRequestUpload={handleRequestUpload}
       />
       {deletedVideo !== null ? (
         <MediaDeleteModal
@@ -85,6 +99,11 @@ const MediaListPageContent: FC<MediaListPageContentProps> = ({
           onConfirm={() => deleteVideo({ id: deletedVideo.id })}
         />
       ) : null}
+      <MediaUploadModal
+        isOpen={isOpen}
+        onClose={handleCloseUploadModal}
+        videoId={uploadVideoId}
+      />
     </>
   );
 };

@@ -12,7 +12,8 @@
       "moreActions": "More actions",
       "duplicate": "Duplicate",
       "delete": "Delete",
-      "edit": "Edit"
+      "edit": "Edit",
+      "upload": "Upload"
     },
     "values": {
       "noCategory": "No category",
@@ -58,6 +59,71 @@
     },
     "undoResponse": {
       "success": "Action undone"
+    }
+  },
+  "uploadModal": {
+    "title": "Add new media",
+    "ebookTitle": "Upload an eBook",
+    "buttons": {
+      "cancel": "Cancel",
+      "addMedia": "Add media",
+      "add": "Add",
+      "upload": "Upload"
+    },
+    "source": {
+      "options": {
+        "youtube": {
+          "label": "Video (YouTube)",
+          "helperText": "Add a YouTube video with a link"
+        },
+        "vimeo": {
+          "label": "Video (Vimeo)",
+          "helperText": "Add a Vimeo video with a link"
+        },
+        "ebook": {
+          "label": "eBook",
+          "helperText": "Upload an eBook as a PDF, JPG, or PNG"
+        }
+      }
+    },
+    "details": {
+      "youtube": {
+        "placeholder": "Paste video link from YouTube"
+      },
+      "vimeo": {
+        "placeholder": "Paste video link from Vimeo"
+      }
+    },
+    "fields": {
+      "url": {
+        "youtube": "Link to YouTube",
+        "vimeo": "Link to Vimeo"
+      },
+      "duration": "Duration",
+      "hours": {
+        "placeholder": "Hours"
+      },
+      "minutes": {
+        "placeholder": "Minutes"
+      },
+      "file": {
+        "uploadCta": "Choose file",
+        "dragAndDropCta": "Drag and drop a file here",
+        "extensions": "JPG, PNG, PDF"
+      }
+    },
+    "validation": {
+      "sourceRequired": "Select a source before continuing.",
+      "urlRequired": "Enter a video URL.",
+      "youtubeUrlInvalid": "Enter a valid YouTube URL.",
+      "vimeoUrlInvalid": "Enter a valid Vimeo URL.",
+      "durationRequired": "Enter a duration greater than zero.",
+      "fileRequired": "Select a file to upload.",
+      "fileTypeInvalid": "Only PDF, JPG, JPEG, and PNG files are allowed."
+    },
+    "submitResponse": {
+      "success": "Media uploaded successfully.",
+      "error": "Unable to upload media. Please try again."
     }
   },
   "error": {

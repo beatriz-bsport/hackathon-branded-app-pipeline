@@ -82,6 +82,25 @@ export type UploadInstructionParams = {
 export type UploadInstruction = {
   method: string;
   url: string;
-  bodyType: string;
+  body_type: string;
   fields: Record<string, string>;
+};
+
+export type SetProviderIdentifierParams = {
+  id: number;
+  provider_identifier: VideoProvider;
+};
+
+export type SetExternalUrlData =
+  | {
+      url: string;
+      duration_second: number;
+    }
+  | {
+      file_extension?: string;
+    };
+
+export type SetExternalUrlParams = {
+  id: number;
+  data: SetExternalUrlData;
 };

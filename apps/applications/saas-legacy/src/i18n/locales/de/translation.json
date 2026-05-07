@@ -612,7 +612,7 @@
       },
       "addProfilePicture": "Ein Profilbild hinzufügen",
       "error": {
-        "password": "Das Passwort muss mindestens 6 Zeichen enthalten",
+        "password": "Das Passwort muss mindestens 12 Zeichen enthalten",
         "passwordConfirm": "Die Kennwörter stimmen nicht überein."
       }
     },

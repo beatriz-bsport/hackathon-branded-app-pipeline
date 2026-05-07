@@ -18,6 +18,23 @@ export interface Staff {
   franchise_user?: number;
 }
 
+export type UserRole = {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  is_restricted: boolean;
+  role: number | null;
+  franchise_role: number | null;
+  franchise_role_identifier: string | null;
+  coaches_selected_in_role: number[];
+  establishments_selected_in_role: number[];
+  staff_establishment_billing_group: number | null;
+  allowed_franchisees: number[];
+  staff_commission_percentage: string;
+  franchise_user: number | null;
+};
+
 /** Related to Role Model and RoleSerializer */
 export interface CompanyRole {
   id: number;
@@ -30,3 +47,5 @@ export interface CompanyRole {
   has_booking_override_control: boolean;
   is_franchisor: boolean;
 }
+
+export type Role = CompanyRole;

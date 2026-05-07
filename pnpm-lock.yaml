@@ -4802,6 +4802,9 @@ importers:
 
   packages/stores/staff-management/role:
     dependencies:
+      '@bsport/api-staff-management':
+        specifier: workspace:*
+        version: link:../../../api/staff-management
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

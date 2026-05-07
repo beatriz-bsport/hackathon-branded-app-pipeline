@@ -1,4 +1,7 @@
-// ----- Query params -----
+import type { DeepPartial } from "@bsport/store-base";
+
+import type { CompanyRolePermissions } from "./company-role-permissions";
+import type { ObjectLevelPermissions } from "./object-level-permissions";
 
 export type UserRoleListParams = {
   role?: number;
@@ -15,35 +18,19 @@ export type PaginatedParameters = {
 export type PaginatedUserRoleListParams = UserRoleListParams &
   PaginatedParameters;
 
-// ----- Models -----
-
-export type UserRole = {
-  id: number;
+/**
+ * Data type to create a new Staff in a Company.
+ */
+export interface CompanyStaffData {
+  id?: number;
   email: string;
+  password: string;
+  role: number;
   first_name: string;
   last_name: string;
-  is_restricted: boolean;
-  role: number | null;
-  franchise_role: number | null;
-  franchise_role_identifier: string | null;
-  coaches_selected_in_role: number[];
-  establishments_selected_in_role: number[];
-  staff_establishment_billing_group: number | null;
-  allowed_franchisees: number[];
-  staff_commission_percentage: string;
-  franchise_user: number | null;
-};
-
-export type Role = {
-  id: number;
-  name: string;
-  description: string;
-  editable: boolean;
-  company: number;
-  has_booking_override_control: boolean;
-};
-
-// ----- Params -----
+  coaches_in_role_ids: number[];
+  establishments_in_role_ids: number[];
+}
 
 export type CreateUserRoleParams = {
   email: string;
@@ -68,5 +55,20 @@ export type UpdateUserRoleParams = {
       | "establishments_in_role_ids"
       | "staff_establishment_billing_group"
     >
+  >;
+};
+
+export type CreateRoleDefinitionParams = {
+  name: string;
+  description: string;
+  permissions: CompanyRolePermissions;
+  object_level_permissions: ObjectLevelPermissions;
+  has_booking_override_control: boolean;
+};
+
+export type UpdateRoleDefinitionParams = {
+  id: number;
+  data: DeepPartial<
+    Omit<CreateRoleDefinitionParams, "name"> & { name: string }
   >;
 };

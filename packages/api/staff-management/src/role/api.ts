@@ -10,9 +10,11 @@ import {
 import { API_URL, QUERY_KEY_MAIN } from "#src/constants";
 
 import type {
+  CreateRoleDefinitionParams,
   CreateUserRoleParams,
   PaginatedUserRoleListParams,
   Role,
+  UpdateRoleDefinitionParams,
   UpdateUserRoleParams,
   UserRole,
   UserRoleListParams,
@@ -39,6 +41,8 @@ export const roleDefinitionKeys = {
   all: [QUERY_KEY_MAIN, "role-definition"] as const,
   lists: () => [...roleDefinitionKeys.all, "list"] as const,
   list: () => [...roleDefinitionKeys.lists()] as const,
+  details: () => [...roleDefinitionKeys.all, "detail"] as const,
+  detail: (id: number) => [...roleDefinitionKeys.details(), id] as const,
 } as const;
 
 // #endregion
@@ -199,7 +203,7 @@ export const deleteUserRoleAPI = async (
 
 // #endregion
 
-// #region Role Definitions
+// #region Role Definition List
 
 const fetchRoleDefinitionsAPIConfig = (): ApiConfig => {
   return [`${API_URL_ROLE_DEFINITION}/`];
@@ -220,5 +224,107 @@ export const fetchRoleDefinitionsQueryOptions = (fetch: Fetch<Role[]>) =>
     queryKey: roleDefinitionKeys.list(),
     queryFn: () => fetchRoleDefinitionsAPI(fetch),
   });
+
+// #endregion
+
+// #region Role Definition Detail
+
+const fetchRoleDefinitionAPIConfig = ({ id }: { id: number }): ApiConfig => {
+  return [`${API_URL_ROLE_DEFINITION}/${id}/`];
+};
+
+export const fetchRoleDefinitionAPI = async (
+  fetch: Fetch<Role>,
+  params: { id: number },
+): Promise<Role> => {
+  const [uri, init] = fetchRoleDefinitionAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+export const fetchRoleDefinitionQueryOptions = (
+  fetch: Fetch<Role>,
+  params: { id: number },
+) =>
+  queryOptions({
+    queryKey: roleDefinitionKeys.detail(params.id),
+    queryFn: () => fetchRoleDefinitionAPI(fetch, params),
+  });
+
+// #endregion
+
+// #region Role Definition Create
+
+const createRoleDefinitionAPIConfig = (
+  data: CreateRoleDefinitionParams,
+): ApiConfig => {
+  return [
+    `${API_URL_ROLE_DEFINITION}/`,
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    },
+  ];
+};
+
+export const createRoleDefinitionAPI = async (
+  fetch: Fetch<Role>,
+  params: CreateRoleDefinitionParams,
+): Promise<Role> => {
+  const [uri, init] = createRoleDefinitionAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+// #endregion
+
+// #region Role Definition Update
+
+const updateRoleDefinitionAPIConfig = ({
+  id,
+  data,
+}: UpdateRoleDefinitionParams): ApiConfig => {
+  return [
+    `${API_URL_ROLE_DEFINITION}/${id}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    },
+  ];
+};
+
+export const updateRoleDefinitionAPI = async (
+  fetch: Fetch<Role>,
+  params: UpdateRoleDefinitionParams,
+): Promise<Role> => {
+  const [uri, init] = updateRoleDefinitionAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+// #endregion
+
+// #region Role Definition Delete
+
+const deleteRoleDefinitionAPIConfig = ({ id }: { id: number }): ApiConfig => {
+  return [`${API_URL_ROLE_DEFINITION}/${id}/`, { method: "DELETE" }];
+};
+
+export const deleteRoleDefinitionAPI = async (
+  fetch: Fetch<void>,
+  params: { id: number },
+): Promise<void> => {
+  const [uri, init] = deleteRoleDefinitionAPIConfig(params);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
 
 // #endregion

@@ -8,7 +8,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./build/lib.d.ts",
+      "types": "./build/index.d.ts",
       "import": "./build/index.js",
       "default": "./build/index.js"
     },
@@ -20,7 +20,7 @@
   },
   "main": "build/index.js",
   "module": "build/index.js",
-  "types": "build/lib.d.ts",
+  "types": "build/index.d.ts",
   "files": [
     "build"
   ],

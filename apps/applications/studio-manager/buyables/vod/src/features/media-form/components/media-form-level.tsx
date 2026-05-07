@@ -1,62 +1,78 @@
-import type { FC } from "react";
+import { type FC, useState } from "react";
 
 import { FormField } from "@bsport/form";
-import { Select, type SelectProps } from "@bsport/kaizen-primitive-core";
-
-import { useLevelsByIdQuery } from "#src/hooks/api/use-levels-by-id-query";
-import { useTranslation } from "#src/utils/i18n";
 
 import type { MediaFormData } from "../types";
+import { CreateLevelModal } from "./level/create-level-modal";
+import { DeleteLevelModal } from "./level/delete-level-modal";
+import { EditLevelModal } from "./level/edit-level-modal";
+import { LevelSelector, type LevelSelectorProps } from "./level/level-selector";
 
 type MediaFormLevelProps = {
   formId: string;
 };
 
 export const MediaFormLevel: FC<MediaFormLevelProps> = ({ formId }) => {
-  const { t } = useTranslation("media-form");
-  const {
-    data: levelsById = new Map<number, { label: string; color: string }>(),
-  } = useLevelsByIdQuery();
+  const [isCreateLevelModalOpen, setIsCreateLevelModalOpen] = useState(false);
+  const [isEditLevelModalOpen, setIsEditLevelModalOpen] = useState(false);
+  const [isDeleteLevelModalOpen, setIsDeleteLevelModalOpen] = useState(false);
+  const [levelId, setLevelId] = useState<number | null>(null);
 
-  const levelOptions = Array.from(levelsById.entries()).map(
-    ([id, { label, color }]) => ({ id, label, color }),
-  );
+  const openEditLevelModal = (id: number) => {
+    setLevelId(id);
+    setIsEditLevelModalOpen(true);
+  };
+
+  const closeEditLevelModal = () => {
+    setIsEditLevelModalOpen(false);
+    setLevelId(null);
+  };
+
+  const openDeleteLevelModal = (id: number) => {
+    setLevelId(id);
+    setIsDeleteLevelModalOpen(true);
+  };
+
+  const closeDeleteLevelModal = () => {
+    setIsDeleteLevelModalOpen(false);
+    setLevelId(null);
+  };
 
   return (
-    <FormField<MediaFormData, "level", SelectProps>
-      name="level"
-      mapProps={({ defaultProps, fieldState, form }) => ({
-        ...defaultProps,
-        value:
-          defaultProps.value == null ? undefined : String(defaultProps.value),
-        onChange: (value: string | undefined) => {
-          form.setValue("level", value != null ? Number(value) : null, {
-            shouldDirty: true,
-            shouldValidate: true,
-          });
-        },
-        status: fieldState.error ? "critical" : "default",
-        errorText: fieldState.error?.message,
-        items: levelOptions.map((option) => ({
-          id: String(option.id),
-          label: option.label,
-          leftSlot: (
-            <span
-              className="inline-block h-sm w-sm shrink-0 rounded-2xs"
-              style={{ backgroundColor: option.color }}
-            />
-          ),
-        })),
-      })}
-    >
-      {/** @ts-expect-error items are provided by the wrapper */}
-      <Select
-        id={`${formId}-level`}
-        label={t("formFields.level.label")}
-        placeholder={t("formFields.level.placeholder")}
-        required
-        fullWidth
+    <>
+      <FormField<MediaFormData, "level", LevelSelectorProps>
+        name="level"
+        mapProps={({ form: { setValue } }) => ({
+          onLevelSelect: (levelId: number) => {
+            setValue("level", levelId, {
+              shouldValidate: true,
+              shouldDirty: true,
+            });
+          },
+        })}
+      >
+        <LevelSelector
+          fieldIdPrefix={formId}
+          openCreateLevelModal={() => setIsCreateLevelModalOpen(true)}
+          openEditLevelModal={openEditLevelModal}
+          openDeleteLevelModal={openDeleteLevelModal}
+        />
+      </FormField>
+      <CreateLevelModal
+        isOpen={isCreateLevelModalOpen}
+        onClose={() => setIsCreateLevelModalOpen(false)}
       />
-    </FormField>
+      <EditLevelModal
+        isOpen={isEditLevelModalOpen}
+        levelId={levelId}
+        onClose={closeEditLevelModal}
+        key={levelId}
+      />
+      <DeleteLevelModal
+        isOpen={isDeleteLevelModalOpen}
+        levelId={levelId}
+        onClose={closeDeleteLevelModal}
+      />
+    </>
   );
 };

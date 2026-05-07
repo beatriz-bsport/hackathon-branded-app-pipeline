@@ -39,7 +39,29 @@
     },
     "level": {
       "label": "Level",
-      "placeholder": "Select a level"
+      "placeholder": "Select a level",
+      "byDefault": "By default",
+      "custom": "Custom",
+      "create": "Create a new level",
+      "add": "Add level",
+      "nameLabel": "Name",
+      "nameTooLong": "Level name must be at most 50 characters",
+      "colorLabel": "Colour",
+      "confirmCreate": "Create",
+      "cancel": "Cancel",
+      "edit": "Edit level",
+      "save": "Save",
+      "deleteTitle": "Delete level?",
+      "deleteMessage": "Videos which have this level applied will stay the same, but future videos won't be able to use it.",
+      "delete": "Delete",
+      "error": "An error occurred",
+      "defaults": {
+        "1": "All levels",
+        "2": "Beginner",
+        "3": "Intermediate",
+        "4": "Advanced",
+        "5": "No level"
+      }
     },
     "teachers": {
       "label": "Teacher",

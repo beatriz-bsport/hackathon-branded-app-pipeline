@@ -217,7 +217,7 @@
           "_label": "Livestreamen"
         },
         "teacherPayrollRules": {
-          "_label": "Lohnabrechnungsregeln"
+          "_label": "Honorarabrechnungsregeln"
         },
         "paymentMethods": {
           "_label": "Bezahlmethode"
@@ -748,7 +748,7 @@
           "_label": "Abonnements exportieren"
         },
         "payroll": {
-          "_label": "Lohnabrechnung der Lehrkraft exportieren"
+          "_label": "Honorarabrechnung der Lehrkraft exportieren"
         },
         "report": {
           "_label": "Berichte exportieren"
@@ -1683,7 +1683,7 @@
             "_label": "Löschen"
           },
           "readPayroll": {
-            "_label": "Lohnabrechnung ansehen"
+            "_label": "Honorarabrechnung ansehen"
           },
           "substitution": {
             "_label": "Vertretungen verwalten"

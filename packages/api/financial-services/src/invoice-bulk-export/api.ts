@@ -1,10 +1,21 @@
 import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
-import { API_URL_PAYMENT } from "../constants";
+import { API_URL_PAYMENT, QUERY_KEY_MAIN } from "../constants";
 import type {
   DownloadInvoiceBulkExportRequest,
   DownloadInvoiceBulkExportResponse,
 } from "./types";
+
+export const invoiceBulkExportKeys = {
+  all: [QUERY_KEY_MAIN, "invoice-bulk-export"] as const,
+  detail: (payload: DownloadInvoiceBulkExportRequest) =>
+    [
+      ...invoiceBulkExportKeys.all,
+      "detail",
+      payload.year,
+      payload.month,
+    ] as const,
+} as const;
 
 const downloadInvoiceBulkExportAPIConfig = (
   payload: DownloadInvoiceBulkExportRequest,

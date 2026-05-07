@@ -1,7 +1,13 @@
 import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
-import { API_URL_PAYMENT_INVOICES } from "../constants";
+import { API_URL_PAYMENT_INVOICES, QUERY_KEY_MAIN } from "../constants";
 import type { UpdateInvoiceFooterResponse } from "./types";
+
+export const invoiceFooterKeys = {
+  all: [QUERY_KEY_MAIN, "invoice-footer"] as const,
+  detail: (invoiceUuid: string) =>
+    [...invoiceFooterKeys.all, "detail", invoiceUuid] as const,
+} as const;
 
 const updateInvoiceFooterAPIConfig = (
   invoiceUuid: string,

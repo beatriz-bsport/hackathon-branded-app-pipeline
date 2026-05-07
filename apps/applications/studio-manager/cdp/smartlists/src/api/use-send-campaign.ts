@@ -26,7 +26,9 @@ export const useSendCampaign = ({
       sendEmailCampaignAPI(fetch, payload),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: smartlistQueryKeys.detail(String(data.metadata.smartlist_id)),
+        queryKey: smartlistQueryKeys.smartlistKeys.detail(
+          String(data.metadata.smartlist_id),
+        ),
       });
       onSuccess?.(data);
     },

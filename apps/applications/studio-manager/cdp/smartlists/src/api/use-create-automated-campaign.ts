@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   type AutomatedCampaign,
   type CreateAutomatedCampaignParams,
-  automatedCampaignKeys,
   createAutomatedCampaignAPI,
 } from "@bsport/api-cdp/automated-campaign";
 
@@ -27,10 +26,14 @@ export function useCreateAutomatedCampaign({
       createAutomatedCampaignAPI(fetch, params),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: automatedCampaignKeys.list(String(data.smartlist)),
+        queryKey: smartlistQueryKeys.automatedCampaignKeys.list(
+          String(data.smartlist),
+        ),
       });
       queryClient.invalidateQueries({
-        queryKey: smartlistQueryKeys.detail(String(data.smartlist)),
+        queryKey: smartlistQueryKeys.automatedCampaignKeys.detail(
+          String(data.smartlist),
+        ),
       });
       onSuccess?.(data);
     },

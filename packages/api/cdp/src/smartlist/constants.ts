@@ -39,3 +39,14 @@ export const CommunicationChannel = {
 
 export type CommunicationChannel =
   (typeof CommunicationChannel)[keyof typeof CommunicationChannel];
+
+/*
+ * This is the legacy default page size for the pass options API.
+ * We need to set it to a very large number to ensure we get all the passes.
+ */
+export const DEFAULT_PAGE_SIZE_PASS_OPTIONS = 70000;
+
+/**
+ * This is the identifier for the smartlist filters API.
+ */
+export const PAYMENT_PACK_FILTER_IDENTIFIER = "19";

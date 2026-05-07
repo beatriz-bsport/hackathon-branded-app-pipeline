@@ -26,10 +26,14 @@ export const useUpdateTagRule = ({
       updateTagRuleAPI(fetch, params),
     onSuccess: (data) => {
       queryClient.invalidateQueries({
-        queryKey: smartlistQueryKeys.tagRules(String(data.smartlist)),
+        queryKey: smartlistQueryKeys.smartlistKeys.tagRules(
+          String(data.smartlist),
+        ),
       });
       queryClient.invalidateQueries({
-        queryKey: smartlistQueryKeys.detail(String(data.id)),
+        queryKey: smartlistQueryKeys.smartlistKeys.detail(
+          String(data.smartlist),
+        ),
       });
       onSuccess?.(data);
     },

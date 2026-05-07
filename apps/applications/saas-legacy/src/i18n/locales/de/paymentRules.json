@@ -5,12 +5,12 @@
     "pick_a_month": "Wählen Sie einen Monat"
   },
   "select": {
-    "placeholderOverride": "Standard-Lohnabrechnungsregel für den Coach",
+    "placeholderOverride": "Standard-Honorarabrechnungsregel für den Coach",
     "placeholder": "Wähle eine Berechnungsmethode aus",
     "coachPaymentRuleForPrivateService": "Termine",
     "coachPaymentRuleForSessions": "Gruppenaktivitäten",
-    "reset": "Standard-Lohnabrechnungsregel der Lehrkraft verwenden",
-    "group": "Lohnabrechnungsgruppe",
+    "reset": "Standard-Honorarabrechnungsregel der Lehrkraft verwenden",
+    "group": "Honorarabrechnungsgruppe",
     "coachPaymentRuleForWorkshops": "Workshops"
   },
   "addNew": "Neue Gehaltseinrichtung",
@@ -28,12 +28,12 @@
       "confirm": "Bestätigen",
       "cancel": "Abbrechen",
       "title": "Eine Regel löschen",
-      "content": "Durch die Abschaffung dieser Lohnabrechnungsregel wird sie von allen Lehrkräften und Kursen getrennt, denen sie derzeit zugeordnet ist"
+      "content": "Durch die Abschaffung dieser Honorarabrechnungsregel wird sie von allen Lehrkräften und Kursen getrennt, denen sie derzeit zugeordnet ist"
     }
   },
-  "setPaymentRuleSetForCoachFirst": "Bitte ordnen Sie diese Lohnabrechnungsregel mindestens einer Lehrkraft zu.",
+  "setPaymentRuleSetForCoachFirst": "Bitte ordne diese Honorarabrechnungsregel mindestens einer Lehrkraft zu.",
   "coaches": "Lehrkräfte",
-  "label": "Lohnabrechnungsregel",
+  "label": "Honorarabrechnungsregel",
   "calculate": "Berechnen",
   "calculation_methods": {
     "margin_value": "Auf marginalem Wert jeder Buchung",
@@ -46,7 +46,7 @@
   "only_attendant": "Beschränkung des Buchungsnachweises auf die anwesenden Schüler",
   "bookingThreshold": "Buchungsgrenze (ausgeschlossen)",
   "title": "Lohnausstellung der Lehrkraft {{- name }}",
-  "pageTitle": "Lohnabrechnung",
+  "pageTitle": "Honorarabrechnung",
   "coach_payment_rules": {
     "Simulator": {
       "student_did_not_attend": "Abwesende",
@@ -62,7 +62,7 @@
       "and": "und",
       "students": "Anwesende",
       "for": "für",
-      "helper": "Prüfe hier die Regeln deiner Lohnabrechnungen",
+      "helper": "Prüfe hier die Regeln deiner Honorarabrechnungen",
       "resultTitle": "Simulationsergebnis (Gehalt der Lehrkraft)",
       "title": "Gehaltssimulation",
       "marginalValueOfReservation": "Marginaler Wert pro Buchung",
@@ -85,10 +85,10 @@
       "invalidMaximum": "Die maximale Vergütung muss höher sein als die Mindestvergütung",
       "invalidMinimum": "Die Mindestvergütung muss gleich oder höher als die feste Basis sein",
       "nameRequired": "Der Name ist ein Pflichtfeld.",
-      "invalidCoachPaymentRule": "Es muss ein Lohnabrechnungsregel gewählt werden",
+      "invalidCoachPaymentRule": "Es muss ein Honorarabrechnungsregel gewählt werden",
       "invalidPrivateSlot": "Ein Termin muss ausgewählt werden",
       "uniqueRuleForPrivateSlot": "Dieser Termin ist mehrfach aufgeführt",
-      "oneRuleRequired": "Sie müssen mindestens eine Lohnabrechnungsregel definieren, um eine Gruppe zu erstellen",
+      "oneRuleRequired": "Du musst mindestens eine Honorarabrechnungsregel definieren, um eine Gruppe zu erstellen",
       "privateSlotAlreadySelected": "Für diesen Termin ist bereits eine Vergütungsregel definiert"
     },
     "Bonuses": {
@@ -104,7 +104,7 @@
     "paymentPackPlaceHolder": "Kurspässe auswählen",
     "excludePaymentPack": {
       "title": "Buchungen für bestimmte Pässe ausschließen",
-      "warning": "Wenn Sie mit dem Parameter 'Bei der Lohnabrechnung der Lehrkraft berücksichtigte Kurse' bereits Durchgänge von der Lohnabrechnung ausgeschlossen haben, müssen Sie diese hier nicht erneut angeben."
+      "warning": "Wenn du mit dem Parameter 'Bei der Honorarabrechnung der Lehrkraft berücksichtigte Kurse' bereits Durchgänge von der Honorarabrechnung ausgeschlossen hast, musst du diese hier nicht erneut angeben."
     },
     "bonusForEachReservationInInterval": "Einen Bonus für jede Buchung im Intervall hinzufügen",
     "fixedBonusbyInterval": "Fügen Sie einen festen Bonus pro Intervall hinzu",
@@ -134,7 +134,7 @@
     "all": "Alle Kurse",
     "appointment": "Termine",
     "session": "Gruppenaktivitäten & Workshops",
-    "groups": "Lohnabrechnungsgruppe",
+    "groups": "Honorarabrechnungsgruppe",
     "groupActivity": "Gruppenkurse",
     "workshop": "Workshops"
   },
@@ -146,26 +146,26 @@
     "addNewForWorkshop": "Workshops"
   },
   "paymentRules": "Vergütungsregeln",
-  "search": "Eine Lohnabrechnungsregel anwenden (optional)",
+  "search": "Eine Honorarabrechnungsregel anwenden (optional)",
   "coach_payment_rule_groups": {
     "subtitle": {
       "helper": "Sie können Ihre Vergütungsregeln für Tätigkeiten, Workshops und Termine zusammenfassen. Wenn Sie eine Lehrkraft zu einer Gruppe hinzufügen, werden alle Vergütungsregeln der Gruppe automatisch auf die Lehrkraft angewendet. Alle Änderungen an der Gruppe werden auch für alle Lehrkräfte der Gruppe übernommen.",
-      "default": "Standard-Lohnabrechungsregeln",
-      "specfic_private_slot": "Lohnabrechnungsregel für Termine",
+      "default": "Standard-Honorarabrechungsregeln",
+      "specfic_private_slot": "Honorarabrechnungsregel für Termine",
       "coaches": "Assoziierte Professoren",
       "removed_coaches": "Entfernte Lehrer"
     },
     "workshop": "Workshops",
     "session": "Gruppenaktivitäten",
     "fields": {
-      "addPrivateSlot": "Eine Lohnabrechnungsregel hinzufügen",
+      "addPrivateSlot": "Eine Honorarabrechnungsregel hinzufügen",
       "private_service": "Termine",
-      "coach_payment_rule": "Lohnabrechnungsregel",
+      "coach_payment_rule": "Honorarabrechnungsregel",
       "private_service_name": "Termin",
       "activity": "Aktivitäten",
       "workshop": "Workshops"
     },
-    "dissociate": "Benutzerdefinierte Lohnabrechnung",
+    "dissociate": "Benutzerdefinierte Honorarabrechnung",
     "modal": {
       "delete": {
         "title": "Eine Gruppe löschen",
@@ -174,7 +174,7 @@
         "content": "Wenn Sie diese Gruppe löschen, wird sie von allen Lehrkräften getrennt, denen sie derzeit zugeordnet ist"
       }
     },
-    "dialogTitle": "Lohnabrechnungsgruppe",
+    "dialogTitle": "Honorarabrechnungsgruppe",
     "private_service": "Termine"
   },
   "simulate": "Simulieren",

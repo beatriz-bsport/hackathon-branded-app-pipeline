@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 import type { Fetch } from "@bsport/fetch";
 import type { SelectProps } from "@bsport/kaizen-primitive-core";
 
@@ -23,4 +25,11 @@ export type PaymentMethodSelectorProps = Omit<
   fetch: Fetch;
   /** Main selection callback for parent payment flows. */
   onSelectionChange?: (selection: PaymentMethodSelectorSelection) => void;
+  /** Optional customization for "All methods" entries. */
+  allMethodsConfig?: {
+    /** Optional "All methods" entries to hide. */
+    hiddenIds?: AllPaymentMethodKey[];
+    /** Optional custom right-side content for "All methods" entries. */
+    adornmentById?: Partial<Record<AllPaymentMethodKey, ReactNode>>;
+  };
 };

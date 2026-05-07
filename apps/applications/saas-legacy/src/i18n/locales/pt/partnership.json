@@ -51,12 +51,6 @@
   "wellhub": {
     "title": "Elevação do veio",
     "configuration": {
-      "migration": {
-        "banner": {
-          "title": "Atualização do Wellhub em curso",
-          "content": "A edição ou eliminação de configurações não está disponível até {{date}}. Você pode continuar a adicionar novas conexões. Para alterações urgentes, contacte o seu Account Manager."
-        }
-      },
       "dialog": {
         "title": {
           "creation": "Adicionar e ligar o ID da unidade ao(s) estabelecimento(s)",

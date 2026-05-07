@@ -22,7 +22,6 @@ import type { WellhubProductSelectionFormValues } from '#src/libs/wellhub/types'
 
 type Props = {
   offerSelected: OfferSaas;
-  availableEstablishments: Establishment[];
   coaches: Coach[];
   isLoading: boolean;
   offersData: ReworkedPaginationResponse<OfferSaas>;
@@ -41,7 +40,6 @@ type Props = {
 };
 
 const WellhubProductSelectionContent: React.FC<Props> = ({
-  availableEstablishments,
   offerSelected,
   coaches,
   isLoading,
@@ -121,7 +119,6 @@ const WellhubProductSelectionContent: React.FC<Props> = ({
           />
         ) : (
           <WellhubProductSelectionForm
-            availableEstablishments={availableEstablishments}
             offer={offerSelected}
             similarOffers={similarOffers}
             similarOffersLoading={similarOffersLoading}

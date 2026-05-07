@@ -35,7 +35,10 @@ import {
   initializeLegalIdentifierOnboardingActions,
   checkFiskalyOnboardingStatusActions,
   getFiskalyOnboardingRequirementsActions,
+  getIsCompanyAllSetupActions,
   onboardFiskalyCompanyActions,
+  finalizeTicketbaiSetupActions,
+  getDeviceCertificateSerialNumberActions,
   getLastGeneratedAgreementUrlActions,
   getLastUploadedSignedAgreementActions,
   uploadSignedAgreementActions,
@@ -52,6 +55,7 @@ import type {
   PlannedPaymentEventSerializer,
   FiskalyOnboardingRequirement,
   FiskalySignEsInvoiceDetails,
+  OnboardFiskalyCompanyResponse,
   SequentialNumberingStatusResponse,
 } from '#src/libs/invoice/types';
 import type { PaymentItem } from '#src/libs/invoice/payment/types';
@@ -154,13 +158,19 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
       loading: false,
       error: null,
       isOnboarded: null,
+      isCompanyAllSetup: null,
+      isCompanyAllSetupLoading: false,
       requirements: [],
       agreementUrl: null,
+      deviceCertificateSerialNumber: null,
       lastGeneratedAgreementUrl: null,
       isLoadingLastGeneratedAgreementUrl: false,
       signedAgreementFile: null,
       isLoadingSignedAgreement: false,
       isUploadingSignedAgreement: false,
+      isTicketbaiSetupFinalized: null,
+      finalizeTicketbaiSetupLoading: false,
+      finalizeTicketbaiSetupError: null,
     },
     sequentialNumberingStatus: {
       loading: false,
@@ -754,14 +764,89 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
     },
     [onboardFiskalyCompanyActions.success.toString()]: (
       state,
-      { payload }: { payload: { agreement_url: string } },
+      { payload }: { payload: OnboardFiskalyCompanyResponse },
     ) => {
       return state
         .setIn(['fiskalyOnboarding', 'agreementUrl'], payload.agreement_url)
         .setIn(
           ['fiskalyOnboarding', 'lastGeneratedAgreementUrl'],
           payload.agreement_url,
+        )
+        .setIn(
+          ['fiskalyOnboarding', 'deviceCertificateSerialNumber'],
+          payload.device_certificate_serial_number ?? null,
         );
+    },
+    [getIsCompanyAllSetupActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'isCompanyAllSetupLoading'],
+        payload,
+      );
+    },
+    [getIsCompanyAllSetupActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'error'], payload);
+    },
+    [getIsCompanyAllSetupActions.success.toString()]: (
+      state,
+      { payload }: { payload: { is_all_setup: boolean } },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'isCompanyAllSetup'],
+        payload.is_all_setup,
+      );
+    },
+    [finalizeTicketbaiSetupActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'finalizeTicketbaiSetupLoading'],
+        payload,
+      );
+    },
+    [finalizeTicketbaiSetupActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'finalizeTicketbaiSetupError'],
+        payload,
+      );
+    },
+    [finalizeTicketbaiSetupActions.success.toString()]: (state) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'isTicketbaiSetupFinalized'],
+        true,
+      );
+    },
+    [getDeviceCertificateSerialNumberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'loading'], payload);
+    },
+    [getDeviceCertificateSerialNumberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['fiskalyOnboarding', 'error'], payload);
+    },
+    [getDeviceCertificateSerialNumberActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: { device_certificate_serial_number: string | null } },
+    ) => {
+      return state.setIn(
+        ['fiskalyOnboarding', 'deviceCertificateSerialNumber'],
+        payload.device_certificate_serial_number ?? null,
+      );
     },
     [getLastGeneratedAgreementUrlActions.isLoading.toString()]: (
       state,

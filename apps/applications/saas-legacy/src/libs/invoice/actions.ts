@@ -41,6 +41,9 @@ import type {
   InitializeLegalIdentifierLegacyResponse,
   InitializeLegalIdentifierLegacyRequest,
   InitializeLegalIdentifierOnboarding,
+  OnboardFiskalyCompanyResponse,
+  DeviceCertificateSerialNumberResponse,
+  IsCompanyAllSetupResponse,
 } from '#src/libs/invoice/types';
 import type { PaymentItem } from '#src/libs/invoice/payment/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
@@ -92,6 +95,9 @@ import {
   checkFiskalyOnboardingStatus as checkFiskalyOnboardingStatusAPI,
   getFiskalyOnboardingRequirements as getFiskalyOnboardingRequirementsAPI,
   onboardFiskalyCompany as onboardFiskalyCompanyAPI,
+  getIsCompanyAllSetup as getIsCompanyAllSetupAPI,
+  finalizeTicketbaiSetup as finalizeTicketbaiSetupAPI,
+  getDeviceCertificateSerialNumber as getDeviceCertificateSerialNumberAPI,
   getLastGeneratedAgreementUrl as getLastGeneratedAgreementUrlAPI,
   getLastUploadedSignedAgreement as getLastUploadedSignedAgreementAPI,
   uploadSignedAgreement as uploadSignedAgreementAPI,
@@ -1609,13 +1615,44 @@ export function getFiskalyOnboardingRequirements(
 export const onboardFiskalyCompanyActions = {
   isLoading: createAction<boolean>('FISKALY_ONBOARDING/ONBOARD/IS_LOADING'),
   error: createAction<Error | null>('FISKALY_ONBOARDING/ONBOARD/ERROR'),
-  success: createAction<{ agreement_url: string }>(
+  success: createAction<OnboardFiskalyCompanyResponse>(
     'FISKALY_ONBOARDING/ONBOARD/SUCCESS',
   ),
 };
 
+export const getIsCompanyAllSetupActions = {
+  isLoading: createAction<boolean>(
+    'FISKALY_ONBOARDING/GET_IS_COMPANY_ALL_SETUP/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'FISKALY_ONBOARDING/GET_IS_COMPANY_ALL_SETUP/ERROR',
+  ),
+  success: createAction<IsCompanyAllSetupResponse>(
+    'FISKALY_ONBOARDING/GET_IS_COMPANY_ALL_SETUP/SUCCESS',
+  ),
+};
+
+export function getIsCompanyAllSetup(
+  options?: OptionCallback<IsCompanyAllSetupResponse>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(getIsCompanyAllSetupActions.isLoading(true));
+    dispatch(getIsCompanyAllSetupActions.error(null));
+    try {
+      const response = await getIsCompanyAllSetupAPI();
+      dispatch(getIsCompanyAllSetupActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(getIsCompanyAllSetupActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(getIsCompanyAllSetupActions.isLoading(false));
+  };
+}
+
 export function onboardFiskalyCompany(
-  options?: OptionCallback<{ agreement_url: string }>,
+  options?: OptionCallback<OnboardFiskalyCompanyResponse>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(onboardFiskalyCompanyActions.isLoading(true));
@@ -1633,6 +1670,65 @@ export function onboardFiskalyCompany(
   };
 }
 
+export const finalizeTicketbaiSetupActions = {
+  isLoading: createAction<boolean>(
+    'FISKALY_ONBOARDING/FINALIZE_TICKETBAI_SETUP/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'FISKALY_ONBOARDING/FINALIZE_TICKETBAI_SETUP/ERROR',
+  ),
+  success: createAction<void>(
+    'FISKALY_ONBOARDING/FINALIZE_TICKETBAI_SETUP/SUCCESS',
+  ),
+};
+
+export function finalizeTicketbaiSetup(options?: OptionCallback<void>) {
+  return async (dispatch: Dispatch) => {
+    dispatch(finalizeTicketbaiSetupActions.isLoading(true));
+    dispatch(finalizeTicketbaiSetupActions.error(null));
+    try {
+      await finalizeTicketbaiSetupAPI();
+      dispatch(finalizeTicketbaiSetupActions.success());
+      options?.onSuccess?.();
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(finalizeTicketbaiSetupActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(finalizeTicketbaiSetupActions.isLoading(false));
+  };
+}
+
+export const getDeviceCertificateSerialNumberActions = {
+  isLoading: createAction<boolean>(
+    'FISKALY_ONBOARDING/GET_DEVICE_CERTIFICATE_SERIAL_NUMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'FISKALY_ONBOARDING/GET_DEVICE_CERTIFICATE_SERIAL_NUMBER/ERROR',
+  ),
+  success: createAction<DeviceCertificateSerialNumberResponse>(
+    'FISKALY_ONBOARDING/GET_DEVICE_CERTIFICATE_SERIAL_NUMBER/SUCCESS',
+  ),
+};
+
+export function getDeviceCertificateSerialNumber(
+  options?: OptionCallback<DeviceCertificateSerialNumberResponse>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(getDeviceCertificateSerialNumberActions.isLoading(true));
+    dispatch(getDeviceCertificateSerialNumberActions.error(null));
+    try {
+      const response = await getDeviceCertificateSerialNumberAPI();
+      dispatch(getDeviceCertificateSerialNumberActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error(String(err));
+      dispatch(getDeviceCertificateSerialNumberActions.error(error));
+      options?.onError?.(error);
+    }
+    dispatch(getDeviceCertificateSerialNumberActions.isLoading(false));
+  };
+}
 export const getLastGeneratedAgreementUrlActions = {
   isLoading: createAction<boolean>(
     'FISKALY_ONBOARDING/GET_LAST_GENERATED_AGREEMENT_URL/IS_LOADING',

@@ -13,7 +13,7 @@ import type { FormikProps } from 'formik';
 import type {
   FormValues,
   FormFieldConfig,
-} from '#src/libs/invoice/verifactu/types';
+} from '#src/libs/invoice/sign-es/types';
 import FullCountrySelect from '#src/components/input/FullCountrySelect.component';
 
 type VerifactuFormFieldsProps = {

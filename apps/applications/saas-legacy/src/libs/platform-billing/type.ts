@@ -24,6 +24,16 @@ export type UpdatePlatformCustomerEntityVatInformationParams = {
   hasAttributedVatId: boolean;
 };
 
+/**
+ * Spanish address territory derived from the platform customer Stripe postal code
+ * (Sign-ES / TicketBAI routing). Null when the country is not Spain or no postal code.
+ */
+export type PlatformCustomerAddressTerritory =
+  | 'ARABA'
+  | 'BIZKAIA'
+  | 'GIPUZKOA'
+  | 'SPAIN_OTHER';
+
 export type PlatformCustomerEntity = {
   id: number;
   company: number;
@@ -33,6 +43,12 @@ export type PlatformCustomerEntity = {
   has_attributed_vat_id: boolean;
   is_vat_id_collection_required: boolean;
   is_valid_vat_id_missing: boolean;
+  address_country: string | null;
+  address_city: string | null;
+  address_line1: string | null;
+  address_line2: string | null;
+  address_postal_code: string | null;
+  address_territory: PlatformCustomerAddressTerritory | null;
 };
 
 export type PlatformInvoice = {

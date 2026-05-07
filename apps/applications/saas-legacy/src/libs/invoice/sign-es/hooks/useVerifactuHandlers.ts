@@ -13,8 +13,12 @@ import {
   getLastUploadedSignedAgreement,
 } from '#src/libs/invoice/actions';
 import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
-import type { FormValues } from '#src/libs/invoice/verifactu/types';
+import type { FormValues } from '#src/libs/invoice/sign-es/types';
 import type { PlatformCustomerEntityRepresentative } from '#src/libs/platform-billing/type';
+import {
+  applyOnboardFiskalyCompanySuccess,
+  type SignEsOnboardRegulation,
+} from '#src/libs/invoice/sign-es/hooks/applyOnboardFiskalyCompanySuccess';
 
 type CreateOrUpdateRepresentativeData = {
   first_name: string;
@@ -118,7 +122,9 @@ export const useVerifactuHandlers = (
   setAgreementUrl: (url: string | null) => void,
   setIsOnboarded: (onboarded: boolean) => void,
   setSignedAgreementFile: (file: string | null) => void,
+  handlersOptions?: { regulation?: SignEsOnboardRegulation },
 ) => {
+  const regulation = handlersOptions?.regulation ?? 'verifactu';
   const dispatch = useDispatch();
   const { t } = useTranslation('b2b_invoice');
 
@@ -244,24 +250,16 @@ export const useVerifactuHandlers = (
                 dispatch(
                   onboardFiskalyCompany({
                     onSuccess: (data) => {
-                      if (!data?.agreement_url) {
-                        console.error('No agreement URL found');
-                        formikHelpers.setSubmitting(false);
-                        resolve();
-                        return;
-                      }
-
-                      dispatch(
-                        snackbarSuccess(
-                          t(
-                            'configuration.verifactu.onboarding.agreement_created',
-                          ),
-                        ),
-                      );
-                      setAgreementUrl(data.agreement_url);
-                      setIsOnboarded(true);
-                      formikHelpers.setSubmitting(false);
-                      resolve();
+                      applyOnboardFiskalyCompanySuccess({
+                        regulation,
+                        data,
+                        dispatch,
+                        t,
+                        setAgreementUrl,
+                        setIsOnboarded,
+                        formikHelpers,
+                        resolve,
+                      });
                     },
                     onError: () => {
                       dispatch(
@@ -291,7 +289,7 @@ export const useVerifactuHandlers = (
         });
       });
     },
-    [dispatch, representative, t, setAgreementUrl, setIsOnboarded],
+    [dispatch, representative, regulation, t, setAgreementUrl, setIsOnboarded],
   );
 
   const handleUploadSignedAgreement = useCallback(

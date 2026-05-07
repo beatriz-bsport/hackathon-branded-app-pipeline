@@ -1,0 +1,11 @@
+{
+  "page": {
+    "title": "Roles",
+    "toStaff": "Manage staff"
+  },
+  "emptyState": {
+    "title": "No roles yet",
+    "subtitle": "Start adding roles to your studio",
+    "cta": "Add role"
+  }
+}

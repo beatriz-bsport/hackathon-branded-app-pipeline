@@ -1,6 +1,7 @@
 import type { FC } from "react";
+import { useNavigate } from "react-router";
 
-import { ListLayout } from "@bsport/kaizen-primitive-core";
+import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { StaffTable } from "#src/components/staff-table/staff-table";
@@ -11,6 +12,7 @@ import {
 } from "#src/hooks/api/use-staff-list-query";
 import { useDisclosure } from "#src/hooks/use-disclosure";
 import { useStaffFilters } from "#src/hooks/use-staff-filters";
+import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 type StaffListPageContentProps = {
@@ -42,7 +44,7 @@ const StaffListPageContent: FC<StaffListPageContentProps> = ({
   );
 };
 
-const ListPage: FC = () => {
+const StaffListPage: FC = () => {
   const { t } = useTranslation("staff-list");
   const { activeFilters, filterConfig, filterRef, resetFilters } =
     useStaffFilters();
@@ -52,6 +54,7 @@ const ListPage: FC = () => {
     onClose: closeCreateModal,
     onOpen: openCreateModal,
   } = useDisclosure();
+  const navigate = useNavigate();
 
   return (
     <ListLayout>
@@ -68,6 +71,17 @@ const ListPage: FC = () => {
             onClick={openCreateModal}
           />
         }
+        endGroupActions={[
+          <Button
+            key="to-roles"
+            intent="default"
+            color="main"
+            kind="default"
+            size="md"
+            label={t("header.toRoles")}
+            onClick={() => navigate(URLS.ROLE)}
+          />,
+        ]}
       />
       <ListLayout.Content>
         <QueryBoundary>
@@ -85,4 +99,4 @@ const ListPage: FC = () => {
   );
 };
 
-export default ListPage;
+export default StaffListPage;

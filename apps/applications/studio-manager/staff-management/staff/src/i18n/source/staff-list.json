@@ -1,5 +1,9 @@
 {
   "name": "Staff",
+  "header": {
+    "toRoles": "Manage roles",
+    "addStaff": "Add Staff"
+  },
   "table": {
     "headers": {
       "name": "Name",
@@ -28,8 +32,5 @@
       "label": "Role",
       "all": "All"
     }
-  },
-  "header": {
-    "addStaff": "Add Staff"
   }
 }

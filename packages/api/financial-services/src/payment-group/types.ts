@@ -17,3 +17,28 @@ export type RequestPaymentClientSecretResponse = {
   payment_group: number;
   price_cts: number;
 };
+
+export type FetchPaymentGroupRequest = {
+  paymentGroupId: number;
+};
+
+export type PaymentGroup = {
+  id: number;
+  price_cts: number;
+  status?: number;
+  [key: string]: unknown;
+};
+
+export type UpdateIntentToSavePaymentMethodRequest = {
+  payment_group_id: number;
+  save_for_later: boolean;
+};
+
+export type UpdateIntentToSavePaymentMethodResponse = {
+  client_secret: string;
+};
+
+export type ConfirmPaymentByPaymentMethodIdRequest = {
+  payment_group_id: number;
+  payment_method_id: string | number;
+};

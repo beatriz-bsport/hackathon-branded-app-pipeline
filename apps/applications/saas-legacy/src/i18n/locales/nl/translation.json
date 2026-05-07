@@ -503,7 +503,7 @@
       "typePhone": "Mobiel*",
       "error": {
         "passwordConfirm": "Deze wachtwoorden komen niet overeen.",
-        "password": "Je wachtwoord moet minimaal 6 tekens bevatten."
+        "password": "Je wachtwoord moet minimaal 12 tekens bevatten."
       },
       "fields": {
         "accept_sms": "Ik ga ermee akkoord om per sms te worden benaderd voor promotionele doeleinden, zoals promoties en speciale aanbiedingen.",

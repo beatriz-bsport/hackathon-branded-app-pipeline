@@ -42,6 +42,23 @@ export type CreatePartnershipAccountParams = {
   establishment_group: number[];
 };
 
+export type CreateWellhubAccountParams = {
+  partnership: number;
+  external_id: string;
+  establishment_group: number[];
+};
+
+export type ValidateExternalIdParams = {
+  external_id: string;
+  partnership: number;
+};
+
+export type ValidateExternalIdResponse = {
+  is_valid: boolean;
+  error?: string;
+  error_code?: string;
+};
+
 export type UpdatePartnershipAccountParams = CreatePartnershipAccountParams & {
   id: string;
 };

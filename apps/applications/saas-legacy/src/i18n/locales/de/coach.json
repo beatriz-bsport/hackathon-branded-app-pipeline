@@ -42,7 +42,7 @@
   "showActivities": "Aktivitäten anzeigen",
   "performance": {
     "nbBookings": "Buchungen",
-    "payment": "Lohnabrechnung",
+    "payment": "Honorarabrechnung",
     "calculate": "Berechnen",
     "pricePerAdditionalBooking": "Betrag pro Buchung",
     "pricePerOffer": "Betrag pro Kurs",
@@ -78,15 +78,15 @@
       "calendar": "Wochenplan",
       "general": "Profil"
     },
-    "coachSpaceInfo": "Bei Aktivierung der Lehrkraftansicht können Lehrkräfte ihre Lohnabrechnung, ihren Wochenplan einsehen und ihre Verfügbarkeiten verwalten.",
+    "coachSpaceInfo": "Bei Aktivierung der Lehrkraftansicht können Lehrkräfte ihre Honorarabrechnung und ihren Wochenplan einsehen und ihre Verfügbarkeiten verwalten.",
     "coachSpace": "Lehrkraftansicht",
-    "noPaymentRule": "Hinweis: Für diese Lehrkraft wurde keine Lohnabrechnung festgelegt. "
+    "noPaymentRule": "Hinweis: Für diese Lehrkraft wurde keine Honorarabrechnung festgelegt. "
   },
-  "showPerformance": "Lohnabrechnung anzeigen",
+  "showPerformance": "Honorarabrechnung anzeigen",
   "noCoach": "Zur Zeit gibt es keine registrierten Lehrkräfte",
   "noCoachs": "Keine registrierten Lehrkräfte. Verwalte hier die Lehrkräfte, Referenten und deren Gehälter.",
   "inactiveCoaches": "Archivierte Lehrkräfte",
-  "paymentRule": "Lohnabrechnung",
+  "paymentRule": "Honorarabrechnung",
   "coachAccess": {
     "teacher": "Lehrkraft",
     "student": "Mitglied",

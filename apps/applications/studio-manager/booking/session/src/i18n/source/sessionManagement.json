@@ -37,7 +37,8 @@
   },
   "waitList": {
     "emptyState": {
-      "title": "There are no participants on waitlist"
+      "title": "There are no participants on waitlist",
+      "convertible": "There are no participants pending to be booked from the waitlist."
     },
     "loadingMessage": "Loading waitlist..."
   },

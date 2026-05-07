@@ -7,11 +7,14 @@ import { BOOKING_QUERY_KEY } from "#src/constants";
 import type {
   ActivePartnershipAccount,
   CreatePartnershipAccountParams,
+  CreateWellhubAccountParams,
   FetchActivePartnershipAccountsParams,
   FetchPartnershipAccountsParams,
   PartnershipAccount,
   PartnershipCompany,
   UpdatePartnershipAccountParams,
+  ValidateExternalIdParams,
+  ValidateExternalIdResponse,
 } from "./types";
 
 const PARTNERSHIP_ACCOUNTS_API_URL = "book/v1/partnership/partnership_account";
@@ -24,6 +27,13 @@ export const partnershipKeys = {
     [...partnershipKeys.companies(), identifier] as const,
   accounts: (partnershipId: number) =>
     [...partnershipKeys.all, "accounts", partnershipId] as const,
+  validateExternalId: (partnershipId: number, externalId: string) =>
+    [
+      ...partnershipKeys.all,
+      "validate-external-id",
+      partnershipId,
+      externalId,
+    ] as const,
 };
 
 export const fetchPartnershipAccountsAPI = async (
@@ -43,6 +53,19 @@ export const partnershipAccountsQueryOptions = (
   queryOptions({
     queryKey: partnershipKeys.accounts(params.partnership),
     queryFn: () => fetchPartnershipAccountsAPI(fetch, params),
+  });
+
+const WELLHUB_ACCOUNTS_STALE_TIME = 60 * 1000;
+
+export const wellhubAccountsQueryOptions = (
+  fetch: Fetch<PartnershipAccount[]>,
+  partnershipId: number,
+) =>
+  queryOptions({
+    queryKey: partnershipKeys.accounts(partnershipId),
+    queryFn: () =>
+      fetchPartnershipAccountsAPI(fetch, { partnership: partnershipId }),
+    staleTime: WELLHUB_ACCOUNTS_STALE_TIME,
   });
 
 export const fetchPartnershipCompaniesAPIConfig = (): ApiConfig => [
@@ -109,6 +132,48 @@ export const updatePartnershipAccountAPI = async (
   const [uri, init] = updatePartnershipAccountAPIConfig(params);
   const { data } = await fetch(uri, init);
   return data;
+};
+
+export const createWellhubAccountAPI = async (
+  fetch: Fetch<PartnershipAccount>,
+  params: CreateWellhubAccountParams,
+): Promise<PartnershipAccount> => {
+  const { data } = await fetch(
+    `${PARTNERSHIP_ACCOUNTS_API_URL}/create_venue/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  );
+  return data;
+};
+
+export const validateExternalIdAPI = async (
+  fetch: Fetch<ValidateExternalIdResponse>,
+  params: ValidateExternalIdParams,
+): Promise<ValidateExternalIdResponse> => {
+  const { data } = await fetch(
+    `${PARTNERSHIP_ACCOUNTS_API_URL}/validate-external-id/${buildUrlParams(params)}`,
+  );
+  return data;
+};
+
+export const validateWellhubExternalIdQueryOptions = (
+  fetch: Fetch<ValidateExternalIdResponse>,
+  partnershipId: number,
+  externalId: string,
+) => {
+  const enabled = externalId.length > 0;
+  const queryFn = validateExternalIdAPI.bind(null, fetch, {
+    external_id: externalId,
+    partnership: partnershipId,
+  });
+  return queryOptions<ValidateExternalIdResponse, Error, boolean>({
+    queryKey: partnershipKeys.validateExternalId(partnershipId, externalId),
+    queryFn,
+    enabled,
+    select: (data) => data.is_valid,
+  });
 };
 
 export const deletePartnershipAccountAPIConfig = (params: {

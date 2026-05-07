@@ -4,6 +4,7 @@ import { ListLayout, Loader } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { MyClubsSection } from "#src/features/myclubs/components/myclubs-section";
+import { WellhubSection } from "#src/features/wellhub/components/wellhub-section";
 import { useTranslation } from "#src/utils/i18n";
 
 const AggregatorsViewSettingsPage: FC = () => {
@@ -17,6 +18,7 @@ const AggregatorsViewSettingsPage: FC = () => {
           loadingFallback={<Loader className="w-full h-full" size="xl" />}
         >
           <MyClubsSection />
+          <WellhubSection />
         </QueryBoundary>
       </ListLayout.Content>
     </ListLayout>

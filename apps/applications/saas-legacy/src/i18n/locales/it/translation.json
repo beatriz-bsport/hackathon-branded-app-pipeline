@@ -407,7 +407,7 @@
       "privacyPolicy": "i termini e le condizioni d'utilizzo",
       "error": {
         "passwordConfirm": "Le password non corrispondono",
-        "password": "La password deve contenere almeno 6 caratteri"
+        "password": "La password deve contenere almeno 12 caratteri"
       },
       "fields": {
         "accept_sms": "Accetto di essere avvisato via SMS per scopi commerciali (promozioni, offerte speciali...)",

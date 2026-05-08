@@ -43,6 +43,10 @@
         "purchaseDateBetweenRequired": "Select both dates for the between range.",
         "purchaseDateDurationRequired": "Enter a number of days.",
         "purchaseDateDurationBetweenRequired": "Enter both day values for the between range.",
+        "expirationDateRequired": "Select an expiration date.",
+        "expirationDateBetweenRequired": "Select both dates for the between range.",
+        "expirationDateDurationRequired": "Enter a number of days.",
+        "expirationDateDurationBetweenRequired": "Enter both day values for the between range.",
         "creditValueRequired": "Credit value is required.",
         "creditSecondValueRequired": "Second credit value is required for range comparator."
       }

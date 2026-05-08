@@ -97,4 +97,24 @@ describe("passesFilterSchema", () => {
 
     expect(result.success).toBe(false);
   });
+
+  it("rejects expiration date sub-filter when active but absolute from date is missing", () => {
+    const value = buildFormValue({
+      selectAllPaymentPacks: true,
+      subFilters: [PASS_SUB_FILTER_IDS.expirationDate],
+      expirationDate: {
+        ...createDefaultPassesFilter(1).expirationDate,
+        dateType: "absolute",
+        absolute: {
+          operator: "on_or_after",
+          fromDate: null,
+          toDate: null,
+        },
+      },
+    });
+
+    const result = passesFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+  });
 });

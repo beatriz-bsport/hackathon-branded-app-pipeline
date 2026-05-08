@@ -107,11 +107,11 @@ describe("mapApiFilterToFormValue", () => {
     expect(formValue.purchaseDate.absolute.fromDate).toBe("2026-04-01");
   });
 
-  it("does not list purchase date in `subFilters` when the API filter is inactive", () => {
+  it("does not list purchase date in `subFilters` when the API purchase filter is inactive", () => {
     const filter = buildApiFilter({
       date_filter_active: false,
       credit_filter_active: true,
-      expiration_date_filter_active: true,
+      expiration_date_filter_active: false,
       credit_value: "10",
     });
 
@@ -119,5 +119,19 @@ describe("mapApiFilterToFormValue", () => {
 
     expect(formValue.subFilters).toEqual([]);
     expect(formValue.purchaseDate.dateType).toBe("absolute");
+  });
+
+  it("lists expiration date in `subFilters` when the API expiration filter is active", () => {
+    const filter = buildApiFilter({
+      expiration_date_filter_active: true,
+      expiration_date_filter_type: SmartlistDateFilterType.DATE_AFTER,
+      expiration_date: "2026-05-01",
+      expiration_date_second: "2026-05-01",
+    });
+
+    const formValue = mapApiFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual(["expiration_date"]);
+    expect(formValue.expirationDate.absolute.fromDate).toBe("2026-05-01");
   });
 });

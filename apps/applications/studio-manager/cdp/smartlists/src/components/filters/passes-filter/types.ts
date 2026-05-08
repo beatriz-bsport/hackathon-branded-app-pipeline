@@ -25,6 +25,7 @@ export type PassesFilterFormValue = {
   selectedPaymentPackIds: number[];
   subFilters: PassSubFilterId[];
   purchaseDate: DateFilterValue;
+  expirationDate: DateFilterValue;
 };
 
 /**

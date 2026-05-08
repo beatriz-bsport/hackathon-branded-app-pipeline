@@ -1,3 +1,4 @@
+import { expirationDatePassSubFilterModule } from "./expiration-date/expiration-date.module";
 import type { PassSubFilterModule } from "./pass-sub-filter-module-contract";
 import { purchaseDatePassSubFilterModule } from "./purchase-date/purchase-date.module";
 
@@ -10,6 +11,7 @@ import { purchaseDatePassSubFilterModule } from "./purchase-date/purchase-date.m
  */
 export const REGISTERED_PASS_SUB_FILTERS = [
   purchaseDatePassSubFilterModule,
+  expirationDatePassSubFilterModule,
 ] as const satisfies readonly PassSubFilterModule[];
 
 export type RegisteredPassSubFilterModule =

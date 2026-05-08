@@ -20,4 +20,5 @@ export const createDefaultPassesFilter = (
   selectedPaymentPackIds: [],
   subFilters: [],
   purchaseDate: defaultDateFilterValue,
+  expirationDate: defaultDateFilterValue,
 });

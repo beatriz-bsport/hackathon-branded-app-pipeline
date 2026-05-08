@@ -7,6 +7,7 @@ import {
 
 import { createDefaultPassesFilter } from "#src/components/filters/passes-filter/default-value";
 import { toCreatePayload } from "#src/components/filters/passes-filter/mappers/form-value-to-create-payload";
+import { PASS_SUB_FILTER_IDS } from "#src/components/filters/passes-filter/sub-filters/pass-sub-filter-id";
 
 vi.mock("#src/utils/i18n", () => ({
   i18nInstance: {
@@ -89,5 +90,20 @@ describe("toCreatePayload", () => {
     expect(typeof payload.date_bought_second).toBe("string");
     expect(typeof payload.expiration_date).toBe("string");
     expect(typeof payload.expiration_date_second).toBe("string");
+  });
+
+  it("activates expiration date API fields when the expiration sub-filter is selected", () => {
+    const formValue = createDefaultPassesFilter(1);
+    formValue.selectAllPaymentPacks = true;
+    formValue.subFilters = [PASS_SUB_FILTER_IDS.expirationDate];
+    formValue.expirationDate.dateType = "absolute";
+    formValue.expirationDate.absolute.operator = "on_or_after";
+    formValue.expirationDate.absolute.fromDate = "2026-07-01";
+    formValue.expirationDate.absolute.toDate = null;
+
+    const payload = toCreatePayload(formValue);
+
+    expect(payload.expiration_date_filter_active).toBe(true);
+    expect(payload.expiration_date).toBe("2026-07-01");
   });
 });

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { OWNERSHIP_OPTIONS } from "./constants";
+import { expirationDateValueSchema } from "./sub-filters/expiration-date/schema";
 import { PASS_SUB_FILTER_IDS } from "./sub-filters/pass-sub-filter-id";
 import { purchaseDateValueSchema } from "./sub-filters/purchase-date/schema";
 import { REGISTERED_PASS_SUB_FILTERS } from "./sub-filters/registry";
@@ -14,7 +15,12 @@ const I18N_NAMESPACE = "sm-smartlists_campaign-filters";
  * Allowed `subFilters` entries. When a new sub-filter is registered, add its
  * id literal here (and in `PASS_SUB_FILTER_IDS`).
  */
-const subFilterIdSchema = z.array(z.literal(PASS_SUB_FILTER_IDS.purchaseDate));
+const subFilterIdSchema = z.array(
+  z.union([
+    z.literal(PASS_SUB_FILTER_IDS.purchaseDate),
+    z.literal(PASS_SUB_FILTER_IDS.expirationDate),
+  ]),
+);
 
 /**
  * Validation schema for the pass filter (base fields + registered sub-filters).
@@ -31,6 +37,7 @@ export const passesFilterSchema = z
     selectedPaymentPackIds: z.array(z.number().int().positive()),
     subFilters: subFilterIdSchema,
     purchaseDate: purchaseDateValueSchema,
+    expirationDate: expirationDateValueSchema,
   })
   .superRefine((value, context) => {
     if (

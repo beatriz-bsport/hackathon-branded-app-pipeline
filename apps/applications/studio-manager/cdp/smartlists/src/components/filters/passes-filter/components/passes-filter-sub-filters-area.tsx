@@ -6,14 +6,15 @@ import { defaultDateFilterValue } from "#src/components/primitive-filters/date-f
 import { useTranslation } from "#src/utils/i18n";
 
 import {
-  PASS_SUB_FILTER_IDS,
+  type PassSubFilterField,
   type PassSubFilterId,
+  passSubFilterFielMap,
 } from "../sub-filters/pass-sub-filter-id";
 import { REGISTERED_PASS_SUB_FILTERS } from "../sub-filters/registry";
 import type { PassesFilterFormValue } from "../types";
 
 type PassesFilterSubFiltersAreaProps = {
-  fieldIds: { purchaseDate: string };
+  fieldIds: Record<PassSubFilterField, string>;
   watchedFilterValue: PassesFilterFormValue;
   errors: FieldErrors<PassesFilterFormValue>;
   setValue: UseFormSetValue<PassesFilterFormValue>;
@@ -53,11 +54,10 @@ export const PassesFilterSubFiltersArea = ({
       watchedFilterValue.subFilters.filter((item) => item !== subFilterId),
       { shouldDirty: true },
     );
-    if (subFilterId === PASS_SUB_FILTER_IDS.purchaseDate) {
-      setValue("purchaseDate", defaultDateFilterValue, {
-        shouldDirty: true,
-      });
-    }
+    const fieldToReset = passSubFilterFielMap[subFilterId];
+    setValue(fieldToReset, defaultDateFilterValue, {
+      shouldDirty: true,
+    });
   };
 
   return (
@@ -75,9 +75,8 @@ export const PassesFilterSubFiltersArea = ({
         }
         const Section = passSubFilterModule.Section;
         const sectionId =
-          subFilterId === PASS_SUB_FILTER_IDS.purchaseDate
-            ? fieldIds.purchaseDate
-            : `${subFilterId}-section`;
+          fieldIds[passSubFilterFielMap[subFilterId]] ??
+          `${subFilterId}-section`;
 
         return (
           <Section
@@ -112,7 +111,9 @@ export const PassesFilterSubFiltersArea = ({
                 items={availableSubFilters.map((passSubFilterModule) => ({
                   id: passSubFilterModule.id,
                   label: t(
-                    passSubFilterModule.labelKey as "filters.19.subFilters.purchaseDate",
+                    passSubFilterModule.labelKey as
+                      | "filters.19.subFilters.purchaseDate"
+                      | "filters.19.subFilters.expirationDate",
                   ),
                 }))}
                 onSelectOption={(selectedId) => {

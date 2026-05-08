@@ -32,7 +32,7 @@ export const BookingOptionStatusSegmentedControl: FC = () => {
           value: WaitlistFilter.ON_WAITLIST,
         },
         {
-          label: t("bookingOptionStatusFilter.convertible"),
+          label: t("bookingOptionStatusFilter.pending"),
           value: WaitlistFilter.IS_CONVERTIBLE,
         },
         {

@@ -22,6 +22,7 @@ import {
   setSelectedBookingOption,
 } from "#src/stores/session-management/actions";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
+import { WaitlistFilter } from "#src/stores/session-management/types";
 import type { RefinedBookingOption } from "#src/types";
 import { getMemberInitials } from "#src/utils/get-member-initials";
 import { useTranslation } from "#src/utils/i18n";
@@ -40,6 +41,10 @@ export const WaitList: FC<{
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
+
+  const waitlistFilters = useSessionManagementStore(
+    (state) => state.waitlistFilters,
+  );
 
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams({ namespace: paginationNamespace });
@@ -90,28 +95,6 @@ export const WaitList: FC<{
   );
 
   const columns: GenericTableColumn<RefinedBookingOption>[] = [
-    ...(display_member_position
-      ? [
-          {
-            header: "",
-            id: "position",
-            type: "custom",
-            align: "start",
-            render: (row) => {
-              if (!row.waitingListPosition) {
-                return null;
-              }
-              return (
-                <Badge
-                  size="lg"
-                  color="default"
-                  text={`${row.waitingListPosition.member_position}/${row.waitingListPosition.waiting_list_size}`}
-                />
-              );
-            },
-          } as GenericTableColumn<RefinedBookingOption>,
-        ]
-      : []),
     {
       header: "",
       id: "client",
@@ -119,6 +102,13 @@ export const WaitList: FC<{
       align: "start",
       render: (row) => (
         <div className="flex gap-md items-center">
+          {display_member_position && row.waitingListPosition && (
+            <Badge
+              size="lg"
+              color="default"
+              text={`${row.waitingListPosition.member_position}/${row.waitingListPosition.waiting_list_size}`}
+            />
+          )}
           <Avatar
             shape="round"
             src={row.memberData?.photo}
@@ -183,7 +173,7 @@ export const WaitList: FC<{
     >
       <Table
         columns={columns}
-        rowHeight="lg"
+        rowHeight="sm"
         rows={searchedBookingOptions.map((bookingOption) => ({
           ...bookingOption,
           ...(readOnly
@@ -204,12 +194,18 @@ export const WaitList: FC<{
         hideHeader
         emptyStateProps={{
           isEmpty: !searchedBookingOptions.length,
-          emptyConfig: {
-            title: t("waitList.emptyState.title"),
-            ctaButtonConfig: {
-              label: t("bookButton"),
-            },
-          },
+          ...(waitlistFilters === WaitlistFilter.ON_WAITLIST
+            ? {
+                emptyConfig: {
+                  title: t("waitList.emptyState.title"),
+                  ctaButtonConfig: {
+                    label: t("bookButton"),
+                  },
+                },
+              }
+            : {
+                emptyConfig: { title: t("waitList.emptyState.pending") },
+              }),
         }}
         loadingProps={{
           isLoading,

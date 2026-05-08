@@ -15,4 +15,6 @@ export const STAFF_FORM_DEFAULTS: StaffFormData = {
   password: "",
   commissionPercentage: 0,
   role: "",
+  coachesInRoleIds: [],
+  staffEstablishmentBillingGroup: "",
 };

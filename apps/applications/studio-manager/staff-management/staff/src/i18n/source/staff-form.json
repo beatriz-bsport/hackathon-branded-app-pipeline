@@ -19,6 +19,19 @@
       "label": "Role",
       "loading": "Loading roles..."
     },
+    "teachers": {
+      "heading": "Assigned teachers",
+      "description": "Select which teachers this staff member will be responsible for",
+      "label": "Teachers",
+      "placeholder": "Select teachers",
+      "loading": "Loading teachers..."
+    },
+    "billingGroup": {
+      "label": "Billing Location",
+      "description": "This is the location which the staff member will be billed from",
+      "placeholder": "Select billing location...",
+      "loading": "Loading billing locations..."
+    },
     "errors": {
       "required": "This field is required",
       "invalidEmail": "Enter a valid email address",

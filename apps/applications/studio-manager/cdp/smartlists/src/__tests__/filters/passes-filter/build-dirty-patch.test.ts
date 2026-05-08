@@ -114,4 +114,24 @@ describe("buildDirtyPatchPayload", () => {
     expect(payload.date_filter_active).toBe(true);
     expect(payload.date_bought).toBe("2026-04-10");
   });
+
+  it("includes expiration date API fields when `expirationDate` is dirty", () => {
+    const value = createDefaultPassesFilter(1);
+    value.selectAllPaymentPacks = true;
+    value.subFilters = [PASS_SUB_FILTER_IDS.expirationDate];
+    value.expirationDate.dateType = "absolute";
+    value.expirationDate.absolute.operator = "on_or_after";
+    value.expirationDate.absolute.fromDate = "2026-06-15";
+    value.expirationDate.absolute.toDate = null;
+    const dirtyFields: DirtyFields = {
+      expirationDate: {
+        absolute: { fromDate: true },
+      },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.expiration_date_filter_active).toBe(true);
+    expect(payload.expiration_date).toBe("2026-06-15");
+  });
 });

@@ -37,5 +37,6 @@ export const mapApiFilterToFormValue = (
     selectedPaymentPackIds: filter.payment_packs ?? [],
     subFilters,
     purchaseDate: partialForm.purchaseDate ?? defaultDateFilterValue,
+    expirationDate: partialForm.expirationDate ?? defaultDateFilterValue,
   };
 };

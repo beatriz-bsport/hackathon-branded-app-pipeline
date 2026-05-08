@@ -34,6 +34,7 @@ export const PassesFilterCard = ({
     ownership: `${baseId}-ownership`,
     selectedPaymentPackIds: `${baseId}-selected-payment-pack-ids`,
     purchaseDate: `${baseId}-purchase-date`,
+    expirationDate: `${baseId}-expiration-date`,
   };
 
   const { t } = useTranslation("campaign-filters");

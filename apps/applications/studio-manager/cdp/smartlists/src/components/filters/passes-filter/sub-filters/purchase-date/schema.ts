@@ -37,6 +37,12 @@ export const purchaseDateValueSchema: z.ZodType<DateFilterValue> = z.object({
 }) as z.ZodType<DateFilterValue>;
 
 /**
+ * Same zod shape as `purchaseDateValueSchema`, reused by the expiration date
+ * slot (`DateFilterValue`).
+ */
+export const dateFilterValueSchema = purchaseDateValueSchema;
+
+/**
  * Adds conditional validation for the pass purchase date sub-filter when it is
  * active (`subFilters` contains `purchase_date`).
  *

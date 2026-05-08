@@ -7,6 +7,8 @@ export type StaffFormData = {
   password: string;
   commissionPercentage: number;
   role: string;
+  coachesInRoleIds: string[];
+  staffEstablishmentBillingGroup: string;
 };
 
 export type StaffFormSchema = z.ZodType<StaffFormData>;

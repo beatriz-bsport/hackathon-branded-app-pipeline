@@ -1,16 +1,18 @@
-import { type FC, useId } from "react";
+import { type FC, useEffect, useId } from "react";
 
 import { ControlledForm, useFormController } from "@bsport/form";
 import { Modal } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { StaffFormBillingGroup } from "../staff-form/components/staff-form-billing-group";
 import { StaffFormCommission } from "../staff-form/components/staff-form-commission";
 import { StaffFormEmail } from "../staff-form/components/staff-form-email";
 import { StaffFormFirstName } from "../staff-form/components/staff-form-first-name";
 import { StaffFormLastName } from "../staff-form/components/staff-form-last-name";
 import { StaffFormPassword } from "../staff-form/components/staff-form-password";
 import { StaffFormRole } from "../staff-form/components/staff-form-role";
+import { StaffFormTeachers } from "../staff-form/components/staff-form-teachers";
 import { STAFF_FORM_DEFAULTS } from "../staff-form/constants";
 import { useStaffFormSchema } from "../staff-form/schema";
 import type { StaffFormSchema } from "../staff-form/types";
@@ -37,6 +39,19 @@ export const StaffCreateModal: FC<StaffCreateModalProps> = ({
   });
 
   const { isDirty, isSubmitting, isValid } = methods.formState;
+  const { setValue, watch } = methods;
+  const selectedRoleId = watch("role");
+
+  useEffect(() => {
+    setValue("coachesInRoleIds", [], {
+      shouldDirty: false,
+      shouldValidate: false,
+    });
+    setValue("staffEstablishmentBillingGroup", "", {
+      shouldDirty: false,
+      shouldValidate: false,
+    });
+  }, [selectedRoleId, setValue]);
 
   const closeModal = () => {
     methods.reset(STAFF_FORM_DEFAULTS);
@@ -87,6 +102,8 @@ export const StaffCreateModal: FC<StaffCreateModalProps> = ({
           <StaffFormPassword formId={formId} />
           <StaffFormCommission formId={formId} />
           <StaffFormRole formId={formId} />
+          <StaffFormTeachers />
+          <StaffFormBillingGroup formId={formId} />
         </div>
       </ControlledForm>
     </Modal>

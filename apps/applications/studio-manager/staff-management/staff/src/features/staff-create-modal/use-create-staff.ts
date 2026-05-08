@@ -21,6 +21,11 @@ const transformStaffCreateFormData = (
   last_name: formData.lastName.trim(),
   role: Number(formData.role),
   staff_commission_percentage: formData.commissionPercentage,
+  coaches_in_role_ids: formData.coachesInRoleIds.map(Number),
+  staff_establishment_billing_group:
+    formData.staffEstablishmentBillingGroup !== ""
+      ? Number(formData.staffEstablishmentBillingGroup)
+      : null,
 });
 
 export const useCreateStaff = () => {

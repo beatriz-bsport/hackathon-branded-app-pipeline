@@ -36,9 +36,9 @@ export const useStaffListQuery = (activeFilters: StaffActiveFilters = {}) => {
 
   const [
     { data: staffData, isFetching: isFetchingStaff },
-    { data: roles, isFetching: isFetchingRoles },
-    { data: teachers = [], isFetching: isFetchingTeachers },
-    { data: billingGroups = [], isFetching: isFetchingBillingGroups },
+    { data: roles },
+    { data: teachers = [] },
+    { data: billingGroups = [] },
   ] = useSuspenseQueries({
     queries: [
       paginatedUserRolesQueryOptions(fetch, {
@@ -76,12 +76,6 @@ export const useStaffListQuery = (activeFilters: StaffActiveFilters = {}) => {
       },
     ],
   });
-
-  const isFetching =
-    isFetchingStaff ||
-    isFetchingRoles ||
-    isFetchingTeachers ||
-    isFetchingBillingGroups;
 
   const staff = staffData.results;
   const totalItems = staffData.count;
@@ -143,7 +137,7 @@ export const useStaffListQuery = (activeFilters: StaffActiveFilters = {}) => {
   return {
     staffRows,
     isEmpty,
-    isFetching,
+    isFetching: isFetchingStaff,
     paginationProps,
   };
 };

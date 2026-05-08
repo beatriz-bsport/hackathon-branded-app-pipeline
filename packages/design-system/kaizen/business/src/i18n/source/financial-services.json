@@ -53,7 +53,8 @@
     "title": "Payment",
     "buttons": {
       "cancel": "Cancel",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "pay": "Pay {{amount}}"
     },
     "errors": {
       "generic": "Could not confirm this payment. Please try again.",
@@ -65,6 +66,20 @@
     },
     "totalAmountLabel": "Total amount",
     "partialToggleLabel": "Pay part of the total now, the rest later",
+    "partialAmount": {
+      "label": "Amount to pay now",
+      "remainingHelper": "{{amount}} will be left to pay",
+      "unsupportedMethod": "Partial payment is not available with this payment method.",
+      "errors": {
+        "min": "Amount must be greater than 0.",
+        "max": "Amount cannot be higher than the total due."
+      }
+    },
+    "partialSuccess": {
+      "title": "Payment",
+      "successful": "Payment successful",
+      "remaining": "There will be {{amount}} left to pay on this invoice"
+    },
     "paymentMethodTitle": "Payment method",
     "memberBalanceInsufficientAlert": "Client's account balance doesn't cover the full amount. Charge the remaining amount separately.",
     "giftCards": {

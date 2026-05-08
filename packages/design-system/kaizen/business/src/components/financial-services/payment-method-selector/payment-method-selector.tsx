@@ -135,6 +135,7 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
     (key) => t(key),
   );
   const hiddenAllMethodIds = allMethodsConfig?.hiddenIds;
+  const disabledAllMethodIds = allMethodsConfig?.disabledIds;
   const adornmentByAllMethodId = allMethodsConfig?.adornmentById;
   const allMethodsItems = ALL_PAYMENT_METHOD_OPTIONS.filter(
     (option) => !hiddenAllMethodIds?.includes(option.id),
@@ -142,6 +143,7 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
     id: option.id,
     label: t(option.labelKey),
     iconLeft: option.iconLeft,
+    disabled: disabledAllMethodIds?.includes(option.id),
   }));
 
   const [currentSelection, setCurrentSelection] =
@@ -162,6 +164,7 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
     id: toSelectValue({ kind: "all", id: item.id }),
     label: item.label,
     iconLeft: item.iconLeft,
+    disabled: item.disabled,
     rightSlot: adornmentByAllMethodId?.[item.id],
   }));
 

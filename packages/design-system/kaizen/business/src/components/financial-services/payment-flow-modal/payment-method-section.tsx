@@ -19,6 +19,7 @@ type PaymentMethodSectionProps = Pick<
   isAccountBalanceEnough: boolean;
   accountBalance: number;
   hiddenAllMethodIds: AllPaymentMethodKey[];
+  disabledAllMethodIds: AllPaymentMethodKey[];
   onSelectionChange: (selection: PaymentMethodSelectorSelection) => void;
   renderSelectedPaymentMethod: () => ReactNode;
 };
@@ -31,6 +32,7 @@ export const PaymentMethodSection = ({
   isAccountBalanceEnough,
   accountBalance,
   hiddenAllMethodIds,
+  disabledAllMethodIds,
   onSelectionChange,
   renderSelectedPaymentMethod,
 }: PaymentMethodSectionProps) => {
@@ -52,6 +54,10 @@ export const PaymentMethodSection = ({
           allMethodsConfig={{
             hiddenIds:
               hiddenAllMethodIds.length > 0 ? hiddenAllMethodIds : undefined,
+            disabledIds:
+              disabledAllMethodIds.length > 0
+                ? disabledAllMethodIds
+                : undefined,
             adornmentById: {
               account_balance: hasPositiveAccountBalance ? (
                 <Body

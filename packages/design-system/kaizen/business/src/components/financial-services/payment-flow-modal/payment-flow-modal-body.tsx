@@ -1,13 +1,8 @@
-import {
-  Alert,
-  Button,
-  Tabs,
-  Title,
-  Toggle,
-} from "@bsport/kaizen-primitive-core";
+import { Alert, Button, Tabs, Title } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/i18n";
 
+import { PartialAmountSection } from "./partial-amount-section";
 import {
   INVOICE_ALREADY_PAID_ALERT,
   type PaymentTab,
@@ -31,6 +26,11 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
     setActiveTab,
     isPartialEnabled,
     setIsPartialEnabled,
+    onPartialAmountFocus,
+    onPartialAmountBlur,
+    partialAmountError,
+    remainingAmountText,
+    isPartialSupportedForSelectedMethod,
     amountToPay,
     isInvoiceAlreadyPaid,
     shouldShowMemberBalanceWarning,
@@ -39,6 +39,7 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
     isAccountBalanceEnough,
     accountBalance,
     hiddenAllMethodIds,
+    disabledAllMethodIds,
     onSelectionChange,
     renderSelectedPaymentMethod,
     memberName,
@@ -79,12 +80,17 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
         </Title>
       </div>
 
-      <Toggle
-        id="payment-flow-modal-partial-toggle"
-        label={t("paymentFlowModal.partialToggleLabel")}
-        checked={isPartialEnabled}
-        onToggleChange={setIsPartialEnabled}
-        disabled={isInvoiceAlreadyPaid}
+      <PartialAmountSection
+        isInvoiceAlreadyPaid={isInvoiceAlreadyPaid}
+        isPartialEnabled={isPartialEnabled}
+        isPartialSupportedForSelectedMethod={
+          isPartialSupportedForSelectedMethod
+        }
+        partialAmountError={partialAmountError}
+        remainingAmountText={remainingAmountText}
+        onPartialEnabledChange={setIsPartialEnabled}
+        onPartialAmountFocus={onPartialAmountFocus}
+        onPartialAmountBlur={onPartialAmountBlur}
       />
 
       {isInvoiceAlreadyPaid && (
@@ -97,7 +103,7 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
           {t("paymentFlowModal.memberBalanceInsufficientAlert")}
         </Alert>
       )}
-      {submitError ? <Alert status="critical">{submitError}</Alert> : null}
+      {submitError && <Alert status="critical">{submitError}</Alert>}
 
       <PaymentMethodSection
         memberId={memberId}
@@ -107,9 +113,10 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
         isAccountBalanceEnough={isAccountBalanceEnough}
         accountBalance={accountBalance}
         hiddenAllMethodIds={hiddenAllMethodIds}
+        disabledAllMethodIds={disabledAllMethodIds}
         onSelectionChange={onSelectionChange}
         renderSelectedPaymentMethod={() =>
-          isInvoiceAlreadyPaid ? null : renderSelectedPaymentMethod()
+          !isInvoiceAlreadyPaid && renderSelectedPaymentMethod()
         }
       />
 

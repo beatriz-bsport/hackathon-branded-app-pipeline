@@ -3,6 +3,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { useFormController } from "@bsport/form";
 
+import type { AllPaymentMethodKey } from "#src/components/financial-services/payment-method-selector/constants";
 import type { PaymentMethodSelectorSelection } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
@@ -26,6 +27,12 @@ import { usePaymentMethodRenderers } from "./use-payment-method-renderers";
 import { useRequestPaymentClientSecret } from "./use-request-payment-client-secret";
 
 type PaymentClientSecretEngine = "stripe" | "manual" | "terminal";
+type UsePaymentFlowModalStateParams = Omit<
+  PaymentFlowModalProps,
+  "onConfirm"
+> & {
+  onConfirm?: (remainingAmountCts: number) => void;
+};
 
 /**
  * Resolves which backend engine must generate the payment client secret for
@@ -49,6 +56,10 @@ const getPaymentClientSecretEngine = (
 
 const SUBMIT_ERROR_FALLBACK = "paymentFlowModal.errors.generic";
 const GIFT_CARD_PAYMENT_ERROR_CODE = 45001;
+const PARTIAL_UNSUPPORTED_METHOD_IDS = new Set<AllPaymentMethodKey>([
+  "gift_card_code",
+  "account_balance",
+]);
 
 /**
  * Maps mutation errors to the translated message displayed in the modal.
@@ -90,7 +101,7 @@ export const usePaymentFlowModalState = ({
   fetch,
   onClose,
   onConfirm,
-}: PaymentFlowModalProps) => {
+}: UsePaymentFlowModalStateParams) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
 
   const [activeTab, setActiveTab] = useState<"one-time" | "installments">(
@@ -129,6 +140,47 @@ export const usePaymentFlowModalState = ({
     : invoicePriceDueFromTotal;
   const isInvoiceAlreadyPaid =
     Number.isFinite(invoiceRemainingAmount) && invoiceRemainingAmount <= 0;
+  const invoiceRemainingAmountCts = Number.isFinite(invoiceRemainingAmount)
+    ? Math.round(invoiceRemainingAmount * 100)
+    : 0;
+  const partialAmountCts = methods.watch("partialAmountCts");
+  const [committedPartialAmountCts, setCommittedPartialAmountCts] =
+    useState(partialAmountCts);
+  const [isPartialAmountFocused, setIsPartialAmountFocused] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen || !Number.isFinite(invoiceRemainingAmountCts)) return;
+    setCommittedPartialAmountCts(invoiceRemainingAmountCts);
+  }, [invoiceRemainingAmountCts, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setIsPartialEnabled(false);
+      setIsPartialAmountFocused(false);
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen || !isPartialEnabled) return;
+    if (partialAmountCts <= 0 || partialAmountCts > invoiceRemainingAmountCts) {
+      return;
+    }
+    if (partialAmountCts === committedPartialAmountCts) return;
+
+    const timeoutId = window.setTimeout(() => {
+      setCommittedPartialAmountCts(partialAmountCts);
+    }, 1000);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
+  }, [
+    committedPartialAmountCts,
+    invoiceRemainingAmountCts,
+    isOpen,
+    isPartialEnabled,
+    partialAmountCts,
+  ]);
 
   useEffect(() => {
     const nextEngine = getPaymentClientSecretEngine(selectedPaymentMethod);
@@ -141,6 +193,11 @@ export const usePaymentFlowModalState = ({
     fetch,
     invoiceId,
     paymentEngine: clientSecretEngine,
+    requestedPriceCts:
+      isPartialEnabled &&
+      committedPartialAmountCts !== invoiceRemainingAmountCts
+        ? committedPartialAmountCts
+        : undefined,
     enabled:
       isOpen &&
       !isLoadingInvoice &&
@@ -185,6 +242,7 @@ export const usePaymentFlowModalState = ({
       savePaymentMethod: methods.getValues("savePaymentMethod"),
       terminalReaderId: methods.getValues("terminalReaderId"),
       selectedGiftCardId: methods.getValues("selectedGiftCardId"),
+      partialAmountCts: methods.getValues("partialAmountCts"),
       manualType: methods.getValues("manualType"),
       manualDate: methods.getValues("manualDate"),
       manualNote: methods.getValues("manualNote"),
@@ -197,12 +255,105 @@ export const usePaymentFlowModalState = ({
 
   const terminalReaderId = methods.watch("terminalReaderId");
   const selectedGiftCardId = methods.watch("selectedGiftCardId");
+  const partialAmountError = methods.formState.errors.partialAmountCts?.message;
+  const partialAmountMinError = t("paymentFlowModal.partialAmount.errors.min");
+  const partialAmountMaxError = t("paymentFlowModal.partialAmount.errors.max");
+
+  const isPartialSupportedForSelectedMethod =
+    selectedPaymentMethod?.kind !== "all" ||
+    !PARTIAL_UNSUPPORTED_METHOD_IDS.has(selectedPaymentMethod.id);
+  const disabledAllMethodIds = isPartialEnabled
+    ? Array.from(PARTIAL_UNSUPPORTED_METHOD_IDS)
+    : [];
+  const isPartialAmountInvalidLow = partialAmountCts <= 0;
+  const isPartialAmountInvalidHigh =
+    partialAmountCts > invoiceRemainingAmountCts;
+  const computedPartialAmountError =
+    isPartialEnabled &&
+    isOpen &&
+    isPartialSupportedForSelectedMethod &&
+    (isPartialAmountInvalidLow || isPartialAmountInvalidHigh)
+      ? isPartialAmountInvalidLow
+        ? partialAmountMinError
+        : partialAmountMaxError
+      : null;
+
+  const isPartialAmountPendingCommit =
+    isPartialEnabled && partialAmountCts !== committedPartialAmountCts;
+
+  useEffect(() => {
+    if (isPartialEnabled && !isPartialSupportedForSelectedMethod) {
+      setIsPartialEnabled(false);
+    }
+  }, [isPartialEnabled, isPartialSupportedForSelectedMethod]);
+
+  useEffect(() => {
+    if (!isOpen || !Number.isFinite(invoiceRemainingAmountCts)) return;
+    const currentPartialAmountCts = methods.getValues("partialAmountCts");
+    if (currentPartialAmountCts !== invoiceRemainingAmountCts) {
+      methods.setValue("partialAmountCts", invoiceRemainingAmountCts, {
+        shouldDirty: false,
+        shouldValidate: false,
+      });
+      methods.clearErrors("partialAmountCts");
+    }
+  }, [invoiceRemainingAmountCts, isOpen, methods]);
+
+  useEffect(() => {
+    if (!isPartialEnabled || !isOpen) {
+      if (partialAmountError) {
+        methods.clearErrors("partialAmountCts");
+      }
+      return;
+    }
+
+    if (!isPartialSupportedForSelectedMethod) {
+      if (partialAmountError) {
+        methods.clearErrors("partialAmountCts");
+      }
+      return;
+    }
+
+    if (partialAmountCts <= 0) {
+      if (partialAmountError !== partialAmountMinError) {
+        methods.setError("partialAmountCts", {
+          message: partialAmountMinError,
+        });
+      }
+      return;
+    }
+
+    if (partialAmountCts > invoiceRemainingAmountCts) {
+      if (partialAmountError !== partialAmountMaxError) {
+        methods.setError("partialAmountCts", {
+          message: partialAmountMaxError,
+        });
+      }
+      return;
+    }
+
+    if (partialAmountError) {
+      methods.clearErrors("partialAmountCts");
+    }
+  }, [
+    invoiceRemainingAmountCts,
+    isOpen,
+    isPartialEnabled,
+    isPartialSupportedForSelectedMethod,
+    methods,
+    partialAmountError,
+    partialAmountCts,
+    partialAmountMaxError,
+    partialAmountMinError,
+  ]);
 
   const isConfirmDisabled = useMemo(() => {
     if (
       isInvoiceAlreadyPaid ||
       !selectedPaymentMethod ||
-      confirmPaymentMutation.isPending
+      confirmPaymentMutation.isPending ||
+      (isPartialEnabled &&
+        (isPartialAmountFocused || isPartialAmountPendingCommit))
     ) {
       return true;
     }
@@ -218,7 +369,22 @@ export const usePaymentFlowModalState = ({
       return true;
     }
 
+    if (
+      isPartialEnabled &&
+      (computedPartialAmountError != null ||
+        methods.formState.errors.partialAmountCts != null)
+    ) {
+      return true;
+    }
+
     if (selectedPaymentMethod.kind !== "all") return false;
+
+    if (
+      isPartialEnabled &&
+      PARTIAL_UNSUPPORTED_METHOD_IDS.has(selectedPaymentMethod.id)
+    ) {
+      return true;
+    }
 
     if (
       selectedPaymentMethod.id === "terminal" &&
@@ -232,11 +398,16 @@ export const usePaymentFlowModalState = ({
 
     return false;
   }, [
+    computedPartialAmountError,
     confirmPaymentMutation.isPending,
     isInvoiceAlreadyPaid,
     isLoadingStripeReaders,
+    isPartialAmountFocused,
+    isPartialAmountPendingCommit,
     paymentClientSecretQuery.data?.client_secret,
     paymentClientSecretQuery.isFetching,
+    isPartialEnabled,
+    methods.formState.errors.partialAmountCts,
     selectedPaymentMethod,
     selectedGiftCardId,
     terminalReaderId,
@@ -277,10 +448,18 @@ export const usePaymentFlowModalState = ({
   ]);
 
   const handleSubmit = () => {
+    const submittedAmountCts = isPartialEnabled
+      ? methods.getValues("partialAmountCts")
+      : invoiceRemainingAmountCts;
+    const submissionRemainingAmountCts = Math.max(
+      invoiceRemainingAmountCts - submittedAmountCts,
+      0,
+    );
+
     setSubmitError(null);
     confirmPaymentMutation.mutate(undefined, {
       onSuccess: () => {
-        onConfirm?.();
+        onConfirm?.(submissionRemainingAmountCts);
         onClose();
       },
       onError: (error: unknown) => {
@@ -306,6 +485,13 @@ export const usePaymentFlowModalState = ({
   const amountToPay = Number.isNaN(invoiceRemainingAmount)
     ? "--"
     : getCurrencyDisplayWithPrice(invoiceRemainingAmount);
+  const partialAmount = partialAmountCts / 100;
+  const remainingAmount = Math.max(invoiceRemainingAmount - partialAmount, 0);
+  const remainingAmountText = isPartialEnabled
+    ? t("paymentFlowModal.partialAmount.remainingHelper", {
+        amount: getCurrencyDisplayWithPrice(remainingAmount),
+      })
+    : null;
 
   const shouldShowMemberBalanceWarning =
     selectedPaymentMethod?.kind === "all" &&
@@ -313,13 +499,46 @@ export const usePaymentFlowModalState = ({
     hasPositiveAccountBalance &&
     !isAccountBalanceEnough;
 
+  const handlePartialAmountFocus = () => {
+    setIsPartialAmountFocused(true);
+  };
+
+  const handlePartialAmountBlur = () => {
+    setIsPartialAmountFocused(false);
+    const nextAmountCts = methods.getValues("partialAmountCts");
+    if (nextAmountCts > 0 && nextAmountCts <= invoiceRemainingAmountCts) {
+      setCommittedPartialAmountCts(nextAmountCts);
+    }
+  };
+
+  const handlePartialToggle = (enabled: boolean) => {
+    setIsPartialEnabled(enabled);
+    if (!Number.isFinite(invoiceRemainingAmountCts)) return;
+
+    methods.setValue("partialAmountCts", invoiceRemainingAmountCts, {
+      shouldDirty: false,
+      shouldValidate: false,
+    });
+    setCommittedPartialAmountCts(invoiceRemainingAmountCts);
+    setIsPartialAmountFocused(false);
+    methods.clearErrors("partialAmountCts");
+  };
+
   const body: PaymentFlowModalBodyState = {
     memberId,
     fetch,
     activeTab,
     setActiveTab,
     isPartialEnabled,
-    setIsPartialEnabled,
+    setIsPartialEnabled: handlePartialToggle,
+    onPartialAmountFocus: handlePartialAmountFocus,
+    onPartialAmountBlur: handlePartialAmountBlur,
+    partialAmountCts,
+    partialAmountError:
+      computedPartialAmountError ??
+      (typeof partialAmountError === "string" ? partialAmountError : null),
+    remainingAmountText,
+    isPartialSupportedForSelectedMethod,
     amountToPay,
     isInvoiceAlreadyPaid,
     shouldShowMemberBalanceWarning,
@@ -328,6 +547,7 @@ export const usePaymentFlowModalState = ({
     isAccountBalanceEnough,
     accountBalance,
     hiddenAllMethodIds: renderers.hiddenAllMethodIds,
+    disabledAllMethodIds,
     onSelectionChange: setSelectedPaymentMethod,
     renderSelectedPaymentMethod: renderers.renderSelectedPaymentMethod,
     memberName: member?.name ?? `#${memberId}`,
@@ -341,6 +561,14 @@ export const usePaymentFlowModalState = ({
     handleSubmit,
     isConfirmDisabled,
     isConfirmLoading,
+    confirmAmountCts: isPartialEnabled
+      ? partialAmountCts
+      : invoiceRemainingAmountCts,
+    remainingAmountCts: Math.max(
+      invoiceRemainingAmountCts -
+        (isPartialEnabled ? partialAmountCts : invoiceRemainingAmountCts),
+      0,
+    ),
     body,
   };
 };

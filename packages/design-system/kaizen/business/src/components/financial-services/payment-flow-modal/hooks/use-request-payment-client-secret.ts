@@ -14,6 +14,7 @@ type UseRequestPaymentClientSecretParams = {
   fetch: Fetch;
   invoiceId: string;
   paymentEngine: PaymentClientSecretEngine | null;
+  requestedPriceCts?: number;
   enabled: boolean;
 };
 
@@ -27,10 +28,14 @@ const DISABLED_CLIENT_SECRET_INVOICE_SUFFIX = "__disabled_client_secret__";
 const getPayloadByPaymentEngine = (
   invoiceId: string,
   paymentEngine: PaymentClientSecretEngine,
+  requestedPriceCts?: number,
 ) => {
   const basePayload = {
     payment_intent_type: PAYMENT_INTENT_TYPE_INVOICE,
     invoice: invoiceId,
+    ...(typeof requestedPriceCts === "number"
+      ? { requested_price_cts: requestedPriceCts }
+      : {}),
   };
 
   if (paymentEngine === "manual") {
@@ -65,6 +70,7 @@ const requestPaymentClientSecretQueryOptions = ({
   fetch,
   invoiceId,
   paymentEngine,
+  requestedPriceCts,
   enabled,
 }: UseRequestPaymentClientSecretParams) => {
   const requestPaymentClientSecret = requestPaymentClientSecretAPI.bind(
@@ -88,7 +94,11 @@ const requestPaymentClientSecretQueryOptions = ({
     });
   }
 
-  const payload = getPayloadByPaymentEngine(invoiceId, paymentEngine);
+  const payload = getPayloadByPaymentEngine(
+    invoiceId,
+    paymentEngine,
+    requestedPriceCts,
+  );
 
   return queryOptions({
     queryKey: paymentGroupKeys.clientSecret(payload),

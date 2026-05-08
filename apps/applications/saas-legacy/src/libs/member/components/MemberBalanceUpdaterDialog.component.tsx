@@ -117,9 +117,8 @@ export const MemberBalanceUpdaterDialog: React.FC<Props> = ({
               // @ts-expect-error
               className={classes.field}
               InputProps={{
-                inputProps: { min: 0 },
+                inputProps: { min: 0, step: 0.01 },
               }}
-              inputStep={1}
               label={t('balance.updaterDialog.balanceValueLabel')}
               // @ts-expect-error
               onChange={(ev) => selectBalanceUpdateValue(ev.target.value)}

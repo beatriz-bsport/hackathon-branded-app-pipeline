@@ -24,6 +24,7 @@ stages:
   - deploy-ephemeral-environment
   - deploy
   - post-deploy
+  - maintenance
 
 default:
   tags:
@@ -43,6 +44,7 @@ include:
   - local: "/tools/ci/security-scan.yml"
   - local: "/tools/ci/ephemeral-environment.yml"
   - local: "/tools/ci/release.yml"
+  - local: "/tools/ci/maintenance.yml"
 
 workflow:
   rules:

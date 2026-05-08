@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { type FC, useEffect } from "react";
 
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import type { Fetch } from "@bsport/fetch";
@@ -7,12 +7,16 @@ import { Body, Button, Card, Icon, Title } from "@bsport/kaizen-primitive-core";
 import { i18nInstance, useTranslation } from "#src/i18n";
 import { formatDate } from "#src/utils/date";
 
-import { useFetchAvailableGiftcards } from "../../hooks";
+import { useFetchAvailableGiftcards } from "../../hooks/use-fetch-available-giftcards";
 import { AddGiftCardCode } from "./add-gift-card-code";
+import type { PaymentFlowGiftCard } from "./types";
 
 type GiftCardPaymentMethodProps = {
   fetch: Fetch;
   memberId: number;
+  selectedGiftCardId: number | null;
+  onSelectedGiftCardIdChange: (giftCardId: number | null) => void;
+  onGiftCardsChange: (giftCards: PaymentFlowGiftCard[]) => void;
 };
 
 const formatExpirationDate = (value: string | null): string => {
@@ -26,10 +30,13 @@ const formatGiftCardAmounts = (
 ): string =>
   `${getCurrencyDisplayWithPrice(availableAmount)}/${getCurrencyDisplayWithPrice(totalAmount)}`;
 
-export const GiftCardPaymentMethod: React.FC<GiftCardPaymentMethodProps> = ({
+export const GiftCardPaymentMethod: FC<GiftCardPaymentMethodProps> = ({
   fetch,
   memberId,
-}: GiftCardPaymentMethodProps) => {
+  selectedGiftCardId,
+  onSelectedGiftCardIdChange,
+  onGiftCardsChange,
+}) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
   const {
     giftcards,
@@ -43,9 +50,9 @@ export const GiftCardPaymentMethod: React.FC<GiftCardPaymentMethodProps> = ({
     enabled: true,
   });
 
-  const [selectedGiftCardId, setSelectedGiftCardId] = useState<number | null>(
-    null,
-  );
+  useEffect(() => {
+    onGiftCardsChange(giftcards);
+  }, [giftcards, onGiftCardsChange]);
 
   const giftCardsGridClassName =
     giftcards.length === 1 ? "grid-cols-1" : "grid-cols-2";
@@ -88,7 +95,7 @@ export const GiftCardPaymentMethod: React.FC<GiftCardPaymentMethodProps> = ({
               actionable
               elevated
               selected={selectedGiftCardId === giftcard.id}
-              onClick={() => setSelectedGiftCardId(giftcard.id)}
+              onClick={() => onSelectedGiftCardIdChange(giftcard.id)}
             >
               <div className="flex items-center gap-sm">
                 <Icon icon="gift-02" size="md" />
@@ -117,7 +124,7 @@ export const GiftCardPaymentMethod: React.FC<GiftCardPaymentMethodProps> = ({
       <AddGiftCardCode
         fetch={fetch}
         memberId={memberId}
-        onApplied={() => setSelectedGiftCardId(null)}
+        onApplied={() => onSelectedGiftCardIdChange(null)}
       />
     </div>
   );

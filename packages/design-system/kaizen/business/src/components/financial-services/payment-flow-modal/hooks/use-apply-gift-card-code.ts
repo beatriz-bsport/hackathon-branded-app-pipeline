@@ -13,6 +13,13 @@ type UseApplyGiftCardCodeParams = {
   onError?: (errorType: "invalid" | "generic") => void;
 };
 
+/**
+ * Mutation hook to apply a gift-card code to the current member.
+ *
+ * It normalizes backend errors into UI-oriented categories:
+ * - `invalid`: code not found (404);
+ * - `generic`: any other failure.
+ */
 export const useApplyGiftCardCode = ({
   fetch,
   memberId,

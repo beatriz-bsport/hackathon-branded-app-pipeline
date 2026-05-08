@@ -28,6 +28,12 @@ export type PaymentFlowModalBodyState = {
   setActiveTab: (tab: PaymentTab) => void;
   isPartialEnabled: boolean;
   setIsPartialEnabled: (enabled: boolean) => void;
+  onPartialAmountFocus: () => void;
+  onPartialAmountBlur: () => void;
+  partialAmountCts: number;
+  partialAmountError: string | null;
+  remainingAmountText: string | null;
+  isPartialSupportedForSelectedMethod: boolean;
   amountToPay: string;
   isInvoiceAlreadyPaid: boolean;
   shouldShowMemberBalanceWarning: boolean;
@@ -36,6 +42,7 @@ export type PaymentFlowModalBodyState = {
   isAccountBalanceEnough: boolean;
   accountBalance: number;
   hiddenAllMethodIds: AllPaymentMethodKey[];
+  disabledAllMethodIds: AllPaymentMethodKey[];
   onSelectionChange: (selection: PaymentMethodSelectorSelection) => void;
   renderSelectedPaymentMethod: () => ReactNode;
   memberName: string;
@@ -50,6 +57,7 @@ export type ConfirmPaymentFormValues = {
   manualDate: SelectedDate;
   manualNote: string;
   selectedGiftCardId: number | null;
+  partialAmountCts: number;
 };
 
 export type ExecuteConfirmPaymentParams = {

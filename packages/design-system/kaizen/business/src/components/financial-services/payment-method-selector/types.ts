@@ -29,6 +29,8 @@ export type PaymentMethodSelectorProps = Omit<
   allMethodsConfig?: {
     /** Optional "All methods" entries to hide. */
     hiddenIds?: AllPaymentMethodKey[];
+    /** Optional "All methods" entries to disable. */
+    disabledIds?: AllPaymentMethodKey[];
     /** Optional custom right-side content for "All methods" entries. */
     adornmentById?: Partial<Record<AllPaymentMethodKey, ReactNode>>;
   };

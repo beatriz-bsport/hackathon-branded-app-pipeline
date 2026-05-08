@@ -1,4 +1,9 @@
-import { type ChangeEvent, type ReactElement, useState } from "react";
+import {
+  type ChangeEvent,
+  type FocusEvent,
+  type ReactElement,
+  useState,
+} from "react";
 
 import { getCurrencyDisplay } from "@bsport/currency";
 import { type FieldPath, type FieldValues, FormField } from "@bsport/form";
@@ -91,7 +96,11 @@ export const FormPriceField = <
             defaultProps.onChange(clamped);
             onPriceChange?.(clamped);
           },
-          onBlur: () => setLocal(null),
+          onBlur: (e: FocusEvent<HTMLInputElement>) => {
+            setLocal(null);
+            defaultProps.onBlur?.();
+            additionalProps.onBlur?.(e);
+          },
         };
       }}
     >

@@ -14,12 +14,6 @@ import type { StripePaymentMethodHandle } from "../payment-methods/stripe/types"
 import type { ConfirmPaymentFormValues } from "../types";
 import { executeConfirmPayment } from "./use-confirm-payment-execute";
 
-const TERMINAL_READERS_QUERY_KEY = [
-  "@api-financial-services",
-  "terminal",
-  "readers",
-];
-
 type UseConfirmPaymentParams = {
   fetch: Fetch;
   invoiceId: string;
@@ -45,8 +39,8 @@ type UseConfirmPaymentParams = {
  * This hook centralizes:
  * - the "invoice already paid" guard;
  * - execution of business confirmation logic (`executeConfirmPayment`);
- * - cache invalidation for invoice, payment-group, member, saved methods
- *   and terminal readers after a successful confirmation.
+ * - cache invalidation for invoice, payment-group, member and saved methods
+ *   after a successful confirmation.
  */
 export const useConfirmPayment = ({
   fetch,
@@ -86,15 +80,20 @@ export const useConfirmPayment = ({
       return Promise.all([
         queryClient.invalidateQueries({
           queryKey: invoiceKeys.detail(invoiceId),
+          refetchType: "none",
         }),
-        queryClient.invalidateQueries({ queryKey: paymentGroupKeys.all }),
+        queryClient.invalidateQueries({
+          queryKey: paymentGroupKeys.all,
+          refetchType: "none",
+        }),
         queryClient.invalidateQueries({
           queryKey: paymentMethodKeys.saved(memberId),
+          refetchType: "none",
         }),
         queryClient.invalidateQueries({
           queryKey: memberKeys.detail(memberId),
+          refetchType: "none",
         }),
-        queryClient.invalidateQueries({ queryKey: TERMINAL_READERS_QUERY_KEY }),
       ]);
     },
   });

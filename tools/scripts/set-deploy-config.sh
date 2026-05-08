@@ -34,7 +34,7 @@ elif [ "$ENVIRONMENT" = "production" ]; then
   ACL_PARAM="--acl public-read"
 
 else
-  echo "⚠️  Environment $ENVIRONMENT is not recognized ! Stop script ..."
+  echo "⚠️  Environment $ENVIRONMENT is not recognized! Stop script ..."
   exit 0
 fi
 

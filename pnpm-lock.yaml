@@ -2872,6 +2872,9 @@ importers:
       '@bsport/analytics':
         specifier: workspace:*
         version: link:../../../../packages/utils/analytics
+      '@bsport/broadcast-channel-polyfill':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/broadcast-channel-polyfill
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../../packages/utils/currency

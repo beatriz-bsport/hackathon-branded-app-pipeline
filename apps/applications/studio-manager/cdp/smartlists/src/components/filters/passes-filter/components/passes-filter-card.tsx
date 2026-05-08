@@ -13,14 +13,14 @@ import { passesFilterSchema } from "../schema";
 import type { PassesFilterCardProps } from "../types";
 import { PassOwnershipField } from "./pass-ownership-field";
 import { PassSelectionField } from "./pass-selection-field";
+import { PassesFilterSubFiltersArea } from "./passes-filter-sub-filters-area";
 
 /**
  * Single pass filter card. Owns its form lifecycle (create / dirty patch /
  * delete) and delegates rendering of base fields to dedicated components.
  *
- * Sub-filters are intentionally not handled here yet; the orchestration shell
- * is built so future sub-filter modules can plug in without touching this
- * file beyond a single rendering slot.
+ * Sub-filter UI is driven by `REGISTERED_PASS_SUB_FILTERS` and the
+ * `PassesFilterSubFiltersArea` shell.
  */
 export const PassesFilterCard = ({
   smartlistId,
@@ -33,6 +33,7 @@ export const PassesFilterCard = ({
   const fieldIds = {
     ownership: `${baseId}-ownership`,
     selectedPaymentPackIds: `${baseId}-selected-payment-pack-ids`,
+    purchaseDate: `${baseId}-purchase-date`,
   };
 
   const { t } = useTranslation("campaign-filters");
@@ -70,6 +71,10 @@ export const PassesFilterCard = ({
   });
   const watchedFilterValue = methods.watch();
   const { errors, dirtyFields } = methods.formState;
+
+  const selectedPassesInvalid =
+    !watchedFilterValue.selectAllPaymentPacks &&
+    watchedFilterValue.selectedPaymentPackIds.length === 0;
 
   const handleSave = methods.handleSubmit(
     (value) => {
@@ -153,6 +158,14 @@ export const PassesFilterCard = ({
               shouldValidate: true,
             })
           }
+        />
+
+        <PassesFilterSubFiltersArea
+          fieldIds={fieldIds}
+          watchedFilterValue={watchedFilterValue}
+          errors={errors}
+          setValue={methods.setValue}
+          selectedPassesInvalid={selectedPassesInvalid}
         />
 
         <div className="flex justify-end">

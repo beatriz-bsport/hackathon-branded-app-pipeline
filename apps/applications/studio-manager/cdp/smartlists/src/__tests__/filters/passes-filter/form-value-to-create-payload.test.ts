@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import {
   SmartlistCreditComparator,
@@ -7,6 +7,12 @@ import {
 
 import { createDefaultPassesFilter } from "#src/components/filters/passes-filter/default-value";
 import { toCreatePayload } from "#src/components/filters/passes-filter/mappers/form-value-to-create-payload";
+
+vi.mock("#src/utils/i18n", () => ({
+  i18nInstance: {
+    t: (key: string) => key,
+  },
+}));
 
 describe("toCreatePayload", () => {
   it("uses the smartlist id from the form value", () => {

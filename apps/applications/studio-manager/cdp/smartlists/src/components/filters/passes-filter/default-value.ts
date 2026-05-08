@@ -1,3 +1,5 @@
+import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+
 import { OWNERSHIP_OPTIONS } from "./constants";
 import type { PassesFilterFormValue } from "./types";
 
@@ -16,4 +18,6 @@ export const createDefaultPassesFilter = (
   ownership: OWNERSHIP_OPTIONS.own,
   selectAllPaymentPacks: false,
   selectedPaymentPackIds: [],
+  subFilters: [],
+  purchaseDate: defaultDateFilterValue,
 });

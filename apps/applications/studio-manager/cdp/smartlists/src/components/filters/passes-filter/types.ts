@@ -1,6 +1,9 @@
-import { PaymentPackFilter } from "@bsport/api-cdp/smartlist";
+import type { PaymentPackFilter } from "@bsport/api-cdp/smartlist";
+
+import type { DateFilterValue } from "#src/components/primitive-filters/date-filter/types";
 
 import type { OWNERSHIP_OPTIONS } from "./constants";
+import type { PassSubFilterId } from "./sub-filters/pass-sub-filter-id";
 
 /**
  * Ownership selection (matches `has_pack` boolean on the API side).
@@ -9,10 +12,10 @@ export type OwnershipOption =
   (typeof OWNERSHIP_OPTIONS)[keyof typeof OWNERSHIP_OPTIONS];
 
 /**
- * Form value for a single pass filter card (base ownership scope only).
+ * Form value for a single pass filter card.
  *
- * Sub-filter slots (purchase date, expiration date, credits left) are not
- * present at this stage. Each new sub-filter will introduce its own slot.
+ * Each sub-filter adds an entry in `subFilters` plus a dedicated slot on this
+ * object. See `REGISTERED_PASS_SUB_FILTERS` for the list of wired modules.
  */
 export type PassesFilterFormValue = {
   id?: number;
@@ -20,6 +23,8 @@ export type PassesFilterFormValue = {
   ownership: OwnershipOption;
   selectAllPaymentPacks: boolean;
   selectedPaymentPackIds: number[];
+  subFilters: PassSubFilterId[];
+  purchaseDate: DateFilterValue;
 };
 
 /**

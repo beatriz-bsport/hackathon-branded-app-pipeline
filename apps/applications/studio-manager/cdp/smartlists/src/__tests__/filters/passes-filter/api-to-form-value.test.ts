@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import {
   type PaymentPackFilter,
@@ -7,6 +7,12 @@ import {
 } from "@bsport/api-cdp/smartlist";
 
 import { mapApiFilterToFormValue } from "#src/components/filters/passes-filter/mappers/api-to-form-value";
+
+vi.mock("#src/utils/i18n", () => ({
+  i18nInstance: {
+    t: (key: string) => key,
+  },
+}));
 
 const PAYMENT_PACK_FILTER_IDENTIFIER = 19;
 
@@ -87,9 +93,23 @@ describe("mapApiFilterToFormValue", () => {
     expect(formValue.selectedPaymentPackIds).toEqual([]);
   });
 
-  it("ignores sub-filter API fields entirely", () => {
+  it("lists purchase date in `subFilters` when the API purchase filter is active", () => {
     const filter = buildApiFilter({
       date_filter_active: true,
+      date_filter_type: SmartlistDateFilterType.DATE_AFTER,
+      date_bought: "2026-04-01",
+      date_bought_second: "2026-04-01",
+    });
+
+    const formValue = mapApiFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual(["purchase_date"]);
+    expect(formValue.purchaseDate.absolute.fromDate).toBe("2026-04-01");
+  });
+
+  it("does not list purchase date in `subFilters` when the API filter is inactive", () => {
+    const filter = buildApiFilter({
+      date_filter_active: false,
       credit_filter_active: true,
       expiration_date_filter_active: true,
       credit_value: "10",
@@ -97,12 +117,7 @@ describe("mapApiFilterToFormValue", () => {
 
     const formValue = mapApiFilterToFormValue(filter);
 
-    expect(formValue).toEqual({
-      id: filter.id,
-      smartlist: filter.smartlist,
-      ownership: "own",
-      selectAllPaymentPacks: false,
-      selectedPaymentPackIds: [],
-    });
+    expect(formValue.subFilters).toEqual([]);
+    expect(formValue.purchaseDate.dateType).toBe("absolute");
   });
 });

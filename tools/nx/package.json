@@ -15,6 +15,18 @@
     "vitest": "^3.2.4"
   },
   "//": "Source-only package: Nx consumes TypeScript directly via ts-node. No build step required.",
+  "nx": {
+    "targets": {
+      "release-tag": {
+        "executor": "@bsport/nx:release-tag",
+        "cache": false,
+        "parallelism": false
+      }
+    },
+    "tags": [
+      "postinstall"
+    ]
+  },
   "executors": "./executors.json",
   "generators": "./generators.json"
 }

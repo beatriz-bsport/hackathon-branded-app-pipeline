@@ -4,6 +4,11 @@
       "implementation": "./src/executors/dev/executor",
       "schema": "./src/executors/dev/schema.json",
       "description": "Run Module Federation dev server with automatic remote detection and dependency watching"
+    },
+    "release-tag": {
+      "implementation": "./src/executors/release-tag/executor",
+      "schema": "./src/executors/release-tag/schema.json",
+      "description": "Derive the next semver tag from conventional commits and push only the git tag"
     }
   }
 }

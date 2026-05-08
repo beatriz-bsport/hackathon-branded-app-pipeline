@@ -222,6 +222,56 @@ pnpm dedupe
 
 5. review any resulting `pnpm-lock.yaml` changes
 
+## `@bsport/nx:release-tag`
+
+Create the next unified semver Git tag from Conventional Commits.
+
+This command is tag-only: it does not edit package manifests, does not create a release commit, and does not publish packages.
+
+### Usage
+
+Preview the next tag locally:
+
+```bash
+pnpm exec nx run @bsport/nx:release-tag --dryRun
+```
+
+Create and push the tag:
+
+```bash
+pnpm exec nx run @bsport/nx:release-tag
+```
+
+### Behavior
+
+- uses a single fixed monorepo version
+- includes every Nx project in the release group, so app/package/tool commits can bump the unified tag
+- reads the latest `v{version}` tag as the current version
+- derives the next version from Conventional Commits since that tag
+- creates an annotated tag like `v1.2.3`
+- pushes only `refs/tags/v1.2.3`
+- skips cleanly when no semver bump is detected
+- treats reruns as successful when the computed tag already points to `HEAD`
+
+### First release
+
+If no `v*` semver tag exists yet, create the desired starting tag manually on `dev` before enabling the CI flow, for example:
+
+```bash
+git tag -a v1.0.0 -m v1.0.0
+git push origin refs/tags/v1.0.0
+```
+
+After that, CI uses the latest `v*` tag as the baseline.
+
+### CI
+
+`tools/ci/release.yml` runs this command on `dev` push pipelines and exposes a manual web trigger on `dev`. The job uses `resource_group: release-tag`, so GitLab serializes tag creation.
+
+Merge request pipelines expose the same job manually in dry-run mode. Use it before merge to verify what Nx resolves from the MR pipeline git history without creating or pushing a tag.
+
+The root GitLab workflow skips only semver release tag pipelines (`vX.Y.Z`). Other tag pipelines, such as feature-branch deploy tags, still run.
+
 ## Development
 
 ## `@bsport/nx:dev`

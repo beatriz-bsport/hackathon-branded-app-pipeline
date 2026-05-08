@@ -40,8 +40,8 @@
       "allMethodsLabel": "All methods",
       "allMethodsPlaceholder": "Select a method",
       "allMethodsOptions": {
-        "card": "New credit card",
-        "sepaDebit": "SEPA",
+        "card": "Credit card",
+        "sepaDebit": "SEPA payment",
         "giftCardCode": "Gift Card",
         "accountBalance": "Account balance",
         "terminal": "Terminal",
@@ -54,6 +54,10 @@
     "buttons": {
       "cancel": "Cancel",
       "confirm": "Confirm"
+    },
+    "errors": {
+      "generic": "Could not confirm this payment. Please try again.",
+      "giftCardPayment": "Could not pay this invoice with this gift card."
     },
     "tabs": {
       "oneTime": "One time",

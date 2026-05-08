@@ -243,6 +243,9 @@ const icons = {
   "pause-square": React.lazy(
     async () => await import("./assets/pause-square.svg?react"),
   ),
+  "payment-terminal": React.lazy(
+    async () => await import("./assets/payment-terminal.svg?react"),
+  ),
   "pencil-02": React.lazy(
     async () => await import("./assets/pencil-02.svg?react"),
   ),
@@ -353,6 +356,9 @@ const icons = {
   ),
   "video-recorder": React.lazy(
     async () => await import("./assets/video-recorder.svg?react"),
+  ),
+  "wallet-04": React.lazy(
+    async () => await import("./assets/wallet-04.svg?react"),
   ),
   "x-circle-solid": React.lazy(
     async () => await import("./assets/x-circle-solid.svg?react"),

@@ -1,6 +1,12 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId } from "react";
 
-import { Body, Card, Checkbox, Title } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Card,
+  Checkbox,
+  Icon,
+  Title,
+} from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/i18n";
 
@@ -9,20 +15,26 @@ import type { StripeReader } from "../../hooks/use-fetch-stripe-readers";
 type TerminalPaymentMethodProps = {
   stripeReaders: StripeReader[];
   isLoading?: boolean;
+  selectedReaderId: string | null;
+  savePaymentMethod: boolean;
+  onSelectedReaderIdChange: (readerId: string | null) => void;
+  onSavePaymentMethodChange: (checked: boolean) => void;
 };
 
 export const TerminalPaymentMethod: React.FC<TerminalPaymentMethodProps> = ({
   stripeReaders,
   isLoading = false,
+  selectedReaderId,
+  savePaymentMethod,
+  onSelectedReaderIdChange,
+  onSavePaymentMethodChange,
 }: TerminalPaymentMethodProps) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
-  const [selectedReaderId, setSelectedReaderId] = useState<string | null>(null);
-  const [savePaymentMethod, setSavePaymentMethod] = useState(false);
   const savePaymentMethodId = useId();
 
   useEffect(() => {
     if (stripeReaders.length === 0) {
-      setSelectedReaderId(null);
+      onSelectedReaderIdChange(null);
       return;
     }
 
@@ -31,9 +43,9 @@ export const TerminalPaymentMethod: React.FC<TerminalPaymentMethodProps> = ({
     );
 
     if (!hasSelectedReader) {
-      setSelectedReaderId(stripeReaders[0]?.id ?? null);
+      onSelectedReaderIdChange(stripeReaders[0]?.id ?? null);
     }
-  }, [selectedReaderId, stripeReaders]);
+  }, [onSelectedReaderIdChange, selectedReaderId, stripeReaders]);
 
   if (isLoading) {
     return (
@@ -67,16 +79,19 @@ export const TerminalPaymentMethod: React.FC<TerminalPaymentMethodProps> = ({
             actionable
             elevated
             selected={selectedReaderId === reader.id}
-            onClick={() => setSelectedReaderId(reader.id)}
+            onClick={() => onSelectedReaderIdChange(reader.id)}
           >
-            <div className="flex min-w-0 flex-1 flex-col gap-2xs">
-              <Title htmlVariant="h5" color="default" weight="strong">
-                {reader.label}
-              </Title>
-              <Body htmlVariant="p" size="lg" color="default">
-                {reader.serial_number ||
-                  t("paymentFlowModal.terminal.unknownSerial")}
-              </Body>
+            <div className="flex min-w-0 flex-1 flex-row items-center gap-sm">
+              <Icon icon="payment-terminal" size="md" />
+              <div className="flex min-w-0 flex-1 flex-col gap-2xs">
+                <Title htmlVariant="h5" color="default" weight="strong">
+                  {reader.label}
+                </Title>
+                <Body htmlVariant="p" size="lg" color="default">
+                  {reader.serial_number ||
+                    t("paymentFlowModal.terminal.unknownSerial")}
+                </Body>
+              </div>
             </div>
           </Card>
         ))}
@@ -86,7 +101,7 @@ export const TerminalPaymentMethod: React.FC<TerminalPaymentMethodProps> = ({
         id={`payment-flow-modal-terminal-save-checkbox-${savePaymentMethodId}`}
         label={t("paymentFlowModal.terminal.saveLabel")}
         value={savePaymentMethod ? "checked" : "unchecked"}
-        onChange={setSavePaymentMethod}
+        onChange={onSavePaymentMethodChange}
       />
     </div>
   );

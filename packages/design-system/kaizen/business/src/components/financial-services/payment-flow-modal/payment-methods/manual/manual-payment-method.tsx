@@ -1,4 +1,4 @@
-import React, { useId, useMemo, useState } from "react";
+import React, { useId, useMemo } from "react";
 
 import { getLocalNow } from "@bsport/datetime-manipulation";
 import {
@@ -12,27 +12,26 @@ import { getCompanyTimezone } from "@bsport/timezone-utils";
 
 import { i18nInstance, useTranslation } from "#src/i18n";
 
-type ManualMethodType =
-  | "card_manual_machine"
-  | "cash"
-  | "check"
-  | "vacation_check"
-  | "american_express"
-  | "transfer"
-  | "other"
-  | "client_credit_balance";
+import { type ManualMethodType, isManualMethodType } from "./types";
 
-const DEFAULT_MANUAL_METHOD: ManualMethodType = "card_manual_machine";
+type ManualPaymentMethodProps = {
+  manualType: ManualMethodType;
+  paymentDate: SelectedDate;
+  note: string;
+  onManualTypeChange: (value: ManualMethodType) => void;
+  onPaymentDateChange: (value: SelectedDate) => void;
+  onNoteChange: (value: string) => void;
+};
 
-export const ManualPaymentMethod: React.FC = () => {
+export const ManualPaymentMethod: React.FC<ManualPaymentMethodProps> = ({
+  manualType,
+  paymentDate,
+  note,
+  onManualTypeChange,
+  onPaymentDateChange,
+  onNoteChange,
+}: ManualPaymentMethodProps) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
-  const [manualType, setManualType] = useState<ManualMethodType>(
-    DEFAULT_MANUAL_METHOD,
-  );
-  const [paymentDate, setPaymentDate] = useState<SelectedDate>(
-    getLocalNow({ zone: getCompanyTimezone() }),
-  );
-  const [note, setNote] = useState("");
 
   const manualTypeId = useId();
   const manualDateId = useId();
@@ -90,7 +89,11 @@ export const ManualPaymentMethod: React.FC = () => {
           label={t("paymentFlowModal.manual.fields.type.label")}
           items={manualTypeOptions}
           value={manualType}
-          onChange={(value) => setManualType(value as ManualMethodType)}
+          onChange={(value) => {
+            if (isManualMethodType(value)) {
+              onManualTypeChange(value);
+            }
+          }}
         />
         <DatePicker
           id={`payment-flow-manual-date-${manualDateId}`}
@@ -103,7 +106,9 @@ export const ManualPaymentMethod: React.FC = () => {
           dateValue={paymentDate}
           onSelect={(date: SelectedDate) => {
             if (Array.isArray(date)) return;
-            setPaymentDate(date ?? getLocalNow({ zone: getCompanyTimezone() }));
+            onPaymentDateChange(
+              date ?? getLocalNow({ zone: getCompanyTimezone() }),
+            );
           }}
         />
       </div>
@@ -113,7 +118,7 @@ export const ManualPaymentMethod: React.FC = () => {
         value={note}
         placeholder={t("paymentFlowModal.manual.fields.note.placeholder")}
         onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
-          setNote(event.target.value)
+          onNoteChange(event.target.value)
         }
       />
     </div>

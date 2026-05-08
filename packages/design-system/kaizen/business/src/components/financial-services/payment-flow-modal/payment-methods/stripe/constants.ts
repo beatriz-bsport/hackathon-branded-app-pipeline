@@ -7,6 +7,9 @@ import type {
 
 export type StripeMethod = "card" | "sepa_debit";
 
+export const STRIPE_ELEMENT_VALIDATION_ERROR =
+  "STRIPE_ELEMENT_VALIDATION_ERROR";
+
 type BuildElementsOptionsParams = {
   amount: number;
   currency: string;
@@ -28,6 +31,8 @@ export const buildStripeElementsOptions = ({
   amount,
   currency,
   loader: "never",
+  // Intentionally pinned to a single method selected in our custom selector above.
+  // This avoids rendering a duplicate method choice UI inside PaymentElement.
   paymentMethodTypes,
   appearance,
   ...(stripeLocale ? { locale: stripeLocale as StripeElementLocale } : {}),
@@ -36,6 +41,8 @@ export const buildStripeElementsOptions = ({
 
 const CARD_PAYMENT_ELEMENT_OPTIONS: StripePaymentElementOptions = {
   layout: "tabs",
+  // Wallets are intentionally disabled for this flow to keep method selection
+  // fully controlled by our custom selector.
   wallets: {
     applePay: "never",
     googlePay: "never",

@@ -141,6 +141,7 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
   ).map((option) => ({
     id: option.id,
     label: t(option.labelKey),
+    iconLeft: option.iconLeft,
   }));
 
   const [currentSelection, setCurrentSelection] =
@@ -160,6 +161,7 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
   const allItems: Item[] = allMethodsItems.map((item) => ({
     id: toSelectValue({ kind: "all", id: item.id }),
     label: item.label,
+    iconLeft: item.iconLeft,
     rightSlot: adornmentByAllMethodId?.[item.id],
   }));
 

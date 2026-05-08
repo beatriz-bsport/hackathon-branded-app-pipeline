@@ -3,6 +3,7 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 import {
   type StripeReader,
   fetchStripeReadersAPI,
+  terminalKeys,
 } from "@bsport/api-financial-services/terminal";
 import type { Fetch } from "@bsport/fetch";
 
@@ -24,7 +25,7 @@ const fetchStripeReadersQueryOptions = ({
   enabled,
 }: UseFetchStripeReadersParams) =>
   queryOptions({
-    queryKey: ["payment-flow-modal", "stripe-readers"],
+    queryKey: terminalKeys.readers(),
     queryFn: () => fetchStripeReaders(fetch),
     staleTime: STRIPE_READERS_STALE_TIME,
     enabled,

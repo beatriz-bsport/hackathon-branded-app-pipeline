@@ -41,6 +41,27 @@
     "appsDir": "apps",
     "libsDir": "packages"
   },
+  "release": {
+    "projects": ["*"],
+    "projectsRelationship": "fixed",
+    "releaseTagPattern": "v{version}",
+    "releaseTagPatternCheckAllBranchesWhen": true,
+    "releaseTagPatternRequireSemver": true,
+    "git": {
+      "commit": false,
+      "stageChanges": false,
+      "tag": false,
+      "push": false
+    },
+    "changelog": {
+      "workspaceChangelog": false,
+      "projectChangelogs": false
+    },
+    "version": {
+      "conventionalCommits": true,
+      "versionActions": "./tools/nx/src/release/tag-version-actions.ts"
+    }
+  },
   "plugins": [
     {
       "plugin": "@bsport/nx",

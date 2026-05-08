@@ -1,14 +1,12 @@
 Validate MR Title:
-  image: node:22-alpine
+  image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/dockerhub/commitizen/commitizen:4.12.1
   stage: init
   interruptible: true
-  allow_failure: true
   tags:
     - light
     - cluster:bsport-tooling
   script:
-    - chmod +x ./tools/scripts/validate-mr-title.sh
-    - ./tools/scripts/validate-mr-title.sh "$CI_MERGE_REQUEST_TITLE"
+    - cz check --message "$CI_MERGE_REQUEST_TITLE" --allowed-prefixes --message-length-limit 80
   rules:
     - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"
       when: "never"

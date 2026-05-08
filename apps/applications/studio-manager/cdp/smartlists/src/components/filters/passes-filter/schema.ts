@@ -3,15 +3,24 @@ import { z } from "zod";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { OWNERSHIP_OPTIONS } from "./constants";
+import { PASS_SUB_FILTER_IDS } from "./sub-filters/pass-sub-filter-id";
+import { purchaseDateValueSchema } from "./sub-filters/purchase-date/schema";
+import { REGISTERED_PASS_SUB_FILTERS } from "./sub-filters/registry";
 import type { PassesFilterFormValue } from "./types";
 
 const I18N_NAMESPACE = "sm-smartlists_campaign-filters";
 
 /**
- * Validation schema for the base pass filter (ownership scope only).
+ * Allowed `subFilters` entries. When a new sub-filter is registered, add its
+ * id literal here (and in `PASS_SUB_FILTER_IDS`).
+ */
+const subFilterIdSchema = z.array(z.literal(PASS_SUB_FILTER_IDS.purchaseDate));
+
+/**
+ * Validation schema for the pass filter (base fields + registered sub-filters).
  *
- * Sub-filter rules are not declared here yet; they will be composed by future
- * sub-filter modules.
+ * Each sub-filter module contributes its own `refine` callback so rules stay
+ * co-located with the feature.
  */
 export const passesFilterSchema = z
   .object({
@@ -20,6 +29,8 @@ export const passesFilterSchema = z
     ownership: z.enum([OWNERSHIP_OPTIONS.own, OWNERSHIP_OPTIONS.doesNotOwn]),
     selectAllPaymentPacks: z.boolean(),
     selectedPaymentPackIds: z.array(z.number().int().positive()),
+    subFilters: subFilterIdSchema,
+    purchaseDate: purchaseDateValueSchema,
   })
   .superRefine((value, context) => {
     if (
@@ -34,5 +45,10 @@ export const passesFilterSchema = z
           { ns: I18N_NAMESPACE },
         ),
       });
+    }
+  })
+  .superRefine((value, context) => {
+    for (const passSubFilterModule of REGISTERED_PASS_SUB_FILTERS) {
+      passSubFilterModule.refine(value, context);
     }
   }) satisfies z.ZodType<PassesFilterFormValue>;

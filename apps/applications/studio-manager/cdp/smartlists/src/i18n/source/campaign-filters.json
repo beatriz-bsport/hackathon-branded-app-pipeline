@@ -39,6 +39,10 @@
       },
       "validation": {
         "selectedPassesRequired": "Select at least one pass or use all passes.",
+        "purchaseDateRequired": "Select a purchase date.",
+        "purchaseDateBetweenRequired": "Select both dates for the between range.",
+        "purchaseDateDurationRequired": "Enter a number of days.",
+        "purchaseDateDurationBetweenRequired": "Enter both day values for the between range.",
         "creditValueRequired": "Credit value is required.",
         "creditSecondValueRequired": "Second credit value is required for range comparator."
       }

@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { createDefaultPassesFilter } from "#src/components/filters/passes-filter/default-value";
 import { passesFilterSchema } from "#src/components/filters/passes-filter/schema";
+import { PASS_SUB_FILTER_IDS } from "#src/components/filters/passes-filter/sub-filters/pass-sub-filter-id";
 import type { PassesFilterFormValue } from "#src/components/filters/passes-filter/types";
 
 vi.mock("#src/utils/i18n", () => ({
@@ -71,6 +72,26 @@ describe("passesFilterSchema", () => {
       ...buildFormValue({ selectAllPaymentPacks: true }),
       ownership: "unknown",
     };
+
+    const result = passesFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects purchase date sub-filter when active but absolute from date is missing", () => {
+    const value = buildFormValue({
+      selectAllPaymentPacks: true,
+      subFilters: [PASS_SUB_FILTER_IDS.purchaseDate],
+      purchaseDate: {
+        ...createDefaultPassesFilter(1).purchaseDate,
+        dateType: "absolute",
+        absolute: {
+          operator: "on_or_after",
+          fromDate: null,
+          toDate: null,
+        },
+      },
+    });
 
     const result = passesFilterSchema.safeParse(value);
 

@@ -1,6 +1,7 @@
 import type { FieldNamesMarkedBoolean } from "react-hook-form";
 
 import { OWNERSHIP_OPTIONS } from "../constants";
+import { REGISTERED_PASS_SUB_FILTERS } from "../sub-filters/registry";
 import type { DirtyPatchPayload, PassesFilterFormValue } from "../types";
 
 type PassesFilterDirtyFields = Partial<
@@ -21,9 +22,9 @@ const isDirty = (entry: unknown): boolean => {
  * Builds a `PATCH /payment_pack/{id}/` payload from React Hook Form's
  * `dirtyFields` snapshot.
  *
- * Only fields the user has actually changed end up in the payload, which keeps
- * the request minimal and avoids accidentally overwriting sub-filter API
- * fields that are not yet managed by this UI.
+ * Base fields and every registered sub-filter module append their own dirty
+ * slices. Modules are responsible for only emitting keys that actually changed
+ * relative to the dirty subtree they own.
  *
  * @param dirtyFields - Output of `formState.dirtyFields` for the form.
  * @param value - Current form value used to read the dirty leaves from.
@@ -42,6 +43,13 @@ export const buildDirtyPatchPayload = (
   }
   if (isDirty(dirtyFields.selectedPaymentPackIds)) {
     payload.payment_packs = value.selectedPaymentPackIds;
+  }
+
+  for (const passSubFilterModule of REGISTERED_PASS_SUB_FILTERS) {
+    Object.assign(
+      payload,
+      passSubFilterModule.appendDirtyPatchSlice(dirtyFields, value),
+    );
   }
 
   return payload;

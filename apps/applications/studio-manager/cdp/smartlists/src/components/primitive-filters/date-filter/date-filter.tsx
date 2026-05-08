@@ -149,25 +149,12 @@ export const DateFilter = ({
       parsedValue === null || Number.isNaN(parsedValue)
         ? null
         : Math.max(0, parsedValue);
-    const nextFirstDays =
-      key === "firstDays" ? sanitizedValue : currentValue.relative.firstDays;
-    const nextSecondDays =
-      key === "secondDays" ? sanitizedValue : currentValue.relative.secondDays;
-    const normalizedFirstDays =
-      nextFirstDays !== null && nextSecondDays !== null
-        ? Math.min(nextFirstDays, nextSecondDays)
-        : nextFirstDays;
-    const normalizedSecondDays =
-      nextFirstDays !== null && nextSecondDays !== null
-        ? Math.max(nextFirstDays, nextSecondDays)
-        : nextSecondDays;
 
     emitChange({
       ...currentValue,
       relative: {
         ...currentValue.relative,
-        firstDays: normalizedFirstDays,
-        secondDays: normalizedSecondDays,
+        [key]: sanitizedValue,
       },
     });
   };

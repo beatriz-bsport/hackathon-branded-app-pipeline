@@ -1,9 +1,16 @@
 import type { FieldNamesMarkedBoolean } from "react-hook-form";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { createDefaultPassesFilter } from "#src/components/filters/passes-filter/default-value";
 import { buildDirtyPatchPayload } from "#src/components/filters/passes-filter/mappers/build-dirty-patch";
+import { PASS_SUB_FILTER_IDS } from "#src/components/filters/passes-filter/sub-filters/pass-sub-filter-id";
 import type { PassesFilterFormValue } from "#src/components/filters/passes-filter/types";
+
+vi.mock("#src/utils/i18n", () => ({
+  i18nInstance: {
+    t: (key: string) => key,
+  },
+}));
 
 type DirtyFields = Partial<
   Readonly<FieldNamesMarkedBoolean<PassesFilterFormValue>>
@@ -88,5 +95,23 @@ describe("buildDirtyPatchPayload", () => {
       payment_packs: [5],
     });
     expect(payload).not.toHaveProperty("smartlist");
+  });
+
+  it("includes purchase date API fields when `subFilters` is dirty", () => {
+    const value = createDefaultPassesFilter(1);
+    value.selectAllPaymentPacks = true;
+    value.subFilters = [PASS_SUB_FILTER_IDS.purchaseDate];
+    value.purchaseDate.dateType = "absolute";
+    value.purchaseDate.absolute.operator = "on_or_after";
+    value.purchaseDate.absolute.fromDate = "2026-04-10";
+    value.purchaseDate.absolute.toDate = null;
+    const dirtyFields: DirtyFields = {
+      subFilters: [true],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.date_filter_active).toBe(true);
+    expect(payload.date_bought).toBe("2026-04-10");
   });
 });

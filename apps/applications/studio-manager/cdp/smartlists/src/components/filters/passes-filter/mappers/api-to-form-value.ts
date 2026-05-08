@@ -1,24 +1,41 @@
-import { type PaymentPackFilter } from "@bsport/api-cdp/smartlist";
+import type { PaymentPackFilter } from "@bsport/api-cdp/smartlist";
+
+import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 
 import { OWNERSHIP_OPTIONS } from "../constants";
+import { REGISTERED_PASS_SUB_FILTERS } from "../sub-filters/registry";
 import type { PassesFilterFormValue } from "../types";
 
 /**
  * Converts a server-side `PaymentPackFilter` payload into the UI form value.
  *
- * Sub-filter API fields (`date_*`, `credit_*`, `expiration_*`) are
- * intentionally ignored at this stage. They will round-trip safely because the
- * dirty patch builder never marks them as dirty when no sub-filter UI is
- * touching them.
+ * Base fields are mapped directly. Each registered sub-filter module reads its
+ * own API slice; active modules are reflected in `subFilters`, and each module
+ * may merge additional slots through `partial`.
  */
 export const mapApiFilterToFormValue = (
   filter: PaymentPackFilter,
-): PassesFilterFormValue => ({
-  id: filter.id,
-  smartlist: filter.smartlist,
-  ownership: filter.has_pack
-    ? OWNERSHIP_OPTIONS.own
-    : OWNERSHIP_OPTIONS.doesNotOwn,
-  selectAllPaymentPacks: filter.select_all_payment_packs,
-  selectedPaymentPackIds: filter.payment_packs ?? [],
-});
+): PassesFilterFormValue => {
+  const subFilters: PassesFilterFormValue["subFilters"] = [];
+  const partialForm: Partial<PassesFilterFormValue> = {};
+
+  for (const passSubFilterModule of REGISTERED_PASS_SUB_FILTERS) {
+    const readResult = passSubFilterModule.readFromApi(filter);
+    if (readResult.isActive) {
+      subFilters.push(passSubFilterModule.id);
+    }
+    Object.assign(partialForm, readResult.partial);
+  }
+
+  return {
+    id: filter.id,
+    smartlist: filter.smartlist,
+    ownership: filter.has_pack
+      ? OWNERSHIP_OPTIONS.own
+      : OWNERSHIP_OPTIONS.doesNotOwn,
+    selectAllPaymentPacks: filter.select_all_payment_packs,
+    selectedPaymentPackIds: filter.payment_packs ?? [],
+    subFilters,
+    purchaseDate: partialForm.purchaseDate ?? defaultDateFilterValue,
+  };
+};

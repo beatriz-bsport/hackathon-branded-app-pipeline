@@ -44,7 +44,7 @@ export const WaitList: FC<{
   sessionId,
   searchQuery,
   readOnly = false,
-  paginationNamespace = "waiting-list",
+  paginationNamespace = WaitlistFilter.ON_WAITLIST,
   openModal,
 }) => {
   const { t } = useTranslation("sessionManagement");

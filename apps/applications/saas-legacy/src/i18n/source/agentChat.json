@@ -5,5 +5,8 @@
     "member": "Me"
   },
   "sendButton": "Send",
-  "messageInputAriaLabel": "Write your message here"
+  "messageInputAriaLabel": "Write your message here",
+  "modal": {
+    "subtitle": "Chat with us! (AI)"
+  }
 }

@@ -322,6 +322,9 @@ class BsportWidget extends Component<Props> {
                 customConfiguration={this.props.customConfiguration}
                 usePostMessageIframeDimensions={usePostMessageIframeDimensions}
                 usePostMessageIfameScrollup={usePostMessageIfameScrollup}
+                title={this.props.dialog.title}
+                subtitle={this.props.dialog.subtitle}
+                avatarUrl={this.props.dialog.avatarUrl}
               />
               {!!this.props.theme &&
                 !this.props.theme.is_premium &&

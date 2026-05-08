@@ -105,7 +105,7 @@ export const CancelledWaitlist: FC<{
     >
       <Table
         columns={columns}
-        rowHeight="lg"
+        rowHeight="sm"
         rows={searchedBookingOptions.map((bookingOption) => ({
           ...bookingOption,
           ...(!readOnly && {
@@ -125,7 +125,7 @@ export const CancelledWaitlist: FC<{
         emptyStateProps={{
           isEmpty: !searchedBookingOptions.length,
           emptyConfig: {
-            title: t("waitList.emptyState.convertible"),
+            title: t("waitList.emptyState.removed"),
           },
         }}
         loadingProps={{

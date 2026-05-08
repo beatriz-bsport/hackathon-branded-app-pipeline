@@ -21,6 +21,9 @@ interface OwnProps {
   parentElementId: string;
   styles: string;
   customConfiguration: string;
+  title?: string;
+  subtitle?: string;
+  avatarUrl?: string;
   usePostMessageIframeDimensions?: boolean;
   usePostMessageIfameScrollup?: boolean;
 }
@@ -98,6 +101,9 @@ class UserInteractionPortal extends React.PureComponent<Props> {
         styles={this.props.styles}
         customConfiguration={this.props.customConfiguration}
         onClose={this.props.onClose}
+        title={this.props.title}
+        subtitle={this.props.subtitle}
+        avatarUrl={this.props.avatarUrl}
       />
     );
   }

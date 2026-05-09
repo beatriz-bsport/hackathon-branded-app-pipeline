@@ -5,6 +5,8 @@ include:
   extends: .Deploy Common Base
   stage: deploy
   rules:
+    - if: $MAINTENANCE_ENV
+      when: never
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

@@ -65,6 +65,7 @@
     "editClientNotes": "Edit client notes",
     "bookToClass": "Book to the class",
     "removeFromWaitlist": "Remove from waitlist",
+    "impossibleToRemoveFromWaitlist": "Class already started, it's not possible to remove members from the waitlist",
     "assignSpot": {
       "success": "Spot assigned",
       "error": "Couldn't assign the spot"
@@ -130,6 +131,15 @@
     "viewWaitlistMembers": {
       "title": "Waitlist members",
       "subtitle": "Members are still on the waitlist, but it is currently paused for this session. You can reactivate it at any time and the existing order will be preserved."
+    },
+    "removeFromWaitlist": {
+      "title": "Remove from waitlist?",
+      "body": "Are you sure you want to remove this member from the waitlist?",
+      "sendNotification": "Send a notification",
+      "confirmButton": "Remove",
+      "closeButton": "Close",
+      "confirmation": "Member removed from waitlist",
+      "error": "Couldn't remove member from waitlist"
     }
   },
   "bookingAttendanceFilter": {

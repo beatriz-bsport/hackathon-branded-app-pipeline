@@ -14,6 +14,10 @@ import { Loader } from "#src/components/query-boundary/fallbacks";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { ShortcutActionsButton } from "#src/components/session-management/action-buttons/booking/shortcut-actions-button";
 import { BookingActionItemId } from "#src/components/session-management/action-buttons/booking/types";
+import {
+  type SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals.js";
 import { useFetchWaitingListConfiguration } from "#src/hooks/waitlist/use-fetch-waitlist-configuration";
 import { useRetrieveRefinedBookingOption } from "#src/hooks/waitlist/use-retrieve-refined-booking-option";
 import { LEGACY_URLS } from "#src/urls";
@@ -26,7 +30,11 @@ import { ClientDetails } from "./client-details";
 export const BookingOptionDetailDrawer: FC<{
   selectedBookingOptionId: number | null;
   onClose: () => void;
-}> = ({ selectedBookingOptionId, onClose }) => {
+  openModal: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
+}> = ({ selectedBookingOptionId, onClose, openModal }) => {
   return (
     <DetailDrawer
       id="booking-option-detail-drawer"
@@ -39,6 +47,7 @@ export const BookingOptionDetailDrawer: FC<{
         <QueryBoundary>
           <BookingOptionDetailDrawerContent
             bookingOptionId={selectedBookingOptionId}
+            openModal={openModal}
           />
         </QueryBoundary>
       )}
@@ -48,7 +57,11 @@ export const BookingOptionDetailDrawer: FC<{
 
 const BookingOptionDetailDrawerContent: FC<{
   bookingOptionId: number;
-}> = ({ bookingOptionId }) => {
+  openModal: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
+}> = ({ bookingOptionId, openModal }) => {
   const { t, i18n } = useTranslation("sessionManagement");
   const locale = i18n.language;
 
@@ -105,6 +118,7 @@ const BookingOptionDetailDrawerContent: FC<{
           <ShortcutActionsButton
             bookingOptionId={refinedBookingOption.id}
             sessionId={refinedBookingOption.offer.id}
+            openModal={openModal}
             allowedItemIds={[
               BookingActionItemId.BOOK_OPTION,
               BookingActionItemId.REMOVE_FROM_WAITLIST,

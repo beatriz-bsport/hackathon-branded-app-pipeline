@@ -6,7 +6,10 @@ import { QueryBoundary } from "#src/components/query-boundary/query-boundary.js"
 import { AttendanceFilter } from "#src/components/session-management/filters/attendance-filter";
 import { BookingStatusSegmentedControl } from "#src/components/session-management/filters/booking-status-segmented-control";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
-import type { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import type {
+  SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
 import { BookingStatusFilter } from "#src/stores/session-management/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -17,7 +20,10 @@ import { CancelledBookingsTable } from "./bookings-tables/cancelled-bookings-tab
 export const ParticipantsSection: FC<{
   sessionId: number;
   searchQuery: string;
-  openModal: (type: SessionManagementModalType, bookingId?: number) => void;
+  openModal: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
 }> = ({ sessionId, searchQuery, openModal }) => {
   const { t } = useTranslation("sessionManagement");
   const { data: session } = useRetrieveSession(sessionId);

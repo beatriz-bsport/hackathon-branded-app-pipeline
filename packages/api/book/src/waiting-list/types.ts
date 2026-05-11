@@ -17,6 +17,12 @@ export type BookingOptionListParams = {
   cancelled?: boolean;
 };
 
+// === Request Body (POST discard) ===
+export type DiscardBookingOptionParams = {
+  disable_notification?: boolean;
+  update_waiting_list?: boolean;
+};
+
 // === API Response Types === GET waiting-list/booking-option/
 export type BookingOption = {
   id: number;

@@ -1,6 +1,7 @@
 import { FC, useCallback } from "react";
 import { useNavigate } from "react-router";
 
+import { fromIsoString, getLocalNow } from "@bsport/datetime-manipulation";
 import { openCheckoutFlow } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
 import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 
@@ -8,7 +9,10 @@ import { ActionsMenuButton } from "#src/components/common/action-menu-button";
 import { useAssignSpotAction } from "#src/hooks/booking/actions/use-assign-spot-action";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import {
+  type SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
@@ -20,7 +24,10 @@ export const ShortcutActionsButton: FC<{
   bookingId?: number;
   bookingOptionId?: number;
   memberId?: number;
-  openModal?: (type: SessionManagementModalType, bookingId: number) => void;
+  openModal?: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
   allowedItemIds?: ActionItemId[];
   participantEmail?: string;
   participantPhone?: string;
@@ -78,6 +85,14 @@ export const ShortcutActionsButton: FC<{
     "member.allowed_actions.accessProfile",
   );
 
+  const hasSessionStarted = (() => {
+    const startDateTime = fromIsoString(session.date_start, {
+      zone: session.timezone_name,
+    });
+    const now = getLocalNow({ zone: session.timezone_name });
+    return now >= startDateTime;
+  })();
+
   const { openModal: openAssignSpotModal, modalElement: assignSpotModal } =
     useAssignSpotAction({ bookingId: bookingId ?? 0, sessionId, currentSpot });
 
@@ -122,7 +137,7 @@ export const ShortcutActionsButton: FC<{
         type: "button",
         onClick: () => {
           if (!openModal || !bookingId) return;
-          openModal(SessionManagementModalType.CANCEL_BOOKING, bookingId);
+          openModal(SessionManagementModalType.CANCEL_BOOKING, { bookingId });
           setIsPopoverOpened(false);
         },
       };
@@ -215,8 +230,12 @@ export const ShortcutActionsButton: FC<{
         label: t("actions.removeFromWaitlist"),
         iconLeft: "trash-01",
         type: "button",
+        disabled: hasSessionStarted || !openModal,
         onClick: () => {
-          // TODO: implement remove from waitlist action
+          if (!openModal || !bookingOptionId) return;
+          openModal(SessionManagementModalType.DISCARD_BOOKING_OPTION, {
+            bookingOptionId,
+          });
           setIsPopoverOpened(false);
         },
       };
@@ -245,7 +264,7 @@ export const ShortcutActionsButton: FC<{
         ...(hasCreateBookingPermission && bookingOptionId
           ? [bookOptionAction]
           : []),
-        ...(bookingOptionId ? [removeFromWaitlistAction] : []),
+        ...(bookingOptionId && openModal ? [removeFromWaitlistAction] : []),
       ];
 
       if (!allowedItemIds) return allItems;
@@ -275,6 +294,7 @@ export const ShortcutActionsButton: FC<{
       session,
       hasSeeProfileDetailsPermission,
       bookingOptionId,
+      hasSessionStarted,
     ],
   );
 

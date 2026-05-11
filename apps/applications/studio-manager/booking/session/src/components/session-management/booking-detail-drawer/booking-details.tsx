@@ -20,7 +20,10 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import {
+  type SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals";
 import { useFetchUserRole } from "#src/hooks/user-role/use-fetch-user-roles";
 import { RefinedBooking } from "#src/types";
 import { LEGACY_URLS } from "#src/urls";
@@ -50,7 +53,10 @@ const getLastCancellationStaffHistoryEntry = (
 
 export const BookingDetails: FC<{
   selectedBooking: RefinedBooking;
-  openModal: (type: SessionManagementModalType, bookingId: number) => void;
+  openModal: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
 }> = ({ selectedBooking, openModal }) => {
   const { t, i18n } = useTranslation("sessionManagement");
   const locale = i18n.language;

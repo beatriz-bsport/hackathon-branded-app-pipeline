@@ -77,6 +77,14 @@ const meta: Meta<typeof Modal> = {
     cancelButton: {
       control: { type: "object" },
     },
+    disableClose: {
+      control: { type: "boolean" },
+      table: { defaultValue: { summary: "false" } },
+    },
+    disableClickOutsideClose: {
+      control: { type: "boolean" },
+      table: { defaultValue: { summary: "false" } },
+    },
     children: {
       table: { type: { summary: "ReactNode" } },
     },
@@ -98,8 +106,7 @@ const args: ModalProps = {
   open: false,
   size: "md",
   title: "Modal title",
-  description:
-    "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support.",
+  description: "Modal description",
   footerDirection: "row",
   onClose: () => console.log("modal closed"),
   onCloseButtonClick: () => console.log("cross button clicked"),
@@ -242,6 +249,96 @@ export const ModalConfirmClosing: Story = {
     );
   },
   args,
+};
+
+/**
+ * When `disableClickOutsideClose` is set to `true`, clicking outside the modal
+ * does not close it. All other close actions (close button, Escape key, cancel
+ * button) remain available.
+ */
+export const ModalDisableClickOutsideClose: Story = {
+  name: "Modal disable click outside close",
+  render: (args) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleOpen = () => setIsOpen(true);
+    const handleClose = () => setIsOpen(false);
+
+    useEffect(() => {
+      setIsOpen(args.open);
+    }, [args.open]);
+
+    return (
+      <>
+        <Button
+          label="Open Modal"
+          size="md"
+          intent="default"
+          color="main"
+          onClick={handleOpen}
+        />
+        <Modal
+          {...args}
+          open={isOpen}
+          onClose={handleClose}
+          disableClickOutsideClose
+        >
+          Clicking outside this modal will not close it. Use the close button,
+          Escape key, or cancel button instead.
+        </Modal>
+      </>
+    );
+  },
+  args: {
+    ...args,
+    disableClickOutsideClose: true,
+  },
+};
+
+/**
+ * When `disableClose` is set to `true`, the close button is hidden and the modal
+ * cannot be dismissed via the Escape key or by clicking the backdrop.
+ */
+export const ModalNonClosable: Story = {
+  name: "Modal non-closable",
+  render: (args) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleOpen = () => setIsOpen(true);
+
+    useEffect(() => {
+      setIsOpen(args.open);
+    }, [args.open]);
+
+    return (
+      <>
+        <Button
+          label="Open Modal"
+          size="md"
+          intent="default"
+          color="main"
+          onClick={handleOpen}
+        />
+        <Modal
+          {...args}
+          open={isOpen}
+          disableClose
+          confirmButton={{
+            label: "Got it",
+            color: "main",
+            onClick: () => setIsOpen(false),
+          }}
+          cancelButton={undefined}
+        >
+          This modal cannot be closed via the Escape key, the backdrop, or a
+          close button. Use the action button to dismiss it.
+        </Modal>
+      </>
+    );
+  },
+  args: {
+    ...args,
+    disableClose: true,
+    cancelButton: undefined,
+  },
 };
 
 /**

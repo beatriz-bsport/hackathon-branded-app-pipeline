@@ -73,6 +73,7 @@ export type DialogProps = React.HTMLAttributes<HTMLDivElement> & {
   open: boolean;
   size: DialogSize;
   position?: DialogPosition;
+  disableClose?: boolean;
   onClose?: () => void;
   onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
@@ -91,6 +92,7 @@ const Dialog: React.FC<DialogProps> = ({
   open,
   size,
   position = "centered",
+  disableClose = false,
   onClose,
   onClickOutside,
   children,
@@ -118,6 +120,7 @@ const Dialog: React.FC<DialogProps> = ({
   };
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (disableClose) return;
     if (event.target === event.currentTarget) {
       if (onClickOutside) {
         onClickOutside(event);
@@ -140,7 +143,7 @@ const Dialog: React.FC<DialogProps> = ({
     }
   }, [open]);
 
-  useEscapeKeydownListener(handleClose, open, backdropRef);
+  useEscapeKeydownListener(handleClose, open && !disableClose, backdropRef);
 
   if (!open && !isMounted) return null;
 

@@ -198,7 +198,9 @@ export default compose(
       (params: SubscriptionQueryParams) => {
         fetchSubscriptionEventList(params, {
           onSuccess: (eventList: Array<SubscriptionEvent>) =>
-            fetchSubscriptionBulk(eventList.map((e) => e.data.billing_plan)),
+            fetchSubscriptionBulk(
+              eventList.map((e) => e.data?.billing_plan ?? e.data?.id),
+            ),
         });
       },
   }),

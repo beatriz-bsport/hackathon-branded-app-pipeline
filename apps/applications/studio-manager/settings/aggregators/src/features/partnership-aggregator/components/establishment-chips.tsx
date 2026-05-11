@@ -7,12 +7,20 @@ import {
   useCopyToClipboard,
 } from "@bsport/kaizen-primitive-core";
 
-import { useTranslation } from "#src/utils/i18n";
+import type { AccountRow } from "#src/features/partnership-aggregator/adapters/account-row";
+import type { AggregatorNamespace } from "#src/features/partnership-aggregator/types";
+import { type TFunction, useTranslation } from "#src/utils/i18n";
 
-import type { AccountRow } from "../adapters/account-row";
+const COPY_ID_KEYS = {
+  myclubs: "myclubs.table.actions.copyId",
+  wellhub: "wellhub.table.actions.copyId",
+  usc: "usc.table.actions.copyId",
+} as const satisfies Record<AggregatorNamespace, Parameters<TFunction>[0]>;
 
 type EstablishmentChipsProps = {
   establishments: AccountRow["establishments"];
+  namespace: AggregatorNamespace;
+  readOnly?: boolean;
 };
 
 const getInitials = (title: string): string =>
@@ -27,6 +35,8 @@ const getInitials = (title: string): string =>
 
 export const EstablishmentChips: FC<EstablishmentChipsProps> = ({
   establishments,
+  namespace,
+  readOnly = false,
 }) => {
   const { t } = useTranslation("common");
   const { copyToClipboard } = useCopyToClipboard();
@@ -63,7 +73,8 @@ export const EstablishmentChips: FC<EstablishmentChipsProps> = ({
                 color="default"
                 htmlVariant="span"
                 size="sm"
-                className="block truncate font-medium"
+                weight="strong"
+                className="block truncate"
               >
                 {establishment.title}
               </Body>
@@ -76,18 +87,20 @@ export const EstablishmentChips: FC<EstablishmentChipsProps> = ({
                 {renderedId}
               </Body>
             </div>
-            <Button
-              kind="icon-button"
-              icon="copy-07"
-              label={t("wellhub.table.actions.copyId")}
-              intent="flat"
-              size="md"
-              color="default"
-              onClick={() => {
-                if (establishment.disabled) return;
-                copyToClipboard(establishmentId);
-              }}
-            />
+            {(!readOnly || !establishment.disabled) && (
+              <Button
+                kind="icon-button"
+                icon="copy-07"
+                label={t(COPY_ID_KEYS[namespace])}
+                intent="flat"
+                size="md"
+                color="default"
+                onClick={() => {
+                  if (establishment.disabled) return;
+                  copyToClipboard(establishmentId);
+                }}
+              />
+            )}
           </div>
         );
       })}

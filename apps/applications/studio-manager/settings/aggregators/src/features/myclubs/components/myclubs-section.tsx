@@ -1,21 +1,27 @@
 import { type FC, useCallback, useState } from "react";
 
-import { type PartnershipAccount } from "@bsport/api-book";
-import { Body, Button } from "@bsport/kaizen-primitive-core";
+import {
+  type PartnershipAccount,
+  PartnershipIdentifier,
+} from "@bsport/api-book";
+import { Button } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { toAccountRow } from "#src/features/partnership-aggregator/adapters/account-row";
+import { AccountsTable } from "#src/features/partnership-aggregator/components/accounts-table";
+import { AggregatorSection } from "#src/features/partnership-aggregator/components/aggregator-section";
+import { ConfirmationModal } from "#src/features/partnership-aggregator/components/confirmation-modal";
+import { AggregatorLogo } from "#src/features/partnership-aggregator/components/logo";
+import { RowActionsMenu } from "#src/features/partnership-aggregator/components/row-actions-menu";
+import { useAggregatorAccounts } from "#src/features/partnership-aggregator/hooks/use-aggregator-accounts";
+import { useAggregatorEstablishments } from "#src/features/partnership-aggregator/hooks/use-aggregator-establishments";
+import { useAggregatorPartnershipId } from "#src/features/partnership-aggregator/hooks/use-aggregator-partnership-id";
+import { useDeleteAccount } from "#src/features/partnership-aggregator/hooks/use-delete-account";
+import { useReactivateAccount } from "#src/features/partnership-aggregator/hooks/use-reactivate-account";
+import { useUpdateAccount } from "#src/features/partnership-aggregator/hooks/use-update-account";
 import { useTranslation } from "#src/utils/i18n";
 
-import { toAccountRow } from "../adapters/account-row";
-import { useDeleteMyclubsAccount } from "../hooks/use-delete-myclubs-account";
-import { useMyclubsAccounts } from "../hooks/use-myclubs-accounts";
-import { useMyclubsEstablishments } from "../hooks/use-myclubs-establishments";
-import { useMyclubsPartnershipId } from "../hooks/use-myclubs-partnership-id";
-import { useReactivateMyclubsAccount } from "../hooks/use-reactivate-myclubs-account";
-import { useUpdateMyclubsAccount } from "../hooks/use-update-myclubs-account";
-import { MyClubsLogo } from "./my-clubs-logo";
-import { MyclubsAccountsTable } from "./myclubs-accounts-table";
-import { MyclubsConfirmationModal } from "./myclubs-confirmation-modal";
+import myClubsLogo from "./assets/my-clubs-logo.png";
 import { MyclubsConfigurationModal } from "./myclubs-form/myclubs-configuration-modal";
 import { type MyclubsFormSchema } from "./myclubs-form/schema";
 
@@ -36,26 +42,13 @@ const MyclubsAccountsSectionContent: FC<{
   companyId: number;
 }> = ({ partnershipId, companyId }) => {
   const { t } = useTranslation("common");
-  const { data: accounts } = useMyclubsAccounts(partnershipId);
-  const { data: establishments } = useMyclubsEstablishments(companyId);
+  const { data: accounts } = useAggregatorAccounts(partnershipId);
+  const { data: establishments } = useAggregatorEstablishments(companyId);
   const [modalState, setModalState] = useState<ModalState>(null);
 
-  const deleteMutation = useDeleteMyclubsAccount(partnershipId);
-  const updateMutation = useUpdateMyclubsAccount(partnershipId);
-  const reactivateMutation = useReactivateMyclubsAccount(partnershipId);
-
-  const allLinkedIds = new Set(
-    accounts.flatMap((a) => a.establishments.map((e) => e.id)),
-  );
-
-  const disabledEstablishmentIds: Set<number> =
-    modalState?.kind === "edit"
-      ? new Set(
-          [...allLinkedIds].filter(
-            (id) => !modalState.account.establishments.some((e) => e.id === id),
-          ),
-        )
-      : allLinkedIds;
+  const deleteMutation = useDeleteAccount(partnershipId, "myclubs");
+  const updateMutation = useUpdateAccount(partnershipId, "myclubs");
+  const reactivateMutation = useReactivateAccount(partnershipId, "myclubs");
 
   const handleEdit = useCallback(
     (id: string) => {
@@ -106,11 +99,18 @@ const MyclubsAccountsSectionContent: FC<{
 
   return (
     <>
-      <MyclubsAccountsTable
+      <AccountsTable
         rows={rows}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onReactivate={handleReactivate}
+        namespace="myclubs"
+        renderRowActions={(row) => (
+          <RowActionsMenu
+            status={row.status}
+            namespace="myclubs"
+            onEdit={() => handleEdit(row.id)}
+            onDelete={() => handleDelete(row.id)}
+            onReactivate={() => handleReactivate(row.id)}
+          />
+        )}
       />
       <Button
         key="button-generate-myclubs-partner-id"
@@ -118,6 +118,7 @@ const MyclubsAccountsSectionContent: FC<{
         intent="call-to-action"
         color="main"
         size="md"
+        className="ml-auto"
         label={t("myclubs.actions.generatePartnerId")}
         onClick={() => setModalState({ kind: "create" })}
       />
@@ -129,7 +130,6 @@ const MyclubsAccountsSectionContent: FC<{
           account={modalState.kind === "edit" ? modalState.account : undefined}
           partnershipId={partnershipId}
           establishments={establishments}
-          disabledEstablishmentIds={disabledEstablishmentIds}
           onEditSubmit={
             modalState.kind === "edit"
               ? handleEditSubmit(modalState.account)
@@ -139,7 +139,7 @@ const MyclubsAccountsSectionContent: FC<{
         />
       )}
       {modalState?.kind === "delete-warning" && (
-        <MyclubsConfirmationModal
+        <ConfirmationModal
           isOpen
           onClose={() => setModalState(null)}
           onConfirm={() =>
@@ -161,7 +161,7 @@ const MyclubsAccountsSectionContent: FC<{
         />
       )}
       {modalState?.kind === "reactivate-warning" && (
-        <MyclubsConfirmationModal
+        <ConfirmationModal
           isOpen
           onClose={() => setModalState(null)}
           onConfirm={() =>
@@ -183,7 +183,7 @@ const MyclubsAccountsSectionContent: FC<{
         />
       )}
       {modalState?.kind === "edit-warning" && (
-        <MyclubsConfirmationModal
+        <ConfirmationModal
           isOpen
           onClose={() => setModalState(null)}
           onConfirm={() =>
@@ -214,7 +214,9 @@ const MyclubsAccountsSectionContent: FC<{
 
 export const MyClubsSection: FC = () => {
   const { t } = useTranslation("common");
-  const { data: partnershipId } = useMyclubsPartnershipId();
+  const { data: partnershipId } = useAggregatorPartnershipId(
+    PartnershipIdentifier.MYCLUBS,
+  );
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
   // do not render the myclubs section if the partnership id or company id is not available
@@ -223,19 +225,14 @@ export const MyClubsSection: FC = () => {
   }
 
   return (
-    <section className="flex flex-col gap-md w-full">
-      <div className="flex flex-col gap-xs">
-        <div className="h-xl w-auto">
-          <MyClubsLogo />
-        </div>
-        <Body color="weak" size="lg" weight="weak">
-          {t("myclubs.section.subtitle")}
-        </Body>
-      </div>
+    <AggregatorSection
+      logo={<AggregatorLogo src={myClubsLogo} alt="MyClubs" />}
+      subtitle={t("myclubs.section.subtitle")}
+    >
       <MyclubsAccountsSectionContent
         partnershipId={partnershipId}
         companyId={companyId}
       />
-    </section>
+    </AggregatorSection>
   );
 };

@@ -8,18 +8,35 @@ import {
 import { toast } from "@bsport/kaizen-primitive-core";
 
 import { fetch } from "#src/utils/fetch";
-import { useTranslation } from "#src/utils/i18n";
+import { type TFunction, useTranslation } from "#src/utils/i18n";
+
+import type { MutableNamespace } from "../types";
 
 const updateAccount = updatePartnershipAccountAPI.bind(null, fetch);
 
-type Variables = {
-  accountId: string;
-  establishmentIds: number[];
-};
+const TOAST_KEYS = {
+  myclubs: {
+    success: "myclubs.toast.update.success",
+    error: "myclubs.toast.update.error",
+  },
+  wellhub: {
+    success: "wellhub.toast.update.success",
+    error: "wellhub.toast.update.error",
+  },
+} as const satisfies Record<
+  MutableNamespace,
+  Record<string, Parameters<TFunction>[0]>
+>;
 
-export const useUpdateMyclubsAccount = (partnershipId: number) => {
+type Variables = { accountId: string; establishmentIds: number[] };
+
+export const useUpdateAccount = (
+  partnershipId: number,
+  namespace: MutableNamespace,
+) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("common");
+  const keys = TOAST_KEYS[namespace];
 
   return useMutation<PartnershipAccount, Error, Variables>({
     mutationFn: ({ accountId, establishmentIds }) =>
@@ -34,14 +51,12 @@ export const useUpdateMyclubsAccount = (partnershipId: number) => {
       });
       toast({
         status: "default",
-        description: t("myclubs.toast.update.success"),
+        icon: "check",
+        description: t(keys.success),
       });
     },
     onError: () => {
-      toast({
-        status: "critical",
-        description: t("myclubs.toast.update.error"),
-      });
+      toast({ status: "critical", description: t(keys.error) });
     },
   });
 };

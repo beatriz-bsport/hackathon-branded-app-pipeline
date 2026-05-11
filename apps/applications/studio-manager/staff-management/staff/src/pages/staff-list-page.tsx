@@ -28,6 +28,7 @@ const StaffListPageContent: FC<StaffListPageContentProps> = ({
   onClearFilters,
   onCreate,
 }) => {
+  const navigate = useNavigate();
   const { staffRows, isEmpty, isFetching, paginationProps } =
     useStaffListQuery(activeFilters);
 
@@ -40,6 +41,7 @@ const StaffListPageContent: FC<StaffListPageContentProps> = ({
       isLoading={isFetching}
       onClearFilters={onClearFilters}
       onCreate={onCreate}
+      onRowClick={(id) => navigate(URLS.DETAILS(id))}
     />
   );
 };
@@ -79,7 +81,7 @@ const StaffListPage: FC = () => {
             kind="default"
             size="md"
             label={t("header.toRoles")}
-            onClick={() => navigate(URLS.ROLE)}
+            onClick={() => navigate(URLS.ROLE_LIST)}
           />,
         ]}
       />

@@ -8,11 +8,12 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { groupEstablishmentsByAddress } from "#src/utils/group-establishments-by-address";
-import { useTranslation } from "#src/utils/i18n";
 
-import { type WellhubFormSchema } from "./schema";
+type BaseSchema = { establishmentIds: number[] };
 
 type Props = {
+  label: string;
+  placeholder: string;
   establishments: Establishment[];
   disabledEstablishmentIds: Set<number>;
   fieldIdPrefix: string;
@@ -20,17 +21,17 @@ type Props = {
   selectorKey: string;
 };
 
-export const WellhubEstablishmentField: FC<Props> = ({
+export const EstablishmentField: FC<Props> = ({
+  label,
+  placeholder,
   establishments,
   disabledEstablishmentIds,
   fieldIdPrefix,
   initialSelectedIds,
   selectorKey,
 }) => {
-  const { t } = useTranslation("common");
-
   const enabledEstablishments = useMemo(
-    () => establishments.filter((establishment) => !establishment.disabled),
+    () => establishments.filter((e) => !e.disabled),
     [establishments],
   );
 
@@ -44,7 +45,7 @@ export const WellhubEstablishmentField: FC<Props> = ({
   );
 
   return (
-    <FormField<WellhubFormSchema, "establishmentIds", AutocompleteProps>
+    <FormField<BaseSchema, "establishmentIds", AutocompleteProps>
       name="establishmentIds"
       mapProps={({ form, field, fieldState, formState }) => ({
         defaultSelectedIds: (formState.isDirty
@@ -69,8 +70,8 @@ export const WellhubEstablishmentField: FC<Props> = ({
         showSelectedItemsInBase
         textfieldProps={{
           id: `${fieldIdPrefix}-establishment-selector`,
-          label: t("wellhub.form.fields.establishments.label"),
-          placeholder: t("wellhub.form.fields.establishments.placeholder"),
+          label,
+          placeholder,
         }}
         menuProps={{
           className: "max-h-component-select overflow-y-auto",

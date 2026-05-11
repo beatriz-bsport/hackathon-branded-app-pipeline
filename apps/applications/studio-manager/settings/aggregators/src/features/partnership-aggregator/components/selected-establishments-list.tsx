@@ -3,51 +3,27 @@ import { type FC, useMemo } from "react";
 import { type Establishment } from "@bsport/api-core";
 import { Body, Button } from "@bsport/kaizen-primitive-core";
 
+import { groupEstablishmentsForDisplay } from "#src/utils/group-establishments-by-address";
 import { useTranslation } from "#src/utils/i18n";
 
+import type { MutableNamespace } from "../types";
+
 type Props = {
+  namespace: MutableNamespace;
   selectedIds: number[];
   establishments: Establishment[];
   onRemove: (id: number) => void;
 };
 
-type Group = {
-  address: string;
-  establishments: Establishment[];
-};
-
-const groupByAddress = (
-  establishments: Establishment[],
-  selectedIds: number[],
-): Group[] => {
-  const selectedIdSet = new Set(selectedIds);
-  const selected = establishments.filter((e) => selectedIdSet.has(e.id));
-  const map = new Map<string, Establishment[]>();
-
-  for (const establishment of selected) {
-    const address = establishment.location.address;
-    const existing = map.get(address);
-    if (existing) {
-      existing.push(establishment);
-    } else {
-      map.set(address, [establishment]);
-    }
-  }
-
-  return Array.from(map.entries()).map(([address, list]) => ({
-    address,
-    establishments: list,
-  }));
-};
-
 export const SelectedEstablishmentsList: FC<Props> = ({
+  namespace,
   selectedIds,
   establishments,
   onRemove,
 }) => {
   const { t } = useTranslation("common");
   const groups = useMemo(
-    () => groupByAddress(establishments, selectedIds),
+    () => groupEstablishmentsForDisplay(establishments, selectedIds),
     [establishments, selectedIds],
   );
 
@@ -73,9 +49,11 @@ export const SelectedEstablishmentsList: FC<Props> = ({
                   color="default"
                   size="sm"
                   label=""
-                  aria-label={t("myclubs.form.actions.removeEstablishment", {
-                    title: establishment.title,
-                  })}
+                  aria-label={
+                    t(`${namespace}.form.actions.removeEstablishment`, {
+                      title: establishment.title,
+                    }) as string
+                  }
                   onClick={() => onRemove(establishment.id)}
                 />
               </div>

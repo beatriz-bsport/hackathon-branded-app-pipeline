@@ -13,7 +13,7 @@ const PAGE_SIZE = 1000;
 
 const fetchEstablishmentsForCompany = fetchEstablishments.bind(null, fetch);
 
-export const myclubsEstablishmentsQueryOptions = (company: number) => {
+export const aggregatorEstablishmentsQueryOptions = (company: number) => {
   const queryFn = fetchEstablishmentsForCompany.bind(null, {
     company,
     page_size: PAGE_SIZE,
@@ -26,5 +26,5 @@ export const myclubsEstablishmentsQueryOptions = (company: number) => {
   });
 };
 
-export const useMyclubsEstablishments = (company: number) =>
-  useSuspenseQuery(myclubsEstablishmentsQueryOptions(company));
+export const useAggregatorEstablishments = (company: number) =>
+  useSuspenseQuery(aggregatorEstablishmentsQueryOptions(company));

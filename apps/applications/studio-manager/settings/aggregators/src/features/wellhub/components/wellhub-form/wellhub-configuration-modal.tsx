@@ -10,6 +10,9 @@ import {
   type TextFieldProps,
 } from "@bsport/kaizen-primitive-core";
 
+import { EstablishmentField } from "#src/features/partnership-aggregator/components/establishment-field";
+import { SelectedEstablishmentsList } from "#src/features/partnership-aggregator/components/selected-establishments-list";
+import { useAggregatorAccounts } from "#src/features/partnership-aggregator/hooks/use-aggregator-accounts";
 import { useCreateWellhubAccount } from "#src/features/wellhub/hooks/use-create-wellhub-account";
 import { useValidateWellhubExternalId } from "#src/features/wellhub/hooks/use-validate-wellhub-external-id";
 import { useTranslation } from "#src/utils/i18n";
@@ -20,8 +23,6 @@ import {
   type WellhubFormSchema,
   useWellhubFormSchema,
 } from "./schema";
-import { SelectedEstablishmentsList } from "./selected-establishments-list";
-import { WellhubEstablishmentField } from "./wellhub-establishment-field";
 
 type Props = {
   isOpen: boolean;
@@ -30,7 +31,6 @@ type Props = {
   account?: PartnershipAccount;
   partnershipId: number;
   establishments: Establishment[];
-  disabledEstablishmentIds: Set<number>;
   onEditSubmit?: (values: WellhubFormSchema) => Promise<void> | void;
   isExternalSubmitting?: boolean;
 };
@@ -42,12 +42,26 @@ export const WellhubConfigurationModal = ({
   account,
   partnershipId,
   establishments,
-  disabledEstablishmentIds,
   onEditSubmit,
   isExternalSubmitting = false,
 }: Props) => {
   const { t } = useTranslation("common");
   const schema = useWellhubFormSchema();
+
+  // Establishments already owned by other accounts are greyed out to prevent cross-account conflicts
+  const { data: accounts } = useAggregatorAccounts(partnershipId);
+  const allLinkedIds = new Set(
+    accounts.flatMap((a) => a.establishments.map((e) => e.id)),
+  );
+  const disabledEstablishmentIds: Set<number> =
+    mode === "edit" && account
+      ? new Set(
+          [...allLinkedIds].filter(
+            (id) => !account.establishments.some((e) => e.id === id),
+          ),
+        )
+      : allLinkedIds;
+
   const formId = `wellhub-form-${useId()}`;
 
   const defaultValues = useMemo<WellhubFormSchema>(
@@ -73,12 +87,10 @@ export const WellhubConfigurationModal = ({
     schema,
     defaultValues,
   });
-
   const { isDirty, isValid, isSubmitting } = methods.formState;
 
   const { mutateAsync: createAccount, isPending: isCreating } =
     useCreateWellhubAccount(partnershipId);
-
   const isMutationPending = isCreating || isExternalSubmitting;
 
   const watchedExternalId = methods.watch("externalId");
@@ -87,7 +99,6 @@ export const WellhubConfigurationModal = ({
       ? watchedExternalId.trim()
       : "";
   const debouncedValidExternalId = useDebouncedValue(validExternalId);
-
   const validateState = useValidateWellhubExternalId(
     partnershipId,
     debouncedValidExternalId,
@@ -118,10 +129,7 @@ export const WellhubConfigurationModal = ({
       onClose();
       return;
     }
-
-    if (onEditSubmit) {
-      await onEditSubmit(data);
-    }
+    if (onEditSubmit) await onEditSubmit(data);
   };
 
   const title =
@@ -130,7 +138,6 @@ export const WellhubConfigurationModal = ({
       : t("wellhub.modal.title.edit", { externalId: account?.external_id });
 
   const selectedIds = methods.watch("establishmentIds");
-
   const isCreateSubmitBlocked =
     mode === "create" && (!validateState.isValid || validateState.isValidating);
 
@@ -167,11 +174,13 @@ export const WellhubConfigurationModal = ({
             name="externalId"
             mapProps={({ field, fieldState }) => {
               const zodError = fieldState.error?.message;
+
               const isExternalIdValid =
                 mode === "create" &&
                 !validateState.isValidating &&
                 validateState.hasChecked &&
                 validateState.isValid;
+
               const externalIdError =
                 mode === "create" &&
                 !validateState.isValidating &&
@@ -179,6 +188,7 @@ export const WellhubConfigurationModal = ({
                 !validateState.isValid
                   ? t("wellhub.form.errors.externalIdUnavailable")
                   : undefined;
+
               const errorMessage = zodError ?? externalIdError;
 
               return {
@@ -211,7 +221,9 @@ export const WellhubConfigurationModal = ({
               }
             />
           </FormField>
-          <WellhubEstablishmentField
+          <EstablishmentField
+            label={t("wellhub.form.fields.establishments.label")}
+            placeholder={t("wellhub.form.fields.establishments.placeholder")}
             establishments={establishments}
             disabledEstablishmentIds={disabledEstablishmentIds}
             fieldIdPrefix={formId}
@@ -219,6 +231,7 @@ export const WellhubConfigurationModal = ({
             selectorKey={selectorKey}
           />
           <SelectedEstablishmentsList
+            namespace="wellhub"
             selectedIds={selectedIds}
             establishments={establishments}
             onRemove={(id) => {

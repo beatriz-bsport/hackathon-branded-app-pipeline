@@ -233,5 +233,31 @@
         "pending": "Pending"
       }
     }
+  },
+  "usc": {
+    "section": {
+      "subtitle": "View your Urban Sports Club connections and linked establishments."
+    },
+    "table": {
+      "actions": {
+        "copyId": "Copy ID",
+        "disabledHint": "Editing and deletion are not available yet",
+        "label": "More actions"
+      },
+      "columns": {
+        "establishments": "Establishments",
+        "partnerId": "Partner ID",
+        "status": "Status"
+      },
+      "empty": {
+        "subtitle": "No USC accounts are configured yet.",
+        "title": "No accounts yet"
+      },
+      "status": {
+        "active": "Active",
+        "deactivated": "Deactivated",
+        "pending": "Pending"
+      }
+    }
   }
 }

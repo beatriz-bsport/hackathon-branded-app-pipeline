@@ -1,25 +1,31 @@
 import { type FC, useCallback, useState } from "react";
 
-import { type PartnershipAccount } from "@bsport/api-book";
+import {
+  type PartnershipAccount,
+  PartnershipIdentifier,
+} from "@bsport/api-book";
 import { Alert, Body, Button, Tooltip } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { toAccountRow } from "#src/features/partnership-aggregator/adapters/account-row";
+import { AccountsTable } from "#src/features/partnership-aggregator/components/accounts-table";
+import { AggregatorSection } from "#src/features/partnership-aggregator/components/aggregator-section";
+import { ConfirmationModal } from "#src/features/partnership-aggregator/components/confirmation-modal";
+import { AggregatorLogo } from "#src/features/partnership-aggregator/components/logo";
+import { RowActionsMenu } from "#src/features/partnership-aggregator/components/row-actions-menu";
+import { useAggregatorAccounts } from "#src/features/partnership-aggregator/hooks/use-aggregator-accounts";
+import { useAggregatorEstablishments } from "#src/features/partnership-aggregator/hooks/use-aggregator-establishments";
+import { useAggregatorPartnershipId } from "#src/features/partnership-aggregator/hooks/use-aggregator-partnership-id";
+import { useDeleteAccount } from "#src/features/partnership-aggregator/hooks/use-delete-account";
+import { useReactivateAccount } from "#src/features/partnership-aggregator/hooks/use-reactivate-account";
+import { useUpdateAccount } from "#src/features/partnership-aggregator/hooks/use-update-account";
 import { useModal } from "#src/hooks/use-modal";
 import { useTranslation } from "#src/utils/i18n";
 
-import { toAccountRow } from "../adapters/account-row";
-import { useDeleteWellhubAccount } from "../hooks/use-delete-wellhub-account";
 import { useFetchOffersMissingWellhubProduct } from "../hooks/use-fetch-offers-missing-wellhub-product";
-import { useReactivateWellhubAccount } from "../hooks/use-reactivate-wellhub-account";
-import { useUpdateWellhubAccount } from "../hooks/use-update-wellhub-account";
-import { useWellhubAccounts } from "../hooks/use-wellhub-accounts";
-import { useWellhubEstablishments } from "../hooks/use-wellhub-establishments";
-import { useWellhubPartnershipId } from "../hooks/use-wellhub-partnership-id";
-import { WellhubAccountsTable } from "./wellhub-accounts-table";
-import { WellhubConfirmationModal } from "./wellhub-confirmation-modal";
+import wellhubLogo from "./assets/wellhub-logo.svg";
 import { type WellhubFormSchema } from "./wellhub-form/schema";
 import { WellhubConfigurationModal } from "./wellhub-form/wellhub-configuration-modal";
-import { WellhubLogo } from "./wellhub-logo";
 import { WellhubProductModal } from "./wellhub-product-modal/wellhub-product-modal";
 
 type ModalState =
@@ -39,8 +45,8 @@ const WellhubAccountsSectionContent: FC<{
   companyId: number;
 }> = ({ partnershipId, companyId }) => {
   const { t } = useTranslation("common");
-  const { data: accounts } = useWellhubAccounts(partnershipId);
-  const { data: establishments } = useWellhubEstablishments(companyId);
+  const { data: accounts } = useAggregatorAccounts(partnershipId);
+  const { data: establishments } = useAggregatorEstablishments(companyId);
   const [modalState, setModalState] = useState<ModalState>(null);
   const {
     isOpen: productModalOpen,
@@ -57,22 +63,13 @@ const WellhubAccountsSectionContent: FC<{
   const { data: missingOffersData, isLoading: missingOffersLoading } =
     useFetchOffersMissingWellhubProduct(wellhubPage);
 
-  const deleteMutation = useDeleteWellhubAccount(partnershipId);
-  const reactivateMutation = useReactivateWellhubAccount(partnershipId);
-  const updateMutation = useUpdateWellhubAccount(partnershipId);
+  const deleteMutation = useDeleteAccount(partnershipId, "wellhub");
+  const reactivateMutation = useReactivateAccount(partnershipId, "wellhub");
+  const updateMutation = useUpdateAccount(partnershipId, "wellhub");
 
   const allLinkedIds = new Set(
     accounts.flatMap((a) => a.establishments.map((e) => e.id)),
   );
-
-  const disabledEstablishmentIds: Set<number> =
-    modalState?.kind === "edit"
-      ? new Set(
-          [...allLinkedIds].filter(
-            (id) => !modalState.account.establishments.some((e) => e.id === id),
-          ),
-        )
-      : allLinkedIds;
 
   const establishmentsNotLinked = establishments.filter(
     (e) => !allLinkedIds.has(e.id),
@@ -129,6 +126,7 @@ const WellhubAccountsSectionContent: FC<{
       color="main"
       size="md"
       label={t("wellhub.actions.addConnection")}
+      className="ml-auto"
       onClick={() => setModalState({ kind: "create" })}
       disabled={establishmentsNotLinked.length === 0}
     />
@@ -165,11 +163,18 @@ const WellhubAccountsSectionContent: FC<{
           onChangePage={setWellhubPage}
         />
       )}
-      <WellhubAccountsTable
+      <AccountsTable
         rows={rows}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-        onReactivate={handleReactivate}
+        namespace="wellhub"
+        renderRowActions={(row) => (
+          <RowActionsMenu
+            status={row.status}
+            namespace="wellhub"
+            onEdit={() => handleEdit(row.id)}
+            onDelete={() => handleDelete(row.id)}
+            onReactivate={() => handleReactivate(row.id)}
+          />
+        )}
       />
       {establishmentsNotLinked.length === 0 ? (
         <Tooltip label={t("wellhub.actions.addConnectionDisabledHint")}>
@@ -186,7 +191,6 @@ const WellhubAccountsSectionContent: FC<{
           account={modalState.kind === "edit" ? modalState.account : undefined}
           partnershipId={partnershipId}
           establishments={establishments}
-          disabledEstablishmentIds={disabledEstablishmentIds}
           onEditSubmit={
             modalState.kind === "edit"
               ? handleEditSubmit(modalState.account)
@@ -196,7 +200,7 @@ const WellhubAccountsSectionContent: FC<{
         />
       )}
       {modalState?.kind === "delete-warning" && (
-        <WellhubConfirmationModal
+        <ConfirmationModal
           isOpen
           onClose={() => setModalState(null)}
           onConfirm={() =>
@@ -218,7 +222,7 @@ const WellhubAccountsSectionContent: FC<{
         />
       )}
       {modalState?.kind === "edit-warning" && (
-        <WellhubConfirmationModal
+        <ConfirmationModal
           isOpen
           onClose={() => setModalState(null)}
           onConfirm={() =>
@@ -244,7 +248,7 @@ const WellhubAccountsSectionContent: FC<{
         />
       )}
       {modalState?.kind === "reactivate-warning" && (
-        <WellhubConfirmationModal
+        <ConfirmationModal
           isOpen
           onClose={() => setModalState(null)}
           onConfirm={() =>
@@ -270,7 +274,9 @@ const WellhubAccountsSectionContent: FC<{
 
 export const WellhubSection: FC = () => {
   const { t } = useTranslation("common");
-  const { data: partnershipId } = useWellhubPartnershipId();
+  const { data: partnershipId } = useAggregatorPartnershipId(
+    PartnershipIdentifier.WELLHUB,
+  );
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
 
   if (partnershipId == null || companyId == null) {
@@ -278,19 +284,14 @@ export const WellhubSection: FC = () => {
   }
 
   return (
-    <section className="flex flex-col gap-md w-full">
-      <div className="flex flex-col gap-xs">
-        <div className="h-xl w-auto">
-          <WellhubLogo />
-        </div>
-        <Body color="weak" size="lg" weight="weak">
-          {t("wellhub.section.subtitle")}
-        </Body>
-      </div>
+    <AggregatorSection
+      logo={<AggregatorLogo src={wellhubLogo} alt="Wellhub" />}
+      subtitle={t("wellhub.section.subtitle")}
+    >
       <WellhubAccountsSectionContent
         partnershipId={partnershipId}
         companyId={companyId}
       />
-    </section>
+    </AggregatorSection>
   );
 };

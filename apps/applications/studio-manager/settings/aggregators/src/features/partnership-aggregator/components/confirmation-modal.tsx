@@ -6,7 +6,7 @@ type Props = {
   onConfirm: () => void;
   onCancel?: () => void;
   title: string;
-  description: string;
+  description?: string;
   alert?: { status: "critical" | "warning"; content: string };
   confirmLabel: string;
   confirmColor?: "critical" | "main";
@@ -14,7 +14,7 @@ type Props = {
   isLoading?: boolean;
 };
 
-export const MyclubsConfirmationModal = ({
+export const ConfirmationModal = ({
   isOpen,
   onClose,
   onConfirm,
@@ -44,7 +44,7 @@ export const MyclubsConfirmationModal = ({
     }}
   >
     <div className="flex flex-col gap-sm">
-      <Body htmlVariant="p">{description}</Body>
+      {description ? <Body htmlVariant="p">{description}</Body> : null}
       {alert ? <Alert status={alert.status}>{alert.content}</Alert> : null}
     </div>
   </Modal>

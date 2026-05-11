@@ -100,9 +100,9 @@ Rename target package `src/` files and folders to kebab-case and update local re
 
 Accepted `appName` formats:
 
-- `sm-smartlists`
-- `@bsport/sm-smartlists`
-- `smartlists`
+- `sm-segment`
+- `@bsport/sm-segment`
+- `segment`
 
 All formats normalize to `sm-<name>`.
 
@@ -111,7 +111,7 @@ All formats normalize to `sm-<name>`.
 Start with a dry-run:
 
 ```bash
-pnpm exec nx g @bsport/nx:migrate-filenames-to-kebab-case sm-smartlists --dry-run
+pnpm exec nx g @bsport/nx:migrate-filenames-to-kebab-case sm-segment --dry-run
 ```
 
 Interactive prompt mode:

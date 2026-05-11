@@ -16,7 +16,9 @@ export const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
   }
 };
 
-export const i18nNamespacePrefix = __SMARTLISTS__.__I18N_NAMESPACE_PREFIX__;
+// IMPORTANT: we have to keep here the previous namespece hardcoded
+// becuase we don't want to change everything in Transifex
+export const i18nNamespacePrefix = "sm-smartlists";
 export const i18nNamespaces: string[] = [
   "list",
   "details",

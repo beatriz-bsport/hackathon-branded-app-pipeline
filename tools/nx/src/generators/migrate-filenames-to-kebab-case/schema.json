@@ -6,7 +6,7 @@
   "properties": {
     "appName": {
       "type": "string",
-      "description": "Package name (e.g., sm-smartlists or @bsport/sm-smartlists)",
+      "description": "Package name (e.g., sm-segment or @bsport/sm-segment)",
       "$default": { "$source": "argv", "index": 0 },
       "x-prompt": "What package do you want to migrate?"
     }

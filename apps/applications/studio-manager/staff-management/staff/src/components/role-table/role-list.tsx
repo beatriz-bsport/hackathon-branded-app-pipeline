@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import type { FC, KeyboardEvent } from "react";
 
 import {
   Chip,
@@ -21,19 +21,39 @@ type RoleListItemData = {
   id: string;
   name: string;
   isDefault: boolean;
+  onItemClick?: () => void;
 };
 
-const RoleListItem: FC<RoleListItemData> = ({ name, isDefault }) => (
-  <li className="relative flex min-h-2xl items-center gap-xs border-b-stroke-thin border-b-stroke-divider px-md py-xs">
-    <Chip
-      label={name}
-      type="weak"
-      color="default"
-      size="lg"
-      iconLeft={isDefault ? "lock-01" : undefined}
-    />
-  </li>
-);
+const RoleListItem: FC<RoleListItemData> = ({
+  name,
+  isDefault,
+  onItemClick,
+}) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLLIElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      onItemClick?.();
+    }
+  };
+
+  return (
+    <li
+      className="relative flex min-h-2xl cursor-pointer items-center gap-xs border-b-stroke-thin border-b-stroke-divider px-md py-xs"
+      onClick={onItemClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+    >
+      <Chip
+        label={name}
+        type="weak"
+        color="default"
+        size="lg"
+        iconLeft={isDefault ? "lock-01" : undefined}
+      />
+    </li>
+  );
+};
 
 export const RoleList: FC<RoleListProps> = ({
   rows,
@@ -47,6 +67,7 @@ export const RoleList: FC<RoleListProps> = ({
     id: `role-${row.id}`,
     name: row.name,
     isDefault: row.isDefault,
+    onItemClick: row.onRowClick,
   }));
 
   return (

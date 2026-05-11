@@ -6,7 +6,8 @@ const SEGMENTS = {
 
 export const URLS = {
   INDEX,
-  ROLE_LIST: SEGMENTS.ROLE,
   DETAILS_SLUG: ":staffId",
   DETAILS: (id: number) => String(id),
+  ROLE: SEGMENTS.ROLE,
+  ROLE_DETAILS: `${SEGMENTS.ROLE}/:id`,
 } as const;

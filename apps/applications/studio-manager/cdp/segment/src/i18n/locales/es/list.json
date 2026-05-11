@@ -34,11 +34,11 @@
   },
   "toasts": {
     "success": {
-      "duplicated": "Smartlist duplicada",
+      "duplicated": "Duplicar la lista inteligente",
       "open": "Abrir",
       "saved": "Smartlist actualizada",
-      "deleted": "Smartlist eliminada",
-      "undo": "Deshacer",
+      "deleted": "Smartlist suprimida",
+      "undo": "Revertir",
       "actionUndone": "Cambio deshecho"
     },
     "error": {
@@ -56,7 +56,7 @@
   "inlineActions": {
     "duplicate": "Duplicar Smartlist",
     "edit": "Modificar",
-    "delete": "Eliminar Smartlist"
+    "delete": "Supresión smartlist"
   },
   "dropdownActions": {
     "duplicate": "Duplicar",
@@ -79,7 +79,7 @@
         "maxLength": "El nombre debe tener menos de 200 caracteres"
       },
       "description": {
-        "label": "Descripción",
+        "label": "Description",
         "placeholder": "p. ej. Clientes que pagaron a través de Stripe"
       }
     },

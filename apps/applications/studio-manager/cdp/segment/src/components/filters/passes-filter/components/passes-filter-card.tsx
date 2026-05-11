@@ -35,9 +35,10 @@ export const PassesFilterCard = ({
     selectedPaymentPackIds: `${baseId}-selected-payment-pack-ids`,
     purchaseDate: `${baseId}-purchase-date`,
     expirationDate: `${baseId}-expiration-date`,
+    creditLeft: `${baseId}-credit-left`,
   };
 
-  const { t } = useTranslation("campaign-filters");
+  const { t } = useTranslation("filters");
 
   const { upsertPaymentPackFilterMutate, isLoading: isSaving } =
     useUpsertPaymentPackFilterMutation(smartlistId, {

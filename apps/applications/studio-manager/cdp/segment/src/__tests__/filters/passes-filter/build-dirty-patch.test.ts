@@ -134,4 +134,20 @@ describe("buildDirtyPatchPayload", () => {
     expect(payload.expiration_date_filter_active).toBe(true);
     expect(payload.expiration_date).toBe("2026-06-15");
   });
+
+  it("includes credit API fields when `creditLeft` is dirty", () => {
+    const value = createDefaultPassesFilter(1);
+    value.selectAllPaymentPacks = true;
+    value.subFilters = [PASS_SUB_FILTER_IDS.creditLeft];
+    value.creditLeft.firstValue = 8;
+    value.creditLeft.secondValue = null;
+    const dirtyFields: DirtyFields = {
+      creditLeft: { firstValue: true },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.credit_filter_active).toBe(true);
+    expect(payload.credit_value).toBe(8);
+  });
 });

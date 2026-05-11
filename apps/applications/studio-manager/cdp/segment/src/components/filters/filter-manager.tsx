@@ -27,7 +27,7 @@ export const FilterManager = ({
   onAddFilter,
   children,
 }: FilterManagerProps) => {
-  const { t } = useTranslation("campaign-filters");
+  const { t } = useTranslation("filters");
   const resolvedLoadingMessage = loadingMessage ?? t("filterManager.loading");
   const resolvedErrorMessage = errorMessage ?? t("filterManager.loadError");
 

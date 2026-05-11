@@ -15,7 +15,7 @@ export const ExpirationDateSubFilterSection = ({
   setValue,
   onRemove,
 }: PassSubFilterSectionProps) => {
-  const { t } = useTranslation("campaign-filters");
+  const { t } = useTranslation("filters");
 
   return (
     <Card className="w-full">

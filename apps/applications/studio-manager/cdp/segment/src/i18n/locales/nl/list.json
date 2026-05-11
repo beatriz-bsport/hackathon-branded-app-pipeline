@@ -1,5 +1,5 @@
 {
-  "title": "Smartlists",
+  "title": "Smarlists",
   "addSmartlist": "Maak Smartlist aan",
   "loading": "Bezig met laden van Smartlists...",
   "search": "Zoek Smartlists",
@@ -10,7 +10,7 @@
   "emptySearch": {
     "title": "Geen Smartlists gevonden",
     "subtitle": "Probeer filters te wissen om meer resultaten te zien",
-    "clearFilters": "Filters wissen"
+    "clearFilters": "Wis filters"
   },
   "duplicateModal": {
     "title": "Smartlist dupliceren?",
@@ -38,7 +38,7 @@
       "open": "Open",
       "saved": "Smartlist bijgewerkt",
       "deleted": "Smartlist verwijderd",
-      "undo": "Ongedaan maken",
+      "undo": "Terug",
       "actionUndone": "Wijziging ongedaan gemaakt"
     },
     "error": {

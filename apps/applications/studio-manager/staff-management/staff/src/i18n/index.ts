@@ -21,4 +21,5 @@ export const i18nNamespaces: string[] = [
   "staff-list",
   "staff-form",
   "role-list",
+  "role-form",
 ];

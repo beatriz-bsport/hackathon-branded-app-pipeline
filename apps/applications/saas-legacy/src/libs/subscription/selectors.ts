@@ -194,7 +194,7 @@ export const getSubscriptionEventList = createSelector(
   (eventState, subscriptionData) => {
     return eventState.items.map((e) => ({
       ...e,
-      subscription: subscriptionData[e.data.billing_plan],
+      subscription: subscriptionData[e.data?.billing_plan ?? e.data?.id],
     }));
   },
 );

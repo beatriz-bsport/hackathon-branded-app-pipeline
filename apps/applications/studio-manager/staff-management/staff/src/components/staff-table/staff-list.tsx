@@ -19,6 +19,7 @@ type StaffListProps = {
   isLoading: boolean;
   emptyConfig: UseEmptyStateProps["emptyConfig"];
   emptySearchConfig?: UseEmptyStateProps["emptySearchConfig"];
+  onRowClick?: (id: number) => void;
 };
 
 export const StaffList: FC<StaffListProps> = ({
@@ -29,6 +30,7 @@ export const StaffList: FC<StaffListProps> = ({
   isLoading,
   emptyConfig,
   emptySearchConfig,
+  onRowClick,
 }) => {
   const { t } = useTranslation("staff-list");
 
@@ -36,6 +38,7 @@ export const StaffList: FC<StaffListProps> = ({
     id: `staff-${row.id}`,
     title: row.name,
     description: row.roleName ?? undefined,
+    onItemClick: () => onRowClick?.(row.id),
   }));
 
   return (

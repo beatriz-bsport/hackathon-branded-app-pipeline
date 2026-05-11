@@ -1,7 +1,12 @@
 const INDEX = "..";
-const ROLE = "role";
+
+const SEGMENTS = {
+  ROLE: "role",
+} as const;
 
 export const URLS = {
   INDEX,
-  ROLE,
+  ROLE_LIST: SEGMENTS.ROLE,
+  DETAILS_SLUG: ":staffId",
+  DETAILS: (id: number) => String(id),
 } as const;

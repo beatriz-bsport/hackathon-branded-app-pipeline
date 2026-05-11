@@ -4,10 +4,13 @@ import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { Body, Card, Title } from "@bsport/kaizen-primitive-core";
 
 import { PaymentMethodSelector } from "#src/components/financial-services/payment-method-selector";
+import {
+  ALL_PAYMENT_METHOD_SELECTOR_ID,
+  type AllPaymentMethodKey,
+} from "#src/components/financial-services/payment-method-selector/constants";
 import type { PaymentMethodSelectorSelection } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
-import type { AllPaymentMethodKey } from "../payment-method-selector/constants";
 import type { PaymentFlowModalProps } from "./types";
 
 type PaymentMethodSectionProps = Pick<
@@ -59,20 +62,21 @@ export const PaymentMethodSection = ({
                 ? disabledAllMethodIds
                 : undefined,
             adornmentById: {
-              account_balance: hasPositiveAccountBalance ? (
-                <Body
-                  htmlVariant="span"
-                  size="lg"
-                  color={isAccountBalanceEnough ? undefined : "warning"}
-                  className={
-                    isAccountBalanceEnough
-                      ? "text-onsurface-status-positive-strong"
-                      : undefined
-                  }
-                >
-                  {getCurrencyDisplayWithPrice(accountBalance)}
-                </Body>
-              ) : undefined,
+              [ALL_PAYMENT_METHOD_SELECTOR_ID.ACCOUNT_BALANCE]:
+                hasPositiveAccountBalance ? (
+                  <Body
+                    htmlVariant="span"
+                    size="lg"
+                    color={isAccountBalanceEnough ? undefined : "warning"}
+                    className={
+                      isAccountBalanceEnough
+                        ? "text-onsurface-status-positive-strong"
+                        : undefined
+                    }
+                  >
+                    {getCurrencyDisplayWithPrice(accountBalance)}
+                  </Body>
+                ) : undefined,
             },
           }}
           onSelectionChange={onSelectionChange}

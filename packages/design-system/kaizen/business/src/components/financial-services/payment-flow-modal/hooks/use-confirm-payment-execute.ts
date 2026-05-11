@@ -6,6 +6,9 @@ import {
 import { confirmPaymentByPaymentMethodIdAPI } from "@bsport/api-financial-services/payment-group";
 import { processPaymentIntentAPI } from "@bsport/api-financial-services/terminal";
 
+import { ALL_PAYMENT_METHOD_SELECTOR_ID } from "#src/components/financial-services/payment-method-selector/constants";
+import { PAYMENT_METHOD_SELECTOR_SELECTION_KIND } from "#src/components/financial-services/payment-method-selector/types";
+
 import type { ExecuteConfirmPaymentParams } from "../types";
 import {
   MANUAL_METHOD_IDENTIFIER_BY_TYPE,
@@ -48,7 +51,9 @@ export const executeConfirmPayment = async ({
     throw new Error("Missing selected payment method.");
   }
 
-  if (selectedPaymentMethod.kind === "saved") {
+  if (
+    selectedPaymentMethod.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED
+  ) {
     if (!paymentGroupId) {
       throw new Error("Missing payment group for saved method.");
     }
@@ -70,7 +75,7 @@ export const executeConfirmPayment = async ({
   } = formValues;
 
   switch (selectedPaymentMethod.id) {
-    case "card":
+    case ALL_PAYMENT_METHOD_SELECTOR_ID.CARD:
       if (!currentClientSecret || !paymentGroupId) {
         throw new Error("Missing payment context.");
       }
@@ -90,7 +95,7 @@ export const executeConfirmPayment = async ({
         }
       }
       return;
-    case "sepa_debit":
+    case ALL_PAYMENT_METHOD_SELECTOR_ID.SEPA_DEBIT:
       if (!currentClientSecret || !paymentGroupId) {
         throw new Error("Missing payment context.");
       }
@@ -113,7 +118,7 @@ export const executeConfirmPayment = async ({
         }
       }
       return;
-    case "terminal":
+    case ALL_PAYMENT_METHOD_SELECTOR_ID.TERMINAL:
       if (!currentClientSecret || !paymentGroupId) {
         throw new Error("Missing payment context.");
       }
@@ -135,7 +140,7 @@ export const executeConfirmPayment = async ({
         await pollReaderActionUntilCompleted(fetch, terminalReaderId);
       }
       return;
-    case "manual":
+    case ALL_PAYMENT_METHOD_SELECTOR_ID.MANUAL:
       if (!currentClientSecret) {
         throw new Error("Missing payment context.");
       }
@@ -148,10 +153,10 @@ export const executeConfirmPayment = async ({
         price_cts: amountCts,
       });
       return;
-    case "account_balance":
+    case ALL_PAYMENT_METHOD_SELECTOR_ID.ACCOUNT_BALANCE:
       await applyBalanceToInvoiceAPI(fetch, invoiceId);
       return;
-    case "gift_card_code": {
+    case ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE: {
       if (!selectedGiftCardId) {
         throw new Error("Select a gift card first.");
       }

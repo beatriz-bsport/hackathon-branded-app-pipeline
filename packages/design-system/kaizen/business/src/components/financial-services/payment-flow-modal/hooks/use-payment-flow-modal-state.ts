@@ -3,8 +3,13 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { useFormController } from "@bsport/form";
 
-import type { AllPaymentMethodKey } from "#src/components/financial-services/payment-method-selector/constants";
+import {
+  ALL_PAYMENT_METHOD_SELECTOR_ID,
+  type AllPaymentMethodKey,
+  SAVED_PAYMENT_METHOD_TYPE,
+} from "#src/components/financial-services/payment-method-selector/constants";
 import type { PaymentMethodSelectorSelection } from "#src/components/financial-services/payment-method-selector/types";
+import { PAYMENT_METHOD_SELECTOR_SELECTION_KIND } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
 import {
@@ -44,12 +49,18 @@ const getPaymentClientSecretEngine = (
   if (!selection) return null;
 
   // Saved payment methods are always handled by Stripe.
-  if (selection.kind === "saved") return "stripe";
+  if (selection.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED)
+    return "stripe";
 
   // New payment methods are handled by the appropriate engine.
-  if (selection.id === "card" || selection.id === "sepa_debit") return "stripe";
-  if (selection.id === "manual") return "manual";
-  if (selection.id === "terminal") return "terminal";
+  if (
+    selection.id === SAVED_PAYMENT_METHOD_TYPE.CARD ||
+    selection.id === SAVED_PAYMENT_METHOD_TYPE.SEPA_DEBIT
+  )
+    return "stripe";
+  if (selection.id === ALL_PAYMENT_METHOD_SELECTOR_ID.MANUAL) return "manual";
+  if (selection.id === ALL_PAYMENT_METHOD_SELECTOR_ID.TERMINAL)
+    return "terminal";
 
   return null;
 };
@@ -57,8 +68,8 @@ const getPaymentClientSecretEngine = (
 const SUBMIT_ERROR_FALLBACK = "paymentFlowModal.errors.generic";
 const GIFT_CARD_PAYMENT_ERROR_CODE = 45001;
 const PARTIAL_UNSUPPORTED_METHOD_IDS = new Set<AllPaymentMethodKey>([
-  "gift_card_code",
-  "account_balance",
+  ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE,
+  ALL_PAYMENT_METHOD_SELECTOR_ID.ACCOUNT_BALANCE,
 ]);
 
 /**
@@ -260,7 +271,8 @@ export const usePaymentFlowModalState = ({
   const partialAmountMaxError = t("paymentFlowModal.partialAmount.errors.max");
 
   const isPartialSupportedForSelectedMethod =
-    selectedPaymentMethod?.kind !== "all" ||
+    selectedPaymentMethod?.kind !==
+      PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL ||
     !PARTIAL_UNSUPPORTED_METHOD_IDS.has(selectedPaymentMethod.id);
   const disabledAllMethodIds = isPartialEnabled
     ? Array.from(PARTIAL_UNSUPPORTED_METHOD_IDS)
@@ -377,7 +389,10 @@ export const usePaymentFlowModalState = ({
       return true;
     }
 
-    if (selectedPaymentMethod.kind !== "all") return false;
+    if (
+      selectedPaymentMethod.kind !== PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL
+    )
+      return false;
 
     if (
       isPartialEnabled &&
@@ -387,12 +402,16 @@ export const usePaymentFlowModalState = ({
     }
 
     if (
-      selectedPaymentMethod.id === "terminal" &&
+      selectedPaymentMethod.id === ALL_PAYMENT_METHOD_SELECTOR_ID.TERMINAL &&
       (!terminalReaderId || isLoadingStripeReaders)
     ) {
       return true;
     }
-    if (selectedPaymentMethod.id === "gift_card_code" && !selectedGiftCardId) {
+    if (
+      selectedPaymentMethod.id ===
+        ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE &&
+      !selectedGiftCardId
+    ) {
       return true;
     }
 
@@ -423,18 +442,24 @@ export const usePaymentFlowModalState = ({
     const isBlockedByClientSecretLoading =
       selectedMethodNeedsClientSecret && paymentClientSecretQuery.isFetching;
 
-    if (selectedPaymentMethod.kind !== "all") {
+    if (
+      selectedPaymentMethod.kind !== PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL
+    ) {
       return isBlockedByClientSecretLoading;
     }
 
     const hasNonLoadingBlocker =
-      (selectedPaymentMethod.id === "terminal" && !terminalReaderId) ||
-      (selectedPaymentMethod.id === "gift_card_code" && !selectedGiftCardId);
+      (selectedPaymentMethod.id === ALL_PAYMENT_METHOD_SELECTOR_ID.TERMINAL &&
+        !terminalReaderId) ||
+      (selectedPaymentMethod.id ===
+        ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE &&
+        !selectedGiftCardId);
 
     if (hasNonLoadingBlocker) return false;
 
     const isBlockedByTerminalLoading =
-      selectedPaymentMethod.id === "terminal" && isLoadingStripeReaders;
+      selectedPaymentMethod.id === ALL_PAYMENT_METHOD_SELECTOR_ID.TERMINAL &&
+      isLoadingStripeReaders;
 
     return isBlockedByClientSecretLoading || isBlockedByTerminalLoading;
   }, [
@@ -494,8 +519,10 @@ export const usePaymentFlowModalState = ({
     : null;
 
   const shouldShowMemberBalanceWarning =
-    selectedPaymentMethod?.kind === "all" &&
-    selectedPaymentMethod.id === "account_balance" &&
+    selectedPaymentMethod?.kind ===
+      PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL &&
+    selectedPaymentMethod.id ===
+      ALL_PAYMENT_METHOD_SELECTOR_ID.ACCOUNT_BALANCE &&
     hasPositiveAccountBalance &&
     !isAccountBalanceEnough;
 

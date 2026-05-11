@@ -1,28 +1,41 @@
 import { useEffect, useId, useState } from "react";
 
 import type { SavedPaymentMethod } from "@bsport/api-financial-services/payment-method";
-import { Body, type Item, Select } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  type IconName,
+  type Item,
+  Select,
+} from "@bsport/kaizen-primitive-core";
 
+import PaymentMethodLogo, {
+  type PaymentMethodLogoProps,
+} from "#src/components/financial-services/payment-method-logo";
 import type { PaymentMethodSelectorProps } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
 import {
   ALL_PAYMENT_METHOD_OPTIONS,
+  type AllPaymentMethodKey,
   DEFAULT_ALL_METHOD_KEY,
+  SAVED_METHOD_LOGO_TYPE,
+  SAVED_PAYMENT_METHOD_TYPE,
 } from "./constants";
 import { isSameSelection, parseSelectValue, toSelectValue } from "./helpers";
-import type {
-  PaymentMethodSelectorResolvedSelection,
-  PaymentMethodSelectorSelection,
+import {
+  PAYMENT_METHOD_SELECTOR_SELECTION_KIND,
+  type PaymentMethodSelectorResolvedSelection,
+  type PaymentMethodSelectorSelection,
 } from "./types";
 import { useFetchSavedPaymentMethods } from "./use-fetch-saved-payment-methods";
 
 const PLACEHOLDER_ITEM_ID = "payment-method-selector:placeholder";
-type SavedPaymentMethodVisualType = "card" | "sepa_debit" | "bacs_debit";
+
 type SavedPaymentMethodMappedOption = {
   id: string;
   label: string;
-  visualType: SavedPaymentMethodVisualType;
+  logoType?: PaymentMethodLogoProps["type"];
+  savedType: SavedPaymentMethod["type"];
   expirationDate?: string;
 };
 
@@ -46,27 +59,39 @@ const formatSavedPaymentMethodLabel = (
   return (
     maskedIdentifier ||
     t(
-      paymentMethod.type === "card"
+      paymentMethod.type === SAVED_PAYMENT_METHOD_TYPE.CARD
         ? "paymentMethod.card"
-        : paymentMethod.type === "sepa_debit"
+        : paymentMethod.type === SAVED_PAYMENT_METHOD_TYPE.SEPA_DEBIT
           ? "paymentMethod.sepaDebit"
           : "paymentMethod.bacsDebit",
     )
   );
 };
 
-const getSavedPaymentMethodVisualType = (
+const savedPaymentMethodToLogoType = (
   paymentMethod: SavedPaymentMethod,
-): SavedPaymentMethodVisualType => {
-  if (paymentMethod.type === "card") {
-    return "card";
-  }
+): PaymentMethodLogoProps["type"] | undefined => {
+  switch (paymentMethod.type) {
+    case SAVED_PAYMENT_METHOD_TYPE.CARD: {
+      const normalizedBrand = (
+        paymentMethod.display_brand ??
+        paymentMethod.brand ??
+        ""
+      ).toLowerCase();
 
-  if (paymentMethod.type === "sepa_debit") {
-    return "sepa_debit";
+      if (normalizedBrand === SAVED_METHOD_LOGO_TYPE.VISA) {
+        return SAVED_METHOD_LOGO_TYPE.VISA;
+      }
+      if (normalizedBrand === SAVED_METHOD_LOGO_TYPE.MASTERCARD) {
+        return SAVED_METHOD_LOGO_TYPE.MASTERCARD;
+      }
+      return undefined;
+    }
+    case SAVED_PAYMENT_METHOD_TYPE.SEPA_DEBIT:
+      return SAVED_METHOD_LOGO_TYPE.SEPA_DEBIT;
+    case SAVED_PAYMENT_METHOD_TYPE.BACS_DEBIT:
+      return SAVED_METHOD_LOGO_TYPE.BACS_DEBIT;
   }
-
-  return "bacs_debit";
 };
 
 const formatExpirationDate = (value?: string): string | undefined => {
@@ -96,9 +121,32 @@ const mapSavedPaymentMethodsToOptions = (
   return paymentMethods.map((paymentMethod) => ({
     id: paymentMethod.id,
     label: formatSavedPaymentMethodLabel(paymentMethod, t),
+    savedType: paymentMethod.type,
     expirationDate: formatExpirationDate(paymentMethod.additional_info),
-    visualType: getSavedPaymentMethodVisualType(paymentMethod),
+    logoType: savedPaymentMethodToLogoType(paymentMethod),
   }));
+};
+
+const getTriggerIconLeftForSelection = (
+  selection: PaymentMethodSelectorSelection,
+  allMethodsItems: Array<{
+    id: AllPaymentMethodKey;
+    iconLeft?: IconName;
+  }>,
+  savedMethodItems: SavedPaymentMethodMappedOption[],
+): IconName | undefined => {
+  if (!selection) return undefined;
+
+  if (selection.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL) {
+    return allMethodsItems.find((item) => item.id === selection.id)?.iconLeft;
+  }
+
+  const saved = savedMethodItems.find((item) => item.id === selection.id);
+  if (!saved) return undefined;
+
+  return saved.savedType === SAVED_PAYMENT_METHOD_TYPE.CARD
+    ? "credit-card-02"
+    : "bank";
 };
 
 /**
@@ -161,7 +209,10 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
     : PLACEHOLDER_ITEM_ID;
 
   const allItems: Item[] = allMethodsItems.map((item) => ({
-    id: toSelectValue({ kind: "all", id: item.id }),
+    id: toSelectValue({
+      kind: PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL,
+      id: item.id,
+    }),
     label: item.label,
     iconLeft: item.iconLeft,
     disabled: item.disabled,
@@ -177,10 +228,17 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
             label: t("paymentMethod.selector.savedMethodsLabel"),
           },
           ...savedMethodItems.map((item) => ({
-            id: toSelectValue({ kind: "saved", id: item.id }),
+            id: toSelectValue({
+              kind: PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED,
+              id: item.id,
+            }),
             label: item.label,
+            leftSlot: item.logoType ? (
+              <PaymentMethodLogo size="md" type={item.logoType} />
+            ) : undefined,
             rightSlot:
-              item.visualType === "card" && item.expirationDate ? (
+              item.savedType === SAVED_PAYMENT_METHOD_TYPE.CARD &&
+              item.expirationDate ? (
                 <Body htmlVariant="span" size="lg" color="weaker">
                   {item.expirationDate}
                 </Body>
@@ -201,6 +259,12 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
         ...menuItems,
       ];
 
+  const triggerIconLeft = getTriggerIconLeftForSelection(
+    currentSelection,
+    allMethodsItems,
+    savedMethodItems,
+  );
+
   useEffect(() => {
     if ((isLoading || isError) && !currentSelection) {
       return;
@@ -208,14 +272,21 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
 
     const firstSavedMethodId = savedMethodItems[0]?.id;
     const hasSelectedSavedMethod =
-      currentSelection?.kind === "saved" &&
+      currentSelection?.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED &&
       savedMethodItems.some((item) => item.id === currentSelection.id);
-    const hasSelectedAllMethod = currentSelection?.kind === "all";
+    const hasSelectedAllMethod =
+      currentSelection?.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL;
 
     const nextSelection: PaymentMethodSelectorResolvedSelection =
       firstSavedMethodId
-        ? { kind: "saved", id: firstSavedMethodId }
-        : { kind: "all", id: DEFAULT_ALL_METHOD_KEY };
+        ? {
+            kind: PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED,
+            id: firstSavedMethodId,
+          }
+        : {
+            kind: PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL,
+            id: DEFAULT_ALL_METHOD_KEY,
+          };
 
     if (
       hasSelectedSavedMethod ||
@@ -240,6 +311,7 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
       id={selectProps.id ?? `${selectorId}-payment-method`}
       disabled={disabled}
       fullWidth={fullWidth}
+      iconLeft={triggerIconLeft ?? selectProps.iconLeft}
       items={selectItems}
       loadingProps={{
         isLoading,

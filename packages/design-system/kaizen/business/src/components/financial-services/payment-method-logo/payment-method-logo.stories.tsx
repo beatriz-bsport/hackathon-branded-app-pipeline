@@ -110,6 +110,11 @@ export const Documentation: StoryObj<PaymentMethodLogoComponent> = {
 | \`type\` | Payment method identifier used to select the corresponding logo asset. Unknown values return \`null\`. |
 | \`size\` | Visual size variant: \`lg\`, \`md\`, \`sm\`. |
 | \`className\` | Optional className applied to the outer container. |
+
+### Integration notes
+
+- Flows such as \`PaymentMethodSelector\` map an API saved payment method (card brand, SEPA, BACS, …) to a supported \`type\` before rendering this component.
+- Callers should omit the logo when no asset matches (avoid showing the wrong brand).
         `,
       },
     },

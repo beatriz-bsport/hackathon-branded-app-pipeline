@@ -3,9 +3,15 @@ import type { ReactNode, RefObject } from "react";
 import type { Fetch } from "@bsport/fetch";
 import type { UseFormControllerOutput } from "@bsport/form";
 
-import type { PaymentMethodSelectorSelection } from "#src/components/financial-services/payment-method-selector/types";
+import {
+  ALL_PAYMENT_METHOD_SELECTOR_ID,
+  type AllPaymentMethodKey,
+} from "#src/components/financial-services/payment-method-selector/constants";
+import {
+  PAYMENT_METHOD_SELECTOR_SELECTION_KIND,
+  type PaymentMethodSelectorSelection,
+} from "#src/components/financial-services/payment-method-selector/types";
 
-import type { AllPaymentMethodKey } from "../../payment-method-selector/constants";
 import { paymentFlowFormSchema } from "../payment-flow-form";
 import { GiftCardPaymentMethod } from "../payment-methods/gift-card/gift-card-payment-method";
 import type { PaymentFlowGiftCard } from "../payment-methods/gift-card/types";
@@ -78,12 +84,13 @@ export const usePaymentMethodRenderers = ({
   const manualNote = methods.watch("manualNote");
 
   const hiddenAllMethodIds: AllPaymentMethodKey[] = [];
-  if (!hasPositiveAccountBalance) hiddenAllMethodIds.push("account_balance");
+  if (!hasPositiveAccountBalance)
+    hiddenAllMethodIds.push(ALL_PAYMENT_METHOD_SELECTOR_ID.ACCOUNT_BALANCE);
   if (isLoadingStripeReaders || !hasStripeReaders)
-    hiddenAllMethodIds.push("terminal");
+    hiddenAllMethodIds.push(ALL_PAYMENT_METHOD_SELECTOR_ID.TERMINAL);
 
   const allMethodRenderers: Record<AllPaymentMethodKey, () => ReactNode> = {
-    card: () =>
+    [ALL_PAYMENT_METHOD_SELECTOR_ID.CARD]: () =>
       member ? (
         <StripePaymentMethod
           ref={cardPaymentRef}
@@ -98,7 +105,7 @@ export const usePaymentMethodRenderers = ({
           }
         />
       ) : null,
-    sepa_debit: () =>
+    [ALL_PAYMENT_METHOD_SELECTOR_ID.SEPA_DEBIT]: () =>
       member ? (
         <StripePaymentMethod
           ref={sepaPaymentRef}
@@ -113,7 +120,7 @@ export const usePaymentMethodRenderers = ({
           }
         />
       ) : null,
-    gift_card_code: () => (
+    [ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE]: () => (
       <GiftCardPaymentMethod
         fetch={fetch}
         memberId={memberId}
@@ -124,8 +131,8 @@ export const usePaymentMethodRenderers = ({
         onGiftCardsChange={onGiftCardsChange}
       />
     ),
-    account_balance: () => null,
-    terminal: () => (
+    [ALL_PAYMENT_METHOD_SELECTOR_ID.ACCOUNT_BALANCE]: () => null,
+    [ALL_PAYMENT_METHOD_SELECTOR_ID.TERMINAL]: () => (
       <TerminalPaymentMethod
         stripeReaders={stripeReaders}
         isLoading={isLoadingStripeReaders}
@@ -139,7 +146,7 @@ export const usePaymentMethodRenderers = ({
         }
       />
     ),
-    manual: () => (
+    [ALL_PAYMENT_METHOD_SELECTOR_ID.MANUAL]: () => (
       <ManualPaymentMethod
         manualType={manualType}
         paymentDate={manualDate}
@@ -152,7 +159,10 @@ export const usePaymentMethodRenderers = ({
   };
 
   const renderSelectedPaymentMethod = (): ReactNode => {
-    if (selectedPaymentMethod?.kind !== "all") return null;
+    if (
+      selectedPaymentMethod?.kind !== PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL
+    )
+      return null;
     return allMethodRenderers[selectedPaymentMethod.id]?.() ?? null;
   };
 

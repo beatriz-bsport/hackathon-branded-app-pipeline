@@ -5,9 +5,21 @@ import type { SelectProps } from "@bsport/kaizen-primitive-core";
 
 import type { AllPaymentMethodKey } from "./constants";
 
+/** Serialized selection prefix / discriminant for `PaymentMethodSelector` values. */
+export const PAYMENT_METHOD_SELECTOR_SELECTION_KIND = {
+  SAVED: "saved",
+  ALL: "all",
+} as const;
+
 export type PaymentMethodSelectorSelection =
-  | { kind: "saved"; id: string }
-  | { kind: "all"; id: AllPaymentMethodKey }
+  | {
+      kind: typeof PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED;
+      id: string;
+    }
+  | {
+      kind: typeof PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL;
+      id: AllPaymentMethodKey;
+    }
   | null;
 
 export type PaymentMethodSelectorResolvedSelection = Exclude<

@@ -26,6 +26,7 @@ The selector itself should stay focused on **selection UX** (grouping, labels, f
 - Always **uncontrolled**.
 - If saved methods exist, the selector auto-selects the first one.
 - If no saved method exists, it auto-selects **new card** (\`all:card\`).
+- Saved methods can show \`PaymentMethodLogo\` when the saved method maps to a supported logo \`type\` (for example Visa/Mastercard/SEPA/BACS).
 
 ### How to import?
 
@@ -156,6 +157,10 @@ export const Documentation: StoryObj<PaymentMethodSelectorComponent> = {
 
 - If at least one saved method exists, the first saved method is auto-selected.
 - If no saved method exists, \`all:card\` is auto-selected.
+
+### Saved method visuals
+
+- The selector maps each saved payment method to an optional \`PaymentMethodLogo\` \`type\`; unsupported card brands omit the logo.
 
 ### Responsibility split recommendation
 

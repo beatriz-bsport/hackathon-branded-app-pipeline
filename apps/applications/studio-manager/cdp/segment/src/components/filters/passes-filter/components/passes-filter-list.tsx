@@ -71,7 +71,7 @@ const createDraftClientId = (): string => {
  * are removed once their backing mutation succeeds.
  */
 export const PassesFilterList = ({ smartlistId }: PassesFilterListProps) => {
-  const { t } = useTranslation("campaign-filters");
+  const { t } = useTranslation("filters");
   const smartlistNumericId = Number(smartlistId);
   const [drafts, setDrafts] = useState<DraftFilter[]>([]);
 

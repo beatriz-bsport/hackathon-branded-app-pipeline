@@ -88,7 +88,7 @@ export const ItemsSearchFilter = ({
   selectedOptionFormatter,
   selectedListItem: SelectedListItemComponent,
 }: ItemsSearchFilterProps) => {
-  const { t } = useTranslation("campaign-filters");
+  const { t } = useTranslation("filters");
   const isControlled = value !== undefined;
   const [localValue, setLocalValue] = useState<ItemsSearchFilterValue>(
     value ?? [],

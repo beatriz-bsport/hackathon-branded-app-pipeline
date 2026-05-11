@@ -5,6 +5,7 @@
 export const PASS_SUB_FILTER_IDS = {
   purchaseDate: "purchase_date",
   expirationDate: "expiration_date",
+  creditLeft: "credit_left",
 } as const;
 
 export type PassSubFilterId =
@@ -13,6 +14,7 @@ export type PassSubFilterId =
 export const passSubFilterFielMap = {
   [PASS_SUB_FILTER_IDS.purchaseDate]: "purchaseDate",
   [PASS_SUB_FILTER_IDS.expirationDate]: "expirationDate",
+  [PASS_SUB_FILTER_IDS.creditLeft]: "creditLeft",
 } as const;
 
 export type PassSubFilterField =

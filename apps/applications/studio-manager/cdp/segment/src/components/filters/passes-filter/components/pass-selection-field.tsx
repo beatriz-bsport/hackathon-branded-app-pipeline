@@ -42,7 +42,7 @@ export const PassSelectionField = ({
   errorText,
   onChange,
 }: PassSelectionFieldProps) => {
-  const { t } = useTranslation("campaign-filters");
+  const { t } = useTranslation("filters");
 
   const items = useMemo(
     () =>

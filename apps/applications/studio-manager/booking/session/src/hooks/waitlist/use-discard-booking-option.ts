@@ -12,9 +12,9 @@ import { toast } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { useSessionManagementStore } from "#src/stores/session-management/store";
-import { WaitlistFilter } from "#src/stores/session-management/types";
 import { adjustPageOnDelete } from "#src/utils/adjust-page-on-delete";
 import { fetch } from "#src/utils/fetch.js";
+import { getWaitlistFilterParams } from "#src/utils/get-waitlist-filter-params";
 import { useTranslation } from "#src/utils/i18n.js";
 
 type DiscardBookingOptionVariables = {
@@ -45,10 +45,7 @@ export const useDiscardBookingOption = () => {
           offer: data.offer.id,
           page: currentPage,
           page_size: currentPageSize,
-          cancelled: waitlistFilters === WaitlistFilter.CANCELLED,
-          ...(waitlistFilters === WaitlistFilter.IS_CONVERTIBLE && {
-            is_convertible: true,
-          }),
+          ...getWaitlistFilterParams(waitlistFilters),
         };
 
         adjustPageOnDelete({

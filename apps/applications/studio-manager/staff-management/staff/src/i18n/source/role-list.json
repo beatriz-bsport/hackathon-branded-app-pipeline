@@ -1,7 +1,8 @@
 {
   "page": {
     "title": "Roles",
-    "toStaff": "Manage staff"
+    "toStaff": "Manage staff",
+    "addRole": "Add role"
   },
   "table": {
     "headers": {

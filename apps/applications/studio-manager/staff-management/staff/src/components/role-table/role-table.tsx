@@ -16,21 +16,26 @@ type RoleTableProps = {
   rows: RoleRowData[];
   isEmpty: boolean;
   isLoading: boolean;
+  onCreateRole: () => void;
 };
 
-export const RoleTable: FC<RoleTableProps> = ({ rows, isEmpty, isLoading }) => {
+export const RoleTable: FC<RoleTableProps> = ({
+  rows,
+  isEmpty,
+  isLoading,
+  onCreateRole,
+}) => {
   const { t } = useTranslation("role-list");
   const columns = useRoleTableColumns();
   const isMobile = !useMatchMedia("sm");
 
-  const emptyConfig: UseEmptyStateProps["emptyConfig"] = {
+  const emptyConfig: NonNullable<UseEmptyStateProps["emptyConfig"]> = {
     title: t("table.emptyList.title"),
     subtitle: t("table.emptyList.subtitle"),
     ctaButtonConfig: {
       label: t("table.emptyList.cta"),
       iconLeft: "plus" as const,
-      disabled: true,
-      onClick: () => undefined,
+      onClick: onCreateRole,
     },
   };
 

@@ -1,6 +1,7 @@
 import { FC, useCallback } from "react";
 import { useNavigate } from "react-router";
 
+import { fromIsoString, getLocalNow } from "@bsport/datetime-manipulation";
 import { openCheckoutFlow } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
 import { Item, useCopyToClipboard } from "@bsport/kaizen-primitive-core";
 
@@ -83,6 +84,14 @@ export const ShortcutActionsButton: FC<{
   const hasSeeProfileDetailsPermission = useObjectLevelPermission(
     "member.allowed_actions.accessProfile",
   );
+
+  const hasSessionStarted = (() => {
+    const startDateTime = fromIsoString(session.date_start, {
+      zone: session.timezone_name,
+    });
+    const now = getLocalNow({ zone: session.timezone_name });
+    return now >= startDateTime;
+  })();
 
   const { openModal: openAssignSpotModal, modalElement: assignSpotModal } =
     useAssignSpotAction({ bookingId: bookingId ?? 0, sessionId, currentSpot });
@@ -221,6 +230,7 @@ export const ShortcutActionsButton: FC<{
         label: t("actions.removeFromWaitlist"),
         iconLeft: "trash-01",
         type: "button",
+        disabled: hasSessionStarted || !openModal,
         onClick: () => {
           if (!openModal || !bookingOptionId) return;
           openModal(SessionManagementModalType.DISCARD_BOOKING_OPTION, {
@@ -284,6 +294,7 @@ export const ShortcutActionsButton: FC<{
       session,
       hasSeeProfileDetailsPermission,
       bookingOptionId,
+      hasSessionStarted,
     ],
   );
 

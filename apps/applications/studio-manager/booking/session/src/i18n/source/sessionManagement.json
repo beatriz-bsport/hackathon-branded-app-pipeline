@@ -65,6 +65,7 @@
     "editClientNotes": "Edit client notes",
     "bookToClass": "Book to the class",
     "removeFromWaitlist": "Remove from waitlist",
+    "impossibleToRemoveFromWaitlist": "Class already started, it's not possible to remove members from the waitlist",
     "assignSpot": {
       "success": "Spot assigned",
       "error": "Couldn't assign the spot"

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { FC, useMemo } from "react";
 
+import { fromIsoString, getLocalNow } from "@bsport/datetime-manipulation";
 import {
   Avatar,
   Badge,
@@ -83,6 +84,14 @@ export const WaitList: FC<{
 
   const hasSearchQuery = searchQuery.trim().length > 0;
 
+  const hasSessionStarted = (() => {
+    const startDateTime = fromIsoString(session.date_start, {
+      zone: session.timezone_name,
+    });
+    const now = getLocalNow({ zone: session.timezone_name });
+    return now >= startDateTime;
+  })();
+
   const paginationProps: PaginationProps = useMemo(
     () => ({
       currentPage,
@@ -157,7 +166,11 @@ export const WaitList: FC<{
                 </ResponsiveTooltip>
                 <ResponsiveTooltip
                   placement="bottom"
-                  label={t("actions.removeFromWaitlist")}
+                  label={
+                    hasSessionStarted
+                      ? t("actions.impossibleToRemoveFromWaitlist")
+                      : t("actions.removeFromWaitlist")
+                  }
                 >
                   <Button
                     kind="icon-button"
@@ -166,7 +179,7 @@ export const WaitList: FC<{
                     intent="default"
                     size="md"
                     color="main"
-                    disabled={!openModal}
+                    disabled={hasSessionStarted || !openModal}
                     onClick={(e) => {
                       e.stopPropagation();
                       openModal?.(

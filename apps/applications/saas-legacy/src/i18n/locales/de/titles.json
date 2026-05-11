@@ -28,8 +28,8 @@
   "coach": {
     "coachFormPage": "Lehrkraft-Formular",
     "coachList": "Lehrkräfte",
-    "allCoachPerformance": "Lohnabrechnung",
-    "coachPerformance": "Lohnabrechnung: {{- name }}"
+    "allCoachPerformance": "Honorarabrechnung",
+    "coachPerformance": "Honorarabrechnung: {{- name }}"
   },
   "invoice": {
     "invoiceCreate": "In Rechnung stellen",
@@ -96,7 +96,7 @@
     "expenseList": "Ausgaben"
   },
   "coachUserSpace": {
-    "performance": "Lohnabrechnung",
+    "performance": "Honorarabrechnung",
     "replacement": "Vertretung"
   },
   "replacement": "Vertretung",

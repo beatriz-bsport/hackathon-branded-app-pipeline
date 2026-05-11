@@ -85,6 +85,71 @@
         "certificate_error": "Couldn't retrieve VERI*FACTU certificate. Please try again. "
       }
     },
+    "ticketbai": {
+      "title": "TicketBAI",
+      "loading": "Loading…",
+      "info": "This add-on isn't active on your account yet — please contact your Account Manager to request it",
+      "description": "Regional invoicing rules for Basque Country (Araba, Bizkaia, Gipuzkoa). When TicketBAI is active, qualifying invoices and receipts are formatted and reported as required by your province.",
+      "territory": {
+        "title": "Company & device certificate",
+        "subtitle": "Province from Stripe billing address",
+        "detected_province": "Detected province",
+        "helper": "We read this from your Stripe business profile. If it is wrong, <0>change it on Stripe</0>, or invoices may use the wrong provincial rules.",
+        "araba": "Álava",
+        "bizkaia": "Bizkaia",
+        "gipuzkoa": "Gipuzkoa"
+      },
+      "form": {
+        "chips": {
+          "vat_id_validated": "VAT ID validated",
+          "vat_id_missing": "VAT ID missing",
+          "business_address_provided": "Business address provided",
+          "business_address_missing": "Business address missing",
+          "invoice_identifiers_set_up": "Invoice identifiers set up",
+          "invoice_identifiers_not_set_up": "Invoice identifiers not set up"
+        },
+        "requirements": {
+          "vat_required": "VAT ID required",
+          "address_required": "Business address required",
+          "vat_and_address_required": "VAT ID & Business address required",
+          "vat_description": "Add your VAT ID in Settings → Company before enabling TicketBAI with Sign-ES.",
+          "address_description": "Provide your business address in Stripe onboarding — we use it to confirm Basque province for TicketBAI.",
+          "vat_and_address_description": "Add your VAT ID in Settings → Company and complete Stripe onboarding with your business address. Both are required before TicketBAI setup.",
+          "go_to_settings": "Go to Settings",
+          "complete_stripe_onboarding": "Complete Stripe onboarding",
+          "legal_identifier_required": "Invoice identifiers required",
+          "legal_identifier_description": "Set up invoice identifiers for Sign-ES following this <0>helpsheet</0>."
+        }
+      },
+      "onboarding": {
+        "register_processing": "Registering…",
+        "configure_ticketbai": "Configure TicketBAI",
+        "info_euskadi": "TicketBAI information (Euskadi)",
+        "register_error": "Couldn't register the signing device. Please try again.",
+        "device_registered": "Signing device registered successfully",
+        "device_error": "Signing device registration did not return a certificate serial. Please try again or contact support."
+      },
+      "device": {
+        "title": "Device certificate",
+        "subtitle": "Use this serial on your province's TicketBAI portal. <0>Learn how to do it with fiskaly</0>",
+        "serial_caption": "Device certificate serial (issued by bsport)",
+        "gipuzkoa_notice": "You still need to validate your Fiskaly device certificate with Gipuzkoa on their official portal. You have about one month to do so. All invoices you issue in the meantime remain legally compliant.",
+        "registration_notice_title": "Finish device registration before completing",
+        "registration_notice_description": "Use the serial above on your province's official TicketBAI portal to register your Fiskaly device certificate so bsport can begin submitting your qualifying invoices to TicketBAI",
+        "complete_confirmation": "I have completed the required provincial device registration for my territory",
+        "complete_cta": "Complete setup"
+      },
+      "finalize": {
+        "processing": "Finalizing…",
+        "success": "TicketBAI setup finalized",
+        "error": "Couldn't finalize TicketBAI setup. Please try again."
+      },
+      "active": {
+        "success_message": "TicketBAI is active. Qualifying invoices and receipts will be reported according to your province's TicketBAI rules",
+        "gipuzkoa_followup_title": "Your invoices are already being sent to the tax authorities",
+        "gipuzkoa_followup_description": "You still need to validate your Fiskaly device with Gipuzkoa on their official portal. You have about one month to do so. All invoices you issue in the meantime remain legally compliant."
+      }
+    },
     "sequentialNumbering": {
       "title": "Set up sequential invoice numbering",
       "subtitle": "Your invoices will be automatically numbered in sequence (1, 2, 3...). Set the start date and numbering format to get started.",

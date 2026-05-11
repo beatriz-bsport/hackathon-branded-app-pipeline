@@ -15,7 +15,7 @@ import { resolveTeacherEntries } from "#src/utils/resolve-teacher-entries";
 type CollectionVideoPreviewProps = {
   categoriesById: Map<number, string>;
   emptyThumbnailLabel: string;
-  levelsById: Map<number, string>;
+  levelsById: Map<number, { label: string; color: string }>;
   teachersByAssociatedCoachId: Map<number, TeacherPreview>;
   video: Video | null;
 };
@@ -50,7 +50,9 @@ export const CollectionVideoPreview: FC<CollectionVideoPreviewProps> = ({
     window.open(playbackUrl, "_blank", "noopener,noreferrer");
   };
   const categoryLabel = video?.SCT ? categoriesById.get(video.SCT) : undefined;
-  const levelLabel = video?.level ? levelsById.get(video.level) : undefined;
+  const levelLabel = video?.level
+    ? levelsById.get(video.level)?.label
+    : undefined;
   const rentalDaysLabel =
     video && video.rental_days > 0
       ? t("videoList.rentalDays", { count: video.rental_days })

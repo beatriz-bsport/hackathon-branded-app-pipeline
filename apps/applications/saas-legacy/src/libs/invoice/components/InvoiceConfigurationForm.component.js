@@ -36,7 +36,7 @@ import InvoiceRefundsAndDiscountsForm from '#src/libs/invoice/components/Invoice
 import TaxDisplayForm from '#src/libs/theme/components/TaxDisplay.form';
 import ProvincialTaxForm from '#src/libs/theme/components/ProvincialTax.form';
 import NumberInput from '#src/components/input/NumericInput.component';
-import VerifactuSettings from '#src/libs/invoice/verifactu/VerifactuSettings.component.tsx';
+import SignEsComplianceSettings from '#src/libs/invoice/sign-es/SignEsComplianceSettings.component.tsx';
 import InvoiceSequentialNumberingSettings from '#src/libs/invoice/components/InvoiceSequentialNumberingSettings.component.tsx';
 
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
@@ -561,7 +561,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
           </Paper> */}
           {isCompanySpanish && (
             <div className={classes.content}>
-              <VerifactuSettings />
+              <SignEsComplianceSettings />
             </div>
           )}
           <Paper className={classes.paper}>

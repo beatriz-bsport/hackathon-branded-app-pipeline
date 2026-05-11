@@ -37,7 +37,9 @@
   },
   "waitList": {
     "emptyState": {
-      "title": "There are no participants on waitlist"
+      "title": "There are no participants on waitlist",
+      "pending": "There are no participants pending to be booked from the waitlist.",
+      "removed": "There are no participants removed from the waitlist"
     },
     "loadingMessage": "Loading waitlist..."
   },
@@ -47,7 +49,7 @@
   },
   "bookingOptionStatusFilter": {
     "onWaitlist": "On Waitlist",
-    "convertible": "Convertible",
+    "pending": "Pending",
     "removed": "Removed"
   },
   "actions": {
@@ -127,7 +129,7 @@
     },
     "viewWaitlistMembers": {
       "title": "Waitlist members",
-      "subtitle": "Members are still on the waitlist, but it is currently paused for this session.  You can reactivate it at any time and the existing order will be preserved."
+      "subtitle": "Members are still on the waitlist, but it is currently paused for this session. You can reactivate it at any time and the existing order will be preserved."
     }
   },
   "bookingAttendanceFilter": {

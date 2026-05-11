@@ -18,7 +18,7 @@ pnpm exec nx run @bsport/sm-vod:dev:watch
 
 This will run two applications aside :
 
-- The Navigation Sidebar on port 4050, with module federation.
+- The Navigation Sidebar on port 4050, used as the local navigation bridge.
 - The VOD application, on the port defined in `package.json` in `federation.devPort` : 4154.
 
 Go to <http://localhost:4154>

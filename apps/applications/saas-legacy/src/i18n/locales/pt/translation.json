@@ -382,7 +382,7 @@
         "city": "Cidade"
       },
       "error": {
-        "password": "A palavra-passe deve conter pelo menos 6 caracteres",
+        "password": "A palavra-passe deve conter pelo menos 12 caracteres",
         "passwordConfirm": "As palavras-passe não coincidem"
       },
       "typePhone": "Telemóvel",

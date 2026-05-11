@@ -51,12 +51,6 @@
   "wellhub": {
     "title": "Wellhub",
     "configuration": {
-      "migration": {
-        "banner": {
-          "title": "Wellhub-update bezig",
-          "content": "Het bewerken of verwijderen van configuraties is niet beschikbaar tot {{date}}. Je kunt nog steeds nieuwe verbindingen toevoegen. Neem voor dringende wijzigingen contact op met je Account Manager."
-        }
-      },
       "dialog": {
         "title": {
           "creation": "Eenheid ID toevoegen en koppelen aan vestiging(en)",

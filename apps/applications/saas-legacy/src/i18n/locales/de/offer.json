@@ -275,7 +275,7 @@
         "field": {
           "coachPaymentRule": {
             "placeholder": "Regel auswählen",
-            "title": "Lohnabrechnungsregeln"
+            "title": "Honorarabrechnungsregel"
           },
           "coachOverride": {
             "placeholder": "Vertretung auswählen",

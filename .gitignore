@@ -87,8 +87,6 @@ vitest.config.*.timestamp*
 GEMINI.md
 
 # Opencode AI
-AGENTS.md
-.opencode
 .sisyphus
 
 

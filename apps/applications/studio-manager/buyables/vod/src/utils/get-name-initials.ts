@@ -5,4 +5,5 @@ export const getNameInitials = (name: string) =>
     .map((part) => part[0])
     .filter(Boolean)
     .join("")
-    .slice(0, 2);
+    .slice(0, 2)
+    .toUpperCase();

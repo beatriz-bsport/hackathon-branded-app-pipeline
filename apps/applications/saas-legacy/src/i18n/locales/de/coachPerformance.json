@@ -4,19 +4,19 @@
   "addBonus": "Eine Regel hinzufügen",
   "table": {
     "download": "Downloaden",
-    "downloadAll": "Lohnabrechnung exportieren",
+    "downloadAll": "Honorarabrechnung exportieren",
     "downloadPDF": "Download (.pdf)",
     "downloadCSV": "Download (.csv)"
   },
   "fields": {
-    "rule": "Lohnabrechnungsregel",
+    "rule": "Honorarabrechnungsregel",
     "date": "Datum",
     "name": "Name des Kurses",
     "duration": "Dauer",
     "base": "Basis",
     "bonus": "Bonus",
     "nb_bookings": "Buchungen",
-    "error": "Es scheint, dass einige Kurse keine zugehörige Lohnabrechnungsregel haben. Bitte konfiguriere deine Aktivitäten und Lehrkräfte korrekt, um die Lohnabrechnung zu nutzen.",
+    "error": "Einigen Kursen wurden keine Honorarabrechnungsregel zugeordnet. Bitte konfiguriere deine Aktivitäten und Lehrkräfte, um die Honorarabrechnung zu nutzen.",
     "total": "Gesamtvergütung",
     "cancelled_bookings": "Stornierte Buchungen",
     "confirmed_bookings": "Teilnehmer",
@@ -48,8 +48,8 @@
     "previewModeTitle": "Vorschau-Modus",
     "downloadMySavedData": "Download",
     "enterPreviewMode": "In den Vorschau-Modus wechseln",
-    "unresolvedDaterange": "Ungültige Lohnabrechnungsregel",
-    "dateRange": "Lohnabrechnung des {{- startDate }} bis {{- endDate }}",
+    "unresolvedDaterange": "Ungültige Honorarabrechnungsregel",
+    "dateRange": "Honorarabrechnung von {{- startDate }} bis {{- endDate }}",
     "dateSaved": "Daten erzeugt am: {{ date }}",
     "title": "Gespeicherte Daten ({{ count }})",
     "undeterminedOldestUpdate": "Keine vorherigen Updates verfügbar",
@@ -57,8 +57,8 @@
   },
   "export": {
     "completed": {
-      "message": "Die Exportdatei für die Lehrkraft-Lohnabrechnung ist verfügbar. Du kannst diese Daten auch unter 'Gespeicherte Daten' abrufen.",
-      "title": "Lohnabrechnung exportieren"
+      "message": "Die Exportdatei für die Lehrkraft-Honorarabrechnung ist nun verfügbar. Du kannst diese Daten auch unter 'Gespeicherte Daten' abrufen.",
+      "title": "Honorarabrechnung exportieren"
     },
     "dialog": {
       "buttonText": "Bestätigen",
@@ -77,12 +77,12 @@
     }
   },
   "advancedFilters": {
-    "byCoachPaymentRules": "Nach Lohnabrechnungsregeln filtern (für Lehrkräfte ohne Lohnabrechnungsgruppe)",
-    "byCoachPaymentruleGroups": "Nach Lohnabrechnungsgruppen filtern",
+    "byCoachPaymentRules": "Nach Honorarabrechnungsregeln filtern (für Lehrkräfte ohne Honorarabrechnungsgruppe)",
+    "byCoachPaymentruleGroups": "Nach Honorarabrechnungsgruppen filtern",
     "privateserviceCoachPaymentRuleSelector": "Termin",
     "workshopCoachPaymentRuleSelctor": "Workshops",
     "sessionCoachPaymentRuleSelctor": "Gruppenaktivitäten ",
-    "coachPaymentRuleGroupSelector": "Lohnabrechnungsgruppen",
+    "coachPaymentRuleGroupSelector": "Honorarabrechnungsgruppen",
     "coachSelector": "Wähle Lehrkräfte aus",
     "reset": "Filter zurücksetzen",
     "apply": "Filter anwenden",

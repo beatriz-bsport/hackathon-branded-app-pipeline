@@ -43,6 +43,7 @@ export const SessionCapacityField: FC<{
           defaultProps.onChange(isNaN(numValue) ? 0 : Math.max(0, numValue));
           if (fieldName === "effectif") {
             form.trigger("effectif"); // Trigger validation to check against roomBlueprintCapacity
+            form.trigger("partner_max_booking_count"); // Trigger validation to check against effectif
           }
         },
         status: fieldState.error ? "error" : "default",

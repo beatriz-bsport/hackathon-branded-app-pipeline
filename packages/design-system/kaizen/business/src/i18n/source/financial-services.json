@@ -40,9 +40,10 @@
       "allMethodsLabel": "All methods",
       "allMethodsPlaceholder": "Select a method",
       "allMethodsOptions": {
-        "card": "New credit card",
-        "sepaDebit": "SEPA",
+        "card": "Credit card",
+        "sepaDebit": "SEPA payment",
         "giftCardCode": "Gift Card",
+        "accountBalance": "Account balance",
         "terminal": "Terminal",
         "manual": "Manual"
       }
@@ -52,7 +53,12 @@
     "title": "Payment",
     "buttons": {
       "cancel": "Cancel",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "pay": "Pay {{amount}}"
+    },
+    "errors": {
+      "generic": "Could not confirm this payment. Please try again.",
+      "giftCardPayment": "Could not pay this invoice with this gift card."
     },
     "tabs": {
       "oneTime": "One time",
@@ -60,7 +66,22 @@
     },
     "totalAmountLabel": "Total amount",
     "partialToggleLabel": "Pay part of the total now, the rest later",
+    "partialAmount": {
+      "label": "Amount to pay now",
+      "remainingHelper": "{{amount}} will be left to pay",
+      "unsupportedMethod": "Partial payment is not available with this payment method.",
+      "errors": {
+        "min": "Amount must be greater than 0.",
+        "max": "Amount cannot be higher than the total due."
+      }
+    },
+    "partialSuccess": {
+      "title": "Payment",
+      "successful": "Payment successful",
+      "remaining": "There will be {{amount}} left to pay on this invoice"
+    },
     "paymentMethodTitle": "Payment method",
+    "memberBalanceInsufficientAlert": "Client's account balance doesn't cover the full amount. Charge the remaining amount separately.",
     "giftCards": {
       "title": "Available gift cards",
       "loading": "Loading gift cards...",
@@ -87,6 +108,37 @@
       "title": "Pay with new SEPA direct debit",
       "saveLabel": "Save this SEPA mandate for future payments",
       "paymentError": "Could not process SEPA details. Please try again."
+    },
+    "terminal": {
+      "title": "Select a terminal",
+      "loading": "Loading terminals...",
+      "empty": "No terminal available.",
+      "unknownSerial": "Unknown serial number",
+      "saveLabel": "Save this card for future payments"
+    },
+    "manual": {
+      "fields": {
+        "type": {
+          "label": "Payment method",
+          "options": {
+            "cardManualMachine": "Card (manual - card machine)",
+            "cash": "Cash",
+            "check": "Check",
+            "vacationCheck": "Vacation check",
+            "americanExpress": "AMEX",
+            "transfer": "Transfer",
+            "other": "Other",
+            "clientCreditBalance": "Client credit balance (debit)"
+          }
+        },
+        "date": {
+          "label": "Payment date"
+        },
+        "note": {
+          "label": "Note",
+          "placeholder": "(Optional) Payment reference"
+        }
+      }
     },
     "links": {
       "invoice": "Invoice"

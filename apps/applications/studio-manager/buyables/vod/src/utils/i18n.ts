@@ -9,6 +9,7 @@ import type collectionDetailsTranslations from "#src/i18n/source/collection-deta
 import type collectionFormTranslations from "#src/i18n/source/collection-form.json";
 import type collectionsListTranslations from "#src/i18n/source/collections-list.json";
 import type mediaDetailsTranslations from "#src/i18n/source/media-details.json";
+import type mediaFormTranslations from "#src/i18n/source/media-form.json";
 import type mediaListTranslations from "#src/i18n/source/media-list.json";
 import type sharedListTranslations from "#src/i18n/source/shared-list.json";
 
@@ -19,6 +20,7 @@ type Translations = {
   "collection-form": typeof collectionFormTranslations;
   "media-list": typeof mediaListTranslations;
   "media-details": typeof mediaDetailsTranslations;
+  "media-form": typeof mediaFormTranslations;
 };
 
 export const {

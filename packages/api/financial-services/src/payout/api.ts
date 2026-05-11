@@ -1,6 +1,6 @@
 import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
-import { API_URL } from "../constants";
+import { API_URL, QUERY_KEY_MAIN } from "../constants";
 import type {
   GetPayoutBalanceTransactionsRequest,
   GetPayoutDetailRequest,
@@ -9,6 +9,27 @@ import type {
   PayoutDetailResponse,
   PayoutListResponse,
 } from "./types";
+
+export const payoutKeys = {
+  all: [QUERY_KEY_MAIN, "payout"] as const,
+  list: (payload: GetPayoutListRequest) =>
+    [
+      ...payoutKeys.all,
+      "list",
+      payload.page,
+      payload.page_size ?? null,
+    ] as const,
+  detail: (payoutId: string) =>
+    [...payoutKeys.all, "detail", payoutId] as const,
+  balanceTransactions: (payload: GetPayoutBalanceTransactionsRequest) =>
+    [
+      ...payoutKeys.all,
+      "balance-transactions",
+      payload.payout_id,
+      payload.page,
+      payload.page_size ?? null,
+    ] as const,
+} as const;
 
 const getPayoutListAPIConfig = (payload: GetPayoutListRequest): ApiConfig => {
   const params = new URLSearchParams({ page: String(payload.page) });

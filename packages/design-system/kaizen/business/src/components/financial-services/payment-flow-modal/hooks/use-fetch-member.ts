@@ -1,6 +1,6 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-import { fetchMemberAPI } from "@bsport/api-cdp/member";
+import { fetchMemberAPI, memberKeys } from "@bsport/api-cdp/member";
 import type { Fetch } from "@bsport/fetch";
 
 const MEMBER_STALE_TIME = 2 * 60 * 1000; // 2 minutes
@@ -9,7 +9,7 @@ const fetchMemberQueryOptions = (fetch: Fetch, memberId: number) => {
   const fetchMemberById = fetchMemberAPI.bind(null, fetch);
 
   return queryOptions({
-    queryKey: ["payment-flow-modal", "member", memberId],
+    queryKey: memberKeys.detail(memberId),
     queryFn: () => fetchMemberById({ memberId }),
     staleTime: MEMBER_STALE_TIME,
     enabled: memberId > 0,

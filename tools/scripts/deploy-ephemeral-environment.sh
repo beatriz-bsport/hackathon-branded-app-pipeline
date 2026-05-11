@@ -22,7 +22,7 @@ kind: Environment
 metadata:
   name: preview-$CI_MERGE_REQUEST_IID
   annotations:
-    bsport.io/owner: ${GITLAB_USER_EMAIL}
+    apps.sre.bsport.io/owner: ${GITLAB_USER_EMAIL}
 spec:
   paused: false
   frontends:

@@ -101,5 +101,137 @@
         "success": "Partner ID updated successfully."
       }
     }
+  },
+  "wellhub": {
+    "actions": {
+      "addConnection": "Add connection",
+      "addConnectionDisabledHint": "All establishments are already linked"
+    },
+    "form": {
+      "actions": {
+        "removeEstablishment": "Remove {{title}}"
+      },
+      "errors": {
+        "establishmentRequired": "At least one establishment is required",
+        "externalIdInvalid": "Unit ID must be a number",
+        "externalIdRequired": "Unit ID is required",
+        "externalIdUnavailable": "This Unit ID is already in use or does not exist"
+      },
+      "fields": {
+        "establishments": {
+          "label": "Establishments",
+          "placeholder": "Link your establishment(s)"
+        },
+        "externalId": {
+          "helper": "Enter the Wellhub venue ID for this connection",
+          "label": "Unit ID",
+          "placeholder": "e.g. 123456",
+          "valid": "ID is valid",
+          "validating": "Validating..."
+        }
+      }
+    },
+    "modal": {
+      "actions": {
+        "cancel": "Cancel",
+        "save": "Save"
+      },
+      "helper": "Select which establishments you want to synchronise with Wellhub.",
+      "title": {
+        "create": "Add Wellhub connection",
+        "edit": "Edit Wellhub connection {{externalId}}"
+      }
+    },
+    "confirm": {
+      "delete": {
+        "alert": "All sessions linked to this connection will no longer be available to Wellhub customers.",
+        "cancel": "Cancel",
+        "confirm": "Delete",
+        "description": "You are about to delete this Wellhub connection and unlink all associated establishments.",
+        "title": "Delete Wellhub connection"
+      },
+      "editWarning": {
+        "alert": "Upcoming sessions linked to those establishments will be deleted on Wellhub, and any Wellhub bookings will be lost",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "description": "You are about to unlink one or several establishments from Wellhub",
+        "title": "Edit Connection"
+      },
+      "reactivate": {
+        "alert": "Once reactivated, sessions will start syncing again automatically.",
+        "cancel": "Cancel",
+        "confirm": "Reactivate",
+        "title": "Reactivate synchronisation for this Unit ID?"
+      }
+    },
+    "toast": {
+      "create": {
+        "error": "Failed to create Wellhub connection. Please try again.",
+        "success": "Wellhub connection created successfully."
+      },
+      "delete": {
+        "error": "Failed to delete Wellhub connection. Please try again.",
+        "success": "Wellhub connection deleted successfully."
+      },
+      "reactivate": {
+        "error": "Failed to reactivate Wellhub connection. Please try again.",
+        "success": "Wellhub connection reactivated successfully."
+      },
+      "update": {
+        "error": "Failed to update Wellhub connection. Please try again.",
+        "success": "Wellhub connection updated successfully."
+      }
+    },
+    "productModal": {
+      "alert": {
+        "title": "Some classes are missing a Wellhub product",
+        "message_one": "{{count}} class does not have a Wellhub product assigned.",
+        "message_other": "{{count}} classes do not have a Wellhub product assigned.",
+        "action": "Assign products"
+      },
+      "title": "Assign Wellhub products",
+      "stepSelectSession": "Select class",
+      "stepSetProduct": "Set product",
+      "loadingOffers": "Loading classes…",
+      "noOffersEmpty": "No classes missing a Wellhub product.",
+      "successMessage": "Wellhub product assigned successfully",
+      "errorMessage": "An error occurred while assigning the Wellhub product. Please try again.",
+      "confirmButton": "Confirm",
+      "cancelButton": "Cancel",
+      "form": {
+        "productLabel": "Wellhub product",
+        "applySimilarLabel": "Apply to similar classes",
+        "similarSessionsTitle": "Similar classes",
+        "loadingProducts": "Loading products…",
+        "noAccountError": "No active Wellhub partnership account found for this class.",
+        "noProductsError": "No Wellhub products available for this class type."
+      }
+    },
+    "section": {
+      "subtitle": "Link your bsport account to Wellhub to sync sessions."
+    },
+    "table": {
+      "actions": {
+        "copyId": "Copy ID",
+        "delete": "Delete",
+        "edit": "Edit",
+        "label": "More actions",
+        "reactivate": "Reactivate"
+      },
+      "columns": {
+        "establishments": "Establishments",
+        "partnerId": "Unit ID",
+        "status": "Status"
+      },
+      "empty": {
+        "subtitle": "No Wellhub accounts are configured yet.",
+        "title": "No accounts yet"
+      },
+      "status": {
+        "active": "Active",
+        "deactivated": "Deactivated",
+        "pending": "Pending"
+      }
+    }
   }
 }

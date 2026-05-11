@@ -144,7 +144,7 @@
         },
         "enableReplacement": "Vertretung",
         "access": "Zugang",
-        "enableRemuneration": "Lohnabrechnung",
+        "enableRemuneration": "Honorarabrechnung",
         "description": "Passe die Lehrkraftansicht im Web an. Bitte beachte, dass die Einstellungen hier keinen Einfluss auf die Ansicht der App durch die Lehrkraft haben.",
         "isLateReplacementRequestLimited": "Limit für verspätete Anfragen",
         "enableSchedule": "Wochenplan",
@@ -177,7 +177,7 @@
         },
         "enableDescription": "Wenn du diese Option aktivierst, dann sehen alle Lehrkräfte diese Ansicht standardmäßig.",
         "replacementSettings": "Vertretungs-Einstellungen",
-        "enableRemunerationDownload": "Lehrkräfte können ihre Lohnabrechnung herunterladen"
+        "enableRemunerationDownload": "Lehrkräfte können ihre Honorarabrechnung herunterladen"
       },
       "noShow": {
         "title": "Abwesenheiten (No-Show)",

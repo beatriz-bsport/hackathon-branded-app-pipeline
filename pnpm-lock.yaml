@@ -2199,6 +2199,61 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
 
+  apps/applications/studio-manager/cdp/popup:
+    dependencies:
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/fetch
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/sm-backbone
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
+      luxon:
+        specifier: ^3.4.4
+        version: 3.5.0
+      react:
+        specifier: ^19.2.0
+        version: 19.2.0
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.0(react@19.2.0)
+      react-router:
+        specifier: ^7.2.0
+        version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/eslint-react
+      '@bsport/config-library':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/library
+      '@tanstack/react-query-devtools':
+        specifier: ^5.90.12
+        version: 5.91.1(@tanstack/react-query@5.90.12(react@19.2.0))(react@19.2.0)
+      '@types/luxon':
+        specifier: ^3.4.2
+        version: 3.4.2
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.17))(@types/node@22.13.15)(typescript@5.6.3))
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
+
   apps/applications/studio-manager/cdp/referral-program:
     dependencies:
       '@bsport/currency':
@@ -2275,8 +2330,11 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(terser@5.31.3)
 
-  apps/applications/studio-manager/cdp/smartlists:
+  apps/applications/studio-manager/cdp/segment:
     dependencies:
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/buyables
       '@bsport/api-cdp':
         specifier: workspace:*
         version: link:../../../../../packages/api/cdp
@@ -2286,6 +2344,9 @@ importers:
       '@bsport/api-member-experience':
         specifier: workspace:*
         version: link:../../../../../packages/api/member-experience
+      '@bsport/currency':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/currency
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting
@@ -2962,9 +3023,9 @@ importers:
       '@bsport/sm-smartfill':
         specifier: workspace:*
         version: link:../booking/smartfill
-      '@bsport/sm-smartlists':
+      '@bsport/sm-segment':
         specifier: workspace:*
-        version: link:../cdp/smartlists
+        version: link:../cdp/segment
       '@bsport/sm-staff':
         specifier: workspace:*
         version: link:../staff-management/staff
@@ -3135,6 +3196,9 @@ importers:
       '@bsport/api-core':
         specifier: workspace:*
         version: link:../../../../../packages/api/core
+      '@bsport/datetime-formatting':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime-formatting
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -3272,9 +3336,15 @@ importers:
       '@bsport/api-staff-management':
         specifier: workspace:*
         version: link:../../../../../packages/api/staff-management
+      '@bsport/common':
+        specifier: workspace:*
+        version: link:../../../../../packages/common-legacy
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
+      '@bsport/form':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/form
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../../packages/utils/i18n
@@ -3302,6 +3372,9 @@ importers:
       react-router:
         specifier: ^7.2.0
         version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      zod:
+        specifier: ^3.25.64
+        version: 3.25.67
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -4796,6 +4869,9 @@ importers:
 
   packages/stores/staff-management/role:
     dependencies:
+      '@bsport/api-staff-management':
+        specifier: workspace:*
+        version: link:../../../api/staff-management
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base
@@ -10449,6 +10525,7 @@ packages:
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@unleash/proxy-client-react@5.0.1':
     resolution: {integrity: sha512-F/IDo853ghZkGreLWg4fSVSM4NiLg5aZb1Kvr4vG29u5/PB0JLKNgNVdadt+qrlkI1GMzmP7IuFXSnv9A0McRw==}

@@ -14,7 +14,7 @@
       "invoiceList": "Meine Transaktionen",
       "invoiceCreatePage": "In Rechnung stellen",
       "coachFormPage": "Lehrkräfte-Formular",
-      "coachPerformance": "Lohnabrechnung",
+      "coachPerformance": "Honorarabrechnung",
       "offerFormPage": "Erstellung eines Workshops",
       "metaActivityFormPage": "Aktivität-Formular",
       "metaActivityEditForm": "Aktivität-Formular",
@@ -29,7 +29,7 @@
       "metaActivity": "Aktivitäten",
       "offerManagement": "Buchungen",
       "mergeMember": "Mitglieder zusammenlegen",
-      "allCoachPerformance": "Lohnabrechnung",
+      "allCoachPerformance": "Honorarabrechnung",
       "orderDetail": "Details der Bestellung",
       "orderList": "Bestellungen",
       "reportingDashboard": "Berichte",
@@ -612,7 +612,7 @@
       },
       "addProfilePicture": "Ein Profilbild hinzufügen",
       "error": {
-        "password": "Das Passwort muss mindestens 6 Zeichen enthalten",
+        "password": "Das Passwort muss mindestens 12 Zeichen enthalten",
         "passwordConfirm": "Die Kennwörter stimmen nicht überein."
       }
     },

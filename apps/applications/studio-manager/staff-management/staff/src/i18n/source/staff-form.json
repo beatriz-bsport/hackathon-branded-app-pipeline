@@ -1,0 +1,54 @@
+{
+  "formFields": {
+    "firstName": {
+      "label": "First Name"
+    },
+    "lastName": {
+      "label": "Last Name"
+    },
+    "email": {
+      "label": "Email"
+    },
+    "password": {
+      "label": "Password"
+    },
+    "commission": {
+      "label": "Commission"
+    },
+    "role": {
+      "label": "Role",
+      "loading": "Loading roles..."
+    },
+    "teachers": {
+      "heading": "Assigned teachers",
+      "description": "Select which teachers this staff member will be responsible for",
+      "label": "Teachers",
+      "placeholder": "Select teachers",
+      "loading": "Loading teachers..."
+    },
+    "billingGroup": {
+      "label": "Billing Location",
+      "description": "This is the location which the staff member will be billed from",
+      "placeholder": "Select billing location...",
+      "loading": "Loading billing locations..."
+    },
+    "errors": {
+      "required": "This field is required",
+      "invalidEmail": "Enter a valid email address",
+      "passwordTooShort": "Password is required",
+      "commissionRange": "Commission must be between 0 and 100",
+      "commissionPrecision": "Commission can have up to 2 decimal places"
+    }
+  },
+  "createModal": {
+    "title": "Add Staff",
+    "buttons": {
+      "add": "Add",
+      "close": "Close"
+    },
+    "submitResponse": {
+      "success": "Staff member added",
+      "error": "Failed to add staff member"
+    }
+  }
+}

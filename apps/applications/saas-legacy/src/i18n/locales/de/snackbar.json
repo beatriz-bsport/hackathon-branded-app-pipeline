@@ -441,7 +441,7 @@
       "success": "Standardregel geändert"
     },
     "errors": {
-      "cannotHaveSeveralPaymentRulesWithSameName": "Jede Lohnabrechnungsregel muss einen eindeutigen Namen haben"
+      "cannotHaveSeveralPaymentRulesWithSameName": "Jede Honorarabrechnungsregel muss einen eindeutigen Namen haben"
     }
   },
   "relationship": {

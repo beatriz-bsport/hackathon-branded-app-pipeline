@@ -2,9 +2,10 @@ import {
   ALL_PAYMENT_METHOD_OPTIONS,
   type AllPaymentMethodKey,
 } from "./constants";
-import type {
-  PaymentMethodSelectorResolvedSelection,
-  PaymentMethodSelectorSelection,
+import {
+  PAYMENT_METHOD_SELECTOR_SELECTION_KIND,
+  type PaymentMethodSelectorResolvedSelection,
+  type PaymentMethodSelectorSelection,
 } from "./types";
 
 const ALL_METHOD_KEYS = new Set<AllPaymentMethodKey>(
@@ -31,15 +32,18 @@ export const parseSelectValue = (
     return null;
   }
 
-  if (selectionKind === "saved") {
-    return { kind: "saved", id };
+  if (selectionKind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED) {
+    return { kind: PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED, id };
   }
 
   if (
-    selectionKind === "all" &&
+    selectionKind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL &&
     ALL_METHOD_KEYS.has(id as AllPaymentMethodKey)
   ) {
-    return { kind: "all", id: id as AllPaymentMethodKey };
+    return {
+      kind: PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL,
+      id: id as AllPaymentMethodKey,
+    };
   }
 
   return null;

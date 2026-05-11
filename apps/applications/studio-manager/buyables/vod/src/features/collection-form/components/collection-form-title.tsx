@@ -23,7 +23,6 @@ export const CollectionFormTitle: FC<CollectionFormTitleProps> = ({
       mapProps={({ defaultProps, field, form }) => ({
         ...defaultProps,
         helperText: `${field.value?.length ?? 0}/${FIELD_CONSTRAINTS.NAME_MAX_LENGTH}`,
-        maxLength: FIELD_CONSTRAINTS.NAME_MAX_LENGTH,
         onClear: () => {
           form.setValue("name", COLLECTION_FORM_DATA_DEFAULT.name, {
             shouldDirty: true,

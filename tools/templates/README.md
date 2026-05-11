@@ -7,7 +7,7 @@ This folder contains all the templates used by the command `pnpm run -w project:
 Currently, 3 templates are available :
 
 - `sm-application` : An application dedicated to the Studio Manager backoffice, relying on our Kaizen Design System.
-- `store-package` : A package to connect frontend and backend (API), and manage state with Zustand.
+- `store-package` : A Zustand package for existing store-based flows, shared client state, or migration work. New API client modules should prefer `packages/api`.
 - `typescript-package` : Any other kind of package to be used in applications or even other packages (hooks, utilities, helpers, common logic, ...).
 
 ## How to create a new template

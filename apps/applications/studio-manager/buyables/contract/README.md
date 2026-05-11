@@ -12,7 +12,7 @@ pnpm exec nx run @bsport/sm-contract:dev:watch
 
 This will run two applications aside :
 
-- The Navigation Sidebar on port 4050, with module federation.
+- The Navigation Sidebar on port 4050, used as the local navigation bridge.
 - The Contract application, on the port defined in `package.json` in `federation.devPort` : 4153.
 
 Go to <http://localhost:4153>

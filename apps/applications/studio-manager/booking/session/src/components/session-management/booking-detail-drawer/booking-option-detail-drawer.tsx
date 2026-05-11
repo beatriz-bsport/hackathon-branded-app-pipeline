@@ -101,14 +101,16 @@ const BookingOptionDetailDrawerContent: FC<{
             </Title>
           )}
         </div>
-        <ShortcutActionsButton
-          bookingOptionId={refinedBookingOption.id}
-          sessionId={refinedBookingOption.offer.id}
-          allowedItemIds={[
-            BookingActionItemId.BOOK_OPTION,
-            BookingActionItemId.REMOVE_FROM_WAITLIST,
-          ]}
-        />
+        {!refinedBookingOption.cancelled && (
+          <ShortcutActionsButton
+            bookingOptionId={refinedBookingOption.id}
+            sessionId={refinedBookingOption.offer.id}
+            allowedItemIds={[
+              BookingActionItemId.BOOK_OPTION,
+              BookingActionItemId.REMOVE_FROM_WAITLIST,
+            ]}
+          />
+        )}
       </div>
       <Body size="md" weight="weak" color="weak">
         {t("participantDetails.addedToWaitlistOn", {

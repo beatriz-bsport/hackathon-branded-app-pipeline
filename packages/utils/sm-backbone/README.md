@@ -164,7 +164,7 @@ This component provides more granular control over error handling. For detailed 
 
 ### Data Access Layer
 
-The data access layer provides a set of hooks to access common data across the application. These hooks abstract away the complexity of store selectors and provide a simple interface for accessing data.
+The data access layer provides a set of hooks to access common data across the application. Today it mainly wraps shared runtime wiring plus store-backed data surfaces that are still in use.
 
 ```tsx
 import { dataAccessLayer } from "@bsport/sm-backbone";
@@ -261,7 +261,7 @@ This approach ensures that:
 
 - All Tailwind classes used in SM Backbone are automatically included in your build
 - No manual class discovery or CSS exports are needed
-- The solution works seamlessly with pnpm workspaces and Module Federation
+- The solution works seamlessly with pnpm workspaces and the Studio Manager composed runtime
 - Content paths are version-controlled and explicit
 
 ### Usage in Applications

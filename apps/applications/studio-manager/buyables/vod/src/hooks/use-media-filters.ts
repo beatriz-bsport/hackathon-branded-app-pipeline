@@ -12,7 +12,10 @@ import {
   usePaginationQueryParams,
 } from "@bsport/use-pagination-query-params";
 
-import { useAllTeachersQuery } from "#src/hooks/api/use-all-teachers-query";
+import {
+  type TeacherOption,
+  useAllTeachersQuery,
+} from "#src/hooks/api/use-all-teachers-query";
 import { useLevelsByIdQuery } from "#src/hooks/api/use-levels-by-id-query";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
@@ -129,9 +132,9 @@ export const useMediaFilters = (): {
   const levelValues = useMemo(
     () =>
       levelsMap
-        ? Array.from(levelsMap.entries()).map(([id, label]) => ({
+        ? Array.from(levelsMap.entries()).map(([id, level]) => ({
             id: id.toString(),
-            label,
+            label: level.label,
           }))
         : [],
     [levelsMap],
@@ -139,14 +142,15 @@ export const useMediaFilters = (): {
 
   // Teacher data
   const [teacherSearch, setTeacherSearch] = useState("");
-  const { data: allTeachers = [] } = useAllTeachersQuery();
+  const { data: allTeachers = new Map<number, TeacherOption>() } =
+    useAllTeachersQuery();
   const filteredTeachers = useMemo(
     () =>
-      allTeachers
-        .filter((teacher) =>
+      Array.from(allTeachers.entries())
+        .filter(([, teacher]) =>
           teacher.name.toLowerCase().includes(teacherSearch.toLowerCase()),
         )
-        .map((teacher) => ({ id: teacher.id.toString(), label: teacher.name })),
+        .map(([id, teacher]) => ({ id: id.toString(), label: teacher.name })),
     [allTeachers, teacherSearch],
   );
 

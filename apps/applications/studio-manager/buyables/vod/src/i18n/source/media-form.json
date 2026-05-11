@@ -1,0 +1,97 @@
+{
+  "formFields": {
+    "name": {
+      "label": "Title",
+      "placeholder": "Add media title",
+      "errorMaxLength": "Title must be at most {{maxLength}} characters"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe your media",
+      "errorMaxLength": "Description must be at most {{maxLength}} characters"
+    },
+    "credit_price": {
+      "label": "Price (in credits)",
+      "placeholder": "0",
+      "errorInvalid": "Price must be a valid non-negative number",
+      "equivalentCredits": "Equivalent to {{credits}} in your pricing system"
+    },
+    "manager_only": {
+      "label": "Unavailable for purchase",
+      "helperText": "The video will not be available for purchase, it will be visible only to managers"
+    },
+    "rental": {
+      "label": "Video rental",
+      "helperText": "Videos are unlocked in perpetuity by default. Renting a video will unlock it for a certain number of days."
+    },
+    "rental_days": {
+      "label": "Rental duration (days)",
+      "helperText": "Specify how many days the video will remain unlocked",
+      "errorInvalid": "Rental duration must be at least {{min}} day"
+    },
+    "cover": {
+      "extensions": "JPG, PNG, GIF, WEBP",
+      "helperText": "Upload a thumbnail for this media."
+    },
+    "category": {
+      "label": "Category",
+      "placeholder": "Select a category"
+    },
+    "level": {
+      "label": "Level",
+      "placeholder": "Select a level",
+      "byDefault": "By default",
+      "custom": "Custom",
+      "create": "Create a new level",
+      "add": "Add level",
+      "nameLabel": "Name",
+      "nameTooLong": "Level name must be at most 50 characters",
+      "colorLabel": "Colour",
+      "confirmCreate": "Create",
+      "cancel": "Cancel",
+      "edit": "Edit level",
+      "save": "Save",
+      "deleteTitle": "Delete level?",
+      "deleteMessage": "Videos which have this level applied will stay the same, but future videos won't be able to use it.",
+      "delete": "Delete",
+      "error": "An error occurred",
+      "defaults": {
+        "1": "All levels",
+        "2": "Beginner",
+        "3": "Intermediate",
+        "4": "Advanced",
+        "5": "No level"
+      }
+    },
+    "teachers": {
+      "label": "Teacher",
+      "placeholder": "Select teacher"
+    },
+    "errors": {
+      "fieldIsRequired": "This field is required"
+    }
+  },
+  "createModal": {
+    "title": "Create media",
+    "buttons": {
+      "create": "Create",
+      "cancel": "Cancel"
+    },
+    "submitResponse": {
+      "success": "Media created",
+      "open": "Open",
+      "error": "Failed to create the media"
+    }
+  },
+  "editModal": {
+    "title": "Edit media",
+    "buttons": {
+      "save": "Save",
+      "cancel": "Close"
+    },
+    "submitResponse": {
+      "success": "Changes saved",
+      "error": "Failed to update the media"
+    }
+  }
+}

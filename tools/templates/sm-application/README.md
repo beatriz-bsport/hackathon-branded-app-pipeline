@@ -20,7 +20,7 @@ Select `apps/applications/studio-manager` location for your application, and sel
 
 1. Define the right `appType` in your `vite.config.ts`. It should be your business domain.
 
-2. Set an available devPort in your `package.json` for local development:
+2. Set an available devPort in your `package.json` for isolated local development:
 
 ```jsonc
   "federation": {
@@ -28,9 +28,9 @@ Select `apps/applications/studio-manager` location for your application, and sel
   }
 ```
 
-It should belong to the port range defined in `/tools/config/federation/src/config.ts`, and not be used by another application of your business domain.
+Studio Manager apps are libraries, but local dev still relies on this port metadata for the sidebar-injected runtime. It should belong to the port range defined in `/tools/config/federation/src/config.ts`, and not be used by another application of your business domain.
 
-3. You should also update in the `studio-manager/navigation-sidebar/src/urls.ts` file the `REVAMP_URLS_DEVELOPMENT` if you want the navigation bar to have the correct url to navigate without enabling the app on Pre-Prod and Prod environement (this is the current feature flagging system we have).
+3. You should also update in the `studio-manager/navigation-sidebar/src/urls.ts` file the `REVAMP_URLS_DEVELOPMENT` if you want the injected navigation to have the correct local url without relying on host.
 
 ---
 
@@ -48,9 +48,9 @@ To run in localhost :
 pnpm exec nx run @bsport/your-app-name:dev:watch
 ```
 
-This will run two applications aside :
+This runs the app in its isolated local runtime and injects the navigation bridge:
 
-- The Navigation Sidebar on port 4050, with module federation.
+- The Navigation Sidebar on port 4050, used as the bridge between old and new navigation.
 - The $MODEL application, on the port defined in `package.json` in `federation.devPort` : $PORT.
 
 Go to <http://localhost:$PORT>

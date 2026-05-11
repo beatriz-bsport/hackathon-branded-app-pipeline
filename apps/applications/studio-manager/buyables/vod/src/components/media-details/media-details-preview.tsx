@@ -27,7 +27,9 @@ export const MediaDetailsPreview: FC<MediaDetailsPreviewProps> = ({
   const { t } = useTranslation("media-details");
   const { data: categoriesById = new Map<number, string>() } =
     useCategoriesByIdQuery();
-  const { data: levelsById = new Map<number, string>() } = useLevelsByIdQuery();
+  const {
+    data: levelsById = new Map<number, { label: string; color: string }>(),
+  } = useLevelsByIdQuery();
   const {
     data: teachersByAssociatedCoachId = new Map<number, TeacherPreview>(),
   } = useTeachersByAssociatedCoachIdQuery(media.coaches);
@@ -42,7 +44,9 @@ export const MediaDetailsPreview: FC<MediaDetailsPreviewProps> = ({
   const durationLabel = isEbook
     ? undefined
     : formatVideoDuration(media.duration_second);
-  const levelLabel = media.level ? levelsById.get(media.level) : undefined;
+  const levelLabel = media.level
+    ? levelsById.get(media.level)?.label
+    : undefined;
   const categoryLabel = media.SCT ? categoriesById.get(media.SCT) : undefined;
   const rentalDaysLabel =
     media.rental_days > 0

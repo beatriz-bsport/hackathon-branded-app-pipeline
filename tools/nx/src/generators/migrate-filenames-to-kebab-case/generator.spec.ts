@@ -4,12 +4,12 @@ import { describe, expect, it } from "vitest";
 
 import { migrateFilenamesToKebabCaseGenerator } from "./generator";
 
-const projectRoot = "apps/applications/studio-manager/cdp/smartlists";
+const projectRoot = "apps/applications/studio-manager/cdp/segment";
 
-function setupSmartlistsTree(): Tree {
+function setupSegmentTree(): Tree {
   const tree = createTreeWithEmptyWorkspace();
 
-  addProjectConfiguration(tree, "@bsport/sm-smartlists", {
+  addProjectConfiguration(tree, "@bsport/sm-segment", {
     root: projectRoot,
     projectType: "application",
     sourceRoot: `${projectRoot}/src`,
@@ -77,7 +77,7 @@ function setupSmartlistsTree(): Tree {
 
   tree.write(
     `${projectRoot}/src/modules.d.ts`,
-    'declare module "sm-smartlists/App" {}\n',
+    'declare module "sm-segment/App" {}\n',
   );
 
   tree.write(
@@ -90,9 +90,9 @@ function setupSmartlistsTree(): Tree {
 
 describe("migrateFilenamesToKebabCaseGenerator", () => {
   it("renames source files to kebab-case and updates package-local references", async () => {
-    const tree = setupSmartlistsTree();
+    const tree = setupSegmentTree();
 
-    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "smartlists" });
+    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "segment" });
 
     expect(tree.exists(`${projectRoot}/src/app.tsx`)).toBe(true);
     expect(
@@ -144,10 +144,10 @@ describe("migrateFilenamesToKebabCaseGenerator", () => {
   });
 
   it("accepts the same appName variants as the existing migration", async () => {
-    const inputs = ["smartlists", "sm-smartlists", "@bsport/sm-smartlists"];
+    const inputs = ["segment", "sm-segment", "@bsport/sm-segment"];
 
     for (const appName of inputs) {
-      const tree = setupSmartlistsTree();
+      const tree = setupSegmentTree();
 
       await migrateFilenamesToKebabCaseGenerator(tree, { appName });
 
@@ -161,16 +161,16 @@ describe("migrateFilenamesToKebabCaseGenerator", () => {
   });
 
   it("preserves declaration file suffixes", async () => {
-    const tree = setupSmartlistsTree();
+    const tree = setupSegmentTree();
 
-    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "smartlists" });
+    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "segment" });
 
     expect(tree.exists(`${projectRoot}/src/modules.d.ts`)).toBe(true);
     expect(tree.exists(`${projectRoot}/src/vite-env.d.ts`)).toBe(true);
   });
 
   it("rewrites side-effect imports and preserves query suffixes", async () => {
-    const tree = setupSmartlistsTree();
+    const tree = setupSegmentTree();
 
     tree.write(
       `${projectRoot}/src/index.tsx`,
@@ -184,7 +184,7 @@ describe("migrateFilenamesToKebabCaseGenerator", () => {
       ].join("\n"),
     );
 
-    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "smartlists" });
+    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "segment" });
 
     const indexContent = tree.read(`${projectRoot}/src/index.tsx`, "utf-8");
     expect(indexContent).toContain("./app");
@@ -199,7 +199,7 @@ describe("migrateFilenamesToKebabCaseGenerator", () => {
   it("renames folders and recalculates relative imports from the future path", async () => {
     const tree = createTreeWithEmptyWorkspace();
 
-    addProjectConfiguration(tree, "@bsport/sm-smartlists", {
+    addProjectConfiguration(tree, "@bsport/sm-segment", {
       root: projectRoot,
       projectType: "application",
       sourceRoot: `${projectRoot}/src`,
@@ -222,7 +222,7 @@ describe("migrateFilenamesToKebabCaseGenerator", () => {
       "export const useField = true;\n",
     );
 
-    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "smartlists" });
+    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "segment" });
 
     expect(
       tree.exists(`${projectRoot}/src/components/file-input/file-input.tsx`),
@@ -238,7 +238,7 @@ describe("migrateFilenamesToKebabCaseGenerator", () => {
   it("throws when a rename would overwrite an unchanged file", async () => {
     const tree = createTreeWithEmptyWorkspace();
 
-    addProjectConfiguration(tree, "@bsport/sm-smartlists", {
+    addProjectConfiguration(tree, "@bsport/sm-segment", {
       root: projectRoot,
       projectType: "application",
       sourceRoot: `${projectRoot}/src`,
@@ -249,14 +249,14 @@ describe("migrateFilenamesToKebabCaseGenerator", () => {
     tree.write(`${projectRoot}/src/foo.tsx`, "export const foo = null;\n");
 
     await expect(
-      migrateFilenamesToKebabCaseGenerator(tree, { appName: "smartlists" }),
+      migrateFilenamesToKebabCaseGenerator(tree, { appName: "segment" }),
     ).rejects.toThrowError(/would overwrite existing file/);
   });
 
   it("uses tree rename for case-only renames", async () => {
-    const tree = setupSmartlistsTree();
+    const tree = setupSegmentTree();
 
-    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "smartlists" });
+    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "segment" });
 
     expect(tree.read(`${projectRoot}/src/app.tsx`, "utf-8")).toContain(
       "export function App()",
@@ -264,7 +264,7 @@ describe("migrateFilenamesToKebabCaseGenerator", () => {
   });
 
   it("skips i18n json resources to avoid Transifex conflicts", async () => {
-    const tree = setupSmartlistsTree();
+    const tree = setupSegmentTree();
 
     tree.write(`${projectRoot}/src/i18n/en_US.json`, '{"hello":"world"}\n');
     tree.write(
@@ -272,7 +272,7 @@ describe("migrateFilenamesToKebabCaseGenerator", () => {
       '{"hello":"world"}\n',
     );
 
-    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "smartlists" });
+    await migrateFilenamesToKebabCaseGenerator(tree, { appName: "segment" });
 
     expect(tree.exists(`${projectRoot}/src/i18n/en_US.json`)).toBe(true);
     expect(tree.exists(`${projectRoot}/src/i18n/en-us.json`)).toBe(false);

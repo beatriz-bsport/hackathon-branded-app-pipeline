@@ -647,7 +647,7 @@
       },
       "appliesForPayroll": {
         "helperText": "Kurse werden dem Studio standardmäßig in Rechnung gestellt und in die Lohnabrechnung der Lehrkraft aufgenommen. Deaktiviere diese Einstellung, um sicherzustellen, dass mit diesem Pass verbundene Kurse nicht mehr in der Lohnabrechnung der Lehrkraft angezeigt werden.",
-        "label": "Kurse, die mit diesem Pass gebucht wurden, werden bei der Berechnung der Lohnabrechnung der Lehrkräfte berücksichtigt"
+        "label": "Kurse, die mit diesem Pass gebucht wurden, werden bei der Berechnung der Honorarabrechnung der Lehrkräfte berücksichtigt"
       },
       "onBehalfOfTeacher": {
         "helperText": "Wähle diese Einstellung, um sicherzustellen, dass die Einnahmen aus Terminen, die mit diesem Pass gebucht werden, vollständig an die Lehrkraft ausgezahlt werden. Du findest diese Information in deinen Kaufberichten in der Spalte \"Zahlung vollständig an die Lehrkraft ausgezahlt\". ",

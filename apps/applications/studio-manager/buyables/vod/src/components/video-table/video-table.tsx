@@ -28,8 +28,11 @@ type VideoTableProps = {
   emptySearchConfig?: UseEmptyStateProps["emptySearchConfig"];
   isLoading?: boolean;
   onRowClick?: (id: number) => void;
+  onCreate?: () => void;
   onDuplicate: (video: Video) => void;
   onDelete: (video: Video) => void;
+  onEdit?: (video: Video) => void;
+  onRequestUpload: (id: number) => void;
 };
 
 export const VideoTable: FC<VideoTableProps> = ({
@@ -41,14 +44,24 @@ export const VideoTable: FC<VideoTableProps> = ({
   emptySearchConfig,
   isLoading = false,
   onRowClick,
+  onCreate,
   onDuplicate,
   onDelete,
+  onEdit,
+  onRequestUpload,
 }) => {
   const { t } = useTranslation("media-list");
 
   const emptyConfig: UseEmptyStateProps["emptyConfig"] = {
     title: t("table.emptyList.title"),
     subtitle: t("table.emptyList.subtitle"),
+    ctaButtonConfig: onCreate
+      ? {
+          label: t("table.headers.createMedia"),
+          iconLeft: "plus" as const,
+          onClick: onCreate,
+        }
+      : undefined,
   };
 
   const emptyStateProps: UseEmptyStateProps = {
@@ -58,7 +71,7 @@ export const VideoTable: FC<VideoTableProps> = ({
     emptySearchConfig,
   };
 
-  const columns = useVideoTableColumns();
+  const columns = useVideoTableColumns({ onRequestUpload });
   const isMobile = !useMatchMedia("sm");
   const pendingDeletionIds = usePendingVideoDeletionIds();
 
@@ -85,12 +98,10 @@ export const VideoTable: FC<VideoTableProps> = ({
       memberAvailability: video.manager_only ? "unavailable" : "available",
       accessType: video.rental_days > 0 ? "limited" : "unlimited",
       isPendingDeletion,
-      onRowClick:
-        onRowClick && !isPendingDeletion
-          ? () => onRowClick(video.id)
-          : undefined,
+      onRowClick: isPendingDeletion ? undefined : () => onRowClick?.(video.id),
       onDuplicate: () => onDuplicate(video),
       onDelete: () => onDelete(video),
+      onEdit: () => onEdit?.(video),
     };
   });
 
@@ -104,6 +115,7 @@ export const VideoTable: FC<VideoTableProps> = ({
         emptyConfig={emptyConfig}
         emptySearchConfig={emptySearchConfig}
         isLoading={isLoading}
+        onRequestUpload={onRequestUpload}
       />
     );
   }

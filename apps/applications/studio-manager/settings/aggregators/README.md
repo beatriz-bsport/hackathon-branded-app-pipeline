@@ -12,7 +12,7 @@ pnpm exec nx run @bsport/sm-aggregators:dev:watch
 
 This will run two applications aside :
 
-- The Navigation Sidebar on port 4050, with module federation.
+- The Navigation Sidebar on port 4050, used as the local navigation bridge.
 - The aggregators application, on port 4061.
 
 Go to <http://localhost:4061>

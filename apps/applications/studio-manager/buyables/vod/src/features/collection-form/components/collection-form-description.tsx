@@ -23,7 +23,6 @@ export const CollectionFormDescription: FC<CollectionFormDescriptionProps> = ({
       mapProps={({ defaultProps, field }) => ({
         ...defaultProps,
         helperText: `${field.value?.length ?? 0}/${FIELD_CONSTRAINTS.DESCRIPTION_MAX_LENGTH}`,
-        maxLength: FIELD_CONSTRAINTS.DESCRIPTION_MAX_LENGTH,
       })}
     >
       <TextArea

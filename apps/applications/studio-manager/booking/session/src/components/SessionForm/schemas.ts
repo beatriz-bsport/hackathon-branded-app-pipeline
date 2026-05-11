@@ -350,18 +350,6 @@ export const useSessionSchema = () => {
         }
       });
     })
-    .refine(
-      (data) =>
-        data.roomBlueprintCapacity != null
-          ? data.effectif <= data.roomBlueprintCapacity
-          : true,
-      {
-        message: t(
-          "addSessionModal.steps.configureSession.settings.exceedsRoomCapacity",
-        ),
-        path: ["effectif"],
-      },
-    )
     .refine((data) => (data.sync_on_spivi ? !!data.room_blueprint : true), {
       message: t(
         "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.error",
@@ -533,18 +521,6 @@ export const useSessionEditSchema = () => {
         }
       });
     })
-    .refine(
-      (data) =>
-        data.roomBlueprintCapacity != null
-          ? data.effectif <= data.roomBlueprintCapacity
-          : true,
-      {
-        message: t(
-          "addSessionModal.steps.configureSession.settings.exceedsRoomCapacity",
-        ),
-        path: ["effectif"],
-      },
-    )
     .refine((data) => (data.sync_on_spivi ? !!data.room_blueprint : true), {
       message: t(
         "addSessionModal.steps.configureSession.settings.teacherAndEstablishment.spotScheduling.error",

@@ -2,7 +2,7 @@ import React from 'react';
 import type { WithT } from 'i18next';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
-import { compose, withHandlers, withState } from 'recompose';
+import { compose, withState } from 'recompose';
 
 // MUI
 import {
@@ -22,7 +22,6 @@ import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.
 import themeSelector from '#src/libs/theme/selectors';
 import type { RootState } from '#src/reducers';
 import type {
-  OptionBackgroundCallback,
   OptionCallback,
   ReworkedPaginationResponse,
 } from '#src/state/types';
@@ -69,28 +68,15 @@ import type {
 import { CLASSPASS_INTEGRATION_IDENTIFIER } from '#src/libs/classpass/constants';
 
 // Wellhub
-import WellhubConfiguration, {
-  WellhubLegacyConfiguration,
-} from '#src/libs/wellhub/components/WellhubConfiguration';
+import WellhubConfiguration from '#src/libs/wellhub/components/WellhubConfiguration';
 import WellhubProductSelectionDrawer from '#src/libs/wellhub/components/WellhubProductSelectionDrawer';
 
-import {
-  configureWellhubGymWebhooks as configureWellhubGymWebhooksAction,
-  createWellhubGym as createWellhubGymAction,
-  deleteWellhubGym as deleteWellhubGymAction,
-  fetchOffersMissingWellhubProduct as fetchOffersMissingWellhubProductAction,
-  fetchWellhubGyms as fetchWellhubGymsAction,
-  getGymAvailability as getGymAvailabilityAction,
-  updateWellhubGym as updateWellhubGymAction,
-} from '#src/libs/wellhub/actions';
+import { fetchOffersMissingWellhubProduct as fetchOffersMissingWellhubProductAction } from '#src/libs/wellhub/actions';
 import { fetchAssociatedCoachesList as fetchAssociatedCoachListAction } from '#src/libs/associated-coach/actions';
 import {
-  editOffers as editOffersAction,
   updateWellhubProductId as updateWellhubProductIdAction,
   fetchSimilarOffers as fetchSimilarOffersAction,
 } from '#src/libs/offer/actions';
-
-import { GymAvailabilityReasonCode } from '#src/libs/wellhub/constants';
 
 import { getActiveCoaches } from '#src/libs/associated-coach/selectors';
 import {
@@ -101,34 +87,19 @@ import {
 import {
   getOffersMissingWellhubProductLoading,
   getOffersMissingWellhubProductPaginatedData,
-  getWellhubGymAvailability,
-  getWellhubGymAvailabilityError,
-  getWellhubGymAvailabilityLoading,
-  getWellhubGyms,
-  getWellhubLoading,
 } from '#src/libs/wellhub/selectors';
 
 import type { Coach } from '#src/libs/associated-coach/types';
 import type {
   Offer,
-  OfferEdit,
   OfferSaas,
   UpdateWellhubProductIdPayload,
 } from '#src/libs/offer/types';
 import type { PaginationFilterParams } from '#src/libs/types';
-import type {
-  GymAvailabilityResponse,
-  WellhubGym,
-  WellhubGymUpsert,
-} from '#src/libs/wellhub/types';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import PartnershipConfiguration from '#src/libs/classpass/components/PartnershipConfiguration.component';
 import MyClubsConfiguration from '#src/libs/partnership/myclubs/MyClubsConfiguration';
 import { PartnershipIdentifier } from '#src/libs/partnership/types';
-import {
-  FeatureFlagProps,
-  withFeatureFlags,
-} from '#src/utils/feature-flag/withFeatureFlags';
 
 type StateProps = {
   hasRequested: boolean;
@@ -158,7 +129,6 @@ type ConnectorProps = {
     options?: OptionCallback<AssociatedEstablishment[]>,
   ) => void;
   fetchPartnershipList: () => void;
-  // eslint-disable-next-line react/no-unused-prop-types
   requestPartnership: (identifier: string, options: OptionCallback) => void;
   updatePartnership: (
     id: number,
@@ -172,38 +142,6 @@ type ConnectorProps = {
   offersMissingWellhubProductPaginatedData: ReworkedPaginationResponse<OfferSaas>;
   similarOfferLoading: boolean;
   similarOffersWithCoachAndEstablishment: Offer<Coach, Establishment>[];
-  wellhubGymAvailabilityError: Error | null;
-  wellhubGymAvailabilityLoading: boolean;
-  wellhubGyms: WellhubGym[];
-  wellhubLoading: boolean;
-  getWellhubGymAvailability: (gymID: number) => GymAvailabilityResponse;
-
-  // eslint-disable-next-line react/no-unused-prop-types
-  configureWellhubGymWebhooks: (
-    wellhubGymUUID: string,
-    options?: OptionCallback<WellhubGym>,
-  ) => Promise<void>;
-  // eslint-disable-next-line react/no-unused-prop-types
-  createWellhubGymAction: (
-    gymID: number,
-    establishmentIDs: number[],
-    options?: OptionCallback<WellhubGymUpsert>,
-  ) => Promise<void>;
-  // eslint-disable-next-line react/no-unused-prop-types
-  updateWellhubGymAction: (
-    wellhubGymUUID: string,
-    wellhubGymID: number,
-    establishmentIDs: number[],
-    options?: OptionCallback<WellhubGymUpsert>,
-  ) => void;
-
-  checkAvailability: (gymID: number) => void;
-  deleteWellhubGym: (wellhubGymUUID: string, options?: OptionCallback) => void;
-  editOffers: (
-    offerId: number,
-    offer: Partial<OfferEdit>,
-    options?: OptionBackgroundCallback,
-  ) => void;
   updateWellhubProductId: (
     offerId: number,
     payload: UpdateWellhubProductIdPayload,
@@ -212,7 +150,6 @@ type ConnectorProps = {
   fetchAssociatedCoachList: () => void;
   fetchOffersMissingWellhubProduct: (params: PaginationFilterParams) => void;
   fetchSimilarOffers: (offerId: number) => void;
-  fetchWellhubGyms: () => void;
   mergedEstablishmentWithAssociation: {
     venueId: number;
     referenceEstablishment: string;
@@ -220,21 +157,7 @@ type ConnectorProps = {
   }[];
 };
 
-type HandlerProps = {
-  requestClasspassPartnership: () => void;
-  createWellhubGym: (gymID: number, establishmentIDs: number[]) => void;
-  updateWellhubGym: (
-    wellhubGym: WellhubGym,
-    establishmentIDs: number[],
-  ) => void;
-};
-
-type Props = StateProps &
-  ConnectorProps &
-  HandlerProps &
-  WithT &
-  WithStyles &
-  FeatureFlagProps;
+type Props = StateProps & ConnectorProps & WithT & WithStyles;
 
 export class Partnership extends React.Component<Props> {
   componentDidMount() {
@@ -244,14 +167,13 @@ export class Partnership extends React.Component<Props> {
     this.props.fetchAssociatedEstablishments({ company: this.props.company });
     // Wellhub
     if (hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_WELLHUB)) {
-      this.props.fetchWellhubGyms();
       this.props.fetchOffersMissingWellhubProduct({});
       this.props.fetchAssociatedCoachList();
     }
   }
 
   updatePartnership = (data: PartnershipCompany) => {
-    !!this.props.classpass.id &&
+    this.props.classpass?.id &&
       this.props.updatePartnership(this.props.classpass.id, data, {
         onSuccess: () => {
           this.props.fetchAssociatedEstablishments({
@@ -284,11 +206,13 @@ export class Partnership extends React.Component<Props> {
   };
 
   getActivitiesVenueEstablishmentList = () => {
+    const classpass = this.props.classpass;
+
     if (!this.props.establishmentList) return [];
-    if (this.props.classpass?.override_establishment_pk) {
+    if (classpass?.override_establishment_pk) {
       return [
         {
-          venueId: this.props.classpass.override_establishment_pk,
+          venueId: classpass.override_establishment_pk,
           establishmentNames: this.props.establishmentList.map(
             (establishment) => establishment.title,
           ),
@@ -307,10 +231,12 @@ export class Partnership extends React.Component<Props> {
         }),
       );
     }
-    const filteredEstablishments = this.props.classpass
-      ?.associated_establishment_ids?.length
+    const classpassAssociatedEstablishmentIds =
+      classpass?.associated_establishment_ids ?? [];
+
+    const filteredEstablishments = classpassAssociatedEstablishmentIds.length
       ? this.props.establishmentList?.filter((establishment) =>
-          this.props.classpass.associated_establishment_ids.includes(
+          classpassAssociatedEstablishmentIds.includes(
             establishment.associatedestablishment_set[0],
           ),
         )
@@ -328,6 +254,12 @@ export class Partnership extends React.Component<Props> {
 
   closePartnershipConfigurationForm = () => {
     this.props.setIsPartnershipConfigurationFormOpen(false);
+  };
+
+  requestClasspassPartnership = () => {
+    this.props.requestPartnership(CLASSPASS_INTEGRATION_IDENTIFIER, {
+      onSuccess: () => this.props.setHasRequested(true),
+    });
   };
 
   render() {
@@ -358,47 +290,22 @@ export class Partnership extends React.Component<Props> {
             myClubsPartnershipId={myClubsPartnershipCompany.partnership}
           />
         )}
-        {hasWellhubUpsell &&
-          (this.props.isNewWellhubConfigurationEnabled ? (
-            <WellhubConfiguration
-              establishments={this.props.establishmentList}
-              offersMissingWellhubProductCount={
-                this.props.offersMissingWellhubProductPaginatedData.total_count
-              }
-              openWellhubProductSelectionDrawer={
-                this.openWellhubProductSelectionDrawer
-              }
-              wellhubPartnershipId={
-                this.props.wellhubPartnershipCompany?.partnership ?? null
-              }
-            />
-          ) : !this.props.loading ? (
-            <WellhubLegacyConfiguration
-              checkAvailability={this.props.checkAvailability}
-              createWellhubGym={this.props.createWellhubGym}
-              deleteWellhubGym={this.props.deleteWellhubGym}
-              establishments={this.props.establishmentList}
-              getWellhubGymAvailability={this.props.getWellhubGymAvailability}
-              offersMissingWellhubProductCount={
-                this.props.offersMissingWellhubProductPaginatedData.total_count
-              }
-              openWellhubProductSelectionDrawer={
-                this.openWellhubProductSelectionDrawer
-              }
-              updateWellhubGym={this.props.updateWellhubGym}
-              wellhubGymAvailabilityError={
-                this.props.wellhubGymAvailabilityError
-              }
-              wellhubGymAvailabilityLoading={
-                this.props.wellhubGymAvailabilityLoading
-              }
-              wellhubGyms={this.props.wellhubGyms}
-              wellhubLoading={this.props.wellhubLoading}
-            />
-          ) : null)}
+        {hasWellhubUpsell && !this.props.loading && (
+          <WellhubConfiguration
+            establishments={this.props.establishmentList}
+            offersMissingWellhubProductCount={
+              this.props.offersMissingWellhubProductPaginatedData.total_count
+            }
+            openWellhubProductSelectionDrawer={
+              this.openWellhubProductSelectionDrawer
+            }
+            wellhubPartnershipId={
+              this.props.wellhubPartnershipCompany?.partnership ?? null
+            }
+          />
+        )}
         {hasWellhubUpsell && (
           <WellhubProductSelectionDrawer
-            availableEstablishments={this.props.establishmentList}
             coaches={this.props.coaches}
             fetchMissingProductOffersSpecificPage={
               this.fetchMissingProductOffersSpecificPage
@@ -424,7 +331,7 @@ export class Partnership extends React.Component<Props> {
             openPartnershipConfigurationForm={
               this.openPartnershipConfigurationForm
             }
-            requestClasspassPartnership={this.props.requestClasspassPartnership}
+            requestClasspassPartnership={this.requestClasspassPartnership}
             shouldRequestClassPassPartnership={!classpass}
           />
           <GenericResponsiveDrawer
@@ -432,18 +339,20 @@ export class Partnership extends React.Component<Props> {
             open={!!classpass && this.props.isPartnershipConfigurationFormOpen}
             title={this.props.t('parameters.drawerTitle')}
           >
-            <PartnershipConfigurationForm
-              associatedEstablishmentList={
-                this.props.associatedEstablishmentList
-              }
-              establishmentList={this.props.establishmentList}
-              initial={classpass}
-              isSubmitting={this.props.isSubmitting}
-              onSubmit={this.updatePartnership}
-              partnershipEstablishmentMergeList={
-                this.props.partnershipEstablishmentMergeList
-              }
-            />
+            {classpass && (
+              <PartnershipConfigurationForm
+                associatedEstablishmentList={
+                  this.props.associatedEstablishmentList
+                }
+                establishmentList={this.props.establishmentList}
+                initial={classpass}
+                isSubmitting={this.props.isSubmitting}
+                onSubmit={this.updatePartnership}
+                partnershipEstablishmentMergeList={
+                  this.props.partnershipEstablishmentMergeList
+                }
+              />
+            )}
           </GenericResponsiveDrawer>
         </div>
       </div>
@@ -474,76 +383,6 @@ const styles = createStyles((theme: Theme) => ({
     flexDirection: 'column',
   },
 }));
-
-const mapWithHandlers = {
-  requestClasspassPartnership: (props: ConnectorProps & StateProps) => () => {
-    props.requestPartnership(CLASSPASS_INTEGRATION_IDENTIFIER, {
-      onSuccess: () => props.setHasRequested(true),
-    });
-  },
-  createWellhubGym:
-    (props: ConnectorProps & StateProps) =>
-    (gymID: number, establishmentIDs: number[]) => {
-      const wellhubGymAvailability = props.getWellhubGymAvailability(gymID);
-      if (wellhubGymAvailability.is_available) {
-        if (
-          wellhubGymAvailability.reason_code ===
-            GymAvailabilityReasonCode.DISABLED_GYM_EXISTS &&
-          !!wellhubGymAvailability.wellhub_gym_uuid
-        ) {
-          props.updateWellhubGymAction(
-            wellhubGymAvailability.wellhub_gym_uuid,
-            gymID,
-            establishmentIDs,
-            {
-              onSuccess: (wellhubGymUpdated) => {
-                props.configureWellhubGymWebhooks(wellhubGymUpdated.uuid, {
-                  onSuccess: () => {
-                    props.fetchWellhubGyms();
-                    props.fetchOffersMissingWellhubProduct({});
-                  },
-                  onError: () => {
-                    props.fetchWellhubGyms();
-                    props.fetchOffersMissingWellhubProduct({});
-                  },
-                });
-              },
-            },
-          );
-        } else {
-          props.createWellhubGymAction(gymID, establishmentIDs, {
-            onSuccess: (wellhubGymCreated) => {
-              props.configureWellhubGymWebhooks(wellhubGymCreated.uuid, {
-                onSuccess: () => {
-                  props.fetchWellhubGyms();
-                  props.fetchOffersMissingWellhubProduct({});
-                },
-                onError: () => {
-                  props.fetchWellhubGyms();
-                  props.fetchOffersMissingWellhubProduct({});
-                },
-              });
-            },
-          });
-        }
-      }
-    },
-  updateWellhubGym:
-    (props: ConnectorProps & StateProps) =>
-    (wellhubGym: WellhubGym, establishmentIDs: number[]) => {
-      props.updateWellhubGymAction(
-        wellhubGym.uuid,
-        wellhubGym.gym_id,
-        establishmentIDs,
-        {
-          onSuccess: () => {
-            props.fetchWellhubGyms();
-            props.fetchOffersMissingWellhubProduct({});
-          },
-        },
-      );
-    },
-};
 
 export default compose(
   withTranslation(['partnership']),
@@ -594,15 +433,9 @@ export default compose(
       offersMissingWellhubProductPaginatedData:
         getOffersMissingWellhubProductPaginatedData(state),
       similarOfferLoading: state.offer.similarOffers.loading,
-      similarOffersWithCoachAndEstablishment: withEstablishment(
+      similarOffersWithCoachAndEstablishment: (withEstablishment as any)(
         withCoach(getSimilarsOffers),
-      )(state),
-      wellhubGymAvailabilityError: getWellhubGymAvailabilityError(state),
-      wellhubGymAvailabilityLoading: getWellhubGymAvailabilityLoading(state),
-      wellhubGyms: getWellhubGyms(state),
-      wellhubLoading: getWellhubLoading(state),
-      getWellhubGymAvailability: (gymID: number) =>
-        getWellhubGymAvailability(state, gymID),
+      )(state) as Offer<Coach, Establishment>[],
       mergedEstablishmentWithAssociation:
         getMergedEstablishmentsWithAssociation(state),
     }),
@@ -614,19 +447,10 @@ export default compose(
       requestPartnership: requestPartnershipAction,
       updatePartnership,
       // Wellhub
-      checkAvailability: getGymAvailabilityAction,
-      configureWellhubGymWebhooks: configureWellhubGymWebhooksAction,
-      createWellhubGymAction,
-      deleteWellhubGym: deleteWellhubGymAction,
-      editOffers: editOffersAction,
       updateWellhubProductId: updateWellhubProductIdAction,
       fetchAssociatedCoachList: fetchAssociatedCoachListAction,
       fetchOffersMissingWellhubProduct: fetchOffersMissingWellhubProductAction,
       fetchSimilarOffers: fetchSimilarOffersAction,
-      fetchWellhubGyms: fetchWellhubGymsAction,
-      updateWellhubGymAction,
     },
   ),
-  withHandlers(mapWithHandlers),
-  withFeatureFlags,
-)(Partnership);
+)(Partnership as any);

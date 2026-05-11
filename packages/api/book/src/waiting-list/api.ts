@@ -14,6 +14,7 @@ import {
 
 const API_URL = "book/v1";
 const API_URL_WAITING_LIST = `${API_URL}/waiting-list`;
+const API_URL_BOOKING_OPTION = `${API_URL_WAITING_LIST}/booking-option`;
 
 export const waitingListKeys = {
   all: [BOOKING_QUERY_KEY, "waiting-list"] as const,
@@ -32,7 +33,7 @@ export const fetchPaginatedBookingOptionsAPI = async (
   params: BookingOptionListParams,
 ) => {
   const { data } = await fetch(
-    `${API_URL_WAITING_LIST}/booking-option/${buildUrlParams(params)}`,
+    `${API_URL_BOOKING_OPTION}/${buildUrlParams(params)}`,
   );
   return data;
 };
@@ -54,7 +55,7 @@ export const fetchBookingOptionsAPI = async (
   params: Omit<BookingOptionListParams, "page" | "page_size">,
 ) => {
   const { data } = await fetch(
-    `${API_URL_WAITING_LIST}/booking-option/${buildUrlParams(params)}`,
+    `${API_URL_BOOKING_OPTION}/${buildUrlParams(params)}`,
   );
   return data;
 };
@@ -75,8 +76,11 @@ export const retrieveBookingOptionAPI = async (
   fetch: Fetch<BookingOptionDetail>,
   bookingOptionId: number,
 ) => {
+  // Note: the `show_cancelled` param is required to retrieve cancelled booking options,
+  // as they are excluded from the default endpoint response.
+  // This is necessary to support viewing details of cancelled bookings from the cancelled bookings list.
   const { data } = await fetch(
-    `${API_URL_WAITING_LIST}/booking-option/${bookingOptionId}/`,
+    `${API_URL_BOOKING_OPTION}/${bookingOptionId}/${buildUrlParams({ show_cancelled: true })}`,
   );
   return data;
 };

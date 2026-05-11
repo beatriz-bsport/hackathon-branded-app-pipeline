@@ -1,5 +1,6 @@
 import { useSuspenseQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { useNavigate } from "react-router";
 
 import {
   fetchRoleDefinitionsQueryOptions,
@@ -44,6 +45,7 @@ const getPermissionSummary = (
     .filter(({ count }) => count > 0);
 
 export const useRoleListQuery = () => {
+  const navigate = useNavigate();
   const [
     { data: roles, isFetching: isFetchingRoles },
     { data: staff, isFetching: isFetchingStaff },
@@ -134,8 +136,9 @@ export const useRoleListQuery = () => {
         },
       ]),
       staffAssignedCount: staffCountByRoleId.get(role.id) ?? 0,
+      onRowClick: () => navigate(String(role.id)),
     }));
-  }, [roles, staff]);
+  }, [roles, staff, navigate]);
 
   return {
     roleRows,

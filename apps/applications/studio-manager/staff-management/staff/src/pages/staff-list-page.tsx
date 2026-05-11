@@ -81,7 +81,7 @@ const StaffListPage: FC = () => {
             kind="default"
             size="md"
             label={t("header.toRoles")}
-            onClick={() => navigate(URLS.ROLE_LIST)}
+            onClick={() => navigate(URLS.ROLE)}
           />,
         ]}
       />

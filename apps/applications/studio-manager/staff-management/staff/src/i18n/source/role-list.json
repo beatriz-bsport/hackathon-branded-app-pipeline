@@ -3,9 +3,44 @@
     "title": "Roles",
     "toStaff": "Manage staff"
   },
-  "emptyState": {
-    "title": "No roles yet",
-    "subtitle": "Start adding roles to your studio",
-    "cta": "Add role"
+  "table": {
+    "headers": {
+      "name": "Name",
+      "permissions": "Permissions",
+      "staffAssigned": "Staff assigned",
+      "actions": ""
+    },
+    "tooltips": {
+      "customRole": "Custom role",
+      "defaultRole": "Default role",
+      "staffAssigned": "",
+      "staffAssigned_one": "There is 1 staff member associated to this role",
+      "staffAssigned_other": "There are {{count}} staff members associated to this role"
+    },
+    "permissions": {
+      "empty": "No permissions",
+      "groupItem": "{{label}} ({{count}})"
+    },
+    "permissionGroups": {
+      "navigationMenu": "Navigation menu",
+      "accessMonitoring": "Access monitoring",
+      "appBarButtons": "App bar buttons",
+      "generalAccess": "General access",
+      "billing": "Billing",
+      "export": "Export",
+      "management": "Management",
+      "memberManagement": "Member management",
+      "planning": "Planning",
+      "productManagement": "Product management",
+      "reports": "Reports",
+      "reservationManagement": "Reservation management",
+      "sessionManagement": "Session management"
+    },
+    "emptyList": {
+      "title": "No roles yet",
+      "subtitle": "Start adding roles to your studio",
+      "cta": "Add role"
+    },
+    "loading": "Loading roles..."
   }
 }

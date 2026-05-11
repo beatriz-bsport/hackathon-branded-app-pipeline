@@ -13,6 +13,10 @@
       "assignedTeachers": "Assigned teachers",
       "commission": "Commission"
     },
+    "tooltips": {
+      "customRole": "Custom role",
+      "defaultRole": "Default role"
+    },
     "emptyList": {
       "title": "No staff members yet",
       "subtitle": "Staff members will appear here once they are added.",

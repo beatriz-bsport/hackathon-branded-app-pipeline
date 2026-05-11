@@ -1,37 +1,18 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router";
 
-import {
-  Button,
-  ListLayout,
-  useEmptyState,
-} from "@bsport/kaizen-primitive-core";
+import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
+import { RoleTable } from "#src/components/role-table/role-table";
+import { useRoleListQuery } from "#src/hooks/api/use-role-list-query";
 import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 const RoleListPageContent: FC = () => {
-  const { t } = useTranslation("role-list");
-  const { EmptyState } = useEmptyState({
-    isEmpty: true,
-    emptyConfig: {
-      title: t("emptyState.title"),
-      subtitle: t("emptyState.subtitle"),
-      ctaButtonConfig: {
-        label: t("emptyState.cta"),
-        iconLeft: "plus",
-        disabled: true,
-        onClick: () => undefined,
-      },
-    },
-  });
+  const { roleRows, isEmpty, isFetching } = useRoleListQuery();
 
-  return (
-    <div className="flex h-full min-h-96 items-center justify-center p-md">
-      <EmptyState />
-    </div>
-  );
+  return <RoleTable rows={roleRows} isEmpty={isEmpty} isLoading={isFetching} />;
 };
 
 const RoleListPage: FC = () => {

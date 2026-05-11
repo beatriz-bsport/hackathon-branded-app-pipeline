@@ -1,8 +1,8 @@
 {
-  "name": "@bsport/sm-smartlists",
+  "name": "@bsport/sm-segment",
   "version": "0.0.0",
   "private": true,
-  "description": "CDP Smartlists",
+  "description": "CDP Segment",
   "author": "Osmel Mora <osmel.mora@bsport.io>",
   "type": "module",
   "exports": {

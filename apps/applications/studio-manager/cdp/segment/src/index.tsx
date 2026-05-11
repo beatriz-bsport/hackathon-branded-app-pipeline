@@ -8,7 +8,7 @@ import { AppWrapper } from "@bsport/sm-backbone";
 import App from "./App";
 import { SMARTLIST_APP_ROOT_PATH } from "./urls";
 
-const basename = __SMARTLISTS__.__BASENAME__;
+const basename = __SEGMENT__.__BASENAME__;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

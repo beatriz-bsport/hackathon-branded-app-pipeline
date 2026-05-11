@@ -8,7 +8,7 @@ export type QueryBoundaryProps = Omit<BackboneQueryBoundaryProps, "appName">;
 export const QueryBoundary = (props: QueryBoundaryProps) => {
   return (
     <BackboneQueryBoundary
-      appName={__SMARTLISTS__.__SENTRY_SCOPE_TAG__}
+      appName={__SEGMENT__.__SENTRY_SCOPE_TAG__}
       {...props}
     />
   );

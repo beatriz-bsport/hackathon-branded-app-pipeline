@@ -1,4 +1,4 @@
-# Customer Data Platform | Smartlists | Studio Manager Application
+# Customer Data Platform | Segment | Studio Manager Application
 
 ## Quickstart
 
@@ -7,13 +7,13 @@
 To run in localhost :
 
 ```sh
-pnpm exec nx run @bsport/sm-smartlists:dev:watch
+pnpm exec nx run @bsport/sm-segment:dev:watch
 ```
 
 This will run two applications aside :
 
 - The Navigation Sidebar on port 4050, used as the local navigation bridge.
-- The Smartlists application, on the port defined in your `package.json` in `federation.devPort` : 4301.
+- The Segment application, on the port defined in your `package.json` in `federation.devPort` : 4301.
 
 ### Build your translations
 

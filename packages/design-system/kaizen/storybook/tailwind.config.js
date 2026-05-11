@@ -82,6 +82,7 @@ export default {
   content: [
     "../primitive/core/src/**/*.{js,ts,jsx,tsx}",
     "../business/src/**/*.{js,ts,jsx,tsx}",
+    "../../../../apps/applications/studio-manager/booking/session/src/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: "selector",
   plugins: [

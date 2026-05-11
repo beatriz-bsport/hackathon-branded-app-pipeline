@@ -1,5 +1,5 @@
 {
-  "title": "Smartlists",
+  "title": "Lista Inteligentes",
   "addSmartlist": "Criar Smartlist",
   "loading": "Carregando Smartlists...",
   "search": "Pesquisar Smartlists",
@@ -28,14 +28,14 @@
     "cannotBeDeleted": "Esta Smartlist está atualmente sendo usada em fluxos de trabalho de Audience e não pode ser excluída nesta página.",
     "audienceCallToAction": "Para excluir esta Smartlist, vá para a página de Audience e remova-a dos fluxos de trabalho associados.",
     "buttons": {
-      "delete": "Excluir",
+      "delete": "Eliminar",
       "cancel": "Manter"
     }
   },
   "toasts": {
     "success": {
-      "duplicated": "Smartlist duplicada",
-      "open": "Aberto",
+      "duplicated": "Lista inteligente duplicada",
+      "open": "Abrir",
       "saved": "Smartlist atualizada",
       "deleted": "Smartlist excluída",
       "undo": "Desfazer",
@@ -56,7 +56,7 @@
   "inlineActions": {
     "duplicate": "Duplicar Smartlist",
     "edit": "Editar",
-    "delete": "Excluir Smartlist"
+    "delete": "Eliminar lista inteligente"
   },
   "dropdownActions": {
     "duplicate": "Duplicar",

@@ -6,6 +6,7 @@ import {
   inMemoryTranslationsLoader,
 } from "#src/i18n";
 import type addEditFormTranslations from "#src/i18n/source/add-edit-form.json";
+import type classDetailTranslations from "#src/i18n/source/class-detail.json";
 import type commonTranslations from "#src/i18n/source/common.json";
 import type listTranslations from "#src/i18n/source/list.json";
 
@@ -13,6 +14,7 @@ type Translations = {
   common: typeof commonTranslations;
   list: typeof listTranslations;
   "add-edit-form": typeof addEditFormTranslations;
+  "class-detail": typeof classDetailTranslations;
 };
 
 export const {

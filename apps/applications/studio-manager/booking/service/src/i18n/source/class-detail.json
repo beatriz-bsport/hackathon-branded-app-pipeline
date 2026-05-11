@@ -3,6 +3,19 @@
     "tabs": {
       "editor": "Editor",
       "compatiblePasses": "Compatible passes"
+    },
+    "header": {
+      "breadcrumbs": {
+        "services": "Services",
+        "active": "Classes",
+        "archived": "Archived classes"
+      },
+      "actions": {
+        "archive": "Archive",
+        "unarchive": "Unarchive",
+        "duplicate": "Duplicate",
+        "scheduleSessions": "Schedule sessions"
+      }
     }
   }
 }

@@ -3014,6 +3014,9 @@ importers:
       '@bsport/sm-referral-program':
         specifier: workspace:*
         version: link:../cdp/referral-program
+      '@bsport/sm-segment':
+        specifier: workspace:*
+        version: link:../cdp/segment
       '@bsport/sm-service':
         specifier: workspace:*
         version: link:../booking/service
@@ -3023,9 +3026,6 @@ importers:
       '@bsport/sm-smartfill':
         specifier: workspace:*
         version: link:../booking/smartfill
-      '@bsport/sm-segment':
-        specifier: workspace:*
-        version: link:../cdp/segment
       '@bsport/sm-staff':
         specifier: workspace:*
         version: link:../staff-management/staff
@@ -4192,6 +4192,9 @@ importers:
       '@bsport/kaizen-tokens':
         specifier: workspace:*
         version: link:../tokens
+      '@bsport/typescript-monorepo-utils':
+        specifier: workspace:*
+        version: link:../../../utils/monorepo
       '@chromatic-com/storybook':
         specifier: ^5.0.0
         version: 5.0.0(storybook@10.1.11(@testing-library/dom@10.4.0)(prettier@3.3.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))

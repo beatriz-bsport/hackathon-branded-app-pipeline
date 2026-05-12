@@ -8,6 +8,7 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { RoleRowActions } from "./role-row-actions";
 import type { RoleRowData } from "./types";
 
 type TableColumn = GenericTableColumn<RoleRowData>;
@@ -49,7 +50,7 @@ const renderStaffAssignedCell = (row: RoleRowData, tooltip: string) => (
   </Tooltip>
 );
 
-export const useRoleTableColumns = () => {
+export const useRoleTableColumns = (onDelete: (role: RoleRowData) => void) => {
   const { t } = useTranslation("role-list");
 
   const columnName: TableColumn = {
@@ -127,7 +128,7 @@ export const useRoleTableColumns = () => {
     type: "custom",
     align: "center",
     header: t("table.headers.actions"),
-    render: () => null,
+    render: (row) => <RoleRowActions row={row} onDelete={onDelete} />,
   };
 
   return [columnName, columnPermissions, columnStaffAssigned, columnActions];

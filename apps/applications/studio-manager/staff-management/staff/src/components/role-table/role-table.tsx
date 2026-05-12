@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { type FC, useState } from "react";
 
 import {
   Table,
@@ -6,6 +6,7 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
+import { RoleDeleteModal } from "#src/features/role-delete/role-delete-modal";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useRoleTableColumns } from "./columns";
@@ -30,7 +31,8 @@ export const RoleTable: FC<RoleTableProps> = ({
   onCreateRole,
 }) => {
   const { t } = useTranslation("role-list");
-  const columns = useRoleTableColumns();
+  const [roleToDelete, setRoleToDelete] = useState<RoleRowData | null>(null);
+  const columns = useRoleTableColumns(setRoleToDelete);
   const isMobile = !useMatchMedia("sm");
 
   const emptyConfig: NonNullable<UseEmptyStateProps["emptyConfig"]> = {
@@ -55,34 +57,39 @@ export const RoleTable: FC<RoleTableProps> = ({
       : undefined,
   };
 
-  if (isMobile) {
-    return (
-      <RoleList
-        rows={rows}
-        isEmpty={isEmpty}
-        isEmptySearch={isEmptySearch}
-        isLoading={isLoading}
-        emptyConfig={emptyConfig}
-        emptySearchConfig={emptySearchConfig}
-      />
-    );
-  }
-
   return (
-    <Table
-      columns={columns}
-      rowHeight="lg"
-      rows={rows}
-      emptyStateProps={{
-        isEmpty,
-        emptyConfig,
-        isEmptySearch,
-        emptySearchConfig,
-      }}
-      loadingProps={{
-        isLoading,
-        message: t("table.loading"),
-      }}
-    />
+    <>
+      {isMobile ? (
+        <RoleList
+          rows={rows}
+          isEmpty={isEmpty}
+          isEmptySearch={isEmptySearch}
+          isLoading={isLoading}
+          emptyConfig={emptyConfig}
+          emptySearchConfig={emptySearchConfig}
+          onDelete={setRoleToDelete}
+        />
+      ) : (
+        <Table
+          columns={columns}
+          rowHeight="lg"
+          rows={rows}
+          emptyStateProps={{
+            isEmpty,
+            emptyConfig,
+            isEmptySearch,
+            emptySearchConfig,
+          }}
+          loadingProps={{
+            isLoading,
+            message: t("table.loading"),
+          }}
+        />
+      )}
+      <RoleDeleteModal
+        role={roleToDelete}
+        onClose={() => setRoleToDelete(null)}
+      />
+    </>
   );
 };

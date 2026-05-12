@@ -8,6 +8,7 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { RoleRowActions } from "./role-row-actions";
 import type { RoleRowData } from "./types";
 
 type RoleListProps = {
@@ -15,21 +16,26 @@ type RoleListProps = {
   isEmpty: boolean;
   isEmptySearch?: boolean;
   isLoading: boolean;
-  emptyConfig: UseEmptyStateProps["emptyConfig"];
+  emptyConfig: NonNullable<UseEmptyStateProps["emptyConfig"]>;
   emptySearchConfig?: UseEmptyStateProps["emptySearchConfig"];
+  onDelete: (role: RoleRowData) => void;
 };
 
 type RoleListItemData = {
   id: string;
+  row: RoleRowData;
   name: string;
   isDefault: boolean;
   onItemClick?: () => void;
+  onDelete: (role: RoleRowData) => void;
 };
 
 const RoleListItem: FC<RoleListItemData> = ({
+  row,
   name,
   isDefault,
   onItemClick,
+  onDelete,
 }) => {
   const handleKeyDown = (event: KeyboardEvent<HTMLLIElement>) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -53,6 +59,7 @@ const RoleListItem: FC<RoleListItemData> = ({
         size="lg"
         iconLeft={isDefault ? "lock-01" : undefined}
       />
+      <RoleRowActions row={row} onDelete={onDelete} />
     </li>
   );
 };
@@ -64,14 +71,17 @@ export const RoleList: FC<RoleListProps> = ({
   isLoading,
   emptyConfig,
   emptySearchConfig,
+  onDelete,
 }) => {
   const { t } = useTranslation("role-list");
 
   const items: RoleListItemData[] = rows.map((row) => ({
     id: `role-${row.id}`,
+    row,
     name: row.name,
     isDefault: row.isDefault,
     onItemClick: row.onRowClick,
+    onDelete,
   }));
 
   return (

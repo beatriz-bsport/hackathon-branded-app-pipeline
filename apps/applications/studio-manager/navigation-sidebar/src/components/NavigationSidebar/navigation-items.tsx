@@ -329,7 +329,7 @@ export const useNavigationElements = ({
             {
               id: "smartlists",
               label: t("menus.marketing.smartlists"),
-              ...navigationUrls.smartlist,
+              ...navigationUrls.segment,
             },
             {
               id: "smartfill",

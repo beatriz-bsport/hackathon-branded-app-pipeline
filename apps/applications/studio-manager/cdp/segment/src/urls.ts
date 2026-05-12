@@ -17,7 +17,7 @@ export const CAMPAIGN_CHANNELS = [
 ] as const;
 export type CampaignChannel = (typeof CAMPAIGN_CHANNELS)[number];
 
-export const SMARTLIST_APP_ROOT_PATH = "/smartlist";
+export const APP_ROOT_PATH = "/segment";
 
 const SEGMENTS = {
   campaign: CAMPAIGN_TAB_PATH,
@@ -55,7 +55,7 @@ const joinPath = (...segments: Array<string | number>) => {
 };
 
 const buildSmartlistLink = (...segments: Array<string | number>) =>
-  joinPath(SMARTLIST_APP_ROOT_PATH, ...segments);
+  joinPath(APP_ROOT_PATH, ...segments);
 
 export type SmartlistDetailsTabPath =
   | typeof PARAMETER_TAB_PATH
@@ -88,7 +88,7 @@ export const SMARTLIST_ROUTE_PATTERNS = {
 } as const;
 
 export const SMARTLIST_APP_LINKS = {
-  index: () => SMARTLIST_APP_ROOT_PATH,
+  index: () => APP_ROOT_PATH,
   details: (smartlistId: string) => buildSmartlistLink(smartlistId),
   detailsTab: (smartlistId: string, tab: SmartlistDetailsTabPath) =>
     buildSmartlistLink(smartlistId, tab),

@@ -18,18 +18,18 @@
         },
         "tagRule": {
           "title": "Tag Rule",
-          "description": "Automatically tag users based on their actions"
+          "description": "Automatically tag members based on their actions"
         }
       },
       "messageChannel": {
         "selectLabel": "Select your desired communication channel to get started:",
         "email": {
           "title": "Email",
-          "description": "Send a targeted email message to your smartlist"
+          "description": "Send a targeted email message to your segment"
         },
         "sms": {
           "title": "SMS",
-          "description": "Send an SMS message to text your members"
+          "description": "Send a targeted SMS message to your members"
         },
         "push": {
           "title": "Push Notification",
@@ -41,12 +41,12 @@
           "label": "Trigger",
           "options": {
             "join": "Apply a tag when a profile enters the segment",
-            "leave": "Apply a tag once when a profile leaves the Segment",
-            "present": "Applies the tag while a profile matches the Segment"
+            "leave": "Apply a tag once when a profile leaves the segment",
+            "present": "Apply the tag while a profile matches the segment"
           },
           "descriptions": {
-            "enter": "The tag is applied when the profile enters the Segment and removed automatically when they leave.",
-            "leave": "The tag is only applied when the profile leaves the Segment.",
+            "enter": "The tag is applied when the profile enters the segment and removed automatically when they leave.",
+            "leave": "The tag is only applied when the profile leaves the segment.",
             "present": "The tag is applied when the profile enters the segment and removed automatically when they leave."
           }
         },
@@ -67,7 +67,7 @@
     "infoTooltip": {
       "label": "How automations work",
       "title": "How automations work",
-      "body": "Automations run once every 24 hours. If a profile enters or leaves the Smartlist after the automation runs, the tag will be applied or the message will be sent the next day."
+      "body": "Automations run once every 24 hours. If a profile enters or leaves the segment after the automation runs, the tag will be applied or the message will be sent the next day."
     },
     "messages": {
       "title": "Messages",
@@ -82,8 +82,8 @@
         "clicks": "Clicks"
       },
       "conditions": {
-        "onJoin": "When member enters Smartlist",
-        "onLeave": "When member leaves Smartlist"
+        "onJoin": "When a member enters the segment",
+        "onLeave": "When a member leaves the segment"
       },
       "channels": {
         "email": "Email",
@@ -128,13 +128,13 @@
       },
       "conditions": {
         "joins": {
-          "text": "Customer joins Smartlist"
+          "text": "Member enters segment"
         },
         "present": {
-          "text": "Customer is present in Smartlist"
+          "text": "Member is in segment"
         },
         "leaves": {
-          "text": "Customer leaves Smartlist"
+          "text": "Member leaves segment"
         }
       },
       "actions": {
@@ -211,8 +211,8 @@
         "condition": {
           "label": "When should this automated message send",
           "options": {
-            "entry": "Entry to Smartlist",
-            "exit": "Exit from Smartlist"
+            "entry": "Entry to segment",
+            "exit": "Exit from segment"
           }
         },
         "triggerLimit": {
@@ -269,8 +269,8 @@
         "condition": {
           "label": "When should this automated message send",
           "options": {
-            "entry": "Entry to Smartlist",
-            "exit": "Exit from Smartlist"
+            "entry": "Entry to segment",
+            "exit": "Exit from segment"
           }
         },
         "triggerLimit": {
@@ -320,8 +320,8 @@
         "condition": {
           "label": "When should this automated message send",
           "options": {
-            "entry": "Entry to Smartlist",
-            "exit": "Exit from Smartlist"
+            "entry": "Entry to segment",
+            "exit": "Exit from segment"
           }
         },
         "triggerLimit": {
@@ -444,15 +444,15 @@
   },
   "error": {
     "notFound": {
-      "title": "Smartlist not found",
+      "title": "Segment not found",
       "subtitle": "",
-      "description": "The smartlist you're looking for doesn't exist or may have been deleted.",
-      "backToListLabel": "Back to smartlists"
+      "description": "The segment you're looking for doesn't exist or may have been deleted.",
+      "backToListLabel": "Back to segments"
     },
     "serverError": {
       "title": "Something went wrong",
       "subtitle": "",
-      "description": "We couldn't load this smartlist. Please try again.",
+      "description": "We couldn't load this segment. Please try again.",
       "retryLabel": "Retry"
     }
   }

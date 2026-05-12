@@ -104,6 +104,9 @@ const icons = {
     async () => await import("./assets/clock-stopwatch.svg?react"),
   ),
   clock: React.lazy(async () => await import("./assets/clock.svg?react")),
+  "coins-02": React.lazy(
+    async () => await import("./assets/coins-02.svg?react"),
+  ),
   "coins-stacked-01": React.lazy(
     async () => await import("./assets/coins-stacked-01.svg?react"),
   ),

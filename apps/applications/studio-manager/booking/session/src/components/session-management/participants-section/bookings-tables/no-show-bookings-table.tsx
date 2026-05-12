@@ -7,18 +7,13 @@ import {
   GenericTableColumn,
   PaginationProps,
   Table,
-  Toggle,
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { ShortcutActionsButton } from "#src/components/session-management/action-buttons/booking/shortcut-actions-button";
-import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
+import { BookingActionItemId } from "#src/components/session-management/action-buttons/booking/types";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
-import {
-  type SessionManagementModalParams,
-  SessionManagementModalType,
-} from "#src/hooks/use-session-management-modals";
 import {
   setSelectedBooking,
   setSelectedBookingOption,
@@ -31,29 +26,20 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { ChipsCell } from "./chips-cell";
 
-enum BookingColumns {
-  PRESENT = "present",
+enum NoShowBookingColumns {
   CLIENT = "client",
-  MEMBER_DETAILS = "member-details",
   CHIPS = "chips",
-  SHORTCUT_ACTIONS = "shortcut-actions",
+  ACTIONS = "actions",
 }
 
-export const BookingsTable: FC<{
+export const NoShowBookingsTable: FC<{
   sessionId: number;
   searchQuery: string;
-  openModal: (
-    type: SessionManagementModalType,
-    params?: SessionManagementModalParams,
-  ) => void;
-}> = ({ sessionId, searchQuery, openModal }) => {
+}> = ({ sessionId, searchQuery }) => {
   const { t } = useTranslation("sessionManagement");
 
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({ namespace: "bookings" });
-
-  const { mutate: setAttendance, isPending: isSettingAttendance } =
-    useSetAttendance();
+    usePaginationQueryParams({ namespace: "no-show-bookings" });
 
   const {
     isLoading,
@@ -67,6 +53,28 @@ export const BookingsTable: FC<{
 
   const searchedBookings = useSearchBookings(refinedBookings, searchQuery);
 
+  const hasSearchQuery = searchQuery.trim().length > 0;
+
+  const paginationProps: PaginationProps = useMemo(
+    () => ({
+      currentPage,
+      rowsPerPage: currentPageSize,
+      showRowsPerPageSelector: !hasSearchQuery,
+      disabled: isLoading,
+      totalItems: hasSearchQuery ? searchedBookings.length : (count ?? 0),
+      onPageSettingsChange: setPageSettings,
+    }),
+    [
+      currentPage,
+      currentPageSize,
+      isLoading,
+      count,
+      setPageSettings,
+      hasSearchQuery,
+      searchedBookings.length,
+    ],
+  );
+
   const selectedBookingId = useSessionManagementStore(
     (state) => state.selectedBookingId,
   );
@@ -77,32 +85,8 @@ export const BookingsTable: FC<{
 
   const columns: GenericTableColumn<RefinedBooking>[] = [
     {
-      header: t("bookingsTable.headers.present"),
-      id: BookingColumns.PRESENT,
-      type: "custom",
-      align: "start",
-      render: (row) => (
-        <Toggle
-          checked={row.attendance}
-          id={`attendance-toggle-${row.id}`}
-          label=""
-          disabled={isSettingAttendance}
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          onChange={() =>
-            setAttendance({
-              bookingId: row.id,
-              attendance: !row.attendance,
-              sessionId,
-            })
-          }
-        />
-      ),
-    },
-    {
       header: t("bookingsTable.headers.client"),
-      id: BookingColumns.CLIENT,
+      id: NoShowBookingColumns.CLIENT,
       type: "custom",
       align: "start",
       render: (row) => {
@@ -140,7 +124,7 @@ export const BookingsTable: FC<{
     },
     {
       header: "",
-      id: BookingColumns.CHIPS,
+      id: NoShowBookingColumns.CHIPS,
       type: "custom",
       align: "end",
       render: (row) => (
@@ -154,7 +138,7 @@ export const BookingsTable: FC<{
     },
     {
       header: "",
-      id: BookingColumns.SHORTCUT_ACTIONS,
+      id: NoShowBookingColumns.ACTIONS,
       type: "custom",
       align: "center",
       render: (row) => (
@@ -162,36 +146,18 @@ export const BookingsTable: FC<{
           sessionId={sessionId}
           bookingId={row.id}
           memberId={row.memberData?.id}
-          openModal={openModal}
           participantEmail={row.memberData?.email}
           participantPhone={row.memberData?.phone}
-          currentSpot={row.spot_id}
+          allowedItemIds={[
+            BookingActionItemId.SEND_MESSAGE,
+            BookingActionItemId.COPY_EMAIL,
+            BookingActionItemId.COPY_PHONE,
+            BookingActionItemId.UPDATE_MEMBER_NOTES,
+          ]}
         />
       ),
     },
   ];
-
-  const hasSearchQuery = searchQuery.trim().length > 0;
-
-  const paginationProps: PaginationProps = useMemo(
-    () => ({
-      currentPage,
-      rowsPerPage: currentPageSize,
-      showRowsPerPageSelector: !hasSearchQuery,
-      disabled: isLoading,
-      totalItems: hasSearchQuery ? searchedBookings.length : (count ?? 0),
-      onPageSettingsChange: setPageSettings,
-    }),
-    [
-      currentPage,
-      currentPageSize,
-      isLoading,
-      count,
-      setPageSettings,
-      hasSearchQuery,
-      searchedBookings.length,
-    ],
-  );
 
   return (
     <div
@@ -207,10 +173,6 @@ export const BookingsTable: FC<{
           ...booking,
           isActive: booking.id === selectedBookingId,
           onRowClick: () => {
-            if (booking.id === selectedBookingId) {
-              setSelectedBooking(null);
-              return;
-            }
             setSelectedBookingOption(null);
             setSelectedBooking(booking.id);
           },
@@ -220,9 +182,6 @@ export const BookingsTable: FC<{
           isEmpty: !searchedBookings.length,
           emptyConfig: {
             title: t("bookingsTable.emptyState.title"),
-            ctaButtonConfig: {
-              label: t("bookButton"),
-            },
           },
         }}
         loadingProps={{

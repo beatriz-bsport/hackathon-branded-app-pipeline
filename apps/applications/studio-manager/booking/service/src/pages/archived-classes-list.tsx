@@ -1,5 +1,5 @@
-import { type FC } from "react";
-import { Link } from "react-router";
+import { type FC, useMemo } from "react";
+import { Link, useNavigate } from "react-router";
 
 import { type MetaActivity } from "@bsport/api-book";
 import {
@@ -18,6 +18,7 @@ import { useObjectLevelPermission } from "#src/hooks/use-permissions";
 import useTableColumns from "#src/hooks/use-table-columns";
 import { useUnarchiveClass } from "#src/hooks/use-unarchive-class";
 import { ABSOLUTE_ROUTES } from "#src/urls";
+import { ClassFlags, useClassFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 
 type ArchivedClassesTableProps = {
@@ -38,6 +39,8 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
   const { t } = useTranslation("list");
   const columns = useTableColumns<MetaActivity>({ includeNextClass: false });
   const { mutate: unarchiveClass } = useUnarchiveClass();
+  const navigate = useNavigate();
+  const detailEnabled = useClassFlag(ClassFlags.CLASSES_DETAIL_PAGE);
 
   const canDeleteWorkshop = useObjectLevelPermission(
     "management.workshop.allowed_actions.delete",
@@ -50,6 +53,17 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
     customerEnabled: false,
     searchParams: { searchQuery, isWorkshop, inCategoryIds },
   });
+
+  const rows = useMemo(
+    () =>
+      groupActivities.map((item) => ({
+        ...item,
+        ...(detailEnabled && {
+          onRowClick: () => navigate(ABSOLUTE_ROUTES.ARCHIVED_DETAIL(item.id)),
+        }),
+      })),
+    [groupActivities, detailEnabled, navigate],
+  );
 
   const isEmptySearch =
     !!(searchQuery || isWorkshop !== undefined || inCategoryIds?.length) &&
@@ -103,7 +117,7 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
         },
       }}
       paginationProps={paginationProps}
-      rows={groupActivities}
+      rows={rows}
     />
   );
 };

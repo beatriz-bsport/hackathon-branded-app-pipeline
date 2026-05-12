@@ -1,4 +1,4 @@
-import { type FC, useCallback, useState } from "react";
+import { type FC, useCallback, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 
 import type { MetaActivity } from "@bsport/api-book";
@@ -24,6 +24,7 @@ import {
 } from "#src/hooks/use-permissions";
 import useTableColumns from "#src/hooks/use-table-columns";
 import { ABSOLUTE_ROUTES } from "#src/urls";
+import { ClassFlags, useClassFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 
 const VALID_TABS = ["classes"] as const;
@@ -60,10 +61,23 @@ const ClassesTable: FC<ClassesTableProps> = ({
 }) => {
   const { t } = useTranslation("list");
   const columns = useTableColumns<Row>();
+  const navigate = useNavigate();
+  const detailEnabled = useClassFlag(ClassFlags.CLASSES_DETAIL_PAGE);
   const { classes: renderedClasses, paginationProps } = useClassesList({
     customerEnabled: true,
     searchParams: { searchQuery, isWorkshop, inCategoryIds },
   });
+
+  const rows = useMemo(
+    () =>
+      renderedClasses.map((item) => ({
+        ...item,
+        ...(detailEnabled && {
+          onRowClick: () => navigate(ABSOLUTE_ROUTES.DETAIL(item.id)),
+        }),
+      })),
+    [renderedClasses, detailEnabled, navigate],
+  );
 
   const canDeleteWorkshop = useObjectLevelPermission(
     "management.workshop.allowed_actions.delete",
@@ -163,7 +177,7 @@ const ClassesTable: FC<ClassesTableProps> = ({
         },
       }}
       paginationProps={paginationProps}
-      rows={renderedClasses}
+      rows={rows}
     />
   );
 };

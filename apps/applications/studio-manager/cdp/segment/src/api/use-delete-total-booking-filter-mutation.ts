@@ -1,24 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { deletePaymentPackFilter } from "@bsport/api-cdp/smartlist";
+import { deleteTotalBookingFilter } from "@bsport/api-cdp/smartlist";
 
 import { fetch } from "#src/utils/fetch";
 
 import { smartlistQueryKeys } from "./api";
 
-type UseDeletePaymentPackFilterMutationParams = {
+type UseDeleteTotalBookingFilterMutationParams = {
   onSuccess?: () => void;
   onError?: (error: Error) => void;
 };
 
-export const useDeletePaymentPackFilterMutation = (
+export const useDeleteTotalBookingFilterMutation = (
   smartlistId: string,
-  params: UseDeletePaymentPackFilterMutationParams = {},
+  params: UseDeleteTotalBookingFilterMutationParams = {},
 ) => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (filterId: number) => deletePaymentPackFilter(fetch, filterId),
+    mutationFn: (filterId: number) => deleteTotalBookingFilter(fetch, filterId),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: smartlistQueryKeys.smartlistKeys.filters(smartlistId),
@@ -30,7 +30,7 @@ export const useDeletePaymentPackFilterMutation = (
 
   return {
     isLoading: mutation.isPending,
-    deletePaymentPackFilterMutate: mutation.mutate,
-    deletePaymentPackFilter: mutation.mutateAsync,
+    deleteTotalBookingFilterMutate: mutation.mutate,
+    deleteTotalBookingFilter: mutation.mutateAsync,
   };
 };

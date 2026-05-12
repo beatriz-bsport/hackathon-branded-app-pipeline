@@ -9,7 +9,7 @@ export function useEmailTemplateCategories() {
   const categories = query.data?.results ?? [];
   const categoriesById = Object.fromEntries(
     categories.map((category) => [category.id, category]),
-  ) as Record<number, (typeof categories)[number]>;
+  );
 
   return {
     categories,

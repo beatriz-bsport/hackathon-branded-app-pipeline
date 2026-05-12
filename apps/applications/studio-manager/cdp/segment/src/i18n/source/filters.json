@@ -3,6 +3,29 @@
     "loading": "Loading smartlist filters...",
     "loadError": "Failed to load filters. Please refresh the page."
   },
+  "filterSelector": {
+    "actions": {
+      "addFilter": "Add filter"
+    },
+    "fields": {
+      "searchPlaceholder": "Search"
+    },
+    "empty": {
+      "noResults": "No results found"
+    },
+    "categories": {
+      "PASSES": "PASSES",
+      "BOOKINGS": "BOOKINGS"
+    },
+    "options": {
+      "passes": {
+        "description": "Filter by ownership of a selected pass."
+      },
+      "totalBookingNumber": {
+        "description": "Filter by total number of bookings."
+      }
+    }
+  },
   "filters": {
     "19": {
       "title": "Pass Ownership",
@@ -55,6 +78,32 @@
         "expirationDateDurationBetweenRequired": "Enter both day values for the between range.",
         "creditValueRequired": "Credit value is required.",
         "creditSecondValueRequired": "Second credit value is required for range comparator."
+      }
+    },
+    "22": {
+      "title": "Total Bookings",
+      "types": {
+        "lowerOrEqual": "Less than or equal to",
+        "greaterOrEqual": "Greater than or equal to",
+        "equal": "Equal to"
+      },
+      "actions": {
+        "deleteFilter": "Delete booking filter",
+        "save": "Apply filter",
+        "addFilter": "Add booking filter"
+      },
+      "fields": {
+        "totalSessionSuffix": "Total Session"
+      },
+      "toasts": {
+        "saveError": "Unable to save booking filter.",
+        "deleteError": "Unable to delete booking filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueRequired": "Booking number must be 0 or higher.",
+        "secondValueRequired": "Second booking number is required for range comparator.",
+        "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one."
       }
     }
   },

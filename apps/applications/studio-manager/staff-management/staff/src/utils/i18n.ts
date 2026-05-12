@@ -8,6 +8,7 @@ import {
 import type roleDetailsTranslations from "#src/i18n/source/role-details.json";
 import type roleFormTranslations from "#src/i18n/source/role-form.json";
 import type roleListTranslations from "#src/i18n/source/role-list.json";
+import type staffDetailsTranslations from "#src/i18n/source/staff-details.json";
 import type staffFormTranslations from "#src/i18n/source/staff-form.json";
 import type staffListTranslations from "#src/i18n/source/staff-list.json";
 
@@ -16,6 +17,7 @@ type Translations = {
   "role-form": typeof roleFormTranslations;
   "role-list": typeof roleListTranslations;
   "staff-list": typeof staffListTranslations;
+  "staff-details": typeof staffDetailsTranslations;
   "staff-form": typeof staffFormTranslations;
 };
 

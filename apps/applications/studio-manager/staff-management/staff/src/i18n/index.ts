@@ -19,6 +19,7 @@ export const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
 export const i18nNamespacePrefix = __STAFF__.__I18N_NAMESPACE_PREFIX__;
 export const i18nNamespaces: string[] = [
   "staff-list",
+  "staff-details",
   "staff-form",
   "role-list",
   "role-details",

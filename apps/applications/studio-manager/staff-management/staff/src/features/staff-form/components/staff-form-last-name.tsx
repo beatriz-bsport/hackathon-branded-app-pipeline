@@ -9,9 +9,13 @@ import type { StaffFormData } from "../types";
 
 type StaffFormLastNameProps = {
   formId: string;
+  disabled?: boolean;
 };
 
-export const StaffFormLastName: FC<StaffFormLastNameProps> = ({ formId }) => {
+export const StaffFormLastName: FC<StaffFormLastNameProps> = ({
+  formId,
+  disabled,
+}) => {
   const { t } = useTranslation("staff-form");
 
   return (
@@ -19,8 +23,8 @@ export const StaffFormLastName: FC<StaffFormLastNameProps> = ({ formId }) => {
       <TextField
         id={`${formId}-last-name`}
         label={t("formFields.lastName.label")}
-        required
         fullWidth
+        disabled={disabled}
       />
     </FormField>
   );

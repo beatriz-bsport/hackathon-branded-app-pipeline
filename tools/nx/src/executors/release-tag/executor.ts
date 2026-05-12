@@ -11,11 +11,15 @@ const releaseTagPattern = "v{version}";
 type ReleaseVersionResult = Awaited<
   ReturnType<ReleaseClient["releaseVersion"]>
 >;
+type ReleaseClientMethods = Pick<
+  ReleaseClient,
+  "releaseVersion" | "releaseChangelog"
+>;
 
 type GitRunner = (args: string[]) => Promise<string>;
 
 type ExecutorDependencies = {
-  createReleaseClient: (allowDiskFallback: boolean) => ReleaseClient;
+  createReleaseClient: (allowDiskFallback: boolean) => ReleaseClientMethods;
   runGit: GitRunner;
 };
 
@@ -29,7 +33,10 @@ function buildReleaseConfig(
     releaseTagPatternCheckAllBranchesWhen: true,
     releaseTagPatternRequireSemver: true,
     changelog: {
-      workspaceChangelog: false,
+      workspaceChangelog: {
+        file: false,
+        createRelease: "gitlab",
+      },
       projectChangelogs: false,
     },
     version: {
@@ -41,7 +48,7 @@ function buildReleaseConfig(
       commit: false,
       stageChanges: false,
       tag: false,
-      push: false,
+      push: true,
     },
   };
 }
@@ -165,6 +172,36 @@ function resolveWorkspaceVersion(versionResult: ReleaseVersionResult) {
   return versionResult.workspaceVersion;
 }
 
+async function generateGitLabReleaseChangelog(
+  releaseClient: ReleaseClientMethods,
+  versionResult: ReleaseVersionResult,
+  workspaceVersion: string,
+  options: ReleaseTagExecutorSchema,
+  remote: string,
+) {
+  const changelogResult = await releaseClient.releaseChangelog({
+    dryRun: options.dryRun,
+    version: workspaceVersion,
+    versionData: versionResult.projectsVersionData,
+    stageChanges: false,
+    gitCommit: false,
+    gitTag: false,
+    gitPush: false,
+    gitRemote: remote,
+    deleteVersionPlans: false,
+  });
+
+  const workspaceChangelog = changelogResult.workspaceChangelog;
+
+  if (!workspaceChangelog) {
+    throw new Error(
+      `Expected Nx to generate a workspace changelog for v${workspaceVersion}, but none was returned.`,
+    );
+  }
+
+  return workspaceChangelog;
+}
+
 export function createReleaseTagExecutor({
   createReleaseClient,
   runGit,
@@ -215,18 +252,35 @@ export function createReleaseTagExecutor({
         title: `Release tag ${tagName} already exists`,
         bodyLines: [
           "Skipping tag creation because this commit is already tagged.",
+          "Ensuring the GitLab Release is created or updated.",
         ],
       });
 
+      await generateGitLabReleaseChangelog(
+        releaseClient,
+        versionResult,
+        workspaceVersion,
+        options,
+        remote,
+      );
+
       return { success: true };
     }
+
+    await generateGitLabReleaseChangelog(
+      releaseClient,
+      versionResult,
+      workspaceVersion,
+      options,
+      remote,
+    );
 
     if (options.dryRun) {
       output.note({
         title: "Dry run",
         bodyLines: [
           `Nx resolved the next unified release tag as ${tagName}.`,
-          `No tag was created or pushed to ${remote}.`,
+          `No tag was created, pushed to ${remote}, or published as a GitLab Release.`,
         ],
       });
 
@@ -264,6 +318,7 @@ export function createReleaseTagExecutor({
           title: `Release tag ${tagName} was pushed concurrently`,
           bodyLines: [
             "Another runner pushed the same tag to the current commit first. Treating this run as successful.",
+            "Ensuring the GitLab Release is created or updated.",
           ],
         });
 

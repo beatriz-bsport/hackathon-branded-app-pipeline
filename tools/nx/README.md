@@ -224,9 +224,11 @@ pnpm dedupe
 
 ## `@bsport/nx:release-tag`
 
-Create the next unified semver Git tag from Conventional Commits.
+Create the next unified semver Git tag from Conventional Commits and publish
+the generated changelog as a GitLab Release.
 
-This command is tag-only: it does not edit package manifests, does not create a release commit, and does not publish packages.
+This command does not edit package manifests, does not create a release commit,
+does not write `CHANGELOG.md`, and does not publish packages.
 
 ### Usage
 
@@ -248,10 +250,15 @@ pnpm exec nx run @bsport/nx:release-tag
 - includes every Nx project in the release group, so app/package/tool commits can bump the unified tag
 - reads the latest `v{version}` tag as the current version
 - derives the next version from Conventional Commits since that tag
+- generates the workspace changelog entry through Nx Release without writing a changelog file
 - creates an annotated tag like `v1.2.3`
 - pushes only `refs/tags/v1.2.3`
+- creates or updates the matching GitLab Release with the generated changelog after the tag is available on the remote
 - skips cleanly when no semver bump is detected
 - treats reruns as successful when the computed tag already points to `HEAD`
+
+GitLab authentication follows Nx Release defaults: set `GITLAB_TOKEN` or
+`GL_TOKEN`, or rely on `CI_JOB_TOKEN` in GitLab CI.
 
 ### First release
 
@@ -266,9 +273,9 @@ After that, CI uses the latest `v*` tag as the baseline.
 
 ### CI
 
-`tools/ci/release.yml` runs this command on `dev` push pipelines and exposes a manual web trigger on `dev`. The job uses `resource_group: release-tag`, so GitLab serializes tag creation.
+`tools/ci/release.yml` runs this command on `dev` push pipelines and exposes a manual web trigger on `dev`. The job uses `resource_group: release-tag`, so GitLab serializes tag and release creation.
 
-Merge request pipelines expose the same job manually in dry-run mode. Use it before merge to verify what Nx resolves from the MR pipeline git history without creating or pushing a tag.
+Merge request pipelines expose the same job manually in dry-run mode. Use it before merge to verify what Nx resolves from the MR pipeline git history without creating a tag, pushing a tag, or publishing a GitLab Release.
 
 The root GitLab workflow skips only semver release tag pipelines (`vX.Y.Z`). Other tag pipelines, such as feature-branch deploy tags, still run.
 

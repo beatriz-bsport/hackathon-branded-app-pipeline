@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { type FC, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import type { MetaActivity } from "@bsport/api-book";
@@ -9,7 +9,10 @@ import {
   type TabsProps,
 } from "@bsport/kaizen-primitive-core";
 
+import { ArchiveClassModal } from "#src/components/archive-class-modal/archive-class-modal";
+import { DuplicateClassModal } from "#src/components/duplicate-class-modal/duplicate-class-modal";
 import { useClassRowPermissions } from "#src/hooks/use-permissions";
+import { useUnarchiveClass } from "#src/hooks/use-unarchive-class";
 import { ABSOLUTE_ROUTES, CALENDAR_URL } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -25,6 +28,13 @@ export const ClassDetailHeader: FC<Props> = ({ metaActivity, pageTabs }) => {
   const { canEdit, canDelete } = useClassRowPermissions(
     metaActivity.is_workshop,
   );
+
+  const { mutate: unarchive } = useUnarchiveClass({
+    onSuccess: () => navigate(ABSOLUTE_ROUTES.DETAIL(metaActivity.id)),
+  });
+
+  const [isArchiveModalOpen, setIsArchiveModalOpen] = useState(false);
+  const [isDuplicateModalOpen, setIsDuplicateModalOpen] = useState(false);
 
   const isArchived = !metaActivity.customer_enabled;
 
@@ -57,7 +67,7 @@ export const ClassDetailHeader: FC<Props> = ({ metaActivity, pageTabs }) => {
                 size="md"
                 intent="default"
                 color="main"
-                onClick={() => null}
+                onClick={() => unarchive(metaActivity.id)}
               />,
             ]
           : []),
@@ -73,7 +83,7 @@ export const ClassDetailHeader: FC<Props> = ({ metaActivity, pageTabs }) => {
                 size="md"
                 intent="default"
                 color="main"
-                onClick={() => null}
+                onClick={() => setIsDuplicateModalOpen(true)}
               />,
             ]
           : []),
@@ -87,7 +97,7 @@ export const ClassDetailHeader: FC<Props> = ({ metaActivity, pageTabs }) => {
                 size="md"
                 intent="default"
                 color="main"
-                onClick={() => null}
+                onClick={() => setIsArchiveModalOpen(true)}
               />,
             ]
           : []),
@@ -103,11 +113,25 @@ export const ClassDetailHeader: FC<Props> = ({ metaActivity, pageTabs }) => {
       ];
 
   return (
-    <DetailsLayout.Header
-      pageTitle={metaActivity.name}
-      BreadcrumbsItems={BreadcrumbsItems}
-      pageTabs={pageTabs}
-      endGroupActions={endGroupActions}
-    />
+    <>
+      <DetailsLayout.Header
+        pageTitle={metaActivity.name}
+        BreadcrumbsItems={BreadcrumbsItems}
+        pageTabs={pageTabs}
+        endGroupActions={endGroupActions}
+      />
+      <ArchiveClassModal
+        open={isArchiveModalOpen}
+        onClose={() => setIsArchiveModalOpen(false)}
+        classToArchive={{ id: metaActivity.id, name: metaActivity.name }}
+        onSuccess={() => navigate(ABSOLUTE_ROUTES.ARCHIVED)}
+      />
+      <DuplicateClassModal
+        open={isDuplicateModalOpen}
+        onClose={() => setIsDuplicateModalOpen(false)}
+        classToDuplicate={{ id: metaActivity.id, name: metaActivity.name }}
+        onSuccess={() => navigate(ABSOLUTE_ROUTES.ACTIVE)}
+      />
+    </>
   );
 };

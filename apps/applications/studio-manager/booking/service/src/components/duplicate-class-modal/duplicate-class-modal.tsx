@@ -7,26 +7,33 @@ type Props = {
   open: boolean;
   onClose: () => void;
   classToDuplicate: { id: number; name: string } | null;
+  onSuccess?: () => void;
 };
 
 export const DuplicateClassModal = ({
   open,
   onClose,
   classToDuplicate,
+  onSuccess,
 }: Props) => {
-  const { t } = useTranslation("list");
+  const { t } = useTranslation("class-actions");
   const { mutate: duplicateClass, isPending } = useDuplicateClass({
-    onSuccess: onClose,
+    onSuccess: () => {
+      onClose();
+      onSuccess?.();
+    },
   });
 
   return (
     <Modal
       open={open}
       size="md"
-      title={t("list.duplicateModal.title")}
+      title={t("classActions.duplicateModal.title", {
+        className: classToDuplicate?.name,
+      })}
       onClose={onClose}
       confirmButton={{
-        label: t("list.duplicateModal.confirm"),
+        label: t("classActions.duplicateModal.confirm"),
         color: "main",
         disabled: isPending,
         onClick: () => {
@@ -34,13 +41,13 @@ export const DuplicateClassModal = ({
         },
       }}
       cancelButton={{
-        label: t("list.duplicateModal.cancel"),
+        label: t("classActions.duplicateModal.cancel"),
         onClick: onClose,
       }}
     >
       <Trans
-        i18nKey="list.duplicateModal.modalContent"
-        ns={getFixedNamespace("list")}
+        i18nKey="classActions.duplicateModal.modalContent"
+        ns={getFixedNamespace("class-actions")}
         values={{ className: classToDuplicate?.name }}
       />
     </Modal>

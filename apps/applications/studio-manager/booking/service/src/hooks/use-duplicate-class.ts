@@ -14,24 +14,24 @@ export const useDuplicateClass = ({
   onSuccess?: () => void;
 } = {}) => {
   const queryClient = useQueryClient();
-  const { t } = useTranslation("list");
+  const { t } = useTranslation("class-actions");
 
   return useMutation({
     mutationFn: (id: number) => duplicateClass(id.toString()),
-    onSuccess: ({ name }) => {
+    onSuccess: ({ name: _name }) => {
       queryClient.invalidateQueries({ queryKey: groupActivityKeys.all });
       onSuccess?.();
       toast({
         status: "default",
         icon: "copy-03",
         buttonIcon: "x",
-        description: t("list.toasts.duplication", { className: name }),
+        description: t("classActions.toasts.duplication"),
       });
     },
     onError: () => {
       toast({
         status: "critical",
-        description: t("list.toasts.duplicationError"),
+        description: t("classActions.toasts.duplicationError"),
       });
     },
   });

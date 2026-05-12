@@ -22,4 +22,5 @@ export const i18nNamespaces: string[] = [
   "list",
   "add-edit-form",
   "class-detail",
+  "class-actions",
 ];

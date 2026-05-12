@@ -1,0 +1,28 @@
+{
+  "classActions": {
+    "archiveModal": {
+      "title": "Archive {{className}}?",
+      "confirm": "Archive",
+      "cancel": "Cancel",
+      "retry": "Retry",
+      "modalContent": "It will no longer be active but can be restored any time from your archive. Bookings already made will not be affected.",
+      "cantArchive": "{{className}} cannot be archived right now. Cancel all upcoming sessions and bookings first.",
+      "checkError": "Something went wrong while checking if this class can be archived."
+    },
+    "duplicateModal": {
+      "title": "Duplicate {{className}}?",
+      "confirm": "Duplicate",
+      "cancel": "Cancel",
+      "modalContent": "You can edit the class afterwards."
+    },
+    "toasts": {
+      "archive": "Class archived",
+      "archiveError": "Failed to archive class. Please try again.",
+      "unarchive": "Class unarchived",
+      "unarchiveError": "Failed to unarchive class. Please try again.",
+      "duplication": "Class duplicated",
+      "duplicationError": "Failed to duplicate class. Please try again.",
+      "undo": "Undo"
+    }
+  }
+}

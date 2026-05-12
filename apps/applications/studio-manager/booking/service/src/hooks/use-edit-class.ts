@@ -24,15 +24,10 @@ export const useEditClass = () => {
       id: number;
       data: EditGroupActivityPayload;
     }) => editClass(id, data),
-    onSuccess: ({ name, id }) => {
+    onSuccess: ({ id }) => {
       queryClient.invalidateQueries({ queryKey: groupActivityKeys.all });
       queryClient.invalidateQueries({
         queryKey: groupActivityKeys.detail(id),
-      });
-      toast({
-        status: "default",
-        icon: "check-circle",
-        description: t("list.toasts.edit", { className: name }),
       });
     },
     onError: () => {

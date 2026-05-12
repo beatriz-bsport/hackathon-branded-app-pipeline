@@ -7,7 +7,7 @@ type Props = {
   open: boolean;
   onClose: () => void;
   classToDuplicate: { id: number; name: string } | null;
-  onSuccess?: () => void;
+  onSuccess?: (id: number) => void;
 };
 
 export const DuplicateClassModal = ({
@@ -18,9 +18,9 @@ export const DuplicateClassModal = ({
 }: Props) => {
   const { t } = useTranslation("class-actions");
   const { mutate: duplicateClass, isPending } = useDuplicateClass({
-    onSuccess: () => {
+    onSuccess: (id) => {
       onClose();
-      onSuccess?.();
+      onSuccess?.(id);
     },
   });
 

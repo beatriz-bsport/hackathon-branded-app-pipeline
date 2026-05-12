@@ -23,8 +23,11 @@ export const useArchiveClass = ({
   return useMutation({
     mutationFn: (id: number) => archiveClass(id.toString()),
     onSuccess: ({ id }) => {
-      queryClient.invalidateQueries({ queryKey: groupActivityKeys.all });
       onSuccess?.();
+      queryClient.invalidateQueries({
+        queryKey: groupActivityKeys.all,
+        refetchType: "none",
+      });
       toast({
         status: "default",
         icon: "archive",

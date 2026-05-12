@@ -46,10 +46,6 @@ export const ClassDetailHeader: FC<Props> = ({ metaActivity, pageTabs }) => {
     : t("classDetail.header.breadcrumbs.active");
 
   const BreadcrumbsItems = [
-    <Breadcrumbs.Item
-      key="services"
-      text={t("classDetail.header.breadcrumbs.services")}
-    />,
     <Link key="list" to={listRoute}>
       <Breadcrumbs.Item text={breadcrumbLabel} />
     </Link>,
@@ -130,7 +126,7 @@ export const ClassDetailHeader: FC<Props> = ({ metaActivity, pageTabs }) => {
         open={isDuplicateModalOpen}
         onClose={() => setIsDuplicateModalOpen(false)}
         classToDuplicate={{ id: metaActivity.id, name: metaActivity.name }}
-        onSuccess={() => navigate(ABSOLUTE_ROUTES.ACTIVE)}
+        onSuccess={(id) => navigate(ABSOLUTE_ROUTES.DETAIL(id))}
       />
     </>
   );

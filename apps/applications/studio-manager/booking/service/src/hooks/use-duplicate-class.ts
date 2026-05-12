@@ -11,16 +11,16 @@ const duplicateClass = duplicateGroupActivity.bind(null, fetch);
 export const useDuplicateClass = ({
   onSuccess,
 }: {
-  onSuccess?: () => void;
+  onSuccess?: (id: number) => void;
 } = {}) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("class-actions");
 
   return useMutation({
     mutationFn: (id: number) => duplicateClass(id.toString()),
-    onSuccess: ({ name: _name }) => {
+    onSuccess: ({ id }) => {
+      onSuccess?.(id);
       queryClient.invalidateQueries({ queryKey: groupActivityKeys.all });
-      onSuccess?.();
       toast({
         status: "default",
         icon: "copy-03",

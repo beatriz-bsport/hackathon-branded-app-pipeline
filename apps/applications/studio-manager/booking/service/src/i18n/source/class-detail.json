@@ -1,5 +1,6 @@
 {
   "classDetail": {
+    "loading": "Loading class...",
     "tabs": {
       "editor": "Editor",
       "compatiblePasses": "Compatible passes"
@@ -16,7 +17,6 @@
     },
     "header": {
       "breadcrumbs": {
-        "services": "Services",
         "active": "Classes",
         "archived": "Archived classes"
       },

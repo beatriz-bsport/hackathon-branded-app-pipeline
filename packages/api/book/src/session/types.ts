@@ -1,9 +1,9 @@
+import { BookableStatus, WaitingListStatus } from "#src/constants";
+import type { MetaActivity } from "#src/group-activity";
 import {
   PartnerSpotCappingStrategy,
   type PartnershipOffer,
-} from "#src/booking/partnership";
-import { BookableStatus, WaitingListStatus } from "#src/constants";
-import type { MetaActivity } from "#src/group-activity";
+} from "#src/partnership";
 
 export type FetchSessionsParams = {
   /** Minimum session date (inclusive). Format: YYYY-MM-DD. */

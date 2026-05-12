@@ -211,7 +211,8 @@
         "roomBlueprintSpivi": "Devi selezionare una gestione dei posti per le sessioni sincornizzate con Spivi",
         "durationMinuteSpivi": "Una sessione di Spivi deve durare tra i 20 minuti e le 4 ore",
         "wellhubProductMissing": "Questo campo è obbligatorio, è necessario selezionare un prodotto.",
-        "dateIntervalStartBeforeLast": "La data di inizio non può essere precedente all’ultima ricorrenza"
+        "dateIntervalStartBeforeLast": "La data di inizio non può essere precedente all’ultima ricorrenza",
+        "partnerSpotLimitExceedsEffectif": "Il limite di posti non può superare il numero totale di posti della sessione."
       },
       "dateTooFar": "Impossibile creare sessioni che si svolgono tra più di 3 anni",
       "dateFormat": "Formato data non valido",
@@ -255,15 +256,45 @@
             "partnerMaxBookingCountDEPRECATED": "Numero massimo di prenotazioni da myClubs, Wellhub e Urban Sports Club combinati (gli altri aggregatori non sono interessati da questa impostazione)",
             "availableOnPartnership": "Sugli aggregatori (ClassPass, OneFit...)",
             "title": "Integrazioni aggregatore",
-            "uscIntegrationWorkshopWarning": "I workshop non sono compatibili con il marketplace Urban Sports Club, pertanto questa sessione non sarà inclusa.",
-            "uscIntegrationWarning": "L'integrazione al marketplace Urban Sports Club è attiva, ma le sessioni di durata pari o superiore a 2 giorni non verranno mostrate.",
+            "uscIntegrationWorkshopWarning": "I workshop non sono compatibili con Urban Sports Club, quindi questa sessione non sarà inclusa.",
+            "uscIntegrationWarning": "La tua integrazione con Urban Sports Club è attiva. Le sessioni che durano 2 giorni o più non verranno visualizzate.",
             "wellhubProduct": {
               "selectionMissing": "Questo campo è obbligatorio, è necessario selezionare un prodotto.",
               "helperText": "Questi prodotti sono offerti dal vostro studio sulla piattaforma Wellhub. Per maggiori informazioni, visitate la sezione “Partnership” nel Portale Partner del vostro account Wellhub.",
               "title": "I tuoi prodotti disponibili su Wellhub:"
             },
             "subtitle": "Include: ClassPass, myClubs, Urban Sports Club, Wellpass e Wellhub per le prenotazioni esterne.",
-            "enablePartneshipBookings": "Abilita prenotazioni aggregatore"
+            "enablePartneshipBookings": "Abilita prenotazioni aggregatore",
+            "partnerSpotCappingStrategy": {
+              "PER_PARTNER": {
+                "helperText": "Configura limiti individuali per ogni piattaforma.",
+                "label": "Limita le prenotazioni per aggregatore"
+              },
+              "COMBINED": {
+                "singleAggregatorHelperText": "Imposta un numero massimo di posti per l’aggregatore attivato.",
+                "helperText": "Imposta un numero massimo di posti per gli aggregatori attivati combinati tra myClubs, Wellhub e Urban Sports Club (gli altri aggregatori non sono influenzati da questa impostazione).",
+                "singleAggregatorLabel": "Posti limitati",
+                "label": "Posti limitati (combinati)"
+              },
+              "UNLIMITED": {
+                "singleAggregatorHelperText": "Tutti i posti possono essere prenotati tramite l’aggregatore.",
+                "helperText": "Tutti i posti possono essere prenotati tramite gli aggregatori (combinati tra tutte le piattaforme).",
+                "label": "Posti illimitati"
+              },
+              "label": "Strategia di limitazione dei posti"
+            },
+            "spots": "Posti",
+            "enabledAggregators": "Aggregatori attivati",
+            "aggregatorLabel": "Aggregatore",
+            "tooltip": {
+              "wellpass": "La visibilità delle sessioni su Wellpass e i limiti non possono ancora essere gestiti da bsport. Questa configurazione sarà disponibile qui in un futuro aggiornamento.",
+              "classpass": "La visibilità delle sessioni su ClassPass e i limiti possono essere modificati direttamente dal tuo portale partner ClassPass."
+            },
+            "partnerMaxBookingCountHelperText": "Questa impostazione influirà solo su myClubs, Urban Sports Club e Wellhub.",
+            "partnerMaxBookingCount": "Posti disponibili per gli aggregatori",
+            "name": {
+              "usc": "Urban Sports Club"
+            }
           },
           "allowGuestOffer": "Consenti la prenotazione per un ospite",
           "isManagerOnly": "Disponibile per la prenotazione (web + app)",
@@ -305,8 +336,8 @@
               "weekly": "Settimanale",
               "daily": "Quotidiana"
             },
-            "placeholder": "Seleziona una ricorrenza",
-            "title": "Ricorrenza"
+            "placeholder": "Seleziona un intervallo",
+            "title": "Ricorrente"
           },
           "dateIntervalEnd": "Data di fine",
           "dateIntervalStart": "Data del corso",

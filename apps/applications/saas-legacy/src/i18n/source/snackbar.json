@@ -960,7 +960,8 @@
         "84102": "This email is already in use.",
         "84103": "This specific gender isn't valid",
         "84104": "This phone number isn't valid",
-        "84106": "Your password must contain at least 12 characters"
+        "84106": "Your password must contain at least 12 characters",
+        "84107": "Links and HTML are not allowed in text fields"
       },
       "error": "Error when enrolling",
       "success": "You've successfully enrolled!"

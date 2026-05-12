@@ -28,6 +28,7 @@ export type CustomRestrictionRule = {
 export type ClassFormValues = {
   name: string;
   cover_main: File | string | null;
+  alt_cover_main: string;
   SCT: string;
   description: string;
   color: string;
@@ -51,6 +52,7 @@ export const defaultCustomRestrictionRule: CustomRestrictionRule = {
 export const defaultClassFormValues: ClassFormValues = {
   name: "",
   cover_main: null,
+  alt_cover_main: "",
   SCT: "",
   description: "",
   color: "",
@@ -88,6 +90,7 @@ export const useClassFormSchema = (mode: ClassFormSchemaMode = "edit") => {
     .object({
       name: z.string().trim().min(1, requiredMessage),
       cover_main: z.union([z.instanceof(File), z.string(), z.null()]),
+      alt_cover_main: z.string(),
       SCT: z.string().min(1, requiredMessage),
       description: z.string().trim().min(1, requiredMessage),
       color: z.string(),
@@ -116,7 +119,7 @@ const buildGroupActivityPayloadBase = (values: ClassFormValues) => ({
   name: values.name.trim(),
   SCT: Number(values.SCT),
   cover_main: values.cover_main,
-  alt_cover_main: "", // TODO: We're now skipping this field in the new revamped for now
+  alt_cover_main: values.alt_cover_main,
   is_broadcast: false, // TODO: We're now skipping this field in the new revamped for now
   description: values.description.trim(),
   color: values.color,
@@ -151,6 +154,7 @@ export const fromMetaActivityToFormData = (
 ): ClassFormValues => ({
   name: metaActivity.name,
   cover_main: metaActivity.cover_main ?? null,
+  alt_cover_main: metaActivity.alt_cover_main ?? "",
   SCT: String(metaActivity.SCT),
   description: metaActivity.description ?? "",
   color: metaActivity.color ?? "",
@@ -186,7 +190,16 @@ export const toCreateGroupActivityPayload = (
 
 export const toEditGroupActivityPayload = (
   values: ClassFormValues,
-): EditGroupActivityPayload => buildGroupActivityPayloadBase(values);
+): EditGroupActivityPayload => {
+  const base = buildGroupActivityPayloadBase(values);
+  // String = existing URL (unchanged). Omit so server keeps current image.
+  // File = new upload, null = explicit clear — both send as-is.
+  if (typeof base.cover_main === "string") {
+    const { cover_main: _omitted, ...rest } = base;
+    return rest;
+  }
+  return base;
+};
 
 export const STEP_1_FIELDS = [
   "is_workshop",

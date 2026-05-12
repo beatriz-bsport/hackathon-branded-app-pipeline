@@ -64,11 +64,7 @@ export const useWellhubProductField = (isLivestream: boolean) => {
     prevEstablishmentRef.current = selectedEstablishmentId;
 
     const shouldClear =
-      establishmentChanged ||
-      (wellhubProducts &&
-        selectedWellhubProductId &&
-        !selectedWellhubProduct) ||
-      !isSessionAvailableOnPartnership;
+      establishmentChanged || !isSessionAvailableOnPartnership;
 
     if (wellhubProducts?.length === 1) {
       const singleProductId = Number(wellhubProducts[0].id);

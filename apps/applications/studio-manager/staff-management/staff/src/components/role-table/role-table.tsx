@@ -15,6 +15,8 @@ import type { RoleRowData } from "./types";
 type RoleTableProps = {
   rows: RoleRowData[];
   isEmpty: boolean;
+  isEmptySearch?: boolean;
+  onClearFilters?: () => void;
   isLoading: boolean;
   onCreateRole: () => void;
 };
@@ -22,6 +24,8 @@ type RoleTableProps = {
 export const RoleTable: FC<RoleTableProps> = ({
   rows,
   isEmpty,
+  isEmptySearch = false,
+  onClearFilters,
   isLoading,
   onCreateRole,
 }) => {
@@ -39,13 +43,27 @@ export const RoleTable: FC<RoleTableProps> = ({
     },
   };
 
+  const emptySearchConfig: UseEmptyStateProps["emptySearchConfig"] = {
+    title: t("filters.emptySearch.title"),
+    subtitle: t("filters.emptySearch.subtitle"),
+    ctaButtonConfig: onClearFilters
+      ? {
+          label: t("filters.emptySearch.cta"),
+          onClick: onClearFilters,
+          iconLeft: "x",
+        }
+      : undefined,
+  };
+
   if (isMobile) {
     return (
       <RoleList
         rows={rows}
         isEmpty={isEmpty}
+        isEmptySearch={isEmptySearch}
         isLoading={isLoading}
         emptyConfig={emptyConfig}
+        emptySearchConfig={emptySearchConfig}
       />
     );
   }
@@ -58,6 +76,8 @@ export const RoleTable: FC<RoleTableProps> = ({
       emptyStateProps={{
         isEmpty,
         emptyConfig,
+        isEmptySearch,
+        emptySearchConfig,
       }}
       loadingProps={{
         isLoading,

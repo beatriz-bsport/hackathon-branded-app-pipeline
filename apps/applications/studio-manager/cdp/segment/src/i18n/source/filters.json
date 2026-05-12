@@ -1,6 +1,6 @@
 {
   "filterManager": {
-    "loading": "Loading smartlist filters...",
+    "loading": "Loading segment filters...",
     "loadError": "Failed to load filters. Please refresh the page."
   },
   "filterSelector": {
@@ -53,7 +53,7 @@
         "purchaseDate": "Pass purchase date",
         "creditLeft": "Pass credits",
         "creditLeftInfoLabel": "Pass credits filter information",
-        "creditLeftInfoContent": "Filter on credits doesnt apply to unlimited passes",
+        "creditLeftInfoContent": "Credit filters don't apply to unlimited passes",
         "creditsDisplay": "",
         "creditsDisplay_one": "Filtered on {{count}} credits",
         "creditsDisplay_other": "Filtered on {{count}} credits",

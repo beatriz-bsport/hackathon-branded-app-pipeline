@@ -7,6 +7,7 @@ import {
   smartlistFiltersQueryOptions,
 } from "@bsport/api-cdp/smartlist";
 
+import { isPaymentPackFilter } from "#src/components/filters/shared/types-guards";
 import { fetch } from "#src/utils/fetch";
 
 const mapPaymentPackFilters = (
@@ -18,10 +19,8 @@ const mapPaymentPackFilters = (
   }
 
   return Object.values(paymentPackFiltersMap)
-    .map((filter) => filter as PaymentPackFilter)
-    .sort((leftFilter, rightFilter) => {
-      return leftFilter.id - rightFilter.id;
-    });
+    .filter(isPaymentPackFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
 export const useSmartlistFilterQuery = (smartlistId: string) =>

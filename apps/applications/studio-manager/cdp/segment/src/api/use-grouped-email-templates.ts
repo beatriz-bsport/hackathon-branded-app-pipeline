@@ -85,7 +85,7 @@ export const useGroupedEmailTemplates = ({
 
       const categoriesById = Object.fromEntries(
         categories.map((category) => [category.id, category]),
-      ) as Record<number, EmailTemplateCategory>;
+      );
 
       const noCategoryLabel = t(
         "email.creation.form.emailTemplate.emailTemplateNoCategory",

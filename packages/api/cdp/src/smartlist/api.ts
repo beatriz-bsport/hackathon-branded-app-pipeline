@@ -10,12 +10,15 @@ import { SMARTLIST_API_V1 } from "./constants";
 import type {
   CreatePaymentPackFilterPayload,
   CreateTagRuleParams,
+  CreateTotalBookingFilterPayload,
   PaymentPackFilter,
   Smartlist,
   SmartlistGetFiltersResponse,
   TagRule,
+  TotalBookingFilter,
   UpdatePaymentPackFilterPayload,
   UpdateTagRuleParams,
+  UpdateTotalBookingFilterPayload,
 } from "./types";
 
 export const smartlistKeys = {
@@ -179,6 +182,47 @@ export const deletePaymentPackFilter = async (
   filterId: number,
 ): Promise<void> => {
   await fetch(`${PAYMENT_PACK_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
+// Bookings Filters
+
+const TOTAL_BOOKING_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/bookings`;
+
+export const createTotalBookingFilter = async (
+  fetch: Fetch<TotalBookingFilter>,
+  payload: CreateTotalBookingFilterPayload,
+): Promise<TotalBookingFilter> => {
+  const { data } = await fetch(`${TOTAL_BOOKING_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchTotalBookingFilter = async (
+  fetch: Fetch<TotalBookingFilter>,
+  filterId: number,
+  payload: UpdateTotalBookingFilterPayload,
+): Promise<TotalBookingFilter> => {
+  const { data } = await fetch(
+    `${TOTAL_BOOKING_FILTER_ENDPOINT}/${filterId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const deleteTotalBookingFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${TOTAL_BOOKING_FILTER_ENDPOINT}/${filterId}/`, {
     method: "DELETE",
   });
 };

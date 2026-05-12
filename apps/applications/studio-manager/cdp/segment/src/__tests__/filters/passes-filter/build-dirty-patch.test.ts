@@ -61,6 +61,19 @@ describe("buildDirtyPatchPayload", () => {
     expect(payload).toEqual({ payment_packs: [4, 7] });
   });
 
+  it("emits `payment_packs` as an empty array when selection was cleared", () => {
+    const value = createDefaultPassesFilter(1);
+    value.selectedPaymentPackIds = [];
+    const dirtyFields: DirtyFields = {
+      selectedPaymentPackIds:
+        [] as unknown as DirtyFields["selectedPaymentPackIds"],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload).toEqual({ payment_packs: [] });
+  });
+
   it("ignores keys that are flagged as not dirty", () => {
     const value = createDefaultPassesFilter(1);
     value.selectedPaymentPackIds = [4];

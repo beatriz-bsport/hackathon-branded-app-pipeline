@@ -5,6 +5,7 @@ import { createAction } from 'redux-actions';
 import { Theme as CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
+import i18n from '@bsport/saas-legacy/src/i18n';
 import { getEnv } from '../../utils/env';
 import { buildUrlParams } from '../../utils/http';
 import { RootState } from '../../reducers';
@@ -26,6 +27,9 @@ export const openUserInteractionPortal: (args: {
   isFabContext?: boolean;
   fullScreenPopup?: boolean;
   consumerspacecontext?: ConsumerSpaceContextEnum;
+  title?: string;
+  subtitle?: string;
+  avatarUrl?: string;
 }) => any = createAction('WIDGET_SET_IFRAME_URL');
 
 export const closeUserInteractionPortal = () => (dispatch: Dispatch) => {
@@ -165,6 +169,9 @@ export const fabShowAgentChat =
           consumerspacecontext: ConsumerSpaceContextEnum.FAB,
         }),
         dialogMode: DIALOG_MODE_IFRAME,
+        title: theme.company_name,
+        subtitle: i18n.t('modal.subtitle', { ns: 'agentChat' }),
+        avatarUrl: theme.cover,
       }),
     );
   };

@@ -1,6 +1,7 @@
 import {
   Avatar,
   Body,
+  Button,
   Chip,
   type GenericTableColumn,
   Tooltip,
@@ -8,16 +9,20 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { MediaActionsDropdown } from "./media-actions-dropdown";
 import { MediaFormatRenderer } from "./media-format-renderer";
 import type { VideoRowData } from "./types";
-import { VideoActionsDropdown } from "./video-actions-dropdown";
 
 type TableColumn = GenericTableColumn<VideoRowData>;
 
 const pendingDeletionCellClassName = (row: VideoRowData): string | undefined =>
   row.isPendingDeletion ? "opacity-80" : undefined;
 
-export const useVideoTableColumns = () => {
+export const useVideoTableColumns = ({
+  onRequestUpload,
+}: {
+  onRequestUpload: (id: number) => void;
+}) => {
   const { t } = useTranslation("media-list");
 
   const columnName: TableColumn = {
@@ -139,10 +144,26 @@ export const useVideoTableColumns = () => {
       </span>
     ),
     render: (row) => (
-      <div className="flex items-center justify-end">
-        <VideoActionsDropdown
+      <div className="flex min-w-[56px] items-center justify-end">
+        {row.format === "none" ? (
+          <Button
+            color="main"
+            intent="default"
+            size="md"
+            kind="default"
+            iconLeft="upload-cloud-02"
+            label={t("table.actions.upload")}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              onRequestUpload(row.id);
+            }}
+          />
+        ) : null}
+        <MediaActionsDropdown
           onDuplicate={row.onDuplicate}
           onDelete={row.onDelete}
+          onEdit={row.onEdit}
           disabled={row.isPendingDeletion}
         />
       </div>

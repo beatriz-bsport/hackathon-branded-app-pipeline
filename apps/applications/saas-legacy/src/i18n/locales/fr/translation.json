@@ -405,7 +405,7 @@
         "accept_sms": "J'accepte d'être notifié(e) par SMS à des fins commerciales (promotions, offres spéciales...)"
       },
       "error": {
-        "password": "Le mot de passe doit contenir au moins 6 caractères",
+        "password": "Le mot de passe doit contenir au moins 12 caractères",
         "passwordConfirm": "Les mots de passe ne correspondent pas"
       }
     },

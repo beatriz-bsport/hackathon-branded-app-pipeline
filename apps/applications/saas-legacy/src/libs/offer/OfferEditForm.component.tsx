@@ -390,8 +390,7 @@ export const OfferEditForm = (props: Props) => {
 
           <OfferFormSettings
             isEditOffer
-            allowGuestMaster={allowGuestMaster}
-            availableEstablishments={availableEstablishments}
+            allowGuestMaster={!!allowGuestMaster}
             hasActivityGroup={!!props.offer?.group}
             isOfferInGroup={isOfferInGroup}
             roomBlueprints={roomBlueprints}

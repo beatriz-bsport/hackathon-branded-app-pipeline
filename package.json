@@ -31,6 +31,7 @@
     "lint:affected": "pnpm exec nx affected --target=lint",
     "lint:affected:fix": "pnpm exec nx affected --target=lint:fix",
     "lint:fix": "pnpm exec nx run-many -t lint:fix",
+    "new:kaizen-component": "node scripts/new-kaizen-component.mjs",
     "prepare": "husky",
     "project:create": "ts-node tools/toolkit-cli/src/index.ts project:create",
     "project:dependencies:list": "ts-node tools/toolkit-cli/src/index.ts project:dependencies:list",
@@ -53,7 +54,8 @@
     "translation:new-naming:preview": "pnpm --filter=@bsport/i18n-management translation:preview-new-naming",
     "translation:project:transform": "pnpm --filter=@bsport/i18n-management project:transform",
     "translation:update": "pnpm --silent --filter=@bsport/i18n-management translation:update",
-    "utils": "ts-node tools/toolkit-cli/src/index.ts"
+    "utils": "ts-node tools/toolkit-cli/src/index.ts",
+    "verify:affected": "pnpm exec nx affected -t format:check lint test"
   },
   "config": {
     "commitizen": {

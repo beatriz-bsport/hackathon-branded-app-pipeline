@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import { Modal, makeStyles } from '@material-ui/core';
+import { Avatar, Modal, Typography, makeStyles } from '@material-ui/core';
 import ApplyCustomCssStyles from '@bsport/saas-legacy/src/libs/widget/components/ApplyCustomCssStyles.component';
 
 import ApplyCustomTheme from '@bsport/saas-legacy/src/libs/exportable-components/ApplyCustomTheme.component';
@@ -12,6 +12,9 @@ type UserInteractionModalProps = {
   styles: string;
   customConfiguration: string;
   onClose: () => void;
+  title?: string;
+  subtitle?: string;
+  avatarUrl?: string;
 };
 
 const UserInteractionModal: React.FC<UserInteractionModalProps> = ({
@@ -19,6 +22,9 @@ const UserInteractionModal: React.FC<UserInteractionModalProps> = ({
   styles,
   customConfiguration,
   onClose,
+  title,
+  subtitle,
+  avatarUrl,
 }) => {
   const classes = useModalStyles({});
 
@@ -66,6 +72,50 @@ const UserInteractionModal: React.FC<UserInteractionModalProps> = ({
               'bsport-user-interaction-modal__topBar',
             )}
           >
+            <div
+              className={classNames(
+                classes.topBarContent,
+                'bsport-user-interaction-modal__topBarContent',
+              )}
+            >
+              {avatarUrl && (
+                <Avatar
+                  src={avatarUrl}
+                  alt={title}
+                  className={classNames(
+                    'bsport-user-interaction-modal__topBarAvatar',
+                  )}
+                />
+              )}
+              <div
+                className={classNames(
+                  classes.topBarTextContainer,
+                  'bsport-user-interaction-modal__topBarTextContainer',
+                )}
+              >
+                <Typography
+                  variant="h5"
+                  noWrap
+                  className={classNames(
+                    'bsport-user-interaction-modal__topBarTitle',
+                  )}
+                >
+                  {title}
+                </Typography>
+                {subtitle && (
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    noWrap
+                    className={classNames(
+                      'bsport-user-interaction-modal__topBarSubtitle',
+                    )}
+                  >
+                    {subtitle}
+                  </Typography>
+                )}
+              </div>
+            </div>
             <IconButton
               onClick={onClose}
               className="bsport-user-interaction-modal__closeIcon"
@@ -128,8 +178,22 @@ const useModalStyles = makeStyles(() => ({
     backgroundColor: 'white',
     padding: 8,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     borderRadius: 12,
+  },
+  topBarContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    flex: 1,
+    minWidth: 0,
+  },
+  topBarTextContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    minWidth: 0,
   },
   iframe: {
     borderTopWidth: 0,

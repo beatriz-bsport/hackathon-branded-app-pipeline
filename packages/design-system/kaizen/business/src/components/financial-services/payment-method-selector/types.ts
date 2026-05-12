@@ -1,11 +1,25 @@
+import type { ReactNode } from "react";
+
 import type { Fetch } from "@bsport/fetch";
 import type { SelectProps } from "@bsport/kaizen-primitive-core";
 
 import type { AllPaymentMethodKey } from "./constants";
 
+/** Serialized selection prefix / discriminant for `PaymentMethodSelector` values. */
+export const PAYMENT_METHOD_SELECTOR_SELECTION_KIND = {
+  SAVED: "saved",
+  ALL: "all",
+} as const;
+
 export type PaymentMethodSelectorSelection =
-  | { kind: "saved"; id: string }
-  | { kind: "all"; id: AllPaymentMethodKey }
+  | {
+      kind: typeof PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED;
+      id: string;
+    }
+  | {
+      kind: typeof PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL;
+      id: AllPaymentMethodKey;
+    }
   | null;
 
 export type PaymentMethodSelectorResolvedSelection = Exclude<
@@ -23,4 +37,13 @@ export type PaymentMethodSelectorProps = Omit<
   fetch: Fetch;
   /** Main selection callback for parent payment flows. */
   onSelectionChange?: (selection: PaymentMethodSelectorSelection) => void;
+  /** Optional customization for "All methods" entries. */
+  allMethodsConfig?: {
+    /** Optional "All methods" entries to hide. */
+    hiddenIds?: AllPaymentMethodKey[];
+    /** Optional "All methods" entries to disable. */
+    disabledIds?: AllPaymentMethodKey[];
+    /** Optional custom right-side content for "All methods" entries. */
+    adornmentById?: Partial<Record<AllPaymentMethodKey, ReactNode>>;
+  };
 };

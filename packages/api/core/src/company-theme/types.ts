@@ -136,9 +136,121 @@ export type CompanyTheme = {
   revamped_backoffice_enabled: boolean;
 };
 
+type CompanyThemePatchKey =
+  | "primary_color"
+  | "payment_method_available_manager"
+  | "payment_method_available_basket"
+  | "payment_method_available_subscription"
+  | "secondary_color"
+  | "allow_guest"
+  | "allow_guest_max_number"
+  | "hidden_from_marketplace"
+  | "show_offers_filling"
+  | "is_whereby_integration_allowed"
+  | "payment_method_missing"
+  | "is_whereby_integration_enabled"
+  | "general_terms_and_conditions"
+  | "general_terms_of_use"
+  | "waiver"
+  | "websiteURL"
+  | "scheduleURL"
+  | "instagramURL"
+  | "facebookURL"
+  | "android_app_url"
+  | "hideCoach"
+  | "ios_app_url"
+  | "show_cancelled_offers_customer"
+  | "show_cancelled_offers_manager"
+  | "show_workshops_customer"
+  | "max_future_booking"
+  | "max_future_workshop"
+  | "booking_option_included_in_max_future_booking"
+  | "timezone_name"
+  | "hide_least_specific_payment_pack"
+  | "default_attendance"
+  | "consumer_regularize_debt"
+  | "allow_consumer_to_use_internal_account"
+  | "accept_double_booking"
+  | "accept_double_booking_workshop"
+  | "gtmId"
+  | "facebookPixelId"
+  | "extra_info"
+  | "basket_expiration_days"
+  | "show_booked_gender_offer"
+  | "is_checking_balance"
+  | "nb_to_check_balance"
+  | "gender_max_shift_for_booking"
+  | "enable_multi_localization"
+  | "hide_intercom"
+  | "is_quickbook_integration_allowed"
+  | "is_quickbook_integration_enabled"
+  | "schedule_timerange_begin"
+  | "schedule_timerange_end"
+  | "coach_can_edit_attendance"
+  | "autotag_rule_extended"
+  | "performance_tracking"
+  | "is_tax_excluded_in_marketplace"
+  | "hide_unnecessary_compatible_purchase_method"
+  | "hide_sessions_with_tags_when_not_eligible"
+  | "hide_member_details_in_app_private_booking_for_coach"
+  | "is_coach_access_enabled_by_default"
+  | "has_coach_access_to_calendar"
+  | "has_coach_access_to_compensation"
+  | "has_coach_access_to_compensation_downloading"
+  | "has_coach_access_to_replacement_request"
+  | "requires_email_confirmation_when_signing_up"
+  | "confirm_email_url_redirection"
+  | "reset_password_url_redirection"
+  | "no_show_validated_number_of_hours"
+  | "no_show_email_sent_number_of_hours"
+  | "is_roll_call_mandatory"
+  | "show_establishment"
+  | "show_level"
+  | "show_activity_color"
+  | "is_referral_program_activated"
+  | "show_free_session_label"
+  | "hide_book_button"
+  | "hide_credits_for_customers"
+  | "pass_credit_factor"
+  | "force_billing_details_on_cards"
+  | "show_past_sessions_calendar"
+  | "start_calendar_week_on_today"
+  | "checkin_tablet_visible_session_cutoff_minute"
+  | "first_warning_payment_method_expiration_days"
+  | "second_warning_payment_method_expiration_days"
+  | "show_member_account_balance"
+  | "show_barcode_button"
+  | "show_membership_number"
+  | "display_credit_price_for_offer"
+  | "one_click_checkout_enabled";
+
+export type UpdateCompanyThemeData = Partial<
+  Pick<CompanyTheme, CompanyThemePatchKey>
+> & {
+  allow_guest_frequency?: "every_week" | "every_month" | "every_year";
+  default_booking_ordering?:
+    | "-date_created"
+    | "member_first_name"
+    | "member_last_name";
+  session_time_display?: 1 | 2 | 3;
+  coach_display?: 1 | 2 | 3 | 4;
+  days_format_display?: 1 | 2 | 3;
+  mobile_app_default_page?:
+    | "Membership"
+    | "Bookings"
+    | "Home"
+    | "Marketplace"
+    | "Profile";
+  provincial_tax_name?: string | null;
+  provincial_tax_value?: number | string | null;
+  widget_theme?: Partial<WidgetTheme>;
+  stop_subscription_from_member_side_enabled?: boolean;
+  is_marketing_double_opt_in_enabled?: boolean;
+};
+
 export type UpdateCompanyThemeParams = {
   companyId: number;
-  data: unknown;
+  data: UpdateCompanyThemeData;
 };
 
 export type WidgetTheme = {

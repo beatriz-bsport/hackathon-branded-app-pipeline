@@ -2,13 +2,16 @@ import { FC } from "react";
 
 import { Title } from "@bsport/kaizen-primitive-core";
 
-import { SectionErrorFallback } from "#src/components/query-boundary/fallbacks.js";
-import { QueryBoundary } from "#src/components/query-boundary/query-boundary.js";
+import { SectionErrorFallback } from "#src/components/query-boundary/fallbacks";
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals.js";
+import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import { useSessionManagementStore } from "#src/stores/session-management/store";
+import { WaitlistFilter } from "#src/stores/session-management/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { BookingOptionStatusSegmentedControl } from "../filters/booking-option-status-segmented-control";
+import { CancelledWaitlist } from "./cancelled-waitlist";
 import { PausedWaitlistState } from "./paused-waitlist-state";
 import { WaitList } from "./waitlist";
 import { WaitlistActionsButton } from "./waitlist-actions-button";
@@ -23,6 +26,10 @@ export const WaitlistSection: FC<{
   const { t } = useTranslation("sessionManagement");
 
   const { data: session } = useRetrieveSession(sessionId);
+
+  const waitlistFilters = useSessionManagementStore(
+    (state) => state.waitlistFilters,
+  );
 
   const isWaitlistPaused = session.waiting_list_disabled;
 
@@ -63,7 +70,18 @@ export const WaitlistSection: FC<{
         ) : (
           <>
             <BookingOptionStatusSegmentedControl />
-            <WaitList sessionId={sessionId} searchQuery={searchQuery} />
+            {waitlistFilters === WaitlistFilter.CANCELLED ? (
+              <CancelledWaitlist
+                sessionId={sessionId}
+                searchQuery={searchQuery}
+              />
+            ) : (
+              <WaitList
+                sessionId={sessionId}
+                searchQuery={searchQuery}
+                paginationNamespace={waitlistFilters}
+              />
+            )}
           </>
         )}
       </QueryBoundary>

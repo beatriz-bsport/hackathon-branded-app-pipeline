@@ -1,20 +1,6 @@
-# Store package template setup
+# Customer-Data-Platform | EmailTemplate store package
 
-This package instantiates a store package with adequate dependencies.
-
-## How to use
-
-Create your store package by running the following command:
-
-```sh
-pnpm run -w project:create --template=store-package
-```
-
-Select `packages/stores` location for your store.
-
-# Customer-Data-Platform | [EmailTemplate] store package
-
-This package provides a Zustand store implementation for managing the state related to the [EmailTemplate] entity in an application. It includes types, actions, API interactions, and selectors to facilitate state management.
+Existing Zustand store package for EmailTemplate data. Use it where consumers still depend on store hooks/actions/selectors. For new API client modules in this area, prefer `packages/api` and TanStack Query.
 
 ## Installation
 

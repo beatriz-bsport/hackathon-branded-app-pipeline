@@ -5,7 +5,7 @@ import { Button, TextField } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/i18n";
 
-import { useApplyGiftCardCode } from "../../hooks";
+import { useApplyGiftCardCode } from "../../hooks/use-apply-gift-card-code";
 
 type AddGiftCardCodeProps = {
   fetch: Fetch;

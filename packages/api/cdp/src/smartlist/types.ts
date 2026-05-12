@@ -35,3 +35,89 @@ export type CreateTagRuleParams = {
 export type UpdateTagRuleParams = CreateTagRuleParams & {
   id: number;
 };
+
+export type SmartlistFilterIdentifier = number;
+
+export type SmartlistGetFiltersResponse = Record<
+  string,
+  Record<string, SmartlistFilterPayload>
+>;
+
+export type SmartlistFilterPayload = {
+  id: number;
+  smartlist: number;
+  filter_identifier: SmartlistFilterIdentifier;
+};
+
+export enum SmartlistDateFilterType {
+  DATE_AFTER = 0,
+  DATE_BEFORE = 1,
+  DATE_BETWEEN = 2,
+  DATE_EXACT = 3,
+  DURATION_AFTER = 4,
+  DURATION_BEFORE = 5,
+  DURATION_EXACT = 6,
+  DURATION_BETWEEN = 7,
+  DURATION_BEFORE_PAST = 9,
+}
+
+export const SMARTLIST_RELATIVE_DATE_FILTER_TYPE = [
+  SmartlistDateFilterType.DURATION_AFTER,
+  SmartlistDateFilterType.DURATION_BEFORE,
+  SmartlistDateFilterType.DURATION_EXACT,
+  SmartlistDateFilterType.DURATION_BETWEEN,
+  SmartlistDateFilterType.DURATION_BEFORE_PAST,
+];
+
+export const SMARTLIST_ABSOLUTE_DATE_FILTER_TYPE = [
+  SmartlistDateFilterType.DATE_AFTER,
+  SmartlistDateFilterType.DATE_BEFORE,
+  SmartlistDateFilterType.DATE_EXACT,
+  SmartlistDateFilterType.DATE_BETWEEN,
+];
+
+export enum SmartlistCreditComparator {
+  LTE = 1,
+  GTE = 2,
+  EQUAL = 5,
+  BETWEEN = 6,
+}
+
+/**
+ * Smartlist payment pack filter data contract.
+ * Endpoint family: /customer-data-platform/v1/smartlist/payment_pack/
+ */
+export type PaymentPackFilter = SmartlistFilterPayload & {
+  company_id: number;
+  payment_packs: number[];
+  select_all_payment_packs: boolean;
+  has_pack: boolean;
+  date_filter_active: boolean;
+  date_filter_type: SmartlistDateFilterType;
+  date_bought: string; // ISO 8601 datetime string
+  date_bought_second: string; // ISO 8601 datetime string
+  duration_bought: number; // number of days, can be negative
+  duration_bought_second: number; // number of days, can be negative
+  credit_filter_active: boolean;
+  credit_comparator: SmartlistCreditComparator;
+  credit_value: string | number; // number of credits, only positive
+  credit_value_second: string | number; // number of credits, only positive
+  expiration_date_filter_active: boolean;
+  expiration_date_filter_type: SmartlistDateFilterType;
+  expiration_date: string; // ISO 8601 datetime string
+  expiration_date_second: string; // ISO 8601 datetime string
+  expiration_duration: number; // number of days, can be negative
+  expiration_duration_second: number; // number of days, can be negative
+};
+
+export type CreatePaymentPackFilterPayload = Omit<
+  PaymentPackFilter,
+  "id" | "company_id" | "filter_identifier"
+>;
+
+export type UpdatePaymentPackFilterPayload = Partial<
+  Omit<
+    PaymentPackFilter,
+    "id" | "company_id" | "smartlist" | "filter_identifier"
+  >
+>;

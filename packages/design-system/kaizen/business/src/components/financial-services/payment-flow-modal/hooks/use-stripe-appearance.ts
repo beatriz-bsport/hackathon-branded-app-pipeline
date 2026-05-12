@@ -8,6 +8,9 @@ const getCssVariableValue = (variableName: string): string =>
         .trim()
     : "";
 
+/**
+ * Builds Stripe Elements appearance from Kaizen design tokens and active theme.
+ */
 export const useStripeAppearance = (isDarkMode: boolean): Appearance => {
   const stripeAppearanceTheme = isDarkMode ? "night" : "stripe";
 

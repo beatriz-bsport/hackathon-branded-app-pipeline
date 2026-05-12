@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "type": "object",
+  "properties": {
+    "dryRun": {
+      "type": "boolean",
+      "default": false,
+      "description": "Compute the next semver tag without creating or pushing it"
+    },
+    "remote": {
+      "type": "string",
+      "default": "origin",
+      "description": "Git remote used to fetch existing tags and push the new one"
+    }
+  },
+  "required": []
+}

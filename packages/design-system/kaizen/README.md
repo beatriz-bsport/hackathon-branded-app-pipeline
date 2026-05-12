@@ -2,6 +2,14 @@
 
 Kaizen is the design system used for bsport's back-office. It encompasses primitive components, business components, and a library of design tokens.
 
+## Agent Playbook
+
+- Start with existing Kaizen packages before building local UI.
+- Root generator: `pnpm new:kaizen-component -- --target primitive|business`.
+- Package-local generator: `pnpm component:add` in `primitive/core` or `business`.
+- Every shared component should keep Storybook coverage current.
+- Canonical overlay for this area: [`AGENTS.md`](./AGENTS.md).
+
 ## Structure
 
 ```
@@ -12,7 +20,7 @@ kaizen/
 │       ├── _templates/  # Symlink to ../../_templates
 │       ├── .storybook/  # Local storybook for faster primitive dev
 │       └── src/         # Primitive UI components
-├── business-components/
+├── business/
 │   └── .storybook/      # Local storybook for faster business dev
 ├── storybook/           # Unified storybook (aggregates all stories)
 │   ├── .storybook/
@@ -33,7 +41,7 @@ pnpm dev  # Starts local storybook (faster, only primitive components)
 ### Developing Business Components
 
 ```bash
-cd business-components
+cd business
 pnpm dev  # Starts local storybook (faster, only business components)
 ```
 
@@ -46,7 +54,7 @@ pnpm dev  # Starts unified storybook (all components)
 
 ## Why Multiple Storybooks?
 
-- **Local storybooks** (`primitive/core`, `business-components`): Faster local development with hot reload. Only load relevant components.
+- **Local storybooks** (`primitive/core`, `business`): Faster local development with hot reload. Only load relevant components.
 - **Unified storybook** (`storybook/`): Single deployment point. Shows all Kaizen components together for better discoverability.
 
 ## Component Generation

@@ -1,12 +1,15 @@
 import type { FC } from "react";
 
 import {
+  Button,
+  Chip,
+  Icon,
   List,
   type ListProps,
   type PaginationProps,
+  Tooltip,
   type UseEmptyStateProps,
 } from "@bsport/kaizen-primitive-core";
-import { Icon, Tooltip } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -21,14 +24,17 @@ type VideoListProps = {
   emptyConfig: UseEmptyStateProps["emptyConfig"];
   emptySearchConfig?: UseEmptyStateProps["emptySearchConfig"];
   isLoading: boolean;
+  onRequestUpload: (id: number) => void;
 };
 
 const TooltipIcon: FC<{
   icon:
+    | "book-closed"
     | "clock-rewind"
     | "infinity"
     | "shopping-cart-01"
-    | "shopping-cart-cross";
+    | "shopping-cart-cross"
+    | "video-recorder";
   label: string;
 }> = ({ icon, label }) => (
   <Tooltip label={label} placement="bottom">
@@ -46,6 +52,7 @@ export const VideoList: FC<VideoListProps> = ({
   emptyConfig,
   emptySearchConfig,
   isLoading,
+  onRequestUpload,
 }) => {
   const { t } = useTranslation("media-list");
 
@@ -70,7 +77,41 @@ export const VideoList: FC<VideoListProps> = ({
       customNode: (
         <div className={row.isPendingDeletion ? "opacity-80" : undefined}>
           <div className="flex items-center gap-xs">
-            <MediaFormatRenderer format={row.format} />
+            {row.format === "none" ? (
+              <MediaFormatRenderer format={row.format} />
+            ) : row.format === "video" ? (
+              <TooltipIcon
+                icon="video-recorder"
+                label={t("table.tooltips.format.videoUploaded")}
+              />
+            ) : row.format === "ebook" ? (
+              <TooltipIcon
+                icon="book-closed"
+                label={t("table.tooltips.format.ebookUploaded")}
+              />
+            ) : (
+              <Chip
+                color="default"
+                size="lg"
+                type="weak"
+                label={t("table.tooltips.format.noFileUploaded")}
+              />
+            )}
+            {row.format === "none" ? (
+              <Button
+                color="default"
+                intent="flat"
+                size="md"
+                kind="icon-button"
+                icon="upload-01"
+                label={t("table.actions.upload")}
+                onClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  onRequestUpload(row.id);
+                }}
+              />
+            ) : null}
             <TooltipIcon
               icon={
                 row.memberAvailability === "available"
@@ -100,8 +141,22 @@ export const VideoList: FC<VideoListProps> = ({
       buttons: row.isPendingDeletion
         ? []
         : [
+            ...(row.onEdit
+              ? [
+                  {
+                    id: "edit",
+                    kind: "icon-button" as const,
+                    icon: "edit-02" as const,
+                    color: "default" as const,
+                    intent: "flat" as const,
+                    label: t("table.actions.edit"),
+                    size: "md" as const,
+                    onClick: row.onEdit,
+                  },
+                ]
+              : []),
             {
-              id: `video-${row.id}-duplicate`,
+              id: "duplicate",
               kind: "icon-button" as const,
               icon: "copy-03" as const,
               color: "default" as const,
@@ -109,16 +164,6 @@ export const VideoList: FC<VideoListProps> = ({
               label: t("table.actions.duplicate"),
               size: "md",
               onClick: row.onDuplicate,
-            },
-            {
-              id: `video-${row.id}-delete`,
-              kind: "icon-button" as const,
-              icon: "trash-01" as const,
-              color: "default" as const,
-              intent: "flat" as const,
-              label: t("table.actions.delete"),
-              size: "md",
-              onClick: row.onDelete,
             },
           ],
       dropdownConfig: row.isPendingDeletion

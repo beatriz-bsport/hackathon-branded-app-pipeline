@@ -59,7 +59,7 @@ export default {
 
 ### Scope and definition
 
-:point_right: A Business Component introduces dependencies between its multiple consumers, weakening isolation between MFE. Each Business Component should be carefully thought before being implemented !
+:point_right: A Business Component introduces dependencies between its multiple consumers, weakening isolation between consuming apps. Each Business Component should be carefully thought before being implemented !
 
 :point_right: Don't create a Business Component for a single (or double) usage. When in doubt, don't refactor. It should be worthy to remove the boilerplate.
 

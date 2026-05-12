@@ -1,0 +1,131 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Button, CircularProgress, Typography } from '@material-ui/core';
+import { Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Formik, FormikHelpers } from 'formik';
+import Alert from '@material-ui/lab/Alert';
+import type { FormValues } from '#src/libs/invoice/sign-es/types';
+import { validationSchema } from '#src/libs/invoice/sign-es/validation';
+import FiskalyOnboardingChips from '#src/libs/invoice/sign-es/fiskaly/components/FiskalyOnboardingChips.component';
+import FiskalyOnboardingRequirementsAlerts from '#src/libs/invoice/sign-es/fiskaly/components/FiskalyOnboardingRequirementsAlerts.component';
+import VerifactuFormFields from '#src/libs/invoice/sign-es/verifactu/components/VerifactuFormFields.component';
+import { FiskalyOnboardingRequirement } from '#src/libs/invoice/types';
+
+type VerifactuRepresentativeFormProps = {
+  initialValues: FormValues;
+  requirements: FiskalyOnboardingRequirement[];
+  onSaveForLater: (
+    values: FormValues,
+    formikHelpers: FormikHelpers<FormValues>,
+  ) => Promise<void>;
+  onSubmit: (
+    values: FormValues,
+    formikHelpers: FormikHelpers<FormValues>,
+  ) => Promise<void>;
+};
+
+const VerifactuRepresentativeForm: React.FC<
+  VerifactuRepresentativeFormProps
+> = ({ initialValues, requirements, onSaveForLater, onSubmit }) => {
+  const classes = useStyles();
+  const { t } = useTranslation('b2b_invoice');
+
+  // Check if all critical requirements are met before allowing agreement creation
+  // The "Create agreement" button is disabled if any of these requirements are missing
+  const allRequirementsMet = !requirements.some(
+    (req) =>
+      req === FiskalyOnboardingRequirement.BUSINESS_VAT_ID_NOT_VERIFIED ||
+      req === FiskalyOnboardingRequirement.BUSINESS_ADDRESS_NOT_PROVIDED ||
+      req === FiskalyOnboardingRequirement.LEGAL_IDENTIFIER_NOT_ACTIVATED,
+  );
+
+  return (
+    <Formik
+      enableReinitialize
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validateOnBlur={false}
+      validateOnChange={false}
+      validationSchema={validationSchema}
+    >
+      {(formikProps) => (
+        <form onSubmit={formikProps.handleSubmit}>
+          <FiskalyOnboardingChips
+            requirements={requirements}
+            translationPrefix="configuration.verifactu.form"
+          />
+          <FiskalyOnboardingRequirementsAlerts
+            requirements={requirements}
+            translationPrefix="configuration.verifactu.form"
+          />
+
+          <Typography className={classes.formTitle}>
+            {t('configuration.verifactu.form.sectionTitle')}
+          </Typography>
+
+          <VerifactuFormFields formikProps={formikProps} />
+
+          <Alert
+            className={classes.warningAlert}
+            severity="warning"
+            variant="standard"
+          >
+            <Typography className={classes.alertContent} variant="body2">
+              {t('configuration.verifactu.form.alert.content')}
+            </Typography>
+          </Alert>
+
+          <div className={classes.buttonContainer}>
+            <Button
+              color="primary"
+              disabled={formikProps.isSubmitting}
+              onClick={() => onSaveForLater(formikProps.values, formikProps)}
+              type="button"
+              variant="outlined"
+            >
+              {t('configuration.verifactu.form.save_for_later')}
+            </Button>
+            <Button
+              color="primary"
+              disabled={formikProps.isSubmitting || !allRequirementsMet}
+              startIcon={
+                formikProps.isSubmitting ? (
+                  <CircularProgress size={20} />
+                ) : undefined
+              }
+              type="submit"
+              variant="contained"
+            >
+              {formikProps.isSubmitting
+                ? t('configuration.verifactu.form.creating_agreement')
+                : t('configuration.verifactu.form.create_agreement')}
+            </Button>
+          </div>
+        </form>
+      )}
+    </Formik>
+  );
+};
+
+const useStyles = makeStyles<Theme>((theme) => ({
+  formTitle: {
+    fontWeight: 590,
+  },
+  warningAlert: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(3),
+  },
+  alertContent: {
+    whiteSpace: 'pre-line',
+  },
+  buttonContainer: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    marginTop: theme.spacing(3),
+  },
+}));
+
+export default VerifactuRepresentativeForm;

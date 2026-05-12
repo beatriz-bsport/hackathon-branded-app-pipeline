@@ -3,6 +3,7 @@ import {
   Body,
   Chip,
   type GenericTableColumn,
+  Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -58,16 +59,24 @@ export const useStaffTableColumns = () => {
     type: "custom",
     align: "start",
     header: t("table.headers.role"),
-    render: (row) =>
-      row.roleName ? (
-        <Chip
-          label={row.roleName}
-          type="weak"
-          color={row.roleIsDefault ? "info" : "default"}
-          size="lg"
-          iconLeft={row.roleIsDefault ? "lock-01" : undefined}
-        />
-      ) : null,
+    render: (row) => {
+      if (!row.roleName) return null;
+      const tooltip = row.roleIsDefault
+        ? t("table.tooltips.defaultRole")
+        : t("table.tooltips.customRole");
+      return (
+        <Tooltip label={tooltip} placement="bottom-right">
+          <Chip
+            label={row.roleName}
+            type="weak"
+            color="default"
+            size="lg"
+            iconLeft={row.roleIsDefault ? "lock-01" : undefined}
+            title={tooltip}
+          />
+        </Tooltip>
+      );
+    },
   };
 
   const columnBillingGroup: TableColumn = {

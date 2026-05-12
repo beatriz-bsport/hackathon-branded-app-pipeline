@@ -440,5 +440,5 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 export default compose<Props, OwnProps>(
   withStyles(styles),
   connector,
-  withTranslation(['checkout', 'navigation']),
+  withTranslation(['checkout', 'navigation', 'agentChat']),
 )(FabWidget);

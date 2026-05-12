@@ -392,7 +392,7 @@
       "addProfilePicture": "Añadir una foto de perfil",
       "error": {
         "passwordConfirm": "Las contraseñas no coinciden",
-        "password": "La contraseña debe contener al menos 6 caracteres"
+        "password": "La contraseña debe contener al menos 12 caracteres"
       },
       "addProfilePictureRequiredLabel": "Debes añadir una foto de perfil",
       "addProfilePictureRequired": "Añadir una foto de perfil *"

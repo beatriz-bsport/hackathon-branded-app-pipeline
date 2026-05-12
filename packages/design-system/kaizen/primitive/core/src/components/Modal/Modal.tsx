@@ -23,6 +23,8 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
   description?: React.ReactNode;
   footerDirection?: FooterDirection;
   position?: DialogPosition;
+  disableClose?: boolean;
+  disableClickOutsideClose?: boolean;
   onClose?: () => void;
   onCloseButtonClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void;
@@ -42,9 +44,11 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.description Description below the title. Can be a string or a ReactNode.
  * @param props.footerDirection Direction of the footer.
  * @param props.position Position of the modal. Can be "centered" or "bottom". Defaults to "centered".
+ * @param props.disableClose When true, hides close actions (header close icon and footer cancel button) and prevents closing by clicking outside or pressing Escape. Defaults to false.
+ * @param props.disableClickOutsideClose When true, prevents closing the modal by clicking outside of it. Does not affect other close actions. Defaults to false.
  * @param props.onClose Function to call when the modal is closed.
  * @param props.onCloseButtonClick Function to call when the cross button is clicked.
- * @param props.onClickOutside Function to call when the modal is clicked outside.
+ * @param props.onClickOutside Function to call when the modal is clicked outside. Will call props.onClose based on if disableClose is set or not.
  * @param props.confirmButton Confirm button props.
  * @param props.cancelButton Cancel button props.
  * @param props.children Content in the middle of the modal.
@@ -58,6 +62,8 @@ const Modal: FC<ModalProps> = ({
   description,
   footerDirection = "row",
   position = "centered",
+  disableClose = false,
+  disableClickOutsideClose = false,
   onClose,
   onCloseButtonClick,
   onClickOutside,
@@ -80,14 +86,23 @@ const Modal: FC<ModalProps> = ({
     handleClose();
   };
 
+  const handleClickOutside = (event: React.MouseEvent<HTMLDivElement>) => {
+    onClickOutside?.(event);
+    if (disableClose || disableClickOutsideClose) {
+      return;
+    }
+    handleClose();
+  };
+
   return (
     <Dialog
       data-component="Kaizen-Modal"
       open={open}
       size={size}
       position={position}
+      disableClose={disableClose}
       onClose={onClose}
-      onClickOutside={onClickOutside}
+      onClickOutside={handleClickOutside}
       className={className}
       aria-labelledby="modal-title"
       {...props}
@@ -109,16 +124,18 @@ const Modal: FC<ModalProps> = ({
               <>{description}</>
             ))}
         </div>
-        <Button
-          size="sm"
-          intent="flat"
-          color="default"
-          label={t("modal.close")}
-          kind="icon-button"
-          icon="x"
-          className="h-fit"
-          onClick={handleCloseButtonClick}
-        />
+        {!disableClose && (
+          <Button
+            size="sm"
+            intent="flat"
+            color="default"
+            label={t("modal.close")}
+            kind="icon-button"
+            icon="x"
+            className="h-fit"
+            onClick={handleCloseButtonClick}
+          />
+        )}
       </div>
 
       {children !== undefined && (
@@ -138,7 +155,7 @@ const Modal: FC<ModalProps> = ({
 
       <Footer
         confirmButton={confirmButton}
-        cancelButton={cancelButton}
+        cancelButton={disableClose ? undefined : cancelButton}
         footerDirection={footerDirection}
       />
     </Dialog>

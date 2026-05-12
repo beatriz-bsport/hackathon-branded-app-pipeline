@@ -23,6 +23,9 @@ import type {
   InitializeLegalIdentifierLegacyResponse,
   InitializeLegalIdentifierOnboarding,
   DownloadInvoiceBulkExportResponse,
+  OnboardFiskalyCompanyResponse,
+  DeviceCertificateSerialNumberResponse,
+  IsCompanyAllSetupResponse,
 } from '#src/libs/invoice/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { Payment } from '#src/libs/payment/types';
@@ -432,10 +435,32 @@ export async function getFiskalyOnboardingRequirements(): Promise<
 }
 
 export async function onboardFiskalyCompany(): Promise<
-  AxiosResponse<{ agreement_url: string }>
+  AxiosResponse<OnboardFiskalyCompanyResponse>
 > {
   return postAuth(
     `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-onboarding/onboard_company/`,
+  );
+}
+
+export async function getIsCompanyAllSetup(): Promise<
+  AxiosResponse<IsCompanyAllSetupResponse>
+> {
+  return getAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-onboarding/is_company_all_setup/`,
+  );
+}
+
+export async function finalizeTicketbaiSetup(): Promise<AxiosResponse<void>> {
+  return postAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-onboarding/finalize_ticketbai_setup/`,
+  );
+}
+
+export async function getDeviceCertificateSerialNumber(): Promise<
+  AxiosResponse<DeviceCertificateSerialNumberResponse>
+> {
+  return getAuth(
+    `${API_V1_URI}/fiskaly-sign-es/fiskaly-sign-es-onboarding/get_device_certificate_serial_number/`,
   );
 }
 
@@ -512,6 +537,9 @@ export default {
   checkFiskalyOnboardingStatus,
   getFiskalyOnboardingRequirements,
   onboardFiskalyCompany,
+  getIsCompanyAllSetup,
+  finalizeTicketbaiSetup,
+  getDeviceCertificateSerialNumber,
   getLastGeneratedAgreementUrl,
   getLastUploadedSignedAgreement,
   uploadSignedAgreement,

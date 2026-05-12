@@ -41,7 +41,6 @@ export const FeatureFlags = {
   CALENDAR_REVAMP: 'booking_calendar_page_revamped',
   STRIPE_LINK_EXPRESS_CHECKOUT: 'stripe-link-express-checkout',
   PAYOUT_FEE_BREAKDOWN: 'payout-fee-breakdown',
-  WELLHUB_NEW_CONFIGURATION: 'booking_activate_new_wellhub_configuration',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

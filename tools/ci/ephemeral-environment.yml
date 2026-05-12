@@ -1,5 +1,7 @@
 Ephemeral Environment:
   stage: deploy-ephemeral-environment
+  needs:
+    - Build Artifact MR
   extends:
     - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   before_script: !reference [.pnpm-setup, before_script]
@@ -14,7 +16,6 @@ Ephemeral Environment:
       allow_failure: true
   script:
     - echo "🔱 Building the ephemeral environment for this merge request"
-    - bash tools/scripts/build-artifact.sh
     - bash tools/scripts/deploy-ephemeral-environment.sh
 
 Stop Ephemeral Environment:
@@ -31,6 +32,20 @@ Stop Ephemeral Environment:
   script:
     - echo "🔱 Deleting the ephemeral environment for this merge request"
     - bash tools/scripts/delete-ephemeral-environment.sh
+
+Build Artifact MR:
+  stage: build
+  needs: []
+  extends:
+    - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
+  before_script: !reference [.pnpm-setup, before_script]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+      allow_failure: true
+  script:
+    - echo "🔱 Building mr artifact"
+    - bash tools/scripts/build-artifact.sh
 
 Build Artifact Dev:
   stage: build

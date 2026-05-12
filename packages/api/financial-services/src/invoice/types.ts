@@ -73,3 +73,9 @@ export type FetchInvoiceResponse = {
   quickbooks_metadata: object;
   is_quick_invoice: boolean | null;
 };
+
+export type ApplyGiftcardOnInvoiceRequest = {
+  invoiceId: string;
+  consumer_giftcard_id: number;
+  amount: number;
+};

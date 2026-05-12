@@ -1,32 +1,6 @@
-# Store package template setup
-
-This package instantiates a store package with adequate dependencies.
-
-## How to use
-
-Create your store package by running the following command:
-
-```sh
-pnpm run -w project:create --template=store-package
-```
-
-Select `packages/stores` location for your store.
-
-## Todo list and scope definition
-
-- [ ] Remove this first part of the Readme and complete the next section
-- [ ] `types.ts` : types of the objects retrieved from the backend -> API Types
-- [ ] `store.ts` : zustand store and hook to bind it
-- [ ] `actions/store.ts` : actions to interact with the zustand store
-- [ ] `actions/index.ts` : actions exported to your applications
-- [ ] `api.ts` : API parameters for your actions
-- [ ] `selectors.ts` : function to retrieve data from your store
-
----
-
 # Core Data | Masterdata store package
 
-This package provides a Zustand store implementation for managing the state related to the Master data entities in an application. It includes types, actions, API interactions, and selectors to facilitate state management.
+Existing Zustand store package for Master data entities. Use it where consumers still depend on store hooks/actions/selectors. For new API client modules in this area, prefer `packages/api` and TanStack Query.
 
 ## Installation
 

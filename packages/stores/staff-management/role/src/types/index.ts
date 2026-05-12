@@ -1,4 +1,7 @@
-export * from "./api";
-export * from "./models";
-export type { CompanyRolePermissions } from "./company-role-permissions";
-export type { ObjectLevelPermissions } from "./object-level-permissions";
+export type {
+  CompanyRole,
+  CompanyRolePermissions,
+  CompanyStaffData,
+  ObjectLevelPermissions,
+  Staff,
+} from "@bsport/api-staff-management";

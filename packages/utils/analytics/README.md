@@ -371,15 +371,15 @@ analyticsWithMeiro.configure({ domain: "meiro.staging.bsport.io" }); // Won't af
 
 When talking about singleton in the context of this analytics package, there are two different meanings depending on the scope:
 
-### 1. Singleton at the dependency level (Module Federation / MFE)
+### 1. Singleton at the shared-runtime dependency level
 
-In a micro-frontend architecture, a "singleton" often means sharing the same dependency instance across all MFEs so that:
+In a multi-app runtime, a "singleton" often means sharing the same dependency instance across all consuming apps so that:
 
 - Only one copy of the analytics SDK (e.g., Mixpanel) is loaded in the browser.
 - Configuration (e.g., mixpanel.init) is applied once and used everywhere.
-- Events sent from any MFE go through the same underlying analytics client.
+- Events sent from any app go through the same underlying analytics client.
 
-This is typically achieved via Module Federation's `singleton: true` configuration and is important for ensuring consistent tracking across MFEs.
+The important part is ensuring one shared analytics SDK instance across the apps that share the same runtime.
 
 ### 2. Singleton at the code instance level
 
@@ -390,8 +390,8 @@ We do not enforce this in the current implementation:
 - You can create multiple AnalyticsClient instances.
 - Internally, these instances share the same underlying Mixpanel instance by default.
 - This allows you to:
-  - Keep agnostic, instance-level super properties (stored in AnalyticsClient, not Mixpanel) to differentiate between MFEs or contexts.
-  - Maintain domain-specific isolation between MFEs while still benefiting from a shared Mixpanel connection.
+  - Keep agnostic, instance-level super properties (stored in AnalyticsClient, not Mixpanel) to differentiate between apps or contexts.
+  - Maintain domain-specific isolation between apps while still benefiting from a shared Mixpanel connection.
 
 ### 3. Special cases
 
@@ -405,7 +405,7 @@ Options:
 
 ### 4. Best practices
 
-- Configure once per scope (e.g., once in the host MFE for revamped BO).
+- Configure once per scope (e.g., once in the host shell for revamped BO).
 - Document where configure is called — calling it multiple times with different tokens can lead to unclear behavior.
 - For multi-scope apps (B2B/B2C), consider multiple named Mixpanel instances for clarity and safety (incoming).
 - Always reset the Mixpanel client on logout if switching to a radically different user or scope.
@@ -423,11 +423,11 @@ pnpm exec nx run @bsport/sm-host:dev:watch --watchDeps=false --remotes=@bsport/s
 **How it works:**
 
 - The host configures the shared Mixpanel SDK singleton
-- Your MFE creates its own `AnalyticsClient` wrapper instance
+- Your app creates its own `AnalyticsClient` wrapper instance
 - The shared singleton means Mixpanel is already configured
 - ✅ Closest to production behavior
 - ✅ Analytics works out of the box
-- ⚠️ You still need to add MFE-specific super properties or identify calls if you need to add app specific information
+- ⚠️ You still need to add app-specific super properties or identify calls if you need to add app specific information
 
 **How to create a `AnalyticsClient` wrapper instance specific to your app:**
 
@@ -451,7 +451,7 @@ analyticsClient.addSuperProperties({
 });
 ```
 
-### Option 2: Run MFE standalone
+### Option 2: Run app standalone
 
 ```bash
 pnpm exec nx run @bsport/your-app-name:dev:single
@@ -459,7 +459,7 @@ pnpm exec nx run @bsport/your-app-name:dev:single
 
 **How it works:**
 
-- Your MFE runs independently without the host
+- Your app runs independently without the host
 - Mixpanel SDK is NOT configured
 - ❌ Analytics tracking will not work without configuration
 
@@ -502,10 +502,10 @@ analytics.addSuperProperties({
 
 ### Why this matters
 
-In a Module Federation setup:
+In a shared Studio Manager runtime:
 
 - `@bsport/analytics` is a **shared singleton dependency**
-- All MFEs share the **same underlying Mixpanel SDK instance**
-- Each MFE creates its **own `AnalyticsClient` wrapper**
+- All consuming apps share the **same underlying Mixpanel SDK instance**
+- Each app creates its **own `AnalyticsClient` wrapper**
 - The host typically configures the shared SDK on app initialization
-- MFEs inherit this configuration automatically when loaded by the host
+- Apps inherit this configuration automatically when loaded by the host

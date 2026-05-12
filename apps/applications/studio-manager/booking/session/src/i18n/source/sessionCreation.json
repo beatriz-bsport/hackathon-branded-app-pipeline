@@ -63,6 +63,7 @@
           "title": "Booking",
           "effectif": "Total spots in class",
           "exceedsRoomCapacity": "The number of spots exceeds the room capacity",
+          "differsFromRoomCapacity": "The number of spots differs from the room capacity ({{capacity}} spots)",
           "waitlist": "Spots on Waitlist",
           "credits": {
             "label": "Credits",

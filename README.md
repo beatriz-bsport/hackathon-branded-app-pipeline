@@ -219,6 +219,15 @@ pnpm exec nx dev @bsport/kaizen-primitive-core
 
 ## Quick guide
 
+### Agent-friendly entrypoints
+
+- Canonical repo instructions: [`AGENTS.md`](./AGENTS.md)
+- Shared conventions: [`CONVENTIONS.md`](./CONVENTIONS.md)
+- API package playbook: [`packages/api/README.md`](./packages/api/README.md)
+- Project generators: `pnpm project:create --template=sm-application|store-package|typescript-package`
+- Kaizen component shortcut: `pnpm new:kaizen-component -- --target primitive|business`
+- Changed-only verification: `pnpm verify:affected`
+
 ### How to deploy on a feature branch
 
 We are deploying to S3/CDNs applications (legacy and revamps) and UI components libraries storybooks (kaizen).
@@ -237,7 +246,7 @@ pnpm run -w utils --help
 
 The most important ones you are likely to use :
 
-- `pnpm run -w project:create` : to create a new application, typescript package or store package, based on our [templates](./tools/templates/README.md) ;
+- `pnpm run -w project:create` : to create a new application, typescript package or store package, based on our [templates](./tools/templates/README.md). For new API client modules and server-data integrations, extend `packages/api` instead of creating a store package ;
 - `pnpm run -w translation:update` : to build and update translations files of our revamped projects ;
 - `pnpm run -w sync:mismatch:list` : to list version mismatches between dependencies of our revamped projects.
 
@@ -253,7 +262,8 @@ Find out more about :
 
 - [the script and its parameters](/tools/toolkit-cli/README.md#projectcreate)
 - [a guide to use the command to create a new application](https://www.notion.so/bright-shovel-41b/Quickstart-Create-a-new-application-17e137e4c6408017880efb0d5548df17)
-- [a guide to use the command to create a new store package](https://www.notion.so/bright-shovel-41b/Quickstart-Create-and-use-a-store-package-1e0137e4c640805f9e3acd7dcbc78559)
+- [a guide to use the command to create a new store package](https://www.notion.so/bright-shovel-41b/Quickstart-Create-and-use-a-store-package-1e0137e4c640805f9e3acd7dcbc78559) — use when an existing store-based flow still needs a store
+- [API package guidance](./packages/api/README.md) — default path for new API client modules and server-data queries
 
 ### Run any script in the pnpm workspace
 

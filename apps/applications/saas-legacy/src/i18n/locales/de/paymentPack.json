@@ -180,7 +180,7 @@
       },
       "theoricalMarginValue": {
         "label": "Theoretischer marginaler Beitrag einschließlich Steuer (nur bei unbegrenzter Karte)",
-        "helperText": "Wird zur Berechnung der Lehrkraft-Lohnabrechnung verwendet. 10{{currency}} bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10{{currency}} vergütet wird. Wenn leer oder 0{{currency}} wird die Einbringung einer Karte PREIS/NB_RESERVATION"
+        "helperText": "Wird zur Berechnung der Lehrkraft-Honorarabrechnung verwendet. 10{{currency}} bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10{{currency}} vergütet wird. Wenn leer oder 0{{currency}} wird die Einbringung einer Karte PREIS/NB_RESERVATION"
       },
       "maxBookingPerWeek": {
         "label": "Maximale Nutzung pro Woche",
@@ -297,8 +297,8 @@
         },
         "header": "Erweiterte Optionen",
         "appliesForPayroll": {
-          "label": "Kurse, die mit diesem Kurspass gekauft werden, werden in der Lohnabrechnung der Lehrkraft berücksichtigt",
-          "helperText": "Standardmäßig werden die Kurse dem Studio in Rechnung gestellt und standardmäßig in die Lohnabrechnung der Lehrkraft aufgenommen. Wenn du diese Einstellung deaktivierst, erscheinen die mit diesem Kurspass gebuchten Kurse nicht mehr in der Lohnabrechnung der Lehrkraft.",
+          "label": "Kurse, die mit diesem Kurspass gekauft werden, werden in der Honorarabrechnung der Lehrkraft berücksichtigt",
+          "helperText": "Standardmäßig werden die Kurse dem Studio in Rechnung gestellt und standardmäßig in die Honorarabrechnung der Lehrkraft aufgenommen. Wenn du diese Einstellung deaktivierst, erscheinen die mit diesem Kurspass gebuchten Kurse nicht mehr in der Honorarabrechnung der Lehrkraft.",
           "header": "Gehaltsabrechnung für Lehrer"
         }
       },
@@ -666,7 +666,7 @@
     "penalityInfo": "Eine Strafe wird erhoben, wenn es {{penalityNumberCancel}} außerterminliche Stornierungen innerhalb eines Zeitraums von {{penalityNumberDay}} Tagen gibt.",
     "penalityNumberDay": "Anzahl der Tage",
     "penalityNumberCancel": "Anzahl der Absagen",
-    "marginalContributionHelperText": "Wird verwendet, um die Lohnabrechnung von Lehrkräften zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit diesem Pass vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
+    "marginalContributionHelperText": "Wird verwendet, um die Honorarabrechnung von Lehrkräften zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit diesem Pass vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
     "marginalContribution": "Theoretischer marginaler Wert TTC",
     "expirationDateHelper": "Wird der Pass innerhalb dieser Zeit nicht genutzt, verfällt er automatisch.",
     "expirationDate": "Anzahl der Tage bis zum Ablauf des Kurspasses bei Nichtnutzung *",

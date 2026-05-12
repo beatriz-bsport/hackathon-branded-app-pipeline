@@ -26,11 +26,14 @@ export const useLevelsByIdQuery = () => {
       fetchLevelsAPI(fetch, { is_active: true, company: companyId }),
     enabled: Boolean(companyId),
     staleTime: LEVELS_STALE_TIME,
-    select: (levels): Map<number, string> =>
+    select: (levels): Map<number, { label: string; color: string }> =>
       new Map(
         levels.map((level) => [
           level.id,
-          defaultLevelNames.get(level.id) ?? level.name,
+          {
+            label: defaultLevelNames.get(level.id) ?? level.name,
+            color: level.color,
+          },
         ]),
       ),
   });

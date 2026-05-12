@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 
 import { useTheme } from "@bsport/kaizen-primitive-core";
 
+/**
+ * Detects whether Kaizen dark-mode class is present on root nodes.
+ */
 const getDarkModeFromDocumentClass = (): boolean => {
   if (typeof document === "undefined") {
     return false;
@@ -13,6 +16,11 @@ const getDarkModeFromDocumentClass = (): boolean => {
   );
 };
 
+/**
+ * Resolves dark-mode state for Stripe/visual adaptations in payment flow.
+ *
+ * Combines class-based detection (runtime DOM mutations) and theme context.
+ */
 export const useDarkMode = (): boolean => {
   const { theme } = useTheme();
   const [isDarkMode, setIsDarkMode] = useState(getDarkModeFromDocumentClass);

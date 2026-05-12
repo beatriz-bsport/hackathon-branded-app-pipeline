@@ -23,7 +23,7 @@ import {
   useObjectLevelPermission,
 } from "#src/hooks/use-permissions";
 import useTableColumns from "#src/hooks/use-table-columns";
-import { ROUTES } from "#src/urls";
+import { ABSOLUTE_ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 const VALID_TABS = ["classes"] as const;
@@ -297,7 +297,9 @@ const ClassesListingPage: FC = () => {
 function GoToArchivedLink(props: ButtonProps) {
   const navigate = useNavigate();
 
-  return <Button {...props} onClick={() => navigate(ROUTES.ARCHIVED)} />;
+  return (
+    <Button {...props} onClick={() => navigate(ABSOLUTE_ROUTES.ARCHIVED)} />
+  );
 }
 
 export default ClassesListingPage;

@@ -23,11 +23,11 @@ function getIsActiveKey(isActive?: boolean) {
   return "inactive";
 }
 
-export const queryKeys = {
+export const bookkeepingAccountKeys = {
   all: [QUERY_KEY_MAIN, "bookkeeping-account"] as const,
 
   list: (isActive?: boolean) =>
-    [...queryKeys.all, "list", getIsActiveKey(isActive)] as const,
+    [...bookkeepingAccountKeys.all, "list", getIsActiveKey(isActive)] as const,
 } as const;
 
 // ----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ export const fetchBookkeepingAccountsQueryOptions = (
   params: FetchBookkeepingAccountsParams,
 ) =>
   queryOptions({
-    queryKey: queryKeys.list(params?.is_active),
+    queryKey: bookkeepingAccountKeys.list(params?.is_active),
     queryFn: () => fetchBookkeepingAccountsAPI(fetch, params),
   });
 

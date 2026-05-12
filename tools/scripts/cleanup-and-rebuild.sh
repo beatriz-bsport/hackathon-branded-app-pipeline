@@ -22,14 +22,16 @@ echo "This will:"
 echo "  • Remove all node_modules directories"
 echo "  • Clear the global pnpm store (affects ALL projects on this machine)"
 echo "  • Remove all pnpm cache files"
+echo "  • Remove all build and dist folders"
 echo "  • Reinstall all dependencies from scratch"
+echo "  • Remove the .nx cache directory"
 echo "  • Rebuild all packages in the workspace"
 echo ""
 echo "This operation cannot be undone and may take several minutes to complete."
 echo ""
 read -p "Are you sure you want to continue? (y/N): " -n 1 -r
 echo
-if [[ ! $REPLY =~ ^[Yy]$ ]] && [[ -n $REPLY ]]; then
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo "❌ Operation cancelled."
     exit 0
 fi
@@ -37,12 +39,17 @@ fi
 echo "🧹 Starting complete pnpm cleanup and rebuild..."
 
 # Step 1: Complete cleanup
-echo "📦 Step 1: Cleaning up pnpm store and node_modules..."
+echo "📦 Step 1: Cleaning up pnpm/nx cache and node_modules..."
+# nx reset requires node_modules to be present — must run before rm -rf node_modules
+echo "🔄  Resetting Nx cache..."
+pnpm exec nx reset
 pnpm store prune
 rm -rf node_modules
 rm -rf ~/.pnpm-store
 find . -name "node_modules" -type d -exec rm -rf {} + 2>/dev/null || true
 find . -name ".pnpm" -type d -exec rm -rf {} + 2>/dev/null || true
+find . -name "dist" -type d -exec rm -rf {} + 2>/dev/null || true
+find . -name "build" -type d -exec rm -rf {} + 2>/dev/null || true
 
 # Step 2: Clear pnpm cache completely
 echo "🗑️  Step 2: Clearing pnpm cache completely..."
@@ -56,6 +63,7 @@ fi
 
 # Step 3: Reinstall with clean slate and build all projects
 echo "🏗️  Step 3: Reinstalling dependencies..."
-pnpm install 
+pnpm install --frozen-lockfile --ignore-scripts
+pnpm install --frozen-lockfile
 
 echo "✅ Cleanup and rebuild completed successfully!"

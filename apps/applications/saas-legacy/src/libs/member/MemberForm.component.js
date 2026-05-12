@@ -46,7 +46,7 @@ import { PhoneFieldV2 } from '../../components/form-fields';
 import AlertExistingUser from './AlertExistingUser.component';
 import withConfirm from '../../hocs/with-confirm.hoc';
 import FullCountrySelect from '../../components/input/FullCountrySelect.component';
-import { validateSpanishNIF } from '../invoice/verifactu/validation';
+import { validateSpanishNIF } from '../invoice/sign-es/validation';
 
 import { ALLOWED_COUNTRIES_FOR_STATES } from './constants';
 const API_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V0;

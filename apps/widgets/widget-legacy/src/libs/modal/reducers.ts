@@ -6,14 +6,20 @@ import { openUserInteractionPortal } from './actions';
 import type { DialogMode } from './types';
 
 export type ModalState = {
-  url: string,
-  dialogMode: DialogMode,
+  url: string;
+  dialogMode: DialogMode;
+  title?: string;
+  subtitle?: string;
+  avatarUrl?: string;
 };
 
 export const initialState: Immutable.Immutable<ModalState> =
   Immutable<ModalState>({
     url: '',
     dialogMode: 0,
+    title: undefined,
+    subtitle: undefined,
+    avatarUrl: undefined,
   });
 
 export default handleActions<Immutable.Immutable<ModalState>>(
@@ -26,7 +32,10 @@ export default handleActions<Immutable.Immutable<ModalState>>(
 
       return state
         .setIn(['url'], uri.toString())
-        .setIn(['dialogMode'], payload.dialogMode);
+        .setIn(['dialogMode'], payload.dialogMode)
+        .setIn(['title'], payload.title)
+        .setIn(['subtitle'], payload.subtitle)
+        .setIn(['avatarUrl'], payload.avatarUrl);
     },
   },
   initialState,

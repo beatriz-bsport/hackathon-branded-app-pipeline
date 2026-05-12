@@ -1,5 +1,10 @@
 {
   "name": "Aggregators",
+  "emptyState": {
+    "title": "No aggregators available",
+    "subtitle": "This studio has no aggregator partnerships enabled yet.",
+    "cta": "Contact your account manager"
+  },
   "myclubs": {
     "actions": {
       "generatePartnerId": "Generate Partner ID"

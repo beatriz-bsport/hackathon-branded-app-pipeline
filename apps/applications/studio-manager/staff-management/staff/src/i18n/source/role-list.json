@@ -55,11 +55,36 @@
       "reservationManagement": "Reservation management",
       "sessionManagement": "Session management"
     },
+    "actions": {
+      "deleteRole": "Delete role"
+    },
     "emptyList": {
       "title": "No roles yet",
       "subtitle": "Start adding roles to your studio",
       "cta": "Add role"
     },
     "loading": "Loading roles..."
+  },
+  "deleteModal": {
+    "title": "Delete role?",
+    "description": "This will permanently remove {{roleName}} from the Back Office.",
+    "keep": "Keep",
+    "delete": "Delete",
+    "cannotDelete": {
+      "title": "Cannot delete role",
+      "description": "This role has staff members assigned. Remove them before deleting.",
+      "close": "Close"
+    },
+    "submitResponse": {
+      "success": "Role deleted",
+      "error": "Could not delete role",
+      "errorStaffAssigned": "This role has staff members assigned and cannot be deleted"
+    },
+    "undoAction": {
+      "label": "Undo"
+    },
+    "undoResponse": {
+      "success": "Deletion cancelled"
+    }
   }
 }

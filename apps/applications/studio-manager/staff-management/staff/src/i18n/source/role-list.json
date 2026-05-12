@@ -4,6 +4,24 @@
     "toStaff": "Manage staff",
     "addRole": "Add role"
   },
+  "search": {
+    "tooltip": "Search roles"
+  },
+  "filters": {
+    "label": "Filter",
+    "is": "is",
+    "type": {
+      "label": "Type",
+      "all": "All",
+      "default": "Default",
+      "custom": "Custom"
+    },
+    "emptySearch": {
+      "title": "No results found",
+      "subtitle": "Try adjusting your search or filters.",
+      "cta": "Clear filters"
+    }
+  },
   "table": {
     "headers": {
       "name": "Name",

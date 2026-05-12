@@ -13,8 +13,10 @@ import type { RoleRowData } from "./types";
 type RoleListProps = {
   rows: RoleRowData[];
   isEmpty: boolean;
+  isEmptySearch?: boolean;
   isLoading: boolean;
   emptyConfig: UseEmptyStateProps["emptyConfig"];
+  emptySearchConfig?: UseEmptyStateProps["emptySearchConfig"];
 };
 
 type RoleListItemData = {
@@ -58,8 +60,10 @@ const RoleListItem: FC<RoleListItemData> = ({
 export const RoleList: FC<RoleListProps> = ({
   rows,
   isEmpty,
+  isEmptySearch = false,
   isLoading,
   emptyConfig,
+  emptySearchConfig,
 }) => {
   const { t } = useTranslation("role-list");
 
@@ -78,6 +82,8 @@ export const RoleList: FC<RoleListProps> = ({
       emptyStateProps={{
         isEmpty,
         emptyConfig,
+        isEmptySearch,
+        emptySearchConfig,
       }}
       loadingProps={{
         isLoading,

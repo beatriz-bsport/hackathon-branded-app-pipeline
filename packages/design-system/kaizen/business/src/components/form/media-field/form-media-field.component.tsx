@@ -6,6 +6,7 @@ import {
   FILE_UPLOAD_STATUSES,
   FileUpload,
   type FileUploadProps,
+  type FileUploadTracker,
   Media,
   cx,
 } from "@bsport/kaizen-primitive-core";
@@ -61,13 +62,25 @@ export const FormMediaField = <
   const form = useFormContext<TFormValues>();
   const value = form.watch(fieldName) as File | string | null | undefined;
   const [preview, setPreview] = useState<string | null>(null);
+  // Lifting the state up to FormMediaField gives us control over the tracker list
+  const [trackerList, setTrackerList] = useState<FileUploadTracker[]>([]);
 
   useEffect(() => {
+    // After save → value becomes a URL string (the persisted image) → clear tracker list and show preview
     if (typeof value === "string") {
       setPreview(value);
+      setTrackerList([]);
       return;
     }
 
+    // After discard → value becomes null/undefined → clear tracker list
+    if (value == null) {
+      setPreview(null);
+      setTrackerList([]);
+      return;
+    }
+
+    // value is a File → create a blob URL for preview
     const url = createObjectUrl(value);
     setPreview(url);
 
@@ -106,6 +119,8 @@ export const FormMediaField = <
           fileExtensionList={fileExtensionList}
           multiple={false}
           autoUpload={autoUpload}
+          fileUploadTrackerList={trackerList}
+          setFileUploadTrackerList={setTrackerList}
           onRemoveFile={() =>
             form.setValue(fieldName, null as never, {
               shouldDirty: true,

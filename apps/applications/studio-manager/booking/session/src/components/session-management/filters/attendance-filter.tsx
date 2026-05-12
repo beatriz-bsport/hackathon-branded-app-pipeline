@@ -21,7 +21,7 @@ export const AttendanceFilter: FC = () => {
     (state) => state.bookingFilters.status,
   );
 
-  if (bookingStatus === BookingStatusFilter.CANCELLED) return null;
+  if (bookingStatus !== BookingStatusFilter.BOOKED) return null;
 
   return (
     <div className="flex gap-sm">

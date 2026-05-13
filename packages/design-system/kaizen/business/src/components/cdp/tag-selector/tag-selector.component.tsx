@@ -110,7 +110,12 @@ export const TagSelector = <
     <FormField<TFormValues, TFieldName, AutocompleteProps>
       name={fieldName}
       mapProps={({ defaultProps, form, formState }) => {
-        const { statusText: _, value: _value, ...otherProps } = defaultProps;
+        const {
+          status,
+          statusText,
+          value: _value,
+          ...otherProps
+        } = defaultProps;
 
         const defaultSelectedIds = get(formState.defaultValues, fieldName) as
           | number[]
@@ -120,9 +125,18 @@ export const TagSelector = <
           .map((id) => id.toString())
           .sort();
 
+        const textfieldProps = {
+          id: `${id}-textfield`,
+          placeholder,
+          iconRight: "chevron-down" as const,
+          status,
+          statusText,
+        };
+
         if (multiSelect) {
           return {
             ...otherProps,
+            textfieldProps,
             defaultSelectedIds: selectedIds,
             onSelect: (values: string[]) => {
               form.setValue(
@@ -139,6 +153,7 @@ export const TagSelector = <
 
         return {
           ...otherProps,
+          textfieldProps,
           defaultSelectedIds: selectedIds,
           onSelect: (value: string) => {
             form.setValue(
@@ -157,11 +172,6 @@ export const TagSelector = <
         id={id}
         items={tagOptions}
         onToggleItem={onToggleItem}
-        textfieldProps={{
-          id: `${id}-textfield`,
-          placeholder,
-          iconRight: "chevron-down",
-        }}
         {...DEFAULT_PROPS}
         {...autocompleteProps}
         loadingProps={{

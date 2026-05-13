@@ -1,6 +1,7 @@
 import { isUndefined, omitBy } from "lodash";
 import { FC, useEffect, useState } from "react";
 
+import { FetchReportParticipantsListParams } from "@bsport/api-business-insights/reporting/types";
 import { type DateTime, getLocalNow } from "@bsport/datetime-manipulation";
 import {
   Body,
@@ -56,7 +57,10 @@ export const ExportParticipantsModal: FC<{
 
   const exportParticipantList = useExportParticipantsList();
   const filters = useCalendarStore(selectSessionFilters);
-  const getFormattedFilters = () => {
+  const getFormattedFilters = (): Omit<
+    FetchReportParticipantsListParams,
+    "date"
+  > => {
     if (!applyFilters) {
       return {};
     }
@@ -65,12 +69,25 @@ export const ExportParticipantsModal: FC<{
       coaches,
       activity__in,
       levels: level_in,
+      establishment__not_in,
+      coach__not_in,
+      level__not_in,
+      activity__not_in,
     } = getParamsFromFilters(filters);
 
-    return omitBy(
-      { establishments, coaches, activity__in, level_in },
-      isUndefined,
-    );
+    // Intermediate step to make sure the data is validated by Typescript
+    const params: Omit<FetchReportParticipantsListParams, "date"> = {
+      establishments,
+      coaches,
+      activity__in,
+      level_in,
+      establishment__not_in,
+      coach__not_in,
+      level__not_in,
+      activity__not_in,
+    };
+
+    return omitBy(params, isUndefined);
   };
 
   const handleExport = () => {

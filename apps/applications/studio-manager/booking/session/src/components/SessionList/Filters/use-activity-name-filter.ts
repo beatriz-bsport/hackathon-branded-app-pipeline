@@ -33,7 +33,7 @@ export const useActivityNameFilter = (): FilterField => {
 
   return useSearchableFilterField({
     filterType: SessionFilterTypes.ACTIVITY_NAME,
-    availableFilters: [SessionFilters.FILTER_IS],
+    availableFilters: [SessionFilters.FILTER_IS, SessionFilters.FILTER_NOT],
     label: t("table.filters.activityName.label"),
     searchPlaceholder: t("table.filters.searchPlaceholder"),
     multiSelect: true,

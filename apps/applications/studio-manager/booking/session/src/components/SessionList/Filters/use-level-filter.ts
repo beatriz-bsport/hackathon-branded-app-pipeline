@@ -32,7 +32,7 @@ export const useLevelFilter = (): FilterField => {
   return {
     id: SessionFilterTypes.LEVEL,
     label: t("table.filters.level.label"),
-    availableFilters: [SessionFilters.FILTER_IS],
+    availableFilters: [SessionFilters.FILTER_IS, SessionFilters.FILTER_NOT],
     values: filteredLevels,
     multiSelect: true,
     searchConfig: {

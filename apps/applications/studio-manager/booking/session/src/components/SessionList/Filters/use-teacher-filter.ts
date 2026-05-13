@@ -41,7 +41,7 @@ export const useTeacherFilter = (): FilterField => {
 
   return useSearchableFilterField({
     filterType: SessionFilterTypes.TEACHER,
-    availableFilters: [SessionFilters.FILTER_IS],
+    availableFilters: [SessionFilters.FILTER_IS, SessionFilters.FILTER_NOT],
     label: t("table.filters.teacher.label"),
     searchPlaceholder: t("table.filters.searchPlaceholder"),
     multiSelect: true,

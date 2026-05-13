@@ -7,6 +7,10 @@
       "default": false,
       "description": "Compute the next semver tag without creating or pushing it"
     },
+    "outputFile": {
+      "type": "string",
+      "description": "Optional dotenv file written with the available release tag for downstream CI jobs"
+    },
     "remote": {
       "type": "string",
       "default": "origin",

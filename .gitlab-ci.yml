@@ -24,6 +24,7 @@ stages:
   - deploy-ephemeral-environment
   - deploy
   - post-deploy
+  - release-artifact
   - maintenance
 
 default:

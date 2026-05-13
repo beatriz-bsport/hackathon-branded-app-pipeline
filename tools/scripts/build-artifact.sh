@@ -3,6 +3,13 @@
 set -euo pipefail
 
 STUDIO_MFE="@bsport/sm-host,@bsport/sm-navigation-sidebar"
+ARTIFACT_BUCKET_NAME="${ARTIFACT_BUCKET_NAME:-bsport-frontends-artifacts-euw3}"
+ARTIFACT_VERSION="${ARTIFACT_VERSION:-${CI_COMMIT_SHORT_SHA:-}}"
+
+if [ -z "$ARTIFACT_VERSION" ]; then
+  echo "❌ Error: ARTIFACT_VERSION or CI_COMMIT_SHORT_SHA is required"
+  exit 1
+fi
 
 # Select all projects
 SELECTED_PROJECTS=$(pnpm exec nx show projects --sep="," --exclude="@bsport/widget-legacy")
@@ -34,6 +41,6 @@ echo "✅ Build output aggregated successfully"
 
 echo "⏳ Pushing build output to S3 for deployment"
 
-aws s3 sync build/ s3://bsport-frontends-artifacts-euw3/backoffice/${CI_COMMIT_SHORT_SHA} --only-show-errors --delete
+aws s3 sync build/ "s3://${ARTIFACT_BUCKET_NAME}/backoffice/${ARTIFACT_VERSION}" --only-show-errors --delete
 
 echo "✅ Artifacts pushed to S3 successfully"

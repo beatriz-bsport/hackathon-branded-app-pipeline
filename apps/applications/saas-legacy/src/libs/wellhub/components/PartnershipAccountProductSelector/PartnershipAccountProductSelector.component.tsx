@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
 
@@ -83,10 +83,46 @@ const PartnershipAccountProductSelector: React.FC<Props> = React.memo(
       [],
     );
 
+    // Set isWellhubProductRequired based on available options
     useEffect(() => {
       if (isLoading) return;
       setIsWellhubProductRequired?.(wellhubProductOptions.length >= 2);
     }, [isLoading, wellhubProductOptions.length, setIsWellhubProductRequired]);
+
+    // Track whether we've ever resolved a valid account.
+    // This lets us distinguish "null on initial mount" (don't clear)
+    // from "null after switching away from a valid account" (do clear).
+    const hasHadAccountRef = useRef(false);
+    if (partnershipAccountExternalId) {
+      hasHadAccountRef.current = true;
+    }
+
+    // Clear selected product when it's no longer in the available options,
+    // or when the account is removed after having had one.
+    useEffect(() => {
+      if (isLoading || !selectedProductId) return;
+
+      if (!partnershipAccountExternalId) {
+        // Only clear if we previously had a valid account
+        if (hasHadAccountRef.current) {
+          onSelect(null);
+        }
+        return;
+      }
+
+      const isValid = wellhubProductOptions.some(
+        (o) => o.value === selectedProductId,
+      );
+      if (!isValid) {
+        onSelect(null);
+      }
+    }, [
+      isLoading,
+      wellhubProductOptions,
+      selectedProductId,
+      partnershipAccountExternalId,
+      onSelect,
+    ]);
 
     if (!isLoading && wellhubProductOptions.length < 2) {
       return null;

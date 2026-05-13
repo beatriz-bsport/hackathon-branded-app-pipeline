@@ -1,0 +1,8 @@
+{
+  "backgroundTaskToast": {
+    "processing": "Processing...",
+    "success": "Task succeeded",
+    "error": "An error occurred",
+    "timeout": "The server took too long to respond. Try refreshing the page"
+  }
+}

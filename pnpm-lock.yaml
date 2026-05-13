@@ -3879,6 +3879,19 @@ importers:
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
 
+  packages/api/platform:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../stores/base
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
+
   packages/api/staff-management:
     dependencies:
       '@bsport/store-base':
@@ -3941,6 +3954,9 @@ importers:
 
   packages/design-system/kaizen/business:
     dependencies:
+      '@bsport/api-book':
+        specifier: workspace:*
+        version: link:../../../api/book
       '@bsport/api-buyables':
         specifier: workspace:*
         version: link:../../../api/buyables
@@ -3953,6 +3969,9 @@ importers:
       '@bsport/api-financial-services':
         specifier: workspace:*
         version: link:../../../api/financial-services
+      '@bsport/api-platform':
+        specifier: workspace:*
+        version: link:../../../api/platform
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../utils/currency

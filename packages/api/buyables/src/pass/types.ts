@@ -43,6 +43,12 @@ export type FetchPassesParams = {
 
   /** Filter passes by the `new_member_only` field value. */
   new_member_only?: boolean;
+
+  /**
+   * Ordering fields. Use `"category,ordering_in_category"` once backend ships
+   * `OrderingFilter` on `PaymentPackViewSet`.
+   */
+  ordering?: string;
 };
 
 /**

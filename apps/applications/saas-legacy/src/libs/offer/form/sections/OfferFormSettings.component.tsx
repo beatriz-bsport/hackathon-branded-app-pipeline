@@ -59,9 +59,7 @@ const OfferFormSettings: React.FC<Props> = ({
   const { t } = useTranslation('offer');
 
   const [isWellhubProductRequired, setIsWellhubProductRequired] =
-    useState(true);
-
-  const prevEstablishmentRef = React.useRef<number | null>(null);
+    useState(false);
 
   const { values, errors, setFieldValue } = useFormikContext<OfferFormValues>();
 
@@ -80,10 +78,8 @@ const OfferFormSettings: React.FC<Props> = ({
     return !dateIntervalStart.hasSame(datetimeEnd, 'day');
   }, [dateIntervalStart, durationMinute]);
 
-  const [
-    { value: partnershipAccounts, loading: isPartnershipAccountsLoading },
-    fetchPartnershipAccounts,
-  ] = useGetPartnershipAccounts(wellhubPartnershipId ?? 0);
+  const [{ value: partnershipAccounts }, fetchPartnershipAccounts] =
+    useGetPartnershipAccounts(wellhubPartnershipId ?? 0);
 
   useEffect(() => {
     if (!wellhubPartnershipId) return;
@@ -100,22 +96,6 @@ const OfferFormSettings: React.FC<Props> = ({
         : null,
     [establishment, partnershipAccounts],
   );
-
-  useEffect(() => {
-    if (isPartnershipAccountsLoading) return;
-    if (
-      wellhubProductId !== null &&
-      (!availableOnPartnership || !correspondingPartnershipAccount?.external_id)
-    ) {
-      setFieldValue('wellhubProductId', null);
-    }
-  }, [
-    availableOnPartnership,
-    correspondingPartnershipAccount?.external_id,
-    setFieldValue,
-    wellhubProductId,
-    isPartnershipAccountsLoading,
-  ]);
 
   const handleToggleManagerOnly = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -144,17 +124,6 @@ const OfferFormSettings: React.FC<Props> = ({
     },
     [values.isWellhubProductRequired, setFieldValue],
   );
-
-  React.useEffect(() => {
-    if (
-      establishment != null &&
-      prevEstablishmentRef.current != null &&
-      establishment !== prevEstablishmentRef.current
-    ) {
-      setIsWellhubProductRequired(true);
-    }
-    prevEstablishmentRef.current = establishment;
-  }, [establishment]);
 
   return (
     <FormSection
@@ -269,10 +238,14 @@ const OfferFormSettings: React.FC<Props> = ({
 
                 return (
                   <>
-                    {isWellhubProductRequired &&
-                      hasWellhubUpsell &&
-                      availableOnPartnership &&
-                      !!correspondingPartnershipAccount?.external_id && (
+                    {hasWellhubUpsell && (
+                      <div
+                        style={
+                          isWellhubProductRequired
+                            ? undefined
+                            : { display: 'none' }
+                        }
+                      >
                         <OfferFormField
                           isBold
                           isRequired
@@ -291,7 +264,10 @@ const OfferFormSettings: React.FC<Props> = ({
                             isVirtualOffer={values.isMetaActivityBroadcast}
                             onSelect={handleSelectWellhubProduct}
                             partnershipAccountExternalId={
-                              correspondingPartnershipAccount.external_id
+                              availableOnPartnership
+                                ? correspondingPartnershipAccount?.external_id ??
+                                  null
+                                : null
                             }
                             selectedProductId={wellhubProductId || null}
                             setIsWellhubProductRequired={
@@ -306,7 +282,8 @@ const OfferFormSettings: React.FC<Props> = ({
                               </Typography>
                             )}
                         </OfferFormField>
-                      )}
+                      </div>
+                    )}
                   </>
                 );
               }}

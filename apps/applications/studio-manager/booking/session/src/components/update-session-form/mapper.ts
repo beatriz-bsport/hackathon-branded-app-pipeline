@@ -45,7 +45,7 @@ export const fromSessionToFormData = (
     roomBlueprintCapacity: null,
     sync_on_spivi: undefined,
     recurrence_id: session.recurrence_id ?? undefined,
-    wellhub_product_id: null,
+    wellhub_product_id: session.wellhub_product_id ?? null,
     // Advanced options
     allow_guest_offer: session.allow_guest_offer,
     whitelist_tags: session.whitelist_tags ?? [],

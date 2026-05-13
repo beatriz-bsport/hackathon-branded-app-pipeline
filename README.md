@@ -2,7 +2,6 @@
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-
 This repository contains the source code of all bsport's web interfaces, including the interface for our clients, their members and the widget that our client integrate of their own websites.
 
 > Ichizen (一全) can be interpreted as:
@@ -431,7 +430,7 @@ You can find more regarding upgrading NX here: <https://nx.dev/features/automate
 pnpm version is controlled directly in the monorepository. To upgrade pnpm, update all repo-managed pins:
 
 1. Edit the version in [`./.mise.toml`](./.mise.toml) (source of truth for local `mise install`)
-2. Edit the version in [`./.npmrc`](./.npmrc) (`pnpm_version`, kept in sync for CI)
+2. Edit the `packageManager` version in [`./package.json`](./package.json) (source of truth for Corepack and CI)
 3. Edit the version in the `engines` section in [`./package.json`](./package.json)
 
 Then refresh your local toolchain:

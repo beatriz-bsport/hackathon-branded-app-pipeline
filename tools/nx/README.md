@@ -176,13 +176,11 @@ pnpm exec nx g @bsport/nx:upgrade-pnpm
 
 ### What It Changes
 
-1. `/.npmrc`
-   - updates `pnpm_version=...`
-2. `/.mise.toml`
+1. `/.mise.toml`
    - updates the pinned `pnpm = "..."` entry under `[tools]`
-3. `/package.json`
+2. `/package.json`
    - updates `engines.pnpm`
-   - updates `packageManager` if that field already exists
+   - updates `packageManager`
 
 ### Safety
 

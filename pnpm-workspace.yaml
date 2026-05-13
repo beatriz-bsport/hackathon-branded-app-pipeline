@@ -13,18 +13,21 @@ packages:
 
   # Ignore dist outputs
   - "!**/dist/**"
-
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - '@sentry/cli'
-  - '@swc/core'
-  - canvas
-  - core-js
-  - core-js-pure
-  - es5-ext
-  - esbuild
-  - javascript-obfuscator
-  - msw
-  - nx
-  - puppeteer
-  - rudder-sdk-js
+overrides:
+  unlayer-types: 1.278.0
+allowBuilds:
+  "@parcel/watcher": true
+  "@sentry/cli": true
+  "@swc/core": true
+  canvas: true
+  core-js: true
+  core-js-pure: true
+  es5-ext: true
+  esbuild: true
+  fsevents: false
+  javascript-obfuscator: true
+  msw: true
+  nx: true
+  puppeteer: true
+  rudder-sdk-js: true
+  unrs-resolver: true

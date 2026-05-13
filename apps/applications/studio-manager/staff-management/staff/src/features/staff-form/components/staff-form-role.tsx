@@ -13,16 +13,22 @@ import type { StaffFormData } from "../types";
 
 type StaffFormRoleProps = {
   formId: string;
+  disabled?: boolean;
+  helperText?: string;
 };
 
-export const StaffFormRole: FC<StaffFormRoleProps> = ({ formId }) => {
+export const StaffFormRole: FC<StaffFormRoleProps> = ({
+  formId,
+  disabled = false,
+  helperText,
+}) => {
   const { t } = useTranslation("staff-form");
   const { data: roles = [], isFetching: isFetchingRoles } = useQuery(
     fetchRoleDefinitionsQueryOptions(fetch),
   );
 
   const roleItems = roles
-    .filter((role) => role.id !== RoleType.USER_ROLE_NO_RESTRICTION)
+    .filter((role) => disabled || role.id !== RoleType.USER_ROLE_NO_RESTRICTION)
     .map((role) => ({
       id: String(role.id),
       label: role.name,
@@ -51,6 +57,8 @@ export const StaffFormRole: FC<StaffFormRoleProps> = ({ formId }) => {
       <Select
         id={`${formId}-role`}
         label={t("formFields.role.label")}
+        disabled={disabled}
+        helperText={helperText}
         required
         fullWidth
         className="max-w-md"

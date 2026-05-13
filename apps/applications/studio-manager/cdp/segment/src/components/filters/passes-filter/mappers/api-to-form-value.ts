@@ -1,6 +1,7 @@
 import type { PaymentPackFilter } from "@bsport/api-cdp/smartlist";
 
 import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 
 import { OWNERSHIP_OPTIONS } from "../constants";
 import { REGISTERED_PASS_SUB_FILTERS } from "../sub-filters/registry";
@@ -38,5 +39,6 @@ export const mapApiFilterToFormValue = (
     subFilters,
     purchaseDate: partialForm.purchaseDate ?? defaultDateFilterValue,
     expirationDate: partialForm.expirationDate ?? defaultDateFilterValue,
+    creditLeft: partialForm.creditLeft ?? defaultNumericComparatorFilterValue,
   };
 };

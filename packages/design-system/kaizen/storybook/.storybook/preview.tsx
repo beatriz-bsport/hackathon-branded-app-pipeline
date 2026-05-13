@@ -5,6 +5,7 @@ import React, { Suspense, useEffect } from "react";
 
 import "@bsport/kaizen-tokens/src/index.css";
 
+import { AppI18nextProvider as SmSessionI18nextProvider } from "../../../../../apps/applications/studio-manager/booking/session/src/utils/i18n";
 import { authenticateDev } from "../../business/.storybook/auth-helper";
 import { KaizenI18nProvider } from "../../primitive/core/src";
 import {
@@ -15,7 +16,7 @@ import {
   i18nNamespacePrefix as primitiveI18nNamespacePrefix,
   i18nNamespaces as primitiveI18nNamespaces,
   inMemoryTranslationsLoader as primitiveInMemoryTranslationsLoader,
-  switchLanguage as switchPrimitiveLanguage,
+  switchLanguage,
 } from "../../primitive/core/src/i18n/index";
 
 // Set API environment to dev for local storybook
@@ -55,9 +56,10 @@ const preview: Preview = {
     (Story, context) => {
       const { locale = "en" } = context.globals || {};
 
-      // When the locale global changes, set the new locale in both i18n instances
+      // Broadcasts to every i18n instance on the page — Kaizen and any
+      // team-owned area (e.g. sm-session)
       useEffect(() => {
-        switchPrimitiveLanguage(locale);
+        switchLanguage(locale);
       }, [locale]);
 
       return (
@@ -65,7 +67,9 @@ const preview: Preview = {
           <QueryClientProvider client={queryClient}>
             <Suspense fallback={<p>Loading translations ...</p>}>
               <KaizenI18nProvider kaizenI18nInstance={primitiveI18nInstance}>
-                <Story />
+                <SmSessionI18nextProvider>
+                  <Story />
+                </SmSessionI18nextProvider>
               </KaizenI18nProvider>
             </Suspense>
           </QueryClientProvider>

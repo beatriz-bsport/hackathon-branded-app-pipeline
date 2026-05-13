@@ -1,4 +1,5 @@
 import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 
 import { OWNERSHIP_OPTIONS } from "./constants";
 import type { PassesFilterFormValue } from "./types";
@@ -21,4 +22,5 @@ export const createDefaultPassesFilter = (
   subFilters: [],
   purchaseDate: defaultDateFilterValue,
   expirationDate: defaultDateFilterValue,
+  creditLeft: defaultNumericComparatorFilterValue,
 });

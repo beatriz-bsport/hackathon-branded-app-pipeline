@@ -17,27 +17,30 @@ export const useArchiveClass = ({
   onSuccess?: () => void;
 } = {}) => {
   const queryClient = useQueryClient();
-  const { t } = useTranslation("list");
+  const { t } = useTranslation("class-actions");
   const { mutate: unarchive } = useUnarchiveClass();
 
   return useMutation({
     mutationFn: (id: number) => archiveClass(id.toString()),
-    onSuccess: ({ id, name }) => {
-      queryClient.invalidateQueries({ queryKey: groupActivityKeys.all });
+    onSuccess: ({ id }) => {
       onSuccess?.();
+      queryClient.invalidateQueries({
+        queryKey: groupActivityKeys.all,
+        refetchType: "none",
+      });
       toast({
         status: "default",
         icon: "archive",
-        description: t("list.toasts.archive", { className: name }),
+        description: t("classActions.toasts.archive"),
         duration: ARCHIVE_CLASS_SUCESS_TOAST_DURATION,
-        buttonLabel: t("list.toasts.undo"),
+        buttonLabel: t("classActions.toasts.undo"),
         onButtonClick: () => unarchive(id),
       });
     },
     onError: () => {
       toast({
         status: "critical",
-        description: t("list.toasts.archiveError"),
+        description: t("classActions.toasts.archiveError"),
       });
     },
   });

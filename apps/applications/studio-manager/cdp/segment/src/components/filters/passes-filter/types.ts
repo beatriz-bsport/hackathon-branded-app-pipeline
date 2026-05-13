@@ -1,6 +1,7 @@
 import type { PaymentPackFilter } from "@bsport/api-cdp/smartlist";
 
 import type { DateFilterValue } from "#src/components/primitive-filters/date-filter/types";
+import type { NumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/types";
 
 import type { OWNERSHIP_OPTIONS } from "./constants";
 import type { PassSubFilterId } from "./sub-filters/pass-sub-filter-id";
@@ -26,6 +27,7 @@ export type PassesFilterFormValue = {
   subFilters: PassSubFilterId[];
   purchaseDate: DateFilterValue;
   expirationDate: DateFilterValue;
+  creditLeft: NumericComparatorFilterValue;
 };
 
 /**

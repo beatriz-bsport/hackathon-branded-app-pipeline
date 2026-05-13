@@ -61,6 +61,19 @@ describe("buildDirtyPatchPayload", () => {
     expect(payload).toEqual({ payment_packs: [4, 7] });
   });
 
+  it("emits `payment_packs` as an empty array when selection was cleared", () => {
+    const value = createDefaultPassesFilter(1);
+    value.selectedPaymentPackIds = [];
+    const dirtyFields: DirtyFields = {
+      selectedPaymentPackIds:
+        [] as unknown as DirtyFields["selectedPaymentPackIds"],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload).toEqual({ payment_packs: [] });
+  });
+
   it("ignores keys that are flagged as not dirty", () => {
     const value = createDefaultPassesFilter(1);
     value.selectedPaymentPackIds = [4];
@@ -133,5 +146,21 @@ describe("buildDirtyPatchPayload", () => {
 
     expect(payload.expiration_date_filter_active).toBe(true);
     expect(payload.expiration_date).toBe("2026-06-15");
+  });
+
+  it("includes credit API fields when `creditLeft` is dirty", () => {
+    const value = createDefaultPassesFilter(1);
+    value.selectAllPaymentPacks = true;
+    value.subFilters = [PASS_SUB_FILTER_IDS.creditLeft];
+    value.creditLeft.firstValue = 8;
+    value.creditLeft.secondValue = null;
+    const dirtyFields: DirtyFields = {
+      creditLeft: { firstValue: true },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.credit_filter_active).toBe(true);
+    expect(payload.credit_value).toBe(8);
   });
 });

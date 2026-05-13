@@ -9,9 +9,13 @@ import type { StaffFormData } from "../types";
 
 type StaffFormEmailProps = {
   formId: string;
+  disabled?: boolean;
 };
 
-export const StaffFormEmail: FC<StaffFormEmailProps> = ({ formId }) => {
+export const StaffFormEmail: FC<StaffFormEmailProps> = ({
+  formId,
+  disabled,
+}) => {
   const { t } = useTranslation("staff-form");
 
   return (
@@ -20,8 +24,8 @@ export const StaffFormEmail: FC<StaffFormEmailProps> = ({ formId }) => {
         id={`${formId}-email`}
         label={t("formFields.email.label")}
         type="email"
-        required
         fullWidth
+        disabled={disabled}
       />
     </FormField>
   );

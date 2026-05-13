@@ -70,12 +70,12 @@ export const WellhubSessionList: React.FC<Props> = ({
       items={items}
       loadingProps={{
         isLoading,
-        message: t("wellhub.productModal.loadingOffers") as string,
+        message: t("wellhub.productModal.loadingOffers"),
       }}
       emptyStateProps={{
         isEmpty: !isLoading && offers.length === 0,
         emptyConfig: {
-          title: t("wellhub.productModal.noOffersEmpty") as string,
+          title: t("wellhub.productModal.noOffersEmpty"),
         },
       }}
       paginationProps={

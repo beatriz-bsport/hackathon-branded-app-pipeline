@@ -12,6 +12,8 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
   CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
+  CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME,
+  CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME,
 } from '@bsport/common/lib/master-data/custom-form.js';
 import {
   CUSTOM_FORM_FIELDS_WITH_CHOICES,
@@ -185,6 +187,20 @@ const ValidationSchema = Yup.object().shape({
           then: Yup.string().matches(
             /^[A-Za-z0-9]+$/,
             'marketing:customForm.submit.errors.invalidOfficialDocumentId',
+          ),
+        })
+        .when('signup_question_kind', {
+          is: CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME,
+          then: Yup.string().matches(
+            /^(?!.*(?:https?:\/\/|www\.))(?!.*[<>]).*$/i, // string contains https:// or www. or < or >
+            'marketing:customForm.submit.errors.suspiciousTextInput',
+          ),
+        })
+        .when('signup_question_kind', {
+          is: CUSTOM_FORM_FIELD_SIGN_UP_LAST_NAME,
+          then: Yup.string().matches(
+            /^(?!.*(?:https?:\/\/|www\.))(?!.*[<>]).*$/i, // string contains https:// or www. or < or >
+            'marketing:customForm.submit.errors.suspiciousTextInput',
           ),
         }),
       custom_form_field_tag_rule: Yup.array().of(

@@ -5,7 +5,10 @@ import { DetailDrawer, Divider } from "@bsport/kaizen-primitive-core";
 import { Loader } from "#src/components/query-boundary/fallbacks";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useRetrieveRefinedBooking } from "#src/hooks/booking/fetch/use-retrieve-refined-booking";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import {
+  type SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals";
 
 import { BookingDetails } from "./booking-details";
 import { ClientDetails } from "./client-details";
@@ -13,7 +16,10 @@ import { ClientDetails } from "./client-details";
 export const BookingDetailDrawer: FC<{
   selectedBookingId: number | null;
   onClose: () => void;
-  openModal: (type: SessionManagementModalType, bookingId: number) => void;
+  openModal: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
 }> = ({ selectedBookingId, onClose, openModal }) => {
   return (
     <DetailDrawer
@@ -37,7 +43,10 @@ export const BookingDetailDrawer: FC<{
 
 const BookingDetailDrawerContent: FC<{
   bookingId: number;
-  openModal: (type: SessionManagementModalType, bookingId: number) => void;
+  openModal: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
 }> = ({ bookingId, openModal }) => {
   const { refinedBooking, isLoading } = useRetrieveRefinedBooking(bookingId);
 

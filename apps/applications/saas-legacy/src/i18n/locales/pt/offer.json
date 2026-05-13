@@ -40,14 +40,44 @@
             "title": "Integrações de agregadores",
             "availableOnPartnership": "Nos agregadores (ClassPass, OneFit...)",
             "partnerMaxBookingCountDEPRECATED": "Número máximo de reservas do myClubs, Wellhub e do Urban Sports Club combinados (os outros agregadores não são afetados por esta configuração)",
-            "uscIntegrationWorkshopWarning": "Uma vez que os workshops não são compatíveis com o marketplace do Urban Sports Club, esta sessão não será incluída.",
-            "uscIntegrationWarning": "A inclusão no mercado do Urban Sports Club está ativa, mas qualquer sessão com duração igual ou superior a 2 dias não aparecerá.",
+            "uscIntegrationWorkshopWarning": "Os workshops não são compatíveis com o Urban Sports Club, por isso esta sessão não será incluída.",
+            "uscIntegrationWarning": "A sua integração com o Urban Sports Club está ativa. As sessões com duração de 2 dias ou mais não serão apresentadas.",
             "enablePartneshipBookings": "Ativar as reservas do agregador",
             "subtitle": "Inclui: ClassPass, myClubs, Urban Sports Club, Wellpass e Wellhub para reservas externas.",
             "wellhubProduct": {
               "title": "Os seus produtos disponíveis no Wellhub:",
               "helperText": "Estes produtos são oferecidos pelo seu estúdio na plataforma Wellhub. Aceda à secção \"Parceria\" no Portal de Parceiros da sua conta Wellhub para obter mais informações.",
               "selectionMissing": "Este campo é obrigatório, tem de selecionar um produto."
+            },
+            "partnerSpotCappingStrategy": {
+              "PER_PARTNER": {
+                "helperText": "Configure limites individuais para cada plataforma.",
+                "label": "Limitar reservas por agregador"
+              },
+              "COMBINED": {
+                "singleAggregatorHelperText": "Defina um número máximo de vagas para o agregador ativado.",
+                "helperText": "Defina um número máximo de vagas para os agregadores ativados combinados entre myClubs, Wellhub e Urban Sports Club (os outros agregadores não são afetados por esta definição).",
+                "singleAggregatorLabel": "Vagas limitadas",
+                "label": "Vagas limitadas (combinadas)"
+              },
+              "UNLIMITED": {
+                "singleAggregatorHelperText": "Todas as vagas podem ser reservadas através do agregador.",
+                "helperText": "Todas as vagas podem ser reservadas através de agregadores (combinadas entre todas as plataformas).",
+                "label": "Vagas ilimitadas"
+              },
+              "label": "Estratégia de limitação de vagas"
+            },
+            "spots": "Vagas",
+            "enabledAggregators": "Agregadores ativados",
+            "aggregatorLabel": "Agregador",
+            "tooltip": {
+              "wellpass": "A visibilidade das sessões no Wellpass e os limites ainda não podem ser geridos no bsport. Esta configuração ficará disponível aqui numa futura atualização.",
+              "classpass": "A visibilidade das sessões no ClassPass e os limites podem ser ajustados diretamente no portal de parceiros do ClassPass."
+            },
+            "partnerMaxBookingCountHelperText": "Esta definição afeta apenas o myClubs, Urban Sports Club e Wellhub.",
+            "partnerMaxBookingCount": "Vagas disponíveis para agregadores",
+            "name": {
+              "usc": "Urban Sports Club"
             }
           },
           "isNotifyConsumers": "Gostaria de informar os seus alunos sobre esta alteração ?",
@@ -102,14 +132,14 @@
       "dateTime": {
         "field": {
           "recurrence": {
-            "placeholder": "Selecionar uma recorrência",
+            "placeholder": "Selecione um intervalo",
             "option": {
               "daily": "Diariamente",
               "monthly": "Mensalmente",
               "weekly": "Semanalmente"
             },
             "preview": "Pré-visualizar",
-            "title": "Recorrência",
+            "title": "Recorrente",
             "previewCount": "A sessão {{count}} será criada",
             "previewCount_plural": "As sessões {{count}} serão criadas"
           },
@@ -167,7 +197,8 @@
         "broadcastLink": "A ligação está incorrecta. Deve começar por http:// ou https:// e não deve conter espaços",
         "durationMinuteSpivi": "Uma sessão de Spivi deve durar entre 20 minutos a 4 horas",
         "wellhubProductMissing": "Este campo é obrigatório, tem de selecionar um produto.",
-        "dateIntervalStartBeforeLast": "A data de início não pode ser anterior à última recorrência"
+        "dateIntervalStartBeforeLast": "A data de início não pode ser anterior à última recorrência",
+        "partnerSpotLimitExceedsEffectif": "O limite de vagas não pode exceder o número total de vagas da sessão."
       },
       "positiveNumber": "O valor deve ser superior a 0",
       "dateTooFar": "Impossível criar sessões que decorram em mais de 3 anos",

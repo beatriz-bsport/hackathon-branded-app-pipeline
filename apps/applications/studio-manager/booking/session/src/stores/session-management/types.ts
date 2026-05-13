@@ -1,6 +1,7 @@
 export enum BookingStatusFilter {
   BOOKED = "booked",
   CANCELLED = "cancelled",
+  NO_SHOW = "no_show",
 }
 
 export enum BookingAttendanceFilter {

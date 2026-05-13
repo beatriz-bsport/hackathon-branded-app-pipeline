@@ -1,11 +1,59 @@
-import { type FC } from "react";
+import { type FC, useMemo } from "react";
 
-import { ListLayout, Loader } from "@bsport/kaizen-primitive-core";
+import { PartnershipIdentifier } from "@bsport/api-book";
+import {
+  ListLayout,
+  Loader,
+  useEmptyState,
+} from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { MyClubsSection } from "#src/features/myclubs/components/myclubs-section";
+import { useAggregatorPartnershipId } from "#src/features/partnership-aggregator/hooks/use-aggregator-partnership-id";
+import { UscSection } from "#src/features/usc/components/usc-section";
 import { WellhubSection } from "#src/features/wellhub/components/wellhub-section";
 import { useTranslation } from "#src/utils/i18n";
+import { openIntercomConversation } from "#src/utils/intercom";
+
+const AggregatorsContent: FC = () => {
+  const { t } = useTranslation("common");
+  const { data: myclubsId } = useAggregatorPartnershipId(
+    PartnershipIdentifier.MYCLUBS,
+  );
+  const { data: wellhubId } = useAggregatorPartnershipId(
+    PartnershipIdentifier.WELLHUB,
+  );
+  const { data: uscId } = useAggregatorPartnershipId(PartnershipIdentifier.USC);
+
+  const hasAny = myclubsId != null || wellhubId != null || uscId != null;
+
+  const emptyConfig = useMemo(
+    () => ({
+      title: t("emptyState.title"),
+      subtitle: t("emptyState.subtitle"),
+      ctaButtonConfig: {
+        label: t("emptyState.cta"),
+        onClick: openIntercomConversation,
+      },
+    }),
+    [t],
+  );
+
+  const { EmptyState, shouldRenderEmptyState } = useEmptyState({
+    isEmpty: !hasAny,
+    emptyConfig,
+  });
+
+  if (shouldRenderEmptyState) return <EmptyState />;
+
+  return (
+    <>
+      <MyClubsSection />
+      <WellhubSection />
+      <UscSection />
+    </>
+  );
+};
 
 const AggregatorsViewSettingsPage: FC = () => {
   const { t } = useTranslation("common");
@@ -17,8 +65,7 @@ const AggregatorsViewSettingsPage: FC = () => {
         <QueryBoundary
           loadingFallback={<Loader className="w-full h-full" size="xl" />}
         >
-          <MyClubsSection />
-          <WellhubSection />
+          <AggregatorsContent />
         </QueryBoundary>
       </ListLayout.Content>
     </ListLayout>

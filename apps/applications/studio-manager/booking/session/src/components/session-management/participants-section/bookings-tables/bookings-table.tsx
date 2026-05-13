@@ -15,7 +15,10 @@ import { ShortcutActionsButton } from "#src/components/session-management/action
 import { useSetAttendance } from "#src/hooks/booking/actions/use-set-attendance";
 import { useFetchRefinedBookings } from "#src/hooks/booking/fetch/use-fetch-refined-bookings";
 import { useSearchBookings } from "#src/hooks/booking/fetch/use-search-bookings";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import {
+  type SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals";
 import {
   setSelectedBooking,
   setSelectedBookingOption,
@@ -39,7 +42,10 @@ enum BookingColumns {
 export const BookingsTable: FC<{
   sessionId: number;
   searchQuery: string;
-  openModal: (type: SessionManagementModalType, bookingId?: number) => void;
+  openModal: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
 }> = ({ sessionId, searchQuery, openModal }) => {
   const { t } = useTranslation("sessionManagement");
 
@@ -88,6 +94,7 @@ export const BookingsTable: FC<{
             setAttendance({
               bookingId: row.id,
               attendance: !row.attendance,
+              sessionId,
             })
           }
         />
@@ -141,6 +148,7 @@ export const BookingsTable: FC<{
           first_in_company={row.first_in_company}
           memberData={row.memberData}
           recurrence_rule_booking={row.recurrence_rule_booking}
+          no_show_penalty_applied={row.no_show_penalty_applied}
         />
       ),
     },

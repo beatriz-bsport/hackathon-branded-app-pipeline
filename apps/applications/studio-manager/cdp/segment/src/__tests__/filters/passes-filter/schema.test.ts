@@ -4,6 +4,7 @@ import { createDefaultPassesFilter } from "#src/components/filters/passes-filter
 import { passesFilterSchema } from "#src/components/filters/passes-filter/schema";
 import { PASS_SUB_FILTER_IDS } from "#src/components/filters/passes-filter/sub-filters/pass-sub-filter-id";
 import type { PassesFilterFormValue } from "#src/components/filters/passes-filter/types";
+import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 
 vi.mock("#src/utils/i18n", () => ({
   i18nInstance: {
@@ -110,6 +111,37 @@ describe("passesFilterSchema", () => {
           fromDate: null,
           toDate: null,
         },
+      },
+    });
+
+    const result = passesFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects credit left sub-filter when active but first value is missing", () => {
+    const value = buildFormValue({
+      selectAllPaymentPacks: true,
+      subFilters: [PASS_SUB_FILTER_IDS.creditLeft],
+      creditLeft: {
+        ...createDefaultPassesFilter(1).creditLeft,
+        firstValue: null,
+      },
+    });
+
+    const result = passesFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+  });
+
+  it("rejects credit left sub-filter when operator is between but second value is missing", () => {
+    const value = buildFormValue({
+      selectAllPaymentPacks: true,
+      subFilters: [PASS_SUB_FILTER_IDS.creditLeft],
+      creditLeft: {
+        operator: NUMERIC_COMPARATOR_OPERATORS.between,
+        firstValue: 1,
+        secondValue: null,
       },
     });
 

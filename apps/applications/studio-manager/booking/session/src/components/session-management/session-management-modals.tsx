@@ -13,6 +13,7 @@ import {
 import { useUrls } from "#src/urls";
 
 import { CancelBookingModal } from "./cancel-booking-modal";
+import { DiscardBookingOptionModal } from "./discard-booking-option-modal";
 import { PauseWaitlistModal } from "./pause-waitlist-modal";
 import { ReactivateWaitlistModal } from "./reactivate-waitlist-modal";
 import { ViewWaitlistModal } from "./view-waitlist-modal";
@@ -82,6 +83,15 @@ export const SessionManagementModals: FC<Props> = ({
       {modalState?.type === SessionManagementModalType.VIEW_WAITLIST && (
         <ViewWaitlistModal sessionId={sessionId} isOpen onClose={closeModal} />
       )}
+      {modalState?.bookingOptionId != null &&
+        modalState?.type ===
+          SessionManagementModalType.DISCARD_BOOKING_OPTION && (
+          <DiscardBookingOptionModal
+            bookingOptionId={modalState.bookingOptionId}
+            isOpen
+            onClose={closeModal}
+          />
+        )}
     </>
   );
 };

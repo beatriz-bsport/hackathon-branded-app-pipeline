@@ -32,7 +32,7 @@ export const PassesFilterSubFiltersArea = ({
   setValue,
   selectedPassesInvalid,
 }: PassesFilterSubFiltersAreaProps) => {
-  const { t } = useTranslation("campaign-filters");
+  const { t } = useTranslation("filters");
 
   const availableSubFilters = REGISTERED_PASS_SUB_FILTERS.filter(
     (passSubFilterModule) =>
@@ -113,7 +113,8 @@ export const PassesFilterSubFiltersArea = ({
                   label: t(
                     passSubFilterModule.labelKey as
                       | "filters.19.subFilters.purchaseDate"
-                      | "filters.19.subFilters.expirationDate",
+                      | "filters.19.subFilters.expirationDate"
+                      | "filters.19.subFilters.creditLeft",
                   ),
                 }))}
                 onSelectOption={(selectedId) => {

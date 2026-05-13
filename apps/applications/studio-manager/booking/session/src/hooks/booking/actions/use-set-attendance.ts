@@ -1,7 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { isArray, isObject } from "lodash";
 
-import { type Booking, bookingKeys, setAttendanceAPI } from "@bsport/api-book";
+import {
+  type Booking,
+  bookingKeys,
+  sessionKeys,
+  setAttendanceAPI,
+} from "@bsport/api-book";
 import type { PaginatedResponse } from "@bsport/store-base";
 
 import { fetch } from "#src/utils/fetch";
@@ -21,6 +26,7 @@ export const useSetAttendance = () => {
     }: {
       bookingId: number;
       attendance: boolean;
+      sessionId: number;
     }) => setAttendanceAPI(fetch, bookingId, attendance),
     onMutate: async ({ bookingId, attendance }) => {
       await queryClient.cancelQueries({ queryKey: bookingKeys.listScope() });
@@ -66,8 +72,11 @@ export const useSetAttendance = () => {
         );
       }
     },
-    onSettled: () => {
+    onSettled: (_data, _error, { sessionId }) => {
       queryClient.invalidateQueries({ queryKey: bookingKeys.all });
+      queryClient.invalidateQueries({
+        queryKey: sessionKeys.detail(sessionId),
+      });
     },
   });
 };

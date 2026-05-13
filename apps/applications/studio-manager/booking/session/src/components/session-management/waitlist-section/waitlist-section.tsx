@@ -5,7 +5,10 @@ import { Title } from "@bsport/kaizen-primitive-core";
 import { SectionErrorFallback } from "#src/components/query-boundary/fallbacks";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import {
+  SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals";
 import { useSessionManagementStore } from "#src/stores/session-management/store";
 import { WaitlistFilter } from "#src/stores/session-management/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -21,7 +24,10 @@ import { WaitlistSettingsPopover } from "./waitlist-settings-popover";
 export const WaitlistSection: FC<{
   sessionId: number;
   searchQuery: string;
-  openModal: (type: SessionManagementModalType) => void;
+  openModal: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
 }> = ({ sessionId, searchQuery, openModal }) => {
   const { t } = useTranslation("sessionManagement");
 
@@ -80,6 +86,7 @@ export const WaitlistSection: FC<{
                 sessionId={sessionId}
                 searchQuery={searchQuery}
                 paginationNamespace={waitlistFilters}
+                openModal={openModal}
               />
             )}
           </>

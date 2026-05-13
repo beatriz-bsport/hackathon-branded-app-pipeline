@@ -8,25 +8,28 @@ import { useTranslation } from "#src/utils/i18n";
 
 const unarchiveClass = unarchiveGroupActivity.bind(null, fetch);
 
-export const useUnarchiveClass = () => {
+export const useUnarchiveClass = ({
+  onSuccess,
+}: { onSuccess?: () => void } = {}) => {
   const queryClient = useQueryClient();
-  const { t } = useTranslation("list");
+  const { t } = useTranslation("class-actions");
 
   return useMutation({
     mutationFn: (id: number) => unarchiveClass(id.toString()),
-    onSuccess: ({ name }) => {
+    onSuccess: ({ name: _name }) => {
       queryClient.invalidateQueries({ queryKey: groupActivityKeys.all });
+      onSuccess?.();
       toast({
         status: "default",
         icon: "flip-forward",
         buttonIcon: "x",
-        description: t("list.toasts.unarchive", { className: name }),
+        description: t("classActions.toasts.unarchive"),
       });
     },
     onError: () => {
       toast({
         status: "critical",
-        description: t("list.toasts.unarchiveError"),
+        description: t("classActions.toasts.unarchiveError"),
       });
     },
   });

@@ -23,6 +23,6 @@ export const i18nNamespaces: string[] = [
   "list",
   "details",
   "campaign",
-  "campaign-filters",
+  "filters",
   "communicationVariables",
 ];

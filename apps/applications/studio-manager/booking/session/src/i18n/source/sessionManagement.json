@@ -22,7 +22,8 @@
       "firstBooking": "First booking of the member",
       "recurring": "Recurring booking",
       "tags": "Tags",
-      "unpaidInvoices": "Outstanding balance. Check billing details or resolve unpaid invoices."
+      "unpaidInvoices": "Outstanding balance. Check billing details or resolve unpaid invoices.",
+      "penalty": "Penalty"
     },
     "actionsMenu": {
       "label": "Actions"
@@ -45,7 +46,8 @@
   },
   "bookingStatusFilter": {
     "booked": "Booked",
-    "cancelled": "Cancelled"
+    "cancelled": "Cancelled",
+    "noShow": "No-show"
   },
   "bookingOptionStatusFilter": {
     "onWaitlist": "On Waitlist",
@@ -65,12 +67,25 @@
     "editClientNotes": "Edit client notes",
     "bookToClass": "Book to the class",
     "removeFromWaitlist": "Remove from waitlist",
+    "impossibleToRemoveFromWaitlist": "Class already started, it's not possible to remove members from the waitlist",
     "assignSpot": {
       "success": "Spot assigned",
       "error": "Couldn't assign the spot"
     },
     "bookAll": "Book all to the class",
     "pauseWaitlist": "Pause waitlist"
+  },
+  "livestream": {
+    "title": "Livestream",
+    "connect": "Connect",
+    "notReadyYet": "You'll be able to access the livestream 15 min before the class starts.",
+    "fallbackText": "If you are not automatically redirected, please use this link:",
+    "start": "Start the online class.",
+    "missingLink": {
+      "title": "No livestream link configured",
+      "description": "Please edit the class to provide a link to the livestream.",
+      "editClass": "Edit class"
+    }
   },
   "floorPlan": {
     "header": "Spot selection",
@@ -130,6 +145,15 @@
     "viewWaitlistMembers": {
       "title": "Waitlist members",
       "subtitle": "Members are still on the waitlist, but it is currently paused for this session. You can reactivate it at any time and the existing order will be preserved."
+    },
+    "removeFromWaitlist": {
+      "title": "Remove from waitlist?",
+      "body": "Are you sure you want to remove this member from the waitlist?",
+      "sendNotification": "Send a notification",
+      "confirmButton": "Remove",
+      "closeButton": "Close",
+      "confirmation": "Member removed from waitlist",
+      "error": "Couldn't remove member from waitlist"
     }
   },
   "bookingAttendanceFilter": {
@@ -156,7 +180,9 @@
     "balance": "Balance:",
     "tags": "Tags",
     "addedToWaitlistOn": "Added to waitlist on {{bookingOptionDate}}",
-    "positionInWaitlist": "Position in waitlist"
+    "positionInWaitlist": "Position in waitlist",
+    "noShowAlert": "<strong>No-show:</strong> marked absent after the session.",
+    "penaltyAlert": "Unlimited pass penalty applied."
   },
   "bookingOrdering": {
     "label": "Ordering",
@@ -215,5 +241,15 @@
     "description": "The waitlist is paused for this session",
     "viewWaitlistMembers": "View waitlist members",
     "reactivateWaitlist": "Reactivate waitlist"
+  },
+  "attendanceAlert": {
+    "confirmMessage": "Once you confirm attendance, the no-show penalty countdown will be triggered for clients with an unlimited pass.",
+    "reconfirmMessage": "Attendance updated. Please reconfirm. Reconfirmation restarts the no-show penalty countdown for absent unlimited members.",
+    "confirmButton": "Confirm attendance",
+    "countdownMessage": "<strong>{{hoursLeft}}h</strong> left to update attendance before absences become no-shows and penalties apply to unlimited pass holders.",
+    "countdownMessageDetailed": "<strong>{{hoursLeft}}h {{minutesLeft}}min</strong> left to update attendance before absences become no-shows and penalties apply to unlimited pass holders.",
+    "countdownMessageMinutes": "<strong>{{minutesLeft}}min</strong> left to update attendance before absences become no-shows and penalties apply to unlimited pass holders.",
+    "confirmedLabel": "Attendance confirmed",
+    "confirmedTooltip": "Confirmed on {{date}}"
   }
 }

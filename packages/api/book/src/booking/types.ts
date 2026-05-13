@@ -115,6 +115,7 @@ export type BookingFilterParams = {
   max_date?: string;
   start_until_datetime?: string;
   attendance?: boolean;
+  is_no_show?: boolean;
   consumer_payment_pack?: number;
   was_refunded?: boolean;
   ordering?:

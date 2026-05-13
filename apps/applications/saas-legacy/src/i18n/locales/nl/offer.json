@@ -211,7 +211,8 @@
         "durationMinuteSpivi": "Een Spivi-sessie moet tussen 20 minuten en 4 uur zijn.",
         "roomBlueprintSpivi": "Er moet een Spot Scheduling-layout voor de synchronisatie met Spivi geselecteerd worden",
         "wellhubProductMissing": "Dit veld is verplicht, je moet een product selecteren.",
-        "dateIntervalStartBeforeLast": "De startdatum mag niet vóór de laatste herhaling liggen"
+        "dateIntervalStartBeforeLast": "De startdatum mag niet vóór de laatste herhaling liggen",
+        "partnerSpotLimitExceedsEffectif": "De plaatsenlimiet mag niet hoger zijn dan het totale aantal plaatsen van de sessie."
       },
       "dateTooFar": "Onmogelijk om sessies te maken die in meer dan 3 jaar plaatsvinden",
       "dateFormat": "Ongeldig datumformaat",
@@ -263,7 +264,37 @@
               "title": "Uw beschikbare producten op Wellhub:"
             },
             "subtitle": "Inclusief: ClassPass, myClubs, Urban Sports Club, Gymlib en Wellpass voor externe boekingen.",
-            "enablePartneshipBookings": "Boekingen op de marktplaats mogelijk maken"
+            "enablePartneshipBookings": "Boekingen op de marktplaats mogelijk maken",
+            "partnerSpotCappingStrategy": {
+              "PER_PARTNER": {
+                "helperText": "Stel individuele limieten per platform in.",
+                "label": "Boekingen per aggregator beperken"
+              },
+              "COMBINED": {
+                "singleAggregatorHelperText": "Stel een maximaal aantal plaatsen in voor de ingeschakelde aggregator.",
+                "helperText": "Stel een maximaal aantal plaatsen in voor de ingeschakelde aggregators myClubs, Wellhub en Urban Sports Club gecombineerd (andere aggregators worden niet beïnvloed door deze instelling).",
+                "singleAggregatorLabel": "Beperkte plaatsen",
+                "label": "Beperkte plaatsen (gecombineerd)"
+              },
+              "UNLIMITED": {
+                "singleAggregatorHelperText": "Alle plaatsen kunnen via de aggregator worden geboekt.",
+                "helperText": "Alle plaatsen kunnen via aggregators worden geboekt (gecombineerd over alle platforms).",
+                "label": "Onbeperkte plaatsen"
+              },
+              "label": "Strategie voor plaatsenlimiet"
+            },
+            "spots": "Plaatsen",
+            "enabledAggregators": "Ingeschakelde aggregators",
+            "aggregatorLabel": "Aggregator",
+            "tooltip": {
+              "wellpass": "De zichtbaarheid van sessies op Wellpass en limieten kunnen nog niet worden beheerd via bsport. Deze configuratie zal hier beschikbaar zijn in een toekomstige update.",
+              "classpass": "De zichtbaarheid van sessies op ClassPass en limieten kunnen rechtstreeks worden aangepast in je ClassPass-partnerportaal."
+            },
+            "partnerMaxBookingCountHelperText": "Deze instelling heeft alleen invloed op myClubs, Urban Sports Club en Wellhub.",
+            "partnerMaxBookingCount": "Beschikbare plaatsen voor aggregators",
+            "name": {
+              "usc": "Urban Sports Club"
+            }
           },
           "allowGuestOffer": "De reservering voor een gast autoriseren",
           "isManagerOnly": "Beschikbaar voor reservering (web+app)",

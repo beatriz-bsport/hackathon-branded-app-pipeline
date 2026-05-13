@@ -6,7 +6,7 @@ import "@bsport/kaizen-primitive-core/styles";
 import { AppWrapper } from "@bsport/sm-backbone";
 
 import App from "./App";
-import { SMARTLIST_APP_ROOT_PATH } from "./urls";
+import { APP_ROOT_PATH } from "./urls";
 
 const basename = __SEGMENT__.__BASENAME__;
 
@@ -19,11 +19,8 @@ createRoot(document.getElementById("root")!).render(
       )}
     >
       <Routes>
-        <Route
-          path="/"
-          element={<Navigate to={SMARTLIST_APP_ROOT_PATH} replace />}
-        />
-        <Route path={`${SMARTLIST_APP_ROOT_PATH}/*`} element={<App />} />
+        <Route path="/" element={<Navigate to={APP_ROOT_PATH} replace />} />
+        <Route path={`${APP_ROOT_PATH}/*`} element={<App />} />
       </Routes>
     </AppWrapper>
   </StrictMode>,

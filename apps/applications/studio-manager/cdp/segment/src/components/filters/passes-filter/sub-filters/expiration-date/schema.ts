@@ -10,7 +10,7 @@ import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
 import { dateFilterValueSchema } from "../purchase-date/schema";
 import { mapDateFilterType } from "../purchase-date/utils";
 
-const I18N_NAMESPACE = "sm-smartlists_campaign-filters";
+const I18N_NAMESPACE = "sm-smartlists_filters";
 
 /**
  * Zod fragment for the `expirationDate` slot (identical shape to purchase date).

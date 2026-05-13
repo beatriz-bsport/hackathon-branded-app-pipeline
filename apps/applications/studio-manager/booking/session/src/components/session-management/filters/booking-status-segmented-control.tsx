@@ -16,7 +16,8 @@ export const BookingStatusSegmentedControl: FC = () => {
   const onChangeBookingStatusFilter = (value: string) => {
     if (
       value === BookingStatusFilter.BOOKED ||
-      value === BookingStatusFilter.CANCELLED
+      value === BookingStatusFilter.CANCELLED ||
+      value === BookingStatusFilter.NO_SHOW
     ) {
       setBookingStatusFilter(value);
     }
@@ -33,6 +34,10 @@ export const BookingStatusSegmentedControl: FC = () => {
         {
           label: t("bookingStatusFilter.cancelled"),
           value: BookingStatusFilter.CANCELLED,
+        },
+        {
+          label: t("bookingStatusFilter.noShow"),
+          value: BookingStatusFilter.NO_SHOW,
         },
       ]}
       value={bookingStatus}

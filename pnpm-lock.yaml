@@ -1039,6 +1039,9 @@ importers:
       '@bsport/api-book':
         specifier: workspace:*
         version: link:../../../../../packages/api/book
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/buyables
       '@bsport/api-core':
         specifier: workspace:*
         version: link:../../../../../packages/api/core

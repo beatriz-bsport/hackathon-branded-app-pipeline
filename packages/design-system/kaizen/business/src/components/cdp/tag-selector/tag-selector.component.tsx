@@ -1,7 +1,7 @@
 import { type ReactElement, useCallback } from "react";
 
 import type { Fetch } from "@bsport/fetch";
-import { type FieldValues, FormField } from "@bsport/form";
+import { type FieldValues, FormField, get } from "@bsport/form";
 import {
   Autocomplete,
   type AutocompleteProps,
@@ -112,10 +112,9 @@ export const TagSelector = <
       mapProps={({ defaultProps, form, formState }) => {
         const { statusText: _, value: _value, ...otherProps } = defaultProps;
 
-        // @ts-expect-error Too deep typing prevent nice typescript inference
-        const defaultSelectedIds = (formState.defaultValues ?? {})[
-          fieldName
-        ] as number[];
+        const defaultSelectedIds = get(formState.defaultValues, fieldName) as
+          | number[]
+          | undefined;
         const selectedIds = (initialIds ?? defaultSelectedIds ?? [])
           .filter((id) => id !== undefined)
           .map((id) => id.toString())

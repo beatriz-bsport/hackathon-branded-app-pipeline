@@ -94,12 +94,6 @@ export async function upgradePnpmGenerator(
 
   replaceRequired(
     tree,
-    ".npmrc",
-    /^pnpm_version=.*$/m,
-    `pnpm_version=${nextVersion.raw}`,
-  );
-  replaceRequired(
-    tree,
     ".mise.toml",
     /^pnpm\s*=\s*"[^"]+"$/m,
     `pnpm = "${nextVersion.raw}"`,
@@ -109,18 +103,17 @@ export async function upgradePnpmGenerator(
     json.engines ??= {};
     json.engines.pnpm = nextVersion.raw;
 
-    if (json.packageManager !== undefined) {
-      if (
-        typeof json.packageManager !== "string" ||
-        !json.packageManager.startsWith("pnpm@")
-      ) {
-        throw new Error(
-          `Expected packageManager to start with \"pnpm@\", got \"${String(json.packageManager)}\".`,
-        );
-      }
-
-      json.packageManager = `pnpm@${nextVersion.raw}`;
+    if (
+      json.packageManager !== undefined &&
+      (typeof json.packageManager !== "string" ||
+        !json.packageManager.startsWith("pnpm@"))
+    ) {
+      throw new Error(
+        `Expected packageManager to start with \"pnpm@\", got \"${String(json.packageManager)}\".`,
+      );
     }
+
+    json.packageManager = `pnpm@${nextVersion.raw}`;
 
     return json;
   });
@@ -133,7 +126,7 @@ export async function upgradePnpmGenerator(
     );
   } else {
     logger.info(
-      `Pinned pnpm from ${currentVersion.raw} to ${nextVersion.raw} in .npmrc, .mise.toml, and package.json.`,
+      `Pinned pnpm from ${currentVersion.raw} to ${nextVersion.raw} in .mise.toml and package.json.`,
     );
   }
 

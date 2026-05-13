@@ -13,15 +13,6 @@ function createWorkspaceTree() {
   const tree = createTreeWithEmptyWorkspace();
 
   tree.write(
-    ".npmrc",
-    [
-      "# For more information, you can visit: https://pnpm.io/npmrc",
-      "pnpm_version=10.11.0",
-      "",
-    ].join("\n"),
-  );
-
-  tree.write(
     ".mise.toml",
     [
       "[tools]",
@@ -56,10 +47,10 @@ describe("upgradePnpmGenerator", () => {
 
     await upgradePnpmGenerator(tree, { version: "10.33.0" });
 
-    expect(tree.read(".npmrc", "utf-8")).toContain("pnpm_version=10.33.0");
     expect(tree.read(".mise.toml", "utf-8")).toContain('pnpm = "10.33.0"');
 
     const packageJson = readJson<RootPackageJson>(tree, "package.json");
+    expect(packageJson.packageManager).toBe("pnpm@10.33.0");
     expect(packageJson.engines?.pnpm).toBe("10.33.0");
   });
 
@@ -114,8 +105,8 @@ describe("upgradePnpmGenerator", () => {
     });
 
     const packageJson = readJson<RootPackageJson>(tree, "package.json");
-    expect(tree.read(".npmrc", "utf-8")).toContain("pnpm_version=11.0.0");
     expect(tree.read(".mise.toml", "utf-8")).toContain('pnpm = "11.0.0"');
+    expect(packageJson.packageManager).toBe("pnpm@11.0.0");
     expect(packageJson.engines?.pnpm).toBe("11.0.0");
   });
 });

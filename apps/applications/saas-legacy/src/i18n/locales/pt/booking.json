@@ -632,7 +632,7 @@
         "global": "Ocorreu um erro ao registar-se",
         "emailTaken": "O e-mail já existe, pode tentar iniciar sessão com este e-mail",
         "phoneTaken": "Este número de telefone já está a ser utilizado por outro membro",
-        "passwordMinimumRequirements": "A sua palavra-passe deve ter pelo menos 6 caracteres e não conter espaços",
+        "passwordMinimumRequirements": "A sua palavra-passe deve ter pelo menos 12 caracteres e não conter espaços",
         "passwordConfirmation": "As palavras-passe devem corresponder"
       }
     }

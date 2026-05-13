@@ -614,7 +614,7 @@
         "phoneTaken": "Este número de teléfono ya está siendo utilizado por otro miembro",
         "emailTaken": "El correo electrónico ya existe, puede intentar iniciar sesión con este correo electrónico",
         "passwordConfirmation": "Las contraseñas deben coincidir",
-        "passwordMinimumRequirements": "Tu contraseña debe tener 6 caracteres como mínimo y no puede llevar espacios"
+        "passwordMinimumRequirements": "Tu contraseña debe tener 12 caracteres como mínimo y no puede llevar espacios"
       },
       "button": {
         "label": "Inscríbete"

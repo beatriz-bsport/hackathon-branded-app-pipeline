@@ -607,7 +607,7 @@
         "phoneTaken": "Ce numéro de téléphone est déjà utilisé par un autre membre.",
         "emailTaken": "Cet e-mail existe déjà. Vous pouvez essayer de vous connecter avec cette adresse.",
         "passwordConfirmation": "Les mots de passe doivent correspondre",
-        "passwordMinimumRequirements": "Votre mot de passe doit comporter au moins 6 caractères et ne contenir aucun espace"
+        "passwordMinimumRequirements": "Votre mot de passe doit comporter au moins 12 caractères et ne contenir aucun espace"
       },
       "email": {
         "label": "Email"

@@ -614,7 +614,7 @@
         "phoneTaken": "Questo numero di telefono è già utilizzato da un altro utente",
         "emailTaken": "L'email esiste già, puoi provare ad accedere con questa email",
         "passwordConfirmation": "Le password devono coincidere",
-        "passwordMinimumRequirements": "La tua password deve essere lunga almeno 6 caratteri e non deve contenere spazi"
+        "passwordMinimumRequirements": "La tua password deve essere lunga almeno 12 caratteri e non deve contenere spazi"
       },
       "button": {
         "label": "Iscriviti"

@@ -604,7 +604,7 @@
         "phoneTaken": "Diese Telefonnummer wird bereits von einem anderen Mitglied verwendet",
         "emailTaken": "Diese E-mail-Adresse existiert bereits. Du kannst versuchen, dich mit dieser Adresse anzumelden",
         "passwordConfirmation": "Passwörter müssen übereinstimmen",
-        "passwordMinimumRequirements": "Dein Passwort muss aus mindestens 6 Zeichen bestehen, keine Leerzeichen"
+        "passwordMinimumRequirements": "Dein Passwort muss aus mindestens 12 Zeichen bestehen, keine Leerzeichen"
       },
       "button": {
         "label": "Anmelden"

@@ -242,6 +242,12 @@ Create and push the tag:
 pnpm exec nx run @bsport/nx:release-tag
 ```
 
+Emit the resolved tag for downstream CI jobs:
+
+```bash
+pnpm exec nx run @bsport/nx:release-tag --outputFile=release-tag.env
+```
+
 ### Behavior
 
 - uses a single fixed monorepo version
@@ -251,6 +257,7 @@ pnpm exec nx run @bsport/nx:release-tag
 - generates the workspace changelog entry through Nx Release without writing a changelog file
 - creates an annotated tag like `v1.2.3`
 - pushes only `refs/tags/v1.2.3`
+- optionally writes a dotenv file with `RELEASE_TAG_AVAILABLE=true`, `RELEASE_TAG`, and `RELEASE_TAG_COMMIT_SHA` when a release tag is available on `HEAD`
 - creates or updates the matching GitLab Release with the generated changelog after the tag is available on the remote
 - skips cleanly when no semver bump is detected
 - treats reruns as successful when the computed tag already points to `HEAD`
@@ -276,6 +283,8 @@ After that, CI uses the latest `v*` tag as the baseline.
 Merge request pipelines expose the same job manually in dry-run mode. Use it before merge to verify what Nx resolves from the MR pipeline git history without creating a tag, pushing a tag, or publishing a GitLab Release.
 
 The root GitLab workflow skips only semver release tag pipelines (`vX.Y.Z`). Other tag pipelines, such as feature-branch deploy tags, still run.
+
+After `Release:Tag` succeeds on `dev`, `Release:Build Artifact` reuses the same aggregate build flow as ephemeral environments and uploads the artifact snapshot to `s3://bsport-frontends-artifacts-euw3/backoffice/<release-tag>`, for example `backoffice/v1.21.1`.
 
 ## Development
 

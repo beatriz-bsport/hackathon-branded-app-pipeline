@@ -1,5 +1,7 @@
 import { type ExecutorContext, output, workspaceRoot } from "@nx/devkit";
 import { execFile } from "node:child_process";
+import { mkdir, writeFile } from "node:fs/promises";
+import { dirname, isAbsolute, join } from "node:path";
 import { promisify } from "node:util";
 import { ReleaseClient } from "nx/release";
 
@@ -17,10 +19,20 @@ type ReleaseClientMethods = Pick<
 >;
 
 type GitRunner = (args: string[]) => Promise<string>;
+type ReleaseTagOutput = {
+  available: boolean;
+  commitSha?: string;
+  tagName?: string;
+};
+type ReleaseTagOutputFileWriter = (
+  outputFile: string,
+  releaseTagOutput: ReleaseTagOutput,
+) => Promise<void>;
 
 type ExecutorDependencies = {
   createReleaseClient: (allowDiskFallback: boolean) => ReleaseClientMethods;
   runGit: GitRunner;
+  writeReleaseTagOutputFile?: ReleaseTagOutputFileWriter;
 };
 
 function buildReleaseConfig(
@@ -162,6 +174,50 @@ async function cleanupLocalTagAfterPushFailure(
   }
 }
 
+function serializeReleaseTagOutput(releaseTagOutput: ReleaseTagOutput) {
+  const lines = [
+    `RELEASE_TAG_AVAILABLE=${releaseTagOutput.available ? "true" : "false"}`,
+  ];
+
+  if (releaseTagOutput.tagName) {
+    lines.push(`RELEASE_TAG=${releaseTagOutput.tagName}`);
+  }
+
+  if (releaseTagOutput.commitSha) {
+    lines.push(`RELEASE_TAG_COMMIT_SHA=${releaseTagOutput.commitSha}`);
+  }
+
+  return `${lines.join("\n")}\n`;
+}
+
+async function writeReleaseTagOutputFile(
+  outputFile: string,
+  releaseTagOutput: ReleaseTagOutput,
+) {
+  const resolvedOutputFile = isAbsolute(outputFile)
+    ? outputFile
+    : join(workspaceRoot, outputFile);
+
+  await mkdir(dirname(resolvedOutputFile), { recursive: true });
+  await writeFile(
+    resolvedOutputFile,
+    serializeReleaseTagOutput(releaseTagOutput),
+    "utf8",
+  );
+}
+
+async function writeReleaseTagOutput(
+  options: ReleaseTagExecutorSchema,
+  writeOutputFile: ReleaseTagOutputFileWriter,
+  releaseTagOutput: ReleaseTagOutput,
+) {
+  if (!options.outputFile) {
+    return;
+  }
+
+  await writeOutputFile(options.outputFile, releaseTagOutput);
+}
+
 function resolveWorkspaceVersion(versionResult: ReleaseVersionResult) {
   if (versionResult.workspaceVersion === undefined) {
     throw new Error(
@@ -205,6 +261,7 @@ async function generateGitLabReleaseChangelog(
 export function createReleaseTagExecutor({
   createReleaseClient,
   runGit,
+  writeReleaseTagOutputFile: writeOutputFile = writeReleaseTagOutputFile,
 }: ExecutorDependencies) {
   return async function runReleaseTag(
     options: ReleaseTagExecutorSchema,
@@ -227,6 +284,10 @@ export function createReleaseTagExecutor({
     const workspaceVersion = resolveWorkspaceVersion(versionResult);
 
     if (workspaceVersion === null) {
+      await writeReleaseTagOutput(options, writeOutputFile, {
+        available: false,
+      });
+
       output.note({
         title: "No release tag created",
         bodyLines: [
@@ -264,6 +325,12 @@ export function createReleaseTagExecutor({
         remote,
       );
 
+      await writeReleaseTagOutput(options, writeOutputFile, {
+        available: true,
+        commitSha: headCommit,
+        tagName,
+      });
+
       return { success: true };
     }
 
@@ -276,6 +343,12 @@ export function createReleaseTagExecutor({
     );
 
     if (options.dryRun) {
+      await writeReleaseTagOutput(options, writeOutputFile, {
+        available: false,
+        commitSha: headCommit,
+        tagName,
+      });
+
       output.note({
         title: "Dry run",
         bodyLines: [
@@ -314,6 +387,12 @@ export function createReleaseTagExecutor({
       }
 
       if (tagCommitAfterRetry === headCommit) {
+        await writeReleaseTagOutput(options, writeOutputFile, {
+          available: true,
+          commitSha: headCommit,
+          tagName,
+        });
+
         output.note({
           title: `Release tag ${tagName} was pushed concurrently`,
           bodyLines: [
@@ -333,6 +412,12 @@ export function createReleaseTagExecutor({
     output.success({
       title: `Created release tag ${tagName}`,
       bodyLines: [`Pushed annotated tag ${tagName} to ${remote}.`],
+    });
+
+    await writeReleaseTagOutput(options, writeOutputFile, {
+      available: true,
+      commitSha: headCommit,
+      tagName,
     });
 
     return { success: true };

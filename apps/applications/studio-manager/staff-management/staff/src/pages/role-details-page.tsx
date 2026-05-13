@@ -1,11 +1,19 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
-import type { FC } from "react";
-import { Link, Navigate, useParams } from "react-router";
+import { useSuspenseQueries } from "@tanstack/react-query";
+import { type FC, useMemo } from "react";
+import { Link, Navigate, useNavigate, useParams } from "react-router";
 
-import { fetchRoleDefinitionQueryOptions } from "@bsport/api-staff-management/role";
-import { Breadcrumbs, ListLayout } from "@bsport/kaizen-primitive-core";
+import {
+  fetchRoleDefinitionQueryOptions,
+  flatUserRolesQueryOptions,
+} from "@bsport/api-staff-management/role";
+import { Breadcrumbs, Button, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
+import {
+  type RoleDeleteData,
+  RoleDeleteModal,
+} from "#src/features/role-delete/role-delete-modal";
+import { useDisclosure } from "#src/hooks/use-disclosure";
 import { URLS } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
@@ -18,24 +26,68 @@ const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
   roleId,
 }) => {
   const { t } = useTranslation("role-details");
-  const { data: role } = useSuspenseQuery(
-    fetchRoleDefinitionQueryOptions(fetch, { id: roleId }),
+  const navigate = useNavigate();
+  const {
+    isOpen: isDeleteModalOpen,
+    onClose: closeDeleteModal,
+    onOpen: openDeleteModal,
+  } = useDisclosure();
+  const [{ data: role }, { data: staff }] = useSuspenseQueries({
+    queries: [
+      fetchRoleDefinitionQueryOptions(fetch, { id: roleId }),
+      flatUserRolesQueryOptions(fetch),
+    ],
+  });
+  const roleToDelete = useMemo<RoleDeleteData>(
+    () => ({
+      id: role.id,
+      name: role.name,
+      staffAssignedCount: staff.filter(
+        (staffMember) => staffMember.role === role.id,
+      ).length,
+    }),
+    [role.id, role.name, staff],
   );
 
   return (
-    <ListLayout>
-      <ListLayout.Header
-        pageTitle={role.name}
-        BreadcrumbsItems={[
-          <Link key="to-roles" to={`../${URLS.ROLE}`}>
-            <Breadcrumbs.Item text={t("breadcrumbs.roles")} />
-          </Link>,
-        ]}
+    <>
+      <ListLayout>
+        <ListLayout.Header
+          pageTitle={role.name}
+          BreadcrumbsItems={[
+            <Link key="to-roles" to={`../${URLS.ROLE}`}>
+              <Breadcrumbs.Item text={t("breadcrumbs.roles")} />
+            </Link>,
+          ]}
+          endGroupActions={
+            role.editable
+              ? [
+                  <Button
+                    key="role-details-button-delete"
+                    color="default"
+                    intent="flat"
+                    size="md"
+                    icon="trash-01"
+                    kind="icon-button"
+                    label={t("actions.deleteRole")}
+                    onClick={openDeleteModal}
+                  />,
+                ]
+              : undefined
+          }
+        />
+        <ListLayout.Content>
+          <div />
+        </ListLayout.Content>
+      </ListLayout>
+
+      <RoleDeleteModal
+        role={isDeleteModalOpen ? roleToDelete : null}
+        onClose={closeDeleteModal}
+        preservePendingDeletionOnUnmount
+        onDeleteScheduled={() => navigate(`../${URLS.ROLE}`, { replace: true })}
       />
-      <ListLayout.Content>
-        <div />
-      </ListLayout.Content>
-    </ListLayout>
+    </>
   );
 };
 

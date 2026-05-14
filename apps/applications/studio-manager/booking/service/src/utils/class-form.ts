@@ -101,7 +101,18 @@ export const useClassFormSchema = (mode: ClassFormSchemaMode = "edit") => {
       custom_restriction_rule:
         mode === "create"
           ? z.array(customRestrictionSchema).max(0)
-          : z.array(customRestrictionSchema).max(3),
+          : z
+              .array(
+                customRestrictionSchema.extend({
+                  tags: z
+                    .array(z.number().int())
+                    .min(
+                      1,
+                      t("addEditForm.customRestrictions.errors.tagsRequired"),
+                    ),
+                }),
+              )
+              .max(3),
       auto_discard_active: z.boolean(),
       auto_discard_hours_before_start: z.number().int().min(0),
       auto_discard_min_bookings_nb: z.number().int().min(0),

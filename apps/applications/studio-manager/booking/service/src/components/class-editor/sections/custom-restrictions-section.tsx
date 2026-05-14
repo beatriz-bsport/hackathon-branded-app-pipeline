@@ -1,10 +1,12 @@
-// TODO: keeping at as reference here for further edit implementation, this component was opted-out as a last minute request.
 import { type FC } from "react";
 
 import { useFieldArray, useFormContext } from "@bsport/form";
 import { TagSelector } from "@bsport/kaizen-business-components/cdp/tag-selector";
 import { Body, Button, Toggle } from "@bsport/kaizen-primitive-core";
 
+import { FormSection } from "#src/components/class-form/shared/form-section";
+import { FormSectionHeader } from "#src/components/class-form/shared/form-section-header";
+import { FormTimeInputRow } from "#src/components/class-form/shared/form-time-input-row";
 import {
   type ClassFormValues,
   defaultCustomRestrictionRule,
@@ -12,10 +14,6 @@ import {
 } from "#src/utils/class-form";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
-
-import { FormSection } from "./form-section";
-import { FormSectionHeader } from "./form-section-header";
-import { FormTimeInputRow } from "./form-time-input-row";
 
 const MAX_RULES = 3;
 
@@ -72,6 +70,7 @@ export const CustomRestrictionsSection: FC = () => {
                     {t("addEditForm.customRestrictions.applyTo")}
                   </Body>
                   <TagSelector
+                    id={`${fieldIdPrefix}-custom-rule-${fieldIndex}-tags`}
                     fieldName={`custom_restriction_rule.${fieldIndex}.tags`}
                     multiSelect
                     fetch={fetch}

@@ -7,6 +7,9 @@
     },
     "editor": {
       "toast": "Class edited",
+      "advanced": {
+        "title": "Advanced"
+      },
       "discard": {
         "title": "Discard changes?",
         "description": "Are you sure you want to discard your changes?",

@@ -23,6 +23,7 @@ export const StaffFormLastName: FC<StaffFormLastNameProps> = ({
       <TextField
         id={`${formId}-last-name`}
         label={t("formFields.lastName.label")}
+        required
         fullWidth
         disabled={disabled}
       />

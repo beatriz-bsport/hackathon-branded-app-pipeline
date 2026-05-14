@@ -10,11 +10,13 @@ import {
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 
+import { StaffFormBillingGroup } from "#src/features/staff-form/components/staff-form-billing-group";
 import { StaffFormCommission } from "#src/features/staff-form/components/staff-form-commission";
 import { StaffFormEmail } from "#src/features/staff-form/components/staff-form-email";
 import { StaffFormFirstName } from "#src/features/staff-form/components/staff-form-first-name";
 import { StaffFormLastName } from "#src/features/staff-form/components/staff-form-last-name";
 import { StaffFormRole } from "#src/features/staff-form/components/staff-form-role";
+import { StaffFormTeachers } from "#src/features/staff-form/components/staff-form-teachers";
 import { useStaffFormSchema } from "#src/features/staff-form/schema";
 import type {
   StaffFormData,
@@ -56,8 +58,7 @@ const convertStaffIntoFormData = (staff: UserRole): StaffFormData => ({
 const StaffDetailsPage: FC<StaffDetailsPageProps> = ({ staff }) => {
   const [discardId, setDiscardId] = useState(0);
   const { detailsLayoutProps, toggleHasUnsavedChanges } = useDetailsLayout();
-  const { t } = useTranslation("staff-list");
-  const { t: tDetails } = useTranslation("staff-details");
+  const { t } = useTranslation(["staff-list", "staff-details"]);
   const formId = `staff-details-${useId()}`;
   // Uses the persisted API role, not the live form value, so an owner cannot
   // be reassigned to a different role even if the select is somehow interacted with.
@@ -81,7 +82,7 @@ const StaffDetailsPage: FC<StaffDetailsPageProps> = ({ staff }) => {
 
   const BreadcrumbsItems = [
     <Link key="to-staff-list" to={URLS.INDEX}>
-      <Breadcrumbs.Item text={t("name")} />
+      <Breadcrumbs.Item text={t("name", { ns: "staff-list" })} />
     </Link>,
   ];
 
@@ -153,8 +154,14 @@ const StaffDetailsPage: FC<StaffDetailsPageProps> = ({ staff }) => {
             <StaffFormRole
               formId={formId}
               disabled={isOwner}
-              helperText={isOwner ? tDetails("ownerRoleProtected") : undefined}
+              helperText={
+                isOwner
+                  ? t("ownerRoleProtected", { ns: "staff-details" })
+                  : undefined
+              }
             />
+            <StaffFormTeachers />
+            <StaffFormBillingGroup formId={formId} />
           </div>
         </DetailsLayout.Content>
 

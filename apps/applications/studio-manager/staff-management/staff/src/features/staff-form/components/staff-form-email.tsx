@@ -24,6 +24,7 @@ export const StaffFormEmail: FC<StaffFormEmailProps> = ({
         id={`${formId}-email`}
         label={t("formFields.email.label")}
         type="email"
+        required
         fullWidth
         disabled={disabled}
       />

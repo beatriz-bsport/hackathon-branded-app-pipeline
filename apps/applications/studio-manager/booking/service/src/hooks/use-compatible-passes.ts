@@ -51,34 +51,6 @@ export const useCompatiblePasses = (metaActivityId: number) => {
   }, [hasNextPage, isFetchingNextPage, isFetchNextPageError, fetchNextPage]);
 
   const {
-    data: archivedData,
-    fetchNextPage: fetchNextArchivedPage,
-    hasNextPage: hasNextArchivedPage,
-    isFetchingNextPage: isFetchingNextArchivedPage,
-    isFetchNextPageError: isFetchNextArchivedPageError,
-  } = useSuspenseInfiniteQuery(
-    passesInfiniteQueryOptions(fetch, {
-      meta_activity: metaActivityId,
-      disabled: true,
-      page_size: COMPATIBLE_PASSES_PAGE_SIZE,
-    }),
-  );
-
-  useEffect(() => {
-    if (
-      hasNextArchivedPage &&
-      !isFetchingNextArchivedPage &&
-      !isFetchNextArchivedPageError
-    )
-      fetchNextArchivedPage();
-  }, [
-    hasNextArchivedPage,
-    isFetchingNextArchivedPage,
-    isFetchNextArchivedPageError,
-    fetchNextArchivedPage,
-  ]);
-
-  const {
     data: categoriesData,
     fetchNextPage: fetchNextCategoriesPage,
     hasNextPage: hasNextCategoriesPage,
@@ -150,18 +122,8 @@ export const useCompatiblePasses = (metaActivityId: number) => {
       : categorized;
   }, [passes, categoriesData]);
 
-  const archivedPasses = useMemo(
-    () =>
-      archivedData?.pages.flatMap((p) => p.results).map(toCompatiblePass) ?? [],
-    [archivedData],
-  );
-
-  const archivedCount = archivedData?.pages[0]?.count ?? 0;
-
   return {
     groups,
     count,
-    archivedPasses,
-    archivedCount,
   };
 };

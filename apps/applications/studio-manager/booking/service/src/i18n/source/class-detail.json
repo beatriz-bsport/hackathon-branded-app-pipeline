@@ -13,10 +13,6 @@
         "description": "Add passes to control which ones can be used to book this class",
         "cta": "Go to Passes"
       },
-      "archived": {
-        "title": "Archived",
-        "description": "No longer sold, but members who already hold them can still book."
-      },
       "flags": {
         "universal": "Universal",
         "unlisted": "Unlisted",

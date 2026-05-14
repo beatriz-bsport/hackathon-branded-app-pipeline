@@ -1045,6 +1045,9 @@ importers:
       '@bsport/api-core':
         specifier: workspace:*
         version: link:../../../../../packages/api/core
+      '@bsport/currency':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/currency
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting

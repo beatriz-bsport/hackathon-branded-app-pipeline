@@ -1,3 +1,16 @@
+export type PassCategory = {
+  id: number;
+  name: string;
+  company_id: number;
+  category_ordering: number;
+};
+
+export type FetchPassCategoriesParams = {
+  page?: number;
+  page_size?: number;
+  id__in?: number[];
+};
+
 export type FetchPassesParams = {
   /** Number of items per page (for pagination). */
   page_size?: number;

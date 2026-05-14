@@ -30,6 +30,7 @@
     "@bsport/api-book": "workspace:*",
     "@bsport/api-buyables": "workspace:*",
     "@bsport/api-core": "workspace:*",
+    "@bsport/currency": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "@bsport/store-booking-group-activity": "workspace:*",

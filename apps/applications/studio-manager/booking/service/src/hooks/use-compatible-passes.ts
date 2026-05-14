@@ -1,11 +1,32 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { useEffect, useMemo } from "react";
 
-import { passesInfiniteQueryOptions } from "@bsport/api-buyables";
+import {
+  type Pass,
+  type PassCategory,
+  passCategoriesInfiniteQueryOptions,
+  passesInfiniteQueryOptions,
+} from "@bsport/api-buyables";
 
+import {
+  COMPATIBLE_PASSES_CATEGORIES_PAGE_SIZE,
+  COMPATIBLE_PASSES_PAGE_SIZE,
+} from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
 
-import { COMPATIBLE_PASSES_PAGE_SIZE } from "./constants";
+export type CompatiblePassGroup = {
+  category: PassCategory | null;
+  passes: Pick<
+    Pass,
+    | "id"
+    | "name"
+    | "price"
+    | "manager_only"
+    | "new_member_only"
+    | "linked_private_pass"
+    | "is_usable_by_staff"
+  >[];
+};
 
 export const useCompatiblePasses = (metaActivityId: number) => {
   const {
@@ -14,7 +35,7 @@ export const useCompatiblePasses = (metaActivityId: number) => {
     hasNextPage,
     isFetchingNextPage,
     isFetchNextPageError,
-  } = useInfiniteQuery(
+  } = useSuspenseInfiniteQuery(
     passesInfiniteQueryOptions(fetch, {
       meta_activity: metaActivityId,
       disabled: false,
@@ -22,15 +43,135 @@ export const useCompatiblePasses = (metaActivityId: number) => {
     }),
   );
 
-  // TODO: Replace with scroll-based pagination to preserve infinite query benefits.
-  // Currently fetches all pages eagerly, which defeats the purpose of pagination.
   useEffect(() => {
     if (hasNextPage && !isFetchingNextPage && !isFetchNextPageError)
       fetchNextPage();
   }, [hasNextPage, isFetchingNextPage, isFetchNextPageError, fetchNextPage]);
 
+  const {
+    data: archivedData,
+    fetchNextPage: fetchNextArchivedPage,
+    hasNextPage: hasNextArchivedPage,
+    isFetchingNextPage: isFetchingNextArchivedPage,
+    isFetchNextPageError: isFetchNextArchivedPageError,
+  } = useSuspenseInfiniteQuery(
+    passesInfiniteQueryOptions(fetch, {
+      meta_activity: metaActivityId,
+      disabled: true,
+      page_size: COMPATIBLE_PASSES_PAGE_SIZE,
+    }),
+  );
+
+  useEffect(() => {
+    if (
+      hasNextArchivedPage &&
+      !isFetchingNextArchivedPage &&
+      !isFetchNextArchivedPageError
+    )
+      fetchNextArchivedPage();
+  }, [
+    hasNextArchivedPage,
+    isFetchingNextArchivedPage,
+    isFetchNextArchivedPageError,
+    fetchNextArchivedPage,
+  ]);
+
+  const {
+    data: categoriesData,
+    fetchNextPage: fetchNextCategoriesPage,
+    hasNextPage: hasNextCategoriesPage,
+    isFetchingNextPage: isFetchingNextCategoriesPage,
+    isFetchNextPageError: isFetchNextCategoriesPageError,
+  } = useSuspenseInfiniteQuery(
+    passCategoriesInfiniteQueryOptions(fetch, {
+      page_size: COMPATIBLE_PASSES_CATEGORIES_PAGE_SIZE,
+    }),
+  );
+
+  useEffect(() => {
+    if (
+      hasNextCategoriesPage &&
+      !isFetchingNextCategoriesPage &&
+      !isFetchNextCategoriesPageError
+    )
+      fetchNextCategoriesPage();
+  }, [
+    hasNextCategoriesPage,
+    isFetchingNextCategoriesPage,
+    isFetchNextCategoriesPageError,
+    fetchNextCategoriesPage,
+  ]);
+
+  const passes = useMemo(
+    () => data?.pages.flatMap((p) => p.results) ?? [],
+    [data],
+  );
+
+  const count = data?.pages[0]?.count ?? 0;
+
+  const groups = useMemo<CompatiblePassGroup[]>(() => {
+    if (!passes.length) return [];
+
+    const categories = categoriesData?.pages.flatMap((p) => p.results) ?? [];
+
+    const buckets = new Map<number | null, CompatiblePassGroup["passes"]>();
+
+    for (const pass of passes) {
+      const key = pass.category ?? null;
+      if (!buckets.has(key)) buckets.set(key, []);
+      buckets.get(key)!.push({
+        id: pass.id,
+        name: pass.name,
+        price: pass.price,
+        manager_only: pass.manager_only,
+        new_member_only: pass.new_member_only,
+        linked_private_pass: pass.linked_private_pass,
+        is_usable_by_staff: pass.is_usable_by_staff,
+      });
+    }
+
+    const categorized = categories
+      .filter((c) => buckets.has(c.id))
+      .sort((a, b) => a.category_ordering - b.category_ordering)
+      .map((c) => ({
+        category: c,
+        passes: buckets.get(c.id)!,
+      }));
+
+    const categorizedIds = new Set(categorized.map((g) => g.category.id));
+    const orphanPasses = [...buckets.entries()]
+      .filter(([id]) => id !== null && !categorizedIds.has(id as number))
+      .flatMap(([, p]) => p);
+
+    const uncategorized = [...(buckets.get(null) ?? []), ...orphanPasses];
+
+    return uncategorized.length
+      ? [...categorized, { category: null, passes: uncategorized }]
+      : categorized;
+  }, [passes, categoriesData]);
+
+  const archivedPasses = useMemo(
+    () =>
+      archivedData?.pages
+        .flatMap((p) => p.results)
+        .map((p) => ({
+          id: p.id,
+          name: p.name,
+          price: p.price,
+          manager_only: p.manager_only,
+          new_member_only: p.new_member_only,
+          linked_private_pass: p.linked_private_pass,
+          is_usable_by_staff: p.is_usable_by_staff,
+        })) ?? [],
+    [archivedData],
+  );
+
+  const archivedCount = archivedData?.pages[0]?.count ?? 0;
+
   return {
-    passes: data?.pages.flatMap((p) => p.results) ?? [],
-    count: data?.pages[0]?.count ?? 0,
+    groups,
+    count,
+    archivedPasses,
+    archivedCount,
   };
 };

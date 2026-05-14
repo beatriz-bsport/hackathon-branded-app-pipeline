@@ -1,5 +1,7 @@
-// Cross-vertical URL — no shared export mechanism exists yet. If the calendar URL changes in its vertical, update this too.
+// Cross-vertical URLs — no shared export mechanism exists yet. Update if the target vertical's URL changes.
+// Also defined in apps/applications/studio-manager/navigation-sidebar/src/urls.ts
 export const CALENDAR_URL = "/calendar";
+export const PASSES_URL = "/payment-pack";
 
 export const ROUTES = {
   ACTIVE: "classes",

@@ -158,6 +158,9 @@ const icons = {
   ),
   folder: React.lazy(async () => await import("./assets/folder.svg?react")),
   "gift-02": React.lazy(async () => await import("./assets/gift-02.svg?react")),
+  "globe-02": React.lazy(
+    async () => await import("./assets/globe-02.svg?react"),
+  ),
   "google-logo": React.lazy(
     async () => await import("./assets/google-logo.svg?react"),
   ),

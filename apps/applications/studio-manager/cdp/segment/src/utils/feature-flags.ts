@@ -3,6 +3,7 @@ import { makeFeatureFlags } from "@bsport/sm-backbone";
 
 const FEATURE_FLAGS = {
   smartlist: "smartlist",
+  prebuiltSegments: "prebuilt_segments",
 } as const;
 
 export type FlagName = (typeof flags)[keyof typeof flags];

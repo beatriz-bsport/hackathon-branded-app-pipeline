@@ -117,8 +117,9 @@ describe("mapApiFilterToFormValue", () => {
 
     const formValue = mapApiFilterToFormValue(filter);
 
-    expect(formValue.subFilters).toEqual([]);
+    expect(formValue.subFilters).toEqual(["credit_left"]);
     expect(formValue.purchaseDate.dateType).toBe("absolute");
+    expect(formValue.creditLeft.firstValue).toBe(10);
   });
 
   it("lists expiration date in `subFilters` when the API expiration filter is active", () => {
@@ -133,5 +134,19 @@ describe("mapApiFilterToFormValue", () => {
 
     expect(formValue.subFilters).toEqual(["expiration_date"]);
     expect(formValue.expirationDate.absolute.fromDate).toBe("2026-05-01");
+  });
+
+  it("lists credit left in `subFilters` when the API credit filter is active", () => {
+    const filter = buildApiFilter({
+      credit_filter_active: true,
+      credit_comparator: SmartlistCreditComparator.GTE,
+      credit_value: 4,
+      credit_value_second: 0,
+    });
+
+    const formValue = mapApiFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual(["credit_left"]);
+    expect(formValue.creditLeft.firstValue).toBe(4);
   });
 });

@@ -9,6 +9,7 @@ import {
   BookingOptionDetail,
   BookingOptionListParams,
   BookingOptionPosition,
+  DiscardBookingOptionParams,
   WaitingListConfiguration,
 } from "./types";
 
@@ -139,4 +140,19 @@ export const fetchWaitingListConfigurationQueryOption = (
     queryKey: waitingListKeys.configuration(companyId),
     queryFn,
   });
+};
+
+export const discardBookingOptionAPI = async (
+  fetch: Fetch<BookingOptionDetail>,
+  bookingOptionId: number,
+  params: DiscardBookingOptionParams,
+) => {
+  const { data } = await fetch(
+    `${API_URL_BOOKING_OPTION}/${bookingOptionId}/discard/`,
+    {
+      method: "POST",
+      body: JSON.stringify(params),
+    },
+  );
+  return data;
 };

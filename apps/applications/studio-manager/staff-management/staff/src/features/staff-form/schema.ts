@@ -7,10 +7,27 @@ import { useTranslation } from "#src/utils/i18n";
 import { FIELD_CONSTRAINTS } from "./constants";
 import type { StaffFormSchema } from "./types";
 
-export const useStaffFormSchema = (): StaffFormSchema => {
+type UseStaffFormSchemaParams = {
+  isEditMode?: boolean;
+};
+
+export const useStaffFormSchema = ({
+  isEditMode = false,
+}: UseStaffFormSchemaParams = {}): StaffFormSchema => {
   const { t } = useTranslation("staff-form");
 
   const requiredErrorMessage = t("formFields.errors.required");
+  // In edit mode the password field is not rendered (details page shows it as
+  // read-only, following legacy behaviour). The field stays in StaffFormData so
+  // the create modal can reuse the same schema with the min-length constraint.
+  const passwordSchema = isEditMode
+    ? z.string()
+    : z
+        .string()
+        .min(
+          FIELD_CONSTRAINTS.PASSWORD_MIN_LENGTH,
+          t("formFields.errors.passwordTooShort"),
+        );
 
   return z
     .object({
@@ -27,12 +44,7 @@ export const useStaffFormSchema = (): StaffFormSchema => {
         .trim()
         .min(FIELD_CONSTRAINTS.TEXTFIELD_MIN_LENGTH, requiredErrorMessage)
         .email(t("formFields.errors.invalidEmail")),
-      password: z
-        .string()
-        .min(
-          FIELD_CONSTRAINTS.PASSWORD_MIN_LENGTH,
-          t("formFields.errors.passwordTooShort"),
-        ),
+      password: passwordSchema,
       commissionPercentage: z.coerce
         .number()
         .min(

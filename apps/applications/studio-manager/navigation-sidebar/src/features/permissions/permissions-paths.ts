@@ -80,6 +80,7 @@ export const PERMISSIONS_PATHS: Record<
   settings_webshop: ["navigationMenu.settings.webShop"],
   settings_widgets: ["navigationMenu.settings.widgets"],
   smartlist: ["navigationMenu.marketing.smartlists"],
+  segment: ["navigationMenu.marketing.smartlists"],
   smartfill: [], // TODO: Add smartfill to permissions: https://linear.app/bsport/issue/BOO-2503/add-smartfill-permission
   subscription: ["navigationMenu.products.contracts"],
   substitution: ["navigationMenu.myClub.replacement"],

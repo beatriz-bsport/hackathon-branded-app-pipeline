@@ -12,7 +12,10 @@ import { useTranslation } from "#src/utils/i18n";
 
 type ChipsCellProps = Pick<
   RefinedBooking,
-  "recurrence_rule_booking" | "first_in_company" | "memberData"
+  | "recurrence_rule_booking"
+  | "first_in_company"
+  | "memberData"
+  | "no_show_penalty_applied"
 >;
 
 const baseChipsProps = {
@@ -25,6 +28,7 @@ export const ChipsCell: FC<ChipsCellProps> = ({
   recurrence_rule_booking,
   first_in_company,
   memberData,
+  no_show_penalty_applied,
 }) => {
   const { t } = useTranslation("sessionManagement");
   const { tags, total_unpaid_amount } = memberData ?? {};
@@ -37,6 +41,14 @@ export const ChipsCell: FC<ChipsCellProps> = ({
 
   return (
     <div className="flex items-center gap-xs">
+      {no_show_penalty_applied && (
+        <Chip
+          label={t("bookingsTable.chips.penalty")}
+          type="weak"
+          color="warning"
+          size="lg"
+        />
+      )}
       {first_in_company &&
         listedInformation.includes(BookingListedInformation.NEW_MEMBER) && (
           <ResponsiveTooltip

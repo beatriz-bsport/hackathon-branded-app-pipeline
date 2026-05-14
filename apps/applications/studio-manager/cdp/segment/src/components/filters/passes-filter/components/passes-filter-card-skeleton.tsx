@@ -14,7 +14,7 @@ import { OWNERSHIP_OPTIONS } from "../constants";
  * Lightweight skeleton displayed while pass options are loading for a card.
  */
 export const PassesFilterCardSkeleton = () => {
-  const { t } = useTranslation("campaign-filters");
+  const { t } = useTranslation("filters");
 
   return (
     <Card className="w-full" padding="default">

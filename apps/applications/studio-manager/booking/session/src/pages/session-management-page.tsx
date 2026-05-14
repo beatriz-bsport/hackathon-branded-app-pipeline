@@ -10,6 +10,7 @@ import { DetailsLoadingPage } from "#src/components/session-details/details-load
 import { BookingDetailDrawer } from "#src/components/session-management/booking-detail-drawer/booking-detail-drawer";
 import { BookingOptionDetailDrawer } from "#src/components/session-management/booking-detail-drawer/booking-option-detail-drawer.js";
 import { Header } from "#src/components/session-management/header";
+import { LivestreamSection } from "#src/components/session-management/livestream-section/livestream-section";
 import { ParticipantsSection } from "#src/components/session-management/participants-section/participants-section";
 import { SessionManagementModals } from "#src/components/session-management/session-management-modals";
 import { FloorPlanBlock } from "#src/components/session-management/session-panel";
@@ -78,6 +79,7 @@ const SessionManagementPageInner: FC = () => {
         />
 
         <DetailsLayout.Content className="flex flex-col gap-xl max-w-none">
+          <LivestreamSection sessionId={session.id} />
           <FloorPlanBlock
             session={{
               id: session.id,
@@ -112,6 +114,7 @@ const SessionManagementPageInner: FC = () => {
       <BookingOptionDetailDrawer
         onClose={() => setSelectedBookingOption(null)}
         selectedBookingOptionId={selectedBookingOptionId}
+        openModal={openModal}
       />
     </>
   );

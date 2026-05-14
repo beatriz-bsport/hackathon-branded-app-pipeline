@@ -22,7 +22,7 @@ export const PassOwnershipField = ({
   value,
   onChange,
 }: PassOwnershipFieldProps) => {
-  const { t } = useTranslation("campaign-filters");
+  const { t } = useTranslation("filters");
 
   const ownershipOptions = [
     {

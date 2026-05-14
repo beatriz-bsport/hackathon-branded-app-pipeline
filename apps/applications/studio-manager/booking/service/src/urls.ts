@@ -1,3 +1,6 @@
+// Cross-vertical URL — no shared export mechanism exists yet. If the calendar URL changes in its vertical, update this too.
+export const CALENDAR_URL = "/calendar";
+
 export const ROUTES = {
   ACTIVE: "classes",
   ARCHIVED: "classes/archived",

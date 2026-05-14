@@ -8,6 +8,7 @@ import {
 import { createDefaultPassesFilter } from "#src/components/filters/passes-filter/default-value";
 import { toCreatePayload } from "#src/components/filters/passes-filter/mappers/form-value-to-create-payload";
 import { PASS_SUB_FILTER_IDS } from "#src/components/filters/passes-filter/sub-filters/pass-sub-filter-id";
+import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 
 vi.mock("#src/utils/i18n", () => ({
   i18nInstance: {
@@ -105,5 +106,21 @@ describe("toCreatePayload", () => {
 
     expect(payload.expiration_date_filter_active).toBe(true);
     expect(payload.expiration_date).toBe("2026-07-01");
+  });
+
+  it("activates credit API fields when the credit sub-filter is selected", () => {
+    const formValue = createDefaultPassesFilter(1);
+    formValue.selectAllPaymentPacks = true;
+    formValue.subFilters = [PASS_SUB_FILTER_IDS.creditLeft];
+    formValue.creditLeft = {
+      operator: NUMERIC_COMPARATOR_OPERATORS.greaterOrEqual,
+      firstValue: 5,
+      secondValue: null,
+    };
+
+    const payload = toCreatePayload(formValue);
+
+    expect(payload.credit_filter_active).toBe(true);
+    expect(payload.credit_value).toBe(5);
   });
 });

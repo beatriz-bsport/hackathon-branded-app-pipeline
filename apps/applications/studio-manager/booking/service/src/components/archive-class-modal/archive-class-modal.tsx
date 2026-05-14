@@ -15,16 +15,27 @@ type Props = {
   open: boolean;
   onClose: () => void;
   classToArchive: { id: number; name: string } | null;
+  onSuccess?: () => void;
 };
 
 type ContentProps = {
   classToArchive: { id: number; name: string };
   onClose: () => void;
+  onSuccess?: () => void;
 };
 
-const ArchiveCheckContent = ({ classToArchive, onClose }: ContentProps) => {
-  const { t } = useTranslation("list");
-  const { mutate: archiveClass } = useArchiveClass({ onSuccess: onClose });
+const ArchiveCheckContent = ({
+  classToArchive,
+  onClose,
+  onSuccess,
+}: ContentProps) => {
+  const { t } = useTranslation("class-actions");
+  const { mutate: archiveClass } = useArchiveClass({
+    onSuccess: () => {
+      onClose();
+      onSuccess?.();
+    },
+  });
 
   const { data: canDestroy } = useSuspenseQuery({
     queryKey: [...groupActivityKeys.detail(classToArchive.id), "can-archive"],
@@ -38,37 +49,44 @@ const ArchiveCheckContent = ({ classToArchive, onClose }: ContentProps) => {
     <Modal
       open
       size="md"
-      title={t("list.archiveModal.title")}
+      title={t("classActions.archiveModal.title", {
+        className: classToArchive.name,
+      })}
       onClose={onClose}
       confirmButton={
         canDestroy
           ? {
-              label: t("list.archiveModal.confirm"),
+              label: t("classActions.archiveModal.confirm"),
               color: "critical",
               onClick: () => archiveClass(classToArchive.id),
             }
           : undefined
       }
       cancelButton={{
-        label: t("list.archiveModal.cancel"),
+        label: t("classActions.archiveModal.cancel"),
         onClick: onClose,
       }}
     >
       <Trans
         i18nKey={
           canDestroy
-            ? "list.archiveModal.modalContent"
-            : "list.archiveModal.cantArchive"
+            ? "classActions.archiveModal.modalContent"
+            : "classActions.archiveModal.cantArchive"
         }
-        ns={getFixedNamespace("list")}
+        ns={getFixedNamespace("class-actions")}
         values={{ className: classToArchive.name }}
       />
     </Modal>
   );
 };
 
-export const ArchiveClassModal = ({ open, onClose, classToArchive }: Props) => {
-  const { t } = useTranslation("list");
+export const ArchiveClassModal = ({
+  open,
+  onClose,
+  classToArchive,
+  onSuccess,
+}: Props) => {
+  const { t } = useTranslation("class-actions");
 
   if (!open || !classToArchive) return null;
 
@@ -78,10 +96,12 @@ export const ArchiveClassModal = ({ open, onClose, classToArchive }: Props) => {
         <Modal
           open
           size="md"
-          title={t("list.archiveModal.title")}
+          title={t("classActions.archiveModal.title", {
+            className: classToArchive.name,
+          })}
           onClose={onClose}
           cancelButton={{
-            label: t("list.archiveModal.cancel"),
+            label: t("classActions.archiveModal.cancel"),
             onClick: onClose,
           }}
         >
@@ -94,25 +114,31 @@ export const ArchiveClassModal = ({ open, onClose, classToArchive }: Props) => {
         <Modal
           open
           size="md"
-          title={t("list.archiveModal.title")}
+          title={t("classActions.archiveModal.title", {
+            className: classToArchive.name,
+          })}
           onClose={onClose}
           confirmButton={{
-            label: t("list.archiveModal.retry"),
+            label: t("classActions.archiveModal.retry"),
             onClick: onRetry,
           }}
           cancelButton={{
-            label: t("list.archiveModal.cancel"),
+            label: t("classActions.archiveModal.cancel"),
             onClick: onClose,
           }}
         >
           <Trans
-            i18nKey="list.archiveModal.checkError"
-            ns={getFixedNamespace("list")}
+            i18nKey="classActions.archiveModal.checkError"
+            ns={getFixedNamespace("class-actions")}
           />
         </Modal>
       )}
     >
-      <ArchiveCheckContent classToArchive={classToArchive} onClose={onClose} />
+      <ArchiveCheckContent
+        classToArchive={classToArchive}
+        onClose={onClose}
+        onSuccess={onSuccess}
+      />
     </QueryBoundary>
   );
 };

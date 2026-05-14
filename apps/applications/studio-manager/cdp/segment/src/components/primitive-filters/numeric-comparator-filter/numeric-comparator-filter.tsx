@@ -129,7 +129,7 @@ export const NumericComparatorFilter = ({
           status={errors?.operator ? "critical" : "default"}
           errorText={errors?.operator}
         />
-        <div className="flex flex-row gap-xs items-center">
+        <div className="flex flex-row gap-xs items-start">
           <TextField
             id={`${id}-first-value`}
             type="number"
@@ -151,7 +151,7 @@ export const NumericComparatorFilter = ({
 
           {isBetween && (
             <>
-              <Body size="sm" color="weak">
+              <Body size="sm" color="weak" className="self-center">
                 {t("filters.numericComparator.fields.and")}
               </Body>
               <TextField

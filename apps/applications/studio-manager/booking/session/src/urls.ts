@@ -65,6 +65,11 @@ export const useUrls = () => {
 
   const navigateToIndex = () => navigate(URLS.INDEX);
 
+  const navigateToEdit = (id: number) => {
+    const url = resolveEditPath(id);
+    navigate(url);
+  };
+
   return {
     navigateToBookingsManagement,
     getBookingsManagementUrl,
@@ -73,5 +78,6 @@ export const useUrls = () => {
     getIndexUrl,
     resolveEditPath,
     navigateToIndex,
+    navigateToEdit,
   };
 };

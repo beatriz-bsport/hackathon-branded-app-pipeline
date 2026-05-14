@@ -282,7 +282,7 @@
             },
             "tooltip": {
               "classpass": "Session visibility on ClassPass and limits can be adjusted directly in your ClassPass partner portal",
-              "wellpass": "Session visibility on Wellpass and limits cannot be managed from Bsport yet; configuration will be available here in a future update."
+              "wellpass": "Session visibility on Wellpass and limits cannot be managed from bsport yet; configuration will be available here in a future update."
             },
             "aggregatorLabel": "Aggregator",
             "enabledAggregators": "Enabled Aggregators",

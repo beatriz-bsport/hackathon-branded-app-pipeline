@@ -21,6 +21,7 @@ type StaffTableProps = {
   isLoading: boolean;
   onClearFilters?: () => void;
   onCreate?: () => void;
+  onRowClick?: (id: number) => void;
 };
 
 export const StaffTable: FC<StaffTableProps> = ({
@@ -31,6 +32,7 @@ export const StaffTable: FC<StaffTableProps> = ({
   isLoading,
   onClearFilters,
   onCreate,
+  onRowClick,
 }) => {
   const { t } = useTranslation("staff-list");
   const columns = useStaffTableColumns();
@@ -70,15 +72,21 @@ export const StaffTable: FC<StaffTableProps> = ({
         isLoading={isLoading}
         emptyConfig={emptyConfig}
         emptySearchConfig={emptySearchConfig}
+        onRowClick={onRowClick}
       />
     );
   }
+
+  const tableRows = rows.map((row) => ({
+    ...row,
+    onRowClick: () => onRowClick?.(row.id),
+  }));
 
   return (
     <Table
       columns={columns}
       rowHeight="lg"
-      rows={rows}
+      rows={tableRows}
       paginationProps={paginationProps}
       emptyStateProps={{
         isEmpty,

@@ -5,6 +5,7 @@ export type RoleRowData = {
   isDefault: boolean;
   permissions: RolePermissionSummary[];
   staffAssignedCount: number;
+  onRowClick?: () => void;
 };
 
 export type RolePermissionSummary = {

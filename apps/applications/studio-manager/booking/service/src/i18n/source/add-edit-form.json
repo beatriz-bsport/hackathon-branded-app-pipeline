@@ -43,10 +43,15 @@
         "description": "This image will be shown to clients on your website and app when browsing classes.",
         "recommendation": "Recommended: 1920 x 1080 JPGs (Full HD)"
       },
+      "altText": {
+        "label": "Image alt text",
+        "placeholder": "E.g. a close-up of a person meditating",
+        "helper": "Help visually impaired understand the cover image. Won't be shown visually."
+      },
       "color": {
-        "label": "Color tag",
+        "label": "Color",
         "placeholder": "No color",
-        "description": "A colour makes this class easier to spot across your calendar and schedule"
+        "description": "A color makes this class easier to spot across your calendar and schedule"
       }
     },
     "bookingWindow": {

@@ -818,7 +818,7 @@
       "null": "wachtlijst"
     },
     "nb_booking": "Aantal beschikbare plaatsen",
-    "fillRate": "Opvulling",
+    "fillRate": "Bezettingsgraad",
     "next": "Volgende:",
     "last": "Vorige:",
     "noBookingOnThisOffer": "Momentel zijn er geen reserveringen om weer te geven voor deze sessie.",

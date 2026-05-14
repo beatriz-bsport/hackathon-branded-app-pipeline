@@ -1,8 +1,31 @@
 {
   "classDetail": {
+    "loading": "Loading class...",
     "tabs": {
       "editor": "Editor",
       "compatiblePasses": "Compatible passes"
+    },
+    "editor": {
+      "toast": "Class edited",
+      "discard": {
+        "title": "Discard changes?",
+        "description": "Are you sure you want to discard your changes?",
+        "confirm": "Discard changes",
+        "keepEditing": "Keep editing",
+        "toast": "Changes discarded"
+      }
+    },
+    "header": {
+      "breadcrumbs": {
+        "active": "Classes",
+        "archived": "Archived classes"
+      },
+      "actions": {
+        "archive": "Archive",
+        "unarchive": "Unarchive",
+        "duplicate": "Duplicate",
+        "scheduleSessions": "Schedule sessions"
+      }
     }
   }
 }

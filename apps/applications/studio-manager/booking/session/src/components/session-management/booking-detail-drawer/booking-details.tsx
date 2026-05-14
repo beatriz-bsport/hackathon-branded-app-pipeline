@@ -20,12 +20,15 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
-import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
+import {
+  type SessionManagementModalParams,
+  SessionManagementModalType,
+} from "#src/hooks/use-session-management-modals";
 import { useFetchUserRole } from "#src/hooks/user-role/use-fetch-user-roles";
 import { RefinedBooking } from "#src/types";
 import { LEGACY_URLS } from "#src/urls";
 import { getMemberInitials } from "#src/utils/get-member-initials";
-import { useTranslation } from "#src/utils/i18n";
+import { Trans, useTranslation } from "#src/utils/i18n";
 import { useObjectLevelPermission } from "#src/utils/permission";
 
 import { ShortcutActionsButton } from "../action-buttons/booking/shortcut-actions-button";
@@ -50,7 +53,10 @@ const getLastCancellationStaffHistoryEntry = (
 
 export const BookingDetails: FC<{
   selectedBooking: RefinedBooking;
-  openModal: (type: SessionManagementModalType, bookingId: number) => void;
+  openModal: (
+    type: SessionManagementModalType,
+    params?: SessionManagementModalParams,
+  ) => void;
 }> = ({ selectedBooking, openModal }) => {
   const { t, i18n } = useTranslation("sessionManagement");
   const locale = i18n.language;
@@ -116,18 +122,19 @@ export const BookingDetails: FC<{
             </Title>
           )}
         </div>
-        {selectedBooking.booking_status_code === BookingStatusCode.OK && (
-          <ShortcutActionsButton
-            bookingId={selectedBooking.id}
-            openModal={openModal}
-            sessionId={selectedBooking.offer}
-            allowedItemIds={[
-              BookingActionItemId.SWAP_SPOT,
-              BookingActionItemId.SWAP_PASS,
-              BookingActionItemId.CANCEL_BOOKING,
-            ]}
-          />
-        )}
+        {selectedBooking.booking_status_code === BookingStatusCode.OK &&
+          !selectedBooking.is_no_show && (
+            <ShortcutActionsButton
+              bookingId={selectedBooking.id}
+              openModal={openModal}
+              sessionId={selectedBooking.offer}
+              allowedItemIds={[
+                BookingActionItemId.SWAP_SPOT,
+                BookingActionItemId.SWAP_PASS,
+                BookingActionItemId.CANCEL_BOOKING,
+              ]}
+            />
+          )}
       </div>
 
       <div className="flex items-center gap-xs">
@@ -150,6 +157,23 @@ export const BookingDetails: FC<{
           />
         )}
       </div>
+      {selectedBooking.is_no_show && (
+        <Alert status="warning" customIcon="coins-02">
+          <Body color="inherit" size="md">
+            <Trans
+              // @ts-expect-error it works at runtime
+              t={t}
+              ns="sessionManagement"
+              i18nKey="participantDetails.noShowAlert"
+            />
+          </Body>
+          {selectedBooking.no_show_penalty_applied && (
+            <Body color="inherit" size="md">
+              {t("participantDetails.penaltyAlert")}
+            </Body>
+          )}
+        </Alert>
+      )}
       {selectedBooking.booking_status_code !== BookingStatusCode.OK && (
         <Alert status="critical">
           <Body color="critical">

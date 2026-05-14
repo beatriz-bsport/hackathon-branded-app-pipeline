@@ -10,7 +10,7 @@ import type { PassesFilterFormValue } from "../../types";
 import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
 import { mapDateFilterType } from "./utils";
 
-const I18N_NAMESPACE = "sm-smartlists_campaign-filters";
+const I18N_NAMESPACE = "sm-smartlists_filters";
 
 /**
  * Zod fragment for the `purchaseDate` slot on the pass filter form.

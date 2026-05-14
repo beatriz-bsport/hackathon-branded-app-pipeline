@@ -25,7 +25,7 @@ export const useDeletePaymentPackFilterMutation = (
       });
       params.onSuccess?.();
     },
-    onError: (error) => params.onError?.(error as Error),
+    onError: (error) => params.onError?.(error),
   });
 
   return {

@@ -14,11 +14,11 @@
       "title": "Email Campaign",
       "continueButtonLabel": "Continue",
       "expectedRecipients": {
-        "label": "Expected Recipients",
+        "label": "Expected recipients",
         "infoLabel": "Information about expected recipients",
         "popover": {
           "title": "How are we calculating this number?",
-          "intro": "This number is an estimate based on the Smartlist and delivery settings at the time of calculation. The final number of recipients may change before the campaign is sent.",
+          "intro": "This number is an estimate based on the segment and delivery settings at the time of calculation. The final number of recipients may change before the campaign is sent.",
           "listIntro": "We calculate this number by excluding:",
           "exclusions": {
             "noValidContact": {
@@ -38,8 +38,8 @@
               "example": "(such as temporary emails created by ClassPass)"
             },
             "smartlistChanges": {
-              "description": "Smartlist changes over time. Members may enter or leave the Smartlist between now and when the campaign is sent",
-              "example": "(e.g. members may enter or leave the Smartlist between now and when the campaign is sent)"
+              "description": "Segment membership changes over time. Members may enter or leave the segment between now and when the campaign is sent",
+              "example": "(e.g. members may enter or leave the segment between now and when the campaign is sent)"
             }
           }
         }
@@ -214,7 +214,7 @@
         "infoLabel": "Information about expected recipients",
         "popover": {
           "title": "How are we calculating this number?",
-          "intro": "This number is an estimate based on the Smartlist and delivery settings at the time of calculation. The final number of recipients may change before the campaign is sent.",
+          "intro": "This number is an estimate based on the segment and delivery settings at the time of calculation. The final number of recipients may change before the campaign is sent.",
           "listIntro": "We calculate this number by excluding:",
           "exclusions": {
             "noValidPhone": {
@@ -230,8 +230,8 @@
               "example": "(e.g. malformed numbers or blocked destinations)"
             },
             "smartlistChanges": {
-              "description": "Smartlist changes over time. Members may enter or leave the Smartlist between now and when the campaign is sent",
-              "example": "(e.g. members may enter or leave the Smartlist between now and when the campaign is sent)"
+              "description": "Segment membership changes over time. Members may enter or leave the segment between now and when the campaign is sent",
+              "example": "(e.g. members may enter or leave the segment between now and when the campaign is sent)"
             }
           }
         }
@@ -292,7 +292,7 @@
       },
       "toasts": {
         "error": {
-          "createFailed": "Smartlist pop-up couldn't be created. Please try again."
+          "createFailed": "Segment pop-up couldn't be created. Please try again."
         },
         "processing": {
           "creatingPopup": "Creating pop-up..."
@@ -305,7 +305,7 @@
       "alertMessage": "Only members who have downloaded your studio app will receive this notification.",
       "toasts": {
         "error": {
-          "editFailed": "Smartlist pop-up changes couldn't be saved. Please try again."
+          "editFailed": "Segment pop-up changes couldn't be saved. Please try again."
         },
         "processing": {
           "editingPopup": "Saving pop-up changes..."
@@ -332,7 +332,7 @@
     "addOnChip": "Add-on",
     "email": {
       "title": "Email",
-      "description": "Send a targeted email message to your smartlist"
+      "description": "Send a targeted email message to your segment"
     },
     "sms": {
       "title": "SMS",
@@ -425,7 +425,7 @@
     "campaignScheduled": {
       "deleteModal": {
         "title": "Delete scheduled campaign?",
-        "description": "This will permanently delete this campaign. The scheduled email will be canceled and will not be sent to the recipients.",
+        "description": "This will permanently delete this campaign. The scheduled message will be canceled and will not be sent to recipients.",
         "warning": "Heads up: this change is permanent and cannot be undone.",
         "cannotDeleteWithin5Min": "This campaign is scheduled to be sent in less than 5 minutes. It can no longer be deleted.",
         "buttons": {
@@ -452,7 +452,7 @@
       },
       "recipientsList": {
         "title": "Recipients",
-        "description": "This list shows members who currently match your Smartlist. If the Smartlist changes before sending, the final list of recipients will be updated automatically."
+        "description": "This list shows members who currently match your segment. If the segment changes before sending, the final list of recipients will be updated automatically."
       },
       "headers": {
         "scheduledDate": "Scheduled",
@@ -547,7 +547,7 @@
         "subtitle": "",
         "subtitle_one": "{{count}} unsubscribed from this email",
         "subtitle_other": "{{count}} unsubscribed from this email",
-        "subtitle_zero": "No unsubscribed from this email"
+        "subtitle_zero": "No one unsubscribed from this email"
       },
       "clickPerformance": {
         "empty": "No click performance data available",

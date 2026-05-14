@@ -36,6 +36,7 @@ export type Urls = {
   marketingNotification: string;
   smartfill: string;
   emailTemplate: string;
+  segment: string;
   smartlist: string;
   audience: string;
   promotion: string;

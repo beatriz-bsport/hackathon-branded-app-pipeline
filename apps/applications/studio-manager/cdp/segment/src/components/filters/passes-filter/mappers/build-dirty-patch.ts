@@ -1,5 +1,7 @@
 import type { FieldNamesMarkedBoolean } from "react-hook-form";
 
+import { isDirtyFieldEntry } from "#src/components/filters/shared/dirty-fields";
+
 import { OWNERSHIP_OPTIONS } from "../constants";
 import { REGISTERED_PASS_SUB_FILTERS } from "../sub-filters/registry";
 import type { DirtyPatchPayload, PassesFilterFormValue } from "../types";
@@ -7,16 +9,6 @@ import type { DirtyPatchPayload, PassesFilterFormValue } from "../types";
 type PassesFilterDirtyFields = Partial<
   Readonly<FieldNamesMarkedBoolean<PassesFilterFormValue>>
 >;
-
-const isDirty = (entry: unknown): boolean => {
-  if (entry === undefined || entry === null || entry === false) {
-    return false;
-  }
-  if (Array.isArray(entry)) {
-    return entry.length > 0;
-  }
-  return true;
-};
 
 /**
  * Builds a `PATCH /payment_pack/{id}/` payload from React Hook Form's
@@ -35,13 +27,17 @@ export const buildDirtyPatchPayload = (
 ): DirtyPatchPayload => {
   const payload: DirtyPatchPayload = {};
 
-  if (isDirty(dirtyFields.ownership)) {
+  if (isDirtyFieldEntry(dirtyFields.ownership)) {
     payload.has_pack = value.ownership === OWNERSHIP_OPTIONS.own;
   }
-  if (isDirty(dirtyFields.selectAllPaymentPacks)) {
+  if (isDirtyFieldEntry(dirtyFields.selectAllPaymentPacks)) {
     payload.select_all_payment_packs = value.selectAllPaymentPacks;
   }
-  if (isDirty(dirtyFields.selectedPaymentPackIds)) {
+  if (
+    isDirtyFieldEntry(dirtyFields.selectedPaymentPackIds) ||
+    (Array.isArray(dirtyFields.selectedPaymentPackIds) &&
+      dirtyFields.selectedPaymentPackIds.length === 0)
+  ) {
     payload.payment_packs = value.selectedPaymentPackIds;
   }
 

@@ -614,7 +614,7 @@
         "phoneTaken": "Dit telefoonnummer wordt al gebruikt door een ander lid",
         "emailTaken": "Het email adres is al in gebruik, u kunt inloggen met dit email adres",
         "passwordConfirmation": "Wachtwoorden moeten overeenkomen",
-        "passwordMinimumRequirements": "Je wachtwoord moet minstens 6 tekens lang zijn en mag geen spaties bevatten"
+        "passwordMinimumRequirements": "Je wachtwoord moet minstens 12 tekens lang zijn en mag geen spaties bevatten"
       },
       "button": {
         "label": "Inschrijven"

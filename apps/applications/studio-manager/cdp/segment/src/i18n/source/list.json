@@ -1,32 +1,32 @@
 {
-  "title": "Smartlists",
-  "addSmartlist": "Create Smartlist",
-  "loading": "Loading Smartlists...",
-  "search": "Search Smartlists",
+  "title": "Segments",
+  "addSmartlist": "Create Segment",
+  "loading": "Loading segments...",
+  "search": "Search segments",
   "emptyState": {
-    "title": "No Smartlists yet",
-    "subtitle": "Create your first Smartlist to segment clients with tags, send targeted messages and track engagement."
+    "title": "No segments yet",
+    "subtitle": "Create your first segment to group members with tags, send targeted messages and track engagement."
   },
   "emptySearch": {
-    "title": "No Smartlists found",
+    "title": "No segments found",
     "subtitle": "Try clearing filters to see more results",
     "clearFilters": "Clear filters"
   },
   "duplicateModal": {
-    "title": "Duplicate Smartlist?",
-    "description": "You'll be able to edit <b>{{name}}</b> after",
+    "title": "Duplicate segment?",
+    "description": "You'll be able to edit <b>{{name}}</b> after it's duplicated.",
     "buttons": {
       "duplicate": "Duplicate",
       "cancel": "Close"
     }
   },
   "deleteModal": {
-    "title": "Delete Smartlist?",
+    "title": "Delete segment?",
     "description": "Once you delete <b>{{name}}</b>, any scheduled messages or automatic tagging will no longer run. Previously tagged members won't be affected.",
     "warning": "Heads up: this change is permanent and cannot be undone",
-    "audienceWarning": "Smartlists used in Audience workflows can't be deleted. ",
-    "cannotBeDeleted": "This Smartlist is currently being used in Audience workflows and can't be deleted on this page.",
-    "audienceCallToAction": "To delete this Smartlist, go to Audience and remove it from associated workflows.",
+    "audienceWarning": "Segments used in Audience workflows can't be deleted. ",
+    "cannotBeDeleted": "This segment is currently being used in Audience workflows and can't be deleted on this page.",
+    "audienceCallToAction": "To delete this segment, go to Audience and remove it from associated workflows.",
     "buttons": {
       "delete": "Delete",
       "cancel": "Keep"
@@ -34,29 +34,29 @@
   },
   "toasts": {
     "success": {
-      "duplicated": "Smartlist duplicated",
+      "duplicated": "Segment duplicated",
       "open": "Open",
-      "saved": "Smartlist updated",
-      "deleted": "Smartlist deleted",
+      "saved": "Segment updated",
+      "deleted": "Segment deleted",
       "undo": "Undo",
       "actionUndone": "Change undone"
     },
     "error": {
-      "duplicateFailed": "Smartlist couldn't be duplicated. Please try again. ",
-      "updateFailed": "Smartlist couldn't be updated. Please try again. ",
-      "createFailed": "Smartlist couldn't be created. Please try again. ",
-      "deleteFailed": "Smartlist couldn't be deleted. Please try again. ",
+      "duplicateFailed": "Segment couldn't be duplicated. Please try again. ",
+      "updateFailed": "Segment couldn't be updated. Please try again. ",
+      "createFailed": "Segment couldn't be created. Please try again. ",
+      "deleteFailed": "Segment couldn't be deleted. Please try again. ",
       "deleteError": {
-        "101000": "Smartlist couldn't be duplicated. Please try again.",
-        "101001": "Smartlist couldn't be deleted as it's currently used in active communications. Please remove it from communications, or contact support for help. ",
-        "101002": "Smartlist couldn't be deleted because it's being used in active Audience workflows. Please go to the Audience page to remove it from the associated workflow. "
+        "101000": "Segment couldn't be deleted. Please try again.",
+        "101001": "Segment couldn't be deleted as it's currently used in active communications. Please remove it from communications, or contact support for help. ",
+        "101002": "Segment couldn't be deleted because it's being used in active Audience workflows. Please go to the Audience page to remove it from the associated workflow. "
       }
     }
   },
   "inlineActions": {
-    "duplicate": "Duplicate Smartlist",
+    "duplicate": "Duplicate segment",
     "edit": "Edit",
-    "delete": "Delete Smartlist"
+    "delete": "Delete segment"
   },
   "dropdownActions": {
     "duplicate": "Duplicate",
@@ -64,7 +64,7 @@
     "delete": "Delete"
   },
   "createForm": {
-    "title": "Create Smartlist",
+    "title": "Create Segment",
     "actions": {
       "create": "Create",
       "cancel": "Close"
@@ -75,7 +75,7 @@
       "name": {
         "label": "Name",
         "placeholder": "e.g. Clients who paid via Stripe",
-        "required": "Give your Smartlist a name so you can find it later",
+        "required": "Give your segment a name so you can find it later",
         "maxLength": "Name must be under 200 characters"
       },
       "description": {
@@ -88,7 +88,7 @@
       "cancel": "Close"
     },
     "title": {
-      "edit": "Edit Smartlist"
+      "edit": "Edit segment"
     }
   }
 }

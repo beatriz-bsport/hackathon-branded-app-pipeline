@@ -27,6 +27,7 @@ declare module "sm-navigation-sidebar/urls" {
     playlist: string;
     smartfill: string;
     smartlist: string;
+    segment: string;
     teacher: string;
     settings_teacherView: string;
     video: string;

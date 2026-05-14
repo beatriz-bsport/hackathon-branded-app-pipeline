@@ -6,16 +6,17 @@ import { ControlledForm, useFormController } from "@bsport/form";
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 
 import { useCreateMyclubsAccount } from "#src/features/myclubs/hooks/use-create-myclubs-account";
+import { EstablishmentField } from "#src/features/partnership-aggregator/components/establishment-field";
+import { SelectedEstablishmentsList } from "#src/features/partnership-aggregator/components/selected-establishments-list";
+import { useAggregatorAccounts } from "#src/features/partnership-aggregator/hooks/use-aggregator-accounts";
 import { useTranslation } from "#src/utils/i18n";
 
-import { MyclubsEstablishmentField } from "./myclubs-establishment-field";
 import { MyclubsSuccessStep } from "./myclubs-success-step";
 import {
   DEFAULT_FORM_DATA,
   type MyclubsFormSchema,
   useMyclubsFormSchema,
 } from "./schema";
-import { SelectedEstablishmentsList } from "./selected-establishments-list";
 
 type Props = {
   isOpen: boolean;
@@ -24,7 +25,6 @@ type Props = {
   account?: PartnershipAccount;
   partnershipId: number;
   establishments: Establishment[];
-  disabledEstablishmentIds: Set<number>;
   onEditSubmit?: (values: MyclubsFormSchema) => Promise<void> | void;
   isExternalSubmitting?: boolean;
 };
@@ -36,16 +36,29 @@ export const MyclubsConfigurationModal = ({
   account,
   partnershipId,
   establishments,
-  disabledEstablishmentIds,
   onEditSubmit,
   isExternalSubmitting = false,
 }: Props) => {
   const { t } = useTranslation("common");
   const schema = useMyclubsFormSchema();
+
+  // Establishments already owned by other accounts are greyed out to prevent cross-account conflicts
+  const { data: accounts } = useAggregatorAccounts(partnershipId);
+  const allLinkedIds = new Set(
+    accounts.flatMap((a) => a.establishments.map((e) => e.id)),
+  );
+  const disabledEstablishmentIds: Set<number> =
+    mode === "edit" && account
+      ? new Set(
+          [...allLinkedIds].filter(
+            (id) => !account.establishments.some((e) => e.id === id),
+          ),
+        )
+      : allLinkedIds;
+
   const formId = `myclubs-form-${useId()}`;
   const [createdAccount, setCreatedAccount] =
     useState<PartnershipAccount | null>(null);
-
   const isSuccessStep = mode === "create" && createdAccount !== null;
 
   const defaultValues = useMemo<MyclubsFormSchema>(
@@ -69,12 +82,10 @@ export const MyclubsConfigurationModal = ({
     schema,
     defaultValues,
   });
-
   const { isDirty, isValid, isSubmitting } = methods.formState;
 
   const { mutateAsync: createAccount, isPending: isCreating } =
     useCreateMyclubsAccount(partnershipId);
-
   const isMutationPending = isCreating || isExternalSubmitting;
 
   useEffect(() => {
@@ -106,10 +117,7 @@ export const MyclubsConfigurationModal = ({
       await handleCreateSubmit(data);
       return;
     }
-
-    if (onEditSubmit) {
-      await onEditSubmit(data);
-    }
+    if (onEditSubmit) await onEditSubmit(data);
   };
 
   const title = isSuccessStep
@@ -162,7 +170,9 @@ export const MyclubsConfigurationModal = ({
           <Body size="md" color="weak">
             {t("myclubs.modal.helper")}
           </Body>
-          <MyclubsEstablishmentField
+          <EstablishmentField
+            label={t("myclubs.form.fields.establishments.label")}
+            placeholder={t("myclubs.form.fields.establishments.placeholder")}
             establishments={establishments}
             disabledEstablishmentIds={disabledEstablishmentIds}
             fieldIdPrefix={formId}
@@ -170,6 +180,7 @@ export const MyclubsConfigurationModal = ({
             selectorKey={selectorKey}
           />
           <SelectedEstablishmentsList
+            namespace="myclubs"
             selectedIds={selectedIds}
             establishments={establishments}
             onRemove={(id) => {

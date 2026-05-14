@@ -1,4 +1,5 @@
 export * from "./booking";
+export * from "./partnership";
 export * from "./private-booking";
 export * from "./session";
 export * from "./group-activity";

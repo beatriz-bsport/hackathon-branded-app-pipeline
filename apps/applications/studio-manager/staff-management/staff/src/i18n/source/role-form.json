@@ -1,0 +1,21 @@
+{
+  "title": "Create a role",
+  "steps": {
+    "roleSetup": {
+      "label": "Role setup",
+      "placeholder": "Role setup will be configured here."
+    },
+    "navigationPermissions": {
+      "label": "Navigation permissions",
+      "placeholder": "Navigation permissions will be selected here."
+    },
+    "featurePermissions": {
+      "label": "Feature permissions",
+      "placeholder": "Feature permissions will be selected here."
+    }
+  },
+  "buttons": {
+    "confirm": "Create role",
+    "cancel": "Cancel"
+  }
+}

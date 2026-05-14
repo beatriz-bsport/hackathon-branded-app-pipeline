@@ -1,0 +1,123 @@
+{
+  "filterManager": {
+    "loading": "Loading segment filters...",
+    "loadError": "Failed to load filters. Please refresh the page."
+  },
+  "filterSelector": {
+    "actions": {
+      "addFilter": "Add filter"
+    },
+    "fields": {
+      "searchPlaceholder": "Search"
+    },
+    "empty": {
+      "noResults": "No results found"
+    },
+    "categories": {
+      "PASSES": "PASSES",
+      "BOOKINGS": "BOOKINGS"
+    },
+    "options": {
+      "passes": {
+        "description": "Filter by ownership of a selected pass."
+      },
+      "totalBookingNumber": {
+        "description": "Filter by total number of bookings."
+      }
+    }
+  },
+  "filters": {
+    "19": {
+      "title": "Pass Ownership",
+      "ownership": {
+        "label": "Filter for profiles that:",
+        "own": "Own",
+        "doesNotOwn": "Doesn't own"
+      },
+      "actions": {
+        "deleteFilter": "Delete pass filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
+        "save": "Save filter",
+        "addFilter": "Add pass filter"
+      },
+      "fields": {
+        "searchPlaceholder": "Search for a Pass",
+        "emptySelection": "Select Passes to start filtering",
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "unlimitedCredits": "Unlimited credits",
+        "creditsSuffix": "Credits"
+      },
+      "subFilters": {
+        "expirationDate": "Expiration date",
+        "purchaseDate": "Pass purchase date",
+        "creditLeft": "Pass credits",
+        "creditLeftInfoLabel": "Pass credits filter information",
+        "creditLeftInfoContent": "Credit filters don't apply to unlimited passes",
+        "creditsDisplay": "",
+        "creditsDisplay_one": "Filtered on {{count}} credits",
+        "creditsDisplay_other": "Filtered on {{count}} credits",
+        "creditsRangeDisplay": "",
+        "creditsRangeDisplay_one": "Filtered between {{count}} and {{secondCount}} credits",
+        "creditsRangeDisplay_other": "Filtered between {{count}} and {{secondCount}} credits"
+      },
+      "toasts": {
+        "saveError": "Unable to save pass filter.",
+        "deleteError": "Unable to delete pass filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "selectedPassesRequired": "Select at least one pass or use all passes.",
+        "purchaseDateRequired": "Select a purchase date.",
+        "purchaseDateBetweenRequired": "Select both dates for the between range.",
+        "purchaseDateDurationRequired": "Enter a number of days.",
+        "purchaseDateDurationBetweenRequired": "Enter both day values for the between range.",
+        "expirationDateRequired": "Select an expiration date.",
+        "expirationDateBetweenRequired": "Select both dates for the between range.",
+        "expirationDateDurationRequired": "Enter a number of days.",
+        "expirationDateDurationBetweenRequired": "Enter both day values for the between range.",
+        "creditValueRequired": "Credit value is required.",
+        "creditSecondValueRequired": "Second credit value is required for range comparator."
+      }
+    },
+    "22": {
+      "title": "Total Bookings",
+      "types": {
+        "lowerOrEqual": "Less than or equal to",
+        "greaterOrEqual": "Greater than or equal to",
+        "equal": "Equal to"
+      },
+      "actions": {
+        "deleteFilter": "Delete booking filter",
+        "save": "Apply filter",
+        "addFilter": "Add booking filter"
+      },
+      "fields": {
+        "totalSessionSuffix": "Total Session"
+      },
+      "toasts": {
+        "saveError": "Unable to save booking filter.",
+        "deleteError": "Unable to delete booking filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueRequired": "Booking number must be 0 or higher.",
+        "secondValueRequired": "Second booking number is required for range comparator.",
+        "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one."
+      }
+    }
+  },
+  "itemsSearch": {
+    "fields": {
+      "searchPlaceholder": "Search"
+    },
+    "empty": {
+      "search": "No results found",
+      "selection": "Select items to start filtering"
+    },
+    "actions": {
+      "remove": "Remove",
+      "selectAllFiltered": "Select all filtered results ({{count}})"
+    }
+  }
+}

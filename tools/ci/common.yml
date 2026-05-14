@@ -1,9 +1,9 @@
 .pnpm-setup:
   before_script:
-    - pnpm_version=$(grep pnpm_version .npmrc | cut -d '=' -f 2)
     - npm install --global corepack@latest
     - corepack enable
-    - corepack prepare pnpm@$pnpm_version --activate
+    - corepack install
+    - pnpm --version
     - pnpm store path
     - echo "*"
     - echo "⏳ Install node modules and deps with pnpm..."

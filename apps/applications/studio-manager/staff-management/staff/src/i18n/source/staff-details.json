@@ -1,0 +1,7 @@
+{
+  "ownerRoleProtected": "Owner role cannot be changed.",
+  "submitResponse": {
+    "success": "Staff member updated",
+    "error": "Failed to update staff member"
+  }
+}

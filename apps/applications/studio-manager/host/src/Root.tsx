@@ -1,5 +1,5 @@
 import { type ReactNode, lazy, useEffect } from "react";
-import { Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import {
   REVAMP_URLS_DEVELOPMENT,
   REVAMP_URLS_PRODUCTION,
@@ -49,7 +49,7 @@ const Payout = lazy(() => import("@bsport/sm-payout"));
 // ----- Customer Data Platform -----
 const EmailTemplate = lazy(() => import("@bsport/sm-email-template"));
 const Smartfill = lazy(() => import("@bsport/sm-smartfill"));
-const Smartlists = lazy(() => import("@bsport/sm-segment"));
+const Segment = lazy(() => import("@bsport/sm-segment"));
 const CustomForm = lazy(() => import("@bsport/sm-custom-form"));
 const ReferralProgram = lazy(() => import("@bsport/sm-referral-program"));
 const Tag = lazy(() => import("@bsport/sm-tag"));
@@ -290,7 +290,8 @@ const AuthenticatedRoutes = () => {
       element: <ReferralProgram />,
     },
     { url: urls.smartfill, element: <Smartfill /> },
-    { url: urls.smartlist, element: <Smartlists /> },
+    { url: urls.segment, element: <Segment /> },
+    { url: urls.smartlist, element: <RedirectToSegment /> },
     { url: urls.tag, element: <Tag /> },
     {
       url: urls.settings_transactionalNotification,
@@ -344,3 +345,19 @@ const AuthenticatedRoutes = () => {
     </Routes>
   );
 };
+
+function RedirectToSegment() {
+  const location = useLocation();
+  const urls =
+    env === "staging" || env === "production"
+      ? REVAMP_URLS_PRODUCTION
+      : REVAMP_URLS_DEVELOPMENT;
+  if (!urls.segment) return;
+
+  return (
+    <Navigate
+      replace
+      to={`${location.pathname.replace(/^\/smartlist(?=\/|$)/, urls.segment)}${location.search}${location.hash}`}
+    />
+  );
+}

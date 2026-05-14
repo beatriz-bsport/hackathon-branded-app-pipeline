@@ -24,6 +24,8 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "preview": "vite preview --mode preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
@@ -45,6 +47,7 @@
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-library": "workspace:*",
+    "@bsport/config-vitest": "workspace:*",
     "@tanstack/react-query-devtools": "^5.90.12",
     "@types/luxon": "^3.4.2",
     "autoprefixer": "^10.4.20",

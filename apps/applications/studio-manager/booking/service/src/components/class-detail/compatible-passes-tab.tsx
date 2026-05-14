@@ -1,12 +1,13 @@
-import { type FC } from "react";
+import { type FC, useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 
-import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { List, useEmptyState } from "@bsport/kaizen-primitive-core";
 
+import { CompatiblePassDetailDrawer } from "#src/components/class-detail/compatible-pass-detail-drawer";
 import { PassFlagChips } from "#src/components/class-detail/pass-flag-chips";
 import { useCompatiblePasses } from "#src/hooks/use-compatible-passes";
 import { PASSES_URL } from "#src/urls";
+import { formatPassPrice } from "#src/utils/compatible-passes";
 import { useTranslation } from "#src/utils/i18n";
 
 type CompatiblePassesTabProps = {
@@ -20,6 +21,13 @@ export const CompatiblePassesTab: FC<CompatiblePassesTabProps> = ({
   const navigate = useNavigate();
   const { groups, count, archivedPasses, archivedCount } =
     useCompatiblePasses(metaActivityId);
+
+  const [selectedPassId, setSelectedPassId] = useState<number | null>(null);
+
+  // ordered list of all non-archived passes across groups — drives drawer up/down nav
+  const flatPasses = useMemo(() => groups.flatMap((g) => g.passes), [groups]);
+
+  const freeLabel = t("classDetail.compatiblePasses.panel.free");
 
   const { EmptyState, shouldRenderEmptyState } = useEmptyState({
     isEmpty: count === 0,
@@ -54,12 +62,10 @@ export const CompatiblePassesTab: FC<CompatiblePassesTabProps> = ({
             items={passes.map((pass) => ({
               id: String(pass.id),
               title: pass.name,
-              description: getCurrencyDisplayWithPrice(
-                typeof pass.price === "number"
-                  ? pass.price
-                  : pass.price.parsedValue,
-              ),
+              description: formatPassPrice(pass.price, freeLabel),
               customNode: <PassFlagChips pass={pass} />,
+              selected: pass.id === selectedPassId ? "selected" : "unselected",
+              onItemClick: () => setSelectedPassId(pass.id),
             }))}
           />
         );
@@ -76,15 +82,16 @@ export const CompatiblePassesTab: FC<CompatiblePassesTabProps> = ({
           items={archivedPasses.map((pass) => ({
             id: String(pass.id),
             title: pass.name,
-            description: getCurrencyDisplayWithPrice(
-              typeof pass.price === "number"
-                ? pass.price
-                : pass.price.parsedValue,
-            ),
+            description: formatPassPrice(pass.price, freeLabel),
             customNode: <PassFlagChips pass={pass} />,
           }))}
         />
       )}
+      <CompatiblePassDetailDrawer
+        passes={flatPasses}
+        selectedPassId={selectedPassId}
+        onSelect={setSelectedPassId}
+      />
     </div>
   );
 };

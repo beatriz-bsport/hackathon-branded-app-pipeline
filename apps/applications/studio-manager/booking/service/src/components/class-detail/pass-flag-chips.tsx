@@ -2,14 +2,8 @@ import { type FC } from "react";
 
 import { Chip, type IconName } from "@bsport/kaizen-primitive-core";
 
+import type { PassFlags } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
-
-type PassFlags = {
-  linked_private_pass: number | null;
-  manager_only: boolean;
-  is_usable_by_staff: boolean;
-  new_member_only: boolean;
-};
 
 type PassFlagChipsProps = {
   pass: PassFlags;

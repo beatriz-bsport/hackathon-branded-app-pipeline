@@ -22,6 +22,25 @@
         "unlisted": "Unlisted",
         "staffRestricted": "Staff-restricted",
         "newMembersOnly": "New members only"
+      },
+      "panel": {
+        "previous": "Previous pass",
+        "next": "Next pass",
+        "goToPass": "Go to pass",
+        "properties": "Properties",
+        "credits": "Credits",
+        "creditsCount": "{{count}} credit",
+        "creditsCount_other": "{{count}} credits",
+        "creditsUnlimited": "Unlimited",
+        "compatibility": "Compatibility",
+        "free": "Free",
+        "compatibilityAll": "All services - All locations",
+        "compatibilityAllServices": "All services",
+        "compatibilityAllLocations": "All locations",
+        "compatibilityCategories": "Categories",
+        "compatibilityServices": "Services",
+        "compatibilityLocations": "Locations",
+        "offPeakOnly": "Off-peak only"
       }
     },
     "editor": {

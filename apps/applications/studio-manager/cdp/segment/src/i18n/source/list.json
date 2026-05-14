@@ -1,5 +1,12 @@
 {
   "title": "Segments",
+  "tabs": {
+    "prebuilt": "Prebuilt",
+    "custom": "Custom"
+  },
+  "prebuilt": {
+    "placeholder": "Prebuilt segments coming soon."
+  },
   "addSmartlist": "Create Segment",
   "loading": "Loading segments...",
   "search": "Search segments",

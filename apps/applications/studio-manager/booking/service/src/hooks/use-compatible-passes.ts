@@ -3,7 +3,6 @@ import { useEffect, useMemo } from "react";
 
 import {
   type Pass,
-  type PassCategory,
   passCategoriesInfiniteQueryOptions,
   passesInfiniteQueryOptions,
 } from "@bsport/api-buyables";
@@ -12,21 +11,24 @@ import {
   COMPATIBLE_PASSES_CATEGORIES_PAGE_SIZE,
   COMPATIBLE_PASSES_PAGE_SIZE,
 } from "#src/hooks/constants";
+import type { CompatiblePass, CompatiblePassGroup } from "#src/types";
 import { fetch } from "#src/utils/fetch";
 
-export type CompatiblePassGroup = {
-  category: PassCategory | null;
-  passes: Pick<
-    Pass,
-    | "id"
-    | "name"
-    | "price"
-    | "manager_only"
-    | "new_member_only"
-    | "linked_private_pass"
-    | "is_usable_by_staff"
-  >[];
-};
+const toCompatiblePass = (pass: Pass): CompatiblePass => ({
+  id: pass.id,
+  name: pass.name,
+  price: pass.price,
+  manager_only: pass.manager_only,
+  new_member_only: pass.new_member_only,
+  linked_private_pass: pass.linked_private_pass,
+  is_usable_by_staff: pass.is_usable_by_staff,
+  credits: pass.credits,
+  unlimited: pass.unlimited,
+  SCTs: pass.SCTs,
+  metaActivities: pass.metaActivities,
+  establishments: pass.establishments,
+  off_peak_schedule: pass.off_peak_schedule,
+});
 
 export const useCompatiblePasses = (metaActivityId: number) => {
   const {
@@ -114,36 +116,34 @@ export const useCompatiblePasses = (metaActivityId: number) => {
 
     const categories = categoriesData?.pages.flatMap((p) => p.results) ?? [];
 
-    const buckets = new Map<number | null, CompatiblePassGroup["passes"]>();
+    const passesByCategory = new Map<
+      number | null,
+      CompatiblePassGroup["passes"]
+    >();
 
     for (const pass of passes) {
       const key = pass.category ?? null;
-      if (!buckets.has(key)) buckets.set(key, []);
-      buckets.get(key)!.push({
-        id: pass.id,
-        name: pass.name,
-        price: pass.price,
-        manager_only: pass.manager_only,
-        new_member_only: pass.new_member_only,
-        linked_private_pass: pass.linked_private_pass,
-        is_usable_by_staff: pass.is_usable_by_staff,
-      });
+      if (!passesByCategory.has(key)) passesByCategory.set(key, []);
+      passesByCategory.get(key)!.push(toCompatiblePass(pass));
     }
 
     const categorized = categories
-      .filter((c) => buckets.has(c.id))
+      .filter((c) => passesByCategory.has(c.id))
       .sort((a, b) => a.category_ordering - b.category_ordering)
       .map((c) => ({
         category: c,
-        passes: buckets.get(c.id)!,
+        passes: passesByCategory.get(c.id)!,
       }));
 
     const categorizedIds = new Set(categorized.map((g) => g.category.id));
-    const orphanPasses = [...buckets.entries()]
+    const orphanPasses = [...passesByCategory.entries()]
       .filter(([id]) => id !== null && !categorizedIds.has(id as number))
       .flatMap(([, p]) => p);
 
-    const uncategorized = [...(buckets.get(null) ?? []), ...orphanPasses];
+    const uncategorized = [
+      ...(passesByCategory.get(null) ?? []),
+      ...orphanPasses,
+    ];
 
     return uncategorized.length
       ? [...categorized, { category: null, passes: uncategorized }]
@@ -152,17 +152,7 @@ export const useCompatiblePasses = (metaActivityId: number) => {
 
   const archivedPasses = useMemo(
     () =>
-      archivedData?.pages
-        .flatMap((p) => p.results)
-        .map((p) => ({
-          id: p.id,
-          name: p.name,
-          price: p.price,
-          manager_only: p.manager_only,
-          new_member_only: p.new_member_only,
-          linked_private_pass: p.linked_private_pass,
-          is_usable_by_staff: p.is_usable_by_staff,
-        })) ?? [],
+      archivedData?.pages.flatMap((p) => p.results).map(toCompatiblePass) ?? [],
     [archivedData],
   );
 

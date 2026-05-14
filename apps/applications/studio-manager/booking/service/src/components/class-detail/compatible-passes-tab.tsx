@@ -19,8 +19,7 @@ export const CompatiblePassesTab: FC<CompatiblePassesTabProps> = ({
 }) => {
   const { t } = useTranslation("class-detail");
   const navigate = useNavigate();
-  const { groups, count, archivedPasses, archivedCount } =
-    useCompatiblePasses(metaActivityId);
+  const { groups, count } = useCompatiblePasses(metaActivityId);
 
   const [selectedPassId, setSelectedPassId] = useState<number | null>(null);
 
@@ -70,23 +69,6 @@ export const CompatiblePassesTab: FC<CompatiblePassesTabProps> = ({
           />
         );
       })}
-      {archivedCount > 0 && (
-        <List
-          id="compatible-passes-archived"
-          header={{
-            id: "compatible-passes-archived-header",
-            title: `${t("classDetail.compatiblePasses.archived.title")} (${archivedCount})`,
-            description: t("classDetail.compatiblePasses.archived.description"),
-          }}
-          collapsibleProps={{ initiallyOpen: false }}
-          items={archivedPasses.map((pass) => ({
-            id: String(pass.id),
-            title: pass.name,
-            description: formatPassPrice(pass.price, freeLabel),
-            customNode: <PassFlagChips pass={pass} />,
-          }))}
-        />
-      )}
       <CompatiblePassDetailDrawer
         passes={flatPasses}
         selectedPassId={selectedPassId}

@@ -1054,7 +1054,7 @@
     }
   },
   "signup": {
-    "emailAlreadyExists": "Este e-mail já está a ser utilizado",
+    "emailAlreadyExists": "Este e-mail já está em uso. Você pode tê-lo usado para se inscrever noutro estúdio. Inicie sessão ou reponha a sua palavra-passe para continuar.",
     "failedCreation": "Não é possível criar a sua conta neste momento, tente novamente dentro de alguns minutos",
     "changeWorkspaceError": "Ocorreu um erro ao alterar a conta"
   },

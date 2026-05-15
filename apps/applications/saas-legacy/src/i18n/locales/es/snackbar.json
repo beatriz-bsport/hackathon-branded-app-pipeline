@@ -830,7 +830,7 @@
     }
   },
   "signup": {
-    "emailAlreadyExists": "Este correo electrónico ya está usado",
+    "emailAlreadyExists": "Este correo electrónico ya está en uso. Puede que lo hayas usado para registrarte en otro estudio. Inicia sesión o restablece tu contraseña para continuar.",
     "failedCreation": "No es posible crear su cuenta en este momento, por favor inténtelo de nuevo en unos minutos",
     "changeWorkspaceError": "Se ha producido un error en el cambio de cuenta"
   },

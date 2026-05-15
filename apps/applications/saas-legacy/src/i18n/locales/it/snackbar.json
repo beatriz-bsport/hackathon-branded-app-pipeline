@@ -770,7 +770,7 @@
   },
   "signup": {
     "failedCreation": "Impossibile creare il tuo account al momento, riprova tra qualche minuto",
-    "emailAlreadyExists": "Questa email è già usata",
+    "emailAlreadyExists": "Questa email è già in uso. Potresti averla usata per registrarti in un altro studio. Accedi o reimposta la password per continuare.",
     "changeWorkspaceError": "Si è verificato un errore nella modifica dell'account"
   },
   "paymentMethod": {

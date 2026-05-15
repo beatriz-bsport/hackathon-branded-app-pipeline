@@ -17,7 +17,13 @@
         "universal": "Universal",
         "unlisted": "Unlisted",
         "staffRestricted": "Staff-restricted",
-        "newMembersOnly": "New members only"
+        "newMembersOnly": "New members only",
+        "tooltips": {
+          "universal": "Shared credits for classes and appointments",
+          "unlisted": "Hidden from members. Staff-only sale",
+          "staffRestricted": "Staff can't sell manually. Online only",
+          "newMembersOnly": "Can only be purchased by members with no prior purchase history"
+        }
       },
       "panel": {
         "previous": "Previous pass",

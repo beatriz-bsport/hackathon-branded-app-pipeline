@@ -1,6 +1,6 @@
 import { type FC } from "react";
 
-import { Chip, type IconName } from "@bsport/kaizen-primitive-core";
+import { Chip, type IconName, Tooltip } from "@bsport/kaizen-primitive-core";
 
 import type { PassFlags } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
@@ -9,7 +9,7 @@ type PassFlagChipsProps = {
   pass: PassFlags;
 };
 
-type ChipDef = { label: string; iconLeft: IconName };
+type ChipDef = { label: string; iconLeft: IconName; tooltip: string };
 
 export const PassFlagChips: FC<PassFlagChipsProps> = ({ pass }) => {
   const { t } = useTranslation("class-detail");
@@ -20,21 +20,25 @@ export const PassFlagChips: FC<PassFlagChipsProps> = ({ pass }) => {
     chips.push({
       label: t("classDetail.compatiblePasses.flags.universal"),
       iconLeft: "globe-02",
+      tooltip: t("classDetail.compatiblePasses.flags.tooltips.universal"),
     });
   if (pass.manager_only)
     chips.push({
       label: t("classDetail.compatiblePasses.flags.unlisted"),
       iconLeft: "eye-off",
+      tooltip: t("classDetail.compatiblePasses.flags.tooltips.unlisted"),
     });
   if (!pass.is_usable_by_staff)
     chips.push({
       label: t("classDetail.compatiblePasses.flags.staffRestricted"),
       iconLeft: "package-x",
+      tooltip: t("classDetail.compatiblePasses.flags.tooltips.staffRestricted"),
     });
   if (pass.new_member_only)
     chips.push({
       label: t("classDetail.compatiblePasses.flags.newMembersOnly"),
       iconLeft: "user-plus-01",
+      tooltip: t("classDetail.compatiblePasses.flags.tooltips.newMembersOnly"),
     });
 
   if (!chips.length) return null;
@@ -42,15 +46,15 @@ export const PassFlagChips: FC<PassFlagChipsProps> = ({ pass }) => {
   return (
     <div className="flex gap-xs">
       {chips.map((chip) => (
-        <Chip
-          key={chip.label}
-          type="weak"
-          color="default"
-          size="lg"
-          rounded="lg"
-          iconLeft={chip.iconLeft}
-          label={chip.label}
-        />
+        <Tooltip key={chip.label} label={chip.tooltip} placement="top-right">
+          <Chip
+            type="weak"
+            color="default"
+            size="lg"
+            iconLeft={chip.iconLeft}
+            label={chip.label}
+          />
+        </Tooltip>
       ))}
     </div>
   );

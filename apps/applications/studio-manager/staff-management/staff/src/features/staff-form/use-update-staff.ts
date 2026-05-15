@@ -137,6 +137,10 @@ export const useUpdateStaff = () => {
           buttonIcon: "x-close",
         });
       } finally {
+        queryClient.invalidateQueries({
+          queryKey: staffRoleKeys.detail(id),
+        });
+        queryClient.invalidateQueries({ queryKey: staffRoleKeys.lists() });
         setIsLoading(false);
       }
     },

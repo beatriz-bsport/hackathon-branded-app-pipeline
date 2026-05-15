@@ -6,7 +6,9 @@ import {
   fetchRoleDefinitionQueryOptions,
   flatUserRolesQueryOptions,
 } from "@bsport/api-staff-management/role";
+import { RoleType } from "@bsport/common/lib/master-data/user-role";
 import { Breadcrumbs, Button, ListLayout } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import {
@@ -38,6 +40,9 @@ const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
       flatUserRolesQueryOptions(fetch),
     ],
   });
+  const currentUserRole = dataAccessLayer.useUserAccess()?.role;
+  const currentUserIsOwner =
+    currentUserRole === RoleType.USER_ROLE_NO_RESTRICTION;
   const roleToDelete = useMemo<RoleDeleteData>(
     () => ({
       id: role.id,
@@ -60,7 +65,7 @@ const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
             </Link>,
           ]}
           endGroupActions={
-            role.editable
+            role.editable && currentUserIsOwner
               ? [
                   <Button
                     key="role-details-button-delete"

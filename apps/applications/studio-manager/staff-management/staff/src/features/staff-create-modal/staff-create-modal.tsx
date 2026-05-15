@@ -28,7 +28,7 @@ export const StaffCreateModal: FC<StaffCreateModalProps> = ({
   onClose,
 }) => {
   const formId = `staff-create-${useId()}`;
-  const { t } = useTranslation("staff-form");
+  const { t } = useTranslation("staff-list");
   const staffFormSchema = useStaffFormSchema();
   const { createStaff, isLoading } = useCreateStaff();
 

@@ -1,6 +1,7 @@
 import {
   Badge,
   Body,
+  Button,
   Chip,
   type GenericTableColumn,
   Tooltip,
@@ -12,29 +13,6 @@ import type { StaffRowData } from "./types";
 
 type TableColumn = GenericTableColumn<StaffRowData>;
 
-const renderTextCell = (content: string) => (
-  <Body
-    htmlVariant="span"
-    size="md"
-    color="default"
-    className="block min-w-0 truncate"
-  >
-    {content}
-  </Body>
-);
-
-const renderNameCell = (content: string) => (
-  <Body
-    htmlVariant="span"
-    size="md"
-    color="default"
-    weight="strong"
-    className="block min-w-0 truncate"
-  >
-    {content}
-  </Body>
-);
-
 export const useStaffTableColumns = () => {
   const { t } = useTranslation("staff-list");
 
@@ -43,7 +21,17 @@ export const useStaffTableColumns = () => {
     type: "custom",
     align: "start",
     header: t("table.headers.name"),
-    render: (row) => renderNameCell(row.name),
+    render: (row) => (
+      <Body
+        htmlVariant="span"
+        size="md"
+        color="default"
+        weight="strong"
+        className="block min-w-0 truncate"
+      >
+        {row.name}
+      </Body>
+    ),
   };
 
   const columnEmail: TableColumn = {
@@ -51,7 +39,16 @@ export const useStaffTableColumns = () => {
     type: "custom",
     align: "start",
     header: t("table.headers.email"),
-    render: (row) => renderTextCell(row.email),
+    render: (row) => (
+      <Body
+        htmlVariant="span"
+        size="md"
+        color="default"
+        className="block min-w-0 truncate"
+      >
+        {row.email}
+      </Body>
+    ),
   };
 
   const columnRole: TableColumn = {
@@ -69,7 +66,7 @@ export const useStaffTableColumns = () => {
           <Chip
             label={row.roleName}
             type="weak"
-            color="default"
+            color={row.roleIsDefault ? "info" : "default"}
             size="lg"
             iconLeft={row.roleIsDefault ? "lock-01" : undefined}
             title={tooltip}
@@ -129,7 +126,46 @@ export const useStaffTableColumns = () => {
     type: "custom",
     align: "start",
     header: t("table.headers.commission"),
-    render: (row) => renderTextCell(row.commission),
+    render: (row) => (
+      <Body
+        htmlVariant="span"
+        size="md"
+        color="default"
+        className="block min-w-0 truncate"
+      >
+        {row.commission}
+      </Body>
+    ),
+  };
+
+  const columnActions: TableColumn = {
+    id: "staff-column-actions",
+    type: "custom",
+    align: "center",
+    header: (
+      <span className="sr-only" aria-label={t("table.headers.actions")}>
+        {t("table.headers.actions")}
+      </span>
+    ),
+    render: (row) => (
+      <div className="flex min-w-[44px] items-center justify-end">
+        {row.onDelete ? (
+          <Button
+            color="default"
+            intent="flat"
+            size="md"
+            kind="icon-button"
+            icon="trash-01"
+            label={t("table.actions.delete")}
+            onClick={(event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              row.onDelete?.();
+            }}
+          />
+        ) : null}
+      </div>
+    ),
   };
 
   return [
@@ -139,5 +175,6 @@ export const useStaffTableColumns = () => {
     columnBillingGroup,
     columnAssignedTeachers,
     columnCommission,
+    columnActions,
   ];
 };

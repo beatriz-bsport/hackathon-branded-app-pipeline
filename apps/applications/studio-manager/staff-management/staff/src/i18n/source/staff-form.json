@@ -39,16 +39,5 @@
       "commissionRange": "Commission must be between 0 and 100",
       "commissionPrecision": "Commission can have up to 2 decimal places"
     }
-  },
-  "createModal": {
-    "title": "Add Staff",
-    "buttons": {
-      "add": "Add",
-      "close": "Close"
-    },
-    "submitResponse": {
-      "success": "Staff member added",
-      "error": "Failed to add staff member"
-    }
   }
 }

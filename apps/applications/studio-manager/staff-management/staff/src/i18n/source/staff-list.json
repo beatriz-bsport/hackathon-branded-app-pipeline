@@ -11,7 +11,11 @@
       "role": "Role",
       "billingGroup": "Billing group",
       "assignedTeachers": "Assigned teachers",
-      "commission": "Commission"
+      "commission": "Commission",
+      "actions": "Actions"
+    },
+    "actions": {
+      "delete": "Delete staff member"
     },
     "tooltips": {
       "customRole": "Custom role",
@@ -35,6 +39,35 @@
     "role": {
       "label": "Role",
       "all": "All"
+    }
+  },
+  "createModal": {
+    "title": "Add Staff",
+    "buttons": {
+      "add": "Add",
+      "close": "Close"
+    },
+    "submitResponse": {
+      "success": "Staff member added",
+      "error": "Failed to add staff member"
+    }
+  },
+  "deleteModal": {
+    "title": "Delete staff?",
+    "description": "Are you sure that you want to delete this staff account? This will remove their access to the platform.",
+    "buttons": {
+      "delete": "Delete",
+      "cancel": "Cancel"
+    },
+    "submitResponse": {
+      "success": "Staff member deleted",
+      "error": "Failed to delete staff member"
+    },
+    "undoResponse": {
+      "success": "Deletion cancelled"
+    },
+    "undoAction": {
+      "label": "Undo"
     }
   }
 }

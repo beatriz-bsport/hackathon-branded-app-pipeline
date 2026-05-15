@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Merge a Notion-export CSV into `.github/instructions/_FRONTEND_GUIDELINES.instruction.md`.
+"""Merge a Notion-export CSV into `.ai/guidelines/_FRONTEND_GUIDELINES.instruction.md`.
 
 Constraints (as requested):
 - No duplicates (dedupe by guideline Name)
@@ -235,8 +235,8 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--md",
-        default=".github/instructions/_FRONTEND_GUIDELINES.instruction.md",
-        help="Path to markdown file to update (default: .github/instructions/_FRONTEND_GUIDELINES.instruction.md)",
+        default=".ai/guidelines/_FRONTEND_GUIDELINES.instruction.md",
+        help="Path to markdown file to update (default: .ai/guidelines/_FRONTEND_GUIDELINES.instruction.md)",
     )
     parser.add_argument(
         "--apply",

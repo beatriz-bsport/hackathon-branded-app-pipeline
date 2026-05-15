@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rename `.github/instructions/*.md` files.
+"""Rename `.ai/guidelines/*.md` files.
 
 Goal:
 - Rename to UPPER_CASE
@@ -123,8 +123,8 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--dir",
-        default=".github/instructions",
-        help="Directory containing instruction markdown files (default: .github/instructions)",
+        default=".ai/guidelines",
+        help="Directory containing instruction markdown files (default: .ai/guidelines)",
     )
     parser.add_argument(
         "--apply",

@@ -8,7 +8,7 @@ bsport web interfaces monorepo. `pnpm` workspaces + `nx`. Apps live in `apps/`, 
 
 **Before writing ANY code:**
 
-1. **Pre-flight (mandatory):** Open and scan `.github/instructions/_FRONTEND_GUIDELINES.instruction.md` and any relevant files in `.github/instructions/` **before the first edit/tool call that changes code**.
+1. **Pre-flight (mandatory):** Open and scan `.ai/guidelines/_FRONTEND_GUIDELINES.instruction.md` and any relevant files in `.ai/guidelines/` **before the first edit/tool call that changes code**.
 2. **Never** assume patterns from existing code - legacy code may violate current standards
 3. **Ask** which guideline applies if uncertain
 

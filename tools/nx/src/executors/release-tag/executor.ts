@@ -30,19 +30,23 @@ type ReleaseTagOutputFileWriter = (
 ) => Promise<void>;
 
 type ExecutorDependencies = {
-  createReleaseClient: (allowDiskFallback: boolean) => ReleaseClientMethods;
+  createReleaseClient: (
+    allowDiskFallback: boolean,
+    checkAllBranchesWhen: boolean,
+  ) => ReleaseClientMethods;
   runGit: GitRunner;
   writeReleaseTagOutputFile?: ReleaseTagOutputFileWriter;
 };
 
 function buildReleaseConfig(
   allowDiskFallback: boolean,
+  checkAllBranchesWhen: boolean,
 ): ConstructorParameters<typeof ReleaseClient>[0] {
   return {
     projects: ["*"],
     projectsRelationship: "fixed",
     releaseTagPattern,
-    releaseTagPatternCheckAllBranchesWhen: true,
+    releaseTagPatternCheckAllBranchesWhen: checkAllBranchesWhen,
     releaseTagPatternRequireSemver: true,
     changelog: {
       workspaceChangelog: {
@@ -271,8 +275,12 @@ export function createReleaseTagExecutor({
     await fetchTags(runGit, remote);
 
     const allowDiskFallback = !(await hasExistingReleaseTags(runGit));
+    const checkAllBranchesWhen = options.hotfix !== true;
 
-    const releaseClient = createReleaseClient(allowDiskFallback);
+    const releaseClient = createReleaseClient(
+      allowDiskFallback,
+      checkAllBranchesWhen,
+    );
     const versionResult = await releaseClient.releaseVersion({
       dryRun: false,
       stageChanges: false,
@@ -429,8 +437,10 @@ export default async function runExecutor(
   _context: ExecutorContext,
 ): Promise<{ success: boolean }> {
   const executor = createReleaseTagExecutor({
-    createReleaseClient: (allowDiskFallback) =>
-      new ReleaseClient(buildReleaseConfig(allowDiskFallback)),
+    createReleaseClient: (allowDiskFallback, checkAllBranchesWhen) =>
+      new ReleaseClient(
+        buildReleaseConfig(allowDiskFallback, checkAllBranchesWhen),
+      ),
     runGit,
   });
 

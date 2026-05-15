@@ -248,6 +248,12 @@ Emit the resolved tag for downstream CI jobs:
 pnpm exec nx run @bsport/nx:release-tag --outputFile=release-tag.env
 ```
 
+Preview a hotfix release from a branch created from an older release tag:
+
+```bash
+pnpm exec nx run @bsport/nx:release-tag --hotfix --dryRun
+```
+
 ### Behavior
 
 - uses a single fixed monorepo version
@@ -261,6 +267,7 @@ pnpm exec nx run @bsport/nx:release-tag --outputFile=release-tag.env
 - creates or updates the matching GitLab Release with the generated changelog after the tag is available on the remote
 - skips cleanly when no semver bump is detected
 - treats reruns as successful when the computed tag already points to `HEAD`
+- supports `--hotfix` to resolve release tags from the current branch only, which keeps a hotfix branch created from `v1.20.0` on the `v1.20.x` line even if newer tags exist on `dev`
 
 GitLab authentication follows Nx Release defaults: set `GITLAB_TOKEN` or
 `GL_TOKEN`, or rely on `CI_JOB_TOKEN` in GitLab CI.
@@ -281,6 +288,8 @@ After that, CI uses the latest `v*` tag as the baseline.
 `tools/ci/release.yml` runs this command on `dev` push pipelines and exposes a manual web trigger on `dev`. The job uses `resource_group: release-tag`, so GitLab serializes tag and release creation.
 
 Merge request pipelines expose the same job manually in dry-run mode. Use it before merge to verify what Nx resolves from the MR pipeline git history without creating a tag, pushing a tag, or publishing a GitLab Release.
+
+Hotfix branches named `hotfix/v<major>.<minor>.x` run the same job automatically on push with `--hotfix`. See `docs/hotfix-releases.md` for the full workflow.
 
 The root GitLab workflow skips only semver release tag pipelines (`vX.Y.Z`). Other tag pipelines, such as feature-branch deploy tags, still run.
 

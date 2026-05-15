@@ -389,7 +389,7 @@ describe("release-tag executor", () => {
 
     await expect(executor({})).resolves.toEqual({ success: true });
 
-    expect(createReleaseClient).toHaveBeenCalledWith(true);
+    expect(createReleaseClient).toHaveBeenCalledWith(true, true);
   });
 
   it("disables disk fallback once release tags already exist", async () => {
@@ -415,6 +415,36 @@ describe("release-tag executor", () => {
 
     await expect(executor({})).resolves.toEqual({ success: true });
 
-    expect(createReleaseClient).toHaveBeenCalledWith(false);
+    expect(createReleaseClient).toHaveBeenCalledWith(false, true);
+  });
+
+  it("resolves release tags from the current branch only in hotfix mode", async () => {
+    releaseVersionMock.mockResolvedValue({
+      workspaceVersion: null,
+      projectsVersionData: {},
+    });
+
+    const runGit = createGitRunner({
+      "fetch origin --tags --force": "",
+      "tag --list v*": "v1.2.3",
+    });
+    const createReleaseClient = vi.fn(
+      (_allowDiskFallback: boolean, _checkAllBranchesWhen: boolean) => {
+        return {
+          releaseVersion: releaseVersionMock,
+          releaseChangelog: releaseChangelogMock,
+        };
+      },
+    );
+    const executor = createReleaseTagExecutor({
+      createReleaseClient,
+      runGit,
+    });
+
+    await expect(executor({ hotfix: true })).resolves.toEqual({
+      success: true,
+    });
+
+    expect(createReleaseClient).toHaveBeenCalledWith(false, false);
   });
 });

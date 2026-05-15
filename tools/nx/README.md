@@ -285,15 +285,17 @@ After that, CI uses the latest `v*` tag as the baseline.
 
 ### CI
 
-`tools/ci/release.yml` runs this command on `dev` push pipelines and exposes a manual web trigger on `dev`. The job uses `resource_group: release-tag`, so GitLab serializes tag and release creation.
+`tools/ci/release.yml` runs this command on `dev` push pipelines and exposes a manual web trigger on `dev`. It also runs automatically for `hotfix/v<major>.<minor>.x` push pipelines with `--hotfix`. The job uses `resource_group: release-tag`, so GitLab serializes tag and release creation.
 
-Merge request pipelines expose the same job manually in dry-run mode. Use it before merge to verify what Nx resolves from the MR pipeline git history without creating a tag, pushing a tag, or publishing a GitLab Release.
+Merge request pipelines expose the same job manually in dry-run mode. For merge requests targeting `hotfix/v<major>.<minor>.x`, the dry run also uses `--hotfix`. Use it before merge to verify what Nx resolves from the MR pipeline git history without creating a tag, pushing a tag, or publishing a GitLab Release.
 
 Hotfix branches named `hotfix/v<major>.<minor>.x` run the same job automatically on push with `--hotfix`. See `docs/hotfix-releases.md` for the full workflow.
 
 The root GitLab workflow skips only semver release tag pipelines (`vX.Y.Z`). Other tag pipelines, such as feature-branch deploy tags, still run.
 
-After `Release:Tag` succeeds on `dev`, `Release:Build Artifact` reuses the same aggregate build flow as ephemeral environments and uploads the artifact snapshot to `s3://bsport-frontends-artifacts-euw3/backoffice/<release-tag>`, for example `backoffice/v1.21.1`.
+After `Release:Tag` succeeds on `dev` or a hotfix branch, `Release:Build Artifact` reuses the same aggregate build flow as ephemeral environments and uploads the artifact snapshot to `s3://bsport-frontends-artifacts-euw3/backoffice/<release-tag>`, for example `backoffice/v1.21.1`.
+
+See [Hotfix Releases](../../docs/hotfix-releases.md) for the branch workflow.
 
 ## Development
 

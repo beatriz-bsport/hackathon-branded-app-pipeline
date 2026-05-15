@@ -45,7 +45,7 @@ function createExecutor(commandOutputs: Record<string, string | Error>) {
   const runGit = createGitRunner(commandOutputs);
   const writeReleaseTagOutputFile = vi.fn(async () => undefined);
   const executor = createReleaseTagExecutor({
-    createReleaseClient: (_allowDiskFallback) => {
+    createReleaseClient: (_allowDiskFallback, _checkAllBranchesWhen) => {
       return {
         releaseVersion: releaseVersionMock,
         releaseChangelog: releaseChangelogMock,
@@ -376,12 +376,14 @@ describe("release-tag executor", () => {
       "fetch origin --tags --force": "",
       "tag --list v*": "",
     });
-    const createReleaseClient = vi.fn((_allowDiskFallback: boolean) => {
-      return {
-        releaseVersion: releaseVersionMock,
-        releaseChangelog: releaseChangelogMock,
-      };
-    });
+    const createReleaseClient = vi.fn(
+      (_allowDiskFallback: boolean, _checkAllBranchesWhen: boolean) => {
+        return {
+          releaseVersion: releaseVersionMock,
+          releaseChangelog: releaseChangelogMock,
+        };
+      },
+    );
     const executor = createReleaseTagExecutor({
       createReleaseClient,
       runGit,
@@ -402,12 +404,14 @@ describe("release-tag executor", () => {
       "fetch origin --tags --force": "",
       "tag --list v*": "v1.2.3",
     });
-    const createReleaseClient = vi.fn((_allowDiskFallback: boolean) => {
-      return {
-        releaseVersion: releaseVersionMock,
-        releaseChangelog: releaseChangelogMock,
-      };
-    });
+    const createReleaseClient = vi.fn(
+      (_allowDiskFallback: boolean, _checkAllBranchesWhen: boolean) => {
+        return {
+          releaseVersion: releaseVersionMock,
+          releaseChangelog: releaseChangelogMock,
+        };
+      },
+    );
     const executor = createReleaseTagExecutor({
       createReleaseClient,
       runGit,

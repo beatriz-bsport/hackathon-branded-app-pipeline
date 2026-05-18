@@ -1,3 +1,5 @@
+import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+
 import { TOTAL_BOOKING_NUMBER_TYPE } from "./constants";
 import type { TotalBookingNumberFilterFormValue } from "./types";
 
@@ -25,6 +27,7 @@ export const createDefaultTotalBookingNumberFilter = (
     selectAllPaymentPacks: false,
     selectedPaymentPackIds: [],
   },
+  bookingDate: defaultDateFilterValue,
   level: {
     selectedLevelIds: [],
   },

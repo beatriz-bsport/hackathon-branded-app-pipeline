@@ -227,4 +227,33 @@ describe("mapTotalBookingFilterToFormValue", () => {
     expect(formValue.subFilters).toEqual([]);
     expect(formValue.level.selectedLevelIds).toEqual([]);
   });
+
+  it("activates booking date sub-filter when API date filter is active", () => {
+    const filter = buildApiFilter({
+      date_filter_active: true,
+      date_filter_type: SmartlistDateFilterType.DATE_BETWEEN,
+      date: "2026-02-01",
+      date_second: "2026-02-28",
+      duration: 0,
+      duration_second: 0,
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain("bookingDate");
+    expect(formValue.bookingDate.absolute.fromDate).toBe("2026-02-01");
+    expect(formValue.bookingDate.absolute.toDate).toBe("2026-02-28");
+  });
+
+  it("does not list booking date sub-filter when API date filter is inactive", () => {
+    const filter = buildApiFilter({
+      date_filter_active: false,
+      date: "2026-01-01",
+      date_second: "2026-01-02",
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).not.toContain("bookingDate");
+  });
 });

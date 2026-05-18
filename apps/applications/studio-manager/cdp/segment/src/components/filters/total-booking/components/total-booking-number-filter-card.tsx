@@ -36,6 +36,7 @@ export const TotalBookingNumberFilterCard = ({
     establishment: `${baseId}-establishment`,
     coach: `${baseId}-coach`,
     paymentPack: `${baseId}-payment-pack`,
+    bookingDate: `${baseId}-booking-date`,
     level: `${baseId}-level`,
   };
 
@@ -193,6 +194,7 @@ export const TotalBookingNumberFilterCard = ({
             establishment: fieldIds.establishment,
             coach: fieldIds.coach,
             paymentPack: fieldIds.paymentPack,
+            bookingDate: fieldIds.bookingDate,
             level: fieldIds.level,
           }}
           watchedFilterValue={watchedFilterValue}

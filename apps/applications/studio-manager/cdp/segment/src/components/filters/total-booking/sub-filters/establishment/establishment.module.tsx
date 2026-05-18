@@ -11,18 +11,18 @@ import type { TotalBookingSubFilterModule } from "../total-booking-sub-filter-mo
 import { EstablishmentSubFilterSection } from "./establishment.component";
 import { refineEstablishmentSubFilter } from "./schema";
 
-const ESTABLISHMENT_INACTIVE_API_SLICE =
-  (): Partial<CreateTotalBookingFilterPayload> => ({
+const ESTABLISHMENT_INACTIVE_API_SLICE: Partial<CreateTotalBookingFilterPayload> =
+  {
     establishment_filter_active: false,
     select_all_establishments: true,
     establishments: [],
-  });
+  };
 
 const toEstablishmentApiSlice = (
   value: TotalBookingNumberFilterFormValue,
 ): Partial<CreateTotalBookingFilterPayload> => {
   if (!value.subFilters.includes(TOTAL_BOOKING_SUB_FILTER_IDS.establishment)) {
-    return ESTABLISHMENT_INACTIVE_API_SLICE();
+    return ESTABLISHMENT_INACTIVE_API_SLICE;
   }
 
   return {

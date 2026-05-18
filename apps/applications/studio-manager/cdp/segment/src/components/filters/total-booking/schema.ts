@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { dateFilterValueSchema } from "#src/components/filters/passes-filter/sub-filters/purchase-date/schema";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { TOTAL_BOOKING_NUMBER_TYPE } from "./constants";
@@ -44,6 +45,7 @@ export const totalBookingNumberFilterSchema = z
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.establishment),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.coach),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack),
+        z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.level),
       ]),
     ),
@@ -63,6 +65,7 @@ export const totalBookingNumberFilterSchema = z
       selectAllPaymentPacks: z.boolean(),
       selectedPaymentPackIds: z.array(z.number().int().positive()),
     }),
+    bookingDate: dateFilterValueSchema,
     level: z.object({
       selectedLevelIds: z.array(z.number().int().positive()),
     }),

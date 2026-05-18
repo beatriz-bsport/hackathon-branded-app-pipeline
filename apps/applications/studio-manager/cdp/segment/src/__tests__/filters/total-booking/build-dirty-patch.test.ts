@@ -231,4 +231,39 @@ describe("buildDirtyPatchPayload", () => {
     expect(payload.level_filter_active).toBe(false);
     expect(payload.level).toEqual([]);
   });
+
+  it("emits active booking date slice when booking date sub-filter values are dirty", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate];
+    value.bookingDate = {
+      ...value.bookingDate,
+      dateType: "absolute",
+      absolute: {
+        ...value.bookingDate.absolute,
+        operator: "on_or_after",
+        fromDate: "2026-08-01",
+        toDate: null,
+      },
+    };
+    const dirtyFields: DirtyFields = {
+      bookingDate: { absolute: { fromDate: true } },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.date_filter_active).toBe(true);
+    expect(payload.date).toBe("2026-08-01");
+  });
+
+  it("emits inactive booking date slice when booking date sub-filter is removed", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.date_filter_active).toBe(false);
+  });
 });

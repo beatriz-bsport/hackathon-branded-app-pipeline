@@ -125,6 +125,7 @@
         "coach": "Teacher",
         "passes": "Passes",
         "level": "Level",
+        "bookingDate": "Booking session date",
         "subFilterFallback": "{{subFilterId}}"
       },
       "toasts": {
@@ -141,7 +142,11 @@
         "selectedEstablishmentsRequired": "Select at least one establishment.",
         "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
         "selectedPaymentPacksRequired": "Select at least one pass, or remove this sub-filter.",
-        "selectedLevelsRequired": "Select at least one level, or remove this sub-filter."
+        "selectedLevelsRequired": "Select at least one level, or remove this sub-filter.",
+        "bookingDateRequired": "Select a booking session date.",
+        "bookingDateBetweenRequired": "Select both dates for the between range.",
+        "bookingDateDurationRequired": "Enter a number of days.",
+        "bookingDateDurationBetweenRequired": "Enter both day values for the between range."
       }
     }
   },

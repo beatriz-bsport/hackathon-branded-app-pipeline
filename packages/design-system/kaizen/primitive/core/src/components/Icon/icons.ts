@@ -208,6 +208,9 @@ const icons = {
     async () => await import("./assets/log-out-01.svg?react"),
   ),
   "mail-01": React.lazy(async () => await import("./assets/mail-01.svg?react")),
+  "maximize-02": React.lazy(
+    async () => await import("./assets/maximize-02.svg?react"),
+  ),
   "message-alert-square": React.lazy(
     async () => await import("./assets/message-alert-square.svg?react"),
   ),

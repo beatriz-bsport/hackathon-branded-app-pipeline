@@ -113,7 +113,8 @@
     "coachAriaLabel": "Coach {{name}}",
     "coachPositionAriaLabel": "Coach position",
     "availabilityCount": "{{free}} of {{total}} spots available",
-    "allTaken": "All spots are taken"
+    "allTaken": "All spots are taken",
+    "screenLabel": "Screen"
   },
   "booking": "Booking",
   "billing": "Billing",

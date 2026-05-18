@@ -47,12 +47,18 @@ export type SpotShape =
   | "triangle"
   | "personalized";
 
+export type SpotCustomization = "predefined" | "personalized";
+
 export type SpotType = {
   id: number;
   name: string;
   prefix: string | null;
   suffix: string | null;
   shape: SpotShape;
+  // When "personalized", free_image/taken_image/selected_image hold the spot's
+  // rendered art and override `shape`. Legacy parity: a circular shape with
+  // customization "personalized" must render the image, not a circle.
+  customization: SpotCustomization;
   fill_color: string | null;
   stroke_color: string | null;
   free_image: string | null;
@@ -90,37 +96,83 @@ export type CanvasSpotData = {
   x: number;
   y: number;
   rotation?: number;
-  width?: number;
+  /** Beautifier-authored override. Legacy convention: `height` is the
+   *  dominant dimension for non-rectangle shapes — square side, triangle
+   *  side, circular diameter. */
   height?: number;
+  /** Beautifier-authored width — primarily used for rectangle and
+   *  personalized image spots. */
+  width?: number;
+  /** Used only when authored explicitly; legacy wire format prefers
+   *  `height` as the diameter. */
   radius?: number;
+  /** Per-spot body styling authored via the Beautifier. */
+  fill?: string;
+  stroke?: string;
+  strokeWidth?: number | string;
+  strokeDasharray?: string;
+  /** Per-spot label styling authored via the Beautifier. */
+  fontSize?: number | string;
+  fontStyle?: string;
+  fontWeight?: number | string;
+  fontColor?: string;
+  fontColorOnTaken?: string;
+  fontColorOnSelected?: string;
+  textOffsetX?: number;
+  textOffsetY?: number;
+  textStroke?: string;
+  textStrokeWidth?: number | string;
 };
 
 export type CanvasTeacherData = {
   x: number;
   y: number;
   rotation?: number;
+  /** Per-element avatar size override, multiplied by `coachHeight`. */
+  height?: number;
+  fontSize?: number | string;
+  fontStyle?: string;
+  fontColor?: string;
+  fontWeight?: number | string;
+  textOffsetX?: number;
+  textOffsetY?: number;
+  textStroke?: string;
+  textStrokeWidth?: number | string;
 };
 
 export type CanvasScreenData = {
   x: number;
   y: number;
-  width: number;
-  height: number;
+  /** Optional in the legacy wire format — the screen tool ships only
+   *  position + colours, not size. */
+  width?: number;
+  height?: number;
   rotation?: number;
+  stroke?: string;
+  fill?: string;
+  strokeWidth?: number | string;
+  strokeLinecap?: "butt" | "round" | "square";
 };
 
 export type CanvasDoorData = {
   x: number;
   y: number;
   rotation?: number;
+  stroke?: string;
+  fill?: string;
+  strokeWidth?: number | string;
+  strokeLinecap?: "butt" | "round" | "square";
 };
 
 export type CanvasLineData = {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
+  /** Wire format from the legacy "wall" tool — an arbitrary polyline as a
+   *  sequence of `[x, y]` pairs. */
+  points: number[][];
   stroke?: string;
+  fill?: string;
+  strokeWidth?: number | string;
+  strokeLinecap?: "butt" | "round" | "square";
+  strokeDasharray?: string;
 };
 
 export type CanvasRectData = {
@@ -130,5 +182,10 @@ export type CanvasRectData = {
   height: number;
   fill?: string;
   stroke?: string;
+  strokeWidth?: number | string;
+  strokeDasharray?: string;
   rotation?: number;
+  /** Optional pattern image — used by the saas-legacy "image rect" tool to
+   *  drop a bitmap onto the canvas. */
+  image?: string;
 };

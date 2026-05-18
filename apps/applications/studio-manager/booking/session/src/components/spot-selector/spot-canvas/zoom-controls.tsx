@@ -39,7 +39,7 @@ export const ZoomControls: React.FC<ZoomControlsProps> = ({
       />
       <Button
         kind="icon-button"
-        icon="refresh-ccw-01"
+        icon="maximize-02"
         size="md"
         intent="flat"
         color="default"

@@ -37,6 +37,13 @@ export const SPOT_STATE_STYLE: Record<SpotVisualState, SpotStateStyle> = {
 
 export const SPOT_RING_STROKE = "var(--kz-color-stroke-action-main-selected)";
 
+// Default stroke for decorative geometry (walls, rects, doors).
+export const DEFAULT_DECORATIVE_STROKE = "var(--kz-color-luna-grey-500)";
+// Screens use a darker stroke so the chalkboard reads as the focal point.
+export const DEFAULT_SCREEN_STROKE = "var(--kz-color-luna-grey-900)";
+// Default fill for the teacher name label.
+export const DEFAULT_TEACHER_NAME_FILL = "var(--kz-color-onsurface-default)";
+
 export const SPOT_STATE_LABEL_KEY = {
   free: "spotSelector.legend.free",
   taken: "spotSelector.legend.taken",

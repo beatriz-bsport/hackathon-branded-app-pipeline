@@ -5,6 +5,11 @@ import { createDefaultTotalBookingNumberFilter } from "#src/components/filters/t
 import { totalBookingNumberFilterSchema } from "#src/components/filters/total-booking/schema";
 import { TOTAL_BOOKING_SUB_FILTER_IDS } from "#src/components/filters/total-booking/sub-filters/total-booking-sub-filter-id";
 import type { TotalBookingNumberFilterFormValue } from "#src/components/filters/total-booking/types";
+import {
+  DATE_FILTER_TYPE_RELATIVE,
+  RELATIVE_DATE_OPERATORS,
+} from "#src/components/primitive-filters/date-filter/constants";
+import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
 
 vi.mock("#src/utils/i18n", () => ({
   i18nInstance: {
@@ -233,5 +238,162 @@ describe("totalBookingNumberFilterSchema", () => {
     const result = totalBookingNumberFilterSchema.safeParse(value);
 
     expect(result.success).toBe(true);
+  });
+
+  it("rejects booking date sub-filter when absolute from date is missing", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate],
+      bookingDate: {
+        ...defaultDateFilterValue,
+        dateType: "absolute",
+        absolute: {
+          ...defaultDateFilterValue.absolute,
+          operator: "on_or_after",
+          fromDate: null,
+          toDate: null,
+        },
+      },
+    });
+
+    const result = totalBookingNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const issuePaths = result.error.issues.map((issue) => issue.path);
+      expect(issuePaths).toContainEqual([
+        "bookingDate",
+        "absolute",
+        "fromDate",
+      ]);
+    }
+  });
+
+  it("accepts booking date sub-filter with absolute on-or-after date", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate],
+      bookingDate: {
+        ...defaultDateFilterValue,
+        dateType: "absolute",
+        absolute: {
+          ...defaultDateFilterValue.absolute,
+          operator: "on_or_after",
+          fromDate: "2026-06-10",
+          toDate: null,
+        },
+      },
+    });
+
+    const result = totalBookingNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(true);
+  });
+
+  describe("booking date sub-filter — relative operators", () => {
+    const buildRelativeBookingDateValue = (
+      operator: (typeof RELATIVE_DATE_OPERATORS)[keyof typeof RELATIVE_DATE_OPERATORS],
+      firstDays: number | null,
+      secondDays: number | null,
+    ) =>
+      buildFormValue({
+        subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate],
+        bookingDate: {
+          ...defaultDateFilterValue,
+          dateType: DATE_FILTER_TYPE_RELATIVE,
+          relative: {
+            operator,
+            firstDays,
+            secondDays,
+          },
+        },
+      });
+
+    it.each([
+      RELATIVE_DATE_OPERATORS.pastMoreThan,
+      RELATIVE_DATE_OPERATORS.pastExactly,
+      RELATIVE_DATE_OPERATORS.futureMoreThan,
+      RELATIVE_DATE_OPERATORS.futureExactly,
+    ])(
+      "rejects single-value operator %s when firstDays is missing",
+      (operator) => {
+        const value = buildRelativeBookingDateValue(operator, null, null);
+
+        const result = totalBookingNumberFilterSchema.safeParse(value);
+
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          const issuePaths = result.error.issues.map((issue) => issue.path);
+          expect(issuePaths).toContainEqual([
+            "bookingDate",
+            "relative",
+            "firstDays",
+          ]);
+        }
+      },
+    );
+
+    it.each([
+      RELATIVE_DATE_OPERATORS.pastMoreThan,
+      RELATIVE_DATE_OPERATORS.pastExactly,
+      RELATIVE_DATE_OPERATORS.futureMoreThan,
+      RELATIVE_DATE_OPERATORS.futureExactly,
+    ])("accepts single-value operator %s when firstDays is set", (operator) => {
+      const value = buildRelativeBookingDateValue(operator, 30, null);
+
+      const result = totalBookingNumberFilterSchema.safeParse(value);
+
+      expect(result.success).toBe(true);
+    });
+
+    it.each([
+      RELATIVE_DATE_OPERATORS.pastBetween,
+      RELATIVE_DATE_OPERATORS.futureBetween,
+    ])("rejects between operator %s when secondDays is missing", (operator) => {
+      const value = buildRelativeBookingDateValue(operator, 10, null);
+
+      const result = totalBookingNumberFilterSchema.safeParse(value);
+
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const issuePaths = result.error.issues.map((issue) => issue.path);
+        expect(issuePaths).toContainEqual([
+          "bookingDate",
+          "relative",
+          "secondDays",
+        ]);
+      }
+    });
+
+    it.each([
+      RELATIVE_DATE_OPERATORS.pastBetween,
+      RELATIVE_DATE_OPERATORS.futureBetween,
+    ])("rejects between operator %s when firstDays is missing", (operator) => {
+      const value = buildRelativeBookingDateValue(operator, null, null);
+
+      const result = totalBookingNumberFilterSchema.safeParse(value);
+
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const issuePaths = result.error.issues.map((issue) => issue.path);
+        expect(issuePaths).toContainEqual([
+          "bookingDate",
+          "relative",
+          "secondDays",
+        ]);
+      }
+    });
+
+    it.each([
+      RELATIVE_DATE_OPERATORS.pastBetween,
+      RELATIVE_DATE_OPERATORS.futureBetween,
+    ])(
+      "accepts between operator %s when both firstDays and secondDays are set",
+      (operator) => {
+        const value = buildRelativeBookingDateValue(operator, 10, 30);
+
+        const result = totalBookingNumberFilterSchema.safeParse(value);
+
+        expect(result.success).toBe(true);
+      },
+    );
   });
 });

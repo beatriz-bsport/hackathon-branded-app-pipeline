@@ -3,6 +3,11 @@ import type { FieldErrors, UseFormSetValue } from "react-hook-form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
 import type { PassOption } from "#src/components/filters/passes-filter/types";
+import {
+  ABSOLUTE_DATE_OPERATORS,
+  DATE_FILTER_TYPES,
+  RELATIVE_DATE_OPERATORS,
+} from "#src/components/primitive-filters/date-filter/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 import { REGISTERED_TOTAL_BOOKING_SUB_FILTERS } from "../sub-filters/registry";
@@ -59,6 +64,19 @@ const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
     selectAllPaymentPacks: false,
     selectedPaymentPackIds: [],
   },
+  [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate]: {
+    dateType: DATE_FILTER_TYPES.absolute,
+    absolute: {
+      operator: ABSOLUTE_DATE_OPERATORS.onOrBefore,
+      fromDate: null,
+      toDate: null,
+    },
+    relative: {
+      operator: RELATIVE_DATE_OPERATORS.pastMoreThan,
+      firstDays: null,
+      secondDays: null,
+    },
+  },
   [TOTAL_BOOKING_SUB_FILTER_IDS.level]: {
     selectedLevelIds: [],
   },
@@ -94,6 +112,9 @@ export const TotalBookingSubFiltersArea = ({
       "filters.22.subFilters.passes",
     ),
     [TOTAL_BOOKING_SUB_FILTER_IDS.level]: t("filters.22.subFilters.level"),
+    [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate]: t(
+      "filters.22.subFilters.bookingDate",
+    ),
   };
 
   const addSubFilter = (subFilterId: TotalBookingSubFilterId) => {

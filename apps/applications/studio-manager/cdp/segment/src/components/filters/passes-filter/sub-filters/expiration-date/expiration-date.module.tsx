@@ -19,21 +19,21 @@ import {
 import { ExpirationDateSubFilterSection } from "./expiration-date.component";
 import { refineExpirationDateSubFilter } from "./schema";
 
-const EXPIRATION_DATE_INACTIVE_API_SLICE =
-  (): Partial<CreatePaymentPackFilterPayload> => ({
+const EXPIRATION_DATE_INACTIVE_API_SLICE: Partial<CreatePaymentPackFilterPayload> =
+  {
     expiration_date_filter_active: false,
     expiration_date_filter_type: SmartlistDateFilterType.DATE_AFTER,
     expiration_date: DateTime.now().toFormat("yyyy-MM-dd"),
     expiration_date_second: DateTime.now().toFormat("yyyy-MM-dd"),
     expiration_duration: 0,
     expiration_duration_second: 0,
-  });
+  };
 
 const toExpirationDateApiSlice = (
   value: PassesFilterFormValue,
 ): Partial<CreatePaymentPackFilterPayload> => {
   if (!value.subFilters.includes(PASS_SUB_FILTER_IDS.expirationDate)) {
-    return EXPIRATION_DATE_INACTIVE_API_SLICE();
+    return EXPIRATION_DATE_INACTIVE_API_SLICE;
   }
 
   const expirationDateType = mapDateFilterType(value.expirationDate);

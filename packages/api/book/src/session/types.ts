@@ -53,6 +53,7 @@ export type FetchSessionsParams = {
 
   /** Filter by a list of establishment IDs. */
   establishment__in?: number[];
+  establishment__not_in?: number[];
 
   /** Alias for establishment__in. */
   establishments?: number[];
@@ -62,15 +63,18 @@ export type FetchSessionsParams = {
 
   /** Filter by a list of coach IDs. */
   coach__in?: number[];
+  coach__not_in?: number[];
 
   /** Alias for coach__in. */
   coaches?: number[];
 
   /** Filter by a list of activity IDs. */
   activity__in?: number[];
+  activity__not_in?: number[];
 
   /** Filter by a list of level IDs. */
   level__in?: number[];
+  level__not_in?: number[];
 
   /** Alias for level__in. */
   levels?: number[];
@@ -113,6 +117,7 @@ export type FetchSessionsParams = {
 
   /** Filter by a list of category IDs (activity__SCT_id). */
   category__in?: number[];
+  category__not_in?: number[];
 
   /** Filter sessions that require roll call validation. */
   roll_call_needs_validation?: boolean;

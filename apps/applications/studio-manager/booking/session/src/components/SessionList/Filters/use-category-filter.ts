@@ -29,7 +29,7 @@ export const useCategoryFilter = (): FilterField => {
   return {
     id: SessionFilterTypes.ACTIVITY_CATEGORY,
     label: t("table.filters.activityCategory.label"),
-    availableFilters: [SessionFilters.FILTER_IS],
+    availableFilters: [SessionFilters.FILTER_IS, SessionFilters.FILTER_NOT],
     values: filteredCategories,
     multiSelect: true,
     searchConfig: {

@@ -84,6 +84,8 @@ const SessionManagementPageInner: FC = () => {
             session={{
               id: session.id,
               room_blueprint: session.room_blueprint,
+              coach: session.coach,
+              coach_override: session.coach_override,
             }}
           />
           <ParticipantsSection

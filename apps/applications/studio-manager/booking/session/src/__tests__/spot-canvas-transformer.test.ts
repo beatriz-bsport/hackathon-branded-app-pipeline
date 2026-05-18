@@ -65,7 +65,16 @@ describe("applyTakenState", () => {
   it("preserves input element order (no sorting)", () => {
     const elements: CanvasElement<unknown>[] = [
       spot(1),
-      { id: "line-1", type: "line", data: { x1: 0, y1: 0, x2: 1, y2: 1 } },
+      {
+        id: "line-1",
+        type: "line",
+        data: {
+          points: [
+            [0, 0],
+            [1, 1],
+          ],
+        },
+      },
       spot(2),
     ];
     const out = applyTakenState({
@@ -75,13 +84,14 @@ describe("applyTakenState", () => {
     expect(out.map((e) => e.id)).toEqual(["spot-1", "line-1", "spot-2"]);
   });
 
-  it("rewrites asset_identifier to 'spot_taken' for taken personalized spots", () => {
+  it("leaves asset_identifier alone — the 'spot_taken' overlay is now resolved centrally in resolveSpotAssetUrl", () => {
     const out = applyTakenState({
       roomBlueprint: blueprint([spot(1, { asset_identifier: "custom" })]),
       takenSpots: [1],
     });
     const s = out.filter(isSpotElement)[0];
-    expect(s.data.asset_identifier).toBe("spot_taken");
+    expect(s.data.asset_identifier).toBe("custom");
+    expect(s.data.taken).toBe(true);
   });
 
   it("leaves asset_identifier untouched on free spots", () => {
@@ -120,9 +130,21 @@ describe("translateRotate", () => {
     expect(translateRotate({ x: 1, y: 2, rotation: 0 })).toBe("translate(1 2)");
   });
 
-  it("appends rotate when rotation is non-zero", () => {
+  it("rotates around the post-translate origin by default", () => {
+    // Elements whose body is already centred on the local origin (door,
+    // screen, teacher) pass no `cx`/`cy`, so rotation pivots around the
+    // origin — which IS their centre.
     expect(translateRotate({ x: 1, y: 2, rotation: 45 })).toBe(
-      "translate(1 2) rotate(45)",
+      "translate(1 2) rotate(45 0 0)",
     );
+  });
+
+  it("rotates around the supplied pivot (legacy CanvasSpot parity)", () => {
+    // Legacy `getTransform` pivots around the element's centre. Spot and
+    // rect renderers compute that centre from authored width/height and
+    // pass it via `cx` / `cy` so rotation matches `saas-legacy`.
+    expect(
+      translateRotate({ x: 10, y: 20, rotation: 45, cx: 30, cy: 40 }),
+    ).toBe("translate(10 20) rotate(45 30 40)");
   });
 });

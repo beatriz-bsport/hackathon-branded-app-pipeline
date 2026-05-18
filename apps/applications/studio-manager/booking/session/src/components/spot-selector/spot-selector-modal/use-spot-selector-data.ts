@@ -36,11 +36,15 @@ export const useSpotSelectorData = ({
   const sessionResolved = session.data !== undefined;
   const blueprintId = session.data?.room_blueprint ?? null;
   const hasBlueprint = sessionResolved && blueprintId !== null;
+  // Legacy parity: an override coach (e.g. substitute teacher) takes over the
+  // session's teacher slot. Render the override's photo/name when present.
+  const coachId = session.data?.coach_override ?? session.data?.coach ?? null;
 
   const canvas = useCanvasData({
     blueprintId: enabled ? blueprintId : null,
     sessionId: enabled ? sessionId : null,
     fetch,
+    coachId: enabled ? coachId : null,
   });
 
   const isLoading =

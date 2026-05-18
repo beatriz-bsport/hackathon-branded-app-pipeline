@@ -16,6 +16,7 @@ export type FormRadioOptionsProps = {
 };
 
 export type FormRadioFieldProps = FormRadioOptionsProps & {
+  name: string;
   checked: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   disabled: boolean;
@@ -38,8 +39,10 @@ export type FormRadioFieldProps = FormRadioOptionsProps & {
  * @example
  * <FormRadioField
  *   id="paypal"
- *   value="PayPal"
- *   checked={selectedValue === "PayPal"}
+ *   name="payment-method"
+ *   label="Paypal"
+ *   value="paypal"
+ *   checked={selectedValue === "paypal"}
  *   onChange={(e) => setSelectedValue(e.target.value)}
  *   disabled={false}
  *   direction="start"
@@ -49,6 +52,7 @@ export type FormRadioFieldProps = FormRadioOptionsProps & {
  *   labelMaxWidth={120}
  * />
  *
+ * @param {string} props.name - Shared HTML `name` for the radio group (typically the parent `FormRadioGroup` id).
  * @param {string} props.label - Label displayed as the Radio option choice.
  * @param {string} props.value - Value of the radio button used to manage state.
  * @param {boolean} props.checked - Whether the radio button is currently selected.
@@ -67,6 +71,7 @@ export type FormRadioFieldProps = FormRadioOptionsProps & {
  * @see FormRadioGroup
  */
 const FormRadioField: React.FC<FormRadioFieldProps> = ({
+  name,
   label,
   value,
   helperText,
@@ -266,7 +271,7 @@ const FormRadioField: React.FC<FormRadioFieldProps> = ({
           )}
           type="radio"
           role="radio"
-          name={value}
+          name={name}
           value={value}
           id={id}
           checked={checked}

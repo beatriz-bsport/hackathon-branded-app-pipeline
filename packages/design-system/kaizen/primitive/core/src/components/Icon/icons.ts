@@ -309,6 +309,7 @@ const icons = {
   "spacing-width-02": React.lazy(
     async () => await import("./assets/spacing-width-02.svg?react"),
   ),
+  sparkles: React.lazy(async () => await import("./assets/sparkles.svg?react")),
   "stop-circle-solid": React.lazy(
     async () => await import("./assets/stop-circle-solid.svg?react"),
   ),
@@ -316,6 +317,12 @@ const icons = {
     async () => await import("./assets/switch-horizontal-01.svg?react"),
   ),
   "tag-01": React.lazy(async () => await import("./assets/tag-01.svg?react")),
+  "thumb-down": React.lazy(
+    async () => await import("./assets/thumb-down.svg?react"),
+  ),
+  "thumb-up": React.lazy(
+    async () => await import("./assets/thumb-up.svg?react"),
+  ),
   "ticket-01": React.lazy(
     async () => await import("./assets/ticket-01.svg?react"),
   ),

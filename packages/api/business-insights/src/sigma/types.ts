@@ -10,6 +10,19 @@ export type SigmaEventActionOutbound = {
 };
 
 /**
+ * Narrowed type for the `create-summary` outbound action.
+ * Sigma button must emit `action:outbound` with name=`create-summary` and
+ * values containing `page-id`.
+ */
+export type SigmaEventCreateSummary = SigmaEventActionOutbound & {
+  name: "create-summary";
+  values: {
+    "page-id"?: string;
+    "documentation-url"?: string;
+  };
+};
+
+/**
  * @link https://help.sigmacomputing.com/docs/outbound-event-reference#documentelementnodata
  */
 export type SigmaEventDocumentElementNodata = {

@@ -236,7 +236,7 @@ const detailsLayoutPanel = cva(
     "bg-surface-page-navigation",
     "border-l-stroke-weak",
     "border-l-stroke-thin",
-    "overflow-y-scroll",
+    "overflow-y-auto",
     "h-full",
     "duration-short",
   ],

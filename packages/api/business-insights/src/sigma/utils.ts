@@ -96,3 +96,13 @@ export const buildSigmaError = ({ type, ...otherParams }: SigmaEventData) => {
   }
   return new Error(`[SIGMA][${type}] ${stringifiedParams}`);
 };
+
+/**
+ * Extract the Sigma page ID from an embed URL emitted by `url:onchange`.
+ * The URL path contains `.../page/{pageId}` when a specific page is active.
+ * Returns null when no page segment is found (e.g. workbook root).
+ */
+export function extractSigmaPageId(url: string): string | null {
+  const match = url.match(/\/page\/([^/?#]+)/);
+  return match?.[1] ?? null;
+}

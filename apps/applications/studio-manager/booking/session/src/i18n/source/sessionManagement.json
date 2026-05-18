@@ -250,6 +250,7 @@
     "countdownMessageDetailed": "<strong>{{hoursLeft}}h {{minutesLeft}}min</strong> left to update attendance before absences become no-shows and penalties apply to unlimited pass holders.",
     "countdownMessageMinutes": "<strong>{{minutesLeft}}min</strong> left to update attendance before absences become no-shows and penalties apply to unlimited pass holders.",
     "confirmedLabel": "Attendance confirmed",
+    "confirmedLabelMobile": "Attendance confirmed on {{date}}",
     "confirmedTooltip": "Confirmed on {{date}}"
   }
 }

@@ -64,8 +64,6 @@ export const VideoList: FC<VideoListProps> = ({
       title: row.name,
       description: row.categoryLabel || t("table.values.noCategory"),
       onItemClick: row.onRowClick,
-      disabled: row.isPendingDeletion,
-      className: row.className,
       avatar: {
         shape: "squared" as const,
         size: "md" as const,
@@ -75,110 +73,104 @@ export const VideoList: FC<VideoListProps> = ({
         className: "cursor-default border-stroke-thin",
       },
       customNode: (
-        <div className={row.isPendingDeletion ? "opacity-80" : undefined}>
-          <div className="flex items-center gap-xs">
-            {row.format === "none" ? (
-              <MediaFormatRenderer format={row.format} />
-            ) : row.format === "video" ? (
-              <TooltipIcon
-                icon="video-recorder"
-                label={t("table.tooltips.format.videoUploaded")}
-              />
-            ) : row.format === "ebook" ? (
-              <TooltipIcon
-                icon="book-closed"
-                label={t("table.tooltips.format.ebookUploaded")}
-              />
-            ) : (
-              <Chip
-                color="default"
-                size="lg"
-                type="weak"
-                label={t("table.tooltips.format.noFileUploaded")}
-              />
-            )}
-            {row.format === "none" ? (
-              <Button
-                color="default"
-                intent="flat"
-                size="md"
-                kind="icon-button"
-                icon="upload-01"
-                label={t("table.actions.upload")}
-                onClick={(event) => {
-                  event.preventDefault();
-                  event.stopPropagation();
-                  onRequestUpload(row.id);
-                }}
-              />
-            ) : null}
+        <div className="flex items-center gap-xs">
+          {row.format === "none" ? (
+            <MediaFormatRenderer format={row.format} />
+          ) : row.format === "video" ? (
             <TooltipIcon
-              icon={
-                row.memberAvailability === "available"
-                  ? "shopping-cart-01"
-                  : "shopping-cart-cross"
-              }
-              label={t(
-                row.memberAvailability === "available"
-                  ? "table.tooltips.availability.availableToMembers"
-                  : "table.tooltips.availability.unavailableToMembers",
-              )}
+              icon="video-recorder"
+              label={t("table.tooltips.format.videoUploaded")}
             />
-            {row.accessType === "limited" ? (
-              <TooltipIcon
-                icon="clock-rewind"
-                label={t("table.tooltips.availability.limitedTimeOnly")}
-              />
-            ) : (
-              <TooltipIcon
-                icon="infinity"
-                label={t("table.tooltips.availability.unlimitedAccess")}
-              />
+          ) : row.format === "ebook" ? (
+            <TooltipIcon
+              icon="book-closed"
+              label={t("table.tooltips.format.ebookUploaded")}
+            />
+          ) : (
+            <Chip
+              color="default"
+              size="lg"
+              type="weak"
+              label={t("table.tooltips.format.noFileUploaded")}
+            />
+          )}
+          {row.format === "none" ? (
+            <Button
+              color="default"
+              intent="flat"
+              size="md"
+              kind="icon-button"
+              icon="upload-01"
+              label={t("table.actions.upload")}
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                onRequestUpload(row.id);
+              }}
+            />
+          ) : null}
+          <TooltipIcon
+            icon={
+              row.memberAvailability === "available"
+                ? "shopping-cart-01"
+                : "shopping-cart-cross"
+            }
+            label={t(
+              row.memberAvailability === "available"
+                ? "table.tooltips.availability.availableToMembers"
+                : "table.tooltips.availability.unavailableToMembers",
             )}
-          </div>
+          />
+          {row.accessType === "limited" ? (
+            <TooltipIcon
+              icon="clock-rewind"
+              label={t("table.tooltips.availability.limitedTimeOnly")}
+            />
+          ) : (
+            <TooltipIcon
+              icon="infinity"
+              label={t("table.tooltips.availability.unlimitedAccess")}
+            />
+          )}
         </div>
       ),
-      buttons: row.isPendingDeletion
-        ? []
-        : [
-            ...(row.onEdit
-              ? [
-                  {
-                    id: "edit",
-                    kind: "icon-button" as const,
-                    icon: "edit-02" as const,
-                    color: "default" as const,
-                    intent: "flat" as const,
-                    label: t("table.actions.edit"),
-                    size: "md" as const,
-                    onClick: row.onEdit,
-                  },
-                ]
-              : []),
-            {
-              id: "duplicate",
-              kind: "icon-button" as const,
-              icon: "copy-03" as const,
-              color: "default" as const,
-              intent: "flat" as const,
-              label: t("table.actions.duplicate"),
-              size: "md",
-              onClick: row.onDuplicate,
-            },
-          ],
-      dropdownConfig: row.isPendingDeletion
-        ? undefined
-        : {
-            visibleActionsDisplayLimit: 0,
-            dropdownTargetProps: {
-              kind: "icon-button",
-              label: t("table.actions.moreActions"),
-              icon: "dots-vertical",
-              size: "md",
-              intent: "flat",
-              color: "default",
-            },
-          },
+      buttons: [
+        ...(row.onEdit
+          ? [
+              {
+                id: "edit",
+                kind: "icon-button" as const,
+                icon: "edit-02" as const,
+                color: "default" as const,
+                intent: "flat" as const,
+                label: t("table.actions.edit"),
+                size: "md" as const,
+                onClick: row.onEdit,
+              },
+            ]
+          : []),
+        {
+          id: "duplicate",
+          kind: "icon-button" as const,
+          icon: "copy-03" as const,
+          color: "default" as const,
+          intent: "flat" as const,
+          label: t("table.actions.duplicate"),
+          size: "md",
+          onClick: row.onDuplicate,
+        },
+      ],
+      dropdownConfig: {
+        visibleActionsDisplayLimit: 0,
+        dropdownTargetProps: {
+          kind: "icon-button",
+          label: t("table.actions.moreActions"),
+          icon: "dots-vertical",
+          size: "md",
+          intent: "flat",
+          color: "default",
+        },
+      },
     };
   });
 

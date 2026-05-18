@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import {
   type ActivePartnershipAccount,
@@ -25,7 +25,9 @@ type UseCappingDefaultValueReturn = {
  *
  * - COMBINED: sets `partner_max_booking_count` to 20% of `effectif` and syncs
  *   `partnership_offers` (allowed_on_partner per partner, spot_limit: null).
- *   In edit mode, only fills in partner_max_booking_count if empty/zero.
+ *   In edit mode, preserves the existing value if it is within bounds; clamps
+ *   it to `effectif` if it exceeds it (e.g. stale DB default or effectif
+ *   reduced after an establishment change).
  *
  * - PER_PARTNER: fetches active partnership accounts and syncs
  *   `partnership_offers` with per-partner spot limits (effectif * 20% / n).
@@ -53,16 +55,22 @@ export const useCappingDefaultValue = ({
 
   // ── COMBINED: auto-fill partner_max_booking_count ──────────────────────────
   useEffect(() => {
-    const hasExistingValue =
+    const hasValidExistingValue =
       isEditMode &&
       partnerMaxBookingCount != null &&
-      partnerMaxBookingCount > 0;
-    if (hasExistingValue) return;
+      partnerMaxBookingCount > 0 &&
+      partnerMaxBookingCount <= effectif;
+    if (hasValidExistingValue) return;
 
-    const computed = Math.max(
-      1,
-      Math.floor(effectif * DEFAULT_SPOT_LIMIT_RATIO),
-    );
+    // In edit mode, if the stored value exceeds effectif (e.g. stale DB default
+    // or effectif reduced after establishment change), clamp it instead of
+    // resetting to the 20% default.
+    const computed =
+      isEditMode &&
+      partnerMaxBookingCount != null &&
+      partnerMaxBookingCount > effectif
+        ? effectif
+        : Math.max(1, Math.floor(effectif * DEFAULT_SPOT_LIMIT_RATIO));
     setValue("partner_max_booking_count", computed, { shouldDirty: false });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [effectif, isEditMode]); // intentionally omit partnerMaxBookingCount/setValue
@@ -71,8 +79,16 @@ export const useCappingDefaultValue = ({
   // spot_limit default: effectif * 20% for COMBINED, divided by n for PER_PARTNER.
   // The BE ignores spot_limit for COMBINED but having a real default avoids nulls
   // if the user switches strategies.
+  const partnerMaxBookingCountRef = useRef(partnerMaxBookingCount);
+  partnerMaxBookingCountRef.current = partnerMaxBookingCount;
+
   useEffect(() => {
     if (!activeAccounts) return;
+
+    const currentMax = partnerMaxBookingCountRef.current;
+    if (currentMax != null && currentMax > effectif) {
+      setValue("partner_max_booking_count", effectif, { shouldDirty: false });
+    }
 
     const activeAccountsCount = Math.max(1, activeAccounts.length);
     const defaultSpotLimit = Math.max(

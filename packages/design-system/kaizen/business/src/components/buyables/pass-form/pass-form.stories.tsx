@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { type ReactNode, useId } from "react";
 import { z } from "zod";
 
+import { PENALTY_KINDS, type PenaltyKind } from "@bsport/api-buyables";
 import { ControlledForm, useFormController } from "@bsport/form";
 import { Body } from "@bsport/kaizen-primitive-core";
 
 import { PassFormGuestBookingToggle } from "./fields/guest-booking-toggle";
 import { PassFormMaximumUsage } from "./fields/maximum-usage";
 import { PassFormOnDemandToggle } from "./fields/on-demand-toggle";
+import { PassFormPenaltySelector } from "./fields/penalty-selector";
 import { PassFormTeacherPayRate } from "./fields/teacher-pay-rate";
 import { PassFormTeacherPayrollToggle } from "./fields/teacher-payroll-toggle";
 import {
@@ -38,6 +40,7 @@ import {
   PassFormTeacherPayrollToggle,
   PassFormTimePeriodsSelector,
   PassFormUnlimitedCreditControl,
+  PassFormPenaltySelector,
   convertBackendToFormTimeRestrictions,
   convertFormToBackendTimeRestrictions,
   type TimePeriodSchedule
@@ -62,7 +65,26 @@ type PassFormData = {
   // time restrictions
   hasTimeRestrictions: boolean;
   timePeriods: TimePeriodSchedule[];
+  // penalty
+  apply_penalties: boolean;
+  penalty_active: boolean;
+  penalty_nb_late_cancellations: number;
+  penalty_nb_days: number;
+  penalty_kind: number;
+  penalty_days_blocked: number;
+  penalty_account_value: number;
+  no_show_penalty_active: boolean;
+  no_show_penalty_threshold: number;
+  no_show_penalty_time_window_days: number;
+  no_show_penalty_kind: number;
+  no_show_penalty_days_blocked: number;
+  no_show_penalty_amount: number;
 }
+
+const penaltyKind = z.union([
+  z.literal(PENALTY_KINDS.BLOCK_PASS),
+  z.literal(PENALTY_KINDS.CHARGE_ACCOUNT),
+]);
 
 const schema = z.object({
   hasUnlimitedCredits: z.boolean(),
@@ -80,8 +102,22 @@ const schema = z.object({
   // time restrictions
   hasTimeRestrictions: z.boolean(),
   timePeriods: z.array(z.custom<TimePeriodSchedule>()),
+  // penalty
+  apply_penalties: z.boolean(),
+  penalty_active: z.boolean(),
+  penalty_nb_late_cancellations: z.number(),
+  penalty_nb_days: z.number(),
+  penalty_kind: penaltyKind,
+  penalty_days_blocked: z.number(),
+  penalty_account_value: z.number(),
+  no_show_penalty_active: z.boolean(),
+  no_show_penalty_threshold: z.number(),
+  no_show_penalty_time_window_days: z.number(),
+  no_show_penalty_kind: penaltyKind,
+  no_show_penalty_days_blocked: z.number(),
+  no_show_penalty_amount: z.number(),
 });
-      
+
 const methods = useFormController({
   schema,
   defaultValues: {
@@ -100,6 +136,20 @@ const methods = useFormController({
     // time restrictions
     hasTimeRestrictions: false,
     timePeriods: convertBackendToFormTimeRestrictions(off_peak_schedule),
+    // penalty
+    apply_penalties: false,
+    penalty_active: false,
+    penalty_nb_late_cancellations: 0,
+    penalty_nb_days: 0,
+    penalty_kind: PENALTY_KINDS.BLOCK_PASS,
+    penalty_days_blocked: 0,
+    penalty_account_value: 0,
+    no_show_penalty_active: false,
+    no_show_penalty_threshold: 0,
+    no_show_penalty_time_window_days: 0,
+    no_show_penalty_kind: PENALTY_KINDS.BLOCK_PASS,
+    no_show_penalty_days_blocked: 0,
+    no_show_penalty_amount: 0,
   },
 });
 
@@ -156,6 +206,37 @@ const onSubmit = (data) => {
     timePeriodsFieldName="timePeriods"
     formId={formId}
   />
+  <PassFormPenaltySelector<
+    PassFormData,
+    "apply_penalties",
+    "penalty_active" | "no_show_penalty_active",
+    | "penalty_nb_late_cancellations"
+    | "penalty_nb_days"
+    | "penalty_kind"
+    | "penalty_days_blocked"
+    | "no_show_penalty_threshold"
+    | "no_show_penalty_time_window_days"
+    | "no_show_penalty_kind"
+    | "no_show_penalty_days_blocked"
+    | "penalty_account_value"
+    | "no_show_penalty_amount"
+  >
+    formId={formId}
+    applyPenaltyFieldName="apply_penalties"
+    lateCancellationActiveFieldName="penalty_active"
+    lateCancellationThresholdFieldName="penalty_nb_late_cancellations"
+    lateCancellationWindowDaysFieldName="penalty_nb_days"
+    lateCancellationKindFieldName="penalty_kind"
+    lateCancellationBlockedDaysFieldName="penalty_days_blocked"
+    lateCancellationChargedAmountFieldName="penalty_account_value"
+    noShowActiveFieldName="no_show_penalty_active"
+    noShowThresholdFieldName="no_show_penalty_threshold"
+    noShowTimeWindowDaysFieldName="no_show_penalty_time_window_days"
+    noShowKindFieldName="no_show_penalty_kind"
+    noShowBlockedDaysFieldName="no_show_penalty_days_blocked"
+    noShowChargedAmountFieldName="no_show_penalty_amount"
+    noShowSettingsHref="#settings-personalisation"
+  />
 </ControlledForm>
 `;
 
@@ -175,6 +256,20 @@ type PassFormData = {
   // time restrictions
   hasTimeRestrictions: boolean;
   timePeriods: TimePeriodSchedule[];
+  // penalty
+  apply_penalties: boolean;
+  penalty_active: boolean;
+  penalty_nb_late_cancellations: number;
+  penalty_nb_days: number;
+  penalty_kind: PenaltyKind;
+  penalty_days_blocked: number;
+  penalty_account_value: number;
+  no_show_penalty_active: boolean;
+  no_show_penalty_threshold: number;
+  no_show_penalty_time_window_days: number;
+  no_show_penalty_kind: PenaltyKind;
+  no_show_penalty_days_blocked: number;
+  no_show_penalty_amount: number;
 };
 
 const LabeledFormField = ({ children }: { children: ReactNode }) => {
@@ -220,8 +315,26 @@ const meta: Meta<PassFormData> = {
     // time restrictions
     hasTimeRestrictions: false,
     timePeriods: [],
+    // penalty
+    apply_penalties: false,
+    penalty_active: false,
+    penalty_nb_late_cancellations: 0,
+    penalty_nb_days: 0,
+    penalty_kind: PENALTY_KINDS.BLOCK_PASS,
+    penalty_days_blocked: 0,
+    penalty_account_value: 0,
+    no_show_penalty_active: false,
+    no_show_penalty_threshold: 0,
+    no_show_penalty_time_window_days: 0,
+    no_show_penalty_kind: PENALTY_KINDS.BLOCK_PASS,
+    no_show_penalty_days_blocked: 0,
+    no_show_penalty_amount: 0,
   },
   render: (args) => {
+    const penaltyKind = z.union([
+      z.literal(PENALTY_KINDS.BLOCK_PASS),
+      z.literal(PENALTY_KINDS.CHARGE_ACCOUNT),
+    ]);
     const schema = z.object({
       hasUnlimitedCredits: z.boolean(),
       enableOnDemand: z.boolean(),
@@ -238,6 +351,20 @@ const meta: Meta<PassFormData> = {
       // time restrictions
       hasTimeRestrictions: z.boolean(),
       timePeriods: z.array(z.custom<TimePeriodSchedule>()),
+      // penalty
+      apply_penalties: z.boolean(),
+      penalty_active: z.boolean(),
+      penalty_nb_late_cancellations: z.number(),
+      penalty_nb_days: z.number(),
+      penalty_kind: penaltyKind,
+      penalty_days_blocked: z.number(),
+      penalty_account_value: z.number(),
+      no_show_penalty_active: z.boolean(),
+      no_show_penalty_threshold: z.number(),
+      no_show_penalty_time_window_days: z.number(),
+      no_show_penalty_kind: penaltyKind,
+      no_show_penalty_days_blocked: z.number(),
+      no_show_penalty_amount: z.number(),
     });
 
     const methods = useFormController({
@@ -329,6 +456,40 @@ const meta: Meta<PassFormData> = {
             />
           </LabeledFormField>
 
+          <LabeledFormField>
+            <PassFormPenaltySelector<
+              PassFormData,
+              "apply_penalties",
+              "penalty_active" | "no_show_penalty_active",
+              | "penalty_nb_late_cancellations"
+              | "penalty_nb_days"
+              | "penalty_kind"
+              | "penalty_days_blocked"
+              | "no_show_penalty_threshold"
+              | "no_show_penalty_time_window_days"
+              | "no_show_penalty_kind"
+              | "no_show_penalty_days_blocked"
+              | "penalty_account_value"
+              | "no_show_penalty_amount"
+            >
+              formId={formId}
+              applyPenaltyFieldName="apply_penalties"
+              lateCancellationActiveFieldName="penalty_active"
+              lateCancellationThresholdFieldName="penalty_nb_late_cancellations"
+              lateCancellationWindowDaysFieldName="penalty_nb_days"
+              lateCancellationKindFieldName="penalty_kind"
+              lateCancellationBlockedDaysFieldName="penalty_days_blocked"
+              lateCancellationChargedAmountFieldName="penalty_account_value"
+              noShowActiveFieldName="no_show_penalty_active"
+              noShowThresholdFieldName="no_show_penalty_threshold"
+              noShowTimeWindowDaysFieldName="no_show_penalty_time_window_days"
+              noShowKindFieldName="no_show_penalty_kind"
+              noShowBlockedDaysFieldName="no_show_penalty_days_blocked"
+              noShowChargedAmountFieldName="no_show_penalty_amount"
+              noShowSettingsHref="#settings-personalisation"
+            />
+          </LabeledFormField>
+
           <hr className="mt-md" />
           <button form={formId} type="submit">
             Console log results
@@ -374,6 +535,20 @@ export const WithInitialValues: StoryObj = {
       "4": [["00:00", "23:59"]],
       "6": [["00:00", "23:59"]],
     }),
+    // penalty
+    apply_penalties: true,
+    penalty_active: true,
+    penalty_nb_late_cancellations: 3,
+    penalty_nb_days: 30,
+    penalty_kind: PENALTY_KINDS.BLOCK_PASS,
+    penalty_days_blocked: 7,
+    penalty_account_value: 10,
+    no_show_penalty_active: true,
+    no_show_penalty_threshold: 2,
+    no_show_penalty_time_window_days: 30,
+    no_show_penalty_kind: PENALTY_KINDS.CHARGE_ACCOUNT,
+    no_show_penalty_days_blocked: 14,
+    no_show_penalty_amount: 20.5,
   },
 };
 

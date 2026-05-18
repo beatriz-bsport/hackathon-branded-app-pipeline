@@ -100,6 +100,31 @@
         "removeTimeSlot": "Remove time slot",
         "addTimeSlot": "Add time slot"
       }
+    },
+    "penalty": {
+      "label": "Apply penalty",
+      "helperText": "Penalty to members with frequent no show or late cancellation",
+      "daysSuffix": "",
+      "daysSuffix_one": "day",
+      "daysSuffix_other": "days",
+      "blockedDaysLabel": "Number of days to block",
+      "accountValueLabel": "Amount to charge",
+      "penaltyKind": "Penalty type",
+      "kindOptions": {
+        "blockFor": "Block for",
+        "chargeAccount": "Charge account balance for"
+      },
+      "lateCancellation": {
+        "title": "Late cancellation",
+        "thresholdLabel": "Number of cancellations",
+        "windowDaysLabel": "Within days"
+      },
+      "noShow": {
+        "title": "Frequent no show",
+        "thresholdLabel": "Number of no-shows",
+        "windowDaysLabel": "Within days",
+        "description": "Define no show rules in <key1>Settings > Personalisation</key1>"
+      }
     }
   },
   "itemAutocomplete": {

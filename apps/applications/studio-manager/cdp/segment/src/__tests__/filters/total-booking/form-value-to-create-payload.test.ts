@@ -137,4 +137,34 @@ describe("toCreatePayload", () => {
     expect(payload.select_all_coaches).toBe(false);
     expect(payload.coaches).toEqual([3, 9]);
   });
+
+  it("keeps payment pack fields inactive when payment pack sub-filter is not selected", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    value.paymentPack = {
+      selectAllPaymentPacks: false,
+      selectedPaymentPackIds: [1],
+    };
+
+    const payload = toCreatePayload(value);
+
+    expect(payload.payment_pack_filter_active).toBe(false);
+    expect(payload.select_all_payment_packs).toBe(true);
+    expect(payload.payment_packs).toEqual([]);
+  });
+
+  it("activates payment pack fields when payment pack sub-filter is selected", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack];
+    value.paymentPack = {
+      selectAllPaymentPacks: false,
+      selectedPaymentPackIds: [1, 2],
+    };
+
+    const payload = toCreatePayload(value);
+
+    expect(payload.payment_pack_filter_active).toBe(true);
+    expect(payload.select_all_payment_packs).toBe(false);
+    expect(payload.payment_packs).toEqual([1, 2]);
+  });
 });

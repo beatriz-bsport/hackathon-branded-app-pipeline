@@ -107,6 +107,10 @@
           "searchPlaceholder": "Search for a Teacher",
           "emptySelection": "Select Teachers to start filtering"
         },
+        "passes": {
+          "searchPlaceholder": "Search for a Pass",
+          "emptySelection": "Select Passes to start filtering"
+        },
         "totalSessionSuffix": "Total Session",
         "filterSpecifications": "FILTER SPECIFICATIONS"
       },
@@ -114,6 +118,7 @@
         "activity": "Activity",
         "establishment": "Establishment",
         "coach": "Teacher",
+        "passes": "Passes",
         "subFilterFallback": "{{subFilterId}}"
       },
       "toasts": {
@@ -128,7 +133,8 @@
         "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
         "selectedActivitiesRequired": "Select at least one activity.",
         "selectedEstablishmentsRequired": "Select at least one establishment.",
-        "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter."
+        "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
+        "selectedPaymentPacksRequired": "Select at least one pass, or remove this sub-filter."
       }
     }
   },

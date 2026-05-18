@@ -163,4 +163,40 @@ describe("buildDirtyPatchPayload", () => {
     expect(payload.select_all_coaches).toBe(true);
     expect(payload.coaches).toEqual([]);
   });
+
+  it("emits active payment pack slice when payment pack sub-filter values are dirty", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack];
+    value.paymentPack = {
+      selectAllPaymentPacks: false,
+      selectedPaymentPackIds: [44],
+    };
+    const dirtyFields: DirtyFields = {
+      paymentPack: { selectedPaymentPackIds: [true] },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.payment_pack_filter_active).toBe(true);
+    expect(payload.select_all_payment_packs).toBe(false);
+    expect(payload.payment_packs).toEqual([44]);
+  });
+
+  it("emits inactive payment pack slice when payment pack sub-filter is removed", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    value.paymentPack = {
+      selectAllPaymentPacks: true,
+      selectedPaymentPackIds: [],
+    };
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.payment_pack_filter_active).toBe(false);
+    expect(payload.select_all_payment_packs).toBe(true);
+    expect(payload.payment_packs).toEqual([]);
+  });
 });

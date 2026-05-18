@@ -21,4 +21,8 @@ export const createDefaultTotalBookingNumberFilter = (
     selectAllCoaches: false,
     selectedCoachIds: [],
   },
+  paymentPack: {
+    selectAllPaymentPacks: false,
+    selectedPaymentPackIds: [],
+  },
 });

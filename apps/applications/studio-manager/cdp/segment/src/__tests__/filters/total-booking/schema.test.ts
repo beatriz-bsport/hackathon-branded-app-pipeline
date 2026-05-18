@@ -169,4 +169,39 @@ describe("totalBookingNumberFilterSchema", () => {
 
     expect(result.success).toBe(true);
   });
+
+  it("rejects payment pack sub-filter when active and no pass is selected", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack],
+      paymentPack: {
+        selectAllPaymentPacks: false,
+        selectedPaymentPackIds: [],
+      },
+    });
+
+    const result = totalBookingNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const issuePaths = result.error.issues.map((issue) => issue.path);
+      expect(issuePaths).toContainEqual([
+        "paymentPack",
+        "selectedPaymentPackIds",
+      ]);
+    }
+  });
+
+  it("accepts payment pack sub-filter when at least one pass is selected", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack],
+      paymentPack: {
+        selectAllPaymentPacks: false,
+        selectedPaymentPackIds: [501],
+      },
+    });
+
+    const result = totalBookingNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(true);
+  });
 });

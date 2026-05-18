@@ -2,6 +2,7 @@ import type { FieldErrors, UseFormSetValue } from "react-hook-form";
 
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
+import type { PassOption } from "#src/components/filters/passes-filter/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { REGISTERED_TOTAL_BOOKING_SUB_FILTERS } from "../sub-filters/registry";
@@ -30,6 +31,7 @@ type TotalBookingSubFiltersAreaProps = {
     id: number;
     name: string;
   }[];
+  passOptions: PassOption[];
 };
 
 type SubFilterFormValueMap = {
@@ -49,6 +51,10 @@ const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
     selectAllCoaches: false,
     selectedCoachIds: [],
   },
+  [TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack]: {
+    selectAllPaymentPacks: false,
+    selectedPaymentPackIds: [],
+  },
 };
 
 export const TotalBookingSubFiltersArea = ({
@@ -59,6 +65,7 @@ export const TotalBookingSubFiltersArea = ({
   activityOptions,
   establishmentOptions,
   coachOptions,
+  passOptions,
 }: TotalBookingSubFiltersAreaProps) => {
   const { t } = useTranslation("filters");
 
@@ -75,6 +82,9 @@ export const TotalBookingSubFiltersArea = ({
       "filters.22.subFilters.establishment",
     ),
     [TOTAL_BOOKING_SUB_FILTER_IDS.coach]: t("filters.22.subFilters.coach"),
+    [TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack]: t(
+      "filters.22.subFilters.passes",
+    ),
   };
 
   const addSubFilter = (subFilterId: TotalBookingSubFilterId) => {
@@ -131,6 +141,7 @@ export const TotalBookingSubFiltersArea = ({
             activityOptions={activityOptions}
             establishmentOptions={establishmentOptions}
             coachOptions={coachOptions}
+            passOptions={passOptions}
             onRemove={() => removeSubFilter(subFilterId)}
           />
         );

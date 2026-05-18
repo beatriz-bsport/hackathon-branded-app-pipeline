@@ -13,6 +13,9 @@ import { smartlistQueryKeys } from "./api";
 const GROUP_ACTIVITIES_PAGE_SIZE = 100;
 const MAX_LOOP_COUNT = 20;
 
+/** Shared with consumers that `fetchQuery` the same list (e.g. coach options). */
+export const GROUP_ACTIVITIES_STALE_TIME_MS = 2 * 60 * 1000;
+
 /**
  * Loads every group activity (including workshop) for the current studio via paginated meta-activity requests.
  */
@@ -42,14 +45,21 @@ export const fetchAllStudioGroupActivities = async (): Promise<
   return activities;
 };
 
-export const useGroupActivitiesQuery = () =>
-  useSuspenseQuery({
+/**
+ * Full studio group meta-activities (paginated fetch). Cached under
+ * `groupActivitiesKeys.all` so other hooks (e.g. coach options) reuse the same
+ * request instead of duplicating it.
+ */
+export const useGroupActivitiesQuery = () => {
+  const { data: metaActivities } = useSuspenseQuery({
     queryKey: smartlistQueryKeys.groupActivitiesKeys.all,
     queryFn: fetchAllStudioGroupActivities,
-    select: (activities) =>
-      activities
-        .map((activity) => ({ id: activity.id, name: activity.name }))
-        .sort((leftActivity, rightActivity) =>
-          leftActivity.name.localeCompare(rightActivity.name),
-        ),
+    staleTime: GROUP_ACTIVITIES_STALE_TIME_MS,
   });
+  const data = metaActivities
+    .map((activity) => ({ id: activity.id, name: activity.name }))
+    .sort((leftActivity, rightActivity) =>
+      leftActivity.name.localeCompare(rightActivity.name),
+    );
+  return { data };
+};

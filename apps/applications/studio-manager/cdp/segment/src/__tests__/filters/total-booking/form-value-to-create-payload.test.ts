@@ -77,4 +77,34 @@ describe("toCreatePayload", () => {
     expect(payload.select_all_activities).toBe(false);
     expect(payload.meta_activities).toEqual([5, 7]);
   });
+
+  it("keeps establishment fields inactive when establishment sub-filter is not selected", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    value.establishment = {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [2],
+    };
+
+    const payload = toCreatePayload(value);
+
+    expect(payload.establishment_filter_active).toBe(false);
+    expect(payload.select_all_establishments).toBe(true);
+    expect(payload.establishments).toEqual([]);
+  });
+
+  it("activates establishment fields when establishment sub-filter is selected", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.establishment];
+    value.establishment = {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [2, 8],
+    };
+
+    const payload = toCreatePayload(value);
+
+    expect(payload.establishment_filter_active).toBe(true);
+    expect(payload.select_all_establishments).toBe(false);
+    expect(payload.establishments).toEqual([2, 8]);
+  });
 });

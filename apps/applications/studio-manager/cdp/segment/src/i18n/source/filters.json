@@ -63,6 +63,7 @@
       },
       "toasts": {
         "saveError": "Unable to save pass filter.",
+        "saveSuccess": "Pass filter saved.",
         "deleteError": "Unable to delete pass filter.",
         "invalidFilter": "Invalid filter."
       },
@@ -88,19 +89,28 @@
         "equal": "Equal to"
       },
       "actions": {
+        "removeSubFilter": "Remove {{subFilterLabel}} sub-filter",
         "deleteFilter": "Delete booking filter",
         "save": "Apply filter",
         "addFilter": "Add booking filter"
       },
       "fields": {
+        "establishment": {
+          "searchPlaceholder": "Search for an establishment"
+        },
+        "activity": {
+          "searchPlaceholder": "Search for an activity"
+        },
         "totalSessionSuffix": "Total Session"
       },
       "subFilters": {
         "activity": "Activity",
+        "establishment": "Establishment",
         "subFilterFallback": "{{subFilterId}}"
       },
       "toasts": {
         "saveError": "Unable to save booking filter.",
+        "saveSuccess": "Filter applied.",
         "deleteError": "Unable to delete booking filter.",
         "invalidFilter": "Invalid filter."
       },
@@ -108,7 +118,8 @@
         "valueRequired": "Booking number must be 0 or higher.",
         "secondValueRequired": "Second booking number is required for range comparator.",
         "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
-        "selectedActivitiesRequired": "Select at least one activity."
+        "selectedActivitiesRequired": "Select at least one activity.",
+        "selectedEstablishmentsRequired": "Select at least one establishment."
       }
     }
   },

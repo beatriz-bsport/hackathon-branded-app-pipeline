@@ -21,6 +21,7 @@ export const TotalBookingNumberFilterCard = ({
   smartlistId,
   filterValue,
   activityOptions,
+  establishmentOptions,
   onDeleteUnsavedFilter,
   onSaveSuccess,
 }: TotalBookingNumberFilterCardProps) => {
@@ -29,11 +30,28 @@ export const TotalBookingNumberFilterCard = ({
   const fieldIds = {
     comparator: `${baseId}-comparator`,
     activity: `${baseId}-activity`,
+    establishment: `${baseId}-establishment`,
   };
+
+  const methods = useFormController({
+    mode: "onBlur",
+    schema: totalBookingNumberFilterSchema,
+    defaultValues: filterValue,
+  });
+  const watchedFilterValue = methods.watch();
+  const { errors, dirtyFields } = methods.formState;
 
   const { upsertTotalBookingFilterMutate, isLoading: isSaving } =
     useUpsertTotalBookingFilterMutation(smartlistId, {
       onSuccess: () => {
+        toast({
+          status: "default",
+          icon: "check-circle",
+          title: t("filters.22.toasts.saveSuccess"),
+          buttonIcon: "x-close",
+        });
+        const newValues = methods.getValues();
+        methods.reset(newValues);
         onSaveSuccess?.();
       },
       onError: (error) => {
@@ -58,13 +76,7 @@ export const TotalBookingNumberFilterCard = ({
       },
     });
 
-  const methods = useFormController({
-    mode: "onBlur",
-    schema: totalBookingNumberFilterSchema,
-    defaultValues: filterValue,
-  });
-  const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const isDirty = Object.keys(dirtyFields).length > 0;
 
   const handleSave = methods.handleSubmit(
     (value) => {
@@ -170,11 +182,15 @@ export const TotalBookingNumberFilterCard = ({
         />
 
         <TotalBookingSubFiltersArea
-          fieldIds={{ activity: fieldIds.activity }}
+          fieldIds={{
+            activity: fieldIds.activity,
+            establishment: fieldIds.establishment,
+          }}
           watchedFilterValue={watchedFilterValue}
           errors={errors}
           setValue={methods.setValue}
           activityOptions={activityOptions}
+          establishmentOptions={establishmentOptions}
         />
 
         <div className="flex justify-end">
@@ -184,7 +200,7 @@ export const TotalBookingNumberFilterCard = ({
             color="main"
             intent="default"
             loading={isSaving}
-            disabled={isSaving || isDeleting}
+            disabled={isSaving || isDeleting || !isDirty}
             onClick={() => void handleSave()}
           />
         </div>

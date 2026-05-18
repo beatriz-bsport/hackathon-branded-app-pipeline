@@ -5,29 +5,29 @@ import { useTranslation } from "#src/utils/i18n";
 
 import type { TotalBookingSubFilterSectionProps } from "../total-booking-sub-filter-section-props";
 
-export const ActivitySubFilterSection = ({
+export const EstablishmentSubFilterSection = ({
   id,
   value,
   errors,
   setValue,
-  activityOptions,
+  establishmentOptions,
   onRemove,
 }: TotalBookingSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
-  const activityLabel = t("filters.22.subFilters.activity");
+  const establishmentLabel = t("filters.22.subFilters.establishment");
 
   return (
     <Card className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         <Body size="lg" weight="strong">
-          {activityLabel}
+          {establishmentLabel}
         </Body>
         <Button
           kind="icon-button"
           icon="trash-01"
           size="sm"
           label={t("filters.22.actions.removeSubFilter", {
-            subFilterLabel: activityLabel,
+            subFilterLabel: establishmentLabel,
           })}
           intent="flat"
           color="default"
@@ -37,23 +37,25 @@ export const ActivitySubFilterSection = ({
 
       <ItemsSearchFilter
         id={id}
-        options={activityOptions}
-        value={value.activity.selectedMetaActivityIds}
+        options={establishmentOptions}
+        value={value.establishment.selectedEstablishmentIds}
         onChange={(nextSelectedIds) => {
           setValue(
-            "activity",
+            "establishment",
             {
-              selectAllActivities: false,
-              selectedMetaActivityIds: nextSelectedIds,
+              selectAllEstablishments: false,
+              selectedEstablishmentIds: nextSelectedIds,
             },
             { shouldDirty: true, shouldValidate: true },
           );
         }}
-        searchPlaceholder={t("filters.22.fields.activity.searchPlaceholder")}
+        searchPlaceholder={t(
+          "filters.22.fields.establishment.searchPlaceholder",
+        )}
         emptySelectionLabel={t("itemsSearch.empty.selection")}
         errorText={
-          errors.activity?.selectedMetaActivityIds?.message
-            ? String(errors.activity.selectedMetaActivityIds.message)
+          errors.establishment?.selectedEstablishmentIds?.message
+            ? String(errors.establishment.selectedEstablishmentIds.message)
             : undefined
         }
       />

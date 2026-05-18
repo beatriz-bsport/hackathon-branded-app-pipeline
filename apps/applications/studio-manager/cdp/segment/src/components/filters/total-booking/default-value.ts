@@ -10,7 +10,11 @@ export const createDefaultTotalBookingNumberFilter = (
   secondValue: null,
   subFilters: [],
   activity: {
-    selectAllActivities: true,
+    selectAllActivities: false,
     selectedMetaActivityIds: [],
+  },
+  establishment: {
+    selectAllEstablishments: false,
+    selectedEstablishmentIds: [],
   },
 });

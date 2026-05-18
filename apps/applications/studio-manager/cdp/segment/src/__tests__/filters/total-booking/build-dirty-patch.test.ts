@@ -91,4 +91,40 @@ describe("buildDirtyPatchPayload", () => {
     expect(payload.select_all_activities).toBe(true);
     expect(payload.meta_activities).toEqual([]);
   });
+
+  it("emits active establishment slice when establishment sub-filter values are dirty", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.establishment];
+    value.establishment = {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [4],
+    };
+    const dirtyFields: DirtyFields = {
+      establishment: { selectedEstablishmentIds: [true] },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.establishment_filter_active).toBe(true);
+    expect(payload.select_all_establishments).toBe(false);
+    expect(payload.establishments).toEqual([4]);
+  });
+
+  it("emits inactive establishment slice when establishment sub-filter is removed", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    value.establishment = {
+      selectAllEstablishments: true,
+      selectedEstablishmentIds: [],
+    };
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.establishment_filter_active).toBe(false);
+    expect(payload.select_all_establishments).toBe(true);
+    expect(payload.establishments).toEqual([]);
+  });
 });

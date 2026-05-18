@@ -18,6 +18,10 @@ export type TotalBookingNumberFilterFormValue = {
     selectAllActivities: boolean;
     selectedMetaActivityIds: number[];
   };
+  establishment: {
+    selectAllEstablishments: boolean;
+    selectedEstablishmentIds: number[];
+  };
 };
 
 export type TotalBookingNumberDirtyPatchPayload = Partial<
@@ -33,8 +37,12 @@ export type TotalBookingNumberFilterCardProps = {
     id: number;
     name: string;
   }[];
+  establishmentOptions: {
+    id: number;
+    name: string;
+  }[];
   onDeleteUnsavedFilter?: () => void;
   onSaveSuccess?: () => void;
 };
 
-export type TotalBookingSubFilterId = "activity";
+export type TotalBookingSubFilterId = "activity" | "establishment";

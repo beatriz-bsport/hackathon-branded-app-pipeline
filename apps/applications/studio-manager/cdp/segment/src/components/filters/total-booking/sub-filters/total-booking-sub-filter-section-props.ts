@@ -7,6 +7,10 @@ type TotalBookingSubFilterExtraProps = {
     id: number;
     name: string;
   }[];
+  establishmentOptions: {
+    id: number;
+    name: string;
+  }[];
 };
 
 export type TotalBookingSubFilterSectionProps = SubFilterSectionProps<

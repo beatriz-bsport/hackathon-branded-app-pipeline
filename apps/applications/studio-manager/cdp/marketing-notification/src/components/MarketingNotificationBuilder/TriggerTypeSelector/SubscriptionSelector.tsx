@@ -1,10 +1,10 @@
+import { BackendSelector } from "@bsport/kaizen-business-components/form/backend-selector";
 import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 import type {
   FetchSubscriptionQueryParams,
   Subscription,
 } from "@bsport/store-buyables-subscription";
 
-import { BackendSelector } from "#src/components/BackendSelector/BackendSelector";
 import { useFetchSubscriptions } from "#src/hooks/api/use-fetch-subscription";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { useTranslation } from "#src/utils/i18n";

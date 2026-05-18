@@ -1,7 +1,7 @@
+import { BackendSelector } from "@bsport/kaizen-business-components/form/backend-selector";
 import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 import type { EmailTemplateSummary } from "@bsport/store-cdp-email-template";
 
-import { BackendSelector } from "#src/components/BackendSelector/BackendSelector";
 import { useFetchEmailTemplateCategories } from "#src/hooks/api/use-fetch-email-template-categories";
 import {
   type EmailTemplateSearchParams,

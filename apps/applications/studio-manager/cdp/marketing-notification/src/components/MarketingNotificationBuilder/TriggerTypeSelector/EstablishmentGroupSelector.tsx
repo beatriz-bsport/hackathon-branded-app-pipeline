@@ -2,9 +2,9 @@ import type {
   EstablishmentGroup,
   FetchEstablishmentGroupQueryParams,
 } from "@bsport/api-core";
+import { BackendSelector } from "@bsport/kaizen-business-components/form/backend-selector";
 import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 
-import { BackendSelector } from "#src/components/BackendSelector/BackendSelector";
 import { useFetchEstablishments } from "#src/hooks/api/use-fetch-establishments";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { useTranslation } from "#src/utils/i18n";

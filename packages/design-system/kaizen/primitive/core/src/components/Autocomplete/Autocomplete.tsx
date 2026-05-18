@@ -205,6 +205,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
             const handleFocus = (e: FocusEvent<HTMLInputElement>) => {
               openPopover();
               props.onFocus?.(e);
+              textfieldProps.onFocus?.(e);
             };
 
             return (

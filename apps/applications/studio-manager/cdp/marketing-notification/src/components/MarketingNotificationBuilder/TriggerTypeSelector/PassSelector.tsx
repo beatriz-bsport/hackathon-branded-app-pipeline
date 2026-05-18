@@ -1,8 +1,10 @@
+import {
+  BackendSelector,
+  handleSelectSingleOrMultipleItems,
+} from "@bsport/kaizen-business-components/form/backend-selector";
 import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 import type { FetchPassesParams, Pass } from "@bsport/store-buyables-pass";
 
-import { handleSelectSingleOrMultipleItems } from "#src/components/BackendSelector";
-import { BackendSelector } from "#src/components/BackendSelector/BackendSelector";
 import { useFetchPasses } from "#src/hooks/api/use-fetch-passes";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { useTranslation } from "#src/utils/i18n";

@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   type CancelMultipleSessionsParams,
   cancelMultipleSessionsAPI,
+  sessionKeys,
 } from "@bsport/api-book";
 import {
   DATETIME_FORMATS,
@@ -15,7 +16,6 @@ import {
 } from "@bsport/datetime-manipulation";
 import { toast } from "@bsport/kaizen-primitive-core";
 
-import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
 import { useWaitForBackgroundTask } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
@@ -57,7 +57,7 @@ export const useCancelMultipleSessions = () => {
       return null;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: [SESSIONS_QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: sessionKeys.all });
       toast({
         status: "default",
         // @ts-expect-error t function infers too narrow types

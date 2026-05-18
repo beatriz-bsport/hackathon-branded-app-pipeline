@@ -1,7 +1,7 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import keyBy from "lodash/keyBy";
 
-import { fetchGroupSessionsAPI } from "@bsport/api-book";
+import { fetchGroupSessionsAPI, groupSessionKeys } from "@bsport/api-book";
 
 import { fetch } from "../utils/fetch";
 
@@ -14,14 +14,14 @@ const groupSessionsQueryOptions = (
   enabled: boolean,
 ) => {
   const groupSessionIdsSorted = [...groupSessionIds].sort();
+  const queryParams = {
+    id__in: groupSessionIdsSorted,
+    page: 1,
+    page_size: groupSessionIdsSorted.length,
+  };
   return queryOptions({
-    queryKey: ["groupSessions", groupSessionIdsSorted],
-    queryFn: () =>
-      fetchGroupSessions({
-        id__in: groupSessionIdsSorted,
-        page: 1,
-        page_size: groupSessionIdsSorted.length,
-      }),
+    queryKey: groupSessionKeys.list(queryParams),
+    queryFn: () => fetchGroupSessions(queryParams),
     enabled: enabled && groupSessionIdsSorted.length > 0,
     staleTime: GROUP_SESSIONS_STALE_TIME,
   });

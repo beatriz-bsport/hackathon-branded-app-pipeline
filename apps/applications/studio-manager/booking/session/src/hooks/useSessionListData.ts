@@ -7,6 +7,7 @@ import {
   type ManagerSession,
   MetaActivity,
   fetchManagerSessions,
+  sessionKeys,
 } from "@bsport/api-book";
 import { Teacher } from "@bsport/api-core";
 import type { Establishment } from "@bsport/api-core";
@@ -32,7 +33,6 @@ import {
   useCheckCompanyAddOn,
   useObjectLevelPermission,
 } from "../utils/permission";
-import { SESSIONS_QUERY_KEY } from "./constants";
 import { useFetchSessionsWithPendingRequests } from "./session-api/fetch/use-fetch-sessions-with-pending-requests";
 import { useFetchActivitiesByIds } from "./use-fetch-activities-by-ids";
 import { useFetchGroupSessions } from "./use-fetch-group-sessions";
@@ -143,42 +143,28 @@ export const sessionsQueryOptions = (
   filterParams: FetchSessionsParams,
   showCancelledSessions: boolean,
   restrictedTeachers: number[],
-) =>
-  queryOptions({
-    queryKey: [
-      SESSIONS_QUERY_KEY,
-      minDateKey,
-      maxDateKey,
-      filterParams,
-      showCancelledSessions,
-      restrictedTeachers,
-    ],
+) => {
+  const params: FetchSessionsParams = {
+    ...filterParams,
+    ...(minDateKey && { min_date: minDateKey }),
+    ...(maxDateKey && { max_date: maxDateKey }),
+    ordering: "date_start",
+    ...(!showCancelledSessions && { available: true }),
+    ...(restrictedTeachers.length > 0 && { coaches: restrictedTeachers }),
+  };
+
+  return queryOptions({
+    queryKey: sessionKeys.managerList(params),
     queryFn: async () => {
       if (!minDateKey || !maxDateKey) {
         return [];
       }
-
-      const params = {
-        ...filterParams,
-        min_date: minDateKey,
-        max_date: maxDateKey,
-        ordering: "date_start",
-      };
-      if (!showCancelledSessions) {
-        params["available"] = true;
-      }
-
-      if (restrictedTeachers.length > 0) {
-        params["coaches"] = restrictedTeachers;
-      }
-
-      const fetchedData = await fetchManagerSessions(fetch, params);
-
-      return fetchedData;
+      return fetchManagerSessions(fetch, params);
     },
     enabled: !!minDateKey && !!maxDateKey,
     staleTime: SESSIONS_STALE_TIME,
   });
+};
 
 export const useSessionListData = (
   params: { date: DateTime } | { minDate: DateTime; maxDate: DateTime } | null,

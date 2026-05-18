@@ -6,6 +6,7 @@ import {
 
 import {
   type SearchGroupActivitiesParams,
+  groupActivityKeys,
   searchGroupActivitiesAndWorkshopsAPI,
 } from "@bsport/api-book";
 
@@ -20,15 +21,15 @@ const searchActivities = async (params: SearchGroupActivitiesParams) => {
 };
 
 const activitiesQueryOptions = (searchValue: string) => {
+  const params = {
+    searchQuery: searchValue,
+    page: 1,
+    pageSize: ACTIVITIES_DEFAULT_PAGE_SIZE,
+    customerEnabled: true,
+  };
   return queryOptions({
-    queryKey: ["activities_and_workshops", searchValue],
-    queryFn: () =>
-      searchActivities({
-        searchQuery: searchValue,
-        page: 1,
-        pageSize: ACTIVITIES_DEFAULT_PAGE_SIZE,
-        customerEnabled: true,
-      }),
+    queryKey: groupActivityKeys.search(params),
+    queryFn: () => searchActivities(params),
     staleTime: ACTIVITIES_STALE_TIME,
   });
 };

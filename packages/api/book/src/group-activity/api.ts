@@ -25,10 +25,17 @@ const META_ACTIVITY_URL = API_URL + "v1/meta-activity";
 
 export const groupActivityKeys = {
   all: [BOOKING_QUERY_KEY, "group-activities"] as const,
+  lists: () => [...groupActivityKeys.all, "list"] as const,
+  list: (params: FetchGroupActivitiesParams) =>
+    [...groupActivityKeys.lists(), params] as const,
   detail: (id: number) => [...groupActivityKeys.all, id] as const,
   searches: () => [...groupActivityKeys.all, "search"] as const,
   search: (params: SearchGroupActivitiesParams) =>
     [...groupActivityKeys.searches(), params] as const,
+  infinite: (params: FetchGroupActivitiesParams) =>
+    [...groupActivityKeys.all, "infinite", params] as const,
+  searchInfinite: (params: SearchGroupActivitiesParams) =>
+    [...groupActivityKeys.searches(), "infinite", params] as const,
 };
 
 const mapGroupActivitiesUrlParams = ({

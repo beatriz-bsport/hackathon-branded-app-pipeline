@@ -34,7 +34,7 @@ export const StaffFormTeachers: FC = () => {
   );
 
   const { data: teachers = [], isFetching: isFetchingTeachers } = useQuery({
-    queryKey: teacherKeys.list([], { company: companyId }),
+    queryKey: teacherKeys.list({ company: companyId }),
     queryFn: () =>
       companyId !== undefined
         ? fetchFlatTeachers(fetch, { company: companyId })

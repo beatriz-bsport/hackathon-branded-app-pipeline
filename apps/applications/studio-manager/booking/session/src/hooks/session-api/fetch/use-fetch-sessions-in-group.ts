@@ -1,9 +1,12 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import pick from "lodash/pick";
 
-import { FetchSessionsParams, fetchSessionsAPI } from "@bsport/api-book";
+import {
+  FetchSessionsParams,
+  fetchSessionsAPI,
+  sessionKeys,
+} from "@bsport/api-book";
 
-import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
 
 const fetchSessions = fetchSessionsAPI.bind(null, fetch);
@@ -14,7 +17,7 @@ const sessionsInGroupQueryOptions = (
   enabled: boolean,
 ) => {
   return queryOptions({
-    queryKey: [`${SESSIONS_QUERY_KEY}_in_group`, groupId, params],
+    queryKey: sessionKeys.inGroup(groupId, params),
     queryFn: () =>
       fetchSessions({
         group_id__in: [groupId!],

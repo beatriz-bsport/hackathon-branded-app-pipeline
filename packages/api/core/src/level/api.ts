@@ -1,9 +1,14 @@
 import { type ApiConfig, type Fetch, buildUrlParams } from "@bsport/store-base";
 
-import { API_V1_URL } from "../constants";
+import { API_V1_URL, QUERY_KEY_MAIN } from "../constants";
 import type { Level, LevelFilterSet } from "./types";
 
 const API_URL = `${API_V1_URL}/master-data/level/`;
+
+export const levelKeys = {
+  all: [QUERY_KEY_MAIN, "level"] as const,
+  list: (params?: LevelFilterSet) => [...levelKeys.all, params] as const,
+};
 
 const fetchLevelsAPIConfig = (params: LevelFilterSet): ApiConfig => {
   return [`${API_URL}${buildUrlParams(params)}`];

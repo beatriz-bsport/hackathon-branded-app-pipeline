@@ -108,6 +108,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
   settings_aggregators: `${SETTINGS_URL}/aggregators`,
   settings_staff: `${SETTINGS_URL}/staff`,
+  settings_permission: `${SETTINGS_URL}/staff/role`,
   tag: "/tag",
 } as const satisfies Partial<Urls>;
 
@@ -132,6 +133,7 @@ export const REVAMP_URLS_PRODUCTION = {
   settings_teacherView: `${SETTINGS_URL}/teacher-view`,
   settings_referral: `${SETTINGS_URL}/referral-program`,
   settings_staff: REVAMP_URLS_DEVELOPMENT.settings_staff,
+  settings_permission: REVAMP_URLS_DEVELOPMENT.settings_permission,
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
   tag: "/tag",
   teacher: "/teacher",

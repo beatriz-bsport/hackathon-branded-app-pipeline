@@ -5,29 +5,29 @@ import { useTranslation } from "#src/utils/i18n";
 
 import type { TotalBookingSubFilterSectionProps } from "../total-booking-sub-filter-section-props";
 
-export const EstablishmentSubFilterSection = ({
+export const CoachSubFilterSection = ({
   id,
   value,
   errors,
   setValue,
-  establishmentOptions,
+  coachOptions,
   onRemove,
 }: TotalBookingSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
-  const establishmentLabel = t("filters.22.subFilters.establishment");
+  const coachLabel = t("filters.22.subFilters.coach");
 
   return (
     <Card className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         <Body size="lg" weight="strong">
-          {establishmentLabel}
+          {coachLabel}
         </Body>
         <Button
           kind="icon-button"
           icon="trash-01"
           size="sm"
-          label={t("filters.22.actions.removeSubFilter", {
-            subFilterLabel: establishmentLabel,
+          label={t("filters.22.actions.deleteFilter", {
+            filterLabel: coachLabel,
           })}
           intent="flat"
           color="default"
@@ -37,27 +37,24 @@ export const EstablishmentSubFilterSection = ({
 
       <ItemsSearchFilter
         id={id}
-        options={establishmentOptions}
-        value={value.establishment.selectedEstablishmentIds}
+        label={coachLabel}
+        options={coachOptions}
+        value={value.coach.selectedCoachIds}
         onChange={(nextSelectedIds) => {
           setValue(
-            "establishment",
+            "coach",
             {
-              selectAllEstablishments: false,
-              selectedEstablishmentIds: nextSelectedIds,
+              selectAllCoaches: false,
+              selectedCoachIds: nextSelectedIds,
             },
             { shouldDirty: true, shouldValidate: true },
           );
         }}
-        searchPlaceholder={t(
-          "filters.22.fields.establishment.searchPlaceholder",
-        )}
-        emptySelectionLabel={t(
-          "filters.22.fields.establishment.emptySelection",
-        )}
+        searchPlaceholder={t("filters.22.fields.coach.searchPlaceholder")}
+        emptySelectionLabel={t("filters.22.fields.coach.emptySelection")}
         errorText={
-          errors.establishment?.selectedEstablishmentIds?.message
-            ? String(errors.establishment.selectedEstablishmentIds.message)
+          errors.coach?.selectedCoachIds?.message
+            ? String(errors.coach.selectedCoachIds.message)
             : undefined
         }
       />

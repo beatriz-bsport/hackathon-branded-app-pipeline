@@ -42,6 +42,7 @@ export const totalBookingNumberFilterSchema = z
       z.union([
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.activity),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.establishment),
+        z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.coach),
       ]),
     ),
     activity: z.object({
@@ -51,6 +52,10 @@ export const totalBookingNumberFilterSchema = z
     establishment: z.object({
       selectAllEstablishments: z.boolean(),
       selectedEstablishmentIds: z.array(z.number().int().positive()),
+    }),
+    coach: z.object({
+      selectAllCoaches: z.boolean(),
+      selectedCoachIds: z.array(z.number().int().positive()),
     }),
   })
   .superRefine((data, context) => {

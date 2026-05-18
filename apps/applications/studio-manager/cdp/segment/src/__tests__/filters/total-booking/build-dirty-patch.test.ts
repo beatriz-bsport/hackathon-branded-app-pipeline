@@ -127,4 +127,40 @@ describe("buildDirtyPatchPayload", () => {
     expect(payload.select_all_establishments).toBe(true);
     expect(payload.establishments).toEqual([]);
   });
+
+  it("emits active coach slice when coach sub-filter values are dirty", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.coach];
+    value.coach = {
+      selectAllCoaches: false,
+      selectedCoachIds: [9],
+    };
+    const dirtyFields: DirtyFields = {
+      coach: { selectedCoachIds: [true] },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.coach_filter_active).toBe(true);
+    expect(payload.select_all_coaches).toBe(false);
+    expect(payload.coaches).toEqual([9]);
+  });
+
+  it("emits inactive coach slice when coach sub-filter is removed", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    value.coach = {
+      selectAllCoaches: true,
+      selectedCoachIds: [],
+    };
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.coach_filter_active).toBe(false);
+    expect(payload.select_all_coaches).toBe(true);
+    expect(payload.coaches).toEqual([]);
+  });
 });

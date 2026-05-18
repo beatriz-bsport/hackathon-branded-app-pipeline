@@ -11,6 +11,10 @@ type TotalBookingSubFilterExtraProps = {
     id: number;
     name: string;
   }[];
+  coachOptions: {
+    id: number;
+    name: string;
+  }[];
 };
 
 export type TotalBookingSubFilterSectionProps = SubFilterSectionProps<

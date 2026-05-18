@@ -1,3 +1,6 @@
+import { dataAccessLayer } from "@bsport/sm-backbone";
+
+import { useCoachOptionsForTotalBookingQuery } from "#src/api/use-coach-options-for-total-booking-query";
 import { useEstablishmentsQuery } from "#src/api/use-establishments-query";
 import { useGroupActivitiesQuery } from "#src/api/use-group-activities-query";
 
@@ -6,7 +9,7 @@ import { TotalBookingNumberFilterCard } from "./total-booking-number-filter-card
 
 type TotalBookingFilterCardWithDataProps = Omit<
   TotalBookingNumberFilterCardProps,
-  "activityOptions" | "establishmentOptions"
+  "activityOptions" | "establishmentOptions" | "coachOptions"
 >;
 
 /**
@@ -19,10 +22,14 @@ export const TotalBookingFilterCardWithData = ({
   onDeleteUnsavedFilter,
   onSaveSuccess,
 }: TotalBookingFilterCardWithDataProps) => {
+  const companyId = dataAccessLayer.useCompanyTheme()?.company;
   const { data } = useGroupActivitiesQuery();
   const { data: establishmentsData } = useEstablishmentsQuery();
+  const { data: coachOptionsData } =
+    useCoachOptionsForTotalBookingQuery(companyId);
   const activityOptions = data ?? [];
   const establishmentOptions = establishmentsData ?? [];
+  const coachOptions = coachOptionsData ?? [];
 
   return (
     <TotalBookingNumberFilterCard
@@ -30,6 +37,7 @@ export const TotalBookingFilterCardWithData = ({
       filterValue={filterValue}
       activityOptions={activityOptions}
       establishmentOptions={establishmentOptions}
+      coachOptions={coachOptions}
       onDeleteUnsavedFilter={onDeleteUnsavedFilter}
       onSaveSuccess={onSaveSuccess}
     />

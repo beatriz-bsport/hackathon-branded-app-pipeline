@@ -26,29 +26,17 @@ type TotalBookingSubFiltersAreaProps = {
     id: number;
     name: string;
   }[];
+  coachOptions: {
+    id: number;
+    name: string;
+  }[];
 };
 
-const ACTIVITY_DEFAULT_VALUE = {
-  selectAllActivities: true,
-  selectedMetaActivityIds: [],
-};
-const ESTABLISHMENT_DEFAULT_VALUE = {
-  selectAllEstablishments: true,
-  selectedEstablishmentIds: [],
+type SubFilterFormValueMap = {
+  [K in TotalBookingSubFilterId]: TotalBookingNumberFilterFormValue[K];
 };
 
-const SUB_FILTER_DEFAULT_VALUE_MAP: {
-  [TOTAL_BOOKING_SUB_FILTER_IDS.activity]: typeof ACTIVITY_DEFAULT_VALUE;
-  [TOTAL_BOOKING_SUB_FILTER_IDS.establishment]: typeof ESTABLISHMENT_DEFAULT_VALUE;
-} = {
-  [TOTAL_BOOKING_SUB_FILTER_IDS.activity]: ACTIVITY_DEFAULT_VALUE,
-  [TOTAL_BOOKING_SUB_FILTER_IDS.establishment]: ESTABLISHMENT_DEFAULT_VALUE,
-};
-
-const SUB_FILTER_INITIAL_VALUE_MAP: {
-  [TOTAL_BOOKING_SUB_FILTER_IDS.activity]: typeof ACTIVITY_DEFAULT_VALUE;
-  [TOTAL_BOOKING_SUB_FILTER_IDS.establishment]: typeof ESTABLISHMENT_DEFAULT_VALUE;
-} = {
+const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
   [TOTAL_BOOKING_SUB_FILTER_IDS.activity]: {
     selectAllActivities: false,
     selectedMetaActivityIds: [],
@@ -57,12 +45,11 @@ const SUB_FILTER_INITIAL_VALUE_MAP: {
     selectAllEstablishments: false,
     selectedEstablishmentIds: [],
   },
+  [TOTAL_BOOKING_SUB_FILTER_IDS.coach]: {
+    selectAllCoaches: false,
+    selectedCoachIds: [],
+  },
 };
-
-const SUB_FILTER_FIELD_MAP = {
-  [TOTAL_BOOKING_SUB_FILTER_IDS.activity]: "activity",
-  [TOTAL_BOOKING_SUB_FILTER_IDS.establishment]: "establishment",
-} as const;
 
 export const TotalBookingSubFiltersArea = ({
   fieldIds,
@@ -71,6 +58,7 @@ export const TotalBookingSubFiltersArea = ({
   setValue,
   activityOptions,
   establishmentOptions,
+  coachOptions,
 }: TotalBookingSubFiltersAreaProps) => {
   const { t } = useTranslation("filters");
 
@@ -86,6 +74,7 @@ export const TotalBookingSubFiltersArea = ({
     [TOTAL_BOOKING_SUB_FILTER_IDS.establishment]: t(
       "filters.22.subFilters.establishment",
     ),
+    [TOTAL_BOOKING_SUB_FILTER_IDS.coach]: t("filters.22.subFilters.coach"),
   };
 
   const addSubFilter = (subFilterId: TotalBookingSubFilterId) => {
@@ -95,8 +84,8 @@ export const TotalBookingSubFiltersArea = ({
     setValue("subFilters", [...watchedFilterValue.subFilters, subFilterId], {
       shouldDirty: true,
     });
-    const fieldToSet = SUB_FILTER_FIELD_MAP[subFilterId];
-    setValue(fieldToSet, SUB_FILTER_INITIAL_VALUE_MAP[subFilterId], {
+    const fieldToSet = totalBookingSubFilterFieldMap[subFilterId];
+    setValue(fieldToSet, SUB_FILTER_VALUE_MAP[subFilterId], {
       shouldDirty: true,
       shouldValidate: true,
     });
@@ -108,8 +97,8 @@ export const TotalBookingSubFiltersArea = ({
       watchedFilterValue.subFilters.filter((item) => item !== subFilterId),
       { shouldDirty: true, shouldValidate: true },
     );
-    const fieldToReset = SUB_FILTER_FIELD_MAP[subFilterId];
-    setValue(fieldToReset, SUB_FILTER_DEFAULT_VALUE_MAP[subFilterId], {
+    const fieldToReset = totalBookingSubFilterFieldMap[subFilterId];
+    setValue(fieldToReset, SUB_FILTER_VALUE_MAP[subFilterId], {
       shouldDirty: true,
     });
   };
@@ -117,7 +106,7 @@ export const TotalBookingSubFiltersArea = ({
   return (
     <>
       <Body size="md" color="weak" weight="strong">
-        {t("filters.19.fields.filterSpecifications")}
+        {t("filters.22.fields.filterSpecifications")}
       </Body>
 
       {watchedFilterValue.subFilters.map((subFilterId) => {
@@ -141,6 +130,7 @@ export const TotalBookingSubFiltersArea = ({
             setValue={setValue}
             activityOptions={activityOptions}
             establishmentOptions={establishmentOptions}
+            coachOptions={coachOptions}
             onRemove={() => removeSubFilter(subFilterId)}
           />
         );

@@ -17,4 +17,8 @@ export const createDefaultTotalBookingNumberFilter = (
     selectAllEstablishments: false,
     selectedEstablishmentIds: [],
   },
+  coach: {
+    selectAllCoaches: false,
+    selectedCoachIds: [],
+  },
 });

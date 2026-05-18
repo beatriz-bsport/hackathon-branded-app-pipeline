@@ -107,4 +107,34 @@ describe("toCreatePayload", () => {
     expect(payload.select_all_establishments).toBe(false);
     expect(payload.establishments).toEqual([2, 8]);
   });
+
+  it("keeps coach fields inactive when coach sub-filter is not selected", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    value.coach = {
+      selectAllCoaches: false,
+      selectedCoachIds: [3],
+    };
+
+    const payload = toCreatePayload(value);
+
+    expect(payload.coach_filter_active).toBe(false);
+    expect(payload.select_all_coaches).toBe(true);
+    expect(payload.coaches).toEqual([]);
+  });
+
+  it("activates coach fields when coach sub-filter is selected", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.coach];
+    value.coach = {
+      selectAllCoaches: false,
+      selectedCoachIds: [3, 9],
+    };
+
+    const payload = toCreatePayload(value);
+
+    expect(payload.coach_filter_active).toBe(true);
+    expect(payload.select_all_coaches).toBe(false);
+    expect(payload.coaches).toEqual([3, 9]);
+  });
 });

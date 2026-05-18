@@ -4,7 +4,7 @@ import { communicateKeys } from "@bsport/api-cdp/communicate";
 import { emailTemplateKeys } from "@bsport/api-cdp/email-template";
 import { smartlistKeys } from "@bsport/api-cdp/smartlist";
 import { tagsKeys } from "@bsport/api-cdp/tags";
-import { establishmentKeys } from "@bsport/api-core";
+import { establishmentKeys, teacherKeys } from "@bsport/api-core";
 import { mobileAppKeys } from "@bsport/api-member-experience";
 
 export const smartlistQueryKeys = {
@@ -19,4 +19,11 @@ export const smartlistQueryKeys = {
   mobileAppKeys: mobileAppKeys,
   groupActivitiesKeys: groupActivityKeys,
   establishmentsKeys: establishmentKeys,
+  coachOptionsForTotalBooking: (companyId: number | undefined) =>
+    [
+      ...teacherKeys.all,
+      "segment",
+      "total-booking-coach-options",
+      companyId,
+    ] as const,
 } as const;

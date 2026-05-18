@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
 import {
   type ApiConfig,
@@ -14,22 +14,35 @@ import type {
   SearchEstablishmentParams,
 } from "#src/establishments/types";
 
-import { API_V1_URL } from "../constants";
+import { API_V1_URL, QUERY_KEY_MAIN } from "../constants";
+
+// ----------------------------------------------------------------------------
 
 const ESTABLISHMENT_API_URL = `${API_V1_URL}/establishment`;
 
 // TODO: use the same stale time for all establishments queries
 const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
-// TODO: add the other keys (list, search, etc.)
 export const establishmentKeys = {
-  all: ["@api-core", "establishments"] as const,
+  all: [QUERY_KEY_MAIN, "establishments"] as const,
+
+  lists: () => [...establishmentKeys.all, "lists"] as const,
   list: (params: FetchEstablishmentParams) =>
-    [...establishmentKeys.all, "list", params] as const,
+    [...establishmentKeys.lists(), params] as const,
+
+  infiniteLists: () => [...establishmentKeys.lists(), "infinite"] as const,
+  infiniteList: (params: FetchEstablishmentParams) =>
+    [...establishmentKeys.infiniteLists(), params] as const,
+
+  searches: () => [...establishmentKeys.lists(), "search"] as const,
   search: (params: SearchEstablishmentParams) =>
-    [...establishmentKeys.all, "search", params] as const,
-  details: (id: number) => [...establishmentKeys.all, id] as const,
+    [...establishmentKeys.searches(), params] as const,
+
+  details: () => [...establishmentKeys.all, "detail"] as const,
+  detail: (id: number) => [...establishmentKeys.details(), id] as const,
 };
+
+// ----------------------------------------------------------------------------
 
 const fetchEstablishmentsAPI = (
   params: FetchEstablishmentParams = {},
@@ -47,6 +60,35 @@ export const fetchEstablishments = async (
   return data;
 };
 
+export const fetchEstablishmentsQueryOptions = (
+  fetch: Fetch<PaginatedResponse<Establishment>>,
+  params: FetchEstablishmentParams = {},
+) => {
+  return queryOptions({
+    queryKey: establishmentKeys.list(params),
+    queryFn: () => fetchEstablishments(fetch, params),
+    staleTime: ESTABLISHMENTS_STALE_TIME,
+  });
+};
+
+export const fetchEstablishmentsInfiniteQueryOptions = (
+  fetch: Fetch<PaginatedResponse<Establishment>>,
+  params: FetchEstablishmentParams = {},
+) => {
+  return infiniteQueryOptions({
+    queryKey: establishmentKeys.infiniteList(params),
+    queryFn: ({ pageParam }) => {
+      return fetchEstablishments(fetch, { ...params, page: pageParam });
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
+    enabled: Boolean(params.company && params.company > 0),
+    staleTime: ESTABLISHMENTS_STALE_TIME,
+  });
+};
+
+// ----------------------------------------------------------------------------
+
 const searchEstablishmentsAPI = (
   params: SearchEstablishmentParams,
 ): ApiConfig => {
@@ -63,6 +105,8 @@ export const searchEstablishments = async (
   return data;
 };
 
+// ----------------------------------------------------------------------------
+
 export const retriveEstablishment = async (
   fetch: Fetch<Establishment>,
   establishmentId: number,
@@ -76,7 +120,7 @@ export const retrieveEstablishmentQueryOptions = (
   establishmentId: number,
 ) => {
   return queryOptions({
-    queryKey: establishmentKeys.details(establishmentId),
+    queryKey: establishmentKeys.detail(establishmentId),
     queryFn: () => retriveEstablishment(fetch, establishmentId),
     staleTime: ESTABLISHMENTS_STALE_TIME,
   });

@@ -36,8 +36,12 @@ export const mapTotalBookingFilterToFormValue = (
         : (filter.value_second ?? null),
     subFilters,
     activity: {
-      selectAllActivities: true,
+      selectAllActivities: false,
       selectedMetaActivityIds: [],
+    },
+    establishment: {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [],
     },
     ...partialFromModules,
   };

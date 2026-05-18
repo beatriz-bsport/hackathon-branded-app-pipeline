@@ -38,10 +38,19 @@ export const totalBookingNumberFilterSchema = z
         }),
       )
       .nullable(),
-    subFilters: z.array(z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.activity)),
+    subFilters: z.array(
+      z.union([
+        z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.activity),
+        z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.establishment),
+      ]),
+    ),
     activity: z.object({
       selectAllActivities: z.boolean(),
       selectedMetaActivityIds: z.array(z.number().int().positive()),
+    }),
+    establishment: z.object({
+      selectAllEstablishments: z.boolean(),
+      selectedEstablishmentIds: z.array(z.number().int().positive()),
     }),
   })
   .superRefine((data, context) => {

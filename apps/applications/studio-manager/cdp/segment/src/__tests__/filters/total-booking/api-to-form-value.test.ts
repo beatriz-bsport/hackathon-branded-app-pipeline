@@ -119,4 +119,32 @@ describe("mapTotalBookingFilterToFormValue", () => {
     expect(formValue.activity.selectAllActivities).toBe(true);
     expect(formValue.activity.selectedMetaActivityIds).toEqual([]);
   });
+
+  it("activates establishment sub-filter when API establishment filter is active", () => {
+    const filter = buildApiFilter({
+      establishment_filter_active: true,
+      select_all_establishments: false,
+      establishments: [3, 4],
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual(["establishment"]);
+    expect(formValue.establishment.selectAllEstablishments).toBe(false);
+    expect(formValue.establishment.selectedEstablishmentIds).toEqual([3, 4]);
+  });
+
+  it("keeps establishment sub-filter disabled defaults when API establishment filter is inactive", () => {
+    const filter = buildApiFilter({
+      establishment_filter_active: false,
+      select_all_establishments: true,
+      establishments: [],
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual([]);
+    expect(formValue.establishment.selectAllEstablishments).toBe(true);
+    expect(formValue.establishment.selectedEstablishmentIds).toEqual([]);
+  });
 });

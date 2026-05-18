@@ -2350,6 +2350,9 @@ importers:
       '@bsport/api-cdp':
         specifier: workspace:*
         version: link:../../../../../packages/api/cdp
+      '@bsport/api-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/core
       '@bsport/api-financial-services':
         specifier: workspace:*
         version: link:../../../../../packages/api/financial-services
@@ -37164,9 +37167,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

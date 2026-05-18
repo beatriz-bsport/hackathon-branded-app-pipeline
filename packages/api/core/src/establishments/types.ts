@@ -1,3 +1,5 @@
+// #region Params
+
 export type FetchEstablishmentParams = {
   page?: number;
   page_size?: number;
@@ -9,6 +11,12 @@ export type FetchEstablishmentParams = {
 export type SearchEstablishmentParams = FetchEstablishmentParams & {
   q: string;
 };
+
+// #endregion
+
+// ----------------------------------------------------------------------------
+
+// #region Models
 
 export type EstablishmentLocation = {
   address: string;
@@ -51,3 +59,5 @@ export type Establishment = {
   wellhub_gym: string;
   usc_location_id: number | null;
 };
+
+// #endregion

@@ -16,10 +16,10 @@ import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 import Footer from "./Footer";
 import type { FooterDirection } from "./types";
 
-export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
+export type ModalProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
   open: boolean;
   size: DialogSize;
-  title: string;
+  title: React.ReactNode;
   description?: React.ReactNode;
   footerDirection?: FooterDirection;
   position?: DialogPosition;

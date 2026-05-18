@@ -72,6 +72,13 @@ const TicketbaiSettings: React.FC<Props> = ({ territory }) => {
     (state: RootState) =>
       state.invoice.fiskalyOnboarding.finalizeTicketbaiSetupError,
   );
+  const fiskalyOnboardingError = useSelector(
+    (state: RootState) => state.invoice.fiskalyOnboarding.error,
+  );
+  const isCompanyAllSetupLoading = useSelector(
+    (state: RootState) =>
+      state.invoice.fiskalyOnboarding.isCompanyAllSetupLoading,
+  );
 
   const { isOnboarded, isLoadingOnboarding } = useVerifactuOnboardingStatus({
     skipAgreementFetch: true,
@@ -140,6 +147,67 @@ const TicketbaiSettings: React.FC<Props> = ({ territory }) => {
     );
   }, [dispatch, t]);
 
+  const renderLoadError = () => (
+    <Alert className={classes.alert} severity="error">
+      {t('configuration.ticketbai.load_error')}
+    </Alert>
+  );
+
+  const renderLoading = () => (
+    <Typography variant="body2">
+      {t('configuration.ticketbai.loading')}
+    </Typography>
+  );
+
+  const renderTicketbaiStep = (isUpsellEnabled: boolean): React.ReactNode => {
+    if (isLoadingOnboarding) return renderLoading();
+
+    const isCompanyAllSetupPending =
+      isOnboarded && isCompanyAllSetup === null && isCompanyAllSetupLoading;
+    const isCompanyAllSetupFailed =
+      isOnboarded && isCompanyAllSetup === null && !isCompanyAllSetupLoading;
+
+    if (isConfigStepOpen) {
+      if (isCompanyAllSetupPending) return renderLoading();
+      if (isCompanyAllSetupFailed) return renderLoadError();
+
+      return (
+        <TicketbaiDeviceSetupStep
+          deviceCertificateSerialNumber={deviceCertificateSerialNumber}
+          finalizeTicketbaiSetupError={finalizeTicketbaiSetupError}
+          finalizeTicketbaiSetupLoading={finalizeTicketbaiSetupLoading}
+          handleFinalizeTicketbai={handleFinalizeTicketbai}
+          isSetupConfirmed={isSetupConfirmed}
+          isTicketbaiSetupFinalized={isTicketbaiSetupComplete}
+          setIsSetupConfirmed={setIsSetupConfirmed}
+          territory={territory}
+        />
+      );
+    }
+
+    if (!isUpsellEnabled) {
+      return (
+        <Alert className={classes.alert} severity="info">
+          {t('configuration.ticketbai.info')}
+        </Alert>
+      );
+    }
+
+    if (fiskalyOnboardingError) return renderLoadError();
+    if (!areRequirementsLoaded) return renderLoading();
+
+    return (
+      <TicketbaiOnboardingEntryStep
+        criticalRequirementsMet={criticalRequirementsMet}
+        handleConfigureTicketbai={handleConfigureTicketbai}
+        onboardLoading={onboardLoading}
+        platformCustomerEntity={platformCustomerEntity}
+        requirements={onboardingRequirements}
+        territory={territory}
+      />
+    );
+  };
+
   return (
     <FeatureListProvider>
       {(featureList: FeatureList) => {
@@ -190,39 +258,7 @@ const TicketbaiSettings: React.FC<Props> = ({ territory }) => {
               </Alert>
             ) : null}
 
-            {isLoadingOnboarding ? (
-              <Typography variant="body2">
-                {t('configuration.ticketbai.loading')}
-              </Typography>
-            ) : isConfigStepOpen ? (
-              <TicketbaiDeviceSetupStep
-                deviceCertificateSerialNumber={deviceCertificateSerialNumber}
-                finalizeTicketbaiSetupError={finalizeTicketbaiSetupError}
-                finalizeTicketbaiSetupLoading={finalizeTicketbaiSetupLoading}
-                handleFinalizeTicketbai={handleFinalizeTicketbai}
-                isSetupConfirmed={isSetupConfirmed}
-                isTicketbaiSetupFinalized={isTicketbaiSetupComplete}
-                setIsSetupConfirmed={setIsSetupConfirmed}
-                territory={territory}
-              />
-            ) : !isUpsellEnabled ? (
-              <Alert className={classes.alert} severity="info">
-                {t('configuration.ticketbai.info')}
-              </Alert>
-            ) : !areRequirementsLoaded || isCompanyAllSetup !== false ? (
-              <Typography variant="body2">
-                {t('configuration.ticketbai.loading')}
-              </Typography>
-            ) : (
-              <TicketbaiOnboardingEntryStep
-                criticalRequirementsMet={criticalRequirementsMet}
-                handleConfigureTicketbai={handleConfigureTicketbai}
-                onboardLoading={onboardLoading}
-                platformCustomerEntity={platformCustomerEntity}
-                requirements={onboardingRequirements}
-                territory={territory}
-              />
-            )}
+            {renderTicketbaiStep(isUpsellEnabled)}
           </Paper>
         );
       }}

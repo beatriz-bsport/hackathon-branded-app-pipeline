@@ -287,7 +287,7 @@ export const getActivityCompatiblePaymentPacksWithContractId = createSelector(
     );
 
     return paymentPacks.map((paymentPack) => {
-      const contract = contractByPaymentPackId.get(paymentPack.id);
+      const contract = contractByPaymentPackId.get(paymentPack?.id);
       return {
         ...paymentPack,
         contract_id: contract?.id ?? null,

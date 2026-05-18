@@ -89,7 +89,7 @@ export const StaffFormBillingGroup: FC<StaffFormBillingGroupProps> = ({
       name="staffEstablishmentBillingGroup"
       mapProps={({ defaultProps, field, form }) => ({
         ...defaultProps,
-        value: field.value,
+        value: field.value || undefined,
         items: billingGroupItems,
         onChange: (billingGroupId) => {
           form.setValue("staffEstablishmentBillingGroup", billingGroupId, {

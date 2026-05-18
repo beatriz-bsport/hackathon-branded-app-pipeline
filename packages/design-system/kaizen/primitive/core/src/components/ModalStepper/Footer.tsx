@@ -41,6 +41,7 @@ const Footer: React.FC<FooterProps> = ({
     ? !currentStepConfig.validate()
     : false;
   const ctaButtonOnClick = handleNextStep;
+  const ctaButtonFormId = currentStepConfig?.formId;
 
   const showSecondaryButton = !!secondaryButtonLabel;
   const showCtaButton = !!ctaButtonLabel;
@@ -74,6 +75,7 @@ const Footer: React.FC<FooterProps> = ({
           size="md"
           intent="call-to-action"
           color={confirmButton?.color ?? "main"}
+          {...(ctaButtonFormId && { form: ctaButtonFormId, type: "submit" })}
         />
       )}
     </div>

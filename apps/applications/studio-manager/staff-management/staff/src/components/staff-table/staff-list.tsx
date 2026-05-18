@@ -38,7 +38,22 @@ export const StaffList: FC<StaffListProps> = ({
     id: `staff-${row.id}`,
     title: row.name,
     description: row.roleName ?? undefined,
-    onItemClick: () => onRowClick?.(row.id),
+    onItemClick: onRowClick ? () => onRowClick(row.id) : undefined,
+    buttons: row.onDelete
+      ? [
+          {
+            id: `staff-${row.id}-delete`,
+            kind: "icon-button" as const,
+            icon: "trash-01" as const,
+            color: "default" as const,
+            intent: "flat" as const,
+            size: "md" as const,
+            label: t("table.actions.delete"),
+            onClick: row.onDelete,
+          },
+        ]
+      : [],
+    dropdownConfig: { visibleActionsDisplayLimit: 0 },
   }));
 
   return (

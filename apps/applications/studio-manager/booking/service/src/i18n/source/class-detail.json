@@ -5,8 +5,51 @@
       "editor": "Editor",
       "compatiblePasses": "Compatible passes"
     },
+    "compatiblePasses": {
+      "loading": "Loading passes...",
+      "uncategorized": "Uncategorized",
+      "empty": {
+        "title": "No compatible passes added yet",
+        "description": "Add passes to control which ones can be used to book this class",
+        "cta": "Go to Passes"
+      },
+      "flags": {
+        "universal": "Universal",
+        "unlisted": "Unlisted",
+        "staffRestricted": "Staff-restricted",
+        "newMembersOnly": "New members only",
+        "tooltips": {
+          "universal": "Shared credits for classes and appointments",
+          "unlisted": "Hidden from members. Staff-only sale",
+          "staffRestricted": "Staff can't sell manually. Online only",
+          "newMembersOnly": "Can only be purchased by members with no prior purchase history"
+        }
+      },
+      "panel": {
+        "previous": "Previous pass",
+        "next": "Next pass",
+        "goToPass": "Go to pass",
+        "properties": "Properties",
+        "credits": "Credits",
+        "creditsCount": "{{count}} credit",
+        "creditsCount_other": "{{count}} credits",
+        "creditsUnlimited": "Unlimited",
+        "compatibility": "Compatibility",
+        "free": "Free",
+        "compatibilityAll": "All services - All locations",
+        "compatibilityAllServices": "All services",
+        "compatibilityAllLocations": "All locations",
+        "compatibilityCategories": "Categories",
+        "compatibilityServices": "Services",
+        "compatibilityLocations": "Locations",
+        "offPeakOnly": "Off-peak only"
+      }
+    },
     "editor": {
       "toast": "Class edited",
+      "advanced": {
+        "title": "Advanced"
+      },
       "discard": {
         "title": "Discard changes?",
         "description": "Are you sure you want to discard your changes?",

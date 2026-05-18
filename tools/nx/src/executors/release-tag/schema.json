@@ -7,6 +7,15 @@
       "default": false,
       "description": "Compute the next semver tag without creating or pushing it"
     },
+    "hotfix": {
+      "type": "boolean",
+      "default": false,
+      "description": "Resolve the current release tag from the current branch only, for hotfix branches created from an older release tag"
+    },
+    "outputFile": {
+      "type": "string",
+      "description": "Optional dotenv file written with the available release tag for downstream CI jobs"
+    },
     "remote": {
       "type": "string",
       "default": "origin",

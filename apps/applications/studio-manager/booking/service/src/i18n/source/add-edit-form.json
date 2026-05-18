@@ -76,15 +76,18 @@
       }
     },
     "customRestrictions": {
-      "title": "Custom restrictions",
-      "toggleLabel": "Apply tags to differentiate restrictions between segments to determine which rules will be applied to whom.",
+      "title": "Booking rules by segment",
+      "toggleLabel": "Apply different booking and cancellation rules to specific member segments.",
       "ruleTitle": "Custom restriction {{index}}",
       "remove": "Remove",
       "applyTo": "Apply restrictions to:",
       "tagsPlaceholder": "Add tags",
       "addRule": "Add a rule",
       "maxHint": "You can add up to {{max}} custom rules.",
-      "maxReached": "You already have added {{max}} custom rules."
+      "maxReached": "You already have added {{max}} custom rules.",
+      "errors": {
+        "tagsRequired": "Add at least 1 tag"
+      }
     },
     "automaticCancellation": {
       "title": "Automatic Cancellation",

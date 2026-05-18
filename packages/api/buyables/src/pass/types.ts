@@ -1,3 +1,16 @@
+export type PassCategory = {
+  id: number;
+  name: string;
+  company_id: number;
+  category_ordering: number;
+};
+
+export type FetchPassCategoriesParams = {
+  page?: number;
+  page_size?: number;
+  id__in?: number[];
+};
+
 export type FetchPassesParams = {
   /** Number of items per page (for pagination). */
   page_size?: number;
@@ -43,6 +56,12 @@ export type FetchPassesParams = {
 
   /** Filter passes by the `new_member_only` field value. */
   new_member_only?: boolean;
+
+  /**
+   * Ordering fields. Use `"category,ordering_in_category"` once backend ships
+   * `OrderingFilter` on `PaymentPackViewSet`.
+   */
+  ordering?: string;
 };
 
 /**

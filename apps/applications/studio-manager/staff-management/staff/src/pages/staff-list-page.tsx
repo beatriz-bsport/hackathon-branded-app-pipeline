@@ -1,11 +1,13 @@
-import type { FC } from "react";
+import { type FC, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { StaffTable } from "#src/components/staff-table/staff-table";
+import type { StaffRowData } from "#src/components/staff-table/types";
 import { StaffCreateModal } from "#src/features/staff-create-modal/staff-create-modal";
+import { StaffDeleteModal } from "#src/features/staff-delete-modal/staff-delete-modal";
 import {
   type StaffActiveFilters,
   useStaffListQuery,
@@ -20,6 +22,7 @@ type StaffListPageContentProps = {
   isFiltered: boolean;
   onClearFilters: () => void;
   onCreate: () => void;
+  onDeleteRow: (row: StaffRowData, queryKey: readonly unknown[]) => void;
 };
 
 const StaffListPageContent: FC<StaffListPageContentProps> = ({
@@ -27,9 +30,10 @@ const StaffListPageContent: FC<StaffListPageContentProps> = ({
   isFiltered,
   onClearFilters,
   onCreate,
+  onDeleteRow,
 }) => {
   const navigate = useNavigate();
-  const { staffRows, isEmpty, isFetching, paginationProps } =
+  const { staffRows, isEmpty, isFetching, paginationProps, staffQueryKey } =
     useStaffListQuery(activeFilters);
 
   return (
@@ -42,6 +46,7 @@ const StaffListPageContent: FC<StaffListPageContentProps> = ({
       onClearFilters={onClearFilters}
       onCreate={onCreate}
       onRowClick={(id) => navigate(URLS.DETAILS(id))}
+      onDeleteRow={(row) => onDeleteRow(row, staffQueryKey)}
     />
   );
 };
@@ -57,6 +62,15 @@ const StaffListPage: FC = () => {
     onOpen: openCreateModal,
   } = useDisclosure();
   const navigate = useNavigate();
+  const [staffToDelete, setStaffToDelete] = useState<StaffRowData | null>(null);
+  const [deleteSourceQueryKey, setDeleteSourceQueryKey] = useState<
+    readonly unknown[] | null
+  >(null);
+
+  const handleCloseDeleteModal = () => {
+    setStaffToDelete(null);
+    setDeleteSourceQueryKey(null);
+  };
 
   return (
     <ListLayout>
@@ -92,11 +106,20 @@ const StaffListPage: FC = () => {
             isFiltered={isFiltered}
             onClearFilters={resetFilters}
             onCreate={openCreateModal}
+            onDeleteRow={(row, queryKey) => {
+              setStaffToDelete(row);
+              setDeleteSourceQueryKey(queryKey);
+            }}
           />
         </QueryBoundary>
       </ListLayout.Content>
 
       <StaffCreateModal isOpen={isCreateModalOpen} onClose={closeCreateModal} />
+      <StaffDeleteModal
+        staff={staffToDelete}
+        queryKey={deleteSourceQueryKey ?? undefined}
+        onClose={handleCloseDeleteModal}
+      />
     </ListLayout>
   );
 };

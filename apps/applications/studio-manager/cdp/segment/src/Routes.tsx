@@ -14,6 +14,7 @@ import {
 } from "./utils/constants";
 
 const ListPage = lazy(() => import("#src/pages/ListPage"));
+const TabbedIndexPage = lazy(() => import("#src/pages/tabbed-index-page"));
 const DetailsPage = lazy(() => import("#src/pages/DetailsPage"));
 const ParameterPage = lazy(() => import("#src/pages/ParameterPage"));
 const CampaignPage = lazy(() => import("#src/pages/CampaignPage"));
@@ -32,9 +33,14 @@ const AutomationTagRuleEditPage = lazy(
 );
 
 export const AppRoutes = () => {
-  return (
-    <Routes>
-      <Route element={<ListPage />} index />
+  const renderCustomIndexPage = () => (
+    <FeatureFlag flag={flags.prebuiltSegments} fallback={<ListPage />}>
+      <TabbedIndexPage activeTab="custom" />
+    </FeatureFlag>
+  );
+
+  const renderSmartlistDetailsRoutes = () => (
+    <>
       <Route
         path={SMARTLIST_ROUTE_PATTERNS.CAMPAIGN_SENT_DETAILS}
         element={
@@ -90,6 +96,34 @@ export const AppRoutes = () => {
           </FeatureFlag>
         }
       />
+    </>
+  );
+
+  return (
+    <Routes>
+      <Route
+        element={
+          <FeatureFlag flag={flags.prebuiltSegments} fallback={<ListPage />}>
+            <Navigate to={SMARTLIST_APP_LINKS.prebuiltIndex()} replace />
+          </FeatureFlag>
+        }
+        index
+      />
+      <Route
+        path={SMARTLIST_ROUTE_PATTERNS.PREBUILT_INDEX}
+        element={
+          <FeatureFlag
+            flag={flags.prebuiltSegments}
+            fallback={<Navigate to={SMARTLIST_APP_LINKS.root()} replace />}
+          >
+            <TabbedIndexPage activeTab="prebuilt" />
+          </FeatureFlag>
+        }
+      />
+      <Route path={SMARTLIST_ROUTE_PATTERNS.CUSTOM_INDEX}>
+        <Route index element={renderCustomIndexPage()} />
+        {renderSmartlistDetailsRoutes()}
+      </Route>
       <Route element={<Navigate to={SMARTLIST_APP_LINKS.index()} />} path="*" />
     </Routes>
   );

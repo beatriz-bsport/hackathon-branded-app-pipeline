@@ -7,8 +7,19 @@ Release:Tag:
     GIT_STRATEGY: clone
     GIT_DEPTH: 0
     RELEASE_TAG_DRY_RUN: "false"
+    RELEASE_TAG_HOTFIX: "false"
+    RELEASE_TAG_OUTPUT_FILE: "release-tag.env"
   resource_group: release-tag
+  artifacts:
+    reports:
+      dotenv: release-tag.env
   rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^hotfix\/v[0-9]+\.[0-9]+\.x$/
+      when: manual
+      allow_failure: true
+      variables:
+        RELEASE_TAG_DRY_RUN: "true"
+        RELEASE_TAG_HOTFIX: "true"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: manual
       allow_failure: true
@@ -18,6 +29,14 @@ Release:Tag:
       when: on_success
     - if: $CI_COMMIT_BRANCH == "dev" && $CI_PIPELINE_SOURCE == "web"
       when: manual
+    - if: $CI_COMMIT_BRANCH =~ /^hotfix\/v[0-9]+\.[0-9]+\.x$/ && $CI_PIPELINE_SOURCE == "push"
+      when: on_success
+      variables:
+        RELEASE_TAG_HOTFIX: "true"
+    - if: $CI_COMMIT_BRANCH =~ /^hotfix\/v[0-9]+\.[0-9]+\.x$/ && $CI_PIPELINE_SOURCE == "web"
+      when: manual
+      variables:
+        RELEASE_TAG_HOTFIX: "true"
   script:
     - git config --global user.email "contact@bsport.io"
     - git config --global user.name "bsport-bot"
@@ -35,8 +54,44 @@ Release:Tag:
       fi
     - git fetch origin --tags --force
     - |
+      RELEASE_TAG_ARGS="--outputFile=$RELEASE_TAG_OUTPUT_FILE"
+
       if [ "$RELEASE_TAG_DRY_RUN" = "true" ]; then
-        pnpm exec nx run @bsport/nx:release-tag --dryRun
-      else
-        pnpm exec nx run @bsport/nx:release-tag
+        RELEASE_TAG_ARGS="--dryRun $RELEASE_TAG_ARGS"
       fi
+
+      if [ "$RELEASE_TAG_HOTFIX" = "true" ]; then
+        RELEASE_TAG_ARGS="--hotfix $RELEASE_TAG_ARGS"
+      fi
+
+      pnpm exec nx run @bsport/nx:release-tag $RELEASE_TAG_ARGS
+
+Release:Build Artifact:
+  stage: release-artifact
+  needs:
+    - job: Release:Tag
+      artifacts: true
+  extends:
+    - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
+  before_script: !reference [.pnpm-setup, before_script]
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev" && $CI_PIPELINE_SOURCE == "push"
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == "dev" && $CI_PIPELINE_SOURCE == "web"
+      when: on_success
+    - if: $CI_COMMIT_BRANCH =~ /^hotfix\/v[0-9]+\.[0-9]+\.x$/ && $CI_PIPELINE_SOURCE == "push"
+      when: on_success
+    - if: $CI_COMMIT_BRANCH =~ /^hotfix\/v[0-9]+\.[0-9]+\.x$/ && $CI_PIPELINE_SOURCE == "web"
+      when: on_success
+  script:
+    - |
+      if [ "${RELEASE_TAG_AVAILABLE:-false}" != "true" ]; then
+        echo "No release tag was created for this pipeline; skipping release artifact build."
+        exit 0
+      fi
+      if ! echo "$RELEASE_TAG" | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+        echo "Invalid release tag: $RELEASE_TAG"
+        exit 1
+      fi
+    - echo "🔱 Building release artifact for $RELEASE_TAG"
+    - ARTIFACT_VERSION="$RELEASE_TAG" bash tools/scripts/build-artifact.sh

@@ -20,6 +20,8 @@ export type CampaignChannel = (typeof CAMPAIGN_CHANNELS)[number];
 export const APP_ROOT_PATH = "/segment";
 
 const SEGMENTS = {
+  prebuilt: "prebuilt",
+  custom: "custom",
   campaign: CAMPAIGN_TAB_PATH,
   automation: AUTOMATION_TAB_PATH,
   parameter: PARAMETER_TAB_PATH,
@@ -63,6 +65,8 @@ export type SmartlistDetailsTabPath =
   | typeof AUTOMATION_TAB_PATH;
 
 export const SMARTLIST_ROUTE_PATTERNS = {
+  PREBUILT_INDEX: SEGMENTS.prebuilt,
+  CUSTOM_INDEX: SEGMENTS.custom,
   DETAILS: PARAMS.smartlistId,
   PARAMETER: `${PARAMS.smartlistId}/${SEGMENTS.parameter}`,
   AUTOMATION: `${PARAMS.smartlistId}/${SEGMENTS.automation}`,
@@ -88,16 +92,20 @@ export const SMARTLIST_ROUTE_PATTERNS = {
 } as const;
 
 export const SMARTLIST_APP_LINKS = {
-  index: () => APP_ROOT_PATH,
-  details: (smartlistId: string) => buildSmartlistLink(smartlistId),
+  root: () => APP_ROOT_PATH,
+  index: () => buildSmartlistLink(SEGMENTS.custom),
+  prebuiltIndex: () => buildSmartlistLink(SEGMENTS.prebuilt),
+  details: (smartlistId: string) =>
+    buildSmartlistLink(SEGMENTS.custom, smartlistId),
   detailsTab: (smartlistId: string, tab: SmartlistDetailsTabPath) =>
-    buildSmartlistLink(smartlistId, tab),
+    buildSmartlistLink(SEGMENTS.custom, smartlistId, tab),
   parameter: (smartlistId: string) =>
-    buildSmartlistLink(smartlistId, SEGMENTS.parameter),
+    buildSmartlistLink(SEGMENTS.custom, smartlistId, SEGMENTS.parameter),
   automation: (smartlistId: string) =>
-    buildSmartlistLink(smartlistId, SEGMENTS.automation),
+    buildSmartlistLink(SEGMENTS.custom, smartlistId, SEGMENTS.automation),
   automationEmailCreation: (smartlistId: string) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.messages,
@@ -106,6 +114,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   automationPushCreation: (smartlistId: string) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.messages,
@@ -114,6 +123,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   automationSmsCreation: (smartlistId: string) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.messages,
@@ -122,6 +132,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   automationTagRuleCreation: (smartlistId: string) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.tagRule,
@@ -129,6 +140,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   automationTagRuleEdit: (smartlistId: string, tagRuleId: string) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.tagRule,
@@ -137,6 +149,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   automationEmailEdit: (smartlistId: string, entityId: string) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.messages,
@@ -146,6 +159,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   automationPushEdit: (smartlistId: string, entityId: string) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.messages,
@@ -155,6 +169,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   automationSmsEdit: (smartlistId: string, entityId: string) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.messages,
@@ -164,6 +179,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   automationEmailMessage: (smartlistId: string, messageId: string | number) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.messages,
@@ -172,6 +188,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   automationPushMessage: (smartlistId: string, messageId: string | number) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.messages,
@@ -180,6 +197,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   automationSmsMessage: (smartlistId: string, messageId: string | number) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.automation,
       SEGMENTS.messages,
@@ -187,9 +205,10 @@ export const SMARTLIST_APP_LINKS = {
       messageId,
     ),
   campaign: (smartlistId: string) =>
-    buildSmartlistLink(smartlistId, SEGMENTS.campaign),
+    buildSmartlistLink(SEGMENTS.custom, smartlistId, SEGMENTS.campaign),
   campaignSentDetails: (smartlistId: string, campaignUuid: string) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.campaign,
       SEGMENTS.sent,
@@ -197,6 +216,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   campaignScheduledDetails: (smartlistId: string, campaignId: number) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.campaign,
       SEGMENTS.scheduled,
@@ -204,6 +224,7 @@ export const SMARTLIST_APP_LINKS = {
     ),
   campaignCreate: (smartlistId: string, channel: CampaignChannel) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.campaign,
       channel,
@@ -215,6 +236,7 @@ export const SMARTLIST_APP_LINKS = {
     entityId: string,
   ) =>
     buildSmartlistLink(
+      SEGMENTS.custom,
       smartlistId,
       SEGMENTS.campaign,
       channel,

@@ -835,7 +835,7 @@
   },
   "signup": {
     "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
-    "emailAlreadyExists": "Dit e-mailadres is al in gebruik.",
+    "emailAlreadyExists": "Dit e-mailadres is al in gebruik. Je hebt het mogelijk gebruikt om je aan te melden bij een andere studio. Log in of reset je wachtwoord om door te gaan.",
     "changeWorkspaceError": "Fout tijdens het wisselen van account"
   },
   "paymentRuleGroups": {

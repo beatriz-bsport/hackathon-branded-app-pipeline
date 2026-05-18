@@ -1,0 +1,51 @@
+{
+  "name": "@bsport/api-platform",
+  "version": "0.0.0",
+  "private": true,
+  "description": "API endpoints and types for the platform API",
+  "license": "UNLICENSED",
+  "author": "David Bretaud <david.bretaud@bsport.io>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js",
+      "default": "./build/index.js"
+    },
+    "./*": {
+      "types": "./build/*/index.d.ts",
+      "import": "./build/*.js",
+      "default": "./build/*.js"
+    }
+  },
+  "main": "build/index.js",
+  "module": "build/index.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "vite build --logLevel warn",
+    "ci:compile": "tsc",
+    "dev": "vite build --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "@bsport/store-base": "workspace:*"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*",
+    "@tanstack/react-query": "^5.90.12"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.90.12"
+  },
+  "nx": {
+    "tags": [
+      "postinstall"
+    ]
+  }
+}

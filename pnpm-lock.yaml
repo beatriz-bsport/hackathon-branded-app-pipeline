@@ -1039,9 +1039,15 @@ importers:
       '@bsport/api-book':
         specifier: workspace:*
         version: link:../../../../../packages/api/book
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/buyables
       '@bsport/api-core':
         specifier: workspace:*
         version: link:../../../../../packages/api/core
+      '@bsport/currency':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/currency
       '@bsport/datetime-formatting':
         specifier: workspace:*
         version: link:../../../../../packages/utils/datetime-formatting
@@ -1118,6 +1124,9 @@ importers:
       '@bsport/config-library':
         specifier: workspace:*
         version: link:../../../../../tools/config/library
+      '@bsport/config-vitest':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/vitest
       '@tanstack/react-query-devtools':
         specifier: ^5.90.12
         version: 5.91.1(@tanstack/react-query@5.90.12(react@19.2.0))(react@19.2.0)
@@ -3879,6 +3888,19 @@ importers:
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
 
+  packages/api/platform:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../stores/base
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+      '@tanstack/react-query':
+        specifier: ^5.90.12
+        version: 5.90.12(react@19.2.0)
+
   packages/api/staff-management:
     dependencies:
       '@bsport/store-base':
@@ -3941,6 +3963,9 @@ importers:
 
   packages/design-system/kaizen/business:
     dependencies:
+      '@bsport/api-book':
+        specifier: workspace:*
+        version: link:../../../api/book
       '@bsport/api-buyables':
         specifier: workspace:*
         version: link:../../../api/buyables
@@ -3953,6 +3978,9 @@ importers:
       '@bsport/api-financial-services':
         specifier: workspace:*
         version: link:../../../api/financial-services
+      '@bsport/api-platform':
+        specifier: workspace:*
+        version: link:../../../api/platform
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../utils/currency
@@ -8835,6 +8863,7 @@ packages:
   '@snyk/github-codeowners@1.1.0':
     resolution: {integrity: sha512-lGFf08pbkEac0NYgVf4hdANpAgApRjNByLXB+WBip3qj1iendOIyAwP2GKkKbQMNVy2r1xxDf0ssfWscoiC+Vw==}
     engines: {node: '>=8.10'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     hasBin: true
 
   '@standard-schema/spec@1.0.0':

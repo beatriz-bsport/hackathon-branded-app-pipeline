@@ -3,6 +3,7 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 import {
   type CancelMultipleSessionsParams,
   fetchNumberOfSessionsToCancelAPI,
+  sessionKeys,
 } from "@bsport/api-book";
 import { DateTime } from "@bsport/datetime-manipulation";
 
@@ -17,7 +18,7 @@ const numberOfCanceledSessionsQueryOptions = (
   params: CancelMultipleSessionsParams,
 ) => {
   return queryOptions({
-    queryKey: ["number_of_canceled_sessions", params],
+    queryKey: sessionKeys.sessionsToCancelCount(params),
     queryFn: () => fetchNumberOfSessionsToCancel(params),
   });
 };

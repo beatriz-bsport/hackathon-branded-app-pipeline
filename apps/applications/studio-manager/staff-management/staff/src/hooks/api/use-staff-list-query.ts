@@ -50,7 +50,7 @@ export const useStaffListQuery = (activeFilters: StaffActiveFilters = {}) => {
       staffListQueryOptions,
       fetchRoleDefinitionsQueryOptions(fetch),
       {
-        queryKey: teacherKeys.list([], { company: companyId }),
+        queryKey: teacherKeys.list({ company: companyId }),
         queryFn: () =>
           companyId !== undefined
             ? fetchFlatTeachers(fetch, { company: companyId })

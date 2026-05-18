@@ -24,6 +24,10 @@ const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 // TODO: add the other keys (list, search, etc.)
 export const establishmentKeys = {
   all: ["@api-core", "establishments"] as const,
+  list: (params: FetchEstablishmentParams) =>
+    [...establishmentKeys.all, "list", params] as const,
+  search: (params: SearchEstablishmentParams) =>
+    [...establishmentKeys.all, "search", params] as const,
   details: (id: number) => [...establishmentKeys.all, id] as const,
 };
 

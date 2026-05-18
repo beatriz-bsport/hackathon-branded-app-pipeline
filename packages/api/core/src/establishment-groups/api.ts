@@ -15,6 +15,14 @@ import type {
 
 const ESTABLISHMENT_GROUP_API_URL = `${API_V1_URL}/establishment-group`;
 
+export const establishmentGroupKeys = {
+  all: ["@api-core", "establishmentGroups"] as const,
+  list: (params: FetchEstablishmentGroupQueryParams) =>
+    [...establishmentGroupKeys.all, "list", params] as const,
+  search: (params: SearchEstablishmentGroupSearchParams) =>
+    [...establishmentGroupKeys.all, "search", params] as const,
+};
+
 const fetchEstablishmentGroupsAPI = (
   params: FetchEstablishmentGroupQueryParams = {},
 ): ApiConfig => {

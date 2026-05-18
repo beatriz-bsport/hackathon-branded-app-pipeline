@@ -34,8 +34,12 @@ const BLUEPRINT_LIST_PAGE_SIZE = 1000;
 
 export const spotSchedulingKeys = {
   all: ["@api-book", "spot-scheduling"] as const,
+  roomBluePrintScope: () =>
+    [...spotSchedulingKeys.all, "room-blueprint"] as const,
+  roomBluePrintList: (params?: RoomBlueprintFilters) =>
+    [...spotSchedulingKeys.roomBluePrintScope(), "list", params] as const,
   roomBlueprint: (id: number) =>
-    [...spotSchedulingKeys.all, "room-blueprint", id] as const,
+    [...spotSchedulingKeys.roomBluePrintScope(), id] as const,
   assetsForBlueprint: (blueprintId: number) =>
     [...spotSchedulingKeys.all, "assets-for-blueprint", blueprintId] as const,
   spotTypes: (blueprintId: number | undefined) =>

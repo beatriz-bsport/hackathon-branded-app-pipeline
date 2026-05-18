@@ -1,7 +1,11 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import keyBy from "lodash/keyBy";
 
-import { EstablishmentGroup, fetchEstablishmentGroups } from "@bsport/api-core";
+import {
+  EstablishmentGroup,
+  establishmentGroupKeys,
+  fetchEstablishmentGroups,
+} from "@bsport/api-core";
 
 import { fetch } from "../utils/fetch";
 
@@ -19,7 +23,7 @@ const fetchEstablishmentGroupsByIds = async (
 const establishmentGroupsQueryOptions = (ids: number[], enabled: boolean) => {
   const idsSorted = [...ids].sort();
   return queryOptions({
-    queryKey: ["establishmentGroups", idsSorted],
+    queryKey: establishmentGroupKeys.list({ id__in: idsSorted }),
     queryFn: () => fetchEstablishmentGroupsByIds(idsSorted),
     enabled: enabled && idsSorted.length > 0,
     staleTime: ESTABLISHMENT_GROUPS_STALE_TIME,

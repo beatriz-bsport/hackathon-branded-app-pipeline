@@ -28,15 +28,15 @@ const TEACHERS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 export const teacherKeys = {
   all: ["@api-core", "teacher"] as const,
-  list: (teacherIds: number[], params: FetchTeachersParams = {}) =>
-    [...teacherKeys.all, "list", teacherIds, params] as const,
+  list: (params: FetchTeachersParams = {}) =>
+    [...teacherKeys.all, "list", params] as const,
   company: (companyId: number | undefined, params: FetchTeachersParams = {}) =>
     [...teacherKeys.all, "company", companyId, params] as const,
   detail: (teacherId: number) => [...teacherKeys.all, teacherId] as const,
   replacementRequestConfiguration: () =>
     [...teacherKeys.all, "replacement-request-configuration"] as const,
-  search: (searchValue: string, params: FetchTeachersParams = {}) =>
-    [...teacherKeys.all, "search", searchValue, params] as const,
+  search: (params: FetchTeachersParams = {}) =>
+    [...teacherKeys.all, "search", params] as const,
 } as const;
 
 const fetchTeachersAPIConfig = (

@@ -21,7 +21,7 @@ export const useTeachersByAssociatedCoachIdQuery = (
   );
 
   return useQuery({
-    queryKey: teacherKeys.list(uniqueAssociatedCoachIds, {
+    queryKey: teacherKeys.list({
       associated_coach__in: uniqueAssociatedCoachIds,
       company: companyId,
     }),

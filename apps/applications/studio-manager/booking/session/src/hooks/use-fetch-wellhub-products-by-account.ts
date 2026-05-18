@@ -1,6 +1,9 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-import { fetchWellhubProductsByAccountAPI } from "@bsport/api-book";
+import {
+  fetchWellhubProductsByAccountAPI,
+  wellhubKeys,
+} from "@bsport/api-book";
 
 import { fetch } from "#src/utils/fetch";
 
@@ -21,7 +24,7 @@ const wellhubProductsByAccountQueryOptions = ({
   enabled = true,
 }: UseFetchWellhubProductsByAccountProps) => {
   return queryOptions({
-    queryKey: ["wellhub-products-by-account"],
+    queryKey: wellhubKeys.productsByAccount(),
     queryFn: () => fetchWellhubProductsByAccount(),
     enabled,
     staleTime: WELLHUB_PRODUCTS_BY_ACCOUNT_STALE_TIME,

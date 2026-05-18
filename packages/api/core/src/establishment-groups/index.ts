@@ -1,4 +1,8 @@
-export { fetchEstablishmentGroups, searchEstablishmentGroups } from "./api";
+export {
+  fetchEstablishmentGroups,
+  searchEstablishmentGroups,
+  establishmentGroupKeys,
+} from "./api";
 export type {
   EstablishmentGroup,
   FetchEstablishmentGroupQueryParams,

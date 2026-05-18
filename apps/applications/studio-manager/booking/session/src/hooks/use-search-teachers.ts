@@ -8,6 +8,7 @@ import {
   type FetchTeachersParams,
   type FuzzySearchTeacherParams,
   fuzzySearchTeachers,
+  teacherKeys,
 } from "@bsport/api-core";
 
 import { fetch } from "../utils/fetch";
@@ -24,16 +25,16 @@ const teachersQueryOptions = (
   searchValue: string,
   params?: FetchTeachersParams,
 ) => {
+  const searchParams = {
+    queryString: searchValue,
+    page: 1,
+    page_size: TEACHERS_DEFAULT_PAGE_SIZE,
+    disabled: false,
+    ...params,
+  };
   return queryOptions({
-    queryKey: ["teachers", searchValue, params],
-    queryFn: () =>
-      searchTeachers({
-        queryString: searchValue,
-        page: 1,
-        page_size: TEACHERS_DEFAULT_PAGE_SIZE,
-        disabled: false,
-        ...params,
-      }),
+    queryKey: teacherKeys.search(searchParams),
+    queryFn: () => searchTeachers(searchParams),
     staleTime: TEACHERS_STALE_TIME,
   });
 };

@@ -4,6 +4,7 @@ import first from "lodash/first";
 import {
   Establishment,
   FetchEstablishmentParams,
+  establishmentKeys,
   fetchEstablishments,
 } from "@bsport/api-core";
 
@@ -39,17 +40,10 @@ const allEstablishmentsQueryOptions = ({
   disabled_establishments,
   enabled,
 }: FetchAllEstablishmentsParams) => {
+  const params = { company, page_size, disabled: disabled_establishments };
   return queryOptions({
-    queryKey: [
-      "all-establishments",
-      { company, page_size, disabled: disabled_establishments },
-    ],
-    queryFn: () =>
-      fetchAllEstablishments({
-        company,
-        page_size,
-        disabled: disabled_establishments,
-      }),
+    queryKey: establishmentKeys.list(params),
+    queryFn: () => fetchAllEstablishments(params),
     enabled: enabled && !!company,
     staleTime: ESTABLISHMENTS_STALE_TIME,
   });
@@ -79,9 +73,10 @@ export const useFetchAllEstablishments = ({
 };
 
 const establishmentQueryOptions = (id?: number) => {
+  const params = { id__in: id ? [id] : [] };
   return queryOptions({
-    queryKey: ["establishments", id],
-    queryFn: () => fetchEstablishments(fetch, { id__in: id ? [id] : [] }),
+    queryKey: establishmentKeys.list(params),
+    queryFn: () => fetchEstablishments(fetch, params),
     enabled: Boolean(id),
     staleTime: ESTABLISHMENTS_STALE_TIME,
     select: (establishment) => first(establishment.results),

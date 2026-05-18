@@ -11,7 +11,8 @@ const API_URL_GROUP_SESSION = `${API_URL}/offer_group`;
 
 export const groupSessionKeys = {
   all: [BOOKING_QUERY_KEY, "groupSessions"] as const,
-  list: () => [...groupSessionKeys.all, "list"] as const,
+  list: (params?: PaginatedGroupSessionParams) =>
+    [...groupSessionKeys.all, "list", params] as const,
   detail: (id: number) => [...groupSessionKeys.all, id] as const,
 };
 

@@ -4,6 +4,7 @@ import keyBy from "lodash/keyBy";
 import {
   MetaActivity,
   fetchGroupActivitiesAndWorkshops,
+  groupActivityKeys,
 } from "@bsport/api-book";
 import { PaginatedResponse } from "@bsport/store-base";
 
@@ -14,9 +15,12 @@ const ACTIVITIES_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 const fetchActivitiesByIds = fetchGroupActivitiesAndWorkshops.bind(null, fetch);
 
 const activitiesByIdsQueryOptions = (ids: number[], enabled: boolean) => {
+  const params = {
+    inIdList: ids,
+  };
   return queryOptions({
-    queryKey: ["activities", "byIds", ids],
-    queryFn: () => fetchActivitiesByIds({ inIdList: ids }),
+    queryKey: groupActivityKeys.list(params),
+    queryFn: () => fetchActivitiesByIds(params),
     staleTime: ACTIVITIES_STALE_TIME,
     enabled: enabled && ids.length > 0,
   });

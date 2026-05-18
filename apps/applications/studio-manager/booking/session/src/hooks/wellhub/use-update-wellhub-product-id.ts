@@ -3,10 +3,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   type UpdateWellhubProductIdPayload,
   updateWellhubProductIdAPI,
+  wellhubKeys,
 } from "@bsport/api-book";
 import { toast } from "@bsport/kaizen-primitive-core";
 
-import { WELLHUB_MISSING_OFFERS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -24,7 +24,7 @@ export const useUpdateWellhubProductId = () => {
       updateWellhubProductIdAPI(fetch, offerId, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [WELLHUB_MISSING_OFFERS_QUERY_KEY],
+        queryKey: wellhubKeys.offersMissingProductScope(),
       });
       toast({
         status: "default",

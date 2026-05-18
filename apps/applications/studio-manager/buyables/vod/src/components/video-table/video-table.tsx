@@ -12,7 +12,6 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
-import { usePendingVideoDeletionIds } from "#src/hooks/use-pending-video-deletions";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useVideoTableColumns } from "./columns";
@@ -73,10 +72,8 @@ export const VideoTable: FC<VideoTableProps> = ({
 
   const columns = useVideoTableColumns({ onRequestUpload });
   const isMobile = !useMatchMedia("sm");
-  const pendingDeletionIds = usePendingVideoDeletionIds();
 
   const rows: VideoRowData[] = videos.map((video) => {
-    const isPendingDeletion = pendingDeletionIds.has(video.id);
     const isEbook = video.provider_identifier === VideoProvider.EBOOK_PROVIDER;
     const format = isEbook
       ? "ebook"
@@ -87,7 +84,6 @@ export const VideoTable: FC<VideoTableProps> = ({
 
     return {
       id: video.id,
-      className: isPendingDeletion ? "bg-surface-default-weak" : undefined,
       name: video.name,
       thumbnailUrl: trimmedCoverMain ? trimmedCoverMain : undefined,
       categoryLabel:
@@ -97,8 +93,7 @@ export const VideoTable: FC<VideoTableProps> = ({
       format,
       memberAvailability: video.manager_only ? "unavailable" : "available",
       accessType: video.rental_days > 0 ? "limited" : "unlimited",
-      isPendingDeletion,
-      onRowClick: isPendingDeletion ? undefined : () => onRowClick?.(video.id),
+      onRowClick: onRowClick ? () => onRowClick(video.id) : undefined,
       onDuplicate: () => onDuplicate(video),
       onDelete: () => onDelete(video),
       onEdit: () => onEdit?.(video),

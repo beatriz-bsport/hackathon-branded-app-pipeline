@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 
 import {
   type Collection,
@@ -8,27 +8,23 @@ import {
 } from "@bsport/api-buyables/collection";
 import { toast } from "@bsport/kaizen-primitive-core";
 
-import {
-  addPendingDeletion,
-  removePendingDeletion,
-} from "#src/hooks/use-pending-collection-deletions";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-interface CollectionListData {
-  results: Collection[];
+type CollectionPage = {
   count: number;
-}
+  results: Collection[];
+  [key: string]: unknown;
+};
+
+type DeletedCollectionSnapshot = {
+  collection: Collection;
+  index: number;
+  queryKey: readonly unknown[];
+};
 
 const DELETION_DELAY_MS = 5000;
 
-/**
- * Handles collection deletion with an optimistic "undo" functionality.
- * Flow: mark the collection as pending deletion (UI grays it out), show a toast with Undo,
- * and schedule the real API deletion after `DELETION_DELAY_MS`.
- * If Undo is clicked, the timeout is canceled, pending state is cleared, and list queries are invalidated.
- * If Undo is not clicked, the API runs; on success the item is removed from the cache.
- */
 export const useDeleteCollection = ({
   onSuccess,
 }: {
@@ -37,54 +33,81 @@ export const useDeleteCollection = ({
   const { t, i18n } = useTranslation("collections-list");
   const queryClient = useQueryClient();
   const pendingDeletions = useRef<Map<number, NodeJS.Timeout>>(new Map());
+  const deletedSnapshots = useRef<Map<number, DeletedCollectionSnapshot>>(
+    new Map(),
+  );
 
-  useEffect(() => {
-    return () => {
-      pendingDeletions.current.forEach((timeout, id) => {
-        removePendingDeletion(id);
-        clearTimeout(timeout);
-      });
-    };
-  }, []);
-
-  const removeFromCache = useCallback(
+  const restoreCache = useCallback(
     (id: number) => {
-      queryClient.setQueriesData(
-        { queryKey: collectionKeys.lists() },
-        (old: CollectionListData | undefined) => {
-          if (!old?.results) return old;
+      const snapshot = deletedSnapshots.current.get(id);
 
-          const filteredResults = old.results.filter(
-            (collection: Collection) => collection.id !== id,
-          );
+      if (snapshot) {
+        queryClient.setQueryData<CollectionPage>(snapshot.queryKey, (old) => {
+          if (!old) return old;
+          if (old.results.some((c) => c.id === id)) return old;
 
-          // Only decrement count if a collection was actually removed
-          const wasRemoved = filteredResults.length < old.results.length;
+          const insertIndex = Math.min(snapshot.index, old.results.length);
 
           return {
             ...old,
-            results: filteredResults,
-            count: wasRemoved ? Math.max(0, (old.count || 0) - 1) : old.count,
+            results: [
+              ...old.results.slice(0, insertIndex),
+              snapshot.collection,
+              ...old.results.slice(insertIndex),
+            ],
+            count: old.count + 1,
           };
-        },
-      );
+        });
+        deletedSnapshots.current.delete(id);
+      } else {
+        queryClient.invalidateQueries({ queryKey: collectionKeys.lists() });
+      }
     },
     [queryClient],
   );
 
-  const restoreCache = useCallback(() => {
-    queryClient.invalidateQueries({ queryKey: collectionKeys.lists() });
-  }, [queryClient]);
+  const removeFromCache = useCallback(
+    (id: number) => {
+      const allCaches = queryClient.getQueriesData<CollectionPage>({
+        queryKey: collectionKeys.lists(),
+      });
+
+      for (const [queryKey, data] of allCaches) {
+        if (!data) continue;
+        const index = data.results.findIndex((c) => c.id === id);
+        if (index >= 0) {
+          deletedSnapshots.current.set(id, {
+            collection: data.results[index],
+            index,
+            queryKey: queryKey as readonly unknown[],
+          });
+
+          queryClient.setQueryData<CollectionPage>(queryKey, (old) => {
+            if (!old) return old;
+            return {
+              ...old,
+              results: old.results.filter((c) => c.id !== id),
+              count: old.count - 1,
+            };
+          });
+          break;
+        }
+      }
+    },
+    [queryClient],
+  );
 
   const { mutate: performDelete, isPending: isDeleting } = useMutation({
     mutationFn: (id: number) => deleteCollectionAPI(fetch, { id }),
     onSuccess: (_, deletedId) => {
-      removeFromCache(deletedId);
-      removePendingDeletion(deletedId);
+      deletedSnapshots.current.delete(deletedId);
+      queryClient.invalidateQueries({
+        queryKey: collectionKeys.lists(),
+        refetchType: "none",
+      });
     },
     onError: (_, deletedId) => {
-      removePendingDeletion(deletedId);
-      restoreCache();
+      restoreCache(deletedId);
       toast({
         status: "critical",
         icon: "alert-circle",
@@ -101,8 +124,8 @@ export const useDeleteCollection = ({
         clearTimeout(timeout);
         pendingDeletions.current.delete(collectionId);
       }
-      removePendingDeletion(collectionId);
-      restoreCache();
+
+      restoreCache(collectionId);
       toast({
         status: "default",
         icon: "reverse-left",
@@ -115,13 +138,12 @@ export const useDeleteCollection = ({
 
   const deleteCollection = useCallback(
     ({ id }: { id: number }) => {
-      addPendingDeletion(id);
-
-      // Clear existing timeout if the same id is scheduled again
       const existingTimeout = pendingDeletions.current.get(id);
       if (existingTimeout) {
         clearTimeout(existingTimeout);
       }
+
+      removeFromCache(id);
 
       toast({
         status: "default",
@@ -140,7 +162,7 @@ export const useDeleteCollection = ({
       pendingDeletions.current.set(id, timeout);
       onSuccess();
     },
-    [onSuccess, cancelDeletion, performDelete, i18n.language],
+    [onSuccess, cancelDeletion, performDelete, removeFromCache, i18n.language],
   );
 
   return { deleteCollection, isLoading: isDeleting };

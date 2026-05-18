@@ -243,6 +243,8 @@ const AuthenticatedRoutes = () => {
 
   const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
   const isAggregatorsEnabled = useNavFlag(NavFlags.SETTINGS_AGGREGATORS);
+  const isStaffPageRevampEnabled = useNavFlag(NavFlags.SETTINGS_STAFF_PAGE);
+  const isRolePageRevampEnabled = useNavFlag(NavFlags.SETTINGS_ROLE_PAGE);
 
   /**
    * Add configs to the Host Router.
@@ -269,7 +271,16 @@ const AuthenticatedRoutes = () => {
     { url: urls.onDemand, element: <Vod /> },
 
     /* ----- Staff Management ----- */
-    { url: urls.settings_staff, element: <Staff /> },
+    {
+      url: urls.settings_staff,
+      element: <Staff />,
+      hidden: !isStaffPageRevampEnabled,
+    },
+    {
+      url: urls.settings_permission,
+      element: <Staff />,
+      hidden: !isRolePageRevampEnabled,
+    },
 
     /* ----- Core-data ----- */
     { url: urls.member, element: <MemberList /> },

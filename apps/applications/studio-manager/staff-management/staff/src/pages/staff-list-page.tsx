@@ -14,7 +14,8 @@ import {
 } from "#src/hooks/api/use-staff-list-query";
 import { useDisclosure } from "#src/hooks/use-disclosure";
 import { useStaffFilters } from "#src/hooks/use-staff-filters";
-import { URLS } from "#src/urls";
+import { LEGACY_URLS, URLS } from "#src/urls";
+import { StaffFlags, useStaffFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 
 type StaffListPageContentProps = {
@@ -53,6 +54,7 @@ const StaffListPageContent: FC<StaffListPageContentProps> = ({
 
 const StaffListPage: FC = () => {
   const { t } = useTranslation("staff-list");
+  const isRolePageRevampEnabled = useStaffFlag(StaffFlags.ROLE_PAGE);
   const { activeFilters, filterConfig, filterRef, resetFilters } =
     useStaffFilters();
   const isFiltered = Object.keys(activeFilters).length > 0;
@@ -95,7 +97,13 @@ const StaffListPage: FC = () => {
             kind="default"
             size="md"
             label={t("header.toRoles")}
-            onClick={() => navigate(URLS.ROLE)}
+            onClick={() => {
+              if (isRolePageRevampEnabled) {
+                navigate(URLS.ROLE);
+              } else {
+                window.location.assign(LEGACY_URLS.ROLE);
+              }
+            }}
           />,
         ]}
       />

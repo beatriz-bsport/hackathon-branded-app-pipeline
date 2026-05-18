@@ -12,7 +12,8 @@ import {
   type RoleTypeFilter,
   useRoleFilters,
 } from "#src/hooks/use-role-filters";
-import { URLS } from "#src/urls";
+import { LEGACY_URLS, URLS } from "#src/urls";
+import { StaffFlags, useStaffFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 
 type RoleListPageContentProps = {
@@ -74,6 +75,7 @@ const RoleListPageContent: FC<RoleListPageContentProps> = ({
 const RoleListPage: FC = () => {
   const { t } = useTranslation("role-list");
   const navigate = useNavigate();
+  const isStaffPageRevampEnabled = useStaffFlag(StaffFlags.STAFF_PAGE);
   const {
     searchQuery,
     typeFilter,
@@ -123,7 +125,13 @@ const RoleListPage: FC = () => {
             kind="default"
             size="md"
             label={t("page.toStaff")}
-            onClick={() => navigate(URLS.INDEX)}
+            onClick={() => {
+              if (isStaffPageRevampEnabled) {
+                navigate(URLS.INDEX);
+              } else {
+                window.location.assign(LEGACY_URLS.STAFF);
+              }
+            }}
           />,
         ]}
       />

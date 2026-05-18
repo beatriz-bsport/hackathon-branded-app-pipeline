@@ -1,3 +1,4 @@
+import { LuxonDateTime } from "./constants";
 import type { DateTime, Duration, DurationLike, Unit } from "./constants";
 
 /**
@@ -64,4 +65,26 @@ export const modifyTime = ({
   return operator === "plus"
     ? datetime.plus(duration)
     : datetime.minus(duration);
+};
+
+/**
+ * Returns the number of full calendar days remaining from today until `date`.
+ * Both dates are normalised to the start of day before diffing.
+ * Returns a negative number if `date` is in the past.
+ *
+ * @example
+ * getDaysUntil(DateTime.now().plus({ days: 10 })) // 10
+ * getDaysUntil(DateTime.now().minus({ days: 3 })) // -3
+ */
+export const getDaysUntil = (date2: DateTime, date1?: DateTime): number => {
+  if (!date2.isValid) {
+    throw new Error(`Invalid date: ${date2}`);
+  }
+  if (date1 && !date1.isValid) {
+    throw new Error(`Invalid date: ${date1}`);
+  }
+  const base = (date1 || LuxonDateTime.now())
+    .setZone(date2.zone)
+    .startOf("day");
+  return Math.floor(date2.startOf("day").diff(base, "days").days);
 };

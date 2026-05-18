@@ -49,6 +49,47 @@
       }
     }
   },
+  "globalAlertModal": {
+    "dueDate": {
+      "daysLeft": "{{count}} day left",
+      "daysLeft_other": "{{count}} days left",
+      "weeksLeft": "{{count}} week left",
+      "weeksLeft_other": "{{count}} weeks left",
+      "monthsLeft": "{{count}} month left",
+      "monthsLeft_other": "{{count}} months left"
+    },
+    "aggregate": {
+      "title": "Your account has {{ count }} issues that require attention",
+      "ctaLabel": "Review",
+      "drawerTitle": "Account issues",
+      "drawerDescription": "Your account has {{ count }} issues that require attention. Resolve them to keep your account in good standing."
+    },
+    "apple-developer-program-enrollment": {
+      "title": "Apple Developer Program enrollment required",
+      "description": "Your studio distributes an app through the App Store. To keep it live, you must enroll in the Apple Developer Program.",
+      "ctaLabel": "Enroll now"
+    },
+    "unpaid-invoice": {
+      "title": "Unpaid invoice",
+      "description": "An invoice is overdue. Please resolve this to avoid or lift account restrictions.",
+      "ctaLabel": "Pay invoice"
+    },
+    "disputed-invoice": {
+      "title": "Disputed invoice",
+      "description": "An invoice is being disputed. Please resolve this to avoid or lift account restrictions.",
+      "ctaLabel": "View dispute"
+    },
+    "missing-vat-number": {
+      "title": "VAT number required",
+      "description": "Your VAT number is missing from your billing profile. Please add it in your account settings to remain compliant.",
+      "ctaLabel": "Add VAT number"
+    },
+    "stripe-not-configured": {
+      "title": "Stripe account requires attention",
+      "description": "Your Stripe account is not configured or requires action. Please resolve this to maintain payment functionality.",
+      "ctaLabel": "Configure Stripe"
+    }
+  },
   "paymentFlowModal": {
     "title": "Payment",
     "buttons": {

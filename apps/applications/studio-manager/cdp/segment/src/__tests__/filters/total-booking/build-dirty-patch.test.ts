@@ -199,4 +199,36 @@ describe("buildDirtyPatchPayload", () => {
     expect(payload.select_all_payment_packs).toBe(true);
     expect(payload.payment_packs).toEqual([]);
   });
+
+  it("emits active level slice when level sub-filter values are dirty", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.level];
+    value.level = {
+      selectedLevelIds: [77],
+    };
+    const dirtyFields: DirtyFields = {
+      level: { selectedLevelIds: [true] },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.level_filter_active).toBe(true);
+    expect(payload.level).toEqual([77]);
+  });
+
+  it("emits inactive level slice when level sub-filter is removed", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    value.level = {
+      selectedLevelIds: [],
+    };
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.level_filter_active).toBe(false);
+    expect(payload.level).toEqual([]);
+  });
 });

@@ -51,6 +51,9 @@ export const mapTotalBookingFilterToFormValue = (
       selectAllPaymentPacks: false,
       selectedPaymentPackIds: [],
     },
+    level: {
+      selectedLevelIds: [],
+    },
     ...partialFromModules,
   };
 };

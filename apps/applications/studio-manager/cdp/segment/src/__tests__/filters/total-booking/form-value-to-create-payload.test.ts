@@ -167,4 +167,30 @@ describe("toCreatePayload", () => {
     expect(payload.select_all_payment_packs).toBe(false);
     expect(payload.payment_packs).toEqual([1, 2]);
   });
+
+  it("keeps level fields inactive when level sub-filter is not selected", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    value.level = {
+      selectedLevelIds: [5],
+    };
+
+    const payload = toCreatePayload(value);
+
+    expect(payload.level_filter_active).toBe(false);
+    expect(payload.level).toEqual([]);
+  });
+
+  it("activates level fields when level sub-filter is selected", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.level];
+    value.level = {
+      selectedLevelIds: [5, 9],
+    };
+
+    const payload = toCreatePayload(value);
+
+    expect(payload.level_filter_active).toBe(true);
+    expect(payload.level).toEqual([5, 9]);
+  });
 });

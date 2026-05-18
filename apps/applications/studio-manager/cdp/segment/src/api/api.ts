@@ -26,4 +26,6 @@ export const smartlistQueryKeys = {
       "total-booking-coach-options",
       companyId,
     ] as const,
+  levelOptionsForTotalBooking: (companyId: number | undefined) =>
+    ["segment", "total-booking-level-options", companyId] as const,
 } as const;

@@ -92,7 +92,8 @@
         "removeSubFilter": "Remove {{subFilterLabel}} sub-filter",
         "deleteFilter": "Delete booking filter",
         "save": "Apply filter",
-        "addFilter": "Add booking filter"
+        "addFilter": "Add booking filter",
+        "addSubFilter": "Add sub-filter"
       },
       "fields": {
         "activity": {
@@ -111,6 +112,10 @@
           "searchPlaceholder": "Search for a Pass",
           "emptySelection": "Select Passes to start filtering"
         },
+        "level": {
+          "searchPlaceholder": "Search for a Level",
+          "emptySelection": "Select Levels to start filtering"
+        },
         "totalSessionSuffix": "Total Session",
         "filterSpecifications": "FILTER SPECIFICATIONS"
       },
@@ -119,6 +124,7 @@
         "establishment": "Establishment",
         "coach": "Teacher",
         "passes": "Passes",
+        "level": "Level",
         "subFilterFallback": "{{subFilterId}}"
       },
       "toasts": {
@@ -134,7 +140,8 @@
         "selectedActivitiesRequired": "Select at least one activity.",
         "selectedEstablishmentsRequired": "Select at least one establishment.",
         "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
-        "selectedPaymentPacksRequired": "Select at least one pass, or remove this sub-filter."
+        "selectedPaymentPacksRequired": "Select at least one pass, or remove this sub-filter.",
+        "selectedLevelsRequired": "Select at least one level, or remove this sub-filter."
       }
     }
   },

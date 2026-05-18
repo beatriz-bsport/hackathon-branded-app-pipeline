@@ -3,6 +3,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { useCoachOptionsForTotalBookingQuery } from "#src/api/use-coach-options-for-total-booking-query";
 import { useEstablishmentsQuery } from "#src/api/use-establishments-query";
 import { useGroupActivitiesQuery } from "#src/api/use-group-activities-query";
+import { useLevelOptionsForTotalBookingQuery } from "#src/api/use-level-options-for-total-booking-query";
 import { usePassesQuery } from "#src/api/use-passes-query";
 
 import type { TotalBookingNumberFilterCardProps } from "../types";
@@ -10,7 +11,11 @@ import { TotalBookingNumberFilterCard } from "./total-booking-number-filter-card
 
 type TotalBookingFilterCardWithDataProps = Omit<
   TotalBookingNumberFilterCardProps,
-  "activityOptions" | "establishmentOptions" | "coachOptions" | "passOptions"
+  | "activityOptions"
+  | "establishmentOptions"
+  | "coachOptions"
+  | "passOptions"
+  | "levelOptions"
 >;
 
 /**
@@ -28,11 +33,14 @@ export const TotalBookingFilterCardWithData = ({
   const { data: establishmentsData } = useEstablishmentsQuery();
   const { data: coachOptionsData } =
     useCoachOptionsForTotalBookingQuery(companyId);
+  const { data: levelOptionsData } =
+    useLevelOptionsForTotalBookingQuery(companyId);
   const { data: passesData } = usePassesQuery("");
   const activityOptions = data ?? [];
   const establishmentOptions = establishmentsData ?? [];
   const coachOptions = coachOptionsData ?? [];
   const passOptions = passesData?.results ?? [];
+  const levelOptions = levelOptionsData ?? [];
 
   return (
     <TotalBookingNumberFilterCard
@@ -42,6 +50,7 @@ export const TotalBookingFilterCardWithData = ({
       establishmentOptions={establishmentOptions}
       coachOptions={coachOptions}
       passOptions={passOptions}
+      levelOptions={levelOptions}
       onDeleteUnsavedFilter={onDeleteUnsavedFilter}
       onSaveSuccess={onSaveSuccess}
     />

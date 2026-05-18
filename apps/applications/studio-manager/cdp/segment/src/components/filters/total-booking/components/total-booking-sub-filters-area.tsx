@@ -32,6 +32,10 @@ type TotalBookingSubFiltersAreaProps = {
     name: string;
   }[];
   passOptions: PassOption[];
+  levelOptions: {
+    id: number;
+    name: string;
+  }[];
 };
 
 type SubFilterFormValueMap = {
@@ -55,6 +59,9 @@ const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
     selectAllPaymentPacks: false,
     selectedPaymentPackIds: [],
   },
+  [TOTAL_BOOKING_SUB_FILTER_IDS.level]: {
+    selectedLevelIds: [],
+  },
 };
 
 export const TotalBookingSubFiltersArea = ({
@@ -66,6 +73,7 @@ export const TotalBookingSubFiltersArea = ({
   establishmentOptions,
   coachOptions,
   passOptions,
+  levelOptions,
 }: TotalBookingSubFiltersAreaProps) => {
   const { t } = useTranslation("filters");
 
@@ -85,6 +93,7 @@ export const TotalBookingSubFiltersArea = ({
     [TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack]: t(
       "filters.22.subFilters.passes",
     ),
+    [TOTAL_BOOKING_SUB_FILTER_IDS.level]: t("filters.22.subFilters.level"),
   };
 
   const addSubFilter = (subFilterId: TotalBookingSubFilterId) => {
@@ -142,6 +151,7 @@ export const TotalBookingSubFiltersArea = ({
             establishmentOptions={establishmentOptions}
             coachOptions={coachOptions}
             passOptions={passOptions}
+            levelOptions={levelOptions}
             onRemove={() => removeSubFilter(subFilterId)}
           />
         );
@@ -156,7 +166,7 @@ export const TotalBookingSubFiltersArea = ({
                 size="sm"
                 intent="flat"
                 color="default"
-                label={t("filters.19.actions.addSubFilter")}
+                label={t("filters.22.actions.addSubFilter") as string}
                 onClick={() => setIsPopoverOpened(true)}
               />
             )}

@@ -17,6 +17,10 @@ type TotalBookingSubFilterExtraProps = {
     name: string;
   }[];
   passOptions: PassOption[];
+  levelOptions: {
+    id: number;
+    name: string;
+  }[];
 };
 
 export type TotalBookingSubFilterSectionProps = SubFilterSectionProps<

@@ -33,6 +33,9 @@ export type TotalBookingNumberFilterFormValue = {
     selectAllPaymentPacks: boolean;
     selectedPaymentPackIds: number[];
   };
+  level: {
+    selectedLevelIds: number[];
+  };
 };
 
 export type TotalBookingNumberDirtyPatchPayload = Partial<
@@ -57,6 +60,10 @@ export type TotalBookingNumberFilterCardProps = {
     name: string;
   }[];
   passOptions: PassOption[];
+  levelOptions: {
+    id: number;
+    name: string;
+  }[];
   onDeleteUnsavedFilter?: () => void;
   onSaveSuccess?: () => void;
 };

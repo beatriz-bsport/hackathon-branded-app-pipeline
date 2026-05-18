@@ -25,4 +25,7 @@ export const createDefaultTotalBookingNumberFilter = (
     selectAllPaymentPacks: false,
     selectedPaymentPackIds: [],
   },
+  level: {
+    selectedLevelIds: [],
+  },
 });

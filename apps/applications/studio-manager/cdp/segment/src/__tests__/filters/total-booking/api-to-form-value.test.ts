@@ -203,4 +203,28 @@ describe("mapTotalBookingFilterToFormValue", () => {
     expect(formValue.paymentPack.selectAllPaymentPacks).toBe(true);
     expect(formValue.paymentPack.selectedPaymentPackIds).toEqual([]);
   });
+
+  it("activates level sub-filter when API level filter is active", () => {
+    const filter = buildApiFilter({
+      level_filter_active: true,
+      level: [4, 8],
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual(["level"]);
+    expect(formValue.level.selectedLevelIds).toEqual([4, 8]);
+  });
+
+  it("keeps level sub-filter disabled defaults when API level filter is inactive", () => {
+    const filter = buildApiFilter({
+      level_filter_active: false,
+      level: [],
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual([]);
+    expect(formValue.level.selectedLevelIds).toEqual([]);
+  });
 });

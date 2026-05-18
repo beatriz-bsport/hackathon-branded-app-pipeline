@@ -1,11 +1,14 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 
 import { type Teacher, fetchFlatTeachers } from "@bsport/api-core";
 
 import { fetch } from "#src/utils/fetch";
 
 import { smartlistQueryKeys } from "./api";
-import { fetchAllStudioGroupActivities } from "./use-group-activities-query";
+import {
+  GROUP_ACTIVITIES_STALE_TIME_MS,
+  fetchAllStudioGroupActivities,
+} from "./use-group-activities-query";
 
 const COACH_OPTIONS_QUERY_STALE_TIME_MS = 2 * 60 * 1000;
 
@@ -34,15 +37,21 @@ const isTeacherInGroupActivityScope = (
  */
 export const useCoachOptionsForTotalBookingQuery = (
   companyId: number | undefined,
-) =>
-  useSuspenseQuery({
+) => {
+  const queryClient = useQueryClient();
+
+  return useSuspenseQuery({
     queryKey: smartlistQueryKeys.coachOptionsForTotalBooking(companyId),
     queryFn: async () => {
       if (companyId === undefined || companyId <= 0) {
         return [];
       }
 
-      const metaActivities = await fetchAllStudioGroupActivities();
+      const metaActivities = await queryClient.fetchQuery({
+        queryKey: smartlistQueryKeys.groupActivitiesKeys.all,
+        queryFn: fetchAllStudioGroupActivities,
+        staleTime: GROUP_ACTIVITIES_STALE_TIME_MS,
+      });
       const groupMetaActivityIdSet = new Set(
         metaActivities
           .filter((metaActivity) => !metaActivity.is_workshop)
@@ -63,3 +72,4 @@ export const useCoachOptionsForTotalBookingQuery = (
     },
     staleTime: COACH_OPTIONS_QUERY_STALE_TIME_MS,
   });
+};

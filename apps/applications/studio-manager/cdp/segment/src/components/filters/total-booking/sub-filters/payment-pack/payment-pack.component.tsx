@@ -1,33 +1,33 @@
 import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
 
-import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
+import { PassSelectionField } from "#src/components/filters/passes-filter/components/pass-selection-field";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { TotalBookingSubFilterSectionProps } from "../total-booking-sub-filter-section-props";
 
-export const CoachSubFilterSection = ({
+export const PaymentPackSubFilterSection = ({
   id,
   value,
   errors,
   setValue,
-  coachOptions,
+  passOptions,
   onRemove,
 }: TotalBookingSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
-  const coachLabel = t("filters.22.subFilters.coach");
+  const passesLabel = t("filters.22.subFilters.passes");
 
   return (
     <Card className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         <Body size="lg" weight="strong">
-          {coachLabel}
+          {passesLabel}
         </Body>
         <Button
           kind="icon-button"
           icon="trash-01"
           size="sm"
           label={t("filters.22.actions.removeSubFilter", {
-            subFilterLabel: coachLabel,
+            subFilterLabel: passesLabel,
           })}
           intent="flat"
           color="default"
@@ -35,28 +35,25 @@ export const CoachSubFilterSection = ({
         />
       </div>
 
-      <ItemsSearchFilter
+      <PassSelectionField
         id={id}
-        label={coachLabel}
-        options={coachOptions}
-        value={value.coach.selectedCoachIds}
+        value={value.paymentPack.selectedPaymentPackIds}
+        passOptions={passOptions}
+        errorText={
+          errors.paymentPack?.selectedPaymentPackIds?.message
+            ? String(errors.paymentPack.selectedPaymentPackIds.message)
+            : undefined
+        }
         onChange={(nextSelectedIds) => {
           setValue(
-            "coach",
+            "paymentPack",
             {
-              selectAllCoaches: false,
-              selectedCoachIds: nextSelectedIds,
+              selectAllPaymentPacks: false,
+              selectedPaymentPackIds: nextSelectedIds,
             },
             { shouldDirty: true, shouldValidate: true },
           );
         }}
-        searchPlaceholder={t("filters.22.fields.coach.searchPlaceholder")}
-        emptySelectionLabel={t("filters.22.fields.coach.emptySelection")}
-        errorText={
-          errors.coach?.selectedCoachIds?.message
-            ? String(errors.coach.selectedCoachIds.message)
-            : undefined
-        }
       />
     </Card>
   );

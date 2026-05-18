@@ -4,6 +4,7 @@ export const TOTAL_BOOKING_SUB_FILTER_IDS = {
   activity: "activity",
   establishment: "establishment",
   coach: "coach",
+  paymentPack: "paymentPack",
 } as const;
 
 export type TotalBookingSubFilterId = ValueOf<
@@ -14,6 +15,7 @@ export const totalBookingSubFilterFieldMap = {
   [TOTAL_BOOKING_SUB_FILTER_IDS.activity]: "activity",
   [TOTAL_BOOKING_SUB_FILTER_IDS.establishment]: "establishment",
   [TOTAL_BOOKING_SUB_FILTER_IDS.coach]: "coach",
+  [TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack]: "paymentPack",
 } as const;
 
 export type TotalBookingSubFilterField = ValueOf<

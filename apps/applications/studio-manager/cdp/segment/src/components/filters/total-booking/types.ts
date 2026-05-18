@@ -3,6 +3,8 @@ import type {
   TotalBookingFilter,
 } from "@bsport/api-cdp/smartlist";
 
+import type { PassOption } from "#src/components/filters/passes-filter/types";
+
 import type { TotalBookingNumberTypeValue } from "./constants";
 import type { TotalBookingSubFilterId } from "./sub-filters/total-booking-sub-filter-id";
 
@@ -27,6 +29,10 @@ export type TotalBookingNumberFilterFormValue = {
     selectAllCoaches: boolean;
     selectedCoachIds: number[];
   };
+  paymentPack: {
+    selectAllPaymentPacks: boolean;
+    selectedPaymentPackIds: number[];
+  };
 };
 
 export type TotalBookingNumberDirtyPatchPayload = Partial<
@@ -50,6 +56,7 @@ export type TotalBookingNumberFilterCardProps = {
     id: number;
     name: string;
   }[];
+  passOptions: PassOption[];
   onDeleteUnsavedFilter?: () => void;
   onSaveSuccess?: () => void;
 };

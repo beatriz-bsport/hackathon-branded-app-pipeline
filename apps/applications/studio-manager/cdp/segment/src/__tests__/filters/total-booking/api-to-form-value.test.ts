@@ -175,4 +175,32 @@ describe("mapTotalBookingFilterToFormValue", () => {
     expect(formValue.coach.selectAllCoaches).toBe(true);
     expect(formValue.coach.selectedCoachIds).toEqual([]);
   });
+
+  it("activates payment pack sub-filter when API payment pack filter is active", () => {
+    const filter = buildApiFilter({
+      payment_pack_filter_active: true,
+      select_all_payment_packs: false,
+      payment_packs: [12, 34],
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual(["paymentPack"]);
+    expect(formValue.paymentPack.selectAllPaymentPacks).toBe(false);
+    expect(formValue.paymentPack.selectedPaymentPackIds).toEqual([12, 34]);
+  });
+
+  it("keeps payment pack sub-filter disabled defaults when API payment pack filter is inactive", () => {
+    const filter = buildApiFilter({
+      payment_pack_filter_active: false,
+      select_all_payment_packs: true,
+      payment_packs: [],
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual([]);
+    expect(formValue.paymentPack.selectAllPaymentPacks).toBe(true);
+    expect(formValue.paymentPack.selectedPaymentPackIds).toEqual([]);
+  });
 });

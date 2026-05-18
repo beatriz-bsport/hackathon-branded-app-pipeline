@@ -79,19 +79,6 @@ export function useConsumerPassesDataManager({
     | UniversalPassReworked
   >(null);
 
-  const defaultTabKey = Object.keys(consumerPassesTabDisplay)?.find(
-    (key: keyof ConsumerPassesTabDisplay) =>
-      consumerPassesTabDisplay[key] === true,
-  );
-
-  useEffect(() => {
-    const defaultTab =
-      consumerPassesTabDisplayMap?.[
-        defaultTabKey as keyof ConsumerPassesTabDisplay
-      ];
-    !!defaultTab && setSelectedTab(defaultTab);
-  }, [defaultTabKey]);
-
   /* MODAL/DRAWER STATES */
   const [
     isConsumerPaymentPackDetailsDrawerOpen,
@@ -283,6 +270,22 @@ export function useConsumerPassesDataManager({
     },
     [handleFetchTabData, resetConsumerState],
   );
+
+  const defaultTabKey = Object.keys(consumerPassesTabDisplay)?.find(
+    (key: keyof ConsumerPassesTabDisplay) =>
+      consumerPassesTabDisplay[key] === true,
+  );
+
+  useEffect(() => {
+    const defaultTab =
+      consumerPassesTabDisplayMap?.[
+        defaultTabKey as keyof ConsumerPassesTabDisplay
+      ];
+    if (defaultTab) {
+      fetchTabDataHandlerMap?.[defaultTab]?.();
+      setSelectedTab(defaultTab);
+    }
+  }, [defaultTabKey, fetchTabDataHandlerMap]);
 
   /**
    * Update local state when clicking on a filter tab Active/Future/Expired

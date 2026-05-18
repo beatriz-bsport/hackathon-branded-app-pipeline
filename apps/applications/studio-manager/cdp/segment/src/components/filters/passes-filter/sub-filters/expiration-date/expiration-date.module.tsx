@@ -6,8 +6,9 @@ import {
   SmartlistDateFilterType,
 } from "@bsport/api-cdp/smartlist";
 
+import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
+
 import type { PassesFilterFormValue } from "../../types";
-import { hasNestedDirty } from "../is-nested-dirty";
 import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
 import type { PassSubFilterModule } from "../pass-sub-filter-module-contract";
 import {

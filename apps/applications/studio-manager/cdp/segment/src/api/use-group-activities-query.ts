@@ -1,0 +1,50 @@
+import { useSuspenseQuery } from "@tanstack/react-query";
+
+import {
+  type MetaActivity,
+  fetchGroupActivitiesAndWorkshops,
+} from "@bsport/api-book";
+
+import { fetch } from "#src/utils/fetch";
+import { invariant } from "#src/utils/invariant";
+
+import { smartlistQueryKeys } from "./api";
+
+const GROUP_ACTIVITIES_PAGE_SIZE = 100;
+const MAX_LOOP_COUNT = 20;
+
+const fetchAllGroupActivities = async (): Promise<MetaActivity[]> => {
+  const activities: MetaActivity[] = [];
+  let page = 1;
+  let hasNextPage = true;
+
+  while (hasNextPage) {
+    // Security matters, to prevent potential infinite loop if API mis behave, no studio have over 2000 group activities so for now we can limit the loop to 20 pages of 100 items, check made through metabase on 14/05/2026
+    invariant(
+      page <= MAX_LOOP_COUNT,
+      "Arbitrary loop limit reached : more than 20 calls where made, we stopped the loop to prevent potential infinite loop if API miss behave, if the studio appear to have more than 2000 items, you can increase the MAX_LOOP_COUNT to prevent this error",
+    );
+    const response = await fetchGroupActivitiesAndWorkshops(fetch, {
+      customerEnabled: true,
+      page,
+      pageSize: GROUP_ACTIVITIES_PAGE_SIZE,
+    });
+    activities.push(...response.results);
+    hasNextPage = Boolean(response.next_page);
+    page += 1;
+  }
+
+  return activities;
+};
+
+export const useGroupActivitiesQuery = () =>
+  useSuspenseQuery({
+    queryKey: smartlistQueryKeys.groupActivitiesKeys.all,
+    queryFn: fetchAllGroupActivities,
+    select: (activities) =>
+      activities
+        .map((activity) => ({ id: activity.id, name: activity.name }))
+        .sort((leftActivity, rightActivity) =>
+          leftActivity.name.localeCompare(rightActivity.name),
+        ),
+  });

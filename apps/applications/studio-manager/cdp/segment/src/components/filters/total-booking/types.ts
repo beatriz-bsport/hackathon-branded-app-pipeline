@@ -13,6 +13,11 @@ export type TotalBookingNumberFilterFormValue = {
   type: TotalBookingNumberType;
   value: number;
   secondValue: number | null;
+  subFilters: TotalBookingSubFilterId[];
+  activity: {
+    selectAllActivities: boolean;
+    selectedMetaActivityIds: number[];
+  };
 };
 
 export type TotalBookingNumberDirtyPatchPayload = Partial<
@@ -24,6 +29,12 @@ export type TotalBookingFilterCreatePayload = CreateTotalBookingFilterPayload;
 export type TotalBookingNumberFilterCardProps = {
   smartlistId: string;
   filterValue: TotalBookingNumberFilterFormValue;
+  activityOptions: {
+    id: number;
+    name: string;
+  }[];
   onDeleteUnsavedFilter?: () => void;
   onSaveSuccess?: () => void;
 };
+
+export type TotalBookingSubFilterId = "activity";

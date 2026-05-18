@@ -3,6 +3,8 @@ import { z } from "zod";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { TOTAL_BOOKING_NUMBER_TYPE } from "./constants";
+import { REGISTERED_TOTAL_BOOKING_SUB_FILTERS } from "./sub-filters/registry";
+import { TOTAL_BOOKING_SUB_FILTER_IDS } from "./sub-filters/total-booking-sub-filter-id";
 import type { TotalBookingNumberFilterFormValue } from "./types";
 
 const I18N_NAMESPACE = "sm-smartlists_filters";
@@ -36,6 +38,11 @@ export const totalBookingNumberFilterSchema = z
         }),
       )
       .nullable(),
+    subFilters: z.array(z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.activity)),
+    activity: z.object({
+      selectAllActivities: z.boolean(),
+      selectedMetaActivityIds: z.array(z.number().int().positive()),
+    }),
   })
   .superRefine((data, context) => {
     if (data.type !== TOTAL_BOOKING_NUMBER_TYPE.between) {
@@ -64,5 +71,10 @@ export const totalBookingNumberFilterSchema = z
           },
         ),
       });
+    }
+  })
+  .superRefine((value, context) => {
+    for (const subFilterModule of REGISTERED_TOTAL_BOOKING_SUB_FILTERS) {
+      subFilterModule.refine(value, context);
     }
   }) satisfies z.ZodType<TotalBookingNumberFilterFormValue>;

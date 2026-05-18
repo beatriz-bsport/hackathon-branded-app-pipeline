@@ -95,6 +95,10 @@
       "fields": {
         "totalSessionSuffix": "Total Session"
       },
+      "subFilters": {
+        "activity": "Activity",
+        "subFilterFallback": "{{subFilterId}}"
+      },
       "toasts": {
         "saveError": "Unable to save booking filter.",
         "deleteError": "Unable to delete booking filter.",
@@ -103,7 +107,8 @@
       "validation": {
         "valueRequired": "Booking number must be 0 or higher.",
         "secondValueRequired": "Second booking number is required for range comparator.",
-        "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one."
+        "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
+        "selectedActivitiesRequired": "Select at least one activity."
       }
     }
   },

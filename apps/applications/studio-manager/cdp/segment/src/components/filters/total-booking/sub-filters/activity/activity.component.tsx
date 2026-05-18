@@ -50,7 +50,7 @@ export const ActivitySubFilterSection = ({
           );
         }}
         searchPlaceholder={t("filters.22.fields.activity.searchPlaceholder")}
-        emptySelectionLabel={t("itemsSearch.empty.selection")}
+        emptySelectionLabel={t("filters.22.fields.activity.emptySelection")}
         errorText={
           errors.activity?.selectedMetaActivityIds?.message
             ? String(errors.activity.selectedMetaActivityIds.message)

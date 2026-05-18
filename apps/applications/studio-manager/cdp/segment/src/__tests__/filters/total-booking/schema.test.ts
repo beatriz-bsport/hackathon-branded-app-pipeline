@@ -137,4 +137,36 @@ describe("totalBookingNumberFilterSchema", () => {
 
     expect(result.success).toBe(true);
   });
+
+  it("rejects coach sub-filter when active and no coach is selected", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.coach],
+      coach: {
+        selectAllCoaches: false,
+        selectedCoachIds: [],
+      },
+    });
+
+    const result = totalBookingNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const issuePaths = result.error.issues.map((issue) => issue.path);
+      expect(issuePaths).toContainEqual(["coach", "selectedCoachIds"]);
+    }
+  });
+
+  it("accepts coach sub-filter when at least one coach is selected", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.coach],
+      coach: {
+        selectAllCoaches: false,
+        selectedCoachIds: [101, 102],
+      },
+    });
+
+    const result = totalBookingNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(true);
+  });
 });

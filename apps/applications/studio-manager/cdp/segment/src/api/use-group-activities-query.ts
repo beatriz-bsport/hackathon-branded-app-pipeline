@@ -13,7 +13,12 @@ import { smartlistQueryKeys } from "./api";
 const GROUP_ACTIVITIES_PAGE_SIZE = 100;
 const MAX_LOOP_COUNT = 20;
 
-const fetchAllGroupActivities = async (): Promise<MetaActivity[]> => {
+/**
+ * Loads every group activity (including workshop) for the current studio via paginated meta-activity requests.
+ */
+export const fetchAllStudioGroupActivities = async (): Promise<
+  MetaActivity[]
+> => {
   const activities: MetaActivity[] = [];
   let page = 1;
   let hasNextPage = true;
@@ -40,7 +45,7 @@ const fetchAllGroupActivities = async (): Promise<MetaActivity[]> => {
 export const useGroupActivitiesQuery = () =>
   useSuspenseQuery({
     queryKey: smartlistQueryKeys.groupActivitiesKeys.all,
-    queryFn: fetchAllGroupActivities,
+    queryFn: fetchAllStudioGroupActivities,
     select: (activities) =>
       activities
         .map((activity) => ({ id: activity.id, name: activity.name }))

@@ -22,6 +22,7 @@ export const TotalBookingNumberFilterCard = ({
   filterValue,
   activityOptions,
   establishmentOptions,
+  coachOptions,
   onDeleteUnsavedFilter,
   onSaveSuccess,
 }: TotalBookingNumberFilterCardProps) => {
@@ -31,6 +32,7 @@ export const TotalBookingNumberFilterCard = ({
     comparator: `${baseId}-comparator`,
     activity: `${baseId}-activity`,
     establishment: `${baseId}-establishment`,
+    coach: `${baseId}-coach`,
   };
 
   const methods = useFormController({
@@ -185,12 +187,14 @@ export const TotalBookingNumberFilterCard = ({
           fieldIds={{
             activity: fieldIds.activity,
             establishment: fieldIds.establishment,
+            coach: fieldIds.coach,
           }}
           watchedFilterValue={watchedFilterValue}
           errors={errors}
           setValue={methods.setValue}
           activityOptions={activityOptions}
           establishmentOptions={establishmentOptions}
+          coachOptions={coachOptions}
         />
 
         <div className="flex justify-end">

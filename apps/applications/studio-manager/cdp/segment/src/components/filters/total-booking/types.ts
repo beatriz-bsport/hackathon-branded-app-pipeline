@@ -4,6 +4,7 @@ import type {
 } from "@bsport/api-cdp/smartlist";
 
 import type { TotalBookingNumberTypeValue } from "./constants";
+import type { TotalBookingSubFilterId } from "./sub-filters/total-booking-sub-filter-id";
 
 export type TotalBookingNumberType = TotalBookingNumberTypeValue;
 
@@ -21,6 +22,10 @@ export type TotalBookingNumberFilterFormValue = {
   establishment: {
     selectAllEstablishments: boolean;
     selectedEstablishmentIds: number[];
+  };
+  coach: {
+    selectAllCoaches: boolean;
+    selectedCoachIds: number[];
   };
 };
 
@@ -41,8 +46,12 @@ export type TotalBookingNumberFilterCardProps = {
     id: number;
     name: string;
   }[];
+  coachOptions: {
+    id: number;
+    name: string;
+  }[];
   onDeleteUnsavedFilter?: () => void;
   onSaveSuccess?: () => void;
 };
 
-export type TotalBookingSubFilterId = "activity" | "establishment";
+export type { TotalBookingSubFilterId } from "./sub-filters/total-booking-sub-filter-id";

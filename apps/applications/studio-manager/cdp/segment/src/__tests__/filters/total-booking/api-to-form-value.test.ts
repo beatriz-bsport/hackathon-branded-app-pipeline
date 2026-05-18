@@ -147,4 +147,32 @@ describe("mapTotalBookingFilterToFormValue", () => {
     expect(formValue.establishment.selectAllEstablishments).toBe(true);
     expect(formValue.establishment.selectedEstablishmentIds).toEqual([]);
   });
+
+  it("activates coach sub-filter when API coach filter is active", () => {
+    const filter = buildApiFilter({
+      coach_filter_active: true,
+      select_all_coaches: false,
+      coaches: [55, 66],
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual(["coach"]);
+    expect(formValue.coach.selectAllCoaches).toBe(false);
+    expect(formValue.coach.selectedCoachIds).toEqual([55, 66]);
+  });
+
+  it("keeps coach sub-filter disabled defaults when API coach filter is inactive", () => {
+    const filter = buildApiFilter({
+      coach_filter_active: false,
+      select_all_coaches: true,
+      coaches: [],
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toEqual([]);
+    expect(formValue.coach.selectAllCoaches).toBe(true);
+    expect(formValue.coach.selectedCoachIds).toEqual([]);
+  });
 });

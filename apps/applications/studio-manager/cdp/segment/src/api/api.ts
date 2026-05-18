@@ -1,3 +1,4 @@
+import { groupActivityKeys } from "@bsport/api-book";
 import { automatedCampaignKeys } from "@bsport/api-cdp/automated-campaign";
 import { communicateKeys } from "@bsport/api-cdp/communicate";
 import { emailTemplateKeys } from "@bsport/api-cdp/email-template";
@@ -15,4 +16,5 @@ export const smartlistQueryKeys = {
   emailTemplateKeys: emailTemplateKeys,
   tagsKeys: tagsKeys,
   mobileAppKeys: mobileAppKeys,
+  groupActivitiesKeys: groupActivityKeys,
 } as const;

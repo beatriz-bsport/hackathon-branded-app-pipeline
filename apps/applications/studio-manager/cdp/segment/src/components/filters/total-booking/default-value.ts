@@ -8,4 +8,9 @@ export const createDefaultTotalBookingNumberFilter = (
   type: TOTAL_BOOKING_NUMBER_TYPE.lowerOrEqual,
   value: 1,
   secondValue: null,
+  subFilters: [],
+  activity: {
+    selectAllActivities: true,
+    selectedMetaActivityIds: [],
+  },
 });

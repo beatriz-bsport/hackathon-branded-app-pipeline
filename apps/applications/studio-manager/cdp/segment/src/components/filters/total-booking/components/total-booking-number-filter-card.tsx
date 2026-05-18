@@ -15,10 +15,12 @@ import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { toCreatePayload } from "../mappers/form-value-to-create-payload";
 import { totalBookingNumberFilterSchema } from "../schema";
 import type { TotalBookingNumberFilterCardProps } from "../types";
+import { TotalBookingSubFiltersArea } from "./total-booking-sub-filters-area";
 
 export const TotalBookingNumberFilterCard = ({
   smartlistId,
   filterValue,
+  activityOptions,
   onDeleteUnsavedFilter,
   onSaveSuccess,
 }: TotalBookingNumberFilterCardProps) => {
@@ -26,6 +28,7 @@ export const TotalBookingNumberFilterCard = ({
   const baseId = useId();
   const fieldIds = {
     comparator: `${baseId}-comparator`,
+    activity: `${baseId}-activity`,
   };
 
   const { upsertTotalBookingFilterMutate, isLoading: isSaving } =
@@ -164,6 +167,14 @@ export const TotalBookingNumberFilterCard = ({
               },
             );
           }}
+        />
+
+        <TotalBookingSubFiltersArea
+          fieldIds={{ activity: fieldIds.activity }}
+          watchedFilterValue={watchedFilterValue}
+          errors={errors}
+          setValue={methods.setValue}
+          activityOptions={activityOptions}
         />
 
         <div className="flex justify-end">

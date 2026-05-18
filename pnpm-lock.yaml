@@ -2341,6 +2341,9 @@ importers:
 
   apps/applications/studio-manager/cdp/segment:
     dependencies:
+      '@bsport/api-book':
+        specifier: workspace:*
+        version: link:../../../../../packages/api/book
       '@bsport/api-buyables':
         specifier: workspace:*
         version: link:../../../../../packages/api/buyables

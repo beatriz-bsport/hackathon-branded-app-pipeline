@@ -86,10 +86,6 @@ export class ConsumerPassReworked extends React.Component<
   componentDidMount() {
     !!this.props.membership?.id &&
       this.props.fetchMyPassesTabs(this.props.membership.id);
-    // Only fetch current tab data -> default is Consumer payment packs
-    this.fetchActiveConsumerPaymentPacks();
-    this.fetchExpiredConsumerPaymentPacks();
-    this.fetchFutureConsumerPaymentPacks();
     // Only fetch SCTs once and for all
     !!this.props.membership?.id &&
       this.props.fetchSCTs({
@@ -107,9 +103,6 @@ export class ConsumerPassReworked extends React.Component<
       this.props.fetchSCTs({
         member: this.props.membership.id,
       });
-      this.fetchActiveConsumerPaymentPacks();
-      this.fetchExpiredConsumerPaymentPacks();
-      this.fetchFutureConsumerPaymentPacks();
     }
   }
 

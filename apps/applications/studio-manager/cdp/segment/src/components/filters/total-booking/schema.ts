@@ -44,6 +44,7 @@ export const totalBookingNumberFilterSchema = z
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.establishment),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.coach),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack),
+        z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.level),
       ]),
     ),
     activity: z.object({
@@ -61,6 +62,9 @@ export const totalBookingNumberFilterSchema = z
     paymentPack: z.object({
       selectAllPaymentPacks: z.boolean(),
       selectedPaymentPackIds: z.array(z.number().int().positive()),
+    }),
+    level: z.object({
+      selectedLevelIds: z.array(z.number().int().positive()),
     }),
   })
   .superRefine((data, context) => {

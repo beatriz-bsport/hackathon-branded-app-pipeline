@@ -204,4 +204,34 @@ describe("totalBookingNumberFilterSchema", () => {
 
     expect(result.success).toBe(true);
   });
+
+  it("rejects level sub-filter when active and no level is selected", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.level],
+      level: {
+        selectedLevelIds: [],
+      },
+    });
+
+    const result = totalBookingNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const issuePaths = result.error.issues.map((issue) => issue.path);
+      expect(issuePaths).toContainEqual(["level", "selectedLevelIds"]);
+    }
+  });
+
+  it("accepts level sub-filter when at least one level is selected", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.level],
+      level: {
+        selectedLevelIds: [12],
+      },
+    });
+
+    const result = totalBookingNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(true);
+  });
 });

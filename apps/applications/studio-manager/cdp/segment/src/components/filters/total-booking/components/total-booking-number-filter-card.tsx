@@ -24,6 +24,7 @@ export const TotalBookingNumberFilterCard = ({
   establishmentOptions,
   coachOptions,
   passOptions,
+  levelOptions,
   onDeleteUnsavedFilter,
   onSaveSuccess,
 }: TotalBookingNumberFilterCardProps) => {
@@ -35,6 +36,7 @@ export const TotalBookingNumberFilterCard = ({
     establishment: `${baseId}-establishment`,
     coach: `${baseId}-coach`,
     paymentPack: `${baseId}-payment-pack`,
+    level: `${baseId}-level`,
   };
 
   const methods = useFormController({
@@ -191,6 +193,7 @@ export const TotalBookingNumberFilterCard = ({
             establishment: fieldIds.establishment,
             coach: fieldIds.coach,
             paymentPack: fieldIds.paymentPack,
+            level: fieldIds.level,
           }}
           watchedFilterValue={watchedFilterValue}
           errors={errors}
@@ -199,6 +202,7 @@ export const TotalBookingNumberFilterCard = ({
           establishmentOptions={establishmentOptions}
           coachOptions={coachOptions}
           passOptions={passOptions}
+          levelOptions={levelOptions}
         />
 
         <div className="flex justify-end">

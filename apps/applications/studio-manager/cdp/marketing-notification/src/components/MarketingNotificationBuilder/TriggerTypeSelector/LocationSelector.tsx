@@ -1,4 +1,4 @@
-import type { Establishment, FetchEstablishmentParams } from "@bsport/api-core";
+import type { Establishment, FetchEstablishmentParams } from "@bsport/api-book";
 import { BackendSelector } from "@bsport/kaizen-business-components/form/backend-selector";
 import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 

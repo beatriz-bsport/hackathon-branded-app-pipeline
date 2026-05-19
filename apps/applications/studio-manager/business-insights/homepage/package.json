@@ -29,11 +29,10 @@
   "dependencies": {
     "@bsport/api-book": "workspace:*",
     "@bsport/api-business-insights": "workspace:*",
-    "@bsport/api-core": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/store-booking-session": "workspace:*",
     "@bsport/store-booking-substitution": "workspace:*",
-    "@bsport/store-core-data-teacher": "workspace:*",
+    "@bsport/store-booking-teacher": "workspace:*",
     "@bsport/use-async": "workspace:*"
   },
   "devDependencies": {

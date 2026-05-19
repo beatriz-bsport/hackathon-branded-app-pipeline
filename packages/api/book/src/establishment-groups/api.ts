@@ -6,17 +6,18 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { API_V1_URL } from "../constants";
+import { API_V1_URL } from "#src/constants";
+
 import type {
   EstablishmentGroup,
   FetchEstablishmentGroupQueryParams,
   SearchEstablishmentGroupSearchParams,
 } from "./types";
 
-const ESTABLISHMENT_GROUP_API_URL = `${API_V1_URL}/establishment-group`;
+const ESTABLISHMENT_GROUP_API_URL = `${API_V1_URL}establishment-group`;
 
 export const establishmentGroupKeys = {
-  all: ["@api-core", "establishmentGroups"] as const,
+  all: ["@api-book", "establishmentGroups"] as const,
   list: (params: FetchEstablishmentGroupQueryParams) =>
     [...establishmentGroupKeys.all, "list", params] as const,
   search: (params: SearchEstablishmentGroupSearchParams) =>

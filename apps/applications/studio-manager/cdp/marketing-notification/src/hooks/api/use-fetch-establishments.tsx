@@ -1,8 +1,8 @@
-import { FetchEstablishmentGroupQueryParams } from "@bsport/api-core";
+import { FetchEstablishmentGroupQueryParams } from "@bsport/api-book";
 import {
   fetchEstablishmentGroupsAction,
   searchEstablishmentGroupsAction,
-} from "@bsport/store-core-data-establishment";
+} from "@bsport/store-booking-establishment";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";

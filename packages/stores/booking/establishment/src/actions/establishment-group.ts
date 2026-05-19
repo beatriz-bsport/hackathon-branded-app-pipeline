@@ -3,12 +3,12 @@ import { Result } from "typescript-result";
 import {
   fetchEstablishmentGroups,
   searchEstablishmentGroups,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 import type {
   EstablishmentGroup,
   FetchEstablishmentGroupQueryParams,
   SearchEstablishmentGroupSearchParams,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 import {
   type Action,
   type PaginatedResponse,

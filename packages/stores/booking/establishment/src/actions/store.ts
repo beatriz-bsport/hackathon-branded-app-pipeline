@@ -1,4 +1,4 @@
-import type { Establishment, EstablishmentGroup } from "@bsport/api-core";
+import type { Establishment, EstablishmentGroup } from "@bsport/api-book";
 import { buildById } from "@bsport/store-base";
 
 import { establishmentStore } from "#src/store";

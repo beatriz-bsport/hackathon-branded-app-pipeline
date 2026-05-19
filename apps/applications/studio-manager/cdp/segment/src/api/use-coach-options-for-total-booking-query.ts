@@ -1,6 +1,6 @@
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 
-import { type Teacher, fetchFlatTeachers } from "@bsport/api-core";
+import { type Teacher, fetchFlatTeachers } from "@bsport/api-book";
 
 import { fetch } from "#src/utils/fetch";
 

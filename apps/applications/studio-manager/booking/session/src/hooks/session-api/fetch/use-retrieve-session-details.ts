@@ -1,10 +1,10 @@
 import { useSuspenseQueries } from "@tanstack/react-query";
 
-import { retrieveGroupActivityQueryOptions } from "@bsport/api-book";
 import {
   retrieveEstablishmentQueryOptions,
+  retrieveGroupActivityQueryOptions,
   retrieveTeacherQueryOptions,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 
 import { fetch } from "#src/utils/fetch";
 

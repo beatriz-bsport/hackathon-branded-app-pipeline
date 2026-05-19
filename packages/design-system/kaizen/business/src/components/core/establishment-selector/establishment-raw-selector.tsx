@@ -1,6 +1,6 @@
 import { type FC, useMemo } from "react";
 
-import type { Establishment } from "@bsport/api-core";
+import type { Establishment } from "@bsport/api-book";
 import {
   DropdownMultiSelect,
   type DropdownMultiSelectProps,

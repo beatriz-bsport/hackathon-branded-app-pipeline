@@ -5,7 +5,7 @@ import {
   FetchTeachersParams,
   fetchFlatTeachers,
   teacherKeys,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 
 import { fetch } from "#src/utils/fetch";
 

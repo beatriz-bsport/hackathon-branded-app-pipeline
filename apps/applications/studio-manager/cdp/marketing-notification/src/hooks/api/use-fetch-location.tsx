@@ -1,8 +1,8 @@
-import { FetchEstablishmentParams } from "@bsport/api-core";
+import { FetchEstablishmentParams } from "@bsport/api-book";
 import {
   fetchEstablishmentsAction,
   searchEstablishmentsAction,
-} from "@bsport/store-core-data-establishment";
+} from "@bsport/store-booking-establishment";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";

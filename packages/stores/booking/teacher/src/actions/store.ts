@@ -1,4 +1,4 @@
-import type { Teacher } from "@bsport/api-core";
+import type { Teacher } from "@bsport/api-book";
 
 import { teacherStore } from "#src/store";
 

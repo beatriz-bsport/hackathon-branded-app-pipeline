@@ -9,8 +9,8 @@ import {
   fetchManagerSessions,
   sessionKeys,
 } from "@bsport/api-book";
-import { Teacher } from "@bsport/api-core";
-import type { Establishment } from "@bsport/api-core";
+import { Teacher } from "@bsport/api-book";
+import type { Establishment } from "@bsport/api-book";
 import type { DateTime } from "@bsport/datetime-manipulation";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 

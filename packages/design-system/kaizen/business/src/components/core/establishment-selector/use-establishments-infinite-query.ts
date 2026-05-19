@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 
-import { fetchEstablishmentsInfiniteQueryOptions } from "@bsport/api-core/establishments";
+import { fetchEstablishmentsInfiniteQueryOptions } from "@bsport/api-book";
 
 import { fetch } from "#src/utils/fetch";
 

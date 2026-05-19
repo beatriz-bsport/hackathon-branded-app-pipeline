@@ -1,6 +1,6 @@
 import { type FC, useMemo } from "react";
 
-import { type Establishment } from "@bsport/api-core";
+import { type Establishment } from "@bsport/api-book";
 import { Body, Button } from "@bsport/kaizen-primitive-core";
 
 import { groupEstablishmentsForDisplay } from "#src/utils/group-establishments-by-address";

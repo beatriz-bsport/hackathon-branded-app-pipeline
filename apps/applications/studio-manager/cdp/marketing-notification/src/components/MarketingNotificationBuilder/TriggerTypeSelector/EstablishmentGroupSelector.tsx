@@ -1,7 +1,7 @@
 import type {
   EstablishmentGroup,
   FetchEstablishmentGroupQueryParams,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 import { BackendSelector } from "@bsport/kaizen-business-components/form/backend-selector";
 import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 

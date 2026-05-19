@@ -1,6 +1,6 @@
 import { createStore } from "zustand/vanilla";
 
-import type { Establishment, EstablishmentGroup } from "@bsport/api-core";
+import type { Establishment, EstablishmentGroup } from "@bsport/api-book";
 import { type PaginatedState, bindStore } from "@bsport/store-base";
 
 export interface EstablishmentState {

@@ -4,7 +4,7 @@ import { Body, Modal, toast } from "@bsport/kaizen-primitive-core";
 import {
   archiveTeacherAction,
   restoreTeacherAction,
-} from "@bsport/store-core-data-teacher";
+} from "@bsport/store-booking-teacher";
 import { useAsync } from "@bsport/use-async";
 
 import { useGenericToasts } from "#src/hooks/useGenericToasts";

@@ -7,7 +7,7 @@ import {
   sessionKeys,
   spotSchedulingKeys,
 } from "@bsport/api-book";
-import { type Teacher, teacherKeys } from "@bsport/api-core";
+import { type Teacher, teacherKeys } from "@bsport/api-book";
 import type { PaginatedResponse } from "@bsport/store-base";
 
 import coachPhoto from "#src/components/spot-selector/assets/coach.jpeg";

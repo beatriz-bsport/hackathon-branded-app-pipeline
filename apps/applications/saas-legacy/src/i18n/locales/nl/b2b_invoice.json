@@ -183,7 +183,7 @@
     }
   },
   "bulkExport": {
-    "modalTitle": "Factueren exporteren",
+    "modalTitle": "Facturen exporteren",
     "modalDescription": "Kies een periode om facturen te exporteren.",
     "alertDescription": "Je kunt geen facturen exporteren die zijn gemigreerd van vorige providers.",
     "month": "Maand",

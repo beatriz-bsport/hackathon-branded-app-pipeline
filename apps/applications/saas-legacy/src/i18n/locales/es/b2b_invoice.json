@@ -85,6 +85,72 @@
         "certificate_error": "No se pudo recuperar el certificado VERI*FACTU. Por favor, inténtalo de nuevo. "
       }
     },
+    "ticketbai": {
+      "title": "TicketBAI",
+      "loading": "Cargando…",
+      "load_error": "No se pudo cargar la configuración de TicketBAI. Por favor, actualiza la página e inténtalo de nuevo.",
+      "info": "Esta funcionalidad de pago no está activo en tu cuenta todavía — por favor contacta a tu gerente de cuenta para solicitarlo",
+      "description": "Normas de facturación regional para el País Vasco (Araba, Bizkaia, Gipuzkoa). Cuando TicketBAI está activo, las facturas y recibos válidos se formatean y se declaran según lo requerido por tu provincia.",
+      "territory": {
+        "title": "Certificado de empresa y dispositivo",
+        "subtitle": "Provincia de la dirección de facturación de Stripe",
+        "detected_province": "Provincia detectada",
+        "helper": "Hemos leído esto de tu perfil de empresa de Stripe. Si es incorrecto, <0>cámbialo en Stripe</0>, o las facturas podrían usar las reglas provinciales incorrectas.",
+        "araba": "Álava",
+        "bizkaia": "Bizkaia",
+        "gipuzkoa": "Gipuzkoa"
+      },
+      "form": {
+        "chips": {
+          "vat_id_validated": "ID de IVA validado",
+          "vat_id_missing": "Falta el ID de IVA",
+          "business_address_provided": "Dirección comercial proporcionada",
+          "business_address_missing": "Falta la dirección comercial",
+          "invoice_identifiers_set_up": "Configuración de identificadores de factura",
+          "invoice_identifiers_not_set_up": "Identificadores de factura no configurados"
+        },
+        "requirements": {
+          "vat_required": "Se requiere ID de IVA",
+          "address_required": "Se requiere dirección comercial",
+          "vat_and_address_required": "ID de IVA y dirección comercial requeridos",
+          "vat_description": "Añade tu ID de IVA en Ajustes → Empresa antes de activar TicketBAI con Sign-ES.",
+          "address_description": "Proporciona la dirección de tu negocio en la incorporación de Stripe; la usamos para confirmar la provincia vasca para TicketBAI.",
+          "vat_and_address_description": "Añade tu ID de IVA en Ajustes → Empresa y completa el proceso de incorporación de Stripe con tu dirección comercial. Ambos son obligatorios antes de la configuración de TicketBAI.",
+          "go_to_settings": "Ve a Ajustes",
+          "complete_stripe_onboarding": "Completa el proceso de incorporación de Stripe",
+          "legal_identifier_required": "Identificadores de factura requeridos",
+          "legal_identifier_description": "Configura los identificadores de factura para Sign-ES siguiendo esta <0>hoja de ayuda</0>."
+        }
+      },
+      "onboarding": {
+        "register_processing": "Registrando…",
+        "configure_ticketbai": "Configura TicketBAI",
+        "info_euskadi": "Información de TicketBAI (Euskadi)",
+        "register_error": "No se pudo registrar el dispositivo de firma. Por favor, inténtalo de nuevo.",
+        "device_registered": "Dispositivo de firma registrado correctamente",
+        "device_error": "El registro del dispositivo de firma no devolvió un número de serie de certificado. Por favor, inténtalo de nuevo o contacta con soporte."
+      },
+      "device": {
+        "title": "Certificado del dispositivo",
+        "subtitle": "Usa este número de serie en el portal TicketBAI de tu provincia. <0>Aprende cómo hacerlo con fiskaly</0>",
+        "serial_caption": "Número de serie del certificado del dispositivo (emitido por bsport)",
+        "gipuzkoa_notice": "Todavía tienes que validar tu certificado de dispositivo Fiskaly con Gipuzkoa en su portal oficial. Tienes aproximadamente un mes para hacerlo. Todas las facturas que emitas mientras tanto seguirán siendo legalmente válidas.",
+        "registration_notice_title": "Termina el registro del dispositivo antes de completar",
+        "registration_notice_description": "Usa el número de serie anterior en el portal oficial de TicketBAI de tu provincia para registrar el certificado de tu dispositivo Fiskaly y que bsport pueda empezar a enviar tus facturas válidas a TicketBAI",
+        "complete_confirmation": "He completado el registro provincial de dispositivos requerido para mi territorio",
+        "complete_cta": "Configuración completa"
+      },
+      "finalize": {
+        "processing": "Finalizando…",
+        "success": "Configuración de TicketBAI finalizada",
+        "error": "No se pudo finalizar la configuración de TicketBAI. Por favor, inténtalo de nuevo."
+      },
+      "active": {
+        "success_message": "TicketBAI está activo. Las facturas y recibos que cumplan los requisitos se notificarán según las normas TicketBAI de tu provincia",
+        "gipuzkoa_followup_title": "Tus facturas ya se están enviando a las autoridades fiscales",
+        "gipuzkoa_followup_description": "Todavía tienes que validar tu dispositivo Fiskaly con Gipuzkoa en su portal oficial. Tienes aproximadamente un mes para hacerlo. Todas las facturas que emitas mientras tanto seguirán siendo legalmente válidas."
+      }
+    },
     "sequentialNumbering": {
       "title": "Configura la numeración secuencial de facturas",
       "subtitle": "Tus Facturas se numerarán automáticamente en secuencia (1, 2, 3...). Personaliza la fecha de inicio y el formato de numeración para configurarlo.",

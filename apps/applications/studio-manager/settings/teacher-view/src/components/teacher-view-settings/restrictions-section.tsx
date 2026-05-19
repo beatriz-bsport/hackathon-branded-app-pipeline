@@ -23,7 +23,7 @@ export const RestrictionsSection: FC = () => {
   const atLeastOneError = errors.has_coach_access_to_calendar?.message;
 
   return (
-    <div className="flex flex-col gap-lg items-start">
+    <div className="flex flex-col gap-md items-start">
       <div className="flex flex-col">
         <Title htmlVariant="h2">
           {t("teacherViewSettings.restrictions.title")}

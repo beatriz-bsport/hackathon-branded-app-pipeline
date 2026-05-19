@@ -58,14 +58,35 @@ export const passesInfiniteQueryOptions = (
   fetch: Fetch<PaginatedResponse<Pass>>,
   params: FetchPassesParams,
 ) => {
-  const fetchPasses = fetchPassesAPI.bind(null, fetch);
+  const fetchPage = (pageParam: number) =>
+    fetchPassesAPI(fetch, { ...params, page: pageParam });
+
+  const fetchSearchPage = (pageParam: number) =>
+    fetchPassesSearchAPI(fetch, {
+      ...params,
+      q: params.q as string,
+      page: pageParam,
+    });
+
   return infiniteQueryOptions({
     queryKey: passKeys.infinite(params),
-    queryFn: ({ pageParam }) => fetchPasses({ ...params, page: pageParam }),
+    queryFn: ({ pageParam }) =>
+      params.q ? fetchSearchPage(pageParam) : fetchPage(pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
     staleTime: PASS_STALE_TIME,
   });
+};
+
+const fetchPassesSearchAPI = async (
+  fetch: Fetch<PaginatedResponse<Pass>>,
+  params: FetchPassesParams & { q: string },
+): Promise<PaginatedResponse<Pass>> => {
+  const [uri, init]: ApiConfig = [
+    `${PASS_API_URL}/payment-pack/search/${buildUrlParams(params)}`,
+  ];
+  const { data } = await fetch(uri, init);
+  return data;
 };
 
 export const passCategoryKeys = {

@@ -66,6 +66,9 @@ export type FetchPassesParams = {
    * `OrderingFilter` on `PaymentPackViewSet`.
    */
   ordering?: string;
+
+  /** Full-text search query. */
+  q?: string;
 };
 
 // #endregion

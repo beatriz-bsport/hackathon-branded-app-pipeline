@@ -85,6 +85,72 @@
         "certificate_error": "Konnte das VERI*FACTU-Zertifikat nicht abrufen. Bitte versuche es erneut. "
       }
     },
+    "ticketbai": {
+      "title": "TicketBAI",
+      "loading": "Lädt…",
+      "load_error": "TicketBAI-Konfiguration konnte nicht geladen werden. Bitte aktualisiere die Seite und versuche es erneut.",
+      "info": "Dieses Zusatzmodul ist in deinem Konto noch nicht aktiv – bitte kontaktiere deinen Account Manager, um es anzufordern.",
+      "description": "Regionale Rechnungsregeln für das Baskenland (Araba, Bizkaia, Gipuzkoa). Wenn TicketBAI aktiv ist, werden qualifizierende Rechnungen und Belege gemäß den Anforderungen deiner Provinz formatiert und gemeldet.",
+      "territory": {
+        "title": "Unternehmens- & Gerätezertifikat",
+        "subtitle": "Provinz der Stripe-Rechnungsadresse",
+        "detected_province": "Erkannte Provinz",
+        "helper": "Diese Information haben wir aus deinem Stripe-Unternehmensprofil übernommen. Wenn sie falsch ist, <0>ändere sie auf Stripe</0>, da sonst möglicherweise die falschen regionalen Regeln für Rechnungen verwendet werden.",
+        "araba": "Álava",
+        "bizkaia": "Bizkaia",
+        "gipuzkoa": "Gipuzkoa"
+      },
+      "form": {
+        "chips": {
+          "vat_id_validated": "USt-IdNr. validiert",
+          "vat_id_missing": "USt-IdNr. fehlt",
+          "business_address_provided": "Geschäftsadresse angegeben",
+          "business_address_missing": "Geschäftsadresse fehlt",
+          "invoice_identifiers_set_up": "Einrichtungskennzeichen für Rechnungen",
+          "invoice_identifiers_not_set_up": "Rechnungskennungen nicht eingerichtet"
+        },
+        "requirements": {
+          "vat_required": "USt-IdNr. erforderlich",
+          "address_required": "Geschäftsadresse erforderlich",
+          "vat_and_address_required": "USt-IdNr. & Geschäftsadresse erforderlich",
+          "vat_description": "Füge deine USt-IdNr. in den Einstellungen → Unternehmen hinzu, bevor du TicketBAI mit Sign-ES aktivierst.",
+          "address_description": "Gib deine Geschäftsadresse beim Stripe-Onboarding an – wir nutzen sie, um die baskische Provinz für TicketBAI zu bestätigen.",
+          "vat_and_address_description": "Füge deine USt-IdNr. in den Einstellungen → Unternehmen hinzu und schließe das Stripe-Onboarding mit deiner Geschäftsadresse ab. Beides ist vor der TicketBAI-Einrichtung erforderlich.",
+          "go_to_settings": "Gehe zu den Einstellungen",
+          "complete_stripe_onboarding": "Vervollständige das Stripe-Onboarding",
+          "legal_identifier_required": "Rechnungskennungen erforderlich",
+          "legal_identifier_description": "Richte Rechnungs-IDs für Sign-ES mit dieser <0>Anleitung</0> ein."
+        }
+      },
+      "onboarding": {
+        "register_processing": "Wird registriert…",
+        "configure_ticketbai": "TicketBAI konfigurieren",
+        "info_euskadi": "TicketBAI-Informationen (Euskadi)",
+        "register_error": "Das Signiergerät konnte nicht registriert werden. Bitte versuche es erneut.",
+        "device_registered": "Signiergerät erfolgreich registriert",
+        "device_error": "Bei der Registrierung des Signaturgeräts wurde keine Zertifikatsseriennummer zurückgegeben. Bitte versuche es erneut oder kontaktiere den Support."
+      },
+      "device": {
+        "title": "Gerätezertifikat",
+        "subtitle": "Verwende diese Seriennummer auf dem TicketBAI-Portal deines Bundeslandes. <0>Erfahre, wie das mit fiskaly funktioniert</0>",
+        "serial_caption": "Gerätezertifikat Seriennummer (ausgestellt von bsport)",
+        "gipuzkoa_notice": "Du musst dein Fiskaly-Gerätezertifikat noch mit Gipuzkoa auf deren offiziellem Portal validieren. Du hast dafür etwa einen Monat Zeit. Alle Rechnungen, die du in der Zwischenzeit ausstellst, bleiben gesetzeskonform.",
+        "registration_notice_title": "Schließe die Geräteregistrierung ab, bevor du fortfährst",
+        "registration_notice_description": "Verwende die oben genannte Seriennummer auf dem offiziellen TicketBAI-Portal deines Bundeslandes, um dein Fiskaly-Gerätezertifikat zu registrieren, damit bsport deine qualifizierenden Rechnungen an TicketBAI übermitteln kann",
+        "complete_confirmation": "Ich habe die erforderliche provinzielle Geräteregistrierung für mein Gebiet abgeschlossen",
+        "complete_cta": "Einrichtung abschließen"
+      },
+      "finalize": {
+        "processing": "Wird abgeschlossen…",
+        "success": "TicketBAI Einrichtung abgeschlossen",
+        "error": "TicketBAI-Einrichtung konnte nicht abgeschlossen werden. Bitte versuche es erneut."
+      },
+      "active": {
+        "success_message": "TicketBAI ist aktiv. Qualifizierende Rechnungen und Belege werden gemäß den TicketBAI-Regeln deiner Provinz gemeldet",
+        "gipuzkoa_followup_title": "Deine Rechnungen werden bereits an die Steuerbehörden gesendet",
+        "gipuzkoa_followup_description": "Du musst dein Fiskaly-Gerät noch mit Gipuzkoa auf deren offiziellem Portal validieren. Du hast dafür etwa einen Monat Zeit. Alle Rechnungen, die du in der Zwischenzeit ausstellst, bleiben gesetzeskonform."
+      }
+    },
     "sequentialNumbering": {
       "title": "Fortlaufende Rechnungsnummerierung einrichten",
       "subtitle": "Deine Rechnungen werden automatisch fortlaufend nummeriert (1, 2, 3...). Passe das Startdatum und das Nummerierungsformat an, um es einzurichten.",

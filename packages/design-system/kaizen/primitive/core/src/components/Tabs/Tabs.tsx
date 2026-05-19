@@ -2,6 +2,7 @@ import { type VariantProps, cva } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import { AnchorHTMLAttributes, useEffect, useState } from "react";
 
+import { type WithTooltip, withTooltip } from "#src/components/Tooltip";
 import { useMatchMedia } from "#src/hooks/use-match-media";
 
 import {
@@ -11,6 +12,17 @@ import {
 } from "./TabsContext";
 import { TabsItem, type TabsItemProps } from "./TabsItem";
 import { TabsResponsive } from "./TabsResponsive";
+
+const TabsItemWithTooltip = withTooltip(TabsItem);
+
+type TabAnchorTriggerProps = AnchorHTMLAttributes<HTMLAnchorElement>;
+
+const TabAnchorTrigger: React.FC<TabAnchorTriggerProps> = ({
+  children,
+  ...anchorAttrs
+}: TabAnchorTriggerProps) => <a {...anchorAttrs}>{children}</a>;
+
+const TabAnchorWithTooltip = withTooltip(TabAnchorTrigger);
 
 const defaultClasses = [
   "flex",
@@ -38,9 +50,11 @@ const tabsVariants = cva(defaultClasses, { variants });
 /**
  * Represents a tab configuration in the array-based (non-composable) API.
  * Combines TabsItem props with anchor element attributes for navigation.
+ * Optional `tooltipProps` wraps the tab trigger with Kaizen Tooltip (avoids native `title`).
  */
-export type TabConfig = Omit<TabsItemProps, "orientation"> &
-  AnchorHTMLAttributes<HTMLAnchorElement>;
+export type TabConfig = WithTooltip<
+  Omit<TabsItemProps, "orientation"> & AnchorHTMLAttributes<HTMLAnchorElement>
+>;
 
 export type TabsProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof tabsVariants> & {
@@ -149,35 +163,66 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
       };
 
     tabsItems = tabs.map(
-      ({ id, icon, disabled, isActive, label, onClick, ...otherProps }) => {
+      ({
+        id,
+        icon,
+        disabled,
+        isActive,
+        label,
+        onClick,
+        tooltipProps,
+        title,
+        ...otherProps
+      }) => {
+        const anchorAttrs: AnchorHTMLAttributes<HTMLAnchorElement> = {
+          ...otherProps,
+          ...(disabled
+            ? {
+                href: undefined,
+                tabIndex: -1,
+                "aria-disabled": true,
+                onClick: (event) => event.preventDefault(),
+              }
+            : {}),
+          ...(!tooltipProps && title !== undefined ? { title } : {}),
+        };
+
         // In responsive mode, don't wrap in anchor or provide onClick
         // DropdownMenu.Item handles its own selection through context
+        const tabsItemSharedProps = {
+          id,
+          icon,
+          disabled,
+          isActive: isActive ?? id === currentActiveTab,
+          label,
+          orientation,
+        };
+
         if (shouldUseResponsive) {
           return (
-            <TabsItem
+            <TabsItemWithTooltip
               key={id}
-              id={id}
-              icon={icon}
-              disabled={disabled}
-              isActive={isActive ?? id === currentActiveTab}
-              label={label}
-              orientation={orientation}
+              {...tabsItemSharedProps}
+              tooltipProps={tooltipProps}
             />
           );
         }
 
+        const tabsItemDesktop = (
+          <TabsItem
+            {...tabsItemSharedProps}
+            onClick={getHandleTabClick({ id, disabled, onClick })}
+          />
+        );
+
         return (
-          <a key={id} {...otherProps}>
-            <TabsItem
-              id={id}
-              icon={icon}
-              disabled={disabled}
-              isActive={isActive ?? id === currentActiveTab}
-              label={label}
-              orientation={orientation}
-              onClick={getHandleTabClick({ id, disabled, onClick })}
-            />
-          </a>
+          <TabAnchorWithTooltip
+            key={id}
+            {...anchorAttrs}
+            tooltipProps={tooltipProps}
+          >
+            {tabsItemDesktop}
+          </TabAnchorWithTooltip>
         );
       },
     );

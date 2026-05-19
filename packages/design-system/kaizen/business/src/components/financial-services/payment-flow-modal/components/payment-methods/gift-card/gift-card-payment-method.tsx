@@ -4,10 +4,10 @@ import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import type { Fetch } from "@bsport/fetch";
 import { Body, Button, Card, Icon, Title } from "@bsport/kaizen-primitive-core";
 
+import { useFetchAvailableGiftcards } from "#src/components/financial-services/payment-flow-modal/hooks/use-fetch-available-giftcards";
 import { i18nInstance, useTranslation } from "#src/i18n";
 import { formatDate } from "#src/utils/date";
 
-import { useFetchAvailableGiftcards } from "../../hooks/use-fetch-available-giftcards";
 import { AddGiftCardCode } from "./add-gift-card-code";
 import type { PaymentFlowGiftCard } from "./types";
 

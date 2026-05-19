@@ -8,9 +8,8 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
+import type { StripeReader } from "#src/components/financial-services/payment-flow-modal/hooks/use-fetch-stripe-readers";
 import { i18nInstance, useTranslation } from "#src/i18n";
-
-import type { StripeReader } from "../../hooks/use-fetch-stripe-readers";
 
 type TerminalPaymentMethodProps = {
   stripeReaders: StripeReader[];

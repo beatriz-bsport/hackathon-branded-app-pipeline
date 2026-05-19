@@ -1,14 +1,14 @@
 import { Alert, Button, Tabs, Title } from "@bsport/kaizen-primitive-core";
 
-import { i18nInstance, useTranslation } from "#src/i18n";
-
-import { PartialAmountSection } from "./partial-amount-section";
 import {
   INVOICE_ALREADY_PAID_ALERT,
   type PaymentTab,
-} from "./payment-flow-form";
+} from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-form";
+import type { PaymentFlowModalBodyState } from "#src/components/financial-services/payment-flow-modal/types";
+import { i18nInstance, useTranslation } from "#src/i18n";
+
+import { PartialAmountSection } from "./partial-amount-section";
 import { PaymentMethodSection } from "./payment-method-section";
-import type { PaymentFlowModalBodyState } from "./types";
 
 type PaymentFlowModalBodyProps = {
   body: PaymentFlowModalBodyState;
@@ -24,6 +24,8 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
     fetch,
     activeTab,
     setActiveTab,
+    installmentsTabDisabled,
+    installmentsTabTooltip,
     isPartialEnabled,
     setIsPartialEnabled,
     onPartialAmountFocus,
@@ -53,8 +55,24 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
   };
 
   const tabs = [
-    { id: "one-time", label: t("paymentFlowModal.tabs.oneTime") },
-    { id: "installments", label: t("paymentFlowModal.tabs.installments") },
+    {
+      id: "one-time",
+      label: t("paymentFlowModal.tabs.oneTime"),
+      disabled: isInvoiceAlreadyPaid,
+    },
+    {
+      id: "installments",
+      label: t("paymentFlowModal.tabs.installments"),
+      disabled: installmentsTabDisabled,
+      ...(installmentsTabTooltip
+        ? {
+            tooltipProps: {
+              label: installmentsTabTooltip,
+              className: "!z-[1000]",
+            },
+          }
+        : {}),
+    },
   ];
 
   return (
@@ -68,7 +86,6 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
           if (isPaymentTab(id)) setActiveTab(id);
         }}
         className="border-b border-stroke-divider"
-        disabled={isInvoiceAlreadyPaid}
       />
 
       <div className="flex flex-col gap-2xs">

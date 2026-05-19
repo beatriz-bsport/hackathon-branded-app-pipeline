@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { Body, Card, Title } from "@bsport/kaizen-primitive-core";
 
+import type { PaymentFlowModalProps } from "#src/components/financial-services/payment-flow-modal/types";
 import { PaymentMethodSelector } from "#src/components/financial-services/payment-method-selector";
 import {
   ALL_PAYMENT_METHOD_SELECTOR_ID,
@@ -10,8 +11,6 @@ import {
 } from "#src/components/financial-services/payment-method-selector/constants";
 import type { PaymentMethodSelectorSelection } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
-
-import type { PaymentFlowModalProps } from "./types";
 
 type PaymentMethodSectionProps = Pick<
   PaymentFlowModalProps,

@@ -2,14 +2,21 @@ import type { FC } from "react";
 
 import { Modal } from "@bsport/kaizen-primitive-core";
 
-import type { RoleRowData } from "#src/components/role-table/types";
 import { useTranslation } from "#src/utils/i18n";
 
 import { useDeleteRole } from "./use-delete-role";
 
+export type RoleDeleteData = {
+  id: number;
+  name: string;
+  staffAssignedCount: number;
+};
+
 type RoleDeleteModalProps = {
-  role: RoleRowData | null;
+  role: RoleDeleteData | null;
   onClose: () => void;
+  preservePendingDeletionOnUnmount?: boolean;
+  onDeleteScheduled?: () => void;
   onSuccess?: () => void;
   onError?: (error: unknown) => void;
 };
@@ -17,11 +24,17 @@ type RoleDeleteModalProps = {
 export const RoleDeleteModal: FC<RoleDeleteModalProps> = ({
   role,
   onClose,
+  preservePendingDeletionOnUnmount = false,
+  onDeleteScheduled,
   onSuccess,
   onError,
 }) => {
   const { t } = useTranslation("role-list");
-  const { deleteRole } = useDeleteRole({ onSuccess, onError });
+  const { deleteRole } = useDeleteRole({
+    preservePendingDeletionOnUnmount,
+    onSuccess,
+    onError,
+  });
   const hasAssignedStaff = (role?.staffAssignedCount ?? 0) > 0;
 
   if (!role) return null;
@@ -46,6 +59,7 @@ export const RoleDeleteModal: FC<RoleDeleteModalProps> = ({
   const handleConfirm = () => {
     deleteRole({ id: role.id });
     onClose();
+    onDeleteScheduled?.();
   };
 
   return (

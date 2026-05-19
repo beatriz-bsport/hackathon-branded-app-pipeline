@@ -835,7 +835,7 @@
   },
   "signup": {
     "failedCreation": "Ihr Konto kann im Moment nicht erstellt werden, bitte versuchen Sie es in ein paar Minuten erneut",
-    "emailAlreadyExists": "Diese E-Mail ist bereits in Gebrauch",
+    "emailAlreadyExists": "Diese E-Mail-Adresse wird bereits verwendet. Du hast sie möglicherweise verwendet, um dich bei einem anderen Studio anzumelden. Melde dich an oder setze dein Passwort zurück, um fortzufahren.",
     "changeWorkspaceError": "Bei der Kontoänderung ist ein Fehler aufgetreten"
   },
   "paymentRuleGroups": {

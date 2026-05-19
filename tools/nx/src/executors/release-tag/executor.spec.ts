@@ -43,19 +43,22 @@ function createGitRunner(commandOutputs: Record<string, string | Error>) {
 
 function createExecutor(commandOutputs: Record<string, string | Error>) {
   const runGit = createGitRunner(commandOutputs);
+  const writeReleaseTagOutputFile = vi.fn(async () => undefined);
   const executor = createReleaseTagExecutor({
-    createReleaseClient: (_allowDiskFallback) => {
+    createReleaseClient: (_allowDiskFallback, _checkAllBranchesWhen) => {
       return {
         releaseVersion: releaseVersionMock,
         releaseChangelog: releaseChangelogMock,
       };
     },
     runGit,
+    writeReleaseTagOutputFile,
   });
 
   return {
     executor,
     runGit,
+    writeReleaseTagOutputFile,
   };
 }
 
@@ -75,7 +78,7 @@ describe("release-tag executor", () => {
     });
     releaseChangelogMock.mockResolvedValue(changelog);
 
-    const { executor, runGit } = createExecutor({
+    const { executor, runGit, writeReleaseTagOutputFile } = createExecutor({
       "fetch origin --tags --force": "",
       "rev-parse HEAD": "abc123",
       "rev-list -n 1 v1.2.3": new Error("missing tag"),
@@ -83,7 +86,7 @@ describe("release-tag executor", () => {
       "push origin refs/tags/v1.2.3": "",
     });
 
-    await expect(executor({})).resolves.toEqual({
+    await expect(executor({ outputFile: "release-tag.env" })).resolves.toEqual({
       success: true,
     });
 
@@ -116,6 +119,11 @@ describe("release-tag executor", () => {
     expect(runGit).toHaveBeenCalledWith(["push", "origin", "refs/tags/v1.2.3"]);
     expect(releaseChangelogMock).toHaveBeenCalledTimes(1);
     expect(changelog.postGitTask).not.toHaveBeenCalled();
+    expect(writeReleaseTagOutputFile).toHaveBeenCalledWith("release-tag.env", {
+      available: true,
+      commitSha: "abc123",
+      tagName: "v1.2.3",
+    });
   });
 
   it("errors when the next tag already exists on a different commit", async () => {
@@ -142,16 +150,19 @@ describe("release-tag executor", () => {
       projectsVersionData: {},
     });
 
-    const { executor, runGit } = createExecutor({
+    const { executor, runGit, writeReleaseTagOutputFile } = createExecutor({
       "fetch origin --tags --force": "",
     });
 
-    await expect(executor({})).resolves.toEqual({
+    await expect(executor({ outputFile: "release-tag.env" })).resolves.toEqual({
       success: true,
     });
 
     expect(runGit).toHaveBeenCalledTimes(2);
     expect(releaseChangelogMock).not.toHaveBeenCalled();
+    expect(writeReleaseTagOutputFile).toHaveBeenCalledWith("release-tag.env", {
+      available: false,
+    });
   });
 
   it("keeps reruns idempotent when the current commit already has the tag and still publishes the GitLab Release", async () => {
@@ -163,13 +174,13 @@ describe("release-tag executor", () => {
     });
     releaseChangelogMock.mockResolvedValue(changelog);
 
-    const { executor, runGit } = createExecutor({
+    const { executor, runGit, writeReleaseTagOutputFile } = createExecutor({
       "fetch origin --tags --force": "",
       "rev-parse HEAD": "abc123",
       "rev-list -n 1 v1.2.3": "abc123",
     });
 
-    await expect(executor({})).resolves.toEqual({
+    await expect(executor({ outputFile: "release-tag.env" })).resolves.toEqual({
       success: true,
     });
 
@@ -182,6 +193,11 @@ describe("release-tag executor", () => {
     ]);
     expect(releaseChangelogMock).toHaveBeenCalledTimes(1);
     expect(changelog.postGitTask).not.toHaveBeenCalled();
+    expect(writeReleaseTagOutputFile).toHaveBeenCalledWith("release-tag.env", {
+      available: true,
+      commitSha: "abc123",
+      tagName: "v1.2.3",
+    });
   });
 
   it("supports a dry run without creating, pushing, or publishing the tag", async () => {
@@ -193,13 +209,15 @@ describe("release-tag executor", () => {
     });
     releaseChangelogMock.mockResolvedValue(changelog);
 
-    const { executor, runGit } = createExecutor({
+    const { executor, runGit, writeReleaseTagOutputFile } = createExecutor({
       "fetch origin --tags --force": "",
       "rev-parse HEAD": "abc123",
       "rev-list -n 1 v1.2.3": new Error("missing tag"),
     });
 
-    await expect(executor({ dryRun: true })).resolves.toEqual({
+    await expect(
+      executor({ dryRun: true, outputFile: "release-tag.env" }),
+    ).resolves.toEqual({
       success: true,
     });
 
@@ -217,6 +235,11 @@ describe("release-tag executor", () => {
       }),
     );
     expect(changelog.postGitTask).not.toHaveBeenCalled();
+    expect(writeReleaseTagOutputFile).toHaveBeenCalledWith("release-tag.env", {
+      available: false,
+      commitSha: "abc123",
+      tagName: "v1.2.3",
+    });
   });
 
   it("accepts a failed push only when the remote tag points to HEAD", async () => {
@@ -225,7 +248,7 @@ describe("release-tag executor", () => {
       projectsVersionData: {},
     });
 
-    const { executor, runGit } = createExecutor({
+    const { executor, runGit, writeReleaseTagOutputFile } = createExecutor({
       "fetch origin --tags --force": "",
       "rev-parse HEAD": "abc123",
       "rev-list -n 1 v1.2.3": new Error("missing tag"),
@@ -235,12 +258,17 @@ describe("release-tag executor", () => {
         "tag-object\trefs/tags/v1.2.3\nabc123\trefs/tags/v1.2.3^{}",
     });
 
-    await expect(executor({})).resolves.toEqual({
+    await expect(executor({ outputFile: "release-tag.env" })).resolves.toEqual({
       success: true,
     });
 
     expect(runGit).not.toHaveBeenCalledWith(["tag", "--delete", "v1.2.3"]);
     expect(releaseChangelogMock).toHaveBeenCalledTimes(1);
+    expect(writeReleaseTagOutputFile).toHaveBeenCalledWith("release-tag.env", {
+      available: true,
+      commitSha: "abc123",
+      tagName: "v1.2.3",
+    });
   });
 
   it("removes the local tag when push fails without matching remote tag", async () => {
@@ -348,12 +376,14 @@ describe("release-tag executor", () => {
       "fetch origin --tags --force": "",
       "tag --list v*": "",
     });
-    const createReleaseClient = vi.fn((_allowDiskFallback: boolean) => {
-      return {
-        releaseVersion: releaseVersionMock,
-        releaseChangelog: releaseChangelogMock,
-      };
-    });
+    const createReleaseClient = vi.fn(
+      (_allowDiskFallback: boolean, _checkAllBranchesWhen: boolean) => {
+        return {
+          releaseVersion: releaseVersionMock,
+          releaseChangelog: releaseChangelogMock,
+        };
+      },
+    );
     const executor = createReleaseTagExecutor({
       createReleaseClient,
       runGit,
@@ -361,7 +391,7 @@ describe("release-tag executor", () => {
 
     await expect(executor({})).resolves.toEqual({ success: true });
 
-    expect(createReleaseClient).toHaveBeenCalledWith(true);
+    expect(createReleaseClient).toHaveBeenCalledWith(true, true);
   });
 
   it("disables disk fallback once release tags already exist", async () => {
@@ -374,12 +404,14 @@ describe("release-tag executor", () => {
       "fetch origin --tags --force": "",
       "tag --list v*": "v1.2.3",
     });
-    const createReleaseClient = vi.fn((_allowDiskFallback: boolean) => {
-      return {
-        releaseVersion: releaseVersionMock,
-        releaseChangelog: releaseChangelogMock,
-      };
-    });
+    const createReleaseClient = vi.fn(
+      (_allowDiskFallback: boolean, _checkAllBranchesWhen: boolean) => {
+        return {
+          releaseVersion: releaseVersionMock,
+          releaseChangelog: releaseChangelogMock,
+        };
+      },
+    );
     const executor = createReleaseTagExecutor({
       createReleaseClient,
       runGit,
@@ -387,6 +419,36 @@ describe("release-tag executor", () => {
 
     await expect(executor({})).resolves.toEqual({ success: true });
 
-    expect(createReleaseClient).toHaveBeenCalledWith(false);
+    expect(createReleaseClient).toHaveBeenCalledWith(false, true);
+  });
+
+  it("resolves release tags from the current branch only in hotfix mode", async () => {
+    releaseVersionMock.mockResolvedValue({
+      workspaceVersion: null,
+      projectsVersionData: {},
+    });
+
+    const runGit = createGitRunner({
+      "fetch origin --tags --force": "",
+      "tag --list v*": "v1.2.3",
+    });
+    const createReleaseClient = vi.fn(
+      (_allowDiskFallback: boolean, _checkAllBranchesWhen: boolean) => {
+        return {
+          releaseVersion: releaseVersionMock,
+          releaseChangelog: releaseChangelogMock,
+        };
+      },
+    );
+    const executor = createReleaseTagExecutor({
+      createReleaseClient,
+      runGit,
+    });
+
+    await expect(executor({ hotfix: true })).resolves.toEqual({
+      success: true,
+    });
+
+    expect(createReleaseClient).toHaveBeenCalledWith(false, false);
   });
 });

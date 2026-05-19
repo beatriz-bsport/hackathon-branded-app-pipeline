@@ -12,6 +12,7 @@ import {
   fetchRoleDefinitionsQueryOptions,
   paginatedUserRolesQueryOptions,
 } from "@bsport/api-staff-management/role";
+import { RoleType } from "@bsport/common/lib/master-data/user-role";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import {
@@ -33,6 +34,11 @@ export const useStaffListQuery = (activeFilters: StaffActiveFilters = {}) => {
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
+  const staffListQueryOptions = paginatedUserRolesQueryOptions(fetch, {
+    page: currentPage,
+    page_size: currentPageSize,
+    ...activeFilters,
+  });
 
   const [
     { data: staffData, isFetching: isFetchingStaff },
@@ -41,11 +47,7 @@ export const useStaffListQuery = (activeFilters: StaffActiveFilters = {}) => {
     { data: billingGroups = [] },
   ] = useSuspenseQueries({
     queries: [
-      paginatedUserRolesQueryOptions(fetch, {
-        page: currentPage,
-        page_size: currentPageSize,
-        ...activeFilters,
-      }),
+      staffListQueryOptions,
       fetchRoleDefinitionsQueryOptions(fetch),
       {
         queryKey: teacherKeys.list([], { company: companyId }),
@@ -106,6 +108,7 @@ export const useStaffListQuery = (activeFilters: StaffActiveFilters = {}) => {
         email: staffMember.email,
         roleName: role?.name ?? null,
         roleIsDefault: role !== null && !role.editable,
+        isOwner: staffMember.role === RoleType.USER_ROLE_NO_RESTRICTION,
         billingGroupName:
           staffMember.staff_establishment_billing_group !== null
             ? (billingGroupsById.get(
@@ -139,5 +142,6 @@ export const useStaffListQuery = (activeFilters: StaffActiveFilters = {}) => {
     isEmpty,
     isFetching: isFetchingStaff,
     paginationProps,
+    staffQueryKey: staffListQueryOptions.queryKey,
   };
 };

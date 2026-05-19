@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { getAvailableContracts } from '../master-data/available-payment';
 import type {
@@ -11,6 +11,7 @@ import type {
 
 // bookable_status value for a bookable offer (matches OFFER_BOOKABLE_STATUS_BOOKABLE = 0)
 const BOOKABLE = 0;
+const FIXED_NOW = new Date('2026-05-04T12:00:00+02:00');
 
 const makeOfferStatusById = (
   offers: OfferREST[],
@@ -104,6 +105,15 @@ const futureDate = (months = 0, weeks = 0, days = 0) =>
   DateTime.now().plus({ months, weeks, days }).toISO()!;
 
 describe('getAvailableContracts', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(FIXED_NOW);
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   it('returns contract when single offer fits within PP credits', () => {
     const offer = createOffer();
     const contract = createContract({

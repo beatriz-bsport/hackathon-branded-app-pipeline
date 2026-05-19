@@ -5,6 +5,7 @@ export {
   FormProvider,
   useFormContext,
   useFieldArray,
+  get,
   type FieldPath,
   type FieldPathByValue,
   type FieldValues,

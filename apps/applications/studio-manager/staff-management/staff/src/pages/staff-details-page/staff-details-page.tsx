@@ -1,20 +1,25 @@
 import { type FC, useEffect, useId, useMemo, useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 import type { UserRole } from "@bsport/api-staff-management/role";
 import { RoleType } from "@bsport/common/lib/master-data/user-role";
 import { ControlledForm, useFormController } from "@bsport/form";
 import {
   Breadcrumbs,
+  Button,
   DetailsLayout,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { StaffDeleteModal } from "#src/features/staff-delete-modal/staff-delete-modal";
+import { StaffFormBillingGroup } from "#src/features/staff-form/components/staff-form-billing-group";
 import { StaffFormCommission } from "#src/features/staff-form/components/staff-form-commission";
 import { StaffFormEmail } from "#src/features/staff-form/components/staff-form-email";
 import { StaffFormFirstName } from "#src/features/staff-form/components/staff-form-first-name";
 import { StaffFormLastName } from "#src/features/staff-form/components/staff-form-last-name";
 import { StaffFormRole } from "#src/features/staff-form/components/staff-form-role";
+import { StaffFormTeachers } from "#src/features/staff-form/components/staff-form-teachers";
 import { useStaffFormSchema } from "#src/features/staff-form/schema";
 import type {
   StaffFormData,
@@ -24,6 +29,7 @@ import {
   transformStaffUpdateFormData,
   useUpdateStaff,
 } from "#src/features/staff-form/use-update-staff";
+import { useDisclosure } from "#src/hooks/use-disclosure";
 import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -56,18 +62,42 @@ const convertStaffIntoFormData = (staff: UserRole): StaffFormData => ({
 const StaffDetailsPage: FC<StaffDetailsPageProps> = ({ staff }) => {
   const [discardId, setDiscardId] = useState(0);
   const { detailsLayoutProps, toggleHasUnsavedChanges } = useDetailsLayout();
-  const { t } = useTranslation("staff-list");
-  const { t: tDetails } = useTranslation("staff-details");
+  const { t } = useTranslation(["staff-list", "staff-details"]);
+  const navigate = useNavigate();
   const formId = `staff-details-${useId()}`;
   // Uses the persisted API role, not the live form value, so an owner cannot
   // be reassigned to a different role even if the select is somehow interacted with.
   const isOwner = staff.role === RoleType.USER_ROLE_NO_RESTRICTION;
+  const currentUserRole = dataAccessLayer.useUserAccess()?.role;
+  const currentUserIsOwner =
+    currentUserRole === RoleType.USER_ROLE_NO_RESTRICTION;
   const staffFormSchema = useStaffFormSchema({ isEditMode: true });
   const defaultValues = useMemo(() => convertStaffIntoFormData(staff), [staff]);
   const { updateStaff, isLoading: isUpdating } = useUpdateStaff();
+  const {
+    isOpen: isDeleteModalOpen,
+    onClose: closeDeleteModal,
+    onOpen: openDeleteModal,
+  } = useDisclosure();
 
   const { endGroupActions, startGroupActions } =
-    DetailsLayout.useAdaptiveActions({ startGroupActions: [] });
+    DetailsLayout.useAdaptiveActions({
+      startGroupActions:
+        isOwner || !currentUserIsOwner
+          ? []
+          : [
+              <Button
+                key="staff-details-button-delete"
+                color="default"
+                intent="flat"
+                size="md"
+                icon="trash-01"
+                kind="icon-button"
+                label={t("deleteActionLabel", { ns: "staff-details" })}
+                onClick={openDeleteModal}
+              />,
+            ],
+    });
 
   const methods = useFormController<StaffFormSchema>({
     mode: "onChange",
@@ -81,7 +111,7 @@ const StaffDetailsPage: FC<StaffDetailsPageProps> = ({ staff }) => {
 
   const BreadcrumbsItems = [
     <Link key="to-staff-list" to={URLS.INDEX}>
-      <Breadcrumbs.Item text={t("name")} />
+      <Breadcrumbs.Item text={t("name", { ns: "staff-list" })} />
     </Link>,
   ];
 
@@ -135,35 +165,49 @@ const StaffDetailsPage: FC<StaffDetailsPageProps> = ({ staff }) => {
   }, [isDirty]);
 
   return (
-    <ControlledForm {...methods} onSubmit={handleSaveChanges} id={formId}>
-      <DetailsLayout {...detailsLayoutProps}>
-        <DetailsLayout.Header
-          pageTitle={pageTitle}
-          BreadcrumbsItems={BreadcrumbsItems}
-          endGroupActions={endGroupActions}
-          startGroupActions={startGroupActions}
-        />
+    <>
+      <ControlledForm {...methods} onSubmit={handleSaveChanges} id={formId}>
+        <DetailsLayout {...detailsLayoutProps}>
+          <DetailsLayout.Header
+            pageTitle={pageTitle}
+            BreadcrumbsItems={BreadcrumbsItems}
+            endGroupActions={endGroupActions}
+            startGroupActions={startGroupActions}
+          />
 
-        <DetailsLayout.Content>
-          <div key={discardId} className="flex flex-col gap-md w-full">
-            <StaffFormFirstName formId={formId} disabled />
-            <StaffFormLastName formId={formId} disabled />
-            <StaffFormEmail formId={formId} disabled />
-            <StaffFormCommission formId={formId} />
-            <StaffFormRole
-              formId={formId}
-              disabled={isOwner}
-              helperText={isOwner ? tDetails("ownerRoleProtected") : undefined}
-            />
-          </div>
-        </DetailsLayout.Content>
+          <DetailsLayout.Content>
+            <div key={discardId} className="flex flex-col gap-md w-full">
+              <StaffFormFirstName formId={formId} disabled />
+              <StaffFormLastName formId={formId} disabled />
+              <StaffFormEmail formId={formId} disabled />
+              <StaffFormCommission formId={formId} />
+              <StaffFormRole
+                formId={formId}
+                disabled={isOwner}
+                helperText={
+                  isOwner
+                    ? t("ownerRoleProtected", { ns: "staff-details" })
+                    : undefined
+                }
+              />
+              <StaffFormTeachers />
+              <StaffFormBillingGroup formId={formId} />
+            </div>
+          </DetailsLayout.Content>
 
-        <DetailsLayout.Confirmation
-          onDiscard={handleDiscardChanges}
-          onSave={handleSaveChanges}
-        />
-      </DetailsLayout>
-    </ControlledForm>
+          <DetailsLayout.Confirmation
+            onDiscard={handleDiscardChanges}
+            onSave={handleSaveChanges}
+          />
+        </DetailsLayout>
+      </ControlledForm>
+
+      <StaffDeleteModal
+        staff={isDeleteModalOpen ? staff : null}
+        onClose={closeDeleteModal}
+        onSuccess={() => navigate(URLS.INDEX)}
+      />
+    </>
   );
 };
 

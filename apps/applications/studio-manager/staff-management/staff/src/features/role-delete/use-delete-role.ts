@@ -25,11 +25,13 @@ type DeletedRoleSnapshot = {
 };
 
 type UseDeleteRoleOptions = {
+  preservePendingDeletionOnUnmount?: boolean;
   onSuccess?: () => void;
   onError?: (error: unknown) => void;
 };
 
 export const useDeleteRole = ({
+  preservePendingDeletionOnUnmount = false,
   onSuccess,
   onError,
 }: UseDeleteRoleOptions = {}) => {
@@ -80,13 +82,18 @@ export const useDeleteRole = ({
     const pendingDeletionsByRoleId = pendingDeletions.current;
 
     return () => {
+      // Details pages navigate away during the undo window. In that case the
+      // timeout must keep running so Undo can still cancel the deletion, or the
+      // API deletion can complete after the delay.
+      if (preservePendingDeletionOnUnmount) return;
+
       pendingDeletionsByRoleId.forEach((timeout, roleId) => {
         clearTimeout(timeout);
         restoreRoleListCache(roleId);
       });
       pendingDeletionsByRoleId.clear();
     };
-  }, [restoreRoleListCache]);
+  }, [preservePendingDeletionOnUnmount, restoreRoleListCache]);
 
   const removeFromCache = useCallback(
     (roleId: number) => {

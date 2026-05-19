@@ -22,13 +22,13 @@ reviews:
     - path: "**/*"
       instructions: >-
         When making a code review, ensure that you check for adherence to
-        the coding guidelines specified in .github/instructions.
+        the coding guidelines specified in .ai/guidelines.
 
     # 2. How to use guideline metadata
     - path: "**/*"
       instructions: >-
         When making a code review and using guidelines from
-        .github/instructions, use the guideline metadata to guide your
+        .ai/guidelines, use the guideline metadata to guide your
         behaviour. The Level and Importance fields must be used to
         determine the severity of the review comment. The Scope field
         determines when a guideline must be enforced.
@@ -37,7 +37,7 @@ reviews:
     - path: "**/*"
       instructions: |
         ENFORCE ALL GUIDELINES SYSTEMATICALLY:
-        1. Check every guideline in .github/instructions against code changes
+        1. Check every guideline in .ai/guidelines against code changes
         2. Verify all Blocking and Warning level rules are respected
         3. Ensure Best practice guidelines are followed where applicable
         4. Cross-reference using Scope tags to identify relevant guidelines
@@ -48,7 +48,7 @@ reviews:
     - path: "**/*"
       instructions: >-
         When making review comments that relate to coding guidelines in
-        .github/instructions, always quote the specific guideline title
+        .ai/guidelines, always quote the specific guideline title
         being referenced to make it clear which guideline is being applied.
 
   abort_on_close: true
@@ -130,7 +130,7 @@ knowledge_base:
   code_guidelines:
     enabled: true
     filePatterns:
-      - ".github/instructions/**"
+      - ".ai/guidelines/**"
       - "**/README.md"
 code_generation:
   docstrings:

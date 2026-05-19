@@ -1,5 +1,6 @@
 {
   "ownerRoleProtected": "Owner role cannot be changed.",
+  "deleteActionLabel": "Delete staff member",
   "submitResponse": {
     "success": "Staff member updated",
     "error": "Failed to update staff member"

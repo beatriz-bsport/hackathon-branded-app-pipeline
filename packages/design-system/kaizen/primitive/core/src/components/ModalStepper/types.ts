@@ -22,6 +22,7 @@ export type CancelButtonProps = DefaultPropsWithConstraints;
 export type StepConfig = {
   label: string;
   content: React.ReactNode;
+  formId?: string;
   validate?: () => boolean;
   icon?: IconName;
 };

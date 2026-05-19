@@ -16,6 +16,24 @@
   },
   "buttons": {
     "confirm": "Create role",
-    "cancel": "Cancel"
+    "close": "Close"
+  },
+  "formFields": {
+    "name": {
+      "label": "Role name",
+      "errorMaxLength": "Role name must be at most {{maxLength}} characters"
+    },
+    "description": {
+      "label": "Description",
+      "errorMaxLength": "Description must be at most {{maxLength}} characters"
+    },
+    "starterRole": {
+      "label": "Starting role",
+      "loading": "Loading roles...",
+      "helperText": "Start with an empty role, or use an existing role to edit its permissions."
+    },
+    "errors": {
+      "required": "This field is required"
+    }
   }
 }

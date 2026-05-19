@@ -2,7 +2,7 @@
 
 ## Global
 
-- Read `.github/instructions/_FRONTEND_GUIDELINES.instruction.md` before edits.
+- Read `.ai/guidelines/_FRONTEND_GUIDELINES.instruction.md` before edits.
 - Keep code file names kebab-case unless the package already relies on `App.tsx`.
 - Prefer package-local or affected-only commands.
 - Use generators from `tools/templates/` for new SM apps, stores, and TS packages.

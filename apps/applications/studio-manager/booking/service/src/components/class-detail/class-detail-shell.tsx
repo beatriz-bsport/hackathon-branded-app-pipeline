@@ -12,7 +12,10 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { ClassDetailHeader } from "#src/components/class-detail/class-detail-header";
+import { CompatiblePassesTab } from "#src/components/class-detail/compatible-passes-tab";
 import { ClassEditorForm } from "#src/components/class-editor/class-editor-form";
+import { CardLoader } from "#src/components/query-boundary/fallbacks";
+import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useEditClass } from "#src/hooks/use-edit-class";
 import { useModal } from "#src/hooks/use-modal";
 import {
@@ -122,10 +125,12 @@ export const ClassDetailShell: FC<ClassDetailShellProps> = ({
       <ControlledForm {...methods} onSubmit={onSubmit} id={formId}>
         <DetailsLayout {...detailsLayoutProps}>
           <ClassDetailHeader metaActivity={metaActivity} pageTabs={pageTabs} />
-          <DetailsLayout.Content>
+          <DetailsLayout.Content className="max-w-none">
             {activeTab === "editor" && <ClassEditorForm />}
             {activeTab === "compatiblePasses" && (
-              <CompatiblePassesPlaceholder />
+              <QueryBoundary loadingFallback={<CardLoader />}>
+                <CompatiblePassesTab metaActivityId={metaActivity.id} />
+              </QueryBoundary>
             )}
           </DetailsLayout.Content>
           {activeTab === "editor" && (
@@ -161,5 +166,3 @@ export const ClassDetailShell: FC<ClassDetailShellProps> = ({
     </>
   );
 };
-
-const CompatiblePassesPlaceholder: FC = () => null;

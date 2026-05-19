@@ -29,7 +29,7 @@ const transformStaffCreateFormData = (
 });
 
 export const useCreateStaff = () => {
-  const { t } = useTranslation("staff-form");
+  const { t } = useTranslation("staff-list");
   const queryClient = useQueryClient();
 
   const { mutate: createStaff, isPending: isLoading } = useMutation({

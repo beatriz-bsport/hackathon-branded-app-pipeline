@@ -1,5 +1,8 @@
 {
   "breadcrumbs": {
     "roles": "Roles"
+  },
+  "actions": {
+    "deleteRole": "Delete role"
   }
 }

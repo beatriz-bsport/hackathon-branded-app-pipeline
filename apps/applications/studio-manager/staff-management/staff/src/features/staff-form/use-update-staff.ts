@@ -1,7 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCallback, useState } from "react";
 
 import {
   type UpdateUserRoleParams,
+  type UserRole,
   staffRoleKeys,
   updateUserRoleAPI,
 } from "@bsport/api-staff-management/role";
@@ -42,33 +44,108 @@ export const transformStaffUpdateFormData = (
   return data;
 };
 
+// The backend rejects role changes combined with advanced fields in the same
+// request (mirrors legacy branch A vs branch B). Splits data so they can be
+// sent as two sequential PATCHes when both sides are dirty.
+const splitUpdateData = (
+  data: UpdateUserRoleParams["data"],
+): {
+  basic: UpdateUserRoleParams["data"];
+  advanced: UpdateUserRoleParams["data"];
+} => {
+  const { coaches_in_role_ids, staff_establishment_billing_group, ...basic } =
+    data;
+
+  const advanced: UpdateUserRoleParams["data"] = {};
+
+  if (coaches_in_role_ids !== undefined) {
+    advanced.coaches_in_role_ids = coaches_in_role_ids;
+  }
+
+  if (staff_establishment_billing_group !== undefined) {
+    advanced.staff_establishment_billing_group =
+      staff_establishment_billing_group;
+  }
+
+  return { basic, advanced };
+};
+
+type UpdateStaffCallbacks = {
+  onSuccess?: (staff: UserRole) => void;
+};
+
 export const useUpdateStaff = () => {
   const { t } = useTranslation("staff-details");
   const queryClient = useQueryClient();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { mutate: updateStaff, isPending: isLoading } = useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: (params: UpdateUserRoleParams) =>
       updateUserRoleAPI(fetch, params),
-    onSuccess: (updatedStaff) => {
-      queryClient.invalidateQueries({
-        queryKey: staffRoleKeys.detail(updatedStaff.id),
-      });
-      queryClient.invalidateQueries({ queryKey: staffRoleKeys.lists() });
-      toast({
-        status: "default",
-        icon: "check",
-        title: t("submitResponse.success"),
-      });
-    },
-    onError: () => {
-      toast({
-        status: "critical",
-        icon: "alert-circle",
-        title: t("submitResponse.error"),
-        buttonIcon: "x-close",
-      });
-    },
   });
+
+  const updateStaff = useCallback(
+    async (
+      { id, data }: UpdateUserRoleParams,
+      { onSuccess }: UpdateStaffCallbacks = {},
+    ) => {
+      setIsLoading(true);
+
+      // Tracks whether at least one PATCH landed so caches are invalidated
+      // even on partial failure (basic succeeds, advanced fails).
+      let serverMutated = false;
+
+      const invalidateCaches = () => {
+        queryClient.invalidateQueries({ queryKey: staffRoleKeys.detail(id) });
+        queryClient.invalidateQueries({ queryKey: staffRoleKeys.lists() });
+      };
+
+      try {
+        const { basic, advanced } = splitUpdateData(data);
+        const hasBasic = Object.keys(basic).length > 0;
+        const hasAdvanced = Object.keys(advanced).length > 0;
+
+        let result: UserRole;
+
+        if (hasBasic && hasAdvanced) {
+          await mutateAsync({ id, data: basic });
+          serverMutated = true;
+          result = await mutateAsync({ id, data: advanced });
+        } else {
+          result = await mutateAsync({ id, data });
+          serverMutated = true;
+        }
+
+        invalidateCaches();
+
+        toast({
+          status: "default",
+          icon: "check",
+          title: t("submitResponse.success"),
+        });
+
+        onSuccess?.(result);
+      } catch {
+        if (serverMutated) {
+          invalidateCaches();
+        }
+
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          title: t("submitResponse.error"),
+          buttonIcon: "x-close",
+        });
+      } finally {
+        queryClient.invalidateQueries({
+          queryKey: staffRoleKeys.detail(id),
+        });
+        queryClient.invalidateQueries({ queryKey: staffRoleKeys.lists() });
+        setIsLoading(false);
+      }
+    },
+    [mutateAsync, queryClient, t],
+  );
 
   return { updateStaff, isLoading };
 };

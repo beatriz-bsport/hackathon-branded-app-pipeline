@@ -14,9 +14,7 @@ type Props = {
   pageTabs?: TabsProps;
 };
 
-export const SegmentListPageContent: React.FC<Props> = ({
-  pageTabs,
-}: Props) => {
+export const CustomSegmentList: React.FC<Props> = ({ pageTabs }: Props) => {
   const { t } = useTranslation("list");
   const {
     filters: {

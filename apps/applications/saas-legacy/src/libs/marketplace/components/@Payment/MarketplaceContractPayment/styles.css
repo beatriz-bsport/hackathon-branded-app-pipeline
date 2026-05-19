@@ -240,7 +240,7 @@
 
 .bs-contract-payment__payment__methods__add {
   margin-top: var(--spacing-2);
-  color: (var(--color-grey-dark));
+  color: var(--color-grey-dark);
   gap: var(--spacing-1);
   width: fit-content;
 }

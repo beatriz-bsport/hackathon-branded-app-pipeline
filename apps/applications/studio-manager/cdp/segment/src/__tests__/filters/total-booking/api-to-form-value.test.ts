@@ -256,4 +256,30 @@ describe("mapTotalBookingFilterToFormValue", () => {
 
     expect(formValue.subFilters).not.toContain("bookingDate");
   });
+
+  it("activates booking hour range sub-filter when API hour filter is active", () => {
+    const filter = buildApiFilter({
+      hour_filter_active: true,
+      hour: "08:30",
+      hour_second: "17:45",
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain("bookingHourRange");
+    expect(formValue.bookingHourRange.hour).toBe("08:30");
+    expect(formValue.bookingHourRange.hourSecond).toBe("17:45");
+  });
+
+  it("does not list booking hour range sub-filter when API hour filter is inactive", () => {
+    const filter = buildApiFilter({
+      hour_filter_active: false,
+      hour: "10:00",
+      hour_second: "12:00",
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).not.toContain("bookingHourRange");
+  });
 });

@@ -395,5 +395,36 @@ describe("totalBookingNumberFilterSchema", () => {
         expect(result.success).toBe(true);
       },
     );
+    it("rejects booking hour range sub-filter when start time is after end time", () => {
+      const value = buildFormValue({
+        subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange],
+        bookingHourRange: {
+          hour: "18:00",
+          hourSecond: "09:00",
+        },
+      });
+
+      const result = totalBookingNumberFilterSchema.safeParse(value);
+
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const issuePaths = result.error.issues.map((issue) => issue.path);
+        expect(issuePaths).toContainEqual(["bookingHourRange", "hourSecond"]);
+      }
+    });
+
+    it("accepts booking hour range sub-filter when times are ordered", () => {
+      const value = buildFormValue({
+        subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange],
+        bookingHourRange: {
+          hour: "09:00",
+          hourSecond: "18:00",
+        },
+      });
+
+      const result = totalBookingNumberFilterSchema.safeParse(value);
+
+      expect(result.success).toBe(true);
+    });
   });
 });

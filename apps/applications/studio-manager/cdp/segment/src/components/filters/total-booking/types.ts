@@ -35,6 +35,10 @@ export type TotalBookingNumberFilterFormValue = {
     selectedPaymentPackIds: number[];
   };
   bookingDate: DateFilterValue;
+  bookingHourRange: {
+    hour: string;
+    hourSecond: string;
+  };
   level: {
     selectedLevelIds: number[];
   };

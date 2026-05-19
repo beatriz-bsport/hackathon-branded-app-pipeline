@@ -6,6 +6,7 @@ export const TOTAL_BOOKING_SUB_FILTER_IDS = {
   coach: "coach",
   paymentPack: "paymentPack",
   bookingDate: "bookingDate",
+  bookingHourRange: "bookingHourRange",
   level: "level",
 } as const;
 
@@ -19,6 +20,7 @@ export const totalBookingSubFilterFieldMap = {
   [TOTAL_BOOKING_SUB_FILTER_IDS.coach]: "coach",
   [TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack]: "paymentPack",
   [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate]: "bookingDate",
+  [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange]: "bookingHourRange",
   [TOTAL_BOOKING_SUB_FILTER_IDS.level]: "level",
 } as const;
 

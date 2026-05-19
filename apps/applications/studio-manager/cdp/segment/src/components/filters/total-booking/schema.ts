@@ -46,6 +46,7 @@ export const totalBookingNumberFilterSchema = z
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.coach),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate),
+        z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.level),
       ]),
     ),
@@ -66,6 +67,10 @@ export const totalBookingNumberFilterSchema = z
       selectedPaymentPackIds: z.array(z.number().int().positive()),
     }),
     bookingDate: dateFilterValueSchema,
+    bookingHourRange: z.object({
+      hour: z.string(),
+      hourSecond: z.string(),
+    }),
     level: z.object({
       selectedLevelIds: z.array(z.number().int().positive()),
     }),

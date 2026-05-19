@@ -124,9 +124,9 @@
       "title": "Cancel booking?",
       "confirmButton": "Cancel",
       "closeButton": "Keep",
-      "body": "Are you sure you want to cancel this booking?",
-      "refundCredits": "Refund credits to client",
-      "sendNotification": "Send cancellation confirmation to client ",
+      "body": "This client will be removed from the class. Choose what happens next.",
+      "refundCredits": "Refund credits",
+      "sendNotification": "Notify the client ",
       "confirmation": "Booking cancelled"
     },
     "pauseWaitlist": {

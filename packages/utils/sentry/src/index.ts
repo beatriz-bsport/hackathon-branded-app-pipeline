@@ -12,8 +12,5 @@ export {
   setTag,
   setContext,
   withScope,
-  configureScope,
-  getCurrentHub,
-  startTransaction,
   sendFeedback,
 } from "@sentry/react";

@@ -38,6 +38,7 @@ declare module "sm-navigation-sidebar/urls" {
     settings_transactionalNotification: string;
     tag: string;
     marketingNotification: string;
+    establishment: string;
   };
   export const REVAMP_URLS_PRODUCTION: Partial<typeof REVAMP_URLS_DEVELOPMENT>;
   export default REVAMP_URLS_DEVELOPMENT;

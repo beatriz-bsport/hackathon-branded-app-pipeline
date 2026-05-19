@@ -116,6 +116,7 @@ export const useNavigationElements = ({
   const isOnDemandRevampEnabled = useNavFlag(NavFlags.ONDEMAND_REVAMP);
   const isStaffPageRevampEnabled = useNavFlag(NavFlags.SETTINGS_STAFF_PAGE);
   const isRolePageRevampEnabled = useNavFlag(NavFlags.SETTINGS_ROLE_PAGE);
+  const isVenuesPageEnabled = useNavFlag(NavFlags.BOOKING_VENUES_PAGE);
 
   // Company Theme flags
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -469,9 +470,14 @@ export const useNavigationElements = ({
               hidden: !hasSubstitutionToolAccess,
             },
             {
-              id: "establishments",
-              label: t("menus.myStudio.establishments"),
-              ...navigationUrls.establishment,
+              id: "venues",
+              label: isVenuesPageEnabled
+                ? t("menus.myStudio.venues")
+                : t("menus.myStudio.establishments"),
+              ...flaggedNavigationUrl({
+                enabled: isVenuesPageEnabled,
+                navigationItem: navigationUrls.establishment,
+              }),
             },
           ],
         },
@@ -654,6 +660,7 @@ export const useNavigationElements = ({
     isClassesMergedViewEnabled,
     isStaffPageRevampEnabled,
     isRolePageRevampEnabled,
+    isVenuesPageEnabled,
   ]);
 
   return navigationItems[menuSet];

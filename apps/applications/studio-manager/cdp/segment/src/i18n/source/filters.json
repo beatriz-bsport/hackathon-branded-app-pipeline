@@ -117,7 +117,9 @@
           "emptySelection": "Select Levels to start filtering"
         },
         "totalSessionSuffix": "Total Session",
-        "filterSpecifications": "FILTER SPECIFICATIONS"
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "bookingHourRangeStartingBetween": "Starting between ",
+        "bookingHourRangeAnd": " and "
       },
       "subFilters": {
         "activity": "Activity",
@@ -126,6 +128,7 @@
         "passes": "Passes",
         "level": "Level",
         "bookingDate": "Booking session date",
+        "bookingHourRange": "Booking session time",
         "subFilterFallback": "{{subFilterId}}"
       },
       "toasts": {
@@ -146,7 +149,9 @@
         "bookingDateRequired": "Select a booking session date.",
         "bookingDateBetweenRequired": "Select both dates for the between range.",
         "bookingDateDurationRequired": "Enter a number of days.",
-        "bookingDateDurationBetweenRequired": "Enter both day values for the between range."
+        "bookingDateDurationBetweenRequired": "Enter both day values for the between range.",
+        "bookingHourRangeRequired": "Select both start and end times.",
+        "bookingHourRangeOrderInvalid": "End time must be the same as or after the start time."
       }
     }
   },

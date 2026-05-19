@@ -28,6 +28,10 @@ export const createDefaultTotalBookingNumberFilter = (
     selectedPaymentPackIds: [],
   },
   bookingDate: defaultDateFilterValue,
+  bookingHourRange: {
+    hour: "00:00",
+    hourSecond: "23:59",
+  },
   level: {
     selectedLevelIds: [],
   },

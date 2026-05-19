@@ -411,5 +411,34 @@ describe("toCreatePayload", () => {
         expect(payload.date_second).toBe("2026-03-31");
       });
     });
+    it("keeps hour filter inactive when booking hour range sub-filter is not selected", () => {
+      const value = createDefaultTotalBookingNumberFilter(1);
+      value.subFilters = [];
+      value.bookingHourRange = {
+        hour: "10:00",
+        hourSecond: "11:00",
+      };
+
+      const payload = toCreatePayload(value);
+
+      expect(payload.hour_filter_active).toBe(false);
+      expect(payload.hour).toBeNull();
+      expect(payload.hour_second).toBeNull();
+    });
+
+    it("activates hour filter API fields when booking hour range sub-filter is selected", () => {
+      const value = createDefaultTotalBookingNumberFilter(1);
+      value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange];
+      value.bookingHourRange = {
+        hour: "07:15",
+        hourSecond: "21:30",
+      };
+
+      const payload = toCreatePayload(value);
+
+      expect(payload.hour_filter_active).toBe(true);
+      expect(payload.hour).toBe("07:15");
+      expect(payload.hour_second).toBe("21:30");
+    });
   });
 });

@@ -10,6 +10,10 @@ import {
 } from "#src/components/primitive-filters/date-filter/constants";
 import { useTranslation } from "#src/utils/i18n";
 
+import {
+  BOOKING_HOUR_RANGE_DEFAULT_HOUR,
+  BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+} from "../constants";
 import { REGISTERED_TOTAL_BOOKING_SUB_FILTERS } from "../sub-filters/registry";
 import {
   TOTAL_BOOKING_SUB_FILTER_IDS,
@@ -77,6 +81,10 @@ const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
       secondDays: null,
     },
   },
+  [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange]: {
+    hour: BOOKING_HOUR_RANGE_DEFAULT_HOUR,
+    hourSecond: BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+  },
   [TOTAL_BOOKING_SUB_FILTER_IDS.level]: {
     selectedLevelIds: [],
   },
@@ -114,6 +122,9 @@ export const TotalBookingSubFiltersArea = ({
     [TOTAL_BOOKING_SUB_FILTER_IDS.level]: t("filters.22.subFilters.level"),
     [TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate]: t(
       "filters.22.subFilters.bookingDate",
+    ),
+    [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange]: t(
+      "filters.22.subFilters.bookingHourRange",
     ),
   };
 

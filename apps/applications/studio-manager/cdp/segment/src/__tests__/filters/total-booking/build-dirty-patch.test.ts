@@ -266,4 +266,36 @@ describe("buildDirtyPatchPayload", () => {
 
     expect(payload.date_filter_active).toBe(false);
   });
+
+  it("emits active booking hour range slice when booking hour range values are dirty", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange];
+    value.bookingHourRange = {
+      hour: "10:00",
+      hourSecond: "12:00",
+    };
+    const dirtyFields: DirtyFields = {
+      bookingHourRange: { hour: true },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.hour_filter_active).toBe(true);
+    expect(payload.hour).toBe("10:00");
+    expect(payload.hour_second).toBe("12:00");
+  });
+
+  it("emits inactive booking hour range slice when booking hour range sub-filter is removed", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.hour_filter_active).toBe(false);
+    expect(payload.hour).toBeNull();
+    expect(payload.hour_second).toBeNull();
+  });
 });

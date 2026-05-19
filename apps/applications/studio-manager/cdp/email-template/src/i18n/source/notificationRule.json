@@ -42,6 +42,16 @@
         "meta_activity": "Activity"
       }
     },
+    "OfferGroup": {
+      "name": "Session Groups",
+      "tags": {
+        "group_name": "Group name",
+        "activity": "Activity",
+        "sessions_list_html": "Sessions list (HTML)",
+        "sessions_list_raw": "Sessions list (text)",
+        "sessions_count": "Number of sessions"
+      }
+    },
     "ConsumerPaymentPack": {
       "name": "Passes",
       "tags": {

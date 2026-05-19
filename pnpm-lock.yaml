@@ -3494,6 +3494,9 @@ importers:
       i18next-http-backend:
         specifier: ^1.1.0
         version: 1.4.5(encoding@0.1.13)
+      process:
+        specifier: 0.11.10
+        version: 0.11.10
       prop-types:
         specifier: ^15.6.2
         version: 15.8.1

@@ -1,7 +1,7 @@
-import { SegmentListPageContent } from "#src/components/segment-list-page-content";
+import { CustomSegmentList } from "#src/components/custom-segment-list";
 
 const ListPage: React.FC = () => {
-  return <SegmentListPageContent />;
+  return <CustomSegmentList />;
 };
 
 export default ListPage;

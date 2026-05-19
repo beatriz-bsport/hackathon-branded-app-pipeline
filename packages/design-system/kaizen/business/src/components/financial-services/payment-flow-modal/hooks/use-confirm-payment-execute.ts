@@ -6,10 +6,10 @@ import {
 import { confirmPaymentByPaymentMethodIdAPI } from "@bsport/api-financial-services/payment-group";
 import { processPaymentIntentAPI } from "@bsport/api-financial-services/terminal";
 
+import type { ExecuteConfirmPaymentParams } from "#src/components/financial-services/payment-flow-modal/types";
 import { ALL_PAYMENT_METHOD_SELECTOR_ID } from "#src/components/financial-services/payment-method-selector/constants";
 import { PAYMENT_METHOD_SELECTOR_SELECTION_KIND } from "#src/components/financial-services/payment-method-selector/types";
 
-import type { ExecuteConfirmPaymentParams } from "../types";
 import {
   MANUAL_METHOD_IDENTIFIER_BY_TYPE,
   parseIntentIdFromClientSecret,

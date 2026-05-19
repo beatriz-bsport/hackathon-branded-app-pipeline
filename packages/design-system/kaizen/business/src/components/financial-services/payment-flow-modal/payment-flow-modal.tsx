@@ -11,9 +11,9 @@ import { Modal, toast } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/i18n";
 
+import { PartialSuccessModal } from "./components/partial-success-modal";
+import { PaymentFlowModalBody } from "./components/payment-flow-modal-body";
 import { usePaymentFlowModalState } from "./hooks/use-payment-flow-modal-state";
-import { PartialSuccessModal } from "./partial-success-modal";
-import { PaymentFlowModalBody } from "./payment-flow-modal-body";
 import type { PaymentFlowModalProps } from "./types";
 
 export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({

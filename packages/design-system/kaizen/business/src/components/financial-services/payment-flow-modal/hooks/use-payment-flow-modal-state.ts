@@ -3,6 +3,19 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { useFormController } from "@bsport/form";
 
+import type { PaymentFlowGiftCard } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/types";
+import { STRIPE_ELEMENT_VALIDATION_ERROR } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/constants";
+import type { StripePaymentMethodHandle } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/types";
+import { resolveInvoiceInstallmentsEligibility } from "#src/components/financial-services/payment-flow-modal/lib/invoice-installments-eligibility";
+import {
+  INVOICE_ALREADY_PAID_ALERT,
+  getPaymentFlowDefaultValues,
+  paymentFlowFormSchema,
+} from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-form";
+import type {
+  PaymentFlowModalBodyState,
+  PaymentFlowModalProps,
+} from "#src/components/financial-services/payment-flow-modal/types";
 import {
   ALL_PAYMENT_METHOD_SELECTOR_ID,
   type AllPaymentMethodKey,
@@ -12,18 +25,6 @@ import type { PaymentMethodSelectorSelection } from "#src/components/financial-s
 import { PAYMENT_METHOD_SELECTOR_SELECTION_KIND } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
-import {
-  INVOICE_ALREADY_PAID_ALERT,
-  getPaymentFlowDefaultValues,
-  paymentFlowFormSchema,
-} from "../payment-flow-form";
-import type { PaymentFlowGiftCard } from "../payment-methods/gift-card/types";
-import { STRIPE_ELEMENT_VALIDATION_ERROR } from "../payment-methods/stripe/constants";
-import type { StripePaymentMethodHandle } from "../payment-methods/stripe/types";
-import type {
-  PaymentFlowModalBodyState,
-  PaymentFlowModalProps,
-} from "../types";
 import { useConfirmPayment } from "./use-confirm-payment";
 import { useFetchInvoice } from "./use-fetch-invoice";
 import { useFetchMember } from "./use-fetch-member";
@@ -154,6 +155,56 @@ export const usePaymentFlowModalState = ({
   const invoiceRemainingAmountCts = Number.isFinite(invoiceRemainingAmount)
     ? Math.round(invoiceRemainingAmount * 100)
     : 0;
+
+  const installmentsEligibility = useMemo(() => {
+    if (!invoice) {
+      return { eligible: false, reason: null } as const;
+    }
+
+    return resolveInvoiceInstallmentsEligibility({
+      invoiceType: invoice.invoice_type,
+      plannedinvoice: invoice.plannedinvoice,
+      sourceInvoice: invoice.source_invoice,
+      reverted: invoice.reverted,
+      invoiceMemberId: invoice.member,
+      amountToPayCts: invoiceRemainingAmountCts,
+    });
+  }, [invoice, invoiceRemainingAmountCts]);
+
+  const installmentsTabDisabled =
+    isInvoiceAlreadyPaid || !installmentsEligibility.eligible;
+
+  const installmentsTabTooltip = useMemo(() => {
+    if (!installmentsTabDisabled) return undefined;
+    if (isInvoiceAlreadyPaid) {
+      return t("paymentFlowModal.installmentsEligibility.nothingToPay");
+    }
+    if (installmentsEligibility.reason) {
+      return t(
+        `paymentFlowModal.installmentsEligibility.${installmentsEligibility.reason}`,
+      );
+    }
+    return undefined;
+  }, [
+    installmentsEligibility.reason,
+    installmentsTabDisabled,
+    isInvoiceAlreadyPaid,
+    t,
+  ]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    if (activeTab !== "installments") return;
+    if (!installmentsEligibility.eligible || isInvoiceAlreadyPaid) {
+      setActiveTab("one-time");
+    }
+  }, [
+    activeTab,
+    installmentsEligibility.eligible,
+    isInvoiceAlreadyPaid,
+    isOpen,
+  ]);
+
   const partialAmountCts = methods.watch("partialAmountCts");
   const [committedPartialAmountCts, setCommittedPartialAmountCts] =
     useState(partialAmountCts);
@@ -556,6 +607,8 @@ export const usePaymentFlowModalState = ({
     fetch,
     activeTab,
     setActiveTab,
+    installmentsTabDisabled,
+    installmentsTabTooltip,
     isPartialEnabled,
     setIsPartialEnabled: handlePartialToggle,
     onPartialAmountFocus: handlePartialAmountFocus,

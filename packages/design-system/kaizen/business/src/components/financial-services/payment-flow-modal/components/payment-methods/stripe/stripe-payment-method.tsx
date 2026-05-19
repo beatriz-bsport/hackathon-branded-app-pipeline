@@ -23,10 +23,10 @@ import { getCurrencyCode } from "@bsport/currency";
 import { Alert, Checkbox, Loader, Title } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { useDarkMode } from "#src/components/financial-services/payment-flow-modal/hooks/use-dark-mode";
+import { useStripeAppearance } from "#src/components/financial-services/payment-flow-modal/hooks/use-stripe-appearance";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
-import { useDarkMode } from "../../hooks/use-dark-mode";
-import { useStripeAppearance } from "../../hooks/use-stripe-appearance";
 import {
   STRIPE_ELEMENT_VALIDATION_ERROR,
   STRIPE_METHOD_CONFIG,

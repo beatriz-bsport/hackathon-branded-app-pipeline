@@ -105,6 +105,14 @@
       "oneTime": "One time",
       "installments": "Installments"
     },
+    "installmentsEligibility": {
+      "reverseOrCreditNote": "Installments are not available on reverse or credit-note invoices.",
+      "reverted": "This invoice was reverted; installments cannot be scheduled.",
+      "notRegularInvoice": "Installments are only available on standard invoices.",
+      "subscriptionPlannedInvoice": "This invoice is linked to a subscription; use subscription billing instead of installments here.",
+      "noMember": "Assign a member to this invoice before scheduling installments.",
+      "nothingToPay": "There is no remaining balance to split into installments."
+    },
     "totalAmountLabel": "Total amount",
     "partialToggleLabel": "Pay part of the total now, the rest later",
     "partialAmount": {

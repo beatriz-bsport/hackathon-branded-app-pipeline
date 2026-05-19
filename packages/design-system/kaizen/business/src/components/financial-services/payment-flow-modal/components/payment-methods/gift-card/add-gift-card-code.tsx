@@ -3,9 +3,8 @@ import { useState } from "react";
 import type { Fetch } from "@bsport/fetch";
 import { Button, TextField } from "@bsport/kaizen-primitive-core";
 
+import { useApplyGiftCardCode } from "#src/components/financial-services/payment-flow-modal/hooks/use-apply-gift-card-code";
 import { i18nInstance, useTranslation } from "#src/i18n";
-
-import { useApplyGiftCardCode } from "../../hooks/use-apply-gift-card-code";
 
 type AddGiftCardCodeProps = {
   fetch: Fetch;

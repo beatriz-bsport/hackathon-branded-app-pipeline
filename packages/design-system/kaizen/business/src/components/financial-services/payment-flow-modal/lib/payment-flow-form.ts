@@ -6,7 +6,7 @@ import type { SelectedDate } from "@bsport/kaizen-primitive-core";
 import {
   DEFAULT_MANUAL_PAYMENT_METHOD,
   type ManualMethodType,
-} from "./payment-methods/manual/types";
+} from "#src/components/financial-services/payment-flow-modal/components/payment-methods/manual/types";
 
 export type PaymentTab = "one-time" | "installments";
 

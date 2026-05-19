@@ -3,8 +3,8 @@
   "goToPreviousSession": "Go to previous class",
   "goToNextSession": "Go to next class",
   "refresh": "Refresh lists",
-  "bookButton": "Book a client",
-  "bookingsSectionTitle": "Participants",
+  "bookButton": "Book client",
+  "bookingsSectionTitle": "Class roster",
   "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",
   "waitlistSectionTitle": "Waitlist",
   "waitlistSectionSubtitle": "{{bookingOptionsCount}}/{{waitlistCapacity}} spots filled",
@@ -14,12 +14,12 @@
       "client": "Client"
     },
     "emptyState": {
-      "title": "No participant yet."
+      "title": "No clients in this class yet"
     },
-    "loadingMessage": "Loading participants list...",
+    "loadingMessage": "Loading class roster...",
     "chips": {
       "new": "New",
-      "firstBooking": "First booking of the member",
+      "firstBooking": "First booking of the client",
       "recurring": "Recurring booking",
       "tags": "Tags",
       "unpaidInvoices": "Outstanding balance. Check billing details or resolve unpaid invoices.",
@@ -38,9 +38,9 @@
   },
   "waitList": {
     "emptyState": {
-      "title": "There are no participants on waitlist",
-      "pending": "There are no participants pending to be booked from the waitlist.",
-      "removed": "There are no participants removed from the waitlist"
+      "title": "There are no clients on Waitlist",
+      "pending": "There are no clients pending from the Waitlist.",
+      "removed": "No clients were removed from the Waitlist"
     },
     "loadingMessage": "Loading waitlist..."
   },
@@ -110,8 +110,8 @@
     "zoomOut": "Zoom out",
     "resetView": "Reset view",
     "spotAriaLabel": "Spot {{label}}, {{state}}",
-    "coachAriaLabel": "Coach {{name}}",
-    "coachPositionAriaLabel": "Coach position",
+    "coachAriaLabel": "Teacher {{name}}",
+    "coachPositionAriaLabel": "Teacher position",
     "availabilityCount": "{{free}} of {{total}} spots available",
     "allTaken": "All spots are taken",
     "screenLabel": "Screen"
@@ -121,12 +121,12 @@
   "contact": "Contact",
   "modals": {
     "cancelBooking": {
-      "title": "Cancel booking",
+      "title": "Cancel booking?",
       "confirmButton": "Cancel",
-      "closeButton": "Close",
+      "closeButton": "Keep",
       "body": "Are you sure you want to cancel this booking?",
-      "refundCredits": "Refund the credits",
-      "sendNotification": "Send notification",
+      "refundCredits": "Refund credits to client",
+      "sendNotification": "Send cancellation confirmation to client ",
       "confirmation": "Booking cancelled"
     },
     "pauseWaitlist": {

@@ -19,7 +19,7 @@ import {
   EstablishmentBillingGroup,
 } from '#src/libs/establishment/types';
 import { isDateInThePast } from '#src/utils/datetime';
-import { isTooSoonToBookOffer } from './offer';
+import { isOfferOngoing, isTooSoonToBookOffer } from './offer';
 
 export const getBookingButtonTraduction = (
   offer: Offer_FULL,
@@ -40,7 +40,9 @@ export const getBookingButtonTraduction = (
     : t('translation:marketplace.bookButton.book');
 
   if (isDateInThePast(offer.date_start)) {
-    text = t('translation:marketplace.bookButton.isPast');
+    text = isOfferOngoing(offer)
+      ? t('translation:marketplace.bookButton.isOngoing')
+      : t('translation:marketplace.bookButton.isPast');
   }
   if (!offer.available) {
     text = t('translation:marketplace.bookButton.notAvailable');

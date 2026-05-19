@@ -22,6 +22,14 @@ export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {
   return DateTime.fromISO(offer.date_start) < DateTime.now();
 }
 
+export function isOfferOngoing(offer: Offer | Offer_FULL | OfferREST) {
+  if (!offer) return false;
+  const now = DateTime.now();
+  const start = DateTime.fromISO(offer.date_start);
+  const end = start.plus({ minutes: offer.duration_minute });
+  return start < now && end > now;
+}
+
 /**
  * Checks if an offer in a group is locked by a previous offer of this group.
  * 1. If the offer group allows single bookings, then the offer shouldn't be locked

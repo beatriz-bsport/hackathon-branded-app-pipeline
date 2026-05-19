@@ -80,6 +80,7 @@
     "bookButton": {
       "book": "Book",
       "isPast": "Closed",
+      "isOngoing": "Ongoing",
       "notAvailable": "Cancelled",
       "bookOption": "Waitlist",
       "notBookableYet": "Available soon",

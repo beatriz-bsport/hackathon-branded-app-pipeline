@@ -13,4 +13,5 @@ export {
   setContext,
   withScope,
   sendFeedback,
+  unleashIntegration,
 } from "@sentry/react";

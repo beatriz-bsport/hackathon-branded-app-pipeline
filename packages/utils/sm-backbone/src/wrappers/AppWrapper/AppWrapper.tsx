@@ -2,6 +2,7 @@ import { type QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
 import { BrowserRouter } from "react-router";
+import { UnleashClient } from "unleash-proxy-client";
 
 import { instanciateAppI18n } from "@bsport/i18n";
 import {
@@ -11,7 +12,7 @@ import {
   i18nNamespaces,
   inMemoryTranslationsLoader,
 } from "@bsport/kaizen-primitive-core";
-import { initSentry } from "@bsport/sentry";
+import { initSentry, unleashIntegration } from "@bsport/sentry";
 
 import DevTools from "#src/dev-utils/DevTools";
 import FeatureFlagsProvider from "#src/feature-flags/FeatureFlagsProvider";
@@ -36,7 +37,9 @@ const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
 /**
  * Initialize sentry
  */
-initSentry();
+initSentry({
+  integrations: [unleashIntegration({ featureFlagClientClass: UnleashClient })],
+});
 
 /**
  * A Wrapper to provide the features required to run an application.

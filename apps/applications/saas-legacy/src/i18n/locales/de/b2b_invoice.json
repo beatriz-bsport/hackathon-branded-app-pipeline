@@ -87,9 +87,9 @@
     },
     "ticketbai": {
       "title": "TicketBAI",
-      "loading": "Lädt…",
+      "loading": "Wird geladen ...",
       "load_error": "TicketBAI-Konfiguration konnte nicht geladen werden. Bitte aktualisiere die Seite und versuche es erneut.",
-      "info": "Dieses Zusatzmodul ist in deinem Konto noch nicht aktiv – bitte kontaktiere deinen Account Manager, um es anzufordern.",
+      "info": "Dieses Add-On ist in deinem Konto noch nicht aktiv. Bitte wende dich an deinen Account Manager, um das Add-On zu aktivieren.",
       "description": "Regionale Rechnungsregeln für das Baskenland (Araba, Bizkaia, Gipuzkoa). Wenn TicketBAI aktiv ist, werden qualifizierende Rechnungen und Belege gemäß den Anforderungen deiner Provinz formatiert und gemeldet.",
       "territory": {
         "title": "Unternehmens- & Gerätezertifikat",
@@ -106,8 +106,8 @@
           "vat_id_missing": "USt-IdNr. fehlt",
           "business_address_provided": "Geschäftsadresse angegeben",
           "business_address_missing": "Geschäftsadresse fehlt",
-          "invoice_identifiers_set_up": "Einrichtungskennzeichen für Rechnungen",
-          "invoice_identifiers_not_set_up": "Rechnungskennungen nicht eingerichtet"
+          "invoice_identifiers_set_up": "Rechnungs-IDs eingerichtet",
+          "invoice_identifiers_not_set_up": "Rechnungs-IDs noch nicht eingerichtet"
         },
         "requirements": {
           "vat_required": "USt-IdNr. erforderlich",
@@ -116,10 +116,10 @@
           "vat_description": "Füge deine USt-IdNr. in den Einstellungen → Unternehmen hinzu, bevor du TicketBAI mit Sign-ES aktivierst.",
           "address_description": "Gib deine Geschäftsadresse beim Stripe-Onboarding an – wir nutzen sie, um die baskische Provinz für TicketBAI zu bestätigen.",
           "vat_and_address_description": "Füge deine USt-IdNr. in den Einstellungen → Unternehmen hinzu und schließe das Stripe-Onboarding mit deiner Geschäftsadresse ab. Beides ist vor der TicketBAI-Einrichtung erforderlich.",
-          "go_to_settings": "Gehe zu den Einstellungen",
+          "go_to_settings": "Zu den Einstellungen",
           "complete_stripe_onboarding": "Vervollständige das Stripe-Onboarding",
-          "legal_identifier_required": "Rechnungskennungen erforderlich",
-          "legal_identifier_description": "Richte Rechnungs-IDs für Sign-ES mit dieser <0>Anleitung</0> ein."
+          "legal_identifier_required": "Rechnungs-IDs erforderlich",
+          "legal_identifier_description": "Richte Rechnungs-IDs für Sign-ES mit Hilfe dieser <0>Anleitung</0> ein."
         }
       },
       "onboarding": {
@@ -127,8 +127,8 @@
         "configure_ticketbai": "TicketBAI konfigurieren",
         "info_euskadi": "TicketBAI-Informationen (Euskadi)",
         "register_error": "Das Signiergerät konnte nicht registriert werden. Bitte versuche es erneut.",
-        "device_registered": "Signiergerät erfolgreich registriert",
-        "device_error": "Bei der Registrierung des Signaturgeräts wurde keine Zertifikatsseriennummer zurückgegeben. Bitte versuche es erneut oder kontaktiere den Support."
+        "device_registered": "Signaturgerät erfolgreich registriert",
+        "device_error": "Bei der Registrierung des Signaturgeräts wurde keine Zertifikatsseriennummer ausgegeben. Bitte versuche es nochmal oder kontaktiere den Support."
       },
       "device": {
         "title": "Gerätezertifikat",

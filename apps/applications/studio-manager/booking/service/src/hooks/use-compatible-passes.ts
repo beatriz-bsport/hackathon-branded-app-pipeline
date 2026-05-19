@@ -3,6 +3,7 @@ import { useEffect, useMemo } from "react";
 
 import {
   type Pass,
+  type PassCategory,
   passCategoriesInfiniteQueryOptions,
   passesInfiniteQueryOptions,
 } from "@bsport/api-buyables";
@@ -13,6 +14,12 @@ import {
 } from "#src/hooks/constants";
 import type { CompatiblePass, CompatiblePassGroup } from "#src/types";
 import { fetch } from "#src/utils/fetch";
+
+type CompatiblePassFilters = {
+  searchQuery?: string;
+  categoryIds?: number[];
+  properties?: string[];
+};
 
 const toCompatiblePass = (pass: Pass): CompatiblePass => ({
   id: pass.id,
@@ -30,7 +37,35 @@ const toCompatiblePass = (pass: Pass): CompatiblePass => ({
   off_peak_schedule: pass.off_peak_schedule,
 });
 
-export const useCompatiblePasses = (metaActivityId: number) => {
+/**
+ * Client-side only. The passes API has no multi-value property filter,
+ * so we evaluate flags against the already-fetched pass data.
+ */
+const matchesProperty = (pass: CompatiblePass, prop: string): boolean => {
+  switch (prop) {
+    case "universal":
+      return pass.linked_private_pass !== null;
+    case "unlisted":
+      return pass.manager_only;
+    case "staffRestricted":
+      return !pass.is_usable_by_staff;
+    case "newMembersOnly":
+      return pass.new_member_only;
+    default:
+      return false;
+  }
+};
+
+export const useCompatiblePasses = (
+  metaActivityId: number,
+  filters: CompatiblePassFilters = {},
+) => {
+  const { searchQuery = "", categoryIds = [], properties = [] } = filters;
+
+  // SERVER-SIDE: `meta_activity` and `disabled` are filtered by the API.
+  // When `q` is provided, the request goes to the dedicated /search/ endpoint
+  // (see passesInfiniteQueryOptions in @bsport/api-buyables); otherwise the
+  // standard list endpoint is used.
   const {
     data,
     fetchNextPage,
@@ -42,6 +77,7 @@ export const useCompatiblePasses = (metaActivityId: number) => {
       meta_activity: metaActivityId,
       disabled: false,
       page_size: COMPATIBLE_PASSES_PAGE_SIZE,
+      ...(searchQuery ? { q: searchQuery } : {}),
     }),
   );
 
@@ -50,6 +86,8 @@ export const useCompatiblePasses = (metaActivityId: number) => {
       fetchNextPage();
   }, [hasNextPage, isFetchingNextPage, isFetchNextPageError, fetchNextPage]);
 
+  // Categories are fetched independently — no server-side filtering needed.
+  // All pages are auto-fetched so every category is available for grouping.
   const {
     data: categoriesData,
     fetchNextPage: fetchNextCategoriesPage,
@@ -83,10 +121,13 @@ export const useCompatiblePasses = (metaActivityId: number) => {
 
   const count = data?.pages[0]?.count ?? 0;
 
+  const categories = useMemo<PassCategory[]>(
+    () => categoriesData?.pages.flatMap((p) => p.results) ?? [],
+    [categoriesData],
+  );
+
   const groups = useMemo<CompatiblePassGroup[]>(() => {
     if (!passes.length) return [];
-
-    const categories = categoriesData?.pages.flatMap((p) => p.results) ?? [];
 
     const passesByCategory = new Map<
       number | null,
@@ -120,10 +161,44 @@ export const useCompatiblePasses = (metaActivityId: number) => {
     return uncategorized.length
       ? [...categorized, { category: null, passes: uncategorized }]
       : categorized;
-  }, [passes, categoriesData]);
+  }, [passes, categories]);
+
+  // CLIENT-SIDE: category and property filters are applied in-memory.
+  // The passes API only supports a single `category` param (no multi-value),
+  // so multi-select category filtering and all property flag filtering must
+  // happen here against the already-fetched dataset.
+  const filteredGroups = useMemo<CompatiblePassGroup[]>(() => {
+    return groups
+      .map(({ category, passes: groupPasses }) => {
+        let filtered = groupPasses;
+
+        if (categoryIds.length > 0) {
+          if (category === null || !categoryIds.includes(category.id)) {
+            filtered = [];
+          }
+        }
+
+        if (properties.length > 0) {
+          filtered = filtered.filter((pass) =>
+            properties.some((prop) => matchesProperty(pass, prop)),
+          );
+        }
+
+        return { category, passes: filtered };
+      })
+      .filter(({ passes: filteredPasses }) => filteredPasses.length > 0);
+  }, [groups, categoryIds, properties]);
+
+  const isFiltered =
+    !!searchQuery || categoryIds.length > 0 || properties.length > 0;
 
   return {
-    groups,
+    groups: filteredGroups,
     count,
+    categories,
+    isFiltered,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
   };
 };

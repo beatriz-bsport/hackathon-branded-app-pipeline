@@ -20,7 +20,7 @@
   },
   "table": {
     "headers": {
-      "time": "heure",
+      "time": "Heure",
       "sessionName": "Nom de la séance",
       "participants": "Participants",
       "teacher": "Professeur",
@@ -111,7 +111,7 @@
   },
   "appointmentTable": {
     "headers": {
-      "time": "heure",
+      "time": "Heure",
       "name": "Nom",
       "teacher": "Professeur",
       "participant": "Participant",

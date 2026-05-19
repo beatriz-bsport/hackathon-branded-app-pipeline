@@ -18,7 +18,7 @@ import { API_V1_URL, BOOKING_QUERY_KEY } from "../constants";
 
 // ----------------------------------------------------------------------------
 
-const ESTABLISHMENT_API_URL = `${API_V1_URL}/establishment`;
+const ESTABLISHMENT_API_URL = `${API_V1_URL}establishment`;
 
 // TODO: use the same stale time for all establishments queries
 const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes

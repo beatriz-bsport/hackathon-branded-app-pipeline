@@ -29,9 +29,9 @@
   },
   "dependencies": {
     "@bsport/api-book": "workspace:*",
-    "@bsport/api-core": "workspace:*",
     "@bsport/permissions": "workspace:*",
     "@bsport/store-booking-appointment": "workspace:*",
+    "@bsport/store-booking-establishment": "workspace:*",
     "@bsport/store-booking-group-activity": "workspace:*",
     "@bsport/store-buyables-appointment-pass": "workspace:*",
     "@bsport/store-buyables-pass": "workspace:*",
@@ -41,7 +41,6 @@
     "@bsport/store-cdp-notification-rule": "workspace:*",
     "@bsport/store-cdp-smartlist": "workspace:*",
     "@bsport/store-communicate-communication": "workspace:*",
-    "@bsport/store-core-data-establishment": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
     "dompurify": "^3.2.6",

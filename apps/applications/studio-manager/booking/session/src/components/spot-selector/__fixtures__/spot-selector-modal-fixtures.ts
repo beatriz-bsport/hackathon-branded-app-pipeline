@@ -8,7 +8,7 @@ import type {
   SpotType,
 } from "@bsport/api-book";
 import { sessionKeys, spotSchedulingKeys } from "@bsport/api-book";
-import { type Teacher, teacherKeys } from "@bsport/api-core";
+import { type Teacher, teacherKeys } from "@bsport/api-book";
 import type { Fetch } from "@bsport/fetch";
 
 import {

@@ -5,11 +5,11 @@ import {
   type RoomBlueprint,
   type SpotType,
   assetsForBlueprintQueryOptions,
+  retrieveTeacherQueryOptions,
   roomBlueprintDetailQueryOptions,
   sessionStatusQueryOptions,
   spotTypesQueryOptions,
 } from "@bsport/api-book";
-import { retrieveTeacherQueryOptions } from "@bsport/api-core";
 import type { Fetch } from "@bsport/fetch";
 
 import type { TeacherCoach } from "#src/components/spot-selector/spot-canvas/elements/teacher-dimensions";

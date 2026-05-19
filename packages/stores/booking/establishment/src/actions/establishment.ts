@@ -1,11 +1,11 @@
 import { Result } from "typescript-result";
 
-import { fetchEstablishments, searchEstablishments } from "@bsport/api-core";
+import { fetchEstablishments, searchEstablishments } from "@bsport/api-book";
 import type {
   Establishment,
   FetchEstablishmentParams,
   SearchEstablishmentParams,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 import {
   type Action,
   type PaginatedResponse,

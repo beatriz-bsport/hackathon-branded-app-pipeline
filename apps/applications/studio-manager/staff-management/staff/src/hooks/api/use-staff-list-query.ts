@@ -1,12 +1,10 @@
 import { useSuspenseQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
 
+import { type Teacher, fetchFlatTeachers, teacherKeys } from "@bsport/api-book";
 import {
   type EstablishmentBillingGroup,
-  type Teacher,
   fetchEstablishmentBillingGroups,
-  fetchFlatTeachers,
-  teacherKeys,
 } from "@bsport/api-core";
 import {
   fetchRoleDefinitionsQueryOptions,

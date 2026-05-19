@@ -1,4 +1,4 @@
-# CORE DATA | Establishment store package
+# Booking | Establishment store package
 
 This package provides a Zustand store implementation for managing the state related to the [Establishment] entity in an application. It includes types, actions, API interactions, and selectors to facilitate state management.
 
@@ -9,7 +9,7 @@ This package provides a Zustand store implementation for managing the state rela
    ```jsonc
    {
      "dependencies": {
-       "@bsport/store-core-data-establishment": "workspace:*",
+       "@bsport/store-booking-establishment": "workspace:*",
      },
    }
    ```
@@ -21,7 +21,7 @@ This package provides a Zustand store implementation for managing the state rela
 Here's a basic example of how to use the store in your application:
 
 ```tsx
-import { useEstablishmentStore, fetchEstablishmentAction, selectEstablishments } from '@bsport/store-core-data-establishment';
+import { useEstablishmentStore, fetchEstablishmentAction, selectEstablishments } from '@bsport/store-booking-establishment';
 import fetch from "#src/utils/fetch";
 
 const MyEstablishmentList = () => {

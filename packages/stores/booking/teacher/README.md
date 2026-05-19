@@ -1,4 +1,4 @@
-# Core Data | Teacher store package
+# Booking | Teacher store package
 
 This package provides a Zustand store implementation for managing the state related to the Teacher entity in an application. It includes types, actions, API interactions, and selectors to facilitate state management.
 
@@ -9,7 +9,7 @@ This package provides a Zustand store implementation for managing the state rela
    ```jsonc
    {
      "dependencies": {
-       "@bsport/store-core-data-teacher": "workspace:*",
+       "@bsport/store-booking-teacher": "workspace:*",
      },
    }
    ```
@@ -21,7 +21,7 @@ This package provides a Zustand store implementation for managing the state rela
 Here's a basic example of how to use the store in your application:
 
 ```tsx
-import { useTeacherStore, fetchTeachersAction, selectTeachers } from '@bsport/store-core-data-teacher';
+import { useTeacherStore, fetchTeachersAction, selectTeachers } from '@bsport/store-booking-teacher';
 import fetch from "#src/utils/fetch";
 
 const MyComponent = () => {

@@ -14,7 +14,7 @@ import type {
   SearchEstablishmentParams,
 } from "#src/establishments/types";
 
-import { API_V1_URL, QUERY_KEY_MAIN } from "../constants";
+import { API_V1_URL, BOOKING_QUERY_KEY } from "../constants";
 
 // ----------------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ const ESTABLISHMENT_API_URL = `${API_V1_URL}/establishment`;
 const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 export const establishmentKeys = {
-  all: [QUERY_KEY_MAIN, "establishments"] as const,
+  all: [BOOKING_QUERY_KEY, "establishments"] as const,
 
   lists: () => [...establishmentKeys.all, "lists"] as const,
   list: (params: FetchEstablishmentParams) =>

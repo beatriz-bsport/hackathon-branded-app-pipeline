@@ -5,7 +5,7 @@ import {
   EstablishmentGroup,
   establishmentGroupKeys,
   fetchEstablishmentGroups,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 
 import { fetch } from "../utils/fetch";
 

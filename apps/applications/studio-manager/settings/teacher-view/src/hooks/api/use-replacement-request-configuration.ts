@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { retrieveReplacementRequestConfigurationQueryOptions } from "@bsport/api-core";
+import { retrieveReplacementRequestConfigurationQueryOptions } from "@bsport/api-book";
 
 import { fetch } from "#src/utils/fetch";
 

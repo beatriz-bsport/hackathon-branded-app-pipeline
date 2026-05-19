@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { type FC, useMemo } from "react";
 
-import { type Teacher, fetchFlatTeachers, teacherKeys } from "@bsport/api-core";
+import { type Teacher, fetchFlatTeachers, teacherKeys } from "@bsport/api-book";
 import { fetchRoleDefinitionsQueryOptions } from "@bsport/api-staff-management/role";
 import { FormField, useFormContext } from "@bsport/form";
 import {

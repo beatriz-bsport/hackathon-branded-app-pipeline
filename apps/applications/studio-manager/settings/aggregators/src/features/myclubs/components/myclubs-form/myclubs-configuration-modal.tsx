@@ -1,7 +1,7 @@
 import { useEffect, useId, useMemo, useState } from "react";
 
 import { type PartnershipAccount } from "@bsport/api-book";
-import { type Establishment } from "@bsport/api-core";
+import { type Establishment } from "@bsport/api-book";
 import { ControlledForm, useFormController } from "@bsport/form";
 import { Body, Modal } from "@bsport/kaizen-primitive-core";
 

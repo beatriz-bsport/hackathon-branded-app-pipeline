@@ -8,7 +8,7 @@ import {
   type SearchEstablishmentGroupSearchParams,
   establishmentGroupKeys,
   searchEstablishmentGroups,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 
 import { fetch } from "../utils/fetch";
 

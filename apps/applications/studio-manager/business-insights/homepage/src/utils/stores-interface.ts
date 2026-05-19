@@ -1,5 +1,5 @@
 import type { ManagerSession } from "@bsport/api-book";
-import type { Teacher } from "@bsport/api-core";
+import type { Teacher } from "@bsport/api-book";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import {
   selectManagerSessions,
@@ -13,7 +13,7 @@ import {
 import {
   selectTeachersById,
   useTeacherStore,
-} from "@bsport/store-core-data-teacher";
+} from "@bsport/store-booking-teacher";
 
 export type SessionWithTeacher = ManagerSession & {
   teacher?: Teacher;

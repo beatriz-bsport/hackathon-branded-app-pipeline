@@ -11,7 +11,7 @@ import {
   fuzzySearchTeachers,
   linkTeacherByEmail,
   restoreTeacher,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 import {
   type Action,
   type HTTPException,

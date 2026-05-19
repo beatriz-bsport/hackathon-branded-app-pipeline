@@ -1,4 +1,4 @@
-import { type UpdateReplacementRequestConfigurationPayload } from "@bsport/api-core";
+import { type UpdateReplacementRequestConfigurationPayload } from "@bsport/api-book";
 
 export type TeacherViewSettingsThemeFormValues = {
   is_coach_access_enabled_by_default: boolean;

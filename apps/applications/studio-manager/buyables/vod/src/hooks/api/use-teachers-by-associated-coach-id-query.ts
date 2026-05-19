@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
-import { type Teacher, fetchFlatTeachers, teacherKeys } from "@bsport/api-core";
+import { type Teacher, fetchFlatTeachers, teacherKeys } from "@bsport/api-book";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { fetch } from "#src/utils/fetch";
 
-// Keep this in sync with `@bsport/api-core` until its shared stale time is exported.
+// Keep this in sync with `@bsport/api-book` until its shared stale time is exported.
 const TEACHERS_STALE_TIME = 2 * 60 * 1000;
 
 export type TeacherPreview = Pick<Teacher, "name" | "photo">;

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { type ReplacementRequestConfiguration } from "@bsport/api-core";
+import { type ReplacementRequestConfiguration } from "@bsport/api-book";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import {

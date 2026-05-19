@@ -110,6 +110,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   settings_staff: `${SETTINGS_URL}/staff`,
   settings_permission: `${SETTINGS_URL}/staff/role`,
   tag: "/tag",
+  establishment: "/venues",
 } as const satisfies Partial<Urls>;
 
 export const REVAMP_URLS_PRODUCTION = {
@@ -137,6 +138,7 @@ export const REVAMP_URLS_PRODUCTION = {
   settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
   tag: "/tag",
   teacher: "/teacher",
+  establishment: REVAMP_URLS_DEVELOPMENT.establishment,
 } satisfies Partial<typeof REVAMP_URLS_DEVELOPMENT>; // Ensure that it's a subset of REVAMP_URLS_DEVELOPMENT
 
 const REVAMP_ONLY_KEYS: Array<string> = [

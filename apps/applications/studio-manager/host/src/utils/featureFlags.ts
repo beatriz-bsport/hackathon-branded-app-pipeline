@@ -10,4 +10,5 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   SETTINGS_TEACHER_VIEW: "settings_teacher_view",
   SETTINGS_STAFF_PAGE: "revamp_settings_staff_page",
   SETTINGS_ROLE_PAGE: "revamp_settings_role_page",
+  BOOKING_VENUES_PAGE: "booking_venues_page",
 } as const);

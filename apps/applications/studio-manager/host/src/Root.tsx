@@ -27,6 +27,7 @@ import { navigateBackToFranchisorHost } from "./navigateBackToFranchisor";
 // ----- Booking -----
 const Services = lazy(() => import("@bsport/sm-service"));
 const Session = lazy(() => import("@bsport/sm-session"));
+const Venues = lazy(() => import("@bsport/sm-venues"));
 
 // ----- Buyables -----
 const Giftcard = lazy(() => import("@bsport/sm-giftcard"));
@@ -245,6 +246,7 @@ const AuthenticatedRoutes = () => {
   const isAggregatorsEnabled = useNavFlag(NavFlags.SETTINGS_AGGREGATORS);
   const isStaffPageRevampEnabled = useNavFlag(NavFlags.SETTINGS_STAFF_PAGE);
   const isRolePageRevampEnabled = useNavFlag(NavFlags.SETTINGS_ROLE_PAGE);
+  const isVenuesPageEnabled = useNavFlag(NavFlags.BOOKING_VENUES_PAGE);
 
   /**
    * Add configs to the Host Router.
@@ -259,6 +261,11 @@ const AuthenticatedRoutes = () => {
       hidden: !isClassesMergedViewEnabled,
     },
     { url: urls.calendar, element: <Session /> },
+    {
+      url: urls.establishment,
+      element: <Venues />,
+      hidden: !isVenuesPageEnabled,
+    },
 
     /* ----- Buyables ----- */
     {

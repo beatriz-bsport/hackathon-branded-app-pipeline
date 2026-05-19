@@ -89,7 +89,7 @@
       "title": "TicketBAI",
       "loading": "Chargement…",
       "load_error": "Impossible de charger la configuration TicketBAI. Veuillez rafraîchir la page et réessayer.",
-      "info": "Ce service additionnel n'est pas encore actif sur votre compte — veuillez contacter votre gestionnaire de compte pour le demander.",
+      "info": "Ce service additionnel n'est pas encore actif sur votre compte. Veuillez contacter votre gestionnaire de compte pour l'activer.",
       "description": "Règles régionales de facturation pour le Pays basque (Araba, Bizkaia, Gipuzkoa). Lorsque TicketBAI est actif, les Factures et Reçus éligibles sont formatés et déclarés conformément aux exigences de votre province.",
       "territory": {
         "title": "Certificat d'entreprise et d'appareil",
@@ -106,7 +106,7 @@
           "vat_id_missing": "Numéro de TVA manquant",
           "business_address_provided": "Adresse professionnelle fournie",
           "business_address_missing": "Adresse professionnelle manquante",
-          "invoice_identifiers_set_up": "Configuration des identifiants de facture",
+          "invoice_identifiers_set_up": "Identifiants de facture configurés",
           "invoice_identifiers_not_set_up": "Identifiants de facture non configurés"
         },
         "requirements": {
@@ -116,7 +116,7 @@
           "vat_description": "Ajoutez votre numéro de TVA dans Paramètres → Société avant d'activer TicketBAI avec Sign-ES.",
           "address_description": "Veuillez indiquer l'adresse de votre entreprise lors de l'intégration Stripe — nous l'utilisons pour confirmer la province basque pour TicketBAI.",
           "vat_and_address_description": "Ajoutez votre numéro de TVA dans Paramètres → Société et finalisez l'intégration Stripe avec votre adresse professionnelle. Ces deux éléments sont requis avant la configuration de TicketBAI.",
-          "go_to_settings": "Accédez aux Paramètres",
+          "go_to_settings": "Accéder aux paramètres",
           "complete_stripe_onboarding": "Finaliser l'intégration Stripe",
           "legal_identifier_required": "Identifiants de facture requis",
           "legal_identifier_description": "Configurez les identifiants de facture pour Sign-ES en suivant cette <0>fiche d'aide</0>."

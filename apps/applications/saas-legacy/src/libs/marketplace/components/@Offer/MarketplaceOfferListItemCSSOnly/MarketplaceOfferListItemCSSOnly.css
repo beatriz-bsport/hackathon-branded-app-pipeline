@@ -29,6 +29,9 @@
   cursor: default;
   opacity: 0.5;
 }
+.bs-offer-list-item--disabled.bs-offer-list-item--ongoing {
+  opacity: 0.75;
+}
 .bs-offer-list-item--isWorkshop {
   padding: 0;
   cursor: default;

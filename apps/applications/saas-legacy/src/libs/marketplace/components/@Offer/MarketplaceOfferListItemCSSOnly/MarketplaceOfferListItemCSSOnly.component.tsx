@@ -17,6 +17,7 @@ import { CompanyTheme } from '#src/libs/theme/types';
 import { Establishment } from '#src/libs/establishment/types';
 
 import { useOfferHours } from '#src/libs/marketplace/hooks';
+import { isOfferOngoing } from '#src/libs/marketplace/utils';
 
 import MarketplaceBookButton from '#src/libs/marketplace/components/@Booking/MarketplaceBookButton';
 import { MetaActivity } from '#src/libs/meta-activity/types';
@@ -160,6 +161,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   const isListItemDisabled =
     (theme?.hide_book_button && isOfferPassed) ||
     (!theme?.hide_book_button && isBookingDisabled);
+  const isOngoing = isOfferOngoing(offer);
 
   const handleClickOnHiddenBookButton = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -280,6 +282,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
         'bs-offer-list-item--first': position.includes('first'),
         'bs-offer-list-item--last': position.includes('last'),
         'bs-offer-list-item--disabled': isListItemDisabled,
+        'bs-offer-list-item--ongoing': isOngoing,
         'bs-offer-list-item--isWorkshop': isWorkshop,
         'bs-offer-list-item--isNotWorkshop': !isWorkshop,
         'bs-offer-list-item--isWorkShop-with-hidden-button':

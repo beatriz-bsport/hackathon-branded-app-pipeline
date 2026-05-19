@@ -28,6 +28,9 @@
   cursor: default;
   opacity: 0.5;
 }
+.--disabled.bs-card-offer--ongoing {
+  opacity: 0.75;
+}
 
 .bs-card-offer__activity-indicator {
   position: absolute;

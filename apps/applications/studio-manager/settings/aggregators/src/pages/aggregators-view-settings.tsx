@@ -61,7 +61,7 @@ const AggregatorsViewSettingsPage: FC = () => {
   return (
     <ListLayout>
       <ListLayout.Header pageTitle={t("name")} />
-      <ListLayout.Content className="pt-md pb-xl px-md md:px-lg gap-xl flex flex-col">
+      <ListLayout.Content className="pt-md pb-xl gap-xl flex flex-col">
         <QueryBoundary
           loadingFallback={<Loader className="w-full h-full" size="xl" />}
         >

@@ -50,7 +50,7 @@
           }
         },
         "alerts": {
-          "equalToZero": "By choosing this value, no discount will be applied to the purchase of the referred member"
+          "equalToZero": "By choosing this value, no discount will be applied for referring a new customer."
         },
         "errors": {
           "tooManyDecimalPoints": "The amount cannot have more than 2 decimal points",

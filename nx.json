@@ -24,6 +24,9 @@
       ],
       "outputs": []
     },
+    "ci:build": {
+      "dependsOn": ["^build"]
+    },
     "storybook:build": {
       "dependsOn": ["translation:update"],
       "cache": true

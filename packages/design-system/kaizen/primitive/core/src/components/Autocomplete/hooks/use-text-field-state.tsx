@@ -5,20 +5,22 @@ import useDebounce from "#src/hooks/debounce";
 
 type UseTextFieldStateProps = {
   debounceValue: number;
-  defaultSelectedIds: string[];
+  value: string[];
   mapIdToOption: Map<string, MenuOption>;
   multiSelect: boolean;
   onValueChange?: (nextValue: string) => void;
   textFieldDefaultValue?: string;
+  clearOnSelect: boolean;
 };
 
 export const useTextFieldState = ({
   debounceValue,
-  defaultSelectedIds,
+  value,
   mapIdToOption,
   multiSelect,
   onValueChange,
   textFieldDefaultValue,
+  clearOnSelect,
 }: UseTextFieldStateProps) => {
   const textFieldRef = useRef<HTMLInputElement | null>(null);
 
@@ -28,18 +30,39 @@ export const useTextFieldState = ({
   const [textFieldValue, setTextFieldValue] = useState("");
 
   /**
-   * Extract from default props the initial value for the TextField
+   * Initialize the TextField label once, from the initial selection
+   * (single-select) or from the explicit default value. The effect retries on
+   * each render until a label can be resolved (e.g. async item hydration),
+   * then locks.
+   *
+   * After init, the displayed text is updated only by explicit callers:
+   * - user typing via `handleTextFieldChange`
+   * - menu selection via `setTextFieldValue(item.label)` in the parent
+   * - `clearInput` (textfield clear button or `clearOnSelect`)
+   *
+   * No continuous `value → textFieldValue` sync — that would fight
+   * `clearOnSelect` (which intentionally empties the input right after a
+   * selection) and would override user search input.
    */
   const hasInitializedTextField = useRef(false);
   useEffect(() => {
     if (hasInitializedTextField.current) return;
 
-    if (!multiSelect && defaultSelectedIds.length > 0) {
-      const initialSelectedOption = mapIdToOption.get(defaultSelectedIds[0]);
-      const initialLabel =
-        initialSelectedOption?.label ?? textFieldDefaultValue;
-      if (initialLabel) {
-        setTextFieldValue(initialLabel);
+    if (!multiSelect) {
+      const defaultLabel = textFieldDefaultValue ?? "";
+      if (value.length > 0) {
+        const initialSelectedOption = mapIdToOption.get(value[0]);
+        const initialLabel = initialSelectedOption?.label ?? defaultLabel;
+        if (initialLabel) {
+          setTextFieldValue(initialLabel);
+          hasInitializedTextField.current = true;
+          return;
+        }
+      }
+
+      if (clearOnSelect) {
+        // Skip initialization if the first condition doesn't meet
+        setTextFieldValue(defaultLabel);
         hasInitializedTextField.current = true;
         return;
       }
@@ -48,9 +71,8 @@ export const useTextFieldState = ({
     if (textFieldDefaultValue) {
       setTextFieldValue(textFieldDefaultValue);
       hasInitializedTextField.current = true;
-      return;
     }
-  }, [multiSelect, defaultSelectedIds, mapIdToOption, textFieldDefaultValue]);
+  }, [multiSelect, value, mapIdToOption, textFieldDefaultValue, clearOnSelect]);
 
   /**
    * Actual query string used in the search (local or remote)

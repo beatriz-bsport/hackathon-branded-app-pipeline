@@ -32,7 +32,7 @@ const withSeededClient =
 
 const meta: Meta<SpotSelectorModalComponent> = {
   component: SpotSelectorModal,
-  title: "SpotSelectorModal",
+  title: "Session Management/SpotSelectorModal",
   parameters: {
     layout: "centered",
     docs: {

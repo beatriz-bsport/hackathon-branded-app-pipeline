@@ -67,7 +67,7 @@ const benchSpotElement = (taken: boolean): CanvasElement<CanvasSpotData> => ({
 
 const meta: Meta<SpotStatusLegendComponent> = {
   component: SpotStatusLegend,
-  title: "SpotStatusLegend",
+  title: "Session Management/SpotStatusLegend",
   parameters: {
     layout: "padded",
     docs: {

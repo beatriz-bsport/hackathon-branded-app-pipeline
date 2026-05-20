@@ -37,6 +37,7 @@
     "@bsport/sentry": "workspace:*",
     "@bsport/sm-aggregators": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
+    "@bsport/sm-contract": "workspace:*",
     "@bsport/sm-custom-form": "workspace:*",
     "@bsport/sm-email-template": "workspace:*",
     "@bsport/sm-giftcard": "workspace:*",

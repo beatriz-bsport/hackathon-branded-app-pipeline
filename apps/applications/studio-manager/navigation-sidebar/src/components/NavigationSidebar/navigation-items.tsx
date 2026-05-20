@@ -103,6 +103,7 @@ export const useNavigationElements = ({
   const isCalendarRevampEnabled = useNavFlag(NavFlags.CALENDAR_REVAMP);
   const isPacksRevampEnabled = useNavFlag(NavFlags.PACKS_REVAMP);
   const isGiftcardsRevampEnabled = useNavFlag(NavFlags.GIFTCARDS_REVAMP);
+  const isContractsRevampEnabled = useNavFlag(NavFlags.SUBSCRIPTION_REVAMP);
   const isBillingFlowNewModalEnabled = useNavFlag(
     NavFlags.FS_BILLING_FLOW_NEW_MODAL,
   );
@@ -252,7 +253,10 @@ export const useNavigationElements = ({
             {
               id: "subscriptions",
               label: t("menus.memberships.subscriptions"),
-              ...navigationUrls.subscription,
+              ...flaggedNavigationUrl({
+                enabled: isContractsRevampEnabled,
+                navigationItem: navigationUrls.subscription,
+              }),
             },
           ],
         },
@@ -649,6 +653,8 @@ export const useNavigationElements = ({
     isCalendarRevampEnabled,
     isPacksRevampEnabled,
     isGiftcardsRevampEnabled,
+    isContractsRevampEnabled,
+    isOnDemandRevampEnabled,
     isBillingFlowNewModalEnabled,
     isPayoutsEnabled,
     isSmartfillEnabled,

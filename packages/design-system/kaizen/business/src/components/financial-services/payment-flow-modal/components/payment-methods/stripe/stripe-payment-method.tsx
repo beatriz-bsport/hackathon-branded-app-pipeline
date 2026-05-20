@@ -21,7 +21,6 @@ import {
 
 import { getCurrencyCode } from "@bsport/currency";
 import { Alert, Checkbox, Loader, Title } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useDarkMode } from "#src/components/financial-services/payment-flow-modal/hooks/use-dark-mode";
 import { useStripeAppearance } from "#src/components/financial-services/payment-flow-modal/hooks/use-stripe-appearance";
@@ -117,11 +116,11 @@ export const StripePaymentMethod = ({
   savePaymentMethod,
   onSavePaymentMethodChange,
   ref,
+  companyTheme,
 }: StripePaymentMethodComponentProps) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
   const isDarkMode = useDarkMode();
   const stripeAppearance = useStripeAppearance(isDarkMode);
-  const companyTheme = dataAccessLayer.useCompanyTheme();
   const methodConfig = STRIPE_METHOD_CONFIG[method];
   const submitPaymentRef = useRef<
     StripePaymentMethodHandle["submitPayment"] | null

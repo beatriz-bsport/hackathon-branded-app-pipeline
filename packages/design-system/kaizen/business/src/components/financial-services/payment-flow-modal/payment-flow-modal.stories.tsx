@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 import type { CompanyTheme } from "@bsport/api-core";
 import { Button } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { fetch } from "#src/utils/fetch";
 
@@ -24,7 +23,7 @@ The flow combines:
 
 ### Story setup notes
 
-This story patches \`dataAccessLayer.useCompanyTheme\` to provide a Stripe publishable key so Stripe methods can render in Storybook.
+This story patches \`CompanyTheme\` to provide a Stripe publishable key so Stripe methods can render in Storybook.
 
 ### How to import?
 
@@ -38,10 +37,11 @@ import { useState } from "react";
 import { Button } from "@bsport/kaizen-primitive-core";
 import { fetch } from "#src/utils/fetch";
 import { PaymentFlowModal } from "@bsport/kaizen-business-components/financial-services/payment-flow-modal";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 function InvoicePaymentAction() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const companyTheme = dataAccessLayer.useCompanyTheme();
   return (
     <>
       <Button
@@ -59,6 +59,7 @@ function InvoicePaymentAction() {
         onConfirm={() => {
           // parent side effect (toast / refresh / analytics)
         }}
+        companyTheme={companyTheme}
       />
     </>
   );
@@ -84,20 +85,6 @@ const meta: Meta<PaymentFlowModalComponent> = {
 
     useEffect(() => setIsOpen(args.isOpen), [args.isOpen]);
 
-    useEffect(() => {
-      const originalUseCompanyTheme = dataAccessLayer.useCompanyTheme;
-      dataAccessLayer.useCompanyTheme = () => {
-        return {
-          stripe_pk_key: "pk_test_lFB5CxcyTCaQcS00MiE1ebEO",
-          stripe_id: "acct_1HXD8XGqCXxmgm1P",
-        } as CompanyTheme;
-      };
-
-      return () => {
-        dataAccessLayer.useCompanyTheme = originalUseCompanyTheme;
-      };
-    }, []);
-
     return (
       <>
         <Button
@@ -112,6 +99,12 @@ const meta: Meta<PaymentFlowModalComponent> = {
           {...args}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
+          companyTheme={
+            {
+              stripe_pk_key: "pk_test_lFB5CxcyTCaQcS00MiE1ebEO",
+              stripe_id: "acct_1HXD8XGqCXxmgm1P",
+            } as CompanyTheme
+          }
         />
       </>
     );

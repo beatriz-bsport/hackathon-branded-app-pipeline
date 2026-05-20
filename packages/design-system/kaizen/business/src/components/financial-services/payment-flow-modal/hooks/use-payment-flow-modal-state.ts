@@ -113,6 +113,7 @@ export const usePaymentFlowModalState = ({
   fetch,
   onClose,
   onConfirm,
+  companyTheme,
 }: UsePaymentFlowModalStateParams) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
 
@@ -290,6 +291,7 @@ export const usePaymentFlowModalState = ({
     cardPaymentRef,
     sepaPaymentRef,
     onGiftCardsChange: setAvailableGiftCards,
+    companyTheme,
   });
 
   const confirmPaymentMutation = useConfirmPayment({

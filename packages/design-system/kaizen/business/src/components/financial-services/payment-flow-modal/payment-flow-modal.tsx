@@ -23,6 +23,7 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
   fetch,
   onClose,
   onConfirm,
+  companyTheme,
 }: PaymentFlowModalProps) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
   const queryClient = useQueryClient();
@@ -57,6 +58,7 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
         setIsPartialSuccessOpen(true);
       }
     },
+    companyTheme,
   });
 
   const isMainModalOpen = isOpen || isInternalOpen;

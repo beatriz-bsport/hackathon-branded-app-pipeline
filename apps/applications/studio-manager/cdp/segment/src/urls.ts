@@ -27,6 +27,8 @@ const SEGMENTS = {
   parameter: PARAMETER_TAB_PATH,
   messages: "messages",
   message: "message",
+  segment: "segment",
+  campaigns: "campaigns",
   tagRule: "tag-rule",
   sent: "sent",
   scheduled: "scheduled",
@@ -44,6 +46,7 @@ export const PARAMS = {
   tagRuleId: ":tagRuleId",
   channel: ":channel",
   entityId: ":entityId",
+  prebuiltSegmentId: ":prebuiltSegmentId",
 } as const;
 
 const trimSlashes = (value: string) => value.replace(/^\/+|\/+$/g, "");
@@ -66,6 +69,9 @@ export type SmartlistDetailsTabPath =
 
 export const SMARTLIST_ROUTE_PATTERNS = {
   PREBUILT_INDEX: SEGMENTS.prebuilt,
+  PREBUILT_DETAILS: `${SEGMENTS.prebuilt}/${PARAMS.prebuiltSegmentId}`,
+  PREBUILT_DETAILS_SEGMENT: `${SEGMENTS.prebuilt}/${PARAMS.prebuiltSegmentId}/${SEGMENTS.segment}`,
+  PREBUILT_DETAILS_CAMPAIGNS: `${SEGMENTS.prebuilt}/${PARAMS.prebuiltSegmentId}/${SEGMENTS.campaigns}`,
   CUSTOM_INDEX: SEGMENTS.custom,
   DETAILS: PARAMS.smartlistId,
   PARAMETER: `${PARAMS.smartlistId}/${SEGMENTS.parameter}`,
@@ -95,6 +101,16 @@ export const SMARTLIST_APP_LINKS = {
   root: () => APP_ROOT_PATH,
   index: () => buildSmartlistLink(SEGMENTS.custom),
   prebuiltIndex: () => buildSmartlistLink(SEGMENTS.prebuilt),
+  prebuiltDetails: (prebuiltSegmentId: string) =>
+    buildSmartlistLink(SEGMENTS.prebuilt, prebuiltSegmentId),
+  prebuiltDetailsSegment: (prebuiltSegmentId: string) =>
+    buildSmartlistLink(SEGMENTS.prebuilt, prebuiltSegmentId, SEGMENTS.segment),
+  prebuiltDetailsCampaigns: (prebuiltSegmentId: string) =>
+    buildSmartlistLink(
+      SEGMENTS.prebuilt,
+      prebuiltSegmentId,
+      SEGMENTS.campaigns,
+    ),
   details: (smartlistId: string) =>
     buildSmartlistLink(SEGMENTS.custom, smartlistId),
   detailsTab: (smartlistId: string, tab: SmartlistDetailsTabPath) =>

@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useNavigate } from "react-router";
 
 import {
   Body,
@@ -12,6 +13,7 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
+import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 type Props = {
@@ -27,6 +29,7 @@ type PrebuiltSegment = {
 
 export const PrebuiltSegmentList: FC<Props> = ({ pageTabs }: Props) => {
   const { t } = useTranslation("list");
+  const navigate = useNavigate();
 
   const prebuiltSegments = {
     customers: {
@@ -35,15 +38,15 @@ export const PrebuiltSegmentList: FC<Props> = ({ pageTabs }: Props) => {
       isAIAssisted: false,
       segmentId: "customers",
     },
-    activeMembers: {
-      title: t("prebuilt.segments.activeMembers.title"),
-      description: t("prebuilt.segments.activeMembers.description"),
+    active_members: {
+      title: t("prebuilt.segments.active_members.title"),
+      description: t("prebuilt.segments.active_members.description"),
       isAIAssisted: false,
-      segmentId: "custom_members",
+      segmentId: "active_members",
     },
-    activeTrials: {
-      title: t("prebuilt.segments.activeTrials.title"),
-      description: t("prebuilt.segments.activeTrials.description"),
+    active_trials: {
+      title: t("prebuilt.segments.active_trials.title"),
+      description: t("prebuilt.segments.active_trials.description"),
       isAIAssisted: false,
       segmentId: "active_trials",
     },
@@ -54,6 +57,9 @@ export const PrebuiltSegmentList: FC<Props> = ({ pageTabs }: Props) => {
       id,
       title: segment.title,
       description: segment.description,
+      onClick: () => {
+        navigate(SMARTLIST_APP_LINKS.prebuiltDetailsSegment(segment.segmentId));
+      },
       chips: segment.isAIAssisted
         ? [
             {

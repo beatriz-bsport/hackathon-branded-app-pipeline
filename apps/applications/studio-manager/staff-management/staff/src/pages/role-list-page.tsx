@@ -127,7 +127,7 @@ const RoleListPage: FC = () => {
             label={t("page.toStaff")}
             onClick={() => {
               if (isStaffPageRevampEnabled) {
-                navigate(URLS.INDEX);
+                navigate(URLS.STAFF_INDEX);
               } else {
                 window.location.assign(LEGACY_URLS.STAFF);
               }

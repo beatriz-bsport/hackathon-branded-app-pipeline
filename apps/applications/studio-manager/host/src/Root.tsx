@@ -279,14 +279,9 @@ const AuthenticatedRoutes = () => {
 
     /* ----- Staff Management ----- */
     {
-      url: urls.settings_staff,
+      url: urls.settings_permissions,
       element: <Staff />,
-      hidden: !isStaffPageRevampEnabled,
-    },
-    {
-      url: urls.settings_permission,
-      element: <Staff />,
-      hidden: !isRolePageRevampEnabled,
+      hidden: !isStaffPageRevampEnabled && !isRolePageRevampEnabled,
     },
 
     /* ----- Core-data ----- */

@@ -44,3 +44,9 @@ echo "⏳ Pushing build output to S3 for deployment"
 aws s3 sync build/ "s3://${ARTIFACT_BUCKET_NAME}/backoffice/${ARTIFACT_VERSION}" --only-show-errors --delete
 
 echo "✅ Artifacts pushed to S3 successfully"
+
+if [ "${CI_COMMIT_BRANCH:-}" = "dev" ]; then
+  echo "⏳ Tagging latest dev build at s3://${ARTIFACT_BUCKET_NAME}/backoffice/dev"
+  aws s3 sync build/ "s3://${ARTIFACT_BUCKET_NAME}/backoffice/dev" --only-show-errors --delete
+  echo "✅ Dev tag updated"
+fi

@@ -34,6 +34,7 @@ const Giftcard = lazy(() => import("@bsport/sm-giftcard"));
 const Order = lazy(() => import("@bsport/sm-order"));
 const Pack = lazy(() => import("@bsport/sm-pack"));
 const Vod = lazy(() => import("@bsport/sm-vod"));
+const Contract = lazy(() => import("@bsport/sm-contract"));
 
 // ----- Staff Management -----
 const Staff = lazy(() => import("@bsport/sm-staff"));
@@ -238,6 +239,7 @@ const AuthenticatedRoutes = () => {
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
   const isPacksPageEnabled = useNavFlag(NavFlags.PACKS);
   const isGiftcardsPageEnabled = useNavFlag(NavFlags.GIFTCARDS);
+  const isContractsPageEnabled = useNavFlag(NavFlags.CONTRACTS);
   const isTeacherViewSettingsEnabled = useNavFlag(
     NavFlags.SETTINGS_TEACHER_VIEW,
   );
@@ -276,6 +278,11 @@ const AuthenticatedRoutes = () => {
     { url: urls.order, element: <Order /> },
     { url: urls.pack, element: <Pack />, hidden: !isPacksPageEnabled },
     { url: urls.onDemand, element: <Vod /> },
+    {
+      url: urls.subscription,
+      element: <Contract />,
+      hidden: !isContractsPageEnabled,
+    },
 
     /* ----- Staff Management ----- */
     {

@@ -3069,6 +3069,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../packages/utils/sm-backbone
+      '@bsport/sm-contract':
+        specifier: workspace:*
+        version: link:../buyables/contract
       '@bsport/sm-custom-form':
         specifier: workspace:*
         version: link:../cdp/custom-form

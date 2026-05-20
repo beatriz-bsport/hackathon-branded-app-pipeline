@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Venues",
+  "emptyState": {
+    "title": "Create your first venue",
+    "cta": "Create venue"
+  },
+  "sectionCount": "{{address}} ({{count}})",
+  "groupTag": {
+    "add": "Add to group"
+  },
+  "venueRow": {
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "actions": {
+    "archive": "Archived venues",
+    "createLocation": "Create location",
+    "createVenue": "Create venue"
+  }
+}

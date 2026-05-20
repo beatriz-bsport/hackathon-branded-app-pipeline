@@ -26,6 +26,7 @@ export type EstablishmentGroup = {
   date_created: string; // ISO datetime
   date_updated?: string; // ISO datetime
   disabled?: boolean;
+  establishment: number[];
 };
 
 // ----------------------------------------------------------------------------

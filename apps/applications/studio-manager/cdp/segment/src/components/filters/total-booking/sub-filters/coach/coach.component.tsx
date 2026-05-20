@@ -1,5 +1,6 @@
 import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
 
+import { useCoachOptionsForTotalBookingQuery } from "#src/api/use-coach-options-for-total-booking-query";
 import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -10,10 +11,11 @@ export const CoachSubFilterSection = ({
   value,
   errors,
   setValue,
-  coachOptions,
   onRemove,
+  companyId,
 }: TotalBookingSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
+  const { data: coachOptions } = useCoachOptionsForTotalBookingQuery(companyId);
   const coachLabel = t("filters.22.subFilters.coach");
 
   return (

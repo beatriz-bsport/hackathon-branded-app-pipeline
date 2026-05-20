@@ -42,6 +42,7 @@ export const totalBookingNumberFilterSchema = z
     subFilters: z.array(
       z.union([
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.activity),
+        z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.attendanceMode),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.establishment),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.coach),
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack),
@@ -65,6 +66,9 @@ export const totalBookingNumberFilterSchema = z
     paymentPack: z.object({
       selectAllPaymentPacks: z.boolean(),
       selectedPaymentPackIds: z.array(z.number().int().positive()),
+    }),
+    attendanceMode: z.object({
+      attendance: z.boolean(),
     }),
     bookingDate: dateFilterValueSchema,
     bookingHourRange: z.object({

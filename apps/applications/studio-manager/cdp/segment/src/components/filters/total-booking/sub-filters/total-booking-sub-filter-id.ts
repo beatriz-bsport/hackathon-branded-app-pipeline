@@ -2,6 +2,7 @@ import type { ValueOf } from "#src/components/filters/shared/sub-filter-id";
 
 export const TOTAL_BOOKING_SUB_FILTER_IDS = {
   activity: "activity",
+  attendanceMode: "attendanceMode",
   establishment: "establishment",
   coach: "coach",
   paymentPack: "paymentPack",
@@ -16,6 +17,7 @@ export type TotalBookingSubFilterId = ValueOf<
 
 export const totalBookingSubFilterFieldMap = {
   [TOTAL_BOOKING_SUB_FILTER_IDS.activity]: "activity",
+  [TOTAL_BOOKING_SUB_FILTER_IDS.attendanceMode]: "attendanceMode",
   [TOTAL_BOOKING_SUB_FILTER_IDS.establishment]: "establishment",
   [TOTAL_BOOKING_SUB_FILTER_IDS.coach]: "coach",
   [TOTAL_BOOKING_SUB_FILTER_IDS.paymentPack]: "paymentPack",

@@ -3,7 +3,6 @@ import type {
   TotalBookingFilter,
 } from "@bsport/api-cdp/smartlist";
 
-import type { PassOption } from "#src/components/filters/passes-filter/types";
 import type { DateFilterValue } from "#src/components/primitive-filters/date-filter/types";
 
 import type { TotalBookingNumberTypeValue } from "./constants";
@@ -34,6 +33,10 @@ export type TotalBookingNumberFilterFormValue = {
     selectAllPaymentPacks: boolean;
     selectedPaymentPackIds: number[];
   };
+  /** When the attendance sub-filter is on: `true` = present, `false` = absent. */
+  attendanceMode: {
+    attendance: boolean;
+  };
   bookingDate: DateFilterValue;
   bookingHourRange: {
     hour: string;
@@ -52,24 +55,9 @@ export type TotalBookingFilterCreatePayload = CreateTotalBookingFilterPayload;
 
 export type TotalBookingNumberFilterCardProps = {
   smartlistId: string;
+  /** Studio tenant, resolved once by the parent smartlist screen. */
+  companyId: number;
   filterValue: TotalBookingNumberFilterFormValue;
-  activityOptions: {
-    id: number;
-    name: string;
-  }[];
-  establishmentOptions: {
-    id: number;
-    name: string;
-  }[];
-  coachOptions: {
-    id: number;
-    name: string;
-  }[];
-  passOptions: PassOption[];
-  levelOptions: {
-    id: number;
-    name: string;
-  }[];
   onDeleteUnsavedFilter?: () => void;
   onSaveSuccess?: () => void;
 };

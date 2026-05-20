@@ -1,29 +1,12 @@
-import type { PassOption } from "#src/components/filters/passes-filter/types";
 import type { SubFilterSectionProps } from "#src/components/filters/shared/sub-filter-contract";
 
 import type { TotalBookingNumberFilterFormValue } from "../types";
 
-type TotalBookingSubFilterExtraProps = {
-  activityOptions: {
-    id: number;
-    name: string;
-  }[];
-  establishmentOptions: {
-    id: number;
-    name: string;
-  }[];
-  coachOptions: {
-    id: number;
-    name: string;
-  }[];
-  passOptions: PassOption[];
-  levelOptions: {
-    id: number;
-    name: string;
-  }[];
-};
-
+/**
+ * `companyId` is owned by the filter card / smartlist manager so option queries
+ * stay scoped to one stable studio id instead of re-reading theme per section.
+ */
 export type TotalBookingSubFilterSectionProps = SubFilterSectionProps<
   TotalBookingNumberFilterFormValue,
-  TotalBookingSubFilterExtraProps
+  { companyId: number }
 >;

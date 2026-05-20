@@ -61,6 +61,9 @@ export const mapTotalBookingFilterToFormValue = (
     level: {
       selectedLevelIds: [],
     },
+    attendanceMode: {
+      attendance: false,
+    },
     ...partialFromModules,
   };
 };

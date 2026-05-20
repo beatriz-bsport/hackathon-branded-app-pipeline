@@ -119,7 +119,12 @@
         "totalSessionSuffix": "Total Session",
         "filterSpecifications": "FILTER SPECIFICATIONS",
         "bookingHourRangeStartingBetween": "Starting between ",
-        "bookingHourRangeAnd": " and "
+        "bookingHourRangeAnd": " and ",
+        "attendanceMode": {
+          "radioLabel": "Count reservations where attendance is:",
+          "present": "Present",
+          "absent": "Absent"
+        }
       },
       "subFilters": {
         "activity": "Activity",
@@ -129,6 +134,7 @@
         "level": "Level",
         "bookingDate": "Booking session date",
         "bookingHourRange": "Booking session time",
+        "attendanceMode": "Attendance",
         "subFilterFallback": "{{subFilterId}}"
       },
       "toasts": {

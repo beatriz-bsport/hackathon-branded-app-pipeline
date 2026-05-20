@@ -298,4 +298,31 @@ describe("buildDirtyPatchPayload", () => {
     expect(payload.hour).toBeNull();
     expect(payload.hour_second).toBeNull();
   });
+
+  it("emits active attendance slice when attendance mode values are dirty", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.attendanceMode];
+    value.attendanceMode = { attendance: false };
+    const dirtyFields: DirtyFields = {
+      attendanceMode: { attendance: true },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.attendance_filter_active).toBe(true);
+    expect(payload.attendance).toBe(false);
+  });
+
+  it("emits inactive attendance slice when attendance sub-filter is removed", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.attendance_filter_active).toBe(false);
+    expect(payload.attendance).toBeNull();
+  });
 });

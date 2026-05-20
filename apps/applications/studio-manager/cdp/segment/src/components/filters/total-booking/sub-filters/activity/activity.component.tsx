@@ -1,5 +1,6 @@
 import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
 
+import { useGroupActivitiesQuery } from "#src/api/use-group-activities-query";
 import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -10,11 +11,11 @@ export const ActivitySubFilterSection = ({
   value,
   errors,
   setValue,
-  activityOptions,
   onRemove,
 }: TotalBookingSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
   const activityLabel = t("filters.22.subFilters.activity");
+  const { data: activityOptions } = useGroupActivitiesQuery();
 
   return (
     <Card className="w-full flex flex-col gap-xs">

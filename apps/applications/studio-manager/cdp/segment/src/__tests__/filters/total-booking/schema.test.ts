@@ -427,4 +427,22 @@ describe("totalBookingNumberFilterSchema", () => {
       expect(result.success).toBe(true);
     });
   });
+
+  it("accepts attendance mode sub-filter for present and absent", () => {
+    const presentValue = buildFormValue({
+      subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.attendanceMode],
+      attendanceMode: { attendance: true },
+    });
+    const absentValue = buildFormValue({
+      subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.attendanceMode],
+      attendanceMode: { attendance: false },
+    });
+
+    expect(totalBookingNumberFilterSchema.safeParse(presentValue).success).toBe(
+      true,
+    );
+    expect(totalBookingNumberFilterSchema.safeParse(absentValue).success).toBe(
+      true,
+    );
+  });
 });

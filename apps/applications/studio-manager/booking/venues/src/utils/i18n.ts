@@ -5,10 +5,10 @@ import {
   i18nNamespaces,
   inMemoryTranslationsLoader,
 } from "#src/i18n";
-import type commonTranslations from "#src/i18n/source/common.json";
+import type venuesListTranslations from "#src/i18n/source/venues-list.json";
 
 type Translations = {
-  common: typeof commonTranslations;
+  "venues-list": typeof venuesListTranslations;
 };
 
 export const {

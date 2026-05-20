@@ -75,9 +75,10 @@ export const fetchEstablishmentsQueryOptions = (
   fetch: Fetch<PaginatedResponse<Establishment>>,
   params: FetchEstablishmentParams = {},
 ) => {
+  const queryFn = fetchEstablishments.bind(null, fetch, params);
   return queryOptions({
     queryKey: establishmentKeys.list(params),
-    queryFn: () => fetchEstablishments(fetch, params),
+    queryFn,
     staleTime: DEFAULT_STALE_TIME,
   });
 };
@@ -130,9 +131,10 @@ export const retrieveEstablishmentQueryOptions = (
   fetch: Fetch<Establishment>,
   establishmentId: number,
 ) => {
+  const queryFn = retrieveEstablishment.bind(null, fetch, establishmentId);
   return queryOptions({
     queryKey: establishmentKeys.detail(establishmentId),
-    queryFn: () => retrieveEstablishment(fetch, establishmentId),
+    queryFn,
     staleTime: DEFAULT_STALE_TIME,
   });
 };

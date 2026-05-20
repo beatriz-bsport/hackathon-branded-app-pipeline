@@ -282,4 +282,27 @@ describe("mapTotalBookingFilterToFormValue", () => {
 
     expect(formValue.subFilters).not.toContain("bookingHourRange");
   });
+
+  it("activates attendance mode sub-filter when API attendance filter is active", () => {
+    const filter = buildApiFilter({
+      attendance_filter_active: true,
+      attendance: false,
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain("attendanceMode");
+    expect(formValue.attendanceMode.attendance).toBe(false);
+  });
+
+  it("does not list attendance mode sub-filter when API attendance filter is inactive", () => {
+    const filter = buildApiFilter({
+      attendance_filter_active: false,
+      attendance: true,
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).not.toContain("attendanceMode");
+  });
 });

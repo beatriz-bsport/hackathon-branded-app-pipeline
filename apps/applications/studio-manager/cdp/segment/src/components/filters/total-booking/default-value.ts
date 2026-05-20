@@ -27,6 +27,9 @@ export const createDefaultTotalBookingNumberFilter = (
     selectAllPaymentPacks: false,
     selectedPaymentPackIds: [],
   },
+  attendanceMode: {
+    attendance: true,
+  },
   bookingDate: defaultDateFilterValue,
   bookingHourRange: {
     hour: "00:00",

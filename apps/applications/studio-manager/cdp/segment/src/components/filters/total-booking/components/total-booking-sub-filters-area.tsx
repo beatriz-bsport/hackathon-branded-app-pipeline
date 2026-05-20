@@ -2,7 +2,6 @@ import type { FieldErrors, UseFormSetValue } from "react-hook-form";
 
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
-import type { PassOption } from "#src/components/filters/passes-filter/types";
 import {
   ABSOLUTE_DATE_OPERATORS,
   DATE_FILTER_TYPES,
@@ -25,26 +24,10 @@ import type { TotalBookingNumberFilterFormValue } from "../types";
 
 type TotalBookingSubFiltersAreaProps = {
   fieldIds: Record<TotalBookingSubFilterField, string>;
+  companyId: number;
   watchedFilterValue: TotalBookingNumberFilterFormValue;
   errors: FieldErrors<TotalBookingNumberFilterFormValue>;
   setValue: UseFormSetValue<TotalBookingNumberFilterFormValue>;
-  activityOptions: {
-    id: number;
-    name: string;
-  }[];
-  establishmentOptions: {
-    id: number;
-    name: string;
-  }[];
-  coachOptions: {
-    id: number;
-    name: string;
-  }[];
-  passOptions: PassOption[];
-  levelOptions: {
-    id: number;
-    name: string;
-  }[];
 };
 
 type SubFilterFormValueMap = {
@@ -55,6 +38,9 @@ const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
   [TOTAL_BOOKING_SUB_FILTER_IDS.activity]: {
     selectAllActivities: false,
     selectedMetaActivityIds: [],
+  },
+  [TOTAL_BOOKING_SUB_FILTER_IDS.attendanceMode]: {
+    attendance: true,
   },
   [TOTAL_BOOKING_SUB_FILTER_IDS.establishment]: {
     selectAllEstablishments: false,
@@ -92,14 +78,10 @@ const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
 
 export const TotalBookingSubFiltersArea = ({
   fieldIds,
+  companyId,
   watchedFilterValue,
   errors,
   setValue,
-  activityOptions,
-  establishmentOptions,
-  coachOptions,
-  passOptions,
-  levelOptions,
 }: TotalBookingSubFiltersAreaProps) => {
   const { t } = useTranslation("filters");
 
@@ -125,6 +107,9 @@ export const TotalBookingSubFiltersArea = ({
     ),
     [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange]: t(
       "filters.22.subFilters.bookingHourRange",
+    ),
+    [TOTAL_BOOKING_SUB_FILTER_IDS.attendanceMode]: t(
+      "filters.22.subFilters.attendanceMode",
     ),
   };
 
@@ -176,14 +161,10 @@ export const TotalBookingSubFiltersArea = ({
           <Section
             key={subFilterId}
             id={sectionId}
+            companyId={companyId}
             value={watchedFilterValue}
             errors={errors}
             setValue={setValue}
-            activityOptions={activityOptions}
-            establishmentOptions={establishmentOptions}
-            coachOptions={coachOptions}
-            passOptions={passOptions}
-            levelOptions={levelOptions}
             onRemove={() => removeSubFilter(subFilterId)}
           />
         );

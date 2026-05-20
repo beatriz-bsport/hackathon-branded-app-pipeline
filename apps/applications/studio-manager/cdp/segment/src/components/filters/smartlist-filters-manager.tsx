@@ -1,5 +1,7 @@
 import { useMemo, useState } from "react";
 
+import { dataAccessLayer } from "@bsport/sm-backbone";
+
 import { useSmartlistFiltersQuery } from "#src/api/use-smartlist-filters-query";
 import { QueryBoundary } from "#src/components/QueryBoundary/QueryBoundary";
 import { useTranslation } from "#src/utils/i18n";
@@ -21,7 +23,7 @@ import {
   isSmartlistFiltersManagerFilterType,
 } from "./shared/types-guards";
 import { TotalBookingFilterCardSkeleton } from "./total-booking/components/total-booking-filter-card-skeleton";
-import { TotalBookingFilterCardWithData } from "./total-booking/components/total-booking-filter-card-with-data";
+import { TotalBookingNumberFilterCard } from "./total-booking/components/total-booking-number-filter-card";
 import { createDefaultTotalBookingNumberFilter } from "./total-booking/default-value";
 import { mapTotalBookingFilterToFormValue } from "./total-booking/mappers/api-to-form-value";
 import type { TotalBookingNumberFilterFormValue } from "./total-booking/types";
@@ -83,6 +85,7 @@ export const SmartlistFiltersManager = ({
   smartlistId,
 }: SmartlistFiltersManagerProps) => {
   const { t } = useTranslation("filters");
+  const companyId = dataAccessLayer.useCompanyTheme()?.company;
   const smartlistNumericId = Number(smartlistId);
   const [draftFilters, setDraftFilters] = useState<DraftFilter[]>([]);
 
@@ -126,19 +129,23 @@ export const SmartlistFiltersManager = ({
       value,
       onDeleteUnsavedFilter,
       onSaveSuccess,
-    }) => (
-      <QueryBoundary
-        key={key}
-        loadingFallback={<TotalBookingFilterCardSkeleton />}
-      >
-        <TotalBookingFilterCardWithData
-          smartlistId={smartlistId}
-          filterValue={value}
-          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-          onSaveSuccess={onSaveSuccess}
-        />
-      </QueryBoundary>
-    ),
+    }) =>
+      typeof companyId === "number" && companyId > 0 ? (
+        <QueryBoundary
+          key={key}
+          loadingFallback={<TotalBookingFilterCardSkeleton />}
+        >
+          <TotalBookingNumberFilterCard
+            smartlistId={smartlistId}
+            companyId={companyId}
+            filterValue={value}
+            onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+            onSaveSuccess={onSaveSuccess}
+          />
+        </QueryBoundary>
+      ) : (
+        <TotalBookingFilterCardSkeleton key={key} />
+      ),
   };
 
   const createDraftFilterByType: {

@@ -1,5 +1,6 @@
 import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
 
+import { usePassesQuery } from "#src/api/use-passes-query";
 import { PassSelectionField } from "#src/components/filters/passes-filter/components/pass-selection-field";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -10,12 +11,12 @@ export const PaymentPackSubFilterSection = ({
   value,
   errors,
   setValue,
-  passOptions,
   onRemove,
 }: TotalBookingSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
   const passesLabel = t("filters.22.subFilters.passes");
-
+  const { data } = usePassesQuery("");
+  const passOptions = data?.results ?? [];
   return (
     <Card className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">

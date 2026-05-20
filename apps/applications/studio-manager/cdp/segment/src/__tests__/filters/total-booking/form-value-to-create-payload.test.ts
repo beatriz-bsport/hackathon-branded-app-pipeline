@@ -441,4 +441,26 @@ describe("toCreatePayload", () => {
       expect(payload.hour_second).toBe("21:30");
     });
   });
+
+  it("keeps attendance filter inactive when attendance sub-filter is not selected", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [];
+    value.attendanceMode = { attendance: false };
+
+    const payload = toCreatePayload(value);
+
+    expect(payload.attendance_filter_active).toBe(false);
+    expect(payload.attendance).toBeNull();
+  });
+
+  it("activates attendance API fields when attendance sub-filter is selected", () => {
+    const value = createDefaultTotalBookingNumberFilter(1);
+    value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.attendanceMode];
+    value.attendanceMode = { attendance: false };
+
+    const payload = toCreatePayload(value);
+
+    expect(payload.attendance_filter_active).toBe(true);
+    expect(payload.attendance).toBe(false);
+  });
 });

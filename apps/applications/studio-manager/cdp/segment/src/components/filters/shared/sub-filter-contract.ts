@@ -9,10 +9,14 @@ import type { z } from "zod";
 
 /**
  * Generic props shared by all sub-filter section components.
+ *
+ * Default `TExtraProps` uses `Record<never, never>` (not `Record<string, never>`): it adds
+ * no keys and no string index signature, so React JSX attributes such as `key` remain valid
+ * for `ComponentType<SubFilterSectionProps<…>>`.
  */
 export type SubFilterSectionProps<
   TFormValue extends FieldValues,
-  TExtraProps extends object = Record<string, never>,
+  TExtraProps extends object = Record<never, never>,
 > = {
   id: string;
   value: TFormValue;

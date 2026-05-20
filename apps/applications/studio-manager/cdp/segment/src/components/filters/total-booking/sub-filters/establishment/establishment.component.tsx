@@ -1,5 +1,6 @@
 import { Body, Button, Card } from "@bsport/kaizen-primitive-core";
 
+import { useEstablishmentsQuery } from "#src/api/use-establishments-query";
 import { ItemsSearchFilter } from "#src/components/primitive-filters/items-search-filter";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -10,11 +11,11 @@ export const EstablishmentSubFilterSection = ({
   value,
   errors,
   setValue,
-  establishmentOptions,
   onRemove,
 }: TotalBookingSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
   const establishmentLabel = t("filters.22.subFilters.establishment");
+  const { data: establishmentOptions } = useEstablishmentsQuery();
 
   return (
     <Card className="w-full flex flex-col gap-xs">

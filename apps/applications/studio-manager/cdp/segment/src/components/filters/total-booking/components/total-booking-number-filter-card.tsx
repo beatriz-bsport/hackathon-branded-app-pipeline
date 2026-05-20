@@ -19,12 +19,8 @@ import { TotalBookingSubFiltersArea } from "./total-booking-sub-filters-area";
 
 export const TotalBookingNumberFilterCard = ({
   smartlistId,
+  companyId,
   filterValue,
-  activityOptions,
-  establishmentOptions,
-  coachOptions,
-  passOptions,
-  levelOptions,
   onDeleteUnsavedFilter,
   onSaveSuccess,
 }: TotalBookingNumberFilterCardProps) => {
@@ -39,6 +35,7 @@ export const TotalBookingNumberFilterCard = ({
     bookingDate: `${baseId}-booking-date`,
     bookingHourRange: `${baseId}-booking-hour-range`,
     level: `${baseId}-level`,
+    attendanceMode: `${baseId}-attendance-mode`,
   };
 
   const methods = useFormController({
@@ -198,15 +195,12 @@ export const TotalBookingNumberFilterCard = ({
             bookingDate: fieldIds.bookingDate,
             bookingHourRange: fieldIds.bookingHourRange,
             level: fieldIds.level,
+            attendanceMode: fieldIds.attendanceMode,
           }}
+          companyId={companyId}
           watchedFilterValue={watchedFilterValue}
           errors={errors}
           setValue={methods.setValue}
-          activityOptions={activityOptions}
-          establishmentOptions={establishmentOptions}
-          coachOptions={coachOptions}
-          passOptions={passOptions}
-          levelOptions={levelOptions}
         />
 
         <div className="flex justify-end">

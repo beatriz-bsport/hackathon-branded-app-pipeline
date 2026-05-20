@@ -1,1 +1,4 @@
-export { FormNumberField } from "./form-number-field.component";
+export {
+  FormNumberField,
+  type FormNumberFieldProps,
+} from "./form-number-field.component";

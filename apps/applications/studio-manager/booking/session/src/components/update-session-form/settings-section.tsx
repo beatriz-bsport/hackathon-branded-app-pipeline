@@ -31,7 +31,7 @@ export const SettingsSection: FC<{
   } = useFormContext<SessionEditFormData>();
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
-  const { getCreditsDividedValue, getCreditsNotPriceWarningText } =
+  const { getCreditsDividedValue, creditsNotPriceWarningText } =
     useCreditFactor(companyTheme?.pass_credit_factor);
 
   const isSelectedGroupActivityBroadcast = useSessionCreationStore(
@@ -88,7 +88,7 @@ export const SettingsSection: FC<{
       {(shouldDisplayCreditLimitWarning || isCreditsDirty) && (
         <Alert status="warning" type="weak">
           {shouldDisplayCreditLimitWarning && (
-            <Body color="warning">{getCreditsNotPriceWarningText()}</Body>
+            <Body color="warning">{creditsNotPriceWarningText}</Body>
           )}
           {isCreditsDirty && (
             <Body color="warning">

@@ -41,7 +41,7 @@ Build Artifact MR:
   before_script: !reference [.pnpm-setup, before_script]
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: manual
+      when: always
       allow_failure: true
   script:
     - echo "🔱 Building mr artifact"

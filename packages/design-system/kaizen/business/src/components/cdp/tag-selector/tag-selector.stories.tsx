@@ -82,7 +82,7 @@ const meta: Meta<TagSelectorComponent> = {
     const methods = useFormController({
       schema,
       defaultValues: {
-        tags: [4],
+        tags: [1],
       },
     });
 
@@ -102,7 +102,6 @@ const meta: Meta<TagSelectorComponent> = {
     ...DEFAULT_PROPS,
     placeholder: "Add tags...",
     multiSelect: true,
-    hasOneTagPerCategoryLimit: false,
   },
 };
 

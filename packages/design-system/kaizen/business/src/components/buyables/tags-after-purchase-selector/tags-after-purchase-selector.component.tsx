@@ -41,9 +41,6 @@ export const TagsAfterPurchaseSelector = <
       <TagSelector<TFormValues, TFieldName>
         multiSelect
         placeholder={t("tagsAfterPurchaseSelector.placeholder")}
-        withChips
-        withSelectedInBase
-        hasOneTagPerCategoryLimit
         {...props}
       />
     </div>

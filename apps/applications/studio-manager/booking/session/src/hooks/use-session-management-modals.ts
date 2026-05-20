@@ -1,6 +1,7 @@
 import { useCallback, useReducer } from "react";
 
 export enum SessionManagementModalType {
+  BOOK = "book",
   CANCEL = "cancel",
   RESTORE = "restore",
   DUPLICATE = "duplicate",

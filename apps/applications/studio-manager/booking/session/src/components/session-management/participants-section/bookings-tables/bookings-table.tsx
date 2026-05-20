@@ -279,6 +279,9 @@ export const BookingsTable: FC<{
               title: t("bookingsTable.emptyState.title"),
               ctaButtonConfig: {
                 label: t("bookButton"),
+                onClick: () => {
+                  openModal(SessionManagementModalType.BOOK);
+                },
               },
             },
           }}
@@ -320,6 +323,9 @@ export const BookingsTable: FC<{
             title: t("bookingsTable.emptyState.title"),
             ctaButtonConfig: {
               label: t("bookButton"),
+              onClick: () => {
+                openModal(SessionManagementModalType.BOOK);
+              },
             },
           },
         }}

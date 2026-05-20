@@ -291,6 +291,9 @@ export const WaitList: FC<{
                     title: t("waitList.emptyState.title"),
                     ctaButtonConfig: {
                       label: t("bookButton"),
+                      onClick: () => {
+                        openModal?.(SessionManagementModalType.BOOK);
+                      },
                     },
                   },
                 }
@@ -343,6 +346,9 @@ export const WaitList: FC<{
                   title: t("waitList.emptyState.title"),
                   ctaButtonConfig: {
                     label: t("bookButton"),
+                    onClick: () => {
+                      openModal?.(SessionManagementModalType.BOOK);
+                    },
                   },
                 },
               }

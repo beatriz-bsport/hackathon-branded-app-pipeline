@@ -15,8 +15,6 @@ export {
 } from "./components/AnalyticCard";
 export {
   default as Autocomplete,
-  AutocompleteControlled,
-  type AutocompleteControlledProps,
   type AutocompleteProps,
   type AutocompleteItems,
   type MenuOptionWithColor,

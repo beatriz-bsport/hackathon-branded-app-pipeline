@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import {
   type SearchMembersParams,
@@ -7,5 +7,16 @@ import {
 
 import { fetch } from "#src/utils/fetch";
 
+const MEMBERS_SEARCH_COUNT = 20;
+const SEARCH_MEMBER_STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
 export const useSearchMembers = (params: SearchMembersParams) =>
-  useSuspenseQuery(searchMembersQueryOptions(fetch, params));
+  useQuery({
+    ...searchMembersQueryOptions(fetch, {
+      ...params,
+      count: MEMBERS_SEARCH_COUNT,
+    }),
+    enabled: params.text.trim().length > 0,
+    placeholderData: keepPreviousData,
+    staleTime: SEARCH_MEMBER_STALE_TIME,
+  });

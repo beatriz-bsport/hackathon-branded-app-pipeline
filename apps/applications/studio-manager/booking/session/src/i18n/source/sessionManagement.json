@@ -274,5 +274,27 @@
       "authorised": "Authorised participants",
       "unauthorised": "Unauthorised participants"
     }
+  },
+  "bookingFlow": {
+    "title": "Book a client",
+    "steps": {
+      "memberSelection": "Choose a client",
+      "passSelection": "Pick a pass",
+      "spotSelection": "Select a spot",
+      "confirmation": "Confirm booking"
+    },
+    "memberSelection": {
+      "searchPlaceholder": "Search by name or email...",
+      "loading": "Searching for clients...",
+      "emptySearch": "No clients found",
+      "emptyTitle": "Search clients or create a new profile",
+      "createProfile": "Create profile",
+      "openProfile": "Open profile",
+      "description": "Choose a client to make a booking"
+    },
+    "buttons": {
+      "confirm": "Confirm booking",
+      "cancel": "Cancel"
+    }
   }
 }

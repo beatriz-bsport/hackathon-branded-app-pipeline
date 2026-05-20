@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 
-import Button from "#src/components/Button";
 import { MenuOption } from "#src/components/Menu/types";
 
 import Autocomplete from "./Autocomplete";
-import { AutocompleteControlled } from "./autocomplete-controlled";
 
 /**
  * Autocomplete
@@ -1201,122 +1199,5 @@ export const WithCustomToggleLogic: Story = {
         <Autocomplete {...args} />
       </>
     );
-  },
-};
-
-export const ControlledSingle: StoryObj<typeof AutocompleteControlled> = {
-  name: "Controlled — Single Select",
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Fully-controlled single-select using `AutocompleteControlled`. The parent owns the `value` state; the component never holds it internally. Externally setting `value` updates the textfield label automatically.",
-      },
-    },
-  },
-  render: (args) => {
-    const [value, setValue] = useState<string[]>(["french"]);
-
-    return (
-      <div className="flex flex-col gap-md">
-        <AutocompleteControlled
-          {...args}
-          value={value}
-          onChange={setValue}
-          multiSelect={false}
-        />
-        <div className="p-4 bg-gray-100 rounded">
-          <p className="text-sm text-gray-700">
-            <strong>Parent state:</strong> {JSON.stringify(value)}
-          </p>
-          <div className="flex flex-wrap gap-md mt-sm">
-            <Button
-              color="main"
-              intent="call-to-action"
-              label="Set to Japanese"
-              size="sm"
-              onClick={() => setValue(["japanese"])}
-            />
-            <Button
-              color="main"
-              intent="call-to-action"
-              label="Clear"
-              size="sm"
-              onClick={() => setValue([])}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  },
-  args: {
-    textfieldProps: {
-      id: "autocomplete-controlled-single",
-      label: "Primary Language",
-      placeholder: "Choose your primary language",
-      status: "default",
-    },
-    items,
-    fullWidth: true,
-  },
-};
-
-export const ControlledMulti: StoryObj<typeof AutocompleteControlled> = {
-  name: "Controlled — Multi Select",
-  parameters: {
-    docs: {
-      description: {
-        story:
-          "Fully-controlled multi-select using `AutocompleteControlled`. Selections are reflected as chips below the input; dismissing a chip calls `onChange` with the new array. External buttons demonstrate that mutating `value` from the parent updates the UI immediately.",
-      },
-    },
-  },
-  render: (args) => {
-    const [value, setValue] = useState<string[]>(["english", "french"]);
-
-    return (
-      <div className="flex flex-col gap-md">
-        <AutocompleteControlled
-          {...args}
-          value={value}
-          onChange={setValue}
-          multiSelect
-        />
-        <div className="p-4 bg-gray-100 rounded">
-          <p className="text-sm text-gray-700">
-            <strong>Parent state:</strong>{" "}
-            {value.length > 0 ? value.join(", ") : "(empty)"}
-          </p>
-          <div className="flex flex-wrap gap-sm mt-sm">
-            <Button
-              color="main"
-              intent="call-to-action"
-              label="Add Japanese"
-              size="sm"
-              onClick={() => setValue([...value, "japanese"])}
-            />
-            <Button
-              color="main"
-              intent="call-to-action"
-              label="Clear All"
-              size="sm"
-              onClick={() => setValue([])}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  },
-  args: {
-    textfieldProps: {
-      id: "autocomplete-controlled-multi",
-      label: "Programming Languages",
-      placeholder: "Choose multiple languages",
-      status: "default",
-    },
-    items,
-    fullWidth: true,
-    withChips: true,
-    withSelectedInBase: false,
   },
 };

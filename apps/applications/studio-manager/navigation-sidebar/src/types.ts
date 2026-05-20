@@ -70,6 +70,7 @@ export type Urls = {
   settings_general: string;
   settings_marketplace: string;
   settings_widgets: string;
+  settings_permissions: string; // Root path for the Staff Management Application
   settings_permission: string;
   settings_personalization: string;
   settings_staff: string;
@@ -96,4 +97,7 @@ export type Urls = {
   settings_aggregators: string;
 };
 
-export type LegacyUrls = Omit<Urls, "homepage" | "onDemand">;
+export type LegacyUrls = Omit<
+  Urls,
+  "homepage" | "onDemand" | "settings_permissions"
+>;

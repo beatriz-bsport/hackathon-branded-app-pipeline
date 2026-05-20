@@ -46,7 +46,7 @@ const StaffListPageContent: FC<StaffListPageContentProps> = ({
       isLoading={isFetching}
       onClearFilters={onClearFilters}
       onCreate={onCreate}
-      onRowClick={(id) => navigate(URLS.DETAILS(id))}
+      onRowClick={(id) => navigate(URLS.STAFF_DETAILS(id))}
       onDeleteRow={(row) => onDeleteRow(row, staffQueryKey)}
     />
   );
@@ -99,7 +99,7 @@ const StaffListPage: FC = () => {
             label={t("header.toRoles")}
             onClick={() => {
               if (isRolePageRevampEnabled) {
-                navigate(URLS.ROLE);
+                navigate(URLS.ROLE_INDEX);
               } else {
                 window.location.assign(LEGACY_URLS.ROLE);
               }

@@ -26,7 +26,7 @@
     "format:check": "pnpm exec nx run-many -t format:check",
     "format:check:affected": "pnpm exec nx affected --target=format:check",
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "pnpm exec nx run-many --target=build --projects=tag:postinstall",
+    "postinstall": "node tools/scripts/postinstall.mts",
     "lint": "pnpm exec nx run-many -t lint",
     "lint:affected": "pnpm exec nx affected --target=lint",
     "lint:affected:fix": "pnpm exec nx affected --target=lint:fix",

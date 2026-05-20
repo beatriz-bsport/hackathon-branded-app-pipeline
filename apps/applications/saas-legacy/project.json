@@ -11,6 +11,19 @@
         }
       ]
     },
+    "ci:build": {
+      "dependsOn": [
+        {
+          "projects": [
+            "@bsport/analytics",
+            "@bsport/broadcast-channel-polyfill",
+            "@bsport/common",
+            "@bsport/consent-management"
+          ],
+          "target": "build"
+        }
+      ]
+    },
     "lint": {
       "executor": "nx:run-commands",
       "options": {

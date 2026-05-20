@@ -3,5 +3,5 @@
 
 .Deploy Common Base:
   extends:
-    - .ci-runner-2xlarge # 16 vCPU, 32GB RAM
+    - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   before_script: !reference [.pnpm-setup, before_script]

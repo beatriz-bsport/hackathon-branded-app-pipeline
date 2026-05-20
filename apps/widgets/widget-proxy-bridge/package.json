@@ -40,6 +40,20 @@
     "tags": [
       "application:revamp",
       "scope:studio"
-    ]
+    ],
+    "targets": {
+      "ci:build": {
+        "dependsOn": [
+          {
+            "projects": [
+              "@bsport/config-federation",
+              "@bsport/fetch",
+              "@bsport/local-storage-auth-token"
+            ],
+            "target": "build"
+          }
+        ]
+      }
+    }
   }
 }

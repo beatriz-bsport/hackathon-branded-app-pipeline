@@ -1564,6 +1564,12 @@ importers:
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../../../packages/utils/currency
+      '@bsport/datetime-formatting':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime-formatting
+      '@bsport/datetime-manipulation':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/datetime/manipulation
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -4060,9 +4066,6 @@ importers:
       '@bsport/api-financial-services':
         specifier: workspace:*
         version: link:../../../api/financial-services
-      '@bsport/api-platform':
-        specifier: workspace:*
-        version: link:../../../api/platform
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../utils/currency

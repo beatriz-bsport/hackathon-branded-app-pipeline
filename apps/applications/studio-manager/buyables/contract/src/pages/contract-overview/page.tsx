@@ -6,7 +6,7 @@ import { ContractDetailsSuspense } from "#src/components/contract-details-suspen
 import { useDetailsConfig } from "#src/hooks/layout/use-details-config";
 
 const ContractOverviewPageInner: FC = () => {
-  const { detailsLayoutConfig, headerConfig, contract, archiveModal } =
+  const { detailsLayoutConfig, headerConfig, contract, modals } =
     useDetailsConfig();
   const { detailsLayoutProps } = detailsLayoutConfig;
 
@@ -18,7 +18,7 @@ const ContractOverviewPageInner: FC = () => {
         This will be the overview page
       </DetailsLayout.Content>
 
-      {archiveModal}
+      {modals}
     </DetailsLayout>
   );
 };

@@ -275,16 +275,26 @@ function normalizeDateTime(dateTime: DateTime) {
 }
 
 /**
- * Determine if a date is in the past (strictly)
+ * Determine if a date is in the past
+ * The comparison is strict by default, but you can make it large with the second params.
  */
-export function isPast(date: string | DateTime): boolean {
+export function isPast(
+  date: string | DateTime,
+  strict: boolean = true,
+): boolean {
+  if (typeof date === "string" && !isValidDate(date)) {
+    return false;
+  }
+
   const today = LuxonDateTime.now();
   const dateToCompare =
     typeof date === "string"
       ? fromIsoString(date, { zone: today.zoneName })
       : date;
   const todayInSameZone = today.setZone(dateToCompare.zone);
-  return normalizeDateTime(dateToCompare) < normalizeDateTime(todayInSameZone);
+  return strict
+    ? normalizeDateTime(dateToCompare) < normalizeDateTime(todayInSameZone)
+    : normalizeDateTime(dateToCompare) <= normalizeDateTime(todayInSameZone);
 }
 
 /**

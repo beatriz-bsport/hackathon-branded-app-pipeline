@@ -27,7 +27,6 @@ export type UseBackgroundTaskParams<
  * You can customize the toasts if you want, by providing ToastProps
  * @description
  * ```tsx
- * import { useBackgroundTask } from "@bsport/kaizen-business-components/platform/background-task";
  * import { fetch } from "#src/utils/fetch";
  * 
  * const MyComponent = () => {

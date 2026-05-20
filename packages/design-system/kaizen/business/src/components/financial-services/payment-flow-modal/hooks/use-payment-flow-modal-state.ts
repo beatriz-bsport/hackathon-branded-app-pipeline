@@ -9,7 +9,12 @@ import type { StripePaymentMethodHandle } from "#src/components/financial-servic
 import { resolveInvoiceInstallmentsEligibility } from "#src/components/financial-services/payment-flow-modal/lib/invoice-installments-eligibility";
 import {
   INVOICE_ALREADY_PAID_ALERT,
+  PAYMENT_TAB,
+  type PaymentTab,
+  buildInstallmentPerIntervalCaptionText,
+  buildInstallmentScheduleExplainerText,
   getPaymentFlowDefaultValues,
+  installmentScheduleDetailSchema,
   paymentFlowFormSchema,
 } from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-form";
 import type {
@@ -117,8 +122,8 @@ export const usePaymentFlowModalState = ({
 }: UsePaymentFlowModalStateParams) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
 
-  const [activeTab, setActiveTab] = useState<"one-time" | "installments">(
-    "one-time",
+  const [activeTab, setActiveTabState] = useState<PaymentTab>(
+    PAYMENT_TAB.ONE_TIME,
   );
   const [isPartialEnabled, setIsPartialEnabled] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
@@ -135,6 +140,7 @@ export const usePaymentFlowModalState = ({
   const methods = useFormController({
     schema: paymentFlowFormSchema,
     defaultValues: getPaymentFlowDefaultValues(),
+    mode: "onChange",
   });
 
   const { data: member } = useFetchMember(fetch, memberId);
@@ -195,9 +201,9 @@ export const usePaymentFlowModalState = ({
 
   useEffect(() => {
     if (!isOpen) return;
-    if (activeTab !== "installments") return;
+    if (activeTab !== PAYMENT_TAB.INSTALLMENTS) return;
     if (!installmentsEligibility.eligible || isInvoiceAlreadyPaid) {
-      setActiveTab("one-time");
+      setActiveTabState(PAYMENT_TAB.ONE_TIME);
     }
   }, [
     activeTab,
@@ -206,7 +212,44 @@ export const usePaymentFlowModalState = ({
     isOpen,
   ]);
 
+  useEffect(() => {
+    if (
+      activeTab !== PAYMENT_TAB.INSTALLMENTS ||
+      selectedPaymentMethod?.kind !==
+        PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL ||
+      selectedPaymentMethod.id !== ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE
+    )
+      return;
+
+    setSelectedPaymentMethod(null);
+    methods.setValue("selectedGiftCardId", null, {
+      shouldDirty: false,
+      shouldValidate: false,
+    });
+  }, [activeTab, methods, selectedPaymentMethod]);
+
   const partialAmountCts = methods.watch("partialAmountCts");
+  const installmentInterval = methods.watch("installmentInterval");
+  const installmentRecurrenceBasis = methods.watch(
+    "installmentRecurrenceBasis",
+  );
+  const installmentNbInterval = methods.watch("installmentNbInterval");
+
+  const parsedInstallmentSchedule = installmentScheduleDetailSchema.safeParse({
+    installmentInterval,
+    installmentRecurrenceBasis,
+    installmentNbInterval,
+  });
+  const installmentScheduleDetail = parsedInstallmentSchedule.success
+    ? buildInstallmentScheduleExplainerText(parsedInstallmentSchedule.data)
+    : undefined;
+  const installmentPerIntervalCaption = parsedInstallmentSchedule.success
+    ? buildInstallmentPerIntervalCaptionText(
+        invoiceRemainingAmount,
+        parsedInstallmentSchedule.data,
+      )
+    : undefined;
+
   const [committedPartialAmountCts, setCommittedPartialAmountCts] =
     useState(partialAmountCts);
   const [isPartialAmountFocused, setIsPartialAmountFocused] = useState(false);
@@ -327,9 +370,19 @@ export const usePaymentFlowModalState = ({
     selectedPaymentMethod?.kind !==
       PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL ||
     !PARTIAL_UNSUPPORTED_METHOD_IDS.has(selectedPaymentMethod.id);
-  const disabledAllMethodIds = isPartialEnabled
-    ? Array.from(PARTIAL_UNSUPPORTED_METHOD_IDS)
-    : [];
+
+  const disabledAllMethodIds = useMemo(() => {
+    const ids = new Set<AllPaymentMethodKey>();
+    if (isPartialEnabled) {
+      for (const id of PARTIAL_UNSUPPORTED_METHOD_IDS) {
+        ids.add(id);
+      }
+    }
+    if (activeTab === PAYMENT_TAB.INSTALLMENTS) {
+      ids.add(ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE);
+    }
+    return Array.from(ids);
+  }, [activeTab, isPartialEnabled]);
   const isPartialAmountInvalidLow = partialAmountCts <= 0;
   const isPartialAmountInvalidHigh =
     partialAmountCts > invoiceRemainingAmountCts;
@@ -412,13 +465,34 @@ export const usePaymentFlowModalState = ({
     partialAmountMinError,
   ]);
 
+  const hasInstallmentFieldErrors =
+    activeTab === PAYMENT_TAB.INSTALLMENTS &&
+    Boolean(
+      methods.formState.errors.installmentInterval ||
+        methods.formState.errors.installmentRecurrenceBasis ||
+        methods.formState.errors.installmentNbInterval ||
+        methods.formState.errors.installmentAnchorDate,
+    );
+
   const isConfirmDisabled = useMemo(() => {
+    const isGiftCardSelectedInInstallmentsTab =
+      activeTab === PAYMENT_TAB.INSTALLMENTS &&
+      selectedPaymentMethod?.kind ===
+        PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL &&
+      selectedPaymentMethod.id ===
+        ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE;
+
+    const isWaitingForPartialAmountCommit =
+      isPartialEnabled &&
+      (isPartialAmountFocused || isPartialAmountPendingCommit);
+
     if (
       isInvoiceAlreadyPaid ||
       !selectedPaymentMethod ||
       confirmPaymentMutation.isPending ||
-      (isPartialEnabled &&
-        (isPartialAmountFocused || isPartialAmountPendingCommit))
+      hasInstallmentFieldErrors ||
+      isGiftCardSelectedInInstallmentsTab ||
+      isWaitingForPartialAmountCommit
     ) {
       return true;
     }
@@ -470,8 +544,10 @@ export const usePaymentFlowModalState = ({
 
     return false;
   }, [
+    activeTab,
     computedPartialAmountError,
     confirmPaymentMutation.isPending,
+    hasInstallmentFieldErrors,
     isInvoiceAlreadyPaid,
     isLoadingStripeReaders,
     isPartialAmountFocused,
@@ -604,6 +680,13 @@ export const usePaymentFlowModalState = ({
     methods.clearErrors("partialAmountCts");
   };
 
+  const setActiveTab = (tab: PaymentTab) => {
+    if (tab === PAYMENT_TAB.INSTALLMENTS) {
+      handlePartialToggle(false);
+    }
+    setActiveTabState(tab);
+  };
+
   const body: PaymentFlowModalBodyState = {
     memberId,
     fetch,
@@ -635,6 +718,9 @@ export const usePaymentFlowModalState = ({
     memberName: member?.name ?? `#${memberId}`,
     invoiceUrl: `/invoice/${invoiceId}`,
     memberUrl: `/member/${memberId}`,
+    installmentScheduleDetail,
+    installmentPerIntervalCaption,
+    invoiceRemainingAmountCts,
   };
 
   return {

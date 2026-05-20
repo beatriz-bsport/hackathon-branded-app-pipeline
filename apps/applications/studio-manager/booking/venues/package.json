@@ -45,6 +45,7 @@
     "vite": "^5.4.11"
   },
   "peerDependencies": {
+    "@bsport/api-book": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",

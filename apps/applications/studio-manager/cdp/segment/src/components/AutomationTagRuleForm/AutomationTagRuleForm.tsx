@@ -181,7 +181,7 @@ export const AutomationTagRuleForm = ({
           fetch={fetch}
           clearOnSelect
           multiSelect={false}
-          showSelectedItemsInBase={false}
+          withSelectedInBase={false}
           loadingMessage={t(
             "actions.createAutomationModal.tagRuleForm.tag.loading",
           )}

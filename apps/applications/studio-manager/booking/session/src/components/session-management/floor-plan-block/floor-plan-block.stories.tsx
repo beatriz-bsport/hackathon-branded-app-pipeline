@@ -31,7 +31,7 @@ const withSeededClient =
 
 const meta: Meta<FloorPlanBlockComponent> = {
   component: FloorPlanBlock,
-  title: "FloorPlanBlock",
+  title: "Session Management/FloorPlanBlock",
   parameters: {
     layout: "padded",
     docs: {

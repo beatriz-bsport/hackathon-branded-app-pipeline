@@ -59,7 +59,7 @@ const fourStateArgs = {
 };
 
 const meta: Meta<typeof SpotCanvas> = {
-  title: "SpotCanvas",
+  title: "Session Management/SpotCanvas",
   component: SpotCanvas,
   parameters: {
     layout: "centered",

@@ -121,6 +121,9 @@ const OfferPartnershipSettings: React.FC<Props> = ({
     }
   }, [dateIntervalStart, establishment, fetchActivePartnershipAccountForOffer]);
 
+  const partnerMaxBookingCountRef = React.useRef(partnerMaxBookingCount);
+  partnerMaxBookingCountRef.current = partnerMaxBookingCount;
+
   useEffect(() => {
     if (effectif) {
       const newLimit = Math.floor(DEFAULT_SPOT_LIMIT_RATIO * effectif);
@@ -158,6 +161,12 @@ const OfferPartnershipSettings: React.FC<Props> = ({
 
   useEffect(() => {
     if (!activePartnershipAccounts) return;
+
+    const currentMax = partnerMaxBookingCountRef.current;
+    if (currentMax != null && effectif && currentMax > effectif) {
+      setFieldValue('partnerMaxBookingCount', effectif);
+    }
+
     const syncedPartnershipOffers = activePartnershipAccounts.map((account) => {
       const perPartnerDefault = Math.max(
         1,
@@ -181,7 +190,7 @@ const OfferPartnershipSettings: React.FC<Props> = ({
     });
     setFieldValue('partnershipOffers', syncedPartnershipOffers);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activePartnershipAccounts, defaultSpotLimit]);
+  }, [activePartnershipAccounts, defaultSpotLimit, effectif]);
 
   useEffect(() => {
     if (

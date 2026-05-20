@@ -1,17 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { fetchActivePartnershipAccountsAPI } from "@bsport/api-book";
+import {
+  fetchActivePartnershipAccountsAPI,
+  partnershipKeys,
+} from "@bsport/api-book";
 
-import { WELLHUB_ACTIVE_PARTNERSHIP_ACCOUNT_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
 
 export const useFetchActivePartnershipAccountForOffer = (
   offerId: number | null,
 ) => {
+  const params = { offer: offerId! };
   return useQuery({
-    queryKey: [WELLHUB_ACTIVE_PARTNERSHIP_ACCOUNT_QUERY_KEY, offerId],
-    queryFn: () =>
-      fetchActivePartnershipAccountsAPI(fetch, { offer: offerId! }),
+    queryKey: partnershipKeys.activePartnershipAccounts(params),
+    queryFn: () => fetchActivePartnershipAccountsAPI(fetch, params),
     enabled: offerId !== null,
   });
 };

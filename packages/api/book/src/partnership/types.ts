@@ -1,4 +1,4 @@
-import type { Establishment } from "@bsport/api-core";
+import type { Establishment } from "#src/establishments";
 
 /**
  * Shared booking-side fields exposed for partnership accounts across endpoints.

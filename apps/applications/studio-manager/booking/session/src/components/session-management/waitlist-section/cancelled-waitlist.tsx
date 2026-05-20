@@ -5,8 +5,11 @@ import {
   Avatar,
   Body,
   GenericTableColumn,
+  List,
+  type ListProps,
   PaginationProps,
   Table,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
@@ -49,6 +52,8 @@ export const CancelledWaitlist: FC<{
   const selectedBookingOptionId = useSessionManagementStore(
     (state) => state.selectedBookingOptionId,
   );
+
+  const isMobile = !useMatchMedia("lg");
 
   const hasSearchQuery = searchQuery.trim().length > 0;
 
@@ -95,6 +100,61 @@ export const CancelledWaitlist: FC<{
       ),
     },
   ];
+
+  const listItems: ListProps["items"] = searchedBookingOptions.map(
+    (bookingOption) => ({
+      id: `cancelled-waitlist-${bookingOption.id}`,
+      title: bookingOption.memberData?.name ?? "",
+      avatar: {
+        src: bookingOption.memberData?.photo,
+        initials: getMemberInitials({
+          firstname: bookingOption.memberData?.first_name,
+          lastname: bookingOption.memberData?.last_name,
+        }),
+        shape: "round" as const,
+      },
+      isActive: readOnly
+        ? undefined
+        : bookingOption.id === selectedBookingOptionId,
+      onItemClick: readOnly
+        ? undefined
+        : () => {
+            if (bookingOption.id === selectedBookingOptionId) {
+              setSelectedBookingOption(null);
+              return;
+            }
+            setSelectedBooking(null);
+            setSelectedBookingOption(bookingOption.id);
+          },
+    }),
+  );
+
+  if (isMobile) {
+    return (
+      <div
+        className={clsx({
+          "border-stroke-regular border-stroke-weak rounded-md overflow-hidden":
+            !isLoading,
+        })}
+      >
+        <List
+          id="cancelled-waitlist-mobile-list"
+          items={listItems}
+          paginationProps={paginationProps}
+          emptyStateProps={{
+            isEmpty: !searchedBookingOptions.length,
+            emptyConfig: {
+              title: t("waitList.emptyState.removed"),
+            },
+          }}
+          loadingProps={{
+            isLoading,
+            message: t("bookingsTable.loadingMessage"),
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div

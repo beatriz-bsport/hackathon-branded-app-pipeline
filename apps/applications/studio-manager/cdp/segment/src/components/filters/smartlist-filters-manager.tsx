@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 
-import { usePassesQuery } from "#src/api/use-passes-query";
+import { dataAccessLayer } from "@bsport/sm-backbone";
+
 import { useSmartlistFiltersQuery } from "#src/api/use-smartlist-filters-query";
 import { QueryBoundary } from "#src/components/QueryBoundary/QueryBoundary";
 import { useTranslation } from "#src/utils/i18n";
@@ -11,8 +12,8 @@ import {
   FilterSelectorPopover,
 } from "./filter-selector-popover";
 import { FILTER_SELECTOR_CATEGORIES } from "./filter-selector.constants";
-import { PassesFilterCard } from "./passes-filter/components/passes-filter-card";
 import { PassesFilterCardSkeleton } from "./passes-filter/components/passes-filter-card-skeleton";
+import { PassesFilterCardWithData } from "./passes-filter/components/passes-filter-card-with-data";
 import { createDefaultPassesFilter } from "./passes-filter/default-value";
 import { mapApiFilterToFormValue as mapPaymentPackFilterToFormValue } from "./passes-filter/mappers/api-to-form-value";
 import type { PassesFilterFormValue } from "./passes-filter/types";
@@ -21,6 +22,7 @@ import {
   type SmartlistFiltersManagerFilterType,
   isSmartlistFiltersManagerFilterType,
 } from "./shared/types-guards";
+import { TotalBookingFilterCardSkeleton } from "./total-booking/components/total-booking-filter-card-skeleton";
 import { TotalBookingNumberFilterCard } from "./total-booking/components/total-booking-number-filter-card";
 import { createDefaultTotalBookingNumberFilter } from "./total-booking/default-value";
 import { mapTotalBookingFilterToFormValue } from "./total-booking/mappers/api-to-form-value";
@@ -76,34 +78,6 @@ const createDraftClientId = (filterType: FilterType): string => {
 };
 
 /**
- * Card wrapper that lazily fetches pass options per rendered pass filter card.
- */
-const PassesFilterCardWithData = ({
-  smartlistId,
-  filterValue,
-  onDeleteUnsavedFilter,
-  onSaveSuccess,
-}: {
-  smartlistId: string;
-  filterValue: PassesFilterFormValue;
-  onDeleteUnsavedFilter?: () => void;
-  onSaveSuccess?: () => void;
-}) => {
-  const { data } = usePassesQuery("");
-  const passOptions = data?.results ?? [];
-
-  return (
-    <PassesFilterCard
-      smartlistId={smartlistId}
-      filterValue={filterValue}
-      passOptions={passOptions}
-      onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-      onSaveSuccess={onSaveSuccess}
-    />
-  );
-};
-
-/**
  * Central manager for all smartlist filter types.
  * Every filter family shares the same draft management and rendering flow.
  */
@@ -111,6 +85,7 @@ export const SmartlistFiltersManager = ({
   smartlistId,
 }: SmartlistFiltersManagerProps) => {
   const { t } = useTranslation("filters");
+  const companyId = dataAccessLayer.useCompanyTheme()?.company;
   const smartlistNumericId = Number(smartlistId);
   const [draftFilters, setDraftFilters] = useState<DraftFilter[]>([]);
 
@@ -154,15 +129,23 @@ export const SmartlistFiltersManager = ({
       value,
       onDeleteUnsavedFilter,
       onSaveSuccess,
-    }) => (
-      <TotalBookingNumberFilterCard
-        key={key}
-        smartlistId={smartlistId}
-        filterValue={value}
-        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
-        onSaveSuccess={onSaveSuccess}
-      />
-    ),
+    }) =>
+      typeof companyId === "number" && companyId > 0 ? (
+        <QueryBoundary
+          key={key}
+          loadingFallback={<TotalBookingFilterCardSkeleton />}
+        >
+          <TotalBookingNumberFilterCard
+            smartlistId={smartlistId}
+            companyId={companyId}
+            filterValue={value}
+            onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+            onSaveSuccess={onSaveSuccess}
+          />
+        </QueryBoundary>
+      ) : (
+        <TotalBookingFilterCardSkeleton key={key} />
+      ),
   };
 
   const createDraftFilterByType: {

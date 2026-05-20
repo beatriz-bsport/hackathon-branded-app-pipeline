@@ -35,8 +35,6 @@ export const CollectionList: FC<CollectionListProps> = ({
       title: row.name,
       description: row.description,
       onItemClick: row.onRowClick,
-      disabled: row.isPendingDeletion,
-      className: row.isPendingDeletion ? "bg-surface-default-weak" : undefined,
       avatar: {
         shape: "squared" as const,
         size: "md" as const,

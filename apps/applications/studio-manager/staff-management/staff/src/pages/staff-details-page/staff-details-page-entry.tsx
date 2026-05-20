@@ -23,7 +23,7 @@ const StaffDetailsPageEntryInner: FC<StaffDetailsPageEntryInnerProps> = ({
   const staff = data.find((s) => s.id === staffId);
 
   if (!staff) {
-    return <Navigate to={URLS.INDEX} />;
+    return <Navigate to={URLS.STAFF_INDEX} replace />;
   }
 
   return <StaffDetailsPage staff={staff} />;
@@ -34,7 +34,7 @@ export const StaffDetailsPageEntry: FC = () => {
   const parsedId = staffId ? Number(staffId) : NaN;
 
   if (!Number.isInteger(parsedId) || parsedId <= 0) {
-    return <Navigate to={URLS.INDEX} />;
+    return <Navigate to={URLS.STAFF_INDEX} replace />;
   }
 
   return (

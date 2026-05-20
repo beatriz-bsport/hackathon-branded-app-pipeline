@@ -1,4 +1,4 @@
-import { type Establishment } from "@bsport/api-core";
+import { type Establishment } from "@bsport/api-book";
 
 export type GroupedEstablishment = {
   title: string;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import type { Teacher } from "@bsport/api-core";
+import type { Teacher } from "@bsport/api-book";
 import {
   type PaginationProps,
   Table,

@@ -11,10 +11,9 @@ import {
 } from "@bsport/api-buyables";
 import type { Fetch } from "@bsport/fetch";
 
+import { mapAndSortConsumerGiftcards } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/map-consumer-giftcards";
+import type { PaymentFlowGiftCard } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
-
-import { mapAndSortConsumerGiftcards } from "../payment-methods/gift-card/map-consumer-giftcards";
-import type { PaymentFlowGiftCard } from "../payment-methods/gift-card/types";
 
 const DEFAULT_PAGE_SIZE = 4;
 const GIFTCARDS_STALE_TIME = 2 * 60 * 1000; // 2 minutes

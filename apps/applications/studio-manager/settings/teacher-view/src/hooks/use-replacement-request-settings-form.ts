@@ -5,7 +5,7 @@ import {
   type ReplacementRequestConfiguration,
   teacherKeys,
   updateReplacementRequestConfigurationMutationOptions,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 import { useFormController } from "@bsport/form";
 import { toast } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";

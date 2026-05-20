@@ -1,8 +1,10 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { type FC, useCallback, useMemo } from "react";
 
-import { retrieveGroupActivityQueryOptions } from "@bsport/api-book";
-import { retrieveEstablishmentQueryOptions } from "@bsport/api-core";
+import {
+  retrieveEstablishmentQueryOptions,
+  retrieveGroupActivityQueryOptions,
+} from "@bsport/api-book";
 import { fetchSportCategoriesQueryOptions } from "@bsport/api-core/categories";
 import { DetailDrawer } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";

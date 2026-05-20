@@ -114,6 +114,9 @@ export const useNavigationElements = ({
   const isClassesMergedViewEnabled = useNavFlag(NavFlags.CLASSES_MERGED_VIEW);
   const isAggregatorsEnabled = useNavFlag(NavFlags.SETTINGS_AGGREGATORS);
   const isOnDemandRevampEnabled = useNavFlag(NavFlags.ONDEMAND_REVAMP);
+  const isStaffPageRevampEnabled = useNavFlag(NavFlags.SETTINGS_STAFF_PAGE);
+  const isRolePageRevampEnabled = useNavFlag(NavFlags.SETTINGS_ROLE_PAGE);
+  const isVenuesPageEnabled = useNavFlag(NavFlags.BOOKING_VENUES_PAGE);
 
   // Company Theme flags
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -467,9 +470,14 @@ export const useNavigationElements = ({
               hidden: !hasSubstitutionToolAccess,
             },
             {
-              id: "establishments",
-              label: t("menus.myStudio.establishments"),
-              ...navigationUrls.establishment,
+              id: "venues",
+              label: isVenuesPageEnabled
+                ? t("menus.myStudio.venues")
+                : t("menus.myStudio.establishments"),
+              ...flaggedNavigationUrl({
+                enabled: isVenuesPageEnabled,
+                navigationItem: navigationUrls.establishment,
+              }),
             },
           ],
         },
@@ -497,12 +505,18 @@ export const useNavigationElements = ({
         {
           id: "permissions",
           label: t("menus.settings.permissions"),
-          ...navigationUrls.settings_permission,
+          ...flaggedNavigationUrl({
+            enabled: isRolePageRevampEnabled,
+            navigationItem: navigationUrls.settings_permission,
+          }),
         },
         {
           id: "staff",
           label: t("menus.settings.staff"),
-          ...navigationUrls.settings_staff,
+          ...flaggedNavigationUrl({
+            enabled: isStaffPageRevampEnabled,
+            navigationItem: navigationUrls.settings_staff,
+          }),
         },
         {
           id: "personalization",
@@ -644,6 +658,9 @@ export const useNavigationElements = ({
     hasCreateInvoiceAccess,
     hasSubstitutionToolAccess,
     isClassesMergedViewEnabled,
+    isStaffPageRevampEnabled,
+    isRolePageRevampEnabled,
+    isVenuesPageEnabled,
   ]);
 
   return navigationItems[menuSet];

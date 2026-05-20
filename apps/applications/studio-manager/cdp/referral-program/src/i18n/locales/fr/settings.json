@@ -50,7 +50,7 @@
           }
         },
         "alerts": {
-          "equalToZero": "En choisissant cette valeur, aucune remise ne sera appliquée à l'achat des membres parrainés."
+          "equalToZero": "En choisissant cette valeur, aucune remise ne sera appliquée pour le parrainage d'un nouveau client."
         },
         "errors": {
           "tooManyDecimalPoints": "Le montant ne peut pas avoir plus de 2 décimales",

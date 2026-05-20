@@ -5,7 +5,8 @@ import {
   FetchTeachersParams,
   Teacher,
   fetchFlatTeachers,
-} from "@bsport/api-core";
+  teacherKeys,
+} from "@bsport/api-book";
 
 import { fetch } from "../utils/fetch";
 
@@ -19,9 +20,10 @@ const teachersQueryOptions = (
   params: FetchTeachersParams,
 ) => {
   const teacherIdsSorted = [...teacherIds].sort();
+  const queryParams = { id__in: teacherIdsSorted, ...params };
   return queryOptions({
-    queryKey: ["teachers", teacherIdsSorted, params],
-    queryFn: () => fetchTeachers({ id__in: teacherIdsSorted, ...params }),
+    queryKey: teacherKeys.list(queryParams),
+    queryFn: () => fetchTeachers(queryParams),
     enabled: enabled && teacherIdsSorted.length > 0,
     staleTime: TEACHERS_STALE_TIME,
   });

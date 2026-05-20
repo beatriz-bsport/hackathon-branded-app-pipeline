@@ -7,10 +7,10 @@ import type { SelectedDate } from "@bsport/kaizen-primitive-core";
 import type { AllPaymentMethodKey } from "#src/components/financial-services/payment-method-selector/constants";
 import type { PaymentMethodSelectorSelection } from "#src/components/financial-services/payment-method-selector/types";
 
-import type { PaymentTab } from "./payment-flow-form";
-import type { PaymentFlowGiftCard } from "./payment-methods/gift-card/types";
-import type { ManualMethodType } from "./payment-methods/manual/types";
-import type { StripePaymentMethodHandle } from "./payment-methods/stripe/types";
+import type { PaymentFlowGiftCard } from "./components/payment-methods/gift-card/types";
+import type { ManualMethodType } from "./components/payment-methods/manual/types";
+import type { StripePaymentMethodHandle } from "./components/payment-methods/stripe/types";
+import type { PaymentTab } from "./lib/payment-flow-form";
 
 export type PaymentFlowModalProps = {
   isOpen: boolean;
@@ -26,6 +26,8 @@ export type PaymentFlowModalBodyState = {
   fetch: PaymentFlowModalProps["fetch"];
   activeTab: PaymentTab;
   setActiveTab: (tab: PaymentTab) => void;
+  installmentsTabDisabled: boolean;
+  installmentsTabTooltip: string | undefined;
   isPartialEnabled: boolean;
   setIsPartialEnabled: (enabled: boolean) => void;
   onPartialAmountFocus: () => void;

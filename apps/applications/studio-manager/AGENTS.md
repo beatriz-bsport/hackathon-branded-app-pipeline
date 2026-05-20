@@ -9,7 +9,7 @@ Modern backoffice apps. New manager-facing product work belongs here unless expl
 - Path: `apps/applications/studio-manager/<domain>/<unit>`
 - Package name: `@bsport/sm-*`
 - Studio Manager apps are libraries; local dev port still lives in `package.json#federation.devPort`
-- Local imports should use `#src/*`
+- Local imports: use `#src/*` for **cross-directory** references (replaces `../` parent traversal). **Same-directory** `./foo` siblings are fine.
 
 ## Preferred workflow
 

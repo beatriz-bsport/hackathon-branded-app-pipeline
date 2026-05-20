@@ -5,6 +5,7 @@ import {
   type FetchGroupActivitiesParams,
   type SearchGroupActivitiesParams,
   fetchGroupActivitiesAndWorkshops,
+  groupActivityKeys,
   searchGroupActivitiesAndWorkshopsAPI,
 } from "@bsport/api-book";
 
@@ -22,7 +23,7 @@ const infiniteGroupActivitiesQueryOptions = (
   enabled: boolean,
 ) =>
   infiniteQueryOptions({
-    queryKey: ["groupActivities", "infinite", params],
+    queryKey: groupActivityKeys.infinite(params),
     queryFn: async ({ pageParam }) => {
       return fetchGroupActivitiesAndWorkshops(fetch, {
         ...params,
@@ -40,7 +41,7 @@ const infiniteSearchGroupActivitiesQueryOptions = (
   enabled: boolean,
 ) =>
   infiniteQueryOptions({
-    queryKey: ["searchGroupActivitiesAndWorkshops", "infinite", params],
+    queryKey: groupActivityKeys.searchInfinite(params),
     queryFn: async ({ pageParam }) => {
       return searchGroupActivitiesAndWorkshopsAPI(fetch, {
         ...params,

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { Establishment } from "@bsport/api-core";
+import { Establishment } from "@bsport/api-book";
 
 /**
  * Hook to group establishments by their address.

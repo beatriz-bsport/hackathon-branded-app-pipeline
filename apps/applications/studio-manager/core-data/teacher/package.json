@@ -27,9 +27,9 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
-    "@bsport/api-core": "workspace:*",
+    "@bsport/api-book": "workspace:*",
     "@bsport/permissions": "workspace:*",
-    "@bsport/store-core-data-teacher": "workspace:*",
+    "@bsport/store-booking-teacher": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-debounce": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*"

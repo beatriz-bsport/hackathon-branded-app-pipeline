@@ -1,9 +1,8 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import pick from "lodash/pick";
 
-import { fetchSimilarSessionsAPI } from "@bsport/api-book";
+import { fetchSimilarSessionsAPI, sessionKeys } from "@bsport/api-book";
 
-import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
 
 const SESSIONS_WITH_PENDING_REQUESTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
@@ -15,7 +14,7 @@ const sessionsWithPendingRequestsQueryOptions = (
   enabled: boolean,
 ) => {
   return queryOptions({
-    queryKey: [`${SESSIONS_QUERY_KEY}_similar`, sessionId],
+    queryKey: sessionKeys.similarList(sessionId),
     queryFn: () => fetchSimilarSessions(sessionId, {}),
     enabled: enabled,
     staleTime: SESSIONS_WITH_PENDING_REQUESTS_STALE_TIME,

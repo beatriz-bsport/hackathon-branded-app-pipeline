@@ -50,7 +50,7 @@
           }
         },
         "alerts": {
-          "equalToZero": "Wenn du diesen Wert wählst, wird kein Rabatt auf den Kauf des geworbenen Mitglieds angewendet."
+          "equalToZero": "Wenn du diesen Wert wählst, wird kein Rabatt für die Empfehlung eines Neukunden angewendet."
         },
         "errors": {
           "tooManyDecimalPoints": "Der Betrag darf nicht mehr als 2 Dezimalstellen haben",

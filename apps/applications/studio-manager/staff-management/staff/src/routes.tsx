@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router";
 
 import { URLS } from "#src/urls";
@@ -12,12 +12,22 @@ const StaffDetailsPageEntry = lazy(
 
 export const AppRoutes = () => {
   return (
-    <Routes>
-      <Route element={<StaffListPage />} index />
-      <Route element={<StaffDetailsPageEntry />} path={URLS.DETAILS_SLUG} />
-      <Route element={<RoleListPage />} path={URLS.ROLE} />
-      <Route element={<RoleDetailsPage />} path={URLS.ROLE_DETAILS} />
-      <Route element={<Navigate to={URLS.INDEX} />} path="*" />
-    </Routes>
+    <Suspense>
+      <Routes>
+        <Route element={<StaffListPage />} path={URLS.STAFF} />
+        <Route
+          element={<StaffDetailsPageEntry />}
+          path={URLS.STAFF_DETAILS_SLUG}
+        />
+        <Route element={<RoleListPage />} path={URLS.ROLE} />
+        <Route element={<RoleDetailsPage />} path={URLS.ROLE_DETAILS_SLUG} />
+
+        {/** Default to staff */}
+        <Route element={<Navigate to={URLS.STAFF} />} index />
+
+        {/** Global fallback */}
+        <Route element={<Navigate to={URLS.INDEX} />} path="*" />
+      </Routes>
+    </Suspense>
   );
 };

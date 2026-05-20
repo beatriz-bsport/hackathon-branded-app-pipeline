@@ -33,10 +33,13 @@ declare module "sm-navigation-sidebar/urls" {
     video: string;
     settings_referral: string;
     settings_aggregators: string;
+    settings_permissions: string;
     settings_staff: string;
+    settings_permission: string;
     settings_transactionalNotification: string;
     tag: string;
     marketingNotification: string;
+    establishment: string;
   };
   export const REVAMP_URLS_PRODUCTION: Partial<typeof REVAMP_URLS_DEVELOPMENT>;
   export default REVAMP_URLS_DEVELOPMENT;

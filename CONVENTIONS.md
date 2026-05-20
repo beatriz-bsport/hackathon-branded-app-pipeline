@@ -22,7 +22,7 @@
 - Studio Manager apps are libraries, not separately composed runtime apps.
 - `package.json` still owns `federation.devPort`; use it for isolated local dev with sidebar injection and keep ports aligned with existing apps.
 - If local navigation needs manual wiring, update `studio-manager/navigation-sidebar/src/urls.ts`.
-- Use `#src/*` aliases inside packages.
+- Use `#src/*` aliases inside packages for **cross-directory** imports — they replace `../` parent traversal. **Same-directory** `./foo` siblings are fine.
 
 ## API packages
 

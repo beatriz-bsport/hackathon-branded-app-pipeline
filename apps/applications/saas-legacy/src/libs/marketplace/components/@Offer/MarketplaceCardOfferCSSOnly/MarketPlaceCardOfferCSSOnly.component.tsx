@@ -23,7 +23,10 @@ import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { Level } from '#src/libs/level/types';
 import PopOver from '#src/components/Popover/Popover.component';
 import { generateUniqueOfferIdentifier } from '#src/libs/marketplace/components/@Offer/utils';
-import { shouldApplyEllipsis } from '#src/libs/marketplace/utils';
+import {
+  isOfferOngoing,
+  shouldApplyEllipsis,
+} from '#src/libs/marketplace/utils';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 import { useOfferHours } from '../../../hooks';
 import MarketplaceLevel from '../MarketplaceLevelCSSOnly';
@@ -199,6 +202,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
   const isCardDisabled =
     (theme?.hide_book_button && isOfferPassed) ||
     (!theme.hide_book_button && isBookingDisabled);
+  const isOngoing = isOfferOngoing(offer);
 
   const establishment = useMemo(
     () => establishments?.find((est) => est.id === offer?.establishment),
@@ -246,6 +250,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
       className={clsx({
         'bs-card-offer': true,
         '--disabled': isCardDisabled,
+        'bs-card-offer--ongoing': isOngoing,
       })}
       disabled={isBookingDisabled}
       id={cardOfferId}

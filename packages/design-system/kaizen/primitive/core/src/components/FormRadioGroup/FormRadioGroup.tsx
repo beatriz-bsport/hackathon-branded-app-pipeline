@@ -110,6 +110,7 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
             return (
               <FormRadioField
                 {...option}
+                name={id}
                 checked={value === option.value}
                 onChange={handleChange}
                 disabled={disabled!}

@@ -60,7 +60,7 @@ const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
         <ListLayout.Header
           pageTitle={role.name}
           BreadcrumbsItems={[
-            <Link key="to-roles" to={`../${URLS.ROLE}`}>
+            <Link key="to-roles" to={URLS.ROLE_INDEX}>
               <Breadcrumbs.Item text={t("breadcrumbs.roles")} />
             </Link>,
           ]}
@@ -90,7 +90,7 @@ const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
         role={isDeleteModalOpen ? roleToDelete : null}
         onClose={closeDeleteModal}
         preservePendingDeletionOnUnmount
-        onDeleteScheduled={() => navigate(`../${URLS.ROLE}`, { replace: true })}
+        onDeleteScheduled={() => navigate(URLS.ROLE_INDEX, { replace: true })}
       />
     </>
   );
@@ -102,7 +102,7 @@ const RoleDetailsPage: FC = () => {
   const parsedId = Number(id);
 
   if (!id || !Number.isInteger(parsedId) || parsedId <= 0) {
-    return <Navigate to={`../${URLS.ROLE}`} replace />;
+    return <Navigate to={URLS.ROLE_INDEX} replace />;
   }
 
   return (

@@ -77,6 +77,14 @@
           "^build",
           "translation:update"
         ]
+      },
+      "build:compat": {
+        "dependsOn": [
+          "build"
+        ],
+        "outputs": [
+          "{projectRoot}/dist/assets/style.css"
+        ]
       }
     }
   }

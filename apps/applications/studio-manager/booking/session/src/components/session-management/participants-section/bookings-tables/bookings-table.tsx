@@ -5,9 +5,12 @@ import {
   Avatar,
   Body,
   GenericTableColumn,
+  List,
+  type ListProps,
   PaginationProps,
   Table,
   Toggle,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
@@ -74,6 +77,8 @@ export const BookingsTable: FC<{
   const listedInformation = useSessionManagementStore(
     (state) => state.listedInformation,
   );
+
+  const isMobile = !useMatchMedia("lg");
 
   const columns: GenericTableColumn<RefinedBooking>[] = [
     {
@@ -192,6 +197,99 @@ export const BookingsTable: FC<{
       searchedBookings.length,
     ],
   );
+
+  const listItems: ListProps["items"] = searchedBookings.map((booking) => {
+    const spotName = listedInformation.includes(BookingListedInformation.SPOT)
+      ? booking.spot_information?.name
+      : null;
+    const passName = listedInformation.includes(BookingListedInformation.PASS)
+      ? booking.passData?.name
+      : null;
+    // Join the spot and pass name with a bullet if both exist, otherwise just show the one that exists
+    const secondaryText = [spotName, passName].filter(Boolean).join(" \u2022 ");
+
+    return {
+      id: `booking-${booking.id}`,
+      title: booking.memberData?.name ?? "",
+      description: secondaryText || undefined,
+      avatar: {
+        src: booking.memberData?.photo,
+        initials: getMemberInitials({
+          firstname: booking.memberData?.first_name,
+          lastname: booking.memberData?.last_name,
+        }),
+        shape: "round" as const,
+      },
+      isActive: booking.id === selectedBookingId,
+      onItemClick: () => {
+        if (booking.id === selectedBookingId) {
+          setSelectedBooking(null);
+          return;
+        }
+        setSelectedBookingOption(null);
+        setSelectedBooking(booking.id);
+      },
+      customNode: (
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="flex items-center gap-sm"
+        >
+          <Toggle
+            checked={booking.attendance}
+            id={`attendance-toggle-${booking.id}`}
+            label=""
+            disabled={isSettingAttendance}
+            onChange={() =>
+              setAttendance({
+                bookingId: booking.id,
+                attendance: !booking.attendance,
+                sessionId,
+              })
+            }
+          />
+          <ShortcutActionsButton
+            sessionId={sessionId}
+            bookingId={booking.id}
+            memberId={booking.memberData?.id}
+            openModal={openModal}
+            participantEmail={booking.memberData?.email}
+            participantPhone={booking.memberData?.phone}
+            currentSpot={booking.spot_id}
+          />
+        </div>
+      ),
+    };
+  });
+
+  if (isMobile) {
+    return (
+      <div
+        className={clsx({
+          "border-stroke-regular border-stroke-weak rounded-md overflow-hidden":
+            !isLoading,
+        })}
+      >
+        <List
+          id="bookings-mobile-list"
+          items={listItems}
+          paginationProps={paginationProps}
+          emptyStateProps={{
+            isEmpty: !searchedBookings.length,
+            emptyConfig: {
+              title: t("bookingsTable.emptyState.title"),
+              ctaButtonConfig: {
+                label: t("bookButton"),
+              },
+            },
+          }}
+          loadingProps={{
+            isLoading,
+            message: t("bookingsTable.loadingMessage"),
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div

@@ -10,6 +10,7 @@ import {
 import { Body } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { TeacherCell } from "#src/components/common/teacher-cell";
 import { sessionListAttendanceButtonClickedEvent } from "#src/events/session-list/events";
 import { EnrichedSession, SessionColumns, TableColumn } from "#src/types";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
@@ -21,7 +22,6 @@ import { SessionTypeChips } from "./SessionTypeChips";
 import { AttendanceButton } from "./attendance-button";
 import { ShortcutActionsButton } from "./detail-actions/shortcut-actions-button";
 import { NameCell } from "./name-cell";
-import { TeacherCell } from "./teacher-cell";
 
 export { formatMinutes } from "#src/utils/format-minutes";
 

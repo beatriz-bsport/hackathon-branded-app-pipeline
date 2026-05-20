@@ -15,9 +15,11 @@ import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { toCreatePayload } from "../mappers/form-value-to-create-payload";
 import { totalBookingNumberFilterSchema } from "../schema";
 import type { TotalBookingNumberFilterCardProps } from "../types";
+import { TotalBookingSubFiltersArea } from "./total-booking-sub-filters-area";
 
 export const TotalBookingNumberFilterCard = ({
   smartlistId,
+  companyId,
   filterValue,
   onDeleteUnsavedFilter,
   onSaveSuccess,
@@ -26,11 +28,35 @@ export const TotalBookingNumberFilterCard = ({
   const baseId = useId();
   const fieldIds = {
     comparator: `${baseId}-comparator`,
+    activity: `${baseId}-activity`,
+    establishment: `${baseId}-establishment`,
+    coach: `${baseId}-coach`,
+    paymentPack: `${baseId}-payment-pack`,
+    bookingDate: `${baseId}-booking-date`,
+    bookingHourRange: `${baseId}-booking-hour-range`,
+    level: `${baseId}-level`,
+    attendanceMode: `${baseId}-attendance-mode`,
   };
+
+  const methods = useFormController({
+    mode: "onBlur",
+    schema: totalBookingNumberFilterSchema,
+    defaultValues: filterValue,
+  });
+  const watchedFilterValue = methods.watch();
+  const { errors, dirtyFields } = methods.formState;
 
   const { upsertTotalBookingFilterMutate, isLoading: isSaving } =
     useUpsertTotalBookingFilterMutation(smartlistId, {
       onSuccess: () => {
+        toast({
+          status: "default",
+          icon: "check-circle",
+          title: t("filters.22.toasts.saveSuccess"),
+          buttonIcon: "x-close",
+        });
+        const newValues = methods.getValues();
+        methods.reset(newValues);
         onSaveSuccess?.();
       },
       onError: (error) => {
@@ -55,13 +81,7 @@ export const TotalBookingNumberFilterCard = ({
       },
     });
 
-  const methods = useFormController({
-    mode: "onBlur",
-    schema: totalBookingNumberFilterSchema,
-    defaultValues: filterValue,
-  });
-  const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const isDirty = Object.keys(dirtyFields).length > 0;
 
   const handleSave = methods.handleSubmit(
     (value) => {
@@ -166,6 +186,23 @@ export const TotalBookingNumberFilterCard = ({
           }}
         />
 
+        <TotalBookingSubFiltersArea
+          fieldIds={{
+            activity: fieldIds.activity,
+            establishment: fieldIds.establishment,
+            coach: fieldIds.coach,
+            paymentPack: fieldIds.paymentPack,
+            bookingDate: fieldIds.bookingDate,
+            bookingHourRange: fieldIds.bookingHourRange,
+            level: fieldIds.level,
+            attendanceMode: fieldIds.attendanceMode,
+          }}
+          companyId={companyId}
+          watchedFilterValue={watchedFilterValue}
+          errors={errors}
+          setValue={methods.setValue}
+        />
+
         <div className="flex justify-end">
           <Button
             label={t("filters.22.actions.save")}
@@ -173,7 +210,7 @@ export const TotalBookingNumberFilterCard = ({
             color="main"
             intent="default"
             loading={isSaving}
-            disabled={isSaving || isDeleting}
+            disabled={isSaving || isDeleting || !isDirty}
             onClick={() => void handleSave()}
           />
         </div>

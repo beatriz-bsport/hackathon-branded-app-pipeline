@@ -8,15 +8,19 @@ import {
   isSpotElement,
   isTeacherElement,
 } from "./canvas-transformer";
+import { COACH_AVATAR_BASE_SIZE } from "./elements/teacher-dimensions";
 
 export const VIEWBOX_PADDING = 50;
 export const FALLBACK_VIEWBOX = "-100 -100 200 200";
 // Spot fallback when a shape carries no width/height/radius — matches the
 // renderer's largest default (square / personalized image).
 const DEFAULT_SPOT_EXTENT = 40;
-// DoorElement renders a hardcoded path spanning ±10 × ±5 around its centre.
-const DOOR_HALF_WIDTH = 10;
-const DOOR_HALF_HEIGHT = 5;
+// DoorElement renders an architectural door symbol (slab + swing arc)
+// spanning ±DOOR_HALF in both axes around the authored (x, y).
+const DOOR_HALF = 17.5;
+// Mirrors ScreenElement defaults — see elements/screen-element.tsx.
+const SCREEN_DEFAULT_WIDTH = 100;
+const SCREEN_DEFAULT_HEIGHT = 15;
 
 export type Bounds = {
   minX: number;
@@ -25,23 +29,26 @@ export type Bounds = {
   maxY: number;
 };
 
-const centredBounds = (
+/**
+ * Bounds for an element whose authored `(x, y)` is its **top-left** corner
+ * (saas-legacy CanvasSpot / CanvasRect parity). Non-zero rotations use the
+ * bounding circle of the unrotated rect — always correct, mildly conservative.
+ * The 50px viewBox padding absorbs the slack.
+ */
+const topLeftBounds = (
   x: number,
   y: number,
   w: number,
   h: number,
   rotation: number | undefined,
 ): Bounds => {
-  // For any non-zero rotation, use the bounding circle of the unrotated rect
-  // (radius = half-diagonal). Always correct, mildly conservative — the 50px
-  // viewBox padding absorbs the slack.
-  const halfW = w / 2;
-  const halfH = h / 2;
   if (rotation && rotation !== 0) {
-    const r = Math.sqrt(halfW * halfW + halfH * halfH);
-    return { minX: x - r, minY: y - r, maxX: x + r, maxY: y + r };
+    const cx = x + w / 2;
+    const cy = y + h / 2;
+    const r = Math.sqrt(w * w + h * h) / 2;
+    return { minX: cx - r, minY: cy - r, maxX: cx + r, maxY: cy + r };
   }
-  return { minX: x - halfW, minY: y - halfH, maxX: x + halfW, maxY: y + halfH };
+  return { minX: x, minY: y, maxX: x + w, maxY: y + h };
 };
 
 export const elementBounds = (
@@ -49,31 +56,61 @@ export const elementBounds = (
   coachHeight: number,
 ): Bounds | null => {
   if (isLineElement(el)) {
-    const { x1, y1, x2, y2 } = el.data;
-    return {
-      minX: Math.min(x1, x2),
-      minY: Math.min(y1, y2),
-      maxX: Math.max(x1, x2),
-      maxY: Math.max(y1, y2),
-    };
+    // Walls/lines are polylines on the wire; sum the extent across every
+    // authored point so long multi-segment runs stay inside the viewBox.
+    const { points } = el.data;
+    if (!points || points.length === 0) return null;
+    let minX = Infinity;
+    let minY = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
+    for (const [x, y] of points) {
+      if (x < minX) minX = x;
+      if (y < minY) minY = y;
+      if (x > maxX) maxX = x;
+      if (y > maxY) maxY = y;
+    }
+    return { minX, minY, maxX, maxY };
   }
   if (isSpotElement(el)) {
+    // Legacy parity (saas-legacy spots): `data.height` is the dominant
+    // dimension for non-rectangle shapes — square side, triangle side,
+    // circular diameter. `width` is only meaningful for rectangles. The
+    // viewBox sums the largest plausible footprint so authored sizes don't
+    // get clipped on initial layout.
     const { x, y, width, height, radius, rotation } = el.data;
-    const w = width ?? (radius != null ? radius * 2 : DEFAULT_SPOT_EXTENT);
-    const h = height ?? (radius != null ? radius * 2 : DEFAULT_SPOT_EXTENT);
-    return centredBounds(x, y, w, h, rotation);
+    const fromHeight =
+      height ?? (radius != null ? radius * 2 : DEFAULT_SPOT_EXTENT);
+    const w = width ?? fromHeight;
+    return topLeftBounds(x, y, w, fromHeight, rotation);
   }
   if (isTeacherElement(el)) {
-    return centredBounds(
-      el.data.x,
-      el.data.y,
-      coachHeight,
-      coachHeight,
+    // Legacy parity (saas-legacy CanvasTeacher.component): the avatar's
+    // top-left lands at `(x - avatarSize/4, y - avatarSize/4)`; the avatar
+    // spans `avatarSize` in each axis from there. `coachHeight` is a scale
+    // factor, not a pixel size.
+    const size = (el.data.height ?? COACH_AVATAR_BASE_SIZE) * coachHeight;
+    const tlX = el.data.x - size / 4;
+    const tlY = el.data.y - size / 4;
+    return topLeftBounds(tlX, tlY, size, size, el.data.rotation);
+  }
+  if (isScreenElement(el)) {
+    // ScreenElement renders the polyline symmetrically around (x, y) — not
+    // top-left like spots/rects (diverges from saas-legacy CanvasScreen,
+    // which uses a 130×65 top-left frame with the polyline inset). Mirror
+    // our renderer's centred convention here so the bounds stay accurate.
+    const w = el.data.width ?? SCREEN_DEFAULT_WIDTH;
+    const h = el.data.height ?? SCREEN_DEFAULT_HEIGHT;
+    return topLeftBounds(
+      el.data.x - w / 2,
+      el.data.y - h / 2,
+      w,
+      h,
       el.data.rotation,
     );
   }
-  if (isScreenElement(el) || isRectElement(el)) {
-    return centredBounds(
+  if (isRectElement(el)) {
+    return topLeftBounds(
       el.data.x,
       el.data.y,
       el.data.width,
@@ -82,11 +119,16 @@ export const elementBounds = (
     );
   }
   if (isDoorElement(el)) {
-    return centredBounds(
-      el.data.x,
-      el.data.y,
-      DOOR_HALF_WIDTH * 2,
-      DOOR_HALF_HEIGHT * 2,
+    // Door symbol is drawn symmetrically around the authored (x, y) — that
+    // anchor predates the top-left convention used by spots/rects. Keep the
+    // centred bounds so the swing arc stays inside the viewBox.
+    const cx = el.data.x;
+    const cy = el.data.y;
+    return topLeftBounds(
+      cx - DOOR_HALF,
+      cy - DOOR_HALF,
+      DOOR_HALF * 2,
+      DOOR_HALF * 2,
       el.data.rotation,
     );
   }

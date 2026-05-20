@@ -3,8 +3,10 @@ import { useEffect, useMemo, useRef } from "react";
 import {
   buildLocalizedIframeUrl,
   buildSigmaError,
+  isSigmaEventCreateSummary,
   isSigmaEventWorkbookChartError,
   isSigmaEventWorkbookError,
+  isSigmaEventWorkbookVariablesOnchange,
 } from "@bsport/api-business-insights/sigma";
 import { captureException } from "@bsport/sm-backbone";
 
@@ -13,6 +15,11 @@ import { useTranslation } from "#src/utils/i18n";
 interface DashboardIframeProps {
   src: string;
   title: string;
+  onVariablesChange?: (variables: Record<string, string>) => void;
+  onCreateSummary?: (values: {
+    "page-id"?: string;
+    "documentation-url"?: string;
+  }) => void;
 }
 
 /**
@@ -20,7 +27,12 @@ interface DashboardIframeProps {
  * Ensures consistent iframe configuration across all dashboard pages.
  * Automatically appends the current locale to the Sigma embed URL using `:lng`.
  */
-export const DashboardIframe = ({ src, title }: DashboardIframeProps) => {
+export const DashboardIframe = ({
+  src,
+  title,
+  onVariablesChange,
+  onCreateSummary,
+}: DashboardIframeProps) => {
   const { i18n } = useTranslation();
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -53,6 +65,23 @@ export const DashboardIframe = ({ src, title }: DashboardIframeProps) => {
       if (isSigmaEventWorkbookError(eventData)) {
         captureException(buildSigmaError(eventData));
       }
+
+      if (
+        isSigmaEventWorkbookVariablesOnchange(eventData) &&
+        onVariablesChange
+      ) {
+        const decoded = Object.fromEntries(
+          Object.entries(eventData.workbook.variables).map(([k, v]) => [
+            k,
+            decodeURIComponent(v),
+          ]),
+        );
+        onVariablesChange?.(decoded);
+      }
+
+      if (isSigmaEventCreateSummary(eventData)) {
+        onCreateSummary?.(eventData.values);
+      }
     };
 
     window.addEventListener("message", handleMessage);
@@ -60,7 +89,7 @@ export const DashboardIframe = ({ src, title }: DashboardIframeProps) => {
     return () => {
       window.removeEventListener("message", handleMessage);
     };
-  }, []);
+  }, [onVariablesChange, onCreateSummary]);
 
   return (
     <iframe

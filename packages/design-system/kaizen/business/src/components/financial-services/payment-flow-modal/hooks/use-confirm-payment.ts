@@ -7,11 +7,11 @@ import { paymentGroupKeys } from "@bsport/api-financial-services/payment-group";
 import { paymentMethodKeys } from "@bsport/api-financial-services/payment-method";
 import type { Fetch } from "@bsport/fetch";
 
+import type { PaymentFlowGiftCard } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/types";
+import type { StripePaymentMethodHandle } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/types";
+import type { ConfirmPaymentFormValues } from "#src/components/financial-services/payment-flow-modal/types";
 import type { PaymentMethodSelectorSelection } from "#src/components/financial-services/payment-method-selector/types";
 
-import type { PaymentFlowGiftCard } from "../payment-methods/gift-card/types";
-import type { StripePaymentMethodHandle } from "../payment-methods/stripe/types";
-import type { ConfirmPaymentFormValues } from "../types";
 import { executeConfirmPayment } from "./use-confirm-payment-execute";
 
 type UseConfirmPaymentParams = {

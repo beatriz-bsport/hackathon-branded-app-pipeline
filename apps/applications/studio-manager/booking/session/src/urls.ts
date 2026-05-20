@@ -24,6 +24,9 @@ export const LEGACY_URLS = {
   MEMBER_DETAILS: (memberId: number) => `/member/${memberId}/info`,
   PASS_DETAILS: (passId: number) => `/payment-pack/${passId}`,
   MEMBER_NOTES: (memberId: number) => `/member/${memberId}/info#member-notes`,
+  ESTABLISHMENT_DETAILS: (establishmentId: number) =>
+    `/establishment/details/${establishmentId}`,
+  COACH_DETAILS: (coachId: number) => `/coach/${coachId}`,
 } as const;
 
 export const useUrls = () => {

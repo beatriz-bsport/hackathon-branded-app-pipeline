@@ -7,7 +7,7 @@ import { getLocalNow } from "@bsport/datetime-manipulation";
 import type { Fetch } from "@bsport/fetch";
 import type { SelectedDate } from "@bsport/kaizen-primitive-core";
 
-import type { ManualMethodType } from "../payment-methods/manual/types";
+import type { ManualMethodType } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/manual/types";
 
 export const MANUAL_METHOD_IDENTIFIER_BY_TYPE: Record<
   ManualMethodType,

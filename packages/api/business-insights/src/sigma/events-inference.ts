@@ -1,6 +1,7 @@
 import { SIGMA_OUTBOUND_EVENTS } from "./constants";
 import type {
   SigmaEventActionOutbound,
+  SigmaEventCreateSummary,
   SigmaEventDocumentElementNodata,
   SigmaEventUrlOnchange,
   SigmaEventWorkbookBookmarkOnchange,
@@ -32,6 +33,11 @@ export const isSigmaEventActionOutbound = (
 ): eventData is SigmaEventActionOutbound =>
   isCleanEventData(eventData) &&
   eventData.type === SIGMA_OUTBOUND_EVENTS.ACTION_OUTBOUND;
+
+export const isSigmaEventCreateSummary = (
+  eventData: unknown,
+): eventData is SigmaEventCreateSummary =>
+  isSigmaEventActionOutbound(eventData) && eventData.name === "create-summary";
 
 export const isSigmaEventDocumentElementNodata = (
   eventData: unknown,

@@ -3,8 +3,8 @@
   "goToPreviousSession": "Go to previous class",
   "goToNextSession": "Go to next class",
   "refresh": "Refresh lists",
-  "bookButton": "Book a client",
-  "bookingsSectionTitle": "Participants",
+  "bookButton": "Book client",
+  "bookingsSectionTitle": "Class roster",
   "bookingsSectionSubtitle": "{{validatedBookingsCount}}/{{sessionCapacity}} spots filled",
   "waitlistSectionTitle": "Waitlist",
   "waitlistSectionSubtitle": "{{bookingOptionsCount}}/{{waitlistCapacity}} spots filled",
@@ -14,12 +14,12 @@
       "client": "Client"
     },
     "emptyState": {
-      "title": "No participant yet."
+      "title": "No clients in this class yet"
     },
-    "loadingMessage": "Loading participants list...",
+    "loadingMessage": "Loading class roster...",
     "chips": {
       "new": "New",
-      "firstBooking": "First booking of the member",
+      "firstBooking": "First booking of the client",
       "recurring": "Recurring booking",
       "tags": "Tags",
       "unpaidInvoices": "Outstanding balance. Check billing details or resolve unpaid invoices.",
@@ -38,9 +38,9 @@
   },
   "waitList": {
     "emptyState": {
-      "title": "There are no participants on waitlist",
-      "pending": "There are no participants pending to be booked from the waitlist.",
-      "removed": "There are no participants removed from the waitlist"
+      "title": "There are no clients on Waitlist",
+      "pending": "There are no clients pending from the Waitlist.",
+      "removed": "No clients were removed from the Waitlist"
     },
     "loadingMessage": "Loading waitlist..."
   },
@@ -110,22 +110,23 @@
     "zoomOut": "Zoom out",
     "resetView": "Reset view",
     "spotAriaLabel": "Spot {{label}}, {{state}}",
-    "coachAriaLabel": "Coach {{name}}",
-    "coachPositionAriaLabel": "Coach position",
+    "coachAriaLabel": "Teacher {{name}}",
+    "coachPositionAriaLabel": "Teacher position",
     "availabilityCount": "{{free}} of {{total}} spots available",
-    "allTaken": "All spots are taken"
+    "allTaken": "All spots are taken",
+    "screenLabel": "Screen"
   },
   "booking": "Booking",
   "billing": "Billing",
   "contact": "Contact",
   "modals": {
     "cancelBooking": {
-      "title": "Cancel booking",
+      "title": "Cancel booking?",
       "confirmButton": "Cancel",
-      "closeButton": "Close",
-      "body": "Are you sure you want to cancel this booking?",
-      "refundCredits": "Refund the credits",
-      "sendNotification": "Send notification",
+      "closeButton": "Keep",
+      "body": "This client will be removed from the class. Choose what happens next.",
+      "refundCredits": "Refund credits",
+      "sendNotification": "Notify the client ",
       "confirmation": "Booking cancelled"
     },
     "pauseWaitlist": {
@@ -250,6 +251,28 @@
     "countdownMessageDetailed": "<strong>{{hoursLeft}}h {{minutesLeft}}min</strong> left to update attendance before absences become no-shows and penalties apply to unlimited pass holders.",
     "countdownMessageMinutes": "<strong>{{minutesLeft}}min</strong> left to update attendance before absences become no-shows and penalties apply to unlimited pass holders.",
     "confirmedLabel": "Attendance confirmed",
+    "confirmedLabelMobile": "Attendance confirmed on {{date}}",
     "confirmedTooltip": "Confirmed on {{date}}"
+  },
+  "sessionPanel": {
+    "details": {
+      "title": "Session details",
+      "editAriaLabel": "Edit session details",
+      "allLevels": "All levels",
+      "levelPlaceholder": "Level {{id}}",
+      "credits": "{{count}} credit",
+      "credits_other": "{{count}} credits",
+      "recurring": "Recurring"
+    },
+    "hybrid": {
+      "title": "Hybrid session",
+      "body": "This on-site session is paired with an online session.",
+      "linkAriaLabel": "Open paired online session"
+    },
+    "tags": {
+      "title": "Tags",
+      "authorised": "Authorised participants",
+      "unauthorised": "Unauthorised participants"
+    }
   }
 }

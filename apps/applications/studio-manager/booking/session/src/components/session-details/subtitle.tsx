@@ -1,10 +1,12 @@
+import { clsx } from "clsx";
+
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import {
   fromIsoString,
   getLocalNow,
   modifyTime,
 } from "@bsport/datetime-manipulation";
-import { Body, Icon } from "@bsport/kaizen-primitive-core";
+import { Body, Icon, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { TimelineIndicator } from "#src/constants";
 import type { DetailsHeaderSession } from "#src/types";
@@ -33,6 +35,8 @@ const TIMELINE_INDICATOR_COLORS: TimeLineIndicatorColors = {
 
 export const Subtitle: React.FC<DetailsHeaderSession> = (session) => {
   const { t, i18n } = useTranslation("sessionDetails");
+
+  const isMobile = !useMatchMedia("lg");
 
   const formatOptions = {
     locale: i18n?.language,
@@ -94,7 +98,9 @@ export const Subtitle: React.FC<DetailsHeaderSession> = (session) => {
   const colors = TIMELINE_INDICATOR_COLORS[timelineIndicator];
 
   return (
-    <div className="flex gap-xs">
+    <div
+      className={clsx("flex", { "gap-xs": !isMobile, "flex-col": isMobile })}
+    >
       <Body>{subtitle}</Body>
       <div className="flex items-center gap-2xs">
         <Icon icon="circle-solid" size="xs" className={colors.icon} />

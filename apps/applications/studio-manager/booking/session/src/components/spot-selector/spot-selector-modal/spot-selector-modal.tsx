@@ -9,6 +9,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { SpotCanvas } from "../spot-canvas";
 import { isSpotElement } from "../spot-canvas/canvas-transformer";
 import { composeLabel } from "../spot-canvas/spot-label";
+import { summarizeSpots } from "../spot-canvas/spot-summary";
 import { SpotLegend } from "./spot-legend";
 import { SpotStatusLegend } from "./spot-status-legend";
 import { useSpotSelectorData } from "./use-spot-selector-data";
@@ -84,18 +85,40 @@ export const SpotSelectorModal: React.FC<SpotSelectorModalProps> = ({
       ? t("spotSelector.bookPlaceholder")
       : t("spotSelector.book", { label: selectedSpotLabel });
 
-  const counts = useMemo(() => {
-    if (!data.roomBlueprint) return { free: 0, taken: 0, total: 0 };
-    const takenSet = new Set(data.takenSpots);
-    let total = 0;
-    let taken = 0;
+  // Counts (free/taken/total) + used SpotTypes computed in a single pass over
+  // the blueprint's spot elements. Shared with `FloorPlanBlock` so the
+  // interactive modal and the read-only session-panel preview agree on what
+  // "in use" means.
+  const summary = useMemo(
+    () =>
+      summarizeSpots({
+        roomBlueprint: data.roomBlueprint,
+        takenSpots: data.takenSpots,
+        spotTypes: data.spotTypes,
+      }),
+    [data.roomBlueprint, data.takenSpots, data.spotTypes],
+  );
+  const { freeCount, takenCount, totalCount, usedSpotTypes } = summary;
+
+  // Look up the actual element data for the current/selected indices so the
+  // legend can render real swatches (matching SpotType / image / state) for
+  // those chips, rather than a representative SpotType[0] that may not match
+  // what the user actually picked.
+  const currentSpotElement = useMemo(() => {
+    if (currentSpot == null || !data.roomBlueprint) return null;
     for (const el of data.roomBlueprint.canvas.elements ?? []) {
-      if (!isSpotElement(el)) continue;
-      total += 1;
-      if (takenSet.has(el.data.index)) taken += 1;
+      if (isSpotElement(el) && el.data.index === currentSpot) return el;
     }
-    return { free: total - taken, taken, total };
-  }, [data.roomBlueprint, data.takenSpots]);
+    return null;
+  }, [currentSpot, data.roomBlueprint]);
+
+  const selectedSpotElement = useMemo(() => {
+    if (selection === null || !data.roomBlueprint) return null;
+    for (const el of data.roomBlueprint.canvas.elements ?? []) {
+      if (isSpotElement(el) && el.data.index === selection.index) return el;
+    }
+    return null;
+  }, [selection, data.roomBlueprint]);
 
   // Legacy parity (saas-legacy SpotSelectorDialog): clicking a taken spot
   // surfaces an inline "spot is taken" alert rather than silently no-op-ing.
@@ -140,16 +163,16 @@ export const SpotSelectorModal: React.FC<SpotSelectorModalProps> = ({
     }
   }, [data.takenSpots, selection]);
 
-  const showTypeLegend = data.spotTypes.length > 1;
+  const showTypeLegend = usedSpotTypes.length > 1;
 
   let subtitle: string | null = null;
-  if (data.roomBlueprint && counts.total > 0) {
+  if (data.roomBlueprint && totalCount > 0) {
     subtitle =
-      counts.free === 0
+      freeCount === 0
         ? t("spotSelector.allTaken")
         : t("spotSelector.availabilityCount", {
-            free: counts.free,
-            total: counts.total,
+            free: freeCount,
+            total: totalCount,
           });
   }
 
@@ -180,14 +203,23 @@ export const SpotSelectorModal: React.FC<SpotSelectorModalProps> = ({
       ) : !data.hasBlueprint ? (
         <Alert status="info">{t("spotSelector.noBlueprint")}</Alert>
       ) : data.roomBlueprint ? (
-        <div className="flex flex-col gap-xs">
+        // The column targets 80dvh (capped at 720px) so the canvas has a
+        // useful working size, but `max-h-[calc(90dvh-10rem)]` clamps it
+        // to the modal body's available space on short viewports / high
+        // zoom. (10rem ≈ Dialog header + footer + body padding; Dialog
+        // itself is `max-h-[90%]` of the viewport.) `max-h-full` would
+        // be cleaner, but percentage max-heights don't resolve through
+        // the body's flex-grow-derived height — so a dvh-based cap is
+        // required. The canvas wrapper uses `flex-1 min-h-0` to shrink
+        // first; the legend below is `flex-shrink-0`.
+        <div className="flex h-[min(80dvh,720px)] max-h-[calc(90dvh-10rem)] flex-col gap-xs">
           {subtitle ? (
             <Body size="sm" weight="weak" color="weak">
               {subtitle}
             </Body>
           ) : null}
 
-          <div className="relative h-[min(55dvh,360px)] overflow-hidden rounded-md border border-stroke-thin border-stroke-default bg-surface-default sm:h-[520px] md:h-[600px]">
+          <div className="relative min-h-0 flex-1 overflow-hidden rounded-md border border-stroke-thin border-stroke-default bg-surface-default">
             <SpotCanvas
               roomBlueprint={data.roomBlueprint}
               assets={data.assets}
@@ -196,6 +228,7 @@ export const SpotSelectorModal: React.FC<SpotSelectorModalProps> = ({
               selectedSpot={selection?.index ?? null}
               currentSpot={currentSpot}
               onSelectSpot={handleSelectSpot}
+              coach={data.coach}
             />
 
             {conflictMessage ? (
@@ -213,14 +246,30 @@ export const SpotSelectorModal: React.FC<SpotSelectorModalProps> = ({
             ) : null}
           </div>
 
-          <SpotStatusLegend
-            freeCount={counts.free}
-            takenCount={counts.taken}
-            isSelectionActive={selection !== null}
-            hasCurrent={currentSpot != null}
-          />
-
-          {showTypeLegend ? <SpotLegend spotTypes={data.spotTypes} /> : null}
+          {/* Status + type legends share one flex-wrap row so items don't
+              orphan on narrow viewports (an isolated "Selected" chip on its
+              own line looked broken). A thin vertical divider separates the
+              two groups when both are present. `flex-shrink-0` so the
+              canvas above gives way before the legend does. */}
+          <div className="flex flex-shrink-0 flex-wrap items-center gap-md">
+            <SpotStatusLegend
+              spotTypes={usedSpotTypes}
+              assets={data.assets}
+              freeCount={freeCount}
+              takenCount={takenCount}
+              currentSpotElement={currentSpotElement}
+              selectedSpotElement={selectedSpotElement}
+            />
+            {showTypeLegend ? (
+              <>
+                <span
+                  aria-hidden="true"
+                  className="h-4 w-px bg-[var(--kz-color-stroke-default)]"
+                />
+                <SpotLegend spotTypes={usedSpotTypes} />
+              </>
+            ) : null}
+          </div>
         </div>
       ) : null}
     </Modal>

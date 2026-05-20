@@ -1,0 +1,13 @@
+{
+  "personalization": {
+    "marketing": {
+      "title": "Marketing",
+      "form": {
+        "doubleOptIn": {
+          "label": "Ativar double opt-in para e-mails de marketing",
+          "description": "O consentimento de Marketing só é ativado depois que os clientes confirmam via e-mail de double opt-in."
+        }
+      }
+    }
+  }
+}

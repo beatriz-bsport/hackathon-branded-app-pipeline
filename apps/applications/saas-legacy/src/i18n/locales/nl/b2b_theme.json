@@ -1,0 +1,13 @@
+{
+  "personalization": {
+    "marketing": {
+      "title": "Marketing",
+      "form": {
+        "doubleOptIn": {
+          "label": "Schakel double opt-in in voor marketing-email",
+          "description": "Marketing toestemming wordt pas ingeschakeld nadat klanten dit bevestigen via de double opt-in email."
+        }
+      }
+    }
+  }
+}

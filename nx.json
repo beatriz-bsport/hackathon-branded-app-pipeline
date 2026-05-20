@@ -15,7 +15,17 @@
     },
     "ci:compile": {
       "dependsOn": ["^build"],
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "{projectRoot}/src/**/*.{ts,tsx}",
+        "{projectRoot}/vite.config.ts",
+        "{projectRoot}/tsconfig*.json",
+        { "externalDependencies": ["typescript"] }
+      ],
+      "outputs": [
+        "{projectRoot}/node_modules/.tmp/tsconfig.app.tsbuildinfo",
+        "{projectRoot}/node_modules/.tmp/tsconfig.node.tsbuildinfo"
+      ]
     },
     "storybook:build": {
       "dependsOn": ["translation:update"],

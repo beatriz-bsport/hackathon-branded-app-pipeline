@@ -152,7 +152,7 @@ export const BackendSelector = <
   const hasSeenFirstSelectRef = useRef(false);
 
   // Use the generic search hook
-  const { results, isLoading, isAutocompleteReady } = useGenericSearch<
+  const { results, isLoading, isAutocompleteReady, search } = useGenericSearch<
     TParams,
     TResult
   >({
@@ -339,6 +339,10 @@ export const BackendSelector = <
     textfieldProps: {
       id: "backend-selector-textfield",
       ...textfieldProps,
+      onFocus: (e) => {
+        textfieldProps?.onFocus?.(e);
+        search();
+      },
     },
     debounceValue: 500,
     defaultSelectedIds: validDefaultSelectedIds,

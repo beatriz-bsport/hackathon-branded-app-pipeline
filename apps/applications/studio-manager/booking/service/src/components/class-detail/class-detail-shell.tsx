@@ -1,11 +1,21 @@
-import { type FC, useCallback, useEffect, useId } from "react";
+import {
+  type FC,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useSearchParams } from "react-router";
 
 import type { MetaActivity } from "@bsport/api-book";
+import { type PassCategory } from "@bsport/api-buyables";
 import { ControlledForm, useFormController } from "@bsport/form";
 import {
   Body,
   DetailsLayout,
+  type FilterElementState,
   Modal,
   toast,
   useDetailsLayout,
@@ -14,8 +24,7 @@ import {
 import { ClassDetailHeader } from "#src/components/class-detail/class-detail-header";
 import { CompatiblePassesTab } from "#src/components/class-detail/compatible-passes-tab";
 import { ClassEditorForm } from "#src/components/class-editor/class-editor-form";
-import { CardLoader } from "#src/components/query-boundary/fallbacks";
-import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
+import { COMPATIBLE_PASSES_SEARCH_DEBOUNCE_MS } from "#src/hooks/constants";
 import { useEditClass } from "#src/hooks/use-edit-class";
 import { useModal } from "#src/hooks/use-modal";
 import {
@@ -43,6 +52,95 @@ export const ClassDetailShell: FC<ClassDetailShellProps> = ({
 }) => {
   const { t } = useTranslation("class-detail");
   const { detailsLayoutProps, toggleHasUnsavedChanges } = useDetailsLayout();
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryIds, setCategoryIds] = useState<number[]>([]);
+  const [selectedProperties, setSelectedProperties] = useState<string[]>([]);
+  const filterRef = useRef<{ resetFilters: () => void }>(null);
+  const [categories, setCategories] = useState<PassCategory[]>([]);
+
+  const handleFilterChange = useCallback((elements: FilterElementState[]) => {
+    const active = elements.filter(
+      (e) => e.field !== null && e.valueIds.length > 0,
+    );
+    setCategoryIds(
+      active
+        .filter((e) => e.field === "categories")
+        .flatMap((e) => e.valueIds.map(Number)),
+    );
+    setSelectedProperties(
+      active.filter((e) => e.field === "properties").flatMap((e) => e.valueIds),
+    );
+  }, []);
+
+  const clearFilters = useCallback(() => {
+    setSearchQuery("");
+    filterRef.current?.resetFilters();
+  }, []);
+
+  const handleCategoriesReady = useCallback((cats: PassCategory[]) => {
+    setCategories(cats);
+  }, []);
+
+  const compatiblePassesFilterConfig = useMemo(
+    () => ({
+      filters: [
+        {
+          id: "is",
+          label: t("classDetail.compatiblePasses.filter.operatorIs"),
+        },
+      ],
+      fields: {
+        categories: {
+          id: "categories",
+          label: t("classDetail.compatiblePasses.filter.categories"),
+          availableFilters: ["is"],
+          values: categories.map((c) => ({ id: String(c.id), label: c.name })),
+          multiSelect: true,
+        },
+        properties: {
+          id: "properties",
+          label: t("classDetail.compatiblePasses.filter.properties"),
+          availableFilters: ["is"],
+          values: [
+            {
+              id: "universal",
+              label: t("classDetail.compatiblePasses.flags.universal"),
+            },
+            {
+              id: "unlisted",
+              label: t("classDetail.compatiblePasses.flags.unlisted"),
+            },
+            {
+              id: "staffRestricted",
+              label: t("classDetail.compatiblePasses.flags.staffRestricted"),
+            },
+            {
+              id: "newMembersOnly",
+              label: t("classDetail.compatiblePasses.flags.newMembersOnly"),
+            },
+          ],
+          multiSelect: true,
+        },
+      },
+      selectFieldLabel: t("classDetail.compatiblePasses.filter.selectField"),
+      onFilterChange: handleFilterChange,
+    }),
+    [categories, t, handleFilterChange],
+  );
+
+  const compatiblePassesSearchConfig = useMemo(
+    () => ({
+      id: "compatible-passes-search",
+      position: "right" as const,
+      placeholder: t("classDetail.compatiblePasses.search.placeholder"),
+      inputValue: searchQuery,
+      onInputValueChange: setSearchQuery,
+      onClear: () => setSearchQuery(""),
+      debounceValue: COMPATIBLE_PASSES_SEARCH_DEBOUNCE_MS,
+    }),
+    [searchQuery, t],
+  );
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = getActiveTab(searchParams.get("tab"));
 
@@ -124,13 +222,26 @@ export const ClassDetailShell: FC<ClassDetailShellProps> = ({
     <>
       <ControlledForm {...methods} onSubmit={onSubmit} id={formId}>
         <DetailsLayout {...detailsLayoutProps}>
-          <ClassDetailHeader metaActivity={metaActivity} pageTabs={pageTabs} />
-          <DetailsLayout.Content className="max-w-none">
+          <ClassDetailHeader
+            metaActivity={metaActivity}
+            pageTabs={pageTabs}
+            {...(activeTab === "compatiblePasses" && {
+              filterConfig: compatiblePassesFilterConfig,
+              filterRef,
+              searchConfig: compatiblePassesSearchConfig,
+            })}
+          />
+          <DetailsLayout.Content className="max-w-none !p-0">
             {activeTab === "editor" && <ClassEditorForm />}
             {activeTab === "compatiblePasses" && (
-              <QueryBoundary loadingFallback={<CardLoader />}>
-                <CompatiblePassesTab metaActivityId={metaActivity.id} />
-              </QueryBoundary>
+              <CompatiblePassesTab
+                metaActivityId={metaActivity.id}
+                searchQuery={searchQuery}
+                categoryIds={categoryIds}
+                properties={selectedProperties}
+                clearFilters={clearFilters}
+                onCategoriesReady={handleCategoriesReady}
+              />
             )}
           </DetailsLayout.Content>
           {activeTab === "editor" && (

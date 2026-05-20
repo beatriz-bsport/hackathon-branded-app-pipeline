@@ -18,16 +18,21 @@ const data = (extra: Partial<CanvasSpotData> = {}): CanvasSpotData => ({
 
 describe("smallestDim", () => {
   describe("personalized", () => {
-    // The body geometry for a personalized spot with an asset renders at a
-    // fixed PERSONALIZED_IMAGE_SIZE box — label fontSize and selection ring
-    // offset must follow that fixed size, not data.radius.
-    it("returns the fixed image size when an asset is present, regardless of radius", () => {
-      expect(smallestDim("personalized", data({ radius: 30 }), "asset")).toBe(
-        40,
-      );
-      expect(smallestDim("personalized", data({ radius: 5 }), "asset")).toBe(
-        40,
-      );
+    it("uses authored width/height when an asset is present (legacy parity)", () => {
+      // saas-legacy CanvasSpot renders the image at authored width × height
+      // (62×62 fallback). smallestDim returns the smaller axis so the default
+      // font size stays legible inside tall benches.
+      expect(
+        smallestDim("personalized", data({ width: 75, height: 150 }), "asset"),
+      ).toBe(75);
+      expect(
+        smallestDim("personalized", data({ width: 90, height: 90 }), "asset"),
+      ).toBe(90);
+    });
+
+    it("falls back to LENGTH_REFERENCE per axis when an asset is present but dims are absent", () => {
+      // saas-legacy SPOT_IMAGE_WIDTH/SPOT_IMAGE_HEIGHT = LENGTH_REFERENCE = 62.
+      expect(smallestDim("personalized", data(), "asset")).toBe(62);
     });
 
     it("falls back to radius*2 when no asset is available", () => {
@@ -40,8 +45,8 @@ describe("smallestDim", () => {
     });
   });
 
-  it("uses width for square", () => {
-    expect(smallestDim("square", data({ width: 50 }), undefined)).toBe(50);
+  it("uses data.height for square (legacy wire format)", () => {
+    expect(smallestDim("square", data({ height: 50 }), undefined)).toBe(50);
     expect(smallestDim("square", data(), undefined)).toBe(40);
   });
 
@@ -51,12 +56,24 @@ describe("smallestDim", () => {
     ).toBe(30);
   });
 
-  it("uses width for triangle", () => {
-    expect(smallestDim("triangle", data({ width: 50 }), undefined)).toBe(50);
+  it("uses data.height for triangle (legacy wire format)", () => {
+    expect(smallestDim("triangle", data({ height: 50 }), undefined)).toBe(50);
   });
 
-  it("uses radius*2 for circular regardless of asset", () => {
+  it("uses data.height as diameter for circular when no asset is available", () => {
+    expect(smallestDim("circular", data({ height: 30 }), undefined)).toBe(30);
+  });
+
+  it("falls back to data.radius * 2 for circular when height is absent", () => {
     expect(smallestDim("circular", data({ radius: 15 }), undefined)).toBe(30);
-    expect(smallestDim("circular", data({ radius: 15 }), "asset")).toBe(30);
+  });
+
+  it("uses authored width/height for circular when an asset is resolved", () => {
+    // Production SpotTypes report `shape: "circular"` alongside
+    // `customization: "personalized"` and supply free/taken/selected image
+    // URLs. Image overrides shape; size follows authored width × height.
+    expect(
+      smallestDim("circular", data({ width: 90, height: 90 }), "asset"),
+    ).toBe(90);
   });
 });

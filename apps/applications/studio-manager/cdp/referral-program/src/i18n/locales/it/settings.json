@@ -50,7 +50,7 @@
           }
         },
         "alerts": {
-          "equalToZero": "Scegliendo questo valore, non verrà applicato alcuno sconto all'acquisto del membro segnalato."
+          "equalToZero": "Scegliendo questo valore, non verrà applicato alcuno sconto per la segnalazione di un nuovo cliente."
         },
         "errors": {
           "tooManyDecimalPoints": "L'importo non può avere più di 2 cifre decimali",

@@ -8,7 +8,6 @@ import {
 } from "@bsport/api-book";
 import { toast } from "@bsport/kaizen-primitive-core";
 
-import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
 import { useWaitForBackgroundTask } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
@@ -48,8 +47,6 @@ export const useCancelSession = () => {
       return null;
     },
     onSuccess: (_, variables) => {
-      // TODO: merge session query keys
-      queryClient.invalidateQueries({ queryKey: [SESSIONS_QUERY_KEY] });
       queryClient.invalidateQueries({ queryKey: sessionKeys.all });
       queryClient.invalidateQueries({ queryKey: bookingKeys.all });
       toast({

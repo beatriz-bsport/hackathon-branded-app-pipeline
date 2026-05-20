@@ -2,19 +2,27 @@ import React from "react";
 
 import type { CanvasElement, CanvasLineData } from "@bsport/api-book";
 
+import { DEFAULT_DECORATIVE_STROKE } from "../spot-styles";
+
 export type LineElementProps = { element: CanvasElement<CanvasLineData> };
 
+const pointsToSvgString = (points: number[][]): string =>
+  points.map(([x, y]) => `${x},${y}`).join(" ");
+
 const LineElementComponent: React.FC<LineElementProps> = ({ element }) => {
-  // CanvasLineData has no `rotation`; rotation is implicit in the two endpoints.
-  const { x1, y1, x2, y2, stroke } = element.data;
+  const { points, stroke, fill, strokeWidth, strokeLinecap, strokeDasharray } =
+    element.data;
+
+  if (!points || points.length < 2) return null;
+
   return (
-    <line
-      x1={x1}
-      y1={y1}
-      x2={x2}
-      y2={y2}
-      stroke={stroke ?? "var(--kz-color-luna-grey-500)"}
-      strokeWidth={1.5}
+    <polyline
+      points={pointsToSvgString(points)}
+      stroke={stroke ?? DEFAULT_DECORATIVE_STROKE}
+      fill={fill ?? "transparent"}
+      strokeWidth={strokeWidth ?? 1.5}
+      strokeLinecap={strokeLinecap}
+      strokeDasharray={strokeDasharray}
     />
   );
 };

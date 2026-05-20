@@ -3,6 +3,13 @@ import type { ReactNode, RefObject } from "react";
 import type { Fetch } from "@bsport/fetch";
 import type { UseFormControllerOutput } from "@bsport/form";
 
+import { GiftCardPaymentMethod } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/gift-card-payment-method";
+import type { PaymentFlowGiftCard } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/types";
+import { ManualPaymentMethod } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/manual/manual-payment-method";
+import { StripePaymentMethod } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/stripe-payment-method";
+import type { StripePaymentMethodHandle } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/types";
+import { TerminalPaymentMethod } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/terminal/terminal-payment-method";
+import { paymentFlowFormSchema } from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-form";
 import {
   ALL_PAYMENT_METHOD_SELECTOR_ID,
   type AllPaymentMethodKey,
@@ -12,13 +19,6 @@ import {
   type PaymentMethodSelectorSelection,
 } from "#src/components/financial-services/payment-method-selector/types";
 
-import { paymentFlowFormSchema } from "../payment-flow-form";
-import { GiftCardPaymentMethod } from "../payment-methods/gift-card/gift-card-payment-method";
-import type { PaymentFlowGiftCard } from "../payment-methods/gift-card/types";
-import { ManualPaymentMethod } from "../payment-methods/manual/manual-payment-method";
-import { StripePaymentMethod } from "../payment-methods/stripe/stripe-payment-method";
-import type { StripePaymentMethodHandle } from "../payment-methods/stripe/types";
-import { TerminalPaymentMethod } from "../payment-methods/terminal/terminal-payment-method";
 import type { StripeReader } from "./use-fetch-stripe-readers";
 
 type PaymentFlowFormController = Pick<

@@ -27,6 +27,7 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/api-book": "workspace:*",
     "@bsport/api-core": "workspace:*",
     "@bsport/api-staff-management": "workspace:*",
     "@bsport/common": "workspace:*",

@@ -42,13 +42,16 @@ Release:Tag:
     - git config --global user.name "bsport-bot"
     - |
       if [ "$RELEASE_TAG_DRY_RUN" != "true" ]; then
-        if [ -z "$GIT_USERNAME" ] || [ -z "$GIT_PASSWORD" ]; then
-          echo "Missing git push credentials: GIT_USERNAME/GIT_PASSWORD"
+        if [ -n "$GIT_USERNAME" ] && [ -n "$GIT_PASSWORD" ]; then
+          ENCODED_GIT_USERNAME=$(python3 -c "import os, urllib.parse; print(urllib.parse.quote(os.environ['GIT_USERNAME'], safe=''))")
+          ENCODED_GIT_PASSWORD=$(python3 -c "import os, urllib.parse; print(urllib.parse.quote(os.environ['GIT_PASSWORD'], safe=''))")
+        elif [ -n "$CI_JOB_TOKEN" ]; then
+          ENCODED_GIT_USERNAME="gitlab-ci-token"
+          ENCODED_GIT_PASSWORD=$(python3 -c "import os, urllib.parse; print(urllib.parse.quote(os.environ['CI_JOB_TOKEN'], safe=''))")
+        else
+          echo "Missing git push credentials: GIT_USERNAME/GIT_PASSWORD or CI_JOB_TOKEN"
           exit 1
         fi
-
-        ENCODED_GIT_USERNAME=$(python3 -c "import os, urllib.parse; print(urllib.parse.quote(os.environ['GIT_USERNAME'], safe=''))")
-        ENCODED_GIT_PASSWORD=$(python3 -c "import os, urllib.parse; print(urllib.parse.quote(os.environ['GIT_PASSWORD'], safe=''))")
 
         git remote set-url origin "https://${ENCODED_GIT_USERNAME}:${ENCODED_GIT_PASSWORD}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
       fi

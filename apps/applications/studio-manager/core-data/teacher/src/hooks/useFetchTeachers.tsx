@@ -8,7 +8,7 @@ import {
   selectFuzzySearchTeachers,
   selectTeachers,
   useTeacherStore,
-} from "@bsport/store-core-data-teacher";
+} from "@bsport/store-booking-teacher";
 import { useAsync } from "@bsport/use-async";
 import {
   DEFAULT_PAGE,

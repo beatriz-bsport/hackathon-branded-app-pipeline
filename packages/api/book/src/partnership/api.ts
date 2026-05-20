@@ -34,6 +34,8 @@ export const partnershipKeys = {
       partnershipId,
       externalId,
     ] as const,
+  activePartnershipAccounts: (params: FetchActivePartnershipAccountsParams) =>
+    [...partnershipKeys.all, "active", params] as const,
 };
 
 export const fetchPartnershipAccountsAPI = async (
@@ -219,6 +221,6 @@ export const activePartnershipAccountsQueryOptions = (
   params: FetchActivePartnershipAccountsParams,
 ) =>
   queryOptions({
-    queryKey: [...partnershipKeys.all, "active", params] as const,
+    queryKey: partnershipKeys.activePartnershipAccounts(params),
     queryFn: () => fetchActivePartnershipAccountsAPI(fetch, params),
   });

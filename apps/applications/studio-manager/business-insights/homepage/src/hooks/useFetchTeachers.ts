@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { fetchFlatTeachersAction } from "@bsport/store-core-data-teacher";
+import { fetchFlatTeachersAction } from "@bsport/store-booking-teacher";
 import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";

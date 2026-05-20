@@ -39,10 +39,25 @@ export const PassesFilterCard = ({
   };
 
   const { t } = useTranslation("filters");
+  const methods = useFormController({
+    mode: "onBlur",
+    schema: passesFilterSchema,
+    defaultValues: filterValue,
+  });
+  const watchedFilterValue = methods.watch();
+  const { errors, dirtyFields } = methods.formState;
 
   const { upsertPaymentPackFilterMutate, isLoading: isSaving } =
     useUpsertPaymentPackFilterMutation(smartlistId, {
       onSuccess: () => {
+        toast({
+          status: "default",
+          icon: "check-circle",
+          title: t("filters.19.toasts.saveSuccess"),
+          buttonIcon: "x-close",
+        });
+        const newValues = methods.getValues();
+        methods.reset(newValues);
         onSaveSuccess?.();
       },
       onError: (error) => {
@@ -66,17 +81,10 @@ export const PassesFilterCard = ({
       },
     });
 
-  const methods = useFormController({
-    mode: "onBlur",
-    schema: passesFilterSchema,
-    defaultValues: filterValue,
-  });
-  const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
-
   const selectedPassesInvalid =
     !watchedFilterValue.selectAllPaymentPacks &&
     watchedFilterValue.selectedPaymentPackIds.length === 0;
+  const isDirty = Object.keys(dirtyFields).length > 0;
 
   const handleSave = methods.handleSubmit(
     (value) => {
@@ -177,7 +185,7 @@ export const PassesFilterCard = ({
             color="main"
             intent="default"
             loading={isSaving}
-            disabled={isSaving || isDeleting}
+            disabled={isSaving || isDeleting || !isDirty}
             onClick={() => void handleSave()}
           />
         </div>

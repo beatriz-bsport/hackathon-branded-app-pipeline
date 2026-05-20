@@ -11,11 +11,22 @@ import {
   AUTOMATION_TAB_PATH,
   CAMPAIGN_TAB_PATH,
   PARAMETER_TAB_PATH,
+  PREBUILT_CAMPAIGNS_TAB_PATH,
+  PREBUILT_SEGMENT_TAB_PATH,
 } from "./utils/constants";
 
 const ListPage = lazy(() => import("#src/pages/ListPage"));
 const TabbedIndexPage = lazy(() => import("#src/pages/tabbed-index-page"));
 const DetailsPage = lazy(() => import("#src/pages/DetailsPage"));
+const PrebuiltSegmentDetailPage = lazy(
+  () => import("#src/pages/prebuilt-segment-detail"),
+);
+const PrebuiltSegmentPage = lazy(
+  () => import("#src/pages/prebuilt-segment-detail/prebuilt-segment-page"),
+);
+const PrebuiltCampaignsPage = lazy(
+  () => import("#src/pages/prebuilt-segment-detail/prebuilt-campaigns-page"),
+);
 const ParameterPage = lazy(() => import("#src/pages/ParameterPage"));
 const CampaignPage = lazy(() => import("#src/pages/CampaignPage"));
 const CampaignSentDetailPage = lazy(
@@ -120,6 +131,30 @@ export const AppRoutes = () => {
           </FeatureFlag>
         }
       />
+      <Route
+        path={SMARTLIST_ROUTE_PATTERNS.PREBUILT_DETAILS}
+        element={
+          <FeatureFlag
+            flag={flags.prebuiltSegments}
+            fallback={<Navigate to={SMARTLIST_APP_LINKS.root()} replace />}
+          >
+            <PrebuiltSegmentDetailPage />
+          </FeatureFlag>
+        }
+      >
+        <Route
+          index
+          element={<Navigate to={PREBUILT_SEGMENT_TAB_PATH} replace />}
+        />
+        <Route
+          path={PREBUILT_SEGMENT_TAB_PATH}
+          element={<PrebuiltSegmentPage />}
+        />
+        <Route
+          path={PREBUILT_CAMPAIGNS_TAB_PATH}
+          element={<PrebuiltCampaignsPage />}
+        />
+      </Route>
       <Route path={SMARTLIST_ROUTE_PATTERNS.CUSTOM_INDEX}>
         <Route index element={renderCustomIndexPage()} />
         {renderSmartlistDetailsRoutes()}

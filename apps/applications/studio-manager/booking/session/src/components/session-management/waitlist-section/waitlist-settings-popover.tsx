@@ -7,6 +7,7 @@ import {
   Divider,
   Icon,
   IconName,
+  Loader,
   Popover,
   Title,
 } from "@bsport/kaizen-primitive-core";
@@ -46,7 +47,7 @@ const WaitlistSettings: FC = () => {
     waitlistConfig?.dynamic === WaitingListDynamic.FIRST_COME_FIRST_SERVED;
 
   return (
-    <div className="flex flex-col justify-start gap-md">
+    <div className="flex flex-col justify-start gap-md p-xs">
       <div className="flex flex-col gap-sm">
         <Title htmlVariant="h4" weight="strong">
           {t("waitlistSettings.title")}
@@ -143,7 +144,7 @@ const WaitlistSettings: FC = () => {
 export const WaitlistSettingsPopover: FC = () => {
   const { t } = useTranslation("sessionManagement");
   return (
-    <QueryBoundary>
+    <QueryBoundary loadingFallback={<Loader size="md" />}>
       <Popover>
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => (

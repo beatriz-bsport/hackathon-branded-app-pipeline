@@ -3,6 +3,7 @@ import type { FieldErrors, UseFormSetValue } from "react-hook-form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
 import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
 import {
@@ -55,7 +56,11 @@ export const PassesFilterSubFiltersArea = ({
       { shouldDirty: true },
     );
     const fieldToReset = passSubFilterFielMap[subFilterId];
-    setValue(fieldToReset, defaultDateFilterValue, {
+    const resetValue =
+      fieldToReset === "creditLeft"
+        ? defaultNumericComparatorFilterValue
+        : defaultDateFilterValue;
+    setValue(fieldToReset, resetValue, {
       shouldDirty: true,
     });
   };
@@ -80,7 +85,7 @@ export const PassesFilterSubFiltersArea = ({
 
         return (
           <Section
-            key={subFilterId}
+            key={sectionId}
             id={sectionId}
             value={watchedFilterValue}
             errors={errors}

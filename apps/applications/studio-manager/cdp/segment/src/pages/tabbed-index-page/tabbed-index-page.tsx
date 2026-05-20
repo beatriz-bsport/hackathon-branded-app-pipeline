@@ -1,12 +1,9 @@
 import { NavLink } from "react-router";
 
-import {
-  ListLayout,
-  Tabs,
-  type TabsProps,
-} from "@bsport/kaizen-primitive-core";
+import { Tabs, type TabsProps } from "@bsport/kaizen-primitive-core";
 
-import { SegmentListPageContent } from "#src/components/segment-list-page-content";
+import { CustomSegmentList } from "#src/components/custom-segment-list";
+import { PrebuiltSegmentList } from "#src/components/prebuilt-segment-list";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -14,17 +11,6 @@ type SegmentIndexTab = "prebuilt" | "custom";
 
 type Props = {
   activeTab: SegmentIndexTab;
-};
-
-const PrebuiltPlaceholder = () => {
-  const { t } = useTranslation("list");
-  return (
-    <ListLayout.Content>
-      <div className="flex items-center justify-center h-full p-8 text-onsurface-weak">
-        {t("prebuilt.placeholder")}
-      </div>
-    </ListLayout.Content>
-  );
 };
 
 export const TabbedIndexPage: React.FC<Props> = ({ activeTab }: Props) => {
@@ -65,15 +51,10 @@ export const TabbedIndexPage: React.FC<Props> = ({ activeTab }: Props) => {
   };
 
   if (activeTab === "custom") {
-    return <SegmentListPageContent pageTabs={tabsConfig} />;
+    return <CustomSegmentList pageTabs={tabsConfig} />;
   }
 
-  return (
-    <ListLayout>
-      <ListLayout.Header pageTitle={t("title")} pageTabs={tabsConfig} />
-      <PrebuiltPlaceholder />
-    </ListLayout>
-  );
+  return <PrebuiltSegmentList pageTabs={tabsConfig} />;
 };
 
 export default TabbedIndexPage;

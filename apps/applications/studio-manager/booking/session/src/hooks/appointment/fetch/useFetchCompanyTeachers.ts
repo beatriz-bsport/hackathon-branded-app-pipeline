@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { type Teacher, fetchFlatTeachers, teacherKeys } from "@bsport/api-core";
+import { type Teacher, fetchFlatTeachers, teacherKeys } from "@bsport/api-book";
 
 import { fetch } from "#src/utils/fetch";
 

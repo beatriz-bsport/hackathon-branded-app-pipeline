@@ -9,12 +9,13 @@ import { DetailsFetchError } from "#src/components/session-details/details-fetch
 import { DetailsLoadingPage } from "#src/components/session-details/details-loading-page";
 import { BookingDetailDrawer } from "#src/components/session-management/booking-detail-drawer/booking-detail-drawer";
 import { BookingOptionDetailDrawer } from "#src/components/session-management/booking-detail-drawer/booking-option-detail-drawer.js";
+import { FloorPlanBlock } from "#src/components/session-management/floor-plan-block";
 import { Header } from "#src/components/session-management/header";
 import { LivestreamSection } from "#src/components/session-management/livestream-section/livestream-section";
 import { ParticipantsSection } from "#src/components/session-management/participants-section/participants-section";
 import { SessionManagementModals } from "#src/components/session-management/session-management-modals";
-import { FloorPlanBlock } from "#src/components/session-management/session-panel";
 import { WaitlistSection } from "#src/components/session-management/waitlist-section/waitlist-section";
+import { SessionPanel } from "#src/components/session-panel";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import { useSessionManagementModals } from "#src/hooks/use-session-management-modals";
@@ -84,6 +85,8 @@ const SessionManagementPageInner: FC = () => {
             session={{
               id: session.id,
               room_blueprint: session.room_blueprint,
+              coach: session.coach,
+              coach_override: session.coach_override,
             }}
           />
           <ParticipantsSection
@@ -99,6 +102,10 @@ const SessionManagementPageInner: FC = () => {
             />
           )}
         </DetailsLayout.Content>
+
+        <DetailsLayout.Panel>
+          <SessionPanel sessionId={session.id} />
+        </DetailsLayout.Panel>
       </DetailsLayout>
       <SessionManagementModals
         closeModal={closeModal}

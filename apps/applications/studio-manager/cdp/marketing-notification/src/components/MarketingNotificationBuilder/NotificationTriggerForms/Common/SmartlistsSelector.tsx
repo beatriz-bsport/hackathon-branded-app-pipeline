@@ -1,3 +1,7 @@
+import {
+  BackendSelector,
+  handleSelectSingleOrMultipleItems,
+} from "@bsport/kaizen-business-components/form/backend-selector";
 import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 import type {
   FetchSmartlistsParams,
@@ -5,8 +9,6 @@ import type {
   SmartlistOptions,
 } from "@bsport/store-cdp-smartlist";
 
-import { handleSelectSingleOrMultipleItems } from "#src/components/BackendSelector";
-import { BackendSelector } from "#src/components/BackendSelector/BackendSelector";
 import { useFetchSmartlists } from "#src/hooks/api/use-fetch-smartlists";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { useTranslation } from "#src/utils/i18n";

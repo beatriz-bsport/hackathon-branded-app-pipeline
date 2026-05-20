@@ -1,4 +1,4 @@
-import { type FC, useState } from "react";
+import { type FC, type Ref, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import type { MetaActivity } from "@bsport/api-book";
@@ -6,8 +6,10 @@ import {
   Breadcrumbs,
   Button,
   DetailsLayout,
+  type FilterProps,
   type TabsProps,
 } from "@bsport/kaizen-primitive-core";
+import type { ExpandableSearchInputWithTooltipProps } from "@bsport/kaizen-primitive-core";
 
 import { ArchiveClassModal } from "#src/components/archive-class-modal/archive-class-modal";
 import { DuplicateClassModal } from "#src/components/duplicate-class-modal/duplicate-class-modal";
@@ -19,9 +21,18 @@ import { useTranslation } from "#src/utils/i18n";
 type Props = {
   metaActivity: MetaActivity;
   pageTabs: TabsProps;
+  filterConfig?: FilterProps;
+  filterRef?: Ref<{ resetFilters: () => void }>;
+  searchConfig?: ExpandableSearchInputWithTooltipProps;
 };
 
-export const ClassDetailHeader: FC<Props> = ({ metaActivity, pageTabs }) => {
+export const ClassDetailHeader: FC<Props> = ({
+  metaActivity,
+  pageTabs,
+  filterConfig,
+  filterRef,
+  searchConfig,
+}) => {
   const { t } = useTranslation("class-detail");
   const navigate = useNavigate();
 
@@ -115,6 +126,9 @@ export const ClassDetailHeader: FC<Props> = ({ metaActivity, pageTabs }) => {
         BreadcrumbsItems={BreadcrumbsItems}
         pageTabs={pageTabs}
         endGroupActions={endGroupActions}
+        filterConfig={filterConfig}
+        filterRef={filterRef}
+        searchConfig={searchConfig}
       />
       <ArchiveClassModal
         open={isArchiveModalOpen}

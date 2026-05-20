@@ -2,9 +2,9 @@ import type {
   FetchGroupActivitiesParams,
   MetaActivity,
 } from "@bsport/api-book";
+import { BackendSelector } from "@bsport/kaizen-business-components/form/backend-selector";
 import type { TextFieldProps } from "@bsport/kaizen-primitive-core";
 
-import { BackendSelector } from "#src/components/BackendSelector/BackendSelector";
 import { useFetchGroupActivities } from "#src/hooks/api/use-fetch-group-activities";
 import { useGetMarketingNotificationDependenciesData } from "#src/hooks/api/use-get-marketing-notification-dependencies-data";
 import { useTranslation } from "#src/utils/i18n";

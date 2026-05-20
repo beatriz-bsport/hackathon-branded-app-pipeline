@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { type SessionEditPayload, editSessionAPI } from "@bsport/api-book";
+import {
+  type SessionEditPayload,
+  editSessionAPI,
+  sessionKeys,
+} from "@bsport/api-book";
 import { toast } from "@bsport/kaizen-primitive-core";
 
-import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { fetch } from "#src/utils/fetch";
 import { useWaitForBackgroundTask } from "#src/utils/fetch-background-task";
 import { useTranslation } from "#src/utils/i18n";
@@ -38,13 +41,10 @@ const useEditSession = () => {
     onSuccess: async (_, { sessionId }) => {
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: [SESSIONS_QUERY_KEY],
+          queryKey: sessionKeys.all,
         }),
         queryClient.invalidateQueries({
-          queryKey: [`${SESSIONS_QUERY_KEY}_similar`, sessionId],
-        }),
-        queryClient.invalidateQueries({
-          queryKey: [`${SESSIONS_QUERY_KEY}_in_group`],
+          queryKey: sessionKeys.similarList(sessionId),
         }),
       ]);
       toast({

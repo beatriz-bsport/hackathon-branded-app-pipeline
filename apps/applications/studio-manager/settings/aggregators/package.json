@@ -39,7 +39,6 @@
   },
   "peerDependencies": {
     "@bsport/api-book": "workspace:*",
-    "@bsport/api-core": "workspace:*",
     "@bsport/datetime-formatting": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",

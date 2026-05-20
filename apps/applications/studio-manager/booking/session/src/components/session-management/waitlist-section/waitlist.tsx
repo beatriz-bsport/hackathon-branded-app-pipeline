@@ -3,13 +3,17 @@ import { FC, useMemo } from "react";
 
 import { fromIsoString, getLocalNow } from "@bsport/datetime-manipulation";
 import {
+  type ActionButton,
   Avatar,
   Badge,
   Body,
   Button,
   type GenericTableColumn,
+  List,
+  type ListProps,
   PaginationProps,
   Table,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
@@ -91,6 +95,8 @@ export const WaitList: FC<{
     const now = getLocalNow({ zone: session.timezone_name });
     return now >= startDateTime;
   })();
+
+  const isMobile = !useMatchMedia("lg");
 
   const paginationProps: PaginationProps = useMemo(
     () => ({
@@ -196,6 +202,110 @@ export const WaitList: FC<{
           } as GenericTableColumn<RefinedBookingOption>,
         ]),
   ];
+
+  const listItems: ListProps["items"] = searchedBookingOptions.map(
+    (bookingOption) => {
+      const buttons: ActionButton[] = readOnly
+        ? []
+        : [
+            {
+              id: `waitlist-book-${bookingOption.id}`,
+              kind: "icon-button",
+              icon: "plus",
+              label: t("actions.bookToClass"),
+              intent: "default",
+              size: "md",
+              color: "main",
+              disabled: true,
+            },
+            {
+              id: `waitlist-remove-${bookingOption.id}`,
+              kind: "icon-button",
+              icon: "trash-01",
+              label: t("actions.removeFromWaitlist"),
+              intent: "default",
+              size: "md",
+              color: "main",
+              disabled: hasSessionStarted || !openModal,
+              onClick: () =>
+                openModal?.(SessionManagementModalType.DISCARD_BOOKING_OPTION, {
+                  bookingOptionId: bookingOption.id,
+                }),
+            },
+          ];
+
+      return {
+        id: `waitlist-${bookingOption.id}`,
+        title: bookingOption.memberData?.name ?? "",
+        avatar: {
+          src: bookingOption.memberData?.photo,
+          initials: getMemberInitials({
+            firstname: bookingOption.memberData?.first_name,
+            lastname: bookingOption.memberData?.last_name,
+          }),
+          shape: "round" as const,
+        },
+        isActive: readOnly
+          ? undefined
+          : bookingOption.id === selectedBookingOptionId,
+        onItemClick: readOnly
+          ? undefined
+          : () => {
+              if (bookingOption.id === selectedBookingOptionId) {
+                setSelectedBookingOption(null);
+                return;
+              }
+              setSelectedBooking(null);
+              setSelectedBookingOption(bookingOption.id);
+            },
+        customNode:
+          display_member_position && bookingOption.waitingListPosition ? (
+            <Badge
+              size="lg"
+              color="default"
+              text={`${bookingOption.waitingListPosition.member_position}/${bookingOption.waitingListPosition.waiting_list_size}`}
+            />
+          ) : undefined,
+        buttons,
+      };
+    },
+  );
+
+  if (isMobile) {
+    return (
+      <div
+        className={clsx({
+          "border-stroke-regular border-stroke-weak rounded-md overflow-hidden":
+            !isLoading,
+        })}
+      >
+        <List
+          id="waitlist-mobile-list"
+          items={listItems}
+          paginationProps={paginationProps}
+          emptyStateProps={{
+            isEmpty: !searchedBookingOptions.length,
+            ...(waitlistFilters === WaitlistFilter.ON_WAITLIST
+              ? {
+                  emptyConfig: {
+                    title: t("waitList.emptyState.title"),
+                    ctaButtonConfig: {
+                      label: t("bookButton"),
+                    },
+                  },
+                }
+              : {
+                  emptyConfig: { title: t("waitList.emptyState.pending") },
+                }),
+          }}
+          loadingProps={{
+            isLoading,
+            message: t("bookingsTable.loadingMessage"),
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div

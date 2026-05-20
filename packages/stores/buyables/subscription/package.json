@@ -4,7 +4,7 @@
   "private": true,
   "description": "Buyables Store for Subscription",
   "license": "UNLICENSED",
-  "author": "Théo Steffanetti <theo.steffanetti@bsport.io>",
+  "author": "Th\u00e9o Steffanetti <theo.steffanetti@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "build": "vite build --logLevel warn",
-    "ci:compile": "tsc",
+    "ci:compile": "tsc -p tsconfig.json --noEmit",
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",

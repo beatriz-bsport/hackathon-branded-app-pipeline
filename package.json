@@ -53,7 +53,7 @@
     "translation:new-naming:implement": "pnpm --filter=@bsport/i18n-management translation:implement-new-naming",
     "translation:new-naming:preview": "pnpm --filter=@bsport/i18n-management translation:preview-new-naming",
     "translation:project:transform": "pnpm --filter=@bsport/i18n-management project:transform",
-    "translation:update": "pnpm --silent --filter=@bsport/i18n-management translation:update",
+    "translation:update": "pnpm exec nx run @bsport/i18n-management:translation:update",
     "utils": "ts-node tools/toolkit-cli/src/index.ts",
     "verify:affected": "pnpm exec nx affected -t format:check lint test"
   },

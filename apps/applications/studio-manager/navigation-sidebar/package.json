@@ -12,7 +12,7 @@
     "build": "tsc && vite build --logLevel warn",
     "build:compat": "vite build --mode compat",
     "build:preview": "vite build --mode preview",
-    "ci:compile": "tsc --noEmit",
+    "ci:compile": "tsc -b",
     "dev": "vite",
     "dev:single": "pnpm dev",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",

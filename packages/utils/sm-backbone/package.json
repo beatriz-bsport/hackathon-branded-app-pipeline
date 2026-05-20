@@ -32,6 +32,7 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@bsport/api-platform": "workspace:*",
     "@bsport/broadcast-channel-polyfill": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/envs": "workspace:*",
@@ -44,9 +45,11 @@
     "@bsport/store-staff-management-role": "workspace:*",
     "@bsport/timezone-utils": "workspace:*",
     "@unleash/proxy-client-react": "^5.0.1",
-    "unleash-proxy-client": "^3.7.8"
+    "unleash-proxy-client": "^3.7.8",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@bsport/api-book": "workspace:*",
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/config-vitest": "workspace:*",
     "@tanstack/react-query": "^5.90.12",

@@ -4,32 +4,12 @@ import {
   instanciateAppI18n,
 } from "@bsport/i18n";
 
-import type bookingTranslations from "#src/i18n/source/booking.json";
-import type buyablesTranslations from "#src/i18n/source/buyables.json";
-import type cdpTranslations from "#src/i18n/source/cdp.json";
-import type coreTranslations from "#src/i18n/source/core.json";
-import type financialServicesTranslations from "#src/i18n/source/financial-services.json";
-import type formTranslations from "#src/i18n/source/form.json";
+import type backboneTranslations from "#src/i18n/source/backbone.json";
 
-/**
- * ========== NAMESPACES ==========
- */
-
-const i18nNamespaces: string[] = [
-  "booking",
-  "buyables",
-  "cdp",
-  "core",
-  "financial-services",
-];
+const i18nNamespaces: string[] = ["backbone"];
 
 export type Translations = {
-  booking: typeof bookingTranslations;
-  buyables: typeof buyablesTranslations;
-  cdp: typeof cdpTranslations;
-  core: typeof coreTranslations;
-  "financial-services": typeof financialServicesTranslations;
-  form: typeof formTranslations;
+  backbone: typeof backboneTranslations;
 };
 
 /**
@@ -40,7 +20,7 @@ export type Translations = {
  * -> Generate the i18nInstance and useTranslation related hook
  */
 
-const i18nNamespacePrefix = import.meta.env.VITE_I18N_NAMESPACE_PREFIX;
+const i18nNamespacePrefix = "sm-backbone";
 
 /* Function to retrieve translations from the build files in i18n/locales */
 const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (

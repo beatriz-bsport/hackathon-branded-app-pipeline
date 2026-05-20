@@ -16,7 +16,9 @@ import { initSentry, unleashIntegration } from "@bsport/sentry";
 
 import DevTools from "#src/dev-utils/DevTools";
 import FeatureFlagsProvider from "#src/feature-flags/FeatureFlagsProvider";
+import { BackgroundTaskHost } from "#src/features/background-task-host";
 import { getDefaultQueryClient } from "#src/query-client";
+import { ErrorBoundaryWrapper } from "#src/wrappers/ErrorBoundaryWrapper";
 
 import { RoutesWrapper, type RoutesWrapperProps } from "../RoutesWrapper";
 
@@ -98,6 +100,13 @@ export const AppWrapper: React.FC<AppWrapperProps> = ({
                     routesWrapperProps?.navigationProps?.onLogoutCallback
                   }
                 />
+                <ErrorBoundaryWrapper
+                  appName="sm-backbone-background-task-host"
+                  fallback={<p className="hidden" />}
+                >
+                  <BackgroundTaskHost />
+                </ErrorBoundaryWrapper>
+
                 <ReactQueryDevtools initialIsOpen={false} />
                 <RoutesWrapper {...routesWrapperProps}>
                   {children}

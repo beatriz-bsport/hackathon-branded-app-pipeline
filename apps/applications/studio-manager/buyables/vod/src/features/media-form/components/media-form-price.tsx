@@ -1,8 +1,6 @@
 import type { FC } from "react";
 
-import { useFormContext } from "@bsport/form";
-import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
-import { FormNumberField } from "@bsport/kaizen-business-components/form/number-field";
+import { CreditsInput } from "@bsport/kaizen-business-components/buyables/credits-input";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -16,26 +14,21 @@ type MediaFormPriceProps = {
 export const MediaFormPrice: FC<MediaFormPriceProps> = ({ formId }) => {
   const { t } = useTranslation("media-form");
   const companyTheme = dataAccessLayer.useCompanyTheme();
-  const { creditFactor, getCreditsFieldLabel, getCreditsDividedDisplay } =
-    useCreditFactor(companyTheme?.pass_credit_factor);
-
-  const { watch } = useFormContext<MediaFormData>();
-  const creditPrice = watch("credit_price");
-
-  const helperText =
-    creditFactor === 1
-      ? undefined
-      : t("formFields.credit_price.equivalentCredits", {
-          credits: getCreditsDividedDisplay(Number(creditPrice) || 0),
-        });
+  const creditFactor = companyTheme?.pass_credit_factor ?? 1;
 
   return (
-    <FormNumberField<MediaFormData, "credit_price">
+    <CreditsInput<MediaFormData, "credit_price">
       id={`${formId}-credit_price`}
+      passCreditFactor={companyTheme?.pass_credit_factor}
       fieldName="credit_price"
-      label={getCreditsFieldLabel()}
-      placeholder={t("formFields.credit_price.placeholder")}
-      helperText={helperText}
+      placeholder="0"
+      getHelperText={(params) => {
+        return creditFactor === 1
+          ? ""
+          : t("formFields.credit_price.equivalentCredits", {
+              creditsDisplay: params.creditsMessage,
+            });
+      }}
       required
       fullWidth
       maxDigits={0}

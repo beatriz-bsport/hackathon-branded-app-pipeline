@@ -11,10 +11,8 @@
       "errorMaxLength": "Description must be at most {{maxLength}} characters"
     },
     "credit_price": {
-      "label": "Price (in credits)",
-      "placeholder": "0",
       "errorInvalid": "Price must be a valid non-negative number",
-      "equivalentCredits": "Equivalent to {{credits}} in your pricing system"
+      "equivalentCredits": "This pass will contain {{ creditsDisplay }}"
     },
     "manager_only": {
       "label": "Unavailable for purchase",

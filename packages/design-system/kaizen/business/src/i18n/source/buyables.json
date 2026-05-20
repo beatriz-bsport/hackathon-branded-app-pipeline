@@ -52,7 +52,10 @@
   },
   "creditFactor": {
     "fieldLabel": "Credits",
-    "notPriceWarning": "Double-check: you're entering credits, not a price."
+    "notPriceWarning": "Double-check: you're entering credits, not a price.",
+    "nbOfCredits": "",
+    "nbOfCredits_one": "{{ countDisplay }} credit",
+    "nbOfCredits_other": "{{ countDisplay }} credits"
   },
   "passForm": {
     "unlimitedCreditSelector": {

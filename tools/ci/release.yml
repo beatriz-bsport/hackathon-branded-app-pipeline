@@ -100,6 +100,7 @@ Release:Build Artifact:
     - ARTIFACT_VERSION="$RELEASE_TAG" bash tools/scripts/build-artifact.sh
 
 Release:Linear Sync:
+  image: node:24-bookworm-slim
   stage: release-tracking
   needs:
     - job: Release:Tag
@@ -118,6 +119,10 @@ Release:Linear Sync:
       when: on_success
     - if: $CI_COMMIT_BRANCH =~ /^hotfix\/v[0-9]+\.[0-9]+\.x$/ && $CI_PIPELINE_SOURCE == "web" && $CI_LINEAR_ACCESS_KEY
       when: on_success
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends ca-certificates curl git
+    - rm -rf /var/lib/apt/lists/*
   script:
     - |
       if [ "${RELEASE_TAG_AVAILABLE:-false}" != "true" ]; then

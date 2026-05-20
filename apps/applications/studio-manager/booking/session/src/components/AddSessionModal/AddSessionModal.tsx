@@ -167,6 +167,8 @@ export const AddSessionModal = ({ isOpen, onClose }: AddSessionModalProps) => {
         SESSION_CREATION_STEPS.CONFIGURE_SESSION,
         configureSessionMethods.formState.isValid,
       );
+      // Make sure that the last step form status is checked (and assumed valid) before reaching the step
+      advancedOptionsMethods.trigger();
     }
 
     if (currentStep === SESSION_CREATION_STEPS.ADVANCED_OPTIONS) {

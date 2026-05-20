@@ -36,7 +36,7 @@ export const QueryBoundary = ({
     error,
     resetError,
   }: {
-    error: Error;
+    error: unknown;
     resetError: () => void;
   }) => {
     const handleRetry = () => {
@@ -45,7 +45,9 @@ export const QueryBoundary = ({
     };
 
     if (errorFallback) {
-      return errorFallback({ error, onRetry: handleRetry });
+      const normalizedError =
+        error instanceof Error ? error : new Error(String(error));
+      return errorFallback({ error: normalizedError, onRetry: handleRetry });
     }
 
     return <QueryBoundarySectionErrorFallback onRetry={handleRetry} />;

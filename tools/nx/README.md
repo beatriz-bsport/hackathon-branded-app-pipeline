@@ -295,6 +295,29 @@ The root GitLab workflow skips only semver release tag pipelines (`vX.Y.Z`). Oth
 
 After `Release:Tag` succeeds on `dev` or a hotfix branch, `Release:Build Artifact` reuses the same aggregate build flow as ephemeral environments and uploads the artifact snapshot to `s3://bsport-frontends-artifacts-euw3/backoffice/<release-tag>`, for example `backoffice/v1.21.1`.
 
+If `CI_LINEAR_ACCESS_KEY` is configured in GitLab CI, `Release:Linear Sync`
+runs after the release artifact is created and syncs that same semver tag to the
+Ichizen Linear release pipeline. The job uses `RELEASE_TAG` as the Linear release
+version and `Ichizen <release-tag>` as the release name.
+
+The sync only runs when at least one Linear issue id can be resolved from the
+release commits. CI scans the full commit message for `ABC-123`-style ids and
+also falls back to the GitLab merge request source branch for each release
+commit.
+
+These commit message formats are all accepted:
+
+```text
+fix(sm-segment): [ce-3456] bad thing
+feat(insights): embed frontend context for bookings AI summary BI-760
+Refs BOO-2630
+```
+
+CI also extracts ids from merge request source branch names like
+`ce-3456-bad-thing`. The branch name must start with the issue id. If no ids can
+be resolved from either the commit message or the source branch, the Linear sync
+job skips the release instead of tagging unrelated issues.
+
 See [Hotfix Releases](../../docs/hotfix-releases.md) for the branch workflow.
 
 ## Development

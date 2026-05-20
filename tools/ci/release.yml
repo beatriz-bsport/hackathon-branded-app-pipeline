@@ -98,3 +98,50 @@ Release:Build Artifact:
       fi
     - echo "🔱 Building release artifact for $RELEASE_TAG"
     - ARTIFACT_VERSION="$RELEASE_TAG" bash tools/scripts/build-artifact.sh
+
+Release:Linear Sync:
+  stage: release-tracking
+  needs:
+    - job: Release:Tag
+      artifacts: true
+    - job: Release:Build Artifact
+  variables:
+    GIT_STRATEGY: clone
+    GIT_DEPTH: 0
+    LINEAR_RELEASE_CLI_VERSION: "v0.10.0"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev" && $CI_PIPELINE_SOURCE == "push" && $CI_LINEAR_ACCESS_KEY
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == "dev" && $CI_PIPELINE_SOURCE == "web" && $CI_LINEAR_ACCESS_KEY
+      when: on_success
+    - if: $CI_COMMIT_BRANCH =~ /^hotfix\/v[0-9]+\.[0-9]+\.x$/ && $CI_PIPELINE_SOURCE == "push" && $CI_LINEAR_ACCESS_KEY
+      when: on_success
+    - if: $CI_COMMIT_BRANCH =~ /^hotfix\/v[0-9]+\.[0-9]+\.x$/ && $CI_PIPELINE_SOURCE == "web" && $CI_LINEAR_ACCESS_KEY
+      when: on_success
+  script:
+    - |
+      if [ "${RELEASE_TAG_AVAILABLE:-false}" != "true" ]; then
+        echo "No release tag was created for this pipeline; skipping Linear release sync."
+        exit 0
+      fi
+      if ! echo "$RELEASE_TAG" | grep -Eq '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+        echo "Invalid release tag: $RELEASE_TAG"
+        exit 1
+      fi
+    - echo "🔱 Syncing Linear release for $RELEASE_TAG"
+    - node tools/scripts/resolve-linear-release-issues.mts --tag "$RELEASE_TAG" --output linear-release-issues.env
+    - . linear-release-issues.env
+    - |
+      if [ "${LINEAR_RELEASE_ISSUES_AVAILABLE:-false}" != "true" ]; then
+        echo "No Linear issue id found in commit messages or source branches; skipping Linear release sync."
+        exit 0
+      fi
+    - 'echo "Found Linear issues for release: $LINEAR_RELEASE_ISSUES"'
+    - |
+      if ! curl --fail --show-error --silent --location --retry 3 --retry-delay 2 --retry-all-errors "https://github.com/linear/linear-release/releases/download/${LINEAR_RELEASE_CLI_VERSION}/linear-release-linux-x64" -o linear-release; then
+        echo "Failed to download linear-release ${LINEAR_RELEASE_CLI_VERSION}."
+        exit 1
+      fi
+
+      chmod +x linear-release
+      LINEAR_ACCESS_KEY="$CI_LINEAR_ACCESS_KEY" ./linear-release sync --name="Ichizen ${RELEASE_TAG}" --release-version="${RELEASE_TAG}"

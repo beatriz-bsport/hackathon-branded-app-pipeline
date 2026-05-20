@@ -4142,9 +4142,6 @@ importers:
       '@bsport/local-storage-auth-token':
         specifier: workspace:*
         version: link:../../../local-storage/auth-token
-      '@bsport/sm-backbone':
-        specifier: workspace:*
-        version: link:../../../utils/sm-backbone
       '@nx/vite':
         specifier: 21.6.10
         version: 21.6.10(@babel/traverse@7.28.6)(@swc-node/register@1.10.9(@swc/core@1.11.13(@swc/helpers@0.5.17))(@swc/types@0.1.20)(typescript@5.6.3))(@swc/core@1.11.13(@swc/helpers@0.5.17))(nx@21.6.10(@swc-node/register@1.10.9(@swc/core@1.11.13(@swc/helpers@0.5.17))(@swc/types@0.1.20)(typescript@5.6.3))(@swc/core@1.11.13(@swc/helpers@0.5.17)))(typescript@5.6.3)(vite@5.4.11(@types/node@22.13.15)(sass@1.77.8)(terser@5.31.3))(vitest@3.2.4)
@@ -8975,7 +8972,6 @@ packages:
   '@snyk/github-codeowners@1.1.0':
     resolution: {integrity: sha512-lGFf08pbkEac0NYgVf4hdANpAgApRjNByLXB+WBip3qj1iendOIyAwP2GKkKbQMNVy2r1xxDf0ssfWscoiC+Vw==}
     engines: {node: '>=8.10'}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     hasBin: true
 
   '@standard-schema/spec@1.0.0':
@@ -37299,7 +37295,9 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

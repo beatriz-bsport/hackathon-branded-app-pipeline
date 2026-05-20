@@ -1,5 +1,7 @@
 import type { PaymentIntent } from "@stripe/stripe-js";
 
+import type { CompanyTheme } from "@bsport/api-core";
+
 import type { StripeMethod } from "./constants";
 
 export type StripePaymentMethodProps = {
@@ -14,6 +16,7 @@ export type StripePaymentMethodProps = {
   isClientSecretLoading: boolean;
   savePaymentMethod: boolean;
   onSavePaymentMethodChange: (value: boolean) => void;
+  companyTheme?: CompanyTheme;
 };
 
 export type StripePaymentMethodSubmitResult = {

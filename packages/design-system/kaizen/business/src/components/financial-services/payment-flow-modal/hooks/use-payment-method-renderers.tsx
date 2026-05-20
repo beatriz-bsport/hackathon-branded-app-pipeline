@@ -1,5 +1,6 @@
 import type { ReactNode, RefObject } from "react";
 
+import type { CompanyTheme } from "@bsport/api-core";
 import type { Fetch } from "@bsport/fetch";
 import type { UseFormControllerOutput } from "@bsport/form";
 
@@ -48,6 +49,7 @@ type UsePaymentMethodRenderersParams = {
   cardPaymentRef: RefObject<StripePaymentMethodHandle | null>;
   sepaPaymentRef: RefObject<StripePaymentMethodHandle | null>;
   onGiftCardsChange: (cards: PaymentFlowGiftCard[]) => void;
+  companyTheme?: CompanyTheme;
 };
 
 /**
@@ -75,6 +77,7 @@ export const usePaymentMethodRenderers = ({
   cardPaymentRef,
   sepaPaymentRef,
   onGiftCardsChange,
+  companyTheme,
 }: UsePaymentMethodRenderersParams) => {
   const savePaymentMethod = methods.watch("savePaymentMethod");
   const terminalReaderId = methods.watch("terminalReaderId");
@@ -103,6 +106,7 @@ export const usePaymentMethodRenderers = ({
           onSavePaymentMethodChange={(value) =>
             methods.setValue("savePaymentMethod", value)
           }
+          companyTheme={companyTheme}
         />
       ) : null,
     [ALL_PAYMENT_METHOD_SELECTOR_ID.SEPA_DEBIT]: () =>
@@ -118,6 +122,7 @@ export const usePaymentMethodRenderers = ({
           onSavePaymentMethodChange={(value) =>
             methods.setValue("savePaymentMethod", value)
           }
+          companyTheme={companyTheme}
         />
       ) : null,
     [ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE]: () => (

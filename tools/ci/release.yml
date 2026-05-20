@@ -138,10 +138,32 @@ Release:Linear Sync:
       fi
     - 'echo "Found Linear issues for release: $LINEAR_RELEASE_ISSUES"'
     - |
-      if ! curl --fail --show-error --silent --location --retry 3 --retry-delay 2 --retry-all-errors "https://github.com/linear/linear-release/releases/download/${LINEAR_RELEASE_CLI_VERSION}/linear-release-linux-x64" -o linear-release; then
+      case "$(uname -m)" in
+        x86_64|amd64)
+          LINEAR_RELEASE_CLI_ARCH="x64"
+          ;;
+        aarch64|arm64)
+          LINEAR_RELEASE_CLI_ARCH="arm64"
+          ;;
+        *)
+          echo "Unsupported architecture for linear-release: $(uname -m)"
+          exit 1
+          ;;
+      esac
+
+      LINEAR_RELEASE_CLI_ASSET="linear-release-linux-${LINEAR_RELEASE_CLI_ARCH}"
+
+      if ! curl --fail --show-error --silent --location --retry 3 --retry-delay 2 --retry-all-errors "https://github.com/linear/linear-release/releases/download/${LINEAR_RELEASE_CLI_VERSION}/${LINEAR_RELEASE_CLI_ASSET}" -o linear-release; then
         echo "Failed to download linear-release ${LINEAR_RELEASE_CLI_VERSION}."
         exit 1
       fi
 
       chmod +x linear-release
+
+      if ! ./linear-release --help >/dev/null 2>&1; then
+        echo "linear-release ${LINEAR_RELEASE_CLI_VERSION} (${LINEAR_RELEASE_CLI_ASSET}) failed to start."
+        echo "The prebuilt linear-release binary requires a glibc-based Linux image; Alpine/musl images are not supported."
+        exit 1
+      fi
+
       LINEAR_ACCESS_KEY="$CI_LINEAR_ACCESS_KEY" ./linear-release sync --name="Ichizen ${RELEASE_TAG}" --release-version="${RELEASE_TAG}"

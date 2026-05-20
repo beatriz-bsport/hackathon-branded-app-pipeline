@@ -46,9 +46,9 @@ const hasInvoiceMember = (
 
 /**
  * Whether installments can be offered for this invoice, mirroring legacy invoice detail
- * (`InvoicePaymentPanel` “Bill by instalment” visibility and disabled rules).
+ * (`InvoicePaymentPanel` "Bill by installment" visibility and disabled rules).
  *
- * Does not enforce permissions — legacy did not gate instalments with `takePayment`.
+ * Does not enforce permissions — legacy did not gate installments with `takePayment`.
  */
 export function resolveInvoiceInstallmentsEligibility({
   invoiceType,

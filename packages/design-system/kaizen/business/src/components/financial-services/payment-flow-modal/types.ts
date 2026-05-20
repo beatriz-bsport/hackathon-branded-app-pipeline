@@ -1,5 +1,4 @@
-import type { ReactNode } from "react";
-import type { RefObject } from "react";
+import type { ReactNode, RefObject } from "react";
 
 import type { CompanyTheme } from "@bsport/api-core";
 import type { Fetch } from "@bsport/fetch";
@@ -52,6 +51,9 @@ export type PaymentFlowModalBodyState = {
   memberName: string;
   invoiceUrl: string;
   memberUrl: string;
+  installmentScheduleDetail: string | undefined;
+  installmentPerIntervalCaption: string | undefined;
+  invoiceRemainingAmountCts: number;
 };
 
 export type ConfirmPaymentFormValues = {

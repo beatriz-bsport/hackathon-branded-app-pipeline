@@ -12,6 +12,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { ContractArchiveModal } from "#src/features/contract-archive-modal";
+import { ContractPauseModal } from "#src/features/contract-pause-modal/contract-pause-modal";
 import { useDisclosure } from "#src/hooks/utils/use-disclosure";
 import { LEGACY_URLS, URLS, getHrefFromRoot } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
@@ -94,6 +95,12 @@ export const useContractDetailsHeader = ({
 
   // Pause
 
+  const {
+    isOpen: isPauseModalOpen,
+    onClose: closePauseModal,
+    onOpen: openPauseModal,
+  } = useDisclosure();
+
   const pauseButton = (
     <Button
       key="contract-details-button-pause"
@@ -103,7 +110,16 @@ export const useContractDetailsHeader = ({
       icon="pause-square"
       kind="icon-button"
       label={t("header.actions.pauseContract")}
-      onClick={() => alert("not implemented yet")}
+      onClick={openPauseModal}
+      disabled={!canBePaused}
+    />
+  );
+
+  const pauseModal = (
+    <ContractPauseModal
+      closeModal={closePauseModal}
+      contractId={contract.id}
+      isOpen={isPauseModalOpen}
     />
   );
 
@@ -125,6 +141,7 @@ export const useContractDetailsHeader = ({
       kind="icon-button"
       label={t("header.actions.archiveContract")}
       onClick={openArchiveModal}
+      disabled={!canBeArchived}
     />
   );
 
@@ -142,12 +159,8 @@ export const useContractDetailsHeader = ({
     />
   );
 
-  if (canBePaused) {
-    startGroupActionsRaw.push(pauseButton);
-  }
-  if (canBeArchived) {
-    startGroupActionsRaw.push(archiveButton);
-  }
+  startGroupActionsRaw.push(pauseButton);
+  startGroupActionsRaw.push(archiveButton);
   startGroupActionsRaw.push(copyPaymentLinkButton);
 
   const { startGroupActions, endGroupActions } =
@@ -162,6 +175,11 @@ export const useContractDetailsHeader = ({
     startGroupActionsRaw,
     startGroupActions,
     endGroupActions,
-    archiveModal,
+    modals: (
+      <>
+        {archiveModal}
+        {pauseModal}
+      </>
+    ),
   };
 };

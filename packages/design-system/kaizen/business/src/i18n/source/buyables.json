@@ -146,5 +146,11 @@
     "customAmountRange": "Custom: {{min}} - {{max}}",
     "hiddenChipLabel": "Hidden",
     "hiddenGiftcardTooltip": "This gift card won't be available to buy on the Member Area"
+  },
+  "billingPlanStatus": {
+    "valid": "Valid",
+    "paused": "Paused",
+    "canceled": "Canceled",
+    "ended": "Ended"
   }
 }

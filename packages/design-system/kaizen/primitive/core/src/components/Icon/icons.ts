@@ -309,12 +309,18 @@ const icons = {
   "shopping-cart-cross": React.lazy(
     async () => await import("./assets/shopping-cart-cross.svg?react"),
   ),
+  "slash-circle-02": React.lazy(
+    async () => await import("./assets/slash-circle-02.svg?react"),
+  ),
   "spacing-width-02": React.lazy(
     async () => await import("./assets/spacing-width-02.svg?react"),
   ),
   sparkles: React.lazy(async () => await import("./assets/sparkles.svg?react")),
   "stop-circle-solid": React.lazy(
     async () => await import("./assets/stop-circle-solid.svg?react"),
+  ),
+  "stop-circle": React.lazy(
+    async () => await import("./assets/stop-circle.svg?react"),
   ),
   "switch-horizontal-01": React.lazy(
     async () => await import("./assets/switch-horizontal-01.svg?react"),

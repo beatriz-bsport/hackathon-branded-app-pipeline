@@ -335,6 +335,8 @@ const Pagination: React.FC<PaginationProps> = ({
                 return (
                   <button
                     id={`pagination-button-${value}`}
+                    type="button"
+                    role="button"
                     className={button({
                       active: currentPage === value,
                       disabled,
@@ -342,7 +344,10 @@ const Pagination: React.FC<PaginationProps> = ({
                     key={value}
                     aria-label={`Page ${value}`}
                     disabled={disabled}
-                    onClick={() => handlePageChange(value)}
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      handlePageChange(value);
+                    }}
                   >
                     {isShortened ? (
                       <Tooltip label={value.toString()}>

@@ -79,3 +79,31 @@ export type ApplyGiftcardOnInvoiceRequest = {
   consumer_giftcard_id: number;
   amount: number;
 };
+
+export type ScheduleInvoicePaymentRequest = {
+  invoiceId: string;
+  interval: string;
+  nb_interval: number;
+  recurrence_basis: number;
+  anchor_date?: string;
+  payment_method: number;
+  payment_method_id: string | null;
+  payment_method_identifier: number;
+};
+
+export type ScheduleInvoicePaymentResponse = {
+  id: number;
+  date_created: string;
+  future_date: string;
+  invoice: string;
+  amount_cts: string;
+  payment_engine: number;
+  payment_method_identifier: number;
+  _payment_backend_method_id: string;
+  status: number;
+  error_recoverable_manually: boolean;
+  recoverable_error_type: string | null;
+  processing: boolean;
+  next_retry_date: string | null;
+  nb_retries: number;
+};

@@ -101,7 +101,7 @@ export const InstallmentsSection = ({
         scheduleTotalCts,
         i18nInstance.language,
       )
-    : undefined;
+    : null;
 
   const fullCycleListItems: ListItemProps[] | undefined =
     fullCycleRows && fullCycleRows.length > 0

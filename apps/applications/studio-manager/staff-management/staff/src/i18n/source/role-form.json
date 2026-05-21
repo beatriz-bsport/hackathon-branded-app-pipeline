@@ -7,6 +7,7 @@
     },
     "navigationPermissions": {
       "label": "Navigation permissions",
+      "helperText": "Control which pages appear in the menu. Staff will only see what they need for their role.",
       "placeholder": "Navigation permissions will be selected here."
     },
     "featurePermissions": {
@@ -15,7 +16,11 @@
     }
   },
   "buttons": {
+    "add": "Add",
+    "collapse": "Collapse",
     "confirm": "Create role",
+    "expand": "Expand",
+    "remove": "Remove",
     "close": "Close"
   },
   "formFields": {
@@ -31,6 +36,257 @@
       "label": "Starting role",
       "loading": "Loading roles...",
       "helperText": "Start with an empty role, or use an existing role to edit its permissions."
+    },
+    "permissions": {
+      "errorRequired": "Select at least one permission"
+    },
+    "navigationMenu": {
+      "label": "Navigation sidebar menu",
+      "selectAll": {
+        "label": "Select all"
+      },
+      "dashboard": {
+        "label": "Dashboard"
+      },
+      "calendar": {
+        "label": "Calendar"
+      },
+      "schedule": {
+        "label": "Schedule"
+      },
+      "accessMonitoring": {
+        "label": "Access monitoring",
+        "perform": {
+          "label": "Perform access monitoring"
+        },
+        "monitor": {
+          "label": "Access location visits history"
+        },
+        "settings": {
+          "label": "Access settings page"
+        }
+      },
+      "myClub": {
+        "label": "My studio",
+        "activities": {
+          "label": "Group activities"
+        },
+        "workshops": {
+          "label": "Workshops"
+        },
+        "appointments": {
+          "label": "Appointments"
+        },
+        "teachers": {
+          "label": "Teachers"
+        },
+        "establishments": {
+          "label": "Establishments"
+        },
+        "programs": {
+          "label": "Programs"
+        },
+        "replacement": {
+          "label": "Substitution"
+        }
+      },
+      "products": {
+        "label": "Products",
+        "paymentPack": {
+          "label": "Passes"
+        },
+        "privatePass": {
+          "label": "Appointment passes"
+        },
+        "shop": {
+          "label": "Webshop"
+        },
+        "shopReworked": {
+          "label": "Webshop",
+          "products": {
+            "label": "Products"
+          },
+          "settings": {
+            "label": "Settings"
+          }
+        },
+        "packs": {
+          "label": "Packs"
+        },
+        "giftcards": {
+          "label": "Gift cards"
+        },
+        "promotions": {
+          "label": "Promotions"
+        },
+        "contracts": {
+          "label": "Subscriptions"
+        }
+      },
+      "payments": {
+        "label": "Transactions",
+        "billings": {
+          "label": "Invoices"
+        },
+        "directDebits": {
+          "label": "Direct debits"
+        },
+        "teachers": {
+          "label": "Teachers"
+        },
+        "orders": {
+          "label": "Orders"
+        },
+        "expenses": {
+          "label": "Expenses"
+        },
+        "installments": {
+          "label": "Instalments"
+        },
+        "clockIn": {
+          "label": "Attendance",
+          "selfClockIn": {
+            "label": "Punch (autonomous)"
+          },
+          "clockInForOther": {
+            "label": "Punch (for another staff member)"
+          },
+          "canAccessHistory": {
+            "label": "Access time clock history"
+          }
+        }
+      },
+      "marketing": {
+        "label": "Marketing",
+        "templates": {
+          "label": "Emails"
+        },
+        "customForms": {
+          "label": "Forms"
+        },
+        "smartlists": {
+          "label": "Smartlists"
+        },
+        "notifications": {
+          "label": "Notifications"
+        },
+        "tags": {
+          "label": "Tags"
+        },
+        "cadence": {
+          "label": "Audience"
+        }
+      },
+      "digitalOffer": {
+        "label": "Digital offer",
+        "videos": {
+          "label": "Videos & eBooks"
+        },
+        "playlists": {
+          "label": "Playlist"
+        }
+      },
+      "inbox": {
+        "label": "Inbox"
+      },
+      "member": {
+        "label": "Members"
+      },
+      "reporting": {
+        "label": "Reporting"
+      },
+      "settings": {
+        "label": "Settings",
+        "generals": {
+          "label": "General"
+        },
+        "marketplace": {
+          "label": "Aggregator settings"
+        },
+        "widgets": {
+          "label": "Widgets"
+        },
+        "staffs": {
+          "label": "Staff"
+        },
+        "personalization": {
+          "label": "Personalization"
+        },
+        "memberForms": {
+          "label": "Member forms"
+        },
+        "coachUserspace": {
+          "label": "Teacher View"
+        },
+        "liveStreaming": {
+          "label": "Live streaming integration"
+        },
+        "transactionnalEmail": {
+          "label": "Transactional notifications"
+        },
+        "teacherPayrollRules": {
+          "label": "Payroll rules"
+        },
+        "paymentMethods": {
+          "label": "Payment method"
+        },
+        "company": {
+          "label": "Company"
+        },
+        "billing": {
+          "label": "Billing"
+        },
+        "waitingList": {
+          "label": "Waitlist"
+        },
+        "webShop": {
+          "label": "Shop"
+        },
+        "webHook": {
+          "label": "Webhook"
+        },
+        "partnership": {
+          "label": "Partnership"
+        },
+        "quickBooks": {
+          "label": "QuickBooks"
+        },
+        "activeCampaign": {
+          "label": "ActiveCampaign"
+        },
+        "subscription": {
+          "label": "bsport subscription"
+        },
+        "mobilePersonalization": {
+          "label": "Branded app"
+        },
+        "quicksale": {
+          "label": "Quick sales interface"
+        },
+        "referral": {
+          "label": "Referral program"
+        }
+      },
+      "tutorial": {
+        "label": "Tutorials"
+      }
+    },
+    "appbarButtons": {
+      "label": "Top navigation actions",
+      "ledger": {
+        "label": "Ledger"
+      },
+      "notificationCenter": {
+        "label": "Notifications & Alerts"
+      },
+      "communicationAlerts": {
+        "label": "Message notification"
+      }
+    },
+    "restrictedPaths": {
+      "title": "URL permissions",
+      "helperText": "Allow access to specific URLs for this role",
+      "placeholder": "Example: /member/"
     },
     "errors": {
       "required": "This field is required"

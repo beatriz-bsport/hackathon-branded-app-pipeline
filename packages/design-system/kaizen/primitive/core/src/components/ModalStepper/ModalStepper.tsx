@@ -237,13 +237,14 @@ const ModalStepper: React.FC<ModalStepperProps> = ({
             steps.map((step, index) => (
               <div
                 key={step.label}
-                className="inline-flex items-center gap-2xs"
+                className="flex items-start gap-2xs max-w-[200px] min-w-0"
               >
                 {step.icon && <Icon icon={step.icon} size="sm" />}
                 <Body
                   htmlVariant="span"
                   weight={index === currentStep ? "strong" : "weak"}
                   color={index === currentStep ? "default" : "weak"}
+                  className="min-w-0 line-clamp-2"
                 >
                   {step.label}
                 </Body>

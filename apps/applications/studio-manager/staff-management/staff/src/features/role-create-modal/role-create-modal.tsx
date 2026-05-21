@@ -1,14 +1,25 @@
-import { type FC, useId, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { type FC, useEffect, useId, useMemo, useRef } from "react";
 
+import {
+  type CompanyRolePermissions,
+  fetchRoleDefinitionsQueryOptions,
+} from "@bsport/api-staff-management/role";
 import { ControlledForm, useFormController } from "@bsport/form";
 import { ModalStepper } from "@bsport/kaizen-primitive-core";
 
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
+import { NavigationPermissionsStep } from "../role-form/components/navigation-permissions-step";
 import { RoleFormDescription } from "../role-form/components/role-form-description";
 import { RoleFormName } from "../role-form/components/role-form-name";
 import { RoleFormStarterRole } from "../role-form/components/role-form-starter-role";
-import { ROLE_FORM_DEFAULTS } from "../role-form/constants";
+import {
+  DEFAULT_PERMISSIONS,
+  ROLE_FORM_DEFAULTS,
+} from "../role-form/constants";
+import { hasSelectedPermission } from "../role-form/permission-tree-utils";
 import { useRoleFormSchema } from "../role-form/schema";
 import type { RoleFormSchema } from "../role-form/types";
 
@@ -17,11 +28,18 @@ type RoleCreateModalProps = {
   onClose: () => void;
 };
 
+const deepClone = (
+  permissions: CompanyRolePermissions,
+): CompanyRolePermissions => JSON.parse(JSON.stringify(permissions));
+
 export const RoleCreateModal: FC<RoleCreateModalProps> = ({
   isOpen,
   onClose,
 }) => {
   const { t, i18n } = useTranslation("role-form");
+  const { data: roles = [] } = useQuery(
+    fetchRoleDefinitionsQueryOptions(fetch),
+  );
   const formId = `role-create-${useId()}`;
   const roleFormSchema = useRoleFormSchema();
   const methods = useFormController<RoleFormSchema>({
@@ -30,11 +48,34 @@ export const RoleCreateModal: FC<RoleCreateModalProps> = ({
     defaultValues: ROLE_FORM_DEFAULTS,
   });
   const { isValid, isDirty } = methods.formState;
+  const starterRoleId = methods.watch("starterRoleId");
+  const lastAppliedStarterRoleIdRef = useRef<string | undefined>(undefined);
 
   const closeModal = () => {
     methods.reset(ROLE_FORM_DEFAULTS);
     onClose();
   };
+
+  useEffect(() => {
+    if (lastAppliedStarterRoleIdRef.current === starterRoleId) {
+      return;
+    }
+
+    const starterRole = roles.find((role) => String(role.id) === starterRoleId);
+    if (starterRoleId && !starterRole) {
+      return;
+    }
+
+    methods.setValue(
+      "permissions",
+      deepClone(starterRole?.permissions ?? DEFAULT_PERMISSIONS),
+      {
+        shouldDirty: Boolean(starterRoleId),
+        shouldValidate: true,
+      },
+    );
+    lastAppliedStarterRoleIdRef.current = starterRoleId;
+  }, [methods, roles, starterRoleId]);
 
   const steps = useMemo(
     () => [
@@ -59,7 +100,8 @@ export const RoleCreateModal: FC<RoleCreateModalProps> = ({
       },
       {
         label: t("steps.navigationPermissions.label"),
-        content: <div>{t("steps.navigationPermissions.placeholder")}</div>,
+        content: <NavigationPermissionsStep methods={methods} />,
+        validate: () => hasSelectedPermission(methods.getValues("permissions")),
       },
       {
         label: t("steps.featurePermissions.label"),
@@ -71,6 +113,7 @@ export const RoleCreateModal: FC<RoleCreateModalProps> = ({
 
   return (
     <ModalStepper
+      // key resets the internal currentStep to 0 on each open/close cycle.
       key={String(isOpen)}
       open={isOpen}
       size="lg"

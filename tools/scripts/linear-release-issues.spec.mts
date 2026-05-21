@@ -5,8 +5,11 @@ import {
   type GitRunner,
   createDotenvValues,
   createGitLabMergeRequestFetcher,
+  createSyntheticIssueRefName,
+  createSyntheticIssueRefs,
   extractIssueIdFromBranchName,
   extractIssueIdsFromText,
+  resolveLinearReleaseIssueRefs,
   resolveLinearReleaseIssues,
   serializeDotenv,
 } from "./linear-release-issues.mts";
@@ -74,6 +77,35 @@ Refs BOO-2630`),
     expect(fetchedCommits).toEqual(["commit-with-branch"]);
   });
 
+  it("returns the base ref and issue refs used for synthetic branches", async () => {
+    await expect(
+      resolveLinearReleaseIssueRefs({
+        tag: "v1.1.0",
+        runGit: createGitRunner({
+          abc1234: "fix: [ce-3456] first",
+          def5678: "chore: branch carries the issue id",
+        }),
+        fetchMergeRequestsForCommit: async () => [
+          { source_branch: "boo-2630-branch-only" },
+        ],
+      }),
+    ).resolves.toMatchObject({
+      issueIds: ["BOO-2630", "CE-3456"],
+      previousReleaseTag: "v1.0.0",
+      baseRef: "v1.0.0",
+      commits: ["abc1234", "def5678"],
+      issueRefs: [
+        { issueId: "CE-3456", commitSha: "abc1234", source: "commit_message" },
+        {
+          issueId: "BOO-2630",
+          commitSha: "def5678",
+          source: "source_branch",
+          sourceBranch: "boo-2630-branch-only",
+        },
+      ],
+    });
+  });
+
   it("deduplicates and sorts resolved issue ids", async () => {
     await expect(
       resolveLinearReleaseIssues({
@@ -106,9 +138,60 @@ Refs BOO-2630`),
     expect(warnings[0]).toContain("network unavailable");
   });
 
+  it("creates stable synthetic git refs for Linear issue ids", () => {
+    expect(createSyntheticIssueRefName("boo-2630", "abcdef1234567890")).toBe(
+      "refs/heads/linear-release-issues/BOO-2630/abcdef123456",
+    );
+  });
+
+  it("creates each synthetic ref once", () => {
+    const commands: string[][] = [];
+    const logs: string[] = [];
+
+    expect(
+      createSyntheticIssueRefs(
+        [
+          {
+            issueId: "BOO-2630",
+            commitSha: "abcdef1234567890",
+            source: "source_branch",
+          },
+          {
+            issueId: "BOO-2630",
+            commitSha: "abcdef1234567890",
+            source: "source_branch",
+          },
+        ],
+        (args) => {
+          commands.push(args);
+          return "";
+        },
+        {
+          log: (message) => logs.push(message),
+          warn: () => undefined,
+        },
+      ),
+    ).toEqual(["refs/heads/linear-release-issues/BOO-2630/abcdef123456"]);
+    expect(commands).toEqual([
+      [
+        "update-ref",
+        "refs/heads/linear-release-issues/BOO-2630/abcdef123456",
+        "abcdef1234567890",
+      ],
+    ]);
+    expect(logs[0]).toContain("BOO-2630");
+  });
+
   it("serializes dotenv output for GitLab artifacts", () => {
-    expect(serializeDotenv(createDotenvValues(["BOO-2630"]))).toBe(
-      "LINEAR_RELEASE_ISSUES_AVAILABLE=true\nLINEAR_RELEASE_ISSUES=BOO-2630\n",
+    expect(
+      serializeDotenv(
+        createDotenvValues(["BOO-2630"], {
+          baseRef: "v1.0.0",
+          syntheticRefs: ["refs/heads/linear-release-issues/BOO-2630/abcdef1"],
+        }),
+      ),
+    ).toBe(
+      "LINEAR_RELEASE_ISSUES_AVAILABLE=true\nLINEAR_RELEASE_ISSUES=BOO-2630\nLINEAR_RELEASE_BASE_REF_AVAILABLE=true\nLINEAR_RELEASE_BASE_REF=v1.0.0\nLINEAR_RELEASE_PREVIOUS_TAG=v1.0.0\nLINEAR_RELEASE_SYNTHETIC_REFS=refs/heads/linear-release-issues/BOO-2630/abcdef1\n",
     );
   });
 });

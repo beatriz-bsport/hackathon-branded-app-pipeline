@@ -109,7 +109,7 @@ Release:Linear Sync:
   variables:
     GIT_STRATEGY: clone
     GIT_DEPTH: 0
-    LINEAR_RELEASE_CLI_VERSION: "v0.10.0"
+    LINEAR_RELEASE_CLI_VERSION: "v0.12.0"
   rules:
     - if: $CI_COMMIT_BRANCH == "dev" && $CI_PIPELINE_SOURCE == "push" && $CI_LINEAR_ACCESS_KEY
       when: on_success
@@ -123,6 +123,12 @@ Release:Linear Sync:
     - apt-get update
     - apt-get install -y --no-install-recommends ca-certificates curl git
     - rm -rf /var/lib/apt/lists/*
+    - |
+      if [ -z "$CI_JOB_TOKEN" ]; then
+        echo "CI_JOB_TOKEN is not available; GitLab merge request metadata lookup may be incomplete."
+      else
+        echo "GitLab merge request metadata will be fetched through the REST API with the CI job token."
+      fi
   script:
     - |
       if [ "${RELEASE_TAG_AVAILABLE:-false}" != "true" ]; then
@@ -133,15 +139,22 @@ Release:Linear Sync:
         echo "Invalid release tag: $RELEASE_TAG"
         exit 1
       fi
+    - git fetch origin --tags --force
     - echo "🔱 Syncing Linear release for $RELEASE_TAG"
-    - node tools/scripts/resolve-linear-release-issues.mts --tag "$RELEASE_TAG" --output linear-release-issues.env
+    - node tools/scripts/resolve-linear-release-issues.mts --tag "$RELEASE_TAG" --create-synthetic-refs --output linear-release-issues.env
     - . linear-release-issues.env
     - |
       if [ "${LINEAR_RELEASE_ISSUES_AVAILABLE:-false}" != "true" ]; then
         echo "No Linear issue id found in commit messages or source branches; skipping Linear release sync."
         exit 0
       fi
+      if [ "${LINEAR_RELEASE_BASE_REF_AVAILABLE:-false}" != "true" ]; then
+        echo "No previous semver release tag found for $RELEASE_TAG; skipping Linear release sync to avoid scanning unrelated history."
+        exit 0
+      fi
     - 'echo "Found Linear issues for release: $LINEAR_RELEASE_ISSUES"'
+    - 'echo "Using Linear release base ref: $LINEAR_RELEASE_BASE_REF"'
+    - 'echo "Created synthetic refs for linear-release: ${LINEAR_RELEASE_SYNTHETIC_REFS:-none}"'
     - |
       case "$(uname -m)" in
         x86_64|amd64)
@@ -171,4 +184,4 @@ Release:Linear Sync:
         exit 1
       fi
 
-      LINEAR_ACCESS_KEY="$CI_LINEAR_ACCESS_KEY" ./linear-release sync --name="Ichizen ${RELEASE_TAG}" --release-version="${RELEASE_TAG}"
+      LINEAR_ACCESS_KEY="$CI_LINEAR_ACCESS_KEY" ./linear-release sync --name="Ichizen ${RELEASE_TAG}" --release-version="${RELEASE_TAG}" --base-ref="$LINEAR_RELEASE_BASE_REF" --verbose --json

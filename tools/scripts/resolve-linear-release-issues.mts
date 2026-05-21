@@ -3,19 +3,21 @@ import { parseArgs } from "node:util";
 
 import {
   createDotenvValues,
+  createSyntheticIssueRefs,
   getErrorMessage,
-  resolveLinearReleaseIssues,
+  resolveLinearReleaseIssueRefs,
   serializeDotenv,
   writeDotenvFile,
 } from "./linear-release-issues.mts";
 
 async function main(): Promise<void> {
   const {
-    values: { tag, output },
+    values: { tag, output, "create-synthetic-refs": createSyntheticRefs },
   } = parseArgs({
     options: {
       tag: { type: "string" },
       output: { type: "string" },
+      "create-synthetic-refs": { type: "boolean", default: false },
     },
   });
 
@@ -23,8 +25,14 @@ async function main(): Promise<void> {
     throw new Error("--tag is required");
   }
 
-  const issueIds = await resolveLinearReleaseIssues({ tag });
-  const values = createDotenvValues(issueIds);
+  const result = await resolveLinearReleaseIssueRefs({ tag });
+  const syntheticRefs = createSyntheticRefs
+    ? createSyntheticIssueRefs(result.issueRefs)
+    : [];
+  const values = createDotenvValues(result.issueIds, {
+    baseRef: result.baseRef,
+    syntheticRefs,
+  });
 
   if (output) {
     writeDotenvFile(output, values);

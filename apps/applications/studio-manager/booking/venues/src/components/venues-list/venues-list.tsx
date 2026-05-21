@@ -1,5 +1,6 @@
 import { type FC, useMemo } from "react";
 
+import { type Establishment } from "@bsport/api-book";
 import { List, useEmptyState } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
@@ -15,7 +16,11 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { buildVenueListItem } from "./venue-row";
 
-const VenuesListInner: FC = () => {
+type VenuesListProps = {
+  onArchive: (venue: Establishment) => void;
+};
+
+const VenuesListInner: FC<VenuesListProps> = ({ onArchive }) => {
   const { t } = useTranslation("venues-list");
   const { data: venuesData } = useVenuesListQuery();
   const { data: groupsData } = useEstablishmentGroupsQuery();
@@ -72,6 +77,7 @@ const VenuesListInner: FC = () => {
                 multiLoc,
                 addToGroupLabel,
                 t,
+                onArchive,
               }),
             )}
           />
@@ -81,8 +87,8 @@ const VenuesListInner: FC = () => {
   );
 };
 
-export const VenuesList: FC = () => (
+export const VenuesList: FC<VenuesListProps> = ({ onArchive }) => (
   <QueryBoundary loadingFallback={<CardLoader />}>
-    <VenuesListInner />
+    <VenuesListInner onArchive={onArchive} />
   </QueryBoundary>
 );

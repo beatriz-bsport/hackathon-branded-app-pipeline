@@ -10,11 +10,72 @@
   },
   "venueRow": {
     "edit": "Edit",
-    "delete": "Delete"
+    "archive": "Archive"
   },
   "actions": {
     "archive": "Archived venues",
     "createLocation": "Create location",
     "createVenue": "Create venue"
+  },
+  "archived": {
+    "pageTitle": "Archived venues",
+    "breadcrumbs": {
+      "venues": "Venues",
+      "archivedVenues": "Archived venues"
+    },
+    "sectionHeader": "All venues ({{count}})",
+    "emptyState": {
+      "title": "No venues archived yet",
+      "subtitle": "Any venues moved here can be restored"
+    },
+    "venueRow": {
+      "unarchive": "Restore"
+    }
+  },
+  "modal": {
+    "title": "Archive venue",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "alert": {
+      "blocking": "This venue cannot be archived because of the following reasons:",
+      "warning": "Archiving this venue will have the following consequences:"
+    },
+    "errors": {
+      "hasUpcomingOffers": "Some upcoming sessions take place in this venue. Please cancel and delete them before archiving.",
+      "hasUpcomingPrivateBookings": "Some upcoming appointments take place in this venue. Please cancel and delete them before archiving.",
+      "hasExclusiveBillingGroup": "This venue is the last one of its billing group. Please delete or update this billing group before archiving.",
+      "exclusiveEstablishmentGroups": "This venue will be removed from the following location(s): {{names}}. Please update them before archiving.",
+      "exclusivePaymentPacks": "The following passes {{names}} are only usable in this venue. Please update their restrictions before archiving.",
+      "hasExclusiveMarketplaceComponentConfigs": "This venue has exclusive marketplace component configurations. Please update them before archiving.",
+      "isIntegratedInPartnership": "This venue is integrated in a partnership. Please remove the integration before archiving."
+    },
+    "warnings": {
+      "title": "Archiving this venue will affect the following:",
+      "hasBillingGroup": "This venue belongs to billing group {{name}}.",
+      "exclusivePrivateServices": "The following private service(s) are exclusively assigned to this venue: {{names}}.",
+      "relatedPaymentPacks": "The following passes {{names}} are assigned to this venue.",
+      "hasExclusiveStaffConfigurations": "Some staff are exclusively configured for this venue.",
+      "hasRelatedStaffConfigurations": "Some staff are configured for this venue.",
+      "exclusiveCoachAvailabilitySlots": "The following coach(es) have availability slots exclusively in this venue: {{names}}.",
+      "hasRelatedCoachAvailabilitySlots": "Some coaches have availability slots in this venue.",
+      "exclusiveAssociatedCoaches": "The following coach(es) are exclusively associated with this venue: {{names}}.",
+      "hasRelatedAssociatedCoaches": "Some coaches are associated with this venue.",
+      "hasRelatedAvailabilitySlots": "Some availability slots are configured for this venue.",
+      "hasRelatedMarketplaceComponentConfigs": "Some marketplace components are configured for this venue.",
+      "hasRelatedZoomEstablishment": "A Zoom integration is configured for this venue.",
+      "hasRelatedMarketingNotifications": "Some marketing notifications target this venue."
+    },
+    "info": {
+      "noReports": "The venue will not be deleted from past reports.",
+      "widgets": "Calendar and Workshops widgets may have been configured with this venue, do not forget to update them.",
+      "sessions": "Existing sessions, workshops and past bookings will not be modified.",
+      "appointments": "Past appointments sessions will not be modified."
+    }
+  },
+  "toasts": {
+    "archive": "Venue archived",
+    "archiveError": "Failed to archive venue",
+    "unarchive": "Venue restored",
+    "unarchiveError": "Failed to restore venue"
   }
 }

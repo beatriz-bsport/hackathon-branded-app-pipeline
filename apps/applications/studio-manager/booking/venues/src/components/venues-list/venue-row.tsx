@@ -8,11 +8,18 @@ type BuildVenueListItemOptions = {
   multiLoc?: boolean;
   addToGroupLabel: string;
   t: TFunction;
+  onArchive: (venue: Establishment) => void;
 };
 
 export const buildVenueListItem = (
   venue: Establishment,
-  { groupName, multiLoc, addToGroupLabel, t }: BuildVenueListItemOptions,
+  {
+    groupName,
+    multiLoc,
+    addToGroupLabel,
+    t,
+    onArchive,
+  }: BuildVenueListItemOptions,
 ): ListItemProps => {
   const showGroupChip = multiLoc && !!groupName;
   const showAddToGroup = multiLoc && !groupName;
@@ -56,14 +63,14 @@ export const buildVenueListItem = (
         onClick: () => {},
       },
       {
-        id: `delete-${venue.id}`,
+        id: `archive-${venue.id}`,
         kind: "icon-button",
-        label: t("venueRow.delete"),
-        icon: "trash-01",
+        label: t("venueRow.archive"),
+        icon: "archive",
         intent: "flat",
         size: "md",
         color: "default",
-        onClick: () => {},
+        onClick: () => onArchive(venue),
       },
     ],
     dropdownConfig: { visibleActionsDisplayLimit: 0 },

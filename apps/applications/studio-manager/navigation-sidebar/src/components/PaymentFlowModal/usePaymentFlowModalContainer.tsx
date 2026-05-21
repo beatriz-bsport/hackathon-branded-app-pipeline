@@ -6,6 +6,7 @@ import {
   PAYMENT_FLOW_WINDOW_EVENTS,
   PaymentFlowModal,
 } from "@bsport/kaizen-business-components/financial-services/payment-flow-modal";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { WINDOW_EVENTS } from "#src/constants/window-events";
 import { useCurrentSearch } from "#src/hooks/use-current-search";
@@ -108,8 +109,10 @@ export function usePaymentFlowModalContainer({
     }
   }, []);
 
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+
   const paymentFlowModalElement =
-    isEnabled && paymentSession != null ? (
+    isEnabled && paymentSession != null && companyTheme != null ? (
       <PaymentFlowModalQueryClientProvider>
         <PaymentFlowModal
           fetch={fetch}
@@ -118,6 +121,7 @@ export function usePaymentFlowModalContainer({
           memberId={paymentSession.memberId}
           onClose={handlePaymentFlowClose}
           onConfirm={handlePaymentFlowConfirm}
+          companyTheme={companyTheme}
         />
       </PaymentFlowModalQueryClientProvider>
     ) : null;

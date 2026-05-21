@@ -235,7 +235,7 @@ const TicketbaiSettings: React.FC<Props> = ({ territory }) => {
               </Typography>
             ) : null}
 
-            {deviceCertificateSerialNumber && (
+            {isCompanyAllSetup === true && (
               <Alert className={classes.successAlert} severity="success">
                 {t('configuration.ticketbai.active.success_message')}
               </Alert>

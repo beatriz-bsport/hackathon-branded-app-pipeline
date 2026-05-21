@@ -134,6 +134,8 @@
         "title": "Device certificate",
         "subtitle": "Use this serial on your province's TicketBAI portal. <0>Learn how to do it with fiskaly</0>",
         "serial_caption": "Device certificate serial (issued by bsport)",
+        "copy_serial": "Copy serial",
+        "copy_success": "Device certificate serial copied to clipboard",
         "gipuzkoa_notice": "You still need to validate your Fiskaly device certificate with Gipuzkoa on their official portal. You have about one month to do so. All invoices you issue in the meantime remain legally compliant.",
         "registration_notice_title": "Finish device registration before completing",
         "registration_notice_description": "Use the serial above on your province's official TicketBAI portal to register your Fiskaly device certificate so bsport can begin submitting your qualifying invoices to TicketBAI",

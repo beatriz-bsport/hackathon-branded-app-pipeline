@@ -1,18 +1,23 @@
 import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { useDispatch } from 'react-redux';
 import {
   Button,
   Checkbox,
   CircularProgress,
   FormControlLabel,
+  IconButton,
   Typography,
 } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Alert from '@material-ui/lab/Alert';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import { SIGN_ES_TERRITORY } from '#src/libs/invoice/types';
 import type { TicketbaiTerritory } from '#src/libs/invoice/sign-es/ticketbai/types';
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
 
 type Props = {
   territory: TicketbaiTerritory;
@@ -37,7 +42,20 @@ const TicketbaiDeviceSetupStep: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('b2b_invoice');
+  const dispatch = useDispatch();
+
   const isGipuzkoaTerritory = territory === SIGN_ES_TERRITORY.GIPUZKOA;
+  const canCopySerial =
+    !!deviceCertificateSerialNumber &&
+    typeof navigator !== 'undefined' &&
+    !!navigator.clipboard?.writeText;
+
+  const handleCopySerialNumber = async () => {
+    if (!deviceCertificateSerialNumber || !canCopySerial) return;
+
+    await navigator.clipboard.writeText(deviceCertificateSerialNumber);
+    dispatch(snackbarSuccess(t('configuration.ticketbai.device.copy_success')));
+  };
 
   return (
     <div>
@@ -61,12 +79,26 @@ const TicketbaiDeviceSetupStep: React.FC<Props> = ({
       </Typography>
 
       <div className={classes.serialCard}>
-        <Typography className={classes.serialCaption} variant="caption">
-          {t('configuration.ticketbai.device.serial_caption')}
-        </Typography>
-        <Typography className={classes.serialValue} variant="h6">
-          {deviceCertificateSerialNumber ?? '—'}
-        </Typography>
+        <div className={classes.serialContent}>
+          <Typography className={classes.serialCaption} variant="caption">
+            {t('configuration.ticketbai.device.serial_caption')}
+          </Typography>
+          <Typography className={classes.serialValue} variant="h6">
+            {deviceCertificateSerialNumber ?? '—'}
+          </Typography>
+        </div>
+        {deviceCertificateSerialNumber ? (
+          <IconButton
+            aria-label={t('configuration.ticketbai.device.copy_serial')}
+            className={classes.copySerialButton}
+            color="primary"
+            disabled={!canCopySerial}
+            onClick={handleCopySerialNumber}
+            size="small"
+          >
+            <FileCopyIcon fontSize="small" />
+          </IconButton>
+        ) : null}
       </div>
 
       <Alert className={classes.infoAlert} severity="info">
@@ -165,6 +197,13 @@ const useStyles = makeStyles<Theme>((theme) => ({
     padding: theme.spacing(2),
     border: `1px solid ${theme.palette.grey[300]}`,
     borderRadius: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+  },
+  serialContent: {
+    flex: 1,
+    minWidth: 0,
   },
   serialCaption: {
     color: theme.palette.text.secondary,
@@ -174,6 +213,11 @@ const useStyles = makeStyles<Theme>((theme) => ({
     fontFamily: 'monospace',
     fontWeight: 900,
     wordBreak: 'break-word',
+  },
+  copySerialButton: {
+    marginLeft: 'auto',
+    flexShrink: 0,
+    padding: theme.spacing(1),
   },
   infoAlert: {
     marginTop: theme.spacing(2),

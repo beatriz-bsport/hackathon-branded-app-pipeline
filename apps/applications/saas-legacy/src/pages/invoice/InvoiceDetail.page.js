@@ -138,6 +138,7 @@ import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js
 import { formatAsDate } from '../../utils/datetime';
 import { InvoiceHeaderFiskalyAlert } from '#src/libs/invoice/components/InvoiceHeaderFiskalyAlert.component';
 import { InvoiceSignEsSignatureStatus } from '#src/libs/invoice/constants';
+import { withFeatureFlags } from '#src/utils/feature-flag/withFeatureFlags';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
@@ -264,6 +265,10 @@ type Props = {
   manuallySendInvoiceToSignEs: ManuallySendInvoiceToSignEsCallback,
   fiskalySignEsInvoiceDetails: ?FiskalySignEsInvoiceDetails,
   t: TFunction,
+  paymentFlowModalEnabled?: boolean,
+  pathname?: string,
+  showRevampedSidebar?: boolean,
+  pushRouter: (path: string) => void,
 };
 
 type State = {
@@ -312,7 +317,50 @@ export class InvoiceDetail extends React.Component<Props, State> {
         : t('invoice:invoice.paymentFailed');
       this.props.snackbarError(errorMessage);
     }
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener(
+        'paymentFlowConfirmed',
+        this.handlePaymentFlowConfirmed,
+      );
+    }
   }
+
+  componentWillUnmount() {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener(
+        'paymentFlowConfirmed',
+        this.handlePaymentFlowConfirmed,
+      );
+    }
+  }
+
+  handlePaymentFlowConfirmed = () => {
+    this.fetchInvoiceData();
+  };
+
+  handlePayInvoice = () => {
+    const { invoice, paymentFlowModalEnabled, showRevampedSidebar, pathname } =
+      this.props;
+
+    if (
+      paymentFlowModalEnabled &&
+      showRevampedSidebar &&
+      pathname &&
+      invoice?.uuid &&
+      invoice?.member?.id
+    ) {
+      const existingSearch =
+        (typeof window !== 'undefined' && window.location.search) || '';
+      const params = new URLSearchParams(existingSearch);
+      params.set('pfOpen', '');
+      params.set('invoiceId', invoice.uuid);
+      params.set('memberId', String(invoice.member.id));
+      this.props.pushRouter(`${this.props.pathname}?${params.toString()}`);
+    } else {
+      this.props.setOpenPaymentDialog(true);
+    }
+  };
 
   /** Whenever clicking on the details of a physical consumer gift card, when the invoice item is one  */
   handleSelectPrintableGiftcard = (id: number) => () => {
@@ -721,7 +769,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                 handleChangeMethod={this.props.updatePaymentMethod}
                 invoice={this.props.invoice}
                 onInstalmentPayment={this.props.openInstalmentPaymentDialog}
-                onPaymentIntent={() => this.props.setOpenPaymentDialog(true)}
+                onPaymentIntent={this.handlePayInvoice}
                 onRevert={this.props.openRevertDialog}
                 onValidate={this.onValidatePaymentGroup}
                 paymentGroupRequiringActionList={
@@ -1064,8 +1112,15 @@ export default compose(
         (state.invoice.fiskalySignEsInvoice &&
           state.invoice.fiskalySignEsInvoice.result) ||
         null,
+      pathname:
+        state.router?.location?.pathname ??
+        (typeof window !== 'undefined' ? window.location.pathname : ''),
+      showRevampedSidebar:
+        !!state.auth.has_enabled_revamped_backoffice &&
+        !!state.theme.theme?.revamped_backoffice_enabled,
     }),
     {
+      pushRouter,
       attributeByPrintableCode: attributeByPrintableCodeAction,
       fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,
       fetchInvoiceItemList,
@@ -1284,4 +1339,4 @@ export default compose(
     )} - ${invoice && invoice.date ? formatAsDate(invoice.date) : ''}`;
   }),
   withMemberBannerHOC(({ invoice }) => invoice.member),
-)(InvoiceDetail);
+)(withFeatureFlags(InvoiceDetail));

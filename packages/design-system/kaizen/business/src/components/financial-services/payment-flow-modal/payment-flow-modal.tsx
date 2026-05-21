@@ -1,5 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 
 import {
   fetchInvoiceAPI,
@@ -10,6 +10,7 @@ import { ControlledForm } from "@bsport/form";
 import { Modal, toast } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/i18n";
+import { useGuardedModalClose } from "#src/utils/use-guarded-modal-close";
 
 import { PartialSuccessModal } from "./components/partial-success-modal";
 import { PaymentFlowModalBody } from "./components/payment-flow-modal-body";
@@ -29,6 +30,7 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
   const queryClient = useQueryClient();
   const [isPartialSuccessOpen, setIsPartialSuccessOpen] = useState(false);
   const [isInternalOpen, setIsInternalOpen] = useState(false);
+  const shouldDismissFlowOnPartialSuccessCloseRef = useRef(true);
   const [
     partialSuccessRemainingAmountCts,
     setPartialSuccessRemainingAmountCts,
@@ -53,8 +55,9 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
       onClose();
     },
     onConfirm: (remainingAmountCts) => {
-      onConfirm?.();
+      onConfirm?.(remainingAmountCts);
       if (remainingAmountCts > 0) {
+        shouldDismissFlowOnPartialSuccessCloseRef.current = true;
         setPartialSuccessRemainingAmountCts(remainingAmountCts);
         setIsPartialSuccessOpen(true);
       }
@@ -74,21 +77,49 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
   const remainingAmountLabel = getCurrencyDisplayWithPrice(
     partialSuccessRemainingAmountCts / 100,
   ).replace(/([,.]00)(?=\s?[^\d\s]+$)/, "");
-  const closePartialSuccessModal = () => {
+  const closePartialSuccessModal = ({
+    dismissFlowOnTransitionEnd = true,
+  }: {
+    dismissFlowOnTransitionEnd?: boolean;
+  } = {}) => {
+    shouldDismissFlowOnPartialSuccessCloseRef.current =
+      dismissFlowOnTransitionEnd;
     setIsPartialSuccessOpen(false);
     setPartialSuccessRemainingAmountCts(0);
   };
+  const dismissPartialSuccessFlow = useCallback(() => {
+    shouldDismissFlowOnPartialSuccessCloseRef.current = false;
+    setIsPartialSuccessOpen(false);
+    setPartialSuccessRemainingAmountCts(0);
+    setIsInternalOpen(false);
+    onClose();
+  }, [onClose]);
+  const handlePartialSuccessClose = useCallback(() => {
+    if (!shouldDismissFlowOnPartialSuccessCloseRef.current) {
+      return;
+    }
+
+    dismissPartialSuccessFlow();
+  }, [dismissPartialSuccessFlow]);
+
+  const allowMainModalClose = isMainModalOpen && !isPartialSuccessOpen;
+
+  const { handleCancelClose, handleClickOutside, handleCrossClick } =
+    useGuardedModalClose({
+      skipEscapeListener: !allowMainModalClose,
+      shouldGuard: false,
+      close: closeModal,
+    });
 
   return (
     <>
       <Modal
-        open={isMainModalOpen}
+        open={allowMainModalClose}
         title={t("paymentFlowModal.title")}
         size="lg"
-        onClose={closeModal}
         cancelButton={{
           label: t("paymentFlowModal.buttons.cancel"),
-          onClick: closeModal,
+          onClick: handleCancelClose,
         }}
         confirmButton={{
           label: confirmLabel,
@@ -98,7 +129,8 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
           disabled: isConfirmDisabled,
           loading: isConfirmLoading,
         }}
-        onCloseButtonClick={closeModal}
+        onCloseButtonClick={handleCrossClick}
+        onClickOutside={handleClickOutside}
       >
         <ControlledForm
           {...methods}
@@ -113,7 +145,8 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
       <PartialSuccessModal
         isOpen={isPartialSuccessOpen}
         remainingAmountLabel={remainingAmountLabel}
-        onClose={closePartialSuccessModal}
+        onClose={handlePartialSuccessClose}
+        onCloseButtonClick={dismissPartialSuccessFlow}
         onPayRemainingAmount={async () => {
           try {
             const freshInvoice = await fetchInvoiceAPI(fetch, invoiceId);
@@ -121,7 +154,9 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
               invoiceKeys.detail(invoiceId),
               freshInvoice,
             );
-            closePartialSuccessModal();
+            closePartialSuccessModal({
+              dismissFlowOnTransitionEnd: false,
+            });
             setIsInternalOpen(true);
           } catch {
             toast({

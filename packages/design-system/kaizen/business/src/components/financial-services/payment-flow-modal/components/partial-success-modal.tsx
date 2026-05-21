@@ -12,6 +12,7 @@ type PartialSuccessModalProps = {
   isOpen: boolean;
   remainingAmountLabel: string;
   onClose: () => void;
+  onCloseButtonClick: () => void;
   onPayRemainingAmount: () => Promise<void>;
 };
 
@@ -19,6 +20,7 @@ export const PartialSuccessModal = ({
   isOpen,
   remainingAmountLabel,
   onClose,
+  onCloseButtonClick,
   onPayRemainingAmount,
 }: PartialSuccessModalProps) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
@@ -29,7 +31,7 @@ export const PartialSuccessModal = ({
       title={t("paymentFlowModal.partialSuccess.title")}
       size="md"
       onClose={onClose}
-      onCloseButtonClick={onClose}
+      onCloseButtonClick={onCloseButtonClick}
     >
       <div className="flex flex-col gap-sm p-2xl items-center justify-center">
         <Illustration name="success" size="xl" />

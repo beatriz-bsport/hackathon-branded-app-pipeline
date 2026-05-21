@@ -54,10 +54,11 @@ export const resolveSubmitErrorMessage = (error: unknown): string => {
     }
   }
 
-  if (error instanceof Error && error.message) {
-    if (isPaymentFlowSubmitErrorKey(error.message)) {
-      return paymentFlowT(error.message);
-    }
+  if (
+    error instanceof Error &&
+    error.message &&
+    isPaymentFlowSubmitErrorKey(error.message)
+  ) {
     return paymentFlowT(error.message);
   }
 

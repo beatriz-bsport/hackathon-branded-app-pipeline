@@ -303,7 +303,10 @@ version and `Ichizen <release-tag>` as the release name.
 The sync only runs when at least one Linear issue id can be resolved from the
 release commits. CI scans the full commit message for `ABC-123`-style ids and
 also falls back to the GitLab merge request source branch for each release
-commit.
+commit. Source branches are fetched from the GitLab REST API using the CI
+project context and `CI_JOB_TOKEN`; GitLab CI variables provide credentials and
+project metadata but do not directly expose MR source branches for every commit
+in the release range.
 
 These commit message formats are all accepted:
 
@@ -314,9 +317,13 @@ Refs BOO-2630
 ```
 
 CI also extracts ids from merge request source branch names like
-`ce-3456-bad-thing`. The branch name must start with the issue id. If no ids can
-be resolved from either the commit message or the source branch, the Linear sync
-job skips the release instead of tagging unrelated issues.
+`ce-3456-bad-thing`. The branch name must start with the issue id. Resolved ids
+are written to synthetic local refs under `refs/heads/linear-release-issues/*`
+so the official `linear-release` CLI can see the ids while scanning git history.
+The sync command also passes `--base-ref=<previous-release-tag>` so Linear scans
+the same `<previous tag>..HEAD` range that the release tag job produced. If no
+ids or no previous semver tag can be resolved, the Linear sync job skips instead
+of tagging unrelated issues.
 
 See [Hotfix Releases](../../docs/hotfix-releases.md) for the branch workflow.
 

@@ -13,7 +13,7 @@ export type FilterField = {
   id: string;
   label: string;
   availableFilters: string[];
-  values: { id: string; label: string }[];
+  values: { id: string; label: string; colorIndicator?: string }[];
   multiSelect: boolean;
   searchConfig?: DropdownMenuSearchConfig;
 };

@@ -41,8 +41,11 @@ export const useMediaFormSchema = (): MediaFormSchema => {
       manager_only: z.boolean(),
       is_rental: z.boolean(),
       rental_days: z.number().int().min(FIELD_CONSTRAINTS.PRICE_MIN),
-      cover: z.union([z.string(), z.instanceof(File)]).nullable(),
-      category: z.number().nullable(),
+      cover: z
+        .union([z.string(), z.instanceof(File)])
+        .nullable()
+        .refine((val) => val !== null, { message: requiredErrorMessage }),
+      category: z.number({ invalid_type_error: requiredErrorMessage }),
       level: z.number().nullable(),
       coaches: z.array(z.number()),
     })

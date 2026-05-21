@@ -15,12 +15,12 @@
       "equivalentCredits": "This pass will contain {{ creditsDisplay }}"
     },
     "manager_only": {
-      "label": "Unavailable for purchase",
-      "helperText": "The video will not be available for purchase, it will be visible only to managers"
+      "label": "Unlisted",
+      "helperText": "This media won't be available to buy on your website or app and will only be visible to staff"
     },
     "rental": {
-      "label": "Video rental",
-      "helperText": "Videos are unlocked in perpetuity by default. Renting a video will unlock it for a certain number of days."
+      "label": "Available for rent",
+      "helperText": "This media will be available to rent for a limited time"
     },
     "rental_days": {
       "label": "Rental duration (days)",

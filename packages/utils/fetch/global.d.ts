@@ -6,6 +6,7 @@ declare global {
     UNLEASH_CLIENT_KEY?: string;
     UNLEASH_ENVIRONMENT?: string;
     MIXPANEL_TOKEN?: string;
+    GOOGLE_MAPS_API_KEY?: string;
   };
 
   interface Window {

@@ -34,6 +34,13 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
   const i18n = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n });
 
+  const colorSwatch = (color: string) => (
+    <div
+      className="w-element-sm h-element-sm rounded-sm flex-none"
+      style={{ backgroundColor: color }}
+    />
+  );
+
   const getFieldByValueId = (valueId: string) => {
     if (!selectedField) {
       return null;
@@ -43,7 +50,13 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
     );
 
     if (currentValue) {
-      return { id: currentValue.id, label: currentValue.label };
+      return {
+        id: currentValue.id,
+        label: currentValue.label,
+        leftSlot: currentValue.colorIndicator
+          ? colorSwatch(currentValue.colorIndicator)
+          : undefined,
+      };
     }
     if (cachedValues[valueId]) {
       return { id: valueId, label: cachedValues[valueId] };
@@ -63,6 +76,9 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
       return fields[selectedField].values.map((value) => ({
         id: value.id,
         label: value.label,
+        leftSlot: value.colorIndicator
+          ? colorSwatch(value.colorIndicator)
+          : undefined,
       }));
     }
 
@@ -82,6 +98,9 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
         .map((value) => ({
           id: value.id,
           label: value.label,
+          leftSlot: value.colorIndicator
+            ? colorSwatch(value.colorIndicator)
+            : undefined,
         })),
     );
 

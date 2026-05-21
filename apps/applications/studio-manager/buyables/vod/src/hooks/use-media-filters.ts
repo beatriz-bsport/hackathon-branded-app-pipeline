@@ -19,6 +19,10 @@ import {
 import { useLevelsByIdQuery } from "#src/hooks/api/use-levels-by-id-query";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
+import {
+  getLevelFilterValueId,
+  getLevelIdFromFilterValue,
+} from "#src/utils/level-filter-colors";
 
 const FIELD_CATEGORY = "category";
 const FIELD_LEVEL = "level";
@@ -76,7 +80,11 @@ const toActiveFilters = (
 
   const levelId = getFieldValue(filters, FIELD_LEVEL);
   if (levelId) {
-    active.level = parseInt(levelId, 10);
+    const parsedLevelId = getLevelIdFromFilterValue(levelId);
+
+    if (!Number.isNaN(parsedLevelId)) {
+      active.level = parsedLevelId;
+    }
   }
 
   const coachId = getFieldValue(filters, FIELD_TEACHER);
@@ -133,8 +141,9 @@ export const useMediaFilters = (): {
     () =>
       levelsMap
         ? Array.from(levelsMap.entries()).map(([id, level]) => ({
-            id: id.toString(),
+            id: getLevelFilterValueId(id),
             label: level.label,
+            colorIndicator: level.color || undefined,
           }))
         : [],
     [levelsMap],

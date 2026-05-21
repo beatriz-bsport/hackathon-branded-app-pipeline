@@ -676,7 +676,7 @@ export const usePaymentFlowModalState = ({
     terminalReaderId,
   ]);
 
-  const closeModal = useCallback(() => {
+  const dismissMainModal = useCallback(() => {
     const base = getPaymentFlowDefaultValues();
     const nextPartialAmountCts =
       Number.isFinite(invoiceRemainingAmountCts) &&
@@ -700,9 +700,12 @@ export const usePaymentFlowModalState = ({
     setClientSecretEngine(null);
     setSubmitError(null);
     setAvailableGiftCards([]);
+  }, [invoiceRemainingAmountCts, methods]);
 
+  const closeModal = useCallback(() => {
+    dismissMainModal();
     onClose();
-  }, [invoiceRemainingAmountCts, methods, onClose]);
+  }, [dismissMainModal, onClose]);
 
   const handleSubmit = () => {
     if (activeTab === PAYMENT_TAB.INSTALLMENTS) {
@@ -750,12 +753,15 @@ export const usePaymentFlowModalState = ({
       invoiceRemainingAmountCts - submittedAmountCts,
       0,
     );
-
     setSubmitError(null);
     confirmPaymentMutation.mutate(undefined, {
       onSuccess: () => {
         onConfirm?.(submissionRemainingAmountCts);
-        closeModal();
+        if (submissionRemainingAmountCts > 0) {
+          dismissMainModal();
+        } else {
+          closeModal();
+        }
       },
       onError: (error: unknown) => {
         const isStripeValidationError =
@@ -871,6 +877,7 @@ export const usePaymentFlowModalState = ({
     formId,
     handleSubmit,
     closeModal,
+    dismissMainModal,
     isConfirmDisabled,
     isConfirmLoading,
     confirmAmountCts:

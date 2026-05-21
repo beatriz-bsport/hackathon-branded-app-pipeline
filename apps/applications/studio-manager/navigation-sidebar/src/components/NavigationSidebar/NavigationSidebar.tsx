@@ -25,6 +25,7 @@ import {
   NotificationsModal,
   useNotificationsModal,
 } from "#src/components/NotificationsModal";
+import { usePaymentFlowModalContainer } from "#src/components/PaymentFlowModal";
 import {
   SearchMemberModal,
   useSearchMemberModal,
@@ -112,6 +113,9 @@ const NavigationSidebarContent = ({
       navigateInContext,
       t,
     });
+  const { paymentFlowModalElement } = usePaymentFlowModalContainer({
+    fetch,
+  });
 
   useAlerts();
 
@@ -348,6 +352,10 @@ const NavigationSidebarContent = ({
     checkoutModalElement && typeof document !== "undefined"
       ? createPortal(checkoutModalElement, document.body)
       : null;
+  const paymentFlowModalPortal =
+    paymentFlowModalElement && typeof document !== "undefined"
+      ? createPortal(paymentFlowModalElement, document.body)
+      : null;
 
   // Use responsive Sidebar for Studio Manager apps (isBridged = false)
   // Use simple NavigationSidebarContainer for saas-legacy (isBridged = true)
@@ -358,6 +366,7 @@ const NavigationSidebarContent = ({
           {sidebarContent}
         </NavigationSidebarContainer>
         {checkoutModalPortal}
+        {paymentFlowModalPortal}
       </>
     );
   }
@@ -376,6 +385,7 @@ const NavigationSidebarContent = ({
         </Sidebar>
       </SidebarProvider>
       {checkoutModalPortal}
+      {paymentFlowModalPortal}
     </>
   );
 };

@@ -18,7 +18,7 @@ export type PaymentFlowModalProps = {
   memberId: number;
   fetch: Fetch;
   onClose: () => void;
-  onConfirm?: () => void;
+  onConfirm?: (remainingAmountCts: number) => void;
   companyTheme?: CompanyTheme;
 };
 

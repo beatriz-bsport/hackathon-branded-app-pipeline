@@ -8,8 +8,10 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   INVOICE_LIST_PAGE: "invoice_list_page",
   PAYOUTS_PAGE: "payouts_page",
   FS_BILLING_FLOW_NEW_MODAL: "fs_billing_flow_new_modal",
+  FS_PAYMENT_FLOW_MODAL: "fs_payment_flow_modal",
   // BOOKING
   CALENDAR_REVAMP: "booking_calendar_page_revamped",
+  // Classes revamp
   CLASSES_MERGED_VIEW: "booking_classes_merged_view",
   SETTINGS_TEACHER_VIEW: "settings_teacher_view",
   SMARTFILL: "smartfill_page",

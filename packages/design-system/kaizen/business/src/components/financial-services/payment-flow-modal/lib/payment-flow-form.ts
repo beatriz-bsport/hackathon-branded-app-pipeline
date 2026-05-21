@@ -21,8 +21,6 @@ export type PaymentTab = (typeof PAYMENT_TAB)[keyof typeof PAYMENT_TAB];
 export const isPaymentTab = (value: string): value is PaymentTab =>
   value === PAYMENT_TAB.ONE_TIME || value === PAYMENT_TAB.INSTALLMENTS;
 
-export const INVOICE_ALREADY_PAID_ALERT = "This invoice is already paid.";
-
 const manualMethodTypeSchema = z.enum([
   "card_manual_machine",
   "cash",
@@ -129,6 +127,34 @@ export type InstallmentFullCycleRow = {
   amountLabel: string;
 };
 
+const splitInvoiceTotalIntoInstallmentBaseAndRemainderCts = (
+  invoiceTotalAmountCts: number,
+  nb: number,
+): { baseCts: number; remainderCts: number } | null => {
+  if (!Number.isFinite(invoiceTotalAmountCts) || invoiceTotalAmountCts <= 0) {
+    return null;
+  }
+  if (!Number.isFinite(nb) || nb < 1) return null;
+  const baseCts = Math.floor(invoiceTotalAmountCts / nb);
+  const remainderCts = invoiceTotalAmountCts - baseCts * nb;
+  return { baseCts, remainderCts };
+};
+
+/**
+ * Amount charged for the first installment (cents), matching
+ * {@link buildInstallmentFullCycleRows}: equal base slices, remainder on the last invoice only.
+ */
+export const getFirstInstallmentAmountCts = (
+  schedule: InstallmentScheduleDetailValues,
+  invoiceTotalAmountCts: number,
+): number | null => {
+  const split = splitInvoiceTotalIntoInstallmentBaseAndRemainderCts(
+    invoiceTotalAmountCts,
+    schedule.installmentNbInterval,
+  );
+  return split ? split.baseCts : null;
+};
+
 /**
  * Builds each installment billing date and amount (cents split with remainder on last),
  */
@@ -137,19 +163,20 @@ export const buildInstallmentFullCycleRows = (
   anchor: DateTime | null,
   invoiceTotalAmountCts: number,
   displayLocale = "en",
-): InstallmentFullCycleRow[] | undefined => {
-  if (anchor == null) return undefined;
-  if (!Number.isFinite(invoiceTotalAmountCts) || invoiceTotalAmountCts <= 0) {
-    return undefined;
-  }
+): InstallmentFullCycleRow[] | null => {
+  if (anchor == null) return null;
 
   const nb = schedule.installmentNbInterval;
-  if (!Number.isFinite(nb) || nb < 1) return undefined;
+  const split = splitInvoiceTotalIntoInstallmentBaseAndRemainderCts(
+    invoiceTotalAmountCts,
+    nb,
+  );
+  if (!split) return null;
+
+  const { baseCts, remainderCts } = split;
 
   const step = schedule.installmentRecurrenceBasis;
   const interval = schedule.installmentInterval;
-  const baseCts = Math.floor(invoiceTotalAmountCts / nb);
-  const remainderCts = invoiceTotalAmountCts - baseCts * nb;
 
   const rows: InstallmentFullCycleRow[] = [];
 
@@ -240,27 +267,26 @@ export const buildInstallmentScheduleExplainerText = (
 
 /** Caption under the total on the installments tab (amount per billing period). */
 export const buildInstallmentPerIntervalCaptionText = (
-  invoiceTotalAmount: number,
+  invoiceTotalAmountCts: number,
   values: InstallmentScheduleDetailValues,
-): string | undefined => {
-  if (!Number.isFinite(invoiceTotalAmount) || invoiceTotalAmount <= 0) {
-    return undefined;
-  }
-
+): string | null => {
   const nbInterval = values.installmentNbInterval;
-  if (!Number.isFinite(nbInterval) || nbInterval < 1) {
-    return undefined;
+  const split = splitInvoiceTotalIntoInstallmentBaseAndRemainderCts(
+    invoiceTotalAmountCts,
+    nbInterval,
+  );
+  if (!split) {
+    return null;
   }
 
   const recurrenceBasis = values.installmentRecurrenceBasis;
   const interval = values.installmentInterval;
-  const perInstallmentAmount = invoiceTotalAmount / nbInterval;
   const recurrenceSpan = `${recurrenceBasis} ${scheduleIntervalUnit(interval, recurrenceBasis)}`;
 
   return installmentI18nKeys(
     "paymentFlowModal.installments.perIntervalCaption",
     {
-      amount: getCurrencyDisplayWithPrice(perInstallmentAmount),
+      amount: getCurrencyDisplayWithPrice(split.baseCts / 100),
       recurrenceSpan,
     },
   );

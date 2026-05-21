@@ -99,7 +99,15 @@
     },
     "errors": {
       "generic": "Could not confirm this payment. Please try again.",
-      "giftCardPayment": "Could not pay this invoice with this gift card."
+      "giftCardPayment": "Could not pay this invoice with this gift card.",
+      "invoiceAlreadyPaid": "This invoice is already paid.",
+      "invalidInstallmentSchedule": "Installment schedule is invalid.",
+      "missingSelectedPaymentMethod": "Missing selected payment method.",
+      "missingPaymentContext": "Missing payment context.",
+      "paymentMethodNotReady": "Payment method is not ready.",
+      "cardPaymentNotCompleted": "Card payment was not completed.",
+      "sepaPaymentNotConfirmed": "SEPA payment could not be confirmed.",
+      "unsupportedPaymentMethodForInstallments": "Unsupported payment method for installments."
     },
     "tabs": {
       "oneTime": "One time",

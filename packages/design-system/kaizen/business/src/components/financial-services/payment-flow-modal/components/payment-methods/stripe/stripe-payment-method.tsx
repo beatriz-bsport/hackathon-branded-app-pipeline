@@ -85,8 +85,20 @@ const StripePaymentElementInner = ({
         );
       }
 
+      const pm = result.paymentIntent.payment_method;
+      const paymentMethodId =
+        typeof pm === "string"
+          ? pm
+          : pm &&
+              typeof pm === "object" &&
+              "id" in pm &&
+              typeof pm.id === "string"
+            ? pm.id
+            : undefined;
+
       return {
         paymentIntentStatus: result.paymentIntent.status,
+        paymentMethodId,
       };
     });
 

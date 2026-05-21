@@ -1,7 +1,7 @@
 import { Alert, Button, Tabs } from "@bsport/kaizen-primitive-core";
 
+import { PAYMENT_FLOW_ERROR_KEYS } from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-errors";
 import {
-  INVOICE_ALREADY_PAID_ALERT,
   PAYMENT_TAB,
   isPaymentTab,
 } from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-form";
@@ -127,7 +127,7 @@ export const PaymentFlowModalBody = ({ body }: PaymentFlowModalBodyProps) => {
 
       {isInvoiceAlreadyPaid && (
         <Alert status="warning" type="weak" layout="banner">
-          {INVOICE_ALREADY_PAID_ALERT}
+          {t(PAYMENT_FLOW_ERROR_KEYS.invoiceAlreadyPaid)}
         </Alert>
       )}
       {shouldShowMemberBalanceWarning && (

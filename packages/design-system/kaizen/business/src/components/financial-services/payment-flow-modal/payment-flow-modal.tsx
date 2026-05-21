@@ -38,6 +38,7 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
     methods,
     formId,
     handleSubmit,
+    closeModal,
     isConfirmDisabled,
     isConfirmLoading,
     confirmAmountCts,
@@ -84,16 +85,10 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
         open={isMainModalOpen}
         title={t("paymentFlowModal.title")}
         size="lg"
-        onClose={() => {
-          setIsInternalOpen(false);
-          onClose();
-        }}
+        onClose={closeModal}
         cancelButton={{
           label: t("paymentFlowModal.buttons.cancel"),
-          onClick: () => {
-            setIsInternalOpen(false);
-            onClose();
-          },
+          onClick: closeModal,
         }}
         confirmButton={{
           label: confirmLabel,
@@ -103,10 +98,7 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
           disabled: isConfirmDisabled,
           loading: isConfirmLoading,
         }}
-        onCloseButtonClick={() => {
-          setIsInternalOpen(false);
-          onClose();
-        }}
+        onCloseButtonClick={closeModal}
       >
         <ControlledForm
           {...methods}

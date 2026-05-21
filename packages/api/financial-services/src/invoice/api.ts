@@ -4,6 +4,8 @@ import { API_URL_PAYMENT_INVOICES, QUERY_KEY_MAIN } from "../constants";
 import type {
   ApplyGiftcardOnInvoiceRequest,
   FetchInvoiceResponse,
+  ScheduleInvoicePaymentRequest,
+  ScheduleInvoicePaymentResponse,
 } from "./types";
 
 export const invoiceKeys = {
@@ -64,6 +66,27 @@ export const applyGiftcardOnInvoiceAPI = async (
   payload: ApplyGiftcardOnInvoiceRequest,
 ): Promise<FetchInvoiceResponse> => {
   const [uri, init] = applyGiftcardOnInvoiceAPIConfig(payload);
+
+  const { data } = await fetch(uri, init);
+
+  return data;
+};
+
+export const scheduleInvoicePaymentAPIConfig = ({
+  invoiceId,
+  ...payload
+}: ScheduleInvoicePaymentRequest): ApiConfig => {
+  return [
+    `${API_URL_PAYMENT_INVOICES}/${invoiceId}/schedule_payment/`,
+    { method: "POST", body: JSON.stringify(payload) },
+  ];
+};
+
+export const scheduleInvoicePaymentAPI = async (
+  fetch: Fetch<ScheduleInvoicePaymentResponse>,
+  payload: ScheduleInvoicePaymentRequest,
+): Promise<ScheduleInvoicePaymentResponse> => {
+  const [uri, init] = scheduleInvoicePaymentAPIConfig(payload);
 
   const { data } = await fetch(uri, init);
 

@@ -51,8 +51,8 @@ export type PaymentFlowModalBodyState = {
   memberName: string;
   invoiceUrl: string;
   memberUrl: string;
-  installmentScheduleDetail: string | undefined;
-  installmentPerIntervalCaption: string | undefined;
+  installmentScheduleDetail: string | null;
+  installmentPerIntervalCaption: string | null;
   invoiceRemainingAmountCts: number;
 };
 

@@ -23,7 +23,7 @@ export const AdvancedOptionsStep: FC<{
       className="w-full"
     >
       <section className="flex flex-col gap-md">
-        <Title htmlVariant="h5" weight="strong">
+        <Title htmlVariant="h5" weight="stronger">
           {t("addSessionModal.steps.advancedOptions.bookForAGuest.title")}
         </Title>
         <BookForAGuestField fieldIdPrefix={formId} />

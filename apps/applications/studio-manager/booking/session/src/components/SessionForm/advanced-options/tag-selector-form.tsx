@@ -15,7 +15,7 @@ const TagSelectorForm: FC<{
   return (
     <>
       <div className="flex flex-col gap-2xs">
-        <Title htmlVariant="h5" weight="strong">
+        <Title htmlVariant="h5" weight="stronger">
           {t("addSessionModal.steps.advancedOptions.tags.title")}
         </Title>
         <Body weight="weaker" size="sm">

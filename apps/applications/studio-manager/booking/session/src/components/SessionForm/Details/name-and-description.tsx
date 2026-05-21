@@ -26,7 +26,7 @@ const SectionTitle: FC = () => {
         "flex-col gap-sm": isMobile,
       })}
     >
-      <Title htmlVariant="h5" weight="strong">
+      <Title htmlVariant="h5" weight="stronger">
         {t("addSessionModal.steps.configureSession.nameAndDescription")}
       </Title>
       {isMobile ? (

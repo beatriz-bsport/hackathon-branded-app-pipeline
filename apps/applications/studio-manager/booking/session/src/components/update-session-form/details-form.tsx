@@ -16,7 +16,7 @@ const DetailsForm: FC<DetailsFormProps> = ({ fieldIdPrefix }) => {
 
   return (
     <div className="flex flex-col gap-md">
-      <Title htmlVariant="h5" weight="strong">
+      <Title htmlVariant="h5" weight="stronger">
         {t("editSessionForm.content.detailsForm.title")}
       </Title>
       <ActivitySelector fieldIdPrefix={fieldIdPrefix} />

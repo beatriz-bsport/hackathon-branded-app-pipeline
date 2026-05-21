@@ -32,6 +32,7 @@ import { hasUpsell } from '#src/libs/platform-billing/utils';
 import {
   UPSELL_IDENTIFIER_MY_CLUBS,
   UPSELL_IDENTIFIER_WELLHUB,
+  UPSELL_IDENTIFIER_WELLPASS,
 } from '#src/libs/platform-billing/upsell-identifiers';
 import type { FeatureList } from '#src/libs/company/types';
 
@@ -99,7 +100,12 @@ import type { PaginationFilterParams } from '#src/libs/types';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import PartnershipConfiguration from '#src/libs/classpass/components/PartnershipConfiguration.component';
 import MyClubsConfiguration from '#src/libs/partnership/myclubs/MyClubsConfiguration';
+import WellpassConfiguration from '#src/libs/partnership/wellpass/WellpassConfiguration';
 import { PartnershipIdentifier } from '#src/libs/partnership/types';
+import {
+  FeatureFlagProps,
+  withFeatureFlags,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 type StateProps = {
   hasRequested: boolean;
@@ -115,6 +121,7 @@ type ConnectorProps = {
   classpass: PartnershipCompany | null;
   myClubsPartnershipCompany: PartnershipCompany | null;
   wellhubPartnershipCompany: PartnershipCompany | null;
+  wellpassPartnershipCompany: PartnershipCompany | null;
   company: number;
   establishmentList: Establishment[];
   featureList: FeatureList;
@@ -157,7 +164,11 @@ type ConnectorProps = {
   }[];
 };
 
-type Props = StateProps & ConnectorProps & WithT & WithStyles;
+type Props = StateProps &
+  ConnectorProps &
+  WithT &
+  WithStyles &
+  FeatureFlagProps;
 
 export class Partnership extends React.Component<Props> {
   componentDidMount() {
@@ -268,6 +279,13 @@ export class Partnership extends React.Component<Props> {
 
     const hasWellhubUpsell = hasUpsell(featureList, UPSELL_IDENTIFIER_WELLHUB);
     const hasMyClubsUpsell = hasUpsell(featureList, UPSELL_IDENTIFIER_MY_CLUBS);
+    const hasWellpassUpsell = hasUpsell(
+      featureList,
+      UPSELL_IDENTIFIER_WELLPASS,
+    );
+    const { wellpassPartnershipCompany } = this.props;
+    // TODO(BOO-2812): Remove once this is fully launched
+    const { isNewWellpassConfigurationEnabled } = this.props;
 
     return (
       <div className={this.props.classes.container}>
@@ -290,6 +308,14 @@ export class Partnership extends React.Component<Props> {
             myClubsPartnershipId={myClubsPartnershipCompany.partnership}
           />
         )}
+        {hasWellpassUpsell &&
+          !!wellpassPartnershipCompany &&
+          isNewWellpassConfigurationEnabled && (
+            <WellpassConfiguration
+              establishments={this.props.establishmentList}
+              wellpassPartnershipId={wellpassPartnershipCompany.partnership}
+            />
+          )}
         {hasWellhubUpsell && !this.props.loading && (
           <WellhubConfiguration
             establishments={this.props.establishmentList}
@@ -388,6 +414,7 @@ export default compose(
   withTranslation(['partnership']),
   withTitle(({ t }) => t('pageTitle')),
   withStyles(styles),
+  withFeatureFlags,
   withState('hasRequested', 'setHasRequested', false),
   withState(
     'isWellhubProductSelectionDrawerOpen',
@@ -414,6 +441,10 @@ export default compose(
       wellhubPartnershipCompany: getPartnershipByIdentifier(
         state,
         PartnershipIdentifier.WELLHUB,
+      ),
+      wellpassPartnershipCompany: getPartnershipByIdentifier(
+        state,
+        PartnershipIdentifier.WELLPASS,
       ),
       company: themeSelector.getTheme(state).company,
       establishmentList: getAllPageEstablishments(state),

@@ -251,5 +251,71 @@
         }
       }
     }
+  },
+  "wellpass": {
+    "title": "Wellpass",
+    "configuration": {
+      "copied_to_clipboard": "ID successfully copied to clipboard",
+      "dialog": {
+        "title": {
+          "creation": "Choose establishment(s)",
+          "edition": "Edit Connection"
+        },
+        "helperText": "Select which establishments you want to synchronise. All sessions in these establishments that have Wellpass enabled will be available to book for Wellpass customers.",
+        "field": {
+          "externalId": "Partner ID: {{ externalId }}",
+          "establishmentIds": {
+            "placeholder": "Link your establishment(s)",
+            "title": "Establishments",
+            "error": {
+              "required": "Please select at least one establishment"
+            }
+          }
+        },
+        "action": {
+          "back": "Back",
+          "cancel": "Cancel",
+          "close": "Close",
+          "confirm": "Confirm",
+          "save": "Continue",
+          "reactivate": "Reactivate"
+        },
+        "activate": {
+          "title": "Reactivate this Partner ID",
+          "subtitle": "Reactivate synchronisation for this Partner ID?",
+          "content": "Once reactivated, sessions will start syncing again automatically."
+        },
+        "unlink": {
+          "title": "You are about to unlink one or several establishments from Wellpass.",
+          "content": "Upcoming sessions linked to those establishments will be cancelled on Wellpass, including any bookings made with Wellpass."
+        },
+        "notification": {
+          "update": {
+            "success": "Configuration updated",
+            "error": "An error occurred while updating the configuration"
+          }
+        }
+      },
+      "panel": {
+        "header": {
+          "subtitle": "Choose which establishments you want to synchronise. You'll be able to adjust the number of available spots for this aggregator in the session settings."
+        },
+        "content": {
+          "title": "Company ID connection",
+          "table": {
+            "column": {
+              "externalId": "Company ID",
+              "establishments": "Establishments",
+              "status": "Status"
+            },
+            "status": {
+              "active": "Connected",
+              "pending": "Pending",
+              "deactivated": "Deactivated"
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -85,6 +85,72 @@
         "certificate_error": "Kon het VERI*FACTU-certificaat niet ophalen. Probeer het opnieuw. "
       }
     },
+    "ticketbai": {
+      "title": "TicketBAI",
+      "loading": "Laden…",
+      "load_error": "Kon de TicketBAI-configuratie niet laden. Ververs de pagina en probeer het opnieuw.",
+      "info": "Deze add-on is nog niet actief op je account — neem contact op met je Account Manager om deze aan te vragen",
+      "description": "Regionale factureringsregels voor Baskenland (Araba, Bizkaia, Gipuzkoa). Wanneer TicketBAI actief is, worden in aanmerking komende facturen en betaalbewijs opgemaakt en gerapporteerd zoals vereist door je provincie.",
+      "territory": {
+        "title": "Bedrijfs- en apparaatcertificaat",
+        "subtitle": "Provincie van Stripe factuuradres",
+        "detected_province": "Gedetecteerde provincie",
+        "helper": "Dit lezen we uit je Stripe-bedrijfsprofiel. Als dit niet klopt, <0>wijzig het dan op Stripe</0>, anders worden er mogelijk verkeerde provinciale regels gebruikt voor facturen.",
+        "araba": "Álava",
+        "bizkaia": "Bizkaia",
+        "gipuzkoa": "Gipuzkoa"
+      },
+      "form": {
+        "chips": {
+          "vat_id_validated": "Btw-nummer gevalideerd",
+          "vat_id_missing": "BTW-nummer ontbreekt",
+          "business_address_provided": "Zakelijk adres verstrekt",
+          "business_address_missing": "Bedrijfsadres ontbreekt",
+          "invoice_identifiers_set_up": "Instellingen voor factuuridentificatie",
+          "invoice_identifiers_not_set_up": "Factuuridentificaties niet ingesteld"
+        },
+        "requirements": {
+          "vat_required": "BTW-nummer vereist",
+          "address_required": "Zakelijk adres vereist",
+          "vat_and_address_required": "BTW-nummer en bedrijfsadres vereist",
+          "vat_description": "Voeg je btw-nummer toe in Instellingen → Bedrijf voordat je TicketBAI inschakelt met Sign-ES.",
+          "address_description": "Geef je bedrijfsadres op bij de Stripe-onboarding — we gebruiken het om de Baskische provincie voor TicketBAI te bevestigen.",
+          "vat_and_address_description": "Voeg je btw-nummer toe via Instellingen → Bedrijf en voltooi de Stripe-onboarding met je zakelijk adres. Beide zijn vereist voordat je TicketBAI kunt instellen.",
+          "go_to_settings": "Ga naar Instellingen",
+          "complete_stripe_onboarding": "Voltooi Stripe-onboarding",
+          "legal_identifier_required": "Factuurnummers vereist",
+          "legal_identifier_description": "Stel factuurnummers in voor Sign-ES aan de hand van deze <0>helpsheet</0>."
+        }
+      },
+      "onboarding": {
+        "register_processing": "Registreren…",
+        "configure_ticketbai": "Configureer TicketBAI",
+        "info_euskadi": "TicketBAI-informatie (Euskadi)",
+        "register_error": "Het aanmeldingsapparaat kon niet worden geregistreerd. Probeer het opnieuw.",
+        "device_registered": "Ondertekeningsapparaat succesvol geregistreerd",
+        "device_error": "De registratie van het ondertekenapparaat heeft geen certificaatserie geretourneerd. Probeer het opnieuw of neem contact op met de supportafdeling."
+      },
+      "device": {
+        "title": "Apparaatcertificaat",
+        "subtitle": "Gebruik dit serienummer op het TicketBAI-portaal van je provincie. <0>Leer hoe je dit doet met fiskaly</0>",
+        "serial_caption": "Serienummer apparaatcertificaat (uitgegeven door bsport)",
+        "gipuzkoa_notice": "Je moet je Fiskaly-apparaatcertificaat nog valideren bij Gipuzkoa op hun officiële portaal. Je hebt hier ongeveer een maand de tijd voor. Alle facturen die je in de tussentijd uitgeeft, blijven wettelijk conform.",
+        "registration_notice_title": "Voltooi de apparaatregistratie voordat je verdergaat",
+        "registration_notice_description": "Gebruik het bovenstaande serienummer op het officiële TicketBAI-portaal van je provincie om je Fiskaly-apparaatcertificaat te registreren, zodat bsport je in aanmerking komende facturen kan indienen bij TicketBAI",
+        "complete_confirmation": "Ik heb de vereiste provinciale apparaatregistratie voor mijn grondgebied voltooid",
+        "complete_cta": "Volledige installatie"
+      },
+      "finalize": {
+        "processing": "Afronden…",
+        "success": "TicketBAI-instelling afgerond",
+        "error": "De TicketBAI-configuratie kon niet worden voltooid. Probeer het opnieuw."
+      },
+      "active": {
+        "success_message": "TicketBAI is actief. Facturen en bonnen die hiervoor in aanmerking komen, worden gerapporteerd volgens de TicketBAI-regels van jouw provincie",
+        "gipuzkoa_followup_title": "Je facturen worden al naar de belastingdienst gestuurd",
+        "gipuzkoa_followup_description": "Je moet je Fiskaly-apparaat nog valideren bij Gipuzkoa op hun officiële portaal. Je hebt hier ongeveer een maand de tijd voor. Alle facturen die je in de tussentijd uitgeeft, blijven wettelijk conform."
+      }
+    },
     "sequentialNumbering": {
       "title": "Stel opeenvolgende factuurnummering in",
       "subtitle": "je Facturen worden automatisch genummerd in volgorde (1, 2, 3...). Pas de startdatum en het nummeringsformaat aan om het in te stellen.",
@@ -117,7 +183,7 @@
     }
   },
   "bulkExport": {
-    "modalTitle": "Factueren exporteren",
+    "modalTitle": "Facturen exporteren",
     "modalDescription": "Kies een periode om facturen te exporteren.",
     "alertDescription": "Je kunt geen facturen exporteren die zijn gemigreerd van vorige providers.",
     "month": "Maand",

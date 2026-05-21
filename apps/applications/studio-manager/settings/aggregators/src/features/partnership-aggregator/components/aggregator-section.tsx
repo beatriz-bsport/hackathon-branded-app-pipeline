@@ -10,7 +10,7 @@ type Props = {
 
 export const AggregatorSection: FC<Props> = ({ logo, subtitle, children }) => (
   <section className="flex flex-col gap-md w-full items-start">
-    <div className="flex flex-col gap-xs">
+    <div className="flex flex-col gap-xs px-md">
       <div className="h-xl w-auto">{logo}</div>
       <Body color="weak" size="lg" weight="weak">
         {subtitle}

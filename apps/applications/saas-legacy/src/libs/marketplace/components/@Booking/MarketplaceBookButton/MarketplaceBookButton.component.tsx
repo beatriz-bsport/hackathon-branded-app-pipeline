@@ -5,11 +5,13 @@ import { useTranslation } from 'react-i18next';
 
 import CancelIcon from '@material-ui/icons/Cancel';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
+import TimelapseIcon from '@material-ui/icons/Timelapse';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
 import {
   getBookingButtonTraduction,
   isOfferInGroupLockedByPreviousOfferInPast,
+  isOfferOngoing,
 } from '#src/libs/marketplace/utils';
 import { OfferREST } from '#src/libs/offer/types';
 import { OffersGroup } from '#src/libs/group-offer/types';
@@ -41,6 +43,8 @@ const MarketplaceBookButton: React.FC<Props> = ({
     () => isDateInThePast(offer.date_start),
     [offer],
   );
+
+  const offerIsOngoing = isOfferOngoing(offer);
 
   const firstOfferInGroupIsInThePast = useMemo(
     // @ts-expect-error
@@ -74,9 +78,12 @@ const MarketplaceBookButton: React.FC<Props> = ({
             <CancelIcon className="bs-book-button-card__inner__icon__not-available" />
           )}
           {(offerIsInThePast || firstOfferInGroupIsInThePast) &&
-            offer.available && (
+            offer.available &&
+            (offerIsOngoing ? (
+              <TimelapseIcon className="bs-book-button-card__inner__icon__past" />
+            ) : (
               <AlarmOnIcon className="bs-book-button-card__inner__icon__past" />
-            )}
+            ))}
           {offer.available &&
             isRegistered &&
             !(offerIsInThePast || firstOfferInGroupIsInThePast) && (

@@ -1,6 +1,6 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-import { fetchRecurrenceFromSessionAPI } from "@bsport/api-book";
+import { fetchRecurrenceFromSessionAPI, sessionKeys } from "@bsport/api-book";
 
 import { fetch } from "#src/utils/fetch";
 
@@ -11,7 +11,7 @@ const fetchRecurrenceFromSession = fetchRecurrenceFromSessionAPI.bind(
 
 const recurrenceFromSessionQueryOptions = (sessionId: number) => {
   return queryOptions({
-    queryKey: [`recurrence_from_session`, sessionId],
+    queryKey: sessionKeys.recurrence(sessionId),
     queryFn: () => fetchRecurrenceFromSession(sessionId),
   });
 };

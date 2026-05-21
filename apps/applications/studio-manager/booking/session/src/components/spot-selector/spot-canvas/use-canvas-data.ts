@@ -5,16 +5,22 @@ import {
   type RoomBlueprint,
   type SpotType,
   assetsForBlueprintQueryOptions,
+  retrieveTeacherQueryOptions,
   roomBlueprintDetailQueryOptions,
   sessionStatusQueryOptions,
   spotTypesQueryOptions,
 } from "@bsport/api-book";
 import type { Fetch } from "@bsport/fetch";
 
+import type { TeacherCoach } from "#src/components/spot-selector/spot-canvas/elements/teacher-dimensions";
+
 export type UseCanvasDataArgs = {
   blueprintId: number | null;
   sessionId: number | null;
   fetch: Fetch;
+  /** When provided, the hook fetches the corresponding teacher record so the
+   *  TeacherElement can render the coach photo and display name. */
+  coachId?: number | null;
 };
 
 export type UseCanvasDataResult = {
@@ -24,6 +30,7 @@ export type UseCanvasDataResult = {
   assets: AssetForBlueprint[];
   spotTypes: SpotType[];
   takenSpots: number[];
+  coach: TeacherCoach | undefined;
 };
 
 // Stable empty arrays so consumers that memoise on these fields don't
@@ -43,10 +50,12 @@ export const useCanvasData = ({
   blueprintId,
   sessionId,
   fetch,
+  coachId,
 }: UseCanvasDataArgs): UseCanvasDataResult => {
   const enabled = blueprintId !== null;
+  const coachEnabled = enabled && coachId != null && coachId > 0;
 
-  const [blueprint, assets, spotTypes, status] = useQueries({
+  const [blueprint, assets, spotTypes, status, teacher] = useQueries({
     queries: [
       {
         ...roomBlueprintDetailQueryOptions(fetch as never, blueprintId ?? 0),
@@ -64,17 +73,30 @@ export const useCanvasData = ({
         ...sessionStatusQueryOptions(fetch as never, sessionId ?? 0),
         enabled: enabled && sessionId !== null,
       },
+      {
+        ...retrieveTeacherQueryOptions(fetch as never, coachId ?? 0),
+        enabled: coachEnabled,
+      },
     ],
   });
 
-  const queries = [blueprint, assets, spotTypes, status];
+  // The teacher query failing must not surface as a critical canvas error —
+  // the spot map should render with a fallback avatar rather than erroring
+  // out the whole modal.
+  const blockingQueries = [blueprint, assets, spotTypes, status];
 
   return {
-    isLoading: enabled && queries.some((q) => q.isLoading),
-    error: (queries.find((q) => q.error)?.error as Error | null) ?? null,
+    isLoading: enabled && blockingQueries.some((q) => q.isLoading),
+    error:
+      (blockingQueries.find((q) => q.error)?.error as Error | null) ?? null,
     roomBlueprint: blueprint.data,
     assets: assets.data?.results ?? EMPTY_ASSETS,
     spotTypes: spotTypes.data ?? EMPTY_SPOT_TYPES,
     takenSpots: status.data?.taken_spots ?? EMPTY_TAKEN_SPOTS,
+    // Pass the cached Teacher record directly — its reference is stable
+    // across renders, so downstream `React.memo` on <TeacherElement> /
+    // <SpotElement> holds. Rewrapping into a TeacherCoach literal would
+    // mint a fresh object every render and bust memoisation.
+    coach: teacher.data,
   };
 };

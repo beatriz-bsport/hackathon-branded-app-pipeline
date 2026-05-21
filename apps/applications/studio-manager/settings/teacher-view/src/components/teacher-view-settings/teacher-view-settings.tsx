@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { type ReplacementRequestConfiguration } from "@bsport/api-core";
+import { type ReplacementRequestConfiguration } from "@bsport/api-book";
 import { ControlledForm } from "@bsport/form";
 import { Alert, Button, Divider } from "@bsport/kaizen-primitive-core";
 

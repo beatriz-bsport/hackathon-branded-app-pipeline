@@ -49,7 +49,7 @@ bsport web interfaces monorepo. `pnpm` workspaces + `nx`. Apps live in `apps/`, 
 
 ## Core conventions
 
-- Intra-package imports use `#src/*` when the package defines that alias.
+- Intra-package imports: use `#src/*` for any **cross-directory** reference (it replaces `../` parent traversal — that's the brittle pattern `#src/*` exists to remove). **Same-directory** `./foo` siblings are fine and the established style. `#src/*` is defined in each package's `package.json#imports`; packages without it keep using relative paths.
 - Studio Manager apps are workspace libraries. Local dev still uses `federation.devPort` and `dev:watch` to inject the navigation sidebar bridge for isolated work.
 - New API client modules and server-data integrations should usually live in `packages/api/**` and follow the existing TanStack Query pattern: query-key factories, `fetch*API` helpers, and `queryOptions` / `mutationOptions` builders.
 - Stores follow the template shape: `types.ts`, `store.ts`, `actions/store.ts`, `actions/index.ts`, `api.ts`, `selectors.ts`, but prefer them only for existing consumers, shared client state, or migration.

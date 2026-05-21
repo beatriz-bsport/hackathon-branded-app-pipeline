@@ -47,6 +47,12 @@ module.exports = {
   devServer: {
     static: publicDir,
     port: 3100,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers':
+        'X-Requested-With, content-type, Authorization',
+    },
   },
   resolve: {
     fallback: {
@@ -54,6 +60,7 @@ module.exports = {
     },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
+      'process/browser': require.resolve('process/browser'),
       react: path.resolve('./node_modules/react'),
       '#src': path.resolve(__dirname, './node_modules/@bsport/saas-legacy/src'),
       '#Fabrique': path.resolve(
@@ -117,7 +124,15 @@ module.exports = {
             use: [
               'style-loader',
               'css-loader',
-              'sass-loader',
+              {
+                loader: 'sass-loader',
+                options: {
+                  api: 'modern-compiler',
+                  sassOptions: {
+                    // Modern Sass API options
+                  },
+                },
+              },
               {
                 loader: 'postcss-loader',
                 options: {
@@ -157,13 +172,14 @@ module.exports = {
     new CopyPlugin({ patterns: [{ from: 'public', to: '.' }] }),
     !devMode && new JavaScriptObfuscator(),
     new webpack.ProvidePlugin({
-      process: 'process/browser.js',
+      process: 'process/browser',
     }),
-    process.env.ANALYZE === 'true' && new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      openAnalyzer: true,
-      reportFilename: 'bundle-report.html',
-    }),
+    process.env.ANALYZE === 'true' &&
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        openAnalyzer: true,
+        reportFilename: 'bundle-report.html',
+      }),
   ].filter(Boolean),
   optimization: {
     minimize: !devMode,

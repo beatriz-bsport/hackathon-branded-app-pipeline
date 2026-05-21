@@ -110,7 +110,7 @@ const StaffDetailsPage: FC<StaffDetailsPageProps> = ({ staff }) => {
     `${staff.first_name} ${staff.last_name}`.trim() || staff.email;
 
   const BreadcrumbsItems = [
-    <Link key="to-staff-list" to={URLS.INDEX}>
+    <Link key="to-staff-list" to={URLS.STAFF_INDEX}>
       <Breadcrumbs.Item text={t("name", { ns: "staff-list" })} />
     </Link>,
   ];
@@ -205,7 +205,7 @@ const StaffDetailsPage: FC<StaffDetailsPageProps> = ({ staff }) => {
       <StaffDeleteModal
         staff={isDeleteModalOpen ? staff : null}
         onClose={closeDeleteModal}
-        onSuccess={() => navigate(URLS.INDEX)}
+        onSuccess={() => navigate(URLS.STAFF_INDEX, { replace: true })}
       />
     </>
   );

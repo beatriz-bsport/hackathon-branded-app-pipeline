@@ -1,0 +1,45 @@
+{
+  "name": "@bsport/store-booking-teacher",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Store package to manage Teacher state",
+  "license": "UNLICENSED",
+  "author": "David Bretaud <david.bretaud@bsport.io>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/lib.es.js",
+      "default": "./build/lib.es.js"
+    }
+  },
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "types": "build/index.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "vite build --logLevel warn",
+    "ci:compile": "tsc",
+    "dev": "vite build --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "@bsport/api-book": "workspace:*",
+    "@bsport/store-base": "workspace:*",
+    "typescript-result": "^3.1.1",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*"
+  },
+  "nx": {
+    "tags": [
+      "postinstall"
+    ]
+  }
+}

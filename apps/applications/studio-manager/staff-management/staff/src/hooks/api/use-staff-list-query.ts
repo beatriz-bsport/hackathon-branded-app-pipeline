@@ -1,12 +1,10 @@
 import { useSuspenseQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
 
+import { type Teacher, fetchFlatTeachers, teacherKeys } from "@bsport/api-book";
 import {
   type EstablishmentBillingGroup,
-  type Teacher,
   fetchEstablishmentBillingGroups,
-  fetchFlatTeachers,
-  teacherKeys,
 } from "@bsport/api-core";
 import {
   fetchRoleDefinitionsQueryOptions,
@@ -50,7 +48,7 @@ export const useStaffListQuery = (activeFilters: StaffActiveFilters = {}) => {
       staffListQueryOptions,
       fetchRoleDefinitionsQueryOptions(fetch),
       {
-        queryKey: teacherKeys.list([], { company: companyId }),
+        queryKey: teacherKeys.list({ company: companyId }),
         queryFn: () =>
           companyId !== undefined
             ? fetchFlatTeachers(fetch, { company: companyId })

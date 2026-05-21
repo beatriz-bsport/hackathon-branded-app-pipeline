@@ -9,7 +9,6 @@ import {
 import { toast } from "@bsport/kaizen-primitive-core";
 import { BackgroundTask } from "@bsport/store-shared-background-task";
 
-import { SESSIONS_QUERY_KEY } from "#src/hooks/constants";
 import { useUrls } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useWaitForBackgroundTask } from "#src/utils/fetch-background-task";
@@ -52,8 +51,6 @@ export const useCreateSession = () => {
       return null;
     },
     onSuccess: (result, variables) => {
-      // TODO: merge session query keys
-      queryClient.invalidateQueries({ queryKey: [SESSIONS_QUERY_KEY] });
       queryClient.invalidateQueries({ queryKey: sessionKeys.all });
 
       const buttonConfiguration = isSessionCreationResult(result)

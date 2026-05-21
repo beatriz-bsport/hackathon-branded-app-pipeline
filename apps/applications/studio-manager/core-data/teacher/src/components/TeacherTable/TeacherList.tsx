@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import type { Teacher } from "@bsport/api-core";
+import type { Teacher } from "@bsport/api-book";
 import {
   List,
   type PaginationProps,

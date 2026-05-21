@@ -10,10 +10,13 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   PACKS_REVAMP: "revamp_packs_page",
   GIFTCARDS_REVAMP: "revamp_giftcards_page",
   ONDEMAND_REVAMP: "revamp_ondemand_page",
+  SETTINGS_STAFF_PAGE: "revamp_settings_staff_page",
+  SETTINGS_ROLE_PAGE: "revamp_settings_role_page",
   FS_BILLING_FLOW_NEW_MODAL: "fs_billing_flow_new_modal",
   // Classes revamp
   CLASSES_MERGED_VIEW: "booking_classes_merged_view",
   SETTINGS_TEACHER_VIEW: "settings_teacher_view",
   SMARTFILL: "smartfill_page",
   SETTINGS_AGGREGATORS: "settings_aggregators_view",
+  BOOKING_VENUES_PAGE: "booking_venues_page",
 } as const);

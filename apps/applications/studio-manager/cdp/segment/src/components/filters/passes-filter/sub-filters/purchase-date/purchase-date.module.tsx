@@ -6,8 +6,9 @@ import {
   SmartlistDateFilterType,
 } from "@bsport/api-cdp/smartlist";
 
+import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
+
 import type { PassesFilterFormValue } from "../../types";
-import { hasNestedDirty } from "../is-nested-dirty";
 import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
 import type { PassSubFilterModule } from "../pass-sub-filter-module-contract";
 import { PurchaseDateSubFilterSection } from "./purchase-date.component";
@@ -18,21 +19,21 @@ import {
   toFormDateSection,
 } from "./utils";
 
-const PURCHASE_DATE_INACTIVE_API_SLICE =
-  (): Partial<CreatePaymentPackFilterPayload> => ({
+const PURCHASE_DATE_INACTIVE_API_SLICE: Partial<CreatePaymentPackFilterPayload> =
+  {
     date_filter_active: false,
     date_filter_type: SmartlistDateFilterType.DATE_AFTER,
     date_bought: DateTime.now().toFormat("yyyy-MM-dd"),
     date_bought_second: DateTime.now().toFormat("yyyy-MM-dd"),
     duration_bought: 0,
     duration_bought_second: 0,
-  });
+  };
 
 const toPurchaseDateApiSlice = (
   value: PassesFilterFormValue,
 ): Partial<CreatePaymentPackFilterPayload> => {
   if (!value.subFilters.includes(PASS_SUB_FILTER_IDS.purchaseDate)) {
-    return PURCHASE_DATE_INACTIVE_API_SLICE();
+    return PURCHASE_DATE_INACTIVE_API_SLICE;
   }
 
   const purchaseDateType = mapDateFilterType(value.purchaseDate);

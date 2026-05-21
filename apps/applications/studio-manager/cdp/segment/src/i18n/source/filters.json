@@ -63,6 +63,7 @@
       },
       "toasts": {
         "saveError": "Unable to save pass filter.",
+        "saveSuccess": "Pass filter saved.",
         "deleteError": "Unable to delete pass filter.",
         "invalidFilter": "Invalid filter."
       },
@@ -88,22 +89,75 @@
         "equal": "Equal to"
       },
       "actions": {
+        "removeSubFilter": "Remove {{subFilterLabel}} sub-filter",
         "deleteFilter": "Delete booking filter",
         "save": "Apply filter",
-        "addFilter": "Add booking filter"
+        "addFilter": "Add booking filter",
+        "addSubFilter": "Add sub-filter"
       },
       "fields": {
-        "totalSessionSuffix": "Total Session"
+        "activity": {
+          "searchPlaceholder": "Search for an Activity",
+          "emptySelection": "Select Activities to start filtering"
+        },
+        "establishment": {
+          "searchPlaceholder": "Search for an Establishment",
+          "emptySelection": "Select Establishments to start filtering"
+        },
+        "coach": {
+          "searchPlaceholder": "Search for a Teacher",
+          "emptySelection": "Select Teachers to start filtering"
+        },
+        "passes": {
+          "searchPlaceholder": "Search for a Pass",
+          "emptySelection": "Select Passes to start filtering"
+        },
+        "level": {
+          "searchPlaceholder": "Search for a Level",
+          "emptySelection": "Select Levels to start filtering"
+        },
+        "totalSessionSuffix": "Total Session",
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "bookingHourRangeStartingBetween": "Starting between ",
+        "bookingHourRangeAnd": " and ",
+        "attendanceMode": {
+          "radioLabel": "Count reservations where attendance is:",
+          "present": "Present",
+          "absent": "Absent"
+        }
+      },
+      "subFilters": {
+        "activity": "Activity",
+        "establishment": "Establishment",
+        "coach": "Teacher",
+        "passes": "Passes",
+        "level": "Level",
+        "bookingDate": "Booking session date",
+        "bookingHourRange": "Booking session time",
+        "attendanceMode": "Attendance",
+        "subFilterFallback": "{{subFilterId}}"
       },
       "toasts": {
         "saveError": "Unable to save booking filter.",
+        "saveSuccess": "Filter applied.",
         "deleteError": "Unable to delete booking filter.",
         "invalidFilter": "Invalid filter."
       },
       "validation": {
         "valueRequired": "Booking number must be 0 or higher.",
         "secondValueRequired": "Second booking number is required for range comparator.",
-        "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one."
+        "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
+        "selectedActivitiesRequired": "Select at least one activity.",
+        "selectedEstablishmentsRequired": "Select at least one establishment.",
+        "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
+        "selectedPaymentPacksRequired": "Select at least one pass, or remove this sub-filter.",
+        "selectedLevelsRequired": "Select at least one level, or remove this sub-filter.",
+        "bookingDateRequired": "Select a booking session date.",
+        "bookingDateBetweenRequired": "Select both dates for the between range.",
+        "bookingDateDurationRequired": "Enter a number of days.",
+        "bookingDateDurationBetweenRequired": "Enter both day values for the between range.",
+        "bookingHourRangeRequired": "Select both start and end times.",
+        "bookingHourRangeOrderInvalid": "End time must be the same as or after the start time."
       }
     }
   },

@@ -2,6 +2,15 @@
   "name": "@bsport/saas-legacy",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "targets": {
+    "build": {
+      "dependsOn": [
+        "^build",
+        {
+          "projects": ["@bsport/sm-navigation-sidebar"],
+          "target": "build:compat"
+        }
+      ]
+    },
     "lint": {
       "executor": "nx:run-commands",
       "options": {

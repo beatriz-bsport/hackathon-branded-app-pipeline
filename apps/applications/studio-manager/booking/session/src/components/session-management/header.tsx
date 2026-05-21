@@ -5,6 +5,7 @@ import {
   Button,
   DetailsLayout,
   ExpandableSearchInputWithTooltipProps,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
@@ -31,6 +32,8 @@ export const Header: FC<{
 
   const queryClient = useQueryClient();
 
+  const isMobile = !useMatchMedia("lg");
+
   const { data: session } = useRetrieveSession(sessionId);
 
   const { data: teacher } = useRetrieveTeacher(
@@ -47,28 +50,40 @@ export const Header: FC<{
         key="session-navigation"
         sessionId={session.id}
       />,
-      <ResponsiveTooltip key="refresh" label={t("refresh")} placement="bottom">
-        <Button
-          kind="icon-button"
-          size="md"
-          icon="refresh-cw-01"
-          intent="default"
-          color="main"
-          label={t("refresh")}
-          onClick={() => queryClient.invalidateQueries()}
-        />
-      </ResponsiveTooltip>,
+
+      ...(isMobile
+        ? []
+        : [
+            <ResponsiveTooltip
+              key="refresh"
+              label={t("refresh")}
+              placement="bottom"
+            >
+              <Button
+                kind="icon-button"
+                size="md"
+                icon="refresh-cw-01"
+                intent="default"
+                color="main"
+                label={t("refresh")}
+                onClick={() => queryClient.invalidateQueries()}
+              />
+            </ResponsiveTooltip>,
+          ]),
       <MoreActionsButton
         key="more-actions"
         sessionId={session.id}
         openModal={openModal}
+        isMobile={isMobile}
       />,
     ];
-  }, [session.id, openModal, queryClient, t]);
+  }, [session.id, openModal, queryClient, t, isMobile]);
 
   const endGroupActions = useMemo(() => {
-    return [<SendCommunicationButton key="send-communication" />];
-  }, []);
+    return isMobile
+      ? []
+      : [<SendCommunicationButton key="send-communication" />];
+  }, [isMobile]);
 
   return (
     <DetailsLayout.Header
@@ -85,9 +100,9 @@ export const Header: FC<{
         </div>
       )}
       callToActionButton={
-        session.available ? (
+        session.available && !isMobile ? (
           <BookButton />
-        ) : !session.group ? (
+        ) : !session.group && !isMobile ? (
           <RestoreSessionButton openModal={openModal} />
         ) : undefined
       }

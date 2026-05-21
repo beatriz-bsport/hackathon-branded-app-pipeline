@@ -1,10 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { deleteLevelAPI } from "@bsport/api-core";
+import { deleteLevelAPI, levelKeys } from "@bsport/api-core";
 
 import { fetch } from "#src/utils/fetch";
-
-import { LEVEL_QUERY_KEY } from "./constants";
 
 const deleteLevel = deleteLevelAPI.bind(null, fetch);
 
@@ -14,7 +12,7 @@ export const useDeleteLevel = () => {
   return useMutation({
     mutationFn: (params: { id: number }) => deleteLevel(params),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [LEVEL_QUERY_KEY] });
+      queryClient.invalidateQueries({ queryKey: levelKeys.all });
     },
   });
 };

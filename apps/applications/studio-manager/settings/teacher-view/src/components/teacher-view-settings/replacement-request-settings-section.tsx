@@ -149,22 +149,24 @@ export const ReplacementRequestSettingsSection: FC<
 
   return (
     <div className="flex flex-col gap-lg items-start">
-      <div className="flex flex-col">
-        <Title htmlVariant="h2">
-          {t("teacherViewSettings.replacementRequest.title")}
-        </Title>
-        <Body htmlVariant="p" color="weak" size="sm">
-          {t("teacherViewSettings.replacementRequest.description")}
-        </Body>
-      </div>
+      <div className="flex flex-col gap-md items-start">
+        <div className="flex flex-col">
+          <Title htmlVariant="h2">
+            {t("teacherViewSettings.replacementRequest.title")}
+          </Title>
+          <Body htmlVariant="p" color="weak" size="sm">
+            {t("teacherViewSettings.replacementRequest.description")}
+          </Body>
+        </div>
 
-      <ToggleFormField<ReplacementRequestSettingsFormValues>
-        name="has_coach_access_to_replacement_request"
-        id="teacher-view-replacement-access-toggle"
-        checked={hasReplacementRequest}
-        disabled={!hasSubteacherUpsell}
-        label={t("teacherViewSettings.replacementRequest.enable")}
-      />
+        <ToggleFormField<ReplacementRequestSettingsFormValues>
+          name="has_coach_access_to_replacement_request"
+          id="teacher-view-replacement-access-toggle"
+          checked={hasReplacementRequest}
+          disabled={!hasSubteacherUpsell}
+          label={t("teacherViewSettings.replacementRequest.enable")}
+        />
+      </div>
 
       {!hasSubteacherUpsell ? (
         <Body htmlVariant="p" color="weak" size="sm">
@@ -174,11 +176,11 @@ export const ReplacementRequestSettingsSection: FC<
 
       {hasSubteacherUpsell && hasReplacementRequest ? (
         <div className="flex flex-col gap-lg items-start">
-          <Title htmlVariant="h3">
-            {t("teacherViewSettings.replacementRequest.lateRequestSection")}
-          </Title>
+          <div className="flex flex-col gap-md items-start">
+            <Title htmlVariant="h3">
+              {t("teacherViewSettings.replacementRequest.lateRequestSection")}
+            </Title>
 
-          <div className="flex flex-col items-start gap-sm">
             <ReplacementRequestNumberField
               name="days_before_offer_replacement_request_is_late"
               id="teacher-view-replacement-late-days"
@@ -188,86 +190,91 @@ export const ReplacementRequestSettingsSection: FC<
                 { count: lateRequestDays },
               )}
             />
-          </div>
 
-          <div className="flex flex-col gap-sm items-start ">
-            <ToggleFormField<ReplacementRequestSettingsFormValues>
-              name="is_late_replacement_request_limited"
-              id="teacher-view-replacement-limit-toggle"
-              checked={isLateReplacementRequestLimited}
-              label={t("teacherViewSettings.replacementRequest.limits.toggle")}
-            />
+            <div className="flex flex-col gap-sm items-start">
+              <ToggleFormField<ReplacementRequestSettingsFormValues>
+                name="is_late_replacement_request_limited"
+                id="teacher-view-replacement-limit-toggle"
+                checked={isLateReplacementRequestLimited}
+                label={t(
+                  "teacherViewSettings.replacementRequest.limits.toggle",
+                )}
+              />
 
-            {isLateReplacementRequestLimited ? (
-              <div className="ml-sm flex flex-col items-start gap-sm pl-lg">
-                <div className="grid grid-cols-2 items-end gap-2xs">
-                  <div className="col-span-2">
+              {isLateReplacementRequestLimited ? (
+                <div className="ml-sm flex flex-col items-start gap-sm pl-lg">
+                  <div className="grid grid-cols-2 items-end gap-2xs">
+                    <div className="col-span-2">
+                      <ReplacementRequestNumberField
+                        name="max_late_requests_per_limitation_period"
+                        id="teacher-view-replacement-max-late-requests"
+                        label={t(
+                          "teacherViewSettings.replacementRequest.limits.maxRequestsLabel",
+                        )}
+                      />
+                    </div>
                     <ReplacementRequestNumberField
-                      name="max_late_requests_per_limitation_period"
-                      id="teacher-view-replacement-max-late-requests"
                       label={t(
-                        "teacherViewSettings.replacementRequest.limits.maxRequestsLabel",
+                        "teacherViewSettings.replacementRequest.limits.every",
                       )}
+                      name="late_request_limitation_period_nb"
+                      id="teacher-view-replacement-period-count"
                     />
+                    <FormField<
+                      ReplacementRequestSettingsFormValues,
+                      "late_request_limitation_period_type",
+                      SelectProps
+                    >
+                      name="late_request_limitation_period_type"
+                      mapProps={({ fieldState, field, form }) => ({
+                        value: field.value != null ? String(field.value) : "",
+                        onChange: (id) => {
+                          const next = Number(
+                            id,
+                          ) as ReplacementRequestLimitationPeriodType;
+                          form.setValue(
+                            "late_request_limitation_period_type",
+                            next,
+                            {
+                              shouldDirty: true,
+                              shouldValidate: true,
+                            },
+                          );
+                        },
+                        status: fieldState.error ? "error" : "default",
+                        errorText: fieldState.error?.message,
+                      })}
+                    >
+                      <Select
+                        id="teacher-view-replacement-period-type"
+                        items={periodItems}
+                        fullWidth
+                      />
+                    </FormField>
                   </div>
-                  <ReplacementRequestNumberField
-                    label={t(
-                      "teacherViewSettings.replacementRequest.limits.every",
-                    )}
-                    name="late_request_limitation_period_nb"
-                    id="teacher-view-replacement-period-count"
-                  />
-                  <FormField<
-                    ReplacementRequestSettingsFormValues,
-                    "late_request_limitation_period_type",
-                    SelectProps
-                  >
-                    name="late_request_limitation_period_type"
-                    mapProps={({ fieldState, field, form }) => ({
-                      value: field.value != null ? String(field.value) : "",
-                      onChange: (id) => {
-                        const next = Number(
-                          id,
-                        ) as ReplacementRequestLimitationPeriodType;
-                        form.setValue(
-                          "late_request_limitation_period_type",
-                          next,
-                          {
-                            shouldDirty: true,
-                            shouldValidate: true,
-                          },
-                        );
-                      },
-                      status: fieldState.error ? "error" : "default",
-                      errorText: fieldState.error?.message,
-                    })}
-                  >
-                    <Select
-                      id="teacher-view-replacement-period-type"
-                      items={periodItems}
-                      fullWidth
-                    />
-                  </FormField>
-                </div>
 
-                {shouldShowLimitsRecap ? (
-                  <Alert status="info" type="weak" layout="inline">
-                    {t("teacherViewSettings.replacementRequest.limits.recap", {
-                      maxRequests: maxLateRequests,
-                      periodNb,
-                      period: recapPeriod,
-                    })}
-                  </Alert>
-                ) : null}
-              </div>
-            ) : null}
+                  {shouldShowLimitsRecap ? (
+                    <Alert status="info" type="weak" layout="inline">
+                      {t(
+                        "teacherViewSettings.replacementRequest.limits.recap",
+                        {
+                          maxRequests: maxLateRequests,
+                          periodNb,
+                          period: recapPeriod,
+                        },
+                      )}
+                    </Alert>
+                  ) : null}
+                </div>
+              ) : null}
+            </div>
           </div>
 
-          <Title htmlVariant="h3">
-            {t("teacherViewSettings.replacementRequest.closingSection")}
-          </Title>
+          <div className="flex flex-col gap-md items-start">
+            <Title htmlVariant="h3">
+              {t("teacherViewSettings.replacementRequest.closingSection")}
+            </Title>
 
-          <div className="flex flex-col items-start gap-sm">
             <ReplacementRequestNumberField
               name="days_before_offer_replacement_request_closing_date"
               id="teacher-view-replacement-closing-days"
@@ -283,18 +290,16 @@ export const ReplacementRequestSettingsSection: FC<
         </div>
       ) : null}
 
-      <div>
-        <Button
-          id="teacher-view-replacement-request-submit-button"
-          type="submit"
-          size="md"
-          color="main"
-          intent="call-to-action"
-          label={t("teacherViewSettings.save")}
-          disabled={!isDirty || !isValid || isSaving}
-          loading={isSaving}
-        />
-      </div>
+      <Button
+        id="teacher-view-replacement-request-submit-button"
+        type="submit"
+        size="md"
+        color="main"
+        intent="call-to-action"
+        label={t("teacherViewSettings.save")}
+        disabled={!isDirty || !isValid || isSaving}
+        loading={isSaving}
+      />
     </div>
   );
 };

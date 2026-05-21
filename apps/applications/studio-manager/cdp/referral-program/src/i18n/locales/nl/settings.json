@@ -50,7 +50,7 @@
           }
         },
         "alerts": {
-          "equalToZero": "Door deze waarde te kiezen, wordt er geen korting toegepast op de aankoop van het doorverwezen leden."
+          "equalToZero": "Als je deze waarde kiest, wordt er geen korting toegepast voor het aanbrengen van een nieuwe klant."
         },
         "errors": {
           "tooManyDecimalPoints": "Het bedrag mag niet meer dan 2 decimalen hebben",

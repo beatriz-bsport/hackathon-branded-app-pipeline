@@ -6,6 +6,7 @@ import {
   Breadcrumbs,
   DetailsLayout,
   Loader,
+  type UseDetailsLayoutReturnType,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 
@@ -17,6 +18,9 @@ interface InsightDetailLayoutProps {
   isLoading: boolean;
   error: string | null;
   children: ReactNode;
+  withPanel?: boolean;
+  panelChildren?: ReactNode;
+  detailsLayoutProps?: UseDetailsLayoutReturnType["detailsLayoutProps"];
 }
 
 /**
@@ -28,9 +32,13 @@ export const InsightDetailLayout = ({
   isLoading,
   error,
   children,
+  withPanel,
+  panelChildren,
+  detailsLayoutProps: externalLayoutProps,
 }: InsightDetailLayoutProps) => {
   const { t } = useTranslation("insights");
-  const { detailsLayoutProps } = useDetailsLayout();
+  const { detailsLayoutProps: internalLayoutProps } = useDetailsLayout();
+  const layoutProps = externalLayoutProps ?? internalLayoutProps;
 
   const breadcrumbsItems = [
     <Link key="insights-breadcrumb" to={URLS.INDEX}>
@@ -59,7 +67,7 @@ export const InsightDetailLayout = ({
   };
 
   return (
-    <DetailsLayout {...detailsLayoutProps}>
+    <DetailsLayout {...layoutProps} withPanel={withPanel}>
       <DetailsLayout.Header
         pageTitle={title}
         BreadcrumbsItems={breadcrumbsItems}
@@ -70,6 +78,7 @@ export const InsightDetailLayout = ({
       >
         {renderContent()}
       </div>
+      {withPanel && <DetailsLayout.Panel>{panelChildren}</DetailsLayout.Panel>}
     </DetailsLayout>
   );
 };

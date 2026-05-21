@@ -6,6 +6,13 @@ import {
   useAppointmentStore,
 } from "@bsport/store-booking-appointment";
 import {
+  selectEstablishmentGroupMappedById,
+  selectEstablishmentMappedById,
+  selectSearchedEstablishmentGroups,
+  selectSearchedEstablishments,
+  useEstablishmentStore,
+} from "@bsport/store-booking-establishment";
+import {
   selectGroupActivitiesMappedById,
   selectSearchedGroupActivities,
   useGroupActivityStore,
@@ -41,13 +48,6 @@ import {
   selectSearchedSmartlists,
   useSmartlistStore,
 } from "@bsport/store-cdp-smartlist";
-import {
-  selectEstablishmentGroupMappedById,
-  selectEstablishmentMappedById,
-  selectSearchedEstablishmentGroups,
-  selectSearchedEstablishments,
-  useEstablishmentStore,
-} from "@bsport/store-core-data-establishment";
 
 export const useGetMarketingNotificationDependenciesData = () => {
   const groupActivitiesById = useGroupActivityStore(

@@ -1,7 +1,7 @@
 import { useEffect, useId, useMemo } from "react";
 
 import { type PartnershipAccount } from "@bsport/api-book";
-import { type Establishment } from "@bsport/api-core";
+import { type Establishment } from "@bsport/api-book";
 import { ControlledForm, FormField, useFormController } from "@bsport/form";
 import {
   Body,

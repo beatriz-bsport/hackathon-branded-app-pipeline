@@ -18,9 +18,15 @@ import {
   DEFAULT_RECT_H,
   DEFAULT_RECT_W,
   DEFAULT_SQUARE,
-  PERSONALIZED_IMAGE_SIZE,
+  LENGTH_REFERENCE,
+  resolveBodySize,
   smallestDim,
 } from "./spot-dimensions";
+import {
+  labelAnchor,
+  resolveSpotTextFill,
+  rotationCentre,
+} from "./spot-element-helpers";
 
 export type SpotElementProps = {
   element: CanvasElement<CanvasSpotData>;
@@ -37,11 +43,13 @@ const IMAGE_CLIP_PATH_STYLE: React.CSSProperties = {
   clipPath: "inset(0 round 4px)",
 };
 
+// Each kind is positioned in the spot's local frame (where the spot's
+// authored (x, y) is the top-left origin — saas-legacy CanvasSpot parity).
 type ShapeGeometry =
-  | { kind: "rect"; w: number; h: number; rx: number }
+  | { kind: "rect"; x: number; y: number; w: number; h: number; rx: number }
   | { kind: "polygon"; points: string }
-  | { kind: "circle"; r: number }
-  | { kind: "image"; href: string; size: number };
+  | { kind: "circle"; cx: number; cy: number; r: number }
+  | { kind: "image"; href: string; w: number; h: number };
 
 const shapeGeometry = (
   shape: SpotType["shape"] | undefined,
@@ -49,55 +57,82 @@ const shapeGeometry = (
   assetUrl: string | undefined,
   offset = 0,
 ): ShapeGeometry => {
+  // Legacy parity: a resolved image overrides `shape`. Production SpotTypes
+  // commonly report `shape: "circular"` alongside `customization: "personalized"`
+  // — see resolveSpotAssetUrl for the SpotType-image path.
+  if (assetUrl) {
+    const w = data.width ?? LENGTH_REFERENCE;
+    const h = data.height ?? LENGTH_REFERENCE;
+    if (offset === 0) {
+      return { kind: "image", href: assetUrl, w, h };
+    }
+    // Selection ring around an image body — match the image's footprint so
+    // the dashed ring doesn't read as a circle around a rectangle.
+    return {
+      kind: "rect",
+      x: -offset,
+      y: -offset,
+      w: w + offset * 2,
+      h: h + offset * 2,
+      rx: 6,
+    };
+  }
   switch (shape) {
     case "square": {
-      const s = (data.width ?? DEFAULT_SQUARE) + offset * 2;
-      return { kind: "rect", w: s, h: s, rx: offset > 0 ? 6 : 4 };
-    }
-    case "rectangle": {
-      const w = (data.width ?? DEFAULT_RECT_W) + offset * 2;
-      const h = (data.height ?? DEFAULT_RECT_H) + offset * 2;
-      return { kind: "rect", w, h, rx: offset > 0 ? 6 : 4 };
-    }
-    case "triangle": {
-      const s = (data.width ?? DEFAULT_SQUARE) + offset * 2;
+      const s = resolveBodySize(data, DEFAULT_SQUARE);
       return {
-        kind: "polygon",
-        points: `0,${-s / 2} ${s / 2},${s / 2} ${-s / 2},${s / 2}`,
+        kind: "rect",
+        x: -offset,
+        y: -offset,
+        w: s + offset * 2,
+        h: s + offset * 2,
+        rx: offset > 0 ? 6 : 4,
       };
     }
-    case "personalized": {
-      if (!assetUrl) {
-        return { kind: "circle", r: (data.radius ?? DEFAULT_RADIUS) + offset };
-      }
-      if (offset === 0) {
-        return { kind: "image", href: assetUrl, size: PERSONALIZED_IMAGE_SIZE };
-      }
-      // Selection ring around an image body — match the image's square
-      // footprint so the dashed ring doesn't read as a circle around a square.
-      const s = PERSONALIZED_IMAGE_SIZE + offset * 2;
-      return { kind: "rect", w: s, h: s, rx: 6 };
+    case "rectangle": {
+      const w = data.width ?? DEFAULT_RECT_W;
+      const h = data.height ?? DEFAULT_RECT_H;
+      return {
+        kind: "rect",
+        x: -offset,
+        y: -offset,
+        w: w + offset * 2,
+        h: h + offset * 2,
+        rx: offset > 0 ? 6 : 4,
+      };
     }
+    case "triangle": {
+      // Legacy parity (renderTriangleSpot): apex at top-centre, base spans
+      // the bottom of an s×s bounding box anchored at (0,0).
+      const s = resolveBodySize(data, DEFAULT_SQUARE) + offset * 2;
+      const o = offset;
+      return {
+        kind: "polygon",
+        points: `${s / 2 - o},${-o} ${-o},${s - o} ${s - o},${s - o}`,
+      };
+    }
+    case "personalized":
     case "circular":
-    default:
-      return { kind: "circle", r: (data.radius ?? DEFAULT_RADIUS) + offset };
+    default: {
+      // Legacy parity (renderCircularSpot): circle inscribed in an s×s
+      // bounding box anchored at (0,0). `s` is the authored height (the
+      // dominant axis for circulars on the wire) or the legacy fallback.
+      const s = resolveBodySize(data, DEFAULT_RADIUS * 2);
+      return { kind: "circle", cx: s / 2, cy: s / 2, r: s / 2 + offset };
+    }
   }
 };
 
 const ShapeGlyph: React.FC<{
   geometry: ShapeGeometry;
   attrs: React.SVGAttributes<SVGElement>;
-  /** Image geometry can't accept fill/stroke directly. When set, overlays a
-   *  semi-transparent rect using attrs.fill/stroke so personalized spots show
-   *  the current/selected highlight. */
-  highlightImage?: boolean;
-}> = ({ geometry, attrs, highlightImage = false }) => {
+}> = ({ geometry, attrs }) => {
   switch (geometry.kind) {
     case "rect":
       return (
         <rect
-          x={-geometry.w / 2}
-          y={-geometry.h / 2}
+          x={geometry.x}
+          y={geometry.y}
           width={geometry.w}
           height={geometry.h}
           rx={geometry.rx}
@@ -109,37 +144,25 @@ const ShapeGlyph: React.FC<{
         <polygon points={geometry.points} strokeLinejoin="round" {...attrs} />
       );
     case "circle":
-      return <circle r={geometry.r} {...attrs} />;
-    case "image": {
-      const half = geometry.size / 2;
       return (
-        <>
-          <image
-            href={geometry.href}
-            x={-half}
-            y={-half}
-            width={geometry.size}
-            height={geometry.size}
-            // Round image corners so the rect overlay/ring sits flush.
-            style={IMAGE_CLIP_PATH_STYLE}
-          />
-          {highlightImage ? (
-            <rect
-              x={-half}
-              y={-half}
-              width={geometry.size}
-              height={geometry.size}
-              rx={4}
-              fill={attrs.fill}
-              fillOpacity={0.35}
-              stroke={attrs.stroke}
-              strokeWidth={attrs.strokeWidth}
-              pointerEvents="none"
-            />
-          ) : null}
-        </>
+        <circle cx={geometry.cx} cy={geometry.cy} r={geometry.r} {...attrs} />
       );
-    }
+    case "image":
+      // Legacy parity: state-keyed personalized images (free/taken/selected)
+      // already encode the spot's state via the PNG itself — overlaying a
+      // tint would muddy the yellow `selected_image`. Selection-vs-current
+      // disambiguation lives in the surrounding ring, not a tint.
+      return (
+        <image
+          href={geometry.href}
+          x={0}
+          y={0}
+          width={geometry.w}
+          height={geometry.h}
+          // Round image corners so the selection ring sits flush.
+          style={IMAGE_CLIP_PATH_STYLE}
+        />
+      );
   }
 };
 
@@ -155,7 +178,28 @@ const SpotElementComponent: React.FC<SpotElementProps> = ({
   const { index, indexType, spotTypeId, taken, x, y, rotation } = element.data;
 
   const visualState = resolveSpotState({ selected, isCurrent, taken });
-  const style = SPOT_STATE_STYLE[visualState];
+  const baseStyle = SPOT_STATE_STYLE[visualState];
+  // Legacy precedence (saas-legacy CanvasSpot.component): per-element
+  // `data.fill` / `data.stroke` win over both SpotType.fill_color/
+  // stroke_color and the state-driven theme defaults. SpotType-authored
+  // colors then apply for the free state only — taken/selected/current keep
+  // theme colors so the functional state stays visually unambiguous.
+  const dataFill = element.data.fill;
+  const dataStroke = element.data.stroke;
+  const dataStrokeWidth = element.data.strokeWidth;
+  const spotTypePalette =
+    visualState === "free" && spotType?.customization !== "personalized"
+      ? spotType
+      : null;
+  // `||` (not `??`): the API conflates "no color" with empty string for
+  // SpotType.fill_color / stroke_color, so `""` must fall through to the
+  // state-driven theme default the same way `null` does.
+  const style = {
+    fill: dataFill ?? (spotTypePalette?.fill_color || baseStyle.fill),
+    stroke: dataStroke ?? (spotTypePalette?.stroke_color || baseStyle.stroke),
+    strokeWidth: dataStrokeWidth ?? baseStyle.strokeWidth,
+    textColor: baseStyle.textColor,
+  };
 
   const label = composeLabel(
     spotType?.prefix,
@@ -175,17 +219,24 @@ const SpotElementComponent: React.FC<SpotElementProps> = ({
 
   const dim = smallestDim(spotType?.shape, element.data, assetUrl);
   const fontSize = Math.max(10, Math.round(dim * 0.45));
-  const ringOffset = dim / 2 + 5;
+  const ringOffset = 5;
 
   const isInteractive = Boolean(onClick);
   const bodyGeometry = shapeGeometry(spotType?.shape, element.data, assetUrl);
   const ringGeometry = selected
     ? shapeGeometry(spotType?.shape, element.data, assetUrl, ringOffset)
     : null;
+  const labelPos = labelAnchor(spotType?.shape, element.data, assetUrl);
+  // Legacy parity: rotation pivots around the body's centre, not the
+  // post-translate origin (which sits at the top-left after the top-left
+  // positioning fix). Defaults to (0, 0) for non-rotated spots, which is a
+  // no-op — `translateRotate` only emits the `rotate(...)` clause when
+  // `rotation` is truthy.
+  const { cx, cy } = rotationCentre(spotType?.shape, element.data, assetUrl);
 
   return (
     <g
-      transform={translateRotate({ x, y, rotation })}
+      transform={translateRotate({ x, y, rotation, cx, cy })}
       role={isInteractive ? "button" : "img"}
       aria-label={ariaLabel}
       aria-pressed={isInteractive ? selected : undefined}
@@ -195,9 +246,10 @@ const SpotElementComponent: React.FC<SpotElementProps> = ({
         "spot-element",
         isInteractive && !taken && "cursor-pointer",
         isInteractive && taken && "cursor-not-allowed",
-        // Fade taken spots so available ones stand out, but never fade the
-        // participant's own selected or current spot
-        taken && !selected && !isCurrent && "opacity-[0.55]",
+        // Legacy parity (saas-legacy CanvasSpot): personalized state-keyed
+        // images already encode "taken" via the BLACK `taken_image` PNG —
+        // a separate opacity fade was muddying that into grey and breaking
+        // parity with the modal legend's "Taken = solid black" swatch.
         "transition-[filter,transform] duration-default",
         isInteractive && !taken && "hover:brightness-95",
       )}
@@ -220,24 +272,39 @@ const SpotElementComponent: React.FC<SpotElementProps> = ({
           fill: style.fill,
           stroke: style.stroke,
           strokeWidth: style.strokeWidth,
+          ...(element.data.strokeDasharray
+            ? { strokeDasharray: element.data.strokeDasharray }
+            : {}),
         }}
-        highlightImage={isCurrent || selected}
       />
 
       <text
         textAnchor="middle"
         dominantBaseline="central"
+        x={labelPos.x}
+        y={labelPos.y}
         style={{
-          fill: style.textColor,
-          fontSize,
-          fontWeight: "var(--kz-font-weight-stronger)",
+          // Per-spot text styling precedence (legacy parity): per-state colour
+          // overrides take effect for taken/selected, then the generic
+          // `fontColor`, then the theme default.
+          fill: resolveSpotTextFill({
+            visualState,
+            data: element.data,
+            base: style.textColor,
+          }),
+          fontSize: element.data.fontSize ?? fontSize,
+          fontStyle: element.data.fontStyle,
+          fontWeight:
+            element.data.fontWeight ?? "var(--kz-font-weight-stronger)",
           // paint-order draws the stroke halo behind the fill so labels stay
           // legible on any spot colour.
           paintOrder: "stroke fill",
-          stroke: selected
-            ? "var(--kz-color-surface-main-strong)"
-            : "var(--kz-color-surface-default)",
-          strokeWidth: 3,
+          stroke:
+            element.data.textStroke ??
+            (selected
+              ? "var(--kz-color-surface-main-strong)"
+              : "var(--kz-color-surface-default)"),
+          strokeWidth: element.data.textStrokeWidth ?? 3,
           strokeLinejoin: "round",
         }}
         className="pointer-events-none select-none"

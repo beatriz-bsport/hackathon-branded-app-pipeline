@@ -1,6 +1,6 @@
 import { ApiConfig, Fetch } from "@bsport/store-base";
 
-import { API_V1_URL } from "#src/constants";
+import { API_V1_URL, BOOKING_QUERY_KEY } from "#src/constants";
 
 import {
   PaginatedWellhubOffersResponse,
@@ -11,6 +11,15 @@ import {
 const API_PARTNERSHIP_WELLHUB_URI = `${API_V1_URL}partnership/wellhub/`;
 
 const API_OFFER_URI = `${API_V1_URL}offer/`;
+
+export const wellhubKeys = {
+  all: [BOOKING_QUERY_KEY, "wellhub"] as const,
+  productsByAccount: () => [...wellhubKeys.all, "products-by-account"] as const,
+  offersMissingProductScope: () =>
+    [...wellhubKeys.all, "offers-missing-product"] as const,
+  offersMissingProduct: (page: number, page_size: number) =>
+    [...wellhubKeys.offersMissingProductScope(), { page, page_size }] as const,
+};
 
 export const fetchWellhubProductsByAccountAPI = async (
   fetch: Fetch<ProductsByPartnershipAccountResponse>,

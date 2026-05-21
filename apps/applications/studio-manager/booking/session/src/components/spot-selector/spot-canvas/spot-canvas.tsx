@@ -14,6 +14,7 @@ import type {
   SpotType,
 } from "@bsport/api-book";
 
+import { resolveSpotAssetUrl } from "./asset-resolution";
 import {
   applyTakenState,
   isDoorElement,
@@ -28,6 +29,7 @@ import { LineElement } from "./elements/line-element";
 import { RectElement } from "./elements/rect-element";
 import { ScreenElement } from "./elements/screen-element";
 import { SpotElement } from "./elements/spot-element";
+import type { TeacherCoach } from "./elements/teacher-element";
 import { TeacherElement } from "./elements/teacher-element";
 import { useContainerSize } from "./use-container-size";
 import { computeViewBox } from "./view-box";
@@ -44,7 +46,7 @@ export type SpotCanvasProps = {
    *  a glance. */
   currentSpot?: number | null;
   onSelectSpot?: (index: number, spotTypeId: number) => void;
-  coach?: { id: number; name: string };
+  coach?: TeacherCoach;
   className?: string;
 };
 
@@ -57,14 +59,8 @@ const DOUBLE_CLICK_CONFIG = { disabled: false, mode: "zoomIn" } as const;
 // Legacy parity (saas-legacy CanvasViewController): paint decorative shapes
 // (lines/rects) under interactive shapes (spots/teacher/screen/door) so spots
 // can't be visually occluded by a rect authored later in the elements list.
-const Z_ORDER: Record<string, number> = {
-  line: 1,
-  rect: 1,
-  spot: 99,
-  teacher: 99,
-  screen: 99,
-  door: 99,
-};
+const isDecorative = (type: CanvasElement<unknown>["type"]): boolean =>
+  type === "line" || type === "rect";
 
 export const SpotCanvas: React.FC<SpotCanvasProps> = ({
   roomBlueprint,
@@ -88,9 +84,14 @@ export const SpotCanvas: React.FC<SpotCanvasProps> = ({
   );
 
   const orderedElements = useMemo(() => {
-    return [...elements].sort(
-      (a, b) => (Z_ORDER[a.type] ?? 1) - (Z_ORDER[b.type] ?? 1),
-    );
+    // Stable partition: decoratives first, interactives after, preserving
+    // authored order within each tier.
+    const decoratives: CanvasElement<unknown>[] = [];
+    const interactives: CanvasElement<unknown>[] = [];
+    for (const el of elements) {
+      (isDecorative(el.type) ? decoratives : interactives).push(el);
+    }
+    return [...decoratives, ...interactives];
   }, [elements]);
 
   const spotTypeById = useMemo(
@@ -124,19 +125,15 @@ export const SpotCanvas: React.FC<SpotCanvasProps> = ({
         const spotType = spotTypeById.get(el.data.spotTypeId);
         const isSelected =
           selectedSpot != null && selectedSpot === el.data.index;
-        // Legacy parity: taken OR selected personalized spots resolve the
-        // "spot_taken" overlay asset (see applyTakenState for the taken case;
-        // selection is per-render here so the spot list stays memo-stable).
-        // Free spots fall back to "spot_free" — but only after the
-        // taken/selected branch has had a chance, so an unavailable spot never
-        // accidentally renders the free image.
-        const effectiveIdentifier =
-          (el.data.taken || isSelected
-            ? "spot_taken"
-            : el.data.asset_identifier) ?? "spot_free";
-        const assetUrl = effectiveIdentifier
-          ? assetByIdentifier.get(effectiveIdentifier)
-          : undefined;
+        const isCurrent = currentSpot != null && currentSpot === el.data.index;
+        const assetUrl = resolveSpotAssetUrl({
+          spotType,
+          assetByIdentifier,
+          assetIdentifier: el.data.asset_identifier,
+          taken: el.data.taken,
+          selected: isSelected,
+          isCurrent,
+        });
         return (
           <SpotElement
             key={el.id}
@@ -144,7 +141,7 @@ export const SpotCanvas: React.FC<SpotCanvasProps> = ({
             spotType={spotType}
             assetUrl={assetUrl}
             selected={isSelected}
-            isCurrent={currentSpot != null && currentSpot === el.data.index}
+            isCurrent={isCurrent}
             onClick={onSelectSpot}
           />
         );
@@ -154,7 +151,7 @@ export const SpotCanvas: React.FC<SpotCanvasProps> = ({
           <TeacherElement
             key={el.id}
             element={el}
-            coachHeight={roomBlueprint.canvas.coachHeight ?? 1}
+            coachHeight={coachHeight}
             coach={coach}
           />
         );
@@ -172,7 +169,7 @@ export const SpotCanvas: React.FC<SpotCanvasProps> = ({
       onSelectSpot,
       selectedSpot,
       currentSpot,
-      roomBlueprint.canvas.coachHeight,
+      coachHeight,
       coach,
     ],
   );

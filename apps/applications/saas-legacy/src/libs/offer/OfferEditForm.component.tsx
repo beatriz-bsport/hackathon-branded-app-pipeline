@@ -459,7 +459,10 @@ const formikFormWrapper = withFormik<
     nameOverride: props.offer?.name_override ?? '',
     partnerMaxBookingCount: props.isOfferInGroup
       ? 0
-      : props.offer?.partner_max_booking_count ?? 0,
+      : Math.min(
+          props.offer?.partner_max_booking_count ?? 0,
+          props.offer?.effectif ?? Infinity,
+        ),
     partnerSpotCappingStrategy:
       props.offer?.partner_spot_capping_strategy ??
       PartnerSpotCappingStrategy.COMBINED,

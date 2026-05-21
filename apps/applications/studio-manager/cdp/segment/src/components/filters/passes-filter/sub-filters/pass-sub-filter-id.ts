@@ -1,3 +1,5 @@
+import type { ValueOf } from "#src/components/filters/shared/sub-filter-id";
+
 /**
  * Stable string identifiers for pass sub-filters (mirrors API semantics and
  * legacy `PASS_SUB_FILTER_TYPES` values).
@@ -8,8 +10,7 @@ export const PASS_SUB_FILTER_IDS = {
   creditLeft: "credit_left",
 } as const;
 
-export type PassSubFilterId =
-  (typeof PASS_SUB_FILTER_IDS)[keyof typeof PASS_SUB_FILTER_IDS];
+export type PassSubFilterId = ValueOf<typeof PASS_SUB_FILTER_IDS>;
 
 export const passSubFilterFielMap = {
   [PASS_SUB_FILTER_IDS.purchaseDate]: "purchaseDate",
@@ -17,5 +18,4 @@ export const passSubFilterFielMap = {
   [PASS_SUB_FILTER_IDS.creditLeft]: "creditLeft",
 } as const;
 
-export type PassSubFilterField =
-  (typeof passSubFilterFielMap)[keyof typeof passSubFilterFielMap];
+export type PassSubFilterField = ValueOf<typeof passSubFilterFielMap>;

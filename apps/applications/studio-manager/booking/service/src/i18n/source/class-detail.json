@@ -25,6 +25,19 @@
           "newMembersOnly": "Can only be purchased by members with no prior purchase history"
         }
       },
+      "filter": {
+        "operatorIs": "is",
+        "categories": "Categories",
+        "properties": "Properties",
+        "selectField": "Select filter"
+      },
+      "search": {
+        "placeholder": "Search passes"
+      },
+      "noResults": {
+        "title": "No passes match your filters",
+        "cta": "Clear filters"
+      },
       "panel": {
         "previous": "Previous pass",
         "next": "Next pass",

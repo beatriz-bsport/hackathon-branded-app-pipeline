@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { FC } from "react";
 
 import {
@@ -5,7 +6,13 @@ import {
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
 import { fromIsoString } from "@bsport/datetime-manipulation";
-import { Body, Icon, Title, Tooltip } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Icon,
+  Title,
+  Tooltip,
+  useMatchMedia,
+} from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary.js";
@@ -34,6 +41,7 @@ export const ParticipantsSection: FC<{
   ) => void;
 }> = ({ sessionId, searchQuery, openModal }) => {
   const { t, i18n } = useTranslation("sessionManagement");
+  const isMobile = !useMatchMedia("lg");
   const { data: session } = useRetrieveSession(sessionId);
   const companyTheme = dataAccessLayer.useCompanyTheme();
 
@@ -51,13 +59,20 @@ export const ParticipantsSection: FC<{
 
   return (
     <div className="flex flex-col gap-lg">
-      <div className="flex gap-sm items-center">
+      <div
+        className={clsx("flex gap-sm", {
+          "flex-col": isMobile,
+          "items-center": !isMobile,
+        })}
+      >
         <Title weight="strong" htmlVariant="h3">
           {t("bookingsSectionTitle")}
         </Title>
-        <Body size="lg" weight="weak" color="weaker">
-          •
-        </Body>
+        {!isMobile && (
+          <Body size="lg" weight="weak" color="weaker">
+            •
+          </Body>
+        )}
         <Body size="lg" weight="weak" color="weaker">
           {t("bookingsSectionSubtitle", {
             validatedBookingsCount: session.validated_booking_count,
@@ -65,22 +80,32 @@ export const ParticipantsSection: FC<{
           })}
         </Body>
         {!!session.date_roll_call_last_modified && (
-          <>
-            <Body size="lg" weight="weak" color="weaker">
-              •
-            </Body>
-            <Body size="lg" color="weaker">
-              {t("attendanceAlert.confirmedLabel")}
-            </Body>
-            <Tooltip
-              label={t("attendanceAlert.confirmedTooltip", {
-                date: confirmationDateLabel,
-              })}
-              placement="top"
-            >
-              <Icon icon="info-circle" size="sm" />
-            </Tooltip>
-          </>
+          <div className="flex items-center gap-sm">
+            {isMobile ? (
+              <Body size="lg" weight="weak" color="weaker">
+                {t("attendanceAlert.confirmedLabelMobile", {
+                  date: confirmationDateLabel,
+                })}
+              </Body>
+            ) : (
+              <>
+                <Body size="lg" weight="weak" color="weaker">
+                  •
+                </Body>
+                <Body size="lg" color="weaker">
+                  {t("attendanceAlert.confirmedLabel")}
+                </Body>
+                <Tooltip
+                  label={t("attendanceAlert.confirmedTooltip", {
+                    date: confirmationDateLabel,
+                  })}
+                  placement="top"
+                >
+                  <Icon icon="info-circle" size="sm" />
+                </Tooltip>
+              </>
+            )}
+          </div>
         )}
       </div>
       <div className="flex flex-col gap-md">

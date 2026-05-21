@@ -1,6 +1,6 @@
 import { cva } from "class-variance-authority";
 import classNames from "classnames";
-import React, { MouseEventHandler } from "react";
+import React, { MouseEventHandler, useId } from "react";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
@@ -78,11 +78,13 @@ const alert = cva(defaultClasses, {
   variants,
 });
 
-export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
+export type AlertProps = Omit<React.HTMLAttributes<HTMLDivElement>, "title"> & {
   status: (typeof statuses)[number];
   type?: (typeof types)[number];
   layout?: (typeof layouts)[number];
-  title?: string;
+  title?: React.ReactNode;
+  /** Rendered next to the title in a flex row, outside the aria-labelledby target. Use for supplementary visual elements like chips. */
+  titleSuffix?: React.ReactNode;
   buttonLabel?: string;
   onClearClick?: MouseEventHandler<HTMLButtonElement>;
   onButtonClick?: MouseEventHandler<HTMLButtonElement>;
@@ -111,6 +113,7 @@ const Alert: React.FC<AlertProps> = ({
   type = "weak",
   layout = "banner",
   title,
+  titleSuffix,
   buttonLabel,
   onClearClick,
   onButtonClick,
@@ -120,6 +123,7 @@ const Alert: React.FC<AlertProps> = ({
 }) => {
   const i18n = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n });
+  const titleId = useId();
   const isClearable = !!onClearClick;
   const isDisplayingActions = buttonLabel || isClearable;
 
@@ -130,7 +134,7 @@ const Alert: React.FC<AlertProps> = ({
       role="alert"
       aria-live="assertive"
       data-component="Kaizen-Alert"
-      aria-labelledby={title ? `${title}-title` : undefined}
+      aria-labelledby={title || titleSuffix ? titleId : undefined}
       className={classNames(
         `${alert({ className, statusByType: `${type}:${status}` as keyof typeof variants.statusByType, layout })}`,
         { "text-onsurface-default-onstrong": type === "strong" },
@@ -150,10 +154,15 @@ const Alert: React.FC<AlertProps> = ({
         />
       </div>
       <div className="flex-1 flex flex-col gap-2xs self-center">
-        {title && (
-          <Title htmlVariant="h4" weight="stronger">
-            {title}
-          </Title>
+        {(title || titleSuffix) && (
+          <div className="flex items-center gap-xs">
+            {title && (
+              <Title htmlVariant="h4" weight="stronger" id={titleId}>
+                {title}
+              </Title>
+            )}
+            {titleSuffix}
+          </div>
         )}
         {children && typeof children === "string" ? (
           <Body

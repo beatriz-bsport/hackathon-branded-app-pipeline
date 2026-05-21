@@ -18,8 +18,13 @@ const getActivityCategoryParamFromFilter = (
   if (categoryIds.length === 0) {
     return null;
   }
+  if (filter.filter === SessionFilters.FILTER_IS) {
+    return {
+      category__in: categoryIds,
+    };
+  }
   return {
-    category__in: categoryIds,
+    category__not_in: categoryIds,
   };
 };
 
@@ -30,8 +35,13 @@ const getActivityNameParamFromFilter = (
   if (activityIds.length === 0) {
     return null;
   }
+  if (filter.filter === SessionFilters.FILTER_IS) {
+    return {
+      activity__in: activityIds,
+    };
+  }
   return {
-    activity__in: activityIds,
+    activity__not_in: activityIds,
   };
 };
 
@@ -55,8 +65,13 @@ const getEstablishmentParamFromFilter = (
   if (establishmentIds.length === 0) {
     return null;
   }
+  if (filter.filter === SessionFilters.FILTER_IS) {
+    return {
+      establishments: establishmentIds,
+    };
+  }
   return {
-    establishments: establishmentIds,
+    establishment__not_in: establishmentIds,
   };
 };
 
@@ -79,8 +94,13 @@ const getLevelParamFromFilter = (
   if (levelIds.length === 0) {
     return null;
   }
+  if (filter.filter === SessionFilters.FILTER_IS) {
+    return {
+      levels: levelIds,
+    };
+  }
   return {
-    levels: levelIds,
+    level__not_in: levelIds,
   };
 };
 
@@ -91,8 +111,13 @@ const getTeacherParamFromFilter = (
   if (teacherIds.length === 0) {
     return null;
   }
+  if (filter.filter === SessionFilters.FILTER_IS) {
+    return {
+      coaches: teacherIds,
+    };
+  }
   return {
-    coaches: teacherIds,
+    coach__not_in: teacherIds,
   };
 };
 

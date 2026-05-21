@@ -50,7 +50,7 @@
           }
         },
         "alerts": {
-          "equalToZero": "Al elegir este valor, no se aplicará ningún descuento a la compra de los miembros referidos."
+          "equalToZero": "Al elegir este valor, no se aplicará ningún descuento por referir a un nuevo cliente."
         },
         "errors": {
           "tooManyDecimalPoints": "La cantidad no puede tener más de 2 decimales",

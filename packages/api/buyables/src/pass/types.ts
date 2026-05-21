@@ -1,3 +1,7 @@
+import { PENALTY_KINDS } from "./constants";
+
+// #region Params
+
 export type PassCategory = {
   id: number;
   name: string;
@@ -62,7 +66,18 @@ export type FetchPassesParams = {
    * `OrderingFilter` on `PaymentPackViewSet`.
    */
   ordering?: string;
+
+  /** Full-text search query. */
+  q?: string;
 };
+
+// #endregion
+
+// ----------------------------------------------------------------------------
+
+// #region Models
+
+export type PenaltyKind = (typeof PENALTY_KINDS)[keyof typeof PENALTY_KINDS];
 
 /**
  * Model: PaymentPack
@@ -108,7 +123,7 @@ export type Pass = {
   penalty_active: boolean;
   penalty_nb_late_cancellations: number;
   penalty_nb_days: number;
-  penalty_kind: number;
+  penalty_kind: PenaltyKind;
   penalty_days_blocked: number;
   penalty_account_value: string;
   category: number | null;
@@ -123,7 +138,7 @@ export type Pass = {
   is_usable_by_staff: boolean;
   expiration_date: string | null;
   off_peak_schedule: { [key: string]: Array<string[]> };
-  no_show_penalty_kind: number;
+  no_show_penalty_kind: PenaltyKind;
   no_show_penalty_active: boolean;
   no_show_penalty_threshold: number;
   no_show_penalty_amount: string;
@@ -136,3 +151,5 @@ export type Pass = {
   member_relation_auto_share: boolean;
   grants_door_access: boolean;
 };
+
+// #endregion

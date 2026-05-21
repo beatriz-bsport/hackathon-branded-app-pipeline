@@ -161,8 +161,14 @@
     "selected_one": "{{ count }} selected category",
     "selected_other": "{{ count }} selected categories",
     "helperText": "Only selected categories will be included",
-    "placeholder": "Leave blank to not limit the offering",
-    "selectAll": "Select all",
-    "deselectAll": "Select none"
+    "placeholder": "Leave blank to not limit the offering"
+  },
+  "establishmentSelector": {
+    "label": "Venue",
+    "selected": "",
+    "selected_one": "{{ count }} selected venue",
+    "selected_other": "{{ count }} selected venues",
+    "helperText": "Only selected venues will be included",
+    "placeholder": "Leave blank to not limit the offering"
   }
 }

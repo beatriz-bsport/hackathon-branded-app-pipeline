@@ -37,10 +37,29 @@ export const SESSION_STALE_TIME = 2 * 1000 * 60; // 2 minutes
 export const sessionKeys = {
   all: [BOOKING_QUERY_KEY, "session"] as const,
   detail: (sessionId: number) => [...sessionKeys.all, sessionId] as const,
+  lists: () => [...sessionKeys.all, "list"] as const,
+  minimalList: (params: FetchSessionsParams) =>
+    [...sessionKeys.all, "minimal", params] as const,
+  managerDetail: (sessionId: number) =>
+    [...sessionKeys.all, "manager", sessionId] as const,
+  managerList: (params: FetchSessionsParams) =>
+    [...sessionKeys.lists(), "manager", params] as const,
   status: (sessionId: number, params?: SessionStatusParams) =>
     [...sessionKeys.detail(sessionId), "status", params] as const,
   statusList: (ids: number[], params?: PaginatedFetchSessionsParams) =>
     [...sessionKeys.all, "status-list", ids, params] as const,
+  inGroup: (groupId: number | null, params?: FetchSessionsParams) =>
+    [...sessionKeys.all, "in-group", groupId, params] as const,
+  withPendingReplacementRequests: (
+    params: ListSessionsWithPendingReplacementRequestIdsParams,
+  ) =>
+    [...sessionKeys.all, "with-pending-replacement-requests", params] as const,
+  similarList: (sessionId: number, params?: FetchSessionsParams) =>
+    [...sessionKeys.all, "similar", sessionId, params] as const,
+  recurrence: (sessionId: number) =>
+    [...sessionKeys.all, "recurrence", sessionId] as const,
+  sessionsToCancelCount: (params: CancelMultipleSessionsParams) =>
+    [...sessionKeys.all, "sessions-to-cancel-count", params] as const,
 } as const;
 
 export const fetchSessionsAPIConfig = (

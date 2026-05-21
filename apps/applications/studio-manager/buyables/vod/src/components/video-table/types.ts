@@ -6,14 +6,12 @@ export type VideoAccessType = "limited" | "unlimited";
 
 export type VideoRowData = {
   id: number;
-  className?: string;
   name: string;
   thumbnailUrl?: string;
   categoryLabel?: string;
   format: VideoFormat;
   memberAvailability: VideoMemberAvailability;
   accessType: VideoAccessType;
-  isPendingDeletion: boolean;
   onRowClick?: () => void;
   onDuplicate: () => void;
   onDelete: () => void;

@@ -1,13 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useState } from "react";
-
-import type { DropdownMenuItemProps } from "#src/components/DropdownMenu";
+import { type ComponentProps, type ReactNode, useState } from "react";
 
 import type { ChipItem } from "../chip-list";
 import { DropdownMultiSelect } from "./dropdown-multi-select";
 
 /**
  * A multi-select dropdown component with support for chips, search, and select-all functionality.
+ *
+ * Options default to selectable `DropdownMenu.Item` rows. Set `type` to
+ * `"divider"`, `"title"`, or `"text"` to mix in non-selectable layout helpers
+ * for section headers, separators, or informational rows.
  */
 const meta: Meta<typeof DropdownMultiSelect> = {
   component: DropdownMultiSelect,
@@ -30,15 +32,30 @@ export default meta;
 
 type Story = StoryObj<typeof DropdownMultiSelect>;
 
-const basicOptions: DropdownMenuItemProps[] = [
-  { id: "design", children: "Design" },
-  { id: "development", children: "Development" },
+type DepartmentOptions = ComponentProps<typeof DropdownMultiSelect>["options"];
+
+const departmentOptions: DepartmentOptions = [
+  { type: "title", id: "title-tech", children: "Tech" },
+  { id: "design", children: "Design", icon: "pencil-02" },
+  { id: "development", children: "Development", icon: "monitor-04" },
+  { type: "divider", id: "divider-tech" },
+  { type: "title", id: "title-gtm", children: "Go-to-market" },
   { id: "product", children: "Product" },
   { id: "marketing", children: "Marketing" },
   { id: "sales", children: "Sales" },
+  { type: "divider", id: "divider-gtm" },
+  {
+    type: "text",
+    id: "info",
+    children: "More departments coming soon",
+    icon: "info-circle",
+  },
 ];
 
-const mapOptionToChip = (option: DropdownMenuItemProps): ChipItem => ({
+const mapOptionToChip = (option: {
+  id: string;
+  children?: ReactNode;
+}): ChipItem => ({
   id: option.id,
   label: option.children?.toString() || "",
   color: "main",
@@ -56,7 +73,7 @@ export const Primary: Story = {
           {...args}
           value={value}
           onChange={setValue}
-          options={basicOptions}
+          options={departmentOptions}
           mapOptionToChip={mapOptionToChip}
         />
       </div>

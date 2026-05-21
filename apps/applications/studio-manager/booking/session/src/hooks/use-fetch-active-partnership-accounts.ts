@@ -3,6 +3,7 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import {
   type ActivePartnershipAccount,
   fetchActivePartnershipAccountsAPI,
+  partnershipKeys,
 } from "@bsport/api-book";
 
 import { fetch } from "#src/utils/fetch";
@@ -23,17 +24,15 @@ const activePartnershipAccountsQueryOptions = ({
   establishment,
   dateStart,
 }: UseFetchActivePartnershipAccountsProps) => {
+  const params = {
+    establishment: establishment ?? undefined,
+    date_start: dateStart ?? undefined,
+  };
   return queryOptions({
-    queryKey: [
-      "active-partnership-accounts",
-      { establishment, dateStart },
-    ] as const,
+    queryKey: partnershipKeys.activePartnershipAccounts(params),
     queryFn: (): Promise<ActivePartnershipAccount[]> => {
       if (!establishment || !dateStart) return Promise.resolve([]);
-      return fetchActivePartnershipAccounts({
-        establishment,
-        date_start: dateStart,
-      });
+      return fetchActivePartnershipAccounts(params);
     },
     staleTime: ACTIVE_PARTNERSHIP_ACCOUNTS_STALE_TIME,
   });

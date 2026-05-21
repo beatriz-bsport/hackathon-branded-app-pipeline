@@ -6,8 +6,9 @@ import {
 
 import {
   type SearchEstablishmentGroupSearchParams,
+  establishmentGroupKeys,
   searchEstablishmentGroups,
-} from "@bsport/api-core";
+} from "@bsport/api-book";
 
 import { fetch } from "../utils/fetch";
 
@@ -22,14 +23,14 @@ const fetchSearchEstablishmentGroups = async (
 };
 
 const establishmentGroupsQueryOptions = (searchValue: string) => {
+  const params = {
+    q: searchValue,
+    page: 1,
+    page_size: ESTABLISHMENT_GROUPS_DEFAULT_PAGE_SIZE,
+  };
   return queryOptions({
-    queryKey: ["establishmentGroups", searchValue],
-    queryFn: () =>
-      fetchSearchEstablishmentGroups({
-        q: searchValue,
-        page: 1,
-        page_size: ESTABLISHMENT_GROUPS_DEFAULT_PAGE_SIZE,
-      }),
+    queryKey: establishmentGroupKeys.search(params),
+    queryFn: () => fetchSearchEstablishmentGroups(params),
     staleTime: ESTABLISHMENT_GROUPS_STALE_TIME,
   });
 };

@@ -46,7 +46,20 @@
   },
   "errors": {
     "loadDashboard": "Couldn't load dashboard. Please refresh page.",
-    "fetchFailed": "Couldn't load dashboard. Please refresh page."
+    "fetchFailed": "Couldn't load dashboard. Please refresh page.",
+    "generateSummaryFailed": "An error occurred while generating the summary. Please try again.",
+    "generateSummaryTimeout": "The summary generation timed out. Please try again."
+  },
+  "aiSummary": {
+    "title": "Analysis summary",
+    "overview": "Overview",
+    "positiveTrend": "Positive trend",
+    "underperformance": "Underperformance",
+    "recommendedActions": "Recommended actions",
+    "usefulForYou": "Useful for you?",
+    "yes": "Yes",
+    "no": "No",
+    "detailedDocumentation": "Detailed Documentation"
   },
   "filter": {
     "selectFieldLabel": "Filter by section",

@@ -5,8 +5,11 @@ import {
   Avatar,
   Body,
   GenericTableColumn,
+  List,
+  type ListProps,
   PaginationProps,
   Table,
+  useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
@@ -83,6 +86,8 @@ export const NoShowBookingsTable: FC<{
     (state) => state.listedInformation,
   );
 
+  const isMobile = !useMatchMedia("lg");
+
   const columns: GenericTableColumn<RefinedBooking>[] = [
     {
       header: t("bookingsTable.headers.client"),
@@ -158,6 +163,79 @@ export const NoShowBookingsTable: FC<{
       ),
     },
   ];
+
+  const listItems: ListProps["items"] = searchedBookings.map((booking) => {
+    const spotName = listedInformation.includes(BookingListedInformation.SPOT)
+      ? booking.spot_information?.name
+      : null;
+    const passName = listedInformation.includes(BookingListedInformation.PASS)
+      ? booking.passData?.name
+      : null;
+    const secondaryText = [spotName, passName].filter(Boolean).join(" \u2022 ");
+
+    return {
+      id: `no-show-booking-${booking.id}`,
+      title: booking.memberData?.name ?? "",
+      description: secondaryText || undefined,
+      avatar: {
+        src: booking.memberData?.photo,
+        initials: getMemberInitials({
+          firstname: booking.memberData?.first_name,
+          lastname: booking.memberData?.last_name,
+        }),
+        shape: "round" as const,
+      },
+      isActive: booking.id === selectedBookingId,
+      onItemClick: () => {
+        setSelectedBookingOption(null);
+        setSelectedBooking(booking.id);
+      },
+      customNode: (
+        <div onClick={(e) => e.stopPropagation()}>
+          <ShortcutActionsButton
+            sessionId={sessionId}
+            bookingId={booking.id}
+            memberId={booking.memberData?.id}
+            participantEmail={booking.memberData?.email}
+            participantPhone={booking.memberData?.phone}
+            allowedItemIds={[
+              BookingActionItemId.SEND_MESSAGE,
+              BookingActionItemId.COPY_EMAIL,
+              BookingActionItemId.COPY_PHONE,
+              BookingActionItemId.UPDATE_MEMBER_NOTES,
+            ]}
+          />
+        </div>
+      ),
+    };
+  });
+
+  if (isMobile) {
+    return (
+      <div
+        className={clsx({
+          "border-stroke-regular border-stroke-weak rounded-md overflow-hidden":
+            !isLoading,
+        })}
+      >
+        <List
+          id="no-show-bookings-mobile-list"
+          items={listItems}
+          paginationProps={paginationProps}
+          emptyStateProps={{
+            isEmpty: !searchedBookings.length,
+            emptyConfig: {
+              title: t("bookingsTable.emptyState.title"),
+            },
+          }}
+          loadingProps={{
+            isLoading,
+            message: t("bookingsTable.loadingMessage"),
+          }}
+        />
+      </div>
+    );
+  }
 
   return (
     <div

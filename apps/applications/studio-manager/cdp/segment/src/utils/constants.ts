@@ -5,6 +5,8 @@ import { IconName } from "@bsport/kaizen-primitive-core";
 export const PARAMETER_TAB_PATH = "parameter";
 export const CAMPAIGN_TAB_PATH = "campaign";
 export const AUTOMATION_TAB_PATH = "automation";
+export const PREBUILT_SEGMENT_TAB_PATH = "segment";
+export const PREBUILT_CAMPAIGNS_TAB_PATH = "campaigns";
 
 export const COMMUNICATION_KIND_ICON_MAP: Record<CommunicationKind, IconName> =
   {

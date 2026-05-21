@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
         // Explicitly extract CSS to a separate file that can be imported
         rollupOptions: {
           output: {
-            assetFileNames: "assets/[name].[ext]",
+            assetFileNames: "assets/style.[ext]",
             // Ensure the CSS file has a predictable name for easier importing
             chunkFileNames: "[name].[hash].js",
             entryFileNames: "[name].[hash].js",

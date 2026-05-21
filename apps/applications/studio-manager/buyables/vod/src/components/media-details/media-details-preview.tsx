@@ -59,8 +59,8 @@ export const MediaDetailsPreview: FC<MediaDetailsPreviewProps> = ({
   const videoDescription = media.description.trim();
 
   return (
-    <section className="flex h-full flex-col items-center">
-      <div className="flex w-full max-w-[720px] flex-col px-lg">
+    <section className="flex h-full flex-col">
+      <div className="flex w-full flex-col px-0 sm:px-lg">
         <MediaPlayerArea
           isEbook={isEbook}
           playbackUrl={playbackUrl}

@@ -62,7 +62,7 @@ export const SessionSettings: FC<{
 
   return (
     <section className="flex flex-col gap-md pb-md">
-      <Title htmlVariant="h5" weight="strong">
+      <Title htmlVariant="h5" weight="stronger">
         {t("addSessionModal.steps.configureSession.settings.title")}
       </Title>
       <SessionCapacityField

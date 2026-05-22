@@ -65,4 +65,11 @@ export type ItemsSearchFilterProps = {
   groupFilteredOptions?: (
     filteredOptions: ItemsSearchFilterOption[],
   ) => ItemsSearchFilterGroup[];
+
+  /**
+   * When the number of chosen items exceeds this value, only the first
+   * `collapseSelectionThreshold` rows are shown until the user expands the list.
+   * Omit or pass `Infinity` to always show every selected row.
+   */
+  collapseSelectionThreshold?: number;
 };

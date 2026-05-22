@@ -12,7 +12,7 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { isTotalBookingNumberType } from "../constants";
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
-import { toCreatePayload } from "../mappers/form-value-to-create-payload";
+import { createTotalBookingPayload } from "../mappers/form-value-to-create-payload";
 import { totalBookingNumberFilterSchema } from "../schema";
 import type { TotalBookingNumberFilterCardProps } from "../types";
 import { TotalBookingSubFiltersArea } from "./total-booking-sub-filters-area";
@@ -87,7 +87,7 @@ export const TotalBookingNumberFilterCard = ({
     (value) => {
       if (!value.id) {
         upsertTotalBookingFilterMutate({
-          createPayload: toCreatePayload(value),
+          createPayload: createTotalBookingPayload(value),
         });
         return;
       }

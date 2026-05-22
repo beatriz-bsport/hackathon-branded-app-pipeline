@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
 import {
+  ACTIVE_PASSES_FILTER_IDENTIFIER,
+  type ActivePassesFilter,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   type BookingMilestoneFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
@@ -14,6 +16,7 @@ import {
 } from "@bsport/api-cdp/smartlist";
 
 import {
+  isActivePassesFilter,
   isBookingMilestoneFilter,
   isPaymentPackFilter,
   isTagFilter,
@@ -26,6 +29,7 @@ type SmartlistFiltersQueryData = {
   totalBookingFilters: TotalBookingFilter[];
   bookingMilestoneFilters: BookingMilestoneFilter[];
   tagFilters: TagFilter[];
+  activePassesFilters: ActivePassesFilter[];
 };
 
 const mapPaymentPackFilters = (
@@ -79,6 +83,19 @@ const mapTagFilters = (payload?: SmartlistGetFiltersResponse): TagFilter[] => {
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapActivePassesFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): ActivePassesFilter[] => {
+  const activePassesFiltersMap = payload?.[ACTIVE_PASSES_FILTER_IDENTIFIER];
+  if (!activePassesFiltersMap) {
+    return [];
+  }
+
+  return Object.values(activePassesFiltersMap)
+    .filter(isActivePassesFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 /**
  * Unified smartlist filters hydration query.
  * Parses all currently supported filter families from one `get_filters` payload.
@@ -91,5 +108,6 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       totalBookingFilters: mapTotalBookingFilters(data),
       bookingMilestoneFilters: mapBookingMilestoneFilters(data),
       tagFilters: mapTagFilters(data),
+      activePassesFilters: mapActivePassesFilters(data),
     }),
   });

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 
 import { createDefaultBookingMilestoneFilter } from "#src/components/filters/booking-milestone/default-value";
-import { toCreatePayload } from "#src/components/filters/booking-milestone/mappers/form-value-to-create-payload";
+import { createBookingMilestonePayload } from "#src/components/filters/booking-milestone/mappers/form-value-to-create-payload";
 import { BOOKING_MILESTONE_SUB_FILTER_IDS } from "#src/components/filters/booking-milestone/sub-filters/booking-milestone-sub-filter-id";
 
 vi.mock("#src/utils/i18n", () => ({
@@ -10,12 +10,12 @@ vi.mock("#src/utils/i18n", () => ({
   },
 }));
 
-describe("toCreatePayload (booking milestone)", () => {
+describe("createBookingMilestonePayload (booking milestone)", () => {
   it("uses the smartlist id and value from form value", () => {
     const value = createDefaultBookingMilestoneFilter(123);
     value.value = 4;
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.smartlist).toBe(123);
     expect(payload.value).toBe(4);
@@ -24,7 +24,7 @@ describe("toCreatePayload (booking milestone)", () => {
   it("marks the filter as v2 by default", () => {
     const value = createDefaultBookingMilestoneFilter(1);
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.is_v2).toBe(true);
   });
@@ -37,7 +37,7 @@ describe("toCreatePayload (booking milestone)", () => {
       selectedMetaActivityIds: [5, 7],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.activity_filter_active).toBe(true);
     expect(payload.select_all_activities).toBe(false);
@@ -52,7 +52,7 @@ describe("toCreatePayload (booking milestone)", () => {
       selectedMetaActivityIds: [9],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.activity_filter_active).toBe(false);
     expect(payload.select_all_activities).toBe(true);
@@ -67,7 +67,7 @@ describe("toCreatePayload (booking milestone)", () => {
       selectedEstablishmentIds: [2, 8],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.establishment_filter_active).toBe(true);
     expect(payload.establishments).toEqual([2, 8]);
@@ -81,7 +81,7 @@ describe("toCreatePayload (booking milestone)", () => {
       selectedCoachIds: [3, 9],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.coach_filter_active).toBe(true);
     expect(payload.coaches).toEqual([3, 9]);
@@ -95,7 +95,7 @@ describe("toCreatePayload (booking milestone)", () => {
       selectedPaymentPackIds: [1, 2],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.payment_pack_filter_active).toBe(true);
     expect(payload.payment_packs).toEqual([1, 2]);
@@ -108,7 +108,7 @@ describe("toCreatePayload (booking milestone)", () => {
       selectedLevelIds: [5, 9],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.level_filter_active).toBe(true);
     expect(payload.level).toEqual([5, 9]);
@@ -128,7 +128,7 @@ describe("toCreatePayload (booking milestone)", () => {
       },
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.date_filter_active).toBe(true);
     expect(payload.date).toBe("2026-03-01");
@@ -143,7 +143,7 @@ describe("toCreatePayload (booking milestone)", () => {
       hourSecond: "21:30",
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.hour_filter_active).toBe(true);
     expect(payload.hour).toBe("07:15");
@@ -154,7 +154,7 @@ describe("toCreatePayload (booking milestone)", () => {
     const value = createDefaultBookingMilestoneFilter(1);
     value.subFilters = [];
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.hour_filter_active).toBe(false);
     expect(payload.hour).toBeNull();
@@ -166,7 +166,7 @@ describe("toCreatePayload (booking milestone)", () => {
     value.subFilters = [BOOKING_MILESTONE_SUB_FILTER_IDS.attendanceMode];
     value.attendanceMode = { attendance: false };
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.attendance_filter_active).toBe(true);
     expect(payload.attendance).toBe(false);
@@ -177,7 +177,7 @@ describe("toCreatePayload (booking milestone)", () => {
     value.subFilters = [];
     value.attendanceMode = { attendance: false };
 
-    const payload = toCreatePayload(value);
+    const payload = createBookingMilestonePayload(value);
 
     expect(payload.attendance_filter_active).toBe(false);
     expect(payload.attendance).toBeNull();

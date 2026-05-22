@@ -12,7 +12,7 @@ import { REGISTERED_TOTAL_BOOKING_SUB_FILTERS } from "#src/components/filters/to
  * since the API field shapes are identical; the comparator-only fields
  * (`comparator`, `value_second`) from the total-booking shape are dropped.
  */
-export const toCreatePayload = (
+export const createBookingMilestonePayload = (
   value: BookingMilestoneFilterFormValue,
 ): BookingMilestoneFilterCreatePayload => {
   const subFilterAccumulator: Partial<CreateTotalBookingFilterPayload> = {};

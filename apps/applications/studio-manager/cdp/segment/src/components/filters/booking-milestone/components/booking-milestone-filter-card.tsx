@@ -7,7 +7,7 @@ import { useDeleteBookingMilestoneFilterMutation } from "#src/api/use-delete-boo
 import { useUpsertBookingMilestoneFilterMutation } from "#src/api/use-upsert-booking-milestone-filter-mutation";
 import { BookingMilestoneValueField } from "#src/components/filters/booking-milestone/components/booking-milestone-value-field";
 import { buildDirtyPatchPayload } from "#src/components/filters/booking-milestone/mappers/build-dirty-patch";
-import { toCreatePayload } from "#src/components/filters/booking-milestone/mappers/form-value-to-create-payload";
+import { createBookingMilestonePayload } from "#src/components/filters/booking-milestone/mappers/form-value-to-create-payload";
 import { bookingMilestoneFilterSchema } from "#src/components/filters/booking-milestone/schema";
 import type { BookingMilestoneFilterCardProps } from "#src/components/filters/booking-milestone/types";
 import { TotalBookingSubFiltersArea } from "#src/components/filters/total-booking/components/total-booking-sub-filters-area";
@@ -83,7 +83,7 @@ export const BookingMilestoneFilterCard = ({
     (value) => {
       if (!value.id) {
         upsertBookingMilestoneFilterMutate({
-          createPayload: toCreatePayload(value),
+          createPayload: createBookingMilestonePayload(value),
         });
         return;
       }

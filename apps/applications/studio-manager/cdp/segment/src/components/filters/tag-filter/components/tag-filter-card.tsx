@@ -22,7 +22,7 @@ import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
 import { buildTagFilterDirtyPatch } from "../mappers/build-dirty-patch";
-import { toCreatePayload } from "../mappers/form-value-to-create-payload";
+import { createTagFilterPayload } from "../mappers/form-value-to-create-payload";
 import { tagFilterFormSchema } from "../schema";
 import type {
   TagFilterCardProps,
@@ -105,7 +105,7 @@ export const TagFilterCard = ({
     (value) => {
       if (!value.id) {
         upsertTagFilterMutate({
-          createPayload: toCreatePayload(value),
+          createPayload: createTagFilterPayload(value),
         });
         return;
       }

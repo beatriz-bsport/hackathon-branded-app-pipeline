@@ -30,6 +30,9 @@
       },
       "tags": {
         "description": "Filter members by tags they have or do not have."
+      },
+      "activePasses": {
+        "description": "Filter members by the number of active passes (group and/or appointment) they hold right now."
       }
     }
   },
@@ -192,6 +195,49 @@
         "bookingHourRangeOrderInvalid": "End time must be the same as or after the start time."
       }
     },
+    "27": {
+      "title": "Number of Valid Passes",
+      "skeleton": {
+        "ariaLabel": "Loading active passes filter"
+      },
+      "info": {
+        "countExplanation": "Blocked Passes and Appointment Passes are included in the count"
+      },
+      "actions": {
+        "deleteFilter": "Delete active passes filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "countSuffix": "Valid Passes",
+        "sessionsSuffix": "sessions",
+        "filterSpecifications": "FILTER SPECIFICATIONS"
+      },
+      "paymentPacks": {
+        "title": "Specify Passes",
+        "description": "Members with any of these Passes",
+        "searchPlaceholder": "Search passes...",
+        "emptySelection": "Search to select passes"
+      },
+      "privatePasses": {
+        "title": "Specify Appointment Passes",
+        "description": "Members with any of these Appointment Passes",
+        "searchPlaceholder": "Search appointment passes...",
+        "emptySelection": "Search to select appointment passes"
+      },
+      "toasts": {
+        "saveError": "Unable to save active passes filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete active passes filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "atLeastOneSectionRequired": "Enable at least one pass type (Passes or Appointment Passes).",
+        "secondValueRequired": "Enter an upper bound for the range.",
+        "secondValueGreaterThanFirst": "The second value must be greater than or equal to the first.",
+        "atLeastOnePassSelectedRequired": "Select at least one pass to include or exclude.",
+        "atLeastOneAppointmentPassSelectedRequired": "Select at least one appointment pass to include or exclude."
+      }
+    },
     "11": {
       "title": "Tags",
       "loading": "Loading tag filter...",
@@ -233,7 +279,14 @@
     },
     "actions": {
       "remove": "Remove",
-      "selectAllFiltered": "Select all filtered results ({{count}})"
+      "selectAllFiltered": "Select all filtered results ({{count}})",
+      "showAllSelected": "Show all {{count}}",
+      "showLessSelected": "Show less"
+    },
+    "state": {
+      "allItemsSelected": "",
+      "allItemsSelected_one": "{{count}} item selected (all)",
+      "allItemsSelected_other": "{{count}} items selected (all)"
     }
   }
 }

@@ -4,7 +4,7 @@ import { SmartlistTotalBookingComparator } from "@bsport/api-cdp/smartlist";
 
 import { TOTAL_BOOKING_NUMBER_TYPE } from "#src/components/filters/total-booking/constants";
 import { createDefaultTotalBookingNumberFilter } from "#src/components/filters/total-booking/default-value";
-import { toCreatePayload } from "#src/components/filters/total-booking/mappers/form-value-to-create-payload";
+import { createTotalBookingPayload } from "#src/components/filters/total-booking/mappers/form-value-to-create-payload";
 import { TOTAL_BOOKING_SUB_FILTER_IDS } from "#src/components/filters/total-booking/sub-filters/total-booking-sub-filter-id";
 import {
   DATE_FILTER_TYPE_RELATIVE,
@@ -17,11 +17,11 @@ vi.mock("#src/utils/i18n", () => ({
   },
 }));
 
-describe("toCreatePayload", () => {
+describe("createTotalBookingPayload", () => {
   it("uses the smartlist id from form value", () => {
     const value = createDefaultTotalBookingNumberFilter(123);
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.smartlist).toBe(123);
   });
@@ -32,7 +32,7 @@ describe("toCreatePayload", () => {
     value.value = 6;
     value.secondValue = null;
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.comparator).toBe(SmartlistTotalBookingComparator.GTE);
     expect(payload.value).toBe(6);
@@ -45,7 +45,7 @@ describe("toCreatePayload", () => {
     value.value = 2;
     value.secondValue = 8;
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.comparator).toBe(SmartlistTotalBookingComparator.BETWEEN);
     expect(payload.value).toBe(2);
@@ -60,7 +60,7 @@ describe("toCreatePayload", () => {
       selectedMetaActivityIds: [5],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.activity_filter_active).toBe(false);
     expect(payload.select_all_activities).toBe(true);
@@ -75,7 +75,7 @@ describe("toCreatePayload", () => {
       selectedMetaActivityIds: [5, 7],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.activity_filter_active).toBe(true);
     expect(payload.select_all_activities).toBe(false);
@@ -90,7 +90,7 @@ describe("toCreatePayload", () => {
       selectedEstablishmentIds: [2],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.establishment_filter_active).toBe(false);
     expect(payload.select_all_establishments).toBe(true);
@@ -105,7 +105,7 @@ describe("toCreatePayload", () => {
       selectedEstablishmentIds: [2, 8],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.establishment_filter_active).toBe(true);
     expect(payload.select_all_establishments).toBe(false);
@@ -120,7 +120,7 @@ describe("toCreatePayload", () => {
       selectedCoachIds: [3],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.coach_filter_active).toBe(false);
     expect(payload.select_all_coaches).toBe(true);
@@ -135,7 +135,7 @@ describe("toCreatePayload", () => {
       selectedCoachIds: [3, 9],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.coach_filter_active).toBe(true);
     expect(payload.select_all_coaches).toBe(false);
@@ -150,7 +150,7 @@ describe("toCreatePayload", () => {
       selectedPaymentPackIds: [1],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.payment_pack_filter_active).toBe(false);
     expect(payload.select_all_payment_packs).toBe(true);
@@ -165,7 +165,7 @@ describe("toCreatePayload", () => {
       selectedPaymentPackIds: [1, 2],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.payment_pack_filter_active).toBe(true);
     expect(payload.select_all_payment_packs).toBe(false);
@@ -179,7 +179,7 @@ describe("toCreatePayload", () => {
       selectedLevelIds: [5],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.level_filter_active).toBe(false);
     expect(payload.level).toEqual([]);
@@ -192,7 +192,7 @@ describe("toCreatePayload", () => {
       selectedLevelIds: [5, 9],
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.level_filter_active).toBe(true);
     expect(payload.level).toEqual([5, 9]);
@@ -212,7 +212,7 @@ describe("toCreatePayload", () => {
       },
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.date_filter_active).toBe(false);
   });
@@ -231,7 +231,7 @@ describe("toCreatePayload", () => {
       },
     };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.date_filter_active).toBe(true);
     expect(payload.date).toBe("2026-03-01");
@@ -265,7 +265,7 @@ describe("toCreatePayload", () => {
           },
         });
 
-        const payload = toCreatePayload(value);
+        const payload = createTotalBookingPayload(value);
 
         expect(payload.duration).toBe(0);
         expect(Math.abs(payload.duration_second ?? 0)).toBe(0);
@@ -286,7 +286,7 @@ describe("toCreatePayload", () => {
           },
         });
 
-        const payload = toCreatePayload(value);
+        const payload = createTotalBookingPayload(value);
 
         expect(payload.duration).toBe(0);
         expect(Math.abs(payload.duration_second ?? 0)).toBe(0);
@@ -324,7 +324,7 @@ describe("toCreatePayload", () => {
             relative: { operator, firstDays: days, secondDays: null },
           });
 
-          const payload = toCreatePayload(value);
+          const payload = createTotalBookingPayload(value);
 
           expect(payload.duration).toBe(expectedDuration);
           expect(Math.abs(payload.duration_second ?? 0)).toBe(0);
@@ -346,7 +346,7 @@ describe("toCreatePayload", () => {
           },
         });
 
-        const payload = toCreatePayload(value);
+        const payload = createTotalBookingPayload(value);
 
         expect(payload.duration).toBe(-30);
         expect(payload.date).toBe("2026-06-01");
@@ -365,7 +365,7 @@ describe("toCreatePayload", () => {
           },
         });
 
-        const payload = toCreatePayload(value);
+        const payload = createTotalBookingPayload(value);
 
         expect(payload.duration).toBe(-10);
         expect(payload.duration_second).toBe(-30);
@@ -382,7 +382,7 @@ describe("toCreatePayload", () => {
           },
         });
 
-        const payload = toCreatePayload(value);
+        const payload = createTotalBookingPayload(value);
 
         expect(payload.duration).toBe(5);
         expect(payload.duration_second).toBe(20);
@@ -403,7 +403,7 @@ describe("toCreatePayload", () => {
           },
         });
 
-        const payload = toCreatePayload(value);
+        const payload = createTotalBookingPayload(value);
 
         expect(payload.duration).toBe(-10);
         expect(payload.duration_second).toBe(-30);
@@ -419,7 +419,7 @@ describe("toCreatePayload", () => {
         hourSecond: "11:00",
       };
 
-      const payload = toCreatePayload(value);
+      const payload = createTotalBookingPayload(value);
 
       expect(payload.hour_filter_active).toBe(false);
       expect(payload.hour).toBeNull();
@@ -434,7 +434,7 @@ describe("toCreatePayload", () => {
         hourSecond: "21:30",
       };
 
-      const payload = toCreatePayload(value);
+      const payload = createTotalBookingPayload(value);
 
       expect(payload.hour_filter_active).toBe(true);
       expect(payload.hour).toBe("07:15");
@@ -447,7 +447,7 @@ describe("toCreatePayload", () => {
     value.subFilters = [];
     value.attendanceMode = { attendance: false };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.attendance_filter_active).toBe(false);
     expect(payload.attendance).toBeNull();
@@ -458,7 +458,7 @@ describe("toCreatePayload", () => {
     value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.attendanceMode];
     value.attendanceMode = { attendance: false };
 
-    const payload = toCreatePayload(value);
+    const payload = createTotalBookingPayload(value);
 
     expect(payload.attendance_filter_active).toBe(true);
     expect(payload.attendance).toBe(false);

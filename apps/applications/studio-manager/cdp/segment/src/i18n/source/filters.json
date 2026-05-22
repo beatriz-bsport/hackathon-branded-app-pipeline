@@ -14,11 +14,15 @@
       "noResults": "No results found"
     },
     "categories": {
+      "PROFILES": "PROFILES",
       "PASSES": "PASSES",
       "BOOKINGS": "BOOKINGS",
       "MEMBER_INFORMATIONS": "MEMBER INFORMATION"
     },
     "options": {
+      "gender": {
+        "description": "Filter by member gender."
+      },
       "passes": {
         "description": "Filter by ownership of a selected pass."
       },
@@ -60,6 +64,25 @@
       "validation": {
         "valueRequired": "Milestone must be at least 1.",
         "valueMustBeInteger": "Milestone must be a whole number."
+      }
+    },
+    "5": {
+      "title": "Gender",
+      "actions": {
+        "deleteFilter": "Delete gender filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that are:",
+        "male": "Male",
+        "female": "Female"
+      },
+      "toasts": {
+        "saveError": "Unable to save gender filter.",
+        "saveSuccess": "Gender filter saved.",
+        "deleteError": "Unable to delete gender filter.",
+        "invalidFilter": "Invalid filter."
       }
     },
     "19": {

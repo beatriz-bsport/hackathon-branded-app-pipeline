@@ -3,6 +3,8 @@ import {
   ActivePassesFilter,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   BookingMilestoneFilter,
+  GENDER_FILTER_IDENTIFIER,
+  GenderFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PaymentPackFilter,
   TAG_FILTER_IDENTIFIER,
@@ -15,6 +17,7 @@ import {
  * Filter type ids rendered and drafted by the segment smartlist filters manager.
  */
 export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
+  gender: "gender",
   passes: "passes",
   totalBookingNumber: "totalBookingNumber",
   bookingMilestone: "bookingMilestone",
@@ -31,6 +34,7 @@ export type SmartlistFiltersManagerFilterType =
 export const isSmartlistFiltersManagerFilterType = (
   value: string,
 ): value is SmartlistFiltersManagerFilterType =>
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.gender ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.passes ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalBookingNumber ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.tags ||
@@ -64,6 +68,17 @@ export const hasFilterIdentifier = (
   hasNumber(value, "filter_identifier") &&
   (value as { filter_identifier: number }).filter_identifier ===
     Number(filterIdentifier);
+
+export const hasString = (value: unknown, key: string): boolean =>
+  isObjectRecord(value) && typeof value[key] === "string";
+
+export const isGenderFilter = (value: unknown): value is GenderFilter =>
+  isObjectRecord(value) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasString(value, "value") &&
+  hasFilterIdentifier(value, GENDER_FILTER_IDENTIFIER);
 
 export const isPaymentPackFilter = (
   value: unknown,

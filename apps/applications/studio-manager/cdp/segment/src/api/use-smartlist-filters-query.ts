@@ -5,6 +5,8 @@ import {
   type ActivePassesFilter,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   type BookingMilestoneFilter,
+  GENDER_FILTER_IDENTIFIER,
+  type GenderFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   type PaymentPackFilter,
   type SmartlistGetFiltersResponse,
@@ -18,6 +20,7 @@ import {
 import {
   isActivePassesFilter,
   isBookingMilestoneFilter,
+  isGenderFilter,
   isPaymentPackFilter,
   isTagFilter,
   isTotalBookingFilter,
@@ -25,11 +28,25 @@ import {
 import { fetch } from "#src/utils/fetch";
 
 type SmartlistFiltersQueryData = {
+  genderFilters: GenderFilter[];
   paymentPackFilters: PaymentPackFilter[];
   totalBookingFilters: TotalBookingFilter[];
   bookingMilestoneFilters: BookingMilestoneFilter[];
   tagFilters: TagFilter[];
   activePassesFilters: ActivePassesFilter[];
+};
+
+const mapGenderFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): GenderFilter[] => {
+  const genderFiltersMap = payload?.[GENDER_FILTER_IDENTIFIER];
+  if (!genderFiltersMap) {
+    return [];
+  }
+
+  return Object.values(genderFiltersMap)
+    .filter(isGenderFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
 const mapPaymentPackFilters = (
@@ -104,6 +121,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
   useQuery({
     ...smartlistFiltersQueryOptions(fetch, smartlistId),
     select: (data): SmartlistFiltersQueryData => ({
+      genderFilters: mapGenderFilters(data),
       paymentPackFilters: mapPaymentPackFilters(data),
       totalBookingFilters: mapTotalBookingFilters(data),
       bookingMilestoneFilters: mapBookingMilestoneFilters(data),

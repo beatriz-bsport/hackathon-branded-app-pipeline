@@ -49,6 +49,7 @@ export const DEFAULT_PAGE_SIZE_PASS_OPTIONS = 70000;
 /**
  * This is the identifier for the smartlist filters API.
  */
+export const GENDER_FILTER_IDENTIFIER = "5";
 export const PAYMENT_PACK_FILTER_IDENTIFIER = "19";
 export const TAG_FILTER_IDENTIFIER = "11";
 export const TOTAL_BOOKING_FILTER_IDENTIFIER = "22";

@@ -3,7 +3,7 @@ import type { TagFilter } from "@bsport/api-cdp/smartlist";
 import type { TagFilterFormValue } from "../types";
 
 /**
- * Maps a hydrated `TagFilter` row from `get_filters` into editor form state.
+ * Maps a `TagFilter` row from `get_filters` into editor form state.
  */
 export const mapTagFilterToFormValue = (
   filter: TagFilter,

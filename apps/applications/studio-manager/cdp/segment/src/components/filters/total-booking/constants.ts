@@ -8,7 +8,7 @@ import {
 } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import type { NumericComparatorOperator } from "#src/components/primitive-filters/numeric-comparator-filter/types";
 
-/** Used when hydrating from API (null hour) or when resetting the booking hour range sub-filter. */
+/** Used when mapping from API (null hour) or when resetting the booking hour range sub-filter. */
 export const BOOKING_HOUR_RANGE_DEFAULT_HOUR = "09:00";
 
 /** Upper bound default; paired with {@link BOOKING_HOUR_RANGE_DEFAULT_HOUR}. */

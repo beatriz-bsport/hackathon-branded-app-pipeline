@@ -13,11 +13,13 @@ import type {
   CreateActivePassesFilterPayload,
   CreateBookingMilestoneFilterPayload,
   CreateGenderFilterPayload,
+  CreateMemberDateJoinedFilterPayload,
   CreatePaymentPackFilterPayload,
   CreateTagFilterPayload,
   CreateTagRuleParams,
   CreateTotalBookingFilterPayload,
   GenderFilter,
+  MemberDateJoinedFilter,
   PaymentPackFilter,
   Smartlist,
   SmartlistGetFiltersResponse,
@@ -27,6 +29,7 @@ import type {
   UpdateActivePassesFilterPayload,
   UpdateBookingMilestoneFilterPayload,
   UpdateGenderFilterPayload,
+  UpdateMemberDateJoinedFilterPayload,
   UpdatePaymentPackFilterPayload,
   UpdateTagFilterPayload,
   UpdateTagRuleParams,
@@ -293,6 +296,22 @@ export const createTagFilter = async (
   return data;
 };
 
+// Member sign-up date filters
+
+const MEMBER_DATE_JOINED_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/member_date_joined`;
+
+export const createMemberDateJoinedFilter = async (
+  fetch: Fetch<MemberDateJoinedFilter>,
+  payload: CreateMemberDateJoinedFilterPayload,
+): Promise<MemberDateJoinedFilter> => {
+  const { data } = await fetch(`${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
 export const patchTagFilter = async (
   fetch: Fetch<TagFilter>,
   filterId: number,
@@ -338,6 +357,22 @@ export const patchBookingMilestoneFilter = async (
 ): Promise<BookingMilestoneFilter> => {
   const { data } = await fetch(
     `${BOOKING_MILESTONE_FILTER_ENDPOINT}/${filterId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const patchMemberDateJoinedFilter = async (
+  fetch: Fetch<MemberDateJoinedFilter>,
+  filterId: number,
+  payload: UpdateMemberDateJoinedFilterPayload,
+): Promise<MemberDateJoinedFilter> => {
+  const { data } = await fetch(
+    `${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/${filterId}/`,
     {
       method: "PATCH",
       body: JSON.stringify(payload),
@@ -393,6 +428,15 @@ export const deleteActivePassesFilter = async (
   filterId: number,
 ): Promise<void> => {
   await fetch(`${ACTIVE_PASSES_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
+export const deleteMemberDateJoinedFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/${filterId}/`, {
     method: "DELETE",
   });
 };

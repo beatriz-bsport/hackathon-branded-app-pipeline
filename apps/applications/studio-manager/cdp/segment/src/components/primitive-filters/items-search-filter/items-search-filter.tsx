@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   Divider,
+  type Item,
   List,
   Menu,
   type MenuOption,
@@ -23,7 +24,7 @@ import type {
   ItemsSearchFilterValue,
 } from "./types";
 import {
-  filterOptionsByName,
+  filterOptionsByQuery,
   sanitizeSelectedIds,
   updateSelectionOrder,
 } from "./utils";
@@ -87,6 +88,8 @@ export const ItemsSearchFilter = ({
   menuOptionFormatter,
   selectedOptionFormatter,
   selectedListItem: SelectedListItemComponent,
+  searchIncludesDescription = false,
+  groupFilteredOptions,
 }: ItemsSearchFilterProps) => {
   const { t } = useTranslation("filters");
   const isControlled = value !== undefined;
@@ -106,8 +109,11 @@ export const ItemsSearchFilter = ({
     [options],
   );
   const filteredOptions = useMemo(
-    () => filterOptionsByName(options, searchValue),
-    [options, searchValue],
+    () =>
+      filterOptionsByQuery(options, searchValue, {
+        includeDescription: searchIncludesDescription,
+      }),
+    [options, searchValue, searchIncludesDescription],
   );
 
   useEffect(() => {
@@ -181,7 +187,25 @@ export const ItemsSearchFilter = ({
     };
   };
 
-  const menuItems = filteredOptions.map(toMenuOption);
+  const buildDropdownMenuItems = (): Item[] => {
+    if (!groupFilteredOptions) {
+      return filteredOptions.map(toMenuOption);
+    }
+
+    const slices = groupFilteredOptions(filteredOptions);
+    const rows: Item[] = [];
+
+    for (const slice of slices) {
+      if (slice.heading.trim().length > 0) {
+        rows.push({ type: "title", label: slice.heading });
+      }
+      rows.push(...slice.options.map(toMenuOption));
+    }
+
+    return rows;
+  };
+
+  const dropdownMenuItems = buildDropdownMenuItems();
   const searchPlaceholderLabel =
     searchPlaceholder ?? t("itemsSearch.fields.searchPlaceholder");
   const emptySearchMessage = emptySearchLabel ?? t("itemsSearch.empty.search");
@@ -297,7 +321,7 @@ export const ItemsSearchFilter = ({
                       label: selectAllLabel,
                     },
                     { type: "divider" },
-                    ...menuItems,
+                    ...dropdownMenuItems,
                   ]}
                   selectedValues={
                     areAllFilteredSelected
@@ -325,7 +349,7 @@ export const ItemsSearchFilter = ({
                     toggleSelection(parsedSelectedId);
                   }}
                 />
-                {menuItems.length === 0 ? (
+                {filteredOptions.length === 0 ? (
                   <Body size="sm" color="weak" className="px-xs py-2xs">
                     {emptySearchMessage}
                   </Body>

@@ -1,5 +1,6 @@
 import {
   PaymentPackFilter,
+  TagFilter,
   TotalBookingFilter,
 } from "@bsport/api-cdp/smartlist";
 
@@ -9,6 +10,7 @@ import {
 export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   passes: "passes",
   totalBookingNumber: "totalBookingNumber",
+  tags: "tags",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -21,7 +23,8 @@ export const isSmartlistFiltersManagerFilterType = (
   value: string,
 ): value is SmartlistFiltersManagerFilterType =>
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.passes ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalBookingNumber;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalBookingNumber ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.tags;
 
 export const isObjectRecord = (
   value: unknown,
@@ -58,3 +61,10 @@ export const isTotalBookingFilter = (
   hasNumber(value, "comparator") &&
   hasNumber(value, "value") &&
   hasNumber(value, "value_second");
+
+export const isTagFilter = (value: unknown): value is TagFilter =>
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumberArray(value, "tags_included") &&
+  hasNumberArray(value, "tags_excluded");

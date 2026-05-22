@@ -22,6 +22,11 @@ import {
   type SmartlistFiltersManagerFilterType,
   isSmartlistFiltersManagerFilterType,
 } from "./shared/types-guards";
+import { TagFilterCard } from "./tag-filter/components/tag-filter-card";
+import { TagFilterCardSkeleton } from "./tag-filter/components/tag-filter-card-skeleton";
+import { createDefaultTagFilterFormValue } from "./tag-filter/default-value";
+import { mapTagFilterToFormValue } from "./tag-filter/mappers/api-to-form-value";
+import type { TagFilterFormValue } from "./tag-filter/types";
 import { TotalBookingFilterCardSkeleton } from "./total-booking/components/total-booking-filter-card-skeleton";
 import { TotalBookingNumberFilterCard } from "./total-booking/components/total-booking-number-filter-card";
 import { createDefaultTotalBookingNumberFilter } from "./total-booking/default-value";
@@ -38,6 +43,7 @@ type FilterType = SmartlistFiltersManagerFilterType;
 type FilterValueByType = {
   passes: PassesFilterFormValue;
   totalBookingNumber: TotalBookingNumberFilterFormValue;
+  tags: TagFilterFormValue;
 };
 
 type DraftFilter =
@@ -50,6 +56,11 @@ type DraftFilter =
       clientId: string;
       filterType: "totalBookingNumber";
       value: FilterValueByType["totalBookingNumber"];
+    }
+  | {
+      clientId: string;
+      filterType: "tags";
+      value: FilterValueByType["tags"];
     };
 
 type SavedFilter =
@@ -62,6 +73,11 @@ type SavedFilter =
       key: string;
       filterType: "totalBookingNumber";
       value: FilterValueByType["totalBookingNumber"];
+    }
+  | {
+      key: string;
+      filterType: "tags";
+      value: FilterValueByType["tags"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -96,6 +112,7 @@ export const SmartlistFiltersManager = ({
   } = useSmartlistFiltersQuery(smartlistId);
   const paymentPackFilters = smartlistFilters?.paymentPackFilters ?? [];
   const totalBookingFilters = smartlistFilters?.totalBookingFilters ?? [];
+  const tagFilters = smartlistFilters?.tagFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -146,6 +163,16 @@ export const SmartlistFiltersManager = ({
       ) : (
         <TotalBookingFilterCardSkeleton key={key} />
       ),
+    tags: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <QueryBoundary key={key} loadingFallback={<TagFilterCardSkeleton />}>
+        <TagFilterCard
+          smartlistId={smartlistId}
+          filterValue={value}
+          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+          onSaveSuccess={onSaveSuccess}
+        />
+      </QueryBoundary>
+    ),
   };
 
   const createDraftFilterByType: {
@@ -160,6 +187,11 @@ export const SmartlistFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.totalBookingNumber),
       filterType: FILTER_TYPES.totalBookingNumber,
       value: createDefaultTotalBookingNumberFilter(smartlistNumericId),
+    }),
+    tags: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.tags),
+      filterType: FILTER_TYPES.tags,
+      value: createDefaultTagFilterFormValue(smartlistNumericId),
     }),
   };
 
@@ -187,6 +219,12 @@ export const SmartlistFiltersManager = ({
         description: t("filterSelector.options.totalBookingNumber.description"),
         category: FILTER_SELECTOR_CATEGORIES.bookings,
       },
+      {
+        id: FILTER_TYPES.tags,
+        label: t("filters.11.title"),
+        description: t("filterSelector.options.tags.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
     ],
     [t],
   );
@@ -201,6 +239,11 @@ export const SmartlistFiltersManager = ({
       key: `saved-total-booking-number-${totalBookingFilter.id}`,
       filterType: FILTER_TYPES.totalBookingNumber,
       value: mapTotalBookingFilterToFormValue(totalBookingFilter),
+    })),
+    ...tagFilters.map((tagFilter) => ({
+      key: `saved-tags-${tagFilter.id}`,
+      filterType: FILTER_TYPES.tags,
+      value: mapTagFilterToFormValue(tagFilter),
     })),
   ];
 

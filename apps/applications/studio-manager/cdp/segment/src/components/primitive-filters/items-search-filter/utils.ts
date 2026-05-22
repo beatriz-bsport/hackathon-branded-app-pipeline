@@ -6,22 +6,47 @@ import type { ItemsSearchFilterOption } from "./types";
 export const normalizeText = (value: string): string =>
   value.trim().toLowerCase();
 
+export type FilterOptionsByQueryParams = {
+  includeDescription?: boolean;
+};
+
 /**
- * Filters options by matching query against option name only.
+ * Filters options by matching the query against the option name, and optionally its description.
  */
-export const filterOptionsByName = (
+export const filterOptionsByQuery = (
   options: ItemsSearchFilterOption[],
   query: string,
+  params?: FilterOptionsByQueryParams,
 ): ItemsSearchFilterOption[] => {
   const normalizedQuery = normalizeText(query);
   if (!normalizedQuery) {
     return options;
   }
 
-  return options.filter((option) =>
-    normalizeText(option.name).includes(normalizedQuery),
-  );
+  const includeDescription = params?.includeDescription ?? false;
+
+  return options.filter((option) => {
+    if (normalizeText(option.name).includes(normalizedQuery)) {
+      return true;
+    }
+    if (
+      includeDescription &&
+      option.description &&
+      normalizeText(option.description).includes(normalizedQuery)
+    ) {
+      return true;
+    }
+    return false;
+  });
 };
+
+/**
+ * Filters options by matching query against option name only.
+ */
+export const filterOptionsByName = (
+  options: ItemsSearchFilterOption[],
+  query: string,
+): ItemsSearchFilterOption[] => filterOptionsByQuery(options, query);
 
 /**
  * Removes stale selected ids that are no longer present in options.

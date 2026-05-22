@@ -1,6 +1,7 @@
 export const FILTER_SELECTOR_CATEGORIES = {
   passes: "PASSES",
   bookings: "BOOKINGS",
+  memberInformations: "MEMBER_INFORMATIONS",
 } as const;
 
 export type FilterSelectorCategory =
@@ -9,4 +10,5 @@ export type FilterSelectorCategory =
 export const FILTER_SELECTOR_CATEGORY_ORDER: FilterSelectorCategory[] = [
   FILTER_SELECTOR_CATEGORIES.passes,
   FILTER_SELECTOR_CATEGORIES.bookings,
+  FILTER_SELECTOR_CATEGORIES.memberInformations,
 ];

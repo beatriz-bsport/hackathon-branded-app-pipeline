@@ -15,7 +15,8 @@
     },
     "categories": {
       "PASSES": "PASSES",
-      "BOOKINGS": "BOOKINGS"
+      "BOOKINGS": "BOOKINGS",
+      "MEMBER_INFORMATIONS": "MEMBER INFORMATION"
     },
     "options": {
       "passes": {
@@ -23,6 +24,9 @@
       },
       "totalBookingNumber": {
         "description": "Filter by total number of bookings."
+      },
+      "tags": {
+        "description": "Filter members by tags they have or do not have."
       }
     }
   },
@@ -158,6 +162,36 @@
         "bookingDateDurationBetweenRequired": "Enter both day values for the between range.",
         "bookingHourRangeRequired": "Select both start and end times.",
         "bookingHourRangeOrderInvalid": "End time must be the same as or after the start time."
+      }
+    },
+    "11": {
+      "title": "Tags",
+      "loading": "Loading tag filter...",
+      "loadTagCatalogError": "Unable to load tags. Please try again.",
+      "include": {
+        "title": "Include tags",
+        "description": "Members with any of these tags"
+      },
+      "exclude": {
+        "title": "Exclude tags",
+        "description": "Members without any of these tags"
+      },
+      "actions": {
+        "deleteFilter": "Delete tag filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "searchPlaceholder": "Search for a tag",
+        "emptySelection": "Add a tag to start filtering"
+      },
+      "validation": {
+        "atLeastOneTagRequired": "Select at least one tag to include or exclude."
+      },
+      "toasts": {
+        "saveError": "Unable to save tag filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete tag filter.",
+        "invalidFilter": "Invalid filter."
       }
     }
   },

@@ -6,7 +6,8 @@
   },
   "sectionCount": "{{address}} ({{count}})",
   "groupTag": {
-    "add": "Add to group"
+    "add": "Add to location",
+    "edit": "Edit location"
   },
   "venueRow": {
     "edit": "Edit",
@@ -76,6 +77,7 @@
     "archive": "Venue archived",
     "archiveError": "Failed to archive venue",
     "unarchive": "Venue restored",
-    "unarchiveError": "Failed to restore venue"
+    "unarchiveError": "Failed to restore venue",
+    "addVenueToLocation": "\"{{venue}}\" added to \"{{location}}\""
   }
 }

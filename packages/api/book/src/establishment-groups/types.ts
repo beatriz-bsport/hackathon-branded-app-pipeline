@@ -33,7 +33,6 @@ export type EstablishmentGroup = {
 
 export type CreateEstablishmentGroupPayload = {
   name: string;
-  company_id: number;
   establishment: number[];
 };
 

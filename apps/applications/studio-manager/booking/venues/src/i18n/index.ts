@@ -17,4 +17,4 @@ export const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
 };
 
 export const i18nNamespacePrefix = __VENUES__.__I18N_NAMESPACE_PREFIX__;
-export const i18nNamespaces: string[] = ["venues-list"];
+export const i18nNamespaces: string[] = ["venues-list", "location-form"];

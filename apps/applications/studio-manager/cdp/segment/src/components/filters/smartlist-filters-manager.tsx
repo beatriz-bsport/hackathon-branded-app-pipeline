@@ -22,6 +22,11 @@ import {
   FilterSelectorPopover,
 } from "./filter-selector-popover";
 import { FILTER_SELECTOR_CATEGORIES } from "./filter-selector.constants";
+import { GenderFilterCard } from "./gender-filter/components/gender-filter-card";
+import { GenderFilterCardSkeleton } from "./gender-filter/components/gender-filter-card-skeleton";
+import { createDefaultGenderFilter } from "./gender-filter/default-value";
+import { mapGenderFilterToFormValue } from "./gender-filter/mappers/api-to-form-value";
+import type { GenderFilterFormValue } from "./gender-filter/types";
 import { PassesFilterCardSkeleton } from "./passes-filter/components/passes-filter-card-skeleton";
 import { PassesFilterCardWithData } from "./passes-filter/components/passes-filter-card-with-data";
 import { createDefaultPassesFilter } from "./passes-filter/default-value";
@@ -51,6 +56,7 @@ const FILTER_TYPES = SMARTLIST_FILTERS_MANAGER_FILTER_TYPES;
 
 type FilterType = SmartlistFiltersManagerFilterType;
 type FilterValueByType = {
+  gender: GenderFilterFormValue;
   passes: PassesFilterFormValue;
   totalBookingNumber: TotalBookingNumberFilterFormValue;
   bookingMilestone: BookingMilestoneFilterFormValue;
@@ -59,6 +65,11 @@ type FilterValueByType = {
 };
 
 type DraftFilter =
+  | {
+      clientId: string;
+      filterType: "gender";
+      value: FilterValueByType["gender"];
+    }
   | {
       clientId: string;
       filterType: "passes";
@@ -86,6 +97,11 @@ type DraftFilter =
     };
 
 type SavedFilter =
+  | {
+      key: string;
+      filterType: "gender";
+      value: FilterValueByType["gender"];
+    }
   | {
       key: string;
       filterType: "passes";
@@ -142,6 +158,7 @@ export const SmartlistFiltersManager = ({
     isLoading,
     isError,
   } = useSmartlistFiltersQuery(smartlistId);
+  const genderFilters = smartlistFilters?.genderFilters ?? [];
   const paymentPackFilters = smartlistFilters?.paymentPackFilters ?? [];
   const totalBookingFilters = smartlistFilters?.totalBookingFilters ?? [];
   const bookingMilestoneFilters =
@@ -166,6 +183,16 @@ export const SmartlistFiltersManager = ({
   const renderFilterCardByType: {
     [Key in FilterType]: (params: RenderFilterParams<Key>) => React.JSX.Element;
   } = {
+    gender: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <QueryBoundary key={key} loadingFallback={<GenderFilterCardSkeleton />}>
+        <GenderFilterCard
+          smartlistId={smartlistId}
+          filterValue={value}
+          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+          onSaveSuccess={onSaveSuccess}
+        />
+      </QueryBoundary>
+    ),
     passes: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <QueryBoundary key={key} loadingFallback={<PassesFilterCardSkeleton />}>
         <PassesFilterCardWithData
@@ -243,6 +270,11 @@ export const SmartlistFiltersManager = ({
   const createDraftFilterByType: {
     [Key in FilterType]: () => DraftFilter;
   } = {
+    gender: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.gender),
+      filterType: FILTER_TYPES.gender,
+      value: createDefaultGenderFilter(smartlistNumericId),
+    }),
     passes: () => ({
       clientId: createDraftClientId(FILTER_TYPES.passes),
       filterType: FILTER_TYPES.passes,
@@ -283,6 +315,12 @@ export const SmartlistFiltersManager = ({
   const addableFilterOptions = useMemo<FilterSelectorOption[]>(
     () => [
       {
+        id: FILTER_TYPES.gender,
+        label: t("filters.5.title"),
+        description: t("filterSelector.options.gender.description"),
+        category: FILTER_SELECTOR_CATEGORIES.profiles,
+      },
+      {
         id: FILTER_TYPES.passes,
         label: t("filters.19.title"),
         description: t("filterSelector.options.passes.description"),
@@ -317,6 +355,11 @@ export const SmartlistFiltersManager = ({
   );
 
   const savedFilters: SavedFilter[] = [
+    ...genderFilters.map((genderFilter) => ({
+      key: `saved-gender-${genderFilter.id}`,
+      filterType: FILTER_TYPES.gender,
+      value: mapGenderFilterToFormValue(genderFilter),
+    })),
     ...paymentPackFilters.map((paymentPackFilter) => ({
       key: `saved-passes-${paymentPackFilter.id}`,
       filterType: FILTER_TYPES.passes,

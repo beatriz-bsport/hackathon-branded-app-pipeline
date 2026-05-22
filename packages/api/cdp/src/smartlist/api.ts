@@ -12,10 +12,12 @@ import type {
   BookingMilestoneFilter,
   CreateActivePassesFilterPayload,
   CreateBookingMilestoneFilterPayload,
+  CreateGenderFilterPayload,
   CreatePaymentPackFilterPayload,
   CreateTagFilterPayload,
   CreateTagRuleParams,
   CreateTotalBookingFilterPayload,
+  GenderFilter,
   PaymentPackFilter,
   Smartlist,
   SmartlistGetFiltersResponse,
@@ -24,6 +26,7 @@ import type {
   TotalBookingFilter,
   UpdateActivePassesFilterPayload,
   UpdateBookingMilestoneFilterPayload,
+  UpdateGenderFilterPayload,
   UpdatePaymentPackFilterPayload,
   UpdateTagFilterPayload,
   UpdateTagRuleParams,
@@ -155,6 +158,44 @@ export const fetchSmartlistFiltersAPI = async (
   );
 
   return data;
+};
+
+// Gender Filters
+
+const GENDER_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/gender_filter`;
+
+export const createGenderFilter = async (
+  fetch: Fetch<GenderFilter>,
+  payload: CreateGenderFilterPayload,
+): Promise<GenderFilter> => {
+  const { data } = await fetch(`${GENDER_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchGenderFilter = async (
+  fetch: Fetch<GenderFilter>,
+  filterId: number,
+  payload: UpdateGenderFilterPayload,
+): Promise<GenderFilter> => {
+  const { data } = await fetch(`${GENDER_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const deleteGenderFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${GENDER_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
 };
 
 // Payment Pack Filters

@@ -5,6 +5,8 @@ import {
   BookingMilestoneFilter,
   GENDER_FILTER_IDENTIFIER,
   GenderFilter,
+  MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
+  MemberDateJoinedFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PaymentPackFilter,
   TAG_FILTER_IDENTIFIER,
@@ -18,6 +20,7 @@ import {
  */
 export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   gender: "gender",
+  memberSignUpDate: "memberSignUpDate",
   passes: "passes",
   totalBookingNumber: "totalBookingNumber",
   bookingMilestone: "bookingMilestone",
@@ -35,6 +38,7 @@ export const isSmartlistFiltersManagerFilterType = (
   value: string,
 ): value is SmartlistFiltersManagerFilterType =>
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.gender ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.memberSignUpDate ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.passes ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalBookingNumber ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.tags ||
@@ -79,6 +83,18 @@ export const isGenderFilter = (value: unknown): value is GenderFilter =>
   hasNumber(value, "company_id") &&
   hasString(value, "value") &&
   hasFilterIdentifier(value, GENDER_FILTER_IDENTIFIER);
+
+export const isMemberDateJoinedFilter = (
+  value: unknown,
+): value is MemberDateJoinedFilter =>
+  isObjectRecord(value) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumber(value, "date_filter_type") &&
+  hasNumber(value, "duration") &&
+  hasNumber(value, "duration_second") &&
+  hasFilterIdentifier(value, MEMBER_DATE_JOINED_FILTER_IDENTIFIER);
 
 export const isPaymentPackFilter = (
   value: unknown,

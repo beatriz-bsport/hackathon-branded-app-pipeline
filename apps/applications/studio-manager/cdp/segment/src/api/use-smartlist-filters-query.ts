@@ -7,6 +7,8 @@ import {
   type BookingMilestoneFilter,
   GENDER_FILTER_IDENTIFIER,
   type GenderFilter,
+  MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
+  type MemberDateJoinedFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   type PaymentPackFilter,
   type SmartlistGetFiltersResponse,
@@ -21,6 +23,7 @@ import {
   isActivePassesFilter,
   isBookingMilestoneFilter,
   isGenderFilter,
+  isMemberDateJoinedFilter,
   isPaymentPackFilter,
   isTagFilter,
   isTotalBookingFilter,
@@ -29,6 +32,7 @@ import { fetch } from "#src/utils/fetch";
 
 type SmartlistFiltersQueryData = {
   genderFilters: GenderFilter[];
+  memberDateJoinedFilters: MemberDateJoinedFilter[];
   paymentPackFilters: PaymentPackFilter[];
   totalBookingFilters: TotalBookingFilter[];
   bookingMilestoneFilters: BookingMilestoneFilter[];
@@ -46,6 +50,20 @@ const mapGenderFilters = (
 
   return Object.values(genderFiltersMap)
     .filter(isGenderFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
+const mapMemberDateJoinedFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): MemberDateJoinedFilter[] => {
+  const memberDateJoinedFiltersMap =
+    payload?.[MEMBER_DATE_JOINED_FILTER_IDENTIFIER];
+  if (!memberDateJoinedFiltersMap) {
+    return [];
+  }
+
+  return Object.values(memberDateJoinedFiltersMap)
+    .filter(isMemberDateJoinedFilter)
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
@@ -114,14 +132,15 @@ const mapActivePassesFilters = (
 };
 
 /**
- * Unified smartlist filters hydration query.
- * Parses all currently supported filter families from one `get_filters` payload.
+ * Unified smartlist filters query.
+ * Loads all currently supported filter families from one `get_filters` response.
  */
 export const useSmartlistFiltersQuery = (smartlistId: string) =>
   useQuery({
     ...smartlistFiltersQueryOptions(fetch, smartlistId),
     select: (data): SmartlistFiltersQueryData => ({
       genderFilters: mapGenderFilters(data),
+      memberDateJoinedFilters: mapMemberDateJoinedFilters(data),
       paymentPackFilters: mapPaymentPackFilters(data),
       totalBookingFilters: mapTotalBookingFilters(data),
       bookingMilestoneFilters: mapBookingMilestoneFilters(data),

@@ -23,6 +23,9 @@
       "gender": {
         "description": "Filter by member gender."
       },
+      "memberSignUpDate": {
+        "description": "Filter members by when they signed up to the studio."
+      },
       "passes": {
         "description": "Filter by ownership of a selected pass."
       },
@@ -83,6 +86,26 @@
         "saveSuccess": "Gender filter saved.",
         "deleteError": "Unable to delete gender filter.",
         "invalidFilter": "Invalid filter."
+      }
+    },
+    "18": {
+      "title": "Sign-up date",
+      "actions": {
+        "deleteFilter": "Delete sign-up date filter",
+        "save": "Save filter",
+        "addFilter": "Add sign-up date filter"
+      },
+      "toasts": {
+        "saveError": "Unable to save sign-up date filter.",
+        "saveSuccess": "Sign-up date filter saved.",
+        "deleteError": "Unable to delete sign-up date filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "signUpDateRequired": "Select a sign-up date.",
+        "signUpDateBetweenRequired": "Select both dates for the between range.",
+        "signUpDateDurationRequired": "Enter a number of days.",
+        "signUpDateDurationBetweenRequired": "Enter both day values for the between range."
       }
     },
     "19": {

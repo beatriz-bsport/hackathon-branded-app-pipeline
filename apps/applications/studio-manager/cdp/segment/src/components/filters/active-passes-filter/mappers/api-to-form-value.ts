@@ -7,7 +7,7 @@ import {
 import type { ActivePassesFilterFormValue } from "../types";
 
 /**
- * Maps a hydrated `ActivePassesFilter` row from `get_filters` into editor form state.
+ * Maps an `ActivePassesFilter` row from `get_filters` into editor form state.
  */
 export const mapActivePassesFilterToFormValue = (
   filter: ActivePassesFilter,

@@ -27,6 +27,10 @@ import { GenderFilterCardSkeleton } from "./gender-filter/components/gender-filt
 import { createDefaultGenderFilter } from "./gender-filter/default-value";
 import { mapGenderFilterToFormValue } from "./gender-filter/mappers/api-to-form-value";
 import type { GenderFilterFormValue } from "./gender-filter/types";
+import { MemberSignUpDateFilterCard } from "./member-sign-up-date-filter/components/member-sign-up-date-filter-card";
+import { createDefaultMemberSignUpDateFilter } from "./member-sign-up-date-filter/default-value";
+import { mapMemberDateJoinedFilterToFormValue } from "./member-sign-up-date-filter/mappers/api-to-form-value";
+import type { MemberSignUpDateFilterFormValue } from "./member-sign-up-date-filter/types";
 import { PassesFilterCardSkeleton } from "./passes-filter/components/passes-filter-card-skeleton";
 import { PassesFilterCardWithData } from "./passes-filter/components/passes-filter-card-with-data";
 import { createDefaultPassesFilter } from "./passes-filter/default-value";
@@ -57,6 +61,7 @@ const FILTER_TYPES = SMARTLIST_FILTERS_MANAGER_FILTER_TYPES;
 type FilterType = SmartlistFiltersManagerFilterType;
 type FilterValueByType = {
   gender: GenderFilterFormValue;
+  memberSignUpDate: MemberSignUpDateFilterFormValue;
   passes: PassesFilterFormValue;
   totalBookingNumber: TotalBookingNumberFilterFormValue;
   bookingMilestone: BookingMilestoneFilterFormValue;
@@ -72,8 +77,8 @@ type DraftFilter =
     }
   | {
       clientId: string;
-      filterType: "passes";
-      value: FilterValueByType["passes"];
+      filterType: "memberSignUpDate";
+      value: FilterValueByType["memberSignUpDate"];
     }
   | {
       clientId: string;
@@ -94,6 +99,11 @@ type DraftFilter =
       clientId: string;
       filterType: "activePasses";
       value: FilterValueByType["activePasses"];
+    }
+  | {
+      clientId: string;
+      filterType: "passes";
+      value: FilterValueByType["passes"];
     };
 
 type SavedFilter =
@@ -101,6 +111,11 @@ type SavedFilter =
       key: string;
       filterType: "gender";
       value: FilterValueByType["gender"];
+    }
+  | {
+      key: string;
+      filterType: "memberSignUpDate";
+      value: FilterValueByType["memberSignUpDate"];
     }
   | {
       key: string;
@@ -159,6 +174,8 @@ export const SmartlistFiltersManager = ({
     isError,
   } = useSmartlistFiltersQuery(smartlistId);
   const genderFilters = smartlistFilters?.genderFilters ?? [];
+  const memberDateJoinedFilters =
+    smartlistFilters?.memberDateJoinedFilters ?? [];
   const paymentPackFilters = smartlistFilters?.paymentPackFilters ?? [];
   const totalBookingFilters = smartlistFilters?.totalBookingFilters ?? [];
   const bookingMilestoneFilters =
@@ -192,6 +209,20 @@ export const SmartlistFiltersManager = ({
           onSaveSuccess={onSaveSuccess}
         />
       </QueryBoundary>
+    ),
+    memberSignUpDate: ({
+      key,
+      value,
+      onDeleteUnsavedFilter,
+      onSaveSuccess,
+    }) => (
+      <MemberSignUpDateFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
     ),
     passes: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <QueryBoundary key={key} loadingFallback={<PassesFilterCardSkeleton />}>
@@ -275,6 +306,11 @@ export const SmartlistFiltersManager = ({
       filterType: FILTER_TYPES.gender,
       value: createDefaultGenderFilter(smartlistNumericId),
     }),
+    memberSignUpDate: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.memberSignUpDate),
+      filterType: FILTER_TYPES.memberSignUpDate,
+      value: createDefaultMemberSignUpDateFilter(smartlistNumericId),
+    }),
     passes: () => ({
       clientId: createDraftClientId(FILTER_TYPES.passes),
       filterType: FILTER_TYPES.passes,
@@ -321,6 +357,12 @@ export const SmartlistFiltersManager = ({
         category: FILTER_SELECTOR_CATEGORIES.profiles,
       },
       {
+        id: FILTER_TYPES.memberSignUpDate,
+        label: t("filters.18.title"),
+        description: t("filterSelector.options.memberSignUpDate.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
+      {
         id: FILTER_TYPES.passes,
         label: t("filters.19.title"),
         description: t("filterSelector.options.passes.description"),
@@ -359,6 +401,11 @@ export const SmartlistFiltersManager = ({
       key: `saved-gender-${genderFilter.id}`,
       filterType: FILTER_TYPES.gender,
       value: mapGenderFilterToFormValue(genderFilter),
+    })),
+    ...memberDateJoinedFilters.map((memberDateJoinedFilter) => ({
+      key: `saved-member-sign-up-date-${memberDateJoinedFilter.id}`,
+      filterType: FILTER_TYPES.memberSignUpDate,
+      value: mapMemberDateJoinedFilterToFormValue(memberDateJoinedFilter),
     })),
     ...paymentPackFilters.map((paymentPackFilter) => ({
       key: `saved-passes-${paymentPackFilter.id}`,

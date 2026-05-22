@@ -24,7 +24,7 @@ type UseUpsertActivePassesFilterMutationParams = {
 
 /**
  * Mutation hook for creating or updating an active passes filter.
- * Invalidates the smartlist filters query on success so the filter list re-hydrates.
+ * Invalidates the smartlist filters query on success so the filter list reloads from the server.
  */
 export const useUpsertActivePassesFilterMutation = (
   smartlistId: string,

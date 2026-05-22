@@ -44,6 +44,7 @@ import {
   sendNowCommunicationScheduled as sendNowCommunicationScheduledAPI,
   retrieveCommunicationSMSProviderVerification as retrieveCommunicationSMSProviderVerificationAPI,
   fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI,
+  fetchConversations as fetchConversationsAPI,
 } from '#src/libs/communication-v2/api';
 import { deleteCustomMobilePopup as deleteCustomMobilePopupAPI } from '#src/libs/settings/api';
 import type {
@@ -64,6 +65,7 @@ import type {
   CommunicationScheduledFiltersForUniqueSmartlist,
   FetchFirstReachedRecipientsParams,
   MemberListDataByCommunicationKind,
+  ConversationListResponse,
 } from '#src/libs/communication-v2/types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from '#src/libs/communication-v2/constants';
 
@@ -994,3 +996,32 @@ export const retrieveCommunicationSMSProviderVerification = (
     }
   };
 };
+
+export const fetchConversationsActions = {
+  error: createAction<Error | null>('COMMUNICATION/CONVERSATION/LIST/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION/CONVERSATION/LIST/LOADING'),
+  success: createAction<ConversationListResponse>(
+    'COMMUNICATION/CONVERSATION/LIST/SUCCESS',
+  ),
+};
+
+export function fetchConversations(
+  companyId: number,
+  options?: OptionCallback<ConversationListResponse>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchConversationsActions.loading(true));
+      dispatch(fetchConversationsActions.error(null));
+
+      const response = await fetchConversationsAPI(companyId);
+      dispatch(fetchConversationsActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(fetchConversationsActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(fetchConversationsActions.loading(false));
+    }
+  };
+}

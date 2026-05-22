@@ -2,6 +2,7 @@ import type { DateTime } from 'luxon';
 import type { Immutable } from 'seamless-immutable';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import type {
+  DefaultPagination,
   ErrorAndLoading,
   GenericListReducerI,
   GenericPaginationResults,
@@ -79,6 +80,14 @@ export type CommunicationState = {
   } & ErrorAndLoading;
   firstReachedRecipients: {
     byKind: MemberListDataByCommunicationKind;
+  } & ErrorAndLoading;
+  conversations: {
+    allIds: string[];
+    byId: { [id: string]: Conversation };
+    count: number;
+    next: string | null;
+    next_page: number | null;
+    previous: string | null;
   } & ErrorAndLoading;
 };
 
@@ -394,4 +403,16 @@ export type AuhtorizedFiltersList = {
   hasMessagesOriginFilter: boolean;
   hasAutomatedMessagesFilter: boolean;
   hasCommunicationKindsFilter: boolean;
+};
+
+// ---------FRONTDESK AGENT CHAT---------
+
+export type ConversationListResponse = DefaultPagination<Conversation>;
+
+export type Conversation = {
+  uuid: string;
+  last_message_preview: string;
+  ai_enabled: boolean;
+  date_created: string; // ISO string
+  date_updated: string; // ISO string
 };

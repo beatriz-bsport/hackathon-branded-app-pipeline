@@ -6,6 +6,11 @@ import { useSmartlistFiltersQuery } from "#src/api/use-smartlist-filters-query";
 import { QueryBoundary } from "#src/components/QueryBoundary/QueryBoundary";
 import { useTranslation } from "#src/utils/i18n";
 
+import { BookingMilestoneFilterCard } from "./booking-milestone/components/booking-milestone-filter-card";
+import { BookingMilestoneFilterCardSkeleton } from "./booking-milestone/components/booking-milestone-filter-card-skeleton";
+import { createDefaultBookingMilestoneFilter } from "./booking-milestone/default-value";
+import { mapBookingMilestoneFilterToFormValue } from "./booking-milestone/mappers/api-to-form-value";
+import type { BookingMilestoneFilterFormValue } from "./booking-milestone/types";
 import { FilterManager } from "./filter-manager";
 import {
   type FilterSelectorOption,
@@ -43,6 +48,7 @@ type FilterType = SmartlistFiltersManagerFilterType;
 type FilterValueByType = {
   passes: PassesFilterFormValue;
   totalBookingNumber: TotalBookingNumberFilterFormValue;
+  bookingMilestone: BookingMilestoneFilterFormValue;
   tags: TagFilterFormValue;
 };
 
@@ -56,6 +62,11 @@ type DraftFilter =
       clientId: string;
       filterType: "totalBookingNumber";
       value: FilterValueByType["totalBookingNumber"];
+    }
+  | {
+      clientId: string;
+      filterType: "bookingMilestone";
+      value: FilterValueByType["bookingMilestone"];
     }
   | {
       clientId: string;
@@ -73,6 +84,11 @@ type SavedFilter =
       key: string;
       filterType: "totalBookingNumber";
       value: FilterValueByType["totalBookingNumber"];
+    }
+  | {
+      key: string;
+      filterType: "bookingMilestone";
+      value: FilterValueByType["bookingMilestone"];
     }
   | {
       key: string;
@@ -112,6 +128,8 @@ export const SmartlistFiltersManager = ({
   } = useSmartlistFiltersQuery(smartlistId);
   const paymentPackFilters = smartlistFilters?.paymentPackFilters ?? [];
   const totalBookingFilters = smartlistFilters?.totalBookingFilters ?? [];
+  const bookingMilestoneFilters =
+    smartlistFilters?.bookingMilestoneFilters ?? [];
   const tagFilters = smartlistFilters?.tagFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
@@ -163,6 +181,23 @@ export const SmartlistFiltersManager = ({
       ) : (
         <TotalBookingFilterCardSkeleton key={key} />
       ),
+    bookingMilestone: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) =>
+      typeof companyId === "number" && companyId > 0 ? (
+        <QueryBoundary
+          key={key}
+          loadingFallback={<BookingMilestoneFilterCardSkeleton />}
+        >
+          <BookingMilestoneFilterCard
+            smartlistId={smartlistId}
+            companyId={companyId}
+            filterValue={value}
+            onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+            onSaveSuccess={onSaveSuccess}
+          />
+        </QueryBoundary>
+      ) : (
+        <BookingMilestoneFilterCardSkeleton key={key} />
+      ),
     tags: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <QueryBoundary key={key} loadingFallback={<TagFilterCardSkeleton />}>
         <TagFilterCard
@@ -187,6 +222,11 @@ export const SmartlistFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.totalBookingNumber),
       filterType: FILTER_TYPES.totalBookingNumber,
       value: createDefaultTotalBookingNumberFilter(smartlistNumericId),
+    }),
+    bookingMilestone: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.bookingMilestone),
+      filterType: FILTER_TYPES.bookingMilestone,
+      value: createDefaultBookingMilestoneFilter(smartlistNumericId),
     }),
     tags: () => ({
       clientId: createDraftClientId(FILTER_TYPES.tags),
@@ -220,6 +260,12 @@ export const SmartlistFiltersManager = ({
         category: FILTER_SELECTOR_CATEGORIES.bookings,
       },
       {
+        id: FILTER_TYPES.bookingMilestone,
+        label: t("filters.21.title"),
+        description: t("filterSelector.options.bookingMilestone.description"),
+        category: FILTER_SELECTOR_CATEGORIES.bookings,
+      },
+      {
         id: FILTER_TYPES.tags,
         label: t("filters.11.title"),
         description: t("filterSelector.options.tags.description"),
@@ -239,6 +285,11 @@ export const SmartlistFiltersManager = ({
       key: `saved-total-booking-number-${totalBookingFilter.id}`,
       filterType: FILTER_TYPES.totalBookingNumber,
       value: mapTotalBookingFilterToFormValue(totalBookingFilter),
+    })),
+    ...bookingMilestoneFilters.map((bookingMilestoneFilter) => ({
+      key: `saved-booking-milestone-${bookingMilestoneFilter.id}`,
+      filterType: FILTER_TYPES.bookingMilestone,
+      value: mapBookingMilestoneFilterToFormValue(bookingMilestoneFilter),
     })),
     ...tagFilters.map((tagFilter) => ({
       key: `saved-tags-${tagFilter.id}`,

@@ -6,7 +6,7 @@ import { toast } from "@bsport/kaizen-primitive-core";
 import { fetch } from "#src/utils/fetch";
 import { type TFunction, useTranslation } from "#src/utils/i18n";
 
-import type { MutableNamespace } from "../types";
+import type { FullyMutableNamespace } from "../types";
 
 const deleteAccount = deletePartnershipAccountAPI.bind(null, fetch);
 
@@ -20,7 +20,7 @@ const TOAST_KEYS = {
     error: "wellhub.toast.delete.error",
   },
 } as const satisfies Record<
-  MutableNamespace,
+  FullyMutableNamespace,
   Record<string, Parameters<TFunction>[0]>
 >;
 
@@ -28,7 +28,7 @@ type Variables = { accountId: string };
 
 export const useDeleteAccount = (
   partnershipId: number,
-  namespace: MutableNamespace,
+  namespace: FullyMutableNamespace,
 ) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("common");

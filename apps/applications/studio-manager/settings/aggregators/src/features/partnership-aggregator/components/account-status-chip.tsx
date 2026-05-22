@@ -32,6 +32,11 @@ const STATUS_LABEL_KEYS = {
     pending: "usc.table.status.pending",
     deactivated: "usc.table.status.deactivated",
   },
+  wellpass: {
+    active: "wellpass.table.status.active",
+    pending: "wellpass.table.status.pending",
+    deactivated: "wellpass.table.status.deactivated",
+  },
 } as const satisfies Record<
   AggregatorNamespace,
   Record<PartnershipAccountStatus, Parameters<TFunction>[0]>

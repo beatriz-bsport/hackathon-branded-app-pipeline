@@ -264,5 +264,70 @@
         "pending": "Pending"
       }
     }
+  },
+  "wellpass": {
+    "form": {
+      "actions": {
+        "removeEstablishment": "Remove {{title}}"
+      },
+      "errors": {
+        "establishmentRequired": "At least one establishment is required"
+      },
+      "fields": {
+        "establishments": {
+          "label": "Establishments",
+          "placeholder": "Link your establishment(s)"
+        }
+      }
+    },
+    "modal": {
+      "actions": {
+        "cancel": "Cancel",
+        "save": "Save"
+      },
+      "title": {
+        "edit": "Edit Wellpass connection {{externalId}}"
+      }
+    },
+    "confirm": {
+      "editWarning": {
+        "alert": "Upcoming sessions linked to those establishments will be deleted on Wellpass, and any Wellpass bookings will be lost",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "description": "You are about to unlink one or several establishments from Wellpass",
+        "title": "Edit Connection"
+      }
+    },
+    "toast": {
+      "update": {
+        "error": "Failed to update Wellpass connection. Please try again.",
+        "success": "Wellpass connection updated successfully."
+      }
+    },
+    "section": {
+      "subtitle": "Link your bsport account to Wellpass to sync sessions."
+    },
+    "table": {
+      "actions": {
+        "copyId": "Copy ID",
+        "deactivatedHint": "Editing is not available for deactivated connections",
+        "edit": "Edit",
+        "label": "More actions"
+      },
+      "columns": {
+        "establishments": "Establishments",
+        "partnerId": "Partner ID",
+        "status": "Status"
+      },
+      "empty": {
+        "subtitle": "No Wellpass accounts are configured yet.",
+        "title": "No accounts yet"
+      },
+      "status": {
+        "active": "Active",
+        "deactivated": "Deactivated",
+        "pending": "Pending"
+      }
+    }
   }
 }

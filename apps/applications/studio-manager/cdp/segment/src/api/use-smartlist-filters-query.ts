@@ -4,13 +4,16 @@ import {
   PAYMENT_PACK_FILTER_IDENTIFIER,
   type PaymentPackFilter,
   type SmartlistGetFiltersResponse,
+  TAG_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
+  type TagFilter,
   type TotalBookingFilter,
   smartlistFiltersQueryOptions,
 } from "@bsport/api-cdp/smartlist";
 
 import {
   isPaymentPackFilter,
+  isTagFilter,
   isTotalBookingFilter,
 } from "#src/components/filters/shared/types-guards";
 import { fetch } from "#src/utils/fetch";
@@ -18,6 +21,7 @@ import { fetch } from "#src/utils/fetch";
 type SmartlistFiltersQueryData = {
   paymentPackFilters: PaymentPackFilter[];
   totalBookingFilters: TotalBookingFilter[];
+  tagFilters: TagFilter[];
 };
 
 const mapPaymentPackFilters = (
@@ -46,6 +50,17 @@ const mapTotalBookingFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapTagFilters = (payload?: SmartlistGetFiltersResponse): TagFilter[] => {
+  const tagFiltersMap = payload?.[TAG_FILTER_IDENTIFIER];
+  if (!tagFiltersMap) {
+    return [];
+  }
+
+  return Object.values(tagFiltersMap)
+    .filter(isTagFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 /**
  * Unified smartlist filters hydration query.
  * Parses all currently supported filter families from one `get_filters` payload.
@@ -56,5 +71,6 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
     select: (data): SmartlistFiltersQueryData => ({
       paymentPackFilters: mapPaymentPackFilters(data),
       totalBookingFilters: mapTotalBookingFilters(data),
+      tagFilters: mapTagFilters(data),
     }),
   });

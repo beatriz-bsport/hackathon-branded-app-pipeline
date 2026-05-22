@@ -42,7 +42,7 @@ type Props = {
   loading: boolean;
   isActionDisabled?: (account: PartnershipAccount) => boolean;
   onActivateAccount?: (partnershipAccount: PartnershipAccount) => void;
-  onDeleteAccount: (partnershipAccount: PartnershipAccount) => void;
+  onDeleteAccount?: (partnershipAccount: PartnershipAccount) => void;
   onEditAccount: (partnershipAccount: PartnershipAccount) => void;
 };
 
@@ -81,7 +81,7 @@ const PartnershipAccountTable: React.FC<Props> = ({
       (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         event.stopPropagation();
         event.preventDefault();
-        onDeleteAccount(partnershipAccount);
+        onDeleteAccount?.(partnershipAccount);
       },
     [onDeleteAccount],
   );
@@ -199,23 +199,25 @@ const PartnershipAccountTable: React.FC<Props> = ({
                         }
                       />
                     </IconButton>
-                    <IconButton
-                      disabled={isActionDisabled?.(partnershipAccount)}
-                      onClick={onDeleteAccountCallback(partnershipAccount)}
-                    >
-                      <DeleteIcon
-                        className={
-                          isActionDisabled?.(partnershipAccount)
-                            ? undefined
-                            : classes.greyIcon
-                        }
-                        color={
-                          isActionDisabled?.(partnershipAccount)
-                            ? 'disabled'
-                            : 'inherit'
-                        }
-                      />
-                    </IconButton>
+                    {onDeleteAccount && (
+                      <IconButton
+                        disabled={isActionDisabled?.(partnershipAccount)}
+                        onClick={onDeleteAccountCallback(partnershipAccount)}
+                      >
+                        <DeleteIcon
+                          className={
+                            isActionDisabled?.(partnershipAccount)
+                              ? undefined
+                              : classes.greyIcon
+                          }
+                          color={
+                            isActionDisabled?.(partnershipAccount)
+                              ? 'disabled'
+                              : 'inherit'
+                          }
+                        />
+                      </IconButton>
+                    )}
                   </>
                 ) : (
                   <Tooltip

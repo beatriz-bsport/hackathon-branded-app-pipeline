@@ -6,7 +6,7 @@ import { effectiveExcludedTagIds, effectiveIncludedTagIds } from "./tag-ids";
 /**
  * Builds the `POST /tag_filter/` body from the current form state.
  */
-export const toCreatePayload = (
+export const createTagFilterPayload = (
   value: TagFilterFormValue,
 ): CreateTagFilterPayload => ({
   smartlist: value.smartlist,

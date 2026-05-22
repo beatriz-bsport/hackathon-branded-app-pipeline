@@ -90,6 +90,7 @@ export const ItemsSearchFilter = ({
   selectedListItem: SelectedListItemComponent,
   searchIncludesDescription = false,
   groupFilteredOptions,
+  collapseSelectionThreshold = 3,
 }: ItemsSearchFilterProps) => {
   const { t } = useTranslation("filters");
   const isControlled = value !== undefined;
@@ -97,6 +98,7 @@ export const ItemsSearchFilter = ({
     value ?? [],
   );
   const [searchValue, setSearchValue] = useState("");
+  const [isExpandedSelectedList, setIsExpandedSelectedList] = useState(false);
   const searchFieldRef = useRef<HTMLDivElement | null>(null);
   const selectionOrderRef = useRef<number[]>([]);
 
@@ -173,6 +175,37 @@ export const ItemsSearchFilter = ({
     .filter((item) => item !== null);
   const SelectedListItemRenderer =
     SelectedListItemComponent ?? SelectedOptionRow;
+
+  const collapseCap =
+    collapseSelectionThreshold === Number.POSITIVE_INFINITY
+      ? Number.POSITIVE_INFINITY
+      : Math.max(0, Math.floor(collapseSelectionThreshold));
+
+  useEffect(() => {
+    if (areAllOptionsSelected) {
+      return;
+    }
+
+    const totalSelectedRows = selectedListItems.length;
+
+    if (collapseCap === Number.POSITIVE_INFINITY) {
+      return;
+    }
+
+    if (totalSelectedRows <= collapseCap) {
+      setIsExpandedSelectedList(false);
+    }
+  }, [areAllOptionsSelected, collapseCap, selectedListItems.length]);
+
+  const isSelectionListCollapsible =
+    !areAllOptionsSelected &&
+    collapseCap !== Number.POSITIVE_INFINITY &&
+    selectedListItems.length > collapseCap;
+
+  const displayedSelectedListItems =
+    !isExpandedSelectedList && isSelectionListCollapsible
+      ? selectedListItems.slice(0, collapseCap)
+      : selectedListItems;
 
   const toMenuOption = (option: ItemsSearchFilterOption): MenuOption => {
     const formatted: ItemsSearchFilterMenuOptionView | undefined =
@@ -361,28 +394,60 @@ export const ItemsSearchFilter = ({
 
         <Divider />
 
-        <div>
-          <List
-            key={selectedListItems.length.toString()}
-            id={`${id}-selected-list`}
-            items={selectedListItems}
-            ListItem={(itemProps) => (
-              <SelectedListItemRenderer
-                {...itemProps}
-                onRemove={toggleSelection}
-                selectedOptionFormatter={selectedOptionFormatter}
-                removeLabel={removeLabel}
+        {areAllOptionsSelected ? (
+          <div className="max-h-[200px] px-sm py-sm">
+            <Body size="sm" weight="strong" color="default">
+              {t("itemsSearch.state.allItemsSelected", {
+                count: options.length,
+              })}
+            </Body>
+          </div>
+        ) : (
+          <>
+            <div>
+              <List
+                id={`${id}-selected-list`}
+                items={displayedSelectedListItems}
+                ListItem={(itemProps) => (
+                  <SelectedListItemRenderer
+                    {...itemProps}
+                    onRemove={toggleSelection}
+                    selectedOptionFormatter={selectedOptionFormatter}
+                    removeLabel={removeLabel}
+                  />
+                )}
+                emptyStateProps={{
+                  isEmpty: displayedSelectedListItems.length === 0,
+                  emptyConfig: {
+                    title: emptySelectionMessage,
+                    className: "min-h-[200px]",
+                  },
+                }}
               />
-            )}
-            emptyStateProps={{
-              isEmpty: selectedListItems.length === 0,
-              emptyConfig: {
-                title: emptySelectionMessage,
-                className: "min-h-[200px]",
-              },
-            }}
-          />
-        </div>
+            </div>
+
+            {isSelectionListCollapsible ? (
+              <div className="flex justify-start border-t-stroke-divider border-t-stroke-thin px-sm py-xs">
+                <Button
+                  intent="flat"
+                  color="main"
+                  size="sm"
+                  label={
+                    isExpandedSelectedList
+                      ? t("itemsSearch.actions.showLessSelected")
+                      : t("itemsSearch.actions.showAllSelected", {
+                          count: selectedListItems.length,
+                        })
+                  }
+                  aria-expanded={isExpandedSelectedList}
+                  onClick={() => {
+                    setIsExpandedSelectedList((previous) => !previous);
+                  }}
+                />
+              </div>
+            ) : null}
+          </>
+        )}
       </Card>
     </div>
   );

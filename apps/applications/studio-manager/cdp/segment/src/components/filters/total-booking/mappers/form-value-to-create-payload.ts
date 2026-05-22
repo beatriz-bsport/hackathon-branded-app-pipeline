@@ -5,7 +5,7 @@ import type {
   TotalBookingNumberFilterFormValue,
 } from "../types";
 
-export const toCreatePayload = (
+export const createTotalBookingPayload = (
   value: TotalBookingNumberFilterFormValue,
 ): TotalBookingFilterCreatePayload => {
   const payload: TotalBookingFilterCreatePayload = {

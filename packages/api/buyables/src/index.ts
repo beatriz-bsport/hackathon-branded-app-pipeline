@@ -1,3 +1,4 @@
+export * from "./appointment-pass";
 export * from "./collection";
 export * from "./consumer-payment-pack";
 export * from "./coupon";

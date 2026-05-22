@@ -6,6 +6,11 @@ import { useSmartlistFiltersQuery } from "#src/api/use-smartlist-filters-query";
 import { QueryBoundary } from "#src/components/QueryBoundary/QueryBoundary";
 import { useTranslation } from "#src/utils/i18n";
 
+import { ActivePassesFilterCard } from "./active-passes-filter/components/active-passes-filter-card";
+import { ActivePassesFilterCardSkeleton } from "./active-passes-filter/components/active-passes-filter-card-skeleton";
+import { createDefaultActivePassesFilter } from "./active-passes-filter/default-value";
+import { mapActivePassesFilterToFormValue } from "./active-passes-filter/mappers/api-to-form-value";
+import type { ActivePassesFilterFormValue } from "./active-passes-filter/types";
 import { BookingMilestoneFilterCard } from "./booking-milestone/components/booking-milestone-filter-card";
 import { BookingMilestoneFilterCardSkeleton } from "./booking-milestone/components/booking-milestone-filter-card-skeleton";
 import { createDefaultBookingMilestoneFilter } from "./booking-milestone/default-value";
@@ -50,6 +55,7 @@ type FilterValueByType = {
   totalBookingNumber: TotalBookingNumberFilterFormValue;
   bookingMilestone: BookingMilestoneFilterFormValue;
   tags: TagFilterFormValue;
+  activePasses: ActivePassesFilterFormValue;
 };
 
 type DraftFilter =
@@ -72,6 +78,11 @@ type DraftFilter =
       clientId: string;
       filterType: "tags";
       value: FilterValueByType["tags"];
+    }
+  | {
+      clientId: string;
+      filterType: "activePasses";
+      value: FilterValueByType["activePasses"];
     };
 
 type SavedFilter =
@@ -94,6 +105,11 @@ type SavedFilter =
       key: string;
       filterType: "tags";
       value: FilterValueByType["tags"];
+    }
+  | {
+      key: string;
+      filterType: "activePasses";
+      value: FilterValueByType["activePasses"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -131,6 +147,7 @@ export const SmartlistFiltersManager = ({
   const bookingMilestoneFilters =
     smartlistFilters?.bookingMilestoneFilters ?? [];
   const tagFilters = smartlistFilters?.tagFilters ?? [];
+  const activePassesFilters = smartlistFilters?.activePassesFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -208,6 +225,19 @@ export const SmartlistFiltersManager = ({
         />
       </QueryBoundary>
     ),
+    activePasses: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <QueryBoundary
+        key={key}
+        loadingFallback={<ActivePassesFilterCardSkeleton />}
+      >
+        <ActivePassesFilterCard
+          smartlistId={smartlistId}
+          filterValue={value}
+          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+          onSaveSuccess={onSaveSuccess}
+        />
+      </QueryBoundary>
+    ),
   };
 
   const createDraftFilterByType: {
@@ -232,6 +262,11 @@ export const SmartlistFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.tags),
       filterType: FILTER_TYPES.tags,
       value: createDefaultTagFilterFormValue(smartlistNumericId),
+    }),
+    activePasses: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.activePasses),
+      filterType: FILTER_TYPES.activePasses,
+      value: createDefaultActivePassesFilter(smartlistNumericId),
     }),
   };
 
@@ -271,6 +306,12 @@ export const SmartlistFiltersManager = ({
         description: t("filterSelector.options.tags.description"),
         category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
+      {
+        id: FILTER_TYPES.activePasses,
+        label: t("filters.27.title"),
+        description: t("filterSelector.options.activePasses.description"),
+        category: FILTER_SELECTOR_CATEGORIES.passes,
+      },
     ],
     [t],
   );
@@ -295,6 +336,11 @@ export const SmartlistFiltersManager = ({
       key: `saved-tags-${tagFilter.id}`,
       filterType: FILTER_TYPES.tags,
       value: mapTagFilterToFormValue(tagFilter),
+    })),
+    ...activePassesFilters.map((activePassesFilter) => ({
+      key: `saved-active-passes-${activePassesFilter.id}`,
+      filterType: FILTER_TYPES.activePasses,
+      value: mapActivePassesFilterToFormValue(activePassesFilter),
     })),
   ];
 

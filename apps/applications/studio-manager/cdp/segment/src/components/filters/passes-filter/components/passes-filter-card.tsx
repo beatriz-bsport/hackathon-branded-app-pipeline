@@ -8,7 +8,7 @@ import { useUpsertPaymentPackFilterMutation } from "#src/api/use-upsert-payment-
 import { useTranslation } from "#src/utils/i18n";
 
 import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
-import { toCreatePayload } from "../mappers/form-value-to-create-payload";
+import { createPassesPayload } from "../mappers/form-value-to-create-payload";
 import { passesFilterSchema } from "../schema";
 import type { PassesFilterCardProps } from "../types";
 import { PassOwnershipField } from "./pass-ownership-field";
@@ -90,7 +90,7 @@ export const PassesFilterCard = ({
     (value) => {
       if (!value.id) {
         upsertPaymentPackFilterMutate({
-          createPayload: toCreatePayload(value),
+          createPayload: createPassesPayload(value),
         });
         return;
       }

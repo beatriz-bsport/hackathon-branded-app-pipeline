@@ -8,7 +8,9 @@ import {
 
 import { SMARTLIST_API_V1 } from "./constants";
 import type {
+  ActivePassesFilter,
   BookingMilestoneFilter,
+  CreateActivePassesFilterPayload,
   CreateBookingMilestoneFilterPayload,
   CreatePaymentPackFilterPayload,
   CreateTagFilterPayload,
@@ -20,6 +22,7 @@ import type {
   TagFilter,
   TagRule,
   TotalBookingFilter,
+  UpdateActivePassesFilterPayload,
   UpdateBookingMilestoneFilterPayload,
   UpdatePaymentPackFilterPayload,
   UpdateTagFilterPayload,
@@ -308,6 +311,47 @@ export const deleteBookingMilestoneFilter = async (
   filterId: number,
 ): Promise<void> => {
   await fetch(`${BOOKING_MILESTONE_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
+// Active passes filters (identifier 27)
+
+const ACTIVE_PASSES_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/active_passes`;
+
+export const createActivePassesFilter = async (
+  fetch: Fetch<ActivePassesFilter>,
+  payload: CreateActivePassesFilterPayload,
+): Promise<ActivePassesFilter> => {
+  const { data } = await fetch(`${ACTIVE_PASSES_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchActivePassesFilter = async (
+  fetch: Fetch<ActivePassesFilter>,
+  filterId: number,
+  payload: UpdateActivePassesFilterPayload,
+): Promise<ActivePassesFilter> => {
+  const { data } = await fetch(
+    `${ACTIVE_PASSES_FILTER_ENDPOINT}/${filterId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const deleteActivePassesFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${ACTIVE_PASSES_FILTER_ENDPOINT}/${filterId}/`, {
     method: "DELETE",
   });
 };

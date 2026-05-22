@@ -180,7 +180,7 @@ const OfferPartnershipSettings: React.FC<Props> = ({
         partnership: account.partnership,
         partnership_identifier: account.partnership_identifier,
         status: '',
-        allowed_on_partner: !isEditOffer, // Allowed by default on create only
+        allowed_on_partner: true,
         spot_limit: null,
       };
       return {

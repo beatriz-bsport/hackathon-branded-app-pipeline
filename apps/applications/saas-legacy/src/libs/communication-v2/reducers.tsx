@@ -29,6 +29,7 @@ import {
   fetchCommunicationScheduledListForSmartlistActions,
   retrieveCommunicationSMSProviderVerificationActions,
   firstReachedRecipientsAction,
+  fetchConversationsActions,
 } from '#src/libs/communication-v2/actions';
 
 import type {
@@ -40,6 +41,8 @@ import type {
   UnreadAnswersCount,
   CommunicationScheduled,
   MemberListDataByCommunicationKind,
+  ConversationListResponse,
+  Conversation,
 } from '#src/libs/communication-v2/types';
 import type { PaginatedResponse } from '#src/state/types';
 
@@ -168,6 +171,16 @@ const initialState: Immutable.Immutable<CommunicationState> =
         phone: [],
         notification: [],
       },
+      loading: false,
+      error: null,
+    },
+    conversations: {
+      allIds: [],
+      byId: {},
+      count: 0,
+      next: null,
+      next_page: null,
+      previous: null,
       loading: false,
       error: null,
     },
@@ -875,6 +888,45 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
         ['communicationSMSProviderVerification', 'isVerified'],
         payload,
       );
+    },
+    [fetchConversationsActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['conversations', 'loading'], payload);
+    },
+    [fetchConversationsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['conversations', 'error'], payload);
+    },
+    [fetchConversationsActions.success.toString()]: (
+      state,
+      { payload }: { payload: ConversationListResponse },
+    ) => {
+      return state
+        .merge(
+          {
+            conversations: {
+              byId: payload.results.reduce<{
+                [id: string]: Conversation;
+              }>((acc, currentConversation) => {
+                acc[currentConversation.uuid] = currentConversation;
+                return acc;
+              }, {}),
+              allIds:
+                payload.results?.map(
+                  (conversation: Conversation) => conversation.uuid,
+                ) ?? [],
+            },
+          },
+          { deep: true },
+        )
+        .setIn(['conversations', 'count'], payload.count)
+        .setIn(['conversations', 'next'], payload.next)
+        .setIn(['conversations', 'next_page'], payload.next_page)
+        .setIn(['conversations', 'previous'], payload.previous);
     },
   },
   initialState,

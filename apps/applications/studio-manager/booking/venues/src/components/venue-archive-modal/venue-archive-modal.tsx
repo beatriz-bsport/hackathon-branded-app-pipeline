@@ -10,14 +10,14 @@ import { Alert, Body, Loader, Modal } from "@bsport/kaizen-primitive-core";
 
 import { useArchiveVenue } from "#src/hooks/api/use-archive-venue";
 import { fetch } from "#src/utils/fetch";
-import { type TFunction, useTranslation } from "#src/utils/i18n";
+import { type NamespacedTFunction, useTranslation } from "#src/utils/i18n";
 
 type ModalMessage = { key: string; label: string };
 
 // Blocking reasons: venue cannot be archived until resolved by the user
 const getErrorMessages = (
   data: CheckDeleteEstablishmentData,
-  t: TFunction,
+  t: NamespacedTFunction<"venues-list">,
 ): ModalMessage[] => {
   const messages: ModalMessage[] = [];
 
@@ -79,7 +79,7 @@ const getErrorMessages = (
 // Non-blocking side effects: archiving will proceed but these items will be impacted
 const getWarningMessages = (
   data: CheckDeleteEstablishmentData,
-  t: TFunction,
+  t: NamespacedTFunction<"venues-list">,
 ): ModalMessage[] => {
   const messages: ModalMessage[] = [];
 
@@ -189,7 +189,10 @@ const getWarningMessages = (
   return messages;
 };
 
-type InfoListProps = { t: TFunction; data: CheckDeleteEstablishmentData };
+type InfoListProps = {
+  t: NamespacedTFunction<"venues-list">;
+  data: CheckDeleteEstablishmentData;
+};
 
 const InfoList: FC<InfoListProps> = ({ t, data }) => (
   <ul className="flex flex-col gap-xs list-disc pl-md">

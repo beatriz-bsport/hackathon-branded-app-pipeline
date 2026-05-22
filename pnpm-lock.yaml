@@ -1351,6 +1351,9 @@ importers:
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
+      '@bsport/form':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/form
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../../packages/utils/i18n
@@ -1375,6 +1378,9 @@ importers:
       react-router:
         specifier: ^7.2.0
         version: 7.9.5(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      zod:
+        specifier: ^3.25.64
+        version: 3.25.67
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -8990,6 +8996,7 @@ packages:
   '@snyk/github-codeowners@1.1.0':
     resolution: {integrity: sha512-lGFf08pbkEac0NYgVf4hdANpAgApRjNByLXB+WBip3qj1iendOIyAwP2GKkKbQMNVy2r1xxDf0ssfWscoiC+Vw==}
     engines: {node: '>=8.10'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     hasBin: true
 
   '@standard-schema/spec@1.0.0':

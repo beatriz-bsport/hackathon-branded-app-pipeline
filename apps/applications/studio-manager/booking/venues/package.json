@@ -47,6 +47,7 @@
   "peerDependencies": {
     "@bsport/api-book": "workspace:*",
     "@bsport/fetch": "workspace:*",
+    "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
@@ -54,7 +55,8 @@
     "luxon": "^3.4.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router": "^7.2.0"
+    "react-router": "^7.2.0",
+    "zod": "^3.25.64"
   },
   "federation": {
     "devPort": 4204,

@@ -1,40 +1,30 @@
 import { type FC, useMemo } from "react";
 
-import { type Establishment } from "@bsport/api-book";
-import { List, useEmptyState } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
+import { type Establishment, type EstablishmentGroup } from "@bsport/api-book";
+import { useEmptyState } from "@bsport/kaizen-primitive-core";
 
 import { CardLoader } from "#src/components/query-boundary/fallbacks";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
-import { useEstablishmentGroupsQuery } from "#src/hooks/api/use-establishment-groups-query";
 import { useVenuesListQuery } from "#src/hooks/api/use-venues-list-query";
-import {
-  buildVenueGroupMap,
-  groupVenuesByAddress,
-} from "#src/utils/group-venues";
+import { groupVenuesByAddress } from "#src/utils/group-venues";
 import { useTranslation } from "#src/utils/i18n";
 
-import { buildVenueListItem } from "./venue-row";
+import { VenueSection } from "./venue-section";
 
 type VenuesListProps = {
   onArchive: (venue: Establishment) => void;
+  onEditLocation: (location: EstablishmentGroup) => void;
 };
 
-const VenuesListInner: FC<VenuesListProps> = ({ onArchive }) => {
+const VenuesListInner: FC<VenuesListProps> = ({
+  onArchive,
+  onEditLocation,
+}) => {
   const { t } = useTranslation("venues-list");
   const { data: venuesData } = useVenuesListQuery();
-  const { data: groupsData } = useEstablishmentGroupsQuery();
-
-  const multiLoc =
-    !!dataAccessLayer.useCompanyTheme()?.enable_multi_localization;
 
   const venues = venuesData.results;
-  const groups = groupsData.results;
-
   const venueGroups = useMemo(() => groupVenuesByAddress(venues), [venues]);
-  const groupMap = useMemo(() => buildVenueGroupMap(groups), [groups]);
-
-  const addToGroupLabel = t("groupTag.add");
 
   const emptyConfig = useMemo(
     () => ({
@@ -57,38 +47,21 @@ const VenuesListInner: FC<VenuesListProps> = ({ onArchive }) => {
 
   return (
     <>
-      {venueGroups.map(({ address, venues: addressVenues }) => {
-        const listId = `venues-section-${address}`;
-        return (
-          <List
-            key={listId}
-            id={listId}
-            header={{
-              id: `${listId}-header`,
-              title: t("sectionCount", {
-                address,
-                count: addressVenues.length,
-              }),
-            }}
-            collapsibleProps={{ initiallyOpen: true }}
-            items={addressVenues.map((venue) =>
-              buildVenueListItem(venue, {
-                groupName: groupMap.get(venue.id)?.name,
-                multiLoc,
-                addToGroupLabel,
-                t,
-                onArchive,
-              }),
-            )}
-          />
-        );
-      })}
+      {venueGroups.map(({ address, venues: addressVenues }) => (
+        <VenueSection
+          key={`venues-section-${address}`}
+          address={address}
+          venues={addressVenues}
+          onArchive={onArchive}
+          onEditLocation={onEditLocation}
+        />
+      ))}
     </>
   );
 };
 
-export const VenuesList: FC<VenuesListProps> = ({ onArchive }) => (
+export const VenuesList: FC<VenuesListProps> = (props) => (
   <QueryBoundary loadingFallback={<CardLoader />}>
-    <VenuesListInner onArchive={onArchive} />
+    <VenuesListInner {...props} />
   </QueryBoundary>
 );

@@ -1,23 +1,28 @@
-import { type FC, useState } from "react";
+import { type FC } from "react";
 import { useNavigate } from "react-router";
 
-import type { Establishment } from "@bsport/api-book";
 import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { LocationFormModal } from "#src/components/location-form-modal/location-form-modal";
 import { VenueArchiveModal } from "#src/components/venue-archive-modal/venue-archive-modal";
 import { VenuesList } from "#src/components/venues-list/venues-list";
+import { useVenuesModals } from "#src/hooks/use-venues-modals";
 import { ABSOLUTE_ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 const ListPage: FC = () => {
   const { t } = useTranslation("venues-list");
   const navigate = useNavigate();
-  const [venueToArchive, setVenueToArchive] = useState<Establishment | null>(
-    null,
-  );
+  const {
+    modalState,
+    openArchiveModal,
+    openLocationCreateModal,
+    openLocationEditModal,
+    closeModal,
+  } = useVenuesModals();
 
-  const multiLoc =
+  const multiLocalization =
     !!dataAccessLayer.useCompanyTheme()?.enable_multi_localization;
 
   const { endGroupActions } = ListLayout.useAdaptiveActions({
@@ -33,7 +38,7 @@ const ListPage: FC = () => {
           onClick={() => navigate(ABSOLUTE_ROUTES.ARCHIVED)}
         />
       </Tooltip>,
-      ...(multiLoc
+      ...(multiLocalization
         ? [
             <Button
               key="create-location"
@@ -43,7 +48,7 @@ const ListPage: FC = () => {
               size="md"
               label={t("actions.createLocation")}
               iconLeft="plus"
-              onClick={() => {}}
+              onClick={() => openLocationCreateModal()}
             />,
           ]
         : []),
@@ -67,13 +72,28 @@ const ListPage: FC = () => {
           }
         />
         <ListLayout.Content>
-          <VenuesList onArchive={setVenueToArchive} />
+          <VenuesList
+            onArchive={openArchiveModal}
+            onEditLocation={openLocationEditModal}
+          />
         </ListLayout.Content>
       </ListLayout>
-      {venueToArchive && (
-        <VenueArchiveModal
-          venue={venueToArchive}
-          onClose={() => setVenueToArchive(null)}
+
+      {modalState?.type === "archive" && (
+        <VenueArchiveModal venue={modalState.venue} onClose={closeModal} />
+      )}
+
+      {modalState?.type === "location-create" && (
+        <LocationFormModal
+          preselectedVenueId={modalState.preselectedVenue?.id}
+          onClose={closeModal}
+        />
+      )}
+
+      {modalState?.type === "location-edit" && (
+        <LocationFormModal
+          location={modalState.location}
+          onClose={closeModal}
         />
       )}
     </>

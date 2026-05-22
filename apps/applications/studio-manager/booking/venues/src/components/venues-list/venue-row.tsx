@@ -1,28 +1,89 @@
-import type { Establishment } from "@bsport/api-book";
-import { Button, type ListItemProps } from "@bsport/kaizen-primitive-core";
+import type { Establishment, EstablishmentGroup } from "@bsport/api-book";
+import {
+  Button,
+  DropdownMenu,
+  type ListItemProps,
+} from "@bsport/kaizen-primitive-core";
 
-import type { TFunction } from "#src/utils/i18n";
+type VenueRowLabels = {
+  addToGroup: string;
+  editLocation: string;
+  edit: string;
+  archive: string;
+};
 
 type BuildVenueListItemOptions = {
-  groupName?: string;
-  multiLoc?: boolean;
-  addToGroupLabel: string;
-  t: TFunction;
+  group?: EstablishmentGroup;
+  multiLocalization?: boolean;
+  availableLocations: EstablishmentGroup[];
+  labels: VenueRowLabels;
   onArchive: (venue: Establishment) => void;
+  onAddVenueToLocation: (
+    venue: Establishment,
+    location: EstablishmentGroup,
+  ) => void;
+  onEditLocation: (location: EstablishmentGroup) => void;
 };
 
 export const buildVenueListItem = (
   venue: Establishment,
   {
-    groupName,
-    multiLoc,
-    addToGroupLabel,
-    t,
+    group,
+    multiLocalization,
+    availableLocations,
+    labels,
     onArchive,
+    onAddVenueToLocation,
+    onEditLocation,
   }: BuildVenueListItemOptions,
 ): ListItemProps => {
-  const showGroupChip = multiLoc && !!groupName;
-  const showAddToGroup = multiLoc && !groupName;
+  const showGroupChip = multiLocalization && !!group;
+  const showAddToGroup =
+    Boolean(multiLocalization) && !group && availableLocations.length > 0;
+
+  const buttons: ListItemProps["buttons"] = [];
+
+  // TODO: temp, will be removed once the locations tabs will be live so we can edit locations properly
+  if (showGroupChip) {
+    buttons.push({
+      id: `edit-location-${venue.id}`,
+      kind: "icon-button",
+      label: labels.editLocation,
+      icon: "edit-02",
+      intent: "flat",
+      size: "md",
+      color: "default",
+      onClick: () => onEditLocation(group),
+    });
+  }
+
+  buttons.push(
+    {
+      id: `edit-${venue.id}`,
+      kind: "icon-button",
+      label: labels.edit,
+      icon: "edit-02",
+      intent: "flat",
+      size: "md",
+      color: "default",
+      onClick: () => {},
+    },
+    {
+      id: `archive-${venue.id}`,
+      kind: "icon-button",
+      label: labels.archive,
+      icon: "archive",
+      intent: "flat",
+      size: "md",
+      color: "default",
+      onClick: () => onArchive(venue),
+    },
+  );
+
+  const locationItems = availableLocations.map((location) => ({
+    id: String(location.id),
+    label: location.name,
+  }));
 
   return {
     id: String(venue.id),
@@ -33,7 +94,7 @@ export const buildVenueListItem = (
     chips: showGroupChip
       ? [
           {
-            label: groupName,
+            label: group.name,
             color: "default",
             type: "weak",
             size: "lg",
@@ -41,38 +102,30 @@ export const buildVenueListItem = (
         ]
       : undefined,
     customNode: showAddToGroup ? (
-      <Button
-        kind="default"
-        intent="flat"
-        color="default"
-        size="md"
-        label={addToGroupLabel}
-        iconLeft="plus"
-        onClick={() => {}}
+      <DropdownMenu
+        target={({ isPopoverOpened, setIsPopoverOpened }) => (
+          <Button
+            kind="default"
+            intent="flat"
+            color="default"
+            size="md"
+            label={labels.addToGroup}
+            iconLeft="plus"
+            onClick={() => setIsPopoverOpened(!isPopoverOpened)}
+          />
+        )}
+        items={locationItems}
+        onSelectOption={({ id, setIsPopoverOpened }) => {
+          const location = availableLocations.find(
+            (loc) => String(loc.id) === id,
+          );
+          if (!location) return;
+          onAddVenueToLocation(venue, location);
+          setIsPopoverOpened(false);
+        }}
       />
     ) : undefined,
-    buttons: [
-      {
-        id: `edit-${venue.id}`,
-        kind: "icon-button",
-        label: t("venueRow.edit"),
-        icon: "edit-02",
-        intent: "flat",
-        size: "md",
-        color: "default",
-        onClick: () => {},
-      },
-      {
-        id: `archive-${venue.id}`,
-        kind: "icon-button",
-        label: t("venueRow.archive"),
-        icon: "archive",
-        intent: "flat",
-        size: "md",
-        color: "default",
-        onClick: () => onArchive(venue),
-      },
-    ],
+    buttons,
     dropdownConfig: { visibleActionsDisplayLimit: 0 },
   };
 };

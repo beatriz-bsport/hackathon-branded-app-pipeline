@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 
 import {
+  BOOKING_MILESTONE_FILTER_IDENTIFIER,
+  type BookingMilestoneFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   type PaymentPackFilter,
   type SmartlistGetFiltersResponse,
@@ -12,6 +14,7 @@ import {
 } from "@bsport/api-cdp/smartlist";
 
 import {
+  isBookingMilestoneFilter,
   isPaymentPackFilter,
   isTagFilter,
   isTotalBookingFilter,
@@ -21,6 +24,7 @@ import { fetch } from "#src/utils/fetch";
 type SmartlistFiltersQueryData = {
   paymentPackFilters: PaymentPackFilter[];
   totalBookingFilters: TotalBookingFilter[];
+  bookingMilestoneFilters: BookingMilestoneFilter[];
   tagFilters: TagFilter[];
 };
 
@@ -50,6 +54,20 @@ const mapTotalBookingFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapBookingMilestoneFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): BookingMilestoneFilter[] => {
+  const bookingMilestoneFiltersMap =
+    payload?.[BOOKING_MILESTONE_FILTER_IDENTIFIER];
+  if (!bookingMilestoneFiltersMap) {
+    return [];
+  }
+
+  return Object.values(bookingMilestoneFiltersMap)
+    .filter(isBookingMilestoneFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapTagFilters = (payload?: SmartlistGetFiltersResponse): TagFilter[] => {
   const tagFiltersMap = payload?.[TAG_FILTER_IDENTIFIER];
   if (!tagFiltersMap) {
@@ -71,6 +89,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
     select: (data): SmartlistFiltersQueryData => ({
       paymentPackFilters: mapPaymentPackFilters(data),
       totalBookingFilters: mapTotalBookingFilters(data),
+      bookingMilestoneFilters: mapBookingMilestoneFilters(data),
       tagFilters: mapTagFilters(data),
     }),
   });

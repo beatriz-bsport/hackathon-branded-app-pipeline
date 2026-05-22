@@ -25,12 +25,40 @@
       "totalBookingNumber": {
         "description": "Filter by total number of bookings."
       },
+      "bookingMilestone": {
+        "description": "Filter by the N-th booking a member reaches (1st, 2nd, …)."
+      },
       "tags": {
         "description": "Filter members by tags they have or do not have."
       }
     }
   },
   "filters": {
+    "21": {
+      "title": "Booking milestone",
+      "actions": {
+        "deleteFilter": "Delete booking milestone filter",
+        "save": "Apply filter",
+        "addFilter": "Add booking milestone filter"
+      },
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "milestoneLabel": "Members that booked",
+        "milestoneSuffix": "",
+        "milestoneSuffix_one": "booking",
+        "milestoneSuffix_other": "bookings"
+      },
+      "toasts": {
+        "saveError": "Unable to save booking milestone filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete booking milestone filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueRequired": "Milestone must be at least 1.",
+        "valueMustBeInteger": "Milestone must be a whole number."
+      }
+    },
     "19": {
       "title": "Pass Ownership",
       "ownership": {

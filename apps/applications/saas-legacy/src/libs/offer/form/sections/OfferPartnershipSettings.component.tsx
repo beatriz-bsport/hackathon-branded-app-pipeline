@@ -222,6 +222,11 @@ const OfferPartnershipSettings: React.FC<Props> = ({
     [setFieldValue],
   );
 
+  // TODO(BOO-2812): Remove Wellpass once migrated
+  const shouldDisplayWellpassSeparately = !useSafeFlag(
+    FeatureFlags.BOOKING_ACTIVATE_NEW_WELLPASS_CONFIGURATION,
+  );
+
   if (!isDraftPartnershipOffersEnabled) {
     // DEPRECATED
     return (
@@ -503,27 +508,30 @@ const OfferPartnershipSettings: React.FC<Props> = ({
                           </TableCell>
                         </TableRow>
                       )}
-                      {hasUpsell(featureList, UPSELL_IDENTIFIER_WELLPASS) && (
-                        <TableRow key="wellpass">
-                          <TableCell>
-                            <FormControlLabel
-                              control={
-                                <Switch checked disabled color="secondary" />
-                              }
-                              label={t(
-                                `form.section.settings.field.partnership.name.wellpass`,
-                              )}
-                            />
-                          </TableCell>
-                          <TableCell>
-                            <Typography className={classes.disabledHelperText}>
-                              {t(
-                                'form.section.settings.field.partnership.tooltip.wellpass',
-                              )}
-                            </Typography>
-                          </TableCell>
-                        </TableRow>
-                      )}
+                      {shouldDisplayWellpassSeparately &&
+                        hasUpsell(featureList, UPSELL_IDENTIFIER_WELLPASS) && (
+                          <TableRow key="wellpass">
+                            <TableCell>
+                              <FormControlLabel
+                                control={
+                                  <Switch checked disabled color="secondary" />
+                                }
+                                label={t(
+                                  `form.section.settings.field.partnership.name.wellpass`,
+                                )}
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <Typography
+                                className={classes.disabledHelperText}
+                              >
+                                {t(
+                                  'form.section.settings.field.partnership.tooltip.wellpass',
+                                )}
+                              </Typography>
+                            </TableCell>
+                          </TableRow>
+                        )}
                     </>
                   )}
                 </FeatureListProvider>
@@ -588,27 +596,28 @@ const OfferPartnershipSettings: React.FC<Props> = ({
                               }
                             />
                           )}
-                          {hasUpsell(
-                            featureList,
-                            UPSELL_IDENTIFIER_WELLPASS,
-                          ) && (
-                            <PartnershipOfferChip
-                              key="wellpass"
-                              disabled
-                              enabled
-                              label={t(
-                                'form.section.settings.field.partnership.name.wellpass',
-                              )}
-                              onChange={() => {}}
-                              tooltipTitle={
-                                <Typography>
-                                  {t(
-                                    'form.section.settings.field.partnership.tooltip.wellpass',
-                                  )}
-                                </Typography>
-                              }
-                            />
-                          )}
+                          {shouldDisplayWellpassSeparately &&
+                            hasUpsell(
+                              featureList,
+                              UPSELL_IDENTIFIER_WELLPASS,
+                            ) && (
+                              <PartnershipOfferChip
+                                key="wellpass"
+                                disabled
+                                enabled
+                                label={t(
+                                  'form.section.settings.field.partnership.name.wellpass',
+                                )}
+                                onChange={() => {}}
+                                tooltipTitle={
+                                  <Typography>
+                                    {t(
+                                      'form.section.settings.field.partnership.tooltip.wellpass',
+                                    )}
+                                  </Typography>
+                                }
+                              />
+                            )}
                         </>
                       )}
                     </FeatureListProvider>

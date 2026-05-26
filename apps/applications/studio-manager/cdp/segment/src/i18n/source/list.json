@@ -16,8 +16,34 @@
         "description": "This segment groups all clients currently active. (have an active pass). Following the lifecycle status definition."
       },
       "active_trials": {
-        "title": "Active trials / Intro offer holders",
+        "title": "Trials (intro offer)",
         "description": "Convert new clients before their trial window closes. This segment groups all clients currently on an active trial or intro pass who have not yet made a second purchase."
+      }
+    },
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "passName": "Pass name",
+      "passValidityStartDate": "Pass start date",
+      "lastVisitDate": "Last visit date",
+      "offerExpiryDate": "Offer expiry date",
+      "status": "Status",
+      "dateJoined": "Join date",
+      "lastPurchaseDate": "Last purchase date",
+      "currentLifecycleState": "Lifecycle state"
+    },
+    "enums": {
+      "activeTrialStatus": {
+        "attended": "Attended",
+        "booked": "Booked",
+        "purchased": "Purchased"
+      },
+      "customerLifecycleState": {
+        "archived": "Archived",
+        "lead": "Lead",
+        "active": "Active",
+        "inactive": "Inactive",
+        "churned": "Churned"
       }
     },
     "information": {
@@ -31,6 +57,13 @@
       "tabs": {
         "segment": "Segment",
         "campaigns": "Campaigns"
+      },
+      "segment": {
+        "loading": "Loading segment members...",
+        "emptyState": {
+          "title": "No members found",
+          "subtitle": "This prebuilt segment has no matching members yet."
+        }
       },
       "segmentPlaceholder": "Segment details will be available soon.",
       "campaignsPlaceholder": "Campaigns will be available soon."

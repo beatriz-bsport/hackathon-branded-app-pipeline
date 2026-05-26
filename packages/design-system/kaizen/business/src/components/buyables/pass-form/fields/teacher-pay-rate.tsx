@@ -40,39 +40,39 @@ export const PassFormTeacherPayRate = <
   const finalId = id ?? finalFormId;
 
   return (
-    <div className="flex flex-row justify-start items-center gap-xs">
-      <FormNumberField<TFormValues, TFieldName>
-        id={finalId}
-        fieldName={fieldName}
-        label={t("passForm.teacherPayRate.label")}
-        helperText={t("passForm.teacherPayRate.helperText")}
-        suffix={{ type: "text", value: getCurrencyCode().toUpperCase() }}
-        fullWidth
-        {...textFieldProps}
-      />
-
-      <Popover>
-        <Popover.Anchor>
-          {({ setIsPopoverOpened, isPopoverOpened }) => (
-            <Button
-              kind="icon-button"
-              icon="info-circle"
-              label="Open tooltip"
-              size="md"
-              intent="flat"
-              color="default"
-              onClick={() => setIsPopoverOpened(!isPopoverOpened)}
-            />
-          )}
-        </Popover.Anchor>
-        <Popover.Content
-          placement="bottom-right"
-          className="max-w-component-tooltip"
-        >
-          {() => <Body size="sm">{t("passForm.teacherPayRate.tooltip")}</Body>}
-        </Popover.Content>
-      </Popover>
-    </div>
+    <FormNumberField<TFormValues, TFieldName>
+      id={finalId}
+      fieldName={fieldName}
+      label={t("passForm.teacherPayRate.label")}
+      helperText={t("passForm.teacherPayRate.helperText")}
+      suffix={{ type: "text", value: getCurrencyCode().toUpperCase() }}
+      customNode={
+        <Popover>
+          <Popover.Anchor>
+            {({ setIsPopoverOpened, isPopoverOpened }) => (
+              <Button
+                kind="icon-button"
+                icon="info-circle"
+                label="Open tooltip"
+                size="md"
+                intent="flat"
+                color="default"
+                onClick={() => setIsPopoverOpened(!isPopoverOpened)}
+              />
+            )}
+          </Popover.Anchor>
+          <Popover.Content
+            placement="bottom-right"
+            className="max-w-component-tooltip"
+          >
+            {() => (
+              <Body size="sm">{t("passForm.teacherPayRate.tooltip")}</Body>
+            )}
+          </Popover.Content>
+        </Popover>
+      }
+      {...textFieldProps}
+    />
   );
 };
 

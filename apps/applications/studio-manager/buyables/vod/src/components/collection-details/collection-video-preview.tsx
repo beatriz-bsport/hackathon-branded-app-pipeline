@@ -63,69 +63,65 @@ export const CollectionVideoPreview: FC<CollectionVideoPreviewProps> = ({
 
   return (
     <section className="flex h-full flex-col">
-      <div className="flex w-full flex-col">
-        <div className="w-full mx-auto px-lg">
-          <MediaPlayerArea
-            isEbook={isEbook}
-            playbackUrl={playbackUrl}
-            isPlaybackUrlLoading={isPlaybackUrlLoading}
-            thumbnailUrl={thumbnailUrl}
-            title={title}
-            providerIdentifier={
-              video?.provider_identifier ?? VideoProvider.AWS_PROVIDER
-            }
-          />
-        </div>
-        <div className="w-full px-lg py-md">
-          <div className="flex items-start justify-between gap-md">
-            <Title
-              htmlVariant="h5"
-              weight="strong"
-              color="default"
-              className="min-w-0 flex-1 text-left"
-            >
-              {title}
-            </Title>
-            {isEbook ? (
-              <Button
-                label={t("ebook.download")}
-                intent="default"
-                color="main"
-                size="md"
-                iconLeft="download-01"
-                disabled={!playbackUrl}
-                className="shrink-0"
-                onClick={handleEbookDownload}
-              />
-            ) : null}
-          </div>
-          <MediaMetadataBadges
-            durationLabel={durationLabel}
-            levelLabel={levelLabel}
-            categoryLabel={categoryLabel}
-            rentalDaysLabel={rentalDaysLabel}
-          />
-          {video?.manager_only ? (
-            <div className="mt-md flex items-center gap-xs text-onsurface-weak">
-              <Icon icon="eye-off" size="sm" />
-              <Body htmlVariant="span" size="md" color="weak">
-                {t("videoList.managerOnly")}
-              </Body>
-            </div>
-          ) : null}
-          <MediaTeacherList teacherEntries={teacherEntries} />
-          {videoDescription ? (
-            <Body
-              htmlVariant="p"
+      <div className="flex w-full flex-col px-0 md:px-lg">
+        <MediaPlayerArea
+          isEbook={isEbook}
+          playbackUrl={playbackUrl}
+          isPlaybackUrlLoading={isPlaybackUrlLoading}
+          thumbnailUrl={thumbnailUrl}
+          title={title}
+          providerIdentifier={
+            video?.provider_identifier ?? VideoProvider.AWS_PROVIDER
+          }
+        />
+        <div className="mt-md flex items-center justify-between gap-md">
+          <Title
+            htmlVariant="h5"
+            weight="strong"
+            color="default"
+            className="min-w-0 flex-1 text-left"
+          >
+            {title}
+          </Title>
+          {isEbook ? (
+            <Button
+              label={t("ebook.download")}
+              intent="default"
+              color="main"
               size="md"
-              weight="weak"
-              color="default"
-              className="mt-xs w-full text-left text-onsurface-weak whitespace-pre-wrap"
-            >
-              {videoDescription}
-            </Body>
+              iconLeft="download-01"
+              disabled={!playbackUrl}
+              className="shrink-0"
+              onClick={handleEbookDownload}
+            />
           ) : null}
         </div>
+        <MediaMetadataBadges
+          durationLabel={durationLabel}
+          levelLabel={levelLabel}
+          categoryLabel={categoryLabel}
+          rentalDaysLabel={rentalDaysLabel}
+        />
+        {video?.manager_only ? (
+          <div className="mt-md flex items-center gap-xs text-onsurface-weak">
+            <Icon icon="eye-off" size="sm" />
+            <Body htmlVariant="span" size="md" color="weak">
+              {t("videoList.managerOnly")}
+            </Body>
+          </div>
+        ) : null}
+        <MediaTeacherList teacherEntries={teacherEntries} />
+        {videoDescription ? (
+          <Body
+            htmlVariant="p"
+            size="md"
+            weight="weak"
+            color="default"
+            className="mt-xs w-full text-left text-onsurface-weak whitespace-pre-wrap"
+          >
+            {videoDescription}
+          </Body>
+        ) : null}
       </div>
     </section>
   );

@@ -59,6 +59,7 @@ export const MoreActionsButton: React.FC<{
             type: "button",
             onClick: () => {
               setIsPopoverOpened(false);
+              openModal(SessionManagementModalType.BOOK);
             },
           }
         : !session.group

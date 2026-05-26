@@ -16,7 +16,7 @@ export const TimeAndDateSection: FC<{
 
   return (
     <section className={clsx("flex flex-col gap-md", { "pb-md": isEditMode })}>
-      <Title htmlVariant="h5" weight="strong">
+      <Title htmlVariant="h5" weight="stronger">
         {t("addSessionModal.steps.configureSession.timeAndDate.title")}
       </Title>
 

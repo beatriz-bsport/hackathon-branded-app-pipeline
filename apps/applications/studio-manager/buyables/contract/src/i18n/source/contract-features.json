@@ -16,5 +16,57 @@
       "undoSuccess": "Subscription restored",
       "undoError": "Failed to restore subscription"
     }
+  },
+  "pauseModal": {
+    "title": {
+      "create": "Pause Subscription?",
+      "edit": "Edit Subscription pause?"
+    },
+    "requiredField": "This field is required",
+    "reasonField": {
+      "label": "Reason",
+      "errorMaxLength": "Name length must be under {{ maxLength }} characters."
+    },
+    "periodField": {
+      "label": "Pause period",
+      "description": {
+        "daysDuration": "",
+        "daysDuration_one": "{{ count }} day",
+        "daysDuration_other": "{{ count }} days",
+        "body1": "Subscription will be paused from {{- fromDate }} to {{- untilDate }} ({{ daysDuration }})",
+        "body2": "Clients won't be billed during the pause period",
+        "body3": "Billing cycle will be extended by {{ daysDuration }}",
+        "body4": "Passes will remain valid during the pause"
+      },
+      "errorPast": "Selected date should be in the future",
+      "errorInterval": "The end date should come after the start date"
+    },
+    "actions": {
+      "back": "Back",
+      "cancel": "Cancel",
+      "nextStep": "Next",
+      "confirm": "Confirm"
+    },
+    "billingPlans": {
+      "items": {
+        "description": {
+          "started": "Plan started on {{- startDate }}",
+          "notStarted": "Plan will start on {{- startDate }}"
+        }
+      },
+      "emptyItems": "No subscriptions found",
+      "willBePaused": {
+        "title": "Plans to be paused",
+        "description": "The following members will have their subscription plans paused"
+      },
+      "wontBePaused": {
+        "title": "Plans that cannot be paused",
+        "description": "",
+        "description_one": "{{ count }} member's plan can't be paused",
+        "description_other": "{{ count }} members' plan can't be paused",
+        "alertInfo": "The following plans can't be paused for one of the reasons: a payment is due within 24 hours, a payment is in progress, the dates overlap with another pause, or the plan hasn't started."
+      }
+    },
+    "toastSuccess": "Subscription {{ name }} paused"
   }
 }

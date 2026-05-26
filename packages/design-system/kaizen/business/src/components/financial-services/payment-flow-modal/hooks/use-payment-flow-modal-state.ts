@@ -1,5 +1,17 @@
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
+import { memberKeys } from "@bsport/api-cdp/member";
+import { invoiceKeys } from "@bsport/api-financial-services/invoice";
+import { paymentGroupKeys } from "@bsport/api-financial-services/payment-group";
+import { paymentMethodKeys } from "@bsport/api-financial-services/payment-method";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { useFormController } from "@bsport/form";
 
@@ -8,8 +20,16 @@ import { STRIPE_ELEMENT_VALIDATION_ERROR } from "#src/components/financial-servi
 import type { StripePaymentMethodHandle } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/types";
 import { resolveInvoiceInstallmentsEligibility } from "#src/components/financial-services/payment-flow-modal/lib/invoice-installments-eligibility";
 import {
-  INVOICE_ALREADY_PAID_ALERT,
+  PAYMENT_FLOW_ERROR_KEYS,
+  resolveSubmitErrorMessage,
+} from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-errors";
+import {
+  PAYMENT_TAB,
+  type PaymentTab,
+  buildInstallmentPerIntervalCaptionText,
+  buildInstallmentScheduleExplainerText,
   getPaymentFlowDefaultValues,
+  installmentScheduleDetailSchema,
   paymentFlowFormSchema,
 } from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-form";
 import type {
@@ -25,12 +45,18 @@ import type { PaymentMethodSelectorSelection } from "#src/components/financial-s
 import { PAYMENT_METHOD_SELECTOR_SELECTION_KIND } from "#src/components/financial-services/payment-method-selector/types";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
+import {
+  INSTALLMENTS_DISABLED_ALL_METHOD_IDS,
+  getInstallmentsTabStripeClientSecretEngine,
+  isInstallmentsSelectionSupportedForScheduling,
+} from "./installments-payment-utils";
 import { useConfirmPayment } from "./use-confirm-payment";
 import { useFetchInvoice } from "./use-fetch-invoice";
 import { useFetchMember } from "./use-fetch-member";
 import { useFetchStripeReaders } from "./use-fetch-stripe-readers";
 import { usePaymentMethodRenderers } from "./use-payment-method-renderers";
 import { useRequestPaymentClientSecret } from "./use-request-payment-client-secret";
+import { useScheduleInstallmentsPayment } from "./use-schedule-installments-payment";
 
 type PaymentClientSecretEngine = "stripe" | "manual" | "terminal";
 type UsePaymentFlowModalStateParams = Omit<
@@ -66,36 +92,10 @@ const getPaymentClientSecretEngine = (
   return null;
 };
 
-const SUBMIT_ERROR_FALLBACK = "paymentFlowModal.errors.generic";
-const GIFT_CARD_PAYMENT_ERROR_CODE = 45001;
 const PARTIAL_UNSUPPORTED_METHOD_IDS = new Set<AllPaymentMethodKey>([
   ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE,
   ALL_PAYMENT_METHOD_SELECTOR_ID.ACCOUNT_BALANCE,
 ]);
-
-/**
- * Maps mutation errors to the translated message displayed in the modal.
- */
-const resolveSubmitErrorMessage = (
-  error: unknown,
-  fallbackMessage: string,
-  giftCardPaymentMessage: string,
-): string => {
-  if (
-    typeof error === "object" &&
-    error !== null &&
-    "customErrorCodes" in error &&
-    Array.isArray(error.customErrorCodes)
-  ) {
-    const firstErrorCode = error.customErrorCodes[0];
-
-    if (firstErrorCode === GIFT_CARD_PAYMENT_ERROR_CODE) {
-      return giftCardPaymentMessage;
-    }
-  }
-
-  return fallbackMessage;
-};
 
 /**
  * Central state and orchestration hook for `PaymentFlowModal`.
@@ -113,11 +113,13 @@ export const usePaymentFlowModalState = ({
   fetch,
   onClose,
   onConfirm,
+  companyTheme,
 }: UsePaymentFlowModalStateParams) => {
   const { t } = useTranslation("financial-services", { i18n: i18nInstance });
+  const queryClient = useQueryClient();
 
-  const [activeTab, setActiveTab] = useState<"one-time" | "installments">(
-    "one-time",
+  const [activeTab, setActiveTabState] = useState<PaymentTab>(
+    PAYMENT_TAB.ONE_TIME,
   );
   const [isPartialEnabled, setIsPartialEnabled] = useState(false);
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
@@ -134,6 +136,7 @@ export const usePaymentFlowModalState = ({
   const methods = useFormController({
     schema: paymentFlowFormSchema,
     defaultValues: getPaymentFlowDefaultValues(),
+    mode: "onChange",
   });
 
   const { data: member } = useFetchMember(fetch, memberId);
@@ -194,9 +197,9 @@ export const usePaymentFlowModalState = ({
 
   useEffect(() => {
     if (!isOpen) return;
-    if (activeTab !== "installments") return;
+    if (activeTab !== PAYMENT_TAB.INSTALLMENTS) return;
     if (!installmentsEligibility.eligible || isInvoiceAlreadyPaid) {
-      setActiveTab("one-time");
+      setActiveTabState(PAYMENT_TAB.ONE_TIME);
     }
   }, [
     activeTab,
@@ -205,7 +208,64 @@ export const usePaymentFlowModalState = ({
     isOpen,
   ]);
 
+  useEffect(() => {
+    if (
+      activeTab !== PAYMENT_TAB.INSTALLMENTS ||
+      selectedPaymentMethod?.kind !==
+        PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL ||
+      selectedPaymentMethod.id !== ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE
+    )
+      return;
+
+    setSelectedPaymentMethod(null);
+    methods.setValue("selectedGiftCardId", null, {
+      shouldDirty: false,
+      shouldValidate: false,
+    });
+  }, [activeTab, methods, selectedPaymentMethod]);
+
   const partialAmountCts = methods.watch("partialAmountCts");
+  const installmentInterval = methods.watch("installmentInterval");
+  const installmentRecurrenceBasis = methods.watch(
+    "installmentRecurrenceBasis",
+  );
+  const installmentNbInterval = methods.watch("installmentNbInterval");
+  const installmentAnchorDate = methods.watch("installmentAnchorDate");
+
+  const {
+    installmentScheduleDetail,
+    installmentPerIntervalCaption,
+    installmentScheduleValues,
+  } = useMemo(() => {
+    const parsed = installmentScheduleDetailSchema.safeParse({
+      installmentInterval,
+      installmentRecurrenceBasis,
+      installmentNbInterval,
+    });
+    if (!parsed.success) {
+      return {
+        installmentScheduleDetail: null,
+        installmentPerIntervalCaption: null,
+        installmentScheduleValues: null,
+      } as const;
+    }
+    return {
+      installmentScheduleDetail: buildInstallmentScheduleExplainerText(
+        parsed.data,
+      ),
+      installmentPerIntervalCaption: buildInstallmentPerIntervalCaptionText(
+        invoiceRemainingAmountCts,
+        parsed.data,
+      ),
+      installmentScheduleValues: parsed.data,
+    } as const;
+  }, [
+    installmentInterval,
+    installmentNbInterval,
+    installmentRecurrenceBasis,
+    invoiceRemainingAmountCts,
+  ]);
+
   const [committedPartialAmountCts, setCommittedPartialAmountCts] =
     useState(partialAmountCts);
   const [isPartialAmountFocused, setIsPartialAmountFocused] = useState(false);
@@ -245,21 +305,25 @@ export const usePaymentFlowModalState = ({
   ]);
 
   useEffect(() => {
-    const nextEngine = getPaymentClientSecretEngine(selectedPaymentMethod);
+    const nextEngine =
+      activeTab === PAYMENT_TAB.INSTALLMENTS
+        ? getInstallmentsTabStripeClientSecretEngine(selectedPaymentMethod)
+        : getPaymentClientSecretEngine(selectedPaymentMethod);
     if (nextEngine === clientSecretEngine) return;
 
     setClientSecretEngine(nextEngine);
-  }, [clientSecretEngine, selectedPaymentMethod]);
+  }, [activeTab, clientSecretEngine, selectedPaymentMethod]);
+
+  const requestedClientSecretPriceCts =
+    isPartialEnabled && committedPartialAmountCts !== invoiceRemainingAmountCts
+      ? committedPartialAmountCts
+      : undefined;
 
   const paymentClientSecretQuery = useRequestPaymentClientSecret({
     fetch,
     invoiceId,
     paymentEngine: clientSecretEngine,
-    requestedPriceCts:
-      isPartialEnabled &&
-      committedPartialAmountCts !== invoiceRemainingAmountCts
-        ? committedPartialAmountCts
-        : undefined,
+    requestedPriceCts: requestedClientSecretPriceCts,
     enabled:
       isOpen &&
       !isLoadingInvoice &&
@@ -271,7 +335,9 @@ export const usePaymentFlowModalState = ({
   const accountBalance = Number(member?.credit_account_balance);
   const hasPositiveAccountBalance = accountBalance > 0;
   const isAccountBalanceEnough =
-    hasPositiveAccountBalance && accountBalance >= invoiceRemainingAmount;
+    hasPositiveAccountBalance &&
+    Number.isFinite(invoiceRemainingAmount) &&
+    accountBalance >= invoiceRemainingAmount;
   const hasStripeReaders = stripeReaders.length > 0;
 
   const renderers = usePaymentMethodRenderers({
@@ -290,6 +356,7 @@ export const usePaymentFlowModalState = ({
     cardPaymentRef,
     sepaPaymentRef,
     onGiftCardsChange: setAvailableGiftCards,
+    companyTheme,
   });
 
   const confirmPaymentMutation = useConfirmPayment({
@@ -312,7 +379,21 @@ export const usePaymentFlowModalState = ({
     availableGiftCards,
     cardPaymentRef,
     sepaPaymentRef,
-    invoiceAlreadyPaidAlert: INVOICE_ALREADY_PAID_ALERT,
+    invoiceAlreadyPaidAlert: PAYMENT_FLOW_ERROR_KEYS.invoiceAlreadyPaid,
+  });
+
+  const scheduleInstallmentsMutation = useScheduleInstallmentsPayment({
+    fetch,
+    invoiceId,
+    selectedPaymentMethod,
+    manualType: methods.watch("manualType"),
+    installmentScheduleValues,
+    installmentAnchorDate,
+    isInvoiceAlreadyPaid,
+    paymentClientSecret: paymentClientSecretQuery.data ?? {},
+    getSavePaymentMethod: () => methods.getValues("savePaymentMethod"),
+    cardPaymentRef,
+    sepaPaymentRef,
   });
 
   const terminalReaderId = methods.watch("terminalReaderId");
@@ -325,9 +406,21 @@ export const usePaymentFlowModalState = ({
     selectedPaymentMethod?.kind !==
       PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL ||
     !PARTIAL_UNSUPPORTED_METHOD_IDS.has(selectedPaymentMethod.id);
-  const disabledAllMethodIds = isPartialEnabled
-    ? Array.from(PARTIAL_UNSUPPORTED_METHOD_IDS)
-    : [];
+
+  const disabledAllMethodIds = useMemo(() => {
+    const ids = new Set<AllPaymentMethodKey>();
+    if (isPartialEnabled) {
+      for (const id of PARTIAL_UNSUPPORTED_METHOD_IDS) {
+        ids.add(id);
+      }
+    }
+    if (activeTab === PAYMENT_TAB.INSTALLMENTS) {
+      for (const id of INSTALLMENTS_DISABLED_ALL_METHOD_IDS) {
+        ids.add(id);
+      }
+    }
+    return Array.from(ids);
+  }, [activeTab, isPartialEnabled]);
   const isPartialAmountInvalidLow = partialAmountCts <= 0;
   const isPartialAmountInvalidHigh =
     partialAmountCts > invoiceRemainingAmountCts;
@@ -410,15 +503,58 @@ export const usePaymentFlowModalState = ({
     partialAmountMinError,
   ]);
 
+  const hasInstallmentFieldErrors =
+    activeTab === PAYMENT_TAB.INSTALLMENTS &&
+    Boolean(
+      methods.formState.errors.installmentInterval ||
+        methods.formState.errors.installmentRecurrenceBasis ||
+        methods.formState.errors.installmentNbInterval ||
+        methods.formState.errors.installmentAnchorDate,
+    );
+
   const isConfirmDisabled = useMemo(() => {
+    const isGiftCardSelectedInInstallmentsTab =
+      activeTab === PAYMENT_TAB.INSTALLMENTS &&
+      selectedPaymentMethod?.kind ===
+        PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL &&
+      selectedPaymentMethod.id ===
+        ALL_PAYMENT_METHOD_SELECTOR_ID.GIFT_CARD_CODE;
+
+    const isWaitingForPartialAmountCommit =
+      isPartialEnabled &&
+      (isPartialAmountFocused || isPartialAmountPendingCommit);
+
+    const isSubmitting =
+      activeTab === PAYMENT_TAB.INSTALLMENTS
+        ? scheduleInstallmentsMutation.isPending
+        : confirmPaymentMutation.isPending;
+
     if (
       isInvoiceAlreadyPaid ||
       !selectedPaymentMethod ||
-      confirmPaymentMutation.isPending ||
-      (isPartialEnabled &&
-        (isPartialAmountFocused || isPartialAmountPendingCommit))
+      isSubmitting ||
+      hasInstallmentFieldErrors ||
+      isGiftCardSelectedInInstallmentsTab ||
+      isWaitingForPartialAmountCommit
     ) {
       return true;
+    }
+
+    if (activeTab === PAYMENT_TAB.INSTALLMENTS) {
+      if (
+        !isInstallmentsSelectionSupportedForScheduling(selectedPaymentMethod)
+      ) {
+        return true;
+      }
+      if (
+        getInstallmentsTabStripeClientSecretEngine(selectedPaymentMethod) ===
+          "stripe" &&
+        (paymentClientSecretQuery.isFetching ||
+          !paymentClientSecretQuery.data?.client_secret)
+      ) {
+        return true;
+      }
+      return false;
     }
 
     const selectedMethodNeedsClientSecret =
@@ -468,8 +604,11 @@ export const usePaymentFlowModalState = ({
 
     return false;
   }, [
+    activeTab,
     computedPartialAmountError,
     confirmPaymentMutation.isPending,
+    scheduleInstallmentsMutation.isPending,
+    hasInstallmentFieldErrors,
     isInvoiceAlreadyPaid,
     isLoadingStripeReaders,
     isPartialAmountFocused,
@@ -484,6 +623,18 @@ export const usePaymentFlowModalState = ({
   ]);
 
   const isConfirmLoading = useMemo(() => {
+    if (activeTab === PAYMENT_TAB.INSTALLMENTS) {
+      if (scheduleInstallmentsMutation.isPending) return true;
+      if (
+        getInstallmentsTabStripeClientSecretEngine(selectedPaymentMethod) ===
+          "stripe" &&
+        paymentClientSecretQuery.isFetching
+      ) {
+        return true;
+      }
+      return false;
+    }
+
     if (confirmPaymentMutation.isPending) return true;
 
     if (!selectedPaymentMethod || isInvoiceAlreadyPaid) return false;
@@ -514,16 +665,87 @@ export const usePaymentFlowModalState = ({
 
     return isBlockedByClientSecretLoading || isBlockedByTerminalLoading;
   }, [
+    activeTab,
     confirmPaymentMutation.isPending,
     isInvoiceAlreadyPaid,
     isLoadingStripeReaders,
     paymentClientSecretQuery.isFetching,
+    scheduleInstallmentsMutation.isPending,
     selectedGiftCardId,
     selectedPaymentMethod,
     terminalReaderId,
   ]);
 
+  const dismissMainModal = useCallback(() => {
+    const base = getPaymentFlowDefaultValues();
+    const nextPartialAmountCts =
+      Number.isFinite(invoiceRemainingAmountCts) &&
+      invoiceRemainingAmountCts >= 0
+        ? invoiceRemainingAmountCts
+        : base.partialAmountCts;
+
+    methods.reset(
+      {
+        ...base,
+        partialAmountCts: nextPartialAmountCts,
+      },
+      { keepDirty: false, keepTouched: false },
+    );
+
+    setActiveTabState(PAYMENT_TAB.ONE_TIME);
+    setIsPartialEnabled(false);
+    setIsPartialAmountFocused(false);
+    setCommittedPartialAmountCts(nextPartialAmountCts);
+    setSelectedPaymentMethod(null);
+    setClientSecretEngine(null);
+    setSubmitError(null);
+    setAvailableGiftCards([]);
+  }, [invoiceRemainingAmountCts, methods]);
+
+  const closeModal = useCallback(() => {
+    dismissMainModal();
+    onClose();
+  }, [dismissMainModal, onClose]);
+
   const handleSubmit = () => {
+    if (activeTab === PAYMENT_TAB.INSTALLMENTS) {
+      setSubmitError(null);
+      scheduleInstallmentsMutation.mutate(undefined, {
+        onSuccess: () => {
+          onConfirm?.(0);
+          closeModal();
+          window.setTimeout(() => {
+            void Promise.all([
+              queryClient.invalidateQueries({
+                queryKey: invoiceKeys.detail(invoiceId),
+              }),
+              queryClient.invalidateQueries({
+                queryKey: paymentGroupKeys.all,
+              }),
+              queryClient.invalidateQueries({
+                queryKey: paymentMethodKeys.saved(memberId),
+              }),
+              queryClient.invalidateQueries({
+                queryKey: memberKeys.detail(memberId),
+              }),
+            ]);
+          }, 0);
+        },
+        onError: (error: unknown) => {
+          setSubmitError(resolveSubmitErrorMessage(error));
+          if (
+            error instanceof Error &&
+            error.message === PAYMENT_FLOW_ERROR_KEYS.invoiceAlreadyPaid
+          ) {
+            void queryClient.invalidateQueries({
+              queryKey: invoiceKeys.detail(invoiceId),
+            });
+          }
+        },
+      });
+      return;
+    }
+
     const submittedAmountCts = isPartialEnabled
       ? methods.getValues("partialAmountCts")
       : invoiceRemainingAmountCts;
@@ -531,12 +753,15 @@ export const usePaymentFlowModalState = ({
       invoiceRemainingAmountCts - submittedAmountCts,
       0,
     );
-
     setSubmitError(null);
     confirmPaymentMutation.mutate(undefined, {
       onSuccess: () => {
         onConfirm?.(submissionRemainingAmountCts);
-        onClose();
+        if (submissionRemainingAmountCts > 0) {
+          dismissMainModal();
+        } else {
+          closeModal();
+        }
       },
       onError: (error: unknown) => {
         const isStripeValidationError =
@@ -547,13 +772,15 @@ export const usePaymentFlowModalState = ({
           return;
         }
 
-        setSubmitError(
-          resolveSubmitErrorMessage(
-            error,
-            t(SUBMIT_ERROR_FALLBACK),
-            t("paymentFlowModal.errors.giftCardPayment"),
-          ),
-        );
+        setSubmitError(resolveSubmitErrorMessage(error));
+        if (
+          error instanceof Error &&
+          error.message === PAYMENT_FLOW_ERROR_KEYS.invoiceAlreadyPaid
+        ) {
+          void queryClient.invalidateQueries({
+            queryKey: invoiceKeys.detail(invoiceId),
+          });
+        }
       },
     });
   };
@@ -602,6 +829,13 @@ export const usePaymentFlowModalState = ({
     methods.clearErrors("partialAmountCts");
   };
 
+  const setActiveTab = (tab: PaymentTab) => {
+    if (tab === PAYMENT_TAB.INSTALLMENTS) {
+      handlePartialToggle(false);
+    }
+    setActiveTabState(tab);
+  };
+
   const body: PaymentFlowModalBodyState = {
     memberId,
     fetch,
@@ -633,17 +867,25 @@ export const usePaymentFlowModalState = ({
     memberName: member?.name ?? `#${memberId}`,
     invoiceUrl: `/invoice/${invoiceId}`,
     memberUrl: `/member/${memberId}`,
+    installmentScheduleDetail,
+    installmentPerIntervalCaption,
+    invoiceRemainingAmountCts,
   };
 
   return {
     methods,
     formId,
     handleSubmit,
+    closeModal,
+    dismissMainModal,
     isConfirmDisabled,
     isConfirmLoading,
-    confirmAmountCts: isPartialEnabled
-      ? partialAmountCts
-      : invoiceRemainingAmountCts,
+    confirmAmountCts:
+      activeTab === PAYMENT_TAB.INSTALLMENTS
+        ? 0
+        : isPartialEnabled
+          ? partialAmountCts
+          : invoiceRemainingAmountCts,
     remainingAmountCts: Math.max(
       invoiceRemainingAmountCts -
         (isPartialEnabled ? partialAmountCts : invoiceRemainingAmountCts),

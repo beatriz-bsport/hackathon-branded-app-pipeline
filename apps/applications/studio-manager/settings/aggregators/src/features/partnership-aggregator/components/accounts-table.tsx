@@ -41,6 +41,14 @@ const COLUMN_KEYS = {
     emptyTitle: "usc.table.empty.title",
     emptySubtitle: "usc.table.empty.subtitle",
   },
+  wellpass: {
+    partnerId: "wellpass.table.columns.partnerId",
+    establishments: "wellpass.table.columns.establishments",
+    status: "wellpass.table.columns.status",
+    copyId: "wellpass.table.actions.copyId",
+    emptyTitle: "wellpass.table.empty.title",
+    emptySubtitle: "wellpass.table.empty.subtitle",
+  },
 } as const satisfies Record<
   AggregatorNamespace,
   Record<string, Parameters<TFunction>[0]>

@@ -30,7 +30,7 @@ export const SessionSettings: FC<{
   const { watch, setValue } = useFormContext();
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
-  const { getCreditsDividedValue, getCreditsNotPriceWarningText } =
+  const { getCreditsDividedValue, creditsNotPriceWarningText } =
     useCreditFactor(companyTheme?.pass_credit_factor);
 
   const isSelectedGroupActivityBroadcast = useSessionCreationStore(
@@ -62,7 +62,7 @@ export const SessionSettings: FC<{
 
   return (
     <section className="flex flex-col gap-md pb-md">
-      <Title htmlVariant="h5" weight="strong">
+      <Title htmlVariant="h5" weight="stronger">
         {t("addSessionModal.steps.configureSession.settings.title")}
       </Title>
       <SessionCapacityField
@@ -87,7 +87,7 @@ export const SessionSettings: FC<{
       <SessionCreditsField fieldIdPrefix={fieldIdPrefix} />
       {creditValue > CREDITS_LIMIT_BEFORE_WARNING && (
         <Alert status="warning" type="weak">
-          {getCreditsNotPriceWarningText()}
+          {creditsNotPriceWarningText}
         </Alert>
       )}
       <LevelSelectorField fieldIdPrefix={fieldIdPrefix} />

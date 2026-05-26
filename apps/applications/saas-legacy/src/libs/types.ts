@@ -67,6 +67,14 @@ export type GenericPaginationResults<T> = {
   results: T[];
 };
 
+export type DefaultPagination<T> = {
+  count: number; // total number of items across all pages
+  next: string | null; // URL to the next page of results, or null if there is no next page
+  next_page: number | null; // The next page number, or null if there is no next page
+  previous: string | null; // URL to the previous page of results, or null if there is no previous page
+  results: T[];
+};
+
 export type Period = {
   start: string;
   end: string;

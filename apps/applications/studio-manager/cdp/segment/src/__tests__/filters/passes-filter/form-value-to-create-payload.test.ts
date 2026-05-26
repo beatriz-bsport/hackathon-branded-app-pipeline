@@ -6,7 +6,7 @@ import {
 } from "@bsport/api-cdp/smartlist";
 
 import { createDefaultPassesFilter } from "#src/components/filters/passes-filter/default-value";
-import { toCreatePayload } from "#src/components/filters/passes-filter/mappers/form-value-to-create-payload";
+import { createPassesPayload } from "#src/components/filters/passes-filter/mappers/form-value-to-create-payload";
 import { PASS_SUB_FILTER_IDS } from "#src/components/filters/passes-filter/sub-filters/pass-sub-filter-id";
 import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 
@@ -16,11 +16,11 @@ vi.mock("#src/utils/i18n", () => ({
   },
 }));
 
-describe("toCreatePayload", () => {
+describe("createPassesPayload", () => {
   it("uses the smartlist id from the form value", () => {
     const formValue = createDefaultPassesFilter(123);
 
-    const payload = toCreatePayload(formValue);
+    const payload = createPassesPayload(formValue);
 
     expect(payload.smartlist).toBe(123);
   });
@@ -29,7 +29,7 @@ describe("toCreatePayload", () => {
     const formValue = createDefaultPassesFilter(1);
     formValue.ownership = "own";
 
-    const payload = toCreatePayload(formValue);
+    const payload = createPassesPayload(formValue);
 
     expect(payload.has_pack).toBe(true);
   });
@@ -38,7 +38,7 @@ describe("toCreatePayload", () => {
     const formValue = createDefaultPassesFilter(1);
     formValue.ownership = "does_not_own";
 
-    const payload = toCreatePayload(formValue);
+    const payload = createPassesPayload(formValue);
 
     expect(payload.has_pack).toBe(false);
   });
@@ -48,7 +48,7 @@ describe("toCreatePayload", () => {
     formValue.selectAllPaymentPacks = false;
     formValue.selectedPaymentPackIds = [10, 11];
 
-    const payload = toCreatePayload(formValue);
+    const payload = createPassesPayload(formValue);
 
     expect(payload.select_all_payment_packs).toBe(false);
     expect(payload.payment_packs).toEqual([10, 11]);
@@ -58,7 +58,7 @@ describe("toCreatePayload", () => {
     const formValue = createDefaultPassesFilter(1);
     formValue.selectAllPaymentPacks = true;
 
-    const payload = toCreatePayload(formValue);
+    const payload = createPassesPayload(formValue);
 
     expect(payload).toMatchObject({
       smartlist: 1,
@@ -74,7 +74,7 @@ describe("toCreatePayload", () => {
   it("uses neutral defaults for sub-filter fields", () => {
     const formValue = createDefaultPassesFilter(1);
 
-    const payload = toCreatePayload(formValue);
+    const payload = createPassesPayload(formValue);
 
     expect(payload.date_filter_type).toBe(SmartlistDateFilterType.DATE_AFTER);
     expect(payload.expiration_date_filter_type).toBe(
@@ -102,7 +102,7 @@ describe("toCreatePayload", () => {
     formValue.expirationDate.absolute.fromDate = "2026-07-01";
     formValue.expirationDate.absolute.toDate = null;
 
-    const payload = toCreatePayload(formValue);
+    const payload = createPassesPayload(formValue);
 
     expect(payload.expiration_date_filter_active).toBe(true);
     expect(payload.expiration_date).toBe("2026-07-01");
@@ -118,7 +118,7 @@ describe("toCreatePayload", () => {
       secondValue: null,
     };
 
-    const payload = toCreatePayload(formValue);
+    const payload = createPassesPayload(formValue);
 
     expect(payload.credit_filter_active).toBe(true);
     expect(payload.credit_value).toBe(5);

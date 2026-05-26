@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import type { CompanyRolePermissions } from "@bsport/api-staff-management";
+
 import { useTranslation } from "#src/utils/i18n";
 
 import { FIELD_CONSTRAINTS } from "./constants";
@@ -31,5 +33,6 @@ export const useRoleFormSchema = (): RoleFormSchema => {
         }),
       ),
     starterRoleId: z.string(),
+    permissions: z.custom<CompanyRolePermissions>(),
   });
 };

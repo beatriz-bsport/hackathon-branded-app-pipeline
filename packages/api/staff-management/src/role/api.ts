@@ -7,7 +7,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { API_URL, QUERY_KEY_MAIN } from "#src/constants";
+import { API_URL, QUERY_KEY_MAIN, ROLE_STALE_TIME } from "#src/constants";
 
 import type {
   CreateRoleDefinitionParams,
@@ -71,6 +71,7 @@ export const flatUserRolesQueryOptions = (
   queryOptions({
     queryKey: staffRoleKeys.list(params),
     queryFn: () => fetchFlatUserRolesAPI(fetch, params),
+    staleTime: ROLE_STALE_TIME,
   });
 
 const fetchPaginatedUserRolesAPIConfig = (
@@ -99,6 +100,7 @@ export const paginatedUserRolesQueryOptions = (
   queryOptions({
     queryKey: staffRoleKeys.paginatedList(params),
     queryFn: () => fetchPaginatedUserRolesAPI(fetch, params),
+    staleTime: ROLE_STALE_TIME,
   });
 
 // #endregion
@@ -223,6 +225,7 @@ export const fetchRoleDefinitionsQueryOptions = (fetch: Fetch<Role[]>) =>
   queryOptions({
     queryKey: roleDefinitionKeys.list(),
     queryFn: () => fetchRoleDefinitionsAPI(fetch),
+    staleTime: ROLE_STALE_TIME,
   });
 
 // #endregion
@@ -251,6 +254,7 @@ export const fetchRoleDefinitionQueryOptions = (
   queryOptions({
     queryKey: roleDefinitionKeys.detail(params.id),
     queryFn: () => fetchRoleDefinitionAPI(fetch, params),
+    staleTime: ROLE_STALE_TIME,
   });
 
 // #endregion

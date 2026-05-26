@@ -3,6 +3,7 @@ import { NavLink } from "react-router";
 
 import { useMatchMedia } from "@bsport/kaizen-primitive-core";
 
+import { WINDOW_EVENTS } from "#src/constants/window-events";
 import { useCurrentPathname } from "#src/hooks/use-current-pathname";
 import { LEGACY_URLS } from "#src/urls";
 
@@ -103,7 +104,9 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
       closeMobileSidebar();
       // Dispatch custom event to help with reactive pathname detection
       window.dispatchEvent(
-        new CustomEvent("navigation", { detail: { href: item.href } }),
+        new CustomEvent(WINDOW_EVENTS.navigation, {
+          detail: { href: item.href },
+        }),
       );
     };
 

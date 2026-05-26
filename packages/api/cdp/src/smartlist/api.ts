@@ -8,15 +8,30 @@ import {
 
 import { SMARTLIST_API_V1 } from "./constants";
 import type {
+  ActivePassesFilter,
+  BookingMilestoneFilter,
+  CreateActivePassesFilterPayload,
+  CreateBookingMilestoneFilterPayload,
+  CreateGenderFilterPayload,
+  CreateMemberDateJoinedFilterPayload,
   CreatePaymentPackFilterPayload,
+  CreateTagFilterPayload,
   CreateTagRuleParams,
   CreateTotalBookingFilterPayload,
+  GenderFilter,
+  MemberDateJoinedFilter,
   PaymentPackFilter,
   Smartlist,
   SmartlistGetFiltersResponse,
+  TagFilter,
   TagRule,
   TotalBookingFilter,
+  UpdateActivePassesFilterPayload,
+  UpdateBookingMilestoneFilterPayload,
+  UpdateGenderFilterPayload,
+  UpdateMemberDateJoinedFilterPayload,
   UpdatePaymentPackFilterPayload,
+  UpdateTagFilterPayload,
   UpdateTagRuleParams,
   UpdateTotalBookingFilterPayload,
 } from "./types";
@@ -148,6 +163,44 @@ export const fetchSmartlistFiltersAPI = async (
   return data;
 };
 
+// Gender Filters
+
+const GENDER_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/gender_filter`;
+
+export const createGenderFilter = async (
+  fetch: Fetch<GenderFilter>,
+  payload: CreateGenderFilterPayload,
+): Promise<GenderFilter> => {
+  const { data } = await fetch(`${GENDER_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchGenderFilter = async (
+  fetch: Fetch<GenderFilter>,
+  filterId: number,
+  payload: UpdateGenderFilterPayload,
+): Promise<GenderFilter> => {
+  const { data } = await fetch(`${GENDER_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const deleteGenderFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${GENDER_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
 // Payment Pack Filters
 
 const PAYMENT_PACK_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/payment_pack`;
@@ -223,6 +276,167 @@ export const deleteTotalBookingFilter = async (
   filterId: number,
 ): Promise<void> => {
   await fetch(`${TOTAL_BOOKING_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
+// Tag filters
+
+const TAG_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/tag_filter`;
+
+export const createTagFilter = async (
+  fetch: Fetch<TagFilter>,
+  payload: CreateTagFilterPayload,
+): Promise<TagFilter> => {
+  const { data } = await fetch(`${TAG_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+// Member sign-up date filters
+
+const MEMBER_DATE_JOINED_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/member_date_joined`;
+
+export const createMemberDateJoinedFilter = async (
+  fetch: Fetch<MemberDateJoinedFilter>,
+  payload: CreateMemberDateJoinedFilterPayload,
+): Promise<MemberDateJoinedFilter> => {
+  const { data } = await fetch(`${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchTagFilter = async (
+  fetch: Fetch<TagFilter>,
+  filterId: number,
+  payload: UpdateTagFilterPayload,
+): Promise<TagFilter> => {
+  const { data } = await fetch(`${TAG_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const deleteTagFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${TAG_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
+// Booking milestone filters (N-th OK booking, backend identifier 21)
+
+const BOOKING_MILESTONE_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/bookings_number`;
+
+export const createBookingMilestoneFilter = async (
+  fetch: Fetch<BookingMilestoneFilter>,
+  payload: CreateBookingMilestoneFilterPayload,
+): Promise<BookingMilestoneFilter> => {
+  const { data } = await fetch(`${BOOKING_MILESTONE_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchBookingMilestoneFilter = async (
+  fetch: Fetch<BookingMilestoneFilter>,
+  filterId: number,
+  payload: UpdateBookingMilestoneFilterPayload,
+): Promise<BookingMilestoneFilter> => {
+  const { data } = await fetch(
+    `${BOOKING_MILESTONE_FILTER_ENDPOINT}/${filterId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const patchMemberDateJoinedFilter = async (
+  fetch: Fetch<MemberDateJoinedFilter>,
+  filterId: number,
+  payload: UpdateMemberDateJoinedFilterPayload,
+): Promise<MemberDateJoinedFilter> => {
+  const { data } = await fetch(
+    `${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/${filterId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const deleteBookingMilestoneFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${BOOKING_MILESTONE_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
+// Active passes filters (identifier 27)
+
+const ACTIVE_PASSES_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/active_passes`;
+
+export const createActivePassesFilter = async (
+  fetch: Fetch<ActivePassesFilter>,
+  payload: CreateActivePassesFilterPayload,
+): Promise<ActivePassesFilter> => {
+  const { data } = await fetch(`${ACTIVE_PASSES_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchActivePassesFilter = async (
+  fetch: Fetch<ActivePassesFilter>,
+  filterId: number,
+  payload: UpdateActivePassesFilterPayload,
+): Promise<ActivePassesFilter> => {
+  const { data } = await fetch(
+    `${ACTIVE_PASSES_FILTER_ENDPOINT}/${filterId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const deleteActivePassesFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${ACTIVE_PASSES_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
+export const deleteMemberDateJoinedFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/${filterId}/`, {
     method: "DELETE",
   });
 };

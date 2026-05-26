@@ -8,6 +8,7 @@ import associatedCoach from '@bsport/saas-legacy/src/libs/associated-coach/reduc
 import authReducers from '@bsport/saas-legacy/src/reducers/auth';
 import category from '@bsport/saas-legacy/src/libs/category/reducers';
 import checkout from '@bsport/saas-legacy/src/libs/checkout/reducers';
+import communication from '@bsport/saas-legacy/src/libs/communication-v2/reducers';
 import consumerPaymentPack from '@bsport/saas-legacy/src/libs/consumer-payment-pack/reducers';
 import consumer from '@bsport/saas-legacy/src/libs/consumer-space/reducers';
 import consumerReworked from '@bsport/saas-legacy/src/libs/consumer-space/reducersReworked';
@@ -48,6 +49,7 @@ import type {
   ConsumerStateReworked,
 } from '@bsport/saas-legacy/src/libs/consumer-space/types';
 import type { CheckoutState } from '@bsport/saas-legacy/src/libs/checkout/types';
+import type { CommunicationState } from '@bsport/saas-legacy/src/libs/communication-v2/types';
 import type { CustomFormState } from '@bsport/saas-legacy/src/libs/custom-form/types';
 import type { ExportableComponentsState } from '@bsport/saas-legacy/src/libs/exportable-components/types';
 import type { FranchiseState } from '@bsport/saas-legacy/src/libs/franchise/types';
@@ -87,6 +89,7 @@ const reducer = (history: ReturnType<typeof createBrowserHistory>) =>
     category,
     checkout,
     coach: associatedCoach,
+    communicationV2: communication,
     consumerPaymentPack,
     consumer,
     consumerReworked,
@@ -130,6 +133,7 @@ export interface RootState {
   category: any;
   checkout: CheckoutState;
   coach: CoachState;
+  communicationV2: CommunicationState;
   consumerPaymentPack: any;
   consumer: ConsumerState;
   consumerReworked: ConsumerStateReworked;

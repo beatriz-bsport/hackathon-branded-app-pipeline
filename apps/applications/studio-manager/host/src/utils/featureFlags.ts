@@ -4,6 +4,7 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   HOMEPAGE: "homepage",
   PACKS: "revamp_packs_page",
   GIFTCARDS: "revamp_giftcards_page",
+  CONTRACTS: "revamp_contracts_page",
   TOGGLE_APPCUES: "toggle_appcues",
   CLASSES_MERGED_VIEW: "booking_classes_merged_view",
   SETTINGS_AGGREGATORS: "settings_aggregators_view",

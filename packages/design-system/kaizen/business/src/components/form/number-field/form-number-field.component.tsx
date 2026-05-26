@@ -6,7 +6,7 @@ import { TextField, type TextFieldProps } from "@bsport/kaizen-primitive-core";
 import type { NumberFieldPath } from "#src/utils/form-types";
 import { toMaxDigits } from "#src/utils/number";
 
-type FormNumberFieldProps<
+export type FormNumberFieldProps<
   TFormValues extends FieldValues,
   TFieldName extends
     NumberFieldPath<TFormValues> = NumberFieldPath<TFormValues>,
@@ -15,6 +15,8 @@ type FormNumberFieldProps<
   fieldName: TFieldName;
   /** Number of characters after the comma */
   maxDigits?: number;
+  /** Props that can depend on the current state value */
+  dynamicProps?: (currentValue: number | null) => Partial<TextFieldProps>;
 } & Partial<TextFieldProps>;
 
 export const FormNumberField = <
@@ -26,6 +28,7 @@ export const FormNumberField = <
   fieldName,
   className,
   maxDigits,
+  dynamicProps,
   ...additionalProps
 }: FormNumberFieldProps<TFormValues, TFieldName>): ReactElement => {
   return (
@@ -48,6 +51,7 @@ export const FormNumberField = <
             defaultProps.onChange(Number.isNaN(converted) ? null : converted);
           },
           ...(additionalProps ?? {}),
+          ...(dynamicProps?.(defaultProps.value) ?? {}),
         };
       }}
     >

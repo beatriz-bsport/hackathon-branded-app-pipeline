@@ -980,6 +980,7 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
           }
           locales={SUPPORTED_LOCALES}
           plugins={SUPPORTED_PLUGINS}
+          resourceOrder="title"
           resources={this.props.resources}
           schedulerLicenseKey="0617518912-fcs-1639035029"
           select={this.select}

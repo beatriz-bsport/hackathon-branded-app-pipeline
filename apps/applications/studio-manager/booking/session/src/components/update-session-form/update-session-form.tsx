@@ -161,7 +161,7 @@ const UpdateSessionForm: FC<PropsType> = ({ session }) => {
           <DetailsLayout.Panel>
             <div className="flex flex-col gap-lg pb-xl">
               <div className="flex flex-col gap-xs">
-                <Title htmlVariant="h5" weight="strong">
+                <Title htmlVariant="h5" weight="stronger">
                   {t("editSessionForm.content.visibilitySelector.title")}
                 </Title>
                 <VisibilitySelector

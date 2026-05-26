@@ -16,7 +16,7 @@ type Props = {
   partnershipAccounts: PartnershipAccount[];
   loading: boolean;
   isActionDisabled?: (account: PartnershipAccount) => boolean;
-  onDeleteAccount: (partnershipAccount: PartnershipAccount) => void;
+  onDeleteAccount?: (partnershipAccount: PartnershipAccount) => void;
   onEditAccount: (partnershipAccount: PartnershipAccount) => void;
   onActivateAccount?: (partnershipAccount: PartnershipAccount) => void;
 };

@@ -38,6 +38,7 @@ const queryClient = new QueryClient({
 if (typeof window !== "undefined") {
   window.__SM_RUNTIME__ = {
     API_BASE_URL: "https://api.dev.bsport.io",
+    GOOGLE_MAPS_API_KEY: "AIzaSyCz0gy4ESe5awksepoS0ENTBTf1sKytIjI",
   };
 }
 

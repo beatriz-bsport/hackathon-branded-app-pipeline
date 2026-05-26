@@ -10,7 +10,6 @@ import type cdpTranslations from "#src/i18n/source/cdp.json";
 import type coreTranslations from "#src/i18n/source/core.json";
 import type financialServicesTranslations from "#src/i18n/source/financial-services.json";
 import type formTranslations from "#src/i18n/source/form.json";
-import type platformTranslations from "#src/i18n/source/platform.json";
 
 /**
  * ========== NAMESPACES ==========
@@ -22,7 +21,6 @@ const i18nNamespaces: string[] = [
   "cdp",
   "core",
   "financial-services",
-  "platform",
 ];
 
 export type Translations = {
@@ -32,7 +30,6 @@ export type Translations = {
   core: typeof coreTranslations;
   "financial-services": typeof financialServicesTranslations;
   form: typeof formTranslations;
-  platform: typeof platformTranslations;
 };
 
 /**

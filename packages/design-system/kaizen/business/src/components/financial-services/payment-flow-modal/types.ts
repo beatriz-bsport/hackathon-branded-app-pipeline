@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
-import type { RefObject } from "react";
+import type { ReactNode, RefObject } from "react";
 
+import type { CompanyTheme } from "@bsport/api-core";
 import type { Fetch } from "@bsport/fetch";
 import type { SelectedDate } from "@bsport/kaizen-primitive-core";
 
@@ -18,12 +18,13 @@ export type PaymentFlowModalProps = {
   memberId: number;
   fetch: Fetch;
   onClose: () => void;
-  onConfirm?: () => void;
+  onConfirm?: (remainingAmountCts: number) => void;
+  companyTheme?: CompanyTheme;
 };
 
 export type PaymentFlowModalBodyState = {
   memberId: number;
-  fetch: PaymentFlowModalProps["fetch"];
+  fetch: Fetch;
   activeTab: PaymentTab;
   setActiveTab: (tab: PaymentTab) => void;
   installmentsTabDisabled: boolean;
@@ -50,6 +51,9 @@ export type PaymentFlowModalBodyState = {
   memberName: string;
   invoiceUrl: string;
   memberUrl: string;
+  installmentScheduleDetail: string | null;
+  installmentPerIntervalCaption: string | null;
+  invoiceRemainingAmountCts: number;
 };
 
 export type ConfirmPaymentFormValues = {

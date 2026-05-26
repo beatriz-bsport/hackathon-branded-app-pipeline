@@ -8,6 +8,10 @@ const getRuntimeFetchEnvValue = (key: keyof StudioManagerRuntime) => {
   return window.__SM_RUNTIME__?.[key];
 };
 
+export const getRuntimeGoogleMapsApiKey = (): string => {
+  return (getRuntimeFetchEnvValue("GOOGLE_MAPS_API_KEY") ?? "").trim();
+};
+
 export const getRuntimeAPIBaseUrl = () => {
   const apiBaseUrl = getRuntimeFetchEnvValue("API_BASE_URL");
 

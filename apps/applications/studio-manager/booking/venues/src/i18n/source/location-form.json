@@ -1,0 +1,53 @@
+{
+  "description": "A location groups venues for shared marketing, products, and reporting.",
+  "create": {
+    "title": "Create location",
+    "submit": "Create location"
+  },
+  "edit": {
+    "title": "Edit location",
+    "submit": "Edit location"
+  },
+  "fields": {
+    "name": {
+      "label": "Name",
+      "placeholder": "Give your location a name e.g. Paris Venues"
+    },
+    "venues": {
+      "label": "Add venues",
+      "placeholder": "Search venues..."
+    }
+  },
+  "errors": {
+    "required": "This field is required",
+    "venuesRequired": "Select at least one venue"
+  },
+  "cancel": "Close",
+  "delete": "Delete location",
+  "deleteModal": {
+    "title": "Delete location",
+    "confirm": "Delete",
+    "cancel": "Cancel",
+    "alert": {
+      "blocking": "This location cannot be deleted because of the following reasons:"
+    },
+    "errors": {
+      "hasExclusiveMarketplaceConfigs": "This location has exclusive marketplace component configurations. Please update them before deleting.",
+      "exclusiveCoaches": "The following coach(es) are exclusively associated with this location: {{names}}. Please update their configuration before deleting."
+    },
+    "warnings": {
+      "hasRelatedStaffConfigurations": "Some staff are configured for this location.",
+      "hasRelatedMarketplaceConfigs": "Some marketplace components are configured for this location.",
+      "hasRelatedMarketingNotifications": "Some marketing notifications target this location.",
+      "relatedCoaches": "Some coaches are associated with this location."
+    }
+  },
+  "toasts": {
+    "createSuccess": "Location created",
+    "createError": "Failed to create location",
+    "updateSuccess": "Location updated",
+    "updateError": "Failed to update location",
+    "deleteSuccess": "Location deleted",
+    "deleteError": "Failed to delete location"
+  }
+}

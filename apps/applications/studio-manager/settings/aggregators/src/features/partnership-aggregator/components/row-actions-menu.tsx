@@ -11,7 +11,7 @@ import {
 import { type TFunction, useTranslation } from "#src/utils/i18n";
 
 import type { AccountRow } from "../adapters/account-row";
-import type { MutableNamespace } from "../types";
+import type { EditOnlyNamespace, FullyMutableNamespace } from "../types";
 
 type ReadOnlyNamespace = "usc";
 
@@ -29,7 +29,18 @@ const CRUD_KEYS = {
     reactivate: "wellhub.table.actions.reactivate",
   },
 } as const satisfies Record<
-  MutableNamespace,
+  FullyMutableNamespace,
+  Record<string, Parameters<TFunction>[0]>
+>;
+
+const EDIT_ONLY_KEYS = {
+  wellpass: {
+    label: "wellpass.table.actions.label",
+    edit: "wellpass.table.actions.edit",
+    disabledHint: "wellpass.table.actions.deactivatedHint",
+  },
+} as const satisfies Record<
+  EditOnlyNamespace,
   Record<string, Parameters<TFunction>[0]>
 >;
 
@@ -49,12 +60,18 @@ const REACTIVATE_ACTION_ID = "reactivate";
 
 type RowActionsMenuProps =
   | {
-      namespace: MutableNamespace;
+      namespace: FullyMutableNamespace;
       readOnly?: false;
       status: AccountRow["status"];
       onEdit: () => void;
       onDelete: () => void;
       onReactivate: () => void;
+    }
+  | {
+      namespace: EditOnlyNamespace;
+      readOnly?: false;
+      status: AccountRow["status"];
+      onEdit: () => void;
     }
   | {
       namespace: ReadOnlyNamespace;
@@ -78,6 +95,64 @@ export const RowActionsMenu: FC<RowActionsMenuProps> = (props) => {
           disabled
         />
       </Tooltip>
+    );
+  }
+
+  if (props.namespace === "wellpass") {
+    const keys = EDIT_ONLY_KEYS[props.namespace];
+    const { status, onEdit } = props;
+
+    if (status === "deactivated") {
+      return (
+        <Tooltip placement="left" label={t(keys.disabledHint)}>
+          <Button
+            kind="icon-button"
+            label={t(keys.label)}
+            icon="dots-vertical"
+            color="default"
+            intent="flat"
+            size="md"
+            disabled
+          />
+        </Tooltip>
+      );
+    }
+
+    const menuItems: Item[] = [
+      {
+        id: EDIT_ACTION_ID,
+        label: t(keys.edit),
+        iconLeft: "edit-02",
+      },
+    ];
+
+    return (
+      <Popover>
+        <Popover.Anchor>
+          {({ setIsPopoverOpened }) => (
+            <Button
+              kind="icon-button"
+              label={t(keys.label)}
+              icon="dots-vertical"
+              color="default"
+              intent="flat"
+              size="md"
+              onClick={() => setIsPopoverOpened((opened) => !opened)}
+            />
+          )}
+        </Popover.Anchor>
+        <Popover.Content placement="bottom-right">
+          {({ setIsPopoverOpened }) => (
+            <Menu
+              items={menuItems}
+              onSelectOption={(id) => {
+                setIsPopoverOpened(false);
+                if (id === EDIT_ACTION_ID) onEdit();
+              }}
+            />
+          )}
+        </Popover.Content>
+      </Popover>
     );
   }
 

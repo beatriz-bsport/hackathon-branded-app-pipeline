@@ -2,6 +2,7 @@ import { type QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React from "react";
 import { BrowserRouter } from "react-router";
+import { UnleashClient } from "unleash-proxy-client";
 
 import { instanciateAppI18n } from "@bsport/i18n";
 import {
@@ -11,11 +12,13 @@ import {
   i18nNamespaces,
   inMemoryTranslationsLoader,
 } from "@bsport/kaizen-primitive-core";
-import { initSentry } from "@bsport/sentry";
+import { initSentry, unleashIntegration } from "@bsport/sentry";
 
 import DevTools from "#src/dev-utils/DevTools";
 import FeatureFlagsProvider from "#src/feature-flags/FeatureFlagsProvider";
+import { BackgroundTaskHost } from "#src/features/background-task-host";
 import { getDefaultQueryClient } from "#src/query-client";
+import { ErrorBoundaryWrapper } from "#src/wrappers/ErrorBoundaryWrapper";
 
 import { RoutesWrapper, type RoutesWrapperProps } from "../RoutesWrapper";
 
@@ -36,7 +39,9 @@ const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
 /**
  * Initialize sentry
  */
-initSentry();
+initSentry({
+  integrations: [unleashIntegration({ featureFlagClientClass: UnleashClient })],
+});
 
 /**
  * A Wrapper to provide the features required to run an application.
@@ -95,6 +100,13 @@ export const AppWrapper: React.FC<AppWrapperProps> = ({
                     routesWrapperProps?.navigationProps?.onLogoutCallback
                   }
                 />
+                <ErrorBoundaryWrapper
+                  appName="sm-backbone-background-task-host"
+                  fallback={<p className="hidden" />}
+                >
+                  <BackgroundTaskHost />
+                </ErrorBoundaryWrapper>
+
                 <ReactQueryDevtools initialIsOpen={false} />
                 <RoutesWrapper {...routesWrapperProps}>
                   {children}

@@ -11,9 +11,14 @@ import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import { connect, type ConnectedProps } from 'react-redux';
 import { RootState } from '#src/reducers';
 import { fetchProfile as fetchProfileAction } from '#src/libs/consumer-space/actions';
+import { fetchConversations as fetchConversationsAction } from '#src/libs/communication-v2/actions';
 import { getConsumerProfile } from '#src/libs/consumer-space/selectors';
+import {
+  getConversationById,
+  getConversationIds,
+} from '#src/libs/communication-v2/selectors';
 interface OwnProps {
-  membership?: Membership;
+  membership: Membership;
   queryParams?: { consumerspacecontext: ConsumerSpaceContextEnum };
 }
 
@@ -21,11 +26,15 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 
 export const AgentChat: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation('agentChat');
-  const { fetchProfile } = props;
+  const { fetchProfile, fetchConversations, membership } = props;
+  const companyId = membership?.company;
 
   useEffect(() => {
     fetchProfile();
-  }, [fetchProfile]);
+    if (companyId != null) {
+      fetchConversations(companyId);
+    }
+  }, [fetchProfile, fetchConversations, companyId]);
 
   const [messages, setMessages] = useState<MessagePayload[]>([
     {
@@ -105,11 +114,13 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
 // data from the state will show up as a prop in the component
 const mapStateToProps = (state: RootState) => ({
   profile: getConsumerProfile(state),
+  conversation: getConversationById(state, getConversationIds(state)[0] ?? ''),
 });
 
 // actions will show up as props in the component, and will dispatch the action when called
 const mapDispatchToProps = {
   fetchProfile: fetchProfileAction,
+  fetchConversations: fetchConversationsAction,
 };
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

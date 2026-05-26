@@ -11,32 +11,47 @@ import { getMonorepoBasePathSync } from "@bsport/typescript-monorepo-utils";
 
 const currentDir = fileURLToPath(new URL(".", import.meta.url));
 const repoRoot = getMonorepoBasePathSync();
-const coreSrcDir = resolve(currentDir, "../../primitive/core/src");
-const businessSrcDir = resolve(currentDir, "../../business/src");
+const primitiveSrcDir = resolve(
+  repoRoot,
+  "packages/design-system/kaizen/primitive/core/src",
+);
+const businessSrcDir = resolve(
+  repoRoot,
+  "packages/design-system/kaizen/business/src",
+);
 const smSessionSrcDir = resolve(
   repoRoot,
   "apps/applications/studio-manager/booking/session/src",
 );
+const smBackboneSrcDir = resolve(repoRoot, "packages/utils/sm-backbone/src");
+
+const globPattern = "**/*.stories.@(js|jsx|ts|tsx|mdx)";
 
 const config: StorybookConfig = {
   stories: [
     // Primitive core components
     {
-      directory: "../../primitive/core/src",
-      files: "**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      directory: primitiveSrcDir,
+      files: globPattern,
       titlePrefix: "Primitive",
     },
     // Business components package
     {
-      directory: "../../business/src",
-      files: "**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      directory: businessSrcDir,
+      files: globPattern,
       titlePrefix: "Business",
     },
     // Studio Manager — booking/session app components
     {
       directory: smSessionSrcDir,
-      files: "**/*.stories.@(js|jsx|ts|tsx|mdx)",
+      files: globPattern,
       titlePrefix: "Booking",
+    },
+    // Packages
+    {
+      directory: smBackboneSrcDir,
+      files: globPattern,
+      titlePrefix: "Backbone",
     },
   ],
 
@@ -105,13 +120,16 @@ const config: StorybookConfig = {
         };
 
         if (normalizedImporter.includes("primitive/core")) {
-          return tryResolve(coreSrcDir);
+          return tryResolve(primitiveSrcDir);
         }
         if (normalizedImporter.includes("studio-manager/booking/session/src")) {
           return tryResolve(smSessionSrcDir);
         }
         if (normalizedImporter.includes("business")) {
           return tryResolve(businessSrcDir);
+        }
+        if (normalizedImporter.includes("backbone")) {
+          return tryResolve(smBackboneSrcDir);
         }
         return null;
       },

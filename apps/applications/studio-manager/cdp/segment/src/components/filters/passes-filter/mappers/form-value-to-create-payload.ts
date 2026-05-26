@@ -10,7 +10,7 @@ import type { PassesFilterFormValue } from "../types";
  * Base ownership fields are always derived from the form. Each registered
  * sub-filter module contributes its own API slice.
  */
-export const toCreatePayload = (
+export const createPassesPayload = (
   value: PassesFilterFormValue,
 ): CreatePaymentPackFilterPayload => {
   const subFilterSlices = REGISTERED_PASS_SUB_FILTERS.reduce<

@@ -170,5 +170,9 @@
     "selected_other": "{{ count }} selected venues",
     "helperText": "Only selected venues will be included",
     "placeholder": "Leave blank to not limit the offering"
+  },
+  "addressAutocomplete": {
+    "label": "Address",
+    "placeholder": "Search an address"
   }
 }

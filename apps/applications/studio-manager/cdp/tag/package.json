@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "Tags",
-  "author": "Théo Steffanetti <theo.steffanetti@bsport.io>",
+  "author": "Th\u00e9o Steffanetti <theo.steffanetti@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
@@ -15,7 +15,7 @@
   "module": "build/lib.es.js",
   "types": "build/lib.es.d.ts",
   "scripts": {
-    "build": "tsc -b && vite build --mode production --logLevel warn",
+    "build": "vite build --mode production --logLevel warn",
     "build:preview": "vite build --mode preview",
     "ci:compile": "tsc -b",
     "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",

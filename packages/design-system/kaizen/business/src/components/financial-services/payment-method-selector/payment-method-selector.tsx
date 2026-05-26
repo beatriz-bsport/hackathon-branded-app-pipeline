@@ -270,7 +270,7 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
       return;
     }
 
-    const firstSavedMethodId = savedMethodItems[0]?.id;
+    const firstSavedMethod = savedMethodItems[0];
     const hasSelectedSavedMethod =
       currentSelection?.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED &&
       savedMethodItems.some((item) => item.id === currentSelection.id);
@@ -278,10 +278,11 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
       currentSelection?.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL;
 
     const nextSelection: PaymentMethodSelectorResolvedSelection =
-      firstSavedMethodId
+      firstSavedMethod
         ? {
             kind: PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED,
-            id: firstSavedMethodId,
+            id: firstSavedMethod.id,
+            paymentMethodType: firstSavedMethod.savedType,
           }
         : {
             kind: PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL,
@@ -301,6 +302,17 @@ export const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
   const handleChange = (selectedValue: string): void => {
     const parsedSelection = parseSelectValue(selectedValue);
     if (!parsedSelection) return;
+
+    if (parsedSelection.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED) {
+      const matchedSavedMethod = savedMethodItems.find(
+        (item) => item.id === parsedSelection.id,
+      );
+      applySelection({
+        ...parsedSelection,
+        paymentMethodType: matchedSavedMethod?.savedType,
+      });
+      return;
+    }
 
     applySelection(parsedSelection);
   };

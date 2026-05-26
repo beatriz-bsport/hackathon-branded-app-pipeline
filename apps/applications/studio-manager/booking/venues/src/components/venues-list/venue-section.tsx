@@ -15,14 +15,12 @@ type VenueSectionProps = {
   address: string;
   venues: Establishment[];
   onArchive: (venue: Establishment) => void;
-  onEditLocation: (location: EstablishmentGroup) => void;
 };
 
 export const VenueSection = ({
   address,
   venues,
   onArchive,
-  onEditLocation,
 }: VenueSectionProps) => {
   const { t } = useTranslation("venues-list");
   const { data: groupsData } = useEstablishmentGroupsQuery();
@@ -91,7 +89,6 @@ export const VenueSection = ({
       labels,
       onArchive,
       onAddVenueToLocation: handleAddVenueToLocation,
-      onEditLocation,
     }),
   );
 

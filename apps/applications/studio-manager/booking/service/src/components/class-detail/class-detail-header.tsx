@@ -111,7 +111,6 @@ export const ClassDetailHeader: FC<Props> = ({
         <DetailsLayout.Button
           key="schedule"
           label={t("classDetail.header.actions.scheduleSessions")}
-          iconLeft="calendar"
           iconRight="link-external-02"
           intent="default"
           color="main"

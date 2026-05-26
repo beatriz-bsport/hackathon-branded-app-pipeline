@@ -2,11 +2,7 @@ import {
   DATETIME_FORMATS,
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
-import {
-  type DateTime,
-  fromIsoString,
-  modifyTime,
-} from "@bsport/datetime-manipulation";
+import { fromIsoString } from "@bsport/datetime-manipulation";
 import {
   Body,
   Chip,
@@ -17,6 +13,7 @@ import {
 import { CancelledSessionName } from "#src/components/SessionList/CancelledSessionName";
 import { ParticipantsCell } from "#src/components/SessionList/ParticipantsCell";
 import { TeacherCell } from "#src/components/common/teacher-cell";
+import { formatSessionTimeRange } from "#src/utils/session-time-range";
 
 import { getSessionTimeStatus } from "./get-session-time-status";
 
@@ -96,20 +93,16 @@ export const buildSeriesColumns = (
     header: labels.time,
     id: "time",
     type: "custom",
-    render: (row) => {
-      const start = fromIsoString(row.date_start, {
-        zone: row.timezone_name,
-        locale,
-      });
-      const end = modifyTime({
-        datetime: start,
-        duration: { minute: row.duration_minute },
-        operator: "plus",
-      });
-      const fmt = (d: DateTime) =>
-        formatDateTimeFromDate(d, DATETIME_FORMATS.TIME_SIMPLE);
-      return <Body htmlVariant="span">{`${fmt(start)} - ${fmt(end)}`}</Body>;
-    },
+    render: (row) => (
+      <Body htmlVariant="span">
+        {formatSessionTimeRange({
+          dateStart: row.date_start,
+          durationMinute: row.duration_minute,
+          zone: row.timezone_name,
+          locale,
+        })}
+      </Body>
+    ),
   },
   {
     header: labels.participants,

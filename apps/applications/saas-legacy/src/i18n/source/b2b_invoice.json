@@ -137,8 +137,9 @@
         "copy_serial": "Copy serial",
         "copy_success": "Device certificate serial copied to clipboard",
         "gipuzkoa_notice": "You still need to validate your Fiskaly device certificate with Gipuzkoa on their official portal. You have about one month to do so. All invoices you issue in the meantime remain legally compliant.",
-        "registration_notice_title": "Finish device registration before completing",
-        "registration_notice_description": "Use the serial above on your province's official TicketBAI portal to register your Fiskaly device certificate so bsport can begin submitting your qualifying invoices to TicketBAI",
+        "gipuzkoa_pre_finalize_notice": "Click \"Complete setup\" to activate TicketBAI and start sending invoices. We'll provide a code to register on Gipuzkoa's official portal. After your first invoice is sent, you'll have about one month to complete this final step.",
+        "gipuzkoa_post_finalize_warning": "To complete your Gipuzkoa setup, copy this device certificate serial and register it on Gipuzkoa's official portal. You have about one month to do this. Invoices issued in the meantime remain legally compliant.",
+        "registration_notice_description": "If not already done, use the serial above on your province's official TicketBAI portal to register your Fiskaly device certificate so your invoices are compliant with TicketBAI rules.",
         "complete_confirmation": "I have completed the required provincial device registration for my territory",
         "complete_cta": "Complete setup"
       },
@@ -149,8 +150,8 @@
       },
       "active": {
         "success_message": "TicketBAI is active. Qualifying invoices and receipts will be reported according to your province's TicketBAI rules",
-        "gipuzkoa_followup_title": "Your invoices are already being sent to the tax authorities",
-        "gipuzkoa_followup_description": "You still need to validate your Fiskaly device with Gipuzkoa on their official portal. You have about one month to do so. All invoices you issue in the meantime remain legally compliant."
+        "gipuzkoa_followup_title": "Your invoices are being sent to TicketBAI",
+        "gipuzkoa_followup_description": "Qualifying invoices and receipts are now reported to the tax authorities according to Gipuzkoa's TicketBAI rules."
       }
     },
     "sequentialNumbering": {

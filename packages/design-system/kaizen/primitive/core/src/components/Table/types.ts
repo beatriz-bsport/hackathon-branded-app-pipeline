@@ -58,6 +58,8 @@ export type Column<RowType extends BaseRow> = {
   align?: "start" | "center" | "end";
   /** Additional CSS classes to apply to the row cells */
   cellsClassName?: string;
+  /** CSS classes applied to the outer table-cell element for both header and data cells, use to control column width (e.g. "w-[120px] max-w-[120px]" to pin, "w-full" to expand) */
+  colClassName?: string;
 } & (
   | {
       /**

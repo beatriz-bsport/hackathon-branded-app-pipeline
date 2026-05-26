@@ -57,6 +57,8 @@ const config: UserConfig = {
         "react/jsx-dev-runtime",
         "react/jsx-runtime",
         "tailwindcss",
+        "leaflet",
+        "react-leaflet",
         "@bsport/form",
         "@bsport/i18n",
         "@bsport/kaizen-primitive-core",

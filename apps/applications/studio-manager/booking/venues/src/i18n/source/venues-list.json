@@ -14,7 +14,8 @@
       "delete": "Delete"
     },
     "emptyState": {
-      "title": "No locations yet"
+      "title": "No locations yet",
+      "noResults": "No locations match your search"
     },
     "deleteModal": {
       "title": "Delete location",
@@ -49,6 +50,7 @@
   },
   "search": {
     "placeholder": "Search venues",
+    "locationsPlaceholder": "Search locations",
     "emptyState": {
       "title": "No venues found",
       "subtitle": "Try a different search term"

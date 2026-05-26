@@ -42,6 +42,14 @@ const ListPage: FC = () => {
     !multiLocalization && rawTab === "locations" ? "venues" : rawTab;
 
   const {
+    venuesSearchConfig,
+    locationsSearchConfig,
+    venuesSearchInput,
+    locationsSearchInput,
+    resetLocationsSearch,
+  } = usePageHeader();
+
+  const {
     modalState,
     openVenueCreateModal,
     openVenueEditModal,
@@ -54,6 +62,7 @@ const ListPage: FC = () => {
 
   const handleTabChange = useCallback(
     (tabId: string) => {
+      resetLocationsSearch();
       setSearchParams(
         (prev) => {
           prev.set("tab", tabId);
@@ -62,12 +71,11 @@ const ListPage: FC = () => {
         { replace: true },
       );
     },
-    [setSearchParams],
+    [resetLocationsSearch, setSearchParams],
   );
 
-  const { searchConfig, searchInput } = usePageHeader();
   const { filterConfig, filterRef, activeFilters } = useVenuesFilter();
-  const searchQuery = searchInput.trim();
+  const searchQuery = venuesSearchInput.trim();
   const pageTabs: HeaderLayoutProps["pageTabs"] = multiLocalization
     ? {
         value: activeTab,
@@ -116,7 +124,9 @@ const ListPage: FC = () => {
         <ListLayout.Header
           pageTitle={t("pageTitle")}
           pageTabs={pageTabs}
-          searchConfig={activeTab === "venues" ? searchConfig : undefined}
+          searchConfig={
+            activeTab === "venues" ? venuesSearchConfig : locationsSearchConfig
+          }
           filterConfig={activeTab === "venues" ? filterConfig : undefined}
           filterRef={filterRef}
           endGroupActions={endGroupActions}
@@ -142,6 +152,7 @@ const ListPage: FC = () => {
           )}
           {activeTab === "locations" && (
             <LocationsList
+              searchQuery={locationsSearchInput}
               onEdit={openLocationEditModal}
               onDelete={openLocationDeleteModal}
             />

@@ -7,22 +7,41 @@ import { useTranslation } from "#src/utils/i18n";
 const SEARCH_INPUT_DEBOUNCE = 300;
 
 type HookReturn = {
-  searchConfig: ExpandableSearchInputWithTooltipProps;
-  searchInput: string;
+  venuesSearchConfig: ExpandableSearchInputWithTooltipProps;
+  locationsSearchConfig: ExpandableSearchInputWithTooltipProps;
+  venuesSearchInput: string;
+  locationsSearchInput: string;
+  resetLocationsSearch: () => void;
 };
 
 export const usePageHeader = (): HookReturn => {
   const { t } = useTranslation("venues-list");
-  const [searchInput, setSearchInput] = useState("");
+  const [venuesSearchInput, setVenuesSearchInput] = useState("");
+  const [locationsSearchInput, setLocationsSearchInput] = useState("");
 
-  const searchConfig: ExpandableSearchInputWithTooltipProps = {
+  const venuesSearchConfig: ExpandableSearchInputWithTooltipProps = {
     id: "venues-page-search",
-    inputValue: searchInput,
-    onInputValueChange: setSearchInput,
-    onClear: () => setSearchInput(""),
+    inputValue: venuesSearchInput,
+    onInputValueChange: setVenuesSearchInput,
+    onClear: () => setVenuesSearchInput(""),
     debounceValue: SEARCH_INPUT_DEBOUNCE,
     placeholder: t("search.placeholder"),
   };
 
-  return { searchConfig, searchInput };
+  const locationsSearchConfig: ExpandableSearchInputWithTooltipProps = {
+    id: "locations-search",
+    inputValue: locationsSearchInput,
+    onInputValueChange: setLocationsSearchInput,
+    onClear: () => setLocationsSearchInput(""),
+    debounceValue: SEARCH_INPUT_DEBOUNCE,
+    placeholder: t("search.locationsPlaceholder"),
+  };
+
+  return {
+    venuesSearchConfig,
+    locationsSearchConfig,
+    venuesSearchInput,
+    locationsSearchInput,
+    resetLocationsSearch: () => setLocationsSearchInput(""),
+  };
 };

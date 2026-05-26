@@ -88,11 +88,14 @@ export const useClassFormSchema = (mode: ClassFormSchemaMode = "edit") => {
 
   return z
     .object({
-      name: z.string().trim().min(1, requiredMessage),
+      name: z.string().trim().min(1, t("addEditForm.basicInfo.name.error")),
       cover_main: z.union([z.instanceof(File), z.string(), z.null()]),
       alt_cover_main: z.string(),
-      SCT: z.string().min(1, requiredMessage),
-      description: z.string().trim().min(1, requiredMessage),
+      SCT: z.string().min(1, t("addEditForm.basicInfo.category.error")),
+      description: z
+        .string()
+        .trim()
+        .min(1, t("addEditForm.basicInfo.descriptionField.error")),
       color: z.string(),
       is_workshop: z.boolean().nullable(),
       first_booking_minutes_until: timeFieldSchema,

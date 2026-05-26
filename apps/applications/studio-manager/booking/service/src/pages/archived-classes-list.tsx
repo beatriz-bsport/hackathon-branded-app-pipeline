@@ -79,6 +79,7 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
           id: "actions",
           keyPath: "actions",
           type: "custom",
+          align: "end",
           render: (item) => {
             const canDelete = item.is_workshop
               ? canDeleteWorkshop

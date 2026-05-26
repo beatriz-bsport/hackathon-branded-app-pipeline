@@ -204,3 +204,13 @@ export const getConversationIds = (state: RootState) =>
 
 export const getConversationById = (state: RootState, id: string) =>
   state.communicationV2.conversations.byId[id] ?? null;
+
+export const isCreatingConversation = (state: RootState) =>
+  state.communicationV2.conversations.loading;
+
+export const getMessagesByConversationId = (
+  state: RootState,
+  conversationId: string,
+) =>
+  state.communicationV2.messages.allMessagesByConversationId[conversationId] ??
+  [];

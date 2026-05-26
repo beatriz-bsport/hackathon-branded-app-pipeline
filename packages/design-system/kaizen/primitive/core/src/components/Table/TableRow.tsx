@@ -174,6 +174,7 @@ const TableRow = withLink(
               withHorizontalDivider={withHorizontalDivider}
               rowHeight={rowHeight}
               align={col.align}
+              colClassName={col.colClassName}
             >
               {row.color && !selectable && index === 0 && (
                 <ColorIndicator

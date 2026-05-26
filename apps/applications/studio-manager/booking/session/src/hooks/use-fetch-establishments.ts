@@ -26,10 +26,12 @@ const fetchAllEstablishments = async ({
   page_size,
   disabled,
 }: FetchEstablishmentParams): Promise<Establishment[]> => {
+  // `buildUrlParams` calls `.toString()` on every value, so undefined params
+  // would throw — only include the ones that are set.
   const { results } = await fetchEstablishments(fetch, {
-    company,
-    page_size,
-    disabled,
+    ...(company !== undefined && { company }),
+    ...(page_size !== undefined && { page_size }),
+    ...(disabled !== undefined && { disabled }),
   });
   return results;
 };
@@ -40,7 +42,13 @@ const allEstablishmentsQueryOptions = ({
   disabled_establishments,
   enabled,
 }: FetchAllEstablishmentsParams) => {
-  const params = { company, page_size, disabled: disabled_establishments };
+  const params = {
+    ...(company !== undefined && { company }),
+    ...(page_size !== undefined && { page_size }),
+    ...(disabled_establishments !== undefined && {
+      disabled: disabled_establishments,
+    }),
+  };
   return queryOptions({
     queryKey: establishmentKeys.list(params),
     queryFn: () => fetchAllEstablishments(params),

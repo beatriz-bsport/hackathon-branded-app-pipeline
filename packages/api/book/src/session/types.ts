@@ -42,6 +42,12 @@ export type FetchSessionsParams = {
   /** Return only strictly future sessions (>= now). */
   only_future_strict?: boolean;
 
+  /** Return only past sessions (date_end <= now — session has fully ended). */
+  only_past_strict?: boolean;
+
+  /** Return only in-progress sessions (date_start <= now <= date_start + duration). */
+  only_in_progress?: boolean;
+
   /** Filter by whether the session is available on aggregators. */
   available_on_partnership?: boolean;
 
@@ -283,6 +289,8 @@ export type Session = {
   meta_activity_color: string | null;
   meta_activity: number;
   name_override: string;
+  /** Active, non-cancelled, unconverted waiting-list holds (backend counter). */
+  nb_option: number;
   partner_max_booking_count: number;
   partner_spot_capping_strategy?: PartnerSpotCappingStrategy;
   recurrence_id: string;

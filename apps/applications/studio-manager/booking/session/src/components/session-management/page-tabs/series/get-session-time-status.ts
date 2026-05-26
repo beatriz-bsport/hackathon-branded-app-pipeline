@@ -1,4 +1,4 @@
-import { fromIsoString, modifyTime } from "@bsport/datetime-manipulation";
+import { getSessionStartEnd } from "#src/utils/session-time-range";
 
 export type SessionTimeStatus = "upcoming" | "ongoing" | "past" | "cancelled";
 
@@ -17,11 +17,10 @@ export const getSessionTimeStatus = ({
 }): SessionTimeStatus => {
   if (!available) return "cancelled";
 
-  const start = fromIsoString(dateStart, { zone: timeZone });
-  const end = modifyTime({
-    datetime: start,
-    duration: { minute: durationMinute },
-    operator: "plus",
+  const { start, end } = getSessionStartEnd({
+    dateStart,
+    durationMinute,
+    zone: timeZone,
   });
 
   const nowMs = now.getTime();

@@ -1,14 +1,10 @@
 import { useMemo } from "react";
 
-import {
-  DATETIME_FORMATS,
-  formatDateTimeFromDate,
-} from "@bsport/datetime-formatting";
-import { type DateTime, fromIsoString } from "@bsport/datetime-manipulation";
 import { Avatar, Body, Icon } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { AppointmentShortcutActionsButton } from "#src/components/AppointmentList/AppointmentShortcutActionsButton";
+import { CancelledSessionName } from "#src/components/SessionList/CancelledSessionName";
 import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
 import {
   AppointmentColumn,
@@ -16,6 +12,7 @@ import {
   type EnrichedAppointment,
 } from "#src/types";
 import { useTranslation } from "#src/utils/i18n";
+import { formatSessionTimeRange } from "#src/utils/session-time-range";
 
 export const useAppointmentColumns = (): AppointmentTableColumn[] => {
   const { t, i18n } = useTranslation("sessionList");
@@ -28,9 +25,6 @@ export const useAppointmentColumns = (): AppointmentTableColumn[] => {
   );
 };
 
-const timeFormatter = (dateTime: DateTime) =>
-  formatDateTimeFromDate(dateTime, DATETIME_FORMATS.TIME_SIMPLE);
-
 const getColumns = (
   t: ReturnType<typeof useTranslation<"sessionList">>["t"],
   intlLocale: string | undefined,
@@ -42,21 +36,16 @@ const getColumns = (
     id: AppointmentColumn.TIME,
     type: "custom",
     align: "start",
-    render: (row: EnrichedAppointment) => {
-      const startDate = fromIsoString(row.date_start, {
-        zone: companyTimeZone,
-        locale: intlLocale,
-      });
-      const endDate = fromIsoString(row.date_end, {
-        zone: companyTimeZone,
-        locale: intlLocale,
-      });
-      return (
-        <Body htmlVariant="p" size="md">
-          {`${timeFormatter(startDate)} - ${timeFormatter(endDate)}`}
-        </Body>
-      );
-    },
+    render: (row: EnrichedAppointment) => (
+      <Body htmlVariant="p" size="md">
+        {formatSessionTimeRange({
+          dateStart: row.date_start,
+          dateEnd: row.date_end,
+          zone: companyTimeZone,
+          locale: intlLocale,
+        })}
+      </Body>
+    ),
   };
 
   const nameColumn: AppointmentTableColumn = {
@@ -67,21 +56,10 @@ const getColumns = (
     align: "start",
     render: (row: EnrichedAppointment) =>
       row.isCancelled ? (
-        <div className="flex items-center gap-xs">
-          <Icon
-            icon="x-circle-solid"
-            size="sm"
-            className="text-onsurface-action-weak-default"
-          />
-          <Body
-            htmlVariant="p"
-            size="md"
-            color="inherit"
-            className="text-onsurface-action-weak-default line-through truncate max-w-[202px]"
-          >
-            {row.name}
-          </Body>
-        </div>
+        <CancelledSessionName
+          name={row.name}
+          className="truncate max-w-[202px]"
+        />
       ) : (
         <Body htmlVariant="p" size="md" className="truncate max-w-[202px]">
           {row.name}

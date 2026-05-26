@@ -32,10 +32,6 @@ export const BookingWindowSection: FC = () => {
 
   return (
     <FormSection>
-      <FormSectionHeader
-        title={t("addEditForm.bookingWindow.title")}
-        description={t("addEditForm.bookingWindow.description")}
-      />
       <div className="flex flex-col gap-lg">
         <div className="flex flex-col gap-sm w-[360px]">
           <FormSectionHeader

@@ -2,21 +2,23 @@ import { queryOptions, useQuery } from "@tanstack/react-query";
 import pick from "lodash/pick";
 
 import {
-  FetchSessionsParams,
+  type PaginatedFetchSessionsParams,
+  type Session,
   fetchSessionsAPI,
   sessionKeys,
 } from "@bsport/api-book";
+import type { PaginatedResponse } from "@bsport/store-base";
 
 import { fetch } from "#src/utils/fetch";
 
 const fetchSessions = fetchSessionsAPI.bind(null, fetch);
 
-const sessionsInGroupQueryOptions = (
+export const sessionsInGroupQueryOptions = (
   groupId: number | null,
-  params: FetchSessionsParams,
+  params: PaginatedFetchSessionsParams,
   enabled: boolean,
-) => {
-  return queryOptions({
+) =>
+  queryOptions<PaginatedResponse<Session>>({
     queryKey: sessionKeys.inGroup(groupId, params),
     queryFn: () =>
       fetchSessions({
@@ -25,14 +27,13 @@ const sessionsInGroupQueryOptions = (
       }),
     enabled: enabled && groupId !== null,
   });
-};
 
 export const useFetchSessionsInGroup = (
   groupId: number | null,
-  params: FetchSessionsParams,
+  params: PaginatedFetchSessionsParams,
   enabled: boolean,
-) => {
-  return useQuery({
+) =>
+  useQuery({
     ...sessionsInGroupQueryOptions(groupId, params, enabled),
     select: (data) =>
       data.results.map((session) =>
@@ -45,4 +46,3 @@ export const useFetchSessionsInGroup = (
         ]),
       ),
   });
-};

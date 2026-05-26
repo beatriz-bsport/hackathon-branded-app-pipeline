@@ -25,7 +25,13 @@ export const NameCell: React.FC<NameCellProps> = ({
   duration_minute,
 }) => {
   if (!available) {
-    return <CancelledSessionName name={name} className={nameCellClassName} />;
+    return (
+      <CancelledSessionName
+        name={name}
+        size="md"
+        className={nameCellClassName}
+      />
+    );
   }
 
   return (

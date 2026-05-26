@@ -45,6 +45,7 @@ import {
   retrieveCommunicationSMSProviderVerification as retrieveCommunicationSMSProviderVerificationAPI,
   fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI,
   fetchConversations as fetchConversationsAPI,
+  createConversation as createConversationAPI,
 } from '#src/libs/communication-v2/api';
 import { deleteCustomMobilePopup as deleteCustomMobilePopupAPI } from '#src/libs/settings/api';
 import type {
@@ -66,6 +67,8 @@ import type {
   FetchFirstReachedRecipientsParams,
   MemberListDataByCommunicationKind,
   ConversationListResponse,
+  ConversationCreationInput,
+  ConversationCreationOutput,
 } from '#src/libs/communication-v2/types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from '#src/libs/communication-v2/constants';
 
@@ -1022,6 +1025,35 @@ export function fetchConversations(
       options?.onError?.(error);
     } finally {
       dispatch(fetchConversationsActions.loading(false));
+    }
+  };
+}
+
+export const createConversationActions = {
+  error: createAction<Error | null>('COMMUNICATION/CONVERSATION/CREATE/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION/CONVERSATION/CREATE/LOADING'),
+  success: createAction<ConversationCreationOutput>(
+    'COMMUNICATION/CONVERSATION/CREATE/SUCCESS',
+  ),
+};
+
+export function createConversation(
+  conversationCreationInput: ConversationCreationInput,
+  options?: OptionCallback<ConversationCreationOutput>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(createConversationActions.loading(true));
+      dispatch(createConversationActions.error(null));
+
+      const response = await createConversationAPI(conversationCreationInput);
+      dispatch(createConversationActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(createConversationActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(createConversationActions.loading(false));
     }
   };
 }

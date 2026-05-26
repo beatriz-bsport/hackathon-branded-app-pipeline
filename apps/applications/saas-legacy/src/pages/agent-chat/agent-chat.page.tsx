@@ -4,18 +4,22 @@ import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 import { Convo } from './convo';
 import { Button, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import { MESSAGE_ROLES, MessagePayload } from './chat-types';
 import { compose } from 'recompose';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import { connect, type ConnectedProps } from 'react-redux';
 import { RootState } from '#src/reducers';
 import { fetchProfile as fetchProfileAction } from '#src/libs/consumer-space/actions';
-import { fetchConversations as fetchConversationsAction } from '#src/libs/communication-v2/actions';
+import {
+  fetchConversations as fetchConversationsAction,
+  createConversation as createConversationAction,
+} from '#src/libs/communication-v2/actions';
 import { getConsumerProfile } from '#src/libs/consumer-space/selectors';
 import {
   getConversationById,
   getConversationIds,
+  getMessagesByConversationId,
+  isCreatingConversation,
 } from '#src/libs/communication-v2/selectors';
 interface OwnProps {
   membership: Membership;
@@ -36,38 +40,32 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
     }
   }, [fetchProfile, fetchConversations, companyId]);
 
-  const [messages, setMessages] = useState<MessagePayload[]>([
-    {
-      role: MESSAGE_ROLES.AGENT,
-      message: 'Hello! How can I assist you today?',
-    },
-    {
-      role: MESSAGE_ROLES.MEMBER,
-      message: 'Hi! I have a question about my account.',
-    },
-    {
-      role: MESSAGE_ROLES.STUDIO_MANAGER,
-      message:
-        "Sure, I'd be happy to help with that. What seems to be the issue?",
-    },
-  ]);
   const [message, setMessage] = useState<string>('');
 
   const sendMessage = (newMessage: string) => {
+    if (companyId == null) {
+      return;
+    }
+
     newMessage = newMessage.trim();
     if (newMessage === '') {
       setMessage('');
       return;
     }
-    addMessage({ role: MESSAGE_ROLES.MEMBER, message: newMessage });
-    setMessage('');
-  };
 
-  const addMessage = (newMessage: MessagePayload) => {
-    setMessages((prevMessages) => {
-      const allMessages = [...prevMessages, newMessage];
-      return allMessages;
-    });
+    if (props.conversation == null) {
+      props.createConversation(
+        {
+          company_id: companyId,
+          message_text: newMessage,
+        },
+        {
+          onSuccess: () => {
+            setMessage('');
+          },
+        },
+      );
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -83,7 +81,7 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
 
   return (
     <div>
-      <Convo memberProfile={props.profile} messages={messages} />
+      <Convo memberProfile={props.profile} messages={props.messages} />
       <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
         <TextField
           multiline
@@ -98,7 +96,7 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
         />
         <Button
           color="primary"
-          disabled={message.trim() === ''}
+          disabled={message.trim() === '' || props.isCreatingConversation}
           onClick={() => {
             sendMessage(message);
           }}
@@ -114,13 +112,20 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
 // data from the state will show up as a prop in the component
 const mapStateToProps = (state: RootState) => ({
   profile: getConsumerProfile(state),
+  // Right now, there is only one conversation por member, so we just get the first one.
   conversation: getConversationById(state, getConversationIds(state)[0] ?? ''),
+  isCreatingConversation: isCreatingConversation(state),
+  messages: getMessagesByConversationId(
+    state,
+    getConversationIds(state)[0] ?? '',
+  ),
 });
 
 // actions will show up as props in the component, and will dispatch the action when called
 const mapDispatchToProps = {
   fetchProfile: fetchProfileAction,
   fetchConversations: fetchConversationsAction,
+  createConversation: createConversationAction,
 };
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

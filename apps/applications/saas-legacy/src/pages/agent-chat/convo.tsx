@@ -1,11 +1,11 @@
 import { Message } from './message';
 
 import React from 'react';
-import { MessagePayload } from './chat-types';
 import { Profile } from '#src/libs/consumer-space/types';
+import { ConversationMessage } from '#src/libs/communication-v2/types';
 
 type ConvoProps = {
-  messages: MessagePayload[];
+  messages: ConversationMessage[];
   memberProfile?: Profile;
 };
 
@@ -15,8 +15,8 @@ export const Convo: React.FC<ConvoProps> = ({
 }: ConvoProps) => {
   return (
     <div>
-      {messages.map((message, index) => (
-        <div key={index} style={{ marginBottom: '16px' }}>
+      {messages.map((message) => (
+        <div key={message.id} style={{ marginBottom: '16px' }}>
           <Message memberProfile={memberProfile} message={message} />
         </div>
       ))}

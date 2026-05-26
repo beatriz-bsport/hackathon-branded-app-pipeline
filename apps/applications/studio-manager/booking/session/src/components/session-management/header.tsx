@@ -101,7 +101,11 @@ export const Header: FC<{
       )}
       callToActionButton={
         session.available && !isMobile ? (
-          <BookButton />
+          <BookButton
+            onClick={() => {
+              openModal(SessionManagementModalType.BOOK);
+            }}
+          />
         ) : !session.group && !isMobile ? (
           <RestoreSessionButton openModal={openModal} />
         ) : undefined

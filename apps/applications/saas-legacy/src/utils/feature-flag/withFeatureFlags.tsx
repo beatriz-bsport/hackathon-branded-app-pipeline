@@ -10,9 +10,11 @@ export type FeatureFlagProps = {
   toggleAppcues: boolean;
   showBookingDisplaySwapPass: boolean;
   checkoutFlowModalEnabled: boolean;
+  paymentFlowModalEnabled: boolean;
   isBookingMultipleOffersInSubscriptionCheckoutEnabled: boolean;
   isCalendarRevampEnabled: boolean;
   isAgentChatEnabled: boolean;
+  isNewWellpassConfigurationEnabled: boolean;
 };
 
 /**
@@ -41,9 +43,15 @@ export const withFeatureFlags = <TProps extends object>(
     const checkoutFlowModalEnabled = useSafeFlag(
       FeatureFlags.FS_BILLING_FLOW_NEW_MODAL,
     );
+    const paymentFlowModalEnabled = useSafeFlag(
+      FeatureFlags.FS_PAYMENT_FLOW_MODAL,
+    );
 
     const isCalendarRevampEnabled = useSafeFlag(FeatureFlags.CALENDAR_REVAMP);
     const isAgentChatEnabled = useSafeFlag(FeatureFlags.AGENT_CHAT);
+    const isNewWellpassConfigurationEnabled = useSafeFlag(
+      FeatureFlags.BOOKING_ACTIVATE_NEW_WELLPASS_CONFIGURATION,
+    );
 
     return (
       <WrappedComponent
@@ -57,6 +65,8 @@ export const withFeatureFlags = <TProps extends object>(
         isInvoiceSequentialNumberingEnabled={
           isInvoiceSequentialNumberingEnabled
         }
+        isNewWellpassConfigurationEnabled={isNewWellpassConfigurationEnabled}
+        paymentFlowModalEnabled={paymentFlowModalEnabled}
         shouldDisplayNewSubscriptionContracts={
           shouldDisplayNewSubscriptionContracts
         }

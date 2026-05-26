@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "build": "vite build --logLevel warn",
-    "ci:compile": "tsc",
+    "ci:compile": "tsc -p tsconfig.json --noEmit",
     "ci:publish": "./scripts/ci-publish.sh",
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",

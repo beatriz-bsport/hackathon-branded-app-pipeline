@@ -24,6 +24,7 @@ export const FeatureFlags = {
   EXPRESS_PASS_CHECKOUT: 'express-pass-checkout',
   FISKALY_SIGN_ES: 'fiskaly_sign_es',
   FS_BILLING_FLOW_NEW_MODAL: 'fs_billing_flow_new_modal',
+  FS_PAYMENT_FLOW_MODAL: 'fs_payment_flow_modal',
   HOMEPAGE: 'homepage',
   INSIGHTS_PAGE: 'insights_page',
   INVOICE_SEQUENTIAL_NUMBERING: 'invoice_sequential_numbering',
@@ -41,6 +42,8 @@ export const FeatureFlags = {
   CALENDAR_REVAMP: 'booking_calendar_page_revamped',
   STRIPE_LINK_EXPRESS_CHECKOUT: 'stripe-link-express-checkout',
   PAYOUT_FEE_BREAKDOWN: 'payout-fee-breakdown',
+  BOOKING_ACTIVATE_NEW_WELLPASS_CONFIGURATION:
+    'booking_activate_new_wellpass_configuration',
 } as const;
 
 export type FlagName = (typeof FeatureFlags)[keyof typeof FeatureFlags];

@@ -10,7 +10,7 @@ import { toast } from "@bsport/kaizen-primitive-core";
 import { fetch } from "#src/utils/fetch";
 import { type TFunction, useTranslation } from "#src/utils/i18n";
 
-import type { MutableNamespace } from "../types";
+import type { FullyMutableNamespace } from "../types";
 
 const activateAccount = activatePartnershipAccountAPI.bind(null, fetch);
 
@@ -24,7 +24,7 @@ const TOAST_KEYS = {
     error: "wellhub.toast.reactivate.error",
   },
 } as const satisfies Record<
-  MutableNamespace,
+  FullyMutableNamespace,
   Record<string, Parameters<TFunction>[0]>
 >;
 
@@ -32,7 +32,7 @@ type Variables = { accountId: string };
 
 export const useReactivateAccount = (
   partnershipId: number,
-  namespace: MutableNamespace,
+  namespace: FullyMutableNamespace,
 ) => {
   const queryClient = useQueryClient();
   const { t } = useTranslation("common");

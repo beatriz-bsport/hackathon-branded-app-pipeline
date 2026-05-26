@@ -90,6 +90,30 @@ export enum SmartlistTotalBookingComparator {
   BETWEEN = 6,
 }
 
+export const GenderFilterValue = {
+  MALE: "M",
+  FEMALE: "F",
+} as const;
+
+export type GenderFilterValue =
+  (typeof GenderFilterValue)[keyof typeof GenderFilterValue];
+
+/**
+ * Smartlist gender filter data contract.
+ * Endpoint family: /customer-data-platform/v1/smartlist/gender_filter/
+ */
+export type GenderFilter = SmartlistFilterPayload & {
+  company_id: number;
+  value: GenderFilterValue;
+};
+
+export type CreateGenderFilterPayload = Pick<
+  GenderFilter,
+  "smartlist" | "value"
+>;
+
+export type UpdateGenderFilterPayload = Partial<Pick<GenderFilter, "value">>;
+
 /**
  * Smartlist payment pack filter data contract.
  * Endpoint family: /customer-data-platform/v1/smartlist/payment_pack/
@@ -173,6 +197,148 @@ export type CreateTotalBookingFilterPayload = Omit<
 export type UpdateTotalBookingFilterPayload = Partial<
   Omit<
     TotalBookingFilter,
+    "id" | "company_id" | "smartlist" | "filter_identifier"
+  >
+>;
+
+/**
+ * Smartlist tag filter data contract.
+ * Endpoint family: /customer-data-platform/v1/smartlist/tag_filter/
+ */
+export type TagFilter = SmartlistFilterPayload & {
+  company_id: number;
+  tags_included: number[];
+  tags_excluded: number[];
+};
+
+export type CreateTagFilterPayload = Omit<
+  TagFilter,
+  "id" | "company_id" | "filter_identifier"
+>;
+
+export type UpdateTagFilterPayload = Partial<
+  Pick<TagFilter, "tags_included" | "tags_excluded">
+>;
+
+/**
+ * Smartlist booking milestone filter (N-th OK booking per consumer).
+ * Endpoint family: `/customer-data-platform/v1/smartlist/bookings_number/`.
+ *
+ * Shares the reservation scoping / date / time / attendance sub-filter shape
+ * with {@link TotalBookingFilter} (id 22), but the value field is the milestone
+ * index (`value >= 1`) instead of a count comparator and there is no
+ * `comparator` or `value_second`. `is_v2` stays on the model for backend parity
+ * but is not exposed in the UI.
+ */
+export type BookingMilestoneFilter = SmartlistFilterPayload & {
+  company_id: number;
+  value: number;
+  is_v2: boolean;
+  select_all_activities: boolean;
+  activity_filter_active: boolean;
+  meta_activities: number[];
+  select_all_establishments: boolean;
+  establishment_filter_active: boolean;
+  establishments: number[];
+  select_all_payment_packs: boolean;
+  payment_pack_filter_active: boolean;
+  payment_packs: number[];
+  select_all_coaches: boolean;
+  coach_filter_active: boolean;
+  coaches: number[];
+  level_filter_active: boolean;
+  level: number[];
+  date_filter_active: boolean;
+  date_filter_type: SmartlistDateFilterType;
+  date: string | null;
+  date_second: string | null;
+  duration: number | null;
+  duration_second: number | null;
+  hour_filter_active: boolean | null;
+  hour: string | null;
+  hour_second: string | null;
+  attendance_filter_active: boolean | null;
+  attendance: boolean | null;
+};
+
+export type CreateBookingMilestoneFilterPayload = Omit<
+  BookingMilestoneFilter,
+  "id" | "company_id" | "filter_identifier"
+>;
+
+export type UpdateBookingMilestoneFilterPayload = Partial<
+  Omit<
+    BookingMilestoneFilter,
+    "id" | "company_id" | "smartlist" | "filter_identifier"
+  >
+>;
+
+/**
+ * Comparator values for {@link ActivePassesFilter} (`active_passes` API).
+ * Values 3 (LT) and 4 (GT) are not implemented in `do_filter` on the backend.
+ */
+export enum SmartlistActivePassesComparator {
+  LTE = 1,
+  GTE = 2,
+  EQUAL = 5,
+  BETWEEN = 6,
+}
+
+/**
+ * Smartlist active passes filter data contract (filter identifier 27).
+ * Counts how many group passes (ConsumerPaymentPack) + private passes
+ * (PrivateConsumerPass) are active right now for each member and compares
+ * the result against the configured threshold.
+ * Endpoint family: `/customer-data-platform/v1/smartlist/active_passes/`
+ */
+export type ActivePassesFilter = SmartlistFilterPayload & {
+  company_id: number;
+  select_all_payment_packs: boolean;
+  payment_packs: number[];
+  select_all_private_passes: boolean;
+  private_passes: number[];
+  nb_active_passes_comparator: SmartlistActivePassesComparator;
+  nb_active_passes_value: number;
+  nb_active_passes_value_second: number;
+};
+
+export type CreateActivePassesFilterPayload = Omit<
+  ActivePassesFilter,
+  "id" | "company_id" | "filter_identifier"
+>;
+
+export type UpdateActivePassesFilterPayload = Partial<
+  Omit<
+    ActivePassesFilter,
+    "id" | "company_id" | "smartlist" | "filter_identifier"
+  >
+>;
+
+/*
+ * Smartlist member sign-up date filter data contract.
+ * Endpoint family: /customer-data-platform/v1/smartlist/member_date_joined/
+ */
+export type MemberDateJoinedFilter = SmartlistFilterPayload & {
+  company_id: number;
+  date_filter_type: SmartlistDateFilterType;
+  date: string | null;
+  date_second: string | null;
+  duration: number;
+  duration_second: number;
+};
+
+export type CreateMemberDateJoinedFilterPayload = {
+  smartlist: number;
+  date_filter_type: SmartlistDateFilterType;
+  date?: string | null;
+  date_second?: string | null;
+  duration?: number;
+  duration_second?: number;
+};
+
+export type UpdateMemberDateJoinedFilterPayload = Partial<
+  Omit<
+    MemberDateJoinedFilter,
     "id" | "company_id" | "smartlist" | "filter_identifier"
   >
 >;

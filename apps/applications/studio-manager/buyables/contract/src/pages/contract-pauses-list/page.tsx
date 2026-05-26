@@ -6,7 +6,7 @@ import { ContractDetailsSuspense } from "#src/components/contract-details-suspen
 import { useDetailsConfig } from "#src/hooks/layout/use-details-config";
 
 const ContractPausesListPageInner: FC = () => {
-  const { headerConfig, contract, archiveModal } = useDetailsConfig();
+  const { headerConfig, contract, modals } = useDetailsConfig();
 
   return (
     <ListLayout>
@@ -14,7 +14,7 @@ const ContractPausesListPageInner: FC = () => {
 
       <ListLayout.Content>This will be the pauses page</ListLayout.Content>
 
-      {archiveModal}
+      {modals}
     </ListLayout>
   );
 };

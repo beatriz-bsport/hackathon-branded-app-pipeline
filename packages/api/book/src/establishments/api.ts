@@ -1,4 +1,8 @@
-import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
+import {
+  infiniteQueryOptions,
+  mutationOptions,
+  queryOptions,
+} from "@tanstack/react-query";
 
 import {
   type ApiConfig,
@@ -9,19 +13,23 @@ import {
 } from "@bsport/store-base";
 
 import type {
+  CheckDeleteEstablishmentData,
+  CreateEstablishmentPayload,
   Establishment,
   FetchEstablishmentParams,
   SearchEstablishmentParams,
+  UpdateEstablishmentPayload,
 } from "#src/establishments/types";
 
-import { API_V1_URL, BOOKING_QUERY_KEY } from "../constants";
+import {
+  API_V1_URL,
+  BOOKING_QUERY_KEY,
+  DEFAULT_STALE_TIME,
+} from "../constants";
 
 // ----------------------------------------------------------------------------
 
 const ESTABLISHMENT_API_URL = `${API_V1_URL}establishment`;
-
-// TODO: use the same stale time for all establishments queries
-const ESTABLISHMENTS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 export const establishmentKeys = {
   all: [BOOKING_QUERY_KEY, "establishments"] as const,
@@ -40,6 +48,9 @@ export const establishmentKeys = {
 
   details: () => [...establishmentKeys.all, "detail"] as const,
   detail: (id: number) => [...establishmentKeys.details(), id] as const,
+
+  checkDeletion: (id: number) =>
+    [...establishmentKeys.all, "check-deletion", id] as const,
 };
 
 // ----------------------------------------------------------------------------
@@ -64,10 +75,11 @@ export const fetchEstablishmentsQueryOptions = (
   fetch: Fetch<PaginatedResponse<Establishment>>,
   params: FetchEstablishmentParams = {},
 ) => {
+  const queryFn = fetchEstablishments.bind(null, fetch, params);
   return queryOptions({
     queryKey: establishmentKeys.list(params),
-    queryFn: () => fetchEstablishments(fetch, params),
-    staleTime: ESTABLISHMENTS_STALE_TIME,
+    queryFn,
+    staleTime: DEFAULT_STALE_TIME,
   });
 };
 
@@ -83,7 +95,7 @@ export const fetchEstablishmentsInfiniteQueryOptions = (
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
     enabled: Boolean(params.company && params.company > 0),
-    staleTime: ESTABLISHMENTS_STALE_TIME,
+    staleTime: DEFAULT_STALE_TIME,
   });
 };
 
@@ -107,7 +119,7 @@ export const searchEstablishments = async (
 
 // ----------------------------------------------------------------------------
 
-export const retriveEstablishment = async (
+export const retrieveEstablishment = async (
   fetch: Fetch<Establishment>,
   establishmentId: number,
 ): Promise<Establishment> => {
@@ -119,9 +131,117 @@ export const retrieveEstablishmentQueryOptions = (
   fetch: Fetch<Establishment>,
   establishmentId: number,
 ) => {
+  const queryFn = retrieveEstablishment.bind(null, fetch, establishmentId);
   return queryOptions({
     queryKey: establishmentKeys.detail(establishmentId),
-    queryFn: () => retriveEstablishment(fetch, establishmentId),
-    staleTime: ESTABLISHMENTS_STALE_TIME,
+    queryFn,
+    staleTime: DEFAULT_STALE_TIME,
   });
 };
+
+// ----------------------------------------------------------------------------
+
+export const createEstablishment = async (
+  fetch: Fetch<Establishment>,
+  payload: CreateEstablishmentPayload,
+): Promise<Establishment> => {
+  const { data } = await fetch(`${ESTABLISHMENT_API_URL}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  return data;
+};
+
+export const createEstablishmentMutationOptions = (
+  fetch: Fetch<Establishment>,
+) =>
+  mutationOptions({
+    mutationFn: (payload: CreateEstablishmentPayload) =>
+      createEstablishment(fetch, payload),
+  });
+
+// ----------------------------------------------------------------------------
+
+export const updateEstablishment = async (
+  fetch: Fetch<Establishment>,
+  id: number,
+  payload: UpdateEstablishmentPayload,
+): Promise<Establishment> => {
+  const { data } = await fetch(`${ESTABLISHMENT_API_URL}/${id}/`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+  return data;
+};
+
+export const updateEstablishmentMutationOptions = (
+  fetch: Fetch<Establishment>,
+) =>
+  mutationOptions({
+    mutationFn: ({
+      id,
+      payload,
+    }: {
+      id: number;
+      payload: UpdateEstablishmentPayload;
+    }) => updateEstablishment(fetch, id, payload),
+  });
+
+// ----------------------------------------------------------------------------
+
+export const checkDeleteEstablishment = async (
+  fetch: Fetch<CheckDeleteEstablishmentData>,
+  id: number,
+): Promise<CheckDeleteEstablishmentData> => {
+  const { data } = await fetch(
+    `${ESTABLISHMENT_API_URL}/${id}/check_before_deletion/`,
+  );
+  return data;
+};
+
+export const checkDeleteEstablishmentQueryOptions = (
+  fetch: Fetch<CheckDeleteEstablishmentData>,
+  id: number,
+) => {
+  const queryFn = checkDeleteEstablishment.bind(null, fetch, id);
+  return queryOptions({
+    queryKey: establishmentKeys.checkDeletion(id),
+    queryFn,
+  });
+};
+
+// ----------------------------------------------------------------------------
+
+export const deleteEstablishment = async (
+  fetch: Fetch<void>,
+  id: number,
+): Promise<void> => {
+  await fetch(
+    `${ESTABLISHMENT_API_URL}/${id}/perform_destroy_with_side_effects/`,
+    { method: "DELETE" },
+  );
+};
+
+export const deleteEstablishmentMutationOptions = (fetch: Fetch<void>) =>
+  mutationOptions({
+    mutationFn: (id: number) => deleteEstablishment(fetch, id),
+  });
+
+// ----------------------------------------------------------------------------
+
+export const restoreEstablishment = async (
+  fetch: Fetch<Establishment>,
+  id: number,
+): Promise<Establishment> => {
+  const { data } = await fetch(`${ESTABLISHMENT_API_URL}/${id}/restore/`, {
+    method: "PUT",
+  });
+  return data;
+};
+
+export const restoreEstablishmentMutationOptions = (
+  fetch: Fetch<Establishment>,
+) =>
+  mutationOptions({
+    mutationFn: (id: number) => restoreEstablishment(fetch, id),
+  });

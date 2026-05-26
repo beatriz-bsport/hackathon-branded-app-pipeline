@@ -4,6 +4,7 @@ import mapValues from "lodash/mapValues";
 import React, {
   type ChangeEvent,
   HTMLInputAutoCompleteAttribute,
+  type ReactNode,
   useState,
 } from "react";
 
@@ -103,6 +104,11 @@ export type TextFieldProps = Omit<
   step?: number | string;
   maxLength?: number;
   minLength?: number;
+  /**
+   * Optional custom ReactNode rendered next to the input, vertically aligned with it.
+   * Useful for attaching extra controls (e.g. a tooltip trigger, a helper popover, an action button).
+   */
+  customNode?: ReactNode;
 };
 
 /**
@@ -133,6 +139,7 @@ export type TextFieldProps = Omit<
  * @param props.step Step of the value that can be inserted in the field
  * @param props.minLength Minimal length of the value that can be inserted in the field
  * @param props.maxLength Maximal length of the value that can be inserted in the field
+ * @param props.customNode Optional ReactNode rendered next to the input, vertically aligned with it (e.g. an info tooltip trigger or extra action).
  */
 const TextField: React.FC<TextFieldProps> = ({
   className,
@@ -163,6 +170,7 @@ const TextField: React.FC<TextFieldProps> = ({
   step,
   maxLength,
   minLength,
+  customNode,
   ...props
 }) => {
   /* TODO: Check with design if the color picker needs all these props, and split it in a separate component (explained here: https://gitlab.com/bsport/ichizen/-/merge_requests/425#note_2402509306) */
@@ -384,6 +392,7 @@ const TextField: React.FC<TextFieldProps> = ({
             disabled={disabled}
           />
         )}
+        {customNode}
       </div>
       {helperText && (
         <p

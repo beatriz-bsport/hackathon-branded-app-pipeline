@@ -196,3 +196,11 @@ export const getCommunicationScheduledBySmartlistPage = (
 export const getCommunicationSMSProviderVerificationState = (
   state: RootState,
 ) => state.communicationV2.communicationSMSProviderVerification;
+
+// --------- FRONTDESK AGENT CONVERSATION ---------
+
+export const getConversationIds = (state: RootState) =>
+  state.communicationV2.conversations.allIds;
+
+export const getConversationById = (state: RootState, id: string) =>
+  state.communicationV2.conversations.byId[id] ?? null;

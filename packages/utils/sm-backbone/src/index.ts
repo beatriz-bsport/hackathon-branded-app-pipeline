@@ -1,4 +1,5 @@
 export { ErrorBoundary, captureException } from "@bsport/sentry";
+export { registerBackgroundTask } from "#src/features/background-task-host";
 export { AppWrapper } from "./wrappers/AppWrapper";
 export { ErrorBoundaryWrapper } from "./wrappers/ErrorBoundaryWrapper";
 export {

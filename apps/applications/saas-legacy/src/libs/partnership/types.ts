@@ -5,6 +5,7 @@ import React from 'react';
 export enum PartnershipIdentifier {
   WELLHUB = 'wellhub',
   MYCLUBS = 'myclubs',
+  WELLPASS = 'wellpass',
 }
 
 export type PartnershipDisplayConfig = {

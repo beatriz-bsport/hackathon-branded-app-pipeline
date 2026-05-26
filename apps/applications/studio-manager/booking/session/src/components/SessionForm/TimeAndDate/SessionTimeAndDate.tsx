@@ -44,7 +44,7 @@ export const SessionTimeAndDate: FC<{
 
   return (
     <section className="flex flex-col gap-md">
-      <Title htmlVariant="h5" weight="strong">
+      <Title htmlVariant="h5" weight="stronger">
         {t("addSessionModal.steps.configureSession.timeAndDate.title")}
       </Title>
 

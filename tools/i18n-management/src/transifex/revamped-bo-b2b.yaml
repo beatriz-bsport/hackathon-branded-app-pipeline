@@ -9,3 +9,9 @@ filters:
     source_language: en
     source_files_expression: "packages/design-system/kaizen/<dir>/src/i18n/source/<file>.json"
     translation_files_expression: "packages/design-system/kaizen/<dir>/src/i18n/locales/<lang>/<file>.json"
+  - filter_type: dir
+    file_format: KEYVALUEJSON
+    source_language: en
+    source_file_extension: json
+    source_file_dir: packages/utils/sm-backbone/src/i18n/source/
+    translation_files_expression: "packages/utils/sm-backbone/src/i18n/locales/<lang>"

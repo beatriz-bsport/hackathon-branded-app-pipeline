@@ -1,0 +1,1 @@
+export const BOOKING_MILESTONE_MIN_VALUE = 1;

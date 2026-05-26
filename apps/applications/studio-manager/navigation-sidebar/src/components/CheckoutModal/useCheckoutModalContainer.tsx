@@ -8,6 +8,7 @@ import {
 } from "@bsport/kaizen-business-components/core/checkout-flow-modal";
 import { toast } from "@bsport/kaizen-primitive-core";
 
+import { WINDOW_EVENTS } from "#src/constants/window-events";
 import { BASKET_START_TRIGGERS } from "#src/events/register";
 import { LEGACY_URLS } from "#src/urls";
 import { analyticsClient } from "#src/utils/analytics";
@@ -99,7 +100,9 @@ export function useCheckoutModalContainer({
       const search = params.toString();
       const path = window.location.pathname + (search ? `?${search}` : "");
       window.history.replaceState(null, "", path);
-      window.dispatchEvent(new CustomEvent("navigation", { detail: { path } }));
+      window.dispatchEvent(
+        new CustomEvent(WINDOW_EVENTS.navigation, { detail: { path } }),
+      );
     }
   }, []);
 

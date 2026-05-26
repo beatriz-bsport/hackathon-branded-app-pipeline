@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React, { ChangeEvent, useEffect, useState } from "react";
 
+import Body from "#src/components/Body";
+import Button from "#src/components/Button";
 import { icons } from "#src/components/Icon";
+import Popover from "#src/components/Popover";
 
 import TextField, { inputTypes, statuses } from "./TextField";
 
@@ -95,6 +98,16 @@ const meta: Meta<typeof TextField> = {
           summary: "boolean",
           detail:
             "will make the component take all the parent available width or not",
+        },
+      },
+    },
+    customNode: {
+      control: false,
+      table: {
+        type: {
+          summary: "ReactNode",
+          detail:
+            "Optional custom node rendered next to the input, vertically aligned with it.",
         },
       },
     },
@@ -297,6 +310,72 @@ export const TextFieldWithBiggerParent: Story = {
     prefix: { type: "color", value: "#32a69e" },
     suffix: { type: "icon", value: "arrow-right" },
     fullWidth: true,
+  },
+};
+
+/**
+ * Provide an optional `customNode` to render any ReactNode next to the input,
+ * vertically aligned with it. Useful for attaching tooltip triggers or extra actions.
+ */
+export const TextFieldWithCustomNode: Story = {
+  name: "Text Field with custom node",
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
+    useEffect(() => {
+      setValue(args.value);
+    }, [args.value]);
+
+    return (
+      <TextField
+        {...args}
+        value={value}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setValue(e.target.value)
+        }
+        onClear={() => setValue("")}
+        customNode={
+          <Popover>
+            <Popover.Anchor>
+              {({ setIsPopoverOpened, isPopoverOpened }) => (
+                <Button
+                  kind="icon-button"
+                  icon="info-circle"
+                  label="Open tooltip"
+                  size="md"
+                  intent="flat"
+                  color="default"
+                  onClick={() => setIsPopoverOpened(!isPopoverOpened)}
+                />
+              )}
+            </Popover.Anchor>
+            <Popover.Content
+              placement="bottom-right"
+              className="max-w-component-tooltip"
+            >
+              {() => (
+                <Body size="sm">
+                  This is a custom node rendered next to the input.
+                </Body>
+              )}
+            </Popover.Content>
+          </Popover>
+        }
+      />
+    );
+  },
+  args: {
+    id: "textfield",
+    type: "text",
+    status: "default",
+    value: "",
+    onChange: () => {},
+    onClear: () => {},
+    label: "Label",
+    placeholder: "Placeholder",
+    required: false,
+    disabled: false,
+    helperText: "I am helping you here!",
+    fullWidth: false,
   },
 };
 

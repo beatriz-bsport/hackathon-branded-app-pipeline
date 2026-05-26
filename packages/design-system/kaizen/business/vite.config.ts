@@ -60,6 +60,7 @@ const config: UserConfig = {
         "@bsport/form",
         "@bsport/i18n",
         "@bsport/kaizen-primitive-core",
+        "@bsport/sm-backbone",
         "@tanstack/react-query",
       ],
     },

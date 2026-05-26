@@ -82,14 +82,6 @@ export const LevelSelector: FC<LevelSelectorProps> = ({
     { type: "divider" },
     { type: "title", label: t("formFields.level.custom") },
     ...customLevelItems,
-    { type: "divider" },
-    {
-      type: "button",
-      onClick: openCreateLevelModal,
-      label: t("formFields.level.add"),
-      id: "create-level-button",
-      iconLeft: "plus",
-    },
   ];
 
   return (
@@ -122,17 +114,34 @@ export const LevelSelector: FC<LevelSelectorProps> = ({
       </Popover.Anchor>
       <Popover.Content
         placement="bottom-left"
-        className="min-w-component-select"
+        className="min-w-component-select overflow-hidden !p-0 !gap-0"
       >
         {({ setIsPopoverOpened }) =>
           isLoading ? null : (
-            <Menu
-              items={items}
-              onSelectOption={(levelId) => {
-                onLevelSelect?.(Number(levelId));
-                setIsPopoverOpened(false);
-              }}
-            />
+            <div className="flex max-h-component-popover-max flex-col overflow-hidden">
+              <div className="min-h-0 flex-1 overflow-y-auto p-xs">
+                <Menu
+                  items={items}
+                  onSelectOption={(levelId) => {
+                    onLevelSelect?.(Number(levelId));
+                    setIsPopoverOpened(false);
+                  }}
+                />
+              </div>
+              <div className="shrink-0 p-sm bg-surface-default-weakest shadow-[0px_2px_8px_0px_var(--kz-color-shadow-weak)_inset]">
+                <Menu
+                  items={[
+                    {
+                      type: "button",
+                      id: "create-level-button",
+                      label: t("formFields.level.create"),
+                      iconLeft: "plus",
+                      onClick: openCreateLevelModal,
+                    },
+                  ]}
+                />
+              </div>
+            </div>
           )
         }
       </Popover.Content>

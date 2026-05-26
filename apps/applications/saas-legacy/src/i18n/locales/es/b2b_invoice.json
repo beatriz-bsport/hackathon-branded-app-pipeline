@@ -89,7 +89,7 @@
       "title": "TicketBAI",
       "loading": "Cargando…",
       "load_error": "No se pudo cargar la configuración de TicketBAI. Por favor, actualiza la página e inténtalo de nuevo.",
-      "info": "Esta funcionalidad de pago no está activo en tu cuenta todavía — por favor contacta a tu gerente de cuenta para solicitarlo",
+      "info": "Esta funcionalidad de pago no está activa en tu cuenta todavía — por favor contacta a tu gerente de cuenta para solicitarlo",
       "description": "Normas de facturación regional para el País Vasco (Araba, Bizkaia, Gipuzkoa). Cuando TicketBAI está activo, las facturas y recibos válidos se formatean y se declaran según lo requerido por tu provincia.",
       "territory": {
         "title": "Certificado de empresa y dispositivo",

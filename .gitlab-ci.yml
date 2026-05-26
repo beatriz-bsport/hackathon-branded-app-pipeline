@@ -25,6 +25,7 @@ stages:
   - deploy
   - post-deploy
   - release-artifact
+  - release-tracking
   - maintenance
 
 default:

@@ -80,19 +80,15 @@ export const useConfirmPayment = ({
       return Promise.all([
         queryClient.invalidateQueries({
           queryKey: invoiceKeys.detail(invoiceId),
-          refetchType: "none",
         }),
         queryClient.invalidateQueries({
           queryKey: paymentGroupKeys.all,
-          refetchType: "none",
         }),
         queryClient.invalidateQueries({
           queryKey: paymentMethodKeys.saved(memberId),
-          refetchType: "none",
         }),
         queryClient.invalidateQueries({
           queryKey: memberKeys.detail(memberId),
-          refetchType: "none",
         }),
       ]);
     },

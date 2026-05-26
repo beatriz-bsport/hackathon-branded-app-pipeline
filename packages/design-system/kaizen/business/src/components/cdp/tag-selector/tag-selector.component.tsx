@@ -1,10 +1,11 @@
-import { type ReactElement, useCallback } from "react";
+import type { ReactElement } from "react";
 
+import type { TagGroup } from "@bsport/api-cdp/tags";
 import type { Fetch } from "@bsport/fetch";
-import { type FieldValues, FormField, get } from "@bsport/form";
+import { type FieldValues, FormField } from "@bsport/form";
 import {
-  Autocomplete,
-  type AutocompleteProps,
+  AutocompleteControlled,
+  type AutocompleteControlledProps,
 } from "@bsport/kaizen-primitive-core";
 
 import type { NumberListFieldPath } from "#src/utils/form-types";
@@ -13,13 +14,13 @@ import { useGroupedTagsQuery } from "../hooks/use-grouped-tags";
 import { useTagOptions } from "../hooks/use-tags-options";
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const DEFAULT_PROPS: Partial<AutocompleteProps> = {
+export const DEFAULT_PROPS: Partial<AutocompleteControlledProps> = {
   debounceValue: 10,
   popoverPlacement: "bottom-right",
-  showSelectedItemsInBase: true,
+  withSelectedInBase: true,
   className: "max-w-component-select",
   searchMode: "local",
-  hideChips: false,
+  withChips: true,
   fullWidth: true,
 };
 
@@ -28,23 +29,53 @@ export type TagSelectorProps<
   TFieldName extends
     NumberListFieldPath<TFormValues> = NumberListFieldPath<TFormValues>,
 > = {
+  id: string;
   fieldName: TFieldName;
   placeholder: string;
-  /** Control the default ids to inject in the Autocomplete. Else, it is delegated to form inference. */
-  initialIds?: number[];
   fetch: Fetch;
   loadingMessage?: string;
+  hasOneTagPerCategoryLimit?: boolean;
 } & Partial<
   Omit<
-    AutocompleteProps,
-    | "items"
-    | "onToggleItem"
-    | "textfieldProps"
-    | "onSelect"
-    | "defaultSelectedIds"
-    | "loadingProps"
+    AutocompleteControlledProps,
+    "items" | "textfieldProps" | "loadingProps" | "value" | "onChange"
   >
 >;
+
+function limitToOneTagPerCategory({
+  prev,
+  toggledItem,
+  multiSelect,
+  tagIdToTagGroupRecord,
+}: {
+  prev: string[];
+  toggledItem: string;
+  multiSelect: boolean;
+  tagIdToTagGroupRecord: Record<string, TagGroup>;
+}): string[] {
+  // Case 1: Item was present => unchecked it
+  if (prev.includes(toggledItem)) {
+    return prev.filter((id) => id !== toggledItem);
+  }
+
+  // Case 2: If single select, return the new item
+  if (!multiSelect) {
+    return [toggledItem];
+  }
+
+  const tagGroup = tagIdToTagGroupRecord[parseInt(toggledItem, 10)];
+
+  // Case 3: Item is not in a group => check it
+  if (!tagGroup) {
+    return [...prev, toggledItem].sort();
+  }
+
+  // Case 4: Item is in a group => check it and uncheck other tags from same group
+  return [
+    ...prev.filter((id) => !tagGroup.tags.includes(parseInt(id, 10))),
+    toggledItem,
+  ].sort();
+}
 
 export const TagSelector = <
   TFormValues extends FieldValues,
@@ -56,8 +87,8 @@ export const TagSelector = <
   placeholder,
   fetch,
   multiSelect,
-  initialIds,
   loadingMessage,
+  hasOneTagPerCategoryLimit,
   ...autocompleteProps
 }: TagSelectorProps<TFormValues, TFieldName>): ReactElement => {
   const { tagGroups, tagIdToTagGroupRecord, tagIdToTagRecord, isLoading } =
@@ -68,62 +99,11 @@ export const TagSelector = <
     tagIdToTagRecord,
   });
 
-  /**
-   * Custom toggle logic to apply in the Autocomplete
-   * It makes sure that only when tag per category is selected
-   */
-  const onToggleItem = useCallback(
-    ({
-      prev,
-      toggledItem,
-    }: {
-      prev: string[];
-      toggledItem: string;
-    }): string[] => {
-      // Case 1: Item was present => unchecked it
-      if (prev.includes(toggledItem)) {
-        return prev.filter((id) => id !== toggledItem);
-      }
-
-      // Case 2: If single select, return the new item
-      if (!multiSelect) {
-        return [toggledItem];
-      }
-
-      const tagGroup = tagIdToTagGroupRecord[parseInt(toggledItem, 10)];
-
-      // Case 3: Item is not in a group => check it
-      if (!tagGroup) {
-        return [...prev, toggledItem].sort();
-      }
-
-      // Case 4: Item is in a group => check it and uncheck other tags from same group
-      return [
-        ...prev.filter((id) => !tagGroup.tags.includes(parseInt(id, 10))),
-        toggledItem,
-      ].sort();
-    },
-    [tagIdToTagGroupRecord, multiSelect],
-  );
-
   return (
-    <FormField<TFormValues, TFieldName, AutocompleteProps>
+    <FormField<TFormValues, TFieldName, AutocompleteControlledProps>
       name={fieldName}
-      mapProps={({ defaultProps, form, formState }) => {
-        const {
-          status,
-          statusText,
-          value: _value,
-          ...otherProps
-        } = defaultProps;
-
-        const defaultSelectedIds = get(formState.defaultValues, fieldName) as
-          | number[]
-          | undefined;
-        const selectedIds = (initialIds ?? defaultSelectedIds ?? [])
-          .filter((id) => id !== undefined)
-          .map((id) => id.toString())
-          .sort();
+      mapProps={({ defaultProps, form }) => {
+        const { statusText, status, value, ...otherProps } = defaultProps;
 
         const textfieldProps = {
           id: `${id}-textfield`,
@@ -133,45 +113,42 @@ export const TagSelector = <
           statusText,
         };
 
-        if (multiSelect) {
-          return {
-            ...otherProps,
-            textfieldProps,
-            defaultSelectedIds: selectedIds,
-            onSelect: (values: string[]) => {
-              form.setValue(
-                fieldName,
-                values.map((stringId) =>
-                  parseInt(stringId, 10),
-                ) as TFormValues[TFieldName],
-                { shouldDirty: true, shouldValidate: true },
-              );
-            },
-            multiSelect: true,
-          };
-        }
+        const onChange: AutocompleteControlledProps["onChange"] = (
+          selection,
+          toggledItem,
+        ) => {
+          const finalList =
+            hasOneTagPerCategoryLimit && multiSelect && toggledItem
+              ? limitToOneTagPerCategory({
+                  multiSelect,
+                  prev: value.map((id: number) => String(id)),
+                  tagIdToTagGroupRecord,
+                  toggledItem,
+                })
+              : selection;
+
+          form.setValue(
+            fieldName,
+            finalList.map((stringId) =>
+              parseInt(stringId, 10),
+            ) as TFormValues[TFieldName],
+            { shouldDirty: true, shouldValidate: true },
+          );
+        };
 
         return {
           ...otherProps,
+          value: value.map((id: number) => String(id)),
+          onChange,
+          multiSelect,
           textfieldProps,
-          defaultSelectedIds: selectedIds,
-          onSelect: (value: string) => {
-            form.setValue(
-              fieldName,
-              (value ? [parseInt(value, 10)] : []) as TFormValues[TFieldName],
-              { shouldDirty: true, shouldValidate: true },
-            );
-          },
-          multiSelect: false,
         };
       }}
     >
       {/** @ts-expect-error Props are provided by the wrapper */}
-      <Autocomplete
+      <AutocompleteControlled
         key={id}
-        id={id}
         items={tagOptions}
-        onToggleItem={onToggleItem}
         {...DEFAULT_PROPS}
         {...autocompleteProps}
         loadingProps={{

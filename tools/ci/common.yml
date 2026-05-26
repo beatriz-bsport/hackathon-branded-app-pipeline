@@ -7,5 +7,5 @@
     - pnpm store path
     - echo "*"
     - echo "⏳ Install node modules and deps with pnpm..."
-    - pnpm install --frozen-lockfile --prefer-offline
+    - ICHIZEN_SKIP_POSTINSTALL=true pnpm install --frozen-lockfile --prefer-offline
     - echo "✅ Node modules have been installed successfully"

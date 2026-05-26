@@ -17,6 +17,7 @@ declare module "sm-navigation-sidebar/urls" {
     customForm: string;
     emailTemplate: string;
     giftcard: string;
+    subscription: string;
     homepage: string;
     invoice: string;
     member: string;

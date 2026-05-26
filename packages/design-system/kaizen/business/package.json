@@ -29,7 +29,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc && vite build --logLevel warn",
+    "build": "vite build --logLevel warn",
     "ci:compile": "tsc --noEmit",
     "component:add": "pnpm exec hygen component new",
     "dev": "STORYBOOK_ENV=local STORYBOOK_COMMIT_SHORT_SHA=$(git rev-parse --short=8 HEAD) pnpm run storybook:dev",
@@ -48,7 +48,6 @@
     "@bsport/api-cdp": "workspace:*",
     "@bsport/api-core": "workspace:*",
     "@bsport/api-financial-services": "workspace:*",
-    "@bsport/api-platform": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/store-base": "workspace:*",
@@ -71,7 +70,6 @@
     "@bsport/config-eslint-react": "workspace:*",
     "@bsport/kaizen-tokens": "workspace:*",
     "@bsport/local-storage-auth-token": "workspace:*",
-    "@bsport/sm-backbone": "workspace:*",
     "@nx/vite": "21.6.10",
     "@storybook/addon-docs": "10.1.11",
     "@storybook/addon-themes": "10.1.11",
@@ -98,7 +96,6 @@
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
-    "@bsport/sm-backbone": "workspace:*",
     "@tanstack/react-query": "^5.90.12",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

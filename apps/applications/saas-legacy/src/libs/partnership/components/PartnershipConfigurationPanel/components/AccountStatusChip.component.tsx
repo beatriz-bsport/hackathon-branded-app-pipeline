@@ -17,11 +17,14 @@ enum Status {
 
 type Props = {
   active: boolean;
-  activatedAt?: string;
+  activatedAt?: string | null;
   partnershipIdentifier: PartnershipIdentifier;
 };
 
-const computeStatus = (active: boolean, activatedAt?: string): Status => {
+const computeStatus = (
+  active: boolean,
+  activatedAt?: string | null,
+): Status => {
   if (active) {
     return Status.ACTIVE;
   }

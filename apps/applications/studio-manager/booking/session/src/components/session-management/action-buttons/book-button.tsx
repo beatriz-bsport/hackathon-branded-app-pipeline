@@ -4,7 +4,9 @@ import { Button } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-export const BookButton: FC = () => {
+export const BookButton: FC<{
+  onClick?: () => void;
+}> = ({ onClick }) => {
   const { t } = useTranslation("sessionManagement");
   return (
     <Button
@@ -14,6 +16,7 @@ export const BookButton: FC = () => {
       intent="call-to-action"
       size="md"
       color="main"
+      onClick={onClick}
     />
   );
 };

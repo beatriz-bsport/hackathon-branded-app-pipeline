@@ -52,7 +52,10 @@
   },
   "creditFactor": {
     "fieldLabel": "Credits",
-    "notPriceWarning": "Double-check: you're entering credits, not a price."
+    "notPriceWarning": "Double-check: you're entering credits, not a price.",
+    "nbOfCredits": "",
+    "nbOfCredits_one": "{{ countDisplay }} credit",
+    "nbOfCredits_other": "{{ countDisplay }} credits"
   },
   "passForm": {
     "unlimitedCreditSelector": {
@@ -72,7 +75,7 @@
     },
     "teacherPayRate": {
       "label": "Teacher pay rate incl. VAT",
-      "helperText": "Amount teacher earns for each booking",
+      "helperText": "Value is calculated as price / number of bookings",
       "tooltip": "This rate determines teacher payroll and applies to all bookings made with this pass. If left as '0', the rate will be calculated as subscription price divided by number of bookings."
     },
     "maximumUsage": {
@@ -143,5 +146,11 @@
     "customAmountRange": "Custom: {{min}} - {{max}}",
     "hiddenChipLabel": "Hidden",
     "hiddenGiftcardTooltip": "This gift card won't be available to buy on the Member Area"
+  },
+  "billingPlanStatus": {
+    "valid": "Valid",
+    "paused": "Paused",
+    "canceled": "Canceled",
+    "ended": "Ended"
   }
 }

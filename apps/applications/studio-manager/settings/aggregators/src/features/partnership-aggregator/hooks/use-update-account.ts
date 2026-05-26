@@ -23,6 +23,10 @@ const TOAST_KEYS = {
     success: "wellhub.toast.update.success",
     error: "wellhub.toast.update.error",
   },
+  wellpass: {
+    success: "wellpass.toast.update.success",
+    error: "wellpass.toast.update.error",
+  },
 } as const satisfies Record<
   MutableNamespace,
   Record<string, Parameters<TFunction>[0]>

@@ -16,10 +16,10 @@ export const useDetailsConfig = (): {
   detailsLayoutConfig: UseDetailsLayoutReturnType;
   headerConfig: Omit<
     ReturnType<typeof useContractDetailsHeader>,
-    "startGroupActionsRaw" | "archiveModal"
+    "startGroupActionsRaw" | "modals"
   >;
   contract: Contract;
-  archiveModal: ReactNode;
+  modals: ReactNode;
 } => {
   const { id: rawId } = useParams();
 
@@ -33,7 +33,7 @@ export const useDetailsConfig = (): {
 
   const {
     startGroupActionsRaw: _,
-    archiveModal,
+    modals,
     ...headerConfig
   } = useContractDetailsHeader({
     contract: contract,
@@ -44,6 +44,6 @@ export const useDetailsConfig = (): {
     detailsLayoutConfig,
     headerConfig,
     contract,
-    archiveModal,
+    modals,
   };
 };

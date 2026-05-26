@@ -14,19 +14,100 @@
       "noResults": "No results found"
     },
     "categories": {
+      "PROFILES": "PROFILES",
       "PASSES": "PASSES",
-      "BOOKINGS": "BOOKINGS"
+      "BOOKINGS": "BOOKINGS",
+      "MEMBER_INFORMATIONS": "MEMBER INFORMATION"
     },
     "options": {
+      "gender": {
+        "description": "Filter by member gender."
+      },
+      "memberSignUpDate": {
+        "description": "Filter members by when they signed up to the studio."
+      },
       "passes": {
         "description": "Filter by ownership of a selected pass."
       },
       "totalBookingNumber": {
         "description": "Filter by total number of bookings."
+      },
+      "bookingMilestone": {
+        "description": "Filter by the N-th booking a member reaches (1st, 2nd, …)."
+      },
+      "tags": {
+        "description": "Filter members by tags they have or do not have."
+      },
+      "activePasses": {
+        "description": "Filter members by the number of active passes (group and/or appointment) they hold right now."
       }
     }
   },
   "filters": {
+    "21": {
+      "title": "Booking milestone",
+      "actions": {
+        "deleteFilter": "Delete booking milestone filter",
+        "save": "Apply filter",
+        "addFilter": "Add booking milestone filter"
+      },
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "milestoneLabel": "Members that booked",
+        "milestoneSuffix": "",
+        "milestoneSuffix_one": "booking",
+        "milestoneSuffix_other": "bookings"
+      },
+      "toasts": {
+        "saveError": "Unable to save booking milestone filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete booking milestone filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueRequired": "Milestone must be at least 1.",
+        "valueMustBeInteger": "Milestone must be a whole number."
+      }
+    },
+    "5": {
+      "title": "Gender",
+      "actions": {
+        "deleteFilter": "Delete gender filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that are:",
+        "male": "Male",
+        "female": "Female"
+      },
+      "toasts": {
+        "saveError": "Unable to save gender filter.",
+        "saveSuccess": "Gender filter saved.",
+        "deleteError": "Unable to delete gender filter.",
+        "invalidFilter": "Invalid filter."
+      }
+    },
+    "18": {
+      "title": "Sign-up date",
+      "actions": {
+        "deleteFilter": "Delete sign-up date filter",
+        "save": "Save filter",
+        "addFilter": "Add sign-up date filter"
+      },
+      "toasts": {
+        "saveError": "Unable to save sign-up date filter.",
+        "saveSuccess": "Sign-up date filter saved.",
+        "deleteError": "Unable to delete sign-up date filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "signUpDateRequired": "Select a sign-up date.",
+        "signUpDateBetweenRequired": "Select both dates for the between range.",
+        "signUpDateDurationRequired": "Enter a number of days.",
+        "signUpDateDurationBetweenRequired": "Enter both day values for the between range."
+      }
+    },
     "19": {
       "title": "Pass Ownership",
       "ownership": {
@@ -159,6 +240,79 @@
         "bookingHourRangeRequired": "Select both start and end times.",
         "bookingHourRangeOrderInvalid": "End time must be the same as or after the start time."
       }
+    },
+    "27": {
+      "title": "Number of Valid Passes",
+      "skeleton": {
+        "ariaLabel": "Loading active passes filter"
+      },
+      "info": {
+        "countExplanation": "Blocked Passes and Appointment Passes are included in the count"
+      },
+      "actions": {
+        "deleteFilter": "Delete active passes filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "countSuffix": "Valid Passes",
+        "sessionsSuffix": "sessions",
+        "filterSpecifications": "FILTER SPECIFICATIONS"
+      },
+      "paymentPacks": {
+        "title": "Specify Passes",
+        "description": "Members with any of these Passes",
+        "searchPlaceholder": "Search passes...",
+        "emptySelection": "Search to select passes"
+      },
+      "privatePasses": {
+        "title": "Specify Appointment Passes",
+        "description": "Members with any of these Appointment Passes",
+        "searchPlaceholder": "Search appointment passes...",
+        "emptySelection": "Search to select appointment passes"
+      },
+      "toasts": {
+        "saveError": "Unable to save active passes filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete active passes filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "atLeastOneSectionRequired": "Enable at least one pass type (Passes or Appointment Passes).",
+        "secondValueRequired": "Enter an upper bound for the range.",
+        "secondValueGreaterThanFirst": "The second value must be greater than or equal to the first.",
+        "atLeastOnePassSelectedRequired": "Select at least one pass to include or exclude.",
+        "atLeastOneAppointmentPassSelectedRequired": "Select at least one appointment pass to include or exclude."
+      }
+    },
+    "11": {
+      "title": "Tags",
+      "loading": "Loading tag filter...",
+      "loadTagCatalogError": "Unable to load tags. Please try again.",
+      "include": {
+        "title": "Include tags",
+        "description": "Members with any of these tags"
+      },
+      "exclude": {
+        "title": "Exclude tags",
+        "description": "Members without any of these tags"
+      },
+      "actions": {
+        "deleteFilter": "Delete tag filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "searchPlaceholder": "Search for a tag",
+        "emptySelection": "Add a tag to start filtering"
+      },
+      "validation": {
+        "atLeastOneTagRequired": "Select at least one tag to include or exclude."
+      },
+      "toasts": {
+        "saveError": "Unable to save tag filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete tag filter.",
+        "invalidFilter": "Invalid filter."
+      }
     }
   },
   "itemsSearch": {
@@ -171,7 +325,14 @@
     },
     "actions": {
       "remove": "Remove",
-      "selectAllFiltered": "Select all filtered results ({{count}})"
+      "selectAllFiltered": "Select all filtered results ({{count}})",
+      "showAllSelected": "Show all {{count}}",
+      "showLessSelected": "Show less"
+    },
+    "state": {
+      "allItemsSelected": "",
+      "allItemsSelected_one": "{{count}} item selected (all)",
+      "allItemsSelected_other": "{{count}} items selected (all)"
     }
   }
 }

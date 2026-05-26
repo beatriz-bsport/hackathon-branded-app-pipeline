@@ -29,7 +29,7 @@ export const ContractEditorHeader: FC<ContractEditorHeaderProps> = ({
   const {
     startGroupActionsRaw,
     endGroupActions: _,
-    archiveModal,
+    modals,
     ...headerConfig
   } = useContractDetailsHeader({
     contract,
@@ -97,7 +97,7 @@ export const ContractEditorHeader: FC<ContractEditorHeaderProps> = ({
         onConfirm={updateName}
       />
 
-      {archiveModal}
+      {modals}
     </>
   );
 };

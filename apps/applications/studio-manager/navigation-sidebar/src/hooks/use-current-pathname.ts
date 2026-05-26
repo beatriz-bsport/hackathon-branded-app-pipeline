@@ -1,5 +1,7 @@
 import { useSyncExternalStore } from "react";
 
+import { WINDOW_EVENTS } from "#src/constants/window-events";
+
 const subscribe = (onStoreChange: () => void) => {
   const handleLocationChange = () => {
     onStoreChange();
@@ -9,16 +11,16 @@ const subscribe = (onStoreChange: () => void) => {
   window.addEventListener("popstate", handleLocationChange);
 
   // Listen to custom navigation events that might be dispatched
-  window.addEventListener("navigation", handleLocationChange);
+  window.addEventListener(WINDOW_EVENTS.navigation, handleLocationChange);
 
   // Listen to React Router navigation events (if available)
-  window.addEventListener("routechange", handleLocationChange);
+  window.addEventListener(WINDOW_EVENTS.routechange, handleLocationChange);
 
   // Cleanup function
   return () => {
     window.removeEventListener("popstate", handleLocationChange);
-    window.removeEventListener("navigation", handleLocationChange);
-    window.removeEventListener("routechange", handleLocationChange);
+    window.removeEventListener(WINDOW_EVENTS.navigation, handleLocationChange);
+    window.removeEventListener(WINDOW_EVENTS.routechange, handleLocationChange);
   };
 };
 
@@ -36,8 +38,8 @@ const getSnapshot = () => {
  *
  * The hook subscribes to multiple navigation events:
  * - 'popstate': Browser back/forward navigation
- * - 'navigation': Custom events dispatched by our NavigationLink component
- * - 'routechange': Potential React Router navigation events
+ * - {@link WINDOW_EVENTS.navigation}: Custom events dispatched by NavigationLink / modals
+ * - {@link WINDOW_EVENTS.routechange}: Potential React Router navigation events
  *
  * This ensures that components re-render whenever the URL changes, making navigation
  * highlighting work correctly in both standalone and bridged (legacy) contexts.

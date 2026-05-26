@@ -17,9 +17,9 @@ type Props = {
   loading: boolean;
   isActionDisabled?: (account: PartnershipAccount) => boolean;
   onActivateAccount?: (account: PartnershipAccount) => void;
-  onDeleteAccount: (account: PartnershipAccount) => void;
+  onDeleteAccount?: (account: PartnershipAccount) => void;
   onEditAccount: (account: PartnershipAccount) => void;
-  onAddConnection: () => void;
+  onAddConnection?: () => void;
   addConnectionDisabled?: boolean;
 };
 
@@ -49,11 +49,13 @@ const PartnershipConfigurationPanel: React.FC<Props> = ({
         onEditAccount={onEditAccount}
         partnershipAccounts={partnershipAccounts}
       />
-      <PartnershipConfigurationFooter
-        addConnectionDisabled={addConnectionDisabled}
-        displayConfig={displayConfig}
-        onAddConnection={onAddConnection}
-      />
+      {onAddConnection && (
+        <PartnershipConfigurationFooter
+          addConnectionDisabled={addConnectionDisabled}
+          displayConfig={displayConfig}
+          onAddConnection={onAddConnection}
+        />
+      )}
     </Paper>
   );
 };

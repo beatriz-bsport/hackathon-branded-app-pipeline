@@ -4,6 +4,7 @@ import { CancelSessionModal } from "#src/components/SessionList/detail-actions/c
 import { DeleteSessionModal } from "#src/components/SessionList/detail-actions/delete-session-modal";
 import { DuplicateSessionModal } from "#src/components/SessionList/detail-actions/duplicate-session-modal";
 import { RestoreSessionModal } from "#src/components/SessionList/detail-actions/restore-session-modal";
+import { BookingFlowModal } from "#src/components/booking-flow/booking-flow-modal";
 import { useRetrieveGroupSession } from "#src/hooks/group-session/use-retrieve-group-session";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import {
@@ -43,6 +44,9 @@ export const SessionManagementModals: FC<Props> = ({
 
   return (
     <>
+      {modalState?.type === SessionManagementModalType.BOOK && (
+        <BookingFlowModal isOpen onClose={closeModal} />
+      )}
       {modalState?.type === SessionManagementModalType.CANCEL && (
         <CancelSessionModal session={session} isOpen onClose={closeModal} />
       )}

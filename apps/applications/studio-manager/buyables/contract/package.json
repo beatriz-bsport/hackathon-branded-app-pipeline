@@ -15,7 +15,7 @@
   "module": "build/lib.es.js",
   "types": "build/lib.es.d.ts",
   "scripts": {
-    "build": "tsc -b && vite build --mode production --logLevel warn",
+    "build": "vite build --mode production --logLevel warn",
     "build:preview": "vite build --mode preview",
     "ci:compile": "tsc -b",
     "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@bsport/api-buyables": "workspace:*",
+    "@bsport/datetime-manipulation": "workspace:*",
     "tiny-invariant": "^1.3.3"
   },
   "devDependencies": {
@@ -42,6 +43,7 @@
   },
   "peerDependencies": {
     "@bsport/currency": "workspace:*",
+    "@bsport/datetime-formatting": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/form": "workspace:*",
     "@bsport/i18n": "workspace:*",

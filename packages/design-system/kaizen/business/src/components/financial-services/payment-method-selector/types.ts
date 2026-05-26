@@ -3,7 +3,10 @@ import type { ReactNode } from "react";
 import type { Fetch } from "@bsport/fetch";
 import type { SelectProps } from "@bsport/kaizen-primitive-core";
 
-import type { AllPaymentMethodKey } from "./constants";
+import type {
+  AllPaymentMethodKey,
+  SavedPaymentMethodDiscriminator,
+} from "./constants";
 
 /** Serialized selection prefix / discriminant for `PaymentMethodSelector` values. */
 export const PAYMENT_METHOD_SELECTOR_SELECTION_KIND = {
@@ -15,6 +18,7 @@ export type PaymentMethodSelectorSelection =
   | {
       kind: typeof PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED;
       id: string;
+      paymentMethodType?: SavedPaymentMethodDiscriminator;
     }
   | {
       kind: typeof PAYMENT_METHOD_SELECTOR_SELECTION_KIND.ALL;

@@ -1,0 +1,8 @@
+export const BILLING_PLAN_STATUSES = {
+  NOT_STARTED: 0,
+  STARTED: 1,
+  STOPPED: 2,
+  PAUSED: 3,
+  ENDED: 4,
+  STOPPED_BY_MEMBER: 5,
+};

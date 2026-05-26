@@ -15,6 +15,7 @@ const COPY_ID_KEYS = {
   myclubs: "myclubs.table.actions.copyId",
   wellhub: "wellhub.table.actions.copyId",
   usc: "usc.table.actions.copyId",
+  wellpass: "wellpass.table.actions.copyId",
 } as const satisfies Record<AggregatorNamespace, Parameters<TFunction>[0]>;
 
 type EstablishmentChipsProps = {

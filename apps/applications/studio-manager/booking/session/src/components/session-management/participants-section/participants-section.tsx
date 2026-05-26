@@ -125,6 +125,7 @@ export const ParticipantsSection: FC<{
             <CancelledBookingsTable
               sessionId={session.id}
               searchQuery={searchQuery}
+              openModal={openModal}
             />
           ) : (
             <NoShowBookingsTable

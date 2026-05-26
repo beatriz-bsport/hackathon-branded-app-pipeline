@@ -15,14 +15,20 @@ import { useVenuesListQuery } from "#src/hooks/api/use-venues-list-query";
 import { useTranslation } from "#src/utils/i18n";
 
 type LocationsListProps = {
+  searchQuery: string;
   onEdit: (location: EstablishmentGroup) => void;
   onDelete: (location: EstablishmentGroup) => void;
 };
 
-const LocationsListInner: FC<LocationsListProps> = ({ onEdit, onDelete }) => {
+const LocationsListInner: FC<LocationsListProps> = ({
+  searchQuery,
+  onEdit,
+  onDelete,
+}) => {
   const { t } = useTranslation("venues-list");
-  const { data: groupsData } = useEstablishmentGroupsQuery();
+  const { data: groupsData } = useEstablishmentGroupsQuery(searchQuery);
   const { data: venuesData } = useVenuesListQuery();
+  const hasSearchQuery = searchQuery.trim().length > 0;
 
   const venueById = useMemo(
     () => new Map(venuesData.results.map((venue) => [venue.id, venue])),
@@ -100,14 +106,26 @@ const LocationsListInner: FC<LocationsListProps> = ({ onEdit, onDelete }) => {
       rowHeight="sm"
       emptyStateProps={{
         isEmpty: groupsData.results.length === 0,
-        emptyConfig: { title: t("locations.emptyState.title") },
+        emptyConfig: {
+          title: hasSearchQuery
+            ? t("locations.emptyState.noResults")
+            : t("locations.emptyState.title"),
+        },
       }}
     />
   );
 };
 
-export const LocationsList: FC<LocationsListProps> = ({ onEdit, onDelete }) => (
+export const LocationsList: FC<LocationsListProps> = ({
+  searchQuery,
+  onEdit,
+  onDelete,
+}) => (
   <QueryBoundary loadingFallback={<CardLoader />}>
-    <LocationsListInner onEdit={onEdit} onDelete={onDelete} />
+    <LocationsListInner
+      searchQuery={searchQuery}
+      onEdit={onEdit}
+      onDelete={onDelete}
+    />
   </QueryBoundary>
 );

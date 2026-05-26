@@ -1,9 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { fetchEstablishmentGroupsQueryOptions } from "@bsport/api-book";
+import { searchEstablishmentGroupsQueryOptions } from "@bsport/api-book";
 
 import { fetch } from "#src/utils/fetch";
 
-export const useEstablishmentGroupsQuery = () => {
-  return useSuspenseQuery(fetchEstablishmentGroupsQueryOptions(fetch, {}));
+export const useEstablishmentGroupsQuery = (searchQuery?: string) => {
+  const q = searchQuery?.trim() ?? "";
+  return useSuspenseQuery(searchEstablishmentGroupsQueryOptions(fetch, { q }));
 };

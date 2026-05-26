@@ -89,6 +89,18 @@ export const searchEstablishmentGroups = async (
   return data;
 };
 
+export const searchEstablishmentGroupsQueryOptions = (
+  fetch: Fetch<SearchResponse<EstablishmentGroup>>,
+  params: SearchEstablishmentGroupSearchParams = {},
+) => {
+  const queryFn = searchEstablishmentGroups.bind(null, fetch, params);
+  return queryOptions({
+    queryKey: establishmentGroupKeys.search(params),
+    queryFn,
+    staleTime: DEFAULT_STALE_TIME,
+  });
+};
+
 // ----------------------------------------------------------------------------
 
 export const createEstablishmentGroup = async (

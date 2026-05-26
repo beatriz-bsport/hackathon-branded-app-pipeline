@@ -3,7 +3,6 @@ import { useMemo } from "react";
 import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import { CommunicationRecipientStatus } from "@bsport/api-cdp/smartlist";
 import {
-  Avatar,
   Body,
   Chip,
   type ChipProps,
@@ -11,6 +10,7 @@ import {
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
+import { MemberAvatar } from "#src/components/member-avatar";
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
 import { CampaignSentRecipientActionDropdown } from "./CampaignSentRecipientActionDropdown";
@@ -23,7 +23,6 @@ export type CampaignSentRecipientTableRowData = {
   recipientEmail: string;
   recipientName: string;
   recipientAvatar: string;
-  recipientInitials: string;
   lastOpenedDate: string;
   lastOpenedHour: string;
   status: CommunicationRecipientStatus;
@@ -56,12 +55,7 @@ export const useCampaignSentTableColumns = ({
       align: "start",
       render: (row) => (
         <div className="flex min-w-0 max-w-[220px] flex-row items-center gap-sm lg:max-w-[300px]">
-          <Avatar
-            shape="round"
-            size="md"
-            src={row.recipientAvatar}
-            initials={row.recipientInitials}
-          />
+          <MemberAvatar name={row.recipientName} photo={row.recipientAvatar} />
           <div className="flex min-w-0 flex-1 flex-col gap-2xs">
             <Body
               className="block truncate"

@@ -4,9 +4,8 @@ import type { Establishment, EstablishmentGroup } from "@bsport/api-book";
 import { List, toast } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { useEstablishmentGroupsQuery } from "#src/hooks/api/use-establishment-groups-query";
 import { useUpdateLocation } from "#src/hooks/api/use-update-location";
-import { buildVenueGroupMap } from "#src/utils/group-venues";
+import { useVenueGroupMap } from "#src/hooks/use-venue-group-map";
 import { useTranslation } from "#src/utils/i18n";
 
 import { buildVenueListItem } from "./venue-row";
@@ -23,15 +22,11 @@ export const VenueSection = ({
   onArchive,
 }: VenueSectionProps) => {
   const { t } = useTranslation("venues-list");
-  const { data: groupsData } = useEstablishmentGroupsQuery();
+  const { groups, groupMap } = useVenueGroupMap();
   const { mutate: updateLocation } = useUpdateLocation();
 
   const multiLocalization =
     !!dataAccessLayer.useCompanyTheme()?.enable_multi_localization;
-
-  const groups = groupsData.results;
-
-  const groupMap = useMemo(() => buildVenueGroupMap(groups), [groups]);
 
   const availableLocationsByVenue = useMemo(
     () =>

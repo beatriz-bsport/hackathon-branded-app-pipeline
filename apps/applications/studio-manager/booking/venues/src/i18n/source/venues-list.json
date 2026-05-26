@@ -47,6 +47,22 @@
     "title": "Create your first venue",
     "cta": "Create venue"
   },
+  "search": {
+    "placeholder": "Search venues",
+    "emptyState": {
+      "title": "No venues found",
+      "subtitle": "Try a different search term"
+    }
+  },
+  "filters": {
+    "selectField": "Filter",
+    "location": "Location",
+    "city": "City",
+    "noLocation": "No location",
+    "operators": {
+      "is": "is"
+    }
+  },
   "sectionCount": "{{address}} ({{count}})",
   "groupTag": {
     "add": "Add to location",

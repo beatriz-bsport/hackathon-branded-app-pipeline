@@ -14,6 +14,8 @@ import { LocationFormModal } from "#src/components/location-form-modal/location-
 import { LocationsList } from "#src/components/locations-list/locations-list";
 import { VenueArchiveModal } from "#src/components/venue-archive-modal/venue-archive-modal";
 import { VenuesList } from "#src/components/venues-list/venues-list";
+import { usePageHeader } from "#src/hooks/use-page-header";
+import { useVenuesFilter } from "#src/hooks/use-venues-filter";
 import { useVenuesModals } from "#src/hooks/use-venues-modals";
 import { ABSOLUTE_ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
@@ -60,6 +62,9 @@ const ListPage: FC = () => {
     [setSearchParams],
   );
 
+  const { searchConfig, searchInput } = usePageHeader();
+  const { filterConfig, filterRef, activeFilters } = useVenuesFilter();
+  const searchQuery = searchInput.trim();
   const pageTabs: HeaderLayoutProps["pageTabs"] = multiLocalization
     ? {
         value: activeTab,
@@ -108,6 +113,9 @@ const ListPage: FC = () => {
         <ListLayout.Header
           pageTitle={t("pageTitle")}
           pageTabs={pageTabs}
+          searchConfig={activeTab === "venues" ? searchConfig : undefined}
+          filterConfig={activeTab === "venues" ? filterConfig : undefined}
+          filterRef={filterRef}
           endGroupActions={endGroupActions}
           callToActionButton={
             <ListLayout.Button
@@ -121,7 +129,11 @@ const ListPage: FC = () => {
         />
         <ListLayout.Content>
           {activeTab === "venues" && (
-            <VenuesList onArchive={openArchiveModal} />
+            <VenuesList
+              activeFilters={activeFilters}
+              searchQuery={searchQuery}
+              onArchive={openArchiveModal}
+            />
           )}
           {activeTab === "locations" && (
             <LocationsList

@@ -117,6 +117,18 @@ export const searchEstablishments = async (
   return data;
 };
 
+export const searchEstablishmentsQueryOptions = (
+  fetch: Fetch<SearchResponse<Establishment>>,
+  params: SearchEstablishmentParams,
+) => {
+  const queryFn = searchEstablishments.bind(null, fetch, params);
+  return queryOptions({
+    queryKey: establishmentKeys.search(params),
+    queryFn,
+    staleTime: DEFAULT_STALE_TIME,
+  });
+};
+
 // ----------------------------------------------------------------------------
 
 export const retrieveEstablishment = async (

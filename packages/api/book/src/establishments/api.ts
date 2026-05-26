@@ -9,6 +9,8 @@ import {
   type Fetch,
   type PaginatedResponse,
   type SearchResponse,
+  type Xhr,
+  type XhrApiConfig,
   buildUrlParams,
 } from "@bsport/store-base";
 
@@ -153,42 +155,110 @@ export const retrieveEstablishmentQueryOptions = (
 
 // ----------------------------------------------------------------------------
 
+const appendFormDataValue = (
+  formData: FormData,
+  key: string,
+  value: string | number | boolean | Blob,
+) => {
+  if (value instanceof Blob) {
+    formData.append(key, value);
+    return;
+  }
+  formData.append(key, String(value));
+};
+
+const toEstablishmentFormData = (
+  payload: CreateEstablishmentPayload | UpdateEstablishmentPayload,
+): FormData => {
+  const formData = new FormData();
+
+  Object.entries(payload).forEach(([key, value]) => {
+    if (value === undefined) {
+      return;
+    }
+    // cover is a file field: only send it when an actual File was picked.
+    if (key === "cover") {
+      if (value instanceof Blob) {
+        formData.append(key, value);
+      }
+      return;
+    }
+    if (value === null) {
+      formData.append(key, "");
+      return;
+    }
+    if (typeof value === "object") {
+      formData.append(key, JSON.stringify(value));
+      return;
+    }
+    appendFormDataValue(formData, key, value);
+  });
+
+  return formData;
+};
+
+// Create uses multipart because cover is a file upload. We use Xhr + FormData
+// instead of Fetch + JSON so the cover File and the nested location object share
+// a single transport path (location serialized as a JSON string).
+const createEstablishmentAPIConfig = (data: FormData): XhrApiConfig => {
+  return [
+    `${ESTABLISHMENT_API_URL}/`,
+    {
+      method: "POST",
+      formData: data,
+    },
+  ];
+};
+
 export const createEstablishment = async (
-  fetch: Fetch<Establishment>,
+  xhr: Xhr<Establishment>,
   payload: CreateEstablishmentPayload,
 ): Promise<Establishment> => {
-  const { data } = await fetch(`${ESTABLISHMENT_API_URL}/`, {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
+  const [uri, init] = createEstablishmentAPIConfig(
+    toEstablishmentFormData(payload),
+  );
+  const { data } = await xhr(uri, init);
   return data;
 };
 
-export const createEstablishmentMutationOptions = (
-  fetch: Fetch<Establishment>,
-) =>
+export const createEstablishmentMutationOptions = (xhr: Xhr<Establishment>) =>
   mutationOptions({
     mutationFn: (payload: CreateEstablishmentPayload) =>
-      createEstablishment(fetch, payload),
+      createEstablishment(xhr, payload),
   });
 
 // ----------------------------------------------------------------------------
 
+// Update uses multipart for the same reason as create (cover file + location
+// JSON). A string cover means "keep the existing image" and is dropped by
+// toEstablishmentFormData; a File replaces it.
+const updateEstablishmentAPIConfig = (
+  id: number,
+  data: FormData,
+): XhrApiConfig => {
+  return [
+    `${ESTABLISHMENT_API_URL}/${id}/`,
+    {
+      method: "PUT",
+      formData: data,
+    },
+  ];
+};
+
 export const updateEstablishment = async (
-  fetch: Fetch<Establishment>,
+  xhr: Xhr<Establishment>,
   id: number,
   payload: UpdateEstablishmentPayload,
 ): Promise<Establishment> => {
-  const { data } = await fetch(`${ESTABLISHMENT_API_URL}/${id}/`, {
-    method: "PUT",
-    body: JSON.stringify(payload),
-  });
+  const [uri, init] = updateEstablishmentAPIConfig(
+    id,
+    toEstablishmentFormData(payload),
+  );
+  const { data } = await xhr(uri, init);
   return data;
 };
 
-export const updateEstablishmentMutationOptions = (
-  fetch: Fetch<Establishment>,
-) =>
+export const updateEstablishmentMutationOptions = (xhr: Xhr<Establishment>) =>
   mutationOptions({
     mutationFn: ({
       id,
@@ -196,7 +266,7 @@ export const updateEstablishmentMutationOptions = (
     }: {
       id: number;
       payload: UpdateEstablishmentPayload;
-    }) => updateEstablishment(fetch, id, payload),
+    }) => updateEstablishment(xhr, id, payload),
   });
 
 // ----------------------------------------------------------------------------

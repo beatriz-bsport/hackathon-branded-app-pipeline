@@ -132,6 +132,41 @@
       "appointments": "Past appointments sessions will not be modified."
     }
   },
+  "venueModal": {
+    "createTitle": "Create venue",
+    "editTitle": "Edit venue",
+    "createConfirm": "Create venue",
+    "editConfirm": "Save changes",
+    "cancel": "Close",
+    "errors": {
+      "requiredField": "This field is required"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "Venue name e.g. Cycling Studio"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe the venue e.g. A boutique yoga studio in central Paris with daily Vinyasa classes."
+    },
+    "address": {
+      "label": "Address",
+      "placeholder": "Search an address"
+    },
+    "location": {
+      "label": "Location",
+      "placeholder": "Select a location"
+    },
+    "capacity": {
+      "label": "Maximum capacity",
+      "helper": "The number of available spots at this venue. Enter 0 for unlimited."
+    },
+    "accessInformation": {
+      "label": "Information for clients",
+      "placeholder": "Tell clients how to access this venue, including any additional information e.g. 2nd floor, second door to the right of the stairs.",
+      "helper": "Displayed to your clients after they book (e.g., entry code, floor, instructions)."
+    }
+  },
   "toasts": {
     "archive": "Venue archived",
     "archiveError": "Failed to archive venue",
@@ -139,6 +174,11 @@
     "unarchiveError": "Failed to restore venue",
     "addVenueToLocation": "\"{{venue}}\" added to \"{{location}}\"",
     "locationDelete": "Location deleted",
-    "locationDeleteError": "Failed to delete location"
+    "locationDeleteError": "Failed to delete location",
+    "create": "Venue created",
+    "createPartial": "Venue created but could not be assigned to the selected location. Please assign it manually.",
+    "createError": "Failed to create venue",
+    "update": "Venue updated",
+    "updateError": "Failed to update venue"
   }
 }

@@ -17,7 +17,7 @@ export const ClassEditorForm: FC = () => {
   const advancedInitiallyOpen = (customRules?.length ?? 0) > 0;
 
   return (
-    <div className="flex flex-col gap-xl p-md">
+    <div className="flex flex-col gap-xl p-md w-[800px]">
       <EditBasicInfoSection />
       <Divider orientation="horizontal" weight="thin" />
       <BookingWindowSection />

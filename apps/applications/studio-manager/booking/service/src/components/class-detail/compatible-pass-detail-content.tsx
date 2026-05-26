@@ -159,15 +159,11 @@ export const CompatiblePassDetailContent: FC<Props> = ({
                   >
                     {day}
                   </Body>
-                  <div className="flex gap-2xs flex-wrap">
+                  <div className="flex gap-md flex-wrap">
                     {ranges.map((range) => (
-                      <Chip
-                        key={range}
-                        type="weak"
-                        color="default"
-                        size="lg"
-                        label={range}
-                      />
+                      <Body key={range} size="md" weight="weak">
+                        {range}
+                      </Body>
                     ))}
                   </div>
                 </div>

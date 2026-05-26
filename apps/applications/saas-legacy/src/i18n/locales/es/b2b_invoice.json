@@ -134,8 +134,12 @@
         "title": "Certificado del dispositivo",
         "subtitle": "Usa este número de serie en el portal TicketBAI de tu provincia. <0>Aprende cómo hacerlo con fiskaly</0>",
         "serial_caption": "Número de serie del certificado del dispositivo (emitido por bsport)",
+        "copy_serial": "Copiar serie",
+        "copy_success": "Número de serie del certificado del dispositivo copiado al portapapeles",
         "gipuzkoa_notice": "Todavía tienes que validar tu certificado de dispositivo Fiskaly con Gipuzkoa en su portal oficial. Tienes aproximadamente un mes para hacerlo. Todas las facturas que emitas mientras tanto seguirán siendo legalmente válidas.",
-        "registration_notice_description": "Usa el número de serie anterior en el portal oficial de TicketBAI de tu provincia para registrar el certificado de tu dispositivo Fiskaly y que bsport pueda empezar a enviar tus facturas válidas a TicketBAI",
+        "gipuzkoa_pre_finalize_notice": "Haz clic en \"Completar configuración\" para activar TicketBAI y empezar a enviar facturas. Te daremos un código para registrarte en el portal oficial de Gipuzkoa. Después de enviar tu primera factura, tendrás aproximadamente un mes para completar este último paso.",
+        "gipuzkoa_post_finalize_warning": "Para completar tu configuración de Gipuzkoa, copia el número de serie de este certificado de dispositivo y regístralo en el portal oficial de Gipuzkoa. Tienes aproximadamente un mes para hacerlo. Facturas emitidas mientras tanto seguirán siendo legalmente válidas.",
+        "registration_notice_description": "Si aún no lo has hecho, usa el número de serie anterior en el portal oficial TicketBAI de tu provincia para registrar el certificado de tu dispositivo Fiskaly y que tus facturas cumplan con las normas de TicketBAI.",
         "complete_confirmation": "He completado el registro provincial de dispositivos requerido para mi territorio",
         "complete_cta": "Configuración completa"
       },
@@ -146,8 +150,8 @@
       },
       "active": {
         "success_message": "TicketBAI está activo. Las facturas y recibos que cumplan los requisitos se notificarán según las normas TicketBAI de tu provincia",
-        "gipuzkoa_followup_title": "Tus facturas ya se están enviando a las autoridades fiscales",
-        "gipuzkoa_followup_description": "Todavía tienes que validar tu dispositivo Fiskaly con Gipuzkoa en su portal oficial. Tienes aproximadamente un mes para hacerlo. Todas las facturas que emitas mientras tanto seguirán siendo legalmente válidas."
+        "gipuzkoa_followup_title": "Tus facturas se están enviando a TicketBAI",
+        "gipuzkoa_followup_description": "Las facturas y recibos que cumplen los requisitos ahora se notifican a las autoridades fiscales según las normas TicketBAI de Gipuzkoa."
       }
     },
     "sequentialNumbering": {

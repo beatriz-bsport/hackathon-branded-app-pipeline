@@ -23,7 +23,7 @@ import type {
   UpdateEstablishmentGroupPayload,
 } from "./types";
 
-const ESTABLISHMENT_GROUP_API_URL = `${API_V1_URL}establishment-group`;
+const ESTABLISHMENT_GROUP_API_URL = `${API_V1_URL}/establishment-group`;
 
 export const establishmentGroupKeys = {
   all: [BOOKING_QUERY_KEY, "establishmentGroups"] as const,

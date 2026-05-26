@@ -4,8 +4,8 @@ import { API_V1_URL, BOOKING_QUERY_KEY } from "#src/constants";
 
 import { ZoomApp } from "./types";
 
-const API_URL = `${API_V1_URL}zoom_app/`;
-const API_URL_COMPANY = `${API_URL}company/`;
+const API_URL = `${API_V1_URL}/zoom_app`;
+const API_URL_COMPANY = `${API_URL}/company`;
 
 export const zoomAppKeys = {
   all: [BOOKING_QUERY_KEY, "zoom"] as const,
@@ -13,7 +13,7 @@ export const zoomAppKeys = {
 };
 
 export const fetchZoomAppsAPIConfig = (companyId: number): ApiConfig => {
-  return [`${API_URL_COMPANY}${companyId}/`];
+  return [`${API_URL_COMPANY}/${companyId}/`];
 };
 
 export const fetchZoomAppAPI = async (

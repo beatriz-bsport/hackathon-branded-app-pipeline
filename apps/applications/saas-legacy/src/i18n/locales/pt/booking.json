@@ -608,7 +608,7 @@
       },
       "phone": {
         "label": "Telefone",
-        "placeholder": "+33612345678"
+        "placeholder": "+351912345678"
       },
       "acceptEmail": {
         "label": "Aceito receber mensagens electrónicas promocionais, incluindo ofertas e descontos especiais"

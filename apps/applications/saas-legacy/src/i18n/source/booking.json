@@ -605,7 +605,7 @@
       },
       "phone": {
         "label": "Phone",
-        "placeholder": "+33612345678"
+        "placeholder": "+447123456789"
       },
       "acceptEmail": {
         "label": "I agree to receive promotional emails, including special offers and discounts"

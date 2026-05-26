@@ -20,7 +20,7 @@ import type {
   SwapTeacherParams,
 } from "./types";
 
-const PRIVATE_SERVICE_API_URL = `${API_V1_URL}private_service`;
+const PRIVATE_SERVICE_API_URL = `${API_V1_URL}/private_service`;
 const PRIVATE_BOOKING_API_URL = `${PRIVATE_SERVICE_API_URL}/private_booking`;
 const PRIVATE_CONSUMER_PASS_API_URL = `${PRIVATE_SERVICE_API_URL}/private_consumer_pass`;
 const PRIVATE_SLOT_API_URL = `${PRIVATE_SERVICE_API_URL}/private_slot`;

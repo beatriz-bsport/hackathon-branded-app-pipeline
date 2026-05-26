@@ -17,9 +17,9 @@ import type {
   UpdateReplacementRequestConfigurationParams,
 } from "#src/teachers/types";
 
-const API_URL_COACH = `${API_V1_URL}coach`;
-const API_URL_ASSOCIATED_COACH = `${API_V1_URL}associated_coach`;
-const API_URL_REPLACEMENT_REQUEST_CONFIGURATION = `${API_V1_URL}replacement_request/configuration`;
+const API_URL_COACH = `${API_V1_URL}/coach`;
+const API_URL_ASSOCIATED_COACH = `${API_V1_URL}/associated_coach`;
+const API_URL_REPLACEMENT_REQUEST_CONFIGURATION = `${API_V1_URL}/replacement_request/configuration`;
 
 // TODO: Use the teacherKeys and TEACHERS_STALE_TIME in the react-query hooks to ensure consistency in query keys across the app
 const TEACHERS_STALE_TIME = 2 * 60 * 1000; // 2 minutes

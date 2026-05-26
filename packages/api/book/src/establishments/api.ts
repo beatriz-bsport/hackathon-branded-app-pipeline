@@ -31,7 +31,7 @@ import {
 
 // ----------------------------------------------------------------------------
 
-const ESTABLISHMENT_API_URL = `${API_V1_URL}establishment`;
+const ESTABLISHMENT_API_URL = `${API_V1_URL}/establishment`;
 
 export const establishmentKeys = {
   all: [BOOKING_QUERY_KEY, "establishments"] as const,

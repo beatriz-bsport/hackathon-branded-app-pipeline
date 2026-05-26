@@ -135,7 +135,6 @@
         "subtitle": "Usa questo seriale sul portale TicketBAI della tua provincia. <0>Scopri come fare con fiskaly</0>",
         "serial_caption": "Numero di serie del certificato del dispositivo (rilasciato da bsport)",
         "gipuzkoa_notice": "Devi ancora convalidare il certificato del tuo dispositivo Fiskaly con Gipuzkoa sul loro portale ufficiale. Hai circa un mese per farlo. Tutte le Ricevute che emetti nel frattempo rimangono legalmente conformi.",
-        "registration_notice_title": "Completa la registrazione del dispositivo prima di terminare",
         "registration_notice_description": "Usa il numero di serie qui sopra sul portale ufficiale TicketBAI della tua provincia per registrare il certificato del tuo dispositivo Fiskaly, così bsport potrà iniziare a inviare le tue fatture idonee a TicketBAI",
         "complete_confirmation": "ho completato la registrazione richiesta del dispositivo provinciale per il mio territorio",
         "complete_cta": "Configurazione completa"

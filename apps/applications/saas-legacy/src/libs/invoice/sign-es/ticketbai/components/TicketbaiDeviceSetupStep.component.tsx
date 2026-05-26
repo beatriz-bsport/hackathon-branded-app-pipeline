@@ -45,6 +45,9 @@ const TicketbaiDeviceSetupStep: React.FC<Props> = ({
   const dispatch = useDispatch();
 
   const isGipuzkoaTerritory = territory === SIGN_ES_TERRITORY.GIPUZKOA;
+  const showDeviceCertificateSection =
+    !isGipuzkoaTerritory || isTicketbaiSetupFinalized;
+
   const canCopySerial =
     !!deviceCertificateSerialNumber &&
     typeof navigator !== 'undefined' &&
@@ -57,70 +60,86 @@ const TicketbaiDeviceSetupStep: React.FC<Props> = ({
     dispatch(snackbarSuccess(t('configuration.ticketbai.device.copy_success')));
   };
 
+  const isFinalizeDisabled =
+    finalizeTicketbaiSetupLoading ||
+    !deviceCertificateSerialNumber ||
+    (!isGipuzkoaTerritory && !isSetupConfirmed);
+
   return (
     <div>
-      <Typography className={classes.deviceTitle} variant="h6">
-        {t('configuration.ticketbai.device.title')}
-      </Typography>
-      <Typography className={classes.sectionSubtitle} variant="body2">
-        <Trans
-          components={[
-            <a
-              key="support-link"
-              className={classes.supportLink}
-              href="https://support.fiskaly.com/hc/es/articles/12429833140380-SIGN-ES-C%C3%B3mo-registrar-el-certificado-de-dispositivo-en-el-Pa%C3%ADs-Vasco"
-              rel="noopener noreferrer"
-              target="_blank"
-            />,
-          ]}
-          i18nKey="configuration.ticketbai.device.subtitle"
-          ns="b2b_invoice"
-        />
-      </Typography>
-
-      <div className={classes.serialCard}>
-        <div className={classes.serialContent}>
-          <Typography className={classes.serialCaption} variant="caption">
-            {t('configuration.ticketbai.device.serial_caption')}
+      {showDeviceCertificateSection ? (
+        <>
+          <Typography className={classes.deviceTitle} variant="h6">
+            {t('configuration.ticketbai.device.title')}
           </Typography>
-          <Typography className={classes.serialValue} variant="h6">
-            {deviceCertificateSerialNumber ?? '—'}
+          <Typography className={classes.sectionSubtitle} variant="body2">
+            <Trans
+              components={[
+                <a
+                  key="support-link"
+                  className={classes.supportLink}
+                  href="https://support.fiskaly.com/hc/es/articles/12429833140380-SIGN-ES-C%C3%B3mo-registrar-el-certificado-de-dispositivo-en-el-Pa%C3%ADs-Vasco"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                />,
+              ]}
+              i18nKey="configuration.ticketbai.device.subtitle"
+              ns="b2b_invoice"
+            />
           </Typography>
-        </div>
-        {deviceCertificateSerialNumber ? (
-          <IconButton
-            aria-label={t('configuration.ticketbai.device.copy_serial')}
-            className={classes.copySerialButton}
-            color="primary"
-            disabled={!canCopySerial}
-            onClick={handleCopySerialNumber}
-            size="small"
-          >
-            <FileCopyIcon fontSize="small" />
-          </IconButton>
-        ) : null}
-      </div>
 
-      <Alert className={classes.infoAlert} severity="info">
-        {isGipuzkoaTerritory ? (
+          <div className={classes.serialCard}>
+            <div className={classes.serialContent}>
+              <Typography className={classes.serialCaption} variant="caption">
+                {t('configuration.ticketbai.device.serial_caption')}
+              </Typography>
+              <Typography className={classes.serialValue} variant="h6">
+                {deviceCertificateSerialNumber ?? '—'}
+              </Typography>
+            </div>
+            {deviceCertificateSerialNumber ? (
+              <IconButton
+                aria-label={t('configuration.ticketbai.device.copy_serial')}
+                className={classes.copySerialButton}
+                color="primary"
+                disabled={!canCopySerial}
+                onClick={handleCopySerialNumber}
+                size="small"
+              >
+                <FileCopyIcon fontSize="small" />
+              </IconButton>
+            ) : null}
+          </div>
+        </>
+      ) : null}
+
+      {isGipuzkoaTerritory && !isTicketbaiSetupFinalized ? (
+        <Alert className={classes.infoAlert} severity="info">
           <Typography variant="body2">
-            {t('configuration.ticketbai.device.gipuzkoa_notice')}
+            {t('configuration.ticketbai.device.gipuzkoa_pre_finalize_notice')}
           </Typography>
-        ) : (
-          <>
-            <Typography className={classes.infoAlertTitle} variant="subtitle2">
-              {t('configuration.ticketbai.device.registration_notice_title')}
-            </Typography>
-            <Typography variant="body2">
-              {t(
-                'configuration.ticketbai.device.registration_notice_description',
-              )}
-            </Typography>
-          </>
-        )}
-      </Alert>
+        </Alert>
+      ) : null}
 
-      {!isTicketbaiSetupFinalized ? (
+      {isGipuzkoaTerritory && isTicketbaiSetupFinalized ? (
+        <Alert className={classes.infoAlert} severity="warning">
+          <Typography variant="body2">
+            {t('configuration.ticketbai.device.gipuzkoa_post_finalize_warning')}
+          </Typography>
+        </Alert>
+      ) : null}
+
+      {!isGipuzkoaTerritory ? (
+        <Alert className={classes.infoAlert} severity="info">
+          <Typography variant="body2">
+            {t(
+              'configuration.ticketbai.device.registration_notice_description',
+            )}
+          </Typography>
+        </Alert>
+      ) : null}
+
+      {!isTicketbaiSetupFinalized && !isGipuzkoaTerritory ? (
         <FormControlLabel
           className={classes.checkbox}
           control={
@@ -144,11 +163,7 @@ const TicketbaiDeviceSetupStep: React.FC<Props> = ({
         <Button
           className={classes.finalizeButton}
           color="primary"
-          disabled={
-            finalizeTicketbaiSetupLoading ||
-            !isSetupConfirmed ||
-            !deviceCertificateSerialNumber
-          }
+          disabled={isFinalizeDisabled}
           onClick={handleFinalizeTicketbai}
           variant="contained"
         >
@@ -222,9 +237,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
   infoAlert: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
-  },
-  infoAlertTitle: {
-    fontWeight: 590,
   },
   checkbox: {
     display: 'flex',

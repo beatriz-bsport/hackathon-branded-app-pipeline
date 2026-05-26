@@ -135,7 +135,6 @@
         "subtitle": "Utilisez ce numéro de série sur le portail TicketBAI de votre province. <0>Découvrez comment faire avec fiskaly</0>",
         "serial_caption": "Numéro de série du certificat de l'appareil (émis par bsport)",
         "gipuzkoa_notice": "Vous devez encore valider votre certificat d'appareil Fiskaly auprès de Gipuzkoa sur leur portail officiel. Vous disposez d'environ un mois pour le faire. Toutes les factures que vous émettez entre-temps restent légalement conformes.",
-        "registration_notice_title": "Finalisez l'enregistrement de l'appareil avant de terminer",
         "registration_notice_description": "Utilisez le numéro de série ci-dessus sur le portail officiel TicketBAI de votre province pour enregistrer le certificat de votre appareil Fiskaly afin que bsport puisse commencer à soumettre vos factures éligibles à TicketBAI",
         "complete_confirmation": "J'ai effectué l'enregistrement provincial de l'appareil requis pour mon territoire",
         "complete_cta": "Configuration complète"

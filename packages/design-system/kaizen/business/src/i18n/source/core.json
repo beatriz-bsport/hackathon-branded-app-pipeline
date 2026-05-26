@@ -173,6 +173,8 @@
   },
   "addressAutocomplete": {
     "label": "Address",
-    "placeholder": "Search an address"
+    "placeholder": "Search an address",
+    "validText": "Address validated",
+    "invalidText": "Select an address from the list"
   }
 }

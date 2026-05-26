@@ -55,6 +55,14 @@ export const AddressAutocompleteRaw: FC<AddressAutocompleteRawProps> = ({
 
   const selectedIds = value ? [value.place_id] : [];
 
+  const hasInput = searchText.trim().length > 0;
+  const autoStatus = value ? "positive" : hasInput ? "error" : "default";
+  const autoStatusText = value
+    ? t("addressAutocomplete.validText")
+    : hasInput
+      ? t("addressAutocomplete.invalidText")
+      : undefined;
+
   const handleChange: AutocompleteControlledProps["onChange"] = (next) => {
     if (next.length === 0) {
       onChange(null);
@@ -63,6 +71,15 @@ export const AddressAutocompleteRaw: FC<AddressAutocompleteRawProps> = ({
     const suggestion = getSuggestion(next[0]);
     if (suggestion) {
       onChange(suggestion);
+    }
+  };
+
+  // Editing the input after a valid selection must invalidate it: the displayed
+  // text no longer matches the selected address, so clear `value`.
+  const handleValueChange = (next: string) => {
+    setSearchText(next);
+    if (value && next !== value.generated_address) {
+      onChange(null);
     }
   };
 
@@ -80,8 +97,11 @@ export const AddressAutocompleteRaw: FC<AddressAutocompleteRawProps> = ({
         label: textfieldProps?.label ?? t("addressAutocomplete.label"),
         placeholder:
           textfieldProps?.placeholder ?? t("addressAutocomplete.placeholder"),
+        value: textfieldProps?.value ?? value?.generated_address ?? "",
+        status: textfieldProps?.status ?? autoStatus,
+        statusText: textfieldProps?.statusText ?? autoStatusText,
       }}
-      onValueChange={setSearchText}
+      onValueChange={handleValueChange}
       loadingProps={{ isLoading }}
     />
   );

@@ -6,12 +6,14 @@ export type VenuesModalState =
   | { type: "archive"; venue: Establishment }
   | { type: "location-create"; preselectedVenue?: Establishment }
   | { type: "location-edit"; location: EstablishmentGroup }
+  | { type: "location-delete"; location: EstablishmentGroup }
   | null;
 
 type Action =
   | { action: "archive"; venue: Establishment }
   | { action: "location-create"; preselectedVenue?: Establishment }
   | { action: "location-edit"; location: EstablishmentGroup }
+  | { action: "location-delete"; location: EstablishmentGroup }
   | { action: "close" };
 
 const reducer = (
@@ -28,6 +30,8 @@ const reducer = (
       };
     case "location-edit":
       return { type: "location-edit", location: action.location };
+    case "location-delete":
+      return { type: "location-delete", location: action.location };
     case "close":
       return null;
   }
@@ -53,6 +57,12 @@ export const useVenuesModals = () => {
     [],
   );
 
+  const openLocationDeleteModal = useCallback(
+    (location: EstablishmentGroup) =>
+      dispatch({ action: "location-delete", location }),
+    [],
+  );
+
   const closeModal = useCallback(() => dispatch({ action: "close" }), []);
 
   return {
@@ -60,6 +70,7 @@ export const useVenuesModals = () => {
     openArchiveModal,
     openLocationCreateModal,
     openLocationEditModal,
+    openLocationDeleteModal,
     closeModal,
   };
 };

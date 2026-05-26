@@ -1,6 +1,6 @@
 import { type FC, useMemo } from "react";
 
-import { type Establishment, type EstablishmentGroup } from "@bsport/api-book";
+import { type Establishment } from "@bsport/api-book";
 import { useEmptyState } from "@bsport/kaizen-primitive-core";
 
 import { CardLoader } from "#src/components/query-boundary/fallbacks";
@@ -13,13 +13,9 @@ import { VenueSection } from "./venue-section";
 
 type VenuesListProps = {
   onArchive: (venue: Establishment) => void;
-  onEditLocation: (location: EstablishmentGroup) => void;
 };
 
-const VenuesListInner: FC<VenuesListProps> = ({
-  onArchive,
-  onEditLocation,
-}) => {
+const VenuesListInner: FC<VenuesListProps> = ({ onArchive }) => {
   const { t } = useTranslation("venues-list");
   const { data: venuesData } = useVenuesListQuery();
 
@@ -53,7 +49,6 @@ const VenuesListInner: FC<VenuesListProps> = ({
           address={address}
           venues={addressVenues}
           onArchive={onArchive}
-          onEditLocation={onEditLocation}
         />
       ))}
     </>

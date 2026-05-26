@@ -22,7 +22,6 @@ type BuildVenueListItemOptions = {
     venue: Establishment,
     location: EstablishmentGroup,
   ) => void;
-  onEditLocation: (location: EstablishmentGroup) => void;
 };
 
 export const buildVenueListItem = (
@@ -34,7 +33,6 @@ export const buildVenueListItem = (
     labels,
     onArchive,
     onAddVenueToLocation,
-    onEditLocation,
   }: BuildVenueListItemOptions,
 ): ListItemProps => {
   const showGroupChip = multiLocalization && !!group;
@@ -42,20 +40,6 @@ export const buildVenueListItem = (
     Boolean(multiLocalization) && !group && availableLocations.length > 0;
 
   const buttons: ListItemProps["buttons"] = [];
-
-  // TODO: temp, will be removed once the locations tabs will be live so we can edit locations properly
-  if (showGroupChip) {
-    buttons.push({
-      id: `edit-location-${venue.id}`,
-      kind: "icon-button",
-      label: labels.editLocation,
-      icon: "edit-02",
-      intent: "flat",
-      size: "md",
-      color: "default",
-      onClick: () => onEditLocation(group),
-    });
-  }
 
   buttons.push(
     {

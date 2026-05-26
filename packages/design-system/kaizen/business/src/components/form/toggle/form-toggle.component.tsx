@@ -13,6 +13,12 @@ type FormToggleProps<
   id: string;
   fieldName: TFieldName;
   label: string;
+  /**
+   * Optional side effect fired after the form value has been updated.
+   * Receives the new boolean value so callers can react to it (e.g. resetting
+   * a sibling field when this one turns on).
+   */
+  onChangeCallback?: (nextValue: boolean) => void;
 } & Partial<ToggleProps>;
 
 export const FormToggle = <
@@ -23,6 +29,7 @@ export const FormToggle = <
   id,
   fieldName,
   label,
+  onChangeCallback,
   ...additionalProps
 }: FormToggleProps<TFormValues, TFieldName>): ReactElement => {
   return (
@@ -33,6 +40,11 @@ export const FormToggle = <
         return {
           ...otherDefaultProps,
           ...(additionalProps ?? {}),
+          onChange: (event) => {
+            field.onChange(event);
+            additionalProps.onChange?.(event);
+            onChangeCallback?.(event.target.checked);
+          },
           // Required to avoid conflict with typing of Toggle.value
           value: "",
           checked: field.value,

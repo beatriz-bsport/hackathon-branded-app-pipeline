@@ -4108,6 +4108,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../primitive/core
+      '@bsport/permissions':
+        specifier: workspace:*
+        version: link:../../../utils/permissions
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../../stores/base
@@ -9018,7 +9021,6 @@ packages:
   '@snyk/github-codeowners@1.1.0':
     resolution: {integrity: sha512-lGFf08pbkEac0NYgVf4hdANpAgApRjNByLXB+WBip3qj1iendOIyAwP2GKkKbQMNVy2r1xxDf0ssfWscoiC+Vw==}
     engines: {node: '>=8.10'}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     hasBin: true
 
   '@standard-schema/spec@1.0.0':

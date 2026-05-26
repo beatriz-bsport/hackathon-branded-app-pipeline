@@ -20,12 +20,16 @@ type VenuesListProps = {
   searchQuery?: string;
   activeFilters: VenuesActiveFilters;
   onArchive: (venue: Establishment) => void;
+  onEdit: (venue: Establishment) => void;
+  onCreate: () => void;
 };
 
 const VenuesListInner: FC<VenuesListProps> = ({
+  onArchive,
+  onEdit,
+  onCreate,
   searchQuery = "",
   activeFilters,
-  onArchive,
 }) => {
   const { t } = useTranslation("venues-list");
   const { data: venuesData } = useVenuesSearchQuery({ q: searchQuery });
@@ -54,10 +58,10 @@ const VenuesListInner: FC<VenuesListProps> = ({
             ctaButtonConfig: {
               label: t("emptyState.cta"),
               iconLeft: "plus",
-              onClick: () => {},
+              onClick: onCreate,
             },
           },
-    [isFiltered, t],
+    [isFiltered, t, onCreate],
   );
 
   const { EmptyState, shouldRenderEmptyState } = useEmptyState({
@@ -77,6 +81,7 @@ const VenuesListInner: FC<VenuesListProps> = ({
           address={address}
           venues={addressVenues}
           onArchive={onArchive}
+          onEdit={onEdit}
         />
       ))}
     </>

@@ -1357,6 +1357,9 @@ importers:
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-business-components':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/business
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../../packages/design-system/kaizen/primitive/core
@@ -19755,6 +19758,7 @@ packages:
 
   recharts@1.8.6:
     resolution: {integrity: sha512-UlfSEOnZRAxxaH33Fc86yHEcqN+IRauPP31NfVvlGudtwVZEIb2RFI5b1J3npQo7XyoSnkUodg3Ha6EupkV+SQ==}
+    deprecated: 1.x and 2.x branches are no longer active. Bump to Recharts v3 to receive latest features and bugfixes. See https://github.com/recharts/recharts/wiki/3.0-migration-guide
     peerDependencies:
       react: ^15.0.0 || ^16.0.0
       react-dom: ^15.0.0 || ^16.0.0

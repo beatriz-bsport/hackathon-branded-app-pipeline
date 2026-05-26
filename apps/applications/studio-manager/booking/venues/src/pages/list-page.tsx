@@ -13,6 +13,7 @@ import { LocationDeleteModal } from "#src/components/location-delete-modal/locat
 import { LocationFormModal } from "#src/components/location-form-modal/location-form-modal";
 import { LocationsList } from "#src/components/locations-list/locations-list";
 import { VenueArchiveModal } from "#src/components/venue-archive-modal/venue-archive-modal";
+import { VenueFormModal } from "#src/components/venue-form-modal/venue-form-modal";
 import { VenuesList } from "#src/components/venues-list/venues-list";
 import { usePageHeader } from "#src/hooks/use-page-header";
 import { useVenuesFilter } from "#src/hooks/use-venues-filter";
@@ -42,6 +43,8 @@ const ListPage: FC = () => {
 
   const {
     modalState,
+    openVenueCreateModal,
+    openVenueEditModal,
     openArchiveModal,
     openLocationCreateModal,
     openLocationEditModal,
@@ -123,13 +126,15 @@ const ListPage: FC = () => {
               intent="call-to-action"
               color="main"
               label={t("actions.createVenue")}
-              onClick={() => {}}
+              onClick={openVenueCreateModal}
             />
           }
         />
         <ListLayout.Content>
           {activeTab === "venues" && (
             <VenuesList
+              onCreate={openVenueCreateModal}
+              onEdit={openVenueEditModal}
               activeFilters={activeFilters}
               searchQuery={searchQuery}
               onArchive={openArchiveModal}
@@ -165,6 +170,21 @@ const ListPage: FC = () => {
       {modalState?.type === "location-delete" && (
         <LocationDeleteModal
           location={modalState.location}
+          onClose={closeModal}
+        />
+      )}
+
+      {modalState?.type === "venue-create" && (
+        <VenueFormModal
+          multiLocalization={multiLocalization}
+          onClose={closeModal}
+        />
+      )}
+
+      {modalState?.type === "venue-edit" && (
+        <VenueFormModal
+          multiLocalization={multiLocalization}
+          venue={modalState.venue}
           onClose={closeModal}
         />
       )}

@@ -66,14 +66,32 @@ export type Establishment = {
 
 // #region Mutations
 
+// Write shape for the establishment location. Differs from the read model
+// (`EstablishmentLocation`): the backend derives latitude/longitude from a
+// writable `geometry: { x, y }` point and ignores the read-only lat/long fields.
+export type EstablishmentLocationInput = {
+  address?: string;
+  address_line_1?: string;
+  address_line_2?: string;
+  zipcode?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  country_code?: string;
+  geometry: { x: number; y: number };
+  geocoded_data?: Record<string, string>;
+};
+
 export type CreateEstablishmentPayload = {
   title: string;
-  location: Partial<EstablishmentLocation>;
+  location: EstablishmentLocationInput;
   specific_info?: string;
   practical_info?: string;
   capacity?: number;
-  related_company: number;
+  // Company + timezone are derived server-side from the authenticated user.
+  related_company?: number;
   tzname?: string;
+  cover?: File | string | null;
 };
 
 export type UpdateEstablishmentPayload = Partial<CreateEstablishmentPayload>;

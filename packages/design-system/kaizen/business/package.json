@@ -50,6 +50,7 @@
     "@bsport/api-financial-services": "workspace:*",
     "@bsport/currency": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
+    "@bsport/permissions": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "@bsport/store-buyables-appointment-pass": "workspace:*",
     "@bsport/store-buyables-giftcard": "workspace:*",

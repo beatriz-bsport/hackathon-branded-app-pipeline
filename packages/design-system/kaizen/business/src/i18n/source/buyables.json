@@ -152,5 +152,9 @@
     "paused": "Paused",
     "canceled": "Canceled",
     "ended": "Ended"
+  },
+  "accessControlToggle": {
+    "label": "Grant studio access",
+    "helperText": "Members with this pass can unlock studio doors. To restrict access times, set time rules in the Kisi platform."
   }
 }

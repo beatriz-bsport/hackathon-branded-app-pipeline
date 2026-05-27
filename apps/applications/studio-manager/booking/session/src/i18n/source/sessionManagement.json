@@ -318,6 +318,42 @@
     "buttons": {
       "confirm": "Confirm booking",
       "cancel": "Cancel"
+    },
+    "passSelection": {
+      "tabs": {
+        "compatible": "Compatible",
+        "incompatible": "Incompatible",
+        "billNew": "Bill new pass"
+      },
+      "validity": "Valid until {{endDate}}",
+      "credits": "{{count}} credit",
+      "credits_other": "{{count}} credits",
+      "creditsLeftAfterBooking": "{{availableAfterBooking}} left after booking",
+      "unlimited": "Unlimited",
+      "loading": "Loading passes...",
+      "emptyCompatible": "No compatible passes found",
+      "emptyIncompatible": "No incompatible passes",
+      "keepCreditsLabel": "Waive credit",
+      "keepCreditsDescription": "A pass is still required but no credit will be deducted from it",
+      "incompatible": "Incompatible",
+      "billNewPlaceholder": "Coming soon"
+    },
+    "incompatibilities": {
+      "2008": "The pass was not configured to cover this type of class",
+      "2009": "The pass was not configured to cover this type of class",
+      "2010": "The pass only works at specific locations, and this isn't one of them",
+      "2014": "The pass has a daily booking limit and it's been hit",
+      "2015": "The pass has a weekly booking limit and it's been hit",
+      "2016": "The pass has a monthly booking limit and it's been hit",
+      "2017": "The pass has a yearly booking limit and it's been hit",
+      "2018": "The member has used all their credits",
+      "2019": "The member received a no-show or late-cancel penalty that temporarily blocks use",
+      "2020": "The class falls outside the start/end window of the pass",
+      "2021": "The pass is set to start on first booking and the slot is before that date",
+      "2022": "The pass is set to start on first attendance, and the slot is before that date",
+      "2023": "The validity period is over",
+      "2027": "The slot is outside the time slots the pass is valid for (e.g. pass only works mornings, session is in the evening)",
+      "generic": "This pass can't be used for this session"
     }
   }
 }

@@ -309,6 +309,9 @@ const icons = {
   "shopping-cart-cross": React.lazy(
     async () => await import("./assets/shopping-cart-cross.svg?react"),
   ),
+  "slash-circle-01": React.lazy(
+    async () => await import("./assets/slash-circle-01.svg?react"),
+  ),
   "slash-circle-02": React.lazy(
     async () => await import("./assets/slash-circle-02.svg?react"),
   ),

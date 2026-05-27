@@ -100,6 +100,7 @@ export const useNavigationElements = ({
   const isHomepageEnabled = useNavFlag(NavFlags.HOMEPAGE);
   const isInvoiceListEnabled = useNavFlag(NavFlags.INVOICE_LIST_PAGE);
   const isPayoutsEnabled = useNavFlag(NavFlags.PAYOUTS_PAGE);
+  const isInboxRevampEnabled = useNavFlag(NavFlags.INBOX_REVAMP);
   const isCalendarRevampEnabled = useNavFlag(NavFlags.CALENDAR_REVAMP);
   const isPacksRevampEnabled = useNavFlag(NavFlags.PACKS_REVAMP);
   const isGiftcardsRevampEnabled = useNavFlag(NavFlags.GIFTCARDS_REVAMP);
@@ -141,7 +142,10 @@ export const useNavigationElements = ({
           // endSlot: (
           //   <Indicator color="default" position="top" size="sm" value={1} />
           // ),
-          ...navigationUrls.inbox,
+          ...flaggedNavigationUrl({
+            enabled: isInboxRevampEnabled,
+            navigationItem: navigationUrls.inbox,
+          }),
         },
         {
           icon: "bell-03",
@@ -649,6 +653,7 @@ export const useNavigationElements = ({
     totalAlertsCount,
     isAnalyticsEnabled,
     isHomepageEnabled,
+    isInboxRevampEnabled,
     isInvoiceListEnabled,
     isCalendarRevampEnabled,
     isPacksRevampEnabled,

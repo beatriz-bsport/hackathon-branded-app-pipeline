@@ -26,16 +26,18 @@ import {
   fetchCompanyCustomFormSignUp as fetchCompanyCustomFormSignUpAPI,
   fetchCompanyCustomMemberForm as fetchCompanyCustomMemberFormAPI,
   submitSignUpCustomForm as submitSignUpCustomFormAPI,
+  submitSignUpCustomFormAsFormData as submitSignUpCustomFormAsFormDataAPI,
   fetchModelBasedAnswerApi,
 } from './api';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import type {
   CustomForm,
-  CustomFormFieldAnswer,
+  CustomFormSubmitPayload,
   CustomFormDisplayRule,
   ResponsiveLayouts,
   SignUpSuccessResponse,
   CustomFormFilledAPI,
+  CustomFormFieldAnswer,
 } from './types';
 import { parseCustomFormAnswersToFormData } from '#src/libs/custom-form/utils';
 
@@ -671,6 +673,55 @@ export function submitSignUpCustomForm(
     try {
       const response = await submitSignUpCustomFormAPI(
         sign_up_custom_form_filled,
+        company,
+        referral_uuid,
+      );
+      dispatch(signUpViaCustomFormActions.success(response.data));
+      const messageKey = options?.isTabletCheckIn
+        ? 'customForm.tabletCheckIn.success'
+        : 'customForm.signupViaCustomForm.success';
+      dispatch(snackbarSuccess(messageKey));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      options?.onError?.();
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `customForm.signupViaCustomForm.errors.${error.response.data.error_code}`,
+          ),
+        );
+      } else {
+        const errorMessageKey = options?.isTabletCheckIn
+          ? 'customForm.tabletCheckIn.error'
+          : 'customForm.signupViaCustomForm.error';
+        dispatch(snackbarError(errorMessageKey));
+      }
+
+      dispatch(signUpViaCustomFormActions.error(error?.response?.data));
+    }
+    dispatch(signUpViaCustomFormActions.isLoading(false));
+  };
+}
+
+export function submitSignUpCustomFormAsFormData(
+  sign_up_custom_form_filled: CustomFormSubmitPayload,
+  company: number | string | null,
+  options?: OptionCallback<SignUpSuccessResponse> & {
+    isTabletCheckIn?: boolean;
+  },
+  referral_uuid?: string | null,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(signUpViaCustomFormActions.isLoading(true));
+    dispatch(signUpViaCustomFormActions.error(null));
+    const formDataPayload: FormData =
+      sign_up_custom_form_filled instanceof FormData
+        ? sign_up_custom_form_filled
+        : parseCustomFormAnswersToFormData(sign_up_custom_form_filled);
+
+    try {
+      const response = await submitSignUpCustomFormAsFormDataAPI(
+        formDataPayload,
         company,
         referral_uuid,
       );

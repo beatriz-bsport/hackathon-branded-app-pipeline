@@ -97,6 +97,8 @@ export type CustomFormFieldAnswer = {
   signup_question_kind: number | null;
 };
 
+export type CustomFormSubmitPayload = FormData | { [key: string]: any };
+
 export type CustomFormFilledAPI = {
   id: number;
   custom_form_id: number;

@@ -11,6 +11,7 @@ import {
   Body,
   Checkbox,
   type CheckboxProps,
+  Title,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -29,10 +30,12 @@ import { RestrictedUrlsSection } from "./restricted-urls-section";
 
 type NavigationPermissionsStepProps = {
   methods: UseFormControllerOutput<RoleFormSchema>;
+  disabled?: boolean;
 };
 
 export const NavigationPermissionsStep: FC<NavigationPermissionsStepProps> = ({
   methods,
+  disabled = false,
 }) => {
   const { t } = useTranslation("role-form");
 
@@ -68,15 +71,21 @@ export const NavigationPermissionsStep: FC<NavigationPermissionsStepProps> = ({
   return (
     <FormProvider {...methods}>
       <div className="flex w-full min-w-0 flex-col gap-lg">
-        <Body htmlVariant="p" color="default">
-          {t("steps.navigationPermissions.helperText")}
-        </Body>
+        <div className="flex flex-col gap-2xs">
+          <Title htmlVariant="h4" weight="strong">
+            {t("steps.navigationPermissions.label")}
+          </Title>
+          <Body htmlVariant="p" color="default">
+            {t("steps.navigationPermissions.helperText")}
+          </Body>
+        </div>
 
         <div className="flex flex-col border border-stroke-thin border-stroke-weak rounded-md overflow-clip">
           <NavigationPermissionSection
             path="navigationMenu"
             value={permissions.navigationMenu as unknown as PermissionValue}
             onChange={setPermissionValue}
+            disabled={disabled}
           />
 
           <AppBarPermissionSection
@@ -84,10 +93,11 @@ export const NavigationPermissionsStep: FC<NavigationPermissionsStepProps> = ({
               permissions.appbarButtons as CompanyRolePermissions["appbarButtons"]
             }
             onChange={setPermissionValue}
+            disabled={disabled}
           />
         </div>
 
-        {!hasSelectedPermissionValue && (
+        {!disabled && !hasSelectedPermissionValue && (
           <Body htmlVariant="p" color="critical">
             {t("formFields.permissions.errorRequired")}
           </Body>
@@ -96,6 +106,7 @@ export const NavigationPermissionsStep: FC<NavigationPermissionsStepProps> = ({
         <RestrictedUrlsSection
           restrictedPaths={restrictedPaths}
           onChange={setRestrictedPaths}
+          disabled={disabled}
         />
 
         <div className="flex flex-col gap-2xs border border-stroke-thin border-stroke-weak rounded-md p-md">
@@ -114,6 +125,7 @@ export const NavigationPermissionsStep: FC<NavigationPermissionsStepProps> = ({
               id="role-has-booking-override-control"
               label={t("formFields.hasBookingOverrideControl.label")}
               helperText={t("formFields.hasBookingOverrideControl.helperText")}
+              disabled={disabled}
             />
           </FormField>
         </div>

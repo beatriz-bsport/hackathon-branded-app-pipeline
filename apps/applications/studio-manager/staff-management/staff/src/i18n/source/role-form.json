@@ -294,8 +294,8 @@
       "placeholder": "Example: /member/"
     },
     "hasBookingOverrideControl": {
-      "label": "Enable manager access for this role",
-      "helperText": "This role will have the same permissions as a studio manager"
+      "label": "Grant advanced booking permissions to this role",
+      "helperText": "Staff with this role can bypass booking restrictions, book classes despite venue or teacher unavailability, and override a class's spot capacity."
     },
     "errors": {
       "required": "This field is required"

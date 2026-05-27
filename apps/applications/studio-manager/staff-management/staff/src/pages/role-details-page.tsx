@@ -23,6 +23,7 @@ import {
   RoleDeleteModal,
 } from "#src/features/role-delete/role-delete-modal";
 import { useUpdateRole } from "#src/features/role-edit/use-update-role";
+import { NavigationPermissionsStep } from "#src/features/role-form/components/navigation-permissions-step";
 import { RoleFormDescription } from "#src/features/role-form/components/role-form-description";
 import { RoleFormName } from "#src/features/role-form/components/role-form-name";
 import { useRoleFormSchema } from "#src/features/role-form/schema";
@@ -141,6 +142,8 @@ const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
         data: {
           name: values.name,
           description: values.description,
+          permissions: values.permissions,
+          has_booking_override_control: values.hasBookingOverrideControl,
         },
       },
       {
@@ -173,9 +176,18 @@ const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
             startGroupActions={startGroupActions}
           />
           <DetailsLayout.Content>
-            <div className="flex flex-col gap-md w-full">
-              <RoleFormName formId={formId} disabled={!role.editable} />
-              <RoleFormDescription formId={formId} disabled={!role.editable} />
+            <div className="flex flex-col gap-lg w-full">
+              <div className="flex flex-col gap-md w-full">
+                <RoleFormName formId={formId} disabled={!role.editable} />
+                <RoleFormDescription
+                  formId={formId}
+                  disabled={!role.editable}
+                />
+              </div>
+              <NavigationPermissionsStep
+                methods={methods}
+                disabled={!role.editable}
+              />
             </div>
           </DetailsLayout.Content>
 

@@ -326,16 +326,28 @@
       },
       "actions": {
         "deleteFilter": "Delete first purchase filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
         "save": "Apply filter"
       },
       "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
         "anyFirstPurchase": "Has made a first purchase"
+      },
+      "subFilters": {
+        "purchaseDate": "Date range of purchase"
       },
       "toasts": {
         "saveError": "Unable to save first purchase filter.",
         "saveSuccess": "Filter applied.",
         "deleteError": "Unable to delete first purchase filter.",
         "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "purchaseDateRequired": "Select a purchase date.",
+        "purchaseDateBetweenRequired": "Select both dates for the between range.",
+        "purchaseDateDurationRequired": "Enter a number of days.",
+        "purchaseDateDurationBetweenRequired": "Enter both day values for the between range."
       }
     }
   },

@@ -1,10 +1,12 @@
+import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+
 import { FIRST_PURCHASE_STATUS } from "./constants";
 import type { FirstPurchaseFilterFormValue } from "./types";
 
 /**
  * Returns the default UI state for a brand-new first purchase filter card.
  *
- * Matches backend model defaults: `first_payment_is_done: true`.
+ * Matches backend model defaults: `first_payment_is_done: true`, sub-filters off.
  *
  * @param smartlistId - Identifier of the smartlist this filter belongs to.
  */
@@ -13,4 +15,6 @@ export const createDefaultFirstPurchaseFilter = (
 ): FirstPurchaseFilterFormValue => ({
   smartlist: smartlistId,
   firstPurchaseStatus: FIRST_PURCHASE_STATUS.done,
+  subFilters: [],
+  purchaseDate: defaultDateFilterValue,
 });

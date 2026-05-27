@@ -3,6 +3,7 @@ import type { FieldNamesMarkedBoolean } from "react-hook-form";
 import { isDirtyFieldEntry } from "#src/components/filters/shared/dirty-fields";
 
 import { firstPurchaseStatusToApi } from "../constants";
+import { REGISTERED_FIRST_PURCHASE_SUB_FILTERS } from "../sub-filters/registry";
 import type { DirtyPatchPayload, FirstPurchaseFilterFormValue } from "../types";
 
 type FirstPurchaseFilterDirtyFields = Partial<
@@ -21,6 +22,13 @@ export const buildDirtyPatchPayload = (
   if (isDirtyFieldEntry(dirtyFields.firstPurchaseStatus)) {
     payload.first_payment_is_done = firstPurchaseStatusToApi(
       value.firstPurchaseStatus,
+    );
+  }
+
+  for (const subFilterModule of REGISTERED_FIRST_PURCHASE_SUB_FILTERS) {
+    Object.assign(
+      payload,
+      subFilterModule.appendDirtyPatchSlice(dirtyFields, value),
     );
   }
 

@@ -2,11 +2,6 @@ import { SmartlistDateFilterType } from "@bsport/api-cdp/smartlist";
 import { getLocalNow } from "@bsport/datetime-manipulation";
 
 import {
-  ABSOLUTE_DATE_OPERATOR_BY_SMARTLIST_DATE_FILTER_TYPE,
-  DATE_FILTER_TYPE_BY_OPERATOR,
-  getRelativeDateOperatorBySmartlistDateFilterType,
-} from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-mapping-constants";
-import {
   DATE_FILTER_TYPE_ABSOLUTE,
   DATE_FILTER_TYPE_RELATIVE,
   FUTURE_DATE_OPERATORS,
@@ -17,6 +12,12 @@ import type {
   RelativeDateOperator,
 } from "#src/components/primitive-filters/date-filter/types";
 import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+
+import {
+  ABSOLUTE_DATE_OPERATOR_BY_SMARTLIST_DATE_FILTER_TYPE,
+  DATE_FILTER_TYPE_BY_OPERATOR,
+  getRelativeDateOperatorBySmartlistDateFilterType,
+} from "./smartlist-date-mapping-constants";
 
 const toIsoDate = (value: string | null) => value ?? "";
 
@@ -119,7 +120,7 @@ const toSignedRelativeDuration = (
 
 /**
  * Serializes a `DateFilterValue` plus resolved API type into date + duration
- * fields expected by the payment pack filter serializer.
+ * fields expected by smartlist filter serializers.
  */
 export const toApiDateSection = (
   dateFilterValue: DateFilterValue,
@@ -158,7 +159,7 @@ export const toApiDateSection = (
 };
 
 /**
- * Maps persisted API fields to a `DateFilterValue`.
+ * Hydrates a `DateFilterValue` from persisted API fields.
  */
 export const toFormDateSection = (
   dateFilterType: SmartlistDateFilterType,

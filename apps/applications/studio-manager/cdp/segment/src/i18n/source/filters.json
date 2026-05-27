@@ -335,7 +335,8 @@
         "anyFirstPurchase": "Has made a first purchase"
       },
       "subFilters": {
-        "purchaseDate": "Date range of purchase"
+        "purchaseDate": "Date range of purchase",
+        "purchaseAmount": "Amount of first purchase"
       },
       "toasts": {
         "saveError": "Unable to save first purchase filter.",
@@ -347,7 +348,9 @@
         "purchaseDateRequired": "Select a purchase date.",
         "purchaseDateBetweenRequired": "Select both dates for the between range.",
         "purchaseDateDurationRequired": "Enter a number of days.",
-        "purchaseDateDurationBetweenRequired": "Enter both day values for the between range."
+        "purchaseDateDurationBetweenRequired": "Enter both day values for the between range.",
+        "purchaseAmountValueRequired": "Enter a purchase amount.",
+        "purchaseAmountSecondValueRequired": "Enter both amounts for the between range."
       }
     }
   },

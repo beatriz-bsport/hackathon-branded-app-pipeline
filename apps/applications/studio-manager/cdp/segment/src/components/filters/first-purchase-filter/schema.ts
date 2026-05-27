@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { purchaseAmountValueSchema } from "#src/components/filters/first-purchase-filter/sub-filters/purchase-amount/schema";
 import { dateFilterValueSchema } from "#src/components/filters/shared/smartlist-date-filter/schema";
 
 import { FIRST_PURCHASE_STATUS } from "./constants";
@@ -8,7 +9,10 @@ import { REGISTERED_FIRST_PURCHASE_SUB_FILTERS } from "./sub-filters/registry";
 import type { FirstPurchaseFilterFormValue } from "./types";
 
 const subFilterIdSchema = z.array(
-  z.literal(FIRST_PURCHASE_SUB_FILTER_IDS.purchaseDate),
+  z.union([
+    z.literal(FIRST_PURCHASE_SUB_FILTER_IDS.purchaseDate),
+    z.literal(FIRST_PURCHASE_SUB_FILTER_IDS.purchaseAmount),
+  ]),
 );
 
 /**
@@ -24,6 +28,7 @@ export const firstPurchaseFilterSchema = z
     ]),
     subFilters: subFilterIdSchema,
     purchaseDate: dateFilterValueSchema,
+    purchaseAmount: purchaseAmountValueSchema,
   })
   .superRefine((value, context) => {
     for (const subFilterModule of REGISTERED_FIRST_PURCHASE_SUB_FILTERS) {

@@ -14,6 +14,7 @@ import {
   ABSOLUTE_DATE_OPERATORS,
   DATE_FILTER_TYPES,
 } from "#src/components/primitive-filters/date-filter/constants";
+import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 
 describe("createFirstPurchaseFilterPayload", () => {
   it("creates a minimal any-first-purchase payload by default", () => {
@@ -87,5 +88,55 @@ describe("createFirstPurchaseFilterPayload", () => {
 
     expect(payload.first_payment_is_done).toBe(false);
     expect(payload.date_filter_active).toBe(false);
+  });
+
+  it("activates purchase amount fields when purchase amount sub-filter is selected", () => {
+    const value = createDefaultFirstPurchaseFilter(1);
+    value.subFilters = [FIRST_PURCHASE_SUB_FILTER_IDS.purchaseAmount];
+    value.purchaseAmount = {
+      operator: NUMERIC_COMPARATOR_OPERATORS.lowerOrEqual,
+      firstValue: 50,
+      secondValue: null,
+    };
+
+    const payload = createFirstPurchaseFilterPayload(value);
+
+    expect(payload.value_payment_active).toBe(true);
+    expect(payload.comparator_payment).toBe(SmartlistPaymentComparator.LTE);
+    expect(payload.value_payment).toBe(50);
+    expect(payload.value_second_payment).toBe(0);
+  });
+
+  it("activates between purchase amount with second value", () => {
+    const value = createDefaultFirstPurchaseFilter(1);
+    value.subFilters = [FIRST_PURCHASE_SUB_FILTER_IDS.purchaseAmount];
+    value.purchaseAmount = {
+      operator: NUMERIC_COMPARATOR_OPERATORS.between,
+      firstValue: 20,
+      secondValue: 100,
+    };
+
+    const payload = createFirstPurchaseFilterPayload(value);
+
+    expect(payload.value_payment_active).toBe(true);
+    expect(payload.comparator_payment).toBe(SmartlistPaymentComparator.BETWEEN);
+    expect(payload.value_payment).toBe(20);
+    expect(payload.value_second_payment).toBe(100);
+  });
+
+  it("does not activate purchase amount when status is notDone", () => {
+    const value = createDefaultFirstPurchaseFilter(1);
+    value.firstPurchaseStatus = FIRST_PURCHASE_STATUS.notDone;
+    value.subFilters = [FIRST_PURCHASE_SUB_FILTER_IDS.purchaseAmount];
+    value.purchaseAmount = {
+      operator: NUMERIC_COMPARATOR_OPERATORS.greaterOrEqual,
+      firstValue: 10,
+      secondValue: null,
+    };
+
+    const payload = createFirstPurchaseFilterPayload(value);
+
+    expect(payload.first_payment_is_done).toBe(false);
+    expect(payload.value_payment_active).toBe(false);
   });
 });

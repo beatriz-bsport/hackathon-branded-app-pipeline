@@ -3,6 +3,7 @@ import type { FieldErrors, UseFormSetValue } from "react-hook-form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
 import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 import { useTranslation } from "#src/utils/i18n";
 
 import {
@@ -52,7 +53,11 @@ export const FirstPurchaseSubFiltersArea = ({
       { shouldDirty: true },
     );
     const fieldToReset = firstPurchaseSubFilterFieldMap[subFilterId];
-    setValue(fieldToReset, defaultDateFilterValue, {
+    const resetValue =
+      fieldToReset === "purchaseAmount"
+        ? defaultNumericComparatorFilterValue
+        : defaultDateFilterValue;
+    setValue(fieldToReset, resetValue, {
       shouldDirty: true,
     });
   };
@@ -107,7 +112,9 @@ export const FirstPurchaseSubFiltersArea = ({
                 items={availableSubFilters.map((subFilterModule) => ({
                   id: subFilterModule.id,
                   label: t(
-                    subFilterModule.labelKey as "filters.28.subFilters.purchaseDate",
+                    subFilterModule.labelKey as
+                      | "filters.28.subFilters.purchaseDate"
+                      | "filters.28.subFilters.purchaseAmount",
                   ),
                 }))}
                 onSelectOption={(selectedId) => {

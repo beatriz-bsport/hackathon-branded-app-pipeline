@@ -12,7 +12,7 @@ import { toast } from "@bsport/kaizen-primitive-core";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-import type { StaffFormData } from "./types";
+import { StaffFormData } from "../staff-form/types";
 
 type StaffFormDirtyFields = Partial<Record<keyof StaffFormData, unknown>>;
 

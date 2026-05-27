@@ -8,7 +8,7 @@ import type {
 export type RoleFormData = {
   name: string;
   description: string;
-  starterRoleId: string;
+  starterRoleId?: string;
   permissions: CompanyRolePermissions;
   objectLevelPermissions: ObjectLevelPermissions;
   hasBookingOverrideControl: boolean;

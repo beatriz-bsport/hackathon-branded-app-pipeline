@@ -35,7 +35,7 @@ export const useRoleFormSchema = (): RoleFormSchema => {
           maxLength: FIELD_CONSTRAINTS.DESCRIPTION_MAX_LENGTH,
         }),
       ),
-    starterRoleId: z.string(),
+    starterRoleId: z.string().optional(),
     permissions: z.custom<CompanyRolePermissions>(
       (v) => typeof v === "object" && v !== null,
     ),

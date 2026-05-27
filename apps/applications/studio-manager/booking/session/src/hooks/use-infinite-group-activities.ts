@@ -23,7 +23,7 @@ const infiniteGroupActivitiesQueryOptions = (
   enabled: boolean,
 ) =>
   infiniteQueryOptions({
-    queryKey: groupActivityKeys.infinite(params),
+    queryKey: groupActivityKeys.infiniteList(params),
     queryFn: async ({ pageParam }) => {
       return fetchGroupActivitiesAndWorkshops(fetch, {
         ...params,
@@ -41,7 +41,7 @@ const infiniteSearchGroupActivitiesQueryOptions = (
   enabled: boolean,
 ) =>
   infiniteQueryOptions({
-    queryKey: groupActivityKeys.searchInfinite(params),
+    queryKey: groupActivityKeys.infiniteSearch(params),
     queryFn: async ({ pageParam }) => {
       return searchGroupActivitiesAndWorkshopsAPI(fetch, {
         ...params,

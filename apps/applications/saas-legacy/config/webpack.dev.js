@@ -1,7 +1,8 @@
-const { rspack } = require('@rspack/core');
+const webpack = require('webpack');
 const { merge } = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const common = require('./rspack.common.js');
+const common = require('./webpack.common.js');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 
@@ -37,12 +38,12 @@ module.exports = merge(common, {
     publicPath,
   },
   plugins: [
-    new rspack.HtmlRspackPlugin({
+    new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
       templateParameters: env.raw,
     }),
-    new rspack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     // Disabling ESLintPlugin for now, it is usefull but does take a lot of time and ressources on first start
     // new ESLintPlugin({
     //   extensions: ['.js', '.jsx', '.ts', '.tsx'],

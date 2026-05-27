@@ -7,19 +7,25 @@ import { useBookingFlowStore } from "#src/stores/booking-flow/store";
 import { useTranslation } from "#src/utils/i18n";
 
 import { MemberSelectionStep } from "./member-selection-step";
+import { PassSelectionStep } from "./pass-selection-step";
 
 type BookingFlowModalProps = {
   isOpen: boolean;
+  sessionId: number;
   onClose: () => void;
 };
 
 export const BookingFlowModal: FC<BookingFlowModalProps> = ({
   isOpen,
+  sessionId,
   onClose,
 }) => {
   const { t } = useTranslation("sessionManagement");
 
   const memberId = useBookingFlowStore((state) => state.memberId);
+  const consumerPaymentPackId = useBookingFlowStore(
+    (state) => state.consumerPaymentPackId,
+  );
 
   const handleClose = () => {
     resetBookingFlow();
@@ -40,14 +46,18 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
       },
       {
         label: t("bookingFlow.steps.passSelection"),
-        content: null, // Implemented in https://linear.app/bsport/issue/BOO-2761/pass-selection-step
+        content:
+          memberId !== null ? (
+            <PassSelectionStep sessionId={sessionId} />
+          ) : null,
+        validate: () => consumerPaymentPackId !== null,
       },
       {
         label: t("bookingFlow.steps.confirmation"),
         content: null, // Implemented in https://linear.app/bsport/issue/BOO-2763/confirmation-view-and-mutation-pipeline
       },
     ],
-    [memberId, t],
+    [memberId, consumerPaymentPackId, sessionId, t],
   );
 
   return (

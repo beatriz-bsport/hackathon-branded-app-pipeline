@@ -45,7 +45,7 @@ export const SessionManagementModals: FC<Props> = ({
   return (
     <>
       {modalState?.type === SessionManagementModalType.BOOK && (
-        <BookingFlowModal isOpen onClose={closeModal} />
+        <BookingFlowModal sessionId={sessionId} isOpen onClose={closeModal} />
       )}
       {modalState?.type === SessionManagementModalType.CANCEL && (
         <CancelSessionModal session={session} isOpen onClose={closeModal} />

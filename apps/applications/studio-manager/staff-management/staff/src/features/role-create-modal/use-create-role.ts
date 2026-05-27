@@ -34,14 +34,14 @@ export const useCreateRole = () => {
       toast({
         status: "default",
         icon: "check",
-        title: t("submitResponse.success"),
+        title: t("createSubmitResponse.success"),
       });
     },
     onError: () => {
       toast({
         status: "critical",
         icon: "alert-circle",
-        title: t("submitResponse.error"),
+        title: t("createSubmitResponse.error"),
         buttonIcon: "x-close",
       });
     },

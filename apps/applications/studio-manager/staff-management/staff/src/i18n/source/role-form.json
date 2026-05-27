@@ -24,6 +24,10 @@
     "remove": "Remove",
     "close": "Close"
   },
+  "updateSubmitResponse": {
+    "success": "Role updated",
+    "error": "Failed to update role"
+  },
   "formFields": {
     "name": {
       "label": "Role name",
@@ -297,7 +301,7 @@
       "required": "This field is required"
     }
   },
-  "submitResponse": {
+  "createSubmitResponse": {
     "success": "Role created",
     "error": "Role creation failed"
   },

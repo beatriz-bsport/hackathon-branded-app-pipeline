@@ -106,7 +106,7 @@ const CompatiblePassesList: FC<CompatiblePassesListProps> = ({
               title: pass.name,
               description: formatPassPrice(pass.price, freeLabel),
               customNode: <PassFlagChips pass={pass} />,
-              selected: pass.id === selectedPassId ? "selected" : "unselected",
+              isActive: pass.id === selectedPassId,
               onItemClick: () => setSelectedPassId(pass.id),
             }))}
           />

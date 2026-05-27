@@ -18,9 +18,11 @@
       "cache": true,
       "inputs": [
         "{projectRoot}/src/**/*.{ts,tsx}",
+        "{projectRoot}/package.json",
         "{projectRoot}/vite.config.ts",
         "{projectRoot}/tsconfig*.json",
-        { "externalDependencies": ["typescript"] }
+        { "externalDependencies": ["typescript"] },
+        { "dependentTasksOutputFiles": "**/*.d.ts", "transitive": true }
       ],
       "outputs": []
     },

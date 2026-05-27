@@ -1,11 +1,9 @@
-import { Link, NavLink } from "react-router";
+import { Link } from "react-router";
 
 import {
   Breadcrumbs,
   ChipProps,
   type HeaderLayoutProps,
-  Tabs,
-  type TabsProps,
 } from "@bsport/kaizen-primitive-core";
 
 import { SessionStatus } from "#src/components/session-details/constants";
@@ -18,41 +16,11 @@ export const useSessionDetailsHeaderConfig = (
   session: DetailsHeaderSession,
 ): Pick<
   HeaderLayoutProps,
-  "pageTabs" | "BreadcrumbsItems" | "pageStatusChip" | "pageSubtitle"
+  "BreadcrumbsItems" | "pageStatusChip" | "pageSubtitle"
 > => {
   const { t } = useTranslation("sessionDetails");
 
-  const { getBookingsManagementPath, resolveEditPath, getIndexUrl } = useUrls();
-
-  const { id } = session;
-
-  const TABS_CONFIG = [
-    {
-      id: "session-management-view-tab",
-      href: getBookingsManagementPath(id),
-      label: t("tabs.overview"),
-      end: true, // :id => active is true | :id/anything-else => active is false
-    },
-    {
-      id: "session-edition-view-tab",
-      href: resolveEditPath(id),
-      label: t("tabs.editor"),
-    },
-  ];
-
-  const pageTabs: TabsProps = {
-    TabsItems: TABS_CONFIG.map((tab) => {
-      const { end, id, href, label } = tab;
-      return (
-        <NavLink to={href} id={id} key={id} end={end}>
-          {({ isActive }) => (
-            <Tabs.Item id={id} label={label} isActive={isActive} />
-          )}
-        </NavLink>
-      );
-    }),
-    orientation: "horizontal",
-  };
+  const { getIndexUrl } = useUrls();
 
   const sessionStatus = !session.available
     ? SessionStatus.CANCELLED
@@ -91,5 +59,5 @@ export const useSessionDetailsHeaderConfig = (
 
   const pageSubtitle = <Subtitle {...session} />;
 
-  return { pageTabs, BreadcrumbsItems, pageStatusChip, pageSubtitle };
+  return { BreadcrumbsItems, pageStatusChip, pageSubtitle };
 };

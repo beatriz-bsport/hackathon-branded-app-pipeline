@@ -166,6 +166,27 @@ export async function submitSignUpCustomForm(
   );
 }
 
+export async function submitSignUpCustomFormAsFormData(
+  signup_form_filled: FormData,
+  companyId: number | string | null,
+  referral_uuid?: string | null,
+) {
+  const requestUrl = companyId
+    ? `${API_V1_URI}/custom_form/custom_form_filled/signup/${buildUrlParams({
+        companyId,
+        ...(referral_uuid ? { referral_uuid } : {}),
+      })}`
+    : `${API_V1_URI}/custom_form/custom_form_filled/signup/`;
+
+  if (companyId) {
+    return postBaseAuth<SignUpCustomFormPayload>(
+      requestUrl,
+      signup_form_filled,
+    );
+  }
+  return postBaseAuth<SignUpCustomFormPayload>(requestUrl, signup_form_filled);
+}
+
 export async function submitDraftCustomForm({
   custom_form_id,
   companyId,

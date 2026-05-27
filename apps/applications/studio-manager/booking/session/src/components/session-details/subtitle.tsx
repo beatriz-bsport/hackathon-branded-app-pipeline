@@ -1,17 +1,14 @@
 import { clsx } from "clsx";
 
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
-import {
-  fromIsoString,
-  getLocalNow,
-  modifyTime,
-} from "@bsport/datetime-manipulation";
+import { getLocalNow } from "@bsport/datetime-manipulation";
 import { Body, Icon, useMatchMedia } from "@bsport/kaizen-primitive-core";
 
 import { TimelineIndicator } from "#src/constants";
 import type { DetailsHeaderSession } from "#src/types";
 import { formatMinutes } from "#src/utils/format-minutes";
 import { useTranslation } from "#src/utils/i18n";
+import { getSessionStartEnd } from "#src/utils/session-time-range";
 
 type TimeLineIndicatorColors = Record<
   TimelineIndicator,
@@ -55,14 +52,10 @@ export const Subtitle: React.FC<DetailsHeaderSession> = (session) => {
     formatOptions,
   );
 
-  const startDateTime = fromIsoString(session.date_start, {
+  const { start: startDateTime, end: endDateTime } = getSessionStartEnd({
+    dateStart: session.date_start,
+    durationMinute: session.duration_minute,
     zone: session.timezone_name,
-  });
-
-  const endDateTime = modifyTime({
-    datetime: startDateTime,
-    duration: { minute: session.duration_minute },
-    operator: "plus",
   });
 
   const endTimeIso = endDateTime.toISO();

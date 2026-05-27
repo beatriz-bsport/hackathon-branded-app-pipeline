@@ -48,7 +48,7 @@ export const sessionKeys = {
     [...sessionKeys.detail(sessionId), "status", params] as const,
   statusList: (ids: number[], params?: PaginatedFetchSessionsParams) =>
     [...sessionKeys.all, "status-list", ids, params] as const,
-  inGroup: (groupId: number | null, params?: FetchSessionsParams) =>
+  inGroup: (groupId: number | null, params?: PaginatedFetchSessionsParams) =>
     [...sessionKeys.all, "in-group", groupId, params] as const,
   withPendingReplacementRequests: (
     params: ListSessionsWithPendingReplacementRequestIdsParams,

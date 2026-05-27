@@ -18,7 +18,8 @@ import { fetchCompanyTheme } from '#src/libs/theme/actions';
 
 import {
   fetchCompanyCustomSignUp,
-  submitSignUpCustomForm,
+  submitSignUpCustomForm as submitSignUpCustomFormAction,
+  submitSignUpCustomFormAsFormData as submitSignUpCustomFormAsFormDataAction,
 } from '#src/libs/custom-form/actions';
 import CustomFormView from '#src/libs/custom-form/components/consumer-form/CustomFormView.form';
 import {
@@ -29,6 +30,7 @@ import withScrollHeightListener from '#src/hocs/with-widget-scroll-height-listen
 import type {
   CustomFormFilled,
   CustomFormFieldAnswer,
+  CustomFormSubmitPayload,
   SignUpCustomFormPayload,
 } from '#src/libs/custom-form/types';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
@@ -57,6 +59,10 @@ import {
 } from '#src/events/authentication/trackers';
 
 import './SignupPageStyles.css';
+import {
+  withFeatureFlags,
+  type FeatureFlagProps,
+} from '#src/utils/feature-flag/withFeatureFlags';
 
 type OwnProps = {
   location: {
@@ -91,6 +97,7 @@ type Props = OwnProps &
   StateHandlerType &
   ConnectedProps &
   WithTranslation &
+  Pick<FeatureFlagProps, 'shouldSendFileNotJson'> &
   WithHandlerType<typeof mapWithHandlers>;
 
 export class SignupPage extends Component<Props> {
@@ -116,30 +123,47 @@ export class SignupPage extends Component<Props> {
     }
   }
 
-  submitCustomForm = (formdata: FormData, options?: OptionCallback) => {
-    this.props.submitSignUpCustomForm(
-      // @ts-expect-error
-      formdata,
-      this.props?.membership || null,
-      {
-        onSuccess: (data: SignUpCustomFormPayload) => {
-          this.props.doEmailLogin(this.props.loginInformations);
-          if (!data.email_confirmed) {
-            this.props.pushRouter(
-              `/login/email_confirmation/${buildUrlParams({
-                membership: this.props.membership,
-              })}`,
-            );
-          } else {
-            if (this.props.membership && this.props.theme?.id)
-              analyticsUtils.onSignupSuccess(this.props.loginInformations);
-            analyticsClientB2C.trackEvent(trackSignUpEvent({}));
-            options?.onSuccess?.();
-          }
-        },
-        onError: () => options?.onError?.(),
+  submitCustomForm = (
+    formdata: CustomFormSubmitPayload,
+    options?: OptionCallback,
+  ) => {
+    const submitOptions: OptionCallback<SignUpCustomFormPayload> = {
+      onSuccess: (data?: SignUpCustomFormPayload) => {
+        if (!data) {
+          options?.onError?.();
+          return;
+        }
+        this.props.doEmailLogin(this.props.loginInformations);
+        if (!data.email_confirmed) {
+          this.props.pushRouter(
+            `/login/email_confirmation/${buildUrlParams({
+              membership: this.props.membership,
+            })}`,
+          );
+        } else {
+          if (this.props.membership && this.props.theme?.id)
+            analyticsUtils.onSignupSuccess(this.props.loginInformations);
+          analyticsClientB2C.trackEvent(trackSignUpEvent({}));
+          options?.onSuccess?.();
+        }
       },
-    );
+      onError: () => options?.onError?.(),
+    };
+
+    if (this.props.shouldSendFileNotJson) {
+      this.props.submitSignUpCustomFormAsFormData(
+        formdata,
+        this.props?.membership || null,
+        submitOptions,
+      );
+    } else {
+      this.props.submitSignUpCustomForm(
+        // @ts-expect-error
+        formdata,
+        this.props?.membership || null,
+        submitOptions,
+      );
+    }
   };
 
   handleCancel = () => {
@@ -226,7 +250,6 @@ export class SignupPage extends Component<Props> {
                 isCssVariantActivated={this.shoulDisplayCssVariant()}
                 layouts={signUpCustomForm.layout}
                 onCancel={this.handleCancel}
-                // @ts-expect-error
                 onSubmit={this.submitCustomForm}
                 onSubmitDraft={this.props.setLoginInformations}
                 rowHeight={
@@ -258,7 +281,8 @@ function mapDispatchToProps(dispatch: Dispatch, props: OwnProps) {
 }
 
 const properMapDispatchToProps = {
-  submitSignUpCustomForm,
+  submitSignUpCustomForm: submitSignUpCustomFormAction,
+  submitSignUpCustomFormAsFormData: submitSignUpCustomFormAsFormDataAction,
   fetchCompanyTheme,
   fetchCompanyCustomSignUp,
   pushRouter: push,
@@ -339,4 +363,5 @@ export default compose(
   withHandlers(mapWithHandlers),
   marketplaceCssHoc(),
   WithCustomCssProvider,
+  withFeatureFlags,
 )(SignupPage);

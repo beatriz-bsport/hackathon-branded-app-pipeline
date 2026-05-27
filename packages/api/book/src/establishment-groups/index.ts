@@ -2,6 +2,7 @@ export {
   fetchEstablishmentGroups,
   fetchEstablishmentGroupsQueryOptions,
   searchEstablishmentGroups,
+  searchEstablishmentGroupsQueryOptions,
   establishmentGroupKeys,
   createEstablishmentGroup,
   createEstablishmentGroupMutationOptions,

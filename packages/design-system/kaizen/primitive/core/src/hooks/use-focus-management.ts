@@ -57,22 +57,38 @@ export const useFocusManagement = <T extends HTMLElement = HTMLElement>(
   const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
+    let animationFrameId: number | undefined;
+
     if (isOpen) {
-      previousFocusRef.current = document.activeElement as HTMLElement;
-      previousFocusRef.current?.blur();
+      const activeElement = document.activeElement as HTMLElement | null;
 
-      requestAnimationFrame(() => {
-        if (containerRef.current) {
-          const firstFocusable =
-            containerRef.current.querySelector<HTMLElement>(
-              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-            );
+      if (activeElement && !containerRef.current?.contains(activeElement)) {
+        previousFocusRef.current = activeElement;
+      }
 
-          if (firstFocusable) {
-            firstFocusable.focus();
-          } else {
-            containerRef.current.focus();
-          }
+      animationFrameId = requestAnimationFrame(() => {
+        if (!containerRef.current) {
+          return;
+        }
+
+        const currentActiveElement =
+          document.activeElement as HTMLElement | null;
+
+        if (
+          currentActiveElement &&
+          containerRef.current.contains(currentActiveElement)
+        ) {
+          return;
+        }
+
+        const firstFocusable = containerRef.current.querySelector<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+
+        if (firstFocusable) {
+          firstFocusable.focus();
+        } else {
+          containerRef.current.focus();
         }
       });
     } else {
@@ -81,6 +97,12 @@ export const useFocusManagement = <T extends HTMLElement = HTMLElement>(
         previousFocusRef.current = null;
       }
     }
+
+    return () => {
+      if (animationFrameId !== undefined) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, [isOpen]);
 
   return containerRef;

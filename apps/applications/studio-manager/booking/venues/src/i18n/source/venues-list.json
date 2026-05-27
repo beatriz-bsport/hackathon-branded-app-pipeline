@@ -1,8 +1,69 @@
 {
   "pageTitle": "Venues",
+  "tabs": {
+    "venues": "Venues",
+    "locations": "Locations"
+  },
+  "locations": {
+    "columns": {
+      "name": "Name",
+      "venues": "Venues"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "emptyState": {
+      "title": "No locations yet",
+      "noResults": "No locations match your search"
+    },
+    "deleteModal": {
+      "title": "Delete location",
+      "warningsTitle": "Deleting this location will affect the following:",
+      "confirm": "Delete",
+      "cancel": "Cancel",
+      "alert": {
+        "blocking": "This location cannot be deleted because of the following reasons:",
+        "warning": "Deleting this location will have the following consequences:"
+      },
+      "preflightError": "Unable to verify whether this location can be deleted. Please try again.",
+      "errors": {
+        "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the Member Area are set to only display this location's calendar and workshops, please update them before deleting the location."
+      },
+      "warnings": {
+        "hasRelatedStaffConfigurations": "This location is used for access monitoring by one or several staff members. By deleting the location without selecting a new one, they will not be able to perform access monitoring anymore.",
+        "exclusiveAssociatedCoaches_one": "Your teacher {{- coach_name}} is only notified when a substitution request is made for a session in this location. By deleting the location, they will therefore receive substitution requests from every location.",
+        "exclusiveAssociatedCoaches_other": "Your teachers {{- coach_name}} are only notified when a substitution request is made for a session in this location. By deleting the location, they will therefore receive substitution requests from every location.",
+        "hasRelatedAssociatedCoaches": "Some teachers are notified when a substitution request is made for a session in this location. By deleting the location, they will stop receiving the notification for it.",
+        "hasRelatedMarketplaceComponentConfigs": "The calendar and workshop tabs configured for the Member Area will not display this location calendar anymore.",
+        "hasRelatedMarketingNotifications": "Notifications linked to this location will be deleted."
+      },
+      "info": {
+        "reportsDefault": "The location will be deleted from past reports.",
+        "widgetsDefault": "Calendar and Workshops widgets may be configured with this location, please do not forget to update them."
+      }
+    }
+  },
   "emptyState": {
     "title": "Create your first venue",
     "cta": "Create venue"
+  },
+  "search": {
+    "placeholder": "Search venues",
+    "locationsPlaceholder": "Search locations",
+    "emptyState": {
+      "title": "No venues found",
+      "subtitle": "Try a different search term"
+    }
+  },
+  "filters": {
+    "selectField": "Filter",
+    "location": "Location",
+    "city": "City",
+    "noLocation": "No location",
+    "operators": {
+      "is": "is"
+    }
   },
   "sectionCount": "{{address}} ({{count}})",
   "groupTag": {
@@ -73,11 +134,53 @@
       "appointments": "Past appointments sessions will not be modified."
     }
   },
+  "venueModal": {
+    "createTitle": "Create venue",
+    "editTitle": "Edit venue",
+    "createConfirm": "Create venue",
+    "editConfirm": "Save changes",
+    "cancel": "Close",
+    "errors": {
+      "requiredField": "This field is required"
+    },
+    "name": {
+      "label": "Name",
+      "placeholder": "Venue name e.g. Cycling Studio"
+    },
+    "description": {
+      "label": "Description",
+      "placeholder": "Describe the venue e.g. A boutique yoga studio in central Paris with daily Vinyasa classes."
+    },
+    "address": {
+      "label": "Address",
+      "placeholder": "Search an address"
+    },
+    "location": {
+      "label": "Location",
+      "placeholder": "Select a location"
+    },
+    "capacity": {
+      "label": "Maximum capacity",
+      "helper": "The number of available spots at this venue. Enter 0 for unlimited."
+    },
+    "accessInformation": {
+      "label": "Information for clients",
+      "placeholder": "Tell clients how to access this venue, including any additional information e.g. 2nd floor, second door to the right of the stairs.",
+      "helper": "Displayed to your clients after they book (e.g., entry code, floor, instructions)."
+    }
+  },
   "toasts": {
     "archive": "Venue archived",
     "archiveError": "Failed to archive venue",
     "unarchive": "Venue restored",
     "unarchiveError": "Failed to restore venue",
-    "addVenueToLocation": "\"{{venue}}\" added to \"{{location}}\""
+    "addVenueToLocation": "\"{{venue}}\" added to \"{{location}}\"",
+    "locationDelete": "Location deleted",
+    "locationDeleteError": "Failed to delete location",
+    "create": "Venue created",
+    "createPartial": "Venue created but could not be assigned to the selected location. Please assign it manually.",
+    "createError": "Failed to create venue",
+    "update": "Venue updated",
+    "updateError": "Failed to update venue"
   }
 }

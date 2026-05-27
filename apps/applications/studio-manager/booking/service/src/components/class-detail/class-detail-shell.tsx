@@ -214,7 +214,10 @@ export const ClassDetailShell: FC<ClassDetailShellProps> = ({
     orientation: "horizontal" as const,
     tabs: [
       { id: "editor", label: t("classDetail.tabs.editor") },
-      { id: "compatiblePasses", label: t("classDetail.tabs.compatiblePasses") },
+      {
+        id: "compatiblePasses",
+        label: t("classDetail.tabs.compatiblePasses"),
+      },
     ],
   };
 

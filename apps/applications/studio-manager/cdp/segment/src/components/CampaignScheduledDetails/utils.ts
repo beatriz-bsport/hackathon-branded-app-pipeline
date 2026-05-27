@@ -1,8 +1,6 @@
 import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
 import { type CommunicationRecipientMinimal } from "@bsport/api-cdp/communicate";
 
-import { getMemberInitialsFromFullName } from "#src/utils/memberUtils";
-
 import { CampaignScheduledRecipientTableRowData } from "./use-campaign-scheduled-recipient-table-columns";
 
 const CAMPAIGN_SCHEDULED_RECIPIENTS_ROW_PREFIX =
@@ -25,7 +23,6 @@ function formatCampaignScheduledRecipientsTableRow({
     recipientPhoneNumber: recipient.phone ?? "",
     recipientEmail: recipient.email,
     recipientName: recipient.name,
-    recipientInitials: getMemberInitialsFromFullName(recipient.name),
     recipientPhoto: recipient.photo ?? null,
     campaignKind: campaignKind,
     link: MEMBER_PROFILE_URL(recipient.id),

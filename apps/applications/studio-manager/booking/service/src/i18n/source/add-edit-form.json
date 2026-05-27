@@ -2,7 +2,7 @@
   "addEditForm": {
     "modal": {
       "title": "Create a class",
-      "description": "You're creating a class template. Once saved, you'll be able to schedule it on your calendar.",
+      "description": "You're creating a class. Once saved, you'll be able to schedule it on your calendar.",
       "confirm": "Create class",
       "cancel": "Cancel",
       "steps": {
@@ -14,9 +14,7 @@
       }
     },
     "basicInfo": {
-      "title": "Basic info",
-      "description": "Provide information about the class for your clients",
-      "typeQuestion": "What type of class template do you want to create?",
+      "typeQuestion": "What type of class do you want to create?",
       "groupActivity": {
         "label": "Group class",
         "helper": "A class with multiple participants"
@@ -27,16 +25,20 @@
       },
       "name": {
         "label": "Name",
-        "placeholder": "Give your class a name e.g. Vinyasa Yoga"
+        "placeholder": "Give your class a name e.g. Vinyasa Yoga",
+        "error": "Enter a name."
       },
       "category": {
         "label": "Category",
         "placeholder": "Select a category",
-        "helper": "These categories will display on your branded website and app for the different types of class"
+        "helper": "These categories will display on your branded website and app for the different types of classes",
+        "error": "Select a category."
       },
       "descriptionField": {
         "label": "Description",
-        "placeholder": "Add a description of the class for your clients"
+        "placeholder": "Add a description of the class for your clients",
+        "helper": "Default description for all sessions. Can be overridden per session.",
+        "error": "Enter a description."
       },
       "image": {
         "label": "Cover image",
@@ -55,8 +57,6 @@
       }
     },
     "bookingWindow": {
-      "title": "Booking window",
-      "description": "Set when clients can book this class",
       "opening": {
         "title": "Opening of booking window",
         "description": "Future sessions can be booked if they start in less than"

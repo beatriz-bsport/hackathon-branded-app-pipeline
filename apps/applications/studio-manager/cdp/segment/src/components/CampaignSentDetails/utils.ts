@@ -7,8 +7,6 @@ import {
   formatDateTimeFromDate,
 } from "@bsport/datetime-formatting";
 
-import { getMemberInitialsFromFullName } from "#src/utils/memberUtils";
-
 import { CampaignSentRecipientTableRowData } from "./use-campaign-sent-recipient-table-columns";
 
 const CAMPAIGN_SENT_RECIPIENTS_ROW_PREFIX = "campaign-sent-recipients-row";
@@ -45,7 +43,6 @@ function formatCampaignSentRecipientsTableRow({
       recipientPhoneNumber: recipient.phonenumber,
       recipientEmail: recipient.email,
       recipientAvatar: recipient.avatar,
-      recipientInitials: getMemberInitialsFromFullName(recipient.full_name),
       recipientName: recipient.full_name,
       lastOpenedDate: lastOpenedDate,
       lastOpenedHour: lastOpenedHour,

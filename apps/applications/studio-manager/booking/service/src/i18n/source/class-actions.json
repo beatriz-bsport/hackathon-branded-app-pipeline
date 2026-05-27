@@ -1,7 +1,7 @@
 {
   "classActions": {
     "archiveModal": {
-      "title": "Archive {{className}}?",
+      "title": "Archive class template?",
       "confirm": "Archive",
       "cancel": "Cancel",
       "retry": "Retry",
@@ -10,7 +10,7 @@
       "checkError": "Something went wrong while checking if this class can be archived."
     },
     "duplicateModal": {
-      "title": "Duplicate {{className}}?",
+      "title": "Duplicate class template?",
       "confirm": "Duplicate",
       "cancel": "Cancel",
       "modalContent": "You can edit the class afterwards."

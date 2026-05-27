@@ -18,6 +18,7 @@ export const useCollectionTableColumns = () => {
     id: "collection-column-name",
     type: "custom",
     align: "start",
+    colClassName: "w-full",
     header: t("table.headers.name"),
     render: (row) => {
       const hasCover = Boolean(row.thumbnailUrl?.trim());
@@ -60,6 +61,7 @@ export const useCollectionTableColumns = () => {
     id: "collection-column-videos-count",
     type: "custom",
     align: "center",
+    colClassName: "px-md",
     header: (
       <span className="sr-only" aria-label={t("table.headers.videosCount")}>
         {t("table.headers.videosCount")}
@@ -76,13 +78,14 @@ export const useCollectionTableColumns = () => {
     id: "collection-column-actions",
     type: "custom",
     align: "center",
+    colClassName: "px-md",
     header: (
       <span className="sr-only" aria-label={t("table.headers.actions")}>
         {t("table.headers.actions")}
       </span>
     ),
     render: (row) => (
-      <div className="flex min-w-[88px] items-center justify-end gap-2xs">
+      <div className="flex items-center justify-end gap-2xs">
         {row.onEdit ? (
           <Button
             color="default"

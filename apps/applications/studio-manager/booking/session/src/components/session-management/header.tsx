@@ -5,16 +5,18 @@ import {
   Button,
   DetailsLayout,
   ExpandableSearchInputWithTooltipProps,
+  type FilterProps,
   useMatchMedia,
 } from "@bsport/kaizen-primitive-core";
 
+import { ResponsiveTooltip } from "#src/components/common/responsive-tooltip";
+import { useSessionPageTabs } from "#src/components/session-management/page-tabs";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveTeacher } from "#src/hooks/teacher/use-retrieve-teacher";
 import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-header-config";
 import { SessionManagementModalType } from "#src/hooks/use-session-management-modals";
 import { useTranslation } from "#src/utils/i18n";
 
-import { ResponsiveTooltip } from "../common/responsive-tooltip";
 import { BookButton } from "./action-buttons/book-button";
 import { MoreActionsButton } from "./action-buttons/more-actions-button";
 import { RestoreSessionButton } from "./action-buttons/restore-session-button";
@@ -26,8 +28,13 @@ import { OrderingBookings } from "./filters/ordering-bookings";
 export const Header: FC<{
   sessionId: number;
   openModal: (type: SessionManagementModalType) => void;
-  searchConfig: ExpandableSearchInputWithTooltipProps;
-}> = ({ sessionId, openModal, searchConfig }) => {
+  /** Search + display controls only apply to the bookings list, not list tabs. */
+  searchConfig?: ExpandableSearchInputWithTooltipProps;
+  /** Optional filter bar shown in the header action row (Series tab status). */
+  filterConfig?: FilterProps;
+  /** List tabs (e.g. Series) hide the bookings-only search and display controls. */
+  isListTab?: boolean;
+}> = ({ sessionId, openModal, searchConfig, filterConfig, isListTab }) => {
   const { t } = useTranslation("sessionManagement");
 
   const queryClient = useQueryClient();
@@ -35,6 +42,8 @@ export const Header: FC<{
   const isMobile = !useMatchMedia("lg");
 
   const { data: session } = useRetrieveSession(sessionId);
+
+  const pageTabs = useSessionPageTabs(session.id, session.group);
 
   const { data: teacher } = useRetrieveTeacher(
     session.coach_override ?? session.coach,
@@ -93,12 +102,16 @@ export const Header: FC<{
       })}
       startGroupActions={startGroupActions}
       endGroupActions={endGroupActions}
-      onDisplayPopover={() => (
-        <div className="flex flex-col gap-sm max-w-[260px]">
-          <OrderingBookings />
-          <ListedInformationSettings />
-        </div>
-      )}
+      onDisplayPopover={
+        isListTab
+          ? undefined
+          : () => (
+              <div className="flex flex-col gap-sm max-w-[260px]">
+                <OrderingBookings />
+                <ListedInformationSettings />
+              </div>
+            )
+      }
       callToActionButton={
         session.available && !isMobile ? (
           <BookButton
@@ -111,7 +124,9 @@ export const Header: FC<{
         ) : undefined
       }
       searchConfig={searchConfig}
+      filterConfig={filterConfig}
       {...headerConfig}
+      pageTabs={pageTabs}
     />
   );
 };

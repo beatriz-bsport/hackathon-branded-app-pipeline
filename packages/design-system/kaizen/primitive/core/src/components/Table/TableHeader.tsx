@@ -101,6 +101,7 @@ const TableHeader = <RowType extends BaseRow>({
             rowHeight="sm"
             align={col.align}
             className={col.type === "copy" ? "px-md" : ""}
+            colClassName={col.colClassName}
           >
             <Body htmlVariant="span">{col.header}</Body>
           </TableCell>

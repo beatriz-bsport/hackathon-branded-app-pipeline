@@ -1,6 +1,6 @@
 import { type Environment, getEnvironment } from "./get-environment";
 
-type Features = Array<{
+export type Features = Array<{
   readable_identifier: string;
   upsell_identifier: number;
   is_free_trial: boolean;

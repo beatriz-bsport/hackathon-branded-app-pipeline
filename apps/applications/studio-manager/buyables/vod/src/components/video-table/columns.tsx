@@ -26,6 +26,7 @@ export const useVideoTableColumns = ({
     id: "video-column-name",
     type: "custom",
     align: "start",
+    colClassName: "w-full",
     header: t("table.headers.name"),
     render: (row) => {
       const hasCover = Boolean(row.thumbnailUrl?.trim());
@@ -56,6 +57,7 @@ export const useVideoTableColumns = ({
     id: "video-column-category",
     type: "custom",
     align: "start",
+    colClassName: "px-md",
     header: t("table.headers.category"),
     render: (row) => (
       <Body htmlVariant="span" size="md" color="default">
@@ -68,6 +70,7 @@ export const useVideoTableColumns = ({
     id: "video-column-format",
     type: "custom",
     align: "center",
+    colClassName: "px-md",
     header: t("table.headers.format"),
     render: (row) => <MediaFormatRenderer format={row.format} />,
   };
@@ -76,6 +79,7 @@ export const useVideoTableColumns = ({
     id: "video-column-availability",
     type: "custom",
     align: "center",
+    colClassName: "px-md",
     header: t("table.headers.availability"),
     render: (row) => (
       <div className="flex items-center justify-center gap-xs">
@@ -123,13 +127,14 @@ export const useVideoTableColumns = ({
     id: "video-column-actions",
     type: "custom",
     align: "end",
+    colClassName: "min-w-[128px] px-md",
     header: (
       <span className="sr-only" aria-label={t("table.headers.actions")}>
         {t("table.headers.actions")}
       </span>
     ),
     render: (row) => (
-      <div className="flex min-w-[56px] items-center justify-end">
+      <div className="flex min-w-[56px] items-center justify-end gap-2xs">
         {row.format === "none" ? (
           <Button
             color="main"

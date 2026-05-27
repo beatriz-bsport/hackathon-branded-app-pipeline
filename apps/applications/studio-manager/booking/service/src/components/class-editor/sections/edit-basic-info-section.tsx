@@ -131,6 +131,7 @@ export const EditBasicInfoSection: FC = () => {
         <TextArea
           id={`${fieldIdPrefix}-description`}
           label={t("addEditForm.basicInfo.descriptionField.label")}
+          helperText={t("addEditForm.basicInfo.descriptionField.helper")}
           placeholder={t("addEditForm.basicInfo.descriptionField.placeholder")}
           required
         />

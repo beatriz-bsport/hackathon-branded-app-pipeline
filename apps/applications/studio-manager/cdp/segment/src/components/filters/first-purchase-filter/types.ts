@@ -1,0 +1,25 @@
+import type {
+  CreateFirstPurchaseFilterPayload,
+  FirstPurchaseFilter,
+  UpdateFirstPurchaseFilterPayload,
+} from "@bsport/api-cdp/smartlist";
+
+import type { FirstPurchaseStatusOption } from "./constants";
+
+export type FirstPurchaseFilterFormValue = {
+  id?: number;
+  smartlist: number;
+  firstPurchaseStatus: FirstPurchaseStatusOption;
+};
+
+export type FirstPurchaseFilterCardProps = {
+  smartlistId: string;
+  filterValue: FirstPurchaseFilterFormValue;
+  onDeleteUnsavedFilter?: () => void;
+  onSaveSuccess?: () => void;
+};
+
+export type FirstPurchaseFilterCreatePayload = CreateFirstPurchaseFilterPayload;
+export type DirtyPatchPayload = UpdateFirstPurchaseFilterPayload;
+
+export type { FirstPurchaseFilter };

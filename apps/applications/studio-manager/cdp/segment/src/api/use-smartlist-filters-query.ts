@@ -5,6 +5,8 @@ import {
   type ActivePassesFilter,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   type BookingMilestoneFilter,
+  FIRST_PURCHASE_FILTER_IDENTIFIER,
+  type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   type GenderFilter,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
@@ -22,6 +24,7 @@ import {
 import {
   isActivePassesFilter,
   isBookingMilestoneFilter,
+  isFirstPurchaseFilter,
   isGenderFilter,
   isMemberDateJoinedFilter,
   isPaymentPackFilter,
@@ -38,6 +41,7 @@ type SmartlistFiltersQueryData = {
   bookingMilestoneFilters: BookingMilestoneFilter[];
   tagFilters: TagFilter[];
   activePassesFilters: ActivePassesFilter[];
+  firstPurchaseFilters: FirstPurchaseFilter[];
 };
 
 const mapGenderFilters = (
@@ -131,6 +135,19 @@ const mapActivePassesFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapFirstPurchaseFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): FirstPurchaseFilter[] => {
+  const firstPurchaseFiltersMap = payload?.[FIRST_PURCHASE_FILTER_IDENTIFIER];
+  if (!firstPurchaseFiltersMap) {
+    return [];
+  }
+
+  return Object.values(firstPurchaseFiltersMap)
+    .filter(isFirstPurchaseFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 /**
  * Unified smartlist filters query.
  * Loads all currently supported filter families from one `get_filters` response.
@@ -146,5 +163,6 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       bookingMilestoneFilters: mapBookingMilestoneFilters(data),
       tagFilters: mapTagFilters(data),
       activePassesFilters: mapActivePassesFilters(data),
+      firstPurchaseFilters: mapFirstPurchaseFilters(data),
     }),
   });

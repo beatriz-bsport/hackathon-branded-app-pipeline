@@ -22,6 +22,11 @@ import {
   FilterSelectorPopover,
 } from "./filter-selector-popover";
 import { FILTER_SELECTOR_CATEGORIES } from "./filter-selector.constants";
+import { FirstPurchaseFilterCard } from "./first-purchase-filter/components/first-purchase-filter-card";
+import { FirstPurchaseFilterCardSkeleton } from "./first-purchase-filter/components/first-purchase-filter-card-skeleton";
+import { createDefaultFirstPurchaseFilter } from "./first-purchase-filter/default-value";
+import { mapFirstPurchaseFilterToFormValue } from "./first-purchase-filter/mappers/api-to-form-value";
+import type { FirstPurchaseFilterFormValue } from "./first-purchase-filter/types";
 import { GenderFilterCard } from "./gender-filter/components/gender-filter-card";
 import { GenderFilterCardSkeleton } from "./gender-filter/components/gender-filter-card-skeleton";
 import { createDefaultGenderFilter } from "./gender-filter/default-value";
@@ -67,6 +72,7 @@ type FilterValueByType = {
   bookingMilestone: BookingMilestoneFilterFormValue;
   tags: TagFilterFormValue;
   activePasses: ActivePassesFilterFormValue;
+  firstPurchase: FirstPurchaseFilterFormValue;
 };
 
 type DraftFilter =
@@ -104,6 +110,11 @@ type DraftFilter =
       clientId: string;
       filterType: "passes";
       value: FilterValueByType["passes"];
+    }
+  | {
+      clientId: string;
+      filterType: "firstPurchase";
+      value: FilterValueByType["firstPurchase"];
     };
 
 type SavedFilter =
@@ -141,6 +152,11 @@ type SavedFilter =
       key: string;
       filterType: "activePasses";
       value: FilterValueByType["activePasses"];
+    }
+  | {
+      key: string;
+      filterType: "firstPurchase";
+      value: FilterValueByType["firstPurchase"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -182,6 +198,7 @@ export const SmartlistFiltersManager = ({
     smartlistFilters?.bookingMilestoneFilters ?? [];
   const tagFilters = smartlistFilters?.tagFilters ?? [];
   const activePassesFilters = smartlistFilters?.activePassesFilters ?? [];
+  const firstPurchaseFilters = smartlistFilters?.firstPurchaseFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -296,6 +313,19 @@ export const SmartlistFiltersManager = ({
         />
       </QueryBoundary>
     ),
+    firstPurchase: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <QueryBoundary
+        key={key}
+        loadingFallback={<FirstPurchaseFilterCardSkeleton />}
+      >
+        <FirstPurchaseFilterCard
+          smartlistId={smartlistId}
+          filterValue={value}
+          onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+          onSaveSuccess={onSaveSuccess}
+        />
+      </QueryBoundary>
+    ),
   };
 
   const createDraftFilterByType: {
@@ -336,6 +366,11 @@ export const SmartlistFiltersManager = ({
       filterType: FILTER_TYPES.activePasses,
       value: createDefaultActivePassesFilter(smartlistNumericId),
     }),
+    firstPurchase: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.firstPurchase),
+      filterType: FILTER_TYPES.firstPurchase,
+      value: createDefaultFirstPurchaseFilter(smartlistNumericId),
+    }),
   };
 
   const renderFilterCard = <TFilterType extends FilterType>(
@@ -354,7 +389,7 @@ export const SmartlistFiltersManager = ({
         id: FILTER_TYPES.gender,
         label: t("filters.5.title"),
         description: t("filterSelector.options.gender.description"),
-        category: FILTER_SELECTOR_CATEGORIES.profiles,
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
       {
         id: FILTER_TYPES.memberSignUpDate,
@@ -391,6 +426,12 @@ export const SmartlistFiltersManager = ({
         label: t("filters.27.title"),
         description: t("filterSelector.options.activePasses.description"),
         category: FILTER_SELECTOR_CATEGORIES.passes,
+      },
+      {
+        id: FILTER_TYPES.firstPurchase,
+        label: t("filters.28.title"),
+        description: t("filterSelector.options.firstPurchase.description"),
+        category: FILTER_SELECTOR_CATEGORIES.payments,
       },
     ],
     [t],
@@ -431,6 +472,11 @@ export const SmartlistFiltersManager = ({
       key: `saved-active-passes-${activePassesFilter.id}`,
       filterType: FILTER_TYPES.activePasses,
       value: mapActivePassesFilterToFormValue(activePassesFilter),
+    })),
+    ...firstPurchaseFilters.map((firstPurchaseFilter) => ({
+      key: `saved-first-purchase-${firstPurchaseFilter.id}`,
+      filterType: FILTER_TYPES.firstPurchase,
+      value: mapFirstPurchaseFilterToFormValue(firstPurchaseFilter),
     })),
   ];
 

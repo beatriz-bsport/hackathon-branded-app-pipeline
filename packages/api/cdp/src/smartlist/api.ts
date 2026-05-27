@@ -12,12 +12,14 @@ import type {
   BookingMilestoneFilter,
   CreateActivePassesFilterPayload,
   CreateBookingMilestoneFilterPayload,
+  CreateFirstPurchaseFilterPayload,
   CreateGenderFilterPayload,
   CreateMemberDateJoinedFilterPayload,
   CreatePaymentPackFilterPayload,
   CreateTagFilterPayload,
   CreateTagRuleParams,
   CreateTotalBookingFilterPayload,
+  FirstPurchaseFilter,
   GenderFilter,
   MemberDateJoinedFilter,
   PaymentPackFilter,
@@ -28,6 +30,7 @@ import type {
   TotalBookingFilter,
   UpdateActivePassesFilterPayload,
   UpdateBookingMilestoneFilterPayload,
+  UpdateFirstPurchaseFilterPayload,
   UpdateGenderFilterPayload,
   UpdateMemberDateJoinedFilterPayload,
   UpdatePaymentPackFilterPayload,
@@ -407,6 +410,22 @@ export const createActivePassesFilter = async (
   return data;
 };
 
+// First purchase filters
+
+const FIRST_PURCHASE_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/first_purchase`;
+
+export const createFirstPurchaseFilter = async (
+  fetch: Fetch<FirstPurchaseFilter>,
+  payload: CreateFirstPurchaseFilterPayload,
+): Promise<FirstPurchaseFilter> => {
+  const { data } = await fetch(`${FIRST_PURCHASE_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
 export const patchActivePassesFilter = async (
   fetch: Fetch<ActivePassesFilter>,
   filterId: number,
@@ -414,6 +433,22 @@ export const patchActivePassesFilter = async (
 ): Promise<ActivePassesFilter> => {
   const { data } = await fetch(
     `${ACTIVE_PASSES_FILTER_ENDPOINT}/${filterId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const patchFirstPurchaseFilter = async (
+  fetch: Fetch<FirstPurchaseFilter>,
+  filterId: number,
+  payload: UpdateFirstPurchaseFilterPayload,
+): Promise<FirstPurchaseFilter> => {
+  const { data } = await fetch(
+    `${FIRST_PURCHASE_FILTER_ENDPOINT}/${filterId}/`,
     {
       method: "PATCH",
       body: JSON.stringify(payload),
@@ -437,6 +472,15 @@ export const deleteMemberDateJoinedFilter = async (
   filterId: number,
 ): Promise<void> => {
   await fetch(`${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
+export const deleteFirstPurchaseFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${FIRST_PURCHASE_FILTER_ENDPOINT}/${filterId}/`, {
     method: "DELETE",
   });
 };

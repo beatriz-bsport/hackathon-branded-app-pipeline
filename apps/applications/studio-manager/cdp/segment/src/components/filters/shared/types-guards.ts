@@ -3,6 +3,8 @@ import {
   ActivePassesFilter,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   BookingMilestoneFilter,
+  FIRST_PURCHASE_FILTER_IDENTIFIER,
+  FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   GenderFilter,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
@@ -26,6 +28,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   bookingMilestone: "bookingMilestone",
   tags: "tags",
   activePasses: "activePasses",
+  firstPurchase: "firstPurchase",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -43,7 +46,8 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalBookingNumber ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.tags ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.bookingMilestone ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.activePasses;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.activePasses ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.firstPurchase;
 
 export const isObjectRecord = (
   value: unknown,
@@ -149,4 +153,14 @@ export const isActivePassesFilter = (
   hasBoolean(value, "select_all_private_passes") &&
   hasNumberArray(value, "private_passes") &&
   hasNumber(value, "nb_active_passes_comparator") &&
-  hasNumber(value, "nb_active_passes_value");
+  hasNumber(value, "nb_active_passes_value") &&
+  hasNumber(value, "nb_active_passes_value_second");
+
+export const isFirstPurchaseFilter = (
+  value: unknown,
+): value is FirstPurchaseFilter =>
+  hasFilterIdentifier(value, FIRST_PURCHASE_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasBoolean(value, "first_payment_is_done");

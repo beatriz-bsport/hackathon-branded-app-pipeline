@@ -17,7 +17,8 @@
       "PROFILES": "PROFILES",
       "PASSES": "PASSES",
       "BOOKINGS": "BOOKINGS",
-      "MEMBER_INFORMATIONS": "MEMBER INFORMATION"
+      "MEMBER_INFORMATIONS": "MEMBER INFORMATION",
+      "PAYMENTS": "PAYMENTS"
     },
     "options": {
       "gender": {
@@ -40,6 +41,9 @@
       },
       "activePasses": {
         "description": "Filter members by the number of active passes (group and/or appointment) they hold right now."
+      },
+      "firstPurchase": {
+        "description": "Filter by whether a member completed a first purchase."
       }
     }
   },
@@ -311,6 +315,26 @@
         "saveError": "Unable to save tag filter.",
         "saveSuccess": "Filter applied.",
         "deleteError": "Unable to delete tag filter.",
+        "invalidFilter": "Invalid filter."
+      }
+    },
+    "28": {
+      "title": "First purchase made",
+      "status": {
+        "done": "First purchase done",
+        "notDone": "First purchase not done"
+      },
+      "actions": {
+        "deleteFilter": "Delete first purchase filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "anyFirstPurchase": "Has made a first purchase"
+      },
+      "toasts": {
+        "saveError": "Unable to save first purchase filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete first purchase filter.",
         "invalidFilter": "Invalid filter."
       }
     }

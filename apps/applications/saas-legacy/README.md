@@ -261,11 +261,11 @@ To create a new alias you need to add them at multiple places
   }
 ```
 
-#### config/rspack.dev.js and config/rspack.prod.js
+#### config/webpack.config.dev.js and config/webpack.config.js
 
 the alias need to respect some convention use a # as a prefix to make it clear it's not a path and can't have a / inside to avoid resolving problems
 
-> :warning: **Don t break the widget**: Until better bundling for the widget we also need to add the alias configuration in the widget's bundler config otherwise it will break the build
+> :warning: **Don t break the widget**: Until better bundling for the widget we also need to add the alias configuration in the widget's webpack otherwise it will break the build
 
 ### Access the react app running locally on another device
 

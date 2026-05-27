@@ -10,46 +10,102 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP } from "../constants";
 import {
+  type PermissionTree,
   type PermissionValue,
   getCheckboxValue,
+  getValueByPath,
   isPermissionTree,
   setBooleanLeaves,
 } from "../permission-tree-utils";
+import type { RoleFormData } from "../types";
 
-const DEFAULT_DEPTH = 0;
-
-const getInputId = (path: string) =>
-  `role-permission-${path.replaceAll(".", "-")}`;
-
-export type PermissionTreeSectionProps = {
+export type ObjectLevelPermissionSectionProps = {
   path: string;
   value: PermissionValue;
-  onChange: (path: string, value: unknown) => void;
-  getLabel: (path: string) => string;
+  rootValue: RoleFormData["objectLevelPermissions"];
+  onChange: (path: string, value: PermissionValue) => void;
   disabled?: boolean;
   level?: number;
-  hiddenKeys?: Set<string>;
 };
 
-export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
+const ROOT_LEVEL = 0;
+
+const HIDDEN_OBJECT_LEVEL_PERMISSION_KEYS = new Set(["allowed_actions"]);
+
+const getInputId = (path: string) =>
+  `role-object-level-permission-${path.replaceAll(".", "-")}`;
+
+/**
+ * Derives a human-readable label from a dot-separated permission path when no
+ * translation key is available.
+ *
+ * @param path - Dot-separated permission path (e.g. `"booking.max_participants"`)
+ * @returns Capitalised, space-separated label built from the leaf key
+ *   (e.g. `"Max participants"`)
+ */
+const formatLabelFallback = (path: string) => {
+  const leafKey = path.split(".").at(-1) ?? path;
+
+  return leafKey
+    .replaceAll("_", " ")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/^./, (character) => character.toUpperCase());
+};
+
+export const ObjectLevelPermissionSection: FC<
+  ObjectLevelPermissionSectionProps
+> = ({
   path,
   value,
+  rootValue,
   onChange,
-  getLabel,
   disabled = false,
-  level = DEFAULT_DEPTH,
-  hiddenKeys,
+  level = ROOT_LEVEL,
 }) => {
   const { t } = useTranslation("role-form");
+  const leafKey = path.split(".").at(-1);
 
-  if (hiddenKeys?.has(path) || value === undefined) {
-    return null;
+  if (
+    value === undefined ||
+    (leafKey && HIDDEN_OBJECT_LEVEL_PERMISSION_KEYS.has(leafKey))
+  ) {
+    if (!isPermissionTree(value)) {
+      return null;
+    }
+
+    return (
+      <>
+        {Object.entries(value).map(([key, childValue]) => (
+          <ObjectLevelPermissionSection
+            key={`${path}.${key}`}
+            path={`${path}.${key}`}
+            value={childValue as PermissionValue}
+            rootValue={rootValue}
+            onChange={onChange}
+            disabled={disabled}
+            level={level}
+          />
+        ))}
+      </>
+    );
   }
 
-  const checkboxValue = getCheckboxValue(value);
   const isTree = isPermissionTree(value);
-  const label = getLabel(path);
+  const checkboxValue = getCheckboxValue(value);
+  const labelKey = `objectLevelPermissions.${path}._label`;
+  const translatedLabel = t(labelKey as never) as string;
+  const label =
+    translatedLabel !== labelKey ? translatedLabel : formatLabelFallback(path);
+  const dependencyPath =
+    OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP.reciproque[path];
+  const dependencyValue = dependencyPath
+    ? getValueByPath(rootValue as unknown as PermissionTree, dependencyPath)
+    : undefined;
+  const disabledByDependency =
+    dependencyPath !== undefined &&
+    getCheckboxValue(dependencyValue) !== "checked";
 
   const toggleValue = () => {
     onChange(path, setBooleanLeaves(value, checkboxValue !== "checked"));
@@ -59,7 +115,7 @@ export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
     return (
       <div
         className={cx(
-          level === DEFAULT_DEPTH
+          level === ROOT_LEVEL
             ? "p-md border-b-stroke-thin border-b-stroke-divider last:border-b-0"
             : "py-xs pl-lg",
         )}
@@ -68,7 +124,7 @@ export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
           id={getInputId(path)}
           label={label}
           value={checkboxValue}
-          disabled={disabled}
+          disabled={disabled || disabledByDependency}
           onChange={toggleValue}
         />
       </div>
@@ -79,12 +135,12 @@ export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
     <Collapse
       id={getInputId(path)}
       initiallyOpen={false}
-      className={cx({
-        "p-md border-b-stroke-thin border-b-stroke-divider last:border-b-0":
-          level === DEFAULT_DEPTH,
-        "pl-lg pr-md border-l-stroke-thin border-l-stroke-main":
-          level > DEFAULT_DEPTH,
-      })}
+      className={cx(
+        level === ROOT_LEVEL &&
+          "p-md border-b-stroke-thin border-b-stroke-divider last:border-b-0",
+        level > ROOT_LEVEL &&
+          "pl-lg pr-md border-l-stroke-thin border-l-stroke-main",
+      )}
     >
       <Collapse.Controller>
         {({ isCollapseOpen, setIsCollapseOpen, collapseProps }) => (
@@ -97,7 +153,7 @@ export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
             >
               <Body
                 htmlVariant="span"
-                weight={level === DEFAULT_DEPTH ? "strong" : "weak"}
+                weight={level === ROOT_LEVEL ? "strong" : "weak"}
               >
                 {label}
               </Body>
@@ -107,7 +163,7 @@ export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
                 id={`${getInputId(path)}-select-all`}
                 label={t("formFields.navigationMenu.selectAll.label")}
                 value={checkboxValue}
-                disabled={disabled}
+                disabled={disabled || disabledByDependency}
                 onChange={() => {
                   toggleValue();
                   setIsCollapseOpen(true);
@@ -131,15 +187,14 @@ export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
       <Collapse.Content>
         <div className="flex flex-col gap-xs">
           {Object.entries(value).map(([key, childValue]) => (
-            <PermissionTreeSection
+            <ObjectLevelPermissionSection
               key={`${path}.${key}`}
               path={`${path}.${key}`}
               value={childValue as PermissionValue}
+              rootValue={rootValue}
               onChange={onChange}
-              getLabel={getLabel}
               disabled={disabled}
               level={level + 1}
-              hiddenKeys={hiddenKeys}
             />
           ))}
         </div>

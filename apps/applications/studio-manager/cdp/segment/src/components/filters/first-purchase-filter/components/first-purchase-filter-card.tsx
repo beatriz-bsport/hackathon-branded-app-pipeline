@@ -28,6 +28,7 @@ export const FirstPurchaseFilterCard = ({
   const fieldIds = {
     status: `${baseId}-first-purchase-status`,
     purchaseDate: `${baseId}-first-purchase-date`,
+    purchaseAmount: `${baseId}-first-purchase-amount`,
   };
   const { t } = useTranslation("filters");
 

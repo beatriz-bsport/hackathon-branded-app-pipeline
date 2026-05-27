@@ -1,4 +1,5 @@
 import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+import { defaultNumericComparatorFilterValue } from "#src/components/primitive-filters/numeric-comparator-filter/utils";
 
 import { FIRST_PURCHASE_STATUS } from "./constants";
 import type { FirstPurchaseFilterFormValue } from "./types";
@@ -17,4 +18,5 @@ export const createDefaultFirstPurchaseFilter = (
   firstPurchaseStatus: FIRST_PURCHASE_STATUS.done,
   subFilters: [],
   purchaseDate: defaultDateFilterValue,
+  purchaseAmount: defaultNumericComparatorFilterValue,
 });

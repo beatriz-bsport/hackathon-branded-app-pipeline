@@ -8,6 +8,7 @@ import {
   ABSOLUTE_DATE_OPERATORS,
   DATE_FILTER_TYPES,
 } from "#src/components/primitive-filters/date-filter/constants";
+import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 
 vi.mock("#src/utils/i18n", () => ({
   i18nInstance: {
@@ -59,6 +60,33 @@ describe("firstPurchaseFilterSchema", () => {
         toDate: null,
       },
       relative: value.purchaseDate.relative,
+    };
+
+    expect(firstPurchaseFilterSchema.safeParse(value).success).toBe(true);
+  });
+
+  it("rejects active purchase amount sub-filter without a value", () => {
+    const value = createDefaultFirstPurchaseFilter(1);
+    value.subFilters = [FIRST_PURCHASE_SUB_FILTER_IDS.purchaseAmount];
+    value.purchaseAmount = {
+      operator: NUMERIC_COMPARATOR_OPERATORS.greaterOrEqual,
+      firstValue: null,
+      secondValue: null,
+    };
+
+    const result = firstPurchaseFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+  });
+
+  it("does not validate purchase amount when status is notDone", () => {
+    const value = createDefaultFirstPurchaseFilter(1);
+    value.firstPurchaseStatus = FIRST_PURCHASE_STATUS.notDone;
+    value.subFilters = [FIRST_PURCHASE_SUB_FILTER_IDS.purchaseAmount];
+    value.purchaseAmount = {
+      operator: NUMERIC_COMPARATOR_OPERATORS.greaterOrEqual,
+      firstValue: null,
+      secondValue: null,
     };
 
     expect(firstPurchaseFilterSchema.safeParse(value).success).toBe(true);

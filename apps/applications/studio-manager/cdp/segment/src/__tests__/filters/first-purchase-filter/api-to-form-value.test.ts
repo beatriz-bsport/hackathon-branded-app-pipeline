@@ -13,6 +13,7 @@ import {
   ABSOLUTE_DATE_OPERATORS,
   DATE_FILTER_TYPES,
 } from "#src/components/primitive-filters/date-filter/constants";
+import { NUMERIC_COMPARATOR_OPERATORS } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 
 const baseApiFilter = {
   id: 10,
@@ -73,6 +74,26 @@ describe("mapFirstPurchaseFilterToFormValue", () => {
     );
     expect(formValue.purchaseDate.absolute.fromDate).toBe("2024-01-01");
     expect(formValue.purchaseDate.absolute.toDate).toBe("2024-06-30");
+  });
+
+  it("hydrates active purchase amount sub-filter from API", () => {
+    const formValue = mapFirstPurchaseFilterToFormValue({
+      ...baseApiFilter,
+      first_payment_is_done: true,
+      value_payment_active: true,
+      comparator_payment: SmartlistPaymentComparator.BETWEEN,
+      value_payment: 25,
+      value_second_payment: 150,
+    });
+
+    expect(formValue.subFilters).toEqual([
+      FIRST_PURCHASE_SUB_FILTER_IDS.purchaseAmount,
+    ]);
+    expect(formValue.purchaseAmount.operator).toBe(
+      NUMERIC_COMPARATOR_OPERATORS.between,
+    );
+    expect(formValue.purchaseAmount.firstValue).toBe(25);
+    expect(formValue.purchaseAmount.secondValue).toBe(150);
   });
 });
 

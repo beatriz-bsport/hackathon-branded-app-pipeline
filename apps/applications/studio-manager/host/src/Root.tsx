@@ -50,6 +50,7 @@ const Payout = lazy(() => import("@bsport/sm-payout"));
 
 // ----- Customer Data Platform -----
 const EmailTemplate = lazy(() => import("@bsport/sm-email-template"));
+const Inbox = lazy(() => import("@bsport/sm-inbox"));
 const Smartfill = lazy(() => import("@bsport/sm-smartfill"));
 const Segment = lazy(() => import("@bsport/sm-segment"));
 const CustomForm = lazy(() => import("@bsport/sm-custom-form"));
@@ -240,6 +241,7 @@ const AuthenticatedRoutes = () => {
   const isPacksPageEnabled = useNavFlag(NavFlags.PACKS);
   const isGiftcardsPageEnabled = useNavFlag(NavFlags.GIFTCARDS);
   const isContractsPageEnabled = useNavFlag(NavFlags.CONTRACTS);
+  const isInboxPageEnabled = useNavFlag(NavFlags.INBOX);
   const isTeacherViewSettingsEnabled = useNavFlag(
     NavFlags.SETTINGS_TEACHER_VIEW,
   );
@@ -305,6 +307,7 @@ const AuthenticatedRoutes = () => {
     /* ----- Customer Data Platform ----- */
     { url: urls.customForm, element: <CustomForm /> },
     { url: urls.emailTemplate, element: <EmailTemplate /> },
+    { url: urls.inbox, element: <Inbox />, hidden: !isInboxPageEnabled },
     {
       url: urls.settings_referral,
       element: <ReferralProgram />,

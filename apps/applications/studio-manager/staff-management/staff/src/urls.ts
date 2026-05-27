@@ -14,6 +14,7 @@ export const URLS = {
   ROLE: SEGMENTS.ROLE,
   ROLE_INDEX: `${INDEX}/${SEGMENTS.ROLE}`,
   ROLE_DETAILS_SLUG: `${SEGMENTS.ROLE}/:id`,
+  ROLE_DETAILS: (id: number) => `${INDEX}/${SEGMENTS.ROLE}/${id}`,
 } as const;
 
 export const LEGACY_URLS = {

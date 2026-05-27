@@ -1,23 +1,40 @@
-const webpack = require('webpack');
+const { rspack } = require('@rspack/core');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const paths = require('./paths');
+const getClientEnvironment = require('./env');
 const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const publicPath = '/';
+const isProduction = process.env.NODE_ENV === 'production';
+const env = getClientEnvironment('');
+const styleOrExtractLoader = isProduction
+  ? rspack.CssExtractRspackPlugin.loader
+  : 'style-loader';
 
 const plugins = [
-  new webpack.ProvidePlugin({
+  new rspack.ProvidePlugin({
     process: 'process/browser.js',
   }),
-  sentryWebpackPlugin({
-    org: process.env.SENTRY_ORG, // Gitlab CI/CD variable
-    project: process.env.SENTRY_PROJECT, // Gitlab CI/CD variable
-    authToken: process.env.SENTRY_AUTH_TOKEN, // Gitlab CI/CD variable
-  }),
+  new rspack.DefinePlugin(env.stringified),
 ];
+
+if (
+  isProduction &&
+  process.env.SENTRY_ORG &&
+  process.env.SENTRY_PROJECT &&
+  process.env.SENTRY_AUTH_TOKEN
+) {
+  plugins.push(
+    sentryWebpackPlugin({
+      org: process.env.SENTRY_ORG,
+      project: process.env.SENTRY_PROJECT,
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+    }),
+  );
+}
 
 if (process.env.ANALYZE === 'true') {
   plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'static' }));
@@ -142,12 +159,12 @@ module.exports = {
           {
             test: [/\.scss$/, /\.sass$/],
             include: paths.appSrc,
-            use: ['style-loader', 'css-loader', 'sass-loader'],
+            use: [styleOrExtractLoader, 'css-loader', 'sass-loader'],
           },
           {
             test: /\.css$/,
             use: [
-              'style-loader',
+              styleOrExtractLoader,
               'css-loader',
               {
                 loader: 'postcss-loader',

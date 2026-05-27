@@ -13,6 +13,7 @@ import { createFirstPurchaseFilterPayload } from "../mappers/form-value-to-creat
 import { firstPurchaseFilterSchema } from "../schema";
 import type { FirstPurchaseFilterCardProps } from "../types";
 import { FirstPurchaseStatusField } from "./first-purchase-status-field";
+import { FirstPurchaseSubFiltersArea } from "./first-purchase-sub-filters-area";
 
 /**
  * Single first purchase filter card. Owns form lifecycle (create / patch / delete).
@@ -23,7 +24,11 @@ export const FirstPurchaseFilterCard = ({
   onDeleteUnsavedFilter,
   onSaveSuccess,
 }: FirstPurchaseFilterCardProps) => {
-  const statusFieldId = `${useId()}-first-purchase-status`;
+  const baseId = useId();
+  const fieldIds = {
+    status: `${baseId}-first-purchase-status`,
+    purchaseDate: `${baseId}-first-purchase-date`,
+  };
   const { t } = useTranslation("filters");
 
   const methods = useFormController({
@@ -32,7 +37,7 @@ export const FirstPurchaseFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { dirtyFields } = methods.formState;
+  const { errors, dirtyFields } = methods.formState;
 
   const { upsertFirstPurchaseFilterMutate, isLoading: isSaving } =
     useUpsertFirstPurchaseFilterMutation(smartlistId, {
@@ -71,9 +76,11 @@ export const FirstPurchaseFilterCard = ({
 
   const isDirty = Object.keys(dirtyFields).length > 0;
   const isSavedFilter = Boolean(watchedFilterValue.id);
-  const showAnyFirstPurchaseCopy = firstPurchaseStatusToApi(
+  const firstPaymentIsDone = firstPurchaseStatusToApi(
     watchedFilterValue.firstPurchaseStatus,
   );
+  const showAnyFirstPurchaseCopy =
+    firstPaymentIsDone && watchedFilterValue.subFilters.length === 0;
 
   const handleSave = methods.handleSubmit(
     (value) => {
@@ -113,6 +120,19 @@ export const FirstPurchaseFilterCard = ({
     deleteFirstPurchaseFilterMutate(watchedFilterValue.id);
   };
 
+  const handleStatusChange = (
+    nextStatus: typeof watchedFilterValue.firstPurchaseStatus,
+  ) => {
+    methods.setValue("firstPurchaseStatus", nextStatus, {
+      shouldDirty: true,
+      shouldValidate: true,
+    });
+
+    if (!firstPurchaseStatusToApi(nextStatus)) {
+      methods.setValue("subFilters", [], { shouldDirty: true });
+    }
+  };
+
   return (
     <Card className="w-full" padding="default">
       <div className="flex flex-col gap-sm">
@@ -134,21 +154,25 @@ export const FirstPurchaseFilterCard = ({
         </div>
 
         <FirstPurchaseStatusField
-          id={statusFieldId}
+          id={fieldIds.status}
           value={watchedFilterValue.firstPurchaseStatus}
           disabled={isSaving || isDeleting}
-          onChange={(nextStatus) =>
-            methods.setValue("firstPurchaseStatus", nextStatus, {
-              shouldDirty: true,
-              shouldValidate: true,
-            })
-          }
+          onChange={handleStatusChange}
         />
 
         {showAnyFirstPurchaseCopy ? (
           <Body size="sm" color="weak">
             {t("filters.28.fields.anyFirstPurchase")}
           </Body>
+        ) : null}
+
+        {firstPaymentIsDone ? (
+          <FirstPurchaseSubFiltersArea
+            fieldIds={fieldIds}
+            watchedFilterValue={watchedFilterValue}
+            errors={errors}
+            setValue={methods.setValue}
+          />
         ) : null}
 
         <div className="flex justify-end">

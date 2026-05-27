@@ -6,8 +6,7 @@ import {
 } from "#src/components/primitive-filters/date-filter/constants";
 
 /**
- * Maps primitive date UI operators to the smartlist API `date_filter_type` /
- * `expiration_date_filter_type` enum values.
+ * Maps primitive date UI operators to the smartlist API `date_filter_type` enum.
  */
 export const DATE_FILTER_TYPE_BY_OPERATOR = {
   on_or_before: SmartlistDateFilterType.DATE_BEFORE,

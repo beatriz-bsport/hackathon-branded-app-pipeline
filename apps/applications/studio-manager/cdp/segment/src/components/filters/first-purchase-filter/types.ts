@@ -4,12 +4,17 @@ import type {
   UpdateFirstPurchaseFilterPayload,
 } from "@bsport/api-cdp/smartlist";
 
+import type { DateFilterValue } from "#src/components/primitive-filters/date-filter/types";
+
 import type { FirstPurchaseStatusOption } from "./constants";
+import type { FirstPurchaseSubFilterId } from "./sub-filters/first-purchase-sub-filter-id";
 
 export type FirstPurchaseFilterFormValue = {
   id?: number;
   smartlist: number;
   firstPurchaseStatus: FirstPurchaseStatusOption;
+  subFilters: FirstPurchaseSubFilterId[];
+  purchaseDate: DateFilterValue;
 };
 
 export type FirstPurchaseFilterCardProps = {

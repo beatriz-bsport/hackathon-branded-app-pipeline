@@ -1,17 +1,12 @@
 {
-    "entry": [
-        "webpack.config.js",
-        "webpack.*.js",
-        "src/**/*.js",
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.jsx"
-    ],
-    "project": [
-        "tsconfig.json"
-    ],
-    "ignore": [
-        "node_modules/**",
-        "dist/**"
-    ]
+  "entry": [
+    "rspack.config.js",
+    "rspack.*.js",
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.jsx"
+  ],
+  "project": ["tsconfig.json"],
+  "ignore": ["node_modules/**", "dist/**"]
 }

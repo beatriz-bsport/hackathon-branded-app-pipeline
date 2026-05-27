@@ -22,6 +22,7 @@ const BookingsInsightPage = () => {
   const { isAllowed, isLoading } = useInsightGate("booking");
   const { detailsLayoutProps, toggleIsPanelOpened } = useDetailsLayout();
   const [summaryEnabled, setSummaryEnabled] = useState(false);
+  const [summaryKey, setSummaryKey] = useState(0);
   // Snapshot of params captured at click time — never updated while panel is open
   const [summaryParams, setSummaryParams] = useState<SummaryParams>({
     variables: {},
@@ -60,6 +61,7 @@ const BookingsInsightPage = () => {
         documentationUrl: values["documentation-url"],
       });
       setSummaryEnabled(true);
+      setSummaryKey((k) => k + 1);
       toggleIsPanelOpened(true);
     },
     [toggleIsPanelOpened],
@@ -86,10 +88,12 @@ const BookingsInsightPage = () => {
       withPanel={summaryEnabled}
       panelChildren={
         <AiSummaryPanel
+          key={summaryKey}
           isLoading={isExporting}
           error={exportError}
           data={exportData}
           documentationUrl={summaryParams.documentationUrl}
+          traceId={exportData?.ai_summary?.trace_id}
         />
       }
     >

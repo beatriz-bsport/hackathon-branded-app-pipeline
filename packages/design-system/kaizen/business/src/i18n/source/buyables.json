@@ -134,6 +134,26 @@
     "teacherFullPaymentToggle": {
       "label": "Full payment to teacher",
       "helperText": "All income from appointments booked with this pass is paid in full to the teacher"
+    },
+    "compatibleAppointmentsSelector": {
+      "label": "Compatible with appointments",
+      "placeholder": "Search for an appointment",
+      "loadingMessage": "Loading appointments…",
+      "list": {
+        "compatibleWithAll": "Compatible with all sessions",
+        "compatibleWith": "Compatible with: {{ slotNames }}",
+        "noSessionsAvailable": "No sessions available",
+        "removeAction": "Remove",
+        "editAction": "Edit compatible sessions"
+      },
+      "editModal": {
+        "selectAll": "Select all",
+        "helperText": "Members can use this pass for the selected sessions only.",
+        "noSessionsAlert": "All eligible sessions have been removed. This subscription is no longer compatible with any {{ appointmentName }} sessions.",
+        "cancel": "Cancel",
+        "save": "Save",
+        "emptyState": "This appointment has no session yet."
+      }
     }
   },
   "itemAutocomplete": {

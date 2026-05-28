@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { type FC, useMemo } from "react";
+import { useHref } from "react-router";
 
 import { type PaginationProps, Table } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
@@ -7,7 +8,6 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import { sessionsInGroupQueryOptions } from "#src/hooks/session-api/fetch/use-fetch-sessions-in-group";
 import { useFetchAllEstablishments } from "#src/hooks/use-fetch-establishments";
 import { useFetchTeachers } from "#src/hooks/use-fetch-teachers";
-import { useUrls } from "#src/urls";
 import { getTeacherInitials } from "#src/utils/get-teacher-initials";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -17,13 +17,18 @@ import {
   mapStatusFilterToParams,
 } from "./status-filter-mapping";
 
-export const SeriesTab: FC<{
+export const SeriesTable: FC<{
   groupId: number;
   companyId: number;
   status: StatusFilter | null;
 }> = ({ groupId, companyId, status }) => {
   const { t, i18n } = useTranslation("sessionManagement");
-  const { getBookingsManagementUrl } = useUrls();
+  // `window.open` and raw <a href> resolve relative URLs against
+  // `window.location`, not React Router's route tree. We need the full href
+  // INCLUDING the router basename so the browser navigates to the right place
+  // in any environment (dev / studio / etc.). `useHref` returns the basename-
+  // prefixed URL ("/studio/calendar"); `useResolvedPath` would strip it.
+  const parentPath = useHref("..");
 
   // Page reset on status change is handled by the filter's onChange in the page,
   // since that's where the status state lives (the filter renders in the header).
@@ -93,10 +98,10 @@ export const SeriesTab: FC<{
             teacherOverride: session.coach_override ? displayedTeacher : null,
           }),
           establishmentName: establishment?.title,
-          detailUrl: getBookingsManagementUrl(session.id),
+          detailUrl: `${parentPath}/${session.id}`,
         };
       }),
-    [sessions, teachersById, establishmentsById, getBookingsManagementUrl],
+    [sessions, teachersById, establishmentsById, parentPath],
   );
 
   const paginationProps: PaginationProps = useMemo(

@@ -1023,7 +1023,7 @@
     "selectSession": "Escolher uma sessão",
     "selectService": "Escolher um serviço",
     "establishment": "Localização",
-    "previousOffer": "Uma sessão mais recente está disponível em {{- date }} : {{ hour }}",
+    "previousOffer": "A sessão mais recente é em {{- date }} : {{ hour }}",
     "nextOffer": "Primeira vaga disponível em {{- date }} : {{ hour }}",
     "searchFirstSlot": "Procurar a primeira vaga disponível",
     "bookableSlots": {

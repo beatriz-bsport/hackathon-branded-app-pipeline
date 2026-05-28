@@ -434,7 +434,7 @@
     "selectSession": "Wähle einen Termin",
     "searchFirstSlot": "Die nächste Verfügbarkeit finden",
     "emptyState": "Derzeit nicht verfügbar",
-    "previousOffer": "Ein neuer Kurs ist am {{- date }} verfügbar: {{ hour }}",
+    "previousOffer": "Aktuellster Kurs: {{- date }} um {{ hour }}",
     "nextOffer": "Erste Verfügbarkeit: {{- date }} um {{ hour }}",
     "pickASlot": "Wähle deine verfügbare Zeit"
   },

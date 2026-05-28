@@ -1,26 +1,40 @@
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 import {
   Breadcrumbs,
   ChipProps,
   type HeaderLayoutProps,
+  Tabs,
+  type TabsProps,
 } from "@bsport/kaizen-primitive-core";
 
 import { SessionStatus } from "#src/components/session-details/constants";
 import { Subtitle } from "#src/components/session-details/subtitle";
 import type { DetailsHeaderSession } from "#src/types";
 import { useUrls } from "#src/urls";
+import {
+  type SessionTabKey,
+  getVisibleSessionTabs,
+} from "#src/utils/get-visible-session-tabs";
 import { useTranslation } from "#src/utils/i18n";
 
 export const useSessionDetailsHeaderConfig = (
   session: DetailsHeaderSession,
 ): Pick<
   HeaderLayoutProps,
-  "BreadcrumbsItems" | "pageStatusChip" | "pageSubtitle"
+  "pageTabs" | "BreadcrumbsItems" | "pageStatusChip" | "pageSubtitle"
 > => {
-  const { t } = useTranslation("sessionDetails");
+  const { t: tDetails } = useTranslation("sessionDetails");
+  const { t: tManagement } = useTranslation("sessionManagement");
 
-  const { getIndexUrl } = useUrls();
+  const {
+    getBookingsManagementPath,
+    resolveEditPath,
+    resolveSeriesPath,
+    getIndexUrl,
+  } = useUrls();
+
+  // ----- Status chip (unchanged behaviour) -----
 
   const sessionStatus = !session.available
     ? SessionStatus.CANCELLED
@@ -33,31 +47,60 @@ export const useSessionDetailsHeaderConfig = (
       color: "critical",
       size: "lg",
       type: "weak",
-      label: t("header.cancelledSessionChip"),
+      label: tDetails("header.cancelledSessionChip"),
     },
     [SessionStatus.LISTED]: {
       color: "main",
       size: "lg",
       type: "weak",
-      label: t("header.listedSessionChip"),
+      label: tDetails("header.listedSessionChip"),
     },
     [SessionStatus.UNLISTED]: {
       color: "default",
       size: "lg",
       type: "weak",
-      label: t("header.unlistedSessionChip"),
+      label: tDetails("header.unlistedSessionChip"),
     },
   };
 
   const pageStatusChip = statusChips[sessionStatus];
 
+  // ----- Breadcrumbs (unchanged behaviour) -----
+
   const BreadcrumbsItems = [
     <Link key="link-to-calendar" to={getIndexUrl()}>
-      <Breadcrumbs.Item text={t("header.breadcrumbs")} />
+      <Breadcrumbs.Item text={tDetails("header.breadcrumbs")} />
     </Link>,
   ];
 
+  // ----- Subtitle (unchanged behaviour) -----
+
   const pageSubtitle = <Subtitle {...session} />;
 
-  return { BreadcrumbsItems, pageStatusChip, pageSubtitle };
+  // ----- Tabs (new — replaces useSessionPageTabs) -----
+
+  const visibleTabs = getVisibleSessionTabs(session.group);
+
+  const hrefByKey: Record<SessionTabKey, string> = {
+    overview: getBookingsManagementPath(session.id),
+    editor: resolveEditPath(session.id),
+    series: resolveSeriesPath(session.id),
+  };
+
+  const pageTabs: TabsProps = {
+    orientation: "horizontal",
+    TabsItems: visibleTabs.map((key) => (
+      <NavLink key={key} to={hrefByKey[key]} end={key === "overview"}>
+        {({ isActive }) => (
+          <Tabs.Item
+            id={`session-tab-${key}`}
+            label={tManagement(`pageTabs.${key}`)}
+            isActive={isActive}
+          />
+        )}
+      </NavLink>
+    )),
+  };
+
+  return { pageTabs, BreadcrumbsItems, pageStatusChip, pageSubtitle };
 };

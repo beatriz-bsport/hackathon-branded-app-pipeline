@@ -5,9 +5,10 @@ import { LEGACY_URLS, URLS, flags, useBookingManagementFlag } from "#src/urls";
 
 const CalendarPage = lazy(() => import("#src/pages/CalendarPage"));
 const DetailsPage = lazy(() => import("#src/pages/details-page"));
-const SessionManagementPage = lazy(
-  () => import("#src/pages/session-management-page"),
+const SessionOverviewPage = lazy(
+  () => import("#src/pages/session-overview-page"),
 );
+const SessionSeriesPage = lazy(() => import("#src/pages/session-series-page"));
 
 const LegacyOfferPageRedirect = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
@@ -33,12 +34,22 @@ export const AppRoutes = () => {
       <Route
         element={
           isSessionManagementRevampEnabled ? (
-            <SessionManagementPage />
+            <SessionOverviewPage />
           ) : (
             <LegacyOfferPageRedirect />
           )
         }
         path={URLS.BOOKINGS_MANAGEMENT_REVAMP}
+      />
+      <Route
+        element={
+          isSessionManagementRevampEnabled ? (
+            <SessionSeriesPage />
+          ) : (
+            <LegacyOfferPageRedirect />
+          )
+        }
+        path={URLS.SERIES_SLUG}
       />
       <Route element={<DetailsPage />} path={URLS.EDIT_SLUG} />
     </Routes>

@@ -195,6 +195,7 @@ const ListPage: FC = () => {
           {activeTab === "locations" && (
             <LocationsList
               searchQuery={locationsSearchInput}
+              onCreate={openLocationCreateModal}
               onEdit={openLocationEditModal}
               onDelete={openLocationDeleteModal}
             />

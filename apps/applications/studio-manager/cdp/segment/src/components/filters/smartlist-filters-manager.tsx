@@ -16,6 +16,10 @@ import { BookingMilestoneFilterCardSkeleton } from "./booking-milestone/componen
 import { createDefaultBookingMilestoneFilter } from "./booking-milestone/default-value";
 import { mapBookingMilestoneFilterToFormValue } from "./booking-milestone/mappers/api-to-form-value";
 import type { BookingMilestoneFilterFormValue } from "./booking-milestone/types";
+import { CreditAccountFilterCard } from "./credit-account/components/credit-account-filter-card";
+import { createDefaultCreditAccountFilter } from "./credit-account/default-value";
+import { mapCreditAccountFilterToFormValue } from "./credit-account/mappers/api-to-form-value";
+import type { CreditAccountFilterFormValue } from "./credit-account/types";
 import { FilterManager } from "./filter-manager";
 import {
   type FilterSelectorOption,
@@ -73,6 +77,7 @@ type FilterValueByType = {
   tags: TagFilterFormValue;
   activePasses: ActivePassesFilterFormValue;
   firstPurchase: FirstPurchaseFilterFormValue;
+  creditAccount: CreditAccountFilterFormValue;
 };
 
 type DraftFilter =
@@ -115,6 +120,11 @@ type DraftFilter =
       clientId: string;
       filterType: "firstPurchase";
       value: FilterValueByType["firstPurchase"];
+    }
+  | {
+      clientId: string;
+      filterType: "creditAccount";
+      value: FilterValueByType["creditAccount"];
     };
 
 type SavedFilter =
@@ -157,6 +167,11 @@ type SavedFilter =
       key: string;
       filterType: "firstPurchase";
       value: FilterValueByType["firstPurchase"];
+    }
+  | {
+      key: string;
+      filterType: "creditAccount";
+      value: FilterValueByType["creditAccount"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -199,6 +214,7 @@ export const SmartlistFiltersManager = ({
   const tagFilters = smartlistFilters?.tagFilters ?? [];
   const activePassesFilters = smartlistFilters?.activePassesFilters ?? [];
   const firstPurchaseFilters = smartlistFilters?.firstPurchaseFilters ?? [];
+  const creditAccountFilters = smartlistFilters?.creditAccountFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -326,6 +342,15 @@ export const SmartlistFiltersManager = ({
         />
       </QueryBoundary>
     ),
+    creditAccount: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <CreditAccountFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
   };
 
   const createDraftFilterByType: {
@@ -370,6 +395,11 @@ export const SmartlistFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.firstPurchase),
       filterType: FILTER_TYPES.firstPurchase,
       value: createDefaultFirstPurchaseFilter(smartlistNumericId),
+    }),
+    creditAccount: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.creditAccount),
+      filterType: FILTER_TYPES.creditAccount,
+      value: createDefaultCreditAccountFilter(smartlistNumericId),
     }),
   };
 
@@ -433,6 +463,12 @@ export const SmartlistFiltersManager = ({
         description: t("filterSelector.options.firstPurchase.description"),
         category: FILTER_SELECTOR_CATEGORIES.payments,
       },
+      {
+        id: FILTER_TYPES.creditAccount,
+        label: t("filters.1.title"),
+        description: t("filterSelector.options.creditAccount.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
     ],
     [t],
   );
@@ -477,6 +513,11 @@ export const SmartlistFiltersManager = ({
       key: `saved-first-purchase-${firstPurchaseFilter.id}`,
       filterType: FILTER_TYPES.firstPurchase,
       value: mapFirstPurchaseFilterToFormValue(firstPurchaseFilter),
+    })),
+    ...creditAccountFilters.map((creditAccountFilter) => ({
+      key: `saved-credit-account-${creditAccountFilter.id}`,
+      filterType: FILTER_TYPES.creditAccount,
+      value: mapCreditAccountFilterToFormValue(creditAccountFilter),
     })),
   ];
 

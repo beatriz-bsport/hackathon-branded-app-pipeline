@@ -3,6 +3,8 @@ import {
   ActivePassesFilter,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   BookingMilestoneFilter,
+  CREDIT_ACCOUNT_FILTER_IDENTIFIER,
+  CreditAccountFilter,
   FIRST_PURCHASE_FILTER_IDENTIFIER,
   FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
@@ -29,6 +31,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   tags: "tags",
   activePasses: "activePasses",
   firstPurchase: "firstPurchase",
+  creditAccount: "creditAccount",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -47,7 +50,19 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.tags ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.bookingMilestone ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.activePasses ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.firstPurchase;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.firstPurchase ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.creditAccount;
+
+export const isCreditAccountFilter = (
+  value: unknown,
+): value is CreditAccountFilter =>
+  hasFilterIdentifier(value, CREDIT_ACCOUNT_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumber(value, "comparator") &&
+  hasNumber(value, "value") &&
+  hasNumber(value, "value_second");
 
 export const isObjectRecord = (
   value: unknown,

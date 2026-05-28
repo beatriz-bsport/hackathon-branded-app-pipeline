@@ -231,7 +231,7 @@
     "selectService": "Kies een dienst",
     "selectSession": "Tijdstip",
     "emptyState": "Er is momenteel geen beschikbaarheid om weer te geven.",
-    "previousOffer": "Beschikbare sessie: {{- date }} om {{ hour }}",
+    "previousOffer": "Meest recente sessie: {{- date }} om {{ hour }}",
     "nextOffer": "Eerstvolgende beschikbaarheid: {{- date }} om {{ hour }}",
     "searchFirstSlot": "Zoek de eerstvolgende beschikbaarheid",
     "pickASlot": "Selecteer je beschikbare tijd"

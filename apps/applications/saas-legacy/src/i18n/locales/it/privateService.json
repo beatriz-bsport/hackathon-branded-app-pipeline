@@ -406,7 +406,7 @@
     "selectSession": "Scegli la tua sessione",
     "searchFirstSlot": "Cerca il primo slot disponibile",
     "nextOffer": "Primo slot disponibile il {{- date }} : {{ hour }}",
-    "previousOffer": "Una sessione più recente è disponibile su {{- date }} : {{ hour }}",
+    "previousOffer": "La sessione più recente è il {{- date }} : {{ hour }}",
     "emptyState": "Nessuna disponibilità al momento",
     "pickASlot": "Seleziona il tuo orario di disponibilità"
   },

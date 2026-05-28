@@ -25,6 +25,7 @@ export const URLS = {
 } as const;
 
 export const LEGACY_URLS = {
+  REPORTING: "/reporting/categories",
   // TODO: replace with a link to the new session management page once it's implemented
   SESSION_MANAGEMENT: (sessionId: number) => `/offer/${sessionId}`,
 } as const;

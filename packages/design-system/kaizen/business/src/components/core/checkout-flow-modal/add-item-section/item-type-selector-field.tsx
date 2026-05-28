@@ -8,19 +8,36 @@ import {
   type ItemTypeSelectorProps,
 } from "#src/components/buyables/item-type-selector";
 import { useCheckoutFlowTrack } from "#src/components/core/checkout-flow-modal/checkout-flow-tracking-context";
-import { ADD_ITEM_DEFAULT } from "#src/components/core/checkout-flow-modal/defaults";
+import {
+  ADD_ITEM_DEFAULT,
+  ADD_ITEM_DEFAULT_KEYS,
+  GIFTCARD_DEFAULT_KEYS,
+  GIFTCARD_FIELDS_DEFAULT,
+} from "#src/components/core/checkout-flow-modal/defaults";
 import { type CheckoutFlowFormState } from "#src/components/core/checkout-flow-modal/schema";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
 export const ItemTypeSelectorField: React.FC = () => {
   const { t } = useTranslation("core", { i18n: i18nInstance });
   const track = useCheckoutFlowTrack();
-  const { reset, getValues } = useFormContext<CheckoutFlowFormState>();
+  const { setValue, getValues } = useFormContext<CheckoutFlowFormState>();
 
-  const resetAddItemFields = () => {
-    const current = getValues();
-    const addItemDefaults = { ...ADD_ITEM_DEFAULT };
-    reset({ ...current, ...addItemDefaults });
+  const resetAddItemFields = (selectedType: InvoiceItemKind) => {
+    ADD_ITEM_DEFAULT_KEYS.forEach((key) => {
+      const nextValue =
+        key === "addItemSelectedItemType"
+          ? selectedType
+          : ADD_ITEM_DEFAULT[key];
+      setValue(key, nextValue, {
+        shouldDirty: key === "addItemSelectedItemType",
+        shouldValidate: true,
+      });
+    });
+    GIFTCARD_DEFAULT_KEYS.forEach((key) => {
+      setValue(key, GIFTCARD_FIELDS_DEFAULT[key], {
+        shouldValidate: true,
+      });
+    });
   };
 
   return (
@@ -30,11 +47,10 @@ export const ItemTypeSelectorField: React.FC = () => {
       ItemTypeSelectorProps
     >
       name="addItemSelectedItemType"
-      mapProps={({ form: { setValue }, field }) => ({
+      mapProps={({ field }) => ({
         value: field.value,
         onSelect: (type: InvoiceItemKind) => {
-          resetAddItemFields();
-          setValue("addItemSelectedItemType", type, { shouldDirty: true });
+          resetAddItemFields(type);
           track("checkout_flow_item_type_section_selected", {
             item_type: type,
             member_id: getValues().member?.id,

@@ -26,6 +26,8 @@ import type {
   FetchFirstReachedRecipientsParams,
   InboxThreadListParams,
   MemberListDataByCommunicationKind,
+  MessageCreationInput,
+  MessageCreationOutput,
   MessageParams,
   SmartListPopupSending,
   UnreadAnswersCount,
@@ -298,5 +300,15 @@ export const createConversation = (
   return postAuth<ConversationCreationOutput>(
     `${API_V1_URI}/communication/chat/member/conversation/`,
     conversationInput,
+  );
+};
+
+export const createMessage = (
+  conversationUuid: string,
+  messageCreationInput: MessageCreationInput,
+) => {
+  return postAuth<MessageCreationOutput>(
+    `${API_V1_URI}/communication/chat/member/conversation/${conversationUuid}/message/`,
+    messageCreationInput,
   );
 };

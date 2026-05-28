@@ -46,6 +46,7 @@ import {
   fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI,
   fetchConversations as fetchConversationsAPI,
   createConversation as createConversationAPI,
+  createMessage as createMessageAPI,
 } from '#src/libs/communication-v2/api';
 import { deleteCustomMobilePopup as deleteCustomMobilePopupAPI } from '#src/libs/settings/api';
 import type {
@@ -69,6 +70,8 @@ import type {
   ConversationListResponse,
   ConversationCreationInput,
   ConversationCreationOutput,
+  MessageCreationOutput,
+  MessageCreationInput,
 } from '#src/libs/communication-v2/types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from '#src/libs/communication-v2/constants';
 
@@ -1054,6 +1057,41 @@ export function createConversation(
       options?.onError?.(error);
     } finally {
       dispatch(createConversationActions.loading(false));
+    }
+  };
+}
+
+export const createMessageActions = {
+  error: createAction<Error | null>('COMMUNICATION/MESSAGE/CREATE/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION/MESSAGE/CREATE/LOADING'),
+  success: createAction<MessageCreationOutput & { conversationUuid: string }>(
+    'COMMUNICATION/MESSAGE/CREATE/SUCCESS',
+  ),
+};
+
+export function createMessage(
+  conversationUuid: string,
+  messageCreationInput: MessageCreationInput,
+  options?: OptionCallback<MessageCreationOutput>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(createMessageActions.loading(true));
+      dispatch(createMessageActions.error(null));
+
+      const response = await createMessageAPI(
+        conversationUuid,
+        messageCreationInput,
+      );
+      dispatch(
+        createMessageActions.success({ ...response.data, conversationUuid }),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(createMessageActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(createMessageActions.loading(false));
     }
   };
 }

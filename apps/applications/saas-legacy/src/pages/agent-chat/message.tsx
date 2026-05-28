@@ -34,6 +34,9 @@ export const Message: React.FC<MessageProps> = ({
         <Typography style={{ whiteSpace: 'pre-wrap' }} variant="body2">
           {message.message_text}
         </Typography>
+        <Typography color="textSecondary">
+          {new Date(message.date_created).toLocaleString()}
+        </Typography>
       </CardContent>
     </Card>
   );

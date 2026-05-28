@@ -130,6 +130,12 @@
       }
     }
   },
+  "appointmentPassForm": {
+    "teacherFullPaymentToggle": {
+      "label": "Full payment to teacher",
+      "helperText": "All income from appointments booked with this pass is paid in full to the teacher"
+    }
+  },
   "itemAutocomplete": {
     "openItemInNewTab": "Open item in new tab",
     "credits": "{{count}} credits",

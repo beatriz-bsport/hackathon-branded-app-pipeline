@@ -25,6 +25,14 @@
     "schedule": {
       "title": "Scheduling",
       "description": "Track fill rates, attendance, and earned revenue across your classes"
+    },
+    "financial_cockpit": {
+      "title": "Financial Cockpit",
+      "description": "Get a comprehensive view of your financial performance, revenue streams, and key financial metrics"
+    },
+    "pass_usage": {
+      "title": "Pass Usage",
+      "description": "Analyse how passes are consumed, track usage patterns, and identify opportunities to improve pass adoption"
     }
   },
   "pages": {
@@ -42,6 +50,12 @@
     },
     "scheduleAnalysis": {
       "title": "Scheduling"
+    },
+    "financialCockpit": {
+      "title": "Financial Cockpit"
+    },
+    "passUsage": {
+      "title": "Pass Usage"
     }
   },
   "errors": {

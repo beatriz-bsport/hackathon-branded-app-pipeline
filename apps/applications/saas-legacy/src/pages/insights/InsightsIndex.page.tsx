@@ -57,6 +57,8 @@ const InsightsIndex: React.FC = () => {
   );
   const isBookingInsightEnabled = useSafeFlag(FeatureFlags.BOOKING);
   const isCommunityHealthEnabled = useSafeFlag(FeatureFlags.COMMUNITY_HEALTH);
+  const isFinancialCockpitEnabled = useSafeFlag(FeatureFlags.FINANCIAL_COCKPIT);
+  const isPassUsageEnabled = useSafeFlag(FeatureFlags.PASS_USAGE);
 
   const handleGoToReport = (path: string) => () => {
     history.push(path);
@@ -69,6 +71,7 @@ const InsightsIndex: React.FC = () => {
         'report.Club.subscription.allowed_actions.read',
         'report.Club.members_purchase.allowed_actions.read',
         'report.Bookings.bookings.allowed_actions.read',
+        'report.Products.memberships.allowed_actions.read',
       ]}
     >
       {([
@@ -76,6 +79,7 @@ const InsightsIndex: React.FC = () => {
         hasSubscriptionReportPermission,
         hasMembersPurchaseReportPermission,
         hasBookingsReportPermission,
+        hasMembershipsReportPermission,
       ]: boolean[]) => {
         // Hide entire Insights page if user has neither permission
         const hasTrialAnalysisAccess =
@@ -90,13 +94,19 @@ const InsightsIndex: React.FC = () => {
           hasInsightsForEssential;
         const hasBookingInsightAccess =
           isBookingInsightEnabled && hasBookingsReportPermission;
+        const hasFinancialCockpitAccess =
+          isFinancialCockpitEnabled && hasInvoicesReportPermission;
+        const hasPassUsageAccess =
+          isPassUsageEnabled && hasMembershipsReportPermission;
         if (
           !hasInvoicesReportPermission &&
           !hasSubscriptionReportPermission &&
           !hasTrialAnalysisAccess &&
           !hasCommunityHealthAccess &&
           !hasScheduleAnalysisAccess &&
-          !hasBookingInsightAccess
+          !hasBookingInsightAccess &&
+          !hasFinancialCockpitAccess &&
+          !hasPassUsageAccess
         ) {
           return <div className={classes.pageContainer}></div>;
         }
@@ -135,25 +145,39 @@ const InsightsIndex: React.FC = () => {
                   </div>
                 ) : null}
 
-                {hasSubscriptionReportPermission && hasSubscriptions && (
+                {((hasSubscriptionReportPermission && hasSubscriptions) ||
+                  hasFinancialCockpitAccess) && (
                   <div className={classes.titleContainer}>
                     <Typography component="h2" variant="h5">
                       {t('sections.financialHealth')}
                     </Typography>
                     <Divider className={classes.divider} />
                     <div className={classes.sectionItemContainer}>
-                      <InsightCard
-                        description={t('monitorRevenue.description')}
-                        onClick={handleGoToReport(
-                          INSIGHTS_ROUTES.RECURRING_REVENUE,
-                        )}
-                        title={t('monitorRevenue.title')}
-                      />
+                      {hasSubscriptionReportPermission && hasSubscriptions ? (
+                        <InsightCard
+                          description={t('monitorRevenue.description')}
+                          onClick={handleGoToReport(
+                            INSIGHTS_ROUTES.RECURRING_REVENUE,
+                          )}
+                          title={t('monitorRevenue.title')}
+                        />
+                      ) : null}
+                      {hasFinancialCockpitAccess ? (
+                        <InsightCard
+                          description={t('monitorFinancialCockpit.description')}
+                          onClick={handleGoToReport(
+                            INSIGHTS_ROUTES.FINANCIAL_COCKPIT,
+                          )}
+                          title={t('monitorFinancialCockpit.title')}
+                        />
+                      ) : null}
                     </div>
                   </div>
                 )}
 
-                {(hasBookingInsightAccess || hasScheduleAnalysisAccess) && (
+                {(hasBookingInsightAccess ||
+                  hasScheduleAnalysisAccess ||
+                  hasPassUsageAccess) && (
                   <div className={classes.titleContainer}>
                     <Typography component="h2" variant="h5">
                       {t('sections.bookings')}
@@ -176,6 +200,13 @@ const InsightsIndex: React.FC = () => {
                             INSIGHTS_ROUTES.SCHEDULE_ANALYSIS,
                           )}
                           title={t('monitorSchedule.title')}
+                        />
+                      ) : null}
+                      {hasPassUsageAccess ? (
+                        <InsightCard
+                          description={t('monitorPassUsage.description')}
+                          onClick={handleGoToReport(INSIGHTS_ROUTES.PASS_USAGE)}
+                          title={t('monitorPassUsage.title')}
                         />
                       ) : null}
                     </div>

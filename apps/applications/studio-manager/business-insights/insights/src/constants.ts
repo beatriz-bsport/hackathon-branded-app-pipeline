@@ -9,6 +9,8 @@ export const DASHBOARD_TYPES = {
   BOOKING_INSIGHT: "booking",
   SCHEDULE_ANALYSIS: "schedule_analysis",
   COMMUNITY_HEALTH: "community_health",
+  FINANCIAL_COCKPIT: "financial_cockpit",
+  PASS_USAGE: "pass_usage",
 } as const;
 
 /**
@@ -53,5 +55,17 @@ export const INSIGHT_ITEMS = [
     section: "operations",
     dashboardType: DASHBOARD_TYPES.SCHEDULE_ANALYSIS,
     link: URLS.SCHEDULE_ANALYSIS,
+  },
+  {
+    id: "financial_cockpit",
+    section: "financial",
+    dashboardType: DASHBOARD_TYPES.FINANCIAL_COCKPIT,
+    link: URLS.FINANCIAL_COCKPIT,
+  },
+  {
+    id: "pass_usage",
+    section: "operations",
+    dashboardType: DASHBOARD_TYPES.PASS_USAGE,
+    link: URLS.PASS_USAGE,
   },
 ] as const;

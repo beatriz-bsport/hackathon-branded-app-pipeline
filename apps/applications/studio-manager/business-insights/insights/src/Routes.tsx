@@ -17,6 +17,10 @@ const BookingsInsightPage = lazy(
 const ScheduleAnalysisPage = lazy(
   () => import("#src/pages/ScheduleAnalysisPage"),
 );
+const FinancialCockpitPage = lazy(
+  () => import("#src/pages/FinancialCockpitPage"),
+);
+const PassUsagePage = lazy(() => import("#src/pages/PassUsagePage"));
 
 export const AppRoutes = () => {
   return (
@@ -27,6 +31,8 @@ export const AppRoutes = () => {
       <Route element={<RecurringRevenuePage />} path={URLS.RECURRING_REVENUE} />
       <Route element={<BookingsInsightPage />} path={URLS.BOOKING_INSIGHT} />
       <Route element={<ScheduleAnalysisPage />} path={URLS.SCHEDULE_ANALYSIS} />
+      <Route element={<FinancialCockpitPage />} path={URLS.FINANCIAL_COCKPIT} />
+      <Route element={<PassUsagePage />} path={URLS.PASS_USAGE} />
       <Route element={<Navigate to=".." />} path="*" />
     </Routes>
   );

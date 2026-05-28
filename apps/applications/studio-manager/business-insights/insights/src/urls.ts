@@ -5,4 +5,6 @@ export const URLS = {
   BOOKING_INSIGHT: "bookings_pass_usage",
   SCHEDULE_ANALYSIS: "schedule_performance",
   COMMUNITY_HEALTH: "community_health",
+  FINANCIAL_COCKPIT: "financial_cockpit",
+  PASS_USAGE: "pass_usage",
 } as const;

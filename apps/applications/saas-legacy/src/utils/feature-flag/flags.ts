@@ -21,6 +21,8 @@ export const FeatureFlags = {
     'booking_multiple_offers_in_subscription_checkout',
   BOOKING_DRAFT_PARTNERSHIP_OFFERS: 'booking_draft_partnership_offers',
   COMMUNITY_HEALTH: 'insights_community_health',
+  FINANCIAL_COCKPIT: 'insights_financial_cockpit',
+  PASS_USAGE: 'insights_pass_usage',
   EXPRESS_PASS_CHECKOUT: 'express-pass-checkout',
   FISKALY_SIGN_ES: 'fiskaly_sign_es',
   FS_BILLING_FLOW_NEW_MODAL: 'fs_billing_flow_new_modal',

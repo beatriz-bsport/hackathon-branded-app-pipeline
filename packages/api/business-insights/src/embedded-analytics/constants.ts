@@ -10,4 +10,6 @@ export const DASHBOARD_TYPES = {
   BOOKING: "booking",
   SCHEDULE_ANALYSIS: "schedule_analysis",
   COMMUNITY_HEALTH: "community_health",
+  FINANCIAL_COCKPIT: "financial_cockpit",
+  PASS_USAGE: "pass_usage",
 } as const;

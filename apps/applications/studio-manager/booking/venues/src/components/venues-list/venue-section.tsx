@@ -73,6 +73,7 @@ export const VenueSection = ({
 
   const labels = {
     addToGroup: t("groupTag.add"),
+    addToGroupTooltip: t("groupTag.addTooltip"),
     editLocation: t("groupTag.edit"),
     edit: t("venueRow.edit"),
     archive: t("venueRow.archive"),

@@ -18,8 +18,10 @@ export type TableCellProps = {
   isHeader?: boolean;
   /** Horizontal alignment of cell content */
   align?: "start" | "center" | "end";
-  /** Additional CSS classes to apply to the cell */
+  /** Additional CSS classes to apply to the inner content wrapper */
   className?: string;
+  /** Additional CSS classes to apply to the outer table-cell element, use to control column width */
+  colClassName?: string;
 };
 
 /**
@@ -85,16 +87,20 @@ const TableCell: React.FC<TableCellProps> = ({
   isHeader = false,
   align = "start",
   className,
+  colClassName,
 }) => {
   return (
     <div
       data-component="Kaizen-Table-Cell"
-      className={tableCell({
-        rowHeight,
-        withVerticalBorders,
-        withHorizontalDivider,
-        isHeader,
-      })}
+      className={classNames(
+        tableCell({
+          rowHeight,
+          withVerticalBorders,
+          withHorizontalDivider,
+          isHeader,
+        }),
+        colClassName,
+      )}
     >
       <div
         className={classNames(

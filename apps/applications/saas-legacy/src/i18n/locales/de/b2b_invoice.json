@@ -135,7 +135,6 @@
         "subtitle": "Verwende diese Seriennummer auf dem TicketBAI-Portal deines Bundeslandes. <0>Erfahre, wie das mit fiskaly funktioniert</0>",
         "serial_caption": "Gerätezertifikat Seriennummer (ausgestellt von bsport)",
         "gipuzkoa_notice": "Du musst dein Fiskaly-Gerätezertifikat noch mit Gipuzkoa auf deren offiziellem Portal validieren. Du hast dafür etwa einen Monat Zeit. Alle Rechnungen, die du in der Zwischenzeit ausstellst, bleiben gesetzeskonform.",
-        "registration_notice_title": "Schließe die Geräteregistrierung ab, bevor du fortfährst",
         "registration_notice_description": "Verwende die oben genannte Seriennummer auf dem offiziellen TicketBAI-Portal deines Bundeslandes, um dein Fiskaly-Gerätezertifikat zu registrieren, damit bsport deine qualifizierenden Rechnungen an TicketBAI übermitteln kann",
         "complete_confirmation": "Ich habe die erforderliche provinzielle Geräteregistrierung für mein Gebiet abgeschlossen",
         "complete_cta": "Einrichtung abschließen"

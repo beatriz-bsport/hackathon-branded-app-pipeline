@@ -1,12 +1,3 @@
-import {
-  DATETIME_FORMATS,
-  formatDateTimeFromDate,
-} from "@bsport/datetime-formatting";
-import {
-  type DateTime,
-  fromIsoString,
-  modifyTime,
-} from "@bsport/datetime-manipulation";
 import { Body } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
@@ -16,6 +7,10 @@ import { EnrichedSession, SessionColumns, TableColumn } from "#src/types";
 import { analyticsTrackSafeEvent } from "#src/utils/analytics-track-safe-event";
 import { formatMinutes } from "#src/utils/format-minutes";
 import { useTranslation } from "#src/utils/i18n";
+import {
+  formatClockTime,
+  getSessionStartEnd,
+} from "#src/utils/session-time-range";
 
 import { ParticipantsCell } from "./ParticipantsCell";
 import { SessionTypeChips } from "./SessionTypeChips";
@@ -50,31 +45,21 @@ export const useSessionListColumns = (isMobile: boolean) => {
     type: "custom",
     align: "start",
     render: (row: EnrichedSession) => {
-      const startDate = fromIsoString(row.date_start, {
+      const { start, end } = getSessionStartEnd({
+        dateStart: row.date_start,
+        durationMinute: row.duration_minute,
         zone: companyTimeZone,
         locale: intlLocale,
       });
-      const endDate = modifyTime({
-        datetime: startDate,
-        duration: { minute: row.duration_minute },
-        operator: "plus",
-      });
-      const timeFormatter = (dateTime: DateTime) =>
-        formatDateTimeFromDate(dateTime, DATETIME_FORMATS.TIME_SIMPLE);
 
-      const spanMultipleDays = startDate.toISODate() !== endDate.toISODate();
-
-      if (spanMultipleDays) {
-        return (
-          <Body htmlVariant="p" size="md">
-            {`${timeFormatter(startDate)} - ${formatMinutes(row.duration_minute, t)}`}
-          </Body>
-        );
-      }
+      const spanMultipleDays = start.toISODate() !== end.toISODate();
+      const endLabel = spanMultipleDays
+        ? formatMinutes(row.duration_minute, t)
+        : formatClockTime(end);
 
       return (
         <Body htmlVariant="p" size="md">
-          {`${timeFormatter(startDate)} - ${timeFormatter(endDate)}`}
+          {`${formatClockTime(start)} - ${endLabel}`}
         </Body>
       );
     },

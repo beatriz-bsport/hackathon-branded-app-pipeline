@@ -7,7 +7,7 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { API_URL, DEFAULT_STALE_TIME } from "#src/constants";
+import { API_V1_URL, DEFAULT_STALE_TIME } from "#src/constants";
 
 import type {
   AssetForBlueprint,
@@ -18,7 +18,6 @@ import type {
   SpotTypesFilters,
 } from "./types";
 
-const API_V1_URL = `${API_URL}v1`;
 const API_URL_SPOT_SCHEDULING = `${API_V1_URL}/spot-scheduling`;
 const API_URL_ROOM_BLUEPRINT = `${API_URL_SPOT_SCHEDULING}/room-blueprint`;
 const API_URL_ASSET_FOR_BLUEPRINT = `${API_URL_SPOT_SCHEDULING}/asset-for-blueprint`;

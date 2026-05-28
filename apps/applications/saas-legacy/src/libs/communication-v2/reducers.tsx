@@ -30,6 +30,7 @@ import {
   retrieveCommunicationSMSProviderVerificationActions,
   firstReachedRecipientsAction,
   fetchConversationsActions,
+  createConversationActions,
 } from '#src/libs/communication-v2/actions';
 
 import type {
@@ -43,6 +44,7 @@ import type {
   MemberListDataByCommunicationKind,
   ConversationListResponse,
   Conversation,
+  ConversationCreationOutput,
 } from '#src/libs/communication-v2/types';
 import type { PaginatedResponse } from '#src/state/types';
 
@@ -181,6 +183,11 @@ const initialState: Immutable.Immutable<CommunicationState> =
       next: null,
       next_page: null,
       previous: null,
+      loading: false,
+      error: null,
+    },
+    messages: {
+      allMessagesByConversationId: {},
       loading: false,
       error: null,
     },
@@ -889,6 +896,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
         payload,
       );
     },
+
     [fetchConversationsActions.loading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -927,6 +935,49 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
         .setIn(['conversations', 'next'], payload.next)
         .setIn(['conversations', 'next_page'], payload.next_page)
         .setIn(['conversations', 'previous'], payload.previous);
+    },
+    [createConversationActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['conversations', 'loading'], payload);
+    },
+    [createConversationActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['conversations', 'error'], payload);
+    },
+    [createConversationActions.success.toString()]: (
+      state,
+      { payload }: { payload: ConversationCreationOutput },
+    ) => {
+      return state
+        .merge(
+          {
+            conversations: {
+              byId: { [payload.conversation.uuid]: payload.conversation },
+              allIds: state.conversations.allIds.concat(
+                payload.conversation.uuid,
+              ),
+            },
+          },
+          { deep: true },
+        )
+        .setIn(['conversations', 'count'], state.conversations.count + 1)
+        .setIn(['conversations', 'next'], null)
+        .setIn(['conversations', 'next_page'], null)
+        .setIn(['conversations', 'previous'], null)
+        .merge(
+          {
+            messages: {
+              allMessagesByConversationId: {
+                [payload.conversation.uuid]: [payload.message],
+              },
+            },
+          },
+          { deep: true },
+        );
     },
   },
   initialState,

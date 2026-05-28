@@ -89,6 +89,11 @@ export type CommunicationState = {
     next_page: number | null;
     previous: string | null;
   } & ErrorAndLoading;
+  messages: {
+    allMessagesByConversationId: {
+      [conversationId: string]: ConversationMessage[];
+    };
+  } & ErrorAndLoading;
 };
 
 export type Recipient<MemberType = number> = {
@@ -415,4 +420,30 @@ export type Conversation = {
   ai_enabled: boolean;
   date_created: string; // ISO string
   date_updated: string; // ISO string
+};
+
+export type ConversationCreationInput = {
+  company_id: number;
+  message_text: string;
+};
+
+export type ConversationCreationOutput = {
+  conversation: Conversation;
+  message: ConversationMessage;
+};
+
+export const MESSAGE_AUTHOR_TYPES = {
+  member: 'member',
+  agent: 'agent',
+  studio: 'studio',
+};
+
+export type MessageAuthorType =
+  (typeof MESSAGE_AUTHOR_TYPES)[keyof typeof MESSAGE_AUTHOR_TYPES];
+
+export type ConversationMessage = {
+  id: number;
+  message_text: string;
+  author_type: MessageAuthorType;
+  date_created: string; // ISO string
 };

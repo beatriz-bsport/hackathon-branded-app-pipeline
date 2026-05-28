@@ -23,6 +23,10 @@ const smSessionSrcDir = resolve(
   repoRoot,
   "apps/applications/studio-manager/booking/session/src",
 );
+const smVenuesSrcDir = resolve(
+  repoRoot,
+  "apps/applications/studio-manager/booking/venues/src",
+);
 const smBackboneSrcDir = resolve(repoRoot, "packages/utils/sm-backbone/src");
 
 const globPattern = "**/*.stories.@(js|jsx|ts|tsx|mdx)";
@@ -44,6 +48,12 @@ const config: StorybookConfig = {
     // Studio Manager — booking/session app components
     {
       directory: smSessionSrcDir,
+      files: globPattern,
+      titlePrefix: "Booking",
+    },
+    // Studio Manager — booking/venues app components
+    {
+      directory: smVenuesSrcDir,
       files: globPattern,
       titlePrefix: "Booking",
     },
@@ -124,6 +134,9 @@ const config: StorybookConfig = {
         }
         if (normalizedImporter.includes("studio-manager/booking/session/src")) {
           return tryResolve(smSessionSrcDir);
+        }
+        if (normalizedImporter.includes("studio-manager/booking/venues/src")) {
+          return tryResolve(smVenuesSrcDir);
         }
         if (normalizedImporter.includes("business")) {
           return tryResolve(businessSrcDir);

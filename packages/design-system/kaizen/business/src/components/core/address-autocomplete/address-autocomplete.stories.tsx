@@ -95,6 +95,68 @@ export const Default: StoryObj<AddressAutocompleteRawComponent> = {
   },
 };
 
+// Sample address used by the validation-states showcase below.
+const sampleAddress: AddressSuggestion = {
+  place_id: "sample-place-id",
+  generated_address: "10 Downing Street, London SW1A 2AA, UK",
+  address_line_1: "10 Downing Street",
+  address_line_2: "",
+  city: "London",
+  state: "England",
+  zipcode: "SW1A 2AA",
+  country: "United Kingdom",
+  country_code: "GB",
+  geometry: { x: 51.5034, y: -0.1276 },
+};
+
+// ValidationStates - Showcases the three helper states side by side.
+// Goal: visualize default / positive (valid) / error (invalid) without interaction.
+// Real usage derives status automatically from selection presence; here we force
+// status + statusText via textfieldProps to render each variant statically.
+export const ValidationStates: StoryObj<AddressAutocompleteRawComponent> = {
+  name: "Validation states",
+  render: (args) => {
+    const noop = () => {};
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 24,
+          width: 400,
+        }}
+      >
+        <AddressAutocompleteRaw
+          {...args}
+          value={null}
+          onChange={noop}
+          textfieldProps={{ ...args.textfieldProps, status: "default" }}
+        />
+        <AddressAutocompleteRaw
+          {...args}
+          value={sampleAddress}
+          onChange={noop}
+          textfieldProps={{
+            ...args.textfieldProps,
+            status: "positive",
+            statusText: "Address validated",
+          }}
+        />
+        <AddressAutocompleteRaw
+          {...args}
+          value={null}
+          onChange={noop}
+          textfieldProps={{
+            ...args.textfieldProps,
+            status: "error",
+            statusText: "Select an address from the list",
+          }}
+        />
+      </div>
+    );
+  },
+};
+
 // Documentation - Inherit configuration from the meta object.
 // Goal: Add story description to dive into implementation details.
 export const Documentation: StoryObj<AddressAutocompleteRawComponent> = {

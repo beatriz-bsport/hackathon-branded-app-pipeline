@@ -1,5 +1,28 @@
 {
   "pageTitle": "{{sessionName}} with {{coachName}}",
+  "pageTabs": {
+    "overview": "Overview",
+    "editor": "Editor",
+    "series": "Series",
+    "statusFilter": {
+      "label": "Status",
+      "is": "is",
+      "upcoming": "Upcoming",
+      "ongoing": "Ongoing",
+      "past": "Past",
+      "cancelled": "Cancelled"
+    },
+    "seriesTable": {
+      "date": "Date",
+      "time": "Time",
+      "participants": "Participants",
+      "teacher": "Teacher",
+      "establishment": "Establishment",
+      "status": "Status",
+      "empty": "No sessions to show",
+      "openSession": "Open session"
+    }
+  },
   "goToPreviousSession": "Go to previous class",
   "goToNextSession": "Go to next class",
   "refresh": "Refresh lists",

@@ -1,12 +1,9 @@
 import { useMemo } from "react";
 
 import { CommunicationKind } from "@bsport/api-cdp/automated-campaign";
-import {
-  Avatar,
-  Body,
-  type GenericTableColumn,
-} from "@bsport/kaizen-primitive-core";
+import { Body, type GenericTableColumn } from "@bsport/kaizen-primitive-core";
 
+import { MemberAvatar } from "#src/components/member-avatar";
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
 import { CampaignScheduledRecipientActionDropdown } from "./CampaignScheduledRecipientActionDropdown";
@@ -18,7 +15,6 @@ export type CampaignScheduledRecipientTableRowData = {
   recipientPhoneNumber: string;
   recipientEmail: string;
   recipientName: string;
-  recipientInitials: string;
   recipientPhoto: string | null;
   link: string;
 };
@@ -47,13 +43,7 @@ export const useCampaignScheduledRecipientTableColumns = ({
       render: (row) => {
         return (
           <div className="flex flex-row gap-sm items-center">
-            <Avatar
-              shape="round"
-              size="md"
-              initials={row.recipientInitials}
-              src={row.recipientPhoto ?? undefined}
-              alt={row.recipientName}
-            />
+            <MemberAvatar name={row.recipientName} photo={row.recipientPhoto} />
             <div className="flex flex-col gap-2xs">
               <Body size="lg" htmlVariant="span" weight="weak">
                 {row.recipientName}

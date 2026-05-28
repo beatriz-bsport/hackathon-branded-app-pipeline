@@ -19,6 +19,8 @@ import type {
   CommunicationScheduledCreate,
   CommunicationScheduledFilters,
   CommunicationThread,
+  ConversationCreationInput,
+  ConversationCreationOutput,
   ConversationListResponse,
   FetchCommunicationParams,
   FetchFirstReachedRecipientsParams,
@@ -287,5 +289,14 @@ export const fetchConversations = (companyId: number) => {
     `${API_V1_URI}/communication/chat/member/conversation/${buildUrlParams({
       company_id: companyId,
     })}`,
+  );
+};
+
+export const createConversation = (
+  conversationInput: ConversationCreationInput,
+) => {
+  return postAuth<ConversationCreationOutput>(
+    `${API_V1_URI}/communication/chat/member/conversation/`,
+    conversationInput,
   );
 };

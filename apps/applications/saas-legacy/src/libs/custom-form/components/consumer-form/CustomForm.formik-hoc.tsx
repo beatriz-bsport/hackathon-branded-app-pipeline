@@ -427,7 +427,6 @@ export const ConsumerFormFieldsHOC = withFormik({
     }
 
     const formData = parseCustomFormAnswersToFormData(customFormCleanedValues);
-
     onSubmit(formData, {
       onSuccess: () => {
         setSubmitting(false);

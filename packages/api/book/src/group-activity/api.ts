@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 
 import {
   type ApiConfig,
@@ -10,7 +10,11 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
-import { API_URL, BOOKING_QUERY_KEY, DEFAULT_STALE_TIME } from "#src/constants";
+import {
+  API_V1_URL,
+  BOOKING_QUERY_KEY,
+  DEFAULT_STALE_TIME,
+} from "#src/constants";
 import type {
   CanArchiveGroupActivityResponse,
   CreateGroupActivityPayload,
@@ -21,22 +25,35 @@ import type {
   SearchGroupActivitiesParams,
 } from "#src/group-activity/types";
 
-const META_ACTIVITY_URL = API_URL + "v1/meta-activity";
+// ----------------------------------------------------------------------------
+
+const META_ACTIVITY_URL = `${API_V1_URL}/meta-activity`;
 
 export const groupActivityKeys = {
   all: [BOOKING_QUERY_KEY, "group-activities"] as const,
+
   lists: () => [...groupActivityKeys.all, "list"] as const,
   list: (params: FetchGroupActivitiesParams) =>
     [...groupActivityKeys.lists(), params] as const,
-  detail: (id: number) => [...groupActivityKeys.all, id] as const,
-  searches: () => [...groupActivityKeys.all, "search"] as const,
+
+  infiniteLists: () => [...groupActivityKeys.lists(), "infinite"] as const,
+  infiniteList: (params: FetchGroupActivitiesParams) =>
+    [...groupActivityKeys.infiniteLists(), params] as const,
+
+  details: () => [...groupActivityKeys.all, "detail"] as const,
+  detail: (id: number) => [...groupActivityKeys.details(), id] as const,
+
+  searches: () => [...groupActivityKeys.lists(), "search"] as const,
   search: (params: SearchGroupActivitiesParams) =>
     [...groupActivityKeys.searches(), params] as const,
-  infinite: (params: FetchGroupActivitiesParams) =>
-    [...groupActivityKeys.all, "infinite", params] as const,
-  searchInfinite: (params: SearchGroupActivitiesParams) =>
-    [...groupActivityKeys.searches(), "infinite", params] as const,
+
+  infiniteSearches: () =>
+    [...groupActivityKeys.searches(), "infinite"] as const,
+  infiniteSearch: (params: SearchGroupActivitiesParams) =>
+    [...groupActivityKeys.infiniteSearches(), "infinite", params] as const,
 };
+
+// ----------------------------------------------------------------------------
 
 const mapGroupActivitiesUrlParams = ({
   customerEnabled,
@@ -61,6 +78,8 @@ const mapGroupActivitiesUrlParams = ({
     : {}),
   ...(inIdList && inIdList.length > 0 ? { id__in: inIdList } : {}),
 });
+
+// ----------------------------------------------------------------------------
 
 /**
  * Fetches a paginated list of group activities ONLY based on the provided parameters.
@@ -126,6 +145,31 @@ export const fetchGroupActivitiesAndWorkshops = async (
   return data;
 };
 
+export const fetchGroupActivitiesAndWorkshopsQueryOptions = (
+  fetch: Fetch<PaginatedResponse<MetaActivity>>,
+  params: FetchGroupActivitiesParams,
+) => {
+  return queryOptions({
+    queryKey: groupActivityKeys.list(params),
+    queryFn: () => fetchGroupActivitiesAndWorkshops(fetch, params),
+  });
+};
+
+export const fetchGroupActivitiesAndWorkshopsInfiniteQueryOptions = (
+  fetch: Fetch<PaginatedResponse<MetaActivity>>,
+  params: FetchGroupActivitiesParams,
+) => {
+  return infiniteQueryOptions({
+    queryKey: groupActivityKeys.infiniteList(params),
+    queryFn: ({ pageParam }) =>
+      fetchGroupActivitiesAndWorkshops(fetch, { ...params, page: pageParam }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
+  });
+};
+
+// ----------------------------------------------------------------------------
+
 const searchGroupActivitiesAPIConfig = (
   params: SearchGroupActivitiesParams,
 ): ApiConfig => {
@@ -153,6 +197,16 @@ export const searchGroupActivitiesAPI = async (
   return data;
 };
 
+export const searchGroupActivitiesQueryOptions = (
+  fetch: Fetch<SearchResponse<MetaActivity>>,
+  params: SearchGroupActivitiesParams,
+) =>
+  queryOptions({
+    queryKey: groupActivityKeys.search(params),
+    queryFn: () => searchGroupActivitiesAPI(fetch, params),
+    staleTime: DEFAULT_STALE_TIME,
+  });
+
 const searchGroupActivitiesAndWorkshopsAPIConfig = (
   params: SearchGroupActivitiesParams,
 ): ApiConfig => {
@@ -178,6 +232,42 @@ export const searchGroupActivitiesAndWorkshopsAPI = async (
 
   return data;
 };
+
+export const searchGroupActivitiesAndWorkshopsQueryOptions = (
+  fetch: Fetch<SearchResponse<MetaActivity>>,
+  params: SearchGroupActivitiesParams,
+) =>
+  queryOptions({
+    queryKey: groupActivityKeys.search(params), // using same query key as searchGroupActivitiesQueryOptions
+    queryFn: () => searchGroupActivitiesAndWorkshopsAPI(fetch, params),
+    staleTime: DEFAULT_STALE_TIME,
+  });
+
+export const searchGroupActivitiesAndWorkshopsInfiniteQueryOptions = (
+  fetch: Fetch<SearchResponse<MetaActivity>>,
+  params: SearchGroupActivitiesParams,
+) =>
+  infiniteQueryOptions({
+    queryKey: groupActivityKeys.infiniteSearch(params),
+    queryFn: ({ pageParam }) =>
+      searchGroupActivitiesAndWorkshopsAPI(fetch, {
+        ...params,
+        page: pageParam,
+      }),
+    initialPageParam: 1,
+    staleTime: DEFAULT_STALE_TIME,
+    getNextPageParam: (searchResponse) => {
+      if (!searchResponse.next) return undefined;
+      const searchParams = new URL(searchResponse.next).searchParams;
+      const nextPage = searchParams.get("page");
+      if (!nextPage) return undefined;
+      const parsedNextPage = Number.parseInt(nextPage, 10);
+      return Number.isNaN(parsedNextPage) ? undefined : parsedNextPage;
+    },
+  });
+
+// ----------------------------------------------------------------------------
+
 /**
  * Check if a group activity can be archived based on its ID
  *
@@ -269,6 +359,8 @@ export const duplicateGroupActivity = async (
   return data;
 };
 
+// ----------------------------------------------------------------------------
+
 export const retrieveGroupActivity = async (
   fetch: Fetch<MetaActivity>,
   metaActivityId: number,
@@ -287,25 +379,7 @@ export const retrieveGroupActivityQueryOptions = (
     staleTime: DEFAULT_STALE_TIME,
   });
 
-export const searchGroupActivitiesQueryOptions = (
-  fetch: Fetch<SearchResponse<MetaActivity>>,
-  params: SearchGroupActivitiesParams,
-) =>
-  queryOptions({
-    queryKey: groupActivityKeys.search(params),
-    queryFn: () => searchGroupActivitiesAPI(fetch, params),
-    staleTime: DEFAULT_STALE_TIME,
-  });
-
-export const searchGroupActivitiesAndWorkshopsQueryOptions = (
-  fetch: Fetch<SearchResponse<MetaActivity>>,
-  params: SearchGroupActivitiesParams,
-) =>
-  queryOptions({
-    queryKey: groupActivityKeys.search(params), // using same query key as searchGroupActivitiesQueryOptions
-    queryFn: () => searchGroupActivitiesAndWorkshopsAPI(fetch, params),
-    staleTime: DEFAULT_STALE_TIME,
-  });
+// ----------------------------------------------------------------------------
 
 const appendFormDataValue = (
   formData: FormData,

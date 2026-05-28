@@ -13,7 +13,6 @@ import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 
 import { ArchiveClassModal } from "#src/components/archive-class-modal/archive-class-modal";
 import { AddClassModal } from "#src/components/class-form/add-class-modal";
-import { ClassesInformation } from "#src/components/classes-information";
 import { DuplicateClassModal } from "#src/components/duplicate-class-modal/duplicate-class-modal";
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { useClassesFilters } from "#src/hooks/use-classes-filters";
@@ -106,6 +105,7 @@ const ClassesTable: FC<ClassesTableProps> = ({
           header: "",
           id: "actions",
           type: "custom",
+          align: "end",
           render: (item) => {
             const canDelete = item.is_workshop
               ? canDeleteWorkshop
@@ -222,7 +222,8 @@ const ClassesListingPage: FC = () => {
 
   const { endGroupActions } = ListLayout.useAdaptiveActions({
     endGroupActions: [
-      <ClassesInformation key="classes-information" />,
+      // TODO: hided information tooltip until the DS is accepting Layout.Header tooltip props
+      // <ClassesInformation key="classes-information" />,
       <GoToArchivedLink
         key="link-to-archive"
         kind="icon-button"

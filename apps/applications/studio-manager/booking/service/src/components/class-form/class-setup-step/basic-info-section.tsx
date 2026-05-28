@@ -20,7 +20,6 @@ import { type ClassFormValues, fieldIdPrefix } from "#src/utils/class-form";
 import { useTranslation } from "#src/utils/i18n";
 
 import { FormSection } from "../shared/form-section";
-import { FormSectionHeader } from "../shared/form-section-header";
 
 export const BasicInfoSection: FC = () => {
   const { t } = useTranslation("add-edit-form");
@@ -52,11 +51,6 @@ export const BasicInfoSection: FC = () => {
 
   return (
     <FormSection>
-      <FormSectionHeader
-        title={t("addEditForm.basicInfo.title")}
-        description={t("addEditForm.basicInfo.description")}
-      />
-
       <div className="flex flex-col gap-md">
         <Body size="md">
           <Body htmlVariant="span">
@@ -156,6 +150,7 @@ export const BasicInfoSection: FC = () => {
           id={`${fieldIdPrefix}-description`}
           label={t("addEditForm.basicInfo.descriptionField.label")}
           placeholder={t("addEditForm.basicInfo.descriptionField.placeholder")}
+          helperText={t("addEditForm.basicInfo.descriptionField.helper")}
           required
         />
       </FormField>

@@ -8,9 +8,9 @@ import {
   UpdateWellhubProductIdPayload,
 } from "./types";
 
-const API_PARTNERSHIP_WELLHUB_URI = `${API_V1_URL}partnership/wellhub/`;
+const API_PARTNERSHIP_WELLHUB_URI = `${API_V1_URL}/partnership/wellhub/`;
 
-const API_OFFER_URI = `${API_V1_URL}offer/`;
+const API_OFFER_URI = `${API_V1_URL}/offer/`;
 
 export const wellhubKeys = {
   all: [BOOKING_QUERY_KEY, "wellhub"] as const,

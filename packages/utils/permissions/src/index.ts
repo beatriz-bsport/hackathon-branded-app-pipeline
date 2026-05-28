@@ -1,4 +1,7 @@
-export { checkFeaturePermission } from "./check-feature-permissions";
+export {
+  checkFeaturePermission,
+  type Features,
+} from "./check-feature-permissions";
 export {
   checkHasPermission,
   type DeepKeys,

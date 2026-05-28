@@ -235,15 +235,16 @@ const TicketbaiSettings: React.FC<Props> = ({ territory }) => {
               </Typography>
             ) : null}
 
-            {isCompanyAllSetup === true && (
+            {isCompanyAllSetup === true &&
+            territory !== SIGN_ES_TERRITORY.GIPUZKOA ? (
               <Alert className={classes.successAlert} severity="success">
                 {t('configuration.ticketbai.active.success_message')}
               </Alert>
-            )}
+            ) : null}
 
             {isTicketbaiSetupComplete &&
             territory === SIGN_ES_TERRITORY.GIPUZKOA ? (
-              <Alert className={classes.infoAlert} severity="info">
+              <Alert className={classes.successAlert} severity="success">
                 <Typography
                   className={classes.infoAlertTitle}
                   variant="subtitle2"

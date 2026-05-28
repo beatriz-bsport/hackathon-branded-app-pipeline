@@ -22,7 +22,7 @@ type BuildVenueListItemOptions = {
     venue: Establishment,
     location: EstablishmentGroup,
   ) => void;
-  onEditLocation: (location: EstablishmentGroup) => void;
+  onEdit: (venue: Establishment) => void;
 };
 
 export const buildVenueListItem = (
@@ -34,51 +34,12 @@ export const buildVenueListItem = (
     labels,
     onArchive,
     onAddVenueToLocation,
-    onEditLocation,
+    onEdit,
   }: BuildVenueListItemOptions,
 ): ListItemProps => {
   const showGroupChip = multiLocalization && !!group;
   const showAddToGroup =
     Boolean(multiLocalization) && !group && availableLocations.length > 0;
-
-  const buttons: ListItemProps["buttons"] = [];
-
-  // TODO: temp, will be removed once the locations tabs will be live so we can edit locations properly
-  if (showGroupChip) {
-    buttons.push({
-      id: `edit-location-${venue.id}`,
-      kind: "icon-button",
-      label: labels.editLocation,
-      icon: "edit-02",
-      intent: "flat",
-      size: "md",
-      color: "default",
-      onClick: () => onEditLocation(group),
-    });
-  }
-
-  buttons.push(
-    {
-      id: `edit-${venue.id}`,
-      kind: "icon-button",
-      label: labels.edit,
-      icon: "edit-02",
-      intent: "flat",
-      size: "md",
-      color: "default",
-      onClick: () => {},
-    },
-    {
-      id: `archive-${venue.id}`,
-      kind: "icon-button",
-      label: labels.archive,
-      icon: "archive",
-      intent: "flat",
-      size: "md",
-      color: "default",
-      onClick: () => onArchive(venue),
-    },
-  );
 
   const locationItems = availableLocations.map((location) => ({
     id: String(location.id),
@@ -125,7 +86,28 @@ export const buildVenueListItem = (
         }}
       />
     ) : undefined,
-    buttons,
+    buttons: [
+      {
+        id: `edit-${venue.id}`,
+        kind: "icon-button",
+        label: labels.edit,
+        icon: "edit-02",
+        intent: "flat",
+        size: "md",
+        color: "default",
+        onClick: () => onEdit(venue),
+      },
+      {
+        id: `archive-${venue.id}`,
+        kind: "icon-button",
+        label: labels.archive,
+        icon: "archive",
+        intent: "flat",
+        size: "md",
+        color: "default",
+        onClick: () => onArchive(venue),
+      },
+    ],
     dropdownConfig: { visibleActionsDisplayLimit: 0 },
   };
 };

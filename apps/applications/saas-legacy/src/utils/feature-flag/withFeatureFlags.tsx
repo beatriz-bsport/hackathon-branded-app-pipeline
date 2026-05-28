@@ -15,6 +15,7 @@ export type FeatureFlagProps = {
   isCalendarRevampEnabled: boolean;
   isAgentChatEnabled: boolean;
   isNewWellpassConfigurationEnabled: boolean;
+  shouldSendFileNotJson: boolean;
 };
 
 /**
@@ -52,6 +53,9 @@ export const withFeatureFlags = <TProps extends object>(
     const isNewWellpassConfigurationEnabled = useSafeFlag(
       FeatureFlags.BOOKING_ACTIVATE_NEW_WELLPASS_CONFIGURATION,
     );
+    const shouldSendFileNotJson = useSafeFlag(
+      FeatureFlags.SIGNUP_SEND_FILE_NOT_JSON,
+    );
 
     return (
       <WrappedComponent
@@ -70,6 +74,7 @@ export const withFeatureFlags = <TProps extends object>(
         shouldDisplayNewSubscriptionContracts={
           shouldDisplayNewSubscriptionContracts
         }
+        shouldSendFileNotJson={shouldSendFileNotJson}
         showAudienceTemplates={showAudienceTemplates}
         showBookingDisplaySwapPass={showBookingDisplaySwapPass}
         showExpressCheckout={showExpressCheckout}

@@ -14,7 +14,9 @@
       "delete": "Delete"
     },
     "emptyState": {
-      "title": "No locations yet",
+      "title": "Group your venues into locations",
+      "subtitle": "A location groups related venues.\nSome marketing items apply to the whole group.",
+      "cta": "Create location",
       "noResults": "No locations match your search"
     },
     "deleteModal": {

@@ -16,12 +16,14 @@ import { useTranslation } from "#src/utils/i18n";
 
 type LocationsListProps = {
   searchQuery: string;
+  onCreate: () => void;
   onEdit: (location: EstablishmentGroup) => void;
   onDelete: (location: EstablishmentGroup) => void;
 };
 
 const LocationsListInner: FC<LocationsListProps> = ({
   searchQuery,
+  onCreate,
   onEdit,
   onDelete,
 }) => {
@@ -106,11 +108,17 @@ const LocationsListInner: FC<LocationsListProps> = ({
       rowHeight="sm"
       emptyStateProps={{
         isEmpty: groupsData.results.length === 0,
-        emptyConfig: {
-          title: hasSearchQuery
-            ? t("locations.emptyState.noResults")
-            : t("locations.emptyState.title"),
-        },
+        emptyConfig: hasSearchQuery
+          ? { title: t("locations.emptyState.noResults") }
+          : {
+              title: t("locations.emptyState.title"),
+              subtitle: t("locations.emptyState.subtitle"),
+              ctaButtonConfig: {
+                iconLeft: "plus",
+                label: t("locations.emptyState.cta"),
+                onClick: onCreate,
+              },
+            },
       }}
     />
   );
@@ -118,12 +126,14 @@ const LocationsListInner: FC<LocationsListProps> = ({
 
 export const LocationsList: FC<LocationsListProps> = ({
   searchQuery,
+  onCreate,
   onEdit,
   onDelete,
 }) => (
   <QueryBoundary loadingFallback={<CardLoader />}>
     <LocationsListInner
       searchQuery={searchQuery}
+      onCreate={onCreate}
       onEdit={onEdit}
       onDelete={onDelete}
     />

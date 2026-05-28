@@ -13,6 +13,7 @@ import {
   Breadcrumbs,
   Button,
   DetailsLayout,
+  Title,
   useDetailsLayout,
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
@@ -23,9 +24,11 @@ import {
   RoleDeleteModal,
 } from "#src/features/role-delete/role-delete-modal";
 import { useUpdateRole } from "#src/features/role-edit/use-update-role";
+import { FeaturePermissionsStep } from "#src/features/role-form/components/feature-permissions-step";
 import { NavigationPermissionsStep } from "#src/features/role-form/components/navigation-permissions-step";
 import { RoleFormDescription } from "#src/features/role-form/components/role-form-description";
 import { RoleFormName } from "#src/features/role-form/components/role-form-name";
+import { getObjectLevelPermissionsWithDefaults } from "#src/features/role-form/constants";
 import { useRoleFormSchema } from "#src/features/role-form/schema";
 import type {
   RoleFormData,
@@ -44,14 +47,16 @@ const convertRoleIntoFormData = (role: Role): RoleFormData => ({
   name: role.name,
   description: role.description,
   permissions: role.permissions,
-  objectLevelPermissions: role.object_level_permissions,
+  objectLevelPermissions: getObjectLevelPermissionsWithDefaults(
+    role.object_level_permissions,
+  ),
   hasBookingOverrideControl: role.has_booking_override_control,
 });
 
 const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
   roleId,
 }) => {
-  const { t } = useTranslation("role-details");
+  const { t } = useTranslation(["role-details", "role-form"]);
   const navigate = useNavigate();
   const formId = `role-details-${useId()}`;
   const { detailsLayoutProps, toggleHasUnsavedChanges } = useDetailsLayout();
@@ -143,6 +148,7 @@ const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
           name: values.name,
           description: values.description,
           permissions: values.permissions,
+          object_level_permissions: values.objectLevelPermissions,
           has_booking_override_control: values.hasBookingOverrideControl,
         },
       },
@@ -184,7 +190,17 @@ const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
                   disabled={!role.editable}
                 />
               </div>
+              <Title htmlVariant="h4" weight="strong">
+                {t("steps.navigationPermissions.label", { ns: "role-form" })}
+              </Title>
               <NavigationPermissionsStep
+                methods={methods}
+                disabled={!role.editable}
+              />
+              <Title htmlVariant="h4" weight="strong">
+                {t("steps.featurePermissions.label", { ns: "role-form" })}
+              </Title>
+              <FeaturePermissionsStep
                 methods={methods}
                 disabled={!role.editable}
               />

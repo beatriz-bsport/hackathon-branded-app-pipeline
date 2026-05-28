@@ -5,6 +5,8 @@ import {
   type ActivePassesFilter,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   type BookingMilestoneFilter,
+  CREDIT_ACCOUNT_FILTER_IDENTIFIER,
+  type CreditAccountFilter,
   FIRST_PURCHASE_FILTER_IDENTIFIER,
   type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
@@ -24,6 +26,7 @@ import {
 import {
   isActivePassesFilter,
   isBookingMilestoneFilter,
+  isCreditAccountFilter,
   isFirstPurchaseFilter,
   isGenderFilter,
   isMemberDateJoinedFilter,
@@ -42,6 +45,7 @@ type SmartlistFiltersQueryData = {
   tagFilters: TagFilter[];
   activePassesFilters: ActivePassesFilter[];
   firstPurchaseFilters: FirstPurchaseFilter[];
+  creditAccountFilters: CreditAccountFilter[];
 };
 
 const mapGenderFilters = (
@@ -111,6 +115,19 @@ const mapBookingMilestoneFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapCreditAccountFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): CreditAccountFilter[] => {
+  const creditAccountFiltersMap = payload?.[CREDIT_ACCOUNT_FILTER_IDENTIFIER];
+  if (!creditAccountFiltersMap) {
+    return [];
+  }
+
+  return Object.values(creditAccountFiltersMap)
+    .filter(isCreditAccountFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapTagFilters = (payload?: SmartlistGetFiltersResponse): TagFilter[] => {
   const tagFiltersMap = payload?.[TAG_FILTER_IDENTIFIER];
   if (!tagFiltersMap) {
@@ -164,5 +181,6 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       tagFilters: mapTagFilters(data),
       activePassesFilters: mapActivePassesFilters(data),
       firstPurchaseFilters: mapFirstPurchaseFilters(data),
+      creditAccountFilters: mapCreditAccountFilters(data),
     }),
   });

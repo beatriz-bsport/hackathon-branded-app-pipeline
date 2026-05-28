@@ -44,6 +44,9 @@
       },
       "firstPurchase": {
         "description": "Filter by whether a member completed a first purchase."
+      },
+      "creditAccount": {
+        "description": "Filter members by account balance (credit minus unpaid total), using a number comparison."
       }
     }
   },
@@ -110,6 +113,23 @@
         "signUpDateBetweenRequired": "Select both dates for the between range.",
         "signUpDateDurationRequired": "Enter a number of days.",
         "signUpDateDurationBetweenRequired": "Enter both day values for the between range."
+      }
+    },
+    "1": {
+      "title": "Account balance",
+      "actions": {
+        "deleteFilter": "Delete account balance filter",
+        "save": "Apply filter"
+      },
+      "validation": {
+        "secondValueRequired": "Enter an upper bound for the range.",
+        "secondValueGreaterThanFirst": "The second value must be greater than or equal to the first."
+      },
+      "toasts": {
+        "saveError": "Unable to save account balance filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete account balance filter.",
+        "invalidFilter": "Invalid filter."
       }
     },
     "19": {

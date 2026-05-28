@@ -16,3 +16,13 @@ export const ABSOLUTE_ROUTES = {
   DETAIL: (id: number) => `/services/classes/${id}`,
   ARCHIVED_DETAIL: (id: number) => `/services/classes/archived/${id}`,
 };
+
+export const LEGACY_URLS = {
+  GROUP_ACTIVITY_DETAIL: (id: number) => `/activity/${id}/general`,
+  WORKSHOP_DETAIL: (id: number) => `/workshop-activity/${id}/general`,
+};
+
+export const getLegacyDetailUrl = (id: number, isWorkshop: boolean) =>
+  isWorkshop
+    ? LEGACY_URLS.WORKSHOP_DETAIL(id)
+    : LEGACY_URLS.GROUP_ACTIVITY_DETAIL(id);

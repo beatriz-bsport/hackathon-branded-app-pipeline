@@ -68,6 +68,7 @@
   "sectionCount": "{{address}} ({{count}})",
   "groupTag": {
     "add": "Add to location",
+    "addTooltip": "Add this venue to a location to inherit its notifications and marketing items.",
     "edit": "Edit location"
   },
   "venueRow": {
@@ -77,7 +78,9 @@
   "actions": {
     "archive": "Archived venues",
     "createLocation": "Create location",
-    "createVenue": "Create venue"
+    "createLocationTooltip": "A location groups venues for shared marketing, products, and reporting.",
+    "createVenue": "Create venue",
+    "createVenueTooltip": "Create a new space for sessions and bookings."
   },
   "archived": {
     "pageTitle": "Archived venues",

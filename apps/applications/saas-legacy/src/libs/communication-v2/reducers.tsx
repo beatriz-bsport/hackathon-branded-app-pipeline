@@ -31,6 +31,7 @@ import {
   firstReachedRecipientsAction,
   fetchConversationsActions,
   createConversationActions,
+  createMessageActions,
 } from '#src/libs/communication-v2/actions';
 
 import type {
@@ -45,6 +46,7 @@ import type {
   ConversationListResponse,
   Conversation,
   ConversationCreationOutput,
+  MessageCreationOutput,
 } from '#src/libs/communication-v2/types';
 import type { PaginatedResponse } from '#src/state/types';
 
@@ -978,6 +980,40 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
           },
           { deep: true },
         );
+    },
+    [createMessageActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['messages', 'loading'], payload);
+    },
+    [createMessageActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['messages', 'error'], payload);
+    },
+    [createMessageActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: MessageCreationOutput & { conversationUuid: string } },
+    ) => {
+      return state.merge(
+        {
+          messages: {
+            allMessagesByConversationId: {
+              [payload.conversationUuid]: [
+                ...(state.messages.allMessagesByConversationId[
+                  payload.conversationUuid
+                ] || []),
+                payload,
+              ],
+            },
+          },
+        },
+        { deep: true },
+      );
     },
   },
   initialState,

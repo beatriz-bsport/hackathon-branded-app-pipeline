@@ -214,3 +214,6 @@ export const getMessagesByConversationId = (
 ) =>
   state.communicationV2.messages.allMessagesByConversationId[conversationId] ??
   [];
+
+export const isCreatingMessage = (state: RootState) =>
+  state.communicationV2.messages.loading;

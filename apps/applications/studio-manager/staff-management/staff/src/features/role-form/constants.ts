@@ -3,6 +3,7 @@ import type {
   ObjectLevelPermissions,
 } from "@bsport/api-staff-management";
 
+import { mergeWithDefaults } from "./permission-tree-utils";
 import type { RoleFormData } from "./types";
 
 export const FIELD_CONSTRAINTS = {
@@ -415,3 +416,17 @@ export const ROLE_FORM_DEFAULTS: RoleFormData = {
   objectLevelPermissions: DEFAULT_OBJECT_LEVEL_PERMISSIONS,
   hasBookingOverrideControl: false,
 };
+
+/**
+ * Merges `permissions` with DEFAULT_OBJECT_LEVEL_PERMISSIONS so that any keys
+ * absent from the server response are initialised to `true` (the default for
+ * new permissions).  If `permissions` is undefined the full defaults are
+ * returned.
+ */
+export const getObjectLevelPermissionsWithDefaults = (
+  permissions?: ObjectLevelPermissions,
+): ObjectLevelPermissions =>
+  mergeWithDefaults(
+    JSON.parse(JSON.stringify(DEFAULT_OBJECT_LEVEL_PERMISSIONS)) as unknown,
+    permissions,
+  ) as ObjectLevelPermissions;

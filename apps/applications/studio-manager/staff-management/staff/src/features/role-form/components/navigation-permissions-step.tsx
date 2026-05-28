@@ -11,7 +11,6 @@ import {
   Body,
   Checkbox,
   type CheckboxProps,
-  Title,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -71,14 +70,9 @@ export const NavigationPermissionsStep: FC<NavigationPermissionsStepProps> = ({
   return (
     <FormProvider {...methods}>
       <div className="flex w-full min-w-0 flex-col gap-lg">
-        <div className="flex flex-col gap-2xs">
-          <Title htmlVariant="h4" weight="strong">
-            {t("steps.navigationPermissions.label")}
-          </Title>
-          <Body htmlVariant="p" color="default">
-            {t("steps.navigationPermissions.helperText")}
-          </Body>
-        </div>
+        <Body htmlVariant="p" color="default">
+          {t("steps.navigationPermissions.helperText")}
+        </Body>
 
         <div className="flex flex-col border border-stroke-thin border-stroke-weak rounded-md overflow-clip">
           <NavigationPermissionSection

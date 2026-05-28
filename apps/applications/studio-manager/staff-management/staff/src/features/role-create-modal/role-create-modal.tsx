@@ -3,7 +3,6 @@ import { type FC, useEffect, useId, useMemo, useRef } from "react";
 import { useNavigate } from "react-router";
 
 import {
-  type ObjectLevelPermissions,
   type Role,
   fetchRoleDefinitionsQueryOptions,
 } from "@bsport/api-staff-management/role";
@@ -20,9 +19,9 @@ import { RoleFormDescription } from "../role-form/components/role-form-descripti
 import { RoleFormName } from "../role-form/components/role-form-name";
 import { RoleFormStarterRole } from "../role-form/components/role-form-starter-role";
 import {
-  DEFAULT_OBJECT_LEVEL_PERMISSIONS,
   DEFAULT_PERMISSIONS,
   ROLE_FORM_DEFAULTS,
+  getObjectLevelPermissionsWithDefaults,
 } from "../role-form/constants";
 import { hasSelectedPermission } from "../role-form/permission-tree-utils";
 import { useRoleFormSchema } from "../role-form/schema";
@@ -35,29 +34,6 @@ type RoleCreateModalProps = {
 };
 
 const deepClone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
-
-const isRecord = (value: unknown): value is Record<string, unknown> =>
-  typeof value === "object" && value !== null && !Array.isArray(value);
-
-const mergeWithDefaults = (defaults: unknown, overrides: unknown): unknown => {
-  if (!isRecord(defaults) || !isRecord(overrides)) {
-    return overrides ?? defaults;
-  }
-
-  return Object.fromEntries(
-    [...new Set([...Object.keys(defaults), ...Object.keys(overrides)])].map(
-      (key) => [key, mergeWithDefaults(defaults[key], overrides[key])],
-    ),
-  );
-};
-
-const getObjectLevelPermissionsWithDefaults = (
-  permissions?: ObjectLevelPermissions,
-): ObjectLevelPermissions =>
-  mergeWithDefaults(
-    deepClone(DEFAULT_OBJECT_LEVEL_PERMISSIONS),
-    permissions,
-  ) as ObjectLevelPermissions;
 
 export const RoleCreateModal: FC<RoleCreateModalProps> = ({
   isOpen,

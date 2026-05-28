@@ -20,10 +20,12 @@ import { ObjectLevelPermissionSection } from "./object-level-permission-section"
 
 type FeaturePermissionsStepProps = {
   methods: UseFormControllerOutput<RoleFormSchema>;
+  disabled?: boolean;
 };
 
 export const FeaturePermissionsStep: FC<FeaturePermissionsStepProps> = ({
   methods,
+  disabled = false,
 }) => {
   const { t } = useTranslation("role-form");
   const objectLevelPermissions = useWatch({
@@ -68,6 +70,7 @@ export const FeaturePermissionsStep: FC<FeaturePermissionsStepProps> = ({
             value={value as PermissionValue}
             rootValue={objectLevelPermissions}
             onChange={setObjectLevelPermissionValue}
+            disabled={disabled}
           />
         ))}
       </div>

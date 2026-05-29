@@ -17,6 +17,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods.js';
 import Config from '#src/config';
+import type { Invoice } from '#src/libs/invoice/types';
 import { getCurrencyCode } from '#src/libs/theme/selectors';
 import { getLocaleFromLanguage } from '#src/utils/language';
 import {
@@ -197,4 +198,72 @@ export const getPaymentMethodBrandName = (
     return PAYMENT_METHOD_BRAND_NAME_MAP[brandName as PaymentMethodBrands];
   }
   return defaultBrandName;
+};
+
+type InvoiceWithMember = Pick<Invoice, 'uuid'> & {
+  member?: number | { id: number };
+};
+
+export type OpenPaymentFlowFromLegacyArgs = {
+  invoice: InvoiceWithMember;
+  paymentFlowModalEnabled: boolean;
+  showRevampedSidebar: boolean;
+  pathname?: string;
+  pushRouter: (path: string) => void;
+};
+
+const resolveMemberId = (
+  member: InvoiceWithMember['member'],
+): number | undefined => {
+  if (!member) return undefined;
+  return typeof member === 'number' ? member : member.id;
+};
+
+/** Custom event listened to by the revamped navigation sidebar for URL updates. */
+const PAYMENT_FLOW_NAVIGATION_EVENT = 'navigation';
+
+/**
+ * Opens the revamped payment flow by updating URL query params.
+ * Uses `history.replaceState` (not React Router `push`) so route-level `<Prompt>`
+ * guards on the current page are not triggered for query-only changes.
+ * Returns true when the URL was updated (caller should not open legacy PaymentDialog).
+ */
+export const openPaymentFlowFromLegacy = ({
+  invoice,
+  paymentFlowModalEnabled,
+  showRevampedSidebar,
+  pathname,
+  pushRouter,
+}: OpenPaymentFlowFromLegacyArgs): boolean => {
+  const memberId = resolveMemberId(invoice.member);
+
+  if (
+    !paymentFlowModalEnabled ||
+    !showRevampedSidebar ||
+    !pathname ||
+    !invoice.uuid ||
+    !memberId
+  ) {
+    return false;
+  }
+
+  const existingSearch =
+    (typeof window !== 'undefined' && window.location.search) || '';
+  const params = new URLSearchParams(existingSearch);
+  params.set('pfOpen', '');
+  params.set('invoiceId', invoice.uuid);
+  params.set('memberId', String(memberId));
+  const search = params.toString();
+  const path = search ? `${pathname}?${search}` : pathname;
+
+  if (typeof window !== 'undefined') {
+    window.history.replaceState(null, '', path);
+    window.dispatchEvent(
+      new CustomEvent(PAYMENT_FLOW_NAVIGATION_EVENT, { detail: { path } }),
+    );
+    return true;
+  }
+
+  pushRouter(path);
+  return true;
 };

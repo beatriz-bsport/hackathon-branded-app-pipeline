@@ -87,6 +87,7 @@ type Props = {
   stripeReaders: StripeReader[];
   unpaidInvoiceList: Array<Invoice>;
   bsportPaymentMethodsToDisable?: number[];
+  onOpenPaymentFlow?: (invoice: Invoice) => boolean;
 };
 
 const PAYMENT_GROUP_STATUS_INTENT_MAX_RETRY = 100;
@@ -128,6 +129,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
   stripeReaders,
   unpaidInvoiceList,
   bsportPaymentMethodsToDisable,
+  onOpenPaymentFlow,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['member', 'invoice']);
@@ -275,6 +277,16 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
   const onCloseMemberBalanceUpdate = useCallback(
     () => setAdjustBalanceDialogOpen(false),
     [setAdjustBalanceDialogOpen],
+  );
+
+  const handleBillInvoice = useCallback(
+    (invoice: Invoice) => {
+      if (onOpenPaymentFlow?.(invoice)) {
+        return;
+      }
+      setInvoiceToBill(invoice);
+    },
+    [onOpenPaymentFlow],
   );
 
   const handleCancelPayment = useCallback(() => {
@@ -466,7 +478,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                     onBill={
                       asConsumer && onlinePaymentEnabled === false
                         ? null
-                        : setInvoiceToBill
+                        : handleBillInvoice
                     }
                     onClickInvoice={goToInvoice}
                     snackbarSuccess={snackbarSuccessMsg}

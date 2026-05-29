@@ -138,6 +138,8 @@ import {
 } from '../../establishment/selectors';
 
 import PrivateBookingCard from '../components/booking/PrivateBookingCard.component';
+import { withFeatureFlags } from '#src/utils/feature-flag/withFeatureFlags';
+import { openPaymentFlowFromLegacy } from '#src/libs/payment/utils';
 
 import OfferMinimalSummary from '../../../components/offer/OfferMinimalSummary.component';
 
@@ -286,6 +288,10 @@ type Props = {
   closeSetUnpaidModal: () => void,
   openSetUnpaidModal: () => void,
   setUnpaidModalOpen: boolean,
+  paymentFlowModalEnabled?: boolean,
+  showRevampedSidebar?: boolean,
+  pathname?: string,
+  pushRouter: (path: string) => void,
 };
 
 type State = {
@@ -313,7 +319,49 @@ export class CalendarEventDetail extends React.Component<Props, State> {
     if (!this.props.isCoach) {
       this.props.fetchProgram({ is_disabled: false }); // WILL BECOME USELESS
     }
+    if (typeof window !== 'undefined') {
+      window.addEventListener(
+        'paymentFlowConfirmed',
+        this.handlePaymentFlowConfirmed,
+      );
+    }
   }
+
+  componentWillUnmount() {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener(
+        'paymentFlowConfirmed',
+        this.handlePaymentFlowConfirmed,
+      );
+    }
+  }
+
+  handlePaymentFlowConfirmed = (event) => {
+    const eventMemberId = event?.detail?.memberId;
+    const currentMemberId =
+      typeof this.props.privateBooking?.member === 'object'
+        ? this.props.privateBooking.member.id
+        : this.props.privateBooking?.member;
+    const memberId = eventMemberId ?? currentMemberId;
+
+    if (memberId) {
+      this.fetchInvoiceListUnpaid(memberId);
+    }
+  };
+
+  handleBillInvoice = (invoice: Invoice) => {
+    const opened = openPaymentFlowFromLegacy({
+      invoice,
+      paymentFlowModalEnabled: !!this.props.paymentFlowModalEnabled,
+      showRevampedSidebar: !!this.props.showRevampedSidebar,
+      pathname: this.props.pathname,
+      pushRouter: this.props.pushRouter,
+    });
+
+    if (!opened) {
+      this.props.setInvoiceToBill(invoice);
+    }
+  };
 
   handleFetchLevel = () => {
     this.props.fetchLevelList({
@@ -451,6 +499,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           isCoach={this.props.isCoach}
           loading={this.props.privateBookingLoading}
           memberBulkLoading={this.props.memberBulkLoading}
+          onBill={this.handleBillInvoice}
           onClose={this.props.onClose}
           onDelete={
             this.props.isCoach
@@ -646,6 +695,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           className={this.props.classes.popover}
           onClose={this.props.onClose}
           open={!!this.props.popoverAnchor}
+          // Keep this popover under the revamped payment flow modal (z-index 999 in Kaizen).
+          // "Take payment" on schedule opens that modal while this panel stays open; MUI defaults to 1300.
+          style={{ zIndex: 900 }}
           transformOrigin={{
             vertical: 'center',
             horizontal: 'center',
@@ -1042,6 +1094,12 @@ export default compose(
       consumerGiftcardList: withSender(
         withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardReceivedList))),
       )(state),
+      pathname:
+        state.router?.location?.pathname ??
+        (typeof window !== 'undefined' ? window.location.pathname : ''),
+      showRevampedSidebar:
+        !!state.auth.has_enabled_revamped_backoffice &&
+        !!state.theme.theme?.revamped_backoffice_enabled,
     }),
     {
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
@@ -1078,6 +1136,7 @@ export default compose(
       fetchGiftcardBulk: fetchGiftcardBulkAction,
       editOffers: editOffersActions,
       fetchZoomApp: fetchZoomAppAction,
+      pushRouter: push,
     },
   ),
   withHandlers({
@@ -1270,4 +1329,5 @@ export default compose(
   }),
   OfferEditorContainer,
   PrivateBookingCancellatorContainer,
+  withFeatureFlags,
 )(CalendarEventDetail);

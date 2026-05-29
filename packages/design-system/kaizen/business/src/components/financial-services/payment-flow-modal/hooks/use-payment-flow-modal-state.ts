@@ -16,12 +16,11 @@ import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 import { useFormController } from "@bsport/form";
 
 import type { PaymentFlowGiftCard } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/types";
-import { STRIPE_ELEMENT_VALIDATION_ERROR } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/constants";
 import type { StripePaymentMethodHandle } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/types";
 import { resolveInvoiceInstallmentsEligibility } from "#src/components/financial-services/payment-flow-modal/lib/invoice-installments-eligibility";
 import {
   PAYMENT_FLOW_ERROR_KEYS,
-  resolveSubmitErrorMessage,
+  resolveModalSubmitErrorMessage,
 } from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-errors";
 import {
   PAYMENT_TAB,
@@ -379,6 +378,7 @@ export const usePaymentFlowModalState = ({
     availableGiftCards,
     cardPaymentRef,
     sepaPaymentRef,
+    stripePublishableKey: companyTheme?.stripe_pk_key,
     invoiceAlreadyPaidAlert: PAYMENT_FLOW_ERROR_KEYS.invoiceAlreadyPaid,
   });
 
@@ -732,7 +732,9 @@ export const usePaymentFlowModalState = ({
           }, 0);
         },
         onError: (error: unknown) => {
-          setSubmitError(resolveSubmitErrorMessage(error));
+          setSubmitError(
+            resolveModalSubmitErrorMessage(error, selectedPaymentMethod),
+          );
           if (
             error instanceof Error &&
             error.message === PAYMENT_FLOW_ERROR_KEYS.invoiceAlreadyPaid
@@ -764,15 +766,9 @@ export const usePaymentFlowModalState = ({
         }
       },
       onError: (error: unknown) => {
-        const isStripeValidationError =
-          error instanceof Error &&
-          error.message === STRIPE_ELEMENT_VALIDATION_ERROR;
-        if (isStripeValidationError) {
-          setSubmitError(null);
-          return;
-        }
-
-        setSubmitError(resolveSubmitErrorMessage(error));
+        setSubmitError(
+          resolveModalSubmitErrorMessage(error, selectedPaymentMethod),
+        );
         if (
           error instanceof Error &&
           error.message === PAYMENT_FLOW_ERROR_KEYS.invoiceAlreadyPaid

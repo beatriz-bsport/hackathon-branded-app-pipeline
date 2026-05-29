@@ -80,4 +80,5 @@ export type ExecuteConfirmPaymentParams = {
   availableGiftCards: PaymentFlowGiftCard[];
   cardPaymentRef: RefObject<StripePaymentMethodHandle | null>;
   sepaPaymentRef: RefObject<StripePaymentMethodHandle | null>;
+  stripePublishableKey?: string;
 };

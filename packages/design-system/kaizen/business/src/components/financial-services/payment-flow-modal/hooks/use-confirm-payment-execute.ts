@@ -3,9 +3,10 @@ import {
   applyBalanceToInvoiceAPI,
   applyGiftcardOnInvoiceAPI,
 } from "@bsport/api-financial-services/invoice";
-import { confirmPaymentByPaymentMethodIdAPI } from "@bsport/api-financial-services/payment-group";
 import { processPaymentIntentAPI } from "@bsport/api-financial-services/terminal";
 
+import { confirmSavedStripePayment } from "#src/components/financial-services/payment-flow-modal/lib/confirm-saved-stripe-payment";
+import { PAYMENT_FLOW_ERROR_KEYS } from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-errors";
 import type { ExecuteConfirmPaymentParams } from "#src/components/financial-services/payment-flow-modal/types";
 import { ALL_PAYMENT_METHOD_SELECTOR_ID } from "#src/components/financial-services/payment-method-selector/constants";
 import { PAYMENT_METHOD_SELECTOR_SELECTION_KIND } from "#src/components/financial-services/payment-method-selector/types";
@@ -42,6 +43,7 @@ export const executeConfirmPayment = async ({
   availableGiftCards,
   cardPaymentRef,
   sepaPaymentRef,
+  stripePublishableKey,
 }: ExecuteConfirmPaymentParams): Promise<void> => {
   const currentClientSecret = paymentClientSecret.client_secret;
   const paymentGroupId = paymentClientSecret.payment_group;
@@ -54,13 +56,18 @@ export const executeConfirmPayment = async ({
   if (
     selectedPaymentMethod.kind === PAYMENT_METHOD_SELECTOR_SELECTION_KIND.SAVED
   ) {
-    if (!paymentGroupId) {
-      throw new Error("Missing payment group for saved method.");
+    if (!currentClientSecret) {
+      throw new Error(PAYMENT_FLOW_ERROR_KEYS.missingPaymentContext);
+    }
+    if (!stripePublishableKey) {
+      throw new Error(PAYMENT_FLOW_ERROR_KEYS.stripeNotConfigured);
     }
 
-    await confirmPaymentByPaymentMethodIdAPI(fetch, {
-      payment_group_id: paymentGroupId,
-      payment_method_id: selectedPaymentMethod.id,
+    await confirmSavedStripePayment({
+      stripePublishableKey,
+      clientSecret: currentClientSecret,
+      paymentMethodId: selectedPaymentMethod.id,
+      paymentMethodType: selectedPaymentMethod.paymentMethodType,
     });
     return;
   }

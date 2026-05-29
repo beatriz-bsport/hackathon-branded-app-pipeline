@@ -356,6 +356,8 @@ type Props = {
   selectedBookingForRefund: number | null,
   setSelectedBookingForRefund: () => void,
   revampedBackofficeEnabled: boolean,
+  pathname?: string,
+  push: (path: string) => void,
 } & FeatureFlagProps;
 
 type State = {
@@ -423,11 +425,43 @@ export class OfferManagement extends Component<Props, State> {
         params: { company: this.props.companyId },
       });
     }
+    if (typeof window !== 'undefined') {
+      window.addEventListener(
+        'paymentFlowConfirmed',
+        this.handlePaymentFlowConfirmed,
+      );
+    }
   }
 
   componentWillUnmount() {
     analyticsClientB2B.removeSuperProperties(['page_source']);
+    if (typeof window !== 'undefined') {
+      window.removeEventListener(
+        'paymentFlowConfirmed',
+        this.handlePaymentFlowConfirmed,
+      );
+    }
   }
+
+  handlePaymentFlowConfirmed = () => {
+    this.props.fetchInvoiceListUnpaid();
+  };
+
+  /**
+   * React Router Prompt blocks any navigation when unpaid invoices exist.
+   * Allow query-only changes on the same page (e.g. payment flow modal params).
+   */
+  getUnevenQuickInvoicesPromptMessage = (location) => {
+    const normalizePathname = (path) => (path || '').replace(/\/$/, '') || '/';
+
+    if (
+      normalizePathname(location.pathname) ===
+      normalizePathname(this.props.pathname)
+    ) {
+      return false;
+    }
+    return this.props.t('offerManagement.unevenQuickInvoices');
+  };
 
   fetchOfferAndData = () => {
     this.props.resetInvoiceList();
@@ -1313,9 +1347,13 @@ export class OfferManagement extends Component<Props, State> {
               this.props.company_theme.online_payment_enabled
             }
             panelRef={this.quickInvoicePanelRef}
+            pathname={this.props.pathname}
+            paymentFlowModalEnabled={this.props.paymentFlowModalEnabled}
+            pushRouter={this.props.push}
             quickInvoices={this.state.quickInvoices}
             refreshInvoice={this.props.fetchInvoice}
             revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
+            showRevampedSidebar={this.props.revampedBackofficeEnabled}
             snackbarSuccess={this.props.snackbarSuccess}
             stripePaymentElementConfig={{
               isDefaultForRegion:
@@ -1333,7 +1371,7 @@ export class OfferManagement extends Component<Props, State> {
             requiredPermission="billing.allowed_actions.readInvoices"
           >
             <Prompt
-              message={this.props.t('offerManagement.unevenQuickInvoices')}
+              message={this.getUnevenQuickInvoicesPromptMessage}
               when={this.props.unpaidInvoiceList.length > 0}
             />
           </ObjectLevelPermissionWrapper>

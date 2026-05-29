@@ -121,7 +121,10 @@ import type { ConsumerGiftcard } from '#src/libs/giftcard/types';
 import AddPaymentMethod from '#src/libs/payment/components/AddPaymentMethod.component';
 import PaymentModal from '#src/libs/payment/components/PaymentModal.component';
 import MemberResetPasswordDialog from '#src/libs/member/components/MemberResetPasswordDialog.component';
-import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
+import {
+  getBackofficeBillingPlanEnabledPaymentMethods,
+  openPaymentFlowFromLegacy,
+} from '#src/libs/payment/utils';
 import { getMemberEventPath } from '#src/libs/member/events.utils';
 import MemberEventPanel from '#src/libs/member/components/MemberEventPanel.component';
 import { GenericEvent, MemberEvent } from '#src/libs/event/types';
@@ -143,6 +146,11 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 // @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import Config from '../../config';
+import {
+  withFeatureFlags,
+  type FeatureFlagProps,
+} from '#src/utils/feature-flag/withFeatureFlags';
+import type { Invoice } from '#src/libs/invoice/types';
 
 type Props = RouterParamsProps &
   ConnectProps &
@@ -150,7 +158,8 @@ type Props = RouterParamsProps &
   HandlerProps2 &
   WithTranslation &
   HandlerProps3 &
-  QueryParamsProps;
+  QueryParamsProps &
+  FeatureFlagProps;
 
 type State = {
   searchModalOpen: boolean;
@@ -180,6 +189,21 @@ export class MemberDetailPage extends React.PureComponent<Props> {
 
   componentDidMount() {
     this.fetchData();
+    if (typeof window !== 'undefined') {
+      window.addEventListener(
+        'paymentFlowConfirmed',
+        this.handlePaymentFlowConfirmed,
+      );
+    }
+  }
+
+  componentWillUnmount() {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener(
+        'paymentFlowConfirmed',
+        this.handlePaymentFlowConfirmed,
+      );
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -220,6 +244,25 @@ export class MemberDetailPage extends React.PureComponent<Props> {
     this.props.fetchInvoiceListUnpaid();
     this.props.fetchMember(this.props.id);
   };
+
+  handlePaymentFlowConfirmed = (event: CustomEvent<{ memberId?: number }>) => {
+    const eventMemberId = event?.detail?.memberId;
+    const currentMemberId = this.props.id;
+    const memberId = eventMemberId ?? currentMemberId;
+
+    if (memberId === this.props.id) {
+      this.fetchInvoiceListUnpaid();
+    }
+  };
+
+  handleOpenPaymentFlowForInvoice = (invoice: Invoice): boolean =>
+    openPaymentFlowFromLegacy({
+      invoice,
+      paymentFlowModalEnabled: this.props.paymentFlowModalEnabled,
+      showRevampedSidebar: this.props.showRevampedSidebar,
+      pathname: this.props.pathname,
+      pushRouter: this.props.routerPushURL,
+    });
 
   tagMember = (tagId: number) => {
     this.props.tagMember(this.props.id, tagId);
@@ -504,6 +547,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
                 memberLoading={this.props.memberLoading}
                 onClickInvoice={this.props.goToInvoice}
                 onlinePaymentEnabled={this.props.onlinePaymentEnabled}
+                onOpenPaymentFlow={this.handleOpenPaymentFlowForInvoice}
                 snackbarErrorMsg={this.props.snackbarErrorMsg}
                 snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                 stripePaymentElementConfig={{
@@ -712,6 +756,12 @@ const connector = connect(
     referralProgram: getTheReferralProgram(state),
     referralMemberStatus: getReferralMemberStatusWithMemberId(state, props.id),
     establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+    pathname:
+      state.router?.location?.pathname ??
+      (typeof window !== 'undefined' ? window.location.pathname : ''),
+    showRevampedSidebar:
+      !!state.auth.has_enabled_revamped_backoffice &&
+      !!state.theme.theme?.revamped_backoffice_enabled,
   }),
   {
     fetchInvoiceList: fetchInvoiceListAction,
@@ -953,4 +1003,4 @@ export default compose(
       };
     },
   ),
-)(MemberDetailPage);
+)(withFeatureFlags(MemberDetailPage));

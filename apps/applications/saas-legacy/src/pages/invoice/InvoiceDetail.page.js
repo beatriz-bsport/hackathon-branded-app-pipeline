@@ -139,6 +139,7 @@ import { formatAsDate } from '../../utils/datetime';
 import { InvoiceHeaderFiskalyAlert } from '#src/libs/invoice/components/InvoiceHeaderFiskalyAlert.component';
 import { InvoiceSignEsSignatureStatus } from '#src/libs/invoice/constants';
 import { withFeatureFlags } from '#src/utils/feature-flag/withFeatureFlags';
+import { openPaymentFlowFromLegacy } from '#src/libs/payment/utils';
 
 const PAYMENT_INTENT_STATUS_REQUIRES_ACTION = 150;
 
@@ -343,21 +344,15 @@ export class InvoiceDetail extends React.Component<Props, State> {
     const { invoice, paymentFlowModalEnabled, showRevampedSidebar, pathname } =
       this.props;
 
-    if (
-      paymentFlowModalEnabled &&
-      showRevampedSidebar &&
-      pathname &&
-      invoice?.uuid &&
-      invoice?.member?.id
-    ) {
-      const existingSearch =
-        (typeof window !== 'undefined' && window.location.search) || '';
-      const params = new URLSearchParams(existingSearch);
-      params.set('pfOpen', '');
-      params.set('invoiceId', invoice.uuid);
-      params.set('memberId', String(invoice.member.id));
-      this.props.pushRouter(`${this.props.pathname}?${params.toString()}`);
-    } else {
+    const opened = openPaymentFlowFromLegacy({
+      invoice,
+      paymentFlowModalEnabled,
+      showRevampedSidebar,
+      pathname,
+      pushRouter: this.props.pushRouter,
+    });
+
+    if (!opened) {
       this.props.setOpenPaymentDialog(true);
     }
   };

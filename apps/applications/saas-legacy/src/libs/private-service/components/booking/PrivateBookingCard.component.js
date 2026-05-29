@@ -88,6 +88,7 @@ type Props = {
   fetchMemberPaymentMethod: (memberId: number) => void,
   availablePaymentMethodList: Array<PaymentMethod>,
   invoiceToBill: Invoice,
+  onBill: (invoice: Invoice) => void,
   setInvoiceToBill: (invoice?: Invoice) => void,
   clientSecretLoading: boolean,
   clientSecret?: string,
@@ -462,7 +463,7 @@ export const PrivateBookingCard = (props: Props) => {
                     companyId={props.companyId}
                     consumerGiftcardList={props.consumerGiftcardList}
                     invoiceList={props.unpaidInvoiceList}
-                    onBill={props.setInvoiceToBill}
+                    onBill={props.onBill}
                     snackbarSuccess={props.snackbarSuccess}
                   />
                 </Collapse>

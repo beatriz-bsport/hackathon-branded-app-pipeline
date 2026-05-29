@@ -1,4 +1,8 @@
-export { fetchEstablishmentBillingGroups } from "./api";
+export {
+  fetchEstablishmentBillingGroups,
+  fetchEstablishmentBillingGroupsQueryOptions,
+  establishmentBillingGroupKeys,
+} from "./api";
 export type {
   EstablishmentBillingGroup,
   FetchEstablishmentBillingGroupsParams,

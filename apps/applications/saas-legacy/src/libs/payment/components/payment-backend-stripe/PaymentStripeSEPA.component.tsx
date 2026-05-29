@@ -8,6 +8,9 @@ import React, {
   useState,
 } from 'react';
 
+import { snackbarError } from '#src/libs/snackbar/actions';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getStripeMinimumAmountCts } from '#src/libs/payment/utils';
 import clsx from 'clsx';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { useDispatch } from 'react-redux';
@@ -241,6 +244,24 @@ export const PaymentStripeSEPA = forwardRef(
             return;
           }
 
+          const isBasketBelowStripeMinimum =
+            !!basketTotalPriceCts &&
+            basketTotalPriceCts < getStripeMinimumAmountCts();
+
+          if (isBasketBelowStripeMinimum) {
+            setPaymentPageProcessing(false);
+
+            dispatch(
+              snackbarError(
+                t('paymentPanel.actions.basketBelowStripeMinimum', {
+                  minimum: getCurrencyDisplayWithPrice(
+                    getStripeMinimumAmountCts() / 100,
+                  ),
+                }),
+              ),
+            );
+            return;
+          }
           if (
             (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
             basketTotalPriceCts !== data

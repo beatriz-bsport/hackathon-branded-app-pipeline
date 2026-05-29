@@ -24,7 +24,7 @@ import {
   PAYMENT_METHOD_BRAND_NAME_MAP,
   PAYMENT_METHOD_PNG_MAP,
   PaymentMethodBrands,
-  STRIPE_MINMUM_AMOUNT_CTS_BY_CURRENCY,
+  STRIPE_MINIMUM_AMOUNT_CTS_BY_CURRENCY,
 } from '#src/libs/payment/constants';
 
 export const fromPaymentGroupIdentifierToPaymentMethodIdentifier = (

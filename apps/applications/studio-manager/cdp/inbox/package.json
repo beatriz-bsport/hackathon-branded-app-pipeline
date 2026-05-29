@@ -3,7 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "description": "CDP Inbox",
+  "author": "Osmel Mora <osmel.mora@bsport.io>",
   "type": "module",
+  "imports": {
+    "#src/*": "./src/*"
+  },
   "exports": {
     ".": {
       "types": "./build/lib.es.d.ts",
@@ -61,6 +65,5 @@
       "scope:studio",
       "postinstall"
     ]
-  },
-  "author": "Osmel Mora <osmel.mora@bsport.io>"
+  }
 }

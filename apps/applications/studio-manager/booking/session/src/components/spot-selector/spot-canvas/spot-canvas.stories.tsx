@@ -21,6 +21,7 @@ import spinBikeAvailable from "#src/components/spot-selector/assets/spin-bike-av
 import spinBikeSelected from "#src/components/spot-selector/assets/spin-bike-selected.jpg";
 import spinBikeTaken from "#src/components/spot-selector/assets/spin-bike-taken.jpeg";
 import { SpotCanvas } from "#src/components/spot-selector/spot-canvas/spot-canvas";
+import { storybookDecorator } from "#src/utils/storybook-decorator";
 
 const assets: AssetForBlueprint[] = [];
 
@@ -80,6 +81,7 @@ const meta: Meta<typeof SpotCanvas> = {
       },
     },
   },
+  decorators: storybookDecorator,
 };
 export default meta;
 type Story = StoryObj<typeof SpotCanvas>;

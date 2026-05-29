@@ -6,15 +6,14 @@ import {
   invoiceKeys,
 } from "@bsport/api-financial-services/invoice";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
-import { ControlledForm } from "@bsport/form";
 import { Modal, toast } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/i18n";
 import { useGuardedModalClose } from "#src/utils/use-guarded-modal-close";
 
 import { PartialSuccessModal } from "./components/partial-success-modal";
-import { PaymentFlowModalBody } from "./components/payment-flow-modal-body";
 import { usePaymentFlowModalState } from "./hooks/use-payment-flow-modal-state";
+import { PaymentFlowStep } from "./payment-flow-step";
 import type { PaymentFlowModalProps } from "./types";
 
 export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
@@ -36,17 +35,10 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
     setPartialSuccessRemainingAmountCts,
   ] = useState(0);
 
-  const {
-    methods,
-    formId,
-    handleSubmit,
-    closeModal,
-    isConfirmDisabled,
-    isConfirmLoading,
-    confirmAmountCts,
-    body,
-  } = usePaymentFlowModalState({
-    isOpen: isOpen || isInternalOpen,
+  const isMainModalOpen = isOpen || isInternalOpen;
+
+  const stepState = usePaymentFlowModalState({
+    isOpen: isMainModalOpen,
     invoiceId,
     memberId,
     fetch,
@@ -65,7 +57,14 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
     companyTheme,
   });
 
-  const isMainModalOpen = isOpen || isInternalOpen;
+  const {
+    formId,
+    closeModal,
+    isConfirmDisabled,
+    isConfirmLoading,
+    confirmAmountCts,
+  } = stepState;
+
   const confirmLabel = useMemo(() => {
     if (confirmAmountCts <= 0) return t("paymentFlowModal.buttons.confirm");
     const price = getCurrencyDisplayWithPrice(confirmAmountCts / 100).replace(
@@ -132,14 +131,7 @@ export const PaymentFlowModal: React.FC<PaymentFlowModalProps> = ({
         onCloseButtonClick={handleCrossClick}
         onClickOutside={handleClickOutside}
       >
-        <ControlledForm
-          {...methods}
-          id={formId}
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-md"
-        >
-          <PaymentFlowModalBody body={body} />
-        </ControlledForm>
+        <PaymentFlowStep stepState={stepState} />
       </Modal>
 
       <PartialSuccessModal

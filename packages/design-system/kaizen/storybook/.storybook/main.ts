@@ -27,6 +27,10 @@ const smVenuesSrcDir = resolve(
   repoRoot,
   "apps/applications/studio-manager/booking/venues/src",
 );
+const smInboxSrcDir = resolve(
+  repoRoot,
+  "apps/applications/studio-manager/cdp/inbox/src",
+);
 const smBackboneSrcDir = resolve(repoRoot, "packages/utils/sm-backbone/src");
 
 const globPattern = "**/*.stories.@(js|jsx|ts|tsx|mdx)";
@@ -56,6 +60,12 @@ const config: StorybookConfig = {
       directory: smVenuesSrcDir,
       files: globPattern,
       titlePrefix: "Booking",
+    },
+    // Studio Manager - cdp/inbox app components
+    {
+      directory: smInboxSrcDir,
+      files: globPattern,
+      titlePrefix: "CDP",
     },
     // Packages
     {
@@ -92,11 +102,17 @@ const config: StorybookConfig = {
       "import.meta.env.VITE_I18N_NAMESPACE_PREFIX": JSON.stringify(
         "kaizen-business-components",
       ),
-      // sm-session reads its i18n namespace prefix from a Vite-injected global
+      // i18n namespace prefix from a Vite-injected global
       // defined by getLibConfig in the app build. Storybook needs the same
       // shape so `__SESSION__.__I18N_NAMESPACE_PREFIX__` resolves at runtime.
       __SESSION__: JSON.stringify({
         __I18N_NAMESPACE_PREFIX__: "sm-session",
+      }),
+      __INBOX__: JSON.stringify({
+        __I18N_NAMESPACE_PREFIX__: "sm-inbox",
+      }),
+      __VENUES__: JSON.stringify({
+        __I18N_NAMESPACE_PREFIX__: "sm-venues",
       }),
     };
 
@@ -137,6 +153,9 @@ const config: StorybookConfig = {
         }
         if (normalizedImporter.includes("studio-manager/booking/venues/src")) {
           return tryResolve(smVenuesSrcDir);
+        }
+        if (normalizedImporter.includes("studio-manager/cdp/inbox/src")) {
+          return tryResolve(smInboxSrcDir);
         }
         if (normalizedImporter.includes("business")) {
           return tryResolve(businessSrcDir);

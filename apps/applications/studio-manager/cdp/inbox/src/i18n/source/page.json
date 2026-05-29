@@ -1,3 +1,11 @@
 {
-  "title": "Inbox"
+  "title": "Inbox",
+  "commons": {
+    "channel": {
+      "email": "Email",
+      "sms": "SMS",
+      "push": "Push",
+      "chat": "Chat"
+    }
+  }
 }

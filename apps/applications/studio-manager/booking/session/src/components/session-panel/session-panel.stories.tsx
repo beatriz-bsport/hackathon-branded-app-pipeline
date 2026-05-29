@@ -5,6 +5,8 @@ import { MemoryRouter } from "react-router";
 import { DetailsLayout } from "@bsport/kaizen-primitive-core";
 import { FeatureFlagsProvider } from "@bsport/sm-backbone";
 
+import { storybookDecorator } from "#src/utils/storybook-decorator";
+
 import {
   SESSION_ID,
   seededSessionPanelClient,
@@ -37,6 +39,7 @@ const meta = {
   component: SessionPanel,
   parameters: { layout: "fullscreen" },
   args: { sessionId: SESSION_ID },
+  decorators: storybookDecorator,
 } satisfies Meta<typeof SessionPanel>;
 
 export default meta;

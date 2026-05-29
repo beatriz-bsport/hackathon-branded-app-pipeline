@@ -12,6 +12,7 @@ import spinBikeAvailable from "#src/components/spot-selector/assets/spin-bike-av
 import spinBikeSelected from "#src/components/spot-selector/assets/spin-bike-selected.jpg";
 import spinBikeTaken from "#src/components/spot-selector/assets/spin-bike-taken.jpeg";
 import { SpotStatusLegend } from "#src/components/spot-selector/spot-selector-modal/spot-status-legend";
+import { storybookDecorator } from "#src/utils/storybook-decorator";
 
 type SpotStatusLegendComponent = typeof SpotStatusLegend;
 
@@ -83,6 +84,7 @@ const meta: Meta<SpotStatusLegendComponent> = {
     },
   },
   decorators: [
+    ...storybookDecorator,
     (Story) => (
       // Mirror `SpotSelectorModal`'s wrapping flex row so the chips lay out
       // horizontally (the component uses `display: contents`).

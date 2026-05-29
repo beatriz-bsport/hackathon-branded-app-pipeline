@@ -3,9 +3,7 @@ import { type FC, useCallback, useId, useMemo, useState } from "react";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 import { useCreditFactor } from "@bsport/kaizen-business-components/buyables/credit-factor";
 import {
-  Avatar,
   Body,
-  Card,
   List,
   type ListItemProps,
   Loader,
@@ -22,9 +20,10 @@ import { useFetchMember } from "#src/hooks/member/fetch/use-fetch-member.js";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session.js";
 import { setKeepCredits, setPass } from "#src/stores/booking-flow/actions";
 import { useBookingFlowStore } from "#src/stores/booking-flow/store";
-import { useTranslation } from "#src/utils/i18n";
+import { Trans, useTranslation } from "#src/utils/i18n";
 
 import { IncompatibilityChip } from "./incompatibility-chip";
+import { MemberCard } from "./member-card";
 
 enum PassTab {
   COMPATIBLE = "compatible",
@@ -172,104 +171,110 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
   }
 
   return (
-    <div className="flex flex-col gap-md w-full">
-      {member && (
-        // TODO: Create a variant of Card without padding and use it here instead of overriding with CSS
-        <Card className="bg-surface-page-navigation border-none">
-          <div className="flex items-center gap-sm">
-            <Avatar src={member.photo} shape="round" size="md" />
-            <div className="flex flex-col">
-              <Body size="lg">{member.name}</Body>
-              <Body size="md" color="weak">
-                {member.email}
-              </Body>
-            </div>
-          </div>
-        </Card>
-      )}
-      <SegmentedControl
-        fullWidth
-        id="pass-selection-tabs"
-        options={[
-          {
-            label: t("bookingFlow.passSelection.tabs.compatible"),
-            badge: {
-              color: "default",
-              size: "sm",
-              text: String(compatiblePasses.count),
-            },
-            value: PassTab.COMPATIBLE,
-          },
-          {
-            label: t("bookingFlow.passSelection.tabs.incompatible"),
-            badge: {
-              color: "default",
-              size: "sm",
-              text: String(incompatiblePasses.count),
-            },
-            value: PassTab.INCOMPATIBLE,
-          },
-          {
-            label: t("bookingFlow.passSelection.tabs.billNew"),
-            value: PassTab.BILL_NEW,
-          },
-        ]}
-        value={activeTab}
-        onChangeValue={setActiveTab}
-      />
-
-      {activeTab === PassTab.COMPATIBLE && (
-        <>
-          <div className="overflow-y-auto ">
-            <List
-              id={`${listId}-compatible`}
-              items={compatibleItems}
-              loadingProps={{
-                isLoading,
-                message: t("bookingFlow.passSelection.loading"),
-              }}
-              emptyStateProps={{
-                isEmpty: !isLoading && compatiblePasses.count === 0,
-                emptyConfig: {
-                  title: t("bookingFlow.passSelection.emptyCompatible"),
-                },
-              }}
-            />
-          </div>
-          <Toggle
-            id="keep-credits-toggle"
-            checked={keepCredits}
-            label={t("bookingFlow.passSelection.keepCreditsLabel")}
-            helperText={t("bookingFlow.passSelection.keepCreditsDescription")}
-            onToggleChange={setKeepCredits}
+    <div className="flex flex-col gap-lg w-full">
+      {member && <MemberCard member={member} />}
+      <div className="flex flex-col gap-md w-full">
+        <Body size="lg" weight="weak">
+          {t("bookingFlow.passSelection.description")}
+        </Body>
+        <Body size="md" weight="weak">
+          <Trans
+            // @ts-expect-error - The i18nKey is correct, but the type definition doesn't allow for nested keys
+            t={t}
+            i18nKey="bookingFlow.passSelection.costInformation"
+            ns="sessionManagement"
+            components={{ strong: <strong /> }}
+            values={{
+              count: getCreditsDividedValue(
+                session.credit_price_override ?? session.credit_price,
+              ),
+            }}
           />
-        </>
-      )}
-
-      {activeTab === PassTab.INCOMPATIBLE && (
-        <List
-          id={`${listId}-incompatible`}
-          items={incompatibleItems}
-          loadingProps={{
-            isLoading,
-            message: t("bookingFlow.passSelection.loading"),
-          }}
-          emptyStateProps={{
-            isEmpty: !isLoading && incompatiblePasses.count === 0,
-            emptyConfig: {
-              title: t("bookingFlow.passSelection.emptyIncompatible"),
+        </Body>
+        <SegmentedControl
+          fullWidth
+          id="pass-selection-tabs"
+          options={[
+            {
+              label: t("bookingFlow.passSelection.tabs.compatible"),
+              badge: {
+                color: "default",
+                size: "sm",
+                text: String(compatiblePasses.count),
+              },
+              value: PassTab.COMPATIBLE,
             },
-          }}
+            {
+              label: t("bookingFlow.passSelection.tabs.incompatible"),
+              badge: {
+                color: "default",
+                size: "sm",
+                text: String(incompatiblePasses.count),
+              },
+              value: PassTab.INCOMPATIBLE,
+            },
+            {
+              label: t("bookingFlow.passSelection.tabs.billNew"),
+              value: PassTab.BILL_NEW,
+            },
+          ]}
+          value={activeTab}
+          onChangeValue={setActiveTab}
         />
-      )}
 
-      {activeTab === PassTab.BILL_NEW && (
-        <div className="flex h-component-modal-max-sm items-center justify-center">
-          <Body htmlVariant="p" size="lg" color="weak">
-            {t("bookingFlow.passSelection.billNewPlaceholder")}
-          </Body>
-        </div>
-      )}
+        {activeTab === PassTab.COMPATIBLE && (
+          <>
+            <div className="overflow-y-auto ">
+              <List
+                id={`${listId}-compatible`}
+                items={compatibleItems}
+                loadingProps={{
+                  isLoading,
+                  message: t("bookingFlow.passSelection.loading"),
+                }}
+                emptyStateProps={{
+                  isEmpty: !isLoading && compatiblePasses.count === 0,
+                  emptyConfig: {
+                    title: t("bookingFlow.passSelection.emptyCompatible"),
+                  },
+                }}
+              />
+            </div>
+            <Toggle
+              id="keep-credits-toggle"
+              checked={keepCredits}
+              label={t("bookingFlow.passSelection.keepCreditsLabel")}
+              helperText={t("bookingFlow.passSelection.keepCreditsDescription")}
+              onToggleChange={setKeepCredits}
+            />
+          </>
+        )}
+
+        {activeTab === PassTab.INCOMPATIBLE && (
+          <List
+            id={`${listId}-incompatible`}
+            items={incompatibleItems}
+            loadingProps={{
+              isLoading,
+              message: t("bookingFlow.passSelection.loading"),
+            }}
+            emptyStateProps={{
+              isEmpty: !isLoading && incompatiblePasses.count === 0,
+              emptyConfig: {
+                title: t("bookingFlow.passSelection.emptyIncompatible"),
+              },
+            }}
+          />
+        )}
+
+        {activeTab === PassTab.BILL_NEW && (
+          <div className="flex h-component-modal-max-sm items-center justify-center">
+            <Body htmlVariant="p" size="lg" color="weak">
+              {t("bookingFlow.passSelection.billNewPlaceholder")}
+            </Body>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

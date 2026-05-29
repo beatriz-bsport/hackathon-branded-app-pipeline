@@ -313,13 +313,17 @@
       "emptyTitle": "Search clients or create a new profile",
       "createProfile": "Create profile",
       "openProfile": "Open profile",
-      "description": "Choose a client to make a booking"
+      "description": "Choose a client to make a booking",
+      "unselect": "Unselect client"
     },
     "buttons": {
       "confirm": "Confirm booking",
       "cancel": "Cancel"
     },
     "passSelection": {
+      "description": "Pick an existing pass or bill a new one",
+      "costInformation": "This class costs <strong>{{count}}</strong> credit",
+      "costInformation_other": "This class costs <strong>{{count}}</strong> credits",
       "tabs": {
         "compatible": "Compatible",
         "incompatible": "Incompatible",
@@ -354,6 +358,20 @@
       "2023": "The validity period is over",
       "2027": "The slot is outside the time slots the pass is valid for (e.g. pass only works mornings, session is in the evening)",
       "generic": "This pass can't be used for this session"
+    },
+    "confirmation": {
+      "pass": "Pass",
+      "notifications": {
+        "title": "Notifications",
+        "toggleLabel": "Send booking confirmation to client"
+      },
+      "creditsUsed": "{{count}} credit used",
+      "creditsUsed_zero": "No credits used",
+      "creditsUsed_other": "{{count}} credits used",
+      "unlimited": "Unlimited pass",
+      "creditsRemainingAfterBooking": "{{availableAfterBooking}} remaining after booking",
+      "confirmationToast": "Booking confirmed",
+      "errorToast": "An error occurred while booking this client. Please try again later."
     }
   }
 }

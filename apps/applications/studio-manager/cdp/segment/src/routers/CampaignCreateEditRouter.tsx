@@ -16,7 +16,7 @@ import {
 import { flags } from "#src/utils/feature-flags";
 
 const CreateEmailCampaignPage = lazy(
-  () => import("#src/pages/EmailCampaign/CreateEmailCampaign"),
+  () => import("#src/pages/EmailCampaign/create-email-campaign"),
 );
 const EditEmailCampaignPage = lazy(
   () => import("#src/pages/EmailCampaign/EditEmailCampaign"),

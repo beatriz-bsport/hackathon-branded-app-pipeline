@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "description": "Tags",
-  "author": "Th\u00e9o Steffanetti <theo.steffanetti@bsport.io>",
+  "author": "Théo Steffanetti <theo.steffanetti@bsport.io>",
   "type": "module",
   "exports": {
     ".": {

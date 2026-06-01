@@ -45,6 +45,7 @@ const PAYMENT_FLOW_SUBMIT_ERROR_KEYS = new Set<string>(
 const FINANCIAL_SERVICES_NS = `${i18nNamespacePrefix}_financial-services`;
 const SUBMIT_ERROR_FALLBACK = "paymentFlowModal.errors.generic";
 const GIFT_CARD_PAYMENT_ERROR_CODE = 45001;
+const PAYMENT_BLOCKED_BY_FRAUD_PROTECTION_ERROR_CODE = 12130;
 
 const paymentFlowT = (key: string) =>
   i18nInstance.t(key, { ns: FINANCIAL_SERVICES_NS });
@@ -180,6 +181,10 @@ export const resolveSubmitErrorMessage = (error: unknown): string => {
     Array.isArray(error.customErrorCodes)
   ) {
     const firstErrorCode = error.customErrorCodes[0];
+
+    if (firstErrorCode === PAYMENT_BLOCKED_BY_FRAUD_PROTECTION_ERROR_CODE) {
+      return paymentFlowT("paymentFlowModal.errors.fraudProtectionBlocked");
+    }
 
     if (firstErrorCode === GIFT_CARD_PAYMENT_ERROR_CODE) {
       return paymentFlowT("paymentFlowModal.errors.giftCardPayment");

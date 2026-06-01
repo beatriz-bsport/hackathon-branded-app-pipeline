@@ -330,6 +330,13 @@ export const usePaymentFlowModalState = ({
       invoiceId.length > 0 &&
       clientSecretEngine !== null,
   });
+  const paymentClientSecretErrorMessage = useMemo(() => {
+    if (!paymentClientSecretQuery.isError || !paymentClientSecretQuery.error) {
+      return null;
+    }
+
+    return resolveSubmitErrorMessage(paymentClientSecretQuery.error);
+  }, [paymentClientSecretQuery.error, paymentClientSecretQuery.isError]);
 
   const accountBalance = Number(member?.credit_account_balance);
   const hasPositiveAccountBalance = accountBalance > 0;
@@ -852,7 +859,7 @@ export const usePaymentFlowModalState = ({
     amountToPay,
     isInvoiceAlreadyPaid,
     shouldShowMemberBalanceWarning,
-    submitError,
+    submitError: submitError ?? paymentClientSecretErrorMessage,
     hasPositiveAccountBalance,
     isAccountBalanceEnough,
     accountBalance,

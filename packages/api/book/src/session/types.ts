@@ -112,6 +112,9 @@ export type FetchSessionsParams = {
   /** Filter by a list of group IDs. */
   group_id__in?: number[];
 
+  /** Filter by recurrence_id (string) — sessions that share a recurrence. */
+  recurrence_id?: string;
+
   /** If true, only return one session per group (unique). */
   with_unique_offer_by_group?: boolean;
 

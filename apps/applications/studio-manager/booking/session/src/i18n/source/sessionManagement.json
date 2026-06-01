@@ -3,6 +3,7 @@
   "pageTabs": {
     "overview": "Overview",
     "editor": "Editor",
+    "occurrences": "All occurrences",
     "series": "Series",
     "statusFilter": {
       "label": "Status",
@@ -20,6 +21,16 @@
       "establishment": "Establishment",
       "status": "Status",
       "empty": "No sessions to show",
+      "openSession": "Open session"
+    },
+    "allOccurrencesTable": {
+      "date": "Date",
+      "time": "Time",
+      "participants": "Participants",
+      "teacher": "Teacher",
+      "establishment": "Establishment",
+      "status": "Status",
+      "empty": "No occurrences to show",
       "openSession": "Open session"
     }
   },

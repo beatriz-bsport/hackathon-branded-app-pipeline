@@ -1,11 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { useCallback, useState } from "react";
+import { useMemo, useState } from "react";
 import { Result } from "typescript-result";
 
 import type { MenuOptionWithColor } from "@bsport/kaizen-primitive-core";
 
 import { BackendSelector } from "./backend-selector.component";
 import type { BackendSelectorProps } from "./backend-selector.component";
+import type { StoreSearchConfig } from "./use-generic-search";
 
 type BackendSelectorComponent = typeof BackendSelector;
 
@@ -35,12 +36,11 @@ const MOCK_ITEMS: MockItem[] = [
 
 const MOCK_SEARCH_DELAY_MS = 400;
 
+type MockStoreConfig = StoreSearchConfig<Record<string, unknown>, MockItem>;
+
 function createMockSearchFn(
   setData: (items: MockItem[]) => void,
-): BackendSelectorProps<
-  Record<string, unknown>,
-  MockItem
->["storeConfig"]["searchFn"] {
+): NonNullable<MockStoreConfig["searchFn"]> {
   return (query: string, params?: { id__in?: string }) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -68,11 +68,13 @@ function createMockSearchFn(
 /** Wrapper that holds mock "store" state and provides storeConfig for BackendSelector */
 function BackendSelectorWithMockData(props: BackendSelectorStoryProps) {
   const [data, setData] = useState<MockItem[]>([]);
-  const searchFn = useCallback(createMockSearchFn(setData), []);
-  const storeConfig = {
-    searchFn,
-    data,
-  };
+  const storeConfig = useMemo<MockStoreConfig>(
+    () => ({
+      searchFn: createMockSearchFn(setData),
+      data,
+    }),
+    [data],
+  );
   return (
     <BackendSelector<Record<string, unknown>, MockItem>
       {...props}

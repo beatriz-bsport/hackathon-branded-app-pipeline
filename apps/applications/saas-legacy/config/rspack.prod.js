@@ -64,7 +64,13 @@ module.exports = merge(common, {
       //                  legacy /index.html for /studio/* and boot the legacy
       //                  app (loader flash, wrong app), instead of letting the
       //                  server return Studio Manager's own shell.
-      navigateFallbackDenylist: [/^\/__/, /^\/studio/],
+      // @debt: This list of PATHS is duplicated in cloudfront_function_cdn_redirect.js
+      navigateFallbackDenylist: [
+        /^\/__/,
+        /^\/studio/,
+        /^\/widget-proxy-bridge/,
+        /^\/widget-debugger/,
+      ],
       exclude: [
         /\.map$/,
         /asset-manifest\.json$/,

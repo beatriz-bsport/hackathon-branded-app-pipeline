@@ -57,7 +57,7 @@ export const TagFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const { errors, isDirty } = methods.formState;
 
   const tagRequirementErrorMessage =
     errors.tagsIncluded?.message === "atLeastOneTagRequired"
@@ -98,8 +98,6 @@ export const TagFilterCard = ({
         });
       },
     });
-
-  const isDirty = Object.keys(dirtyFields).length > 0;
 
   const handleSave = methods.handleSubmit(
     (value) => {

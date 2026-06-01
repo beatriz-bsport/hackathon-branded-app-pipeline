@@ -45,7 +45,7 @@ export const PassesFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const { errors, dirtyFields, isDirty } = methods.formState;
 
   const { upsertPaymentPackFilterMutate, isLoading: isSaving } =
     useUpsertPaymentPackFilterMutation(smartlistId, {
@@ -84,8 +84,6 @@ export const PassesFilterCard = ({
   const selectedPassesInvalid =
     !watchedFilterValue.selectAllPaymentPacks &&
     watchedFilterValue.selectedPaymentPackIds.length === 0;
-  const isDirty = Object.keys(dirtyFields).length > 0;
-
   const handleSave = methods.handleSubmit(
     (value) => {
       if (!value.id) {

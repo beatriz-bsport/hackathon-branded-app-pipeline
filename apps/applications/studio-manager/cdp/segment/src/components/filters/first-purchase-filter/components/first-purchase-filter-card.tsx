@@ -38,7 +38,7 @@ export const FirstPurchaseFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const { errors, dirtyFields, isDirty } = methods.formState;
 
   const { upsertFirstPurchaseFilterMutate, isLoading: isSaving } =
     useUpsertFirstPurchaseFilterMutation(smartlistId, {
@@ -75,7 +75,6 @@ export const FirstPurchaseFilterCard = ({
       },
     });
 
-  const isDirty = Object.keys(dirtyFields).length > 0;
   const isSavedFilter = Boolean(watchedFilterValue.id);
   const firstPaymentIsDone = firstPurchaseStatusToApi(
     watchedFilterValue.firstPurchaseStatus,

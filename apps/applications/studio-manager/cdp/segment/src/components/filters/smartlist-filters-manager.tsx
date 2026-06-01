@@ -55,6 +55,11 @@ import { TagFilterCardSkeleton } from "./tag-filter/components/tag-filter-card-s
 import { createDefaultTagFilterFormValue } from "./tag-filter/default-value";
 import { mapTagFilterToFormValue } from "./tag-filter/mappers/api-to-form-value";
 import type { TagFilterFormValue } from "./tag-filter/types";
+import { TotalAppointmentsFilterCardSkeleton } from "./total-appointments/components/total-appointments-filter-card-skeleton";
+import { TotalAppointmentsNumberFilterCard } from "./total-appointments/components/total-appointments-number-filter-card";
+import { createDefaultTotalAppointmentsNumberFilter } from "./total-appointments/default-value";
+import { mapTotalAppointmentsFilterToFormValue } from "./total-appointments/mappers/api-to-form-value";
+import type { TotalAppointmentsNumberFilterFormValue } from "./total-appointments/types";
 import { TotalBookingFilterCardSkeleton } from "./total-booking/components/total-booking-filter-card-skeleton";
 import { TotalBookingNumberFilterCard } from "./total-booking/components/total-booking-number-filter-card";
 import { createDefaultTotalBookingNumberFilter } from "./total-booking/default-value";
@@ -73,6 +78,7 @@ type FilterValueByType = {
   memberSignUpDate: MemberSignUpDateFilterFormValue;
   passes: PassesFilterFormValue;
   totalBookingNumber: TotalBookingNumberFilterFormValue;
+  totalAppointmentsNumber: TotalAppointmentsNumberFilterFormValue;
   bookingMilestone: BookingMilestoneFilterFormValue;
   tags: TagFilterFormValue;
   activePasses: ActivePassesFilterFormValue;
@@ -95,6 +101,11 @@ type DraftFilter =
       clientId: string;
       filterType: "totalBookingNumber";
       value: FilterValueByType["totalBookingNumber"];
+    }
+  | {
+      clientId: string;
+      filterType: "totalAppointmentsNumber";
+      value: FilterValueByType["totalAppointmentsNumber"];
     }
   | {
       clientId: string;
@@ -147,6 +158,11 @@ type SavedFilter =
       key: string;
       filterType: "totalBookingNumber";
       value: FilterValueByType["totalBookingNumber"];
+    }
+  | {
+      key: string;
+      filterType: "totalAppointmentsNumber";
+      value: FilterValueByType["totalAppointmentsNumber"];
     }
   | {
       key: string;
@@ -209,6 +225,8 @@ export const SmartlistFiltersManager = ({
     smartlistFilters?.memberDateJoinedFilters ?? [];
   const paymentPackFilters = smartlistFilters?.paymentPackFilters ?? [];
   const totalBookingFilters = smartlistFilters?.totalBookingFilters ?? [];
+  const totalAppointmentsFilters =
+    smartlistFilters?.totalAppointmentsFilters ?? [];
   const bookingMilestoneFilters =
     smartlistFilters?.bookingMilestoneFilters ?? [];
   const tagFilters = smartlistFilters?.tagFilters ?? [];
@@ -288,6 +306,28 @@ export const SmartlistFiltersManager = ({
         </QueryBoundary>
       ) : (
         <TotalBookingFilterCardSkeleton key={key} />
+      ),
+    totalAppointmentsNumber: ({
+      key,
+      value,
+      onDeleteUnsavedFilter,
+      onSaveSuccess,
+    }) =>
+      typeof companyId === "number" && companyId > 0 ? (
+        <QueryBoundary
+          key={key}
+          loadingFallback={<TotalAppointmentsFilterCardSkeleton />}
+        >
+          <TotalAppointmentsNumberFilterCard
+            smartlistId={smartlistId}
+            companyId={companyId}
+            filterValue={value}
+            onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+            onSaveSuccess={onSaveSuccess}
+          />
+        </QueryBoundary>
+      ) : (
+        <TotalAppointmentsFilterCardSkeleton key={key} />
       ),
     bookingMilestone: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) =>
       typeof companyId === "number" && companyId > 0 ? (
@@ -376,6 +416,11 @@ export const SmartlistFiltersManager = ({
       filterType: FILTER_TYPES.totalBookingNumber,
       value: createDefaultTotalBookingNumberFilter(smartlistNumericId),
     }),
+    totalAppointmentsNumber: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.totalAppointmentsNumber),
+      filterType: FILTER_TYPES.totalAppointmentsNumber,
+      value: createDefaultTotalAppointmentsNumberFilter(smartlistNumericId),
+    }),
     bookingMilestone: () => ({
       clientId: createDraftClientId(FILTER_TYPES.bookingMilestone),
       filterType: FILTER_TYPES.bookingMilestone,
@@ -440,6 +485,14 @@ export const SmartlistFiltersManager = ({
         category: FILTER_SELECTOR_CATEGORIES.bookings,
       },
       {
+        id: FILTER_TYPES.totalAppointmentsNumber,
+        label: t("filters.26.title"),
+        description: t(
+          "filterSelector.options.totalAppointmentsNumber.description",
+        ),
+        category: FILTER_SELECTOR_CATEGORIES.bookings,
+      },
+      {
         id: FILTER_TYPES.bookingMilestone,
         label: t("filters.21.title"),
         description: t("filterSelector.options.bookingMilestone.description"),
@@ -493,6 +546,11 @@ export const SmartlistFiltersManager = ({
       key: `saved-total-booking-number-${totalBookingFilter.id}`,
       filterType: FILTER_TYPES.totalBookingNumber,
       value: mapTotalBookingFilterToFormValue(totalBookingFilter),
+    })),
+    ...totalAppointmentsFilters.map((totalAppointmentsFilter) => ({
+      key: `saved-total-appointments-number-${totalAppointmentsFilter.id}`,
+      filterType: FILTER_TYPES.totalAppointmentsNumber,
+      value: mapTotalAppointmentsFilterToFormValue(totalAppointmentsFilter),
     })),
     ...bookingMilestoneFilters.map((bookingMilestoneFilter) => ({
       key: `saved-booking-milestone-${bookingMilestoneFilter.id}`,

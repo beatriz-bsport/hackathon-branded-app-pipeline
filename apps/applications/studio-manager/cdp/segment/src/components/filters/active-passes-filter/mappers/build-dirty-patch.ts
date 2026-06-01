@@ -1,6 +1,5 @@
-import type { FieldNamesMarkedBoolean } from "react-hook-form";
-
 import { UpdateActivePassesFilterPayload } from "@bsport/api-cdp/smartlist";
+import type { FieldNamesMarkedBoolean } from "@bsport/form";
 
 import {
   hasNestedDirty,

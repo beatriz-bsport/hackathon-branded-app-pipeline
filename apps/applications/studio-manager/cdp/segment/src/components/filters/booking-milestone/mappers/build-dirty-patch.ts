@@ -1,4 +1,4 @@
-import type { FieldNamesMarkedBoolean } from "react-hook-form";
+import type { FieldNamesMarkedBoolean } from "@bsport/form";
 
 import type {
   BookingMilestoneDirtyPatchPayload,

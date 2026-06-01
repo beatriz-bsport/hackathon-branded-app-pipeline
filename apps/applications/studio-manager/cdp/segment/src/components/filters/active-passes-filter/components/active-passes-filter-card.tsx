@@ -93,8 +93,7 @@ export const ActivePassesFilterCard = ({
   });
 
   const watchedValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
-  const isDirty = Object.keys(dirtyFields).length > 0;
+  const { errors, dirtyFields, isDirty } = methods.formState;
 
   const { upsertActivePassesFilterMutate, isLoading: isSaving } =
     useUpsertActivePassesFilterMutation(smartlistId, {

@@ -32,6 +32,16 @@ fi
 echo "🛠️ Building Storybook with STORYBOOK_ENV=$ENVIRONMENT and SHA=${CI_COMMIT_SHORT_SHA:-}"
 STORYBOOK_ENV=$ENVIRONMENT STORYBOOK_COMMIT_SHORT_SHA=${CI_COMMIT_SHORT_SHA:-} NODE_OPTIONS=--max-old-space-size=8192 pnpm storybook:build --quiet --output-dir storybook-static
 
+# Build-only escape hatch. When STORYBOOK_DEPLOY_DRY_RUN is set we stop here:
+# the build (the heavy, regression-prone part) has run, but we skip every AWS
+# side effect (S3 upload, prune, CloudFront invalidation) and the CI-variable
+# guards they require. Lets CI/local reproduce the exact build path — including
+# under `nx run ci:deploy` — without touching a real environment.
+if [ -n "${STORYBOOK_DEPLOY_DRY_RUN:-}" ]; then
+    echo "🧪 STORYBOOK_DEPLOY_DRY_RUN set — built only, skipping S3 upload and CloudFront invalidation"
+    exit 0
+fi
+
 # Upload build on AWS S3 bucket.
 #
 # Storybook emits content-hashed assets under assets/ (e.g. iframe-<hash>.js)

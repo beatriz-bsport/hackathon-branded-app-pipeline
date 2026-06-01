@@ -13,9 +13,6 @@
   "targets": {
     "ci:build": {
       "dependsOn": ["^build"]
-    },
-    "ci:deploy": {
-      "dependsOn": ["^build"]
     }
   }
 }

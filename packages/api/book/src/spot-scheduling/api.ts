@@ -1,4 +1,4 @@
-import { queryOptions } from "@tanstack/react-query";
+import { mutationOptions, queryOptions } from "@tanstack/react-query";
 
 import {
   type ApiConfig,
@@ -13,6 +13,7 @@ import type {
   AssetForBlueprint,
   AssetsForBlueprintFilters,
   RoomBlueprint,
+  RoomBlueprintCreatePayload,
   RoomBlueprintFilters,
   SpotType,
   SpotTypesFilters,
@@ -59,6 +60,18 @@ export const fetchRoomBlueprintsAPI = async (
   const { data } = await fetch(uri, init);
 
   return data;
+};
+
+export const roomBlueprintsQueryOptions = (
+  fetch: Fetch<PaginatedResponse<RoomBlueprint>>,
+  params?: RoomBlueprintFilters,
+) => {
+  const queryFn = fetchRoomBlueprintsAPI.bind(null, fetch, params);
+  return queryOptions({
+    queryKey: spotSchedulingKeys.roomBluePrintList(params),
+    queryFn,
+    staleTime: DEFAULT_STALE_TIME,
+  });
 };
 
 export const fetchRoomBlueprintDetailAPIConfig = (id: number): ApiConfig => [
@@ -138,4 +151,35 @@ export const spotTypesQueryOptions = (
           : { blueprint: blueprintId, page_size: BLUEPRINT_LIST_PAGE_SIZE },
       ),
     staleTime: DEFAULT_STALE_TIME,
+  });
+
+export const deleteRoomBlueprintAPI = async (
+  fetch: Fetch<void>,
+  id: number,
+): Promise<void> => {
+  await fetch(`${API_URL_ROOM_BLUEPRINT}/${id}/`, { method: "DELETE" });
+};
+
+export const deleteRoomBlueprintMutationOptions = (fetch: Fetch<void>) =>
+  mutationOptions({
+    mutationFn: (id: number) => deleteRoomBlueprintAPI(fetch, id),
+  });
+
+export const createRoomBlueprintAPI = async (
+  fetch: Fetch<RoomBlueprint>,
+  payload: RoomBlueprintCreatePayload,
+): Promise<RoomBlueprint> => {
+  const { data } = await fetch(`${API_URL_ROOM_BLUEPRINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  return data;
+};
+
+export const createRoomBlueprintMutationOptions = (
+  fetch: Fetch<RoomBlueprint>,
+) =>
+  mutationOptions({
+    mutationFn: (payload: RoomBlueprintCreatePayload) =>
+      createRoomBlueprintAPI(fetch, payload),
   });

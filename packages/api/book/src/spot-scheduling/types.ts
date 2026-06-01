@@ -38,6 +38,15 @@ export type RoomBlueprint = {
 export type RoomBlueprintFilters = {
   establishment?: number;
   establishment__in?: number[];
+  disabled?: boolean;
+  page?: number;
+  page_size?: number;
+};
+
+export type RoomBlueprintCreatePayload = {
+  name: string;
+  company: number;
+  establishment: number;
 };
 
 export type SpotShape =

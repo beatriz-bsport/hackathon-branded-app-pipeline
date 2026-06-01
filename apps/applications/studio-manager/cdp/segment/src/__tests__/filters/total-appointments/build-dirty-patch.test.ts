@@ -1,11 +1,18 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import type { FieldNamesMarkedBoolean } from "@bsport/form";
 
 import { TOTAL_APPOINTMENTS_NUMBER_TYPE } from "#src/components/filters/total-appointments/constants";
 import { createDefaultTotalAppointmentsNumberFilter } from "#src/components/filters/total-appointments/default-value";
 import { buildDirtyPatchPayload } from "#src/components/filters/total-appointments/mappers/build-dirty-patch";
+import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "#src/components/filters/total-appointments/sub-filters/total-appointments-sub-filter-id";
 import type { TotalAppointmentsNumberFilterFormValue } from "#src/components/filters/total-appointments/types";
+
+vi.mock("#src/utils/i18n", () => ({
+  i18nInstance: {
+    t: (key: string) => key,
+  },
+}));
 
 type DirtyFields = Partial<
   Readonly<FieldNamesMarkedBoolean<TotalAppointmentsNumberFilterFormValue>>
@@ -48,5 +55,113 @@ describe("buildDirtyPatchPayload (total appointments)", () => {
     expect(payload.comparator).toBe(6);
     expect(payload.value).toBe(1);
     expect(payload.value_second).toBe(6);
+  });
+
+  it("emits active booking date slice when booking date is added as sub-filter", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate];
+    value.bookingDate = {
+      ...value.bookingDate,
+      dateType: "absolute",
+      absolute: {
+        ...value.bookingDate.absolute,
+        operator: "on_or_after",
+        fromDate: "2026-04-10",
+        toDate: null,
+      },
+    };
+    const dirtyFields: DirtyFields = {
+      subFilters: [true],
+      bookingDate: {
+        absolute: {
+          fromDate: true,
+        },
+      },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.date_filter_active).toBe(true);
+    expect(payload.date).toBe("2026-04-10");
+  });
+
+  it("emits inactive booking date slice when booking date sub-filter is removed", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [];
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.date_filter_active).toBe(false);
+  });
+
+  it("emits active booking hour range slice when booking hour range values are dirty", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange];
+    value.bookingHourRange = {
+      hour: "10:00",
+      hourSecond: "12:00",
+    };
+    const dirtyFields: DirtyFields = {
+      bookingHourRange: { hour: true },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.hour_filter_active).toBe(true);
+    expect(payload.hour).toBe("10:00");
+    expect(payload.hour_second).toBe("12:00");
+  });
+
+  it("emits inactive booking hour range slice when booking hour range sub-filter is removed", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [];
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.hour_filter_active).toBe(false);
+    expect(payload.hour).toBeNull();
+    expect(payload.hour_second).toBeNull();
+  });
+
+  it("emits active coach slice when coach sub-filter values are dirty", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.coach];
+    value.coach = {
+      selectAllCoaches: false,
+      selectedCoachIds: [9],
+    };
+    const dirtyFields: DirtyFields = {
+      coach: { selectedCoachIds: [true] },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.coach_filter_active).toBe(true);
+    expect(payload.select_all_coaches).toBe(false);
+    expect(payload.coaches).toEqual([9]);
+  });
+
+  it("emits inactive coach slice when coach sub-filter is removed", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [];
+    value.coach = {
+      selectAllCoaches: false,
+      selectedCoachIds: [9],
+    };
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.coach_filter_active).toBe(false);
+    expect(payload.select_all_coaches).toBe(true);
+    expect(payload.coaches).toEqual([]);
   });
 });

@@ -1,4 +1,10 @@
-import { TOTAL_APPOINTMENTS_NUMBER_TYPE } from "./constants";
+import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
+
+import {
+  APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
+  APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+  TOTAL_APPOINTMENTS_NUMBER_TYPE,
+} from "./constants";
 import type { TotalAppointmentsNumberFilterFormValue } from "./types";
 
 /**
@@ -11,4 +17,14 @@ export const createDefaultTotalAppointmentsNumberFilter = (
   type: TOTAL_APPOINTMENTS_NUMBER_TYPE.greaterOrEqual,
   value: 0,
   secondValue: null,
+  subFilters: [],
+  bookingDate: defaultDateFilterValue,
+  bookingHourRange: {
+    hour: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
+    hourSecond: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+  },
+  coach: {
+    selectAllCoaches: false,
+    selectedCoachIds: [],
+  },
 });

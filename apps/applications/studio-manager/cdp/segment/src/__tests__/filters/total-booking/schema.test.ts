@@ -426,6 +426,38 @@ describe("totalBookingNumberFilterSchema", () => {
 
       expect(result.success).toBe(true);
     });
+
+    it("accepts booking hour range sub-filter when hour fields are empty and defaults apply", () => {
+      const value = buildFormValue({
+        subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange],
+        bookingHourRange: {
+          hour: "",
+          hourSecond: "",
+        },
+      });
+
+      const result = totalBookingNumberFilterSchema.safeParse(value);
+
+      expect(result.success).toBe(true);
+    });
+
+    it("rejects booking hour range sub-filter when hour fields are invalid", () => {
+      const value = buildFormValue({
+        subFilters: [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange],
+        bookingHourRange: {
+          hour: "invalid",
+          hourSecond: "18:00",
+        },
+      });
+
+      const result = totalBookingNumberFilterSchema.safeParse(value);
+
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const issuePaths = result.error.issues.map((issue) => issue.path);
+        expect(issuePaths).toContainEqual(["bookingHourRange", "hour"]);
+      }
+    });
   });
 
   it("accepts attendance mode sub-filter for present and absent", () => {

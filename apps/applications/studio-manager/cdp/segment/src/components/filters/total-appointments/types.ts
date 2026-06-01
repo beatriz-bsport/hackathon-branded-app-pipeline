@@ -3,7 +3,10 @@ import type {
   PrivateBookingsFilter,
 } from "@bsport/api-cdp/smartlist";
 
+import type { DateFilterValue } from "#src/components/primitive-filters/date-filter/types";
+
 import type { TotalAppointmentsNumberTypeValue } from "./constants";
+import type { TotalAppointmentsSubFilterId } from "./sub-filters/total-appointments-sub-filter-id";
 
 export type TotalAppointmentsNumberType = TotalAppointmentsNumberTypeValue;
 
@@ -13,6 +16,16 @@ export type TotalAppointmentsNumberFilterFormValue = {
   type: TotalAppointmentsNumberType;
   value: number;
   secondValue: number | null;
+  subFilters: TotalAppointmentsSubFilterId[];
+  bookingDate: DateFilterValue;
+  bookingHourRange: {
+    hour: string;
+    hourSecond: string;
+  };
+  coach: {
+    selectAllCoaches: boolean;
+    selectedCoachIds: number[];
+  };
 };
 
 export type TotalAppointmentsNumberDirtyPatchPayload = Partial<
@@ -30,3 +43,5 @@ export type TotalAppointmentsNumberFilterCardProps = {
   onDeleteUnsavedFilter?: () => void;
   onSaveSuccess?: () => void;
 };
+
+export type { TotalAppointmentsSubFilterId } from "./sub-filters/total-appointments-sub-filter-id";

@@ -1,42 +1,44 @@
 import {
-  type CreateTotalBookingFilterPayload,
-  type TotalBookingFilter,
+  type CreatePrivateBookingsFilterPayload,
+  type PrivateBookingsFilter,
 } from "@bsport/api-cdp/smartlist";
 
 import { normalizeBookingHourRangeFormValue } from "#src/components/filters/shared/booking-hour-range/normalize-booking-hour-range";
 import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
 
 import {
-  BOOKING_HOUR_RANGE_DEFAULT_HOUR,
-  BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+  APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
+  APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
 } from "../../constants";
-import type { TotalBookingNumberFilterFormValue } from "../../types";
-import { TOTAL_BOOKING_SUB_FILTER_IDS } from "../total-booking-sub-filter-id";
-import type { TotalBookingSubFilterModule } from "../total-booking-sub-filter-module-contract";
+import type { TotalAppointmentsNumberFilterFormValue } from "../../types";
+import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "../total-appointments-sub-filter-id";
+import type { TotalAppointmentsSubFilterModule } from "../total-appointments-sub-filter-module-contract";
 import { BookingHourRangeSubFilterSection } from "./booking-hour-range.component";
 import { refineBookingHourRangeSubFilter } from "./schema";
 
-const BOOKING_HOUR_RANGE_INACTIVE_API_SLICE =
-  (): Partial<CreateTotalBookingFilterPayload> => ({
+const BOOKING_HOUR_RANGE_INACTIVE_API_SLICE: Partial<CreatePrivateBookingsFilterPayload> =
+  {
     hour_filter_active: false,
     hour: null,
     hour_second: null,
-  });
+  };
 
 const toBookingHourRangeApiSlice = (
-  value: TotalBookingNumberFilterFormValue,
-): Partial<CreateTotalBookingFilterPayload> => {
+  value: TotalAppointmentsNumberFilterFormValue,
+): Partial<CreatePrivateBookingsFilterPayload> => {
   if (
-    !value.subFilters.includes(TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange)
+    !value.subFilters.includes(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange,
+    )
   ) {
-    return BOOKING_HOUR_RANGE_INACTIVE_API_SLICE();
+    return BOOKING_HOUR_RANGE_INACTIVE_API_SLICE;
   }
 
   const normalizedBookingHourRange = normalizeBookingHourRangeFormValue(
     value.bookingHourRange,
     {
-      hour: BOOKING_HOUR_RANGE_DEFAULT_HOUR,
-      hourSecond: BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+      hour: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
+      hourSecond: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
     },
   );
 
@@ -47,25 +49,25 @@ const toBookingHourRangeApiSlice = (
   };
 };
 
-const toFormBookingHourRangeSection = (filter: TotalBookingFilter) =>
+const toFormBookingHourRangeSection = (filter: PrivateBookingsFilter) =>
   normalizeBookingHourRangeFormValue(
     {
       hour: filter.hour,
       hourSecond: filter.hour_second,
     },
     {
-      hour: BOOKING_HOUR_RANGE_DEFAULT_HOUR,
-      hourSecond: BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+      hour: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
+      hourSecond: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
     },
   );
 
-export const bookingHourRangeTotalBookingSubFilterModule: TotalBookingSubFilterModule =
+export const bookingHourRangeTotalAppointmentsSubFilterModule: TotalAppointmentsSubFilterModule =
   {
-    id: TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange,
-    labelKey: "filters.22.subFilters.bookingHourRange",
+    id: TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange,
+    labelKey: "filters.26.subFilters.appointmentHourRange",
     Section: BookingHourRangeSubFilterSection,
     refine: refineBookingHourRangeSubFilter,
-    readFromApi: (filter: TotalBookingFilter) => ({
+    readFromApi: (filter: PrivateBookingsFilter) => ({
       isActive: filter.hour_filter_active === true,
       partial: {
         bookingHourRange: toFormBookingHourRangeSection(filter),

@@ -271,6 +271,20 @@ describe("mapTotalBookingFilterToFormValue", () => {
     expect(formValue.bookingHourRange.hourSecond).toBe("17:45");
   });
 
+  it("normalizes empty API hour values to booking hour range defaults", () => {
+    const filter = buildApiFilter({
+      hour_filter_active: true,
+      hour: "",
+      hour_second: "",
+    });
+
+    const formValue = mapTotalBookingFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain("bookingHourRange");
+    expect(formValue.bookingHourRange.hour).toBe("09:00");
+    expect(formValue.bookingHourRange.hourSecond).toBe("18:00");
+  });
+
   it("does not list booking hour range sub-filter when API hour filter is inactive", () => {
     const filter = buildApiFilter({
       hour_filter_active: false,

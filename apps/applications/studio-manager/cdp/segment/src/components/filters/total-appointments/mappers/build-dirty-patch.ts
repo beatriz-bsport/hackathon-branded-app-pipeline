@@ -1,4 +1,4 @@
-import type { FieldNamesMarkedBoolean } from "react-hook-form";
+import type { FieldNamesMarkedBoolean } from "@bsport/form";
 
 import { isDirtyFieldEntry } from "#src/components/filters/shared/dirty-fields";
 
@@ -6,6 +6,7 @@ import {
   TOTAL_APPOINTMENTS_NUMBER_TYPE,
   totalAppointmentsNumberTypeToComparatorMap,
 } from "../constants";
+import { REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS } from "../sub-filters/registry";
 import type {
   TotalAppointmentsNumberDirtyPatchPayload,
   TotalAppointmentsNumberFilterFormValue,
@@ -16,7 +17,7 @@ type TotalAppointmentsNumberDirtyFields = Partial<
 >;
 
 /**
- * Builds a PATCH payload containing only dirty numeric comparator fields.
+ * Builds a PATCH payload containing only dirty numeric comparator and sub-filter fields.
  */
 export const buildDirtyPatchPayload = (
   dirtyFields: TotalAppointmentsNumberDirtyFields,
@@ -35,6 +36,13 @@ export const buildDirtyPatchPayload = (
       value.type === TOTAL_APPOINTMENTS_NUMBER_TYPE.between
         ? (value.secondValue ?? value.value)
         : 0;
+  }
+
+  for (const subFilterModule of REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS) {
+    Object.assign(
+      payload,
+      subFilterModule.appendDirtyPatchSlice(dirtyFields, value),
+    );
   }
 
   return payload;

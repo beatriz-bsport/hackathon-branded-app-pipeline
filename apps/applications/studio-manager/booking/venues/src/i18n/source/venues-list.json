@@ -84,6 +84,56 @@
     "createVenue": "Create venue",
     "createVenueTooltip": "Create a new space for sessions and bookings."
   },
+  "detail": {
+    "breadcrumbs": {
+      "venues": "Venues"
+    },
+    "tabs": {
+      "editor": "Editor",
+      "calendar": "Calendar"
+    },
+    "actions": {
+      "archive": "Archive",
+      "configureWidget": "Configure widget"
+    },
+    "comingSoon": "Coming soon",
+    "notFound": "Venue not found",
+    "editor": {
+      "discard": {
+        "title": "Discard changes?",
+        "description": "Your unsaved changes will be lost.",
+        "confirm": "Discard changes",
+        "keepEditing": "Keep editing",
+        "toast": "Changes discarded"
+      }
+    },
+    "spotScheduling": {
+      "title": "Spot scheduling",
+      "subtitle": "Add a layout to allow clients to book specific spots (bikes, mats, reformers).",
+      "createCta": "Create",
+      "noSpots": "No spots configured",
+      "spotCount_one": "{{count}} spot",
+      "spotCount_other": "{{count}} spots",
+      "empty": "No blueprints yet",
+      "rowMenu": {
+        "label": "Open blueprint actions",
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "deleteModal": {
+        "title": "Delete Spot Scheduling configuration",
+        "description": "Are you sure you want to delete this Spot Scheduling layout? This action can't be undone.",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
+      "untitledBlueprint": "Untitled blueprint",
+      "toasts": {
+        "delete": "Spot scheduling layout deleted",
+        "deleteError": "Failed to delete spot scheduling layout",
+        "createError": "Failed to create spot scheduling layout"
+      }
+    }
+  },
   "archived": {
     "pageTitle": "Archived venues",
     "breadcrumbs": {
@@ -148,6 +198,10 @@
     "errors": {
       "requiredField": "This field is required"
     },
+    "cover": {
+      "label": "Venue image",
+      "helper": "Used as the header background in the mobile app and as the thumbnail in service listings. Use a landscape (16:9) image (images will be cropped automatically)."
+    },
     "name": {
       "label": "Name",
       "placeholder": "Venue name e.g. Cycling Studio"
@@ -175,6 +229,7 @@
     }
   },
   "toasts": {
+    "undo": "Undo",
     "archive": "Venue archived",
     "archiveError": "Failed to archive venue",
     "unarchive": "Venue restored",

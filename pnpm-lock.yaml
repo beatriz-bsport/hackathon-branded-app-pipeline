@@ -1375,6 +1375,9 @@ importers:
       '@bsport/use-debounce':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-debounce
+      '@bsport/use-pagination-query-params':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/query-params/use-pagination
       '@tanstack/react-query':
         specifier: ^5.90.12
         version: 5.90.12(react@19.2.0)

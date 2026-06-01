@@ -11,7 +11,7 @@ import type { AddressSuggestion } from "@bsport/kaizen-business-components/core/
 
 import { type NamespacedTFunction } from "#src/utils/i18n";
 
-export const fieldIdPrefix = "create-venue";
+export const fieldIdPrefix = "venue-form";
 
 export type VenueFormValues = {
   name: string;

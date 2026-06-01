@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import { useNavigate } from "react-router";
 
 import type { Establishment, EstablishmentGroup } from "@bsport/api-book";
 import { List, toast } from "@bsport/kaizen-primitive-core";
@@ -6,6 +7,7 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useUpdateLocation } from "#src/hooks/api/use-update-location";
 import { useVenueGroupMap } from "#src/hooks/use-venue-group-map";
+import { ABSOLUTE_ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { buildVenueListItem } from "./venue-row";
@@ -23,6 +25,7 @@ export const VenueSection = ({
   onArchive,
   onEdit,
 }: VenueSectionProps) => {
+  const navigate = useNavigate();
   const { t } = useTranslation("venues-list");
   const { groups, groupMap } = useVenueGroupMap();
   const { mutate: updateLocation } = useUpdateLocation();
@@ -88,6 +91,8 @@ export const VenueSection = ({
       onArchive,
       onAddVenueToLocation: handleAddVenueToLocation,
       onEdit,
+      onRowClick: (venue: Establishment) =>
+        navigate(ABSOLUTE_ROUTES.DETAIL(venue.id)),
     }),
   );
 

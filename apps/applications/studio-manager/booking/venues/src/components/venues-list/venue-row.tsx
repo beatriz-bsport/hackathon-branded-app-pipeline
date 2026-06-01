@@ -25,6 +25,7 @@ type BuildVenueListItemOptions = {
     location: EstablishmentGroup,
   ) => void;
   onEdit: (venue: Establishment) => void;
+  onRowClick: (venue: Establishment) => void;
 };
 
 const getInitials = (title: string): string =>
@@ -47,6 +48,7 @@ export const buildVenueListItem = (
     onArchive,
     onAddVenueToLocation,
     onEdit,
+    onRowClick,
   }: BuildVenueListItemOptions,
 ): ListItemProps => {
   const showGroupChip = multiLocalization && !!group;
@@ -123,5 +125,6 @@ export const buildVenueListItem = (
       },
     ],
     dropdownConfig: { visibleActionsDisplayLimit: 0 },
+    onItemClick: () => onRowClick(venue),
   };
 };

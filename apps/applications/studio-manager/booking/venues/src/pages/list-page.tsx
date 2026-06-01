@@ -229,18 +229,11 @@ const ListPage: FC = () => {
       )}
 
       {modalState?.type === "venue-create" && (
-        <VenueFormModal
-          multiLocalization={multiLocalization}
-          onClose={closeModal}
-        />
+        <VenueFormModal onClose={closeModal} />
       )}
 
       {modalState?.type === "venue-edit" && (
-        <VenueFormModal
-          multiLocalization={multiLocalization}
-          venue={modalState.venue}
-          onClose={closeModal}
-        />
+        <VenueFormModal venue={modalState.venue} onClose={closeModal} />
       )}
     </>
   );

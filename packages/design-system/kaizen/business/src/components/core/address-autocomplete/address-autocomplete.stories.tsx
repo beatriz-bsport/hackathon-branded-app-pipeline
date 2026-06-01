@@ -215,17 +215,17 @@ type AddressSuggestion = {
 // FormSelector story — shows AddressAutocompleteFormSelector inside a form
 // ---------------------------------------------------------------------------
 
-type FormValues = { location: AddressSuggestion | null };
+const formSelectorSchema = z.object({
+  location: z.custom<AddressSuggestion>().nullable(),
+});
+
+type FormValues = z.infer<typeof formSelectorSchema>;
 
 export const FormSelectorExample: StoryObj<AddressAutocompleteRawComponent> = {
   name: "FormSelector (with @bsport/form)",
   render: () => {
-    const schema = z.object({
-      location: z.custom<AddressSuggestion>().nullable(),
-    });
-
-    const methods = useFormController<FormValues>({
-      schema,
+    const methods = useFormController<typeof formSelectorSchema>({
+      schema: formSelectorSchema,
       defaultValues: { location: null },
       mode: "onChange",
     });

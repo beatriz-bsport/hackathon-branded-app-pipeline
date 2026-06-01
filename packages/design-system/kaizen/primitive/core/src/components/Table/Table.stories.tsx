@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
 import Button from "#src/components/Button";
@@ -729,7 +729,7 @@ export const UncontrolledSelectableTable: StoryObj<typeof Table> = {
     initialCheckedIds: rows
       .slice(0, 4)
       .map((row) => row.id)
-      .filter((val, index) => index % 2 === 0),
+      .filter((_val, index) => index % 2 === 0),
   },
 };
 

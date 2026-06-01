@@ -99,6 +99,7 @@
     },
     "errors": {
       "generic": "Could not confirm this payment. Please try again.",
+      "fraudProtectionBlocked": "The payment cannot be processed because fraud protection has temporarily blocked this member after several failed card attempts. Please try again later or contact support.",
       "giftCardPayment": "Could not pay this invoice with this gift card.",
       "invoiceAlreadyPaid": "This invoice is already paid.",
       "invalidInstallmentSchedule": "Installment schedule is invalid.",

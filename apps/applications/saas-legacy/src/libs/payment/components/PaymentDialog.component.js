@@ -21,6 +21,7 @@ import {
   PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group.js';
+import { PAYMENT_BLOCKED_BY_FRAUD_PROTECTION_ERROR_CODE } from '@bsport/common/lib/master-data/error-codes/payment.js';
 import PaymentStripeTerminal from '#src/libs/terminal/components/PaymentStripeTerminal.component';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
 import type { StripeReader } from '#src/libs/terminal/types';
@@ -283,6 +284,14 @@ export class PaymentDialog extends React.Component<Props, State> {
                               )}
                             </Typography>
                           </>
+                        ) : this.props.clientSecretErrorCode ===
+                          PAYMENT_BLOCKED_BY_FRAUD_PROTECTION_ERROR_CODE ? (
+                          <Typography
+                            style={{ color: 'white' }}
+                            variant="caption"
+                          >
+                            {t('paymentPanel.fraudProtectionBlocked')}
+                          </Typography>
                         ) : (
                           <>
                             <Typography

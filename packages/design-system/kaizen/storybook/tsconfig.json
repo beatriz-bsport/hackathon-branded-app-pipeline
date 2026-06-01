@@ -18,5 +18,11 @@
       "#src/*": ["../primitive/core/src/*"]
     }
   },
-  "include": [".storybook", "../primitive/core/src", "../business/src"]
+  "include": [
+    ".storybook",
+    "../primitive/core/src",
+    "../business/src",
+    "../../../../apps/applications/studio-manager/booking/session/src",
+    "../../../../apps/applications/studio-manager/cdp/inbox/src"
+  ]
 }

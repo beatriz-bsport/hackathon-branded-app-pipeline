@@ -9,19 +9,53 @@ vi.mock("#src/utils/i18n", () => ({
 }));
 
 describe("activePassesFilterSchema", () => {
-  it("accepts a valid default form value", () => {
+  it("accepts a default form value with at least one section enabled", () => {
     const value = createDefaultActivePassesFilter(1);
+    value.comparatorType = ACTIVE_PASSES_COMPARATOR_TYPE.equal;
+    value.comparatorValue = 12;
+    value.paymentPacksSelector = {
+      enabled: true,
+      selectAll: false,
+      selectedIds: [101],
+    };
+    value.privatePassesSelector = {
+      enabled: false,
+      selectAll: false,
+      selectedIds: [],
+    };
 
     const result = activePassesFilterSchema.safeParse(value);
 
     expect(result.success).toBe(true);
   });
 
-  it("accepts a valid between range", () => {
+  it("rejects a default form value without any section enabled", () => {
+    const value = createDefaultActivePassesFilter(1);
+
+    const result = activePassesFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+    expect(result.error?.issues).toHaveLength(1);
+    expect(result.error?.issues?.[0]?.message).toBe(
+      "filters.27.validation.atLeastOneSectionRequired",
+    );
+  });
+
+  it("accepts a valid between range and at least one section enabled", () => {
     const value = createDefaultActivePassesFilter(1);
     value.comparatorType = ACTIVE_PASSES_COMPARATOR_TYPE.between;
     value.comparatorValue = 1;
     value.comparatorValueSecond = 5;
+    value.paymentPacksSelector = {
+      enabled: true,
+      selectAll: false,
+      selectedIds: [101],
+    };
+    value.privatePassesSelector = {
+      enabled: false,
+      selectAll: false,
+      selectedIds: [],
+    };
 
     const result = activePassesFilterSchema.safeParse(value);
 

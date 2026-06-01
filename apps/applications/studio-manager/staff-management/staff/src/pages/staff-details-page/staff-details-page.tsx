@@ -13,6 +13,10 @@ import {
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { StaffDeleteModal } from "#src/features/staff-delete-modal/staff-delete-modal";
+import {
+  transformStaffUpdateFormData,
+  useUpdateStaff,
+} from "#src/features/staff-edit/use-update-staff";
 import { StaffFormBillingGroup } from "#src/features/staff-form/components/staff-form-billing-group";
 import { StaffFormCommission } from "#src/features/staff-form/components/staff-form-commission";
 import { StaffFormEmail } from "#src/features/staff-form/components/staff-form-email";
@@ -25,10 +29,6 @@ import type {
   StaffFormData,
   StaffFormSchema,
 } from "#src/features/staff-form/types";
-import {
-  transformStaffUpdateFormData,
-  useUpdateStaff,
-} from "#src/features/staff-form/use-update-staff";
 import { useDisclosure } from "#src/hooks/use-disclosure";
 import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";

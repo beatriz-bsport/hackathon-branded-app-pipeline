@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import {
   isBookingMilestoneFilter,
+  isFirstPurchaseFilter,
   isPaymentPackFilter,
   isTagFilter,
   isTotalBookingFilter,
@@ -97,6 +98,30 @@ describe("smartlist filter type guards", () => {
         company_id: 1,
         filter_identifier: 22,
         value: 5,
+      }),
+    ).toBe(false);
+  });
+
+  it("accepts first purchase filters by filter_identifier", () => {
+    expect(
+      isFirstPurchaseFilter({
+        id: 1,
+        smartlist: 1,
+        company_id: 1,
+        filter_identifier: 28,
+        first_payment_is_done: true,
+      }),
+    ).toBe(true);
+  });
+
+  it("rejects first purchase shape when filter_identifier does not match", () => {
+    expect(
+      isFirstPurchaseFilter({
+        id: 1,
+        smartlist: 1,
+        company_id: 1,
+        filter_identifier: 19,
+        first_payment_is_done: true,
       }),
     ).toBe(false);
   });

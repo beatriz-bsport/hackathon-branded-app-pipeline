@@ -24,6 +24,10 @@ import { Alert, Checkbox, Loader, Title } from "@bsport/kaizen-primitive-core";
 
 import { useDarkMode } from "#src/components/financial-services/payment-flow-modal/hooks/use-dark-mode";
 import { useStripeAppearance } from "#src/components/financial-services/payment-flow-modal/hooks/use-stripe-appearance";
+import {
+  PAYMENT_FLOW_ERROR_KEYS,
+  StripePaymentError,
+} from "#src/components/financial-services/payment-flow-modal/lib/payment-flow-errors";
 import { i18nInstance, useTranslation } from "#src/i18n";
 
 import {
@@ -79,10 +83,15 @@ const StripePaymentElementInner = ({
         redirect: "if_required",
       });
 
-      if (result.error || !result.paymentIntent) {
-        throw new Error(
-          result.error?.message ?? "Payment confirmation failed.",
-        );
+      if (result.error) {
+        throw new StripePaymentError(result.error.message ?? "", {
+          stripeCode: result.error.code,
+          declineCode: result.error.decline_code,
+        });
+      }
+
+      if (!result.paymentIntent) {
+        throw new Error(PAYMENT_FLOW_ERROR_KEYS.paymentConfirmationFailed);
       }
 
       const pm = result.paymentIntent.payment_method;

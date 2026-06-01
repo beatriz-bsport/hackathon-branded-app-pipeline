@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getSessionTimeStatus } from "#src/components/session-management/page-tabs/series/get-session-time-status";
+import { getSessionTimeStatus } from "#src/components/session-series/get-session-time-status";
 
 const ZONE = "Europe/Paris";
 // 2026-05-21T12:00:00+02:00

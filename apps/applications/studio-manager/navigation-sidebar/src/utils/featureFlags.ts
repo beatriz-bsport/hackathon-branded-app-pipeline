@@ -9,6 +9,8 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   PAYOUTS_PAGE: "payouts_page",
   FS_BILLING_FLOW_NEW_MODAL: "fs_billing_flow_new_modal",
   FS_PAYMENT_FLOW_MODAL: "fs_payment_flow_modal",
+  // CDP
+  INBOX_REVAMP: "unified_inbox",
   // BOOKING
   CALENDAR_REVAMP: "booking_calendar_page_revamped",
   // Classes revamp

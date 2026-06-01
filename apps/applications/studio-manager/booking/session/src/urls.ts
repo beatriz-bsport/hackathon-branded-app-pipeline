@@ -10,6 +10,7 @@ export const { flags, useFlag: useBookingManagementFlag } = makeFeatureFlags({
 const SESSION_ID_PARAM = ":sessionId";
 const EDIT_SLUG = `${SESSION_ID_PARAM}/edit`;
 const INDEX = "..";
+const SERIES_SLUG = `${SESSION_ID_PARAM}/series`;
 
 export const URLS = {
   INDEX,
@@ -17,6 +18,8 @@ export const URLS = {
   BOOKINGS_MANAGEMENT_REVAMP_PATH: `${INDEX}/${SESSION_ID_PARAM}`,
   EDIT_SLUG,
   EDIT_PATH: `${INDEX}/${EDIT_SLUG}`,
+  SERIES_SLUG,
+  SERIES_PATH: `${INDEX}/${SERIES_SLUG}`,
 } as const;
 
 export const LEGACY_URLS = {
@@ -65,6 +68,9 @@ export const useUrls = () => {
   const resolveEditPath = (id: number) =>
     generatePath(URLS.EDIT_PATH, { sessionId: String(id) });
 
+  const resolveSeriesPath = (id: number) =>
+    generatePath(URLS.SERIES_PATH, { sessionId: String(id) });
+
   const getIndexUrl = () => URLS.INDEX;
 
   const navigateToIndex = () => navigate(URLS.INDEX);
@@ -81,6 +87,7 @@ export const useUrls = () => {
     getEditUrl,
     getIndexUrl,
     resolveEditPath,
+    resolveSeriesPath,
     navigateToIndex,
     navigateToEdit,
   };

@@ -30,6 +30,7 @@ type UseConfirmPaymentParams = {
   availableGiftCards: PaymentFlowGiftCard[];
   cardPaymentRef: RefObject<StripePaymentMethodHandle | null>;
   sepaPaymentRef: RefObject<StripePaymentMethodHandle | null>;
+  stripePublishableKey?: string;
   invoiceAlreadyPaidAlert: string;
 };
 
@@ -54,6 +55,7 @@ export const useConfirmPayment = ({
   availableGiftCards,
   cardPaymentRef,
   sepaPaymentRef,
+  stripePublishableKey,
   invoiceAlreadyPaidAlert,
 }: UseConfirmPaymentParams) => {
   const queryClient = useQueryClient();
@@ -74,6 +76,7 @@ export const useConfirmPayment = ({
         availableGiftCards,
         cardPaymentRef,
         sepaPaymentRef,
+        stripePublishableKey,
       });
     },
     onSuccess: () => {

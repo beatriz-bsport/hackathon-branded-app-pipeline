@@ -23,7 +23,6 @@ import {
 } from "#src/hooks/use-permissions";
 import useTableColumns from "#src/hooks/use-table-columns";
 import { ABSOLUTE_ROUTES } from "#src/urls";
-import { ClassFlags, useClassFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 
 const VALID_TABS = ["classes"] as const;
@@ -61,7 +60,6 @@ const ClassesTable: FC<ClassesTableProps> = ({
   const { t } = useTranslation("list");
   const columns = useTableColumns<Row>();
   const navigate = useNavigate();
-  const detailEnabled = useClassFlag(ClassFlags.CLASSES_DETAIL_PAGE);
   const { classes: renderedClasses, paginationProps } = useClassesList({
     customerEnabled: true,
     searchParams: { searchQuery, isWorkshop, inCategoryIds },
@@ -71,11 +69,9 @@ const ClassesTable: FC<ClassesTableProps> = ({
     () =>
       renderedClasses.map((item) => ({
         ...item,
-        ...(detailEnabled && {
-          onRowClick: () => navigate(ABSOLUTE_ROUTES.DETAIL(item.id)),
-        }),
+        onRowClick: () => navigate(ABSOLUTE_ROUTES.DETAIL(item.id)),
       })),
-    [renderedClasses, detailEnabled, navigate],
+    [renderedClasses, navigate],
   );
 
   const canDeleteWorkshop = useObjectLevelPermission(

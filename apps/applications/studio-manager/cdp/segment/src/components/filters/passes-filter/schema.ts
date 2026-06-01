@@ -3,8 +3,8 @@ import { z } from "zod";
 import { creditLeftValueSchema } from "#src/components/filters/passes-filter/sub-filters/credit-left/schema";
 import { expirationDateValueSchema } from "#src/components/filters/passes-filter/sub-filters/expiration-date/schema";
 import { PASS_SUB_FILTER_IDS } from "#src/components/filters/passes-filter/sub-filters/pass-sub-filter-id";
-import { purchaseDateValueSchema } from "#src/components/filters/passes-filter/sub-filters/purchase-date/schema";
 import { REGISTERED_PASS_SUB_FILTERS } from "#src/components/filters/passes-filter/sub-filters/registry";
+import { dateFilterValueSchema } from "#src/components/filters/shared/smartlist-date-filter/schema";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { OWNERSHIP_OPTIONS } from "./constants";
@@ -38,7 +38,7 @@ export const passesFilterSchema = z
     selectAllPaymentPacks: z.boolean(),
     selectedPaymentPackIds: z.array(z.number().int().positive()),
     subFilters: subFilterIdSchema,
-    purchaseDate: purchaseDateValueSchema,
+    purchaseDate: dateFilterValueSchema,
     expirationDate: expirationDateValueSchema,
     creditLeft: creditLeftValueSchema,
   })

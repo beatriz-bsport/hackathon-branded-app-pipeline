@@ -60,10 +60,22 @@
   },
   "keyMetrics": {
     "title": "Key Metrics",
-    "unavailable": "Metrics are currently unavailable"
+    "unavailable": "Metrics are currently unavailable",
+    "loading": "Loading data",
+    "dataUnavailable": "Data unavailable",
+    "metrics": {
+      "totalRevenue": "Total Revenue",
+      "totalBooking": "Total Booking",
+      "totalAttendance": "Total Attendance",
+      "totalOccupancy": "Total Occupancy"
+    }
   },
   "insightsPanel": {
     "title": "Insights at a Glance",
-    "unavailable": "Insights are currently unavailable"
+    "unavailable": "Insights are currently unavailable",
+    "loading": "Loading Insights data...",
+    "temporarilyUnavailable": "Insights are temporarily unavailable",
+    "errorHelp": "We're working to fix this. In the meantime, use Reports to check your data.",
+    "goToReports": "Go to reports"
   }
 }

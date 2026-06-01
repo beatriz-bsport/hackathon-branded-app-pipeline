@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { connectRouter } from 'connected-react-router';
+import { connectRouter, type RouterState } from 'connected-react-router';
 
 import accessControlReducers from '#src/libs/access-control/reducers';
 import activeCampaign from '#src/libs/active-campaign/reducers';
@@ -284,7 +284,7 @@ const rootReducer = (history: any) =>
   });
 
 export type RootState = {
-  router: ReturnType<typeof connectRouter>;
+  router: RouterState;
   accessControl: AccessControlState;
   activeCampaign: ActiveCampaignState;
   alerting: AlertingState;

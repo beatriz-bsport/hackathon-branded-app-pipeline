@@ -435,6 +435,28 @@ export type CheckoutFlowModalProps = {
   basketSessionId?: string;
 };
 
+/**
+ * Props for CheckoutFlowStep (checkout phase content without modal chrome).
+ * Use `onInvoiceCreated` for success; the host owns close/toast behavior.
+ */
+export type CheckoutFlowStepProps = {
+  companyId: number;
+  fetch: Fetch;
+  /** When false, resets sub-modal state and pauses tracking session semantics. */
+  isActive: boolean;
+  memberId?: number;
+  onClose?: () => void;
+  onError?: (error: Error) => void;
+  onInvoiceCreated?: (
+    invoiceUuid: string,
+    memberId: number,
+    data: CheckoutFlowFormData,
+  ) => void;
+  onTrack: CheckoutFlowTrackFn;
+  startContext?: CheckoutFlowStartContext;
+  basketSessionId?: string;
+};
+
 /** Delivery format for giftcard (PDF or email). */
 export type GiftcardDeliveryFormat = "pdf" | "email";
 

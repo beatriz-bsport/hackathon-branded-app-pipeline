@@ -305,6 +305,9 @@ export default compose(
 
       establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
       customLevels: getAllCustomLevels(state),
+      pathname:
+        state.router?.location?.pathname ??
+        (typeof window !== 'undefined' ? window.location.pathname : ''),
     }),
     {
       fetchOffer: fetchOfferByIdAction,

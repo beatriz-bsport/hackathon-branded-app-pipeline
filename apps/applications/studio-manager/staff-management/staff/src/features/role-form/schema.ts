@@ -1,6 +1,9 @@
 import { z } from "zod";
 
-import type { CompanyRolePermissions } from "@bsport/api-staff-management";
+import type {
+  CompanyRolePermissions,
+  ObjectLevelPermissions,
+} from "@bsport/api-staff-management";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -32,7 +35,13 @@ export const useRoleFormSchema = (): RoleFormSchema => {
           maxLength: FIELD_CONSTRAINTS.DESCRIPTION_MAX_LENGTH,
         }),
       ),
-    starterRoleId: z.string(),
-    permissions: z.custom<CompanyRolePermissions>(),
+    starterRoleId: z.string().optional(),
+    permissions: z.custom<CompanyRolePermissions>(
+      (v) => typeof v === "object" && v !== null,
+    ),
+    objectLevelPermissions: z.custom<ObjectLevelPermissions>(
+      (v) => typeof v === "object" && v !== null,
+    ),
+    hasBookingOverrideControl: z.boolean(),
   });
 };

@@ -6,12 +6,12 @@ import {
   type TotalBookingFilter,
 } from "@bsport/api-cdp/smartlist";
 
+import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
 import {
   mapDateFilterType,
   toApiDateSection,
   toFormDateSection,
-} from "#src/components/filters/passes-filter/sub-filters/purchase-date/utils";
-import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
+} from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
 
 import type { TotalBookingNumberFilterFormValue } from "../../types";
 import { TOTAL_BOOKING_SUB_FILTER_IDS } from "../total-booking-sub-filter-id";

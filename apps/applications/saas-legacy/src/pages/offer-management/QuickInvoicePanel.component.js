@@ -27,6 +27,7 @@ import type {
 } from '../../state/types';
 import { InternalPaymentPayload } from '../../libs/payment/types';
 import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '../../libs/invoice/constants';
+import { openPaymentFlowFromLegacy } from '#src/libs/payment/utils';
 
 type Props = {
   classes: Object,
@@ -70,6 +71,10 @@ type Props = {
   displayNewWebshop: boolean,
   isCustomDiscountReasonRequired: boolean,
   panelRef?: React.RefObject<any>,
+  paymentFlowModalEnabled?: boolean,
+  showRevampedSidebar?: boolean,
+  pathname?: string,
+  pushRouter?: (path: string) => void,
 };
 
 type State = {
@@ -129,6 +134,33 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
       });
   };
 
+  tryOpenPaymentFlow = (invoice: Invoice): boolean => {
+    const {
+      paymentFlowModalEnabled,
+      showRevampedSidebar,
+      pathname,
+      pushRouter,
+    } = this.props;
+
+    if (!pushRouter) {
+      return false;
+    }
+
+    return openPaymentFlowFromLegacy({
+      invoice,
+      paymentFlowModalEnabled: !!paymentFlowModalEnabled,
+      showRevampedSidebar: !!showRevampedSidebar,
+      pathname,
+      pushRouter,
+    });
+  };
+
+  handleBillInvoice = (invoice: Invoice) => {
+    if (!this.tryOpenPaymentFlow(invoice)) {
+      this.props.setInvoiceToBill(invoice);
+    }
+  };
+
   handleCreateInvoiceAndOpenBillingModal = (
     InvoiceData: Invoice,
     options: OptionCallback,
@@ -136,7 +168,9 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
     this.props.createInvoice(InvoiceData, {
       onSuccess: (invoice: Invoice) => {
         if (options && options.onSuccess) options.onSuccess?.();
-        this.props.setInvoiceToBill(invoice);
+        if (!this.tryOpenPaymentFlow(invoice)) {
+          this.props.setInvoiceToBill(invoice);
+        }
       },
       onError: () => {
         if (options && options.onError) options.onError?.();
@@ -280,7 +314,7 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
                           this.props.getInvoicePaymentGroupIsProcessing
                         }
                         invoiceList={unevenSavedInvoices}
-                        onBill={this.props.setInvoiceToBill}
+                        onBill={this.handleBillInvoice}
                         snackbarSuccess={this.props.snackbarSuccess}
                       />
                     </React.Fragment>

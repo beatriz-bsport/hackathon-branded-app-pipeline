@@ -15,6 +15,7 @@ import { useTranslation } from "#src/utils/i18n";
 interface DashboardIframeProps {
   src: string;
   title: string;
+  onSigmaMessage?: (eventData: unknown) => void;
   /** Placeholder height before first Sigma height event (desktop) */
   loadingHeight?: number;
   /** Placeholder height before first Sigma height event (mobile <600px) */
@@ -35,6 +36,7 @@ export const DashboardIframe: FC<DashboardIframeProps> = ({
   loadingHeight = 400,
   loadingMobileHeight,
   leftTranslate = 0,
+  onSigmaMessage,
 }) => {
   const { i18n } = useTranslation();
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -70,6 +72,8 @@ export const DashboardIframe: FC<DashboardIframeProps> = ({
 
       const eventData = event.data;
 
+      onSigmaMessage?.(eventData);
+
       if (isSigmaEventWorkbookPageheightOnchange(eventData)) {
         setIframeHeight(eventData.pageHeight);
       }
@@ -85,7 +89,7 @@ export const DashboardIframe: FC<DashboardIframeProps> = ({
 
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
-  }, []);
+  }, [onSigmaMessage]);
 
   return (
     <iframe
@@ -100,7 +104,7 @@ export const DashboardIframe: FC<DashboardIframeProps> = ({
       title={title}
       allowFullScreen
       scrolling="no"
-      loading="lazy"
+      loading="eager"
     />
   );
 };

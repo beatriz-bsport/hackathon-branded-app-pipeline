@@ -114,7 +114,7 @@ const ListPage: FC = () => {
 
   const { endGroupActions } = ListLayout.useAdaptiveActions({
     endGroupActions: [
-      <Tooltip key="archive" label={t("actions.archive")} placement="bottom">
+      <Tooltip key="archive" label={t("actions.archive")} placement="top">
         <Button
           kind="icon-button"
           icon="archive"
@@ -127,16 +127,21 @@ const ListPage: FC = () => {
       </Tooltip>,
       ...(multiLocalization
         ? [
-            <Button
+            <Tooltip
               key="create-location"
-              kind="default"
-              intent="default"
-              color="main"
-              size="md"
-              label={t("actions.createLocation")}
-              iconLeft="plus"
-              onClick={() => openLocationCreateModal()}
-            />,
+              label={t("actions.createLocationTooltip")}
+              placement="top"
+            >
+              <Button
+                kind="default"
+                intent="default"
+                color="main"
+                size="md"
+                label={t("actions.createLocation")}
+                iconLeft="plus"
+                onClick={() => openLocationCreateModal()}
+              />
+            </Tooltip>,
           ]
         : []),
     ],
@@ -155,13 +160,18 @@ const ListPage: FC = () => {
           filterRef={filterRef}
           endGroupActions={endGroupActions}
           callToActionButton={
-            <ListLayout.Button
-              iconLeft="plus"
-              intent="call-to-action"
-              color="main"
-              label={t("actions.createVenue")}
-              onClick={openVenueCreateModal}
-            />
+            <Tooltip
+              label={t("actions.createVenueTooltip")}
+              placement="top-right"
+            >
+              <ListLayout.Button
+                iconLeft="plus"
+                intent="call-to-action"
+                color="main"
+                label={t("actions.createVenue")}
+                onClick={openVenueCreateModal}
+              />
+            </Tooltip>
           }
         />
         <ListLayout.Content>
@@ -185,6 +195,7 @@ const ListPage: FC = () => {
           {activeTab === "locations" && (
             <LocationsList
               searchQuery={locationsSearchInput}
+              onCreate={openLocationCreateModal}
               onEdit={openLocationEditModal}
               onDelete={openLocationDeleteModal}
             />

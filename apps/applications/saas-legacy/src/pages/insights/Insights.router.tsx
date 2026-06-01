@@ -10,6 +10,8 @@ import SubscriptionEvents from '#src/pages/subscription-events/SubscriptionEvent
 import BookingsInsight from '#src/pages/bookings-insight/BookingsInsight.page';
 import ScheduleAnalysis from '#src/pages/schedule-analysis/ScheduleAnalysis.page';
 import CommunityHealth from '#src/pages/community-health/CommunityHealth.page';
+import FinancialCockpit from '#src/pages/financial-cockpit/FinancialCockpit.page';
+import PassUsage from '#src/pages/pass-usage/PassUsage.page';
 import { INSIGHTS_ROUTES, INSIGHTS_TRANSLATION_NAMESPACES } from './constants';
 
 type Props = {};
@@ -45,6 +47,16 @@ const CommunityHealthWithTitle = compose(
   withTitle(({ t }) => t('b2b_insights:pages.communityHealth.title')),
 )(CommunityHealth);
 
+const FinancialCockpitWithTitle = compose(
+  withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
+  withTitle(({ t }) => t('b2b_insights:pages.financialCockpit.title')),
+)(FinancialCockpit);
+
+const PassUsageWithTitle = compose(
+  withTranslation(INSIGHTS_TRANSLATION_NAMESPACES),
+  withTitle(({ t }) => t('b2b_insights:pages.passUsage.title')),
+)(PassUsage);
+
 const InsightsRouter: React.FC<Props> = () => {
   return (
     <Switch>
@@ -77,6 +89,16 @@ const InsightsRouter: React.FC<Props> = () => {
         exact
         component={CommunityHealthWithTitle}
         path={INSIGHTS_ROUTES.COMMUNITY_HEALTH}
+      />
+      <Route
+        exact
+        component={FinancialCockpitWithTitle}
+        path={INSIGHTS_ROUTES.FINANCIAL_COCKPIT}
+      />
+      <Route
+        exact
+        component={PassUsageWithTitle}
+        path={INSIGHTS_ROUTES.PASS_USAGE}
       />
       <Redirect to={INSIGHTS_ROUTES.INDEX} />
     </Switch>

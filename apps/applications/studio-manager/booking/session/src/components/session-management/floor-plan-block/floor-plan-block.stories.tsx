@@ -14,6 +14,7 @@ import {
   seededStudioBeaubourgSpotSelectorClient,
 } from "#src/components/spot-selector/__fixtures__/spot-selector-modal-fixtures";
 import { STUDIO_BEAUBOURG_BLUEPRINT_ID } from "#src/components/spot-selector/__fixtures__/studio-beaubourg-blueprint-fixtures";
+import { storybookDecorator } from "#src/utils/storybook-decorator";
 
 import { FloorPlanBlock } from "./floor-plan-block";
 
@@ -44,6 +45,7 @@ const meta: Meta<FloorPlanBlockComponent> = {
       },
     },
   },
+  decorators: storybookDecorator,
   tags: ["autodocs"],
 };
 export default meta;

@@ -83,6 +83,9 @@ export default {
     "../primitive/core/src/**/*.{js,ts,jsx,tsx}",
     "../business/src/**/*.{js,ts,jsx,tsx}",
     "../../../../apps/applications/studio-manager/booking/session/src/**/*.{js,ts,jsx,tsx}",
+    "../../../../apps/applications/studio-manager/booking/venues/src/**/*.{js,ts,jsx,tsx}",
+    "../../../../apps/applications/studio-manager/cdp/inbox/src/**/*.{js,ts,jsx,tsx}",
+    "../../../../packages/utils/sm-backbone/src/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: "selector",
   plugins: [

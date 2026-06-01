@@ -12,12 +12,16 @@ import type {
   BookingMilestoneFilter,
   CreateActivePassesFilterPayload,
   CreateBookingMilestoneFilterPayload,
+  CreateCreditAccountFilterPayload,
+  CreateFirstPurchaseFilterPayload,
   CreateGenderFilterPayload,
   CreateMemberDateJoinedFilterPayload,
   CreatePaymentPackFilterPayload,
   CreateTagFilterPayload,
   CreateTagRuleParams,
   CreateTotalBookingFilterPayload,
+  CreditAccountFilter,
+  FirstPurchaseFilter,
   GenderFilter,
   MemberDateJoinedFilter,
   PaymentPackFilter,
@@ -28,6 +32,8 @@ import type {
   TotalBookingFilter,
   UpdateActivePassesFilterPayload,
   UpdateBookingMilestoneFilterPayload,
+  UpdateCreditAccountFilterPayload,
+  UpdateFirstPurchaseFilterPayload,
   UpdateGenderFilterPayload,
   UpdateMemberDateJoinedFilterPayload,
   UpdatePaymentPackFilterPayload,
@@ -296,22 +302,6 @@ export const createTagFilter = async (
   return data;
 };
 
-// Member sign-up date filters
-
-const MEMBER_DATE_JOINED_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/member_date_joined`;
-
-export const createMemberDateJoinedFilter = async (
-  fetch: Fetch<MemberDateJoinedFilter>,
-  payload: CreateMemberDateJoinedFilterPayload,
-): Promise<MemberDateJoinedFilter> => {
-  const { data } = await fetch(`${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/`, {
-    method: "POST",
-    body: JSON.stringify(payload),
-  });
-
-  return data;
-};
-
 export const patchTagFilter = async (
   fetch: Fetch<TagFilter>,
   filterId: number,
@@ -334,6 +324,47 @@ export const deleteTagFilter = async (
   });
 };
 
+// Member sign-up date filters
+
+const MEMBER_DATE_JOINED_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/member_date_joined`;
+
+export const createMemberDateJoinedFilter = async (
+  fetch: Fetch<MemberDateJoinedFilter>,
+  payload: CreateMemberDateJoinedFilterPayload,
+): Promise<MemberDateJoinedFilter> => {
+  const { data } = await fetch(`${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchMemberDateJoinedFilter = async (
+  fetch: Fetch<MemberDateJoinedFilter>,
+  filterId: number,
+  payload: UpdateMemberDateJoinedFilterPayload,
+): Promise<MemberDateJoinedFilter> => {
+  const { data } = await fetch(
+    `${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/${filterId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const deleteMemberDateJoinedFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
 // Booking milestone filters (N-th OK booking, backend identifier 21)
 
 const BOOKING_MILESTONE_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/bookings_number`;
@@ -343,6 +374,7 @@ export const createBookingMilestoneFilter = async (
   payload: CreateBookingMilestoneFilterPayload,
 ): Promise<BookingMilestoneFilter> => {
   const { data } = await fetch(`${BOOKING_MILESTONE_FILTER_ENDPOINT}/`, {
+    // Credit account filters
     method: "POST",
     body: JSON.stringify(payload),
   });
@@ -366,13 +398,36 @@ export const patchBookingMilestoneFilter = async (
   return data;
 };
 
-export const patchMemberDateJoinedFilter = async (
-  fetch: Fetch<MemberDateJoinedFilter>,
+export const deleteBookingMilestoneFilter = async (
+  fetch: Fetch<void>,
   filterId: number,
-  payload: UpdateMemberDateJoinedFilterPayload,
-): Promise<MemberDateJoinedFilter> => {
+): Promise<void> => {
+  await fetch(`${BOOKING_MILESTONE_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
+const CREDIT_ACCOUNT_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/credit_account_filter`;
+
+export const createCreditAccountFilter = async (
+  fetch: Fetch<CreditAccountFilter>,
+  payload: CreateCreditAccountFilterPayload,
+): Promise<CreditAccountFilter> => {
+  const { data } = await fetch(`${CREDIT_ACCOUNT_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchCreditAccountFilter = async (
+  fetch: Fetch<CreditAccountFilter>,
+  filterId: number,
+  payload: UpdateCreditAccountFilterPayload,
+): Promise<CreditAccountFilter> => {
   const { data } = await fetch(
-    `${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/${filterId}/`,
+    `${CREDIT_ACCOUNT_FILTER_ENDPOINT}/${filterId}/`,
     {
       method: "PATCH",
       body: JSON.stringify(payload),
@@ -382,11 +437,11 @@ export const patchMemberDateJoinedFilter = async (
   return data;
 };
 
-export const deleteBookingMilestoneFilter = async (
+export const deleteCreditAccountFilter = async (
   fetch: Fetch<void>,
   filterId: number,
 ): Promise<void> => {
-  await fetch(`${BOOKING_MILESTONE_FILTER_ENDPOINT}/${filterId}/`, {
+  await fetch(`${CREDIT_ACCOUNT_FILTER_ENDPOINT}/${filterId}/`, {
     method: "DELETE",
   });
 };
@@ -432,11 +487,43 @@ export const deleteActivePassesFilter = async (
   });
 };
 
-export const deleteMemberDateJoinedFilter = async (
+// First purchase filters
+
+const FIRST_PURCHASE_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/first_purchase`;
+
+export const createFirstPurchaseFilter = async (
+  fetch: Fetch<FirstPurchaseFilter>,
+  payload: CreateFirstPurchaseFilterPayload,
+): Promise<FirstPurchaseFilter> => {
+  const { data } = await fetch(`${FIRST_PURCHASE_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchFirstPurchaseFilter = async (
+  fetch: Fetch<FirstPurchaseFilter>,
+  filterId: number,
+  payload: UpdateFirstPurchaseFilterPayload,
+): Promise<FirstPurchaseFilter> => {
+  const { data } = await fetch(
+    `${FIRST_PURCHASE_FILTER_ENDPOINT}/${filterId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const deleteFirstPurchaseFilter = async (
   fetch: Fetch<void>,
   filterId: number,
 ): Promise<void> => {
-  await fetch(`${MEMBER_DATE_JOINED_FILTER_ENDPOINT}/${filterId}/`, {
+  await fetch(`${FIRST_PURCHASE_FILTER_ENDPOINT}/${filterId}/`, {
     method: "DELETE",
   });
 };

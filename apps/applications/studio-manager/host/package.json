@@ -42,6 +42,7 @@
     "@bsport/sm-email-template": "workspace:*",
     "@bsport/sm-giftcard": "workspace:*",
     "@bsport/sm-homepage": "workspace:*",
+    "@bsport/sm-inbox": "workspace:*",
     "@bsport/sm-insights": "workspace:*",
     "@bsport/sm-invoice": "workspace:*",
     "@bsport/sm-marketing-notification": "workspace:*",

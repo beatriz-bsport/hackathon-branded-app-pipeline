@@ -1,33 +1,50 @@
-import { type FC, useMemo } from "react";
+import { type FC, useCallback, useMemo, useRef } from "react";
 
 import { ModalStepper } from "@bsport/kaizen-primitive-core";
 
+import { useRegisterBooking } from "#src/hooks/booking/actions/use-register-booking";
 import { resetBookingFlow } from "#src/stores/booking-flow/actions";
 import { useBookingFlowStore } from "#src/stores/booking-flow/store";
 import { useTranslation } from "#src/utils/i18n";
 
+import { ConfirmationStep } from "./confirmation-step";
 import { MemberSelectionStep } from "./member-selection-step";
+import { PassSelectionStep } from "./pass-selection-step";
 
 type BookingFlowModalProps = {
   isOpen: boolean;
+  sessionId: number;
   onClose: () => void;
 };
 
 export const BookingFlowModal: FC<BookingFlowModalProps> = ({
   isOpen,
+  sessionId,
   onClose,
 }) => {
   const { t } = useTranslation("sessionManagement");
 
-  const memberId = useBookingFlowStore((state) => state.memberId);
+  const currentStepRef = useRef(0);
 
-  const handleClose = () => {
+  const { mutate: registerBooking, isPending } = useRegisterBooking();
+
+  const consumerPaymentPackId = useBookingFlowStore(
+    (state) => state.consumerPaymentPackId,
+  );
+  const memberId = useBookingFlowStore((state) => state.memberId);
+  const keepCredits = useBookingFlowStore((state) => state.keepCredits);
+  const notifyMember = useBookingFlowStore((state) => state.notifyMember);
+  const spotIndex = useBookingFlowStore((state) => state.spotIndex);
+
+  const handleClose = useCallback(() => {
+    if (isPending) return; // Prevent closing if there's an ongoing booking registration
+    currentStepRef.current = 0;
     resetBookingFlow();
     onClose();
-  };
+  }, [onClose, isPending]);
 
   const handleClickOutside = () => {
-    if (memberId !== null) return; // Prevent closing if there's unsaved progress
+    if (memberId !== null || isPending) return; // Prevent closing if there's unsaved progress or an ongoing booking registration
     handleClose();
   };
 
@@ -40,15 +57,50 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
       },
       {
         label: t("bookingFlow.steps.passSelection"),
-        content: null, // Implemented in https://linear.app/bsport/issue/BOO-2761/pass-selection-step
+        content:
+          memberId !== null ? (
+            <PassSelectionStep sessionId={sessionId} />
+          ) : null,
+        validate: () => consumerPaymentPackId !== null,
       },
       {
         label: t("bookingFlow.steps.confirmation"),
-        content: null, // Implemented in https://linear.app/bsport/issue/BOO-2763/confirmation-view-and-mutation-pipeline
+        content: <ConfirmationStep sessionId={sessionId} />,
       },
     ],
-    [memberId, t],
+    [memberId, consumerPaymentPackId, sessionId, t],
   );
+
+  const handleConfirm = useCallback(() => {
+    if (currentStepRef.current < steps.length - 1) {
+      currentStepRef.current += 1;
+      return;
+    }
+    if (!consumerPaymentPackId) return;
+    const payload = {
+      consumerPaymentPackId,
+      payload: {
+        offer: sessionId,
+        keep_credits: keepCredits,
+        notify_member: notifyMember,
+        spot_id: spotIndex,
+      },
+    };
+    registerBooking(payload, {
+      onSuccess: () => {
+        handleClose();
+      },
+    });
+  }, [
+    steps.length,
+    consumerPaymentPackId,
+    sessionId,
+    keepCredits,
+    notifyMember,
+    spotIndex,
+    registerBooking,
+    handleClose,
+  ]);
 
   return (
     <ModalStepper
@@ -57,16 +109,19 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
       size="lg"
       title={t("bookingFlow.title")}
       steps={steps}
-      initialStep={0}
       confirmButton={{
         label: t("bookingFlow.buttons.confirm"),
         color: "main",
-        onClick: () => {
-          // Mutation wired in https://linear.app/bsport/issue/BOO-2763/confirmation-view-and-mutation-pipeline
-        },
+        onClick: handleConfirm,
+        disabled: isPending,
       }}
       cancelButton={{
         label: t("bookingFlow.buttons.cancel"),
+        onClick: () => {
+          currentStepRef.current = Math.max(0, currentStepRef.current - 1);
+        },
+
+        disabled: isPending,
       }}
       onClickOutside={handleClickOutside}
       onCloseButtonClick={handleClose}

@@ -17,6 +17,12 @@
         },
         "trialAnalysis": {
             "title": "Acquisition & Conversion"
+        },
+        "financialCockpit": {
+            "title": "Financial Cockpit"
+        },
+        "passUsage": {
+            "title": "Pass Usage"
         }
     },
     "sections": {
@@ -43,5 +49,13 @@
     "monitorBookings": {
         "title": "Bookings & Demand",
         "description": "Explore booking activity, client behavior, and demand trends to drive smarter revenue decisions"
+    },
+    "monitorFinancialCockpit": {
+        "title": "Financial Cockpit",
+        "description": "Get a comprehensive view of your financial performance, revenue streams, and key financial metrics"
+    },
+    "monitorPassUsage": {
+        "title": "Pass Usage",
+        "description": "Analyse how passes are consumed, track usage patterns, and identify opportunities to improve pass adoption"
     }
 }

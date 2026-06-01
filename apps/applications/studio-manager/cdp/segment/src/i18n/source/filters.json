@@ -17,7 +17,8 @@
       "PROFILES": "PROFILES",
       "PASSES": "PASSES",
       "BOOKINGS": "BOOKINGS",
-      "MEMBER_INFORMATIONS": "MEMBER INFORMATION"
+      "MEMBER_INFORMATIONS": "MEMBER INFORMATION",
+      "PAYMENTS": "PAYMENTS"
     },
     "options": {
       "gender": {
@@ -40,6 +41,12 @@
       },
       "activePasses": {
         "description": "Filter members by the number of active passes (group and/or appointment) they hold right now."
+      },
+      "firstPurchase": {
+        "description": "Filter by whether a member completed a first purchase."
+      },
+      "creditAccount": {
+        "description": "Filter members by account balance (credit minus unpaid total), using a number comparison."
       }
     }
   },
@@ -106,6 +113,23 @@
         "signUpDateBetweenRequired": "Select both dates for the between range.",
         "signUpDateDurationRequired": "Enter a number of days.",
         "signUpDateDurationBetweenRequired": "Enter both day values for the between range."
+      }
+    },
+    "1": {
+      "title": "Account balance",
+      "actions": {
+        "deleteFilter": "Delete account balance filter",
+        "save": "Apply filter"
+      },
+      "validation": {
+        "secondValueRequired": "Enter an upper bound for the range.",
+        "secondValueGreaterThanFirst": "The second value must be greater than or equal to the first."
+      },
+      "toasts": {
+        "saveError": "Unable to save account balance filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete account balance filter.",
+        "invalidFilter": "Invalid filter."
       }
     },
     "19": {
@@ -312,6 +336,41 @@
         "saveSuccess": "Filter applied.",
         "deleteError": "Unable to delete tag filter.",
         "invalidFilter": "Invalid filter."
+      }
+    },
+    "28": {
+      "title": "First purchase made",
+      "status": {
+        "done": "First purchase done",
+        "notDone": "First purchase not done"
+      },
+      "actions": {
+        "deleteFilter": "Delete first purchase filter",
+        "removeSubFilter": "Remove {{subFilterLabel}}",
+        "addSubFilter": "Add sub-filter",
+        "save": "Apply filter"
+      },
+      "fields": {
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "anyFirstPurchase": "Has made a first purchase"
+      },
+      "subFilters": {
+        "purchaseDate": "Date range of purchase",
+        "purchaseAmount": "Amount of first purchase"
+      },
+      "toasts": {
+        "saveError": "Unable to save first purchase filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete first purchase filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "purchaseDateRequired": "Select a purchase date.",
+        "purchaseDateBetweenRequired": "Select both dates for the between range.",
+        "purchaseDateDurationRequired": "Enter a number of days.",
+        "purchaseDateDurationBetweenRequired": "Enter both day values for the between range.",
+        "purchaseAmountValueRequired": "Enter a purchase amount.",
+        "purchaseAmountSecondValueRequired": "Enter both amounts for the between range."
       }
     }
   },

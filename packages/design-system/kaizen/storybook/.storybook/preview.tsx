@@ -5,7 +5,6 @@ import React, { Suspense, useEffect } from "react";
 
 import "@bsport/kaizen-tokens/src/index.css";
 
-import { AppI18nextProvider as SmSessionI18nextProvider } from "../../../../../apps/applications/studio-manager/booking/session/src/utils/i18n";
 import { authenticateDev } from "../../business/.storybook/auth-helper";
 import { KaizenI18nProvider } from "../../primitive/core/src";
 import {
@@ -57,7 +56,7 @@ const preview: Preview = {
       const { locale = "en" } = context.globals || {};
 
       // Broadcasts to every i18n instance on the page — Kaizen and any
-      // team-owned area (e.g. sm-session)
+      // team-owned area (e.g. sm-session or story-level app providers)
       useEffect(() => {
         switchLanguage(locale);
       }, [locale]);
@@ -67,9 +66,7 @@ const preview: Preview = {
           <QueryClientProvider client={queryClient}>
             <Suspense fallback={<p>Loading translations ...</p>}>
               <KaizenI18nProvider kaizenI18nInstance={primitiveI18nInstance}>
-                <SmSessionI18nextProvider>
-                  <Story />
-                </SmSessionI18nextProvider>
+                <Story />
               </KaizenI18nProvider>
             </Suspense>
           </QueryClientProvider>

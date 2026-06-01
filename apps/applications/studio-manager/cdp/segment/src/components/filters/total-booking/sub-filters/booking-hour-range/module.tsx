@@ -13,7 +13,7 @@ import {
 import type { TotalBookingNumberFilterFormValue } from "../../types";
 import { TOTAL_BOOKING_SUB_FILTER_IDS } from "../total-booking-sub-filter-id";
 import type { TotalBookingSubFilterModule } from "../total-booking-sub-filter-module-contract";
-import { BookingHourRangeSubFilterSection } from "./booking-hour-range.component";
+import { BookingHourRangeSubFilterSection } from "./component";
 import { refineBookingHourRangeSubFilter } from "./schema";
 
 const BOOKING_HOUR_RANGE_INACTIVE_API_SLICE =

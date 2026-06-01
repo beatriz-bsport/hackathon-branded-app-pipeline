@@ -1,25 +1,25 @@
 import { DateTime } from "luxon";
 
 import {
-  type CreateTotalBookingFilterPayload,
+  type CreatePrivateBookingsFilterPayload,
+  type PrivateBookingsFilter,
   SmartlistDateFilterType,
-  type TotalBookingFilter,
 } from "@bsport/api-cdp/smartlist";
 
-import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
 import {
   mapDateFilterType,
   toApiDateSection,
   toFormDateSection,
-} from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
+} from "#src/components/filters/passes-filter/sub-filters/purchase-date/utils";
+import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
 
-import type { TotalBookingNumberFilterFormValue } from "../../types";
-import { TOTAL_BOOKING_SUB_FILTER_IDS } from "../total-booking-sub-filter-id";
-import type { TotalBookingSubFilterModule } from "../total-booking-sub-filter-module-contract";
-import { BookingDateSubFilterSection } from "./booking-date.component";
+import type { TotalAppointmentsNumberFilterFormValue } from "../../types";
+import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "../total-appointments-sub-filter-id";
+import type { TotalAppointmentsSubFilterModule } from "../total-appointments-sub-filter-module-contract";
+import { BookingDateSubFilterSection } from "./component";
 import { refineBookingDateSubFilter } from "./schema";
 
-const BOOKING_DATE_INACTIVE_API_SLICE: Partial<CreateTotalBookingFilterPayload> =
+const BOOKING_DATE_INACTIVE_API_SLICE: Partial<CreatePrivateBookingsFilterPayload> =
   {
     date_filter_active: false,
     date_filter_type: SmartlistDateFilterType.DATE_AFTER,
@@ -30,9 +30,11 @@ const BOOKING_DATE_INACTIVE_API_SLICE: Partial<CreateTotalBookingFilterPayload> 
   };
 
 const toBookingDateApiSlice = (
-  value: TotalBookingNumberFilterFormValue,
-): Partial<CreateTotalBookingFilterPayload> => {
-  if (!value.subFilters.includes(TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate)) {
+  value: TotalAppointmentsNumberFilterFormValue,
+): Partial<CreatePrivateBookingsFilterPayload> => {
+  if (
+    !value.subFilters.includes(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate)
+  ) {
     return BOOKING_DATE_INACTIVE_API_SLICE;
   }
 
@@ -52,13 +54,13 @@ const toBookingDateApiSlice = (
   };
 };
 
-export const bookingDateTotalBookingSubFilterModule: TotalBookingSubFilterModule =
+export const bookingDateTotalAppointmentsSubFilterModule: TotalAppointmentsSubFilterModule =
   {
-    id: TOTAL_BOOKING_SUB_FILTER_IDS.bookingDate,
-    labelKey: "filters.22.subFilters.bookingDate",
+    id: TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate,
+    labelKey: "filters.26.subFilters.appointmentDate",
     Section: BookingDateSubFilterSection,
     refine: refineBookingDateSubFilter,
-    readFromApi: (filter: TotalBookingFilter) => ({
+    readFromApi: (filter: PrivateBookingsFilter) => ({
       isActive: filter.date_filter_active === true,
       partial: {
         bookingDate: toFormDateSection(

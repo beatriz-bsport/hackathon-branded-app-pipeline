@@ -282,6 +282,12 @@
           "searchPlaceholder": "Search for a Teacher",
           "emptySelection": "Select Teachers to start filtering"
         },
+        "establishment": {
+          "searchPlaceholder": "Search for an Establishment",
+          "emptySelection": "Select Establishments to start filtering",
+          "atHomePrefix": "or",
+          "atHomeLabel": "Include online appointments (at home)"
+        },
         "totalAppointmentSuffix": "appointments",
         "filterSpecifications": "FILTER SPECIFICATIONS",
         "appointmentHourRangeStartingBetween": "Starting between ",
@@ -289,6 +295,7 @@
       },
       "subFilters": {
         "coach": "Teacher",
+        "establishment": "Establishment",
         "appointmentDate": "Appointment date",
         "appointmentHourRange": "Appointment time"
       },
@@ -303,6 +310,7 @@
         "secondValueRequired": "Second appointment count is required for range comparator.",
         "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
         "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
+        "selectedEstablishmentsRequired": "Select at least one establishment, or include online appointments.",
         "appointmentDateRequired": "Select an appointment date.",
         "appointmentDateBetweenRequired": "Select both dates for the between range.",
         "appointmentDateDurationRequired": "Enter a number of days.",

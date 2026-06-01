@@ -177,4 +177,55 @@ describe("createTotalAppointmentsPayload", () => {
     expect(payload.select_all_coaches).toBe(false);
     expect(payload.coaches).toEqual([3, 9]);
   });
+
+  it("keeps establishment fields inactive when establishment sub-filter is not selected", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [];
+    value.establishment = {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [1, 2],
+      atHome: true,
+    };
+
+    const payload = createTotalAppointmentsPayload(value);
+
+    expect(payload.establishment_filter_active).toBe(false);
+    expect(payload.select_all_establishments).toBe(true);
+    expect(payload.establishments).toEqual([]);
+    expect(payload.at_home).toBe(false);
+  });
+
+  it("activates establishment fields when establishment sub-filter is selected", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment];
+    value.establishment = {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [2, 8],
+      atHome: true,
+    };
+
+    const payload = createTotalAppointmentsPayload(value);
+
+    expect(payload.establishment_filter_active).toBe(true);
+    expect(payload.select_all_establishments).toBe(false);
+    expect(payload.establishments).toEqual([2, 8]);
+    expect(payload.at_home).toBe(true);
+  });
+
+  it("activates establishment with an empty list when only at home is selected", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment];
+    value.establishment = {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [],
+      atHome: true,
+    };
+
+    const payload = createTotalAppointmentsPayload(value);
+
+    expect(payload.establishment_filter_active).toBe(true);
+    expect(payload.select_all_establishments).toBe(false);
+    expect(payload.establishments).toEqual([]);
+    expect(payload.at_home).toBe(true);
+  });
 });

@@ -16,7 +16,7 @@ import {
 import type { PassesFilterFormValue } from "../../types";
 import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
 import type { PassSubFilterModule } from "../pass-sub-filter-module-contract";
-import { ExpirationDateSubFilterSection } from "./expiration-date.component";
+import { ExpirationDateSubFilterSection } from "./component";
 import { refineExpirationDateSubFilter } from "./schema";
 
 const EXPIRATION_DATE_INACTIVE_API_SLICE: Partial<CreatePaymentPackFilterPayload> =

@@ -32,6 +32,7 @@ export const totalAppointmentsNumberFilterSchema = z
         z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate),
         z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange),
         z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.coach),
+        z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment),
       ]),
     ),
     bookingDate: dateFilterValueSchema,
@@ -42,6 +43,11 @@ export const totalAppointmentsNumberFilterSchema = z
     coach: z.object({
       selectAllCoaches: z.boolean(),
       selectedCoachIds: z.array(z.number().int().positive()),
+    }),
+    establishment: z.object({
+      selectAllEstablishments: z.boolean(),
+      selectedEstablishmentIds: z.array(z.number().int().positive()),
+      atHome: z.boolean(),
     }),
   })
   .superRefine((data, context) => {

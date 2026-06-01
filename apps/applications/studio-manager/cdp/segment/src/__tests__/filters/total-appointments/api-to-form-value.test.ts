@@ -201,4 +201,57 @@ describe("mapTotalAppointmentsFilterToFormValue", () => {
     expect(formValue.coach.selectAllCoaches).toBe(true);
     expect(formValue.coach.selectedCoachIds).toEqual([]);
   });
+
+  it("activates establishment sub-filter when API establishment filter is active", () => {
+    const filter = buildApiFilter({
+      establishment_filter_active: true,
+      select_all_establishments: false,
+      establishments: [3, 4],
+      at_home: true,
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment,
+    );
+    expect(formValue.establishment.selectAllEstablishments).toBe(false);
+    expect(formValue.establishment.selectedEstablishmentIds).toEqual([3, 4]);
+    expect(formValue.establishment.atHome).toBe(true);
+  });
+
+  it("keeps establishment sub-filter disabled defaults when API establishment filter is inactive", () => {
+    const filter = buildApiFilter({
+      establishment_filter_active: false,
+      select_all_establishments: true,
+      establishments: [],
+      at_home: false,
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).not.toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment,
+    );
+    expect(formValue.establishment.selectAllEstablishments).toBe(true);
+    expect(formValue.establishment.selectedEstablishmentIds).toEqual([]);
+    expect(formValue.establishment.atHome).toBe(false);
+  });
+
+  it("hydrates establishment sub-filter with empty establishments when only at home is active", () => {
+    const filter = buildApiFilter({
+      establishment_filter_active: true,
+      select_all_establishments: false,
+      establishments: [],
+      at_home: true,
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment,
+    );
+    expect(formValue.establishment.selectedEstablishmentIds).toEqual([]);
+    expect(formValue.establishment.atHome).toBe(true);
+  });
 });

@@ -8,7 +8,7 @@ import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
 import type { TotalBookingNumberFilterFormValue } from "../../types";
 import { TOTAL_BOOKING_SUB_FILTER_IDS } from "../total-booking-sub-filter-id";
 import type { TotalBookingSubFilterModule } from "../total-booking-sub-filter-module-contract";
-import { PaymentPackSubFilterSection } from "./payment-pack.component";
+import { PaymentPackSubFilterSection } from "./component";
 import { refinePaymentPackSubFilter } from "./schema";
 
 const PAYMENT_PACK_INACTIVE_API_SLICE: Partial<CreateTotalBookingFilterPayload> =

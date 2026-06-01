@@ -13,7 +13,7 @@ import {
 import type { TotalAppointmentsNumberFilterFormValue } from "../../types";
 import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "../total-appointments-sub-filter-id";
 import type { TotalAppointmentsSubFilterModule } from "../total-appointments-sub-filter-module-contract";
-import { BookingHourRangeSubFilterSection } from "./booking-hour-range.component";
+import { BookingHourRangeSubFilterSection } from "./component";
 import { refineBookingHourRangeSubFilter } from "./schema";
 
 const BOOKING_HOUR_RANGE_INACTIVE_API_SLICE: Partial<CreatePrivateBookingsFilterPayload> =

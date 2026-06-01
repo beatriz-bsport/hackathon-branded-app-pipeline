@@ -16,7 +16,7 @@ import {
 import type { FirstPurchaseFilterFormValue } from "../../types";
 import { FIRST_PURCHASE_SUB_FILTER_IDS } from "../first-purchase-sub-filter-id";
 import type { FirstPurchaseSubFilterModule } from "../first-purchase-sub-filter-module-contract";
-import { PurchaseDateSubFilterSection } from "./purchase-date.component";
+import { PurchaseDateSubFilterSection } from "./component";
 import { refinePurchaseDateSubFilter } from "./schema";
 
 const PURCHASE_DATE_INACTIVE_API_SLICE: Partial<CreateFirstPurchaseFilterPayload> =

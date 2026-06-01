@@ -164,4 +164,81 @@ describe("buildDirtyPatchPayload (total appointments)", () => {
     expect(payload.select_all_coaches).toBe(true);
     expect(payload.coaches).toEqual([]);
   });
+
+  it("emits active establishment slice when establishment sub-filter values are dirty", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment];
+    value.establishment = {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [4],
+      atHome: true,
+    };
+    const dirtyFields: DirtyFields = {
+      establishment: { selectedEstablishmentIds: [true] },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.establishment_filter_active).toBe(true);
+    expect(payload.select_all_establishments).toBe(false);
+    expect(payload.establishments).toEqual([4]);
+    expect(payload.at_home).toBe(true);
+  });
+
+  it("emits inactive establishment slice when establishment sub-filter is removed", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [];
+    value.establishment = {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [4],
+      atHome: true,
+    };
+    const dirtyFields: DirtyFields = {
+      subFilters: [],
+    } as DirtyFields;
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.establishment_filter_active).toBe(false);
+    expect(payload.select_all_establishments).toBe(true);
+    expect(payload.establishments).toEqual([]);
+    expect(payload.at_home).toBe(false);
+  });
+
+  it("emits at_home when only the at home checkbox is dirty", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment];
+    value.establishment = {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [4],
+      atHome: true,
+    };
+    const dirtyFields: DirtyFields = {
+      establishment: { atHome: true },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.establishment_filter_active).toBe(true);
+    expect(payload.at_home).toBe(true);
+  });
+
+  it("emits empty establishments when only at home is selected", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment];
+    value.establishment = {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [],
+      atHome: true,
+    };
+    const dirtyFields: DirtyFields = {
+      establishment: { atHome: true },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.establishment_filter_active).toBe(true);
+    expect(payload.establishments).toEqual([]);
+    expect(payload.at_home).toBe(true);
+  });
 });

@@ -52,6 +52,11 @@ export const mapTotalAppointmentsFilterToFormValue = (
       selectAllCoaches: false,
       selectedCoachIds: [],
     },
+    establishment: {
+      selectAllEstablishments: false,
+      selectedEstablishmentIds: [],
+      atHome: false,
+    },
     ...partialFromModules,
   };
 };

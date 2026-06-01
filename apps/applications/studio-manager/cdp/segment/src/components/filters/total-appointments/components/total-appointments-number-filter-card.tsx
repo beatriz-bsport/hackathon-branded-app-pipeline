@@ -34,6 +34,7 @@ export const TotalAppointmentsNumberFilterCard = ({
     bookingDate: `${baseId}-booking-date`,
     bookingHourRange: `${baseId}-booking-hour-range`,
     coach: `${baseId}-coach`,
+    establishment: `${baseId}-establishment`,
   };
 
   const methods = useFormController({
@@ -187,6 +188,7 @@ export const TotalAppointmentsNumberFilterCard = ({
             bookingDate: fieldIds.bookingDate,
             bookingHourRange: fieldIds.bookingHourRange,
             coach: fieldIds.coach,
+            establishment: fieldIds.establishment,
           }}
           companyId={companyId}
           watchedFilterValue={watchedFilterValue}

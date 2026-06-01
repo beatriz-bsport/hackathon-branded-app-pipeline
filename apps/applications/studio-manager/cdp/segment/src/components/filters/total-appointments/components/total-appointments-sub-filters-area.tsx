@@ -55,6 +55,11 @@ const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
     selectAllCoaches: false,
     selectedCoachIds: [],
   },
+  [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment]: {
+    selectAllEstablishments: false,
+    selectedEstablishmentIds: [],
+    atHome: false,
+  },
 };
 
 export const TotalAppointmentsSubFiltersArea = ({
@@ -79,6 +84,9 @@ export const TotalAppointmentsSubFiltersArea = ({
       "filters.26.subFilters.appointmentHourRange",
     ),
     [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.coach]: t("filters.26.subFilters.coach"),
+    [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment]: t(
+      "filters.26.subFilters.establishment",
+    ),
   };
 
   const addSubFilter = (subFilterId: TotalAppointmentsSubFilterId) => {

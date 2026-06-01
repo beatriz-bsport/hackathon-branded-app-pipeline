@@ -9,7 +9,7 @@ import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
 import type { PassesFilterFormValue } from "../../types";
 import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
 import type { PassSubFilterModule } from "../pass-sub-filter-module-contract";
-import { CreditLeftSubFilterSection } from "./credit-left.component";
+import { CreditLeftSubFilterSection } from "./component";
 import { refineCreditLeftSubFilter } from "./schema";
 import {
   mapCreditComparator,

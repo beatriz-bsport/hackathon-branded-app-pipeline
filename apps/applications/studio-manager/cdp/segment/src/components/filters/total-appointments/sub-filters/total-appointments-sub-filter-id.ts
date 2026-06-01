@@ -4,6 +4,7 @@ export const TOTAL_APPOINTMENTS_SUB_FILTER_IDS = {
   bookingDate: "bookingDate",
   bookingHourRange: "bookingHourRange",
   coach: "coach",
+  establishment: "establishment",
 } as const;
 
 export type TotalAppointmentsSubFilterId = ValueOf<
@@ -14,6 +15,7 @@ export const totalAppointmentsSubFilterFieldMap = {
   [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate]: "bookingDate",
   [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange]: "bookingHourRange",
   [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.coach]: "coach",
+  [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment]: "establishment",
 } as const;
 
 export type TotalAppointmentsSubFilterField = ValueOf<

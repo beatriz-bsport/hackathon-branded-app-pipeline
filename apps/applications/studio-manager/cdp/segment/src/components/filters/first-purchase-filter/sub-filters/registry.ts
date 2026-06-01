@@ -1,6 +1,6 @@
 import type { FirstPurchaseSubFilterModule } from "./first-purchase-sub-filter-module-contract";
-import { purchaseAmountFirstPurchaseSubFilterModule } from "./purchase-amount/purchase-amount.module";
-import { purchaseDateFirstPurchaseSubFilterModule } from "./purchase-date/purchase-date.module";
+import { purchaseAmountFirstPurchaseSubFilterModule } from "./purchase-amount/module";
+import { purchaseDateFirstPurchaseSubFilterModule } from "./purchase-date/module";
 
 /**
  * Ordered list of first-purchase sub-filter modules.

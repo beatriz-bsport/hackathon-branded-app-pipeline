@@ -27,4 +27,9 @@ export const createDefaultTotalAppointmentsNumberFilter = (
     selectAllCoaches: false,
     selectedCoachIds: [],
   },
+  establishment: {
+    selectAllEstablishments: false,
+    selectedEstablishmentIds: [],
+    atHome: false,
+  },
 });

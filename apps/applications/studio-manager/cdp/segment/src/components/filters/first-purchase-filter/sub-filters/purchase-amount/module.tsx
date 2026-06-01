@@ -10,7 +10,7 @@ import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
 import type { FirstPurchaseFilterFormValue } from "../../types";
 import { FIRST_PURCHASE_SUB_FILTER_IDS } from "../first-purchase-sub-filter-id";
 import type { FirstPurchaseSubFilterModule } from "../first-purchase-sub-filter-module-contract";
-import { PurchaseAmountSubFilterSection } from "./purchase-amount.component";
+import { PurchaseAmountSubFilterSection } from "./component";
 import { refinePurchaseAmountSubFilter } from "./schema";
 import {
   mapPaymentComparator,

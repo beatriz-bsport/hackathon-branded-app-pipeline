@@ -254,4 +254,58 @@ describe("totalAppointmentsNumberFilterSchema", () => {
 
     expect(result.success).toBe(true);
   });
+
+  describe("establishment sub-filter", () => {
+    it("rejects establishment sub-filter when no establishment is selected and at home is unchecked", () => {
+      const value = buildFormValue({
+        subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment],
+        establishment: {
+          selectAllEstablishments: false,
+          selectedEstablishmentIds: [],
+          atHome: false,
+        },
+      });
+
+      const result = totalAppointmentsNumberFilterSchema.safeParse(value);
+
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const issuePaths = result.error.issues.map((issue) => issue.path);
+        expect(issuePaths).toContainEqual([
+          "establishment",
+          "selectedEstablishmentIds",
+        ]);
+      }
+    });
+
+    it("accepts establishment sub-filter when at least one establishment is selected", () => {
+      const value = buildFormValue({
+        subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment],
+        establishment: {
+          selectAllEstablishments: false,
+          selectedEstablishmentIds: [7],
+          atHome: false,
+        },
+      });
+
+      const result = totalAppointmentsNumberFilterSchema.safeParse(value);
+
+      expect(result.success).toBe(true);
+    });
+
+    it("accepts establishment sub-filter when only at home is selected", () => {
+      const value = buildFormValue({
+        subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment],
+        establishment: {
+          selectAllEstablishments: false,
+          selectedEstablishmentIds: [],
+          atHome: true,
+        },
+      });
+
+      const result = totalAppointmentsNumberFilterSchema.safeParse(value);
+
+      expect(result.success).toBe(true);
+    });
+  });
 });

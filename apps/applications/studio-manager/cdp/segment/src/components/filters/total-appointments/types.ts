@@ -26,6 +26,11 @@ export type TotalAppointmentsNumberFilterFormValue = {
     selectAllCoaches: boolean;
     selectedCoachIds: number[];
   };
+  establishment: {
+    selectAllEstablishments: boolean;
+    selectedEstablishmentIds: number[];
+    atHome: boolean;
+  };
 };
 
 export type TotalAppointmentsNumberDirtyPatchPayload = Partial<

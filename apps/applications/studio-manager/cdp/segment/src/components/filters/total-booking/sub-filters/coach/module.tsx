@@ -8,7 +8,7 @@ import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
 import type { TotalBookingNumberFilterFormValue } from "../../types";
 import { TOTAL_BOOKING_SUB_FILTER_IDS } from "../total-booking-sub-filter-id";
 import type { TotalBookingSubFilterModule } from "../total-booking-sub-filter-module-contract";
-import { CoachSubFilterSection } from "./coach.component";
+import { CoachSubFilterSection } from "./component";
 import { refineCoachSubFilter } from "./schema";
 
 const COACH_INACTIVE_API_SLICE: Partial<CreateTotalBookingFilterPayload> = {

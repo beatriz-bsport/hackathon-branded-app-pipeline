@@ -1,4 +1,8 @@
-import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
+import {
+  type DeepKeys,
+  type TFunctionGeneric,
+  instanciateAppI18n,
+} from "@bsport/i18n";
 
 import {
   i18nNamespacePrefix,
@@ -25,5 +29,7 @@ export const {
 });
 
 export type TFunction = TFunctionGeneric<Translations>;
+
+export type InsightsTranslationKeys = DeepKeys<Translations["insights"]>;
 
 export { Trans, LANGUAGES, LOCALES, type Locale } from "@bsport/i18n";

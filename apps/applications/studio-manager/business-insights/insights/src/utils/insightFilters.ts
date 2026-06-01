@@ -1,6 +1,6 @@
-import { INSIGHT_ITEMS, INSIGHT_SECTIONS } from "#src/constants";
+import { INSIGHT_REGISTRY, INSIGHT_SECTIONS } from "#src/constants";
 import type { InsightAccess } from "#src/utils/access";
-import type { TFunction } from "#src/utils/i18n";
+import type { InsightsTranslationKeys, TFunction } from "#src/utils/i18n";
 
 export interface InsightRow {
   id: string;
@@ -18,16 +18,21 @@ export const createInsightRows = (
   t: TFunction,
   access: InsightAccess,
 ): InsightRow[] => {
-  return INSIGHT_ITEMS.filter((item) => {
+  return INSIGHT_REGISTRY.filter((item) => {
     // If an item is governed by access rules, enforce them.
     // Otherwise, default to shown.
     return item.id in access ? access[item.id as keyof InsightAccess] : true;
-  }).map((item) => ({
-    ...item,
-    title: t(`items.${item.id}.title`),
-    description: t(`items.${item.id}.description`),
-    link: item.link,
-  }));
+  }).map(
+    (item): InsightRow => ({
+      id: item.id,
+      section: item.section,
+      title: t(`items.${item.id}.title` as InsightsTranslationKeys) as string,
+      description: t(
+        `items.${item.id}.description` as InsightsTranslationKeys,
+      ) as string,
+      link: item.link,
+    }),
+  );
 };
 
 /**

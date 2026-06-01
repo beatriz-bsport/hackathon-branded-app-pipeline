@@ -1,3 +1,3 @@
-export { default as CreateEmailCampaignPage } from "./CreateEmailCampaign";
-export { default } from "./CreateEmailCampaign";
+export { default as CreateEmailCampaignPage } from "./create-email-campaign";
+export { default } from "./create-email-campaign";
 export { default as EditEmailCampaignPage } from "./EditEmailCampaign";

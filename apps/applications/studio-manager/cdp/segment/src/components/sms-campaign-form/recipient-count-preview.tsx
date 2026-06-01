@@ -1,17 +1,28 @@
 import React from "react";
 
+import type { CommunicationPreviewRecipientsRequest } from "@bsport/api-cdp/communicate";
 import { CommunicationChannel } from "@bsport/api-cdp/smartlist";
 import { Body, Loader, Title } from "@bsport/kaizen-primitive-core";
 
 import { useFetchCommunicationRecipientsPreviewCount } from "#src/api/use-fetch-communication-recipients-preview-count";
+import { QueryBoundary } from "#src/components/QueryBoundary";
 import { TimedInfoPopover } from "#src/components/timed-info-popover";
 import { useTranslation } from "#src/utils/i18n";
 
-import { QueryBoundary } from "../QueryBoundary";
+type RecipientTarget = Extract<
+  CommunicationPreviewRecipientsRequest["target"],
+  { type: "smartlist" | "segment" }
+>;
 
-type SmsRecipientCountPreviewProps = {
-  smartlistId: number;
-};
+type SmsRecipientCountPreviewProps =
+  | {
+      smartlistId: number;
+      target?: never;
+    }
+  | {
+      smartlistId?: never;
+      target: RecipientTarget;
+    };
 
 const RECIPIENT_COUNT_POPOVER_CONTENT_LIST_KEYS: Array<
   "noValidPhone" | "optedOut" | "invalidPhone" | "smartlistChanges"
@@ -19,7 +30,7 @@ const RECIPIENT_COUNT_POPOVER_CONTENT_LIST_KEYS: Array<
 
 export const SmsRecipientCountPreview: React.FC<
   SmsRecipientCountPreviewProps
-> = ({ smartlistId }: SmsRecipientCountPreviewProps) => {
+> = ({ smartlistId, target }: SmsRecipientCountPreviewProps) => {
   const { t } = useTranslation("campaign");
 
   return (
@@ -29,7 +40,11 @@ export const SmsRecipientCountPreview: React.FC<
       </Body>
       <div className="flex flex-row items-center gap-xs">
         <QueryBoundary loadingFallback={<Loader size="sm" />}>
-          <SmsRecipientCount smartlistId={smartlistId} />
+          {target !== undefined ? (
+            <SmsRecipientCount target={target} />
+          ) : (
+            <SmsRecipientCount smartlistId={smartlistId} />
+          )}
         </QueryBoundary>
         <TimedInfoPopover
           label={t("sms.creation.expectedRecipients.infoLabel")}
@@ -94,17 +109,53 @@ export const SmsRecipientCountPreview: React.FC<
   );
 };
 
-const SmsRecipientCount = ({ smartlistId }: SmsRecipientCountPreviewProps) => {
-  const { data: recipientsCount } = useFetchCommunicationRecipientsPreviewCount(
-    {
-      channel: CommunicationChannel.SMS,
-      is_marketing: true,
-      target: {
-        type: "smartlist",
-        smartlist_id: smartlistId,
-      },
-    },
-  );
+const hasSmartlistId = (smartlistId?: number): smartlistId is number =>
+  typeof smartlistId === "number";
+
+const hasRecipientTarget = (
+  target?: RecipientTarget,
+): target is RecipientTarget => target !== undefined;
+
+const getRecipientTarget = ({
+  smartlistId,
+  target,
+}: SmsRecipientCountPreviewProps): RecipientTarget => {
+  if (hasRecipientTarget(target)) {
+    return target;
+  }
+
+  if (hasSmartlistId(smartlistId)) {
+    return { type: "smartlist", smartlist_id: smartlistId };
+  }
+
+  throw new Error("Expected recipient target to be defined");
+};
+
+const buildRecipientCountRequest = (
+  target: RecipientTarget,
+): CommunicationPreviewRecipientsRequest => {
+  switch (target.type) {
+    case "smartlist":
+      return {
+        channel: CommunicationChannel.SMS,
+        is_marketing: true,
+        target,
+      };
+    case "segment":
+      return {
+        channel: CommunicationChannel.SMS,
+        is_marketing: true,
+        target,
+      };
+  }
+};
+
+const SmsRecipientCount = (props: SmsRecipientCountPreviewProps) => {
+  const recipientTarget = getRecipientTarget(props);
+  const request = buildRecipientCountRequest(recipientTarget);
+
+  const { data: recipientsCount } =
+    useFetchCommunicationRecipientsPreviewCount(request);
 
   return (
     <Body htmlVariant="p" size="lg" weight="strong">

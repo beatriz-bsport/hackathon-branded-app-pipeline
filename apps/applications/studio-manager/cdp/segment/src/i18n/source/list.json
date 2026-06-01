@@ -66,7 +66,12 @@
         }
       },
       "segmentPlaceholder": "Segment details will be available soon.",
-      "campaignsPlaceholder": "Campaigns will be available soon."
+      "campaignsPlaceholder": "Campaigns will be available soon.",
+      "campaigns": {
+        "emptyState": {
+          "description": "No campaigns have been sent to this pre-built segment yet."
+        }
+      }
     }
   },
   "addSmartlist": "Create Segment",

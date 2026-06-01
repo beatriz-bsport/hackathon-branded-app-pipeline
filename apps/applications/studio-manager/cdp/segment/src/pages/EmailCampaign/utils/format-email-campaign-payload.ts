@@ -6,7 +6,10 @@ import type {
 } from "@bsport/api-cdp/communicate";
 
 import type { EmailCampaignFormData } from "#src/components/EmailCampaignForm/types";
-import { CONTEXT_SMARTLIST } from "#src/utils/constants";
+import {
+  CONTEXT_PREBUILT_SEGMENT,
+  CONTEXT_SMARTLIST,
+} from "#src/utils/constants";
 
 type EmailPayloadContent =
   | {
@@ -73,6 +76,25 @@ export const formatSendEmailCampaignPayload = ({
     context_object_id: smartlistId,
     member_filters: {
       smartlist: smartlistId,
+    },
+  };
+};
+
+export const formatSendPrebuiltSegmentEmailCampaignPayload = ({
+  segmentIdentifier,
+  data,
+}: {
+  segmentIdentifier: string;
+  data: EmailCampaignFormData;
+}): SendEmailCampaignPayload => {
+  const content = getEmailContent(data);
+
+  return {
+    ...content,
+    context_identifier: CONTEXT_PREBUILT_SEGMENT,
+    context_segment_identifier: segmentIdentifier,
+    member_filters: {
+      segment_identifier: segmentIdentifier,
     },
   };
 };

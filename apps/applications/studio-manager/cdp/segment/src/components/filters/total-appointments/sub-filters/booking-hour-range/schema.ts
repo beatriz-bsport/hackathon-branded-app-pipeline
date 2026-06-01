@@ -8,29 +8,26 @@ import {
 import { i18nInstance } from "#src/utils/i18n";
 
 import {
-  BOOKING_HOUR_RANGE_DEFAULT_HOUR,
-  BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+  APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
+  APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
 } from "../../constants";
-import type { TotalBookingNumberFilterFormValue } from "../../types";
-import { TOTAL_BOOKING_SUB_FILTER_IDS } from "../total-booking-sub-filter-id";
+import type { TotalAppointmentsNumberFilterFormValue } from "../../types";
+import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "../total-appointments-sub-filter-id";
 
 const I18N_NAMESPACE = "sm-smartlists_filters";
 
-const BOOKING_HOUR_RANGE_REQUIRED_MESSAGE = i18nInstance.t(
-  "filters.22.validation.bookingHourRangeRequired",
-  { ns: I18N_NAMESPACE },
-);
-
 /**
- * Zod refinement for the booking session hour-range sub-filter when it is
+ * Zod refinement for the appointment hour-range sub-filter when it is
  * present in `subFilters` (requires both bounds and sensible ordering).
  */
 export const refineBookingHourRangeSubFilter = (
-  value: TotalBookingNumberFilterFormValue,
+  value: TotalAppointmentsNumberFilterFormValue,
   context: z.RefinementCtx,
 ) => {
   if (
-    !value.subFilters.includes(TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange)
+    !value.subFilters.includes(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange,
+    )
   ) {
     return;
   }
@@ -41,7 +38,12 @@ export const refineBookingHourRangeSubFilter = (
     context.addIssue({
       code: z.ZodIssueCode.custom,
       path: ["bookingHourRange", "hour"],
-      message: BOOKING_HOUR_RANGE_REQUIRED_MESSAGE,
+      message: i18nInstance.t(
+        "filters.26.validation.appointmentHourRangeRequired",
+        {
+          ns: I18N_NAMESPACE,
+        },
+      ),
     });
     return;
   }
@@ -50,7 +52,12 @@ export const refineBookingHourRangeSubFilter = (
     context.addIssue({
       code: z.ZodIssueCode.custom,
       path: ["bookingHourRange", "hourSecond"],
-      message: BOOKING_HOUR_RANGE_REQUIRED_MESSAGE,
+      message: i18nInstance.t(
+        "filters.26.validation.appointmentHourRangeRequired",
+        {
+          ns: I18N_NAMESPACE,
+        },
+      ),
     });
     return;
   }
@@ -58,8 +65,8 @@ export const refineBookingHourRangeSubFilter = (
   const normalizedBookingHourRange = normalizeBookingHourRangeFormValue(
     value.bookingHourRange,
     {
-      hour: BOOKING_HOUR_RANGE_DEFAULT_HOUR,
-      hourSecond: BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+      hour: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
+      hourSecond: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
     },
   );
 
@@ -73,7 +80,7 @@ export const refineBookingHourRangeSubFilter = (
       code: z.ZodIssueCode.custom,
       path: ["bookingHourRange", "hourSecond"],
       message: i18nInstance.t(
-        "filters.22.validation.bookingHourRangeOrderInvalid",
+        "filters.26.validation.appointmentHourRangeOrderInvalid",
         { ns: I18N_NAMESPACE },
       ),
     });

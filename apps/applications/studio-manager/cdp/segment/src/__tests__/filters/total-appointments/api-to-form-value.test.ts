@@ -8,6 +8,7 @@ import {
 
 import { TOTAL_APPOINTMENTS_NUMBER_TYPE } from "#src/components/filters/total-appointments/constants";
 import { mapTotalAppointmentsFilterToFormValue } from "#src/components/filters/total-appointments/mappers/api-to-form-value";
+import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "#src/components/filters/total-appointments/sub-filters/total-appointments-sub-filter-id";
 
 const PRIVATE_BOOKINGS_FILTER_IDENTIFIER = 26;
 
@@ -90,5 +91,114 @@ describe("mapTotalAppointmentsFilterToFormValue", () => {
     const formValue = mapTotalAppointmentsFilterToFormValue(filter);
 
     expect(formValue.value).toBe(12);
+  });
+
+  it("registers booking date sub-filter when the API slice is active", () => {
+    const filter = buildApiFilter({
+      date_filter_active: true,
+      date_filter_type: SmartlistDateFilterType.DATE_BETWEEN,
+      date: "2026-04-01",
+      date_second: "2026-04-30",
+      duration: 0,
+      duration_second: 0,
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate,
+    );
+    expect(formValue.bookingDate.absolute.fromDate).toBe("2026-04-01");
+    expect(formValue.bookingDate.absolute.toDate).toBe("2026-04-30");
+  });
+
+  it("leaves booking date sub-filter out when the API slice is inactive", () => {
+    const filter = buildApiFilter({
+      date_filter_active: false,
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).not.toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate,
+    );
+  });
+
+  it("activates booking hour range sub-filter when API hour filter is active", () => {
+    const filter = buildApiFilter({
+      hour_filter_active: true,
+      hour: "08:30",
+      hour_second: "17:45",
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange,
+    );
+    expect(formValue.bookingHourRange.hour).toBe("08:30");
+    expect(formValue.bookingHourRange.hourSecond).toBe("17:45");
+  });
+
+  it("normalizes empty API hour values to appointment hour range defaults", () => {
+    const filter = buildApiFilter({
+      hour_filter_active: true,
+      hour: "",
+      hour_second: "",
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange,
+    );
+    expect(formValue.bookingHourRange.hour).toBe("09:00");
+    expect(formValue.bookingHourRange.hourSecond).toBe("18:00");
+  });
+
+  it("does not list booking hour range sub-filter when API hour filter is inactive", () => {
+    const filter = buildApiFilter({
+      hour_filter_active: false,
+      hour: "10:00",
+      hour_second: "12:00",
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).not.toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange,
+    );
+  });
+
+  it("activates coach sub-filter when API coach filter is active", () => {
+    const filter = buildApiFilter({
+      coach_filter_active: true,
+      select_all_coaches: false,
+      coaches: [55, 66],
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.coach,
+    );
+    expect(formValue.coach.selectAllCoaches).toBe(false);
+    expect(formValue.coach.selectedCoachIds).toEqual([55, 66]);
+  });
+
+  it("keeps coach sub-filter disabled defaults when API coach filter is inactive", () => {
+    const filter = buildApiFilter({
+      coach_filter_active: false,
+      select_all_coaches: true,
+      coaches: [],
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).not.toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.coach,
+    );
+    expect(formValue.coach.selectAllCoaches).toBe(true);
+    expect(formValue.coach.selectedCoachIds).toEqual([]);
   });
 });

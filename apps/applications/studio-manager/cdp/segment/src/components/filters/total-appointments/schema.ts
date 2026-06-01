@@ -1,8 +1,11 @@
 import { z } from "zod";
 
+import { dateFilterValueSchema } from "#src/components/filters/passes-filter/sub-filters/purchase-date/schema";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { TOTAL_APPOINTMENTS_NUMBER_TYPE } from "./constants";
+import { REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS } from "./sub-filters/registry";
+import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "./sub-filters/total-appointments-sub-filter-id";
 import type { TotalAppointmentsNumberFilterFormValue } from "./types";
 
 const I18N_NAMESPACE = "sm-smartlists_filters";
@@ -24,6 +27,22 @@ export const totalAppointmentsNumberFilterSchema = z
     ]),
     value: z.number().int().min(0, VALUE_REQUIRED_MESSAGE),
     secondValue: z.number().int().min(0, VALUE_REQUIRED_MESSAGE).nullable(),
+    subFilters: z.array(
+      z.union([
+        z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingDate),
+        z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange),
+        z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.coach),
+      ]),
+    ),
+    bookingDate: dateFilterValueSchema,
+    bookingHourRange: z.object({
+      hour: z.string(),
+      hourSecond: z.string(),
+    }),
+    coach: z.object({
+      selectAllCoaches: z.boolean(),
+      selectedCoachIds: z.array(z.number().int().positive()),
+    }),
   })
   .superRefine((data, context) => {
     if (data.type !== TOTAL_APPOINTMENTS_NUMBER_TYPE.between) {
@@ -52,5 +71,10 @@ export const totalAppointmentsNumberFilterSchema = z
           },
         ),
       });
+    }
+  })
+  .superRefine((value, context) => {
+    for (const subFilterModule of REGISTERED_TOTAL_APPOINTMENTS_SUB_FILTERS) {
+      subFilterModule.refine(value, context);
     }
   }) satisfies z.ZodType<TotalAppointmentsNumberFilterFormValue>;

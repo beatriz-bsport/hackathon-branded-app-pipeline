@@ -4,14 +4,14 @@ import { normalizeBookingHourRangeFormValue } from "#src/components/filters/shar
 import { useTranslation } from "#src/utils/i18n";
 
 import {
-  BOOKING_HOUR_RANGE_DEFAULT_HOUR,
-  BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+  APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
+  APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
 } from "../../constants";
-import type { TotalBookingSubFilterSectionProps } from "../total-booking-sub-filter-section-props";
+import type { TotalAppointmentsSubFilterSectionProps } from "../total-appointments-sub-filter-section-props";
 
 /**
- * Restricts counted bookings to reservations whose session start time falls
- * between two clock times (same pattern as backend `hour` / `hour_second`).
+ * Restricts counted appointments to those whose start time falls between two
+ * clock times (same pattern as backend `hour` / `hour_second`).
  */
 export const BookingHourRangeSubFilterSection = ({
   id,
@@ -19,7 +19,7 @@ export const BookingHourRangeSubFilterSection = ({
   errors,
   setValue,
   onRemove,
-}: TotalBookingSubFilterSectionProps) => {
+}: TotalAppointmentsSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
 
   const startPickerId = `${id}-hour-start`;
@@ -27,23 +27,24 @@ export const BookingHourRangeSubFilterSection = ({
   const normalizedBookingHourRange = normalizeBookingHourRangeFormValue(
     value.bookingHourRange,
     {
-      hour: BOOKING_HOUR_RANGE_DEFAULT_HOUR,
-      hourSecond: BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+      hour: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR,
+      hourSecond: APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND,
     },
   );
+
   return (
     <Card className="w-full">
       <div className="flex flex-col gap-xs">
         <div className="flex items-center justify-between">
           <Body size="lg" weight="strong">
-            {t("filters.22.subFilters.bookingHourRange")}
+            {t("filters.26.subFilters.appointmentHourRange")}
           </Body>
           <Button
             kind="icon-button"
             icon="trash-01"
             size="sm"
-            label={t("filters.22.actions.removeSubFilter", {
-              subFilterLabel: t("filters.22.subFilters.bookingHourRange"),
+            label={t("filters.26.actions.removeSubFilter", {
+              subFilterLabel: t("filters.26.subFilters.appointmentHourRange"),
             })}
             intent="flat"
             color="default"
@@ -53,7 +54,7 @@ export const BookingHourRangeSubFilterSection = ({
 
         <div className="flex flex-col items-start gap-sm">
           <Body htmlVariant="span" size="md" color="default">
-            {t("filters.22.fields.bookingHourRangeStartingBetween")}
+            {t("filters.26.fields.appointmentHourRangeStartingBetween")}
           </Body>
           <TimePicker
             id={startPickerId}
@@ -75,7 +76,7 @@ export const BookingHourRangeSubFilterSection = ({
             }
           />
           <Body htmlVariant="span" size="md" color="default">
-            {t("filters.22.fields.bookingHourRangeAnd")}
+            {t("filters.26.fields.appointmentHourRangeAnd")}
           </Body>
           <TimePicker
             id={endPickerId}

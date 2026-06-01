@@ -8,6 +8,11 @@ import {
 } from "#src/components/primitive-filters/numeric-comparator-filter/constants";
 import type { NumericComparatorOperator } from "#src/components/primitive-filters/numeric-comparator-filter/types";
 
+export const APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR = "09:00";
+
+/** Upper bound default; paired with {@link APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR}. */
+export const APPOINTMENT_HOUR_RANGE_DEFAULT_HOUR_SECOND = "18:00";
+
 export const TOTAL_APPOINTMENTS_NUMBER_TYPE = {
   between: NUMERIC_COMPARATOR_OPERATOR_BETWEEN,
   lowerOrEqual: NUMERIC_COMPARATOR_OPERATOR_LOWER_OR_EQUAL,

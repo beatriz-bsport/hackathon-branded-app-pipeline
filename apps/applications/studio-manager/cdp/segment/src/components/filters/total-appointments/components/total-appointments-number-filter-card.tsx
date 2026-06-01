@@ -15,19 +15,26 @@ import { buildDirtyPatchPayload } from "../mappers/build-dirty-patch";
 import { createTotalAppointmentsPayload } from "../mappers/form-value-to-create-payload";
 import { totalAppointmentsNumberFilterSchema } from "../schema";
 import type { TotalAppointmentsNumberFilterCardProps } from "../types";
+import { TotalAppointmentsSubFiltersArea } from "./total-appointments-sub-filters-area";
 
 /**
  * Total appointments filter card (filter identifier 26).
- * Base numeric comparator only; sub-filters are added in a follow-up.
  */
 export const TotalAppointmentsNumberFilterCard = ({
   smartlistId,
+  companyId,
   filterValue,
   onDeleteUnsavedFilter,
   onSaveSuccess,
 }: TotalAppointmentsNumberFilterCardProps) => {
   const { t } = useTranslation("filters");
-  const comparatorFieldId = useId();
+  const baseId = useId();
+  const fieldIds = {
+    comparator: `${baseId}-comparator`,
+    bookingDate: `${baseId}-booking-date`,
+    bookingHourRange: `${baseId}-booking-hour-range`,
+    coach: `${baseId}-coach`,
+  };
 
   const methods = useFormController({
     mode: "onBlur",
@@ -137,7 +144,7 @@ export const TotalAppointmentsNumberFilterCard = ({
         </div>
 
         <NumericComparatorFilter
-          id={comparatorFieldId}
+          id={fieldIds.comparator}
           value={comparatorValue}
           suffix={t("filters.26.fields.totalAppointmentSuffix")}
           errors={{
@@ -173,6 +180,18 @@ export const TotalAppointmentsNumberFilterCard = ({
               },
             );
           }}
+        />
+
+        <TotalAppointmentsSubFiltersArea
+          fieldIds={{
+            bookingDate: fieldIds.bookingDate,
+            bookingHourRange: fieldIds.bookingHourRange,
+            coach: fieldIds.coach,
+          }}
+          companyId={companyId}
+          watchedFilterValue={watchedFilterValue}
+          errors={errors}
+          setValue={methods.setValue}
         />
 
         <div className="flex justify-end">

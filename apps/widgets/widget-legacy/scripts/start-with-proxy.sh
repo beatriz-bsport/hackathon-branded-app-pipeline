@@ -85,7 +85,7 @@ start_saas_legacy() {
     echo "   Base env: envs/${base_env_file} + proxy override"
     pnpm run translation:update > /dev/null 2>&1
     cat "envs/${base_env_file}" "envs/${base_env_file}-with-proxy" > public/env.js
-    NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider BROWSER=none rspack serve --config config/rspack.dev.js > /tmp/saas-legacy-dev.log 2>&1 &
+    NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider BROWSER=none pnpm exec rspack serve --config config/rspack.dev.js > /tmp/saas-legacy-dev.log 2>&1 &
     SAAS_PID=$!
 }
 

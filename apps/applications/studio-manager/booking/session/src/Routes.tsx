@@ -9,6 +9,9 @@ const SessionOverviewPage = lazy(
   () => import("#src/pages/session-overview-page"),
 );
 const SessionSeriesPage = lazy(() => import("#src/pages/session-series-page"));
+const SessionAllOccurrencesPage = lazy(
+  () => import("#src/pages/session-all-occurrences-page"),
+);
 
 const LegacyOfferPageRedirect = () => {
   const { sessionId } = useParams<{ sessionId: string }>();
@@ -50,6 +53,16 @@ export const AppRoutes = () => {
           )
         }
         path={URLS.SERIES_SLUG}
+      />
+      <Route
+        element={
+          isSessionManagementRevampEnabled ? (
+            <SessionAllOccurrencesPage />
+          ) : (
+            <LegacyOfferPageRedirect />
+          )
+        }
+        path={URLS.ALL_OCCURRENCES_SLUG}
       />
       <Route element={<DetailsPage />} path={URLS.EDIT_SLUG} />
     </Routes>

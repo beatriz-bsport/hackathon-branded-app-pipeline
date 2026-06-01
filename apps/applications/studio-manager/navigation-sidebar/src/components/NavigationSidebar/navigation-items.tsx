@@ -50,6 +50,18 @@ const BadgeNew: React.FC = () => {
   );
 };
 
+const BadgeBeta: React.FC = () => {
+  const { t } = useTranslation("default");
+
+  return (
+    <Badge
+      size="sm"
+      color="main"
+      text={t("common.beta", { defaultValue: "Beta" })}
+    />
+  );
+};
+
 /**
  * Override the navigation url configuration when the item href should be conditioned by a feature flag.
  * -> Use it when the legacy page already exists, is always displayed, and should be the fallback.
@@ -347,6 +359,7 @@ export const useNavigationElements = ({
               label: t("menus.marketing.smartfill"),
               ...navigationUrls.smartfill,
               hidden: !isSmartfillEnabled,
+              endSlot: <BadgeBeta />,
             },
             {
               id: "audience",

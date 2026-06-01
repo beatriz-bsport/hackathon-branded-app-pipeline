@@ -10,6 +10,11 @@ import type { TotalBookingNumberFilterFormValue } from "./types";
 
 const I18N_NAMESPACE = "sm-smartlists_filters";
 
+const VALUE_REQUIRED_MESSAGE = i18nInstance.t(
+  "filters.22.validation.valueRequired",
+  { ns: I18N_NAMESPACE },
+);
+
 export const totalBookingNumberFilterSchema = z
   .object({
     id: z.number().int().positive().optional(),
@@ -20,25 +25,8 @@ export const totalBookingNumberFilterSchema = z
       TOTAL_BOOKING_NUMBER_TYPE.greaterOrEqual,
       TOTAL_BOOKING_NUMBER_TYPE.equal,
     ]),
-    value: z
-      .number()
-      .int()
-      .min(
-        0,
-        i18nInstance.t("filters.22.validation.valueRequired", {
-          ns: I18N_NAMESPACE,
-        }),
-      ),
-    secondValue: z
-      .number()
-      .int()
-      .min(
-        0,
-        i18nInstance.t("filters.22.validation.valueRequired", {
-          ns: I18N_NAMESPACE,
-        }),
-      )
-      .nullable(),
+    value: z.number().int().min(0, VALUE_REQUIRED_MESSAGE),
+    secondValue: z.number().int().min(0, VALUE_REQUIRED_MESSAGE).nullable(),
     subFilters: z.array(
       z.union([
         z.literal(TOTAL_BOOKING_SUB_FILTER_IDS.activity),

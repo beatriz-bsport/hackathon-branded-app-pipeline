@@ -12,7 +12,9 @@ import {
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   MemberDateJoinedFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
+  PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   PaymentPackFilter,
+  PrivateBookingsFilter,
   TAG_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
   TagFilter,
@@ -27,6 +29,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   memberSignUpDate: "memberSignUpDate",
   passes: "passes",
   totalBookingNumber: "totalBookingNumber",
+  totalAppointmentsNumber: "totalAppointmentsNumber",
   bookingMilestone: "bookingMilestone",
   tags: "tags",
   activePasses: "activePasses",
@@ -47,6 +50,7 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.memberSignUpDate ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.passes ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalBookingNumber ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalAppointmentsNumber ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.tags ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.bookingMilestone ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.activePasses ||
@@ -153,6 +157,17 @@ export const isBookingMilestoneFilter = (
   hasNumber(value, "smartlist") &&
   hasNumber(value, "company_id") &&
   hasNumber(value, "value");
+
+export const isPrivateBookingsFilter = (
+  value: unknown,
+): value is PrivateBookingsFilter =>
+  hasFilterIdentifier(value, PRIVATE_BOOKINGS_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumber(value, "comparator") &&
+  hasNumber(value, "value") &&
+  hasNumber(value, "value_second");
 
 export const isActivePassesFilter = (
   value: unknown,

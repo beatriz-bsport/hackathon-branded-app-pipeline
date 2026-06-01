@@ -1,5 +1,6 @@
-import type { FieldNamesMarkedBoolean } from "react-hook-form";
 import { describe, expect, it, vi } from "vitest";
+
+import type { FieldNamesMarkedBoolean } from "@bsport/form";
 
 import { TOTAL_BOOKING_NUMBER_TYPE } from "#src/components/filters/total-booking/constants";
 import { createDefaultTotalBookingNumberFilter } from "#src/components/filters/total-booking/default-value";

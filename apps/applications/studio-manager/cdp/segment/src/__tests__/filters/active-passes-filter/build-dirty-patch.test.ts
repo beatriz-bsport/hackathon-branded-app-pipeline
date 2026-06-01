@@ -1,7 +1,7 @@
-import type { FieldNamesMarkedBoolean } from "react-hook-form";
 import { describe, expect, it, vi } from "vitest";
 
 import { SmartlistActivePassesComparator } from "@bsport/api-cdp/smartlist";
+import type { FieldNamesMarkedBoolean } from "@bsport/form";
 
 import { ACTIVE_PASSES_COMPARATOR_TYPE } from "#src/components/filters/active-passes-filter/constants";
 import { createDefaultActivePassesFilter } from "#src/components/filters/active-passes-filter/default-value";

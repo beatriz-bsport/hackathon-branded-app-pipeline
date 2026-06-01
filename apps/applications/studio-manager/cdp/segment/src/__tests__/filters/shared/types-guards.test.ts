@@ -4,6 +4,7 @@ import {
   isBookingMilestoneFilter,
   isFirstPurchaseFilter,
   isPaymentPackFilter,
+  isPrivateBookingsFilter,
   isTagFilter,
   isTotalBookingFilter,
 } from "#src/components/filters/shared/types-guards";
@@ -58,6 +59,34 @@ describe("smartlist filter type guards", () => {
         smartlist: 1,
         company_id: 1,
         filter_identifier: 21,
+        comparator: 2,
+        value: 3,
+        value_second: 0,
+      }),
+    ).toBe(false);
+  });
+
+  it("accepts private bookings filters by filter_identifier", () => {
+    expect(
+      isPrivateBookingsFilter({
+        id: 1,
+        smartlist: 1,
+        company_id: 1,
+        filter_identifier: 26,
+        comparator: 2,
+        value: 3,
+        value_second: 0,
+      }),
+    ).toBe(true);
+  });
+
+  it("rejects private bookings shape when filter_identifier is total booking", () => {
+    expect(
+      isPrivateBookingsFilter({
+        id: 1,
+        smartlist: 1,
+        company_id: 1,
+        filter_identifier: 22,
         comparator: 2,
         value: 3,
         value_second: 0,

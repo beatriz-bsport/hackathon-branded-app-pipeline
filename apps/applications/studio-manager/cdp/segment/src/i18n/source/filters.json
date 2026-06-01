@@ -33,6 +33,9 @@
       "totalBookingNumber": {
         "description": "Filter by total number of bookings."
       },
+      "totalAppointmentsNumber": {
+        "description": "Filter by total number of private appointments."
+      },
       "bookingMilestone": {
         "description": "Filter by the N-th booking a member reaches (1st, 2nd, …)."
       },
@@ -263,6 +266,49 @@
         "bookingDateDurationBetweenRequired": "Enter both day values for the between range.",
         "bookingHourRangeRequired": "Select both start and end times.",
         "bookingHourRangeOrderInvalid": "End time must be the same as or after the start time."
+      }
+    },
+    "26": {
+      "title": "Total Appointments",
+      "actions": {
+        "removeSubFilter": "Remove {{subFilterLabel}} sub-filter",
+        "deleteFilter": "Delete appointments filter",
+        "save": "Apply filter",
+        "addFilter": "Add appointments filter",
+        "addSubFilter": "Add sub-filter"
+      },
+      "fields": {
+        "coach": {
+          "searchPlaceholder": "Search for a Teacher",
+          "emptySelection": "Select Teachers to start filtering"
+        },
+        "totalAppointmentSuffix": "appointments",
+        "filterSpecifications": "FILTER SPECIFICATIONS",
+        "appointmentHourRangeStartingBetween": "Starting between ",
+        "appointmentHourRangeAnd": " and "
+      },
+      "subFilters": {
+        "coach": "Teacher",
+        "appointmentDate": "Appointment date",
+        "appointmentHourRange": "Appointment time"
+      },
+      "toasts": {
+        "saveError": "Unable to save appointments filter.",
+        "saveSuccess": "Filter applied.",
+        "deleteError": "Unable to delete appointments filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueRequired": "Appointment count must be 0 or higher.",
+        "secondValueRequired": "Second appointment count is required for range comparator.",
+        "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
+        "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
+        "appointmentDateRequired": "Select an appointment date.",
+        "appointmentDateBetweenRequired": "Select both dates for the between range.",
+        "appointmentDateDurationRequired": "Enter a number of days.",
+        "appointmentDateDurationBetweenRequired": "Enter both day values for the between range.",
+        "appointmentHourRangeRequired": "Select both start and end times.",
+        "appointmentHourRangeOrderInvalid": "End time must be the same as or after the start time."
       }
     },
     "27": {

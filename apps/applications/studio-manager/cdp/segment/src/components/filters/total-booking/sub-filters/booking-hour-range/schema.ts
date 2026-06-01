@@ -7,6 +7,11 @@ import { TOTAL_BOOKING_SUB_FILTER_IDS } from "../total-booking-sub-filter-id";
 
 const I18N_NAMESPACE = "sm-smartlists_filters";
 
+const BOOKING_HOUR_RANGE_REQUIRED_MESSAGE = i18nInstance.t(
+  "filters.22.validation.bookingHourRangeRequired",
+  { ns: I18N_NAMESPACE },
+);
+
 const TIME_HH_MM_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
 
 /**
@@ -41,12 +46,7 @@ export const refineBookingHourRangeSubFilter = (
     context.addIssue({
       code: z.ZodIssueCode.custom,
       path: ["bookingHourRange", "hour"],
-      message: i18nInstance.t(
-        "filters.22.validation.bookingHourRangeRequired",
-        {
-          ns: I18N_NAMESPACE,
-        },
-      ),
+      message: BOOKING_HOUR_RANGE_REQUIRED_MESSAGE,
     });
     return;
   }
@@ -55,12 +55,7 @@ export const refineBookingHourRangeSubFilter = (
     context.addIssue({
       code: z.ZodIssueCode.custom,
       path: ["bookingHourRange", "hourSecond"],
-      message: i18nInstance.t(
-        "filters.22.validation.bookingHourRangeRequired",
-        {
-          ns: I18N_NAMESPACE,
-        },
-      ),
+      message: BOOKING_HOUR_RANGE_REQUIRED_MESSAGE,
     });
     return;
   }

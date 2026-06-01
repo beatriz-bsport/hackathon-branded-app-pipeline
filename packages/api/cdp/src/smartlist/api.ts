@@ -17,6 +17,7 @@ import type {
   CreateGenderFilterPayload,
   CreateMemberDateJoinedFilterPayload,
   CreatePaymentPackFilterPayload,
+  CreatePrivateBookingsFilterPayload,
   CreateTagFilterPayload,
   CreateTagRuleParams,
   CreateTotalBookingFilterPayload,
@@ -25,6 +26,7 @@ import type {
   GenderFilter,
   MemberDateJoinedFilter,
   PaymentPackFilter,
+  PrivateBookingsFilter,
   Smartlist,
   SmartlistGetFiltersResponse,
   TagFilter,
@@ -37,6 +39,7 @@ import type {
   UpdateGenderFilterPayload,
   UpdateMemberDateJoinedFilterPayload,
   UpdatePaymentPackFilterPayload,
+  UpdatePrivateBookingsFilterPayload,
   UpdateTagFilterPayload,
   UpdateTagRuleParams,
   UpdateTotalBookingFilterPayload,
@@ -282,6 +285,47 @@ export const deleteTotalBookingFilter = async (
   filterId: number,
 ): Promise<void> => {
   await fetch(`${TOTAL_BOOKING_FILTER_ENDPOINT}/${filterId}/`, {
+    method: "DELETE",
+  });
+};
+
+// Private bookings filters (total appointments, identifier 26)
+
+const PRIVATE_BOOKINGS_FILTER_ENDPOINT = `${SMARTLIST_API_V1}/private_bookings`;
+
+export const createPrivateBookingsFilter = async (
+  fetch: Fetch<PrivateBookingsFilter>,
+  payload: CreatePrivateBookingsFilterPayload,
+): Promise<PrivateBookingsFilter> => {
+  const { data } = await fetch(`${PRIVATE_BOOKINGS_FILTER_ENDPOINT}/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const patchPrivateBookingsFilter = async (
+  fetch: Fetch<PrivateBookingsFilter>,
+  filterId: number,
+  payload: UpdatePrivateBookingsFilterPayload,
+): Promise<PrivateBookingsFilter> => {
+  const { data } = await fetch(
+    `${PRIVATE_BOOKINGS_FILTER_ENDPOINT}/${filterId}/`,
+    {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  );
+
+  return data;
+};
+
+export const deletePrivateBookingsFilter = async (
+  fetch: Fetch<void>,
+  filterId: number,
+): Promise<void> => {
+  await fetch(`${PRIVATE_BOOKINGS_FILTER_ENDPOINT}/${filterId}/`, {
     method: "DELETE",
   });
 };

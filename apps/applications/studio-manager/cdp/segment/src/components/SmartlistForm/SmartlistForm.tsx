@@ -21,7 +21,7 @@ type SmartlistFormProps = Omit<
 >;
 
 /**
- * Form component for creating or editing a smartlist using react-hook-form and zod validation
+ * Form component for creating or editing a smartlist using @bsport/form and zod validation
  *
  * @param id - Optional form id for external submit buttons
  * @param onSubmit - Function called when form is submitted with valid data

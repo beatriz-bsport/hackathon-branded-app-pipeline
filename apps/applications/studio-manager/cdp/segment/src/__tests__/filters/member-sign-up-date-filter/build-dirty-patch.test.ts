@@ -1,7 +1,7 @@
-import type { FieldNamesMarkedBoolean } from "react-hook-form";
 import { describe, expect, it, vi } from "vitest";
 
 import { SmartlistDateFilterType } from "@bsport/api-cdp/smartlist";
+import type { FieldNamesMarkedBoolean } from "@bsport/form";
 
 import { createDefaultMemberSignUpDateFilter } from "#src/components/filters/member-sign-up-date-filter/default-value";
 import { buildDirtyPatchPayload } from "#src/components/filters/member-sign-up-date-filter/mappers/build-dirty-patch";

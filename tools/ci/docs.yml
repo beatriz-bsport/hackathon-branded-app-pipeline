@@ -24,12 +24,12 @@ Build Kaizen Docs:
   stage: build
   extends:
     - .Kaizen Docs Build Base
-  allow_failure: true
+  allow_failure: false
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "kaizen-ds-md-docs"
-      allow_failure: true
+      allow_failure: false
       when: on_success
     - if: $CI_COMMIT_BRANCH == "dev"
       allow_failure: false
@@ -59,6 +59,8 @@ Deploy Kaizen Docs:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "kaizen-ds-md-docs"
+      when: on_success
     - if: $CI_COMMIT_BRANCH == "dev"
       when: on_success
     - if: $CI_COMMIT_BRANCH == "kaizen-ds-md-docs"

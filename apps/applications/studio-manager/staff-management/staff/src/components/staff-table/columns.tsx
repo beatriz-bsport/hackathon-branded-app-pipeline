@@ -20,6 +20,7 @@ export const useStaffTableColumns = () => {
     id: "staff-column-name",
     type: "custom",
     align: "start",
+    colClassName: "px-md",
     header: t("table.headers.name"),
     render: (row) => (
       <Body
@@ -38,6 +39,7 @@ export const useStaffTableColumns = () => {
     id: "staff-column-email",
     type: "custom",
     align: "start",
+    colClassName: "px-md",
     header: t("table.headers.email"),
     render: (row) => (
       <Body
@@ -55,6 +57,7 @@ export const useStaffTableColumns = () => {
     id: "staff-column-role",
     type: "custom",
     align: "start",
+    colClassName: "px-md",
     header: t("table.headers.role"),
     render: (row) => {
       if (!row.roleName) return null;
@@ -80,6 +83,7 @@ export const useStaffTableColumns = () => {
     id: "staff-column-billing-group",
     type: "custom",
     align: "start",
+    colClassName: "px-md",
     header: t("table.headers.billingGroup"),
     render: (row) => (
       <Body
@@ -97,6 +101,7 @@ export const useStaffTableColumns = () => {
     id: "staff-column-assigned-teachers",
     type: "custom",
     align: "start",
+    colClassName: "w-full px-md",
     header: t("table.headers.assignedTeachers"),
     render: (row) => {
       const MAX_TEACHERS = 2;
@@ -125,6 +130,7 @@ export const useStaffTableColumns = () => {
     id: "staff-column-commission",
     type: "custom",
     align: "start",
+    colClassName: "px-md",
     header: t("table.headers.commission"),
     render: (row) => (
       <Body
@@ -142,6 +148,7 @@ export const useStaffTableColumns = () => {
     id: "staff-column-actions",
     type: "custom",
     align: "center",
+    colClassName: "px-md",
     header: (
       <span className="sr-only" aria-label={t("table.headers.actions")}>
         {t("table.headers.actions")}

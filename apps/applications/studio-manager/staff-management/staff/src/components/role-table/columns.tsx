@@ -57,6 +57,7 @@ export const useRoleTableColumns = (onDelete: (role: RoleRowData) => void) => {
     id: "role-column-name",
     type: "custom",
     align: "start",
+    colClassName: "px-md",
     header: t("table.headers.name"),
     render: (row) =>
       renderNameCell(
@@ -71,6 +72,7 @@ export const useRoleTableColumns = (onDelete: (role: RoleRowData) => void) => {
     id: "role-column-permissions",
     type: "custom",
     align: "start",
+    colClassName: "w-full px-md",
     header: t("table.headers.permissions"),
     render: (row) => {
       const visiblePermissions = row.permissions.slice(
@@ -113,6 +115,7 @@ export const useRoleTableColumns = (onDelete: (role: RoleRowData) => void) => {
     id: "role-column-staff-assigned",
     type: "custom",
     align: "start",
+    colClassName: "px-md",
     header: t("table.headers.staffAssigned"),
     render: (row) =>
       renderStaffAssignedCell(
@@ -127,6 +130,7 @@ export const useRoleTableColumns = (onDelete: (role: RoleRowData) => void) => {
     id: "role-column-actions",
     type: "custom",
     align: "center",
+    colClassName: "px-md",
     header: t("table.headers.actions"),
     render: (row) => <RoleRowActions row={row} onDelete={onDelete} />,
   };

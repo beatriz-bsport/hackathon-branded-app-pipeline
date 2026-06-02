@@ -14,13 +14,13 @@ if (!distDir || !bucketName || !s3Prefix) {
 const indexPath = path.join(distDir, "index.html");
 const staticRoutesPath = path.join(distDir, "static-routes.json");
 
-function routeToKey(route) {
+function routeToKeys(route) {
   const prefix = s3Prefix.replace(/^\/+|\/+$/g, "");
   const cleanRoute = route.replace(/^\/+/, "");
-  return cleanRoute ? `${prefix}/${cleanRoute}` : `${prefix}/`;
+  return cleanRoute ? [`${prefix}/${cleanRoute}`] : [prefix, `${prefix}/`];
 }
 
-function putRouteObject(route) {
+function putRouteObject(key) {
   const result = spawnSync(
     "aws",
     [
@@ -29,7 +29,7 @@ function putRouteObject(route) {
       "--bucket",
       bucketName,
       "--key",
-      routeToKey(route),
+      key,
       "--body",
       indexPath,
       "--acl",
@@ -48,6 +48,7 @@ function putRouteObject(route) {
 async function main() {
   const raw = await readFile(staticRoutesPath, "utf-8");
   const { routes } = JSON.parse(raw);
+  const keys = new Set();
 
   if (!Array.isArray(routes)) {
     throw new Error("static-routes.json must contain a routes array.");
@@ -57,10 +58,14 @@ async function main() {
     if (typeof route !== "string" || !route.startsWith("/")) {
       throw new Error(`Invalid static route: ${String(route)}`);
     }
-    putRouteObject(route);
+    routeToKeys(route).forEach((key) => keys.add(key));
   }
 
-  console.log(`[upload-static-routes] uploaded ${routes.length} route objects`);
+  for (const key of keys) {
+    putRouteObject(key);
+  }
+
+  console.log(`[upload-static-routes] uploaded ${keys.size} route objects`);
 }
 
 main().catch((error) => {

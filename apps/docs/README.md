@@ -51,7 +51,28 @@ pnpm -C apps/docs generate:static-exports  # write .md files, llms.txt, llms-ful
 
 ## Deployment (static bucket)
 
-After building, upload the contents of `apps/docs/dist/` to your bucket.
+CI deploys the docs to the existing docs bucket, under a separate Kaizen docs
+path from Storybook:
+
+```text
+s3://bsport-eu-docs/docs/kaizen/dev
+s3://bsport-eu-docs/docs/kaizen/staging
+s3://bsport-eu-docs/docs/kaizen/production
+```
+
+The CI build script builds with `VITE_BASE=/docs/kaizen/<environment>/` before
+uploading, so the generated asset URLs and React Router basename match the S3
+subfolder. It also points live examples at the deployed Kaizen Storybook instead
+of bundling Storybook into the docs artifact. The deploy script only uploads the
+prebuilt `dist/` artifact.
+
+For local/manual deployment:
+
+```bash
+pnpm -C apps/docs install
+pnpm -C apps/docs ci:build dev
+pnpm -C apps/docs ci:deploy dev
+```
 
 ### SPA fallback
 

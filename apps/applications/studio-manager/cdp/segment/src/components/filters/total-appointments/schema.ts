@@ -33,6 +33,7 @@ export const totalAppointmentsNumberFilterSchema = z
         z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.bookingHourRange),
         z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.coach),
         z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment),
+        z.literal(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass),
       ]),
     ),
     bookingDate: dateFilterValueSchema,
@@ -48,6 +49,10 @@ export const totalAppointmentsNumberFilterSchema = z
       selectAllEstablishments: z.boolean(),
       selectedEstablishmentIds: z.array(z.number().int().positive()),
       atHome: z.boolean(),
+    }),
+    privatePass: z.object({
+      selectAllPrivatePasses: z.boolean(),
+      selectedPrivatePassIds: z.array(z.number().int().positive()),
     }),
   })
   .superRefine((data, context) => {

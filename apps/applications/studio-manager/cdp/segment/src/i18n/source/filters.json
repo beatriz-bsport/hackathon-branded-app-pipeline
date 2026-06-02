@@ -296,6 +296,7 @@
       "subFilters": {
         "coach": "Teacher",
         "establishment": "Establishment",
+        "appointmentPass": "Appointment pass",
         "appointmentDate": "Appointment date",
         "appointmentHourRange": "Appointment time"
       },
@@ -311,6 +312,7 @@
         "secondValueGreaterThanFirst": "Second value must be greater than or equal to the first one.",
         "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
         "selectedEstablishmentsRequired": "Select at least one establishment, or include online appointments.",
+        "selectedAppointmentPassesRequired": "Select at least one appointment pass, or remove this sub-filter.",
         "appointmentDateRequired": "Select an appointment date.",
         "appointmentDateBetweenRequired": "Select both dates for the between range.",
         "appointmentDateDurationRequired": "Enter a number of days.",

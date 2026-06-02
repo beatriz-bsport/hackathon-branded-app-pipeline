@@ -241,4 +241,40 @@ describe("buildDirtyPatchPayload (total appointments)", () => {
     expect(payload.establishments).toEqual([]);
     expect(payload.at_home).toBe(true);
   });
+
+  it("emits private pass slice when private pass sub-filter is dirty", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass];
+    value.privatePass = {
+      selectAllPrivatePasses: false,
+      selectedPrivatePassIds: [44],
+    };
+    const dirtyFields: DirtyFields = {
+      privatePass: { selectAllPrivatePasses: true },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.private_pass_filter_active).toBe(true);
+    expect(payload.select_all_private_passes).toBe(false);
+    expect(payload.private_passes).toEqual([44]);
+  });
+
+  it("clears private pass slice when private pass sub-filter is removed", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [];
+    value.privatePass = {
+      selectAllPrivatePasses: false,
+      selectedPrivatePassIds: [],
+    };
+    const dirtyFields: DirtyFields = {
+      subFilters: [true],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.private_pass_filter_active).toBe(false);
+    expect(payload.select_all_private_passes).toBe(true);
+    expect(payload.private_passes).toEqual([]);
+  });
 });

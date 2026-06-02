@@ -32,4 +32,8 @@ export const createDefaultTotalAppointmentsNumberFilter = (
     selectedEstablishmentIds: [],
     atHome: false,
   },
+  privatePass: {
+    selectAllPrivatePasses: false,
+    selectedPrivatePassIds: [],
+  },
 });

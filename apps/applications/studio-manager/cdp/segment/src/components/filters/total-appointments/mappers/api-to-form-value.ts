@@ -57,6 +57,10 @@ export const mapTotalAppointmentsFilterToFormValue = (
       selectedEstablishmentIds: [],
       atHome: false,
     },
+    privatePass: {
+      selectAllPrivatePasses: false,
+      selectedPrivatePassIds: [],
+    },
     ...partialFromModules,
   };
 };

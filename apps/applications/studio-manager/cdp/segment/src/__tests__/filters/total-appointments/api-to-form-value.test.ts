@@ -254,4 +254,36 @@ describe("mapTotalAppointmentsFilterToFormValue", () => {
     expect(formValue.establishment.selectedEstablishmentIds).toEqual([]);
     expect(formValue.establishment.atHome).toBe(true);
   });
+
+  it("activates private pass sub-filter when API private pass filter is active", () => {
+    const filter = buildApiFilter({
+      private_pass_filter_active: true,
+      select_all_private_passes: false,
+      private_passes: [12, 34],
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass,
+    );
+    expect(formValue.privatePass.selectAllPrivatePasses).toBe(false);
+    expect(formValue.privatePass.selectedPrivatePassIds).toEqual([12, 34]);
+  });
+
+  it("keeps private pass sub-filter disabled defaults when API private pass filter is inactive", () => {
+    const filter = buildApiFilter({
+      private_pass_filter_active: false,
+      select_all_private_passes: true,
+      private_passes: [],
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).not.toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass,
+    );
+    expect(formValue.privatePass.selectAllPrivatePasses).toBe(true);
+    expect(formValue.privatePass.selectedPrivatePassIds).toEqual([]);
+  });
 });

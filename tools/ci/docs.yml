@@ -29,24 +29,18 @@ Build Kaizen Docs:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "kaizen-ds-md-docs"
-      variables:
-        KAIZEN_DOCS_DEPLOY_ENV: "review"
       allow_failure: true
       when: on_success
     - if: $CI_COMMIT_BRANCH == "dev"
-      variables:
-        KAIZEN_DOCS_DEPLOY_ENV: "dev"
       allow_failure: false
       when: on_success
     - if: $CI_COMMIT_BRANCH == "kaizen-ds-md-docs"
-      variables:
-        KAIZEN_DOCS_DEPLOY_ENV: "review"
       allow_failure: false
       when: on_success
   script:
     - echo "🔱 Building Kaizen docs static artifact"
     - pnpm -C apps/docs install --frozen-lockfile --prefer-offline
-    - pnpm -C apps/docs ci:build "$KAIZEN_DOCS_DEPLOY_ENV"
+    - pnpm -C apps/docs ci:build
   artifacts:
     name: "kaizen-docs-$CI_COMMIT_SHORT_SHA"
     when: on_success
@@ -66,13 +60,9 @@ Deploy Kaizen Docs:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
     - if: $CI_COMMIT_BRANCH == "dev"
-      variables:
-        KAIZEN_DOCS_DEPLOY_ENV: "dev"
       when: on_success
     - if: $CI_COMMIT_BRANCH == "kaizen-ds-md-docs"
-      variables:
-        KAIZEN_DOCS_DEPLOY_ENV: "review"
       when: on_success
   script:
     - echo "🔱 Deploying Kaizen docs static site"
-    - apps/docs/scripts/ci-deploy.sh "$KAIZEN_DOCS_DEPLOY_ENV"
+    - apps/docs/scripts/ci-deploy.sh

@@ -2,32 +2,15 @@
 
 set -eu
 
-ENVIRONMENT=${1:-}
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 DOCS_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
 DIST_DIR="$DOCS_ROOT/dist"
-S3_BUCKET="s3://bsport-eu-docs"
-S3_KAIZEN_DOCS_PATH="docs/kaizen"
+S3_FINAL_PATH="s3://bsport-eu-docs/docs/kaizen/dev"
 
-echo "Start uploading Kaizen docs for Environment : $ENVIRONMENT"
-
-if [ "$ENVIRONMENT" = "dev" ]; then
-  S3_ENV_PATH="dev"
-elif [ "$ENVIRONMENT" = "staging" ]; then
-  S3_ENV_PATH="staging"
-elif [ "$ENVIRONMENT" = "production" ]; then
-  S3_ENV_PATH="production"
-elif [ "$ENVIRONMENT" = "review" ]; then
-  S3_ENV_PATH="review/${CI_COMMIT_REF_SLUG:-local}"
-else
-  echo "⚠️  Environment $ENVIRONMENT is not recognized ! Stop script ..."
-  exit 0
-fi
-
-S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_DOCS_PATH/$S3_ENV_PATH"
+echo "Start uploading Kaizen docs to dev"
 
 if [ ! -f "$DIST_DIR/index.html" ]; then
-  echo "Missing docs artifact at $DIST_DIR. Run pnpm -C apps/docs ci:build $ENVIRONMENT first."
+  echo "Missing docs artifact at $DIST_DIR. Run pnpm -C apps/docs ci:build first."
   exit 1
 fi
 

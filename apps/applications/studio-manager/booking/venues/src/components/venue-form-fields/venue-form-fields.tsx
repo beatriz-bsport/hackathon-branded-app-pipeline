@@ -6,8 +6,6 @@ import { AddressAutocompleteFormSelector } from "@bsport/kaizen-business-compone
 import { FormMediaField } from "@bsport/kaizen-business-components/form/media-field";
 import {
   Body,
-  Select,
-  type SelectProps,
   TextArea,
   type TextAreaProps,
   TextField,
@@ -18,15 +16,7 @@ import { type LatLng, MapPin, MapView } from "#src/components/venues-map";
 import { useTranslation } from "#src/utils/i18n";
 import { type VenueFormValues, fieldIdPrefix } from "#src/utils/venue-form";
 
-type VenueFormFieldsProps = {
-  multiLocalization: boolean;
-  groupItems: SelectProps["items"];
-};
-
-export const VenueFormFields: FC<VenueFormFieldsProps> = ({
-  multiLocalization,
-  groupItems,
-}) => {
+export const VenueFormFields: FC = () => {
   const { t } = useTranslation("venues-list");
 
   return (
@@ -71,6 +61,7 @@ export const VenueFormFields: FC<VenueFormFieldsProps> = ({
           id={`${fieldIdPrefix}-description`}
           label={t("venueModal.description.label")}
           placeholder={t("venueModal.description.placeholder")}
+          helperText={t("venueModal.description.helper")}
           required
         />
       </FormField>
@@ -87,31 +78,6 @@ export const VenueFormFields: FC<VenueFormFieldsProps> = ({
       />
 
       <LocationMapPreview />
-
-      {multiLocalization && (
-        <FormField<VenueFormValues, "locationGroupId", SelectProps>
-          name="locationGroupId"
-          mapProps={({ form, defaultProps, fieldState }) => ({
-            ...defaultProps,
-            onChange: (id: string) =>
-              form.setValue("locationGroupId", id, {
-                shouldValidate: true,
-                shouldDirty: true,
-              }),
-            status: fieldState.error ? "critical" : "default",
-            errorText: fieldState.error?.message,
-          })}
-        >
-          <Select
-            id={`${fieldIdPrefix}-location`}
-            label={t("venueModal.location.label")}
-            size="md"
-            required
-            items={groupItems}
-            fullWidth
-          />
-        </FormField>
-      )}
 
       <FormField<VenueFormValues, "capacity", TextFieldProps>
         name="capacity"

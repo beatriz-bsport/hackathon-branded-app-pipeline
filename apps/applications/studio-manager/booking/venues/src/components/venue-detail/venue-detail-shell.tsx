@@ -42,8 +42,10 @@ export const VenueDetailShell: FC<Props> = ({ venue }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeTab = getActiveTab(searchParams.get("tab"));
 
-  const { methods, multiLocalization, groupItems, isPending, submit } =
-    useVenueForm({ venue, mode: "onSubmit" });
+  const { methods, isPending, submit } = useVenueForm({
+    venue,
+    mode: "onSubmit",
+  });
 
   const formId = `venue-editor-form-${useId()}`;
   const isDirty = methods.formState.isDirty;
@@ -99,12 +101,7 @@ export const VenueDetailShell: FC<Props> = ({ venue }) => {
             onArchive={openArchiveModal}
           />
           <DetailsLayout.Content>
-            {activeTab === "editor" && (
-              <VenueEditorTab
-                multiLocalization={multiLocalization}
-                groupItems={groupItems}
-              />
-            )}
+            {activeTab === "editor" && <VenueEditorTab />}
             {activeTab === "calendar" && (
               <Body size="md" color="default">
                 {t("detail.comingSoon")}

@@ -208,7 +208,8 @@
     },
     "description": {
       "label": "Description",
-      "placeholder": "Describe the venue e.g. A boutique yoga studio in central Paris with daily Vinyasa classes."
+      "placeholder": "Describe the venue e.g. A boutique yoga studio in central Paris with daily Vinyasa classes.",
+      "helper": "Displayed on your studio's profile in the app. Use it to describe your space, atmosphere, or what makes your studio unique."
     },
     "address": {
       "label": "Address",

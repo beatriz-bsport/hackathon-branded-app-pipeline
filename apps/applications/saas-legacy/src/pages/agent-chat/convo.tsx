@@ -16,7 +16,11 @@ export const Convo: React.FC<ConvoProps> = ({
   return (
     <div>
       {messages.map((message) => (
-        <div key={message.id} style={{ marginBottom: '16px' }}>
+        <div
+          key={message.id}
+          id={`message-${message.id}`}
+          style={{ marginBottom: '16px' }}
+        >
           <Message memberProfile={memberProfile} message={message} />
         </div>
       ))}

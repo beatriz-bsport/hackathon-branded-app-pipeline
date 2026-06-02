@@ -31,6 +31,8 @@ import type {
   MessageParams,
   SmartListPopupSending,
   UnreadAnswersCount,
+  MessageListParams,
+  MessageListResponse,
 } from '#src/libs/communication-v2/types';
 import type { PaginatedResponse } from '#src/state/types';
 
@@ -310,5 +312,16 @@ export const createMessage = (
   return postAuth<MessageCreationOutput>(
     `${API_V1_URI}/communication/chat/member/conversation/${conversationUuid}/message/`,
     messageCreationInput,
+  );
+};
+
+export const fetchMessages = (
+  conversationUuid: string,
+  params?: MessageListParams,
+) => {
+  return getAuth<MessageListResponse>(
+    `${API_V1_URI}/communication/chat/member/conversation/${conversationUuid}/message/${buildUrlParams(
+      params,
+    )}`,
   );
 };

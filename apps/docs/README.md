@@ -5,7 +5,8 @@ MDX + Tailwind 4, sitting next to the real Kaizen packages at
 `packages/design-system/kaizen/`.
 
 The site builds to a static `dist/` folder suitable for hosting on S3, GCS, or
-any static file server with SPA fallback configured.
+any static file server. The CI deploy uploads `index.html` to each known docs
+route so direct links and browser refreshes work without a Next server.
 
 ## Local development
 
@@ -17,8 +18,9 @@ pnpm -C apps/docs install                       # docs-only lockfile (keeps root
 pnpm -C apps/docs dev
 ```
 
-`apps/docs` is excluded from the pnpm workspace so its dependencies live in
-`apps/docs/pnpm-lock.yaml` and do not change the root lockfile.
+`apps/docs` is intentionally excluded from the pnpm workspace. Its dependencies
+live in `apps/docs/pnpm-lock.yaml` so this documentation site cannot pull MDX,
+Vite, or docs-only tooling into the monorepo lockfile used by product builds.
 
 The dev server runs on http://localhost:4070. The `dev` script first runs
 the `generate` pipeline (extracts props and tokens, generates nav/manifest/static
@@ -38,6 +40,8 @@ VITE_STORYBOOK_BASE_URL=http://localhost:6006 pnpm -C apps/docs dev
 pnpm -C apps/docs build               # one-shot generate + vite build → dist/
 pnpm -C apps/docs preview              # preview the built dist/ locally
 pnpm -C apps/docs lint                 # eslint
+pnpm -C apps/docs typecheck            # TypeScript, no emit
+pnpm -C apps/docs format:check         # Prettier over docs app code/config, not content/
 pnpm -C apps/docs generate             # rerun all generators
 pnpm -C apps/docs generate:metadata    # generate nav + pages manifest
 pnpm -C apps/docs generate:design-data # generate props + tokens
@@ -87,7 +91,7 @@ extra S3 objects only make hard refreshes and direct links work.
 
 | Variable                  | When       | Purpose                                                                                                               |
 | ------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------- |
-| `DOCS_URL`                | Build time | Base URL for absolute links in `llms.txt`. Defaults to `https://kaizen.bsport.io`.                                    |
+| `DOCS_URL`                | Build time | Base URL for absolute links in `llms.txt`. Defaults to `https://docs.infra.bsport.io/docs/kaizen/dev`.                |
 | `VITE_BASE`               | Build time | Set to the deployment subpath (e.g. `/docs/kaizen/dev/`) if the site is not served from domain root. Defaults to `/`. |
 | `VITE_STORYBOOK_BASE_URL` | Build time | Optional Storybook iframe base URL. Defaults to `https://docs.infra.bsport.io/storybook/kaizen/dev`.                  |
 

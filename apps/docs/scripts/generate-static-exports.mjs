@@ -7,7 +7,8 @@ import { GENERATED_DIR } from "./lib/paths.mjs";
 const OUTPUT_DIR = GENERATED_DIR;
 
 const DOCS_URL =
-  process.env.DOCS_URL?.replace(/\/$/, "") ?? "https://kaizen.bsport.io";
+  process.env.DOCS_URL?.replace(/\/$/, "") ??
+  "https://docs.infra.bsport.io/docs/kaizen/dev";
 
 function stripWrapper(source, tag) {
   const open = new RegExp(`<${tag}(\\s[^>]*)?>`, "g");

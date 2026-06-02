@@ -21,7 +21,7 @@ export const createActivePassesPayload = (
     value.comparatorType === ACTIVE_PASSES_COMPARATOR_TYPE.between;
 
   const paymentPacksEnabled = value.paymentPacksSelector.enabled;
-  const privatePassesEnabled = value.privatePassesSelector.enabled;
+  const appointmentPassesEnabled = value.appointmentPassesSelector.enabled;
 
   return {
     smartlist: value.smartlist,
@@ -37,11 +37,11 @@ export const createActivePassesPayload = (
     payment_packs: paymentPacksEnabled
       ? value.paymentPacksSelector.selectedIds
       : [],
-    select_all_private_passes: privatePassesEnabled
-      ? value.privatePassesSelector.selectAll
+    select_all_private_passes: appointmentPassesEnabled
+      ? value.appointmentPassesSelector.selectAll
       : false,
-    private_passes: privatePassesEnabled
-      ? value.privatePassesSelector.selectedIds
+    private_passes: appointmentPassesEnabled
+      ? value.appointmentPassesSelector.selectedIds
       : [],
   };
 };

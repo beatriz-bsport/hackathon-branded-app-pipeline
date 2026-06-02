@@ -60,9 +60,13 @@ const SUB_FILTER_VALUE_MAP: SubFilterFormValueMap = {
     selectedEstablishmentIds: [],
     atHome: false,
   },
-  [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass]: {
-    selectAllPrivatePasses: false,
-    selectedPrivatePassIds: [],
+  [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointmentPass]: {
+    selectAllAppointmentPasses: false,
+    selectedAppointmentPassIds: [],
+  },
+  [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointment]: {
+    selectAllAppointments: false,
+    selectedAppointmentIds: [],
   },
 };
 
@@ -91,8 +95,11 @@ export const TotalAppointmentsSubFiltersArea = ({
     [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment]: t(
       "filters.26.subFilters.establishment",
     ),
-    [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass]: t(
+    [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointmentPass]: t(
       "filters.26.subFilters.appointmentPass",
+    ),
+    [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointment]: t(
+      "filters.26.subFilters.appointment",
     ),
   };
 

@@ -66,7 +66,7 @@ import { createDefaultTotalBookingNumberFilter } from "./total-booking/default-v
 import { mapTotalBookingFilterToFormValue } from "./total-booking/mappers/api-to-form-value";
 import type { TotalBookingNumberFilterFormValue } from "./total-booking/types";
 
-type SmartlistFiltersManagerProps = {
+type SegmentFiltersManagerProps = {
   smartlistId: string;
 };
 
@@ -207,9 +207,9 @@ const createDraftClientId = (filterType: FilterType): string => {
  * Central manager for all smartlist filter types.
  * Every filter family shares the same draft management and rendering flow.
  */
-export const SmartlistFiltersManager = ({
+export const SegmentFiltersManager = ({
   smartlistId,
-}: SmartlistFiltersManagerProps) => {
+}: SegmentFiltersManagerProps) => {
   const { t } = useTranslation("filters");
   const companyId = dataAccessLayer.useCompanyTheme()?.company;
   const smartlistNumericId = Number(smartlistId);

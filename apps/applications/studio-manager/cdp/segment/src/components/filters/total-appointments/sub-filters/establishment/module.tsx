@@ -11,13 +11,13 @@ import type { TotalAppointmentsSubFilterModule } from "../total-appointments-sub
 import { EstablishmentSubFilterSection } from "./component";
 import { refineEstablishmentSubFilter } from "./schema";
 
-const ESTABLISHMENT_INACTIVE_API_SLICE =
-  (): Partial<CreatePrivateBookingsFilterPayload> => ({
+const ESTABLISHMENT_INACTIVE_API_SLICE: Partial<CreatePrivateBookingsFilterPayload> =
+  {
     establishment_filter_active: false,
     select_all_establishments: true,
     establishments: [],
     at_home: false,
-  });
+  };
 
 const toEstablishmentApiSlice = (
   value: TotalAppointmentsNumberFilterFormValue,
@@ -25,7 +25,7 @@ const toEstablishmentApiSlice = (
   if (
     !value.subFilters.includes(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.establishment)
   ) {
-    return ESTABLISHMENT_INACTIVE_API_SLICE();
+    return ESTABLISHMENT_INACTIVE_API_SLICE;
   }
 
   return {

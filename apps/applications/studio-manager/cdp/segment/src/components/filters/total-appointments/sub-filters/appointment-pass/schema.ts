@@ -7,23 +7,28 @@ import { TOTAL_APPOINTMENTS_SUB_FILTER_IDS } from "../total-appointments-sub-fil
 
 const I18N_NAMESPACE = "sm-smartlists_filters";
 
-export const refinePrivatePassSubFilter = (
+/**
+ * Validates the appointment pass scope sub-filter when it is active on the card.
+ */
+export const refineAppointmentPassSubFilter = (
   value: TotalAppointmentsNumberFilterFormValue,
   context: z.RefinementCtx,
 ) => {
   if (
-    !value.subFilters.includes(TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass)
+    !value.subFilters.includes(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointmentPass,
+    )
   ) {
     return;
   }
 
   if (
-    !value.privatePass.selectAllPrivatePasses &&
-    value.privatePass.selectedPrivatePassIds.length === 0
+    !value.appointmentPass.selectAllAppointmentPasses &&
+    value.appointmentPass.selectedAppointmentPassIds.length === 0
   ) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
-      path: ["privatePass", "selectedPrivatePassIds"],
+      path: ["appointmentPass", "selectedAppointmentPassIds"],
       message: i18nInstance.t(
         "filters.26.validation.selectedAppointmentPassesRequired",
         {

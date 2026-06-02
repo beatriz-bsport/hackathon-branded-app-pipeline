@@ -7,7 +7,10 @@ import { useTranslation } from "#src/utils/i18n";
 import type { TotalAppointmentsSubFilterSectionProps } from "../total-appointments-sub-filter-section-props";
 import { mapAppointmentPassToPassOption } from "./map-appointment-pass-to-pass-option";
 
-export const PrivatePassSubFilterSection = ({
+/**
+ * Multi-select sub-filter for scoping total appointments to specific appointment passes.
+ */
+export const AppointmentPassSubFilterSection = ({
   id,
   value,
   errors,
@@ -15,7 +18,7 @@ export const PrivatePassSubFilterSection = ({
   onRemove,
 }: TotalAppointmentsSubFilterSectionProps) => {
   const { t } = useTranslation("filters");
-  const privatePassLabel = t("filters.26.subFilters.appointmentPass");
+  const appointmentPassLabel = t("filters.26.subFilters.appointmentPass");
   const { data } = useAppointmentPassesQuery("", { includeDisabled: true });
   const passOptions = (data?.results ?? []).map(mapAppointmentPassToPassOption);
 
@@ -23,14 +26,14 @@ export const PrivatePassSubFilterSection = ({
     <Card className="w-full flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         <Body size="lg" weight="strong">
-          {privatePassLabel}
+          {appointmentPassLabel}
         </Body>
         <Button
           kind="icon-button"
           icon="trash-01"
           size="sm"
           label={t("filters.26.actions.removeSubFilter", {
-            subFilterLabel: privatePassLabel,
+            subFilterLabel: appointmentPassLabel,
           })}
           intent="flat"
           color="default"
@@ -40,19 +43,19 @@ export const PrivatePassSubFilterSection = ({
 
       <PassSelectionField
         id={id}
-        value={value.privatePass.selectedPrivatePassIds}
+        value={value.appointmentPass.selectedAppointmentPassIds}
         passOptions={passOptions}
         errorText={
-          errors.privatePass?.selectedPrivatePassIds?.message
-            ? String(errors.privatePass.selectedPrivatePassIds.message)
+          errors.appointmentPass?.selectedAppointmentPassIds?.message
+            ? String(errors.appointmentPass.selectedAppointmentPassIds.message)
             : undefined
         }
         onChange={(nextSelectedIds) => {
           setValue(
-            "privatePass",
+            "appointmentPass",
             {
-              selectAllPrivatePasses: false,
-              selectedPrivatePassIds: nextSelectedIds,
+              selectAllAppointmentPasses: false,
+              selectedAppointmentPassIds: nextSelectedIds,
             },
             { shouldDirty: true, shouldValidate: true },
           );

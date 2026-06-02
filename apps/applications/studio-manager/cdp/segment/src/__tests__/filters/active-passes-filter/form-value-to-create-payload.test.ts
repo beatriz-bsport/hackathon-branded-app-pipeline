@@ -90,9 +90,9 @@ describe("createActivePassesPayload (active passes filter)", () => {
     expect(payload.payment_packs).toEqual([]);
   });
 
-  it("sets select_all_private_passes to true when private passes enabled with selectAll flag", () => {
+  it("sets select_all_private_passes to true when appointment passes enabled with selectAll flag", () => {
     const value = createDefaultActivePassesFilter(1);
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: true,
       selectAll: true,
       selectedIds: [],
@@ -106,7 +106,7 @@ describe("createActivePassesPayload (active passes filter)", () => {
 
   it("sends specific private_passes ids when enabled with selections", () => {
     const value = createDefaultActivePassesFilter(1);
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: true,
       selectAll: false,
       selectedIds: [201],
@@ -118,9 +118,9 @@ describe("createActivePassesPayload (active passes filter)", () => {
     expect(payload.private_passes).toEqual([201]);
   });
 
-  it("sends empty private_passes and false select_all when private passes section is disabled", () => {
+  it("sends empty private_passes and false select_all when appointment passes section is disabled", () => {
     const value = createDefaultActivePassesFilter(1);
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: false,
       selectAll: false,
       selectedIds: [201],

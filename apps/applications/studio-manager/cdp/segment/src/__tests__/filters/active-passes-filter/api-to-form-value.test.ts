@@ -144,7 +144,7 @@ describe("mapActivePassesFilterToFormValue", () => {
     expect(form.paymentPacksSelector.selectAll).toBe(false);
   });
 
-  it("enables privatePassesSelector with selectAll true when select_all_private_passes is true", () => {
+  it("enables appointmentPassesSelector with selectAll true when select_all_private_passes is true", () => {
     const filter = buildActivePassesFilter({
       select_all_private_passes: true,
       private_passes: [],
@@ -152,12 +152,12 @@ describe("mapActivePassesFilterToFormValue", () => {
 
     const form = mapActivePassesFilterToFormValue(filter);
 
-    expect(form.privatePassesSelector.enabled).toBe(true);
-    expect(form.privatePassesSelector.selectAll).toBe(true);
-    expect(form.privatePassesSelector.selectedIds).toEqual([]);
+    expect(form.appointmentPassesSelector.enabled).toBe(true);
+    expect(form.appointmentPassesSelector.selectAll).toBe(true);
+    expect(form.appointmentPassesSelector.selectedIds).toEqual([]);
   });
 
-  it("enables privatePassesSelector with selectAll false when specific private passes are selected", () => {
+  it("enables appointmentPassesSelector with selectAll false when specific appointment passes are selected", () => {
     const filter = buildActivePassesFilter({
       select_all_private_passes: false,
       private_passes: [201, 202],
@@ -165,8 +165,8 @@ describe("mapActivePassesFilterToFormValue", () => {
 
     const form = mapActivePassesFilterToFormValue(filter);
 
-    expect(form.privatePassesSelector.enabled).toBe(true);
-    expect(form.privatePassesSelector.selectAll).toBe(false);
-    expect(form.privatePassesSelector.selectedIds).toEqual([201, 202]);
+    expect(form.appointmentPassesSelector.enabled).toBe(true);
+    expect(form.appointmentPassesSelector.selectAll).toBe(false);
+    expect(form.appointmentPassesSelector.selectedIds).toEqual([201, 202]);
   });
 });

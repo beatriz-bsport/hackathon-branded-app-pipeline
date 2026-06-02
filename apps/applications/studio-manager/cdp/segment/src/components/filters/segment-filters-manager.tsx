@@ -36,6 +36,10 @@ import { GenderFilterCardSkeleton } from "./gender-filter/components/gender-filt
 import { createDefaultGenderFilter } from "./gender-filter/default-value";
 import { mapGenderFilterToFormValue } from "./gender-filter/mappers/api-to-form-value";
 import type { GenderFilterFormValue } from "./gender-filter/types";
+import { MarketingNotificationFilterCard } from "./marketing-notification-filter/components/marketing-notification-filter-card";
+import { createDefaultMarketingNotificationFilter } from "./marketing-notification-filter/default-value";
+import { mapMarketingNotificationFilterToFormValue } from "./marketing-notification-filter/mappers/api-to-form-value";
+import type { MarketingNotificationFilterFormValue } from "./marketing-notification-filter/types";
 import { MemberSignUpDateFilterCard } from "./member-sign-up-date-filter/components/member-sign-up-date-filter-card";
 import { createDefaultMemberSignUpDateFilter } from "./member-sign-up-date-filter/default-value";
 import { mapMemberDateJoinedFilterToFormValue } from "./member-sign-up-date-filter/mappers/api-to-form-value";
@@ -84,6 +88,7 @@ type FilterValueByType = {
   activePasses: ActivePassesFilterFormValue;
   firstPurchase: FirstPurchaseFilterFormValue;
   creditAccount: CreditAccountFilterFormValue;
+  marketingNotification: MarketingNotificationFilterFormValue;
 };
 
 type DraftFilter =
@@ -136,6 +141,11 @@ type DraftFilter =
       clientId: string;
       filterType: "creditAccount";
       value: FilterValueByType["creditAccount"];
+    }
+  | {
+      clientId: string;
+      filterType: "marketingNotification";
+      value: FilterValueByType["marketingNotification"];
     };
 
 type SavedFilter =
@@ -188,6 +198,11 @@ type SavedFilter =
       key: string;
       filterType: "creditAccount";
       value: FilterValueByType["creditAccount"];
+    }
+  | {
+      key: string;
+      filterType: "marketingNotification";
+      value: FilterValueByType["marketingNotification"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -233,6 +248,8 @@ export const SegmentFiltersManager = ({
   const activePassesFilters = smartlistFilters?.activePassesFilters ?? [];
   const firstPurchaseFilters = smartlistFilters?.firstPurchaseFilters ?? [];
   const creditAccountFilters = smartlistFilters?.creditAccountFilters ?? [];
+  const marketingNotificationFilters =
+    smartlistFilters?.marketingNotificationFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -391,6 +408,20 @@ export const SegmentFiltersManager = ({
         onSaveSuccess={onSaveSuccess}
       />
     ),
+    marketingNotification: ({
+      key,
+      value,
+      onDeleteUnsavedFilter,
+      onSaveSuccess,
+    }) => (
+      <MarketingNotificationFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
   };
 
   const createDraftFilterByType: {
@@ -445,6 +476,11 @@ export const SegmentFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.creditAccount),
       filterType: FILTER_TYPES.creditAccount,
       value: createDefaultCreditAccountFilter(smartlistNumericId),
+    }),
+    marketingNotification: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.marketingNotification),
+      filterType: FILTER_TYPES.marketingNotification,
+      value: createDefaultMarketingNotificationFilter(smartlistNumericId),
     }),
   };
 
@@ -522,6 +558,14 @@ export const SegmentFiltersManager = ({
         description: t("filterSelector.options.creditAccount.description"),
         category: FILTER_SELECTOR_CATEGORIES.memberInformations,
       },
+      {
+        id: FILTER_TYPES.marketingNotification,
+        label: t("filters.103.title"),
+        description: t(
+          "filterSelector.options.marketingNotification.description",
+        ),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
     ],
     [t],
   );
@@ -576,6 +620,13 @@ export const SegmentFiltersManager = ({
       key: `saved-credit-account-${creditAccountFilter.id}`,
       filterType: FILTER_TYPES.creditAccount,
       value: mapCreditAccountFilterToFormValue(creditAccountFilter),
+    })),
+    ...marketingNotificationFilters.map((marketingNotificationFilter) => ({
+      key: `saved-marketing-notification-${marketingNotificationFilter.id}`,
+      filterType: FILTER_TYPES.marketingNotification,
+      value: mapMarketingNotificationFilterToFormValue(
+        marketingNotificationFilter,
+      ),
     })),
   ];
 

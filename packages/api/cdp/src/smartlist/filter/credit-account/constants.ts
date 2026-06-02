@@ -1,0 +1,1 @@
+export const CREDIT_ACCOUNT_FILTER_IDENTIFIER = "1";

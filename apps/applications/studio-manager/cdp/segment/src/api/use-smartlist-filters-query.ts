@@ -11,7 +11,9 @@ import {
   type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   type GenderFilter,
+  MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
+  type MarketingNotificationFilter,
   type MemberDateJoinedFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
@@ -31,6 +33,7 @@ import {
   isCreditAccountFilter,
   isFirstPurchaseFilter,
   isGenderFilter,
+  isMarketingNotificationFilter,
   isMemberDateJoinedFilter,
   isPaymentPackFilter,
   isPrivateBookingsFilter,
@@ -50,6 +53,7 @@ type SmartlistFiltersQueryData = {
   activePassesFilters: ActivePassesFilter[];
   firstPurchaseFilters: FirstPurchaseFilter[];
   creditAccountFilters: CreditAccountFilter[];
+  marketingNotificationFilters: MarketingNotificationFilter[];
 };
 
 const mapGenderFilters = (
@@ -183,6 +187,20 @@ const mapFirstPurchaseFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapMarketingNotificationFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): MarketingNotificationFilter[] => {
+  const marketingNotificationFiltersMap =
+    payload?.[MARKETING_NOTIFICATION_FILTER_IDENTIFIER];
+  if (!marketingNotificationFiltersMap) {
+    return [];
+  }
+
+  return Object.values(marketingNotificationFiltersMap)
+    .filter(isMarketingNotificationFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 /**
  * Unified smartlist filters query.
  * Loads all currently supported filter families from one `get_filters` response.
@@ -201,5 +219,6 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       activePassesFilters: mapActivePassesFilters(data),
       firstPurchaseFilters: mapFirstPurchaseFilters(data),
       creditAccountFilters: mapCreditAccountFilters(data),
+      marketingNotificationFilters: mapMarketingNotificationFilters(data),
     }),
   });

@@ -1,19 +1,13 @@
-import matter from "gray-matter";
-import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-import { DOCS_ROOT, GENERATED_DIR } from "./lib/paths.mjs";
+import { CONTENT_DIR, listContentPages } from "./lib/content-pages.mjs";
+import { GENERATED_DIR } from "./lib/paths.mjs";
 
-const CONTENT_DIR = path.join(DOCS_ROOT, "content");
 const OUTPUT_DIR = GENERATED_DIR;
 
 const DOCS_URL =
   process.env.DOCS_URL?.replace(/\/$/, "") ?? "https://kaizen.bsport.io";
-
-function slugToHref(slug) {
-  if (slug.length === 0) return "/";
-  return "/" + slug.join("/");
-}
 
 function stripWrapper(source, tag) {
   const open = new RegExp(`<${tag}(\\s[^>]*)?>`, "g");
@@ -176,52 +170,6 @@ function mdxToMarkdown(source, frontmatter) {
   return `${header}\n\n${body.trim()}\n`;
 }
 
-async function collectDocs(section, dir, slugPrefix, results) {
-  const entries = await readdir(dir, { withFileTypes: true });
-  for (const entry of entries) {
-    if (entry.name.startsWith("_")) continue;
-    if (entry.isDirectory()) {
-      await collectDocs(
-        section,
-        path.join(dir, entry.name),
-        [...slugPrefix, entry.name],
-        results,
-      );
-      continue;
-    }
-    if (!entry.isFile() || !entry.name.endsWith(".mdx")) continue;
-    const base = entry.name.replace(/\.mdx$/, "");
-    const slug =
-      base === "index"
-        ? [section, ...slugPrefix]
-        : [section, ...slugPrefix, base];
-    const filePath = path.join(dir, entry.name);
-    const raw = await readFile(filePath, "utf-8");
-    const { content, data } = matter(raw);
-    results.push({
-      slug,
-      href: slugToHref(slug),
-      source: content,
-      frontmatter: data,
-    });
-  }
-}
-
-async function listAllDocs() {
-  const results = [];
-  const sections = await readdir(CONTENT_DIR, { withFileTypes: true });
-  for (const section of sections) {
-    if (!section.isDirectory()) continue;
-    await collectDocs(
-      section.name,
-      path.join(CONTENT_DIR, section.name),
-      [],
-      results,
-    );
-  }
-  return results;
-}
-
 async function loadNavForLlms() {
   const rootMeta = JSON.parse(
     await readFile(path.join(CONTENT_DIR, "_meta.json"), "utf-8"),
@@ -230,7 +178,10 @@ async function loadNavForLlms() {
 }
 
 async function main() {
-  const docs = await listAllDocs();
+  await rm(OUTPUT_DIR, { recursive: true, force: true });
+  await mkdir(OUTPUT_DIR, { recursive: true });
+
+  const docs = await listContentPages();
   const topTabs = await loadNavForLlms();
   let mdCount = 0;
 

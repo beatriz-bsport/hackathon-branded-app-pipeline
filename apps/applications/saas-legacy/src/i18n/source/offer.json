@@ -281,7 +281,7 @@
               "wellhub": "Wellhub"
             },
             "tooltip": {
-              "classpass": "Session visibility on ClassPass and limits can be adjusted directly in your ClassPass partner portal",
+              "classpass": "We're working on adding spot capping for ClassPass, and this functionality will be available very soon.",
               "wellpass": "Session visibility on Wellpass and limits cannot be managed from bsport yet; configuration will be available here in a future update."
             },
             "aggregatorLabel": "Aggregator",

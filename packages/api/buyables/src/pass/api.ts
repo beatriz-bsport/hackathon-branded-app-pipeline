@@ -23,6 +23,7 @@ const PASS_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
 export const passKeys = {
   all: ["@api-buyables", "pass"] as const,
+  detail: (id: number) => [...passKeys.all, "detail", id] as const,
   lists: () => [...passKeys.all, "list"] as const,
   list: (params: FetchPassesParams) => [...passKeys.lists(), params] as const,
   infinite: (params: FetchPassesParams) =>
@@ -132,5 +133,21 @@ export const passCategoriesInfiniteQueryOptions = (
     initialPageParam: 1,
     getNextPageParam: (lastPage) => lastPage.next_page ?? undefined,
     staleTime: PASS_STALE_TIME,
+  });
+};
+
+export const retrievePassAPI = async (
+  fetch: Fetch<Pass>,
+  id: number,
+): Promise<Pass> => {
+  const { data } = await fetch(`${PASS_API_URL}/payment-pack/${id}/`);
+  return data;
+};
+
+export const retrievePassQueryOptions = (fetch: Fetch<Pass>, id: number) => {
+  const queryFn = retrievePassAPI.bind(null, fetch, id);
+  return queryOptions({
+    queryKey: passKeys.detail(id),
+    queryFn,
   });
 };

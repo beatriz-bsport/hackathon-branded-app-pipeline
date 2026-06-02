@@ -13,7 +13,7 @@ export const setPass = (consumerPaymentPackId: number) => {
   bookingFlowStore.setState({ consumerPaymentPackId, paymentPackId: null });
 };
 
-export const setNewPass = (paymentPackId: number) => {
+export const setNewPass = (paymentPackId: number | null) => {
   bookingFlowStore.setState({ paymentPackId, consumerPaymentPackId: null });
 };
 

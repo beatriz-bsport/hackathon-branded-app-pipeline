@@ -309,3 +309,40 @@ describe("totalAppointmentsNumberFilterSchema", () => {
     });
   });
 });
+
+describe("appointment pass sub-filter", () => {
+  it("rejects appointment pass sub-filter when no appointment pass is selected", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass],
+      privatePass: {
+        selectAllPrivatePasses: false,
+        selectedPrivatePassIds: [],
+      },
+    });
+
+    const result = totalAppointmentsNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const issuePaths = result.error.issues.map((issue) => issue.path);
+      expect(issuePaths).toContainEqual([
+        "privatePass",
+        "selectedPrivatePassIds",
+      ]);
+    }
+  });
+
+  it("accepts appointment pass sub-filter when at least one appointment pass is selected", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass],
+      privatePass: {
+        selectAllPrivatePasses: false,
+        selectedPrivatePassIds: [501],
+      },
+    });
+
+    const result = totalAppointmentsNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(true);
+  });
+});

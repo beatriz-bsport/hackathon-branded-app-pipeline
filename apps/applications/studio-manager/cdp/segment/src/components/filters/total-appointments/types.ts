@@ -31,6 +31,10 @@ export type TotalAppointmentsNumberFilterFormValue = {
     selectedEstablishmentIds: number[];
     atHome: boolean;
   };
+  privatePass: {
+    selectAllPrivatePasses: boolean;
+    selectedPrivatePassIds: number[];
+  };
 };
 
 export type TotalAppointmentsNumberDirtyPatchPayload = Partial<

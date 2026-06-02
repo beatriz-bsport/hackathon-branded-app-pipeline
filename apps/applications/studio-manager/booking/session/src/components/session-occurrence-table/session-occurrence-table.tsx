@@ -1,27 +1,64 @@
-import { useQuery } from "@tanstack/react-query";
-import { type FC, useMemo } from "react";
+import { type UseQueryOptions, useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 import { useHref } from "react-router";
 
+import {
+  type PaginatedFetchSessionsParams,
+  type Session,
+} from "@bsport/api-book";
 import { type PaginationProps, Table } from "@bsport/kaizen-primitive-core";
+import type { PaginatedResponse } from "@bsport/store-base";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { sessionsInGroupQueryOptions } from "#src/hooks/session-api/fetch/use-fetch-sessions-in-group";
 import { useFetchAllEstablishments } from "#src/hooks/use-fetch-establishments";
 import { useFetchTeachers } from "#src/hooks/use-fetch-teachers";
+import {
+  type OccurrenceLabelGroup,
+  useOccurrenceTableLabels,
+} from "#src/hooks/use-occurrence-table-labels";
 import { getTeacherInitials } from "#src/utils/get-teacher-initials";
 import { useTranslation } from "#src/utils/i18n";
 
-import { type SeriesRow, buildSeriesColumns } from "./columns";
+import { type OccurrenceRow, buildOccurrenceColumns } from "./columns";
 import {
   type StatusFilter,
   mapStatusFilterToParams,
 } from "./status-filter-mapping";
 
-export const SeriesTable: FC<{
-  groupId: number;
+type SessionOccurrenceTableProps<TQueryKey extends readonly unknown[]> = {
   companyId: number;
   status: StatusFilter | null;
-}> = ({ groupId, companyId, status }) => {
+  /** Pagination query-param namespace; must match the page's own namespace. */
+  paginationNamespace: string;
+  /**
+   * Builds the paginated-sessions query for the current page. The page owns the
+   * data source (by group vs. by recurrence); the table owns pagination/status.
+   * Generic over the query key so each page's `queryOptions(...)` (which brands
+   * a distinct key tuple) stays assignable without widening to `unknown[]`.
+   */
+  getQueryOptions: (
+    params: PaginatedFetchSessionsParams,
+  ) => UseQueryOptions<
+    PaginatedResponse<Session>,
+    Error,
+    PaginatedResponse<Session>,
+    TQueryKey
+  >;
+  labelGroup: OccurrenceLabelGroup;
+};
+
+/**
+ * Paginated, status-filtered table of session occurrences. Shared by the Series
+ * tab (occurrences scoped to a group) and the All-occurrences tab (occurrences
+ * scoped to a recurrence) — the page injects the data source and label block.
+ */
+export const SessionOccurrenceTable = <TQueryKey extends readonly unknown[]>({
+  companyId,
+  status,
+  paginationNamespace,
+  getQueryOptions,
+  labelGroup,
+}: SessionOccurrenceTableProps<TQueryKey>) => {
   const { t, i18n } = useTranslation("sessionManagement");
   // `window.open` and raw <a href> resolve relative URLs against
   // `window.location`, not React Router's route tree. We need the full href
@@ -33,18 +70,14 @@ export const SeriesTable: FC<{
   // Page reset on status change is handled by the filter's onChange in the page,
   // since that's where the status state lives (the filter renders in the header).
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({ namespace: `series-${groupId}` });
+    usePaginationQueryParams({ namespace: paginationNamespace });
 
   const { data, isLoading } = useQuery(
-    sessionsInGroupQueryOptions(
-      groupId,
-      {
-        page: currentPage,
-        page_size: currentPageSize,
-        ...mapStatusFilterToParams(status),
-      },
-      true,
-    ),
+    getQueryOptions({
+      page: currentPage,
+      page_size: currentPageSize,
+      ...mapStatusFilterToParams(status),
+    }),
   );
 
   const sessions = useMemo(() => data?.results ?? [], [data]);
@@ -66,7 +99,7 @@ export const SeriesTable: FC<{
     return map;
   }, [establishments]);
 
-  const rows: SeriesRow[] = useMemo(
+  const rows: OccurrenceRow[] = useMemo(
     () =>
       sessions.map((session) => {
         const displayedTeacher = teachersById.get(
@@ -115,31 +148,31 @@ export const SeriesTable: FC<{
     [currentPage, currentPageSize, isLoading, data?.count, setPageSettings],
   );
 
+  const labels = useOccurrenceTableLabels(labelGroup);
+
   const columns = useMemo(
     () =>
-      buildSeriesColumns(
+      buildOccurrenceColumns(
         {
-          date: t("pageTabs.seriesTable.date"),
-          time: t("pageTabs.seriesTable.time"),
-          participants: t("pageTabs.seriesTable.participants"),
-          teacher: t("pageTabs.seriesTable.teacher"),
-          establishment: t("pageTabs.seriesTable.establishment"),
-          status: t("pageTabs.seriesTable.status"),
+          date: labels.date,
+          time: labels.time,
+          participants: labels.participants,
+          teacher: labels.teacher,
+          establishment: labels.establishment,
+          status: labels.status,
           statusUpcoming: t("pageTabs.statusFilter.upcoming"),
           statusOngoing: t("pageTabs.statusFilter.ongoing"),
           statusPast: t("pageTabs.statusFilter.past"),
           statusCancelled: t("pageTabs.statusFilter.cancelled"),
-          openSession: t("pageTabs.seriesTable.openSession"),
+          openSession: labels.openSession,
         },
         i18n.language,
       ),
-    [t, i18n.language],
+    [t, i18n.language, labels],
   );
 
   return (
     <Table
-      // Inset the first column by `md` to align with the header; dividers stay edge-to-edge.
-      className="cursor-pointer [&_.table-row>.table-cell:first-child]:pl-md"
       columns={columns}
       rowHeight="sm"
       rows={rows.map((row) => ({
@@ -151,7 +184,7 @@ export const SeriesTable: FC<{
       paginationProps={paginationProps}
       emptyStateProps={{
         isEmpty: !isLoading && rows.length === 0,
-        emptyConfig: { title: t("pageTabs.seriesTable.empty") },
+        emptyConfig: { title: labels.empty },
       }}
     />
   );

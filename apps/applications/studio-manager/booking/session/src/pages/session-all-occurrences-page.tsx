@@ -1,20 +1,18 @@
-import { FC, useCallback, useState } from "react";
+import { FC } from "react";
 import { Navigate, useParams } from "react-router";
 
-import type { Session } from "@bsport/api-book";
-import { ListLayout } from "@bsport/kaizen-primitive-core";
 import {
-  DEFAULT_PAGE,
-  usePaginationQueryParams,
-} from "@bsport/use-pagination-query-params";
+  type Session,
+  fetchSessionsByRecurrenceIdQueryOptions,
+} from "@bsport/api-book";
+import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
-import { AllOccurrencesTable } from "#src/components/session-all-occurrences/all-occurrences-table";
-import { type StatusFilter } from "#src/components/session-all-occurrences/status-filter-mapping";
-import { useStatusFilterConfig } from "#src/components/session-all-occurrences/use-status-filter-config";
 import { DetailsFetchError } from "#src/components/session-details/details-fetch-error";
 import { DetailsLoadingPage } from "#src/components/session-details/details-loading-page";
 import { SessionManagementModals } from "#src/components/session-management/session-management-modals";
+import { SessionOccurrenceTable } from "#src/components/session-occurrence-table/session-occurrence-table";
+import { useOccurrenceStatusFilter } from "#src/components/session-occurrence-table/use-occurrence-status-filter";
 import { useRetrieveRecurrenceFromSession } from "#src/hooks/session-api/fetch/use-fetch-recurrence-from-session";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
@@ -22,6 +20,7 @@ import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-he
 import { useSessionHeaderBase } from "#src/hooks/use-session-header-base";
 import { useSessionManagementModals } from "#src/hooks/use-session-management-modals";
 import { useUrls } from "#src/urls";
+import { fetch } from "#src/utils/fetch";
 
 const SessionAllOccurrencesPageContent: FC<{ session: Session }> = ({
   session,
@@ -39,26 +38,9 @@ const SessionAllOccurrencesPageContent: FC<{ session: Session }> = ({
   const { pageTitle, startGroupActions, endGroupActions } =
     useSessionHeaderBase(session, { openModal });
 
-  const { currentPageSize, setPageSettings } = usePaginationQueryParams({
-    namespace: `occurrences-${session.recurrence_id}`,
-  });
-
-  const [status, setStatus] = useState<StatusFilter | null>(null);
-
-  const handleStatusChange = useCallback(
-    (next: StatusFilter | null) => {
-      // Kaizen's Filter fires onFilterChange on mount with its initial (empty)
-      // state, so guard against no-op calls — otherwise a cold load would reset
-      // a deep-linked page back to 1.
-      if (next === status) return;
-      setStatus(next);
-      // Filtering changes the result set, so jump back to the first page.
-      setPageSettings(DEFAULT_PAGE, currentPageSize);
-    },
-    [status, setPageSettings, currentPageSize],
-  );
-
-  const filterConfig = useStatusFilterConfig(status, handleStatusChange);
+  const paginationNamespace = `occurrences-${session.recurrence_id}`;
+  const { status, filterConfig } =
+    useOccurrenceStatusFilter(paginationNamespace);
 
   return (
     <>
@@ -71,10 +53,18 @@ const SessionAllOccurrencesPageContent: FC<{ session: Session }> = ({
           {...headerConfig}
         />
         <ListLayout.Content>
-          <AllOccurrencesTable
-            recurrenceId={session.recurrence_id}
+          <SessionOccurrenceTable
             companyId={session.company}
             status={status}
+            paginationNamespace={paginationNamespace}
+            getQueryOptions={(params) =>
+              fetchSessionsByRecurrenceIdQueryOptions(
+                fetch,
+                session.recurrence_id,
+                params,
+              )
+            }
+            labelGroup="allOccurrencesTable"
           />
         </ListLayout.Content>
       </ListLayout>

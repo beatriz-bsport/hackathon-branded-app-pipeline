@@ -261,7 +261,7 @@
           "creation": "Choose establishment(s)",
           "edition": "Edit Connection"
         },
-        "helperText": "Select which establishments you want to synchronise. All sessions in these establishments that have Wellpass enabled will be available to book for Wellpass customers.",
+        "helperText": "Select which establishments you want to connect to Wellpass.",
         "field": {
           "externalId": "Partner ID: {{ externalId }}",
           "establishmentIds": {
@@ -298,7 +298,7 @@
       },
       "panel": {
         "header": {
-          "subtitle": "Choose which establishments you want to synchronise. You'll be able to adjust the number of available spots for this aggregator in the session settings."
+          "subtitle": "Connect to Wellpass using your Partner ID. You can edit your establishments at any time."
         },
         "content": {
           "title": "Company ID connection",

@@ -18,12 +18,17 @@ import {
 } from "#src/hooks/booking/fetch/use-member-passes";
 import { useFetchMember } from "#src/hooks/member/fetch/use-fetch-member.js";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session.js";
-import { setKeepCredits, setPass } from "#src/stores/booking-flow/actions";
+import {
+  setDiscount,
+  setKeepCredits,
+  setPass,
+} from "#src/stores/booking-flow/actions";
 import { useBookingFlowStore } from "#src/stores/booking-flow/store";
 import { Trans, useTranslation } from "#src/utils/i18n";
 
 import { IncompatibilityChip } from "./incompatibility-chip";
 import { MemberCard } from "./member-card";
+import { NewPassForm } from "./new-pass-form/new-pass-form";
 
 enum PassTab {
   COMPATIBLE = "compatible",
@@ -112,7 +117,10 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
         title: pack.passData.name,
         description: formatPassDescription(pack),
         isActive: pack.id === selectedPassId,
-        onItemClick: () => setPass(pack.id),
+        onItemClick: () => {
+          setDiscount(null);
+          setPass(pack.id);
+        },
         customNode: (
           <div className="flex flex-col items-end">
             <Body htmlVariant="span" size="lg">
@@ -268,11 +276,7 @@ export const PassSelectionStep: FC<PassSelectionStepProps> = ({
         )}
 
         {activeTab === PassTab.BILL_NEW && (
-          <div className="flex h-component-modal-max-sm items-center justify-center">
-            <Body htmlVariant="p" size="lg" color="weak">
-              {t("bookingFlow.passSelection.billNewPlaceholder")}
-            </Body>
-          </div>
+          <NewPassForm sessionId={sessionId} />
         )}
       </div>
     </div>

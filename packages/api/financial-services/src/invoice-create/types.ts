@@ -99,3 +99,94 @@ export type CreateInvoiceResponse = {
   fiskaly_sign_es_signature_status: string | null;
   revert_reason: string | null;
 };
+
+// ── Create quick invoice ──────────────────────────────────
+// ── Request Body ──────────────────────────────────────────
+
+export type InvoiceQuickCreateRequest = {
+  paymentPackId: number;
+  memberId: number;
+  offers_data?: OfferData[];
+  establishment_billing_group_id?: number | null;
+  keep_credits?: boolean;
+  notify_member?: boolean;
+  voucher?: number;
+  voucher_reason?: string | null;
+};
+
+export type OfferData = {
+  offer_id: number;
+  extra_data?: {
+    spot_id?: number;
+  };
+};
+
+// ── Response 201 ──────────────────────────────────────────
+
+export type InvoiceQuickCreateResponse = {
+  uuid: string;
+  invoice_legal_identifier: string;
+  invoice_type: string;
+  date: string;
+  member: number;
+  voucher: string;
+  price_due: string;
+  price_payed: string;
+  fully_payed: boolean;
+  payments: Payment[];
+  invoice_items: InvoiceItem[];
+  is_finalized: boolean;
+  stripe_invoice_pdf: string | null;
+  reverted: boolean;
+  plannedinvoice: number | null;
+  billing_plan: number | null;
+  is_v2: boolean;
+  is_draft: boolean;
+  amount_due_cts: number;
+  amount_paid_cts: number;
+  reverse_invoices: number[];
+  source_invoice: number | null;
+  custom_footer: string;
+  establishment: number | null;
+  establishment_billing_group: number | null;
+  quickbooks_metadata: Record<string, unknown> | null;
+  is_quick_invoice: boolean;
+};
+
+export type Payment = {
+  uuid: string;
+  id: number;
+  price: string;
+  payment_received: boolean;
+  payment_method: string;
+  payment_note: string;
+  invoice: number;
+  invoice_public_identifier: string;
+  stripe_charge_id: string | null;
+  date: string;
+  reverted: boolean;
+  is_method_editable: boolean;
+  is_returnable: boolean;
+  transaction_fee: string | null;
+  payment_engine: string;
+  is_v2: boolean;
+  is_processing: boolean;
+  returned_amount: string;
+};
+
+export type InvoiceItem = {
+  id: number;
+  price: string;
+  incremental_consumer_giftcard_identifier: string | null;
+  total_price_notax: string;
+  total_price: string;
+  invoice: number;
+  voucher: string;
+  voucher_reasons: string[];
+  object_id: number | null;
+  content_type: number | null;
+  subtitle: string;
+  name: string;
+  reverted: boolean;
+  consumer_giftcard_kind: string | null;
+};

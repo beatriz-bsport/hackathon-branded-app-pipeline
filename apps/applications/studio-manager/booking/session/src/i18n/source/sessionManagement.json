@@ -382,7 +382,34 @@
       "unlimited": "Unlimited pass",
       "creditsRemainingAfterBooking": "{{availableAfterBooking}} remaining after booking",
       "confirmationToast": "Booking confirmed",
-      "errorToast": "An error occurred while booking this client. Please try again later."
+      "errorToast": "An error occurred while booking this client. Please try again later.",
+      "quickInvoiceErrorToast": "An error occurred while creating an invoice for this booking. Please try again later.",
+      "newPass": "New pass",
+      "paymentDueAfterBooking": "Payment due after booking"
+    },
+    "newPass": {
+      "searchPlaceholder": "Choose pass",
+      "goToPassDetails": "View pass details",
+      "price": "Price:",
+      "priceIndicator": "Price: {{price}}",
+      "loading": "Loading passes...",
+      "emptyPasses": "No passes available for this session",
+      "unlimited": "Unlimited",
+      "credits": "{{count}} credit",
+      "credits_other": "{{count}} credits",
+      "billingGroupLabel": "Billing location",
+      "noBillingGroup": "No billing location",
+      "discountToggleLabel": "Apply a discount",
+      "discountTypeLabel": "Discount type",
+      "discountPercentage": "Percentage",
+      "discountAmount": "Amount",
+      "discountReasonLabel": "Reason for discount",
+      "discountReasonHelperText": "{{charactersCount}}/{{maxLength}} characters",
+      "errors": {
+        "reasonRequired": "A reason is required when applying a discount",
+        "exceedsPrice": "Discount cannot exceed the pass price",
+        "exceedsPercentage": "Percentage cannot exceed 100%"
+      }
     }
   }
 }

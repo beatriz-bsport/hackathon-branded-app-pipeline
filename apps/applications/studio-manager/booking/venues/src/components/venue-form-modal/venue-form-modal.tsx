@@ -1,7 +1,7 @@
 import { type FC } from "react";
 
 import { type Establishment } from "@bsport/api-book";
-import { FormProvider } from "@bsport/form";
+import { FormProvider, useWatch } from "@bsport/form";
 import { Modal } from "@bsport/kaizen-primitive-core";
 
 import { VenueFormFields } from "#src/components/venue-form-fields/venue-form-fields";
@@ -19,9 +19,13 @@ export const VenueFormModal: FC<VenueFormModalProps> = ({ venue, onClose }) => {
   const { t } = useTranslation("venues-list");
   const isEdit = !!venue;
 
-  const { methods, multiLocalization, groupItems, isPending, submit } =
-    useVenueForm({ venue, mode: "onChange" });
-  const { handleSubmit, formState } = methods;
+  const { methods, isPending, submit } = useVenueForm({
+    venue,
+    mode: "onChange",
+  });
+  const { control, handleSubmit, formState } = methods;
+  useWatch({ control });
+  const hasDirtyFields = Object.keys(formState.dirtyFields).length > 0;
 
   const handleClose = () => {
     if (isPending) return;
@@ -29,7 +33,7 @@ export const VenueFormModal: FC<VenueFormModalProps> = ({ venue, onClose }) => {
   };
 
   const handleClickOutside = () => {
-    if (formState.isDirty || formState.isSubmitting) return;
+    if (hasDirtyFields || formState.isSubmitting) return;
     handleClose();
   };
 
@@ -55,15 +59,12 @@ export const VenueFormModal: FC<VenueFormModalProps> = ({ venue, onClose }) => {
           ? t("venueModal.editConfirm")
           : t("venueModal.createConfirm"),
         onClick: () => handleSubmit(onValid)(),
-        disabled: isPending || !formState.isValid || !formState.isDirty,
+        disabled: isPending || !formState.isValid || !hasDirtyFields,
       }}
       cancelButton={{ label: t("venueModal.cancel"), onClick: handleClose }}
     >
       <FormProvider {...methods}>
-        <VenueFormFields
-          multiLocalization={multiLocalization}
-          groupItems={groupItems}
-        />
+        <VenueFormFields />
       </FormProvider>
     </Modal>
   );

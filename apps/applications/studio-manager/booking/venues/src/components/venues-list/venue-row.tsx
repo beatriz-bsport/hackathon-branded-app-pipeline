@@ -87,7 +87,11 @@ export const buildVenueListItem = (
               size="md"
               label={labels.addToGroup}
               iconLeft="plus"
-              onClick={() => setIsPopoverOpened(!isPopoverOpened)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setIsPopoverOpened(!isPopoverOpened);
+              }}
             />
           </Tooltip>
         )}

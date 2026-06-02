@@ -3,7 +3,6 @@ import { z } from "zod";
 import type {
   CreateEstablishmentPayload,
   Establishment,
-  EstablishmentGroup,
   EstablishmentLocationInput,
   UpdateEstablishmentPayload,
 } from "@bsport/api-book";
@@ -16,11 +15,10 @@ export const fieldIdPrefix = "venue-form";
 export type VenueFormValues = {
   name: string;
   description: string;
-  accessInformation: string;
+  accessInformation?: string;
   capacity: number;
   location: AddressSuggestion | null;
-  cover: File | string | null;
-  locationGroupId: string;
+  cover?: File | string | null;
 };
 
 export const defaultVenueFormValues: VenueFormValues = {
@@ -30,32 +28,23 @@ export const defaultVenueFormValues: VenueFormValues = {
   capacity: 30,
   location: null,
   cover: null,
-  locationGroupId: "",
 };
 
-export const buildVenueFormSchema = (
-  multiLoc: boolean,
-  t: NamespacedTFunction<"venues-list">,
-) => {
+export const buildVenueFormSchema = (t: NamespacedTFunction<"venues-list">) => {
   const requiredMessage = t("venueModal.errors.requiredField");
 
   return z
     .object({
       name: z.string().trim().min(1, requiredMessage),
       description: z.string().trim().min(1, requiredMessage),
-      accessInformation: z.string(),
+      accessInformation: z.string().optional(),
       capacity: z.number().int().min(0),
       location: z.custom<AddressSuggestion | null>(),
-      cover: z.union([z.instanceof(File), z.string(), z.null()]),
-      locationGroupId: z.string(),
+      cover: z.union([z.instanceof(File), z.string(), z.null()]).optional(),
     })
     .refine((data) => data.location != null, {
       message: requiredMessage,
       path: ["location"],
-    })
-    .refine((data) => !multiLoc || data.locationGroupId.length > 0, {
-      message: requiredMessage,
-      path: ["locationGroupId"],
     });
 };
 
@@ -80,23 +69,17 @@ export const toCreateEstablishmentPayload = (
 ): CreateEstablishmentPayload => ({
   title: values.name.trim(),
   specific_info: values.description.trim(),
-  practical_info: values.accessInformation,
+  practical_info: values.accessInformation ?? "",
   capacity: values.capacity,
   location: mapAddressSuggestionToLocation(
     values.location as AddressSuggestion,
   ),
-  cover: values.cover,
+  cover: values.cover ?? null,
 });
 
 export const toUpdateEstablishmentPayload = (
   values: VenueFormValues,
 ): UpdateEstablishmentPayload => toCreateEstablishmentPayload(values);
-
-export const findVenueGroup = (
-  groups: EstablishmentGroup[],
-  venueId: number,
-): EstablishmentGroup | undefined =>
-  groups.find((group) => group.establishment.includes(venueId));
 
 // Rebuilds the address-autocomplete value from a persisted establishment so the
 // edit form can prefill the field (geometry x = latitude, y = longitude).
@@ -117,7 +100,6 @@ const mapEstablishmentToAddressSuggestion = (
 
 export const fromEstablishmentToVenueFormValues = (
   venue: Establishment,
-  groups: EstablishmentGroup[],
 ): VenueFormValues => ({
   name: venue.title,
   description: venue.specific_info,
@@ -125,5 +107,4 @@ export const fromEstablishmentToVenueFormValues = (
   capacity: venue.capacity,
   location: mapEstablishmentToAddressSuggestion(venue),
   cover: venue.cover,
-  locationGroupId: String(findVenueGroup(groups, venue.id)?.id ?? ""),
 });

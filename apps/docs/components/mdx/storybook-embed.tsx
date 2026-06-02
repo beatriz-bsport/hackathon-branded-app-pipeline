@@ -40,9 +40,7 @@ export function StorybookEmbed({
 }: StorybookEmbedProps) {
   const options = useMemo(
     () =>
-      stories && stories.length > 0
-        ? stories
-        : [{ id, label: "Playground" }],
+      stories && stories.length > 0 ? stories : [{ id, label: "Playground" }],
     [id, stories],
   );
   const defaultStoryId = options[0]?.id ?? id;

@@ -85,11 +85,11 @@ extra S3 objects only make hard refreshes and direct links work.
 
 ### Environment variables
 
-| Variable | When | Purpose |
-|----------|------|---------|
-| `DOCS_URL` | Build time | Base URL for absolute links in `llms.txt`. Defaults to `https://kaizen.bsport.io`. |
-| `VITE_BASE` | Build time | Set to the deployment subpath (e.g. `/docs/kaizen/dev/`) if the site is not served from domain root. Defaults to `/`. |
-| `VITE_STORYBOOK_BASE_URL` | Build time | Optional Storybook iframe base URL. Defaults to `https://docs.infra.bsport.io/storybook/kaizen/dev`. |
+| Variable                  | When       | Purpose                                                                                                               |
+| ------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------- |
+| `DOCS_URL`                | Build time | Base URL for absolute links in `llms.txt`. Defaults to `https://kaizen.bsport.io`.                                    |
+| `VITE_BASE`               | Build time | Set to the deployment subpath (e.g. `/docs/kaizen/dev/`) if the site is not served from domain root. Defaults to `/`. |
+| `VITE_STORYBOOK_BASE_URL` | Build time | Optional Storybook iframe base URL. Defaults to `https://docs.infra.bsport.io/storybook/kaizen/dev`.                  |
 
 ## Authoring docs
 

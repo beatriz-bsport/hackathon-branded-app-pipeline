@@ -1,14 +1,19 @@
 import mdx from "@mdx-js/rollup";
+import type { Options as MdxOptions } from "@mdx-js/rollup";
 import react from "@vitejs/plugin-react";
 import path from "node:path";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import { defineConfig } from "vite";
 
-import { generatedAssetsPlugin } from "./lib/vite-generated-assets-plugin";
 import { rehypeHeadingAnchorPlugins } from "./lib/rehype-heading-anchor.js";
+import { generatedAssetsPlugin } from "./lib/vite-generated-assets-plugin";
 
 const GENERATED_DIR = path.resolve(__dirname, ".generated");
+const mdxOptions: MdxOptions = {
+  remarkPlugins: [remarkFrontmatter, remarkGfm],
+  rehypePlugins: rehypeHeadingAnchorPlugins as MdxOptions["rehypePlugins"],
+};
 
 export default defineConfig({
   root: __dirname,
@@ -17,10 +22,7 @@ export default defineConfig({
     generatedAssetsPlugin(GENERATED_DIR),
     {
       enforce: "pre",
-      ...mdx({
-        remarkPlugins: [remarkFrontmatter, remarkGfm],
-        rehypePlugins: rehypeHeadingAnchorPlugins,
-      }),
+      ...mdx(mdxOptions),
     },
     react({ include: /\.(jsx|tsx|js|ts)$/ }),
   ],

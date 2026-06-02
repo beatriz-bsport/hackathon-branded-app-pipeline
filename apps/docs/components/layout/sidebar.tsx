@@ -27,7 +27,8 @@ export function Sidebar({ topTabs }: SidebarProps) {
   }
 
   const isWelcomeAlias =
-    active.key === "welcome" && (pathname === "/" || pathname === "/index.html");
+    active.key === "welcome" &&
+    (pathname === "/" || pathname === "/index.html");
   const isLandingActive = pathname === active.href || isWelcomeAlias;
 
   return (

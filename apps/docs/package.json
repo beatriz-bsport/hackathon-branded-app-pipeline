@@ -25,7 +25,8 @@
     "generate:static-routes": "node scripts/generate-static-routes.mjs",
     "generate:tokens": "node scripts/extract-tokens.mjs",
     "lint": "eslint .",
-    "preview": "vite preview --port 4070"
+    "preview": "vite preview --port 4070",
+    "typecheck": "tsc --noEmit --pretty false"
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.1",
@@ -49,11 +50,13 @@
   "devDependencies": {
     "@bsport/config-eslint-react": "file:../../tools/config/eslint-react",
     "@tailwindcss/postcss": "^4.3.0",
+    "@types/mdx": "^2.0.13",
     "@types/node": "^22.13.15",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "eslint": "^9.39.4",
     "postcss": "^8.5.15",
+    "prettier": "^3.8.3",
     "typescript": "^5.6.3"
   }
 }

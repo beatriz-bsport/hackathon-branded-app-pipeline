@@ -89,11 +89,7 @@ function DoDontCard({
   );
 }
 
-function resolveDoDontImageSrc({
-  image,
-}: {
-  image?: string;
-}): string | null {
+function resolveDoDontImageSrc({ image }: { image?: string }): string | null {
   if (image?.trim()) return resolveAssetUrl(image);
   return null;
 }

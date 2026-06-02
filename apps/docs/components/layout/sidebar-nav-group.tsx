@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import { useEffect, useId, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { cx } from "#src/lib/cx";
 import type { NavGroup, NavItem } from "#src/lib/nav";

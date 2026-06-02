@@ -34,10 +34,9 @@ function runBuild() {
 
 runBuild();
 
-const watcher = chokidar.watch(
-  path.join(KAIZEN_COMPONENTS, "**/*.tsx"),
-  { ignoreInitial: true },
-);
+const watcher = chokidar.watch(path.join(KAIZEN_COMPONENTS, "**/*.tsx"), {
+  ignoreInitial: true,
+});
 
 watcher.on("add", runBuild);
 watcher.on("change", runBuild);

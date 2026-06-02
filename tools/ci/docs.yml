@@ -40,6 +40,9 @@ Build Kaizen Docs:
   script:
     - echo "🔱 Building Kaizen docs static artifact"
     - pnpm -C apps/docs install --frozen-lockfile --prefer-offline
+    - pnpm -C apps/docs format:check
+    - pnpm -C apps/docs typecheck
+    - pnpm -C apps/docs lint
     - pnpm -C apps/docs ci:build
   artifacts:
     name: "kaizen-docs-$CI_COMMIT_SHORT_SHA"

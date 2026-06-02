@@ -3,9 +3,9 @@ import { Outlet } from "react-router-dom";
 import { Header } from "#src/components/layout/header";
 import { Sidebar } from "#src/components/layout/sidebar";
 import { TableOfContents } from "#src/components/layout/table-of-contents";
-import { Providers } from "#src/src/providers";
 import nav from "#src/lib/generated/nav.json";
 import type { TopTab } from "#src/lib/nav";
+import { Providers } from "#src/src/providers";
 
 const topTabs = nav.topTabs as TopTab[];
 

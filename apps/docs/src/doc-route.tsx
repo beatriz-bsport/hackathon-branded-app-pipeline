@@ -1,14 +1,14 @@
-import { useLocation } from "react-router-dom";
-import { Suspense, lazy, useEffect, useMemo } from "react";
 import type { MDXProps } from "mdx/types";
+import { Suspense, lazy, useEffect, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 
-import { mdxComponents } from "#src/components/mdx";
 import { PageActions } from "#src/components/layout/page-actions";
+import { mdxComponents } from "#src/components/mdx";
 import { HeadingAnchorEnhancer } from "#src/components/mdx/heading-anchor-enhancer";
 import { PageTabs } from "#src/components/mdx/page-tabs";
 import { cx } from "#src/lib/cx";
-import pagesManifest from "#src/lib/generated/pages-manifest.json";
 import type { Frontmatter } from "#src/lib/frontmatter";
+import pagesManifest from "#src/lib/generated/pages-manifest.json";
 
 type DocRouteProps = {
   slug?: string[];

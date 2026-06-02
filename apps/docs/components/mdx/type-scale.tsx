@@ -1,9 +1,9 @@
-import { getTokenByPath } from "#src/lib/tokens";
 import {
   BODY_SCALE,
   DISPLAY_SCALE,
   TITLE_SCALE,
 } from "#src/components/mdx/type-scale-data";
+import { getTokenByPath } from "#src/lib/tokens";
 
 export type TypeScaleItem = {
   label: string;

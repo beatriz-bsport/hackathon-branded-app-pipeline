@@ -73,7 +73,10 @@ export function HeadingAnchorEnhancer() {
         mutation.addedNodes.forEach((node) => {
           if (!(node instanceof HTMLElement)) return;
 
-          if (node.matches("a.heading-anchor")) {
+          if (
+            node instanceof HTMLAnchorElement &&
+            node.matches("a.heading-anchor")
+          ) {
             enhanceAnchor(node);
           }
 

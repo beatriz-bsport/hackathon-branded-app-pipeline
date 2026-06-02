@@ -23,11 +23,6 @@
       "#src/*": ["./*"]
     }
   },
-  "include": [
-    "vite-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.mdx"
-  ],
+  "include": ["vite-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.mdx"],
   "exclude": ["node_modules", "dist", "build"]
 }

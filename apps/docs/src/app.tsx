@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
-import { DocsLayout } from "#src/src/docs-layout";
 import { DocRoute } from "#src/src/doc-route";
+import { DocsLayout } from "#src/src/docs-layout";
 
 export function App() {
   return (

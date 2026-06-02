@@ -1,0 +1,48 @@
+.Kaizen Docs Base:
+  needs: []
+  extends:
+    - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
+  before_script:
+    - npm install --global corepack@latest
+    - corepack enable
+    - corepack install
+    - |
+      EXPECTED_NODE_MAJOR=$(node -p "require('./package.json').engines.node.split('.')[0]")
+      ACTUAL_NODE_VERSION=$(node --version)
+      ACTUAL_NODE_MAJOR=$(node -p "process.versions.node.split('.')[0]")
+      if [ "$ACTUAL_NODE_MAJOR" != "$EXPECTED_NODE_MAJOR" ]; then
+        echo "Expected Node $EXPECTED_NODE_MAJOR.x, got $ACTUAL_NODE_VERSION"
+        exit 1
+      fi
+    - pnpm --version
+    - pnpm store path
+    - echo "*"
+    - echo "⏳ Install node modules and deps with pnpm..."
+    - ICHIZEN_SKIP_POSTINSTALL=true pnpm install --frozen-lockfile --prefer-offline
+    - echo "✅ Node modules have been installed successfully"
+
+Build Kaizen Docs:
+  stage: build
+  extends:
+    - .Kaizen Docs Base
+  allow_failure: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "kaizen-ds-md-docs"
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == "dev"
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == "kaizen-ds-md-docs"
+      when: on_success
+  script:
+    - echo "🔱 Building Kaizen docs static artifact"
+    - pnpm -C apps/docs install --frozen-lockfile --prefer-offline
+    - pnpm --filter @bsport/kaizen-storybook build
+    - pnpm -C apps/docs build
+  artifacts:
+    name: "kaizen-docs-$CI_COMMIT_SHORT_SHA"
+    when: on_success
+    expire_in: 7 days
+    paths:
+      - apps/docs/dist/

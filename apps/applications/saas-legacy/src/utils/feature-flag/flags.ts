@@ -42,6 +42,7 @@ export const FeatureFlags = {
   WEBVIEW_BASKET_AP_GP: 'webview-basket-ap-gp',
   WEBVIEW_GOOGLE_PAY: 'webview-google-pay',
   CALENDAR_REVAMP: 'booking_calendar_page_revamped',
+  BOOKING_WIDGETS_SETTINGS_PAGE: 'booking_widgets_settings_page',
   STRIPE_LINK_EXPRESS_CHECKOUT: 'stripe-link-express-checkout',
   PAYOUT_FEE_BREAKDOWN: 'payout-fee-breakdown',
   BOOKING_ACTIVATE_NEW_WELLPASS_CONFIGURATION:

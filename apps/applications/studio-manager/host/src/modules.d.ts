@@ -39,6 +39,7 @@ declare module "sm-navigation-sidebar/urls" {
     settings_staff: string;
     settings_permission: string;
     settings_transactionalNotification: string;
+    settings_widgets: string;
     tag: string;
     marketingNotification: string;
     establishment: string;

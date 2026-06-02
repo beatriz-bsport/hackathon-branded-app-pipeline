@@ -65,6 +65,7 @@ const MarketingNotification = lazy(
 
 // ----- Settings -----
 const Aggregators = lazy(() => import("@bsport/sm-aggregators"));
+const Widgets = lazy(() => import("@bsport/sm-widgets"));
 
 // ----- Business Insights -----
 const Insights = lazy(() => import("@bsport/sm-insights"));
@@ -330,6 +331,10 @@ const AuthenticatedRoutes = () => {
       url: urls.settings_aggregators,
       element: <Aggregators />,
       hidden: !isAggregatorsEnabled,
+    },
+    {
+      url: urls.settings_widgets,
+      element: <Widgets />,
     },
 
     /* ----- Business Insights ----- */

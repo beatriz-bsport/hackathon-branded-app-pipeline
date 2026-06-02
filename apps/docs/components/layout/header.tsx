@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { BsportLogoMark } from "#src/components/layout/bsport-logo-mark";
 import { HeaderHeightSync } from "#src/components/layout/header-height-sync";
 import { TopNav } from "#src/components/layout/top-nav";
-import { ThemeToggle } from "#src/components/theme/theme-toggle";
 import type { TopTab } from "#src/lib/nav";
 
 type HeaderProps = {
@@ -30,9 +29,6 @@ export function Header({ topTabs }: HeaderProps) {
           </span>
         </Link>
         <TopNav topTabs={topTabs} className="hidden md:flex" />
-        <div className="ml-auto flex items-center gap-2">
-          <ThemeToggle />
-        </div>
       </div>
       <TopNav
         topTabs={topTabs}

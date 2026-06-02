@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --color-bg: oklch(99% 0 0);
   --color-bg-canvas: oklch(99% 0 0);
@@ -25,21 +23,6 @@
     "Helvetica Neue", Arial, sans-serif;
   --font-mono:
     ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
-}
-
-.dark {
-  --color-bg: oklch(14% 0 0);
-  --color-bg-canvas: oklch(14% 0 0);
-  --color-bg-subtle: oklch(18% 0 0);
-  --color-bg-muted: oklch(22% 0 0);
-  --color-fg: oklch(96% 0 0);
-  --color-fg-subtle: oklch(75% 0 0);
-  --color-fg-muted: oklch(62% 0 0);
-  --color-border: oklch(28% 0 0);
-  --color-border-strong: oklch(38% 0 0);
-  --color-accent: oklch(72% 0.14 264);
-  --color-accent-fg: oklch(14% 0 0);
-  --color-code: oklch(78% 0.14 55);
 }
 
 :root {

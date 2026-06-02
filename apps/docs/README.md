@@ -105,7 +105,6 @@ apps/docs/
   components/
     layout/                  # Header, Sidebar, TopNav, TableOfContents, PageActions, …
     mdx/                     # the 28 MDX components (StorybookEmbed, PropsTable, Callout, …)
-    theme/                   # ThemeToggle
   content/                   # all MDX lives here — this is what you edit
     _meta.json               # top-tab order + labels
     welcome/                 # Welcome tab (mapped to `/welcome`)

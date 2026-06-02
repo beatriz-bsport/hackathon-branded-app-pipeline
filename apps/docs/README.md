@@ -22,6 +22,19 @@ pnpm -C apps/docs dev
 live in `apps/docs/pnpm-lock.yaml` so this documentation site cannot pull MDX,
 Vite, or docs-only tooling into the monorepo lockfile used by product builds.
 
+When adding a docs dependency, run the command from the repository root with the
+docs package as the pnpm working directory:
+
+```bash
+pnpm -C apps/docs add <package-name>
+pnpm -C apps/docs add -D <package-name>
+```
+
+Do not use root workspace commands such as `pnpm add` or
+`pnpm --filter @bsport/kaizen-docs add`: `apps/docs` is deliberately not part of
+the workspace, and dependency changes must stay in `apps/docs/package.json` and
+`apps/docs/pnpm-lock.yaml`.
+
 The dev server runs on http://localhost:4070. The `dev` script first runs
 the `generate` pipeline (extracts props and tokens, generates nav/manifest/static
 markdown exports) and then boots `vite`.

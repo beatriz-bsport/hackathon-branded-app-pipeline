@@ -26,15 +26,7 @@ Build Kaizen Docs:
     - .Kaizen Docs Build Base
   allow_failure: false
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "kaizen-ds-md-docs"
-      allow_failure: false
-      when: on_success
     - if: $CI_COMMIT_BRANCH == "dev"
-      allow_failure: false
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == "kaizen-ds-md-docs"
       allow_failure: false
       when: on_success
   script:
@@ -60,13 +52,7 @@ Deploy Kaizen Docs:
     - .ci-runner-xlarge-highcpu # 16 vCPU, 16GB RAM
   allow_failure: true
   rules:
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME == "kaizen-ds-md-docs"
-      when: on_success
     - if: $CI_COMMIT_BRANCH == "dev"
-      when: on_success
-    - if: $CI_COMMIT_BRANCH == "kaizen-ds-md-docs"
       when: on_success
   script:
     - echo "🔱 Deploying Kaizen docs static site"

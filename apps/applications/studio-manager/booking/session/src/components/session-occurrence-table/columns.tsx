@@ -13,10 +13,11 @@ import {
 import { CancelledSessionName } from "#src/components/SessionList/CancelledSessionName";
 import { ParticipantsCell } from "#src/components/SessionList/ParticipantsCell";
 import { TeacherCell } from "#src/components/common/teacher-cell";
-import { getSessionTimeStatus } from "#src/components/session-series/get-session-time-status";
 import { formatSessionTimeRange } from "#src/utils/session-time-range";
 
-export type AllOccurrencesRow = {
+import { getSessionTimeStatus } from "./get-session-time-status";
+
+export type OccurrenceRow = {
   id: number;
   date_start: string;
   duration_minute: number;
@@ -38,7 +39,7 @@ export type AllOccurrencesRow = {
   detailUrl?: string;
 };
 
-export type AllOccurrencesColumnLabels = {
+export type OccurrenceColumnLabels = {
   date: string;
   time: string;
   participants: string;
@@ -56,7 +57,7 @@ const STATUS_CHIP: Record<
   ReturnType<typeof getSessionTimeStatus>,
   {
     color: "default" | "positive" | "info" | "critical";
-    labelKey: keyof AllOccurrencesColumnLabels;
+    labelKey: keyof OccurrenceColumnLabels;
   }
 > = {
   past: { color: "default", labelKey: "statusPast" },
@@ -65,10 +66,10 @@ const STATUS_CHIP: Record<
   cancelled: { color: "critical", labelKey: "statusCancelled" },
 };
 
-export const buildAllOccurrencesColumns = (
-  labels: AllOccurrencesColumnLabels,
+export const buildOccurrenceColumns = (
+  labels: OccurrenceColumnLabels,
   locale?: string,
-): GenericTableColumn<AllOccurrencesRow>[] => [
+): GenericTableColumn<OccurrenceRow>[] => [
   {
     header: labels.date,
     id: "date",
@@ -173,9 +174,8 @@ export const buildAllOccurrencesColumns = (
           target="_blank"
           rel="noopener noreferrer"
           aria-label={labels.openSession}
-          className="text-onsurface-weak hover:text-onsurface-default"
-          // Right-edge inset to mirror the first column (cell already has `xs`).
-          style={{ marginRight: "var(--kz-spacing-xs, 8px)" }}
+          // mr-xs: right-edge inset to mirror the first column (cell already has `xs`).
+          className="mr-xs text-onsurface-weak hover:text-onsurface-default"
           onClick={(e) => e.stopPropagation()}
         >
           <Icon icon="link-external-02" size="sm" />

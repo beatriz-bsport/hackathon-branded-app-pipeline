@@ -107,5 +107,29 @@
     "submit": {
       "error": "Failed to update Contract"
     }
+  },
+  "overview": {
+    "membershipPlanList": {
+      "loading": "Loading membership plans…",
+      "headers": {
+        "startDate": "Start date",
+        "member": "Member",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "emptyList": {
+        "title": "No membership plans yet",
+        "subtitle": "Members who subscribe to this contract will appear here."
+      },
+      "actions": {
+        "viewBillingPlan": "View billing plan"
+      },
+      "statusTooltips": {
+        "valid": "Member's contract is active and billing normally.",
+        "canceled": "Member's contract is scheduled for cancellation.",
+        "paused": "Member's contract is currently on pause",
+        "ended": "Member's contract billing cycle has ended."
+      }
+    }
   }
 }

@@ -84,6 +84,18 @@ sudo apt update && sudo apt install -y $DEBIAN_PKGS
 
 > **Note:** For Nx remote cache setup (faster builds), see [docs/nx_remote_cache_server.md](./docs/nx_remote_cache_server.md).
 
+8. Build the packages and applications:
+
+```sh
+pnpm run build:all
+```
+
+9. Enable Husky Git hooks:
+
+```sh
+pnpm prepare
+```
+
 ### Commit messages
 
 Commit messages are validated with commitlint, so regular `git commit` works from any Git client. If you prefer the guided Commitizen CLI, use:

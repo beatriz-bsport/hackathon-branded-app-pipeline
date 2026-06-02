@@ -1,0 +1,456 @@
+---
+title: MDX Components
+description: Custom MDX building blocks registered globally across every docs page.
+category: mdx-components
+---
+
+These components live in `apps/docs/components/mdx/` and are registered in
+`mdx-components.tsx`. Drop them into any MDX file under `content/` — no import
+statement required.
+
+## Quick reference
+
+| Component                | Purpose                                                   |
+| ------------------------ | --------------------------------------------------------- |
+| `Callout`                | Highlighted note, warning, tip, or deprecation            |
+| `DoDont` / `Do` / `Dont` | Side-by-side do / don't guidance                          |
+| `StatusBadge`            | Inline stable / beta / deprecated / internal badge        |
+| `StorybookEmbed`         | Live Storybook iframe with optional story picker          |
+| `PropsTable`             | Auto-generated component props from Kaizen source         |
+| `Anatomy`                | Labelled component anatomy diagram                        |
+| `Accessibility`          | Keyboard shortcuts, ARIA roles, and a11y notes            |
+| `TokenTable`             | Token category table with swatches for color tokens       |
+| `DesignTokenList`        | Nord-style token catalog with swatch, description, copy   |
+| `TokenPalette`           | Full-width color scale with contrast badges               |
+| `TypeScale`              | Live type ramp preview with token metadata                |
+| `TitleTypeScale`         | Preset title ramp (`Title` component mapping)             |
+| `BodyTypeScale`          | Preset body ramp (`Body` component mapping)               |
+| `TokenAlias`             | Visual alias chain from semantic token to resolved value  |
+| `ColorSwatch`            | Inline single-color preview                               |
+| `CardGrid` / `Card`      | Responsive grid of linked cards                           |
+| `Tabs` / `Tab`           | Tabbed content panels inside a page                       |
+| `PageTabs`               | Sticky section tabs that jump to `h2` anchors on the page |
+| `InstallTabs`            | Package-manager install command with copy button          |
+| `FileTree`               | ASCII-style directory tree                                |
+| `IconGrid`               | Click-to-copy icon import statements                      |
+
+---
+
+## Guidance & status
+
+### Callout
+
+Surfaces contextual notes with four tones: `info`, `warning`, `deprecated`, and
+`tip`. Override the default label with `title`.
+
+**Props:** `type?`, `title?`, `children`
+
+<Callout type="info" title="Example">
+  Use callouts for one-off guidance that would clutter the main prose.
+</Callout>
+
+```mdx
+<Callout type="warning" title="Dark mode">
+  Kaizen currently ships one theme.
+</Callout>
+```
+
+### DoDont, Do, Dont
+
+Side-by-side do / don't cards. Each card shows the Do/Don't header and a
+caption. Optionally attach a Figma frame or a static image — when no image
+resolves, only the header and caption render.
+
+**Props:** `DoDont` — `children`. `Do` / `Dont` — `caption`, `figma?`, `image?`,
+`alt?`
+
+<DoDont>
+  <Do caption="Use semantic tokens" />
+  <Dont caption="Hard-code hex values" />
+</DoDont>
+
+```mdx
+<DoDont>
+  <Do
+    caption="One primary CTA per screen"
+    figma="https://www.figma.com/design/abc/Kaizen?node-id=1-2"
+  />
+  <Dont
+    caption="Stack two CTAs side by side"
+    image="/images/button-dont-example.png"
+  />
+</DoDont>
+```
+
+Set `FIGMA_ACCESS_TOKEN` in the environment to render frames live from Figma.
+Use `image` for exported PNGs when the token is not available.
+
+### StatusBadge
+
+Inline pill matching the frontmatter `status` field values.
+
+**Props:** `status` — `stable` | `beta` | `deprecated` | `internal`
+
+<StatusBadge status="beta" />
+
+```mdx
+## 0.1.0 — Initial release <StatusBadge status="beta" />
+```
+
+---
+
+## Live examples
+
+### StorybookEmbed
+
+Embeds a live Storybook story: component preview on top,
+controls table below, no sidebar or toolbar. Copy the `id=` query parameter from a
+Storybook URL. Pass `stories` to add a dropdown picker, `height` (default `520`) to
+resize the frame, and `mode="preview"` to hide the story picker in the docs chrome.
+
+**Props:** `id`, `height?` (default `360`), `title?`, `stories?`, `mode?`
+(`playground` | `preview`)
+
+<StorybookEmbed id="primitive-components-button--primary" height={240} />
+
+```mdx
+<StorybookEmbed
+  id="primitive-components-button--intent-gallery"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-button--intent-gallery",
+      label: "Intent Gallery",
+    },
+    { id: "primitive-components-button--primary", label: "Primary" },
+  ]}
+/>
+```
+
+---
+
+## Component reference
+
+### PropsTable
+
+Renders a props table from the generated JSON pipeline (`generate:props`). Use
+`overrides` to backfill descriptions before JSDoc lands in Kaizen source.
+
+**Props:** `component` (Kaizen component name), `overrides?`
+
+<PropsTable
+  component="Button"
+  overrides={{
+    intent: {
+      description: "Visual weight of the button.",
+    },
+  }}
+/>
+
+```mdx
+<PropsTable
+  component="Button"
+  overrides={{
+    intent: { description: "Visual weight of the button." },
+  }}
+/>
+```
+
+### Anatomy
+
+Shows a labelled breakdown of a component's parts. Pass `src` for a diagram
+image; without it, a placeholder renders.
+
+**Props:** `src?`, `alt?`, `parts` — `{ label, description? }[]`
+
+<Anatomy
+  parts={[
+    {
+      label: "Container",
+      description: "Root element with border and padding.",
+    },
+    { label: "Label", description: "Primary text content." },
+    { label: "Icon", description: "Optional leading or trailing icon." },
+  ]}
+/>
+
+```mdx
+<Anatomy
+  src="/images/button-anatomy.png"
+  alt="Button anatomy"
+  parts={[
+    { label: "Container", description: "Root element." },
+    { label: "Label", description: "Primary text." },
+  ]}
+/>
+```
+
+### Accessibility
+
+Documents keyboard interactions, ARIA attributes, and free-form notes for a
+component.
+
+**Props:** `keyboard?` — `{ keys, description }[]`, `aria?` — `string[]`,
+`notes?`
+
+<Accessibility
+  keyboard={[
+    { keys: ["Enter", "Space"], description: "Activates the button." },
+    {
+      keys: ["Tab"],
+      description: "Moves focus to the next focusable element.",
+    },
+  ]}
+  aria={['role="button"', "aria-disabled when loading"]}
+  notes="Icon-only buttons require an accessible label via the label prop."
+/>
+
+```mdx
+<Accessibility
+  keyboard={[{ keys: ["Enter"], description: "Activates the button." }]}
+  aria={['role="button"']}
+/>
+```
+
+---
+
+## Design tokens
+
+### TokenTable
+
+Lists every token in a category from the generated tokens JSON. Color
+categories automatically show a swatch column.
+
+**Props:** `category` — dot-separated token path prefix (e.g.
+`color.luna-grey`)
+
+<TokenTable category="border.radius" />
+
+```mdx
+<TokenTable category="color.luna-grey" />
+```
+
+### DesignTokenList
+
+Nord-style token catalog: **Example**, **Description**, and **Token** columns.
+Descriptions come from `generate:tokens` (inferred for semantic colors). Use
+`type` for the token category; add `prefix` to narrow a section; set
+`semanticOnly={false}` to include base palette colors.
+
+**Props:** `type`, `prefix?`, `semanticOnly?` (defaults to `true` for color)
+
+<DesignTokenList type="color" prefix="color.surface" />
+
+```mdx
+<DesignTokenList type="color" />
+<DesignTokenList type="border-radius" />
+<DesignTokenList type="spacing" prefix="spacing" />
+```
+
+### TokenPalette
+
+Full-width color scale for a token category. Each row shows the token path,
+hex value, and WCAG contrast badges for black and white text on that
+background.
+
+**Props:** `category` — dot-separated token path prefix (e.g.
+`color.neptune-blue`), `title?`, `description?`
+
+<TokenPalette
+  category="color.neptune-blue"
+  title="Blue"
+  description="Blue indicates a current or active state. It communicates management, progress, connectivity, or organization."
+/>
+
+```mdx
+<TokenPalette
+  category="color.neptune-blue"
+  title="Blue"
+  description="Blue indicates a current or active state."
+/>
+```
+
+### TokenAlias
+
+Visualises how a semantic token resolves through aliases to a concrete value.
+Pass a pre-built `chain` or a starting `from` path to auto-expand.
+
+**Props:** `chain?` — `string[]`, `from?` — token path
+
+<TokenAlias from="color.luna-grey.500" />
+
+```mdx
+<TokenAlias from="color.luna-grey.500" />
+<TokenAlias
+  chain={["color.surface.default", "color.luna-grey.100", "#f5f6f6"]}
+/>
+```
+
+### ColorSwatch
+
+Inline preview of a single color with its token name and hex value.
+
+**Props:** `token?`, `value`, `label?`
+
+<ColorSwatch token="color.luna-grey.500" value="#7f8786" />
+
+```mdx
+<ColorSwatch token="color.luna-grey.500" value="#7f8786" />
+```
+
+---
+
+## Navigation & layout
+
+### CardGrid and Card
+
+Responsive grid of linked cards — useful on landing pages and section indexes.
+`Card` detects internal (`/…`) vs external links automatically.
+
+**Props:** `CardGrid` — `columns?` (1–4, default `2`), `children`. `Card` —
+`href`, `title`, `description?`, `badge?`
+
+<CardGrid columns={2}>
+  <Card
+    href="/foundations/color"
+    title="Color"
+    description="Base palette and semantic tokens."
+  />
+  <Card
+    href="/components/button"
+    title="Button"
+    description="Primary action trigger."
+    badge="stable"
+  />
+</CardGrid>
+
+```mdx
+<CardGrid columns={3}>
+  <Card
+    href="/foundations"
+    title="Foundations"
+    description="Tokens and typography."
+  />
+</CardGrid>
+```
+
+### Tabs and Tab
+
+Client-side tabbed panels for grouping related content on a single page.
+
+**Props:** `Tabs` — `items` (tab labels), `defaultIndex?`, `children`. `Tab` —
+`children`.
+
+<Tabs items={["Overview", "API", "Examples"]} defaultIndex={0}>
+  <Tab>High-level summary of the component.</Tab>
+  <Tab>Props and type definitions.</Tab>
+  <Tab>Storybook embeds and code samples.</Tab>
+</Tabs>
+
+```mdx
+<Tabs items={["Overview", "API"]}>
+  <Tab>Overview content here.</Tab>
+  <Tab>API content here.</Tab>
+</Tabs>
+```
+
+### PageTabs
+
+Sticky horizontal tabs that link to `h2` headings on the same page — similar to
+[Shopify Polaris](https://shopify.dev/) component docs. Labels are matched to
+heading text after render; pass `{ label, id }` when you need an explicit
+anchor.
+
+On component pages, prefer the frontmatter `sections` field — tabs render
+automatically below the title, description, and page actions:
+
+```yaml
+sections:
+  - Examples
+  - Anatomy
+  - Props
+  - "Do / don't"
+  - Accessibility
+```
+
+You can also use the MDX component directly when documenting it or on non-standard
+pages:
+
+**Props:** `items` — `string[]` or `{ label, id? }[]`
+
+<PageTabs
+  items={["Guidance & status", "Live examples", "Component reference"]}
+/>
+
+```mdx
+<PageTabs
+  items={[
+    "Examples",
+    "Anatomy",
+    "Props",
+    { label: "Do / don't", id: "do--dont" },
+    "Accessibility",
+  ]}
+/>
+```
+
+### FileTree
+
+Renders an ASCII-style directory tree with optional inline comments.
+
+**Props:** `entries` — `{ name, type?, comment?, children? }[]`, `rootLabel?`
+
+<FileTree
+  rootLabel="apps/docs/components/mdx/"
+  entries={[
+    { name: "index.ts", comment: "registers all components" },
+    { name: "callout.tsx" },
+    { name: "storybook-embed.tsx" },
+    { name: "props-table.tsx" },
+  ]}
+/>
+
+```mdx
+<FileTree
+  rootLabel="content/"
+  entries={[{ name: "welcome", children: [{ name: "index.mdx" }] }]}
+/>
+```
+
+---
+
+## Utilities
+
+### InstallTabs
+
+Package install command with tabs for pnpm, npm, yarn, and bun. Includes a
+one-click copy button.
+
+**Props:** `packageName`, `dev?` (adds `-D` / `--save-dev`)
+
+<InstallTabs packageName="@bsport/kaizen-primitive-core" />
+
+```mdx
+<InstallTabs packageName="@bsport/kaizen-tokens" dev />
+```
+
+### IconGrid
+
+Grid of icon names that copy an import statement to the clipboard on click.
+Defaults to a sample set; pass `icons` and `importStatement` to customise.
+
+**Props:** `icons?` — `string[]`, `importStatement?` — `(name: string) => string`
+
+<IconGrid icons={["check", "close", "search", "plus"]} />
+
+```mdx
+<IconGrid icons={["check", "close", "search"]} />
+```
+
+---
+
+<Callout type="tip" title="Adding a new component">
+  Create the component in `apps/docs/components/mdx/`, export it from
+  `index.ts`, and it becomes available in every MDX file automatically. Update
+  this page when you add one.
+</Callout>

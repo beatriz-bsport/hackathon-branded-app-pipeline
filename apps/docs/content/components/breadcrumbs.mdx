@@ -1,0 +1,71 @@
+---
+title: Breadcrumbs
+description: Displays a navigation trail showing the user's current location within a hierarchy.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Breadcrumbs"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Breadcrumbs help users understand where they are and navigate back up the hierarchy.
+
+### Properties
+
+- _active (boolean):_ Indicates if the breadcrumb item represents the current page.
+- _collapsed (boolean):_ If true, and there are too many items to fit, the breadcrumb will collapse into `…` button and is accessible through a dropdown menu showing additional items.
+
+### Structure
+
+- _Container:_ Encloses the breadcrumb trail.
+- _Breadcrumb Items:_ Links or icons representing each level of the hierarchy.
+- _Separator:_ A right-chevron used to separate breadcrumb items.
+
+### Related Components
+
+- _Dropdown Menu:_ Used for showing additional breadcrumb items when collapsed.
+- _Breadcrumb item:_ Individual items within the breadcrumb trail.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-breadcrumbs--declarative-configuration"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-breadcrumbs--declarative-configuration",
+      label: "Declarative",
+    },
+    {
+      id: "primitive-components-breadcrumbs--composable-configuration",
+      label: "Composable",
+    },
+  ]}
+/>
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Breadcrumbs" />
+
+## Accessibility
+
+<Accessibility
+  notes={
+    "Make sure the Breadcrumb is navigable via keyboard and screen readers. Use ARIA roles and properties to describe the breadcrumb trail and the current page."
+  }
+/>
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Breadcrumbs`
+- **Storybook:** Browse the live examples under Guidelines.

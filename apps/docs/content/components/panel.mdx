@@ -1,0 +1,128 @@
+---
+title: Panel
+description: A collapsible side surface for metadata and contextual controls on detail pages.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/DetailsLayout"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+The panel lives inside DetailsLayout — a persistent side column for properties of the object on screen.
+
+Panel is a collapsible side surface anchored to the inline-end (right) edge of a detail page. It displays metadata, properties, and contextual controls for the object currently in view — status, assignee, dates, linked records, activity — so the user can read and adjust them without scrolling through or navigating away from the main content. It is not a separate page or overlay; it lives inside the layout grid and shares the viewport with the content area.
+
+### Use cases
+
+- _Properties:_ Object status, tags, dates, and object specific fields displayed alongside the object body.
+- _Linked records and relations:_ link to or list of sub-objects of the main displayed object. (For example, link to all payments in a payout)
+- _Contextual settings:_ Configuration toggles and options that apply to the current view or object, not worth a separate settings page.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-detailslayout--primary"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-detailslayout--primary",
+      label: "DetailsLayout with panel",
+    },
+    {
+      id: "primitive-components-detailslayout--details-without-panel",
+      label: "Without panel",
+    },
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do
+    caption={
+      "Do use for information the studio staff glances at or adjusts frequently while working in the main content. The panel's value is peripheral visibility — if users have to actively seek it out, it belongs elsewhere."
+    }
+  />
+  <Dont
+    caption={
+      "Don't put primary editing forms inside the panel. Inline-edit interactions (click a tag to change it, toggle a switch to enable waitlisting) are fine. A full product pricing form with multiple tax rates and currency inputs is not — that belongs in the content area."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use the panel to preview a different record. If a studio owner clicks a linked member from inside a booking detail, that's a drawer or a navigation — not panel content."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Be careful about the panel growing into a second page. If the panel content needs its own tabs, sub-navigation, or heavy scrolling, move some content into the main area or a separate view. A member's full purchase history doesn't belong in the panel — a summary with a "View all" link does.
+- Caution about defaulting to open on pages where the metadata is rarely consulted or already displayed in a list. The class list page might not need a panel at all; the individual class detail page does.
+
+</Callout>
+
+#### Content
+
+#### `Common uses`
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="DetailsLayout" />
+
+### Behavior
+
+_Toggle_
+
+Controlled through the `useDetailsLayout` context. Any descendant of `DetailsLayout` can call `toggleIsPanelOpened(true)` or `toggleIsPanelOpened(false)`. The parent `DetailsLayout` fires `onPanelToggle(value)` so the page can persist the preference.
+
+_Transition_
+
+The panel animates from 0px width (closed) to its full token-defined width (open). Content fades in alongside the width expansion. The main content area resizes to fill the freed space.
+
+_Scroll_
+
+The panel scrolls independently from the main content. Scroll position resets when the panel is closed and reopened, unless the consuming component preserves it.
+
+_Persistence_
+
+The panel has no memory of its own. Open/closed state is managed by the parent via the hook. If the consuming page doesn't persist the state, the panel reverts to its default on every mount.
+
+_Responsiveness_
+
+On desktop, the panel occupies a fixed-width grid column (usually 280–360px). On tablet and mobile, it collapses entirely and is accessible through a toggle that opens a sheet-style overlay.
+
+### Edge cases
+
+_Panel on narrow viewports / mobile_
+
+The side column doesn't fit on mobile. Collapse the panel behind a toggle that opens a bottom sheet or full-width overlay. The trigger should remain visible (e.g., a toolbar icon). Studio staff using tablets at the reception desk is a real scenario — test at tablet widths too.
+
+_Panel with no content_
+
+If `DetailsLayout.Panel` is included but renders no children, the panel column should not appear. No empty white space.
+
+_Panel open + drawer open_
+
+These don't conflict. The panel stays in its grid column; the drawer overlays on top. _A user viewing a member detail (panel showing member properties) can open a linked booking in a drawer._
+
+_Panel toggle during unsaved changes_
+
+Toggling the panel does not affect the Confirmation bar. The two states are independent — closing the panel while editing a product doesn't discard pricing changes.1q
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/DetailsLayout`
+- **Storybook:** Browse the live examples under Guidelines.

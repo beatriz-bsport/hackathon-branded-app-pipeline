@@ -1,0 +1,19 @@
+[
+  "index",
+  {
+    "group": "Visual",
+    "items": ["color", "typography", "iconography"]
+  },
+  {
+    "group": "Layout & motion",
+    "items": ["spacing", "motion"]
+  },
+  {
+    "group": "Design tokens",
+    "items": ["design-tokens/color"]
+  },
+  {
+    "group": "Reference",
+    "items": ["tokens", "icons"]
+  }
+]

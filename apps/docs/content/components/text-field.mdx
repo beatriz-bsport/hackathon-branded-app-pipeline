@@ -1,0 +1,129 @@
+---
+title: Text field
+description: Collects text-based information in forms and interfaces.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/TextField"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Text fields collect short text-based input in forms and interfaces — including
+plain text, passwords, numbers, dates, emails, URLs, and telephone numbers.
+
+### Use cases
+
+- **Short text input:** Capture names, titles, search queries, and other brief
+  strings.
+- **Formatted input:** Use typed inputs for email, URL, tel, date, time, and
+  number values with built-in validation hints.
+- **Sensitive data:** Use password fields when masking input is required.
+- **Form validation:** Pair with helper and error text to guide input and
+  surface validation feedback.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-textfield--text-field-basic"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-textfield--text-field-basic",
+      label: "Basic",
+    },
+    {
+      id: "primitive-components-textfield--text-field-with-icons",
+      label: "With icons",
+    },
+  ]}
+/>
+
+#### Type
+
+1. _Text input_ — Designed for short pieces of text.
+
+1. _Password input_ — Masks the input to prevent others from seeing the entered text.
+
+1. _Number input_ — Accepts numeric values and can include min/max values and step increments.
+
+1. _Date input_ — Provides a date picker interface; can be typed or picked from a calendar.
+
+1. _Time input_ — Allows users to select a time, often with a time picker interface.
+
+1. _Email input_ — Validates that the input follows an email address format.
+
+1. _URL input_ — Validates that the input follows a URL format.
+
+1. _Tel input_ — Accepts and validates telephone numbers.
+
+### Live preview
+
+<Anatomy
+  parts={[
+    {
+      label: "Container",
+      description: "Holds the input and associated label.",
+    },
+    {
+      label: "Label",
+      description: "Describes the option the input represents.",
+    },
+    {
+      label: "Placeholder",
+      description: "(Optional) Displays when the input is empty.",
+    },
+    {
+      label: "Helper Text",
+      description: "(Optional) Provides additional context or guidance.",
+    },
+    {
+      label: "Error Text",
+      description: "(Optional) Displays when there is an issue with the input.",
+    },
+  ]}
+/>
+
+### Best practices
+
+<DoDont>
+  <Dont caption="Don't overload the input with unnecessary information or complex interactions. Keep the design focused on text input." />
+  <Dont caption="Do not use ambiguous labels or placeholder text that could confuse the user about what to input." />
+  <Dont caption="Avoid excessive use of helper text that could distract from the primary purpose of the field." />
+  <Dont caption="Do not show error states for valid input or in cases where the user has not interacted with the field yet." />
+</DoDont>
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="TextField" />
+
+### Behavior
+
+- _state (rest, focused, error):_ Reflects the current visual state of the input.
+- _value (string):_ The current text value of the input.
+- _placeholder (string):_ Provides a hint or example of what type of input is expected.
+- _label (string):_ The label describing the purpose of the input.
+- _is-required (boolean):_ Indicates if the field is mandatory.
+- _has-helper-text (boolean):_ Specifies if there is additional helper text.
+- _helper-text (string):_ Provides guidance or instructions related to the input.
+- _has-error (boolean):_ Indicates if the input is in an error state.
+- _error-text (string):_ Provides error messaging when validation fails.
+- _disabled (boolean):_ Indicates if the input is non-interactive.
+
+## Accessibility
+
+<Accessibility notes="Make sure the Input is fully accessible via keyboard and screen readers. Use appropriate ARIA attributes to describe the input state, especially for has-error and disabled states. Ensure labels are clearly associated with their respective inputs for accessible form controls." />
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/TextField`
+- **Storybook:** Browse the live examples under Guidelines.

@@ -1,0 +1,271 @@
+---
+title: Toast
+description: Toasts surface short, non-blocking messages about an action's result.
+status: stable
+category: components
+tags: [feedback, transient]
+since: "0.1.0"
+related: [Button]
+source: "packages/design-system/kaizen/primitive/core/src/components/Toast"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Toast notifications are lightweight, ephemeral messages that appear at the
+bottom of the viewport to confirm actions, surface errors, or communicate
+system events. They auto-dismiss after a set duration, allowing the user to
+continue their workflow without interruption. Toasts stack vertically and
+animate smoothly. Long-lived messages belong in inline alerts instead.
+
+### Use cases
+
+- **Action confirmation:** Confirm that a save, update, or deletion completed
+  successfully (e.g. "Client profile updated").
+- **Undo opportunity:** Provide a brief window to reverse a destructive or
+  important action before it becomes permanent (e.g. "Session deleted" with an
+  Undo button).
+- **Error feedback:** Notify the user of a failed operation that does not
+  require a page-level alert (e.g. "Payment could not be processed").
+- **System event:** Surface asynchronous events the user should be aware of
+  but does not need to act on immediately (e.g. "Import complete").
+
+<Callout type="info" title="Imperative API">
+  In real applications you typically call the imperative `toast()` and
+  `dismissToast()` helpers from `@bsport/kaizen-primitive-core`. They render
+  through a `ToastManager` mounted near the app root. The static `Toast`
+  component below is what `ToastManager` paints under the hood.
+</Callout>
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-toast--gallery"
+  mode="playground"
+  height={560}
+  stories={[
+    { id: "primitive-components-toast--gallery", label: "Gallery" },
+    { id: "primitive-components-toast--toaster", label: "Toaster" },
+    {
+      id: "primitive-components-toast--toast-full-configuration",
+      label: "Toast Full Configuration",
+    },
+    {
+      id: "primitive-components-toast--toast-action-undone-configuration",
+      label: "Toast Action Undone",
+    },
+    {
+      id: "primitive-components-toast--indefinite-toaster",
+      label: "Indefinite Toaster",
+    },
+  ]}
+/>
+
+### Live preview
+
+<Anatomy
+  parts={[
+    {
+      label: "Container",
+      description:
+        "The outer li element with rounded corners, padding, shadow, and status-driven background color.",
+    },
+    {
+      label: "Icon (optional)",
+      description:
+        "A leading icon from the Kaizen Icon set, sized md, used to visually reinforce the toast intent.",
+    },
+    {
+      label: "Title (optional)",
+      description:
+        'A short, bold heading rendered as a Title component with weight="strong".',
+    },
+    {
+      label: "Description (optional)",
+      description:
+        'Supporting body text rendered as a Body component (size="lg", weight="weak", color="onstrong").',
+    },
+    {
+      label: "Action button (optional)",
+      description:
+        'A small Button rendered with kind="default" when a buttonLabel is provided, or as an icon-button when only buttonIcon is set.',
+    },
+  ]}
+/>
+
+### Icons in toasts
+
+Toasts accept any Kaizen icon name for both the leading visual and the
+optional action button. Click any tile to copy the import for that icon.
+
+<IconGrid
+  icons={[
+    "check-circle",
+    "alert-triangle",
+    "alert-circle",
+    "x-circle",
+    "info",
+    "bell",
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do caption="Keep toast copy under two short lines — title plus one sentence description." />
+  <Dont caption="Use a toast for information that requires user input or a multi-step decision — use a Modal instead." />
+  <Dont caption="Use a toast for persistent page-level warnings or errors — use an Alert instead." />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- `duration: 0` (indefinite) can clutter the viewport — reserve it for cases where the user must acknowledge the content.
+- Always provide a `title` or `description` alongside an icon; iconographic meaning varies across contexts.
+
+</Callout>
+
+#### Status
+
+<DoDont>
+  <Do caption='Use status="default" for neutral and confirmatory feedback alike ("Changes saved", "Link copied").' />
+  <Do caption='Use status="critical" to surface operation failures or validation-blocking errors.' />
+  <Dont caption="Overload a single toast with multiple messages — one action, one toast." />
+</DoDont>
+
+<Callout type="info" title="positive status">
+  A `positive` variant exists in the codebase but is not currently in use. All
+  success confirmations use `default`. If a dedicated success style is needed in
+  the future, `positive` can be enabled without code changes.
+</Callout>
+
+## Code & Specs
+
+### Props
+
+<PropsTable
+  component="Toast"
+  overrides={{
+    status: {
+      description:
+        "`default` for neutral and success confirmations, `critical` for errors. `positive` exists but is not currently used in product.",
+    },
+    title: {
+      description:
+        "Short, bold heading — keep under one line. Front-load the meaningful word for screen readers.",
+    },
+    description: {
+      description:
+        "Supporting body text below the title — one sentence at most.",
+    },
+    icon: {
+      description:
+        "Leading icon from the Kaizen icon set that reinforces the toast intent.",
+    },
+    buttonLabel: {
+      description:
+        "Optional inline action label — renders a small default Button that calls `onButtonClick` then dismisses.",
+    },
+    buttonIcon: {
+      description:
+        "Icon-only action when no `buttonLabel` is set — renders an icon-button instead.",
+    },
+    duration: {
+      description:
+        "Milliseconds before auto-dismiss (default 5000). Set to 0 to disable auto-dismissal.",
+    },
+    onDismiss: {
+      description:
+        "Fires when the toast disappears, whether the user closed it, the duration elapsed, or the action button was clicked.",
+    },
+  }}
+/>
+
+### Behavior
+
+#### Dismissal
+
+Toasts auto-dismiss after `duration` milliseconds (default 5 000 ms). Setting
+`duration` to `0` disables auto-dismissal; the toast persists until dismissed
+programmatically via `dismissToast(id)` or via the action button. Dismissal
+plays a 300 ms fade-out animation before removal from the DOM.
+
+#### Action button
+
+When `buttonLabel` is provided, a small solid `Button` (`kind="default"`,
+`size="sm"`) is rendered. Clicking it fires `onButtonClick` and then
+automatically calls `onDismiss`. When only `buttonIcon` is provided, an
+icon-button (`kind="icon-button"`, `intent="flat"`, `color="onstrong"`) is
+rendered instead.
+
+#### Persistence
+
+Use `duration: 0` only for toasts that require explicit user acknowledgement
+(e.g. "Your session is about to expire — extend?"). In all other cases, rely
+on the default auto-dismiss behaviour.
+
+#### Stacking and animation
+
+Toasts stack from the bottom of the viewport. On hover, the group fans out
+(`translateY: -88px` per item) and all toasts scale to `1`. When not hovered,
+stacked toasts compress (`translateY: -14px`) and shrink by `0.05` per stack
+position. A maximum of 3 toasts render at a time; additional toasts are
+invisible and non-interactive.
+
+#### Responsiveness
+
+The toast container is positioned `fixed`, centred horizontally
+(`left-1/2 -translate-x-1/2`), and sized at 75% of the viewport width with a
+`max-width` of `600px`.
+
+### Edge cases
+
+- **Multiple simultaneous toasts** — `ToastManager` stacks up to 3 visible
+  toasts. Older toasts beyond this limit are hidden with `opacity-transparent`
+  and `pointer-events-none`.
+- **Very short duration** — If `duration` is set below `1000`, a console
+  warning is emitted: durations this short are unlikely to be readable.
+- **No title and no description** — The toast renders an empty content area.
+  Always provide at least one of them.
+- **Toast triggered before manager mount** — The imperative `toast()` function
+  lazily creates the `ToastManager` portal if it doesn't exist yet, with a
+  10 ms delay for initialisation.
+- **Programmatic dismissal** — Use `dismissToast(toastId)`, passing the ID
+  returned by the `toast()` call.
+
+## Accessibility
+
+<Accessibility
+  keyboard={[
+    {
+      keys: ["Tab"],
+      description:
+        "Move focus into the toast when an action button is present.",
+    },
+    {
+      keys: ["Enter", "Space"],
+      description: "Trigger the inline action button if present.",
+    },
+    { keys: ["Escape"], description: "Dismiss the toast." },
+  ]}
+  aria={[
+    "role=status for default/positive toasts",
+    "role=alert for critical toasts",
+    "aria-live polite for default/positive, assertive for critical",
+  ]}
+  notes="Keep titles short and front-load the meaningful word — screen readers may cut announcements off. Always provide a title or description alongside an icon."
+/>
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Toast`
+- **Storybook:** Browse the live examples under Guidelines.
+- **Related:** [Button](/components/button)

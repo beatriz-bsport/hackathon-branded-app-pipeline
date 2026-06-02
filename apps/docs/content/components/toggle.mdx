@@ -1,0 +1,51 @@
+---
+title: Toggle
+description: Represents binary choices, such as enabling or disabling features.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Toggle"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Toggles apply binary settings immediately — prefer them over checkboxes when the effect is instant.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-toggle--primary"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-toggle--primary",
+      label: "Toggle",
+    },
+  ]}
+/>
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Toggle" />
+
+## Accessibility
+
+<Accessibility
+  notes={
+    "Make sure the Input is fully accessible via keyboard and screen readers. Use appropriate ARIA attributes to describe the input state, especially for has-error and disabled states. Ensure labels are associated with their respective inputs for clear accessibility."
+  }
+/>
+
+## Resources
+
+- _Checkbox:_ Used for multiple selections and binary choices.
+- _Radio Button:_ Used for selecting a single option from a group.

@@ -1,0 +1,87 @@
+---
+title: Using cards
+description: When a bounded card surface earns its place instead of spacing or dividers.
+category: patterns
+sections:
+  - "Overview"
+  - "Guidelines"
+---
+
+## Overview
+
+A card has to earn its place. If none of the rules apply, use spacing, a divider, or a heading instead.
+
+A card is a bounded surface — a backdrop or a border — that holds one concept's worth of content. It exists to make a collection of similar things easy to scan, to make a single thing actionable as a unit, or to separate a heterogeneous block from the rest of a page.
+
+> ℹ️ Info: _The default container is not a card._ A card has to earn its place. If none of the rules below apply, use spacing, a divider, or a heading instead. `In the future we will implement stacks to help automate this process.`
+
+_Section_
+
+You need to group related content with heading + spacing. _Default choice._
+
+_Card_
+
+The boundary adds meaning, prominence, affordance, or separation.
+
+_Panel_
+
+You need a larger persistent container for tools, side content, or contextual controls.
+
+### Kaizen supports two variants:
+
+- _Actionable_ — backdrop, full interaction states (rest, hover, pressed, selected, disabled). The whole card is one click target.
+- _Static_ — border only. Structural grouping. Internal elements carry any interactivity.
+
+## Guidelines
+
+### When to use a card
+
+Reach for a card when at least one of these is true:
+
+1. _You want to give one block visible prominence_ inside a larger surface — a featured action, an embedded CTA, an upsell, a highlighted setting inside a form. The boundary itself is the message: _this is the thing_.
+2. _There are multiple sibling items_ that share a schema and need to be visually parsed as discrete units. A single card alone on a screen is almost always a sign of overuse.
+
+3. _Example: Collection of media. (VOD)_
+
+4. _The whole region is one click target_ — navigates somewhere, selects an option, opens a detail view. This is what Actionable is for. A border alone cannot communicate "click me".
+5. _The content is very heterogeneous_ — mixed media, varied metadata, optional fields — and a table row or list row would feel cramped or arbitrary.
+6. _You need to separate one logical region from several others on the same page_, and a heading + spacing isn't enough. Settings-style pages with 5+ unrelated groupings are the canonical case.
+
+### When _not_ to use a card
+
+These are the patterns that produce the cluttered feeling.
+
+- _Don't wrap every section of a single-purpose page in a card._ If the page is "Edit member", the page is the container. Sections inside it need headings and spacing, not borders.
+- _Don't use cards for dense tabular data._ If users need to sort, filter, or scan a uniform attribute across many rows, use a table. Cards hide the comparison axis.
+- _Don't use cards for uniform, scannable lists._ Notifications, search results, audit logs, members in a directory, inboxes — these are list-row patterns. Cards waste vertical space and slow scanning.
+- _Don't nest cards inside cards._ Two levels of borders compete and create visual noise. If you find yourself needing a card inside a card, the inner content is probably the actual card; the outer one should be a heading + spacing.
+- _Don't wrap each step of a wizard or form in its own card._ Steps belong in a single flow; a stepper or numbered headings handle progression. Boxing each step makes the form look like a checklist of disconnected tasks.
+- _Don't use a card just because there's a button inside._ A primary CTA in a section does not require a backdrop around the section. Buttons carry their own affordance.
+- _Don't use Static cards as a substitute for spacing._ If two regions need separation, try `gap` before reaching for a border.
+- _Don't add a border to a paragraph "to make it look designed"._ If removing the border doesn't change the meaning, the border shouldn't be there.
+
+### Common patterns in SaaS
+
+When a card _is_ the right primitive, it tends to be one of these. If your situation doesn't match one, double-check it really is a card.
+
+| Pattern                          | Variant                                                           | What it looks like                                                                                                                                                                                                            |
+| -------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| _Object / entity card_           | Actionable                                                        | A repeating thing in a collection — a client, a class, a booking, a member — where each item is heterogeneous and the user is browsing rather than comparing column-by-column. Whole card navigates to detail. (Example: VOD) |
+| _Metric / KPI card_              | Static, or Actionable if it drills through                        | A single number, label, optional delta and trend, sitting alongside other metrics on a dashboard.                                                                                                                             |
+| _Selectable choice card_         | Actionable + `selected`                                           | Large-target replacement for a radio or checkbox when the option benefits from an illustration, an icon, or a description — "choose a plan", "pick a template", "select a payment method". Always part of a group.            |
+| _Page-level content group_       | Static                                                            | A bounded region on a settings or detail page that holds one logical block — but only when there are several such groups on the same page that need to be visually separated.                                                 |
+| _Promotional / empty-state card_ | Static if informational, Actionable if the whole surface is a CTA | An onboarding nudge, an upsell, an empty list state, a "next step" prompt.                                                                                                                                                    |
+
+### Edge cases
+
+- _Single card on a page._ Fine when it's doing work — a featured CTA inside a flow, an upsell, an empty state, a highlighted feature inside a form. Wrong when there's no reason for it to stand out and it's just adding structure for its own sake. The test: remove the border or backdrop. Does the meaning change? If no, it shouldn't be there.
+- _Mixed grid (Actionable + Static)._ Avoid. Users learn the affordance from the first card they hover; a non-actionable neighbor will produce dead clicks. Separate them into labeled sections.
+- _Responsive collapse._ Multi-column card grids collapse to a single column rather than shrinking horizontally. Below ~320px wide, consider switching to a list view entirely.
+
+### The decision shortcut
+
+- Multiple sibling items? → maybe a card.
+- Whole region is one click target? → Actionable card.
+- Several unrelated groupings on one page? → Static card.
+- Anything else? → not a card. Use spacing.
+- _If you are unsure, the answer is almost always no._

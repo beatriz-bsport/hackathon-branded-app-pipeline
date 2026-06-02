@@ -1,0 +1,80 @@
+---
+title: Use of tables and lists
+description: Choose between list, index table, and data table patterns for collections of items.
+category: patterns
+sections:
+  - "Overview"
+  - "Guidelines"
+---
+
+## Overview
+
+List and index table rows represent objects you open. Data table rows represent data you analyse in place.
+
+The primary distinction is navigation intent, not just density.
+
+- _List_ and _Index Table_: Rows represent _objects_ you can open.
+- _Data Table_: Rows represent _data points_ you analyze and act on. The table itself is the destination.
+
+### List
+
+A List presents items in a single column, stacked vertically. It is the most scannable format when data is simple and doesn't require columnar alignment.
+
+- Each row shows one primary identifier (often with a thumbnail or icon)
+- Minimal metadata displayed inline (e.g., subtitle, status badge)
+- Primary action is clicking the row to navigate to detail view
+- Best for mobile or narrow panels where horizontal space is constrained
+
+#### Use when
+
+- The container is narrow (less than ~600px)
+- Users need to scan a sequence of items, not compare them
+- Each item's full details live elsewhere
+
+### Index Table
+
+An _Index Table_ presents rows as navigable items where the primary interaction is selecting a row to view its full details elsewhere. Each row acts as a link to an associated object or detail page.
+
+- Rows are treated as list items with minimal inline data
+- Clicking a row navigates to a detail view, modal, or drawer
+- Used when the full object data is too complex to display inline
+- Example: A customers list where clicking "Ella Morgan" opens her full profile
+
+### Data Table
+
+A _Data Table_ displays dense, multi-attribute data for analysis, comparison, and decision-making _within the current view_. It does not navigate to a detail page when you click a row — the table _is_ the interface.
+
+#### Characteristics
+
+- Many columns with diverse attributes, often numeric or categorical
+- Sorting, filtering, and column visibility are primary interactions
+- May include grouping, subtotals, sparklines, or expandable rows
+- Row clicks do nothing, or trigger inline expansion, not navigation
+
+#### Use when
+
+- Users need to _analyze_ or _compare_ values across records
+- The workflow is _reporting_, _reconciliation_, or _monitoring_
+- Decisions are made _from the table itself_ (approve, flag, adjust)
+
+## How to take the right decision?
+
+### General rule
+
+| Scenario                                      | Choose                           |
+| --------------------------------------------- | -------------------------------- |
+| Need to find and open a specific record       | _Index Table_ or _List_          |
+| Need to analyze or compare data in-place      | _Data Table_                     |
+| Narrow container                              | _List_                           |
+| Row click should go to detail page            | _Index Table_ (never Data Table) |
+| Static reporting or reconciliation            | _Data Table_                     |
+| Bulk inline decisions (approve, flag, adjust) | _Data Table_                     |
+
+### List vs index table
+
+| Factor                 | Choose _List_                                 | Choose _Index Table_                                            |
+| ---------------------- | --------------------------------------------- | --------------------------------------------------------------- |
+| _Container width_      | Narrow: sidebar, drawer, mobile, popover      | Wide: main content area, full page                              |
+| _How users find items_ | By visual identity (avatar, icon, name alone) | By combining multiple attributes (name + email + status + date) |
+| _Item complexity_      | 1–2 pieces of metadata max                    | 3–4 attributes needed to identify the right row                 |
+| _Scanning behavior_    | Sequential ("read down the stack")            | Search-and-match ("scan across columns")                        |

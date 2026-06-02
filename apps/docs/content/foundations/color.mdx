@@ -1,0 +1,63 @@
+---
+title: Color
+description: Surface, text, and intent palettes — and how Kaizen layers semantic tokens over a base palette.
+category: foundations
+---
+
+Kaizen uses two layers of color tokens. The **base palette** holds the raw
+hexes (`color.luna-grey.500`). Semantic tokens layer on top of the base palette
+and reference it and are what components should consume. Reaching
+into the base palette directly from product code is a smell.
+
+## Base palette — Luna grey
+
+The neutral scale anchors almost every UI surface. Lower numbers are
+brighter; higher numbers are denser.
+
+<TokenPalette
+  category="color.luna-grey"
+  title="Luna grey"
+  description="The neutral scale used for surfaces, borders, and text hierarchy across Kaizen."
+/>
+
+## Accent — Terra green
+
+The Kaizen accent. Reserved for primary intent, success states, and
+selection.
+
+<TokenPalette
+  category="color.terra-green"
+  title="Terra green"
+  description="Primary accent and success intent — use for selection, progress, and positive states."
+/>
+
+## Status — Cupid red
+
+Red is reserved for critical/destructive intent. Don't use it for emphasis.
+
+<TokenPalette
+  category="color.cupid-red"
+  title="Cupid red"
+  description="Critical and destructive intent only — errors, warnings, and irreversible actions."
+/>
+
+## How a single color resolves
+
+Picking `color.luna-grey.500` from a component composes to a CSS variable,
+which resolves to a concrete hex at build time. The token-alias chain
+is the contract between design and code:
+
+<TokenAlias from="color.luna-grey.500" />
+
+You can also spot-check a single swatch inline:
+
+<ColorSwatch token="color.luna-grey.500" value="#7f8786" />
+
+<DoDont>
+  <Do caption="Compose from semantic tokens" />
+  <Dont caption="Hard-code hexes inside components" />
+</DoDont>
+
+<Callout type="warning" title="Dark mode">
+  Kaizen currently ships one theme. Light/dark separation is planned.
+</Callout>

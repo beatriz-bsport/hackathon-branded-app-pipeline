@@ -1,0 +1,75 @@
+---
+title: Badge
+description: A short text label that marks content with a category, qualifier, or version.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Badge"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Badges add compact supplementary metadata inline with content. They modify — they do not stand alone.
+
+#### Color
+
+| Color      | Description                                                |
+| ---------- | ---------------------------------------------------------- |
+| `default`  | Used for subtle visual emphasis.                           |
+| `main`     | Used for key information.                                  |
+| `critical` | High-visibility colour for urgent or critical information. |
+| `custom`   |                                                            |
+
+#### Has icon
+
+| Value  | Description                                                                       |
+| ------ | --------------------------------------------------------------------------------- |
+| `true` | Badges can include an icon alongside text or numbers for context and recognition. |
+
+### Usage Guidelines
+
+<DoDont>
+  <Do
+    caption={
+      "Badges are used as an indicator for the property of an object (e.g. 'New')"
+    }
+  />
+  <Do caption={"Used to indicate numbers (Inbox)"} />
+  <Dont
+    caption={
+      "Do not use badges for conveying critical information without additional context."
+    }
+  />
+  <Dont caption={"Never use badges in list format"} />
+</DoDont>
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-badge--primary"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-badge--primary",
+      label: "Badge",
+    },
+  ]}
+/>
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Badge" />
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Badge`
+- **Storybook:** Browse the live examples under Guidelines.

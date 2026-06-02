@@ -1,0 +1,252 @@
+---
+title: Typography
+description: Type ramp, line heights, weights, and how text composes on the page.
+category: foundations
+sections:
+  - "Overview"
+  - "Type scale"
+  - "Components"
+  - "Guidelines"
+---
+
+## Overview
+
+Typography is what makes content scannable and readable. Kaizen separates
+**titles** (structure and hierarchy) from **body** text (reading flow), then
+layers semantic **color** and **weight** on top through the `Title` and `Body`
+components.
+
+### Font family
+
+Kaizen uses the **system font stack** that ships with each device. That avoids
+downloading web fonts and keeps rendering native to the OS.
+
+```css
+font-family:
+  ui-sans-serif,
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  Roboto,
+  "Helvetica Neue",
+  Arial,
+  sans-serif;
+```
+
+Neither `Title` nor `Body` sets `font-family` — they inherit this stack from
+global styles.
+
+### How to compose text
+
+Prefer **`Title`** and **`Body`** in new Back Office screens. They bind the
+correct size, line height, and semantic colour tokens for you.
+
+Inside Kaizen primitives, you will also see **utility classes** such as
+`text-body-md`, `leading-sm`, and `font-strong`. That pattern is acceptable
+when a component needs tight control (list rows, form controls, chips) or when
+`Body`/`Title` wrappers would add unnecessary DOM nodes. Do not invent ad-hoc
+font sizes — stay on the token-backed scale.
+
+<Callout type="info" title="Base UI size">
+  **`body / md`** (`0.875rem` / **14px**) is the workhorse size for dense
+  back-office UI — table cells, form labels, buttons, and helper text. When in
+  doubt, start here.
+</Callout>
+
+## Type scale
+
+Kaizen uses a **role-based** scale, not a single numeric ladder. Titles map to
+heading semantics; body sizes map to reading density; display sizes are for
+hero moments only.
+
+### Title
+
+Titles separate sections of content. Size is chosen through **`htmlVariant`**
+(`h1`–`h5`) — you cannot pick a title token independently of the heading level.
+
+<TitleTypeScale />
+
+<DoDont>
+  <Do caption="Use titles and subtitles to create a clear text hierarchy." />
+  <Do caption="Choose sizes and weights based on context — page title vs card title vs menu group label." />
+  <Dont caption="Skip heading levels for styling — pick the correct htmlVariant instead." />
+  <Dont caption="Overuse strong weights or large sizes — they flatten hierarchy instead of clarifying it." />
+</DoDont>
+
+### Body
+
+Body styles are for multi-line copy, labels, and inline text. Render as `p` or
+`span` through the **`Body`** component. When `size` is set, `Body` also applies
+**`space-y-*`** between direct block children for vertical rhythm.
+
+<BodyTypeScale />
+
+<DoDont>
+  <Do caption="Pick the smallest body size that remains comfortable to read for the container width." />
+  <Do caption="Use Body size=md (14px) for tables, forms, and dense layouts." />
+  <Dont caption="Use bold weights excessively — it disrupts flow and makes paragraphs harder to scan." />
+  <Dont caption="Mix too many body sizes inside one section; it creates visual clutter." />
+</DoDont>
+
+### Display
+
+Display tokens are reserved for hero or marketing moments — not for back-office
+dense UI. They are **not** wired to `Title` `htmlVariant` values.
+
+<DisplayTypeScale />
+
+### Full scale reference
+
+| Token                  | Size             | Kaizen usage                                              |
+| ---------------------- | ---------------- | --------------------------------------------------------- |
+| `font.size.display-lg` | 5.375rem (86px)  | Hero / marketing only                                     |
+| `font.size.display-sm` | 2.5rem (40px)    | Secondary hero headings                                   |
+| `font.size.title-xl`   | 1.75rem (28px)   | `Title` `htmlVariant="h1"` — one per page, rare           |
+| `font.size.title-lg`   | 1.5rem (24px)    | `Title` `htmlVariant="h2"` — typical page title           |
+| `font.size.title-md`   | 1.25rem (20px)   | `Title` `htmlVariant="h3"` — page sections                |
+| `font.size.title-sm`   | 1.1rem (~17.6px) | `Title` `htmlVariant="h4"` — cards, drawers, modals       |
+| `font.size.title-xs`   | 1rem (16px)      | `Title` `htmlVariant="h5"` — menu group labels            |
+| `font.size.body-lg`    | 1rem (16px)      | `Body` `size="lg"` — primary prose blocks                 |
+| `font.size.body-md`    | 0.875rem (14px)  | `Body` `size="md"` — **base UI size**                     |
+| `font.size.body-sm`    | 0.75rem (12px)   | `Body` `size="sm"` — captions, metadata                   |
+| `font.size.body-xs`    | 0.625rem (10px)  | Utility `text-body-xs` — badges, avatars (no `Body` size) |
+
+## Components
+
+### Title
+
+| Prop          | Values                                                                                                    | Default   | Notes                                                     |
+| ------------- | --------------------------------------------------------------------------------------------------------- | --------- | --------------------------------------------------------- |
+| `htmlVariant` | `h1`–`h5`                                                                                                 | required  | Bundles size **and** semantic heading level               |
+| `color`       | `default`, `weak`, `weaker`, `info`, `positive`, `critical`, `warning`, `onstrong`, `disabled`, `inherit` | `inherit` | Set `default` explicitly on page titles                   |
+| `weight`      | `weaker`, `weak`, `strong`, `stronger`                                                                    | none      | No default — use `strong` or `stronger` for page headings |
+
+`Title` does **not** support the `main` colour (interactive text belongs on
+`Body` or `Link`).
+
+### Body
+
+| Prop          | Values                                                                                                            | Default   | Notes                                                                                                |
+| ------------- | ----------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------- |
+| `size`        | `display`, `xl`, `lg`, `md`, `sm`                                                                                 | none      | Token-backed: `lg`, `md`, `sm`. `display` / `xl` are larger component variants (e.g. metric figures) |
+| `htmlVariant` | `p`, `span`                                                                                                       | `p`       | Use `span` inside tables and inline labels                                                           |
+| `color`       | `default`, `main`, `weak`, `weaker`, `info`, `positive`, `critical`, `warning`, `onstrong`, `disabled`, `inherit` | `default` | `main` for links and interactive inline text                                                         |
+| `weight`      | `weaker`, `weak`, `strong`, `stronger`                                                                            | none      | Optional emphasis                                                                                    |
+
+There is **no `Body size="xs"`** — use the `text-body-xs` utility where space
+is extremely tight (avatars, chips).
+
+### Font weight
+
+Kaizen exposes four weight tokens. Map them through `Title` / `Body` `weight`
+props — not arbitrary `font-weight` values. Neither component sets a default
+weight; follow the conventions below.
+
+| Token                  | Value | Use                                  |
+| ---------------------- | ----- | ------------------------------------ |
+| `font.weight.weaker`   | 300   | De-emphasised supporting text        |
+| `font.weight.weak`     | 400   | Default reading weight               |
+| `font.weight.strong`   | 500   | Semi-bold headings, callout emphasis |
+| `font.weight.stronger` | 600   | Page headings, strong emphasis       |
+
+<TokenTable category="font.weight" />
+
+### Line height
+
+Line-height tokens pair with the type ramp above. `Title` and `Body` bind the
+correct leading class for each size.
+
+<TokenTable category="line-height" />
+
+### Text colour
+
+Semantic text colours live on **`onsurface-*`** tokens — not raw palette hexes.
+Use them through component `color` props.
+
+| Role                  | `Title`                                   | `Body`                    | When to use                                              |
+| --------------------- | ----------------------------------------- | ------------------------- | -------------------------------------------------------- |
+| Primary               | `default`                                 | `default`                 | Main copy on standard surfaces                           |
+| De-emphasis           | `weak`, `weaker`                          | `weak`, `weaker`          | Secondary labels, metadata, hints                        |
+| On strong backgrounds | `onstrong`                                | `onstrong`                | Text on filled or inverted surfaces                      |
+| Interactive           | —                                         | `main`                    | Links and interactive inline text                        |
+| Disabled              | `opacity-sm` on default                   | `text-onsurface-disabled` | Non-interactive state                                    |
+| Status                | `info`, `positive`, `critical`, `warning` | same                      | Status copy inside components — use sparingly in layouts |
+| Inherit               | `inherit` (default)                       | `inherit`                 | Nested inside another text block                         |
+
+Page and card titles should use **`color="default"`** on **`onsurface-default`**
+for maximum contrast. See [Color](/foundations/color) for the underlying
+palette.
+
+## Guidelines
+
+### Page hierarchy
+
+Most Back Office pages use **`Title htmlVariant="h2"`** (`title / lg`) as the
+page title. Reserve **`h1`** (`title / xl`) for the single top-level heading on
+a page when maximum prominence is needed.
+
+| Surface                | Title                             | Weight                 | Colour    |
+| ---------------------- | --------------------------------- | ---------------------- | --------- |
+| Page title             | `htmlVariant="h2"` (`title / lg`) | `strong` or `stronger` | `default` |
+| Page section           | `htmlVariant="h3"` (`title / md`) | `strong`               | `default` |
+| Card, drawer, or modal | `htmlVariant="h4"` (`title / sm`) | `strong`               | `default` |
+| Menu group label       | `htmlVariant="h5"` (`title / xs`) | `weak`                 | `weaker`  |
+
+Use real heading levels — don't skip from `h2` to `h4` for styling alone.
+
+### Tables and dense UI
+
+Tables are a common typography surface in the Back Office:
+
+| Element            | Pattern                                                 |
+| ------------------ | ------------------------------------------------------- |
+| Cell text          | `Body htmlVariant="span" size="md"` — 14px base size    |
+| Column headers     | `Body htmlVariant="span"` inside header cells           |
+| List row primary   | Often `text-body-lg` utility in compact list components |
+| List row secondary | `text-body-md` with `text-onsurface-weak`               |
+
+Prefer `Body size="md"` for new table and form work. See
+[Tables and lists](/patterns/tables-and-lists) for layout patterns.
+
+### Utility classes
+
+When `Title` / `Body` wrappers are impractical, compose from token utilities:
+
+```tsx
+<span className="text-body-md leading-sm text-onsurface-weak">
+  Secondary label
+</span>
+```
+
+Common combinations: `text-title-sm font-strong`, `text-body-md leading-sm`,
+`text-body-sm text-onsurface-weak`. Never hard-code pixel sizes or hex colours.
+
+### Sentence case
+
+Use **sentence case** for headings, buttons, and labels — not title case.
+Sentence case reads faster in dense back-office screens.
+
+<DoDont>
+  <Do caption='Write "Member details" not "Member Details".' />
+  <Dont caption="Change heading weights to lighter values — it reduces readability and contrast." />
+  <Dont caption="Make headings heavier than the scale defines — it breaks Kaizen's visual rhythm." />
+</DoDont>
+
+### Line length
+
+For long-form reading (`Body size="lg"`), aim for **45–75 characters** per line.
+In dense layouts (tables, side panels), prioritise scannability over line length —
+use `md` or `sm` and let the container width dictate wrapping.
+
+### Accessibility
+
+- Keep text contrast at WCAG **AA** minimum against its background.
+- Use real heading levels (`h1`–`h5`) via `Title` — don't skip levels for styling.
+- Prefer semantic `Body` / `Title` colours over hard-coded hex values.
+- Don't rely on colour alone to communicate meaning.
+
+<Callout type="info" title="Storybook">
+  For live examples and props, see
+  [`Title`](/storybook/index.html?path=/docs/components-title--docs) and
+  [`Body`](/storybook/index.html?path=/docs/components-body--docs) in Storybook.
+</Callout>

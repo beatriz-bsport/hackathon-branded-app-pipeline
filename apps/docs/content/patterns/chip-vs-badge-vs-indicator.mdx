@@ -1,0 +1,123 @@
+---
+title: Chip vs Badge vs Indicator
+description: How to choose between Badge, Chip, and Indicator.
+category: patterns
+sections:
+  - "Overview"
+  - "Do / don't"
+  - "Guidelines"
+---
+
+## Overview
+
+All three mark content, but they differ in dismissibility, anchoring, and semantic weight.
+
+In the Kaizen design system, these three components serve distinct but related purposes. Choosing the right one depends on whether the element needs to be dismissible, anchored to another element, or carry semantic meaning in groups.
+
+### Quick Comparison
+
+| Aspect             | Badge                  | Chip                                     | Indicator                     |
+| ------------------ | ---------------------- | ---------------------------------------- | ----------------------------- |
+| _Purpose_          | Supplementary metadata | Semantic token (tag/filter/status)       | Attention/notification signal |
+| _Dismissible_      | No                     | Yes (optional)                           | No                            |
+| _Anchored to host_ | No                     | No                                       | Yes (top-right/bottom-right)  |
+| _Typical use_      | Side labels            | Tags, filters, categories, object status | Counts, status dots           |
+| _Appearance_       | Text in a pill         | Container with label (and optional icon) | Dot or numbers                |
+
+### Purpose
+
+- Use Badge for compact supplementary metadata shown next to content.
+- Use Chip for semantic tokens (tags, filters, statuses, removable selections).
+- Use Indicator for attention or notification signals attached to a parent element.
+
+### At a glance
+
+- Badge — Supplementary metadata. Short text, optional icon, or dot. Non-dismissible. Inline, beside elements.
+- Chip — Semantic token. Label, optional icon, optional semantic color. Optional dismiss action. Inline, often in groups/lists.
+- Indicator — Notification/attention signal. Dot, number, or short label. Non-dismissible. Attached to host element (top-right/bottom-right).
+
+## Do / don't
+
+<DoDont>
+  <Do caption={'You need a compact side label like "New".'} />
+  <Do caption={"You need lightweight metadata beside list or nav labels."} />
+  <Dont
+    caption={"Avoid using when the token must be dismissible (use Chip)."}
+  />
+  <Dont
+    caption={
+      "Use indicator when the token needs to be anchored to a parent element."
+    }
+  />
+</DoDont>
+
+<DoDont>
+  <Do
+    caption={
+      "Use when users need to apply or remove a semantic tag, filter, or status."
+    }
+  />
+  <Do caption={"Use chip for properties of bsport objects."} />
+  <Do caption={"Wrap chips in one container when they are related."} />
+  <Do
+    caption={
+      "Use chips to indicate status in tables. Example: invoice status - open."
+    }
+  />
+</DoDont>
+
+<DoDont>
+  <Do
+    caption={
+      "Use when a non-dismissible status signal needs to be anchored to a UI element such as a button, avatar, or nav item."
+    }
+  />
+  <Dont
+    caption={
+      "Avoid using Indicator for tokens that need to be dismissed by the user (use Chip instead)."
+    }
+  />
+  <Dont
+    caption={
+      "Avoid using Indicator for standalone labels without a host element (use Badge instead)."
+    }
+  />
+</DoDont>
+
+## Guidelines
+
+### Badge
+
+Badge communicates compact extra context without becoming the primary interactive element. It renders as text when a label or icon is provided. Sizes include `sm` and `lg`, with colors: `default`, `main`, and `critical`.
+
+#### Best practices
+
+Use Badge for compact side labels like "New" or "Beta", or for lightweight metadata beside list and navigation labels. In Kaizen, you'll find it in sidebar nav items, data table status columns, and booking overview lists.
+
+### Product examples
+
+- TBD MEDIA
+
+### Chip
+
+Chip represents a semantic token — it carries meaning, can be dismissed, and often appears in groups. Its anatomy includes a required label, optional left icon, optional dismiss action on the right, and optional semantic color. It always renders as a pill and supports sizes sm, md, lg with colors default, main, critical, success, warning, and info.
+
+### Best practices
+
+Use Chip when users need to apply or remove a semantic token such as a category, tag, filter, or object status. Chips frequently appear together in tag clouds or filter bars above data tables.
+
+### Product examples
+
+- TBD MEDIA
+
+### Indicator
+
+Indicator is a non-interactive, non-dismissible signal that draws attention to a specific location. It is always anchored to a host element like a button, avatar, or nav item. It comes in sizes sm and md with colors default, main, critical, success, warning, and info.
+
+### Best practices
+
+Use Indicator for non-dismissible status signals anchored to a UI element — for example, an unread notification dot on an avatar or an active status dot on a profile picture. It relies on color and placement rather than text labels.
+
+### Product examples
+
+- TBD MEDIA

@@ -1,0 +1,29 @@
+---
+title: Changelog
+description: Notable changes to Kaizen, newest first.
+category: welcome
+---
+
+These notes are hand-curated for the v0.1 vertical slice and intentionally
+sparse. Once Kaizen ships properly versioned packages we'll automate this
+page off Conventional Commits.
+
+## 0.1.0 — Initial documentation site <StatusBadge status="beta" />
+
+- Stood up `apps/docs` with Vite, React Router, MDX, and Tailwind 4.
+- Two-level navigation (top tabs + scoped sidebar) modelled on Polaris.
+- 15 MDX components available everywhere: `StorybookEmbed`, `PropsTable`,
+  `Callout`, `DoDont`, `StatusBadge`, `Anatomy`, `Accessibility`,
+  `TokenTable`, `ColorSwatch`, `IconGrid`, `Tabs`, `InstallTabs`,
+  `FileTree`, `CardGrid`, `TokenAlias`.
+- Live examples are now Storybook iframes (built from
+  `@bsport/kaizen-storybook` into `.generated/storybook/`), replacing the
+  earlier Sandpack hosted-bundle approach.
+- Auto-generated props tables for `Button` and `Toast`.
+- LLM endpoints (`.md`, `/llms.txt`, `/llms-full.txt`) wired up.
+
+## 0.0.x — Pre-public <StatusBadge status="internal" />
+
+- Kaizen primitives consumed inside the Back Office via the existing
+  `@bsport/kaizen-primitive-core` workspace package.
+- Design tokens shipped via `@bsport/kaizen-tokens`.

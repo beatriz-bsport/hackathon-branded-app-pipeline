@@ -50,6 +50,9 @@
       },
       "creditAccount": {
         "description": "Filter members by account balance (credit minus unpaid total), using a number comparison."
+      },
+      "marketingNotification": {
+        "description": "Filter members by marketing notification consent on SMS and/or email."
       }
     }
   },
@@ -433,6 +436,43 @@
         "purchaseDateDurationBetweenRequired": "Enter both day values for the between range.",
         "purchaseAmountValueRequired": "Enter a purchase amount.",
         "purchaseAmountSecondValueRequired": "Enter both amounts for the between range."
+      }
+    },
+    "103": {
+      "title": "Marketing notification consent",
+      "actions": {
+        "deleteFilter": "Delete marketing notification filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "sms": {
+          "toggle": "SMS marketing notifications",
+          "description": "Filter by SMS marketing opt-in status."
+        },
+        "email": {
+          "toggle": "Email marketing notifications",
+          "description": "Filter by email marketing opt-in status."
+        },
+        "consent": {
+          "radioLabel": "Consent status:",
+          "accepted": "Accepted",
+          "rejected": "Rejected"
+        }
+      },
+      "combine": {
+        "label": "Match conditions",
+        "and": "All conditions (AND)",
+        "or": "Any condition (OR)"
+      },
+      "toasts": {
+        "saveError": "Unable to save marketing notification filter.",
+        "saveSuccess": "Marketing notification filter saved.",
+        "deleteError": "Unable to delete marketing notification filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "atLeastOneChannelRequired": "Enable at least SMS or Email."
       }
     }
   },

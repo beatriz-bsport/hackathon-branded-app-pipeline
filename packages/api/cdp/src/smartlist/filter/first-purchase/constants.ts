@@ -1,0 +1,1 @@
+export const FIRST_PURCHASE_FILTER_IDENTIFIER = "28";

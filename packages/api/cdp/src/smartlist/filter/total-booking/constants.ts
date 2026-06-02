@@ -1,0 +1,1 @@
+export const TOTAL_BOOKING_FILTER_IDENTIFIER = "22";

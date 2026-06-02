@@ -9,7 +9,9 @@ import {
   FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   GenderFilter,
+  MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
+  type MarketingNotificationFilter,
   MemberDateJoinedFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
@@ -35,6 +37,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   activePasses: "activePasses",
   firstPurchase: "firstPurchase",
   creditAccount: "creditAccount",
+  marketingNotification: "marketingNotification",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -55,7 +58,8 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.bookingMilestone ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.activePasses ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.firstPurchase ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.creditAccount;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.creditAccount ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.marketingNotification;
 
 export const isCreditAccountFilter = (
   value: unknown,
@@ -194,3 +198,16 @@ export const isFirstPurchaseFilter = (
   hasNumber(value, "smartlist") &&
   hasNumber(value, "company_id") &&
   hasBoolean(value, "first_payment_is_done");
+
+export const isMarketingNotificationFilter = (
+  value: unknown,
+): value is MarketingNotificationFilter =>
+  hasFilterIdentifier(value, MARKETING_NOTIFICATION_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasBoolean(value, "sms_value") &&
+  hasBoolean(value, "email_value") &&
+  hasBoolean(value, "is_condition_and") &&
+  hasBoolean(value, "is_v2") &&
+  hasBoolean(value, "all_filters_must_be_right");

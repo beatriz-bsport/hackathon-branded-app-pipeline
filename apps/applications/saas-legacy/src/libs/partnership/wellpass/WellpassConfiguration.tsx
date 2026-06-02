@@ -21,7 +21,7 @@ import type { Establishment } from '#src/libs/establishment/types';
 import WellpassConfigurationDialog, {
   type WellpassConfigurationFormValues,
 } from './components/WellpassConfigurationDialog/WellpassConfigurationDialog.component';
-import { Typography } from '@material-ui/core';
+import WellpassLogoIcon from '#src/components/icons/WellpassLogoIcon.component';
 
 type Props = {
   establishments: Establishment[];
@@ -37,8 +37,6 @@ const computeWarningDialogKeys = (): PartnershipWarningDialogTextProps => ({
   confirmAction: 'wellpass.configuration.dialog.action.confirm',
   cancelAction: 'wellpass.configuration.dialog.action.cancel',
 });
-
-const WellpassTitle = () => <Typography variant="h4">WELLPASS</Typography>;
 
 const WellpassConfiguration: React.FC<Props> = ({
   establishments,
@@ -196,7 +194,7 @@ const WellpassConfiguration: React.FC<Props> = ({
       <PartnershipConfigurationPanel
         displayConfig={{
           partnershipIdentifier: PartnershipIdentifier.WELLPASS,
-          icon: <WellpassTitle />,
+          icon: <WellpassLogoIcon />,
           showCopyIdToClipboard: true,
         }}
         loading={fetchAccountsLoading}

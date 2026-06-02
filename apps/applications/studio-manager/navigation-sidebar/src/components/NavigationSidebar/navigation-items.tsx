@@ -131,6 +131,9 @@ export const useNavigationElements = ({
   const isStaffPageRevampEnabled = useNavFlag(NavFlags.SETTINGS_STAFF_PAGE);
   const isRolePageRevampEnabled = useNavFlag(NavFlags.SETTINGS_ROLE_PAGE);
   const isVenuesPageEnabled = useNavFlag(NavFlags.BOOKING_VENUES_PAGE);
+  const isWidgetsSettingsPageEnabled = useNavFlag(
+    NavFlags.BOOKING_WIDGETS_SETTINGS_PAGE,
+  );
 
   // Company Theme flags
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -521,7 +524,10 @@ export const useNavigationElements = ({
         {
           id: "widgets",
           label: t("menus.settings.widgets"),
-          ...navigationUrls.settings_widgets,
+          ...flaggedNavigationUrl({
+            enabled: isWidgetsSettingsPageEnabled,
+            navigationItem: navigationUrls.settings_widgets,
+          }),
         },
         {
           id: "permissions",

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 
-const DEFAULT_BASE = `${import.meta.env.BASE_URL.replace(/\/$/, "")}/storybook`;
+const DEFAULT_BASE = "https://docs.infra.bsport.io/storybook/kaizen/dev";
 const STORYBOOK_BASE =
   import.meta.env.VITE_STORYBOOK_BASE_URL?.trim() || DEFAULT_BASE;
 const DEFAULT_MODE = "playground";

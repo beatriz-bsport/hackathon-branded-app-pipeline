@@ -14,7 +14,6 @@ From the repo root:
 ```bash
 pnpm install                                    # monorepo deps (does not install apps/docs)
 pnpm -C apps/docs install                       # docs-only lockfile (keeps root pnpm-lock.yaml unchanged)
-pnpm --filter @bsport/kaizen-storybook build    # builds storybook-static (once, or whenever stories change)
 pnpm -C apps/docs dev
 ```
 
@@ -22,14 +21,16 @@ pnpm -C apps/docs dev
 `apps/docs/pnpm-lock.yaml` and do not change the root lockfile.
 
 The dev server runs on http://localhost:4070. The `dev` script first runs
-the `generate` pipeline (copies the prebuilt Kaizen Storybook into
-`.generated/storybook/`, extracts props and tokens, generates nav/manifest/static
-markdown exports, and resolves Figma images) and then boots `vite`.
+the `generate` pipeline (extracts props and tokens, generates nav/manifest/static
+markdown exports) and then boots `vite`.
 
-Live `<StorybookEmbed>` previews load from the docs base path plus
-`storybook/index.html?path=/story/...`. If you see "Loading live example…"
-forever, rebuild the unified Storybook with the command above and rerun
-`pnpm -C apps/docs generate:storybook`.
+Live `<StorybookEmbed>` previews load from the deployed dev Storybook by
+default: `https://docs.infra.bsport.io/storybook/kaizen/dev`. To use a local
+Storybook instead, run it separately and start docs with:
+
+```bash
+VITE_STORYBOOK_BASE_URL=http://localhost:6006 pnpm -C apps/docs dev
+```
 
 ### Useful scoped scripts
 
@@ -39,13 +40,11 @@ pnpm -C apps/docs preview              # preview the built dist/ locally
 pnpm -C apps/docs lint                 # eslint
 pnpm -C apps/docs generate             # rerun all generators
 pnpm -C apps/docs generate:metadata    # generate nav + pages manifest
-pnpm -C apps/docs generate:design-data # generate props + tokens + Figma images
-pnpm -C apps/docs generate:storybook   # copy storybook-static into .generated/storybook
+pnpm -C apps/docs generate:design-data # generate props + tokens
 pnpm -C apps/docs generate:props       # react-docgen-typescript over all primitive components
 pnpm -C apps/docs generate:tokens      # flatten @bsport/kaizen-tokens output
 pnpm -C apps/docs generate:nav         # build lib/generated/nav.json from content/_meta.json
 pnpm -C apps/docs generate:pages-manifest  # build lib/generated/pages-manifest.json
-pnpm -C apps/docs generate:figma-images    # resolve Figma frame URLs to image URLs
 pnpm -C apps/docs generate:static-exports  # write .md files, llms.txt, llms-full.txt into .generated/
 ```
 
@@ -56,11 +55,9 @@ path from Storybook:
 
 ```text
 s3://bsport-eu-docs/docs/kaizen/dev
-s3://bsport-eu-docs/docs/kaizen/staging
-s3://bsport-eu-docs/docs/kaizen/production
 ```
 
-The CI build script builds with `VITE_BASE=/docs/kaizen/<environment>/` before
+The CI build script builds with `VITE_BASE=/docs/kaizen/dev/` before
 uploading, so the generated asset URLs and React Router basename match the S3
 subfolder. It also points live examples at the deployed Kaizen Storybook instead
 of bundling Storybook into the docs artifact. The deploy script only uploads the
@@ -70,8 +67,8 @@ For local/manual deployment:
 
 ```bash
 pnpm -C apps/docs install
-pnpm -C apps/docs ci:build dev
-pnpm -C apps/docs ci:deploy dev
+pnpm -C apps/docs ci:build
+pnpm -C apps/docs ci:deploy
 ```
 
 ### SPA fallback
@@ -87,10 +84,9 @@ CDN/server to serve `index.html` for unknown paths:
 
 | Variable | When | Purpose |
 |----------|------|---------|
-| `FIGMA_ACCESS_TOKEN` | Build time | Resolves `<Do figma="…" />` frames to image URLs. Optional — falls back to caption-only. |
 | `DOCS_URL` | Build time | Base URL for absolute links in `llms.txt`. Defaults to `https://kaizen.bsport.io`. |
 | `VITE_BASE` | Build time | Set to the deployment subpath (e.g. `/docs/kaizen/dev/`) if the site is not served from domain root. Defaults to `/`. |
-| `VITE_STORYBOOK_BASE_URL` | Build time | Optional external Storybook iframe base URL. Defaults to the docs base path plus `/storybook` (served from `.generated/storybook/`). |
+| `VITE_STORYBOOK_BASE_URL` | Build time | Optional Storybook iframe base URL. Defaults to `https://docs.infra.bsport.io/storybook/kaizen/dev`. |
 
 ## Authoring docs
 
@@ -113,7 +109,7 @@ apps/docs/
   lib/
     nav.ts, cx.ts, …         # shared client-side helpers
     generated/               # JSON from generate:* (local, git-ignored)
-  scripts/                   # generate scripts (storybook, props, tokens, nav, manifest, etc.)
+  scripts/                   # generate scripts (props, tokens, nav, manifest, etc.)
   public/images/             # committed static assets (screenshots, illustrations)
   .generated/                # local output from `pnpm generate` (git-ignored)
 ```
@@ -194,8 +190,8 @@ For anatomy diagrams:
 ```
 
 Avoid raw Markdown image syntax such as `![Button](/images/button.png)` for
-these docs. The site is deployed under `/docs/kaizen/<environment>/`, and the
-MDX image-aware components above resolve that base path correctly.
+these docs. The site is deployed under `/docs/kaizen/dev/`, and the MDX
+image-aware components above resolve that base path correctly.
 
 ### Embedding live examples
 
@@ -215,8 +211,8 @@ Live previews are Storybook iframes. To embed a story:
    `aria-label`).
 
 If the gallery you want doesn't exist yet, add a small `render`-based story
-to the relevant `*.stories.tsx` file in Kaizen and rebuild Storybook before
-running `generate:storybook` again.
+to the relevant `*.stories.tsx` file in Kaizen. Once the Storybook dev deploy
+has run, the docs iframe can load it from the deployed Storybook URL.
 
 ### LLM endpoints
 

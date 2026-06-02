@@ -58,8 +58,8 @@ Surfaces contextual notes with four tones: `info`, `warning`, `deprecated`, and
 ### DoDont, Do, Dont
 
 Side-by-side do / don't cards. Each card shows the Do/Don't header and a
-caption. Optionally attach a Figma frame or a static image — when no image
-resolves, only the header and caption render.
+caption. Optionally attach a static image and a Figma frame link — when no image
+is set, only the header and caption render.
 
 **Props:** `DoDont` — `children`. `Do` / `Dont` — `caption`, `figma?`, `image?`,
 `alt?`
@@ -73,6 +73,7 @@ resolves, only the header and caption render.
 <DoDont>
   <Do
     caption="One primary CTA per screen"
+    image="/images/button-do-example.png"
     figma="https://www.figma.com/design/abc/Kaizen?node-id=1-2"
   />
   <Dont
@@ -82,8 +83,8 @@ resolves, only the header and caption render.
 </DoDont>
 ```
 
-Set `FIGMA_ACCESS_TOKEN` in the environment to render frames live from Figma.
-Use `image` for exported PNGs when the token is not available.
+Use `image` for committed screenshots in `apps/docs/public/images/`. Use
+`figma` only when the image should link back to its source frame.
 
 ### StatusBadge
 

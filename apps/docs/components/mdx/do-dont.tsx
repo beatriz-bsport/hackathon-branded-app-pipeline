@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 
 import { resolveAssetUrl } from "#src/lib/asset-url";
 import { cx } from "#src/lib/cx";
-import figmaImages from "#src/lib/generated/figma-images.json";
 
 export type DoDontProps = {
   children: ReactNode;
@@ -14,9 +13,9 @@ export function DoDont({ children }: DoDontProps) {
 
 export type DoDontItemProps = {
   caption: string;
-  /** Figma frame URL — must include `node-id`. Resolved at build time via generate:figma-images. */
+  /** Optional Figma frame URL. When set with `image`, the image links to Figma. */
   figma?: string;
-  /** Static image path or URL. Used as-is, or as a fallback when the Figma API is unavailable. */
+  /** Static image path or URL. */
   image?: string;
   alt?: string;
 };
@@ -90,22 +89,17 @@ function DoDontCard({
   );
 }
 
-const figmaImageMap = figmaImages as Record<string, string>;
-
 function resolveDoDontImageSrc({
-  figma,
   image,
 }: {
-  figma?: string;
   image?: string;
 }): string | null {
   if (image?.trim()) return resolveAssetUrl(image);
-  if (figma?.trim()) return figmaImageMap[figma.trim()] ?? null;
   return null;
 }
 
 export function Do({ caption, figma, image, alt }: DoDontItemProps) {
-  const imageSrc = resolveDoDontImageSrc({ figma, image });
+  const imageSrc = resolveDoDontImageSrc({ image });
   return (
     <DoDontCard
       variant="do"
@@ -119,7 +113,7 @@ export function Do({ caption, figma, image, alt }: DoDontItemProps) {
 }
 
 export function Dont({ caption, figma, image, alt }: DoDontItemProps) {
-  const imageSrc = resolveDoDontImageSrc({ figma, image });
+  const imageSrc = resolveDoDontImageSrc({ image });
   return (
     <DoDontCard
       variant="dont"

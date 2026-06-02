@@ -4,6 +4,7 @@
 
 @theme {
   --color-bg: oklch(99% 0 0);
+  --color-bg-canvas: oklch(99% 0 0);
   --color-bg-subtle: oklch(96.5% 0 0);
   --color-bg-muted: oklch(93% 0 0);
   --color-fg: oklch(17% 0 0);
@@ -28,6 +29,7 @@
 
 .dark {
   --color-bg: oklch(14% 0 0);
+  --color-bg-canvas: oklch(14% 0 0);
   --color-bg-subtle: oklch(18% 0 0);
   --color-bg-muted: oklch(22% 0 0);
   --color-fg: oklch(96% 0 0);

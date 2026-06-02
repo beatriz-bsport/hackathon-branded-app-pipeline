@@ -9,10 +9,5 @@
     "@bsport/sm-inbox",
     "@bsport/sm-session",
     "@bsport/sm-venues"
-  ],
-  "targets": {
-    "ci:build": {
-      "dependsOn": ["^build"]
-    }
-  }
+  ]
 }

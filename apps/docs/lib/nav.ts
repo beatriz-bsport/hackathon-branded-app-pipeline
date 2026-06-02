@@ -34,8 +34,8 @@ export function getActiveTabKey(
   const segments = pathname.split("/").filter(Boolean);
   const firstSegment = segments[0] ?? "";
 
-  if (firstSegment === "") {
-    const welcome = topTabs.find((t) => t.href === "/" || t.key === "welcome");
+  if (firstSegment === "" || firstSegment === "index.html") {
+    const welcome = topTabs.find((t) => t.key === "welcome");
     return welcome?.key ?? null;
   }
 

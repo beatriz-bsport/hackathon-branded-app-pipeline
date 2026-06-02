@@ -60,8 +60,10 @@ s3://bsport-eu-docs/docs/kaizen/dev
 The CI build script builds with `VITE_BASE=/docs/kaizen/dev/` before
 uploading, so the generated asset URLs and React Router basename match the S3
 subfolder. It also points live examples at the deployed Kaizen Storybook instead
-of bundling Storybook into the docs artifact. The deploy script only uploads the
-prebuilt `dist/` artifact.
+of bundling Storybook into the docs artifact. The deploy script uploads the
+prebuilt `dist/` artifact, then uploads `index.html` to each known docs route
+from `dist/static-routes.json`. This keeps direct browser refreshes working on
+S3/CloudFront without a Next server or a global CDN rewrite.
 
 For local/manual deployment:
 
@@ -71,14 +73,15 @@ pnpm -C apps/docs ci:build
 pnpm -C apps/docs ci:deploy
 ```
 
-### SPA fallback
+### Static routes
 
-Since this is a single-page app, deep links like `/components/button` need the
-CDN/server to serve `index.html` for unknown paths:
+The canonical first page is `/welcome`. `/` and `/index.html` are compatibility
+aliases that render the same page.
 
-- **S3 static website hosting:** set error document to `index.html`
-- **CloudFront:** add a custom error response for 403/404 → `/index.html` (200)
-- **GCS:** configure the 404 page to `index.html`
+Because the docs are a single-page app served from S3, CI uploads the same
+`index.html` object to every generated route key, for example `/foundations`
+and `/components/button`. Client-side navigation still uses React Router; the
+extra S3 objects only make hard refreshes and direct links work.
 
 ### Environment variables
 
@@ -101,7 +104,7 @@ apps/docs/
     theme/                   # ThemeToggle
   content/                   # all MDX lives here — this is what you edit
     _meta.json               # top-tab order + labels
-    welcome/                 # Welcome tab (mapped to `/`)
+    welcome/                 # Welcome tab (mapped to `/welcome`)
     foundations/             # Foundations tab
     components/              # Components tab
     patterns/                # Patterns tab
@@ -232,11 +235,12 @@ Two additional files are generated:
 
 The docs are built as a Vite SPA with React Router for client-side routing.
 MDX files under `content/` are compiled at build time by `@mdx-js/rollup` and
-lazy-loaded per route via `import.meta.glob`. Navigation, page metadata, and
-Figma image URLs are pre-generated as JSON files during the `generate` step.
+lazy-loaded per route via `import.meta.glob`. Navigation and page metadata are
+pre-generated as JSON files during the `generate` step.
 
 ```
 pnpm generate        →  local lib/generated/*.json + .generated/*.md
 vite build           →  dist/ (index.html + JS/CSS chunks + static assets)
+generate routes      →  dist/static-routes.json
 upload dist/ to CDN  →  done
 ```

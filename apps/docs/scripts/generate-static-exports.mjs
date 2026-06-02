@@ -12,7 +12,6 @@ const DOCS_URL =
 
 function slugToHref(slug) {
   if (slug.length === 0) return "/";
-  if (slug[0] === "welcome" && slug.length === 1) return "/";
   return "/" + slug.join("/");
 }
 
@@ -237,10 +236,7 @@ async function main() {
 
   for (const doc of docs) {
     const md = mdxToMarkdown(doc.source, doc.frontmatter);
-    const mdPath =
-      doc.href === "/"
-        ? path.join(OUTPUT_DIR, "index.md")
-        : path.join(OUTPUT_DIR, doc.href + ".md");
+    const mdPath = path.join(OUTPUT_DIR, doc.href + ".md");
     await mkdir(path.dirname(mdPath), { recursive: true });
     await writeFile(mdPath, md);
     mdCount++;

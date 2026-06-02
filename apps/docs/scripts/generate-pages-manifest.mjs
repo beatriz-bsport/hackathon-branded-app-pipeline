@@ -13,7 +13,6 @@ const MANIFEST_OUT = path.join(GENERATED_DIR, "pages-manifest.json");
 
 function slugToHref(slug) {
   if (slug.length === 0) return "/";
-  if (slug[0] === "welcome" && slug.length === 1) return "/";
   return "/" + slug.join("/");
 }
 

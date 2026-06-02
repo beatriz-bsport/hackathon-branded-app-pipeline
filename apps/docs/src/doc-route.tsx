@@ -39,6 +39,7 @@ function resolveSlug(props: DocRouteProps, pathname: string): string[] {
   if (props.slug) return props.slug;
   if (props.catchAll) {
     const slug = pathname.split("/").filter(Boolean);
+    if (slug.length === 1 && slug[0] === "index.html") return ["welcome"];
     return slug.length > 0 ? slug : ["welcome"];
   }
   return ["welcome"];

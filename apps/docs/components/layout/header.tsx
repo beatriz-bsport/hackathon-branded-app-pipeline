@@ -18,7 +18,7 @@ export function Header({ topTabs }: HeaderProps) {
       <HeaderHeightSync />
       <div className="mx-auto flex max-w-screen-2xl items-center gap-6 px-4 py-3 md:px-6">
         <Link
-          to="/"
+          to="/welcome"
           className="flex items-center gap-2 font-semibold tracking-tight"
           aria-label="Kaizen home"
         >

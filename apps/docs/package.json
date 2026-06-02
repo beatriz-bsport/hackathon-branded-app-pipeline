@@ -8,7 +8,7 @@
     "#src/*": "./*"
   },
   "scripts": {
-    "build": "pnpm run generate && vite build",
+    "build": "pnpm run generate && vite build && pnpm run generate:static-routes",
     "ci:build": "./scripts/ci-build.sh",
     "ci:deploy": "./scripts/ci-deploy.sh",
     "dev": "pnpm run generate && vite --port 4070",
@@ -22,6 +22,7 @@
     "generate:props": "node scripts/extract-props.mjs",
     "generate:props:watch": "node scripts/watch-props.mjs",
     "generate:static-exports": "node scripts/generate-static-exports.mjs",
+    "generate:static-routes": "node scripts/generate-static-routes.mjs",
     "generate:tokens": "node scripts/extract-tokens.mjs",
     "lint": "eslint .",
     "preview": "vite preview --port 4070"

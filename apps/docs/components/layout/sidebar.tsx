@@ -26,7 +26,9 @@ export function Sidebar({ topTabs }: SidebarProps) {
     return <aside className="hidden md:block" aria-hidden="true" />;
   }
 
-  const isLandingActive = pathname === active.href;
+  const isWelcomeAlias =
+    active.key === "welcome" && (pathname === "/" || pathname === "/index.html");
+  const isLandingActive = pathname === active.href || isWelcomeAlias;
 
   return (
     <aside

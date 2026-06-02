@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+import { BsportLogoMark } from "#src/components/layout/bsport-logo-mark";
 import { HeaderHeightSync } from "#src/components/layout/header-height-sync";
 import { TopNav } from "#src/components/layout/top-nav";
 import { ThemeToggle } from "#src/components/theme/theme-toggle";
@@ -22,10 +23,7 @@ export function Header({ topTabs }: HeaderProps) {
           className="flex items-center gap-2 font-semibold tracking-tight"
           aria-label="Kaizen home"
         >
-          <span
-            aria-hidden="true"
-            className="inline-block size-6 rounded-md bg-[color:var(--color-accent)]"
-          />
+          <BsportLogoMark className="size-7 shrink-0" />
           <span>Kaizen</span>
           <span className="rounded-md bg-[color:var(--color-bg-subtle)] px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wider text-[color:var(--color-fg-muted)]">
             v0.1

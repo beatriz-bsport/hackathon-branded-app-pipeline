@@ -288,6 +288,10 @@
           "atHomePrefix": "or",
           "atHomeLabel": "Include online appointments (at home)"
         },
+        "appointment": {
+          "searchPlaceholder": "Search for an Appointment",
+          "emptySelection": "Select Appointments to start filtering"
+        },
         "totalAppointmentSuffix": "appointments",
         "filterSpecifications": "FILTER SPECIFICATIONS",
         "appointmentHourRangeStartingBetween": "Starting between ",
@@ -297,6 +301,7 @@
         "coach": "Teacher",
         "establishment": "Establishment",
         "appointmentPass": "Appointment pass",
+        "appointment": "Appointment",
         "appointmentDate": "Appointment date",
         "appointmentHourRange": "Appointment time"
       },
@@ -313,6 +318,7 @@
         "selectedCoachesRequired": "Select at least one teacher, or remove this sub-filter.",
         "selectedEstablishmentsRequired": "Select at least one establishment, or include online appointments.",
         "selectedAppointmentPassesRequired": "Select at least one appointment pass, or remove this sub-filter.",
+        "selectedAppointmentsRequired": "Select at least one appointment, or remove this sub-filter.",
         "appointmentDateRequired": "Select an appointment date.",
         "appointmentDateBetweenRequired": "Select both dates for the between range.",
         "appointmentDateDurationRequired": "Enter a number of days.",
@@ -344,7 +350,7 @@
         "searchPlaceholder": "Search passes...",
         "emptySelection": "Search to select passes"
       },
-      "privatePasses": {
+      "appointmentPasses": {
         "title": "Specify Appointment Passes",
         "description": "Members with any of these Appointment Passes",
         "searchPlaceholder": "Search appointment passes...",

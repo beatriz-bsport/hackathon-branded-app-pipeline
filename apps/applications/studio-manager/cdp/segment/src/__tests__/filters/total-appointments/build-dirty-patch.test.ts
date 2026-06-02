@@ -242,15 +242,15 @@ describe("buildDirtyPatchPayload (total appointments)", () => {
     expect(payload.at_home).toBe(true);
   });
 
-  it("emits private pass slice when private pass sub-filter is dirty", () => {
+  it("emits appointment pass slice when appointment pass sub-filter is dirty", () => {
     const value = createDefaultTotalAppointmentsNumberFilter(1);
-    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass];
-    value.privatePass = {
-      selectAllPrivatePasses: false,
-      selectedPrivatePassIds: [44],
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointmentPass];
+    value.appointmentPass = {
+      selectAllAppointmentPasses: false,
+      selectedAppointmentPassIds: [44],
     };
     const dirtyFields: DirtyFields = {
-      privatePass: { selectAllPrivatePasses: true },
+      appointmentPass: { selectAllAppointmentPasses: true },
     };
 
     const payload = buildDirtyPatchPayload(dirtyFields, value);
@@ -260,12 +260,12 @@ describe("buildDirtyPatchPayload (total appointments)", () => {
     expect(payload.private_passes).toEqual([44]);
   });
 
-  it("clears private pass slice when private pass sub-filter is removed", () => {
+  it("clears appointment pass slice when appointment pass sub-filter is removed", () => {
     const value = createDefaultTotalAppointmentsNumberFilter(1);
     value.subFilters = [];
-    value.privatePass = {
-      selectAllPrivatePasses: false,
-      selectedPrivatePassIds: [],
+    value.appointmentPass = {
+      selectAllAppointmentPasses: false,
+      selectedAppointmentPassIds: [],
     };
     const dirtyFields: DirtyFields = {
       subFilters: [true],
@@ -276,5 +276,41 @@ describe("buildDirtyPatchPayload (total appointments)", () => {
     expect(payload.private_pass_filter_active).toBe(false);
     expect(payload.select_all_private_passes).toBe(true);
     expect(payload.private_passes).toEqual([]);
+  });
+
+  it("emits private service slice when private service sub-filter is dirty", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointment];
+    value.appointment = {
+      selectAllAppointments: false,
+      selectedAppointmentIds: [55],
+    };
+    const dirtyFields: DirtyFields = {
+      appointment: { selectAllAppointments: true },
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.private_service_filter_active).toBe(true);
+    expect(payload.select_all_private_services).toBe(false);
+    expect(payload.private_services).toEqual([55]);
+  });
+
+  it("clears private service slice when private service sub-filter is removed", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [];
+    value.appointment = {
+      selectAllAppointments: false,
+      selectedAppointmentIds: [],
+    };
+    const dirtyFields: DirtyFields = {
+      subFilters: [true],
+    };
+
+    const payload = buildDirtyPatchPayload(dirtyFields, value);
+
+    expect(payload.private_service_filter_active).toBe(false);
+    expect(payload.select_all_private_services).toBe(true);
+    expect(payload.private_services).toEqual([]);
   });
 });

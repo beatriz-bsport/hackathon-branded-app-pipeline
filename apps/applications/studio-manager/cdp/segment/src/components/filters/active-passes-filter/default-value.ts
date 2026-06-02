@@ -17,7 +17,7 @@ export const createDefaultActivePassesFilter = (
     selectAll: false,
     selectedIds: [],
   },
-  privatePassesSelector: {
+  appointmentPassesSelector: {
     enabled: false,
     selectAll: false,
     selectedIds: [],

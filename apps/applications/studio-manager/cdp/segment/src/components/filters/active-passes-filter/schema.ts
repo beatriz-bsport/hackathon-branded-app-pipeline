@@ -25,7 +25,7 @@ const activePassesFilterBaseSchema = z.object({
   comparatorValue: z.number().int().nonnegative(),
   comparatorValueSecond: z.number().int().nonnegative().nullable(),
   paymentPacksSelector: selectorSchema,
-  privatePassesSelector: selectorSchema,
+  appointmentPassesSelector: selectorSchema,
 });
 
 /**
@@ -43,7 +43,7 @@ export const activePassesFilterSchema =
   activePassesFilterBaseSchema.superRefine((data, context) => {
     if (
       !data.paymentPacksSelector.enabled &&
-      !data.privatePassesSelector.enabled
+      !data.appointmentPassesSelector.enabled
     ) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
@@ -71,13 +71,13 @@ export const activePassesFilterSchema =
     }
 
     if (
-      data.privatePassesSelector.enabled &&
-      !data.privatePassesSelector.selectAll &&
-      data.privatePassesSelector.selectedIds.length === 0
+      data.appointmentPassesSelector.enabled &&
+      !data.appointmentPassesSelector.selectAll &&
+      data.appointmentPassesSelector.selectedIds.length === 0
     ) {
       context.addIssue({
         code: z.ZodIssueCode.custom,
-        path: ["privatePassesSelector", "selectedIds"],
+        path: ["appointmentPassesSelector", "selectedIds"],
         message: i18nInstance.t(
           "filters.27.validation.atLeastOneAppointmentPassSelectedRequired",
           { ns: I18N_NAMESPACE },

@@ -17,7 +17,7 @@ type UseAppointmentPassesQueryOptions = {
 };
 
 /**
- * Loads appointment-pass (PrivatePass) rows for filter pickers.
+ * Loads appointment pass rows for filter pickers.
  * Uses a large page size to retrieve the full company catalog in one request.
  *
  * @param search - Optional text search query forwarded to the API.

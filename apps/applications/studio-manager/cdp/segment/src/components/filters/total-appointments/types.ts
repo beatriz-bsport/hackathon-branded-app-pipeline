@@ -31,9 +31,13 @@ export type TotalAppointmentsNumberFilterFormValue = {
     selectedEstablishmentIds: number[];
     atHome: boolean;
   };
-  privatePass: {
-    selectAllPrivatePasses: boolean;
-    selectedPrivatePassIds: number[];
+  appointmentPass: {
+    selectAllAppointmentPasses: boolean;
+    selectedAppointmentPassIds: number[];
+  };
+  appointment: {
+    selectAllAppointments: boolean;
+    selectedAppointmentIds: number[];
   };
 };
 

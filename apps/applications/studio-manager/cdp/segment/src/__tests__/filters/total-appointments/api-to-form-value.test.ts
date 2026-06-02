@@ -255,7 +255,7 @@ describe("mapTotalAppointmentsFilterToFormValue", () => {
     expect(formValue.establishment.atHome).toBe(true);
   });
 
-  it("activates private pass sub-filter when API private pass filter is active", () => {
+  it("activates appointment pass sub-filter when API appointment pass filter is active", () => {
     const filter = buildApiFilter({
       private_pass_filter_active: true,
       select_all_private_passes: false,
@@ -265,13 +265,15 @@ describe("mapTotalAppointmentsFilterToFormValue", () => {
     const formValue = mapTotalAppointmentsFilterToFormValue(filter);
 
     expect(formValue.subFilters).toContain(
-      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass,
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointmentPass,
     );
-    expect(formValue.privatePass.selectAllPrivatePasses).toBe(false);
-    expect(formValue.privatePass.selectedPrivatePassIds).toEqual([12, 34]);
+    expect(formValue.appointmentPass.selectAllAppointmentPasses).toBe(false);
+    expect(formValue.appointmentPass.selectedAppointmentPassIds).toEqual([
+      12, 34,
+    ]);
   });
 
-  it("keeps private pass sub-filter disabled defaults when API private pass filter is inactive", () => {
+  it("keeps appointment pass sub-filter disabled defaults when API appointment pass filter is inactive", () => {
     const filter = buildApiFilter({
       private_pass_filter_active: false,
       select_all_private_passes: true,
@@ -281,9 +283,41 @@ describe("mapTotalAppointmentsFilterToFormValue", () => {
     const formValue = mapTotalAppointmentsFilterToFormValue(filter);
 
     expect(formValue.subFilters).not.toContain(
-      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass,
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointmentPass,
     );
-    expect(formValue.privatePass.selectAllPrivatePasses).toBe(true);
-    expect(formValue.privatePass.selectedPrivatePassIds).toEqual([]);
+    expect(formValue.appointmentPass.selectAllAppointmentPasses).toBe(true);
+    expect(formValue.appointmentPass.selectedAppointmentPassIds).toEqual([]);
+  });
+
+  it("activates private service sub-filter when API private service filter is active", () => {
+    const filter = buildApiFilter({
+      private_service_filter_active: true,
+      select_all_private_services: false,
+      private_services: [21, 22],
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointment,
+    );
+    expect(formValue.appointment.selectAllAppointments).toBe(false);
+    expect(formValue.appointment.selectedAppointmentIds).toEqual([21, 22]);
+  });
+
+  it("keeps private service sub-filter disabled defaults when API private service filter is inactive", () => {
+    const filter = buildApiFilter({
+      private_service_filter_active: false,
+      select_all_private_services: true,
+      private_services: [],
+    });
+
+    const formValue = mapTotalAppointmentsFilterToFormValue(filter);
+
+    expect(formValue.subFilters).not.toContain(
+      TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointment,
+    );
+    expect(formValue.appointment.selectAllAppointments).toBe(true);
+    expect(formValue.appointment.selectedAppointmentIds).toEqual([]);
   });
 });

@@ -5,6 +5,7 @@ export * from "./group-activity";
 export * from "./group-session";
 export * from "./partnership";
 export * from "./private-booking";
+export * from "./appointments";
 export * from "./session";
 export * from "./spot-scheduling";
 export * from "./teachers";

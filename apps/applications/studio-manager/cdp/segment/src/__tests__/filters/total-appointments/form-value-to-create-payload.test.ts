@@ -229,12 +229,12 @@ describe("createTotalAppointmentsPayload", () => {
     expect(payload.at_home).toBe(true);
   });
 
-  it("keeps private pass fields inactive when private pass sub-filter is not selected", () => {
+  it("keeps appointment pass fields inactive when appointment pass sub-filter is not selected", () => {
     const value = createDefaultTotalAppointmentsNumberFilter(1);
     value.subFilters = [];
-    value.privatePass = {
-      selectAllPrivatePasses: false,
-      selectedPrivatePassIds: [1, 2],
+    value.appointmentPass = {
+      selectAllAppointmentPasses: false,
+      selectedAppointmentPassIds: [1, 2],
     };
 
     const payload = createTotalAppointmentsPayload(value);
@@ -244,12 +244,12 @@ describe("createTotalAppointmentsPayload", () => {
     expect(payload.private_passes).toEqual([]);
   });
 
-  it("activates private pass fields when private pass sub-filter is selected", () => {
+  it("activates appointment pass fields when appointment pass sub-filter is selected", () => {
     const value = createDefaultTotalAppointmentsNumberFilter(1);
-    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass];
-    value.privatePass = {
-      selectAllPrivatePasses: false,
-      selectedPrivatePassIds: [5, 9],
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointmentPass];
+    value.appointmentPass = {
+      selectAllAppointmentPasses: false,
+      selectedAppointmentPassIds: [5, 9],
     };
 
     const payload = createTotalAppointmentsPayload(value);
@@ -257,5 +257,35 @@ describe("createTotalAppointmentsPayload", () => {
     expect(payload.private_pass_filter_active).toBe(true);
     expect(payload.select_all_private_passes).toBe(false);
     expect(payload.private_passes).toEqual([5, 9]);
+  });
+
+  it("keeps private service fields inactive when private service sub-filter is not selected", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [];
+    value.appointment = {
+      selectAllAppointments: false,
+      selectedAppointmentIds: [1, 2],
+    };
+
+    const payload = createTotalAppointmentsPayload(value);
+
+    expect(payload.private_service_filter_active).toBe(false);
+    expect(payload.select_all_private_services).toBe(true);
+    expect(payload.private_services).toEqual([]);
+  });
+
+  it("activates private service fields when private service sub-filter is selected", () => {
+    const value = createDefaultTotalAppointmentsNumberFilter(1);
+    value.subFilters = [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointment];
+    value.appointment = {
+      selectAllAppointments: false,
+      selectedAppointmentIds: [11, 13],
+    };
+
+    const payload = createTotalAppointmentsPayload(value);
+
+    expect(payload.private_service_filter_active).toBe(true);
+    expect(payload.select_all_private_services).toBe(false);
+    expect(payload.private_services).toEqual([11, 13]);
   });
 });

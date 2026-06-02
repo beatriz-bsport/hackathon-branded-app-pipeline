@@ -313,10 +313,10 @@ describe("totalAppointmentsNumberFilterSchema", () => {
 describe("appointment pass sub-filter", () => {
   it("rejects appointment pass sub-filter when no appointment pass is selected", () => {
     const value = buildFormValue({
-      subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass],
-      privatePass: {
-        selectAllPrivatePasses: false,
-        selectedPrivatePassIds: [],
+      subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointmentPass],
+      appointmentPass: {
+        selectAllAppointmentPasses: false,
+        selectedAppointmentPassIds: [],
       },
     });
 
@@ -326,18 +326,55 @@ describe("appointment pass sub-filter", () => {
     if (!result.success) {
       const issuePaths = result.error.issues.map((issue) => issue.path);
       expect(issuePaths).toContainEqual([
-        "privatePass",
-        "selectedPrivatePassIds",
+        "appointmentPass",
+        "selectedAppointmentPassIds",
       ]);
     }
   });
 
   it("accepts appointment pass sub-filter when at least one appointment pass is selected", () => {
     const value = buildFormValue({
-      subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.privatePass],
-      privatePass: {
-        selectAllPrivatePasses: false,
-        selectedPrivatePassIds: [501],
+      subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointmentPass],
+      appointmentPass: {
+        selectAllAppointmentPasses: false,
+        selectedAppointmentPassIds: [501],
+      },
+    });
+
+    const result = totalAppointmentsNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(true);
+  });
+});
+
+describe("private service sub-filter", () => {
+  it("rejects private service sub-filter when no appointment is selected", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointment],
+      appointment: {
+        selectAllAppointments: false,
+        selectedAppointmentIds: [],
+      },
+    });
+
+    const result = totalAppointmentsNumberFilterSchema.safeParse(value);
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const issuePaths = result.error.issues.map((issue) => issue.path);
+      expect(issuePaths).toContainEqual([
+        "appointment",
+        "selectedAppointmentIds",
+      ]);
+    }
+  });
+
+  it("accepts private service sub-filter when at least one appointment is selected", () => {
+    const value = buildFormValue({
+      subFilters: [TOTAL_APPOINTMENTS_SUB_FILTER_IDS.appointment],
+      appointment: {
+        selectAllAppointments: false,
+        selectedAppointmentIds: [701],
       },
     });
 

@@ -61,7 +61,7 @@ const toSearchOptions = (
 
 /**
  * Active passes filter card (filter identifier 27).
- * Allows the user to set a count comparator for currently active group/private passes
+ * Allows the user to set a count comparator for currently active group and appointment passes.
  * and optionally narrow by specific pass definitions.
  */
 export const ActivePassesFilterCard = ({
@@ -83,7 +83,7 @@ export const ActivePassesFilterCard = ({
   const fieldIds = {
     comparator: `${baseId}-comparator`,
     paymentPacksSelector: `${baseId}-payment-packs`,
-    privatePassesSelector: `${baseId}-private-passes`,
+    appointmentPassesSelector: `${baseId}-appointment-passes`,
   };
 
   const methods = useFormController({
@@ -189,8 +189,9 @@ export const ActivePassesFilterCard = ({
       ? String(errors.paymentPacksSelector.enabled.message)
       : undefined;
 
-  const privatePassesError = errors.privatePassesSelector?.selectedIds?.message
-    ? String(errors.privatePassesSelector.selectedIds.message)
+  const appointmentPassesError = errors.appointmentPassesSelector?.selectedIds
+    ?.message
+    ? String(errors.appointmentPassesSelector.selectedIds.message)
     : undefined;
 
   return (
@@ -283,21 +284,23 @@ export const ActivePassesFilterCard = ({
         <Divider />
 
         <PassSelectorWithToggle
-          id={fieldIds.privatePassesSelector}
-          label={t("filters.27.privatePasses.title")}
-          helperText={t("filters.27.privatePasses.description")}
+          id={fieldIds.appointmentPassesSelector}
+          label={t("filters.27.appointmentPasses.title")}
+          helperText={t("filters.27.appointmentPasses.description")}
           options={appointmentPassSearchOptions}
-          value={watchedValue.privatePassesSelector}
+          value={watchedValue.appointmentPassesSelector}
           onChange={(nextValue) => {
-            methods.setValue("privatePassesSelector", nextValue, {
+            methods.setValue("appointmentPassesSelector", nextValue, {
               shouldDirty: true,
               shouldValidate: true,
             });
           }}
           disabled={isSaving || isDeleting}
-          errorText={privatePassesError}
-          searchPlaceholder={t("filters.27.privatePasses.searchPlaceholder")}
-          emptySelectionLabel={t("filters.27.privatePasses.emptySelection")}
+          errorText={appointmentPassesError}
+          searchPlaceholder={t(
+            "filters.27.appointmentPasses.searchPlaceholder",
+          )}
+          emptySelectionLabel={t("filters.27.appointmentPasses.emptySelection")}
         />
 
         <div className="flex justify-end">

@@ -123,13 +123,13 @@ describe("buildActivePassesFilterDirtyPatch", () => {
 
   it("emits private_passes fields with specific ids when dirty", () => {
     const value = createDefaultActivePassesFilter(1);
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: true,
       selectAll: false,
       selectedIds: [201],
     };
     const dirtyFields: DirtyFields = {
-      privatePassesSelector: { enabled: false, selectedIds: [true] },
+      appointmentPassesSelector: { enabled: false, selectedIds: [true] },
     };
 
     const payload = buildActivePassesFilterDirtyPatch(dirtyFields, value);
@@ -140,13 +140,13 @@ describe("buildActivePassesFilterDirtyPatch", () => {
 
   it("sends select_all_private_passes true when enabled with selectAll flag set", () => {
     const value = createDefaultActivePassesFilter(1);
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: true,
       selectAll: true,
       selectedIds: [],
     };
     const dirtyFields: DirtyFields = {
-      privatePassesSelector: { enabled: true },
+      appointmentPassesSelector: { enabled: true },
     };
 
     const payload = buildActivePassesFilterDirtyPatch(dirtyFields, value);
@@ -155,10 +155,10 @@ describe("buildActivePassesFilterDirtyPatch", () => {
     expect(payload.private_passes).toEqual([]);
   });
 
-  it("does not emit payment_packs when only privatePassesSelector is dirty", () => {
+  it("does not emit payment_packs when only appointmentPassesSelector is dirty", () => {
     const value = createDefaultActivePassesFilter(1);
     const dirtyFields: DirtyFields = {
-      privatePassesSelector: { enabled: true },
+      appointmentPassesSelector: { enabled: true },
     };
 
     const payload = buildActivePassesFilterDirtyPatch(dirtyFields, value);

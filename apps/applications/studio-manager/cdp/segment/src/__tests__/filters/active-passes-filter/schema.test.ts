@@ -18,7 +18,7 @@ describe("activePassesFilterSchema", () => {
       selectAll: false,
       selectedIds: [101],
     };
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: false,
       selectAll: false,
       selectedIds: [],
@@ -51,7 +51,7 @@ describe("activePassesFilterSchema", () => {
       selectAll: false,
       selectedIds: [101],
     };
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: false,
       selectAll: false,
       selectedIds: [],
@@ -91,7 +91,7 @@ describe("activePassesFilterSchema", () => {
       selectAll: false,
       selectedIds: [],
     };
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: false,
       selectAll: false,
       selectedIds: [],
@@ -109,7 +109,7 @@ describe("activePassesFilterSchema", () => {
       selectAll: true,
       selectedIds: [],
     };
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: false,
       selectAll: false,
       selectedIds: [],
@@ -127,7 +127,7 @@ describe("activePassesFilterSchema", () => {
       selectAll: false,
       selectedIds: [],
     };
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: false,
       selectAll: false,
       selectedIds: [],
@@ -138,14 +138,14 @@ describe("activePassesFilterSchema", () => {
     expect(result.success).toBe(false);
   });
 
-  it("accepts when only private passes section is enabled with selectAll", () => {
+  it("accepts when only appointment passes section is enabled with selectAll", () => {
     const value = createDefaultActivePassesFilter(1);
     value.paymentPacksSelector = {
       enabled: false,
       selectAll: false,
       selectedIds: [],
     };
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: true,
       selectAll: true,
       selectedIds: [],
@@ -156,14 +156,14 @@ describe("activePassesFilterSchema", () => {
     expect(result.success).toBe(true);
   });
 
-  it("rejects when private passes is enabled but selectAll is false and no ids are selected", () => {
+  it("rejects when appointment passes is enabled but selectAll is false and no ids are selected", () => {
     const value = createDefaultActivePassesFilter(1);
     value.paymentPacksSelector = {
       enabled: false,
       selectAll: false,
       selectedIds: [],
     };
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: true,
       selectAll: false,
       selectedIds: [],
@@ -181,7 +181,7 @@ describe("activePassesFilterSchema", () => {
       selectAll: false,
       selectedIds: [101],
     };
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: false,
       selectAll: false,
       selectedIds: [],
@@ -199,7 +199,7 @@ describe("activePassesFilterSchema", () => {
       selectAll: false,
       selectedIds: [101],
     };
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: true,
       selectAll: false,
       selectedIds: [201],
@@ -217,7 +217,7 @@ describe("activePassesFilterSchema", () => {
       selectAll: true,
       selectedIds: [],
     };
-    value.privatePassesSelector = {
+    value.appointmentPassesSelector = {
       enabled: true,
       selectAll: true,
       selectedIds: [],

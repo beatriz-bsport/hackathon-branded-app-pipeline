@@ -33,7 +33,7 @@ export const mapActivePassesFilterToFormValue = (
       selectAll: filter.select_all_payment_packs,
       selectedIds: [...filter.payment_packs],
     },
-    privatePassesSelector: {
+    appointmentPassesSelector: {
       enabled:
         filter.select_all_private_passes || filter.private_passes.length > 0,
       selectAll: filter.select_all_private_passes,

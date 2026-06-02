@@ -8,6 +8,8 @@ export type EstablishmentBillingGroup = {
 };
 
 export type FetchEstablishmentBillingGroupsParams = {
+  page?: number;
+  page_size?: number;
   company: number;
   disabled?: boolean;
 };

@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Circle, Polygon, Polyline } from "react-leaflet";
 
+import { storybookDecorator } from "#src/utils/storybook-decorator";
+
 import { type LatLng, MapPin, MapView } from "./";
 
 const metaComponentDescription = `
@@ -171,6 +173,7 @@ const meta: Meta<Args> = {
       table: { defaultValue: { summary: "360" } },
     },
   },
+  decorators: storybookDecorator,
   args: {
     venues: [
       {

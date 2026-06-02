@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import type { Dispatch, OptionCallback } from '../../state/types';
+import { getItemInStorage, setItemInStorage } from '#src/utils/storage';
 import {
   fetchCustomShopRedirections as fetchCustomShopRedirectionsAPI,
   createCustomShopRedirection as createCustomShopRedirectionAPI,
@@ -267,6 +268,19 @@ export const dismissAdpModalVisibilityAction = createAction(
   'SETTINGS/CUSTOM_APP_CONFIGURATION/ADP_MODAL_VISIBILITY/DISMISS',
 );
 
+const ADP_MODAL_SHOWN_THRESHOLD_MS = 24 * 60 * 60 * 1000;
+
+const getAdpModalShownKey = (companyId: number) =>
+  `bsport:adp_modal_shown:${companyId}`;
+
+const wasAdpModalShownRecently = (companyId: number): boolean => {
+  const stored = getItemInStorage('local', getAdpModalShownKey(companyId));
+  return !!stored && Date.now() - Number(stored) < ADP_MODAL_SHOWN_THRESHOLD_MS;
+};
+
+const markAdpModalShown = (companyId: number): void =>
+  setItemInStorage('local', getAdpModalShownKey(companyId), String(Date.now()));
+
 export const fetchAdpModalVisibilityActions = {
   isLoading: createAction<boolean>(
     'SETTINGS/CUSTOM_APP_CONFIGURATION/ADP_MODAL_VISIBILITY/IS_LOADING',
@@ -304,15 +318,25 @@ export function fetchAdpModalVisibility(
         response.data.adp_modal_kind,
       );
 
+      const apiVisibility = response.data.adp_modal_visibility;
+      let visibility = apiVisibility;
+
+      if (apiVisibility !== 'hide') {
+        if (wasAdpModalShownRecently(companyId)) {
+          visibility = 'hide';
+        } else {
+          markAdpModalShown(companyId);
+        }
+      }
+
       dispatch(
         fetchAdpModalVisibilityActions.success({
-          visibility: response.data.adp_modal_visibility,
+          visibility,
           kind: validatedAdpModalKind ?? AdpModalKind.MIGRATION,
         }),
       );
 
-      options?.onSuccess &&
-        options.onSuccess(response.data.adp_modal_visibility);
+      options?.onSuccess && options.onSuccess(visibility);
     } catch (err) {
       console.error(err);
       dispatch(fetchAdpModalVisibilityActions.error(err as Error));

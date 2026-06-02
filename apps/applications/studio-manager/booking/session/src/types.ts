@@ -133,6 +133,7 @@ export type DetailsHeaderSession = Pick<
   | "date_start"
   | "duration_minute"
   | "timezone_name"
+  | "group"
 >;
 
 export type RefinedBooking = Booking & {

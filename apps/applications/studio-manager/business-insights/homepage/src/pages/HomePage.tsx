@@ -5,8 +5,8 @@ import { DetailsLayout } from "@bsport/kaizen-primitive-core";
 import { InsightsBanner } from "#src/components/Banner";
 import { ExploreSection } from "#src/components/ExploreSection";
 import { Header } from "#src/components/Header";
-import { InsightsPanel } from "#src/components/InsightsPanel";
-import { KeyMetrics } from "#src/components/KeyMetrics";
+import { InsightsPanel } from "#src/components/InsightsPanel/insights-panel";
+import { KeyMetrics } from "#src/components/KeyMetrics/key-metrics";
 import { UpcomingActivities } from "#src/components/UpcomingActivities";
 import { useTranslation } from "#src/utils/i18n";
 

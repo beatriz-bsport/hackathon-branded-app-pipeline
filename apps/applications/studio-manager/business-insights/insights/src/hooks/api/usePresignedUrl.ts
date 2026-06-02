@@ -36,6 +36,7 @@ interface UsePresignedUrlState {
  */
 export const usePresignedUrl = (
   dashboardType: DashboardType,
+  { enabled = true }: { enabled?: boolean } = {},
 ): UsePresignedUrlState => {
   const { t, i18n } = useTranslation("insights");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -45,6 +46,7 @@ export const usePresignedUrl = (
       dashboardType,
       language: i18n.language,
     }),
+    enabled,
     gcTime: 0, // Evict the cache to ensure JWT freshness
     refetchOnWindowFocus: false, // Avoid reloading sigma iframe when switching window tabs
     throwOnError: () => {

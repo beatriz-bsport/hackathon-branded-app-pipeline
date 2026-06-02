@@ -5,6 +5,7 @@ import {
   Button,
   Collapse,
   TextField,
+  Title,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -45,11 +46,11 @@ export const RestrictedUrlsSection: FC<RestrictedUrlsSectionProps> = ({
     >
       <Collapse.Controller>
         {({ isCollapseOpen, setIsCollapseOpen, collapseProps }) => (
-          <div className="flex flex-col gap-2xs p-md">
+          <div className="flex flex-col gap-2xs">
             <div className="flex items-center gap-xs">
-              <Body htmlVariant="p" size="lg" weight="strong">
+              <Title htmlVariant="h4" weight="strong">
                 {t("formFields.restrictedPaths.title")}
-              </Body>
+              </Title>
               <Button
                 {...collapseProps}
                 kind="icon-button"

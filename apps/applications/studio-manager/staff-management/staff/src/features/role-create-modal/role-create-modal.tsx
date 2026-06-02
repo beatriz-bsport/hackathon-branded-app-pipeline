@@ -1,16 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { type FC, useEffect, useId, useMemo, useRef } from "react";
+import { useNavigate } from "react-router";
 
 import {
-  type CompanyRolePermissions,
+  type Role,
   fetchRoleDefinitionsQueryOptions,
 } from "@bsport/api-staff-management/role";
 import { ControlledForm, useFormController } from "@bsport/form";
 import { ModalStepper } from "@bsport/kaizen-primitive-core";
 
+import { URLS } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
+import { FeaturePermissionsStep } from "../role-form/components/feature-permissions-step";
 import { NavigationPermissionsStep } from "../role-form/components/navigation-permissions-step";
 import { RoleFormDescription } from "../role-form/components/role-form-description";
 import { RoleFormName } from "../role-form/components/role-form-name";
@@ -18,30 +21,32 @@ import { RoleFormStarterRole } from "../role-form/components/role-form-starter-r
 import {
   DEFAULT_PERMISSIONS,
   ROLE_FORM_DEFAULTS,
+  getObjectLevelPermissionsWithDefaults,
 } from "../role-form/constants";
 import { hasSelectedPermission } from "../role-form/permission-tree-utils";
 import { useRoleFormSchema } from "../role-form/schema";
 import type { RoleFormSchema } from "../role-form/types";
+import { useCreateRole } from "./use-create-role";
 
 type RoleCreateModalProps = {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const deepClone = (
-  permissions: CompanyRolePermissions,
-): CompanyRolePermissions => JSON.parse(JSON.stringify(permissions));
+const deepClone = <T,>(value: T): T => JSON.parse(JSON.stringify(value));
 
 export const RoleCreateModal: FC<RoleCreateModalProps> = ({
   isOpen,
   onClose,
 }) => {
   const { t, i18n } = useTranslation("role-form");
+  const navigate = useNavigate();
   const { data: roles = [] } = useQuery(
     fetchRoleDefinitionsQueryOptions(fetch),
   );
   const formId = `role-create-${useId()}`;
   const roleFormSchema = useRoleFormSchema();
+  const { createRole, isLoading } = useCreateRole();
   const methods = useFormController<RoleFormSchema>({
     mode: "onChange",
     schema: roleFormSchema,
@@ -50,10 +55,32 @@ export const RoleCreateModal: FC<RoleCreateModalProps> = ({
   const { isValid, isDirty } = methods.formState;
   const starterRoleId = methods.watch("starterRoleId");
   const lastAppliedStarterRoleIdRef = useRef<string | undefined>(undefined);
+  // Mirrors ModalStepper's internal currentStep so handleConfirmClick
+  // can distinguish "advance" from "submit" (confirmButton.onClick fires on every step).
+  const currentStepRef = useRef(0);
 
   const closeModal = () => {
+    currentStepRef.current = 0;
     methods.reset(ROLE_FORM_DEFAULTS);
     onClose();
+  };
+
+  const handleCancelClick = () => {
+    currentStepRef.current = Math.max(currentStepRef.current - 1, 0);
+  };
+
+  const handleConfirmClick = () => {
+    if (currentStepRef.current < steps.length - 1) {
+      currentStepRef.current += 1;
+      return;
+    }
+
+    createRole(methods.getValues(), {
+      onSuccess: (role: Role) => {
+        closeModal();
+        navigate(URLS.ROLE_DETAILS(role.id));
+      },
+    });
   };
 
   useEffect(() => {
@@ -69,6 +96,24 @@ export const RoleCreateModal: FC<RoleCreateModalProps> = ({
     methods.setValue(
       "permissions",
       deepClone(starterRole?.permissions ?? DEFAULT_PERMISSIONS),
+      {
+        shouldDirty: Boolean(starterRoleId),
+        shouldValidate: true,
+      },
+    );
+    methods.setValue(
+      "objectLevelPermissions",
+      getObjectLevelPermissionsWithDefaults(
+        starterRole?.object_level_permissions,
+      ),
+      {
+        shouldDirty: Boolean(starterRoleId),
+        shouldValidate: true,
+      },
+    );
+    methods.setValue(
+      "hasBookingOverrideControl",
+      starterRole?.has_booking_override_control ?? false,
       {
         shouldDirty: Boolean(starterRoleId),
         shouldValidate: true,
@@ -105,7 +150,7 @@ export const RoleCreateModal: FC<RoleCreateModalProps> = ({
       },
       {
         label: t("steps.featurePermissions.label"),
-        content: <div>{t("steps.featurePermissions.placeholder")}</div>,
+        content: <FeaturePermissionsStep methods={methods} />,
       },
     ],
     [isValid, i18n, formId, methods],
@@ -123,10 +168,12 @@ export const RoleCreateModal: FC<RoleCreateModalProps> = ({
       onClickOutside={isDirty ? () => {} : closeModal}
       confirmButton={{
         label: t("buttons.confirm"),
-        onClick: () => {},
+        disabled: isLoading,
+        onClick: handleConfirmClick,
       }}
       cancelButton={{
         label: t("buttons.close"),
+        onClick: handleCancelClick,
       }}
     />
   );

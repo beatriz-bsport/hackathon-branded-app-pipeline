@@ -1,6 +1,12 @@
-import { type ApiConfig, type Fetch, buildUrlParams } from "@bsport/store-base";
+import { queryOptions } from "@tanstack/react-query";
 
-import { API_V1_URL } from "../constants";
+import {
+  type Fetch,
+  PaginatedResponse,
+  buildUrlParams,
+} from "@bsport/store-base";
+
+import { API_V1_URL, QUERY_KEY_MAIN } from "../constants";
 import type {
   EstablishmentBillingGroup,
   FetchEstablishmentBillingGroupsParams,
@@ -8,17 +14,30 @@ import type {
 
 const ESTABLISHMENT_BILLING_GROUP_API_URL = `${API_V1_URL}/establishment-billing-group`;
 
-const fetchEstablishmentBillingGroupsAPI = (
-  params: FetchEstablishmentBillingGroupsParams,
-): ApiConfig => {
-  return [`${ESTABLISHMENT_BILLING_GROUP_API_URL}/${buildUrlParams(params)}`];
+export const establishmentBillingGroupKeys = {
+  all: [QUERY_KEY_MAIN, "establishment-billing-group"] as const,
+  lists: () => [...establishmentBillingGroupKeys.all, "list"] as const,
+  list: (params: FetchEstablishmentBillingGroupsParams) =>
+    [...establishmentBillingGroupKeys.lists(), buildUrlParams(params)] as const,
 };
 
 export const fetchEstablishmentBillingGroups = async (
-  fetch: Fetch<EstablishmentBillingGroup[]>,
+  fetch: Fetch<PaginatedResponse<EstablishmentBillingGroup>>,
   params: FetchEstablishmentBillingGroupsParams,
-): Promise<EstablishmentBillingGroup[]> => {
-  const [uri, init] = fetchEstablishmentBillingGroupsAPI(params);
-  const { data } = await fetch(uri, init);
+): Promise<PaginatedResponse<EstablishmentBillingGroup>> => {
+  const { data } = await fetch(
+    `${ESTABLISHMENT_BILLING_GROUP_API_URL}/${buildUrlParams(params)}`,
+  );
   return data;
+};
+
+export const fetchEstablishmentBillingGroupsQueryOptions = (
+  fetch: Fetch<PaginatedResponse<EstablishmentBillingGroup>>,
+  params: FetchEstablishmentBillingGroupsParams,
+) => {
+  const queryFn = fetchEstablishmentBillingGroups.bind(null, fetch, params);
+  return queryOptions({
+    queryKey: establishmentBillingGroupKeys.list(params),
+    queryFn,
+  });
 };

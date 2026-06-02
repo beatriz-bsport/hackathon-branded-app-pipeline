@@ -1,47 +1,13 @@
 import React, { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Paper from '@material-ui/core/Paper';
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
-import WarningIcon from '@material-ui/icons/Warning';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import SlotCalendarToolBar from '#src/pages/marketplace/PrivateService/SlotSelectorPage/components/SlotCalendarToolBar';
 import SlotCalendarDays from '#src/pages/marketplace/PrivateService/SlotSelectorPage/components/SlotCalendarDays';
 import { SlotSelectorContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelector.context';
 import { useSlotCalendarNavigation } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/hooks';
-
-const EmptyCalendar: React.FC = () => {
-  const { t } = useTranslation('privateService');
-
-  const { selectedPrivateSlot } = useContext(SlotSelectorContext);
-
-  const classes = useStyles({ disabled: !selectedPrivateSlot });
-
-  const {
-    nextDateAvailableLabel,
-    isWithoutNextAvailableSlot,
-    goToFirstAvailableSession,
-  } = useSlotCalendarNavigation();
-
-  if (isWithoutNextAvailableSlot) {
-    return (
-      <>
-        <WarningIcon className={classes.warning} />
-        <Typography>{t('slotSearcher.emptyState')}</Typography>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <EventAvailableIcon className={classes.icon} color="primary" />
-      <ButtonBase onClick={goToFirstAvailableSession}>
-        <Typography color="primary">{nextDateAvailableLabel}</Typography>
-      </ButtonBase>
-    </>
-  );
-};
 
 const SlotCalendarReworked: React.FC = () => {
   const { selectedPrivateSlot } = useContext(SlotSelectorContext);
@@ -49,7 +15,7 @@ const SlotCalendarReworked: React.FC = () => {
   const {
     shouldDisplayAvailableSlotFromPreviousWeeks,
     availableSlotFromPreviousWeeksLabel,
-    isEmptyCalendar,
+    isCalendarLoading,
     goToFirstAvailableSession,
   } = useSlotCalendarNavigation();
 
@@ -57,27 +23,30 @@ const SlotCalendarReworked: React.FC = () => {
 
   return (
     <div className={classes.container}>
-      {shouldDisplayAvailableSlotFromPreviousWeeks && (
-        <div className={classes.helperText}>
-          <ButtonBase onClick={goToFirstAvailableSession}>
-            <Typography color="primary">
-              {availableSlotFromPreviousWeeksLabel}
-            </Typography>
-          </ButtonBase>
-        </div>
-      )}
+      <div
+        className={classes.helperText}
+        style={{
+          visibility: shouldDisplayAvailableSlotFromPreviousWeeks
+            ? 'visible'
+            : 'hidden',
+        }}
+      >
+        <ButtonBase onClick={goToFirstAvailableSession}>
+          <Typography color="primary">
+            {availableSlotFromPreviousWeeksLabel}
+          </Typography>
+        </ButtonBase>
+      </div>
       <Paper className={classes.container2}>
         <SlotCalendarToolBar />
         <div className={classes.slotByDateContainer}>
           <SlotCalendarDays />
-        </div>
-        {isEmptyCalendar && (
-          <div className={classes.emptyStateWrapper}>
-            <div className={classes.emptyState}>
-              <EmptyCalendar />
+          {isCalendarLoading && (
+            <div className={classes.loadingOverlay}>
+              <CircularProgress />
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </Paper>
     </div>
   );
@@ -101,36 +70,24 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     width: '100%',
     flexDirection: 'row',
+    position: 'relative',
+    minHeight: 250,
   },
-  emptyStateWrapper: {
+  loadingOverlay: {
     position: 'absolute',
-    marginTop: 60,
-    height: 'calc(100% - 60px)',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    backgroundColor: 'rgba(0,0,0,0.5)',
     top: 0,
     left: 0,
-    borderRadius: 4,
-  },
-  emptyState: {
+    right: 0,
+    bottom: 0,
     display: 'flex',
     alignItems: 'center',
-    padding: theme.spacing(2),
-    backgroundColor: 'white',
-    borderRadius: 5,
-  },
-  warning: {
-    fill: theme.palette.warning.main,
-    marginRight: theme.spacing(2),
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+    borderRadius: 4,
+    zIndex: 1,
   },
   helperText: {
-    marginBotttom: theme.spacing(2),
-  },
-  icon: {
-    marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));
 

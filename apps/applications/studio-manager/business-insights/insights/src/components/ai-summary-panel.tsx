@@ -8,10 +8,12 @@ import {
   Icon,
   Label,
   Loader,
+  TextArea,
   Title,
 } from "@bsport/kaizen-primitive-core";
 
 import type { AiSummaryResult } from "#src/hooks/api";
+import { useSubmitFeedback } from "#src/hooks/api";
 import { useTranslation } from "#src/utils/i18n";
 
 interface AiSummaryPanelProps {
@@ -19,6 +21,8 @@ interface AiSummaryPanelProps {
   error: string | null;
   data: AiSummaryResult | undefined;
   documentationUrl?: string;
+  traceId?: string | null;
+  initialFeedback?: { value: boolean; rationale?: string };
 }
 
 export const AiSummaryPanel = ({
@@ -26,6 +30,8 @@ export const AiSummaryPanel = ({
   error,
   data,
   documentationUrl,
+  traceId,
+  initialFeedback,
 }: AiSummaryPanelProps) => {
   const { t } = useTranslation("insights");
   const summary = data?.ai_summary;
@@ -69,7 +75,7 @@ export const AiSummaryPanel = ({
             <Title htmlVariant="h5" color="positive" weight="strong">
               {t("aiSummary.positiveTrend")}
             </Title>
-            <Body size="md" color="positive">
+            <Body size="md" color="positive" weight="weaker">
               {summary.winning}
             </Body>
           </Alert>
@@ -86,7 +92,7 @@ export const AiSummaryPanel = ({
             <Title htmlVariant="h5" color="critical" weight="strong">
               {t("aiSummary.underperformance")}
             </Title>
-            <Body size="md" color="critical">
+            <Body size="md" color="critical" weight="weaker">
               {summary.attention}
             </Body>
           </Alert>
@@ -106,7 +112,25 @@ export const AiSummaryPanel = ({
         )}
 
         <Divider />
-        <FeedbackFooter documentationUrl={documentationUrl} />
+        {traceId && (
+          <FeedbackFooter traceId={traceId} initialFeedback={initialFeedback} />
+        )}
+        <Button
+          kind="default"
+          intent="default"
+          color="main"
+          size="md"
+          label={t("aiSummary.detailedDocumentation")}
+          iconLeft="link-external-02"
+          onClick={
+            documentationUrl
+              ? () =>
+                  window.open(documentationUrl, "_blank", "noopener,noreferrer")
+              : undefined
+          }
+          disabled={!documentationUrl}
+          fullWidth
+        />
       </div>
     );
   };
@@ -129,9 +153,52 @@ export const AiSummaryPanel = ({
   );
 };
 
-function FeedbackFooter({ documentationUrl }: { documentationUrl?: string }) {
+function FeedbackFooter({
+  traceId,
+  initialFeedback,
+}: {
+  traceId?: string | null;
+  initialFeedback?: { value: boolean; rationale?: string };
+}) {
   const { t } = useTranslation("insights");
-  const [vote, setVote] = useState<"yes" | "no" | null>(null);
+  const { submitWithRationale, isPending, isError, isSuccess } =
+    useSubmitFeedback();
+  const [vote, setVote] = useState<"yes" | "no" | null>(
+    initialFeedback ? (initialFeedback.value ? "yes" : "no") : null,
+  );
+  const [rationale, setRationale] = useState(initialFeedback?.rationale ?? "");
+
+  const isSubmitted = initialFeedback !== undefined || isSuccess;
+  const isDisabled = isPending || isSubmitted;
+
+  const handleVote = (newVote: "yes" | "no") => {
+    if (isDisabled) return;
+    setVote(newVote);
+    if (newVote === "yes") {
+      submitWithRationale({
+        value: true,
+        trace_id: traceId,
+        rationale: undefined,
+      });
+    }
+  };
+
+  const handleSubmit = () => {
+    if (!vote || isDisabled) return;
+    submitWithRationale({
+      value: vote === "yes",
+      trace_id: traceId,
+      rationale: rationale.trim() || undefined,
+    });
+  };
+
+  if (isSubmitted) {
+    return (
+      <Body size="md" color="weak" className="text-center">
+        {t("aiSummary.feedbackThanks")}
+      </Body>
+    );
+  }
 
   return (
     <div className="flex flex-col gap-sm">
@@ -144,7 +211,8 @@ function FeedbackFooter({ documentationUrl }: { documentationUrl?: string }) {
           size="sm"
           label={t("aiSummary.yes")}
           iconLeft="thumb-up"
-          onClick={() => setVote("yes")}
+          onClick={() => handleVote("yes")}
+          disabled={isPending}
         />
         <Button
           kind="default"
@@ -153,25 +221,45 @@ function FeedbackFooter({ documentationUrl }: { documentationUrl?: string }) {
           size="sm"
           label={t("aiSummary.no")}
           iconLeft="thumb-down"
-          onClick={() => setVote("no")}
+          onClick={() => handleVote("no")}
+          disabled={isPending}
         />
       </div>
-      <Button
-        kind="default"
-        intent="default"
-        color="main"
-        size="md"
-        label={t("aiSummary.detailedDocumentation")}
-        iconLeft="link-external-02"
-        onClick={
-          documentationUrl
-            ? () =>
-                window.open(documentationUrl, "_blank", "noopener,noreferrer")
-            : undefined
-        }
-        disabled={!documentationUrl}
-        fullWidth
-      />
+
+      {vote === "no" && (
+        <div className="flex flex-col gap-xs">
+          <TextArea
+            id="feedback-rationale"
+            autoFocus
+            label={t("aiSummary.whatWentWrong")}
+            className="!text-body-md"
+            value={rationale}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setRationale(e.target.value)
+            }
+            placeholder={t("aiSummary.rationalePlaceholder")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                handleSubmit();
+              }
+            }}
+          />
+          <Button
+            kind="default"
+            intent="default"
+            color="main"
+            size="sm"
+            label={t("aiSummary.send")}
+            onClick={handleSubmit}
+            loading={isPending}
+            className="self-end"
+          />
+        </div>
+      )}
+      {isError && (
+        <Alert status="critical">{t("aiSummary.feedbackError")}</Alert>
+      )}
     </div>
   );
 }

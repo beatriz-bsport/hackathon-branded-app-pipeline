@@ -9,11 +9,14 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { useDebounce } from "@bsport/use-debounce";
 
-import { useSearchMembers } from "#src/hooks/member/fetch/use-search-members.js";
-import { setMember } from "#src/stores/booking-flow/actions";
+import { useFetchMember } from "#src/hooks/member/fetch/use-fetch-member";
+import { useSearchMembers } from "#src/hooks/member/fetch/use-search-members";
+import { resetBookingFlow, setMember } from "#src/stores/booking-flow/actions";
 import { useBookingFlowStore } from "#src/stores/booking-flow/store";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+
+import { MemberCard } from "./member-card";
 
 export const MemberSelectionStep: FC = () => {
   const { t } = useTranslation("sessionManagement");
@@ -28,6 +31,10 @@ export const MemberSelectionStep: FC = () => {
   const { data: members = [], isLoading } = useSearchMembers({
     text: debouncedSearch,
     params: { hide_archived: true },
+  });
+
+  const { data: member } = useFetchMember({
+    memberId: selectedMemberId!,
   });
 
   const items = useMemo(
@@ -49,7 +56,11 @@ export const MemberSelectionStep: FC = () => {
           title: finalName,
           description: email,
           isActive: id === selectedMemberId,
-          onItemClick: () => setMember(id),
+          onItemClick: () => {
+            if (id === selectedMemberId) return;
+            resetBookingFlow();
+            setMember(id);
+          },
           customNode: (
             <Button
               kind="icon-button"
@@ -109,6 +120,12 @@ export const MemberSelectionStep: FC = () => {
           }
         />
       </div>
+      {selectedMemberId && member && (
+        <MemberCard
+          member={member}
+          handleUnselectMember={() => resetBookingFlow()}
+        />
+      )}
       <div className="h-[400px] overflow-y-auto">
         <List
           id={listId}

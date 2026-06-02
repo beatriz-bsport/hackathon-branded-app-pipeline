@@ -2,6 +2,11 @@ import { SmartlistDateFilterType } from "@bsport/api-cdp/smartlist";
 import { getLocalNow } from "@bsport/datetime-manipulation";
 
 import {
+  ABSOLUTE_DATE_OPERATOR_BY_SMARTLIST_DATE_FILTER_TYPE,
+  DATE_FILTER_TYPE_BY_OPERATOR,
+  getRelativeDateOperatorBySmartlistDateFilterType,
+} from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-mapping-constants";
+import {
   DATE_FILTER_TYPE_ABSOLUTE,
   DATE_FILTER_TYPE_RELATIVE,
   FUTURE_DATE_OPERATORS,
@@ -12,12 +17,6 @@ import type {
   RelativeDateOperator,
 } from "#src/components/primitive-filters/date-filter/types";
 import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";
-
-import {
-  ABSOLUTE_DATE_OPERATOR_BY_SMARTLIST_DATE_FILTER_TYPE,
-  DATE_FILTER_TYPE_BY_OPERATOR,
-  getRelativeDateOperatorBySmartlistDateFilterType,
-} from "../shared/smartlist-date-mapping-constants";
 
 const toIsoDate = (value: string | null) => value ?? "";
 

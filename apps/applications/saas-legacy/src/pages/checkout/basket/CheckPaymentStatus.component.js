@@ -4,7 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { withTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { getPaymentGroupStatusBySecret as getPaymentGroupStatusBySecretAPI } from '../../../libs/payment/api';
+import { getPaymentGroupStatusBySecret as getPaymentGroupStatusBySecretAPI } from '#src/libs/payment/api';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 export class CheckPaymentStatus extends React.Component<Props> {
   state = { interval: null };
@@ -19,6 +20,9 @@ export class CheckPaymentStatus extends React.Component<Props> {
                 // Stop polling when we get success response
                 if (this.state.interval) {
                   clearInterval(this.state.interval);
+                }
+                if (WidgetUtils.isWidget()) {
+                  WidgetUtils.paymentSuccess();
                 }
                 this.props.onSuccess();
               } else if ([300, 600].includes(r.data)) {

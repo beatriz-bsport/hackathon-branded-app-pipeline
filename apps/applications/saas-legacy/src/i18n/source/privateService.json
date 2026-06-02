@@ -341,7 +341,7 @@
     "selectService": "Choose a service",
     "selectSession": "Slot",
     "emptyState": "There's no availability to display at this moment.",
-    "previousOffer": "Available session: {{- date }} at {{ hour }}",
+    "previousOffer": "Most recent session: {{- date }} at {{ hour }}",
     "nextOffer": "First availability: {{- date }} at {{ hour }}",
     "searchFirstSlot": "Search the first available moment",
     "pickASlot": "Select your available time"

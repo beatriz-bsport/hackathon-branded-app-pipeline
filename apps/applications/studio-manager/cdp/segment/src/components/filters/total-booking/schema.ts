@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { dateFilterValueSchema } from "#src/components/filters/passes-filter/sub-filters/purchase-date/schema";
+import { dateFilterValueSchema } from "#src/components/filters/shared/smartlist-date-filter/schema";
 import { i18nInstance } from "#src/utils/i18n";
 
 import { TOTAL_BOOKING_NUMBER_TYPE } from "./constants";

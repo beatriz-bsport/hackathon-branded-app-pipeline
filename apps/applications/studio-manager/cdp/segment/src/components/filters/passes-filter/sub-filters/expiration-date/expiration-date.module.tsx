@@ -7,15 +7,15 @@ import {
 } from "@bsport/api-cdp/smartlist";
 
 import { hasNestedDirty } from "#src/components/filters/shared/dirty-fields";
-
-import type { PassesFilterFormValue } from "../../types";
-import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
-import type { PassSubFilterModule } from "../pass-sub-filter-module-contract";
 import {
   mapDateFilterType,
   toApiDateSection,
   toFormDateSection,
-} from "../purchase-date/utils";
+} from "#src/components/filters/shared/smartlist-date-filter/smartlist-date-utils";
+
+import type { PassesFilterFormValue } from "../../types";
+import { PASS_SUB_FILTER_IDS } from "../pass-sub-filter-id";
+import type { PassSubFilterModule } from "../pass-sub-filter-module-contract";
 import { ExpirationDateSubFilterSection } from "./expiration-date.component";
 import { refineExpirationDateSubFilter } from "./schema";
 

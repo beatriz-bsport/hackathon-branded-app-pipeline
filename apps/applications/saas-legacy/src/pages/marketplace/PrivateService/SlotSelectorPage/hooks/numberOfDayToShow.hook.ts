@@ -9,8 +9,8 @@ const useNumberOfDayToShow = () => {
 
   const computeNumberOfDays = useMemo(() => {
     if (isMD) return 7;
-    if (isSM && !isXS) return 3;
-    return 2;
+    if (isSM && !isXS) return 4;
+    return 3;
   }, [isMD, isSM, isXS]);
 
   const [numberOfDayToShow, setNumberOfDayToShow] =

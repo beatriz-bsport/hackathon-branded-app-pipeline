@@ -13,6 +13,7 @@ import { fetchProfile as fetchProfileAction } from '#src/libs/consumer-space/act
 import {
   fetchConversations as fetchConversationsAction,
   createConversation as createConversationAction,
+  createMessage as createMessageAction,
 } from '#src/libs/communication-v2/actions';
 import { getConsumerProfile } from '#src/libs/consumer-space/selectors';
 import {
@@ -20,6 +21,7 @@ import {
   getConversationIds,
   getMessagesByConversationId,
   isCreatingConversation,
+  isCreatingMessage,
 } from '#src/libs/communication-v2/selectors';
 interface OwnProps {
   membership: Membership;
@@ -65,6 +67,16 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
           },
         },
       );
+    } else {
+      props.createMessage(
+        props.conversation.uuid,
+        { message_text: newMessage },
+        {
+          onSuccess: () => {
+            setMessage('');
+          },
+        },
+      );
     }
   };
 
@@ -72,7 +84,9 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
     if (
       event.key === 'Enter' &&
       !event.shiftKey &&
-      !event.nativeEvent.isComposing
+      !event.nativeEvent.isComposing &&
+      !props.isCreatingConversation &&
+      !props.isCreatingMessage
     ) {
       event.preventDefault();
       sendMessage(message);
@@ -96,7 +110,11 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
         />
         <Button
           color="primary"
-          disabled={message.trim() === '' || props.isCreatingConversation}
+          disabled={
+            message.trim() === '' ||
+            props.isCreatingConversation ||
+            props.isCreatingMessage
+          }
           onClick={() => {
             sendMessage(message);
           }}
@@ -119,6 +137,7 @@ const mapStateToProps = (state: RootState) => ({
     state,
     getConversationIds(state)[0] ?? '',
   ),
+  isCreatingMessage: isCreatingMessage(state),
 });
 
 // actions will show up as props in the component, and will dispatch the action when called
@@ -126,6 +145,7 @@ const mapDispatchToProps = {
   fetchProfile: fetchProfileAction,
   fetchConversations: fetchConversationsAction,
   createConversation: createConversationAction,
+  createMessage: createMessageAction,
 };
 const connector = connect(mapStateToProps, mapDispatchToProps);
 

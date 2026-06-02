@@ -702,7 +702,7 @@
     "selectSession": "Elija su sesión",
     "searchFirstSlot": "Buscar la primera ranura disponible",
     "nextOffer": "Primera ranura disponible en {{- date }}: {{ hour }}",
-    "previousOffer": "Una sesión más reciente está disponible en {{-date }}: {{ hour }}",
+    "previousOffer": "La sesión más reciente es el {{-date }}: {{ hour }}",
     "emptyState": "No hay disponibilidad en este momento",
     "pickASlot": "Seleccione su tiempo disponible"
   },

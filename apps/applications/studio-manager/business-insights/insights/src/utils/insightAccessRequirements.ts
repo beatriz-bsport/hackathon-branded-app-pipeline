@@ -58,6 +58,16 @@ export const INSIGHT_ACCESS_REQUIREMENTS = {
     featureFlag: InsightFlags.SCHEDULE_ANALYSIS,
     upsell: INSIGHTS_FOR_ESSENTIAL_UPSELL,
   },
+  financial_cockpit: {
+    permission: "report.Payments.invoices.allowed_actions.read",
+    featureFlag: InsightFlags.FINANCIAL_COCKPIT,
+    upsell: undefined,
+  },
+  pass_usage: {
+    permission: "report.Products.memberships.allowed_actions.read",
+    featureFlag: InsightFlags.PASS_USAGE,
+    upsell: undefined,
+  },
 } as const satisfies Record<string, InsightAccessRequirement>;
 
 export type InsightId = keyof typeof INSIGHT_ACCESS_REQUIREMENTS;
@@ -77,6 +87,8 @@ export const useInsightFlagValues = (): Partial<Record<InsightId, boolean>> => {
   const hasCommunityHealth = useInsightFlag(InsightFlags.COMMUNITY_HEALTH);
   const hasBookingInsight = useInsightFlag(InsightFlags.BOOKING_INSIGHT);
   const hasScheduleAnalysis = useInsightFlag(InsightFlags.SCHEDULE_ANALYSIS);
+  const hasFinancialCockpit = useInsightFlag(InsightFlags.FINANCIAL_COCKPIT);
+  const hasPassUsage = useInsightFlag(InsightFlags.PASS_USAGE);
 
   return useMemo(
     () =>
@@ -85,12 +97,16 @@ export const useInsightFlagValues = (): Partial<Record<InsightId, boolean>> => {
         community_health: hasCommunityHealth,
         booking: hasBookingInsight,
         schedule: hasScheduleAnalysis,
+        financial_cockpit: hasFinancialCockpit,
+        pass_usage: hasPassUsage,
       }) satisfies Partial<Record<InsightId, boolean>>,
     [
       hasTrialAnalysis,
       hasCommunityHealth,
       hasBookingInsight,
       hasScheduleAnalysis,
+      hasFinancialCockpit,
+      hasPassUsage,
     ],
   );
 };

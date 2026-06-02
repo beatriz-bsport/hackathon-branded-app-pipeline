@@ -4,6 +4,10 @@
   "implicitDependencies": [
     "@bsport/kaizen-primitive-core",
     "@bsport/kaizen-business-components",
-    "@bsport/kaizen-tokens"
+    "@bsport/kaizen-tokens",
+    "@bsport/sm-backbone",
+    "@bsport/sm-inbox",
+    "@bsport/sm-session",
+    "@bsport/sm-venues"
   ]
 }

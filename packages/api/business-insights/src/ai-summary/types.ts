@@ -3,6 +3,7 @@ export interface AiSummaryContent {
   winning: string | null;
   attention: string | null;
   next_step: string | null;
+  trace_id?: string | null;
 }
 
 export interface AiSummaryResult {

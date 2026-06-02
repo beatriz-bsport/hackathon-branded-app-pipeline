@@ -18,7 +18,6 @@ import { useObjectLevelPermission } from "#src/hooks/use-permissions";
 import useTableColumns from "#src/hooks/use-table-columns";
 import { useUnarchiveClass } from "#src/hooks/use-unarchive-class";
 import { ABSOLUTE_ROUTES } from "#src/urls";
-import { ClassFlags, useClassFlag } from "#src/utils/featureFlags";
 import { useTranslation } from "#src/utils/i18n";
 
 type ArchivedClassesTableProps = {
@@ -40,7 +39,6 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
   const columns = useTableColumns<MetaActivity>({ includeNextClass: false });
   const { mutate: unarchiveClass } = useUnarchiveClass();
   const navigate = useNavigate();
-  const detailEnabled = useClassFlag(ClassFlags.CLASSES_DETAIL_PAGE);
 
   const canDeleteWorkshop = useObjectLevelPermission(
     "management.workshop.allowed_actions.delete",
@@ -58,11 +56,9 @@ const ArchivedClassesTable: FC<ArchivedClassesTableProps> = ({
     () =>
       groupActivities.map((item) => ({
         ...item,
-        ...(detailEnabled && {
-          onRowClick: () => navigate(ABSOLUTE_ROUTES.ARCHIVED_DETAIL(item.id)),
-        }),
+        onRowClick: () => navigate(ABSOLUTE_ROUTES.ARCHIVED_DETAIL(item.id)),
       })),
-    [groupActivities, detailEnabled, navigate],
+    [groupActivities, navigate],
   );
 
   const isEmptySearch =

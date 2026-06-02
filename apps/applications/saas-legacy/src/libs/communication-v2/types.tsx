@@ -447,3 +447,9 @@ export type ConversationMessage = {
   author_type: MessageAuthorType;
   date_created: string; // ISO string
 };
+
+export type MessageCreationInput = {
+  message_text: string;
+};
+
+export type MessageCreationOutput = ConversationMessage;

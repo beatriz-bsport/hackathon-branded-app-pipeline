@@ -1,16 +1,27 @@
 import type { InMemoryTranslationsLoader } from "@bsport/i18n";
 
+const sourceTranslations = import.meta.glob("./source/*.json");
+const localeTranslations = import.meta.glob("./locales/*/*.json");
+
 export const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
   locale,
   namespace,
 ) => {
   try {
-    if (locale === "en") {
-      return (await import(`./source/${namespace}.json`)).default || {};
-    }
-    return (
-      (await import(`./locales/${locale}/${namespace}.json`)).default || {}
-    );
+    const translationPath =
+      locale === "en"
+        ? `./source/${namespace}.json`
+        : `./locales/${locale}/${namespace}.json`;
+    const translationLoader = (
+      locale === "en" ? sourceTranslations : localeTranslations
+    )[translationPath] as
+      | (() => Promise<{ default: Record<string, object> }>)
+      | undefined;
+
+    return ((await translationLoader?.())?.default || {}) as Record<
+      string,
+      object
+    >;
   } catch {
     return {};
   }

@@ -4,3 +4,4 @@
 
 // API hooks for data fetching and external services
 export * from "./api";
+export { useAiSummary } from "./use-ai-summary";

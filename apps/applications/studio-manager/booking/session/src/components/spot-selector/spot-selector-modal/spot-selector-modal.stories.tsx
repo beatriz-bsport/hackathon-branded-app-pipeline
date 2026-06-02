@@ -19,6 +19,7 @@ import {
   seededStudioBeaubourgSpotSelectorClient,
 } from "#src/components/spot-selector/__fixtures__/spot-selector-modal-fixtures";
 import { SpotSelectorModal } from "#src/components/spot-selector/spot-selector-modal/spot-selector-modal";
+import { storybookDecorator } from "#src/utils/storybook-decorator";
 
 type SpotSelectorModalComponent = typeof SpotSelectorModal;
 
@@ -47,6 +48,7 @@ const meta: Meta<SpotSelectorModalComponent> = {
       },
     },
   },
+  decorators: storybookDecorator,
   tags: ["autodocs"],
 };
 export default meta;

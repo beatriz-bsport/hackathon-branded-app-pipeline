@@ -178,6 +178,7 @@ interface Reservation {
 
 interface ReservationActivityAllowedActions {
   create: boolean;
+  edit: boolean;
   delete: boolean;
   refund?: boolean;
   editSpot: boolean;

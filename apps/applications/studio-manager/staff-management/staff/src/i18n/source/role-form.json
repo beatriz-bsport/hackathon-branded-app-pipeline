@@ -12,6 +12,7 @@
     },
     "featurePermissions": {
       "label": "Feature permissions",
+      "helperText": "Control which features this role can use. Staff will only have access to what they need.",
       "placeholder": "Feature permissions will be selected here."
     }
   },
@@ -22,6 +23,10 @@
     "expand": "Expand",
     "remove": "Remove",
     "close": "Close"
+  },
+  "updateSubmitResponse": {
+    "success": "Role updated",
+    "error": "Failed to update role"
   },
   "formFields": {
     "name": {
@@ -288,8 +293,229 @@
       "helperText": "Allow access to specific URLs for this role",
       "placeholder": "Example: /member/"
     },
+    "hasBookingOverrideControl": {
+      "label": "Grant advanced booking permissions to this role",
+      "helperText": "Staff with this role can bypass booking restrictions, book classes despite venue or teacher unavailability, and override a class's spot capacity."
+    },
     "errors": {
       "required": "This field is required"
+    }
+  },
+  "createSubmitResponse": {
+    "success": "Role created",
+    "error": "Role creation failed"
+  },
+  "objectLevelPermissions": {
+    "session": {
+      "_label": "Session management",
+      "activity": {
+        "_label": "Activities"
+      },
+      "workshop": {
+        "_label": "Workshops"
+      },
+      "privateSlot": {
+        "_label": "Appointment slots"
+      }
+    },
+    "member": {
+      "_label": "Actions on members",
+      "allowed_actions": {
+        "create": { "_label": "Add a member" },
+        "readInfo": { "_label": "See personal data" },
+        "editInfo": { "_label": "Edit personal data" },
+        "delete": { "_label": "Delete a member" },
+        "search": { "_label": "Search for members" },
+        "accessProfile": { "_label": "Access to member profiles" },
+        "readBalance": { "_label": "See the balance of members" },
+        "communication": { "_label": "Contact members" },
+        "manageNotification": { "_label": "Manage member notifications" }
+      }
+    },
+    "billing": {
+      "_label": "Transactions",
+      "allowed_actions": {
+        "takePayment": { "_label": "Cash in a member" },
+        "editBalance": { "_label": "Adjust member balance" },
+        "editBalanceWithoutInvoice": {
+          "_label": "Adjust member balance without generating an invoice"
+        },
+        "readInvoices": { "_label": "See invoices" },
+        "createInvoice": { "_label": "Bill a member" },
+        "readPaymentLink": { "_label": "Generate payment links" },
+        "cancelInvoice": { "_label": "Cancel invoices" },
+        "addPaymentMethod": { "_label": "Add a payment method" },
+        "deletePaymentMethod": { "_label": "Delete a payment method" },
+        "partialRefundAsDiscount": { "_label": "Apply a discount (refund)" },
+        "partialRefundAsCredit": { "_label": "Convert to balance (refund)" },
+        "createManualDiscount": { "_label": "Apply manual discounts" }
+      }
+    },
+    "reservation": {
+      "_label": "Booking management",
+      "activity": {
+        "_label": "Group activities management"
+      },
+      "workshop": {
+        "_label": "Workshop management"
+      },
+      "privateBooking": {
+        "_label": "Appointments management"
+      }
+    },
+    "export": {
+      "_label": "Exports",
+      "allowed_actions": {
+        "planning": { "_label": "Export the calendar" },
+        "invoice": { "_label": "Export invoices" },
+        "subscription": { "_label": "Export subscriptions" },
+        "payroll": { "_label": "Export teachers' payroll" },
+        "attendance": { "_label": "Export attendances/absences" },
+        "smartlist": { "_label": "Export smartlists" },
+        "memberDocument": { "_label": "Export members' documents" },
+        "report": { "_label": "Export reports" },
+        "smartlist_general_report": {
+          "_label": "Export Smartlist General Report"
+        }
+      }
+    },
+    "planning": {
+      "_label": "Calendar and availabilities",
+      "calendar": {
+        "_label": "Calendar",
+        "allowed_actions": {
+          "bulkCancellation": { "_label": "Cancel several sessions" },
+          "readCancellations": { "_label": "See cancelled sessions" },
+          "readWeeklyOverview": { "_label": "See this week's overview" }
+        }
+      },
+      "schedule": {
+        "_label": "Availabilities",
+        "allowed_actions": {
+          "createAvailability": { "_label": "Add availabilities" },
+          "deleteAvailability": { "_label": "Delete availabilities" },
+          "readAvailabilityDetail": {
+            "_label": "See the details of availabilities"
+          }
+        }
+      }
+    },
+    "report": {
+      "_label": "Reports",
+      "Club": {
+        "_label": "Studio",
+        "billing_plan": { "_label": "Subscription" },
+        "members_purchase": { "_label": "Member" },
+        "members": { "_label": "Members" },
+        "activities": { "_label": "Activities" },
+        "activityByEst": {
+          "_label": "Activities and workshops by establishment"
+        },
+        "activityByCoach": { "_label": "Activities and workshops by teacher" },
+        "workshop": { "_label": "Workshop" },
+        "offers": { "_label": "Sessions" },
+        "subscription": { "_label": "Subscription invoices" },
+        "privateService": { "_label": "Appointments" },
+        "referral_grant": { "_label": "Referral grants" },
+        "access_monitoring": { "_label": "Access monitoring" }
+      },
+      "Bookings": {
+        "_label": "Bookings",
+        "dayBookings": { "_label": "Bookings (group sessions) per day" },
+        "first_booking": { "_label": "First (collective) session" },
+        "bookings": { "_label": "Bookings (group sessions)" },
+        "first_attendance": { "_label": "First attendance (collective)" },
+        "first_privatebooking": { "_label": "First appointment" },
+        "private_bookings": { "_label": "Bookings (appointments)" },
+        "unpaid_private_bookings": {
+          "_label": "Unpaid bookings (appointments)"
+        }
+      },
+      "Payments": {
+        "_label": "Payments",
+        "basket": { "_label": "Basket" },
+        "cashbook": { "_label": "Cash book" },
+        "credit": { "_label": "Credit" },
+        "expense": { "_label": "Expenses" },
+        "invoices": { "_label": "Purchases" },
+        "unpaid_invoices": { "_label": "Unpaid invoices" },
+        "payments": { "_label": "Payments" },
+        "payment_sumup": { "_label": "Total payments" },
+        "on_spot_payments": { "_label": "On-site payment" },
+        "dispute": { "_label": "Payment dispute" },
+        "payment_installments": { "_label": "Payments in installments" },
+        "video_purchase": { "_label": "Video purchase" }
+      },
+      "Products": {
+        "_label": "Products",
+        "private_cpasses_expired": {
+          "_label": "Expired appointment credits"
+        },
+        "expired_pass": { "_label": "Expired passes credits" },
+        "memberships": { "_label": "Passes" },
+        "private_cpasses": { "_label": "Appointment passes" },
+        "universal_passes": { "_label": "Universal passes" },
+        "discount": { "_label": "Discounts" },
+        "giftcard": { "_label": "Giftcard" },
+        "consumer_giftcard": { "_label": "Purchased giftcards" },
+        "shop": { "_label": "Shop" },
+        "video": { "_label": "Video" }
+      }
+    },
+    "product": {
+      "_label": "Products",
+      "paymentPack": { "_label": "Passes" },
+      "privatePass": { "_label": "Appointment passes" },
+      "contract": { "_label": "Subscriptions" },
+      "shopReworked": { "_label": "Webshop" }
+    },
+    "management": {
+      "_label": "Management",
+      "activity": { "_label": "Group activities" },
+      "workshop": { "_label": "Workshops" },
+      "privateService": { "_label": "Appointments" },
+      "coach": { "_label": "Teachers" }
+    },
+    "allowed_actions": {
+      "create": { "_label": "Create" },
+      "read": { "_label": "See" },
+      "edit": { "_label": "Edit" },
+      "delete": { "_label": "Delete" },
+      "viewNotes": { "_label": "View notes" },
+      "editNotes": { "_label": "Edit notes" },
+      "rollcall": { "_label": "Validate roll call" },
+      "addToWaitlist": { "_label": "Add members to the waiting list" },
+      "removeFromWaitlist": {
+        "_label": "Delete members from the waiting list"
+      },
+      "attendance": { "_label": "Edit attendance/absences" },
+      "editSpot": { "_label": "Edit member spots" },
+      "editPerformance": { "_label": "Edit program performances" },
+      "refund": { "_label": "Refund" },
+      "cancel": { "_label": "Cancel bookings" },
+      "manageExtension": { "_label": "Manage extensions" },
+      "manageCredit": { "_label": "Manage credits" },
+      "compatibility": { "_label": "Manage compatibility" },
+      "block": { "_label": "Block passes" },
+      "pause": { "_label": "Pause" },
+      "createBillingPlan": { "_label": "Create billing plans" },
+      "createCustomBillingPlan": { "_label": "Create custom billing plans" },
+      "pauseBillingPlan": { "_label": "Pause billing plans" },
+      "endBillingPlan": { "_label": "End billing plans" },
+      "editPassBillingPlan": { "_label": "Edit pass on billing plans" },
+      "editInvoiceDateBillingPlan": {
+        "_label": "Edit invoice dates on billing plans"
+      },
+      "editInvoicePriceBillingPlan": {
+        "_label": "Edit invoice prices on billing plans"
+      },
+      "endAfterInvoiceBillingPlan": {
+        "_label": "End billing plans after invoice"
+      },
+      "editInventory": { "_label": "Edit inventory" },
+      "editSettings": { "_label": "Edit settings" },
+      "readPayroll": { "_label": "See payroll" },
+      "substitution": { "_label": "Manage substitutions" }
     }
   }
 }

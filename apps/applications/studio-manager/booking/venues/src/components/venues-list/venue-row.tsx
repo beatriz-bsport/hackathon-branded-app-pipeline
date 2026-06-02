@@ -3,10 +3,12 @@ import {
   Button,
   DropdownMenu,
   type ListItemProps,
+  Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
 type VenueRowLabels = {
   addToGroup: string;
+  addToGroupTooltip: string;
   editLocation: string;
   edit: string;
   archive: string;
@@ -24,6 +26,16 @@ type BuildVenueListItemOptions = {
   ) => void;
   onEdit: (venue: Establishment) => void;
 };
+
+const getInitials = (title: string): string =>
+  title
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((word) => word.charAt(0))
+    .join("")
+    .toUpperCase();
 
 export const buildVenueListItem = (
   venue: Establishment,
@@ -51,7 +63,7 @@ export const buildVenueListItem = (
     title: venue.title,
     avatar: venue.cover
       ? { src: venue.cover, shape: "squared", size: "lg" }
-      : undefined,
+      : { initials: getInitials(venue.title), shape: "squared", size: "lg" },
     chips: showGroupChip
       ? [
           {
@@ -65,15 +77,17 @@ export const buildVenueListItem = (
     customNode: showAddToGroup ? (
       <DropdownMenu
         target={({ isPopoverOpened, setIsPopoverOpened }) => (
-          <Button
-            kind="default"
-            intent="flat"
-            color="default"
-            size="md"
-            label={labels.addToGroup}
-            iconLeft="plus"
-            onClick={() => setIsPopoverOpened(!isPopoverOpened)}
-          />
+          <Tooltip label={labels.addToGroupTooltip} placement="top">
+            <Button
+              kind="default"
+              intent="flat"
+              color="default"
+              size="md"
+              label={labels.addToGroup}
+              iconLeft="plus"
+              onClick={() => setIsPopoverOpened(!isPopoverOpened)}
+            />
+          </Tooltip>
         )}
         items={locationItems}
         onSelectOption={({ id, setIsPopoverOpened }) => {

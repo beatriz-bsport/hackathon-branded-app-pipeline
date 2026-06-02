@@ -102,12 +102,19 @@ export function usePaymentFlowModalContainer({
   }, [clearPaymentFlowFromUrl]);
 
   const handlePaymentFlowConfirm = useCallback(() => {
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(
-        new CustomEvent(PAYMENT_FLOW_WINDOW_EVENTS.confirmed),
-      );
+    if (typeof window === "undefined" || paymentSession == null) {
+      return;
     }
-  }, []);
+
+    window.dispatchEvent(
+      new CustomEvent(PAYMENT_FLOW_WINDOW_EVENTS.confirmed, {
+        detail: {
+          memberId: paymentSession.memberId,
+          invoiceId: paymentSession.invoiceId,
+        },
+      }),
+    );
+  }, [paymentSession]);
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
 

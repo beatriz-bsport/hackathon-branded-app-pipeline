@@ -96,3 +96,21 @@ export const hasSelectedPermission = (
       permissions.appbarButtons as unknown as PermissionValue,
     ),
   ].some(Boolean);
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null && !Array.isArray(value);
+
+export const mergeWithDefaults = (
+  defaults: unknown,
+  overrides: unknown,
+): unknown => {
+  if (!isRecord(defaults) || !isRecord(overrides)) {
+    return overrides ?? defaults;
+  }
+
+  return Object.fromEntries(
+    [...new Set([...Object.keys(defaults), ...Object.keys(overrides)])].map(
+      (key) => [key, mergeWithDefaults(defaults[key], overrides[key])],
+    ),
+  );
+};

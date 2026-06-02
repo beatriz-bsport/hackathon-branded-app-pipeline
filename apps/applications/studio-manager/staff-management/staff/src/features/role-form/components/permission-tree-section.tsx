@@ -82,7 +82,7 @@ export const PermissionTreeSection: FC<PermissionTreeSectionProps> = ({
       className={cx({
         "p-md border-b-stroke-thin border-b-stroke-divider last:border-b-0":
           level === DEFAULT_DEPTH,
-        "pl-lg border-l-stroke-thin border-l-stroke-main":
+        "pl-lg pr-md border-l-stroke-thin border-l-stroke-main":
           level > DEFAULT_DEPTH,
       })}
     >

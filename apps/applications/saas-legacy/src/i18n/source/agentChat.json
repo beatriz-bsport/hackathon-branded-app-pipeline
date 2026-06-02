@@ -4,6 +4,7 @@
     "studio_manager": "Studio Manager",
     "member": "Me"
   },
+  "loadMoreButton": "Load more messages",
   "sendButton": "Send",
   "messageInputAriaLabel": "Write your message here",
   "modal": {

@@ -1,0 +1,370 @@
+---
+title: Button
+description: Buttons trigger actions or events when activated.
+status: stable
+category: components
+tags: [forms, interactive]
+since: "0.1.0"
+related: [Toast]
+source: "packages/design-system/kaizen/primitive/core/src/components/Button"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+The Button is a core interactive primitive in Kaizen that triggers an action or
+navigates the user to a new context. It appears in forms, modals, dialogs, and
+throughout the Kaizen back-office interface to communicate available actions
+clearly. Buttons communicate hierarchy through three intents — `call-to-action`,
+`default`, and `flat` — and adapt to different tonal contexts via the `color`
+and `intent` props.
+
+### Use cases
+
+- **Primary actions:** Use `intent="call-to-action"` with `color="main"` for
+  the single most important action on a page or modal (e.g. "Save", "Confirm",
+  "Create").
+- **Secondary action:** Use `intent="default"` for supporting actions that sit
+  alongside a primary button (e.g. "Cancel", "Edit").
+- **Subtle / tertiary action:** Use `intent="flat"` for low-emphasis actions
+  that should not compete visually with surrounding content (e.g. inline row
+  actions, auxiliary links).
+- **Destructive action:** Use `color="critical"` combined with any intent to
+  signal an irreversible or destructive operation (e.g. "Delete member",
+  "Remove plan").
+- **Icon-only action:** Use `kind="icon-button"` with the `icon` prop when a
+  label would create clutter in dense UIs like headers or table rows — always
+  pair with a tooltip.
+
+## Guidelines
+
+### Examples
+
+The default button — pick an `intent`, a `size`, and a `label`.
+
+<StorybookEmbed
+  id="primitive-components-button--intent-gallery"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-button--intent-gallery",
+      label: "Intent Gallery",
+    },
+    {
+      id: "primitive-components-button--with-side-icons",
+      label: "With Side Icons",
+    },
+    {
+      id: "primitive-components-button--icon-button-gallery",
+      label: "Icon Button Gallery",
+    },
+    { id: "primitive-components-button--primary", label: "Button (Primary)" },
+    { id: "primitive-components-button--icon-button", label: "Icon Button" },
+  ]}
+/>
+
+Add an icon on either side to clarify the action.
+
+<StorybookEmbed
+  id="primitive-components-button--with-side-icons"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-button--intent-gallery",
+      label: "Intent Gallery",
+    },
+    {
+      id: "primitive-components-button--with-side-icons",
+      label: "With Side Icons",
+    },
+    {
+      id: "primitive-components-button--icon-button-gallery",
+      label: "Icon Button Gallery",
+    },
+    { id: "primitive-components-button--primary", label: "Button (Primary)" },
+    { id: "primitive-components-button--icon-button", label: "Icon Button" },
+  ]}
+/>
+
+For tight toolbars and table rows, use the icon-only `kind`. The `label`
+becomes the accessible name.
+
+<StorybookEmbed
+  id="primitive-components-button--icon-button-gallery"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-button--intent-gallery",
+      label: "Intent Gallery",
+    },
+    {
+      id: "primitive-components-button--with-side-icons",
+      label: "With Side Icons",
+    },
+    {
+      id: "primitive-components-button--icon-button-gallery",
+      label: "Icon Button Gallery",
+    },
+    { id: "primitive-components-button--primary", label: "Button (Primary)" },
+    { id: "primitive-components-button--icon-button", label: "Icon Button" },
+  ]}
+/>
+
+### Live preview
+
+<Anatomy
+  parts={[
+    {
+      label: "Root element (`<button>`)",
+      description:
+        "The native HTML button that receives all native attributes, focus, and event handlers.",
+    },
+    {
+      label: "Icon left (`iconLeft`)",
+      description:
+        "Optional leading icon placed before the label; reinforces the action meaning visually.",
+    },
+    {
+      label: "Label",
+      description:
+        "Required text that names the action; always visible except in `icon-button` kind.",
+    },
+    {
+      label: "Icon right (`iconRight`)",
+      description:
+        "Optional trailing icon after the label; commonly used for navigation affordance.",
+    },
+    {
+      label: "Loader overlay",
+      description:
+        "Replaces the left icon with a loader when `loading=true`; button width stays locked to prevent layout shift.",
+    },
+    {
+      label: "Icon (icon-button only)",
+      description:
+        'A single centered icon used exclusively when `kind="icon-button"`; replaces the label entirely.',
+    },
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do
+    caption="Match intent to action hierarchy — use one call-to-action button per distinct action area."
+    image="/images/button-intent-inmodal.png"
+  />
+  <Do
+    caption="Use loading state for async operations — set loading=true while awaiting server confirmation."
+    image="/images/button-loading-form.png"
+  />
+  <Dont caption='Use color="critical" for non-destructive actions like "Cancel" or "Close".' />
+  <Dont caption="Nest interactive elements inside a Button — this breaks the accessibility tree." />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Avoid icon-only buttons without tooltips — always wrap `kind="icon-button"` in a `Tooltip`.
+- `fullWidth=true` suits modals and narrow form columns; evaluate layout context before enabling it in wide containers.
+
+</Callout>
+
+#### call-to-action intent
+
+<DoDont>
+  <Do caption="Limit to one per form section or modal footer so users have a clear primary path forward." />
+  <Dont caption="Use for destructive or reversible actions — this intent implies confidence and forward momentum." />
+</DoDont>
+
+#### default intent
+
+<DoDont>
+  <Do caption='Pair with a call-to-action button to offer a clear secondary option (e.g. "Save" + "Cancel").' />
+  <Dont caption="Use as the sole button when no primary action exists — it will feel visually ambiguous." />
+</DoDont>
+
+#### flat intent
+
+<DoDont>
+  <Do caption="Use in tables and lists for row-level actions where density requires minimal visual weight." />
+  <Dont caption="Use for destructive row actions without additional confirmation — the low visual weight underplays the risk." />
+</DoDont>
+
+#### critical color
+
+<DoDont>
+  <Do caption="Combine with a confirmation modal or inline warning before the action executes." />
+  <Dont caption='Apply to reversible operations (e.g. "Filter", "Deselect") — reserve it for deletion or data-loss scenarios.' />
+</DoDont>
+
+#### icon-button kind
+
+<DoDont>
+  <Do caption="Use for toolbar actions where space is constrained and the icon has universal recognition." />
+  <Dont caption="Use without a Tooltip — the absence of a label creates accessibility and discoverability gaps." />
+</DoDont>
+
+#### Content
+
+#### Common uses
+
+**Form submission** — `intent="call-to-action"`, `color="main"`, `size="md"`,
+`loading` bound to submit state.
+
+> "Save changes"
+
+**Destructive row action** — `intent="flat"`, `color="critical"`,
+`iconLeft="trash-01"`.
+
+> "Delete"
+
+**Navigation to detail** — `intent="default"`, `iconRight="arrow-right"`,
+`size="md"`.
+
+> "View details"
+
+**Cancel / dismiss** — `intent="default"`, `color="default"`, no icons.
+
+> "Cancel"
+
+#### Buttons vs. links
+
+A button _does something_; a link _goes somewhere_. In certain circumstances, a
+button can look like a button but behave like a link — for instance when updating
+user data, saving edited content, or deep-linking to a dialog.
+
+## Code & Specs
+
+### Props
+
+<PropsTable
+  component="Button"
+  overrides={{
+    intent: {
+      description:
+        "Visual hierarchy. `call-to-action` for the primary action, `default` for secondary, `flat` for low-emphasis row or toolbar actions.",
+    },
+    color: {
+      description:
+        "`main` for primary emphasis, `critical` for destructive actions, `default` for neutral, `onstrong` on strong backgrounds, `selected` for toggled-on states.",
+    },
+    kind: {
+      description:
+        "`default` shows the label; `icon-button` hides it and uses `label` as the accessible name.",
+    },
+    label: {
+      description:
+        "Visible text for default buttons; aria-label for icon-only buttons.",
+    },
+    size: {
+      description:
+        "`sm` for dense surfaces, `md` everywhere else, `lg` for marketing/empty-state CTAs.",
+    },
+    loading: {
+      description:
+        "Replaces the leading icon with a spinner, locks dimensions, and disables interaction.",
+    },
+    fullWidth: {
+      description:
+        "Expands the button to fill its container — best in modals and narrow form columns.",
+    },
+    iconLeft: {
+      description:
+        'Leading icon that describes the action type (e.g. `plus` before "Add member").',
+    },
+    iconRight: {
+      description:
+        "Trailing icon for direction or navigation (e.g. `chevron-right`, `link-external-02`).",
+    },
+    icon: {
+      description:
+        'Required when `kind="icon-button"` — the single centered icon replacing the label.',
+    },
+  }}
+/>
+
+### Behavior
+
+#### Loading state
+
+When `loading=true`, the button renders a spinner in place of its content and
+becomes non-interactive. Width and height are locked to pre-loading dimensions
+to prevent layout shift. Remove the loading state once the async operation
+completes or errors.
+
+#### Disabled state
+
+When `disabled=true`, the button is visually de-emphasized and does not respond
+to pointer or keyboard events. Do not use disabled as a replacement for
+conditional visibility — prefer hiding the action when it is permanently
+unavailable in context.
+
+#### Icon placement
+
+`iconLeft` is preferred for icons that describe the action type (e.g. `plus`
+before "Add member"). `iconRight` is preferred for directional or navigation
+icons (e.g. `arrow-right`, `chevron-right`, `link-external-02`). Avoid using
+both simultaneously unless both icons carry distinct meaning.
+
+### Edge cases
+
+#### Label is very long
+
+The button stretches horizontally. Use `fullWidth` or constrain the container
+width; never truncate the label.
+
+#### Both iconLeft and iconRight set
+
+Renders both icons flanking the label. Avoid this combination unless the icons
+serve clearly distinct roles.
+
+#### loading=true + disabled=true
+
+Loading state takes visual precedence; the button remains non-interactive in
+both cases.
+
+#### kind="icon-button" + label prop
+
+The `label` prop is ignored visually but should still be provided to enable
+accessible aria-label derivation.
+
+#### color="onstrong"
+
+Intended for use only on strong-colored backgrounds.
+
+#### color="selected"
+
+Represents a toggled-on or active state. Use with ToggleButton patterns rather
+than standalone actions.
+
+## Accessibility
+
+<Accessibility
+  keyboard={[
+    { keys: ["Tab"], description: "Move focus to the button." },
+    { keys: ["Enter"], description: "Activate the button." },
+    { keys: ["Space"], description: "Activate the button." },
+  ]}
+  aria={[
+    "role=button (implicit on <button>)",
+    "aria-disabled=true when loading or disabled",
+    "aria-busy=true while loading",
+  ]}
+  notes="Icon-only buttons require label as the accessible name — never ship them without one. Always pair icon-only buttons with a Tooltip for discoverability."
+/>
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Button`
+- **Storybook:** Browse the live examples under Guidelines.
+- **Related:** [Toast](/components/toast)

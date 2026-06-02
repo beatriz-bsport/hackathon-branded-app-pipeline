@@ -1,0 +1,23 @@
+[
+  "index",
+  {
+    "group": "Product flows",
+    "items": ["create-an-object", "inspect-an-object"]
+  },
+  {
+    "group": "Structure",
+    "items": ["app-navigation", "header-actions", "tables-and-lists"]
+  },
+  {
+    "group": "Feedback",
+    "items": ["confirmation"]
+  },
+  {
+    "group": "Usage patterns",
+    "items": [
+      "chip-vs-badge-vs-indicator",
+      "panel-vs-drawer-vs-modal",
+      "using-cards"
+    ]
+  }
+]

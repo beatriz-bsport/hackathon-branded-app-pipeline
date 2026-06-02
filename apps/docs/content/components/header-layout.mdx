@@ -1,0 +1,215 @@
+---
+title: Header layout
+description: A composable page header for breadcrumbs, title, tabs, actions, and data controls.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/private/HeaderLayout"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+HeaderLayout standardises the top-of-page region across list, detail, and settings surfaces.
+
+HeaderLayout is the standardized header region that sits at the top of any application page in Kaizen. It groups page identity (breadcrumbs, title, tabs, status) on the left, user-driven actions (CTAs and secondary buttons) on the right, and a third row dedicated to data manipulation (filter, search, display options). Use it to give every page in the product the same predictable rhythm so users always know where they are, what they can do, and how to slice the data on screen.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-private-headerlayout--complete-configuration"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-private-headerlayout--complete-configuration",
+      label: "Complete",
+    },
+    {
+      id: "primitive-components-private-headerlayout--basic-configuration",
+      label: "Basic",
+    },
+    {
+      id: "primitive-components-private-headerlayout--minimal-configuration",
+      label: "Minimal",
+    },
+  ]}
+/>
+
+### Live preview
+
+<Anatomy
+  parts={[
+    {
+      label: "Breadcrumbs",
+      description:
+        "Hierarchical path leading to the current page, rendered above the title.",
+    },
+    {
+      label: "Page title",
+      description: "The H1 of the page; optionally editable.",
+    },
+    {
+      label: "Status badge",
+      description:
+        "Small indicator next to the title that communicates entity state.",
+    },
+    {
+      label: "Page tabs",
+      description: "Horizontal tab navigation scoped to the current page.",
+    },
+    {
+      label: "Start group actions",
+      description:
+        "Secondary actions placed before the CTA (e.g. icon buttons, menus).",
+    },
+    {
+      label: "Call-to-action button",
+      description: "The primary action of the page, visually emphasized.",
+    },
+    {
+      label: "Filter",
+      description:
+        "Multi-criteria filter control bound to the data shown below.",
+    },
+    {
+      label: "Search",
+      description:
+        "Expandable search input that collapses into an icon when idle.",
+    },
+    {
+      label: "Display popover",
+      description:
+        "Optional trigger for view options (density, columns, sort, layout).",
+    },
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do
+    caption={
+      "Keep the page title short and descriptive — it should match what the user clicked to get here."
+    }
+  />
+  <Do
+    caption={
+      "Expose only one primary `CTA` button per page; secondary actions belong in `startGroupActions` or `endGroupActions`."
+    }
+  />
+  <Do
+    caption={
+      "Use breadcrumbs on pages that are more than one level deep — users rely on them to navigate back up."
+    }
+  />
+  <Dont
+    caption={
+      "Don't stack too many secondary actions. Collapse into menu when there are more than 3."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Caution when combining `pageStatusBadge` and `pageStatusChip` — pick one to avoid visual noise next to the title.
+
+</Callout>
+
+#### Variants
+
+HeaderLayout exposes all props in every context, but in practice it is used in two distinct configurations: _ListLayout_ and _DetailsLayout_. The variant is a usage convention — not a prop — and it determines which sections should be populated.
+
+##### Lists
+
+<DoDont>
+  <Do
+    caption={
+      "Populate `filterConfig`, `searchConfig`, and `onDisplayPopover` — these data controls are the defining feature of a list page."
+    }
+  />
+  <Do
+    caption={
+      'Use `callToActionButton` for the primary create action (e.g. "Invite member", "New project").'
+    }
+  />
+  <Dont
+    caption={
+      "Don't expose `onEditTitleClick` — list page titles describe a collection, not an editable resource."
+    }
+  />
+</DoDont>
+
+##### Details
+
+<DoDont>
+  <Do
+    caption={
+      "Use `pageStatusBadge` or `pageStatusChip` to surface the state of the entity being viewed."
+    }
+  />
+  <Do
+    caption={
+      "Enable `onEditTitleClick` when the user owns the resource and can rename it."
+    }
+  />
+  <Dont
+    caption={
+      "Don't populate filterConfig, searchConfig, or onDisplayPopover — the data row is reserved for list contexts and will read as visual noise on a details page."
+    }
+  />
+</DoDont>
+
+#### Content
+
+tbd
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="HeaderLayout" />
+
+### Behavior
+
+_Search expansion_
+
+`searchConfig` renders as a collapsed icon by default _when it sits next to other data controls_ (`filterConfig` on its left and/or `onDisplayPopover` on its right). When search is the only control in the data row — i.e. both `filterConfig` and `onDisplayPopover` are absent — it renders _expanded full-width_ by default so users can start typing immediately without an extra click. The collapsing/expanding toggle is hidden in this state since there's nothing to make room for.
+
+_Actions placement with tabs_
+
+When `pageTabs` is present, all custom actions (`startGroupActions`, `callToActionButton`, `endGroupActions`) move from the title row down into the _tab row_, sharing horizontal space with the tabs themselves (tabs left-aligned, actions right-aligned). This visually anchors the actions to the tabbed scope they operate within. When `pageTabs` is absent, actions sit on the title row as usual.
+
+_Tab persistence_
+
+`pageTabs` integrates with the page's route — the selected tab should be reflected in the URL so deep links work correctly. Use the controlled `value` + `onValueChange` pattern.
+
+_Title editing_
+
+When `onEditTitleClick` is provided, the title gains an edit affordance on hover. Triggering it should open an inline input or modal — the layout does not handle the edit state itself.
+
+##### Use cases
+
+- _Standard page header:_ Provide a consistent top region with title, breadcrumbs, and primary CTA on any list, detail, or settings page.
+- _Editable titles:_ Make the page name inline-editable via `onEditTitleClick` for resources users own (passes, email template, segments).
+- _Tabbed sections:_ Split a single page into logical views via `pageTabs` without losing the surrounding header context.
+- _Data-heavy pages:_ Combine `filterConfig`, `searchConfig`, and `onDisplayPopover` to give users a single, predictable place to control what they see in the page body.
+
+### Edge cases
+
+1. _No breadcrumbs_ — When the page is a top-level entry, omit `breadcrumbsItems`; the title sits directly at the top.
+2. ~~_Long titles_~~~~ — Titles truncate with an ellipsis; the full title remains accessible via tooltip on hover.~~
+3. _No primary CTA_ — Omit `callToActionButton`; the action row collapses and `endGroupActions` aligns flush right.
+4. _All data actions empty_ — The third row collapses entirely; no empty whitespace is reserved.
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/private/HeaderLayout`
+- **Storybook:** Browse the live examples under Guidelines.

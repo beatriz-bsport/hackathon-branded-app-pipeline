@@ -1,0 +1,30 @@
+{
+  "tabs": [
+    {
+      "key": "welcome",
+      "label": "Welcome",
+      "href": "/welcome",
+      "childrenBase": "/welcome"
+    },
+    {
+      "key": "foundations",
+      "label": "Foundations",
+      "href": "/foundations"
+    },
+    {
+      "key": "components",
+      "label": "Components",
+      "href": "/components"
+    },
+    {
+      "key": "patterns",
+      "label": "Patterns",
+      "href": "/patterns"
+    },
+    {
+      "key": "mdx-components",
+      "label": "MDX Components",
+      "href": "/mdx-components"
+    }
+  ]
+}

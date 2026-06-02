@@ -1,0 +1,4 @@
+apps/docs/**
+CODEOWNERS
+.gitlab/CODEOWNERS
+packages/design-system/kaizen/CODEOWNERS

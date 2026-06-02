@@ -1,0 +1,86 @@
+---
+title: Header actions
+description: Standardize how actions appear in page headers across back-office resources.
+category: patterns
+sections:
+  - "Overview"
+  - "Do / don't"
+  - "Guidelines"
+---
+
+## Overview
+
+Page headers follow a three-tier action hierarchy: primary CTA, secondary icon buttons, destructive actions last.
+
+### Core Principles
+
+Page header actions on Back Office follow a strict visual hierarchy. The most frequent or consequential action sits at the top-right as a primary button (CTA), while secondary and destructive actions collapse into icon buttons or an overflow menu.
+On long resource titles—like the gift card name you're currently editing—the action row must remain visible and accessible without breaking the layout.
+
+## Best practices
+
+<DoDont>
+  <Do
+    caption={
+      "Keep destructive actions visually separated from productive ones."
+    }
+  />
+  <Do
+    caption={
+      "Truncate long titles with an ellipsis rather than letting the action row wrap."
+    }
+  />
+  <Dont
+    caption={
+      "Don't show a primary CTA on a page where every field is read-only and no action is possible."
+    }
+  />
+  <Dont
+    caption={
+      "Don't place Delete as a visible icon button next to Save. The risk of mis-click is too high when both are prominent."
+    }
+  />
+</DoDont>
+
+## Guidelines
+
+### Action Hierarchy
+
+Page headers use a three-tier system. Only one tier should ever compete for the user's primary attention.
+
+| Tier          | Style                                       | Use for                                                                     |
+| ------------- | ------------------------------------------- | --------------------------------------------------------------------------- |
+| _Primary_     | Solid button with label (`primary` variant) | Save, Create, Publish — the one task the page is optimized for              |
+| _Secondary_   | `default` icon-button                       | Duplicate, Copy link, Export, Edit (when entering edit mode from read-only) |
+| _Destructive_ | Critical icon button, separated             | Delete, Archive, Remove — always last in row or last in overflow menu       |
+
+#### Layout Rules
+
+- _Position_: Primary CTA sits at the far right of the header action row.
+- _Secondary actions_ group to the immediate left of the primary CTA.
+- _Destructive actions_ never sit between productive actions and the primary CTA. Place them at the end of the row or inside the dropdown menu.
+- _Only_ use a full `default` button for secondary actions when there are no more secondary actions in the header.
+
+#### When to show a CTA
+
+A primary action in the header is _not mandatory_. Add it only when the page supports a clear, high-frequency primary task.
+
+#### Common examples:
+
+| Page type             | Primary action                           |
+| --------------------- | ---------------------------------------- |
+| Create / Add resource | _Create_ or _Add_                        |
+| Read-only detail view | _None_ — use an Edit icon button instead |
+| List / Index view     | _Create_ or _Import_                     |
+
+### Behavior
+
+Visible header space is limited, especially on detail pages with long titles.
+
+- Show _up to 2 secondary icon buttons_ directly in the header.
+- Collapse remaining actions into a (3 dots) dropdown.
+- Priority order for visibility:
+
+  1. Most frequent non-primary action (usually Edit or Duplicate).
+  2. Contextual share action (Copy link).
+  3. Everything else into the menu.

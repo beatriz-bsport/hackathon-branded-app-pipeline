@@ -1,0 +1,87 @@
+---
+title: Checkbox
+description: Allows users to select one or multiple options from a set.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Checkbox"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Checkboxes support multi-selection in forms, filters, and lists where options are independent.
+
+##### Related Components
+
+- _Checkbox:_ Used when multiple selections are allowed.
+- _Toggle Switch:_ An alternative for binary options, often used for settings.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-checkbox--checkbox-checked-unchecked"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-checkbox--checkbox-checked-unchecked",
+      label: "Checked / unchecked",
+    },
+    {
+      id: "primitive-components-checkbox--checkbox-indeterminate-unchecked",
+      label: "Indeterminate / unchecked",
+    },
+  ]}
+/>
+
+### Best practices
+
+- Use checkboxes for multi-selection when users can choose multiple options independently.
+- Always provide a default state (checked or unchecked) that aligns with user expectations.
+- Use a disabled state when an option is unavailable but should remain visible.
+- When using a group of checkboxes, align them vertically for readability.
+- Implement `intermediate` state for checkboxes representing groups of sub-options.
+
+<DoDont>
+  <Do caption={"Use for multiple selections in lists, filters, or settings."} />
+  <Dont
+    caption={
+      "Don't use checkboxes for single selection—use radio buttons instead."
+    }
+  />
+  <Dont
+    caption={
+      'Don\'t use negative phrasing in labels (e.g., "Do not enable notifications").'
+    }
+  />
+  <Dont
+    caption={
+      "Avoid using it to toggle an item on/off. The Checkbox Field selection needs to be submitted with a `Button`, in contrast to `Toggle`, which has an immediate response in the UI."
+    }
+  />
+</DoDont>
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Checkbox" />
+
+## Accessibility
+
+<Accessibility
+  notes={
+    "Make sure the Radio Button is fully accessible via keyboard and screen readers. Use appropriate ARIA attributes to describe the radio button state, especially for `has-error` and `disabled` states. Ensure labels are associated with their respective radio buttons for clear accessibility."
+  }
+/>
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Checkbox`
+- **Storybook:** Browse the live examples under Guidelines.

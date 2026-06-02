@@ -1,0 +1,206 @@
+---
+title: Tabs
+description: Route-level navigation that groups related pages under a single header.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Tabs"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Tabs navigate between URLs — they are not an in-place view switcher. Use SegmentedControl for that.
+
+Tabs group related pages under a single header so the user can move between them without losing the context they share. In Kaizen, each tab is rendered as an anchor (`<a>`) and _always navigates to a different URL_.
+
+Tabs are a route-level navigation pattern, not an in-place view switcher. If you need to toggle between views _without_ changing the URL (e.g. _Tagged / Untagged_ inside a drawer, _List / Grid_ on the same screen), use _Segmented control_ or _Display_ options instead.
+
+The active tab is visually emphasized so the user always knows which page they are on. Tabs work horizontally (the default) or vertically, can carry an optional leading icon, and support a disabled state.
+
+### Use cases
+
+- _Sub-section navigation:_ Move between related sub-pages within a feature — e.g. _Overview / Members / Billing / Settings_ on a workspace page.
+- _Scoped filters as routes:_ Switch between predefined slices of the same list when each slice has its own URL — e.g. _All / Archived_ bookings.
+- _Object detail navigation:_ Move between sibling pages of a single object — e.g. _Profile / Bookings / Notes_ on a client page.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-tabs--tabs-with-internal-state"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-tabs--tabs-with-internal-state",
+      label: "Internal state",
+    },
+    {
+      id: "primitive-components-tabs--tabs-with-composition",
+      label: "Composition",
+    },
+  ]}
+/>
+
+### Live preview
+
+<Anatomy
+  parts={[
+    {
+      label: "Tab list",
+      description:
+        "the container that holds every tab and defines the orientation (horizontal or vertical).",
+    },
+    {
+      label: "Tab",
+      description:
+        "an individual anchor element composed of an optional icon and a label; clicking it navigates to its `href`.",
+    },
+    {
+      label: "Icon",
+      description:
+        "optional leading glyph inside a tab, used to reinforce meaning at a glance.",
+    },
+    {
+      label: "Label",
+      description: "the tab's text; should be short and descriptive.",
+    },
+    {
+      label: "Active indicator",
+      description:
+        "visual marker (an underline for horizontal, a side bar for vertical) showing which tab matches the current view.",
+    },
+    {
+      label: "Disabled tab",
+      description:
+        "a tab that is rendered but cannot be activated; used when a view exists but is currently unavailable to the user.",
+    },
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do
+    caption={
+      "Use tabs for peer-level views of the same subject. Tabs should sit inside a feature and switch between facets of one thing. The page identity (title, breadcrumbs) does not change when the user switches tabs."
+    }
+  />
+  <Do
+    caption={
+      "Keep labels short and parallel. One to three words, same part of speech across all tabs (all nouns or all verbs), so the user can scan the set in one glance."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use Tabs as primary site navigation. Top-level navigation belongs in the app shell (top nav, sidebar). Tabs are a sub-navigation pattern scoped to a single feature."
+    }
+  />
+  <Dont
+    caption={
+      "Don't yse Tabs to switch views in place. If the URL shouldn't change when the user toggles between views — e.g. Tagged / Untagged inside a drawer, List / Grid on the same page — use Segmented control instead. Tabs always navigate."
+    }
+  />
+  <Dont
+    caption={
+      "Don't mix unrelated content under one tab set. If the tabs don't share a common subject or page identity, they belong in separate routes or in a different navigation pattern."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Limit the number of tabs. Aim for 2–6 tabs. Beyond that, the set becomes hard to scan and likely wraps or scrolls; consider a different navigation pattern (sidebar, filter, dropdown).
+- Avoid disabling tabs without explanation. A disabled tab tells the user a section exists but they can't access it; pair it with a tooltip or supporting copy explaining why, or hide it entirely.
+
+</Callout>
+
+#### Variants
+
+###### Horizontal
+
+<DoDont>
+  <Do
+    caption={
+      "Use for 2–6 short labels at the top of a page or section, directly under the page header."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use when labels are long or numerous enough to wrap — switch to vertical or rethink the grouping."
+    }
+  />
+</DoDont>
+
+###### Vertical
+
+<DoDont>
+  <Do
+    caption={
+      "Use when labels are long, when there are more than ~6 items, or inside a sidebar-style settings layout."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use inside a narrow column where the labels would truncate — horizontal with scrolling, or a dropdown, is a better fit."
+    }
+  />
+</DoDont>
+
+#### Content
+
+#### `Common uses`
+
+##### `1. [Pattern name — e.g. Informational, no action]`
+
+`[Describe the use case context.] Set `[prop]: [value]`, `[prop]: [value]`, `[prop]: [value]`.`
+
+> `Example: "Placeholder"`
+
+##### `2. [Pattern name — e.g. Informational, no action]`
+
+`[Describe the use case context.] Set `[prop]: [value]`, `[prop]: [value]`, `[prop]: [value]`.`
+
+> `Example: "Placeholder"`
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Tabs" />
+
+### Behavior
+
+_Navigation:_ Each tab is an `<a>` element. Clicking a tab navigates to its `href` using the specified `target` (default `_self`). This means tabs participate in browser history — back/forward works as expected.
+
+_Selection:_ The active tab is determined by `value` (controlled) or `defaultValue` (uncontrolled). `onValueChange` fires when the user picks a different tab, allowing the host to sync state with the router.
+
+_Disabled state:_ A tab with `disabled: true` is not focusable, not clickable, and visually dimmed.
+
+_Orientation:_ `horizontal` (default) lays tabs left-to-right with the indicator below; `vertical` lays them top-to-bottom with the indicator on the inline-start edge.
+
+_Persistence:_ Active tab persistence follows the URL — because tabs are anchors, the active state is naturally tied to the current route.
+
+### Edge cases
+
+_Single tab:_ Don't render a Tabs component with only one tab — remove the navigation entirely and just show the content.
+
+_Tab matching no current route:_ When the URL doesn't match any tab's `href`, fall back to `defaultValue` or leave no tab visually active rather than guessing.
+
+_Overflowing tabs (horizontal):_ When the tab list is wider than its container, use dropdown menu.
+
+_All tabs disabled:_ Avoid this state — if every tab is disabled, the feature is effectively unavailable and should be replaced by an empty/locked state at the page level.
+
+_Icon-only tab:_ Not supported by default — always pair an icon with a visible label. If space is the constraint, switch orientation or pattern.
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Tabs`
+- **Storybook:** Browse the live examples under Guidelines.

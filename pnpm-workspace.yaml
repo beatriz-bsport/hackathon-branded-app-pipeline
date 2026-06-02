@@ -4,6 +4,8 @@ packages:
 
   # Applications
   - "apps/**"
+  # Docs site manages its own lockfile (keeps root pnpm-lock.yaml unchanged)
+  - "!apps/docs/**"
 
   # Tools
   - "tools/**"

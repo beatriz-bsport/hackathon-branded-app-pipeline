@@ -1,0 +1,61 @@
+{
+  "name": "@bsport/kaizen-docs",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Public documentation site for the Kaizen Design System.",
+  "type": "module",
+  "imports": {
+    "#src/*": "./*"
+  },
+  "scripts": {
+    "build": "pnpm run generate && vite build && pnpm run generate:static-routes",
+    "ci:build": "./scripts/ci-build.sh",
+    "ci:deploy": "./scripts/ci-deploy.sh",
+    "dev": "pnpm run generate && vite --port 4070",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "generate": "pnpm run generate:design-data && pnpm run generate:metadata && pnpm run generate:static-exports",
+    "generate:design-data": "pnpm run generate:props && pnpm run generate:tokens",
+    "generate:metadata": "pnpm run generate:nav && pnpm run generate:pages-manifest",
+    "generate:nav": "node scripts/generate-nav.mjs",
+    "generate:pages-manifest": "node scripts/generate-pages-manifest.mjs",
+    "generate:props": "node scripts/extract-props.mjs",
+    "generate:props:watch": "node scripts/watch-props.mjs",
+    "generate:static-exports": "node scripts/generate-static-exports.mjs",
+    "generate:static-routes": "node scripts/generate-static-routes.mjs",
+    "generate:tokens": "node scripts/extract-tokens.mjs",
+    "lint": "eslint .",
+    "preview": "vite preview --port 4070",
+    "typecheck": "tsc --noEmit --pretty false"
+  },
+  "dependencies": {
+    "@mdx-js/react": "^3.1.1",
+    "@mdx-js/rollup": "^3.1.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "chokidar": "^4.0.3",
+    "gray-matter": "^4.0.3",
+    "react": "^19.2.0",
+    "react-docgen-typescript": "^2.2.2",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.5",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-slug": "^6.0.0",
+    "remark-frontmatter": "^5.0.0",
+    "remark-gfm": "^4.0.1",
+    "tailwindcss": "^4.3.0",
+    "vite": "^5.4.11",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "file:../../tools/config/eslint-react",
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^22.13.15",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "eslint": "^9.39.4",
+    "postcss": "^8.5.15",
+    "prettier": "^3.8.3",
+    "typescript": "^5.6.3"
+  }
+}

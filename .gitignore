@@ -52,6 +52,10 @@ deployment-manifest
 # Storybook
 storybook-static
 
+# Kaizen docs — local generate output
+apps/docs/.generated/
+apps/docs/lib/generated/
+
 # Rollup
 .rollup.cache
 

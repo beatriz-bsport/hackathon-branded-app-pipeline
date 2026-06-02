@@ -1,0 +1,118 @@
+---
+title: Detail drawer
+description: A non-modal slide-in surface that reveals object detail without navigating away.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/DetailDrawer"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+DetailDrawer slides in from the right (desktop) or bottom (mobile) without blocking the page beneath it.
+
+DetailDrawer is a non-modal slide-in surface that reveals object detail without navigating the user away from their current list or board. It slides from the right on desktop and from the bottom on mobile. Because it's non-modal — no backdrop, no focus trap — the underlying page remains fully interactive, making it suited for triage, quick preview, and lightweight editing workflows where preserving list context is more important than giving the object full-screen real estate.
+
+- _List-item preview:_ Open a record from a list (issue, ticket, lead, order) to inspect or quick-edit without losing scroll position or applied filters.
+- _Triage and queue processing:_ Navigate through items with previous/next controls while the drawer stays open, reviewing and acting on each in sequence
+- _Linked record peek:_ Preview a related contact, project, or parent issue from inside another record so the user doesn't lose their place.
+
+_TBD_
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-detaildrawer--primary"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-detaildrawer--primary",
+      label: "Detail drawer",
+    },
+    {
+      id: "primitive-components-detaildrawer--with-list-integration",
+      label: "With list integration",
+    },
+  ]}
+/>
+
+### Best practices
+
+<DoDont>
+  <Do
+    caption={
+      "Do use when the user is encountering objects in flow — browsing a list, scanning a queue, reviewing notifications — and wants to peek without context-switching. The drawer preserves their place."
+    }
+  />
+  <Do
+    caption={
+      "Do provide previous/next navigation via `actionsConfig` whenever the drawer is opened from a list, so users can move through items without closing and reopening."
+    }
+  />
+  <Dont
+    caption={
+      "Don't stack drawers. If content inside a drawer needs to open another object, either replace the drawer's contents (with a back affordance) or navigate to a full page."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use for primary work destinations. If the user intentionally navigated to this object (rather than encountering it in flow), send them to a page."
+    }
+  />
+  <Dont caption={"Don't use for object creation - use modals instead."} />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Caution if users regularly spend more than a minute inside the drawer. That's a signal the object deserves a full page. Add a "promote to full page" affordance rather than expanding the drawer's scope.
+
+</Callout>
+
+#### Edge cases
+
+| Scenario                            | Behavior                                                                                                                                   |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| _Item deleted while drawer is open_ | Show a toast confirming deletion, auto-advance to the next item.                                                                           |
+| _Unsaved changes on close_          | The drawer itself has no built-in confirmation. The consuming component is responsible for intercepting `onClose` and prompting if needed. |
+| _Network error loading content_     | Show an error state inside the drawer body with a retry affordance. Don't close the drawer.                                                |
+| _Drawer opened with no content_     | Show a meaningful empty state, never a blank panel.                                                                                        |
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="DetailDrawer" />
+
+### Behavior
+
+#### Opening and closing
+
+The drawer slides in from the right edge with a smooth CSS transition. On mobile, it slides from the bottom. Controlled entirely by `isOpen` — the drawer has no internal open/close state.
+
+#### Dismissal
+
+Pressing Escape fires `onClose`. There is no click-outside dismissal because the drawer is non-modal and the page beneath it remains interactive.
+
+#### Navigation controls
+
+When `actionsConfig` includes previous/next actions, the buttons appear in the header. Tooltip placement is configurable per action.
+
+#### Responsiveness
+
+Desktop: slides from right, occupies a fixed-width column. Mobile: slides from bottom, full-width.
+
+#### Animation
+
+CSS transitions handle open and close. No JavaScript animation libraries required.
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/DetailDrawer`
+- **Storybook:** Browse the live examples under Guidelines.

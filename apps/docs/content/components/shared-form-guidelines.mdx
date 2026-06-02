@@ -1,0 +1,80 @@
+---
+title: Shared form guidelines
+description: Shared elements and conventions for Kaizen form controls.
+category: components
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Every form control shares label, control, mandatory indicator, and helper text patterns.
+
+##### Shared Elements
+
+All form controls include the following elements:
+
+1. _Label_
+   A descriptive text that explains the purpose of the form control. Labels are essential for accessibility, providing context for the control, and should be concise yet informative.
+2. _Control_
+   The interactive element of the form, such as a checkbox, radio button, toggle, text field, select, or text area. This is where the user directly interacts with the form.
+3. _Mandatory Indicator_
+   An asterisk (\*) or other visual cue placed next to the label to indicate that the field is required. It helps users identify which fields they must complete before submitting the form.
+4. _Helper Text_
+   Optional text placed below the control that offers additional guidance or clarifies what is expected from the user. Helper text should be brief and supportive, helping users avoid errors.
+
+### Related Components
+
+- _Checkbox_
+- _Radio Button_
+- _Toggle_
+- _Select_
+- _Text Field_
+- _Text Area_
+
+### Usage Guidelines
+
+<DoDont>
+  <Do
+    caption={"Provide clear and descriptive labels for every form control."}
+  />
+  <Do
+    caption={"Use mandatory indicators consistently to mark required fields."}
+  />
+  <Do
+    caption={
+      "Include `helper-text` when additional explanation or instructions are needed."
+    }
+  />
+  <Do
+    caption={
+      "Apply the `has-error` and `error-text` properties to provide feedback when the input is incorrect."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Avoid cluttering the UI with excessive `helper-text`; keep it concise and relevant.
+
+</Callout>
+
+## Guidelines
+
+## Code & Specs
+
+## Accessibility
+
+<Accessibility
+  notes={
+    "Labels: Ensure that all labels are properly associated with their corresponding form controls using appropriate HTML attributes or ARIA labels. This guarantees that assistive technologies can correctly identify and describe the control. Control: Design the control element to be accessible through various input methods, including mouse, touch, and keyboard. Focus states should be distinct to aid navigation. Helper Text: Write helper text that is concise and meaningful, to help users understand the required input. Ensure it is also accessible to screen readers."
+  }
+/>
+
+## Resources
+
+- **Storybook:** Browse the live examples under Guidelines.

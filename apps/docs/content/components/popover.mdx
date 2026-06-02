@@ -1,0 +1,122 @@
+---
+title: Popover
+description: A floating overlay for contextual information or lightweight actions.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Popover"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Popover is the low-level primitive behind DropdownMenu, Filter, and DatePicker.
+
+Popover surfaces contextual information or lightweight actions in a floating panel attached to a trigger element. It uses a compound-component pattern (`Popover`, `Popover.Anchor`, `Popover.Content`) that gives consumers full control over the trigger mechanism and overlay content. The overlay is rendered via a React portal to `document.body`, ensuring correct stacking above all other UI. Popover is the low-level primitive behind higher-level patterns such as DropdownMenu, Filter, and DatePicker.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-popover--popover-opening-on-click"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-popover--popover-opening-on-click",
+      label: "Open on click",
+    },
+    {
+      id: "primitive-components-popover--popover-opening-on-hover",
+      label: "Open on hover",
+    },
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do
+    caption={
+      "Use Popover when the content is contextual to a specific trigger and does not need to block the rest of the page. It keeps the user in flow."
+    }
+  />
+  <Do
+    caption={
+      "Keep popover content concise. If you need scrollable lists, a form with many fields, or multi-step flows, consider a Modal or DetailDrawer instead."
+    }
+  />
+  <Dont
+    caption={
+      "Don't put critical, persistent information inside a Popover. Popovers are ephemeral; anything the user must not miss belongs in an Alert or inline on the page."
+    }
+  />
+  <Dont
+    caption={
+      "Don't nest a Popover inside another Popover. Stacking portals and managing focus across nested overlays is fragile and confusing for users."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Caution when using hover as the only trigger: hover popovers are inaccessible on touch devices. Pair hover with click or focus, or use Tooltip for non-interactive hover content.
+- Caution with multiple simultaneous popovers. The component does not manage stacking order between sibling popovers — avoid designs where two can be open at once.
+
+</Callout>
+
+#### Content
+
+#### `Tbd`
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Popover" />
+
+### Behavior
+
+###### Dismissal
+
+- _Escape key:_ Closes the popover immediately via `useEscapeKeydownListener`.
+- _Outside click:_ Closes the popover when the user clicks outside the Content panel via `useOutsideClickListener`.
+- _Tab out:_ When the user tabs past the last focusable element (or Shift+Tabs before the first), the popover closes automatically.
+- _Programmatic:_ The render-prop exposes `setIsPopoverOpened(false)` for consumer-driven close (e.g. after an action completes).
+
+###### Animation
+
+Content uses a mount → visible two-phase transition: the element is inserted into the DOM (`isMounted`), then after a 10 ms tick, `isVisible` flips to `true` triggering `transition ease-out duration-default` (opacity + position). Closing reverses this with a 200 ms delay before unmount.
+
+###### Placement
+
+Supports 8 positions: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `right`. Default is `bottom-left`. Positioning is absolute (pixel-based via `useAbsolutePlacementStyles`), recalculated on scroll, resize, and element size changes. Auto-flip: if the preferred placement collides with the viewport, the opposite side is tried. If both fail, the side with the most available space is selected and `maxHeight` is applied. A 5 px offset separates Content from the Anchor on every axis.
+
+###### Responsiveness
+
+Popover does not have built-in responsive breakpoints. On narrow viewports, the auto-flip and `maxHeight` constraint system adapts the panel. For very small screens, consider replacing Popover with a bottom-sheet pattern or a full-screen Modal.
+
+1. _Contextual details:_ Show supplementary information about an element (e.g. a user card on avatar hover) without navigating away from the current view.
+2. _Inline actions:_ Present a small set of actions tied to a specific item — for example, a "More options" button that opens edit / delete controls.
+3. _Form helpers:_ Attach a mini-form or picker (color, date, time) to an input field so the user can make a selection in place.
+4. _Confirmation prompts:_ Display a lightweight "Are you sure?" confirmation anchored to the triggering button, avoiding a full Modal for simple decisions.
+5. _Rich tooltips:_ Provide richer content than a plain Tooltip — formatted text, links, or small illustrations — while keeping the same anchor-relative positioning.
+
+### Edge cases
+
+- _Anchor scrolls out of view_ — The Content repositions on scroll/resize via `ResizeObserver` + `scroll`/`resize` listeners. _Note:_ the current implementation does not auto-hide Content when the Anchor is fully off-screen — this is a known improvement candidate.
+- _Content overflows the viewport_ — Placement auto-flips using a priority list (e.g. `bottom-left` → `top-left`). If both primary placements overflow, the system picks the side with more free space and applies a `maxHeight` constraint with `overflow-y: auto`.
+- _No interactive children_ — When Content contains only static text (no buttons, links, or inputs), the component automatically sets `role="tooltip"` instead of `role="dialog"`.
+- `opened`_ prop controlled externally_ — The `opened` prop seeds the initial state. After mount, internal state takes over. To fully control open/close from outside, use the render-prop `setIsPopoverOpened` in Anchor.
+- _fullWidth mode_ — When `fullWidth=\{true\}`, the root wrapper switches from `w-fit` to `w-full`, so the Anchor and Content inherit the parent's width — useful inside form layouts.
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Popover`
+- **Storybook:** Browse the live examples under Guidelines.

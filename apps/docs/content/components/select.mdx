@@ -1,0 +1,211 @@
+---
+title: Select
+description: A custom dropdown for choosing a single value from a predefined list.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Select"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Select replaces native dropdowns with richer styling, grouping, and custom item rendering.
+
+Select is a custom dropdown component that displays a trigger button which, when clicked or activated via keyboard, reveals a popover containing a list of selectable items. It supports both controlled and uncontrolled modes, making it flexible for use in forms or standalone UI contexts. Select communicates the currently chosen option through the trigger button label and integrates with native form submission via the `name` prop.
+
+### Use cases
+
+- _Form fields:_ Use inside forms where a user must choose a single value from a predefined list (e.g. sport type, membership plan, country).
+- _Settings and preferences:_ Use in configuration panels where users pick from a small set of mutually exclusive options.
+- **Linked fields: **Use when selecting a value should trigger a change elsewhere on the page, such as filtering a list or updating a related field.
+- _Inline option picking:_ Use anywhere a native `<select>` element would be appropriate but richer styling or custom items are needed.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-select--primary"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-select--primary",
+      label: "Select",
+    },
+    {
+      id: "primitive-components-select--controlled-value",
+      label: "Controlled",
+    },
+  ]}
+/>
+
+### Live preview
+
+<Anatomy
+  parts={[
+    {
+      label: "Trigger button",
+      description:
+        "The visible button that displays the current value (or placeholder label) and a chevron icon; clicking it opens the popover.",
+    },
+    {
+      label: "Label",
+      description:
+        "The accessible label displayed above the trigger, describing what the field represents.",
+    },
+    {
+      label: "Helper text",
+      description:
+        "Secondary descriptive text displayed below the trigger providing guidance.",
+    },
+    {
+      label: "Error text",
+      description:
+        "Validation message displayed below the trigger when the field is in a `critical` status.",
+    },
+    {
+      label: "Icon left (optional)",
+      description:
+        "An icon displayed to the left of the selected value inside the trigger button.",
+    },
+    {
+      label: "Chevron icon",
+      description:
+        "Always-visible caret inside the trigger button indicating the component is interactive.",
+    },
+    {
+      label: "Popover",
+      description:
+        "The floating panel that appears on trigger activation, containing the list of selectable items",
+    },
+    {
+      label: "Option items",
+      description:
+        "Individual selectable rows inside the popover (`MenuOption` type).",
+    },
+    {
+      label: "Divider items",
+      description:
+        "Visual separators between groups of options (`DividerItem` type).",
+    },
+    {
+      label: "Title items",
+      description:
+        "Non-selectable heading rows used to label groups of options (`TitleItem` type).",
+    },
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do
+    caption={
+      "Always provide a `label` so users and screen readers understand what they are selecting."
+    }
+  />
+  <Do
+    caption={
+      "Use `helperText` to give users context about what the field affects before they open the popover."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use Select for binary choices (yes/no, on/off). Use a Toggle or Checkbox instead."
+    }
+  />
+  <Dont
+    caption={
+      "Don't show an error state (`status: critical`, `errorText`) before the user has interacted with the field. Validate on blur or on form submission only."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Avoid populating `items` with more than ~20 options without grouping them using `TitleItem` dividers. Very long flat lists are hard to scan.
+- Use `fullWidth` only when the Select is part of a form column layout. In toolbars or compact UIs, let the trigger size itself to its content.
+
+</Callout>
+
+#### Status
+
+##### Critical
+
+<DoDont>
+  <Do
+    caption={
+      'Pair `status: critical` with a clear, actionable `errorText` (e.g. "Please select a sport type").'
+    }
+  />
+  <Dont
+    caption={
+      "Don't use `critical` as a permanent decoration — only apply it when there is a real validation error."
+    }
+  />
+</DoDont>
+
+##### Positive
+
+<DoDont>
+  <Do
+    caption={
+      "Use to confirm a valid selection in multi-step flows where the user needs reassurance."
+    }
+  />
+  <Dont
+    caption={
+      "Don't apply `positive` automatically on every selection; reserve it for contexts where confirmation adds value."
+    }
+  />
+</DoDont>
+
+#### Content
+
+TBD
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Select" />
+
+### Behavior
+
+#### Opening and closing
+
+The popover opens on trigger button click or via `Enter`/`Space` when the trigger is focused. It closes when an option is selected, when `Escape` is pressed, or when focus moves outside the component.
+
+#### Selection
+
+Selecting an option updates the trigger label to reflect the chosen value. In _controlled mode_, the parent is responsible for updating `value` via `onSelect`. In _uncontrolled mode_, the component manages its own state initialised by `defaultValue`.
+
+#### Controlled vs. uncontrolled
+
+The popover defaults to `bottom-left`. Use `popoverPlacement` to reposition it when the component is near a viewport edge.
+
+#### Responsiveness
+
+When `fullWidth` is `true`, the trigger expands to fill its container. In compact layouts, leave `fullWidth` unset and let the trigger size naturally.
+
+### Edge cases
+
+#### No items provided
+
+Popover opens but renders empty. Always ensure `items` has at least one selectable option.
+
+#### All items disabled
+
+The popover opens but no option can be selected. Provide guidance via `helperText`.
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Select`
+- **Storybook:** Browse the live examples under Guidelines.

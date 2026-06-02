@@ -1,11 +1,9 @@
-import type { PropsWithChildren, ReactElement, ReactNode } from "react";
+import {
+  QueryBoundary as BackboneQueryBoundary,
+  type QueryBoundaryProps as BackboneQueryBoundaryProps,
+} from "@bsport/sm-backbone";
 
-import { QueryBoundary as BackboneQueryBoundary } from "@bsport/sm-backbone";
-
-export type QueryBoundaryProps = PropsWithChildren<{
-  loadingFallback: ReactNode;
-  errorFallback: (props: { error: Error; onRetry: () => void }) => ReactElement;
-}>;
+export type QueryBoundaryProps = Omit<BackboneQueryBoundaryProps, "appName">;
 
 export const QueryBoundary = ({
   children,

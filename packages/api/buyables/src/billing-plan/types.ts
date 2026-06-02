@@ -79,6 +79,13 @@ export type BillingPlanPause = {
 
 export type FetchBillingPlansParams = {
   id__in?: number[];
+  contract?: number;
+  ordering?: string;
 };
+
+export type FetchPaginatedMembershipPlansParams = {
+  page?: number;
+  page_size?: number;
+} & FetchBillingPlansParams;
 
 // #endregion

@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { type FC, useState } from "react";
 
 import {
   DetailsLayout,
@@ -7,7 +7,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
-import { WidgetsSettingsShell } from "#src/components/widgets-settings/widgets-settings-shell";
+import { WidgetsSettingsGeneralShell } from "#src/components/widgets-settings/widgets-settings-general-shell";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -25,12 +25,26 @@ const redirectToLegacyTab = (tabIdentifier: string) => {
   }
 };
 
+const renderTabContent = (tabIdentifier: string) => {
+  if (tabIdentifier === GENERAL_TAB) {
+    return <WidgetsSettingsGeneralShell />;
+  }
+
+  return null;
+};
+
 const WidgetsSettingsPage: FC = () => {
   const { t } = useTranslation("common");
+  const [activeTab, setActiveTab] = useState(GENERAL_TAB);
+
+  const handleTabChange = (tabIdentifier: string) => {
+    setActiveTab(tabIdentifier);
+    redirectToLegacyTab(tabIdentifier);
+  };
 
   const pageTabs: TabsProps = {
-    value: GENERAL_TAB,
-    onValueChange: redirectToLegacyTab,
+    value: activeTab,
+    onValueChange: handleTabChange,
     orientation: "horizontal",
     tabs: [
       {
@@ -54,11 +68,11 @@ const WidgetsSettingsPage: FC = () => {
         pageTitle={t("widgetsSettings.title")}
         pageTabs={pageTabs}
       />
-      <DetailsLayout.Content className="max-w-none">
+      <DetailsLayout.Content className="max-w-none !p-0">
         <QueryBoundary
           loadingFallback={<Loader className="h-full w-full" size="xl" />}
         >
-          <WidgetsSettingsShell />
+          {renderTabContent(activeTab)}
         </QueryBoundary>
       </DetailsLayout.Content>
     </DetailsLayout>

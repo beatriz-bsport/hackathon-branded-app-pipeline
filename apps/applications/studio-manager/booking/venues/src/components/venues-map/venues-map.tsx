@@ -1,8 +1,10 @@
-import { type FC, useMemo } from "react";
+import { type FC, Fragment, useMemo } from "react";
+import { Link } from "react-router";
 
 import type { Establishment } from "@bsport/api-book";
 import { Body } from "@bsport/kaizen-primitive-core";
 
+import { ABSOLUTE_ROUTES } from "#src/urls";
 import { groupVenuesByCoordinates } from "#src/utils/group-venues";
 
 import { type LatLng, MapPin, MapView } from "./";
@@ -28,7 +30,6 @@ export const VenuesMap: FC<Props> = ({
     <MapView bounds={bounds} height={height}>
       {groups.map((group) => {
         const id = group.venues.map((venue) => venue.id).join(",");
-        const title = group.venues.map((venue) => venue.title).join(", ");
         const description = group.venues[0].location.address;
         return (
           <MapPin
@@ -39,7 +40,18 @@ export const VenuesMap: FC<Props> = ({
             }
           >
             <Body size="lg" weight="strong">
-              {title}
+              {group.venues.map((venue, venueIndex) => (
+                <Fragment key={venue.id}>
+                  <Link
+                    className="text-inherit underline-offset-2 hover:underline"
+                    to={ABSOLUTE_ROUTES.DETAIL(venue.id)}
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    {venue.title}
+                  </Link>
+                  {venueIndex < group.venues.length - 1 ? ", " : null}
+                </Fragment>
+              ))}
             </Body>
             {description && (
               <Body size="md" weight="weak">

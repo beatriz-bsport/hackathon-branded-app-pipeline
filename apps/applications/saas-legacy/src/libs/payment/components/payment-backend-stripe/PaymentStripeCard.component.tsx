@@ -9,6 +9,9 @@ import React, {
   useState,
 } from 'react';
 
+import { snackbarError } from '#src/libs/snackbar/actions';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getStripeMinimumAmountCts } from '#src/libs/payment/utils';
 import clsx from 'clsx';
 import Immutable from 'seamless-immutable';
 // eslint-disable-next-line bsport/no-redux-in-component
@@ -362,6 +365,24 @@ const PaymentStripeCard = forwardRef(
             return;
           }
 
+          const isBasketBelowStripeMinimum =
+            !!basketTotalPriceCts &&
+            basketTotalPriceCts < getStripeMinimumAmountCts();
+
+          if (isBasketBelowStripeMinimum) {
+            setPaymentPageProcessing(false);
+
+            dispatch(
+              snackbarError(
+                t('paymentPanel.actions.basketBelowStripeMinimum', {
+                  minimum: getCurrencyDisplayWithPrice(
+                    getStripeMinimumAmountCts() / 100,
+                  ),
+                }),
+              ),
+            );
+            return;
+          }
           if (
             (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
             basketTotalPriceCts !== data

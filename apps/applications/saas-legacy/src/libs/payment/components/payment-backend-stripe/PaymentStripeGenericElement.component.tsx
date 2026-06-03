@@ -11,6 +11,9 @@ import React, {
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
+import { snackbarError } from '#src/libs/snackbar/actions';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { getStripeMinimumAmountCts } from '#src/libs/payment/utils';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
@@ -175,6 +178,25 @@ export const PaymentStripeGenericElement = forwardRef(
             return;
           }
 
+          const isBasketBelowStripeMinimum =
+            !!basketTotalPriceCts &&
+            basketTotalPriceCts < getStripeMinimumAmountCts();
+
+          if (isBasketBelowStripeMinimum) {
+            setPaymentPageProcessing(false);
+
+            dispatch(
+              snackbarError(
+                t('paymentPanel.actions.basketBelowStripeMinimum', {
+                  minimum: getCurrencyDisplayWithPrice(
+                    getStripeMinimumAmountCts() / 100,
+                  ),
+                }),
+              ),
+            );
+
+            return;
+          }
           if (
             (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
             basketTotalPriceCts !== data

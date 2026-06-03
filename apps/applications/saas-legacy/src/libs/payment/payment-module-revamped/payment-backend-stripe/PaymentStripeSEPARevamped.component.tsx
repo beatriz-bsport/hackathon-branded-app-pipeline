@@ -9,6 +9,8 @@ import React, {
   useState,
 } from 'react';
 
+import { snackbarError } from '#src/libs/snackbar/actions';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 // eslint-disable-next-line bsport/no-redux-in-component
@@ -36,6 +38,8 @@ import Alert from '#Fabrique/Alert';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group.js';
 
 import { STRIPE_SEPA_ERROR_CODES } from '#src/libs/payment/constants';
+
+import { getStripeMinimumAmountCts } from '#src/libs/payment/utils';
 
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#src/libs/payment/api';
 import { confirmStripePayment as confirmStripePaymentAction } from '#src/libs/payment/payment-module-revamped/actions';
@@ -235,6 +239,25 @@ export const PaymentStripeSEPARevamped = forwardRef(
           const basketItemsChecked = await checkItemsBasket(basketId);
           if (!basketItemsChecked) {
             setPaymentPageProcessing(false);
+            return;
+          }
+
+          const isBasketBelowStripeMinimum =
+            !!basketTotalPriceCts &&
+            basketTotalPriceCts < getStripeMinimumAmountCts();
+
+          if (isBasketBelowStripeMinimum) {
+            setPaymentPageProcessing(false);
+
+            dispatch(
+              snackbarError(
+                t('paymentPanel.actions.basketBelowStripeMinimum', {
+                  minimum: getCurrencyDisplayWithPrice(
+                    getStripeMinimumAmountCts() / 100,
+                  ),
+                }),
+              ),
+            );
             return;
           }
 

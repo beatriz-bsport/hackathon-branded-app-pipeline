@@ -5,6 +5,7 @@ import { ModalStepper } from "@bsport/kaizen-primitive-core";
 import { useRegisterBooking } from "#src/hooks/booking/actions/use-register-booking";
 import { useRetrievePass } from "#src/hooks/buyables/fetch/use-retrieve-pass";
 import { useQuickInvoice } from "#src/hooks/invoice/actions/use-quick-invoice";
+import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { resetBookingFlow } from "#src/stores/booking-flow/actions";
 import { getDiscountedPrice } from "#src/stores/booking-flow/get-discounted-price";
 import { useBookingFlowStore } from "#src/stores/booking-flow/store";
@@ -15,6 +16,7 @@ import { ConfirmationStep } from "./confirmation-step";
 import { MemberSelectionStep } from "./member-selection-step";
 import { hasDiscountErrors } from "./new-pass-form/get-discount-errors";
 import { PassSelectionStep } from "./pass-selection-step";
+import { SpotSelectionStep } from "./spot-selection-step";
 
 type BookingFlowModalProps = {
   isOpen: boolean;
@@ -54,6 +56,9 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
   const discount = useBookingFlowStore((state) => state.discount);
   const billingGroupId = useBookingFlowStore((state) => state.billingGroupId);
 
+  const { data: session } = useRetrieveSession(sessionId);
+  const hasBlueprint = session.room_blueprint != null;
+
   const isNewPassRoute = paymentPackId !== null && !consumerPaymentPackId;
 
   const { data: selectedNewPass } = useRetrievePass(paymentPackId);
@@ -92,6 +97,15 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
           return !hasDiscountErrors(discount, passPrice);
         },
       },
+      ...(hasBlueprint
+        ? [
+            {
+              label: t("bookingFlow.steps.spotSelection"),
+              content: <SpotSelectionStep sessionId={sessionId} />,
+              validate: () => spotIndex !== null,
+            },
+          ]
+        : []),
       {
         label: t("bookingFlow.steps.confirmation"),
         content: <ConfirmationStep sessionId={sessionId} />,
@@ -104,6 +118,8 @@ export const BookingFlowModal: FC<BookingFlowModalProps> = ({
       discount,
       selectedNewPass,
       sessionId,
+      hasBlueprint,
+      spotIndex,
       t,
     ],
   );

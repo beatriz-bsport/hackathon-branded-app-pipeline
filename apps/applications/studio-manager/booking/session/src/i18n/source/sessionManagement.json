@@ -135,6 +135,7 @@
       "title": "Spot status legend",
       "free": "Free",
       "taken": "Taken",
+      "count": ": {{count}}",
       "selected": "Selected",
       "current": "Current spot"
     },
@@ -385,7 +386,14 @@
       "errorToast": "An error occurred while booking this client. Please try again later.",
       "quickInvoiceErrorToast": "An error occurred while creating an invoice for this booking. Please try again later.",
       "newPass": "New pass",
-      "paymentDueAfterBooking": "Payment due after booking"
+      "paymentDueAfterBooking": "Payment due after booking",
+      "spotLabel": "Spot: {{label}}",
+      "sessionDetails": "Session details"
+    },
+    "spotSelection": {
+      "title": "Select an available spot",
+      "selectedSpot": "Selected: spot {{spot}}",
+      "selectedNone": "Selected: none"
     },
     "newPass": {
       "searchPlaceholder": "Choose pass",

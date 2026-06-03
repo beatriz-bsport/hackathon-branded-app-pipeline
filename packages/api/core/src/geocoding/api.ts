@@ -27,6 +27,7 @@ import type {
 } from "./types";
 
 const GEOCODING_API_URL = "https://maps.googleapis.com/maps/api/geocode/json";
+const GOOGLE_MAPS_GEOCODING_API_KEY = "AIzaSyCz0gy4ESe5awksepoS0ENTBTf1sKytIjI"; // gitleaks:allow
 
 const MIN_QUERY_LENGTH = 3;
 const SUGGESTIONS_STALE_TIME = 60 * 1000; // 1 minute
@@ -67,13 +68,12 @@ export function parseGeocodingResult(
 
 export async function fetchAddressSuggestions(params: {
   searchText: string;
-  apiKey: string;
 }): Promise<AddressSuggestion[]> {
-  const { searchText: rawSearchText, apiKey } = params;
+  const { searchText: rawSearchText } = params;
   const searchText = rawSearchText.replace(/\s+/g, " ").trim();
   const query = new URLSearchParams({
     address: searchText,
-    key: apiKey,
+    key: GOOGLE_MAPS_GEOCODING_API_KEY,
   });
 
   const response = await globalThis.fetch(
@@ -95,15 +95,14 @@ export async function fetchAddressSuggestions(params: {
 
 export const fetchAddressSuggestionsQueryOptions = (params: {
   searchText: string;
-  apiKey: string;
-}) =>
-  queryOptions({
-    queryKey: geocodingKeys.search(
-      params.searchText.replace(/\s+/g, " ").trim(),
-    ),
-    queryFn: () => fetchAddressSuggestions(params),
-    enabled:
-      params.apiKey.length > 0 &&
-      params.searchText.trim().length >= MIN_QUERY_LENGTH,
+}) => {
+  const searchText = params.searchText.replace(/\s+/g, " ").trim();
+  const queryFn = fetchAddressSuggestions.bind(null, { searchText });
+
+  return queryOptions({
+    queryKey: geocodingKeys.search(searchText),
+    queryFn,
+    enabled: searchText.length >= MIN_QUERY_LENGTH,
     staleTime: SUGGESTIONS_STALE_TIME,
   });
+};

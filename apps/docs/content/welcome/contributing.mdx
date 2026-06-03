@@ -1,0 +1,83 @@
+---
+title: Contributing
+description: How to add or update Kaizen documentation pages.
+category: welcome
+---
+
+These docs live in the bsport monorepo at `apps/docs`. Every page is an MDX
+file under `content/`. Adding a new page is mostly editing markdown and
+pushing — no build orchestration to worry about.
+
+## 1. Find the right place
+
+Each top tab maps to a folder under `content/`. Sub-pages live as siblings of
+the section's `index.mdx`.
+
+<FileTree
+  rootLabel="apps/docs/content/"
+  entries={[
+    { name: "_meta.json", comment: "top-tab order" },
+    {
+      name: "welcome",
+      children: [
+        { name: "_meta.json", comment: "sidebar order for Welcome" },
+        { name: "index.mdx" },
+        { name: "installation.mdx" },
+        { name: "contributing.mdx" },
+        { name: "changelog.mdx" },
+      ],
+    },
+    {
+      name: "foundations",
+      children: [
+        { name: "_meta.json" },
+        { name: "index.mdx" },
+        { name: "color.mdx" },
+        { name: "tokens.mdx" },
+      ],
+    },
+    {
+      name: "components",
+      children: [
+        { name: "_meta.json" },
+        { name: "index.mdx" },
+        { name: "button.mdx" },
+      ],
+    },
+  ]}
+/>
+
+## 2. Fill in the frontmatter
+
+Every MDX file starts with YAML frontmatter validated during
+`generate:pages-manifest`. A
+missing or invalid field fails the build.
+
+```yaml
+---
+title: Toast
+description: Toasts surface short, non-blocking messages about an action's result.
+status: stable
+category: components
+tags: [feedback, transient]
+since: "0.1.0"
+related: [Button]
+---
+```
+
+## 3. Use the MDX components
+
+Reach for the canonical templates over plain prose where you can — they keep
+the system consistent across pages.
+
+<Callout type="info" title="Back Office vs legacy back office">
+  New work goes in the Back Office (`apps/applications/studio-manager/**`),
+  `packages/api/**`, and `packages/design-system/kaizen/**`. Legacy back office
+  zones (`saas-legacy`, `fabric`, `common-legacy`) are off-limits for new
+  features.
+</Callout>
+
+## 4. Build and publish
+
+The repo _is_ the storage. Run the docs build from the monorepo, then publish
+the generated `apps/docs/dist/` folder to the configured static host.

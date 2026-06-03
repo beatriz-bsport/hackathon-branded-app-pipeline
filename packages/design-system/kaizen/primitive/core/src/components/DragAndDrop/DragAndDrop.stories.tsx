@@ -201,7 +201,7 @@ export const AccessibleDragAndDrop: Story = {
       <DragAndDrop
         isDnDActive={args.isDnDActive}
         isDropAllowed={isDropAllowed}
-        onDrop={(draggedId, droppedTargetId) => handleDrop(droppedTargetId)}
+        onDrop={(_draggedId, droppedTargetId) => handleDrop(droppedTargetId)}
         className="flex flex-col gap-lg items-center"
       >
         <Title htmlVariant="h4">Accessible Drag and Drop</Title>

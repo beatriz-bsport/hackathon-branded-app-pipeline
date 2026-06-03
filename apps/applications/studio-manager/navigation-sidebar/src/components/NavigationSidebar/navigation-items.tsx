@@ -50,6 +50,18 @@ const BadgeNew: React.FC = () => {
   );
 };
 
+const BadgeBeta: React.FC = () => {
+  const { t } = useTranslation("default");
+
+  return (
+    <Badge
+      size="sm"
+      color="main"
+      text={t("common.beta", { defaultValue: "Beta" })}
+    />
+  );
+};
+
 /**
  * Override the navigation url configuration when the item href should be conditioned by a feature flag.
  * -> Use it when the legacy page already exists, is always displayed, and should be the fallback.
@@ -119,6 +131,9 @@ export const useNavigationElements = ({
   const isStaffPageRevampEnabled = useNavFlag(NavFlags.SETTINGS_STAFF_PAGE);
   const isRolePageRevampEnabled = useNavFlag(NavFlags.SETTINGS_ROLE_PAGE);
   const isVenuesPageEnabled = useNavFlag(NavFlags.BOOKING_VENUES_PAGE);
+  const isWidgetsSettingsPageEnabled = useNavFlag(
+    NavFlags.BOOKING_WIDGETS_SETTINGS_PAGE,
+  );
 
   // Company Theme flags
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -347,6 +362,7 @@ export const useNavigationElements = ({
               label: t("menus.marketing.smartfill"),
               ...navigationUrls.smartfill,
               hidden: !isSmartfillEnabled,
+              endSlot: <BadgeBeta />,
             },
             {
               id: "audience",
@@ -508,7 +524,10 @@ export const useNavigationElements = ({
         {
           id: "widgets",
           label: t("menus.settings.widgets"),
-          ...navigationUrls.settings_widgets,
+          ...flaggedNavigationUrl({
+            enabled: isWidgetsSettingsPageEnabled,
+            navigationItem: navigationUrls.settings_widgets,
+          }),
         },
         {
           id: "permissions",

@@ -107,6 +107,7 @@ export const WellpassConfigurationModal = ({
     >
       <ControlledForm id={formId} onSubmit={handleSubmit} {...methods}>
         <div className="flex flex-col gap-md">
+          <p>{t("wellpass.modal.description")}</p>
           <EstablishmentField
             label={t("wellpass.form.fields.establishments.label")}
             placeholder={t("wellpass.form.fields.establishments.placeholder")}

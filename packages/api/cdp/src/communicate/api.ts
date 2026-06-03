@@ -30,11 +30,13 @@ import type {
   SendCampaignPayload,
   UpdateScheduledEmailCampaignPayload,
 } from "./types";
+import { getCampaignSentListTargetParams } from "./utils";
 
 export const communicateKeys = {
   all: ["@api-cdp", "communicate"] as const,
   campaignSentList: ({
     smartlist,
+    segment_identifier,
     page,
     page_size,
     automated_campaign_id,
@@ -46,7 +48,8 @@ export const communicateKeys = {
       ...communicateKeys.all,
       "campaign-sent",
       "list",
-      smartlist,
+      smartlist ?? null,
+      segment_identifier ?? null,
       page ?? DEFAULT_PAGE,
       page_size ?? DEFAULT_PAGE_SIZE_RECIPIENTS,
       automated_campaign_id ?? null,
@@ -136,6 +139,9 @@ export function getCommunicationPreviewKeyPayload(
   if (request.target.type === "members") {
     return [...base, [...request.target.member_ids]];
   }
+  if (request.target.type === "segment") {
+    return [...base, request.target.segment_identifier];
+  }
   return [...base, request.target.communication_scheduled_id];
 }
 
@@ -154,8 +160,8 @@ export const fetchCampaignSentListAPI = async (
   fetch: Fetch<PaginatedResponse<CampaignSent>>,
   params: FetchCampaignSentParams,
 ): Promise<PaginatedResponse<CampaignSent>> => {
-  const urlParams = buildUrlParams({
-    smartlist: params.smartlist,
+  const targetParams = getCampaignSentListTargetParams(params);
+  const listParams = {
     page_size: params.page_size ?? DEFAULT_PAGE_SIZE_CAMPAIGN_SENT_LIST,
     page: params.page ?? DEFAULT_PAGE,
     ...(typeof params.automated_campaign_id === "number"
@@ -170,7 +176,12 @@ export const fetchCampaignSentListAPI = async (
     ...(typeof params.no_automated_campaign === "boolean"
       ? { no_automated_campaign: params.no_automated_campaign }
       : {}),
-  });
+  };
+  const urlParams = buildUrlParams(
+    "smartlist" in targetParams
+      ? { ...listParams, smartlist: targetParams.smartlist }
+      : { ...listParams, segment_identifier: targetParams.segment_identifier },
+  );
   const { data } = await fetch(
     `${COMMUNICATION_API_V1}/communication/communication_sent/${urlParams}`,
   );

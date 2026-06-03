@@ -72,6 +72,7 @@ export const SMARTLIST_ROUTE_PATTERNS = {
   PREBUILT_DETAILS: `${SEGMENTS.prebuilt}/${PARAMS.prebuiltSegmentId}`,
   PREBUILT_DETAILS_SEGMENT: `${SEGMENTS.prebuilt}/${PARAMS.prebuiltSegmentId}/${SEGMENTS.segment}`,
   PREBUILT_DETAILS_CAMPAIGNS: `${SEGMENTS.prebuilt}/${PARAMS.prebuiltSegmentId}/${SEGMENTS.campaigns}`,
+  PREBUILT_CAMPAIGN_CREATE: `${SEGMENTS.prebuilt}/${PARAMS.prebuiltSegmentId}/${SEGMENTS.campaigns}/${PARAMS.channel}/${SEGMENTS.create}`,
   CUSTOM_INDEX: SEGMENTS.custom,
   DETAILS: PARAMS.smartlistId,
   PARAMETER: `${PARAMS.smartlistId}/${SEGMENTS.parameter}`,
@@ -110,6 +111,17 @@ export const SMARTLIST_APP_LINKS = {
       SEGMENTS.prebuilt,
       prebuiltSegmentId,
       SEGMENTS.campaigns,
+    ),
+  prebuiltCampaignCreate: (
+    prebuiltSegmentId: string,
+    channel: Exclude<CampaignChannel, typeof CAMPAIGN_CHANNEL_POPUP>,
+  ) =>
+    buildSmartlistLink(
+      SEGMENTS.prebuilt,
+      prebuiltSegmentId,
+      SEGMENTS.campaigns,
+      channel,
+      SEGMENTS.create,
     ),
   details: (smartlistId: string) =>
     buildSmartlistLink(SEGMENTS.custom, smartlistId),

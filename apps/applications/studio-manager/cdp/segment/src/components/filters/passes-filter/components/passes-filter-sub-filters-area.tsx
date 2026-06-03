@@ -1,5 +1,4 @@
-import type { FieldErrors, UseFormSetValue } from "react-hook-form";
-
+import type { FieldErrors, UseFormSetValue } from "@bsport/form";
 import { Body, Button, Menu, Popover } from "@bsport/kaizen-primitive-core";
 
 import { defaultDateFilterValue } from "#src/components/primitive-filters/date-filter/utils";

@@ -8,8 +8,9 @@ import {
   fetchTagRuleDetailAPI,
   fetchTagRulesAPI,
   smartlistKeys,
-} from "./api";
-import { Smartlist, SmartlistGetFiltersResponse, TagRule } from "./types";
+} from "./core/api";
+import type { Smartlist, TagRule } from "./core/types";
+import type { SmartlistGetFiltersResponse } from "./shared/types";
 
 export const smartlistDetailQueryOptions = (
   fetch: Fetch<Smartlist>,

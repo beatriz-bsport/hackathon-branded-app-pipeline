@@ -10,6 +10,7 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   CLASSES_MERGED_VIEW: "booking_classes_merged_view",
   SETTINGS_AGGREGATORS: "settings_aggregators_view",
   SETTINGS_TEACHER_VIEW: "settings_teacher_view",
+  BOOKING_WIDGETS_SETTINGS_PAGE: "booking_widgets_settings_page",
   SETTINGS_STAFF_PAGE: "revamp_settings_staff_page",
   SETTINGS_ROLE_PAGE: "revamp_settings_role_page",
   BOOKING_VENUES_PAGE: "booking_venues_page",

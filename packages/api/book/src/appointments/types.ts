@@ -6,6 +6,9 @@
 export type FetchAppointmentsParams = {
   /** When true, restrict to appointments belonging to the current user's company. */
   mine?: boolean;
+
+  /** When set, filter to available or unavailable appointments. Omit to include both. */
+  available?: boolean;
 };
 
 /**

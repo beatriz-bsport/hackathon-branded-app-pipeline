@@ -60,6 +60,8 @@ export const sessionKeys = {
     [...sessionKeys.all, "recurrence", sessionId] as const,
   sessionsToCancelCount: (params: CancelMultipleSessionsParams) =>
     [...sessionKeys.all, "sessions-to-cancel-count", params] as const,
+  byRecurrence: (recurrenceId: string, params: PaginatedFetchSessionsParams) =>
+    [...sessionKeys.all, "by-recurrence", recurrenceId, params] as const,
 } as const;
 
 export const fetchSessionsAPIConfig = (
@@ -77,6 +79,29 @@ export const fetchSessionsAPI = async (
 
   return fetchedData;
 };
+
+export const fetchSessionsByRecurrenceIdAPI = async (
+  fetch: Fetch<PaginatedResponse<Session>>,
+  recurrenceId: string,
+  params: PaginatedFetchSessionsParams = {},
+): Promise<PaginatedResponse<Session>> => {
+  return fetchSessionsAPI(fetch, { ...params, recurrence_id: recurrenceId });
+};
+
+export const fetchSessionsByRecurrenceIdQueryOptions = (
+  fetch: Fetch<PaginatedResponse<Session>>,
+  recurrenceId: string,
+  params: PaginatedFetchSessionsParams = {},
+) =>
+  queryOptions({
+    queryKey: sessionKeys.byRecurrence(recurrenceId, params),
+    queryFn: () => fetchSessionsByRecurrenceIdAPI(fetch, recurrenceId, params),
+    staleTime: SESSION_STALE_TIME,
+    // `??` rather than `.length` directly so a future caller passing
+    // `undefined` (e.g. a payload-side optional `recurrence_id?: string`)
+    // disables the query rather than throwing at registration.
+    enabled: (recurrenceId ?? "").length > 0,
+  });
 
 export const fetchMinimalSessionsAPIConfig = (
   params: FetchSessionsParams,

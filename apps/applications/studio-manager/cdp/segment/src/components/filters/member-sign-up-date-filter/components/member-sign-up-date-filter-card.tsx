@@ -33,7 +33,7 @@ export const MemberSignUpDateFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const { errors, dirtyFields, isDirty } = methods.formState;
 
   const { upsertMemberDateJoinedFilterMutate, isLoading: isSaving } =
     useUpsertMemberDateJoinedFilterMutation(smartlistId, {
@@ -69,8 +69,6 @@ export const MemberSignUpDateFilterCard = ({
         });
       },
     });
-
-  const isDirty = Object.keys(dirtyFields).length > 0;
 
   const handleSave = methods.handleSubmit(
     (value) => {

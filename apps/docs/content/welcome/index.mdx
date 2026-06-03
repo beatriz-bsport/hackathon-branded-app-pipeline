@@ -1,0 +1,46 @@
+---
+title: Welcome to Kaizen
+description: bsport's modern design system for client-facing back-office surfaces.
+category: welcome
+---
+
+Kaizen is the React design system powering the Back Office and the rest of
+bsport's back-office surfaces. These docs are a living reference — authored as MDX,
+deployed continuously, and built to be readable by both humans and large
+language models.
+
+## Start here
+
+<CardGrid columns={3}>
+  <Card
+    href="/welcome/installation"
+    title="Installation"
+    description="Add Kaizen to a consumer app."
+  />
+  <Card
+    href="/foundations"
+    title="Foundations"
+    description="Color, typography, spacing, motion, iconography, tokens."
+  />
+  <Card
+    href="/components"
+    title="Components"
+    description="The Kaizen component catalogue."
+  />
+</CardGrid>
+
+## What's inside
+
+- Two-level navigation: top tabs scope the docs to one area; the sidebar lists
+  that area's pages.
+- Live examples powered by embedded Storybook stories — the same stories
+  used by engineering, side by side with the docs.
+- Auto-generated props tables and token references straight from source.
+- A `.md` companion for every page, plus
+  [`/llms.txt`](/llms.txt) and [`/llms-full.txt`](/llms-full.txt) so LLMs can
+  ingest the whole system in one request.
+
+<Callout type="info" title="Status">
+  This is the v0.1 vertical slice — every page is wired end-to-end, but most
+  Foundations pages are intentional stubs while we author the real content.
+</Callout>

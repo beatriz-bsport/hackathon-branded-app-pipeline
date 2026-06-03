@@ -34,3 +34,4 @@ export type CampaignScheduledInlineActions =
   | typeof CAMPAIGN_SCHEDULED_EDIT_INLINE_ACTION;
 
 export const CONTEXT_SMARTLIST = 202;
+export const CONTEXT_PREBUILT_SEGMENT = 207;

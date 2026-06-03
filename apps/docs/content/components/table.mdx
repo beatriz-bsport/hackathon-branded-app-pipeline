@@ -1,0 +1,168 @@
+---
+title: Table
+description: A flexible, accessible data table that displays structured information in rows and columns.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Table"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Tables present, compare, and act on multi-column datasets with loading, empty, and paginated states.
+
+The Table component is a flexible, accessible data table that displays structured information in rows and columns. It is used whenever a product surface needs to present, compare, or act on multi-column datasets — from member lists and financial records to activity logs. The component communicates data hierarchy, supports bulk selection, and adapts its display through loading, empty, and paginated states.
+
+### Use cases
+
+- _Data listing:_ Display a list of entities (members, bookings, transactions) with multiple attributes per row in a scannable, columnar layout.
+- _Bulk operations _(_future_)_:_ Enable row-level checkboxes so users can select multiple items and apply a batch action (delete, export, assign).
+- _Navigable records:_ Wrap each row in a link so users can click anywhere on the row to drill into a detail view without an explicit action button.
+- _Financial reporting:_ Use `price` and `number` column types to render currency-formatted values with locale awareness, including negative amounts.
+- _Status-based categorization:_ Apply row-level color indicators and status badge columns to help users quickly scan and classify items by state.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-table--primary"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-table--primary",
+      label: "Primary",
+    },
+    {
+      id: "primitive-components-table--with-pagination",
+      label: "With pagination",
+    },
+    {
+      id: "primitive-components-table--with-row-link",
+      label: "With row link",
+    },
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do
+    caption={
+      "Match the column type to the data format. Use `price` for monetary values, `date` / `dateTime` / `time` for temporal data, and `number` for numeric quantities. This guarantees locale-aware formatting and consistent typography across all instances."
+    }
+  />
+  <Do
+    caption={
+      "Always provide `emptyStateProps` and `loadingProps` configs. Users should never see a blank white space; give them a meaningful illustration and message for both the loading and empty states."
+    }
+  />
+  <Do
+    caption={
+      "Provide `paginationProps` whenever the dataset exceeds a single screenful, using a default page size of 10 to keep initial render fast."
+    }
+  />
+  <Dont
+    caption={
+      "Nest interactive elements inside a row that already has a row link. When the entire `<tr>` is wrapped in an ``<a>``, nested buttons and links create invalid HTML and confuse keyboard/screen reader users. Use click handlers only on the action column, ensuring proper event propagation is handled."
+    }
+  />
+  <Dont
+    caption={
+      "Avoid the `lg` row height in dense data grids with many rows. Large row heights reduce the number of visible records and force excessive scrolling; reserve `lg` for content-rich rows where breathing room is genuinely needed."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Use color indicators (`rowColor`) sparingly and consistently. Reserve them for meaningful categorical distinctions, not decoration. Overuse reduces their communicative value.
+- Keep column headers short. Long labels wrap awkwardly inside compact (`sm`) row heights and degrade scannability. Prefer concise labels; use a tooltip or subtitle for extra context if needed.
+
+</Callout>
+
+#### Links
+
+<DoDont>
+  <Do
+    caption={
+      "Use row links for navigation-primary tables (e.g., member list → member detail) to maximize the clickable target area."
+    }
+  />
+  <Do
+    caption={
+      "Use buttons for links to related objects (e.g., member list → related pass)."
+    }
+  />
+  <Dont
+    caption={
+      'Add redundant "View" action buttons alongside a row link — the row itself already serves that role.'
+    }
+  />
+</DoDont>
+
+#### Content
+
+#### `Common uses`
+
+##### `1. [Pattern name — e.g. Informational, no action]`
+
+`[Describe the use case context.] Set `[prop]: [value]`, `[prop]: [value]`, `[prop]: [value]`.`
+
+> `Example: "Placeholder"`
+
+##### `2. [Pattern name — e.g. Informational, no action]`
+
+`[Describe the use case context.] Set `[prop]: [value]`, `[prop]: [value]`, `[prop]: [value]`.`
+
+> `Example: "Placeholder"`
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Table" />
+
+### Behavior
+
+#### Selection
+
+When `selectable=\{true\}`, a checkbox column is prepended to the header and each data row. Clicking a row checkbox toggles that row's selection state. The header "select all" checkbox selects or deselects all visible rows. In the controlled pattern, the parent receives selection callbacks and manages state externally.
+
+#### Row links
+
+When a row-level link is provided, the entire `<tr>` is wrapped in an `<a>` tag, making the full row clickable for navigation. Action buttons within the row must stop event propagation to avoid unintended navigation when clicked.
+
+#### Loading state
+
+When `loadingProps.isLoading` is `true`, the table body is replaced by a loading indicator and an optional message. The header remains visible to preserve layout stability during data refresh.
+
+#### Empty state
+
+When `emptyStateProps.isEmpty` is `true`, the table body is replaced by an empty-state illustration and configurable copy. When `emptyStateProps.isEmptySearch` is `true`, a search-specific empty state is shown (e.g., "No results found — clear filters").
+
+#### Pagination
+
+When `paginationProps` is provided, a pagination bar is rendered below the table body. It includes a rows-per-page selector, first/previous/page-number/next/last controls, and a record count label. The consuming component is responsible for fetching and passing the correct page slice to `rows`.
+
+#### Responsiveness
+
+The table does not collapse columns on narrow viewports automatically. For very wide tables on mobile, horizontal scrolling is applied to the container. Consider reducing the column count and using a list layout on smaller breakpoints.
+
+### Edge cases
+
+#### Negative numeric/price values
+
+The `number` and `price` column types render negative values with a minus sign and, for `price`, apply optional color coding. Verify that negative amounts display clearly at both `sm` and `lg` heights.
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Table`
+- **Storybook:** Browse the live examples under Guidelines.

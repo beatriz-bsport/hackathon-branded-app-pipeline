@@ -1,17 +1,16 @@
-import { FC, useCallback, useState } from "react";
+import { FC } from "react";
 import { Navigate, useParams } from "react-router";
 
 import type { Session } from "@bsport/api-book";
 import { ListLayout } from "@bsport/kaizen-primitive-core";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { QueryBoundary } from "#src/components/query-boundary/query-boundary";
 import { DetailsFetchError } from "#src/components/session-details/details-fetch-error";
 import { DetailsLoadingPage } from "#src/components/session-details/details-loading-page";
 import { SessionManagementModals } from "#src/components/session-management/session-management-modals";
-import { SeriesTable } from "#src/components/session-series/series-table";
-import { type StatusFilter } from "#src/components/session-series/status-filter-mapping";
-import { useStatusFilterConfig } from "#src/components/session-series/use-status-filter-config";
+import { SessionOccurrenceTable } from "#src/components/session-occurrence-table/session-occurrence-table";
+import { useOccurrenceStatusFilter } from "#src/components/session-occurrence-table/use-occurrence-status-filter";
+import { sessionsInGroupQueryOptions } from "#src/hooks/session-api/fetch/use-fetch-sessions-in-group";
 import { useRetrieveSession } from "#src/hooks/session-api/fetch/use-retrieve-session";
 import { useRetrieveSessionDetails } from "#src/hooks/session-api/fetch/use-retrieve-session-details";
 import { useSessionDetailsHeaderConfig } from "#src/hooks/use-session-details-header-config";
@@ -38,22 +37,9 @@ const SessionSeriesPageContent: FC<{ session: SessionWithGroup }> = ({
   const { pageTitle, startGroupActions, endGroupActions } =
     useSessionHeaderBase(session, { openModal });
 
-  const { currentPageSize, setPageSettings } = usePaginationQueryParams({
-    namespace: `series-${session.group}`,
-  });
-
-  const [status, setStatus] = useState<StatusFilter | null>(null);
-
-  const handleStatusChange = useCallback(
-    (next: StatusFilter | null) => {
-      setStatus(next);
-      // Filtering changes the result set, so jump back to the first page.
-      setPageSettings(1, currentPageSize);
-    },
-    [setPageSettings, currentPageSize],
-  );
-
-  const filterConfig = useStatusFilterConfig(status, handleStatusChange);
+  const paginationNamespace = `series-${session.group}`;
+  const { status, filterConfig } =
+    useOccurrenceStatusFilter(paginationNamespace);
 
   return (
     <>
@@ -66,10 +52,14 @@ const SessionSeriesPageContent: FC<{ session: SessionWithGroup }> = ({
           {...headerConfig}
         />
         <ListLayout.Content>
-          <SeriesTable
-            groupId={session.group}
+          <SessionOccurrenceTable
             companyId={session.company}
             status={status}
+            paginationNamespace={paginationNamespace}
+            getQueryOptions={(params) =>
+              sessionsInGroupQueryOptions(session.group, params, true)
+            }
+            labelGroup="seriesTable"
           />
         </ListLayout.Content>
       </ListLayout>

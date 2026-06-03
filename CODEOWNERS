@@ -1,0 +1,6 @@
+[Software Engineering Seniors]
+* @bsport/software-engineering-seniors
+
+# Designer-owned Kaizen docs content. Keep this after the wildcard rule so
+# content-only docs changes can be approved by the designer owner.
+/apps/docs/content/** @kyril2

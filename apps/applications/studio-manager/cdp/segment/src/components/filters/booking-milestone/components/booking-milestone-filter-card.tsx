@@ -40,7 +40,7 @@ export const BookingMilestoneFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const { errors, dirtyFields, isDirty } = methods.formState;
 
   const { upsertBookingMilestoneFilterMutate, isLoading: isSaving } =
     useUpsertBookingMilestoneFilterMutation(smartlistId, {
@@ -76,8 +76,6 @@ export const BookingMilestoneFilterCard = ({
         });
       },
     });
-
-  const isDirty = Object.keys(dirtyFields).length > 0;
 
   const handleSave = methods.handleSubmit(
     (value) => {

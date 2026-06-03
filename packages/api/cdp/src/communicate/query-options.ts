@@ -2,6 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 
 import {
   DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
   type Fetch,
   type PaginatedResponse,
   createErrorWithContext,
@@ -30,13 +31,13 @@ import type {
   FetchCampaignRecipientParams,
   FetchCampaignSentParams,
 } from "./types";
+import { getCampaignSentListTargetParams } from "./utils";
 
 export const campaignSentListQueryOptions = (
   fetch: Fetch<PaginatedResponse<CampaignSent>>,
   params: FetchCampaignSentParams,
 ) => {
   const {
-    smartlist,
     page,
     page_size,
     automated_campaign_id,
@@ -44,24 +45,34 @@ export const campaignSentListQueryOptions = (
     no_automated_campaign,
     without_member_info,
   } = params;
-  const currentPage = page ?? 1;
-  const currentPageSize = page_size ?? 10;
+  const currentPage = page ?? DEFAULT_PAGE;
+  const currentPageSize = page_size ?? DEFAULT_PAGE_SIZE;
+
+  const targetParams = getCampaignSentListTargetParams(params);
+  const targetContextParams =
+    "smartlist" in targetParams
+      ? { smartlist: targetParams.smartlist }
+      : {
+          segment_identifier: targetParams.segment_identifier,
+        };
+
+  const listParams = {
+    page: currentPage,
+    page_size: currentPageSize,
+    automated_campaign_id,
+    only_automated_campaign,
+    no_automated_campaign,
+    without_member_info,
+    ...targetContextParams,
+  };
+
   return queryOptions({
     queryKey: communicateKeys.campaignSentList({
       ...params,
       page: currentPage,
       page_size: currentPageSize,
     }),
-    queryFn: () =>
-      fetchCampaignSentListAPI(fetch, {
-        smartlist,
-        page: currentPage,
-        page_size: currentPageSize,
-        automated_campaign_id,
-        only_automated_campaign,
-        no_automated_campaign,
-        without_member_info,
-      }),
+    queryFn: () => fetchCampaignSentListAPI(fetch, listParams),
   });
 };
 

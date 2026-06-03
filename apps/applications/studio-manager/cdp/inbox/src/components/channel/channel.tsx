@@ -1,4 +1,4 @@
-import { Body, Icon, type IconName } from "@bsport/kaizen-primitive-core";
+import { Body, Icon, type IconName, cx } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -11,27 +11,46 @@ const CHANNEL_ICON: Record<ChannelType, IconName> = {
   chat: "message-square-02",
 };
 
-export type ChannelProps = {
+type BaseChannelProps = {
   channel: ChannelType;
   className?: string;
 };
 
-export function Channel({ channel, className }: ChannelProps) {
+type DefaultChannelProps = BaseChannelProps & {
+  kind?: "default";
+};
+
+type IconOnlyChannelProps = BaseChannelProps & {
+  kind: "icon-only";
+};
+
+export type ChannelProps = DefaultChannelProps | IconOnlyChannelProps;
+
+export function Channel({
+  channel,
+  className,
+  kind = "default",
+}: ChannelProps) {
   const { t } = useTranslation("page");
+  const label = t(`commons.channel.${channel}`);
+  const iconOnly = kind === "icon-only";
 
   return (
     <span
-      className={`inline-flex items-center gap-2xs text-current${className ? ` ${className}` : ""}`}
+      className={cx("inline-flex items-center gap-2xs text-current", className)}
+      aria-label={iconOnly ? label : undefined}
     >
       <Icon aria-hidden icon={CHANNEL_ICON[channel]} size="sm" />
-      <Body
-        htmlVariant="span"
-        weight="strong"
-        color="inherit"
-        className="text-body-xs uppercase leading-2xs"
-      >
-        {t(`commons.channel.${channel}`)}
-      </Body>
+      {!iconOnly && (
+        <Body
+          htmlVariant="span"
+          weight="strong"
+          color="inherit"
+          className="text-body-xs uppercase leading-2xs"
+        >
+          {label}
+        </Body>
+      )}
     </span>
   );
 }

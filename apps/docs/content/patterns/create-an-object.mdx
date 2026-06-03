@@ -1,0 +1,94 @@
+---
+title: Create an object
+description: Guide operators through creating a new object in a way that is immediate, predictable, and recoverable.
+category: patterns
+sections:
+  - "Overview"
+  - "Guidelines"
+---
+
+## Overview
+
+Operators expect to fill out a form and land on the thing they created — even when the backend needs mandatory fields first.
+
+Guide operators through creating a new object (e.g. a subscription, class, a buyable) in a way that is immediate, predictable, and recoverable — even when the backend requires mandatory properties before a record can be persisted.
+
+### What operators expect
+
+When an operator clicks _"New membership"_ or _"Create class"_, their mental model is simple: _I'm about to fill out a form, and when I'm done, the thing will exist._ The modal we want to adopt it: a dedicated page appears, they configure everything at their pace, and they save at the end. Our job is to adapt it as closely as possible, even when the system has constraints they can't see.
+
+#### Constraints
+
+bsport's backend requires a minimum set of properties before it can create a record at all. We cannot show a blank creation page and wait — the page needs a real object ID to exist. _Operators don't know this and shouldn't have to._
+
+If we expose this constraint naively — blocking access to the full form until a set of fields is filled — it creates friction that feels arbitrary. The operator asked to create something and hit a wall without understanding why.
+The pattern below resolves this without making the constraint visible to the user.
+
+## Guidelines
+
+### Behavior: Progressive creation
+
+### Step 1 - Modal with mandatory fields only
+
+A focused modal collects only the minimum required fields needed to satisfy the API constraint and create the record. This is not the full edit experience — it is the smallest possible set of inputs to unlock it.
+
+- Triggered by a primary CTA (e.g. `+ Create pass`, `Create class`)
+- Contains only fields that are backend-mandatory (no optional configuration)
+- On confirm, the record is created immediately via API; the modal is dismissed
+- On error, inline field validation is shown inside the modal; the user does not leave the context
+
+_Why a modal and not a page?_ Because the user has not committed to a full creation intent yet — they are unblocking the system. A modal signals "give me what I need to get started" rather than "here is a full form to fill out".
+
+### Step 2 - Full edit page (All fields)
+
+Once the record exists, the user is _automatically navigated_ to the full edit page for that object. From this point forward, the experience is identical to editing an existing object.
+
+- The page loads with the just-created record pre-populated with values from Step 1
+- All optional and advanced fields are available
+- When a property is edited - a banner on top of the page is triggered with Save edits and Dismiss actions
+
+### Duplication flow
+
+Duplicating an object skips Phase 1 entirely — the source object already satisfies the mandatory fields constraint. On duplicate:
+
+1. A new record is created immediately with all source properties copied
+2. The user is navigated to the full edit page of the duplicate
+3. A banner or toast communicates: _"\{object\} duplicated"_
+
+### Anti-patterns to avoid
+
+<DoDont>
+  <Dont
+    caption={
+      "Don't show optional fields in the first modal. Every extra field is a reason to pause, second-guess, or abandon. If a field is optional, it belongs on the edit page."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use generic labels. A modal that says \"Create\" with no object name forces the user to re-read context to understand what they're doing."
+    }
+  />
+  <Dont
+    caption={
+      "Don't keep the user on the list after creation. They expressed intent to create — take them to the thing they just created."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use a multi-step unless the mandatory field count is very high (more than ~5 fields). Steps impose sequential order on a task that doesn't always require it, and they make operators feel like they're filling out government paperwork."
+    }
+  />
+</DoDont>
+
+### Relationship to other patterns
+
+This pattern sits at _Layer 3 (Product patterns)_ in the Kaizen system. It is object-agnostic — the same two-moment structure applies whether the object is a membership, a location, or an instructor. Object-specific field requirements (what goes in the modal vs. the edit page) are defined at _Layer 4 (Business components)_ for each object type.
+
+### Industry examples
+
+| Product         | Approach                                                                                 |
+| --------------- | ---------------------------------------------------------------------------------------- |
+| _Shopify_       | Full-page creation, deferred save, no API constraint                                     |
+| _Fresha_        | Modal bootstrap → full page (closest to bsport's revamp)                                 |
+| _Mindbody_      | Stepped wizard, mandatory fields gated per step (closest to legacy back office patterns) |
+| _bsport Kaizen_ | Modal bootstrap (mandatory only) → auto-navigate to full edit page                       |

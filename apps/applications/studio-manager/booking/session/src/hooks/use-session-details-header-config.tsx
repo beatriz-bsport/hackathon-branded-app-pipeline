@@ -10,6 +10,7 @@ import {
 
 import { SessionStatus } from "#src/components/session-details/constants";
 import { Subtitle } from "#src/components/session-details/subtitle";
+import { useFetchRecurrenceFromSession } from "#src/hooks/session-api/fetch/use-fetch-recurrence-from-session";
 import type { DetailsHeaderSession } from "#src/types";
 import { useUrls } from "#src/urls";
 import {
@@ -31,6 +32,7 @@ export const useSessionDetailsHeaderConfig = (
     getBookingsManagementPath,
     resolveEditPath,
     resolveSeriesPath,
+    resolveAllOccurrencesPath,
     getIndexUrl,
   } = useUrls();
 
@@ -79,12 +81,21 @@ export const useSessionDetailsHeaderConfig = (
 
   // ----- Tabs (new — replaces useSessionPageTabs) -----
 
-  const visibleTabs = getVisibleSessionTabs(session.group);
+  // Non-suspense: this hook also renders in the Editor header, which has no
+  // Suspense boundary. Until recurrence resolves, recurrenceCount is 0 and the
+  // Occurrences chip is simply absent (cosmetic; page content is route-driven).
+  const { data: recurrence } = useFetchRecurrenceFromSession(session.id);
+
+  const visibleTabs = getVisibleSessionTabs(
+    session.group,
+    recurrence?.recurrence_count ?? 0,
+  );
 
   const hrefByKey: Record<SessionTabKey, string> = {
     overview: getBookingsManagementPath(session.id),
     editor: resolveEditPath(session.id),
     series: resolveSeriesPath(session.id),
+    occurrences: resolveAllOccurrencesPath(session.id),
   };
 
   const pageTabs: TabsProps = {

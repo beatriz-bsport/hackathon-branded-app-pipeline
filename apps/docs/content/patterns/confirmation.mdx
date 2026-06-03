@@ -1,0 +1,166 @@
+---
+title: Confirmation
+description: When and how to provide feedback after a user action.
+category: patterns
+sections:
+  - "Overview"
+  - "Do / don't"
+  - "Guidelines"
+---
+
+## Overview
+
+Positive confirmations build confidence; destructive confirmations prevent irreversible mistakes.
+
+## Positive feedback
+
+When a user completes an action successfully, provide lightweight, non-blocking feedback to reassure them the system has responded as expected.
+
+Unlike destructive actions—where the goal is to prevent mistakes—positive confirmations aim to build confidence and keep momentum. The right pattern depends on the visibility of the result, whether follow-up is needed, and how persistent the feedback should be.
+
+### Success toast
+
+Use a toast when the action completes but the outcome is not fully visible, or brief acknowledgment helps build confidence. Common triggers: saving a record that leaves the current view, sending a message, archiving an item, or completing a bulk action.
+
+### Inline success
+
+Use inline indicators inside forms for real-time field validation, multi-step flows where each step needs local confirmation, or complex inputs where the valid state is not visually obvious. In most cases, silence is the best confirmation—a checkmark icon next to a completed field is sufficient.
+
+### Decision framework
+
+| Trigger    | Result visibility                  | Follow-up needed | Pattern         |
+| ---------- | ---------------------------------- | ---------------- | --------------- |
+| Immediate  | Visible in the UI without feedback | No               | No confirmation |
+| Immediate  | Partially visible or off-screen    | No               | Success toast   |
+| Immediate  | Not immediately visible            | Yes              | Success banner  |
+| Delayed    | Not visible until later            | Optional         | Success banner  |
+| Form input | Real-time field validation         | No               | Inline success  |
+
+#### When no confirmation is needed
+
+Do not show any feedback when the result of the action is immediately and obviously visible in the interface. This includes toggling a filter that instantly updates a list, editing inline text, reordering items via drag and drop, or switching tabs and views.
+
+## Best practices
+
+<DoDont>
+  <Do caption={"Use the critical button variant for the confirmation action"} />
+  <Do
+    caption={
+      'Explicitly state the irreversible nature of the action: "If you delete this resource, it can\'t be undone."'
+    }
+  />
+  <Dont
+    caption={"Avoid alerts inside the modal; let the modal framing do the work"}
+  />
+</DoDont>
+
+<DoDont>
+  <Do
+    caption={
+      "Max 3 words in the message — Toasts appear over the session panel; they must be glanceable"
+    }
+  />
+  <Do
+    caption={
+      "Always show Undo for reversible actions — Managers act fast; mistakes happen"
+    }
+  />
+  <Do
+    caption={
+      "Auto-dismiss after 6–8 seconds — Long enough to read and act, short enough to stay non-blocking"
+    }
+  />
+  <Dont
+    caption={
+      "Never use toast for bulk actions (>5 records) — Use modal to surface the scope of impact"
+    }
+  />
+</DoDont>
+
+### Anti-patterns
+
+- _Celebratory language_ — Wastes cognitive load and feels infantilizing. Use neutral, factual phrasing.
+- _Multiple toasts in sequence_ — Creates notification fatigue. Consolidate into one summary toast or banner.
+- _Toast with multiple actions_ — Too ephemeral for decisions. Use a modal instead.
+- _Green everything_ — Visual noise that reduces the meaning of the success color. Reserve green for actual state changes only.
+
+<ContentCard>
+### Modals
+
+#### Cases when modals make sense
+
+<Callout type="warning" title="Warning">
+
+Modals belong _before_ a destructive or consequential action — they are a pre-action interrupt, not a post-action response. _Modals are usually not the right pattern for positive/success feedback._
+
+</Callout>
+
+**Action complete, but requires an immediate irreversible choice**
+
+The action succeeded, but the result forks into two paths that cannot both be undone. The user must consciously choose before moving on.
+
+- _Example:_
+- _Rule:_ The modal is triggered by the fork, not by the success. The success is incidental.
+
+**First-time milestone that unlocks a new capability (PLG)**
+
+A significant threshold is crossed for the first time and the system needs to walk the user through what just changed — not just notify them.
+
+- _Example:_ First class fully booked. This triggers the waitlist feature becoming available. The modal introduces the waitlist flow with a clear primary CTA to configure it, and a dismiss to do it later.
+- _Rule:_ Only first-time, only when the new capability needs active setup. Never repeat the modal on subsequent occurrences.
+
+**Flow has a hard dependency**
+
+A key setup step was completed, but it only works if the user takes one more action immediately. Skipping it would break the experience.
+
+- _Example (failure):_ Payment provider connected successfully — but the user must now map at least one membership plan to a payment product before any transactions will process. Leaving without doing this creates a broken state.
+- _Example (break in experience):_ `In cases where we have a technical limitation.` Class is booked but the invoice is not paid. Leaving the flow leaves an unpaid invoice.
+- _Rule:_ Use the modal only when skipping causes a break in experience or failure.
+
+**Financial actions with high-stakes, reversibility-limited actions**
+
+1. _Irreversible or costly to reverse._ A payment processed, a refund issued, a charge applied — these trigger real-world consequences outside your system. You cannot undo a bank transaction the way you undo an archive.
+2. _Anxiety is legitimate._ Financial actions carry user stress. The friction of a modal is not an obstacle here — it is reassurance. It signals the system takes this seriously.
+3. _Accidental taps have outsized consequences._ A misclick on "Archive member" is annoying. A misclick on "Charge €250" is a real problem for the business and the client.
+
+</ContentCard>
+
+### Destructive feedback
+
+When a user triggers a destructive or consequential action, you have two primary ways to protect them from mistakes: interrupt them beforehand with a modal, or let them act freely and offer a brief window to reverse it through a toast. The decision between these two patterns depends entirely on the severity and reversibility of the action.
+
+### When to use a modal confirmation
+
+Use a modal when the action:
+
+- Permanently destroys data (for example, deleting a pass)
+- Affects multiple objects (for example, deleting a tag with tagged clients)
+- Is extremely difficult or impossible to undo (for example, irreversible financial actions)
+
+#### Best practices
+
+#### Extra friction for extreme severity
+
+When deleting resources with children or performing organization-level destruction:
+
+- Require typed confirmation of the object name (e.g. typing "Morning Yoga" to confirm)
+
+### When** to use an undo toast**
+
+Use an undo toast when the action:
+
+- Can be fully reversed with no side effects (archiving instead of deleting, toggling a setting)
+- Involves no data loss
+- Is recoverable within a short time window (removing an item from a list)
+
+#### Best practices
+
+### When to use inline friction
+
+For actions that are annoying to reverse but not catastrophic, add friction without a full modal:
+
+- Place the destructive action inside a dropdown so it requires at least two clicks
+- Use the default button variant rather than danger styling to reduce visual alarm
+- Consider a secondary menu placement rather than a prominent UI position
+
+### Examples

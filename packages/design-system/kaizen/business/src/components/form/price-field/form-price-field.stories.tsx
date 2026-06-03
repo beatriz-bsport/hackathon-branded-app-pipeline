@@ -42,7 +42,6 @@ const methods = useFormController({
   >
     id="form-price-field-example"
     fieldName="priceCts"
-    defaultCts={1000}
     label="Price"
     ...
   />
@@ -80,7 +79,6 @@ const meta: Meta<FormPriceFieldComponent> = {
         <FormPriceField<{ priceCts: number }, "priceCts">
           id="form-price-field-example"
           fieldName="priceCts"
-          defaultCts={1000}
           label="Price"
         />
       </ControlledForm>
@@ -144,14 +142,16 @@ This prevents accidentally binding a Price Field to a non-number field.
 
 ### Price-specific props
 
+Set the initial price via \`useFormController({ defaultValues })\` (cents in form state).
+
 | Prop | Default | Description |
 |------|---------|------------|
-| \`defaultCts\` | \`0\` | Fallback value in cents when input is empty or invalid on blur |
 | \`minCts\` | \`0\` | Minimum allowed value in cents |
 | \`maxCts\` | — | Maximum allowed value in cents (no limit when omitted) |
 | \`allowDecimals\` | \`true\` | Whether decimal euro amounts are accepted |
-| \`currencySuffix\` | auto | Currency symbol shown as suffix (defaults to \`getCurrencyDisplay()\`) |
-| \`onPriceCommit\` | — | Callback fired after a valid price is committed on blur |
+| \`currencyDisplayText\` | auto | Currency label (defaults to \`getCurrencyDisplay()\`) |
+| \`currencyDisplay\` | \`"suffix"\` | Show currency as prefix or suffix |
+| \`onPriceChange\` | — | Called when the parsed price changes (every valid keystroke) |
         `,
       },
     },
@@ -177,7 +177,6 @@ const methods = useFormController({
   >
     id="form-gift-card-example"
     fieldName="giftCardCts"
-    defaultCts={500}
     minCts={500}
     maxCts={50000}
     allowDecimals={false}
@@ -211,7 +210,6 @@ export const WholeEuro: StoryObj<FormPriceFieldComponent> = {
         <FormPriceField<{ giftCardCts: number }, "giftCardCts">
           id="form-gift-card-example"
           fieldName="giftCardCts"
-          defaultCts={500}
           minCts={500}
           maxCts={50000}
           allowDecimals={false}
@@ -241,11 +239,10 @@ const methods = useFormController({
   >
     id="form-item-price-example"
     fieldName="itemPriceCts"
-    defaultCts={2500}
     minCts={100}
     maxCts={100000}
     label="Item price"
-    onPriceCommit={(cts) => console.log('Committed:', cts)}
+    onPriceChange={(cts) => console.log('Changed:', cts)}
   />
 </ControlledForm>
 `;
@@ -275,11 +272,10 @@ export const WithMinMax: StoryObj<FormPriceFieldComponent> = {
         <FormPriceField<{ itemPriceCts: number }, "itemPriceCts">
           id="form-item-price-example"
           fieldName="itemPriceCts"
-          defaultCts={2500}
           minCts={100}
           maxCts={100000}
           label="Item price"
-          onPriceCommit={(cts) => console.log("Committed:", cts)}
+          onPriceChange={(cts: number) => console.log("Changed:", cts)}
         />
       </ControlledForm>
     );

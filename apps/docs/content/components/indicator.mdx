@@ -1,0 +1,85 @@
+---
+title: Indicator
+description: A small visual signal attached to a host element that communicates state or quantity.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Indicator"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Indicators are non-interactive signals anchored to a host — they have no meaning without it.
+
+Indicator is a non-interactive, non-dismissible signal that draws attention to a specific location. It is always anchored to a host element like a button, avatar, or nav item. It comes in sizes sm and md with colors default, main, critical, success, warning, and info.
+
+### Choosing between Badge, Chip, and Indicator
+
+| Aspect           | Badge                  | Chip                                     | Indicator                     |
+| ---------------- | ---------------------- | ---------------------------------------- | ----------------------------- |
+| Purpose          | Supplementary metadata | Semantic token (tag/filter/status)       | Attention/notification signal |
+| Dismissible      | No                     | Yes (optional)                           | No                            |
+| Anchored to host | No                     | No                                       | Yes (top-right/bottom-right)  |
+| Typical use      | Side labels            | Tags, filters, categories, object status | Counts, status dots           |
+| Appearance       | Text in a pill         | Container with label (and optional icon) | Dot or numbers                |
+
+Use Indicator for non-dismissible status signals anchored to a UI element — for example, an unread notification dot on an avatar or an active status dot on a profile picture. It relies on color and placement rather than text labels.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-indicator--indicator-dot"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-indicator--indicator-dot",
+      label: "Indicator dot",
+    },
+    {
+      id: "primitive-components-indicator--indicator-only",
+      label: "Indicator only",
+    },
+    {
+      id: "primitive-components-indicator--indicator-with-children",
+      label: "With children",
+    },
+  ]}
+/>
+
+### Best practices
+
+<DoDont>
+  <Do
+    caption={
+      "Use when a non-dismissible status signal needs to be anchored to a UI element such as a button, avatar, or nav item."
+    }
+  />
+  <Dont
+    caption={
+      "Avoid using Indicator for tokens that need to be dismissed by the user (use Chip instead)."
+    }
+  />
+  <Dont
+    caption={
+      "Avoid using Indicator for standalone labels without a host element (use Badge instead)."
+    }
+  />
+</DoDont>
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Indicator" />
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Indicator`
+- **Storybook:** Browse the live examples under Guidelines.

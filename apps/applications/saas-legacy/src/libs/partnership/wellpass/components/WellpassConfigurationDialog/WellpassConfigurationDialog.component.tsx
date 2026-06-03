@@ -188,6 +188,9 @@ const WellpassConfigurationDialog: React.FC<Props> = ({
         {t('wellpass.configuration.dialog.title.edition', { externalId })}
       </DialogTitle>
       <DialogContent className={classes.content}>
+        <Typography variant="body2">
+          {t('wellpass.configuration.dialog.helperText')}
+        </Typography>
         <div className={classes.establishmentsField}>
           <Typography variant="body2">
             {t('wellpass.configuration.dialog.field.establishmentIds.title')}

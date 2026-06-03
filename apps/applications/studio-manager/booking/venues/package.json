@@ -54,6 +54,7 @@
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/use-debounce": "workspace:*",
+    "@bsport/use-pagination-query-params": "workspace:*",
     "@tanstack/react-query": "^5.90.12",
     "leaflet": "^1.9.0",
     "luxon": "^3.4.4",

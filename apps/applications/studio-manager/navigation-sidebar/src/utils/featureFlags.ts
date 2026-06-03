@@ -19,6 +19,7 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   SMARTFILL: "smartfill_page",
   SETTINGS_AGGREGATORS: "settings_aggregators_view",
   BOOKING_VENUES_PAGE: "booking_venues_page",
+  BOOKING_WIDGETS_SETTINGS_PAGE: "booking_widgets_settings_page",
   // CORE
   SETTINGS_STAFF_PAGE: "revamp_settings_staff_page",
   SETTINGS_ROLE_PAGE: "revamp_settings_role_page",

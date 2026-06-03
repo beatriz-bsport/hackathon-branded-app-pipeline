@@ -1,0 +1,22 @@
+---
+title: Color
+description: Semantic color tokens — surfaces, strokes, on-surface text, and shadows.
+category: foundations
+---
+
+Design tokens are a tech-agnostic way to store visual variables. Kaizen ships
+them through `@bsport/kaizen-tokens`, which emits CSS variables and a Tailwind
+theme. Components should consume **semantic** tokens (below), not raw palette
+steps.
+
+## Semantic colors
+
+Each row shows a resolved swatch, a short description, and the CSS variable
+to copy into product code.
+
+<DesignTokenList type="color" />
+
+<Callout type="info" title="Base palette">
+  Raw palette scales (Luna grey, Terra green, etc.) live on the [Color
+  foundations](/foundations/color) page under **Visual**.
+</Callout>

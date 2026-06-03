@@ -1,0 +1,323 @@
+---
+title: Modal
+description: A blocking dialog that requires interaction before returning to the main flow.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Modal"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Modals interrupt the current flow to capture a decision or short task. Use them sparingly.
+
+Modals are blocking dialogs layered above the page that interrupt the user's flow to capture attention, confirm an action, or surface information that must be acknowledged before continuing. They render on top of a dimmed backdrop and trap focus until dismissed. Use them sparingly — every modal is an interruption.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-modal--modal-short"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-modal--modal-short",
+      label: "Modal short",
+    },
+    {
+      id: "primitive-components-modal--modal-with-a-custom-description",
+      label: "Custom description",
+    },
+    {
+      id: "primitive-components-modal--modal-confirm-closing",
+      label: "Confirm closing",
+    },
+  ]}
+/>
+
+### Live preview
+
+<Anatomy
+  parts={[
+    {
+      label: "Backdrop",
+      description:
+        "dimmed overlay behind the modal that visually separates it from the page and blocks interaction with the underlying content.",
+    },
+    {
+      label: "Container",
+      description:
+        "the framed surface holding the modal content, sized via `size` (sm, md, lg) and positioned via `position` (centered, bottom).",
+    },
+    {
+      label: "Close button",
+      description:
+        "top-right icon that dismisses the modal (hidden when `disableClose` is true).",
+    },
+    {
+      label: "Title",
+      description: "required heading at the top of the modal.",
+    },
+    {
+      label: "Description",
+      description:
+        "optional supporting line under the title; accepts a string or a `ReactNode` for rich content.",
+    },
+    {
+      label: "Body / children",
+      description:
+        "the main content area; scrolls independently when content exceeds the viewport.",
+    },
+    {
+      label: "Footer",
+      description:
+        "bottom action area containing the cancel and/or confirm buttons; layout controlled by `footerDirection` (row, column).",
+    },
+    {
+      label: "CTA button",
+      description: "primary action; does not close the modal automatically.",
+    },
+    {
+      label: "Cancel button",
+      description: "secondary action; typically closes the modal.",
+    },
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do
+    caption={
+      "Keep the modal focused on a single task or decision. One job per modal."
+    }
+  />
+  <Do
+    caption={
+      'Write a clear, action-oriented title and a descriptive confirm label (e.g. "Delete account" instead of "OK").'
+    }
+  />
+  <Dont
+    caption={
+      "Don't put long-form content inside a modal. If the user needs to read more than a paragraph, use a page or a side drawer instead."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use a modal for non-blocking feedback — use a Toast or Alert."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Caution when stacking modals — chaining via the confirm button is supported, but more than two consecutive modals usually signals the flow belongs on a page.
+- Caution when using disableClose — only use it when the user truly must take an explicit action (e.g. accept terms). It removes every escape hatch.
+
+</Callout>
+
+#### Variants
+
+<DoDont>
+  <Do
+    caption={
+      "Size `sm` — Do use for single-question confirmations. Don't cram forms with multiple fields into it."
+    }
+  />
+  <Do
+    caption={
+      "Size `md` — Do use as the default for most confirmation and short input flows. Don't use for content-heavy screens."
+    }
+  />
+  <Do
+    caption={
+      'Size `lg` — Do use for richer flows (multi-field forms, summaries with detail). Don\'t use it just because content "could fit" — pick by purpose, not by length.'
+    }
+  />
+</DoDont>
+
+#### Content
+
+Modals should clearly demonstrate: the main action that is being referred to (Title), the consequence of taking that action (Body text), a decision (primary CTA), and a way out if the user wants to (secondary CTA).
+
+##### Titles
+
+Start with a _question_ if possible that mirrors the action the user needs to take (archiving, duplicating or canceling something), plus the context of what it's referring to.
+
+Describes the full action + object
+(e.g. _Permanently delete "Yoga" collection?_)
+
+<DoDont>
+  <Do caption={"Cancel session?"} />
+  <Do caption={"Duplicate session?"} />
+  <Do caption={"Archive {object-name}?"} />
+  <Do caption={"Archiving {object-name}"} />
+  <Do caption={"Permanently delete {object-name}?"} />
+  <Do caption={"Delete {object-name}?"} />
+  <Dont caption={"Session cancellation"} />
+  <Dont caption={"Duplicate a session"} />
+</DoDont>
+
+##### Body text
+
+Tell users the _consequence_ of the action and its potential impact on other objects/other users. _Tip:_ don't ask users if they're 'sure' - it's patronising!
+
+<DoDont>
+  <Do
+    caption={
+      "Deleting this session will remove {number} booking records. If members weren't refunded when it was cancelled, their credits will also be lost."
+    }
+  />
+  <Do caption={"Cancel this session to make it unbookable"} />
+  <Dont
+    caption={
+      "This session will be deleted. Are you sure you want to delete it?"
+    }
+  />
+  <Dont
+    caption={"Once you cancel this session, members won't be able to book it"}
+  />
+</DoDont>
+
+##### Primary CTA
+
+The button text should match the action used in the question title, including what it's referring to. This is the **decision. **Primary CTAs should all be one short verb: _Create / Add / Delete / Cancel / Archive_
+
+<DoDont>
+  <Do caption={"Create"} />
+  <Do caption={"Cancel"} />
+  <Dont caption={"Confirm"} />
+  <Dont caption={"Cancel session"} />
+</DoDont>
+
+##### Secondary CTA
+
+1. Use an action that resembles the exact opposite of the primary action button. On modals that are _destructive_ (Delete, Cancel, Archive), be careful to use '_Keep'_ rather than _'Close'_. On all other modals (Create, Add), use 'Close'.
+
+<DoDont>
+  <Do caption={"Close"} />
+  <Do caption={"Keep"} />
+  <Dont caption={"Cancel"} />
+  <Dont caption={"Keep session"} />
+</DoDont>
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Modal" />
+
+### Behavior
+
+###### Dismissal
+
+By default, the modal can be closed via:
+
+1. The top-right close button (triggers `onCloseButtonClick` then `onClose`).
+2. The Escape key (triggers `onClose`).
+3. Clicking the backdrop outside the modal (triggers `onClickOutside` then `onClose`).
+4. The cancel button (triggers its own `onClick`).
+
+Setting `disableClickOutsideClose` removes only #3. Setting `disableClose` removes #1, #2, and #3 — the modal can then only be dismissed via the cancel or confirm button.
+
+###### Action buttons
+
+The confirm button does not auto-close the modal. This is by design: consumers often need to open a follow-up modal, run an async action, or replace the current flow. To close on confirm, call `setIsOpen(false)` (or equivalent) from the `onClick` handler.
+
+###### Persistence
+
+A modal exists only while `open` is true. State inside the modal is not preserved between openings unless the consumer lifts it up.
+
+###### Responsiveness
+
+Container width follows the `size` prop. The body scrolls when content overflows; title, description, and footer never scroll out of view.
+
+##### Action patterns
+
+Before choosing buttons, classify the modal by the user response it requires. Three patterns cover almost every case:
+
+1. _Action required_ — the user must make a decision before continuing (confirmation, form submission, destructive action).
+
+- Configure with both `confirmButton` and `cancelButton`.
+- Consider `disableClickOutsideClose` so an accidental click doesn't dismiss the decision.
+- Example: _"Are you sure you want to delete this item?"_ → Confirm / Cancel
+
+1. _Informational only_ — the modal communicates something but needs no decision (announcement, status update, post-action confirmation).
+
+- No buttons needed. The user dismisses via the close button, Escape key, or backdrop click.
+- Omit both `confirmButton` and `cancelButton`.
+- Example: _"Your changes have been saved."_ → (X to dismiss)
+
+1. _Informational with optional action_ — the message is the point, but an action is offered as a shortcut.
+
+- Provide only `confirmButton`; leave `cancelButton` undefined. The close button / Escape / backdrop click serve as the implicit "dismiss" path.
+- Example: _"New version available."_ → Update now / (X to dismiss)
+
+A fourth pattern — _forced acknowledgement_ — is supported via `disableClose` with a single confirm button (see Common uses #2). Use it only when the user genuinely must take an explicit action.
+
+1. _Confirmation:_ Ask the user to confirm a destructive or non-reversible action (delete, archive, cancel a booking) before it executes.
+2. _Critical information:_ Surface a message the user must acknowledge before continuing (e.g. a forced reading of terms, a system warning).
+3. _Focused input:_ Collect a small, self-contained set of inputs without navigating away from the current page (e.g. create a tag, edit a single field).
+4. _Onboarding step:_ Present a step in a guided flow where the next action cannot be skipped
+5. _Flow chaining:_ Open a follow-up modal after a confirm action — supported because the confirm button does not close the modal by default.
+
+####
+
+#### Anatomy
+
+Every modal uses this structure:
+
+##### Title
+
+Clear verb + object OR a short question.
+
+##### Body
+
+Max 1–2 lines.
+Explains consequences, reversibility, and impacts.
+
+##### Primary CTA
+
+One short verb: _Create / Add / Delete / Cancel / Archive_
+
+##### Secondary CTA
+
+- _Close_ → used in non-destructive modals
+- _Keep_ → used in destructive modals (any action with negative consequences)
+
+##### No other CTAs allowed.
+
+Avoid "Confirm", "OK", "Proceed", "Yes", "Submit", "Save".
+
+#### CTA localisation
+
+| _CTA_                          | _EN_    | _FR_      | _DE_        | _ES_     | _IT_     | _NL_        |
+| ------------------------------ | ------- | --------- | ----------- | -------- | -------- | ----------- |
+| _Create_                       | Create  | Créer     | Erstellen   | Crear    | Crea     | Maken       |
+| _Add_                          | Add     | Ajouter   | Hinzufügen  | Añadir   | Aggiungi | Toevoegen   |
+| _Delete_                       | Delete  | Supprimer | Löschen     | Eliminar | Elimina  | Verwijderen |
+| _Cancel_                       | Cancel  | Annuler   | Stornieren  | Cancelar | Annulla  | Annuleren   |
+| _Archive_                      | Archive | Archiver  | Archivieren | Archivar | Archivia | Archiveren  |
+| _Close_ (safe-secondary)       | Close   | Fermer    | Schließen   | Cerrar   | Chiudi   | Sluiten     |
+| _Keep_ (destructive-secondary) | Keep    | Garder    | Behalten    | Mantener | Mantieni | Behouden    |
+
+### Edge cases
+
+- _Long content_ — When children exceed the available height, only the body scrolls. Title, description, and footer remain pinned and visible.
+- _Click outside the modal_ — Closes the modal by default. When `disableClickOutsideClose` is true, the backdrop click is ignored but other close mechanisms (Escape key, close button, cancel button) remain available.
+- _Escape key_ — Closes the modal by default. Disabled when `disableClose` is true.
+- _No cancel button_ — Pass `cancelButton=\{undefined\}` to render a single-action footer (useful with `disableClose` for acknowledgement-only modals).
+- _Confirm clicked_ — The modal stays open unless the consumer explicitly closes it from inside `onClick`. This is intentional, to let consumers open a follow-up modal, replace the current one, or trigger an async flow before dismissing.
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Modal`
+- **Storybook:** Browse the live examples under Guidelines.

@@ -1,25 +1,25 @@
 import { z } from "zod";
 
+import {
+  isBookingHourRangeOrderInvalid,
+  isInvalidHourRangeTimeInput,
+  normalizeBookingHourRangeFormValue,
+} from "#src/components/filters/shared/booking-hour-range/normalize-booking-hour-range";
 import { i18nInstance } from "#src/utils/i18n";
 
+import {
+  BOOKING_HOUR_RANGE_DEFAULT_HOUR,
+  BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+} from "../../constants";
 import type { TotalBookingNumberFilterFormValue } from "../../types";
 import { TOTAL_BOOKING_SUB_FILTER_IDS } from "../total-booking-sub-filter-id";
 
 const I18N_NAMESPACE = "sm-smartlists_filters";
 
-const TIME_HH_MM_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
-
-/**
- * Parses an `HH:mm` string into minutes from midnight for range comparison.
- *
- * @param time - Time string in 24-hour `HH:mm` format.
- */
-const parseTimeToMinutes = (time: string): number => {
-  const [hoursString, minutesString] = time.split(":");
-  const hours = Number(hoursString);
-  const minutes = Number(minutesString);
-  return hours * 60 + minutes;
-};
+const BOOKING_HOUR_RANGE_REQUIRED_MESSAGE = i18nInstance.t(
+  "filters.22.validation.bookingHourRangeRequired",
+  { ns: I18N_NAMESPACE },
+);
 
 /**
  * Zod refinement for the booking session hour-range sub-filter when it is
@@ -37,35 +37,38 @@ export const refineBookingHourRangeSubFilter = (
 
   const { hour, hourSecond } = value.bookingHourRange;
 
-  if (!hour || !TIME_HH_MM_PATTERN.test(hour)) {
+  if (isInvalidHourRangeTimeInput(hour)) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
       path: ["bookingHourRange", "hour"],
-      message: i18nInstance.t(
-        "filters.22.validation.bookingHourRangeRequired",
-        {
-          ns: I18N_NAMESPACE,
-        },
-      ),
+      message: BOOKING_HOUR_RANGE_REQUIRED_MESSAGE,
     });
     return;
   }
 
-  if (!hourSecond || !TIME_HH_MM_PATTERN.test(hourSecond)) {
+  if (isInvalidHourRangeTimeInput(hourSecond)) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
       path: ["bookingHourRange", "hourSecond"],
-      message: i18nInstance.t(
-        "filters.22.validation.bookingHourRangeRequired",
-        {
-          ns: I18N_NAMESPACE,
-        },
-      ),
+      message: BOOKING_HOUR_RANGE_REQUIRED_MESSAGE,
     });
     return;
   }
 
-  if (parseTimeToMinutes(hour) > parseTimeToMinutes(hourSecond)) {
+  const normalizedBookingHourRange = normalizeBookingHourRangeFormValue(
+    value.bookingHourRange,
+    {
+      hour: BOOKING_HOUR_RANGE_DEFAULT_HOUR,
+      hourSecond: BOOKING_HOUR_RANGE_DEFAULT_HOUR_SECOND,
+    },
+  );
+
+  if (
+    isBookingHourRangeOrderInvalid(
+      normalizedBookingHourRange.hour,
+      normalizedBookingHourRange.hourSecond,
+    )
+  ) {
     context.addIssue({
       code: z.ZodIssueCode.custom,
       path: ["bookingHourRange", "hourSecond"],

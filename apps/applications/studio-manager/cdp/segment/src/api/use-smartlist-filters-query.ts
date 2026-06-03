@@ -11,10 +11,14 @@ import {
   type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   type GenderFilter,
+  MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
+  type MarketingNotificationFilter,
   type MemberDateJoinedFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
+  PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
   type PaymentPackFilter,
+  type PrivateBookingsFilter,
   type SmartlistGetFiltersResponse,
   TAG_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
@@ -29,8 +33,10 @@ import {
   isCreditAccountFilter,
   isFirstPurchaseFilter,
   isGenderFilter,
+  isMarketingNotificationFilter,
   isMemberDateJoinedFilter,
   isPaymentPackFilter,
+  isPrivateBookingsFilter,
   isTagFilter,
   isTotalBookingFilter,
 } from "#src/components/filters/shared/types-guards";
@@ -41,11 +47,13 @@ type SmartlistFiltersQueryData = {
   memberDateJoinedFilters: MemberDateJoinedFilter[];
   paymentPackFilters: PaymentPackFilter[];
   totalBookingFilters: TotalBookingFilter[];
+  totalAppointmentsFilters: PrivateBookingsFilter[];
   bookingMilestoneFilters: BookingMilestoneFilter[];
   tagFilters: TagFilter[];
   activePassesFilters: ActivePassesFilter[];
   firstPurchaseFilters: FirstPurchaseFilter[];
   creditAccountFilters: CreditAccountFilter[];
+  marketingNotificationFilters: MarketingNotificationFilter[];
 };
 
 const mapGenderFilters = (
@@ -98,6 +106,20 @@ const mapTotalBookingFilters = (
 
   return Object.values(totalBookingFiltersMap)
     .filter(isTotalBookingFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
+const mapTotalAppointmentsFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): PrivateBookingsFilter[] => {
+  const totalAppointmentsFiltersMap =
+    payload?.[PRIVATE_BOOKINGS_FILTER_IDENTIFIER];
+  if (!totalAppointmentsFiltersMap) {
+    return [];
+  }
+
+  return Object.values(totalAppointmentsFiltersMap)
+    .filter(isPrivateBookingsFilter)
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
@@ -165,6 +187,20 @@ const mapFirstPurchaseFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapMarketingNotificationFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): MarketingNotificationFilter[] => {
+  const marketingNotificationFiltersMap =
+    payload?.[MARKETING_NOTIFICATION_FILTER_IDENTIFIER];
+  if (!marketingNotificationFiltersMap) {
+    return [];
+  }
+
+  return Object.values(marketingNotificationFiltersMap)
+    .filter(isMarketingNotificationFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 /**
  * Unified smartlist filters query.
  * Loads all currently supported filter families from one `get_filters` response.
@@ -177,10 +213,12 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       memberDateJoinedFilters: mapMemberDateJoinedFilters(data),
       paymentPackFilters: mapPaymentPackFilters(data),
       totalBookingFilters: mapTotalBookingFilters(data),
+      totalAppointmentsFilters: mapTotalAppointmentsFilters(data),
       bookingMilestoneFilters: mapBookingMilestoneFilters(data),
       tagFilters: mapTagFilters(data),
       activePassesFilters: mapActivePassesFilters(data),
       firstPurchaseFilters: mapFirstPurchaseFilters(data),
       creditAccountFilters: mapCreditAccountFilters(data),
+      marketingNotificationFilters: mapMarketingNotificationFilters(data),
     }),
   });

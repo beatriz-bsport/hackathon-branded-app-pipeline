@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
 import Badge from "#src/components/Badge";

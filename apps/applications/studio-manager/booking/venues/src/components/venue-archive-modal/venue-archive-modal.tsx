@@ -239,11 +239,13 @@ const MessageList: FC<MessageListProps> = ({ messages }) => (
 type VenueArchiveModalProps = {
   venue: Establishment;
   onClose: () => void;
+  onArchived?: () => void;
 };
 
 export const VenueArchiveModal: FC<VenueArchiveModalProps> = ({
   venue,
   onClose,
+  onArchived,
 }) => {
   const { t } = useTranslation("venues-list");
   const { mutate: archiveVenue } = useArchiveVenue();
@@ -257,7 +259,12 @@ export const VenueArchiveModal: FC<VenueArchiveModalProps> = ({
 
   const handleConfirm = () => {
     if (isBlocked) return;
-    archiveVenue(venue.id, { onSuccess: onClose });
+    archiveVenue(venue.id, {
+      onSuccess: () => {
+        onArchived?.();
+        onClose();
+      },
+    });
   };
 
   if (isLoading || !data) {

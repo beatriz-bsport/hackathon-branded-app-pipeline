@@ -1,11 +1,12 @@
 import type { ComponentType } from "react";
+import type { z } from "zod";
+
 import type {
   FieldErrors,
   FieldNamesMarkedBoolean,
   FieldValues,
   UseFormSetValue,
-} from "react-hook-form";
-import type { z } from "zod";
+} from "@bsport/form";
 
 /**
  * Generic props shared by all sub-filter section components.

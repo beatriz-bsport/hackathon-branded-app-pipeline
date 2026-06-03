@@ -1,0 +1,117 @@
+---
+title: Chip
+description: A standalone container representing a discrete value such as a status, attribute, filter, or selected entity.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Chip"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Chips carry semantic meaning, can be dismissed, and often appear in groups as tags, filters, or statuses.
+
+### Variants
+
+- _Weak:_ Subtle style with lighter emphasis.
+- _Strong:_ Bold style with stronger visual emphasis.
+
+#### Size
+
+- _sm:_ 24px height, suitable for use inside Dense forms.
+- _lg:_ 32px height, used as the default density.
+
+#### Colour
+
+- `default` and `main` are used as main colours for tags.
+- Status colours are used for status messages.
+- `custom` is used for colours set-up by users.
+
+##### Related Components
+
+- _Badge:_ A component similar in size but often used for status indicators.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-chip--primary"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-chip--primary",
+      label: "Chip",
+    },
+    {
+      id: "primitive-components-chip--custom-color",
+      label: "Custom color",
+    },
+  ]}
+/>
+
+### Best practices
+
+<DoDont>
+  <Do
+    caption={
+      "Use the appropriate colour to match the context (e.g., critical for errors)."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Don't use strong variants for every chip; reserve them for emphasis.
+
+</Callout>
+
+<DoDont>
+  <Do
+    caption={
+      "Use a chip for user-managed selections (e.g., tags, applied filters)."
+    }
+  />
+  <Do
+    caption={
+      'Use a badge for static text labels that add context (e.g., "Beta", "Exclusive").'
+    }
+  />
+  <Do
+    caption={
+      "Use an indicator for numeric or dot-based status signals (e.g., unread messages, online status)."
+    }
+  />
+</DoDont>
+
+##### Chips - Status subcategories
+
+_Chips used for status because: _
+Chips have more colour variations
+Have hover function
+
+Broadly speaking, Status Chips should fall into one these subcategories:
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Chip" />
+
+## Accessibility
+
+<Accessibility
+  notes={
+    "Make sure the dismiss button is focusable and accessible via keyboard. Provide appropriate ARIA labels for the dismiss button and left slot content."
+  }
+/>
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Chip`
+- **Storybook:** Browse the live examples under Guidelines.

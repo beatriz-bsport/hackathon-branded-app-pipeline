@@ -530,16 +530,14 @@ export const PaymentPackForm: React.FC<Props> = ({
           sanitizedValues.no_show_penalty_kind = PENALTY_KIND_NEGATIVE_ACCOUNT;
           break;
       }
-      if (values.credit_number === 'limited') {
-        sanitizedValues.apply_penalties = false;
-      }
       if (!values.full_vod_access) {
         sanitizedValues.only_vod_access = false;
       }
       if (values.only_vod_access) {
         sanitizedValues.grants_door_access = false;
       }
-      if (!values.apply_penalties) {
+      if (!values.apply_penalties || values.credit_number === 'limited') {
+        sanitizedValues.apply_penalties = false;
         sanitizedValues.penalty_active = false;
         sanitizedValues.no_show_penalty_active = false;
       }

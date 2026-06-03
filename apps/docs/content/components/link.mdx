@@ -1,0 +1,109 @@
+---
+title: Link
+description: An inline hyperlink for navigating within or outside the current context.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Link"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Links take users to another destination. Use them for navigation, not for mutating state.
+
+Links are interactive text elements that take the user to another destination — a different page, an external URL, a section anchor, or a downloadable resource. They appear inline within body copy, in standalone navigation contexts, or alongside an avatar to attribute content to a user. A Link communicates "this is something you can click to go elsewhere" and should always look distinct from surrounding text.
+
+### Use cases
+
+- _Inline navigation:_ Direct the user to a related page or section from within a paragraph of body text.
+- _External references:_ Point to a resource outside the current product, opened in a new tab via `target="_blank"`.
+- _User attribution:_ Pair with `avatarProps` to link to a client's profile.
+- _Iconified actions:_ Use `icon` to add a leading glyph that reinforces the link's destination (e.g. external, download, document).
+- _Calls to action in dense UI:_ Replace a button when the action is navigational rather than transactional and visual weight should stay low.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-link--primary"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-link--primary",
+      label: "Link",
+    },
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do
+    caption={
+      'Write descriptive labels that make sense out of context — "View the quarterly report" rather than "click here."'
+    }
+  />
+  <Do
+    caption={
+      'Use `target="_blank"` for external destinations and always pair it with the proper rel handling for security.'
+    }
+  />
+  <Dont
+    caption={
+      "Don't use a Link when the action mutates state (saving, deleting, submitting) — use a Button instead."
+    }
+  />
+  <Dont
+    caption={
+      "Don't combine `icon` and `avatarProps` on the same Link; pick one leading element."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Caution when stacking multiple links in the same sentence; it fragments reading flow and makes the destination of each link ambiguous.
+- Caution when removing the underline in body copy — without it, the link must rely on color alone, which fails users with color-vision deficiencies unless another affordance is present.
+
+</Callout>
+
+#### Content
+
+#### `TBD`
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Link" />
+
+### Behavior
+
+###### Navigation target
+
+`target` controls where the destination opens: `*self` (same tab, default browser behavior), `*blank` (new tab), `*parent` (parent frame). For `*blank`, the consuming app is responsible for security attributes on the rendered anchor.
+
+###### Keyboard
+
+The Link is reachable via Tab, activated with Enter, and shows a visible focus ring on keyboard focus.
+
+### Edge cases
+
+- _Very long labels:_ The Link wraps with the surrounding text flow; the underline (when present) breaks across lines cleanly.
+- _Disabled state:_ Not a built-in variant — if a destination is unavailable, render plain text rather than a non-interactive Link.
+- _Empty _`href`_:_ Renders as a non-navigating anchor; avoid in production and use a Button styled as a link if no destination exists yet.
+- _Avatar + long text:_ The avatar stays vertically centered on the first line of the label; wrapping text aligns to the avatar's right edge.
+- _Icon-only intent:_ Not supported — Link always requires a text label for accessibility.
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Link`
+- **Storybook:** Browse the live examples under Guidelines.

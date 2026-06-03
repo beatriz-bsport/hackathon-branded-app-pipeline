@@ -11,6 +11,7 @@ const SESSION_ID_PARAM = ":sessionId";
 const EDIT_SLUG = `${SESSION_ID_PARAM}/edit`;
 const INDEX = "..";
 const SERIES_SLUG = `${SESSION_ID_PARAM}/series`;
+const ALL_OCCURRENCES_SLUG = `${SESSION_ID_PARAM}/all-occurrences`;
 
 export const URLS = {
   INDEX,
@@ -20,6 +21,8 @@ export const URLS = {
   EDIT_PATH: `${INDEX}/${EDIT_SLUG}`,
   SERIES_SLUG,
   SERIES_PATH: `${INDEX}/${SERIES_SLUG}`,
+  ALL_OCCURRENCES_SLUG,
+  ALL_OCCURRENCES_PATH: `${INDEX}/${ALL_OCCURRENCES_SLUG}`,
 } as const;
 
 export const LEGACY_URLS = {
@@ -71,6 +74,9 @@ export const useUrls = () => {
   const resolveSeriesPath = (id: number) =>
     generatePath(URLS.SERIES_PATH, { sessionId: String(id) });
 
+  const resolveAllOccurrencesPath = (id: number) =>
+    generatePath(URLS.ALL_OCCURRENCES_PATH, { sessionId: String(id) });
+
   const getIndexUrl = () => URLS.INDEX;
 
   const navigateToIndex = () => navigate(URLS.INDEX);
@@ -88,6 +94,7 @@ export const useUrls = () => {
     getIndexUrl,
     resolveEditPath,
     resolveSeriesPath,
+    resolveAllOccurrencesPath,
     navigateToIndex,
     navigateToEdit,
   };

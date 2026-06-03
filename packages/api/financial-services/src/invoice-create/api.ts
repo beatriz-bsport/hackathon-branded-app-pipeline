@@ -1,7 +1,14 @@
+import { mutationOptions } from "@tanstack/react-query";
+
 import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
 import { API_URL_PAYMENT_INVOICES, QUERY_KEY_MAIN } from "../constants";
-import type { CreateInvoiceRequest, CreateInvoiceResponse } from "./types";
+import type {
+  CreateInvoiceRequest,
+  CreateInvoiceResponse,
+  InvoiceQuickCreateRequest,
+  InvoiceQuickCreateResponse,
+} from "./types";
 
 export const invoiceCreateKeys = {
   all: [QUERY_KEY_MAIN, "invoice-create"] as const,
@@ -25,3 +32,23 @@ export const createInvoiceAPI = async (
 
   return data;
 };
+
+export const createQuickInvoiceAPI = async (
+  fetch: Fetch<InvoiceQuickCreateResponse>,
+  payload: InvoiceQuickCreateRequest,
+): Promise<InvoiceQuickCreateResponse> => {
+  const { data } = await fetch(`${API_URL_PAYMENT_INVOICES}/quick_create/`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+
+  return data;
+};
+
+export const createQuickInvoiceMutationOptions = (
+  fetch: Fetch<InvoiceQuickCreateResponse>,
+) =>
+  mutationOptions({
+    mutationFn: (params: InvoiceQuickCreateRequest) =>
+      createQuickInvoiceAPI(fetch, params),
+  });

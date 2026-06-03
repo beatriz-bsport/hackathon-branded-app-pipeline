@@ -441,7 +441,7 @@
       "success": "Standardregel geändert"
     },
     "errors": {
-      "cannotHaveSeveralPaymentRulesWithSameName": "Jede Honorarabrechnungsregel muss einen eindeutigen Namen haben"
+      "cannotHaveSeveralPaymentRulesWithSameName": "Jede Lohnabrechnungsregel muss einen eindeutigen Namen haben"
     }
   },
   "relationship": {
@@ -835,7 +835,7 @@
   },
   "signup": {
     "failedCreation": "Ihr Konto kann im Moment nicht erstellt werden, bitte versuchen Sie es in ein paar Minuten erneut",
-    "emailAlreadyExists": "Diese E-Mail-Adresse wird bereits verwendet. Du hast sie möglicherweise verwendet, um dich bei einem anderen Studio anzumelden. Melde dich an oder setze dein Passwort zurück, um fortzufahren.",
+    "emailAlreadyExists": "Diese E-Mail-Adresse wird bereits verwendet. Möglicherweise hast du sie bereits bei einem anderen Studio zur Anmeldung genutzt. Bitte melde dich an oder setze dein Passwort zurück, um fortzufahren.",
     "changeWorkspaceError": "Bei der Kontoänderung ist ein Fehler aufgetreten"
   },
   "paymentRuleGroups": {
@@ -957,9 +957,11 @@
     "signupViaCustomForm": {
       "errors": {
         "84101": "Obligatorische Felder wurden nicht ausgefüllt",
-        "84102": "Diese E-Mail ist bereits in Gebrauch",
+        "84102": "Diese E-Mail-Adresse wird bereits verwendet. Möglicherweise hast du sie bereits bei einem anderen Studio zur Anmeldung genutzt. Bitte melde dich an oder setze dein Passwort zurück, um fortzufahren.",
         "84103": "Das angegebene Geschlecht ist nicht gültig",
-        "84104": "Die Rufnummer ist ungültig"
+        "84104": "Die Rufnummer ist ungültig",
+        "84106": "Dein Passwort muss mindestens 12 Zeichen enthalten",
+        "84107": "Links und HTML sind in Textfeldern nicht erlaubt"
       },
       "error": "Fehler bei der Registrierung, bitte versuchen Sie es erneut",
       "success": "Anmeldung validiert"

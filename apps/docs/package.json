@@ -14,7 +14,8 @@
     "dev": "pnpm run generate && vite --port 4070",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "generate": "pnpm run generate:design-data && pnpm run generate:metadata && pnpm run generate:static-exports",
+    "generate": "pnpm run generate:client-data && pnpm run generate:static-exports",
+    "generate:client-data": "pnpm run generate:design-data && pnpm run generate:metadata",
     "generate:design-data": "pnpm run generate:props && pnpm run generate:tokens",
     "generate:metadata": "pnpm run generate:nav && pnpm run generate:pages-manifest",
     "generate:nav": "node scripts/generate-nav.mjs",
@@ -26,7 +27,7 @@
     "generate:tokens": "node scripts/extract-tokens.mjs",
     "lint": "eslint .",
     "preview": "vite preview --port 4070",
-    "typecheck": "tsc --noEmit --pretty false"
+    "typecheck": "pnpm run generate:client-data && tsc --noEmit --pretty false"
   },
   "dependencies": {
     "@mdx-js/react": "^3.1.1",

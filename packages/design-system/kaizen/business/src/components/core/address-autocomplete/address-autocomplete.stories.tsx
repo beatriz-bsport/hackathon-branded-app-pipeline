@@ -3,7 +3,6 @@ import { useState } from "react";
 import { z } from "zod";
 
 import type { AddressSuggestion } from "@bsport/api-core";
-import { getRuntimeGoogleMapsApiKey } from "@bsport/fetch";
 import { ControlledForm, useFormController } from "@bsport/form";
 
 import { AddressAutocompleteFormSelector } from "./address-autocomplete-form-selector";
@@ -24,7 +23,7 @@ when creating or editing an establishment's location. The user types a partial a
 selects from formatted suggestions, and \`onChange\` emits a fully-parsed \`AddressSuggestion\`
 with split fields (\`address_line_1\`, \`city\`, \`zipcode\`, \`country\`, \`geometry\`, …).
 
-It requires an \`apiKey\` (Google Maps Geocoding API key injected by the host app via \`getRuntimeGoogleMapsApiKey()\` from \`@bsport/fetch\`). Results are loaded via React Query.
+Results are loaded via React Query and powered by the shared Google Geocoding API key.
 
 ### How to import?
 
@@ -45,7 +44,6 @@ import {
 const [address, setAddress] = useState<AddressSuggestion | null>(null);
 
 <AddressAutocompleteRaw
-  apiKey={runtimeConfig.GOOGLE_MAPS_API_KEY}
   textfieldProps={{ label: "Address", required: true }}
   value={address}
   onChange={setAddress}
@@ -63,7 +61,6 @@ const meta: Meta<AddressAutocompleteRawComponent> = {
     },
   },
   args: {
-    apiKey: getRuntimeGoogleMapsApiKey(),
     textfieldProps: { label: "Address", required: true },
   },
   tags: ["autodocs"],
@@ -166,7 +163,6 @@ export const Documentation: StoryObj<AddressAutocompleteRawComponent> = {
         story: `
 ### Requirements
 
-- \`apiKey\` (use \`getRuntimeGoogleMapsApiKey()\` from \`@bsport/fetch\` in Studio Manager)
 - \`@tanstack/react-query\` (\`QueryClientProvider\` must wrap the component)
 
 ---
@@ -175,7 +171,6 @@ export const Documentation: StoryObj<AddressAutocompleteRawComponent> = {
 
 | Prop | Description |
 |------|-------------|
-| \`apiKey\` | Google Maps API key used for Geocoding requests |
 | \`onChange\` | Callback receiving a full \`AddressSuggestion\` on select, or \`null\` on clear |
 
 ---
@@ -240,7 +235,6 @@ export const FormSelectorExample: StoryObj<AddressAutocompleteRawComponent> = {
         >
           <AddressAutocompleteFormSelector<FormValues, "location">
             fieldName="location"
-            apiKey={getRuntimeGoogleMapsApiKey()}
             textfieldProps={{ label: "Address", required: true }}
           />
         </ControlledForm>

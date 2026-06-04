@@ -36,10 +36,10 @@ const MarketplaceWorkshopBaseStyled = compose<
 >(
   themify,
   withPostMessageOnPropsUpdate([
-    { propName: 'filters', messageType: 'bsport:calendar:filter:update' },
+    { propName: 'filters', messageType: 'bsport:workshop:filter:update' },
     {
       propName: 'onlineFilter',
-      messageType: 'bsport:calendar:filter:update',
+      messageType: 'bsport:workshop:filter:update',
     },
   ]),
   withPostMessageToUpdateProps([

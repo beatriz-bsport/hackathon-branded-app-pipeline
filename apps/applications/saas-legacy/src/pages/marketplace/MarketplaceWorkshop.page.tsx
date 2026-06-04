@@ -510,7 +510,7 @@ export default compose(
     { propName: 'filters', messageType: 'bsport:workshop:filter:update' },
     {
       propName: 'onlineFilter',
-      messageType: 'bsport:calendar:filter:update',
+      messageType: 'bsport:workshop:filter:update',
     },
   ]),
   withPostMessageToUpdateProps<Props>([

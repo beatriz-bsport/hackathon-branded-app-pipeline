@@ -3,6 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { campaignSentListQueryOptions } from "@bsport/api-cdp/communicate";
 
 import { fetch } from "#src/utils/fetch";
+import type { PrebuiltSegmentId } from "#src/utils/prebuilt-segment";
 
 type UseFetchCampaignSentListTarget =
   | {
@@ -10,7 +11,7 @@ type UseFetchCampaignSentListTarget =
       segmentIdentifier?: never;
     }
   | {
-      segmentIdentifier: string;
+      segmentIdentifier: PrebuiltSegmentId;
       smartlistId?: never;
     };
 

@@ -1,5 +1,7 @@
+import type { PrebuiltSegmentId } from "#src/constants";
+
 export type PrebuiltSegmentDefinitionParams = {
-  segment_identifier: string;
+  segment_identifier: PrebuiltSegmentId;
 };
 
 export type PrebuiltSegmentMembersParams = PrebuiltSegmentDefinitionParams & {

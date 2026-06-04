@@ -7,7 +7,7 @@ import {
 } from "@bsport/api-cdp/prebuilt-segment";
 import { captureException } from "@bsport/sm-backbone";
 
-import type { PrebuiltSegmentId } from "./constants";
+import type { PrebuiltSegmentId } from "#src/utils/prebuilt-segment";
 
 const isoCompanyLocalDateSchema = z.string().superRefine((value, ctx) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {

@@ -13,8 +13,10 @@ import {
 import { usePrebuiltSegmentDefinition } from "#src/api/use-prebuilt-segment";
 import { SMARTLIST_APP_LINKS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
-
-import { type PrebuiltSegmentId, isPrebuiltSegmentId } from "./constants";
+import {
+  type PrebuiltSegmentId,
+  isPrebuiltSegmentId,
+} from "#src/utils/prebuilt-segment";
 
 export type PrebuiltSegmentDetailOutletContext = {
   prebuiltSegmentId: PrebuiltSegmentId;

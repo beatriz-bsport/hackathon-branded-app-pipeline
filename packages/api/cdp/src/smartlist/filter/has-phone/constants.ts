@@ -1,0 +1,1 @@
+export const HAS_PHONE_FILTER_IDENTIFIER = "106";

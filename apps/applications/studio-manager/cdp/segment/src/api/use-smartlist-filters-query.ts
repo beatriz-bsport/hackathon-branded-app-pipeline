@@ -11,6 +11,8 @@ import {
   type FirstPurchaseFilter,
   GENDER_FILTER_IDENTIFIER,
   type GenderFilter,
+  HAS_PHONE_FILTER_IDENTIFIER,
+  type HasPhoneFilter,
   MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   type MarketingNotificationFilter,
@@ -33,6 +35,7 @@ import {
   isCreditAccountFilter,
   isFirstPurchaseFilter,
   isGenderFilter,
+  isHasPhoneFilter,
   isMarketingNotificationFilter,
   isMemberDateJoinedFilter,
   isPaymentPackFilter,
@@ -54,6 +57,7 @@ type SmartlistFiltersQueryData = {
   firstPurchaseFilters: FirstPurchaseFilter[];
   creditAccountFilters: CreditAccountFilter[];
   marketingNotificationFilters: MarketingNotificationFilter[];
+  hasPhoneFilters: HasPhoneFilter[];
 };
 
 const mapGenderFilters = (
@@ -201,6 +205,19 @@ const mapMarketingNotificationFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapHasPhoneFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): HasPhoneFilter[] => {
+  const hasPhoneFiltersMap = payload?.[HAS_PHONE_FILTER_IDENTIFIER];
+  if (!hasPhoneFiltersMap) {
+    return [];
+  }
+
+  return Object.values(hasPhoneFiltersMap)
+    .filter(isHasPhoneFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 /**
  * Unified smartlist filters query.
  * Loads all currently supported filter families from one `get_filters` response.
@@ -220,5 +237,6 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       firstPurchaseFilters: mapFirstPurchaseFilters(data),
       creditAccountFilters: mapCreditAccountFilters(data),
       marketingNotificationFilters: mapMarketingNotificationFilters(data),
+      hasPhoneFilters: mapHasPhoneFilters(data),
     }),
   });

@@ -33,15 +33,10 @@ const prebuiltMetadataColumnIdSchema = z.enum([
   "pass_validity_start_date",
   "last_visit_date",
   "offer_expiry_date",
-  "status",
-  "date_joined",
+  "status_id",
+  "join_date",
   "last_purchase_date",
-  "current_lifecycle_state",
-]);
-
-const sortableFieldSchema = z.union([
-  z.enum(["name", "email"]),
-  prebuiltMetadataColumnIdSchema,
+  "current_lifecycle_state_id",
 ]);
 
 const metadataColumnSchema = z.object({
@@ -51,9 +46,9 @@ const metadataColumnSchema = z.object({
 
 const memberIdentitySchema = z.object({
   id: z.number().int(),
-  name: z.string(),
-  email: z.string(),
-  photo: z.string().optional(),
+  name: z.string().nullable(),
+  email: z.string().nullable(),
+  photo: z.string().nullable().optional(),
 });
 
 const membersPageSchema = z.object({
@@ -73,6 +68,9 @@ const activeMembersValuesSchema = z
 const activeTrialStatusIdSchema = z.nativeEnum(ActiveTrialStatusId);
 
 const customerLifecycleStateIdSchema = z.nativeEnum(CustomerLifecycleStateId);
+const nullableCustomerLifecycleStateIdSchema = z
+  .union([customerLifecycleStateIdSchema, z.literal(0)])
+  .nullable();
 
 const activeTrialsValuesSchema = z
   .object({
@@ -85,10 +83,10 @@ const activeTrialsValuesSchema = z
 
 const customersValuesSchema = z
   .object({
-    date_joined: isoCompanyLocalDateSchema.nullable(),
+    join_date: isoCompanyLocalDateSchema.nullable(),
     last_purchase_date: isoCompanyLocalDateSchema.nullable(),
     last_visit_date: isoCompanyLocalDateSchema.nullable(),
-    current_lifecycle_state_id: customerLifecycleStateIdSchema.nullable(),
+    current_lifecycle_state_id: nullableCustomerLifecycleStateIdSchema,
   })
   .strict();
 
@@ -134,42 +132,6 @@ function createMetadataColumnsSchema(
   });
 }
 
-function createSortableFieldsSchema(
-  allowedColumnIds: ReadonlyArray<
-    z.infer<typeof prebuiltMetadataColumnIdSchema>
-  >,
-) {
-  const allowedSortableFieldSet = new Set([
-    "name",
-    "email",
-    ...allowedColumnIds,
-  ]);
-
-  return z.array(sortableFieldSchema).superRefine((fields, ctx) => {
-    const seenFields = new Set<string>();
-
-    fields.forEach((field, fieldIndex) => {
-      if (!allowedSortableFieldSet.has(field)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: [fieldIndex],
-          message: "Unsupported sortable field for this segment",
-        });
-      }
-
-      if (seenFields.has(field)) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: [fieldIndex],
-          message: "Duplicate sortable field",
-        });
-      }
-
-      seenFields.add(field);
-    });
-  });
-}
-
 const prebuiltSegmentDefinitionBaseSchema = z.object({
   fallback_title: z.string().min(1),
   fallback_description: z.string().nullable().optional(),
@@ -183,11 +145,6 @@ const activeMembersDefinitionSchema =
       "pass_validity_start_date",
       "last_visit_date",
     ]),
-    sortable_fields: createSortableFieldsSchema([
-      "pass_name",
-      "pass_validity_start_date",
-      "last_visit_date",
-    ]),
   });
 
 const activeTrialsDefinitionSchema = prebuiltSegmentDefinitionBaseSchema.extend(
@@ -197,13 +154,7 @@ const activeTrialsDefinitionSchema = prebuiltSegmentDefinitionBaseSchema.extend(
       "pass_name",
       "pass_validity_start_date",
       "offer_expiry_date",
-      "status",
-    ]),
-    sortable_fields: createSortableFieldsSchema([
-      "pass_name",
-      "pass_validity_start_date",
-      "offer_expiry_date",
-      "status",
+      "status_id",
     ]),
   },
 );
@@ -211,16 +162,10 @@ const activeTrialsDefinitionSchema = prebuiltSegmentDefinitionBaseSchema.extend(
 const customersDefinitionSchema = prebuiltSegmentDefinitionBaseSchema.extend({
   segment_id: z.literal("customers"),
   columns: createMetadataColumnsSchema([
-    "date_joined",
+    "join_date",
     "last_purchase_date",
     "last_visit_date",
-    "current_lifecycle_state",
-  ]),
-  sortable_fields: createSortableFieldsSchema([
-    "date_joined",
-    "last_purchase_date",
-    "last_visit_date",
-    "current_lifecycle_state",
+    "current_lifecycle_state_id",
   ]),
 });
 
@@ -263,7 +208,6 @@ export const prebuiltSegmentMembersSchemaById = {
 export type PrebuiltSegmentMetadataColumnId = z.infer<
   typeof prebuiltMetadataColumnIdSchema
 >;
-export type PrebuiltSegmentSortableField = z.infer<typeof sortableFieldSchema>;
 export type PrebuiltSegmentDefinitionResponse = z.infer<
   typeof prebuiltSegmentDefinitionSchema
 >;

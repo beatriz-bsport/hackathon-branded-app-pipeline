@@ -5,7 +5,6 @@ import type { Fetch } from "@bsport/fetch";
 import type { UseFormControllerOutput } from "@bsport/form";
 
 import { GiftCardPaymentMethod } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/gift-card-payment-method";
-import type { PaymentFlowGiftCard } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/gift-card/types";
 import { ManualPaymentMethod } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/manual/manual-payment-method";
 import { StripePaymentMethod } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/stripe-payment-method";
 import type { StripePaymentMethodHandle } from "#src/components/financial-services/payment-flow-modal/components/payment-methods/stripe/types";
@@ -48,7 +47,6 @@ type UsePaymentMethodRenderersParams = {
   hasStripeReaders: boolean;
   cardPaymentRef: RefObject<StripePaymentMethodHandle | null>;
   sepaPaymentRef: RefObject<StripePaymentMethodHandle | null>;
-  onGiftCardsChange: (cards: PaymentFlowGiftCard[]) => void;
   companyTheme?: CompanyTheme;
 };
 
@@ -76,7 +74,6 @@ export const usePaymentMethodRenderers = ({
   hasStripeReaders,
   cardPaymentRef,
   sepaPaymentRef,
-  onGiftCardsChange,
   companyTheme,
 }: UsePaymentMethodRenderersParams) => {
   const savePaymentMethod = methods.watch("savePaymentMethod");
@@ -133,7 +130,6 @@ export const usePaymentMethodRenderers = ({
         onSelectedGiftCardIdChange={(value) =>
           methods.setValue("selectedGiftCardId", value)
         }
-        onGiftCardsChange={onGiftCardsChange}
       />
     ),
     [ALL_PAYMENT_METHOD_SELECTOR_ID.ACCOUNT_BALANCE]: () => null,

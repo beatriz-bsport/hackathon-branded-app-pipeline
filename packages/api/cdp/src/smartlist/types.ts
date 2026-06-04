@@ -6,6 +6,7 @@ export * from "./filter/credit-account/types";
 export * from "./filter/first-purchase/types";
 export * from "./filter/gender/types";
 export * from "./filter/has-phone/types";
+export * from "./filter/last-booking/types";
 export * from "./filter/marketing-notification/types";
 export * from "./filter/member-date-joined/types";
 export * from "./filter/payment-pack/types";

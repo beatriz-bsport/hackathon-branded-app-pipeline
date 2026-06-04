@@ -40,6 +40,10 @@ import { HasPhoneFilterCard } from "./has-phone-filter/components/has-phone-filt
 import { createDefaultHasPhoneFilter } from "./has-phone-filter/default-value";
 import { mapHasPhoneFilterToFormValue } from "./has-phone-filter/mappers/api-to-form-value";
 import type { HasPhoneFilterFormValue } from "./has-phone-filter/types";
+import { LastBookingFilterCard } from "./last-booking-filter/components/last-booking-filter-card";
+import { createDefaultLastBookingFilter } from "./last-booking-filter/default-value";
+import { mapLastBookingFilterToFormValue } from "./last-booking-filter/mappers/api-to-form-value";
+import type { LastBookingFilterFormValue } from "./last-booking-filter/types";
 import { MarketingNotificationFilterCard } from "./marketing-notification-filter/components/marketing-notification-filter-card";
 import { createDefaultMarketingNotificationFilter } from "./marketing-notification-filter/default-value";
 import { mapMarketingNotificationFilterToFormValue } from "./marketing-notification-filter/mappers/api-to-form-value";
@@ -94,6 +98,7 @@ type FilterValueByType = {
   creditAccount: CreditAccountFilterFormValue;
   marketingNotification: MarketingNotificationFilterFormValue;
   hasPhone: HasPhoneFilterFormValue;
+  lastBooking: LastBookingFilterFormValue;
 };
 
 type DraftFilter =
@@ -156,6 +161,11 @@ type DraftFilter =
       clientId: string;
       filterType: "hasPhone";
       value: FilterValueByType["hasPhone"];
+    }
+  | {
+      clientId: string;
+      filterType: "lastBooking";
+      value: FilterValueByType["lastBooking"];
     };
 
 type SavedFilter =
@@ -218,6 +228,11 @@ type SavedFilter =
       key: string;
       filterType: "hasPhone";
       value: FilterValueByType["hasPhone"];
+    }
+  | {
+      key: string;
+      filterType: "lastBooking";
+      value: FilterValueByType["lastBooking"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -266,6 +281,7 @@ export const SegmentFiltersManager = ({
   const marketingNotificationFilters =
     smartlistFilters?.marketingNotificationFilters ?? [];
   const hasPhoneFilters = smartlistFilters?.hasPhoneFilters ?? [];
+  const lastBookingFilters = smartlistFilters?.lastBookingFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -447,6 +463,15 @@ export const SegmentFiltersManager = ({
         onSaveSuccess={onSaveSuccess}
       />
     ),
+    lastBooking: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <LastBookingFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
   };
 
   const createDraftFilterByType: {
@@ -512,6 +537,11 @@ export const SegmentFiltersManager = ({
       filterType: FILTER_TYPES.hasPhone,
       value: createDefaultHasPhoneFilter(smartlistNumericId),
     }),
+    lastBooking: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.lastBooking),
+      filterType: FILTER_TYPES.lastBooking,
+      value: createDefaultLastBookingFilter(smartlistNumericId),
+    }),
   };
 
   const renderFilterCard = <TFilterType extends FilterType>(
@@ -562,6 +592,12 @@ export const SegmentFiltersManager = ({
           id: FILTER_TYPES.bookingMilestone,
           label: t("filters.21.title"),
           description: t("filterSelector.options.bookingMilestone.description"),
+          category: FILTER_SELECTOR_CATEGORIES.bookings,
+        },
+        {
+          id: FILTER_TYPES.lastBooking,
+          label: t("filters.501.title"),
+          description: t("filterSelector.options.lastBooking.description"),
           category: FILTER_SELECTOR_CATEGORIES.bookings,
         },
         {
@@ -672,6 +708,11 @@ export const SegmentFiltersManager = ({
       key: `saved-has-phone-${hasPhoneFilter.id}`,
       filterType: FILTER_TYPES.hasPhone,
       value: mapHasPhoneFilterToFormValue(hasPhoneFilter),
+    })),
+    ...lastBookingFilters.map((lastBookingFilter) => ({
+      key: `saved-last-booking-${lastBookingFilter.id}`,
+      filterType: FILTER_TYPES.lastBooking,
+      value: mapLastBookingFilterToFormValue(lastBookingFilter),
     })),
   ];
 

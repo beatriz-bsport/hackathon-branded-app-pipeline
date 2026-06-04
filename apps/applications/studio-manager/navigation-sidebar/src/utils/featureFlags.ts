@@ -7,6 +7,7 @@ export const { flags: NavFlags, useFlag: useNavFlag } = makeFeatureFlags({
   // FS
   INVOICE_LIST_PAGE: "invoice_list_page",
   PAYOUTS_PAGE: "payouts_page",
+  FS_SUBSCRIPTION_PAGE: "fs_subscription_page",
   FS_BILLING_FLOW_NEW_MODAL: "fs_billing_flow_new_modal",
   FS_PAYMENT_FLOW_MODAL: "fs_payment_flow_modal",
   // CDP

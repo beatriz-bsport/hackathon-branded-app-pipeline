@@ -26,6 +26,7 @@ declare module "sm-navigation-sidebar/urls" {
     order: string;
     pack: string;
     payout: string;
+    subscriptionFinance: string;
     playlist: string;
     smartfill: string;
     smartlist: string;

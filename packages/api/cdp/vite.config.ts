@@ -16,6 +16,14 @@ function discoverEntries(): Record<string, string> {
     ) {
       entries[entry.name] = path.resolve(srcDir, entry.name, "index.ts");
     }
+
+    // Pick up an optional `mocks` subfolder (e.g. inbox/mocks) so it can be
+    // exposed as a dedicated, dev-only subpath without leaking into the
+    // module's main barrel.
+    const mocksIndex = path.resolve(srcDir, entry.name, "mocks", "index.ts");
+    if (entry.isDirectory() && fs.existsSync(mocksIndex)) {
+      entries[`${entry.name}/mocks`] = mocksIndex;
+    }
   }
 
   return entries;
@@ -40,7 +48,7 @@ export default defineConfig({
     },
     rollupOptions: {
       // External dependencies that shouldn't be bundled
-      external: ["react", "react/jsx-dev-runtime", "react/jsx-runtime"],
+      external: ["react", "react/jsx-dev-runtime", "react/jsx-runtime", "msw"],
     },
   },
   resolve: {

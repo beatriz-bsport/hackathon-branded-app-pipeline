@@ -12,6 +12,11 @@
       "import": "./build/index.js",
       "default": "./build/index.js"
     },
+    "./inbox/mocks": {
+      "types": "./build/inbox/mocks/index.d.ts",
+      "import": "./build/inbox/mocks.js",
+      "default": "./build/inbox/mocks.js"
+    },
     "./*": {
       "types": "./build/*/index.d.ts",
       "import": "./build/*.js",
@@ -38,7 +43,8 @@
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
-    "@tanstack/react-query": "^5.90.12"
+    "@tanstack/react-query": "^5.90.12",
+    "msw": "^2.7.6"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5.90.12"

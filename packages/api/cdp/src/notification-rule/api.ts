@@ -1,12 +1,13 @@
 import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
+import { QUERY_KEY_MAIN } from "#src/constants";
 import type { CommunicationVariable } from "#src/notification-rule/types";
 
 const API_URL = "customer-data-platform/v1/notification";
 const RULE_API_URL = API_URL + "/rule";
 
 export const notificationRuleKeys = {
-  all: ["@api-cdp", "notification-rule"] as const,
+  all: [QUERY_KEY_MAIN, "notification-rule"] as const,
 
   communicationVariables: () =>
     [...notificationRuleKeys.all, "communication-variables"] as const,

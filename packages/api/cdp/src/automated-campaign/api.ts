@@ -5,6 +5,8 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import { QUERY_KEY_MAIN } from "#src/constants";
+
 import type {
   AutomatedCampaign,
   CreateAutomatedCampaignParams,
@@ -17,7 +19,7 @@ const SMARTLIST_API_V1 = "customer-data-platform/v1/smartlist";
 // ── Query Key Factory ──
 
 export const automatedCampaignKeys = {
-  all: ["@api-cdp", "automated-campaign"] as const,
+  all: [QUERY_KEY_MAIN, "automated-campaign"] as const,
 
   list: (smartlistId: string) =>
     [...automatedCampaignKeys.all, "list", smartlistId] as const,

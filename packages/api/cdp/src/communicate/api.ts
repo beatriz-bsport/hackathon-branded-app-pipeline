@@ -4,6 +4,8 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import { QUERY_KEY_MAIN } from "#src/constants";
+
 import {
   COMMUNICATION_API_V1,
   DEFAULT_PAGE,
@@ -33,7 +35,7 @@ import type {
 import { getCampaignSentListTargetParams } from "./utils";
 
 export const communicateKeys = {
-  all: ["@api-cdp", "communicate"] as const,
+  all: [QUERY_KEY_MAIN, "communicate"] as const,
   campaignSentList: ({
     smartlist,
     segment_identifier,

@@ -5,3 +5,4 @@ export * from "./automated-campaign";
 export * from "./smartlist";
 export * from "./communicate";
 export * from "./tags";
+export * from "./inbox";

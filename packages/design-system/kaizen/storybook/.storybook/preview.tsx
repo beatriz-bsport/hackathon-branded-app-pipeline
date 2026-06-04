@@ -1,6 +1,7 @@
 import { withThemeByClassName } from "@storybook/addon-themes";
 import type { Preview } from "@storybook/react-vite";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { initialize, mswLoader } from "msw-storybook-addon";
 import React, { Suspense, useEffect } from "react";
 
 import "@bsport/kaizen-tokens/src/index.css";
@@ -17,6 +18,11 @@ import {
   inMemoryTranslationsLoader as primitiveInMemoryTranslationsLoader,
   switchLanguage,
 } from "../../primitive/core/src/i18n/index";
+
+// Start the MSW service worker. `bypass` lets unmocked requests (dev auth,
+// translations, etc.) hit the network normally — only handlers registered via
+// a story's `parameters.msw` are intercepted.
+initialize({ onUnhandledRequest: "bypass" });
 
 // Set API environment to dev for local storybook
 if (typeof window !== "undefined") {
@@ -82,6 +88,8 @@ const preview: Preview = {
       defaultTheme: "light",
     }),
   ],
+  loaders: [mswLoader],
+
   parameters: {
     backgrounds: {
       options: {

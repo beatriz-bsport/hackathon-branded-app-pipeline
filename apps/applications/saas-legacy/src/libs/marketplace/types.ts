@@ -43,7 +43,8 @@ export type MarketplaceCalendarData = MarketplaceCommonFilter &
 
 export type MarketplaceCalendarVariant = 'activityName' | 'coach' | 'time';
 
-export type MarketplaceWorkshopData = MarketplaceCommonFilter;
+export type MarketplaceWorkshopData = MarketplaceCommonFilter &
+  MarketplaceOnlineFiltering;
 
 export enum MarketplacePrivateServiceTypeEnum {
   list = 'list',

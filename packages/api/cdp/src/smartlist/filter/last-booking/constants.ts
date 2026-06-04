@@ -1,0 +1,1 @@
+export const LAST_BOOKING_FILTER_IDENTIFIER = "501";

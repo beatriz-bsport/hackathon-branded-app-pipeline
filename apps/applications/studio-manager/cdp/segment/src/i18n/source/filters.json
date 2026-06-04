@@ -39,6 +39,9 @@
       "bookingMilestone": {
         "description": "Filter by the N-th booking a member reaches (1st, 2nd, …)."
       },
+      "lastBooking": {
+        "description": "Filter members whose last qualifying booking was more than a given number of days ago."
+      },
       "tags": {
         "description": "Filter members by tags they have or do not have."
       },
@@ -495,6 +498,30 @@
         "saveSuccess": "Has phone filter saved.",
         "deleteError": "Unable to delete has phone filter.",
         "invalidFilter": "Invalid filter."
+      }
+    },
+    "501": {
+      "title": "Last booking",
+      "actions": {
+        "deleteFilter": "Delete last booking filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "daysLabel": "No bookings in the last",
+        "daysSuffix": "",
+        "daysSuffix_one": "day",
+        "daysSuffix_other": "days"
+      },
+      "toasts": {
+        "saveError": "Unable to save last booking filter.",
+        "saveSuccess": "Last booking filter saved.",
+        "deleteError": "Unable to delete last booking filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "valueRequired": "Enter the number of days.",
+        "valueMin": "Days must be at least 1."
       }
     }
   },

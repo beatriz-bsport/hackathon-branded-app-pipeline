@@ -11,6 +11,8 @@ import {
   GenderFilter,
   HAS_PHONE_FILTER_IDENTIFIER,
   type HasPhoneFilter,
+  LAST_BOOKING_FILTER_IDENTIFIER,
+  type LastBookingFilter,
   MARKETING_NOTIFICATION_FILTER_IDENTIFIER,
   MEMBER_DATE_JOINED_FILTER_IDENTIFIER,
   type MarketingNotificationFilter,
@@ -41,6 +43,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   creditAccount: "creditAccount",
   marketingNotification: "marketingNotification",
   hasPhone: "hasPhone",
+  lastBooking: "lastBooking",
 } as const;
 
 export type SmartlistFiltersManagerFilterType =
@@ -63,7 +66,8 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.firstPurchase ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.creditAccount ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.marketingNotification ||
-  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPhone;
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPhone ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking;
 
 export const isCreditAccountFilter = (
   value: unknown,
@@ -222,3 +226,12 @@ export const isHasPhoneFilter = (value: unknown): value is HasPhoneFilter =>
   hasNumber(value, "smartlist") &&
   hasNumber(value, "company") &&
   hasBoolean(value, "value");
+
+export const isLastBookingFilter = (
+  value: unknown,
+): value is LastBookingFilter =>
+  hasFilterIdentifier(value, LAST_BOOKING_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumber(value, "value");

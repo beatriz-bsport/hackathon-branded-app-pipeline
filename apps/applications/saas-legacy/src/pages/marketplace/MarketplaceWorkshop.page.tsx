@@ -306,6 +306,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
     fetchEstablishments,
     fetchAssociatedCoachesList,
     filters,
+    onlineFilter,
     theme,
     username,
     refreshTrigger,

@@ -1,5 +1,7 @@
 export { ErrorBoundary, captureException } from "@bsport/sentry";
 export { registerBackgroundTask } from "#src/features/background-task-host";
+export { default as RuntimeDevTools } from "#src/dev-utils/DevTools/runtime-dev-tools";
+export { initializeStudioRuntimeFromStorage } from "#src/runtime/runtime-config";
 export { AppWrapper } from "./wrappers/AppWrapper";
 export { ErrorBoundaryWrapper } from "./wrappers/ErrorBoundaryWrapper";
 export {

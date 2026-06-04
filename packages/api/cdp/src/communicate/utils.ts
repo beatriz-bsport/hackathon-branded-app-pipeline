@@ -1,8 +1,10 @@
+import type { PrebuiltSegmentId } from "#src/constants";
+
 import type { FetchCampaignSentParams } from "./types";
 
 type CampaignSentListTargetParams =
   | { smartlist: number }
-  | { segment_identifier: string };
+  | { segment_identifier: PrebuiltSegmentId };
 
 export const getCampaignSentListTargetParams = (
   params: FetchCampaignSentParams,

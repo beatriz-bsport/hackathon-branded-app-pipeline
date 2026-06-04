@@ -17,8 +17,8 @@ import {
 
 import { MemberAvatar } from "#src/components/member-avatar";
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
+import type { PrebuiltSegmentId } from "#src/utils/prebuilt-segment";
 
-import type { PrebuiltSegmentId } from "./constants";
 import type {
   PrebuiltSegmentDefinitionResponse,
   PrebuiltSegmentDetailRow,

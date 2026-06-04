@@ -11,8 +11,9 @@ import type {
 export const prebuiltSegmentKeys = {
   all: ["@api-cdp", "prebuilt-segment"] as const,
   details: () => [...prebuiltSegmentKeys.all, "detail"] as const,
-  detail: (segmentIdentifier: string) =>
-    [...prebuiltSegmentKeys.details(), segmentIdentifier] as const,
+  detail: (
+    segmentIdentifier: PrebuiltSegmentDefinitionParams["segment_identifier"],
+  ) => [...prebuiltSegmentKeys.details(), segmentIdentifier] as const,
   membersLists: () => [...prebuiltSegmentKeys.all, "members"] as const,
   membersList: ({
     segment_identifier,

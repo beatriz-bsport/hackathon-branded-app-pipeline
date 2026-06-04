@@ -12,7 +12,6 @@ import {
   prebuiltSegmentMembersQueryOptions,
 } from "@bsport/api-cdp/prebuilt-segment";
 
-import type { PrebuiltSegmentId } from "#src/pages/prebuilt-segment-detail/constants";
 import {
   type PrebuiltSegmentDefinitionResponse,
   type PrebuiltSegmentMembersResponse,
@@ -20,6 +19,7 @@ import {
   parsePrebuiltSegmentMembersResponse,
 } from "#src/pages/prebuilt-segment-detail/prebuilt-segment-contract";
 import { fetch } from "#src/utils/fetch";
+import type { PrebuiltSegmentId } from "#src/utils/prebuilt-segment";
 
 type PrebuiltSegmentDetailQueryResults = [
   UseQueryResult<PrebuiltSegmentDefinitionResponse>,

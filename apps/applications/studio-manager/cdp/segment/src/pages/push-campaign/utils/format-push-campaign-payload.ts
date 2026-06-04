@@ -9,6 +9,7 @@ import {
   CONTEXT_PREBUILT_SEGMENT,
   CONTEXT_SMARTLIST,
 } from "#src/utils/constants";
+import type { PrebuiltSegmentId } from "#src/utils/prebuilt-segment";
 
 export const formatSendPushCampaignPayload = ({
   smartlistId,
@@ -32,7 +33,7 @@ export const formatSendPrebuiltSegmentPushCampaignPayload = ({
   segmentIdentifier,
   data,
 }: {
-  segmentIdentifier: string;
+  segmentIdentifier: PrebuiltSegmentId;
   data: PushCampaignFormData;
 }): SendPushCampaignPayload => {
   return {
@@ -57,6 +58,24 @@ export const formatSchedulePushCampaignPayload = ({
 }): ScheduleCampaignPayload => {
   return {
     smartlist: smartlistId,
+    communication_kind: CommunicationKind.PUSH,
+    title: data.title.trim(),
+    text: data.message,
+    datetime_scheduled: datetimeScheduled,
+  };
+};
+
+export const formatSchedulePrebuiltSegmentPushCampaignPayload = ({
+  segmentIdentifier,
+  data,
+  datetimeScheduled,
+}: {
+  segmentIdentifier: PrebuiltSegmentId;
+  data: PushCampaignFormData;
+  datetimeScheduled: string;
+}): ScheduleCampaignPayload => {
+  return {
+    segment_identifier: segmentIdentifier,
     communication_kind: CommunicationKind.PUSH,
     title: data.title.trim(),
     text: data.message,

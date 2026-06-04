@@ -1,3 +1,5 @@
+// #region Params
+
 /**
  * Query parameters for fetching appointment passes (PrivatePass).
  */
@@ -14,9 +16,27 @@ export type FetchAppointmentPassesParams = {
   /** Include only passes whose IDs are in this list. */
   id__in?: number[];
 
-  /** Full-text search query. */
-  q?: string;
+  /** Filter appointment passes within
+   * - the specified category if it's an id
+   * - items without category if it's unset
+   * - all items if not passed
+   */
+  category?: number | "unset" | undefined;
 };
+
+export type SearchAppointmentPassesParams = Omit<
+  FetchAppointmentPassesParams,
+  "page" | "page_size"
+> & {
+  /** Full-text search query. */
+  q: string;
+};
+
+// #endregion
+
+// ----------------------------------------------------------------------------
+
+// #region Models
 
 /**
  * Model: PrivatePass
@@ -58,3 +78,5 @@ export type AppointmentPass = {
   member_relation_auto_share: boolean;
   editable: boolean;
 };
+
+// #endregion

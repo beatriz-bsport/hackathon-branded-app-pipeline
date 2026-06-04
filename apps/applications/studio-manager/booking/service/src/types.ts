@@ -1,4 +1,5 @@
-import type { Pass, PassCategory } from "@bsport/api-buyables";
+import type { Pass } from "@bsport/api-buyables/pass";
+import type { PassCategory } from "@bsport/api-buyables/pass-category";
 
 export type CompatiblePass = Pick<
   Pass,

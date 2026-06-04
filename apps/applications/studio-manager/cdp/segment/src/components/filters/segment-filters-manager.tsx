@@ -36,6 +36,10 @@ import { GenderFilterCardSkeleton } from "./gender-filter/components/gender-filt
 import { createDefaultGenderFilter } from "./gender-filter/default-value";
 import { mapGenderFilterToFormValue } from "./gender-filter/mappers/api-to-form-value";
 import type { GenderFilterFormValue } from "./gender-filter/types";
+import { HasPhoneFilterCard } from "./has-phone-filter/components/has-phone-filter-card";
+import { createDefaultHasPhoneFilter } from "./has-phone-filter/default-value";
+import { mapHasPhoneFilterToFormValue } from "./has-phone-filter/mappers/api-to-form-value";
+import type { HasPhoneFilterFormValue } from "./has-phone-filter/types";
 import { MarketingNotificationFilterCard } from "./marketing-notification-filter/components/marketing-notification-filter-card";
 import { createDefaultMarketingNotificationFilter } from "./marketing-notification-filter/default-value";
 import { mapMarketingNotificationFilterToFormValue } from "./marketing-notification-filter/mappers/api-to-form-value";
@@ -89,6 +93,7 @@ type FilterValueByType = {
   firstPurchase: FirstPurchaseFilterFormValue;
   creditAccount: CreditAccountFilterFormValue;
   marketingNotification: MarketingNotificationFilterFormValue;
+  hasPhone: HasPhoneFilterFormValue;
 };
 
 type DraftFilter =
@@ -146,6 +151,11 @@ type DraftFilter =
       clientId: string;
       filterType: "marketingNotification";
       value: FilterValueByType["marketingNotification"];
+    }
+  | {
+      clientId: string;
+      filterType: "hasPhone";
+      value: FilterValueByType["hasPhone"];
     };
 
 type SavedFilter =
@@ -203,6 +213,11 @@ type SavedFilter =
       key: string;
       filterType: "marketingNotification";
       value: FilterValueByType["marketingNotification"];
+    }
+  | {
+      key: string;
+      filterType: "hasPhone";
+      value: FilterValueByType["hasPhone"];
     };
 
 type RenderFilterParams<TFilterType extends FilterType> = {
@@ -250,6 +265,7 @@ export const SegmentFiltersManager = ({
   const creditAccountFilters = smartlistFilters?.creditAccountFilters ?? [];
   const marketingNotificationFilters =
     smartlistFilters?.marketingNotificationFilters ?? [];
+  const hasPhoneFilters = smartlistFilters?.hasPhoneFilters ?? [];
 
   const addDraft = (draftFilter: DraftFilter) => {
     setDraftFilters((previousDraftFilters) => [
@@ -422,6 +438,15 @@ export const SegmentFiltersManager = ({
         onSaveSuccess={onSaveSuccess}
       />
     ),
+    hasPhone: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <HasPhoneFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
   };
 
   const createDraftFilterByType: {
@@ -482,6 +507,11 @@ export const SegmentFiltersManager = ({
       filterType: FILTER_TYPES.marketingNotification,
       value: createDefaultMarketingNotificationFilter(smartlistNumericId),
     }),
+    hasPhone: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.hasPhone),
+      filterType: FILTER_TYPES.hasPhone,
+      value: createDefaultHasPhoneFilter(smartlistNumericId),
+    }),
   };
 
   const renderFilterCard = <TFilterType extends FilterType>(
@@ -494,80 +524,90 @@ export const SegmentFiltersManager = ({
     return renderer(params);
   };
 
+  const hasExistingHasPhoneFilter = hasPhoneFilters.length > 0;
+  const hasDraftHasPhoneFilter = draftFilters.some(
+    (draftFilter) => draftFilter.filterType === FILTER_TYPES.hasPhone,
+  );
+
   const addableFilterOptions = useMemo<FilterSelectorOption[]>(
-    () => [
-      {
-        id: FILTER_TYPES.gender,
-        label: t("filters.5.title"),
-        description: t("filterSelector.options.gender.description"),
-        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
-      },
-      {
-        id: FILTER_TYPES.memberSignUpDate,
-        label: t("filters.18.title"),
-        description: t("filterSelector.options.memberSignUpDate.description"),
-        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
-      },
-      {
-        id: FILTER_TYPES.passes,
-        label: t("filters.19.title"),
-        description: t("filterSelector.options.passes.description"),
-        category: FILTER_SELECTOR_CATEGORIES.passes,
-      },
-      {
-        id: FILTER_TYPES.totalBookingNumber,
-        label: t("filters.22.title"),
-        description: t("filterSelector.options.totalBookingNumber.description"),
-        category: FILTER_SELECTOR_CATEGORIES.bookings,
-      },
-      {
-        id: FILTER_TYPES.totalAppointmentsNumber,
-        label: t("filters.26.title"),
-        description: t(
-          "filterSelector.options.totalAppointmentsNumber.description",
-        ),
-        category: FILTER_SELECTOR_CATEGORIES.bookings,
-      },
-      {
-        id: FILTER_TYPES.bookingMilestone,
-        label: t("filters.21.title"),
-        description: t("filterSelector.options.bookingMilestone.description"),
-        category: FILTER_SELECTOR_CATEGORIES.bookings,
-      },
-      {
-        id: FILTER_TYPES.tags,
-        label: t("filters.11.title"),
-        description: t("filterSelector.options.tags.description"),
-        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
-      },
-      {
-        id: FILTER_TYPES.activePasses,
-        label: t("filters.27.title"),
-        description: t("filterSelector.options.activePasses.description"),
-        category: FILTER_SELECTOR_CATEGORIES.passes,
-      },
-      {
-        id: FILTER_TYPES.firstPurchase,
-        label: t("filters.28.title"),
-        description: t("filterSelector.options.firstPurchase.description"),
-        category: FILTER_SELECTOR_CATEGORIES.payments,
-      },
-      {
-        id: FILTER_TYPES.creditAccount,
-        label: t("filters.1.title"),
-        description: t("filterSelector.options.creditAccount.description"),
-        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
-      },
-      {
-        id: FILTER_TYPES.marketingNotification,
-        label: t("filters.103.title"),
-        description: t(
-          "filterSelector.options.marketingNotification.description",
-        ),
-        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
-      },
-    ],
-    [t],
+    () =>
+      [
+        {
+          id: FILTER_TYPES.gender,
+          label: t("filters.5.title"),
+          description: t("filterSelector.options.gender.description"),
+          category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+        },
+        {
+          id: FILTER_TYPES.memberSignUpDate,
+          label: t("filters.18.title"),
+          description: t("filterSelector.options.memberSignUpDate.description"),
+          category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+        },
+        {
+          id: FILTER_TYPES.passes,
+          label: t("filters.19.title"),
+          description: t("filterSelector.options.passes.description"),
+          category: FILTER_SELECTOR_CATEGORIES.passes,
+        },
+        {
+          id: FILTER_TYPES.totalBookingNumber,
+          label: t("filters.22.title"),
+          description: t(
+            "filterSelector.options.totalBookingNumber.description",
+          ),
+          category: FILTER_SELECTOR_CATEGORIES.bookings,
+        },
+        {
+          id: FILTER_TYPES.bookingMilestone,
+          label: t("filters.21.title"),
+          description: t("filterSelector.options.bookingMilestone.description"),
+          category: FILTER_SELECTOR_CATEGORIES.bookings,
+        },
+        {
+          id: FILTER_TYPES.tags,
+          label: t("filters.11.title"),
+          description: t("filterSelector.options.tags.description"),
+          category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+        },
+        {
+          id: FILTER_TYPES.activePasses,
+          label: t("filters.27.title"),
+          description: t("filterSelector.options.activePasses.description"),
+          category: FILTER_SELECTOR_CATEGORIES.passes,
+        },
+        {
+          id: FILTER_TYPES.firstPurchase,
+          label: t("filters.28.title"),
+          description: t("filterSelector.options.firstPurchase.description"),
+          category: FILTER_SELECTOR_CATEGORIES.payments,
+        },
+        {
+          id: FILTER_TYPES.creditAccount,
+          label: t("filters.1.title"),
+          description: t("filterSelector.options.creditAccount.description"),
+          category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+        },
+        {
+          id: FILTER_TYPES.marketingNotification,
+          label: t("filters.103.title"),
+          description: t(
+            "filterSelector.options.marketingNotification.description",
+          ),
+          category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+        },
+        {
+          id: FILTER_TYPES.hasPhone,
+          label: t("filters.106.title"),
+          description: t("filterSelector.options.hasPhone.description"),
+          category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+        },
+      ].filter(
+        (option) =>
+          option.id !== FILTER_TYPES.hasPhone ||
+          (!hasExistingHasPhoneFilter && !hasDraftHasPhoneFilter),
+      ),
+    [hasDraftHasPhoneFilter, hasExistingHasPhoneFilter, t],
   );
 
   const savedFilters: SavedFilter[] = [
@@ -627,6 +667,11 @@ export const SegmentFiltersManager = ({
       value: mapMarketingNotificationFilterToFormValue(
         marketingNotificationFilter,
       ),
+    })),
+    ...hasPhoneFilters.slice(0, 1).map((hasPhoneFilter) => ({
+      key: `saved-has-phone-${hasPhoneFilter.id}`,
+      filterType: FILTER_TYPES.hasPhone,
+      value: mapHasPhoneFilterToFormValue(hasPhoneFilter),
     })),
   ];
 

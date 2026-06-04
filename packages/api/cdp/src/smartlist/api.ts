@@ -4,6 +4,7 @@ export * from "./filter/booking-milestone/api";
 export * from "./filter/credit-account/api";
 export * from "./filter/first-purchase/api";
 export * from "./filter/gender/api";
+export * from "./filter/has-phone/api";
 export * from "./filter/marketing-notification/api";
 export * from "./filter/member-date-joined/api";
 export * from "./filter/payment-pack/api";

@@ -53,6 +53,9 @@
       },
       "marketingNotification": {
         "description": "Filter members by marketing notification consent on SMS and/or email."
+      },
+      "hasPhone": {
+        "description": "Filter members by whether they provided a phone number on their account."
       }
     }
   },
@@ -473,6 +476,25 @@
       },
       "validation": {
         "atLeastOneChannelRequired": "Enable at least SMS or Email."
+      }
+    },
+    "106": {
+      "title": "Has phone",
+      "actions": {
+        "deleteFilter": "Delete has phone filter",
+        "save": "Add filter",
+        "update": "Save filter"
+      },
+      "fields": {
+        "radioLabel": "Filter for Profiles that:",
+        "hasPhone": "Has phone",
+        "doesNotHavePhone": "Does not have phone"
+      },
+      "toasts": {
+        "saveError": "Unable to save has phone filter.",
+        "saveSuccess": "Has phone filter saved.",
+        "deleteError": "Unable to delete has phone filter.",
+        "invalidFilter": "Invalid filter."
       }
     }
   },

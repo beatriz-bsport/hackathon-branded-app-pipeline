@@ -1,5 +1,3 @@
-import { getEnv } from "@bsport/envs";
-
 export const STUDIO_RUNTIME_ENV_STORAGE_KEY = "@bsport/studio-runtime-env";
 export const STUDIO_RUNTIME_FIELD_ENV_MAP_STORAGE_KEY =
   "@bsport/studio-runtime-field-env-map";
@@ -7,15 +5,8 @@ export const STUDIO_RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY =
   "@bsport/studio-runtime-api-environment-name";
 export const STUDIO_RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY =
   "@bsport/studio-runtime-api-environment-override";
-const STUDIO_RUNTIME_STORAGE_KEYS = [
-  STUDIO_RUNTIME_ENV_STORAGE_KEY,
-  STUDIO_RUNTIME_FIELD_ENV_MAP_STORAGE_KEY,
-  STUDIO_RUNTIME_API_ENVIRONMENT_NAME_STORAGE_KEY,
-  STUDIO_RUNTIME_API_ENVIRONMENT_OVERRIDE_STORAGE_KEY,
-] as const;
 export const STUDIO_RUNTIME_UPDATED_EVENT = "@bsport/studio-runtime-updated";
 export const STUDIO_RUNTIME_API_BASE_URL_KEY = "API_BASE_URL";
-const LOCAL_STUDIO_RUNTIME_API_BASE_URL = "http://localhost:8000";
 
 export const STUDIO_RUNTIME_ENVS = [
   "local",
@@ -33,23 +24,6 @@ export type StudioRuntimePresets = Record<
   StudioRuntimePayload
 >;
 export type StudioRuntimeFieldEnvMap = Record<string, StudioRuntimeEnv>;
-
-let initialStudioRuntimePayload: StudioRuntimePayload | null = null;
-
-export const canApplyStudioRuntimeOverrides = (): boolean => {
-  const env = getEnv();
-  return env !== "production" && env !== "staging";
-};
-
-const hasStoredStudioRuntimeSettings = (): boolean => {
-  try {
-    return STUDIO_RUNTIME_STORAGE_KEYS.some((storageKey) => {
-      return window.localStorage.getItem(storageKey) !== null;
-    });
-  } catch (_) {
-    return false;
-  }
-};
 
 const normalizeStudioRuntimeApiEnvironmentName = (
   value: string | undefined | null,
@@ -94,15 +68,6 @@ const buildEmptyStudioRuntimePresets = (): StudioRuntimePresets => {
     },
     {} as StudioRuntimePresets,
   );
-};
-
-const buildLocalStudioRuntimePreset = (
-  runtimePayload: StudioRuntimePayload,
-): StudioRuntimePayload => {
-  return {
-    ...runtimePayload,
-    [STUDIO_RUNTIME_API_BASE_URL_KEY]: LOCAL_STUDIO_RUNTIME_API_BASE_URL,
-  };
 };
 
 export const parseStudioRuntimeEnv = (
@@ -222,27 +187,15 @@ export const getCurrentStudioRuntime = (): StudioRuntimePayload => {
   return sanitizeStudioRuntimePayload(window.__SM_RUNTIME__);
 };
 
-const getInitialStudioRuntime = (): StudioRuntimePayload => {
-  const currentRuntime = getCurrentStudioRuntime();
-
-  if (!initialStudioRuntimePayload && Object.keys(currentRuntime).length > 0) {
-    initialStudioRuntimePayload = currentRuntime;
-  }
-
-  return initialStudioRuntimePayload ?? currentRuntime;
-};
-
 export const readStudioRuntimePresets = (): StudioRuntimePresets => {
   const studioRuntimePresets = buildEmptyStudioRuntimePresets();
-  const initialRuntime = getInitialStudioRuntime();
 
   const runtimePresetsCandidate = window.__SM_RUNTIME_PRESETS__;
-  const hasRuntimePresets =
+  if (
     runtimePresetsCandidate &&
     typeof runtimePresetsCandidate === "object" &&
-    !Array.isArray(runtimePresetsCandidate);
-
-  if (hasRuntimePresets) {
+    !Array.isArray(runtimePresetsCandidate)
+  ) {
     STUDIO_RUNTIME_ENVS.forEach((runtimeEnv) => {
       studioRuntimePresets[runtimeEnv] = sanitizeStudioRuntimePayload(
         (runtimePresetsCandidate as Record<string, unknown>)[runtimeEnv],
@@ -253,26 +206,11 @@ export const readStudioRuntimePresets = (): StudioRuntimePresets => {
   if (
     Object.keys(studioRuntimePresets[DEFAULT_STUDIO_RUNTIME_ENV]).length === 0
   ) {
-    studioRuntimePresets[DEFAULT_STUDIO_RUNTIME_ENV] = initialRuntime;
-  }
-
-  if (
-    !hasRuntimePresets &&
-    Object.keys(initialRuntime).length > 0 &&
-    Object.keys(studioRuntimePresets.local).length === 0
-  ) {
-    studioRuntimePresets.local = buildLocalStudioRuntimePreset(initialRuntime);
+    studioRuntimePresets[DEFAULT_STUDIO_RUNTIME_ENV] =
+      getCurrentStudioRuntime();
   }
 
   return studioRuntimePresets;
-};
-
-export const getAvailableStudioRuntimeEnvs = (): StudioRuntimeEnv[] => {
-  const runtimePresets = readStudioRuntimePresets();
-
-  return STUDIO_RUNTIME_ENVS.filter((runtimeEnv) => {
-    return Object.keys(runtimePresets[runtimeEnv]).length > 0;
-  });
 };
 
 export const getStudioRuntimeVariableKeys = (): string[] => {
@@ -301,18 +239,15 @@ export const getStudioRuntimeVariableKeys = (): string[] => {
 const sanitizeStudioRuntimeFieldEnvMap = ({
   candidate,
   allowedRuntimeKeys,
-  availableRuntimeEnvs,
 }: {
   candidate: unknown;
   allowedRuntimeKeys: string[];
-  availableRuntimeEnvs: StudioRuntimeEnv[];
 }): StudioRuntimeFieldEnvMap => {
   if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) {
     return {};
   }
 
   const allowedRuntimeKeysSet = new Set(allowedRuntimeKeys);
-  const availableRuntimeEnvsSet = new Set(availableRuntimeEnvs);
   const entries = Object.entries(candidate as Record<string, unknown>);
 
   return entries.reduce<StudioRuntimeFieldEnvMap>(
@@ -328,10 +263,6 @@ const sanitizeStudioRuntimeFieldEnvMap = ({
         return accumulator;
       }
 
-      if (!availableRuntimeEnvsSet.has(parsedRuntimeEnv)) {
-        return accumulator;
-      }
-
       accumulator[runtimeKey] = parsedRuntimeEnv;
       return accumulator;
     },
@@ -341,7 +272,6 @@ const sanitizeStudioRuntimeFieldEnvMap = ({
 
 export const readStudioRuntimeFieldEnvMap = (): StudioRuntimeFieldEnvMap => {
   const allowedRuntimeKeys = getStudioRuntimeVariableKeys();
-  const availableRuntimeEnvs = getAvailableStudioRuntimeEnvs();
 
   try {
     const rawValue = window.localStorage.getItem(
@@ -354,7 +284,6 @@ export const readStudioRuntimeFieldEnvMap = (): StudioRuntimeFieldEnvMap => {
     return sanitizeStudioRuntimeFieldEnvMap({
       candidate: JSON.parse(rawValue),
       allowedRuntimeKeys,
-      availableRuntimeEnvs,
     });
   } catch (_) {
     return {};
@@ -365,11 +294,9 @@ export const writeStudioRuntimeFieldEnvMap = (
   runtimeFieldEnvMap: StudioRuntimeFieldEnvMap,
 ) => {
   const allowedRuntimeKeys = getStudioRuntimeVariableKeys();
-  const availableRuntimeEnvs = getAvailableStudioRuntimeEnvs();
   const sanitizedRuntimeFieldEnvMap = sanitizeStudioRuntimeFieldEnvMap({
     candidate: runtimeFieldEnvMap,
     allowedRuntimeKeys,
-    availableRuntimeEnvs,
   });
 
   try {
@@ -396,12 +323,8 @@ export const clearStudioRuntimeFieldEnvMap = () => {
 };
 
 export const applyStudioRuntimeFromStorage = (): StudioRuntimePayload => {
-  const storedRuntimeEnv = readStudioRuntimeEnv();
+  const selectedRuntimeEnv = readStudioRuntimeEnv();
   const runtimePresets = readStudioRuntimePresets();
-  const selectedRuntimeEnv =
-    Object.keys(runtimePresets[storedRuntimeEnv]).length > 0
-      ? storedRuntimeEnv
-      : DEFAULT_STUDIO_RUNTIME_ENV;
   const runtimeFieldEnvMap = readStudioRuntimeFieldEnvMap();
   const isApiEnvironmentOverrideEnabled =
     readStudioRuntimeApiEnvironmentOverride();
@@ -447,12 +370,4 @@ export const applyStudioRuntimeFromStorage = (): StudioRuntimePayload => {
   }
 
   return mergedRuntimePayload;
-};
-
-export const initializeStudioRuntimeFromStorage = (): StudioRuntimePayload => {
-  if (!canApplyStudioRuntimeOverrides() || !hasStoredStudioRuntimeSettings()) {
-    return getCurrentStudioRuntime();
-  }
-
-  return applyStudioRuntimeFromStorage();
 };

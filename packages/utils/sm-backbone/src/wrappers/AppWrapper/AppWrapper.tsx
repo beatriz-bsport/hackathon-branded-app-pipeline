@@ -18,7 +18,6 @@ import DevTools from "#src/dev-utils/DevTools";
 import FeatureFlagsProvider from "#src/feature-flags/FeatureFlagsProvider";
 import { BackgroundTaskHost } from "#src/features/background-task-host";
 import { getDefaultQueryClient } from "#src/query-client";
-import { initializeStudioRuntimeFromStorage } from "#src/runtime/runtime-config";
 import { ErrorBoundaryWrapper } from "#src/wrappers/ErrorBoundaryWrapper";
 
 import { RoutesWrapper, type RoutesWrapperProps } from "../RoutesWrapper";
@@ -40,7 +39,6 @@ const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
 /**
  * Initialize sentry
  */
-initializeStudioRuntimeFromStorage();
 initSentry({
   integrations: [unleashIntegration({ featureFlagClientClass: UnleashClient })],
 });

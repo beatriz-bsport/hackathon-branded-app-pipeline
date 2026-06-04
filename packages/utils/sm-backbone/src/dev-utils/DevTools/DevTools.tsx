@@ -15,8 +15,9 @@ import LanguageSelector, {
   type LanguageSelectorProps,
 } from "./LanguageSelector";
 import Logout, { type LogoutProps } from "./Logout";
+import RuntimeEnvSelector from "./RuntimeEnvSelector";
+import RuntimeOverridesEditor from "./RuntimeOverridesEditor";
 import ThemeSelector from "./ThemeSelector";
-import RuntimeDevTools from "./runtime-dev-tools";
 
 export type DevToolsProps = LanguageSelectorProps & LogoutProps;
 type Point = { x: number; y: number };
@@ -148,7 +149,9 @@ const DevTools: React.FC<DevToolsProps> = ({
             <div className="gap-xs flex flex-col">
               <ThemeSelector />
 
-              <RuntimeDevTools mode="inline" />
+              <RuntimeEnvSelector />
+
+              <RuntimeOverridesEditor />
 
               <LanguageSelector i18nInstance={i18nInstance} />
 

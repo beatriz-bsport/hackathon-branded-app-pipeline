@@ -3,9 +3,7 @@ import { useEffect, useState } from "react";
 import {
   ErrorBoundaryWrapper,
   FeatureFlagsProvider,
-  RuntimeDevTools,
   fetchSharedDataAction,
-  initializeStudioRuntimeFromStorage,
 } from "@bsport/sm-backbone";
 
 import { fetch } from "#src/utils/fetch";
@@ -15,8 +13,6 @@ import NavigationSidebar, {
 } from "./NavigationSidebar";
 
 const fetchSharedData = fetchSharedDataAction.bind(null, fetch);
-
-initializeStudioRuntimeFromStorage();
 
 /**
  * Export the NavigationSidebar that is used in the Legacy Backoffice,
@@ -43,7 +39,6 @@ export const NavigationSidebarWithData: React.FC<NavigationSidebarProps> = (
 
   return (
     <ErrorBoundaryWrapper appName={__NAVIGATION_SIDEBAR__.__SENTRY_SCOPE_TAG__}>
-      <RuntimeDevTools />
       <FeatureFlagsProvider>
         <NavigationSidebar {...props} isLoadingData={isLoading} />
       </FeatureFlagsProvider>

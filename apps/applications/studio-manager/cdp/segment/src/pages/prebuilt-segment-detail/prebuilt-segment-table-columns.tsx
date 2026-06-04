@@ -9,7 +9,11 @@ import {
   type CustomerLifecycleStateId,
 } from "@bsport/api-cdp/prebuilt-segment";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
-import { Body, type GenericTableColumn } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  CopyToClipboard,
+  type GenericTableColumn,
+} from "@bsport/kaizen-primitive-core";
 
 import { MemberAvatar } from "#src/components/member-avatar";
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
@@ -26,17 +30,17 @@ type PrebuiltSegmentMetadataValueMap = {
   pass_validity_start_date?: string | null;
   last_visit_date?: string | null;
   offer_expiry_date?: string | null;
-  status_id?: ActiveTrialStatusId | null;
-  date_joined?: string | null;
+  join_date?: string | null;
   last_purchase_date?: string | null;
-  current_lifecycle_state_id?: CustomerLifecycleStateId | null;
+  status_id?: ActiveTrialStatusId | null;
+  current_lifecycle_state_id?: CustomerLifecycleStateId | 0 | null;
 };
 
 type PrebuiltSegmentTableRow = {
   id: string;
-  name: string;
-  email: string;
-  photo?: string;
+  name: string | null;
+  email: string | null;
+  photo?: string | null;
   values: PrebuiltSegmentMetadataValueMap;
 };
 
@@ -95,13 +99,13 @@ function getMetadataValue(
       return values.last_visit_date;
     case "offer_expiry_date":
       return values.offer_expiry_date;
-    case "status":
+    case "status_id":
       return values.status_id;
-    case "date_joined":
-      return values.date_joined;
+    case "join_date":
+      return values.join_date;
     case "last_purchase_date":
       return values.last_purchase_date;
-    case "current_lifecycle_state":
+    case "current_lifecycle_state_id":
       return values.current_lifecycle_state_id;
   }
 }
@@ -150,7 +154,7 @@ export function usePrebuiltSegmentTableRows(
 
 export function usePrebuiltSegmentTableColumns(
   prebuiltSegmentId: PrebuiltSegmentId,
-  definition: PrebuiltSegmentDefinitionResponse,
+  definition: PrebuiltSegmentDefinitionResponse | undefined,
 ) {
   const { t, i18n } = useTranslation("list");
 
@@ -179,7 +183,7 @@ export function usePrebuiltSegmentTableColumns(
         render: (value) =>
           typeof value === "string" ? formatCalendarDate(value) : EMPTY_CELL,
       },
-      status: {
+      status_id: {
         translationKey: "prebuilt.columns.status",
         render: (value) => {
           const status = getActiveTrialStatusFromId(value);
@@ -195,7 +199,7 @@ export function usePrebuiltSegmentTableColumns(
           );
         },
       },
-      date_joined: {
+      join_date: {
         translationKey: "prebuilt.columns.dateJoined",
         render: (value) =>
           typeof value === "string" ? formatCalendarDate(value) : EMPTY_CELL,
@@ -205,7 +209,7 @@ export function usePrebuiltSegmentTableColumns(
         render: (value) =>
           typeof value === "string" ? formatCalendarDate(value) : EMPTY_CELL,
       },
-      current_lifecycle_state: {
+      current_lifecycle_state_id: {
         translationKey: "prebuilt.columns.currentLifecycleState",
         render: (value) => {
           const lifecycleState = getCustomerLifecycleStateFromId(value);
@@ -231,7 +235,7 @@ export function usePrebuiltSegmentTableColumns(
         align: "start",
         render: (row) => (
           <div className="flex flex-row items-center gap-sm">
-            <MemberAvatar name={row.name} photo={row.photo} />
+            <MemberAvatar name={row.name ?? ""} photo={row.photo} />
             {row.name ? (
               <Body htmlVariant="span" size="md">
                 {row.name}
@@ -245,11 +249,25 @@ export function usePrebuiltSegmentTableColumns(
       {
         header: t("prebuilt.columns.email"),
         id: `${prebuiltSegmentId}-email`,
-        type: "copy",
-        keyPath: "email",
+        type: "custom",
         align: "start",
+        render: (row) =>
+          row.email ? (
+            <CopyToClipboard
+              label={row.email}
+              color="default"
+              intent="flat"
+              size="md"
+            />
+          ) : (
+            EMPTY_CELL
+          ),
       },
     ];
+
+    if (!definition) {
+      return fixedColumns;
+    }
 
     const metadataColumns = definition.columns.map<TableColumn>((column) => ({
       header: t(metadataColumnConfigById[column.id].translationKey, {

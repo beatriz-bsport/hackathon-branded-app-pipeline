@@ -29,13 +29,6 @@ describe("prebuilt segment contract", () => {
           },
           { id: "last_visit_date", fallback_label: "Last visit date" },
         ],
-        sortable_fields: [
-          "name",
-          "email",
-          "pass_name",
-          "pass_validity_start_date",
-          "last_visit_date",
-        ],
       },
       {
         requestedPrebuiltSegmentId: "active_members",
@@ -44,6 +37,30 @@ describe("prebuilt segment contract", () => {
 
     expect(result.segment_id).toBe("active_members");
     expect(result.columns).toHaveLength(3);
+  });
+
+  it("parses the active trials definition payload", () => {
+    const result = parsePrebuiltSegmentDefinitionResponse(
+      {
+        segment_id: "active_trials",
+        fallback_title: "Trials",
+        fallback_description: null,
+        columns: [
+          { id: "pass_name", fallback_label: "Pass name" },
+          {
+            id: "pass_validity_start_date",
+            fallback_label: "Pass start date",
+          },
+          { id: "offer_expiry_date", fallback_label: "Offer expiry date" },
+          { id: "status_id", fallback_label: "Status" },
+        ],
+      },
+      {
+        requestedPrebuiltSegmentId: "active_trials",
+      },
+    );
+
+    expect(result.columns.at(-1)?.id).toBe("status_id");
   });
 
   it("parses the customers members payload", () => {
@@ -60,7 +77,7 @@ describe("prebuilt segment contract", () => {
               email: "cameron.red@example.com",
             },
             values: {
-              date_joined: "2022-03-02",
+              join_date: "2022-03-02",
               last_purchase_date: "2022-03-01",
               last_visit_date: null,
               current_lifecycle_state_id: CustomerLifecycleStateId.CHURNED,
@@ -78,6 +95,76 @@ describe("prebuilt segment contract", () => {
     expect(result.results[0]?.values).toEqual(
       expect.objectContaining({
         current_lifecycle_state_id: CustomerLifecycleStateId.CHURNED,
+      }),
+    );
+  });
+
+  it("parses nullable member identity fields", () => {
+    const result = parsePrebuiltSegmentMembersResponse(
+      {
+        count: 1,
+        page: 1,
+        page_size: 25,
+        results: [
+          {
+            member: {
+              id: 1,
+              name: null,
+              email: null,
+              photo: null,
+            },
+            values: {
+              join_date: null,
+              last_purchase_date: null,
+              last_visit_date: null,
+              current_lifecycle_state_id: null,
+            },
+          },
+        ],
+      },
+      {
+        requestedPrebuiltSegmentId: "customers",
+      },
+    );
+
+    expect(result.results[0]?.member).toEqual({
+      id: 1,
+      name: null,
+      email: null,
+      photo: null,
+    });
+  });
+
+  it("parses customer members with unmapped lifecycle state id", () => {
+    const result = parsePrebuiltSegmentMembersResponse(
+      {
+        count: 1,
+        page: 1,
+        page_size: 25,
+        results: [
+          {
+            member: {
+              id: 1,
+              name: "Cameron Red",
+              email: "cameron.red@example.com",
+            },
+            values: {
+              join_date: "2022-03-02",
+              last_purchase_date: null,
+              last_visit_date: null,
+              current_lifecycle_state_id: 0,
+            },
+          },
+        ],
+      },
+      {
+        requestedPrebuiltSegmentId: "customers",
+      },
+    );
+
+    expect(result.results[0]?.values).toEqual(
+      expect.objectContaining({
+        current_lifecycle_state_id: 0,
       }),
     );
   });
@@ -160,7 +247,7 @@ describe("prebuilt segment contract", () => {
                 email: "cameron.red@example.com",
               },
               values: {
-                date_joined: "2022-03-02",
+                join_date: "2022-03-02",
                 last_purchase_date: "2022-03-01",
                 last_visit_date: null,
                 current_lifecycle_state_id: "churned",
@@ -182,24 +269,16 @@ describe("prebuilt segment contract", () => {
           segment_id: "customers",
           fallback_title: "Customers",
           columns: [
-            { id: "date_joined", fallback_label: "Join date" },
+            { id: "join_date", fallback_label: "Join date" },
             {
               id: "last_purchase_date",
               fallback_label: "Last purchase date",
             },
             { id: "last_visit_date", fallback_label: "Last visit date" },
             {
-              id: "current_lifecycle_state",
+              id: "current_lifecycle_state_id",
               fallback_label: "Lifecycle state",
             },
-          ],
-          sortable_fields: [
-            "name",
-            "email",
-            "date_joined",
-            "last_purchase_date",
-            "last_visit_date",
-            "current_lifecycle_state",
           ],
         },
         {
@@ -224,13 +303,6 @@ describe("prebuilt segment contract", () => {
             },
             { id: "last_visit_date", fallback_label: "Last visit date" },
           ],
-          sortable_fields: [
-            "name",
-            "email",
-            "pass_name",
-            "pass_validity_start_date",
-            "last_visit_date",
-          ],
         },
         {
           requestedPrebuiltSegmentId: "active_members",
@@ -246,22 +318,15 @@ describe("prebuilt segment contract", () => {
           segment_id: "customers",
           fallback_title: "Customers",
           columns: [
-            { id: "date_joined", fallback_label: "Join date" },
+            { id: "join_date", fallback_label: "Join date" },
             {
               id: "last_purchase_date",
               fallback_label: "Last purchase date",
             },
             {
-              id: "current_lifecycle_state",
+              id: "current_lifecycle_state_id",
               fallback_label: "Lifecycle state",
             },
-          ],
-          sortable_fields: [
-            "name",
-            "email",
-            "date_joined",
-            "last_purchase_date",
-            "current_lifecycle_state",
           ],
         },
         {

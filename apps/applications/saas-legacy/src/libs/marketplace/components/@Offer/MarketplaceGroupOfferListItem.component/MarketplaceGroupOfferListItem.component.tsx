@@ -261,7 +261,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
             !theme?.show_activity_color || !metaActivity.color,
           '--hidden-book-button': theme?.hide_book_button,
         })}
-        onClick={theme?.hide_book_button && handleClick}
+        onClick={theme?.hide_book_button ? handleClick : undefined}
         style={{
           borderLeftWidth:
             theme?.show_activity_color && metaActivity.color ? 5 : 1,

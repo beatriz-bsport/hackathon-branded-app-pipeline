@@ -10,6 +10,7 @@ import { MarketplaceWorkshopBase } from '@bsport/saas-legacy/src/pages/marketpla
 import { OwnProps as MarketplaceWorkshopOwnProps } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceWorkshop.page';
 import type {
   MarketplaceFilters,
+  MarketplaceFiltersSetter,
   MarketplaceWorkshopData,
 } from '@bsport/saas-legacy/src/libs/marketplace/types';
 import type { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
@@ -82,8 +83,8 @@ const WorkshopWidget = (props: Props) => {
   });
   const dataVersion = useWidgetDataVersion();
 
-  const updateFilters = (filtersUpdate: Partial<MarketplaceFilters>) =>
-    setFilters({ ...filters, ...filtersUpdate });
+  const updateFilters: MarketplaceFiltersSetter = (key) => (values) =>
+    setFilters((prev) => ({ ...prev, [key]: values }));
 
   const goToBook = (id: number, companyId: number) => {
     const { PUBLIC_URL } = getEnv();

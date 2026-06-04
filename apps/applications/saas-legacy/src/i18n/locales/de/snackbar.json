@@ -835,7 +835,7 @@
   },
   "signup": {
     "failedCreation": "Ihr Konto kann im Moment nicht erstellt werden, bitte versuchen Sie es in ein paar Minuten erneut",
-    "emailAlreadyExists": "Diese E-Mail-Adresse wird bereits verwendet. Möglicherweise hast du sie bereits bei einem anderen Studio zur Anmeldung genutzt. Bitte melde dich an oder setze dein Passwort zurück, um fortzufahren.",
+    "emailAlreadyExists": " Diese E-Mail-Adresse wird bereits von einem anderen Studio verwendet, das bsport als Buchungssystem nutzt. Bitte melde dich an oder setze dein Passwort zurück.",
     "changeWorkspaceError": "Bei der Kontoänderung ist ein Fehler aufgetreten"
   },
   "paymentRuleGroups": {
@@ -957,7 +957,7 @@
     "signupViaCustomForm": {
       "errors": {
         "84101": "Obligatorische Felder wurden nicht ausgefüllt",
-        "84102": "Diese E-Mail-Adresse wird bereits verwendet. Möglicherweise hast du sie bereits bei einem anderen Studio zur Anmeldung genutzt. Bitte melde dich an oder setze dein Passwort zurück, um fortzufahren.",
+        "84102": " Diese E-Mail-Adresse wird bereits von einem anderen Studio verwendet, das bsport als Buchungssystem nutzt. Bitte melde dich an oder setze dein Passwort zurück.",
         "84103": "Das angegebene Geschlecht ist nicht gültig",
         "84104": "Die Rufnummer ist ungültig",
         "84106": "Dein Passwort muss mindestens 12 Zeichen enthalten",

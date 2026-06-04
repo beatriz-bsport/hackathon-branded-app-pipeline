@@ -4685,6 +4685,9 @@ importers:
 
   packages/stores/buyables/appointment-pass:
     dependencies:
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../api/buyables
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base
@@ -4752,6 +4755,9 @@ importers:
 
   packages/stores/buyables/pass:
     dependencies:
+      '@bsport/api-buyables':
+        specifier: workspace:*
+        version: link:../../../api/buyables
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

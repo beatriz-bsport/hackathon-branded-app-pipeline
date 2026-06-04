@@ -4,7 +4,7 @@
   "private": true,
   "description": "Appointment Pass",
   "license": "UNLICENSED",
-  "author": "Th\u00e9o Steffanetti <theo.steffanetti@bsport.io>",
+  "author": "Théo Steffanetti <theo.steffanetti@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
@@ -29,6 +29,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@bsport/api-buyables": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "typescript-result": "^3.1.1",
     "zustand": "^5.0.3"

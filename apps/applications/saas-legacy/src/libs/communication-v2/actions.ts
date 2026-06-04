@@ -47,6 +47,7 @@ import {
   fetchConversations as fetchConversationsAPI,
   createConversation as createConversationAPI,
   createMessage as createMessageAPI,
+  fetchMessages as fetchMessagesAPI,
 } from '#src/libs/communication-v2/api';
 import { deleteCustomMobilePopup as deleteCustomMobilePopupAPI } from '#src/libs/settings/api';
 import type {
@@ -72,6 +73,8 @@ import type {
   ConversationCreationOutput,
   MessageCreationOutput,
   MessageCreationInput,
+  MessageListResponse,
+  MessageListParams,
 } from '#src/libs/communication-v2/types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from '#src/libs/communication-v2/constants';
 
@@ -1061,10 +1064,14 @@ export function createConversation(
   };
 }
 
+export type CreateMessageSuccessActionInput = MessageCreationOutput & {
+  conversationUuid: string;
+};
+
 export const createMessageActions = {
   error: createAction<Error | null>('COMMUNICATION/MESSAGE/CREATE/ERROR'),
   loading: createAction<boolean>('COMMUNICATION/MESSAGE/CREATE/LOADING'),
-  success: createAction<MessageCreationOutput & { conversationUuid: string }>(
+  success: createAction<CreateMessageSuccessActionInput>(
     'COMMUNICATION/MESSAGE/CREATE/SUCCESS',
   ),
 };
@@ -1092,6 +1099,45 @@ export function createMessage(
       options?.onError?.(error);
     } finally {
       dispatch(createMessageActions.loading(false));
+    }
+  };
+}
+
+export type FetchMessagesSuccessActionInput = MessageListResponse & {
+  conversationUuid: string;
+};
+
+export const fetchMessagesActions = {
+  error: createAction<Error | null>('COMMUNICATION/MESSAGES/FETCH/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION/MESSAGES/FETCH/LOADING'),
+  success: createAction<FetchMessagesSuccessActionInput>(
+    'COMMUNICATION/MESSAGES/FETCH/SUCCESS',
+  ),
+};
+
+export function fetchMessages(
+  conversationUuid: string,
+  messageListParams?: MessageListParams,
+  options?: OptionCallback<MessageListResponse>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchMessagesActions.loading(true));
+      dispatch(fetchMessagesActions.error(null));
+
+      const response = await fetchMessagesAPI(
+        conversationUuid,
+        messageListParams,
+      );
+      dispatch(
+        fetchMessagesActions.success({ ...response.data, conversationUuid }),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(fetchMessagesActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(fetchMessagesActions.loading(false));
     }
   };
 }

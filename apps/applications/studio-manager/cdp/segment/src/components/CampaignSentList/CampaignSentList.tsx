@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { useParams } from "react-router";
-import invariant from "tiny-invariant";
 
 import { type CampaignSent } from "@bsport/api-cdp/communicate";
 import {
@@ -13,43 +11,82 @@ import {
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { useFetchCampaignSentList } from "#src/api/use-fetch-campaign-sent-list";
-import { useSmartlistNavigation } from "#src/hooks/use-smartlist-navigation";
 import { useTranslation } from "#src/utils/i18n";
 
 import { CampaignSentPreviewModal } from "./campaign-sent-preview-modal";
 import { useCampaignSentTableColumns } from "./use-campaign-sent-table-columns";
 import { formatCampaignSentTableRow } from "./utils";
 
-const LEGACY_POPUP_SETTINGS = "/settings/mobile-personalisation/popups";
+type CampaignSentTableRow = ReturnType<
+  typeof formatCampaignSentTableRow
+>[number];
 
-export const CampaignSentList = () => {
+type CampaignSentListTargetProps =
+  | {
+      smartlistId: string;
+      segmentIdentifier?: never;
+    }
+  | {
+      segmentIdentifier: string;
+      smartlistId?: never;
+    };
+
+type CampaignSentListProps = CampaignSentListTargetProps & {
+  onRowClick?: (params: {
+    campaign: CampaignSent;
+    row: CampaignSentTableRow;
+  }) => void;
+  onOpenPopUpsClick?: () => void;
+  emptyStateDescription?: string;
+};
+
+const getCampaignSentListTargetParams = (
+  props: CampaignSentListTargetProps,
+) => {
+  if (typeof props.smartlistId === "string") {
+    return { smartlistId: props.smartlistId };
+  }
+
+  if (typeof props.segmentIdentifier === "string") {
+    return { segmentIdentifier: props.segmentIdentifier };
+  }
+
+  throw new Error("Expected campaign sent target to be defined");
+};
+
+export const CampaignSentList = (props: CampaignSentListProps) => {
   const [previewCampaignSent, setPreviewCampaignSent] =
     useState<CampaignSent | null>(null);
   const { t } = useTranslation("campaign");
   const isMobile = !useMatchMedia("md");
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams();
-  const { id: smartlistId } = useParams<{ id: string }>();
-  invariant(smartlistId, "Expected id param to be defined");
-  const { navigateToSmartlistCampaignSentDetails } = useSmartlistNavigation();
+  const { emptyStateDescription, onOpenPopUpsClick, onRowClick } = props;
+  const targetParams = getCampaignSentListTargetParams(props);
 
   const {
     data: { results: campaignSent, count },
     isLoading: campaignSentLoading,
   } = useFetchCampaignSentList({
-    smartlistId,
+    ...targetParams,
     page: currentPage,
     pageSize: currentPageSize,
   });
 
   const tableRows = formatCampaignSentTableRow({
     campaignSentList: campaignSent,
-  }).map((row) => ({
-    ...row,
-    onRowClick: () => {
-      navigateToSmartlistCampaignSentDetails(smartlistId, row.campaignUuid);
-    },
-  }));
+  }).map((row, index) => {
+    const campaign = campaignSent[index];
+
+    if (!onRowClick || !campaign) {
+      return row;
+    }
+
+    return {
+      ...row,
+      onRowClick: () => onRowClick({ campaign, row }),
+    };
+  });
 
   const tableColumns = useCampaignSentTableColumns({
     onPreview: (campaignUuid) => {
@@ -64,7 +101,8 @@ export const CampaignSentList = () => {
   const tableEmptyState = {
     isEmpty: !doesSmartlistHaveCampaignSent,
     emptyConfig: {
-      subtitle: t("table.campaignSent.emptyState.description"),
+      subtitle:
+        emptyStateDescription ?? t("table.campaignSent.emptyState.description"),
     },
   };
 
@@ -79,18 +117,18 @@ export const CampaignSentList = () => {
         <Title htmlVariant={isMobile ? "h2" : "h1"} weight="strong">
           {t("page.sentCampaigns.title")}
         </Title>
-        <Button
-          id="open-pop-ups"
-          intent="flat"
-          color={isMobile ? "default" : "main"}
-          kind="icon-button"
-          label={t("actions.openPopUps")}
-          size={isMobile ? "md" : "sm"}
-          icon="share-03"
-          onClick={() => {
-            window.location.href = LEGACY_POPUP_SETTINGS;
-          }}
-        />
+        {onOpenPopUpsClick ? (
+          <Button
+            id="open-pop-ups"
+            intent="flat"
+            color={isMobile ? "default" : "main"}
+            kind="icon-button"
+            label={t("actions.openPopUps")}
+            size={isMobile ? "md" : "sm"}
+            icon="share-03"
+            onClick={onOpenPopUpsClick}
+          />
+        ) : null}
       </div>
       <Card padding="none">
         <Table

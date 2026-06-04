@@ -71,3 +71,48 @@ export const useCampaignTypeOptions = ({
 
   return options;
 };
+
+export const usePrebuiltCampaignTypeOptions = ({
+  prebuiltSegmentId,
+}: {
+  prebuiltSegmentId: string;
+}) => {
+  const { t } = useTranslation("campaign");
+  const { showAddOnChipSms, showAddOnChipPush } = useUpsellChecker();
+  const { navigateToPrebuiltCampaignCreate } = useSmartlistNavigation();
+
+  const options: CampaignTypeOption[] = [
+    {
+      id: "email",
+      icon: "mail-01",
+      titleKey: t("campaignTypeSelector.email.title"),
+      descriptionKey: t("campaignTypeSelector.email.description"),
+      showAddOnChip: false,
+      onClick: () => {
+        navigateToPrebuiltCampaignCreate(prebuiltSegmentId, "email");
+      },
+    },
+    {
+      id: "sms",
+      icon: "message-dots-circle",
+      titleKey: t("campaignTypeSelector.sms.title"),
+      descriptionKey: t("campaignTypeSelector.sms.description"),
+      showAddOnChip: showAddOnChipSms,
+      onClick: () => {
+        navigateToPrebuiltCampaignCreate(prebuiltSegmentId, "sms");
+      },
+    },
+    {
+      id: "push",
+      icon: "notification-message",
+      titleKey: t("campaignTypeSelector.push.title"),
+      descriptionKey: t("campaignTypeSelector.push.description"),
+      showAddOnChip: showAddOnChipPush,
+      onClick: () => {
+        navigateToPrebuiltCampaignCreate(prebuiltSegmentId, "push");
+      },
+    },
+  ];
+
+  return options;
+};

@@ -28,4 +28,4 @@ export const inMemoryTranslationsLoader: InMemoryTranslationsLoader = async (
 };
 
 export const i18nNamespacePrefix = __INBOX__.__I18N_NAMESPACE_PREFIX__;
-export const i18nNamespaces: string[] = ["page"];
+export const i18nNamespaces: string[] = ["page", "thread-list"];

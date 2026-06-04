@@ -208,12 +208,41 @@ export const getConversationById = (state: RootState, id: string) =>
 export const isCreatingConversation = (state: RootState) =>
   state.communicationV2.conversations.loading;
 
-export const getMessagesByConversationId = (
+export const getMessageIdsByConversationId = (
   state: RootState,
   conversationId: string,
 ) =>
-  state.communicationV2.messages.allMessagesByConversationId[conversationId] ??
-  [];
+  state.communicationV2.messages.allMessageIdsByConversationId[
+    conversationId
+  ] ?? [];
+
+export const getMessageById = (state: RootState, messageId: number) =>
+  state.communicationV2.messages.allMessagesById[messageId];
 
 export const isCreatingMessage = (state: RootState) =>
   state.communicationV2.messages.loading;
+
+export const hasMoreOlderMessages = (
+  state: RootState,
+  conversationId: string,
+) =>
+  state.communicationV2.messages.moreMessagesByConversationId[conversationId]
+    ?.older ?? false;
+
+export const getOldestPulledMessageId = (
+  state: RootState,
+  conversationId: string,
+) =>
+  state.communicationV2.messages.moreMessagesByConversationId[conversationId]
+    ?.oldestPulledMessageId ?? null;
+
+export const getNewestMessageId = (
+  state: RootState,
+  conversationId: string,
+) => {
+  const messageIds = getMessageIdsByConversationId(state, conversationId);
+  if (messageIds.length === 0) {
+    return null;
+  }
+  return messageIds[messageIds.length - 1];
+};

@@ -1,0 +1,126 @@
+---
+title: Panel vs Drawer vs Modal
+description: How to choose between panel, detail drawer, and modal surfaces.
+category: patterns
+sections:
+  - "Overview"
+  - "Guidelines"
+---
+
+## Overview
+
+Panel belongs to the current page, drawer previews another record, modal blocks for a decision.
+
+These three surfaces solve related but distinct problems — showing secondary content, previewing a record, or blocking for a decision. Choosing the wrong one creates friction: a modal where a drawer should be forces unnecessary context loss; a drawer where a panel should be hides information that should always be visible; a panel where a modal should be lets users ignore a decision they need to make now.
+
+### Purpose
+
+- Use _Panel_ for metadata and controls that belong to the object currently on screen — properties the operator glances at or adjusts while working in the main content.
+- Use _Drawer_ for previewing or performing a quick action on a record _without navigating away_ from the current list or page.
+- Use _Modal_ for decisions or short tasks that require the operator's full attention before they can continue — confirmations, mandatory-field forms, or destructive actions.
+
+### Quick Comparison
+
+| Aspect                    | Panel                                                   | Drawer                                                            | Modal                                                   |
+| ------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------- |
+| _Purpose_                 | Persistent metadata and controls for the current object | Quick inspect or lightweight interaction without leaving the list | Focused decision or short task that requires a response |
+| _Relationship to content_ | Belongs to the current page                             | Belongs to a different record                                     | Interrupts the current flow                             |
+| _Lifetime_                | Persistent or togglable — part of the layout            | Temporary — opens on demand, dismissed when done                  | Temporary — blocks until resolved                       |
+| _Blocks the page_         | No                                                      | No                                                                | Yes                                                     |
+| _Backdrop_                | None                                                    | None                                                              | Yes (dimmed overlay)                                    |
+| _Focus trapped_           | No                                                      | No                                                                | Yes                                                     |
+| _URL-addressable_         | No (reflects current selection)                         | Yes (deep-linkable via query param)                               | No                                                      |
+| _Triggered by_            | Toggle button in header                                 | Icon button in a row, linked record click, or row click           | Button, system event, or destructive action             |
+| _Dismissed by_            | Toggle button                                           | Close button, ESC key                                             | Explicit action (Save, Discard, Cancel) or ESC          |
+
+## Guidelines
+
+### Panel
+
+The panel is part of the page layout, not an overlay. It sits in a grid column next to the main content and shows metadata about the object currently in view. It's controlled via the `DetailsLayout` context hook and persists as long as the page is open.
+
+### Best practices
+
+### Check Panel page for detailed guidelines.
+
+### When to choose Panel over Drawer
+
+The question is ownership: _does this content belong to the object I'm already looking at?_ If yes → Panel. If it's about a different object I want to peek at → Drawer.
+
+### When to choose Panel over Modal
+
+The question is urgency: _does the operator need to act on this before doing anything else?_ If no → Panel. If yes → Modal.
+
+### Drawer
+
+The drawer is a non-modal overlay that slides in from the right (desktop) or bottom (mobile). It shows the detail of a record the operator picked from a list or clicked as a linked reference — without navigating away from the current context.
+
+### Best practices
+
+### When to choose Drawer over Modal
+
+The question is blocking: _can the operator ignore this and continue working, or must they decide now?_
+
+| Scenario                                | Surface               | Why                                                      |
+| --------------------------------------- | --------------------- | -------------------------------------------------------- |
+| List page → peek at a booking's details | _Drawer_              | Non-blocking preview, operator can keep scanning         |
+| List page → "Cancel this booking?"      | _Modal_               | Destructive action, needs confirmation before proceeding |
+| Booking drawer → click "Send reminder"  | _Modal_               | Confirmation needed: "Send reminder email to Jane?"      |
+| Booking drawer → view member properties | _Link to member page_ | Redirect to another page                                 |
+
+### When to choose Drawer over Panel
+
+The question is identity: _is this about the record I'm already on, or a different one?_
+
+| Scenario                                      | Surface  | Why                                       |
+| --------------------------------------------- | -------- | ----------------------------------------- |
+| On the member page → membership, tags, studio | _Panel_  | Same record                               |
+| On the member page → click a linked pass      | _Drawer_ | Different record                          |
+| On the booking list → quick inspect a booking | _Drawer_ | Viewing a record without leaving the list |
+
+### Modal
+
+The modal is a blocking overlay with a backdrop that dims the page and traps focus. The operator must respond — confirm, cancel, submit a form — before they can do anything else. It's the highest-interruption surface and should be used sparingly.
+
+### Best practices
+
+### When to choose Modal over Drawer
+
+The question is commitment: _does the operator need to commit to something, or are they just looking?_
+
+| Scenario                               | Surface  | Why                                            |
+| -------------------------------------- | -------- | ---------------------------------------------- |
+| "Archive this member?"                 | _Modal_  | Destructive — needs explicit commitment        |
+| Peek at a member's details from a list | _Drawer_ | Just looking, no commitment required           |
+| "Create class" → collect name and type | _Modal_  | Mandatory fields before the system can proceed |
+| Quick-edit a booking's status          | _Drawer_ | Lightweight action, non-blocking               |
+
+### When to choose Modal over Panel
+
+Rarely compared directly — they serve different purposes. But the distinction holds:
+
+| Scenario                                      | Surface                       | Why                                        |
+| --------------------------------------------- | ----------------------------- | ------------------------------------------ |
+| Show object properties persistently           | _Panel_                       | Informational, part of the layout          |
+| "You have unsaved changes — save or discard?" | _Modal_ (or Confirmation bar) | Requires a decision before navigating away |
+
+### Combined scenarios
+
+In practice, these surfaces coexist. A single page might use all three:
+_Member detail page_
+
+- _Panel_: Membership plan, status, tags, billing, contact info — visible while scrolling through the main content.
+- _Drawer_: User clicks a linked booking in the member's history → drawer shows the booking summary without leaving the member page.
+- _Modal_: Operator clicks "Deactivate member" → confirmation modal: "This will cancel their active subscription. Continue?"
+
+_Product edit page_
+
+- _Panel_: Price, VAT, validity, availability, status — visible while editing the item list in the main content.
+- _Drawer_: Not used (products are complex; linked records navigate to their own pages).
+- _Modal_: Operator clicks "Delete product" → confirmation modal. Also used for the initial creation step (mandatory fields).
+
+### Related
+
+### Components
+
+### Patterns

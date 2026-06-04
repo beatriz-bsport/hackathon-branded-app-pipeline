@@ -440,6 +440,21 @@ describe("createTotalBookingPayload", () => {
       expect(payload.hour).toBe("07:15");
       expect(payload.hour_second).toBe("21:30");
     });
+
+    it("normalizes empty hour fields when booking hour range sub-filter is selected", () => {
+      const value = createDefaultTotalBookingNumberFilter(1);
+      value.subFilters = [TOTAL_BOOKING_SUB_FILTER_IDS.bookingHourRange];
+      value.bookingHourRange = {
+        hour: "",
+        hourSecond: "",
+      };
+
+      const payload = createTotalBookingPayload(value);
+
+      expect(payload.hour_filter_active).toBe(true);
+      expect(payload.hour).toBe("09:00");
+      expect(payload.hour_second).toBe("18:00");
+    });
   });
 
   it("keeps attendance filter inactive when attendance sub-filter is not selected", () => {

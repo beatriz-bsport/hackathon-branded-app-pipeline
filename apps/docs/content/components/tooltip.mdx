@@ -1,0 +1,184 @@
+---
+title: Tooltip
+description: A compact overlay that surfaces a hint or short description on hover or focus.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Tooltip"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Tooltips supplement visible UI with brief, read-only context. Never put interactive content inside one.
+
+The Tooltip is a compact, contextual overlay that surfaces a small piece of information — such as a hint, label, or short description — when a user hovers over or focuses on a trigger element. It renders via a portal to `document.body` and positions itself relative to its anchor using configurable placement. Tooltips can optionally include a Chip to add categorical context alongside the label text.
+
+### Use cases
+
+- _Label clarification:_ Provide additional context for icon-only buttons or truncated text that would otherwise be ambiguous.
+- _Feature hints:_ Surface brief explanations of UI elements on hover to help onboard new users without cluttering the layout.
+- _Status context:_ Pair a text label with a Chip to convey both a description and a categorical status (e.g., "Beta", "New", "Deprecated").
+- _Abbreviation expansion:_ Reveal the full meaning of an acronym or short code when users hover over it.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-tooltip--tooltip-simple"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-tooltip--tooltip-simple",
+      label: "Simple",
+    },
+    {
+      id: "primitive-components-tooltip--tooltip-with-chip",
+      label: "With chip",
+    },
+  ]}
+/>
+
+### Best practices
+
+#### General
+
+<DoDont>
+  <Do
+    caption={
+      "Tooltip text should be concise and scannable. Keep labels to a single sentence or short phrase — tooltips are not meant for dense or multi-paragraph content."
+    }
+  />
+  <Do
+    caption={
+      "Use tooltips to supplement, not replace, visible UI labels. They work best as a secondary layer of context, not the primary means of conveying critical information."
+    }
+  />
+  <Dont
+    caption={
+      "Don't place interactive content inside a tooltip. Tooltips disappear on mouse leave, so links, buttons, or form elements inside them are unreachable."
+    }
+  />
+  <Dont
+    caption={
+      "Don't duplicate information already visible in the UI. If the label text is already on screen, a tooltip adds noise without value."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Don't rely on tooltips for essential information on touch devices. Hover-based tooltips are not natively accessible on mobile; ensure the core experience doesn't depend on them.
+- Don't use tooltips for long-form content. If you need more than one sentence, consider an inline description, a popover, or a help drawer instead.
+
+</Callout>
+
+#### Anchors
+
+<DoDont>
+  <Do
+    caption={
+      "Use top placement as the default for most trigger elements, as it follows the natural reading direction and avoids occluding content below."
+    }
+  />
+  <Do
+    caption={
+      "Use bottom placement when the trigger is at the top of a view or inside a toolbar, so the tooltip drops below without occluding surrounding controls."
+    }
+  />
+  <Do
+    caption={
+      "Use horizontal placements for inline elements in dense layouts where vertical space is constrained."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use top placement when the trigger sits near the top edge of the viewport or inside a scroll container with limited headroom — the tooltip may clip or overflow."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use bottom placement on elements near the bottom of the viewport where the tooltip would render off-screen."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use horizontal placements on narrow viewports where the tooltip would overflow the container width."
+    }
+  />
+</DoDont>
+
+#### Content
+
+#### `Common uses`
+
+##### `1. [Pattern name — e.g. Informational, no action]`
+
+`[Describe the use case context.] Set `[prop]: [value]`, `[prop]: [value]`, `[prop]: [value]`.`
+
+> `Example: "Placeholder"`
+
+##### `2. [Pattern name — e.g. Informational, no action]`
+
+`[Describe the use case context.] Set `[prop]: [value]`, `[prop]: [value]`, `[prop]: [value]`.`
+
+> `Example: "Placeholder"`
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Tooltip" />
+
+### Behavior
+
+###### Trigger
+
+The tooltip becomes visible when the user hovers over (`mouseenter`) or focuses on the anchor wrapper. It hides on `mouseleave`.
+
+###### Dismissal
+
+- _Mouse:_ The tooltip disappears when the cursor leaves the anchor wrapper.
+- _Keyboard:_ Pressing `Escape` while the anchor is focused hides the tooltip.
+
+###### Persistence
+
+Tooltips are not persistent — they have no built-in delay or pinning mechanism. They are visible only while the pointer is over the anchor or the anchor holds focus.
+
+###### Responsiveness
+
+The tooltip is rendered as a `fixed`-position portal to avoid scroll and overflow clipping issues. Placement is recalculated dynamically via `useAbsolutePlacementStyles` based on the anchor and tooltip refs.
+
+##### Tooltip vs Popover — when to use which
+
+Tooltips and Popovers both render floating surfaces anchored to a trigger element, but they solve different problems and should not be used interchangeably.
+
+|                       | Tooltip                                                                                  | Popover                                                                                     |
+| --------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| _Purpose_             | Supplementary hint or label — passive, read-only context                                 | Rich content container — can hold text, links, buttons, forms, or nested components         |
+| _Trigger_             | Hover / focus (automatic)                                                                | Click or explicit user action (intentional)                                                 |
+| _Dismissal_           | Disappears on mouse leave — no user action required to close                             | Persists until the user clicks outside, presses `Escape`, or interacts with a close control |
+| _Interactive content_ | Never — the surface vanishes before the user can reach it                                | Yes — links, buttons, inputs, and other focusable elements are expected                     |
+| _Content length_      | Recommended one sentence or short phrase                                                 | Paragraphs, lists, media, or compound layouts                                               |
+| _Accessibility_       | `role="tooltip"`, not focusable itself                                                   | `role="dialog"` or contextual role, manages focus trapping                                  |
+| _Mobile_              | Unreliable — hover doesn't exist on touch; ensure the information is available elsewhere | Works on tap; suitable for touch interfaces                                                 |
+
+_Rule of thumb:_ if the user needs to _read and move on_, use a Tooltip. If they need to _read and act_ (click a link, fill a field, confirm a choice), use a Popover.
+
+_Common mistake:_ wrapping interactive content in a Tooltip because it "looks lighter." The hover trigger makes the content inaccessible — switch to a Popover instead, even if the content is short.
+
+### Edge cases
+
+- _Content overflow_ — The container has a max width of `max-w-component-tooltip`. Text wraps within that constraint via `text-wrap`.
+- _Rapid hover in/out_ — Visibility is toggled synchronously via state; the CSS transition (`ease-in`, `duration-default`) handles smooth fade-in/out without debounce.
+- _No chip provided_ — When the `chip` prop is omitted, only the label text renders — no empty chip placeholder is shown.
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Tooltip`
+- **Storybook:** Browse the live examples under Guidelines.

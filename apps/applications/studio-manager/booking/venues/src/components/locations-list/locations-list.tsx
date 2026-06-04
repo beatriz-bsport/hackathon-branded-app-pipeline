@@ -62,7 +62,6 @@ const LocationsListInner: FC<LocationsListProps> = ({
                   type="weak"
                   color="default"
                   size="lg"
-                  iconLeft="building-02"
                 />
               ) : null;
             })}

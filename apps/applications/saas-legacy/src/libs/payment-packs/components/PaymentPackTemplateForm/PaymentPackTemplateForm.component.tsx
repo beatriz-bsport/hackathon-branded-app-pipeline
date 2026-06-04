@@ -293,7 +293,7 @@ export const PaymentPackTemplateFormikHOC = compose<Props, any>(
           break;
       }
 
-      if (!values.apply_penalties) {
+      if (!values.apply_penalties || !values.unlimited) {
         data.penalty_active = false;
         data.no_show_penalty_active = false;
       }

@@ -55,8 +55,17 @@ export type CampaignScheduled = {
   email_resend_count: number;
 };
 
-export type FetchCampaignSentParams = {
-  smartlist: number;
+type FetchCampaignSentTarget =
+  | {
+      smartlist: number;
+      segment_identifier?: never;
+    }
+  | {
+      segment_identifier: string;
+      smartlist?: never;
+    };
+
+export type FetchCampaignSentParams = FetchCampaignSentTarget & {
   only_automated_campaign?: boolean;
   automated_campaign_id?: number;
   no_automated_campaign?: boolean;
@@ -72,12 +81,31 @@ export type FetchCampaignScheduledParams = {
   page?: number;
 };
 
-export type SendCampaignBasePayload = {
+type SmartlistSendCampaignContext = {
   context_identifier: number;
   context_object_id: number;
+  context_segment_identifier?: never;
   member_filters: {
     smartlist: number;
+    segment_identifier?: never;
   };
+};
+
+type PrebuiltSegmentSendCampaignContext = {
+  context_identifier: number;
+  context_object_id?: never;
+  context_segment_identifier: string;
+  member_filters: {
+    segment_identifier: string;
+    smartlist?: never;
+  };
+};
+
+export type SendCampaignContext =
+  | SmartlistSendCampaignContext
+  | PrebuiltSegmentSendCampaignContext;
+
+export type SendCampaignBasePayload = SendCampaignContext & {
   subject: string;
 };
 
@@ -91,23 +119,13 @@ export type SendEmailCampaignPayload =
       email_template?: never;
     });
 
-export type SendPushCampaignPayload = {
+export type SendPushCampaignPayload = SendCampaignContext & {
   notification_title: string;
   notification_content: string;
-  context_identifier: number;
-  context_object_id: number;
-  member_filters: {
-    smartlist: number;
-  };
 };
 
-export type SendSmsCampaignPayload = {
+export type SendSmsCampaignPayload = SendCampaignContext & {
   sms: string;
-  context_identifier: number;
-  context_object_id: number;
-  member_filters: {
-    smartlist: number;
-  };
 };
 
 export type SendCampaignPayload =
@@ -188,6 +206,11 @@ export type CommunicationPreviewRecipientsRequest =
         type: "communication_scheduled";
         communication_scheduled_id: number;
       };
+    }
+  | {
+      channel: CommunicationChannel;
+      is_marketing: boolean;
+      target: { type: "segment"; segment_identifier: string };
     };
 
 export type FetchCommunicationRecipientsPreviewParams = {

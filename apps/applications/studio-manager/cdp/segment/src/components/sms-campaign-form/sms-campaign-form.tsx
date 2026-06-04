@@ -1,5 +1,6 @@
 import React from "react";
 
+import type { CommunicationPreviewRecipientsRequest } from "@bsport/api-cdp/communicate";
 import { ControlledForm, type ControlledFormProps } from "@bsport/form";
 import { Card } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
@@ -12,17 +13,32 @@ import { useTranslation } from "#src/utils/i18n";
 import { SmsRecipientCountPreview } from "./recipient-count-preview";
 import type { SmsCampaignFormData } from "./types";
 
+type SmsCampaignRecipientTarget = Extract<
+  CommunicationPreviewRecipientsRequest["target"],
+  { type: "smartlist" | "segment" }
+>;
+
+type SmsCampaignFormTargetProps =
+  | {
+      smartlistId: number;
+      recipientTarget?: never;
+    }
+  | {
+      smartlistId?: never;
+      recipientTarget: SmsCampaignRecipientTarget;
+    };
+
 type SmsCampaignFormProps = Omit<
   ControlledFormProps<SmsCampaignFormData>,
   "children"
-> & {
-  smartlistId: number;
-};
+> &
+  SmsCampaignFormTargetProps;
 
 export const SmsCampaignForm: React.FC<SmsCampaignFormProps> = ({
   id,
   onSubmit,
   smartlistId,
+  recipientTarget,
   ...methods
 }) => {
   const { i18n } = useTranslation("campaign");
@@ -36,7 +52,11 @@ export const SmsCampaignForm: React.FC<SmsCampaignFormProps> = ({
       {...methods}
     >
       <Card padding="default" elevated className="flex flex-col gap-md">
-        <SmsRecipientCountPreview smartlistId={smartlistId} />
+        {recipientTarget !== undefined ? (
+          <SmsRecipientCountPreview target={recipientTarget} />
+        ) : (
+          <SmsRecipientCountPreview smartlistId={smartlistId} />
+        )}
       </Card>
       <CampaignNameField />
       <CampaignDeliveryModeSelector

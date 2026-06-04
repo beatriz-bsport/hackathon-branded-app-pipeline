@@ -1,0 +1,67 @@
+---
+title: Installation
+description: Add Kaizen's primitives and tokens to a consumer application.
+category: welcome
+---
+
+Kaizen ships as two workspace packages: the React primitives and the design
+token bundle. Both are private packages inside the bsport monorepo today.
+
+## Install the packages
+
+<InstallTabs packageName="@bsport/kaizen-primitive-core" />
+
+You'll also want the tokens package so your app's Tailwind config can resolve
+the CSS variables Kaizen components rely on:
+
+<InstallTabs packageName="@bsport/kaizen-tokens" />
+
+## Wire up styles
+
+Import the token CSS variables once, at the top of your application entry
+point. Kaizen primitives expect these custom properties to be present on the
+`:root` element.
+
+```ts
+import "@bsport/kaizen-primitive-core/dist/style.css";
+import "@bsport/kaizen-tokens/src/index.css";
+```
+
+## Where Kaizen lives in a consumer app
+
+A typical layout looks like this — Kaizen is consumed alongside your own
+feature code.
+
+<FileTree
+  rootLabel="my-app/"
+  entries={[
+    {
+      name: "app",
+      children: [
+        { name: "layout.tsx", comment: "imports Kaizen CSS once at the root" },
+        { name: "page.tsx" },
+      ],
+    },
+    {
+      name: "components",
+      children: [
+        { name: "ui", comment: "thin wrappers around Kaizen primitives" },
+        { name: "feature-x" },
+      ],
+    },
+    { name: "package.json" },
+    { name: "tailwind.config.ts" },
+  ]}
+/>
+
+<Callout type="tip" title="Tailwind v4 vs v3">
+  Kaizen primitives are built against Tailwind 3.4. Consumers on Tailwind 4
+  still work because the bundle ships its own classes; your app's Tailwind
+  config doesn't need to re-process Kaizen source files.
+</Callout>
+
+## Quick verification
+
+Render a Button to confirm the install is wired up:
+
+<StorybookEmbed id="primitive-components-button--primary" height={240} />

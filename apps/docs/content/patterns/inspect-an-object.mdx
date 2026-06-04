@@ -1,0 +1,147 @@
+---
+title: Inspect an object
+description: Let operators preview, triage, and drill into records without losing their place in a list.
+category: patterns
+sections:
+  - "Overview"
+  - "Do / don't"
+  - "Guidelines"
+---
+
+## Overview
+
+Row click navigates to a full page by default. Drawers handle lightweight objects and quick-inspect shortcuts.
+
+Define what happens when an operator clicks a record in a list. The default is straightforward: clicking a row navigates to the record's full page. The DetailDrawer exists for the exception — objects too lightweight to justify a page — and as an explicit quick-inspect affordance when both surfaces coexist.
+
+## Do / don't
+
+<DoDont>
+  <Do
+    caption={
+      "The drawer must be URL-addressable so that shared links open the correct record in the correct context."
+    }
+  />
+  <Do
+    caption={
+      "The drawer is non-modal — studio staff using it at the reception desk need to glance at the list behind it and may interact with both surfaces."
+    }
+  />
+</DoDont>
+
+<DoDont>
+  <Do
+    caption={
+      "Include a condensed identity block (name, status, key identifiers)"
+    }
+  />
+  <Do
+    caption={
+      'Include a "View full page" button in the drawer header — giving the operator the affordance to commit to that record if they need more'
+    }
+  />
+  <Do
+    caption={
+      "Include the most relevant properties for that object type (e.g., for a pass: type, validity, sessions remaining)"
+    }
+  />
+  <Dont caption={"Don't use it as the full detail experience of that object"} />
+  <Dont caption={"Don't include edit forms"} />
+  <Dont caption={"Don't include tabs or navigation"} />
+</DoDont>
+
+## Guidelines
+
+### What operators expect
+
+When a studio owner clicks a member row in a table, they expect to land on that member's page. That's the primary interaction — row click equals navigation.
+
+The drawer is used in two cases: when the object is too simple to deserve a page, or when the operator wants a quick peek without leaving the list. In the second case, the drawer is triggered by a dedicated icon button in the row — not by the row click itself. This keeps the default behavior predictable while giving power users a shortcut.
+
+### Best practices
+
+<Callout type="warning" title="Caution">
+
+- When both surfaces exist for the same object, the row click and the icon button must feel like two different actions — not a confusing split where the user doesn't know what will happen.
+
+</Callout>
+
+### Behavior: Three interaction types
+
+How a record opens depends on the object type and the trigger the operator uses.
+
+### 1. Row click navigates to full page (default)
+
+This is the standard behavior for most objects in the Back Office. Clicking anywhere on a row in an index table or list navigates to the record's _DetailsLayout page_. The list is left behind; the user commits to working on that record.
+
+| Context                                         | Example                                            |
+| ----------------------------------------------- | -------------------------------------------------- |
+| Clicking a row in the _members_ index table     | Row click → navigates to `/members/jane-doe`       |
+| Clicking a row in the _products_ index table    | Row click → navigates to `/products/10-class-pack` |
+| Clicking a row in the _classes_ list            | Row click → navigates to `/classes/yoga-tuesday`   |
+| Direct navigation via sidebar, bookmark, or URL | URL → full page loads directly                     |
+
+Use this mode when the object has enough depth to justify a full page — which is the case for most bsport entities (members, products, classes, invoices, instructors).
+
+### 2. Row click opens a drawer
+
+### Lightweight objects
+
+For objects that are too simple to warrant their own page, the row click opens a _DetailDrawer_ instead. The drawer _is_ the full experience — there is no page to promote to.
+
+**\*(Example) **\*\*Clicking a row in a tag list:\*
+Row click → drawer shows tag detail and related clients
+
+Use this mode when the object has fewer than ~8 properties, no sub-collections, and no editing workflow that needs room.
+
+### Linked objects
+
+Some records in bsport appear as references inside another object's page or drawer — for example, a pass shown on a member's profile, or a product linked from a booking. These are _linked objects_: they are not the primary subject of the current screen.
+
+_Behavior:_ Clicking a linked object opens a _detail drawer_ — not a full page navigation. This is intentional. The operator wants a quick glance at the referenced record without losing their current context.
+
+### How to use:
+
+### 3. Action opens a drawer alongside the page
+
+When an object type has a full page _and_ a drawer, the two triggers must be visually distinct:
+
+- _Row click_ → navigates to the full page (same as Mode 1)
+- _Icon button in the row_ → opens the DetailDrawer without leaving the list
+
+The icon button (typically an "eye" or "expand" icon at the trailing edge of the row) gives operators a quick-inspect shortcut. They can peek at the record, check a few properties, and return to scanning — without a page navigation.
+
+_Possible example:_
+
+| Context                            | Example                                                             |
+| ---------------------------------- | ------------------------------------------------------------------- |
+| Member list → click _row_          | Navigates to member detail page                                     |
+| Member list → click _inspect icon_ | Drawer opens with member summary, status, tags. List stays visible. |
+
+#### The icon button
+
+- Placed at the _trailing edge_ of the row, visually separated from the row's content
+- Uses a consistent icon across all object types (pick one and never change it)
+- Shows a tooltip on hover: "Quick inspect" or "Preview"
+- On hover over the row, the icon becomes visible (it can be hidden at rest to reduce noise, or always visible — decide once and apply globally)
+
+#### What belongs in the drawer (Mode 2 and 3)
+
+The drawer should answer: _"Is this the record I'm looking for, and can I do what I need without going deeper?"_
+
+- _Identity block_: Name, avatar/icon, primary identifier, status chip — enough to confirm you have the right record.
+- _Key properties_: The 4–6 fields operators check most frequently for that object type. For a member: pass, status, next billing date, tags. For a booking: member, class, check-in status, payment.
+- _Quick actions_: The 1–3 things operators do most often from a list context. For a member: send message, check in, view passes. For a booking: mark as checked in, cancel.
+- _Promote affordance_ (Mode 3 only): An "Open full page" link or button — always visible, always in the same position. Not needed in Mode 2 since there is no page.
+
+#### What does NOT belong in the drawer
+
+- Full edit forms (more than 2–3 inline-editable fields)
+- Long scrollable content
+- Tabbed navigation or sub-views — if the drawer needs a full tab bar with independent routes, it should be a page.
+
+  - A segmented control switching between 2–3 views of the same data (e.g., "Overview" / "Activity") is fine and common in bsport — the distinction is whether the segments filter what you see or whether they represent fundamentally different pages.
+
+- More than ~8 visible properties, or content that requires more than a quick scan (if it needs more than two viewport-lengths of scroll, it belongs on a page)
+
+### Related

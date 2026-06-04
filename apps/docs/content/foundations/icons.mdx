@@ -1,0 +1,154 @@
+---
+title: Icons
+description: How Untitled UI icons are vendored into Kaizen and consumed in product code.
+category: foundations
+sections:
+  - "Overview"
+  - "Adding icons"
+  - "Using icons"
+  - "Legacy"
+---
+
+## Overview
+
+Kaizen uses [Untitled UI Icons](https://www.untitledui.com/free-icons) as its
+icon source. Icons are **vendored as SVG files** inside the design system —
+there is no `@untitled-ui/icons` npm dependency in product apps.
+
+The Kaizen `Icon` primitive lazy-loads each SVG and exposes a typed `icon` prop.
+Studio Manager and other modern surfaces consume icons through
+`@bsport/kaizen-primitive-core`.
+
+<Callout type="info" title="Visual guidelines">
+  For sizing rules and usage guidance in UI, see
+  [Iconography](/foundations/iconography) under **Visual**.
+</Callout>
+
+## Adding icons
+
+When you need an icon that is not yet in Kaizen, add it to the primitive
+package and regenerate the registry.
+
+### 1. Download the SVG
+
+Browse the
+[Untitled UI GitHub repository](https://github.com/untitleduico/icons/tree/main/icons)
+and copy the SVG for the icon you need. Line icons match Kaizen's default
+stroke style.
+
+### 2. Add it to the assets folder
+
+Drop the file into the Kaizen icon assets directory:
+
+<FileTree
+  entries={[
+    {
+      name: "packages/design-system/kaizen/primitive/core/src/components/Icon/",
+      children: [
+        {
+          name: "assets/",
+          children: [{ name: "your-icon.svg", comment: "paste here" }],
+        },
+        { name: "icons.ts", comment: "auto-generated" },
+        { name: "Icon.tsx" },
+      ],
+    },
+  ]}
+/>
+
+Before committing, ensure the SVG root has **`width="100%"`** and
+**`height="100%"`**. Kaizen sizes icons through the wrapper — fixed pixel
+dimensions on the SVG break scaling.
+
+```xml
+<svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" …>
+```
+
+Use **`stroke="currentColor"`** on paths so icons inherit text color from
+Tailwind classes or parent styles.
+
+### 3. Regenerate the icon registry
+
+From the primitive package:
+
+```sh
+cd packages/design-system/kaizen/primitive/core
+pnpm run icon:generate
+```
+
+This reads every `.svg` in `assets/` and rewrites `icons.ts`. The same script
+runs on **pre-commit**, so new SVGs are picked up automatically when you commit.
+
+The `icon` prop value is the **filename without `.svg`**: `arrow-left.svg` →
+`icon="arrow-left"`.
+
+## Using icons
+
+Import `Icon` from Kaizen primitives and pass a registered name plus a size
+token.
+
+```tsx
+import { Icon } from "@bsport/kaizen-primitive-core";
+
+function Example() {
+  return <Icon icon="pin-02" size="sm" className="text-onsurface-weak" />;
+}
+```
+
+### Sizes
+
+| Size | Token classes             | Typical use                |
+| ---- | ------------------------- | -------------------------- |
+| `xs` | `h-icon-xs` / `w-icon-xs` | Inline metadata, badges    |
+| `sm` | `h-icon-sm` / `w-icon-sm` | Table cells, compact UI    |
+| `md` | `h-icon-md` / `w-icon-md` | Default control icons      |
+| `lg` | `h-icon-lg` / `w-icon-lg` | Section headers            |
+| `xl` | `h-icon-xl` / `w-icon-xl` | Empty states, hero moments |
+
+### Color
+
+Icons use `currentColor`. Set color on the `Icon` wrapper with Tailwind text
+utilities (`text-onsurface-weak`, `text-stroke-critical-default`, …) or inherit
+from a parent element.
+
+<StorybookEmbed
+  id="primitive-components-icon--all-icons"
+  mode="preview"
+  height={480}
+  title="All Kaizen icons"
+  stories={[
+    { id: "primitive-components-icon--all-icons", label: "All icons" },
+    { id: "primitive-components-icon--icon", label: "Single icon" },
+    {
+      id: "primitive-components-icon--custom-color-icons",
+      label: "Custom color",
+    },
+  ]}
+/>
+
+Other Kaizen components (`Button`, `Toast`, `Alert`, …) accept the same icon
+names through their own `icon` props. Register icons in Kaizen once, then
+reference them by name everywhere — do not import SVG files directly in product
+code.
+
+<DoDont>
+  <Do caption="Add missing icons to Kaizen once, then reference them by name everywhere." />
+  <Do caption="Keep stroke-based Untitled UI line icons for consistency." />
+  <Dont caption="Import SVG files directly in Studio Manager apps — register them in Kaizen first." />
+  <Dont caption="Hard-code width/height on SVG roots when adding assets." />
+</DoDont>
+
+## Legacy
+
+`saas-legacy` predates Kaizen and keeps a separate hand-maintained icon layer
+under `apps/applications/saas-legacy/src/components/untitledui/`. Icons there
+are React components built from a shared template, exported by category:
+
+```tsx
+import { ChevronRight, XClose } from "#src/components/untitledui";
+
+<XClose size="24" />;
+```
+
+Do not add new icons to legacy unless the change is explicitly legacy-only. For
+Studio Manager and new Back Office work, extend Kaizen instead.

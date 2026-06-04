@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import ProgressBar, { sizes, statuses } from "./ProgressBar";
 

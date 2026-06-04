@@ -27,7 +27,7 @@ spec:
   paused: false
   frontends:
     backoffice:
-      version: $CI_COMMIT_SHORT_SHA
+      version: "$CI_COMMIT_SHORT_SHA"
   type: frontend-only
 EOF
 

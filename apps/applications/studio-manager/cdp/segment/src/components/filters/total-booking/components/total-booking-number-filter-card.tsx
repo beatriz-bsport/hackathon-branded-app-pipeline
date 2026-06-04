@@ -44,7 +44,7 @@ export const TotalBookingNumberFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const { errors, dirtyFields, isDirty } = methods.formState;
 
   const { upsertTotalBookingFilterMutate, isLoading: isSaving } =
     useUpsertTotalBookingFilterMutation(smartlistId, {
@@ -80,8 +80,6 @@ export const TotalBookingNumberFilterCard = ({
         });
       },
     });
-
-  const isDirty = Object.keys(dirtyFields).length > 0;
 
   const handleSave = methods.handleSubmit(
     (value) => {

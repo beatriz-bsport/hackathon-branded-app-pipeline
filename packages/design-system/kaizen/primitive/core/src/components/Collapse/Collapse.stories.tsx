@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import React from "react";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";

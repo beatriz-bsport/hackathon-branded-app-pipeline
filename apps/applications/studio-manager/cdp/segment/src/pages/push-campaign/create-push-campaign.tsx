@@ -1,6 +1,11 @@
-import { useId } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { type ReactNode, useId } from "react";
 import { Link, useParams } from "react-router";
 
+import type {
+  ScheduleCampaignPayload,
+  SendPushCampaignPayload,
+} from "@bsport/api-cdp/communicate";
 import { useFormController } from "@bsport/form";
 import {
   Breadcrumbs,
@@ -10,6 +15,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { smartlistQueryKeys } from "#src/api/api";
 import { useScheduleCampaign } from "#src/api/use-schedule-campaign";
 import { useSendCampaign } from "#src/api/use-send-campaign";
 import { useSmartlistDetailSuspenseQuery } from "#src/api/use-smartlist-detail";
@@ -47,20 +53,30 @@ const CreatePushCampaignPage = () => {
   );
 };
 
-function CreatePushCampaign() {
-  const { t } = useTranslation(["list", "campaign"]);
-  const { navigateToSmartlistCampaigns } = useSmartlistNavigation();
-  const { id: smartlistId } = useParams<{ id: string }>();
-  invariant(smartlistId, "Expected id param to be defined");
+type CreatePushCampaignContentProps = {
+  breadcrumbsItems: ReactNode[];
+  onSuccess: () => void;
+  formatSendPayload: (data: PushCampaignFormData) => SendPushCampaignPayload;
+  formatSchedulePayload?: (params: {
+    data: PushCampaignFormData;
+    datetimeScheduled: string;
+  }) => ScheduleCampaignPayload;
+};
 
-  const { data: smartlist } = useSmartlistDetailSuspenseQuery(smartlistId);
+export function CreatePushCampaignContent({
+  breadcrumbsItems,
+  onSuccess,
+  formatSendPayload,
+  formatSchedulePayload,
+}: CreatePushCampaignContentProps) {
+  const { t } = useTranslation(["list", "campaign"]);
   const { detailsLayoutProps } = useDetailsLayout();
   const companyTimezone =
     dataAccessLayer.useCompanyTheme()?.timezone_name ?? "UTC";
   const formId = useId();
   const { sendCampaign, isSending } = useSendCampaign({
     onSuccess: () => {
-      navigateToSmartlistCampaigns(smartlistId);
+      onSuccess();
       toast({
         status: "default",
         icon: "check",
@@ -79,7 +95,7 @@ function CreatePushCampaign() {
   });
   const { scheduleCampaign, isScheduling } = useScheduleCampaign({
     onSuccess: () => {
-      navigateToSmartlistCampaigns(smartlistId);
+      onSuccess();
       toast({
         status: "default",
         icon: "check",
@@ -110,41 +126,43 @@ function CreatePushCampaign() {
     },
   });
   const deliveryMode = methods.watch("deliveryMode");
-  const breadcrumbsItems = [
-    <Link key="breadcrumb-smartlists" to={SMARTLIST_APP_LINKS.index()}>
-      <Breadcrumbs.Item
-        id="breadcrumb-smartlists"
-        text={t("title", { ns: "list" })}
-      />
-    </Link>,
-    <Link
-      key="breadcrumb-smartlists-campaigns"
-      to={SMARTLIST_APP_LINKS.campaign(smartlistId)}
-    >
-      <Breadcrumbs.Item
-        id="breadcrumb-smartlists-campaigns"
-        text={smartlist?.name ?? ""}
-      />
-    </Link>,
-  ];
 
   const handleSubmit = async (data: PushCampaignFormData) => {
-    if (
-      data.deliveryMode === DELIVERY_MODE_SCHEDULE_LATER &&
-      data.scheduledDate &&
-      data.scheduledTime
-    ) {
+    if (data.deliveryMode === DELIVERY_MODE_SCHEDULE_LATER) {
+      if (!formatSchedulePayload) {
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          title: t("prebuilt.creation.toasts.error.scheduleNotSupported", {
+            ns: "campaign",
+          }),
+          buttonIcon: "x-close",
+        });
+        return;
+      }
+
+      if (!data.scheduledDate || !data.scheduledTime) {
+        toast({
+          status: "critical",
+          icon: "alert-circle",
+          title: t(
+            data.scheduledDate
+              ? "generic.creation.form.errors.scheduledTimeRequired"
+              : "generic.creation.form.errors.scheduledDateRequired",
+            { ns: "campaign" },
+          ),
+          buttonIcon: "x-close",
+        });
+        return;
+      }
+
       const datetimeScheduled = formatScheduledDateTime({
         scheduledDate: data.scheduledDate,
         scheduledTime: data.scheduledTime,
         companyTimezone,
       });
 
-      const payload = formatSchedulePushCampaignPayload({
-        smartlistId: smartlist.id,
-        data,
-        datetimeScheduled,
-      });
+      const payload = formatSchedulePayload({ data, datetimeScheduled });
 
       await scheduleCampaign({
         payload,
@@ -152,10 +170,7 @@ function CreatePushCampaign() {
       return;
     }
 
-    const payload = formatSendPushCampaignPayload({
-      smartlistId: smartlist.id,
-      data,
-    });
+    const payload = formatSendPayload(data);
     await sendCampaign({
       payload,
     });
@@ -183,6 +198,61 @@ function CreatePushCampaign() {
         </div>
       </DetailsLayout.Content>
     </DetailsLayout>
+  );
+}
+
+function CreatePushCampaign() {
+  const { t } = useTranslation(["list", "campaign"]);
+  const { navigateToSmartlistCampaigns } = useSmartlistNavigation();
+  const queryClient = useQueryClient();
+  const { id: smartlistId } = useParams<{ id: string }>();
+  invariant(smartlistId, "Expected id param to be defined");
+
+  const { data: smartlist } = useSmartlistDetailSuspenseQuery(smartlistId);
+
+  const handleSuccess = () => {
+    queryClient.invalidateQueries({
+      queryKey: smartlistQueryKeys.smartlistKeys.detail(smartlistId),
+    });
+    navigateToSmartlistCampaigns(smartlistId);
+  };
+
+  const breadcrumbsItems = [
+    <Link key="breadcrumb-smartlists" to={SMARTLIST_APP_LINKS.index()}>
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists"
+        text={t("title", { ns: "list" })}
+      />
+    </Link>,
+    <Link
+      key="breadcrumb-smartlists-campaigns"
+      to={SMARTLIST_APP_LINKS.campaign(smartlistId)}
+    >
+      <Breadcrumbs.Item
+        id="breadcrumb-smartlists-campaigns"
+        text={smartlist?.name ?? ""}
+      />
+    </Link>,
+  ];
+
+  return (
+    <CreatePushCampaignContent
+      breadcrumbsItems={breadcrumbsItems}
+      onSuccess={handleSuccess}
+      formatSendPayload={(data) =>
+        formatSendPushCampaignPayload({
+          smartlistId: smartlist.id,
+          data,
+        })
+      }
+      formatSchedulePayload={({ data, datetimeScheduled }) =>
+        formatSchedulePushCampaignPayload({
+          smartlistId: smartlist.id,
+          data,
+          datetimeScheduled,
+        })
+      }
+    />
   );
 }
 

@@ -1,6 +1,10 @@
 import { NavigateOptions, useNavigate } from "react-router";
 
-import { CampaignChannel, SMARTLIST_APP_LINKS } from "#src/urls";
+import {
+  CAMPAIGN_CHANNEL_POPUP,
+  CampaignChannel,
+  SMARTLIST_APP_LINKS,
+} from "#src/urls";
 
 export const useSmartlistNavigation = () => {
   const navigate = useNavigate();
@@ -19,6 +23,15 @@ export const useSmartlistNavigation = () => {
       options?: NavigateOptions,
     ) => {
       navigate(SMARTLIST_APP_LINKS.campaign(smartlistId), options);
+    },
+    navigateToPrebuiltSegmentCampaigns: (
+      prebuiltSegmentId: string,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.prebuiltDetailsCampaigns(prebuiltSegmentId),
+        options,
+      );
     },
     navigateToSmartlistParameters: (
       smartlistId: string,
@@ -48,6 +61,16 @@ export const useSmartlistNavigation = () => {
     ) => {
       navigate(
         SMARTLIST_APP_LINKS.campaignCreate(smartlistId, channel),
+        options,
+      );
+    },
+    navigateToPrebuiltCampaignCreate: (
+      prebuiltSegmentId: string,
+      channel: Exclude<CampaignChannel, typeof CAMPAIGN_CHANNEL_POPUP>,
+      options?: NavigateOptions,
+    ) => {
+      navigate(
+        SMARTLIST_APP_LINKS.prebuiltCampaignCreate(prebuiltSegmentId, channel),
         options,
       );
     },

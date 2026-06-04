@@ -1,7 +1,7 @@
-import { creditLeftPassSubFilterModule } from "./credit-left/credit-left.module";
-import { expirationDatePassSubFilterModule } from "./expiration-date/expiration-date.module";
+import { creditLeftPassSubFilterModule } from "./credit-left/module";
+import { expirationDatePassSubFilterModule } from "./expiration-date/module";
 import type { PassSubFilterModule } from "./pass-sub-filter-module-contract";
-import { purchaseDatePassSubFilterModule } from "./purchase-date/purchase-date.module";
+import { purchaseDatePassSubFilterModule } from "./purchase-date/module";
 
 /**
  * Ordered list of pass sub-filter modules wired into the pass filter card.

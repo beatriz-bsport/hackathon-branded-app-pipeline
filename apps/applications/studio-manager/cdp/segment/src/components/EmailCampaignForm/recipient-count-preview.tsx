@@ -1,5 +1,6 @@
 import React from "react";
 
+import type { CommunicationPreviewRecipientsRequest } from "@bsport/api-cdp/communicate";
 import { CommunicationChannel } from "@bsport/api-cdp/smartlist";
 import { Body, Loader, Title } from "@bsport/kaizen-primitive-core";
 
@@ -8,10 +9,24 @@ import { QueryBoundary } from "#src/components/QueryBoundary";
 import { TimedInfoPopover } from "#src/components/timed-info-popover";
 import { useTranslation } from "#src/utils/i18n";
 
+type RecipientTarget = Extract<
+  CommunicationPreviewRecipientsRequest["target"],
+  { type: "smartlist" | "segment" }
+>;
+
+type RecipientCountPreviewTargetProps =
+  | {
+      smartlistId: number;
+      target?: never;
+    }
+  | {
+      smartlistId?: never;
+      target: RecipientTarget;
+    };
+
 type RecipientCountPreviewProps = {
-  smartlistId: number;
   isMarketing: boolean;
-};
+} & RecipientCountPreviewTargetProps;
 
 const RECIPIENT_COUNT_POPOVER_CONTENT_LIST_KEYS: Array<
   | "noValidContact"
@@ -29,6 +44,7 @@ const RECIPIENT_COUNT_POPOVER_CONTENT_LIST_KEYS: Array<
 
 export const RecipientCountPreview: React.FC<RecipientCountPreviewProps> = ({
   smartlistId,
+  target,
   isMarketing,
 }: RecipientCountPreviewProps) => {
   const { t } = useTranslation("campaign");
@@ -40,7 +56,14 @@ export const RecipientCountPreview: React.FC<RecipientCountPreviewProps> = ({
       </Body>
       <div className="flex flex-row items-center gap-xs">
         <QueryBoundary loadingFallback={<Loader size="sm" />}>
-          <RecipientCount smartlistId={smartlistId} isMarketing={isMarketing} />
+          {target !== undefined ? (
+            <RecipientCount target={target} isMarketing={isMarketing} />
+          ) : (
+            <RecipientCount
+              smartlistId={smartlistId}
+              isMarketing={isMarketing}
+            />
+          )}
         </QueryBoundary>
         <TimedInfoPopover
           label={t("email.creation.expectedRecipients.infoLabel")}
@@ -105,20 +128,60 @@ export const RecipientCountPreview: React.FC<RecipientCountPreviewProps> = ({
   );
 };
 
-const RecipientCount = ({
+const hasSmartlistId = (smartlistId?: number): smartlistId is number =>
+  typeof smartlistId === "number";
+
+const hasRecipientTarget = (
+  target?: RecipientTarget,
+): target is RecipientTarget => target !== undefined;
+
+const getRecipientTarget = ({
   smartlistId,
+  target,
+}: RecipientCountPreviewTargetProps): RecipientTarget => {
+  if (hasRecipientTarget(target)) {
+    return target;
+  }
+
+  if (hasSmartlistId(smartlistId)) {
+    return { type: "smartlist", smartlist_id: smartlistId };
+  }
+
+  throw new Error("Expected recipient target to be defined");
+};
+
+const buildRecipientCountRequest = ({
   isMarketing,
-}: RecipientCountPreviewProps) => {
-  const { data: recipientsCount } = useFetchCommunicationRecipientsPreviewCount(
-    {
-      channel: CommunicationChannel.EMAIL,
-      is_marketing: isMarketing,
-      target: {
-        type: "smartlist",
-        smartlist_id: smartlistId,
-      },
-    },
-  );
+  target,
+}: {
+  isMarketing: boolean;
+  target: RecipientTarget;
+}): CommunicationPreviewRecipientsRequest => {
+  switch (target.type) {
+    case "smartlist":
+      return {
+        channel: CommunicationChannel.EMAIL,
+        is_marketing: isMarketing,
+        target,
+      };
+    case "segment":
+      return {
+        channel: CommunicationChannel.EMAIL,
+        is_marketing: isMarketing,
+        target,
+      };
+  }
+};
+
+const RecipientCount = (props: RecipientCountPreviewProps) => {
+  const recipientTarget = getRecipientTarget(props);
+  const request = buildRecipientCountRequest({
+    isMarketing: props.isMarketing,
+    target: recipientTarget,
+  });
+
+  const { data: recipientsCount } =
+    useFetchCommunicationRecipientsPreviewCount(request);
 
   return (
     <Body htmlVariant="p" size="lg" weight="strong">

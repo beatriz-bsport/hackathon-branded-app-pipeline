@@ -1,5 +1,6 @@
 import React from "react";
 
+import type { CommunicationPreviewRecipientsRequest } from "@bsport/api-cdp/communicate";
 import { getEnv } from "@bsport/envs";
 import { ControlledForm, type ControlledFormProps } from "@bsport/form";
 import { Card } from "@bsport/kaizen-primitive-core";
@@ -15,17 +16,32 @@ import { EmailTypeField } from "./email-type-field";
 import { RecipientCountPreview } from "./recipient-count-preview";
 import type { EmailCampaignFormData } from "./types.ts";
 
+type EmailCampaignRecipientTarget = Extract<
+  CommunicationPreviewRecipientsRequest["target"],
+  { type: "smartlist" | "segment" }
+>;
+
+type EmailCampaignFormTargetProps =
+  | {
+      smartlistId: number;
+      recipientTarget?: never;
+    }
+  | {
+      smartlistId?: never;
+      recipientTarget: EmailCampaignRecipientTarget;
+    };
+
 type EmailCampaignFormProps = Omit<
   ControlledFormProps<EmailCampaignFormData>,
   "children"
-> & {
-  smartlistId: number;
-};
+> &
+  EmailCampaignFormTargetProps;
 
 export const EmailCampaignForm: React.FC<EmailCampaignFormProps> = ({
   id,
   onSubmit,
   smartlistId,
+  recipientTarget,
   ...methods
 }) => {
   const { watch } = methods;
@@ -44,10 +60,17 @@ export const EmailCampaignForm: React.FC<EmailCampaignFormProps> = ({
     >
       <Card padding="default" elevated className="flex flex-col gap-md">
         <EmailTypeField />
-        <RecipientCountPreview
-          smartlistId={smartlistId}
-          isMarketing={selectedEmailType === EMAIL_TYPE_MARKETING}
-        />
+        {recipientTarget !== undefined ? (
+          <RecipientCountPreview
+            target={recipientTarget}
+            isMarketing={selectedEmailType === EMAIL_TYPE_MARKETING}
+          />
+        ) : (
+          <RecipientCountPreview
+            smartlistId={smartlistId}
+            isMarketing={selectedEmailType === EMAIL_TYPE_MARKETING}
+          />
+        )}
       </Card>
       {
         /**

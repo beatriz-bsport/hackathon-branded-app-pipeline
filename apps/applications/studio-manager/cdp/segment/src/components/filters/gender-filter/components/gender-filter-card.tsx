@@ -33,7 +33,7 @@ export const GenderFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { dirtyFields } = methods.formState;
+  const { dirtyFields, isDirty } = methods.formState;
 
   const { upsertGenderFilterMutate, isLoading: isSaving } =
     useUpsertGenderFilterMutation(smartlistId, {
@@ -70,7 +70,6 @@ export const GenderFilterCard = ({
       },
     });
 
-  const isDirty = Object.keys(dirtyFields).length > 0;
   const isSavedFilter = Boolean(watchedFilterValue.id);
 
   const handleSave = methods.handleSubmit(

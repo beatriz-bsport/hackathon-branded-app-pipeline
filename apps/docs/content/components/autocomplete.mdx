@@ -1,0 +1,162 @@
+---
+title: Autocomplete
+description: A searchable input that suggests matching items as the user types.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/Autocomplete"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Autocomplete pairs a text field with a filtering popover — precise like a select, fast like search.
+
+Autocomplete is a text input paired with a popover of suggested items that filter as the user types. It combines the precision of a select with the speed of a search — letting staff find a member, class, product, or tag without scrolling through a long list. It supports both single and multi-selection, local filtering for static lists, and remote search for large or dynamic datasets.
+
+### Use cases
+
+- **Search in large lists: **Use when a select would be too long to scroll (members, activities).
+- **Multi-select with chips: **Use when users need to select several items and keep an overview of them (tags, roles, activities).
+- **Quick-add to a list: **Search for an item and add it to a collection without committing to a value in the field itself — for example, adding members to a class or assigning instructors to a session. Use `clearOnSelect=\{true\}` so the field empties after each pick.
+- **Pre-selected values: **Use when you need to show existing selections as chips or default values when the page loads.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-autocomplete--primary"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-autocomplete--primary",
+      label: "Multi-select",
+    },
+    {
+      id: "primitive-components-autocomplete--single-select",
+      label: "Single select",
+    },
+    {
+      id: "primitive-components-autocomplete--debounced-search",
+      label: "Debounced search",
+    },
+  ]}
+/>
+
+### Live preview
+
+<Anatomy
+  parts={[
+    {
+      label: "Input field",
+      description: "The underlying TextField where the user types the query.",
+    },
+    {
+      label: "Label",
+      description:
+        'Describes what the field is for, rendered by the TextField (e.g. "Member").',
+    },
+    {
+      label: "Placeholder",
+      description:
+        'Hints at the expected query (e.g. "Search by name or email").',
+    },
+    {
+      label: "Popover",
+      description:
+        "The floating panel below the input that holds the results list.",
+    },
+    {
+      label: "Item",
+      description:
+        "A single selectable row, with a label and optional description.",
+    },
+    {
+      label: "Group header",
+      description:
+        'A non-selectable section title when items are grouped (e.g. "Frontend", "Backend").',
+    },
+    {
+      label: "Checkbox",
+      description:
+        "Appears on each item in `multiSelect` mode to indicate selection state.",
+    },
+    {
+      label: "Selected items section",
+      description:
+        'A "Selected" group at the top of the popover that lists chosen items even when they don\'t match the current query.',
+    },
+    {
+      label: "Chips",
+      description:
+        "Pills rendered below the input in multi-select mode, one per selected item, with a dismiss button.",
+    },
+    {
+      label: "Loading indicator",
+      description:
+        "Replaces the list contents while `loadingProps.isLoading` is true, with an optional message.",
+    },
+    {
+      label: "Empty state",
+      description: "Shown when filtering returns no results.",
+    },
+  ]}
+/>
+
+### Best practices
+
+#### Content
+
+#### `TBD`
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="Autocomplete" />
+
+### Behavior
+
+###### Dismissal
+
+The popover closes on: selecting an item in single-select mode, pressing `Escape`, clicking outside the input + popover, or the input losing focus to a non-popover target. In multi-select, selecting an item does _not_ dismiss the popover — the user is expected to make multiple picks.
+
+###### Selection
+
+Clicking an item or pressing `Enter` on the highlighted row selects it. In single-select mode, the selected label populates the input. In multi-select, the item gains a checkmark and a chip appears below the input. Re-selecting a selected item deselects it.
+
+###### Persistence
+
+Selected items persist in an internal cache so they remain visible in the popover (under a "Selected" section) even when the current query would filter them out. This means staff can review and remove selections without clearing the search first. Clearing the input does not clear the selection — that only happens via chip dismiss, item deselection, or a controlled value reset from the parent.
+
+###### Responsiveness
+
+The popover matches the input width by default, or stretches to the container with `fullWidth=\{true\}`. On mobile and at narrow widths, the popover anchors per `popoverPlacement` but reflows to stay within the viewport.
+
+### Edge cases
+
+###### No results
+
+The popover shows an empty state. Keep the popover open so the user can refine the query rather than closing it (which would force them to re-focus to retry).
+
+###### Long item labels
+
+The item label truncates with an ellipsis at the popover width. Use `description` for the rest of the context (e.g. label = name, description = email) rather than relying on long labels.
+
+###### Field disabled mid-interaction
+
+If `disabled` flips to true while the popover is open, the popover closes and the input becomes non-interactive. The current selection is preserved.
+
+###### `fullWidth`_ on a narrow container_
+
+The popover stretches to match the input. On very narrow inputs, item labels may truncate aggressively — consider unsetting `fullWidth` and letting the popover size to its content.
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/Autocomplete`
+- **Storybook:** Browse the live examples under Guidelines.

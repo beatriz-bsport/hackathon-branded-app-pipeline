@@ -27,6 +27,12 @@ const PrebuiltSegmentPage = lazy(
 const PrebuiltCampaignsPage = lazy(
   () => import("#src/pages/prebuilt-segment-detail/prebuilt-campaigns-page"),
 );
+const PrebuiltCampaignCreateRouter = lazy(
+  () =>
+    import(
+      "#src/pages/prebuilt-segment-detail/prebuilt-campaign-create-router"
+    ),
+);
 const ParameterPage = lazy(() => import("#src/pages/ParameterPage"));
 const CampaignPage = lazy(() => import("#src/pages/CampaignPage"));
 const CampaignSentDetailPage = lazy(
@@ -128,6 +134,17 @@ export const AppRoutes = () => {
             fallback={<Navigate to={SMARTLIST_APP_LINKS.root()} replace />}
           >
             <TabbedIndexPage activeTab="prebuilt" />
+          </FeatureFlag>
+        }
+      />
+      <Route
+        path={SMARTLIST_ROUTE_PATTERNS.PREBUILT_CAMPAIGN_CREATE}
+        element={
+          <FeatureFlag
+            flag={flags.prebuiltSegments}
+            fallback={<Navigate to={SMARTLIST_APP_LINKS.root()} replace />}
+          >
+            <PrebuiltCampaignCreateRouter />
           </FeatureFlag>
         }
       />

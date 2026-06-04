@@ -1,5 +1,6 @@
-import type { FieldNamesMarkedBoolean } from "react-hook-form";
 import { describe, expect, it } from "vitest";
+
+import type { FieldNamesMarkedBoolean } from "@bsport/form";
 
 import { GENDER_OPTIONS } from "#src/components/filters/gender-filter/constants";
 import { createDefaultGenderFilter } from "#src/components/filters/gender-filter/default-value";

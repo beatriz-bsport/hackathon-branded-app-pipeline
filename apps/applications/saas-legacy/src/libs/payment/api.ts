@@ -173,13 +173,6 @@ export const updateIntentToSavePaymentMethod = async (data: {
   );
 };
 
-export const updateIntentToSavePaymentMethodWebview = async (data: any) => {
-  return postAuth(
-    `${API_V1_URI}/payment/payment_group/update_intent_to_save_payment_method_by_basket_id/`,
-    data,
-  );
-};
-
 export const fetchPayoutListLegacy = async (params: any) => {
   return getAuth(`${API_V1_URI}/payout/${buildUrlParams(params)}`);
 };

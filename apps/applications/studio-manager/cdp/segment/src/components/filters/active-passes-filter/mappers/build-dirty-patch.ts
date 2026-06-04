@@ -1,6 +1,5 @@
-import type { FieldNamesMarkedBoolean } from "react-hook-form";
-
 import { UpdateActivePassesFilterPayload } from "@bsport/api-cdp/smartlist";
+import type { FieldNamesMarkedBoolean } from "@bsport/form";
 
 import {
   hasNestedDirty,
@@ -57,13 +56,13 @@ export const buildActivePassesFilterDirtyPatch = (
       : [];
   }
 
-  if (hasNestedDirty(dirtyFields.privatePassesSelector)) {
-    const privatePassesEnabled = value.privatePassesSelector.enabled;
-    patch.select_all_private_passes = privatePassesEnabled
-      ? value.privatePassesSelector.selectAll
+  if (hasNestedDirty(dirtyFields.appointmentPassesSelector)) {
+    const appointmentPassesEnabled = value.appointmentPassesSelector.enabled;
+    patch.select_all_private_passes = appointmentPassesEnabled
+      ? value.appointmentPassesSelector.selectAll
       : false;
-    patch.private_passes = privatePassesEnabled
-      ? value.privatePassesSelector.selectedIds
+    patch.private_passes = appointmentPassesEnabled
+      ? value.appointmentPassesSelector.selectedIds
       : [];
   }
 

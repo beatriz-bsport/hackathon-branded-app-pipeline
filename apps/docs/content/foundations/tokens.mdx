@@ -1,0 +1,51 @@
+---
+title: Tokens
+description: How Kaizen design tokens are organised, exported, and consumed.
+category: foundations
+---
+
+Design tokens are the source of truth for every visual decision in Kaizen.
+We ship tokens through `@bsport/kaizen-tokens`, which
+emits a CSS-variable bundle and a Tailwind theme JSON. Consumers can pick
+whichever surface they prefer.
+
+## Three ways to consume the same token
+
+<Tabs items={["CSS variable", "Tailwind class", "TypeScript constant"]}>
+  <Tab>
+    ```css
+    .my-card {
+      background: var(--kz-color-luna-grey-100);
+      border-radius: var(--kz-border-radius-md);
+    }
+    ```
+  </Tab>
+  <Tab>
+    ```html
+    <div class="bg-luna-grey-100 rounded-md">…</div>
+    ```
+  </Tab>
+  <Tab>
+    ```ts
+    import tokens from "@bsport/kaizen-tokens/build/tailwind.theme.json";
+    const grey100 = tokens.colors["luna-grey"]["100"];
+    ```
+  </Tab>
+</Tabs>
+
+## Radii
+
+<TokenTable category="border.radius" />
+
+## Stroke widths
+
+<TokenTable category="border.width" />
+
+## Token alias chains
+
+Every token resolves through one layer of indirection — a CSS variable that
+the token package resolves to a concrete value. Tools like `<TokenAlias>` make
+that chain explicit so design and engineering are looking at the same thing.
+
+<TokenAlias from="border.radius.md" />
+<TokenAlias from="border.width.stroke-regular" />

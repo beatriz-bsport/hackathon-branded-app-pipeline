@@ -1,0 +1,43 @@
+[
+  "index",
+  {
+    "group": "Actions",
+    "items": ["button"]
+  },
+  {
+    "group": "App navigation",
+    "items": ["app-navigation"]
+  },
+  {
+    "group": "Data display",
+    "items": ["table", "badge", "chip", "indicator"]
+  },
+  {
+    "group": "Feedback and status",
+    "items": ["alert", "toast"]
+  },
+  {
+    "group": "Form controls",
+    "items": [
+      "shared-form-guidelines",
+      "checkbox",
+      "radio",
+      "toggle",
+      "text-field",
+      "select",
+      "autocomplete"
+    ]
+  },
+  {
+    "group": "Layout and structure",
+    "items": ["header-layout", "panel"]
+  },
+  {
+    "group": "Navigation",
+    "items": ["breadcrumbs", "link", "tabs"]
+  },
+  {
+    "group": "Overlays",
+    "items": ["detail-drawer", "modal", "tooltip", "popover"]
+  }
+]

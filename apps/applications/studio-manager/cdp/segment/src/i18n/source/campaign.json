@@ -562,5 +562,14 @@
         "showLess": "Show less"
       }
     }
+  },
+  "prebuilt": {
+    "creation": {
+      "toasts": {
+        "error": {
+          "scheduleNotSupported": "Scheduling campaigns for pre-built segments is not supported yet. Please send now."
+        }
+      }
+    }
   }
 }

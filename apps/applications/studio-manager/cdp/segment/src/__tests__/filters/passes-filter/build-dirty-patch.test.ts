@@ -1,5 +1,6 @@
-import type { FieldNamesMarkedBoolean } from "react-hook-form";
 import { describe, expect, it, vi } from "vitest";
+
+import type { FieldNamesMarkedBoolean } from "@bsport/form";
 
 import { createDefaultPassesFilter } from "#src/components/filters/passes-filter/default-value";
 import { buildDirtyPatchPayload } from "#src/components/filters/passes-filter/mappers/build-dirty-patch";

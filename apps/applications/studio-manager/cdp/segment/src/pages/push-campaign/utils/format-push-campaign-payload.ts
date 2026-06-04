@@ -5,7 +5,10 @@ import {
 } from "@bsport/api-cdp/communicate";
 
 import type { PushCampaignFormData } from "#src/components/push-campaign-form/types";
-import { CONTEXT_SMARTLIST } from "#src/utils/constants";
+import {
+  CONTEXT_PREBUILT_SEGMENT,
+  CONTEXT_SMARTLIST,
+} from "#src/utils/constants";
 
 export const formatSendPushCampaignPayload = ({
   smartlistId,
@@ -21,6 +24,24 @@ export const formatSendPushCampaignPayload = ({
     context_object_id: smartlistId,
     member_filters: {
       smartlist: smartlistId,
+    },
+  };
+};
+
+export const formatSendPrebuiltSegmentPushCampaignPayload = ({
+  segmentIdentifier,
+  data,
+}: {
+  segmentIdentifier: string;
+  data: PushCampaignFormData;
+}): SendPushCampaignPayload => {
+  return {
+    notification_title: data.title.trim(),
+    notification_content: data.message,
+    context_identifier: CONTEXT_PREBUILT_SEGMENT,
+    context_segment_identifier: segmentIdentifier,
+    member_filters: {
+      segment_identifier: segmentIdentifier,
     },
   };
 };

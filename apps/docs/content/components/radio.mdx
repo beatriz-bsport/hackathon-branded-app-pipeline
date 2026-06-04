@@ -1,0 +1,96 @@
+---
+title: Radio
+description: Used in forms where users must select one option from a list.
+category: components
+source: "packages/design-system/kaizen/primitive/core/src/components/RadioGroup"
+sections:
+  - "Overview"
+  - "Guidelines"
+  - "Code & Specs"
+  - "Accessibility"
+  - "Resources"
+---
+
+## Overview
+
+Radio buttons form a mutually exclusive set — only one option can be selected at a time.
+
+##### Related Components
+
+- _Checkbox:_ Similar to a radio button but used when multiple options in a group can be selected.
+- _Toggle Switch:_ An alternative to checkboxes for binary options, often used for settings.
+
+## Guidelines
+
+### Examples
+
+<StorybookEmbed
+  id="primitive-components-radiogroup--controlled-component"
+  mode="playground"
+  height={540}
+  stories={[
+    {
+      id: "primitive-components-radiogroup--controlled-component",
+      label: "Controlled",
+    },
+    {
+      id: "primitive-components-radiogroup--controlled-with-children-component",
+      label: "With children",
+    },
+  ]}
+/>
+
+### Best practices
+
+- Use radio buttons when users must choose _one option_ from a predefined list.
+- Ensure all options are clearly labelled and mutually exclusive.
+- Always present radio buttons in a group—never use a standalone radio button.
+- Apply the `has-error` and `error-text` properties to provide feedback when the radio button input is incorrect.
+
+<DoDont>
+  <Do
+    caption={
+      "Make sure groups of radio buttons are clearly associated with a descriptive heading."
+    }
+  />
+  <Dont
+    caption={
+      "Always present radio buttons in a group—never use a standalone radio button."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use radio buttons when multiple selections are allowed—use checkboxes instead."
+    }
+  />
+  <Dont
+    caption={
+      "Don't use if the user can toggle between two states—use a switch instead."
+    }
+  />
+</DoDont>
+
+<Callout type="warning" title="Caution">
+
+- Don't stack too many radio buttons—consider a dropdown if space is an issue.
+
+</Callout>
+
+## Code & Specs
+
+### Props
+
+<PropsTable component="RadioGroup" />
+
+## Accessibility
+
+<Accessibility
+  notes={
+    "Make sure the Radio button is fully accessible via keyboard and screen readers. Use appropriate ARIA attributes to describe the checkbox state, especially for `intermediate`, `has-error`, and `disabled` states."
+  }
+/>
+
+## Resources
+
+- **Source:** `packages/design-system/kaizen/primitive/core/src/components/RadioGroup`
+- **Storybook:** Browse the live examples under Guidelines.

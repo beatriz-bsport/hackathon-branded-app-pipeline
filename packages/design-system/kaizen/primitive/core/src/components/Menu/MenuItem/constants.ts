@@ -12,6 +12,7 @@ export const baseMenuItemClasses = [
   "min-h-xl",
   "rounded-sm",
   "p-2xs",
+  "pr-md",
   "gap-xs",
   "cursor-pointer w-full",
   "transition ease-out duration-default",
@@ -67,6 +68,8 @@ export const menuItemVariants = {
       "min-h-xl",
       "rounded-sm",
       "p-2xs",
+      // Mirror the left accent indicator (w-2xs) + gap-xs so content insets match
+      "pr-md",
       "gap-xs",
       "cursor-pointer w-full",
       "transition ease-out duration-default",

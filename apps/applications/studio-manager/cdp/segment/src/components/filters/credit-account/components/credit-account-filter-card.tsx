@@ -35,7 +35,7 @@ export const CreditAccountFilterCard = ({
     defaultValues: filterValue,
   });
   const watchedFilterValue = methods.watch();
-  const { errors, dirtyFields } = methods.formState;
+  const { errors, dirtyFields, isDirty } = methods.formState;
 
   const { upsertCreditAccountFilterMutate, isLoading: isSaving } =
     useUpsertCreditAccountFilterMutation(smartlistId, {
@@ -71,8 +71,6 @@ export const CreditAccountFilterCard = ({
         });
       },
     });
-
-  const isDirty = Object.keys(dirtyFields).length > 0;
 
   const handleSave = methods.handleSubmit(
     (value) => {

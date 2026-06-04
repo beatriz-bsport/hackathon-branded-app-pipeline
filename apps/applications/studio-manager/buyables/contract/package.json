@@ -29,6 +29,7 @@
   "dependencies": {
     "@bsport/api-buyables": "workspace:*",
     "@bsport/datetime-manipulation": "workspace:*",
+    "@bsport/use-pagination-query-params": "workspace:*",
     "tiny-invariant": "^1.3.3"
   },
   "devDependencies": {

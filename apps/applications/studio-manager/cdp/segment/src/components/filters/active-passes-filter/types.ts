@@ -22,8 +22,8 @@ export type ActivePassesFilterFormValue = {
     selectAll: boolean;
     selectedIds: number[];
   };
-  /** Controls the "Specify Appointment Passes" (private passes) section. */
-  privatePassesSelector: {
+  /** Controls the "Specify Appointment Passes" section. */
+  appointmentPassesSelector: {
     enabled: boolean;
     /** When true, all company appointment passes are in scope (`select_all_private_passes = true`). */
     selectAll: boolean;

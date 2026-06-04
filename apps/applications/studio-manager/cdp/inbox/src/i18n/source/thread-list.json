@@ -1,0 +1,11 @@
+{
+  "title": "Inbox",
+  "threadListHeader": {
+    "settingsLabel": "Inbox settings"
+  },
+  "threadListItem": {
+    "markAsRead": "Mark as read",
+    "markAsUnread": "Mark as unread",
+    "moreActionsLabel": "More actions"
+  }
+}

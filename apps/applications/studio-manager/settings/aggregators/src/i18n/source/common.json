@@ -287,7 +287,8 @@
       },
       "title": {
         "edit": "Edit Wellpass connection {{externalId}}"
-      }
+      },
+      "description": "Select which venues you want to connect to Wellpass."
     },
     "confirm": {
       "editWarning": {
@@ -305,7 +306,7 @@
       }
     },
     "section": {
-      "subtitle": "Link your bsport account to Wellpass to sync sessions."
+      "subtitle": "Connect to Wellpass using your Partner ID. You can edit your venues at any time."
     },
     "table": {
       "actions": {

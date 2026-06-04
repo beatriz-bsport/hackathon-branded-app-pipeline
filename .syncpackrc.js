@@ -13,6 +13,9 @@ const config = {
     "!**/dist",
     "!**/build",
     "!**/storybook-static",
+    // The Kaizen docs site is intentionally isolated from the root workspace
+    // and keeps its own lockfile/dependency versions.
+    "!apps/docs",
   ],
   versionGroups: [
     // ========== CONSISTENT IMPORT ==========

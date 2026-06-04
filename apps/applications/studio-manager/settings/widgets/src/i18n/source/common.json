@@ -1,0 +1,13 @@
+{
+  "widgetsSettings": {
+    "title": "Widgets",
+    "tabs": {
+      "general": "General",
+      "customize": "Customize",
+      "customCss": "Custom CSS"
+    },
+    "general": {
+      "title": "General"
+    }
+  }
+}

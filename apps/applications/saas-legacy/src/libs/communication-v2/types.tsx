@@ -90,8 +90,15 @@ export type CommunicationState = {
     previous: string | null;
   } & ErrorAndLoading;
   messages: {
-    allMessagesByConversationId: {
-      [conversationId: string]: ConversationMessage[];
+    allMessageIdsByConversationId: { [conversationId: string]: number[] };
+    allMessagesById: { [messageId: number]: ConversationMessage };
+    moreMessagesByConversationId: {
+      [conversationId: string]: {
+        older: boolean;
+        oldestPulledMessageId: number;
+        newer: boolean;
+        newestPulledMessageId: number;
+      };
     };
   } & ErrorAndLoading;
 };
@@ -453,3 +460,22 @@ export type MessageCreationInput = {
 };
 
 export type MessageCreationOutput = ConversationMessage;
+
+export const MESSAGE_LIST_DIRECTIONS = {
+  older: 'older',
+  newer: 'newer',
+} as const;
+
+export type MessageListDirection =
+  (typeof MESSAGE_LIST_DIRECTIONS)[keyof typeof MESSAGE_LIST_DIRECTIONS];
+
+export type MessageListParams = {
+  message_id?: number;
+  limit?: number;
+  direction?: MessageListDirection;
+};
+
+export type MessageListResponse = {
+  messages: ConversationMessage[];
+  more_messages: boolean;
+};

@@ -114,7 +114,7 @@ export const NumericComparatorFilter = ({
     >
       <div
         className={
-          currentValue.operator === NUMERIC_COMPARATOR_OPERATORS.between
+          isBetween
             ? "flex flex-col gap-xs items-start p-xs"
             : "flex flex-row gap-xs items-start p-xs"
         }

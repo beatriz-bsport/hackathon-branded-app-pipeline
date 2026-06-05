@@ -1,4 +1,5 @@
 export * from "../filter/active-passes/constants";
+export * from "../filter/basket-abandonment/constants";
 export * from "../filter/booking-milestone/constants";
 export * from "../filter/credit-account/constants";
 export * from "../filter/first-purchase/constants";

@@ -3,7 +3,9 @@ import { useQuery } from "@tanstack/react-query";
 import {
   ACTIVE_PASSES_FILTER_IDENTIFIER,
   type ActivePassesFilter,
+  BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
+  type BasketAbandonmentFilter,
   type BookingMilestoneFilter,
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   type CreditAccountFilter,
@@ -35,6 +37,7 @@ import {
 
 import {
   isActivePassesFilter,
+  isBasketAbandonmentFilter,
   isBookingMilestoneFilter,
   isCreditAccountFilter,
   isFirstPurchaseFilter,
@@ -62,6 +65,7 @@ type SmartlistFiltersQueryData = {
   tagFilters: TagFilter[];
   activePassesFilters: ActivePassesFilter[];
   firstPurchaseFilters: FirstPurchaseFilter[];
+  basketAbandonmentFilters: BasketAbandonmentFilter[];
   creditAccountFilters: CreditAccountFilter[];
   marketingNotificationFilters: MarketingNotificationFilter[];
   hasPhoneFilters: HasPhoneFilter[];
@@ -212,6 +216,20 @@ const mapFirstPurchaseFilters = (
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
+const mapBasketAbandonmentFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): BasketAbandonmentFilter[] => {
+  const basketAbandonmentFiltersMap =
+    payload?.[BASKET_ABANDONMENT_FILTER_IDENTIFIER];
+  if (!basketAbandonmentFiltersMap) {
+    return [];
+  }
+
+  return Object.values(basketAbandonmentFiltersMap)
+    .filter(isBasketAbandonmentFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
 const mapMarketingNotificationFilters = (
   payload?: SmartlistGetFiltersResponse,
 ): MarketingNotificationFilter[] => {
@@ -270,6 +288,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       tagFilters: mapTagFilters(data),
       activePassesFilters: mapActivePassesFilters(data),
       firstPurchaseFilters: mapFirstPurchaseFilters(data),
+      basketAbandonmentFilters: mapBasketAbandonmentFilters(data),
       creditAccountFilters: mapCreditAccountFilters(data),
       marketingNotificationFilters: mapMarketingNotificationFilters(data),
       hasPhoneFilters: mapHasPhoneFilters(data),

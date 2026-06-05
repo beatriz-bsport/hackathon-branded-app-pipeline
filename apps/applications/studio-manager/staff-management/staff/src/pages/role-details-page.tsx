@@ -190,20 +190,24 @@ const RoleDetailsPageContent: FC<RoleDetailsPageContentProps> = ({
                   disabled={!role.editable}
                 />
               </div>
-              <Title htmlVariant="h4" weight="strong">
-                {t("steps.navigationPermissions.label", { ns: "role-form" })}
-              </Title>
-              <NavigationPermissionsStep
-                methods={methods}
-                disabled={!role.editable}
-              />
-              <Title htmlVariant="h4" weight="strong">
-                {t("steps.featurePermissions.label", { ns: "role-form" })}
-              </Title>
-              <FeaturePermissionsStep
-                methods={methods}
-                disabled={!role.editable}
-              />
+              <div className="flex flex-col gap-xs w-full">
+                <Title htmlVariant="h2" weight="strong">
+                  {t("steps.navigationPermissions.label", { ns: "role-form" })}
+                </Title>
+                <NavigationPermissionsStep
+                  methods={methods}
+                  disabled={!role.editable}
+                />
+              </div>
+              <div className="flex flex-col gap-xs w-full">
+                <Title htmlVariant="h2" weight="strong">
+                  {t("steps.featurePermissions.label", { ns: "role-form" })}
+                </Title>
+                <FeaturePermissionsStep
+                  methods={methods}
+                  disabled={!role.editable}
+                />
+              </div>
             </div>
           </DetailsLayout.Content>
 

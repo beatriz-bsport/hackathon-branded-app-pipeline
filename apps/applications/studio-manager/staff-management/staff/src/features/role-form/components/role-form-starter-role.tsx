@@ -24,19 +24,27 @@ export const RoleFormStarterRole: FC<RoleFormStarterRoleProps> = ({
     fetchRoleDefinitionsQueryOptions(fetch),
   );
 
-  const roleItems = roles
-    .filter((role) => role.editable === false)
-    .map((role) => ({
-      id: String(role.id),
-      label: role.name,
-    }));
+  const fromScratchItem = {
+    id: "",
+    label: t("formFields.starterRole.fromScratch"),
+  };
+
+  const roleItems = [
+    fromScratchItem,
+    ...roles
+      .filter((role) => role.editable === false)
+      .map((role) => ({
+        id: String(role.id),
+        label: role.name,
+      })),
+  ];
 
   return (
     <FormField<RoleFormData, "starterRoleId", SelectProps>
       name="starterRoleId"
       mapProps={({ defaultProps, field, form }) => ({
         ...defaultProps,
-        value: field.value || undefined,
+        value: field.value ?? undefined,
         items: roleItems,
         onChange: (roleId) => {
           form.setValue("starterRoleId", roleId, {

@@ -4,6 +4,7 @@ import {
   Body,
   Button,
   Collapse,
+  Icon,
   TextField,
   Title,
 } from "@bsport/kaizen-primitive-core";
@@ -47,23 +48,20 @@ export const RestrictedUrlsSection: FC<RestrictedUrlsSectionProps> = ({
       <Collapse.Controller>
         {({ isCollapseOpen, setIsCollapseOpen, collapseProps }) => (
           <div className="flex flex-col gap-2xs">
-            <div className="flex items-center gap-xs">
+            <button
+              type="button"
+              {...collapseProps}
+              className="flex items-center gap-xs text-left"
+              onClick={() => setIsCollapseOpen((isOpen) => !isOpen)}
+            >
               <Title htmlVariant="h4" weight="strong">
                 {t("formFields.restrictedPaths.title")}
               </Title>
-              <Button
-                {...collapseProps}
-                kind="icon-button"
-                intent="flat"
-                color="default"
-                size="md"
-                label={
-                  isCollapseOpen ? t("buttons.collapse") : t("buttons.expand")
-                }
+              <Icon
                 icon={isCollapseOpen ? "chevron-down" : "chevron-right"}
-                onClick={() => setIsCollapseOpen((isOpen) => !isOpen)}
+                size="md"
               />
-            </div>
+            </button>
             <Body htmlVariant="p" color="weak">
               {t("formFields.restrictedPaths.helperText")}
             </Body>
@@ -71,7 +69,7 @@ export const RestrictedUrlsSection: FC<RestrictedUrlsSectionProps> = ({
         )}
       </Collapse.Controller>
       <Collapse.Content>
-        <div className="flex flex-col gap-sm px-md pb-md">
+        <div className="flex flex-col gap-sm p-md">
           {restrictedPaths.map((path, index) => (
             <div key={index} className="flex items-center gap-sm">
               <TextField

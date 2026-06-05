@@ -31,6 +31,10 @@ const ConsumerSubscriptionDetailsCardCommitmentPeriod: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('consumerSpace');
 
+  if (isCommitmentPeriodSectionHidden) {
+    return null;
+  }
+
   return (
     <ConsumerCardSection
       alerts={[
@@ -49,13 +53,9 @@ const ConsumerSubscriptionDetailsCardCommitmentPeriod: React.FC<Props> = ({
           'bs-consumer__subscription-details-card__section__container',
       }}
       className={clsx({
-        'bs-consumer__subscription-details-card__commitment_period__section--hidden':
-          isCommitmentPeriodSectionHidden,
         'bs-consumer__subscription-details-card__commitment_period__section-with-alert':
-          !isCommitmentPeriodSectionHidden &&
           shouldDisplayCommitmentPeriodAlert,
         'bs-consumer__subscription-details-card__commitment_period__section':
-          !isCommitmentPeriodSectionHidden &&
           !shouldDisplayCommitmentPeriodAlert,
       })}
       isWithAlert={shouldDisplayCommitmentPeriodAlert}

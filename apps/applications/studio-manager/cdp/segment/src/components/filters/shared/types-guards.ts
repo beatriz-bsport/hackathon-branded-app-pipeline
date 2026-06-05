@@ -1,7 +1,9 @@
 import {
   ACTIVE_PASSES_FILTER_IDENTIFIER,
   ActivePassesFilter,
+  BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
+  type BasketAbandonmentFilter,
   BookingMilestoneFilter,
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   CreditAccountFilter,
@@ -43,6 +45,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   tags: "tags",
   activePasses: "activePasses",
   firstPurchase: "firstPurchase",
+  basketAbandonment: "basketAbandonment",
   creditAccount: "creditAccount",
   marketingNotification: "marketingNotification",
   hasPhone: "hasPhone",
@@ -68,10 +71,23 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.bookingMilestone ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.activePasses ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.firstPurchase ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.basketAbandonment ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.creditAccount ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.marketingNotification ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.hasPhone ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.lastBooking;
+
+export const isBasketAbandonmentFilter = (
+  value: unknown,
+): value is BasketAbandonmentFilter =>
+  hasFilterIdentifier(value, BASKET_ABANDONMENT_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasNumber(value, "comparator") &&
+  hasNumber(value, "basket_value") &&
+  hasNumber(value, "basket_value_second") &&
+  hasBoolean(value, "date_filter_active");
 
 export const isCreditAccountFilter = (
   value: unknown,

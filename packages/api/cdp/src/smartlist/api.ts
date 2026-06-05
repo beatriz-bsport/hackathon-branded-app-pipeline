@@ -1,5 +1,6 @@
 export * from "./core/api";
 export * from "./filter/active-passes/api";
+export * from "./filter/basket-abandonment/api";
 export * from "./filter/booking-milestone/api";
 export * from "./filter/credit-account/api";
 export * from "./filter/first-purchase/api";

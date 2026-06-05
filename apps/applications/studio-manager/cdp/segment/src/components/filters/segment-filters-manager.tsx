@@ -16,6 +16,10 @@ import { AppointmentPassFilterCardWithData } from "./appointment-pass-filter/com
 import { createDefaultAppointmentPassFilter } from "./appointment-pass-filter/default-value";
 import { mapPrivatePassFilterToFormValue } from "./appointment-pass-filter/mappers/api-to-form-value";
 import type { AppointmentPassFilterFormValue } from "./appointment-pass-filter/types";
+import { BasketAbandonmentFilterCard } from "./basket-abandonment-filter/components/basket-abandonment-filter-card";
+import { createDefaultBasketAbandonmentFilter } from "./basket-abandonment-filter/default-value";
+import { mapBasketAbandonmentFilterToFormValue } from "./basket-abandonment-filter/mappers/api-to-form-value";
+import type { BasketAbandonmentFilterFormValue } from "./basket-abandonment-filter/types";
 import { BookingMilestoneFilterCard } from "./booking-milestone/components/booking-milestone-filter-card";
 import { BookingMilestoneFilterCardSkeleton } from "./booking-milestone/components/booking-milestone-filter-card-skeleton";
 import { createDefaultBookingMilestoneFilter } from "./booking-milestone/default-value";
@@ -102,6 +106,7 @@ type FilterValueByType = {
   totalAppointmentsNumber: TotalAppointmentsNumberFilterFormValue;
   activePasses: ActivePassesFilterFormValue;
   firstPurchase: FirstPurchaseFilterFormValue;
+  basketAbandonment: BasketAbandonmentFilterFormValue;
   marketingNotification: MarketingNotificationFilterFormValue;
   hasPhone: HasPhoneFilterFormValue;
   lastBooking: LastBookingFilterFormValue;
@@ -167,6 +172,16 @@ type DraftFilter =
       clientId: string;
       filterType: "marketingNotification";
       value: FilterValueByType["marketingNotification"];
+    }
+  | {
+      clientId: string;
+      filterType: "basketAbandonment";
+      value: FilterValueByType["basketAbandonment"];
+    }
+  | {
+      clientId: string;
+      filterType: "creditAccount";
+      value: FilterValueByType["creditAccount"];
     }
   | {
       clientId: string;
@@ -242,6 +257,16 @@ type SavedFilter =
     }
   | {
       key: string;
+      filterType: "basketAbandonment";
+      value: FilterValueByType["basketAbandonment"];
+    }
+  | {
+      key: string;
+      filterType: "creditAccount";
+      value: FilterValueByType["creditAccount"];
+    }
+  | {
+      key: string;
       filterType: "hasPhone";
       value: FilterValueByType["hasPhone"];
     }
@@ -295,6 +320,8 @@ export const SegmentFiltersManager = ({
     smartlistFilters?.totalAppointmentsFilters ?? [];
   const activePassesFilters = smartlistFilters?.activePassesFilters ?? [];
   const firstPurchaseFilters = smartlistFilters?.firstPurchaseFilters ?? [];
+  const basketAbandonmentFilters =
+    smartlistFilters?.basketAbandonmentFilters ?? [];
   const marketingNotificationFilters =
     smartlistFilters?.marketingNotificationFilters ?? [];
   const hasPhoneFilters = smartlistFilters?.hasPhoneFilters ?? [];
@@ -470,6 +497,20 @@ export const SegmentFiltersManager = ({
         />
       </QueryBoundary>
     ),
+    basketAbandonment: ({
+      key,
+      value,
+      onDeleteUnsavedFilter,
+      onSaveSuccess,
+    }) => (
+      <BasketAbandonmentFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
     marketingNotification: ({
       key,
       value,
@@ -561,6 +602,11 @@ export const SegmentFiltersManager = ({
       clientId: createDraftClientId(FILTER_TYPES.firstPurchase),
       filterType: FILTER_TYPES.firstPurchase,
       value: createDefaultFirstPurchaseFilter(smartlistNumericId),
+    }),
+    basketAbandonment: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.basketAbandonment),
+      filterType: FILTER_TYPES.basketAbandonment,
+      value: createDefaultBasketAbandonmentFilter(smartlistNumericId),
     }),
     marketingNotification: () => ({
       clientId: createDraftClientId(FILTER_TYPES.marketingNotification),
@@ -657,6 +703,12 @@ export const SegmentFiltersManager = ({
         category: FILTER_SELECTOR_CATEGORIES.payments,
       },
       {
+        id: FILTER_TYPES.basketAbandonment,
+        label: t("filters.20.title"),
+        description: t("filterSelector.options.basketAbandonment.description"),
+        category: FILTER_SELECTOR_CATEGORIES.payments,
+      },
+      {
         id: FILTER_TYPES.marketingNotification,
         label: t("filters.103.title"),
         description: t(
@@ -729,6 +781,11 @@ export const SegmentFiltersManager = ({
       key: `saved-first-purchase-${firstPurchaseFilter.id}`,
       filterType: FILTER_TYPES.firstPurchase,
       value: mapFirstPurchaseFilterToFormValue(firstPurchaseFilter),
+    })),
+    ...basketAbandonmentFilters.map((basketAbandonmentFilter) => ({
+      key: `saved-basket-abandonment-${basketAbandonmentFilter.id}`,
+      filterType: FILTER_TYPES.basketAbandonment,
+      value: mapBasketAbandonmentFilterToFormValue(basketAbandonmentFilter),
     })),
     ...marketingNotificationFilters.map((marketingNotificationFilter) => ({
       key: `saved-marketing-notification-${marketingNotificationFilter.id}`,

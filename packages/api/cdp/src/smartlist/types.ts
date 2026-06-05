@@ -1,6 +1,7 @@
 export * from "./core/types";
 export * from "./shared/types";
 export * from "./filter/active-passes/types";
+export * from "./filter/basket-abandonment/types";
 export * from "./filter/booking-milestone/types";
 export * from "./filter/credit-account/types";
 export * from "./filter/first-purchase/types";

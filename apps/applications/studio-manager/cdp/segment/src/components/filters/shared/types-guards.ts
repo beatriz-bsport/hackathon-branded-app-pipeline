@@ -19,8 +19,10 @@ import {
   MemberDateJoinedFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
+  PRIVATE_PASS_FILTER_IDENTIFIER,
   PaymentPackFilter,
   PrivateBookingsFilter,
+  PrivatePassFilter,
   TAG_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
   TagFilter,
@@ -34,6 +36,7 @@ export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
   gender: "gender",
   memberSignUpDate: "memberSignUpDate",
   passes: "passes",
+  appointmentPass: "appointmentPass",
   totalBookingNumber: "totalBookingNumber",
   totalAppointmentsNumber: "totalAppointmentsNumber",
   bookingMilestone: "bookingMilestone",
@@ -58,6 +61,7 @@ export const isSmartlistFiltersManagerFilterType = (
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.gender ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.memberSignUpDate ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.passes ||
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.appointmentPass ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalBookingNumber ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.totalAppointmentsNumber ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.tags ||
@@ -141,6 +145,17 @@ export const isPaymentPackFilter = (
   hasBoolean(value, "has_pack") &&
   hasBoolean(value, "select_all_payment_packs") &&
   hasNumberArray(value, "payment_packs");
+
+export const isPrivatePassFilter = (
+  value: unknown,
+): value is PrivatePassFilter =>
+  hasFilterIdentifier(value, PRIVATE_PASS_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company_id") &&
+  hasBoolean(value, "has_pack") &&
+  hasBoolean(value, "select_all_private_passes") &&
+  hasNumberArray(value, "private_passes");
 
 export const isTotalBookingFilter = (
   value: unknown,

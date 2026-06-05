@@ -5,6 +5,7 @@ import {
   isFirstPurchaseFilter,
   isPaymentPackFilter,
   isPrivateBookingsFilter,
+  isPrivatePassFilter,
   isTagFilter,
   isTotalBookingFilter,
 } from "#src/components/filters/shared/types-guards";
@@ -34,6 +35,34 @@ describe("smartlist filter type guards", () => {
         has_pack: true,
         select_all_payment_packs: false,
         payment_packs: [1, 2],
+      }),
+    ).toBe(false);
+  });
+
+  it("accepts private pass filters by filter_identifier", () => {
+    expect(
+      isPrivatePassFilter({
+        id: 1,
+        smartlist: 1,
+        company_id: 1,
+        filter_identifier: 25,
+        has_pack: true,
+        select_all_private_passes: false,
+        private_passes: [10],
+      }),
+    ).toBe(true);
+  });
+
+  it("rejects private pass shape when filter_identifier does not match", () => {
+    expect(
+      isPrivatePassFilter({
+        id: 1,
+        smartlist: 1,
+        company_id: 1,
+        filter_identifier: 19,
+        has_pack: true,
+        select_all_private_passes: false,
+        private_passes: [10],
       }),
     ).toBe(false);
   });

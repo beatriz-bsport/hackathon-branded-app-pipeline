@@ -21,8 +21,10 @@ import {
   type MemberDateJoinedFilter,
   PAYMENT_PACK_FILTER_IDENTIFIER,
   PRIVATE_BOOKINGS_FILTER_IDENTIFIER,
+  PRIVATE_PASS_FILTER_IDENTIFIER,
   type PaymentPackFilter,
   type PrivateBookingsFilter,
+  type PrivatePassFilter,
   type SmartlistGetFiltersResponse,
   TAG_FILTER_IDENTIFIER,
   TOTAL_BOOKING_FILTER_IDENTIFIER,
@@ -43,6 +45,7 @@ import {
   isMemberDateJoinedFilter,
   isPaymentPackFilter,
   isPrivateBookingsFilter,
+  isPrivatePassFilter,
   isTagFilter,
   isTotalBookingFilter,
 } from "#src/components/filters/shared/types-guards";
@@ -52,6 +55,7 @@ type SmartlistFiltersQueryData = {
   genderFilters: GenderFilter[];
   memberDateJoinedFilters: MemberDateJoinedFilter[];
   paymentPackFilters: PaymentPackFilter[];
+  privatePassFilters: PrivatePassFilter[];
   totalBookingFilters: TotalBookingFilter[];
   totalAppointmentsFilters: PrivateBookingsFilter[];
   bookingMilestoneFilters: BookingMilestoneFilter[];
@@ -101,6 +105,19 @@ const mapPaymentPackFilters = (
 
   return Object.values(paymentPackFiltersMap)
     .filter(isPaymentPackFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
+};
+
+const mapPrivatePassFilters = (
+  payload?: SmartlistGetFiltersResponse,
+): PrivatePassFilter[] => {
+  const privatePassFiltersMap = payload?.[PRIVATE_PASS_FILTER_IDENTIFIER];
+  if (!privatePassFiltersMap) {
+    return [];
+  }
+
+  return Object.values(privatePassFiltersMap)
+    .filter(isPrivatePassFilter)
     .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
@@ -246,6 +263,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
       genderFilters: mapGenderFilters(data),
       memberDateJoinedFilters: mapMemberDateJoinedFilters(data),
       paymentPackFilters: mapPaymentPackFilters(data),
+      privatePassFilters: mapPrivatePassFilters(data),
       totalBookingFilters: mapTotalBookingFilters(data),
       totalAppointmentsFilters: mapTotalAppointmentsFilters(data),
       bookingMilestoneFilters: mapBookingMilestoneFilters(data),

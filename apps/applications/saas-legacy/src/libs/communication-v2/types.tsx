@@ -94,11 +94,29 @@ export type CommunicationState = {
     allMessagesById: { [messageId: number]: ConversationMessage };
     moreMessagesByConversationId: {
       [conversationId: string]: {
+        // lastActivityMessageId is the id of the last message
+        // that has been created (by anyone in the conversation),
+        // used as reference to know if the conversation has had
+        // new activity since the last fetch and to fetch new
+        // messages in case of new activity. lastActivityMessageId
+        // is populated by polling the backend with the
+        // fetchConversationLastActivity API, independently of
+        // the messages fetching that is done when the user opens
+        // the conversation or clicks on "load more messages"
+        lastActivityMessageId: number | null;
+        // oldest/newestPulledMessageId are the ids of the
+        // oldest/newest message that has been pulled in the current
+        // conversation messages list, used as reference to fetch
+        // older/newer messages when the user wants to load more
+        // messages in the conversation. older and newer keep track
+        // of whether there are older/newer messages to fetch or not,
+        // and they are populated in the response of the fetchMessages
+        // API
         older: boolean;
         oldestPulledMessageId: number;
         newer: boolean;
         newestPulledMessageId: number;
-      };
+      } & ErrorAndLoading;
     };
   } & ErrorAndLoading;
 };
@@ -453,6 +471,10 @@ export type ConversationMessage = {
   message_text: string;
   author_type: MessageAuthorType;
   date_created: string; // ISO string
+};
+
+export type ConversationLastActivityResponse = {
+  last_message_id?: number;
 };
 
 export type MessageCreationInput = {

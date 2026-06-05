@@ -33,6 +33,7 @@ import type {
   UnreadAnswersCount,
   MessageListParams,
   MessageListResponse,
+  ConversationLastActivityResponse,
 } from '#src/libs/communication-v2/types';
 import type { PaginatedResponse } from '#src/state/types';
 
@@ -302,6 +303,17 @@ export const createConversation = (
   return postAuth<ConversationCreationOutput>(
     `${API_V1_URI}/communication/chat/member/conversation/`,
     conversationInput,
+  );
+};
+
+export const fetchConversationLastActivity = (
+  companyId: number,
+  conversationUuid: string,
+) => {
+  return getAuth<ConversationLastActivityResponse>(
+    `${API_V1_URI}/communication/chat/member/conversation/${conversationUuid}/last_activity/${buildUrlParams(
+      { company_id: companyId },
+    )}`,
   );
 };
 

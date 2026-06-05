@@ -1,6 +1,6 @@
 {
   "breadcrumbs": {
-    "roles": "Aufgaben"
+    "roles": "Verfügbare Rollen"
   },
   "actions": {
     "deleteRole": "Rollenlöschung"

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Membership } from '#src/libs/membership/types';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 import { Convo } from './convo';
@@ -13,6 +13,7 @@ import { fetchProfile as fetchProfileAction } from '#src/libs/consumer-space/act
 import {
   fetchConversations as fetchConversationsAction,
   createConversation as createConversationAction,
+  fetchConversationLastActivity as fetchConversationLastActivityAction,
   createMessage as createMessageAction,
   fetchMessages as fetchMessagesAction,
 } from '#src/libs/communication-v2/actions';
@@ -23,6 +24,7 @@ import {
   getMessageById as getMessageByIdSelector,
   getMessageIdsByConversationId as getMessageIdsByConversationIdSelector,
   getOldestPulledMessageId as getOldestPulledMessageIdSelector,
+  getConversationLastActivityMessageId as getConversationLastActivityMessageIdSelector,
   hasMoreOlderMessages as hasMoreOlderMessagesSelector,
   isCreatingConversation as isCreatingConversationSelector,
   isCreatingMessage as isCreatingMessageSelector,
@@ -35,12 +37,15 @@ interface OwnProps {
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
+const POLLING_INTERVAL_MS = 10000;
+
 export const AgentChat: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation('agentChat');
   const {
     fetchProfile,
     fetchConversations,
     fetchMessages,
+    fetchConversationLastActivity,
     createConversation,
     createMessage,
     membership,
@@ -49,11 +54,15 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
     isCreatingConversation,
     messages,
     isCreatingMessage,
+    lastActivityMessageId,
     hasMoreOlderMessages,
     oldestPulledMessageId,
     newestMessageId,
   } = props;
   const companyId = membership?.company;
+
+  const [message, setMessage] = useState<string>('');
+  const convoContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetchProfile();
@@ -65,25 +74,55 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
     }
   }, [companyId, fetchConversations]);
 
-  const [message, setMessage] = useState<string>('');
-  const convoContainerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (conversation?.uuid) {
+      fetchMessages(conversation.uuid, undefined);
+    }
+  }, [conversation?.uuid, fetchMessages]);
 
-  const scrollToLastMessage = useCallback(() => {
+  // Scroll to the end each time the conversation pulls a new message
+  useEffect(() => {
     const lastMessageElement = document.getElementById(
       `message-${newestMessageId}`,
     );
     lastMessageElement?.scrollIntoView({ behavior: 'smooth' });
   }, [newestMessageId]);
 
+  // Poll the backend to check if the conversation has had any new activity.
+  // This allows us to show new messages in a timely manner without requiring
+  // the user to refresh the page, but we also want to avoid making a heavier
+  // request to the backend every few seconds.
   useEffect(() => {
-    if (conversation?.uuid) {
-      fetchMessages(conversation.uuid, undefined, {
-        onSuccess: () => {
-          scrollToLastMessage();
-        },
+    if (companyId && conversation?.uuid) {
+      const intervalId = setInterval(() => {
+        fetchConversationLastActivity(companyId, conversation.uuid);
+      }, POLLING_INTERVAL_MS);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [companyId, conversation?.uuid, fetchConversationLastActivity]);
+
+  // If there is new activity, fetch the new messages.
+  useEffect(() => {
+    if (
+      conversation?.uuid &&
+      lastActivityMessageId &&
+      newestMessageId &&
+      lastActivityMessageId > newestMessageId
+    ) {
+      fetchMessages(conversation.uuid, {
+        message_id: newestMessageId,
+        direction: 'newer',
       });
     }
-  }, [conversation?.uuid, fetchMessages, scrollToLastMessage]);
+  }, [
+    conversation?.uuid,
+    lastActivityMessageId,
+    newestMessageId,
+    fetchMessages,
+  ]);
 
   const sendMessage = (newMessage: string) => {
     if (companyId == null) {
@@ -115,7 +154,6 @@ export const AgentChat: React.FC<Props> = (props: Props) => {
         {
           onSuccess: () => {
             setMessage('');
-            scrollToLastMessage();
           },
         },
       );
@@ -227,6 +265,10 @@ const mapStateToProps = (state: RootState) => {
     isCreatingConversation: isCreatingConversationSelector(state),
     messages,
     isCreatingMessage: isCreatingMessageSelector(state),
+    lastActivityMessageId: getConversationLastActivityMessageIdSelector(
+      state,
+      conversationId,
+    ),
     oldestPulledMessageId: getOldestPulledMessageIdSelector(
       state,
       conversationId,
@@ -243,6 +285,7 @@ const mapDispatchToProps = {
   fetchProfile: fetchProfileAction,
   fetchConversations: fetchConversationsAction,
   fetchMessages: fetchMessagesAction,
+  fetchConversationLastActivity: fetchConversationLastActivityAction,
   createConversation: createConversationAction,
   createMessage: createMessageAction,
 };

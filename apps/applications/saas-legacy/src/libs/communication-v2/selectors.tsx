@@ -222,6 +222,13 @@ export const getMessageById = (state: RootState, messageId: number) =>
 export const isCreatingMessage = (state: RootState) =>
   state.communicationV2.messages.loading;
 
+export const getConversationLastActivityMessageId = (
+  state: RootState,
+  conversationId: string,
+) =>
+  state.communicationV2.messages.moreMessagesByConversationId[conversationId]
+    ?.lastActivityMessageId ?? null;
+
 export const hasMoreOlderMessages = (
   state: RootState,
   conversationId: string,

@@ -46,6 +46,7 @@ import {
   fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI,
   fetchConversations as fetchConversationsAPI,
   createConversation as createConversationAPI,
+  fetchConversationLastActivity as fetchConversationLastActivityAPI,
   createMessage as createMessageAPI,
   fetchMessages as fetchMessagesAPI,
 } from '#src/libs/communication-v2/api';
@@ -75,6 +76,7 @@ import type {
   MessageCreationInput,
   MessageListResponse,
   MessageListParams,
+  ConversationLastActivityResponse,
 } from '#src/libs/communication-v2/types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from '#src/libs/communication-v2/constants';
 
@@ -1064,7 +1066,82 @@ export function createConversation(
   };
 }
 
-export type CreateMessageSuccessActionInput = MessageCreationOutput & {
+export type FetchConversationLastActivityErrorActionInput = {
+  error: Error | null;
+  conversationUuid: string;
+};
+
+export type FetchConversationLastActivityLoadingActionInput = {
+  loading: boolean;
+  conversationUuid: string;
+};
+
+export type FetchConversationLastActivitySuccessActionInput = {
+  response: ConversationLastActivityResponse;
+  conversationUuid: string;
+};
+
+export const fetchConversationLastActivityActions = {
+  error: createAction<FetchConversationLastActivityErrorActionInput>(
+    'COMMUNICATION/CONVERSATION/LAST_ACTIVITY/ERROR',
+  ),
+  loading: createAction<FetchConversationLastActivityLoadingActionInput>(
+    'COMMUNICATION/CONVERSATION/LAST_ACTIVITY/LOADING',
+  ),
+  success: createAction<FetchConversationLastActivitySuccessActionInput>(
+    'COMMUNICATION/CONVERSATION/LAST_ACTIVITY/SUCCESS',
+  ),
+};
+
+export function fetchConversationLastActivity(
+  companyId: number,
+  conversationUuid: string,
+  options?: OptionCallback<ConversationLastActivityResponse>,
+) {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(
+        fetchConversationLastActivityActions.loading({
+          loading: true,
+          conversationUuid,
+        }),
+      );
+      dispatch(
+        fetchConversationLastActivityActions.error({
+          error: null,
+          conversationUuid,
+        }),
+      );
+
+      const response = await fetchConversationLastActivityAPI(
+        companyId,
+        conversationUuid,
+      );
+      dispatch(
+        fetchConversationLastActivityActions.success({
+          response: response.data,
+          conversationUuid,
+        }),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(
+        fetchConversationLastActivityActions.error({ error, conversationUuid }),
+      );
+      options?.onError?.(error);
+    } finally {
+      dispatch(
+        fetchConversationLastActivityActions.loading({
+          loading: false,
+          conversationUuid,
+        }),
+      );
+    }
+  };
+}
+
+export type CreateMessageSuccessActionInput = {
+  response: MessageCreationOutput;
   conversationUuid: string;
 };
 
@@ -1091,7 +1168,10 @@ export function createMessage(
         messageCreationInput,
       );
       dispatch(
-        createMessageActions.success({ ...response.data, conversationUuid }),
+        createMessageActions.success({
+          response: response.data,
+          conversationUuid,
+        }),
       );
       options?.onSuccess?.(response.data);
     } catch (error) {
@@ -1103,7 +1183,9 @@ export function createMessage(
   };
 }
 
-export type FetchMessagesSuccessActionInput = MessageListResponse & {
+export type FetchMessagesSuccessActionInput = {
+  response: MessageListResponse;
+  params?: MessageListParams;
   conversationUuid: string;
 };
 
@@ -1130,7 +1212,11 @@ export function fetchMessages(
         messageListParams,
       );
       dispatch(
-        fetchMessagesActions.success({ ...response.data, conversationUuid }),
+        fetchMessagesActions.success({
+          response: response.data,
+          params: messageListParams,
+          conversationUuid,
+        }),
       );
       options?.onSuccess?.(response.data);
     } catch (error) {

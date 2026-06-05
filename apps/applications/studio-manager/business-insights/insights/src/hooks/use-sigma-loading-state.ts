@@ -7,7 +7,7 @@ import {
   isSigmaEventWorkbookLoaded,
 } from "@bsport/api-business-insights/sigma";
 
-import { usePresignedUrl } from "./usePresignedUrl";
+import { usePresignedUrl } from "#src/hooks/api";
 
 export type SigmaLoadingStatus = "loading" | "loaded" | "error";
 
@@ -20,10 +20,12 @@ type UseSigmaLoadingState = {
 
 export const useSigmaLoadingState = (
   dashboardType: DashboardType,
+  { enabled = true }: { enabled?: boolean } = {},
 ): UseSigmaLoadingState => {
-  const { error, iframeUrl, isLoading } = usePresignedUrl(dashboardType);
+  const { error, iframeUrl, isLoading } = usePresignedUrl(dashboardType, {
+    enabled,
+  });
   const [status, setStatus] = useState<SigmaLoadingStatus>("loading");
-  const [hasWorkbookLoaded, setHasWorkbookLoaded] = useState(false);
 
   const forceLoaded = useEffectEvent(() => {
     if (status === "loading") {
@@ -34,18 +36,12 @@ export const useSigmaLoadingState = (
   useEffect(() => {
     if (isLoading || !iframeUrl) {
       setStatus("loading");
-      setHasWorkbookLoaded(false);
+      return;
     }
-  }, [iframeUrl, isLoading]);
-
-  useEffect(() => {
-    if (isLoading || !iframeUrl || !hasWorkbookLoaded) return;
 
     const timeout = setTimeout(forceLoaded, 5_000);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [hasWorkbookLoaded, iframeUrl, isLoading]);
+    return () => clearTimeout(timeout);
+  }, [iframeUrl, isLoading]);
 
   useEffect(() => {
     if (error) {
@@ -54,13 +50,15 @@ export const useSigmaLoadingState = (
   }, [error]);
 
   const onSigmaMessage = useCallback((eventData: unknown) => {
-    if (isSigmaEventWorkbookDataloaded(eventData)) {
+    // workbook:loaded fires when metadata is ready but elements haven't been
+    // evaluated yet. In fixed-height iframes with no scrolling, Sigma may never
+    // send this event if off-screen elements block completion. Fall back to
+    // workbook:dataloaded which fires once visible data is done.
+    if (
+      isSigmaEventWorkbookLoaded(eventData) ||
+      isSigmaEventWorkbookDataloaded(eventData)
+    ) {
       setStatus("loaded");
-      return;
-    }
-
-    if (isSigmaEventWorkbookLoaded(eventData)) {
-      setHasWorkbookLoaded(true);
       return;
     }
 

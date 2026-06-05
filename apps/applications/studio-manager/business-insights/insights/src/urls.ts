@@ -8,3 +8,7 @@ export const URLS = {
   FINANCIAL_COCKPIT: "financial_cockpit",
   PASS_USAGE: "pass_usage",
 } as const;
+
+export const LEGACY_URLS = {
+  REPORTING: "/reporting/categories",
+} as const;

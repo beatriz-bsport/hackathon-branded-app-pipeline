@@ -8,6 +8,7 @@ import { DashboardIframe } from "./DashboardIframe";
 export type DashboardContentProps = {
   errorContent?: ReactNode;
   errorMessage: string;
+  clipContentToLoadingHeight?: boolean;
   iframeLeftTranslate?: number;
   /** Loading placeholder height (desktop) */
   iframeLoadingHeight: number;
@@ -27,6 +28,7 @@ const FALLBACK_CONTAINER_CLASSNAME =
 export const DashboardContent: FC<DashboardContentProps> = ({
   errorContent,
   errorMessage,
+  clipContentToLoadingHeight = false,
   iframeLeftTranslate,
   iframeLoadingHeight,
   iframeLoadingMobileHeight,
@@ -49,6 +51,11 @@ export const DashboardContent: FC<DashboardContentProps> = ({
       {errorMessage}
     </Body>
   );
+  const containerClassName = isLoading
+    ? "relative w-full min-h-[var(--iframe-min-h)]"
+    : clipContentToLoadingHeight
+      ? "w-full h-[var(--iframe-min-h)] overflow-hidden"
+      : "w-full";
 
   // No URL yet: show loading or error placeholder
   if (!iframeUrl) {
@@ -70,12 +77,7 @@ export const DashboardContent: FC<DashboardContentProps> = ({
 
   // URL available: render iframe, overlaying the loader while it initialises
   return (
-    <div
-      className={
-        isLoading ? "relative w-full min-h-[var(--iframe-min-h)]" : "w-full"
-      }
-      style={minHeightStyle}
-    >
+    <div className={containerClassName} style={minHeightStyle}>
       <Activity mode={isLoading ? "visible" : "hidden"}>
         {loadingFallback}
       </Activity>

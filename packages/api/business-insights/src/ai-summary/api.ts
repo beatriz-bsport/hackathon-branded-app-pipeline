@@ -1,11 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import {
-  type ApiConfig,
-  type Fetch,
-  type URLParams,
-  buildUrlParams,
-} from "@bsport/store-base";
+import { type ApiConfig, type Fetch } from "@bsport/store-base";
 
 import { QUERY_KEY_MAIN } from "#src/constants";
 import { API_V1_URL_EMBEDDED_ANALYTICS } from "#src/embedded-analytics/constants";
@@ -19,13 +14,8 @@ export const queryKeys = {
 
   taskIds: () => [...queryKeys.all, "task-id"] as const,
 
-  taskId: ({ insightKey, variables, pageId }: FetchAiSummaryParams) =>
-    [
-      ...queryKeys.taskIds(),
-      insightKey,
-      variables ?? {},
-      pageId ?? null,
-    ] as const,
+  taskId: (params: FetchAiSummaryParams) =>
+    [...queryKeys.taskIds(), params] as const,
 
   results: () => [...queryKeys.all, "result"] as const,
 
@@ -35,22 +25,20 @@ export const queryKeys = {
 
 // ----------------------------------------------------------------------------
 
+interface GenerateSummaryRequestBody {
+  element_ids: string[];
+  controls?: Record<string, string>;
+}
+
 const fetchAiSummaryTaskIdAPIConfig = ({
   insightKey,
-  variables,
-  pageId,
+  elementIds,
+  controls,
 }: FetchAiSummaryParams): ApiConfig => {
-  const base = `${API_V1_URL_EMBEDDED_ANALYTICS}/generate_summary/${insightKey}/`;
-  const rawParams: URLParams = {
-    ...(pageId && { page_id: pageId }),
-    ...(variables &&
-      Object.keys(variables).length > 0 && {
-        controls: JSON.stringify(variables),
-      }),
-  };
-  const query =
-    Object.keys(rawParams).length > 0 ? buildUrlParams(rawParams) : "";
-  return [`${base}${query}`];
+  const url = `${API_V1_URL_EMBEDDED_ANALYTICS}/generate_summary/${insightKey}/`;
+  const body: GenerateSummaryRequestBody = { element_ids: elementIds };
+  if (controls && Object.keys(controls).length > 0) body.controls = controls;
+  return [url, { method: "POST", body: JSON.stringify(body) }];
 };
 
 export const fetchAiSummaryTaskIdAPI = async (

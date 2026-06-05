@@ -26,6 +26,7 @@ export function ThreadListContent({
   fetchNextPage,
 }: ThreadListContentProps) {
   const { t } = useTranslation("thread-list");
+
   const hasConversations = conversations.length > 0;
 
   if (hasError && !hasConversations) {

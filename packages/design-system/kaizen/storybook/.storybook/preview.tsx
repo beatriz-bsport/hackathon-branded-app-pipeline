@@ -22,7 +22,16 @@ import {
 // Start the MSW service worker. `bypass` lets unmocked requests (dev auth,
 // translations, etc.) hit the network normally — only handlers registered via
 // a story's `parameters.msw` are intercepted.
-initialize({ onUnhandledRequest: "bypass" });
+initialize({
+  onUnhandledRequest: "bypass",
+  serviceWorker: {
+    // Relative URL: resolves against the preview iframe's location, so it
+    // works both locally (served at the domain root) and when deployed under
+    // a subpath (e.g. /storybook/kaizen/dev/). MSW's default is the absolute
+    // root /mockServiceWorker.js, which 403s on the deployed docs domain.
+    url: "./mockServiceWorker.js",
+  },
+});
 
 // Set API environment to dev for local storybook
 if (typeof window !== "undefined") {

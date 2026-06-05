@@ -15,6 +15,6 @@ export interface AiSummaryResult {
 
 export interface FetchAiSummaryParams {
   insightKey: string;
-  variables?: Record<string, string>;
-  pageId?: string;
+  elementIds: string[];
+  controls?: Record<string, string>;
 }

@@ -19,8 +19,8 @@ export interface DashboardIframeProps {
   onSigmaMessage?: (eventData: unknown) => void;
   onVariablesChange?: (variables: Record<string, string>) => void;
   onCreateSummary?: (values: {
-    "page-id"?: string;
     "documentation-url"?: string;
+    "element-ids"?: string[][];
   }) => void;
 }
 

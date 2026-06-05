@@ -30,6 +30,9 @@
       "passes": {
         "description": "Filter by ownership of a selected pass."
       },
+      "appointmentPass": {
+        "description": "Filter by ownership of selected appointment passes, with optional purchase, expiration, and credits sub-filters."
+      },
       "totalBookingNumber": {
         "description": "Filter by total number of bookings."
       },
@@ -142,6 +145,34 @@
         "saveSuccess": "Filter applied.",
         "deleteError": "Unable to delete account balance filter.",
         "invalidFilter": "Invalid filter."
+      }
+    },
+    "25": {
+      "title": "Appointment pass",
+      "ownership": {
+        "label": "Filter for profiles that:",
+        "own": "Own",
+        "doesNotOwn": "Doesn't own"
+      },
+      "actions": {
+        "deleteFilter": "Delete appointment pass filter",
+        "save": "Save filter",
+        "addFilter": "Add appointment pass filter"
+      },
+      "fields": {
+        "searchPlaceholder": "Search for an appointment pass",
+        "emptySelection": "Select appointment passes to start filtering",
+        "unlimitedCredits": "Unlimited credits",
+        "creditsSuffix": "Credits"
+      },
+      "toasts": {
+        "saveError": "Unable to save appointment pass filter.",
+        "saveSuccess": "Appointment pass filter saved.",
+        "deleteError": "Unable to delete appointment pass filter.",
+        "invalidFilter": "Invalid filter."
+      },
+      "validation": {
+        "selectedPassesRequired": "Select at least one appointment pass or use all appointment passes."
       }
     },
     "19": {

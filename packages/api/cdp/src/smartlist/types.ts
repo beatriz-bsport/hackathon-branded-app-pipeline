@@ -11,5 +11,6 @@ export * from "./filter/marketing-notification/types";
 export * from "./filter/member-date-joined/types";
 export * from "./filter/payment-pack/types";
 export * from "./filter/private-bookings/types";
+export * from "./filter/private-pass/types";
 export * from "./filter/tag/types";
 export * from "./filter/total-booking/types";

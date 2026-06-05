@@ -11,6 +11,7 @@ import {
   Body,
   Checkbox,
   type CheckboxProps,
+  Divider,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -69,18 +70,20 @@ export const NavigationPermissionsStep: FC<NavigationPermissionsStepProps> = ({
 
   return (
     <FormProvider {...methods}>
-      <div className="flex w-full min-w-0 flex-col gap-lg">
+      <div className="flex w-full min-w-0 flex-col gap-md">
         <Body htmlVariant="p" color="default">
           {t("steps.navigationPermissions.helperText")}
         </Body>
 
-        <div className="flex flex-col border border-stroke-thin border-stroke-weak rounded-md overflow-clip">
+        <div className="flex flex-col border border-stroke-regular border-stroke-weak rounded-md overflow-clip">
           <NavigationPermissionSection
             path="navigationMenu"
             value={permissions.navigationMenu as unknown as PermissionValue}
             onChange={setPermissionValue}
             disabled={disabled}
           />
+
+          <Divider />
 
           <AppBarPermissionSection
             appbarButtons={

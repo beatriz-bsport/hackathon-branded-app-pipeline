@@ -1,7 +1,7 @@
-import type { FC } from "react";
+import { type FC, Fragment } from "react";
 
 import { type UseFormControllerOutput, useWatch } from "@bsport/form";
-import { Body } from "@bsport/kaizen-primitive-core";
+import { Body, Divider } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -57,21 +57,23 @@ export const FeaturePermissionsStep: FC<FeaturePermissionsStepProps> = ({
   };
 
   return (
-    <div className="flex w-full min-w-0 flex-col gap-lg">
+    <div className="flex w-full min-w-0 flex-col gap-md">
       <Body htmlVariant="p" color="default">
         {t("steps.featurePermissions.helperText")}
       </Body>
 
       <div className="flex flex-col border border-stroke-thin border-stroke-weak rounded-md overflow-clip">
-        {Object.entries(objectLevelPermissions).map(([key, value]) => (
-          <ObjectLevelPermissionSection
-            key={key}
-            path={key}
-            value={value as PermissionValue}
-            rootValue={objectLevelPermissions}
-            onChange={setObjectLevelPermissionValue}
-            disabled={disabled}
-          />
+        {Object.entries(objectLevelPermissions).map(([key, value], index) => (
+          <Fragment key={key}>
+            {index > 0 && <Divider />}
+            <ObjectLevelPermissionSection
+              path={key}
+              value={value as PermissionValue}
+              rootValue={objectLevelPermissions}
+              onChange={setObjectLevelPermissionValue}
+              disabled={disabled}
+            />
+          </Fragment>
         ))}
       </div>
     </div>

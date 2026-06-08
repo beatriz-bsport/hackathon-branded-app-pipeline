@@ -8,10 +8,11 @@ import {
   registerBookingAPI,
 } from "@bsport/api-buyables";
 import { memberKeys } from "@bsport/api-cdp";
-import { toast } from "@bsport/kaizen-primitive-core";
+import { dismissToast, toast } from "@bsport/kaizen-primitive-core";
 
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
+import { useAddProcessingToast } from "#src/utils/processing-toast.js";
 
 const registerBooking = registerBookingAPI.bind(null, fetch);
 
@@ -23,11 +24,22 @@ interface RegisterBookingVariables {
 export const useRegisterBooking = () => {
   const { t } = useTranslation("sessionManagement");
   const queryClient = useQueryClient();
+  const addProcessingToast = useAddProcessingToast();
 
-  return useMutation<ConsumerPaymentPack, Error, RegisterBookingVariables>({
+  return useMutation<
+    ConsumerPaymentPack,
+    Error,
+    RegisterBookingVariables,
+    { toastId: string }
+  >({
     mutationFn: ({ consumerPaymentPackId, payload }) =>
       registerBooking(consumerPaymentPackId, payload),
-    onSuccess: () => {
+    onMutate: () => {
+      const toastId = addProcessingToast();
+      return { toastId };
+    },
+    onSuccess: (_data, _variables, onMutateResult) => {
+      if (onMutateResult?.toastId) dismissToast(onMutateResult.toastId);
       queryClient.invalidateQueries({ queryKey: bookingKeys.all });
       queryClient.invalidateQueries({ queryKey: consumerPaymentPackKeys.all });
       queryClient.invalidateQueries({ queryKey: memberKeys.all });
@@ -38,8 +50,9 @@ export const useRegisterBooking = () => {
         title: t("bookingFlow.confirmation.confirmationToast"),
       });
     },
-    onError: (error) => {
+    onError: (error, _variables, onMutateResult) => {
       console.error("Error registering booking:", error);
+      if (onMutateResult?.toastId) dismissToast(onMutateResult.toastId);
       toast({
         status: "critical",
         title: t("bookingFlow.confirmation.errorToast"),

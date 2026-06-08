@@ -118,6 +118,7 @@ export type OfferData = {
   offer_id: number;
   extra_data?: {
     spot_id?: number;
+    auto_assign_spot?: boolean;
   };
 };
 

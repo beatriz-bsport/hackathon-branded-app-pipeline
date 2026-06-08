@@ -5,6 +5,7 @@ import { Card, CardGrid, ContentCard } from "#src/components/mdx/card-grid";
 import { ColorSwatch } from "#src/components/mdx/color-swatch";
 import { DesignTokenList } from "#src/components/mdx/design-token-list";
 import { Do, DoDont, Dont } from "#src/components/mdx/do-dont";
+import { DocImage } from "#src/components/mdx/doc-image";
 import { FileTree } from "#src/components/mdx/file-tree";
 import { IconGrid } from "#src/components/mdx/icon-grid";
 import { InstallTabs } from "#src/components/mdx/install-tabs";
@@ -33,6 +34,7 @@ export const mdxComponents = {
   ContentCard,
   ColorSwatch,
   DesignTokenList,
+  DocImage,
   Do,
   DoDont,
   Dont,
@@ -65,6 +67,7 @@ export {
   ContentCard,
   ColorSwatch,
   DesignTokenList,
+  DocImage,
   Do,
   DoDont,
   Dont,

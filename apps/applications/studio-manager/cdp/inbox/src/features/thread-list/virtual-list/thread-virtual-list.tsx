@@ -3,8 +3,9 @@ import { useRef, useState } from "react";
 
 import type { InboxConversationListItem } from "@bsport/api-cdp/inbox";
 
+import { ThreadListRow } from "#src/features/thread-list/item/thread-list-row";
+
 import { ThreadLoadMoreStatusRow } from "./thread-load-more-status-row";
-import { ThreadRow } from "./thread-row";
 import { useLoadMoreConversations } from "./use-load-more-conversations";
 
 // Every thread row is a fixed 64px (40px content + 12px x 2 `py-sm`), so the
@@ -75,7 +76,7 @@ export function ThreadVirtualList({
             return (
               <div key={virtualRow.key} style={{ height: virtualRow.size }}>
                 {conversation ? (
-                  <ThreadRow
+                  <ThreadListRow
                     conversation={conversation}
                     isSelected={conversation.id === selectedId}
                     onSelect={setSelectedId}

@@ -8,18 +8,26 @@ import type { Fetch } from "@bsport/fetch";
 
 const INVOICE_STALE_TIME = 2 * 60 * 1000; // 2 minutes
 
-const fetchInvoiceQueryOptions = (fetch: Fetch, invoiceId: string) => {
+const fetchInvoiceQueryOptions = (
+  fetch: Fetch,
+  invoiceId: string,
+  enabled: boolean,
+) => {
   const fetchInvoice = fetchInvoiceAPI.bind(null, fetch);
 
   return queryOptions({
     queryKey: invoiceKeys.detail(invoiceId),
     queryFn: () => fetchInvoice(invoiceId),
     staleTime: INVOICE_STALE_TIME,
-    enabled: invoiceId.length > 0,
+    enabled: enabled && invoiceId.length > 0,
   });
 };
 
-export const useFetchInvoice = (fetch: Fetch, invoiceId: string) =>
+export const useFetchInvoice = (
+  fetch: Fetch,
+  invoiceId: string,
+  enabled = true,
+) =>
   useQuery({
-    ...fetchInvoiceQueryOptions(fetch, invoiceId),
+    ...fetchInvoiceQueryOptions(fetch, invoiceId, enabled),
   });

@@ -7,6 +7,7 @@ import { ThreadListRow } from "#src/features/thread-list/item/thread-list-row";
 
 import { ThreadLoadMoreStatusRow } from "./thread-load-more-status-row";
 import { useLoadMoreConversations } from "./use-load-more-conversations";
+import { useNextPageErrorToast } from "./use-next-page-error-toast";
 
 // Every thread row is a fixed 64px (40px content + 12px x 2 `py-sm`), so the
 // virtualizer can size rows from this constant alone.
@@ -48,6 +49,8 @@ export function ThreadVirtualList({
 
   const virtualItems = virtualizer.getVirtualItems();
 
+  useNextPageErrorToast({ hasFetchNextPageError, isFetchingNextPage });
+
   useLoadMoreConversations({
     virtualItems,
     threadCount: conversations.length,
@@ -82,7 +85,10 @@ export function ThreadVirtualList({
                     onSelect={setSelectedId}
                   />
                 ) : (
-                  <ThreadLoadMoreStatusRow hasError={hasFetchNextPageError} />
+                  <ThreadLoadMoreStatusRow
+                    hasError={hasFetchNextPageError}
+                    onRetry={fetchNextPage}
+                  />
                 )}
               </div>
             );

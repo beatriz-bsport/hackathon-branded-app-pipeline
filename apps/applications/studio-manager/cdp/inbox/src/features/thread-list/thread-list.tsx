@@ -23,6 +23,7 @@ export function ThreadList({ className }: ThreadListProps) {
     hasFetchNextPageError,
     isFetchingNextPage,
     fetchNextPage,
+    refetch,
   } = useInboxConversations();
 
   return (
@@ -43,6 +44,7 @@ export function ThreadList({ className }: ThreadListProps) {
           hasFetchNextPageError={hasFetchNextPageError}
           isFetchingNextPage={isFetchingNextPage}
           fetchNextPage={fetchNextPage}
+          refetch={refetch}
         />
       </div>
     </div>

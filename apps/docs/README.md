@@ -208,6 +208,18 @@ For anatomy diagrams:
 />
 ```
 
+For standalone screenshots without do/don't framing:
+
+```mdx
+<DocImage
+  src="/images/button-with-icon.png"
+  alt="Button with a leading icon"
+  caption="Add an icon on either side to clarify the action."
+  aspectRatio="16/9"
+  fullWidth={false}
+/>
+```
+
 Avoid raw Markdown image syntax such as `![Button](/images/button.png)` for
 these docs. The site is deployed under `/docs/kaizen/dev/`, and the MDX
 image-aware components above resolve that base path correctly.
@@ -219,11 +231,11 @@ Live previews are Storybook iframes. To embed a story:
 1. Open the unified Storybook (`pnpm --filter @bsport/kaizen-storybook dev`,
    or browse the deployed Storybook).
 2. Navigate to the story you want and copy the `id=` query parameter from
-   the URL — for example `primitive-components-button--intent-gallery`.
+   the URL — for example `primitive-components-button--primary`.
 3. Drop it into MDX:
 
    ```mdx
-   <StorybookEmbed id="primitive-components-button--intent-gallery" />
+   <StorybookEmbed id="primitive-components-button--primary" />
    ```
 
    Optional props: `height` (default `360`), `title` (overrides the iframe

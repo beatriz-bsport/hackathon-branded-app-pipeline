@@ -1,10 +1,9 @@
-import type { ReactNode } from "react";
-
 import type { InboxConversationListItem } from "@bsport/api-cdp/inbox";
-import { Body, Loader } from "@bsport/kaizen-primitive-core";
+import { Loader } from "@bsport/kaizen-primitive-core";
 
+import { ThreadListEmpty } from "#src/features/thread-list/empty/thread-list-empty";
+import { ThreadListError } from "#src/features/thread-list/error/thread-list-error";
 import { ThreadVirtualList } from "#src/features/thread-list/virtual-list/thread-virtual-list";
-import { useTranslation } from "#src/utils/i18n";
 
 export type ThreadListContentProps = {
   conversations: InboxConversationListItem[];
@@ -14,6 +13,7 @@ export type ThreadListContentProps = {
   hasFetchNextPageError: boolean;
   isFetchingNextPage: boolean;
   fetchNextPage: () => unknown;
+  refetch: () => unknown;
 };
 
 export function ThreadListContent({
@@ -24,33 +24,24 @@ export function ThreadListContent({
   hasFetchNextPageError,
   isFetchingNextPage,
   fetchNextPage,
+  refetch,
 }: ThreadListContentProps) {
-  const { t } = useTranslation("thread-list");
-
   const hasConversations = conversations.length > 0;
 
   if (hasError && !hasConversations) {
-    return (
-      <Status>
-        <Body color="weak">{t("threadList.loadingError")}</Body>
-      </Status>
-    );
+    return <ThreadListError onRetry={refetch} />;
   }
 
   if (isLoading) {
     return (
-      <Status>
+      <div className="flex h-full items-center justify-center p-md">
         <Loader size="lg" />
-      </Status>
+      </div>
     );
   }
 
   if (!hasConversations) {
-    return (
-      <Status>
-        <Body color="weak">{t("threadList.empty")}</Body>
-      </Status>
-    );
+    return <ThreadListEmpty />;
   }
 
   return (
@@ -61,18 +52,5 @@ export function ThreadListContent({
       isFetchingNextPage={isFetchingNextPage}
       fetchNextPage={fetchNextPage}
     />
-  );
-}
-
-/**
- * Centered layout for the empty / loading / error placeholders above.
- * Private to this file — promote to a shared component only if a second
- * caller appears outside `ThreadListContent`.
- */
-function Status({ children }: { children: ReactNode }) {
-  return (
-    <div className="flex h-full items-center justify-center p-md">
-      {children}
-    </div>
   );
 }

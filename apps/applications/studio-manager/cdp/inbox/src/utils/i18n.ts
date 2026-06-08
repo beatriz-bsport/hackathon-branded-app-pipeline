@@ -7,10 +7,12 @@ import {
 } from "#src/i18n";
 import type pageTranslations from "#src/i18n/source/page.json";
 import type threadListTranslations from "#src/i18n/source/thread-list.json";
+import type threadMessagesTranslations from "#src/i18n/source/thread-messages.json";
 
 type Translations = {
   page: typeof pageTranslations;
   "thread-list": typeof threadListTranslations;
+  "thread-messages": typeof threadMessagesTranslations;
 };
 
 export const {

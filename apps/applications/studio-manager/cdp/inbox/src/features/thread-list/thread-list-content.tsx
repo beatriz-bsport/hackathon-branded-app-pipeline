@@ -1,10 +1,10 @@
+import type { ReactNode } from "react";
+
 import type { InboxConversationListItem } from "@bsport/api-cdp/inbox";
 import { Body, Loader } from "@bsport/kaizen-primitive-core";
 
+import { ThreadVirtualList } from "#src/features/thread-list/virtual-list/thread-virtual-list";
 import { useTranslation } from "#src/utils/i18n";
-
-import { ThreadListStatus } from "./thread-list-status";
-import { ThreadVirtualList } from "./thread-virtual-list";
 
 export type ThreadListContentProps = {
   conversations: InboxConversationListItem[];
@@ -31,25 +31,25 @@ export function ThreadListContent({
 
   if (hasError && !hasConversations) {
     return (
-      <ThreadListStatus>
+      <Status>
         <Body color="weak">{t("threadList.loadingError")}</Body>
-      </ThreadListStatus>
+      </Status>
     );
   }
 
   if (isLoading) {
     return (
-      <ThreadListStatus>
+      <Status>
         <Loader size="lg" />
-      </ThreadListStatus>
+      </Status>
     );
   }
 
   if (!hasConversations) {
     return (
-      <ThreadListStatus>
+      <Status>
         <Body color="weak">{t("threadList.empty")}</Body>
-      </ThreadListStatus>
+      </Status>
     );
   }
 
@@ -61,5 +61,18 @@ export function ThreadListContent({
       isFetchingNextPage={isFetchingNextPage}
       fetchNextPage={fetchNextPage}
     />
+  );
+}
+
+/**
+ * Centered layout for the empty / loading / error placeholders above.
+ * Private to this file — promote to a shared component only if a second
+ * caller appears outside `ThreadListContent`.
+ */
+function Status({ children }: { children: ReactNode }) {
+  return (
+    <div className="flex h-full items-center justify-center p-md">
+      {children}
+    </div>
   );
 }

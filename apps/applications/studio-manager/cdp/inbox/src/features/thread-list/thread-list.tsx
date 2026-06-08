@@ -1,7 +1,8 @@
 import { cx } from "@bsport/kaizen-primitive-core";
 
+import { ThreadListHeader } from "#src/features/thread-list/header/thread-list-header";
+
 import { ThreadListContent } from "./thread-list-content";
-import { ThreadListHeader } from "./thread-list-header/thread-list-header";
 import { useInboxConversations } from "./use-inbox-conversations";
 
 export type ThreadListProps = {

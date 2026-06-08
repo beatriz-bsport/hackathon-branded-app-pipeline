@@ -1,30 +1,37 @@
 import type { InboxConversationListItem } from "@bsport/api-cdp/inbox";
 import { DATETIME_FORMATS, formatDateTime } from "@bsport/datetime-formatting";
 
-import { ThreadListItem } from "./thread-list-item/thread-list-item";
-import type { ThreadListItemProps } from "./thread-list-item/thread-list-item";
+import { ThreadListItem } from "./thread-list-item";
+import type { ThreadListItemProps } from "./thread-list-item";
 
-export type ThreadRowProps = {
+export type ThreadListRowProps = {
   conversation: InboxConversationListItem;
   isSelected: boolean;
   onSelect: (threadId: string) => void;
 };
 
-export function ThreadRow({
+/**
+ * Data-bound wrapper around `ThreadListItem`. Maps a server-shaped
+ * `InboxConversationListItem` onto the presentational item's props.
+ *
+ * Convention: in this feature folder, `*-item` is presentational and `*-row`
+ * is the data adapter that wraps it. See `cdp/inbox/AGENTS.md`.
+ */
+export function ThreadListRow({
   conversation,
   isSelected,
   onSelect,
-}: ThreadRowProps) {
+}: ThreadListRowProps) {
   return (
     <ThreadListItem
-      {...getThreadItemProps(conversation)}
+      {...getThreadListItemProps(conversation)}
       isSelected={isSelected}
       onClick={() => onSelect(conversation.id)}
     />
   );
 }
 
-function getThreadItemProps(
+function getThreadListItemProps(
   conversation: InboxConversationListItem,
 ): Pick<
   ThreadListItemProps,

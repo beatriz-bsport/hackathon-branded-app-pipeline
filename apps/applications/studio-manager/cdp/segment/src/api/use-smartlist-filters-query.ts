@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 
 import {
   ACTIVE_PASSES_FILTER_IDENTIFIER,
+  AGE_FILTER_IDENTIFIER,
   type ActivePassesFilter,
+  type AgeFilter,
   BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   type BasketAbandonmentFilter,
@@ -39,6 +41,7 @@ import {
 
 import {
   isActivePassesFilter,
+  isAgeFilter,
   isBasketAbandonmentFilter,
   isBookingMilestoneFilter,
   isCreditAccountFilter,
@@ -58,6 +61,7 @@ import {
 import { fetch } from "#src/utils/fetch";
 
 type SmartlistFiltersQueryData = {
+  ageFilters: AgeFilter[];
   genderFilters: GenderFilter[];
   memberDateJoinedFilters: MemberDateJoinedFilter[];
   paymentPackFilters: PaymentPackFilter[];
@@ -74,6 +78,17 @@ type SmartlistFiltersQueryData = {
   marketingNotificationFilters: MarketingNotificationFilter[];
   hasPhoneFilters: HasPhoneFilter[];
   lastBookingFilters: LastBookingFilter[];
+};
+
+const mapAgeFilters = (payload?: SmartlistGetFiltersResponse): AgeFilter[] => {
+  const ageFiltersMap = payload?.[AGE_FILTER_IDENTIFIER];
+  if (!ageFiltersMap) {
+    return [];
+  }
+
+  return Object.values(ageFiltersMap)
+    .filter(isAgeFilter)
+    .sort((leftFilter, rightFilter) => leftFilter.id - rightFilter.id);
 };
 
 const mapGenderFilters = (
@@ -296,6 +311,7 @@ export const useSmartlistFiltersQuery = (smartlistId: string) =>
   useQuery({
     ...smartlistFiltersQueryOptions(fetch, smartlistId),
     select: (data): SmartlistFiltersQueryData => ({
+      ageFilters: mapAgeFilters(data),
       genderFilters: mapGenderFilters(data),
       memberDateJoinedFilters: mapMemberDateJoinedFilters(data),
       paymentPackFilters: mapPaymentPackFilters(data),

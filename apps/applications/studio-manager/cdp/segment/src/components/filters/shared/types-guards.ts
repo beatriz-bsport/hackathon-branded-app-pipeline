@@ -1,6 +1,8 @@
 import {
   ACTIVE_PASSES_FILTER_IDENTIFIER,
+  AGE_FILTER_IDENTIFIER,
   ActivePassesFilter,
+  type AgeFilter,
   BASKET_ABANDONMENT_FILTER_IDENTIFIER,
   BOOKING_MILESTONE_FILTER_IDENTIFIER,
   type BasketAbandonmentFilter,
@@ -37,6 +39,7 @@ import {
  * Filter type ids rendered and drafted by the segment smartlist filters manager.
  */
 export const SMARTLIST_FILTERS_MANAGER_FILTER_TYPES = {
+  age: "age",
   gender: "gender",
   memberSignUpDate: "memberSignUpDate",
   passes: "passes",
@@ -64,6 +67,7 @@ export type SmartlistFiltersManagerFilterType =
 export const isSmartlistFiltersManagerFilterType = (
   value: string,
 ): value is SmartlistFiltersManagerFilterType =>
+  value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.age ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.gender ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.memberSignUpDate ||
   value === SMARTLIST_FILTERS_MANAGER_FILTER_TYPES.passes ||
@@ -92,6 +96,15 @@ export const isBasketAbandonmentFilter = (
   hasNumber(value, "basket_value") &&
   hasNumber(value, "basket_value_second") &&
   hasBoolean(value, "date_filter_active");
+
+export const isAgeFilter = (value: unknown): value is AgeFilter =>
+  hasFilterIdentifier(value, AGE_FILTER_IDENTIFIER) &&
+  hasNumber(value, "id") &&
+  hasNumber(value, "smartlist") &&
+  hasNumber(value, "company") &&
+  hasNumber(value, "comparator") &&
+  hasNumber(value, "value") &&
+  hasNumber(value, "value_second");
 
 export const isCreditAccountFilter = (
   value: unknown,

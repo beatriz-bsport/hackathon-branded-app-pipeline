@@ -1,4 +1,5 @@
 export * from "./core/api";
+export * from "./filter/age/api";
 export * from "./filter/active-passes/api";
 export * from "./filter/basket-abandonment/api";
 export * from "./filter/booking-milestone/api";

@@ -20,6 +20,8 @@ type NumericComparatorFilterProps = {
   disabled?: boolean;
   className?: string;
   suffix?: string;
+  /** When set, resolves the suffix per field from the numeric value (e.g. pluralized units). */
+  getSuffixForValue?: (value: number | null) => string;
   errors?: {
     operator?: string;
     firstValue?: string;
@@ -38,6 +40,7 @@ export const NumericComparatorFilter = ({
   disabled = false,
   className,
   suffix,
+  getSuffixForValue,
   errors,
 }: NumericComparatorFilterProps) => {
   const { t } = useTranslation("details");
@@ -100,7 +103,10 @@ export const NumericComparatorFilter = ({
 
   const isBetween =
     currentValue.operator === NUMERIC_COMPARATOR_OPERATORS.between;
-  const suffixText = suffix ?? undefined;
+  const resolveSuffix = (fieldValue: number | null) =>
+    getSuffixForValue?.(fieldValue) ?? suffix ?? undefined;
+  const firstSuffixText = resolveSuffix(currentValue.firstValue);
+  const secondSuffixText = resolveSuffix(currentValue.secondValue);
   const hasErrors = Boolean(
     errors?.operator || errors?.firstValue || errors?.secondValue,
   );
@@ -144,7 +150,9 @@ export const NumericComparatorFilter = ({
             status={errors?.firstValue ? "error" : "default"}
             statusText={errors?.firstValue}
             suffix={
-              suffixText ? { type: "text", value: suffixText } : undefined
+              firstSuffixText
+                ? { type: "text", value: firstSuffixText }
+                : undefined
             }
             fullWidth
           />
@@ -168,7 +176,9 @@ export const NumericComparatorFilter = ({
                 status={errors?.secondValue ? "error" : "default"}
                 statusText={errors?.secondValue}
                 suffix={
-                  suffixText ? { type: "text", value: suffixText } : undefined
+                  secondSuffixText
+                    ? { type: "text", value: secondSuffixText }
+                    : undefined
                 }
                 fullWidth
               />

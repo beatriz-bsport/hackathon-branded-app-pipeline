@@ -2213,6 +2213,9 @@ importers:
       '@tanstack/react-virtual':
         specifier: ^3.14.2
         version: 3.14.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      dompurify:
+        specifier: ^3.2.6
+        version: 3.2.6
       react:
         specifier: ^19.2.0
         version: 19.2.0

@@ -11,6 +11,10 @@ import { ActivePassesFilterCardSkeleton } from "./active-passes-filter/component
 import { createDefaultActivePassesFilter } from "./active-passes-filter/default-value";
 import { mapActivePassesFilterToFormValue } from "./active-passes-filter/mappers/api-to-form-value";
 import type { ActivePassesFilterFormValue } from "./active-passes-filter/types";
+import { AgeFilterCard } from "./age-filter/components/age-filter-card";
+import { createDefaultAgeFilter } from "./age-filter/default-value";
+import { mapAgeFilterToFormValue } from "./age-filter/mappers/api-to-form-value";
+import type { AgeFilterFormValue } from "./age-filter/types";
 import { AppointmentPassFilterCardSkeleton } from "./appointment-pass-filter/components/appointment-pass-filter-card-skeleton";
 import { AppointmentPassFilterCardWithData } from "./appointment-pass-filter/components/appointment-pass-filter-card-with-data";
 import { createDefaultAppointmentPassFilter } from "./appointment-pass-filter/default-value";
@@ -100,6 +104,7 @@ const FILTER_TYPES = SMARTLIST_FILTERS_MANAGER_FILTER_TYPES;
 
 type FilterType = SmartlistFiltersManagerFilterType;
 type FilterValueByType = {
+  age: AgeFilterFormValue;
   creditAccount: CreditAccountFilterFormValue;
   gender: GenderFilterFormValue;
   tags: TagFilterFormValue;
@@ -119,6 +124,11 @@ type FilterValueByType = {
 };
 
 type DraftFilter =
+  | {
+      clientId: string;
+      filterType: "age";
+      value: FilterValueByType["age"];
+    }
   | {
       clientId: string;
       filterType: "creditAccount";
@@ -206,6 +216,11 @@ type DraftFilter =
     };
 
 type SavedFilter =
+  | {
+      key: string;
+      filterType: "age";
+      value: FilterValueByType["age"];
+    }
   | {
       key: string;
       filterType: "creditAccount";
@@ -322,6 +337,7 @@ export const SegmentFiltersManager = ({
     isLoading,
     isError,
   } = useSmartlistFiltersQuery(smartlistId);
+  const ageFilters = smartlistFilters?.ageFilters ?? [];
   const creditAccountFilters = smartlistFilters?.creditAccountFilters ?? [];
   const genderFilters = smartlistFilters?.genderFilters ?? [];
   const tagFilters = smartlistFilters?.tagFilters ?? [];
@@ -361,6 +377,15 @@ export const SegmentFiltersManager = ({
   const renderFilterCardByType: {
     [Key in FilterType]: (params: RenderFilterParams<Key>) => React.JSX.Element;
   } = {
+    age: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
+      <AgeFilterCard
+        key={key}
+        smartlistId={smartlistId}
+        filterValue={value}
+        onDeleteUnsavedFilter={onDeleteUnsavedFilter}
+        onSaveSuccess={onSaveSuccess}
+      />
+    ),
     creditAccount: ({ key, value, onDeleteUnsavedFilter, onSaveSuccess }) => (
       <CreditAccountFilterCard
         key={key}
@@ -578,6 +603,11 @@ export const SegmentFiltersManager = ({
   const createDraftFilterByType: {
     [Key in FilterType]: () => DraftFilter;
   } = {
+    age: () => ({
+      clientId: createDraftClientId(FILTER_TYPES.age),
+      filterType: FILTER_TYPES.age,
+      value: createDefaultAgeFilter(smartlistNumericId),
+    }),
     creditAccount: () => ({
       clientId: createDraftClientId(FILTER_TYPES.creditAccount),
       filterType: FILTER_TYPES.creditAccount,
@@ -672,6 +702,12 @@ export const SegmentFiltersManager = ({
 
   const addableFilterOptions = useMemo<FilterSelectorOption[]>(
     () => [
+      {
+        id: FILTER_TYPES.age,
+        label: t("filters.101.title"),
+        description: t("filterSelector.options.age.description"),
+        category: FILTER_SELECTOR_CATEGORIES.memberInformations,
+      },
       {
         id: FILTER_TYPES.creditAccount,
         label: t("filters.1.title"),
@@ -768,6 +804,11 @@ export const SegmentFiltersManager = ({
   );
 
   const savedFilters: SavedFilter[] = [
+    ...ageFilters.map((ageFilter) => ({
+      key: `saved-age-${ageFilter.id}`,
+      filterType: FILTER_TYPES.age,
+      value: mapAgeFilterToFormValue(ageFilter),
+    })),
     ...creditAccountFilters.map((creditAccountFilter) => ({
       key: `saved-credit-account-${creditAccountFilter.id}`,
       filterType: FILTER_TYPES.creditAccount,

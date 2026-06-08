@@ -1,3 +1,4 @@
+export * from "../filter/age/constants";
 export * from "../filter/active-passes/constants";
 export * from "../filter/basket-abandonment/constants";
 export * from "../filter/booking-milestone/constants";
